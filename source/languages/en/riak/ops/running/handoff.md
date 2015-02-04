@@ -57,7 +57,7 @@ handoff configuration.
 If you want to encrypt handoff behavior within a Riak cluster, you need
 to provide each node with appropriate paths for an SSL certfile (and
 potentially a keyfile). The configuration below would designate a
-certfile at `/ssl_dir/cert.pem` keyfile at `/ssl_dir/key.pem`:
+certfile at `/ssl_dir/cert.pem` and a keyfile at `/ssl_dir/key.pem`:
 
 ```riakconf
 handoff.ssl.certfile = /ssl_dir/cert.pem
@@ -122,12 +122,12 @@ that you interact with via normal reads and writes.
 The `handoff.max_rejects` setting enables you to set the maximum
 duration that a [[vnode|Vnodes]] can be blocked by multiplying the
 `handoff.max_rejects` setting by the value of
-`[[vnode_management_timer|Configuration Files#Miscellaneous]]`.  Thus,
-if you set `handoff.max_rejects` to 10 and `vnode_management_timer` to 5
-seconds (i.e. `5s`), non-K/V subsystems can block K/V handoff for a
-maximum of 50 seconds. The default for `handoff.max_rejects` is 6, while
-the default for `vnode_management_timer` is `10s`. This would set
-`max_rejects` to 10:
+`[[vnode_management_timer|Configuration Files#vnode_management_timer]]`.
+Thus, if you set `handoff.max_rejects` to 10 and
+`vnode_management_timer` to 5 seconds (i.e. `5s`), non-K/V subsystems
+can block K/V handoff for a maximum of 50 seconds. The default for
+`handoff.max_rejects` is 6, while the default for
+`vnode_management_timer` is `10s`. This would set `max_rejects` to 10:
 
 ```riakconf
 handoff.max_rejects = 10
@@ -174,7 +174,7 @@ both:
 
 ```riakconf
 handoff.outbound = off
-handoff.inbound = on
+handoff.inbound = off
 ```
 
 ```appconfig
@@ -188,9 +188,10 @@ handoff.inbound = on
 
 ### Enabling and Disabling Through the Command Line
 
-Riak also provides a command-line interface for enabling and disabling
-handoff on the fly, without needing to set your configuration and
-restart the node. To enable handoff:
+Riak also provides a `[[handoff|Handoff#Other-Command-line-Tools]]`
+command-line interface for enabling and disabling handoff on the fly,
+without needing to set your configuration and restart the node. To
+enable handoff:
 
 ```bash
 riak-admin handoff enable <inbound|outbound|both> <nodename>
@@ -200,7 +201,7 @@ You must specify two things when enabling handoff:
 
 * whether you'd like to enable inbound handoff, outbound handoff, or
     both
-* the node(s) to be targeted by the command (or all nodes)
+* the node to be targeted by the command (or all nodes)
 
 You can select a target node using either the `--node` or the `-n` flag.
 You can select a direction by specifying `inbound`, `outbound`, or

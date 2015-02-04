@@ -2493,6 +2493,7 @@ href="/theory/concepts/glossary/#Hinted-Handoff">handoff</a> between
 this node and other nodes in the cluster.</td>
 <td><code>10s</code> (10 seconds)</td>
 </tr>
+<a name="vnode_management_timer"></a>
 
 <tr>
 <td><code>retry_put_coordinator_failure</code></td>
