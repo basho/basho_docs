@@ -48,7 +48,7 @@ handoff behavior. More information can be found below.
 ## Configuring Handoff
 
 A full listing of configurable parameters can be found in our
-[[configuration files|Configuring Files#Intra-Cluster-Handoff]]
+[[configuration files|Configuration Files#Intra-Cluster-Handoff]]
 document. The sections below provide a more narrative description of
 handoff configuration.
 
