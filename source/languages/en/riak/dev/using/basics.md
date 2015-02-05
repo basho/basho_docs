@@ -106,7 +106,13 @@ riak.RiakError: 'no_type'
 ```
 
 ```php
-
+// If an object is not found, the PHP client will return null instead of
+// an error. You should build checks into your application to make sure
+// that an object has been received. Below is an example:
+$object = $bucket->get("<key>");
+if ($object->exists()) {
+  // do something with the object
+}
 ```
 
 ```erlang
