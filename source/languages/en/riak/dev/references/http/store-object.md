@@ -59,7 +59,7 @@ before returning a successful response (default is defined at the bucket level)
 defined at the bucket level)
 * `returnbody=[true|false]` whether to return the contents of the stored object.
 
-*<ins>This request must include a body (entity).</ins>*
+This request must include a body (entity).
 
 ## Response
 
