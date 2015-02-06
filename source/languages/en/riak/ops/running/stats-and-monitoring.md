@@ -7,7 +7,8 @@ toc: true
 audience: intermediate
 keywords: [operator, troubleshooting]
 moved: {
-    '1.4.0-': '/cookbooks/Statistics-and-Monitoring'
+  '1.4.0-': '/cookbooks/Statistics-and-Monitoring',
+  '1.4.0-2.0.0': '/ops/running/monitoring/stats-and-monitoring'
 }
 ---
 
