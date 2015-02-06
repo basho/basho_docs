@@ -455,6 +455,14 @@
     }
   }
 
+  function verticalResize() {
+    $('ul.nav-tabs li').click(function(e) {
+      e.preventDefault();
+      var scrollOffset = $(this).offset().top - $(document).scrollTop();
+      $(document).scrollTop($(this).offset().top - scrollOffset);
+    });
+  }
+
   $(document).ready(function(){
     /*----------------------------------------------------------*/
     // Top Navigation Menu Interactions
@@ -491,6 +499,8 @@
         hideVersionAlert();
       });
     }
+
+    verticalResize();
 
   });
 });
