@@ -59,11 +59,11 @@ section immediately below.
 ## Advanced rpm Installation
 
 For the simplest installation process on LTS (Long-Term Support)
-releases, use yum. First, you must install the `pygpme` package, which
+releases, use yum. First, you must install the `pygpgme` package, which
 enables yum to handle [GPG](https://www.gnupg.org/) signatures:
 
 ```bash
-sudo yum install pypgme
+sudo yum install pygpgme
 ```
 
 If you wish to install using a `.repo` file, packagecloud can generate
