@@ -51,8 +51,9 @@ The table below provides examples for URLs including
 `%[0-9a-fA-F][0-9a-fA-F]` and how they will work before and after the
 upgrade.
 
-  | Before upgrade | After upgrade
-:-|:---------------|:-------------
+
+ | Before upgrade | After upgrade
+:--|:---------------|:-------------
 written as | `a%2Fkey` | `-`
 read as | `a%2Fkey` or `a/key` | `a/key`
 listed as | `a/key` | `a/key`
@@ -61,7 +62,7 @@ Examples for unique objects including `+` or an empty space through
 upgrade:
 
   | Before upgrade | After upgrade
-:-|:---------------|:-------------
+:--|:---------------|:-------------
 written as | `a+key` | `-`
 read as | `a+key` or `a key` | `a key`
 listed as | `a key` | `a key`
@@ -69,7 +70,7 @@ listed as | `a key` | `a key`
 Examples for unique objects with an empty space in the URL:
 
   | Before upgrade | After upgrade
-:-|:---------------|:-------------
+:--|:---------------|:-------------
 written as | `a key` | `-`
 read as | `a+key` or `a key` | `a key`
 listed as | `a key` | `a key`
