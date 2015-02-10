@@ -157,7 +157,7 @@ restarting Riak Enterprise.
 
 Field | Description
 :-----|:-----------
-`client_stats` | See [[Client Statistics|Multi Data Center Replication: Operations#Client-Statistics]]
+`client_stats` | See <a href="/ops/mdc/v3/operations/#Client-Statistics">Client Statistics</a>
 `client_bytes_recv` | The total number of bytes the client has received since the server has been started
 `client_bytes_sent` | The total number of bytes sent to all connected sites
 `client_connect_errors` | The number of TCP/IP connection errors
@@ -177,7 +177,7 @@ Field | Description
 `server_fullsyncs` | The number of fullsync operations that have occurred since the server was started
 `server_rx_kbps` | A snapshot of the server (listener) received kilobits/second taken once a minute. The past 8 snapshots are stored in this list. Newest snapshots appear on the left side of the list.
 `server_tx_kbps` | A snapshot of the server (listener) sent kilobits/second taken once a minute. The past 8 snapshots are stored in this list. Newest snapshots appear on the left side of the list.
-`server_stats` | See [[Server Statistics|Multi Data Center Replication: Operations#Server-Statistics]]
+`server_stats` | See <a href="/ops/mdc/v3/operations/#Server-Statistics">Server Statistics</a>
 
 ### Elections and Objects
 
