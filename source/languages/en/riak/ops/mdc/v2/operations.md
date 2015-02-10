@@ -238,7 +238,7 @@ Field | Description
 `site` | The connected site name configured with `riak-repl add-site`
 `strategy` | A replication strategy defines an implementation of the Riak Replication protocol. Valid values: `keylist` or `syncv1`.
 `fullsync_worker` | The Erlang process ID of the fullsync worker
-`bounded_queue` | See the [[Bounded Queue|Multi Data Center Replication: Operations#Bounded-Queue]] section above
+`bounded_queue` | See the <a href="/ops/mdc/v2/operations/#Bounded-Queue">Bounded Queue</a> section above
 `state` | State shows what the current replication strategy is processing. The following definitions appear in the status output if the keylist strategy is being used. They can be used by Basho support to identify replication issues.<ul><li>`wait_for_partition`</li><li>`build_keylist`</li><li>`wait_keylist`</li><li>`diff_bloom`</li><li>`diff_keylist`</li></ul>s
 `message_queue_len` | The number of Erlang messages that are waiting to be processed by the server
 
