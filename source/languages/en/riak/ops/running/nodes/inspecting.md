@@ -271,44 +271,44 @@ Stat | Description
 `object_counter_merge_time_95` | The 95th percentile time required for merges performed on objects containing counters
 `object_counter_merge_time_99` | The 99th percentile time required for merges performed on objects containing counters
 `object_counter_merge_time_100` | The 100th percentile time required for merges performed on objects containing counters
-`vnode_counter_update` |
-`vnode_counter_update_total`
-`vnode_counter_update_time_mean`
-`vnode_counter_update_time_median`
-`vnode_counter_update_time_95`
-`vnode_counter_update_time_99`
-`vnode_counter_update_time_100`
-`node_gets_counter`
-`node_gets_counter_total`
-`node_get_fsm_counter_siblings_mean`
-`node_get_fsm_counter_siblings_median`
-`node_get_fsm_counter_siblings_95`
-`node_get_fsm_counter_siblings_99`
-`node_get_fsm_counter_siblings_100`
-`node_get_fsm_counter_time_mean`
-`node_get_fsm_counter_time_median`
-`node_get_fsm_counter_time_95`
-`node_get_fsm_counter_time_99`
-`node_get_fsm_counter_time_100`
-`node_get_fsm_counter_objsize_mean`
-`node_get_fsm_counter_objsize_median`
-`node_get_fsm_counter_objsize_95`
-`node_get_fsm_counter_objsize_99`
-`node_get_fsm_counter_objsize_100`
-`node_puts_counter`
-`node_puts_counter_total`
-`node_put_fsm_counter_time_mean`
-`node_put_fsm_counter_time_median`
-`node_put_fsm_counter_time_95`
-`node_put_fsm_counter_time_99`
-`node_put_fsm_counter_time_100`
-`read_repairs_counter`
-`read_repairs_counter_total`
-`counter_actor_counts_mean`
-`counter_actor_counts_median`
-`counter_actor_counts_95`
-`counter_actor_counts_99`
-`counter_actor_counts_100`
+`vnode_counter_update` | The number of counter updates coordinated by local vnodes on this node in the last minute
+`vnode_counter_update_total` | The total number of counter updates coordinated by local vnodes on this node
+`vnode_counter_update_time_mean` | The mean time required for counter updates on this node
+`vnode_counter_update_time_median` | The median time required for counter updates on this node
+`vnode_counter_update_time_95` | The 95th percentile time required for counter updates on this node
+`vnode_counter_update_time_99` | The 99th percentile time required for counter updates on this node
+`vnode_counter_update_time_100` | The 100th percentile time required for counter updates on this node
+`node_gets_counter` | The number of counter GET operations coordinated by this node in the last minute
+`node_gets_counter_total` | The total number of counter GET operations coordinated by this node
+`node_get_fsm_counter_siblings_mean` | The mean number of counter sibling resolution operations on this node in the last minute
+`node_get_fsm_counter_siblings_median` | The median number of counter sibling resolution operations on this node in the last minute
+`node_get_fsm_counter_siblings_95` | The 95h-percentile number of counter sibling resolution operations on this node in the last minute
+`node_get_fsm_counter_siblings_99` | The 99th-percentile number of counter sibling resolution operations on this node in the last minute
+`node_get_fsm_counter_siblings_100` | The 100th-percentile number of counter sibling resolution operations on this node in the last minute
+`node_get_fsm_counter_time_mean` | The mean time expended by counter GET operations on this node in the last minute
+`node_get_fsm_counter_time_median` | The median time expended by counter GET operations on this node in the last minute
+`node_get_fsm_counter_time_95` | The 95th-percentile time expended by counter GET operations on this node in the last minute
+`node_get_fsm_counter_time_99` | The 99th-percentile time expended by counter GET operations on this node in the last minute
+`node_get_fsm_counter_time_100` | The 100th-percentile time expended by counter GET operations on this node in the last minute
+`node_get_fsm_counter_objsize_mean` | The mean size of counter-containing objects encountered by this node in the last minute
+`node_get_fsm_counter_objsize_median` | The median size of counter-containing objects encountered by this node in the last minute
+`node_get_fsm_counter_objsize_95` | The 95th-percentile size of counter-containing objects encountered by this node in the last minute
+`node_get_fsm_counter_objsize_99` | The 99th-percentile size of counter-containing objects encountered by this node in the last minute
+`node_get_fsm_counter_objsize_100` | The 100th-percentile size of counter-containing objects encountered by this node in the last minute
+`node_puts_counter` | The number of counter PUT operations coordinated by this node in the last minute
+`node_puts_counter_total` | The total number of counter GET operations coordinated by this node
+`node_put_fsm_counter_time_mean` | The mean number of counter sibling resolution operations on this node in the last minute
+`node_put_fsm_counter_time_median` | The median number of counter sibling resolution operations on this node in the last minute
+`node_put_fsm_counter_time_95` | The 95th-percentile number of counter sibling resolution operations on this node in the last minute
+`node_put_fsm_counter_time_99` | The 99th-percentile number of counter sibling resolution operations on this node in the last minute
+`node_put_fsm_counter_time_100` | The 100th-percentile number of counter sibling resolution operations on this node in the last minute
+`read_repairs_counter` | The number of read repair operations on counters coordinated by this node in the last minute
+`read_repairs_counter_total` | The total number of read repair operations on counters coordinated by this node
+`counter_actor_counts_mean` |
+`counter_actor_counts_median` |
+`counter_actor_counts_95` |
+`counter_actor_counts_99` |
+`counter_actor_counts_100` |
 
 ### Set-related Statistics
 
@@ -371,7 +371,7 @@ Stat | Description
 `object_map_merge_time_95` | The 95th percentile time required for merges performed on maps
 `object_map_merge_time_99` | The 99th percentile time required for merges performed on maps
 `object_map_merge_time_100` | The 100th percentile time required for merges performed on maps
-`object_merge`
+`object_merge` | The number of merges performed on maps
 `object_merge_total`
 `object_merge_time_mean`
 `object_merge_time_median`
