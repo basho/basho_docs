@@ -262,6 +262,9 @@ Types#Sets]], and [[maps|Data Types#Maps]].
 
 ### Counter-related Statistics
 
+Stats related to operations involving [[Riak counters|Using Data
+Types#Counters]].
+
 Stat | Description
 :----|:-----------
 `object_counter_merge` | The number of merges performed on objects containing counters in the last minute
@@ -297,20 +300,28 @@ Stat | Description
 `node_get_fsm_counter_objsize_100` | The 100th-percentile size of counter-containing objects encountered by this node in the last minute
 `node_puts_counter` | The number of counter PUT operations coordinated by this node in the last minute
 `node_puts_counter_total` | The total number of counter PUT operations coordinated by this node
-`node_put_fsm_counter_time_mean` | The mean number of counter sibling resolution operations on this node in the last minute
-`node_put_fsm_counter_time_median` | The median number of counter sibling resolution operations on this node in the last minute
-`node_put_fsm_counter_time_95` | The 95th-percentile number of counter sibling resolution operations on this node in the last minute
-`node_put_fsm_counter_time_99` | The 99th-percentile number of counter sibling resolution operations on this node in the last minute
-`node_put_fsm_counter_time_100` | The 100th-percentile number of counter sibling resolution operations on this node in the last minute
+`node_put_fsm_counter_time_mean` | The mean time required for PUT operations on sets on this node in the last minute
+`node_put_fsm_counter_time_median` | The median time required for PUT operations on sets on this node in the last minute
+`node_put_fsm_counter_time_95` | The 95th-percentile time required for PUT operations on sets on this node in the last minute
+`node_put_fsm_counter_time_99` | The 99th-percentile time required for PUT operations on sets on this node in the last minute
+`node_put_fsm_counter_time_100` | The 100th-percentile time required for PUT operations on sets on this node in the last minute
 `read_repairs_counter` | The number of read repair operations on counters coordinated by this node in the last minute
 `read_repairs_counter_total` | The total number of read repair operations on counters coordinated by this node
-`counter_actor_counts_mean` |
-`counter_actor_counts_median` |
-`counter_actor_counts_95` |
-`counter_actor_counts_99` |
-`counter_actor_counts_100` |
+`set_actor_counts_mean` | The mean number of vnodes involved in coordinating set updates on this node in the last minute
+`set_actor_counts_median` | The median number of vnodes involved in coordinating set updates on this node in the last minute
+`set_actor_counts_95` | The 95th-percentile number of vnodes involved in coordinating set updates on this node in the last minute
+`set_actor_counts_99` | The 99th-percentile number of vnodes involved in coordinating set updates on this node in the last minute
+`set_actor_counts_100` | The 100th-percentile number of vnodes involved in coordinating set updates on this node in the last minute
+`counter_actor_counts_mean` | The mean number of vnodes involved in coordinating counter updates on this node in the last minute
+`counter_actor_counts_median` | The median number of vnodes involved in coordinating counter updates on this node in the last minute
+`counter_actor_counts_95` | The 95th-percentile number of vnodes involved in coordinating counter updates on this node in the last minute
+`counter_actor_counts_99` | The 99th-percentile number of vnodes involved in coordinating counter updates on this node in the last minute
+`counter_actor_counts_100` | Th 100th-percentile number of vnodes involved in coordinating counter updates on this node in the laste minute
 
 ### Set-related Statistics
+
+Stats related to operations involving [[Riak sets|Using Data
+Types#Sets]].
 
 Stat | Description
 :----|:-----------
@@ -324,7 +335,7 @@ Stat | Description
 `vnode_set_update` | The number of set updates coordinated by local vnodes on this node in the last minute
 `vnode_set_update_total` | The total number of set updates coordinated by local vnodes on this node
 `vnode_set_update_time_mean` | The mean time required for set updates on this node in the last minute
-`vnode_set_update_time_median` The median time required for set updates on this node in the last minute
+`vnode_set_update_time_median` | The median time required for set updates on this node in the last minute
 `vnode_set_update_time_95` | The 95th-percentile time required for set updates on this node in the last minute
 `vnode_set_update_time_99` | The 99th-percentile time required for set updates on this node in the last minute
 `vnode_set_update_time_100` | The 100th-percentile time required for set updates on this node in the last minute
@@ -347,22 +358,23 @@ Stat | Description
 `node_get_fsm_set_time_100` | The 100th-percentile time expended by set GET operations on this node in the last minute
 `node_puts_set` | The number of set PUT operations coordinated by this node in the last minute
 `node_puts_set_total` | The total number of set PUT operations coordinated by this node
-`node_put_fsm_set_time_mean` | The mean number of set sibling resolution operations on this node in the last minute
-`node_put_fsm_set_time_median` | The median number of set sibling resolution operations on this node in the last minute
-`node_put_fsm_set_time_95` | The 95th-percentile number of set sibling resolution operations on this node in the last minute
-`node_put_fsm_set_time_99` | The 99th-percentile number of set sibling resolution operations on this node in the last minute
-`node_put_fsm_set_time_100` | The 100th-percentile number of set sibling resolution operations on this node in the last minute
+`node_put_fsm_set_time_mean` | The mean time required for PUT operations on sets on this node in the last minute
+`node_put_fsm_set_time_median` | The median time required for PUT operations on sets on this node in the last minute
+`node_put_fsm_set_time_95` | The 95th-percentile time required for PUT operations on sets on this node in the last minute
+`node_put_fsm_set_time_99` | The 99th-percentile time required for PUT operations on sets on this node in the last minute
+`node_put_fsm_set_time_100` | The 100th-percentile time required for PUT operations on sets on this node in the last minute
 `read_repairs_set` | The number of read repair operations on sets coordinated by this node in the last minute
 `read_repairs_set_total` | The total number of read repair operations on sets coordinated by this node
-`set_actor_counts_mean`
-`set_actor_counts_median`
-`set_actor_counts_95`
-`set_actor_counts_99`
-`set_actor_counts_100`
+`set_actor_counts_mean` | The mean number of vnodes involved in coordinating set updates on this node in the last minute
+`set_actor_counts_median` | The median number of vnodes involved in coordinating set updates on this node in the last minute
+`set_actor_counts_95` | The 95th-percentile number of vnodes involved in coordinating set updates on this node in the last minute
+`set_actor_counts_99` | The 99th-percentile number of vnodes involved in coordinating set updates on this node in the last minute
+`set_actor_counts_100` | The 100th-percentile number of vnodes involved in coordinating set updates on this node in the last minute
 
 ### Map-related Statistics
 
-Stats related to [[Riak maps|Using Data Types#Maps]].
+Stats related to operations involving [[Riak maps|Using Data
+Types#Maps]].
 
 Stat | Description
 :----|:-----------
@@ -401,18 +413,18 @@ Stat | Description
 `node_get_fsm_map_objsize_100` | The 100th-percentile size of maps encountered by this node in the last minute
 `node_puts_map` | The number of map PUT operations coordinated by this node in the last minute
 `node_puts_map_total` | The total number of map PUT operations coordinated by this node
-`node_put_fsm_map_time_mean` | The mean number
-`node_put_fsm_map_time_median`
-`node_put_fsm_map_time_95`
-`node_put_fsm_map_time_99`
-`node_put_fsm_map_time_100`
-`read_repairs_map`
-`read_repairs_map_total`
-`executing_mappers`
-`map_actor_counts_mean`
-`map_actor_counts_median`
-`map_actor_counts_95`
-`map_actor_counts_100`
+`node_put_fsm_map_time_mean` | The mean time required for PUT operations on maps on this node in the last minute
+`node_put_fsm_map_time_median` | The median time required for PUT operations on maps on this node in the last minute
+`node_put_fsm_map_time_95` | The 95th-percentile time required for PUT operations on maps on this node in the last minute
+`node_put_fsm_map_time_99` | The 99th-percentile time required for PUT operations on maps on this node in the last minute
+`node_put_fsm_map_time_100` | The 100th-percentile time required for PUT operations on maps on this node in the last minute
+`read_repairs_map` | The number of read repair operations on maps coordinated by this node in the last minute
+`read_repairs_map_total` | The total number of read repair operations on maps coordinated by this node
+`map_actor_counts_mean` | The mean number of vnodes involved in coordinating map updates on this node in the last minute
+`map_actor_counts_median` | The median number of vnodes involved in coordinating map updates on this node in the last minute
+`map_actor_counts_95` | The 95th-percentile number of vnodes involved in coordinating map updates on this node in the last minute
+`map_actor_counts_99` | The 99th-percentile number of vnodes involved in coordinating map updates on this node in the last minute
+`map_actor_counts_100` | The 100th-percentile number of vnodes involved in coordinating map updates on this node in the last minute
 
 
 `late_put_fsm_coordinator_ack`
@@ -444,6 +456,7 @@ Stat | Description
 `riak_pipe_vnodeq_median`
 `riak_pipe_vnodeq_max`
 `riak_pipe_vnodeq_total`
+`executing_mappers`
 
 ## Handoff and Gossip Statistics
 
@@ -457,8 +470,7 @@ Stat | Description
 
 ### Miscellaneous Information
 
-Miscellaneous Information provide additional details particular to this
-node.
+These stats provide additional details particular to this node.
 
 Stat | Description
 :----|:-----------
