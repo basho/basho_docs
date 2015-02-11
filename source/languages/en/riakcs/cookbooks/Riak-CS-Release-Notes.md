@@ -18,7 +18,7 @@ keywords: [developer]
       presence of many siblings, this can lead to even more siblings.
   * **Solution**: This change prevents unnecessary siblings growth in
       cases where (a) backpressure is triggered under high upload
-      concurrency and (b) uplaods are interleaved during backpressure
+      concurrency and (b) uploads are interleaved during backpressure
       sleep. This issue does not affect multipart uploads.
 * Fix an incorrect path rewrite in the S3 API caused by unnecessary URL
     decoding [riak_cs/#1040](https://github.com/basho/riak_cs/pull/1040)
