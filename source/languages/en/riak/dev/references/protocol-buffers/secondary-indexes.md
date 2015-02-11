@@ -64,8 +64,8 @@ Parameter | Description
 
 ## Response
 
-The results of a Secondary Index query are returned as a repeating list of
-0 or more keys that match the given request parameters.
+The results of a Secondary Index query are returned as a repeating list
+of 0 or more keys that match the given request parameters.
 
 ```protobuf
 message RpbIndexResp {
@@ -89,7 +89,8 @@ Parameter | Description
 
 #### Request
 
-Here we look for any exact matches of `chicken` on an `animal_bin` index for a bucket named `farm`.
+Here we look for any exact matches of `chicken` on an `animal_bin` index
+for a bucket named `farm`.
 
 ```bash
 RpbIndexReq protoc decode:

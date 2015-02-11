@@ -2276,7 +2276,7 @@ Unlike the `strong_consistency` setting, the settings listed below are
 available only in `advanced.config`, in the `riak_ensemble` section of
 that file. That section looks like this:
 
-```advancedconf
+```advancedconfig
 {riak_ensemble, [
 		{parameter1, value},
 		{parameter2, value},
@@ -2522,7 +2522,7 @@ The `advanced.config` file takes the same format as the `app.config`
 file familiar to users of versions of Riak prior to 2.0. Here is an
 example:
 
-```advancedconf
+```advancedconfig
 [
   {riak_core,
     [
@@ -2536,7 +2536,7 @@ example:
       %% more riak_repl configs
     ]
   }
-]
+].
 ```
 
 The following settings are available in the `advanced.config` file:
@@ -2681,7 +2681,7 @@ snippet to your `advanced.config` configuration to do so:
     ]},
 
     %% Other configs
-]
+].
 ```
 
 #### Other settings

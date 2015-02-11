@@ -218,7 +218,7 @@ timelineRepo.post_message(msg)
 # Get Joe's inbox for today, get first message
 joes_inbox_today = timelineRepo.get_timeline(
     joe['user_name'],
-    'Inbox',
+    TimelineRepository.INBOX,
     datetime.utcnow().isoformat())
 
 joes_first_message = msgsRepo.get(joes_inbox_today['msgs'][0])

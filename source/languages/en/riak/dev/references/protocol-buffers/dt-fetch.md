@@ -9,7 +9,9 @@ keywords: [api, protocol-buffer, datatypes]
 group_by: "Object/Key Operations"
 ---
 
-The equivalent of `[[RpbGetReq|PBC Fetch Object]]` for [[Riak Data Types|Using Data Types]]. This request results in a `DtFetchResp` message (explained in the **Response** section below).
+The equivalent of `[[RpbGetReq|PBC Fetch Object]]` for [[Riak Data
+Types|Using Data Types]]. This request results in a `DtFetchResp`
+message (explained in the **Response** section below).
 
 ## Request
 
@@ -42,9 +44,17 @@ Parameter | Description
 <div class="note">
 <div class="title">Note on defaults and special values</div>
 All of the optional parameters below have default values determined on a
-per-bucket basis. Please refer to the documentation on <a href="/dev/references/protocol-buffers/set-bucket-props">setting bucket properties</a> for more information.
+per-bucket basis. Please refer to the documentation on <a
+href="/dev/references/protocol-buffers/set-bucket-props">setting bucket
+properties</a> for more information.
 
-Furthermore, you can assign an integer value to the <tt>r</tt> and <tt>pr</tt>, provided that that integer value is less than or equal to N, <em>or</em> a special value denoting <tt>one</tt> (<tt>4294967295-1</tt>), <tt>quorum</tt> (<tt>4294967295-2</tt>), <tt>all</tt> (<tt>4294967295-3</tt>), or <tt>default</tt> (<tt>4294967295-4</tt>).
+Furthermore, you can assign an integer value to the <code>r</code> and
+<code>pr</code>, provided that that integer value is less than or equal
+to N, <em>or</em> a special value denoting <code>one</code>
+(<code>4294967295-1</code>), <code>quorum</code>
+(<code>4294967295-2</code>), <code>all</code>
+(<code>4294967295-3</code>), or <code>default</code>
+(<code>4294967295-4</code>).
 </div>
 
 Parameter | Description
@@ -60,7 +70,8 @@ Parameter | Description
 
 ## Response
 
-The response to a fetch request (`[[DtFetchReq|PBC Data Type Fetch]]`) is a `DtFetchResp` message.
+The response to a fetch request (`[[DtFetchReq|PBC Data Type Fetch]]`)
+is a `DtFetchResp` message.
 
 ```protobuf
 message DtFetchResp {
@@ -76,11 +87,18 @@ message DtFetchResp {
 }
 ```
 
-If the `include_context` option is specified, an opaque "context" value will be returned along with the user-readable data. When sending an update request, the client should send this context as well, just as one would send a [[vclock|Vector Clocks]] for standard KV updates.
+If the `include_context` option is specified, an opaque "context" value
+will be returned along with the user-readable data. When sending an
+update request, the client should send this context as well, just as one
+would send a [[vclock|Vector Clocks]] for standard KV updates.
 
-The type of the Data Type is specified in the `type` field, and must be one of the three possible values of the `DataType` enum (`COUNTER`, `SET`, or `MAP`).
+The type of the Data Type is specified in the `type` field, and must be
+one of the three possible values of the `DataType` enum (`COUNTER`,
+`SET`, or `MAP`).
 
-The current value of the Data Type is contained in the `value` field, which itself contains a `DtValue` message. This message will have the following structure:
+The current value of the Data Type is contained in the `value` field,
+which itself contains a `DtValue` message. This message will have the
+following structure:
 
 ```protobuf
 message DtValue {
@@ -90,7 +108,10 @@ message DtValue {
 }
 ```
 
-If the Data Type queried is a counter, it will return an integer value for the counter; it a set, it will return the sets current value, in bytes, if a map it will return a `MapEntry` message. `MapEntry` messages are structured as follows:
+If the Data Type queried is a counter, it will return an integer value
+for the counter; it a set, it will return the sets current value, in
+bytes, if a map it will return a `MapEntry` message. `MapEntry` messages
+are structured as follows:
 
 ```protobuf
 message MapEntry {

@@ -21,4 +21,6 @@ message DtOp {
 }
 ```
 
-The included operation depends on the Data Type that is being updated. `DtOp` messages are sent only as part of a `[[DtUpdateReq|PBC Data Type Store]]` message.
+The included operation depends on the Data Type that is being updated.
+`DtOp` messages are sent only as part of a `[[DtUpdateReq|PBC Data Type
+Store]]` message.

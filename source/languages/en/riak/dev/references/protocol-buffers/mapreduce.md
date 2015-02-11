@@ -27,23 +27,24 @@ message RpbMapRedReq {
 
 Required Parameters
 
-* **request** - MapReduce job
-* **content_type** - encoding for MapReduce job
+* `request` --- MapReduce job
+* `content_type` - Encoding for MapReduce job
 
 Mapreduce jobs can be encoded in two different ways
 
-* **application/json** - JSON-encoded MapReduce job
-* **application/x-erlang-binary** - Erlang external term format
+* `application/json` --- JSON-encoded MapReduce job
+* `application/x-erlang-binary` --- Erlang external term format
 
-The JSON encoding is the same as [[REST API|Using MapReduce#rest]] and the external
-term format is the same as the [[local Erlang API|Advanced MapReduce#erlang]]
+The JSON encoding is the same as [[REST API|Using MapReduce#rest]] and
+the external term format is the same as the [[local Erlang API|Advanced
+MapReduce#erlang]]
 
 ## Response
 
-The results of the MapReduce job is returned for each phase that generates a
-result, encoded in the same format the job was submitted in. Multiple response
-messages will be returned followed by a final message at the end of the job.
-
+The results of the MapReduce job is returned for each phase that
+generates a result, encoded in the same format the job was submitted in.
+Multiple response messages will be returned followed by a final message
+at the end of the job.
 
 ```protobuf
 message RpbMapRedResp {
@@ -56,14 +57,14 @@ message RpbMapRedResp {
 
 Values
 
-* **phase** - phase number of the MapReduce job
-* **response** - response encoded with the content_type submitted
-* **done** - set true on the last response packet
+* `phase` --- Phase number of the MapReduce job
+* `response` - Response encoded with the content_type submitted
+* `done` - Set `true` on the last response packet
 
 ## Example
 
-Here is how submitting a JSON encoded job to sum up a bucket full of JSON
-encoded values.
+Here is how submitting a JSON encoded job to sum up a bucket full of
+JSON encoded values.
 
 ```
 {"inputs": "bucket_501653",

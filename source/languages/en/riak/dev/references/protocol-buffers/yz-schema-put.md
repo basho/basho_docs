@@ -28,4 +28,5 @@ message RpbYokozunaSchema {
 }
 ```
 
-This message *must* include both the schema `name` and its solr [[search schema]] `content` xml.
+This message *must* include both the schema `name` and its Solr [[search
+schema]] `content` as XML.

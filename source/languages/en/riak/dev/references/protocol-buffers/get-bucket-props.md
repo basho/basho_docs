@@ -23,11 +23,14 @@ message RpbGetBucketReq {
 }
 ```
 
-The bucket's name (`bucket`) must be specified. The [[bucket type|Using Bucket Types]] parameter (`type`) is optional. If it is not specified, the `default` bucket type will be used.
+The bucket's name (`bucket`) must be specified. The [[bucket type|Using
+Bucket Types]] parameter (`type`) is optional. If it is not specified,
+the `default` bucket type will be used.
 
 ## Response
 
-When an `RpbGetBucketReq` message is sent to Riak, it will respond with an `RpbGetBucketResp` message, which returns the bucket's properties:
+When an `RpbGetBucketReq` message is sent to Riak, it will respond with
+an `RpbGetBucketResp` message, which returns the bucket's properties:
 
 ```protobuf
 message RpbGetBucketResp {
@@ -77,9 +80,17 @@ message RpbBucketProps {
 
 #### Optional Response Values
 
-Each `RpbBucketProps` message returns all of the properties associated with a particular bucket. Default values for bucket properties, as well as descriptions of all of the above properties, can be found in the [[configuration file|Configuration Files#Default-Bucket-Properties]] documentation.
+Each `RpbBucketProps` message returns all of the properties associated
+with a particular bucket. Default values for bucket properties, as well
+as descriptions of all of the above properties, can be found in the
+[[configuration file|Configuration Files#Default-Bucket-Properties]]
+documentation.
 
-It should be noted that the value of an `RpbBucketProps` message may include other message types, such as `RpbModFun` (specifying module-function pairs for bucket properties that require them) and `RpbCommitHook` (specifying the module-function pair and name of a commit hook). Those message types are structured like this:
+It should be noted that the value of an `RpbBucketProps` message may
+include other message types, such as `RpbModFun` (specifying
+module-function pairs for bucket properties that require them) and
+`RpbCommitHook` (specifying the module-function pair and name of a
+commit hook). Those message types are structured like this:
 
 ```protobuf
 message RpbModFun {
@@ -95,5 +106,7 @@ message RpbCommitHook {
 
 <div class="note">
 <div class="title">Note on <tt>RpbReplMode</tt></div>
-The <tt>RpbReplMode</tt> is of use only to users of Riak CS's <a href="http://docs.basho.com/riakcs/latest/cookbooks/MDC-Overview/">Multi-Datacenter Replication capabilities</a>.
+The <code>RpbReplMode</code> is of use only to users of Riak CS's <a
+href="http://docs.basho.com/riakcs/latest/cookbooks/MDC-Overview/">Multi-Datacenter
+Replication capabilities</a>.
 </div>

@@ -23,6 +23,11 @@ before upgrading to 1.4.x.
 
 If you run [[Riak Control]], you should disable it during the rolling
 upgrade process.
+
+Although undocumented, versions of Riak prior to 2.0 did not prevent
+the use of the Erlang VM's `-sname ` configuration parameter. As of 2.0
+this is no longer permitted. See the [[Upgrading to 2.0]]
+document for details on how to migrate to the supported `-name`.
 </div>
 
 Riak nodes now negotiate with each other to determine supported

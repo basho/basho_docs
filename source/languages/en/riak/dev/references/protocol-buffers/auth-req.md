@@ -9,7 +9,8 @@ keywords: [api, protocol-buffer]
 group_by: "Object/Key Operations"
 ---
 
-Sends a username (`user`) and password (`password`) to Riak as part of an authentication request. Both values are sent as binaries.
+Sends a username (`user`) and password (`password`) to Riak as part of
+an authentication request. Both values are sent as binaries.
 
 ## Request
 
@@ -20,4 +21,5 @@ message RpbAuthReq {
 }
 ```
 
-For more on authentication, see our documentation on [[Authentication and Authorization]].
+For more on authentication, see our documentation on [[Authentication
+and Authorization]].
