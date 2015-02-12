@@ -45,7 +45,7 @@ curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/osx
 tar xzvf riak-{{VERSION}}-osx-x86_64.tar.gz
 ```
 
-After the release is untarred, you will be able to `cd` into the `/riak`
+After the release is untarred, you will be able to `cd` into the `riak`
 directory and execute `bin/riak start` to start the Riak node.
 
 ## Homebrew
@@ -93,10 +93,11 @@ website](http://developer.apple.com/).
 <div class="note">
 <div class="title">Note on Clang</div>
 Riak will not compile with Clang. Please make sure that your default
-C/C++ compiler is GCC.
+C/C++ compiler is [GCC](https://gcc.gnu.org/).
 </div>
 
-Riak requires [Erlang](http://www.erlang.org/) {{#2.0.0-}}R15B01{{/2.0.0-}}{{#2.0.0+}}R16B02+{{/2.0.0+}}.
+Riak requires [Erlang](http://www.erlang.org/)
+{{#2.0.0-}}R15B01{{/2.0.0-}}{{#2.0.0+}}R16B02+{{/2.0.0+}}.
 
 If you do not have Erlang already installed, see [[Installing Erlang]].
 Don't worry, it's easy!
