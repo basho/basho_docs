@@ -205,7 +205,7 @@ relational schema. Dynamo targets applications that need to store objects that a
 # <strong>ACID?</strong>
 #
 # Riak offers no traditional "ACID" semantics around transactions. Instead, it's built to 
-# be "evenutually consistent." We did this because we were of the opinion (and our users proved this out)
+# be "eventually consistent." We did this because we were of the opinion (and our users proved this out)
 # that most applications don't require heavy transactions. (Even ATMs are eventually consistent.)
 # 
 
