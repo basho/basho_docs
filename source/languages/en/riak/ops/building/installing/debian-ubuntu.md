@@ -54,6 +54,16 @@ section immediately below.
 
 ## Advanced apt Installation
 
+<div class="note">
+<div class="title">Note on Debian 7</div>
+If you wish to install Riak on Debian 7, you may need to install
+[libc6](://packages.debian.org/search?keywords=libc6) version 2.15 or
+later, which in turn requires upgrading your system to
+[sid](https://www.debian.org/releases/sid/). Installation instructions
+can be found
+[here](https://wiki.debian.org/DebianUnstable#How_do_I_install_Sid.3F).
+</div>
+
 For the simplest installation process on LTS (Long-Term Support)
 releases, use `apt-get`. First, you must retrieve the signing key:
 
