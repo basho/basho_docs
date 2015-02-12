@@ -62,6 +62,13 @@ later, which in turn requires upgrading your system to
 [sid](https://www.debian.org/releases/sid/). Installation instructions
 can be found
 [here](https://wiki.debian.org/DebianUnstable#How_do_I_install_Sid.3F).
+
+Once sid has been installed, you can install libc6 with the following
+command:
+
+```bash
+apt-get -t sid install libc6 libc6-dev libc6-dbg
+```
 </div>
 
 For the simplest installation process on LTS (Long-Term Support)
