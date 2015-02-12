@@ -33,7 +33,7 @@ have no intrinsic significance beyond allowing you to store objects with
 the same key in different buckets. The same goes for naming keys: many
 objects can have the same key as long as they're in different buckets.
 
-[[Bucket Types|Using Bucket Types]] enable you to provide common
+[[Bucket types|Using Bucket Types]] enable you to provide common
 configurations for buckets (as many buckets as you wish). This means
 that you can easily enable buckets to share common configurations, i.e.
 identical [[replication properties]] or [[commit hooks|Using Commit
@@ -62,12 +62,12 @@ GET /types/<type>/buckets/<bucket>/keys/<key>
 ```
 
 Here is an example of a read performed on the key `rufus` in the bucket
-`dogs`, which bears the type `animals`:
+`dogs`, which bears the [[bucket type|Using Bucket Types]] `animals`:
 
 ```java
 // In the Java client, it is best to specify a bucket type/bucket/key
-// Location object that can be used as a reference for further operations.
-
+// Location object that can be used as a reference for further
+// operations, as in the example below:
 Location myKey = new Location(new Namespace("animals", "dogs"), "rufus");
 ```
 
@@ -96,11 +96,12 @@ curl http://localhost:8098/types/animals/buckets/dogs/keys/rufus
 If you are connecting to Riak using one of Basho's official [[client
 libraries]], you can find more information about getting started with
 your client in our [[quickstart guide|Five-Minute
-Install#setting-up-your-riak-client]].
+Install#Setting-Up-Your-Riak-Client]].
 </div>
 
-If there is no object stored under that particular key, Riak will return
-a message indicating that the object doesn't exist.
+At the moment, there's no object stored in the
+location where we just attempted a read, which means that we'll get the
+following response:
 
 ```java
 java.lang.NullPointerException
