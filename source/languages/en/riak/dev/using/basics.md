@@ -139,6 +139,7 @@ String quote = "WOOF!";
 Namespace bucket = new Namespace("animals", "dogs");
 Location rufusLocation = new Location(bucket, "rufus");
 RiakObject rufusObject = new RiakObject()
+        .setContentType("text/plain")
         .setValue(BinaryValue.create(quote));
 StoreValue storeOp = new StoreValue.Builder(rufusObject)
         .withLocation(rufusLocation)
@@ -176,7 +177,23 @@ longer empty!
 Riak is a fundamentally content-agnostic database. You can use it to
 store anything you want, from JSON to XML to HTML to binaries to images
 and beyond. You should always bear in mind that _all_ objects stored in
-Riak need to have a specified content type. In the example above
+Riak need to have a specified content type. If you don't specify a
+content type, the reaction will depend based on your client library:
+
+```java
+// In the Java client, the response when storing an object without
+// the content type will depend on what is being stored. If you store a
+// Java Map, for example, the client will automatically specify that the
+// object is "application/json"; you store a String, the client will
+// specify "application/x-www-form-urlencoded"; POJOs are stored as JSON
+// by default, and so on.
+```
+
+```ruby
+```
+
+In the example above, we
+specified `text/plain` as the content type.
 
 #### Read Parameters
 
