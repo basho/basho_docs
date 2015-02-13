@@ -124,11 +124,18 @@ not found
 
 ## Writing Objects
 
+Writes in Riak, i.e. storing or modifying objects, are like HTTP `PUT`
+requests. Here is the basic form of writes:
+
+```
+PUT /types/<type>/buckets/<bucket>/keys/<key>
+```
+
 In the example above, our read was unsuccessful because our Riak cluster
-is empty. Let's change that by storing an object containing information
-about the dog Rufus. We'll store that object in the location described
-above, i.e. in the key `rufus` in the bucket `dogs`, which bears the
-`animals` [[bucket type|Using Bucket Types]].
+is currently empty. Let's change that by storing an object containing
+information about a dog named Rufus. We'll store that object in the
+location described above, i.e. in the key `rufus` in the bucket `dogs`,
+which bears the `animals` [[bucket type|Using Bucket Types]].
 
 The object we're storing will be very simple, just a basic text snippet
 of something that Rufus might say. Let's build the object and then store
@@ -192,10 +199,13 @@ content type, the reaction will depend based on your client library:
 ```ruby
 ```
 
-In the example above, we
-specified `text/plain` as the content type.
+## Updating Objects
 
-#### Read Parameters
+When we stored an object in the [[section above|The
+Basics#Writing-Objects]], we did so in a location that was empty.
+
+
+## Read Parameters
 
 Parameter | Default | Description
 :---------|:--------|:-----------
