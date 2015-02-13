@@ -99,9 +99,8 @@ your client in our [[quickstart guide|Five-Minute
 Install#Setting-Up-Your-Riak-Client]].
 </div>
 
-At the moment, there's no object stored in the
-location where we just attempted a read, which means that we'll get the
-following response:
+At the moment, there's no object stored in the location where we just
+attempted a read, which means that we'll get the following response:
 
 ```java
 java.lang.NullPointerException
@@ -123,13 +122,61 @@ riak.RiakError: 'no_type'
 not found
 ```
 
-If you're using HTTP to interact with Riak, as opposed to using a
-[[client library|Client Libraries]], Riak understands many HTTP-defined
-headers, such as `Accept` for content-type negotiation, which is
-relevant when dealing with siblings (see [[the sibling examples for the
-HTTP API|HTTP Fetch Object#Siblings-examples]]), and
-`If-None-Match`/`ETag` and `If-Modified-Since`/`Last-Modified` for
-conditional requests.
+## Writing Objects
+
+In the example above, our read was unsuccessful because our Riak cluster
+is empty. Let's change that by storing an object containing information
+about the dog Rufus. We'll store that object in the location described
+above, i.e. in the key `rufus` in the bucket `dogs`, which bears the
+`animals` [[bucket type|Using Bucket Types]].
+
+The object we're storing will be very simple, just a basic text snippet
+of something that Rufus might say. Let's build the object and then store
+it.
+
+```java
+String quote = "WOOF!";
+Namespace bucket = new Namespace("animals", "dogs");
+Location rufusLocation = new Location(bucket, "rufus");
+RiakObject rufusObject = new RiakObject()
+        .setValue(BinaryValue.create(quote));
+StoreValue storeOp = new StoreValue.Builder(rufusObject)
+        .withLocation(rufusLocation)
+        .build();
+client.execute(storeOp);
+```
+
+```ruby
+bucket = client.bucket_type('animals').bucket('dogs')
+obj = Riak::RObject.new(bucket, 'rufus')
+obj.content_type = 'text/plain'
+obj.data = 'WOOF!'
+obj.store
+```
+
+```python
+bucket = client.bucket_type('animals').bucket('dogs')
+obj = RiakObject(client, bucket, 'rufus')
+obj.content_type = 'text/plain'
+obj.data = 'WOOF!'
+obj.store()
+```
+
+Notice that we specified both a value for the object, i.e. `WOOF!`, and
+a content type, `text/plain`. We'll learn more about content types in
+the [[section below|The Basics#Content-Types]].
+
+Now, run the same read operation from the [[section above|The
+Basics#Reading-Objects]]. If the write operation has been succesful, you
+should be able to successfully read the object. Our Riak cluster is no
+longer empty!
+
+## Content Types
+
+Riak is a fundamentally content-agnostic database. You can use it to
+store anything you want, from JSON to XML to HTML to binaries to images
+and beyond. You should always bear in mind that _all_ objects stored in
+Riak need to have a specified content type. In the example above
 
 #### Read Parameters
 
