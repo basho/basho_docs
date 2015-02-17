@@ -539,23 +539,37 @@ Stat | Description
 `stdlib_version`         | [Standard Library](http://erlang.org/doc/apps/stdlib/)
 `kernel_version`         | [Kernel](http://erlang.org/doc/apps/kernel/)
 
-### Riak Search Statistics
+## Riak Search Statistics
 
-The following statistics related to Riak Search message queues are
-available.
+### Query Stats
 
-Stat                         | Description
-:----------------------------|:--------------------------------------------------
-`riak_search_vnodeq_max`     | Maximum number of unprocessed messages all virtual node (vnode) message queues in the Riak Search subsystem have received on this node in the last minute
-`riak_search_vnodeq_mean`    | Mean number of unprocessed messages all vnode message queues in the Riak Search subsystem have received on this node in the last minute
-`riak_search_vnodeq_median`  | Median number of unprocessed messages all vnode message queues in the Riak Search subsystem have received on this node in the last minute
-`riak_search_vnodeq_min`     | Minimum number of unprocessed messages all vnode message queues in the Riak Search subsystem have received on this node in the last minute
-`riak_search_vnodeq_total`   | Total number of unprocessed messages all vnode message queues in the Riak Search subsystem have received on this node since it was started
-`riak_search_vnodes_running` | Total number of vnodes currently running in the Riak Search subsystem
+Stat | Description
+:----|:-----------
+`search_query_throughput_count` |
+`search_query_throughput_one` |
+`search_query_fail_count` |
+`search_query_fail_one` |
+`search_query_latency_min` | The lowest latency encountered for a Search query on this node in the last minute
+`search_query_latency_max` | The highest latency encountered for a Search query on this node in the last minute
+`search_query_latency_median` | The median latency encountered for Search queries on this node in the last minute
+`search_query_latency_95` | The 95th-percentile latency encountered for Search queries on this node in the last minute
+`search_query_latency_99` | The 99th-percentile latency encountered for Search queries on this node in the last minute
+`search_query_latency_999` | The 99.9th-percentile latency encountered for Search queries on this node in the last minute
 
-Note that under ideal operation and with the exception of
-`riak_search_vnodes_running` these statistics should contain low values
-(e.g., 0-10). Presence of higher values could be indicative of an issue.
+### Index Stats
+
+Stat | Description
+:----|:-----------
+`search_index_throughput_count` |
+`search_index_throughput_one` |
+`search_index_fail_count` |
+`search_index_fail_one` |
+`search_index_latency_min` | The lowest latency encountered for a Search indexing operation on this node in the last minute
+`search_index_latency_max` | The highest latency encountered for a Search indexing operation on this node in the last minute
+`search_index_latency_median` | The median latency encountered for Search indexing operations on this node in the last minute
+`search_index_latency_95` | The 95th-percentile latency encountered for Search indexing operations on this node in the last minute
+`search_index_latency_99` | The 99th-percentile latency encountered for Search indexing operations on this node in the last minute
+`search_index_latency_999` | The 99.9th-percentile latency encountered for Search indexing operations on this node in the last minute
 
 ## Riaknostic
 
