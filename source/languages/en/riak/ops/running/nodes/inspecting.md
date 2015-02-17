@@ -26,8 +26,8 @@ you use tools like [grep](http://unixhelp.ed.ac.uk/CGI/man-cgi?grep)).
 ## riak-admin status
 
 `[[riak-admin status|riak-admin Command Line#status]]` is a subcommand
-of the `riak-admin` command that is included with every installation of
-Riak. The `status` subcommand provides data related to the current
+of the `riak-admin` interface that is included with every installation
+of Riak. The `status` subcommand provides data related to the current
 operating status for a node. The output of `riak-admin status` is
 categorized and detailed below.
 
@@ -42,7 +42,8 @@ Riak.
 
 ### Active Stats
 
-Active Stats represent current activity on the node.
+Current activity on the node involving Riak's [[Protocol Buffers|PBC
+API]] interface.
 
 Stat                    | Description
 :-----------------------|:--------------------------------------------------
@@ -53,6 +54,7 @@ Stat                    | Description
 `list_fsm_active`       | Number of active Keylisting FSMs
 `node_get_fsm_rejected` | Number of GET FSMs actively being rejected by Sidejob's overload protection
 `node_put_fsm_rejected` | Number of PUT FSMs actively being rejected by Sidejob's overload protection
+`late_put_fsm_coordinator_ack` |
 
 ### Average Stats
 
@@ -249,7 +251,9 @@ Stat                      | Description
 `sys_global_heaps_size`   | Current size of the shared global heap
 `sys_heap_type`           | String representing the heap type in use (one of private, shared, hybrid)
 `sys_logical_processors`  | Number of logical processors available on the system
+`sys_monitor_count`       |
 `sys_otp_release`         | Erlang OTP release version in use on the node
+`sys_port_count`          |
 `sys_process_count`       | Number of processes currently running in the Erlang VM
 `sys_smp_support`         | Boolean value representing whether symmetric multi-processing (SMP) is available
 `sys_system_version`      | Detailed Erlang version information
@@ -257,6 +261,7 @@ Stat                      | Description
 `sys_threads_enabled`     | Boolean value representing whether threads are enabled
 `sys_thread_pool_size`    | Number of threads in the asynchronous thread pool
 `sys_wordsize`            | Size of Erlang term words in bytes as an integer, for examples, on 32-bit architectures 4 is returned and on 64-bit architectures 8 is returned
+
 
 ## Riak Data Type Statistics
 
@@ -432,13 +437,9 @@ Stat | Description
 `map_actor_counts_100` | The 100th-percentile number of vnodes involved in coordinating map updates on this node in the last minute
 
 
-`late_put_fsm_coordinator_ack`
-`sys_monitor_count`
-`sys_port_count`
 
 
 `riak_core_stat_ts`
-`ignored_gossip_total`
 `rings_reconciled_total`
 `rings_reconciled`
 `dropped_vnode_requests_total`
@@ -472,6 +473,7 @@ Stat | Description
 `gossip_received`
 `rejected_handoffs`
 `handoff_timeouts`
+`ignored_gossip_total`
 
 ### Miscellaneous Information
 
