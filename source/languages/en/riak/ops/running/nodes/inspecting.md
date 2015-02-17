@@ -11,20 +11,25 @@ moved: {
 }
 ---
 
-When inspection of a Riak node to gather metrics on performance or
-potential issues is desired, a number of tools are available to help,
-and are either included with Riak itself or made available through the
-Riak community.
+Riak has a statistics reporting interface that provides a wide variety
+of metrics and other information about your clusters on demand. You can
+use this information to address performance and latency issues,
+supervise the long-term health of your cluster, and more.
 
-This guide provides starting points and details on some of the available
-tools for inspecting a Riak node.
+You can retrieve the currently available cluster stats and info either
+through Riak's [[HTTP API]], using the `[[/stats|HTTP Status]]`
+endpoint, or using the `riak-admin status` command, documented in the
+section directly below. The HTTP interface will ouput a JSON object,
+while the `status` command will output a list (which may be useful if
+you use tools like [grep](http://unixhelp.ed.ac.uk/CGI/man-cgi?grep)).
 
 ## riak-admin status
 
-`riak-admin status` is a subcommand of the `riak-admin` command that is
-included with every installation of Riak. The `status` subcommand
-provides data related to the current operating status for a node. The
-output of `riak-admin status` is categorized and detailed below.
+`[[riak-admin status|riak-admin Command Line#status]]` is a subcommand
+of the `riak-admin` command that is included with every installation of
+Riak. The `status` subcommand provides data related to the current
+operating status for a node. The output of `riak-admin status` is
+categorized and detailed below.
 
 Please note, for some counters such as `node_get_fsm_objsize` a minimum
 of 5 transactions is required for statistics to be generated.
