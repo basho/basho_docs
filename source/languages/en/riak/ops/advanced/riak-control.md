@@ -71,6 +71,9 @@ Authorization#Enabling-SSL]]. Once SSL is enabled, you can proceed to
 setting up [[authentication|Riak Control#Authentication]] for Riak
 Control.
 
+Please note that Riak Control will not work if you have enabled
+authentication but SSL is not set up properly.
+
 ## Authentication
 
 Riak Control provides you the option of requiring authentication (via
@@ -91,13 +94,14 @@ riak_control.auth.mode = on
 
 When authentication is enabled, you can specify as many
 username/password pairs as you wish. The default pair is the username
+
 `user` and the password `pass`. We strongly recommend selecting
 different credentials. The example below would set up three user-defined
 pairs:
 
 ```riakconf
 riak_control.auth.user.bob.password = bob_is_the_coolest
-riak_control.auth.user.suzy.password = h4x0r123
+riak_control.auth.user.polly.password = h4x0r123
 riak_control.auth.user.riakrocks.password = cap_theorem_4_life
 ```
 
@@ -106,7 +110,7 @@ riak_control.auth.user.riakrocks.password = cap_theorem_4_life
                 %% Other configs
                 {userlist, [
                             {"bob", "bob_is_the_coolest"},
-                            {"suzy", "h4x0r123"},
+                            {"polly", "h4x0r123"},
                             {"riakrocks", "cap_theorem_4_life"}
                             ]}
                 %% Other configs
