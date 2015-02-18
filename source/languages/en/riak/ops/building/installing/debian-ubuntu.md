@@ -16,6 +16,13 @@ moved: {
 }
 ---
 
+<div class="note">
+<div class="title">Note: 2.0.4 not currently available</div>
+Riak version 2.0.4 is not currently available for Debian/Ubuntu due to a
+known issue. If you'd like to upgrade Riak, we'd recommend waiting for
+the 2.0.5 release.
+</div>
+
 Riak can be installed on Debian- or Ubuntu-based systems using a binary
 package or by [[compiling Riak from source code|Installing Riak from
 Source]]. The following steps have been tested to work with Riak on
@@ -46,6 +53,23 @@ Installation|Installing on Debian and Ubuntu#Advanced-apt-Installation]]
 section immediately below.
 
 ## Advanced apt Installation
+
+<div class="note">
+<div class="title">Note on Debian 7</div>
+If you wish to install Riak on Debian 7, you may need to install
+[libc6](://packages.debian.org/search?keywords=libc6) version 2.15 or
+later, which in turn requires upgrading your system to
+[sid](https://www.debian.org/releases/sid/). Installation instructions
+can be found
+[here](https://wiki.debian.org/DebianUnstable#How_do_I_install_Sid.3F).
+
+Once sid has been installed, you can install libc6 with the following
+command:
+
+```bash
+apt-get -t sid install libc6 libc6-dev libc6-dbg
+```
+</div>
 
 For the simplest installation process on LTS (Long-Term Support)
 releases, use `apt-get`. First, you must retrieve the signing key:

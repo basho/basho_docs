@@ -33,7 +33,7 @@ have no intrinsic significance beyond allowing you to store objects with
 the same key in different buckets. The same goes for naming keys: many
 objects can have the same key as long as they're in different buckets.
 
-[[Bucket Types|Using Bucket Types]] enable you to provide common
+[[Bucket types|Using Bucket Types]] enable you to provide common
 configurations for buckets (as many buckets as you wish). This means
 that you can easily enable buckets to share common configurations, i.e.
 identical [[replication properties]] or [[commit hooks|Using Commit
@@ -48,7 +48,7 @@ Clojure, Scala, Smalltalk, and many others.
 
 ## Reading Objects
 
-You can think of reads in Riak of analogous to HTTP `GET` requests. You
+You can think of reads in Riak as analogous to HTTP `GET` requests. You
 specify a bucket type, bucket, and key, and Riak either returns the
 object that's stored there---including its [[siblings|The
 Basics#Siblings]] \(more on that later)---or it returns `not found` (the
@@ -62,12 +62,12 @@ GET /types/<type>/buckets/<bucket>/keys/<key>
 ```
 
 Here is an example of a read performed on the key `rufus` in the bucket
-`dogs`, which bears the type `animals`:
+`dogs`, which bears the [[bucket type|Using Bucket Types]] `animals`:
 
 ```java
 // In the Java client, it is best to specify a bucket type/bucket/key
 // Location object that can be used as a reference for further
-// operations
+// operations, as in the example below:
 Location myKey = new Location(new Namespace("animals", "dogs"), "rufus");
 ```
 
@@ -103,11 +103,11 @@ curl http://localhost:8098/types/animals/buckets/dogs/keys/rufus
 If you are connecting to Riak using one of Basho's official [[client
 libraries]], you can find more information about getting started with
 your client in our [[quickstart guide|Five-Minute
-Install#setting-up-your-riak-client]].
+Install#Setting-Up-Your-Riak-Client]].
 </div>
 
-If there is no object stored under that particular key, Riak will return
-a message indicating that the object doesn't exist.
+At the moment, there's no object stored in the location where we just
+attempted a read, which means that we'll get the following response:
 
 ```java
 java.lang.NullPointerException
@@ -133,15 +133,116 @@ Unable to find value in RIak
 not found
 ```
 
-If you're using HTTP to interact with Riak, as opposed to using a
-[[client library|Client Libraries]], Riak understands many HTTP-defined
-headers, such as `Accept` for content-type negotiation, which is
-relevant when dealing with siblings (see [[the sibling examples for the
-HTTP API|HTTP Fetch Object#Siblings-examples]]), and
-`If-None-Match`/`ETag` and `If-Modified-Since`/`Last-Modified` for
-conditional requests.
+## Writing Objects
 
-#### Read Parameters
+Writes in Riak, i.e. storing or modifying objects, are like HTTP `PUT`
+requests. Here is the basic form of writes:
+
+```
+PUT /types/<type>/buckets/<bucket>/keys/<key>
+
+# If you're using HTTP to interact with Riak, you can also use POST
+```
+
+In the example above, our read was unsuccessful because our Riak cluster
+is currently empty. Let's change that by storing an object containing
+information about a dog named Rufus. We'll store that object in the
+location described above, i.e. in the key `rufus` in the bucket `dogs`,
+which bears the `animals` [[bucket type|Using Bucket Types]].
+
+The object we're storing will be very simple, just a basic text snippet
+of something that Rufus might say. Let's build the object and then store
+it.
+
+```java
+String quote = "WOOF!";
+Namespace bucket = new Namespace("animals", "dogs");
+Location rufusLocation = new Location(bucket, "rufus");
+RiakObject rufusObject = new RiakObject()
+        .setContentType("text/plain")
+        .setValue(BinaryValue.create(quote));
+StoreValue storeOp = new StoreValue.Builder(rufusObject)
+        .withLocation(rufusLocation)
+        .build();
+client.execute(storeOp);
+```
+
+```ruby
+bucket = client.bucket_type('animals').bucket('dogs')
+obj = Riak::RObject.new(bucket, 'rufus')
+obj.content_type = 'text/plain'
+obj.data = 'WOOF!'
+obj.store
+```
+
+```python
+bucket = client.bucket_type('animals').bucket('dogs')
+obj = RiakObject(client, bucket, 'rufus')
+obj.content_type = 'text/plain'
+obj.data = 'WOOF!'
+obj.store()
+```
+
+Notice that we specified both a value for the object, i.e. `WOOF!`, and
+a content type, `text/plain`. We'll learn more about content types in
+the [[section below|The Basics#Content-Types]].
+
+Now, run the same read operation we attempted in the [[section above|The
+Basics#Reading-Objects]]. If the write operation was succesful, you
+should be able to successfully read the object. Your Riak cluster is no
+longer empty!
+
+## Content Types
+
+Riak is a fundamentally content-agnostic database. You can use it to
+store anything you want, from JSON to XML to HTML to binaries to images
+and beyond. You should always bear in mind that _all_ objects stored in
+Riak need to have a specified content type. If you don't specify a
+content type, the reaction will vary based on your client library:
+
+```java
+// In the Java client, the response when storing an object without
+// specifying a content type will depend on what is being stored. If you
+// store a Java Map, for example, the client will automatically specify
+// that the object is "application/json"; if you store a String, the
+// client will specify "application/x-www-form-urlencoded"; POJOs are
+// stored as JSON by default, and so on.
+```
+
+```ruby
+# In the Ruby client, you must always specify a content type. If you
+# you don't, you'll see the following error:
+ArgumentError: content_type is not defined!
+```
+
+```python
+# In the Python client, the default content type is "application/json".
+# Because of this, you should always make sure to specify the content
+# type when storing other types of data.
+```
+
+```erlang
+%% In the Erlang client, the response when storing an object without
+%% specify8ing a content type will depend on what is being stored. If
+%% you store a simple binary, for example, the client will autometically
+%% specify that the object is "application/octet-stream"; if you store a
+%% string, the client will specify "application/x-erlang-binary"; and so
+%% on.
+```
+
+Because content type negotiation varies so widely from client to client,
+we recommend consulting the documentation for your preferred client for
+more information.
+
+## Updating Objects
+
+When we stored an object in the [[section above|The
+Basics#Writing-Objects]], we did so in a location that was empty.
+Updating an already-existing object, however, is a bit trickier because
+there are some best practices and other issues that you should be aware
+of. Consult the [[Object Updates]] doc for more information.
+
+## Read Parameters
 
 Parameter | Default | Description
 :---------|:--------|:-----------
@@ -221,6 +322,11 @@ is easy. The basic request looks like this.
 
 ```
 PUT /types/TYPE/buckets/BUCKET/keys/KEY
+
+# If you're using HTTP, POST can be used instead of PUT. The only
+# difference between POST and PUT is that you should POST in cases where
+# you want Riak to auto-generate a key. More on this can be found in the
+# examples below.
 ```
 
 There is no need to intentionally create buckets in Riak. They pop into

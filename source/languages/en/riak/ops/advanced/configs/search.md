@@ -53,7 +53,8 @@ page](http://www.oracle.com/technetwork/java/javase/documentation/index.html).
 ### Riak Config Settings
 
 Setting `search` to `on` is required, but other search settings are
-optional.
+optional. A list of these parameters can also be found in our
+[[configuration files|Configuration Files#Search]] documentation.
 
 Field | Default | Valid values | Description
 :-----|:--------|:-------------|:-----------
@@ -63,7 +64,7 @@ Field | Default | Valid values | Description
 `search.solr.start_timeout` | `30s` | Integer with time units (eg. 2m) | How long Riak will wait for Solr to start (attempts twice before shutdown). Values lower than 1s will be rounded up to 1s.
 `search.solr.port` | `8093` | Integer | The port number to which Solr binds (note: binds on every interface)
 `search.solr.jmx_port` | `8985` | Integer | The port number to which Solr JMX (note: binds on every interface)
-`search.solr.jvm_options` | `-Xms1g -Xmx1g -XX:+UseStringCache -XX:+UseCompressedOops` | Java command-line arguments | The options to pass to the Solr JVM. Non-standard options, e.g. `-XX`, may not be portable across JVM implementations.
+`search.solr.jvm_options` | `-d64 -Xms1g -Xmx1g -XX:+UseStringCache -XX:+UseCompressedOops` | Java command-line arguments | The options to pass to the Solr JVM. Non-standard options, e.g. `-XX`, may not be portable across JVM implementations.
 
 While most of the default values are sufficient, you may have to
 increase `search.solr.start_timeout` as more data is indexed, which may
@@ -71,16 +72,16 @@ cause Solr to require more time to start.
 
 ## Solr JVM and Ports
 
-Riak Search runs a Solr process per node to manage its index and search
-functionality. While the underlying project, Yokozuna, manages index
-distribution, node coverage for queries, [[active anti-entropy
+Riak Search runs one Solr process per node to manage its indexing and
+search functionality. While the underlying project, Yokozuna, manages
+index distribution, node coverage for queries, [[active anti-entropy
 (AAE)|Search Details#Active-Anti-Entroy-AAE-]], and JVM process
-management, you are expected to have plenty of RAM and diskspace
-available for running both Riak and the JVM running Solr. We recommend a
-minimum of 6GB of RAM per node.
+management, you should provide plenty of RAM and diskspace for running
+both Riak and the JVM running Solr. We recommend a minimum of 6GB of RAM
+per node.
 
 Concerning ports, be sure to take the necessary [[security|Security and
-Firewalls]] precautions to prevent exposing the extra solr and JMX ports
+Firewalls]] precautions to prevent exposing the extra Solr and JMX ports
 to the outside world.
 
 ## Solr for Operators

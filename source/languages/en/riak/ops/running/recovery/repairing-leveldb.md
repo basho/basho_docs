@@ -25,7 +25,7 @@ To check whether your node has experienced such errors, you will need to run a s
 find . -name "LOG" -exec grep -l 'Compaction error' {} \;
 ```
 
-If there are compaction errors in any of your vnodes, those will be listed in the console. If a vnodes has experienced such errors, you would see output like this:
+If there are compaction errors in any of your vnodes, those will be listed in the console. If any vnode has experienced such errors, you would see output like this:
 
 ```
 ./442446784738847563128068650529343492278651453440/LOG 

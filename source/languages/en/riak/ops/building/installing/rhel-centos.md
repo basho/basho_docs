@@ -16,6 +16,13 @@ moved: {
 }
 ---
 
+<div class="note">
+<div class="title">Note: 2.0.4 not currently available</div>
+Riak version 2.0.4 is not currently available for RHEL/CentOS due to a
+known issue. If you'd like to upgrade Riak, we'd recommend waiting for
+the 2.0.5 release.
+</div>
+
 Riak can be installed on CentOS- or Red-Hat-based systems using a binary
 package or by [[compiling Riak from source code|Installing Riak from
 Source]]. The following steps have been tested to work with Riak on
@@ -52,11 +59,11 @@ section immediately below.
 ## Advanced rpm Installation
 
 For the simplest installation process on LTS (Long-Term Support)
-releases, use yum. First, you must install the `pygpme` package, which
+releases, use yum. First, you must install the `pygpgme` package, which
 enables yum to handle [GPG](https://www.gnupg.org/) signatures:
 
 ```bash
-sudo yum install pypgme
+sudo yum install pygpgme
 ```
 
 If you wish to install using a `.repo` file, packagecloud can generate

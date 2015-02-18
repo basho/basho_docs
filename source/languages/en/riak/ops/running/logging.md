@@ -286,7 +286,7 @@ lager:set_logleve(lager_file_backend, "/var/log/riak/console.log", debug).
 You should replace the file location above (`/var/log/riak/console.log`)
 with your platform-specific location, e.g. `./log/console.log` for a
 source installation. This location is specified by the
-`log.console.file` parameter explained [[above|lager#Console-Logs]].
+`log.console.file` parameter explained [[above|Logging#Console-Logs]].
 
 If you'd like to enable debug logging on _all_ nodes instead of just one
 node, you can enter the Erlang console of any running by running `riak

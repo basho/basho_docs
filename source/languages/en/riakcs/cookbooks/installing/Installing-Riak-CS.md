@@ -182,7 +182,7 @@ HOSTNAME=`hostname -f`
 FILENAME=/etc/apt/sources.list.d/basho.list
 OS=ubuntu
 DIST=precise
-PACKAGE_CLOUD_RIAK_CS_DIR=https://packagecloud.io/install/repositories/basho/riak_cs
+PACKAGE_CLOUD_RIAK_CS_DIR=https://packagecloud.io/install/repositories/basho/riak-cs
 curl "${PACKAGE_CLOUD_RIAK_CS_DIR}/config_file.list?os=${OS}&dist=${DIST}&name=${HOSTNAME}" > $FILENAME
 ```
 
@@ -230,11 +230,11 @@ Platform-specific pages are linked below:
 #### Advanced rpm Installation
 
 For the simplest installation process on LTS (Long-Term Support)
-releases, use yum. First, you must install the `pygpme` package, which
+releases, use yum. First, you must install the `pygpgme` package, which
 enables yum to handle [GPG](https://www.gnupg.org/) signatures:
 
 ```bash
-sudo yum install pypgme
+sudo yum install pygpgme
 ```
 
 If you wish to install using a `.repo` file, packagecloud can generate

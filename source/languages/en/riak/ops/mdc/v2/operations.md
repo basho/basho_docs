@@ -157,7 +157,7 @@ restarting Riak Enterprise.
 
 Field | Description
 :-----|:-----------
-`client_stats` | See [[Client Statistics|Multi Data Center Replication: Operations#Client-Statistics]]
+`client_stats` | See <a href="/ops/mdc/v3/operations/#Client-Statistics">Client Statistics</a>
 `client_bytes_recv` | The total number of bytes the client has received since the server has been started
 `client_bytes_sent` | The total number of bytes sent to all connected sites
 `client_connect_errors` | The number of TCP/IP connection errors
@@ -177,7 +177,7 @@ Field | Description
 `server_fullsyncs` | The number of fullsync operations that have occurred since the server was started
 `server_rx_kbps` | A snapshot of the server (listener) received kilobits/second taken once a minute. The past 8 snapshots are stored in this list. Newest snapshots appear on the left side of the list.
 `server_tx_kbps` | A snapshot of the server (listener) sent kilobits/second taken once a minute. The past 8 snapshots are stored in this list. Newest snapshots appear on the left side of the list.
-`server_stats` | See [[Server Statistics|Multi Data Center Replication: Operations#Server-Statistics]]
+`server_stats` | See <a href="/ops/mdc/v3/operations/#Server-Statistics">Server Statistics</a>
 
 ### Elections and Objects
 
@@ -238,7 +238,7 @@ Field | Description
 `site` | The connected site name configured with `riak-repl add-site`
 `strategy` | A replication strategy defines an implementation of the Riak Replication protocol. Valid values: `keylist` or `syncv1`.
 `fullsync_worker` | The Erlang process ID of the fullsync worker
-`bounded_queue` | See the [[Bounded Queue|Multi Data Center Replication: Operations#Bounded-Queue]] section above
+`bounded_queue` | See the <a href="/ops/mdc/v2/operations/#Bounded-Queue">Bounded Queue</a> section above
 `state` | State shows what the current replication strategy is processing. The following definitions appear in the status output if the keylist strategy is being used. They can be used by Basho support to identify replication issues.<ul><li>`wait_for_partition`</li><li>`build_keylist`</li><li>`wait_keylist`</li><li>`diff_bloom`</li><li>`diff_keylist`</li></ul>s
 `message_queue_len` | The number of Erlang messages that are waiting to be processed by the server
 

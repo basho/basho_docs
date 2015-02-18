@@ -23,16 +23,12 @@ running MapReduce jobs.
 ## Terminology
 
 * **Authentication** is the process of identifying a user.
-
 * **Authorization** is verifying whether a user has access to perform
   the requested operation.
-
 * **Groups** can have permissions assigned to them, but cannot be
   authenticated.
-
 * **Users** can be authenticated and authorized; permissions
   (authorization) may be granted directly or via group membership.
-
 * **Sources** are used to define authentication mechanisms. A user
   cannot be authenticated to Riak until a source is defined.
 
@@ -45,24 +41,26 @@ of the following **before** enabling security:
 
 1. Make certain that the original Riak Search (version 1) and link
    walking are not required. Enabling security will break this
-   functionality. If you wish to use security and search together, you
+   functionality. If you wish to use security and Search together, you
    will need to use the [[new Search feature|Using Search]].
-2. Because Riak security requires a secure SSL connection, you will need
-   to generate appropriate SSL certs and make sure that each Riak node's
-   [[configuration files|Configuration Files#Security]] point to the
-   [[right paths|Authentication and
-   Authorization#Certificate-Configuration]] for those certs
-2. Define [[users|Authentication and Authorization#User-Management]]
+1. Because Riak security requires a secure SSL connection, you will need
+   to generate appropriate SSL certs, [[enable SSL|Authentication and
+   Authorization#Enabling-SSL]] and establish a [[certification
+   configuration|Authentication and
+   Authorization#Certificate-Configuration]] on each node. **If you
+   enable security without having established a functioning SSL
+   connection, all requests to Riak will fail**.
+1. Define [[users|Authentication and Authorization#User-Management]]
    and, optionally, groups
-3. Define an [[authentication source|Authentication and
+1. Define an [[authentication source|Authentication and
    Authorization#Managing-Sources]] for each user
-4. Grant the necessary [[permissions|Authentication and
+1. Grant the necessary [[permissions|Authentication and
    Authorization#Managing-Permissions]] to each user (and/or group)
-5. Check any Erlang MapReduce code for invocations of Riak modules other
+1. Check any Erlang MapReduce code for invocations of Riak modules other
    than `riak_kv_mapreduce`. Enabling security will prevent those from
    succeeding unless those modules are available via the `add_path`
    mechanism documented in [[Installing Custom Code]].
-6. Make sure that your client software will work properly:
+1. Make sure that your client software will work properly:
     * It must pass authentication information with each request
     * It must support HTTPS or encrypted [[Protocol Buffers|PBC API]]
       traffic
@@ -70,7 +68,7 @@ of the following **before** enabling security:
       client to server
     * Code that uses Riak's deprecated [[Link Walking]] feature **will
       not work** with security enabled
-7. If you have applications that rely on an already existing Riak
+1. If you have applications that rely on an already existing Riak
    cluster, make sure that those applications are prepared to gracefully
    transition into using Riak security once security is enabled.
 
@@ -749,6 +747,38 @@ installing it can be found in [[Installing Erlang]]. This issue should
 not affect Erlang 17.0 and later.
 </div>
 
+## Enabling SSL
+
+In order to use any authentication or authorization features, you must
+enable SSL for Riak. **SSL is disabled by default**, but you will need
+to enable it prior to enabling security. If you are using [[Protocol
+Buffers|PBC API]] as a transport protocol for Riak (which we strongly
+recommend), enabling SSL on a given node requires only that you specify
+a [[host and port|Configuration Files#Client-Interfaces]] for the node
+as well as a [[certificate configuration|Authenticate and
+Authorization#Certificate-Configuration]].
+
+If, however, you are using the [[HTTP API]] for Riak and would like to
+configure HTTPS, you will need to not only establish a [[certificate
+configuration|Authentication and
+Authorization#Certificate-Configuration]] but also specify an HTTPS host
+and port. The following configuration would establish port 8088 on
+`localhost` as the HTTPS port:
+
+```riakconf
+listener.https.$name = 127.0.0.1:8088
+
+# By default, "internal" is used as the "name" setting
+```
+
+```appconfig
+{riak_core, [
+             %% Other configs
+             {https, [{"127.0.0.1", 8088}]},
+             %% Other configs
+            ]}
+```
+
 ## TLS Settings
 
 When using Riak security, you can choose which versions of SSL/TLS are
@@ -764,9 +794,9 @@ parameters|Configuration Files#Security]] to `on` or `off`:
 Three things to note:
 
 * Among the four available options, only TLS version 1.2 is enabled by
- default
+  default
 * You can enable more than one protocol at a time
-* We strongly recommend that you _not_ use SSL version 3 unless
+* We strongly recommend that you do _not_ use SSL version 3 unless
   absolutely necessary
 
 ## Certificate Configuration

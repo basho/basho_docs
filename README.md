@@ -1,10 +1,10 @@
 # Riak Docs
 
-This repo holds all the content (and other bits) for the most-excellent
-[Riak Docs](http://docs.basho.com), home of the documentation for Riak,
-Riak CS, and Riak Enterprise.  This document tells you how to contribute
-to the docs (please do!) as well as to deploy them if you have our
-secret key.
+This repo holds all the content (and other bits, e.g. CSS, JavaScript,
+etc.) for the most-excellent [Riak Docs](http://docs.basho.com), home of
+the documentation for Riak and Riak CS. This document tells you how to
+contribute to the docs (please do!) as well as to deploy them if you
+have our secret key.
 
 ## Prerequisites
 
@@ -356,7 +356,7 @@ S3 access/secret key. You also must specify the S3 bucket to which we're
 deploying as well as the CloudFront ID (the CDN that we must invalidate
 to force a publication to be found).
 
-In Bash, something like this in your `~/.bash_login` or
+In Bash, something like this in your `~/.bash_login`, `~/.bashrc`, or
 `~/.bash_profile` file should do the trick:
 
 ```bash
@@ -367,7 +367,8 @@ export AWS_CLOUDFRONT_DIST_ID="E2Q6TQ5O0XT58T"
 export RIAK_DOCS_LANG=en
 ```
 
-_The bucket and CloudFront values are per language._
+**Note**: The bucket and CloudFront values are per language. For the
+foreseeable future, you'll typically only need to worry about English.
 
 Language | Bucket      | CloudFront ID  | Language
 ---------|-------------|----------------|----------
@@ -396,6 +397,33 @@ cache for CloudFront (CF), our CDN. Even if all of the files are
 successfully pushed to S3, you won't see the new files on
 [docs.basho.com](http://docs.basho.com) until the CF cache is
 invalidated.
+
+## Ad-hoc Changes in S3
+
+There are times when it doesn't make a lot of sense to run a full docs
+deploy to S3, for example if you need to make a change to a single doc
+that you know will be ephemeral. In those cases, you can use a tool like
+[s3cmd](http://s3tools.org/s3cmd) to manually fetch files, modify them
+locally, and upload them to S3. All files are located in the bucket
+located at `s3://riakdocs.en`. The following would fetch an HTML file:
+
+```bash
+s3cmd get s3://riakdocs.en/riak/latest/dev/using/basics/index.html
+```
+
+Once you've modified the HTML locally, you can use a `PUT` operation to
+upload the file:
+
+```bash
+s3cmd put index.html s3://riakdocs.en/riak/latest/dev/using/basics/index.html
+```
+
+To explore the contents of a given subdirectory, you can use the `ls`
+command:
+
+```bash
+s3cmd ls s3://riakdocs.en/riak/latest/ops/
+```
 
 ## Deploying the Search Index
 
