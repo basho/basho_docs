@@ -1,4 +1,5 @@
 ---
+
 title: "Multi Data Center Replication v3 SSL"
 project: riak
 header: riakee
@@ -21,10 +22,18 @@ items:
   * SSL certificate chain validation
   * SSL common name whitelisting support
 
+<div class="note">
+<div class="title">Note on cross-internet traffic</div>
+As an alternative to Riak Enterprise's built-in SSL capabilities, we
+recommend using [stunnel](https://www.stunnel.org/index.html) or a
+virtual private network (VPM) for inter-datacenter connections.
+</div>
+
 ## SSL Configuration
 
 To configure SSL, you will need to include the following 4 settings in
-the `riak-core` section of `[[app.config|Configuration Files#app.config]]`:
+the `riak-core` section of `[[app.config|Configuration
+Files#app.config]]`:
 
 ```appconfig
 {riak_core, [
@@ -131,12 +140,7 @@ The following example depths illustrate this:
 
 ## Compatibility
 
-{{#1.2.0-1.3.9}}
-Replication SSL for *Version 2* is available in *Riak 1.2+*.
-{{/1.2.0-1.3.9}}
-{{#1.4.0+}}
 Replication SSL for *Version 3* is available in *Riak 1.4+*.
-{{/1.4.0+}}
 
 If SSL is enabled and a connection is made to a Riak Enterprise 1.0 or
 1.1 node, the connection will be denied and an error will be logged.
