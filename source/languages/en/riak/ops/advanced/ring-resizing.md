@@ -67,13 +67,6 @@ running a ring resizing process:
   command (part of the `[[riak-admin|riak-admin Command
   Line#cluster-force-replace]]` interface) during ring resizing.
 
-<div class="note">
-<div class="title">Note on ring resizing and strong consistency</div>
-If you are using Riak's [[strong consistency]] feature, you will not be
-able to perform a ring resize. This will, however, be supported in a
-later version of Riak.
-</div>
-
 ## Starting the Resize
 
 To resize your Riak cluster, use the `riak-admin cluster` command
@@ -437,6 +430,6 @@ during ring resizing.
 
 Second of all, please be aware that although ring resizing is compatible
 with [[secondary index|Using Secondary Indexes]] queries, you should use
-secondary index queries conservatively during ring resizing. We would
-also like to remind you once again that ring resizing is incompatible
-with [[Riak Search|Using Search]].
+secondary index queries conservatively during ring resizing. In
+addition, it is not advisable that you run _any_ MapReduce operations
+during a resize.
