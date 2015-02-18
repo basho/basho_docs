@@ -262,12 +262,36 @@ Settings related to Riak CS's [[garbage collection]] \(GC) process.
 <thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
 <tbody>
 <tr>
+<td><code>epoch_start</code></td>
+<td>The time that the GC daemon uses to begin collecting keys from the
+GC eligibility bucket. Records in this bucket use keys based the epoch
+time the record is created plus <code>leeway_seconds</code>. The default
+is <code>0</code> and should be sufficient for general use. A case for
+readjusting this value is if the secondary index query run by the GC
+daemon continually times out. Raising the starting value can decrease
+the range of the query and make it more likely that the query will
+succeed. The value must be specified in Erlang binary format, e.g. set
+it to `<<10>>` to specify 10.</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>gc_batch_size</code></td>
+<td>This option is used only when <code>gc_paginated_indexes</code> is
+set to <code>true</code>. It represents the size used for paginating the
+results of the secondary index query.</td>
+<td><code>1000</code></td>
+</tr>
 <td><code>gc_interval</code></td>
 <td>How often the GC daemon waits between GC batch operations. Expressed
 as an integer number of seconds.</td>
 <td><code>900</code> (15 minutes)</td>
 </tr>
 <tr>
+<td><code>gc_max_workers</code></td>
+<td>The maximum number of worker processes that may be started by the GC
+daemon to use for concurrent reaping of GC-eligible objects.</td>
+<td><code>5</code></td>
+</tr>
 <td><code>gc_paginated_indexes</code></td>
 <td>If you're running Riak nodes that are of a version prior to 1.4.0,
 set this to <code>false</code>. Otherwise, you will not need to adjust
@@ -286,6 +310,19 @@ the block for an object after it has been deleted. This leeway time is
 set to give the delete indication time to propagate to all replicas.
 Expressed as an integer number of seconds.</td>
 <td><code>86400</code> (24 hours)</td>
+</tr>
+<tr>
+<td><code>max_scheduled_delete_manifests</code></td>
+<td>The maximum number of manifests (representative of object versions)
+that can be in the <code>scheduled_delete</code> state for a given key.
+A value of <code>unlimited</code> means that there is no maximum and
+that pruning will not be based on count. An example of where this option
+is useful is a use case involving a lot of churn on a fixed set of keys
+in a time frame that is relatively short compared to the
+<code>leeway_seconds</code> value. This can result in the manifest
+objects reaching a size that can negatively impact system performance.
+</td>
+<td><code>unlimited</code></td>
 </tr>
 </tbody>
 </table>
