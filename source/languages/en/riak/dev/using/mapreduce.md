@@ -37,15 +37,6 @@ and [[Search|Using Search]]. MapReduce jobs can be submitted through the
 strongly recommend using the Protocol Buffers API for performance
 reasons.
 
-<div class="note">
-<div class="title">MapReduce <em>not</em> for production use</div>
-Riak MapReduce operations are very expensive computationally. Running an
-expensive MapReduce job in production could have a significant
-performance impact on your cluster. Because of this, we recommend
-MapReduce operations only for batch processing purposes, not for real-
-time querying.
-</div>
-
 ## Features
 
 * Map phases execute in parallel with data locality

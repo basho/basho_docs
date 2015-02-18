@@ -18,7 +18,7 @@ keywords: [developer]
       presence of many siblings, this can lead to even more siblings.
   * **Solution**: This change prevents unnecessary siblings growth in
       cases where (a) backpressure is triggered under high upload
-      concurrency and (b) uplaods are interleaved during backpressure
+      concurrency and (b) uploads are interleaved during backpressure
       sleep. This issue does not affect multipart uploads.
 * Fix an incorrect path rewrite in the S3 API caused by unnecessary URL
     decoding [riak_cs/#1040](https://github.com/basho/riak_cs/pull/1040)
@@ -51,12 +51,63 @@ The table below provides examples for URLs including
 `%[0-9a-fA-F][0-9a-fA-F]` and how they will work before and after the
 upgrade.
 
-  | Before upgrade | After upgrade
-:-|:---------------|:-------------
+
+ | Before upgrade | After upgrade
+:--|:---------------|:-------------
 written as | `a%2Fkey` | `-`
 read as | `a%2Fkey` or `a/key` | `a/key`
 listed as | `a/key` | `a/key`
 
+Examples for unique objects including `+` or an empty space through
+upgrade:
+
+  | Before upgrade | After upgrade
+:--|:---------------|:-------------
+written as | `a+key` | `-`
+read as | `a+key` or `a key` | `a key`
+listed as | `a key` | `a key`
+
+Examples for unique objects with an empty space in the URL:
+
+  | Before upgrade | After upgrade
+:--|:---------------|:-------------
+written as | `a key` | `-`
+read as | `a+key` or `a key` | `a key`
+listed as | `a key` | `a key`
+
+This fix also changes the path format in access logs from the
+single-URL-encoded style to the doubly-encoded URL style. Below is an
+example of the old style:
+
+```
+127.0.0.1 - - [07/Jan/2015:08:27:07 +0000] "PUT /buckets/test/objects/path1%2Fpath2%2Fte%2Bst.txt HTTP/1.1" 200 0 "" """
+```
+
+And here is the analogous URL in the new style:
+
+```
+127.0.0.1 - - [07/Jan/2015:08:27:07 +0000] "PUT /buckets/test/objects/path1%2Fpath2%2Fte%252Bst.txt HTTP/1.1" 200 0 "" ""
+```
+
+Note that the object path has changed from `path1%2Fpath2%2Fte%2Bst.txt`
+to `path1%2Fpath2%2Fte%252Bst.txt` between the two examples above.
+
+If the old behavior is preferred, e.g. because applications using Riak
+CS have been written to use the older style, you can retain that
+behavior on upgrade by modifying your Riak CS configuration. Change the
+`rewrite_module` setting as follows:
+
+```appconfig
+{riak_cs, [
+           %% Other settings
+           {rewrite_module, riak_cs_s3_rewrite_legacy},
+           %% Other settings
+]}
+```
+
+**Note**: The old behavior is technically incorrect and implicitly
+overwrites data in the ways described above. Retain the old behavior
+with caution.
 
 ## Riak CS 1.5.3
 

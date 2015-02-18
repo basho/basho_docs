@@ -465,9 +465,9 @@ asynchronously from the standpoint of client operations, depending on
 the configuration that you specify.
 
 While integrity checking takes place automatically in Riak, there are
-important aspects of its behavior that you can configure. See the
-**Merkle Tree settings** section below for more information on
-configurable parameters.
+important aspects of its behavior that you can configure. See the <a
+href="#merkle">Merkle Tree settings</a> section below for more
+information on configurable parameters.
 
 ## Configuring Strong Consistency
 
@@ -547,6 +547,7 @@ entail shorter wait times for connecting clients, but at a higher risk
 of failed operations under heavy load.
 
 ### Merkle Tree Settings
+<a name="merkle"></a>
 
 Leaders and followers in Riak's strong consistency system maintain
 persistent [Merkle trees](http://en.wikipedia.org/wiki/Merkle_tree) for

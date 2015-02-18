@@ -13,6 +13,13 @@ moved: {
 }
 ---
 
+<div class="note">
+<div class="title">Note: 2.0.4 not currently available</div>
+Riak version 2.0.4 is not currently available for SUSE due to a known
+issue. If you'd like to upgrade Riak, we'd recommend waiting for the
+2.0.5 release.
+</div>
+
 The following steps should get you up and running with Riak on SuSE.
 
 Riak may be installed on the following x86/x86_64 flavors of SuSE:

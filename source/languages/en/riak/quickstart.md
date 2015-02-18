@@ -380,10 +380,10 @@ Basho maintains official [[client libraries]] for Java, Ruby, Python,
 and Erlang. Below are links to client-specific documentation for each
 language:
 
-* [Java](http://basho.github.io/riak-java-client/2.0.0-SNAPSHOT/)
+* [Java](https://github.com/basho/riak-java-client)
 * [Ruby](https://github.com/basho/riak-ruby-client)
-* [Python](http://basho.github.io/riak-python-client/)
-* [Erlang](http://basho.github.io/riak-erlang-client/)
+* [Python](https://github.com/basho/riak-python-client)
+* [Erlang](https://github.com/basho/riak-erlang-client)
 
 In each of the above docs, you'll find detailed client installation and
 setup instructions. Here, we'll walk you through the basics of

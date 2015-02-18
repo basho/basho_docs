@@ -177,7 +177,7 @@ riak:
         sub:
           - "[[Riak Control]]"
           - "[[Installing Custom Code]]"
-          # - "[[Ring Resizing]]"
+          - "[[Ring Resizing]]"
           - "[[Object Deletion]]"
           - "[[Runtime Interaction]]"
           - "[[Managing Strong Consistency]]"

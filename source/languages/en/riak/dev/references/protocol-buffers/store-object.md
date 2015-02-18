@@ -70,7 +70,7 @@ a special value denoting `one` (`4294967295-1`), `quorum`
 Parameter | Description
 :---------|:-----------
 `key` | The key to create/update. If not specified, Riak will generate a random key and return that key as part of the requests's
-`vclock` | Opaque vector clock provided by an earlier `[[RpbGetResp|PBC Fetch Object]]` message. Omit if this is a new key or if you deliberately want to create a sibling.
+`vclock` | Opaque vector clock provided by an earlier <code><a href="/theory/concepts/context">RpbGetResp</a></code> message. Omit if this is a new key or if you deliberately want to create a sibling.
 `w` | Write quorum, i.e. how many replicas to write to before returning a successful response
 `dw` | Durable write quorum, i.e. how many replicas to commit to durable storage before returning a successful response
 `return_body` | Whether to return the contents of the now-stored object. Defaults to `false`.

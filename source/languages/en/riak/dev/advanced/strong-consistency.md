@@ -165,8 +165,8 @@ recommend bearing the following in mind:
    Consistency#Object-Context]]. If you are unsure, then you should
    default to supplying a context object.
 2. If an object already exists under a key, strong consistency demands
-   that you supply an [[object context|Using Strong
-   Consistency#Object-Context]]. If you do not supply one, the update
+   that you supply a [[causal context|Using Strong
+   Consistency#Causal-Context]]. If you do not supply one, the update
    will necessarily fail.
 3. Because strongly consistent writes must occasionally
    [[sacrifice availability|Strong

@@ -303,6 +303,11 @@ is easy. The basic request looks like this.
 
 ```
 PUT /types/TYPE/buckets/BUCKET/keys/KEY
+
+# If you're using HTTP, POST can be used instead of PUT. The only
+# difference between POST and PUT is that you should POST in cases where
+# you want Riak to auto-generate a key. More on this can be found in the
+# examples below.
 ```
 
 There is no need to intentionally create buckets in Riak. They pop into
