@@ -48,7 +48,7 @@ Clojure, Scala, Smalltalk, and many others.
 
 ## Reading Objects
 
-You can think of reads in Riak of analogous to HTTP `GET` requests. You
+You can think of reads in Riak as analogous to HTTP `GET` requests. You
 specify a bucket type, bucket, and key, and Riak either returns the
 object that's stored there---including its [[siblings|The
 Basics#Siblings]] \(more on that later)---or it returns `not found` (the
@@ -129,6 +129,8 @@ requests. Here is the basic form of writes:
 
 ```
 PUT /types/<type>/buckets/<bucket>/keys/<key>
+
+# If you're using HTTP to interact with Riak, you can also use POST
 ```
 
 In the example above, our read was unsuccessful because our Riak cluster
@@ -174,9 +176,9 @@ Notice that we specified both a value for the object, i.e. `WOOF!`, and
 a content type, `text/plain`. We'll learn more about content types in
 the [[section below|The Basics#Content-Types]].
 
-Now, run the same read operation from the [[section above|The
-Basics#Reading-Objects]]. If the write operation has been succesful, you
-should be able to successfully read the object. Our Riak cluster is no
+Now, run the same read operation we attempted in the [[section above|The
+Basics#Reading-Objects]]. If the write operation was succesful, you
+should be able to successfully read the object. Your Riak cluster is no
 longer empty!
 
 ## Content Types
@@ -185,25 +187,49 @@ Riak is a fundamentally content-agnostic database. You can use it to
 store anything you want, from JSON to XML to HTML to binaries to images
 and beyond. You should always bear in mind that _all_ objects stored in
 Riak need to have a specified content type. If you don't specify a
-content type, the reaction will depend based on your client library:
+content type, the reaction will vary based on your client library:
 
 ```java
 // In the Java client, the response when storing an object without
-// the content type will depend on what is being stored. If you store a
-// Java Map, for example, the client will automatically specify that the
-// object is "application/json"; you store a String, the client will
-// specify "application/x-www-form-urlencoded"; POJOs are stored as JSON
-// by default, and so on.
+// specifying a content type will depend on what is being stored. If you
+// store a Java Map, for example, the client will automatically specify
+// that the object is "application/json"; if you store a String, the
+// client will specify "application/x-www-form-urlencoded"; POJOs are
+// stored as JSON by default, and so on.
 ```
 
 ```ruby
+# In the Ruby client, you must always specify a content type. If you
+# you don't, you'll see the following error:
+ArgumentError: content_type is not defined!
 ```
+
+```python
+# In the Python client, the default content type is "application/json".
+# Because of this, you should always make sure to specify the content
+# type when storing other types of data.
+```
+
+```erlang
+%% In the Erlang client, the response when storing an object without
+%% specify8ing a content type will depend on what is being stored. If
+%% you store a simple binary, for example, the client will autometically
+%% specify that the object is "application/octet-stream"; if you store a
+%% string, the client will specify "application/x-erlang-binary"; and so
+%% on.
+```
+
+Because content type negotiation varies so widely from client to client,
+we recommend consulting the documentation for your preferred client for
+more information.
 
 ## Updating Objects
 
 When we stored an object in the [[section above|The
 Basics#Writing-Objects]], we did so in a location that was empty.
-
+Updating an already-existing object, however, is a bit trickier because
+there are some best practices and other issues that you should be aware
+of. Consult the [[Object Updates]] doc for more information.
 
 ## Read Parameters
 
