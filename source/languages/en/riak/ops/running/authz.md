@@ -41,13 +41,15 @@ of the following **before** enabling security:
 
 1. Make certain that the original Riak Search (version 1) and link
    walking are not required. Enabling security will break this
-   functionality. If you wish to use security and search together, you
+   functionality. If you wish to use security and Search together, you
    will need to use the [[new Search feature|Using Search]].
 1. Because Riak security requires a secure SSL connection, you will need
    to generate appropriate SSL certs, [[enable SSL|Authentication and
    Authorization#Enabling-SSL]] and establish a [[certification
    configuration|Authentication and
-   Authorization#Certificate-Configuration]] on each node
+   Authorization#Certificate-Configuration]] on each node. **If you
+   enable security without having established a functioning SSL
+   connection, all requests to Riak will fail**.
 1. Define [[users|Authentication and Authorization#User-Management]]
    and, optionally, groups
 1. Define an [[authentication source|Authentication and
@@ -66,7 +68,7 @@ of the following **before** enabling security:
       client to server
     * Code that uses Riak's deprecated [[Link Walking]] feature **will
       not work** with security enabled
-7. If you have applications that rely on an already existing Riak
+1. If you have applications that rely on an already existing Riak
    cluster, make sure that those applications are prepared to gracefully
    transition into using Riak security once security is enabled.
 
@@ -748,11 +750,12 @@ not affect Erlang 17.0 and later.
 ## Enabling SSL
 
 In order to use any authentication or authorization features, you must
-enable SSL for Riak. **SSL is disabled by default**. If you are using
-[[Protocol Buffers|PBC API]] as a transport protocol for Riak (which we
-strongly recommend), enabling SSL on a given node requires only that you
-specify a [[host and port|Configuration Files#Client-Interfaces]] for
-the node as well as a [[certificate configuration|Authenticate and
+enable SSL for Riak. **SSL is disabled by default**, but you will need
+to enable it prior to enabling security. If you are using [[Protocol
+Buffers|PBC API]] as a transport protocol for Riak (which we strongly
+recommend), enabling SSL on a given node requires only that you specify
+a [[host and port|Configuration Files#Client-Interfaces]] for the node
+as well as a [[certificate configuration|Authenticate and
 Authorization#Certificate-Configuration]].
 
 If, however, you are using the [[HTTP API]] for Riak and would like to
