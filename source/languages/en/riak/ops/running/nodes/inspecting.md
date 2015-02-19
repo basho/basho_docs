@@ -12,16 +12,17 @@ moved: {
 ---
 
 Riak has a statistics reporting interface that provides a wide variety
-of metrics and other information about your clusters on demand. You can
+of metrics and other information about your cluster on demand. You can
 use this information to address performance and latency issues,
 supervise the long-term health of your cluster, and more.
 
 You can retrieve the currently available cluster stats and info either
 through Riak's [[HTTP API]], using the `[[/stats|HTTP Status]]`
 endpoint, or using the `riak-admin status` command, documented in the
-section directly below. The HTTP interface will ouput a JSON object,
-while the `status` command will output a list (which may be useful if
-you use tools like [grep](http://unixhelp.ed.ac.uk/CGI/man-cgi?grep)).
+section directly below. The HTTP interface will ouput a fairly large
+JSON object, while the `status` command will output a line-separated
+list (which may be useful than JSON if you use tools like
+[grep](http://unixhelp.ed.ac.uk/CGI/man-cgi?grep)).
 
 ## riak-admin status
 
@@ -31,47 +32,48 @@ of Riak. The `status` subcommand provides data related to the current
 operating status for a node. The output of `riak-admin status` is
 categorized and detailed below.
 
-Please note, for some counters such as `node_get_fsm_objsize` a minimum
-of 5 transactions is required for statistics to be generated.
+<div class="note">
+<div class="title">Note on transactions</div>
+Please note that there are some counters that generate statistics only
+after a minimum number of transactions has been reached, e.g. the
+`node_get_fsm_objsize` counter, which requires at least five
+transactions.
+</div>
 
-#### Performance
+In terms of performance, all statistics are cached internally in Riak,
+which means that running the `riak-admin status` command repeatedly will
+not detract from your cluster's overall performance.
 
-Repeated runs of the `riak-admin status` command does not have a
-negative performance impact as the statstics are cached internally in
-Riak.
-
-### Active Stats
+## Protocol Buffers and Finite-state Machines
 
 Current activity on the node involving Riak's [[Protocol Buffers|PBC
-API]] interface.
+API]] interface and various key/value operation-related [finite-state
+machines](http://en.wikipedia.org/wiki/Finite-state_machine) \(FSMs).
 
 Stat                    | Description
 :-----------------------|:--------------------------------------------------
 `pbc_active`            | Number of active Protocol Buffers connections
-`node_get_fsm_active`   | Number of active GET FSMs
+`pbc_connects`          | Number of Protocol Buffers connections made in the last minute
 `node_put_fsm_active`   | Number of active PUT FSMs
 `index_fsm_active`      | Number of active Secondary Index FSMs
-`list_fsm_active`       | Number of active Keylisting FSMs
-`node_get_fsm_rejected` | Number of GET FSMs actively being rejected by Sidejob's overload protection
-`node_put_fsm_rejected` | Number of PUT FSMs actively being rejected by Sidejob's overload protection
-`late_put_fsm_coordinator_ack` |
+`list_fsm_active`       | Number of active keylisting FSMs (for operations like listing all buckets and listing all keys in a bucket)
+`node_get_fsm_rejected` | Number of GET FSMs actively being rejected by Riak's overload protection mechanisms
+`node_put_fsm_rejected` | Number of PUT FSMs actively being rejected by Riak's overload protection mechanisms
+`late_put_fsm_coordinator_ack` | The number of timeouts that have occurred when forwarding PUT requests to relevant nodes
 
-### Average Stats
-
-Average Stats represent an average calculated as (total occurrences /
-number of samples) since this node was started. In the below stats the
-sample time is 1s, giving us a per-second average. Currently, the only
-Average Stats are reported by Sidejob, an Erlang library that implements
-a parallel, capacity-limited request pool.
+The stats below are counted (a) since the node was started, and (b) in
+terms of a per-second average.
 
 Stat                    | Description
 :-----------------------|:--------------------------------------------------
-`node_get_fsm_in_rate`  | Average number of GET FSMs enqueued by Sidejob
-`node_get_fsm_out_rate` | Average number of GET FSMs dequeued by Sidejob
-`node_put_fsm_in_rate`  | Average number of PUT FSMs enqueued by Sidejob
-`node_put_fsm_out_rate` | Average number of PUT FSMs dequeued by Sidejob
+`node_get_fsm_in_rate`  | Average number of enqueued GET FSMs
+`node_get_fsm_out_rate` | Average number of enqueued GET FSMs
+`node_put_fsm_in_rate`  | Average number of enqueued PUT FSMs
+`node_put_fsm_out_rate` | Average number of enqueued PUT FSMs
 
-### One-Minute Stats
+## General Key/Value and Other Stats
+
+The stats below represent activity related to K/V reads and writes
 
 One-Minute Stats represent the number of times a particular activity has
 occurred within the last minute on this node.
@@ -85,12 +87,18 @@ Stat                                  | Description
 `vnode_gets`                          | Number of GET operations coordinated by local vnodes on this node in the last minute
 `vnode_puts`                          | Number of PUT operations coordinated by local vnodes on this node in the last minute
 `vnode_index_refreshes`               | Number of secondary indexes refreshed on this node during secondary index anti-entropy in the last minute
+`vnode_index_refreshes_total`         | Total number of indexes refreshed during secondary index anti-entropy
 `vnode_index_reads`                   | Number of local replicas participating in secondary index reads in the last minute
+`vnode_index_reads_total`              | Total number of local replicas participating in secondary index reads
 `vnode_index_writes`                  | Number of local replicas participating in secondary index writes in the last minute
+`vnode_index_writes_total`             | Total number of local replicas participating in secondary index writes
 `vnode_index_writes_postings`         | Number of individual secondary index values written in the last minute
+`vnode_index_writes_postings_total`    | Total number of individual secondary index values written
 `vnode_index_deletes`                 | Number of local replicas participating in secondary index deletes in the last minute
+`vnode_index_deletes_total`            | Total number of local replicas participating in secondary index deletes
 `vnode_index_deletes_postings`        | Number of individual secondary index values deleted in the last minute
-`pbc_connects`                        | Number of Protocol Buffers connections made in the last minute
+`vnode_index_deletes_postings_total`   | Total number of individual secondary index values deleted
+`node_get_fsm_active`   | Number of active GET FSMs
 `node_get_fsm_active_60s`             | Number of GET FSMs active in the last minute
 `node_put_fsm_active_60s`             | Number of PUT FSMs active in the last minute
 `node_get_fsm_rejected_60s`           | Number of GET FSMs rejected by Sidejob's overload protection in the last minute
@@ -169,12 +177,6 @@ Stat                                   | Description
 `vnode_puts_total`                     | Total number of PUTS coordinated by local vnodes
 `read_repairs_total`                   | Total number of Read Repairs this node has coordinated
 `coord_redirs_total`                   | Total number of requests this node has redirected to other nodes for coordination
-`vnode_index_refreshes_total`          | Total number of indexes refreshed during secondary index anti-entropy
-`vnode_index_reads_total`              | Total number of local replicas participating in secondary index reads
-`vnode_index_writes_total`             | Total number of local replicas participating in secondary index writes
-`vnode_index_writes_postings_total`    | Total number of individual secondary index values written
-`vnode_index_deletes_total`            | Total number of local replicas participating in secondary index deletes
-`vnode_index_deletes_postings_total`   | Total number of individual secondary index values deleted
 `pbc_connects_total`                   | Total number of Protocol Buffers connections made
 `precommit_fail`                       | Total number of pre-commit hook failures
 `postcommit_fail`                      | Total number of post-commit hook failures
@@ -207,6 +209,8 @@ Stat                 | Description
 `ring_num_partitions`| The number of partitions in the ring
 `ring_ownership`     | List of all nodes in the ring and their associated partition ownership
 `ring_creation_size` | Ring size this cluster was created with
+`rings_reconciled_total` |
+`rings_reconciled` |
 
 ### CPU and Memory
 
@@ -246,14 +250,13 @@ The below statistics describe properties of the Erlang VM.
 Stat                      | Description
 :-------------------------|:--------------------------------------------------
 `nodename`                | The name this node uses to identify itself
-`connected_nodes`         | A list of the nodes that this node is aware of at this time
 `sys_driver_version`      | String representing the Erlang driver version in use by the runtime system
 `sys_global_heaps_size`   | Current size of the shared global heap
 `sys_heap_type`           | String representing the heap type in use (one of private, shared, hybrid)
 `sys_logical_processors`  | Number of logical processors available on the system
-`sys_monitor_count`       |
+`sys_monitor_count`       | The number of Erlang VM monitors currently in use
 `sys_otp_release`         | Erlang OTP release version in use on the node
-`sys_port_count`          |
+`sys_port_count`          | The number of <a href="/ops/tuning/erlang#Port-Settings">Erlang VM</a> ports in use
 `sys_process_count`       | Number of processes currently running in the Erlang VM
 `sys_smp_support`         | Boolean value representing whether symmetric multi-processing (SMP) is available
 `sys_system_version`      | Detailed Erlang version information
@@ -440,11 +443,7 @@ Stat | Description
 
 
 `riak_core_stat_ts`
-`rings_reconciled_total`
-`rings_reconciled`
-`dropped_vnode_requests_total`
-`converge_delay_min`
-`converge_delay_max`
+`dropped_vnode_requests_total` | The total number of vnode requests dropped due to overload (since the node was started)
 `converge_delay_mean`
 `converge_delay_last`
 `rebalance_delay_min`
@@ -602,35 +601,11 @@ consistency]] feature. The table below lists those stats.
 
 Stat | Description
 :----|:-----------
-`consistent_gets` | Number of strongly consistent GETs coordinated by this node in the last minute
-`consistent_gets_total` | Total number of strongly consistent GETs coordinated by this node
-`consistent_get_objsize_mean` | Mean object size for strongly consistent GETs on this node in the last minute
-`consistent_get_objsize_median` | Median object size for strongly consistent GETs on this node in the last minute
-`consistent_get_objsize_95` | 95th-percentile object size for strongly consistent GETs on this node in the last minute
-`consistent_get_objsize_99` | 99th-percentile object size for strongly consistent GETs on this node in the last minute
-`consistent_get_objsize_100` | 100th-percentile object size for strongly consistent GETs on this node in the last minute
-`consistent_get_time_mean` | Mean time between reception of client GETs to strongly consistent keys and subsequent response
-`consistent_get_time_median` | Median time between reception of client GETs to strongly consistent keys and subsequent response
-`consistent_get_time_95` | 95th-percentile time between reception of client GETs to strongly consistent keys and subsequent response
-`consistent_get_time_99` | 99th-percentile time between reception of client GETs to strongly consistent keys and subsequent response
-`consistent_get_time_100` | 100th-percentile time between reception of client GETs to strongly consistent keys and subsequent response
 
 ### PUT-related stats
 
 Stat | Description
 :----|:-----------
-`consistent_puts` | Number of strongly consistent PUTs coordinated by this node in the last minute
-`consistent_puts_total` | Total number of strongly consistent PUTs coordinated by this node
-`consistent_put_objsize_mean` | Mean object size for strongly consistent PUTs on this node in the last minute
-`consistent_put_objsize_median` | Median object size for strongly consistent PUTs on this node in the last minute
-`consistent_put_objsize_95` | 95th-percentile object size for strongly consistent PUTs on this node in the last minute
-`consistent_put_objsize_99` | 99th-percentile object size for strongly consistent PUTs on this node in the last minute
-`consistent_put_objsize_100` | 100th-percentile object size for strongly consistent PUTs on this node in the last minute
-`consistent_put_time_mean` | Mean time between reception of client PUTs to strongly consistent keys and subsequent response
-`consistent_put_time_median` | Median time between reception of client PUTs to strongly consistent keys and subsequent response
-`consistent_put_time_95` | 95th-percentile time between reception of client PUTs to strongly consistent keys and subsequent response
-`consistent_put_time_99` | 99th-percentile time between reception of client PUTs to strongly consistent keys and subsequent response
-`consistent_put_time_100` | 100th-percentile time between reception of client PUTs to strongly consistent keys and subsequent response
 
 ## riak-admin diag
 
@@ -736,3 +711,32 @@ you, but here's how to set them:
   Line]]
 - [Riaknostic](http://riaknostic.basho.com/)
 - [[HTTP API Status|HTTP Status]]
+
+`connected_nodes`         | A list of the nodes that this node is aware of at this time
+`consistent_get_objsize_100` | 100th-percentile object size for strongly consistent GETs on this node in the last minute
+`consistent_get_objsize_95` | 95th-percentile object size for strongly consistent GETs on this node in the last minute
+`consistent_get_objsize_99` | 99th-percentile object size for strongly consistent GETs on this node in the last minute
+`consistent_get_objsize_mean` | Mean object size for strongly consistent GETs on this node in the last minute
+`consistent_get_objsize_median` | Median object size for strongly consistent GETs on this node in the last minute
+`consistent_get_time_100` | 100th-percentile time between reception of client GETs to strongly consistent keys and subsequent response
+`consistent_get_time_95` | 95th-percentile time between reception of client GETs to strongly consistent keys and subsequent response
+`consistent_get_time_99` | 99th-percentile time between reception of client GETs to strongly consistent keys and subsequent response
+`consistent_get_time_mean` | Mean time between reception of client GETs to strongly consistent keys and subsequent response
+`consistent_get_time_median` | Median time between reception of client GETs to strongly consistent keys and subsequent response
+`consistent_gets` | Number of strongly consistent GETs coordinated by this node in the last minute
+`consistent_gets_total` | Total number of strongly consistent GETs coordinated by this node
+`consistent_put_objsize_100` | 100th-percentile object size for strongly consistent PUTs on this node in the last minute
+`consistent_put_objsize_95` | 95th-percentile object size for strongly consistent PUTs on this node in the last minute
+`consistent_put_objsize_99` | 99th-percentile object size for strongly consistent PUTs on this node in the last minute
+`consistent_put_objsize_mean` | Mean object size for strongly consistent PUTs on this node in the last minute
+`consistent_put_objsize_median` | Median object size for strongly consistent PUTs on this node in the last minute
+`consistent_put_time_100` | 100th-percentile time between reception of client PUTs to strongly consistent keys and subsequent response
+`consistent_put_time_95` | 95th-percentile time between reception of client PUTs to strongly consistent keys and subsequent response
+`consistent_put_time_99` | 99th-percentile time between reception of client PUTs to strongly consistent keys and subsequent response
+`consistent_put_time_mean` | Mean time between reception of client PUTs to strongly consistent keys and subsequent response
+`consistent_put_time_median` | Median time between reception of client PUTs to strongly consistent keys and subsequent response
+`consistent_puts` | Number of strongly consistent PUTs coordinated by this node in the last minute
+`consistent_puts_total` | Total number of strongly consistent PUTs coordinated by this node
+`converge_delay_min` |
+`converge_delay_max` |
+
