@@ -55,21 +55,13 @@ Stat                    | Description
 `pbc_active`            | Number of active Protocol Buffers connections
 `pbc_connects`          | Number of Protocol Buffers connections made in the last minute
 `node_put_fsm_active`   | Number of active PUT FSMs
-`index_fsm_active`      | Number of active Secondary Index FSMs
-`list_fsm_active`       | Number of active keylisting FSMs (for operations like listing all buckets and listing all keys in a bucket)
-`node_get_fsm_rejected` | Number of GET FSMs actively being rejected by Riak's overload protection mechanisms
 `node_put_fsm_rejected` | Number of PUT FSMs actively being rejected by Riak's overload protection mechanisms
-`late_put_fsm_coordinator_ack` | The number of timeouts that have occurred when forwarding PUT requests to relevant nodes
 
 The stats below are counted (a) since the node was started, and (b) in
 terms of a per-second average.
 
 Stat                    | Description
 :-----------------------|:--------------------------------------------------
-`node_get_fsm_in_rate`  | Average number of enqueued GET FSMs
-`node_get_fsm_out_rate` | Average number of enqueued GET FSMs
-`node_put_fsm_in_rate`  | Average number of enqueued PUT FSMs
-`node_put_fsm_out_rate` | Average number of enqueued PUT FSMs
 
 ## General Key/Value and Other Stats
 
@@ -98,15 +90,6 @@ Stat                                  | Description
 `vnode_index_deletes_total`            | Total number of local replicas participating in secondary index deletes
 `vnode_index_deletes_postings`        | Number of individual secondary index values deleted in the last minute
 `vnode_index_deletes_postings_total`   | Total number of individual secondary index values deleted
-`node_get_fsm_active`   | Number of active GET FSMs
-`node_get_fsm_active_60s`             | Number of GET FSMs active in the last minute
-`node_put_fsm_active_60s`             | Number of PUT FSMs active in the last minute
-`node_get_fsm_rejected_60s`           | Number of GET FSMs rejected by Sidejob's overload protection in the last minute
-`node_put_fsm_rejected_60s`           | Number of PUT FSMs rejected by Sidejob's overload protection in the last minute
-`index_fsm_create`                    | Number of Secondary Index query FSMs created in the last minute
-`index_fsm_create_error`              | Number of Secondary Index query FSM creation errors in the last minute
-`list_fsm_create`                     | Number of Keylisting FSMs created in the last minute
-`list_fsm_create_error`               | Number of Keylisting FSM creation errors in the last minute
 `read_repairs`                        | Number of read repair operations this node has coordinated in the last minute
 `read_repairs_primary_outofdate_one`  | Number of read repair operations performed on primary vnodes in the last minute due to stale replicas
 `read_repairs_primary_notfound_one`   | Number of read repair operations performed on primary vnodes in the last minute due to missing replicas
@@ -124,16 +107,6 @@ one-minute stats.
 
 Stat                       | Description
 :--------------------------|:--------------------------------------------------
-`node_get_fsm_time_mean`   | Mean time between reception of client GET request and subsequent response to client
-`node_get_fsm_time_median` | Median time between reception of client GET request and subsequent response to client
-`node_get_fsm_time_95`     | 95th percentile time between reception of client GET request and subsequent response to client
-`node_get_fsm_time_99`     | 99th percentile time between reception of client GET request and subsequent response to client
-`node_get_fsm_time_100`    | 100th percentile time between reception of client GET request and subsequent response to client
-`node_put_fsm_time_mean`   | Mean time between reception of client PUT request and subsequent response to client
-`node_put_fsm_time_median` | Median time between reception of client PUT request and subsequent response to client
-`node_put_fsm_time_95`     | 95th percentile time between reception of client PUT request and subsequent response to client
-`node_put_fsm_time_99`     | 99th percentile time between reception of client PUT request and subsequent response to client
-`node_put_fsm_time_100`    | 100th percentile time between reception of client PUT request and subsequent response to client
 
 #### GET FSM Siblings
 
@@ -143,11 +116,6 @@ one-minute stats.
 
 Stat                           | Description
 :------------------------------|:--------------------------------------------------
-`node_get_fsm_siblings_mean`   | Mean number of siblings encountered during all GET operations by this node within the last minute
-`node_get_fsm_siblings_median` | Median number of siblings encountered during all GET operations by this node within the last minute
-`node_get_fsm_siblings_95`     | 95th percentile of siblings encountered during all GET operations by this node within the last minute
-`node_get_fsm_siblings_99`     | 99th percentile of siblings encountered during all GET operations by this node within the last minute
-`node_get_fsm_siblings_100`    | 100th percentile of siblings encountered during all GET operations by this node within the last minute
 
 #### GET FSM Objsize
 
@@ -159,11 +127,6 @@ FSM Siblings are inextricably linked. These are one-minute stats.
 
 Stat                          | Description
 :-----------------------------|:--------------------------------------------------
-`node_get_fsm_objsize_mean`   | Mean object size encountered by this node within the last minute
-`node_get_fsm_objsize_median` | Median object size encountered by this node within the last minute
-`node_get_fsm_objsize_95`     | 95th percentile object size encountered by this node within the last minute
-`node_get_fsm_objsize_99`     | 99th percentile object size encountered by this node within the last minute
-`node_get_fsm_objsize_100`    | 100th percentile object size encountered by this node within the last minute
 
 ### Total Stats
 
@@ -176,12 +139,9 @@ Stat                                   | Description
 `vnode_gets_total`                     | Total number of GETs coordinated by local vnodes
 `vnode_puts_total`                     | Total number of PUTS coordinated by local vnodes
 `read_repairs_total`                   | Total number of Read Repairs this node has coordinated
-`coord_redirs_total`                   | Total number of requests this node has redirected to other nodes for coordination
 `pbc_connects_total`                   | Total number of Protocol Buffers connections made
 `precommit_fail`                       | Total number of pre-commit hook failures
 `postcommit_fail`                      | Total number of post-commit hook failures
-`node_get_fsm_rejected_total`          | Total number of GET FSMs rejected by Sidejob's overload protection
-`node_put_fsm_rejected_total`          | Total number of PUT FSMs rejected by Sidejob's overload protection
 `read_repairs_primary_outofdate_count` | Total number of read repair operations performed on primary vnodes due to stale replicas
 `read_repairs_primary_notfound_count`  | Total number of read repair operations performed on primary vnodes due to missing replicas
 `read_repairs_fallback_outofdate_count`| Total number of read repair operations performed on fallback vnodes due to stale replicas
@@ -220,10 +180,6 @@ cpu_sup](http://erldocs.com/R14B04/os_mon/cpu_sup.html).
 
 Stat         | Description
 :------------|:--------------------------------------------------
-`cpu_nprocs` | Number of operating system processes
-`cpu_avg1`   | The average number of active processes for the last 1 minute (equivalent to top(1) command’s load average when divided by 256())
-`cpu_avg5`   | The average number of active processes for the last 5 minutes (equivalent to top(1) command’s load average when divided by 256())
-`cpu_avg15`  | The average number of active processes for the last 15 minutes (equivalent to top(1) command’s load average when divided by 256())
 
 Memory statistics are taken directly from the Erlang virtual machine.
 Documentation for which can be found at [ErlDocs:
@@ -231,17 +187,6 @@ Memory](http://erldocs.com/R14B04/erts/erlang.html?i=0&search=erlang:memory#memo
 
 Stat                    | Description
 :-----------------------|:--------------------------------------------------
-`memory_total`          | Total allocated memory (sum of processes and system)
-`memory_processes`      | Total amount of memory allocated for Erlang processes
-`memory_processes_used` | Total amount of memory used by Erlang processes
-`memory_system`         | Total allocated memory that is not directly related to an Erlang process
-`memory_atom`           | Total amount of memory currently allocated for atom storage
-`memory_atom_used`      | Total amount of memory currently used for atom storage
-`memory_binary`         | Total amount of memory used for binaries
-`memory_code`           | Total amount of memory allocated for Erlang code
-`memory_ets`            | Total memory allocated for Erlang Term Storage
-`mem_total`             | Total available system memory
-`mem_allocated`         | Total memory allocated for this node
 
 ### Erlang VM
 
@@ -296,21 +241,6 @@ Stat | Description
 `vnode_counter_update_time_100` | The 100th percentile time required for counter updates on this node in the last minute
 `node_gets_counter` | The number of counter GET operations coordinated by this node in the last minute
 `node_gets_counter_total` | The total number of counter GET operations coordinated by this node
-`node_get_fsm_counter_siblings_mean` | The mean number of counter sibling resolution operations on this node in the last minute
-`node_get_fsm_counter_siblings_median` | The median number of counter sibling resolution operations on this node in the last minute
-`node_get_fsm_counter_siblings_95` | The 95h-percentile number of counter sibling resolution operations on this node in the last minute
-`node_get_fsm_counter_siblings_99` | The 99th-percentile number of counter sibling resolution operations on this node in the last minute
-`node_get_fsm_counter_siblings_100` | The 100th-percentile number of counter sibling resolution operations on this node in the last minute
-`node_get_fsm_counter_time_mean` | The mean time expended by counter GET operations on this node in the last minute
-`node_get_fsm_counter_time_median` | The median time expended by counter GET operations on this node in the last minute
-`node_get_fsm_counter_time_95` | The 95th-percentile time expended by counter GET operations on this node in the last minute
-`node_get_fsm_counter_time_99` | The 99th-percentile time expended by counter GET operations on this node in the last minute
-`node_get_fsm_counter_time_100` | The 100th-percentile time expended by counter GET operations on this node in the last minute
-`node_get_fsm_counter_objsize_mean` | The mean size of counter-containing objects encountered by this node in the last minute
-`node_get_fsm_counter_objsize_median` | The median size of counter-containing objects encountered by this node in the last minute
-`node_get_fsm_counter_objsize_95` | The 95th-percentile size of counter-containing objects encountered by this node in the last minute
-`node_get_fsm_counter_objsize_99` | The 99th-percentile size of counter-containing objects encountered by this node in the last minute
-`node_get_fsm_counter_objsize_100` | The 100th-percentile size of counter-containing objects encountered by this node in the last minute
 `node_puts_counter` | The number of counter PUT operations coordinated by this node in the last minute
 `node_puts_counter_total` | The total number of counter PUT operations coordinated by this node
 `node_put_fsm_counter_time_mean` | The mean time required for PUT operations on sets on this node in the last minute
@@ -325,11 +255,6 @@ Stat | Description
 `set_actor_counts_95` | The 95th-percentile number of vnodes involved in coordinating set updates on this node in the last minute
 `set_actor_counts_99` | The 99th-percentile number of vnodes involved in coordinating set updates on this node in the last minute
 `set_actor_counts_100` | The 100th-percentile number of vnodes involved in coordinating set updates on this node in the last minute
-`counter_actor_counts_mean` | The mean number of vnodes involved in coordinating counter updates on this node in the last minute
-`counter_actor_counts_median` | The median number of vnodes involved in coordinating counter updates on this node in the last minute
-`counter_actor_counts_95` | The 95th-percentile number of vnodes involved in coordinating counter updates on this node in the last minute
-`counter_actor_counts_99` | The 99th-percentile number of vnodes involved in coordinating counter updates on this node in the last minute
-`counter_actor_counts_100` | Th 100th-percentile number of vnodes involved in coordinating counter updates on this node in the laste minute
 
 ### Set-related Statistics
 
@@ -354,21 +279,6 @@ Stat | Description
 `vnode_set_update_time_100` | The 100th-percentile time required for set updates on this node in the last minute
 `node_gets_set` | The number of set GET operations coordinated by this node in the last minute
 `node_gets_set_total` | The total number of set GET operations coordinated by this node
-`node_get_fsm_set_siblings_mean` | The mean number of set sibling resolution operations on this node in the last minute
-`node_get_fsm_set_siblings_median` | The median number of set sibling resolution operations on this node in the last minute
-`node_get_fsm_set_siblings_95` | The 95th-percentile number of set sibling resolution operations on this node in the last minute
-`node_get_fsm_set_siblings_99` | The 99th-percentile number of set sibling resolution operations on this node in the last minute
-`node_get_fsm_set_siblings_100` | The 100th-percentile number of set sibling resolution operations on this node in the last minute
-`node_get_fsm_set_objsize_mean` | The mean size of set-containing objects encountered by this node in the last minute
-`node_get_fsm_set_objsize_median` | The median size of set-containg objects encountered by this node in the last minute
-`node_get_fsm_set_objsize_95` | The 95th-percentile size of set-containing objects encountered by this node
-`node_get_fsm_set_objsize_99` | The 99th-percentile size of set-containing objects encountered by this node
-`node_get_fsm_set_objsize_100` | The 100th-percentile size of set-containing objects encountered by this node
-`node_get_fsm_set_time_mean` | The mean time expended by set GET operations on this node in the last minute
-`node_get_fsm_set_time_median` | The median time expended by set GET operations on this node in the last minute
-`node_get_fsm_set_time_95` | The 95th-percentile time expended by set GET operations on this node in the last minute
-`node_get_fsm_set_time_99` | The 99th-percentile time expended by set GET operations on this node in the last minute
-`node_get_fsm_set_time_100` | The 100th-percentile time expended by set GET operations on this node in the last minute
 `node_puts_set` | The number of set PUT operations coordinated by this node in the last minute
 `node_puts_set_total` | The total number of set PUT operations coordinated by this node
 `node_put_fsm_set_time_mean` | The mean time required for PUT operations on sets on this node in the last minute
@@ -414,16 +324,6 @@ Stat | Description
 `vnode_map_update_time_100` | The 100th-percentile time required for map merges on this node in the last minute
 `node_gets_map` | The number of map GET operations coordinated by this node in the last minute
 `node_gets_map_total` | The total number of map GET operations coordinated by this node
-`node_get_fsm_map_siblings_mean` | The mean number of map sibling resolution operations on this node in the last minute
-`node_get_fsm_map_siblings_median` | The median number of map sibling resolution operations on this node in the last minute
-`node_get_fsm_map_siblings_95` | The 95th-percentile number of map sibling resolution operations on this node in the last minute
-`node_get_fsm_map_siblings_99` | The 99th-percentile number of map sibling resolution operations on this node in the last minute
-`node_get_fsm_map_siblings_100` | The 100th-percentile number of map sibling resolution operations on this node in the last minute
-`node_get_fsm_map_objsize_mean` | The mean size of maps encountered by this node in the last minute
-`node_get_fsm_map_objsize_median` | The median size of maps encountered by this node in the last minute
-`node_get_fsm_map_objsize_95` | The 95th-percentile size of maps encountered by this node in the last minute
-`node_get_fsm_map_objsize_99` | The 99th-percentile size of maps encountered by this node in the last minute
-`node_get_fsm_map_objsize_100` | The 100th-percentile size of maps encountered by this node in the last minute
 `node_puts_map` | The number of map PUT operations coordinated by this node in the last minute
 `node_puts_map_total` | The total number of map PUT operations coordinated by this node
 `node_put_fsm_map_time_mean` | The mean time required for PUT operations on maps on this node in the last minute
@@ -433,19 +333,11 @@ Stat | Description
 `node_put_fsm_map_time_100` | The 100th-percentile time required for PUT operations on maps on this node in the last minute
 `read_repairs_map` | The number of read repair operations on maps coordinated by this node in the last minute
 `read_repairs_map_total` | The total number of read repair operations on maps coordinated by this node
-`map_actor_counts_mean` | The mean number of vnodes involved in coordinating map updates on this node in the last minute
-`map_actor_counts_median` | The median number of vnodes involved in coordinating map updates on this node in the last minute
-`map_actor_counts_95` | The 95th-percentile number of vnodes involved in coordinating map updates on this node in the last minute
-`map_actor_counts_99` | The 99th-percentile number of vnodes involved in coordinating map updates on this node in the last minute
-`map_actor_counts_100` | The 100th-percentile number of vnodes involved in coordinating map updates on this node in the last minute
 
 
 
 
 `riak_core_stat_ts`
-`dropped_vnode_requests_total` | The total number of vnode requests dropped due to overload (since the node was started)
-`converge_delay_mean`
-`converge_delay_last`
 `rebalance_delay_min`
 `rebalance_delay_max`
 `rebalance_delay_mean`
@@ -461,7 +353,6 @@ Stat | Description
 `riak_pipe_vnodeq_median`
 `riak_pipe_vnodeq_max`
 `riak_pipe_vnodeq_total`
-`executing_mappers`
 
 ## Handoff and Gossip Statistics
 
@@ -469,10 +360,6 @@ Statistics for Riak's [[handoff]] subsystem.
 
 Stat | Description
 :----|:-----------
-`gossip_received`
-`rejected_handoffs`
-`handoff_timeouts`
-`ignored_gossip_total`
 
 ### Miscellaneous Information
 
@@ -480,7 +367,6 @@ These stats provide additional details particular to this node.
 
 Stat | Description
 :----|:-----------
-`leveldb_read_block_error` | The number of LevelDB read block errors.  Will read as undefined if LevelDB is not being used.
 `disk`                     | Information about the disk, taken from Erlang's disksup module.  Reported as [{"ID",KBytes_Used,Percent_Util}].
 `storage_backend`          | The storage backend currently in use.
 
@@ -712,6 +598,10 @@ you, but here's how to set them:
 - [Riaknostic](http://riaknostic.basho.com/)
 - [[HTTP API Status|HTTP Status]]
 
+`rejected_handoffs`
+
+
+
 `connected_nodes`         | A list of the nodes that this node is aware of at this time
 `consistent_get_objsize_100` | 100th-percentile object size for strongly consistent GETs on this node in the last minute
 `consistent_get_objsize_95` | 95th-percentile object size for strongly consistent GETs on this node in the last minute
@@ -737,6 +627,127 @@ you, but here's how to set them:
 `consistent_put_time_median` | Median time between reception of client PUTs to strongly consistent keys and subsequent response
 `consistent_puts` | Number of strongly consistent PUTs coordinated by this node in the last minute
 `consistent_puts_total` | Total number of strongly consistent PUTs coordinated by this node
-`converge_delay_min` |
+`converge_delay_last` |
 `converge_delay_max` |
+`converge_delay_mean` |
+`converge_delay_min` |
+`coord_redirs_total`                   | Total number of requests this node has redirected to other nodes for coordination
+`counter_actor_counts_100` | Th 100th-percentile number of vnodes involved in coordinating counter updates on this node in the laste minute
+`counter_actor_counts_95` | The 95th-percentile number of vnodes involved in coordinating counter updates on this node in the last minute
+`counter_actor_counts_99` | The 99th-percentile number of vnodes involved in coordinating counter updates on this node in the last minute
+`counter_actor_counts_mean` | The mean number of vnodes involved in coordinating counter updates on this node in the last minute
+`counter_actor_counts_median` | The median number of vnodes involved in coordinating counter updates on this node in the last minute
+`cpu_avg1`   | The average number of active processes for the last 1 minute (equivalent to top(1) command’s load average when divided by 256())
+`cpu_avg15`  | The average number of active processes for the last 15 minutes (equivalent to top(1) command’s load average when divided by 256())
+`cpu_avg5`   | The average number of active processes for the last 5 minutes (equivalent to top(1) command’s load average when divided by 256())
+`cpu_nprocs` | Number of operating system processes
+`dropped_vnode_requests_total` | The total number of vnode requests dropped due to overload (since the node was started)
+`executing_mappers`
+`gossip_received`
+`handoff_timeouts`
+`ignored_gossip_total`
+`index_fsm_active`      | Number of active Secondary Index FSMs
+`index_fsm_create`                    | Number of Secondary Index query FSMs created in the last minute
+`index_fsm_create_error`              | Number of Secondary Index query FSM creation errors in the last minute
+`late_put_fsm_coordinator_ack` | The number of timeouts that have occurred when forwarding PUT requests to relevant nodes
+`leveldb_read_block_error` | The number of LevelDB read block errors.  Will read as undefined if LevelDB is not being used.
+`list_fsm_active`       | Number of active keylisting FSMs (for operations like listing all buckets and listing all keys in a bucket)
+`list_fsm_create`                     | Number of Keylisting FSMs created in the last minute
+`list_fsm_create_error`               | Number of Keylisting FSM creation errors in the last minute
+`list_fsm_create_error_total`
+`list_fsm_create_total`
+`map_actor_counts_mean` | The mean number of vnodes involved in coordinating map updates on this node in the last minute
+`map_actor_counts_median` | The median number of vnodes involved in coordinating map updates on this node in the last minute
+`map_actor_counts_95` | The 95th-percentile number of vnodes involved in coordinating map updates on this node in the last minute
+`map_actor_counts_99` | The 99th-percentile number of vnodes involved in coordinating map updates on this node in the last minute
+`map_actor_counts_100` | The 100th-percentile number of vnodes involved in coordinating map updates on this node in the last minute
+`mem_allocated`         | Total memory allocated for this node
+`mem_total`             | Total available system memory
+`memory_atom`           | Total amount of memory currently allocated for atom storage
+`memory_atom_used`      | Total amount of memory currently used for atom storage
+`memory_binary`         | Total amount of memory used for binaries
+`memory_code`           | Total amount of memory allocated for Erlang code
+`memory_ets` | Total memory allocated for Erlang Term Storage
+`memory_processes` | Total amount of memory allocated for Erlang processes
+`memory_processes_used` | Total amount of memory used by Erlang processes
+`memory_system` | Total allocated memory that is not directly related to an Erlang process
+`memory_total` | Total allocated memory (sum of processes and system)
+`node_get_fsm_active` | Number of active GET FSMs
+`node_get_fsm_active_60s` | Number of GET FSMs active in the last minute
+`node_get_fsm_counter_objsize_100` | The 100th-percentile size of counter-containing objects encountered by this node in the last minute
+`node_get_fsm_counter_objsize_95` | The 95th-percentile size of counter-containing objects encountered by this node in the last minute
+`node_get_fsm_counter_objsize_99` | The 99th-percentile size of counter-containing objects encountered by this node in the last minute
+`node_get_fsm_counter_objsize_mean` | The mean size of counter-containing objects encountered by this node in the last minute
+`node_get_fsm_counter_objsize_median` | The median size of counter-containing objects encountered by this node in the last minute
+`node_get_fsm_counter_siblings_100` | The 100th-percentile number of counter sibling resolution operations on this node in the last minute
+`node_get_fsm_counter_siblings_95` | The 95h-percentile number of counter sibling resolution operations on this node in the last minute
+`node_get_fsm_counter_siblings_99` | The 99th-percentile number of counter sibling resolution operations on this node in the last minute
+`node_get_fsm_counter_siblings_mean` | The mean number of counter sibling resolution operations on this node in the last minute
+`node_get_fsm_counter_siblings_median` | The median number of counter sibling resolution operations on this node in the last minute
+`node_get_fsm_counter_time_100` | The 100th-percentile time expended by counter GET operations on this node in the last minute
+`node_get_fsm_counter_time_95` | The 95th-percentile time expended by counter GET operations on this node in the last minute
+`node_get_fsm_counter_time_99` | The 99th-percentile time expended by counter GET operations on this node in the last minute
+`node_get_fsm_counter_time_mean` | The mean time expended by counter GET operations on this node in the last minute
+`node_get_fsm_counter_time_median` | The median time expended by counter GET operations on this node in the last minute
+`node_get_fsm_errors` |
+`node_get_fsm_errors_total` |
+`node_get_fsm_in_rate` | Average number of enqueued GET FSMs
+`node_get_fsm_map_objsize_100` | The 100th-percentile size of maps encountered by this node in the last minute
+`node_get_fsm_map_objsize_95` | The 95th-percentile size of maps encountered by this node in the last minute
+`node_get_fsm_map_objsize_99` | The 99th-percentile size of maps encountered by this node in the last minute
+`node_get_fsm_map_objsize_mean` | The mean size of maps encountered by this node in the last minute
+`node_get_fsm_map_objsize_median` | The median size of maps encountered by this node in the last minute
+`node_get_fsm_map_siblings_100` | The 100th-percentile number of map sibling resolution operations on this node in the last minute
+`node_get_fsm_map_siblings_95` | The 95th-percentile number of map sibling resolution operations on this node in the last minute
+`node_get_fsm_map_siblings_99` | The 99th-percentile number of map sibling resolution operations on this node in the last minute
+`node_get_fsm_map_siblings_mean` | The mean number of map sibling resolution operations on this node in the last minute
+`node_get_fsm_map_siblings_median` | The median number of map sibling resolution operations on this node in the last minute
+`node_get_fsm_set_time_100` | The 100th-percentile time expended by set GET operations on this node in the last minute
+`node_get_fsm_set_time_95` | The 95th-percentile time expended by set GET operations on this node in the last minute
+`node_get_fsm_set_time_99` | The 99th-percentile time expended by set GET operations on this node in the last minute
+`node_get_fsm_set_time_mean` | The mean time expended by set GET operations on this node in the last minute
+`node_get_fsm_set_time_median` | The median time expended by set GET operations on this node in the last minute
+`node_get_fsm_objsize_100` | 100th percentile object size encountered by this node within the last minute
+`node_get_fsm_objsize_95` | 95th percentile object size encountered by this node within the last minute
+`node_get_fsm_objsize_99` | 99th percentile object size encountered by this node within the last minute
+`node_get_fsm_objsize_mean` | Mean object size encountered by this node within the last minute
+`node_get_fsm_objsize_median` | Median object size encountered by this node within the last minute
+`node_get_fsm_out_rate` | Average number of enqueued GET FSMs
+`node_get_fsm_rejected` | Number of GET FSMs actively being rejected by Riak's overload protection mechanisms
+
+
+
+
+`node_put_fsm_in_rate`  | Average number of enqueued PUT FSMs
+`node_put_fsm_out_rate` | Average number of enqueued PUT FSMs
+`node_put_fsm_active_60s`             | Number of PUT FSMs active in the last minute
+`node_get_fsm_rejected_60s`           | Number of GET FSMs rejected by Sidejob's overload protection in the last minute
+`node_put_fsm_rejected_60s`           | Number of PUT FSMs rejected by Sidejob's overload protection in the last minute
+`node_get_fsm_time_mean`   | Mean time between reception of client GET request and subsequent response to client
+`node_get_fsm_time_median` | Median time between reception of client GET request and subsequent response to client
+`node_get_fsm_time_95`     | 95th percentile time between reception of client GET request and subsequent response to client
+`node_get_fsm_time_99`     | 99th percentile time between reception of client GET request and subsequent response to client
+`node_get_fsm_time_100`    | 100th percentile time between reception of client GET request and subsequent response to client
+`node_put_fsm_time_mean`   | Mean time between reception of client PUT request and subsequent response to client
+`node_put_fsm_time_median` | Median time between reception of client PUT request and subsequent response to client
+`node_put_fsm_time_95`     | 95th percentile time between reception of client PUT request and subsequent response to client
+`node_put_fsm_time_99`     | 99th percentile time between reception of client PUT request and subsequent response to client
+`node_put_fsm_time_100`    | 100th percentile time between reception of client PUT request and subsequent response to client
+`node_get_fsm_siblings_mean`   | Mean number of siblings encountered during all GET operations by this node within the last minute
+`node_get_fsm_siblings_median` | Median number of siblings encountered during all GET operations by this node within the last minute
+`node_get_fsm_siblings_95`     | 95th percentile of siblings encountered during all GET operations by this node within the last minute
+`node_get_fsm_siblings_99`     | 99th percentile of siblings encountered during all GET operations by this node within the last minute
+`node_get_fsm_siblings_100`    | 100th percentile of siblings encountered during all GET operations by this node within the last minute
+`node_get_fsm_rejected_total`          | Total number of GET FSMs rejected by Sidejob's overload protection
+`node_put_fsm_rejected_total`          | Total number of PUT FSMs rejected by Sidejob's overload protection
+`node_get_fsm_set_siblings_mean` | The mean number of set sibling resolution operations on this node in the last minute
+`node_get_fsm_set_siblings_median` | The median number of set sibling resolution operations on this node in the last minute
+`node_get_fsm_set_siblings_95` | The 95th-percentile number of set sibling resolution operations on this node in the last minute
+`node_get_fsm_set_siblings_99` | The 99th-percentile number of set sibling resolution operations on this node in the last minute
+`node_get_fsm_set_siblings_100` | The 100th-percentile number of set sibling resolution operations on this node in the last minute
+`node_get_fsm_set_objsize_mean` | The mean size of set-containing objects encountered by this node in the last minute
+`node_get_fsm_set_objsize_median` | The median size of set-containg objects encountered by this node in the last minute
+`node_get_fsm_set_objsize_95` | The 95th-percentile size of set-containing objects encountered by this node
+`node_get_fsm_set_objsize_99` | The 99th-percentile size of set-containing objects encountered by this node
+`node_get_fsm_set_objsize_100` | The 100th-percentile size of set-containing objects encountered by this node
 
