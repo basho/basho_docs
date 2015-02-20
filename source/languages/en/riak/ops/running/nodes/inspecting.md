@@ -53,7 +53,7 @@ HTTP `/stats` endpoint.
 
 Stat | Description
 :----|:-----------
-`connected_nodes`         | A list of the nodes that this node is aware of at this time
+`connected_nodes` | A list of the nodes that the local node is currently aware of
 `consistent_get_objsize_100` | 100th-percentile object size for strongly consistent GETs on this node in the last minute
 `consistent_get_objsize_95` | 95th-percentile object size for strongly consistent GETs on this node in the last minute
 `consistent_get_objsize_99` | 99th-percentile object size for strongly consistent GETs on this node in the last minute
@@ -83,41 +83,41 @@ Stat | Description
 `converge_delay_mean` |
 `converge_delay_min` |
 `coord_redirs_total` | Total number of requests this node has redirected to other nodes for coordination
-`counter_actor_counts_100` | Th 100th-percentile number of vnodes involved in coordinating counter updates on this node in the laste minute
-`counter_actor_counts_95` | The 95th-percentile number of vnodes involved in coordinating counter updates on this node in the last minute
-`counter_actor_counts_99` | The 99th-percentile number of vnodes involved in coordinating counter updates on this node in the last minute
-`counter_actor_counts_mean` | The mean number of vnodes involved in coordinating counter updates on this node in the last minute
-`counter_actor_counts_median` | The median number of vnodes involved in coordinating counter updates on this node in the last minute
-`cpu_avg1` | The average number of active processes for the last 1 minute (equivalent to top(1) command’s load average when divided by 256())
-`cpu_avg15` | The average number of active processes for the last 15 minutes (equivalent to top(1) command’s load average when divided by 256())
-`cpu_avg5` | The average number of active processes for the last 5 minutes (equivalent to top(1) command’s load average when divided by 256())
-`cpu_nprocs` | Number of operating system processes
-`dropped_vnode_requests_total` | The total number of vnode requests dropped due to overload (since the node was started)
-`executing_mappers` |
+`counter_actor_counts_100` | 100th-percentile number of vnodes involved in coordinating counter updates on this node in the laste minute
+`counter_actor_counts_95` | 95th-percentile number of vnodes involved in coordinating counter updates on this node in the last minute
+`counter_actor_counts_99` | 99th-percentile number of vnodes involved in coordinating counter updates on this node in the last minute
+`counter_actor_counts_mean` | Mean number of vnodes involved in coordinating counter updates on this node in the last minute
+`counter_actor_counts_median` | Median number of vnodes involved in coordinating counter updates on this node in the last minute
+`cpu_avg1` | Average number of active processes for the last minute (equivalent to the top(1) command’s load average when divided by 256)
+`cpu_avg15` | Average number of active processes for the last 15 minutes (equivalent to the top(1) command’s load average when divided by 256)
+`cpu_avg5` | Average number of active processes for the last 5 minutes (equivalent to the top(1) command’s load average when divided by 256)
+`cpu_nprocs` | Total number of operating system processes
+`dropped_vnode_requests_total` | Total number of vnode requests dropped due to overload (since the node was started)
+`executing_mappers` | Number of MapReduce jobs being executed on the local node
 `gossip_received` |
 `handoff_timeouts` |
-`ignored_gossip_total` |
+`ignored_gossip_total` | Number of times, since node startup, that inbound gossip messages have been ignored due to coming from a node that is not currently a member of the cluster
 `index_fsm_active` | Number of active Secondary Index FSMs
 `index_fsm_create` | Number of Secondary Index query FSMs created in the last minute
 `index_fsm_create_error` | Number of Secondary Index query FSM creation errors in the last minute
-`late_put_fsm_coordinator_ack` | The number of timeouts that have occurred when forwarding PUT requests to relevant nodes
-`leveldb_read_block_error` | The number of LevelDB read block errors.  Will read as undefined if LevelDB is not being used.
+`late_put_fsm_coordinator_ack` | Number of timeouts that have occurred when forwarding PUT requests to relevant nodes
+`leveldb_read_block_error` | Number of LevelDB read block errors. Will read as undefined if LevelDB is not being used.
 `list_fsm_active` | Number of active keylisting FSMs (for operations like listing all buckets and listing all keys in a bucket)
-`list_fsm_create` | Number of Keylisting FSMs created in the last minute
-`list_fsm_create_error` | Number of Keylisting FSM creation errors in the last minute
-`list_fsm_create_error_total` |
-`list_fsm_create_total` |
-`map_actor_counts_mean` | The mean number of vnodes involved in coordinating map updates on this node in the last minute
-`map_actor_counts_median` | The median number of vnodes involved in coordinating map updates on this node in the last minute
-`map_actor_counts_95` | The 95th-percentile number of vnodes involved in coordinating map updates on this node in the last minute
-`map_actor_counts_99` | The 99th-percentile number of vnodes involved in coordinating map updates on this node in the last minute
-`map_actor_counts_100` | The 100th-percentile number of vnodes involved in coordinating map updates on this node in the last minute
-`mem_allocated`         | Total memory allocated for this node
-`mem_total`             | Total available system memory
-`memory_atom`           | Total amount of memory currently allocated for atom storage
-`memory_atom_used`      | Total amount of memory currently used for atom storage
-`memory_binary`         | Total amount of memory used for binaries
-`memory_code`           | Total amount of memory allocated for Erlang code
+`list_fsm_create` | Number of keylisting FSMs created in the last minute
+`list_fsm_create_error` | Number of keylisting FSM creation errors in the last minute
+`list_fsm_create_error_total` | Total number of keylisting FSM creation errors
+`list_fsm_create_total` | Total number of keylisting FSMs created on the local node
+`map_actor_counts_mean` | Mean number of vnodes involved in coordinating map updates on this node in the last minute
+`map_actor_counts_median` | Median number of vnodes involved in coordinating map updates on this node in the last minute
+`map_actor_counts_95` | 95th-percentile number of vnodes involved in coordinating map updates on this node in the last minute
+`map_actor_counts_99` | 99th-percentile number of vnodes involved in coordinating map updates on this node in the last minute
+`map_actor_counts_100` | 100th-percentile number of vnodes involved in coordinating map updates on this node in the last minute
+`mem_allocated` | Total memory allocated for this node
+`mem_total` | Total available system memory
+`memory_atom` | Total amount of memory currently allocated for atom storage
+`memory_atom_used` | Total amount of memory currently used for atom storage
+`memory_binary` | Total amount of memory used for binaries
+`memory_code` | Total amount of memory allocated for Erlang code
 `memory_ets` | Total memory allocated for Erlang Term Storage
 `memory_processes` | Total amount of memory allocated for Erlang processes
 `memory_processes_used` | Total amount of memory used by Erlang processes
