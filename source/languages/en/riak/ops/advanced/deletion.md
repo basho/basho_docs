@@ -93,14 +93,15 @@ useful in certain edge cases involving [[Multi-Datacenter
 Replication|Multi Data Center Replication v3 Architecture]], e.g. when
 network connectivity is an issue.
 
-There is an edge case where tombstones will remain stored in the backend,
-even if the time interval based `delete_mode` is used. It occurs if the
-node is stopped after a tombstone has been written, but before it has
-been removed from the backend. In this case, the tombstone will show up
-in key listings and map reduce operations, and will not disappear until
-you read the key and make Riak aware of the tombstone. In practice, if
-`delete_mode`is set to 10000, all keys that have been deleted during the
-last 10 seconds before a node is stopped will remain remnant in the backend.
+Please note that there is an edge case where tombstones will remain
+stored in the backend, even if the time interval-based `delete_mode` is
+used. This occurs if the node is stopped after a tombstone has been
+written but before it has been removed from the backend. In this case,
+the tombstone will show up in keylisting and MapReduce operations and
+will not disappear until you read the key, which has the effect of
+making Riak aware of the tombstone. In practice, if `delete_mode`is set
+to 10000, all keys that have been deleted during the last 10 seconds
+before a node is stopped will remain in the backend.
 
 ## Client Library Examples
 
