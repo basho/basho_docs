@@ -115,7 +115,6 @@ location that will house our counter. We'll keep it simple and use the
 // using a Namespace object. To specify bucket, bucket type, and key,
 // use a Location object that incorporates the Namespace object, as is
 // done below.
-
 Namespace countersBucket = new Namespace("counters", "counters");
 Location location = new Location(countersBucket, "<insert_key_here>");
 ```
@@ -126,6 +125,14 @@ bucket = client.bucket_type('counters').bucket('counters')
 
 ```python
 bucket = client.bucket_type('counters').bucket('counters')
+```
+
+```csharp
+// In the C# client, you interact with Riak Data Types on the basis of
+// a RiakObjectId, which specifies the Data Type's bucket type, bucket,
+// and key, in that order. Here is an example:
+var id = new RiakObjectId("counters", "counters", "<insert_key_here>");
+
 ```
 
 ```erlang
@@ -183,6 +190,14 @@ from riak.datatypes import Counter
 counter = Counter(bucket, key)
 ```
 
+```csharp
+// In the C# client, you fetch a counter first, even if it's empty. Once
+// fetched, you can update the counter and then store it. This would
+// fetch the counter:
+var id = new RiakObjectId(bucketType, bucket, key);
+var counter = Client.DtFetchCounter(id);
+```
+
 ```erlang
 %% Counters are not encapsulated with the bucket/key in the Erlang
 %% client. See the examples below for more information.
@@ -224,6 +239,11 @@ counter = Riak::Crdt::Counter.new(bucket, 'traffic_tickets')
 ```python
 bucket = client.bucket_type('counters').bucket('traffic_tickets')
 counter = bucket.new('traffic_tickets')
+```
+
+```csharp
+var trafficTickets = new RiakObjectId("counters", "counters", "traffic_tickets");
+var counter = Client.DtFetchCounter(trafficTickets);
 ```
 
 ```erlang
@@ -268,6 +288,11 @@ counter.increment()
 counter.store()
 ```
 
+```csharp
+var trafficTickets = new RiakObjectId("counters", "counters", "traffic_tickets");
+Client.DtUpdateCounter(trafficTickets, 1);
+```
+
 ```erlang
 Counter1 = riakc_counter:increment(Counter).
 ```
@@ -297,6 +322,11 @@ counter.increment(5)
 
 ```python
 counter.increment(5)
+```
+
+```csharp
+// Using the "counter" object from above:
+Client.DtUpdateCounter(counter, 5);
 ```
 
 ```erlang
@@ -341,6 +371,10 @@ counter.value
 # that this will clear any changes to the counter that have not yet been
 # sent to Riak
 counter.reload()
+```
+
+```csharp
+Console.WriteLine(counter.Value);
 ```
 
 ```erlang
@@ -393,6 +427,13 @@ counter.decrement()
 
 # Just like incrementing, you can also decrement by more than one, e.g.:
 counter.decrement(3)
+```
+
+```csharp
+Client.DtUpdateCounter(trafficTickets, -1);
+
+// As with incrementing, you can also decrement by more than one, e.g.:
+Client.DtUpdateCounter(trafficTickets, -3);
 ```
 
 ```erlang
