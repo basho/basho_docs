@@ -100,6 +100,7 @@ Stat | Description
 `index_fsm_active` | Number of active Secondary Index FSMs
 `index_fsm_create` | Number of Secondary Index query FSMs created in the last minute
 `index_fsm_create_error` | Number of Secondary Index query FSM creation errors in the last minute
+`index_fsm_create_total` |
 `late_put_fsm_coordinator_ack` | Number of timeouts that have occurred when forwarding PUT requests to relevant nodes
 `leveldb_read_block_error` | Number of LevelDB read block errors. Will read as undefined if LevelDB is not being used.
 `list_fsm_active` | Number of active keylisting FSMs (for operations like listing all buckets and listing all keys in a bucket)
@@ -160,8 +161,8 @@ Stat | Description
 `node_get_fsm_objsize_median` | Median object size encountered by this node within the last minute
 `node_get_fsm_out_rate` | Average number of enqueued GET FSMs
 `node_get_fsm_rejected` | Number of GET FSMs actively being rejected by Riak's overload protection mechanisms
-`node_get_fsm_rejected_60s`           | Number of GET FSMs rejected by Sidejob's overload protection in the last minute
-`node_get_fsm_rejected_total`          | Total number of GET FSMs rejected by Sidejob's overload protection
+`node_get_fsm_rejected_60s` | Number of GET FSMs rejected by Sidejob's overload protection in the last minute
+`node_get_fsm_rejected_total` | Total number of GET FSMs rejected by Sidejob's overload protection
 `node_get_fsm_set_objsize_100` | The 100th-percentile size of set-containing objects encountered by this node
 `node_get_fsm_set_objsize_95` | The 95th-percentile size of set-containing objects encountered by this node
 `node_get_fsm_set_objsize_99` | The 99th-percentile size of set-containing objects encountered by this node
@@ -177,26 +178,26 @@ Stat | Description
 `node_get_fsm_set_time_99` | The 99th-percentile time expended by set GET operations on this node in the last minute
 `node_get_fsm_set_time_mean` | The mean time expended by set GET operations on this node in the last minute
 `node_get_fsm_set_time_median` | The median time expended by set GET operations on this node in the last minute
-`node_get_fsm_siblings_100`    | 100th percentile of siblings encountered during all GET operations by this node within the last minute
-`node_get_fsm_siblings_95`     | 95th percentile of siblings encountered during all GET operations by this node within the last minute
-`node_get_fsm_siblings_99`     | 99th percentile of siblings encountered during all GET operations by this node within the last minute
-`node_get_fsm_siblings_mean`   | Mean number of siblings encountered during all GET operations by this node within the last minute
+`node_get_fsm_siblings_100` | 100th percentile of siblings encountered during all GET operations by this node within the last minute
+`node_get_fsm_siblings_95` | 95th percentile of siblings encountered during all GET operations by this node within the last minute
+`node_get_fsm_siblings_99` | 99th percentile of siblings encountered during all GET operations by this node within the last minute
+`node_get_fsm_siblings_mean` | Mean number of siblings encountered during all GET operations by this node within the last minute
 `node_get_fsm_siblings_median` | Median number of siblings encountered during all GET operations by this node within the last minute
-`node_get_fsm_time_100`    | 100th percentile time between reception of client GET request and subsequent response to client
-`node_get_fsm_time_95`     | 95th percentile time between reception of client GET request and subsequent response to client
-`node_get_fsm_time_99`     | 99th percentile time between reception of client GET request and subsequent response to client
-`node_get_fsm_time_mean`   | Mean time between reception of client GET request and subsequent response to client
+`node_get_fsm_time_100` | 100th percentile time between reception of client GET request and subsequent response to client
+`node_get_fsm_time_95` | 95th percentile time between reception of client GET request and subsequent response to client
+`node_get_fsm_time_99` | 99th percentile time between reception of client GET request and subsequent response to client
+`node_get_fsm_time_mean` | Mean time between reception of client GET request and subsequent response to client
 `node_get_fsm_time_median` | Median time between reception of client GET request and subsequent response to client
-`node_gets`                           | Number of GETs coordinated by this node, including GETs to non-local vnodes in the last minute
+`node_gets` | Number of GETs coordinated by this node, including GETs to non-local vnodes in the last minute
 `node_gets_counter` | The number of counter GET operations coordinated by this node in the last minute
 `node_gets_counter_total` | The total number of counter GET operations coordinated by this node
 `node_gets_map` | The number of map GET operations coordinated by this node in the last minute
 `node_gets_map_total` | The total number of map GET operations coordinated by this node
 `node_gets_set` | The number of set GET operations coordinated by this node in the last minute
 `node_gets_set_total` | The total number of set GET operations coordinated by this node
-`node_gets_total`                      | Total number of GETs coordinated by this node, including GETs to non-local vnodes
-`node_put_fsm_active`   | Number of active PUT FSMs
-`node_put_fsm_active_60s`             | Number of PUT FSMs active in the last minute
+`node_gets_total` | Total number of GETs coordinated by this node, including GETs to non-local vnodes
+`node_put_fsm_active` | Number of active PUT FSMs
+`node_put_fsm_active_60s` | Number of PUT FSMs active in the last minute
 `node_put_fsm_counter_time_100` | The 100th-percentile time required for PUT operations on sets on this node in the last minute
 `node_put_fsm_counter_time_95` | The 95th-percentile time required for PUT operations on sets on this node in the last minute
 `node_put_fsm_counter_time_99` | The 99th-percentile time required for PUT operations on sets on this node in the last minute
@@ -217,10 +218,10 @@ Stat | Description
 `node_put_fsm_set_time_99` | The 99th-percentile time required for PUT operations on sets on this node in the last minute
 `node_put_fsm_set_time_mean` | The mean time required for PUT operations on sets on this node in the last minute
 `node_put_fsm_set_time_median` | The median time required for PUT operations on sets on this node in the last minute
-`node_put_fsm_time_100`    | 100th percentile time between reception of client PUT request and subsequent response to client
-`node_put_fsm_time_95`     | 95th percentile time between reception of client PUT request and subsequent response to client
-`node_put_fsm_time_99`     | 99th percentile time between reception of client PUT request and subsequent response to client
-`node_put_fsm_time_mean`   | Mean time between reception of client PUT request and subsequent response to client
+`node_put_fsm_time_100` | 100th percentile time between reception of client PUT request and subsequent response to client
+`node_put_fsm_time_95` | 95th percentile time between reception of client PUT request and subsequent response to client
+`node_put_fsm_time_99` | 99th percentile time between reception of client PUT request and subsequent response to client
+`node_put_fsm_time_mean` | Mean time between reception of client PUT request and subsequent response to client
 `node_put_fsm_time_median` | Median time between reception of client PUT request and subsequent response to client
 `node_puts` | Number of PUTs coordinated by this node, where a PUT is sent to a local vnode in the last minute
 `node_puts_counter` | The number of counter PUT operations coordinated by this node in the last minute
@@ -230,7 +231,7 @@ Stat | Description
 `node_puts_set` | The number of set PUT operations coordinated by this node in the last minute
 `node_puts_set_total` | The total number of set PUT operations coordinated by this node
 `node_puts_total` | Total number of PUTs coordinated by this node, including PUTs to non-local vnodes
-`nodename`                | The name this node uses to identify itself
+`nodename` | The name this node uses to identify itself
 `object_counter_merge` | The number of merges performed on objects containing counters in the last minute
 `object_counter_merge_time_100` | The 100th percentile time required for merges performed on objects containing counters
 `object_counter_merge_time_95` | The 95th percentile time required for merges performed on objects containing counters
@@ -259,32 +260,32 @@ Stat | Description
 `object_set_merge_time_mean` | The mean time required for merges performed set-containing objects on this node in the last minute
 `object_set_merge_time_median` | The median time required for merges performed set-containing objects on this node in the last minute
 `object_set_merge_total` | The total number of merges performed on set-containing objects on this node
-`pbc_active`            | Number of active Protocol Buffers connections
-`pbc_connects`          | Number of Protocol Buffers connections made in the last minute
-`pbc_connects_total`                   | Total number of Protocol Buffers connections made
-`pipeline_active`               | The number of pipelines active in the last 60 seconds
-`pipeline_create_count`         | The total number of pipelines created since the node was started
-`pipeline_create_error_count`   | The total number of pipeline creation errors since the node was started
-`pipeline_create_error_one`     | The number of pipeline creation errors in the last 60 seconds
-`pipeline_create_one`           | The number of pipelines created in the last 60 seconds
-`postcommit_fail`                      | Total number of post-commit hook failures
-`precommit_fail`                       | Total number of pre-commit hook failures
-`read_repairs`                        | Number of read repair operations this node has coordinated in the last minute
+`pbc_active` | Number of active Protocol Buffers connections
+`pbc_connects` | Number of Protocol Buffers connections made in the last minute
+`pbc_connects_total` | Total number of Protocol Buffers connections made
+`pipeline_active` | The number of pipelines active in the last 60 seconds
+`pipeline_create_count` | The total number of pipelines created since the node was started
+`pipeline_create_error_count` | The total number of pipeline creation errors since the node was started
+`pipeline_create_error_one` | The number of pipeline creation errors in the last 60 seconds
+`pipeline_create_one` | The number of pipelines created in the last 60 seconds
+`postcommit_fail` | Total number of post-commit hook failures
+`precommit_fail` | Total number of pre-commit hook failures
+`read_repairs` | Number of read repair operations this node has coordinated in the last minute
 `read_repairs_counter` | The number of read repair operations on counters coordinated by this node in the last minute
 `read_repairs_counter_total` | The total number of read repair operations on counters coordinated by this node
 `read_repairs_fallback_notfound_count` |
-`read_repairs_fallback_notfound_one`  | Number of read repair operations performed on fallback vnodes in the last minute due to missing replicas
+`read_repairs_fallback_notfound_one` | Number of read repair operations performed on fallback vnodes in the last minute due to missing replicas
 `read_repairs_fallback_outofdate_count`| Total number of read repair operations performed on fallback vnodes due to stale replicas `read_repairs_fallback_notfound_count` | Total number of read repair operations performed on fallback vnodes due to missing replicas
 `read_repairs_fallback_outofdate_one` | Number of read repair operations performed on fallback vnodes in the last minute due to stale replicas
 `read_repairs_map` | The number of read repair operations on maps coordinated by this node in the last minute
 `read_repairs_map_total` | The total number of read repair operations on maps coordinated by this node
-`read_repairs_primary_notfound_count`  | Total number of read repair operations performed on primary vnodes due to missing replicas
-`read_repairs_primary_notfound_one`   | Number of read repair operations performed on primary vnodes in the last minute due to missing replicas
+`read_repairs_primary_notfound_count` | Total number of read repair operations performed on primary vnodes due to missing replicas
+`read_repairs_primary_notfound_one` | Number of read repair operations performed on primary vnodes in the last minute due to missing replicas
 `read_repairs_primary_outofdate_count` | Total number of read repair operations performed on primary vnodes due to stale replicas
-`read_repairs_primary_outofdate_one`  | Number of read repair operations performed on primary vnodes in the last minute due to stale replicas
+`read_repairs_primary_outofdate_one` | Number of read repair operations performed on primary vnodes in the last minute due to stale replicas
 `read_repairs_set` | The number of read repair operations on sets coordinated by this node in the last minute
 `read_repairs_set_total` | The total number of read repair operations on sets coordinated by this node
-`read_repairs_total`                   | Total number of Read Repairs this node has coordinated
+`read_repairs_total` | Total number of Read Repairs this node has coordinated
 `rebalance_delay_last` |
 `rebalance_delay_max` |
 `rebalance_delay_mean` |
@@ -302,9 +303,9 @@ Stat | Description
 `riak_pipe_vnodeq_total` |
 `riak_pipe_vnodes_running` |
 `ring_creation_size` | Ring size this cluster was created with
-`ring_members`       | List of nodes that are members of the ring
+`ring_members` | List of nodes that are members of the ring
 `ring_num_partitions`| The number of partitions in the ring
-`ring_ownership`     | List of all nodes in the ring and their associated partition ownership
+`ring_ownership` | List of all nodes in the ring and their associated partition ownership
 `rings_reconciled` |
 `rings_reconciled_total` |
 `search_index_fail_count` |
@@ -334,21 +335,21 @@ Stat | Description
 `set_actor_counts_median` | The median number of vnodes involved in coordinating set updates on this node in the last minute
 `skipped_read_repairs` |
 `skipped_read_repairs_total` |
-`storage_backend` | The storage backend currently in use.
-`sys_driver_version`      | String representing the Erlang driver version in use by the runtime system
-`sys_global_heaps_size`   | Current size of the shared global heap
-`sys_heap_type`           | String representing the heap type in use (one of private, shared, hybrid)
-`sys_logical_processors`  | Number of logical processors available on the system
-`sys_monitor_count`       | The number of Erlang VM monitors currently in use
-`sys_otp_release`         | Erlang OTP release version in use on the node
-`sys_port_count`          | The number of <a href="/ops/tuning/erlang#Port-Settings">Erlang VM</a> ports in use
-`sys_process_count`       | Number of processes currently running in the Erlang VM
-`sys_smp_support`         | Boolean value representing whether symmetric multi-processing (SMP) is available
+`storage_backend` | The storage backend currently in use
+`sys_driver_version` | String representing the Erlang driver version in use by the runtime system
+`sys_global_heaps_size` | Current size of the shared global heap
+`sys_heap_type` | String representing the heap type in use (one of private, shared, hybrid)
+`sys_logical_processors` | Number of logical processors available on the system
+`sys_monitor_count` | The number of Erlang VM monitors currently in use
+`sys_otp_release` | Erlang OTP release version in use on the node
+`sys_port_count` | The number of <a href="/ops/tuning/erlang#Port-Settings">Erlang VM</a> ports in use
+`sys_process_count` | Number of processes currently running in the Erlang VM
+`sys_smp_support` | Boolean value representing whether symmetric multi-processing (SMP) is available
 `sys_system_architecture` | The node operating system and hardware architecture
-`sys_system_version`      | Detailed Erlang version information
-`sys_thread_pool_size`    | Number of threads in the asynchronous thread pool
-`sys_threads_enabled`     | Boolean value representing whether threads are enabled
-`sys_wordsize`            | Size of Erlang term words in bytes as an integer, for examples, on 32-bit architectures 4 is returned and on 64-bit architectures 8 is returned
+`sys_system_version` | Detailed Erlang version information
+`sys_thread_pool_size` | Number of threads in the asynchronous thread pool
+`sys_threads_enabled` | Boolean value representing whether threads are enabled
+`sys_wordsize` | Size of Erlang term words in bytes as an integer, for examples, on 32-bit architectures 4 is returned and on 64-bit architectures 8 is returned
 `vnode_counter_update` | The number of counter updates coordinated by local vnodes on this node in the last minute
 `vnode_counter_update_time_100` | The 100th percentile time required for counter updates on this node in the last minute
 `vnode_counter_update_time_95` | The 95th percentile time required for counter updates on this node in the last minute
@@ -364,12 +365,12 @@ Stat | Description
 `vnode_index_deletes_postings_total` | Total number of individual secondary index values deleted
 `vnode_index_reads` | Number of local replicas participating in secondary index reads in the last minute
 `vnode_index_reads_total` | Total number of local replicas participating in secondary index reads
-`vnode_index_refreshes`               | Number of secondary indexes refreshed on this node during secondary index anti-entropy in the last minute
-`vnode_index_refreshes_total`         | Total number of indexes refreshed during secondary index anti-entropy
-`vnode_index_writes`                  | Number of local replicas participating in secondary index writes in the last minute
-`vnode_index_writes_total`             | Total number of local replicas participating in secondary index writes
-`vnode_index_writes_postings`         | Number of individual secondary index values written in the last minute
-`vnode_index_writes_postings_total`    | Total number of individual secondary index values written
+`vnode_index_refreshes` | Number of secondary indexes refreshed on this node during secondary index anti-entropy in the last minute
+`vnode_index_refreshes_total` | Total number of indexes refreshed during secondary index anti-entropy
+`vnode_index_writes` | Number of local replicas participating in secondary index writes in the last minute
+`vnode_index_writes_total` | Total number of local replicas participating in secondary index writes
+`vnode_index_writes_postings` | Number of individual secondary index values written in the last minute
+`vnode_index_writes_postings_total` | Total number of individual secondary index values written
 `vnode_map_update` | The number of map updates coordinated by local vnodes on this node in the last minute
 `vnode_map_update_time_100` | The 100th-percentile time required for map merges on this node in the last minute
 `vnode_map_update_time_95` | The 95th-percentile time required for map merges on this node in the last minute
@@ -386,48 +387,49 @@ Stat | Description
 `vnode_set_update_time_mean` | The mean time required for set updates on this node in the last minute
 `vnode_set_update_time_median` | The median time required for set updates on this node in the last minute
 `vnode_set_update_total` | The total number of set updates coordinated by local vnodes on this node
-`disk`                     | Information about the disk, taken from Erlang's disksup module.  Reported as [{"ID",KBytes_Used,Percent_Util}].
+`disk` | Information about the disk, taken from Erlang's disksup module
 `riak_auth_mods_version` | [Riak Security auth modules](https://github.com/basho/riak_auth_mods)
-`erlydtl_version`        | [ErlyDTL](http://github.com/erlydtl/erlydtl)
-`riak_control_version`   | [Riak Control](http://github.com/basho/riak_control)
-`cluster_info_version`   | [Cluster Information](http://github.com/basho/cluster_info)
-`yokozuna_version`       | [Riak Search](https://github.com/basho/yokozuna)
-`ibrowse_version`        | [ibrowse HTTP client for Erlang](https://github.com/cmullaparthi/ibrowse)
-`riak_search_version`    | [Riak Search](http://github.com/basho/riak_search)
-`merge_index_version`    | [Merge Index](http://github.com/basho/merge_index)
-`riak_kv_version`        | [Riak KV](http://github.com/basho/riak_kv)
-`riak_api_version`       | [Riak API](http://github.com/basho/riak_api)
-`riak_pb_version`        | [Riak Protocol Buffers Messages](https://github.com/basho/riak_pb)
-`protobuffs_version`     | [erlang_protobuffs](https://github.com/basho/erlang_protobuffs)
-`riak_dt_version`        | [riak_dt](https://github.com/basho/riak_dt)
-`sidejob_version`        | [Sidejob](http://github.com/basho/sidejob)
-`riak_pipe_version`      | [Riak Pipe](http://github.com/basho/riak_pipe)
-`riak_core_version`      | [Riak Core](http://github.com/basho/riak_core)
+`erlydtl_version` | [ErlyDTL](http://github.com/erlydtl/erlydtl)
+`riak_control_version` | [Riak Control](http://github.com/basho/riak_control)
+`cluster_info_version` | [Cluster Information](http://github.com/basho/cluster_info)
+`yokozuna_version` | [Riak Search](https://github.com/basho/yokozuna)
+`ibrowse_version` | [ibrowse HTTP client for Erlang](https://github.com/cmullaparthi/ibrowse)
+`riak_search_version` | [Riak Search](http://github.com/basho/riak_search)
+`merge_index_version` | [Merge Index](http://github.com/basho/merge_index)
+`riak_kv_version` | [Riak KV](http://github.com/basho/riak_kv)
+`riak_api_version` | [Riak API](http://github.com/basho/riak_api)
+`riak_pb_version` | [Riak Protocol Buffers Messages](https://github.com/basho/riak_pb)
+`protobuffs_version` | [erlang_protobuffs](https://github.com/basho/erlang_protobuffs)
+`riak_dt_version` | [riak_dt](https://github.com/basho/riak_dt)
+`sidejob_version` | [Sidejob](http://github.com/basho/sidejob)
+`riak_pipe_version` | [Riak Pipe](http://github.com/basho/riak_pipe)
+`riak_core_version` | [Riak Core](http://github.com/basho/riak_core)
 `exometer_core_version` |
-`poolboy_version`        | [poolboy](https://github.com/basho/poolboy)
-`pbkdf2_version`         | [PBKDF2](http://en.wikipedia.org/wiki/PBKDF2)
-`eleveldb_version`       | [eleveldb](https://github.com/basho/eleveldb)
+`poolboy_version` | [poolboy](https://github.com/basho/poolboy)
+`pbkdf2_version` | [PBKDF2](http://en.wikipedia.org/wiki/PBKDF2)
+`eleveldb_version` | [eleveldb](https://github.com/basho/eleveldb)
 `clique_version` |
-`bitcask_version`        | [Bitcask](http://github.com/basho/bitcask)
-`basho_stats_version`    | [Basho Stats](http://github.com/basho/basho_stats)
-`webmachine_version`     | [Webmachine](http://github.com/basho/webmachine)
-`mochiweb_version`       | [MochiWeb](http://github.com/basho/mochiweb)
-`inets_version`          | [inets](http://erlang.org/doc/apps/inets/)
-`erlang_js_version`      | [Erlang JS](http://github.com/basho/erlang_js)
-`runtime_tools_version`  | [Erlang Runtime Tools](http://erlang.org/doc/apps/runtime_tools/)
-`os_mon_version`         | [Erlang Operating System Monitor](http://erlang.org/doc/apps/os_mon/)
-`riak_sysmon_version`    | [Riak System Monitor](http://github.com/basho/riak_sysmon)
-`ssl_version`            | [Erlang Secure Sockets Layer (SSL)](http://erlang.org/doc/apps/ssl/)
-`public_key_version`     | [Erlang Public Key](http://erlang.org/doc/apps/public_key/)
-`crypto_version`         | [Erlang crypto](http://erlang.org/doc/apps/crypto/)
-`asn1_version`           | [ASN.1](http://www.erlang.org/doc/apps/asn1/asn1_ug.html)
-`sasl_version`           | [SASL](http://erlang.org/doc/apps/sasl/)
-`lager_version`          | [Lager](http://github.com/DeadZen/lager)
-`goldrush_version`       | [Goldrush](http://github.com/DeadZen/goldrush)
-`compiler_version`       | [Erlang Compiler](http://erlang.org/doc/apps/compiler/)
-`syntax_tools_version`   | [Erlang Syntax Tools](http://www.erlang.org/doc/apps/syntax_tools/)
-`stdlib_version`         | [Standard Library](http://erlang.org/doc/apps/stdlib/)
-`kernel_version`         | [Kernel](http://erlang.org/doc/apps/kernel/)
+`bitcask_version` | [Bitcask](http://github.com/basho/bitcask)
+`basho_stats_version` | [Basho Stats](http://github.com/basho/basho_stats)
+`webmachine_version` | [Webmachine](http://github.com/basho/webmachine)
+`mochiweb_version` | [MochiWeb](http://github.com/basho/mochiweb)
+`inets_version` | [inets](http://erlang.org/doc/apps/inets/)
+`erlang_js_version` | [Erlang JS](http://github.com/basho/erlang_js)
+`runtime_tools_version` | [Erlang Runtime Tools](http://erlang.org/doc/apps/runtime_tools/)
+`os_mon_version` | [Erlang Operating System Monitor](http://erlang.org/doc/apps/os_mon/)
+`riak_sysmon_version` | [Riak System Monitor](http://github.com/basho/riak_sysmon)
+`ssl_version` | [Erlang Secure Sockets Layer (SSL)](http://erlang.org/doc/apps/ssl/)
+`public_key_version` | [Erlang Public Key](http://erlang.org/doc/apps/public_key/)
+`crypto_version` | [Erlang crypto](http://erlang.org/doc/apps/crypto/)
+`asn1_version` | [ASN.1](http://www.erlang.org/doc/apps/asn1/asn1_ug.html)
+`sasl_version` | [SASL](http://erlang.org/doc/apps/sasl/)
+`lager_version` | [Lager](http://github.com/DeadZen/lager)
+`goldrush_version` | [Goldrush](http://github.com/DeadZen/goldrush)
+`compiler_version` | [Erlang Compiler](http://erlang.org/doc/apps/compiler/)
+`syntax_tools_version` | [Erlang Syntax Tools](http://www.erlang.org/doc/apps/syntax_tools/)
+`stdlib_version` | [Standard Library](http://erlang.org/doc/apps/stdlib/)
+`kernel_version` | [Kernel](http://erlang.org/doc/apps/kernel/)
+
 ## Riaknostic
 
 [Riaknostic](http://riaknostic.basho.com/) is a small suite of
