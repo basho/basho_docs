@@ -98,7 +98,8 @@ using the client library from an Erlang shell.
 
 ### Security restrictions
 
-If Riak 2.0's security functionality is enabled, there are two restrictions on MapReduce that come into play:
+If Riak 2.0's security functionality is enabled, there are two
+restrictions on MapReduce that come into play:
 
 * The `riak_kv.mapreduce` permission must be granted to the user (or
   via the user's groups)
@@ -115,9 +116,9 @@ MapReduce queries in Riak have two components: (1) a list of inputs and
 
 Each element of the input list is an object location, as specified by
 [[bucket type|Using Bucket Types]], bucket, and key. This location may
-also be annotated with "key-data," which will be passed as an
-argument to a map function when evaluated on the object stored under
-that bucket-key pair.
+also be annotated with "key-data," which will be passed as an argument
+to a map function when evaluated on the object stored under that
+bucket-key pair.
 
 Each element of the phases list is a description of a map function, a
 reduce function, or a link function. The description includes where to
@@ -210,7 +211,7 @@ Here is our example MapReduce function:
 
 -export([get_keys/3]).
 
-% Returns bucket and key pairs from a map phase
+%% Returns bucket and key pairs from a map phase
 get_keys(Value,_Keydata,_Arg) ->
   [{riak_object:bucket(Value),riak_object:key(Value)}].
 ```
@@ -268,21 +269,21 @@ Those arguments are:
 
     ```
     {
-     "bucket":BucketAsString,
-     "key":KeyAsString,
-     "vclock":VclockAsString,
-     "values":[
-               {
-                "metadata":{
-                            "X-Riak-VTag":VtagAsString,
-                            "X-Riak-Last-Modified":LastModAsString,
-                            "Links":[...List of link objects],
-                            ...other metadata...
-                           },
-                "data":ObjectData
-               },
-               ...other metadata/data values (siblings)...
-              ]
+      "bucket": /* bucketAsString */,
+      "key": /* keyAsString */,
+      "vclock": /* causalContextAsString */,
+      "values": [
+        {
+          "metadata": {
+            "X-Riak-VTag": VtagAsString,
+            "X-Riak-Last-Modified": LastModAsString,
+            "Links": [ /* list of link objects */ ],
+             /* other metadata */
+          },
+          "data": /* object data */
+        },
+        /* other metadata/data values (siblings) */
+      ]
     }
     ```
   2. *KeyData* : key data that was submitted with the inputs to the query or phase.
@@ -735,24 +736,37 @@ For examples, see:
 The most important advice: when developing Erlang MapReduce against
 Riak, prototype against a development environment using the Erlang
 shell. The shell allows for rapid feedback and iteration; once code
-needs to be deployed to a server for production use, changing it is
-more time-consuming.
+needs to be deployed to a server for production use, changing it is more
+time consuming.
 
 ### Module not in path
 
 ```bash
-$ curl -XPOST localhost:8098/mapred \
->   -H 'Content-Type: application/json'   \
->   -d '{"inputs":"messages","query":[{"map":{"language":"erlang","module":"mr_example","function":"get_keys"}}]}'
+curl -XPOST localhost:8098/mapred \
+  -H 'Content-Type: application/json'   \
+  -d '{"inputs":"messages","query":[{"map":{"language":"erlang","module":"mr_example","function":"get_keys"}}]}'
+```
 
-{"phase":0,"error":"invalid module named in PhaseSpec function:\n must be a valid module name (failed to load mr_example: nofile)"}
+Example JSON response:
+
+```json
+{
+  "phase": 0,
+  "error": "invalid module named in PhaseSpec function:\n must be a valid module name (failed to load mr_example: nofile)"
+}
 ```
 
 ### Node in process of starting
 
 ```bash
-$ curl -XPOST localhost:8098/mapred   -H 'Content-Type: application/json'     -d '{"inputs":"messages","query":[{"map":{"language":"erlang","module":"mr_example","function":"get_keys"}}]}'
+curl -XPOST localhost:8098/mapred
+  -H 'Content-Type: application/json'
+  -d '{"inputs":"messages","query":[{"map":{"language":"erlang","module":"mr_example","function":"get_keys"}}]}'
+```
 
+Example response:
+
+```html
 <html><head><title>500 Internal Server Error</title></head><body><h1>Internal Server Error</h1>The server encountered an error while processing this request:<br><pre>{error,{error,function_clause,
               [{chashbin,itr_value,
                          [done],
@@ -766,6 +780,8 @@ $ curl -XPOST localhost:8098/mapred   -H 'Content-Type: application/json'     -d
 
 ```erlang
 > riakc_pb_socket:mapred_bucket(Riak, <<"goog">>, [{map, {qfun, DailyFun}, none, true}]).
+
+%% Response:
 {error,<<"{\"phase\":0,\"error\":\"function_clause\",\"input\":\"{ok,{r_object,<<\\\"goog\\\">>,<<\\\"2009-06-10\\\">>,[{r_content,{dic"...>>}
 ```
 
@@ -775,9 +791,13 @@ We can get a longer error message this way:
 
 ```erlang
 > {error, ErrorMsg} = riakc_pb_socket:mapred_bucket(Riak, <<"goog">>, [{map, {qfun, DailyFun}, none, true}]).
+
+%% Response:
 {error,<<"{\"phase\":0,\"error\":\"function_clause\",\"input\":\"{ok,{r_object,<<\\\"goog\\\">>,<<\\\"2009-06-10\\\">>,[{r_content,{dic"...>>}
 
 > io:format("~p~n", [ErrorMsg]).
+
+%% Response:
 <<"{\"phase\":0,\"error\":\"function_clause\",\"input\":\"{ok,{r_object,<<\\\"goog\\\">>,<<\\\"2009-06-10\\\">>,[{r_content,{dict,6,16,16,8,80,48,{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},{{[],[],[[<<\\\"Links\\\">>]],[],[],[],[],[],[],[],[[<<\\\"content-type\\\">>,97,112,112,108,105,99,97,116,105,111,110,47,106,115,111,110],[<<\\\"X-Riak-VTag\\\">>,55,87,101,79,53,120,65,121,50,67,49,77,72,104,54,100,89,65,67,74,55,70]],[[<<\\\"index\\\">>]],[],[[<<\\\"X-Riak-Last-Modified\\\">>|{1405,709865,48668}]],[],[[<<\\\"X-Riak-Meta\\\">>]]}}},<<\\\"{\\\\\\\"Date\\\\\\\":\\\\\\\"2009-06-10\\\\\\\",\\\\\\\"Open\\\\\\\":436.23,\\\\\\\"High\\\\\\\":437.89,\\\\\\\"L...\\\">>}],...},...}\",\"type\":\"error\",\"stack\":\"[{string,substr,[\\\"2009-06-10\\\",0,7],[{file,\\\"string.erl\\\"},{line,207}]},{erl_eval,do_apply,6,[{file,\\\"erl_eval.erl\\\"},{line,573}]},{erl_eval,expr,5,[{file,\\\"erl_eval.erl\\\"},{line,364}]},{erl_eval,exprs,5,[{file,\\\"erl_eval.erl\\\"},{line,118}]},{riak_kv_mrc_map,map,3,[{file,\\\"src/riak_kv_mrc_map.erl\\\"},{line,172}]},{riak_kv_mrc_map,process,3,[{file,\\\"src/riak_kv_mrc_map.erl\\\"},{line,144}]},{riak_pipe_vnode_worker,process_input,3,[{file,\\\"src/riak_pipe_vnode_worker.erl\\\"},{line,446}]},{riak_pipe_vnode_worker,wait_for_input,...}]\"}">>
 ```
 
@@ -788,8 +808,9 @@ function starts indexing strings at 1, not 0.
 ### Exceptional tip
 
 When experimenting with MapReduce from the Erlang shell, it is helpful
-to avoid breaking the connection to Riak when an exception is trapped
-by the shell. Use `catch_exception`:
+to avoid breaking the connection to Riak when an exception is trapped by
+the shell. To keep the connection going, set `catch_exception` to
+`true`, like this:
 
 ```erlang
 > catch_exception(true).
