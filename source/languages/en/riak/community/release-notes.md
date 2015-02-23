@@ -11,6 +11,7 @@ moved: {
 }
 ---
 
+* [Riak 2.0.5 Release Notes](https://github.com/basho/riak/blob/2.0/RELEASE-NOTES.md#riak-205-release-notes)
 * [Riak 2.0.4 Release Notes](https://github.com/basho/riak/blob/2.0/RELEASE-NOTES.md#riak-204-release-notes)
 * [Riak 2.0.3 Release Notes](https://github.com/basho/riak/blob/2.0/RELEASE-NOTES.md#riak-203-release-notes)
 * [Riak 2.0.2 Release Notes](https://github.com/basho/riak/blob/2.0/RELEASE-NOTES.md#riak-202-release-notes)
