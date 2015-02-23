@@ -132,7 +132,6 @@ bucket = client.bucket_type('counters').bucket('counters')
 // a RiakObjectId, which specifies the Data Type's bucket type, bucket,
 // and key, in that order. Here is an example:
 var id = new RiakObjectId("counters", "counters", "<insert_key_here>");
-
 ```
 
 ```erlang
@@ -326,7 +325,7 @@ counter.increment(5)
 
 ```csharp
 // Using the "counter" object from above:
-Client.DtUpdateCounter(counter, 5);
+client.DtUpdateCounter(counter, 5);
 ```
 
 ```erlang
@@ -505,6 +504,13 @@ from riak.datatypes import Set
 set = Set(bucket, key)
 ```
 
+```csharp
+// As with counters, in the C# client you interact with sets on the
+// basis of the set's location in Riak, as specified by a RiakObjectId
+// object. Below is an example:
+var id = new RiakObjectId(bucket_type, bucket, key);
+```
+
 ```erlang
 %% Like counters, sets are not encapsulated in a
 %% bucket/key in the Erlang client. See below for more
@@ -548,16 +554,21 @@ cities_set = Riak::Crdt::Set.new(travel, 'cities')
 ```
 
 ```python
-travel = client.bucket_type('set_bucket').bucket('travel')
+travel = client.bucket_type('sets).bucket('travel')
 
-# The client detects the bucket-type's datatype and automatically
-# returns the right datatype for you, in this case a Set.
+# The client detects the bucket type's Data Type and automatically
+# returns the right Data Type for you, in this case a Riak set.
 cities_set = travel.new('cities')
 
 # You can also create a reference to a set explicitly:
 from riak.datatypes import Set
 
 cities_set = Set(travel, 'cities')
+```
+
+```csharp
+// Now we'll create a reference to the set we want to interact with:
+var id = new RiakObjectId("set_bucket", "travel", "cities");
 ```
 
 ```erlang
@@ -593,6 +604,13 @@ cities_set.empty?
 
 ```python
 len(cities_set) == 0
+```
+
+```csharp
+var id = new RiakObjectId("sets", "travel", "cities");
+var citiesSet = client.DtFetchSet(id);
+var setSize = citiesSet.Values.ToArray().GetLength();
+Console.WriteLine(setSize > 0);
 ```
 
 ```erlang
@@ -633,6 +651,9 @@ cities_set.add('Montreal')
 ```python
 cities_set.add('Toronto')
 cities_set.add('Montreal')
+```
+
+```csharp
 ```
 
 ```erlang
