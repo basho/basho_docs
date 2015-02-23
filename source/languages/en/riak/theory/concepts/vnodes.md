@@ -50,10 +50,9 @@ of 64 partitions. This is normal and expected behavior in Riak.
 We strongly recommend setting the appropriate ring size, and by
 extension the number of vnodes, prior to building a cluster. A full
 guide can be found in our [[cluster planning|Cluster Capacity
-Planning#Ring-Size-Number-of-Partitions]] documentation. While Riak has
-an experimental [[ring resizing]] feature that enables you to change
-the ring size in an active cluster, we do not yet recommend attempting
-this.
+Planning#Ring-Size-Number-of-Partitions]] documentation. If you do need
+to change your cluster's ring size, however, Riak has a [[ring
+resizing]] feature that you can use to accomplish precisely that.
 
 ## The Role of Vnodes
 
