@@ -711,4 +711,37 @@ creating the cluster). Must be a power of 2, minimum 8 and maximum
 
 ## CSV Formatting
 
+The output of the following commands can be in CSV format if you use a
+`--format=csv` flag:
 
+* `[[riak-admin handoff|riak-admin Command Line#handoff]]`
+
+For example, the output of the `[[riak-admin handoff
+config|Handoff#Configuring-Handoff]]` command would look something
+like this in a three-node development cluster:
+
+```
++--------------+--------------+----------------+---------------+------------+
+|     node     |transfer_limit|handoff.outbound|handoff.inbound|handoff.port|
++--------------+--------------+----------------+---------------+------------+
+|dev1@127.0.0.1|      2       |       on       |      on       |   10019    |
+|dev2@127.0.0.1|      2       |       on       |      on       |   10029    |
+|dev3@127.0.0.1|      2       |       on       |      on       |   10039    |
++--------------+--------------+----------------+---------------+------------+
+```
+
+The equivalent output in CSV format:
+
+```
+node,transfer_limit,handoff.outbound,handoff.inbound,handoff.port
+dev1@127.0.0.1,2,on,on,10019
+dev2@127.0.0.1,2,on,on,10029
+dev3@127.0.0.1,2,on,on,10039
+```
+
+You can pipe that output into a `.csv` or other file if you wish. Here's
+an example:
+
+```bash
+riak-admin handoff config > handoff_config.csv
+```
