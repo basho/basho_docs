@@ -201,6 +201,10 @@ level of maturity and activity.
   abstraction around riak-js
 * [Node-Riak](http://github.com/orlandov/node-riak) --- A wrapper around
   Node's HTTP facilities for communicating with Riak
+* [riak-dc](https://github.com/janearc/riak-dc) --- A very thin, very small
+  http-based interface to Riak using promises intended to be used for small
+  tools like command-line applications; aims to have the "most-synchronous-
+  like" interface.
 * [Nori](https://github.com/sgonyea/nori) --- Experimental Riak HTTP
   library for Node.js modeled after Ripple
 * [OrionNodeRiak](http://github.com/mauritslamers/OrionNodeRiak) ---
