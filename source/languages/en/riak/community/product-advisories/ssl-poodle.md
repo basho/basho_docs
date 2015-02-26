@@ -39,5 +39,4 @@ Proper ZIP file | Versions
 
 ## Moving Forward
 
-This patch will be included in the upcoming Riak 2.0.5 and all releases
-thereafter.
+This patch is included in Riak 2.0.5 and all releases thereafter.
