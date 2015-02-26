@@ -278,6 +278,10 @@ riak:
           - "[[Operating Riak|Operating Riak FAQs]]"
           - "[[Log Messages|Log Messages FAQs]]"
           - "[[Riak Community|Riak Community FAQs]]"
+      - title: "Product Advisories"
+        sub:
+          - "[[Advisory List|Product Advisories]]"
+          - "[[POODLE Vulnerability|SSL 3.0 Vulnerability and POODLE Attack]]"
       - "[[Community Help|Help and Community]]"
       - "[[Community Projects]]"
       - "[[Blog Posts]]"
