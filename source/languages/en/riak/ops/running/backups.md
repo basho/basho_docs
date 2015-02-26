@@ -131,6 +131,14 @@ Strong Consistency]] and [[Managing Strong Consistency]].
 
 ## Performing Backups
 
+<div class="note">
+<div class="title">Deprecation notice</div>
+In previous versions of Riak, there was a `[[riak-admin
+backup|riak-admin Command Line#backup]]` command commonly used for
+backups. This functionality is now deprecated. We strongly recommend
+using the backup procedure documented below instead.
+</div>
+
 Backups of both Bitcask and LevelDB can be accomplished through a
 variety of common methods. Standard utilities such `cp`, `rsync`, and
 `tar` can be used as well as any backup system or method already in
@@ -211,8 +219,7 @@ additionally:
 <div class="note">
 <div class="title">Further information</div>
 For more information on the <code>riak-admin cluster</code> commands,
-refer to our documentation on the <code>[[riak-admin|riak-admin Command
-Line#cluster]]</code> tool.
+refer to our documentation on [[cluster administration]].
 </div>
 
 For example, if there are five nodes in the cluster with the original
