@@ -34,8 +34,6 @@ of Riak or Riak CS, as they differ between versions.
 Proper ZIP file | Versions
 :---------------|:--------
 [poodle-1.x.zip](https://github.com/basho/basho_docs/raw/master/source/data/poodle-1.x.zip) | Open-source Riak for the 1.4.x series
-[poodle-1.x-ee.zip](https://help.basho.com/attachments/token/WzPGUOg21jzJI4gWAdCSKP1Tv/?name=poodle-1.x-ee.zip) | Riak Enterprise versions 1.3.x, 1.4.x or Riak CS 1.3.x, 1.4.x, or 1.5.x
-[poodle-2.0-ee.zip](https://help.basho.com/attachments/token/YuTdAzZw5XuR2ovqj6fwEKNGB/?name=poodle-2.0-ee.zip) | Riak 2.0.0-2.0.2
 
 ## Moving Forward
 
