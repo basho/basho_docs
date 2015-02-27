@@ -1,20 +1,20 @@
 ---
-title: "Taste of Riak: Querying with Java"
+title: "Taste of Riak: Querying with C#"
 project: riak
 version: 1.3.1+
 document: tutorials
 toc: true
 audience: beginner
-keywords: [developers, client, 2i, search, java]
+keywords: [developers, client, 2i, search, csharp]
 ---
 
-## Java Version Setup
+## C# Version Setup
 
-For the Java version, please download the source from GitHub by either
-[cloning](https://github.com/alexmoore/taste-of-riak) the source code
+For the C# version, please download the source from GitHub by either
+[cloning](https://github.com/basho/taste-of-riak) the source code
 repository or downloading the [current zip of the master
-branch](https://github.com/alexmoore/taste-of-riak/archive/master.zip).
-The code for this chapter is in `/java/Ch02-Schemas-and-Indexes`. You
+branch](https://github.com/basho/taste-of-riak/archive/master.zip).
+The code for this chapter is in `/csharp/Ch02-Schemas-and-Indexes`. You
 may import this code into your favorite editor, or just run it from the
 command line using the commands in `BuildAndRun.sh` if you are running
 on a *nix OS.
