@@ -39,6 +39,7 @@ failed
 ## Affected Users
 
 Users will be affected under the following conditions:
+
 1. They use Riak maps in their cluster
 1. They have upgraded to Riak version 2.0.4
 
