@@ -17,24 +17,29 @@ moved: {
 }
 ---
 
-Riak was built with the assumption that a Riak installation acts as a
-multi-node [[cluster|Clusters]], distributing data across multiple
-physical servers. Riak's guiding design principle is Dr. Eric Brewer's
-[CAP Theorem](http://en.wikipedia.org/wiki/CAP_theorem).
+Riak was built to act as a multi-node [[cluster|Clusters]].  It
+distributes data across multiple physical servers, which enables it to
+provide strong availability guarantees and fault tolerance.
 
-The CAP theorem defines distributed systems in terms of three desired
-properties: consistency, availability, and partition (i.e. failure)
-tolerance. Riak chooses to focus on the A and P of CAP, which puts it in
-the eventually consistent camp. It should be stated, however, that the
-window for "eventually consistent" is usually in the neighborhood of
-milliseconds, which can be good enough for many applications.
+The [CAP theorem](http://en.wikipedia.org/wiki/CAP_theorem), which
+undergirds many of the design decisions behind Riak's architecture,
+defines distributed systems in terms of three desired properties:
+consistency, availability, and partition (i.e. failure) tolerance. Riak
+can be used either as an AP, i.e. available/partition-tolerant, system
+or as a CP, i.e. consistent/partition-tolerant, system. The former
+relies on an [[eventual consistency]] model, while the latter relies on
+a special [[strong consistency]] subsystem.
 
 Although the [CAP theorem](http://en.wikipedia.org/wiki/CAP_theorem)
 dictates that there is a necessary trade-off between data consistency
-and availability, Riak enables you to fine-tune that trade-off.
-The ability to make these kinds of fundamental choices has immense value
-for your applications and is one of the features that differentiates
-Riak from other technologies.
+and availability, if you are using Riak in an eventually consistent
+manner, you can fine-tune that trade-off. The ability to make these
+kinds of fundamental choices has immense value for your applications and
+is one of the features that differentiates Riak from other databases.
+
+At the bottom of the page, you'll find a [[screencast|Replication
+Properties#screencast]] that briefly explains how to adjust your
+replication levels to match your application and business needs.
 
 <div class="note">
 <div class="title">Note on strong consistency</div>
@@ -49,9 +54,28 @@ Strong Consistency</a> documentation, as this option will not be covered
 in this tutorial.
 </div>
 
-At the bottom of the page, you'll find a [[screencast|Replication Properties#screencast]]
-that briefly explains how to adjust your replication levels to match
-your application and business needs.
+## How Replication Properties Work
+
+When using Riak, there are two ways of choosing replication properties:
+1. On a per-request basis
+2. In a more programmatic fashion, [[using bucket types]]
+
+### Per-request Replication Properties
+
+### Replication Properties Through Bucket Types
+
+Let's say, for example, that you want to apply an `n_val` of 5, an `r`
+of 3, and a `w` of 3 to all of the datq in some of the [[buckets]] that
+you're using. In order to set those replication properties, you should
+create a bucket type that sets those properties. Below is an example:
+
+```bash
+riak-admin bucket-type create custom_props '{"props":{"n_val":5,"r":3,"w":3}}'
+riak-admin bucket-type activate custom_props
+```
+
+Now, any time you stored an object in a bucket with the type
+`custom_props`
 
 ## Available Parameters
 
@@ -279,19 +303,19 @@ seeks to write the object to is unavailable.
 ## Primary Reads and Writes with PR and PW
 
 In Riak's replication model, there are N [[vnodes|Riak Glossary#vnodes]],
-called *primary vnodes*, that hold primary responsibility for any given
+called _primary vnodes_, that hold primary responsibility for any given
 key. Riak will attempt reads and writes to primary vnodes first, but in
 case of failure, those operations will go to failover nodes in order to
 comply with the R and W values that you have set. This failover option
-is called *sloppy quorum*.
+is called _sloppy quorum_.
 
 In addition to R and W, you can also set integer values for the *primary
-read* (PR) and *primary write* (PW) parameters that specify how many
+read* (PR) and _primary write_ (PW) parameters that specify how many
 primary nodes must respond to a request in order to report success to
 the client. The default for both values is zero.
 
 Setting PR and/or PW to non-zero values produces a mode of operation
-called *strict quorum*. This mode has the advantage that the client is
+called _strict quorum_. This mode has the advantage that the client is
 more likely to receive the most up-to-date values, but at the cost of a
 higher probability that reads or writes will fail because primary vnodes
 are unavailable.
@@ -328,7 +352,7 @@ requests. We explain its meaning here, however, because RW still shows
 up as a property of Riak buckets (as <code>rw</code>) for the sake of
 backwards compatibility. Feel free to skip this explanation unless you
 are curious about the meaning of RW.
-</div> 
+</div>
 
 Deleting an object requires successfully reading an object and then
 writing a tombstone to the object's key that specifies that an object
@@ -525,6 +549,9 @@ A vector clock is not included with the write request and an object already exis
 Here is a brief screencast that shows just how the N, R, and W values
 function in our running three-node Riak cluster:
 
-<div style="display:none" class="iframe-video" id="http://player.vimeo.com/video/11172656"></div>
+<div style="display:none" class="iframe-video"
+id="http://player.vimeo.com/video/11172656"></div>
 
-<p><a href="http://vimeo.com/11172656">Tuning CAP Controls in Riak</a> from <a href="http://vimeo.com/bashotech">Basho Technologies</a> on <a href="http://vimeo.com">Vimeo</a>.</p>
+<a href="http://vimeo.com/11172656">Tuning CAP Controls in Riak</a> from
+<a href="http://vimeo.com/bashotech">Basho Technologies</a> on <a
+href="http://vimeo.com">Vimeo</a>.

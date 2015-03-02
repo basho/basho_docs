@@ -12,6 +12,7 @@ This page contains product advisories that are periodically issued for
 Riak and Riak CS.
 
 * [[SSL 3.0 Vulnerability and POODLE Attack]]
+* [[Map Data Type Disk Incompatibility]]
 
 ## Questions
 
