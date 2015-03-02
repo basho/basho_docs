@@ -74,8 +74,8 @@ riak-admin bucket-type create custom_props '{"props":{"n_val":5,"r":3,"w":3}}'
 riak-admin bucket-type activate custom_props
 ```
 
-Now, any time you stored an object in a bucket with the type
-`custom_props`
+Now, any time you store an object in a bucket with the type
+`custom_props` those properties will apply to it.
 
 ## Available Parameters
 
