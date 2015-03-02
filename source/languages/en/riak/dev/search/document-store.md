@@ -14,8 +14,6 @@ highly scalable document store with rich querying capabilities. In this
 tutorial, we'll build a basic implementation of a document store using
 [[Riak maps|Using Data Types#Maps]].
 
-**extraneous content**
-
 ## Basic Approach
 
 Riak Search enables you to implement a document store in Riak in a
