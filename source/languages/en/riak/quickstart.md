@@ -562,6 +562,52 @@ and [[Riak Search 2.0|Using Search]], as well as a variety of other
 pages in the **Riak for Developers** section of the documentation (in
 the navbar on the left).
 
+### .NET
+
+When using the [.NET
+client](https://github.com/basho-labs/riak-dotnet-client), you should
+specify the connection information for all of the nodes in your cluster
+in your project's `App.config` file. Let's say that you're running a
+three-node cluster with all nodes listening on port 8087 and on the IP
+addresses 127.0.0.1, 127.0.0.2, and 127.0.0.3, respectively.
+
+An `App.config` file specifying this information will look something
+like this:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    <section name="riakConfig" type="RiakClient.Config.RiakClusterConfiguration, RiakClient" />
+  </configSections>
+  <riakConfig>
+    <nodes>
+      <node name="dev1" hostAddress="127.0.0.1" pbcPort="8087" poolSize="20" />
+      <node name="dev2" hostAddress="127.0.0.2" pbcPort="8087" poolSize="20" />
+      <node name="dev3" hostAddress="127.0.0.3" pbcPort="8087" poolSize="20" />
+    </nodes>
+  </riakConfig>
+</configuration>
+```
+
+Note that a connection pool size of 20 was chosen for each of node
+connections. You may modify that as you see fit.
+
+Once the connection info is in place, you must initialize a
+`RiakCluster` object, specifying you'll be using the `riakConfig`
+parameters:
+
+```csharp
+var cluster = RiakCluster.fromConfig("riakConfig");
+```
+
+With the cluster object instantiated, you can create a `RiakClient`
+object that is used to execute all operations with Riak:
+
+```csharp
+var client = cluster.CreateClient();
+```
+
 ### Erlang
 
 How you connect to Riak with the Erlang client depends on whether you're
