@@ -8,9 +8,11 @@ audience: beginner
 keywords: [developers, client, csharp]
 ---
 
-If you haven't set up a Riak Node and started it, please visit the [[Prerequisites|Taste of Riak: Prerequisites]] first.
+If you haven't set up a Riak Node and started it, please visit the
+[[Prerequisites|Taste of Riak: Prerequisites]] first.
 
-To try this flavor of Riak, a working installation of the .NET Framework or Mono is required. 
+To try this flavor of Riak, a working installation of the .NET Framework
+or Mono is required. 
 
 ### Client Setup
 
@@ -19,9 +21,6 @@ Install [the Riak .NET Client](https://github.com/basho-labs/riak-dotnet-client/
 <div class="note">
 <div class="title">Configuring for a remote cluster</div>
 By default, the Riak .NET Client will add a section to your `app.config` file for a four node local cluster. If you are using a remote cluster, open up `app.config` and change the `hostAddress` values to point to nodes in your remote cluster.
-
-A working version of this demo code is available in the [the Riak .NET Client sample projects](http://github.com/DistributedNonsense/CorrugatedIron.Samples) on GitHub.
-</div>
 
 ### Connecting to Riak
 
@@ -186,9 +185,18 @@ else
 }
 ```
 
-Just like other operations, we check the results that have come back from Riak to make sure the object was successfully deleted. Of course, if you don't care about that, you can just ignore the result.
+Just like other operations, we check the results that have come back
+from Riak to make sure the object was successfully deleted. Of course,
+if you don't care about that, you can just ignore the result.
 
-### Next Steps
+The Riak .NET Client has a lot of additional functionality that makes it
+easy to build rich, complex applications with Riak. Check out the
+[documentation](https://github.com/basho-labs/riak-dotnet-client/wiki)
+to learn more about working with the Riak .NET Client and Riak.
 
-The Riak .NET Client has a lot of additional functionality that makes it easy to build rich, complex applications with Riak. Check out the [documentation](https://github.com/basho-labs/riak-dotnet-client/wiki) or [sample projects](http://github.com/DistributedNonsense/CorrugatedIron.Samples) to learn more about working with the Riak .NET Client and Riak.
+## Next Steps
 
+More complex use cases can be composed from these initial create, read,
+update, and delete (CRUD) operations. [[In the next chapter|Taste of
+Riak: Querying]], we will look at how to store and query more
+complicated and interconnected data, such as documents.
