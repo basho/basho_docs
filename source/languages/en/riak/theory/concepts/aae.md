@@ -100,6 +100,6 @@ this regeneration is one week, but this can be adjusted in each node's
 
 ## Resources
 
-* [Active Anti-Entropy video](http://coffee.jtuple.com/video/AAE.html)
-  by Basho engineer [Joseph Blomstedt](https://github.com/jtuple)
+<!-- * [Active Anti-Entropy video](http://coffee.jtuple.com/video/AAE.html)
+by Basho engineer [Joseph Blomstedt](https://github.com/jtuple) -->
 * [Riak 1.3 Release Notes](https://github.com/basho/riak/blob/1.3/RELEASE-NOTES.md#active-anti-entropy)

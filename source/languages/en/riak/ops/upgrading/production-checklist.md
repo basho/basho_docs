@@ -28,7 +28,7 @@ to ask while making this transition.
 
 * Are all systems using the same [NTP servers](http://www.ntp.org/) to
   synchronize clocks?
-* Are your sure that your NTP clients' configuration is monotonic (i.e.
+* Are you sure that your NTP clients' configuration is monotonic (i.e.
   that your clocks will not roll back)?
 * Is DNS correctly configured for all systems' production deployments?
 * Are connections correctly routed between all Riak nodes?
