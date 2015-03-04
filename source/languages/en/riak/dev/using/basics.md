@@ -126,7 +126,8 @@ riak.RiakError: 'no_type'
 ```
 
 ```csharp
-Unable to find value in RIak
+result.IsSuccess == false
+result.ResultCode == ResultCode.NotFound
 ```
 
 ```curl
@@ -455,7 +456,11 @@ obj.data = 'Harlem Globetrotters'
 ```
 
 ```csharp
-var objectId = new RiakObjectId()
+var objectId = new RiakObjectId("sports", "nba", "champion")
+RiakResult<RiakObject> result = client.Get(objectId)
+RiakObject object = result.Value;
+object.SetValue<string>("Harlem Globetrotters", "text/plain");
+result = client.Put(object);
 ```
 
 ```erlang

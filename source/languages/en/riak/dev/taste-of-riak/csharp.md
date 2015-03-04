@@ -22,6 +22,7 @@ Install [the Riak .NET Client](https://github.com/basho-labs/riak-dotnet-client/
 <div class="title">Configuring for a remote cluster</div>
 By default, the Riak .NET Client will add a section to your `app.config` file for a four node local cluster. If you are using a remote cluster, open up `app.config` and change the `hostAddress` values to point to nodes in your remote cluster.
 
+
 ### Connecting to Riak
 
 Connecting to Riak with the Riak .NET Client requires creating a cluster object and then creating a new client object.
@@ -38,14 +39,14 @@ namespace TasteOfRiak
         {
         	// don't worry, we'll use this string later
 	        const string contributors = "contributors";
-            var cluster = RiakCluster.FromConfig("riakConfig");
-            var client = cluster.CreateClient();
+            IRiakEndpoint cluster = RiakCluster.FromConfig("riakConfig"));
+            IRiakClient client = cluster.CreateClient();
         }
     }
 }
 ```
 
-This creates a new `RiakCluster` which is used to create a new `RiakClient`. A `RiakCluster` object handles all the details of tracking active nodes and also provides load balancing. The `RiakClient` is used to send commands to Riak.
+This creates a new `RiakCluster` which is used to create a new `RiakClient`. A `RiakCluster` object handles all the details of tracking active nodes and also provides load balancing. The `RiakClient` is used to send commands to Riak. *Note:* the `IRiakEndpoint` object implements `IDisposable` and should be correctly disposed when you're done communicating with Riak.
 
 Let's make sure the cluster is online. Add this to your `Main` method:
 
@@ -128,8 +129,6 @@ Let's find a person!
 
 ```csharp
 var result = client.Get(contributors, "bashoman@basho.com");
-var bashoman = new Person();
-
 if (result.IsSuccess)
 {
     bashoman = result.Value.GetObject<Person>();
@@ -155,7 +154,6 @@ bashoman.FirstName = "Riak";
 
 var o = new RiakObject(contributors, bashoman.EmailAddress, bashoman);
 var updateResult = client.Put(o);
-
 if (updateResult.IsSuccess)
 {
     Console.WriteLine("Successfully updated {0} in {1}", bashoman.EmailAddress, contributors);
@@ -173,7 +171,6 @@ Updating an object involves creating a new `RiakObject` then using `RiakClient.P
 
 ```csharp
 var deleteResult = client.Delete(contributors, "johndoe@gmail.com");
-
 if (deleteResult.IsSuccess)
 {
     Console.WriteLine("Successfully got rid of John Doe");
@@ -185,18 +182,11 @@ else
 }
 ```
 
-Just like other operations, we check the results that have come back
-from Riak to make sure the object was successfully deleted. Of course,
-if you don't care about that, you can just ignore the result.
+Just like other operations, we check the results that have come back from Riak to make sure the object was successfully deleted. Of course, if you don't care about that, you can just ignore the result.
 
-The Riak .NET Client has a lot of additional functionality that makes it
-easy to build rich, complex applications with Riak. Check out the
-[documentation](https://github.com/basho-labs/riak-dotnet-client/wiki)
-to learn more about working with the Riak .NET Client and Riak.
+The Riak .NET Client has a lot of additional functionality that makes it easy to build rich, complex applications with Riak. Check out the [documentation](https://github.com/basho-labs/riak-dotnet-client/wiki) to learn more about working with the Riak .NET Client and Riak.
 
 ## Next Steps
 
-More complex use cases can be composed from these initial create, read,
-update, and delete (CRUD) operations. [[In the next chapter|Taste of
-Riak: Querying]], we will look at how to store and query more
-complicated and interconnected data, such as documents.
+More complex use cases can be composed from these initial create, read, update, and delete (CRUD) operations. [[In the next chapter|Taste of Riak: Querying]], we will look at how to store and query more complicated and interconnected data, such as documents.
+
