@@ -598,6 +598,7 @@ Once the connection info is in place, you must initialize a
 parameters:
 
 ```csharp
+// Note: cluster implements `IDisposable`
 var cluster = RiakCluster.fromConfig("riakConfig");
 ```
 

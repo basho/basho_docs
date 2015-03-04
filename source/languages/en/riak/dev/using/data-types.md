@@ -654,6 +654,10 @@ cities_set.add('Montreal')
 ```
 
 ```csharp
+var id = new RiakObjectId("sets", "travel", "cities");
+var citiesSet = client.DtFetchSet(id);
+var adds = new List<string> { "Toronto", "Montreal" };
+var result = client.DtUpdateSet(id, obj => Encoding.UTF8.GetBytes(obj), citiesSet.Context, adds);
 ```
 
 ```erlang
