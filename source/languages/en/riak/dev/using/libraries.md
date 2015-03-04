@@ -164,6 +164,11 @@ level of maturity and activity.
 * [Gutenberg](https://github.com/dysinger/gutenberg/) --- Riak MapReduce
   examples written in LFE
 
+#### C#/.NET
+
+* [Hebo](http://github.com/bubbafat/hebo) --- An experimental Riak client
+* [Data.RiakClient](http://github.com/garethstokes/Data.RiakClient) --- A Riak client with Protocol Buffer support
+
 #### Node.js
 
 * [zukai](https://github.com/natural/zukai) --- Riak ODM for Node.js
