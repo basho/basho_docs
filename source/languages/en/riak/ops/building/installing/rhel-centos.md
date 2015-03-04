@@ -39,10 +39,10 @@ docs](https://packagecloud.io/basho/riak/install).
 
 Platform-specific pages are linked below:
 
-* [el5](https://packagecloud.io/basho/riak/riak-2.0.0-1.x86_64.rpm?distro=5)
-* [el6](https://packagecloud.io/basho/riak/riak-2.0.0-1.el6.x86_64.rpm?distro=6)
-* [el7](https://packagecloud.io/basho/riak/riak-2.0.0-1.el7.centos.x86_64.rpm?distro=7)
-* [Fedora 19](https://packagecloud.io/basho/riak/riak-2.0.0-1.fc19.x86_64.rpm?distro=19)
+* [el5](https://packagecloud.io/basho/riak/riak-{{VERSION}}-1.x86_64.rpm?distro=5)
+* [el6](https://packagecloud.io/basho/riak/riak-{{VERSION}}-1.el6.x86_64.rpm?distro=6)
+* [el7](https://packagecloud.io/basho/riak/riak-{{VERSION}}-1.el7.centos.x86_64.rpm?distro=7)
+* [Fedora 19](https://packagecloud.io/basho/riak/riak-{{VERSION}}-1.fc19.x86_64.rpm?distro=19)
 
 Our documentation also includes instructions regarding signing keys and
 sources lists, which can be found in the [[Advanced rpm
