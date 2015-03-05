@@ -310,6 +310,7 @@ riakcs:
       - "[[Install Riak CS|Installing Riak CS]]"
       - "[[Install With Chef|Installing Riak CS with Chef]]"
       - "[[The Riak CS Fast Track]]"
+      - "[[Upgrading to CS 2.0]]"
   - title: "Riak CS for Developers"
     sub:
     - title: "Accounts and Admin"
