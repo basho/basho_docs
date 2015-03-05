@@ -61,6 +61,7 @@ riak:
               - "[[Java|Conflict Resolution: Java]]"
               - "[[Ruby|Conflict Resolution: Ruby]]"
               - "[[Python|Conflict Resolution: Python]]"
+              - "[[C#|Conflict Resolution: CSharp]]"
       - title: "Riak Search"
         sub:
           - "[[Search Basics|Using Search]]"

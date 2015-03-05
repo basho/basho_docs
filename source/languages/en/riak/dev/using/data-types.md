@@ -713,6 +713,10 @@ cities_set.discard('Montreal')
 cities_set.store()
 ```
 
+```csharp
+TODO
+```
+
 ```erlang
 CitiesSet3 = riakc_set:del_element(<<"Montreal">>, CitiesSet2),
 CitiesSet4 = riakc_set:add_element(<<"Hamilton">>, CitiesSet3),
@@ -759,6 +763,10 @@ cities_set.value
 # To fetch the value stored on the server, use the call below. Note
 # that this will clear any unsent additions or deletions.
 cities_set.reload()
+```
+
+```csharp
+TODO
 ```
 
 ```erlang
@@ -818,6 +826,10 @@ cities_set.include? 'Ottawa'
 # True
 ```
 
+```csharp
+TODO
+```
+
 ```erlang
 %% At this point, Set5 is the most "recent" set from the standpoint
 %% of our application.
@@ -845,6 +857,10 @@ cities_set.members.length
 
 ```python
 len(cities_set)
+```
+
+```csharp
+TODO
 ```
 
 ```erlang
@@ -894,6 +910,10 @@ from riak.datatypes import Map
 map = Map(bucket, key)
 ```
 
+```csharp
+TODO
+```
+
 ```erlang
 %% Maps in the Erlang client are opaque data structures that
 %% collect operations as you mutate them. We will associate the data
@@ -940,6 +960,10 @@ map = Riak::Crdt::Map.new(customers, 'ahmed_info')
 ```python
 customers = client.bucket_type('map_bucket').bucket('customers')
 map = customers.net('ahmed_info')
+```
+
+```csharp
+TODO
 ```
 
 ```erlang
@@ -1003,6 +1027,10 @@ map.registers['phone_number'].assign(str(5551234567))
 map.store()
 ```
 
+```csharp
+TODO
+```
+
 ```erlang
 Map1 = riakc_map:update({<<"first_name">>, register},
                         fun(R) -> riakc_register:set(<<"Ahmed">>, R) end,
@@ -1056,6 +1084,10 @@ map.flags['enterprise_customer'].disable()
 map.store()
 ```
 
+```csharp
+TODO
+```
+
 ```erlang
 Map4 = riakc_map:update({<<"enterprise_customer">>, flag},
                         fun(F) -> riakc_flag:disable(F) end,
@@ -1092,6 +1124,10 @@ map.flags['enterprise_customer']
 
 ```python
 map.reload().flags['enterprise_customer'].value
+```
+
+```csharp
+TODO
 ```
 
 ```erlang
@@ -1131,6 +1167,10 @@ map.counters['page_visits'].increment
 ```python
 map.counters['page_visits'].increment()
 map.store()
+```
+
+```csharp
+TODO
 ```
 
 ```erlang
@@ -1189,6 +1229,10 @@ end
 for interest in ['robots', 'opera', 'motorcycles']:
     map.sets['interests'].add(interest)
 map.store()
+```
+
+```csharp
+TODO
 ```
 
 ```erlang
@@ -1252,6 +1296,10 @@ for interest in ['robots', 'opera', 'motorcycles']:
     interest in reloaded_map.sets['interests'].value
 ```
 
+```csharp
+TODO
+```
+
 ```erlang
 riakc_map:dirty_value(Map6).
 ```
@@ -1287,6 +1335,10 @@ end
 map.sets['interests'].discard('opera')
 map.sets['interests'].add('indie pop')
 map.store()
+```
+
+```csharp
+TODO
 ```
 
 ```erlang
@@ -1360,6 +1412,10 @@ map.maps['annika_info'].registers['phone_number'].assign(str(5559876543))
 map.store()
 ```
 
+```csharp
+TODO
+```
+
 ```erlang
 Map12 = riakc_map:update(
     {<<"annika_info">>, map},
@@ -1424,6 +1480,10 @@ map.maps['annika_info'].registers['first_name']
 map.reload().maps['annika_info'].registers['first_name'].value
 ```
 
+```csharp
+TODO
+```
+
 ```erlang
 riakc_map:dirty_value(Map14).
 ```
@@ -1461,6 +1521,10 @@ map.maps['annika_info'].registers.remove('phone_number')
 ```python
 del map.maps['annika_info'].registers['phone_number']
 map.store()
+```
+
+```csharp
+TODO
 ```
 
 ```erlang
@@ -1517,6 +1581,10 @@ map.maps['annika_info'].flags['enterprise_plan'].disable()
 map.maps['annika_info'].flags['family_plan'].disable()
 map.maps['annika_info'].flags['free_plan'].enable()
 map.store()
+```
+
+```csharp
+TODO
 ```
 
 ```erlang
@@ -1584,6 +1652,10 @@ map.maps['annika_info'].flags['enterprise_plan']
 map.reload().maps['annika_info'].flags['enterprise_plan'].value
 ```
 
+```csharp
+TODO
+```
+
 ```erlang
 riakc_map:dirty_value(Map18).
 ```
@@ -1615,6 +1687,10 @@ map.maps['annika_info'].counters['widget_purchases'].increment
 ```python
 map.maps['annika_info'].counters['widget_purchases'].increment()
 map.store()
+```
+
+```csharp
+TODO
 ```
 
 ```erlang
@@ -1665,6 +1741,10 @@ map.maps['annika_info'].sets['interests'].add('tango dancing')
 ```python
 map.maps['annika_info'].sets['interests'].add('tango dancing')
 map.store()
+```
+
+```csharp
+TODO
 ```
 
 ```erlang
@@ -1718,6 +1798,10 @@ map.maps['annika_info'].sets['interests'].remove('tango dancing')
 ```python
 map.maps['annika_info'].sets['interests'].discard('tango dancing')
 map.store()
+```
+
+```csharp
+TODO
 ```
 
 ```erlang
@@ -1780,6 +1864,10 @@ map.maps['annika_info'].maps['purchase'].register['amount'].assign(str(1271))
 map.maps['annika_info'].maps['purchase'].sets['items'].add('large widget')
 # and so on
 map.store()
+```
+
+```csharp
+TODO
 ```
 
 ```erlang
@@ -1865,6 +1953,10 @@ ahmed_map.context
 # g2wAAAABaAJtAAAACCMJ/vlTlb0zYQFq
 ```
 
+```csharp
+TODO
+```
+
 ```erlang
 %% You cannot fetch a Data Type's context directly using the Erlang
 %% client. This is actually quite all right, as the client automatically
@@ -1909,3 +2001,8 @@ UpdateMap update = new UpdateMap.Builder(ahmedMap, removePaidAccountField)
         .build();
 client.execute(update);
 ```
+
+```csharp
+TODO
+```
+

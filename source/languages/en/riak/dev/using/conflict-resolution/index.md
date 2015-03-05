@@ -147,6 +147,7 @@ client-library-specific docs:
 * [[Java|Conflict Resolution: Java]]
 * [[Ruby|Conflict Resolution: Ruby]]
 * [[Python|Conflict Resolution: Python]]
+* [[C#|Conflict Resolution: CSharp]]
 
 In Riak versions 2.0 and later, `allow_mult` is set to `true` by default
 for any [[bucket types|Using Bucket Types]] that you create. This means
@@ -293,6 +294,10 @@ obj2.data = 'Stimpy'
 obj2.store()
 ```
 
+```csharp
+TODO
+```
+
 ```erlang
 Obj1 = riakc_obj:new({<<"siblings_allowed">>, <<"nickolodeon">>},
                      <<"best_character">>,
@@ -350,6 +355,10 @@ obj = bucket.get('best_character')
 obj.siblings
 ```
 
+```csharp
+TODO
+```
+
 ```curl
 curl http://localhost:8098/types/siblings_allowed/buckets/nickolodeon/keys/best_character
 ```
@@ -366,6 +375,10 @@ com.basho.riak.client.cap.UnresolvedConflictException: Siblings found
 
 ```python
 [<riak.content.RiakContent object at 0x10a00eb90>, <riak.content.RiakContent object at 0x10a00ebd0>]
+```
+
+```csharp
+TODO
 ```
 
 ```curl
@@ -410,6 +423,7 @@ client-library-specific documentation for the following languages:
 * [[Java|Conflict Resolution: Java]]
 * [[Ruby|Conflict Resolution: Ruby]]
 * [[Python|Conflict Resolution: Python]]
+* [[C#|Conflict Resolution: CSharp]]
 
 We won't deal with conflict resolution in this section. Instead, we'll
 focus on how to use causal context.
@@ -469,6 +483,10 @@ new_obj.data = 'Stimpy'
 
 # Then we store the object, which has the vector clock already attached
 new_obj.store(vclock=vclock)
+```
+
+```csharp
+TODO
 ```
 
 ```curl

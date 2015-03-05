@@ -279,6 +279,10 @@ bucket = client.bucket('my_bucket')
 bucket.get('my_key')
 ```
 
+```csharp
+TODO
+```
+
 ```erlang
 {ok, Object} = riakc_pb_socket:get(Pid,
                                    <<"my_bucket">>,
@@ -319,6 +323,10 @@ bucket1 = client.bucket_type('type1').bucket('my_bucket')
 bucket2 = client.bucket_type('type2').bucket('my_bucket')
 bucket1.get('my_key')
 bucket2.get('my_key')
+```
+
+```csharp
+TODO
 ```
 
 ```erlang
@@ -369,6 +377,10 @@ bucket1 = client.bucket_type('default').bucket('my_bucket')
 bucket2 = client.bucket('my_bucket')
 bucket1.get('my_key')
 bucket2.get('my_key')
+```
+
+```csharp
+TODO
 ```
 
 ```erlang
@@ -581,6 +593,10 @@ obj.data = '{ ... user data ... }'
 obj.store()
 ```
 
+```csharp
+TODO
+```
+
 ```erlang
 Object = riakc_obj:new({<<"no_siblings">>, <<"sensitive_user_data">>},
                        <<"user19735">>,
@@ -639,6 +655,10 @@ obj = RiakObject(client, bucket, 'all_your_base')
 obj.content_type = 'text/plain'
 obj.data = 'all your base are belong to us'
 obj.store()
+```
+
+```csharp
+TODO
 ```
 
 ```erlang

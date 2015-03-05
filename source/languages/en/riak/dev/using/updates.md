@@ -127,6 +127,10 @@ obj.data = 'Pete Carroll'
 obj.store()
 ```
 
+```csharp
+TODO
+```
+
 ```erlang
 Obj = riakc_obj:new({<<"siblings">>, <<"coaches">>},
                      <<"seahawks">>,
@@ -166,8 +170,12 @@ def update_coach(team, new_coach):
 
 # Example usage
 update_coach('packers', 'Vince Lombardi')
-
 ```
+
+```csharp
+TODO
+```
+
 ```erlang
 update_coach(team, new_coach) ->
     {ok, Obj} = riakc_pb_socket:get(Pid,

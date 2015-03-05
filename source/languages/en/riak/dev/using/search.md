@@ -158,6 +158,10 @@ client.create_search_index('famous')
 client.create_search_index('famous')
 ```
 
+```csharp
+TODO
+```
+
 ```erlang
 riakc_pb_socket:create_search_index(Pid, <<"famous">>).
 ```
@@ -192,6 +196,10 @@ client.create_search_index("famous", "_yz_default")
 
 ```python
 client.create_search_index('famous', '_yz_default')
+```
+
+```csharp
+TODO
 ```
 
 ```erlang
@@ -275,6 +283,10 @@ bucket.properties = {'search_index' => 'famous'}
 ```python
 bucket = client.bucket('cats')
 bucket.set_properties({'search_index': 'famous'})
+```
+
+```csharp
+TODO
 ```
 
 ```erlang
@@ -395,6 +407,10 @@ cat.store()
 
 cat = bucket.new('panthro', {'name_s':'Panthro', 'age_i':36})
 cat.store()
+```
+
+```csharp
+TODO
 ```
 
 ```erlang
@@ -559,6 +575,10 @@ print results
 print results['docs']
 ```
 
+```csharp
+TODO
+```
+
 ```erlang
 {ok, Results} = riakc_pb_socket:search(Pid, <<"famous">>, <<"name_s:Lion*">>),
 io:fwrite("~p~n", [Results]),
@@ -651,6 +671,10 @@ print object.data
 # {"name_s": "Lion-o", "age_i": 30, "leader_b": true}
 ```
 
+```csharp
+TODO
+```
+
 ```erlang
 [{Index,Doc}|_] = Docs,
 BType  = proplists:get_value(<<"_yz_rt">>, Doc),  %% <<"animals">>
@@ -706,6 +730,10 @@ client.search("famous", "age_i:[30 TO *]")
 client.fulltext_search('famous', 'age_i:[30 TO *]')
 ```
 
+```csharp
+TODO
+```
+
 ```erlang
 riakc_pb_socket:search(Pid, <<"famous">>, <<"age_i:[30 TO *]">>),
 ```
@@ -740,6 +768,10 @@ client.search("famous", "leader_b:true AND age_i:[30 TO *]")
 client.fulltext_search('famous', 'leader_b:true AND age_i:[30 TO *]')
 ```
 
+```csharp
+TODO
+```
+
 ```erlang
 riakc_pb_socket:search(Pid, <<"famous">>, <<"leader_b:true AND age_i:[30 TO *]">>),
 ```
@@ -766,6 +798,10 @@ client.delete_search_index('famous')
 
 ```python
 client.delete_search_index('famous')
+```
+
+```csharp
+TODO
 ```
 
 ```erlang
@@ -827,6 +863,10 @@ page = 2
 start = ROWS_PER_PAGE * (page - 1)
 
 client.fulltext_search('famous', '*:*', start=start, rows=ROWS_PER_PAGE)
+```
+
+```csharp
+TODO
 ```
 
 ```erlang

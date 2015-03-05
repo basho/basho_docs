@@ -106,6 +106,10 @@ client.create_search_schema('blog_post_schema', schema_data)
 xml_file.close()
 ```
 
+```csharp
+TODO
+```
+
 ```erlang
 {ok, SchemaData} = file:read_file("blog_post_schema.xml"),
 riakc_pb_socket:create_search_schema(Pid, <<"blog_post_schema">>, SchemaData).
@@ -132,6 +136,10 @@ client.create_search_index('blog_posts', 'blog_post_schema')
 
 ```python
 client.create_search_index('blog_posts', 'blog_post_schema')
+```
+
+```csharp
+TODO
 ```
 
 ```erlang
@@ -279,6 +287,9 @@ class BlogPost:
         self.map.store()
 ```
 
+```csharp
+TODO
+```
 
 Now, we can store some blog posts. We'll start with just one:
 
@@ -325,6 +336,10 @@ blog_post1 = BlogPost('cat_pics_quarterly',
                       true)
 ```
 
+```csharp
+TODO
+```
+
 To store each blog post as a map, follow the example in [[Data Modeling
 with Riak Data Types]]. That will show you how to create a translation
 layer between blog objects and Riak maps.
@@ -355,6 +370,10 @@ results = client.search('blog_posts', 'keywords_set:funny')
 results = client.fulltext_search('blog_posts', 'keywords_set:funny')
 ```
 
+```csharp
+TODO
+```
+
 ```curl
 curl "$RIAK_HOST/search/query/blog_posts?wt=json&q=keywords_set:funny"
 ```
@@ -378,6 +397,10 @@ results = client.search('blog_posts', 'content_register:furry')
 
 ```python
 results = client.fulltext_search('blog_posts', 'content_register:furry')
+```
+
+```csharp
+TODO
 ```
 
 ```curl

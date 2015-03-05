@@ -176,6 +176,10 @@ client.create_search_index('scores', '_yz_default')
 client.create_search_index('scores', '_yz_default')
 ```
 
+```csharp
+TODO
+```
+
 ```erlang
 riakc_pb_socket:create_search_index(Pid, <<"scores">>, <<"_yz_default">>, []).
 ```
@@ -239,6 +243,10 @@ joan_rivers_counter.increment(25)
 joan_rivers_counter.store()
 ```
 
+```csharp
+TODO
+```
+
 ```erlang
 ChristopherHitchensCounter = riakc_counter:new(),
 HitchensCounter1 = riakc_counter:increment(10, ChristopherHitchensCounter),
@@ -286,6 +294,10 @@ results = client.fulltext_search('scores', 'counter:[20 TO *]')
 
 results['num_found']
 # 1
+```
+
+```csharp
+TODO
 ```
 
 ```erlang
@@ -336,6 +348,10 @@ doc['_yz_rb'] # 'people'
 doc['_yz_rt'] # 'counters'
 ```
 
+```csharp
+TODO
+```
+
 ```erlang
 Doc = lists:nth(1, Docs),
 Key = proplists:get_value(<<"_yz_rk">>, Doc),
@@ -368,6 +384,10 @@ results = client.search('scores', 'counter:[* TO 15]')
 results = client.fulltext_search('scores', 'counter:[* TO 15]')
 ```
 
+```csharp
+TODO
+```
+
 ```erlang
 {ok, Results} = riakc_pb_socket:search(Pid, <<"scores">>, <<"counter:[* TO 15]").
 ```
@@ -389,6 +409,10 @@ results = client.search('scores', 'counter:17')
 
 ```python
 results = client.fulltext_search('scores', 'counter:17')
+```
+
+```csharp
+TODO
 ```
 
 ```erlang
@@ -427,6 +451,10 @@ client.create_search_index('hobbies', '_yz_default')
 
 ```python
 client.create_search_index('hobbies', '_yz_default')
+```
+
+```csharp
+TODO
 ```
 
 ```erlang
@@ -501,6 +529,10 @@ ronnie_james_dio_set.add('winning')
 ronnie_james_dio_set.store()
 ```
 
+```csharp
+TODO
+```
+
 ```erlang
 MikeDitkaSet = riakc_set:new(),
 riakc_set:add_element(<<"football">>, MikeDitkaSet),
@@ -538,6 +570,10 @@ results = client.fulltext_search('hobbies', 'set:football')
 # This should return a dict with fields like 'num_found' and 'docs'
 ```
 
+```csharp
+TODO
+```
+
 ```erlang
 {ok, Results} = riakc_pb_socket:search(Pid, <<"hobbies">>, <<"set:football">>).
 ```
@@ -561,6 +597,10 @@ results['num_found']
 ```python
 results['num_found']
 # 1
+```
+
+```csharp
+TODO
 ```
 
 ```erlang
@@ -593,6 +633,10 @@ results['num_found']
 results = client.fulltext_search('hobbies', 'set:winning')
 results['num_found']
 # 2
+```
+
+```csharp
+TODO
 ```
 
 ```erlang
@@ -643,6 +687,10 @@ client.create_search_index('customers', '_yz_default')
 
 ```python
 client.create_search_index('customers', '_yz_default')
+```
+
+```csharp
+TODO
 ```
 
 ```erlang
@@ -742,6 +790,10 @@ for interest in ['loving rock and roll', 'being in the Blackhearts']:
 joan_jett.store()
 ```
 
+```csharp
+TODO
+```
+
 ### Searching Counters Within Maps
 
 We now have two maps stored in Riak that we can query. Let's query to
@@ -769,6 +821,10 @@ results['num_found']
 # 1
 ```
 
+```csharp
+TODO
+```
+
 As expected, one of our two stored maps has a `page_visits` counter
 above 15. Let's make sure that we have the right result:
 
@@ -789,6 +845,10 @@ results['docs'][0]['first_name_register']
 ```python
 results['docs'][0]['first_name_register']
 # u'Joan'
+```
+
+```csharp
+TODO
 ```
 
 Success! Now we can test out searching sets.
@@ -815,6 +875,10 @@ results['num_found']
 # 2
 ```
 
+```csharp
+TODO
+```
+
 As expected, both stored maps have an `interests` set. Now let's see how
 many maps have items in `interests` sets that begin with `loving`:
 
@@ -838,6 +902,10 @@ results['docs'][0]['first_name_register'] # 'Joan'
 results = client.fulltext_search('customers', 'interests_set:loving*')
 results['num_found'] # 1
 results['docs'][0]['first_name_register'] # u'Joan'
+```
+
+```csharp
+TODO
 ```
 
 As expected, only our Joan Jett map has one item in its `interests` set
@@ -871,6 +939,10 @@ joan_jett.maps['alter_ego'].registers['name'].assign('Robert Plant')
 joan_jett.store()
 ```
 
+```csharp
+TODO
+```
+
 Querying maps within maps involves construct queries that separate the
 different levels of depth with a single dot. Here's an example query for
 finding maps that have a `name` register embedded within an `alter_ego`
@@ -892,6 +964,10 @@ results['num_found'] # 1
 ```python
 results = client.fulltext_search('customers', 'alter_ego_map.name_register:*')
 results['num_found'] # 1
+```
+
+```csharp
+TODO
 ```
 
 Once we know how to query embedded fields like this, we can query those
@@ -919,6 +995,10 @@ results['docs'][0]['first_name_register'] # 'Joan'
 results = client.fulltext_search('customers', 'alter_ego_map.name_register:*Plant')
 results['num_found'] # 1
 results['docs'][0]['first_name_register'] # u'Joan
+```
+
+```csharp
+TODO
 ```
 
 Success! We've now queried not just maps but also maps within maps.

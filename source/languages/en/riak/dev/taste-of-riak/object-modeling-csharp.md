@@ -1,5 +1,5 @@
 ---
-title: "Taste of Riak: Object Modeling with C#"
+title: "Taste of Riak: Object Modeling with CSharp"
 project: riak
 version: 1.4.8+
 document: tutorials

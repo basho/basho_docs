@@ -282,6 +282,8 @@ module SitemapRenderOverride
         display_lang = case lang
         when "curl"
           "HTTP"
+        when "csharp"
+          "C#"
         when "json"
           "JSON"
         when "bash"

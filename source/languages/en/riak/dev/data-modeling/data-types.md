@@ -78,6 +78,10 @@ public class User {
 }
 ```
 
+```csharp
+TODO
+```
+
 <div class="note">
 <div class="title">Getting started with Riak clients</div>
 If you are connecting to Riak using one of Basho's official [[client
@@ -134,6 +138,10 @@ public class User {
 		this.location = new Location(new Namespace(bucketType, bucket), key);
 	}
 }
+```
+
+```csharp
+TODO
 ```
 
 ## Storing An Object's Properties in Our Riak Map
@@ -225,6 +233,10 @@ public class User {
 }
 ```
 
+```csharp
+TODO
+```
+
 Now, if we create a new user, that user will have a `map` instance
 variable attached to it, the `first_name` and `last_name` strings will
 be stored in Riak registers, and the key will be `Bruce_Wayne`:
@@ -240,6 +252,10 @@ bruce = User('Bruce', 'Wayne')
 
 ```java
 User bruce = new User("Bruce", "Wayne");
+```
+
+```csharp
+TODO
 ```
 
 So now we have our `first_name` and `last_name` variables stored in our
@@ -312,6 +328,10 @@ public class User {
 }
 ```
 
+```csharp
+TODO
+```
+
 Now when we create new users, we need to specify their interests as a
 list:
 
@@ -329,6 +349,10 @@ Set<String> interests = new HashSet<String>();
 interests.add("distributed systems");
 interests.add("Erlang");
 User joe = new User("Joe", "Armstrong", interests);
+```
+
+```csharp
+TODO
 ```
 
 Our `visits` variable will work a little bit differently, because when a
@@ -396,6 +420,10 @@ public class User {
 }
 ```
 
+```csharp
+TODO
+```
+
 And then we can have Joe Armstrong visit our page:
 
 ```ruby
@@ -408,6 +436,10 @@ joe.visit_page()
 
 ```java
 joe.visitPage();
+```
+
+```csharp
+TODO
 ```
 
 The page visit counter did not exist prior to this method call, but the
@@ -484,6 +516,10 @@ public class User {
 		updateMapWithContext(mu);
 	}
 }
+```
+
+```csharp
+TODO
 ```
 
 The problem with our `User` model so far is that we can't actually
@@ -582,6 +618,10 @@ public class User {
 }
 ```
 
+```csharp
+TODO
+```
+
 Now, we can create a new user and then access that user's
 characteristics directly from our Riak map:
 
@@ -620,6 +660,10 @@ joe.getVisits(); // 0
 joe.visitPage();
 joe.getVisits(); // 1
 joe.getAccountStatus(); // false
+```
+
+```csharp
+TODO
 ```
 
 We can also create instance methods that add and remove specific
@@ -674,6 +718,10 @@ public class User {
 		updateMapWithContext(mu);
 	}
 }
+```
+
+```csharp
+TODO
 ```
 
 ## Converting to JSON
@@ -743,6 +791,10 @@ class User {
 }
 ```
 
+```csharp
+TODO
+```
+
 Now, we can instantly convert our `User` map into a stringified JSON
 object and pipe it to our client-side application:
 
@@ -767,3 +819,8 @@ interests.add("climbing stuff");
 User bruce = new User("Bruce", "Wayne", interests);
 bruce.toJson();
 ```
+
+```csharp
+TODO
+```
+

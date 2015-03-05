@@ -121,13 +121,13 @@ Riak::ProtobuffsFailedRequest: Expected success from Riak but received not_found
 riak.RiakError: 'no_type'
 ```
 
-```erlang
-{error,notfound}
-```
-
 ```csharp
 result.IsSuccess == false
 result.ResultCode == ResultCode.NotFound
+```
+
+```erlang
+{error,notfound}
 ```
 
 ```curl
@@ -184,6 +184,10 @@ obj.data = 'WOOF!'
 obj.store()
 ```
 
+```csharp
+TODO
+```
+
 Notice that we specified both a value for the object, i.e. `WOOF!`, and
 a content type, `text/plain`. We'll learn more about content types in
 the [[section below|The Basics#Content-Types]].
@@ -220,6 +224,10 @@ ArgumentError: content_type is not defined!
 # In the Python client, the default content type is "application/json".
 # Because of this, you should always make sure to specify the content
 # type when storing other types of data.
+```
+
+```csharp
+TODO
 ```
 
 ```erlang
@@ -280,17 +288,17 @@ obj = bucket.get('rufus', r=3)
 print obj.data
 ```
 
+```csharp
+var objectId = new RiakObjectId("animals", "dogs", "rufus");
+var object = client.Get(objectId, new RiakGetOptions.SetR(3));
+Console.Write(object.Value);
+```
+
 ```erlang
 {ok, Obj} = riakc_pb_socket:get(Pid,
                                 {<<"animals">>, <<"dogs">>},
                                 <<"rufus">>,
                                 [{r, 3}]).
-```
-
-```csharp
-var objectId = new RiakObjectId("animals", "dogs", "rufus");
-var object = client.Get(objectId, new RiakGetOptions.SetR(3));
-Console.Write(object.Value);
 ```
 
 ```curl
@@ -521,6 +529,10 @@ obj.vclock
 # a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
 ```
 
+```csharp
+TODO
+```
+
 ```erlang
 %% Using the Obj object from above:
 
@@ -573,6 +585,10 @@ obj = RiakObject(client, bucket, 'viper')
 obj.content_type = 'text/plain'
 obj.data = 'vroom'
 obj.store(w=3)
+```
+
+```csharp
+TODO
 ```
 
 ```erlang
@@ -633,6 +649,10 @@ obj = RiakObject(client, bucket, 'viper')
 obj.content_type = 'text/plain'
 obj.data = 'vroom'
 obj.store(w=3, return_body=True)
+```
+
+```csharp
+TODO
 ```
 
 ```erlang
@@ -715,6 +735,10 @@ obj.key
 'ZPFF18PUqGW9efVou7EHhfE6h8a'
 ```
 
+```csharp
+TODO
+```
+
 ```erlang
 Object = riakc_obj:new({<<"users">>, <<"random_user_keys">>}, undefined, <<"{'user':'data'}">>, <<"application/json">>).
 riakc_pb_socket:put(Pid, Object).
@@ -769,6 +793,10 @@ bucket.delete('genius')
 ```python
 bucket = client.bucket_type('quotes').bucket('oscar_wilde')
 bucket.delete('genius')
+```
+
+```csharp
+TODO
 ```
 
 ```erlang
@@ -858,6 +886,10 @@ BucketProperties props = fetchProps.get().getBucketProperties();
 ```python
 bt = BucketType(client, 'n_val_of_5')
 bt.get_properties()
+```
+
+```csharp
+TODO
 ```
 
 ```erlang

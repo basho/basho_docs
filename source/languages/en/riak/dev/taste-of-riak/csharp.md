@@ -21,7 +21,7 @@ Install [the Riak .NET Client](https://github.com/basho-labs/riak-dotnet-client/
 <div class="note">
 <div class="title">Configuring for a remote cluster</div>
 By default, the Riak .NET Client will add a section to your `app.config` file for a four node local cluster. If you are using a remote cluster, open up `app.config` and change the `hostAddress` values to point to nodes in your remote cluster.
-
+</div>
 
 ### Connecting to Riak
 
@@ -84,7 +84,8 @@ using RiakClient.Models;
 Add the `Person` class to the `TasteOfRiak` namespace:
 
 ```csharp
-public class Person {
+public class Person
+{
     public string EmailAddress { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
@@ -96,8 +97,16 @@ Now let's create some people!
 ```csharp
 var people = new[]
 {
-    new Person { EmailAddress = "bashoman@basho.com", FirstName = "Basho", LastName = "Man" },
-    new Person { EmailAddress = "johndoe@gmail.com", FirstName = "John", LastName = "Doe" }
+    new Person {
+        EmailAddress = "bashoman@basho.com",
+        FirstName = "Basho",
+        LastName = "Man"
+    },
+    new Person {
+        EmailAddress = "johndoe@gmail.com",
+        FirstName = "John",
+        LastName = "Doe"
+    }
 };
 
 foreach (var person in people)
