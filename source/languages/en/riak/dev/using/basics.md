@@ -185,7 +185,9 @@ obj.store()
 ```
 
 ```csharp
-TODO
+var id = new RiakObjectId("animals", "dogs", "rufus")
+var object = new RiakObject(id, "WOOF!", "text/plain");
+var result = client.Put(object);
 ```
 
 Notice that we specified both a value for the object, i.e. `WOOF!`, and
