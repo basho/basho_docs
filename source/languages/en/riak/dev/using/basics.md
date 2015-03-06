@@ -229,7 +229,11 @@ ArgumentError: content_type is not defined!
 ```
 
 ```csharp
-TODO
+// In the C# client, the response when storing an object without
+// specifying a content type will depend on what is being stored.
+// If you store a Dictionary, for example, the client will
+// automatically specify that the object is "application/json";
+// POCOs are stored as JSON by default, and so on.
 ```
 
 ```erlang
@@ -533,6 +537,13 @@ obj.vclock
 
 ```csharp
 TODO
+// Using the RiakObject obj from above:
+
+Vclock vClock = obj.getVclock();
+System.out.println(vClock.asString());
+
+// The context object will look something like this:
+// a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
 ```
 
 ```erlang
