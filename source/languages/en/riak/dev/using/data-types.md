@@ -656,7 +656,7 @@ CitiesSet5 = riakc_set:add_element(<<"Ottawa">>, CitiesSet4).
 ```curl
 curl -XPOST http://localhost:8098/types/sets/buckets/travel/datatypes/cities \
   -H "Content-Type: application/json" \
-  -d '{"remove": "Montreal"}'
+  -d '{"remove": "Montreal", "context" : "g2wAAAABaAJtAAAACCMJ/vkCeL5aYQlq"}'
 ```
 
 Now, we can check on which cities are currently in our set:
@@ -718,7 +718,7 @@ curl http://localhost:8098/types/sets/buckets/travel/datatypes/cities
 
 # Response
 
-{"type":"set","value":["Toronto"],"context":"SwGDUAAAAER4ActgymFgYGDMYMoFUhxHgzZyBzMfsU9kykISZg/JL8rPK8lHEkKoZMzKAgDwJA+e"}
+{"type":"set","value":["Toronto"],"context":"g2wAAAABaAJtAAAACCMJ/vkCeL5aYQhq"}
 
 # You can also fetch the value of the set without the context included:
 curl http://localhost:8098/types/sets/buckets/travel/datatypes/cities?include_context=false
