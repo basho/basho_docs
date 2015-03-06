@@ -85,7 +85,7 @@ obj = bucket.get('rufus')
 // In the C# client, it is best to specify a bucket type/bucket/key
 // RiakObjectId object that can be used as a reference for further
 // operations
-var objectId = new RiakObjectId("animals", "dogs", "rufus");
+var id = new RiakObjectId("animals", "dogs", "rufus");
 ```
 
 ```erlang
@@ -186,8 +186,8 @@ obj.store()
 
 ```csharp
 var id = new RiakObjectId("animals", "dogs", "rufus")
-var object = new RiakObject(id, "WOOF!", "text/plain");
-var result = client.Put(object);
+var obj = new RiakObject(id, "WOOF!", "text/plain");
+var result = client.Put(obj);
 ```
 
 Notice that we specified both a value for the object, i.e. `WOOF!`, and
@@ -295,9 +295,11 @@ print obj.data
 ```
 
 ```csharp
-var objectId = new RiakObjectId("animals", "dogs", "rufus");
-var object = client.Get(objectId, new RiakGetOptions.SetR(3));
-Console.Write(object.Value);
+var id = new RiakObjectId("animals", "dogs", "rufus");
+var opts = new RiakGetOptions();
+opts.SetR(3);
+var rslt = client.Get(id, opts);
+Debug.WriteLine(Encoding.UTF8.GetString(rslt.Value.Value));
 ```
 
 ```erlang
@@ -382,10 +384,10 @@ obj.store()
 ```
 
 ```csharp
-var objectId = new RiakObjectId("quotes", "oscar_wilde", "genius");
-var object = new RiakObject(objectId);
-object.SetObject("I have nothing to declare but my genius", "text/plain");
-Client.Put(object);
+var id = new RiakObjectId("quotes", "oscar_wilde", "genius");
+var obj = new RiakObject(id, "I have nothing to declare but my genius",
+    RiakConstants.ContentTypes.TextPlain);
+var rslt = client.Put(obj);
 ```
 
 ```erlang
@@ -470,11 +472,16 @@ obj.data = 'Harlem Globetrotters'
 ```
 
 ```csharp
-var objectId = new RiakObjectId("sports", "nba", "champion")
-RiakResult<RiakObject> result = client.Get(objectId)
-RiakObject object = result.Value;
-object.SetValue<string>("Harlem Globetrotters", "text/plain");
-result = client.Put(object);
+var id = new RiakObjectId("sports", "nba", "champion");
+var obj = new RiakObject(id, "Washington Generals",
+    RiakConstants.ContentTypes.TextPlain);
+var rslt = client.Put(obj);
+
+rslt = client.Get(id);
+obj = rslt.Value;
+obj.SetObject("Harlem Globetrotters",
+    RiakConstants.ContentTypes.TextPlain);
+rslt = client.Put(obj);
 ```
 
 ```erlang
@@ -536,13 +543,11 @@ obj.vclock
 ```
 
 ```csharp
-TODO
 // Using the RiakObject obj from above:
+var vclock = result.Value.VectorClock;
+Console.WriteLine(Convert.ToBase64String(vclock));
 
-Vclock vClock = obj.getVclock();
-System.out.println(vClock.asString());
-
-// The context object will look something like this:
+// The output will look something like this:
 // a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
 ```
 
@@ -601,7 +606,11 @@ obj.store(w=3)
 ```
 
 ```csharp
-TODO
+var id = new RiakObjectId("cars", "dodge", "viper");
+var obj = new RiakObject(id, "vroom", "text/plain");
+var options = new RiakPutOptions();
+options.SetW(new Quorum(3));
+var result = client.Put(obj, options);
 ```
 
 ```erlang
@@ -665,7 +674,12 @@ obj.store(w=3, return_body=True)
 ```
 
 ```csharp
-TODO
+var id = new RiakObjectId("cars", "dodge", "viper");
+var obj = new RiakObject(id, "vroom", "text/plain");
+var options = new RiakPutOptions();
+options.SetW(new Quorum(3));
+options.SetReturnBody(true);
+var result = client.Put(obj, options);
 ```
 
 ```erlang
@@ -880,11 +894,6 @@ Once the type is activated, we can see which properties are associated
 with our bucket type (and, by extension, any bucket that bears that
 type):
 
-```ruby
-bt = client.bucket_type('n_val_of_5')
-bt.props
-```
-
 ```java
 // Fetching the bucket properties of a bucket type/bucket combination
 // must be done using a RiakCluster object rather than a RiakClient.
@@ -894,6 +903,11 @@ FetchBucketPropsOperation fetchProps = new FetchBucketPropsOperation
         .build();
 cluster.execute(fetchProps);
 BucketProperties props = fetchProps.get().getBucketProperties();
+```
+
+```ruby
+bt = client.bucket_type('n_val_of_5')
+bt.props
 ```
 
 ```python
