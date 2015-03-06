@@ -70,9 +70,13 @@ appropriate directory for that system:
 
 To verify that the patch has been installed properly, run the `[[riak
 attach|riak Command Line#attach]]` command (or `[[riak-cs attach|Riak CS
-Command-line Tools#riak-cs]]`). Once you have entered the Erlang shell,
-run `m(ssl_record)`. In the resulting output, the `compiled: Date:` text
-should read `January 15 2015`. You can exit the shell using **Ctrl-C**.
+Command-line Tools#riak-cs]]`).
+
+Once you have entered the Erlang shell, run `m(ssl_record).` (be sure
+to include the trailing period).
+
+In the resulting output, the `compiled: Date:` text should read
+`January 15 2015`. You can exit the shell using **Ctrl-C a**.
 
 ## Backout Plan
 
