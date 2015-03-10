@@ -763,7 +763,14 @@ obj.key
 ```
 
 ```csharp
-TODO
+var id = new RiakObjectId("users", "random_user_keys", null);
+var obj = new RiakObject(id, @"{'user':'data'}",
+    RiakConstants.ContentTypes.ApplicationJson);
+var rslt = client.Put(obj);
+Debug.WriteLine(format: "Generated key: {0}", args: rslt.Value.Key);
+
+// The .NET client will output a random key similar to this:
+Generated key: DWDsnpYSqOU363c0Bqe8hCwAM7Q
 ```
 
 ```erlang
@@ -823,7 +830,13 @@ bucket.delete('genius')
 ```
 
 ```csharp
-TODO
+var id = new RiakObjectId("users", "random_user_keys", null);
+var obj = new RiakObject(id, @"{'user':'data'}",
+    RiakConstants.ContentTypes.ApplicationJson);
+var rslt = client.Put(obj);
+string key = rslt.Value.Key;
+id = new RiakObjectId("users", "random_user_keys", key);
+var del_rslt = client.Delete(id);
 ```
 
 ```erlang
@@ -916,7 +929,8 @@ bt.get_properties()
 ```
 
 ```csharp
-TODO
+var rslt = client.GetBucketProperties("n_val_of_5", "any_bucket_name");
+RiakBucketProperties props = rslt.Value;
 ```
 
 ```erlang
