@@ -21,7 +21,16 @@ version 3 replication to run.
 
 The configuration for Multi-Datacenter (MDC) Replication is kept in the
 both the `riak_core` and `riak_repl` sections of the `app.config`
-configuration file. Here is a sample of the syntax:
+configuration file. 
+
+If you are using Riak Enterprise version 2.0, configuration is managed
+using the `advanced.config` files on
+each node. The semantics of the `advanced.config` file are similar to
+the formerly used `app.config` file. For more information and for a list
+of configurable parameters, see our documentation on [[Advanced
+Configuration|Configuration Files#Advanced-Configuration]].
+
+Here is a sample of the syntax:
 
 ```appconfig
 {riak_core, [
