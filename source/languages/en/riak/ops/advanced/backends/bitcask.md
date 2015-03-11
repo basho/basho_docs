@@ -411,6 +411,7 @@ midnight and 23 specifying 11 pm. The following example enables merging
 between 3 am and 4:59 pm:
 
 ```riakconf
+bitcask.merge.policy = window
 bitcask.merge.window.start = 3
 bitcask.merge.window.end = 17
 ```
