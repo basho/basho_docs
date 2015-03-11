@@ -554,7 +554,7 @@ cities_set = Riak::Crdt::Set.new(travel, 'cities')
 ```
 
 ```python
-travel = client.bucket_type('sets).bucket('travel')
+travel = client.bucket_type('sets').bucket('travel')
 
 # The client detects the bucket type's Data Type and automatically
 # returns the right Data Type for you, in this case a Riak set.
@@ -568,7 +568,7 @@ cities_set = Set(travel, 'cities')
 
 ```csharp
 // Now we'll create a reference to the set we want to interact with:
-var id = new RiakObjectId("set_bucket", "travel", "cities");
+var id = new RiakObjectId("sets", "travel", "cities");
 ```
 
 ```erlang
@@ -609,7 +609,7 @@ len(cities_set) == 0
 ```csharp
 var id = new RiakObjectId("sets", "travel", "cities");
 var citiesSet = client.DtFetchSet(id);
-var setSize = citiesSet.Values.ToArray().GetLength();
+int setSize = citiesSet.Values.Count;
 Console.WriteLine(setSize > 0);
 ```
 
@@ -657,7 +657,9 @@ cities_set.add('Montreal')
 var id = new RiakObjectId("sets", "travel", "cities");
 var citiesSet = client.DtFetchSet(id);
 var adds = new List<string> { "Toronto", "Montreal" };
-var result = client.DtUpdateSet(id, obj => Encoding.UTF8.GetBytes(obj), citiesSet.Context, adds);
+var result = client.DtUpdateSet(id,
+    obj => Encoding.UTF8.GetBytes(obj),
+    citiesSet.Context, adds);
 ```
 
 ```erlang
@@ -692,7 +694,9 @@ Context ctx = response.getContext();
 
 // Now we build a SetUpdate operation
 SetUpdate su = new SetUpdate()
-        .remove("Montreal");
+        .remove("Montreal")
+        .add("Hamilton")
+        .add("Ottawa");
 
 // Finally, we update the set, specifying the context
 UpdateSet update = new UpdateSet.Builder(citiesSet, su)
@@ -706,15 +710,23 @@ client.execute(update);
 
 ```ruby
 cities_set.remove('Montreal')
+cities_set.add('Hamilton')
+cities_set.add('Ottawa')
 ```
 
 ```python
 cities_set.discard('Montreal')
+cities_set.add('Hamilton')
+cities_set.add('Ottawa')
 cities_set.store()
 ```
 
 ```csharp
-TODO
+var removes = new List<string> { "Montreal" };
+var adds = new List<string> { "Hamilton", "Ottawa" };
+citiesSet = client.DtUpdateSet(id,
+    obj => Encoding.UTF8.GetBytes(obj),
+    rslt.Context, adds, removes);
 ```
 
 ```erlang
@@ -726,7 +738,7 @@ CitiesSet5 = riakc_set:add_element(<<"Ottawa">>, CitiesSet4).
 ```curl
 curl -XPOST http://localhost:8098/types/sets/buckets/travel/datatypes/cities \
   -H "Content-Type: application/json" \
-  -d '{"remove": "Montreal"}'
+  -d '{"remove": "Montreal","add_all":["Toronto", "Montreal"]}'
 ```
 
 Now, we can check on which cities are currently in our set:
@@ -766,7 +778,17 @@ cities_set.reload()
 ```
 
 ```csharp
-TODO
+foreach (var value in citiesSet.Values)
+{
+    string city = Encoding.UTF8.GetString(value);
+    var args = new[] { city };
+    Debug.WriteLine(format: "Cities Set Value: {0}", args: args);
+}
+
+// Output:
+// Cities Set Value: Hamilton
+// Cities Set Value: Ottawa
+// Cities Set Value: Toronto
 ```
 
 ```erlang
@@ -827,7 +849,8 @@ cities_set.include? 'Ottawa'
 ```
 
 ```csharp
-TODO
+// Note: At this point in time there is no convienience method for
+// checking if a set includes a value.
 ```
 
 ```erlang
@@ -860,7 +883,7 @@ len(cities_set)
 ```
 
 ```csharp
-TODO
+Debug.WriteLine(format: "Cities Set Size: {0}", args: citiesSet.Values.Count);
 ```
 
 ```erlang
@@ -911,7 +934,7 @@ map = Map(bucket, key)
 ```
 
 ```csharp
-TODO
+var id = new RiakObjectId("<bucket_type>", "<bucket>", "<key>");
 ```
 
 ```erlang
@@ -963,7 +986,7 @@ map = customers.net('ahmed_info')
 ```
 
 ```csharp
-TODO
+var id = new RiakObjectId("maps", "customers", "ahmed_info");
 ```
 
 ```erlang
@@ -1028,7 +1051,64 @@ map.store()
 ```
 
 ```csharp
-TODO
+SerializeObjectToByteArray<string> Serializer =
+    s => Encoding.UTF8.GetBytes(s);
+
+DeserializeObject<string> Deserializer =
+    (b, type) => Encoding.UTF8.GetString(b);
+
+const string firstNameRegister = "first_name";
+const string phoneNumberRegister = "phone_number";
+
+id = new RiakObjectId("maps", "customers", "ahmed_info");
+var rslt = client.DtFetchMap(id);
+
+var firstNameRegisterMapUpdate = new MapUpdate
+{
+    register_op = Serializer("Ahmed"),
+    field = new MapField
+    {
+        name = Serializer(firstNameRegister),
+        type = MapField.MapFieldType.REGISTER
+    }
+};
+
+var phoneNumberRegisterMapUpdate = new MapUpdate
+{
+    register_op = Serializer("5551234567"),
+    field = new MapField
+    {
+        name = Serializer(phoneNumberRegister),
+        type = MapField.MapFieldType.REGISTER
+    }
+};
+
+var updates = new List<MapUpdate> {
+    firstNameRegisterMapUpdate,
+    phoneNumberRegisterMapUpdate
+};
+rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+
+foreach (RiakDtMapEntry value in rslt.Values)
+{
+    RiakDtMapField field = value.Field;
+    Debug.Assert(RiakDtMapField.RiakDtMapFieldType.Register == field.Type);
+    switch (field.Name)
+    {
+        case "first_name":
+            Debug.WriteLine(format: "First Name: {0}",
+                args: Deserializer(value.RegisterValue));
+            break;
+        case "phone_number":
+            Debug.WriteLine(format: "Phone Number: {0}",
+                args: Deserializer(value.RegisterValue));
+            break;
+        default:
+            Debug.Fail("Map Error",
+                string.Format("Unexpected field name: {0}", field.Name));
+            break;
+    }
+}
 ```
 
 ```erlang
@@ -1085,7 +1165,25 @@ map.store()
 ```
 
 ```csharp
-TODO
+const string enterpriseCustomerFlag = "enterprise_customer";
+
+id = new RiakObjectId("maps", "customers", "ahmed_info");
+var rslt = client.DtFetchMap(id);
+
+var enterpriseCustomerFlagUpdate = new MapUpdate
+{
+    flag_op = MapUpdate.FlagOp.DISABLE,
+    field = new MapField
+    {
+        name = Serializer(enterpriseCustomerFlag),
+        type = MapField.MapFieldType.FLAG
+    }
+};
+
+var updates = new List<MapUpdate> {
+    enterpriseCustomerFlagUpdate
+};
+rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
 ```
 
 ```erlang
@@ -1127,7 +1225,33 @@ map.reload().flags['enterprise_customer'].value
 ```
 
 ```csharp
-TODO
+rslt = client.DtFetchMap(id);
+CheckResult(rslt);
+foreach (RiakDtMapEntry value in rslt.Values)
+{
+    RiakDtMapField field = value.Field;
+    switch (field.Type)
+    {
+        case RiakDtMapField.RiakDtMapFieldType.Register:
+            var args = new[] {
+                field.Name,
+                Deserializer(value.RegisterValue)
+            };
+            Debug.WriteLine(format: "{0}: {1}", args: args);
+            break;
+        case RiakDtMapField.RiakDtMapFieldType.Flag:
+            args = new[] {
+                field.Name,
+                value.FlagValue.Value.ToString()
+            };
+            Debug.WriteLine(format: "{0}: {1}", args: args);
+            break;
+        default:
+            Debug.Fail("Map Error",
+                string.Format("Unexpected field type: {0}", field.Type));
+            break;
+    }
+}
 ```
 
 ```erlang
@@ -1170,7 +1294,25 @@ map.store()
 ```
 
 ```csharp
-TODO
+const string pageVisitsCounter = "page_visits";
+
+id = new RiakObjectId("maps", "customers", "ahmed_info");
+var rslt = client.DtFetchMap(id);
+
+var pageVisitsCounterUpdate = new MapUpdate
+{
+    counter_op = new CounterOp { increment = 1 },
+    field = new MapField
+    {
+        name = Serializer(pageVisitsCounter),
+        type = MapField.MapFieldType.COUNTER
+    }
+};
+
+var updates = new List<MapUpdate> {
+    pageVisitsCounterUpdate
+};
+rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
 ```
 
 ```erlang
@@ -1232,7 +1374,25 @@ map.store()
 ```
 
 ```csharp
-TODO
+const string interestsSet = "interests";
+
+var interestsAdds = new[] { "robots", "opera", "motorcycles" };
+var setOperation = new SetOp();
+setOperation.adds.AddRange(interestsAdds.Select(i => Serializer(i)));
+var interestsSetUpdate = new MapUpdate
+{
+    set_op = setOperation,
+    field = new MapField
+    {
+        name = Serializer(interestsSet),
+        type = MapField.MapFieldType.SET
+    }
+};
+
+var updates = new List<MapUpdate> {
+    interestsSetUpdate
+};
+rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
 ```
 
 ```erlang
@@ -1297,7 +1457,31 @@ for interest in ['robots', 'opera', 'motorcycles']:
 ```
 
 ```csharp
-TODO
+var rslt = client.DtFetchMap(id);
+foreach (RiakDtMapEntry value in rslt.Values)
+{
+    RiakDtMapField field = value.Field;
+    switch (field.Type)
+    {
+        ...
+        ...
+        ...
+        case RiakDtMapField.RiakDtMapFieldType.Set:
+            foreach (var setValue in value.SetValue)
+            {
+                args = new[] {
+                    field.Name,
+                    Deserializer(setValue)
+                };
+                Debug.WriteLine(format: "{0}: {1}", args: args);
+            }
+            break;
+        ...
+        ...
+        ...
+    }
+}
+
 ```
 
 ```erlang
@@ -1316,7 +1500,8 @@ seem to like opera. He's much more keen on indie pop. Let's change the
 // Using our "ahmedMap" location from above:
 
 SetUpdate su = new SetUpdate()
-        .remove("opera");
+        .remove("opera")
+        .add("indie pop");
 MapUpdate mu = new MapUpdate()
         .update("interests", su);
 UpdateMap update = new UpdateMap.Builder(ahmedMap, mu)
@@ -1338,7 +1523,25 @@ map.store()
 ```
 
 ```csharp
-TODO
+var interestsRemoves = new[] { "opera" };
+var interestsAdds = new[] { "indie pop" };
+var setOperation = new SetOp();
+setOperation.adds.AddRange(interestsAdds.Select(i => Serializer(i)));
+setOperation.removes.AddRange(interestsRemoves.Select(i => Serializer(i)));
+var interestsSetUpdate = new MapUpdate
+{
+    set_op = setOperation,
+    field = new MapField
+    {
+        name = Serializer(interestsSet),
+        type = MapField.MapFieldType.SET
+    }
+};
+
+var updates = new List<MapUpdate> {
+    interestsSetUpdate
+};
+var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
 ```
 
 ```erlang
@@ -1413,7 +1616,57 @@ map.store()
 ```
 
 ```csharp
-TODO
+const string firstNameRegister = "first_name";
+const string lastNameRegister = "last_name";
+const string phoneNumberRegister = "phone_number";
+const string annikaInfoMap = "annika_info";
+
+var annikaMapUpdates = new List<MapUpdate>
+{
+    new MapUpdate
+    {
+        register_op = Serializer("Annika"),
+        field = new MapField
+        {
+            name = Serializer(firstNameRegister),
+            type = MapField.MapFieldType.REGISTER
+        },
+    },
+    new MapUpdate
+    {
+        register_op = Serializer("Weiss"),
+        field = new MapField
+        {
+            name = Serializer(lastNameRegister),
+            type = MapField.MapFieldType.REGISTER
+        },
+    },
+    new MapUpdate
+    {
+        register_op = Serializer("5559876543"),
+        field = new MapField
+        {
+            name = Serializer(phoneNumberRegister),
+            type = MapField.MapFieldType.REGISTER
+        },
+    }
+};
+var annikaInfoUpdateMapOp = new MapOp();
+annikaInfoUpdateMapOp.updates.AddRange(annikaMapUpdates);
+var annikaInfoUpdate = new MapUpdate
+{
+    map_op = annikaInfoUpdateMapOp,
+    field = new MapField
+    {
+        name = Serializer(annikaInfoMap),
+        type = MapField.MapFieldType.MAP
+    }
+};
+
+var updates = new List<MapUpdate> {
+    annikaInfoUpdate
+};
+var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
 ```
 
 ```erlang
@@ -1481,7 +1734,9 @@ map.reload().maps['annika_info'].registers['first_name'].value
 ```
 
 ```csharp
-TODO
+// Note: At this point in time there is no convienience method for
+// retrieving a value from a map. Please see the RiakClientExamples
+// project for code samples
 ```
 
 ```erlang
@@ -1524,7 +1779,30 @@ map.store()
 ```
 
 ```csharp
-TODO
+var annikaMapRemoves = new List<MapField>
+{
+    new MapField
+    {
+        name = Serializer(firstNameRegister),
+        type = MapField.MapFieldType.REGISTER
+    },
+};
+var annikaInfoUpdateMapOp = new MapOp();
+var annikaInfoUpdateMapOp.removes.AddRange(annikaMapRemoves);
+var annikaInfoUpdate = new MapUpdate
+{
+    map_op = annikaInfoUpdateMapOp,
+    field = new MapField
+    {
+        name = Serializer(annikaInfoMap),
+        type = MapField.MapFieldType.MAP
+    }
+};
+
+var updates = new List<MapUpdate> {
+    annikaInfoUpdate
+};
+var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
 ```
 
 ```erlang
@@ -1584,7 +1862,55 @@ map.store()
 ```
 
 ```csharp
-TODO
+const string enterprisePlanFlag = "enterprise_plan";
+const string familyPlanFlag = "family_plan";
+const string freePlanFlag = "free_plan";
+var annikaMapUpdates = new List<MapUpdate>
+{
+    new MapUpdate
+    {
+        flag_op = MapUpdate.FlagOp.DISABLE,
+        field = new MapField
+        {
+            name = Serializer(enterprisePlanFlag),
+            type = MapField.MapFieldType.FLAG
+        },
+    },
+    new MapUpdate
+    {
+        flag_op = MapUpdate.FlagOp.DISABLE,
+        field = new MapField
+        {
+            name = Serializer(familyPlanFlag),
+            type = MapField.MapFieldType.FLAG
+        },
+    },
+    new MapUpdate
+    {
+        flag_op = MapUpdate.FlagOp.DISABLE,
+        field = new MapField
+        {
+            name = Serializer(freePlanFlag),
+            type = MapField.MapFieldType.FLAG
+        },
+    } 
+};
+var annikaInfoUpdateMapOp = new MapOp();
+var annikaInfoUpdateMapOp.updates.AddRange(annikaMapUpdates);
+var annikaInfoUpdate = new MapUpdate
+{
+    map_op = annikaInfoUpdateMapOp,
+    field = new MapField
+    {
+        name = Serializer(annikaInfoMap),
+        type = MapField.MapFieldType.MAP
+    }
+};
+
+var updates = new List<MapUpdate> {
+    annikaInfoUpdate
+};
+var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
 ```
 
 ```erlang
@@ -1653,7 +1979,9 @@ map.reload().maps['annika_info'].flags['enterprise_plan'].value
 ```
 
 ```csharp
-TODO
+// Note: At this point in time there is no convienience method for
+// retrieving a value from a map. Please see the RiakClientExamples
+// project for code samples
 ```
 
 ```erlang
@@ -1690,7 +2018,35 @@ map.store()
 ```
 
 ```csharp
-TODO
+const string widgetPurchasesCounter = "widget_purchases";
+var annikaMapUpdates = new List<MapUpdate>
+{
+    new MapUpdate
+    {
+        counter_op = new CounterOp { increment = 1 },
+        field = new MapField
+        {
+            name = Serializer(widgetPurchasesCounter),
+            type = MapField.MapFieldType.COUNTER
+        },
+    }
+};
+var annikaInfoUpdateMapOp = new MapOp();
+var annikaInfoUpdateMapOp.updates.AddRange(annikaMapUpdates);
+var annikaInfoUpdate = new MapUpdate
+{
+    map_op = annikaInfoUpdateMapOp,
+    field = new MapField
+    {
+        name = Serializer(annikaInfoMap),
+        type = MapField.MapFieldType.MAP
+    }
+};
+
+var updates = new List<MapUpdate> {
+    annikaInfoUpdate
+};
+var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
 ```
 
 ```erlang
@@ -1726,7 +2082,7 @@ Now let's store Annika's interests in a set:
 
 SetUpdate su = new SetUpdate().add("tango dancing");
 MapUpdate annikaUpdate = new MapUpdate()
-        .update("widget_purchases", su);
+        .update("interests", su);
 MapUpdate ahmedUpdate = new MapUpdate()
         .update("annika_info", annikaUpdate);
 UpdateMap update = new UpdateMap.Builder(ahmedMap, ahmedUpdate)
@@ -1744,7 +2100,37 @@ map.store()
 ```
 
 ```csharp
-TODO
+const string annikaInterestsSet = "annika_info";
+var annikaInterestsSetOp = new SetOp();
+annikaInterestsSetOp.adds.Add(Serializer("tango dancing"));
+var annikaMapUpdates = new List<MapUpdate>
+{
+    new MapUpdate
+    {
+        set_op = annikaInterestsSetOp,
+        field = new MapField
+        {
+            name = Serializer(annikaInterestsSet),
+            type = MapField.MapFieldType.SET
+        },
+    }
+};
+var annikaInfoUpdateMapOp = new MapOp();
+var annikaInfoUpdateMapOp.updates.AddRange(annikaMapUpdates);
+var annikaInfoUpdate = new MapUpdate
+{
+    map_op = annikaInfoUpdateMapOp,
+    field = new MapField
+    {
+        name = Serializer(annikaInfoMap),
+        type = MapField.MapFieldType.MAP
+    }
+};
+
+var updates = new List<MapUpdate> {
+    annikaInfoUpdate
+};
+var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
 ```
 
 ```erlang
@@ -1782,7 +2168,7 @@ We can remove that interest in just the way that we would expect:
 
 SetUpdate su = new SetUpdate().remove("tango dancing");
 MapUpdate annikaUpdate = new MapUpdate()
-        .update("widget_purchases", su);
+        .update("interests_set", su);
 MapUpdate ahmedUpdate = new MapUpdate()
         .update("annika_info", annikaUpdate);
 UpdateMap update = new UpdateMap.Builder(ahmedMap, ahmedUpdate)
@@ -1801,7 +2187,36 @@ map.store()
 ```
 
 ```csharp
-TODO
+var annikaInterestsSetOp = new SetOp();
+var annikaInterestsSetOp.removes.Add(Serializer("tango dancing"));
+var annikaMapUpdates = new List<MapUpdate>
+{
+    new MapUpdate
+    {
+        set_op = annikaInterestsSetOp,
+        field = new MapField
+        {
+            name = Serializer(annikaInterestsSet),
+            type = MapField.MapFieldType.SET
+        },
+    }
+};
+var annikaInfoUpdateMapOp = new MapOp();
+var annikaInfoUpdateMapOp.updates.AddRange(annikaMapUpdates);
+var annikaInfoUpdate = new MapUpdate
+{
+    map_op = annikaInfoUpdateMapOp,
+    field = new MapField
+    {
+        name = Serializer(annikaInfoMap),
+        type = MapField.MapFieldType.MAP
+    }
+};
+
+var updates = new List<MapUpdate> {
+    annikaInfoUpdate
+};
+var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
 ```
 
 ```erlang
@@ -1867,7 +2282,72 @@ map.store()
 ```
 
 ```csharp
-TODO
+const string annikaPurchaseMap = "purchase";
+const string annikaFirstPurchaseFlag = "first_purchase";
+const string annikaPurchaseAmountRegister = "amount";
+const string annikaPurchaseItemsSet = "items";
+
+var annikaItemsSetOp = new SetOp();
+annikaItemsSetOp.adds.Add(Serializer("large widget"));
+var annikaMapUpdates = new List<MapUpdate>
+{
+    new MapUpdate
+    {
+        flag_op = MapUpdate.FlagOp.ENABLE,
+        field = new MapField
+        {
+            name = Serializer(annikaFirstPurchaseFlag),
+            type = MapField.MapFieldType.FLAG
+        }
+    },
+    new MapUpdate
+    {
+        register_op = Serializer("1271"),
+        field = new MapField
+        {
+            name = Serializer(annikaPurchaseAmountRegister),
+            type = MapField.MapFieldType.REGISTER
+        }
+    },
+    new MapUpdate
+    {
+        set_op = annikaItemsSetOp,
+        field = new MapField
+        {
+            name = Serializer(annikaPurchaseItemsSet),
+            type = MapField.MapFieldType.SET
+        },
+    }
+};
+
+var annikaPurchaseMapOp = new MapOp();
+annikaPurchaseMapOp.updates.AddRange(annikaMapUpdates);
+var annikaPurchaseMapUpdate = new MapUpdate
+{
+    map_op = annikaPurchaseMapOp,
+    field = new MapField
+    {
+        name = Serializer(annikaPurchaseMap),
+        type = MapField.MapFieldType.MAP
+    }
+};
+
+var annikaInfoUpdateMapOp = new MapOp();
+annikaInfoUpdateMapOp.updates.Add(annikaPurchaseMapUpdate);
+var annikaInfoUpdate = new MapUpdate
+{
+    map_op = annikaInfoUpdateMapOp,
+    field = new MapField
+    {
+        name = Serializer(annikaInfoMap),
+        type = MapField.MapFieldType.MAP
+    }
+};
+
+var updates = new List<MapUpdate> {
+    annikaInfoUpdate
+};
+var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
 ```
 
 ```erlang
@@ -1954,7 +2434,12 @@ ahmed_map.context
 ```
 
 ```csharp
-TODO
+var id = new RiakObjectId("maps", "customers", "ahmed_info");
+var rslt = client.DtFetchMap(id);
+Debug.WriteLine(format: "Context: {0}", args: Convert.ToBase64String(rslt.Context));
+
+// Output:
+// Context: g2wAAAACaAJtAAAACLQFHUkv4m2IYQdoAm0AAAAIxVKxCy5pjMdhCWo=
 ```
 
 ```erlang
@@ -2000,9 +2485,5 @@ UpdateMap update = new UpdateMap.Builder(ahmedMap, removePaidAccountField)
         .withContext(ctx)
         .build();
 client.execute(update);
-```
-
-```csharp
-TODO
 ```
 
