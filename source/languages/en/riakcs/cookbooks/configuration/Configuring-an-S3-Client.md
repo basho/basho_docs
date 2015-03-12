@@ -78,6 +78,7 @@ socket_timeout = 300
 urlencoding_mode = normal
 use_https = False
 verbosity = WARNING
+signature_v2 = True
 ```
 
 ## Sample s3cmd Configuration File for Production Use
@@ -125,6 +126,7 @@ socket_timeout = 300
 urlencoding_mode = normal
 use_https = True
 verbosity = WARNING
+signature_v2 = True
 ```
 
 To configure the s3cmd client for the user, you must change the
