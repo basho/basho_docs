@@ -355,16 +355,16 @@ String json = "application/json";
 
 RiakObject liono = new RiakObject()
         .setContentType(json)
-        .setValue(BinaryValue.create("{\"name_s\":\"Lion-o\",\"age\":30,\"leader\":true}"));
+        .setValue(BinaryValue.create("{\"name_s\":\"Lion-o\",\"age_i\":30,\"leader_b\":true}"));
 RiakObject cheetara = new RiakObject()
         .setContentType(json)
-        .setValue(BinaryValue.create("{\"name_s\":\"Cheetara\",\"age\":30,\"leader\":false}"));
+        .setValue(BinaryValue.create("{\"name_s\":\"Cheetara\",\"age_i\":30,\"leader_b\":false}"));
 RiakObject snarf = new RiakObject()
         .setContentType(json)
-        .setValue(BinaryValue.create("{\"name_s\":\"Snarf\",\"age\":43}"));
+        .setValue(BinaryValue.create("{\"name_s\":\"Snarf\",\"age_i\":43,\"leader_b\":false}"));
 RiakObject panthro = new RiakObject()
         .setContentType(json)
-        .setValue(BinaryValue.create("{\"name_s\":\"Panthro\",\"age_i\":36}"));
+        .setValue(BinaryValue.create("{\"name_s\":\"Panthro\",\"age_i\":36,\"leader_b\":false}"));
 Location lionoLoc = new Location(animalsBucket, "liono");
 Location cheetaraLoc = new Location(animalsBucket, "cheetara");
 Location snarfLoc = new Location(animalsBucket, "snarf");
@@ -415,22 +415,24 @@ cat.store()
 
 ```csharp
 var lionoId = new RiakObjectId("animals", "cats", "liono");
-string lionoJson = "{\"name_s\":\"Lion-o\",\"age\":30,\"leader\":true}";
-var liono = new RiakObject(lionoId, lionoJson);
+var lionoObj = new { name_s = "Lion-o", age_i = 30, leader = true };
+var lionoRiakObj = new RiakObject(lionoId, lionoObj);
 
 var cheetaraId = new RiakObjectId("animals", "cats", "cheetara");
-string cheetaraJson = "{\"name_s\":\"Cheetara\",\"age\":30,\"leader\":false}";
-var cheetara = new RiakObject(cheetaraId, cheetaraJson);
+var cheetaraObj = new { name_s = "Cheetara", age_i = 30, leader = false };
+var cheetaraRiakObj = new RiakObject(cheetaraId, cheetaraObj);
 
 var snarfId = new RiakObjectId("animals", "cats", "snarf");
-string snarfJson = "{\"name_s\":\"Snarf\",\"age\":43}";
-var snarf = new RiakObject(snarfId, snarfJson);
+var snarfObj = new { name_s = "Snarf", age_i = 43, leader = false };
+var snarfRiakObj = new RiakObject(snarfId, snarfObj);
 
 var panthroId = new RiakObjectId("animals", "cats", "panthro");
-string panthroJson = "{\"name_s\":\"Panthro\",\"age_i\":36}";
-var panthro = new RiakObject(panthroId, panthroJson);
+var panthroObj = new { name_s = "Panthro", age_i = 36, leader = false };
+var panthroRiakObj = new RiakObject(panthroId, panthroObj);
 
-var rslts = client.Put(new[] { liono, cheetara, snarf, panthro });
+var rslts = client.Put(new[] {
+    lionoRiakObj, cheetaraRiakObj, snarfRiakObj, panthroRiakObj
+});
 ```
 
 ```erlang
@@ -596,7 +598,27 @@ print results['docs']
 ```
 
 ```csharp
-TODO
+var search = new RiakSearchRequest
+{
+    Query = new RiakFluentSearch("famous", "name_s")
+        .Search("Lion*")
+        .Build()
+};
+
+var rslt = client.Search(search);
+RiakSearchResult searchResult = rslt.Value;
+foreach (RiakSearchResultDocument doc in searchResult.Documents)
+{
+    var args = new[] {
+        doc.BucketType,
+        doc.Bucket,
+        doc.Key,
+        string.Join(", ", doc.Fields.Select(f => f.Value).ToArray())
+    };
+    Debug.WriteLine(
+        format: "BucketType: {0} Bucket: {1} Key: {2} Values: {3}",
+        args: args);
+}
 ```
 
 ```erlang
@@ -692,7 +714,16 @@ print object.data
 ```
 
 ```csharp
-TODO
+RiakSearchResult searchResult = searchRslt.Value;
+
+RiakSearchResultDocument doc = searchResult.Documents.First();
+var id = new RiakObjectId(doc.BucketType, doc.Bucket, doc.Key);
+var rslt = client.Get(id);
+
+RiakObject obj = rslt.Value;
+Debug.WriteLine(Encoding.UTF8.GetString(obj.Value));
+
+// {"name_s":"Lion-o","age_i":30,"leader_b":true}
 ```
 
 ```erlang
@@ -751,7 +782,13 @@ client.fulltext_search('famous', 'age_i:[30 TO *]')
 ```
 
 ```csharp
-TODO
+var search = new RiakSearchRequest
+{
+    Query = new RiakFluentSearch("famous", "age_i")
+        .Between("30", "*")
+        .Build()
+};
+var rslt = client.Search(search);
 ```
 
 ```erlang
@@ -789,7 +826,12 @@ client.fulltext_search('famous', 'leader_b:true AND age_i:[30 TO *]')
 ```
 
 ```csharp
-TODO
+var search = new RiakSearchRequest
+{
+    Query = new RiakFluentSearch("famous", "leader_b")
+        .Search("true").AndBetween("age_i", "30", "*")
+        .Build()
+};
 ```
 
 ```erlang
@@ -799,7 +841,6 @@ riakc_pb_socket:search(Pid, <<"famous">>, <<"leader_b:true AND age_i:[30 TO *]">
 ```curl
 curl "$RIAK_HOST/search/query/famous?wt=json&q=leader_b:true%20AND%20age_i:%5B25%20TO%20*%5D" | jsonpp
 ```
-
 
 ### Deleting Indexes
 
@@ -821,7 +862,7 @@ client.delete_search_index('famous')
 ```
 
 ```csharp
-TODO
+var rslt = client.DeleteSearchIndex("famous");
 ```
 
 ```erlang
@@ -886,7 +927,20 @@ client.fulltext_search('famous', '*:*', start=start, rows=ROWS_PER_PAGE)
 ```
 
 ```csharp
-TODO
+int rowsPerPage = 2;
+int page = 2;
+int start = rowsPerPage * (page - 1);
+
+var search = new RiakSearchRequest
+{
+    Start = start,
+    Rows = rowsPerPage,
+    Query = new RiakFluentSearch("famous", "*")
+        .Search("*")
+        .Build(),
+};
+
+var rslt = client.Search(search);
 ```
 
 ```erlang
