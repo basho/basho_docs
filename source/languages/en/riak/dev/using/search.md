@@ -159,7 +159,8 @@ client.create_search_index('famous')
 ```
 
 ```csharp
-TODO
+var idx = new SearchIndex("famous");
+var rslt = client.PutSearchIndex(idx);
 ```
 
 ```erlang
@@ -199,7 +200,8 @@ client.create_search_index('famous', '_yz_default')
 ```
 
 ```csharp
-TODO
+var idx = new SearchIndex("famous", "_yz_default");
+var rslt = client.PutSearchIndex(idx);
 ```
 
 ```erlang
@@ -286,7 +288,9 @@ bucket.set_properties({'search_index': 'famous'})
 ```
 
 ```csharp
-TODO
+var properties = new RiakBucketProperties();
+properties.SetSearchIndex("famous");
+var rslt = client.SetBucketProperties("cats", properties);
 ```
 
 ```erlang
@@ -351,13 +355,13 @@ String json = "application/json";
 
 RiakObject liono = new RiakObject()
         .setContentType(json)
-        .setValue(BinaryValue.create("{\"name_s\":\"Lion-o\",\"age\":30,\"leader\":true)"));
+        .setValue(BinaryValue.create("{\"name_s\":\"Lion-o\",\"age\":30,\"leader\":true}"));
 RiakObject cheetara = new RiakObject()
         .setContentType(json)
-        .setValue(BinaryValue.create("{\"name_s\":\"Cheetara\",\"age\":30,\"leader\":false)"));
+        .setValue(BinaryValue.create("{\"name_s\":\"Cheetara\",\"age\":30,\"leader\":false}"));
 RiakObject snarf = new RiakObject()
         .setContentType(json)
-        .setValue(BinaryValue.create("{\"name_s\":\"Snarf\",\"age\":43"));
+        .setValue(BinaryValue.create("{\"name_s\":\"Snarf\",\"age\":43}"));
 RiakObject panthro = new RiakObject()
         .setContentType(json)
         .setValue(BinaryValue.create("{\"name_s\":\"Panthro\",\"age_i\":36}"));
@@ -410,7 +414,23 @@ cat.store()
 ```
 
 ```csharp
-TODO
+var lionoId = new RiakObjectId("animals", "cats", "liono");
+string lionoJson = "{\"name_s\":\"Lion-o\",\"age\":30,\"leader\":true}";
+var liono = new RiakObject(lionoId, lionoJson);
+
+var cheetaraId = new RiakObjectId("animals", "cats", "cheetara");
+string cheetaraJson = "{\"name_s\":\"Cheetara\",\"age\":30,\"leader\":false}";
+var cheetara = new RiakObject(cheetaraId, cheetaraJson);
+
+var snarfId = new RiakObjectId("animals", "cats", "snarf");
+string snarfJson = "{\"name_s\":\"Snarf\",\"age\":43}";
+var snarf = new RiakObject(snarfId, snarfJson);
+
+var panthroId = new RiakObjectId("animals", "cats", "panthro");
+string panthroJson = "{\"name_s\":\"Panthro\",\"age_i\":36}";
+var panthro = new RiakObject(panthroId, panthroJson);
+
+var rslts = client.Put(new[] { liono, cheetara, snarf, panthro });
 ```
 
 ```erlang
