@@ -92,4 +92,4 @@ A:
 Q: Are there are any speed tests for Riak?
 A:
   Take a look at Basho's open-source benchmarking tool, [[Basho Bench]], and
-  make sure to bench it on your target platform.
+  make sure to run it on your target platform.
