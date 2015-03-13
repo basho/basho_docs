@@ -79,8 +79,9 @@ Setting | Options | Default | Description
 `rtq_overload_recover` | `length` (integer) | `1000` | The length to which the realtime replication queue, in an overload mode, must shrink before new objects are replicated again.
 `rtq_max_bytes` | `bytes` (integer) | `104857600` | The maximum size to which the realtime replication queue can grow before new objects are dropped. Defaults to 100MB. Dropped objects will need to be replicated with a fullsync.
 `proxy_get` | `enabled`, `disabled` | `disabled` | Enable Riak CS `proxy_get` and block filter.
-`rt_heartbeat_interval` | `seconds` (integer) | `15` | A full explanation can be found [[below|Multi Data Center Replication v3 Configuration#Heartbeat-Settings]].
-`rt_heartbeat_timeout` | `seconds` (integer) | `15` | A full explanation can be found [[below|Multi Data Center Replication v3 Configuration#Heartbeat-Settings]].
+`rt_heartbeat_interval` | `seconds` (integer) | `15` | A full explanation can be found [below](/ops/mdc/v3/configuration/#Heartbeat-Settings).
+`rt_heartbeat_timeout` | `seconds` (integer) | `15` | A full explanation can be found [below](/ops/mdc/v3/configuration/#Heartbeat-Settings).
+
 
 ## riak_core Settings
 
@@ -89,9 +90,10 @@ Setting | Options | Default | Description
 `keyfile` | `path` (string) | `undefined` | Fully qualified path to an ssl `.pem` key file
 `cacertdir` | `path` (string) | `undefined` | The `cacertdir` is a fully-qualified directory containing all the CA certificates needed to verify the CA chain back to the root
 `certfile` | `path` (string) | `undefined` | Fully qualified path to a `.pem` cert file
-`ssl_depth` | `depth` (integer) | `1` | Set the depth to check for SSL CA certs. See <a href="/ops/mdc/v2/configuration/#f1">1</a>.
+`ssl_depth` | `depth` (integer) | `1` | Set the depth to check for SSL CA certs. See [1](/ops/mdc/v3/configuration/#f1).
 `ssl_enabled` | `true`, `false` | `false` | Enable SSL communications
-`peer_common_name_acl` | `cert` (string) | `"*"` | Verify an SSL peer’s certificate common name. You can provide multiple ACLs as a list of strings, and you can wildcard the leftmost part of the common name, so `*.basho.com` would match `site3.basho.com` but not `foo.bar.basho.com` or `basho.com`. See <a href="/ops/mdc/v2/configuration/#f4">2</a>.
+`peer_common_name_acl` | `cert` (string) | `"*"` | Verify an SSL peer’s certificate common name. You can provide an ACL as a list of common name *patterns*, and you can wildcard the leftmost part of any of the patterns, so `*.basho.com` would match `site3.basho.com` but not `foo.bar.basho.com` or `basho.com`. See [2](/ops/mdc/v3/configuration/#f2).
+
 
 ## Heartbeat Settings
 
@@ -113,12 +115,14 @@ lengthening the timeout will make Riak less sensitive to cases in which
 the connection really has been compromised.
 
 1. <a name="f1"></a>SSL depth is the maximum number of non-self-issued
-intermediate certificates that may follow the peer certificate in a
-valid certification path. If depth is `0` the PEER must be signed by the
-trusted ROOT-CA directly; if `1` the path can be PEER, CA, ROOT-CA; if
-depth is `2` then PEER, CA, CA, ROOT-CA and so on.
+ intermediate certificates that may follow the peer certificate in a valid
+ certificate chain. If depth is `0`, the PEER must be signed by the trusted
+ ROOT-CA directly; if `1` the path can be PEER, CA, ROOT-CA; if depth is `2`
+ then PEER, CA, CA, ROOT-CA and so on.
 
-2. <a name="f4"></a>If the ACL is specified and not the special value
-`*`, certificates not matching any of the rules will not be allowed to
-connect. If no ACLs are configured, no checks on the common name are
-done.
+2. <a name="f2"></a>If the ACL is specified and not the special value `*`,
+  peers presenting certificates not matching any of the patterns will not be
+  allowed to connect.
+  If no ACLs are configured, no checks on the common name are done, except
+  as described for [[Identical Local and Peer Common Names
+  |Multi Data Center Replication v3 SSL#Verifying-Peer-Certificates]].
