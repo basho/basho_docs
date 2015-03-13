@@ -41,9 +41,9 @@ Hooks]].
 
 Many of the interactions you'll have with Riak will involve setting or
 retrieving the value of a key. Riak has [[supported client
-libraries|Client Libraries]] for Java, Ruby, Python, and Erlang.  In
+libraries|Client Libraries]] for Java, Ruby, Python, .NET and Erlang. In
 addition, there are [[community-supported projects|Client
-Libraries#Community-Libraries]] for .NET, Node.js, Python, Perl,
+Libraries#Community-Libraries]] for Node.js, Python, Perl,
 Clojure, Scala, Smalltalk, and many others.
 
 ## Reading Objects

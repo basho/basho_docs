@@ -377,12 +377,13 @@ libraries.  </div>
 ## Setting Up Your Riak Client
 
 Basho maintains official [[client libraries]] for Java, Ruby, Python,
-and Erlang. Below are links to client-specific documentation for each
+.NET and Erlang. Below are links to client-specific documentation for each
 language:
 
 * [Java](https://github.com/basho/riak-java-client)
 * [Ruby](https://github.com/basho/riak-ruby-client)
 * [Python](https://github.com/basho/riak-python-client)
+* [.NET](https://github.com/basho-labs/riak-dotnet-client)
 * [Erlang](https://github.com/basho/riak-erlang-client)
 
 In each of the above docs, you'll find detailed client installation and

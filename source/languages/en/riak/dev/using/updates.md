@@ -20,7 +20,7 @@ Amongst the four CRUD operations, object updates in Riak tend to be the
 least straightforward and to require a bit more subtle reasoning on the
 application side than the others. In this document, we'll discuss some
 best practices for updating Riak objects and provide code examples for
-each of our official [[client libraries]]: Java, Ruby, Python, and
+each of our official [[client libraries]]: Java, Ruby, Python, .NET, and
 Erlang.
 
 <div class="note">
@@ -58,6 +58,7 @@ with examples from our official client libraries:
   * [[Java|Conflict Resolution: Java]]
   * [[Ruby|Conflict Resolution: Ruby]]
   * [[Python|Conflict Resolution: Python]]
+  * [[C#|Conflict Resolution: CSharp]]
 2. **Modify the object** on the application side.
 3. **Write** the new, modified object to Riak. Because you read the
 object first, Riak will receive the object's causal context metadata.
@@ -99,10 +100,10 @@ obj = bucket.get('banana', deletedvclock: true)
 
 ## Example Update
 
-In this section, we'll provide an update example for Basho's official
-Ruby, Python, and Erlang clients. Because updates with the official Java
-client function somewhat differently, those examples can be found in the
-[[section below|Object Updates#Java-Client-Example]].
+In this section, we'll provide an update example for Basho's official Ruby,
+Python, .NET and Erlang clients. Because updates with the official Java client
+functions somewhat differently, those examples can be found in the [[section
+below|Object Updates#Java-Client-Example]].
 
 For our example, imagine that you are storing information about NFL head
 coaches in the bucket `coaches`, which will bear the bucket type
@@ -128,7 +129,10 @@ obj.store()
 ```
 
 ```csharp
-TODO
+var id = new RiakObjectId("siblings", "coaches", "seahawks");
+var obj = new RiakObject(id, "Pete Carroll",
+    RiakConstants.ContentTypes.TextPlain);
+var rslt = client.Put(obj);
 ```
 
 ```erlang
@@ -173,7 +177,15 @@ update_coach('packers', 'Vince Lombardi')
 ```
 
 ```csharp
-TODO
+private void UpdateCoach(string team, string newCoach)
+{
+    var id = new RiakObjectId("siblings", "coaches", team);
+    var getResult = client.Get(id);
+
+    RiakObject obj = getResult.Value;
+    obj.SetObject<string>(newCoach, RiakConstants.ContentTypes.TextPlain);
+    client.Put(obj);
+}
 ```
 
 ```erlang
@@ -352,3 +364,4 @@ In general, you should use no-operation updates only on keys that you
 suspect may have accumulated siblings or on keys that are frequently
 updated (and thus bear the possibility of accumulating siblings).
 Otherwise, you're better off performing normal reads.
+

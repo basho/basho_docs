@@ -782,13 +782,20 @@ client.fulltext_search('famous', 'age_i:[30 TO *]')
 ```
 
 ```csharp
-var search = new RiakSearchRequest
-{
-    Query = new RiakFluentSearch("famous", "age_i")
-        .Between("30", "*")
-        .Build()
-};
+var search = new RiakSearchRequest("famous", "age_i:[30 TO *]");
+
+/*
+ * Fluent interface:
+ * 
+ * var search = new RiakSearchRequest
+ * {
+ *     Query = new RiakFluentSearch("famous", "age_i")
+ *         .Between("30", "*")
+ *         .Build()
+ * };
+ */
 var rslt = client.Search(search);
+
 ```
 
 ```erlang
