@@ -14,7 +14,7 @@ Q: What is Riak?
 A:
   Riak is an open-source, highly scalable, fault-tolerant distributed database.
   You can learn more about it [here](theory/why-riak/#What-is-Riak-) and gain
-  some experience by following the [taste of Riak](dev/taste-of-riak/)
+  some experience by following the [Taste of Riak](dev/taste-of-riak/)
   tutorial.
 
 Q: How do Riak and MongoDB compare?
