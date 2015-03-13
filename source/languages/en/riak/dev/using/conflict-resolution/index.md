@@ -295,7 +295,13 @@ obj2.store()
 ```
 
 ```csharp
-TODO
+var id = new RiakObjectId("siblings_allowed", "nickolodeon", "best_character");
+
+var renObj = new RiakObject(id, "Ren", RiakConstants.ContentTypes.TextPlain);
+var stimpyObj = new RiakObject(id, "Stimpy", RiakConstants.ContentTypes.TextPlain);
+
+var renResult = client.Put(renObj);
+var stimpyResult = client.Put(stimpyObj);
 ```
 
 ```erlang
@@ -356,7 +362,16 @@ obj.siblings
 ```
 
 ```csharp
-TODO
+var id = new RiakObjectId("siblings_allowed", "nickolodeon", "best_character");
+var getResult = client.Get(id);
+RiakObject obj = getResult.Value;
+Debug.WriteLine(format: "Sibling count: {0}", args: obj.Siblings.Count);
+foreach (var sibling in obj.Siblings)
+{
+    Debug.WriteLine(
+        format: "    VTag: {0}",
+        args: sibling.VTag);
+}
 ```
 
 ```curl
@@ -378,7 +393,9 @@ com.basho.riak.client.cap.UnresolvedConflictException: Siblings found
 ```
 
 ```csharp
-TODO
+Sibling count: 2
+    VTag: 1DSVo7VED8AC6llS8IcDE6
+    VTag: 7EiwrlFAJI5VMLK87vU4tE
 ```
 
 ```curl
@@ -486,7 +503,20 @@ new_obj.store(vclock=vclock)
 ```
 
 ```csharp
-TODO
+// First, fetch the object
+var getResult = client.Get(id);
+
+// Then, modify the object's value
+RiakObject obj = getResult.Value;
+obj.SetObject<string>("Stimpy", RiakConstants.ContentTypes.TextPlain);
+
+// Then, store the object which has vector clock attached
+var putRslt = client.Put(obj);
+CheckResult(putRslt);
+
+obj = putRslt.Value;
+// Voila, no more siblings!
+Debug.Assert(obj.Siblings.Count == 0);
 ```
 
 ```curl
@@ -585,3 +615,4 @@ Additional background information on vector clocks:
 * [Why Vector Clocks are Easy](http://basho.com/why-vector-clocks-are-easy/)
 * [Why Vector Clocks are Hard](http://basho.com/why-vector-clocks-are-hard/)
 * The vector clocks used in Riak are based on the [work of Leslie Lamport](http://portal.acm.org/citation.cfm?id=359563)
+

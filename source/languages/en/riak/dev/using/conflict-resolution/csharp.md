@@ -11,12 +11,12 @@ For reasons explained in the [[introduction to conflict
 resolution|Conflict Resolution]], we strongly recommend adopting a
 conflict resolution strategy that requires applications to resolve
 siblings according to use-case-specific criteria. Here, we'll provide a
-brief guide to conflict resolution using the official [Riak Ruby
+brief guide to conflict resolution using the official [Riak .NET
 client](https://github.com/basho/riak-csharp-client).
 
-## How the Ruby Client Handles Conflict Resolution
+## How the .NET Client Handles Conflict Resolution
 
-In the official Ruby client, every Riak object has a `siblings` property
+In the official .NET client, every Riak object has a `siblings` property
 that provides access to a list of that object's sibling values. If there
 are no siblings, that property will return an array with only one item.
 Here's an example of an object with siblings:
@@ -104,14 +104,14 @@ If we get `true`, then there are siblings. So what do we do in that
 case? At this point, we need to write a function that resolves the list
 of siblings, i.e. reduces the `obj.siblings` array down to one member.
 In our case, we need a function that takes a single Riak object (or
-`RObject` in the Ruby client) as its argument, applies some logic to the
+`RObject` in the .NET client) as its argument, applies some logic to the
 list of values contained in the `siblings` property of the object, and
 returns a single value. For our example use case here, we'll return the
 sibling with the longest `friends` list:
 
 ```csharp
 def longest_friends_list_resolver(riak_object)
-  # The "conflict?" method is built into the Ruby client
+  # The "conflict?" method is built into the .NET client
   if riak_object.conflict?
     # The "max_by" method enables us to select the sibling with the
     # longest "friends" list
@@ -168,8 +168,7 @@ step is the subject of this tutorial)
 made
 
 You can find more on writing objects to Riak, including examples from
-the official Ruby client library, in [[The Basics|The
-Basics#Object-Key-Operations]].
+the official .NET client library, in [[The Basics|The Basics#Object-Key-Operations]].
 
 ## More Advanced Example
 
