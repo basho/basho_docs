@@ -72,7 +72,9 @@ xml_file.close()
 ```
 
 ```csharp
-TODO
+var xml = File.ReadAllText("cartoons.xml");
+var schema = new SearchSchema("cartoons", xml);
+var rslt = client.PutSearchSchema(schema);
 ```
 
 ```erlang
