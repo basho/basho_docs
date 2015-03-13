@@ -12,52 +12,84 @@ moved: {
 
 Q: What is Riak?
 A:
-  Riak is an open-source, highly scalable, fault-tolerant distributed database. You can learn more about it [here](theory/why-riak/#What-is-Riak-) and gain some experience by following the [taste of Riak](dev/taste-of-riak/) tutorial.
+  Riak is an open-source, highly scalable, fault-tolerant distributed database.
+  You can learn more about it [here](theory/why-riak/#What-is-Riak-) and gain
+  some experience by following the [taste of Riak](dev/taste-of-riak/)
+  tutorial.
 
 Q: How do Riak and MongoDB compare?
 A:
   For a full comparison, please see [[Riak Compared to MongoDB]].
 
 Q: What does HTTP `204 No Content` mean?
-  When I do an HTTP `PUT`, I get back a response of `204 No Content`. What does this mean?
+  When I do an HTTP `PUT`, I get back a response of `204 No Content`.
+  What does this mean?
 A:
-  In the HTTP standard, a `204 No Content` is returned when the request was successful but there is nothing to return other than HTTP headers.
+  In the HTTP standard, a `204 No Content` is returned when the request was
+  successful but there is nothing to return other than HTTP headers.
 
-  If you add `returnbody=true` in the `PUT` request, you will receive a `200 OK` and the content you just stored, otherwise you will receive a `204 No Content`.
+  If you add `returnbody=true` in the `PUT` request, you will receive a
+  `200 OK` and the content you just stored, otherwise you will receive a
+  `204 No Content`.
 
 Q: Is there a limit on how much data can be stored in Riak?
 A:
-  When using Bitcask, the default backend, there are two limiting factors when determining the amount of data a given Riak node can store: (1) the amount of memory on the node, and (2) the amount of disk space. Bitcask currently stores all keys, not values, in memory to reference their location on disk, but the number of keys you can store will vary based on the size of the keys. There is a slight amount of overhead (40 bytes) to each key.
+  When using Bitcask, the default backend, there are two limiting factors when
+  determining the amount of data a given Riak node can store: (1) the amount of
+  memory on the node, and (2) the amount of disk space. Bitcask currently
+  stores all keys, not values, in memory to reference their location on disk,
+  but the number of keys you can store will vary based on the size of the keys.
+  There is a slight amount of overhead (40 bytes) to each key.
 
-  We have [[Cluster Capacity Planning]] and [[Bitcask Capacity Planning]] documents to help plan for both factors.
+  We have [[Cluster Capacity Planning]] and [[Bitcask Capacity Planning]]
+  documents to help plan for both factors.
 
 Q: How does Riak control the growth of vector clocks?
 A:
-  [[Vector Clocks]] represent the history of an object using a list of identifiers, counters, and timestamps for each update.
+  [[Vector Clocks]] represent the history of an object using a list of
+  identifiers, counters, and timestamps for each update.
 
-  Riak regularly prunes the list based on four parameters which can be set per bucket. These parameters are:
+  Riak regularly prunes the list based on four parameters which can be set per
+  bucket. These parameters are:
 
   * `small_vclock`
   * `big_vclock`
   * `young_vclock`
   * `old_vclock`
 
-  The `small_vclock` and `big_vclock` parameters refer to the length of the vclock list. If the length of the list is smaller than `small_vclock` it will not be pruned. If the length is greater than `big_vclock` it will be pruned.
+  The `small_vclock` and `big_vclock` parameters refer to the length of the
+  vclock list. If the length of the list is smaller than `small_vclock` it will
+  not be pruned. If the length is greater than `big_vclock` it will be pruned.
 
   ![Vector Clock Pruning](/images/vclock-pruning.png)
 
-  The `young_vclock` and `old_vclock` parameters refer to the timestamp per vclock entry. If the list length is between `small_vclock` and `big_vclock`, the age of each entry is checked. If the entry is younger than `young_vclock` it is not pruned; if the entry is older than `old_vclock` it is pruned.
+  The `young_vclock` and `old_vclock` parameters refer to the timestamp per
+  vclock entry. If the list length is between `small_vclock` and `big_vclock`,
+  the age of each entry is checked. If the entry is younger than `young_vclock`
+  it is not pruned; if the entry is older than `old_vclock` it is pruned.
 
-  More aggressive vector clock pruning can be achieved by lowering the values of these four parameters.
+  More aggressive vector clock pruning can be achieved by lowering the values
+  of these four parameters.
 
 Q: In which scenarios might data become corrupted in Riak?
 A:
-  Data corruption in Riak is very rare and will generally only happen due to a failure of the storage backend or to physical hardware failure. The underlying storage engines have their own methods of handling durability (except [[Memory]], which only lives in RAM).
+  Data corruption in Riak is very rare and will generally only happen due to a
+  failure of the storage backend or to physical hardware failure. The
+  underlying storage engines have their own methods of handling durability
+  (except [[Memory]], which only lives in RAM).
 
-  [[Bitcask]] uses an append-only file format that is immutable once written. Incomplete entries at the end of the file will be ignored.
+  [[Bitcask]] uses an append-only file format that is immutable once written.
+  Incomplete entries at the end of the file will be ignored.
 
-  [[LevelDB]] has tunable durability and never writes in place, instead appending to a log file or merging existing files together to produce new ones. LevelDB recovery code uses [checksums](http://en.wikipedia.org/wiki/Checksum) to detect this and will skip the incomplete records. You can also set `verify_checksums` to `true`, which forces *all* data read from underlying storage to be verified against corresponding checksums.
+  [[LevelDB]] has tunable durability and never writes in place, instead
+  appending to a log file or merging existing files together to produce new
+  ones. LevelDB recovery code uses [checksums]
+  (http://en.wikipedia.org/wiki/Checksum) to detect this and will skip the
+  incomplete records. You can also set `verify_checksums` to `true`, which
+  forces *all* data read from underlying storage to be verified against
+  corresponding checksums.
 
 Q: Are there are any speed tests for Riak?
 A:
-  Take a look at Basho's open-source benchmarking tool, [[Basho Bench]], and make sure to bench it on your target platform.
+  Take a look at Basho's open-source benchmarking tool, [[Basho Bench]], and
+  make sure to bench it on your target platform.
