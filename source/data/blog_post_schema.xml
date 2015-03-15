@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <schema name="blog_post_schema" version="1.5">
   <fields>
-    <!-- The dynamic, named fields in each map -->
-    <dynamicField name="title_register"   type="string"   indexed="true" stored="true" />
-    <dynamicField name="author_register"  type="string"   indexed="true" stored="true" />
-    <dynamicField name="content_register" type="text_en"  indexed="true" stored="true" />
-    <dynamicField name="keywords_set"     type="string"   indexed="true" stored="true" multiValued="true" />
-    <dynamicField name="date_register"    type="datetime" indexed="true" stored="true" />
-    <dynamicField name="published_flag"   type="boolean"  indexed="true" stored="true" />
+    <!-- The named fields in each map -->
+    <field name="title_register"   type="string"   indexed="true" stored="true" />
+    <field name="author_register"  type="string"   indexed="true" stored="true" />
+    <field name="content_register" type="text_en"  indexed="true" stored="true" />
+    <field name="keywords_set"     type="string"   indexed="true" stored="true" multiValued="true" />
+    <field name="date_register"    type="datetime" indexed="true" stored="true" />
+    <field name="published_flag"   type="boolean"  indexed="true" stored="true" />
 
     <!-- The default fields, all of which are required for Riak Search -->
     <field name="_yz_id"   type="_yz_str" indexed="true" stored="true"  multiValued="false" required="true"/>
