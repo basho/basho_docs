@@ -60,12 +60,12 @@ mkvirtualenv keystone-test
 The `keystone-test` virtual environment is now created, activated, and
 ready to use.
 
-## Install the Keystone dependences
+## Install the Keystone dependencies
 
 The dependencies for running Keystone can be found in
 `tools/pip-requires`.  At the time of this writing, `grizzly-2` is the
 latest tag of Keystone and the dependencies are based on versions that
-work with that tag. Use `pip` to install the depencies as follows:
+work with that tag. Use `pip` to install the dependencies as follows:
 
 ```bash
 pip install -r tools/pip-requires

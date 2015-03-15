@@ -274,7 +274,7 @@ search property is set to false.
     to disable legacy Search (in step 9) and then perform a rolling
     restart of the cluster.
 
-11. Finally, delete the merge index directories to relcaim disk space.
+11. Finally, delete the merge index directories to reclaim disk space.
 
 For any questions reach out the the [[Riak community|Help and
 Community]]. Preferably, ask your questions up front rather than during

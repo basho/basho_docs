@@ -100,7 +100,7 @@ Authorization#User-Management]].
 ## Certificate-based Authentication
 
 Using certificate-based authentication requires us to specify the
-location of a general CA (as with all security soruces), a username, a
+location of a general CA (as with all security sources), a username, a
 CA-generated cert, and a private key. We'll assume that all certs are
 stored in `/ssl_dir`, as in the previous examples.
 

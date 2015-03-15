@@ -9,7 +9,7 @@ keywords: [operators, building, configuration]
 ---
 
 This document covers the parameters that are commonly adjusted when
-setting up a new cluster. We recommand that you also review the detailed
+setting up a new cluster. We recommend that you also review the detailed
 [[Configuration Files]] document before moving a cluster into
 production.
 

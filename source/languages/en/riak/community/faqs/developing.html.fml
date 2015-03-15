@@ -418,7 +418,7 @@ A:
 
 Q: Is there a simple command to delete a bucket?
 A:
-  There is no straighforward command to delete an entire bucket. You must delete all of the key/value objects individually. Thus, the following will not work:
+  There is no straightforward command to delete an entire bucket. You must delete all of the key/value objects individually. Thus, the following will not work:
 
   ```curl
   curl -X DELETE http://your-host:8098/riak/your-bucket

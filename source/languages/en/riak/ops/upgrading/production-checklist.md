@@ -11,7 +11,7 @@ keywords: [operators, building]
 Making the transition from running Riak in a development or testing
 environment to deploying it in a realtime, production environment can
 often be a complex process. While the specifics of that process will
-always depend on the use case at hand, there are nonethless some things
+always depend on the use case at hand, there are nonetheless some things
 that you might want to consider and a few questions that you might want
 to ask while making this transition.
 

@@ -12,7 +12,7 @@ moved: {
 ---
 
 {{#2.0.0+}}
-<div class="info">This document refers to the now <em>deprecated</em> Riak Search. Visit [[Using Search]] for information about the new Riak Search (codenamed Yokozuna). Note that the new Riak Search does not currently support the manual index management that this document covers, instead prefering to automatically index Riak values.</div>
+<div class="info">This document refers to the now <em>deprecated</em> Riak Search. Visit [[Using Search]] for information about the new Riak Search (codenamed Yokozuna). Note that the new Riak Search does not currently support the manual index management that this document covers, instead preferring to automatically index Riak values.</div>
 {{/2.0.0+}}
 
 

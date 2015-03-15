@@ -24,7 +24,7 @@ executed.
 
 {{#1.3.0+}}
 Repeated requests to the `/stats` endpoint do not have a negative
-performance impact as the statstics are cached internally in Riak.
+performance impact as the statistics are cached internally in Riak.
 {{/1.3.0+}}
 
 ## Request

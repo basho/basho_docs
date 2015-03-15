@@ -204,7 +204,7 @@ First, install Riak dependencies using apt:
 sudo apt-get install build-essential libc6-dev-i386 git
 ```
 
-Riak requires an [Erlang](http://www.erlang.org/) instalation.
+Riak requires an [Erlang](http://www.erlang.org/) installation.
 Instructions can be found in [[Installing Erlang]].
 
 ```bash

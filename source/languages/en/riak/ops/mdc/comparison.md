@@ -63,7 +63,7 @@ introduced in version 3.
 * Establishing replication connections between clusters has been
   greatly simplified. A single `riak-repl connect` command needs to be
   issued from a source cluster to a sink cluster. IP and port
-  information of all nodes that can partipate in replication on both
+  information of all nodes that can participate in replication on both
   source and sink clusters are exchanged by the **replication cluster
   manager**. The replication cluster manager also tracks nodes joining
   and leaving the cluster dynamically.

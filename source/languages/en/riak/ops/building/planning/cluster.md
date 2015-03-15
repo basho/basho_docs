@@ -175,7 +175,7 @@ capacity.
 When scaling horizontally, it's best to add all planned nodes at once
 with multiple <code>riak-admin cluster join</code> commands followed by
 a <code>riak-admin cluster plan</code> and <code>riak-admin cluster
-commit</code>.  This will help reduce the amount of data transfered
+commit</code>.  This will help reduce the amount of data transferred
 between nodes in the cluster.
 </div>
 

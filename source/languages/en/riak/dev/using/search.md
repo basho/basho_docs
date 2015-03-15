@@ -129,14 +129,14 @@ Both schema and index creation will be covered immediately below.
 <div class="title">Note on index names</div>
 Note that index names may only be
 [ASCII](http://en.wikipedia.org/wiki/ASCII) values from 32-127 (spaces,
-standard puncutation, digits, and word characters). This may change in
+standard punctuation, digits, and word characters). This may change in
 the future to allow full [Unicode](http://en.wikipedia.org/wiki/Unicode)
 support.
 </div>
 
 All `curl` examples in this document assume that you have set an
 environment variable named `RIAK_HOST`, which points to a Riak base URL,
-such as `http://localhost:8098`. The approriate value for `RIAK_HOST`
+such as `http://localhost:8098`. The appropriate value for `RIAK_HOST`
 will depend on your [[configuration|Configuration
 Files#Client-Interfaces]].
 
@@ -475,7 +475,7 @@ recognizes, based on the index's schema. The default schema
 represents a string, `_i` is an integer, `_b` is binary and so on).
 
 If the content type allows for nested values (e.g. JSON and XML), the
-extractors will flatten each field, seperated by dots. For example, if
+extractors will flatten each field, separated by dots. For example, if
 you have this XML:
 
 ```xml
@@ -719,7 +719,7 @@ curl "$RIAK_HOST/search/query/famous?wt=json&q=age_i:%5B30%20TO%20*%5D" | jsonpp
 ### Boolean
 
 You can perform logical conjunctive, disjunctive, and negative
-operations on query elements as, repectively, `AND`, `OR`, and `NOT`.
+operations on query elements as, respectively, `AND`, `OR`, and `NOT`.
 Let's say we want to see who is capable of being a US Senator (at least
 30 years old, and a leader). It requires a conjunctive query:
 `leader_b:true AND age_i:[25 TO *]`.
@@ -874,7 +874,7 @@ fix this shortcoming in a future version of Riak.
 ### MapReduce
 
 Riak Search allows for piping search results as inputs for
-[[MapReduce|Using MapReduce]] jobs. This is a useful crossection for
+[[MapReduce|Using MapReduce]] jobs. This is a useful cross-section for
 performing post-calculations of results or aggregations of ad-hoc
 queries. The Riak Search MapReduce integration works similarly to
 regular MapReduce, with the notable exception that your input is not a

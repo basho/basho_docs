@@ -19,7 +19,7 @@ the open-source Riak CS, which will not work in conjunction with Riak
 Enterprise.
 </div>
 
-Configuratin Multi-Datacenter Replication in Riak CS requires the
+Configuring Multi-Datacenter Replication in Riak CS requires the
 addition of a new group of settings to the `app.config` configuration
 file for all Riak CS and Riak Enterprise nodes that are part of the Riak
 CS cluster.

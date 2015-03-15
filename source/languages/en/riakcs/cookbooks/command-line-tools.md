@@ -305,7 +305,7 @@ riak-cs-stanchion switch 100.0.0.1 9999
 The following output would appear if the change were successful:
 
 ```
-Succesfully switched stanchion to 100.0.0.1:9999: This change is only effective until restart.
+Successfully switched stanchion to 100.0.0.1:9999: This change is only effective until restart.
 To make permanent change, be sure to edit app.config file.
 ```
 

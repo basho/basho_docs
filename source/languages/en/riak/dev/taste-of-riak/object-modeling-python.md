@@ -141,7 +141,7 @@ class TimelineRepository:
         self.msg_repo = MsgRepository(client)
 
     def post_message(self, msg):
-        # Save the cannonical copy
+        # Save the canonical copy
         saved_message = self.msg_repo.save(msg)
         msg_key = saved_message.key
 

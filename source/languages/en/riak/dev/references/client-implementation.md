@@ -116,7 +116,7 @@ Guide#Sibling-Resolution]] on read.
 ## Discourage Expensive Operations
 
 A number of operations (e.g. [[listing buckets|HTTP List Buckets]] or
-[[lising keys|HTTP List Keys]]), while useful, are extrenely expensive
+[[listing keys|HTTP List Keys]]), while useful, are extremely expensive
 to run in production. A well-behaved client should expose all
 functionality but provide some sort of warning to the developer when
 they choose to perform those expensive operations.
@@ -236,7 +236,7 @@ type safety, this might be a good thing to offer users.
 
 Another important thing to bear in mind: all of your client interactions
 with Riak should be [UTF-8](http://en.wikipedia.org/wiki/UTF-8)
-complient, not just for the data stored in objects but also for things
+compliant, not just for the data stored in objects but also for things
 like bucket, key, and bucket type names. In other words, your client
 should be able to store an object in the bucket `Möbelträgerfüße` with
 the key `tête-à-tête`.
@@ -338,7 +338,7 @@ require any changes to client libraries:
     eventually consistent counterparts in most respects. The one small
     exception is that performing object updates without first fetching
     the object will _necessarily_ fail because the initial fetched
-    object contains the object's [[causal context]], which is necssary
+    object contains the object's [[causal context]], which is necessary
     for strongly consistent operations. It may be a good idea to add
     this requirement to your client documentation.
 * [[New configuration system|Configuration Files]] --- Configuration has

@@ -177,7 +177,7 @@ a content type, `text/plain`. We'll learn more about content types in
 the [[section below|The Basics#Content-Types]].
 
 Now, run the same read operation we attempted in the [[section above|The
-Basics#Reading-Objects]]. If the write operation was succesful, you
+Basics#Reading-Objects]]. If the write operation was successful, you
 should be able to successfully read the object. Your Riak cluster is no
 longer empty!
 
@@ -213,7 +213,7 @@ ArgumentError: content_type is not defined!
 ```erlang
 %% In the Erlang client, the response when storing an object without
 %% specify8ing a content type will depend on what is being stored. If
-%% you store a simple binary, for example, the client will autometically
+%% you store a simple binary, for example, the client will automatically
 %% specify that the object is "application/octet-stream"; if you store a
 %% string, the client will specify "application/x-erlang-binary"; and so
 %% on.

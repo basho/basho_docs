@@ -165,7 +165,7 @@ get_current_iso_timestamp() ->
 -include("msgy.hrl").
 
 post_msg(ClientPid, Msg) ->
-     %% Save the cannonical copy
+     %% Save the canonical copy
     SavedMsg = save_msg(ClientPid, Msg),
     MsgKey = binary_to_list(riakc_obj:key(SavedMsg)),
 

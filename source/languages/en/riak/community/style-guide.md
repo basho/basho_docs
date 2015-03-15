@@ -58,7 +58,7 @@ those steps, and the expected output from each command.
 
 #### References
 
-In contraste to a guide, a **reference** is more of a collection of raw
+In contrast to a guide, a **reference** is more of a collection of raw
 knowledge that strives for correctness and completeness. In references,
 the  focus is on compact explanation of specific features, API methods,
 and similarly fine-grained domains of knowledge. It is important to

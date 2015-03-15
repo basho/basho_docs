@@ -50,7 +50,7 @@ To force Riak to reload SNMP configuration files on startup:
 
   1. Open `app.config` (most package installs place this file in `/etc/riak/`; Solaris package installs place this file in `/opt/riak/etc/`).
 
-  2. Locate the SNPM term:
+  2. Locate the SNMP term:
 
     ```erlang
     {snmp,
@@ -78,7 +78,7 @@ To force Riak to reload SNMP configuration files on startup:
 
   5. Restart Riak
 
-Once you have configured the SNMP settingsm you can start your Riak node and will be able to snmpwalk the node to verify that the setup is working:
+Once you have configured the SNMP settings you can start your Riak node and will be able to snmpwalk the node to verify that the setup is working:
 
 ```bash
 $ snmpwalk -OS -c public -v2c -m all 192.168.52.129:4000 .

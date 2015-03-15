@@ -68,7 +68,7 @@ security sources. This will change in the sections below.
 ## Password-based Authentication
 
 To enable our client to use password-based auth, we can use most of the
-setup from the examble above, with the exception that we will specify a
+setup from the example above, with the exception that we will specify a
 password for the client in the `withAuth` method in the `node` object's
 constructor rather than leaving it as `null`. We will also pass a
 `KeyStore` object into that method.

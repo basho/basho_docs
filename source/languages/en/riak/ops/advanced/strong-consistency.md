@@ -667,7 +667,7 @@ metadata is often updated by the strong consistency subsystem during
 leader changes, which typically take place when nodes go down or during
 network partitions. When these metadata updates take place, the time to
 live (TTL) of the object is refreshed, which can lead to general
-unpreditably in objects' TTL. Although leader changes will be rare in
+unpredictably in objects' TTL. Although leader changes will be rare in
 many clusters, we nonetheless recommend that you use object expiry in
 strongly consistent buckets only in situations when these occasional
 irregularities are acceptable.

@@ -608,7 +608,7 @@ curl -XPOST http://localhost:8098/types/sets/buckets/travel/datatypes/cities \
 Later on, we hear that Hamilton and Ottawa are nice cities to visit in
 Canada, but if we visit them, we won't have time to visit Montreal, so
 we need to remove it from the list. It needs to be noted here that
-removing an element from a set is a bit tricker than adding elements. In
+removing an element from a set is a bit trickier than adding elements. In
 order to remove an item (or multiple items), we need to first fetch the
 set, which provides our client access to the set's [[causal context]].
 Once we've fetched the set, we can remove the element `Montreal` and
@@ -1094,7 +1094,7 @@ the increment operation will bump the counter up to 1.
 
 We'd also like to know what Ahmed's interests are so that we can better
 design a user experience for him. Through his purchasing decisions, we
-find out that Ahmed likes robots, opera, and motorcyles. We'll store
+find out that Ahmed likes robots, opera, and motorcycles. We'll store
 that information in a set inside of our map:
 
 ```java
@@ -1827,7 +1827,7 @@ contexts for the following operations:
 Without context, these operations simply will not succeed due to the
 convergence logic driving Riak Data Types. The example below shows you
 how to fetch a Data Type's context and then pass it back to Riak. More
-specifially, we'll remove the `paid_account` flag from the map:
+specifically, we'll remove the `paid_account` flag from the map:
 
 ```java
 // This example uses our "ahmedMap" location from above:
