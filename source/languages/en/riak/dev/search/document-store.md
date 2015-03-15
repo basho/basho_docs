@@ -24,7 +24,7 @@ index that data using Riak Search, and then run Solr queries against
 those stored objects.
 
 You can think of these Search indexes as **collections**. Each indexed
-will have a document ID generated automatically by Search, and because
+document will have an ID generated automatically by Search, and because
 we're not interested in running normal [[key/value queries|Key/Value
 Modeling]] on these objects, we'll allow Riak to assign [[keys|Keys and
 Objects]] automatically. This means that all we have to do is worry
@@ -107,7 +107,9 @@ xml_file.close()
 ```
 
 ```csharp
-TODO
+var schemaXml = File.ReadAllText("blog_post_schema.xml");
+var schema = new SearchSchema("blog_post_schema", schemaXml);
+var rslt = client.PutSearchSchema(schema);
 ```
 
 ```erlang
@@ -139,7 +141,8 @@ client.create_search_index('blog_posts', 'blog_post_schema')
 ```
 
 ```csharp
-TODO
+var idx = new SearchIndex("blog_posts", "blog_post_schema");
+var rslt = client.PutSearchIndex(idx);
 ```
 
 ```erlang
