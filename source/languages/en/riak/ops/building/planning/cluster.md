@@ -43,7 +43,7 @@ entry for that bucket + key on disk.
 
 If you want to read more about what the keydir is and what it entails,
 as well as more about Bitcask in general, see the [Hello
-Bitcask](http://blog.basho.com/2010/04/27/hello-bitcask/) article from
+Bitcask](http://basho.com/hello-bitcask/) article from
 the Basho blog as well as Basho's [Introduction to
 Bitcask](http://basho.com/assets/bitcask-intro.pdf) paper.
 
