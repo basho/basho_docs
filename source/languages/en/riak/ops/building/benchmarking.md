@@ -12,14 +12,136 @@ moved: {
 ---
 
 Basho Bench is a benchmarking tool created to conduct accurate and
-repeatable performance tests and stress tests and to produce performance
+repeatable performance tests and stress tests, and to produce performance
 graphs.
 
 Basho Bench exposes a pluggable driver interface and has been extended to serve as a benchmarking tool against a variety of projects. New drivers can be written in Erlang and are generally less than 200 lines of code.
 
-## Download
+## Installation
 
-The main repository for Basho Bench is [on GitHub](http://github.com/basho/basho_bench/).
+You will need:
+
+1. One or more load-generating machines on which to install ```basho_bench```. 
+    Especially when testing larger clusters, a single machine cannot generate enough 
+    load to properly exercise the cluster.
+    Do not run the ```basho_bench``` instances on the Riak nodes themselves, since the load
+    generation will compete with Riak for resources.
+2. The [R statistics language](http://www.r-project.org/) must be installed (somewhere available to you) if you wish to generate graphs (see the [[Generating Benchmark Graphs|Basho Bench#Generating-Benchmark-Graphs]] section, below).
+
+### Download ```basho_bench```
+
+You can download the pre-built packages below, or build it from source.
+
+* **Ubuntu 14.04 LTS:** [basho-bench_0.10.0.53-1_amd64.deb](http://ps-tools.s3.amazonaws.com/basho-bench_0.10.0.53.g0e15158-ubuntu14.04LTS-1_amd64.deb)
+* **CentOS 7:** [basho-bench-0.10.0.53-1.el7.centos.x86_64.rpm](http://ps-tools.s3.amazonaws.com/basho-bench-0.10.0.53.g0e15158-1.el7.centos.x86_64.rpm)
+
+### Building from Source
+
+#### Prerequisites
+
+* Erlang must be installed. See [[Installing Erlang]] for instructions and versioning 
+    requirements. Note: Unless you're an experienced Erlang developer, we recommend that
+    you use Ubuntu 14.04 LTS (and not CentOS), when building ```basho_bench``` from source. 
+    Later versions of CentOS (6 and 7) have difficulty with installing and enabling 
+    certain parts of the ```erlang-crypto``` package, which is required by ```basho_bench```.
+* Install ```git``` (to check out the ```basho_bench``` code)
+
+#### Compiling
+
+```bash
+git clone git://github.com/basho/basho_bench.git
+cd basho_bench
+make
+```
+
+## Usage
+
+Run the `basho_bench` script, pass in the config file and the directory to generate 
+the results into:
+
+```bash
+basho_bench --results-dir <results dir> <config file>
+```
+
+If you've installed ```basho_bench``` from a pre-built package, you must specify full
+paths for the test results directory and config file.
+(Also, don't use the common ```~/``` shell notation, specify the user's home directory
+explicitly)
+
+```bash
+basho_bench --results-dir /home/username/bench_results/ /etc/basho_bench/riakc_pb.config 
+```
+
+The example above will generate results in ```/home/username/bench_results/current/```.
+
+If you built ```basho_bench``` from source, you can get away with relative paths 
+(and the results directory will be created in the current directory):
+
+```bash
+./basho_bench myconfig.config
+```
+
+This will generate results in `tests/current/`. You will need to create
+a configuration file. The recommended approach is to start from a file
+in the `examples` directory and modify settings using the
+[[Configuration|Basho Bench#Configuration]] section
+below for reference.
+
+## Generating Benchmark Graphs
+
+The output of from running the `basho_bench` script can be used to create graphs showing the following:
+
+* Throughput --- Operations per second over the duration of the test.
+* Latency at 99th percentile, 99.9th percentile and max latency for the selected operations.
+* Median latency, mean latency, and 95th percentile latency for the selected operations.
+
+### Prerequisites
+
+The R statistics language is needed to generate graphs. Note: If necessary, R can be installed on a different machine than the one running basho_bench, and the performance data can be copied (via rsync, for example) from the load testing machine to the one that will be generating and viewing the graphs (such as a desktop).
+
+#### Installing R on Ubuntu
+```
+sudo apt-get install r-base
+```
+
+#### Installing R on Other Platforms
+
+-   More information: [[http://www.r-project.org/]]
+-   Download R: [[http://cran.r-project.org/mirrors.html]]
+
+Follow the instructions for your platform to install R.
+
+### Generating Graphs
+
+If you have installed ```basho_bench``` from a pre-built package, and you also have R
+installed on the same machine, you can generate the current result graph with the 
+following:
+
+```bash
+Rscript --vanilla /usr/lib/basho_bench/lib/basho_bench*/priv/summary.r /home/username/bench_results/current/
+```
+
+This will create a results file in ```/home/username/bench_results/summary.png```.
+
+If you have built ```basho_bench``` from source, you can just use ```make```.
+To generate a benchmark graph against the current results, run:
+
+```bash
+make results
+```
+
+This will create a results file in `tests/current/summary.png`.
+
+You can also run this manually:
+
+```bash
+priv/summary.r -i tests/current
+```
+
+### Troubleshooting Graph Generation
+
+For additional help, see the [[Troubleshooting Graph Generation|https://github.com/basho/basho_bench#troubleshooting-graph-generation]] 
+section of the ```basho_bench/README```.
 
 ## How does it work?
 
@@ -47,70 +169,6 @@ config file, all workers and stats processes are terminated and the
 benchmark ends. The measured latency and throughput of the test can be
 found in `./tests/current/`. Previous results are in timestamped
 directories of the form `./tests/YYYYMMDD-HHMMSS/`.
-
-## Installation
-
-### Prerequisites
-
--   Erlang must be installed. See [[Installing Erlang]] for instructions and versioning requirements.
--   The [R statistics language](http://www.r-project.org/) must be installed if you wish to generate graphs (see the [[Generating Benchmark Graphs|Basho Bench#Generating-Benchmark-Graphs]] section, below).
-
-### Building from Source
-
-Basho Bench is currently available as source code only. To get the latest code, clone the basho_bench repository:
-
-```bash
-git clone git://github.com/basho/basho_bench.git
-cd basho_bench
-make
-```
-
-## Usage
-
-Run the `basho_bench` script:
-
-```bash
-./basho_bench myconfig.config
-```
-
-This will generate results in `tests/current/`. You will need to create
-a configuration file. The recommended approach is to start from a file
-in the `examples` directory and modify settings using the
-[[Configuration|Basho Bench#Configuration]] section
-below for reference.
-
-## Generating Benchmark Graphs
-
-The output of from running the `basho_bench` script can be used to create graphs showing the following:
-
-* Throughput --- Operations per second over the duration of the test.
-* Latency at 99th percentile, 99.9th percentile and max latency for the selected operations.
-* Median latency, mean latency, and 95th percentile latency for the selected operations.
-
-### Prerequisites
-
-The R statistics language is needed to generate graphs. Note: If necessary, R can be installed on a different machine than the one running basho_bench, and the performance data can be copied (via rsync, for example) from the load testing machine to the one that will be generating and viewing the graphs (such as a desktop).
-
--   More information: [[http://www.r-project.org/]]
--   Download R: [[http://cran.r-project.org/mirrors.html]]
-
-Follow the instructions for your platform to install R.
-
-### Generating Graphs
-
-To generate a benchmark graph against the current results, run:
-
-```bash
-make results
-```
-
-This will create a results file in `tests/current/summary.png`.
-
-You can also run this manually:
-
-```bash
-priv/summary.r -i tests/current
-```
 
 ## Configuration
 
