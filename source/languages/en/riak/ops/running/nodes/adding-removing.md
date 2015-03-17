@@ -306,7 +306,7 @@ transfers have completed.
 Once created, the claimant uses this new ring to generate a list of
 pending changes to the cluster. These changes need to occur before the
 transition to the new ring can be completed. This list consists of
-partitions whose ownership needs to be transfered between nodes, as well
+partitions whose ownership needs to be transferred between nodes, as well
 as the state of the transfers (complete or awaiting). This list is
 distributed to the cluster members via the gossip protocol.
 
@@ -319,7 +319,7 @@ cluster as updates are made to it.
 Throughout the handoff process, the claimant uses this updated list to
 make incremental changes to the ring. Each time an incremental change
 is made, the new ring is distributed to all cluster members to reflect
-the new owner of the recently transfered partition. Once all transfers
+the new owner of the recently transferred partition. Once all transfers
 are complete, the ring distributed by the claimant will be the one
 created when the join command was executed, and the ownership handoff
 process will be complete.

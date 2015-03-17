@@ -63,7 +63,7 @@ Server: MochiWeb/1.1 WebMachine/1.9.0 (someone had painted it blue)
 {{#1.3.0+}}
 ### Sample Request Using the Range Header
 
-This sample request askes for only the first `1000` bytes of a `1705` byte file
+This sample request asks for only the first `1000` bytes of a `1705` byte file
 
 ```
 GET build.sh HTTP/1.1

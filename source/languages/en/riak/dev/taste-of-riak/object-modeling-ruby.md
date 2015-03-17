@@ -163,7 +163,7 @@ class TimelineRepository
   end
 
   def post_message(msg)
-    # Save the cannonical copy
+    # Save the canonical copy
     saved_message = @msg_repo.save(msg)
     # Post to sender's Sent timeline
     add_to_timeline(msg, SENT, saved_message.key)

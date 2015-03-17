@@ -69,7 +69,7 @@ A:
   %{https, [{ "10.10.210.16", 8098 }]},
   ```
 
-  In this exmaple, HTTPS would be enabled and HTTP disabled:
+  In this example, HTTPS would be enabled and HTTP disabled:
 
   ```erlang
   %{http, [ {"10.10.210.16", 8098 } ]},
@@ -203,7 +203,7 @@ A:
 
 Q: Can a cluster contain nodes running different operating systems?
 A:
-  Yes. You can build a cluster out of heterogenous nodes running different supported operating systems. Isn't that nice?
+  Yes. You can build a cluster out of heterogeneous nodes running different supported operating systems. Isn't that nice?
 
 
 Q: Is it okay to change the Riak backend from Bitcask to multi-backend if I set Bitcask as the default?

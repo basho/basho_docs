@@ -43,7 +43,7 @@ increment that keyed value by the given amount.
 POST /buckets/BUCKET/counters/KEY
 ```
 
-To recieve the current value is a GET using `/counters`
+To receive the current value is a GET using `/counters`
 
 ```
 GET /buckets/BUCKET/counters/KEY

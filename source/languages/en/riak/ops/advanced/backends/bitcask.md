@@ -856,7 +856,7 @@ which time it is closed and a new file is created for additional writes.
 Once a file is closed, whether purposely or due to server exit, it is
 considered immutable and will never again be opened for writing.
 
-The file currenlty open for writes is only written by appending, which
+The file currently open for writes is only written by appending, which
 means that sequential writes do not require disk seeking, which can
 dramatically speed up disk I/O. Note that this effect can be hampered if
 you have `atime` enabled on your filesystem, because the disk head will

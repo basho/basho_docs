@@ -68,7 +68,7 @@ Riak is to specify those properties
 ### Replication Properties Through Bucket Types
 
 Let's say, for example, that you want to apply an `n_val` of 5, an `r`
-of 3, and a `w` of 3 to all of the datq in some of the [[buckets]] that
+of 3, and a `w` of 3 to all of the data in some of the [[buckets]] that
 you're using. In order to set those replication properties, you should
 create a bucket type that sets those properties. Below is an example:
 
@@ -97,7 +97,7 @@ Parameter | Common name | Default value | Description
 `dw` | DW | `quorum` | The number of servers that must report that a write has been successfully written to disk
 `rw` | RW | `quorum` | If R and W are undefined, this parameter will substitute for both R and W during object deletes. It is extremely unlikely that you will need to adjust this parameter.
 `notfound_ok` | | `true` | This parameter determines how Riak responds if a read fails on a node. Setting to `true` (the default) is the equivalent to setting R to 1: if the first node to respond doesn't have a copy of the object, Riak will immediately return a `not found` error. If set to `false`, Riak will continue to look for the object on the number of nodes specified by N (aka `n_val`).
-`basic_quorum` | | `false` | If `notfound_ok` is set to `false`, Riak will be more thorough in looking for an object on multiple nodes. Setting `basic_quorum` to `true` in this case will instruct Riak to wait for only a `quorum` of reponses to return a `notfound` error instead of N responses.
+`basic_quorum` | | `false` | If `notfound_ok` is set to `false`, Riak will be more thorough in looking for an object on multiple nodes. Setting `basic_quorum` to `true` in this case will instruct Riak to wait for only a `quorum` of responses to return a `notfound` error instead of N responses.
 
 ## A Primer on N, R, and W
 

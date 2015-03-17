@@ -562,7 +562,7 @@ performance measurements. This option overwrites values given to
 <tr>
 <td><code>leveldb.sync_on_write</code></td>
 <td>Whether LevelDB will flush after every write.<br /><br />
-<strong>Note</strong>: If you are familiar with fsync, this is analagous
+<strong>Note</strong>: If you are familiar with fsync, this is analogous
 to calling fsync after every write.</td>
 <td><code>off</code></td>
 </tr>
@@ -1010,7 +1010,7 @@ this setting can cause performance problems on multi-core systems.</td>
 <tr>
 <td><code>runtime_health.triggers.process.long_schedule</code></td>
 <td>A process will become busy when it exceeds this amount of time
-during a single process scheduling and execution cyle. Set as an integer
+during a single process scheduling and execution cycle. Set as an integer
 plus time unit, e.g. `50ms` for 50 milliseconds, `5s` for 5 seconds,
 etc.</td>
 <td><code>off</code></td>
@@ -2419,7 +2419,7 @@ a simple majority of nodes to be online and reachable.</td>
 <td><code>synchronous_tree_updates</code></td>
 <td>Determines whether the metadata updates to follower Merkle trees are
 handled synchronously or not. When set to <code>true</code>, Riak
-equires two quorum round trips to occur before replying back to the
+requires two quorum round trips to occur before replying back to the
 client, the first quorum request to write the actual object and the
 second to write the Merkle tree data. When set to <code>false</code>,
 Riak will respond back to the client after the first round trip, letting

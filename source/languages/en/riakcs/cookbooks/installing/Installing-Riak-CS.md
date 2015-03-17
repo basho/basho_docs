@@ -76,7 +76,7 @@ part of an OS-specific package or from source.
 * [[From Source|Installing Riak From Source]]
 
 Riak is also officially supported on the following public cloud
-infrastuctures:
+infrastructures:
 
 * [[Amazon Web Services|Installing on AWS Marketplace]]
 * [[Microsoft Azure|Installing on Windows Azure]]

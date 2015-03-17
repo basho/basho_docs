@@ -208,7 +208,7 @@ in the configuration file as `request_pool`. The default size of this
 pool is 128.
 
 The secondary connection pool is used strictly for requests to list the
-contents of buckets. The separate connnection pool is maintained in
+contents of buckets. The separate connection pool is maintained in
 order to improve performance. This secondary connection pool is
 identified in the configuration file as `bucket_list_pool`. The default
 size of this pool is 5.
