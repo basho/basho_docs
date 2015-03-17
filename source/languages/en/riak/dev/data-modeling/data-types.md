@@ -79,9 +79,14 @@ client = RiakClient(protocol='pbc', pb_port=8087)
 ```
 
 ```csharp
+/*
+ * We're going to separate CRUD logic from our Model classes by using
+ * the INotifyPropertyChanged event and a manager that uses a
+ * Repository to store Models when these events happen.
+ */
 IRiakEndPoint endpoint = RiakCluster.FromConfig("riakConfig");
 IRiakCliet client = endpoint.CreateClient();
-var userRepository = new UserRepository(client);
+var entityManager = new EntityManager(client);
 ```
 
 <div class="note">
@@ -143,29 +148,45 @@ class User:
 
 ```csharp
 /*
- * The C# uses a User model class and a User Repository class
+ * The C# uses a User model class and a UserRepository class wired
+ * together via INotifyPropertyChanged events and handling those events
  * See the entire example in the RiakClientExamples project here:
  * https://github.com/basho-labs/riak-dotnet-client/tree/develop/src/RiakClientExamples/Dev/DataModeling
  */
-public class User : IModel
+public class User : IModel, INotifyPropertyChanged
 {
     private readonly string firstName;
     private readonly string lastName;
+    private readonly ICollection<string> interests;
+    private uint pageVisits = 0;
+    private bool accountStatus = false;
 
-    public User(string firstName, string lastName)
+    public User(
+        string firstName,
+        string lastName,
+        ICollection<string> interests,
+        uint pageVisits = 0,
+        bool accountStatus = false)
     {
         if (string.IsNullOrWhiteSpace(firstName))
         {
             throw new ArgumentNullException("firstName", "firstName is required");
         }
+
         this.firstName = firstName;
 
         if (string.IsNullOrWhiteSpace(lastName))
         {
             throw new ArgumentNullException("lastName", "lastName is required");
         }
+
         this.lastName = lastName;
+        this.interests = interests;
+        this.pageVisits = pageVisits;
+        this.accountStatus = accountStatus;
     }
+
+    public event PropertyChangedEventHandler PropertyChanged;
 
     public string ID
     {
@@ -184,6 +205,55 @@ public class User : IModel
     public string LastName
     {
         get { return lastName; }
+    }
+
+    public IEnumerable<string> Interests
+    {
+        get { return interests; }
+    }
+
+    public void AddInterest(string interest)
+    {
+        if (!interests.Contains(interest))
+        {
+            interests.Add(interest);
+            /*
+             * Real-world you would be using your own entity changed
+             * event interface that allows events like these to be
+             * raised instead of using formatted strings
+             */
+            var data = string.Format("Interests:Added:{0}", interest);
+            var e = new PropertyChangedEventArgs(data);
+            PropertyChanged(this, e);
+        }
+    }
+
+    public void RemoveInterest(string interest)
+    {
+        if (interests.Contains(interest))
+        {
+            interests.Remove(interest);
+            var data = string.Format("Interests:Removed:{0}", interest);
+            var e = new PropertyChangedEventArgs(data);
+            PropertyChanged(this, e);
+        }
+    }
+
+    public uint PageVisits
+    {
+        get { return pageVisits; }
+    }
+
+    public void VisitPage()
+    {
+        ++pageVisits;
+        var e = new PropertyChangedEventArgs("PageVisits");
+        PropertyChanged(this, e);
+    }
+
+    public bool AccountStatus
+    {
+        get { return accountStatus; }
     }
 }
 ```
@@ -283,59 +353,6 @@ class User:
  * See the entire example in the RiakClientExamples project here:
  * https://github.com/basho-labs/riak-dotnet-client/tree/develop/src/RiakClientExamples/Dev/DataModeling/UserRepository.cs
  */
-public class UserRepository : Repository<User>
-{
-    const string firstNameRegister = "first_name";
-    const string lastNameRegister = "last_name";
-
-    public UserRepository(IRiakClient client)
-        : base(client)
-    {
-    }
-
-    public override string Save(User model)
-    {
-        var id = new RiakObjectId(BucketType, BucketName, model.ID);
-
-        var mapUpdates = new List<MapUpdate>();
-
-        mapUpdates.Add(new MapUpdate
-        {
-            register_op = TextSerializer(model.FirstName),
-            field = new MapField
-            {
-                name = TextSerializer(firstNameRegister),
-                type = MapField.MapFieldType.REGISTER
-            }
-        });
-
-        mapUpdates.Add(new MapUpdate
-        {
-            register_op = TextSerializer(model.LastName),
-            field = new MapField
-            {
-                name = TextSerializer(lastNameRegister),
-                type = MapField.MapFieldType.REGISTER
-            }
-        });
-
-        // Insert without context
-        var rslt = client.DtUpdateMap(id, TextSerializer, null, null, mapUpdates, null);
-        CheckResult(rslt.Result);
-
-        return model.ID;
-    }
-
-    protected override string BucketType
-    {
-        get { return "maps"; }
-    }
-
-    protected override string BucketName
-    {
-        get { return "users"; }
-    }
-}
 ```
 
 Now, if we create a new user, that user will have a `map` instance
@@ -435,29 +452,6 @@ class User:
  * See the entire example in the RiakClientExamples project here:
  * https://github.com/basho-labs/riak-dotnet-client/tree/develop/src/RiakClientExamples/Dev/DataModeling
  */
-
-// Changes to User model object ctor:
-private readonly IEnumerable<string> interests;
-
-public User(string firstName, string lastName, IEnumerable<string> interests)
-{
-    if (string.IsNullOrWhiteSpace(firstName))
-    {
-        throw new ArgumentNullException("firstName", "firstName is required");
-    }
-
-    this.firstName = firstName;
-
-    if (string.IsNullOrWhiteSpace(lastName))
-    {
-        throw new ArgumentNullException("lastName", "lastName is required");
-    }
-
-    this.lastName = lastName;
-
-    this.interests = interests;
-}
-
 // Changes to UserRepository.Save method:
 if (EnumerableUtil.NotNullOrEmpty(model.Interests))
 {
@@ -475,7 +469,6 @@ if (EnumerableUtil.NotNullOrEmpty(model.Interests))
         }
     });
 }
-
 ```
 
 Now when we create new users, we need to specify their interests as a
@@ -568,6 +561,34 @@ class User:
 ```
 
 ```csharp
+// In User.cs
+public void VisitPage()
+{
+    ++pageVisits;
+    var e = new PropertyChangedEventArgs("PageVisits");
+    PropertyChanged(this, e);
+}
+
+// In UserRepository.cs
+public void IncrementPageVisits()
+{
+    var mapUpdates = new List<MapUpdate>();
+
+    mapUpdates.Add(new MapUpdate
+    {
+        counter_op = new CounterOp { increment = 1 },
+        field = new MapField
+        {
+            name = TextSerializer(visitsCounter),
+            type = MapField.MapFieldType.COUNTER
+        }
+    });
+
+    // Update without context
+    var rslt = client.DtUpdateMap(
+        GetRiakObjectId(), TextSerializer, null, null, mapUpdates, null);
+    CheckResult(rslt.Result);
+}
 ```
 
 And then we can have Joe Armstrong visit our page:
@@ -585,8 +606,7 @@ joe.visit_page()
 ```
 
 ```csharp
-var userRepo = new UserRepository(riakClient);
-userRepo.IncrementPageVisits(joe);
+joe.VisitPage();
 ```
 
 The page visit counter did not exist prior to this method call, but the
@@ -666,24 +686,43 @@ class User:
 ```
 
 ```csharp
-public void IncrementPageVisits()
+/*
+ * See the entire example in the RiakClientExamples project here:
+ * https://github.com/basho-labs/riak-dotnet-client/tree/develop/src/RiakClientExamples/Dev/DataModeling/UserRepository.cs
+ */
+
+public void UpgradeAccount()
 {
     var mapUpdates = new List<MapUpdate>();
 
     mapUpdates.Add(new MapUpdate
     {
-        counter_op = new CounterOp { increment = 1 },
+        flag_op = MapUpdate.FlagOp.ENABLE,
         field = new MapField
         {
-            name = TextSerializer(visitsCounter),
-            type = MapField.MapFieldType.COUNTER
+            name = TextSerializer(paidAccountFlag),
+            type = MapField.MapFieldType.FLAG
         }
     });
 
-    // Update without context
-    var rslt = client.DtUpdateMap(
-        GetRiakObjectId(), TextSerializer, null, null, mapUpdates, null);
-    CheckResult(rslt.Result);
+    UpdateMap(mapUpdates, fetchFirst: true);
+}
+
+public void DowngradeAccount()
+{
+    var mapUpdates = new List<MapUpdate>();
+
+    mapUpdates.Add(new MapUpdate
+    {
+        flag_op = MapUpdate.FlagOp.DISABLE,
+        field = new MapField
+        {
+            name = TextSerializer(paidAccountFlag),
+            type = MapField.MapFieldType.FLAG
+        }
+    });
+
+    UpdateMap(mapUpdates, fetchFirst: true);
 }
 ```
 
@@ -784,7 +823,62 @@ class User:
 ```
 
 ```csharp
-TODO
+/*
+ * See the entire example in the RiakClientExamples project here:
+ * https://github.com/basho-labs/riak-dotnet-client/tree/develop/src/RiakClientExamples/Dev/DataModeling/UserRepository.cs
+ */
+
+public override User Get(string key, bool notFoundOK = false)
+{
+    var fetchRslt = client.DtFetchMap(GetRiakObjectId());
+    CheckResult(fetchRslt.Result);
+
+    string firstName = null;
+    string lastName = null;
+    var interests = new List<string>();
+    uint pageVisits = 0;
+
+    foreach (var value in fetchRslt.Values)
+    {
+        RiakDtMapField mapField = value.Field;
+        switch (mapField.Name)
+        {
+            case firstNameRegister:
+                if (mapField.Type != RiakDtMapField.RiakDtMapFieldType.Register)
+                {
+                    throw new InvalidCastException("expected Register type");
+                }
+                firstName = TextDeserializer(value.RegisterValue);
+                break;
+            case lastNameRegister:
+                if (mapField.Type != RiakDtMapField.RiakDtMapFieldType.Register)
+                {
+                    throw new InvalidCastException("expected Register type");
+                }
+                lastName = TextDeserializer(value.RegisterValue);
+                break;
+            case interestsSet:
+                if (mapField.Type != RiakDtMapField.RiakDtMapFieldType.Set)
+                {
+                    throw new InvalidCastException("expected Set type");
+                }
+                interests.AddRange(value.SetValue.Select(v => TextDeserializer(v)));
+                break;
+            case pageVisitsCounter:
+                if (mapField.Type != RiakDtMapField.RiakDtMapFieldType.Counter)
+                {
+                    throw new InvalidCastException("expected Counter type");
+                }
+                pageVisits = (uint)value.Counter.Value;
+                break;
+            /*
+                * Note: can do additional checks here in default case
+                */
+        }
+    }
+
+    return new User(firstName, lastName, interests, pageVisits);
+}
 ```
 
 Now, we can create a new user and then access that user's
@@ -828,7 +922,16 @@ joe.paid_account # false
 ```
 
 ```csharp
-TODO
+var interests = new HashSet<string> { "distributed systems", "Erlang" };
+var joe = new User("Joe", "Armstrong", interests);
+
+joe.FirstName; // Joe
+joe.LastName; // Armstrong
+joe.Interests; // ["distributed systems", "Erlang"]
+joe.PageVisits; // 0
+joe.VisitPage();
+joe.PageVisits; // 1
+joe.AccountStatus; // false
 ```
 
 We can also create instance methods that add and remove specific
@@ -886,7 +989,32 @@ class User:
 ```
 
 ```csharp
-TODO
+public void AddInterest(string interest)
+{
+    if (!interests.Contains(interest))
+    {
+        interests.Add(interest);
+        /*
+            * Real-world you would be using your own entity changed
+            * event interface that allows events like these to be
+            * raised instead of using formatted strings
+            */
+        var data = string.Format("Interests:Added:{0}", interest);
+        var e = new PropertyChangedEventArgs(data);
+        PropertyChanged(this, e);
+    }
+}
+
+public void RemoveInterest(string interest)
+{
+    if (interests.Contains(interest))
+    {
+        interests.Remove(interest);
+        var data = string.Format("Interests:Removed:{0}", interest);
+        var e = new PropertyChangedEventArgs(data);
+        PropertyChanged(this, e);
+    }
+}
 ```
 
 ## Converting to JSON
@@ -957,7 +1085,11 @@ class User:
 ```
 
 ```csharp
-TODO
+/*
+ * Since the User model object does not contain Riak Data Type
+ * information internally, JSON.NET can serialize the object
+ * directly
+ */
 ```
 
 Now, we can instantly convert our `User` map into a stringified JSON
@@ -986,6 +1118,10 @@ bruce.as_json()
 ```
 
 ```csharp
-TODO
+/*
+ * Since the User model object does not contain Riak Data Type
+ * information internally, JSON.NET can serialize the object
+ * directly
+ */
 ```
 
