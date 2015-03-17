@@ -219,7 +219,7 @@ public class User : IModel, INotifyPropertyChanged
             interests.Add(interest);
             /*
              * Real-world you would be using your own entity changed
-             * event interface that allows events like these to be
+             * event interface that allows custom events to be
              * raised instead of using formatted strings
              */
             var data = string.Format("Interests:Added:{0}", interest);
