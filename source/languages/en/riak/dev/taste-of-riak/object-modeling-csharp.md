@@ -58,7 +58,7 @@ respectively.
 <div class="note">
 <div class="title">Note</div>
 Riak performs best with objects under 1-2MB. Objects larger than that
-can hurt performance, especially many siblings are being created. We
+can hurt performance, especially when many siblings are being created. We
 will cover siblings, sibling resolution, and sibling explosions in the
 next chapter.  </div>
 

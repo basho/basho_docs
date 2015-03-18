@@ -738,7 +738,7 @@ CitiesSet5 = riakc_set:add_element(<<"Ottawa">>, CitiesSet4).
 ```curl
 curl -XPOST http://localhost:8098/types/sets/buckets/travel/datatypes/cities \
   -H "Content-Type: application/json" \
-  -d '{"remove": "Montreal","add_all":["Toronto", "Montreal"]}'
+  -d '{"remove": "Montreal","add_all":["Ottawa", "Montreal"]}'
 ```
 
 Now, we can check on which cities are currently in our set:
@@ -1736,7 +1736,8 @@ map.reload().maps['annika_info'].registers['first_name'].value
 ```csharp
 // Note: At this point in time there is no convienience method for
 // retrieving a value from a map. Please see the RiakClientExamples
-// project for code samples
+// project for code samples.
+// https://github.com/basho-labs/riak-dotnet-client/tree/develop/src/RiakClientExamples
 ```
 
 ```erlang
@@ -2168,7 +2169,7 @@ We can remove that interest in just the way that we would expect:
 
 SetUpdate su = new SetUpdate().remove("tango dancing");
 MapUpdate annikaUpdate = new MapUpdate()
-        .update("interests_set", su);
+        .update("interests", su);
 MapUpdate ahmedUpdate = new MapUpdate()
         .update("annika_info", annikaUpdate);
 UpdateMap update = new UpdateMap.Builder(ahmedMap, ahmedUpdate)

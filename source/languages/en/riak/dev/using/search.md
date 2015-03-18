@@ -795,7 +795,6 @@ var search = new RiakSearchRequest("famous", "age_i:[30 TO *]");
  * };
  */
 var rslt = client.Search(search);
-
 ```
 
 ```erlang

@@ -8,11 +8,9 @@ audience: beginner
 keywords: [developers, client, csharp]
 ---
 
-If you haven't set up a Riak Node and started it, please visit the
-[[Prerequisites|Taste of Riak: Prerequisites]] first.
+If you haven't set up a Riak Node and started it, please visit the [[Prerequisites|Taste of Riak: Prerequisites]] first.
 
-To try this flavor of Riak, a working installation of the .NET Framework
-or Mono is required. 
+To try this flavor of Riak, a working installation of the .NET Framework or Mono is required. 
 
 ### Client Setup
 
@@ -39,7 +37,7 @@ namespace TasteOfRiak
         {
         	// don't worry, we'll use this string later
 	        const string contributors = "contributors";
-            IRiakEndpoint cluster = RiakCluster.FromConfig("riakConfig"));
+            IRiakEndpoint cluster = RiakCluster.FromConfig("riakConfig");
             IRiakClient client = cluster.CreateClient();
         }
     }
@@ -70,7 +68,7 @@ This is some simple code to test that a node in a Riak cluster is online - we se
 
 Pinging a Riak cluster sounds like a lot of fun, but eventually someone is going to want us to do productive work. Let's create a class to represent some data and save some objects into Riak.
 
-the Riak .NET Client makes use of a `RiakObject` class to encapsulate Riak key/value objects. At the most basic, a `RiakObject` is responsible for identifying your object and for translating it into a format that can be easily saved to Riak.
+The Riak .NET Client makes use of a `RiakObject` class to encapsulate Riak key/value objects. At the most basic, a `RiakObject` is responsible for identifying your object and for translating it into a format that can be easily saved to Riak.
 
 Add the `RiakClient.Models` namespace to your using directive. Your usings should look like this:
 
