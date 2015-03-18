@@ -8,7 +8,8 @@ audience: beginner
 keywords: [developers, client, 2i, search, csharp, modeling]
 ---
 
-To get started, refer to [this source code](https://github.com/basho/taste-of-riak/tree/master/csharp/Ch03-Msgy-Schema/Models) for the models that we'll be using.
+To get started, refer to [this source code][1] for the models that we'll
+be using.
 
 To use these classes to store data, we will first have to create a user.
 Then, when a user creates a message, we will append that message to one
@@ -41,9 +42,9 @@ For the `Users` bucket, we can be certain that we will want each
 username to be unique, so let's use the `username` as the key.
 
 For the `Msgs` bucket, let's use a combination of the username and the
-posting UTC datetime in an [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601) format.
-This combination gives us the pattern `<username>_<datetime>`, which produces keys like
-`joeuser_2014-03-05T23:20:28`.
+posting UTC datetime in an [ISO 8601][iso_8601]
+format. This combination gives us the pattern `<username>_<datetime>`,
+which produces keys like `joeuser_2014-03-05T23:20:28`.
 
 Now for `Timelines`, we need to differentiate between `Inbox` and `Sent`
 timelines, so we can simply add that type into the key name. We will
@@ -64,9 +65,10 @@ next chapter.  </div>
 
 #### Keeping our story straight with repositories
 
-Now that we've figured out our object model, please refer to [this source code](https://github.com/basho/taste-of-riak/tree/master/csharp/Ch03-Msgy-Schema/Repositories) for the repositories that we'll be using.
+Now that we've figured out our object model, please refer to
+[this source code][2] for the repositories that we'll be using.
 
-[This console application](https://github.com/basho/taste-of-riak/blob/master/csharp/Ch03-Msgy-Schema/Program.cs) exercises the code that we've written.
+[This console application][3] exercises the code that we've written.
 
 The repository pattern and `TimelineManager` help with a few things:
 
@@ -93,3 +95,9 @@ So to recap, in this chapter we learned:
 
 In the next chapter, we will learn about siblings, how to deal with
 them, and some other edge cases to check for while working with Riak.
+
+
+[1]: https://github.com/basho/taste-of-riak/tree/master/csharp/Ch03-Msgy-Schema/Models
+[2]: https://github.com/basho/taste-of-riak/tree/master/csharp/Ch03-Msgy-Schema/Repositories
+[3]: https://github.com/basho/taste-of-riak/blob/master/csharp/Ch03-Msgy-Schema/Program.cs
+[iso_8601]: http://en.wikipedia.org/wiki/ISO_8601

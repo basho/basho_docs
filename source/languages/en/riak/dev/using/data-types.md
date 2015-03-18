@@ -738,7 +738,7 @@ CitiesSet5 = riakc_set:add_element(<<"Ottawa">>, CitiesSet4).
 ```curl
 curl -XPOST http://localhost:8098/types/sets/buckets/travel/datatypes/cities \
   -H "Content-Type: application/json" \
-  -d '{"remove": "Montreal","add_all":["Ottawa", "Montreal"]}'
+  -d '{"remove": "Montreal","add_all":["Hamilton", "Ottawa"]}'
 ```
 
 Now, we can check on which cities are currently in our set:
@@ -814,13 +814,13 @@ curl http://localhost:8098/types/sets/buckets/travel/datatypes/cities
 
 # Response
 
-{"type":"set","value":["Toronto"],"context":"SwGDUAAAAER4ActgymFgYGDMYMoFUhxHgzZyBzMfsU9kykISZg/JL8rPK8lHEkKoZMzKAgDwJA+e"}
+{"type":"set","value":["Hamilton", "Ottawa", "Toronto"],"context":"SwGDUAAAAER4ActgymFgYGDMYMoFUhxHgzZyBzMfsU9kykISZg/JL8rPK8lHEkKoZMzKAgDwJA+e"}
 
 # You can also fetch the value of the set without the context included:
 curl http://localhost:8098/types/sets/buckets/travel/datatypes/cities?include_context=false
 
 # Response
-{"type":"set","value":["Toronto"]}
+{"type":"set","value":["Hamilton", "Ottawa", "Toronto"]}
 ```
 
 Or we can see whether our set includes a specific member:
@@ -1983,6 +1983,7 @@ map.reload().maps['annika_info'].flags['enterprise_plan'].value
 // Note: At this point in time there is no convienience method for
 // retrieving a value from a map. Please see the RiakClientExamples
 // project for code samples
+// https://github.com/basho-labs/riak-dotnet-client/tree/develop/src/RiakClientExamples
 ```
 
 ```erlang

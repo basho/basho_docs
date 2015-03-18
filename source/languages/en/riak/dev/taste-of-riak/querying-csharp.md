@@ -10,7 +10,11 @@ keywords: [developers, client, 2i, search, csharp]
 
 ## C# Version Setup
 
-For the C# version, please download the source from GitHub by either [cloning](https://github.com/basho/taste-of-riak) the source code repository or downloading the [current zip of the master branch](https://github.com/basho/taste-of-riak/archive/master.zip). The code for this chapter is in `/csharp`. Open up `TasteOfRiak.sln` in Visual Studio or your IDE of choice.
+For the C# version, please download the source from GitHub by either
+[cloning][taste_of_riak] the source code repository or downloading the
+[current zip of the master branch][master_zip]. The code for this
+chapter is in `/csharp`. Open up `TasteOfRiak.sln` in Visual Studio or
+your IDE of choice.
 
 ## A Quick Note on Querying and Schemas
 
@@ -186,3 +190,7 @@ So to recap:
 * Indexes can have either Integer or Binary(String) keys
 * You can search for specific values, or a range of values
 * Riak will return a list of keys that match the index query
+
+
+[taste_of_riak]: https://github.com/basho/taste-of-riak
+[master_zip]: https://github.com/basho/taste-of-riak/archive/master.zip
