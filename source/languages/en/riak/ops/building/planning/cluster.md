@@ -43,7 +43,7 @@ entry for that bucket + key on disk.
 
 If you want to read more about what the keydir is and what it entails,
 as well as more about Bitcask in general, see the [Hello
-Bitcask](http://blog.basho.com/2010/04/27/hello-bitcask/) article from
+Bitcask](http://basho.com/hello-bitcask/) article from
 the Basho blog as well as Basho's [Introduction to
 Bitcask](http://basho.com/assets/bitcask-intro.pdf) paper.
 
@@ -175,7 +175,7 @@ capacity.
 When scaling horizontally, it's best to add all planned nodes at once
 with multiple <code>riak-admin cluster join</code> commands followed by
 a <code>riak-admin cluster plan</code> and <code>riak-admin cluster
-commit</code>.  This will help reduce the amount of data transfered
+commit</code>.  This will help reduce the amount of data transferred
 between nodes in the cluster.
 </div>
 

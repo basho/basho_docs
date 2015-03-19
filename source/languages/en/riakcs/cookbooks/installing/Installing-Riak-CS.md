@@ -46,12 +46,15 @@ Riak CS | Riak  | Stanchion
 1.2.2   | 1.2.1 | 1.2.2
 1.2.2   | 1.3.0 | 1.2.2
 1.3.0   | 1.2.1 | 1.2.2
+1.3.0   | 1.3.0 | 1.3.0
 1.4.0   | 1.4.0 | 1.4.0
 1.4.0   | 1.4.1 | 1.4.0
-1.4.3   | 1.4.8 | 1.4.5
+1.4.5   | 1.4.8 | 1.4.3
 1.5.0   | 1.4.10 | 1.5.0
 1.5.1   | 1.4.10 | 1.5.0
 1.5.2   | 1.4.10 | 1.5.0
+1.5.3   | 1.4.12 | 1.5.0
+1.5.4   | 1.4.12 | 1.5.0
 
 We strongly recommend using one of the version combinations listed above
 when installing and running Riak CS.
@@ -76,7 +79,7 @@ part of an OS-specific package or from source.
 * [[From Source|Installing Riak From Source]]
 
 Riak is also officially supported on the following public cloud
-infrastuctures:
+infrastructures:
 
 * [[Amazon Web Services|Installing on AWS Marketplace]]
 * [[Microsoft Azure|Installing on Windows Azure]]

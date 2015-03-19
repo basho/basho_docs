@@ -81,16 +81,16 @@ Setting | Options | Default | Description
 :-------|:--------|:--------|:-----------
 `ssl_enabled` | `true`, `false` | `false` | Enable SSL communications
 `keyfile` | `path` (string) | `undefined` | Fully qualified path to an SSL `.pem` key file
-`data_root` | `path` (string) | `data/riak_repl` | Path (relative or absolute) to the working directory for the replication process
 `cacertdir` | `path` (string) | `undefined` | The `cacertdir` is a fully-qualified directory containing all the CA certificates needed to verify the CA chain back to the root
 `certfile` | `path` (string) | `undefined` | Fully qualified path to a `.pem` cert file
-`ssl_depth` | `depth` (integer) | `1` | Set the depth to check for SSL CA certs. See <a href="/ops/mdc/v2/configuration/#f1">1</a>.
-`peer_common_name_acl` | `cert` (string) | `"*"` | Verify an SSL peer’s certificate common name. You can provide multiple ACLs as a list of strings, and you can wildcard the leftmost part of the common name, so `*.basho.com` would match `site3.basho.com` but not `foo.bar.basho.com` or `basho.com`. See <a href="/ops/mdc/v2/configuration/#f4">4</a>.
+`ssl_depth` | `depth` (integer) | `1` | Set the depth to check for SSL CA certs. See [1](/ops/mdc/v2/configuration/#f1).
+`peer_common_name_acl` | `cert` (string) | `"*"` | Verify an SSL peer’s certificate common name. You can provide an ACL as a list of common name *patterns*, and you can wildcard the leftmost part of any of the patterns, so `*.basho.com` would match `site3.basho.com` but not `foo.bar.basho.com` or `basho.com`. See [4](/ops/mdc/v2/configuration/#f4).
 
 ## Queue, Object, and Batch Settings
 
 Setting | Options | Default | Description
 :-------|:--------|:--------|:-----------
+`data_root` | `path` (string) | `data/riak_repl` | Path (relative or absolute) to the working directory for the replication process
 `queue_size` | `bytes` (integer) | `104857600` (100 MiB) | The size of the replication queue in bytes before the replication leader will drop requests. If requests are dropped, a fullsync will be required. Information about dropped requests is available using the `riak-repl status` command
 `server_max_pending` | `max` (integer) | `5` | The maximum number of objects the leader will wait to get an acknowledgment from, from the remote location, before queuing the request
 `vnode_gets` | `true`, `false` | `true` | If `true`, repl will do a direct get against the vnode, rather than use a `GET` finite state machine
@@ -116,20 +116,31 @@ Setting | Options | Default | Description
 
 Setting | Options | Default | Description
 :-------|:--------|:--------|:-----------
-`max_get_workers` | `max` (integer) | `100` | The maximum number of get workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See <a href="/ops/mdc/v2/configuration/#f2">2</a>.
-`max_put_workers` | `max` (integer) | `100` | The maximum number of put workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See <a href="/ops/mdc/v2/configuration/#f3">3</a>.
-`min_get_workers` | `min` (integer) | `5` | The minimum number of get workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See <a href="/ops/mdc/v2/configuration/#f2">2</a>.
-`min_put_workers` | `min` (integer) | `5` | The minimum number of put workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See <a href="/ops/mdc/v2/configuration/#f3">3</a>.
+`max_get_workers` | `max` (integer) | `100` | The maximum number of get workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See [2](/ops/mdc/v2/configuration/#f2).
+`max_put_workers` | `max` (integer) | `100` | The maximum number of put workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See [3](/ops/mdc/v2/configuration/#f3).
+`min_get_workers` | `min` (integer) | `5` | The minimum number of get workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See [2](/ops/mdc/v2/configuration/#f2).
+`min_put_workers` | `min` (integer) | `5` | The minimum number of put workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See [3](/ops/mdc/v2/configuration/#f3).
 
 
-1. <a name="f1"></a>SSL depth is the maximum number of non-self-issued intermediate certificates that may follow the peer certificate in a valid certification path. If depth is `0`, the PEER must be signed by the trusted ROOT-CA directly; if `1` the path can be PEER, CA, ROOT-CA; if depth is `2` then PEER, CA, CA, ROOT-CA and so on.
+1. <a name="f1"></a>SSL depth is the maximum number of non-self-issued
+ intermediate certificates that may follow the peer certificate in a valid
+ certificate chain. If depth is `0`, the PEER must be signed by the trusted
+ ROOT-CA directly; if `1` the path can be PEER, CA, ROOT-CA; if depth is `2`
+ then PEER, CA, CA, ROOT-CA and so on.
 
-2. <a name="f2"></a>Each get worker spawns 2 processes, one for the work and one for the get FSM (an Erlang finite state machine implementation for `GET` requests). Be sure that you don't run over the maximum number of allowed processes in an Erlang VM (check `vm.args` for a `+P` property).
+2. <a name="f2"></a>Each get worker spawns 2 processes, one for the work and
+ one for the get FSM (an Erlang finite state machine implementation for `GET`
+ requests). Be sure that you don't run over the maximum number of allowed
+ processes in an Erlang VM (check `vm.args` for a `+P` property).
 
 3. <a name="f3"></a>Each put worker spawns 2 processes, one for the work, and
-  one for the put FSM (an Erlang finite state machine implementation for `PUT` requests). Be sure that you don't run over the maximum number of allowed
+  one for the put FSM (an Erlang finite state machine implementation for `PUT`
+  requests). Be sure that you don't run over the maximum number of allowed
   processes in an Erlang VM (check `vm.args` for a `+P` property).
 
 4. <a name="f4"></a>If the ACL is specified and not the special value `*`,
-  certificates not matching any of the rules will not be allowed to connect.
-  If no ACLs are configured, no checks on the common name are done.
+ peers presenting certificates not matching any of the patterns will not be
+ allowed to connect.
+ If no ACLs are configured, no checks on the common name are done, except
+ as described for [[Identical Local and Peer Common Names
+ |Multi Data Center Replication: SSL#Verifying-Peer-Certificates]].

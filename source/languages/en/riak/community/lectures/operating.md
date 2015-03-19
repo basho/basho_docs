@@ -56,7 +56,7 @@ This page is a collection of videos, slides, papers, and other media detailing v
             <a href="http://player.vimeo.com/video/27208328" target="_blank" title="Riak at Formspring"><img class="vid_img"src="http://b.vimeocdn.com/ts/180/470/180470095_200.jpg"/></a>
         </td>
         <td class="vid_td">
-            <a href="http://player.vimeo.com/video/27208328" target="_blank" title="Riak at Formspring">Riak at Formspring</a><br />In this talk, Tim Bart of Formspring gives an overview of how and why they are using Riak as the data storage layer for two new features they are rolling out. Tim starts with an overview of what Formpring is all about and then goes into the design of their new features and what they've learned (both good and bad) when working with Riak at scale.
+            <a href="http://player.vimeo.com/video/27208328" target="_blank" title="Riak at Formspring">Riak at Formspring</a><br />In this talk, Tim Bart of Formspring gives an overview of how and why they are using Riak as the data storage layer for two new features they are rolling out. Tim starts with an overview of what Formspring is all about and then goes into the design of their new features and what they've learned (both good and bad) when working with Riak at scale.
 		</td>	    
 	</tr>
 	<tr>

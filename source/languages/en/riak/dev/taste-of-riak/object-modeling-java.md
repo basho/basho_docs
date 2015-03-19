@@ -130,7 +130,7 @@ For the `Users` bucket, we can be certain that we will want each
 username to be unique, so let's use the `username` as the key.  With the
 Java client, we can use the `@RiakKey` annotation to tell the client
 that we want to use the `UserName` member as the key. It will
-automtically use that value in the future, instead of having to pass the
+automatically use that value in the future, instead of having to pass the
 key in as another parameter when storing a value.
 
 For the `Msgs` bucket, let's use a combination of the username and the

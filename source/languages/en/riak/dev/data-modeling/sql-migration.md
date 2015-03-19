@@ -133,7 +133,7 @@ That conversion is fairly straightforward in our example, as the `name`,
 The one tricky part will be the `date` column. Fortunately, Python's
 [datetime](https://docs.python.org/2/library/datetime.html) library
 makes this fairly simple. We can use the `strftime` function to
-convert the `date` column into a formated string. We'll use a
+convert the `date` column into a formatted string. We'll use a
 month-day-year format, i.e. `%m-%d-%Y`.
 
 ```python

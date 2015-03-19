@@ -301,7 +301,7 @@ rates. Each service that uses Dynamo runs its own Dynamo instances.</p>
 </ol>
 
 <p>Riak&#39;s realistic object size limit is around 5MB. Basho does offer a commercial
-extenstion to Riak called [[Riak CS]] that can store objects well into the GB range.</p>
+extension to Riak called [[Riak CS]] that can store objects well into the GB range.</p>
       </td>
       <td class=code>
         <div class='highlight'>
@@ -915,8 +915,8 @@ for storing data. The ring has a maximum key space of 2^160. Each bucket+key (an
 is hashed to a location on the ring. </p>
 
 <p>Riak also breaks the ring into a set number of partitions. This number is configured when a cluster is first built.
-Each node will be repsonsible for storing the data hashed to a set number of partitions. 
-Each storage node will optimisitically handle an equal number of partitions. </p>
+Each node will be responsible for storing the data hashed to a set number of partitions. 
+Each storage node will optimistically handle an equal number of partitions. </p>
       </td>
       <td class=code>
         <div class='highlight'>
@@ -941,7 +941,7 @@ arrival of a node only affects its immediate neighbors and other nodes remain un
           <a class="pilcrow" href="#section-30">&#182;</a>
         </div>
         <p>Riak also has the concept of virtual nodes and they are used to the same end as they are in Dynamo. 
-Phycical storage nodes are responsible for partitions, and each partition a vnode.</p>
+Physical storage nodes are responsible for partitions, and each partition a vnode.</p>
       </td>
       <td class=code>
         <div class='highlight'>
@@ -1352,7 +1352,7 @@ replicas. For this reason, R and W are usually configured to be less than N, to 
           <a class="pilcrow" href="#section-46">&#182;</a>
         </div>
         <p>In Riak a write is considered successful when the total number of responding writes equals W. This need
-not be a durable write, which is a seperate value in Riak labeled DW.</p>
+not be a durable write, which is a separate value in Riak labeled DW.</p>
       </td>
       <td class=code>
         <div class='highlight'>
@@ -1369,7 +1369,7 @@ to the N highest-ranked reachable nodes. If at least W-1 nodes respond then the 
         <div class="pilwrap">
           <a class="pilcrow" href="#section-47">&#182;</a>
         </div>
-        <p>Same for Riak. Reconcilling divergent versions in Riak is called [[Read Repair|Replication#Read-Repair]].</p>
+        <p>Same for Riak. Reconciling divergent versions in Riak is called [[Read Repair|Replication#Read-Repair]].</p>
       </td>
       <td class=code>
         <div class='highlight'>

@@ -209,7 +209,7 @@ Riak’s low latency, high throughput storage back end.
 <div class="info">
 <div class="title">More on Bitcask</div>
 
-* [[Hello, Bitcask (from the Basho Blog)|http://blog.basho.com/2010/04/27/hello-bitcask/]]
+* [[Hello, Bitcask (from the Basho Blog)|http://basho.com/hello-bitcask/]]
 * [[An Architectural Overview of Bitcask (PDF)|http://basho.com/assets/bitcask-intro.pdf]]
 
 </div>

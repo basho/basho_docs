@@ -57,19 +57,40 @@ In Version 3 replication, the SSL settings need to be placed in the
 the <code>riak-repl</code> section used by Version 2 replication.
 </div>
 
-## Verifying peer certificates
+## Verifying Peer Certificates
 
-Verification of a peer's certificate common name is enabled using the
-`peer_common_name_acl` property in the `riak_repl` section of
-`app.config`.
+Verification of a peer's certificate common name *(CN)* is enabled by using
+the `peer_common_name_acl` property in the `riak_core` section of your
+`app.config` to specify an Access Control List *(ACL)*.
 
-You can provide multiple ACLs, separated by commas, and you can wildcard
-the leftmost part of the common name. For example, `*.corp.com` would
-match `site3.corp.com` but not `foo.bar.corp.com` or `corp.com`. If the
-ACL is specified and not the special value `"*"`, certificates not
-matching any of the rules will not be allowed to connect.
+The ACL is a list of one or more *patterns*, separated by commas. Each
+pattern may be either the exact CN of a certificate to allow, or a
+wildcard in the form `*.some.domain.name`. Pattern comparison is
+case-insensitive, and a CN matching any of the patterns is allowed to connect.
 
-If no ACLs are configured, no checks on the common name are done.
+For example, `["*.corp.com"]` would match `site3.corp.com` but not
+`foo.bar.corp.com` or `corp.com`. If the ACL were
+`["*.corp.com", "foo.bar.corp.com"]`, `site3.corp.com` and `foo.bar.corp.com`
+would be allowed to connect, but `corp.com` still would not.
+
+If no ACL (or only the special value `"*"`) is specified, no CN filtering
+is performed, except as described below.
+
+<div class="info">
+<div class="title">Identical Local and Peer Common Names</div>
+As a special case supporting the view that a host's CN is a fully-qualified
+domain name that uniquely identifies a single network device, if the CNs of
+the local and peer certificates are the same, the nodes will *NOT* be allowed
+to connect.
+
+{{#2.1.0+}}An exception is made when the CN begins with `*`, on the assumption
+that a pool of nodes might all legitimately use a certificate with a CN
+like `*.dc5.example.com`. In this specific case, peers with matching CNs are
+allowed to connect, so long as an explicit or implicit ACL allows it.{{/2.1.0+}}
+
+This evaluation supercedes ACL checks, so it cannot be overridden with any
+setting of the `peer_common_name_acl` property.
+</div>
 
 ### Examples
 

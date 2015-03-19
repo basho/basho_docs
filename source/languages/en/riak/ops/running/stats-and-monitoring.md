@@ -13,28 +13,147 @@ moved: {
 ---
 
 Riak provides data related to current operating status, which includes
-statistics in the form of counters and histograms. These statistics are
-made available through the HTTP API via the `[[/stats|HTTP Status]]`
-endpoint, or through the `[[riak-admin|riak-admin Command Line]]`
-interface, in particular the `stat` and `status` commands.
+statistics in the form of counters and histograms. These statistics
+are made available through the HTTP API via the `[[/stats|HTTP
+Status]]` endpoint, or through the `[[riak-admin|riak-admin Command
+Line]]` interface, in particular the `stat` and `status` commands.
 
-This page presents the most commonly monitored and gathered statistics,
-as well as numerous solutions for monitoring and gathering statistics
-that our customers and community report using successfully in Riak
-cluster environments. You can learn more about the specific Riak
-statistics provided in the [[Inspecting a Node]] and [[HTTP Status]]
-documentation.
+This page presents the most commonly monitored and gathered
+statistics, as well as numerous solutions for monitoring and gathering
+statistics that our customers and community report using successfully
+in Riak cluster environments. You can learn more about the specific
+Riak statistics provided in the [[Inspecting a Node]] and [[HTTP
+Status]] documentation.
+
+## System Metrics To Graph
+
+Graphing general system metrics of Riak nodes will help with
+diagnostics and early warnings of potential problems, as well as help
+guide provisioning and scaling decisions.
+
+* CPU (user/system/wait/idle) 
+* Processor Load
+* Available Memory
+* Available disk space
+* Used file descriptors
+* Swap Usage
+* IOWait
+* Read operations
+* Write operations
+* Network throughput
+* Network errors
+
+We also recommend tracking your system's virtual and
+writebacks. Things like massive flushes of dirty pages or steadily
+climbing writeback volumes can indicate poor virtual memory
+tuning. More information can be found
+[here](https://www.kernel.org/doc/Documentation/sysctl/vm.txt) and in
+our documentation on [[system tuning|System Performance
+Tuning#Storage-and-File-System-Tuning]].
+
+## Riak Metrics to Graph
+Riak metrics fall into several general categories:
+
+1. Throughput metrics
+2. Latency metrics
+3. Erlang resource usage metrics
+4. General Riak load/health metrics
+
+If graphing all of the [[available Riak metrics|Inspecting a Node]] is
+not practical, you should pick a minimum relevant subset from these
+categories. Some of the most helpful metrics are discussed below.
+
+### Throughput Metrics
+
+Graphing the throughput stats relevant to your use case is often
+helpful for capacity planning and usage trend analysis. In addition,
+it helps you establish an expected baseline -- that way, you can
+investigate unexpected spikes or dips in the throughput.  The
+following stats are recorded for operations that happened *during the
+last minute*.
+
+Metric | Relevance | Operations (for the last minute)
+:--------|:--------|:--------------------------------
+```node_gets``` | K/V | Reads coordinated by this node 
+```node_puts``` | K/V | Writes coordinated by this node
+```vnode_counter_update``` | Data Types | Update [Counters](http://docs.basho.com/riak/latest/dev/using/data-types/#Counters) operations coordinated by local vnodes
+```vnode_set_update``` | Data Types | Update [Sets](http://docs.basho.com/riak/latest/dev/using/data-types/#Sets) operations coordinated by local vnodes
+```vnode_map_update``` | Data Types | Update [Maps](http://docs.basho.com/riak/latest/dev/using/data-types/#Maps) operations coordinated by local vnodes
+```search_query_throughput_one``` | Search | Search queries on the node
+```search_index_throughtput_one``` | Search | Documents indexed by Search 
+```consistent_gets``` | Strong Consistency | Consistent reads on this node 
+```consistent_puts``` | Strong Consistency | Consistent writes on this node
+```vnode_index_reads``` | Secondary Indexes | Number of local replicas participating in secondary index reads
+
+Note that there are no separate stats for updates to Flags or
+Registers, as these are included in ```vnode_map_update```.
+
+### Latency Metrics
+
+As with the throughput metrics, keeping an eye on average (and max)
+latency times will help detect usage patterns, and provide advanced
+warnings for potential problems.
+
+<div class="note">
+<div class="title">Note on FSM Time Stats</div>
+FSM Time Stats represent the amount of time in microseconds required
+to traverse the GET or PUT Finite State Machine code, offering a
+picture of general node health. From your application's perspective,
+FSM Time effectively represents experienced latency. Mean, Median, and
+95th-, 99th-, and 100th-percentile (Max) counters are displayed. These
+are one-minute stats.</div>
+
+Metric | Also | Relevance | Latency (in microseconds)
+:------|:-----|:----------|:-------------------------
+```node_get_fsm_time_mean``` | ```_median```, ```_95```, ```_99```, ```_100``` | K/V | Time between reception of client read request and subsequent response to client
+```node_put_fsm_time_mean``` | ```_median```, ```_95```, ```_99```, ```_100``` | K/V | Time between reception of client write request and subsequent response to client
+```object_counter_merge_time_mean``` | ```_median```, ```_95```, ```_99```, ```_100```  | Data Types | Time it takes to perform an Update Counter operation
+```object_set_merge_time_mean``` | ```_median```, ```_95```, ```_99```, ```_100```  | Data Types | Time it takes to perform an Update Set operation
+```object_map_merge_time_mean``` | ```_median```, ```_95```, ```_99```, ```_100```  | Data Types | Time it takes to perform an Update Map operation
+```search_query_latency_median``` | ```_min```, ```_95```, ```_99```, ```_999```, ```_max``` | Search | Search query latency
+```search_index_latency_median``` | ```_min```, ```_95```, ```_99```, ```_999```, ```_max``` | Search | Time it takes Search to index a new document
+```consistent_get_time_mean``` | ```_median```, ```_95```, ```_99```, ```_100``` | Strong Consistency | Strongly consistent read latency
+```consistent_put_time_mean``` | ```_median```, ```_95```, ```_99```, ```_100``` | Strong Consistency | Strongly consistent write latency
+
+### Erlang Resource Usage Metrics These are system metrics from the
+perspective of the Erlang VM, measuring resources allocated and used
+by Erlang.
+
+Metric | Notes
+:------|:-------------------------
+```sys_process_count``` | Number of processes currently running in the Erlang VM
+```memory_processes``` | Total amount of memory allocated for Erlang processes (in bytes)
+```memory_processes_used``` | Total amount of memory used by Erlang processes (in bytes)
+
+### General Riak Load/Health Metrics 
+
+These various stats give a picture of the general level of activity or
+load on the Riak node at any given moment.
+
+Metric | Also | Notes
+:------|:-----|:------------------
+```node_get_fsm_siblings_mean``` | ```_median```, ```_95```, ```_99```, ```_100``` | Number of siblings encountered during all GET operations by this node within the last minute. Watch for abnormally high sibling counts, especially max ones.
+```node_get_fsm_objsize_mean``` | ```_median```, ```_95```, ```_99```, ```_100``` | Object size encountered by this node within the last minute. Abnormally large objects (especially paired with high sibling counts) can indicate sibling explosion.
+```riak_search_vnodeq_mean``` | ```_median```, ```_95```, ```_99```, ```_100``` | Number of unprocessed messages in the vnode message queues of the Riak Search subsystem on this node in the last minute. The queues give you an idea of how backed up Solr is getting.
+```search_index_fail_one``` | | Number of "Failed to index document" errors Search encountered for the last minute
+```pbc_active``` | | Number of currently active protocol buffer connections
+```pbc_connect``` | | Number of new protocol buffer connections established during the last minute
+```read_repairs``` | | Number of read repair operations this node has coordinated in the last minute (determine baseline, watch for abnormal spikes)
+```list_fsm_active``` | | Number of List Keys FSMs currently active (should be 0)
+```node_get_fsm_rejected``` | | Number of GET FSMs actively being rejected by Sidejob's overload protection
+```node_put_fsm_rejected``` | | Number of PUT FSMs actively being rejected by Sidejob's overload protection
+
 
 ## Command-line Interface
 
 The `[[riak-admin|riak-admin Command Line]]` tool provides two
-interfaces for retrieving statistics and other information: `status` and
-`stat`.
+interfaces for retrieving statistics and other information: `status`
+and `stat`.
 
 ### status
 
-Running the `riak-admin status` command will return all of the currently
-available information from a running node.
+Running the `riak-admin status` command will return all of the
+currently available information from a running node.
 
 ```bash
 riak-admin status
@@ -51,8 +170,8 @@ consistent_get_objsize_195 : 0
 ... etc ...
 ```
 
-A comprehensive list of available stats can be found in the [[Inspecting
-a Node|Inspecting a Node#riak-admin-status]] document.
+A comprehensive list of available stats can be found in the
+[[Inspecting a Node|Inspecting a Node#riak-admin-status]] document.
 
 ### stat
 
@@ -60,83 +179,6 @@ The `riak-admin stat` command is related to the `riak-admin status`
 command but provides a more fine-grained interface for interacting with
 stats and information. Full documentation of this command can be found
 in the [[Inspecting a Node|Inspecting a Node#riak-admin-stat]] document.
-
-### Counters
-
-Riak provides counters for GETs, PUTs, read repairs, and other common
-operations.  By default, these counters count either the number of
-operations occurring within the last minute, or for the runtime duration
-of the node.
-
-#### Gets and Puts
-
-GET/PUT counters are provided for both nodes and vnodes. These counters
-are commonly graphed over time for trend analysis, capacity planning,
-and so forth.
-
-At a minimum, the following stats should be graphed: `node_gets`,
-`node_gets_total`, `node_puts`, `node_puts_total`, `vnode_gets`,
-`vnode_gets_total`, `vnode_puts_total`.
-
-#### Read Repairs
-
-Read repair counters are commonly graphed and monitored for abnormally
-high totals, which can be indicative of an issue.
-
-#### Coordinated Redirection
-
-Counters representing the number of coordinated node redirection
-operations are provided in total since node startup.
-
-### Statistics
-
-Riak provides statistics for a range of operations. By default, Riak
-provides the mean, median, 95th percentile, 99th percentile, and 100th
-percentile over a 60 second window.
-
-#### Finite State Machine Time
-
-Riak exposes Finite State Machine (FSM) time counters
-(`node_get_fsm_time_*` & `node_put_fsm_time_*`) that measure the amount
-of time in microseconds required to traverse the GET or PUT FSM code,
-offering a picture of general node health.
-
-#### GET FSM Object Size
-
-GET FSM Object Size (`node_get_fsm_objsize_*`) measures the size of
-objects flowing through this node's GET finite state machine (GET_FSM).
-The size of an object is obtained by summing the length of the object's
-bucket name, key, serialized vector clock, value, and the serialized
-metadata of each sibling.
-
-#### GET FSM Siblings
-
-GET FSM Sibling (`node_get_fsm_siblings_*`) provides a histogram (with
-60 second window) of the number of siblings encountered by this node on
-the occasion of a GET request.
-
-### Additional Riak Metrics to Graph
-
-* `memory_processes_used`
-* `sys_process_count`
-* `pbc_connects`
-* `pbc_active`
-
-## Systems Metrics To Graph
-
-* Available disk space
-* IOWait
-* Read operations
-* Write operations
-* Network throughput
-* Load average
-
-We also recommend tracking your system's virtual and writebacks. Things
-like massive flushes of dirty pages or steadily climbing writeback
-volumes can indicate poor virtual memory tuning. More information can be
-found [here](https://www.kernel.org/doc/Documentation/sysctl/vm.txt) and
-in our documentation on [[system tuning|System Performance
-Tuning#Storage-and-File-System-Tuning]].
 
 ## Statistics and Monitoring Tools
 
@@ -238,7 +280,6 @@ reported successfully using for statistics gathering and monitoring
 within their Riak clusters.
 
 #### Circonus
-
 [Circonus](http://circonus.com) provides organization-wide monitoring,
 trend analysis, alerting, notifications, and dashboards. It can been
 used to provide trend analysis and help with troubleshooting and

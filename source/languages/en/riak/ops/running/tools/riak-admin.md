@@ -121,7 +121,7 @@ riak-admin backup <node> <cookie> <filename> [node|all]
 
 <div class="note">
 <div class="title">Deprecation notice</div>
-The `riak-admin restore` command has been deprecated. It was orignally
+The `riak-admin restore` command has been deprecated. It was originally
 intended to be used in conjunction with backups performed using the
 `riak-admin backup` command, which is also deprecated. We recommend
 using the backup and restore methods described in [[Backing up Riak]].

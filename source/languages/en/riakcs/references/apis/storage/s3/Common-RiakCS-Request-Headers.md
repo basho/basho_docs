@@ -18,7 +18,7 @@ Header | Description | Data type
 :------|:------------|:---------
 `Authorization` | Information required to requests authentication. This header is not required for anonymous requests.
 `Cache-Control` | This header is for use by caches and intermediate proxies. It can be any string. {{1.5.0+}}
-`Content-Length` | The length of the message without headers according to [RFC 2616](https://www.ietf.org/rfc/rfc2616.txt). This header is requred for PUTs and for operations that load XML.
+`Content-Length` | The length of the message without headers according to [RFC 2616](https://www.ietf.org/rfc/rfc2616.txt). This header is required for PUTs and for operations that load XML.
 `Content-Type` | The content type of the resource, e.g. `application/json`.
 `Content-MD5` | The base64-encoded 128-bit MD5 digest of the message without the headers according to [RFC 1864](https://www.ietf.org/rfc/rfc1864.txt). Although this header is optional, the `Content-MD5` header can be used to confirm that the data is the same as what was originally sent.
 `Date` | The current data and time according to the requester, e.g. `Fri, 01 Jun 2012 12:00:00 GMT`. With the `Authorization` header, you must specify either the `x-amz-date` or `Date` header.

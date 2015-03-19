@@ -25,7 +25,7 @@ Riak and query for values using Solr. Riak Search does a lot of work
 under the hood to convert your values---plain text, JSON, XML, [[Riak
 Data Types|Using Data Types]], and [[more|Custom Search
 Extractors]]---into something that can be indexed and searched later.
-Nonetheless, you must still intruct Riak/Solr how to index a value. Are
+Nonetheless, you must still instruct Riak/Solr how to index a value. Are
 you providing and array of strings? An integer? A date? Is your text in
 English or Russian? You can provide such instructions to Riak Search by
 defining a Solr **schema**.
@@ -119,7 +119,7 @@ leader, and he has a list of aliases in other languages.
 ```
 
 The extractor will flatten the above objects into a list of field/value
-pairs. Nested objects will be seperated with a dot (`.`) and arrays will
+pairs. Nested objects will be separated with a dot (`.`) and arrays will
 simply repeat the fields. The above object will be extracted to the
 following list of Solr document fields.
 

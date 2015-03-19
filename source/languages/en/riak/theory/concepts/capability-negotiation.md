@@ -9,7 +9,7 @@ keywords: [appendix, concepts, capability]
 
 In versions of Riak prior to 1.2.0, [[rolling upgrades]] from an older version of Riak to a newer involved (a) disabling all new features associated with the newer version, and then (b) re-enabling those features once all nodes in the cluster were upgraded.
 
-This process has been simplified in versions 1.2.0. Rolling upgrades no longer require you to disable and then re-enable features, as Riak versions 1.2.0 and later now feature a **capability negotiation** subsytem that automatically manages the addition of new features. Using this subsystem, nodes negotiate with each other to automatically determine which versions are supported on which nodes, which allows clusters to maintain normal operations even when divergent versions of Riak are present in the cluster.
+This process has been simplified in versions 1.2.0. Rolling upgrades no longer require you to disable and then re-enable features, as Riak versions 1.2.0 and later now feature a **capability negotiation** subsystem that automatically manages the addition of new features. Using this subsystem, nodes negotiate with each other to automatically determine which versions are supported on which nodes, which allows clusters to maintain normal operations even when divergent versions of Riak are present in the cluster.
 
 <div class="note">
 <div class="title">Note on mixed versions</div>

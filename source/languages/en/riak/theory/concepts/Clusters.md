@@ -11,7 +11,7 @@ moved: {
 ---
 
 Riak's default mode of operation is to work as a cluster consisting of
-multiple [[nodes|Riak Glossary#Node]], i.e. multiple well-conected data
+multiple [[nodes|Riak Glossary#Node]], i.e. multiple well-connected data
 hosts.
 
 Each host in the cluster runs a single instance of Riak, referred to as

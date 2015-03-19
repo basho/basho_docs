@@ -565,8 +565,8 @@ responsible for serving the key.
 # is hashed to a location on the ring. 
 #
 # Riak also breaks the ring into a set number of partitions. This number is configured when a cluster is first built.
-# Each node will be repsonsible for storing the data hashed to a set number of partitions. 
-# Each storage node will optimisitically handle an equal number of partitions. 
+# Each node will be responsible for storing the data hashed to a set number of partitions. 
+# Each storage node will optimistically handle an equal number of partitions. 
 #
 
 One of the key design requirements for Dynamo is that it must scale incrementally. This requires a mechanism 
@@ -582,7 +582,7 @@ arrival of a node only affects its immediate neighbors and other nodes remain un
 
 #
 # Riak also has the concept of virtual nodes and they are used to the same end as they are in Dynamo. 
-# Phycical storage nodes are responsible for partitions, and each partition a vnode.
+# Physical storage nodes are responsible for partitions, and each partition a vnode.
 #
 
 The basic consistent hashing algorithm presents some challenges. First, the random position assignment of each 
@@ -823,12 +823,12 @@ system. In this model, the latency of a get (or put) operation is dictated by th
 replicas. For this reason, R and W are usually configured to be less than N, to provide better latency.
 
 # In Riak a write is considered successful when the total number of responding writes equals W. This need
-# not be a durable write, which is a seperate value in Riak labeled DW.
+# not be a durable write, which is a separate value in Riak labeled DW.
 Upon receiving a put() request for a key, the coordinator generates the vector clock for the new version and 
 writes the new version locally. The coordinator then sends the new version (along with the new vector clock) 
 to the N highest-ranked reachable nodes. If at least W-1 nodes respond then the write is considered successful.
 
-# Same for Riak. Reconcilling divergent versions in Riak is called [[Read Repair|Replication#Read-Repair]].
+# Same for Riak. Reconciling divergent versions in Riak is called [[Read Repair|Replication#Read-Repair]].
 Similarly, for a get() request, the coordinator requests all existing versions of data for that key from the 
 N highest-ranked reachable nodes in the preference list for that key, and then waits for R responses 
 before returning the result to the client. If the coordinator ends up gathering multiple versions of 

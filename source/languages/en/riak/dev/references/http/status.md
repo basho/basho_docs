@@ -24,7 +24,7 @@ executed.
 
 {{#1.3.0+}}
 Repeated requests to the `/stats` endpoint do not have a negative
-performance impact as the statstics are cached internally in Riak.
+performance impact as the statistics are cached internally in Riak.
 {{/1.3.0+}}
 
 ## Request
@@ -151,7 +151,7 @@ rings_reconciled              | Number of ring reconciliation operations in the 
 gossip_received               | Number of gossip messages received in the last minute
 rejected_handoffs             | Total number of ownership handoff operations rejected by the node since it was started
 handoff_timeouts              | Total number of handoff timeouts encountered by this node since it was started
-dropped_vnode_requests_total  | Total number of requests droped by local vnodes since the node was started
+dropped_vnode_requests_total  | Total number of requests dropped by local vnodes since the node was started
 converge_delay_min            | Minimum time in milliseconds describing time taken for the ring to converge after ring changes
 converge_delay_max            | Maximum time in milliseconds describing time taken for the ring to converge after ring changes
 converge_delay_mean           | Mean time in milliseconds describing time taken for the ring to converge after ring changes

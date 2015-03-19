@@ -386,14 +386,14 @@ merge operations are allowed to be triggered. The valid options are:
 * `always` --- No restrictions on when merge operations can occur
   (default)
 * `never` --- Merge will never be attempted
-* Start and end time --- Hours during which merging is permitted
+* `window` --- Merge operations occur during specified hours
 
 If you are using the newer, `riak.conf`-based configuration system, you
 can select a merge policy using the `merge.policy` setting. The
 following example sets the merge policy to `never`:
 
 ```riakconf
-bitcask.merge_policy = never
+bitcask.merge.policy = never
 ```
 
 ```appconfig
@@ -405,12 +405,16 @@ bitcask.merge_policy = never
 ```
 
 If you opt to specify start and end hours for merge operations, you can
-do so by specifying the `merge.window.start` and `merge.window.end`
-settings. Each setting is an integer between 0 and 23, with 0 signifying
-midnight and 23 specifying 11 pm. The following example enables merging
-between 3 am and 4:59 pm:
+do so with the `merge.window.start` and `merge.window.end`
+settings in addition to setting the merge policy to `window`.
+Each setting is an integer between 0 and 23 for hours on a 24h clock,
+with 0 meaning midnight and 23 standing for 11 pm.
+The merge window runs from the first minute of the `merge.window.start` hour
+to the last minute of the `merge.window.end` hour.
+The following example enables merging between 3 am and 4:59 pm:
 
 ```riakconf
+bitcask.merge.policy = window
 bitcask.merge.window.start = 3
 bitcask.merge.window.end = 17
 ```
@@ -852,7 +856,7 @@ which time it is closed and a new file is created for additional writes.
 Once a file is closed, whether purposely or due to server exit, it is
 considered immutable and will never again be opened for writing.
 
-The file currenlty open for writes is only written by appending, which
+The file currently open for writes is only written by appending, which
 means that sequential writes do not require disk seeking, which can
 dramatically speed up disk I/O. Note that this effect can be hampered if
 you have `atime` enabled on your filesystem, because the disk head will

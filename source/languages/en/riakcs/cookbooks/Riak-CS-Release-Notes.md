@@ -32,7 +32,7 @@ keywords: [developer]
         occurs for an object including `+` in its key, e.g. `foo+bar`,
         by a different object with a name that is largely similar but
         replaced with space, e.g. `foo bar`, and vice versa.
-    * **Solution**: Fix the incorrent handling of URL encoding/decoding.
+    * **Solution**: Fix the incorrect handling of URL encoding/decoding.
         This fix also addresses
         [riak_cs/#910](https://github.com/basho/riak_cs/pull/910) and
         [riak_cs/#977](https://github.com/basho/riak_cs/pull/977).
