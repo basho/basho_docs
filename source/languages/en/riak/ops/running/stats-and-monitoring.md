@@ -31,7 +31,7 @@ Graphing general system metrics of Riak nodes will help with
 diagnostics and early warnings of potential problems, as well as help
 guide provisioning and scaling decisions.
 
-* CPU (user/system/wait/idle) 
+* CPU (user/system/wait/idle)
 * Processor Load
 * Available Memory
 * Available disk space
@@ -45,10 +45,9 @@ guide provisioning and scaling decisions.
 
 We also recommend tracking your system's virtual and
 writebacks. Things like massive flushes of dirty pages or steadily
-climbing writeback volumes can indicate poor virtual memory
-tuning. More information can be found
-[here](https://www.kernel.org/doc/Documentation/sysctl/vm.txt) and in
-our documentation on [[system tuning|System Performance
+climbing writeback volumes can indicate poor virtual memory tuning.
+More information can be found [here][sysctl_vm_txt] and in our
+documentation on [[system tuning|System Performance
 Tuning#Storage-and-File-System-Tuning]].
 
 ## Riak Metrics to Graph
@@ -74,14 +73,14 @@ last minute*.
 
 Metric | Relevance | Operations (for the last minute)
 :--------|:--------|:--------------------------------
-```node_gets``` | K/V | Reads coordinated by this node 
+```node_gets``` | K/V | Reads coordinated by this node
 ```node_puts``` | K/V | Writes coordinated by this node
-```vnode_counter_update``` | Data Types | Update [Counters](http://docs.basho.com/riak/latest/dev/using/data-types/#Counters) operations coordinated by local vnodes
-```vnode_set_update``` | Data Types | Update [Sets](http://docs.basho.com/riak/latest/dev/using/data-types/#Sets) operations coordinated by local vnodes
-```vnode_map_update``` | Data Types | Update [Maps](http://docs.basho.com/riak/latest/dev/using/data-types/#Maps) operations coordinated by local vnodes
+```vnode_counter_update``` | Data Types | Update [Counters][data_types_counters] operations coordinated by local vnodes
+```vnode_set_update``` | Data Types | Update [Sets][data_types_sets] operations coordinated by local vnodes
+```vnode_map_update``` | Data Types | Update [Maps][data_types_maps] operations coordinated by local vnodes
 ```search_query_throughput_one``` | Search | Search queries on the node
-```search_index_throughtput_one``` | Search | Documents indexed by Search 
-```consistent_gets``` | Strong Consistency | Consistent reads on this node 
+```search_index_throughtput_one``` | Search | Documents indexed by Search
+```consistent_gets``` | Strong Consistency | Consistent reads on this node
 ```consistent_puts``` | Strong Consistency | Consistent writes on this node
 ```vnode_index_reads``` | Secondary Indexes | Number of local replicas participating in secondary index reads
 
@@ -101,7 +100,8 @@ to traverse the GET or PUT Finite State Machine code, offering a
 picture of general node health. From your application's perspective,
 FSM Time effectively represents experienced latency. Mean, Median, and
 95th-, 99th-, and 100th-percentile (Max) counters are displayed. These
-are one-minute stats.</div>
+are one-minute stats.
+</div>
 
 Metric | Also | Relevance | Latency (in microseconds)
 :------|:-----|:----------|:-------------------------
@@ -125,7 +125,7 @@ Metric | Notes
 ```memory_processes``` | Total amount of memory allocated for Erlang processes (in bytes)
 ```memory_processes_used``` | Total amount of memory used by Erlang processes (in bytes)
 
-### General Riak Load/Health Metrics 
+### General Riak Load/Health Metrics
 
 These various stats give a picture of the general level of activity or
 load on the Riak node at any given moment.
@@ -142,7 +142,6 @@ Metric | Also | Notes
 ```list_fsm_active``` | | Number of List Keys FSMs currently active (should be 0)
 ```node_get_fsm_rejected``` | | Number of GET FSMs actively being rejected by Sidejob's overload protection
 ```node_put_fsm_rejected``` | | Number of PUT FSMs actively being rejected by Sidejob's overload protection
-
 
 ## Command-line Interface
 
@@ -192,7 +191,17 @@ reported success with when used for monitoring the operational status of
 their Riak clusters. Community and open source projects are presented
 along with commercial and hosted services.
 
-### Community and Open Source Tools
+<div class="note">
+<div class="title">Note on Riak 2.x Statistics Support</div>
+Many of the below third-party tools are either general-purpose tools with no
+dedicated Riak support, or have plugins that were designed and/or built for a
+specific use case in mind. As such, many of the below only aggregate the
+statistics and messages that were output by Riak 1.4.x.</br>
+Look for banners calling out the tools that do support the full set of Riak 2.x
+statistics!
+</div>
+
+### Self-Hosted Monitoring Tools
 
 #### Riaknostic
 
@@ -232,12 +241,14 @@ designed for large, high-performance groups of computers, such as
 clusters and grids. Customers and community members using Riak have
 reported success in using Ganglia to monitor Riak clusters.
 
-A [Riak Ganglia
-module](https://github.com/jnewland/gmond_python_modules/tree/master/riak/)
-for collecting statistics from the Riak HTTP `[[/stats|HTTP Status]]`
-endpoint is also available.
+A [Riak Ganglia module][riak_ganglia] for collecting statistics from
+the Riak HTTP `[[/stats|HTTP Status]]` endpoint is also available.
 
 #### Nagios
+
+<div class="note">
+<strong>Tested and Verified Support for Riak 2.x Stats.</strong>
+</div>
 
 [Nagios](http://www.nagios.org) is a monitoring and alerting solution
 that can provide information on the status of Riak cluster nodes, in
@@ -245,9 +256,17 @@ addition to various types of alerting when particular events occur.
 Nagios also offers logging and reporting of events and can be used for
 identifying trends and capacity planning.
 
-A collection of [reusable Riak-specific
-scripts](https://github.com/basho/riak_nagios) are available to the
-community for use with Nagios.
+A collection of [reusable Riak-specific scripts][riak_nagios] are
+available to the community for use with Nagios.
+
+#### OpenTSDB
+
+[OpenTSDB](http://opentsdb.net) is a distributed, scalable Time Series Database
+(TSDB) used to store, index, and serve metrics from various sources. It can
+collect data at a large scale and graph these metrics on the fly.
+
+A [Riak collector for OpenTSDB][tcollector_riak_plugin] is available as part of
+the [tcollector framework][tcollector].
 
 #### Riemann
 
@@ -261,19 +280,21 @@ A [Riemann Tools](https://github.com/aphyr/riemann.git) project
 consisting of small programs for sending data to Riemann provides a
 module specifically designed to read Riak statistics.
 
-#### OpenTSDB
+#### Zabbix
 
-[OpenTSDB](http://opentsdb.net) is a distributed, scalable Time Series
-Database (TSDB) used to store, index, and serve metrics from various
-sources. It can collect data at a large scale and graph these metrics on
-the fly.
+<div class="note">
+<strong>Tested and Verified Support for Riak 2.x Stats.</strong>
+</div>
 
-A [Riak collector for
-OpenTSDB](https://github.com/stumbleupon/tcollector/blob/master/collectors/0/riak.py)
-is available as part of the [tcollector
-framework](https://github.com/stumbleupon/tcollector).
+[Zabbix](http://www.zabbix.com) is an open-source performance monitoring,
+alerting, and graphing solution that can provide information on the state of
+Riak cluster nodes.
 
-### Commercial and Hosted Service Tools
+A [Zabbix plugin for Riak][riak_zabbix] is available to get you started
+monitoring Riak using Zabbix.
+
+
+### Hosted Service Monitoring Tools
 
 The following are some commercial tools which Basho customers have
 reported successfully using for statistics gathering and monitoring
@@ -285,11 +306,18 @@ trend analysis, alerting, notifications, and dashboards. It can been
 used to provide trend analysis and help with troubleshooting and
 capacity planning in a Riak cluster environment.
 
-<!--
-Need more information on this one...
-#### Scout
-[Scout](https://scoutapp.com)
--->
+#### New Relic
+
+<div class="note">
+<strong>Tested and Verified Support for Riak 2.x Stats.</strong>
+</div>
+
+[New Relic](http://newrelic.com) is a data analytics and visualization platform
+that can provide information on the current and past states of Riak nodes and
+visualizations of machine generated data such as log files.
+
+A [Riak New Relic Agent][riak_new_relic] for collecting statistics from the Riak
+HTTP `[[/stats|HTTP Status]]` endpoint is also available.
 
 #### Splunk
 
@@ -324,12 +352,24 @@ Docs](https://github.com/basho/basho_docs).
 * [collectd](http://collectd.org)
 * [Ganglia](http://ganglia.info)
 * [Nagios](http://www.nagios.org)
+* [OpenTSDB](http://opentsdb.net)
+* [tcollector framework][tcollector]
 * [Riemann](http://aphyr.github.com/riemann/)
 * [Riemann Github](https://github.com/aphyr/riemann)
-* [OpenTSDB](http://opentsdb.net)
-* [tcollector project](https://github.com/stumbleupon/tcollector)
-* [tcollector Riak module](https://github.com/stumbleupon/tcollector/blob/master/collectors/0/riak.py)
-* [Folsom Backed Stats Riak 1.2](http://basho.com/blog/technical/2012/07/02/folsom-backed-stats-riak-1-2/)
+* [Zabbix](http://www.zabbix.com)
 * [Circonus](http://circonus.com)
+* [New Relic](http://newrelic.com)
 * [Splunk](http://www.splunk.com)
 * [Riak Docs on Github](https://github.com/basho/basho_docs)
+
+
+[sysctl_vm_txt]: https://www.kernel.org/doc/Documentation/sysctl/vm.txt
+[data_types_counters]: http://docs.basho.com/riak/latest/dev/using/data-types/#Counters
+[data_types_sets]: http://docs.basho.com/riak/latest/dev/using/data-types/#Sets
+[data_types_maps]: http://docs.basho.com/riak/latest/dev/using/data-types/#Maps
+[riak_nagios]: https://github.com/basho/riak_nagios
+[tcollector]: https://github.com/stumbleupon/tcollector
+[tcollector_riak_plugin]: https://github.com/stumbleupon/tcollector/blob/master/collectors/0/riak.py
+[riak_zabbix]: https://github.com/basho/riak-zabbix
+[riak_new_relic]: https://github.com/basho/riak_newrelic
+[riak_ganglia]: https://github.com/jnewland/gmond_python_modules/tree/master/riak/
