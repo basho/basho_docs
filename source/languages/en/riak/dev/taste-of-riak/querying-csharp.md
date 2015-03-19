@@ -1,5 +1,5 @@
 ---
-title: "Taste of Riak: Querying with C#"
+title: "Taste of Riak: Querying with CSharp"
 project: riak
 version: 1.3.1+
 document: tutorials

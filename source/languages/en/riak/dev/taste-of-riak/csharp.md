@@ -1,5 +1,5 @@
 ---
-title: "Taste of Riak: C Sharp"
+title: "Taste of Riak: CSharp"
 project: riak
 version: 1.4.0+
 document: guide

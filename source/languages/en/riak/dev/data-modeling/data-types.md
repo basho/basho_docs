@@ -148,7 +148,7 @@ class User:
 
 ```csharp
 /*
- * The C# uses a User model class and a UserRepository class wired
+ * The C# example uses a User model class and a UserRepository class wired
  * together via INotifyPropertyChanged events and handling those events
  * See the entire example in the RiakClientExamples project here:
  * https://github.com/basho-labs/riak-dotnet-client/tree/develop/src/RiakClientExamples/Dev/DataModeling
@@ -349,7 +349,7 @@ class User:
 
 ```csharp
 /*
- * The C# uses a User model class and a User Repository class
+ * The C# example uses a User model class and a User Repository class
  * See the entire example in the RiakClientExamples project here:
  * https://github.com/basho-labs/riak-dotnet-client/tree/develop/src/RiakClientExamples/Dev/DataModeling/UserRepository.cs
  */
@@ -448,7 +448,7 @@ class User:
 
 ```csharp
 /*
- * The C# uses a User model class and a User Repository class
+ * The C# example uses a User model class and a User Repository class
  * See the entire example in the RiakClientExamples project here:
  * https://github.com/basho-labs/riak-dotnet-client/tree/develop/src/RiakClientExamples/Dev/DataModeling
  */

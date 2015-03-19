@@ -128,7 +128,7 @@ bucket = client.bucket_type('counters').bucket('counters')
 ```
 
 ```csharp
-// In the C# client, you interact with Riak Data Types on the basis of
+// Using the Riak .NET Client, you interact with Riak Data Types on the basis of
 // a RiakObjectId, which specifies the Data Type's bucket type, bucket,
 // and key, in that order. Here is an example:
 var id = new RiakObjectId("counters", "counters", "<insert_key_here>");
@@ -190,7 +190,7 @@ counter = Counter(bucket, key)
 ```
 
 ```csharp
-// In the C# client, you fetch a counter first, even if it's empty. Once
+// Using the Riak .NET Client, you fetch a counter first, even if it's empty. Once
 // fetched, you can update the counter and then store it. This would
 // fetch the counter:
 var id = new RiakObjectId(bucketType, bucket, key);
@@ -505,7 +505,7 @@ set = Set(bucket, key)
 ```
 
 ```csharp
-// As with counters, in the C# client you interact with sets on the
+// As with counters, with the Riak .NET Client you interact with sets on the
 // basis of the set's location in Riak, as specified by a RiakObjectId
 // object. Below is an example:
 var id = new RiakObjectId(bucket_type, bucket, key);

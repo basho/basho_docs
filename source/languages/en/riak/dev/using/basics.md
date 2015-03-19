@@ -82,7 +82,7 @@ obj = bucket.get('rufus')
 ```
 
 ```csharp
-// In the C# client, it is best to specify a bucket type/bucket/key
+// Using the Riak .NET Client it is best to specify a bucket type/bucket/key
 // RiakObjectId object that can be used as a reference for further
 // operations
 var id = new RiakObjectId("animals", "dogs", "rufus");
@@ -229,7 +229,7 @@ ArgumentError: content_type is not defined!
 ```
 
 ```csharp
-// In the C# client, the response when storing an object without
+// Using the Riak .NET Client, the response when storing an object without
 // specifying a content type will depend on what is being stored.
 // If you store a Dictionary, for example, the client will
 // automatically specify that the object is "application/json";
