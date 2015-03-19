@@ -377,12 +377,13 @@ libraries.  </div>
 ## Setting Up Your Riak Client
 
 Basho maintains official [[client libraries]] for Java, Ruby, Python,
-and Erlang. Below are links to client-specific documentation for each
+.NET and Erlang. Below are links to client-specific documentation for each
 language:
 
 * [Java](https://github.com/basho/riak-java-client)
 * [Ruby](https://github.com/basho/riak-ruby-client)
 * [Python](https://github.com/basho/riak-python-client)
+* [.NET](https://github.com/basho-labs/riak-dotnet-client)
 * [Erlang](https://github.com/basho/riak-erlang-client)
 
 In each of the above docs, you'll find detailed client installation and
@@ -561,6 +562,53 @@ For some Python code samples to get you started, see our tutorials on
 and [[Riak Search 2.0|Using Search]], as well as a variety of other
 pages in the **Riak for Developers** section of the documentation (in
 the navbar on the left).
+
+### .NET
+
+When using the [.NET
+client](https://github.com/basho-labs/riak-dotnet-client), you should
+specify the connection information for all of the nodes in your cluster
+in your project's `App.config` file. Let's say that you're running a
+three-node cluster with all nodes listening on port 8087 and on the IP
+addresses 127.0.0.1, 127.0.0.2, and 127.0.0.3, respectively.
+
+An `App.config` file specifying this information will look something
+like this:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    <section name="riakConfig" type="RiakClient.Config.RiakClusterConfiguration, RiakClient" />
+  </configSections>
+  <riakConfig>
+    <nodes>
+      <node name="dev1" hostAddress="127.0.0.1" pbcPort="8087" poolSize="20" />
+      <node name="dev2" hostAddress="127.0.0.2" pbcPort="8087" poolSize="20" />
+      <node name="dev3" hostAddress="127.0.0.3" pbcPort="8087" poolSize="20" />
+    </nodes>
+  </riakConfig>
+</configuration>
+```
+
+Note that a connection pool size of 20 was chosen for each of node
+connections. You may modify that as you see fit.
+
+Once the connection info is in place, you must initialize a
+`RiakCluster` object, specifying you'll be using the `riakConfig`
+parameters:
+
+```csharp
+// Note: cluster implements `IDisposable`
+var cluster = RiakCluster.fromConfig("riakConfig");
+```
+
+With the cluster object instantiated, you can create a `RiakClient`
+object that is used to execute all operations with Riak:
+
+```csharp
+var client = cluster.CreateClient();
+```
 
 ### Erlang
 

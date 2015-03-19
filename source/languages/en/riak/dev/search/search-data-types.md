@@ -176,6 +176,11 @@ client.create_search_index('scores', '_yz_default')
 client.create_search_index('scores', '_yz_default')
 ```
 
+```csharp
+var idx = new SearchIndex("scores", "_yz_default");
+var rslt = client.PutSearchIndex(idx);
+```
+
 ```erlang
 riakc_pb_socket:create_search_index(Pid, <<"scores">>, <<"_yz_default">>, []).
 ```
@@ -196,7 +201,7 @@ riak-admin bucket-type update counters '{"props":{"search_index":"scores"}}'
 At this point, all of the counters that we stored in any bucket with the
 bucket type `counters` will be indexed in our `scores` index. So let's
 start playing with some counters. All counters will be stored in the
-bucket `players`, while the key for each counter will be the username of
+bucket `people`, while the key for each counter will be the username of
 each player:
 
 ```java
@@ -237,6 +242,14 @@ christopher_hitchens_counter.store()
 joan_rivers_counter = Counter(bucket, 'joan_rivers')
 joan_rivers_counter.increment(25)
 joan_rivers_counter.store()
+```
+
+```csharp
+var christopherHitchensId = new RiakObjectId("counters", "people", "christ_hitchens");
+var hitchensRslt = client.DtUpdateCounter(christopherHitchensId, 10);
+
+var joanRiversId = new RiakObjectId("counters", "people", "joan_rivers");
+var joanRiversRslt = client.DtUpdateCounter(joanRiversId, 25);
 ```
 
 ```erlang
@@ -288,6 +301,13 @@ results['num_found']
 # 1
 ```
 
+```csharp
+var search = new RiakSearchRequest("scores", "counter:[20 TO *]");
+var rslt = client.Search(search);
+RiakSearchResult searchResult = rslt.Value;
+Console.WriteLine("Num found: {0}", searchResult.NumFound);
+```
+
 ```erlang
 {ok, Results} = riakc_pb_socket:search(Pid, <<"scores">>, <<"counter:[20 TO *]">>),
 NumberFound = Results#search_results.num_found.
@@ -336,6 +356,18 @@ doc['_yz_rb'] # 'people'
 doc['_yz_rt'] # 'counters'
 ```
 
+```csharp
+var search = new RiakSearchRequest("scores", "counter:[20 TO *]");
+var rslt = client.Search(search);
+
+RiakSearchResult searchResult = rslt.Value;
+Console.WriteLine("Num found: {0}", searchResult.NumFound);
+
+var firstDoc = searchResult.Documents.First();
+Console.WriteLine("Key: {0} Bucket: {1} Type: {2}",
+    firstDoc.Key, firstDoc.Bucket, firstDoc.BucketType);
+```
+
 ```erlang
 Doc = lists:nth(1, Docs),
 Key = proplists:get_value(<<"_yz_rk">>, Doc),
@@ -368,6 +400,11 @@ results = client.search('scores', 'counter:[* TO 15]')
 results = client.fulltext_search('scores', 'counter:[* TO 15]')
 ```
 
+```csharp
+var search = new RiakSearchRequest("scores", "counter:[* TO 15]");
+var rslt = client.Search(search);
+```
+
 ```erlang
 {ok, Results} = riakc_pb_socket:search(Pid, <<"scores">>, <<"counter:[* TO 15]").
 ```
@@ -389,6 +426,11 @@ results = client.search('scores', 'counter:17')
 
 ```python
 results = client.fulltext_search('scores', 'counter:17')
+```
+
+```csharp
+var search = new RiakSearchRequest("scores", "counter:17");
+var rslt = client.Search(search);
 ```
 
 ```erlang
@@ -427,6 +469,11 @@ client.create_search_index('hobbies', '_yz_default')
 
 ```python
 client.create_search_index('hobbies', '_yz_default')
+```
+
+```csharp
+var searchIndex = new SearchIndex("hobbies", "_yz_default");
+var rslt = client.PutSearchIndex(searchIndex);
 ```
 
 ```erlang
@@ -501,6 +548,16 @@ ronnie_james_dio_set.add('winning')
 ronnie_james_dio_set.store()
 ```
 
+```csharp
+var mikeDitkaId = new RiakObjectId("sets", "people", "ditka");
+var ditkaAdds = new List<string> { "football", "winning" };
+var ditkaRslt = client.DtUpdateSet(mikeDitkaId, Serializer, null, ditkaAdds);
+
+var dioId = new RiakObjectId("sets", "people", "dio");
+var dioAdds = new List<string> { "wailing", "rocking", "winning" };
+var dioRslt = client.DtUpdateSet(dioId, Serializer, null, dioAdds);
+```
+
 ```erlang
 MikeDitkaSet = riakc_set:new(),
 riakc_set:add_element(<<"football">>, MikeDitkaSet),
@@ -538,6 +595,18 @@ results = client.fulltext_search('hobbies', 'set:football')
 # This should return a dict with fields like 'num_found' and 'docs'
 ```
 
+```csharp
+var search = new RiakSearchRequest("hobbies", "set:football");
+var rslt = client.Search(search);
+
+RiakSearchResult searchResult = rslt.Value;
+Console.WriteLine("Num found: {0}", searchResult.NumFound);
+
+var firstDoc = searchResult.Documents.First();
+Console.WriteLine("Key: {0} Bucket: {1} Type: {2}",
+    firstDoc.Key, firstDoc.Bucket, firstDoc.BucketType);
+```
+
 ```erlang
 {ok, Results} = riakc_pb_socket:search(Pid, <<"hobbies">>, <<"set:football">>).
 ```
@@ -563,13 +632,17 @@ results['num_found']
 # 1
 ```
 
+```csharp
+RiakSearchResult searchResult = rslt.Value;
+Console.WriteLine("Num found: {0}", searchResult.NumFound);
+```
+
 ```erlang
 NumberFound = Results#search_results.num_found.
 %% 1
 ```
 
 ```curl
-
 ```
 
 Success! We stored two sets, only one of which contains the element
@@ -593,6 +666,10 @@ results['num_found']
 results = client.fulltext_search('hobbies', 'set:winning')
 results['num_found']
 # 2
+```
+
+```csharp
+var search = new RiakSearchRequest("hobbies", "set:winning");
 ```
 
 ```erlang
@@ -643,6 +720,11 @@ client.create_search_index('customers', '_yz_default')
 
 ```python
 client.create_search_index('customers', '_yz_default')
+```
+
+```csharp
+var searchIndex = new SearchIndex("customers", "_yz_default");
+var rslt = client.PutSearchIndex(searchIndex);
 ```
 
 ```erlang
@@ -742,6 +824,71 @@ for interest in ['loving rock and roll', 'being in the Blackhearts']:
 joan_jett.store()
 ```
 
+```csharp
+const string firstNameRegister = "first_name";
+const string lastNameRegister = "last_name";
+const string enterpriseCustomerFlag = "enterprise_customer";
+const string pageVisitsCounter = "page_visits";
+const string interestsSet = "interests";
+
+var idrisElbaId = new RiakObjectId("maps", "customers", "idris_elba");
+var idrisMapUpdates = new List<MapUpdate>();
+idrisMapUpdates.Add(new MapUpdate
+{
+    register_op = Serializer("Idris"),
+    field = new MapField
+    {
+        name = Serializer(firstNameRegister),
+        type = MapField.MapFieldType.REGISTER
+    }
+});
+
+idrisMapUpdates.Add(new MapUpdate
+{
+    register_op = Serializer("Elba"),
+    field = new MapField
+    {
+        name = Serializer(lastNameRegister),
+        type = MapField.MapFieldType.REGISTER
+    }
+});
+
+idrisMapUpdates.Add(new MapUpdate
+{
+    flag_op = MapUpdate.FlagOp.DISABLE,
+    field = new MapField
+    {
+        name = Serializer(enterpriseCustomerFlag),
+        type = MapField.MapFieldType.FLAG
+    }
+});
+
+idrisMapUpdates.Add(new MapUpdate
+{
+    counter_op = new CounterOp { increment = 10 },
+    field = new MapField
+    {
+        name = Serializer(pageVisitsCounter),
+        type = MapField.MapFieldType.COUNTER
+    }
+});
+
+var idrisAdds = new[] { "acting", "being Stringer Bell" };
+var idrisSetOp = new SetOp();
+idrisSetOp.adds.AddRange(idrisAdds.Select(x => Serializer(x)));
+idrisMapUpdates.Add(new MapUpdate
+{
+    set_op = idrisSetOp,
+    field = new MapField
+    {
+        name = Serializer(interestsSet),
+        type = MapField.MapFieldType.SET
+    }
+});
+
+var idrisRslt = client.DtUpdateMap(idrisElbaId, Serializer, null, null, idrisMapUpdates);
+```
+
 ### Searching Counters Within Maps
 
 We now have two maps stored in Riak that we can query. Let's query to
@@ -769,6 +916,11 @@ results['num_found']
 # 1
 ```
 
+```csharp
+var search = new RiakSearchRequest("customers", "page_visits_counter:[15 TO *]");
+var rslt = client.Search(search);
+```
+
 As expected, one of our two stored maps has a `page_visits` counter
 above 15. Let's make sure that we have the right result:
 
@@ -789,6 +941,12 @@ results['docs'][0]['first_name_register']
 ```python
 results['docs'][0]['first_name_register']
 # u'Joan'
+```
+
+```csharp
+var search = new RiakSearchRequest("customers", "page_visits_counter:[15 TO *]");
+var rslt = client.Search(search);
+var firstDoc = searchResult.Documents.First();
 ```
 
 Success! Now we can test out searching sets.
@@ -813,6 +971,11 @@ results = client.search('customers', 'interests_set:*')
 results = client.fulltext_search('customers', 'interests_set:*')
 results['num_found']
 # 2
+```
+
+```csharp
+var search = new RiakSearchRequest("customers", "interests_set:*");
+var rslt = client.Search(search);
 ```
 
 As expected, both stored maps have an `interests` set. Now let's see how
@@ -840,6 +1003,11 @@ results['num_found'] # 1
 results['docs'][0]['first_name_register'] # u'Joan'
 ```
 
+```csharp
+var search = new RiakSearchRequest("customers", "interests_set:loving*");
+var rslt = client.Search(search);
+```
+
 As expected, only our Joan Jett map has one item in its `interests` set
 that starts with `loving`.
 
@@ -851,8 +1019,10 @@ far. Each person's alter ego will have a first name only.
 
 ```java
 Location idrisElbaMap = new Location(customersBucket, "idris_elba");
-MapUpdate alterEgoUpdate = new MapUpdate()
+MapUpdate alterEgoUpdateName = new MapUpdate()
         .update("name", new RegisterUpdate("John Luther"));
+MapUpdate alterEgoUpdate = new MapUpdate()
+        .update("alter_ego", alterEgoUpdateName);
 UpdateMap addSubMap = new UpdateMap.Builder(idrisElbaMap, alterEgoUpdate);
 client.execute(addSubMap);
 ```
@@ -869,6 +1039,38 @@ idris_elba.store()
 
 joan_jett.maps['alter_ego'].registers['name'].assign('Robert Plant')
 joan_jett.store()
+```
+
+```csharp
+const string nameRegister = "name";
+const string alterEgoMap = "alter_ego";
+
+idrisElbaId = new RiakObjectId("maps", "customers", "idris_elba");
+var idrisGetRslt = client.DtFetchMap(idrisElbaId);
+
+var alterEgoMapOp = new MapOp();
+alterEgoMapOp.updates.Add(new MapUpdate
+{
+    register_op = Serializer("John Luther"),
+    field = new MapField
+    {
+        name = Serializer(nameRegister),
+        type = MapField.MapFieldType.REGISTER
+    }
+});
+
+var alterEgoMapUpdate = new MapUpdate
+{
+    map_op = alterEgoMapOp,
+    field = new MapField
+    {
+        name = Serializer(alterEgoMap),
+        type = MapField.MapFieldType.MAP
+    }
+};
+
+var idrisUpdateRslt = client.DtUpdateMap(idrisElbaId, Serializer,
+    idrisGetRslt.Context, null, new List<MapUpdate> { alterEgoMapUpdate });
 ```
 
 Querying maps within maps involves construct queries that separate the
@@ -892,6 +1094,11 @@ results['num_found'] # 1
 ```python
 results = client.fulltext_search('customers', 'alter_ego_map.name_register:*')
 results['num_found'] # 1
+```
+
+```csharp
+var search = new RiakSearchRequest("customers", "alter_ego_map.name_register:*");
+var rslt = client.Search(search);
 ```
 
 Once we know how to query embedded fields like this, we can query those
@@ -919,6 +1126,11 @@ results['docs'][0]['first_name_register'] # 'Joan'
 results = client.fulltext_search('customers', 'alter_ego_map.name_register:*Plant')
 results['num_found'] # 1
 results['docs'][0]['first_name_register'] # u'Joan
+```
+
+```csharp
+var search = new RiakSearchRequest("customers", "alter_ego_map.name_register:*Plant");
+var rslt = client.Search(search);
 ```
 
 Success! We've now queried not just maps but also maps within maps.

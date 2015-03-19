@@ -301,6 +301,7 @@ might be helpful when thinking about data modeling:
     - [[Java|Taste of Riak: Object Modeling with Java]]
     - [[Ruby|Taste of Riak: Object Modeling with Ruby]]
     - [[Python|Taste of Riak: Object Modeling with Python]]
+    - [[C#|Taste of Riak: Object Modeling with CSharp]]
     - [[Erlang|Taste of Riak: Object Modeling with Erlang]]
 * [[Key/Value Modeling]]
 

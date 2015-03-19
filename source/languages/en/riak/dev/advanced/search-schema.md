@@ -71,6 +71,12 @@ client.create_search_schema('cartoons', schema_data)
 xml_file.close()
 ```
 
+```csharp
+var xml = File.ReadAllText("cartoons.xml");
+var schema = new SearchSchema("cartoons", xml);
+var rslt = client.PutSearchSchema(schema);
+```
+
 ```erlang
 {ok, SchemaData} = file:read_file("cartoons.xml"),
 riakc_pb_socket:create_search_schema(Pid, <<"cartoons">>, SchemaData).

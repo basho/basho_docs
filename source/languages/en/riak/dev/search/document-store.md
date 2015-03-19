@@ -24,7 +24,7 @@ index that data using Riak Search, and then run Solr queries against
 those stored objects.
 
 You can think of these Search indexes as **collections**. Each indexed
-will have a document ID generated automatically by Search, and because
+document will have an ID generated automatically by Search, and because
 we're not interested in running normal [[key/value queries|Key/Value
 Modeling]] on these objects, we'll allow Riak to assign [[keys|Keys and
 Objects]] automatically. This means that all we have to do is worry
@@ -71,12 +71,12 @@ baseline schema here and add the following fields to the `<fields>`
 list:
 
 ```xml
-<dynamicField name="title_register"   type="string"   indexed="true" stored="true" />
-<dynamicField name="author_register"  type="string"   indexed="true" stored="true" />
-<dynamicField name="content_register" type="text"     indexed="true" stored="true" />
-<dynamicField name="keywords_set"     type="string"   indexed="true" stored="true" multiValued="true" />
-<dynamicField name="date_register"    type="datetime" indexed="true" stored="true" />
-<dynamicField name="published_flag"   type="boolean"  indexed="true" stored="true" />
+<field name="title_register"   type="string"   indexed="true" stored="true" />
+<field name="author_register"  type="string"   indexed="true" stored="true" />
+<field name="content_register" type="text"     indexed="true" stored="true" />
+<field name="keywords_set"     type="string"   indexed="true" stored="true" multiValued="true" />
+<field name="date_register"    type="datetime" indexed="true" stored="true" />
+<field name="published_flag"   type="boolean"  indexed="true" stored="true" />
 ```
 
 You can see the full schema [on
@@ -106,6 +106,12 @@ client.create_search_schema('blog_post_schema', schema_data)
 xml_file.close()
 ```
 
+```csharp
+var schemaXml = File.ReadAllText("blog_post_schema.xml");
+var schema = new SearchSchema("blog_post_schema", schemaXml);
+var rslt = client.PutSearchSchema(schema);
+```
+
 ```erlang
 {ok, SchemaData} = file:read_file("blog_post_schema.xml"),
 riakc_pb_socket:create_search_schema(Pid, <<"blog_post_schema">>, SchemaData).
@@ -132,6 +138,11 @@ client.create_search_index('blog_posts', 'blog_post_schema')
 
 ```python
 client.create_search_index('blog_posts', 'blog_post_schema')
+```
+
+```csharp
+var idx = new SearchIndex("blog_posts", "blog_post_schema");
+var rslt = client.PutSearchIndex(idx);
 ```
 
 ```erlang
@@ -204,6 +215,7 @@ public class BlogPost {
                     String bucketName,
                     String title,
                     String author,
+                    String content,
                     Set<String> keywords,
                     DateTime datePosted,
                     Boolean published) {
@@ -211,6 +223,7 @@ public class BlogPost {
       this.location = new Location(new Namespace(bucketType, bucketName), null);
       this.title = title;
       this.author = author;
+      this.content = content;
       this.keywords = keywords;
       this.datePosted = datePosted;
       this.published = published;
@@ -219,6 +232,7 @@ public class BlogPost {
     public void store() throws Exception {
         RegisterUpdate titleUpdate = new RegisterUpdate(title);
         RegisterUpdate authorUpdate = new RegisterUpdate(author);
+        RegisterUpdate contentUpdate = new RegisterUpdate(content);
         SetUpdate keywordsUpdate = new SetUpdate();
         for (String keyword : keywords) {
             keywordsUpdate.add(keyword);
@@ -232,6 +246,7 @@ public class BlogPost {
         MapUpdate mapUpdate = new MapUpdate()
             .update("title", titleUpdate)
             .update("author", authorUpdate)
+            .update("content", contentUpdate)
             .update("keywords", keywordsUpdate)
             .update("date", dateUpdate)
             .update("published", publishedUpdate);
@@ -250,6 +265,7 @@ class BlogPost
     map.batch do |m|
       m.registers['title'] = title
       m.registers['author'] = author
+      m.registers['content'] = content
       keywords.each do |k|
         m.sets['keywords'].add(k)
       end
@@ -279,6 +295,12 @@ class BlogPost:
         self.map.store()
 ```
 
+```csharp
+/*
+ * Please see the code in the RiakClientExamples project:
+ * https://github.com/basho-labs/riak-dotnet-client/tree/develop/src/RiakClientExamples/Dev/Search
+ */
+```
 
 Now, we can store some blog posts. We'll start with just one:
 
@@ -291,6 +313,7 @@ BlogPost post1 = new BlogPost(client, // client object
                               "cat_pics_quarterly", // bucket
                               "This one is so lulz!", // title
                               "Cat Stevens", // author
+                              "Please check out these cat pics!", // content
                               keywords, // keywords
                               new DateTime(), // date posted
                               true); // published
@@ -307,6 +330,7 @@ date = Time.now.strftime('%Y-%m-%d %H:%M')
 blog_post1 = BlogPost.new('cat_pics_quarterly',
                           'This one is so lulz!',
                           'Cat Stevens',
+                          'Please check out these cat pics!',
                           keywords,
                           date,
                           true)
@@ -320,14 +344,26 @@ date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
 blog_post1 = BlogPost('cat_pics_quarterly',
                       'This one is so lulz!',
                       'Cat Stevens',
+                      'Please check out these cat pics!',
                       keywords,
                       date,
                       true)
 ```
 
-To store each blog post as a map, follow the example in [[Data Modeling
-with Riak Data Types]]. That will show you how to create a translation
-layer between blog objects and Riak maps.
+```csharp
+var keywords = new HashSet<string> { "adorbs", "cheshire" };
+
+var post = new BlogPost(
+    "This one is so lulz!",
+    "Cat Stevens",
+    "Please check out these cat pics!",
+    keywords,
+    DateTime.Now,
+    true);
+
+var repo = new BlogPostRepository(client, "cat_pics_quarterly");
+string id = repo.Save(post);
+```
 
 ## Querying
 
@@ -355,6 +391,11 @@ results = client.search('blog_posts', 'keywords_set:funny')
 results = client.fulltext_search('blog_posts', 'keywords_set:funny')
 ```
 
+```csharp
+var searchRequest = new RiakSearchRequest("blog_posts", "keywords_set:funny");
+var rslt = client.Search(searchRequest);
+```
+
 ```curl
 curl "$RIAK_HOST/search/query/blog_posts?wt=json&q=keywords_set:funny"
 ```
@@ -378,6 +419,11 @@ results = client.search('blog_posts', 'content_register:furry')
 
 ```python
 results = client.fulltext_search('blog_posts', 'content_register:furry')
+```
+
+```csharp
+var searchRequest = new RiakSearchRequest("blog_posts", "content_register:furry");
+var rslt = client.Search(searchRequest);
 ```
 
 ```curl

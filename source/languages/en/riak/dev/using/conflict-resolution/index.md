@@ -147,6 +147,7 @@ client-library-specific docs:
 * [[Java|Conflict Resolution: Java]]
 * [[Ruby|Conflict Resolution: Ruby]]
 * [[Python|Conflict Resolution: Python]]
+* [[C#|Conflict Resolution: CSharp]]
 
 In Riak versions 2.0 and later, `allow_mult` is set to `true` by default
 for any [[bucket types|Using Bucket Types]] that you create. This means
@@ -293,6 +294,16 @@ obj2.data = 'Stimpy'
 obj2.store()
 ```
 
+```csharp
+var id = new RiakObjectId("siblings_allowed", "nickolodeon", "best_character");
+
+var renObj = new RiakObject(id, "Ren", RiakConstants.ContentTypes.TextPlain);
+var stimpyObj = new RiakObject(id, "Stimpy", RiakConstants.ContentTypes.TextPlain);
+
+var renResult = client.Put(renObj);
+var stimpyResult = client.Put(stimpyObj);
+```
+
 ```erlang
 Obj1 = riakc_obj:new({<<"siblings_allowed">>, <<"nickolodeon">>},
                      <<"best_character">>,
@@ -350,6 +361,19 @@ obj = bucket.get('best_character')
 obj.siblings
 ```
 
+```csharp
+var id = new RiakObjectId("siblings_allowed", "nickolodeon", "best_character");
+var getResult = client.Get(id);
+RiakObject obj = getResult.Value;
+Debug.WriteLine(format: "Sibling count: {0}", args: obj.Siblings.Count);
+foreach (var sibling in obj.Siblings)
+{
+    Debug.WriteLine(
+        format: "    VTag: {0}",
+        args: sibling.VTag);
+}
+```
+
 ```curl
 curl http://localhost:8098/types/siblings_allowed/buckets/nickolodeon/keys/best_character
 ```
@@ -366,6 +390,12 @@ com.basho.riak.client.cap.UnresolvedConflictException: Siblings found
 
 ```python
 [<riak.content.RiakContent object at 0x10a00eb90>, <riak.content.RiakContent object at 0x10a00ebd0>]
+```
+
+```csharp
+Sibling count: 2
+    VTag: 1DSVo7VED8AC6llS8IcDE6
+    VTag: 7EiwrlFAJI5VMLK87vU4tE
 ```
 
 ```curl
@@ -410,6 +440,7 @@ client-library-specific documentation for the following languages:
 * [[Java|Conflict Resolution: Java]]
 * [[Ruby|Conflict Resolution: Ruby]]
 * [[Python|Conflict Resolution: Python]]
+* [[C#|Conflict Resolution: CSharp]]
 
 We won't deal with conflict resolution in this section. Instead, we'll
 focus on how to use causal context.
@@ -469,6 +500,23 @@ new_obj.data = 'Stimpy'
 
 # Then we store the object, which has the vector clock already attached
 new_obj.store(vclock=vclock)
+```
+
+```csharp
+// First, fetch the object
+var getResult = client.Get(id);
+
+// Then, modify the object's value
+RiakObject obj = getResult.Value;
+obj.SetObject<string>("Stimpy", RiakConstants.ContentTypes.TextPlain);
+
+// Then, store the object which has vector clock attached
+var putRslt = client.Put(obj);
+CheckResult(putRslt);
+
+obj = putRslt.Value;
+// Voila, no more siblings!
+Debug.Assert(obj.Siblings.Count == 0);
 ```
 
 ```curl
@@ -567,3 +615,4 @@ Additional background information on vector clocks:
 * [Why Vector Clocks are Easy](http://basho.com/why-vector-clocks-are-easy/)
 * [Why Vector Clocks are Hard](http://basho.com/why-vector-clocks-are-hard/)
 * The vector clocks used in Riak are based on the [work of Leslie Lamport](http://portal.acm.org/citation.cfm?id=359563)
+

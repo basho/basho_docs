@@ -57,15 +57,6 @@ create a client to connect to Riak. For this tutorial, we'll use
 `localhost` as our host and `8087` as our [[protocol buffers|PBC API]]
 port:
 
-```ruby
-$client = Riak::Client.new(:host => 'localhost', :pb_port => 8087)
-```
-
-```python
-from riak import RiakClient
-client = RiakClient(protocol='pbc', pb_port=8087)
-```
-
 ```java
 public class User {
 	private RiakClient client;
@@ -76,6 +67,26 @@ public class User {
 		this.client = new RiakClient(cluster);
 	}
 }
+```
+
+```ruby
+$client = Riak::Client.new(:host => 'localhost', :pb_port => 8087)
+```
+
+```python
+from riak import RiakClient
+client = RiakClient(protocol='pbc', pb_port=8087)
+```
+
+```csharp
+/*
+ * We're going to separate CRUD logic from our Model classes by using
+ * the INotifyPropertyChanged event and a manager that uses a
+ * Repository to store Models when these events happen.
+ */
+IRiakEndPoint endpoint = RiakCluster.FromConfig("riakConfig");
+IRiakCliet client = endpoint.CreateClient();
+var entityManager = new EntityManager(client);
 ```
 
 <div class="note">
@@ -97,6 +108,23 @@ so the map for the user Brian May would have the key `brian_may`. Below,
 we'll start building our class, initializing the class with a reference
 to the appropriate map:
 
+```java
+public class User {
+	private String key;
+	private Location location;
+
+	public User(String firstName, String lastName) {
+		String key =
+			String.format("%s_%s", firstName.toLowerCase(), lastName.toLowerCase());
+
+		this.key = key;
+
+        // In the Java client, maps are updated on the basis of the
+        // map's bucket type/bucket/key Location:
+		this.location = new Location(new Namespace(bucketType, bucket), key);
+	}
+}
+```
 
 ```ruby
 class User
@@ -118,21 +146,115 @@ class User:
         user_map = bucket.new(key)
 ```
 
-```java
-public class User {
-	private String key;
-	private Location location;
+```csharp
+/*
+ * The C# example uses a User model class and a UserRepository class wired
+ * together via INotifyPropertyChanged events and handling those events
+ * See the entire example in the RiakClientExamples project here:
+ * https://github.com/basho-labs/riak-dotnet-client/tree/develop/src/RiakClientExamples/Dev/DataModeling
+ */
+public class User : IModel, INotifyPropertyChanged
+{
+    private readonly string firstName;
+    private readonly string lastName;
+    private readonly ICollection<string> interests;
+    private uint pageVisits = 0;
+    private bool accountStatus = false;
 
-	public User(String firstName, String lastName) {
-		String key =
-			String.format("%s_%s", firstName.toLowerCase(), lastName.toLowerCase());
+    public User(
+        string firstName,
+        string lastName,
+        ICollection<string> interests,
+        uint pageVisits = 0,
+        bool accountStatus = false)
+    {
+        if (string.IsNullOrWhiteSpace(firstName))
+        {
+            throw new ArgumentNullException("firstName", "firstName is required");
+        }
 
-		this.key = key;
+        this.firstName = firstName;
 
-        // In the Java client, maps are updated on the basis of the
-        // map's bucket type/bucket/key Location:
-		this.location = new Location(new Namespace(bucketType, bucket), key);
-	}
+        if (string.IsNullOrWhiteSpace(lastName))
+        {
+            throw new ArgumentNullException("lastName", "lastName is required");
+        }
+
+        this.lastName = lastName;
+        this.interests = interests;
+        this.pageVisits = pageVisits;
+        this.accountStatus = accountStatus;
+    }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    public string ID
+    {
+        get
+        {
+            return string.Format("{0}_{1}",
+                firstName.ToLowerInvariant(), lastName.ToLowerInvariant());
+        }
+    }
+
+    public string FirstName
+    {
+        get { return firstName; }
+    }
+
+    public string LastName
+    {
+        get { return lastName; }
+    }
+
+    public IEnumerable<string> Interests
+    {
+        get { return interests; }
+    }
+
+    public void AddInterest(string interest)
+    {
+        if (!interests.Contains(interest))
+        {
+            interests.Add(interest);
+            /*
+             * Real-world you would be using your own entity changed
+             * event interface that allows custom events to be
+             * raised instead of using formatted strings
+             */
+            var data = string.Format("Interests:Added:{0}", interest);
+            var e = new PropertyChangedEventArgs(data);
+            PropertyChanged(this, e);
+        }
+    }
+
+    public void RemoveInterest(string interest)
+    {
+        if (interests.Contains(interest))
+        {
+            interests.Remove(interest);
+            var data = string.Format("Interests:Removed:{0}", interest);
+            var e = new PropertyChangedEventArgs(data);
+            PropertyChanged(this, e);
+        }
+    }
+
+    public uint PageVisits
+    {
+        get { return pageVisits; }
+    }
+
+    public void VisitPage()
+    {
+        ++pageVisits;
+        var e = new PropertyChangedEventArgs("PageVisits");
+        PropertyChanged(this, e);
+    }
+
+    public bool AccountStatus
+    {
+        get { return accountStatus; }
+    }
 }
 ```
 
@@ -142,36 +264,6 @@ At this point, we have a Riak map associated with instantiations of our
 `User` type, but that map will be empty. Let's modify our initializer
 function to populate [[registers|Data Types#Registers]] in the map with
 first name and last name information:
-
-```ruby
-class User
-  def initialize(first_name, last_name)
-    key = "#{first_name}_#{last_name}"
-    @map = Riak::Crdt::Map.new($client.bucket 'users', key)
-    @map.batch do |m|
-      m.registers['first_name'] = first_name
-      m.registers['last_name'] = last_name
-    end
-  end
-end
-```
-
-```python
-class User:
-    def __init__(self, first_name, last_name):
-        bucket = client.bucket_type('maps').bucket('users')
-        key = "{}_{}".format(first_name, last_name)
-        user_map = Map(bucket, key)
-        user_map.registers['first_name'].assign(first_name)
-        user_map.registers['last_name'].assign(last_name)
-
-        # Thus far, all changes to the user_map object have only been
-        # made locally. To commit them to Riak, we have to use the
-        # store() method. You can alter Riak Data Types as much as you
-        # wish on the client side prior to committing those changes to
-        # Riak.
-        user_map.store()
-```
 
 ```java
 public class User {
@@ -225,9 +317,51 @@ public class User {
 }
 ```
 
+```ruby
+class User
+  def initialize(first_name, last_name)
+    key = "#{first_name}_#{last_name}"
+    @map = Riak::Crdt::Map.new($client.bucket 'users', key)
+    @map.batch do |m|
+      m.registers['first_name'] = first_name
+      m.registers['last_name'] = last_name
+    end
+  end
+end
+```
+
+```python
+class User:
+    def __init__(self, first_name, last_name):
+        bucket = client.bucket_type('maps').bucket('users')
+        key = "{}_{}".format(first_name, last_name)
+        user_map = Map(bucket, key)
+        user_map.registers['first_name'].assign(first_name)
+        user_map.registers['last_name'].assign(last_name)
+
+        # Thus far, all changes to the user_map object have only been
+        # made locally. To commit them to Riak, we have to use the
+        # store() method. You can alter Riak Data Types as much as you
+        # wish on the client side prior to committing those changes to
+        # Riak.
+        user_map.store()
+```
+
+```csharp
+/*
+ * The C# example uses a User model class and a User Repository class
+ * See the entire example in the RiakClientExamples project here:
+ * https://github.com/basho-labs/riak-dotnet-client/tree/develop/src/RiakClientExamples/Dev/DataModeling/UserRepository.cs
+ */
+```
+
 Now, if we create a new user, that user will have a `map` instance
 variable attached to it, the `first_name` and `last_name` strings will
 be stored in Riak registers, and the key will be `Bruce_Wayne`:
+
+```java
+User bruce = new User("Bruce", "Wayne");
+```
 
 ```ruby
 bruce = User.new 'Bruce', 'Wayne'
@@ -238,14 +372,46 @@ bruce = User.new 'Bruce', 'Wayne'
 bruce = User('Bruce', 'Wayne')
 ```
 
-```java
-User bruce = new User("Bruce", "Wayne");
+```csharp
+var bruce = new User("Bruce", "Wayne");
 ```
 
 So now we have our `first_name` and `last_name` variables stored in our
 map, but we still need to account for `interests` and `visits`. First,
 let's modify our class definition to store each user's interests in a
 set within the map:
+
+```java
+public class User {
+	// Retaining our getMapContext() and other functions from above:
+
+	public User(String firstName, String lastName, Set<String> interests) {
+		this.key = String.format("%s_%s", firstName.toLowerCase(), lastName.toLowerCase());
+		this.location = new Location(new Namespace(bucketType, bucket), key);
+		RegisterUpdate ru1 = new RegisterUpdate(BinaryValue.create(firstName));
+		RegisterUpdate ru2 = new RegisterUpdate(BinaryValue.create(lastName));
+		SetUpdate su = setIntoSetUpdate(rawSet);
+		MapUpdate mu = new MapUpdate()
+				.update("first_name", ru1)
+				.update("last_name", ru2)
+				.update("interests", su);
+		updateMapWithoutContext(mu);
+	}
+
+  /**
+   * Transforms a Set of Strings into a SetUpdate that can be sent to
+   * Riak:
+   */
+
+	private SetUpdate setIntoSetUpdate(Set<String> rawSet) {
+		SetUpdate su = new SetUpdate():
+    for (String item : rawSet) {
+      su.add(BinaryValue.create(item));
+    }
+		return su;
+	}
+}
+```
 
 ```ruby
 class User
@@ -280,40 +446,40 @@ class User:
         user_map.store()
 ```
 
-```java
-public class User {
-	// Retaining our getMapContext() and other functions from above:
-
-	public User(String firstName, String lastName, Set<String> interests) {
-		this.key = String.format("%s_%s", firstName.toLowerCase(), lastName.toLowerCase());
-		this.location = new Location(new Namespace(bucketType, bucket), key);
-		RegisterUpdate ru1 = new RegisterUpdate(BinaryValue.create(firstName));
-		RegisterUpdate ru2 = new RegisterUpdate(BinaryValue.create(lastName));
-		SetUpdate su = setIntoSetUpdate(rawSet);
-		MapUpdate mu = new MapUpdate()
-				.update("first_name", ru1)
-				.update("last_name", ru2)
-				.update("interests", su);
-		updateMapWithoutContext(mu);
-	}
-
-  /**
-   * Transforms a Set of Strings into a SetUpdate that can be sent to
-   * Riak:
-   */
-
-	private SetUpdate setIntoSetUpdate(Set<String> rawSet) {
-		SetUpdate su = new SetUpdate():
-    for (String item : rawSet) {
-      su.add(BinaryValue.create(item));
-    }
-		return su;
-	}
+```csharp
+/*
+ * The C# example uses a User model class and a User Repository class
+ * See the entire example in the RiakClientExamples project here:
+ * https://github.com/basho-labs/riak-dotnet-client/tree/develop/src/RiakClientExamples/Dev/DataModeling
+ */
+// Changes to UserRepository.Save method:
+if (EnumerableUtil.NotNullOrEmpty(model.Interests))
+{
+    var interestsSetOp = new SetOp();
+    interestsSetOp.adds.AddRange(
+        model.Interests.Select(i => TextSerializer(i))
+    );
+    mapUpdates.Add(new MapUpdate
+    {
+        set_op = interestsSetOp,
+        field = new MapField
+        {
+            name = TextSerializer(interestsSet),
+            type = MapField.MapFieldType.SET
+        }
+    });
 }
 ```
 
 Now when we create new users, we need to specify their interests as a
 list:
+
+```java
+Set<String> interests = new HashSet<String>();
+interests.add("distributed systems");
+interests.add("Erlang");
+User joe = new User("Joe", "Armstrong", interests);
+```
 
 ```ruby
 joe = User.new('Joe', 'Armstrong', ['distributed systems', 'Erlang'])
@@ -324,11 +490,9 @@ joe = User.new('Joe', 'Armstrong', ['distributed systems', 'Erlang'])
 joe = User('Joe', 'Armstrong', ['distributed systems', 'Erlang'])
 ```
 
-```java
-Set<String> interests = new HashSet<String>();
-interests.add("distributed systems");
-interests.add("Erlang");
-User joe = new User("Joe", "Armstrong", interests);
+```csharp
+var interests = new[] { "distributed systems", "Erlang" };
+var user = new User("Joe", "Armstrong", interests);
 ```
 
 Our `visits` variable will work a little bit differently, because when a
@@ -337,6 +501,28 @@ Riak counters. If you fetch the value of a counter that has not yet been
 modified, it will be zero, even if you query a counter in a random
 bucket and key. Let's create a new instance method that increments the
 `visits` counter by one every time it is called:
+
+```java
+public class User {
+	public User() {
+		// Retaining from above
+	}
+
+	public void visitPage() {
+        CounterUpdate cu = new CounterUpdate(1);
+
+        // To decrement a counter, pass a negative number to the
+        // CounterUpdate object
+
+		MapUpdate mu = new MapUpdate()
+				.update("visits", cu);
+
+		// Using our updateMapWithoutContext method from above, as
+        // context is not necessary for counter updates
+		updateMapWithoutContext(mu);
+	}
+}
+```
 
 ```ruby
 class User
@@ -374,29 +560,42 @@ class User:
         self.user_map.store()
 ```
 
-```java
-public class User {
-	public User() {
-		// Retaining from above
-	}
+```csharp
+// In User.cs
+public void VisitPage()
+{
+    ++pageVisits;
+    var e = new PropertyChangedEventArgs("PageVisits");
+    PropertyChanged(this, e);
+}
 
-	public void visitPage() {
-        CounterUpdate cu = new CounterUpdate(1);
+// In UserRepository.cs
+public void IncrementPageVisits()
+{
+    var mapUpdates = new List<MapUpdate>();
 
-        // To decrement a counter, pass a negative number to the
-        // CounterUpdate object
+    mapUpdates.Add(new MapUpdate
+    {
+        counter_op = new CounterOp { increment = 1 },
+        field = new MapField
+        {
+            name = TextSerializer(visitsCounter),
+            type = MapField.MapFieldType.COUNTER
+        }
+    });
 
-		MapUpdate mu = new MapUpdate()
-				.update("visits", cu);
-
-		// Using our updateMapWithoutContext method from above, as
-        // context is not necessary for counter updates
-		updateMapWithoutContext(mu);
-	}
+    // Update without context
+    var rslt = client.DtUpdateMap(
+        GetRiakObjectId(), TextSerializer, null, null, mapUpdates, null);
+    CheckResult(rslt.Result);
 }
 ```
 
 And then we can have Joe Armstrong visit our page:
+
+```java
+joe.visitPage();
+```
 
 ```ruby
 joe.visit_page
@@ -406,8 +605,8 @@ joe.visit_page
 joe.visit_page()
 ```
 
-```java
-joe.visitPage();
+```csharp
+joe.VisitPage();
 ```
 
 The page visit counter did not exist prior to this method call, but the
@@ -417,6 +616,29 @@ Finally, we need to include `paid_account` in our map as a [[flag|Data
 Types#Flags]]. Each user will initially be added to Riak as a non-paying
 user, and we can create methods to upgrade and downgrade the user's
 account at will:
+
+```java
+public class User {
+	// Retaining all of the class methods from above
+
+	public void upgradeAccount() {
+		FlagUpdate setToTrue = new FlagUpdate().set(true);
+		Context ctx = getMapContext();
+		MapUpdate mu = new MapUpdate()
+				.withContext(ctx)
+				.update("paid_account", setToTrue);
+		updateMapWithContext(mu);
+	}
+
+	public void downgradeAccount() {
+		FlagUpdate setToFalse = new FlagUpdate().set(false);
+		MapUpdate mu = new MapUpdate()
+				.withContext(ctx)
+				.update("paid_account", setToFalse);
+		updateMapWithContext(mu);
+	}
+}
+```
 
 ```ruby
 class User
@@ -463,32 +685,91 @@ class User:
         self.user_map.store()
 ```
 
-```java
-public class User {
-	// Retaining all of the class methods from above
+```csharp
+/*
+ * See the entire example in the RiakClientExamples project here:
+ * https://github.com/basho-labs/riak-dotnet-client/tree/develop/src/RiakClientExamples/Dev/DataModeling/UserRepository.cs
+ */
 
-	public void upgradeAccount() {
-		FlagUpdate setToTrue = new FlagUpdate().set(true);
-		Context ctx = getMapContext();
-		MapUpdate mu = new MapUpdate()
-				.withContext(ctx)
-				.update("paid_account", setToTrue);
-		updateMapWithContext(mu);
-	}
+public void UpgradeAccount()
+{
+    var mapUpdates = new List<MapUpdate>();
 
-	public void downgradeAccount() {
-		FlagUpdate setToFalse = new FlagUpdate().set(false);
-		MapUpdate mu = new MapUpdate()
-				.withContext(ctx)
-				.update("paid_account", setToFalse);
-		updateMapWithContext(mu);
-	}
+    mapUpdates.Add(new MapUpdate
+    {
+        flag_op = MapUpdate.FlagOp.ENABLE,
+        field = new MapField
+        {
+            name = TextSerializer(paidAccountFlag),
+            type = MapField.MapFieldType.FLAG
+        }
+    });
+
+    UpdateMap(mapUpdates, fetchFirst: true);
+}
+
+public void DowngradeAccount()
+{
+    var mapUpdates = new List<MapUpdate>();
+
+    mapUpdates.Add(new MapUpdate
+    {
+        flag_op = MapUpdate.FlagOp.DISABLE,
+        field = new MapField
+        {
+            name = TextSerializer(paidAccountFlag),
+            type = MapField.MapFieldType.FLAG
+        }
+    });
+
+    UpdateMap(mapUpdates, fetchFirst: true);
 }
 ```
 
 The problem with our `User` model so far is that we can't actually
 _retrieve_ any information about specific users from Riak. So let's
 create some getters to do that:
+
+```java
+public class User {
+
+    /**
+     * Fetches our map from Riak in its current state, which enables us
+     * to fetch current values for all of the fields of the map, as
+     * in the methods below.
+     */
+
+	private RiakMap getMap() throws Exception {
+		FetchMap fetch = new FetchMap.Builder(location).build();
+		return client.execute(fetch).getDatatype();
+	}
+
+	public String getFirstName() {
+		return getMap().getRegister("first_name").toString();
+	}
+
+	public String getLastName() {
+		return getMap().getRegister("last_name").toString();
+	}
+
+	public Set<String> getInterests() {
+		Set<String> setBuilder = new HashSet<String>();
+		Set<BinaryValue> binarySet = getMap().getSet("interests").viewAsSet();
+		binarySet.forEach((BinaryValue item) -> {
+			setBuilder.add(item.toString());
+		});
+		return setBuilder;
+	}
+
+	public Long getVisits() {
+		return getMap().getCounter("visits").view();
+	}
+
+	public boolean getAccountStatus() {
+		return getMap().getFlag("paid_account").view();
+	}
+}
+```
 
 ```ruby
 class User
@@ -541,49 +822,82 @@ class User:
         return self.user_map.reload().flags['paid_account'].value
 ```
 
-```java
-public class User {
+```csharp
+/*
+ * See the entire example in the RiakClientExamples project here:
+ * https://github.com/basho-labs/riak-dotnet-client/tree/develop/src/RiakClientExamples/Dev/DataModeling/UserRepository.cs
+ */
 
-    /**
-     * Fetches our map from Riak in its current state, which enables us
-     * to fetch current values for all of the fields of the map, as
-     * in the methods below.
-     */
+public override User Get(string key, bool notFoundOK = false)
+{
+    var fetchRslt = client.DtFetchMap(GetRiakObjectId());
+    CheckResult(fetchRslt.Result);
 
-	private RiakMap getMap() throws Exception {
-		FetchMap fetch = new FetchMap.Builder(location).build();
-		return client.execute(fetch).getDatatype();
-	}
+    string firstName = null;
+    string lastName = null;
+    var interests = new List<string>();
+    uint pageVisits = 0;
 
-	public String getFirstName() {
-		return getMap().getRegister("first_name").toString();
-	}
+    foreach (var value in fetchRslt.Values)
+    {
+        RiakDtMapField mapField = value.Field;
+        switch (mapField.Name)
+        {
+            case firstNameRegister:
+                if (mapField.Type != RiakDtMapField.RiakDtMapFieldType.Register)
+                {
+                    throw new InvalidCastException("expected Register type");
+                }
+                firstName = TextDeserializer(value.RegisterValue);
+                break;
+            case lastNameRegister:
+                if (mapField.Type != RiakDtMapField.RiakDtMapFieldType.Register)
+                {
+                    throw new InvalidCastException("expected Register type");
+                }
+                lastName = TextDeserializer(value.RegisterValue);
+                break;
+            case interestsSet:
+                if (mapField.Type != RiakDtMapField.RiakDtMapFieldType.Set)
+                {
+                    throw new InvalidCastException("expected Set type");
+                }
+                interests.AddRange(value.SetValue.Select(v => TextDeserializer(v)));
+                break;
+            case pageVisitsCounter:
+                if (mapField.Type != RiakDtMapField.RiakDtMapFieldType.Counter)
+                {
+                    throw new InvalidCastException("expected Counter type");
+                }
+                pageVisits = (uint)value.Counter.Value;
+                break;
+            /*
+                * Note: can do additional checks here in default case
+                */
+        }
+    }
 
-	public String getLastName() {
-		return getMap().getRegister("last_name").toString();
-	}
-
-	public Set<String> getInterests() {
-		Set<String> setBuilder = new HashSet<String>();
-		Set<BinaryValue> binarySet = getMap().getSet("interests").viewAsSet();
-		binarySet.forEach((BinaryValue item) -> {
-			setBuilder.add(item.toString());
-		});
-		return setBuilder;
-	}
-
-	public Long getVisits() {
-		return getMap().getCounter("visits").view();
-	}
-
-	public boolean getAccountStatus() {
-		return getMap().getFlag("paid_account").view();
-	}
+    return new User(firstName, lastName, interests, pageVisits);
 }
 ```
 
 Now, we can create a new user and then access that user's
 characteristics directly from our Riak map:
+
+```java
+Set<String> interests = new HashSet<String>();
+interests.add("distributed systems");
+interests.add("Erlang");
+User joe = new User("Joe", "Armstrong", interests);
+
+joe.getFirstName(); // Joe
+joe.getLastName(); // Armstrong
+joe.getInterests(); // ["distributed systems", "Erlang"]
+joe.getVisits(); // 0
+joe.visitPage();
+joe.getVisits(); // 1
+joe.getAccountStatus(); // false
+```
 
 ```ruby
 joe = User.new('Joe', 'Armstrong', ['distributed systems', 'Erlang'])
@@ -607,23 +921,43 @@ joe.visits # 1
 joe.paid_account # false
 ```
 
-```java
-Set<String> interests = new HashSet<String>();
-interests.add("distributed systems");
-interests.add("Erlang");
-User joe = new User("Joe", "Armstrong", interests);
+```csharp
+var interests = new HashSet<string> { "distributed systems", "Erlang" };
+var joe = new User("Joe", "Armstrong", interests);
 
-joe.getFirstName(); // Joe
-joe.getLastName(); // Armstrong
-joe.getInterests(); // ["distributed systems", "Erlang"]
-joe.getVisits(); // 0
-joe.visitPage();
-joe.getVisits(); // 1
-joe.getAccountStatus(); // false
+joe.FirstName; // Joe
+joe.LastName; // Armstrong
+joe.Interests; // ["distributed systems", "Erlang"]
+joe.PageVisits; // 0
+joe.VisitPage();
+joe.PageVisits; // 1
+joe.AccountStatus; // false
 ```
 
 We can also create instance methods that add and remove specific
 interests:
+
+```java
+public class User {
+	// Retaining all of the class methods from above
+
+	public void addInterest(String interest) {
+		SetUpdate su = new SetUpdate().add(BinaryValue.create(interest));
+		MapUpdate mu = new MapUpdate()
+				.update("interests", su);
+		updateMapWithoutContext(mu);
+	}
+
+	public void removeInterest(String interest) {
+		SetUpdate su = new SetUpdate().remove(BinaryValue.create(interest));
+		Context ctx = getMapContext();
+		MapUpdate mu = new MapUpdate()
+				.withContext(ctx)
+				.update("interests", mu);
+		updateMapWithContext(mu);
+	}
+}
+```
 
 ```ruby
 class User
@@ -654,25 +988,32 @@ class User:
         self.user_map.store()
 ```
 
-```java
-public class User {
-	// Retaining all of the class methods from above
+```csharp
+public void AddInterest(string interest)
+{
+    if (!interests.Contains(interest))
+    {
+        interests.Add(interest);
+        /*
+            * Real-world you would be using your own entity changed
+            * event interface that allows events like these to be
+            * raised instead of using formatted strings
+            */
+        var data = string.Format("Interests:Added:{0}", interest);
+        var e = new PropertyChangedEventArgs(data);
+        PropertyChanged(this, e);
+    }
+}
 
-	public void addInterest(String interest) {
-		SetUpdate su = new SetUpdate().add(BinaryValue.create(interest));
-		MapUpdate mu = new MapUpdate()
-				.update("interests", su);
-		updateMapWithoutContext(mu);
-	}
-
-	public void removeInterest(String interest) {
-		SetUpdate su = new SetUpdate().remove(BinaryValue.create(interest));
-		Context ctx = getMapContext();
-		MapUpdate mu = new MapUpdate()
-				.withContext(ctx)
-				.update("interests", mu);
-		updateMapWithContext(mu);
-	}
+public void RemoveInterest(string interest)
+{
+    if (interests.Contains(interest))
+    {
+        interests.Remove(interest);
+        var data = string.Format("Interests:Removed:{0}", interest);
+        var e = new PropertyChangedEventArgs(data);
+        PropertyChanged(this, e);
+    }
 }
 ```
 
@@ -681,6 +1022,32 @@ public class User {
 If we wanted to connect our application to an in-browser interface, we
 would probably need to be able to convert any given `User` to JSON. So
 let's add a JSON conversion method to our class:
+
+```java
+// For JSON generation, we'll use the Jackson JSON library
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+class User {
+	// Retaining all of the class methods from above
+
+    public String toJson() throws Exception {
+        ObjectMapper jsonMapper = new ObjectMapper();
+
+        Map<String, Object> userJsonMap = new HashMap<String, Object>();
+
+        RiakMap userRiakMap = getMap();
+
+        userJsonMap.put("firstName", userRiakMap.getRegister("first_name").getValue().toString());
+        userJsonMap.put("lastName", userRiakMap.getRegister("last_name").getValue().toString());
+        userJsonMap.put("interests", userRiakMap.getSet("interests").viewAsSet());
+        userJsonMap.put("visits", userRiakMap.getCounter("visits").view());
+        userJsonMap.put("paidAccount", userRiakMap.getFlag("paid_account").view());
+
+        return jsonMapper.writeValueAsString(userJsonMap);
+	}
+}
+```
 
 ```ruby
 require 'json'
@@ -717,34 +1084,24 @@ class User:
         return json.dumps(user_dict)
 ```
 
-```java
-// For JSON generation, we'll use the Jackson JSON library
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-class User {
-	// Retaining all of the class methods from above
-
-    public String toJson() throws Exception {
-        ObjectMapper jsonMapper = new ObjectMapper();
-
-        Map<String, Object> userJsonMap = new HashMap<String, Object>();
-
-        RiakMap userRiakMap = getMap();
-
-        userJsonMap.put("firstName", userRiakMap.getRegister("first_name").getValue().toString());
-        userJsonMap.put("lastName", userRiakMap.getRegister("last_name").getValue().toString());
-        userJsonMap.put("interests", userRiakMap.getSet("interests").viewAsSet());
-        userJsonMap.put("visits", userRiakMap.getCounter("visits").view());
-        userJsonMap.put("paidAccount", userRiakMap.getFlag("paid_account").view());
-
-        return jsonMapper.writeValueAsString(userJsonMap);
-	}
-}
+```csharp
+/*
+ * Since the User model object does not contain Riak Data Type
+ * information internally, JSON.NET can serialize the object
+ * directly
+ */
 ```
 
 Now, we can instantly convert our `User` map into a stringified JSON
 object and pipe it to our client-side application:
+
+```java
+Set<String> interests = new HashSet<String>();
+interests.add("crime fighting");
+interests.add("climbing stuff");
+User bruce = new User("Bruce", "Wayne", interests);
+bruce.toJson();
+```
 
 ```ruby
 bruce = User.new('Bruce', 'Wayne', ['crime fighting', 'climbing stuff'])
@@ -760,10 +1117,11 @@ bruce.as_json()
 # '{"interests": ["climbing", "crime fighting"], "lastName": "Wayne", "visits": 1, "firstName": "Bruce", "paidAccount": false}'
 ```
 
-```java
-Set<String> interests = new HashSet<String>();
-interests.add("crime fighting");
-interests.add("climbing stuff");
-User bruce = new User("Bruce", "Wayne", interests);
-bruce.toJson();
+```csharp
+/*
+ * Since the User model object does not contain Riak Data Type
+ * information internally, JSON.NET can serialize the object
+ * directly
+ */
 ```
+

@@ -21,13 +21,14 @@ The easiest way to get started with Riak is to complete the
 
 Basho officially supports a number of open-source [[client libraries]]
 for various programming languages and environments. Please select the
-language you'd like to proceed with.
+language with which you'd like to proceed:
 
 <ul class="planguages">
 <li><a href="/dev/taste-of-riak/java/"><img src="/images/plangs/java.jpg" alt="Java"></a></li>
 <li><a href="/dev/taste-of-riak/erlang/"><img src="/images/plangs/erlang.jpg" alt="Erlang"></a></li>
 <li><a href="/dev/taste-of-riak/ruby/"><img src="/images/plangs/ruby.jpg" alt="Ruby"></a></li>
 <li><a href="/dev/taste-of-riak/python/"><img src="/images/plangs/python.png" alt="Python"></a></li>
+<li><a href="/dev/taste-of-riak/csharp/"><img src="/images/plangs/csharp.png" alt="CSharp"></a></li>
 </ul>
 
 ### Community-supported Client Libraries

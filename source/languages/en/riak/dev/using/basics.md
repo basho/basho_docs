@@ -41,9 +41,9 @@ Hooks]].
 
 Many of the interactions you'll have with Riak will involve setting or
 retrieving the value of a key. Riak has [[supported client
-libraries|Client Libraries]] for Java, Ruby, Python, and Erlang.  In
+libraries|Client Libraries]] for Java, Ruby, Python, .NET and Erlang. In
 addition, there are [[community-supported projects|Client
-Libraries#Community-Libraries]] for .NET, Node.js, Python, Perl,
+Libraries#Community-Libraries]] for Node.js, Python, Perl,
 Clojure, Scala, Smalltalk, and many others.
 
 ## Reading Objects
@@ -81,6 +81,13 @@ bucket = client.bucket_type('animals').bucket('dogs')
 obj = bucket.get('rufus')
 ```
 
+```csharp
+// Using the Riak .NET Client it is best to specify a bucket type/bucket/key
+// RiakObjectId object that can be used as a reference for further
+// operations
+var id = new RiakObjectId("animals", "dogs", "rufus");
+```
+
 ```erlang
 {ok, Obj} = riakc_pb_socket:get(Pid,
                             {<<"animals">>, <<"dogs">>},
@@ -112,6 +119,11 @@ Riak::ProtobuffsFailedRequest: Expected success from Riak but received not_found
 
 ```python
 riak.RiakError: 'no_type'
+```
+
+```csharp
+result.IsSuccess == false
+result.ResultCode == ResultCode.NotFound
 ```
 
 ```erlang
@@ -172,6 +184,12 @@ obj.data = 'WOOF!'
 obj.store()
 ```
 
+```csharp
+var id = new RiakObjectId("animals", "dogs", "rufus")
+var obj = new RiakObject(id, "WOOF!", "text/plain");
+var result = client.Put(obj);
+```
+
 Notice that we specified both a value for the object, i.e. `WOOF!`, and
 a content type, `text/plain`. We'll learn more about content types in
 the [[section below|The Basics#Content-Types]].
@@ -208,6 +226,14 @@ ArgumentError: content_type is not defined!
 # In the Python client, the default content type is "application/json".
 # Because of this, you should always make sure to specify the content
 # type when storing other types of data.
+```
+
+```csharp
+// Using the Riak .NET Client, the response when storing an object without
+// specifying a content type will depend on what is being stored.
+// If you store a Dictionary, for example, the client will
+// automatically specify that the object is "application/json";
+// POCOs are stored as JSON by default, and so on.
 ```
 
 ```erlang
@@ -253,17 +279,27 @@ FetchValue fetch = new FetchValue.Builder(myKey)
         .build();
 FetchValue.Response response = client.execute(fetch);
 RiakObject obj = response.getValue(RiakObject.class);
+System.out.println(obj.getValue());
 ```
 
 ```ruby
 bucket = client.bucket_type('animals').bucket('dogs')
 obj = bucket.get('rufus', r: 3)
+p obj.data
 ```
 
 ```python
 bucket = client.bucket_type('animals').bucket('dogs')
 obj = bucket.get('rufus', r=3)
-obj.data
+print obj.data
+```
+
+```csharp
+var id = new RiakObjectId("animals", "dogs", "rufus");
+var opts = new RiakGetOptions();
+opts.SetR(3);
+var rslt = client.Get(id, opts);
+Debug.WriteLine(Encoding.UTF8.GetString(rslt.Value.Value));
 ```
 
 ```erlang
@@ -347,6 +383,13 @@ obj.data = 'I have nothing to declare but my genius'
 obj.store()
 ```
 
+```csharp
+var id = new RiakObjectId("quotes", "oscar_wilde", "genius");
+var obj = new RiakObject(id, "I have nothing to declare but my genius",
+    RiakConstants.ContentTypes.TextPlain);
+var rslt = client.Put(obj);
+```
+
 ```erlang
 Object = riakc_obj:new({<<"quotes">>, <<"oscar_wilde">>},
                        <<"genius">>,
@@ -428,6 +471,19 @@ obj = bucket.get('champion')
 obj.data = 'Harlem Globetrotters'
 ```
 
+```csharp
+var id = new RiakObjectId("sports", "nba", "champion");
+var obj = new RiakObject(id, "Washington Generals",
+    RiakConstants.ContentTypes.TextPlain);
+var rslt = client.Put(obj);
+
+rslt = client.Get(id);
+obj = rslt.Value;
+obj.SetObject("Harlem Globetrotters",
+    RiakConstants.ContentTypes.TextPlain);
+rslt = client.Put(obj);
+```
+
 ```erlang
 %% In the Erlang client, you cannot view a context objectdirectly, but it
 %% will be included in the output when you fetch an object:
@@ -486,6 +542,15 @@ obj.vclock
 # a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
 ```
 
+```csharp
+// Using the RiakObject obj from above:
+var vclock = result.Value.VectorClock;
+Console.WriteLine(Convert.ToBase64String(vclock));
+
+// The output will look something like this:
+// a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
+```
+
 ```erlang
 %% Using the Obj object from above:
 
@@ -538,6 +603,14 @@ obj = RiakObject(client, bucket, 'viper')
 obj.content_type = 'text/plain'
 obj.data = 'vroom'
 obj.store(w=3)
+```
+
+```csharp
+var id = new RiakObjectId("cars", "dodge", "viper");
+var obj = new RiakObject(id, "vroom", "text/plain");
+var options = new RiakPutOptions();
+options.SetW(new Quorum(3));
+var result = client.Put(obj, options);
 ```
 
 ```erlang
@@ -598,6 +671,15 @@ obj = RiakObject(client, bucket, 'viper')
 obj.content_type = 'text/plain'
 obj.data = 'vroom'
 obj.store(w=3, return_body=True)
+```
+
+```csharp
+var id = new RiakObjectId("cars", "dodge", "viper");
+var obj = new RiakObject(id, "vroom", "text/plain");
+var options = new RiakPutOptions();
+options.SetW(new Quorum(3));
+options.SetReturnBody(true);
+var result = client.Put(obj, options);
 ```
 
 ```erlang
@@ -680,6 +762,17 @@ obj.key
 'ZPFF18PUqGW9efVou7EHhfE6h8a'
 ```
 
+```csharp
+var id = new RiakObjectId("users", "random_user_keys", null);
+var obj = new RiakObject(id, @"{'user':'data'}",
+    RiakConstants.ContentTypes.ApplicationJson);
+var rslt = client.Put(obj);
+Debug.WriteLine(format: "Generated key: {0}", args: rslt.Value.Key);
+
+// The .NET client will output a random key similar to this:
+Generated key: DWDsnpYSqOU363c0Bqe8hCwAM7Q
+```
+
 ```erlang
 Object = riakc_obj:new({<<"users">>, <<"random_user_keys">>}, undefined, <<"{'user':'data'}">>, <<"application/json">>).
 riakc_pb_socket:put(Pid, Object).
@@ -734,6 +827,16 @@ bucket.delete('genius')
 ```python
 bucket = client.bucket_type('quotes').bucket('oscar_wilde')
 bucket.delete('genius')
+```
+
+```csharp
+var id = new RiakObjectId("users", "random_user_keys", null);
+var obj = new RiakObject(id, @"{'user':'data'}",
+    RiakConstants.ContentTypes.ApplicationJson);
+var rslt = client.Put(obj);
+string key = rslt.Value.Key;
+id = new RiakObjectId("users", "random_user_keys", key);
+var del_rslt = client.Delete(id);
 ```
 
 ```erlang
@@ -804,11 +907,6 @@ Once the type is activated, we can see which properties are associated
 with our bucket type (and, by extension, any bucket that bears that
 type):
 
-```ruby
-bt = client.bucket_type('n_val_of_5')
-bt.props
-```
-
 ```java
 // Fetching the bucket properties of a bucket type/bucket combination
 // must be done using a RiakCluster object rather than a RiakClient.
@@ -820,9 +918,19 @@ cluster.execute(fetchProps);
 BucketProperties props = fetchProps.get().getBucketProperties();
 ```
 
+```ruby
+bt = client.bucket_type('n_val_of_5')
+bt.props
+```
+
 ```python
 bt = BucketType(client, 'n_val_of_5')
 bt.get_properties()
+```
+
+```csharp
+var rslt = client.GetBucketProperties("n_val_of_5", "any_bucket_name");
+RiakBucketProperties props = rslt.Value;
 ```
 
 ```erlang

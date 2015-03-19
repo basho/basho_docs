@@ -11,9 +11,9 @@ keywords: [developers, client, 2i, search, java]
 ## Java Version Setup
 
 For the Java version, please download the source from GitHub by either
-[cloning](https://github.com/alexmoore/taste-of-riak) the source code
+[cloning](https://github.com/basho/taste-of-riak) the source code
 repository or downloading the [current zip of the master
-branch](https://github.com/alexmoore/taste-of-riak/archive/master.zip).
+branch](https://github.com/basho/taste-of-riak/archive/master.zip).
 The code for this chapter is in `/java/Ch02-Schemas-and-Indexes`. You
 may import this code into your favorite editor, or just run it from the
 command line using the commands in `BuildAndRun.sh` if you are running

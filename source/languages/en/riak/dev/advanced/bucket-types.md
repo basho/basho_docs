@@ -279,6 +279,11 @@ bucket = client.bucket('my_bucket')
 bucket.get('my_key')
 ```
 
+```csharp
+var id = new RiakObjectId("my_bucket", "my_key");
+client.Get(id);
+```
+
 ```erlang
 {ok, Object} = riakc_pb_socket:get(Pid,
                                    <<"my_bucket">>,
@@ -319,6 +324,13 @@ bucket1 = client.bucket_type('type1').bucket('my_bucket')
 bucket2 = client.bucket_type('type2').bucket('my_bucket')
 bucket1.get('my_key')
 bucket2.get('my_key')
+```
+
+```csharp
+var id1 = new RiakObjectId("type1", "my_bucket", "my_key");
+var id2 = new RiakObjectId("type2", "my_bucket", "my_key");
+var rslt1 = client.Get(id1);
+var rslt2 = client.Get(id2);
 ```
 
 ```erlang
@@ -369,6 +381,18 @@ bucket1 = client.bucket_type('default').bucket('my_bucket')
 bucket2 = client.bucket('my_bucket')
 bucket1.get('my_key')
 bucket2.get('my_key')
+```
+
+```csharp
+var id1 = new RiakObjectId("default", "my_bucket", "my_key");
+var obj1 = new RiakObject(id1, "value", RiakConstants.ContentTypes.TextPlain);
+client.Put(obj1);
+
+var id2 = new RiakObjectId("my_bucket", "my_key");
+var getRslt = client.Get(id2);
+
+RiakObject obj2 = getRslt.Value;
+// Note: obj1.Value and obj2.Value are equal
 ```
 
 ```erlang
@@ -581,6 +605,12 @@ obj.data = '{ ... user data ... }'
 obj.store()
 ```
 
+```csharp
+var id = new RiakObjectId("no_siblings", "sensitive_user_data", "user19735");
+var obj = new RiakObject(id, "{\"name\":\"Bob\"}");
+var rslt = client.Put(obj);
+```
+
 ```erlang
 Object = riakc_obj:new({<<"no_siblings">>, <<"sensitive_user_data">>},
                        <<"user19735">>,
@@ -641,6 +671,13 @@ obj.data = 'all your base are belong to us'
 obj.store()
 ```
 
+```csharp
+var id = new RiakObjectId("no_siblings", "old_memes", "all_your_base");
+var obj = new RiakObject(id, "all your base are belong to us",
+    RiakConstants.ContentTypes.TextPlain);
+var rslt = client.Put(obj);
+```
+
 ```erlang
 Object = riakc_obj:new({<<"no_siblings">>, <<"old_memes">>},
                        <<"all_your_base">>,
@@ -674,3 +711,4 @@ use four bucket type/bucket pairs:
 
 All four of these pairs are isolated keyspaces. The key `favorite_meme`
 could hold different values in all four bucket type/bucket spaces.
+
