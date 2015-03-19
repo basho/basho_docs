@@ -14,7 +14,7 @@ Create a user account by performing an HTTP `POST` or `PUT` with a
 unique email address and username. Here's an example:
 
 ```curl
-curl -X POST http://localhost:8080/riak-cs-user \
+curl -X POST http://localhost:8080/riak-cs/user \
   -H 'Content-Type: application/json' \
   --data '{"email":"foobar@example.com", "name":"foo bar"}' \
 ```
