@@ -24,18 +24,19 @@ riak:
               - "[[Ruby|Taste of Riak: Ruby]]"
               - "[[Python|Taste of Riak: Python]]"
               - "[[Erlang|Taste of Riak: Erlang]]"
+              - "[[C#|Taste of Riak: CSharp]]"
               # - "[[PHP|Taste of Riak: PHP]]"
               # - "[[C|Taste of Riak: C]]"
               # - "[[OCaml|Taste of Riak: OCaml]]"
               # - "[[Clojure|Taste of Riak: Clojure]]"
-              # - "[[Csharp|Taste of Riak: C-Sharp]]"
               # - "[[Go|Taste of Riak: Go]]"
           - title: A Taste of Querying
             sub:
               - "[[Prerequisites|Taste of Riak: Querying]]"
               - "[[Java|Taste of Riak: Querying with Java]]"
-              - "[[Python|Taste of Riak: Querying with Python]]"
               - "[[Ruby|Taste of Riak: Querying with Ruby]]"
+              - "[[Python|Taste of Riak: Querying with Python]]"
+              - "[[C#|Taste of Riak: Querying with CSharp]]"
               - "[[Erlang|Taste of Riak: Querying with Erlang]]"
               # - "[[PHP|Taste of Riak: Querying with PHP]]"
           - title: Object Modeling
@@ -44,6 +45,7 @@ riak:
               - "[[Java|Taste of Riak: Object Modeling with Java]]"
               - "[[Ruby|Taste of Riak: Object Modeling with Ruby]]"
               - "[[Python|Taste of Riak: Object Modeling with Python]]"
+              - "[[C#|Taste of Riak: Object Modeling with CSharp]]"
               - "[[Erlang|Taste of Riak: Object Modeling with Erlang]]"
       - title: "Basic Usage"
         sub:
