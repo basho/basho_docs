@@ -14,7 +14,7 @@ To try this flavor of Riak, a working installation of the .NET Framework or Mono
 
 ### Client Setup
 
-Install [the Riak .NET Client](https://github.com/basho-labs/riak-dotnet-client/wiki/Installation) through [NuGet](http://nuget.org/packages/RiakClient) or the Visual Studio NuGet package manager.
+Install [the Riak .NET Client](https://github.com/basho/riak-dotnet-client/wiki/Installation) through [NuGet](http://nuget.org/packages/RiakClient) or the Visual Studio NuGet package manager.
 
 <div class="note">
 <div class="title">Configuring for a remote cluster</div>
@@ -191,7 +191,7 @@ else
 
 Just like other operations, we check the results that have come back from Riak to make sure the object was successfully deleted. Of course, if you don't care about that, you can just ignore the result.
 
-The Riak .NET Client has a lot of additional functionality that makes it easy to build rich, complex applications with Riak. Check out the [documentation](https://github.com/basho-labs/riak-dotnet-client/wiki) to learn more about working with the Riak .NET Client and Riak.
+The Riak .NET Client has a lot of additional functionality that makes it easy to build rich, complex applications with Riak. Check out the [documentation](https://github.com/basho/riak-dotnet-client/wiki) to learn more about working with the Riak .NET Client and Riak.
 
 ## Next Steps
 

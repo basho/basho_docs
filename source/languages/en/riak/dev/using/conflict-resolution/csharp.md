@@ -109,4 +109,4 @@ Debug.Assert(updatedObject.Siblings.Count == 0);
 ```
 
 
-[riak_dotnet_client]: https://github.com/basho-labs/riak-dotnet-client
+[riak_dotnet_client]: https://github.com/basho/riak-dotnet-client

@@ -151,7 +151,7 @@ class User:
  * The C# example uses a User model class and a UserRepository class wired
  * together via INotifyPropertyChanged events and handling those events
  * See the entire example in the RiakClientExamples project here:
- * https://github.com/basho-labs/riak-dotnet-client/tree/develop/src/RiakClientExamples/Dev/DataModeling
+ * https://github.com/basho/riak-dotnet-client/tree/develop/src/RiakClientExamples/Dev/DataModeling
  */
 public class User : IModel, INotifyPropertyChanged
 {
@@ -351,7 +351,7 @@ class User:
 /*
  * The C# example uses a User model class and a User Repository class
  * See the entire example in the RiakClientExamples project here:
- * https://github.com/basho-labs/riak-dotnet-client/tree/develop/src/RiakClientExamples/Dev/DataModeling/UserRepository.cs
+ * https://github.com/basho/riak-dotnet-client/tree/develop/src/RiakClientExamples/Dev/DataModeling/UserRepository.cs
  */
 ```
 
@@ -450,7 +450,7 @@ class User:
 /*
  * The C# example uses a User model class and a User Repository class
  * See the entire example in the RiakClientExamples project here:
- * https://github.com/basho-labs/riak-dotnet-client/tree/develop/src/RiakClientExamples/Dev/DataModeling
+ * https://github.com/basho/riak-dotnet-client/tree/develop/src/RiakClientExamples/Dev/DataModeling
  */
 // Changes to UserRepository.Save method:
 if (EnumerableUtil.NotNullOrEmpty(model.Interests))
@@ -688,7 +688,7 @@ class User:
 ```csharp
 /*
  * See the entire example in the RiakClientExamples project here:
- * https://github.com/basho-labs/riak-dotnet-client/tree/develop/src/RiakClientExamples/Dev/DataModeling/UserRepository.cs
+ * https://github.com/basho/riak-dotnet-client/tree/develop/src/RiakClientExamples/Dev/DataModeling/UserRepository.cs
  */
 
 public void UpgradeAccount()
@@ -825,7 +825,7 @@ class User:
 ```csharp
 /*
  * See the entire example in the RiakClientExamples project here:
- * https://github.com/basho-labs/riak-dotnet-client/tree/develop/src/RiakClientExamples/Dev/DataModeling/UserRepository.cs
+ * https://github.com/basho/riak-dotnet-client/tree/develop/src/RiakClientExamples/Dev/DataModeling/UserRepository.cs
  */
 
 public override User Get(string key, bool notFoundOK = false)
