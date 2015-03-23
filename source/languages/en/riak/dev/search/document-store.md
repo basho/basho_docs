@@ -298,7 +298,7 @@ class BlogPost:
 ```csharp
 /*
  * Please see the code in the RiakClientExamples project:
- * https://github.com/basho-labs/riak-dotnet-client/tree/develop/src/RiakClientExamples/Dev/Search
+ * https://github.com/basho/riak-dotnet-client/tree/develop/src/RiakClientExamples/Dev/Search
  */
 ```
 

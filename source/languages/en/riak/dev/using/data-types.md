@@ -1737,7 +1737,7 @@ map.reload().maps['annika_info'].registers['first_name'].value
 // Note: At this point in time there is no convienience method for
 // retrieving a value from a map. Please see the RiakClientExamples
 // project for code samples.
-// https://github.com/basho-labs/riak-dotnet-client/tree/develop/src/RiakClientExamples
+// https://github.com/basho/riak-dotnet-client/tree/develop/src/RiakClientExamples
 ```
 
 ```erlang
@@ -1983,7 +1983,7 @@ map.reload().maps['annika_info'].flags['enterprise_plan'].value
 // Note: At this point in time there is no convienience method for
 // retrieving a value from a map. Please see the RiakClientExamples
 // project for code samples
-// https://github.com/basho-labs/riak-dotnet-client/tree/develop/src/RiakClientExamples
+// https://github.com/basho/riak-dotnet-client/tree/develop/src/RiakClientExamples
 ```
 
 ```erlang

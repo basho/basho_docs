@@ -383,7 +383,7 @@ language:
 * [Java](https://github.com/basho/riak-java-client)
 * [Ruby](https://github.com/basho/riak-ruby-client)
 * [Python](https://github.com/basho/riak-python-client)
-* [.NET](https://github.com/basho-labs/riak-dotnet-client)
+* [.NET](https://github.com/basho/riak-dotnet-client)
 * [Erlang](https://github.com/basho/riak-erlang-client)
 
 In each of the above docs, you'll find detailed client installation and
@@ -566,7 +566,7 @@ the navbar on the left).
 ### .NET
 
 When using the [.NET
-client](https://github.com/basho-labs/riak-dotnet-client), you should
+client](https://github.com/basho/riak-dotnet-client), you should
 specify the connection information for all of the nodes in your cluster
 in your project's `App.config` file. Let's say that you're running a
 three-node cluster with all nodes listening on port 8087 and on the IP

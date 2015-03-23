@@ -242,7 +242,7 @@ Language | Docs
 [Java](https://github.com/basho/riak-java-client) | [Javadoc](http://basho.github.io/riak-java-client/2.0.0-SNAPSHOT/)
 [Ruby](https://github.com/basho/riak-ruby-client) | [API](http://basho.github.io/riak-ruby-client)
 [Python](https://github.com/basho/riak-python-client) | [Sphinx](http://basho.github.io/riak-python-client/)
-[.NET](https://github.com/basho-labs/riak-dotnet-client) | [wiki](https://github.com/basho-labs/riak-dotnet-client/wiki), [API](http://basho-labs.github.io/riak-dotnet-client-api/)
+[.NET](https://github.com/basho/riak-dotnet-client) | [wiki](https://github.com/basho/riak-dotnet-client/wiki), [API](http://basho.github.io/riak-dotnet-client-api/)
 [Erlang](https://github.com/basho/riak-erlang-client) | [EDocs](http://basho.github.io/riak-erlang-client/)
 
 You will also notice that our documentation now features a wide variety
