@@ -27,10 +27,15 @@ keywords: [operator, authentication]
     testing scenarios.
 
 Selecting an authentication method is done by adding or changing the
-`auth_module` key in the Riak CS `app.config` file. For example, to
+`auth_module` key in the Riak CS `riak-cs.conf` or `app.config` file. For example, to
 instruct Riak CS to use S3-style request signing as the means of
-authentication, ensure that the following is contained in the
-`app.config` in the `riak_cs` section:
+authentication, ensure the following is contained in the `riak-cs.conf` file:
+
+```riak-cs.conf
+auth_module = riak_cs_s3_auth
+```
+
+or alternatively, via `app.config` in the `riak_cs` section:
 
 ```appconfig
 {riak_cs, [
