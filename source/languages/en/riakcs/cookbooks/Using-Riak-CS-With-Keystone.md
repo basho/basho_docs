@@ -47,35 +47,78 @@ based on user feedback, support may be added in the future.
 
 #### API
 
-Set the API using the `rewrite_module` configuration option. To use the
-S3 API, insert the following:
+Set the API using the `rewrite_module` configuration in the Riak CS
+`riak-cs.conf` file, or the old-style `app.config` file in the `riak_cs`
+section.
 
-```erlang
-{rewrite_module, riak_cs_s3_rewrite}
+To use the S3 API, insert the following:
+
+```riakcsconf
+rewrite_module = riak_cs_s3_rewrite
+```
+
+```appconfig
+{riak_cs, [
+           %% Other configs
+           {rewrite_module, riak_cs_s3_rewrite},
+           %% Other configs
+          ]}
 ```
 
 To use the OpenStack object storage API:
 
-```erlang
-{rewrite_module, riak_cs_oos_rewrite}
+```riakcsconf
+rewrite_module = riak_cs_oos_rewrite
+```
+
+```appconfig
+{riak_cs, [
+           %% Other configs
+           {rewrite_module, riak_cs_oos_rewrite},
+           %% Other configs
+          ]}
 ```
 
 #### Authentication Module
 
-Set the authentication module to specify the Keystone authentication
-module:
+Set the authentication module using the `auth_module` configuration in the Riak
+CS `riak-cs.conf` file, or the old-style `app.config` file in the `riak_cs`
+section.
 
-```erlang
-{auth_module, riak_cs_keystone_auth}
+To specify the Keystone authentication module:
+
+```riakcsconf
+auth_module = riak_cs_keystone_auth
+```
+
+```appconfig
+{riak_cs, [
+           %% Other configs
+           {auth_module, riak_cs_keystone_auth},
+           %% Other configs
+          ]}
 ```
 
 #### Operator Roles
 
-You may optionally override the default list of valid operator roles. The
-default roles are `admin` and `swiftoperator`, but others may be used:
+You may optionally override the default list of valid operator roles in the
+`advanced.config` file, or the`app.config` file. The default roles are `admin`
+and `swiftoperator`, but others may be used:
 
-```erlang
-{os_operator_roles,  [<<"admin">>, <<"swiftoperator">>, <<"cinnamon">>]}
+```advancedconfig
+ {riak_cs, [
+            %% Other configs
+            {os_operator_roles, [<<"admin">>, <<"swiftoperator">>, <<"cinnamon">>]},
+            %% Other configs
+           ]}
+```
+
+```appconfig
+ {riak_cs, [
+            %% Other configs
+            {os_operator_roles, [<<"admin">>, <<"swiftoperator">>, <<"cinnamon">>]},
+            %% Other configs
+           ]}
 ```
 
 **Note**: Each role should be formatted as shown above, with two angle
@@ -83,12 +126,13 @@ brackets preceding and following each role value.
 
 #### Root Host
 
-Make sure that the value of the `cs_root_host` key in the Riak CS
-configuration matches the root host used for the object store in the
-Keystone configuration.
+Make sure that the value of the `root_host` key in the Riak CS `riak-cs.conf`
+file, or the `cs_root_host` key in the old-style `advanced.config` or
+`app.config` files matches the root host used for the object store in the
+Keystone configurion.
 
-For example, given the following config snippet from a Keystone
-configuration file, the value for `cs_root_host` should be set to
+For example, given the following config snippet from a Keystone configuration
+file, the value for `root_host` (or `cs_root_host`) should be set to
 `object.store.host`:
 
 ```config
@@ -97,31 +141,73 @@ catalog.RegionOne.object_store.adminURL = http://object.store.host/
 catalog.RegionOne.object_store.internalURL = http://object.store.host/v1/AUTH_$(tenant_id)s
 ```
 
-The entry in the Riak CS config would be as follows:
+The entry in the Riak CS configuration file would be as follows:
 
-```erlang
-{cs_root_host, "object.store.host"}
+```riakcsconf
+root_host = object.store.host
+```
+
+```advancedconfig
+ {riak_cs, [
+            %% Other configs
+            {cs_root_host, "object.store.host"},
+            %% Other configs
+           ]}
+```
+
+```appconfig
+ {riak_cs, [
+            %% Other configs
+            {cs_root_host, "object.store.host"},
+            %% Other configs
+           ]}
 ```
 
 #### Admin Token
 
-Riak CS needs to know the administration token so that it can
-successfully validate user tokens with Keystone. If no value for
-`os_admin_token` is specified, the default value is `ADMIN`. The value
-can be set by adding the following to the Riak CS configuration file:
+Riak CS needs to know the administration token so that it can successfully
+validate user tokens with Keystone. If no value for `os_admin_token` is
+specified, the default value is `ADMIN`. The value can be set by adding the
+following to the `riak_cs` section of the Riak CS `advanced.config` or
+`app.config` files:
 
-```erlang
-{os_admin_token, "SNARFSNARFSNARF"}
+```advancedconfig
+ {riak_cs, [
+            %% Other configs
+            {os_admin_token, "SNARFSNARFSNARF"},
+            %% Other configs
+           ]}
+```
+
+```appconfig
+ {riak_cs, [
+            %% Other configs
+            {os_admin_token, "SNARFSNARFSNARF"},
+            %% Other configs
+           ]}
 ```
 
 #### Auth URL
 
-Riak CS also needs to know the authentication URL to use to communicate
-with Keystone. The default value is `"http://localhost:5000/v2.0"`. To
-override this value add the following to the Riak CS configuration file:
+Riak CS also needs to know the authentication URL to use to communicate with
+Keystone. The default value is `"http://localhost:5000/v2.0"`. To override this
+value add the following to the `riak_cs` section of the Riak CS
+`advanced.config` or `app.config` files:
 
-```erlang
-{os_auth_url, "http://host.with.the.most.com/5000/v2.0"}
+```advancedconfig
+ {riak_cs, [
+            %% Other configs
+            {os_auth_url, "http://host.with.the.most.com:5000/v2.0"},
+            %% Other configs
+           ]}
+```
+
+```appconfig
+ {riak_cs, [
+            %% Other configs
+            {os_auth_url, "http://host.with.the.most.com:5000/v2.0"},
+            %% Other configs
+           ]}
 ```
 
 #### Keystone Resources
@@ -133,30 +219,67 @@ need arises.
 
 * Token Resources
 
-The default is `"tokens/"`. To override this, add the following to the
-Riak CS configuration file:
+The default is `"tokens/"`. To override this, add the following to the `riak_cs`
+section of the Riak CS `advanced.config` or `app.config` files:
 
-```erlang
-{os_tokens_resource, "mytokens/"}
+```advancedconfig
+ {riak_cs, [
+            %% Other configs
+            {os_tokens_resource, "mytokens/"},
+            %% Other configs
+           ]}
+```
+
+```appconfig
+ {riak_cs, [
+            %% Other configs
+            {os_tokens_resource, "mytokens/"},
+            %% Other configs
+           ]}
 ```
 
 * S3 Token Resources
 
-This resource is only used when the S3 API is used in conjunction with
-Keystone authentication. The default is `"s3tokens/"`. To override this,
-add the following to the Riak CS configuration file:
+This resource is only used when the S3 API is used in conjunction with Keystone
+authentication. The default is `"s3tokens/"`. To override this, add the
+following to the `riak_cs` section of the Riak CS `advanced.config` or
+`app.config` files:
 
-```erlang
-{os_s3_tokens_resource, "mys3tokens/"}
+```advancedconfig
+ {riak_cs, [
+            %% Other configs
+            {os_s3_tokens_resource, "mys3tokens/"},
+            %% Other configs
+           ]}
+```
+
+```appconfig
+ {riak_cs, [
+            %% Other configs
+            {os_s3_tokens_resource, "mys3tokens/"},
+            %% Other configs
+           ]}
 ```
 
 * User Resources
 
-The default is `"users/"`. To override this, add the following to the
-Riak CS configuration file:
+The default is `"users/"`. To override this, add the following to the `riak_cs`
+section of the Riak CS `advanced.config` or `app.config` files:
 
-```erlang
-{os_users_resource, "users/"}
+```advancedconfig
+ {riak_cs, [
+            %% Other configs
+            {os_users_resource, "users/"},
+            %% Other configs
+           ]}
+```
+
+```appconfig
+ {riak_cs, [
+            %% Other configs
+            {os_users_resource, "users/"},
+            %% Other configs
+           ]}
 ```
 
 ## Testing
@@ -204,12 +327,31 @@ Keystone.
 ### Testing Openstack API and Keystone authentication
 
 1. Start Riak, Riak CS, and Stanchion. Make sure that the values for the
-   `rewrite_module` and `auth_module` options in the Riak CS
-   `app.config` file are as follows:
+   `rewrite_module` and `auth_module` keys in the Riak CS `riak-cs.conf` file,
+   or the old-style `advanced.config` or `app.config` file in the `riak_cs`
+   section, are set as follows:
 
-    ```erlang
-    {rewrite_module, riak_cs_oos_rewrite},
-    {auth_module, riak_cs_keystone_auth},
+    ```riakcsconf
+    rewrite_module = riak_cs_oos_rewrite
+    auth_module = riak_cs_keystone_auth
+    ```
+
+    ```advancedconfig
+    {riak_cs, [
+               %% Other configs
+               {rewrite_module, riak_cs_oos_rewrite},
+               {auth_module, riak_cs_keystone_auth},
+               %% Other configs
+              ]}
+    ```
+
+    ```appconfig
+    {riak_cs, [
+               %% Other configs
+               {rewrite_module, riak_cs_oos_rewrite},
+               {auth_module, riak_cs_keystone_auth},
+               %% Other configs
+              ]}
     ```
 
 1. Get an auth token for the `test` user to use in requests to Riak CS:
@@ -250,7 +392,7 @@ Keystone.
 
 1. Put an object into the bucket
 
-    ```curl 
+    ```curl
     curl -X PUT \
       -H 'X-Auth-Token: $ID' \
       --data 'abcdefghi123456789' \
@@ -290,12 +432,31 @@ Keystone.
 
 1. If Riak and Stanchion are not already running, start them now.
 
-1. Edit the Riak CS `app.config` file and restart Riak CS. The values
-for `rewrite_module` and `auth_module` should be be as follows:
+1. Edit the Riak CS `riak-cs.conf`, or the old-style `advanced.config` or
+   `app.config` file and restart Riak CS. The values for `rewrite_module` and
+   `auth_module` should be set as follows:
 
-    ```erlang
-    {rewrite_module, riak_cs_s3_rewrite},
-    {auth_module, riak_cs_keystone_auth},
+    ```riakcsconf
+    rewrite_module = riak_cs_s3_rewrite
+    auth_module = riak_cs_keystone_auth
+    ```
+
+    ```advancedconfig
+     {riak_cs, [
+                %% Other configs
+                {rewrite_module, riak_cs_s3_rewrite},
+                {auth_module, riak_cs_keystone_auth},
+                %% Other configs
+               ]}
+    ```
+
+    ```appconfig
+     {riak_cs, [
+                %% Other configs
+                {rewrite_module, riak_cs_s3_rewrite},
+                {auth_module, riak_cs_keystone_auth},
+                %% Other configs
+               ]}
     ```
 
 1. Use the values of `access` and `secret` from the EC2 credentials
