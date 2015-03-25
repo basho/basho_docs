@@ -138,19 +138,29 @@ resource modules.
 * [Documentation](http://docs.openstack.org/api/openstack-object-storage/1.0/content/index.html)
 * [[Mapping|Mapping From OOS API to Riak CS internal API]]
 
-Selecting an API is done by adding or changing the `rewrite_module` key
-in the Riak CS `riak-cs.conf` file.  For example, to instruct Riak CS to
-present the S3 API, ensure the following is contained in the
-`riak-cs.conf` file:
+Selecting an API is done by adding or changing the `rewrite_module` key in the
+Riak CS `riak-cs.conf` file, or the old-style `advanced.config` or `app.config`
+files in the `riak_cs` section. For example, to instruct Riak CS to present the
+S3 API, ensure the following is contained in your configuration file:
 
-```riak-cs.conf
+```riakcsconf
 rewrite_module = riak_cs_s3_rewrite
 ```
 
-or alternatively, using a legacy `app.config`: 
+```advancedconfig
+ {riak_cs, [
+            %% Other configs
+            {rewrite_module, riak_cs_s3_rewrite},
+            %% Other configs
+           ]}
+```
 
-```erlang
-{rewrite_module, riak_cs_s3_rewrite}
+```appconfig
+ {riak_cs, [
+            %% Other configs
+            {rewrite_module, riak_cs_s3_rewrite},
+            %% Other configs
+           ]}
 ```
 
 The S3 API is the default that is set in the configuration that is
