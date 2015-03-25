@@ -139,9 +139,15 @@ resource modules.
 * [[Mapping|Mapping From OOS API to Riak CS internal API]]
 
 Selecting an API is done by adding or changing the `rewrite_module` key
-in the Riak CS `app.config` file. For example, to instruct Riak CS to
+in the Riak CS `riak-cs.conf` file.  For example, to instruct Riak CS to
 present the S3 API, ensure the following is contained in the
-`app.config` in the `riak_cs` section:
+`riak-cs.conf` file:
+
+```riak-cs.conf
+rewrite_module = riak_cs_s3_rewrite
+```
+
+or alternatively, using a legacy `app.config`: 
 
 ```erlang
 {rewrite_module, riak_cs_s3_rewrite}
