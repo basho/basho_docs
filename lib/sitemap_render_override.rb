@@ -296,6 +296,8 @@ module SitemapRenderOverride
           "riak.conf"
         when "riakcsconf"
           "riak-cs.conf"
+        when "stanchionconf"
+          "stanchion.conf"
         when "advancedconfig"
           "advanced.config"
         else
@@ -312,6 +314,8 @@ module SitemapRenderOverride
           code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])riakconf(["']\>)/, '\\1matlab\\2')
         when "riakcsconf"
           code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])riakcsconf(["']\>)/, '\\1matlab\\2')
+        when "stanchionconf"
+          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])stanchionconf(["']\>)/, '\\1matlab\\2')
         when "vmargs"
           code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])vmargs(["']\>)/, '\\1ini\\2')
         when "protobuf"
