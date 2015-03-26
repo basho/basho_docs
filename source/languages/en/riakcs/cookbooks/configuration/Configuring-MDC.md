@@ -33,11 +33,27 @@ more information.
 
 ### Replication Version 3 Configuration
 
-For each Riak node in the cluster, update the `riak_repl` section of
-`app.config` by appending the `{proxy_get, enabled}` setting as shown in
-the following example.
+For each Riak node in the cluster, update the `mdc.proxy_get` setting in
+`riak.conf`, or by appending the `{proxy_get, enabled}` setting to the
+`riak_repl` section of the old-style `advanced.config` or `app.config` files,
+ as shown in the following example:
 
-```erlang
+```riakconf
+mdc.proxy_get = on
+```
+
+```advancedconfig
+{riak_repl, [
+             %% Other configs
+             {fullsync_on_connect, true},
+             {fullsync_interval, 360},
+             {data_root, "/var/lib/riak/data/riak_repl"},
+             {proxy_get, enabled}
+             %% Other configs
+            ]}
+```
+
+```appconfig
 {riak_repl, [
              %% Other configs
              {fullsync_on_connect, true},
@@ -68,15 +84,21 @@ See also:
 
 ## Riak CS Configuration
 
-For each Riak CS node in the cluster, update the `riak_cs` section of
-the `app.config` by appending the `{proxy_get, enabled}` setting as
-shown in the following example.
+For each Riak CS node in the cluster, update the `riak_cs` section of the
+`advanced.config`, or the old-style `app.config` files, by appending the
+`proxy_get` setting as shown in the following example:
 
-```erlang
+```advancedconfig
 {riak_cs, [
            %% Other configs
-           {cs_ip, "127.0.0.1"},
-           {cs_port, 8080 },
+           {proxy_get, enabled},
+           %% Other configs
+          ]}
+```
+
+```appconfig
+{riak_cs, [
+           %% Other configs
            {proxy_get, enabled},
            %% Other configs
           ]}
