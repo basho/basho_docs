@@ -17,7 +17,7 @@ You can install Riak CS on a single node (for development purposes) or
 using an automated deployment tool. Any Riak CS installation involves
 three components, all of which must be installed separately:
 
-* [Riak](http://docs.basho.com/riak/1.4.12/) --- The distributed
+* [Riak](http://docs.basho.com/riak/2.0.5/) --- The distributed
   database on top of which Riak CS is built
 * Riak CS itself
 * [[Stanchion]] --- An application used to manage [[globally unique
@@ -32,14 +32,9 @@ only one node.
 
 ## Version Compatibility
 
-<div class="note">
-<div class="title">Riak CS incompatible with Riak 2.0</div>
-Riak CS cannot currently be used with Riak versions 2.0 and later. A
-version compatibility table can be found immediately below.
-</div>
-
 The following combinations of Riak CS, Riak, and Stanchion are known to
-function well in production environments.
+function well in production environments. Riak CS 2.0.0 requires
+Riak 2.0.5 or above
 
 Riak CS | Riak  | Stanchion
 :-------|:------|:---------
@@ -105,7 +100,7 @@ following this guide for installing Riak for Riak CS.
 
 Riak CS and Stanchion packages are available on the [[Download Riak CS]]
 page. Similarly, Riak packages are available on the [Download
-Riak](http://docs.basho.com/riak/1.4.10/downloads/) page.
+Riak](http://docs.basho.com/riak/2.0.5/downloads/) page.
 
 After downloading Riak CS, Stanchion, and Riak, install them using your
 operating system's package management commands.
@@ -297,8 +292,8 @@ uniqueness.
 Because only one Stanchion instance can be used at any given time, it's
 not uncommon for a load balancer to be used to handle Stanchion failover
 in the event that the primary Stanchion node becomes unavailable. You
-can achieve this by specifying a load balancer IP as the Stanchion UP
-in each Riak CS node's `app.config`. This load balancer must be
+can achieve this by specifying a load balancer IP as the Stanchion IP
+in each Riak CS node's `riak-cs.conf`. This load balancer must be
 configured to send all requests to a single Stanchion node, failing over
 to a secondary Stanchion node if the primary is unavailable. More
 details can be found in [[Specifying the Stanchion Node|Configuring Riak
