@@ -162,112 +162,101 @@ package you are installing.
 
 You will need to make changes to several configuration files.
 
-#### `/etc/riak/app.config`
+#### `/etc/riak/riak.conf`
 
-First, add this line to the `riak_core` section, which looks like this:
+Be sure the default bucket properties allow siblings, and that the storage
+backend is not set:
 
-```appconfig
-{riak_core, [
-             %% Settings go here
-            ]}
+```riakconf
+## Delete this line
+storage_backend = . . .
+. . .
+buckets.default.allow_mult = true
 ```
 
-Add this line to that section:
+Next, you need to expose the necessary Riak CS modules to Riak and instruct Riak
+to use the custom backend provided by Riak CS. You'll have to use the old-style
+`/etc/riak/advanced.config` for these settings. The file should look like:
 
-```appconfig
+```advancedconfig
+[
+ {riak_core, [
+              {add_paths, ["/usr/lib/riak-cs/lib/riak_cs-{{VERSION}}/ebin"]},
+              {storage_backend, riak_cs_kv_multi_backend},
+              {multi_backend_prefix_list, [{<<"0b:">>, be_blocks}]},
+              {multi_backend_default, be_default},
+              {multi_backend, [
+                  {be_default, riak_kv_eleveldb_backend, [
+                      {max_open_files, 50},
+                      {data_root, "/var/lib/riak/leveldb"}
+                  ]},
+                  {be_blocks, riak_kv_bitcask_backend, [
+                      {data_root, "/var/lib/riak/bitcask"}
+                  ]}
+              ]},
+              %% Other configs
+              ]},
+  %% Other sections
+]
 
-{riak_core, [
-             {default_bucket_props, [{allow_mult, true}]}
-            ]}
-```
-
-Riak ships with Bitcask as the default backend. You'll need to change
-this to the custom Riak CS backend by changing the following line in
-`/etc/riak/app.config`:
-
-```appconfig
-{riak_core, [
-             %% Other configs
-             {storage_backend, riak_kv_bitcask_backend}
-             %% Other configs
-            ]}
-```
-
-to
-
-```appconfig
-{add_paths, ["/usr/lib/riak-cs/lib/riak_cs-{{VERSION}}/ebin"]},
-{storage_backend, riak_cs_kv_multi_backend},
-{multi_backend_prefix_list, [{<<"0b:">>, be_blocks}]},
-{multi_backend_default, be_default},
-{multi_backend, [
-    {be_default, riak_kv_eleveldb_backend, [
-        {max_open_files, 50},
-        {data_root, "/var/lib/riak/leveldb"}
-    ]},
-    {be_blocks, riak_kv_bitcask_backend, [
-        {data_root, "/var/lib/riak/bitcask"}
-    ]}
-]},
-```
-
-<div class="note">
-<div class="title">Note on OS-specific paths</div>
-The path for `add_paths` may be `/usr/lib/riak-cs` or
-`/usr/lib64/riak-cs` depending on your operating system.
+<div class="note"><div class="title">Note on OS-specific paths</div>
+The path for `add_paths` may be `/usr/lib/riak-cs` or `/usr/lib64/riak-cs`
+depending on your operating system.
 </div>
 
-Next, set your interface IP addresses in the `app.config` file. In a
+Next, set your interface IP addresses in the `riak.conf` file. In a
 production environment, you'd likely have multiple NICs, but for this
 test cluster, assume one NIC with an example IP address of 10.0.2.10.
 
-Change the following lines in `/etc/riak/app.config`
+Change the following lines in `/etc/riak/riak.conf`
 
-```appconfig
-{http, [ {"127.0.0.1", 8098 } ]}
-{pb,   [ {"127.0.0.1", 8087 } ]}
+```riakconf
+listener.http.internal = 127.0.0.1:8098
+listener.protobuf.internal = 127.0.0.1:8097
 ```
 
 to
 
-```appconfig
-{http, [ {"10.0.2.10", 8098 } ]}
-{pb,   [ {"10.0.2.10", 8087 } ]}
+```riakconf
+listener.http.internal = 10.0.2.10:8098
+listener.protobuf.internal = 10.0.2.10:8097
 ```
 
-#### `/etc/riak-cs/app.config`
+#### `/etc/riak-cs/riak-cs.conf`
 
-Change the following lines in `/etc/riak-cs/app.config`
+Change the following lines in `/etc/riak-cs/riak-cs.conf`
 
-```appconfig
-{cs_ip, "127.0.0.1"}
-{riak_ip, "127.0.0.1"}
-{stanchion_ip, "127.0.0.1"}
-```
-
-to
-
-```appconfig
-{cs_ip, "10.0.2.10"}
-{riak_ip, "10.0.2.10"}
-{stanchion_ip, "10.0.2.10"}
-```
-
-The `cs_ip` could also be set to `0.0.0.0 `if you prefer Riak CS to
-listen on all interfaces.
-
-Change the following lines in `/etc/stanchion/app.config`
-
-```appconfig
-    {stanchion_ip, "127.0.0.1"}
-    {riak_ip, "127.0.0.1"}
+```riakcsconf
+listener = 127.0.0.1:8080
+riak_host = 127.0.0.1:8087
+stanchion_host = 127.0.0.1:8085
 ```
 
 to
 
-```appconfig
-{stanchion_ip, "10.0.2.10"}
-{riak_ip, "10.0.2.10"}
+```riakcsconf
+listener = 10.0.2.10:8080
+riak_host = 10.0.2.10:8087
+stanchion_host = 10.0.2.10:8085
+```
+
+The `listener` could also be set to `0.0.0.0 `if you prefer Riak CS to listen on
+all interfaces.
+
+#### `/etc/stanchion/stanchion.conf`
+
+Change the following lines in `/etc/stanchion/stanchion.conf`
+
+```stanchionconf
+stanchion_host = 127.0.0.1:8085
+riak_host = 127.0.0.1:8087
+```
+
+to
+
+```stanchionconf
+stanchion_host = 10.0.2.10:8085
+riak_host = 10.0.2.10:8087
 ```
 
 #### Service names
@@ -277,40 +266,40 @@ this or set hostnames. If you choose to set hostnames, you should ensure
 that the hostnames are resolvable by DNS or set in `/etc/hosts` on all
 nodes. **Note**: Service names require at least one period in the name.
 
-Change the following line in `/etc/riak/vm.args`
+Change the following line in `/etc/riak/riak.conf`
 
-```vmargs
--name riak@127.0.0.1
+```riakconf
+nodename = riak@127.0.0.1
 ```
 
 to
 
-```vmargs
--name riak@10.0.2.10
+```riakconf
+nodename = riak@10.0.2.10
 ```
 
-Then change the following line in `/etc/riak-cs/vm.args`
+Then change the following line in `/etc/riak-cs/riak-cs.conf`
 
-```vmargs
--name riak-cs@127.0.0.1
-```
-
-to
-
-```vmargs
--name riak-cs@10.0.2.10
-```
-
-Change the following line in `/etc/stanchion/vm.args`
-
-```vmargs
--name stanchion@127.0.0.1
+```riakcsconf
+nodename = riak-cs@127.0.0.1
 ```
 
 to
 
-```vmargs
--name stanchion@10.0.2.10
+```riakcsconf
+nodename = riak-cs@10.0.2.10
+```
+
+Change the following line in `/etc/stanchion/stanchion.conf`
+
+```stanchionconf
+nodename = stanchion@127.0.0.1
+```
+
+to
+
+```stanchionconf
+nodename = stanchion@10.0.2.10
 ```
 
 #### Start the services
@@ -357,11 +346,10 @@ To create an admin user, we need to grant permission to create new users
 to the `anonymous` user. This configuration setting is only required on
 a single Riak CS node.
 
-Add this entry to `/etc/riak-cs/app.config` immediately before the
-`{cs_ip, ...}` entry:
+Add this entry to `/etc/riak-cs/riak-cs.conf`:
 
-```appconfig
-{anonymous_user_creation, true},
+```riakcsconf
+anonymous_user_creation = on
 ```
 
 Then run `riak-cs restart` to put the new config setting into effect.
@@ -399,44 +387,43 @@ In this case, those keys are:
 * **Secret key** -- `RF7WD0b3RjfMK2cTaPfLkpZGbPDaeALDtqHeMw==`
 
 You can use this same process to create additional Riak CS users. To
-make this user the admin user, we set these keys in the Riak CS and
-Stanchion `app.config` files.
+make this user the admin user, we set these keys in the Riak CS
+`riak-cs.conf` and `stanchion.conf` files.
 
-<div class="note">
-<div class="title">Note on admin keys</div>
+<div class="note"><div class="title">Note on admin keys</div>
 The same admin keys will need to be set on all nodes of the cluster.
 </div>
 
-Change the following lines in `/etc/riak-cs/app.config` on all Riak CS
+Change the following lines in `/etc/riak-cs/riak-cs.conf` on all Riak CS
 machines:
 
-```appconfig
-{admin_key, "admin-key"}
-{admin_secret, "admin-secret"}
+```riakcsconf
+admin.key = admin-key
+admin.secret = admin-secret
 ```
 
 to
 
-```appconfig
-{admin_key, "5N2STDSXNV-US8BWF1TH"}
-{admin_secret, "RF7WD0b3RjfMK2cTaPfLkpZGbPDaeALDtqHeMw=="}
+```riakcsconf
+admin.key = 5N2STDSXNV-US8BWF1TH
+admin.secret = RF7WD0b3RjfMK2cTaPfLkpZGbPDaeALDtqHeMw==
 ```
 
-**Note**: Make sure to remove the `anonymous_user_creation` setting at
-this point.
+**Note**: Make sure to set the `anonymous_user_creation` setting to
+`off` at this point.
 
-Change the following lines in `/etc/stanchion/app.config`
+Change the following lines in `/etc/stanchion/stanchion.conf`
 
-```appconfig
-{admin_key, "admin-key"}
-{admin_secret, "admin-secret"}
+```stanchion.conf
+admin.key = admin-key
+admin.secret = admin-secret
 ```
 
 to
 
-```appconfig
-{admin_key, "5N2STDSXNV-US8BWF1TH"}
-{admin_secret, "RF7WD0b3RjfMK2cTaPfLkpZGbPDaeALDtqHeMw=="}
+```stanchion.conf
+admin.key = 5N2STDSXNV-US8BWF1TH
+admin.secret = RF7WD0b3RjfMK2cTaPfLkpZGbPDaeALDtqHeMw==
 ```
 
 Now we have to restart the services for the change to take effect:
