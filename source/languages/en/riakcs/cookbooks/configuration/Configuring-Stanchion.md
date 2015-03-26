@@ -8,60 +8,94 @@ audience: intermediate
 keywords: [operator, configuration]
 ---
 
-On the Stanchion node, you set the IP address and port for listening and
-the Riak IP address and port. On each Riak CS node, you have to set
-three Stanchion configuration properties.
+In your cluster, you must include one -- and only one -- Stanchion node. All the
+Riak CS nodes in that cluster must then be configured to communicate with that
+Stanchion node so that the cluster is able to track and negotiate
+causally-sensitive operations.
 
-## Specifying the Stanchion IP Address and Port
+All of the settings used by the Stanchion node are stored in the
+`stanchion.conf` file, which is located in the `/etc/riak-cs` folder on most
+operating systems.
 
-If you have a single node, you don't have to change the settings for the
-address to listen on because Stanchion simply listens to the requests
-from the local host. If your Riak CS system has multiple nodes, you set
-the IP address and port that Stanchion listens on for requests from
-other nodes.
+If you're upgrading from a version of Riak CS prior to 2.0.0 -- when the
+`stanchion.conf` and `riak-cs.conf` files was introduced -- you can still use
+the old-style `app.config` configuration files. Examples for both configuration
+types will be provided.
 
-These settings reside in the Stanchion `app.config` file, which is
-located in the `/etc` folder on most operating systems. The settings
-appear in the `stanchion` config section of the file, which looks like
-this:
+```stanchionconf
+configuration.name = value
+```
 
 ```appconfig
 {stanchion, [
-
-    %% Configs here
-
-]}
+             %% Configs here
+            ]}
 ```
 
+## Specifying the Stanchion IP Address and Port
 
-You can set the IP using the `stanchion_ip` parameter. Replace
-`127.0.0.1` with the IP address of the Stanchion node.
+If you have a single node, you don't have to change the Stanchion settings
+because Stanchion simply listens to the requests from the local host. If your
+Riak CS cluster has multiple nodes, you must set the IP address and port that
+Stanchion listens on for requests from other nodes.
 
-<div class="note">
-<div class="title">Note on matching IP addresses</div>
-The IP address you enter here must match the IP address specified for
-the <code>stanchion_ip</code> variable in the Riak
-<code>app.config</code> file and the Riak CS <code>app.config</code>
-file.
+You can set the IP using the `listener` parameter. Replace `127.0.0.1` with the
+IP address of the Stanchion node, and `8080` with the port of the Stanchion
+node.
+
+```stanchionconf
+listener = 127.0.0.1:8080
+```
+
+```appconfig
+{stanchion, [
+             {stanchion_ip, "127.0.0.1"},
+             {stanchion_port, 8080}
+             %% Other configs
+            ]}
+```
+
+<div class="note"><div class="title">Note on matching IP addresses</div>
+The IP address you enter here must match the IP address specified for the
+<code>stanchion_host</code> variable in the Riak <code>riak.conf</code> file and
+the Riak CS <code>riak-cs.conf</code> file.
 </div>
 
-If you want to use a different port for Stanchion to accept connections
-on, you must change the `stanchion_port` setting. Replace `8085` with
-the port number you want to use.
+If you want to use SSL, make sure the `ssl.certfile` and `ssl.keyfile` settings
+are not commented out, and have been set correctly.
 
-The `stanchion_ssl` variable is set to `false` by default. If you want
-to use SSL, change this variable to `true`.
+```stanchionconf
+ssl.certfile = "./etc/cert.pem"
+ssl.keyfile = "./etc/key.pem"
+```
+
+```appconfig
+{stanchion, [
+             {ssl, [
+                    {certfile, "./etc/cert.pem"},
+                    {keyfile, "./etc/key.pem"}
+                   ]},
+             %% Other configs
+            ]}
+```
 
 ## Specifying Riak Information
 
-If you are running a single node for experimentation, or if a Riak node
-is running locally and configured to listen for protocol buffer traffic
-on `0.0.0.0`, the default Riak configuration for Stanchion should be
-fine.
+If you are running a single node for experimentation, or if a Riak node is
+running locally and configured to listen for protocol buffer traffic on
+`0.0.0.0`, the default Riak configuration for Stanchion should be fine.
 
-Otherwise, update the IP address and port for Riak in the Stanchion
-`app.config` file. The settings appear in the `stanchion` section:
+Otherwise, update the IP address and port for the Riak host in the Stanchion
+configuration file.
 
-* `riak_ip` --- Replace `127.0.0.1` with the IP address of the Riak node
-* `riak_pb_port` --- Replace `8087` with the port number set in the Riak
-  `app.config` file
+```stanchionconf
+riak_host = 127.0.0.1:8087
+```
+
+```appconfig
+{stanchion, [
+             {riak_ip, "127.0.0.1"},
+             {riak_pb_port, 8087}
+             %% Other configs
+            ]}
+```
