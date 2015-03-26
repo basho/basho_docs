@@ -209,25 +209,44 @@ script.
 
 #### Regular Schedules
 
-If you would like to have an Riak CS node calculate the storage used by
-every user at the same time (or times) each day, specify a schedule in
-that node's Riak CS `app.config` file.
+If you would like to have an Riak CS node calculate the storage used by every
+user at the same time (or times) each day, specify a schedule in that node's
+Riak CS `riak-cs.conf` file, or in the old-style `advanced.config` or
+`app.config` file.
 
 In the `riak_cs` section of the file, add an entry for
 `storage_schedule` like this:
 
-```erlang
+```riakcsconf
+stats.storage.schedule.1 = "06:00"
+```
+
+```advancedconfig
 {storage_schedule, "0600"}
 ```
 
-The time is given as a string of the form `HHMM`, representing the hour
-and minute GMT to start the calculation process. In this example, the
-node would start the storage calculation at 6am GMT every day.
+```appconfig
+{storage_schedule, "0600"}
+```
 
-To set up multiple times, specify a list in the schedule. For example,
+The time is given as a string of the form `HH:MM` (omit the `:` in the old-style
+`advanced.config`/`app.config` files, so it's simply `HHMM`), representing the
+hour and minute GMT to start the calculation process. In this example, the node
+would start the storage calculation at 6am GMT every day.
+
+To set up multiple times, simply specify multiple times. For example,
 to schedule the calculation to happen at both 6am and 6pm, use:
 
-```erlang
+```riakcsconf
+stats.storage.schedule.1 = "06:00"
+stats.storage.schedule.2 = "18:00"
+```
+
+```advancedconfig
+{storage_schedule, ["0600", "1800"]}
+```
+
+```appconfig
 {storage_schedule, ["0600", "1800"]}
 ```
 
@@ -289,7 +308,7 @@ To resume a paused batch, use:
 
 ```bash
 riak-cs-storage resume
-# Response: 
+# Response:
 # The calculation was resumed.
 ```
 
