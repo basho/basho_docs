@@ -50,13 +50,24 @@ objects such as:
 
 ## Multibag Configuration
 
-In order to use Riak CS multibag, you need to modify multiple
-configuration files. First, in each Riak CS node you need to alter the
-node's `app.config` file to specify the host and port of each bag. For
-example, if you wanted to set up bags on host 127.0.0.1 with three
-different ports---10017,10027, and 10037-- you would add the following
-section:
+In order to use Riak CS multibag, you need to modify multiple configuration
+files. First, in each Riak CS node you need to alter the node's
+`advanced.config` or `app.config` file to specify the host and port of each bag.
+For example, if you wanted to set up bags on host 127.0.0.1 with three different
+ports -- 10017,10027, and 10037 -- you would add the following section:
 
+```advancedconfig
+{riak_cs_multibag, [
+	%% Other configs
+    {bags,
+     [
+      {"bagA", "127.0.0.1", 10017},
+      {"bagB", "127.0.0.1", 10027},
+      {"bagC", "127.0.0.1", 10037}
+     ]},
+     %% Other configs
+]},
+```
 ```appconfig
 {riak_cs_multibag, [
 	%% Other configs
@@ -73,11 +84,24 @@ section:
 As with all configuration changes, each node must be restarted for the
 changes to take effect.
 
-In addition to configuring Riak CS to use multibag support, you will
-need to mirror the `app.config` changes shown above in Stanchion. In the
-`app.config` file in each Stanchion node, the following section would
-need to be inserted:
+In addition to configuring Riak CS to use multibag support, you will need to
+mirror the configuration changes shown above in Stanchion. In the
+`advanced.config` or `app.config` file in each Stanchion node, the following
+section would need to be inserted:
 
+```advancedconfig
+{stanchion, [
+	%% Other configs
+	{bags,
+	 [
+	  {"bagA", "127.0.0.1", 10017},
+	  {"bagB", "127.0.0.1", 10027},
+	  {"bagC", "127.0.0.1", 10037}
+	 ]
+	}
+	%% Other configs
+]},
+```
 ```appconfig
 {stanchion, [
 	%% Other configs
