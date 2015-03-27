@@ -332,5 +332,3 @@ So to recap, in this chapter we learned:
 * How to choose bucket names
 * How to choose natural keys based on how we want to partition our data.
 
-In the next chapter, we will learn about siblings, how to deal with
-them, and some other edge cases to check for while working with Riak.
