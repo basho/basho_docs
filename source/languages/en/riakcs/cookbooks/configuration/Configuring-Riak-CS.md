@@ -102,7 +102,7 @@ stanchion_ssl = on
 ```advancedconfig
 {riak_cs, [
     %% Other configs
-    {stanchion_host, {"127.0.0.1", 8085}}
+    {stanchion_host, {"127.0.0.1", 8085}},
     {stanchion_ssl, true},
     %% Other configs
 ]}

@@ -49,7 +49,7 @@ listener = 127.0.0.1:8080
 
 ```appconfig
 {stanchion, [
-             {host, {"127.0.0.1", 8080}},
+             {host, {"127.0.0.1", 8085}},
              %% Other configs
             ]}
 ```
