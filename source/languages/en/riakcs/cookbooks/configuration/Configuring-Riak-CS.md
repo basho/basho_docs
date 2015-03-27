@@ -102,8 +102,7 @@ stanchion_ssl = on
 ```advancedconfig
 {riak_cs, [
     %% Other configs
-    {stanchion_ip, "127.0.0.1"},
-    {stanchion_port, 8085},
+    {stanchion_host, {"127.0.0.1", 8085}}
     {stanchion_ssl, true},
     %% Other configs
 ]}
@@ -175,8 +174,8 @@ directory. Paste the `key_id` string between the quotes for the `admin.key`.
 Paste the `key_secret` string into the `admin.secret` variable, as shown here:
 
 ```riakcsconf
-admin.key, 324ABC0713CD0B420EFC086821BFAE7ED81442C},
-admin.secret, 5BE84D7EEA1AEEAACF070A1982DDA74DA0AA5DA7},
+admin.key = 324ABC0713CD0B420EFC086821BFAE7ED81442C
+admin.secret = 5BE84D7EEA1AEEAACF070A1982DDA74DA0AA5DA7
 ```
 
 ```advancedconfig
@@ -407,11 +406,13 @@ settings are available through the `riak-cs.conf` configuration file.**
   is relatively short compared to the `leeway_seconds` value. This can
   result in the manifest objects reaching a size that can negatively
   impact system performance. The default value is `unlimited`.
+* `gc_batch_size` --- This option represents the size used for paginating the
+  results of the secondary index query. The default value is 1000.
 
 <div class="note"><div class="title">Deprecated Configurations</div>
-While Riak CS 2.0.0 still allows the configuration of `gc_paginated_indexes` and
-`gc_batch_size`, it is strongly recommended that these settings not be used. The
-have been deprecated, and <em>will be removed</em> in the next major release.
+While Riak CS 2.0.0 still allows the configuration of `gc_paginated_indexes`,
+it is strongly recommended that these settings not be used. This setting has
+been deprecated, and <em>will be removed</em> in the next major release.
 </div>
 
 ## Other Riak CS Settings

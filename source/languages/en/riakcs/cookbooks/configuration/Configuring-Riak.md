@@ -79,7 +79,7 @@ to use the custom backend provided by Riak CS. We need to use either the
     {multi_backend_default, be_default},
     {multi_backend, [
         {be_default, riak_kv_eleveldb_backend, [
-            {max_open_files, 50},
+            {total_leveldb_mem_percent, 30},
             {data_root, "/var/lib/riak/leveldb"}
         ]},
         {be_blocks, riak_kv_bitcask_backend, [
@@ -99,7 +99,7 @@ to use the custom backend provided by Riak CS. We need to use either the
     {multi_backend_default, be_default},
     {multi_backend, [
         {be_default, riak_kv_eleveldb_backend, [
-            {max_open_files, 50},
+            {total_leveldb_mem_percent, 30},
             {data_root, "/var/lib/riak/leveldb"}
         ]},
         {be_blocks, riak_kv_bitcask_backend, [
@@ -243,8 +243,8 @@ listener.protobuf.internal = 10.0.2.10:10001
 
 **Note**: The `listener.protobuf.internal` values in the Riak `riak.conf` (or
 the `pb` value in `advanced.config`/`app.config`) file must match the values for
-`riak_host`in the Riak CS and Stanchion `riak-cs.config` (or `riak_ip` and
-`riak_pb_port` in `advanced.config`/`app.config`) files.
+`riak_host` in the Riak CS `riak-cs.config` and Stanchion `stanchion.conf` (or
+`riak_host` the relative `advanced.config`/`app.config`) files.
 
 <div class="note">
 <div class="title">Note on port numbers</div>

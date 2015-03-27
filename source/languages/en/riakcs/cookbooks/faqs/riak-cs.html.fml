@@ -24,19 +24,23 @@ A: You can specify the location of **all** Riak CS bucket data by changing the s
   definition from the [[Configuring Riak for CS]] section, it looks like this:
 
   ```advanced.config
-  {add_paths, ["/usr/lib/riak-cs/lib/riak_cs-{{VERSION}}/ebin"]},
-  {storage_backend, riak_cs_kv_multi_backend},
-  {multi_backend_prefix_list, [{<<"0b:">>, be_blocks}]},
-  {multi_backend_default, be_default},
-  {multi_backend, [
-    {be_default, riak_kv_eleveldb_backend, [
-      {max_open_files, 50},
-        {data_root, "/var/lib/riak/leveldb"}
-    ]},
-      {be_blocks, riak_kv_bitcask_backend, [
-        {data_root, "/var/lib/riak/bitcask"}
-    ]}
+  {riak_kv, [
+      {add_paths, ["/usr/lib/riak-cs/lib/riak_cs-{{VERSION}}/ebin"]},
+      {storage_backend, riak_cs_kv_multi_backend},
+      {multi_backend_prefix_list, [{<<"0b:">>, be_blocks}]},
+      {multi_backend_default, be_default},
+      {multi_backend, [
+        {be_default, riak_kv_eleveldb_backend, [
+          {total_leveldb_mem_percent, 30},
+            {data_root, "/var/lib/riak/leveldb"}
+        ]},
+          {be_blocks, riak_kv_bitcask_backend, [
+            {data_root, "/var/lib/riak/bitcask"}
+        ]}
+      ]},
+      %% Other configs
   ]},
+  %% Other sections
   ```
 
   You need to change the two `data_root` values, substituting `/var/lib/riak` as shown in the above example with the path to the filesystem you prefer. Please note that you should do this before starting Riak for the

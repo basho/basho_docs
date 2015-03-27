@@ -180,14 +180,14 @@ to use the custom backend provided by Riak CS. You'll have to use the old-style
 
 ```advancedconfig
 [
- {riak_core, [
+ {riak_kv, [
               {add_paths, ["/usr/lib/riak-cs/lib/riak_cs-{{VERSION}}/ebin"]},
               {storage_backend, riak_cs_kv_multi_backend},
               {multi_backend_prefix_list, [{<<"0b:">>, be_blocks}]},
               {multi_backend_default, be_default},
               {multi_backend, [
                   {be_default, riak_kv_eleveldb_backend, [
-                      {max_open_files, 50},
+                      {total_leveldb_mem_percent, 30},
                       {data_root, "/var/lib/riak/leveldb"}
                   ]},
                   {be_blocks, riak_kv_bitcask_backend, [

@@ -49,8 +49,7 @@ listener = 127.0.0.1:8080
 
 ```appconfig
 {stanchion, [
-             {stanchion_ip, "127.0.0.1"},
-             {stanchion_port, 8080}
+             {host, {"127.0.0.1", 8080}},
              %% Other configs
             ]}
 ```
@@ -94,8 +93,7 @@ riak_host = 127.0.0.1:8087
 
 ```appconfig
 {stanchion, [
-             {riak_ip, "127.0.0.1"},
-             {riak_pb_port, 8087}
+             {riak_host, {"127.0.0.1", 8087}},
              %% Other configs
             ]}
 ```
