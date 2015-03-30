@@ -119,8 +119,6 @@ involves:
 Specifically, you should follow this basic process, ensuring that Riak
 is **not started** on any node during steps 1-8:
 
-You should follow the below process, ensuring that Riak is **not started** on any node during steps 1-5.
-
 <div class="note"><div class="title">Note</div>
 If you are restoring in an environment where the new nodes will have new network addresses (such as with AWS for example) or you will otherwise need to give the nodes new names, you will need to rename the nodes in the cluster.  After performing steps 1-5, use the instructions in the [[Renaming Nodes]] document to finish restoring this cluster.
 </div>
