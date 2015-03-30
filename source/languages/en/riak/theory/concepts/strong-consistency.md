@@ -63,7 +63,7 @@ consistent system is one in which a get request will most likely return
 
 In a strongly consistent system, conversely, any successful read on
 `manchester-manager` will return `Louis van Gaal` and never `David Moyes`.
-Reads will return `David Moyes` every single time until Man U gets a new
+Reads will return `Louis van Gaal` every single time until Man U gets a new
 manager and someone performs a successful write to `manchester-manager`
 to change its value.
 
