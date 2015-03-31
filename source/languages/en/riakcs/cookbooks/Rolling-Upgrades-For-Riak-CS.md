@@ -155,10 +155,3 @@ for a more detailed description.</div>
 
 10. Move on to the next node and repeat this process throughout the
     cluster.
-
-11. Restart all Riak CS nodes with this new setting in the same rolling
-    fashion as before:
-
-    ```bash
-    riak-cs restart
-    ```
