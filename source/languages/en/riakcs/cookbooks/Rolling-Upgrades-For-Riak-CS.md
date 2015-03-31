@@ -48,110 +48,110 @@ for a more detailed description.</div>
 
 1. Stop Riak, Riak CS, and Stanchion:
 
-   ```bash
-   riak stop
-   riak-cs stop
-   stanchion stop
-   ```
+    ```bash
+    riak stop
+    riak-cs stop
+    stanchion stop
+    ```
 
 2. Back up Riak's configuration files:
 
-   ```bash
-   sudo tar -czf riak_config_backup.tar.gz /etc/riak
-   ```
+    ```bash
+    sudo tar -czf riak_config_backup.tar.gz /etc/riak
+    ```
 
 3. Optionally, back up your data directories:
 
-   ```bash
-   sudo tar -czf riak_data_backup.tar.gz /var/lib/riak
-   ```
+    ```bash
+    sudo tar -czf riak_data_backup.tar.gz /var/lib/riak
+    ```
 
-   <div class="note"><div class="title">Note on Patches</div>
-   Remember to remove all patches from the `basho-patches` directory, as the
-   version of Erlang has changed in Riak CS 2.0.  All official patches
-   previously released by Basho have been included in this release.
+    <div class="note"><div class="title">Note on Patches</div>
+    Remember to remove all patches from the `basho-patches` directory, as the
+    version of Erlang has changed in Riak CS 2.0.  All official patches
+    previously released by Basho have been included in this release.
     </div>
 
 4. Upgrade Riak, Riak CS, and Stanchion. See the <a
-   href="http://docs.basho.com/riakcs/latest/riakcs-downloads">Riak
-   CS Downloads</a> and <a
-   href="http://docs.basho.com/riak/latest/downloads">Riak Downloads</a>
-   pages to find the appropriate packages.
+    href="http://docs.basho.com/riakcs/latest/riakcs-downloads">Riak
+    CS Downloads</a> and <a
+    href="http://docs.basho.com/riak/latest/downloads">Riak Downloads</a>
+    pages to find the appropriate packages.
 
-   **Debian** / **Ubuntu**
+    **Debian** / **Ubuntu**
 
-   ```bash
-   sudo dpkg -i <riak_package_name>.deb
-   sudo dpkg -i <riak-cs_package_name>.deb
-   sudo dpkg -i <stanchion_package_name>.deb
-   ```
+    ```bash
+    sudo dpkg -i <riak_package_name>.deb
+    sudo dpkg -i <riak-cs_package_name>.deb
+    sudo dpkg -i <stanchion_package_name>.deb
+    ```
 
-   **RHEL** / **CentOS**
+    **RHEL** / **CentOS**
 
-   ```bash
-   sudo rpm -Uvh <riak_package_name>.rpm
-   sudo rpm -Uvh <riak-cs_package_name>.rpm
-   sudo rpm -Uvh <stanchion_package_name>.rpm
-   ```
+    ```bash
+    sudo rpm -Uvh <riak_package_name>.rpm
+    sudo rpm -Uvh <riak-cs_package_name>.rpm
+    sudo rpm -Uvh <stanchion_package_name>.rpm
+    ```
 
-5. The `add_paths` setting in your configuration file must be updated to reflect the current version's `/ebin` directory.  To give an example, if the
-   previous `/ebin` directory was located at
-   `/usr/lib/riak-cs/lib/riak_cs-1.5.2/ebin` and you're upgrading to
-   version 2.0.0, you will need to change the value in `add_paths`:
+5. The `add_paths` setting in your configuration file must be updated to reflect
+    the current version's `/ebin` directory.  To give an example, if the
+    previous `/ebin` directory was located at
+    `/usr/lib/riak-cs/lib/riak_cs-1.5.2/ebin` and you're upgrading to version
+    2.0.0, you will need to change the value in `add_paths`:
 
-   ```advancedconfig
-   {add_paths, ["/usr/lib/riak-cs/lib/riak_cs-2.0.0/ebin"]}
-   ```
+    ```advancedconfig
+    {add_paths, ["/usr/lib/riak-cs/lib/riak_cs-2.0.0/ebin"]}
+    ```
 
-   ```appconfig
-   {add_paths, ["/usr/lib/riak-cs/lib/riak_cs-2.0.0/ebin"]}
-   ```
+    ```appconfig
+    {add_paths, ["/usr/lib/riak-cs/lib/riak_cs-2.0.0/ebin"]}
+    ```
 
 
 6. Riak CS 2.0 introduces a new style of configuration known as `riak-cs.conf`.
-   You may choose to continue the use of the `app.config` file, or migrate your
-   existing configuration to `riak-cs.conf` (recommended).  If you choose to
-   use `riak-cs.conf`, you should migrate all supported settings to the new
-   format, and copy all others to the new `advanced.config` file.  More details
-   can be found at [[Configuring Riak CS]].
+    You may choose to continue the use of the `app.config` file, or migrate your
+    existing configuration to `riak-cs.conf` (recommended).  If you choose to
+    use `riak-cs.conf`, you should migrate all supported settings to the new
+    format, and copy all others to the new `advanced.config` file.  More details
+    can be found at [[Configuring Riak CS]].
 
-   <div class="note"><div class="title">Note on Memory Sizing</div>
-   Some changes have been made to both Riak and Riak CS that may warrant
-   some performance tuning. Please consult the
-   <a href="https://github.com/basho/riak_cs/blob/develop/RELEASE-NOTES.md#redesign-of-memory-sizing">
-   Release Notes</a> for more details.
-   </div>
+    <div class="note"><div class="title">Note on Memory Sizing</div>
+    Some changes have been made to both Riak and Riak CS that may warrant
+    some performance tuning. Please consult the
+    <a href="https://github.com/basho/riak_cs/blob/develop/RELEASE-NOTES.md#redesign-of-memory-sizing">
+    Release Notes</a> for more details.
+    </div>
 
 7. Riak has also moved to the new configuration format, using a file called
    `riak.conf`. Remember to migrate all existing Riak configurations during
    the upgrade process. For example, the default bucket properties:
 
-   ```riakconf
-   buckets.default.allow_mult = true
-   ```
+    ```riakconf
+    buckets.default.allow_mult = true
+    ```
 
-   ```appconfig
-   {riak_core, [
-      ...
-      {default_bucket_props, [{allow_mult, true}]},
-      ...
-   ]}.
-   ```
-
+    ```appconfig
+    {riak_core, [
+       ...
+       {default_bucket_props, [{allow_mult, true}]},
+       ...
+    ]}.
+    ```
 
 8. Start the node:
 
-   ```bash
-   riak start
-   stanchion start
-   riak-cs start
-   ```
+    ```bash
+    riak start
+    stanchion start
+    riak-cs start
+    ```
 
 9. Wait for any handoff to complete:
 
-   ```bash
-   riak-admin transfers
-   ```
+    ```bash
+    riak-admin transfers
+    ```
 
 10. Move on to the next node and repeat this process throughout the
     cluster.
