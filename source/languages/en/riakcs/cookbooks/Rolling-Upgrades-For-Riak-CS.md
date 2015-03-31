@@ -14,152 +14,151 @@ process of upgrading Riak CS in a rolling fashion.
 
 Be sure to check the Riak CS [[Version Compatibility]] chart to ensure
 that your version of Riak, Riak CS, and Stanchion have been tested to
-work together.
+work together.  As Basho supports upgrades from the previous two major
+versions, this document will cover upgrades from Riak CS 1.4.x and Riak CS
+1.5.x.
+
+As Riak CS 2.0.0 only works with Riak 2.0.5, the underlying Riak installation
+*must* be upgraded to Riak 2.0.5.
+
+<div class="note"><div class="title">Note on upgrading from Riak CS < 1.5.4</div>
+<a href="https://github.com/basho/riak_cs/blob/release/1.5/RELEASE-NOTES.md#notes-on-upgrading">
+Some key objects changed names</a> after the upgrade. Applications may need to
+change their behaviour due to this bugfix.</div>
+
+<div class="note"><div class="title">Note on upgrading from Riak CS < 1.5.1</div>
+<a href="https://github.com/basho/riak_cs/blob/release/1.5/RELEASE-NOTES.md#notes-on-upgrading-1">
+Bucket number limitation per user</a> have been introduced in 1.5.1. Users who
+have more than 100 buckets cannot create any bucket after the upgrade unless
+the limit is extended in the system configuration.</div>
+
+<div class="note"><div class="title">Note on upgrading From Riak CS 1.4.x</div>
+An operational procedure
+<a href="https://github.com/basho/riak_cs/blob/release/1.5/RELEASE-NOTES.md#incomplete-multipart-uploads">
+to clean up incomplete multipart under deleted buckets</a> is needed. Otherwise
+new buckets with names that used to exist in the past can't be created. The
+operation will fail with a `409 Conflict` error.<br/><br/>
+
+Leeway seconds and disk space should also be carefully watched during the
+upgrade, because timestamp management of garbage collection has changed since
+the 1.5.0 release. Consult the
+ <a href="https://github.com/basho/riak_cs/blob/release/1.5/RELEASE-NOTES.md#leeway-seconds-and-disk-space">
+Leeway seconds and disk space</a> section of the 1.5 release notes
+for a more detailed description.</div>
 
 1. Stop Riak, Riak CS, and Stanchion:
 
-	```bash
-	riak stop
-	riak-cs stop
-	stanchion stop
-	```
+   ```bash
+   riak stop
+   riak-cs stop
+   stanchion stop
+   ```
 
 2. Back up Riak's configuration files:
 
-	```bash
-	sudo tar -czf riak_config_backup.tar.gz /etc/riak
-	```
+   ```bash
+   sudo tar -czf riak_config_backup.tar.gz /etc/riak
+   ```
 
 3. Optionally, back up your data directories:
 
-	```bash
-	sudo tar -czf riak_data_backup.tar.gz /var/lib/riak
-	```
+   ```bash
+   sudo tar -czf riak_data_backup.tar.gz /var/lib/riak
+   ```
 
-4. If you are upgrading from a version prior to 1.3, take note of the
-   value of `cs_version` in `/etc/riak-cs/app.config`.
+   <div class="note"><div class="title">Note on Patches</div>
+   Remember to remove all patches from the `basho-patches` directory, as the
+   version of Erlang has changed in Riak CS 2.0.  All official patches
+   previously released by Basho have been included in this release.
+    </div>
 
-5. Upgrade Riak, Riak CS, and Stanchion. See the <a
+4. Upgrade Riak, Riak CS, and Stanchion. See the <a
    href="http://docs.basho.com/riakcs/latest/riakcs-downloads">Riak
    CS Downloads</a> and <a
    href="http://docs.basho.com/riak/latest/downloads">Riak Downloads</a>
    pages to find the appropriate packages.
 
-    **Mac OS X**
+   **Debian** / **Ubuntu**
 
-    ```bash
-    curl -O http://s3.amazonaws.com/downloads.basho.com/<riakcs-os-x-package.tar.gz>
-    tar -xvzf <riakcs-os-x-package.tar.gz>
-    ```
-
-
-	**Debian** / **Ubuntu**
-
-	```bash
-	sudo dpkg -i <riak_package_name>.deb
-	sudo dpkg -i <riak-cs_package_name>.deb
-	sudo dpkg -i <stanchion_package_name>.deb
-	```
-
-	**RHEL** / **CentOS**
-
-	```bash
-	sudo rpm -Uvh <riak_package_name>.rpm
-	sudo rpm -Uvh <riak-cs_package_name>.rpm
-	sudo rpm -Uvh <stanchion_package_name>.rpm
-	```
-
-    <div class="note">
-    <div class="title">Note on Package Name Change</div>
-    If you are upgrading Riak CS Enterprise Edition from a version before
-    1.3.0, a change to the package name can result in an upgrade error.
-    To address this, uninstall the old Riak CS package before installing
-    the new one.
-    </div>
-
-6. The `add_paths` setting in the `riak_kv` section of each Riak node's
-   `app.config` configuration file must be changed to reflect the new
-   path of the node's `/ebin` directory. To give an example, if the
-   previous `/ebin` directory was located at
-   `/usr/lib/riak-cs/lib/riak_cs-1.5.2/ebin` and you're upgrading to
-   version 1.5.3, you will need to change the value in `add_paths`:
-
-   ```appconfig
-   {add_paths, ["/usr/lib/riak-cs/lib/riak_cs-1.5.2/ebin"]}
-
-   %% should be changed to:
-
-   {add_paths, ["/usr/lib/riak-cs/lib/riak_cs-1.5.3/ebin"]}
+   ```bash
+   sudo dpkg -i <riak_package_name>.deb
+   sudo dpkg -i <riak-cs_package_name>.deb
+   sudo dpkg -i <stanchion_package_name>.deb
    ```
 
-7. Examine the differences between your backed up `app.config` files and
-   the newly installed copies in `etc/riak`, `etc/riak-cs`, and
-   `etc/stanchion`. There may be new settings in the new `app.config`
-   files. Make any changes that are specific to your installation.
+   **RHEL** / **CentOS**
 
-    One thing that you will likely need to update is the location of any
-    `.beam` files that you are using for MapReduce jobs or commit hooks,
-    in the `add_paths` subsection of the `riak_kv` settings in
-    `app.config`. Here's an example:
+   ```bash
+   sudo rpm -Uvh <riak_package_name>.rpm
+   sudo rpm -Uvh <riak-cs_package_name>.rpm
+   sudo rpm -Uvh <stanchion_package_name>.rpm
+   ```
 
-	  ```appconfig
-	  {add_paths, ["/old/path/to/beam/files"]},
+5. The `add_paths` setting in your configuration file must be updated to reflect the current version's `/ebin` directory.  To give an example, if the
+   previous `/ebin` directory was located at
+   `/usr/lib/riak-cs/lib/riak_cs-1.5.2/ebin` and you're upgrading to
+   version 2.0.0, you will need to change the value in `add_paths`:
 
- 	  %% should be changed to:
+   ```advancedconfig
+   {add_paths, ["/usr/lib/riak-cs/lib/riak_cs-2.0.0/ebin"]}
+   ```
 
-	  {add_paths, ["/new/path/to/beam/files"]},
-	  ```
+   ```appconfig
+   {add_paths, ["/usr/lib/riak-cs/lib/riak_cs-2.0.0/ebin"]}
+   ```
 
-8. If you are upgrading from a version prior to 1.3, locate the
-   following setting in the `/etc/riak-cs/app.config` file for Riak CS:
 
-	```erlang
-	{cs_version, 10300},
-	```
+6. Riak CS 2.0 introduces a new style of configuration known as `riak-cs.conf`.
+   You may choose to continue the use of the `app.config` file, or migrate your
+   existing configuration to `riak-cs.conf` (recommended).  If you choose to
+   use `riak-cs.conf`, you should migrate all supported settings to the new
+   format, and copy all others to the new `advanced.config` file.  More details
+   can be found at [[Configuring Riak CS]].
 
-    This value will have changed from your previous installation.  To
-    avoid conflicts between nodes, change this value to the one you noted
-    in step 3.  This will restrict the Riak CS nodes to their previous
-    version's capabilities until the rolling upgrade is fully complete.
-    If your previous `app.config` had no value for `cs_version`, use a
-    value of `0`.
+   <div class="note"><div class="title">Note on Memory Sizing</div>
+   Some changes have been made to both Riak and Riak CS that may warrant
+   some performance tuning. Please consult the
+   <a href="https://github.com/basho/riak_cs/blob/develop/RELEASE-NOTES.md#redesign-of-memory-sizing">
+   Release Notes</a> for more details.
+   </div>
 
-9. If you are upgrading from a version prior to 1.3, change `cs_version`
-   to its previous value:
+7. Riak has also moved to the new configuration format, using a file called
+   `riak.conf`. Remember to migrate all existing Riak configurations during
+   the upgrade process. For example, the default bucket properties:
 
-	```erlang
-	{cs_version, <previous_value>},
-	```
+   ```riakconf
+   buckets.default.allow_mult = true
+   ```
 
-10. Start the node:
+   ```appconfig
+   {riak_core, [
+      ...
+      {default_bucket_props, [{allow_mult, true}]},
+      ...
+   ]}.
+   ```
 
-	```bash
-	riak start
-	stanchion start
-	riak-cs start
-	```
 
-11. Wait for any handoff to complete:
+8. Start the node:
 
-	```bash
-	riak-admin transfers
-	```
+   ```bash
+   riak start
+   stanchion start
+   riak-cs start
+   ```
 
-12. Move on to the next node and repeat this process throughout the
-   cluster.
+9. Wait for any handoff to complete:
 
-13. If you are upgrading from a version prior to 1.3, once all nodes
-    have been upgraded and restarted in this manner, once again locate
-    the `/etc/riak-cs/app.config` file's `cs_version` setting and change
-    it back to its upgraded value, as listed here:
+   ```bash
+   riak-admin transfers
+   ```
 
-	```erlang
-	{cs_version, 10300},
-	```
+10. Move on to the next node and repeat this process throughout the
+    cluster.
 
-14. Restart all Riak CS nodes with this new setting in the same rolling
+11. Restart all Riak CS nodes with this new setting in the same rolling
     fashion as before:
 
-	```bash
-	riak-cs restart
-	```
+    ```bash
+    riak-cs restart
+    ```

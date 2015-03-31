@@ -75,15 +75,15 @@ If the object is being overwritten, the previously `active` manifest
 version is selected along with any manifest versions that are in the
 `writing` state. An object is in a `writing` state if the
 `last_block_written_time` field represents a time value greater than
-`leeway_seconds` ago (or the `write_start_time` in cases where the
+`gc.leeway_period` ago (or the `write_start_time` in cases where the
 `last_block_written_time` is undefined).
 
 If a manifest version remains in the `writing` state for greater than
-`leeway_seconds` seconds, Riak CS assumes that that manifest version
+`gc.leeway_period`, Riak CS assumes that that manifest version
 represents a failed upload attempt. In that case, Riak CS deems it
 acceptable to reap any object blocks that may have been written.
 Manifest versions in the `writing` state whose `last_block_written_time`
-has not exceeded the `leeway_seconds` threshold are _not_ deemed
+has not exceeded the `gc.leeway_period` threshold are _not_ deemed
 eligible because they could represent an object version that is still in
 the process of writings its blocks.
 
@@ -100,7 +100,7 @@ Once the states of the eligible manifests have been updated to
 manifest versions are collected into a CRDT set and the set is written
 as a value to the `riak-cs-gc` bucket keyed by a time value
 representing the current epoch time plus the leeway interval, i.e.
-the `leeway_seconds` configuration option. If that write is
+the `gc.leeway_period` configuration option. If that write is
 successful then the state for each manifest in the set is updated to
 `scheduled_delete`. This indicates that the blocks of the object have
 been scheduled for deletion by the garbage collection daemon and
@@ -122,18 +122,18 @@ scheduling unnecessary deletions.
 
 The use of the current epoch time as the basis for the keys in the
 `riak-cs-gc` bucket is a change from previous versions of Riak
-CS. Previously the current epoch time the value of `leeway_seconds`
-was used. This change means that the `leeway_seconds` interval is
+CS. Previously the current epoch time the value of `gc.leeway_period`
+was used. This change means that the `gc.leeway_period` interval is
 enforced by the garbage collection daemon process and not during the
 synchronous portion of the garbage collection process. The benefit of
-this is that the `leeway_seconds` interval may be changed for objects
+this is that the `gc.leeway_period` interval may be changed for objects
 that have already been deleted or overwritten and allows system
 operators to potentially reap objects sooner than originally specified
-`leeway_seconds` interval if it is necessary.
+`gc.leeway_period` interval if it is necessary.
 {{/1.5.0+}}
 
 Once the manifest enters the `scheduled_delete` state it remains as a
-tombstone for a minimum of `leeway_seconds`.
+tombstone for a minimum of `gc.leeway_period`.
 
 After these actions have been attempted, the synchronous portion of the
 garbage collection process is concluded and a response is returned to
@@ -225,7 +225,7 @@ daemon that it has completed the task and is available for more work.
 Meanwhile, the daemon repeats the process of querying the `riak-cs-gc`
 bucket for more eligible records to delete and feeding the resulting
 keys to worker processes until either the maximum number of worker
-processes is reached (`gc_max_workers`) or there are no remaining
+processes is reached (`gc.max_workers`) or there are no remaining
 records eligible for removal.
 
 Deletion eligibility is determined using the key values in the
@@ -256,7 +256,7 @@ is deleted from the `riak-cs-gc` bucket.
 
 We recommend using only _one_ active garbage collection daemon in any
 Riak CS cluster. If multiple daemons are currently being used, you can
-disable the others by setting the `gc_interval` parameter to `infinity`
+disable the others by setting the `gc.interval` parameter to `infinity`
 on those nodes. More information on how to do that can be found in the
 [[CS configuration doc|Configuring Riak
 CS#Garbage-Collection-Settings]].
@@ -272,7 +272,7 @@ list of the available commands.
 
 Command | Description
 :-------|:-----------
-`batch` | Manually start garbage collection for a batch of eligible objects.{{#1.5.0+}} This command takes an optional argument to indicate a leeway time other than the currently configured `leeway_seconds` time for the batch.{{/1.5.0+}}
+`batch` | Manually start garbage collection for a batch of eligible objects.{{#1.5.0+}} This command takes an optional argument to indicate a leeway time other than the currently configured `gc.leeway_period` time for the batch.{{/1.5.0+}}
 `status` | Get the current status of the garbage collection daemon. The output is dependent on the current state of the daemon.
 `pause` | Pause the current batch of object garbage collection. It has no effect if there is no active batch.
 `resume` | Resume a paused garbage collection batch. It has no effect if there is no previously paused batch.
@@ -316,7 +316,7 @@ manifest keys that could linger indefinitely.
    blocks being deleted earlier or later than their intended eligibility
    window dictates due to clock skew.
 3. A network partition (or machine failure) lasting longer than
-   `leeway_seconds` could cause a manifest to "come back to life" and
+   `gc.leeway_period` could cause a manifest to "come back to life" and
    appear active, it would then continually serve requests whose blocks
    could not be found.
 
