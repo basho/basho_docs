@@ -143,7 +143,7 @@ os = order_summary_bucket.new(str(order_summary['customer_id']),
 os.store()
 ```
 
- While individual `Customer` and `Order` objects don't change much (or shouldn't change), the `Order Summaries` object will likely change often.  It will do double duty by acting as an index for all a customer's orders, and also holding some relevant data such as the order total, etc.  If we showed this information in our application often, it's only one extra request to get all the info. 
+ While individual `Customer` and `Order` objects don't change much (or shouldn't change), the `Order Summaries` object will likely change often.  It will do double duty by acting as an index for all customer orders, and also holding some relevant data such as the order total, etc.  If we showed this information in our application often, it's only one extra request to get all the info. 
 
 ```python
 customer = customer_bucket.get('1').data
