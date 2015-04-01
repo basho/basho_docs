@@ -15,7 +15,7 @@ Riak Search.
 We recommend using Oracle's [JDK
 7u25](http://www.oracle.com/technetwork/java/javase/7u25-relnotes-1955741.html).
 Installation packages can be found on the [Java SE 7 Downloads
-page](http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html#jre-7u25-oth-JPR)
+page](http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html#jdk-7u25-oth-JPR)
 and instructions on the [documentation
 page](http://www.oracle.com/technetwork/java/javase/documentation/index.html).
 
