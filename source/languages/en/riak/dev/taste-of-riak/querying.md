@@ -18,7 +18,7 @@ Before we experiment with these methods, we will have to change our Riak
 instance's configuration a little bit.
 
 To do this we will have to find Riak's `riak.conf` file, which can
-usually be found at `/etc/riak/riak.conf.config`. If you are running
+usually be found at `/etc/riak/riak.conf`. If you are running
 SmartOS it will be at `/opt/local/etc/riak/riak.conf`, and if you used
 Homebrew to install Riak on OSX it will be at
 `/usr/local/Cellar/riak/**VERSION**/libexec/etc/riak.conf`.
