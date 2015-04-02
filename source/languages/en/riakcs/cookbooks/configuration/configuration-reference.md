@@ -99,20 +99,15 @@ the corresponding HTTP host).</td>
 <thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
 <tbody>
 <tr>
-<td><code>cs_ip</code></td>
+<td><code>listener</code></td>
 <td>The IP address for the Riak CS node</td>
-<td><code>127.0.0.1</code></td>
+<td><code>{"127.0.0.1", 8080}</code></td>
 </tr>
 <tr>
-<td><code>cs_port</code></td>
-<td>The TCP port for the Riak CS node (whether HTTP or HTTPS)</td>
-<td><code>8087</code></td>
-</tr>
-<tr>
-<td><code>riak_pb_port</code></td>
-<td>The TCP port for the Riak CS node's corresponding Riak node (used by
+<td><code>riak_host</code></td>
+<td>The TCP IP/port for the Riak CS node's corresponding Riak node (used by
 Riak's [[Protocol Buffers|PBC API]] interface)
-<td><code>127.0.0.1</code></td>
+<td><code>{"127.0.0.1", 8087}</code></td>
 </tr>
 <tr>
 <td><code>cs_root_host</code></td>
@@ -226,13 +221,13 @@ Stanchion</td>
 <td><code>stanchion_host</code></td>
 <td>The IP address/port for the Stanchion node in the cluster. Please note that
 there should be only one Stanchion node in the cluster.</td>
-<td><code>127.0.0.1:8085</code></td>
+<td><code>{"127.0.0.1",8085}</code></td>
 </tr>
 <tr>
 <td><code>stanchion_ssl</code></td>
 <td>Whether SSL is enabled for connections between the Riak CS node and
 Stanchion</td>
-<td><code>off</code></td>
+<td><code>false</code></td>
 </tr>
 </tbody>
 </table>

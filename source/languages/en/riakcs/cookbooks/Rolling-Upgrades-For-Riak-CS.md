@@ -113,8 +113,11 @@ for a more detailed description.</div>
     You may choose to continue the use of the `app.config` file, or migrate your
     existing configuration to `riak-cs.conf` (recommended).  If you choose to
     use `riak-cs.conf`, you should migrate all supported settings to the new
-    format, and copy all others to the new `advanced.config` file.  More details
-    can be found at [[Configuring Riak CS]].
+    format, and copy all others to the new `advanced.config` file.  
+
+    **Note: If you choose to use the legacy `app.config` file, some parameters have 
+    changed names and must be updated**.  More details can be found at 
+    [[Configuring Riak CS]].
 
     <div class="note"><div class="title">Note on Memory Sizing</div>
     Some changes have been made to both Riak and Riak CS that may warrant
