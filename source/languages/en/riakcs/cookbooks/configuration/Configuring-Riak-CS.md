@@ -43,9 +43,11 @@ files. If an `app.config` file is present, neither the `riak-cs.config` nor the
 If you are upgrading to Riak CS 2.0 from a previous version of Riak and plan
 to continue usage of the legacy `app.config` file, please note that some
 configuration options have changed names.  Most notably, the IP/Port format
-has changed in 2.0 for Stanchion, Riak, and Riak CS.  For a comprehensive
-listing of available parameters and a full list of `app.config` parameters, see
-the [[Full Configuration Reference|Riak CS Configuration Reference]].
+has changed in 2.0 for Stanchion, Riak, and Riak CS.  To view these changes, 
+please review the [[Rolling Upgrades|Rolling Upgrades for Riak CS]] Document. 
+
+For a comprehensive listing of available parameters and a full list of `app.config` 
+parameters, see the [[Full Configuration Reference|Riak CS Configuration Reference]].
 </div>
 
 The sections below walk you through some of the main configuration categories

@@ -115,9 +115,24 @@ for a more detailed description.</div>
     use `riak-cs.conf`, you should migrate all supported settings to the new
     format, and copy all others to the new `advanced.config` file.  
 
-    **Note: If you choose to use the legacy `app.config` file, some parameters have 
-    changed names and must be updated**.  More details can be found at 
-    [[Configuring Riak CS]].
+    <div class="note"><div class="title">Note on Legacy app.config usage</div>
+    **If you choose to use the legacy `app.config` file, some parameters have 
+    changed names and must be updated**.  In particular:
+    - `cs_ip` and `cs_port` have been combined into `listener`
+    - `riak_ip` and `riak_pb_port` have been combined into `riak_host`
+    - `stanchion_ip` and `stanchion_port` have been combined into `stanchion_host`
+
+    So, if your legacy `app.config` configuration was previously: 
+
+        {cs_ip, "127.0.0.1"},
+        {cs_port, 8080 },
+
+    It should now read:
+
+        {listener, {"127.0.0.1", 8080}},
+
+    and so on, for all aforementioned settings.  More details can be found 
+    at [[Configuring Riak CS]]. </div>
 
     <div class="note"><div class="title">Note on Memory Sizing</div>
     Some changes have been made to both Riak and Riak CS that may warrant
