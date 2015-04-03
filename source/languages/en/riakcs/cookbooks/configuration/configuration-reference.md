@@ -7,6 +7,48 @@ audience: intermediate
 keywords: [cs, operator, configuration]
 ---
 
+<div class="note"><div class="title">Note on Legacy app.config usage</div>
+**If you choose to use the legacy `app.config` files for Riak CS and/or
+Stanchion, some parameters have changed names and must be updated**.
+
+In particular, for the Riak CS `app.config`:  
+\- `cs_ip` and `cs_port` have been combined into `listener`.  
+\- `riak_ip` and `riak_pb_port` have been combined into `riak_host`.  
+\- `stanchion_ip` and `stanchion_port` have been combined into
+`stanchion_host`.  
+\- `admin_ip` and `admin_port` have been combined into `admin_listener`.  
+\- `webmachine_log_handler` has become `webmachine_access_log_handler`.  
+\- `{max_open_files, 50}` has been depricated and should be replaced with
+`{total_leveldb_mem_percent, 30}`.  
+
+For the Stanchion `app.config`:  
+\- `stanchion_ip` and `stanchion_port` have been combined into `listener`.  
+\- `riak_ip` and `riak_port` have been combined into `riak_host`.  
+
+Each of the above pairs follows a similar form. For example, if your legacy
+`app.config` configuration was previously:
+
+```
+{riak_cs, [
+    {cs_ip, "127.0.0.1"},
+    {cs_port, 8080 },
+    . . .
+]},
+```
+
+It should now read:
+
+```
+{riak_cs, [
+    {listener, {"127.0.0.1", 8080}},
+    . . .
+]},
+```
+
+and so on. More details can be found at [[Configuring Riak CS]].
+</div>
+
+
 This document is intended as a reference listing of all configurable parameters
 for Riak CS. For a more narrative-style walkthrough of configuring Riak CS, we
 recommend consulting the [[Configuring Riak CS]] tutorial.
@@ -99,20 +141,15 @@ the corresponding HTTP host).</td>
 <thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
 <tbody>
 <tr>
-<td><code>cs_ip</code></td>
+<td><code>listener</code></td>
 <td>The IP address for the Riak CS node</td>
-<td><code>127.0.0.1</code></td>
+<td><code>{"127.0.0.1", 8080}</code></td>
 </tr>
 <tr>
-<td><code>cs_port</code></td>
-<td>The TCP port for the Riak CS node (whether HTTP or HTTPS)</td>
-<td><code>8087</code></td>
-</tr>
-<tr>
-<td><code>riak_pb_port</code></td>
-<td>The TCP port for the Riak CS node's corresponding Riak node (used by
+<td><code>riak_host</code></td>
+<td>The TCP IP/port for the Riak CS node's corresponding Riak node (used by
 Riak's [[Protocol Buffers|PBC API]] interface)
-<td><code>127.0.0.1</code></td>
+<td><code>{"127.0.0.1", 8087}</code></td>
 </tr>
 <tr>
 <td><code>cs_root_host</code></td>
@@ -198,15 +235,10 @@ default for <code>pb_backlog</code> is 128.</td>
 <thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
 <tbody>
 <tr>
-<td><code>stanchion_ip</code></td>
-<td>The IP address for the Stanchion node in the cluster. Please note
-that there should be only one Stanchion node in the cluster.</td>
-<td><code>127.0.0.1</code></td>
-</tr>
-<tr>
-<td><code>stanchion_port</code></td>
-<td>The TCP port used by the Stancion node in the cluster</td>
-<td><code>8085</code></td>
+<td><code>stanchion_host</code></td>
+<td>The IP address/port for the Stanchion node in the cluster. Please note that
+there should be only one Stanchion node in the cluster.</td>
+<td><code>127.0.0.1:8085</code></td>
 </tr>
 <tr>
 <td><code>stanchion_ssl</code></td>
@@ -226,13 +258,13 @@ Stanchion</td>
 <td><code>stanchion_host</code></td>
 <td>The IP address/port for the Stanchion node in the cluster. Please note that
 there should be only one Stanchion node in the cluster.</td>
-<td><code>127.0.0.1:8085</code></td>
+<td><code>{"127.0.0.1",8085}</code></td>
 </tr>
 <tr>
 <td><code>stanchion_ssl</code></td>
 <td>Whether SSL is enabled for connections between the Riak CS node and
 Stanchion</td>
-<td><code>off</code></td>
+<td><code>false</code></td>
 </tr>
 </tbody>
 </table>
@@ -298,20 +330,13 @@ not recommend changing this setting unless you implement a custom module.</td>
 <thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
 <tbody>
 <tr>
-<td><code>admin_ip</code></td>
-<td>You have the option to provide a special endpoint for performing
-system administration tasks in Riak CS. This setting sets the IP
-address for that endpoint. If you leave this setting and
-<code>admin_port</code> commented, then administrative tasks use the
-IP and port as all other Riak CS traffic.</td>
-<td><code>8000</code></td>
-</tr>
-<tr>
-<td><code>admin_port</code></td>
-<td>The port used for performing system administration tasks. See the
-description for <code>admin_ip</code> above for more information.</td>
-<td><code>8000</code></td>
-</tr>
+<td><code>admin_listener</code></td>
+<td>You have the option to provide a special endpoint for performing system
+administration tasks in Riak CS. This setting sets the IP address and port for
+that endpoint. If you leave this setting commented out, then administrative
+tasks use the IP and port as all other Riak CS traffic.</td>
+<td><code>{"127.0.0.1",8000}</code></td>
+
 <tr>
 <td><code>admin_key</code></td>
 <td>The admin key used for administrative access to Riak CS, e.g. usage
@@ -735,14 +760,6 @@ server that handles all HTTP and HTTPS connections to Riak CS. The
               %% Other configs
              ]}
 ```
-
-<div class="note"><div class="title">Upgrading to 2.0.0</div>
-Due to a WebMachine change for the 2.0.0 update, if `log_handlers` are defined
-in `app.config` or `advanced.config`, the log handler's name should be changed
-from `webmachine_log_handler` to `webmachine_access_log_handler`. This does not
-have to be changed if log_handlers is not defined in `app.config` or
-`advanced.config`.
-</div>
 
 <table class="riak-conf">
 <thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
