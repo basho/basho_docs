@@ -193,15 +193,10 @@ default for <code>pb_backlog</code> is 128.</td>
 <thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
 <tbody>
 <tr>
-<td><code>stanchion_ip</code></td>
-<td>The IP address for the Stanchion node in the cluster. Please note
-that there should be only one Stanchion node in the cluster.</td>
-<td><code>127.0.0.1</code></td>
-</tr>
-<tr>
-<td><code>stanchion_port</code></td>
-<td>The TCP port used by the Stancion node in the cluster</td>
-<td><code>8085</code></td>
+<td><code>stanchion_host</code></td>
+<td>The IP address/port for the Stanchion node in the cluster. Please note that
+there should be only one Stanchion node in the cluster.</td>
+<td><code>127.0.0.1:8085</code></td>
 </tr>
 <tr>
 <td><code>stanchion_ssl</code></td>
@@ -293,20 +288,13 @@ not recommend changing this setting unless you implement a custom module.</td>
 <thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
 <tbody>
 <tr>
-<td><code>admin_ip</code></td>
-<td>You have the option to provide a special endpoint for performing
-system administration tasks in Riak CS. This setting sets the IP
-address for that endpoint. If you leave this setting and
-<code>admin_port</code> commented, then administrative tasks use the
-IP and port as all other Riak CS traffic.</td>
-<td><code>8000</code></td>
-</tr>
-<tr>
-<td><code>admin_port</code></td>
-<td>The port used for performing system administration tasks. See the
-description for <code>admin_ip</code> above for more information.</td>
-<td><code>8000</code></td>
-</tr>
+<td><code>admin_listener</code></td>
+<td>You have the option to provide a special endpoint for performing system
+administration tasks in Riak CS. This setting sets the IP address and port for
+that endpoint. If you leave this setting commented out, then administrative
+tasks use the IP and port as all other Riak CS traffic.</td>
+<td><code>{"127.0.0.1",8000}</code></td>
+
 <tr>
 <td><code>admin_key</code></td>
 <td>The admin key used for administrative access to Riak CS, e.g. usage
