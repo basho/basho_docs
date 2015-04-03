@@ -126,7 +126,7 @@ for a more detailed description.</div>
     `stanchion_host`.  
     \- `admin_ip` and `admin_port` have been combined into `admin_listener`.  
     \- `webmachine_log_handler` has become `webmachine_access_log_handler`.  
-    \- `{max_open_files, 50}` has been depricated and should be replaced with
+    \- `{max_open_files, 50}` has been deprecated and should be replaced with
     `{total_leveldb_mem_percent, 30}`.  
 
     For the Stanchion `app.config`:  
