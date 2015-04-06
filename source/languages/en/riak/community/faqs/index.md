@@ -21,4 +21,3 @@ moved: {
 * [[Operating Riak FAQs]]
 * [[Log Messages FAQs]]
 * [[Riak Community FAQs]]
-* [[Riak Enterprise FAQs]]

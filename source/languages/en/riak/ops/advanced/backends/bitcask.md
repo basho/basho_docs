@@ -352,7 +352,7 @@ following to the `riak_kv` section of your `app.config`:
 
 ### Disk Usage and Merging Settings
 
-Riak stores each [[vnode|Riak Glossary#vnodes]] of the
+Riak stores each [[vnode|Riak Glossary#Vnode]] of the
 [[ring|Clusters#the-ring]] as a separate Bitcask directory within the
 configured Bitcask data directory.
 
@@ -588,7 +588,7 @@ bitcask.merge_check_interval = 3m
 ```
 
 If merge check operations happen at the same time on different
-[[vnodes|Riak Glossary#vnode]] on the same node, this can produce spikes
+[[vnodes|Riak Glossary#Vnode]] on the same node, this can produce spikes
 in I/O usage and undue latency. Bitcask makes it less likely that merge
 check operations will occur at the same time on different vnodes by
 applying a **jitter** to those operations. A jitter is a random
@@ -904,7 +904,7 @@ The result:
 ```
 
 Note that when starting up the directories are created for each
-[[vnode|Vnode]] partition's data. At this point, however, there are not
+[[vnode|Vnodes]] partition's data. At this point, however, there are not
 yet any Bitcask-specific files.
 
 After performing one PUT (write) into the Riak cluster running Bitcask:

@@ -17,7 +17,7 @@ A:
 
   Another reason for performance degradation is connection reliability. A node that is dead is indistinguishable from a node that is simply taking a really long time to respond. Once you spread nodes across a WAN, the likelihood of network failure---and thus network partitions---becomes much higher. Riak is designed to always be available for writes, but you will still want to avoid partitions as strenuously as possible. Partitions are one of the primary causes of siblings, potentially generating a high demand for sibling resolution. Partitions also cause additional load to be placed on the nodes, since allowing sloppy quorums requires nodes to take on the work of other partitioned nodes, possibly doubling or tripling the workload of each server.
   
-  If you must replicate data in Riak across multiple datacenters, we recommend that you explore [[Riak Enterprise]], which handles Multi-Datacenter Replication across a WAN (without the downsides listed above).
+  If you must replicate data in Riak across multiple datacenters, we recommend that you explore [[Riak Enterprise|Multi Data Center Replication v3 Architecture]], which handles Multi-Datacenter Replication across a WAN (without the downsides listed above).
 
   We also recommend checking out this talk on [WAN MDC replication](http://vimeo.com/52016325).
 
