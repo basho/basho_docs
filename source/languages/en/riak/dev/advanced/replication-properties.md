@@ -170,7 +170,7 @@ partitions.
 
 ## R Value and Read Failure Tolerance
 
-Read requests to Riak are sent to all N nodes that are know to be
+Read requests to Riak are sent to all N nodes that are known to be
 currently responsible for the data. The R value (`r`) enables you to
 specify how many of those nodes have to return a result on a given read
 for the read to be considered successful. This allows Riak to provide
