@@ -755,7 +755,7 @@ to enable it prior to enabling security. If you are using [[Protocol
 Buffers|PBC API]] as a transport protocol for Riak (which we strongly
 recommend), enabling SSL on a given node requires only that you specify
 a [[host and port|Configuration Files#Client-Interfaces]] for the node
-as well as a [[certificate configuration|Authenticate and
+as well as a [[certification configuration|Authentication and 
 Authorization#Certificate-Configuration]].
 
 If, however, you are using the [[HTTP API]] for Riak and would like to

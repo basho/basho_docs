@@ -55,7 +55,7 @@ _If you have a video to add, please fork the [Riak Docs Repo on GitHub](https://
 
 ## Example Application
 
-To showcase the power of indexing in Riak, we created a [zombie apocalypse](http://basho.com/indexing-the-zombie-apocalypse-with-riak/) app that's run on Riak. This app has one million “Zombielepsy” victims loaded into Riak and lets the user locate them using ZIP code as the index value. It supports both Term-Based Inverted Indexes and [[Secondary Indexes]]. In addition to better understanding indexing in Riak, users can:
+To showcase the power of indexing in Riak, we created a [zombie apocalypse](http://basho.com/indexing-the-zombie-apocalypse-with-riak/) app that's run on Riak. This app has one million “Zombielepsy” victims loaded into Riak and lets the user locate them using ZIP code as the index value. It supports both Term-Based Inverted Indexes and [[Secondary Indexes|Using Secondary Indexes]]. In addition to better understanding indexing in Riak, users can:
 
 * Create a Zombie Sighting Report System so that the concentration of live zombies in an area can be quickly determined based on the count and last report date.
 * Add a crowd-sourced Inanimate Zombie Reporting System so that members of the non-zombie population can report inanimate zombies.
