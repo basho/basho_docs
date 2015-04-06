@@ -149,12 +149,12 @@ users, and `<groupname>_Inbox_<date>` for groups, which will look like
 `joeuser_Sent_2014-03-06Z` or `marketing_group_Inbox_2014-03-05Z`,
 respectively.
 
-<div class="note">
-<div class="title">Note</div>
+<div class="note"><div class="title">Note</div>
 Riak performs best with objects under 1-2MB. Objects larger than that
 can hurt performance, especially many siblings are being created. We
 will cover siblings, sibling resolution, and sibling explosions in the
-next chapter.  </div>
+next chapter.
+</div>
 
 #### Keeping our story straight with repositories
 
@@ -420,5 +420,3 @@ So to recap, in this chapter we learned:
 * How to choose bucket names
 * How to choose natural keys based on how we want to partition our data
 
-In the next chapter, we will learn about siblings, how to deal with
-them, and some other edge cases to check for while working with Riak.

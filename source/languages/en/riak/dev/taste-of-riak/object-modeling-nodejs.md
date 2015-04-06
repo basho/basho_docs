@@ -1,15 +1,18 @@
 ---
-title: "Taste of Riak: Object Modeling with CSharp"
+title: "Taste of Riak: Object Modeling with NodeJS"
 project: riak
 version: 1.4.8+
 document: tutorials
 toc: true
 audience: beginner
-keywords: [developers, client, 2i, search, csharp, modeling]
+keywords: [developers, client, 2i, search, javascript, modeling, nodejs]
 ---
 
-To get started, refer to [this source code][1] for the models that we'll
-be using.
+To get started, let's create the models that we'll be using.
+
+* [`Msg`](https://github.com/basho/taste-of-riak/blob/master/nodejs/Ch03-Msgy-Schema/models/msg.js)
+* [`Timeline`](https://github.com/basho/taste-of-riak/blob/master/nodejs/Ch03-Msgy-Schema/models/timeline.js)
+* [`User`](https://github.com/basho/taste-of-riak/blob/master/nodejs/Ch03-Msgy-Schema/models/user.js)
 
 To use these classes to store data, we will first have to create a user.
 Then, when a user creates a message, we will append that message to one
@@ -32,19 +35,25 @@ Natural keys are a great fit for key/value systems because both humans
 and computers can easily construct them when needed, and most of the
 time they can be made unique enough for a KV store.
 
+
 | Bucket | Key Pattern | Example Key
 |:-------|:------------|:-----------
 | `Users` | `<user_name>` | `joeuser`
-| `Msgs` | `<username>_<datetime>` | `joeuser_2014-03-06T02:05:13`
-| `Timelines` | `<username>_<type>_<date>` | `joeuser_Sent_2014-03-06`<br /> `marketing_group_Inbox_2014-03-06` |
+| `Msgs` | `<username>_<datetime>` | `joeuser_2014-03-06T02:05:13.556Z`
+| `Timelines` | `<username>_<type>_<date>` | `joeuser_SENT_2014-03-06`<br /> `marketing_group_INBOX_2014-03-06` |
 
 For the `Users` bucket, we can be certain that we will want each
-username to be unique, so let's use the `username` as the key.
+username to be unique, so let's use the `userName` as the key.
+
+[*Example:* `userName` as key](https://github.com/basho/taste-of-riak/blob/master/nodejs/Ch03-Msgy-Schema/models/user.js#L19-L20)
 
 For the `Msgs` bucket, let's use a combination of the username and the
-posting UTC datetime in an [ISO 8601][iso_8601]
-format. This combination gives us the pattern `<username>_<datetime>`,
-which produces keys like `joeuser_2014-03-05T23:20:28`.
+posting datetime in an [ISO 8601
+Long](http://en.wikipedia.org/wiki/ISO_8601) format. This combination
+gives us the pattern `<username>_<datetime>`, which produces keys like
+`joeuser_2014-03-05T23:20:28Z`.
+
+[*Example:* `Msg` key](https://github.com/basho/taste-of-riak/blob/master/nodejs/Ch03-Msgy-Schema/models/msg.js#L25-L27)
 
 Now for `Timelines`, we need to differentiate between `Inbox` and `Sent`
 timelines, so we can simply add that type into the key name. We will
@@ -53,24 +62,32 @@ that way the object doesn't grow too large (see note below).
 
 For `Timelines`, let's use the pattern `<username>_<type>_<date>` for
 users, and `<groupname>_Inbox_<date>` for groups, which will look like
-`joeuser_Sent_2014-03-06` or `marketing_group_Inbox_2014-03-05`,
+`joeuser_SENT_2014-03-06` or `marketing_group_INBOX_2014-03-05`,
 respectively.
 
 <div class="note"><div class="title">Note</div>
 Riak performs best with objects under 1-2MB. Objects larger than that
-can hurt performance, especially when many siblings are being created. We
+can hurt performance, especially many siblings are being created. We
 will cover siblings, sibling resolution, and sibling explosions in the
 next chapter.
 </div>
 
 #### Keeping our story straight with repositories
 
-Now that we've figured out our object model, please refer to
-[this source code][2] for the repositories that we'll be using.
+Now that we've figured out our object model, let's write some
+repositories to help create and work with these objects in Riak:
 
-[This console application][3] exercises the code that we've written.
+* [Base `Repository` class](https://github.com/basho/taste-of-riak/blob/master/nodejs/Ch03-Msgy-Schema/repositories/repository.js)
+* [`UserRepository` class](https://github.com/basho/taste-of-riak/blob/master/nodejs/Ch03-Msgy-Schema/repositories/user-repository.js)
+* [`MsgRepository` class](https://github.com/basho/taste-of-riak/blob/master/nodejs/Ch03-Msgy-Schema/repositories/msg-repository.js)
+* [`TimelineRepository` class](https://github.com/basho/taste-of-riak/blob/master/nodejs/Ch03-Msgy-Schema/repositories/timeline-repository.js)
+* [`TimelineManager` class that manages `Msg` and `Timeline` objects](https://github.com/basho/taste-of-riak/blob/master/nodejs/Ch03-Msgy-Schema/timeline-manager.js)
 
-The repository pattern and `TimelineManager` help with a few things:
+Finally, let's test them:
+
+[*Example:* Putting it all together](https://github.com/basho/taste-of-riak/blob/master/nodejs/Ch03-Msgy-Schema/app.js)
+
+As you can see, the repository pattern helps us with a few things:
 
  - It helps us to see if an object exists before creating a new one
  - It keeps our buckets and key names consistent
@@ -92,9 +109,4 @@ So to recap, in this chapter we learned:
 
 * How to choose bucket names
 * How to choose natural keys based on how we want to partition our data
-
-[1]: https://github.com/basho/taste-of-riak/tree/master/csharp/Ch03-Msgy-Schema/Models
-[2]: https://github.com/basho/taste-of-riak/tree/master/csharp/Ch03-Msgy-Schema/Repositories
-[3]: https://github.com/basho/taste-of-riak/blob/master/csharp/Ch03-Msgy-Schema/Program.cs
-[iso_8601]: http://en.wikipedia.org/wiki/ISO_8601
 

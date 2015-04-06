@@ -24,6 +24,7 @@ riak:
               - "[[Ruby|Taste of Riak: Ruby]]"
               - "[[Python|Taste of Riak: Python]]"
               - "[[C#|Taste of Riak: CSharp]]"
+              - "[[NodeJS|Taste of Riak: NodeJS]]"
               - "[[Erlang|Taste of Riak: Erlang]]"
               # - "[[PHP|Taste of Riak: PHP]]"
               # - "[[C|Taste of Riak: C]]"
@@ -37,6 +38,7 @@ riak:
               - "[[Ruby|Taste of Riak: Querying with Ruby]]"
               - "[[Python|Taste of Riak: Querying with Python]]"
               - "[[C#|Taste of Riak: Querying with CSharp]]"
+              - "[[NodeJS|Taste of Riak: Querying with NodeJS]]"
               - "[[Erlang|Taste of Riak: Querying with Erlang]]"
               # - "[[PHP|Taste of Riak: Querying with PHP]]"
           - title: Object Modeling
@@ -46,6 +48,7 @@ riak:
               - "[[Ruby|Taste of Riak: Object Modeling with Ruby]]"
               - "[[Python|Taste of Riak: Object Modeling with Python]]"
               - "[[C#|Taste of Riak: Object Modeling with CSharp]]"
+              - "[[NodeJS|Taste of Riak: Object Modeling with NodeJS]]"
               - "[[Erlang|Taste of Riak: Object Modeling with Erlang]]"
       - title: "Basic Usage"
         sub:
@@ -64,6 +67,7 @@ riak:
               - "[[Ruby|Conflict Resolution: Ruby]]"
               - "[[Python|Conflict Resolution: Python]]"
               - "[[C#|Conflict Resolution: CSharp]]"
+              - "[[NodeJS|Conflict Resolution: NodeJS]]"
       - title: "Riak Search"
         sub:
           - "[[Search Basics|Using Search]]"
