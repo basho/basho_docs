@@ -352,7 +352,7 @@ following to the `riak_kv` section of your `app.config`:
 
 ### Disk Usage and Merging Settings
 
-Riak stores each [[vnode|Riak Glossary#Vnodes]] of the
+Riak stores each [[vnode|Riak Glossary#Vnode]] of the
 [[ring|Clusters#the-ring]] as a separate Bitcask directory within the
 configured Bitcask data directory.
 
