@@ -284,6 +284,11 @@ var id = new RiakObjectId("my_bucket", "my_key");
 client.Get(id);
 ```
 
+```javascript
+client.fetchValue({ bucket: 'my_bucket', key: 'my_key' }, function (err, rslt) {
+});
+```
+
 ```erlang
 {ok, Object} = riakc_pb_socket:get(Pid,
                                    <<"my_bucket">>,
@@ -331,6 +336,18 @@ var id1 = new RiakObjectId("type1", "my_bucket", "my_key");
 var id2 = new RiakObjectId("type2", "my_bucket", "my_key");
 var rslt1 = client.Get(id1);
 var rslt2 = client.Get(id2);
+```
+
+```javascript
+client.fetchValue({
+    bucketType: 'type1', bucket: 'my_bucket', key: 'my_key'
+}, function (err, rslt) {
+});
+
+client.fetchValue({
+    bucketType: 'type2', bucket: 'my_bucket', key: 'my_key'
+}, function (err, rslt) {
+});
 ```
 
 ```erlang
@@ -393,6 +410,30 @@ var getRslt = client.Get(id2);
 
 RiakObject obj2 = getRslt.Value;
 // Note: obj1.Value and obj2.Value are equal
+```
+
+```javascript
+var obj1 = new Riak.Commands.KV.RiakObject();
+obj1.setContentType('text/plain');
+obj1.setBucketType('default');
+obj1.setBucket('my_bucket');
+obj1.setKey('my_key');
+obj1.setValue('value');
+client.storeValue({ value: obj1 }, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+
+    client.fetchValue({
+        bucketType: 'default', bucket: 'my_bucket', key: 'my_key'
+    }, function (err, rslt) {
+        if (err) {
+            throw new Error(err);
+        }
+        var obj2 = rslt.values.shift();
+        assert(obj1.value == obj2.value);
+    });
+});
 ```
 
 ```erlang
@@ -611,6 +652,18 @@ var obj = new RiakObject(id, "{\"name\":\"Bob\"}");
 var rslt = client.Put(obj);
 ```
 
+```javascript
+var obj = { name: 'Bob' };
+client.storeValue({
+    bucketType: 'no_siblings', bucket: 'sensitive_user_data',
+    key: 'user19735', value: obj
+}, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+});
+```
+
 ```erlang
 Object = riakc_obj:new({<<"no_siblings">>, <<"sensitive_user_data">>},
                        <<"user19735">>,
@@ -676,6 +729,20 @@ var id = new RiakObjectId("no_siblings", "old_memes", "all_your_base");
 var obj = new RiakObject(id, "all your base are belong to us",
     RiakConstants.ContentTypes.TextPlain);
 var rslt = client.Put(obj);
+```
+
+```javascript
+var obj = new Riak.Commands.KV.RiakObject();
+obj.setContentType('text/plain');
+obj.setBucketType('no_siblings');
+obj.setBucket('old_memes');
+obj.setKey('all_your_base');
+obj.setValue('all your base are belong to us');
+client.storeValue({ value: obj }, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+});
 ```
 
 ```erlang
