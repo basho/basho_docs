@@ -101,7 +101,7 @@ obj = bucket.get('banana', deletedvclock: true)
 ## Example Update
 
 In this section, we'll provide an update example for Basho's official Ruby,
-Python, .NET and Erlang clients. Because updates with the official Java client
+Python, .NET, NodeJS and Erlang clients. Because updates with the official Java client
 functions somewhat differently, those examples can be found in the [[section
 below|Object Updates#Java-Client-Example]].
 
@@ -133,6 +133,22 @@ var id = new RiakObjectId("siblings", "coaches", "seahawks");
 var obj = new RiakObject(id, "Pete Carroll",
     RiakConstants.ContentTypes.TextPlain);
 var rslt = client.Put(obj);
+```
+
+```javascript
+var riakObj = new Riak.Commands.KV.RiakObject();
+riakObj.setContentType('text/plain');
+riakObj.setBucketType('siblings');
+riakObj.setBucket('coaches');
+riakObj.setKey('seahawks');
+riakObj.setValue('Pete Carroll');
+client.storeValue({ value: riakObj }, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    } else {
+        logger.info('Stored Pete Carroll');
+    }
+});
 ```
 
 ```erlang
@@ -185,6 +201,26 @@ private void UpdateCoach(string team, string newCoach)
     RiakObject obj = getResult.Value;
     obj.SetObject<string>(newCoach, RiakConstants.ContentTypes.TextPlain);
     client.Put(obj);
+}
+```
+
+```javascript
+function update_coach(team, newCoach) {
+    client.fetchValue({
+        bucketType: 'siblings', bucket: 'coaches', key: team
+    }, function (err, rslt) {
+        if (err) {
+            throw new Error(err);
+        }
+
+        var riakObj = rslt.values.shift();
+        riakObj.setValue(newCoach);
+        client.storeValue({ value: riakObj }, function (err, rslt) {
+            if (err) {
+                throw new Error(err);
+            }
+        });
+    });
 }
 ```
 
