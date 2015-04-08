@@ -88,6 +88,12 @@ obj = bucket.get('rufus')
 var id = new RiakObjectId("animals", "dogs", "rufus");
 ```
 
+```javascript
+client.fetchValue({ bucketType: 'animals', bucket: 'dogs', key: 'rufus' }, function (err, rslt) {
+    assert(rslt.isNotFound);
+});
+```
+
 ```erlang
 {ok, Obj} = riakc_pb_socket:get(Pid,
                             {<<"animals">>, <<"dogs">>},
@@ -124,6 +130,10 @@ riak.RiakError: 'no_type'
 ```csharp
 result.IsSuccess == false
 result.ResultCode == ResultCode.NotFound
+```
+
+```javascript
+rslt.isNotFound === true;
 ```
 
 ```erlang
@@ -190,6 +200,20 @@ var obj = new RiakObject(id, "WOOF!", "text/plain");
 var result = client.Put(obj);
 ```
 
+```javascript
+var riakObj = new Riak.Commands.KV.RiakObject();
+riakObj.setContentType('text/plain');
+riakObj.setValue('WOOF!');
+client.storeValue({
+    bucketType: 'animals', bucket: 'dogs', key: 'rufus',
+    value: riakObj
+}, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+});
+```
+
 Notice that we specified both a value for the object, i.e. `WOOF!`, and
 a content type, `text/plain`. We'll learn more about content types in
 the [[section below|The Basics#Content-Types]].
@@ -234,6 +258,12 @@ ArgumentError: content_type is not defined!
 // If you store a Dictionary, for example, the client will
 // automatically specify that the object is "application/json";
 // POCOs are stored as JSON by default, and so on.
+```
+
+```javascript
+// In the NodeJS client, the default content type is "application/json".
+// Because of this, you should always make sure to specify the content
+// type when storing other types of data.
 ```
 
 ```erlang
@@ -300,6 +330,18 @@ var opts = new RiakGetOptions();
 opts.SetR(3);
 var rslt = client.Get(id, opts);
 Debug.WriteLine(Encoding.UTF8.GetString(rslt.Value.Value));
+```
+
+```javascript
+var fetchOptions = {
+    bucketType: 'animals', bucket: 'dogs', key: 'rufus',
+    r: 3
+};
+client.fetchValue(fetchOptions, function (err, rslt) {
+    var riakObj = rslt.values.shift();
+    var rufusValue = riakObj.value.toString("utf8");
+    logger.info("rufus: %s", rufusValue);
+});
 ```
 
 ```erlang
@@ -388,6 +430,20 @@ var id = new RiakObjectId("quotes", "oscar_wilde", "genius");
 var obj = new RiakObject(id, "I have nothing to declare but my genius",
     RiakConstants.ContentTypes.TextPlain);
 var rslt = client.Put(obj);
+```
+
+```javascript
+var riakObj = new Riak.Commands.KV.RiakObject();
+riakObj.setContentType('text/plain');
+riakObj.setValue('I have nothing to declare but my genius');
+client.storeValue({
+    bucketType: 'quotes', bucket: 'oscar_wilde', key: 'genius',
+    value: riakObj
+}, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+});
 ```
 
 ```erlang
@@ -484,6 +540,39 @@ obj.SetObject("Harlem Globetrotters",
 rslt = client.Put(obj);
 ```
 
+```javascript
+var riakObj = new Riak.Commands.KV.RiakObject();
+riakObj.setContentType('text/plain');
+riakObj.setValue('Washington Generals');
+
+var options = {
+    bucketType: 'sports', bucket: 'nba', key: 'champion',
+    value: riakObj
+};
+client.storeValue(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+    delete options.value;
+    client.fetchValue(options, function (err, rslt) {
+        if (err) {
+            throw new Error(err);
+        }
+        var fetchedObj = rslt.values.shift();
+        fetchedObj.setValue('Harlem Globetrotters');
+        options.value = fetchedObj;
+        options.returnBody = true;
+        client.storeValue(options, function (err, rslt) {
+            if (err) {
+                throw new Error(err);
+            }
+            var updatedObj = rslt.values.shift();
+            logger.info("champion: %s", updatedObj.value.toString('utf8'));
+        });
+    });
+});
+```
+
 ```erlang
 %% In the Erlang client, you cannot view a context objectdirectly, but it
 %% will be included in the output when you fetch an object:
@@ -551,6 +640,15 @@ Console.WriteLine(Convert.ToBase64String(vclock));
 // a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
 ```
 
+```javascript
+// Using the RiakObject fetchedObj from above:
+var fetchedObj = rslt.values.shift();
+logger.info("vclock: %s", fetchedObj.getVClock().toString('base64'));
+
+// The output will look something like this:
+// vclock: a85hYGBgymDKBVIcR4M2cov1HeHKYEpkymNlsE2cfo4PKjXXjuOU+FHdWqAUM1CqECSVBQA=
+```
+
 ```erlang
 %% Using the Obj object from above:
 
@@ -611,6 +709,22 @@ var obj = new RiakObject(id, "vroom", "text/plain");
 var options = new RiakPutOptions();
 options.SetW(new Quorum(3));
 var result = client.Put(obj, options);
+```
+
+```javascript
+var riakObj = new Riak.Commands.KV.RiakObject();
+riakObj.setContentType('text/plain');
+riakObj.setValue('vroom');
+
+var options = {
+    bucketType: 'cars', bucket: 'dodge', key: 'viper',
+    w: 3, value: riakObj
+};
+client.storeValue(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+});
 ```
 
 ```erlang
@@ -680,6 +794,25 @@ var options = new RiakPutOptions();
 options.SetW(new Quorum(3));
 options.SetReturnBody(true);
 var result = client.Put(obj, options);
+```
+
+```javascript
+var riakObj = new Riak.Commands.KV.RiakObject();
+riakObj.setContentType('text/plain');
+riakObj.setValue('vroom');
+
+var options = {
+    bucketType: 'cars', bucket: 'dodge', key: 'viper',
+    w: 3, returnBody: true, value: riakObj
+};
+client.storeValue(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+    var riakObj = rslt.values.shift();
+    var viper = riakObj.value;
+    logger.info("dodge viper: %s", viper.toString('utf8'));
+});
 ```
 
 ```erlang
@@ -770,7 +903,28 @@ var rslt = client.Put(obj);
 Debug.WriteLine(format: "Generated key: {0}", args: rslt.Value.Key);
 
 // The .NET client will output a random key similar to this:
-Generated key: DWDsnpYSqOU363c0Bqe8hCwAM7Q
+// Generated key: DWDsnpYSqOU363c0Bqe8hCwAM7Q
+```
+
+```javascript
+var user = {
+    user: 'data'
+};
+var options = {
+    bucketType: 'users', bucket: 'random_user_keys',
+    returnBody: true, value: user
+};
+client.storeValue(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+    var riakObj = rslt.values.shift();
+    var generatedKey = riakObj.getKey();
+    logger.info("Generated key: %s", generatedKey);
+});
+
+// The NodeJS client will output a random key similar to this:
+// info: Generated key: VBAMoX0OOucymVCxeQEYzLzzAh2
 ```
 
 ```erlang
@@ -837,6 +991,19 @@ var rslt = client.Put(obj);
 string key = rslt.Value.Key;
 id = new RiakObjectId("users", "random_user_keys", key);
 var del_rslt = client.Delete(id);
+```
+
+```javascript
+// continuing from above example
+options = {
+    bucketType: 'users', bucket: 'random_user_keys',
+    key: generatedKey
+};
+client.deleteValue(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+});
 ```
 
 ```erlang
@@ -931,6 +1098,17 @@ bt.get_properties()
 ```csharp
 var rslt = client.GetBucketProperties("n_val_of_5", "any_bucket_name");
 RiakBucketProperties props = rslt.Value;
+```
+
+```javascript
+client.fetchBucketProps({
+    bucketType: 'n_val_of_5', bucket: 'any_bucket_name'
+}, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+    logger.info("props: %s", JSON.stringify(rslt));
+});
 ```
 
 ```erlang
