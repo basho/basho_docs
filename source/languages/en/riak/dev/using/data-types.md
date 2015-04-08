@@ -207,6 +207,13 @@ var counter = Client.DtFetchCounter(id);
 ```
 
 ```javascript
+// The following can be passed as options to the *Counter methods on the
+// NodeJS Client object
+var options = {
+    bucketType: 'counters',
+    bucket: 'counters',
+    key: '<insert_key_here>'
+};
 ```
 
 ```erlang
@@ -257,6 +264,16 @@ var trafficTickets = new RiakObjectId("counters", "counters", "traffic_tickets")
 var counter = Client.DtFetchCounter(trafficTickets);
 ```
 
+```javascript
+// Using the options from above:
+
+var options = {
+    bucketType: 'counters',
+    bucket: 'counters',
+    key: 'traffic_tickets'
+};
+```
+
 ```erlang
 Counter = riakc_counter:new().
 
@@ -304,6 +321,23 @@ var trafficTickets = new RiakObjectId("counters", "counters", "traffic_tickets")
 Client.DtUpdateCounter(trafficTickets, 1);
 ```
 
+```javascript
+// Using the options from above:
+
+var options = {
+    bucketType: 'counters',
+    bucket: 'counters',
+    key: 'traffic_tickets',
+    increment: 1
+};
+client.updateCounter(options,
+    function (err, rslt) {
+        if (err) {
+            throw new Error(err);
+        }
+    });
+```
+
 ```erlang
 Counter1 = riakc_counter:increment(Counter).
 ```
@@ -338,6 +372,21 @@ counter.increment(5)
 ```csharp
 // Using the "counter" object from above:
 client.DtUpdateCounter(counter, 5);
+```
+
+```javascript
+var options = {
+    bucketType: 'counters',
+    bucket: 'counters',
+    key: 'traffic_tickets',
+    increment: 5
+};
+client.updateCounter(options,
+    function (err, rslt) {
+        if (err) {
+            throw new Error(err);
+        }
+    });
 ```
 
 ```erlang
@@ -386,6 +435,30 @@ counter.reload()
 
 ```csharp
 Console.WriteLine(counter.Value);
+```
+
+```javascript
+var options = {
+    bucketType: 'counters',
+    bucket: 'counters',
+    key: 'traffic_tickets'
+};
+client.fetchCounter(options,
+    function (err, rslt) {
+        if (err) {
+            throw new Error(err);
+        }
+
+        if (rslt.notFound) {
+            logger.error("bt: %s, b: %s, k: %s, counter: NOT FOUND",
+                options.bucketType, options.bucket, options.key);
+        } else {
+            logger.info("bt: %s, b: %s, k: %s, counter: %d",
+                options.bucketType, options.bucket, options.key,
+                rslt.counterValue);
+        }
+    }
+);
 ```
 
 ```erlang
@@ -445,6 +518,23 @@ Client.DtUpdateCounter(trafficTickets, -1);
 
 // As with incrementing, you can also decrement by more than one, e.g.:
 Client.DtUpdateCounter(trafficTickets, -3);
+```
+
+```javascript
+var options = {
+    bucketType: 'counters',
+    bucket: 'counter',
+    key: 'traffic_tickets',
+    increment: -1
+};
+
+// As with incrementing, you can also decrement by more than one, e.g.:
+var options = {
+    bucketType: 'counters',
+    bucket: 'counter',
+    key: 'traffic_tickets',
+    increment: -3
+};
 ```
 
 ```erlang
