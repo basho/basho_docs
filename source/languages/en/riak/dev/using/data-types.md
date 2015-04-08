@@ -134,6 +134,15 @@ bucket = client.bucket_type('counters').bucket('counters')
 var id = new RiakObjectId("counters", "counters", "<insert_key_here>");
 ```
 
+```javascript
+// The following can be passed as options to FetchCounter
+var options = {
+    bucketType: 'counters',
+    bucket: 'counters',
+    key: '<insert_key_here>'
+};
+```
+
 ```erlang
 %% Buckets are simply named binaries in the Erlang client. See the
 %% examples below for more information
@@ -195,6 +204,9 @@ counter = Counter(bucket, key)
 // fetch the counter:
 var id = new RiakObjectId(bucketType, bucket, key);
 var counter = Client.DtFetchCounter(id);
+```
+
+```javascript
 ```
 
 ```erlang
