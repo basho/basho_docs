@@ -1158,6 +1158,15 @@ map = Map(bucket, key)
 var id = new RiakObjectId("<bucket_type>", "<bucket>", "<key>");
 ```
 
+```javascript
+// Options to pass to the various map methods
+var options = {
+    bucketType: '<bucket_type>',
+    bucket: '<bucket>',
+    key: '<key>'
+};
+```
+
 ```erlang
 %% Maps in the Erlang client are opaque data structures that
 %% collect operations as you mutate them. We will associate the data
@@ -1208,6 +1217,14 @@ map = customers.net('ahmed_info')
 
 ```csharp
 var id = new RiakObjectId("maps", "customers", "ahmed_info");
+```
+
+```javascript
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info'
+};
 ```
 
 ```erlang
@@ -1330,6 +1347,25 @@ foreach (RiakDtMapEntry value in rslt.Values)
             break;
     }
 }
+```
+
+```javascript
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info'
+};
+
+var mapOp = new Riak.Commands.CRDT
+
+RegisterUpdate ru1 = new RegisterUpdate("Ahmed");
+RegisterUpdate ru2 = new RegisterUpdate("5551234567");
+MapUpdate mu = new MapUpdate()
+        .update("first_name", ru1)
+        .update("phone_number", ru2);
+UpdateMap update = new UpdateMap.Builder(ahmedMap, mu)
+          .build();
+client.execute(update);
 ```
 
 ```erlang
