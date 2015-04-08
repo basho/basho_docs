@@ -613,6 +613,17 @@ set = Set(bucket, key)
 var id = new RiakObjectId(bucket_type, bucket, key);
 ```
 
+```javascript
+// As with counters, with the Riak NodeJS Client you interact with sets on the
+// basis of the set's location in Riak, as specified by an options object.
+// Below is an example:
+var options = {
+    bucketType: 'sets',
+    bucket: 'travel',
+    key: 'cities'
+};
+```
+
 ```erlang
 %% Like counters, sets are not encapsulated in a
 %% bucket/key in the Erlang client. See below for more
@@ -669,8 +680,19 @@ cities_set = Set(travel, 'cities')
 ```
 
 ```csharp
-// Now we'll create a reference to the set we want to interact with:
+// Now we'll create a reference for the set with which we want to
+// interact:
 var id = new RiakObjectId("sets", "travel", "cities");
+```
+
+```javascript
+// Now we'll create a options object for the set with which we want to
+// interact:
+var options = {
+    bucketType: 'sets',
+    bucket: 'travel',
+    key: 'cities'
+};
 ```
 
 ```erlang
@@ -713,6 +735,23 @@ var id = new RiakObjectId("sets", "travel", "cities");
 var citiesSet = client.DtFetchSet(id);
 int setSize = citiesSet.Values.Count;
 Console.WriteLine(setSize > 0);
+```
+
+```javascript
+var options = {
+    bucketType: 'sets',
+    bucket: 'travel',
+    key: 'cities'
+};
+client.fetchSet(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+
+    if (rslt.notFound) {
+        logger.info("set 'cities' is not found!");
+    }
+});
 ```
 
 ```erlang
@@ -762,6 +801,28 @@ var adds = new List<string> { "Toronto", "Montreal" };
 var result = client.DtUpdateSet(id,
     obj => Encoding.UTF8.GetBytes(obj),
     citiesSet.Context, adds);
+```
+
+```javascript
+var options = {
+    bucketType: 'sets',
+    bucket: 'travel',
+    key: 'cities'
+};
+var cmd = new Riak.Commands.CRDT.UpdateSet.Builder()
+    .withBucketType(options.bucketType)
+    .withBucket(options.bucket)
+    .withKey(options.key)
+    .withAdditions(['Toronto', 'Montreal'])
+    .withCallback(
+        function (err, rslt) {
+            if (err) {
+                throw new Error(err);
+            }
+        }
+    )
+    .build();
+client.execute(cmd);
 ```
 
 ```erlang
@@ -831,6 +892,31 @@ citiesSet = client.DtUpdateSet(id,
     rslt.Context, adds, removes);
 ```
 
+```javascript
+var options = {
+    bucketType: 'sets',
+    bucket: 'travel',
+    key: 'cities'
+};
+client.fetchSet(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+
+    // NB: clone package https://www.npmjs.com/package/clone
+    var update_opts = clone(options);
+    update_opts.context = rslt.context;
+    update_opts.additions = ['Hamilton', 'Ottawa'];
+    update_opts.removals = ['Montreal', 'Ottawa'];
+
+    client.updateSet(update_opts, function (err, rslt) {
+        if (err) {
+            throw new Error(err);
+        }
+    });
+});
+```
+
 ```erlang
 CitiesSet3 = riakc_set:del_element(<<"Montreal">>, CitiesSet2),
 CitiesSet4 = riakc_set:add_element(<<"Hamilton">>, CitiesSet3),
@@ -891,6 +977,25 @@ foreach (var value in citiesSet.Values)
 // Cities Set Value: Hamilton
 // Cities Set Value: Ottawa
 // Cities Set Value: Toronto
+```
+
+```javascript
+var options = {
+    bucketType: 'sets',
+    bucket: 'travel',
+    key: 'cities'
+};
+client.fetchSet(options, function(err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+
+    logger.info("cities set values: '%s'",
+        rslt.values.join(', '));
+});
+
+// Output:
+// info: cities set values: 'Hamilton, Ottawa, Toronto'
 ```
 
 ```erlang
@@ -955,6 +1060,14 @@ cities_set.include? 'Ottawa'
 // checking if a set includes a value.
 ```
 
+```javascript
+// Use standard javascript array method indexOf()
+
+var cities_set = result.values;
+cities_set.indexOf('Vancouver'); // if present, index is >= 0
+cities_set.indexOf('Ottawa'); // if present, index is >= 0
+```
+
 ```erlang
 %% At this point, Set5 is the most "recent" set from the standpoint
 %% of our application.
@@ -986,6 +1099,12 @@ len(cities_set)
 
 ```csharp
 Debug.WriteLine(format: "Cities Set Size: {0}", args: citiesSet.Values.Count);
+```
+
+```javascript
+// Use standard javascript array property length
+
+var cities_set_size = result.values.length;
 ```
 
 ```erlang
