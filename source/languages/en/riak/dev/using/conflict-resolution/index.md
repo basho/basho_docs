@@ -148,6 +148,7 @@ client-library-specific docs:
 * [[Ruby|Conflict Resolution: Ruby]]
 * [[Python|Conflict Resolution: Python]]
 * [[C#|Conflict Resolution: CSharp]]
+* [[NodeJS|Conflict Resolution: NodeJS]]
 
 In Riak versions 2.0 and later, `allow_mult` is set to `true` by default
 for any [[bucket types|Using Bucket Types]] that you create. This means
@@ -304,6 +305,39 @@ var renResult = client.Put(renObj);
 var stimpyResult = client.Put(stimpyObj);
 ```
 
+```javascript
+var obj1 = new Riak.Commands.KV.RiakObject();
+obj1.setContentType('text/plain');
+obj1.setBucketType('siblings_allowed');
+obj1.setBucket('nickolodeon');
+obj1.setKey('best_character');
+obj1.setValue('Ren');
+
+var obj2 = new Riak.Commands.KV.RiakObject();
+obj2.setContentType('text/plain');
+obj2.setBucketType('siblings_allowed');
+obj2.setBucket('nickolodeon');
+obj2.setKey('best_character');
+obj2.setValue('Ren');
+
+var storeFuncs = [];
+[obj1, obj2].forEach(function (obj) {
+    storeFuncs.push(
+        function (async_cb) {
+            client.storeValue({ value: obj }, function (err, rslt) {
+                async_cb(err, rslt);
+            });
+        }
+    );
+});
+
+async.parallel(storeFuncs, function (err, rslts) {
+    if (err) {
+        throw new Error(err);
+    }
+});
+```
+
 ```erlang
 Obj1 = riakc_obj:new({<<"siblings_allowed">>, <<"nickolodeon">>},
                      <<"best_character">>,
@@ -374,6 +408,19 @@ foreach (var sibling in obj.Siblings)
 }
 ```
 
+```javascript
+client.fetchValue({
+    bucketType: 'siblings_allowed', bucket:
+        'nickolodeon', key: 'best_character'
+}, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+    logger.info("nickolodeon/best_character has '%d' siblings",
+        rslt.values.length);
+});
+```
+
 ```curl
 curl http://localhost:8098/types/siblings_allowed/buckets/nickolodeon/keys/best_character
 ```
@@ -396,6 +443,10 @@ com.basho.riak.client.cap.UnresolvedConflictException: Siblings found
 Sibling count: 2
     VTag: 1DSVo7VED8AC6llS8IcDE6
     VTag: 7EiwrlFAJI5VMLK87vU4tE
+```
+
+```javascript
+info: nickolodeon/best_character has '2' siblings
 ```
 
 ```curl
@@ -441,6 +492,7 @@ client-library-specific documentation for the following languages:
 * [[Ruby|Conflict Resolution: Ruby]]
 * [[Python|Conflict Resolution: Python]]
 * [[C#|Conflict Resolution: CSharp]]
+* [[NodeJS|Conflict Resolution: NodeJS]]
 
 We won't deal with conflict resolution in this section. Instead, we'll
 focus on how to use causal context.
@@ -517,6 +569,31 @@ CheckResult(putRslt);
 obj = putRslt.Value;
 // Voila, no more siblings!
 Debug.Assert(obj.Siblings.Count == 0);
+```
+
+```javascript
+client.fetchValue({
+        bucketType: 'siblings_allowed',
+        bucket: 'nickolodeon',
+        key: 'best_character'
+    }, function (err, rslt) {
+        if (err) {
+            throw new Error(err);
+        }
+
+        var riakObj = rslt.values.shift();
+        riakObj.setValue('Stimpy');
+        client.storeValue({ value: riakObj, returnBody: true },
+            function (err, rslt) {
+                if (err) {
+                    throw new Error(err);
+                }
+
+                assert(rslt.values.length === 1);
+            }
+        );
+    }
+);
 ```
 
 ```curl
