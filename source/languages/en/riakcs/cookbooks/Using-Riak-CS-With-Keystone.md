@@ -129,7 +129,7 @@ brackets preceding and following each role value.
 Make sure that the value of the `root_host` key in the Riak CS `riak-cs.conf`
 file, or the `cs_root_host` key in the old-style `advanced.config` or
 `app.config` files matches the root host used for the object store in the
-Keystone configurion.
+Keystone configuration.
 
 For example, given the following config snippet from a Keystone configuration
 file, the value for `root_host` (or `cs_root_host`) should be set to

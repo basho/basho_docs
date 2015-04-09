@@ -286,7 +286,7 @@ Stanchion node. Although multiple Stanchion instances may be installed
 and running within a cluster, even one on each node, only one may be
 actively used by the cluster. Running multiple instances of Stanchion
 simultaneously can produce a variety of problems such as the inability
-to create user accounts and buckets or the inability to enfore their
+to create user accounts and buckets or the inability to enforce their
 uniqueness.
 
 Because only one Stanchion instance can be used at any given time, it's
