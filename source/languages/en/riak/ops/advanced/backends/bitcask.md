@@ -320,7 +320,7 @@ bitcask.io_mode = erlang
     ]}
 ```
 
-In general, the `nif` IO mode provies higher throughput for certain
+In general, the `nif` IO mode provides higher throughput for certain
 workloads, but it has the potential to negatively impact the Erlang VM,
 leading to higher worst-case latencies and possible throughput collapse.
 
