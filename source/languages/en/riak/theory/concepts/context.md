@@ -67,7 +67,7 @@ and later, we recommend using [[dotted version vectors|Causal
 Context#Dotted-Version-Vectors]] instead, for reasons that are explained
 in that section.
 
-Like dotted version vectors, vector clocks are a means of tracking a
+Like dotted version vectors, vector clocks are a means of tracking
 events in distributed systems. Unlike normal clocks, vector clocks have
 no sense of chronological time, i.e. they don't care if something
 happened at 6 pm today or back in 1972. They care only about sequences
