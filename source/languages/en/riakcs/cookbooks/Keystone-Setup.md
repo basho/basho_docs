@@ -49,7 +49,7 @@ test environment for running and testing Keystone.
     git checkout grizzly-2
     ```
 
-## Create a Virtual Envrionment for Keystone
+## Create a Virtual Environment for Keystone
 
 Run the following command to create a virtual environment:
 

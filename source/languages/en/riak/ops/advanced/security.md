@@ -52,8 +52,8 @@ interface. For inter-node communication, Erlang uses an unpredictable
 port by default; it binds to port 0, which means the first available
 port.
 
-For ease of firewall configuration, Riak can be configured via
-`app.config` to instruct the Erlang interpreter to use a limited range
+For ease of firewall configuration, Riak can be configured
+to instruct the Erlang interpreter to use a limited range
 of ports. For example, to restrict the range of ports that Erlang will
 use for inter-Erlang node communication to 6000-7999, add the following
 lines to the configuration file on each Riak node:
