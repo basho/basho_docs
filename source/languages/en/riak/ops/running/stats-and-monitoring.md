@@ -193,10 +193,14 @@ along with commercial and hosted services.
 
 <div class="note">
 <div class="title">Note on Riak 2.x Statistics Support</div>
-Many of the below third-party tools are either general-purpose tools with no
-dedicated Riak support, or have plugins that were designed and/or built for a
-specific use case in mind. As such, many of the below only aggregate the
-statistics and messages that were output by Riak 1.4.x.</br>
+Many of the below tools were either created by third-parties or Basho engineers
+for general usage, and have been passed to the community for further updates. As
+such, many of the below only aggregate the statistics and messages that were
+output by Riak 1.4.x.</br>
+Like all code under [Basho Labs](https://github.com/basho-labs/), there is no
+dedicated Basho support and are "best effort." We both appreciate and need your
+contribution to keep these tools stable and up to date. Please open up a GitHub
+issue on the repository if you'd like to be a maintainer.</br>
 Look for banners calling out the tools that do support the full set of Riak 2.x
 statistics!
 </div>
