@@ -227,7 +227,7 @@ level of maturity and activity.
 #### PHP
 
 * [riak-client](https://github.com/php-riak/riak-client) --- A Riak
-  2.0-compliant PHP client by [Fabio
+  2.0-compliant PHP client with support for Protocol Buffers by [Fabio
   Silva](https://github.com/FabioBatSilva)
 * [Ripple-PHP](https://github.com/KevBurnsJr/ripple-php) --- A port of
   Ripple to PHP
