@@ -31,6 +31,17 @@ detailed Riak installation instructions.
 
   * [[Installing Riak With Chef]]
 
+### Cloudsoft
+
+Cloudsoft provides tested, optimized Riak blueprints to help develop and deploy
+applications faster and easier on a wide range of environments. The AMP-Basho
+software will automatically deploy and manage Basho Riak and Riak Enterprise
+clusters using Apache Brooklyn's easy-to-use YAML blueprinting approach,
+combined with Cloudsoft's enterprise-supported Application Management Platform
+(AMP).
+
+  * [Install Riak with Cloudsoft](https://github.com/cloudsoft/amp-basho)
+
 ### Upgrading
 
   * [[Rolling Upgrades]]
