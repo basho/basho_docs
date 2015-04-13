@@ -36,10 +36,10 @@ with a few crucial differences:
 * Bucket types enable you to create bucket configurations and assign
   those configurations to as many buckets as you wish, whereas the
   previous system required configuration to be set on a per-bucket basis
-* Nearly all bucket properties can be updated using bucket types, with
-  two exceptions: the `datatype` and `consistent` properties related to
-  [[Riak Data Types|Data Types]] and [[strong consistency]],
-  respectively
+* Nearly all bucket properties can be updated using bucket types, except the
+  `datatype`, `consistent`, and `write_once` properties, related to
+  [[Riak Data Types|Data Types]], [[strong consistency]], and
+  [[Write Once Buckets]] respectively
 * Bucket types are more performant than bucket properties because
   divergence from Riak's defaults doesn't have to be gossiped around the
   cluster for every bucket, which means less computational overhead
@@ -82,6 +82,9 @@ system of bucket configuration, including the following:
   `riak-admin bucket-type` interface (discussed in depth below) enables
   you to manage bucket configurations on the operations side, without
   recourse to Riak clients.
+* Some special usecases -- [[Strong Consistency|Managing Strong Consistency]],
+  [[Data Types|Using Data Types]], and [[Write Once Buckets]] -- are only
+  available through bucket properties or bucket types.
 
 For these reasons, we recommend _always_ using bucket types in versions
 of Riak 2.0 and later.
@@ -118,12 +121,11 @@ object of the following form:
 ```
 
 
-<div class="note">
-<div class="title">Getting started with Riak clients</div>
-If you are connecting to Riak using one of Basho's official
-[[client libraries]], you can find more information about getting
-started with your client in our [[quickstart guide|Five-Minute
-Install#setting-up-your-riak-client]].
+<div class="note"><div class="title">Getting started with Riak clients</div>
+If you are connecting to Riak using one of Basho's official [[client
+libraries]], you can find more information about getting started with your
+client in our [[quickstart guide|Five-Minute Install#setting-up-your-riak-
+client]].
 </div>
 
 If creation is successful, you should see the following output:
@@ -132,9 +134,11 @@ If creation is successful, you should see the following output:
 type_using_defaults created
 ```
 
-**Note**: The `create` command can be run multiple times prior to a
-bucket type being activated. Riak will persist only those properties
-contained in the final call of the command.
+<div class="note">
+The `create` command can be run multiple times prior to a bucket type being
+activated. Riak will persist only those properties contained in the final call
+of the command.
+</div>
 
 Creating bucket types that assign properties _always_ involves passing
 stringified JSON to the `create` command. One way to do that is to pass
@@ -244,15 +248,18 @@ of the type:
 riak-admin bucket-type update type_to_update '{"props":{ ... }}'
 ```
 
-<div class="note">
-<div class="title">Note</div>
-Any bucket properties associated with a type can be modified after a
-bucket is created, with two important exceptions:
-<code>consistent</code> and <code>datatype</code>. If a bucket type
-entails strong consistency (requiring that <code>consistent</code> be
-set to <code>true</code>) or is set up as a <code>map</code>,
-<code>set</code>, or <code>counter</code>, then this will be true of the
-bucket type once and for all.
+<div class="note"><div class="title">Immutable Configurations</div>
+Any bucket properties associated with a type can be modified after a bucket is
+created, with three important exceptions:
+
+* `consistent`
+* `datatype`
+* `write_once`
+
+If a bucket type entails strong consistency (requiring that `consistent` be set
+to `true`), is set up as a `map`, `set`, or `counter`, or is defined as a Write
+Once bucket (requiring `write_once` be set to `true`), then this will be true of
+the bucket type once and for all.
 
 If you need to change one of these properties, it is recommended that
 you simply create and activate a new bucket type.
