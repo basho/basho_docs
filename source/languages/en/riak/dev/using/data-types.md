@@ -1269,7 +1269,7 @@ client.execute(update);
 
 map.batch do |m|
   m.registers['first_name'] = 'Ahmed'
-  m.registers['phne_number'] = '5551234567'
+  m.registers['phone_number'] = '5551234567'
 end
 
 # Integers need to be stored as strings and then converted back when
@@ -1350,22 +1350,22 @@ foreach (RiakDtMapEntry value in rslt.Values)
 ```
 
 ```javascript
+var mapOp = new Riak.Commands.CRDT.UpdateMap.MapOperation();
+mapOp.setRegister('first_name', new Buffer('Ahmed'));
+mapOp.setRegister('phone_number', new Buffer('5551234567'));
+
 var options = {
     bucketType: 'maps',
     bucket: 'customers',
-    key: 'ahmed_info'
+    key: 'ahmed_info',
+    op: mapOp
 };
 
-var mapOp = new Riak.Commands.CRDT
-
-RegisterUpdate ru1 = new RegisterUpdate("Ahmed");
-RegisterUpdate ru2 = new RegisterUpdate("5551234567");
-MapUpdate mu = new MapUpdate()
-        .update("first_name", ru1)
-        .update("phone_number", ru2);
-UpdateMap update = new UpdateMap.Builder(ahmedMap, mu)
-          .build();
-client.execute(update);
+client.updateMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+});
 ```
 
 ```erlang
@@ -1443,6 +1443,24 @@ var updates = new List<MapUpdate> {
 rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
 ```
 
+```javascript
+var mapOp = new Riak.Commands.CRDT.UpdateMap.MapOperation();
+mapOp.setFlag('enterprise_customer', false);
+
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info',
+    op: mapOp
+};
+
+client.updateMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+});
+```
+
 ```erlang
 Map4 = riakc_map:update({<<"enterprise_customer">>, flag},
                         fun(F) -> riakc_flag:disable(F) end,
@@ -1511,6 +1529,22 @@ foreach (RiakDtMapEntry value in rslt.Values)
 }
 ```
 
+```javascript
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info'
+};
+
+client.fetchMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+
+    console.log("fetched map: %s", JSON.stringify(rslt));
+});
+```
+
 ```erlang
 %% The value fetched from Riak is always immutable, whereas the "dirty
 %% value" takes into account local modifications that have not been
@@ -1570,6 +1604,24 @@ var updates = new List<MapUpdate> {
     pageVisitsCounterUpdate
 };
 rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+```
+
+```javascript
+var mapOp = new Riak.Commands.CRDT.UpdateMap.MapOperation();
+mapOp.incrementCounter('page_visits', 1);
+
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info',
+    op: mapOp
+};
+
+client.updateMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+});
 ```
 
 ```erlang
@@ -1650,6 +1702,26 @@ var updates = new List<MapUpdate> {
     interestsSetUpdate
 };
 rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+```
+
+```javascript
+var mapOp = new Riak.Commands.CRDT.UpdateMap.MapOperation();
+mapOp.addToSet('interests', 'robots');
+mapOp.addToSet('interests', 'opera');
+mapOp.addToSet('interests', 'motorcycles');
+
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info',
+    op: mapOp
+};
+
+client.updateMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+});
 ```
 
 ```erlang
@@ -1738,7 +1810,22 @@ foreach (RiakDtMapEntry value in rslt.Values)
         ...
     }
 }
+```
 
+```javascript
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info'
+};
+
+client.fetchMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+
+    assert(rslt.map.sets['interests'].indexOf('robots') !== -1);
+});
 ```
 
 ```erlang
