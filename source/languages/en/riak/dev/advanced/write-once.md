@@ -7,23 +7,22 @@ audience: intermediate
 keywords: [developers, buckets]
 ---
 
-Riak 2.1.0 introduces the concept of "write once" buckets; buckets whose entries
+Riak 2.1.0 introduces the concept of Write Once Buckets, buckets whose entries
 are intended to be written exactly once, and never updated or over-written.
-Buckets of this type have the special feature that they circumvent the normal
-"coordinated put" path, which would otherwise result in a read on the
-coordinating vnode before the write. Avoiding coordinated puts results in higher
-throughput and lower put latency, at the cost of different semantics in the
-degenerate case of sibling resolution.
+Buckets of this type circumvent the normal "coordinated PUT" path, which would
+otherwise result in a read on the coordinating vnode before the write. Avoiding
+coordinated puts results in higher throughput and lower put latency, at the cost
+of different semantics in the degenerate case of sibling resolution.
 
 ## Configuration
 
-We introduce the `write_once` bucket type property, which, when set to `true`,
-treats all key/value entries as semantically "write once"; once written, entries
-should not be modified or over-written by the user.
+When the new `write_once` bucket type property is set to `true`, buckets using
+that type will treat all key/value entries as semantically "write once"; once
+written, entries should not be modified or overwritten by the user.
 
-The `write_once` property is a boolean property that is applied to a bucket type
-and may only be set at bucket creation time. Once a bucket type has been set
-with this property and activated, the `write_once` property may not be modified.
+The `write_once` property is a boolean property applied to a bucket type and may
+only be set at bucket creation time. Once a bucket type has been set with this
+property and activated, the `write_once` property may not be modified.
 
 The `write_once` property is incompatible with specification of [[Data
 Types|Using Data Types]] and [[Strong Consistency|Using Strong Consistency]].
@@ -55,26 +54,27 @@ write_once: true
 
 ## Quorum
 
-The write once path supports the `W`, `PW`, and `DW` configuraton values.
-However, if `DW` is specified, then the value of `W` is taken to be the maximum
-of the `W` and `DW` values. For exmaple, for `n_val 3`, if `DW` is set to `all`,
-then `W` will be `3`.
+The write path used by Write Once Buckets supports the `W`, `PW`, and `DW`
+configuration values. However, if `DW` is specified, then the value of `W` is
+taken to be the maximum of the `W` and `DW` values. For example, for `n_val 3`,
+if `DW` is set to `all`, then `W` will be `3`.
 
-The write once path supports the `sloppy_quroum` property. If set to `false`,
-only primary nodes will be selected for calculation of write quorum nodes.
+This write additionally supports the `sloppy_quroum` property. If set to
+`false`, only primary nodes will be selected for calculation of write quorum
+nodes.
 
 ## Runtime
 
-The "write once" path circumvents the normal coordinated put code path, and
+The Write Once path circumvents the normal coordinated PUT code path, and
 instead sends write requests directly to all vnodes (or vnode proxies) in the
 effective preference list for the write operation.
 
 In place of the `put_fsm` used in the normal path, we introduce a collection of
 new intermediate worker processes (implementing `gen_server` behavior). The role
 of these intermediate processes is to dispatch put requests to vnode(proxie)s in
-the preflist, and to aggregate replies. Unlike the `put_fsm`, the write once
+the preflist and to aggregate replies. Unlike the `put_fsm`, the write once
 workers are long-lived for the lifecyle of the `riak_kv` application. They are
-therefore stateful, and store request state in a state-local dictionary.
+therefore stateful and store request state in a state-local dictionary.
 
 The relationship between the `riak_client`, write once workers, and vnode
 proxies is illustrated in the following diagram:
@@ -85,29 +85,27 @@ proxies is illustrated in the following diagram:
 
 ## Siblings
 
-As mentioned, entries in write once buckets are intended to be written only once
+As mentioned, entries in Write Once Buckets are intended to be written only once
 -- users who are not abusing the semantics of the bucket type should not be
 updating or over-writing entries in buckets of this type. However, it is
 possible for users to mis-use the API, accidentally or otherwise, which might
 result in incomparable entries for the same key.
 
-In the case of siblings, write once buckets use an algorithm for resolving
-conflicts that has the appearance of random behavior from the user's point of
-view, but is in fact determinisitic. Effectively, Riak will choose the "least"
-entry among siblings, where the ordering relation is based on a deterministic
-SHA-1 hash of the object. This has the appearance to the user of "random write
-wins", even though the behavior is repeatable and determinisitic (assuming the
-same sibling inputs).
+In the case of siblings, Write Once Buckets will resolve the conflict by
+choosing the "least" entry, where sibling ordering is based on a deterministic
+SHA-1 hash of the objects. While this algorithm is repeatable and deterministic
+at the database level, it will have the appearance to user of "random write
+wins".
 
 ## Handoff
 
-The write once path supports handoff scenarios, such that if a handoff occurs
-during puts in a write once bucket, the values that have been written will be
-handed off to the newly added riak node.
+The Write Once path supports handoff scenarios, such that if a handoff occurs
+during PUTs in a Write Once Bucket, the values that have been written will be
+handed off to the newly added Riak node.
 
 ## Asynchronous Writes
 
-For backends that support asynchronous writes, the write-once path will dispatch
+For backends that support asynchronous writes, the Write Once path will dispatch
 a write request to the backend, and handle the response asynchronously. This
 behavior allows the vnode to free itself for other work, instead of waiting on
 the write response from the backend.

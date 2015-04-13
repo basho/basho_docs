@@ -36,10 +36,10 @@ with a few crucial differences:
 * Bucket types enable you to create bucket configurations and assign
   those configurations to as many buckets as you wish, whereas the
   previous system required configuration to be set on a per-bucket basis
-* Nearly all bucket properties can be updated using bucket types, with
-  three exceptions: the `datatype`, `consistent`, and `write_once`
-  properties related to [[Riak Data Types|Data Types]],
-  [[strong consistency]], and [[Write Once Buckets]] respectively
+* Nearly all bucket properties can be updated using bucket types, except the
+  `datatype`, `consistent`, and `write_once` properties, related to
+  [[Riak Data Types|Data Types]], [[strong consistency]], and
+  [[Write Once Buckets]] respectively
 * Bucket types are more performant than bucket properties because
   divergence from Riak's defaults doesn't have to be gossiped around the
   cluster for every bucket, which means less computational overhead
@@ -84,7 +84,7 @@ system of bucket configuration, including the following:
   recourse to Riak clients.
 * Some special usecases -- [[Strong Consistency|Managing Strong Consistency]],
   [[Data Types|Using Data Types]], and [[Write Once Buckets]] -- are only
-  available through bucket properties, or bucket types.
+  available through bucket properties or bucket types.
 
 For these reasons, we recommend _always_ using bucket types in versions
 of Riak 2.0 and later.
