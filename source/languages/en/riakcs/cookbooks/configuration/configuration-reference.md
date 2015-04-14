@@ -792,7 +792,7 @@ are milliseconds.
 <tr><td><code>get_access_timeout</code></td><td>A timeout value of retrieving a timeslot information of access statistics</td><td><code>60000</code></td></tr>
 <tr><td><code>get_gckey_timeout</code></td><td>A timeout value of retrieving a key in GC bucket</td><td><code>60000</code></td></tr>
 <tr><td><code>put_manifest_timeout</code></td><td>A timeout value on putting a new manifest</td><td><code>60000</code></td></tr>
-<tr><td><code>put_block_timeout</code></td><td></td>A timeout value on putting a chunk of a object<td><code>60000</code></td></tr>
+<tr><td><code>put_block_timeout</code><td>A timeout value on putting a chunk of a object</td></td><td><code>60000</code></td></tr>
 <tr><td><code>put_access_timeout</code></td><td>A timeout value of putting an entry into access statistics</td><td><code>60000</code></td></tr>
 <tr><td><code>put_gckey_timeout</code></td><td>A timeout value of putting an entry into GC bucket</td><td><code>60000</code></td></tr>
 <tr><td><code>put_user_usage_timeout</code></td><td>A timeout value on storing a result of storage calculation of each user</td><td><code>60000</code></td></tr>
