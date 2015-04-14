@@ -748,7 +748,7 @@ communicates to Riak over protocol buffers API. This is typical remote
 call - depending system requirements, this timeout could be configured
 to avoid unnecessary timeouts.
 
-{{#1.5.2-}}
+{{#1.5.3-}}
 
 In Riak CS 1.5.2 or before, configurations should be in `riakc`
 section of `app.config` as following example:
@@ -768,7 +768,7 @@ each bucket, from default 60 seconds to 20 minutes, considering the
 duration of storage calculation proportionally increases to the number
 of keys in a bucket.
 
-{{/1.5.2-}}
+{{/1.5.3-}}
 
 {{#1.5.3+}}
 
