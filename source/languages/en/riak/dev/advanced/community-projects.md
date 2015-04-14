@@ -42,7 +42,6 @@ moved: {
 * [riak_zab](https://github.com/jtuple/riak_zab) --- An extension for `riak_core` that provides totally ordered atomic broadcast capabilities
 * [riak_zab_example](https://github.com/jtuple/riak_zab_example) --- An example application that allows you to build a multi-node cluster using `riak_zab`
 
-
 ## Riak and RabbitMQ
 
 * [Riak/RabbitMQ Commit Hook](https://github.com/jbrisbin/riak-rabbitmq-commit-hooks) --- A post-commit hook that sends entries into a RabbitMQ broker using the Erlang AMQP client
@@ -54,7 +53,6 @@ moved: {
 ## lager
 
 * [Lager AMQP Backend](https://github.com/jbrisbin/lager_amqp_backend) --- AMQP RabbitMQ Lager backend
-
 
 ## Install and Configure
 
