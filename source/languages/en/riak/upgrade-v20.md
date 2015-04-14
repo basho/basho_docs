@@ -179,6 +179,20 @@ however, that some settings must be set in an `advanced.config` file.
 For a listing of those parameters, see our documentation on [[advanced
 configuration|Configuration Files#advanced-configuration]].
 
+If you chose to keep the existing `app.config` files, you _must_ add the
+following additional settings in the `riak_core` section:
+
+```app.config
+{riak_core,
+     [{default_bucket_props,
+          [{allow_mult,false},
+           {dvv_enabled,false}]},
+	 %% other settings
+	 ]
+},
+```
+This is to ensure backwards compatibility with 1.4 for these bucket properties.
+
 ## Upgrading LevelDB
 
 If you are using LevelDB and upgrading to 2.0, no special steps need to
