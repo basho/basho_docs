@@ -772,11 +772,12 @@ of keys in a bucket.
 
 {{#1.5.3+}}
 
-In Riak 1.5.3 or later, configurations under `riakc` section became
-unavailable. Timeouts become configurable depending on each access
-case. This enables fine grained tuning, or ad-hoc reaction in
+In Riak 1.5.3 or later, configurations under `riakc` section have
+became unavailable. Timeouts become configurable depending on each
+access case. This enables fine grained tuning, or ad-hoc reaction in
 production environment issues. These items are only configurable in
-`advanced.config`. All units in the chart below are milliseconds.
+`riak_cs` section of `advanced.config`. All units in the chart below
+are milliseconds.
 
 <table class="riak-conf">
 <thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
