@@ -11,11 +11,33 @@ moved: {
 }
 ---
 
-In this tutorial, we'll install Riak and build a
+In this tutorial, we'll share some quick start installers for OSX, as 
+well as provide instructions for building a
 [five-node](http://basho.com/why-your-riak-cluster-should-have-at-least-five-nodes/)
 Riak cluster running on your local machine.
 
+## DMG Installer for OSX
+
+If you would like to explore some of Riak's functionality using a simple, 
+self-contained installer for OSX, you may view the 
+[[Riak App|https://github.com/basho-labs/riak-app]] project.  This will
+create a single local instance of Riak so you may familiarize yourself 
+with Riak's configuration and administration.  Note that this sample 
+application should not be used in a production deployment.
+
+## Riak Dev Cluster for OSX
+
+To quickly create a five-node local devrel cluster on OSX, you may use the
+[[Riak Dev Cluster|https://github.com/basho-labs/riak-dev-cluster/]] project.
+This application will easily install and join a cluster of local nodes on OSX
+for testing and administration.  Note that this sample application should not 
+be used in a production deployment.
+
 ## Install Riak
+
+The above installers helped you explore the basics of Riak on OSX.  
+For full instructions on installing Riak for your desired operating 
+system, follow the steps below. 
 
 Basho's pre-packaged Riak binaries (found under [[Downloads]]) embed the
 Erlang runtime. This tutorial, however, is based on a source build, so
