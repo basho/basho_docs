@@ -42,7 +42,6 @@ moved: {
 * [riak_zab](https://github.com/jtuple/riak_zab) --- An extension for `riak_core` that provides totally ordered atomic broadcast capabilities
 * [riak_zab_example](https://github.com/jtuple/riak_zab_example) --- An example application that allows you to build a multi-node cluster using `riak_zab`
 
-
 ## Riak and RabbitMQ
 
 * [Riak/RabbitMQ Commit Hook](https://github.com/jbrisbin/riak-rabbitmq-commit-hooks) --- A post-commit hook that sends entries into a RabbitMQ broker using the Erlang AMQP client
@@ -55,13 +54,13 @@ moved: {
 
 * [Lager AMQP Backend](https://github.com/jbrisbin/lager_amqp_backend) --- AMQP RabbitMQ Lager backend
 
-
-## Recipes, Cookbooks, and Configurations
+## Install and Configure
 
 * [Scalarium-Riak](https://github.com/roidrage/scalarium-riak) --- Riak Cookbooks for Scalarium Platform
 * [Riak Chef Recipe](https://github.com/basho/riak-chef-cookbook) --- Vanilla Chef Recipe for installing and configuring Riak
 * [Custom Chef Recipe for running Riak on the Engine Yard AppCloud](https://github.com/engineyard/ey-cloud-recipes/tree/master/cookbooks/riak)
 * [RiakAWS](http://github.com/roder/riakaws) --- A simple way to deploy a Riak cluster in the Amazon Cloud
+* [Cloudsoft-Riak](https://github.com/cloudsoft/amp-basho) --- Tested and optimized Riak blueprints for developing and deploying applications faster.
 * [Using Nginx as a front-end for Riak](http://rigelgroupllc.com/wp/blog/using-nginx-as-a-front-end-for-riak)
 * [Sample HA Proxy Configuration for Protocol Buffers Interface](http://lists.basho.com/pipermail/riak-users_lists.basho.com/2011-May/004387.html) (courtesy of Scott M. Likens)
 * [Sample HA Proxy Configuration for Protocol Buffers Interface](http://lists.basho.com/pipermail/riak-users_lists.basho.com/2011-May/004388.html) (courtesy of Bob Feldbauer)
