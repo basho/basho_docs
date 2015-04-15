@@ -1888,9 +1888,36 @@ var updates = new List<MapUpdate> {
 var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
 ```
 
+```javascript
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info'
+};
+
+client.fetchMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+
+    var mapOp = new Riak.Commands.CRDT.UpdateMap.MapOperation();
+    mapOp.removeFromSet('interests', 'opera');
+    mapOp.addToSet('interests', 'indie pop');
+
+    options.context = rslt.context;
+    options.op = mapOp;
+
+    client.updateMap(options, function (err, rslt) {
+        if (err) {
+            throw new Error(err);
+        }
+    });
+});
+```
+
 ```erlang
 Map7 = riakc_map:update({<<"interests">>, set},
-                        fun(S) -> riakc_set:del_element(<<"robots">>, S) end, Map6),
+                        fun(S) -> riakc_set:del_element(<<"opera">>, S) end, Map6),
 Map8 = riakc_map:update({<<"interests">>, set},
                         fun(S) -> riakc_set:add_element(<<"indie pop">>, S) end,
                         Map7).
@@ -2013,6 +2040,28 @@ var updates = new List<MapUpdate> {
 var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
 ```
 
+```javascript
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info'
+};
+
+var mapOp = new Riak.Commands.CRDT.UpdateMap.MapOperation();
+mapOp.map('annika_info')
+    .setRegister('first_name', 'Annika')
+    .setRegister('last_name', 'Weiss')
+    .setRegister('phone_number', '5559876543');
+
+options.op = mapOp;
+
+client.updateMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+});
+```
+
 ```erlang
 Map12 = riakc_map:update(
     {<<"annika_info">>, map},
@@ -2084,6 +2133,23 @@ map.reload().maps['annika_info'].registers['first_name'].value
 // https://github.com/basho/riak-dotnet-client/tree/develop/src/RiakClientExamples
 ```
 
+```javascript
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info'
+};
+
+client.fetchMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+
+    var annikaFirstName =
+        rslt.map.maps['annika_info'].registers['first_name'].toString('utf8');
+});
+```
+
 ```erlang
 riakc_map:dirty_value(Map14).
 ```
@@ -2148,6 +2214,36 @@ var updates = new List<MapUpdate> {
     annikaInfoUpdate
 };
 var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+```
+
+```javascript
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info'
+};
+
+client.fetchMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+
+    var mapOp = new Riak.Commands.CRDT.UpdateMap.MapOperation();
+    mapOp.map('annika_info').removeRegister('first_name');
+
+    var options = {
+        bucketType: 'maps',
+        bucket: 'customers',
+        key: 'ahmed_info',
+        op: mapOp,
+        context: rslt.context,
+    };
+
+    client.updateMap(options, function (err, rslt) {
+        if (err) {
+            throw new Error(err);
+        }
+    });
 ```
 
 ```erlang
@@ -2258,6 +2354,40 @@ var updates = new List<MapUpdate> {
 var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
 ```
 
+```javascript
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info'
+};
+
+client.fetchMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+
+    var mapOp = new Riak.Commands.CRDT.UpdateMap.MapOperation();
+    var annika_map = mapOp.map('annika_info');
+    annika_map.setFlag('enterprise_plan', false);
+    annika_map.setFlag('family_plan', false);
+    annika_map.setFlag('free_plan', true);
+
+    var options = {
+        bucketType: 'maps',
+        bucket: 'customers',
+        key: 'ahmed_info',
+        op: mapOp,
+        context: rslt.context,
+    };
+
+    client.updateMap(options, function (err, rslt) {
+        if (err) {
+            throw new Error(err);
+        }
+    });
+});
+```
+
 ```erlang
 Map16 = riakc_map:update(
     {<<"annika_info">>, map},
@@ -2330,6 +2460,23 @@ map.reload().maps['annika_info'].flags['enterprise_plan'].value
 // https://github.com/basho/riak-dotnet-client/tree/develop/src/RiakClientExamples
 ```
 
+```javascript
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info'
+};
+
+client.fetchMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+
+    var enterprisePlan =
+        rslt.map.maps.annika_info.flags.enterprise_plan;
+});
+```
+
 ```erlang
 riakc_map:dirty_value(Map18).
 ```
@@ -2393,6 +2540,24 @@ var updates = new List<MapUpdate> {
     annikaInfoUpdate
 };
 var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+```
+
+```javascript
+var mapOp = new Riak.Commands.CRDT.UpdateMap.MapOperation();
+mapOp.map('annika_info').incrementCounter('widget_purchases', 1);
+
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info',
+    op: mapOp
+};
+
+client.updateMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+});
 ```
 
 ```erlang
@@ -2479,6 +2644,25 @@ var updates = new List<MapUpdate> {
 var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
 ```
 
+```javascript
+var mapOp = new Riak.Commands.CRDT.UpdateMap.MapOperation();
+var annika_map = mapOp.map('annika_info');
+annika_map.addToSet('interests', 'tango dancing');
+
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info',
+    op: mapOp
+};
+
+client.updateMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+});
+```
+
 ```erlang
 Map20 = riakc_map:update(
     {<<"annika_info">>, map},
@@ -2563,6 +2747,34 @@ var updates = new List<MapUpdate> {
     annikaInfoUpdate
 };
 var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+```
+
+```javascript
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info'
+};
+
+client.fetchMap(options, function (err, rslt) {
+    var mapOp = new Riak.Commands.CRDT.UpdateMap.MapOperation();
+    var annika_map = mapOp.map('annika_info');
+    annika_map.removeFromSet('interests', 'tango dancing');
+
+    options = {
+        bucketType: 'maps',
+        bucket: 'customers',
+        key: 'ahmed_info',
+        op: mapOp,
+        context: rslt.context
+    };
+
+    client.updateMap(options, function (err, rslt) {
+        if (err) {
+            throw new Error(err);
+        }
+    });
+});
 ```
 
 ```erlang
@@ -2696,6 +2908,28 @@ var updates = new List<MapUpdate> {
 var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
 ```
 
+```javascript
+var mapOp = new Riak.Commands.CRDT.UpdateMap.MapOperation();
+var annika_map = mapOp.map('annika_info');
+var annika_purchase_map = annika_map.map('purchase');
+annika_purchase_map.setFlag('first_purchase', true);
+annika_purchase_map.setRegister('amount', '1271');
+annika_purchase_map.addToSet('items', 'large widget');
+
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info',
+    op: mapOp
+};
+
+client.updateMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+});
+```
+
 ```erlang
 Map22 = riakc_map:update(
     {<<"annika_info">>, map},
@@ -2787,6 +3021,26 @@ Debug.WriteLine(format: "Context: {0}", args: Convert.ToBase64String(rslt.Contex
 // Output:
 // Context: g2wAAAACaAJtAAAACLQFHUkv4m2IYQdoAm0AAAAIxVKxCy5pjMdhCWo=
 ```
+
+```javascript
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info'
+};
+
+client.fetchMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+
+    logger.info("context: '%s'", rslt.context.toString('base64'));
+});
+
+// Output:
+// context: 'g2wAAAACaAJtAAAACLQFHUmjDf4EYTBoAm0AAAAIxVKxC6F1L2dhSWo='
+```
+
 
 ```erlang
 %% You cannot fetch a Data Type's context directly using the Erlang
