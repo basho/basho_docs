@@ -89,6 +89,12 @@ IRiakCliet client = endpoint.CreateClient();
 var entityManager = new EntityManager(client);
 ```
 
+```javascript
+var Riak = require('basho-riak-client');
+
+var client = new Riak.Client([ 'localhost:8087' ]);
+```
+
 <div class="note">
 <div class="title">Getting started with Riak clients</div>
 If you are connecting to Riak using one of Basho's official [[client
@@ -258,6 +264,9 @@ public class User : IModel, INotifyPropertyChanged
 }
 ```
 
+```javascript
+```
+
 ## Storing An Object's Properties in Our Riak Map
 
 At this point, we have a Riak map associated with instantiations of our
@@ -355,6 +364,9 @@ class User:
  */
 ```
 
+```javascript
+```
+
 Now, if we create a new user, that user will have a `map` instance
 variable attached to it, the `first_name` and `last_name` strings will
 be stored in Riak registers, and the key will be `Bruce_Wayne`:
@@ -374,6 +386,17 @@ bruce = User('Bruce', 'Wayne')
 
 ```csharp
 var bruce = new User("Bruce", "Wayne");
+```
+
+```javascript
+var userOptions = {
+    client: client,
+    firstName: 'Bruce',
+    lastName: 'Wayne'
+};
+var bruce = new User(userOptions, function (err, rslt) {
+    // Callback logic here...
+});
 ```
 
 So now we have our `first_name` and `last_name` variables stored in our
