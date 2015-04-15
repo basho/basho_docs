@@ -101,7 +101,7 @@ obj = bucket.get('banana', deletedvclock: true)
 ## Example Update
 
 In this section, we'll provide an update example for Basho's official Ruby,
-Python, .NET, NodeJS and Erlang clients. Because updates with the official Java client
+Python, .NET, Node.js and Erlang clients. Because updates with the official Java client
 functions somewhat differently, those examples can be found in the [[section
 below|Object Updates#Java-Client-Example]].
 

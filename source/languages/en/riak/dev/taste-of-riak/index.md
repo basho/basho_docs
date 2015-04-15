@@ -28,7 +28,7 @@ language with which you'd like to proceed:
 <li><a href="/dev/taste-of-riak/ruby/"><img src="/images/plangs/ruby.jpg" alt="Ruby"></a></li>
 <li><a href="/dev/taste-of-riak/python/"><img src="/images/plangs/python.png" alt="Python"></a></li>
 <li><a href="/dev/taste-of-riak/csharp/"><img src="/images/plangs/csharp.png" alt="CSharp"></a></li>
-<li><a href="/dev/taste-of-riak/nodejs/"><img src="/images/plangs/nodejs.png" alt="NodeJS"></a></li>
+<li><a href="/dev/taste-of-riak/nodejs/"><img src="/images/plangs/nodejs.png" alt="Node.js"></a></li>
 <li><a href="/dev/taste-of-riak/erlang/"><img src="/images/plangs/erlang.jpg" alt="Erlang"></a></li>
 </ul>
 

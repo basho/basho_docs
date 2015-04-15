@@ -8,9 +8,9 @@ audience: beginner
 keywords: [developers, client, 2i, search, nodejs]
 ---
 
-## NodeJS Version Setup
+## Node.js Version Setup
 
-For the NodeJS version, please download the source from GitHub by either
+For the Node.js version, please download the source from GitHub by either
 [cloning](https://github.com/basho/taste-of-riak) the source code
 repository or downloading the [current zip of the master
 branch](https://github.com/basho/taste-of-riak/archive/master.zip).

@@ -11,11 +11,11 @@ For reasons explained in the [[introduction to conflict resolution|Conflict
 Resolution]], we strongly recommend adopting a conflict resolution strategy that
 requires applications to resolve siblings according to use-case-specific
 criteria. Here, we'll provide a brief guide to conflict resolution using the
-official [Riak NodeJS client][riak_dotnet_client].
+official [Riak Node.js client][riak_dotnet_client].
 
-## How the NodeJS Client Handles Conflict Resolution
+## How the Node.js Client Handles Conflict Resolution
 
-In the Riak NodeJS client, the result of a fetch can possibly return an array
+In the Riak Node.js client, the result of a fetch can possibly return an array
 of sibling objects.  If there are no siblings, that property will return an
 array with one value in it.
 
