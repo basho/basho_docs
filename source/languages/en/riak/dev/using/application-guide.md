@@ -118,7 +118,7 @@ using the Solr API.
 
 * **When you need a rich querying API** --- Riak Search gives you access
   to the entirety of [Solr](http://lucene.apache.org/solr/)'s extremely
-  broad API, which enables you to query on the basis of wilcards,
+  broad API, which enables you to query on the basis of wildcards,
   strings, booleans, geolocation, ranges, language-specific fulltext,
   and far more. You can even use Search in conjunction with [[Riak Data
   Types|Using Data Types]] \(documentation coming soon).

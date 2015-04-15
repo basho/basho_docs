@@ -250,7 +250,7 @@ The `max_file_size` setting can be specified using kilobytes, megabytes,
 etc. The following example sets the max file size to 1 GB:
 
 ```riakconf
-bitcask.max_file_size = 2GB
+bitcask.max_file_size = 1GB
 ```
 
 ```appconfig
@@ -259,7 +259,7 @@ bitcask.max_file_size = 2GB
 
 {bitcask, [
     ...,
-    {max_file_size, 16#80000000}, %% 2 GB expressed in bytes
+    {max_file_size, 16#40000000}, %% 1 GB expressed in bytes
     ...
     ]}
 ```
@@ -320,7 +320,7 @@ bitcask.io_mode = erlang
     ]}
 ```
 
-In general, the `nif` IO mode provies higher throughput for certain
+In general, the `nif` IO mode provides higher throughput for certain
 workloads, but it has the potential to negatively impact the Erlang VM,
 leading to higher worst-case latencies and possible throughput collapse.
 
@@ -481,7 +481,7 @@ gigabytes, etc. The following example sets the dead bytes threshold to
 55% and the fragmentation threshold to 1 GB:
 
 ```riakconf
-bitcask.merge.fragmentation = 55
+bitcask.merge.triggers.fragmentation = 55
 bitcask.merge.triggers.dead_bytes = 1GB
 ```
 
@@ -492,7 +492,7 @@ bitcask.merge.triggers.dead_bytes = 1GB
 
 {bitcask, [
     ...,
-    {frag_merge_trigger, 60},
+    {frag_merge_trigger, 55},
     {dead_bytes_merge_trigger, 1073741824},
     ...
     ]}

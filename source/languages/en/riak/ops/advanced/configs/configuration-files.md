@@ -880,7 +880,7 @@ multi_backend.$name.(existing_setting) = <setting>
 multi_backend.$name.$backend_type.(backend_specific_setting) = <setting>
 ```
 
-Below is a listing of the available paramaters:
+Below is a listing of the available parameters:
 
 <table class="riak-conf">
 <thead>
