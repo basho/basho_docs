@@ -281,6 +281,14 @@ bucket = client.bucket('my_bucket')
 bucket.get('my_key')
 ```
 
+```php
+$location = new Location('my_key', new Bucket('my_bucket'));
+(new Command\Builder\FetchObject($riak))
+  ->atLocation($location)
+  ->build()
+  ->execute();
+```
+
 ```python
 bucket = client.bucket('my_bucket')
 bucket.get('my_key')
@@ -329,6 +337,18 @@ bucket1 = client.bucket_type('type1').bucket('my_bucket')
 bucket2 = client.bucket_type('type2').bucket('my_bucket')
 bucket1.get('my_key')
 bucket2.get('my_key')
+```
+
+```php
+$location1 = new Location('my_key', new Bucket('my_bucket', 'type1'));
+$location2 = new Location('my_key', new Bucket('my_bucket', 'type2'));
+$builder = new Command\Builder\FetchObject($riak);
+$builder->atLocation($location1)
+  ->build()
+  ->execute();
+$builder->atLocation($location2)
+  ->build()
+  ->execute();
 ```
 
 ```python
@@ -398,6 +418,18 @@ bucket1 = client.bucket_type('default').bucket('my_bucket')
 bucket2 = client.bucket('my_bucket')
 bucket1.get('my_key')
 bucket2.get('my_key')
+```
+
+```php
+$location1 = new Location('my_key', new Bucket('my_bucket', 'default'));
+$location2 = new Location('my_key', new Bucket('my_bucket'));
+$builder = new Command\Builder\FetchObject($riak);
+$builder->atLocation($location1)
+  ->build()
+  ->execute();
+$builder->atLocation($location2)
+  ->build()
+  ->execute();
 ```
 
 ```python
@@ -645,6 +677,14 @@ obj.raw_data = '{ ... user data ... }'
 obj.store
 ```
 
+```php
+(new Command\Builder\StoreObject($riak))
+  ->buildJsonObject("{ ... user data ... }")
+  ->buildLocation('user19735', 'sensitive_user_data', 'no_siblings')
+  ->build()
+  ->execute();
+```
+
 ```python
 bucket = client.bucket_type('no_siblings').bucket('sensitive_user_data')
 obj = RiakObject(client, bucket, 'user19735')
@@ -721,6 +761,14 @@ obj = Riak::RObject.new(bucket, 'all_your_base')
 obj.content_type = 'text/plain'
 obj.raw_data = 'all your base are belong to us'
 obj.store
+```
+
+```php
+(new Command\Builder\StoreObject($riak))
+  ->buildObject("all your base are belong to us", ['Content-Type' => 'text/plain'])
+  ->buildLocation('user19735', 'sensitive_user_data', 'no_siblings')
+  ->build()
+  ->execute();
 ```
 
 ```python
