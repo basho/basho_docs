@@ -64,6 +64,14 @@ schema_data = File.read("cartoons.xml")
 client.create_search_schema("cartoons", schema_data)
 ```
 
+```php
+(new Command\Builder\Search\StoreSchema($riak))
+  ->withName('users')
+  ->withSchemaFile('path/to/file.xml')
+  ->build()
+  ->execute();
+```
+
 ```python
 xml_file = open('cartoons.xml', 'r')
 schema_data = xml_file.read()
