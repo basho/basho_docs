@@ -112,6 +112,23 @@ var schema = new SearchSchema("blog_post_schema", schemaXml);
 var rslt = client.PutSearchSchema(schema);
 ```
 
+```javascript
+/*
+ * Full example here:
+ *  https://github.com/basho/riak-nodejs-client-examples/blob/master/dev/search/document-store.js
+ *
+ */
+var options = {
+    schemaName: 'blog_post_schema',
+    schema: schemaXml
+};
+client.storeSchema(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+});
+```
+
 ```erlang
 {ok, SchemaData} = file:read_file("blog_post_schema.xml"),
 riakc_pb_socket:create_search_schema(Pid, <<"blog_post_schema">>, SchemaData).
@@ -143,6 +160,18 @@ client.create_search_index('blog_posts', 'blog_post_schema')
 ```csharp
 var idx = new SearchIndex("blog_posts", "blog_post_schema");
 var rslt = client.PutSearchIndex(idx);
+```
+
+```javascript
+var options = {
+    schemaName: 'blog_post_schema',
+    indexName: 'blog_posts'
+};
+client.storeIndex(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+});
 ```
 
 ```erlang
@@ -302,6 +331,13 @@ class BlogPost:
  */
 ```
 
+```javascript
+/*
+ * Please see the code in the examples repository:
+ * https://github.com/basho/riak-nodejs-client-examples/blob/master/dev/search/
+ */
+```
+
 Now, we can store some blog posts. We'll start with just one:
 
 ```java
@@ -365,6 +401,23 @@ var repo = new BlogPostRepository(client, "cat_pics_quarterly");
 string id = repo.Save(post);
 ```
 
+```javascript
+var post = new BlogPost(
+    'This one is so lulz!',
+    'Cat Stevens',
+    'Please check out these cat pics!',
+    [ 'adorbs', 'cheshire' ],
+    new Date(),
+    true
+);
+
+var repo = new BlogPostRepository(client, 'cat_pics_quarterly');
+
+repo.save(post, function (err, rslt) {
+    logger.info("key: '%s', model: '%s'", rslt.key, JSON.stringify(rslt.model));
+});
+```
+
 ## Querying
 
 Now that we have some blog posts stored in our "collection," we can
@@ -394,6 +447,16 @@ results = client.fulltext_search('blog_posts', 'keywords_set:funny')
 ```csharp
 var searchRequest = new RiakSearchRequest("blog_posts", "keywords_set:funny");
 var rslt = client.Search(searchRequest);
+```
+
+```javascript
+var searchCmd = new Riak.Commands.YZ.Search.Builder()
+    .withIndexName('blog_posts')
+    .withQuery('keywords_set:funny')
+    .withCallback(search_cb)
+    .build();
+
+client.execute(searchCmd);
 ```
 
 ```curl
@@ -426,6 +489,16 @@ var searchRequest = new RiakSearchRequest("blog_posts", "content_register:furry"
 var rslt = client.Search(searchRequest);
 ```
 
+```javascript
+var searchCmd = new Riak.Commands.YZ.Search.Builder()
+    .withIndexName('blog_posts')
+    .withQuery('content_register:furry')
+    .withCallback(search_cb)
+    .build();
+
+client.execute(searchCmd);
+```
+
 ```curl
 curl "$RIAK_HOST/search/query/blog_posts?wt=json&q=content_register:furry"
 ```
@@ -437,3 +510,4 @@ Info | Query
 Unpublished posts | `published_flag:false`
 Titles that begin with `Loving*` | `title_register:Loving*`
 Post bodies containing the words `furry` and `jumping` | `content_register:[furry AND jumping]`
+
