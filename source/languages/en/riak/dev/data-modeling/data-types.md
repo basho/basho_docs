@@ -265,6 +265,12 @@ public class User : IModel, INotifyPropertyChanged
 ```
 
 ```javascript
+/*
+ * The Node.js example uses a User model class and a UserRepository class wired
+ * together via events and handling those events.
+ * See the entire example here:
+  * https://github.com/basho/riak-nodejs-client-examples/tree/master/dev/data-modeling
+ */
 ```
 
 ## Storing An Object's Properties in Our Riak Map
@@ -365,6 +371,12 @@ class User:
 ```
 
 ```javascript
+/*
+ * The Node.js example uses a User model class and a UserRepository class wired
+ * together via events and handling those events.
+ * See the entire example here:
+  * https://github.com/basho/riak-nodejs-client-examples/tree/master/dev/data-modeling
+ */
 ```
 
 Now, if we create a new user, that user will have a `map` instance
@@ -494,6 +506,15 @@ if (EnumerableUtil.NotNullOrEmpty(model.Interests))
 }
 ```
 
+```javascript
+/*
+ * The Node.js example uses a User model class and a UserRepository class wired
+ * together via events and handling those events.
+ * See the entire example here:
+  * https://github.com/basho/riak-nodejs-client-examples/tree/master/dev/data-modeling
+ */
+```
+
 Now when we create new users, we need to specify their interests as a
 list:
 
@@ -515,6 +536,11 @@ joe = User('Joe', 'Armstrong', ['distributed systems', 'Erlang'])
 
 ```csharp
 var interests = new[] { "distributed systems", "Erlang" };
+var user = new User("Joe", "Armstrong", interests);
+```
+
+```javascript
+var interests = [ "distributed systems", "Erlang" ];
 var user = new User("Joe", "Armstrong", interests);
 ```
 
@@ -614,6 +640,39 @@ public void IncrementPageVisits()
 }
 ```
 
+```javascript
+// https://github.com/basho/riak-nodejs-client-examples/tree/master/dev/data-modeling
+// user.js
+User.prototype.visitPage = function () {
+    this.visits += 1;
+    this.propertyChanged('visits', 1);
+};
+
+// user-repository.js
+UserRepository.prototype.incrementPageVisits = function (model) {
+
+    var mapOp = new Riak.Commands.CRDT.UpdateMap.MapOperation();
+    mapOp.incrementCounter('visits', 1);
+
+    var bucketType = this.getBucketType(),
+        bucket = this.getBucketName(),
+        options = {
+            bucketType: bucketType,
+            bucket: bucket,
+            key: model.id,
+            op: mapOp
+        };
+
+    this.client.updateMap(options, function (err, rslt) {
+        if (err) {
+            throw new Error(err);
+        } else {
+            logger.debug("[UserRepository.incrementPageVisits] rslt: '%s'", JSON.stringify(rslt));
+        }
+    });
+};
+```
+
 And then we can have Joe Armstrong visit our page:
 
 ```java
@@ -630,6 +689,10 @@ joe.visit_page()
 
 ```csharp
 joe.VisitPage();
+```
+
+```javascript
+joe.visitPage();
 ```
 
 The page visit counter did not exist prior to this method call, but the
@@ -747,6 +810,38 @@ public void DowngradeAccount()
 
     UpdateMap(mapUpdates, fetchFirst: true);
 }
+```
+
+```javascript
+/*
+ * See the entire example here:
+ * https://github.com/basho/riak-nodejs-client-examples/tree/master/dev/data-modeling
+ */
+
+// user-repository.js
+UserRepository.prototype.setPaidAccount = function (model, value) {
+
+    var mapOp = new Riak.Commands.CRDT.UpdateMap.MapOperation();
+    mapOp.setFlag('paid_account', value);
+
+    var bucketType = this.getBucketType(),
+        bucket = this.getBucketName(),
+        options = {
+            bucketType: bucketType,
+            bucket: bucket,
+            key: model.id,
+            op: mapOp
+        };
+
+    this.client.updateMap(options, function (err, rslt) {
+        if (err) {
+            throw new Error(err);
+        } else {
+            logger.debug("[UserRepository.incrementPageVisits] rslt: '%s'", JSON.stringify(rslt));
+        }
+    });
+
+};
 ```
 
 The problem with our `User` model so far is that we can't actually
@@ -904,6 +999,38 @@ public override User Get(string key, bool notFoundOK = false)
 }
 ```
 
+```javascript
+/*
+ * See the entire example here:
+ * https://github.com/basho/riak-nodejs-client-examples/tree/master/dev/data-modeling
+ */
+
+// user-repository.js
+UserRepository.prototype.buildModel = function (rslt) {
+    var firstName = rslt.map.registers.first_name.toString('utf8');
+    var lastName = rslt.map.registers.last_name.toString('utf8');
+
+    var interests = [];
+    if (rslt.map.sets.interests) {
+        rslt.map.sets.interests.forEach(function (interest) {
+            interests.push(interest);
+        });
+    }
+
+    var visits = 0;
+    if (rslt.map.counters.visits) {
+        visits = rslt.map.counters.visits;
+    }
+
+    var paid_account = false;
+    if (rslt.map.flags.paid_account) {
+        paid_account = rslt.map.flags.paid_account;
+    }
+
+    return new User(firstName, lastName, interests, visits, paid_account);
+};
+```
+
 Now, we can create a new user and then access that user's
 characteristics directly from our Riak map:
 
@@ -955,6 +1082,19 @@ joe.PageVisits; // 0
 joe.VisitPage();
 joe.PageVisits; // 1
 joe.AccountStatus; // false
+```
+
+```javascript
+var interests = [ "distributed systems", "Erlang" ];
+var joe = new User("Joe", "Armstrong", interests);
+
+joe.firstName; // Joe
+joe.lastName; // Armstrong
+joe.interests; // ["distributed systems", "Erlang"]
+joe.visits; // 0
+joe.VisitPage();
+joe.visits; // 1
+joe.paid_account; // false
 ```
 
 We can also create instance methods that add and remove specific
@@ -1040,6 +1180,33 @@ public void RemoveInterest(string interest)
 }
 ```
 
+```javascript
+/*
+ * See the entire example here:
+ * https://github.com/basho/riak-nodejs-client-examples/tree/master/dev/data-modeling
+ */
+
+// user.js
+User.prototype.addInterest = function (interest) {
+    if (this.interests) {
+        this.interests.push(interest);
+    } else {
+        this.interests = [ interest ];
+    }
+    this.propertyChanged('interest:add', interest);
+};
+
+User.prototype.removeInterest = function (interest) {
+    if (this.interests) {
+        var index = this.interests.indexOf(interest);
+        if (index > -1) {
+            this.interests.splice(index, 1);
+            this.propertyChanged('interest:remove', interest);
+        }
+    }
+};
+```
+
 ## Converting to JSON
 
 If we wanted to connect our application to an in-browser interface, we
@@ -1115,6 +1282,15 @@ class User:
  */
 ```
 
+```javascript
+/*
+ * Since the User model object does not contain Riak Data Type
+ * information internally, Javascript can serialize the object
+ * directly
+ */
+JSON.stringify(joe);
+```
+
 Now, we can instantly convert our `User` map into a stringified JSON
 object and pipe it to our client-side application:
 
@@ -1146,5 +1322,14 @@ bruce.as_json()
  * information internally, JSON.NET can serialize the object
  * directly
  */
+```
+
+```javascript
+/*
+ * Since the User model object does not contain Riak Data Type
+ * information internally, Javascript can serialize the object
+ * directly
+ */
+JSON.stringify(joe);
 ```
 
