@@ -181,6 +181,15 @@ var idx = new SearchIndex("scores", "_yz_default");
 var rslt = client.PutSearchIndex(idx);
 ```
 
+```javascript
+var options = {
+    schemaName: '_yz_default',
+    indexName: 'scores'
+};
+client.storeIndex(options, function (err, rslt) {
+});
+```
+
 ```erlang
 riakc_pb_socket:create_search_index(Pid, <<"scores">>, <<"_yz_default">>, []).
 ```
@@ -252,6 +261,41 @@ var joanRiversId = new RiakObjectId("counters", "people", "joan_rivers");
 var joanRiversRslt = client.DtUpdateCounter(joanRiversId, 25);
 ```
 
+```javascript
+var funcs = [
+    function (async_cb) {
+        var options = {
+            bucketType: 'counters',
+            bucket: 'people',
+            key: 'christ_hitchens',
+            increment: 10
+        };
+
+        client.updateCounter(options, function (err, rslt) {
+            throwIfErr(err);
+            async_cb();
+        });
+    },
+    function (async_cb) {
+        var options = {
+            bucketType: 'counters',
+            bucket: 'people',
+            key: 'joan_rivers',
+            increment: 25
+        };
+
+        client.updateCounter(options, function (err, rslt) {
+            throwIfErr(err);
+            async_cb();
+        });
+    }
+];
+
+async.parallel(funcs, function (err, rslts) {
+    throwIfErr(err);
+});
+```
+
 ```erlang
 ChristopherHitchensCounter = riakc_counter:new(),
 HitchensCounter1 = riakc_counter:increment(10, ChristopherHitchensCounter),
@@ -306,6 +350,26 @@ var search = new RiakSearchRequest("scores", "counter:[20 TO *]");
 var rslt = client.Search(search);
 RiakSearchResult searchResult = rslt.Value;
 Console.WriteLine("Num found: {0}", searchResult.NumFound);
+```
+
+```javascript
+function search_cb(err, rslt) {
+    logger.info("counter numFound: '%d', docs: '%s'",
+        rslt.numFound, JSON.stringify(rslt.docs));
+
+    var doc = rslt.docs[0];
+    var key = doc['_yz_rk'];
+    var bucket = doc['_yz_rb'];
+    var bucketType = doc['_yz_rt'];
+}
+
+var searchCmd = new Riak.Commands.YZ.Search.Builder()
+    .withIndexName('scores')
+    .withQuery('counter:[20 TO *]')
+    .withCallback(search_cb)
+    .build();
+
+client.execute(searchCmd);
 ```
 
 ```erlang
@@ -368,6 +432,14 @@ Console.WriteLine("Key: {0} Bucket: {1} Type: {2}",
     firstDoc.Key, firstDoc.Bucket, firstDoc.BucketType);
 ```
 
+```javascript
+var doc = rslt.docs[0];
+
+var key = doc['_yz_rk'];
+var bucket = doc['_yz_rb'];
+var bucketType = doc['_yz_rt'];
+```
+
 ```erlang
 Doc = lists:nth(1, Docs),
 Key = proplists:get_value(<<"_yz_rk">>, Doc),
@@ -405,6 +477,16 @@ var search = new RiakSearchRequest("scores", "counter:[* TO 15]");
 var rslt = client.Search(search);
 ```
 
+```javascript
+var searchCmd = new Riak.Commands.YZ.Search.Builder()
+    .withIndexName('scores')
+    .withQuery('counter:[* TO 15]')
+    .withCallback(search_cb)
+    .build();
+
+client.execute(searchCmd);
+```
+
 ```erlang
 {ok, Results} = riakc_pb_socket:search(Pid, <<"scores">>, <<"counter:[* TO 15]").
 ```
@@ -431,6 +513,16 @@ results = client.fulltext_search('scores', 'counter:17')
 ```csharp
 var search = new RiakSearchRequest("scores", "counter:17");
 var rslt = client.Search(search);
+```
+
+```javascript
+var searchCmd = new Riak.Commands.YZ.Search.Builder()
+    .withIndexName('scores')
+    .withQuery('counter:17')
+    .withCallback(search_cb)
+    .build();
+
+client.execute(searchCmd);
 ```
 
 ```erlang
@@ -474,6 +566,15 @@ client.create_search_index('hobbies', '_yz_default')
 ```csharp
 var searchIndex = new SearchIndex("hobbies", "_yz_default");
 var rslt = client.PutSearchIndex(searchIndex);
+```
+
+```javascript
+var options = {
+    schemaName: '_yz_default',
+    indexName: 'hobbies'
+};
+client.storeIndex(options, function (err, rslt) {
+});
 ```
 
 ```erlang
@@ -558,6 +659,41 @@ var dioAdds = new List<string> { "wailing", "rocking", "winning" };
 var dioRslt = client.DtUpdateSet(dioId, Serializer, null, dioAdds);
 ```
 
+```javascript
+var funcs = [
+    function (async_cb) {
+        var options = {
+            bucketType: 'sets',
+            bucket: 'people',
+            key: 'ditka',
+            additions: ['football', 'winning']
+        };
+
+        client.updateSet(options, function (err, rslt) {
+            throwIfErr(err);
+            async_cb();
+        });
+    },
+    function (async_cb) {
+        var options = {
+            bucketType: 'sets',
+            bucket: 'people',
+            key: 'dio',
+            additions: ['wailing', 'rocking', 'winning']
+        };
+
+        client.updateSet(options, function (err, rslt) {
+            throwIfErr(err);
+            async_cb();
+        });
+    }
+];
+
+async.parallel(funcs, function (err, rslts) {
+    throwIfErr(err);
+});
+```
+
 ```erlang
 MikeDitkaSet = riakc_set:new(),
 riakc_set:add_element(<<"football">>, MikeDitkaSet),
@@ -607,6 +743,26 @@ Console.WriteLine("Key: {0} Bucket: {1} Type: {2}",
     firstDoc.Key, firstDoc.Bucket, firstDoc.BucketType);
 ```
 
+```javascript
+function search_cb(err, rslt) {
+    logger.info("sets numFound: '%d', docs: '%s'",
+        rslt.numFound, JSON.stringify(rslt.docs));
+
+    var doc = rslt.docs[0];
+    var key = doc['_yz_rk'];
+    var bucket = doc['_yz_rb'];
+    var bucketType = doc['_yz_rt'];
+}
+
+var searchCmd = new Riak.Commands.YZ.Search.Builder()
+    .withIndexName('hobbies')
+    .withQuery('set:football')
+    .withCallback(search_cb)
+    .build();
+
+client.execute(searchCmd);
+```
+
 ```erlang
 {ok, Results} = riakc_pb_socket:search(Pid, <<"hobbies">>, <<"set:football">>).
 ```
@@ -635,6 +791,11 @@ results['num_found']
 ```csharp
 RiakSearchResult searchResult = rslt.Value;
 Console.WriteLine("Num found: {0}", searchResult.NumFound);
+```
+
+```javascript
+rslt.numFound;
+// 1
 ```
 
 ```erlang
@@ -670,6 +831,16 @@ results['num_found']
 
 ```csharp
 var search = new RiakSearchRequest("hobbies", "set:winning");
+```
+
+```javascript
+var searchCmd = new Riak.Commands.YZ.Search.Builder()
+    .withIndexName('hobbies')
+    .withQuery('set:winning')
+    .withCallback(search_cb)
+    .build();
+
+client.execute(searchCmd);
 ```
 
 ```erlang
@@ -725,6 +896,15 @@ client.create_search_index('customers', '_yz_default')
 ```csharp
 var searchIndex = new SearchIndex("customers", "_yz_default");
 var rslt = client.PutSearchIndex(searchIndex);
+```
+
+```javascript
+var options = {
+    schemaName: '_yz_default',
+    indexName: 'customers'
+};
+client.storeIndex(options, function (err, rslt) {
+});
 ```
 
 ```erlang
@@ -889,6 +1069,59 @@ idrisMapUpdates.Add(new MapUpdate
 var idrisRslt = client.DtUpdateMap(idrisElbaId, Serializer, null, null, idrisMapUpdates);
 ```
 
+```javascript
+var funcs = [
+    function (async_cb) {
+        var options = {
+            bucketType: 'maps',
+            bucket: 'customers',
+            key: 'idris_elba'
+        };
+
+        var mapOp = new Riak.Commands.CRDT.UpdateMap.MapOperation();
+        mapOp.setRegister('first_name', 'Idris');
+        mapOp.setRegister('last_name', 'Elba');
+        mapOp.setFlag('enterprise_customer', false);
+        mapOp.incrementCounter('page_visits', 10);
+        mapOp.addToSet('interests', 'acting');
+        mapOp.addToSet('interests', 'being Stringer Bell');
+
+        options.op = mapOp;
+
+        client.updateMap(options, function (err, rslt) {
+            throwIfErr(err);
+            async_cb();
+        });
+    },
+    function (async_cb) {
+        var options = {
+            bucketType: 'maps',
+            bucket: 'customers',
+            key: 'joan_jett'
+        };
+
+        var mapOp = new Riak.Commands.CRDT.UpdateMap.MapOperation();
+        mapOp.setRegister('first_name', 'Joan');
+        mapOp.setRegister('last_name', 'Jett');
+        mapOp.setFlag('enterprise_customer', false);
+        mapOp.incrementCounter('page_visits', 25);
+        mapOp.addToSet('interests', 'loving rock and roll');
+        mapOp.addToSet('interests', 'being in the Blackhearts');
+
+        options.op = mapOp;
+
+        client.updateMap(options, function (err, rslt) {
+            throwIfErr(err);
+            async_cb();
+        });
+    }
+];
+
+async.parallel(funcs, function (err, rslts) {
+    throwIfErr(err);
+});
+```
+
 ### Searching Counters Within Maps
 
 We now have two maps stored in Riak that we can query. Let's query to
@@ -921,6 +1154,26 @@ var search = new RiakSearchRequest("customers", "page_visits_counter:[15 TO *]")
 var rslt = client.Search(search);
 ```
 
+```javascript
+function search_cb(err, rslt) {
+    logger.info("numFound: '%d', docs: '%s'",
+        rslt.numFound, JSON.stringify(rslt.docs));
+
+    var doc = rslt.docs[0];
+    var key = doc['_yz_rk'];
+    var bucket = doc['_yz_rb'];
+    var bucketType = doc['_yz_rt'];
+}
+
+var searchCmd = new Riak.Commands.YZ.Search.Builder()
+    .withIndexName('customers')
+    .withQuery('page_visits_counter:[15 TO *]')
+    .withCallback(search_cb)
+    .build();
+
+client.execute(searchCmd);
+```
+
 As expected, one of our two stored maps has a `page_visits` counter
 above 15. Let's make sure that we have the right result:
 
@@ -947,6 +1200,11 @@ results['docs'][0]['first_name_register']
 var search = new RiakSearchRequest("customers", "page_visits_counter:[15 TO *]");
 var rslt = client.Search(search);
 var firstDoc = searchResult.Documents.First();
+```
+
+```javascript
+var doc = rslts.docs[0];
+doc.page_visits_register;
 ```
 
 Success! Now we can test out searching sets.
@@ -978,6 +1236,16 @@ var search = new RiakSearchRequest("customers", "interests_set:*");
 var rslt = client.Search(search);
 ```
 
+```javascript
+var searchCmd = new Riak.Commands.YZ.Search.Builder()
+    .withIndexName('customers')
+    .withQuery('interests_set:*')
+    .withCallback(search_cb)
+    .build();
+
+client.execute(searchCmd);
+```
+
 As expected, both stored maps have an `interests` set. Now let's see how
 many maps have items in `interests` sets that begin with `loving`:
 
@@ -1006,6 +1274,16 @@ results['docs'][0]['first_name_register'] # u'Joan'
 ```csharp
 var search = new RiakSearchRequest("customers", "interests_set:loving*");
 var rslt = client.Search(search);
+```
+
+```javascript
+var searchCmd = new Riak.Commands.YZ.Search.Builder()
+    .withIndexName('customers')
+    .withQuery('interests_set:loving*')
+    .withCallback(search_cb)
+    .build();
+
+client.execute(searchCmd);
 ```
 
 As expected, only our Joan Jett map has one item in its `interests` set
@@ -1073,6 +1351,51 @@ var idrisUpdateRslt = client.DtUpdateMap(idrisElbaId, Serializer,
     idrisGetRslt.Context, null, new List<MapUpdate> { alterEgoMapUpdate });
 ```
 
+```javascript
+var funcs = [
+    function (async_cb) {
+        var options = {
+            bucketType: 'maps',
+            bucket: 'customers',
+            key: 'idris_elba'
+        };
+
+        var mapOp = new Riak.Commands.CRDT.UpdateMap.MapOperation();
+        var alterEgoMap = mapOp.map('alter_ego');
+        alterEgoMap.setRegister('name', 'John Luther');
+
+        options.op = mapOp;
+
+        client.updateMap(options, function (err, rslt) {
+            throwIfErr(err);
+            async_cb();
+        });
+    },
+    function (async_cb) {
+        var options = {
+            bucketType: 'maps',
+            bucket: 'customers',
+            key: 'joan_jett'
+        };
+
+        var mapOp = new Riak.Commands.CRDT.UpdateMap.MapOperation();
+        var alterEgoMap = mapOp.map('alter_ego');
+        alterEgoMap.setRegister('name', 'Robert Plant');
+
+        options.op = mapOp;
+
+        client.updateMap(options, function (err, rslt) {
+            throwIfErr(err);
+            async_cb();
+        });
+    }
+];
+
+async.parallel(funcs, function (err, rslts) {
+    throwIfErr(err);
+});
+```
+
 Querying maps within maps involves construct queries that separate the
 different levels of depth with a single dot. Here's an example query for
 finding maps that have a `name` register embedded within an `alter_ego`
@@ -1099,6 +1422,16 @@ results['num_found'] # 1
 ```csharp
 var search = new RiakSearchRequest("customers", "alter_ego_map.name_register:*");
 var rslt = client.Search(search);
+```
+
+```javascript
+var searchCmd = new Riak.Commands.YZ.Search.Builder()
+    .withIndexName('customers')
+    .withQuery('alter_ego_map.name_register:*')
+    .withCallback(search_cb)
+    .build();
+
+client.execute(searchCmd);
 ```
 
 Once we know how to query embedded fields like this, we can query those
@@ -1131,6 +1464,16 @@ results['docs'][0]['first_name_register'] # u'Joan
 ```csharp
 var search = new RiakSearchRequest("customers", "alter_ego_map.name_register:*Plant");
 var rslt = client.Search(search);
+```
+
+```javascript
+var searchCmd = new Riak.Commands.YZ.Search.Builder()
+    .withIndexName('customers')
+    .withQuery('alter_ego_map.name_register:*Plant')
+    .withCallback(search_cb)
+    .build();
+
+client.execute(searchCmd);
 ```
 
 Success! We've now queried not just maps but also maps within maps.
