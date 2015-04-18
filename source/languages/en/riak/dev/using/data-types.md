@@ -208,7 +208,7 @@ var counter = Client.DtFetchCounter(id);
 
 ```javascript
 // The following can be passed as options to the *Counter methods on the
-// NodeJS Client object
+// Node.js Client object
 var options = {
     bucketType: 'counters',
     bucket: 'counters',
@@ -614,7 +614,7 @@ var id = new RiakObjectId(bucket_type, bucket, key);
 ```
 
 ```javascript
-// As with counters, with the Riak NodeJS Client you interact with sets on the
+// As with counters, with the Riak Node.js Client you interact with sets on the
 // basis of the set's location in Riak, as specified by an options object.
 // Below is an example:
 var options = {
@@ -3040,7 +3040,6 @@ client.fetchMap(options, function (err, rslt) {
 // Output:
 // context: 'g2wAAAACaAJtAAAACLQFHUmjDf4EYTBoAm0AAAAIxVKxC6F1L2dhSWo='
 ```
-
 
 ```erlang
 %% You cannot fetch a Data Type's context directly using the Erlang
