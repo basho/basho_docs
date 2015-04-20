@@ -148,7 +148,7 @@ client-library-specific docs:
 * [[Ruby|Conflict Resolution: Ruby]]
 * [[Python|Conflict Resolution: Python]]
 * [[C#|Conflict Resolution: CSharp]]
-* [[NodeJS|Conflict Resolution: NodeJS]]
+* [[Node.js|Conflict Resolution: NodeJS]]
 
 In Riak versions 2.0 and later, `allow_mult` is set to `true` by default
 for any [[bucket types|Using Bucket Types]] that you create. This means
@@ -492,7 +492,7 @@ client-library-specific documentation for the following languages:
 * [[Ruby|Conflict Resolution: Ruby]]
 * [[Python|Conflict Resolution: Python]]
 * [[C#|Conflict Resolution: CSharp]]
-* [[NodeJS|Conflict Resolution: NodeJS]]
+* [[Node.js|Conflict Resolution: NodeJS]]
 
 We won't deal with conflict resolution in this section. Instead, we'll
 focus on how to use causal context.
