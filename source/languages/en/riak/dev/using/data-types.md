@@ -134,6 +134,15 @@ bucket = client.bucket_type('counters').bucket('counters')
 var id = new RiakObjectId("counters", "counters", "<insert_key_here>");
 ```
 
+```javascript
+// The following can be passed as options to FetchCounter
+var options = {
+    bucketType: 'counters',
+    bucket: 'counters',
+    key: '<insert_key_here>'
+};
+```
+
 ```erlang
 %% Buckets are simply named binaries in the Erlang client. See the
 %% examples below for more information
@@ -197,6 +206,16 @@ var id = new RiakObjectId(bucketType, bucket, key);
 var counter = Client.DtFetchCounter(id);
 ```
 
+```javascript
+// The following can be passed as options to the *Counter methods on the
+// Node.js Client object
+var options = {
+    bucketType: 'counters',
+    bucket: 'counters',
+    key: '<insert_key_here>'
+};
+```
+
 ```erlang
 %% Counters are not encapsulated with the bucket/key in the Erlang
 %% client. See the examples below for more information.
@@ -243,6 +262,16 @@ counter = bucket.new('traffic_tickets')
 ```csharp
 var trafficTickets = new RiakObjectId("counters", "counters", "traffic_tickets");
 var counter = Client.DtFetchCounter(trafficTickets);
+```
+
+```javascript
+// Using the options from above:
+
+var options = {
+    bucketType: 'counters',
+    bucket: 'counters',
+    key: 'traffic_tickets'
+};
 ```
 
 ```erlang
@@ -292,6 +321,23 @@ var trafficTickets = new RiakObjectId("counters", "counters", "traffic_tickets")
 Client.DtUpdateCounter(trafficTickets, 1);
 ```
 
+```javascript
+// Using the options from above:
+
+var options = {
+    bucketType: 'counters',
+    bucket: 'counters',
+    key: 'traffic_tickets',
+    increment: 1
+};
+client.updateCounter(options,
+    function (err, rslt) {
+        if (err) {
+            throw new Error(err);
+        }
+    });
+```
+
 ```erlang
 Counter1 = riakc_counter:increment(Counter).
 ```
@@ -326,6 +372,21 @@ counter.increment(5)
 ```csharp
 // Using the "counter" object from above:
 client.DtUpdateCounter(counter, 5);
+```
+
+```javascript
+var options = {
+    bucketType: 'counters',
+    bucket: 'counters',
+    key: 'traffic_tickets',
+    increment: 5
+};
+client.updateCounter(options,
+    function (err, rslt) {
+        if (err) {
+            throw new Error(err);
+        }
+    });
 ```
 
 ```erlang
@@ -374,6 +435,30 @@ counter.reload()
 
 ```csharp
 Console.WriteLine(counter.Value);
+```
+
+```javascript
+var options = {
+    bucketType: 'counters',
+    bucket: 'counters',
+    key: 'traffic_tickets'
+};
+client.fetchCounter(options,
+    function (err, rslt) {
+        if (err) {
+            throw new Error(err);
+        }
+
+        if (rslt.notFound) {
+            logger.error("bt: %s, b: %s, k: %s, counter: NOT FOUND",
+                options.bucketType, options.bucket, options.key);
+        } else {
+            logger.info("bt: %s, b: %s, k: %s, counter: %d",
+                options.bucketType, options.bucket, options.key,
+                rslt.counterValue);
+        }
+    }
+);
 ```
 
 ```erlang
@@ -433,6 +518,23 @@ Client.DtUpdateCounter(trafficTickets, -1);
 
 // As with incrementing, you can also decrement by more than one, e.g.:
 Client.DtUpdateCounter(trafficTickets, -3);
+```
+
+```javascript
+var options = {
+    bucketType: 'counters',
+    bucket: 'counter',
+    key: 'traffic_tickets',
+    increment: -1
+};
+
+// As with incrementing, you can also decrement by more than one, e.g.:
+var options = {
+    bucketType: 'counters',
+    bucket: 'counter',
+    key: 'traffic_tickets',
+    increment: -3
+};
 ```
 
 ```erlang
@@ -511,6 +613,17 @@ set = Set(bucket, key)
 var id = new RiakObjectId(bucket_type, bucket, key);
 ```
 
+```javascript
+// As with counters, with the Riak Node.js Client you interact with sets on the
+// basis of the set's location in Riak, as specified by an options object.
+// Below is an example:
+var options = {
+    bucketType: 'sets',
+    bucket: 'travel',
+    key: 'cities'
+};
+```
+
 ```erlang
 %% Like counters, sets are not encapsulated in a
 %% bucket/key in the Erlang client. See below for more
@@ -567,8 +680,19 @@ cities_set = Set(travel, 'cities')
 ```
 
 ```csharp
-// Now we'll create a reference to the set we want to interact with:
+// Now we'll create a reference for the set with which we want to
+// interact:
 var id = new RiakObjectId("sets", "travel", "cities");
+```
+
+```javascript
+// Now we'll create a options object for the set with which we want to
+// interact:
+var options = {
+    bucketType: 'sets',
+    bucket: 'travel',
+    key: 'cities'
+};
 ```
 
 ```erlang
@@ -611,6 +735,23 @@ var id = new RiakObjectId("sets", "travel", "cities");
 var citiesSet = client.DtFetchSet(id);
 int setSize = citiesSet.Values.Count;
 Console.WriteLine(setSize > 0);
+```
+
+```javascript
+var options = {
+    bucketType: 'sets',
+    bucket: 'travel',
+    key: 'cities'
+};
+client.fetchSet(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+
+    if (rslt.notFound) {
+        logger.info("set 'cities' is not found!");
+    }
+});
 ```
 
 ```erlang
@@ -660,6 +801,28 @@ var adds = new List<string> { "Toronto", "Montreal" };
 var result = client.DtUpdateSet(id,
     obj => Encoding.UTF8.GetBytes(obj),
     citiesSet.Context, adds);
+```
+
+```javascript
+var options = {
+    bucketType: 'sets',
+    bucket: 'travel',
+    key: 'cities'
+};
+var cmd = new Riak.Commands.CRDT.UpdateSet.Builder()
+    .withBucketType(options.bucketType)
+    .withBucket(options.bucket)
+    .withKey(options.key)
+    .withAdditions(['Toronto', 'Montreal'])
+    .withCallback(
+        function (err, rslt) {
+            if (err) {
+                throw new Error(err);
+            }
+        }
+    )
+    .build();
+client.execute(cmd);
 ```
 
 ```erlang
@@ -729,6 +892,31 @@ citiesSet = client.DtUpdateSet(id,
     rslt.Context, adds, removes);
 ```
 
+```javascript
+var options = {
+    bucketType: 'sets',
+    bucket: 'travel',
+    key: 'cities'
+};
+client.fetchSet(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+
+    // NB: clone package https://www.npmjs.com/package/clone
+    var update_opts = clone(options);
+    update_opts.context = rslt.context;
+    update_opts.additions = ['Hamilton', 'Ottawa'];
+    update_opts.removals = ['Montreal', 'Ottawa'];
+
+    client.updateSet(update_opts, function (err, rslt) {
+        if (err) {
+            throw new Error(err);
+        }
+    });
+});
+```
+
 ```erlang
 CitiesSet3 = riakc_set:del_element(<<"Montreal">>, CitiesSet2),
 CitiesSet4 = riakc_set:add_element(<<"Hamilton">>, CitiesSet3),
@@ -789,6 +977,25 @@ foreach (var value in citiesSet.Values)
 // Cities Set Value: Hamilton
 // Cities Set Value: Ottawa
 // Cities Set Value: Toronto
+```
+
+```javascript
+var options = {
+    bucketType: 'sets',
+    bucket: 'travel',
+    key: 'cities'
+};
+client.fetchSet(options, function(err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+
+    logger.info("cities set values: '%s'",
+        rslt.values.join(', '));
+});
+
+// Output:
+// info: cities set values: 'Hamilton, Ottawa, Toronto'
 ```
 
 ```erlang
@@ -853,6 +1060,14 @@ cities_set.include? 'Ottawa'
 // checking if a set includes a value.
 ```
 
+```javascript
+// Use standard javascript array method indexOf()
+
+var cities_set = result.values;
+cities_set.indexOf('Vancouver'); // if present, index is >= 0
+cities_set.indexOf('Ottawa'); // if present, index is >= 0
+```
+
 ```erlang
 %% At this point, Set5 is the most "recent" set from the standpoint
 %% of our application.
@@ -884,6 +1099,12 @@ len(cities_set)
 
 ```csharp
 Debug.WriteLine(format: "Cities Set Size: {0}", args: citiesSet.Values.Count);
+```
+
+```javascript
+// Use standard javascript array property length
+
+var cities_set_size = result.values.length;
 ```
 
 ```erlang
@@ -935,6 +1156,15 @@ map = Map(bucket, key)
 
 ```csharp
 var id = new RiakObjectId("<bucket_type>", "<bucket>", "<key>");
+```
+
+```javascript
+// Options to pass to the various map methods
+var options = {
+    bucketType: '<bucket_type>',
+    bucket: '<bucket>',
+    key: '<key>'
+};
 ```
 
 ```erlang
@@ -989,6 +1219,14 @@ map = customers.net('ahmed_info')
 var id = new RiakObjectId("maps", "customers", "ahmed_info");
 ```
 
+```javascript
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info'
+};
+```
+
 ```erlang
 Map = riakc_map:new().
 
@@ -1031,7 +1269,7 @@ client.execute(update);
 
 map.batch do |m|
   m.registers['first_name'] = 'Ahmed'
-  m.registers['phne_number'] = '5551234567'
+  m.registers['phone_number'] = '5551234567'
 end
 
 # Integers need to be stored as strings and then converted back when
@@ -1111,6 +1349,25 @@ foreach (RiakDtMapEntry value in rslt.Values)
 }
 ```
 
+```javascript
+var mapOp = new Riak.Commands.CRDT.UpdateMap.MapOperation();
+mapOp.setRegister('first_name', new Buffer('Ahmed'));
+mapOp.setRegister('phone_number', new Buffer('5551234567'));
+
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info',
+    op: mapOp
+};
+
+client.updateMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+});
+```
+
 ```erlang
 Map1 = riakc_map:update({<<"first_name">>, register},
                         fun(R) -> riakc_register:set(<<"Ahmed">>, R) end,
@@ -1186,6 +1443,24 @@ var updates = new List<MapUpdate> {
 rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
 ```
 
+```javascript
+var mapOp = new Riak.Commands.CRDT.UpdateMap.MapOperation();
+mapOp.setFlag('enterprise_customer', false);
+
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info',
+    op: mapOp
+};
+
+client.updateMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+});
+```
+
 ```erlang
 Map4 = riakc_map:update({<<"enterprise_customer">>, flag},
                         fun(F) -> riakc_flag:disable(F) end,
@@ -1254,6 +1529,22 @@ foreach (RiakDtMapEntry value in rslt.Values)
 }
 ```
 
+```javascript
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info'
+};
+
+client.fetchMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+
+    console.log("fetched map: %s", JSON.stringify(rslt));
+});
+```
+
 ```erlang
 %% The value fetched from Riak is always immutable, whereas the "dirty
 %% value" takes into account local modifications that have not been
@@ -1313,6 +1604,24 @@ var updates = new List<MapUpdate> {
     pageVisitsCounterUpdate
 };
 rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+```
+
+```javascript
+var mapOp = new Riak.Commands.CRDT.UpdateMap.MapOperation();
+mapOp.incrementCounter('page_visits', 1);
+
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info',
+    op: mapOp
+};
+
+client.updateMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+});
 ```
 
 ```erlang
@@ -1393,6 +1702,26 @@ var updates = new List<MapUpdate> {
     interestsSetUpdate
 };
 rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+```
+
+```javascript
+var mapOp = new Riak.Commands.CRDT.UpdateMap.MapOperation();
+mapOp.addToSet('interests', 'robots');
+mapOp.addToSet('interests', 'opera');
+mapOp.addToSet('interests', 'motorcycles');
+
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info',
+    op: mapOp
+};
+
+client.updateMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+});
 ```
 
 ```erlang
@@ -1481,7 +1810,22 @@ foreach (RiakDtMapEntry value in rslt.Values)
         ...
     }
 }
+```
 
+```javascript
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info'
+};
+
+client.fetchMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+
+    assert(rslt.map.sets['interests'].indexOf('robots') !== -1);
+});
 ```
 
 ```erlang
@@ -1544,9 +1888,36 @@ var updates = new List<MapUpdate> {
 var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
 ```
 
+```javascript
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info'
+};
+
+client.fetchMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+
+    var mapOp = new Riak.Commands.CRDT.UpdateMap.MapOperation();
+    mapOp.removeFromSet('interests', 'opera');
+    mapOp.addToSet('interests', 'indie pop');
+
+    options.context = rslt.context;
+    options.op = mapOp;
+
+    client.updateMap(options, function (err, rslt) {
+        if (err) {
+            throw new Error(err);
+        }
+    });
+});
+```
+
 ```erlang
 Map7 = riakc_map:update({<<"interests">>, set},
-                        fun(S) -> riakc_set:del_element(<<"robots">>, S) end, Map6),
+                        fun(S) -> riakc_set:del_element(<<"opera">>, S) end, Map6),
 Map8 = riakc_map:update({<<"interests">>, set},
                         fun(S) -> riakc_set:add_element(<<"indie pop">>, S) end,
                         Map7).
@@ -1669,6 +2040,28 @@ var updates = new List<MapUpdate> {
 var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
 ```
 
+```javascript
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info'
+};
+
+var mapOp = new Riak.Commands.CRDT.UpdateMap.MapOperation();
+mapOp.map('annika_info')
+    .setRegister('first_name', 'Annika')
+    .setRegister('last_name', 'Weiss')
+    .setRegister('phone_number', '5559876543');
+
+options.op = mapOp;
+
+client.updateMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+});
+```
+
 ```erlang
 Map12 = riakc_map:update(
     {<<"annika_info">>, map},
@@ -1740,6 +2133,23 @@ map.reload().maps['annika_info'].registers['first_name'].value
 // https://github.com/basho/riak-dotnet-client/tree/develop/src/RiakClientExamples
 ```
 
+```javascript
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info'
+};
+
+client.fetchMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+
+    var annikaFirstName =
+        rslt.map.maps['annika_info'].registers['first_name'].toString('utf8');
+});
+```
+
 ```erlang
 riakc_map:dirty_value(Map14).
 ```
@@ -1804,6 +2214,36 @@ var updates = new List<MapUpdate> {
     annikaInfoUpdate
 };
 var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+```
+
+```javascript
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info'
+};
+
+client.fetchMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+
+    var mapOp = new Riak.Commands.CRDT.UpdateMap.MapOperation();
+    mapOp.map('annika_info').removeRegister('first_name');
+
+    var options = {
+        bucketType: 'maps',
+        bucket: 'customers',
+        key: 'ahmed_info',
+        op: mapOp,
+        context: rslt.context,
+    };
+
+    client.updateMap(options, function (err, rslt) {
+        if (err) {
+            throw new Error(err);
+        }
+    });
 ```
 
 ```erlang
@@ -1914,6 +2354,40 @@ var updates = new List<MapUpdate> {
 var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
 ```
 
+```javascript
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info'
+};
+
+client.fetchMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+
+    var mapOp = new Riak.Commands.CRDT.UpdateMap.MapOperation();
+    var annika_map = mapOp.map('annika_info');
+    annika_map.setFlag('enterprise_plan', false);
+    annika_map.setFlag('family_plan', false);
+    annika_map.setFlag('free_plan', true);
+
+    var options = {
+        bucketType: 'maps',
+        bucket: 'customers',
+        key: 'ahmed_info',
+        op: mapOp,
+        context: rslt.context,
+    };
+
+    client.updateMap(options, function (err, rslt) {
+        if (err) {
+            throw new Error(err);
+        }
+    });
+});
+```
+
 ```erlang
 Map16 = riakc_map:update(
     {<<"annika_info">>, map},
@@ -1986,6 +2460,23 @@ map.reload().maps['annika_info'].flags['enterprise_plan'].value
 // https://github.com/basho/riak-dotnet-client/tree/develop/src/RiakClientExamples
 ```
 
+```javascript
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info'
+};
+
+client.fetchMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+
+    var enterprisePlan =
+        rslt.map.maps.annika_info.flags.enterprise_plan;
+});
+```
+
 ```erlang
 riakc_map:dirty_value(Map18).
 ```
@@ -2049,6 +2540,24 @@ var updates = new List<MapUpdate> {
     annikaInfoUpdate
 };
 var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+```
+
+```javascript
+var mapOp = new Riak.Commands.CRDT.UpdateMap.MapOperation();
+mapOp.map('annika_info').incrementCounter('widget_purchases', 1);
+
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info',
+    op: mapOp
+};
+
+client.updateMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+});
 ```
 
 ```erlang
@@ -2135,6 +2644,25 @@ var updates = new List<MapUpdate> {
 var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
 ```
 
+```javascript
+var mapOp = new Riak.Commands.CRDT.UpdateMap.MapOperation();
+var annika_map = mapOp.map('annika_info');
+annika_map.addToSet('interests', 'tango dancing');
+
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info',
+    op: mapOp
+};
+
+client.updateMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+});
+```
+
 ```erlang
 Map20 = riakc_map:update(
     {<<"annika_info">>, map},
@@ -2219,6 +2747,34 @@ var updates = new List<MapUpdate> {
     annikaInfoUpdate
 };
 var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+```
+
+```javascript
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info'
+};
+
+client.fetchMap(options, function (err, rslt) {
+    var mapOp = new Riak.Commands.CRDT.UpdateMap.MapOperation();
+    var annika_map = mapOp.map('annika_info');
+    annika_map.removeFromSet('interests', 'tango dancing');
+
+    options = {
+        bucketType: 'maps',
+        bucket: 'customers',
+        key: 'ahmed_info',
+        op: mapOp,
+        context: rslt.context
+    };
+
+    client.updateMap(options, function (err, rslt) {
+        if (err) {
+            throw new Error(err);
+        }
+    });
+});
 ```
 
 ```erlang
@@ -2352,6 +2908,28 @@ var updates = new List<MapUpdate> {
 var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
 ```
 
+```javascript
+var mapOp = new Riak.Commands.CRDT.UpdateMap.MapOperation();
+var annika_map = mapOp.map('annika_info');
+var annika_purchase_map = annika_map.map('purchase');
+annika_purchase_map.setFlag('first_purchase', true);
+annika_purchase_map.setRegister('amount', '1271');
+annika_purchase_map.addToSet('items', 'large widget');
+
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info',
+    op: mapOp
+};
+
+client.updateMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+});
+```
+
 ```erlang
 Map22 = riakc_map:update(
     {<<"annika_info">>, map},
@@ -2442,6 +3020,25 @@ Debug.WriteLine(format: "Context: {0}", args: Convert.ToBase64String(rslt.Contex
 
 // Output:
 // Context: g2wAAAACaAJtAAAACLQFHUkv4m2IYQdoAm0AAAAIxVKxCy5pjMdhCWo=
+```
+
+```javascript
+var options = {
+    bucketType: 'maps',
+    bucket: 'customers',
+    key: 'ahmed_info'
+};
+
+client.fetchMap(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+
+    logger.info("context: '%s'", rslt.context.toString('base64'));
+});
+
+// Output:
+// context: 'g2wAAAACaAJtAAAACLQFHUmjDf4EYTBoAm0AAAAIxVKxC6F1L2dhSWo='
 ```
 
 ```erlang
