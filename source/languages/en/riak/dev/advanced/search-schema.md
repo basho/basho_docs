@@ -77,6 +77,29 @@ var schema = new SearchSchema("cartoons", xml);
 var rslt = client.PutSearchSchema(schema);
 ```
 
+```javascript
+var fs = require('fs');
+
+fs.readFile('cartoons.xml', function (err, data) {
+    if (err) {
+        throw new Error(err);
+    }
+
+    var schemaXml = data.toString('utf8'));
+
+    var options = {
+        schemaName: 'blog_post_schema',
+        schema: schemaXml
+    };
+
+    client.storeSchema(options, function (err, rslt) {
+        if (err) {
+            throw new Error(err);
+        }
+    });
+});
+```
+
 ```erlang
 {ok, SchemaData} = file:read_file("cartoons.xml"),
 riakc_pb_socket:create_search_schema(Pid, <<"cartoons">>, SchemaData).
@@ -462,5 +485,4 @@ the case.
 ```erlang
 {analyzer_factory, {erlang, text_analyzers, noop_analyzer_factory}}}
 ```
-
 
