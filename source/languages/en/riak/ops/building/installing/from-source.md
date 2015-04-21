@@ -51,7 +51,6 @@ or cloned source.
 Download the Riak source package from the [[Download
 Center|http://basho.com/resources/downloads/]] and build:
 
-{{#2.0.0+}}
 ```bash
 curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/riak-{{VERSION}.tar.gz
 tar zxvf riak-{{VERSION}}.tar.gz
@@ -59,15 +58,6 @@ cd riak-{{VERSION}}
 make locked-deps
 make rel
 ```
-{{/#2.0.0+}}
-{{#2.0.0-}}
-```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/riak-{{VERSION}.tar.gz
-tar zxvf riak-{{VERSION}}.tar.gz
-cd riak-{{VERSION}}
-make rel
-```
-{{/2.0.0-}}
 
 ### Installing from GitHub
 
@@ -76,21 +66,13 @@ more information on building and installing Riak from source. To clone
 and build Riak from source, follow the steps below.
 
 Clone the repository using [Git](http://git-scm.com) and build:
-{{#2.0.0+}}
+
 ```bash
 git clone git://github.com/basho/riak.git
 cd riak
 make locked-deps
 make rel
 ```
-{{/2.0.0+}}
-{{#2.0.0-}}
-```bash
-git clone git://github.com/basho/riak.git
-cd riak
-make rel
-```
-{{/2.0.0-}}
 
 ## Platform-Specific Instructions
 
