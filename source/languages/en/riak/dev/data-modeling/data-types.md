@@ -1332,4 +1332,3 @@ bruce.as_json()
  */
 JSON.stringify(joe);
 ```
-
