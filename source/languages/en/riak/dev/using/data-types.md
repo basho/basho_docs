@@ -718,7 +718,7 @@ curl http://localhost:8098/types/sets/buckets/travel/datatypes/cities
 
 # Response
 
-{"type":"set","value":["Toronto"],"context":"g2wAAAABaAJtAAAACCMJ/vkCeL5aYQhq"}
+{"type":"set","value":["Toronto"],"context": "g2wAAAABaAJtAAAACCMJ/vkCeL5aYQhq"}
 
 # You can also fetch the value of the set without the context included:
 curl http://localhost:8098/types/sets/buckets/travel/datatypes/cities?include_context=false
@@ -1004,7 +1004,7 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
     "update": {
       "enterprise_customer_flag": "disable"
     },
-    "context" : "g2wAAAABaAJtAAAACCMJ/vkCeL5aYQlq"
+    "context": "g2wAAAABaAJtAAAACCMJ/vkCeL5aYQlq"
   }'
 ```
 
@@ -1243,7 +1243,7 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
         "add": "indie pop"
       }
     },
-    "context" : "g2wAAAABaAJtAAAACCMJ/vkCeL5aYQlq"
+    "context": "g2wAAAABaAJtAAAACCMJ/vkCeL5aYQlq"
   }
   '
 ```
@@ -1415,7 +1415,7 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
         "remove": "phone_number_register"
       }
     },
-    "context" : "g2wAAAABaAJtAAAACCMJ/vkCeL5aYQlq"
+    "context": "g2wAAAABaAJtAAAACCMJ/vkCeL5aYQlq"
   }
   '
 ```
@@ -1494,7 +1494,7 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
         }
       }
     },
-    "context" : "g2wAAAABaAJtAAAACCMJ/vkCeL5aYQlq"
+    "context": "g2wAAAABaAJtAAAACCMJ/vkCeL5aYQlq"
   }
   '
 ```
@@ -1680,7 +1680,7 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
         }
       }
     },
-    "context" : "g2wAAAABaAJtAAAACCMJ/vkCeL5aYQlq"
+    "context": "g2wAAAABaAJtAAAACCMJ/vkCeL5aYQlq"
   }
   '
 ```
