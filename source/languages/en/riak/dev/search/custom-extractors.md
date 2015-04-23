@@ -257,6 +257,15 @@ schema_xml = File.read('http_header_schema.xml')
 client.create_search_schema('http_header_schema', schema_xml)
 ```
 
+```php
+$schema_string = file_get_contents('http_header_schema.xml');
+(new \Basho\Riak\Command\Builder\StoreSchema)
+  ->withName('http_header_schema')
+  ->withSchemaString($schema_string)
+  ->build()
+  ->execute();
+```
+
 ```python
 import io
 
@@ -282,6 +291,14 @@ client.execute(storeIndex);
 
 ```ruby
 client.create_search_index('header_data', 'http_header_schema')
+```
+
+```php
+(new \Basho\Riak\Command\Builder\StoreIndex)
+  ->withName('header_data')
+  ->usingSchema('http_header_schema')
+  ->build()
+  ->execute();
 ```
 
 ```python

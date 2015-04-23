@@ -261,7 +261,7 @@ ArgumentError: content_type is not defined!
 ```
 
 ```javascript
-// In the NodeJS client, the default content type is "application/json".
+// In the Node.js client, the default content type is "application/json".
 // Because of this, you should always make sure to specify the content
 // type when storing other types of data.
 ```
@@ -923,7 +923,7 @@ client.storeValue(options, function (err, rslt) {
     logger.info("Generated key: %s", generatedKey);
 });
 
-// The NodeJS client will output a random key similar to this:
+// The Node.js client will output a random key similar to this:
 // info: Generated key: VBAMoX0OOucymVCxeQEYzLzzAh2
 ```
 

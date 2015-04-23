@@ -23,7 +23,7 @@ _If you have a video to add, please fork the [Riak Docs Repo on GitHub](https://
 	    	<a href="http://player.vimeo.com/video/21099379" target="_blank" title="Riak with node.js Webinar"><img class="vid_img"src="http://b.vimeocdn.com/ts/135/477/135477978_200.jpg"/></a>
 	    </td>
 	    <td class="vid_td">
-	    	<a href="http://player.vimeo.com/video/21099379" target="_blank" title="Riak with node.js Webinar">Riak with node.js Webinar</a><br />Learn how to use Riak from NodeJS applications.
+	    	<a href="http://player.vimeo.com/video/21099379" target="_blank" title="Riak with node.js Webinar">Riak with Node.js Webinar</a><br />Learn how to use Riak from Node.js applications.
 		</td>	    
 	</tr>
 	<tr>

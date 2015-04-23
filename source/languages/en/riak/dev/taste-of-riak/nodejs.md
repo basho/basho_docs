@@ -11,7 +11,7 @@ keywords: [developers, client, javascript, nodejs]
 If you haven't set up a Riak Node and started it, please visit the
 [[Prerequisites|Taste of Riak: Prerequisites]] first.
 
-To try this flavor of Riak, a working installation of NodeJS 0.12 or later is
+To try this flavor of Riak, a working installation of Node.js 0.12 or later is
 required.
 
 Code for these examples is available [here][introduction.js]. To run, follow
@@ -26,11 +26,11 @@ node ./app.js
 
 ### Client Setup
 
-Install [the Riak NodeJS Client][node_js_installation] through [NPM][npm].
+Install [the Riak Node.js Client][node_js_installation] through [NPM][npm].
 
 ### Connecting to Riak
 
-Connecting to Riak with the Riak NodeJS Client requires creating a new client object.
+Connecting to Riak with the Riak Node.js Client requires creating a new client object.
 
 ```javascript
 var Riak = require('basho-riak-client');
@@ -46,7 +46,7 @@ This creates a new `Riak.Client` object which handles all the details of
 tracking active nodes and also provides load balancing. The `Riak.Client` object
 is used to send commands to Riak. When your application is completely done with
 Riak communications, the following method can be used to gracefully shut the
-client down and exit NodeJS:
+client down and exit Node.js:
 
 ```javascript
 function client_shutdown() {
@@ -74,7 +74,7 @@ client.ping(function (err, rslt) {
 ```
 
 This is some simple code to test that a node in a Riak cluster is online - we
-send a simple ping message. Even if the cluster isn't present, the Riak NodeJS
+send a simple ping message. Even if the cluster isn't present, the Riak Node.js
 Client will return a response message. In the callback it is important to check
 that your activity was successful by checking the `err` variable.
 
@@ -83,7 +83,7 @@ that your activity was successful by checking the `err` variable.
 Pinging a Riak cluster sounds like a lot of fun, but eventually someone is going
 to want us to do productive work. Let's create some data to save in Riak.
 
-The Riak NodeJS Client makes use of a `RiakObject` class to encapsulate Riak
+The Riak Node.js Client makes use of a `RiakObject` class to encapsulate Riak
 key/value objects. At the most basic, a `RiakObject` is responsible for
 identifying your object and for translating it into a format that can be easily
 saved to Riak.
@@ -191,9 +191,9 @@ Just like other operations, we check the results that have come back from Riak
 to make sure the object was successfully deleted. Of course, if you don't care
 about that, you can just ignore the result.
 
-The Riak NodeJS Client has a lot of additional functionality that makes it easy
+The Riak Node.js Client has a lot of additional functionality that makes it easy
 to build rich, complex applications with Riak. Check out the
-[documentation][dotnet_wiki] to learn more about working with the Riak NodeJS
+[documentation][dotnet_wiki] to learn more about working with the Riak Node.js
 Client and Riak.
 
 ## Next Steps

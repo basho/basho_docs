@@ -193,11 +193,10 @@ to use the custom backend provided by Riak CS. You'll have to use the old-style
                   {be_blocks, riak_kv_bitcask_backend, [
                       {data_root, "/var/lib/riak/bitcask"}
                   ]}
-              ]},
-              %% Other configs
-              ]},
-  %% Other sections
-]
+              ]}
+  ]}
+].
+```
 
 <div class="note"><div class="title">Note on OS-specific paths</div>
 The path for `add_paths` may be `/usr/lib/riak-cs` or `/usr/lib64/riak-cs`

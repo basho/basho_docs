@@ -406,6 +406,7 @@ language:
 * [Ruby](https://github.com/basho/riak-ruby-client)
 * [Python](https://github.com/basho/riak-python-client)
 * [.NET](https://github.com/basho/riak-dotnet-client)
+* [Node.js](https://github.com/basho/riak-nodejs-client)
 * [Erlang](https://github.com/basho/riak-erlang-client)
 
 In each of the above docs, you'll find detailed client installation and
@@ -631,6 +632,44 @@ object that is used to execute all operations with Riak:
 ```csharp
 var client = cluster.CreateClient();
 ```
+
+### Node.js
+
+There are a variety of ways to set up cluster interaction with the Node.js
+client. The following is the simplest way, which is to pass an array of
+`host:port` information to the `Riak.Client` constructor.
+
+```javascript
+var Riak = require('basho-riak-client');
+
+var riakNodes = [
+    'riak-test:10017',
+    'riak-test:10027',
+    'riak-test:10037',
+    'riak-test:10047'
+];
+
+// Note: no need to call start() since the new Riak.Client object
+// will start the cluster connection
+var client  new Riak.Client(riakNodes);
+```
+
+There is also a method to shut the cluster down:
+
+```javascript
+client.shutdown(function (state) {
+    if (state === Riak.Cluster.State.SHUTDOWN) {
+        // Do whatever steps are necessary now that client is shut down
+        // like process.exit()
+    }
+});
+```
+
+For some Node.js code samples to get you started, see our tutorials on
+[[the basics of Riak|The Basics]], [[Riak Data Types|Using Data Types]],
+and [[Riak Search 2.0|Using Search]], as well as a variety of other
+pages in the **Riak for Developers** section of the documentation (in
+the navbar on the left).
 
 ### Erlang
 

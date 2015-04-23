@@ -55,6 +55,7 @@ Center|http://basho.com/resources/downloads/]] and build:
 curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/riak-{{VERSION}.tar.gz
 tar zxvf riak-{{VERSION}}.tar.gz
 cd riak-{{VERSION}}
+make locked-deps
 make rel
 ```
 
@@ -69,6 +70,7 @@ Clone the repository using [Git](http://git-scm.com) and build:
 ```bash
 git clone git://github.com/basho/riak.git
 cd riak
+make locked-deps
 make rel
 ```
 
