@@ -305,13 +305,13 @@ First, download the appropriate package from the [[downloads|Download
 Riak CS#Stanchion-1-4-3]] page.
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/stanchion/1.4/1.4.3/osx/10.8/stanchion-1.4.3-OSX-x86_64.tar.gz
+curl -O http://s3.amazonaws.com/downloads.basho.com/stanchion/1.4/1.4.3/osx/10.8/stanchion-2.0.0-OSX-x86_64.tar.gz
 ```
 
 Then, unpack the downloaded tarball:
 
 ```bash
-stanchion-1.4.3-OSX-x86_64.tar.gz
+stanchion-2.0.0-OSX-x86_64.tar.gz
 ```
 
 At this point, you can move on to [[configuring Riak CS]].
