@@ -32,7 +32,7 @@ Configuration|Configuration Files#Advanced-Configuration]].
 
 Here is a sample of the syntax:
 
-```appconfig
+```advancedconfig
 {riak_core, [
     %% Every *node* runs one cluster_mgr
     {cluster_mgr, {"0.0.0.0", 9080 }},
