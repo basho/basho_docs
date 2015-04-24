@@ -323,7 +323,7 @@ setting.
 ## Erlang Built-in Storage
 
 Erlang uses a built-in database called
-[ets](http://www.erlang.org/doc/man/ets.html) \(Erlang Table Storage)
+[ets](http://www.erlang.org/doc/man/ets.html) \(Erlang Term Storage)
 for some processes that require fast access from memory in constant
 access time (rather than logarithmic access time).  The maximum number
 of tables can be set using the `erlang.max_ets_tables` setting. The
