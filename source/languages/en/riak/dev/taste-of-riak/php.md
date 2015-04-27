@@ -149,7 +149,7 @@ print($riakObject->data);
  "copiesOwned":3}
 ```
 
-JSON!  The library encodes POPO’s as JSON strings.  If instead we wanted to get a data record back we could use `$mobyDick = $booksBucket->get(book.ISBN)->data`, and then use an array accessor like `$mobyDick[‘isbn’]` to grab the info we want.  
+JSON!  The library encodes POPO’s as JSON strings.  If instead we wanted to get a data record back we could use `$mobyDick = $booksBucket->get($book->ISBN)->data`, and then use an array accessor like `$mobyDick[‘isbn’]` to grab the info we want.  
 
 Now that we’ve ruined the magic of object encoding, let’s clean up our mess:
 
