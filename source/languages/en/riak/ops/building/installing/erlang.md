@@ -21,7 +21,7 @@ Riak 2.0. All of the patches in this version have been incorporated into
 later versions of the official Erlang/OTP release.
 
 The tar file for this version of Erlang can be downloaded
-[here](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho5.tar.gz).
+[here](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho8.tar.gz).
 **If you do not use this version, you will not be able to use Riak's
 [[security features|Authentication and Authorization]]**.
 
@@ -52,7 +52,7 @@ Erlang [from Github](https://github.com/basho/otp) using the following
 command:
 
 ```bash
-kerl build git git://github.com/basho/otp.git OTP_R16B02_basho5 R16B02-basho5
+kerl build git git://github.com/basho/otp.git OTP_R16B02_basho8 R16B02-basho8
 ```
 
 <div class="note">
@@ -68,12 +68,12 @@ required to manually install Erlang for you.
 When successfully built, you can install the build as follows:
 
 ```bash
-./kerl install R16B02-basho5 ~/erlang/R16B02-basho5
-. ~/erlang/R16B02-basho5/activate
+./kerl install R16B02-basho8 ~/erlang/R16B02-basho8
+. ~/erlang/R16B02-basho8/activate
 ```
 
 The last line activates the Erlang build that was just installed into
-`~/erlang/R16B02-basho5`. See the kerl
+`~/erlang/R16B02-basho8`. See the kerl
 [README](https://github.com/yrashk/kerl) for more details on the
 available commands.
 
@@ -154,9 +154,9 @@ sudo yum install gcc gcc-c++ glibc-devel make ncurses-devel openssl-devel autoco
 Next, download, build, and install Erlang:
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho5.tar.gz
-tar zxvf otp_src_R16B02-basho5.tar.gz
-cd otp_src_R16B02-basho5
+wget http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho8.tar.gz
+tar zxvf otp_src_R16B02-basho8.tar.gz
+cd otp_src_R16B02-basho8
 ./configure && make && sudo make install
 ```
 
@@ -188,9 +188,9 @@ To build from source, you must have Xcode tools installed from the Apple
 First, download and unpack the source:
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho5.tar.gz
-tar zxvf otp_src_R16B02-basho5.tar.gz
-cd otp_src_R16B02-basho5
+curl -O http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho8.tar.gz
+tar zxvf otp_src_R16B02-basho8.tar.gz
+cd otp_src_R16B02-basho8
 ```
 
 Next, configure Erlang.
