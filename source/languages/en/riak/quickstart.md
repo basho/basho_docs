@@ -201,9 +201,9 @@ First, try joining the node `dev2` to `dev1`:
 dev2/bin/riak-admin cluster join dev1@127.0.0.1
 ```
 
-If there is no response, then the join is successful. We still have
-three running nodes that have not yet been joined, so let's join those
-as well:
+If the response states that the cluster join is successfully staged, 
+everything went well. We'll get into staging below, but we still have
+three running nodes that have not yet been joined, so let's join those as well:
 
 ```bash
 dev3/bin/riak-admin cluster join dev1@127.0.0.1
