@@ -741,6 +741,77 @@ input (which is the default).</td>
 </tbody>
 </table>
 
+## Timeouts on each Riak call
+
+As Riak CS stores all data in underlying Riak, Riak CS processes
+communicate to Riak over an API using protocol buffers. This is a typical remote
+call - depending on system requirements, the `timeout` could be configured
+to avoid unnecessary timeouts.
+
+{{#1.5.3-}}
+
+In Riak CS 1.5.2 or before, configurations should be in the `riakc`
+section of `app.config`:
+
+```appconfig
+{riakc, [
+   {timeout, 5000},
+   {mapred_timeout, 1200000}
+   ]},
+```
+
+This example changes the default `timeout` of each primitive put and get
+call to Riak from the default 60 seconds to 5 seconds, which will improve latency at the possible cost of more frequent timeout errors. It
+also changes the `mapred_timeout` of the storage calculation call timeout on
+each bucket from the default 60 seconds to 20 minutes, which increases the 
+duration of storage calculation proportionally to the number
+of keys in a bucket.
+
+{{/1.5.3-}}
+
+{{#1.5.3+}}
+
+In Riak 1.5.3 or later, configurations under `riakc` section are unavailable. Timeouts are configurable depending on each
+access case. This enables fine grained tuning or ad-hoc reaction in
+production environment issues. These items are only configurable in
+`riak_cs` section of `advanced.config`. All units in the chart below
+are milliseconds.
+
+<table class="riak-conf">
+<thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
+<tbody>
+<tr><td><code>ping_timeout</code></td><td>A timeout value used in ping API</td><td><code>5000</code></td></tr>
+<tr><td><code>get_user_timeout</code></td><td>A timeout value on retrieving user informantion for authentication, authentication</td><td><code>60000</code></td></tr>
+<tr><td><code>get_bucket_timeout</code></td><td>A timeout value on retrieving bucket information, for ACL or policy informantion</td><td><code>60000</code></td></tr>
+<tr><td><code>get_manifest_timeout</code></td><td>A timeout value on retrieving manifest of a key</td><td><code>60000</code></td></tr>
+<tr><td><code>get_block_timeout</code></td><td>A timeout value on retrieving a chunk of an object</td><td><code>60000</code></td></tr>
+<tr><td><code>local_block_timeout</code></td><td>A timeout value on retrieving a local chunk of an object</td><td><code>5000</code></td></tr>
+<tr><td><code>proxy_get_block_timeout</code></td><td>A timeout value of proxy get request to remote cluster (EE only)</td><td><code>60000</code></td></tr>
+<tr><td><code>get_access_timeout</code></td><td>A timeout value of retrieving a timeslot information of access statistics</td><td><code>60000</code></td></tr>
+<tr><td><code>get_gckey_timeout</code></td><td>A timeout value of retrieving a key in GC bucket</td><td><code>60000</code></td></tr>
+<tr><td><code>put_manifest_timeout</code></td><td>A timeout value on putting a new manifest</td><td><code>60000</code></td></tr>
+<tr><td><code>put_block_timeout</code><td>A timeout value on putting a chunk of a object</td></td><td><code>60000</code></td></tr>
+<tr><td><code>put_access_timeout</code></td><td>A timeout value of putting an entry into access statistics</td><td><code>60000</code></td></tr>
+<tr><td><code>put_gckey_timeout</code></td><td>A timeout value of putting an entry into GC bucket</td><td><code>60000</code></td></tr>
+<tr><td><code>put_user_usage_timeout</code></td><td>A timeout value on storing a result of storage calculation of each user</td><td><code>60000</code></td></tr>
+<tr><td><code>delete_manifest_timeout</code></td><td>A timeout value on deleting a manifest in garbage collection</td><td><code>60000</code></td></tr>
+<tr><td><code>delete_block_timeout</code></td><td>A timeout value on deleting a chunk of an object in garbage collection</td><td><code>60000</code></td></tr>
+<tr><td><code>delete_gckey_timeout</code></td><td>A timeout value on deleting an entry in GC bucket</td><td><code>60000</code></td></tr>
+<tr><td><code>list_keys_list_objects_timeout</code></td><td>A timeout value on listing objects of a bucket, older version (will be removed in 2.x)</td><td><code>60000</code></td></tr>
+<tr><td><code>list_keys_list_users_timeout</code></td><td>A timeout value on listing users</td><td><code>60000</code></td></tr>
+<tr><td><code>storage_calc_timeout</code></td><td>A timeout value on running storage calculation on a bucket</td><td><code>60000</code></td></tr>
+<tr><td><code>list_objects_timeout</code></td><td>A timeout value on listing objects of a bucket, older version (will be removed in 2.x)</td><td><code>60000</code></td></tr>
+<tr><td><code>fold_objects_timeout</code></td><td>A timeout value on listing objedts of a bucket (default since 1.5.0)</td><td><code>60000</code></td></tr>
+<tr><td><code>get_index_range_gckeys_timeout</code></td><td>A timeout value on listing keys in garbage collection bucket, overall call</td><td><code>60000</code></td></tr>
+<tr><td><code>get_index_range_gckeys_call_timeout</code></td><td>A timeout value on listing keys in garbage collection bucket, each continuation call</td><td><code>60000</code></td></tr>
+<tr><td><code>get_index_list_multipart_uploads_timeout</code></td><td>A timeout value on lsting incomplete multipart uplaods of an object</td><td><code>60000</code></td></tr>
+
+</tbody>
+</table>
+
+{{/1.5.3+}}
+
+
 ## Webmachine
 
 ### `advanced.config`/`app.config` Only
