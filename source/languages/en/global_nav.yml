@@ -29,6 +29,7 @@ riak:
               # - "[[PHP|Taste of Riak: PHP]]"
               # - "[[C|Taste of Riak: C]]"
               # - "[[OCaml|Taste of Riak: OCaml]]"
+              # - "[[Haskell|Taste of Riak: Haskell]]"
               # - "[[Clojure|Taste of Riak: Clojure]]"
               # - "[[Go|Taste of Riak: Go]]"
           - title: A Taste of Querying
