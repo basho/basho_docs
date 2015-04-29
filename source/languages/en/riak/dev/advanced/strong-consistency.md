@@ -194,6 +194,11 @@ Riak::Conflict: The object is in conflict (has siblings) and cannot be treated s
 java.lang.IllegalArgumentException: VClock cannot be null.
 ```
 
+```php
+$response->isSuccess(): false
+$response->getStatusCode(): 412
+```
+
 ```python
 riak.RiakError: 'failed'
 ```

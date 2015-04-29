@@ -99,6 +99,15 @@ schema_data = File.read('blog_post_schema.xml')
 client.create_search_schema('blog_post_schema', schema_data)
 ```
 
+```php
+$schema_string = file_get_contents('blog_post_schema.xml');
+(new \Basho\Riak\Command\Builder\StoreSchema($riak))
+  ->withName('blog_post_schema')
+  ->withSchemaString($schema_string)
+  ->build()
+  ->execute();
+```
+
 ```python
 xml_file = open('blog_post_schema.xml', 'r')
 schema_data = xml_file.read()
@@ -151,6 +160,14 @@ client.execute(storeIndex);
 
 ```ruby
 client.create_search_index('blog_posts', 'blog_post_schema')
+```
+
+```php
+(new Command\Builder\Search\StoreIndex($riak))
+  ->withName('blog_posts')
+  ->usingSchema('blog_post_schema')
+  ->build()
+  ->execute();
 ```
 
 ```python
@@ -306,6 +323,54 @@ class BlogPost
 end
 ```
 
+```php
+class BlogPost {
+  private $title = '';
+  private $author = '';
+  private $content = '';
+  private $keywords = [];
+  private $datePosted = '';
+  private $published = false;
+  private $bucketType = "cms";
+
+  private $bucket = null;
+
+  private $riak = null;
+
+  public function __construct(\Basho\Riak $riak, $bucket, $title, $author, $content, array $keywords, $date, $published)
+  {
+    this->riak = $riak;
+    this->bucket = new Bucket($bucket, $this->bucketType);
+    this->title = $title;
+    this->author = $author;
+    this->content = $content;
+    this->keywords = $keywords;
+    this->datePosted = $date;
+    this->published = $published;
+  }
+
+  public function store()
+  {
+    $setBuilder = (new \Basho\Riak\Command\Builder\UpdateSet($this->riak));
+      
+    foreach($this->keywords as $keyword) {
+      $setBuilder->add($keyword);
+    }
+
+    (new \Basho\Riak\Command\Builder\UpdateMap($this->riak))
+      ->updateRegister('title', $this->title)
+      ->updateRegister('author', $this->author)
+      ->updateRegister('content', $this->content)
+      ->updateRegister('date', $this->date)
+      ->updateFlag('published', $this->published)
+      ->updateSet('keywords', $setBuilder)
+      ->withBucket($this->bucket)
+      ->build()
+      ->execute();
+  }
+}
+```
+
 ```python
 from riak.datatypes import Map
 
@@ -370,6 +435,22 @@ blog_post1 = BlogPost.new('cat_pics_quarterly',
                           keywords,
                           date,
                           true)
+```
+
+```php
+$keywords = ['adorbs', 'cheshire'];
+$date = new \DateTime('now');
+
+$post1 = new BlogPost(
+  $riak, // client object
+  'cat_pics_quarterly', // bucket
+  'This one is so lulz!', // title
+  'Cat Stevens', // author
+  'Please check out these cat pics!', // content
+  $keywords, // keywords
+  $date, // date posted
+  true // published
+);
 ```
 
 ```python
@@ -440,6 +521,14 @@ List<Map<String, List<String>>> results = searchOp.get().getAllResults();
 results = client.search('blog_posts', 'keywords_set:funny')
 ```
 
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\FetchObjects($riak))
+  ->withIndexName('blog_posts')
+  ->withQuery('keywords_set:funny')
+  ->build()
+  ->execute();
+```
+
 ```python
 results = client.fulltext_search('blog_posts', 'keywords_set:funny')
 ```
@@ -478,6 +567,14 @@ List<Map<String, List<String>>> results = searchOp.get().getAllResults();
 
 ```ruby
 results = client.search('blog_posts', 'content_register:furry')
+```
+
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\FetchObjects($riak))
+  ->withIndexName('blog_posts')
+  ->withQuery('content_register:furry')
+  ->build()
+  ->execute();
 ```
 
 ```python

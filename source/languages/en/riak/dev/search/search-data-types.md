@@ -172,6 +172,14 @@ client.execute(storeIndex);
 client.create_search_index('scores', '_yz_default')
 ```
 
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\StoreIndex($riak))
+  ->withName('scores')
+  ->usingSchema('_yz_default')
+  ->build()
+  ->execute();
+```
+
 ```python
 client.create_search_index('scores', '_yz_default')
 ```
@@ -237,6 +245,19 @@ christopher_hitchens_counter.increment(10)
 
 joan_rivers_counter = Riak::Crdt::Counter.new(bucket, 'joan_rivers', 'counters')
 joan_rivers_counter.increment(25)
+```
+
+```php
+$builder = (new \Basho\Riak\Command\Builder\IncrementCounter($riak))
+    ->withIncrement(10)
+    ->buildLocation('chris_hitchens', 'people', 'counters');
+
+$builder->build->execute();
+
+$builder->withIncrement(25)
+    ->buildLocation('joan_rivers', 'people', 'counters')
+    ->build()
+    ->execute();
 ```
 
 ```python
@@ -334,7 +355,17 @@ results = client.search('scores', 'counter:[20 TO *]')
 # This should return a Hash with fields like 'num_found' and 'docs'
 
 results['num_found']
-# 2
+# 1
+```
+
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\FetchObjects($riak))
+  ->withIndexName('scores')
+  ->withQuery('counter:[20 TO *]')
+  ->build()
+  ->execute();
+
+$response->getNumFound(); // 1
 ```
 
 ```python
@@ -407,6 +438,19 @@ doc['_yz_rb'] # 'people'
 doc['_yz_rt'] # 'counters'
 ```
 
+```php
+$doc = $response->getDocs()[0];
+
+# The key
+$doc['_yz_rk'] # 'joan_rivers'
+
+# The bucket
+$doc['_yz_rb'] # 'people'
+
+# The bucket type
+$doc['_yz_rt'] # 'counters'
+```
+
 ```python
 doc = results['docs'][0]
 
@@ -468,6 +512,16 @@ SearchOperation.Response results = searchOp.get();
 results = client.search('scores', 'counter:[* TO 15]')
 ```
 
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\FetchObjects($riak))
+  ->withIndexName('scores')
+  ->withQuery('counter:[* TO 15]')
+  ->build()
+  ->execute();
+
+$response->getNumFound(); // 1
+```
+
 ```python
 results = client.fulltext_search('scores', 'counter:[* TO 15]')
 ```
@@ -504,6 +558,14 @@ String query = "counter:17";
 
 ```ruby
 results = client.search('scores', 'counter:17')
+```
+
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\FetchObjects($riak))
+  ->withIndexName('scores')
+  ->withQuery('counter:17')
+  ->build()
+  ->execute();
 ```
 
 ```python
@@ -557,6 +619,14 @@ client.execute(storeIndex);
 
 ```ruby
 client.create_search_index('hobbies', '_yz_default')
+```
+
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\StoreIndex($riak))
+  ->withName('hobbies')
+  ->usingSchema('_yz_default')
+  ->build()
+  ->execute();
 ```
 
 ```python
@@ -630,6 +700,22 @@ ronnie_james_dio_set = Riak::Crdt::Set.new(bucket, 'dio', 'sets')
 ronnie_james_dio_set.add('wailing')
 ronnie_james_dio_set.add('rocking')
 ronnie_james_dio_set.add('winning')
+```
+
+```php
+$builder = (new \Basho\Riak\Command\Builder\UpdateSet($riak))
+    ->add('football')
+    ->add('winning')
+    ->buildLocation('ditka', 'people', 'counters');
+
+$builder->build->execute();
+
+$builder->add('wailing')
+    ->add('rocking')
+    ->add('winning')
+    ->buildLocation('dio', 'people', 'counters');
+    ->build()
+    ->execute();
 ```
 
 ```python
@@ -726,6 +812,14 @@ results = client.search('hobbies', 'set:football')
 # This should return a dict with fields like 'num_found' and 'docs'
 ```
 
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\FetchObjects($riak))
+  ->withIndexName('hobbies')
+  ->withQuery('set:football')
+  ->build()
+  ->execute();
+```
+
 ```python
 results = client.fulltext_search('hobbies', 'set:football')
 # This should return a dict with fields like 'num_found' and 'docs'
@@ -783,6 +877,10 @@ results['num_found']
 # 1
 ```
 
+```php
+$response->getNumFound(); // 1
+```
+
 ```python
 results['num_found']
 # 1
@@ -821,6 +919,16 @@ int numberFound = results.numResults(); // 2
 results = client.search('hobbies', 'set:winning')
 results['num_found']
 # 2
+```
+
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\FetchObjects($riak))
+  ->withIndexName('hobbies')
+  ->withQuery('set:winning')
+  ->build()
+  ->execute();
+
+$response->getNumFound(); // 2
 ```
 
 ```python
@@ -887,6 +995,14 @@ client.execute(storeIndex);
 
 ```ruby
 client.create_search_index('customers', '_yz_default')
+```
+
+```php
+(new Command\Builder\Search\StoreIndex($riak))
+  ->withName('customers')
+  ->usingSchema('_yz_default')
+  ->build()
+  ->execute();
 ```
 
 ```python
@@ -974,11 +1090,47 @@ joan_jett.batch do |jj|
   jj.registers['last_name'] = 'Jett'
   ## Joan Jett is not an enterprise customers, so we don't need to
   ## explicitly disable this flag, as all flags are disabled by default
-  jj.counters['page_visits'].increment(10)
+  jj.counters['page_visits'].increment(25)
   ['loving rock and roll', 'being in the Blackhearts'].each do |interest|
     jj.sets['interests'].add(interest)
   end
 end
+```
+
+```php
+$counterBuilder = (new \Basho\Riak\Command\Builder\IncrementCounter($riak))
+  ->withIncrement(10);
+
+$setBuilder = (new \Basho\Riak\Command\Builder\UpdateSet($riak));
+  
+foreach(['acting', 'being Stringer Bell'] as $interest) {
+  $setBuilder->add($interest);
+}
+
+(new \Basho\Riak\Command\Builder\UpdateMap($riak))
+  ->updateRegister('first_name', 'Idres')
+  ->updateRegister('last_name', 'Elba')
+  ->updateFlag('enterprise_customer', true)
+  ->updateSet('interests', $setBuilder)
+  ->updateCounter('page_visits', $counterBuilder)
+  ->buildLocation('idris_elba', 'customers', 'maps')
+  ->build()
+  ->execute();
+
+$setBuilder = (new \Basho\Riak\Command\Builder\UpdateSet($riak));
+  
+foreach(['loving rock and roll', 'being in the Blackhearts'] as $interest) {
+  $setBuilder->add($interest);
+}
+
+(new \Basho\Riak\Command\Builder\UpdateMap($riak))
+  ->updateRegister('first_name', 'Joan')
+  ->updateRegister('last_name', 'Jett')
+  ->updateSet('interests', $setBuilder)
+  ->updateCounter('page_visits', $counterBuilder->withIncrement(25))
+  ->buildLocation('joan_jett', 'customers', 'maps')
+  ->build()
+  ->execute();
 ```
 
 ```python
@@ -1143,6 +1295,16 @@ results['num_found']
 # 1
 ```
 
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\FetchObjects($riak))
+  ->withIndexName('customers')
+  ->withQuery('page_visits_counter:[15 TO *]')
+  ->build()
+  ->execute();
+
+$response->getNumFound(); // 1
+```
+
 ```python
 results = client.fulltext_search('customers', 'page_visits_counter:[15 TO *]')
 results['num_found']
@@ -1191,6 +1353,10 @@ results['docs'][0]['first_name_register']
 # 'Joan'
 ```
 
+```php
+$response->getDocs()[0]->first_name_register']; // Joan
+```
+
 ```python
 results['docs'][0]['first_name_register']
 # u'Joan'
@@ -1223,6 +1389,16 @@ String query = "interests_set:*";
 ```ruby
 results = client.search('customers', 'interests_set:*')
 # 2
+```
+
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\FetchObjects($riak))
+  ->withIndexName('customers')
+  ->withQuery('interests_set:*')
+  ->build()
+  ->execute();
+
+$response->getNumFound(); // 2
 ```
 
 ```python
@@ -1263,6 +1439,16 @@ String registerValue =
 results = client.search('customers', 'interests_set:loving*')
 results['num_found'] # 1
 results['docs'][0]['first_name_register'] # 'Joan'
+```
+
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\FetchObjects($riak))
+  ->withIndexName('customers')
+  ->withQuery('interests_set:loving*')
+  ->build()
+  ->execute();
+
+$response->getDocs()[0]->first_name_register']; // Joan
 ```
 
 ```python
@@ -1309,6 +1495,25 @@ client.execute(addSubMap);
 idris_elba.maps['alter_ego'].registers['name'] = 'John Luther'
 
 joan_jett.maps['alter_ego'].registers['name'] = 'Robert Plant'
+```
+
+```php
+$mapBuilder = (new \Basho\Riak\Command\Builder\UpdateMap($riak))
+  ->updateRegister('name', 'John Luther')
+
+(new \Basho\Riak\Command\Builder\UpdateMap($riak))
+  ->updateMap('alter_ego', $mapBuilder)
+  ->buildLocation('idris_elba', 'customers', 'maps')
+  ->build()
+  ->execute();
+
+$mapBuilder->updateRegister('name', 'Robert Plant')
+
+(new \Basho\Riak\Command\Builder\UpdateMap($riak))
+  ->updateMap('alter_ego', $mapBuilder)
+  ->buildLocation('joan_jett', 'customers', 'maps')
+  ->build()
+  ->execute();
 ```
 
 ```python
@@ -1406,17 +1611,27 @@ map:
 String query = "alter_ego_map.name_register:*";
 
 // Again using the same method from above:
-int numberFound = results.numResults(); // 1
+int numberFound = results.numResults(); // 2
 ```
 
 ```ruby
 results = client.search('customers', 'alter_ego_map.name_register:*')
-results['num_found'] # 1
+results['num_found'] # 2
+```
+
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\FetchObjects($riak))
+  ->withIndexName('customers')
+  ->withQuery('alter_ego_map.name_register:*')
+  ->build()
+  ->execute();
+
+$response->getNumFound(); // 2
 ```
 
 ```python
 results = client.fulltext_search('customers', 'alter_ego_map.name_register:*')
-results['num_found'] # 1
+results['num_found'] # 2
 ```
 
 ```csharp
@@ -1453,6 +1668,17 @@ String registerValue =
 results = client.search('customers', 'alter_ego_map.name_register:*Plant')
 results['num_found'] # 1
 results['docs'][0]['first_name_register'] # 'Joan'
+```
+
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\FetchObjects($riak))
+  ->withIndexName('customers')
+  ->withQuery('alter_ego_map.name_register:*Plant')
+  ->build()
+  ->execute();
+
+$response->getNumFound(); // 1
+$response->getDocs()[0]->first_name_register']; // Joan
 ```
 
 ```python
