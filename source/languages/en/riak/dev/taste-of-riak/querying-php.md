@@ -27,17 +27,21 @@ At one of these points we will have to split the model.
 The simplest way to split up data would be to use the same identity key across different buckets. A good example of this would be a `Customer` object, an `Order` object, and an `OrderSummaries` object that keeps rolled up info about orders such as Total, etc. Let's put some data into Riak so we can play with it.
 
 ```php
-<?php 
-require_once 'riak-php-client/src/Basho/Riak/Riak.php';
-require_once 'riak-php-client/src/Basho/Riak/Bucket.php';
-require_once 'riak-php-client/src/Basho/Riak/Exception.php';
-require_once 'riak-php-client/src/Basho/Riak/Link.php';
-require_once 'riak-php-client/src/Basho/Riak/MapReduce.php';
-require_once 'riak-php-client/src/Basho/Riak/Object.php';
-require_once 'riak-php-client/src/Basho/Riak/StringIO.php';
-require_once 'riak-php-client/src/Basho/Riak/Utils.php';
-require_once 'riak-php-client/src/Basho/Riak/Link/Phase.php';
-require_once 'riak-php-client/src/Basho/Riak/MapReduce/Phase.php';
+<?php
+
+include_once 'vendor/autoload.php';
+
+use Basho\Riak;
+use Basho\Riak\Location;
+use Basho\Riak\Node;
+use Basho\Riak\Command;
+
+$node = (new Node\Builder)
+    ->atHost('127.0.0.1')
+    ->onPort(8098)
+    ->build();
+
+$riak = new Riak([$node]);
 
 // Class definitions for our models
 
@@ -90,7 +94,7 @@ class OrderSummary
     var $summaries;
 }
 
-class OrderSummaryItems
+class OrderSummaryItem
 {
     public function __construct(Order $order) 
     {
@@ -116,13 +120,13 @@ $customer->phone = '+1-614-555-5555';
 $customer->createdDate = '2013-10-01 14:30:26';
 
 
-$orders = array();
+$orders = [];
 
 $order1 = new Order();
 $order1->orderId = 1;
 $order1->customerId = 1;
 $order1->salespersonId = 9000;
-$order1->items = array(
+$order1->items = [
     new Item(
         'TCV37GIT4NJ',
         'USB 3.0 Coffee Warmer',
@@ -133,7 +137,7 @@ $order1->items = array(
         'eTablet Pro; 24GB; Grey', 
         399.99
     )
-);
+];
 $order1->total = 415.98;
 $order1->orderDate = '2013-10-01 14:42:26';
 $orders[] = $order1;
@@ -142,13 +146,13 @@ $order2 = new Order();
 $order2->orderId = 2;
 $order2->customerId = 1;
 $order2->salespersonId = 9001;
-$order2->items = array(
+$order2->items = [
     new Item(
         'OAX19XWN0QP',
         'GoSlo Digital Camera',
         359.99
     )
-);
+];
 $order2->total = 359.99;
 $order2->orderDate = '2013-10-15 16:43:16';
 $orders[] = $order2;
@@ -157,7 +161,7 @@ $order3 = new Order();
 $order3->orderId = 3;
 $order3->customerId = 1;
 $order3->salespersonId = 9000;
-$order3->items = array(
+$order3->items = [
     new Item(
         'WYK12EPU5EZ',
         'Call of Battle = Goats - Gamesphere 4',
@@ -168,7 +172,7 @@ $order3->items = array(
         'Bricko Building Blocks',
         4.99
     )
-);
+];
 $order3->total = 74.98;
 $order3->orderDate = '2013-11-03 17:45:28';
 $orders[] = $order3;
@@ -182,41 +186,56 @@ foreach ($orders as $order) {
 unset($order);
 
 
+
 // Starting Client
-$client = new Basho\Riak\Riak('127.0.0.1', 10018);
+$node = (new Node\Builder)
+    ->atHost('127.0.0.1')
+    ->onPort(8098)
+    ->build();
+
+$riak = new Riak([$node]);
 
 // Creating Buckets
-$customersBucket = $client->bucket('Customers');
-$ordersBucket = $client->bucket('Orders');
-$orderSummariesBucket = $client->bucket('OrderSummaries');
-
+$customersBucket = new Riak\Bucket('Customers');
+$ordersBucket = new Riak\Bucket('Orders');
+$orderSummariesBucket = new Riak\Bucket('OrderSummaries');
 
 // Storing Data
-$customer_riak = $customersBucket->newObject(
-    strval($customer->customerId), $customer
-);
-$customer_riak->store();
+$storeCustomer = (new Command\Builder\StoreObject($riak))
+    ->buildJsonObject($customer)
+    ->atLocation(new Location($customer->customerId, $customersBucket))
+    ->build();
+$storeCustomer->execute();
 
 foreach ($orders as $order) {
-    $order_riak = $ordersBucket->newObject(
-        strval($order->orderId), $order
-    );
-    $order_riak->store();
+    $storeOrder = (new Command\Builder\StoreObject($riak))
+        ->buildJsonObject($order)
+        ->atLocation(new Location($order->orderId, $ordersBucket))
+        ->build();
+    $storeOrder->execute();
 }
 unset($order);
 
-$order_summary_riak = $orderSummariesBucket->newObject(
-    strval($orderSummary->customerId), $orderSummary
-);
-$order_summary_riak->store();
+$storeSummary = (new Command\Builder\StoreObject($riak))
+    ->buildJsonObject($orderSummary)
+    ->atLocation(new Location($orderSummary->customerId, $orderSummariesBucket))
+    ->build();
+$storeSummary->execute();
 ```
 
  While individual `Customer` and `Order` objects don't change much (or shouldn't change), the `Order Summaries` object will likely change often.  It will do double duty by acting as an index for all a customer's orders, and also holding some relevant data such as the order total, etc.  If we showed this information in our application often, it's only one extra request to get all the info. 
 
 ```php
 // Fetching related data by shared key
-$fetched_customer = $customersBucket->get('1')->data;
-$fetched_customer['orderSummary'] = $orderSummariesBucket->get('1')->data;
+$fetched_customer = (new Command\Builder\FetchObject($riak))
+                    ->atLocation(new Location('1', $customersBucket))
+                    ->build()->execute()->getObject()->getData();
+
+$fetched_customer->orderSummary =
+    (new Command\Builder\FetchObject($riak))
+    ->atLocation(new Location('1', $orderSummariesBucket))
+    ->build()->execute()->getObject()->getData();
+
 print("Customer with OrderSummary data: \n");
 print_r($fetched_customer);
 ```
@@ -225,7 +244,7 @@ Which returns our amalgamated objects:
 
 ```text
 Customer with OrderSummary data:
-Array
+stdClass Object
 (
     [customerId] => 1
     [name] => John Smith
@@ -235,36 +254,33 @@ Array
     [zip] => 43210
     [phone] => +1-614-555-5555
     [createdDate] => 2013-10-01 14:30:26
-    [orderSummary] => Array
+    [orderSummary] => stdClass Object
         (
             [customerId] => 1
             [summaries] => Array
                 (
-                    [0] => Array
+                    [0] => stdClass Object
                         (
                             [orderId] => 1
                             [total] => 415.98
                             [orderDate] => 2013-10-01 14:42:26
                         )
 
-                    [1] => Array
+                    [1] => stdClass Object
                         (
                             [orderId] => 2
                             [total] => 359.99
                             [orderDate] => 2013-10-15 16:43:16
                         )
 
-                    [2] => Array
+                    [2] => stdClass Object
                         (
                             [orderId] => 3
                             [total] => 74.98
                             [orderDate] => 2013-11-03 17:45:28
                         )
-
                 )
-
         )
-
 )
 ```
 
@@ -279,14 +295,24 @@ If you're coming from a SQL world, Secondary Indexes (2i) are a lot like SQL ind
 // Adding Index Data
 $keys = array(1,2,3);
 foreach ($keys as $key) {
-    $order = $ordersBucket->get(strval($key));
-    $salespersonId = $order->data['salespersonId'];
-    $orderDate = $order->data['orderDate'];
-    $order->addIndex('SalespersonId', 'int', $salespersonId);
-    $order->addIndex('OrderDate', 'bin', $orderDate);
-    $order->store();
+    $orderLocation = new Location($key, $ordersBucket);
+    $orderObject = (new Command\Builder\FetchObject($riak))
+                    ->atLocation($orderLocation)
+                    ->build()->execute()->getObject();
+
+    $order = $orderObject->getData();
+
+    $orderObject->addValueToIndex('SalespersonId_int', $order->salespersonId);
+    $orderObject->addValueToIndex('OrderDate_bin', $order->orderDate);
+
+    $storeOrder = (new Command\Builder\StoreObject($riak))
+                    ->withObject($orderObject)
+                    ->atLocation($orderLocation)
+                    ->build();
+    $storeOrder->execute();
 }
 unset($key);
+
 ```
 
 As you may have noticed, ordinary Key/Value data is opaque to 2i, so we have to add entries to the indexes at the application level. 
@@ -294,7 +320,12 @@ Now let's find all of Jane Appleseed's processed orders, we'll lookup the orders
 
 ```php
 // Query for orders where the SalespersonId int index is set to 9000
-$janes_orders = $ordersBucket->indexSearch('SalespersonId', 'int', 9000);
+$fetchIndex = (new Command\Builder\QueryIndex($riak))
+                ->inBucket($ordersBucket)
+                ->withIndexName('SalespersonId_int')
+                ->withScalarValue(9000)->build();
+$janes_orders = $fetchIndex->execute()->getResults();
+
 print("\n\nJane's Orders: \n");
 print_r($janes_orders);
 ```
@@ -305,47 +336,10 @@ Which returns:
 Jane's Orders:
 Array
 (
-    [0] => Basho\Riak\Link Object
-        (
-            [bucket] => Orders
-            [key] => 1
-            [tag] =>
-            [client] => Basho\Riak\Riak Object
-                (
-                    [host] => 127.0.0.1
-                    [port] => 10018
-                    [prefix] => riak
-                    [mapred_prefix] => mapred
-                    [indexPrefix] => buckets
-                    [clientid] => php_xrqqok
-                    [r] => 2
-                    [w] => 2
-                    [dw] => 2
-                )
-
-        )
-
-    [1] => Basho\Riak\Link Object
-        (
-            [bucket] => Orders
-            [key] => 3
-            [tag] =>
-            [client] => Basho\Riak\Riak Object
-                (
-                    [host] => 127.0.0.1
-                    [port] => 10018
-                    [prefix] => riak
-                    [mapred_prefix] => mapred
-                    [indexPrefix] => buckets
-                    [clientid] => php_xrqqok
-                    [r] => 2
-                    [w] => 2
-                    [dw] => 2
-                )
-
-        )
-
+    [0] => 3
+    [1] => 1
 )
+
 ```
 
 Jane processed orders 1 and 3.  We used an "integer" index to reference Jane's id, next let's use a "binary" index.
@@ -354,12 +348,17 @@ Now, let's say that the VP of Sales wants to know how many orders came in during
 ```php
 // Query for orders where the OrderDate bin index is 
 // between 2013-10-01 and 2013-10-31
-$october_orders = $ordersBucket->indexSearch(
-    'OrderDate', 'bin', '2013-10-01', '2013-10-31'
-);
-print("\n\nOctober's Orders: \n");
-print_r($october_orders);
+$fetchOctoberOrders = (new Command\Builder\QueryIndex($riak))
+                        ->inBucket($ordersBucket)
+                        ->withIndexName('OrderDate_bin')
+                        ->withRangeValue('2013-10-01','2013-10-31')
+                        ->withReturnTerms(true)
+                        ->build();
 
+$octobers_orders = $fetchOctoberOrders->execute()->getResults();
+
+print("\n\nOctober's Orders: \n");
+print_r($octobers_orders);
 ?>
 ```
 
@@ -369,56 +368,25 @@ Which returns:
 October's Orders:
 Array
 (
-    [0] => Basho\Riak\Link Object
+    [0] => Array
         (
-            [bucket] => Orders
-            [key] => 1
-            [tag] =>
-            [client] => Basho\Riak\Riak Object
-                (
-                    [host] => 127.0.0.1
-                    [port] => 10018
-                    [prefix] => riak
-                    [mapred_prefix] => mapred
-                    [indexPrefix] => buckets
-                    [clientid] => php_xrqqok
-                    [r] => 2
-                    [w] => 2
-                    [dw] => 2
-                )
-
+            [2013-10-01 14:42:26] => 1
         )
 
-    [1] => Basho\Riak\Link Object
+    [1] => Array
         (
-            [bucket] => Orders
-            [key] => 2
-            [tag] =>
-            [client] => Basho\Riak\Riak Object
-                (
-                    [host] => 127.0.0.1
-                    [port] => 10018
-                    [prefix] => riak
-                    [mapred_prefix] => mapred
-                    [indexPrefix] => buckets
-                    [clientid] => php_xrqqok
-                    [r] => 2
-                    [w] => 2
-                    [dw] => 2
-                )
-
+            [2013-10-15 16:43:16] => 2
         )
-
 )
 ```
 
-Boom, easy-peasy.  We used 2i's range feature to search for a range of values, and demonstrated binary indexes.  
+Boom, easy-peasy.  We used 2i's range feature to search for a range of values, and demonstrated binary indexes.  With the October's Orders query we also used the `->withReturnTerms(true)` option, which as you can see will return the values of the matching 2i terms.
 
 So to recap:
 
 * You can use Secondary Indexes to quickly lookup an object based on a secondary id other than the object's key. 
 * Indexes can have either Integer or Binary(String) keys
 * You can search for specific values, or a range of values
-* Riak will return a list of keys that match the index query
+* Riak will return a list of keys (and terms if needed) that match the index query
 
 
