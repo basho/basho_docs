@@ -264,7 +264,7 @@ particular use case.
 
 ### Tuning
 
-We strongly recommend you that take care when setting the value of the
+We strongly recommend that you take care when setting the value of the
 [[`pb_backlog` setting|Configuring Riak for
 CS#Setting-Up-Riak-to-Use-Protocol-Buffers]] in Riak. When a Riak CS node is
 started, each connection pool begins to establish connections to Riak. This can
