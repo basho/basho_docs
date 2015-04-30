@@ -318,7 +318,7 @@ With the addition of bucket types in Riak 2.0, bucket types can be used
 as _an additional namespace_ on top of buckets and keys. The same bucket
 name can be associated with completely different data if it used in
 accordance with a different type. Thus, the following two requests will
-be made to _completely different keys_, even though the bucket and key
+be made to _completely different objects_, even though the bucket and key
 names are the same:
 
 ```java
