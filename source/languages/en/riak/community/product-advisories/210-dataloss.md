@@ -21,7 +21,7 @@ Default configuration for handoff may cause data loss in Riak 2.1.0.
 In Riak 2.1.0, the default configuration for handoff.ip causes vnodes marked for transfer during handoff to be removed without transferring data to their new destination nodes. A mandatory change to configuration (riak.conf) will resolve this issue. While not all users are impacted by this issue, we recommend that all 2.1.0 
 users upgrade to 2.1.1 which will be released shortly. 
 
->NOTE: This is known to occur for ownership handoff. Investigation as to whether hinted handoff is affected is ongoing and this advisory will be updated when more information is available.
+Further investigation has shown that fallback transfers (hinted handoff) are affected in the same way as ownership transfers.
 
 ## Affected Users
 All users of 2.1.0 using riak.conf to configure their clusters are potentially impacted. Users that are using app.config and vm.args to configure their clusters are unaffected but should upgrade to 2.1.1 upon release. 
@@ -53,7 +53,7 @@ Then configure handoff.ip in riak.conf to an external IP address or 0.0.0.0 on a
 
 Perform a rolling restart of Riak across your cluster to activate the new setting.
 
-After correcting the configuration and restarting the nodes, you should run Riak KV repair on each cluster member as documented at http://docs.basho.com/riak/latest/ops/running/recovery/repairing-partitions/ to recreate any missing replicas from available replicas elsewhere in the cluster.  It is recommended to perform the Riak KV repair in a round-robin fashion on each node of your cluster (node0, node1, node2, etc). Repeat this round-robin repair “n_val - 1” times. For example: the default configuration for n_val is 3, which means you would run Riak KV repair twice across the entire cluster. 
+After correcting the configuration and restarting the nodes, you should run Riak KV repair on each cluster member as documented at [http://docs.basho.com/riak/latest/ops/running/recovery/repairing-partitions/](http://docs.basho.com/riak/latest/ops/running/recovery/repairing-partitions/) to recreate any missing replicas from available replicas elsewhere in the cluster.  It is recommended to perform the Riak KV repair in a round-robin fashion on each node of your cluster (node0, node1, node2, etc). Repeat this round-robin repair “n_val - 1” times. For example: the default configuration for n_val is 3, which means you would run Riak KV repair twice across the entire cluster. 
 
 > NOTE: It is important to ensure that you execute in a round-robin fashion: node0, node1, node2 and then repeat.
 A forthcoming 2.1.1 release will provide an updated default configuration.
