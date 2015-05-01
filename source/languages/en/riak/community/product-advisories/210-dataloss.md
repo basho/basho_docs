@@ -21,7 +21,10 @@ Default configuration for handoff may cause data loss in Riak 2.1.0.
 In Riak 2.1.0, the default configuration for handoff.ip causes vnodes marked for transfer during handoff to be removed without transferring data to their new destination nodes. A mandatory change to configuration (riak.conf) will resolve this issue. While not all users are impacted by this issue, we recommend that all 2.1.0 
 users upgrade to 2.1.1 which will be released shortly. 
 
-Further investigation has shown that fallback transfers (hinted handoff) are affected in the same way as ownership transfers.
+NOTE: This is known to occur for ownership handoff. Investigation as to whether hinted handoff is affected is ongoing and this advisory will be updated when more information is available.
+
+**UPDATE:**
+Further investigation has shown that fallback transfers (hinted handoffs) are affected in the same way as ownership transfers.
 
 ## Affected Users
 All users of 2.1.0 using riak.conf to configure their clusters are potentially impacted. Users that are using app.config and vm.args to configure their clusters are unaffected but should upgrade to 2.1.1 upon release. 
