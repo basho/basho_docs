@@ -1,5 +1,5 @@
 ---
-title: Riak 2.1.0: Default Configuration For Handoff May Cause Data Loss
+title: Default Configuration For Handoff May Cause Data Loss
 project: riak
 version: 1.0.0+
 versions: false
@@ -14,7 +14,7 @@ Affected versions | 2.1.0
 
 ## Overview
 
-Default Configuration For Handoff May Cause Data Loss
+Default configuration for handoff may cause data loss in Riak 2.1.0.
 
 ## Description
 
