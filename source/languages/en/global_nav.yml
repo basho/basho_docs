@@ -284,7 +284,7 @@ riak:
       - title: "Product Advisories"
         sub:
           - "[[Advisory List|Product Advisories]]"
-          - "[[Riak 2.1.0 Bug| Default Configuration For Handoff May Cause Data Loss]]"
+          - "[[Riak 2.1.0 Bug|Default Configuration For Handoff May Cause Data Loss]]"
           - "[[POODLE Vulnerability|SSL 3.0 Vulnerability and POODLE Attack]]"
           - "[[Map Data Type Disk Incompatibility]]"
       - "[[Community Help|Help and Community]]"
