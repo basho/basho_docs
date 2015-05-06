@@ -24,6 +24,7 @@ Ruby | [riak-ruby-client](https://github.com/basho/riak-ruby-client) | [GitHub P
 Python | [riak-python-client](https://github.com/basho/riak-python-client) | [sphinx](http://basho.github.com/riak-python-client) | [PyPI](http://pypi.python.org/pypi?:action=display&name=riak#downloads)
 C# | [riak-dotnet-client](https://github.com/basho/riak-dotnet-client) | [api docs](http://basho.github.io/riak-dotnet-client-api/), [wiki](https://github.com/basho/riak-dotnet-client/wiki) | [NuGet package](http://www.nuget.org/List/Packages/RiakClient), [GitHub Releases](https://github.com/basho/riak-dotnet-client/releases)
 Node.js | [riak-nodejs-client](https://github.com/basho/riak-nodejs-client) | [api docs](http://basho.github.com/riak-nodejs-client/), [wiki](https://github.com/basho/riak-nodejs-client/wiki) | [NPM](https://www.npmjs.com/package/basho-riak-client), [GitHub Releases](https://github.com/basho/riak-nodejs-client/releases)
+PHP | [riak-php-client](https://github.com/basho/riak-php-client) | [apigen](http://basho.github.io/riak-php-client)
 Erlang | [riak-erlang-client (riakc)](https://github.com/basho/riak-erlang-client) | [edoc](http://basho.github.com/riak-erlang-client/) | [GitHub](https://github.com/basho/riak-erlang-client)
 
 **Note**: All official clients use the integrated issue tracker on
@@ -36,8 +37,6 @@ related [[community projects]].
 Language | Source | Documentation
 :--------|:-------|:-------------
 C | [riak-c-client](https://github.com/basho/riak-c-client) | [C Client Documentation](http://basho.github.io/riak-c-client/index.html)
-Node.js | [Nodiak](https://github.com/nathanaschbacher/nodiak) | [GitHub README](https://github.com/nathanaschbacher/nodiak/blob/master/README.md)
-PHP | [riak-php-client](https://github.com/basho/riak-php-client) | [doxygen](http://basho.github.com/riak-php-client)
 
 ## Community Libraries
 
@@ -187,8 +186,6 @@ level of maturity and activity.
   session store for Connect backed by [[Riak-js|http://riakjs.org/]]
 * [Riak-js](http://riakjs.com) --- Node.js client for Riak with support
   for HTTP and Protocol Buffers
-* [riak-javascript-client](https://github.com/basho/riak-javascript-client)
-  --- Node.js HTTP client from Basho (no longer supported)
 * [Riakjs-model](https://github.com/dandean/riakjs-model) --- a model
   abstraction around riak-js
 * [Node-Riak](http://github.com/orlandov/node-riak) --- A wrapper around

@@ -172,6 +172,12 @@ set_bucket = client.bucket('user_info_sets')
 $user_id_set = Riak::Crdt::Set.new(set_bucket, 'usernames', 'sets')
 ```
 
+```php
+$command = (new Command\Builder\FetchSet($riak))
+    ->buildLocation('usernames', 'user_info_sets', 'sets')
+    ->build();
+```
+
 ```python
 from riak.datatypes import Set
 
@@ -244,6 +250,35 @@ def store_record(user)
 end
 ```
 
+```php
+class User
+{
+  public $user_name;
+  public $info;
+
+  public function __construct($user_name, $info)
+  {
+    $this->user_name = $user_name;
+    $this->info = $info;
+  }
+}
+
+function store_user(User $user)
+{
+  (new \Basho\Riak\Command\Builder\StoreObject)
+    ->buildLocation($user->user_name, 'users')
+    ->buildJsonObject($user)
+    ->build()
+    ->execute();
+
+  (new \Basho\Riak\Command\Builder\UpdateSet)
+    ->buildLocation('usernames', 'user_info_sets', 'sets')
+    ->add($user->user_name)
+    ->build()
+    ->execute();
+}
+```
+
 ```python
 class User:
     def __init__(self, username, info):
@@ -310,6 +345,30 @@ def fetch_all_user_records
 end
 ```
 
+```php
+function fetch_users()
+{
+  $users = [];
+
+  $response = (new \Basho\Riak\Command\Builder\UpdateSet)
+    ->buildLocation('usernames', 'user_info_sets', 'sets')
+    ->build()
+    ->execute();
+
+  $user_names = $response->getSet()->getData();
+  foreach($user_names as $user_name) {
+    $response = (new \Basho\Riak\Command\Builder\FetchObject)
+      ->buildLocation($user_name, 'users')
+      ->build()
+      ->execute();
+
+    $users[$user_name] = $response->getObject()->getData();
+  }
+
+  return $users;
+}
+```
+
 ```python
 # We'll create a generator object that will yield a list of Riak objects
 def fetch_all_user_records():
@@ -353,6 +412,18 @@ def get_user_by_username(username)
   obj = bucket.get('user_#{username}')
   return obj.raw_data
 end
+```
+
+```php
+function fetchUser($user_name)
+{
+    $response = (new \Basho\Riak\Command\Builder\FetchObject)
+      ->buildLocation($user_name, 'users')
+      ->build()
+      ->execute();
+
+    return $response->getObject()->getData();
+}
 ```
 
 ```python

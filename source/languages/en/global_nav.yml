@@ -26,7 +26,7 @@ riak:
               - "[[C#|Taste of Riak: CSharp]]"
               - "[[NodeJS|Taste of Riak: NodeJS]]"
               - "[[Erlang|Taste of Riak: Erlang]]"
-              # - "[[PHP|Taste of Riak: PHP]]"
+              - "[[PHP|Taste of Riak: PHP]]"
               # - "[[C|Taste of Riak: C]]"
               # - "[[OCaml|Taste of Riak: OCaml]]"
               # - "[[Clojure|Taste of Riak: Clojure]]"
@@ -40,7 +40,7 @@ riak:
               - "[[C#|Taste of Riak: Querying with CSharp]]"
               - "[[NodeJS|Taste of Riak: Querying with NodeJS]]"
               - "[[Erlang|Taste of Riak: Querying with Erlang]]"
-              # - "[[PHP|Taste of Riak: Querying with PHP]]"
+              - "[[PHP|Taste of Riak: Querying with PHP]]"
           - title: Object Modeling
             sub:
               - "[[Introduction|Taste of Riak: Object Modeling]]"
