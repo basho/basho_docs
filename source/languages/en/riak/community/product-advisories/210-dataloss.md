@@ -12,6 +12,10 @@ Date issued | May 1, 2015
 Product | Riak
 Affected versions | 2.1.0
 
+>**UPDATE:**
+>
+>Riak 2.1.1 has been released to address this issue in 2.1.0. Please upgrade.
+
 ## Overview
 
 Default configuration for handoff may cause data loss in Riak 2.1.0.
