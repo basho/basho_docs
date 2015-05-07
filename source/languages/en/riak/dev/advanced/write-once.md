@@ -1,5 +1,5 @@
 ---
-title: Write-once Buckets
+title: Write-Once Buckets
 project: riak
 version: 2.1.0+
 document: tutorial
@@ -24,8 +24,8 @@ The `write_once` property is a boolean property applied to a bucket type and may
 only be set at bucket creation time. Once a bucket type has been set with this
 property and activated, the `write_once` property may not be modified.
 
-The `write_once` property is incompatible with [[Riak Data
-Types|Using Data Types]] and [[strong consistency|Using Strong Consistency]],
+The `write_once` property is incompatible with [[Riak data
+types|Using Data Types]] and [[strong consistency|Using Strong Consistency]],
 This means that if you attempt to create a bucket type with the `write_once`
 property set to `true`, any attempt to set the `datatype` parameter or to set
 the `consistent` parameter to `true` will fail.
@@ -85,7 +85,7 @@ proxies is illustrated in the following diagram:
 
 ## Siblings
 
-As mentioned, entries in Write-once Buckets are intended to be written only
+As mentioned, entries in write-once buckets are intended to be written only
 once---users who are not abusing the semantics of the bucket type should not be
 updating or over-writing entries in buckets of this type. However, it is
 possible for users to misuse the API, accidentally or otherwise, which might
