@@ -38,8 +38,8 @@ with a few crucial differences:
   previous system required configuration to be set on a per-bucket basis
 * Nearly all bucket properties can be updated using bucket types, except the
   `datatype`, `consistent`, and `write_once` properties, related to
-  [[Riak Data Types|Data Types]], [[strong consistency]], and
-  [[Write-once Buckets]] respectively
+  [[Riak data types|Data Types]], [[strong consistency]], and
+  [[write-once buckets]] respectively
 * Bucket types are more performant than bucket properties because
   divergence from Riak's defaults doesn't have to be gossiped around the
   cluster for every bucket, which means less computational overhead
@@ -82,8 +82,8 @@ system of bucket configuration, including the following:
   `riak-admin bucket-type` interface (discussed in depth below) enables
   you to manage bucket configurations on the operations side, without
   recourse to Riak clients.
-* Some special usecases -- [[Strong Consistency|Managing Strong Consistency]],
-  [[Data Types|Using Data Types]], and [[Write-once Buckets]] -- are only
+* Some special usecases -- [[strong consistency|Managing Strong Consistency]],
+  [[data types|Using Data Types]], and [[write-once buckets]] -- are only
   available through bucket properties or bucket types.
 
 For these reasons, we recommend _always_ using bucket types in versions
@@ -257,9 +257,9 @@ created, with three important exceptions:
 * `write_once`
 
 If a bucket type entails strong consistency (requiring that `consistent` be set
-to `true`), is set up as a `map`, `set`, or `counter`, or is defined as a Write
-Once bucket (requiring `write_once` be set to `true`), then this will be true of
-the bucket type once and for all.
+to `true`), is set up as a `map`, `set`, or `counter`, or is defined as a write-once 
+bucket (requiring `write_once` be set to `true`), then this will be true of
+the bucket types.
 
 If you need to change one of these properties, it is recommended that
 you simply create and activate a new bucket type.
@@ -495,7 +495,7 @@ associated with the `default` bucket type:
 }
 ```
 
-## Bucket Types and the allow_mult Setting
+## Bucket Types and the `allow_mult` Setting
 
 Prior to Riak 2.0, Riak created [[siblings|Causal Context#Siblings]] in
 the case of conflicting updates only when explicitly instructed to do
