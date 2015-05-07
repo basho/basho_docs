@@ -92,7 +92,7 @@ riak:
           - "[[Commit Hooks|Advanced Commit Hooks]]"
           - "[[Replication Properties]]"
           - "[[Strong Consistency|Using Strong Consistency]]"
-          - "[[Write-once Buckets]]"
+          - "[[Write-Once Buckets]]"
           - "[[Cluster Metadata]]"
           - title: "Client-side Security"
             sub:
