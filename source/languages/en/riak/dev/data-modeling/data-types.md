@@ -600,22 +600,18 @@ class User:
  * See the entire example in the RiakClientExamples project here:
  * https://github.com/basho/riak-dotnet-client/tree/develop/src/RiakClientExamples/Dev/DataModeling
  */
-// Changes to UserRepository.Save method:
-if (EnumerableUtil.NotNullOrEmpty(model.Interests))
+public override string Save(User model)
 {
-    var interestsSetOp = new SetOp();
-    interestsSetOp.adds.AddRange(
-        model.Interests.Select(i => TextSerializer(i))
-    );
-    mapUpdates.Add(new MapUpdate
-    {
-        set_op = interestsSetOp,
-        field = new MapField
-        {
-            name = TextSerializer(interestsSet),
-            type = MapField.MapFieldType.SET
-        }
-    });
+    var mapOperation = new UpdateMap.MapOperation();
+
+    mapOperation.SetRegister(firstNameRegister, model.FirstName);
+    mapOperation.SetRegister(lastNameRegister, model.LastName);
+    mapOperation.IncrementCounter(pageVisitsCounter, model.PageVisits);
+    mapOperation.AddToSet(interestsSet, model.Interests);
+
+    // Insert does not require context
+    RiakString key = UpdateMap(model, mapOperation, fetchFirst: false);
+    return (string)key;
 }
 ```
 
@@ -765,22 +761,11 @@ public void VisitPage()
 // In UserRepository.cs
 public void IncrementPageVisits()
 {
-    var mapUpdates = new List<MapUpdate>();
-
-    mapUpdates.Add(new MapUpdate
-    {
-        counter_op = new CounterOp { increment = 1 },
-        field = new MapField
-        {
-            name = TextSerializer(visitsCounter),
-            type = MapField.MapFieldType.COUNTER
-        }
-    });
+    var mapOperation = new UpdateMap.MapOperation();
+    mapOperation.IncrementCounter(pageVisitsCounter, 1);
 
     // Update without context
-    var rslt = client.DtUpdateMap(
-        GetRiakObjectId(), TextSerializer, null, null, mapUpdates, null);
-    CheckResult(rslt.Result);
+    UpdateMap(model, mapOperation, fetchFirst: false);
 }
 ```
 
@@ -978,38 +963,23 @@ class User:
  * https://github.com/basho/riak-dotnet-client/tree/develop/src/RiakClientExamples/Dev/DataModeling/UserRepository.cs
  */
 
-public void UpgradeAccount()
+public void UpgradeAccount(User model)
 {
-    var mapUpdates = new List<MapUpdate>();
-
-    mapUpdates.Add(new MapUpdate
-    {
-        flag_op = MapUpdate.FlagOp.ENABLE,
-        field = new MapField
-        {
-            name = TextSerializer(paidAccountFlag),
-            type = MapField.MapFieldType.FLAG
-        }
-    });
-
-    UpdateMap(mapUpdates, fetchFirst: true);
+    SetPaidAccount(model, true);
 }
 
-public void DowngradeAccount()
+public void DowngradeAccount(User model)
 {
-    var mapUpdates = new List<MapUpdate>();
+    SetPaidAccount(model, false);
+}
 
-    mapUpdates.Add(new MapUpdate
-    {
-        flag_op = MapUpdate.FlagOp.DISABLE,
-        field = new MapField
-        {
-            name = TextSerializer(paidAccountFlag),
-            type = MapField.MapFieldType.FLAG
-        }
-    });
+private void SetPaidAccount(User model, bool value)
+{
+    var mapOperation = new UpdateMap.MapOperation();
+    mapOperation.SetFlag(paidAccountFlag, value);
 
-    UpdateMap(mapUpdates, fetchFirst: true);
+    // Flag update does not require context
+    UpdateMap(model, mapOperation, fetchFirst: false);
 }
 ```
 
@@ -1199,54 +1169,26 @@ class User:
 
 public override User Get(string key, bool notFoundOK = false)
 {
-    var fetchRslt = client.DtFetchMap(GetRiakObjectId());
-    CheckResult(fetchRslt.Result);
+    FetchMap cmd = new FetchMap.Builder()
+        .WithBucketType(BucketType)
+        .WithBucket(Bucket)
+        .WithKey(key)
+        .Build();
 
-    string firstName = null;
-    string lastName = null;
-    var interests = new List<string>();
-    uint pageVisits = 0;
+    RiakResult rslt = client.Execute(cmd);
+    CheckResult(rslt);
+    MapResponse response = cmd.Response;
+    Map map = response.Value;
 
-    foreach (var value in fetchRslt.Values)
-    {
-        RiakDtMapField mapField = value.Field;
-        switch (mapField.Name)
-        {
-            case firstNameRegister:
-                if (mapField.Type != RiakDtMapField.RiakDtMapFieldType.Register)
-                {
-                    throw new InvalidCastException("expected Register type");
-                }
-                firstName = TextDeserializer(value.RegisterValue);
-                break;
-            case lastNameRegister:
-                if (mapField.Type != RiakDtMapField.RiakDtMapFieldType.Register)
-                {
-                    throw new InvalidCastException("expected Register type");
-                }
-                lastName = TextDeserializer(value.RegisterValue);
-                break;
-            case interestsSet:
-                if (mapField.Type != RiakDtMapField.RiakDtMapFieldType.Set)
-                {
-                    throw new InvalidCastException("expected Set type");
-                }
-                interests.AddRange(value.SetValue.Select(v => TextDeserializer(v)));
-                break;
-            case pageVisitsCounter:
-                if (mapField.Type != RiakDtMapField.RiakDtMapFieldType.Counter)
-                {
-                    throw new InvalidCastException("expected Counter type");
-                }
-                pageVisits = (uint)value.Counter.Value;
-                break;
-            /*
-                * Note: can do additional checks here in default case
-                */
-        }
-    }
+    string firstName = map.Registers.GetValue(firstNameRegister);
+    string lastName = map.Registers.GetValue(lastNameRegister);
+    var interests = map.Sets.GetValue(interestsSet).ToArray();
+    uint pageVisits = (uint)map.Counters.GetValue(pageVisitsCounter);
 
-    return new User(firstName, lastName, interests, pageVisits);
+    bool accountStatus;
+    map.Flags.TryGetValue(paidAccountFlag, out accountStatus);
+
+    return new User(firstName, lastName, interests, pageVisits, accountStatus);
 }
 ```
 
