@@ -1594,6 +1594,8 @@ map.reload().flags['enterprise_customer'].value
 ```
 
 ```csharp
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
 Map ahmedMap = response.Value;
 ahmedMap.Flags["enterprise_customer"]
 ```
@@ -1654,6 +1656,8 @@ map.store()
 ```
 
 ```csharp
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
 var mapOperation = new UpdateMap.MapOperation();
 mapOperation.IncrementCounter("page_visits", 1);
 
@@ -1746,6 +1750,8 @@ map.store()
 ```
 
 ```csharp
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
 var interestsAdds = new[] { "robots", "opera", "motorcycles" };
 
 var mapOperation = new UpdateMap.MapOperation();
@@ -1845,6 +1851,8 @@ for interest in ['robots', 'opera', 'motorcycles']:
 ```
 
 ```csharp
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
 Map ahmedMap = response.Value;
 
 // All of the following return true:
@@ -1908,6 +1916,8 @@ map.store()
 ```
 
 ```csharp
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
 var mapOperation = new UpdateMap.MapOperation();
 mapOperation.AddToSet("interests", "indie pop");
 mapOperation.RemoveFromSet("interests", "opera");
@@ -2030,6 +2040,8 @@ map.store()
 ```
 
 ```csharp
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
 var mapOperation = new UpdateMap.MapOperation();
 
 var annikaInfoOperation = mapOperation.Map("annika_info");
@@ -2129,6 +2141,8 @@ map.reload().maps['annika_info'].registers['first_name'].value
 ```
 
 ```csharp
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
 ahmedMap = response.Value;
 ahmedMap.Maps["annika_info"].Registers.GetValue("first_name");
 ```
@@ -2190,6 +2204,8 @@ map.store()
 ```
 
 ```csharp
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
 var mapOperation = new UpdateMap.MapOperation();
 mapOperation.Map("annika_info").RemoveRegister("first_name");
 
@@ -2289,6 +2305,8 @@ map.store()
 ```
 
 ```csharp
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
 var mapOperation = new UpdateMap.MapOperation();
 mapOperation.Map("annika_info")
     .SetFlag("enterprise_plan", false)
@@ -2401,6 +2419,8 @@ map.reload().maps['annika_info'].flags['enterprise_plan'].value
 ```
 
 ```csharp
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
 ahmedMap = response.Value;
 ahmedMap.Maps["annika_info"].Flags["enterprise_plan"];
 ```
@@ -2456,6 +2476,8 @@ map.store()
 ```
 
 ```csharp
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
 var mapOperation = new UpdateMap.MapOperation();
 mapOperation.Map("annika_info").IncrementCounter("widget_purchases", 1);
 
@@ -2534,6 +2556,8 @@ map.store()
 ```
 
 ```csharp
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
 var mapOperation = new UpdateMap.MapOperation();
 mapOperation.Map("annika_info").AddToSet("interests", "tango dancing");
 
@@ -2614,6 +2638,8 @@ map.store()
 ```
 
 ```csharp
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
 var mapOperation = new UpdateMap.MapOperation();
 mapOperation.Map("annika_info").RemoveFromSet("interests", "tango dancing");
 
@@ -2715,6 +2741,8 @@ map.store()
 ```
 
 ```csharp
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
 var mapOperation = new UpdateMap.MapOperation();
 mapOperation.Map("annika_info").Map("purchase")
     .SetFlag("first_purchase", true)
@@ -2831,6 +2859,8 @@ ahmed_map.context
 ```
 
 ```csharp
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
 // Note: using a previous UpdateMap or FetchMap result
 Console.WriteLine(format: "Context: {0}", args: Convert.ToBase64String(result.Context));
 
