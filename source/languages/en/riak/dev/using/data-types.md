@@ -128,10 +128,19 @@ bucket = client.bucket_type('counters').bucket('counters')
 ```
 
 ```csharp
-// Using the Riak .NET Client, you interact with Riak Data Types on the basis of
-// a RiakObjectId, which specifies the Data Type's bucket type, bucket,
-// and key, in that order. Here is an example:
-var id = new RiakObjectId("counters", "counters", "<insert_key_here>");
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+// You can either use the appropriate Options class or the Builder
+
+// Options:
+var options = new FetchCounterOptions("counters", "counters", "<insert_key_here>");
+
+// Builder:
+FetchCounter cmd = new FetchCounter.Builder()
+    .WithBucketType("counters")
+    .WithBucket("counters")
+    .WithKey("<insert_key_here>")
+    .Build();
 ```
 
 ```javascript
@@ -199,11 +208,12 @@ counter = Counter(bucket, key)
 ```
 
 ```csharp
-// Using the Riak .NET Client, you fetch a counter first, even if it's empty. Once
-// fetched, you can update the counter and then store it. This would
-// fetch the counter:
-var id = new RiakObjectId(bucketType, bucket, key);
-var counter = Client.DtFetchCounter(id);
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+var fetchCounterOptions = new FetchCounterOptions("counters", "counters", "<key>");
+FetchCounter cmd = new FetchCounter(fetchCounterOptions);
+RiakResult rslt = client.Execute(cmd);
+CounterResponse response = cmd.Response;
 ```
 
 ```javascript
@@ -260,8 +270,12 @@ counter = bucket.new('traffic_tickets')
 ```
 
 ```csharp
-var trafficTickets = new RiakObjectId("counters", "counters", "traffic_tickets");
-var counter = Client.DtFetchCounter(trafficTickets);
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+var fetchCounterOptions = new FetchCounterOptions("counters", "counters", "traffic_tickts");
+FetchCounter cmd = new FetchCounter(fetchCounterOptions);
+RiakResult rslt = client.Execute(cmd);
+CounterResult = cmd.Result;
 ```
 
 ```javascript
@@ -317,8 +331,18 @@ counter.store()
 ```
 
 ```csharp
-var trafficTickets = new RiakObjectId("counters", "counters", "traffic_tickets");
-Client.DtUpdateCounter(trafficTickets, 1);
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+UpdateCounter updateCmd = new UpdateCounter.Builder(increment: 1)
+    .WithBucketType("counters")
+    .WithBucket("counters")
+    .WithKey("traffic_tickets")
+    .WithReturnBody(true)
+    .Build();
+
+RiakResult rslt = client.Execute(updateCmd);
+CounterResponse response = updateCmd.Response;
+// response.Value will be 1
 ```
 
 ```javascript
@@ -370,8 +394,30 @@ counter.increment(5)
 ```
 
 ```csharp
-// Using the "counter" object from above:
-client.DtUpdateCounter(counter, 5);
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+var builder = new UpdateCounter.Builder(5)
+    .WithBucketType("counters")
+    .WithBucket("counters")
+    .WithKey("traffic_tickets")
+    .WithReturnBody(true);
+
+UpdateCounter updateCmd = builder.Build();
+
+rslt = client.Execute(updateCmd);
+CounterResponse response = updateCmd.Response;
+// response.Value is 5 more than before
+
+// To decrement:
+// Modify the builder's increment, then construct a new command
+builder.WithIncrement(-5);
+updateCmd = builder.Build();
+
+rslt = client.Execute(updateCmd);
+CheckResult(rslt);
+
+response = updateCmd.Response;
+// response.Value is 5 less than before
 ```
 
 ```javascript
@@ -434,7 +480,13 @@ counter.reload()
 ```
 
 ```csharp
-Console.WriteLine(counter.Value);
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+var fetchCounterOptions = new FetchCounterOptions("counters", "counters", "traffic_tickts");
+FetchCounter cmd = new FetchCounter(fetchCounterOptions);
+RiakResult rslt = client.Execute(cmd);
+CounterResponse response = cmd.Response;
+// response.Value has the counter value
 ```
 
 ```javascript
@@ -514,10 +566,17 @@ counter.decrement(3)
 ```
 
 ```csharp
-Client.DtUpdateCounter(trafficTickets, -1);
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
 
-// As with incrementing, you can also decrement by more than one, e.g.:
-Client.DtUpdateCounter(trafficTickets, -3);
+var updateCmd = new UpdateCounter.Builder(-3)
+    .WithBucketType("counters")
+    .WithBucket("counters")
+    .WithKey("traffic_tickets")
+    .Build();
+
+rslt = client.Execute(updateCmd);
+response = updateCmd.Response;
+// response.Value is three less than before
 ```
 
 ```javascript
@@ -607,10 +666,22 @@ set = Set(bucket, key)
 ```
 
 ```csharp
-// As with counters, with the Riak .NET Client you interact with sets on the
-// basis of the set's location in Riak, as specified by a RiakObjectId
-// object. Below is an example:
-var id = new RiakObjectId(bucket_type, bucket, key);
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+// As with counters, with the Riak .NET Client you interact with sets
+// by building an Options object or using a Builder
+var builder = new FetchSet.Builder()
+    .WithBucketType("sets")
+    .WithBucket("travel")
+    .WithKey("cities");
+
+// NB: builder.Options will only be set after Build() is called.
+FetchSet fetchSetCommand = builder.Build();
+
+FetchSetOptions options = new FetchSetOptions("sets", "travel", "cities");
+
+// These two options objects are equal
+Assert.AreEqual(options, builder.Options);
 ```
 
 ```javascript
@@ -680,9 +751,14 @@ cities_set = Set(travel, 'cities')
 ```
 
 ```csharp
-// Now we'll create a reference for the set with which we want to
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+// Now we'll create a Builder object for the set with which we want to
 // interact:
-var id = new RiakObjectId("sets", "travel", "cities");
+var builder = new FetchSet.Builder()
+    .WithBucketType("sets")
+    .WithBucket("travel")
+    .WithKey("cities");
 ```
 
 ```javascript
@@ -731,10 +807,17 @@ len(cities_set) == 0
 ```
 
 ```csharp
-var id = new RiakObjectId("sets", "travel", "cities");
-var citiesSet = client.DtFetchSet(id);
-int setSize = citiesSet.Values.Count;
-Console.WriteLine(setSize > 0);
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+var builder = new FetchSet.Builder()
+    .WithBucketType("sets")
+    .WithBucket("travel")
+    .WithKey("cities");
+
+FetchSet fetchSetCommand = builder.Build();
+RiakResult rslt = client.Execute(fetchSetCommand);
+SetResponse response = fetchSetCommand.Response;
+// response.Value will be null
 ```
 
 ```javascript
@@ -795,12 +878,22 @@ cities_set.add('Montreal')
 ```
 
 ```csharp
-var id = new RiakObjectId("sets", "travel", "cities");
-var citiesSet = client.DtFetchSet(id);
-var adds = new List<string> { "Toronto", "Montreal" };
-var result = client.DtUpdateSet(id,
-    obj => Encoding.UTF8.GetBytes(obj),
-    citiesSet.Context, adds);
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+var adds = new[] { "Toronto", "Montreal" };
+
+var builder = new UpdateSet.Builder()
+    .WithBucketType("sets")
+    .WithBucket("travel")
+    .WithKey("cities")
+    .WithAdditions(adds);
+
+UpdateSet cmd = builder.Build();
+RiakResult rslt = client.Execute(cmd);
+SetResponse response = cmd.Response;
+
+Assert.Contains("Toronto", response.AsStrings.ToArray());
+Assert.Contains("Montreal", response.AsStrings.ToArray());
 ```
 
 ```javascript
@@ -885,11 +978,29 @@ cities_set.store()
 ```
 
 ```csharp
-var removes = new List<string> { "Montreal" };
-var adds = new List<string> { "Hamilton", "Ottawa" };
-citiesSet = client.DtUpdateSet(id,
-    obj => Encoding.UTF8.GetBytes(obj),
-    rslt.Context, adds, removes);
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+var removes = new[] { "Montreal" };
+var adds = new[] { "Hamilton", "Ottawa" };
+
+// Note:
+// using the builder from above
+// using the Context member from the above response
+builder
+    .WithAdditions(adds)
+    .WithRemovals(removes)
+    .WithContext(response.Context);
+
+UpdateSet cmd = builder.Build();
+RiakResult rslt = client.Execute(cmd);
+SetResponse response = cmd.Response;
+
+// using System.Linq
+var responseStrings = response.AsStrings.ToArray();
+
+Assert.Contains("Toronto", responseStrings);
+Assert.Contains("Hamilton", responseStrings);
+Assert.Contains("Ottawa", responseStrings);
 ```
 
 ```javascript
@@ -966,11 +1077,11 @@ cities_set.reload()
 ```
 
 ```csharp
-foreach (var value in citiesSet.Values)
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+foreach (var value in setResponse.AsStrings)
 {
-    string city = Encoding.UTF8.GetString(value);
-    var args = new[] { city };
-    Debug.WriteLine(format: "Cities Set Value: {0}", args: args);
+    Console.WriteLine("Cities Set Value: {0}", value);
 }
 
 // Output:
@@ -1056,8 +1167,12 @@ cities_set.include? 'Ottawa'
 ```
 
 ```csharp
-// Note: At this point in time there is no convienience method for
-// checking if a set includes a value.
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+using System.Linq;
+
+bool includesVancouver = response.AsStrings.Any(v => v == "Vancouver");
+bool includesOttawa = response.AsStrings.Any(v => v == "Ottawa");
 ```
 
 ```javascript
@@ -1098,7 +1213,12 @@ len(cities_set)
 ```
 
 ```csharp
-Debug.WriteLine(format: "Cities Set Size: {0}", args: citiesSet.Values.Count);
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+using System.Linq;
+
+// Note: this enumerates the IEnumerable
+setResponse.Values.Count();
 ```
 
 ```javascript
@@ -1155,7 +1275,12 @@ map = Map(bucket, key)
 ```
 
 ```csharp
-var id = new RiakObjectId("<bucket_type>", "<bucket>", "<key>");
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+var builder = new UpdateMap.Builder()
+    .WithBucketType("<bucket_type>")
+    .WithBucket("<bucket>")
+    .WithKey("<key>");
 ```
 
 ```javascript
@@ -1216,7 +1341,12 @@ map = customers.net('ahmed_info')
 ```
 
 ```csharp
-var id = new RiakObjectId("maps", "customers", "ahmed_info");
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+var builder = new UpdateMap.Builder()
+    .WithBucketType("maps")
+    .WithBucket("customers")
+    .WithKey("ahmed_info");
 ```
 
 ```javascript
@@ -1289,64 +1419,29 @@ map.store()
 ```
 
 ```csharp
-SerializeObjectToByteArray<string> Serializer =
-    s => Encoding.UTF8.GetBytes(s);
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
 
-DeserializeObject<string> Deserializer =
-    (b, type) => Encoding.UTF8.GetString(b);
+var builder = new UpdateMap.Builder()
+    .WithBucketType("maps")
+    .WithBucket("customers")
+    .WithKey("ahmed_info");
 
-const string firstNameRegister = "first_name";
-const string phoneNumberRegister = "phone_number";
+var mapOperation = new UpdateMap.MapOperation();
 
-id = new RiakObjectId("maps", "customers", "ahmed_info");
-var rslt = client.DtFetchMap(id);
+// Ahmed's first name
+mapOperation.SetRegister("first_name", "Ahmed");
 
-var firstNameRegisterMapUpdate = new MapUpdate
-{
-    register_op = Serializer("Ahmed"),
-    field = new MapField
-    {
-        name = Serializer(firstNameRegister),
-        type = MapField.MapFieldType.REGISTER
-    }
-};
+// Ahmed's phone number
+mapOperation.SetRegister("phone_number", "5551234567");
 
-var phoneNumberRegisterMapUpdate = new MapUpdate
-{
-    register_op = Serializer("5551234567"),
-    field = new MapField
-    {
-        name = Serializer(phoneNumberRegister),
-        type = MapField.MapFieldType.REGISTER
-    }
-};
+builder.WithMapOperation(mapOperation);
 
-var updates = new List<MapUpdate> {
-    firstNameRegisterMapUpdate,
-    phoneNumberRegisterMapUpdate
-};
-rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
-
-foreach (RiakDtMapEntry value in rslt.Values)
-{
-    RiakDtMapField field = value.Field;
-    Debug.Assert(RiakDtMapField.RiakDtMapFieldType.Register == field.Type);
-    switch (field.Name)
-    {
-        case "first_name":
-            Debug.WriteLine(format: "First Name: {0}",
-                args: Deserializer(value.RegisterValue));
-            break;
-        case "phone_number":
-            Debug.WriteLine(format: "Phone Number: {0}",
-                args: Deserializer(value.RegisterValue));
-            break;
-        default:
-            Debug.Fail("Map Error",
-                string.Format("Unexpected field name: {0}", field.Name));
-            break;
-    }
-}
+UpdateMap cmd = builder.Build();
+RiakResult rslt = client.Execute(cmd);
+MapResponse response = cmd.Response;
+PrintMap(response.Value);
+// Output as JSON:
+// Map: {"Counters":{},"Sets":{},"Registers":{"first_name":"Ahmed","phone_number":"5551234567"},"Flags":{},"Maps":{}}
 ```
 
 ```javascript
@@ -1421,26 +1516,25 @@ map.flags['enterprise_customer'].disable()
 map.store()
 ```
 
+
 ```csharp
-const string enterpriseCustomerFlag = "enterprise_customer";
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
 
-id = new RiakObjectId("maps", "customers", "ahmed_info");
-var rslt = client.DtFetchMap(id);
+// Using our builder from above:
 
-var enterpriseCustomerFlagUpdate = new MapUpdate
-{
-    flag_op = MapUpdate.FlagOp.DISABLE,
-    field = new MapField
-    {
-        name = Serializer(enterpriseCustomerFlag),
-        type = MapField.MapFieldType.FLAG
-    }
-};
+mapOperation = new UpdateMap.MapOperation();
+mapOperation.SetFlag("enterprise_customer", false);
 
-var updates = new List<MapUpdate> {
-    enterpriseCustomerFlagUpdate
-};
-rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+builder.WithMapOperation(mapOperation);
+cmd = builder.Build();
+rslt = client.Execute(cmd);
+
+response = cmd.Response;
+
+// response.Value as JSON:
+// Map: {"Counters":{},"Sets":{},
+         "Registers":{"first_name":"Ahmed","phone_number":"5551234567"},
+         "Flags":{"enterprise_customer":false},"Maps":{}}
 ```
 
 ```javascript
@@ -1500,33 +1594,8 @@ map.reload().flags['enterprise_customer'].value
 ```
 
 ```csharp
-rslt = client.DtFetchMap(id);
-CheckResult(rslt);
-foreach (RiakDtMapEntry value in rslt.Values)
-{
-    RiakDtMapField field = value.Field;
-    switch (field.Type)
-    {
-        case RiakDtMapField.RiakDtMapFieldType.Register:
-            var args = new[] {
-                field.Name,
-                Deserializer(value.RegisterValue)
-            };
-            Debug.WriteLine(format: "{0}: {1}", args: args);
-            break;
-        case RiakDtMapField.RiakDtMapFieldType.Flag:
-            args = new[] {
-                field.Name,
-                value.FlagValue.Value.ToString()
-            };
-            Debug.WriteLine(format: "{0}: {1}", args: args);
-            break;
-        default:
-            Debug.Fail("Map Error",
-                string.Format("Unexpected field type: {0}", field.Type));
-            break;
-    }
-}
+Map ahmedMap = response.Value;
+ahmedMap.Flags["enterprise_customer"]
 ```
 
 ```javascript
@@ -1585,25 +1654,19 @@ map.store()
 ```
 
 ```csharp
-const string pageVisitsCounter = "page_visits";
+var mapOperation = new UpdateMap.MapOperation();
+mapOperation.IncrementCounter("page_visits", 1);
 
-id = new RiakObjectId("maps", "customers", "ahmed_info");
-var rslt = client.DtFetchMap(id);
+builder.WithMapOperation(mapOperation);
+UpdateMap cmd = builder.Build();
+RiakResult rslt = client.Execute(cmd);
 
-var pageVisitsCounterUpdate = new MapUpdate
-{
-    counter_op = new CounterOp { increment = 1 },
-    field = new MapField
-    {
-        name = Serializer(pageVisitsCounter),
-        type = MapField.MapFieldType.COUNTER
-    }
-};
-
-var updates = new List<MapUpdate> {
-    pageVisitsCounterUpdate
-};
-rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+MapResponse response = cmd.Response;
+// Map: {"Counters":{"page_visits":3},
+         "Sets":{},
+         "Registers":{"first_name":"Ahmed","phone_number":"5551234567"},
+         "Flags":{"enterprise_customer":false},
+         "Maps":{}}
 ```
 
 ```javascript
@@ -1683,25 +1746,21 @@ map.store()
 ```
 
 ```csharp
-const string interestsSet = "interests";
-
 var interestsAdds = new[] { "robots", "opera", "motorcycles" };
-var setOperation = new SetOp();
-setOperation.adds.AddRange(interestsAdds.Select(i => Serializer(i)));
-var interestsSetUpdate = new MapUpdate
-{
-    set_op = setOperation,
-    field = new MapField
-    {
-        name = Serializer(interestsSet),
-        type = MapField.MapFieldType.SET
-    }
-};
 
-var updates = new List<MapUpdate> {
-    interestsSetUpdate
-};
-rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+var mapOperation = new UpdateMap.MapOperation();
+mapOperation.AddToSet("interests", interestsAdds);
+
+builder.WithMapOperation(mapOperation);
+UpdateMap cmd = builder.Build();
+RiakResult rslt = client.Execute(cmd);
+MapResponse response = cmd.Response;
+
+// Map: {"Counters":{"page_visits":3},
+         "Sets":{"interests":["motorcycles","opera","robots"]},
+         "Registers":{"first_name":"Ahmed","phone_number":"5551234567"},
+         "Flags":{"enterprise_customer":false},
+         "Maps":{}}
 ```
 
 ```javascript
@@ -1786,30 +1845,12 @@ for interest in ['robots', 'opera', 'motorcycles']:
 ```
 
 ```csharp
-var rslt = client.DtFetchMap(id);
-foreach (RiakDtMapEntry value in rslt.Values)
-{
-    RiakDtMapField field = value.Field;
-    switch (field.Type)
-    {
-        ...
-        ...
-        ...
-        case RiakDtMapField.RiakDtMapFieldType.Set:
-            foreach (var setValue in value.SetValue)
-            {
-                args = new[] {
-                    field.Name,
-                    Deserializer(setValue)
-                };
-                Debug.WriteLine(format: "{0}: {1}", args: args);
-            }
-            break;
-        ...
-        ...
-        ...
-    }
-}
+Map ahmedMap = response.Value;
+
+// All of the following return true:
+ahmedMap.Sets.GetValue("interests").Contains("robots");
+ahmedMap.Sets.GetValue("interests").Contains("opera");
+ahmedMap.Sets.GetValue("interests").Contains("motorcycles");
 ```
 
 ```javascript
@@ -1867,25 +1908,27 @@ map.store()
 ```
 
 ```csharp
-var interestsRemoves = new[] { "opera" };
-var interestsAdds = new[] { "indie pop" };
-var setOperation = new SetOp();
-setOperation.adds.AddRange(interestsAdds.Select(i => Serializer(i)));
-setOperation.removes.AddRange(interestsRemoves.Select(i => Serializer(i)));
-var interestsSetUpdate = new MapUpdate
-{
-    set_op = setOperation,
-    field = new MapField
-    {
-        name = Serializer(interestsSet),
-        type = MapField.MapFieldType.SET
-    }
-};
+var mapOperation = new UpdateMap.MapOperation();
+mapOperation.AddToSet("interests", "indie pop");
+mapOperation.RemoveFromSet("interests", "opera");
 
-var updates = new List<MapUpdate> {
-    interestsSetUpdate
-};
-var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+builder
+    .WithMapOperation(mapOperation)
+    .WithContext(response.Context);
+
+UpdateMap cmd = builder.Build();
+RiakResult rslt = client.Execute(cmd);
+
+MapResponse response = cmd.Response;
+Map ahmedMap = response.Value;
+
+// This is false
+ahmedMap.Sets.GetValue("interests").Contains("opera");
+
+// These are true
+ahmedMap.Sets.GetValue("interests").Contains("indie pop");
+ahmedMap.Sets.GetValue("interests").Contains("robots");
+ahmedMap.Sets.GetValue("interests").Contains("motorcycles");
 ```
 
 ```javascript
@@ -1987,57 +2030,16 @@ map.store()
 ```
 
 ```csharp
-const string firstNameRegister = "first_name";
-const string lastNameRegister = "last_name";
-const string phoneNumberRegister = "phone_number";
-const string annikaInfoMap = "annika_info";
+var mapOperation = new UpdateMap.MapOperation();
 
-var annikaMapUpdates = new List<MapUpdate>
-{
-    new MapUpdate
-    {
-        register_op = Serializer("Annika"),
-        field = new MapField
-        {
-            name = Serializer(firstNameRegister),
-            type = MapField.MapFieldType.REGISTER
-        },
-    },
-    new MapUpdate
-    {
-        register_op = Serializer("Weiss"),
-        field = new MapField
-        {
-            name = Serializer(lastNameRegister),
-            type = MapField.MapFieldType.REGISTER
-        },
-    },
-    new MapUpdate
-    {
-        register_op = Serializer("5559876543"),
-        field = new MapField
-        {
-            name = Serializer(phoneNumberRegister),
-            type = MapField.MapFieldType.REGISTER
-        },
-    }
-};
-var annikaInfoUpdateMapOp = new MapOp();
-annikaInfoUpdateMapOp.updates.AddRange(annikaMapUpdates);
-var annikaInfoUpdate = new MapUpdate
-{
-    map_op = annikaInfoUpdateMapOp,
-    field = new MapField
-    {
-        name = Serializer(annikaInfoMap),
-        type = MapField.MapFieldType.MAP
-    }
-};
+var annikaInfoOperation = mapOperation.Map("annika_info");
+annikaInfoOperation.SetRegister("first_name", "Annika");
+annikaInfoOperation.SetRegister("last_name", "Weiss");
+annikaInfoOperation.SetRegister("phone_number", "5559876543");
 
-var updates = new List<MapUpdate> {
-    annikaInfoUpdate
-};
-var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+builder.WithMapOperation(mapOperation);
+UpdateMap cmd = builder.Build();
+client.Execute(cmd);
 ```
 
 ```javascript
@@ -2127,10 +2129,8 @@ map.reload().maps['annika_info'].registers['first_name'].value
 ```
 
 ```csharp
-// Note: At this point in time there is no convienience method for
-// retrieving a value from a map. Please see the RiakClientExamples
-// project for code samples.
-// https://github.com/basho/riak-dotnet-client/tree/develop/src/RiakClientExamples
+ahmedMap = response.Value;
+ahmedMap.Maps["annika_info"].Registers.GetValue("first_name");
 ```
 
 ```javascript
@@ -2181,39 +2181,25 @@ client.execute(update);
 ```
 
 ```ruby
-map.maps['annika_info'].registers.remove('phone_number')
+map.maps['annika_info'].registers.remove('first_name')
 ```
 
 ```python
-del map.maps['annika_info'].registers['phone_number']
+del map.maps['annika_info'].registers['first_name']
 map.store()
 ```
 
 ```csharp
-var annikaMapRemoves = new List<MapField>
-{
-    new MapField
-    {
-        name = Serializer(firstNameRegister),
-        type = MapField.MapFieldType.REGISTER
-    },
-};
-var annikaInfoUpdateMapOp = new MapOp();
-var annikaInfoUpdateMapOp.removes.AddRange(annikaMapRemoves);
-var annikaInfoUpdate = new MapUpdate
-{
-    map_op = annikaInfoUpdateMapOp,
-    field = new MapField
-    {
-        name = Serializer(annikaInfoMap),
-        type = MapField.MapFieldType.MAP
-    }
-};
+var mapOperation = new UpdateMap.MapOperation();
+mapOperation.Map("annika_info").RemoveRegister("first_name");
 
-var updates = new List<MapUpdate> {
-    annikaInfoUpdate
-};
-var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+// Note: using Context from last response
+builder
+    .WithMapOperation(mapOperation)
+    .WithContext(response.Context);
+
+UpdateMap cmd = builder.Build();
+client.Execute(cmd);
 ```
 
 ```javascript
@@ -2303,55 +2289,16 @@ map.store()
 ```
 
 ```csharp
-const string enterprisePlanFlag = "enterprise_plan";
-const string familyPlanFlag = "family_plan";
-const string freePlanFlag = "free_plan";
-var annikaMapUpdates = new List<MapUpdate>
-{
-    new MapUpdate
-    {
-        flag_op = MapUpdate.FlagOp.DISABLE,
-        field = new MapField
-        {
-            name = Serializer(enterprisePlanFlag),
-            type = MapField.MapFieldType.FLAG
-        },
-    },
-    new MapUpdate
-    {
-        flag_op = MapUpdate.FlagOp.DISABLE,
-        field = new MapField
-        {
-            name = Serializer(familyPlanFlag),
-            type = MapField.MapFieldType.FLAG
-        },
-    },
-    new MapUpdate
-    {
-        flag_op = MapUpdate.FlagOp.DISABLE,
-        field = new MapField
-        {
-            name = Serializer(freePlanFlag),
-            type = MapField.MapFieldType.FLAG
-        },
-    } 
-};
-var annikaInfoUpdateMapOp = new MapOp();
-var annikaInfoUpdateMapOp.updates.AddRange(annikaMapUpdates);
-var annikaInfoUpdate = new MapUpdate
-{
-    map_op = annikaInfoUpdateMapOp,
-    field = new MapField
-    {
-        name = Serializer(annikaInfoMap),
-        type = MapField.MapFieldType.MAP
-    }
-};
+var mapOperation = new UpdateMap.MapOperation();
+mapOperation.Map("annika_info")
+    .SetFlag("enterprise_plan", false)
+    .SetFlag("family_plan", false)
+    .SetFlag("free_plan", true);
 
-var updates = new List<MapUpdate> {
-    annikaInfoUpdate
-};
-var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+builder.WithMapOperation(mapOperation);
+
+MapUpdate cmd = builder.Build();
+client.Execute(cmd);
 ```
 
 ```javascript
@@ -2454,10 +2401,8 @@ map.reload().maps['annika_info'].flags['enterprise_plan'].value
 ```
 
 ```csharp
-// Note: At this point in time there is no convienience method for
-// retrieving a value from a map. Please see the RiakClientExamples
-// project for code samples
-// https://github.com/basho/riak-dotnet-client/tree/develop/src/RiakClientExamples
+ahmedMap = response.Value;
+ahmedMap.Maps["annika_info"].Flags["enterprise_plan"];
 ```
 
 ```javascript
@@ -2511,35 +2456,13 @@ map.store()
 ```
 
 ```csharp
-const string widgetPurchasesCounter = "widget_purchases";
-var annikaMapUpdates = new List<MapUpdate>
-{
-    new MapUpdate
-    {
-        counter_op = new CounterOp { increment = 1 },
-        field = new MapField
-        {
-            name = Serializer(widgetPurchasesCounter),
-            type = MapField.MapFieldType.COUNTER
-        },
-    }
-};
-var annikaInfoUpdateMapOp = new MapOp();
-var annikaInfoUpdateMapOp.updates.AddRange(annikaMapUpdates);
-var annikaInfoUpdate = new MapUpdate
-{
-    map_op = annikaInfoUpdateMapOp,
-    field = new MapField
-    {
-        name = Serializer(annikaInfoMap),
-        type = MapField.MapFieldType.MAP
-    }
-};
+var mapOperation = new UpdateMap.MapOperation();
+mapOperation.Map("annika_info").IncrementCounter("widget_purchases", 1);
 
-var updates = new List<MapUpdate> {
-    annikaInfoUpdate
-};
-var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+builder.WithMapOperation(mapOperation);
+
+UpdateMap cmd = builder.Build();
+client.Execute(cmd);
 ```
 
 ```javascript
@@ -2611,37 +2534,11 @@ map.store()
 ```
 
 ```csharp
-const string annikaInterestsSet = "annika_info";
-var annikaInterestsSetOp = new SetOp();
-annikaInterestsSetOp.adds.Add(Serializer("tango dancing"));
-var annikaMapUpdates = new List<MapUpdate>
-{
-    new MapUpdate
-    {
-        set_op = annikaInterestsSetOp,
-        field = new MapField
-        {
-            name = Serializer(annikaInterestsSet),
-            type = MapField.MapFieldType.SET
-        },
-    }
-};
-var annikaInfoUpdateMapOp = new MapOp();
-var annikaInfoUpdateMapOp.updates.AddRange(annikaMapUpdates);
-var annikaInfoUpdate = new MapUpdate
-{
-    map_op = annikaInfoUpdateMapOp,
-    field = new MapField
-    {
-        name = Serializer(annikaInfoMap),
-        type = MapField.MapFieldType.MAP
-    }
-};
+var mapOperation = new UpdateMap.MapOperation();
+mapOperation.Map("annika_info").AddToSet("interests", "tango dancing");
 
-var updates = new List<MapUpdate> {
-    annikaInfoUpdate
-};
-var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+builder.WithMapOperation(mapOperation);
+client.Execute(builder.Build());
 ```
 
 ```javascript
@@ -2717,36 +2614,14 @@ map.store()
 ```
 
 ```csharp
-var annikaInterestsSetOp = new SetOp();
-var annikaInterestsSetOp.removes.Add(Serializer("tango dancing"));
-var annikaMapUpdates = new List<MapUpdate>
-{
-    new MapUpdate
-    {
-        set_op = annikaInterestsSetOp,
-        field = new MapField
-        {
-            name = Serializer(annikaInterestsSet),
-            type = MapField.MapFieldType.SET
-        },
-    }
-};
-var annikaInfoUpdateMapOp = new MapOp();
-var annikaInfoUpdateMapOp.updates.AddRange(annikaMapUpdates);
-var annikaInfoUpdate = new MapUpdate
-{
-    map_op = annikaInfoUpdateMapOp,
-    field = new MapField
-    {
-        name = Serializer(annikaInfoMap),
-        type = MapField.MapFieldType.MAP
-    }
-};
+var mapOperation = new UpdateMap.MapOperation();
+mapOperation.Map("annika_info").RemoveFromSet("interests", "tango dancing");
 
-var updates = new List<MapUpdate> {
-    annikaInfoUpdate
-};
-var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+// Note: using Context from previous response
+builder
+    .WithMapOperation(mapOperation)
+    .WithContext(response.Context);
+client.Execute(builder.Build());
 ```
 
 ```javascript
@@ -2840,72 +2715,14 @@ map.store()
 ```
 
 ```csharp
-const string annikaPurchaseMap = "purchase";
-const string annikaFirstPurchaseFlag = "first_purchase";
-const string annikaPurchaseAmountRegister = "amount";
-const string annikaPurchaseItemsSet = "items";
+var mapOperation = new UpdateMap.MapOperation();
+mapOperation.Map("annika_info").Map("purchase")
+    .SetFlag("first_purchase", true)
+    .SetRegister("amount", "1271")
+    .AddToSet("items", "large widget");
 
-var annikaItemsSetOp = new SetOp();
-annikaItemsSetOp.adds.Add(Serializer("large widget"));
-var annikaMapUpdates = new List<MapUpdate>
-{
-    new MapUpdate
-    {
-        flag_op = MapUpdate.FlagOp.ENABLE,
-        field = new MapField
-        {
-            name = Serializer(annikaFirstPurchaseFlag),
-            type = MapField.MapFieldType.FLAG
-        }
-    },
-    new MapUpdate
-    {
-        register_op = Serializer("1271"),
-        field = new MapField
-        {
-            name = Serializer(annikaPurchaseAmountRegister),
-            type = MapField.MapFieldType.REGISTER
-        }
-    },
-    new MapUpdate
-    {
-        set_op = annikaItemsSetOp,
-        field = new MapField
-        {
-            name = Serializer(annikaPurchaseItemsSet),
-            type = MapField.MapFieldType.SET
-        },
-    }
-};
-
-var annikaPurchaseMapOp = new MapOp();
-annikaPurchaseMapOp.updates.AddRange(annikaMapUpdates);
-var annikaPurchaseMapUpdate = new MapUpdate
-{
-    map_op = annikaPurchaseMapOp,
-    field = new MapField
-    {
-        name = Serializer(annikaPurchaseMap),
-        type = MapField.MapFieldType.MAP
-    }
-};
-
-var annikaInfoUpdateMapOp = new MapOp();
-annikaInfoUpdateMapOp.updates.Add(annikaPurchaseMapUpdate);
-var annikaInfoUpdate = new MapUpdate
-{
-    map_op = annikaInfoUpdateMapOp,
-    field = new MapField
-    {
-        name = Serializer(annikaInfoMap),
-        type = MapField.MapFieldType.MAP
-    }
-};
-
-var updates = new List<MapUpdate> {
-    annikaInfoUpdate
-};
-var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+builder.WithMapOperation(mapOperation);
+client.Execute(builder.Build());
 ```
 
 ```javascript
@@ -3014,9 +2831,8 @@ ahmed_map.context
 ```
 
 ```csharp
-var id = new RiakObjectId("maps", "customers", "ahmed_info");
-var rslt = client.DtFetchMap(id);
-Debug.WriteLine(format: "Context: {0}", args: Convert.ToBase64String(rslt.Context));
+// Note: using a previous UpdateMap or FetchMap result
+Console.WriteLine(format: "Context: {0}", args: Convert.ToBase64String(result.Context));
 
 // Output:
 // Context: g2wAAAACaAJtAAAACLQFHUkv4m2IYQdoAm0AAAAIxVKxCy5pjMdhCWo=
@@ -3085,4 +2901,3 @@ UpdateMap update = new UpdateMap.Builder(ahmedMap, removePaidAccountField)
         .build();
 client.execute(update);
 ```
-
