@@ -275,11 +275,23 @@ joan_rivers_counter.store()
 ```
 
 ```csharp
-var christopherHitchensId = new RiakObjectId("counters", "people", "christ_hitchens");
-var hitchensRslt = client.DtUpdateCounter(christopherHitchensId, 10);
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Search/SearchDataTypes.cs
 
-var joanRiversId = new RiakObjectId("counters", "people", "joan_rivers");
-var joanRiversRslt = client.DtUpdateCounter(joanRiversId, 25);
+var cmd = new UpdateCounter.Builder()
+    .WithBucketType("counters")
+    .WithBucket("people")
+    .WithKey("christ_hitchens")
+    .WithIncrement(10)
+    .Build();
+RiakResult rslt = client.Execute(cmd);
+
+cmd = new UpdateCounter.Builder()
+    .WithBucketType("counters")
+    .WithBucket("people")
+    .WithKey("joan_rivers")
+    .WithIncrement(25)
+    .Build();
+rslt = client.Execute(cmd);
 ```
 
 ```javascript
@@ -736,13 +748,23 @@ ronnie_james_dio_set.store()
 ```
 
 ```csharp
-var mikeDitkaId = new RiakObjectId("sets", "people", "ditka");
-var ditkaAdds = new List<string> { "football", "winning" };
-var ditkaRslt = client.DtUpdateSet(mikeDitkaId, Serializer, null, ditkaAdds);
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Search/SearchDataTypes.cs
 
-var dioId = new RiakObjectId("sets", "people", "dio");
-var dioAdds = new List<string> { "wailing", "rocking", "winning" };
-var dioRslt = client.DtUpdateSet(dioId, Serializer, null, dioAdds);
+var cmd = new UpdateSet.Builder()
+    .WithBucketType("sets")
+    .WithBucket("people")
+    .WithKey("ditka")
+    .WithAdditions(new[] { "football", "winning" })
+    .Build();
+RiakResult rslt = client.Execute(cmd);
+
+cmd = new UpdateSet.Builder()
+    .WithBucketType("sets")
+    .WithBucket("people")
+    .WithKey("dio")
+    .WithAdditions(new[] { "wailing", "rocking", "winning" })
+    .Build();
+rslt = client.Execute(cmd);
 ```
 
 ```javascript
@@ -1157,68 +1179,33 @@ joan_jett.store()
 ```
 
 ```csharp
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Search/SearchDataTypes.cs
+
+// Note: similar code for Joan Jett
+
 const string firstNameRegister = "first_name";
 const string lastNameRegister = "last_name";
 const string enterpriseCustomerFlag = "enterprise_customer";
 const string pageVisitsCounter = "page_visits";
 const string interestsSet = "interests";
 
-var idrisElbaId = new RiakObjectId("maps", "customers", "idris_elba");
-var idrisMapUpdates = new List<MapUpdate>();
-idrisMapUpdates.Add(new MapUpdate
-{
-    register_op = Serializer("Idris"),
-    field = new MapField
-    {
-        name = Serializer(firstNameRegister),
-        type = MapField.MapFieldType.REGISTER
-    }
-});
-
-idrisMapUpdates.Add(new MapUpdate
-{
-    register_op = Serializer("Elba"),
-    field = new MapField
-    {
-        name = Serializer(lastNameRegister),
-        type = MapField.MapFieldType.REGISTER
-    }
-});
-
-idrisMapUpdates.Add(new MapUpdate
-{
-    flag_op = MapUpdate.FlagOp.DISABLE,
-    field = new MapField
-    {
-        name = Serializer(enterpriseCustomerFlag),
-        type = MapField.MapFieldType.FLAG
-    }
-});
-
-idrisMapUpdates.Add(new MapUpdate
-{
-    counter_op = new CounterOp { increment = 10 },
-    field = new MapField
-    {
-        name = Serializer(pageVisitsCounter),
-        type = MapField.MapFieldType.COUNTER
-    }
-});
-
 var idrisAdds = new[] { "acting", "being Stringer Bell" };
-var idrisSetOp = new SetOp();
-idrisSetOp.adds.AddRange(idrisAdds.Select(x => Serializer(x)));
-idrisMapUpdates.Add(new MapUpdate
-{
-    set_op = idrisSetOp,
-    field = new MapField
-    {
-        name = Serializer(interestsSet),
-        type = MapField.MapFieldType.SET
-    }
-});
 
-var idrisRslt = client.DtUpdateMap(idrisElbaId, Serializer, null, null, idrisMapUpdates);
+var mapOp = new UpdateMap.MapOperation()
+    .SetRegister(firstNameRegister, "Idris")
+    .SetRegister(lastNameRegister, "Elba")
+    .SetFlag(enterpriseCustomerFlag, false)
+    .IncrementCounter(pageVisitsCounter, 10)
+    .AddToSet(interestsSet, idrisAdds);
+
+var cmd = new UpdateMap.Builder()
+    .WithBucketType("maps")
+    .WithBucket("customers")
+    .WithKey("idris_elba")
+    .WithMapOperation(mapOp)
+    .Build();
+
+RiakResult rslt = client.Execute(cmd);
 ```
 
 ```javascript
@@ -1525,35 +1512,22 @@ joan_jett.store()
 ```
 
 ```csharp
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Search/SearchDataTypes.cs
+
 const string nameRegister = "name";
 const string alterEgoMap = "alter_ego";
 
-idrisElbaId = new RiakObjectId("maps", "customers", "idris_elba");
-var idrisGetRslt = client.DtFetchMap(idrisElbaId);
+var mapOp = new UpdateMap.MapOperation();
+mapOp.Map(alterEgoMap).SetRegister(nameRegister, "John Luther");
 
-var alterEgoMapOp = new MapOp();
-alterEgoMapOp.updates.Add(new MapUpdate
-{
-    register_op = Serializer("John Luther"),
-    field = new MapField
-    {
-        name = Serializer(nameRegister),
-        type = MapField.MapFieldType.REGISTER
-    }
-});
+var cmd = new UpdateMap.Builder()
+    .WithBucketType("maps")
+    .WithBucket("customers")
+    .WithKey("idris_elba")
+    .WithMapOperation(mapOp)
+    .Build();
 
-var alterEgoMapUpdate = new MapUpdate
-{
-    map_op = alterEgoMapOp,
-    field = new MapField
-    {
-        name = Serializer(alterEgoMap),
-        type = MapField.MapFieldType.MAP
-    }
-};
-
-var idrisUpdateRslt = client.DtUpdateMap(idrisElbaId, Serializer,
-    idrisGetRslt.Context, null, new List<MapUpdate> { alterEgoMapUpdate });
+RiakResult rslt = client.Execute(cmd);
 ```
 
 ```javascript
