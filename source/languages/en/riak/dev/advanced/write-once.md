@@ -59,7 +59,7 @@ configuration values. However, if `dw` is specified, then the value of `w` is
 taken to be the maximum of the `w` and `dw` values. For example, for an `n_val`
 of 3, if `dw` is set to `all`, then `w` will be `3`.
 
-This write additionally supports the `sloppy_quroum` property. If set to
+This write additionally supports the `sloppy_quorum` property. If set to
 `false`, only primary nodes will be selected for calculation of write quorum
 nodes.
 
@@ -73,7 +73,7 @@ In place of the `put_fsm` used in the normal path, we introduce a collection of
 new intermediate worker processes (implementing `gen_server` behavior). The role
 of these intermediate processes is to dispatch put requests to vnode(proxie)s in
 the preflist and to aggregate replies. Unlike the `put_fsm`, the write-once
-workers are long-lived for the lifecyle of the `riak_kv` application. They are
+workers are long-lived for the lifecycle of the `riak_kv` application. They are
 therefore stateful and store request state in a state-local dictionary.
 
 The relationship between the `riak_client`, write-once workers, and vnode
