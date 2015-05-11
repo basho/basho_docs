@@ -62,7 +62,7 @@ syntax `{Setting, Value}`. For example, if you wished to set
 `riak_repl` section (appending a comma if you have more settings to
 follow):
 
-```appconfig
+```advancedconfig
 {fullsync_on_connect, false}
 ```
 
