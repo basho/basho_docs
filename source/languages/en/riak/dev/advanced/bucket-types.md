@@ -283,7 +283,7 @@ bucket.get('my_key')
 
 ```php
 $location = new Location('my_key', new Bucket('my_bucket'));
-(new Command\Builder\FetchObject($riak))
+(new \Basho\Riak\Command\Builder\FetchObject($riak))
   ->atLocation($location)
   ->build()
   ->execute();
@@ -340,9 +340,9 @@ bucket2.get('my_key')
 ```
 
 ```php
-$location1 = new Location('my_key', new Bucket('my_bucket', 'type1'));
+$location1 = new \Basho\Riak\Location('my_key', new Bucket('my_bucket', 'type1'));
 $location2 = new Location('my_key', new Bucket('my_bucket', 'type2'));
-$builder = new Command\Builder\FetchObject($riak);
+$builder = new \Basho\Riak\Command\Builder\FetchObject($riak);
 $builder->atLocation($location1)
   ->build()
   ->execute();
@@ -421,9 +421,9 @@ bucket2.get('my_key')
 ```
 
 ```php
-$location1 = new Location('my_key', new Bucket('my_bucket', 'default'));
-$location2 = new Location('my_key', new Bucket('my_bucket'));
-$builder = new Command\Builder\FetchObject($riak);
+$location1 = new \Basho\Riak\Location('my_key', new Bucket('my_bucket', 'default'));
+$location2 = new \Basho\Riak\Location('my_key', new Bucket('my_bucket'));
+$builder = new \Basho\Riak\Command\Builder\FetchObject($riak);
 $builder->atLocation($location1)
   ->build()
   ->execute();
@@ -678,7 +678,7 @@ obj.store
 ```
 
 ```php
-(new Command\Builder\StoreObject($riak))
+(new \Basho\Riak\Command\Builder\StoreObject($riak))
   ->buildJsonObject("{ ... user data ... }")
   ->buildLocation('user19735', 'sensitive_user_data', 'no_siblings')
   ->build()
@@ -764,7 +764,7 @@ obj.store
 ```
 
 ```php
-(new Command\Builder\StoreObject($riak))
+(new \Basho\Riak\Command\Builder\StoreObject($riak))
   ->buildObject("all your base are belong to us", ['Content-Type' => 'text/plain'])
   ->buildLocation('user19735', 'sensitive_user_data', 'no_siblings')
   ->build()
