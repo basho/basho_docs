@@ -53,6 +53,7 @@ officially supported clients:
 
 * [[Java|Client-side Security: Java]]
 * [[Ruby|Client-side Security: Ruby]]
+* [[PHP|Client-side Security: PHP]]
 * [[Python|Client-side Security: Python]]
 * [[Erlang|Client-side Security: Erlang]]
 
