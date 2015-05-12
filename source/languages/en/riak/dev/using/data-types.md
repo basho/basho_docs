@@ -123,6 +123,10 @@ Location location = new Location(countersBucket, "<insert_key_here>");
 bucket = client.bucket_type('counters').bucket('counters')
 ```
 
+```php
+$bucket = new \Basho\Riak\Bucket('counters', 'counters');
+```
+
 ```python
 bucket = client.bucket_type('counters').bucket('counters')
 ```
@@ -185,6 +189,11 @@ counter = Riak::Crdt::Counter.new(bucket, key, bucket_type)
 # into the constructor
 bucket = client.bucket_type(bucket_type).bucket(bucket)
 counter = Riak::Crdt::Counter.new(bucket, key)
+```
+
+```php
+# using the $bucket var created earlier
+$location = new \Basho\Riak\Location('key', $bucket);
 ```
 
 ```python
@@ -254,6 +263,11 @@ Riak::Crdt::DEFAULT_BUCKET_TYPES[:counter] = 'counters'
 counter = Riak::Crdt::Counter.new(bucket, 'traffic_tickets')
 ```
 
+```php
+# using the $bucket var created earlier
+$location = new \Basho\Riak\Location('traffic_tickets', $bucket);
+```
+
 ```python
 bucket = client.bucket_type('counters').bucket('traffic_tickets')
 counter = bucket.new('traffic_tickets')
@@ -306,6 +320,14 @@ counter.increment
 
 # This will increment the counter both on the application side and in
 Riak
+```
+
+```php
+(new \Basho\Riak\Command\Builder\IncrementCounter($riak))
+    ->withIncrement(1)
+    ->atLocation($location)
+    ->build()
+    ->execute();
 ```
 
 ```python
@@ -365,6 +387,14 @@ client.execute(update);
 counter.increment(5)
 ```
 
+```php
+(new \Basho\Riak\Command\Builder\IncrementCounter($riak))
+    ->withIncrement(5)
+    ->atLocation($location)
+    ->build()
+    ->execute();
+```
+
 ```python
 counter.increment(5)
 ```
@@ -414,6 +444,16 @@ Long ticketsCount = counter.view();
 ```ruby
 counter.value
 # Output will always be an integer
+```
+
+```php
+$trafficTickets = (new \Basho\Riak\Command\Builder\FetchCounter($riak))
+    ->atLocation($location)
+    ->build()
+    ->execute()
+    ->getCounter();
+
+$trafficTickets->getData(); # returns an integer
 ```
 
 ```python
@@ -506,6 +546,14 @@ counter.decrement
 counter.decrement(3)
 ```
 
+```php
+(new \Basho\Riak\Command\Builder\IncrementCounter($riak))
+    ->withIncrement(-3)
+    ->atLocation($location)
+    ->build()
+    ->execute();
+```
+
 ```python
 counter.decrement()
 
@@ -587,6 +635,10 @@ Location set =
 set = Riak::Crdt::Set.new(bucket, key, bucket_type)
 ```
 
+```php
+$location = new \Basho\Riak\Location('key', new \Basho\Riak\Bucket('bucket_name', 'bucket_type'));
+```
+
 ```python
 # Note: The Python standard library `collections` module has an abstract
 # base class called Set, which the Riak Client version subclasses as
@@ -666,6 +718,10 @@ Riak::Crdt::DEFAULT_BUCKET_TYPES[:set] = 'sets'
 cities_set = Riak::Crdt::Set.new(travel, 'cities')
 ```
 
+```php
+$location = new \Basho\Riak\Location('cities', 'travel', 'sets');
+```
+
 ```python
 travel = client.bucket_type('sets').bucket('travel')
 
@@ -724,6 +780,17 @@ boolean isEmpty = set.viewAsSet().isEmpty();
 
 ```ruby
 cities_set.empty?
+```
+
+```php
+# use $location from earlier
+$set = (new \Basho\Riak\Command\Builder\FetchSet($riak))
+    ->atLocation($location)
+    ->build()
+    ->execute()
+    ->getSet();
+
+count($set->getData());
 ```
 
 ```python
@@ -787,6 +854,17 @@ client.execute(update);
 ```ruby
 cities_set.add('Toronto')
 cities_set.add('Montreal')
+```
+
+```php
+# use $location from earlier
+$response = (new \Basho\Riak\Command\Builder\UpdateSet($riak))
+    ->add('Toronto')
+    ->add('Montreal')
+    ->atLocation($location)
+    ->withParameter('returnbody', 'true')
+    ->build()
+    ->execute();
 ```
 
 ```python
@@ -877,6 +955,18 @@ cities_set.add('Hamilton')
 cities_set.add('Ottawa')
 ```
 
+```php
+# use $location & $response from earlier
+(new \Basho\Riak\Command\Builder\UpdateSet($riak))
+    ->add('Hamilton')
+    ->add('Ottawa')
+    ->remove('Montreal')
+    ->atLocation($location)
+    ->withContext($response->getSet()->getContext())
+    ->build()
+    ->execute();
+```
+
 ```python
 cities_set.discard('Montreal')
 cities_set.add('Hamilton')
@@ -947,6 +1037,17 @@ for (BinaryValue city : binarySet) {
 cities_set.members
 
 #<Set: {"Hamilton", "Ottawa", "Toronto"}>
+```
+
+```php
+# use $location from earlier
+$set = (new \Basho\Riak\Command\Builder\FetchSet($riak))
+    ->atLocation($location)
+    ->build()
+    ->execute()
+    ->getSet();
+
+var_dump($set->getData());
 ```
 
 ```python
@@ -1047,6 +1148,12 @@ cities_set.include? 'Ottawa'
 # true
 ```
 
+```php
+in_array('Vancouver', $set->getData()); # false
+
+in_array('Ottawa', $set->getData()); # true
+```
+
 ```python
 'Vancouver' in cities_set
 # False
@@ -1091,6 +1198,10 @@ int numberOfCities = citiesSet.size();
 
 ```ruby
 cities_set.members.length
+```
+
+```php
+count($set->getData());
 ```
 
 ```python
@@ -1142,6 +1253,10 @@ Location map =
 
 ```ruby
 map = Riak::Crdt::Map.new(bucket, key)
+```
+
+```php
+$location = new \Basho\Riak\Location('key', 'bucket', 'bucket_type');
 ```
 
 ```python
@@ -1210,6 +1325,10 @@ Riak::Crdt::DEFAULT_BUCKET_TYPES[:map] = 'maps'
 map = Riak::Crdt::Map.new(customers, 'ahmed_info')
 ```
 
+```php
+$location = new \Basho\Riak\Location('ahmed_info', 'customers', 'maps');
+```
+
 ```python
 customers = client.bucket_type('map_bucket').bucket('customers')
 map = customers.net('ahmed_info')
@@ -1275,6 +1394,15 @@ end
 # Integers need to be stored as strings and then converted back when
 # the data is retrieved. The following would work as well:
 map.registers['phone_number'] = 5551234567.to_s
+```
+
+```php
+(new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateRegister('first_name', 'Ahmed')
+    ->updateRegister('phone_number', '5551234567')
+    ->atLocation($location)
+    ->build()
+    ->execute();
 ```
 
 ```python
@@ -1416,6 +1544,14 @@ client.execute(update);
 map.flags['enterprise_customer'] = false
 ```
 
+```php
+(new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateFlag('enterprise_customer', false)
+    ->atLocation($location)
+    ->build()
+    ->execute();
+```
+
 ```python
 map.flags['enterprise_customer'].disable()
 map.store()
@@ -1493,6 +1629,16 @@ System.out.println(map.getFlag("enterprise_customer").view());
 map.flags['enterprise_customer']
 
 # false
+```
+
+```php
+$map = (new \Basho\Riak\Command\Builder\FetchMap($riak))
+    ->atLocation($location)
+    ->build()
+    ->execute()
+    ->getMap();
+
+echo $map->getFlag('enterprise_customer'); // false
 ```
 
 ```python
@@ -1577,6 +1723,17 @@ client.execute(update);
 map.counters['page_visits'].increment
 
 # This operation may return false even if successful
+```
+
+```php
+$updateCounter = (new \Basho\Riak\Command\Builder\IncrementCounter($riak))
+    ->withIncrement(1);
+
+(new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateCounter('page_visits', $updateCounter)
+    ->atLocation($location)
+    ->build()
+    ->execute();
 ```
 
 ```python
@@ -1674,6 +1831,19 @@ map.batch do |m|
     m.sets['interests'].add(interest)
   end
 end
+```
+
+```php
+$updateSet = (new \Basho\Riak\Command\Builder\UpdateSet($riak))
+    ->add('robots')
+    ->add('opera')
+    ->add('motorcycles');
+
+(new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateSet('interests', $updateSet)
+    ->atLocation($location)
+    ->build()
+    ->execute();
 ```
 
 ```python
@@ -1779,6 +1949,17 @@ end
 # This will return three Boolean values
 ```
 
+```php
+$map = (new \Basho\Riak\Command\Builder\FetchMap($riak))
+    ->atLocation($location)
+    ->build()
+    ->execute()
+    ->getMap();
+
+$sets = $map->getSet('interests');
+var_dump($sets->getData());
+```
+
 ```python
 reloaded_map = map.reload()
 for interest in ['robots', 'opera', 'motorcycles']:
@@ -1858,6 +2039,19 @@ map.batch do |m|
   m.sets['interests'].remove('opera')
   m.sets['interests'].add('indie pop')
 end
+```
+
+```php
+$updateSet = (new \Basho\Riak\Command\Builder\UpdateSet($riak))
+    ->add('indie pop')
+    ->remove('opera');
+
+(new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateSet('interests', $updateSet)
+    ->atLocation($location)
+    ->withContext($map->getContext())
+    ->build()
+    ->execute();
 ```
 
 ```python
@@ -1977,6 +2171,20 @@ map.maps['annika_info'].batch do |m|
   m.registers['last_name'] = 'Weiss'
   m.registers['phone_number'] = 5559876543.to_s
 end
+```
+
+```php
+$annikaMap = (new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateRegister('first_name', 'Annika')
+    ->updateRegister('last_name', 'Weiss')
+    ->updateRegister('phone_number', '5559876543');
+
+$response = (new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateMap('annika_info', $annikaMap)
+    ->atLocation($location)
+    ->withParameter('returnbody', 'true')
+    ->build()
+    ->execute();
 ```
 
 ```python
@@ -2122,6 +2330,13 @@ map.maps['annika_info'].registers['first_name']
 # "Annika"
 ```
 
+```php
+# with param 'returnbody' = 'true', we can fetch the map from our last response
+$map->getMap();
+
+echo $map->getMap('annika_info')->getRegister('first_name'); // Annika
+```
+
 ```python
 map.reload().maps['annika_info'].registers['first_name'].value
 ```
@@ -2182,6 +2397,18 @@ client.execute(update);
 
 ```ruby
 map.maps['annika_info'].registers.remove('phone_number')
+```
+
+```php
+$annikaMap = (new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->removeRegister('first_name');
+
+(new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateMap('annika_info', $annikaMap)
+    ->atLocation($location)
+    ->withContext($map->getContext())
+    ->build()
+    ->execute();
 ```
 
 ```python
@@ -2293,6 +2520,20 @@ map.maps['annika_info'].batch do |m|
   m.flags['family_plan'] = false
   m.flags['free_plan'] = true
 end
+```
+
+```php
+$annikaMap = (new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateFlag('enterprise_plan', false)
+    ->updateFlag('family_plan', false)
+    ->updateFlag('free_plan', true);
+
+$response = (new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateMap('annika_info', $annikaMap)
+    ->atLocation($location)
+    ->withParameter('returnbody', 'true')
+    ->build()
+    ->execute();
 ```
 
 ```python
@@ -2449,6 +2690,13 @@ map.maps['annika_info'].flags['enterprise_plan']
 # false
 ```
 
+```php
+# with param 'returnbody' = 'true', we can fetch the map from our last response
+$map->getMap();
+
+echo $map->getMap('annika_info')->getFlag('enterprise_plan'); // false
+```
+
 ```python
 map.reload().maps['annika_info'].flags['enterprise_plan'].value
 ```
@@ -2503,6 +2751,20 @@ client.execute(update);
 
 ```ruby
 map.maps['annika_info'].counters['widget_purchases'].increment
+```
+
+```php
+$updateCounter = (new \Basho\Riak\Command\Builder\IncrementCounter($riak))
+    ->withIncrement(1);
+
+$annikaMap = (new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateCounter('widget_purchases', $updateCounter);
+
+(new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateMap('annika_info', $annikaMap)
+    ->atLocation($location)
+    ->build()
+    ->execute();
 ```
 
 ```python
@@ -2603,6 +2865,21 @@ client.execute(update);
 
 ```ruby
 map.maps['annika_info'].sets['interests'].add('tango dancing')
+```
+
+```php
+$updateSet = (new \Basho\Riak\Command\Builder\UpdateSet($riak))
+    ->add('tango dancing');
+
+$annikaMap = (new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateSet('interests', $updateSet);
+
+$response = (new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateMap('annika_info', $annikaMap)
+    ->atLocation($location)
+    ->withParameter('returnbody', 'true')
+    ->build()
+    ->execute();
 ```
 
 ```python
@@ -2709,6 +2986,21 @@ client.execute(update);
 
 ```ruby
 map.maps['annika_info'].sets['interests'].remove('tango dancing')
+```
+
+```php
+$updateSet = (new \Basho\Riak\Command\Builder\UpdateSet($riak))
+    ->remove('tango dancing');
+
+$annikaMap = (new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateSet('interests', $updateSet);
+
+(new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateMap('annika_info', $annikaMap)
+    ->atLocation($location)
+    ->withContext($response->getMap()->getContext())
+    ->build()
+    ->execute();
 ```
 
 ```python
@@ -2829,6 +3121,26 @@ map.maps['annika_info'].maps['purchase'].batch do |m|
   m.register['amount'] = 1271.to_s
   m.sets['items'].add('large widget')
 end
+```
+
+```php
+$updateSet = (new \Basho\Riak\Command\Builder\UpdateSet($riak))
+    ->add('large widget');
+
+$purchaseMap = (new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateFlag('first_purchase', true)
+    ->updateRegister('amount', '1271')
+    ->updateSet('items', $updateSet);
+
+$annikaMap = (new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateMap('purchase', $purchaseMap);
+
+$response = (new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateMap('annika_info', $annikaMap)
+    ->atLocation($location)
+    ->withParameter('returnbody', 'true')
+    ->build()
+    ->execute();
 ```
 
 ```python
@@ -3005,6 +3317,16 @@ ahmed_map.instance_variable_get(:@context)
 # => "\x83l\x00\x00\x00\x01h\x02m\x00\x00\x00\b#\t\xFE\xF9S\x95\xBD3a\x01j"
 ```
 
+```php
+$map = (new \Basho\Riak\Command\Builder\FetchMap($riak))
+    ->atLocation($location)
+    ->build()
+    ->execute()
+    ->getMap();
+
+echo $map->getContext(); // g2wAAAACaAJtAAAACLQFHUkv4m2IYQdoAm0AAAAIxVKxCy5pjMdhCWo=
+```
+
 ```python
 bucket = client.bucket_type('maps').bucket('users')
 ahmed_map = Map(bucket, 'ahmed_info')
@@ -3048,7 +3370,7 @@ client.fetchMap(options, function (err, rslt) {
 ```
 
 <div class="note">
-<div class="title">Context and the Ruby, Python, and Erlang clients</div>
+<div class="title">Context with the Ruby, Python, and Erlang clients</div>
 In the Ruby, Python, and Erlang clients, you will not need to manually
 handle context when making Data Type updates. The clients will do it all
 for you. The one exception amongst the official clients is the Java
@@ -3056,9 +3378,9 @@ client. We'll explain how to use Data Type contexts with the Java client
 directly below.
 </div>
 
-#### Context and the Java Client
+#### Context with the Java and PHP Clients
 
-With the Java client, you'll need to manually fetch and return Data Type
+With the Java and PHP clients, you'll need to manually fetch and return Data Type
 contexts for the following operations:
 
 * Disabling a flag within a map
@@ -3086,3 +3408,20 @@ UpdateMap update = new UpdateMap.Builder(ahmedMap, removePaidAccountField)
 client.execute(update);
 ```
 
+```php
+$map = (new \Basho\Riak\Command\Builder\FetchMap($riak))
+    ->atLocation($location)
+    ->build()
+    ->execute()
+    ->getMap();
+
+$updateSet = (new \Basho\Riak\Command\Builder\UpdateSet($riak))
+    ->remove('opera');
+
+(new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateSet('interests', $updateSet)
+    ->atLocation($location)
+    ->withContext($map->getContext())
+    ->build()
+    ->execute();
+```
