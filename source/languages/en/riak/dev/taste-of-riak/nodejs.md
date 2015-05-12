@@ -118,7 +118,7 @@ people.forEach(function (person) {
             }
         );
     });
-};
+});
 
 async.parallel(storeFuncs, function (err, rslts) {
     if (err) {
@@ -184,7 +184,7 @@ client.deleteValue({ bucket: 'contributors', key: 'johndoe@gmail.com' }, functio
     if (err) {
         throw new Error(err);
     }
-};
+});
 ```
 
 Just like other operations, we check the results that have come back from Riak
