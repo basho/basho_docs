@@ -207,7 +207,7 @@ System.out.println(obj.getValue().toString());
 ```
 
 ```php
-$response = (new Command\Builder\FetchObject($riak))
+$response = (new \Basho\Riak\Command\Builder\FetchObject($riak))
   ->buildLocation('chimpanzee', 'animal_facts', 'r_equals_1')
   ->build()
   ->execute();
@@ -279,7 +279,7 @@ client.execute(store);
 ```
 
 ```php
-(new Command\Builder\StoreObject($riak))
+(new \Basho\Riak\Command\Builder\StoreObject($riak))
   ->buildLocation('giraffe', 'animal_facts', 'w_equals_3')
   ->build()
   ->execute();
@@ -456,7 +456,7 @@ client.execute(fetch);
 ```
 
 ```php
-(new Command\Builder\FetchObject($riak))
+(new \Basho\Riak\Command\Builder\FetchObject($riak))
   ->buildLocation('john_stockton', 'nba_stats')
   ->withParameter('r', 2)
   ->withParameter('notfound_ok', true)
@@ -508,7 +508,7 @@ client.execute(store);
 ```
 
 ```php
-(new Command\Builder\StoreObject($riak))
+(new \Basho\Riak\Command\Builder\StoreObject($riak))
   ->buildJsonObject('{'stats':{ ... large stats object ... }}')
   ->buildLocation('john_stockton', 'nba_stats')
   ->withParameter('w', 3)

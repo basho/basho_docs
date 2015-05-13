@@ -173,7 +173,7 @@ $user_id_set = Riak::Crdt::Set.new(set_bucket, 'usernames', 'sets')
 ```
 
 ```php
-$command = (new Command\Builder\FetchSet($riak))
+$command = (new \Basho\Riak\Command\Builder\FetchSet($riak))
     ->buildLocation('usernames', 'user_info_sets', 'sets')
     ->build();
 ```
