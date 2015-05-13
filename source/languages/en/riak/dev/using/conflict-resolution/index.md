@@ -17,7 +17,7 @@ Consistency]] way, conflicts between object values on different nodes is
 unavoidable. Often, Riak can resolve these conflicts on its own
 internally if you use causal context, i.e. [[vector clocks|Causal
 Context#Vector-Clocks]] or [[dotted version vectors|Causal
-Context#Dotted-Version-Vectors]], when updating objects.  Instructions
+Context#Dotted-Version-Vectors]], when updating objects. Instructions
 on this can be found in the section [[below|Conflict
 Resolution#Siblings]].
 

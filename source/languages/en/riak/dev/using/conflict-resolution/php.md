@@ -7,7 +7,7 @@ audience: intermediate
 keywords: [developers, conflict-resolution, php]
 ---
 
-For reasons explained in the [[introduction to conflict
+For reasons explained in the [[Introduction to conflict
 resolution|Conflict Resolution]], we strongly recommend adopting a
 conflict resolution strategy that requires applications to resolve
 siblings according to use-case-specific criteria. Here, we'll provide a
@@ -16,7 +16,7 @@ client](https://github.com/basho/riak-php-client).
 
 ## How the PHP Client Handles Conflict Resolution
 
-Every \Basho\Riak\Object command returns a \Basho\Riak\Command\Object\Response
+Every `\Basho\Riak\Object` command returns a `\Basho\Riak\Command\Object\Response`
 object, which provides what is needed to handle object conflicts. If siblings exist
 and have been returned from the server within the response body, they will be
 available within the response object. See below:
@@ -180,7 +180,7 @@ Correspondingly, we recommend that updates to objects in Riak follow
 these steps:
 
 1. **Read** the object from Riak
-2. **Resolving sibling conflicts** if the exist, allowing the
+2. **Resolving sibling conflicts** if they exist, allowing the
 application to reason about one "correct" value for the object (this
 step is the subject of this tutorial)
 3. **Modify** the object
@@ -193,7 +193,7 @@ Basics#Object-Key-Operations]].
 
 ## More Advanced Example
 
-Resolving sibling User values on the basis of which user has the longest
+Resolving sibling `User` values on the basis of which user has the longest
 friends list has the benefit of being simple but it's probably not a
 good resolution strategy for our social networking application because
 it means that unwanted data loss is inevitable. If one friend list

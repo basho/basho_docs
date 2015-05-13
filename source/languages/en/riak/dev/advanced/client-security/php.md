@@ -107,6 +107,7 @@ $node = (new Node\Builder())
 // since we are using a single node, it needs to be wrapped in array brackets
 $riak = new Riak([$node]);
 ```
+
 ## Certificate-based Authentication
 
 Certificate-based authentication is not currently supported in the
