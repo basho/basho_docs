@@ -60,9 +60,9 @@ x-release
 
 Released [Month] [Day], [Year].
 
-[Product Name] [x.y.z] is the first release of the [Product Name] [x]-series. It includes breaking changes, new features, bug fixes and refinements, and upgrades to many major components of [Product Name].
+[Product Name] [x.y.z] is the first release of the [Product Name] [x]-series. It includes breaking changes, new features, bug fixes, and additions to make [Product Name] even [better/faster/whatever].
 
-List of new features/additions/breaking changes here.
+List of new features/additions/breaking changes here (I'm working on getting an auto-generated TOC here).
 
 ##Upgrading
 
@@ -70,26 +70,25 @@ Expectations around upgrading from various previous verions and links to where a
 
 ##New Features
 
-* Brief description of the new feature/functionality, what it does for the user, and either a link to docs about how to use it or a short note on how to use it. It is OK for these to be a bit longer. 
+###[Short Name of Feature (e.g. Write-Once Buckets)]
+Brief description of the new feature/functionality, what it does for the user, and either a link to docs about how to use it or a short note on how to use it. It is OK for these to be a bit longer. 
     * [[PR ##](LINK)]
     * [[PR ##](LINK)]
     
 [Note: For RiakKV, this section may be subdivided based on projects. So:
 ###Core
+####[Short Name of Feature]
 ###Protocol Buffers
 ###etc]
 
 ##Breaking Changes
 
-* Brief description of the change, how it impacts the user, what it is incompatible with, and either a link to docs about how to use it or a short note on how to use/implement the change (if applicable). If this change was prompted by an issue, link to it in the description. [[PR ##](LINK)] 
+###[Short Name to Reference Change (e.g. No more `riak-admin backup`)]
+Brief description of the change, how it impacts the user, what it is incompatible with, and either a link to docs about how to use it or a short note on how to use/implement the change (if applicable). If this change was prompted by an issue, link to it in the description. [[PR ##](LINK)] 
 
-##Upgrades
+##Additions & Other Changes
 
-* Brief description of the what part of the software was changed and how it impacts the user.[[PR ##](LINK)]
-
-##Additions
-
-* Brief description of the addition, how it impacts the user, and either a link to docs about how to use it or a short note on how to use it (if applicable). If this addition was prompted by an issue, link to it in the description. [[PR ##](LINK)]
+* **[Short Name of Addition/Change].** Brief description of the addition or change, how it impacts the user, and either a link to docs about how to use it or a short note on how to use it (if applicable). If this addition was prompted by an issue, link to it in the description. [[PR ##](LINK)]
 
 ##Bug Fixes
 
