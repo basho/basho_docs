@@ -115,9 +115,10 @@ Metric | Also | Relevance | Latency (in microseconds)
 ```consistent_get_time_mean``` | ```_median```, ```_95```, ```_99```, ```_100``` | Strong Consistency | Strongly consistent read latency
 ```consistent_put_time_mean``` | ```_median```, ```_95```, ```_99```, ```_100``` | Strong Consistency | Strongly consistent write latency
 
-### Erlang Resource Usage Metrics These are system metrics from the
-perspective of the Erlang VM, measuring resources allocated and used
-by Erlang.
+### Erlang Resource Usage Metrics
+
+These are system metrics from the perspective of the Erlang VM,
+measuring resources allocated and used by Erlang.
 
 Metric | Notes
 :------|:-------------------------
@@ -201,7 +202,7 @@ Like all code under [Basho Labs](https://github.com/basho-labs/), the below
 tools are "best effort" and have no dedicated Basho support. We both appreciate
 and need your contribution to keep these tools stable and up to date. Please
 open up a GitHub issue on the repository if you'd like to be a maintainer.</br>
-Look for banners calling out the tools that do support the full set of Riak 2.x
+Look for banners calling out the tools we've verified that support the latest Riak 2.x
 statistics!
 </div>
 
@@ -251,7 +252,7 @@ the Riak HTTP `[[/stats|HTTP Status]]` endpoint is also available.
 #### Nagios
 
 <div class="note">
-<strong>Tested and Verified Support for Riak 2.x Stats.</strong>
+<strong>Tested and Verified Support for Riak 2.x.</strong>
 </div>
 
 [Nagios](http://www.nagios.org) is a monitoring and alerting solution
