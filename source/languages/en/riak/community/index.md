@@ -45,7 +45,7 @@ Blog](http://blog.basho.com).
 
 ### Videos
 
-You can watch all the Basho curated videoes [on YouTube](https://www.youtube.com/user/BashoTechnologies) and a few others on the [Basho Vimeo Page](http://vimeo.com/bashotech/videos).
+You can watch all the Basho curated videos [on YouTube](https://www.youtube.com/user/BashoTechnologies) and a few others on the [Basho Vimeo Page](http://vimeo.com/bashotech/videos).
 
 
 ### Other Social 
@@ -84,16 +84,6 @@ A healthy community includes the right amount of processes for everyone to work 
 * [[Reporting Bugs]] for understanding bug process and triage.
 * [Code of Conduct](https://github.com/basho-labs/the-riak-community/blob/master/code-of-conduct.md) discussing what we stand for as a community.
 
-## Resources
-
-These pages contain videos, slides, and publications from the community
-and Riak developers.
-
-* [[Overviews and Introductions]]
-* [[Developing with Riak]]
-* [[Searching and Accessing]]
-* [[Riak Comparisons]]
-* [[Community Projects]]
 
 ## Professional Support
 
