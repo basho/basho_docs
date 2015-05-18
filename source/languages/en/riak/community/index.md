@@ -1,5 +1,5 @@
 ---
-title: Help and Community
+title: Our Community
 project: riak
 version: 0.10.0+
 document: appendix
