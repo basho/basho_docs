@@ -12,7 +12,7 @@ moved: {
 ---
 
 Bugs happen. The Basho Dev Team does all that it can to ensure our users
-are kept up to date on critical bugs and issues that may occur. Here's
+are kept up-to-date on critical bugs and issues that may occur. Here's
 the protocol to follow when you think you might have found something
 that needs reporting.
 
@@ -29,7 +29,7 @@ filing, please attempt do the following:
   --- A low-traffic list used to disseminate information about bugs or
   issues that might negatively impact a production Riak cluster or deal
   with data integrity
-* Project Issues are all managed under their respective [Basho Github
+* Project Issues are all managed under their respective [Basho GitHub
   repos](https://github.com/basho/). The following are good repos to pay
   particular attention to:
     * [Riak issues](https://github.com/basho/riak/issues)
@@ -64,5 +64,7 @@ you can [sign up](https://github/com/signup/free) for a free account.
 
 If at any point you have a question about how to file a bug, please
 reach out to the [Riak Mailing
-List](http://lists.basho.com/mailman/listinfo/riak-users_lists.basho.com).
+List](http://lists.basho.com/mailman/listinfo/riak-users_lists.basho.com). 
+
+And thank you for being part of the community! We love you for it.
 
