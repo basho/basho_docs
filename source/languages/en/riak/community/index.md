@@ -11,7 +11,9 @@ moved: {
 }
 ---
 
-There is a vibrant, passionate and growing community forming around Riak. Whether you need help or simply want to get involved, we are easy to contact.
+Our Community is an eclectic group of engineers, architects, academics and enthusiasts who care about solving the hardest problems of distributed systems with open source software. Riak, written in Erlang, tackles the continuing complexity of persisting unstructured data with an architecture uniquely designed to scale.
+
+As a Community, our core belief is that there is no question too simple. You can freely share questions, answers and feedback without hesitation. Whether you need help or simply want to get involved, we are easy to contact.
 
 ## Platforms
 We're big on answering questions for beginner and veteran users alike. To make sure we can answer them, we curate a number of discussions on a daily basis. 
@@ -32,20 +34,20 @@ code. Our core products are developed [under the Basho organization](http://gith
 
 ### Events on Meetup.com
 
-We have local meetups everywhere from Paris to San Francisco and back again. To find the one closest to you, search for [Riak on Meetup.com](http://riak.meetup.com/).
+We have local meetups everywhere from Paris to San Francisco and back again. To find the one closest to you, search for [Riak on Meetup.com](http://www.meetup.com/find/riak/).
 
 ### Riak on IRC
 
-The [#riak IRC room on irc.freenode.net](http://irc.lc/freenode/riak) is a great place for realtime help with your Riak issues and questions.
+The [#riak IRC room on irc.freenode.net](http://irc.lc/freenode/riak) is a great place for real-time help with your Riak issues and questions.
 
 ### The Basho Blog
 
-Members of the Basho team blog frequently on [The Basho
+Members of the Basho team write frequently on [The Basho
 Blog](http://blog.basho.com).
 
 ### Videos
 
-You can watch all the Basho curated videos [on YouTube](https://www.youtube.com/user/BashoTechnologies) and a few others on the [Basho Vimeo Page](http://vimeo.com/bashotech/videos).
+You can watch all the Basho-curated videos [on YouTube](https://www.youtube.com/user/BashoTechnologies) and a few others on the [Basho Vimeo Page](http://vimeo.com/bashotech/videos).
 
 
 ### Other Social 
@@ -54,7 +56,7 @@ We are easy to find on social media sites. Like us on [Facebook](http://www.face
 LinkedIn Group](http://www.linkedin.com/groups?mostPopular=&gid=2913983) and follow us on [Twitter](http://twitter.com/basho). We have a growing following [on Reddit as well](reddit.com/r/Riak/).
 
 ## Programs 
-Our platforms are complemented by the amazing community efforts of the Basho team and the greater contributors. Here are a few you don't want to miss.
+Our platforms are complemented by the amazing efforts of the Basho team and the greater contributor community. Here are a few you don't want to miss.
 
 ### The Riak Recap
 
@@ -76,13 +78,26 @@ The list of all related meetups are visible [here](http://riak.meetup.com). If y
 in your area, or want to tell the community about one that you're
 starting, email *community@basho.com*.
 
+### RICON
+
+RICON 2015 [details are out](http://ricon.io/)! 
+
+If you’re as excited about distributed systems as we are, be sure to join our yearly conference known as RICON. It’s an intimate, multi-track day for sysadmins, developers and computer scientists alike. We welcome anyone, regardless of title or company, to join us.
+
+You can [see past talks](http://ricon.io/archive/2014/index.html) as well.
 
 ## Process
 A healthy community includes the right amount of processes for everyone to work together. Here is the short list of resources: 
 
 * [[Community FAQs]] has additional specifics to questions on contribution.
 * [[Reporting Bugs]] for understanding bug process and triage.
-* [Code of Conduct](https://github.com/basho-labs/the-riak-community/blob/master/code-of-conduct.md) discussing what we stand for as a community.
+
+### Give Back
+A Community is built around the code to help foster its growth, maturity, and adoption. Like the code, it needs to evolve, and unless it’s moving forward and being refined continuously, it ceases to be valuable.
+
+You can give back as a member of our community by contributing to our public project: [The Riak Community](https://github.com/basho-labs/the-riak-community). You can help define [our Meetup strategy](https://github.com/basho-labs/the-riak-community/blob/master/meetup-strategy.md) and [Code of Conduct](https://github.com/basho-labs/the-riak-community/blob/master/code-of-conduct.md) or [open GitHub issues](https://github.com/basho-labs/the-riak-community/issues) for other requests.
+
+And thank you. We’re happy you’re here.
 
 
 ## Professional Support
