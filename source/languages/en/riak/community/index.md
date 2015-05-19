@@ -40,7 +40,7 @@ The [#riak IRC room on irc.freenode.net](http://irc.lc/freenode/riak) is a great
 
 ### The Basho Blog
 
-Members of the Basho Team blog frequently on [The Basho
+Members of the Basho team blog frequently on [The Basho
 Blog](http://blog.basho.com).
 
 ### Videos
@@ -51,20 +51,20 @@ You can watch all the Basho curated videos [on YouTube](https://www.youtube.com/
 ### Other Social 
 
 We are easy to find on social media sites. Like us on [Facebook](http://www.facebook.com/pages/Riak/143599935667217), chat on the [Riak
-LinkedIn Group](http://www.linkedin.com/groups?mostPopular=&gid=2913983), [follow us on Twitter](http://twitter.com/basho). We have a growing following [on Reddit as well](reddit.com/r/Riak/).
+LinkedIn Group](http://www.linkedin.com/groups?mostPopular=&gid=2913983) and follow us on [Twitter](http://twitter.com/basho). We have a growing following [on Reddit as well](reddit.com/r/Riak/).
 
 ## Programs 
-Our platforms are complemented by the amazing community efforts of Basho and the greater contributors. Here are a few you don't want to miss.
+Our platforms are complemented by the amazing community efforts of the Basho team and the greater contributors. Here are a few you don't want to miss.
 
 ### The Riak Recap
 
 The Riak Recap is a periodic email to the Riak Users Mailing List to
-keep list subscribers up-to-date on what’s happening in and around the
+keep subscribers up-to-date on what’s happening in and around the
 Riak Community.
 
 ### Meetups
 
-We're re-energizing meetups through the world. The most active are: 
+We're re-energizing meetups throughout the world. The most active are: 
 
 * [San Francisco](http://www.meetup.com/San-Francisco-Riak-Meetup/)
 * [New York](http://www.meetup.com/NYC-Riak-Meetup)
@@ -72,7 +72,7 @@ We're re-energizing meetups through the world. The most active are:
 * [Paris](http://www.meetup.com/Paris-Riak-Meetup/)
 * [London](http://www.meetup.com/riak-london/)
 
-If you're looking for assistance getting a meetup or user group started
+The list of all related meetups are visible [here](http://riak.meetup.com). If you're looking for assistance getting a meetup or user group started
 in your area, or want to tell the community about one that you're
 starting, email *community@basho.com*.
 
