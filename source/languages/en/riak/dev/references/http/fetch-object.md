@@ -122,10 +122,11 @@ $ curl -v http://127.0.0.1:8098/buckets/test/keys/doc2
 {"foo":"bar"}
 ```
 
-
 ## Siblings examples
 
 ### Manually requesting siblings
+
+Simple call to fetch an object that has siblings:
 
 ```curl
 $ curl -v http://127.0.0.1:8098/buckets/test/keys/doc
@@ -153,6 +154,8 @@ Siblings:
 * Connection #0 to host 127.0.0.1 left intact
 * Closing connection #0
 ```
+
+Now request one of the siblings directly:
 
 ```curl
 $ curl -v http://127.0.0.1:8098/buckets/test/keys/doc?vtag=16vic4eU9ny46o4KPiDz1f
