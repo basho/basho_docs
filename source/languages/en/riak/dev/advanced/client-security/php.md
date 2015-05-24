@@ -58,7 +58,7 @@ security sources. This will change in the sections below.
 To enable our client to use password-based auth, we can use most of the
 setup from the example above, with the exception that we will specify a
 password for the client in the `usingPasswordAuthentication` method in
-the `node` object's builder rather than ommitting it. We will also
+the `node` object's builder rather than omitting it. We will also
 pass the path of the CA file relative to the current working directory into
 the `withCertificateAuthorityFile` method.
 

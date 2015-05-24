@@ -175,7 +175,7 @@ Your browser needs to be support TLS v1.2 to use Riak Control over
 HTTPS. A list of browsers that support TLS v1.2 can be found
 [here](https://en.wikipedia.org/wiki/Transport_Layer_Security#Web_browsers).
 TLS v1.2 may be disabled by default on your browser, for example if you
-are using Firefox versions earlier than 27, Safari versions earler than
+are using Firefox versions earlier than 27, Safari versions earlier than
 7, Chrome versions earlier than 30, or Internet Explorer versions
 earlier than 11.  To enable it, follow browser-specific instructions.
 </div>

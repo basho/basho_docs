@@ -781,8 +781,8 @@ are milliseconds.
 <thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
 <tbody>
 <tr><td><code>ping_timeout</code></td><td>A timeout value used in ping API</td><td><code>5000</code></td></tr>
-<tr><td><code>get_user_timeout</code></td><td>A timeout value on retrieving user informantion for authentication, authentication</td><td><code>60000</code></td></tr>
-<tr><td><code>get_bucket_timeout</code></td><td>A timeout value on retrieving bucket information, for ACL or policy informantion</td><td><code>60000</code></td></tr>
+<tr><td><code>get_user_timeout</code></td><td>A timeout value on retrieving user information for authentication, authentication</td><td><code>60000</code></td></tr>
+<tr><td><code>get_bucket_timeout</code></td><td>A timeout value on retrieving bucket information, for ACL or policy information</td><td><code>60000</code></td></tr>
 <tr><td><code>get_manifest_timeout</code></td><td>A timeout value on retrieving manifest of a key</td><td><code>60000</code></td></tr>
 <tr><td><code>get_block_timeout</code></td><td>A timeout value on retrieving a chunk of an object</td><td><code>60000</code></td></tr>
 <tr><td><code>local_block_timeout</code></td><td>A timeout value on retrieving a local chunk of an object</td><td><code>5000</code></td></tr>
@@ -804,7 +804,7 @@ are milliseconds.
 <tr><td><code>fold_objects_timeout</code></td><td>A timeout value on listing objedts of a bucket (default since 1.5.0)</td><td><code>60000</code></td></tr>
 <tr><td><code>get_index_range_gckeys_timeout</code></td><td>A timeout value on listing keys in garbage collection bucket, overall call</td><td><code>60000</code></td></tr>
 <tr><td><code>get_index_range_gckeys_call_timeout</code></td><td>A timeout value on listing keys in garbage collection bucket, each continuation call</td><td><code>60000</code></td></tr>
-<tr><td><code>get_index_list_multipart_uploads_timeout</code></td><td>A timeout value on lsting incomplete multipart uplaods of an object</td><td><code>60000</code></td></tr>
+<tr><td><code>get_index_list_multipart_uploads_timeout</code></td><td>A timeout value on listing incomplete multipart upload of an object</td><td><code>60000</code></td></tr>
 
 </tbody>
 </table>
