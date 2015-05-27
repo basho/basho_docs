@@ -123,15 +123,28 @@ Location location = new Location(countersBucket, "<insert_key_here>");
 bucket = client.bucket_type('counters').bucket('counters')
 ```
 
+```php
+$bucket = new \Basho\Riak\Bucket('counters', 'counters');
+```
+
 ```python
 bucket = client.bucket_type('counters').bucket('counters')
 ```
 
 ```csharp
-// Using the Riak .NET Client, you interact with Riak Data Types on the basis of
-// a RiakObjectId, which specifies the Data Type's bucket type, bucket,
-// and key, in that order. Here is an example:
-var id = new RiakObjectId("counters", "counters", "<insert_key_here>");
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+// You can either use the appropriate Options class or the Builder
+
+// Options:
+var options = new FetchCounterOptions("counters", "counters", "<insert_key_here>");
+
+// Builder:
+FetchCounter cmd = new FetchCounter.Builder()
+    .WithBucketType("counters")
+    .WithBucket("counters")
+    .WithKey("<insert_key_here>")
+    .Build();
 ```
 
 ```javascript
@@ -187,6 +200,11 @@ bucket = client.bucket_type(bucket_type).bucket(bucket)
 counter = Riak::Crdt::Counter.new(bucket, key)
 ```
 
+```php
+# using the $bucket var created earlier
+$location = new \Basho\Riak\Location('key', $bucket);
+```
+
 ```python
 # The client detects the bucket-type's Data Type and automatically
 # returns the right datatype for you, in this case a counter
@@ -199,11 +217,12 @@ counter = Counter(bucket, key)
 ```
 
 ```csharp
-// Using the Riak .NET Client, you fetch a counter first, even if it's empty. Once
-// fetched, you can update the counter and then store it. This would
-// fetch the counter:
-var id = new RiakObjectId(bucketType, bucket, key);
-var counter = Client.DtFetchCounter(id);
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+var fetchCounterOptions = new FetchCounterOptions("counters", "counters", "<key>");
+FetchCounter cmd = new FetchCounter(fetchCounterOptions);
+RiakResult rslt = client.Execute(cmd);
+CounterResponse response = cmd.Response;
 ```
 
 ```javascript
@@ -254,14 +273,23 @@ Riak::Crdt::DEFAULT_BUCKET_TYPES[:counter] = 'counters'
 counter = Riak::Crdt::Counter.new(bucket, 'traffic_tickets')
 ```
 
+```php
+# using the $bucket var created earlier
+$location = new \Basho\Riak\Location('traffic_tickets', $bucket);
+```
+
 ```python
 bucket = client.bucket_type('counters').bucket('traffic_tickets')
 counter = bucket.new('traffic_tickets')
 ```
 
 ```csharp
-var trafficTickets = new RiakObjectId("counters", "counters", "traffic_tickets");
-var counter = Client.DtFetchCounter(trafficTickets);
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+var fetchCounterOptions = new FetchCounterOptions("counters", "counters", "traffic_tickts");
+FetchCounter cmd = new FetchCounter(fetchCounterOptions);
+RiakResult rslt = client.Execute(cmd);
+CounterResult = cmd.Result;
 ```
 
 ```javascript
@@ -308,6 +336,14 @@ counter.increment
 Riak
 ```
 
+```php
+(new \Basho\Riak\Command\Builder\IncrementCounter($riak))
+    ->withIncrement(1)
+    ->atLocation($location)
+    ->build()
+    ->execute();
+```
+
 ```python
 counter.increment()
 
@@ -317,8 +353,18 @@ counter.store()
 ```
 
 ```csharp
-var trafficTickets = new RiakObjectId("counters", "counters", "traffic_tickets");
-Client.DtUpdateCounter(trafficTickets, 1);
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+UpdateCounter updateCmd = new UpdateCounter.Builder(increment: 1)
+    .WithBucketType("counters")
+    .WithBucket("counters")
+    .WithKey("traffic_tickets")
+    .WithReturnBody(true)
+    .Build();
+
+RiakResult rslt = client.Execute(updateCmd);
+CounterResponse response = updateCmd.Response;
+// response.Value will be 1
 ```
 
 ```javascript
@@ -365,13 +411,43 @@ client.execute(update);
 counter.increment(5)
 ```
 
+```php
+(new \Basho\Riak\Command\Builder\IncrementCounter($riak))
+    ->withIncrement(5)
+    ->atLocation($location)
+    ->build()
+    ->execute();
+```
+
 ```python
 counter.increment(5)
 ```
 
 ```csharp
-// Using the "counter" object from above:
-client.DtUpdateCounter(counter, 5);
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+var builder = new UpdateCounter.Builder(5)
+    .WithBucketType("counters")
+    .WithBucket("counters")
+    .WithKey("traffic_tickets")
+    .WithReturnBody(true);
+
+UpdateCounter updateCmd = builder.Build();
+
+rslt = client.Execute(updateCmd);
+CounterResponse response = updateCmd.Response;
+// response.Value is 5 more than before
+
+// To decrement:
+// Modify the builder's increment, then construct a new command
+builder.WithIncrement(-5);
+updateCmd = builder.Build();
+
+rslt = client.Execute(updateCmd);
+CheckResult(rslt);
+
+response = updateCmd.Response;
+// response.Value is 5 less than before
 ```
 
 ```javascript
@@ -416,6 +492,16 @@ counter.value
 # Output will always be an integer
 ```
 
+```php
+$trafficTickets = (new \Basho\Riak\Command\Builder\FetchCounter($riak))
+    ->atLocation($location)
+    ->build()
+    ->execute()
+    ->getCounter();
+
+$trafficTickets->getData(); # returns an integer
+```
+
 ```python
 counter.dirty_value
 
@@ -434,7 +520,13 @@ counter.reload()
 ```
 
 ```csharp
-Console.WriteLine(counter.Value);
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+var fetchCounterOptions = new FetchCounterOptions("counters", "counters", "traffic_tickts");
+FetchCounter cmd = new FetchCounter(fetchCounterOptions);
+RiakResult rslt = client.Execute(cmd);
+CounterResponse response = cmd.Response;
+// response.Value has the counter value
 ```
 
 ```javascript
@@ -506,6 +598,14 @@ counter.decrement
 counter.decrement(3)
 ```
 
+```php
+(new \Basho\Riak\Command\Builder\IncrementCounter($riak))
+    ->withIncrement(-3)
+    ->atLocation($location)
+    ->build()
+    ->execute();
+```
+
 ```python
 counter.decrement()
 
@@ -514,10 +614,17 @@ counter.decrement(3)
 ```
 
 ```csharp
-Client.DtUpdateCounter(trafficTickets, -1);
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
 
-// As with incrementing, you can also decrement by more than one, e.g.:
-Client.DtUpdateCounter(trafficTickets, -3);
+var updateCmd = new UpdateCounter.Builder(-3)
+    .WithBucketType("counters")
+    .WithBucket("counters")
+    .WithKey("traffic_tickets")
+    .Build();
+
+rslt = client.Execute(updateCmd);
+response = updateCmd.Response;
+// response.Value is three less than before
 ```
 
 ```javascript
@@ -587,6 +694,10 @@ Location set =
 set = Riak::Crdt::Set.new(bucket, key, bucket_type)
 ```
 
+```php
+$location = new \Basho\Riak\Location('key', new \Basho\Riak\Bucket('bucket_name', 'bucket_type'));
+```
+
 ```python
 # Note: The Python standard library `collections` module has an abstract
 # base class called Set, which the Riak Client version subclasses as
@@ -607,10 +718,22 @@ set = Set(bucket, key)
 ```
 
 ```csharp
-// As with counters, with the Riak .NET Client you interact with sets on the
-// basis of the set's location in Riak, as specified by a RiakObjectId
-// object. Below is an example:
-var id = new RiakObjectId(bucket_type, bucket, key);
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+// As with counters, with the Riak .NET Client you interact with sets
+// by building an Options object or using a Builder
+var builder = new FetchSet.Builder()
+    .WithBucketType("sets")
+    .WithBucket("travel")
+    .WithKey("cities");
+
+// NB: builder.Options will only be set after Build() is called.
+FetchSet fetchSetCommand = builder.Build();
+
+FetchSetOptions options = new FetchSetOptions("sets", "travel", "cities");
+
+// These two options objects are equal
+Assert.AreEqual(options, builder.Options);
 ```
 
 ```javascript
@@ -666,6 +789,10 @@ Riak::Crdt::DEFAULT_BUCKET_TYPES[:set] = 'sets'
 cities_set = Riak::Crdt::Set.new(travel, 'cities')
 ```
 
+```php
+$location = new \Basho\Riak\Location('cities', 'travel', 'sets');
+```
+
 ```python
 travel = client.bucket_type('sets').bucket('travel')
 
@@ -680,9 +807,14 @@ cities_set = Set(travel, 'cities')
 ```
 
 ```csharp
-// Now we'll create a reference for the set with which we want to
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+// Now we'll create a Builder object for the set with which we want to
 // interact:
-var id = new RiakObjectId("sets", "travel", "cities");
+var builder = new FetchSet.Builder()
+    .WithBucketType("sets")
+    .WithBucket("travel")
+    .WithKey("cities");
 ```
 
 ```javascript
@@ -726,15 +858,33 @@ boolean isEmpty = set.viewAsSet().isEmpty();
 cities_set.empty?
 ```
 
+```php
+# use $location from earlier
+$set = (new \Basho\Riak\Command\Builder\FetchSet($riak))
+    ->atLocation($location)
+    ->build()
+    ->execute()
+    ->getSet();
+
+count($set->getData());
+```
+
 ```python
 len(cities_set) == 0
 ```
 
 ```csharp
-var id = new RiakObjectId("sets", "travel", "cities");
-var citiesSet = client.DtFetchSet(id);
-int setSize = citiesSet.Values.Count;
-Console.WriteLine(setSize > 0);
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+var builder = new FetchSet.Builder()
+    .WithBucketType("sets")
+    .WithBucket("travel")
+    .WithKey("cities");
+
+FetchSet fetchSetCommand = builder.Build();
+RiakResult rslt = client.Execute(fetchSetCommand);
+SetResponse response = fetchSetCommand.Response;
+// response.Value will be null
 ```
 
 ```javascript
@@ -789,18 +939,39 @@ cities_set.add('Toronto')
 cities_set.add('Montreal')
 ```
 
+```php
+# use $location from earlier
+$response = (new \Basho\Riak\Command\Builder\UpdateSet($riak))
+    ->add('Toronto')
+    ->add('Montreal')
+    ->atLocation($location)
+    ->withParameter('returnbody', 'true')
+    ->build()
+    ->execute();
+```
+
 ```python
 cities_set.add('Toronto')
 cities_set.add('Montreal')
 ```
 
 ```csharp
-var id = new RiakObjectId("sets", "travel", "cities");
-var citiesSet = client.DtFetchSet(id);
-var adds = new List<string> { "Toronto", "Montreal" };
-var result = client.DtUpdateSet(id,
-    obj => Encoding.UTF8.GetBytes(obj),
-    citiesSet.Context, adds);
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+var adds = new[] { "Toronto", "Montreal" };
+
+var builder = new UpdateSet.Builder()
+    .WithBucketType("sets")
+    .WithBucket("travel")
+    .WithKey("cities")
+    .WithAdditions(adds);
+
+UpdateSet cmd = builder.Build();
+RiakResult rslt = client.Execute(cmd);
+SetResponse response = cmd.Response;
+
+Assert.Contains("Toronto", response.AsStrings.ToArray());
+Assert.Contains("Montreal", response.AsStrings.ToArray());
 ```
 
 ```javascript
@@ -877,6 +1048,18 @@ cities_set.add('Hamilton')
 cities_set.add('Ottawa')
 ```
 
+```php
+# use $location & $response from earlier
+(new \Basho\Riak\Command\Builder\UpdateSet($riak))
+    ->add('Hamilton')
+    ->add('Ottawa')
+    ->remove('Montreal')
+    ->atLocation($location)
+    ->withContext($response->getSet()->getContext())
+    ->build()
+    ->execute();
+```
+
 ```python
 cities_set.discard('Montreal')
 cities_set.add('Hamilton')
@@ -885,11 +1068,29 @@ cities_set.store()
 ```
 
 ```csharp
-var removes = new List<string> { "Montreal" };
-var adds = new List<string> { "Hamilton", "Ottawa" };
-citiesSet = client.DtUpdateSet(id,
-    obj => Encoding.UTF8.GetBytes(obj),
-    rslt.Context, adds, removes);
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+var removes = new[] { "Montreal" };
+var adds = new[] { "Hamilton", "Ottawa" };
+
+// Note:
+// using the builder from above
+// using the Context member from the above response
+builder
+    .WithAdditions(adds)
+    .WithRemovals(removes)
+    .WithContext(response.Context);
+
+UpdateSet cmd = builder.Build();
+RiakResult rslt = client.Execute(cmd);
+SetResponse response = cmd.Response;
+
+// using System.Linq
+var responseStrings = response.AsStrings.ToArray();
+
+Assert.Contains("Toronto", responseStrings);
+Assert.Contains("Hamilton", responseStrings);
+Assert.Contains("Ottawa", responseStrings);
 ```
 
 ```javascript
@@ -949,6 +1150,17 @@ cities_set.members
 #<Set: {"Hamilton", "Ottawa", "Toronto"}>
 ```
 
+```php
+# use $location from earlier
+$set = (new \Basho\Riak\Command\Builder\FetchSet($riak))
+    ->atLocation($location)
+    ->build()
+    ->execute()
+    ->getSet();
+
+var_dump($set->getData());
+```
+
 ```python
 cities_set.dirty_value
 
@@ -966,11 +1178,11 @@ cities_set.reload()
 ```
 
 ```csharp
-foreach (var value in citiesSet.Values)
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+foreach (var value in setResponse.AsStrings)
 {
-    string city = Encoding.UTF8.GetString(value);
-    var args = new[] { city };
-    Debug.WriteLine(format: "Cities Set Value: {0}", args: args);
+    Console.WriteLine("Cities Set Value: {0}", value);
 }
 
 // Output:
@@ -1047,6 +1259,12 @@ cities_set.include? 'Ottawa'
 # true
 ```
 
+```php
+in_array('Vancouver', $set->getData()); # false
+
+in_array('Ottawa', $set->getData()); # true
+```
+
 ```python
 'Vancouver' in cities_set
 # False
@@ -1056,8 +1274,12 @@ cities_set.include? 'Ottawa'
 ```
 
 ```csharp
-// Note: At this point in time there is no convienience method for
-// checking if a set includes a value.
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+using System.Linq;
+
+bool includesVancouver = response.AsStrings.Any(v => v == "Vancouver");
+bool includesOttawa = response.AsStrings.Any(v => v == "Ottawa");
 ```
 
 ```javascript
@@ -1093,12 +1315,21 @@ int numberOfCities = citiesSet.size();
 cities_set.members.length
 ```
 
+```php
+count($set->getData());
+```
+
 ```python
 len(cities_set)
 ```
 
 ```csharp
-Debug.WriteLine(format: "Cities Set Size: {0}", args: citiesSet.Values.Count);
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+using System.Linq;
+
+// Note: this enumerates the IEnumerable
+setResponse.Values.Count();
 ```
 
 ```javascript
@@ -1144,6 +1375,10 @@ Location map =
 map = Riak::Crdt::Map.new(bucket, key)
 ```
 
+```php
+$location = new \Basho\Riak\Location('key', 'bucket', 'bucket_type');
+```
+
 ```python
 # The client detects the bucket-type's datatype and automatically
 # returns the right datatype for you, in this case a Map.
@@ -1155,7 +1390,12 @@ map = Map(bucket, key)
 ```
 
 ```csharp
-var id = new RiakObjectId("<bucket_type>", "<bucket>", "<key>");
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+var builder = new UpdateMap.Builder()
+    .WithBucketType("<bucket_type>")
+    .WithBucket("<bucket>")
+    .WithKey("<key>");
 ```
 
 ```javascript
@@ -1210,13 +1450,22 @@ Riak::Crdt::DEFAULT_BUCKET_TYPES[:map] = 'maps'
 map = Riak::Crdt::Map.new(customers, 'ahmed_info')
 ```
 
+```php
+$location = new \Basho\Riak\Location('ahmed_info', 'customers', 'maps');
+```
+
 ```python
 customers = client.bucket_type('map_bucket').bucket('customers')
 map = customers.net('ahmed_info')
 ```
 
 ```csharp
-var id = new RiakObjectId("maps", "customers", "ahmed_info");
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+var builder = new UpdateMap.Builder()
+    .WithBucketType("maps")
+    .WithBucket("customers")
+    .WithKey("ahmed_info");
 ```
 
 ```javascript
@@ -1277,6 +1526,15 @@ end
 map.registers['phone_number'] = 5551234567.to_s
 ```
 
+```php
+(new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateRegister('first_name', 'Ahmed')
+    ->updateRegister('phone_number', '5551234567')
+    ->atLocation($location)
+    ->build()
+    ->execute();
+```
+
 ```python
 map.registers['first_name'].assign('Ahmed')
 map.registers['phone_number'].assign('5551234567')
@@ -1289,64 +1547,29 @@ map.store()
 ```
 
 ```csharp
-SerializeObjectToByteArray<string> Serializer =
-    s => Encoding.UTF8.GetBytes(s);
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
 
-DeserializeObject<string> Deserializer =
-    (b, type) => Encoding.UTF8.GetString(b);
+var builder = new UpdateMap.Builder()
+    .WithBucketType("maps")
+    .WithBucket("customers")
+    .WithKey("ahmed_info");
 
-const string firstNameRegister = "first_name";
-const string phoneNumberRegister = "phone_number";
+var mapOperation = new UpdateMap.MapOperation();
 
-id = new RiakObjectId("maps", "customers", "ahmed_info");
-var rslt = client.DtFetchMap(id);
+// Ahmed's first name
+mapOperation.SetRegister("first_name", "Ahmed");
 
-var firstNameRegisterMapUpdate = new MapUpdate
-{
-    register_op = Serializer("Ahmed"),
-    field = new MapField
-    {
-        name = Serializer(firstNameRegister),
-        type = MapField.MapFieldType.REGISTER
-    }
-};
+// Ahmed's phone number
+mapOperation.SetRegister("phone_number", "5551234567");
 
-var phoneNumberRegisterMapUpdate = new MapUpdate
-{
-    register_op = Serializer("5551234567"),
-    field = new MapField
-    {
-        name = Serializer(phoneNumberRegister),
-        type = MapField.MapFieldType.REGISTER
-    }
-};
+builder.WithMapOperation(mapOperation);
 
-var updates = new List<MapUpdate> {
-    firstNameRegisterMapUpdate,
-    phoneNumberRegisterMapUpdate
-};
-rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
-
-foreach (RiakDtMapEntry value in rslt.Values)
-{
-    RiakDtMapField field = value.Field;
-    Debug.Assert(RiakDtMapField.RiakDtMapFieldType.Register == field.Type);
-    switch (field.Name)
-    {
-        case "first_name":
-            Debug.WriteLine(format: "First Name: {0}",
-                args: Deserializer(value.RegisterValue));
-            break;
-        case "phone_number":
-            Debug.WriteLine(format: "Phone Number: {0}",
-                args: Deserializer(value.RegisterValue));
-            break;
-        default:
-            Debug.Fail("Map Error",
-                string.Format("Unexpected field name: {0}", field.Name));
-            break;
-    }
-}
+UpdateMap cmd = builder.Build();
+RiakResult rslt = client.Execute(cmd);
+MapResponse response = cmd.Response;
+PrintMap(response.Value);
+// Output as JSON:
+// Map: {"Counters":{},"Sets":{},"Registers":{"first_name":"Ahmed","phone_number":"5551234567"},"Flags":{},"Maps":{}}
 ```
 
 ```javascript
@@ -1416,31 +1639,38 @@ client.execute(update);
 map.flags['enterprise_customer'] = false
 ```
 
+```php
+(new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateFlag('enterprise_customer', false)
+    ->atLocation($location)
+    ->build()
+    ->execute();
+```
+
 ```python
 map.flags['enterprise_customer'].disable()
 map.store()
 ```
 
+
 ```csharp
-const string enterpriseCustomerFlag = "enterprise_customer";
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
 
-id = new RiakObjectId("maps", "customers", "ahmed_info");
-var rslt = client.DtFetchMap(id);
+// Using our builder from above:
 
-var enterpriseCustomerFlagUpdate = new MapUpdate
-{
-    flag_op = MapUpdate.FlagOp.DISABLE,
-    field = new MapField
-    {
-        name = Serializer(enterpriseCustomerFlag),
-        type = MapField.MapFieldType.FLAG
-    }
-};
+mapOperation = new UpdateMap.MapOperation();
+mapOperation.SetFlag("enterprise_customer", false);
 
-var updates = new List<MapUpdate> {
-    enterpriseCustomerFlagUpdate
-};
-rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+builder.WithMapOperation(mapOperation);
+cmd = builder.Build();
+rslt = client.Execute(cmd);
+
+response = cmd.Response;
+
+// response.Value as JSON:
+// Map: {"Counters":{},"Sets":{},
+         "Registers":{"first_name":"Ahmed","phone_number":"5551234567"},
+         "Flags":{"enterprise_customer":false},"Maps":{}}
 ```
 
 ```javascript
@@ -1495,38 +1725,25 @@ map.flags['enterprise_customer']
 # false
 ```
 
+```php
+$map = (new \Basho\Riak\Command\Builder\FetchMap($riak))
+    ->atLocation($location)
+    ->build()
+    ->execute()
+    ->getMap();
+
+echo $map->getFlag('enterprise_customer'); // false
+```
+
 ```python
 map.reload().flags['enterprise_customer'].value
 ```
 
 ```csharp
-rslt = client.DtFetchMap(id);
-CheckResult(rslt);
-foreach (RiakDtMapEntry value in rslt.Values)
-{
-    RiakDtMapField field = value.Field;
-    switch (field.Type)
-    {
-        case RiakDtMapField.RiakDtMapFieldType.Register:
-            var args = new[] {
-                field.Name,
-                Deserializer(value.RegisterValue)
-            };
-            Debug.WriteLine(format: "{0}: {1}", args: args);
-            break;
-        case RiakDtMapField.RiakDtMapFieldType.Flag:
-            args = new[] {
-                field.Name,
-                value.FlagValue.Value.ToString()
-            };
-            Debug.WriteLine(format: "{0}: {1}", args: args);
-            break;
-        default:
-            Debug.Fail("Map Error",
-                string.Format("Unexpected field type: {0}", field.Type));
-            break;
-    }
-}
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+Map ahmedMap = response.Value;
+ahmedMap.Flags["enterprise_customer"]
 ```
 
 ```javascript
@@ -1579,31 +1796,38 @@ map.counters['page_visits'].increment
 # This operation may return false even if successful
 ```
 
+```php
+$updateCounter = (new \Basho\Riak\Command\Builder\IncrementCounter($riak))
+    ->withIncrement(1);
+
+(new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateCounter('page_visits', $updateCounter)
+    ->atLocation($location)
+    ->build()
+    ->execute();
+```
+
 ```python
 map.counters['page_visits'].increment()
 map.store()
 ```
 
 ```csharp
-const string pageVisitsCounter = "page_visits";
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
 
-id = new RiakObjectId("maps", "customers", "ahmed_info");
-var rslt = client.DtFetchMap(id);
+var mapOperation = new UpdateMap.MapOperation();
+mapOperation.IncrementCounter("page_visits", 1);
 
-var pageVisitsCounterUpdate = new MapUpdate
-{
-    counter_op = new CounterOp { increment = 1 },
-    field = new MapField
-    {
-        name = Serializer(pageVisitsCounter),
-        type = MapField.MapFieldType.COUNTER
-    }
-};
+builder.WithMapOperation(mapOperation);
+UpdateMap cmd = builder.Build();
+RiakResult rslt = client.Execute(cmd);
 
-var updates = new List<MapUpdate> {
-    pageVisitsCounterUpdate
-};
-rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+MapResponse response = cmd.Response;
+// Map: {"Counters":{"page_visits":3},
+         "Sets":{},
+         "Registers":{"first_name":"Ahmed","phone_number":"5551234567"},
+         "Flags":{"enterprise_customer":false},
+         "Maps":{}}
 ```
 
 ```javascript
@@ -1676,6 +1900,19 @@ map.batch do |m|
 end
 ```
 
+```php
+$updateSet = (new \Basho\Riak\Command\Builder\UpdateSet($riak))
+    ->add('robots')
+    ->add('opera')
+    ->add('motorcycles');
+
+(new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateSet('interests', $updateSet)
+    ->atLocation($location)
+    ->build()
+    ->execute();
+```
+
 ```python
 for interest in ['robots', 'opera', 'motorcycles']:
     map.sets['interests'].add(interest)
@@ -1683,25 +1920,23 @@ map.store()
 ```
 
 ```csharp
-const string interestsSet = "interests";
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
 
 var interestsAdds = new[] { "robots", "opera", "motorcycles" };
-var setOperation = new SetOp();
-setOperation.adds.AddRange(interestsAdds.Select(i => Serializer(i)));
-var interestsSetUpdate = new MapUpdate
-{
-    set_op = setOperation,
-    field = new MapField
-    {
-        name = Serializer(interestsSet),
-        type = MapField.MapFieldType.SET
-    }
-};
 
-var updates = new List<MapUpdate> {
-    interestsSetUpdate
-};
-rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+var mapOperation = new UpdateMap.MapOperation();
+mapOperation.AddToSet("interests", interestsAdds);
+
+builder.WithMapOperation(mapOperation);
+UpdateMap cmd = builder.Build();
+RiakResult rslt = client.Execute(cmd);
+MapResponse response = cmd.Response;
+
+// Map: {"Counters":{"page_visits":3},
+         "Sets":{"interests":["motorcycles","opera","robots"]},
+         "Registers":{"first_name":"Ahmed","phone_number":"5551234567"},
+         "Flags":{"enterprise_customer":false},
+         "Maps":{}}
 ```
 
 ```javascript
@@ -1779,6 +2014,17 @@ end
 # This will return three Boolean values
 ```
 
+```php
+$map = (new \Basho\Riak\Command\Builder\FetchMap($riak))
+    ->atLocation($location)
+    ->build()
+    ->execute()
+    ->getMap();
+
+$sets = $map->getSet('interests');
+var_dump($sets->getData());
+```
+
 ```python
 reloaded_map = map.reload()
 for interest in ['robots', 'opera', 'motorcycles']:
@@ -1786,30 +2032,14 @@ for interest in ['robots', 'opera', 'motorcycles']:
 ```
 
 ```csharp
-var rslt = client.DtFetchMap(id);
-foreach (RiakDtMapEntry value in rslt.Values)
-{
-    RiakDtMapField field = value.Field;
-    switch (field.Type)
-    {
-        ...
-        ...
-        ...
-        case RiakDtMapField.RiakDtMapFieldType.Set:
-            foreach (var setValue in value.SetValue)
-            {
-                args = new[] {
-                    field.Name,
-                    Deserializer(setValue)
-                };
-                Debug.WriteLine(format: "{0}: {1}", args: args);
-            }
-            break;
-        ...
-        ...
-        ...
-    }
-}
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+Map ahmedMap = response.Value;
+
+// All of the following return true:
+ahmedMap.Sets.GetValue("interests").Contains("robots");
+ahmedMap.Sets.GetValue("interests").Contains("opera");
+ahmedMap.Sets.GetValue("interests").Contains("motorcycles");
 ```
 
 ```javascript
@@ -1860,6 +2090,19 @@ map.batch do |m|
 end
 ```
 
+```php
+$updateSet = (new \Basho\Riak\Command\Builder\UpdateSet($riak))
+    ->add('indie pop')
+    ->remove('opera');
+
+(new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateSet('interests', $updateSet)
+    ->atLocation($location)
+    ->withContext($map->getContext())
+    ->build()
+    ->execute();
+```
+
 ```python
 map.sets['interests'].discard('opera')
 map.sets['interests'].add('indie pop')
@@ -1867,25 +2110,29 @@ map.store()
 ```
 
 ```csharp
-var interestsRemoves = new[] { "opera" };
-var interestsAdds = new[] { "indie pop" };
-var setOperation = new SetOp();
-setOperation.adds.AddRange(interestsAdds.Select(i => Serializer(i)));
-setOperation.removes.AddRange(interestsRemoves.Select(i => Serializer(i)));
-var interestsSetUpdate = new MapUpdate
-{
-    set_op = setOperation,
-    field = new MapField
-    {
-        name = Serializer(interestsSet),
-        type = MapField.MapFieldType.SET
-    }
-};
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
 
-var updates = new List<MapUpdate> {
-    interestsSetUpdate
-};
-var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+var mapOperation = new UpdateMap.MapOperation();
+mapOperation.AddToSet("interests", "indie pop");
+mapOperation.RemoveFromSet("interests", "opera");
+
+builder
+    .WithMapOperation(mapOperation)
+    .WithContext(response.Context);
+
+UpdateMap cmd = builder.Build();
+RiakResult rslt = client.Execute(cmd);
+
+MapResponse response = cmd.Response;
+Map ahmedMap = response.Value;
+
+// This is false
+ahmedMap.Sets.GetValue("interests").Contains("opera");
+
+// These are true
+ahmedMap.Sets.GetValue("interests").Contains("indie pop");
+ahmedMap.Sets.GetValue("interests").Contains("robots");
+ahmedMap.Sets.GetValue("interests").Contains("motorcycles");
 ```
 
 ```javascript
@@ -1979,6 +2226,20 @@ map.maps['annika_info'].batch do |m|
 end
 ```
 
+```php
+$annikaMap = (new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateRegister('first_name', 'Annika')
+    ->updateRegister('last_name', 'Weiss')
+    ->updateRegister('phone_number', '5559876543');
+
+$response = (new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateMap('annika_info', $annikaMap)
+    ->atLocation($location)
+    ->withParameter('returnbody', 'true')
+    ->build()
+    ->execute();
+```
+
 ```python
 map.maps['annika_info'].registers['first_name'].assign('Annika')
 map.maps['annika_info'].registers['last_name'].assign('Weiss')
@@ -1987,57 +2248,18 @@ map.store()
 ```
 
 ```csharp
-const string firstNameRegister = "first_name";
-const string lastNameRegister = "last_name";
-const string phoneNumberRegister = "phone_number";
-const string annikaInfoMap = "annika_info";
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
 
-var annikaMapUpdates = new List<MapUpdate>
-{
-    new MapUpdate
-    {
-        register_op = Serializer("Annika"),
-        field = new MapField
-        {
-            name = Serializer(firstNameRegister),
-            type = MapField.MapFieldType.REGISTER
-        },
-    },
-    new MapUpdate
-    {
-        register_op = Serializer("Weiss"),
-        field = new MapField
-        {
-            name = Serializer(lastNameRegister),
-            type = MapField.MapFieldType.REGISTER
-        },
-    },
-    new MapUpdate
-    {
-        register_op = Serializer("5559876543"),
-        field = new MapField
-        {
-            name = Serializer(phoneNumberRegister),
-            type = MapField.MapFieldType.REGISTER
-        },
-    }
-};
-var annikaInfoUpdateMapOp = new MapOp();
-annikaInfoUpdateMapOp.updates.AddRange(annikaMapUpdates);
-var annikaInfoUpdate = new MapUpdate
-{
-    map_op = annikaInfoUpdateMapOp,
-    field = new MapField
-    {
-        name = Serializer(annikaInfoMap),
-        type = MapField.MapFieldType.MAP
-    }
-};
+var mapOperation = new UpdateMap.MapOperation();
 
-var updates = new List<MapUpdate> {
-    annikaInfoUpdate
-};
-var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+var annikaInfoOperation = mapOperation.Map("annika_info");
+annikaInfoOperation.SetRegister("first_name", "Annika");
+annikaInfoOperation.SetRegister("last_name", "Weiss");
+annikaInfoOperation.SetRegister("phone_number", "5559876543");
+
+builder.WithMapOperation(mapOperation);
+UpdateMap cmd = builder.Build();
+client.Execute(cmd);
 ```
 
 ```javascript
@@ -2122,15 +2344,22 @@ map.maps['annika_info'].registers['first_name']
 # "Annika"
 ```
 
+```php
+# with param 'returnbody' = 'true', we can fetch the map from our last response
+$map->getMap();
+
+echo $map->getMap('annika_info')->getRegister('first_name'); // Annika
+```
+
 ```python
 map.reload().maps['annika_info'].registers['first_name'].value
 ```
 
 ```csharp
-// Note: At this point in time there is no convienience method for
-// retrieving a value from a map. Please see the RiakClientExamples
-// project for code samples.
-// https://github.com/basho/riak-dotnet-client/tree/develop/src/RiakClientExamples
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+ahmedMap = response.Value;
+ahmedMap.Maps["annika_info"].Registers.GetValue("first_name");
 ```
 
 ```javascript
@@ -2181,39 +2410,39 @@ client.execute(update);
 ```
 
 ```ruby
-map.maps['annika_info'].registers.remove('phone_number')
+map.maps['annika_info'].registers.remove('first_name')
+```
+
+```php
+$annikaMap = (new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->removeRegister('first_name');
+
+(new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateMap('annika_info', $annikaMap)
+    ->atLocation($location)
+    ->withContext($map->getContext())
+    ->build()
+    ->execute();
 ```
 
 ```python
-del map.maps['annika_info'].registers['phone_number']
+del map.maps['annika_info'].registers['first_name']
 map.store()
 ```
 
 ```csharp
-var annikaMapRemoves = new List<MapField>
-{
-    new MapField
-    {
-        name = Serializer(firstNameRegister),
-        type = MapField.MapFieldType.REGISTER
-    },
-};
-var annikaInfoUpdateMapOp = new MapOp();
-var annikaInfoUpdateMapOp.removes.AddRange(annikaMapRemoves);
-var annikaInfoUpdate = new MapUpdate
-{
-    map_op = annikaInfoUpdateMapOp,
-    field = new MapField
-    {
-        name = Serializer(annikaInfoMap),
-        type = MapField.MapFieldType.MAP
-    }
-};
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
 
-var updates = new List<MapUpdate> {
-    annikaInfoUpdate
-};
-var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+var mapOperation = new UpdateMap.MapOperation();
+mapOperation.Map("annika_info").RemoveRegister("first_name");
+
+// Note: using Context from last response
+builder
+    .WithMapOperation(mapOperation)
+    .WithContext(response.Context);
+
+UpdateMap cmd = builder.Build();
+client.Execute(cmd);
 ```
 
 ```javascript
@@ -2295,6 +2524,20 @@ map.maps['annika_info'].batch do |m|
 end
 ```
 
+```php
+$annikaMap = (new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateFlag('enterprise_plan', false)
+    ->updateFlag('family_plan', false)
+    ->updateFlag('free_plan', true);
+
+$response = (new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateMap('annika_info', $annikaMap)
+    ->atLocation($location)
+    ->withParameter('returnbody', 'true')
+    ->build()
+    ->execute();
+```
+
 ```python
 map.maps['annika_info'].flags['enterprise_plan'].disable()
 map.maps['annika_info'].flags['family_plan'].disable()
@@ -2303,55 +2546,18 @@ map.store()
 ```
 
 ```csharp
-const string enterprisePlanFlag = "enterprise_plan";
-const string familyPlanFlag = "family_plan";
-const string freePlanFlag = "free_plan";
-var annikaMapUpdates = new List<MapUpdate>
-{
-    new MapUpdate
-    {
-        flag_op = MapUpdate.FlagOp.DISABLE,
-        field = new MapField
-        {
-            name = Serializer(enterprisePlanFlag),
-            type = MapField.MapFieldType.FLAG
-        },
-    },
-    new MapUpdate
-    {
-        flag_op = MapUpdate.FlagOp.DISABLE,
-        field = new MapField
-        {
-            name = Serializer(familyPlanFlag),
-            type = MapField.MapFieldType.FLAG
-        },
-    },
-    new MapUpdate
-    {
-        flag_op = MapUpdate.FlagOp.DISABLE,
-        field = new MapField
-        {
-            name = Serializer(freePlanFlag),
-            type = MapField.MapFieldType.FLAG
-        },
-    } 
-};
-var annikaInfoUpdateMapOp = new MapOp();
-var annikaInfoUpdateMapOp.updates.AddRange(annikaMapUpdates);
-var annikaInfoUpdate = new MapUpdate
-{
-    map_op = annikaInfoUpdateMapOp,
-    field = new MapField
-    {
-        name = Serializer(annikaInfoMap),
-        type = MapField.MapFieldType.MAP
-    }
-};
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
 
-var updates = new List<MapUpdate> {
-    annikaInfoUpdate
-};
-var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+var mapOperation = new UpdateMap.MapOperation();
+mapOperation.Map("annika_info")
+    .SetFlag("enterprise_plan", false)
+    .SetFlag("family_plan", false)
+    .SetFlag("free_plan", true);
+
+builder.WithMapOperation(mapOperation);
+
+MapUpdate cmd = builder.Build();
+client.Execute(cmd);
 ```
 
 ```javascript
@@ -2449,15 +2655,22 @@ map.maps['annika_info'].flags['enterprise_plan']
 # false
 ```
 
+```php
+# with param 'returnbody' = 'true', we can fetch the map from our last response
+$map->getMap();
+
+echo $map->getMap('annika_info')->getFlag('enterprise_plan'); // false
+```
+
 ```python
 map.reload().maps['annika_info'].flags['enterprise_plan'].value
 ```
 
 ```csharp
-// Note: At this point in time there is no convienience method for
-// retrieving a value from a map. Please see the RiakClientExamples
-// project for code samples
-// https://github.com/basho/riak-dotnet-client/tree/develop/src/RiakClientExamples
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+ahmedMap = response.Value;
+ahmedMap.Maps["annika_info"].Flags["enterprise_plan"];
 ```
 
 ```javascript
@@ -2505,41 +2718,35 @@ client.execute(update);
 map.maps['annika_info'].counters['widget_purchases'].increment
 ```
 
+```php
+$updateCounter = (new \Basho\Riak\Command\Builder\IncrementCounter($riak))
+    ->withIncrement(1);
+
+$annikaMap = (new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateCounter('widget_purchases', $updateCounter);
+
+(new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateMap('annika_info', $annikaMap)
+    ->atLocation($location)
+    ->build()
+    ->execute();
+```
+
 ```python
 map.maps['annika_info'].counters['widget_purchases'].increment()
 map.store()
 ```
 
 ```csharp
-const string widgetPurchasesCounter = "widget_purchases";
-var annikaMapUpdates = new List<MapUpdate>
-{
-    new MapUpdate
-    {
-        counter_op = new CounterOp { increment = 1 },
-        field = new MapField
-        {
-            name = Serializer(widgetPurchasesCounter),
-            type = MapField.MapFieldType.COUNTER
-        },
-    }
-};
-var annikaInfoUpdateMapOp = new MapOp();
-var annikaInfoUpdateMapOp.updates.AddRange(annikaMapUpdates);
-var annikaInfoUpdate = new MapUpdate
-{
-    map_op = annikaInfoUpdateMapOp,
-    field = new MapField
-    {
-        name = Serializer(annikaInfoMap),
-        type = MapField.MapFieldType.MAP
-    }
-};
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
 
-var updates = new List<MapUpdate> {
-    annikaInfoUpdate
-};
-var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+var mapOperation = new UpdateMap.MapOperation();
+mapOperation.Map("annika_info").IncrementCounter("widget_purchases", 1);
+
+builder.WithMapOperation(mapOperation);
+
+UpdateMap cmd = builder.Build();
+client.Execute(cmd);
 ```
 
 ```javascript
@@ -2605,43 +2812,34 @@ client.execute(update);
 map.maps['annika_info'].sets['interests'].add('tango dancing')
 ```
 
+```php
+$updateSet = (new \Basho\Riak\Command\Builder\UpdateSet($riak))
+    ->add('tango dancing');
+
+$annikaMap = (new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateSet('interests', $updateSet);
+
+$response = (new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateMap('annika_info', $annikaMap)
+    ->atLocation($location)
+    ->withParameter('returnbody', 'true')
+    ->build()
+    ->execute();
+```
+
 ```python
 map.maps['annika_info'].sets['interests'].add('tango dancing')
 map.store()
 ```
 
 ```csharp
-const string annikaInterestsSet = "annika_info";
-var annikaInterestsSetOp = new SetOp();
-annikaInterestsSetOp.adds.Add(Serializer("tango dancing"));
-var annikaMapUpdates = new List<MapUpdate>
-{
-    new MapUpdate
-    {
-        set_op = annikaInterestsSetOp,
-        field = new MapField
-        {
-            name = Serializer(annikaInterestsSet),
-            type = MapField.MapFieldType.SET
-        },
-    }
-};
-var annikaInfoUpdateMapOp = new MapOp();
-var annikaInfoUpdateMapOp.updates.AddRange(annikaMapUpdates);
-var annikaInfoUpdate = new MapUpdate
-{
-    map_op = annikaInfoUpdateMapOp,
-    field = new MapField
-    {
-        name = Serializer(annikaInfoMap),
-        type = MapField.MapFieldType.MAP
-    }
-};
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
 
-var updates = new List<MapUpdate> {
-    annikaInfoUpdate
-};
-var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+var mapOperation = new UpdateMap.MapOperation();
+mapOperation.Map("annika_info").AddToSet("interests", "tango dancing");
+
+builder.WithMapOperation(mapOperation);
+client.Execute(builder.Build());
 ```
 
 ```javascript
@@ -2711,42 +2909,37 @@ client.execute(update);
 map.maps['annika_info'].sets['interests'].remove('tango dancing')
 ```
 
+```php
+$updateSet = (new \Basho\Riak\Command\Builder\UpdateSet($riak))
+    ->remove('tango dancing');
+
+$annikaMap = (new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateSet('interests', $updateSet);
+
+(new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateMap('annika_info', $annikaMap)
+    ->atLocation($location)
+    ->withContext($response->getMap()->getContext())
+    ->build()
+    ->execute();
+```
+
 ```python
 map.maps['annika_info'].sets['interests'].discard('tango dancing')
 map.store()
 ```
 
 ```csharp
-var annikaInterestsSetOp = new SetOp();
-var annikaInterestsSetOp.removes.Add(Serializer("tango dancing"));
-var annikaMapUpdates = new List<MapUpdate>
-{
-    new MapUpdate
-    {
-        set_op = annikaInterestsSetOp,
-        field = new MapField
-        {
-            name = Serializer(annikaInterestsSet),
-            type = MapField.MapFieldType.SET
-        },
-    }
-};
-var annikaInfoUpdateMapOp = new MapOp();
-var annikaInfoUpdateMapOp.updates.AddRange(annikaMapUpdates);
-var annikaInfoUpdate = new MapUpdate
-{
-    map_op = annikaInfoUpdateMapOp,
-    field = new MapField
-    {
-        name = Serializer(annikaInfoMap),
-        type = MapField.MapFieldType.MAP
-    }
-};
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
 
-var updates = new List<MapUpdate> {
-    annikaInfoUpdate
-};
-var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+var mapOperation = new UpdateMap.MapOperation();
+mapOperation.Map("annika_info").RemoveFromSet("interests", "tango dancing");
+
+// Note: using Context from previous response
+builder
+    .WithMapOperation(mapOperation)
+    .WithContext(response.Context);
+client.Execute(builder.Build());
 ```
 
 ```javascript
@@ -2831,6 +3024,26 @@ map.maps['annika_info'].maps['purchase'].batch do |m|
 end
 ```
 
+```php
+$updateSet = (new \Basho\Riak\Command\Builder\UpdateSet($riak))
+    ->add('large widget');
+
+$purchaseMap = (new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateFlag('first_purchase', true)
+    ->updateRegister('amount', '1271')
+    ->updateSet('items', $updateSet);
+
+$annikaMap = (new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateMap('purchase', $purchaseMap);
+
+$response = (new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateMap('annika_info', $annikaMap)
+    ->atLocation($location)
+    ->withParameter('returnbody', 'true')
+    ->build()
+    ->execute();
+```
+
 ```python
 map.maps['annika_info'].maps['purchase'].flags['first_purchase'].enable()
 map.maps['annika_info'].maps['purchase'].register['amount'].assign(str(1271))
@@ -2840,72 +3053,16 @@ map.store()
 ```
 
 ```csharp
-const string annikaPurchaseMap = "purchase";
-const string annikaFirstPurchaseFlag = "first_purchase";
-const string annikaPurchaseAmountRegister = "amount";
-const string annikaPurchaseItemsSet = "items";
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
 
-var annikaItemsSetOp = new SetOp();
-annikaItemsSetOp.adds.Add(Serializer("large widget"));
-var annikaMapUpdates = new List<MapUpdate>
-{
-    new MapUpdate
-    {
-        flag_op = MapUpdate.FlagOp.ENABLE,
-        field = new MapField
-        {
-            name = Serializer(annikaFirstPurchaseFlag),
-            type = MapField.MapFieldType.FLAG
-        }
-    },
-    new MapUpdate
-    {
-        register_op = Serializer("1271"),
-        field = new MapField
-        {
-            name = Serializer(annikaPurchaseAmountRegister),
-            type = MapField.MapFieldType.REGISTER
-        }
-    },
-    new MapUpdate
-    {
-        set_op = annikaItemsSetOp,
-        field = new MapField
-        {
-            name = Serializer(annikaPurchaseItemsSet),
-            type = MapField.MapFieldType.SET
-        },
-    }
-};
+var mapOperation = new UpdateMap.MapOperation();
+mapOperation.Map("annika_info").Map("purchase")
+    .SetFlag("first_purchase", true)
+    .SetRegister("amount", "1271")
+    .AddToSet("items", "large widget");
 
-var annikaPurchaseMapOp = new MapOp();
-annikaPurchaseMapOp.updates.AddRange(annikaMapUpdates);
-var annikaPurchaseMapUpdate = new MapUpdate
-{
-    map_op = annikaPurchaseMapOp,
-    field = new MapField
-    {
-        name = Serializer(annikaPurchaseMap),
-        type = MapField.MapFieldType.MAP
-    }
-};
-
-var annikaInfoUpdateMapOp = new MapOp();
-annikaInfoUpdateMapOp.updates.Add(annikaPurchaseMapUpdate);
-var annikaInfoUpdate = new MapUpdate
-{
-    map_op = annikaInfoUpdateMapOp,
-    field = new MapField
-    {
-        name = Serializer(annikaInfoMap),
-        type = MapField.MapFieldType.MAP
-    }
-};
-
-var updates = new List<MapUpdate> {
-    annikaInfoUpdate
-};
-var rslt = client.DtUpdateMap(id, Serializer, rslt.Context, null, updates);
+builder.WithMapOperation(mapOperation);
+client.Execute(builder.Build());
 ```
 
 ```javascript
@@ -3005,6 +3162,16 @@ ahmed_map.instance_variable_get(:@context)
 # => "\x83l\x00\x00\x00\x01h\x02m\x00\x00\x00\b#\t\xFE\xF9S\x95\xBD3a\x01j"
 ```
 
+```php
+$map = (new \Basho\Riak\Command\Builder\FetchMap($riak))
+    ->atLocation($location)
+    ->build()
+    ->execute()
+    ->getMap();
+
+echo $map->getContext(); // g2wAAAACaAJtAAAACLQFHUkv4m2IYQdoAm0AAAAIxVKxCy5pjMdhCWo=
+```
+
 ```python
 bucket = client.bucket_type('maps').bucket('users')
 ahmed_map = Map(bucket, 'ahmed_info')
@@ -3014,9 +3181,10 @@ ahmed_map.context
 ```
 
 ```csharp
-var id = new RiakObjectId("maps", "customers", "ahmed_info");
-var rslt = client.DtFetchMap(id);
-Debug.WriteLine(format: "Context: {0}", args: Convert.ToBase64String(rslt.Context));
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
+
+// Note: using a previous UpdateMap or FetchMap result
+Console.WriteLine(format: "Context: {0}", args: Convert.ToBase64String(result.Context));
 
 // Output:
 // Context: g2wAAAACaAJtAAAACLQFHUkv4m2IYQdoAm0AAAAIxVKxCy5pjMdhCWo=
@@ -3048,7 +3216,7 @@ client.fetchMap(options, function (err, rslt) {
 ```
 
 <div class="note">
-<div class="title">Context and the Ruby, Python, and Erlang clients</div>
+<div class="title">Context with the Ruby, Python, and Erlang clients</div>
 In the Ruby, Python, and Erlang clients, you will not need to manually
 handle context when making Data Type updates. The clients will do it all
 for you. The one exception amongst the official clients is the Java
@@ -3056,9 +3224,9 @@ client. We'll explain how to use Data Type contexts with the Java client
 directly below.
 </div>
 
-#### Context and the Java Client
+#### Context with the Java and PHP Clients
 
-With the Java client, you'll need to manually fetch and return Data Type
+With the Java and PHP clients, you'll need to manually fetch and return Data Type
 contexts for the following operations:
 
 * Disabling a flag within a map
@@ -3086,3 +3254,21 @@ UpdateMap update = new UpdateMap.Builder(ahmedMap, removePaidAccountField)
 client.execute(update);
 ```
 
+
+```php
+$map = (new \Basho\Riak\Command\Builder\FetchMap($riak))
+    ->atLocation($location)
+    ->build()
+    ->execute()
+    ->getMap();
+
+$updateSet = (new \Basho\Riak\Command\Builder\UpdateSet($riak))
+    ->remove('opera');
+
+(new \Basho\Riak\Command\Builder\UpdateMap($riak))
+    ->updateSet('interests', $updateSet)
+    ->atLocation($location)
+    ->withContext($map->getContext())
+    ->build()
+    ->execute();
+```

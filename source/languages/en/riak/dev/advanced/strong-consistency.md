@@ -195,8 +195,8 @@ java.lang.IllegalArgumentException: VClock cannot be null.
 ```
 
 ```php
-$response->isSuccess(): false
-$response->getStatusCode(): 412
+$response->isSuccess();  // false
+$response->getStatusCode(); // 412
 ```
 
 ```python
