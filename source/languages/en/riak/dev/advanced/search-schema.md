@@ -65,7 +65,7 @@ client.create_search_schema("cartoons", schema_data)
 ```
 
 ```php
-(new Command\Builder\Search\StoreSchema($riak))
+(new \Basho\Riak\Command\Builder\Search\StoreSchema($riak))
   ->withName('users')
   ->withSchemaFile('path/to/file.xml')
   ->build()

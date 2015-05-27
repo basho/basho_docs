@@ -120,6 +120,27 @@ obj.raw_data = 'Pete Carroll'
 obj.store
 ```
 
+```php
+$location = new \Basho\Riak\Location('seahawks', new \Basho\Riak\Bucket('coaches', 'siblings'));
+$response = (new \Basho\Riak\Command\Builder\FetchObject($riak))
+  ->atLocation($location)
+  ->build()
+  ->execute();
+
+if ($response->isSuccess()) {
+  $object = $response->getObject();
+  $object->setData('Pete Carroll');
+} else {
+  $object = new \Basho\Riak\Object('Pete Carroll', 'text/plain');
+}
+
+(new \Basho\Riak\Command\Builder\StoreObject($riak))
+  ->withObject($object)
+  ->atLocation($location)
+  ->build()
+  ->execute();
+```
+
 ```python
 bucket = client.bucket_type('siblings').bucket('coaches')
 obj = RiakObject(client, bucket, 'seahawks')
@@ -176,6 +197,33 @@ end
 
 # Example usage
 update_coach('packers', 'Vince Lombardi')
+```
+
+```php
+function update_coach($team, $coach) {
+  $location = new \Basho\Riak\Location('seahawks', new \Basho\Riak\Bucket('coaches', 'siblings'));
+  $response = (new \Basho\Riak\Command\Builder\FetchObject($riak))
+    ->atLocation($location)
+    ->build()
+    ->execute();
+
+  if ($response->isSuccess()) {
+    $object = $response->getObject();
+    $object->setData('Pete Carroll');
+  } else {
+    $object = new \Basho\Riak\Object('Pete Carroll', 'text/plain');
+  }
+
+  $response = (new \Basho\Riak\Command\Builder\StoreObject($riak))
+    ->withObject($object)
+    ->atLocation($location)
+    ->build()
+    ->execute();
+
+  return $response->isSuccess();
+}
+
+echo update_coach('packers', 'Vince Lombardi'); // true
 ```
 
 ```python

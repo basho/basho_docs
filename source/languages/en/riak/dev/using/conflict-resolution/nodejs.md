@@ -7,7 +7,7 @@ audience: intermediate
 keywords: [developers, conflict-resolution, nodejs, node, javascript]
 ---
 
-For reasons explained in the [[introduction to conflict resolution|Conflict
+For reasons explained in the [[Introduction to conflict resolution|Conflict
 Resolution]], we strongly recommend adopting a conflict resolution strategy that
 requires applications to resolve siblings according to use-case-specific
 criteria. Here, we'll provide a brief guide to conflict resolution using the

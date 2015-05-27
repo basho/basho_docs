@@ -130,6 +130,15 @@ bucket = client.bucket('animals')
 bucket.properties
 ```
 
+```php
+$bucketProperties = (new \Basho\Riak\Command\Builder\FetchBucketProperties($riak))
+  ->buildBucket('animals')
+  ->build()
+  ->execute()
+  ->getBucket()
+  ->getProperties();
+```
+
 ```python
 bucket = client.bucket('animals')
 bucket.get_properties()
@@ -160,6 +169,15 @@ BucketProperties props = response.getProperties();
 ```ruby
 bucket = client.bucket_type('my_custom_type').bucket('animals')
 bucket.properties
+```
+
+```php
+$bucketProperties = (new \Basho\Riak\Command\Builder\FetchBucketProperties($riak))
+  ->buildBucket('animals', 'my_custom_type')
+  ->build()
+  ->execute()
+  ->getBucket()
+  ->getProperties();
 ```
 
 ```python

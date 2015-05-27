@@ -7,7 +7,7 @@ audience: intermediate
 keywords: [developers, conflict-resolution, java]
 ---
 
-For reasons explained in the [[introduction to conflict
+For reasons explained in the [[Introduction to conflict
 resolution|Conflict Resolution]], we strongly recommend adopting a
 conflict resolution strategy that requires applications to resolve
 siblings according to use-case-specific criteria. Here, we'll provide a
@@ -174,7 +174,7 @@ Correspondingly, we recommend that updates to objects in Riak follow
 these steps:
 
 1. **Read** the object from Riak
-2. **Resolving sibling conflicts** if the exist, allowing the
+2. **Resolving sibling conflicts** if they exist, allowing the
 application to reason about one "correct" value for the object (this
 step is the subject of this tutorial)
 3. **Modify** the object

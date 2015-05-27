@@ -1,5 +1,5 @@
 ---
-title: Help and Community
+title: Community Overview
 project: riak
 version: 0.10.0+
 document: appendix
@@ -11,116 +11,94 @@ moved: {
 }
 ---
 
-There is a vibrant and fast-growing community forming around Riak.
-Whether you need help or simply want to get involved, we are easy to
-contact.
+Our Community is an eclectic group of engineers, architects, academics and enthusiasts who care about solving the hardest problems of distributed systems with open source software. Riak, written in Erlang, tackles the continuing complexity of persisting unstructured data with an architecture uniquely designed to scale.
 
-## Help
+As a Community, our core belief is that there is no question too simple. You can freely share questions, answers and feedback without hesitation. Whether you need help or simply want to get involved, we are easy to contact.
+
+## Platforms
+We're big on answering questions for beginner and veteran users alike. To make sure we can answer them, we curate a number of discussions on a daily basis. 
 
 ### Mailing List
 
 The [Riak Users Mailing
 List](http://lists.basho.com/mailman/listinfo/riak-users_lists.basho.com)
-is highly trafficked and a great resource for technical discussions,
-Riak issues and questions, and community events and announcements.
+is highly trafficked and a great resource for technical discussions, Riak issues and questions, and community events and announcements.
+
+We pride ourselves on answering every email that comes over the Riak User mailing list. [Sign up](http://lists.basho.com/mailman/listinfo/riak-users_lists.basho.com) and send away. If you prefer points for your questions, you can always [tag Riak on StackOverflow](http://stackoverflow.com/questions/tagged/riak). 
+
 
 ### Code
 
-Basho uses GitHub for the development of [all of our
-code](http://github.com/basho/) and we also make use of GitHub for the
-submission and integration of all internal code and community pull
-requests.
+Basho uses GitHub for the development of all of our
+code. Our core products are developed [under the Basho organization](http://github.com/basho/). We also have [Basho Labs](http://github.com/basho-labs/), where we curate the rich ecosystem of contributors from our community. We also make use of GitHub for the submission and integration of all internal code and community pull requests. If you have general feedback beyond the scope of a single repo, open an issue under [The Riak Community](https://github.com/basho-labs/the-riak-community/issues).
 
-Basho also maintains a frequently updated page of [[community-developed
-projects|Community Projects]], including GUIs, backup tools, and more.
+### Events on Meetup.com
+
+We have local meetups everywhere from Paris to San Francisco and back again. To find the one closest to you, search for [Riak on Meetup.com](http://www.meetup.com/find/riak/).
 
 ### Riak on IRC
 
-The **#riak** IRC room on irc.freenode.net is a great place for realtime
-help with your Riak issues and questions.
+The [#riak IRC room on irc.freenode.net](http://irc.lc/freenode/riak) is a great place for real-time help with your Riak issues and questions.
 
 ### The Basho Blog
 
-Members of the Basho Team blog frequently on [[The Basho
-Blog|http://blog.basho.com]].
+Members of the Basho team write frequently on [The Basho
+Blog](http://blog.basho.com).
+
+### Videos
+
+You can watch all the Basho-curated videos [on YouTube](https://www.youtube.com/user/BashoTechnologies) and a few others on the [Basho Vimeo Page](http://vimeo.com/bashotech/videos).
+
+
+### Other Social 
+
+We are easy to find on social media sites. Like us on [Facebook](http://www.facebook.com/pages/Riak/143599935667217), chat on the [Riak
+LinkedIn Group](http://www.linkedin.com/groups?mostPopular=&gid=2913983) and follow us on [Twitter](http://twitter.com/basho). We have a growing following [on Reddit as well](reddit.com/r/Riak/).
+
+## Programs 
+Our platforms are complemented by the amazing efforts of the Basho team and the greater contributor community. Here are a few you don't want to miss.
 
 ### The Riak Recap
 
 The Riak Recap is a periodic email to the Riak Users Mailing List to
-keep list subscribers up-to-date on what’s happening in and around the
+keep subscribers up-to-date on what’s happening in and around the
 Riak Community.
-
-### Riak Function Contrib
-
-Riak Function Contrib is a home for community contributed MapReduce,
-Pre- and Post-Commit Hook, and utility functions.
-
-* [contrib.basho.com](http://contrib.basho.com)
-* [Riak Function Contrib Repo on
-  GitHub](https://github.com/basho/riak_function_contrib)
-* [Introducing Riak Function Contrib (from the Basho
-  Blog)](http://blog.basho.com/2010/12/02/introducing-riak-function-contrib/)
-
-### Riak on Facebook
-
-We have a [Facebook
-Page](http://www.facebook.com/pages/Riak/143599935667217) where you can
-get involved.
-
-### Riak on LinkedIn
-
-There is also a [Riak Group on
-LinkedIn](http://www.linkedin.com/groups?mostPopular=&gid=2913983).
-
-### Videos
-
-You can watch all the Riak screencasts and other videos that Basho
-publishes on the [Basho Vimeo Page](http://vimeo.com/bashotech/videos).
 
 ### Meetups
 
-If you're looking for assistance getting a meetup or user group started
-in your area, or want to tell the community about one that you're
-starting, email *te@basho.com*.
-
-Here's a list of the current Meetups:
+We're re-energizing meetups throughout the world. The most active are: 
 
 * [San Francisco](http://www.meetup.com/San-Francisco-Riak-Meetup/)
 * [New York](http://www.meetup.com/NYC-Riak-Meetup)
-* [Los Angeles](http://www.meetup.com/Los-Angeles-Riak-Meetup/)
-* [London](http://www.meetup.com/riak-london/)
 * [Boston](http://www.meetup.com/Boston-Riak)
-* [Silicon Valley](http://www.meetup.com/Silicon-Valley-Riak)
-* [Stockholm](http://www.meetup.com/Stockholm-Riak-and-NoSQL-Meetup-Group/)
-* [Washington, DC](http://www.meetup.com/Riak-DC/)
-* [Philadelphia](http://www.meetup.com/Philly-Riak-Meetup/)
-* [Chicago](http://www.meetup.com/Chicago-Riak-Meetup)
-* [Portland, OR](http://www.meetup.com/Portland-Riak)
-* [Leeds](http://www.meetup.com/Leeds-Riak/)
 * [Paris](http://www.meetup.com/Paris-Riak-Meetup/)
-* [Manchester, UK](http://www.meetup.com/riak-manchester/)
-* [Dublin](http://www.meetup.com/Dublin-Riak/)
-* [Amsterdam](http://www.meetup.com/Amsterdam-Riak/)
-* [Brazil](http://www.meetup.com/Riak-Brazil)
-* [Munich](http://www.meetup.com/Riak-Munchen)
-* [Stockholm](http://www.meetup.com/Stockholm-Riak-and-NoSQL-Meetup-Group/)
+* [London](http://www.meetup.com/riak-london/)
 
+The list of all related meetups are visible [here](http://riak.meetup.com). If you're looking for assistance getting a meetup or user group started
+in your area, or want to tell the community about one that you're
+starting, email *community@basho.com*.
 
-## Community Processes
+### RICON
 
-* [[Riak Community FAQs]]
-* [[Reporting Bugs]]
+RICON 2015 [details are out](http://ricon.io/)! 
 
-## Resources
+If you’re as excited about distributed systems as we are, be sure to join our yearly conference known as RICON. It’s an intimate, multi-track day for sysadmins, developers and computer scientists alike. We welcome anyone, regardless of title or company, to join us.
 
-These pages contain videos, slides, and publications from the community
-and Riak developers.
+You can [see past talks](http://ricon.io/archive/2014/index.html) as well.
 
-* [[Overviews and Introductions]]
-* [[Developing with Riak]]
-* [[Searching and Accessing]]
-* [[Riak Comparisons]]
-* [[Community Projects]]
+## Process
+A healthy community includes the right amount of processes for everyone to work together. Here is the short list of resources: 
+
+* [[Community FAQs]] has additional specifics to questions on contribution.
+* [[Reporting Bugs]] for understanding bug process and triage.
+
+### Give Back
+A Community is built around the code to help foster its growth, maturity, and adoption. Like the code, it needs to evolve, and unless it’s moving forward and being refined continuously, it ceases to be valuable.
+
+You can give back as a member of our community by contributing to our public project: [The Riak Community](https://github.com/basho-labs/the-riak-community). You can help define [our Meetup strategy](https://github.com/basho-labs/the-riak-community/blob/master/meetup-strategy.md) and [Code of Conduct](https://github.com/basho-labs/the-riak-community/blob/master/code-of-conduct.md) or [open GitHub issues](https://github.com/basho-labs/the-riak-community/issues) for other requests.
+
+And thank you. We’re happy you’re here.
+
 
 ## Professional Support
 
