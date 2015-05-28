@@ -431,11 +431,11 @@ independently to access/usage and billing/storage. Expressed as a time-value</td
 <tr>
 <td><code>stats.storage.schedule.<em>$time</em></code></td>
 <td>When to automatically start storage calculation batches. Expressed as an
-<code>HH:MM</code> UTC time. For example, <code>"06:00"</code> would calculate
+<code>HHMM</code> UTC time. For example, <code>0600</code> would calculate
 at 6 am UTC every day. If you would like to schedule multiple batches, changing
 <em>$time</em> for each entry. For example <code>stats.storage.schedule.2 =
-"18:00"</code> could be the second entry, scheduled for 6:00pm UTC.</td>
-<td><code>"06:00"</code></td>
+1800</code> could be the second entry, scheduled for 6:00pm UTC.</td>
+<td><code>0600</code></td>
 </tr>
 <tr>
 <td><code>stats.storage.archive_period</code></td>
