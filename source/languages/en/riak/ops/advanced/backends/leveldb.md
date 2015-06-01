@@ -282,7 +282,7 @@ some I/O, we can expect L0 compactions to usually if not always be "all
 L0 files".
 
 See the PickCompaction routine in
-[1](http://www.google.com/codesearch#mHLldehqYMA/trunk/db/version_set.cc)
+[1](https://github.com/basho/leveldb/blob/develop/db/version_set.cc)
 for all the details.
 
 ### Comparison of eLevelDB and Bitcask
