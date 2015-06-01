@@ -139,7 +139,7 @@ you also have R installed on the same machine, you can generate the
 current result graph with the following:
 
 ```bash
-Rscript --vanilla /usr/lib/basho_bench/lib/basho_bench*/priv/summary.r /home/username/bench_results/current/
+Rscript --vanilla /usr/lib/basho_bench/lib/basho_bench*/priv/summary.r -i /home/username/bench_results/current/
 ```
 
 This will create a results file in
