@@ -76,6 +76,13 @@ bucket = client.bucket_type('animals').bucket('dogs')
 obj = bucket.get('rufus')
 ```
 
+```php
+$response = (new \Basho\Riak\Command\Builder\FetchObject($riak))
+  ->buildLocation('rufus', 'users', 'animals')
+  ->build()
+  ->execute();
+```
+
 ```python
 bucket = client.bucket_type('animals').bucket('dogs')
 obj = bucket.get('rufus')
@@ -121,6 +128,11 @@ java.lang.NullPointerException
 
 ```ruby
 Riak::ProtobuffsFailedRequest: Expected success from Riak but received not_found. The requested object was not found.
+```
+
+```php
+$response->getStatusCode(); // 404
+$response->isSuccess(); // false
 ```
 
 ```python
@@ -186,6 +198,14 @@ obj.data = 'WOOF!'
 obj.store
 ```
 
+```php
+$response = (new \Basho\Riak\Command\Builder\StoreObject($riak))
+  ->buildLocation('rufus', 'users', 'animals')
+  ->buildObject('WOOF!', 'text/plain')
+  ->build()
+  ->execute();
+```
+
 ```python
 bucket = client.bucket_type('animals').bucket('dogs')
 obj = RiakObject(client, bucket, 'rufus')
@@ -244,6 +264,14 @@ content type, the reaction will vary based on your client library:
 # In the Ruby client, you must always specify a content type. If you
 # you don't, you'll see the following error:
 ArgumentError: content_type is not defined!
+```
+
+```php
+# PHP will default to cURLs default content-type for POST & PUT requests:
+#   application/x-www-form-urlencoded
+
+# If you use the StoreObject::buildJsonObject() method when building your command, 
+# it will store the item with application/json as the content-type
 ```
 
 ```python
@@ -316,6 +344,15 @@ System.out.println(obj.getValue());
 bucket = client.bucket_type('animals').bucket('dogs')
 obj = bucket.get('rufus', r: 3)
 p obj.data
+```
+
+```php
+$response = (new \Basho\Riak\Command\Builder\FetchObject($riak))
+  ->buildLocation('rufus', 'dogs', 'animals')
+  ->build()
+  ->execute();
+
+var_dump($response->getObject()->getData());
 ```
 
 ```python
@@ -415,6 +452,14 @@ obj = Riak::RObject.new(bucket, 'genius')
 obj.content_type = 'text/plain'
 obj.raw_data = 'I have nothing to declare but my genius'
 obj.store
+```
+
+```php
+$response = (new \Basho\Riak\Command\Builder\StoreObject($riak))
+  ->buildLocation('genius', 'oscar_wilde', 'quotes')
+  ->buildObject('I have nothing to declare but my genius!', 'text/plain')
+  ->build()
+  ->execute();
 ```
 
 ```python
@@ -521,6 +566,23 @@ obj.raw_data = 'Harlem Globetrotters'
 obj.store
 ```
 
+```php
+$location = new \Basho\Riak\Location('champion', new \Basho\Riak\Bucket('nba', 'sports'));
+$object = (new \Basho\Riak\Command\Builder\FetchObject($riak))
+  ->withLocation($location)
+  ->build()
+  ->execute()
+  ->getObject();
+
+$object->setData('Harlem Globetrotters');
+
+(new \Basho\Riak\Command\Builder\StoreObject($riak))
+  ->withLocation($location)
+  ->withObject($object)
+  ->build()
+  ->execute();
+```
+
 ```python
 bucket = client.bucket_type('sports').bucket('nba')
 obj = bucket.get('champion')
@@ -622,6 +684,12 @@ obj.vclock
 # a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
 ```
 
+```php
+# Using the RObject obj from above:
+
+echo $object->getVclock(); // a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
+```
+
 ```python
 # Using the RiakObject obj from above:
 
@@ -692,7 +760,16 @@ bucket = client.bucket_type('cars').bucket('dodge')
 obj = Riak::RObject.new(bucket, 'viper')
 obj.content_type = 'text/plain'
 obj.raw_data = 'vroom'
-obj.store(r: 3)
+obj.store(w: 3)
+```
+
+```php
+(new \Basho\Riak\Command\Builder\StoreObject($riak))
+  ->buildLocation('viper', 'dodge', 'cars')
+  ->buildObject('vroom', 'text/plain')
+  ->withParameter('w', 3)
+  ->build()
+  ->execute();
 ```
 
 ```python
@@ -776,7 +853,17 @@ bucket = client.bucket_type('cars').bucket('dodge')
 obj = Riak::RObject.new(bucket, 'viper')
 obj.content_type = 'text/plain'
 obj.raw_data = 'vroom'
-obj.store(r: 3, returnbody: true)
+obj.store(w: 3, returnbody: true)
+```
+
+```php
+(new \Basho\Riak\Command\Builder\StoreObject($riak))
+  ->buildLocation('viper', 'dodge', 'cars')
+  ->buildObject('vroom', 'text/plain')
+  ->withParameter('w', 3)
+  ->withParameter('returnbody', 'true')
+  ->build()
+  ->execute();
 ```
 
 ```python
@@ -882,6 +969,16 @@ obj.key
 "GB8fW6DDZtXogK19OLmaJf247DN"
 ```
 
+```php
+$response = (new \Basho\Riak\Command\Builder\StoreObject($riak))
+  ->buildBucket('random_user_keys', 'users')
+  ->buildJsonObject(['user'=>'data'])
+  ->build()
+  ->execute();
+
+echo $response->getLocation()->getKey(); // GB8fW6DDZtXogK19OLmaJf247DN
+```
+
 ```python
 bucket = client.bucket_type('users').bucket('random_user_keys')
 obj = RiakObject(client, bucket)
@@ -976,6 +1073,13 @@ client.execute(delete);
 ```ruby
 bucket = client.bucket_type('quotes').bucket('oscar_wilde')
 bucket.delete('genius')
+```
+
+```php
+(new \Basho\Riak\Command\Builder\DeleteObject($riak))
+  ->buildBucket('oscar_wilde', 'quotes')
+  ->build()
+  ->execute();
 ```
 
 ```python
@@ -1088,6 +1192,14 @@ BucketProperties props = fetchProps.get().getBucketProperties();
 ```ruby
 bt = client.bucket_type('n_val_of_5')
 bt.props
+```
+
+```php
+# Bucket type props are not directly fetchable, but bucket props are
+$response = (new \Basho\Riak\Command\Builder\FetchBucketProperties($riak))
+  ->buildBucket('bucket_name', 'n_val_of_5')
+  ->build()
+  ->execute();
 ```
 
 ```python

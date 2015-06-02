@@ -47,12 +47,12 @@ installed on your machine already.
 If you wish to build Riak 2.0 from source, we strongly recommend using
 Basho's patched version of Erlang. The tar file for this version can be
 downloaded
-[here](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho5.tar.gz).
+[here](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho8.tar.gz).
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho5.tar.gz
-tar -xvf otp_src_R16B02-basho5.tar.gz
-cd otp_src_R16B02-basho5
+curl -O http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho8.tar.gz
+tar -xvf otp_src_R16B02-basho8.tar.gz
+cd otp_src_R16B02-basho8
 ```
 
 Once you have unzipped the package, see our guide to [[installing
@@ -201,9 +201,9 @@ First, try joining the node `dev2` to `dev1`:
 dev2/bin/riak-admin cluster join dev1@127.0.0.1
 ```
 
-If there is no response, then the join is successful. We still have
-three running nodes that have not yet been joined, so let's join those
-as well:
+If the response states that the cluster join is successfully staged, 
+everything went well. We'll get into staging below, but we still have
+three running nodes that have not yet been joined, so let's join those as well:
 
 ```bash
 dev3/bin/riak-admin cluster join dev1@127.0.0.1
@@ -399,7 +399,7 @@ libraries.  </div>
 ## Setting Up Your Riak Client
 
 Basho maintains official [[client libraries]] for Java, Ruby, Python,
-.NET and Erlang. Below are links to client-specific documentation for each
+.NET, Erlang, and PHP. Below are links to client-specific documentation for each
 language:
 
 * [Java](https://github.com/basho/riak-java-client)
@@ -408,6 +408,7 @@ language:
 * [.NET](https://github.com/basho/riak-dotnet-client)
 * [Node.js](https://github.com/basho/riak-nodejs-client)
 * [Erlang](https://github.com/basho/riak-erlang-client)
+* [PHP](https://github.com/basho/riak-php-client)
 
 In each of the above docs, you'll find detailed client installation and
 setup instructions. Here, we'll walk you through the basics of
@@ -708,3 +709,51 @@ and [[Riak Search 2.0|Using Search]], as well as a variety of other
 pages in the **Riak for Developers** section of the documentation (in
 the navbar on the left).
 
+### PHP
+
+How you connect to Riak with the PHP client depends on whether you're
+using Riak in a development environment with a one-node
+[[cluster|Clusters]] or if you're using multiple nodes, as you would in
+any production environment.
+
+If you're developing using a single-node cluster, you can create a
+`client` object and specify the host and [[HTTP|HTTP API]]
+port. The example below connects the PHP client to a one-node cluster
+running on host 101.0.0.1 and port 8098:
+
+```PHP
+use Basho\Riak;
+use Basho\Riak\Node;
+
+$node = (new Node\Builder)
+        ->atHost('101.0.0.1')
+        ->onPort(8098)
+        ->build();
+
+$riak = new Riak([$node]);
+```
+
+If connecting to multiple nodes, you can specify the connection
+information for those nodes when you instantiate the `client` object (or
+whatever you wish to call this object). Let's say that your cluster
+consists of three nodes, each with a HTTP port of 8098 and
+IPs of 101.0.0.1, 101.0.0.2, and 101.0.0.3, respectively. We can specify
+this information in the hash that we pass to the client:
+
+```PHP
+use Basho\Riak;
+use Basho\Riak\Node;
+
+$nodeBuilder = (new Node\Builder)->onPort(8098);
+$node1 = $nodeBuilder->withHost('101.0.0.1')->build();
+$node2 = $nodeBuilder->withHost('101.0.0.2')->build();
+$node3 = $nodeBuilder->withHost('101.0.0.3')->build();
+
+$client = new Riak([$node1, $node2, $node3]);
+```
+
+For some PHP code samples to get you started, see our tutorials on
+[[the basics of Riak|The Basics]], [[Riak Data Types|Using Data Types]],
+and [[Riak Search 2.0|Using Search]], as well as a variety of other
+pages in the **Riak for Developers** section of the documentation (in
+the navbar on the left).

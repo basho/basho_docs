@@ -73,6 +73,36 @@ public class User {
 $client = Riak::Client.new(:host => 'localhost', :pb_port => 8087)
 ```
 
+```php
+require __DIR__ . '/../vendor/autoload.php';
+
+use \Basho\Riak;
+
+class User
+{
+    /**
+     * @var Riak $riak
+     */
+    private $riak = null;
+
+    /**
+     * @var Riak\DataType\Map $data
+     */
+    private $data = null;
+
+    /**
+     * @var Riak\Bucket $bucket
+     */
+    private $bucket;
+
+    public function __construct(Riak $riak)
+    {
+        $this->riak = $riak;
+        $this->bucket = new Riak\Bucket('users', 'maps');
+    }
+}
+```
+
 ```python
 from riak import RiakClient
 client = RiakClient(protocol='pbc', pb_port=8087)
@@ -139,6 +169,37 @@ class User
     @map = Riak::Crdt::Map.new($client.bucket('users'), key)
   end
 end
+```
+
+```php
+class User
+{
+    #... continued ...#
+
+    /**
+     * @var Riak\Location $location
+     */
+    private $location;
+
+    /**
+     * @var string $first_name
+     */
+    private $first_name;
+
+    /**
+     * @var string $last_name
+     */
+    private $last_name;
+
+    public function __construct(Riak $riak, $first_name, $last_name)
+    {
+        $this->riak = $riak;
+        $this->bucket = new Riak\Bucket('users', 'maps');
+        $this->first_name = $first_name;
+        $this->last_name = $last_name;
+        $this->location = new Riak\Location(sprintf('%s_%s', $first_name, $last_name), $this->bucket);
+    }
+}
 ```
 
 ```python
@@ -345,6 +406,25 @@ class User
 end
 ```
 
+```php
+class User
+{
+    #... continued ...#
+
+    private function init()
+    {
+        $response = (new Riak\Command\Builder\UpdateMap($this->riak))
+            ->updateRegister('first_name', $this->first_name)
+            ->updateRegister('last_name', $this->last_name)
+            ->withParameter('returnbody', 'true')
+            ->build()
+            ->execute();
+
+        return $response->getMap();
+    }
+}
+```
+
 ```python
 class User:
     def __init__(self, first_name, last_name):
@@ -390,6 +470,11 @@ User bruce = new User("Bruce", "Wayne");
 ```ruby
 bruce = User.new 'Bruce', 'Wayne'
 #=> #<User:0x007fe2965cafc8 @map=#<Riak::Crdt::Map:0x007fe2965caf78 @bucket=#<Riak::Bucket {users}>, @key"Bruce_Wayne", @bucket_type"map", @options{}, @dirtyfalse, @counters#<Riak::Crdt::TypedCollection:0x007fe296125ae0 @type=Riak::Crdt::InnerCounter, @parent=#<Riak::Crdt::Map:0x007fe2965caf78 ...>, @contents{}, @flags#<Riak::Crdt::TypedCollection:0x007fe2961257c0 @type=Riak::Crdt::InnerFlag, @parent=#<Riak::Crdt::Map:0x007fe2965caf78 ...>, @contents{}, @maps#<Riak::Crdt::TypedCollection:0x007fe296125428 @type=Riak::Crdt::InnerMap, @parent=#<Riak::Crdt::Map:0x007fe2965caf78 ...>, @contents{}, @registers#<Riak::Crdt::TypedCollection:0x007fe296124e60 @type=Riak::Crdt::InnerRegister, @parent=#<Riak::Crdt::Map:0x007fe2965caf78 ...>, @contents{"last_name"=>"Wayne", "first_name"=>"Bruce"}, @sets#<Riak::Crdt::TypedCollection:0x007fe296124460 @type=Riak::Crdt::InnerSet, @parent=#<Riak::Crdt::Map:0x007fe2965caf78 ...>, @contents{}, @context"M\x01\x83P\x00\x00\x00\xC4x\x01\xCB`\xCAa```\xCC`\xCA\x05R\x1CG\x836r\a3\x1F\xB1Od\xC9\x02\t3e\x00!H\x82+-\xB3\xA8\xB8$>/175\x85\x81\xAF(31;>\xA5$>\xA7\xBC\xBC(5=\x03\xBB\t\xCCY\x10\xAD\xACNE\xA5\xC9\xA9y\xEC\fB%\xEE\xD1\x1F?\xB1\xC0\x8C\xE4\xCCI$\xD1D\x16\x98\x89\xE1\x89\x95y \x13y\x9B\xC0&f\x01\x00\xAF\x055\xA8"
+```
+
+```php
+$riak = new Riak((new Riak\Node\Builder())->buildLocalhost([8087]));
+$iAmBatman = new User($riak, 'Bruce', 'Wayne');
 ```
 
 ```python
@@ -468,6 +553,34 @@ class User
 end
 ```
 
+```php
+class User
+{
+    #... continued ...#
+
+    public function addInterests(array $interests)
+    {
+        $updateSetBuilder = (new Riak\Command\Builder\UpdateSet($this->riak));
+        foreach($interests as $interest) {
+            $updateSetBuilder->add($interest);
+        }
+
+        $response = (new Riak\Command\Builder\UpdateMap($this->riak))
+            ->atLocation($this->location)
+            ->updateSet('interests', $updateSetBuilder)
+            ->withParameter('returnbody', 'true')
+            ->build()
+            ->execute();
+
+        if ($response->isSuccess()) {
+            $this->data = $response->getMap();
+        }
+
+        return $this;
+    }
+}
+```
+
 ```python
 class User:
     def __init__(self, first_name, last_name, interests):
@@ -487,22 +600,18 @@ class User:
  * See the entire example in the RiakClientExamples project here:
  * https://github.com/basho/riak-dotnet-client/tree/develop/src/RiakClientExamples/Dev/DataModeling
  */
-// Changes to UserRepository.Save method:
-if (EnumerableUtil.NotNullOrEmpty(model.Interests))
+public override string Save(User model)
 {
-    var interestsSetOp = new SetOp();
-    interestsSetOp.adds.AddRange(
-        model.Interests.Select(i => TextSerializer(i))
-    );
-    mapUpdates.Add(new MapUpdate
-    {
-        set_op = interestsSetOp,
-        field = new MapField
-        {
-            name = TextSerializer(interestsSet),
-            type = MapField.MapFieldType.SET
-        }
-    });
+    var mapOperation = new UpdateMap.MapOperation();
+
+    mapOperation.SetRegister(firstNameRegister, model.FirstName);
+    mapOperation.SetRegister(lastNameRegister, model.LastName);
+    mapOperation.IncrementCounter(pageVisitsCounter, model.PageVisits);
+    mapOperation.AddToSet(interestsSet, model.Interests);
+
+    // Insert does not require context
+    RiakString key = UpdateMap(model, mapOperation, fetchFirst: false);
+    return (string)key;
 }
 ```
 
@@ -528,6 +637,11 @@ User joe = new User("Joe", "Armstrong", interests);
 ```ruby
 joe = User.new('Joe', 'Armstrong', ['distributed systems', 'Erlang'])
 #=> #<User:0x007f9a4b81ead8 @map=#<Riak::Crdt::Map:0x007f9a4b81ea88 @bucket=#<Riak::Bucket {users}>, @key"\#{first_name}\#{last_name}", @bucket_type"map", @options{}, @dirtyfalse, @counters#<Riak::Crdt::TypedCollection:0x007f9a4b89fae8 @type=Riak::Crdt::InnerCounter, @parent=#<Riak::Crdt::Map:0x007f9a4b81ea88 ...>, @contents{}, @flags#<Riak::Crdt::TypedCollection:0x007f9a4b89f8b8 @type=Riak::Crdt::InnerFlag, @parent=#<Riak::Crdt::Map:0x007f9a4b81ea88 ...>, @contents{}, @maps#<Riak::Crdt::TypedCollection:0x007f9a4b89f688 @type=Riak::Crdt::InnerMap, @parent=#<Riak::Crdt::Map:0x007f9a4b81ea88 ...>, @contents{}, @registers#<Riak::Crdt::TypedCollection:0x007f9a4b89f4a8 @type=Riak::Crdt::InnerRegister, @parent=#<Riak::Crdt::Map:0x007f9a4b81ea88 ...>, @contents{"last_name"=>"Armstrong", "first_name"=>"Joe"}, @sets#<Riak::Crdt::TypedCollection:0x007f9a4b89f0e8 @type=Riak::Crdt::InnerSet, @parent=#<Riak::Crdt::Map:0x007f9a4b81ea88 ...>, @contents{"interests"=>#<Riak::Crdt::InnerSet:0x007f9a4b89ee90 @parent=#<Riak::Crdt::TypedCollection:0x007f9a4b89f0e8 ...>, @value#<Set: {"Erlang"}, @name="interests">}, @context"M\x01\x83P\x00\x00\x01Ex\x01\xCB`\xCAa```\xCC`\xCA\x05R\x1CG\x836r\a3\x1F\xB1O\xE4\xCC\x02\t3g0A$\xB8\xD22\x8B\x8AK\xE2\xF3\x12sSS\x18\xF8\x8A2\x13\xB3\xE3SJ\xE2s\xCA\xCB\x8BR\xD33\xB0\x9B\xC0\x9E\x05\xD1\xCA\xEC\x95\x9F\x9A\xC7\xCE\xF0%\xF7\xD8\xB2\x8F\x9FX`\x06rf\xE6\x95\xA4\x16\xA5\x16\x97\x14#\x99\x97_T\\\x9E_\x82\xC3<N\xA0yX\x9D\xCA\bv*\xD4\al\xAEE9\x89y\xE98\x14\x02\x8D\x808\x8A3'\x91D\xEFp@\xBD\xC3\xE9X\x94[\\R\x94\x9F\x97\x0E\xF4TF\x1D\xD8SY\x00K\x04Y\xA1"
+```
+
+```php
+$user = (new User($riak, 'Joe', 'Armstrong'))
+    ->addInterests(['distributed systems', 'Erlang']);
 ```
 
 ```python
@@ -592,6 +706,32 @@ class User
 end
 ```
 
+```php
+class User
+{
+    #... continued ...#
+
+    public function recordVisit()
+    {
+        $updateCounterBuilder = (new Riak\Command\Builder\IncrementCounter($this->riak))
+            ->withIncrement(1);
+
+        $response = (new Riak\Command\Builder\UpdateMap($this->riak))
+            ->updateCounter('visits', $updateCounterBuilder)
+            ->atLocation($this->location)
+            ->withParameter('returnbody', 'true')
+            ->build()
+            ->execute();
+
+        if ($response->isSuccess()) {
+            $this->data = $response->getMap();
+        }
+
+        return $this;
+    }
+}
+```
+
 ```python
 class User:
     def __init__(self, first_name, last_name, interests):
@@ -621,22 +761,11 @@ public void VisitPage()
 // In UserRepository.cs
 public void IncrementPageVisits()
 {
-    var mapUpdates = new List<MapUpdate>();
-
-    mapUpdates.Add(new MapUpdate
-    {
-        counter_op = new CounterOp { increment = 1 },
-        field = new MapField
-        {
-            name = TextSerializer(visitsCounter),
-            type = MapField.MapFieldType.COUNTER
-        }
-    });
+    var mapOperation = new UpdateMap.MapOperation();
+    mapOperation.IncrementCounter(pageVisitsCounter, 1);
 
     // Update without context
-    var rslt = client.DtUpdateMap(
-        GetRiakObjectId(), TextSerializer, null, null, mapUpdates, null);
-    CheckResult(rslt.Result);
+    UpdateMap(model, mapOperation, fetchFirst: false);
 }
 ```
 
@@ -681,6 +810,10 @@ joe.visitPage();
 
 ```ruby
 joe.visit_page
+```
+
+```php
+$user->recordVisit();
 ```
 
 ```python
@@ -750,6 +883,59 @@ class User
 end
 ```
 
+```php
+class User
+{
+    #... continued ...#
+
+    private function init()
+    {
+        $response = (new Riak\Command\Builder\UpdateMap($this->riak))
+            ->updateRegister('first_name', $this->first_name)
+            ->updateRegister('last_name', $this->last_name)
+            ->updateFlag('paid_account', false)
+            ->atLocation($this->location)
+            ->withParameter('returnbody', 'true')
+            ->build()
+            ->execute();
+
+        return $response->getMap();
+    }
+
+    public function upgradeAccount()
+    {
+        $response =  (new Riak\Command\Builder\UpdateMap($this->riak))
+            ->updateFlag('paid_account', true)
+            ->atLocation($this->location)
+            ->withParameter('returnbody', 'true')
+            ->build()
+            ->execute();
+
+        if ($response->isSuccess()) {
+            $this->data = $response->getMap();
+        }
+
+        return $this;
+    }
+
+    public function downgradeAccount()
+    {
+        $response = (new Riak\Command\Builder\UpdateMap($this->riak))
+            ->updateFlag('paid_account', false)
+            ->atLocation($this->location)
+            ->withParameter('returnbody', 'true')
+            ->build()
+            ->execute();
+
+        if ($response->isSuccess()) {
+            $this->data = $response->getMap();
+        }
+
+        return $this;
+    }
+}
+```
+
 ```python
 class User:
     def __init__(self, first_name, last_name, interests):
@@ -777,38 +963,23 @@ class User:
  * https://github.com/basho/riak-dotnet-client/tree/develop/src/RiakClientExamples/Dev/DataModeling/UserRepository.cs
  */
 
-public void UpgradeAccount()
+public void UpgradeAccount(User model)
 {
-    var mapUpdates = new List<MapUpdate>();
-
-    mapUpdates.Add(new MapUpdate
-    {
-        flag_op = MapUpdate.FlagOp.ENABLE,
-        field = new MapField
-        {
-            name = TextSerializer(paidAccountFlag),
-            type = MapField.MapFieldType.FLAG
-        }
-    });
-
-    UpdateMap(mapUpdates, fetchFirst: true);
+    SetPaidAccount(model, true);
 }
 
-public void DowngradeAccount()
+public void DowngradeAccount(User model)
 {
-    var mapUpdates = new List<MapUpdate>();
+    SetPaidAccount(model, false);
+}
 
-    mapUpdates.Add(new MapUpdate
-    {
-        flag_op = MapUpdate.FlagOp.DISABLE,
-        field = new MapField
-        {
-            name = TextSerializer(paidAccountFlag),
-            type = MapField.MapFieldType.FLAG
-        }
-    });
+private void SetPaidAccount(User model, bool value)
+{
+    var mapOperation = new UpdateMap.MapOperation();
+    mapOperation.SetFlag(paidAccountFlag, value);
 
-    UpdateMap(mapUpdates, fetchFirst: true);
+    // Flag update does not require context
+    UpdateMap(model, mapOperation, fetchFirst: false);
 }
 ```
 
@@ -915,6 +1086,56 @@ class User
 end
 ```
 
+```php
+class User
+{
+    #... continued ...#
+
+    private function getData()
+    {
+        $response = (new Riak\Command\Builder\FetchMap($this->riak))
+            ->atLocation($this->location)
+            ->build()
+            ->execute();
+
+        if ($response->isSuccess()) {
+            $this->data = $response->getMap();
+        } elseif ($response->isNotFound()) {
+            $this->data = $this->init();
+        } else {
+            throw new Exception('Unknown error:' . $response->getStatusCode());
+        }
+
+        return $this->data;
+    }
+
+    public function getFirstName()
+    {
+        return $this->getData()->getRegister('first_name');
+    }
+
+    public function getLastName()
+    {
+        return $this->getData()->getRegister('last_name');
+    }
+
+    public function getInterests()
+    {
+        return $this->getData()->getSet('interests')->getData();
+    }
+
+    public function getVisits()
+    {
+        return $this->getData()->getCounter('visits')->getData();
+    }
+
+    public function getPaidAccount()
+    {
+        return $this->getData()->getFlag('paid_account');
+    }
+}
+```
+
 ```python
 class User:
     # retain class methods from above
@@ -948,54 +1169,26 @@ class User:
 
 public override User Get(string key, bool notFoundOK = false)
 {
-    var fetchRslt = client.DtFetchMap(GetRiakObjectId());
-    CheckResult(fetchRslt.Result);
+    FetchMap cmd = new FetchMap.Builder()
+        .WithBucketType(BucketType)
+        .WithBucket(Bucket)
+        .WithKey(key)
+        .Build();
 
-    string firstName = null;
-    string lastName = null;
-    var interests = new List<string>();
-    uint pageVisits = 0;
+    RiakResult rslt = client.Execute(cmd);
+    CheckResult(rslt);
+    MapResponse response = cmd.Response;
+    Map map = response.Value;
 
-    foreach (var value in fetchRslt.Values)
-    {
-        RiakDtMapField mapField = value.Field;
-        switch (mapField.Name)
-        {
-            case firstNameRegister:
-                if (mapField.Type != RiakDtMapField.RiakDtMapFieldType.Register)
-                {
-                    throw new InvalidCastException("expected Register type");
-                }
-                firstName = TextDeserializer(value.RegisterValue);
-                break;
-            case lastNameRegister:
-                if (mapField.Type != RiakDtMapField.RiakDtMapFieldType.Register)
-                {
-                    throw new InvalidCastException("expected Register type");
-                }
-                lastName = TextDeserializer(value.RegisterValue);
-                break;
-            case interestsSet:
-                if (mapField.Type != RiakDtMapField.RiakDtMapFieldType.Set)
-                {
-                    throw new InvalidCastException("expected Set type");
-                }
-                interests.AddRange(value.SetValue.Select(v => TextDeserializer(v)));
-                break;
-            case pageVisitsCounter:
-                if (mapField.Type != RiakDtMapField.RiakDtMapFieldType.Counter)
-                {
-                    throw new InvalidCastException("expected Counter type");
-                }
-                pageVisits = (uint)value.Counter.Value;
-                break;
-            /*
-                * Note: can do additional checks here in default case
-                */
-        }
-    }
+    string firstName = map.Registers.GetValue(firstNameRegister);
+    string lastName = map.Registers.GetValue(lastNameRegister);
+    var interests = map.Sets.GetValue(interestsSet).ToArray();
+    uint pageVisits = (uint)map.Counters.GetValue(pageVisitsCounter);
 
-    return new User(firstName, lastName, interests, pageVisits);
+    bool accountStatus;
+    map.Flags.TryGetValue(paidAccountFlag, out accountStatus);
+
+    return new User(firstName, lastName, interests, pageVisits, accountStatus);
 }
 ```
 
@@ -1058,6 +1251,23 @@ joe.visits #=> 0
 joe.visit_page
 joe.visits #=> 1
 joe.paid_account #=> fase
+```
+
+```php
+$riak = new Riak((new Riak\Node\Builder())->buildLocalhost([8087]));
+
+$joe = (new User($riak, 'Joe', 'Armstrong'))
+    ->addInterests(['distributed systems', 'Erlang'])
+    ->recordVisit();
+
+var_dump(
+    $joe->getFirstName(),
+    $joe->getLastName(),
+    $joe->getInterests(),
+    $joe->getVisitCount(),
+    $joe->recordVisit()->getVisitCount(),
+    $joe->getPaidAccount()
+);
 ```
 
 ```python
@@ -1136,6 +1346,50 @@ class User
     end
   end
 end
+```
+
+```php
+class User
+{
+    #... continued ...#
+
+    public function addInterest($interest)
+    {
+        $updateSetBuilder = (new Riak\Command\Builder\UpdateSet($this->riak))->add($interest);
+
+        $response = (new Riak\Command\Builder\UpdateMap($this->riak))
+            ->atLocation($this->location)
+            ->updateSet('interests', $updateSetBuilder)
+            ->withParameter('returnbody', 'true')
+            ->build()
+            ->execute();
+
+        if ($response->isSuccess()) {
+            $this->data = $response->getMap();
+        }
+
+        return $this;
+    }
+
+    public function removeInterest($interest)
+    {
+        $updateSetBuilder = (new Riak\Command\Builder\UpdateSet($this->riak))->remove($interest);
+
+        $response = (new Riak\Command\Builder\UpdateMap($this->riak))
+            ->atLocation($this->location)
+            ->updateSet('interests', $updateSetBuilder)
+            ->withParameter('returnbody', 'true')
+            ->withContext($this->data->getContext())
+            ->build()
+            ->execute();
+
+        if ($response->isSuccess()) {
+            $this->data = $response->getMap();
+        }
+
+        return $this;
+    }
+}
 ```
 
 ```python
@@ -1256,6 +1510,24 @@ class User
 end
 ```
 
+```php
+class User
+{
+    #... continued ...#
+
+    public function __toString()
+    {
+        return json_encode([
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'interests' => $this->getInterests(),
+            'visits' => $this->getVisitCount(),
+            'paid_account' => $this->getPaidAccount()
+        ]);
+    }
+}
+```
+
 ```python
 import json
 
@@ -1307,6 +1579,13 @@ bruce = User.new('Bruce', 'Wayne', ['crime fighting', 'climbing stuff'])
 bruce.visit_page
 bruce.as_json
 #=>  "{"first_name":"Bruce","last_name":"Wayne","interests":["climbing","crime fighting"],"visits":1}"
+```
+
+```php
+$iAmBatman = new User($riak, 'Bruce', 'Wayne');
+$iAmBatman->addInterests(['crime fighting', 'climbing stuff']);
+// prints json data string to standard out
+echo $iAmBatman;
 ```
 
 ```python

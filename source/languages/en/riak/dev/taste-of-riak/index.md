@@ -30,6 +30,7 @@ language with which you'd like to proceed:
 <li><a href="/dev/taste-of-riak/csharp/"><img src="/images/plangs/csharp.png" alt="CSharp"></a></li>
 <li><a href="/dev/taste-of-riak/nodejs/"><img src="/images/plangs/nodejs.png" alt="Node.js"></a></li>
 <li><a href="/dev/taste-of-riak/erlang/"><img src="/images/plangs/erlang.jpg" alt="Erlang"></a></li>
+<li><a href="/dev/taste-of-riak/php/"><img src="/images/plangs/php.png" alt="PHP"></a></li>
 </ul>
 
 ### Community-supported Client Libraries

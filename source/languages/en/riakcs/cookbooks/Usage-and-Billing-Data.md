@@ -218,7 +218,7 @@ In the `riak_cs` section of the file, add an entry for
 `storage_schedule` like this:
 
 ```riakcsconf
-stats.storage.schedule.1 = "06:00"
+stats.storage.schedule.1 = 0600
 ```
 
 ```advancedconfig
@@ -229,8 +229,7 @@ stats.storage.schedule.1 = "06:00"
 {storage_schedule, "0600"}
 ```
 
-The time is given as a string of the form `HH:MM` (omit the `:` in the old-style
-`advanced.config`/`app.config` files, so it's simply `HHMM`), representing the
+The time is given as a string of the form `HHMM`, representing the
 hour and minute GMT to start the calculation process. In this example, the node
 would start the storage calculation at 6am GMT every day.
 
@@ -238,8 +237,8 @@ To set up multiple times, simply specify multiple times. For example,
 to schedule the calculation to happen at both 6am and 6pm, use:
 
 ```riakcsconf
-stats.storage.schedule.1 = "06:00"
-stats.storage.schedule.2 = "18:00"
+stats.storage.schedule.1 = 0600
+stats.storage.schedule.2 = 1800
 ```
 
 ```advancedconfig

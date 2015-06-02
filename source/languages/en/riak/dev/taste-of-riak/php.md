@@ -1,7 +1,7 @@
 ---
 title: "Taste of Riak: PHP"
 project: riak
-version: 1.4.0+
+version: 2.0.1+
 document: guide
 toc: true
 audience: beginner
@@ -10,39 +10,57 @@ keywords: [developers, client, php]
 
 If you haven't set up a Riak Node and started it, please visit the [[Prerequisites|Taste of Riak: Prerequisites]] first.
 
-To try this flavor of Riak, a working installation of PHP is required. 
+To try this flavor of Riak, a working installation of PHP is required, and [Composer](https://getcomposer.org/) is required to be installed to fetch the client library package. 
 
 ###Client Setup
-Download the latest PHP client from GitHub ([zip](https://github.com/basho/riak-php-client/archive/master.zip), [github repository](https://github.com/basho/riak-php-client/)).
+Download and unzip, or clone the Taste of Riak Sample Code Repository from GitHub ([zip](https://github.com/basho/taste-of-riak/archive/master.zip), [github repository](https://github.com/basho/taste-of-riak)).
 
-Unzip the archive to your working directory and then start an interactive PHP shell (`php -a`) next to the client directory.  
+From the `taste-of-riak` directory, use composer to install the Riak PHP 2.0 Client`.
 
-Next, enter the following into the shell to load the client library code.
+```bash
+php path/to/your/composer.phar install
 
-```php
-require_once('riak-php-client/src/Basho/Riak/Riak.php');
-require_once('riak-php-client/src/Basho/Riak/Bucket.php');
-require_once('riak-php-client/src/Basho/Riak/Exception.php');
-require_once('riak-php-client/src/Basho/Riak/Link.php');
-require_once('riak-php-client/src/Basho/Riak/MapReduce.php');
-require_once('riak-php-client/src/Basho/Riak/Object.php');
-require_once('riak-php-client/src/Basho/Riak/StringIO.php');
-require_once('riak-php-client/src/Basho/Riak/Utils.php');
-require_once('riak-php-client/src/Basho/Riak/Link/Phase.php');
-require_once('riak-php-client/src/Basho/Riak/MapReduce/Phase.php');
+#If you did a global install of composer, run this instead:
+composer install
 ```
 
-If you are using a single local Riak node, use the following to create a new client instance:
+If you set up a local Riak cluster using the [[five minute install]] method, change line 11 from `->onPort(8098)` to `->onPort(10018)`.
 
-```php
-$client = new Basho\Riak\Riak('127.0.0.1', 8098);
+Next, run `php Ch01-CRUD/taste-of-riak.php` to run this chapter's example code. It should output:
+
+```json
+Reading Objects From Riak...
+Updating Objects In Riak...
+Deleting Objects From Riak...
+Working With Complex Objects...
+Serialized Object:
+{"title":"Moby Dick","author":"Herman Melville","body":"Call me Ishmael. Some years ago...","isbn":"1111979723","copiesOwned":3}
 ```
 
-If you set up a local Riak cluster using the [[five minute install]] method, use this code snippet instead:
+Yay, success!
+
+Since we didn't use PHP's REPL environment, let's walk through the code
+to see what it actually did at each step.
+
+## Setting up the PHP Client and connections
 
 ```php
-$client = new Basho\Riak\Riak('127.0.0.1', 10018);
+include_once 'vendor/autoload.php';
+
+use Basho\Riak;
+use Basho\Riak\Node;
+use Basho\Riak\Command;
+
+$node = (new Node\Builder)
+        ->atHost('127.0.0.1')
+        ->onPort(8098)
+        ->build();
+
+$riak = new Riak([$node]);
 ```
+
+This code will load the library, declare the necessary `use` statements for our code, and then initialize and configure a [Node Builder](http://basho.github.io/riak-php-client/class-Basho.Riak.Node.Builder.html).
+Once we call `build()` on the builder, it will return to us a [Node](http://basho.github.io/riak-php-client/class-Basho.Riak.Node.html) object, which we use when building our Riak commands. 
 
 We are now ready to start interacting with Riak.
 
@@ -50,67 +68,110 @@ We are now ready to start interacting with Riak.
 First, let’s create a few objects and a bucket to keep them in.
 
 ```php
-$myBucket = $client->bucket('test');
+$bucket = new Riak\Bucket('testBucket');
 
 $val1 = 1;
-$obj1 = $myBucket->newObject('one', $val1);
-$obj1->store();
+$location1 = new Riak\Location('one', $bucket);
+
+$storeCommand1 = (new Command\Builder\StoreObject($riak))
+                    ->buildObject($val1)
+                    ->atLocation($location1)
+                    ->build();
+$storeCommand1->execute();
 ```
 
 In this first example we have stored the integer 1 with the lookup key of ‘one’.  Next let’s store a simple string value of “two” with a matching key.
 
 ```php
 $val2 = 'two';
-$obj2 = $myBucket->newObject('two', $val2);
-$obj2->store();
+$location2 = new Riak\Location('two', $bucket);
+
+$storeCommand2 = (new Command\Builder\StoreObject($riak))
+                    ->buildObject($val2)
+                    ->atLocation($location2)
+                    ->build();
+$storeCommand2->execute();
 ```
 
 That was easy.  Finally, let’s store an associative array.  You will probably recognize the pattern by now.
 
 ```php
-$val3 = array('myValue' => 3);
-$obj3 = $myBucket->newObject('three', $val3);
-$obj3->store();
+$val3 = ['myValue' => 3];
+$location3 = new Riak\Location('three', $bucket);
+
+$storeCommand3 = (new Command\Builder\StoreObject($riak))
+                    ->buildJsonObject($val3)
+                    ->atLocation($location3)
+                    ->build();
+$storeCommand3->execute();
 ```
 
 ###Reading Objects From Riak
 Now that we have a few objects stored, let’s retrieve them and make sure they contain the values we expect.
 
 ```php
-$fetched1 = $myBucket->get('one');
-$fetched2 = $myBucket->get('two');
-$fetched3 = $myBucket->get('three');
+$response1 = (new Command\Builder\FetchObject($riak))
+                ->atLocation($location1)
+                ->build()
+                ->execute();
 
-assert($val1 == $fetched1->getData());
-assert($val2 == $fetched2->getData());
-assert($val3 == $fetched3->getData());
+$response2 = (new Command\Builder\FetchObject($riak))
+                ->atLocation($location2)
+                ->build()
+                ->execute();
+
+$response3 = (new Command\Builder\FetchObject($riak))
+                ->atLocation($location3)
+                ->withDecodeAsAssociative()
+                ->build()
+                ->execute();
+
+assert($val1 == $response1->getObject()->getData());
+assert($val2 == $response2->getObject()->getData());
+assert($val3 == $response3->getObject()->getData());
 ```
 
-That was easy.  We simply request the objects by bucket and key. 
+That was easy.  We create a [Fetch Command](http://basho.github.io/riak-php-client/class-Basho.Riak.Command.Object.Fetch.html) from a [FetchObject Builder](http://basho.github.io/riak-php-client/class-Basho.Riak.Command.Builder.FetchObject.html). 
+For our object that is an associative array, we also add [`withDecodeAsAssociative()`](http://basho.github.io/riak-php-client/class-Basho.Riak.Command.Builder.FetchObject.html#_withDecodeAsAssociative) to the builder so it returns the object as an associative array instead of an stdClass object.
 
+In either case, we'll get a [Response](http://basho.github.io/riak-php-client/class-Basho.Riak.Command.Object.Response.html) object back, which holds information about the operation, and the result data.
 
 ###Updating Objects In Riak
 While some data may be static, other forms of data may need to be updated.  This is also easy to accomplish.  Let’s update the value of myValue in the 3rd example to 42.
 
 ```php
-$fetched3->data['myValue'] = 42;
-$fetched3->store();
+object3 = $response3->getObject();
+$data3 = $object3->getData();
+
+$data3['myValue'] = 42;
+$object3 = $object3->setData(json_encode($data3));
+
+$updateCommand = (new Command\Builder\StoreObject($riak))
+    ->withObject($object3)
+    ->atLocation($location3)
+    ->build();
+
+$updateCommand->execute();
 ```
 
+First we get the Riak [Object](http://basho.github.io/riak-php-client/class-Basho.Riak.Object.html) from the [Response](http://basho.github.io/riak-php-client/class-Basho.Riak.Command.Object.Response.html), then we get the stored data with [`getData()`](http://basho.github.io/riak-php-client/class-Basho.Riak.Object.html#_getData). We update the data to our liking, then use [`setData()`](http://basho.github.io/riak-php-client/class-Basho.Riak.Object.html#_setData) to set the new data back to the Riak Object. 
+To store it we use the same pattern as before, but this time we use the [`withObject()`](http://basho.github.io/riak-php-client/class-Basho.Riak.Command.Builder.ObjectTrait.html#_withObject) method to tell it to store our updated Riak Object.
+
 ###Deleting Objects From Riak
-As a last step, we’ll demonstrate how to delete data.  We just call the delete() method on the fetched Riak Object.  
+As a last step, we’ll demonstrate how to delete data.  We just build a [Delete Command](http://basho.github.io/riak-php-client/class-Basho.Riak.Command.Object.Delete.html) from a [DeleteObject Builder](http://basho.github.io/riak-php-client/class-Basho.Riak.Command.Builder.DeleteObject.html), and execute it.  
 
 ```php
-$fetched1->delete();
-$fetched2->delete();
-$fetched3->delete();
+(new Command\Builder\DeleteObject($riak))->atLocation($location1)->build()->execute();
+(new Command\Builder\DeleteObject($riak))->atLocation($location2)->build()->execute();
+(new Command\Builder\DeleteObject($riak))->atLocation($location3)->build()->execute();
 ```
 
 ###Working With Complex Objects
 Since the world is a little more complicated than simple integers and bits of strings, let’s see how we can work with more complex objects.  Take for example, this plain old PHP object(POPO) that encapsulates some knowledge about a book.
 
 ```php
-class Book {
+class Book
+{
     var $title;
     var $author;
     var $body;
@@ -129,32 +190,42 @@ $book->copiesOwned = 3;
 Ok, so we have some information about our Moby Dick collection that we want to save.  Storing this to Riak should look familiar by now:
 
 ```php
-$booksBucket = $client->bucket('books');
-$newBook = $booksBucket->newObject($book->isbn, $book);
-$newBook->store();
+$bookLocation = new Riak\Location($book->isbn, new Riak\Bucket('books'));
+
+$storeCommand1 = (new Command\Builder\StoreObject($riak))
+    ->buildJsonObject($book)
+    ->atLocation($bookLocation)
+    ->build();
+
+$storeCommand1->execute();
 ```
 
 Some of you may be thinking “But how does the Riak client encode/decode my object”?  If we fetch the binary version of our book back and print it as a string, we shall know:
 
 ```php
-$riakObject = $booksBucket->getBinary($book->isbn);
-print($riakObject->data);
+$fetchBookResponse = (new Command\Builder\FetchObject($riak))
+                        ->atLocation($bookLocation)
+                        ->build()
+                        ->execute();
+
+print('Serialized Object:' . PHP_EOL);
+print($fetchBookResponse->getBody() . PHP_EOL);
 ```
 
 ```json
-{"title":"Moby Dick",
- "author":"Herman Melville",
- "body":"Call me Ishmael. Some years ago...",
- "isbn":"1111979723",
- "copiesOwned":3}
+Serialized Object:
+{"title":"Moby Dick","author":"Herman Melville","body":"Call me Ishmael. Some years ago...","isbn":"1111979723","copiesOwned":3}
 ```
 
-JSON!  The library encodes POPO’s as JSON strings.  If instead we wanted to get a data record back we could use `$mobyDick = $booksBucket->get(book.ISBN)->data`, and then use an array accessor like `$mobyDick[‘isbn’]` to grab the info we want.  
+JSON!  The library encodes PHP objects as JSON strings when you use the [`buildJsonObject()`](http://basho.github.io/riak-php-client/class-Basho.Riak.Command.Builder.ObjectTrait.html#_buildJsonObject) method on the StoreObject builder.  
 
 Now that we’ve ruined the magic of object encoding, let’s clean up our mess:
 
 ```php
-$newBook->delete();
+(new Command\Builder\DeleteObject($riak))
+    ->atLocation($bookLocation)
+    ->build()
+    ->execute();
 ```
 
 ###Next Steps

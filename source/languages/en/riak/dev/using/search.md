@@ -154,6 +154,13 @@ client.execute(storeIndex);
 client.create_search_index('famous')
 ```
 
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\StoreIndex($riak))
+  ->withName('famouse')
+  ->build()
+  ->execute();
+```
+
 ```python
 client.create_search_index('famous')
 ```
@@ -193,6 +200,14 @@ client.execute(storeIndex);
 
 ```ruby
 client.create_search_index("famous", "_yz_default")
+```
+
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\StoreIndex($riak))
+  ->withName('scores')
+  ->usingSchema('_yz_default')
+  ->build()
+  ->execute();
 ```
 
 ```python
@@ -280,6 +295,14 @@ client.execute(storePropsOp);
 ```ruby
 bucket = client.bucket('cats')
 bucket.properties = {'search_index' => 'famous'}
+```
+
+```php
+(new \Basho\Riak\Command\Builder\Search\AssociateIndex($riak))
+    ->withName('famous')
+    ->buildBucket('cats')
+    ->build()
+    ->execute();
 ```
 
 ```python
@@ -378,7 +401,7 @@ client.execute(lionoStore);
 ```
 
 ```ruby
-bucket = client.bucket_type('cats').bucket("animals")
+bucket = client.bucket_type('animals').bucket("cats")
 
 cat = bucket.get_or_new("liono")
 cat.data = {"name_s" => "Lion-o", "age_i" => 30, "leader_b" => true}
@@ -395,6 +418,31 @@ cat.store
 cat = bucket.get_or_new("panthro")
 cat.data = {"name_s" => "Panthro", "age_i" => 36}
 cat.store
+```
+
+```php
+$bucket = new \Basho\Riak\Bucket('cats', 'animals');
+
+$storeObjectBuilder = (new \Basho\Riak\Command\Builder\StoreObject($riak))
+  ->withLocation(new \Basho\Riak\Location('liono', $bucket))
+  ->buildJsonObject(['name_s' => 'Lion-o', 'age_i' => 30, 'leader_b' => true]);
+
+$storeObjectBuilder->build()->execute();
+
+$storeObjectBuilder->withLocation(new \Basho\Riak\Location('cheetara', $bucket))
+  ->buildJsonObject(['name_s' => 'Cheetara', 'age_i' => 28, 'leader_b' => false]);
+
+$storeObjectBuilder->build()->execute();
+
+$storeObjectBuilder->withLocation(new \Basho\Riak\Location('snarf', $bucket))
+  ->buildJsonObject(['name_s' => 'Snarf', 'age_i' => 43]);
+
+$storeObjectBuilder->build()->execute();
+
+$storeObjectBuilder->withLocation(new \Basho\Riak\Location('panthro', $bucket))
+  ->buildJsonObject(['name_s' => 'Panthro', 'age_i' => 36]);
+
+$storeObjectBuilder->build()->execute();
 ```
 
 ```python
@@ -591,6 +639,18 @@ p results
 p results['docs']
 ```
 
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\FetchObjects($riak))
+  ->withIndexName('famous')
+  ->withQuery('name_s:Lion*')
+  ->build()
+  ->execute();
+
+$response->getNumFound(); // 1
+
+var_dump($response->getDocs());
+```
+
 ```python
 results = client.fulltext_search('famous', 'name_s:Lion*')
 print results
@@ -704,6 +764,22 @@ p object.data
 # {"name_s" => "Lion-o", "age_i" => 30, "leader_b" => true}
 ```
 
+```php
+$doc = $response->getDocs()[0];
+$btype = $doc->_yz_rt; // animals
+$bucket = $doc->_yz_rb; // cats
+$key = $doc->_yz_rk; // liono
+$name = $doc->name_s; // Lion-o
+
+$object = (new \Basho\Riak\Command\Builder\FetchObject($riak))
+  ->buildLocation($key, $bucket, $btype)
+  ->build()
+  ->execute()
+  ->getObject();
+
+var_dump($object->getData());
+```
+
 ```python
 doc = results['docs'][0]
 bucket = client.bucket_type(doc['_yz_rt']).bucket(doc['_yz_rb']) # animals/cats
@@ -777,6 +853,14 @@ SearchOperation.Response results = searchOp.get();
 client.search("famous", "age_i:[30 TO *]")
 ```
 
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\FetchObjects($riak))
+  ->withIndexName('famous')
+  ->withQuery('age_i:[30 TO *]')
+  ->build()
+  ->execute();
+```
+
 ```python
 client.fulltext_search('famous', 'age_i:[30 TO *]')
 ```
@@ -827,6 +911,14 @@ SearchOperation.Response results = searchOp.get();
 client.search("famous", "leader_b:true AND age_i:[30 TO *]")
 ```
 
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\FetchObjects($riak))
+  ->withIndexName('famous')
+  ->withQuery('leader_b:true AND age_i:[30 TO *]')
+  ->build()
+  ->execute();
+```
+
 ```python
 client.fulltext_search('famous', 'leader_b:true AND age_i:[30 TO *]')
 ```
@@ -861,6 +953,13 @@ cluster.execute(deleteOp);
 
 ```ruby
 client.delete_search_index('famous')
+```
+
+```php
+(new Command\Builder\Search\DeleteIndex($riak))
+  ->withName('famous')
+  ->build()
+  ->execute();
 ```
 
 ```python
@@ -922,6 +1021,20 @@ page = 2
 start = ROWS_PER_PAGE * (page - 1)
 
 client.search("famous", "*:*", {:start => start, :rows => ROWS_PER_PAGE})
+```
+
+```php
+$maxRows = 2;
+$page = 2;
+$start = $rowsPerPAge * (page - 1);
+
+(new \Basho\Riak\Command\Builder\Search\FetchObjects($riak))
+  ->withIndexName('famous')
+  ->withQuery('*:*')
+  ->withMaxRows($maxRows)
+  ->withStartRow($start)
+  ->build()
+  ->execute();
 ```
 
 ```python

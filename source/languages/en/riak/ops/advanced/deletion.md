@@ -122,7 +122,7 @@ deleted_object.vclock
 
 ```python
 # It is not currently possible to fetch the causal context for a deleted
-# key in the Python client
+# key in the Python client.
 ```
 
 ```java
@@ -144,6 +144,15 @@ System.out.println(response.getVclock().asString());
 
 %% In the Erlang client, the vector clock is accessible using the Obj
 %% object obtained above.
+```
+
+```php
+$response = (new \Basho\Riak\Command\Builder\FetchObject($riak))
+  ->buildLocation('deleted_key', 'in_some_bucket', 'of_a_certain_type')
+  ->build()
+  ->execute();
+
+echo $response->getVclock(); // a85hYGBgzGDKBVI8m9WOeb835ZRhYCg1zGBKZM5jZdhnceAcXxYA
 ```
 
 ## Resources

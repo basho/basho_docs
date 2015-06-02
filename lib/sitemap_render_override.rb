@@ -232,7 +232,7 @@ module SitemapRenderOverride
         href = "/" + href unless href =~ /(https?\:)|(^\/)/
 
         # A better way to extract this file?
-        if href =~ /(https?\:)|(\/standalone)/
+        if href =~ /(https?\:)|(\/standalone)/ or href.start_with?('//')
           "#{base}#{href}#{cap}"
         else
           # "#{base}/shared/#{version_str}#{href}#{cap}"
