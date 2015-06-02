@@ -987,7 +987,7 @@ This example will build on the example in the [[Using Data Types]]
 tutorial. That tutorial walks you through storing CMS-style user data in
 Riak [[maps|Using Data Types#Maps]], and we'd suggest that you
 familiarize yourself with that tutorial first. More specifically, user
-data is stored in the following fields in each users' map:
+data is stored in the following fields in each user's map:
 
 * first name in a `first_name` register
 * last name in a `last_name` register
