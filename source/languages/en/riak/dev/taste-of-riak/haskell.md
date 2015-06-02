@@ -1,5 +1,5 @@
 ---
-title: "Taste of Riak: Haskell"
+title: "Taste of Riak: Haskell†"
 project: riak
 version: 1.4.0+
 document: guide
@@ -7,6 +7,8 @@ toc: true
 audience: intermediate
 keywords: [developers, client, haskell]
 ---
+
+>**Note:** This is a community-supplied page! While Haskell is not an officially supported client (meaning it has not been tested by Basho and is not eligible for support), it is one being used by the Riak community.
 
 If you haven't set up a Riak Node and started it, please visit the
 [[Prerequisites|Taste of Riak: Prerequisites]] first.
