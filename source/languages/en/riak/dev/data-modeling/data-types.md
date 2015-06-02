@@ -1250,7 +1250,7 @@ joe.interests #=> ["distributed systems", "Erlang"]
 joe.visits #=> 0
 joe.visit_page
 joe.visits #=> 1
-joe.paid_account #=> fase
+joe.paid_account #=> false
 ```
 
 ```php
