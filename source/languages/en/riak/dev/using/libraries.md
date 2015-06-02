@@ -147,7 +147,7 @@ level of maturity and activity.
 
 #### Haskell
 
-* [Riak Haskell Client](https://github.com/janrain/riak-haskell-client)
+* [Riak Haskell Client](https://github.com/markhibberd/riak-haskell-client)
   --- A fast Haskell client library from the team at MailRank.
 
 #### Java
