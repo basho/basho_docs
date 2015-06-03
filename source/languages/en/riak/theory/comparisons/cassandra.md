@@ -145,7 +145,7 @@ and Cassandra online documentation.
                 <li>[[Reading, Writing, and Updating Data|Concepts#Reading, Writing, and Updating Data]]</li>
             </ul>
         </td>
-        <td>Replication in Cassandra starts when a user chooses a partitioner. Partitioners include Random Partitioner (which also relies on consistent hashing for data storage) and various Ordered Partitioner options. Under the hood, physical nodes are assigned tokens which determine a nodes's position on the ring and the range of data for which it's responsible.
+        <td>Replication in Cassandra starts when a user chooses a partitioner. Partitioners include Random Partitioner (which also relies on consistent hashing for data storage) and various Ordered Partitioner options. Under the hood, physical nodes are assigned tokens which determine a node's position on the ring and the range of data for which it's responsible.
             <ul>
                 <li>[[Replication|http://www.datastax.com/docs/1.0/cluster_architecture/replication]]</li>
             </ul>
