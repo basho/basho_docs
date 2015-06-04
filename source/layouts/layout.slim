@@ -32,36 +32,39 @@ head(class=data.page.document)
 - classnames << 'dual' if data.page.dual
 - classnames << 'latest' if latest_version?(:riak)
 body class=classnames.join(' ') id=data.page.body_id
+  == partial "layouts/gtm_tracker"
   == partial "layouts/primary" unless data.page.skip_nav
   div(role="main" class=(data.page.skip_nav ? "no-nav" : ""))
     == partial "layouts/header"
     article.mainarticle
       - if data.page.versions.nil? || data.page.versions
         == partial "layouts/versions"
+        = "\n"
       - unless !data.page.title || data.page.simple
         header
           - title = data.page.title
           - if title =~ /Multi.Data.Center.Replication.?\:?(.*)/
             - title = "<div class=small>Multi-Datacenter Replication:</div> #{$1}"
           h1== title
+        = "\n"
       - unless data.page.simple
         - if data.page.header == 'riakee'
           .enterprise
             == I18n.t(:"riak_ee.info.body")
-
+          = "\n"
         - unless data.page.toc == false
           nav#toc
             h2.title== I18n.t(:toc_contents)
             div#toc-wrapper
               ol#toc-items
-
+          = "\n"
         - if data.page.download.present?
           aside#download-button
             a href="/downloads/##{data.page.download['key']}"
               span.content
                 span.title riak
                 span.subtitle Download #{current_version('riak')} for #{data.page.download['name']}
-
+          = "\n"
       == yield
       == partial "layouts/tutorial_nav"
       div.clear
