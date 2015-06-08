@@ -243,6 +243,10 @@ The above steps describe a process for renaming nodes in a running cluster. When
 
 Expanding on the Example Scenario above, the below steps can be used to rename nodes in a cluster that is being restored from backups. The below steps assume every node is offline, and they will indicate when to bring each node online.
 
+> **Note**: If the cluster that you are creating from the backup can communicate with the original cluster over the network, you should change the distributed Erlang "cookie".  This will prevent unintended cross-talk between the two clusters.
+>   
+> The cookie is set to the `distributed_cookie` value from the riak.conf file, or the <span style="white-space: nowrap;">`-setcookie`</span> value from vm.args. 
+
 #### Bringing Up the First Node
 
 In order to bring our first node online, we'll first need to use the `riak-admin reip` command on a single node. In this example, we'll use `riak@10.1.42.11` as our first node.
