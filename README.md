@@ -162,6 +162,7 @@ version). The ranges are specified using either greater/less than or
 plus/minus signs or a version range.
 
 * **{{1.0.0+}}** _(greater than 1.0.0, inclusive)_
+* **{{1.0.0-}}** _(less than 1.0.0, exclusive)_
 * **{{>=1.0.0}}** _(greater than 1.0.0, inclusive)_
 * **{{<1.0.0}}** _(less than 1.0.0, exclusive)_
 * **{{1.0.0-1.2.0}}** _(between 1.0 and 1.2, inclusive)_
