@@ -1283,7 +1283,7 @@ div[role="main"] {
     @media screen and (max-width : 768px) {
       display : none; /* Hide the push-down ad on tablet and mobile */
     }
-}
+  }
 
   #marketing-banner {
     position     : relative;
@@ -1541,33 +1541,65 @@ div[role="main"] {
       text-align : center;
       margin     : 0 auto;
 
-      &:last-child {
-        background : url('/shared/latest/images/layout/cs-cloud.png') center center no-repeat transparent;
-      }
       a {
-        display         : block;
+        display         : inline;
         color           : $headerColor;
         text-decoration : none;
 
         &:hover {
           color : $linkBlue;
         }
+
+        &[href^="http://"], &[href^="https://"] {
+          background    : none;
+        }
       }
 
-      .big, .small, .image {
+      a.disabled {
+        display         : inline;
+        color           : $headerColor;
+        text-decoration : none;
+
+        &:hover {
+          color : $headerColor;
+        }
+
+        &[href^="http://"], &[href^="https://"] {
+          background    : none;
+        }
+      }
+
+      .big, .small, .riak_image, .riak_kv_image, .riak_s2_image {
         display     : block;
-        color       : headerColor;
         line-height : 1.2;
         margin      : 0 auto;
         text-align  : center;
       }
 
-      .image {
+      .riak_image {
         @include size(92%, 88px);
-        background     : url('/shared/latest/images/layout/big-riak-logo.png') center center no-repeat transparent;
+        background     : url('/shared/latest/images/layout/smaller-riak-logo.png') center center no-repeat transparent;
         border-bottom  : 1px solid #cfcfcf;
         padding-bottom : 20px;
         margin-top     : 37px;
+      }
+
+      .riak_kv_image {
+        @include size(92%, 88px);
+        background     : url('/shared/latest/images/layout/riak-kv-logo-244x88.png') center center no-repeat transparent;
+        border-bottom  : 1px solid #cfcfcf;
+        padding-bottom : 20px;
+        margin-top     : 37px;
+        background-size: contain;
+      }
+
+      .riak_s2_image {
+        @include size(92%, 88px);
+        background     : url('/shared/latest/images/layout/riak-s2-logo-244x88.png') center center no-repeat transparent;
+        border-bottom  : 1px solid #cfcfcf;
+        padding-bottom : 20px;
+        margin-top     : 37px;
+        background-size: contain;
       }
 
       .big {
@@ -1601,11 +1633,21 @@ div[role="main"] {
       }
     }
 
+    #project_riakcs {
+      background : url('/shared/latest/images/layout/cs-cloud.png') center center no-repeat transparent;
+    }
+
     @media screen and (max-width: 1300px) {
       margin : 4em auto 7em;
 
-      .project .image {
+      .project .riak_image {
         background : url('/shared/latest/images/layout/smaller-riak-logo.png') center center no-repeat transparent;
+        margin-top : 27px;
+      }
+      .project .riak_kv_image {
+        margin-top : 27px;
+      }
+      .project .riak_s2_image {
         margin-top : 27px;
       }
       .project a {
@@ -1642,6 +1684,19 @@ div[role="main"] {
       padding-top : 10px;
       margin      : 15px auto;
     }
+  }
+
+  #community-footer {
+    @extend .box-green;
+    @extend .sans;
+    width       : auto;
+    height      : auto;
+    position    : relative;
+    margin      : 2em 3em 4em;
+    padding     : 40px 20px 50px;
+    text-align  : center;
+    font-size   : 160%;
+    font-weight : normal;
   }
 
   &.no-nav {
