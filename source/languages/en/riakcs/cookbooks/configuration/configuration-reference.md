@@ -801,7 +801,7 @@ are milliseconds.
 <tr><td><code>list_keys_list_users_timeout</code></td><td>A timeout value on listing users</td><td><code>60000</code></td></tr>
 <tr><td><code>storage_calc_timeout</code></td><td>A timeout value on running storage calculation on a bucket</td><td><code>60000</code></td></tr>
 <tr><td><code>list_objects_timeout</code></td><td>A timeout value on listing objects of a bucket, older version (will be removed in 2.x)</td><td><code>60000</code></td></tr>
-<tr><td><code>fold_objects_timeout</code></td><td>A timeout value on listing objedts of a bucket (default since 1.5.0)</td><td><code>60000</code></td></tr>
+<tr><td><code>fold_objects_timeout</code></td><td>A timeout value on listing objects of a bucket (default since 1.5.0)</td><td><code>60000</code></td></tr>
 <tr><td><code>get_index_range_gckeys_timeout</code></td><td>A timeout value on listing keys in garbage collection bucket, overall call</td><td><code>60000</code></td></tr>
 <tr><td><code>get_index_range_gckeys_call_timeout</code></td><td>A timeout value on listing keys in garbage collection bucket, each continuation call</td><td><code>60000</code></td></tr>
 <tr><td><code>get_index_list_multipart_uploads_timeout</code></td><td>A timeout value on listing incomplete multipart upload of an object</td><td><code>60000</code></td></tr>
