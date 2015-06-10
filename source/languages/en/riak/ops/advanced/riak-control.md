@@ -97,7 +97,7 @@ change to take effect.
 
 After restarting the node, you should be able to access it by going 
 to `http://ip_address_of_listener:port/admin`. In the case of a development
-cluster using the default configuation, you would access Riak Control at
+cluster using the default configuration, you would access Riak Control at
 <http://127.0.0.1:8098/admin></a>
 
 If you enabled authentication for Riak Control while performing the above 

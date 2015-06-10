@@ -66,7 +66,7 @@ BucketProps {n_val = Just 3, allow_mult = Just False, last_write_wins = Just Fal
 
 The haskell riak client uses the protocol buffers interface so to connect you
 need to specify the IP address and the protocol buffers port. These values can
-be found in Riaks's `app.config` file, in the section `riak_kv`with keys `bp_ip`
+be found in Riak's `app.config` file, in the section `riak_kv`with keys `bp_ip`
 and `pb_port`.
 
 For example:
