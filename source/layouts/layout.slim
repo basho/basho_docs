@@ -73,22 +73,4 @@ body class=classnames.join(' ') id=data.page.body_id
     - if data.page.versions.nil? || data.page.versions
       == partial "layouts/watermarks"
     == partial "layouts/footer"
-  - if $production
-    javascript:
-      var _gaq = [['_setAccount', 'UA-10051263-6'], ['_trackPageview']];
-      (function(d, t) {
-      var g = d.createElement(t),
-      s = d.getElementsByTagName(t)[0];
-      g.async = true;
-      g.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
-      s.parentNode.insertBefore(g, s);
-      })(document, 'script');
-
-    | <!-- Start Alexa Certify Javascript -->
-    | <script type="text/javascript">
-    | _atrk_opts = { atrk_acct:"BgVif1aMIw00Wl", domain:"basho.com",dynamic: true};
-    | (function() { var as = document.createElement('script'); as.type = 'text/javascript'; as.async = true; as.src = "https://d31qbv1cthcecs.cloudfront.net/atrk.js"; var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(as, s); })();
-    | </script>
-    | <noscript><img src="https://d5nxst8fruw4z.cloudfront.net/atrk.gif?account=BgVif1aMIw00Wl" style="display:none" height="1" width="1" alt="" /></noscript>
-    | <!-- End Alexa Certify Javascript -->
 | </html>
