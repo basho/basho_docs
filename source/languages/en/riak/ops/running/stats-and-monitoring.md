@@ -262,7 +262,9 @@ Nagios also offers logging and reporting of events and can be used for
 identifying trends and capacity planning.
 
 A collection of [reusable Riak-specific scripts][riak_nagios] are
-available to the community for use with Nagios.
+available to the community for use with Nagios. See also the 
+(Advanced Nagios Plugins Collection)[https://github.com/harisekhon/nagios-plugins] 
+which contains additional high quality Nagios plugins for Riak.
 
 #### OpenTSDB
 
