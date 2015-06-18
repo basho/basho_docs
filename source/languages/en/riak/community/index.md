@@ -43,7 +43,7 @@ The [#riak IRC room on irc.freenode.net](http://irc.lc/freenode/riak) is a great
 ### The Basho Blog
 
 Members of the Basho team write frequently on [The Basho
-Blog](http://blog.basho.com).
+Blog](http://basho.com/blog/).
 
 ### Videos
 
@@ -53,7 +53,7 @@ You can watch all the Basho-curated videos [on YouTube](https://www.youtube.com/
 ### Other Social 
 
 We are easy to find on social media sites. Like us on [Facebook](http://www.facebook.com/pages/Riak/143599935667217), chat on the [Riak
-LinkedIn Group](http://www.linkedin.com/groups?mostPopular=&gid=2913983) and follow us on [Twitter](http://twitter.com/basho). We have a growing following [on Reddit as well](reddit.com/r/Riak/).
+LinkedIn Group](http://www.linkedin.com/groups?mostPopular=&gid=2913983) and follow us on [Twitter](http://twitter.com/basho). We have a growing following [on Reddit as well](http://www.reddit.com/r/Riak/).
 
 ## Programs 
 Our platforms are complemented by the amazing efforts of the Basho team and the greater contributor community. Here are a few you don't want to miss.

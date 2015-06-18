@@ -14,9 +14,11 @@ moved: {
 
 ## Monitoring, Management, and GUI Tools
 
+
 * [riak_node (for Munin)](https://github.com/munin-monitoring/contrib/blob/master/plugins/riak/riak_node) --- Munin plugin for monitoring GET and PUT traffic
 * [riak_memory (for Munin)](https://github.com/munin-monitoring/contrib/blob/master/plugins/riak/riak_memory) --- Munin plugin for monitoring memory allocation
 * [Nagios Plugins for Riak](https://github.com/xb95/nagios-plugins)
+* [Advanced Nagios Plugins Collection](https://github.com/harisekhon/nagios-plugins) --- contains many additional Nagios plugins for monitoring Riak.
 * [Riak-Console](https://github.com/lucaspiller/riak-console) --- An interactive command line interface to Riak
 * [Rekon](https://github.com/basho/rekon) --- Riak Node Data Browser
 * [Gmond Python Modules for Riak](http://github.com/jnewland/gmond_python_modules/tree/master/riak) --- Ganglia Module for connecting to Riak
