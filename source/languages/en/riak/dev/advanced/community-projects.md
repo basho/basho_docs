@@ -14,6 +14,7 @@ moved: {
 
 ## Monitoring, Management, and GUI Tools
 
+* [Advanced Nagios Plugins Collection](https://github.com/harisekhon/nagios-plugins) --- contains many high quality Nagios plugins for monitoring Riak eg. check Riak API writes/reads/deletes with timings, check a specific key's value against regex or value range, check all riak diagnostics, check node states, check all nodes agree on ring status, gather statistics, alert on any single stat
 * [riak_node (for Munin)](https://github.com/munin-monitoring/contrib/blob/master/plugins/riak/riak_node) --- Munin plugin for monitoring GET and PUT traffic
 * [riak_memory (for Munin)](https://github.com/munin-monitoring/contrib/blob/master/plugins/riak/riak_memory) --- Munin plugin for monitoring memory allocation
 * [Nagios Plugins for Riak](https://github.com/xb95/nagios-plugins)
