@@ -87,7 +87,7 @@ they contain the values we expect.
 {ok, Fetched3} = riakc_pb_socket:get(Pid, MyBucket, <<"three">>).
 
 Val1 =:= binary_to_term(riakc_obj:get_value(Fetched1)). %% true
-Val2 =:= binary_to_term(riakc_obj:get_value(Fetched2)). %% true
+Val2 =:= riakc_obj:get_value(Fetched2).                 %% true
 Val3 =:= binary_to_term(riakc_obj:get_value(Fetched3)). %% true
 ```
 
