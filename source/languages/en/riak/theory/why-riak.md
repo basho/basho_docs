@@ -78,7 +78,7 @@ high availability approach while simplifying application development.
 
 ### When Riak is Less of a Good Fit
 
-Basho recommends that you run no fewer than 5 data servers in a cluster.
+We recommend running no fewer than 5 data servers in a cluster.
 This means that Riak can be overkill for small databases. If you're not
 already sure that you will need a distributed database, there's a good
 chance that you won't need Riak.

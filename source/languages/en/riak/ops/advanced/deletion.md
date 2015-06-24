@@ -105,8 +105,8 @@ before a node is stopped will remain in the backend.
 
 ## Client Library Examples
 
-If you are updating an object that has been deleted---or if you suspect
-that an update might target a deleted object---it is recommended that
+If you are updating an object that has been deleted---or if an update 
+might target a deleted object---we recommend that
 you first fetch the [[causal context]] of the object prior to updating.
 This can be done by setting the `deletedvclock` parameter to `true` as
 part of the [[fetch operation|PBC Fetch Object]]. This can also be done

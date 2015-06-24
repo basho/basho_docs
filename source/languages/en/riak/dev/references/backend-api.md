@@ -17,7 +17,7 @@ the storage backend API in the form of
 (specs).
 
 Specs are used by [dialyzer](http://www.erlang.org/doc/man/dialyzer.html),
-an Erlang static analysis tool. It is recommended to copy these specs into any
+an Erlang static analysis tool. We recommend copying these specs into any
 custom backend modules and use them as a guide for development to
 avoid errors and ensure full compatibility with Riak.
 

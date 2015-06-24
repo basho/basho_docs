@@ -352,7 +352,7 @@ file or command line.
 
 Riak Version 2 Replication and Version 3 Replication can be safely used
 at the same time. If you choose to move to Version 3 Replication
-completely, it is recommended that you disable Version 2 realtime
+completely, we recommend disabling Version 2 realtime
 replication bucket hooks with the `riak-repl modes` command.
 
 #### `riak-repl modes`
