@@ -98,11 +98,11 @@ and supporting Solr's client query APIs.
 #### Relevant Docs
 
 * [[Using Search]] provides an overview of how to use the new
-  Riak Search
+  Riak Search.
 * [[Search Schema]] shows you how to create and manage custom search
-  schemas
+  schemas.
 * [[Search Details]] provides an in-depth look at the design
-  considerations that went into the new Riak Search
+  considerations that went into the new Riak Search.
 
 #### Video
 
@@ -142,7 +142,7 @@ Riak 2.0 enables you to manage:
 * **Authorization** to perform specific tasks, from GETs and PUTs to 
 running MapReduce jobs to administering Riak Search.
 
-* **authentication** of Riak clients seeking access to Riak.
+* **Authentication** of Riak clients seeking access to Riak.
 
 Previously, securing Riak was restricted to the network level. 
 Now, security measures can be applied to the internals of
@@ -204,17 +204,16 @@ by Basho engineer [Joe DeVivo](https://github.com/joedevivo).
 ## Bucket Types
 
 In older versions of Riak, bucket properties were managed on a
-bucket-by-bucket, ad hoc basis. With bucket types, you can now create
-and manage whole configurations of bucket properties and apply them to
-buckets. This is a much more efficient way of configuring buckets. In
-addition, bucket types act as a third namespace in addition to buckets
+bucket-by-bucket, ad hoc basis. With bucket types, you can create,
+manage, and apply whole configurations of bucket properties efficiently.
+Bucket types also act as a third namespace in addition to buckets
 and keys.
 
 #### Relevant Docs
 
 * [[Using Bucket Types]] explains how to create, modify, and activate
   bucket types, as well as how the new system differs from the older,
-  bucket properties-based system
+  bucket properties-based system.
 
 #### Video
 
@@ -225,12 +224,17 @@ and [Jordan West](https://github.com/jrwest).
 ## Dotted Version Vectors
 
 In prior versions of Riak, [[conflict resolution]] was managed using
-[[vector clocks|Causal Context#Vector-Clocks]], which are a mechanism
-for tracking object update causality. Riak 2.0 has added support for
-dotted version vectors (DVVs).  DVVs serve an analogous role to vector
+[[vector clocks|Causal Context#Vector-Clocks]], which track object
+update causality.
+
+Riak 2.0 has added support for dotted version vectors (DVVs).
+DVVs serve an analogous role to vector
 clocks but are more effective at containing [[sibling explosion|Causal
-Context#sibing-explosion]] and can thus reduce Riak cluster latency. The
-[[dotted version vectors|Causal Context#Dotted-Version-Vectors]] doc
+Context#sibing-explosion]] and can reduce Riak cluster latency. 
+
+#### Relevant Docs
+
+* [[Dotted Version Vectors|Causal Context#Dotted-Version-Vectors]]
 explains some of the theoretical nuances behind the distinction between
 DVVs and vector clocks and offers instructions on implementing DVVs.
 
