@@ -7,16 +7,15 @@ audience: beginner
 keywords: [developers]
 ---
 
-Riak version 2.0 includes deep changes affecting all facets of Riak,
-along with a wide variety of new features unavailable in previous
-versions. Here, we'd like to briefly describe these new features and
-direct you to sections of the documentation that explain how you can put
-them to work in your Riak installation. For more in-depth implementation
-details, we suggest checking out the [version 2.0 release
-notes](https://github.com/basho/riak/blob/riak-2.0.0/RELEASE-NOTES.md).
+Riak version 2.0 includes deep changes and many new features effecting 
+all facets of Riak. This article gives an overview of the new features 
+and where you can learn more about using them in your Riak installation.
+
+For more in-depth implementation details check out the 
+[version 2.0 release notes](https://github.com/basho/riak/blob/riak-2.0.0/RELEASE-NOTES.md).
 
 If you're upgrading to Riak 2.0 from an earlier version, please be aware
-that all of the new features listed below are purely optional:
+that all of the new features listed below are optional:
 
 * **Riak Data Types** --- Riak's new CRDT-based [[Data Types]] can
   simplify modeling data in Riak, but are only used in buckets
@@ -59,7 +58,7 @@ to 2.0]].
 
 ## Riak Data Types
 
-In distributed systems, there is an unavoidable trade-off between
+In distributed systems there is an unavoidable trade-off between
 consistency and availability. This can complicate some aspects of
 application design if you're using Riak as a key/value store because the
 application is responsible for resolving conflicts between replicas of
@@ -68,7 +67,7 @@ objects stored in different Riak nodes.
 Riak 2.0 offers a new approach to this problem for a wide range of use
 cases in the form of [[Riak Data Types|using data types]]. Instead of
 forcing the application to resolve conflicts, Riak offers five Data
-Types that can cut through some of the complexities of developing using
+Types that can reduce some of the complexities of developing using
 Riak: [[flags|Data Types#Flags]], [[registers|Data Types#Registers]],
 [[counters|Data Types#Counters]], [[sets|Data Types#Sets]], and
 [[maps|Data Types#Maps]].
@@ -78,10 +77,10 @@ Riak: [[flags|Data Types#Flags]], [[registers|Data Types#Registers]],
 * [[Using Data Types]] explains how to use Riak Data Types on the
   application side, with usage examples for all five Data Types in all
   of Basho's officially supported clients (Java, Ruby, Python, .NET and
-  Erlang) and for Riak's HTTP interface
+  Erlang) and for Riak's HTTP interface.
 * [[Data Types]] explains some of the theoretical concerns that drive
-  Riak Data Types and shares some details about how they are implemented
-  under the hood in Riak
+  Riak Data Types and shares details about how they are implemented
+  in Riak.
 
 #### Video
 
@@ -98,7 +97,7 @@ and supporting Solr's client query APIs.
 
 #### Relevant Docs
 
-* [[Using Search]] provides a broad-based overview of how to use the new
+* [[Using Search]] provides an overview of how to use the new
   Riak Search
 * [[Search Schema]] shows you how to create and manage custom search
   schemas
@@ -122,13 +121,13 @@ some (or perhaps all) of your data.
 
 * [[Using Strong Consistency]] shows you how to enable Riak's strong
   consistency subsystem and to apply strong consistency guarantees to
-  data stored in specified buckets
+  data stored in specified buckets.
 * [[Strong Consistency]] provides a theoretical treatment of how a
   strongly consistent system differs from an [[eventually
   consistent|Eventual Consistency]] system, as well as details about how
-  strong consistency is implemented in Riak
+  strong consistency is implemented in Riak.
 * [[Managing Strong Consistency]] is a guide to strong consistency for
-  Riak operators
+  Riak operators.
 
 #### Video
 
@@ -138,11 +137,15 @@ check out [part 2](https://www.youtube.com/watch?v=gXJxbhca5Xg).
 
 ## Security
 
-In version 2.0, Riak enables you to manage both **authorization** to
-perform specific tasks, from GETs and PUTs to running MapReduce jobs to
-administering Riak Search, and **authentication** of Riak clients
-seeking access to Riak. Previously, securing Riak was restricted to the
-network level. Now, security measures can be applied to the internals of
+Riak 2.0 enables you to manage:
+
+* **Authorization** to perform specific tasks, from GETs and PUTs to 
+running MapReduce jobs to administering Riak Search.
+
+* **authentication** of Riak clients seeking access to Riak.
+
+Previously, securing Riak was restricted to the network level. 
+Now, security measures can be applied to the internals of
 Riak itself and managed through a simple command-line interface.
 
 #### Relevant Docs
@@ -150,11 +153,11 @@ Riak itself and managed through a simple command-line interface.
 * [[Authentication and Authorization]] explains how Riak Security can be
   enabled and disabled, how users and groups are managed, how
   authorization to perform certain operations can be granted and
-  revoked, how security ciphers can be chosen, and more
+  revoked, how security ciphers can be chosen, and more.
 * [[Managing Security Sources]] is an in-depth tutorial on how to
   implement Riak's four supported authentication sources: trusted
   networks, passwords, pluggable authentication modules, and
-  certificates
+  certificates.
 
 #### Video
 
