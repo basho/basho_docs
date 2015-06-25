@@ -102,8 +102,8 @@ online documentation for [Riak](http://docs.basho.com/) and
         <td>Riak uses a data structure called a vector clock to reason about causality and staleness of stored values. Vector clocks enable clients to always write to the database in exchange for consistency conflicts being resolved at read time by either application or client code. Vector clocks can be configured to store copies of a given datum based on size and age of said datum. There is also an option to disable vector clocks and fall back to simple time-stamp based "last-write-wins".
             <ul>
               <li>[[Vector Clocks]]</li>
-              <li>[[Why Vector Clocks Are Easy|http://basho.com/blog/technical/2010/01/29/why-vector-clocks-are-easy/]]</li>
-              <li>[[Why Vector Clocks Are Hard|http://basho.com/blog/technical/2010/04/05/why-vector-clocks-are-hard/]]</li>
+              <li>[[Why Vector Clocks Are Easy|http://basho.com/posts/technical/why-vector-clocks-are-easy/]]</li>
+              <li>[[Why Vector Clocks Are Hard|http://basho.com/posts/technical/why-vector-clocks-are-hard/]]</li>
             </ul>
          </td>
         <td>HBase has strongly consistent reads/writes. Data may be autosharded across regions and redistributed as data changes.
