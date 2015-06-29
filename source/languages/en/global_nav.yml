@@ -69,6 +69,7 @@ riak:
               - "[[Python|Conflict Resolution: Python]]"
               - "[[C#|Conflict Resolution: CSharp]]"
               - "[[NodeJS|Conflict Resolution: NodeJS]]"
+              - "[[PHP|Conflict Resolution: PHP]]"
       - title: "Riak Search"
         sub:
           - "[[Search Basics|Using Search]]"

@@ -81,7 +81,7 @@ address), [[using secondary indexes]] can provide an easy solution.
          </a></td>
         <td><a href="https://player.vimeo.com/video/42744689" target="_blank" title="Riak at OpenX">Scaling Riak at Kiip</a>
         <br>
-    In this talk, recorded at the May 2012 San Francisco Riak Meetup, Armon Dadgar and Mitchell Hashimoto of Kiip give an overview of how and why they are using Riak in production, and the road they took to get there. One of the first subsystems they switched over to Riak was Sessions. You can also read the blog post and catch the slides <a href="http://basho.com/blog/technical/2012/05/25/Scaling-Riak-At-Kiip/" class="riak" target="_blank">here.</a>
+    In this talk, recorded at the May 2012 San Francisco Riak Meetup, Armon Dadgar and Mitchell Hashimoto of Kiip give an overview of how and why they are using Riak in production, and the road they took to get there. One of the first subsystems they switched over to Riak was Sessions. You can also read the blog post and catch the slides <a href="http://basho.com/posts/business/Scaling-Riak-At-Kiip/" class="riak" target="_blank">here.</a>
         </td>
     </tr>
 </table>
@@ -231,7 +231,7 @@ contents of the user account.
     </td>
     <td><a href="https://player.vimeo.com/video/47535803" target="_blank" title="Riak at Braintree">Riak at Braintree</a>
     <br>
-    Ben Mills, a developer at Braintree, discusses how their backend team came to find and begin to integrate Riak into their production environment. They also cover their model and repository framework for Ruby, Curator. Check out more details and slides on the <a href="http://basho.com/blog/technical/2012/08/14/riak-at-braintree/" target="_blank">Riak blog.</a>
+    Ben Mills, a developer at Braintree, discusses how their backend team came to find and begin to integrate Riak into their production environment. They also cover their model and repository framework for Ruby, Curator. Check out more details and slides on the <a href="http://basho.com/posts/business/riak-at-braintree/" target="_blank">Riak blog.</a>
     </td>
   </tr>
 </table>
@@ -278,7 +278,7 @@ modifying it, and writing back the new value.
 </a></td>
         <td><a href="http://player.vimeo.com/video/21598799" target="_blank" title="Riak at Yammer">Riak at Yammer</a>
         <br>
-    This video was recorded at the March 2012 San Francisco Riak Meetup and is worth every minute of your time. Coda Hale and Ryan Kennedy of Yammer give an excellent and in depth look into how they built “Streamie”, user notifications, why Riak was the right choice, and the lessons learned in the process. Read more and get the slides in the Riak blog <a href="http://basho.com/blog/technical/2011/03/28/Riak-and-Scala-at-Yammer/" target="_blank">here.</a>
+    This video was recorded at the March 2012 San Francisco Riak Meetup and is worth every minute of your time. Coda Hale and Ryan Kennedy of Yammer give an excellent and in depth look into how they built “Streamie”, user notifications, why Riak was the right choice, and the lessons learned in the process. Read more and get the slides in the Riak blog <a href="http://basho.com/posts/business/Riak-And-Scala-At-Yammer/" target="_blank">here.</a>
         </td>
     </tr>
 
@@ -288,7 +288,7 @@ modifying it, and writing back the new value.
          </a></td>
         <td><a href="http://player.vimeo.com/video/44498491" target="_blank" title="Riak at Voxer">Riak at Voxer</a>
         <br>
-    The team at Voxer has long relied on Riak as their primary data store for various production services. They have put Riak through its paces and have served as one of our more exciting customers and use cases: Riak was in place when they shot to the top of the App Store at the end of 2011. We also love them because they open-sourced their Node.js client. Read more and get the slides in the Riak blog <a href="http://basho.com/blog/technical/2012/06/27/Riak-at-Voxer/" target="_blank">here.</a>
+    The team at Voxer has long relied on Riak as their primary data store for various production services. They have put Riak through its paces and have served as one of our more exciting customers and use cases: Riak was in place when they shot to the top of the App Store at the end of 2011. We also love them because they open-sourced their Node.js client. Read more and get the slides in the Riak blog <a href="http://basho.com/posts/business/Riak-in-Production-at-Voxer/" target="_blank">here.</a>
         </td>
     </tr>
 </table>
