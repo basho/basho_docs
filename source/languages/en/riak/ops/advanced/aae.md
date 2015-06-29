@@ -232,7 +232,7 @@ user-specified time delay should be observed. This enables you to
 establish, for example, that a delay of 10 milliseconds should be
 observed if the mailbox of any vnode reaches 50 messages.
 
-The general form for setting throttling tiers is as follows:
+The general form for setting tiered throttling is as follows:
 
 ```riakconf
 anti_entropy.throttle.$tier.mailbox_size
