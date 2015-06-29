@@ -226,7 +226,7 @@ the `anti_entropy.throttle` parameter. The default is `on`.
 
 #### Throttling Tiers
 
-If you active AAE throttling, you can use **tiered throttling** to
+If you activate AAE throttling, you can use **tiered throttling** to
 establish a series of vnode mailbox-size thresholds past which a
 user-specified time delay should be observed. This enables you to
 establish, for example, that a delay of 10 milliseconds should be
