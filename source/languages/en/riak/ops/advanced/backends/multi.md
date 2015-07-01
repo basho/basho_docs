@@ -99,7 +99,7 @@ Here is an example of the general form for configuring multiple
 backends:
 
 ```riakconf
-multi_backend.$name.$setting_name = setting
+multi_backend.$name.backend_name.$setting_name = setting
 ```
 
 If you are using, for example, the LevelDB and Bitcask backends and wish
@@ -107,8 +107,8 @@ to set LevelDB's `bloomfilter` setting to `off` and the Bitcask
 backend's `io_mode` setting to `nif`, you would do that as follows:
 
 ```riakconf
-multi_backend.leveldb.bloomfilter = off
-multi_backend.bitcask.io_mode = nif
+multi_backend.my_backend.leveldb.bloomfilter = off
+multi_backend.my_backend.bitcask.io_mode = nif
 ```
 
 #### Using the Older Configuration System
