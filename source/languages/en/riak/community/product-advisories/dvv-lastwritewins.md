@@ -45,7 +45,7 @@ In all bucket types where `last_write_wins` is being used, this issue can be avo
 1. Fetch the patch [ZIP
 file](https://github.com/basho/basho_docs/raw/master/source/data/dvv_lww_buckets.beam.zip)
 1. Uncompress the patch ZIP file.
-1. Place the beam file in your basho_patches directory ( »riak_install_dir>/lib/basho_patches«).
+1. Place the beam file in your basho_patches directory (»riak_install_dir>/lib/basho_patches«).
 1. Execute the following commands from the /bin directory of your Riak installation: 
 
 ```riak
@@ -58,14 +58,11 @@ dvv_lww_buckets:fix_buckets().
 >Note that this only needs to be done on one node per Riak cluster, as the beam file provides a utility to fix buckets across the cluster.
 
 
-If you see any output of the form:
-	`!! Fixing <<"foo">>: - resetting dvv_enabled=false`
-
-Then you have one or more affected buckets. The `fix_buckets` function will automatically fix the bucket properties for both untyped buckets with properties different from default properties, and also any bucket types that have these settings. If you have set these properties for your default bucket in an advanced.config setting, it will warn you that your default bucket is configured incorrectly, so you will have to edit your advanced.config and make sure that you set `dvv_enabled` to 'false'.
+If you see any output of the form: `!! Fixing <<"foo">>: - resetting dvv_enabled=false`, then you have one or more affected buckets. The `fix_buckets` function will automatically fix the bucket properties for both untyped buckets with properties different from default properties, and also any bucket types that have these settings. If you have set these properties for your default bucket in an advanced.config setting, it will warn you that your default bucket is configured incorrectly, so you will have to edit your advanced.config and make sure that you set `dvv_enabled` to 'false'.
  
->**WARNING: 
+>**WARNING:** 
 >
->DO NOT set `last_write_wins=false` as AAE or Read Repair may remove all conflicting values for affected keys.**
+>**DO NOT set `last_write_wins=false` as AAE or Read Repair may remove all conflicting values for affected keys.**
 
 When AAE is enabled, the next AAE run will repair any keys with the issue. Also, once the bucket properties are fixed, issuing a GET (for example, your application reading the key) will result in both a successful read and will repair that particular object.
 
