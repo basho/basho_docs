@@ -43,7 +43,7 @@ The issue manifests itself as failure to read a key or keys that are affected. T
 In all bucket types where `last_write_wins` is being used, this issue can be avoided by setting `dvv_enabled` to 'false'. Setting `dvv_enabled=false` will enable AAE or read repair to fix those affected keys. In order to make this process as easy as possible, we have provided a pre-compiled Erlang module called dvv_lww_buckets.beam that can be used to scan for and fix affected buckets. 
 
 1. Fetch the patch [ZIP
-file](https://github.com/basho/basho_docs/raw/master/source/data/dvv_lww_buckets.beam.zip)
+file](https://github.com/basho/basho_docs/raw/riak/2.1.1/source/data/dvv_lww_buckets.beam.zip)
 1. Uncompress the patch ZIP file.
 1. Place the beam file in your basho_patches directory (»riak_install_dir>/lib/basho_patches«).
 1. Execute the following commands from the /bin directory of your Riak installation: 
