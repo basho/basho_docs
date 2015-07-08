@@ -135,7 +135,7 @@ module VersionDirs
             next
           elsif f =~ /^\.\/build\/(?:fonts|js|css)\//
             $versions.each do |proj, version|
-              next unless $only_versions.include?(version)
+              next unless $only_projects.include?(proj.to_s)
               version = version.sub(/(\d+[.]\d+[.]\d+).*/, "\\1")
               move_to = f.sub(/\.\/build\//, "./build/#{proj.to_s}/#{version}/")
               copy(f, move_to)
