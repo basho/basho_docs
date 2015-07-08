@@ -14,8 +14,8 @@ for proj, vs in version_file['currents']
   proj = proj.upcase
   proj_sym = proj.downcase.to_sym
   vs = ENV["#{proj}_VERSION"] if ENV["#{proj}_VERSION"].present?
-  ENV["#{proj}_VERSION"] = vs if ENV["#{proj}_VERSION"].blank? 
-  $only_projects << proj_sym if $gen_projects.include?(proj_sym)
+  ENV["#{proj}_VERSION"] = vs if ENV["#{proj}_VERSION"].blank?
+  $only_projects << proj_sym.to_s if $gen_projects.include?(proj_sym)
   $only_versions << vs if $gen_projects.include?(proj_sym)
   $versions[proj_sym] = vs
   puts "#{proj}_VERSION=#{ENV["#{proj}_VERSION"]}"
