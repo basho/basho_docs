@@ -10,6 +10,7 @@ only = []
 OptionParser.new do |opt|
   opt.on('-r', '--riak RIAK_VERSION') { |o| envs['RIAK_VERSION'] = o; only += ['riak'] }
   opt.on('-c', '--riakcs RIAKCS_VERSION') { |o| envs['RIAKCS_VERSION'] = o; only += ['riakcs'] }
+  opt.on('-d', '--dataplatform DATAPLATFORM_VERSION') { |o| envs['DATAPLATFORM_VERSION'] = o; only += ['dataplatform'] }
   opt.on('-q', '--dry-run', 'Build, but don\'t deploy to S3') { |o| envs['DEPLOY'] = "false" }
   opt.on('-h', 'Display this help message') { puts opt; exit }
 end.parse!
