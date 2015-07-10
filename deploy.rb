@@ -5,13 +5,17 @@ require 'optparse'
 envs = {}
 envs['RIAK_DOCS_LANG'] = 'en'
 envs['DEPLOY'] = "true"
+only = []
 
 OptionParser.new do |opt|
-  opt.on('-r', '--riak RIAK_VERSION') { |o| envs['RIAK_VERSION'] = o }
-  opt.on('-c', '--riakcs RIAKCS_VERSION') { |o| envs['RIAKCS_VERSION'] = o }
+  opt.on('-r', '--riak RIAK_VERSION') { |o| envs['RIAK_VERSION'] = o; only += ['riak'] }
+  opt.on('-c', '--riakcs RIAKCS_VERSION') { |o| envs['RIAKCS_VERSION'] = o; only += ['riakcs'] }
   opt.on('-q', '--dry-run', 'Build, but don\'t deploy to S3') { |o| envs['DEPLOY'] = "false" }
   opt.on('-h', 'Display this help message') { puts opt; exit }
 end.parse!
+
+only_s = only.join(",")
+envs['ONLY'] = only.join(",") unless only.empty?
 
 `rm -rf build`
 
