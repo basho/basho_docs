@@ -128,8 +128,12 @@ module BashoDocsHelpers
 
   def global_nav
     return $global_nav if defined?($global_nav)
-    yml = File.expand_path(File.join(File.dirname(__FILE__), '..', 'source', 'languages', I18n.locale.to_s, 'global_nav.yml'))
-    $global_nav = YAML::load(File.open(yml))
+    yml = Hash.new
+    riak_yml_path = File.expand_path(File.join(File.dirname(__FILE__), '..', 'source', 'languages', I18n.locale.to_s, 'riak', 'side_nav.yml'))
+    yml.merge!(YAML::load(File.open(riak_yml_path)))
+    riakcs_yml_path = File.expand_path(File.join(File.dirname(__FILE__), '..', 'source', 'languages', I18n.locale.to_s, 'riakcs', 'side_nav.yml'))
+    yml.merge!(YAML::load(File.open(riakcs_yml_path)))
+    $global_nav = yml
   end
 
   def bread_crumbs(page)
