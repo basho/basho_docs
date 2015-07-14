@@ -1,0 +1,10 @@
+dataplatform:
+  # - title: "Shortcuts"
+  #   class: "active shortcuts"
+  #   sub:
+  #     - "[[APIs|/dev/references/http/]]"
+  #     - "[[FAQs|Riak FAQs]]"
+  - title: "Start Here"
+    class: "start"
+    sub:
+      - "[[Test Page|Test Data Platform Page]]"
