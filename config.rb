@@ -120,7 +120,7 @@ configure :build do
       end
     end
 
-    if ENV.include?('DEPLOY')
+    if ENV['DEPLOY'] == "true"
       activate :s3_deploy do |s3|
         s3.access_key_id = ENV['AWS_ACCESS_KEY_ID']
         s3.secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
