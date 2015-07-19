@@ -165,7 +165,7 @@ your client to do things like the following:
 
 In general, you should think of the cluster interaction level as a kind
 of stateful registry of healthy, responsive nodes. In some systems, it
-might also be necessary to to have configurable parameters for
+might also be necessary to have configurable parameters for
 connections to Riak, e.g. minimum and/or maximum concurrent connections.
 
 ## Bucket Types

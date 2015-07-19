@@ -76,7 +76,7 @@ Now we can specify those credentials when we create our `client` object.
 client = RiakClient(host='127.0.0.1', pb_port=8087, credentials=creds)
 ```
 
-This client object is not currently set up to to use any of the
+This client object is not currently set up to use any of the
 available security sources with the exception of trust-based auth,
 provided that the
 [CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) from
@@ -106,7 +106,7 @@ creds = SecurityCreds(username='riakuser',
 ## PAM-based Authentication
 
 If you have specified that a specific client be authenticated using
-[[PAM|Managing Security Sources#PAM-based-Authentication]], you you will
+[[PAM|Managing Security Sources#PAM-based-Authentication]], you will
 need to provide a CA as well as the username and password that you
 specified when creating the user in Riak. For more, see our
 documentation on [[User Management|Authentication and
