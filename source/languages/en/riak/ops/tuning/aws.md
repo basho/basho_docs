@@ -11,14 +11,14 @@ moved: {
 }
 ---
 
-This guide introduces some recommended best practices for performance
-tuning of Riak clusters in the Amazon Web Services (AWS) Elastic Compute
-Cloud (EC2) environment.
+This guide introduces best practices for tuning Riak cluster performance
+in the Amazon Web Services (AWS) Elastic Compute Cloud (EC2) environment.
 
 <div class="info">
-<div class="title">Tip</div>
-Be sure to check out [[System Performance Tuning]] for more general
-performance and tuning recommendations for Riak clusters.
+<div class="title">Note</div>
+The following guide is supplementary. Be sure to check out 
+[[System Performance Tuning]] for general performance and 
+tuning recommendations before continuing with this guide.
 </div>
 
 ## EC2 Instances
