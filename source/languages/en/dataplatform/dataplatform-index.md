@@ -1,7 +1,7 @@
 ---
 title: Data Platform
 project: dataplatform
-version: 0.8.0+
+version: 1.0.0+
 document: tutorial
 toc: true
 index: true
@@ -12,9 +12,3 @@ simple: true
 versions: true
 ---
 
-![Riak CS Logo](/images/riak-cs-logo.png)
-
-
-This page is a lie!
-
-It's some filler kruft for the Data Platform!
