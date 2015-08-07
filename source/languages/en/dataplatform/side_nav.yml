@@ -7,4 +7,4 @@ dataplatform:
   - title: "Start Here"
     class: "start"
     sub:
-      - "[[Basho Data Platform|Basho Data Platform]]"
+      - "[[Data Platform|Basho Data Platform]]"
