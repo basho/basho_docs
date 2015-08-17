@@ -6,7 +6,7 @@ document: tutorial
 toc: true
 index: true
 audience: beginner
-keywords: [dataplatform, getting started]
+keywords: [data platform, getting started]
 body_id: dataplatform-index
 simple: true
 versions: true
