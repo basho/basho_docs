@@ -7,6 +7,10 @@ audience: beginner
 [riak_ensemble]:
 ---
 
+<div class="note">
+Leader Election Service is available to [Enterprise users only][ee].
+</div>
+
 ##Overview
 
 The Basho Data Platform (BDP) Leader Election Service enables Spark clusters to run without a ZooKeeper instance. 
