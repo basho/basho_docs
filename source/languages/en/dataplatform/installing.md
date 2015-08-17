@@ -10,7 +10,6 @@ audience: beginner
 [bdp download]: http://docs.basho.com/dataplatform/latest/dataplatform-downloads/
 ---
 
-#Installing
 Basho Data Platform (BDP) enables you to extend Riak with Spark and Redis. This page will guide you through the process of installing BDP on most supported operating systems. If you're installing BDP on AWS, look [here][bdp aws]. 
 
 <div class="note">
