@@ -1,18 +1,24 @@
 ---
-title: Using your Basho Data Platform cluster
+title: Using your Basho Data Platform Cluster
 project: dataplatform
 version: 1.0.0+
 document: guide
-audience: beginner
-[bdp configure]:
-[bdp configure add services]:
-[bdp install]: 
-[bdp reference]: 
+toc: true
+index: true
+audience: beginner 
 ---
+
+
+[bdp configure]: LINK 
+[bdp configure add services]: LINK
+[bdp install]: ./dataplatform/installing.html
+[bdp reference]: LINK
+
 
 You've [installed][bdp install] Basho Data Platform (BDP), [configured][bdp configure] your cluster, and [added services][bdp configure add services] to your nodes. The setup of your BDP cluster is complete! Now you can begin using your BDP cluster. 
 
 ##Start Services
+
 
 The very first thing you can do with your BDP cluster is start the services you added. In the last section of the [configuration instructions][bdp configure add services], you added the following services:
 
@@ -33,7 +39,7 @@ data-platform-admin start-service »NODENAME«@»IPADDRESS« my-spark-group my-s
 Then verify that the spark-master service is running:
 
 ```shell
-$ ps -ef | grep [s]park-masterjava
+$ ps -ef | grep [s]park-master
 ```
 
 You should see the output like this:
@@ -46,7 +52,6 @@ If you need to stop the spark-master, the proper sequence is:
 
 ```shell
 $ data-platform-admin stop-service »NODENAME«@»IPADDRESS« my-spark-group my-spark-master
-$ sudo pkill -f deploy.master.Master
 ```
 
 ###Spark-Worker Service
@@ -64,12 +69,6 @@ To stop a spark-worker service, you need to stop the service first:
 ```shell
 $ data-platform-admin stop-service »NODENAME«@»IPADDRESS« my-spark-group my-spark-worker
 ```
-and kill the process second:
-
-```shell
-$ sudo pkill -f deploy.worker.Worker
-```
-This should kill all running spark-worker processes.
 
 ###Redis Service
 
@@ -151,7 +150,3 @@ Finally, confirm that the data is now also in Redis:
 ```shell
 $ redis-cli -h 172.28.128.3 -p 6379 get my-bucket:my-key
 ```
-
-###Spark
-
-Coming Soon...

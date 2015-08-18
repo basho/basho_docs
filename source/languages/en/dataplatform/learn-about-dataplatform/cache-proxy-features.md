@@ -2,10 +2,14 @@
 title: Cache Proxy Features
 project: dataplatform
 version: 1.0.0+
+toc: true
+index: true
 audience: beginner
+---
+
 [ee]: http://info.basho.com/Wiki_Riak_Enterprise_Request.html
 [readthrough-strategy]: ./images/readthrough-strategy.png
----
+[writethrough-sequence]: ./images/writethrough-sequence.png
 
 <div class="note">
 Cache proxy is available to [Enterprise users only][ee].
@@ -47,7 +51,7 @@ Implementing caching strategies in cache proxy reduces the cost of implementing 
 
 The read-through cache strategy is represented by the following sequence diagram:
 
-    ![read-through strategy sequence diagram][readthrough-strategy]
+![read-through strategy sequence diagram][readthrough-strategy]
 
 
 The `CACHE_TTL` configuration option establishes how long the cache takes to become consistent with the backend server during a write (DELETE or PUT) to the backend server.  
@@ -61,6 +65,7 @@ Write-through allows all client code to use the Redis protocol for KV object typ
 
 A simplified form of the write-through strategy is represented by the following sequence diagram:
  
+ ![write-through strategy sequence diagram][writethrough-sequence]
 
 In addition to developer efficiency gains, the Cache Proxy write-through strategy implements proper sibling resolution, reducing runtime performance degradation due to the potential for “sibling explosion”.
 

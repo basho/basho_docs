@@ -3,12 +3,16 @@ title: Set Up a Basho Data Platform Cluster
 project: dataplatform
 version: 1.0.0+
 document: guide
+toc: true
+index: true
 audience: beginner
+---
+
 [bdp install]: LINK
 [riak configure]: http://docs.basho.com/riak/2.1.1/ops/building/basic-cluster-setup/
 [riak_ensemble]: https://github.com/basho/riak_ensemble
 [riak strong consistency]: http://docs.basho.com/riak/2.1.1/ops/advanced/strong-consistency/#Enabling-Strong-Consistency
----
+
 
 Now that you've [installed Basho Data Platform][bdp install], you're ready to set up a Basho Data Platform (BDP) cluster. This page will guide you through this process.
 
@@ -19,12 +23,13 @@ This page also lists the [default port connections for BDP](#configuration-defau
 * We recommend running BDP on at least 5 nodes. Minimally, you will need 3 available, with BDP installed on all 3 nodes.
 * You must have basic Riak configuration parameters, including listen interfaces (`listen.protobuf.internal` and `listen.http.internal`) and nodename, configured before you begin. You can view a guide to the process [here][riak configure].
 * You must have root access on the nodes in your cluster.
+* If you have a firewall, it should be configured to allow traffic for all network ports used by BDP.
 * All of the steps in this guide assume you are working with your BDP nodes rather than any pre-existing Riak cluster.
 
 
 >**Warning:** 
 >
->DO NOT join a BDP node to an existing Riak cluster.
+>DO NOT join a BDP node to a pre-existing Riak cluster.
 
 ##Configure a BDP Cluster
 
@@ -64,7 +69,7 @@ Once your BDP nodes are started and joined together, you need to set up [riak_en
 >Note 2: We do not recommend enabling `riak_ensemble`on more than 5 nodes, as performance will degrade.
 
 
-To make sure `riak_ensemble` has started, run:
+To make sure `riak_ensemble` has started, you will need to enter the Riak console and run the enable command. To do this run:
 
  ```shell
 sudo riak attach
@@ -226,7 +231,7 @@ The IP addresses you provide should be the IP addresses of the 3 BDP nodes you s
 ##Configuration Defaults
 
 
-Each service has one or more default ports if a port has not been specified when [adding a service configuration](LINK).
+Each service has one or more default ports if a port has not been specified when [adding a service configuration](#add-services).
 
 For example, you can add a service configuration from the command line for Redis using a specified port:
 

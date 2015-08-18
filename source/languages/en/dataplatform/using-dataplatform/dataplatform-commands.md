@@ -1,16 +1,20 @@
 ---
-title: data-platform-admin Command Line Interface
+title: Data Platform Commands
 project: dataplatform
 version: 1.0.0+
 document: guide
+toc: true
 audience: beginner
+---
+
+
 [bdp configure]:
 [bdp configure add services]:
 [bdp install]: 
 [bdp reference]: 
----
 
-The `data-platform-admin` command line tool allows you to perform various operations on your Basho Data Platform cluster. The following reference outlines available commands and their uses.
+
+Basho Data Platform (BDP) comes with a command line tool (`data-platform-admin`) that allows you to perform various operations on your BDP cluster. The following reference outlines available commands and their uses.
 
 ```
 Usage: data-platform-admin { join | add-service-config | remove-service | start-service | stop-service | services | node-services | service-nodes }

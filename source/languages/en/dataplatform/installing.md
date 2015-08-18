@@ -3,23 +3,27 @@ title: Installing Basho Data Platform
 project: dataplatform
 version: 1.0.0+
 document: guide
+toc: false
+index: true
 audience: beginner
+---
+
+
 [bdp aws]: 
 [bdp compatibility]: http://docs.basho.com/dataplatform/latest/#supported-operating-systems
 [bdp configure]: LINK
 [bdp download]: http://docs.basho.com/dataplatform/latest/dataplatform-downloads/
----
+
 
 Basho Data Platform (BDP) enables you to extend Riak with Spark and Redis. This page will guide you through the process of installing BDP on most supported operating systems. If you're installing BDP on AWS, look [here][bdp aws]. 
 
-<div class="note">
-BDP is supported on a limited number of platforms. See the list of supported OSes [here][bdp compatibility].
-</div>
+>Note:
+>BDP is supported on a limited number of platforms. See the list of supported OSes [here][bdp compatibility].
 
 ##Prerequisites
 You need to have root or sudo access on the nodes you will be installing BDP on.
 
-##Installing Basho Data Platform
+##Installing
 
 1. First, [change the open-files limit.](#increase-the-openfiles-limit).
 2. If you plan to use Spark, then [install Java 8](#java-8).

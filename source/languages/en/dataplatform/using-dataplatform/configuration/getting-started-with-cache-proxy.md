@@ -3,13 +3,16 @@ title: Getting Started with Cache Proxy
 project: dataplatform
 version: 1.0.0+
 document: guide
+toc: true
+index: true
 audience: beginner
+---
+
 [bdp install]: 
 [bdp configure]:
 [bdp configure add services]: #
----
 
-##Introduction
+
 Now that you’ve [set up a Basho Data Platform cluster][bdp configure], which included [adding a service configuration for Redis and cache proxy][bdp configure add services], you’re ready to use cache proxy with any Redis client that supports the `GET` command.
 
 This page will walk you through configuring and using BDP cache proxy.
@@ -20,8 +23,6 @@ This page will walk you through configuring and using BDP cache proxy.
 Before you begin using cache proxy, you may want to set your environment variables. You will be using these paths frequently, and you may find it easier to use their logical names rather than typing the paths out each time.
 
 We suggest the following environment settings (and the remainder of this page assumes you are using these settings).
-
-
 
 If you are running Ubuntu, set this environment variable at the command line:
 ```bash
@@ -300,5 +301,3 @@ As with cache proxy, Redis statistics available on the Redis client port allow f
 * Custom - http://volumelabs.net/redis_monitoring/
 * NewRelic - http://newrelic.com/plugins/poison-pen-llc/28
 * Nagios - https://exchange.nagios.org/directory/Plugins/Databases/check_redis-2Epl/details
- 
-

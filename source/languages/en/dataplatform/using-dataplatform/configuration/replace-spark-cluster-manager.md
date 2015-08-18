@@ -1,25 +1,19 @@
 ---
-title: Replace Your Spark Cluster Manager with Basho Data Platform Manager
+title: Replace Your Spark Cluster Manager with the Basho Data Platform Cluster Manager
 project: dataplatform
 version: 1.0.0+
-document: tutorial
+document: guide
 toc: true
 index: true
 audience: beginner
-keywords: [data platform, spark, spark cluster manager, data platform cluster muanager]
-body_id: replacesparkmaster
-simple: true
-versions: true
 ---
 
 
-[bdp install]: ./
+[bdp install]: 
 [bdp configure]:
 [bdp configure spark master]: #
-[riak data types]: https://docs.basho.com/riak/2.1.1/dev/using/data-types/
+[riak data types]: http://docs.basho.com/riak/2.1.1/dev/using/data-types/
 
-
-#Replace Your Spark Cluster Manager with the Basho Data Platform Cluster Manager
 
 You can simplify your operations by using the Basho Data Platform (BDP) cluster manager instead of Apache Zookeeper to manage your Spark cluster. This document will walk you through the steps.
 

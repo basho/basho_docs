@@ -3,9 +3,14 @@ title: Leader Election Service
 project: dataplatform
 version: 1.0.0+
 document: guide
+toc: true
+index: true
 audience: beginner
-[riak_ensemble]:
 ---
+
+[ee]: http://info.basho.com/Wiki_Riak_Enterprise_Request.html
+[riak_ensemble]:
+
 
 <div class="note">
 Leader Election Service is available to [Enterprise users only][ee].
