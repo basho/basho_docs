@@ -24,7 +24,7 @@ This page also lists the [default port connections for BDP](#configuration-defau
 * We recommend running BDP on at least 5 nodes. Minimally, you will need 3 available, with BDP installed on all 3 nodes.
 * You must have basic Riak configuration parameters, including listen interfaces (`listen.protobuf.internal` and `listen.http.internal`) and nodename, configured before you begin. You can view a guide to the process [here][riak configure].
 * You need to have joined the nodes you wish to run Riak Kv on together before you continue. Check out [Basic Cluster Setup][riak cluster setup].
-* This document assumes you have basic knowledge of configuring and running Riak KV cluster. If not, please read our [Riak KV documentation][riak kv].
+* This document assumes you have basic knowledge of configuring and running Riak KV cluster. If not, please read our [Riak KV documentation][riak kv]. (You should not join your Redis or Spark nodes to your Riak KV cluster.)
 * You must have root access on the nodes in your cluster.
 * If you have a firewall, it should be configured to allow traffic for all network ports used by BDP.
 * All of the steps in this guide assume you are working with your BDP nodes rather than any pre-existing Riak cluster.
