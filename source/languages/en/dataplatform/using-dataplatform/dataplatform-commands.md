@@ -8,10 +8,10 @@ audience: beginner
 ---
 
 
-[bdp configure]:
-[bdp configure add services]:
-[bdp install]: 
-[bdp reference]: 
+[bdp configure]: LINK
+[bdp configure add services]: LINK
+[bdp install]: LINK
+[bdp reference]: LINK
 
 
 Basho Data Platform (BDP) comes with a command line tool (`data-platform-admin`) that allows you to perform various operations on your BDP cluster. The following reference outlines available commands and their uses.

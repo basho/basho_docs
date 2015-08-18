@@ -9,9 +9,9 @@ audience: beginner
 ---
 
 
-[bdp install]: 
-[bdp configure]:
-[bdp configure spark master]: #
+[bdp install]: LINK
+[bdp configure]: LINK
+[bdp configure spark master]: LINK
 [riak data types]: http://docs.basho.com/riak/2.1.1/dev/using/data-types/
 
 
