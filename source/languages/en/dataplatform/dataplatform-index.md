@@ -13,8 +13,8 @@ versions: true
 ---
 
 
-[bdp install]: ./installing.html
-[bdp reference]: http://docs.basho.com/dataplatform/latest/learnaboutdataplatform.html
+[bdp install]: ./installing
+[bdp reference]: ./learnaboutdataplatform.html
 [ee]: http://info.basho.com/Wiki_Riak_Enterprise_Request.html
 
 #Basho Data Platform
