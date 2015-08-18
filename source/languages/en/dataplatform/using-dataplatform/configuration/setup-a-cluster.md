@@ -13,7 +13,6 @@ audience: beginner
 [riak_ensemble]: https://github.com/basho/riak_ensemble
 [riak strong consistency]: http://docs.basho.com/riak/2.1.1/ops/advanced/strong-consistency/#Enabling-Strong-Consistency
 
-
 Now that you've [installed Basho Data Platform][bdp install], you're ready to set up a Basho Data Platform (BDP) cluster. This page will guide you through this process.
 
 This page also lists the [default port connections for BDP](#configuration-defaults).
@@ -27,9 +26,9 @@ This page also lists the [default port connections for BDP](#configuration-defau
 * All of the steps in this guide assume you are working with your BDP nodes rather than any pre-existing Riak cluster.
 
 
->**Warning:** 
->
->DO NOT join a BDP node to a pre-existing Riak cluster.
+<div class="warning">
+  DO NOT join a BDP node to a pre-existing Riak cluster.
+</div>
 
 ##Configure a BDP Cluster
 
@@ -64,10 +63,13 @@ user@machine2:~$ sudo data-platform-admin join .»NODENAME (riak@IPADDRESS)«
 
 Once your BDP nodes are started and joined together, you need to set up [riak_ensemble][riak_ensemble].
 
->Note: Basho Data Platform will not function correctly if `riak_ensemble` is not running. 
->
->Note 2: We do not recommend enabling `riak_ensemble`on more than 5 nodes, as performance will degrade.
+<div class="note">
+Basho Data Platform will not function correctly if `riak_ensemble` is not running. 
+</div>
 
+<div class="note">
+We do not recommend enabling `riak_ensemble` on more than 5 nodes, as performance will degrade.
+</div>
 
 To make sure `riak_ensemble` has started, you will need to enter the Riak console and run the enable command. To do this run:
 
@@ -80,7 +82,7 @@ You will then need to Ctrl-C twice to exit the Erlang shell `riak attach` brough
 
 ```shell
 sudo riak-admin ensemble-status
-  ```
+```
 
 If `riak_ensemble` is enabled, you will see the following output :
 
@@ -91,8 +93,7 @@ If `riak_ensemble` is enabled, you will see the following output :
   Ring Ready:  true
   Validation:  strong (trusted majority required)
   Metadata:    best-effort replication (asynchronous)
-  ```
-
+```
 
 For more information on why this is important, please see our [strong consistency docs][riak strong consistency].
 
@@ -100,16 +101,15 @@ For more information on why this is important, please see our [strong consistenc
 
 Before enabling the leader election service, you must have enabled `riak_ensemble` (as directed in the [previous step](#start-riakensemble)). If you skipped the previous step for any reason, please go back and do it now.
 
-1. Locate and open riak.conf.
+1. Locate and open `riak.conf`.
 2. Find the line `## listener.leader_latch.internal = 127.0.0.1:5323`.
 3. Uncomment the line and set to your node's IP and port. (**Note:** Any port will work as long as it matches what you set in the [Spark master step](#spark-master) below.)
 
+<div class="note">
+The leader election service provides no authentication mechanism. We strongly suggest that you use a network shielded from external connection attempts, otherwise you run the risk of an attacker performing a Denial of Service attack against your cluster.
+</div>
 
-   >**Note:**
-   >
-   >The leader election service provides no authentication mechanism. We strongly suggest that you use a network shielded from external connection attempts, otherwise you run the risk of an attacker performing a Denial of Service attack against your cluster.
-
-4. Add any additional interface/port pairs to listen on and change the '.internal' to whatever name helps you identify your interfaces. For instance:
+Add any additional interface/port pairs to listen on and change the '.internal' to whatever name helps you identify your interfaces. For instance:
 
 ```riak.conf
 listener.leader_latch.internal = 127.0.0.1:5323
@@ -117,24 +117,44 @@ listener.leader_latch.external = 10.10.1.2:15323
 listener.leader_latch.testing = 192.168.0.42:12345
 ```
 
->Note 
->
->Changes to the `listener.leader_latch` setting will not have an impact on a live running node. You must restart the node for changes to take effect.
+<div class="note">
+Changes to the `listener.leader_latch` setting will not have an impact on a live running node. You must restart the node for changes to take effect.
+</div>
 
 
 ###Set Up Spark Cluster Metadata
 
->Note: Follow these steps ONLY if you are running a Spark cluster. Otherwise, skip to [Add Services](#add-services).
-
+<div class="note">
+Follow these steps ONLY if you are running a Spark cluster. Otherwise, skip to [Add Services](#add-services).
+</div>
 
 If you are running a Spark cluster, you need to connect it with BDP.
 
-1. Set up a consistent bucket called 'spark-bucket' by running `riak-admin bucket-type create strong '{"props":{"consistent":true}}'`.
-1. Then, enable the `map` bucket type by first running `riak-admin bucket-type create maps '{"props":{"datatype":"map"}}'`.
-1. Activate the `map` bucket type by then running `riak-admin bucket-type activate maps`.
-1. Verify that the `map` bucket type was successfully set up by running `riak-admin bucket-type status maps`.
- 1. A successful response should contain:
+First, set up a consistent bucket called 'spark-bucket'  on your spark master node by running: 
 
+```shell
+riak-admin bucket-type create strong '{"props":{"consistent":true}}'
+```
+
+Then enable the `map` bucket type by first running: 
+
+```shell
+riak-admin bucket-type create maps '{"props":{"datatype":"map"}}'
+```
+
+Next activate the `map` bucket type by running:
+
+```
+riak-admin bucket-type activate maps
+```
+
+Finally, verify that the `map` bucket type was successfully set up by running:
+
+```shell
+riak-admin bucket-type status maps
+```
+
+A successful response should contain:
 
 ```
 maps is active
@@ -174,7 +194,6 @@ $ sudo riak restart
 ```
 
 ###Add Services
-
 
 You are ready to add services to your started, joined BDP nodes. There are several different types of services you can add to your BDP nodes:
 

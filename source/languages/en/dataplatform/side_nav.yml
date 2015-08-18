@@ -9,13 +9,13 @@ dataplatform:
     sub:
       - "[[Data Platform|Basho Data Platform]]"
       - "[[Installing|Installing Basho Data Platform]]"
+      - "[[Installing on AWS|Installing Basho Data Platform on AWS]]"
   - title: "Using Basho Data Platform"
     sub:
-      - "[[Set Up a Basho Data Platform Cluster]]"
-      - "[[Installing Basho Data Platform on AWS]]"
       - title: "Configuring"
         sub: 
           - "[[Set Up a Basho Data Platform Cluster]]"
+          - "[[Set Up a Basho Data Platform Cluster on AWS]]"
           - "[[Replace Your Spark Cluster Manager with the Basho Data Platform Cluster Manager]]"
           - "[[Getting Started with Cache Proxy]]"
       - "[[Using your Basho Data Platform Cluster]]"

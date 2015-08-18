@@ -1,95 +1,104 @@
 ---
-title: Installing Basho Data Platform on AWS
+title: Set Up a Basho Data Platform Cluster on AWS
 project: dataplatform
 version: 1.0.0+
 document: guide
+toc: true
+index: true
 audience: beginner
-[bdp install]:
 ---
 
-Whether you running a virtualized infrastructure or you just want to quickly test out Basho Data Platform (BDP), this page will walk you through configuring your AWS environment to run BDP.
+[bdp install aws]: LINK
+[riak configure]: http://docs.basho.com/riak/2.1.1/ops/building/basic-cluster-setup/
+[riak_ensemble]: https://github.com/basho/riak_ensemble
+[riak strong consistency]: http://docs.basho.com/riak/2.1.1/ops/advanced/strong-consistency/#Enabling-Strong-Consistency
 
-If you were looking for the general install page, go [here][bdp install].
+Now that you've [installed Basho Data Platform on AWS][bdp install aws], you're ready to set up a Basho Data Platform (BDP) cluster. This page will guide you through this process.
 
 <div class="note">
 AWS security profile must allow incoming and outgoing traffic from ip/ports used by Riak, Spark, and BDP.  A [list of default ports](LINK) is at the end of this document. 
 </div>
 
-##Setting Open-Files Limit
+##Prerequisites
 
-During normal operation Riak can consume a large number of open-file handles. You can increase the total limit for open files by running the following:
+* We recommend running BDP on at least 5 nodes. Minimally, you will need 3 available, with BDP installed on all 3 nodes.
+* You must have basic Riak configuration parameters, including listen interfaces (`listen.protobuf.internal` and `listen.http.internal`) and nodename, configured before you begin. You can view a guide to the process [here][riak configure].
+* You must have root access on the nodes in your cluster.
+* AWS security profile should be configured to allow traffic for all network ports used by BDP.
+* All of the steps in this guide assume you are working with your BDP nodes rather than any pre-existing Riak cluster.
 
-```
-if [[ $(sysctl fs.file-max |grep 65536) == "" ]]; then
-  sudo sysctl fs.file-max=65536
-  sudo sysctl -p
+<div class="warning">
+DO NOT join a BDP node to a pre-existing Riak cluster.
+</div>
 
-  sudo bash -c "cat <<EOF_LIMITS >> /etc/security/limits.conf
-*                soft    nofile          65536
-*                hard    nofile          65536
-EOF_LIMITS
-"
-fi
-```
+##Configure a BDP Cluster
 
-##Installing Java
+1. First, [start your BDP nodes](#start-your-bdp-nodes).
+2. Then, [join your BDP nodes together](#join-bdp-nodes).
+3. Next, [make sure riak_ensemble is running](#start-riakensemble).
+4. Then, [configure the leader election service](#configure-the-leader-election-service)
+5. Next, if you're running a Spark cluster, [set up your Spark cluster metadata](#set-up-spark-cluster-metadata).
+6. After that, you'll need to [confirm that Java is correctly configured](#confirm-javahome-is-set-correctly).
+7. Finally, [add services to the nodes](#add-services).
 
-```
-sudo apt-get install python-software-properties
-sudo add-apt-repository ppa:webupd8team/java
-sudo apt-get update
-sudo echo -e oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
-sudo apt-get install -y oracle-java8-installer
-```
+###Start Your BDP Nodes
 
+First, start all the nodes you have installed BDP on:
 
-##Setting Environment Variables
-
-```
-JAVA_HOME=$(dirname $(dirname $(readlink -f $(which javac))))
-if [[ "$JAVA_HOME" == "" ]]; then
-echo "failed to install jdk 8"
-exit 1
-fi
-grep JAVA_HOME /etc/environment >/dev/null 2>&1 || test $? -ne 0 && sudo bash -c "echo JAVA_HOME=$JAVA_HOME >>/etc/environment"
+```shell
+user@machine1:~$ sudo riak start
+user@machine2:~$ sudo riak start
+user@machine3:~$ sudo riak start
 ```
 
+###Join BDP Nodes
 
 
-##Ensure the Environment is preserved
+Then, join your BDP nodes together by running this command on all nodes in the cluster:
 
-
-
-
-## Download Basho Data Platform Enterprise Edition and Extras
-
-```
-wget http://private.downloads.basho.com/data-platform-ee/1.0/1.0.0/ubuntu/precise/data-platform-extras_1.0.0-bdb08f01-1_amd64.deb
-wget http://private.downloads.basho.com/data-platform-ee/1.0/1.0.0/ubuntu/precise/data-platform-ee_1.0.0-bdb08f01-1_amd64.deb
+```shell
+user@machine2:~$ sudo data-platform-admin join .»NODENAME (riak@IPADDRESS)« 
 ```
 
-## Installing Basho Data Platform
+### Start `riak_ensemble`
+
+Once your BDP nodes are started and joined together, you need to set up [riak_ensemble][riak_ensemble].
+
+<div class="note">
+Basho Data Platform will not function correctly if `riak_ensemble` is not running. 
+</div>
+
+<div class="note">
+We do not recommend enabling `riak_ensemble` on more than 5 nodes, as performance will degrade.
+</div>
+
+To make sure `riak_ensemble` has started, you will need to enter the Riak console and run the enable command. To do this run:
+
+ ```shell
+sudo riak attach
+riak_ensemble_manager:enable().
+```
+
+You will then need to Ctrl-C twice to exit the Erlang shell `riak attach` brought you into. Once out, run:
+
+```shell
+sudo riak-admin ensemble-status
+```
+
+If `riak_ensemble` is enabled, you will see the following output :
 
 ```
-sudo dpkg -i data-platform-ee_1.0.0-bdb08f01-1_amd64.deb
-sudo dpkg -i data-platform-extras_1.0.0-bdb08f01-1_amd64.deb
+  ============================== Consensus System ==========================
+  Enabled:     true
+  Active:      true
+  Ring Ready:  true
+  Validation:  strong (trusted majority required)
+  Metadata:    best-effort replication (asynchronous)
 ```
 
-2: Setup BDP
+For more information on why this is important, please see our [strong consistency docs][riak strong consistency].
 
-run this on all nodes 
 
-## Set Riak’s nodename, HTTP, PB  and Leader Latch listeners to be as box IP address
-
-sudo riak stop
-sudo sed -i -e "s/127\.0\.0\.1/`hostname -I | tr -d \'[[:space:]]\'`/" /etc/riak/riak.conf
-
-## Enable Riak Leader Latch listener
-
-sudo sed -i -e "s/## listener.leader_latch.internal =/listener.leader_latch.internal =/g" /etc/riak/riak.conf
-
-sudo riak-admin reip riak@127.0.0.1 riak@`hostname -I`
-sudo riak start
 
 run this on spark worker nodes 
 
@@ -197,7 +206,7 @@ should see
 
 
 
-Appendix: Default Ports
+### Default Ports
 
 Riak
 EPMD listener = 4369/tcp
@@ -210,16 +219,14 @@ Leader Latch = 5323
 Cluster Manager = 9080
 Riak EE JMX = 41110 (Only for Enterprise Edition)
 
-BDP
-Redis service
-REDIS_PORT = 6379
+### Default Ports
 
-Cache-Proxy service
-CACHE_PROXY_PORT = 22122
-CACHE_PROXY_STATS_PORT = 22123
-
-Spark Service
-SPARK_MASTER_PORT = 7077
-SPARK_MASTER_WEBUI_PORT = 8080
-SPARK_WORKER_PORT = 7078
-SPARK_WORKER_WEBUI_PORT = 8081
+| Service | Parameter | Default |
+| ---------- | -------------- | ---------- |
+| Redis | `REDIS_PORT` | 6379 |
+| Cache-Proxy | `CACHE_PROXY_PORT` | 22122 |
+| Cache-Proxy | `CACHE_PROXY_STATS_PORT` | 22123 |
+| Spark | `SPARK_MASTER_PORT` | 7077 |
+| Spark | `SPARK_MASTER_WEBUI_PORT` | 8080 |
+| Spark | `SPARK_WORKER_PORT` | 7078 |
+| Spark | `SPARK_WORKER_WEBUI_PORT` | 8081 |
