@@ -55,9 +55,9 @@ root hard nofile 65536
 root soft nofile 65536
 ```
 
->Note:
->
->You may need to log out of your shell and then log back in for these changes to take effect.
+<div class="note">
+You may need to log out of your shell and then log back in for these changes to take effect.
+</div>
 
 ### Java 8
 
@@ -81,8 +81,12 @@ $ cd /opt
 $ sudo wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u45-b14/jdk-8u45-linux-x64.rpm"
 ```
 
-Regardless of your OS, once you have installed Java 8 you need to add a specific `JAVA_HOME` line to your /etc/environment. You can add the correct line by running: `grep JAVA_HOME /etc/environment >/dev/null 2>&1 || test $? -ne 0 && sudo bash -c "echo JAVA_HOME=$(dirname $(dirname $(readlink -f $(which javac)))) >>/etc/environment"`
-export JAVA_HOME.
+Regardless of your OS, once you have installed Java 8 you need to add a specific `JAVA_HOME` line to your /etc/environment. You can add the correct line by running: 
+
+```shell
+grep JAVA_HOME /etc/environment >/dev/null 2>&1 || test $? -ne 0 && sudo bash -c "echo JAVA_HOME=$(dirname $(dirname $(readlink -f $(which javac)))) >>/etc/environment"
+export JAVA_HOME
+```
 
 ### Install BDP
 
