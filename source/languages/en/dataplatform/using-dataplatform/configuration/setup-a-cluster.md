@@ -25,6 +25,10 @@ This page also lists the [default port connections for BDP](#configuration-defau
 * If you have a firewall, it should be configured to allow traffic for all network ports used by BDP.
 * All of the steps in this guide assume you are working with your BDP nodes rather than any pre-existing Riak cluster.
 
+<div class="note">
+<div class="title">Note on Amazon Web Services</div>
+AWS security profile must allow incoming and outgoing traffic from ip/ports used by Riak, Spark, and BDP.  A [list of default ports](LINK) is at the end of this document. 
+</div>
 
 <div class="warning">
   DO NOT join a BDP node to a pre-existing Riak cluster.
