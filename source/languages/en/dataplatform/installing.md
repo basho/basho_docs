@@ -8,8 +8,7 @@ index: true
 audience: beginner
 ---
 
-
-[bdp aws]: 
+[bdp aws]:  LINK
 [bdp compatibility]: http://docs.basho.com/dataplatform/latest/#supported-operating-systems
 [bdp configure]: LINK
 [bdp download]: http://docs.basho.com/dataplatform/latest/dataplatform-downloads/
