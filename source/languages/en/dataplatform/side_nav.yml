@@ -7,7 +7,7 @@ dataplatform:
   - title: "Start Here"
     class: "start"
     sub:
-      - "[[Data Platform|Basho Data Platform]]"
+      - "[[Basho Data Platform|Data Platform]]"
       - "[[Installing|Installing Basho Data Platform]]"
       - "[[Installing on AWS|Installing Basho Data Platform on AWS]]"
   - title: "Using Basho Data Platform"
