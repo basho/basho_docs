@@ -8,7 +8,7 @@ dataplatform:
     class: "start"
     sub:
       - "[[Data Platform|Basho Data Platform]]"
-      - "[[Installing Basho Data Platform| Installing]]"
+      - "[[Installing|Installing Basho Data Platform]]"
   - title: "Using Basho Data Platform"
     sub:
       - "[[Set Up a Basho Data Platform Cluster]]"
@@ -22,7 +22,7 @@ dataplatform:
       - "[[Data Platform Commands]]"
   - title: "Learn About Basho Data Platform"
     sub:
-      - "[[Service Manager Features| Learn About Service Manager]]"
-      - "[[Cache Proxy Features| Learn About Cache Proxy]]"
-      - "[[Leader Election Service| Learn About Leader Election Service]]"
-      - "[[Spark Cluster Manager Features| Learn About Spark Cluster Manager Features]]"      
+      - "[[Learn About Service Manager|Service Manager Features]]"
+      - "[[Learn About Cache Proxy|Cache Proxy Features]]"
+      - "[[Learn About Leader Election Service|Leader Election Service]]"
+      - "[[Learn About Spark Cluster Manager Features|Spark Cluster Manager Features]]"      
