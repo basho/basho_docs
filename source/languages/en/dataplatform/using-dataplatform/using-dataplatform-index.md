@@ -17,10 +17,11 @@ versions: true
 [cache proxy config]: LINK
 [using bdp]: LINK
 [bdp cli]: LINK
+[learn bdp index]: LINK
 
 ##In This Section
 
-The *Using Basho Data Platform* section provides guides and references for managing and running your data platform cluster.
+The **Using Basho Data Platform (BDP)**  section provides guides and references for managing and running your data platform cluster. If you want to learn more about BDP, check out [Learn About Basho Data Platform][learn bdp index].
 
 ####Installing
 Be sure to check out [Installing Basho Data Platform][bdp install] for installation instructions.

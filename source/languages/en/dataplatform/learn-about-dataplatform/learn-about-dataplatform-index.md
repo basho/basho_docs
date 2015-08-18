@@ -3,7 +3,6 @@ title: Learn About Basho Data Platform
 project: dataplatform
 version: 1.0.0+
 document: tutorial
-toc: true
 index: true
 audience: beginner
 keywords: [data platform]
@@ -12,4 +11,24 @@ simple: true
 versions: true
 ---
 
-Learn About Data Platform Index.
+[using bdp index]: LINK
+[cache proxy features]: LINK
+[service manager features]: LINK
+[leader election features]: LINK
+[spark manager features]: LINK
+
+##In This Section
+
+The **Learn About Basho Data Platform (BDP)**  section provides overviews of the various parts and concepts behind BDP. If you are looking for information on setup or usage, check out [Using Basho Data Platform][using bdp index].
+
+####Service Manager
+The [service manager][service manager features] is the foundation of the Basho Data Platform. It provides a means for building a cluster of nodes that can deploy, run, and manage platform services.
+
+####Cache Proxy
+The [cache proxy service][cache proxy features] uses Redis and Riak KV to provide pre-sharding and connection aggregation for your data platform cluster.
+
+####Leader Election
+The [leader election service][leader election features] enables Spark clusters to run without a ZooKeeper instance.
+
+####Spark Cluster Manager
+The [Spark cluster manager][spark manager features] provides all the functionality required for Spark Master high availability without the need to manage yet another software system (Zookeeper).
