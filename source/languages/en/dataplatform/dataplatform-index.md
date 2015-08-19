@@ -43,7 +43,7 @@ Basho Data Platform supports the following operating systems:
 
 BDP also supports the following OSes for development:
 
-* OSX 10.8
+* OSX 10.10
 * Debian 7
 
 ##Learn More
