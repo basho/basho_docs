@@ -1,6 +1,6 @@
 ---
 title: Basho Data Platform 1.0.0 Release Notes
-project: data-platform
+project: dataplatform
 version: 1.0.0+
 document: guide
 audience: beginner
