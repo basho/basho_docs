@@ -9,19 +9,20 @@ dataplatform:
     sub:
       - "[[Basho Data Platform|Data Platform]]"
       - "[[Installing|Installing Basho Data Platform]]"
-      - "[[Installing on AWS|Installing Basho Data Platform on AWS]]"
+      - "[[Release Notes 1.0.0|Basho Data Platform 1.0.0 Release Notes]]"
   - title: "Using Basho Data Platform"
     sub:
+      - "[[Overview|Using Basho Data Platform Overview]]"
       - title: "Configuring"
         sub: 
           - "[[Set Up a Basho Data Platform Cluster]]"
-          - "[[Set Up a Basho Data Platform Cluster on AWS]]"
           - "[[Replace Your Spark Cluster Manager with the Basho Data Platform Cluster Manager]]"
           - "[[Getting Started with Cache Proxy]]"
       - "[[Using your Basho Data Platform Cluster]]"
       - "[[Data Platform Commands]]"
   - title: "Learn About Basho Data Platform"
     sub:
+      - "[[Overview|Learn About Basho Data Platform Overview]]"
       - "[[Learn About Service Manager|Service Manager Features]]"
       - "[[Learn About Cache Proxy|Cache Proxy Features]]"
       - "[[Learn About Leader Election Service|Leader Election Service]]"
