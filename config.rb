@@ -113,6 +113,7 @@ configure :build do
         Downloads.pull_data('riak-cs', $versions[:riakcs])
         Downloads.pull_data('stanchion', $versions[:stanchion])
         Downloads.pull_data('riak-cs-control', $versions[:riakcscontrol])
+        Downloads.pull_data('data-platform', $versions[:dataplatform])
       rescue => e
         $stderr.puts "  Details download failed"
         # we don't want to stop here unless it's a real deploy
