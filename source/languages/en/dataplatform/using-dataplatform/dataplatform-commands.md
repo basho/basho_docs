@@ -1,6 +1,6 @@
 ---
 title: Data Platform Commands
-project: dataplatform
+project: data-platform
 version: 1.0.0+
 document: guide
 toc: true

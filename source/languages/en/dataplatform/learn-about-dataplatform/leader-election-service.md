@@ -1,6 +1,6 @@
 ---
 title: Leader Election Service
-project: dataplatform
+project: data-platform
 version: 1.0.0+
 document: guide
 toc: true

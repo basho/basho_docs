@@ -1,6 +1,6 @@
 ---
 title: Service Manager Features
-project: dataplatform
+project: data-platform
 version: 1.0.0+
 document: guide
 audience: beginner

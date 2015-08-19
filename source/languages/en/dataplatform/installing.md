@@ -1,6 +1,6 @@
 ---
 title: Installing Basho Data Platform
-project: dataplatform
+project: data-platform
 version: 1.0.0+
 document: guide
 toc: false

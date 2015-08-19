@@ -1,6 +1,6 @@
 ---
 title: Using your Basho Data Platform Cluster
-project: dataplatform
+project: data-platform
 version: 1.0.0+
 document: guide
 toc: true
