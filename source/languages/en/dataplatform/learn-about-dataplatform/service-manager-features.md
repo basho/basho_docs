@@ -8,7 +8,7 @@ audience: beginner
 
 ##Overview
 
-The service manager is the foundation of the Basho Data Platform. It provides a means for building a cluster of nodes that can deploy, run, and manage platform services.
+The service manager is the foundation of the Basho Data Platform (BDP). It provides a means for building a cluster of nodes that can deploy, run, and manage platform services. Note that Riak KV is included with BDP, and use of BDP assumes familiarity with Riak KV.
 
 For information on usage check out [data-platform-admin command-line interface](LINK).
 
