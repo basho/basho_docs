@@ -26,7 +26,7 @@ Basho Data Platform (BDP) builds on Riak KV (Riak) to support your data-centric 
 * Cluster management
 * Caching with Redis for rapid performance (Enterprise only)
 
-BDP reduces the complexity of integrating and deploying the components of your technology stack, providing NoSQL databases, caching, real-time analytics, and search. These features are required in order to run distributed active workloads across applications; BDP controls the replication and synchronization of data between components while also providing cluster management.
+BDP reduces the complexity of integrating and deploying the components of your technology stack, providing Riak KV in-product, NoSQL databases, caching, real-time analytics, and search. These features are required in order to run distributed active workloads across applications; BDP controls the replication and synchronization of data between components while also providing cluster management.
 
 >**Important**
 >Basho Data Platform is largely open source, but some features are only available with an [Enterprise license][ee]. Those features will be marked as (Enterprise only).
