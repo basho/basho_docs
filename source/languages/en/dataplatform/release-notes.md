@@ -58,6 +58,7 @@ You can find the install packages for BDP [here](LINK) and the instructions to w
 
 ##Known Issues
 
+* The default value of the `storage_backend` parameter is changed from 'bitcask' to 'leveldb' in BDP, because Spark connector uses 2i queries, which are supported for LevelDB but not for Bitcask.
 * Only the bundled versions of Spark, Redis, and Solr are officially supported.
 * We strongly recommend against running Riak KV and Spark or Riak KV and Redis on the same nodes.
 * We also strongly recommend against joining a previously established Riak KV cluster to BDP. Please create a Riak KV cluster with BDP, instead. 
