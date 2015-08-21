@@ -58,7 +58,8 @@ You can find the install packages for BDP [here](LINK) and the instructions to w
 
 ##Known Issues
 
-* The default value of the `storage_backend` parameter is changed from 'bitcask' to 'leveldb' in BDP, because Spark connector uses 2i queries, which are supported for LevelDB but not for Bitcask.
+* The default value of the `storage_backend` parameter in riak.conf file is changed from 'bitcask' to 'leveldb' in BDP, because Spark connector uses 2i queries, which are supported for LevelDB but not for Bitcask.
 * Only the bundled versions of Spark, Redis, and Solr are officially supported.
-* We strongly recommend against running Riak KV and Spark or Riak KV and Redis on the same nodes.
+* We strongly recommend against running Riak KV and Spark or Riak KV and Redis on the same nodes. This recommendation might be dropped in future versions. 
 * We also strongly recommend against joining a previously established Riak KV cluster to BDP. Please create a Riak KV cluster with BDP, instead. 
+*  Occasionally BDP Service Manager might start additional, spurious Spark-Master processes - after Spark is already set up and running. It will not interfere with normal Spark work, Spark jobs will run correctly. However, if it happens, users will see error messages in the BDP logs that the spurious spark-master service is failing and additional spark-master service might show up in the process list for short time. Development team is working on solution, hot-fix will be available soon and provided per request, the permamenent fix in the next BDP minor or patch release.
