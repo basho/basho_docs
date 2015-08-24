@@ -91,18 +91,21 @@ export JAVA_HOME
 
 Now that you've increased your [open-files limit](#increase-the-openfiles-limit) and [installed Java 8](#java-8) where necessary, you're ready to install the BDP package.
 
-BDP packages for all supported operating systems are available for download on the [Download Basho Data Platform page][bdp download]. 
+>Enterprise Note:
+>If you are an Enterprise customer, you will need to download the -extras package as well.
+
+BDP packages (including extras) for all supported operating systems are available for download on the [Download Basho Data Platform page][bdp download]. 
 
 Choose the installation instructions below that match your OS: [Ubuntu](#ubuntu) or [CentOS](#centos).
 
 ####Ubuntu
 
-1. Download the package from the [downloads][bdp download] page.
+1. Download the package(s) from the [downloads][bdp download] page.
 2. Unpack the package using `sudo dpkg -i`.
 
 ####CentOS
 
-1. Download the package from the [downloads][bdp download] page.
+1. Download the package(s) from the [downloads][bdp download] page.
 2. Unpack the package using `sudo yum` and `sudo rpm`.
 
 ##Next Steps
