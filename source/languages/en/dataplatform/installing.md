@@ -8,13 +8,12 @@ index: true
 audience: beginner
 ---
 
-[bdp aws]:  LINK
 [bdp compatibility]: http://docs.basho.com/dataplatform/latest/#supported-operating-systems
 [bdp configure]: LINK
 [bdp download]: http://docs.basho.com/dataplatform/latest/dataplatform-downloads/
 
 
-Basho Data Platform (BDP) enables you to extend Riak with Spark and Redis. This page will guide you through the process of installing BDP on most supported operating systems. If you're installing BDP on AWS, look [here][bdp aws]. 
+Basho Data Platform (BDP) enables you to extend Riak with Spark and Redis. This page will guide you through the process of installing BDP on most supported operating systems.
 
 <div class="note">
 BDP is supported on a limited number of platforms. See the list of supported OSes [here][bdp compatibility].
@@ -92,20 +91,20 @@ export JAVA_HOME
 Now that you've increased your [open-files limit](#increase-the-openfiles-limit) and [installed Java 8](#java-8) where necessary, you're ready to install the BDP package.
 
 >Enterprise Note:
->If you are an Enterprise customer, you will need to download the -extras package as well.
+>If you are an Enterprise customer, you will need to download the -extras package as well. The -extras package is available along with the regular packages in the usual Zendesk forums.
 
-BDP packages (including extras) for all supported operating systems are available for download on the [Download Basho Data Platform page][bdp download]. 
+BDP open source packages for all supported operating systems are available for download on the [Download Basho Data Platform page][bdp download]. 
 
 Choose the installation instructions below that match your OS: [Ubuntu](#ubuntu) or [CentOS](#centos).
 
 ####Ubuntu
 
-1. Download the package(s) from the [downloads][bdp download] page.
+1. Download the package from the [downloads][bdp download] page (or packages from Zendesk).
 2. Unpack the package using `sudo dpkg -i`.
 
 ####CentOS
 
-1. Download the package(s) from the [downloads][bdp download] page.
+1. Download the package(s) from the [downloads][bdp download] page (or packages from Zendesk).
 2. Unpack the package using `sudo yum` and `sudo rpm`.
 
 ##Next Steps
