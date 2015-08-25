@@ -21,6 +21,39 @@ application](https://github.com/basho/riak_control), the necessary code
 for it ships with versions of Riak 1.1 and above and requires no
 additional installation steps.
 
+Before getting started, you should know the address and port of the HTTP (or 
+HTTPS) listeners for the cluster member(s) running Riak Control.  You can obtain 
+this information from the configuration files as indicated here:
+
+```riakconf
+listener.http.<name> = 127.0.0.1:8098
+
+or 
+
+listener.https.<name> = 127.0.0.1:8096
+
+## *** The default listeners in the riak.conf file are 
+##     named `internal`, so you would consult the value of
+##     `listener.http.internal` in your configuration.
+
+```
+
+```appconfig
+ {riak_api,
+     [
+        %% Other configs
+        ... if HTTP is configured ...
+        {http,[{"127.0.0.1",8098}]},
+        ... if HTTPS is configured ...
+        {https,[{"127.0.0.1",8069}]},
+         %% Other configs
+     ]},
+
+%% *** This is a truncated configuration to illustrate the 
+%%     pertinent items -- the `http` and `https` tuples within 
+%%     the `riak_api` tuple's value list.
+```
+
 <div class="note">
 <div class="title">Note on SSL</div>
 We strongly recommend that you enable SSL for Riak Control. It is
@@ -61,6 +94,15 @@ riak_control = on
 
 Make sure to restart the node once you have enabled Riak Control for the
 change to take effect.
+
+After restarting the node, you should be able to access it by going 
+to `http://ip_address_of_listener:port/admin`. In the case of a development
+cluster using the default configuration, you would access Riak Control at
+<http://127.0.0.1:8098/admin></a>
+
+If you enabled authentication for Riak Control while performing the above 
+configuration, you will be unable to access Riak Control until you have enabled 
+and configured SSL and HTTPS.  
 
 ## Enabling SSL and HTTPS
 
@@ -119,9 +161,8 @@ riak_control.auth.user.riakrocks.password = cap_theorem_4_life
 
 ## User Interface
 
-To begin using Riak Control, navigate to <https://localhost:8069/admin>.
-If you're using a different HTTPS port, substitute the proper port in
-the URL.
+To begin using Riak Control, navigate to https://ip_address_of_https_listener:https_port/admin`
+For a default configuration, this will be <https://localhost:8069/admin>.
 
 If your browser warns you that it cannot authenticate the page, this may
 be because you are using self-signed certificates. If you have
@@ -134,7 +175,7 @@ Your browser needs to be support TLS v1.2 to use Riak Control over
 HTTPS. A list of browsers that support TLS v1.2 can be found
 [here](https://en.wikipedia.org/wiki/Transport_Layer_Security#Web_browsers).
 TLS v1.2 may be disabled by default on your browser, for example if you
-are using Firefox versions earlier than 27, Safari versions earler than
+are using Firefox versions earlier than 27, Safari versions earlier than
 7, Chrome versions earlier than 30, or Internet Explorer versions
 earlier than 11.  To enable it, follow browser-specific instructions.
 </div>

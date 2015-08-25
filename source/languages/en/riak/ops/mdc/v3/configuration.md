@@ -19,11 +19,20 @@ The <code>cluster_mgr</code> setting <em>must</em> be set in order for
 version 3 replication to run.
 </div>
 
-The configuration for Multi-Datacenter (MDC) Replication is kept in the
+The configuration for Multi-Datacenter (MDC) Replication is kept in
 both the `riak_core` and `riak_repl` sections of the `app.config`
-configuration file. Here is a sample of the syntax:
+configuration file. 
 
-```appconfig
+If you are using Riak Enterprise version 2.0, configuration is managed
+using the `advanced.config` files on
+each node. The semantics of the `advanced.config` file are similar to
+the formerly used `app.config` file. For more information and for a list
+of configurable parameters, see our documentation on [[Advanced
+Configuration|Configuration Files#Advanced-Configuration]].
+
+Here is a sample of the syntax:
+
+```advancedconfig
 {riak_core, [
     %% Every *node* runs one cluster_mgr
     {cluster_mgr, {"0.0.0.0", 9080 }},
@@ -53,7 +62,7 @@ syntax `{Setting, Value}`. For example, if you wished to set
 `riak_repl` section (appending a comma if you have more settings to
 follow):
 
-```appconfig
+```advancedconfig
 {fullsync_on_connect, false}
 ```
 
@@ -98,7 +107,7 @@ Setting | Options | Default | Description
 ## Heartbeat Settings
 
 There are two realtime-replication-related settings in the `riak_repl`
-section of `app.config` related to the periodic "heartbeat" that is sent
+section of `advanced.config` related to the periodic "heartbeat" that is sent
 from the source to the sink cluster to verify the sink cluster's
 liveness. The `rt_heartbeat_interval` setting determines how often the
 heartbeat is sent (in seconds). If a heartbeat is sent and a response is

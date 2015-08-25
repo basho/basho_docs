@@ -26,9 +26,10 @@ riak:
               - "[[C#|Taste of Riak: CSharp]]"
               - "[[NodeJS|Taste of Riak: NodeJS]]"
               - "[[Erlang|Taste of Riak: Erlang]]"
-              # - "[[PHP|Taste of Riak: PHP]]"
+              - "[[PHP|Taste of Riak: PHP]]"
               # - "[[C|Taste of Riak: C]]"
               # - "[[OCaml|Taste of Riak: OCaml]]"
+              - "[[Haskell|Taste of Riak: Haskell†]]"
               # - "[[Clojure|Taste of Riak: Clojure]]"
               # - "[[Go|Taste of Riak: Go]]"
           - title: A Taste of Querying
@@ -40,7 +41,7 @@ riak:
               - "[[C#|Taste of Riak: Querying with CSharp]]"
               - "[[NodeJS|Taste of Riak: Querying with NodeJS]]"
               - "[[Erlang|Taste of Riak: Querying with Erlang]]"
-              # - "[[PHP|Taste of Riak: Querying with PHP]]"
+              - "[[PHP|Taste of Riak: Querying with PHP]]"
           - title: Object Modeling
             sub:
               - "[[Introduction|Taste of Riak: Object Modeling]]"
@@ -92,7 +93,7 @@ riak:
           - "[[Commit Hooks|Advanced Commit Hooks]]"
           - "[[Replication Properties]]"
           - "[[Strong Consistency|Using Strong Consistency]]"
-          - "[[Write Once Buckets]]"
+          - "[[Write-Once Buckets]]"
           - "[[Cluster Metadata]]"
           - title: "Client-side Security"
             sub:

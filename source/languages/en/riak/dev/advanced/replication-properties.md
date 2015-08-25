@@ -206,6 +206,15 @@ RiakObject obj = response.getValue(RiakObject.class);
 System.out.println(obj.getValue().toString());
 ```
 
+```php
+$response = (new \Basho\Riak\Command\Builder\FetchObject($riak))
+  ->buildLocation('chimpanzee', 'animal_facts', 'r_equals_1')
+  ->build()
+  ->execute();
+
+echo $response->getObject()->getData();
+```
+
 ```python
 bucket = client.bucket_type('r_equals_1').bucket('animal_facts')
 bucket.get('chimpanzee')
@@ -267,6 +276,13 @@ StoreValue store = new StoreValue.Builder(obj)
         .withLocation("giraffe")
         .build();
 client.execute(store);
+```
+
+```php
+(new \Basho\Riak\Command\Builder\StoreObject($riak))
+  ->buildLocation('giraffe', 'animal_facts', 'w_equals_3')
+  ->build()
+  ->execute();
 ```
 
 ```python
@@ -439,6 +455,15 @@ FetchValue fetch = new FetchValue.Builder(johnStocktonStats)
 client.execute(fetch);
 ```
 
+```php
+(new \Basho\Riak\Command\Builder\FetchObject($riak))
+  ->buildLocation('john_stockton', 'nba_stats')
+  ->withParameter('r', 2)
+  ->withParameter('notfound_ok', true)
+  ->build()
+  ->execute();
+```
+
 ```python
 bucket = client.bucket('nba_stats')
 obj = bucket.get('john_stockton', r=2, notfound_ok=True)
@@ -480,6 +505,16 @@ StoreValue store = new StoreValue.Builder(obj)
         .withOption(StoreOption.DW, new Quorum(2))
         .build();
 client.execute(store);
+```
+
+```php
+(new \Basho\Riak\Command\Builder\StoreObject($riak))
+  ->buildJsonObject('{'stats':{ ... large stats object ... }}')
+  ->buildLocation('john_stockton', 'nba_stats')
+  ->withParameter('w', 3)
+  ->withParameter('dw', 2)
+  ->build()
+  ->execute();
 ```
 
 ```erlang

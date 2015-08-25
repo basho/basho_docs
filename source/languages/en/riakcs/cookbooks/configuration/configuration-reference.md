@@ -431,11 +431,11 @@ independently to access/usage and billing/storage. Expressed as a time-value</td
 <tr>
 <td><code>stats.storage.schedule.<em>$time</em></code></td>
 <td>When to automatically start storage calculation batches. Expressed as an
-<code>HH:MM</code> UTC time. For example, <code>"06:00"</code> would calculate
+<code>HHMM</code> UTC time. For example, <code>0600</code> would calculate
 at 6 am UTC every day. If you would like to schedule multiple batches, changing
 <em>$time</em> for each entry. For example <code>stats.storage.schedule.2 =
-"18:00"</code> could be the second entry, scheduled for 6:00pm UTC.</td>
-<td><code>"06:00"</code></td>
+1800</code> could be the second entry, scheduled for 6:00pm UTC.</td>
+<td><code>0600</code></td>
 </tr>
 <tr>
 <td><code>stats.storage.archive_period</code></td>
@@ -781,8 +781,8 @@ are milliseconds.
 <thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
 <tbody>
 <tr><td><code>ping_timeout</code></td><td>A timeout value used in ping API</td><td><code>5000</code></td></tr>
-<tr><td><code>get_user_timeout</code></td><td>A timeout value on retrieving user informantion for authentication, authentication</td><td><code>60000</code></td></tr>
-<tr><td><code>get_bucket_timeout</code></td><td>A timeout value on retrieving bucket information, for ACL or policy informantion</td><td><code>60000</code></td></tr>
+<tr><td><code>get_user_timeout</code></td><td>A timeout value on retrieving user information for authentication, authentication</td><td><code>60000</code></td></tr>
+<tr><td><code>get_bucket_timeout</code></td><td>A timeout value on retrieving bucket information, for ACL or policy information</td><td><code>60000</code></td></tr>
 <tr><td><code>get_manifest_timeout</code></td><td>A timeout value on retrieving manifest of a key</td><td><code>60000</code></td></tr>
 <tr><td><code>get_block_timeout</code></td><td>A timeout value on retrieving a chunk of an object</td><td><code>60000</code></td></tr>
 <tr><td><code>local_block_timeout</code></td><td>A timeout value on retrieving a local chunk of an object</td><td><code>5000</code></td></tr>
@@ -801,10 +801,10 @@ are milliseconds.
 <tr><td><code>list_keys_list_users_timeout</code></td><td>A timeout value on listing users</td><td><code>60000</code></td></tr>
 <tr><td><code>storage_calc_timeout</code></td><td>A timeout value on running storage calculation on a bucket</td><td><code>60000</code></td></tr>
 <tr><td><code>list_objects_timeout</code></td><td>A timeout value on listing objects of a bucket, older version (will be removed in 2.x)</td><td><code>60000</code></td></tr>
-<tr><td><code>fold_objects_timeout</code></td><td>A timeout value on listing objedts of a bucket (default since 1.5.0)</td><td><code>60000</code></td></tr>
+<tr><td><code>fold_objects_timeout</code></td><td>A timeout value on listing objects of a bucket (default since 1.5.0)</td><td><code>60000</code></td></tr>
 <tr><td><code>get_index_range_gckeys_timeout</code></td><td>A timeout value on listing keys in garbage collection bucket, overall call</td><td><code>60000</code></td></tr>
 <tr><td><code>get_index_range_gckeys_call_timeout</code></td><td>A timeout value on listing keys in garbage collection bucket, each continuation call</td><td><code>60000</code></td></tr>
-<tr><td><code>get_index_list_multipart_uploads_timeout</code></td><td>A timeout value on lsting incomplete multipart uplaods of an object</td><td><code>60000</code></td></tr>
+<tr><td><code>get_index_list_multipart_uploads_timeout</code></td><td>A timeout value on listing incomplete multipart upload of an object</td><td><code>60000</code></td></tr>
 
 </tbody>
 </table>

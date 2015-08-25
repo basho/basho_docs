@@ -15,28 +15,65 @@ versions: false
     div.temp-banner-text
       == I18n.t(:banner_ad)
 h1.center-text.extra-large
-  span.sans Welcome to the Riak Docs
-h3.center-text Choose a project below
+  span.sans Welcome to the Basho Docs
+h3.center-text Choose a product below
+
+
 
 div#select-project
   - version = $production ? "latest" : nil
 
   div.project
     a href="/riak/#{version || $versions[:riak]}/"
-      span.image
+      span.riak_image
       span.small
         | Highly Available, Operationally<br />Simple, Distributed Database
 
   div.separator
     div.vert-line
 
-  div.project
+  div.project#project_riakcs
     a href="/riakcs/#{version || $versions[:riakcs]}/"
       span.big
         | Riak&nbsp;
         strong Cloud Storage
       span.small
         | Fault-Tolerant, S3-Compatible,<br />Distributed Storage
+
+  div.project
+    a href="/riak/#{version || $versions[:riak]}/"
+      span.riak_kv_image
+      span.small
+        | Riak will soon be known as Riak KV
+
+  div.separator
+    div.vert-line
+
+  div.project
+    a href="/riakcs/#{version || $versions[:riakcs]}/"
+      span.riak_s2_image
+      span.small
+        | Riak Cloud Storage will soon be known<br />as Riak Simple Storage
+
+  div.project
+    a.disabled
+      span.big
+        | Basho&nbsp;
+        strong Data Platform
+      span.small
+        | Integrated deployment of Big Data applications<br />(Documentation coming soon)
+
+  div.separator
+    div.vert-line
+
+div.clear
+
+div#community-footer
+  | Get involved!  Check out our updated 
+  a href="/riak/#{version || $versions[:riak]}/community/" community page
+  |.
+
+div.clear
 
 javascript:
   document.write(unescape("%3Cscript src='" + document.location.protocol + "//munchkin.marketo.net/munchkin.js' type='text/javascript'%3E%3C/script%3E"));

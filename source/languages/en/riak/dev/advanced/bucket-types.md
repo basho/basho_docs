@@ -38,8 +38,8 @@ with a few crucial differences:
   previous system required configuration to be set on a per-bucket basis
 * Nearly all bucket properties can be updated using bucket types, except the
   `datatype`, `consistent`, and `write_once` properties, related to
-  [[Riak Data Types|Data Types]], [[strong consistency]], and
-  [[Write Once Buckets]] respectively
+  [[Riak data types|Data Types]], [[strong consistency]], and
+  [[write-once buckets]] respectively
 * Bucket types are more performant than bucket properties because
   divergence from Riak's defaults doesn't have to be gossiped around the
   cluster for every bucket, which means less computational overhead
@@ -82,8 +82,8 @@ system of bucket configuration, including the following:
   `riak-admin bucket-type` interface (discussed in depth below) enables
   you to manage bucket configurations on the operations side, without
   recourse to Riak clients.
-* Some special usecases -- [[Strong Consistency|Managing Strong Consistency]],
-  [[Data Types|Using Data Types]], and [[Write Once Buckets]] -- are only
+* Some special usecases -- [[strong consistency|Managing Strong Consistency]],
+  [[data types|Using Data Types]], and [[write-once buckets]] -- are only
   available through bucket properties or bucket types.
 
 For these reasons, we recommend _always_ using bucket types in versions
@@ -257,9 +257,9 @@ created, with three important exceptions:
 * `write_once`
 
 If a bucket type entails strong consistency (requiring that `consistent` be set
-to `true`), is set up as a `map`, `set`, or `counter`, or is defined as a Write
-Once bucket (requiring `write_once` be set to `true`), then this will be true of
-the bucket type once and for all.
+to `true`), is set up as a `map`, `set`, or `counter`, or is defined as a write-once 
+bucket (requiring `write_once` be set to `true`), then this will be true of
+the bucket types.
 
 If you need to change one of these properties, it is recommended that
 you simply create and activate a new bucket type.
@@ -279,6 +279,14 @@ client.execute(fetch);
 ```ruby
 bucket = client.bucket('my_bucket')
 bucket.get('my_key')
+```
+
+```php
+$location = new Location('my_key', new Bucket('my_bucket'));
+(new \Basho\Riak\Command\Builder\FetchObject($riak))
+  ->atLocation($location)
+  ->build()
+  ->execute();
 ```
 
 ```python
@@ -310,7 +318,7 @@ With the addition of bucket types in Riak 2.0, bucket types can be used
 as _an additional namespace_ on top of buckets and keys. The same bucket
 name can be associated with completely different data if it used in
 accordance with a different type. Thus, the following two requests will
-be made to _completely different keys_, even though the bucket and key
+be made to _completely different objects_, even though the bucket and key
 names are the same:
 
 ```java
@@ -329,6 +337,18 @@ bucket1 = client.bucket_type('type1').bucket('my_bucket')
 bucket2 = client.bucket_type('type2').bucket('my_bucket')
 bucket1.get('my_key')
 bucket2.get('my_key')
+```
+
+```php
+$location1 = new \Basho\Riak\Location('my_key', new Bucket('my_bucket', 'type1'));
+$location2 = new Location('my_key', new Bucket('my_bucket', 'type2'));
+$builder = new \Basho\Riak\Command\Builder\FetchObject($riak);
+$builder->atLocation($location1)
+  ->build()
+  ->execute();
+$builder->atLocation($location2)
+  ->build()
+  ->execute();
 ```
 
 ```python
@@ -398,6 +418,18 @@ bucket1 = client.bucket_type('default').bucket('my_bucket')
 bucket2 = client.bucket('my_bucket')
 bucket1.get('my_key')
 bucket2.get('my_key')
+```
+
+```php
+$location1 = new \Basho\Riak\Location('my_key', new Bucket('my_bucket', 'default'));
+$location2 = new \Basho\Riak\Location('my_key', new Bucket('my_bucket'));
+$builder = new \Basho\Riak\Command\Builder\FetchObject($riak);
+$builder->atLocation($location1)
+  ->build()
+  ->execute();
+$builder->atLocation($location2)
+  ->build()
+  ->execute();
 ```
 
 ```python
@@ -495,7 +527,7 @@ associated with the `default` bucket type:
 }
 ```
 
-## Bucket Types and the allow_mult Setting
+## Bucket Types and the `allow_mult` Setting
 
 Prior to Riak 2.0, Riak created [[siblings|Causal Context#Siblings]] in
 the case of conflicting updates only when explicitly instructed to do
@@ -645,6 +677,14 @@ obj.raw_data = '{ ... user data ... }'
 obj.store
 ```
 
+```php
+(new \Basho\Riak\Command\Builder\StoreObject($riak))
+  ->buildJsonObject("{ ... user data ... }")
+  ->buildLocation('user19735', 'sensitive_user_data', 'no_siblings')
+  ->build()
+  ->execute();
+```
+
 ```python
 bucket = client.bucket_type('no_siblings').bucket('sensitive_user_data')
 obj = RiakObject(client, bucket, 'user19735')
@@ -721,6 +761,14 @@ obj = Riak::RObject.new(bucket, 'all_your_base')
 obj.content_type = 'text/plain'
 obj.raw_data = 'all your base are belong to us'
 obj.store
+```
+
+```php
+(new \Basho\Riak\Command\Builder\StoreObject($riak))
+  ->buildObject("all your base are belong to us", ['Content-Type' => 'text/plain'])
+  ->buildLocation('user19735', 'sensitive_user_data', 'no_siblings')
+  ->build()
+  ->execute();
 ```
 
 ```python

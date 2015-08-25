@@ -172,6 +172,14 @@ client.execute(storeIndex);
 client.create_search_index('scores', '_yz_default')
 ```
 
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\StoreIndex($riak))
+  ->withName('scores')
+  ->usingSchema('_yz_default')
+  ->build()
+  ->execute();
+```
+
 ```python
 client.create_search_index('scores', '_yz_default')
 ```
@@ -239,6 +247,19 @@ joan_rivers_counter = Riak::Crdt::Counter.new(bucket, 'joan_rivers', 'counters')
 joan_rivers_counter.increment(25)
 ```
 
+```php
+$builder = (new \Basho\Riak\Command\Builder\IncrementCounter($riak))
+    ->withIncrement(10)
+    ->buildLocation('chris_hitchens', 'people', 'counters');
+
+$builder->build->execute();
+
+$builder->withIncrement(25)
+    ->buildLocation('joan_rivers', 'people', 'counters')
+    ->build()
+    ->execute();
+```
+
 ```python
 from riak.datatypes import Counter
 
@@ -254,11 +275,23 @@ joan_rivers_counter.store()
 ```
 
 ```csharp
-var christopherHitchensId = new RiakObjectId("counters", "people", "christ_hitchens");
-var hitchensRslt = client.DtUpdateCounter(christopherHitchensId, 10);
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Search/SearchDataTypes.cs
 
-var joanRiversId = new RiakObjectId("counters", "people", "joan_rivers");
-var joanRiversRslt = client.DtUpdateCounter(joanRiversId, 25);
+var cmd = new UpdateCounter.Builder()
+    .WithBucketType("counters")
+    .WithBucket("people")
+    .WithKey("christ_hitchens")
+    .WithIncrement(10)
+    .Build();
+RiakResult rslt = client.Execute(cmd);
+
+cmd = new UpdateCounter.Builder()
+    .WithBucketType("counters")
+    .WithBucket("people")
+    .WithKey("joan_rivers")
+    .WithIncrement(25)
+    .Build();
+rslt = client.Execute(cmd);
 ```
 
 ```javascript
@@ -334,7 +367,17 @@ results = client.search('scores', 'counter:[20 TO *]')
 # This should return a Hash with fields like 'num_found' and 'docs'
 
 results['num_found']
-# 2
+# 1
+```
+
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\FetchObjects($riak))
+  ->withIndexName('scores')
+  ->withQuery('counter:[20 TO *]')
+  ->build()
+  ->execute();
+
+$response->getNumFound(); // 1
 ```
 
 ```python
@@ -407,6 +450,19 @@ doc['_yz_rb'] # 'people'
 doc['_yz_rt'] # 'counters'
 ```
 
+```php
+$doc = $response->getDocs()[0];
+
+# The key
+$doc['_yz_rk'] # 'joan_rivers'
+
+# The bucket
+$doc['_yz_rb'] # 'people'
+
+# The bucket type
+$doc['_yz_rt'] # 'counters'
+```
+
 ```python
 doc = results['docs'][0]
 
@@ -468,6 +524,16 @@ SearchOperation.Response results = searchOp.get();
 results = client.search('scores', 'counter:[* TO 15]')
 ```
 
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\FetchObjects($riak))
+  ->withIndexName('scores')
+  ->withQuery('counter:[* TO 15]')
+  ->build()
+  ->execute();
+
+$response->getNumFound(); // 1
+```
+
 ```python
 results = client.fulltext_search('scores', 'counter:[* TO 15]')
 ```
@@ -504,6 +570,14 @@ String query = "counter:17";
 
 ```ruby
 results = client.search('scores', 'counter:17')
+```
+
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\FetchObjects($riak))
+  ->withIndexName('scores')
+  ->withQuery('counter:17')
+  ->build()
+  ->execute();
 ```
 
 ```python
@@ -557,6 +631,14 @@ client.execute(storeIndex);
 
 ```ruby
 client.create_search_index('hobbies', '_yz_default')
+```
+
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\StoreIndex($riak))
+  ->withName('hobbies')
+  ->usingSchema('_yz_default')
+  ->build()
+  ->execute();
 ```
 
 ```python
@@ -632,6 +714,22 @@ ronnie_james_dio_set.add('rocking')
 ronnie_james_dio_set.add('winning')
 ```
 
+```php
+$builder = (new \Basho\Riak\Command\Builder\UpdateSet($riak))
+    ->add('football')
+    ->add('winning')
+    ->buildLocation('ditka', 'people', 'counters');
+
+$builder->build->execute();
+
+$builder->add('wailing')
+    ->add('rocking')
+    ->add('winning')
+    ->buildLocation('dio', 'people', 'counters');
+    ->build()
+    ->execute();
+```
+
 ```python
 from riak.datatypes import Set
 
@@ -650,13 +748,23 @@ ronnie_james_dio_set.store()
 ```
 
 ```csharp
-var mikeDitkaId = new RiakObjectId("sets", "people", "ditka");
-var ditkaAdds = new List<string> { "football", "winning" };
-var ditkaRslt = client.DtUpdateSet(mikeDitkaId, Serializer, null, ditkaAdds);
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Search/SearchDataTypes.cs
 
-var dioId = new RiakObjectId("sets", "people", "dio");
-var dioAdds = new List<string> { "wailing", "rocking", "winning" };
-var dioRslt = client.DtUpdateSet(dioId, Serializer, null, dioAdds);
+var cmd = new UpdateSet.Builder()
+    .WithBucketType("sets")
+    .WithBucket("people")
+    .WithKey("ditka")
+    .WithAdditions(new[] { "football", "winning" })
+    .Build();
+RiakResult rslt = client.Execute(cmd);
+
+cmd = new UpdateSet.Builder()
+    .WithBucketType("sets")
+    .WithBucket("people")
+    .WithKey("dio")
+    .WithAdditions(new[] { "wailing", "rocking", "winning" })
+    .Build();
+rslt = client.Execute(cmd);
 ```
 
 ```javascript
@@ -726,6 +834,14 @@ results = client.search('hobbies', 'set:football')
 # This should return a dict with fields like 'num_found' and 'docs'
 ```
 
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\FetchObjects($riak))
+  ->withIndexName('hobbies')
+  ->withQuery('set:football')
+  ->build()
+  ->execute();
+```
+
 ```python
 results = client.fulltext_search('hobbies', 'set:football')
 # This should return a dict with fields like 'num_found' and 'docs'
@@ -783,6 +899,10 @@ results['num_found']
 # 1
 ```
 
+```php
+$response->getNumFound(); // 1
+```
+
 ```python
 results['num_found']
 # 1
@@ -823,6 +943,16 @@ results['num_found']
 # 2
 ```
 
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\FetchObjects($riak))
+  ->withIndexName('hobbies')
+  ->withQuery('set:winning')
+  ->build()
+  ->execute();
+
+$response->getNumFound(); // 2
+```
+
 ```python
 results = client.fulltext_search('hobbies', 'set:winning')
 results['num_found']
@@ -857,7 +987,7 @@ This example will build on the example in the [[Using Data Types]]
 tutorial. That tutorial walks you through storing CMS-style user data in
 Riak [[maps|Using Data Types#Maps]], and we'd suggest that you
 familiarize yourself with that tutorial first. More specifically, user
-data is stored in the following fields in each users's map:
+data is stored in the following fields in each user's map:
 
 * first name in a `first_name` register
 * last name in a `last_name` register
@@ -887,6 +1017,14 @@ client.execute(storeIndex);
 
 ```ruby
 client.create_search_index('customers', '_yz_default')
+```
+
+```php
+(new Command\Builder\Search\StoreIndex($riak))
+  ->withName('customers')
+  ->usingSchema('_yz_default')
+  ->build()
+  ->execute();
 ```
 
 ```python
@@ -974,11 +1112,47 @@ joan_jett.batch do |jj|
   jj.registers['last_name'] = 'Jett'
   ## Joan Jett is not an enterprise customers, so we don't need to
   ## explicitly disable this flag, as all flags are disabled by default
-  jj.counters['page_visits'].increment(10)
+  jj.counters['page_visits'].increment(25)
   ['loving rock and roll', 'being in the Blackhearts'].each do |interest|
     jj.sets['interests'].add(interest)
   end
 end
+```
+
+```php
+$counterBuilder = (new \Basho\Riak\Command\Builder\IncrementCounter($riak))
+  ->withIncrement(10);
+
+$setBuilder = (new \Basho\Riak\Command\Builder\UpdateSet($riak));
+  
+foreach(['acting', 'being Stringer Bell'] as $interest) {
+  $setBuilder->add($interest);
+}
+
+(new \Basho\Riak\Command\Builder\UpdateMap($riak))
+  ->updateRegister('first_name', 'Idres')
+  ->updateRegister('last_name', 'Elba')
+  ->updateFlag('enterprise_customer', true)
+  ->updateSet('interests', $setBuilder)
+  ->updateCounter('page_visits', $counterBuilder)
+  ->buildLocation('idris_elba', 'customers', 'maps')
+  ->build()
+  ->execute();
+
+$setBuilder = (new \Basho\Riak\Command\Builder\UpdateSet($riak));
+  
+foreach(['loving rock and roll', 'being in the Blackhearts'] as $interest) {
+  $setBuilder->add($interest);
+}
+
+(new \Basho\Riak\Command\Builder\UpdateMap($riak))
+  ->updateRegister('first_name', 'Joan')
+  ->updateRegister('last_name', 'Jett')
+  ->updateSet('interests', $setBuilder)
+  ->updateCounter('page_visits', $counterBuilder->withIncrement(25))
+  ->buildLocation('joan_jett', 'customers', 'maps')
+  ->build()
+  ->execute();
 ```
 
 ```python
@@ -1005,68 +1179,33 @@ joan_jett.store()
 ```
 
 ```csharp
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Search/SearchDataTypes.cs
+
+// Note: similar code for Joan Jett
+
 const string firstNameRegister = "first_name";
 const string lastNameRegister = "last_name";
 const string enterpriseCustomerFlag = "enterprise_customer";
 const string pageVisitsCounter = "page_visits";
 const string interestsSet = "interests";
 
-var idrisElbaId = new RiakObjectId("maps", "customers", "idris_elba");
-var idrisMapUpdates = new List<MapUpdate>();
-idrisMapUpdates.Add(new MapUpdate
-{
-    register_op = Serializer("Idris"),
-    field = new MapField
-    {
-        name = Serializer(firstNameRegister),
-        type = MapField.MapFieldType.REGISTER
-    }
-});
-
-idrisMapUpdates.Add(new MapUpdate
-{
-    register_op = Serializer("Elba"),
-    field = new MapField
-    {
-        name = Serializer(lastNameRegister),
-        type = MapField.MapFieldType.REGISTER
-    }
-});
-
-idrisMapUpdates.Add(new MapUpdate
-{
-    flag_op = MapUpdate.FlagOp.DISABLE,
-    field = new MapField
-    {
-        name = Serializer(enterpriseCustomerFlag),
-        type = MapField.MapFieldType.FLAG
-    }
-});
-
-idrisMapUpdates.Add(new MapUpdate
-{
-    counter_op = new CounterOp { increment = 10 },
-    field = new MapField
-    {
-        name = Serializer(pageVisitsCounter),
-        type = MapField.MapFieldType.COUNTER
-    }
-});
-
 var idrisAdds = new[] { "acting", "being Stringer Bell" };
-var idrisSetOp = new SetOp();
-idrisSetOp.adds.AddRange(idrisAdds.Select(x => Serializer(x)));
-idrisMapUpdates.Add(new MapUpdate
-{
-    set_op = idrisSetOp,
-    field = new MapField
-    {
-        name = Serializer(interestsSet),
-        type = MapField.MapFieldType.SET
-    }
-});
 
-var idrisRslt = client.DtUpdateMap(idrisElbaId, Serializer, null, null, idrisMapUpdates);
+var mapOp = new UpdateMap.MapOperation()
+    .SetRegister(firstNameRegister, "Idris")
+    .SetRegister(lastNameRegister, "Elba")
+    .SetFlag(enterpriseCustomerFlag, false)
+    .IncrementCounter(pageVisitsCounter, 10)
+    .AddToSet(interestsSet, idrisAdds);
+
+var cmd = new UpdateMap.Builder()
+    .WithBucketType("maps")
+    .WithBucket("customers")
+    .WithKey("idris_elba")
+    .WithMapOperation(mapOp)
+    .Build();
+
+RiakResult rslt = client.Execute(cmd);
 ```
 
 ```javascript
@@ -1143,6 +1282,16 @@ results['num_found']
 # 1
 ```
 
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\FetchObjects($riak))
+  ->withIndexName('customers')
+  ->withQuery('page_visits_counter:[15 TO *]')
+  ->build()
+  ->execute();
+
+$response->getNumFound(); // 1
+```
+
 ```python
 results = client.fulltext_search('customers', 'page_visits_counter:[15 TO *]')
 results['num_found']
@@ -1191,6 +1340,10 @@ results['docs'][0]['first_name_register']
 # 'Joan'
 ```
 
+```php
+$response->getDocs()[0]->first_name_register']; // Joan
+```
+
 ```python
 results['docs'][0]['first_name_register']
 # u'Joan'
@@ -1223,6 +1376,16 @@ String query = "interests_set:*";
 ```ruby
 results = client.search('customers', 'interests_set:*')
 # 2
+```
+
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\FetchObjects($riak))
+  ->withIndexName('customers')
+  ->withQuery('interests_set:*')
+  ->build()
+  ->execute();
+
+$response->getNumFound(); // 2
 ```
 
 ```python
@@ -1263,6 +1426,16 @@ String registerValue =
 results = client.search('customers', 'interests_set:loving*')
 results['num_found'] # 1
 results['docs'][0]['first_name_register'] # 'Joan'
+```
+
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\FetchObjects($riak))
+  ->withIndexName('customers')
+  ->withQuery('interests_set:loving*')
+  ->build()
+  ->execute();
+
+$response->getDocs()[0]->first_name_register']; // Joan
 ```
 
 ```python
@@ -1311,6 +1484,25 @@ idris_elba.maps['alter_ego'].registers['name'] = 'John Luther'
 joan_jett.maps['alter_ego'].registers['name'] = 'Robert Plant'
 ```
 
+```php
+$mapBuilder = (new \Basho\Riak\Command\Builder\UpdateMap($riak))
+  ->updateRegister('name', 'John Luther')
+
+(new \Basho\Riak\Command\Builder\UpdateMap($riak))
+  ->updateMap('alter_ego', $mapBuilder)
+  ->buildLocation('idris_elba', 'customers', 'maps')
+  ->build()
+  ->execute();
+
+$mapBuilder->updateRegister('name', 'Robert Plant')
+
+(new \Basho\Riak\Command\Builder\UpdateMap($riak))
+  ->updateMap('alter_ego', $mapBuilder)
+  ->buildLocation('joan_jett', 'customers', 'maps')
+  ->build()
+  ->execute();
+```
+
 ```python
 idris_elba.maps['alter_ego'].registers['name'].assign('John Luther')
 idris_elba.store()
@@ -1320,35 +1512,22 @@ joan_jett.store()
 ```
 
 ```csharp
+// https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Search/SearchDataTypes.cs
+
 const string nameRegister = "name";
 const string alterEgoMap = "alter_ego";
 
-idrisElbaId = new RiakObjectId("maps", "customers", "idris_elba");
-var idrisGetRslt = client.DtFetchMap(idrisElbaId);
+var mapOp = new UpdateMap.MapOperation();
+mapOp.Map(alterEgoMap).SetRegister(nameRegister, "John Luther");
 
-var alterEgoMapOp = new MapOp();
-alterEgoMapOp.updates.Add(new MapUpdate
-{
-    register_op = Serializer("John Luther"),
-    field = new MapField
-    {
-        name = Serializer(nameRegister),
-        type = MapField.MapFieldType.REGISTER
-    }
-});
+var cmd = new UpdateMap.Builder()
+    .WithBucketType("maps")
+    .WithBucket("customers")
+    .WithKey("idris_elba")
+    .WithMapOperation(mapOp)
+    .Build();
 
-var alterEgoMapUpdate = new MapUpdate
-{
-    map_op = alterEgoMapOp,
-    field = new MapField
-    {
-        name = Serializer(alterEgoMap),
-        type = MapField.MapFieldType.MAP
-    }
-};
-
-var idrisUpdateRslt = client.DtUpdateMap(idrisElbaId, Serializer,
-    idrisGetRslt.Context, null, new List<MapUpdate> { alterEgoMapUpdate });
+RiakResult rslt = client.Execute(cmd);
 ```
 
 ```javascript
@@ -1406,17 +1585,27 @@ map:
 String query = "alter_ego_map.name_register:*";
 
 // Again using the same method from above:
-int numberFound = results.numResults(); // 1
+int numberFound = results.numResults(); // 2
 ```
 
 ```ruby
 results = client.search('customers', 'alter_ego_map.name_register:*')
-results['num_found'] # 1
+results['num_found'] # 2
+```
+
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\FetchObjects($riak))
+  ->withIndexName('customers')
+  ->withQuery('alter_ego_map.name_register:*')
+  ->build()
+  ->execute();
+
+$response->getNumFound(); // 2
 ```
 
 ```python
 results = client.fulltext_search('customers', 'alter_ego_map.name_register:*')
-results['num_found'] # 1
+results['num_found'] # 2
 ```
 
 ```csharp
@@ -1453,6 +1642,17 @@ String registerValue =
 results = client.search('customers', 'alter_ego_map.name_register:*Plant')
 results['num_found'] # 1
 results['docs'][0]['first_name_register'] # 'Joan'
+```
+
+```php
+$response = (new \Basho\Riak\Command\Builder\Search\FetchObjects($riak))
+  ->withIndexName('customers')
+  ->withQuery('alter_ego_map.name_register:*Plant')
+  ->build()
+  ->execute();
+
+$response->getNumFound(); // 1
+$response->getDocs()[0]->first_name_register']; // Joan
 ```
 
 ```python

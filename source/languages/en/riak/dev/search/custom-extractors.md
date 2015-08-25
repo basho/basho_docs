@@ -257,6 +257,15 @@ schema_xml = File.read('http_header_schema.xml')
 client.create_search_schema('http_header_schema', schema_xml)
 ```
 
+```php
+$schema_string = file_get_contents('http_header_schema.xml');
+(new \Basho\Riak\Command\Builder\StoreSchema($riak))
+  ->withName('http_header_schema')
+  ->withSchemaString($schema_string)
+  ->build()
+  ->execute();
+```
+
 ```python
 import io
 
@@ -282,6 +291,14 @@ client.execute(storeIndex);
 
 ```ruby
 client.create_search_index('header_data', 'http_header_schema')
+```
+
+```php
+(new \Basho\Riak\Command\Builder\StoreIndex($riak))
+  ->withName('header_data')
+  ->usingSchema('http_header_schema')
+  ->build()
+  ->execute();
 ```
 
 ```python
@@ -332,6 +349,16 @@ obj.raw_data = packetData
 obj.store
 ```
 
+```php
+$object = new Object(file_get_contents("google_packet.bin"), ['Content-Type' => 'application/httpheader']);
+
+(new \Basho\Riak\Command\Builder\StoreObject($riak))
+  ->buildLocation('google', 'packets', 'http_data_store')
+  ->withObject($object)
+  ->build()
+  ->execute();
+```
+
 ```python
 packet_data = open('google_packet.bin').read()
 bucket = client.bucket_type('http_data_store').bucket('packets')
@@ -363,6 +390,16 @@ int numberFound = results.numResults(); // 1
 ```ruby
 results = client.search('http_header_schema', 'method:GET')
 results['num_found'] # 1
+```
+
+```php
+$response = (\Basho\Riak\Command\Search\FetchObjects($riak))
+  ->withQuery('method:GET')
+  ->withIndexName('header_data')
+  ->build()
+  ->execute();
+
+$response->getNumFound();
 ```
 
 ```python
