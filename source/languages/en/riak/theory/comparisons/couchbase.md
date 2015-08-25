@@ -117,8 +117,8 @@ online documentation for both [Riak](http://docs.basho.com/) and
         <td> Riak uses a data structure called a vector clock to reason about causality and staleness of stored values. Vector clocks enable clients to always write to the database in exchange for consistency conflicts being resolved at read time by either application or client code. Vector clocks can be configured to store copies of a given datum based on size and age of said datum.   There is also an option to disable vector clocks and fall back to simple time-stamp based "last-write-wins".
             <ul>
               <li>[[Vector Clocks]]</li>
-              <li>[[Why Vector Clocks Are Easy|http://basho.com/blog/technical/2010/01/29/why-vector-clocks-are-easy/]]</li>
-              <li>[[Why Vector Clocks Are Hard|http://basho.com/blog/technical/2010/04/05/why-vector-clocks-are-hard/]]</li>
+              <li>[[Why Vector Clocks Are Easy|http://basho.com/posts/technical/why-vector-clocks-are-easy/]]</li>
+              <li>[[Why Vector Clocks Are Hard|http://basho.com/posts/technical/why-vector-clocks-are-hard/]]</li>
             </ul>
          </td>
 
@@ -208,7 +208,7 @@ online documentation for both [Riak](http://docs.basho.com/) and
         <td>Riak ships with Riak Control, an open source graphical console for monitoring and managing Riak clusters.
             <ul>
                 <li>[[Riak Control]]</li>
-                <li>[[Introducing Riak Control|http://basho.com/blog/technical/2012/02/22/Riak-Control/]]
+                <li>[[Introducing Riak Control|http://basho.com/posts/technical/Riak-Control/]]
             </ul>
     </td>
         <td>Couchbase provides a web-based monitoring/admin console.

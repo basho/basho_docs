@@ -140,7 +140,7 @@ nodes, a high percentage of the nodes (75-100% of them) will need to
 respond to each request, putting undue load on the cluster that may
 degrade performance.  For more details on this recommendation, see our
 blog post on [Why Your Riak Cluster Should Have at Least Five
-Nodes](http://basho.com/blog/technical/2012/04/27/Why-Your-Riak-Cluster-Should-Have-At-Least-Five-Nodes/).
+Nodes](http://basho.com/posts/technical/Why-Your-Riak-Cluster-Should-Have-At-Least-Five-Nodes/).
 
 ## Scaling
 
