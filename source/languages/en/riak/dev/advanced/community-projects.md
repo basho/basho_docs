@@ -53,10 +53,11 @@ Here are the **most active** contributions from the community.
 
 * [Riak Explorer](https://github.com/basho-labs/riak_explorer) is an open source tool that provides a convenient method to browse Bucket Types, Buckets, Keys, view and edit Riak Objects.
 * The [Boundary Riak plugin](https://github.com/boundary/boundary-plugin-riak) collects information on Riak clusters for consumption in [Boundary](https://www.boundary.com/)
+* [Datadog Riak Plugin](http://docs.datadoghq.com/integrations/riak/) collects Riak metrics for the [Datadog](http://www.datadoghq.com/) monitoring service
 * [Riak Zabbix](https://github.com/basho-labs/riak-zabbix) is a template and setup guide to monitor Riak KV
 * [Nagios Plugin](https://github.com/basho-labs/riak_nagios) maintained by the Basho community
 * [Advanced Nagios Plugins Collection](https://github.com/harisekhon/nagios-plugins) contains many additional Nagios plugins for monitoring Riak
-* [Riak Nagios](https://github.com/basho/riak_newrelic) serves node statistics of a Riak Node to the New Relic APM System
+* [New Relic Plugin](https://github.com/basho/riak_newrelic) serves node statistics of a Riak Node to the New Relic APM System
 * [Yokozuna Monitor](https://github.com/basho-labs/ruby-yz-monitor) is a ruby application to monitor your Riak Search activity.
 * [riak-statsd in golang](https://github.com/jjmalina/riak-statsd) which monitors Riak KV and pushes to statsd
 * [Gmond Python Modules for Riak](https://github.com/ganglia/gmond_python_modules) is a Ganglia Module for connecting to Riak KV
