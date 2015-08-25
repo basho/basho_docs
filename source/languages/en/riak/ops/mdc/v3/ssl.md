@@ -32,10 +32,10 @@ virtual private network (VPM) for inter-datacenter connections.
 ## SSL Configuration
 
 To configure SSL, you will need to include the following 4 settings in
-the `riak-core` section of `[[app.config|Configuration
-Files#app.config]]`:
+the `riak-core` section of `[[advanced.confg|Configuration
+Files#The-advanced-config-file]]`:
 
-```appconfig
+```advancedconfig
 {riak_core, [
              % ...
              {ssl_enabled, true},
@@ -53,7 +53,7 @@ needed to verify the CA chain back to the root.
 <div class="note">
 <div class="title">Note on configuration</div>
 In Version 3 replication, the SSL settings need to be placed in the
-<code>riak-core</code> section of <code>app.config</code> as opposed to
+<code>riak-core</code> section of <code>advanced.config</code> as opposed to
 the <code>riak-repl</code> section used by Version 2 replication.
 </div>
 
@@ -61,7 +61,7 @@ the <code>riak-repl</code> section used by Version 2 replication.
 
 Verification of a peer's certificate common name *(CN)* is enabled by using
 the `peer_common_name_acl` property in the `riak_core` section of your
-`app.config` to specify an Access Control List *(ACL)*.
+`advanced.config` to specify an Access Control List *(ACL)*.
 
 The ACL is a list of one or more *patterns*, separated by commas. Each
 pattern may be either the exact CN of a certificate to allow, or a
@@ -97,7 +97,7 @@ setting of the `peer_common_name_acl` property.
 The following example will only allow connections from peer certificate
 names like `db.bashosamplecorp.com` and `security.bashosamplecorp.com`:
 
-```appconfig
+```advancedconfig
 {riak_core, [
              % ...
              {peer_common_name_acl, ["db.bashosamplecorp.com", "security.bashosamplecorp.com"]}
@@ -110,7 +110,7 @@ The following example will allow connections from peer certificate names
 like `foo.bashosamplecorp.com` or `db.bashosamplecorp.com`, but not a
 peer certificate name like `db.backup.bashosamplecorp.com`.
 
-```appconfig
+```advancedconfig
 {riak_core, [
              % ...
              {peer_common_name_acl, ["*.bashosamplecorp.com"]}
@@ -121,7 +121,7 @@ peer certificate name like `db.backup.bashosamplecorp.com`.
 
 This example will match any peer certificate name (and is the default):
 
-```appconfig
+```advancedconfig
 {riak_core, [
              % ...
              {peer_common_name_acl, "*"}
@@ -133,9 +133,9 @@ This example will match any peer certificate name (and is the default):
 ## SSL CA Validation
 
 You can adjust the way CA certificates are validated by adding the
-following to the `riak_repl` section of `app.config`:
+following to the `riak_repl` section of `advanced.config`:
 
-```appconfig
+```advancedconfig
 {riak_core, [
              % ...
              {ssl_depth, 3} % Sets the depth to 3
