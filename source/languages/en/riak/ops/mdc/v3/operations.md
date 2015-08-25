@@ -47,7 +47,7 @@ To **get** the `clustername`:
 The `connect` command establishes communications from a source cluster
 to a sink cluster of the same ring size. The `host:port` of the sink
 cluster is used for this. The IP and port to connect to can be found in
-the `app.config` of the remote cluster, under `riak_core` and
+the `advanced.config` of the remote cluster, under `riak_core` and
 `cluster_mgr`.
 
 The `host` can be either an IP address
@@ -137,7 +137,7 @@ Stop realtime replication from a source cluster to sink clusters.
 
 ## Fullsync Replication Commands
 
-These behaviors can be altered by using the `app.config`
+These behaviors can be altered by using the `advanced.config`
 `fullsync_on_connect` parameter. See the [[Configuration Guide|Multi
 Data Center Replication v3 Configuration]] for more information.
 
@@ -238,7 +238,7 @@ has been stopped and started.
 #### proxy-get enable
 
 Enable Riak CS `proxy_get` requests from a **sink** cluster (if
-`proxy_get` has been enabled in `app.config`).
+`proxy_get` has been enabled in `advanced.config`).
 
 * Syntax: `proxy-get enable  <sink_clustername>`
 * Example: `riak-repl proxy-get enable  newyorkbackup`
@@ -246,7 +246,7 @@ Enable Riak CS `proxy_get` requests from a **sink** cluster (if
 #### `proxy-get disable`
 
 Disable Riak CS `proxy_get` requests from a **sink** cluster (if
-`proxy_get` has been enabled in `app.config`).
+`proxy_get` has been enabled in `advanced.config`).
 
 * Syntax: `proxy-get disable <sink_clustername>`
 * Example: `riak-repl proxy-get disable newyorkbackup`
@@ -301,7 +301,7 @@ Details about the `riak-repl status` command can be found under
 
 ## Tuning
 
-These tuning values may also be set via the node's `app.config` file.
+These tuning values may also be set via the node's `advanced.config` file.
 See the [[Configuration Guide|Multi Data Center Replication v3
 Configuration]] for more information.
 
