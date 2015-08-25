@@ -147,7 +147,7 @@ To install the required dependencies run the following `apt-get` commands:
 
 ```bash
 sudo apt-get update
-sudo apt-get install build-essential autoconf libncurses5-dev openssl libssl-dev fop xsltproc unixodbc-dev
+sudo apt-get install build-essential autoconf libncurses5-dev openssl libssl-dev fop xsltproc unixodbc-dev git
 ```
 
 ### GUI Dependencies
@@ -244,7 +244,7 @@ Once you've installed the prerequisites continue with [[Installing on Mac OS X|I
 To install the required dependencies run the following `yum` command:
 
 ```bash
-sudo yum install gcc gcc-c++ glibc-devel make ncurses-devel openssl-devel autoconf java-1.8.0-openjdk-devel
+sudo yum install gcc gcc-c++ glibc-devel make ncurses-devel openssl-devel autoconf java-1.8.0-openjdk-devel git
 ```
 
 ### GUI Dependencies
@@ -330,7 +330,7 @@ tar zxvf otp_src_R16B02-basho8.tar.gz
 ```
 
 Next `cd` into the unpacked directory, build and install Erlang with:
- 
+
 ```bash
 cd OTP_R16B02_basho8
 ./otp_build autoconf
@@ -366,7 +366,7 @@ tar zxvf otp_src_R16B02-basho8.tar.gz
 ```
 
 Next `cd` into the unpacked directory, build and install Erlang with:
- 
+
 ```bash
 cd OTP_R16B02_basho8
 ./otp_build autoconf
@@ -390,7 +390,7 @@ erl
 
 First make sure you have installed the necessary dependencies found in [[Mac OS X Prerequisites|Installing Erlang#Mac-OS-X-Prerequisites]].
 
-You can install Erlang in several ways on OS X: 
+You can install Erlang in several ways on OS X:
 
 * [[From Source|Installing Erlang#Installing-on-Mac-OS-X-from-Source]]
 * [[Homebrew|Installing Erlang#Installing-on-Mac-OS-X-with-Homebrew]]
@@ -452,7 +452,7 @@ If you're on a non-Intel processor or older version of OS X:
 ```
 
 After you've configured your system `cd` into the unpacked directory, build and install Erlang with:
- 
+
 ```bash
 cd OTP_R16B02_basho8
 ./otp_build autoconf
