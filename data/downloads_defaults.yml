@@ -91,6 +91,20 @@ default:
               name: "10.8+ 32 Bit"
             x86_64:
               name: "10.8+ 64 Bit"
+        "10.9":
+          name: "OS X"
+          arch:
+            i386:
+              name: "10.9+ 32 Bit"
+            x86_64:
+              name: "10.9+ 64 Bit"
+        "10.10":
+          name: "OS X"
+          arch:
+            i386:
+              name: "10.10+ 32 Bit"
+            x86_64:
+              name: "10.10+ 64 Bit"
     rhel:
       name: "Red Hat Enterprise"
       icon: "redhat.png"
@@ -114,6 +128,12 @@ default:
               name: "7.0 x86 64"
             src:
               name: "7.0 Source"
+        "amazon":
+          arch:
+            x86_64:
+              name: "Amazon 2015.03 x86 64"
+            src:
+              name: "Amazon 2015.03 Source"
     fedora:
       name: "Fedora"
       icon: "fedora.png"
