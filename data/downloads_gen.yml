@@ -1,10 +1,7 @@
 ---
 riak:
-
 riak-cs:
-
 stanchion:
-
 riak-cs-control:
-
 data-platform:
+data-platform-extras:
