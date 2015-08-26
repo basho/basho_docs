@@ -9,6 +9,7 @@ dataplatform:
     sub:
       - "[[Basho Data Platform|Data Platform]]"
       - "[[Installing|Installing Basho Data Platform]]"
+      - "[[Upgrading]]"
       - "[[Release Notes 1.0.0|Basho Data Platform 1.0.0 Release Notes]]"
   - title: "Using Basho Data Platform"
     sub:
