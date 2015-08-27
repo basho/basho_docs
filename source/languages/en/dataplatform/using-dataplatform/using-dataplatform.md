@@ -11,13 +11,13 @@ simple: true
 versions: true
 ---
 
-[bdp install]: LINK
-[bdp config]: LINK
-[bdp cluster manager]: LINK
-[cache proxy config]: LINK
-[using bdp]: LINK
-[bdp cli]: LINK
-[learn bdp index]: LINK
+[bdp install]: http://docs.basho.com/dataplatform/1.0.0/installing/
+[bdp config]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/setup-a-cluster/
+[bdp cluster manager]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/replace-spark-cluster-manager/
+[cache proxy config]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/getting-started-with-cache-proxy/
+[using bdp]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/using-bdp/
+[bdp cli]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/dataplatform-commands/
+[learn bdp index]: http://docs.basho.com/dataplatform/1.0.0/learn-about-dataplatform/service-manager-features/
 
 ##In This Section
 

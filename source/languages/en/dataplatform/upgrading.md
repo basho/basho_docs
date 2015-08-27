@@ -18,7 +18,7 @@ There were many changes between the Basho Data Platform (BDP) beta releases and 
 
 ##Uninstall Instructions
 
-Choose the installation instructions below that match your OS, [Ubuntu or Debian](#ubuntu-or-debian) or [CentOS or RHEL](#centos-or-rhel)
+Choose the installation instructions below that match your OS.
 
 >Important: 
 >

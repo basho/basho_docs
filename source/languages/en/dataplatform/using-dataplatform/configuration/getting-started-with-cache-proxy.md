@@ -8,9 +8,9 @@ index: true
 audience: beginner
 ---
 
-[bdp install]: LINK
-[bdp configure]: LINK
-[bdp configure add services]: LINK
+[bdp install]: http://docs.basho.com/dataplatform/1.0.0/installing/
+[bdp configure]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/setup-a-cluster/
+[bdp configure add services]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/setup-a-cluster/#add-services
 
 
 Now that you’ve [set up a Basho Data Platform cluster][bdp configure], which included [adding a service configuration for Redis and cache proxy][bdp configure add services], you’re ready to use cache proxy with any Redis client that supports the `GET` command.

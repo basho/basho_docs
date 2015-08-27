@@ -6,6 +6,8 @@ document: guide
 audience: beginner
 ---
 
+[bdp leader election]: http://docs.basho.com/dataplatform/1.0.0/learn-about-dataplatform/leader-election-service/
+[bdp cluster manager]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/replace-spark-cluster-manager/
 [ee]: http://info.basho.com/Wiki_Riak_Enterprise_Request.html
 
 <div class="note">
@@ -15,13 +17,13 @@ The Spark cluster manager is available to [Enterprise users only][ee].
 The Spark cluster manager provides all the functionality required for Spark Master high availability without the need to manage yet another software system (Zookeeper). This reduces operational complexity of Basho Data Platform (BDP).
 
 <div class="note">
-Please note that the Spark cluster manager depends on the [Riak Leader Election Service](LINK). Check out [Replace Your Previous Spark Cluster Manager with the Basho Data Platform Cluster Manager](LINK) for instructions on setting up the Spark cluster manager.
+Please note that the Spark cluster manager depends on the [Riak Leader Election Service][bdp leader election]. Check out [Replace Your Previous Spark Cluster Manager with the Basho Data Platform Cluster Manager][bdp cluster manager] for instructions on setting up the Spark cluster manager.
 </div>
 
 
 ##Zookeeper Replacement
 
-The Spark cluster manager forms a pair with the [leader election service (LES)](LINK). It enables Spark to use the LES rather than ZooKeeper. Spark cluster manager provides all the functionality required for Spark Master high availability without the need to manage yet another software system.
+The Spark cluster manager forms a pair with the [leader election service (LES)][bdp leader election]. It enables Spark to use the LES rather than ZooKeeper. Spark cluster manager provides all the functionality required for Spark Master high availability without the need to manage yet another software system.
 
 
 ##Store Spark Cluster Metadata in Riak KV

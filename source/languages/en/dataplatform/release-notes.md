@@ -8,7 +8,10 @@ toc: true
 keywords: [developers]
 ---
 
-Released August XY, 2015.
+[bdp downloads]: http://docs.basho.com/dataplatform/1.0.0/downloads/
+[bdp install]: http://docs.basho.com/dataplatform/1.0.0/installing/
+
+Released August 27, 2015.
 
 This release is the introductory release of Basho Data Platform (BDP), so everything is new!
 
@@ -54,7 +57,7 @@ BDP also supports the following operating systems for development:
 
 ##Installing
 
-You can find the install packages for BDP [here](LINK) and the instructions to walk you through the installation process [here](LINK).
+You can find the install packages for BDP [here][bdp downloads] and the instructions to walk you through the installation process [here][bdp install].
 
 ##Known Issues
 

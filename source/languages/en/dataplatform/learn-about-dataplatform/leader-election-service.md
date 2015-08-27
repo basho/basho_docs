@@ -9,7 +9,7 @@ audience: beginner
 ---
 
 [ee]: http://info.basho.com/Wiki_Riak_Enterprise_Request.html
-[riak_ensemble]:
+[riak_ensemble]: https://github.com/basho/riak_ensemble
 
 
 <div class="note">
@@ -20,7 +20,7 @@ Leader Election Service is available to [Enterprise users only][ee].
 
 The Basho Data Platform (BDP) Leader Election Service enables Spark clusters to run without a ZooKeeper instance. 
 
-The Leader Election Service uses a simple, line-based, ascii protocol to interact with Spark. This protocol is incompatible with the ZooKeeper protocol, and requires a BDP-specific patch to Spark for compatibility purposes. The [SECTION](#LINK) section of this page further details the Leader Election Service protocol.
+The Leader Election Service uses a simple, line-based, ascii protocol to interact with Spark. This protocol is incompatible with the ZooKeeper protocol, and requires a BDP-specific patch to Spark for compatibility purposes. The Protocol Details section of this page further details the Leader Election Service protocol.
 
 The service can be run on any or all nodes in a Riak cluster, so long as those nodes have [`riak_ensemble`][riak_ensemble]. Because it uses a strongly consistent backing store that is spread across the entire cluster, it does not normally matter which nodes are running the service. As long as there are no network partitions or outages interfering with normal operation, you should be able to point Spark to any Riak node that is running the election service, and everything will work the same way regardless.
 

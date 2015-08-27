@@ -9,9 +9,9 @@ audience: beginner
 ---
 
 
-[bdp install]: LINK
-[bdp configure]: LINK
-[bdp configure spark master]: LINK
+[bdp install]: http://docs.basho.com/dataplatform/1.0.0/installing/
+[bdp configure]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/setup-a-cluster/
+[bdp configure spark master]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/setup-a-cluster/#set-up-spark-cluster-metadata
 [riak data types]: http://docs.basho.com/riak/2.1.1/dev/using/data-types/
 
 
@@ -38,9 +38,9 @@ Name of CRDT map for metadata storage (i.e. 'spark-cluster-map'). The CRDT map s
 
 To replace your Spark Cluster Manager with the BDP cluster manager, you will do the following:
 
-1. [Add BDP service configs for spark-master and spark-worker.](#add-bdp-service-configs)
-2. [Activate the services.](#activate-the-services)
-3. [Verify.](#verify-your-success)
+1. Add BDP service configs for spark-master and spark-worker.
+2. Activate the services.
+3. Verify
 
 ###Add BDP Service Configs
 
