@@ -8,7 +8,7 @@ toc: true
 keywords: [developers]
 ---
 
-Released August XY, 2015.
+Released August 27, 2015.
 
 This release is the introductory release of Basho Data Platform (BDP), so everything is new!
 
