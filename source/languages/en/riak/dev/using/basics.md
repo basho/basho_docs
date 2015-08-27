@@ -107,6 +107,18 @@ client.fetchValue({ bucketType: 'animals', bucket: 'dogs', key: 'rufus' }, funct
                             <<"rufus">>).
 ```
 
+```go
+cmd, err = riak.NewFetchValueCommandBuilder().
+  WithBucketType("animals").
+  WithBucket("dogs").
+  WithKey("rufus").
+  Build()
+if err != nil {
+  util.ErrLog.Println(err)
+  continue
+}
+```
+
 ```curl
 curl http://localhost:8098/types/animals/buckets/dogs/keys/rufus
 ```
@@ -150,6 +162,10 @@ rslt.isNotFound === true;
 
 ```erlang
 {error,notfound}
+```
+
+```go
+...
 ```
 
 ```curl
@@ -234,6 +250,10 @@ client.storeValue({
 });
 ```
 
+```go
+...
+```
+
 Notice that we specified both a value for the object, i.e. `WOOF!`, and
 a content type, `text/plain`. We'll learn more about content types in
 the [[section below|The Basics#Content-Types]].
@@ -301,6 +321,10 @@ ArgumentError: content_type is not defined!
 %% specify that the object is "application/octet-stream"; if you store a
 %% string, the client will specify "application/x-erlang-binary"; and so
 %% on.
+```
+
+```go
+...
 ```
 
 Because content type negotiation varies so widely from client to client,
@@ -386,6 +410,10 @@ client.fetchValue(fetchOptions, function (err, rslt) {
                                 {<<"animals">>, <<"dogs">>},
                                 <<"rufus">>,
                                 [{r, 3}]).
+```
+
+```go
+...
 ```
 
 ```curl
@@ -497,6 +525,10 @@ Object = riakc_obj:new({<<"quotes">>, <<"oscar_wilde">>},
                        <<"I have nothing to declare but my genius">>,
                        <<"text/plain">>).
 riakc_pb_socket:put(Pid, Object).
+```
+
+```go
+...
 ```
 
 ```curl
@@ -646,6 +678,10 @@ UpdatedObj = riakc_obj:update_value(Obj, <<"Harlem Globetrotters">>),
 {ok, NewestObj} = riakc_pb_socket:put(Pid, UpdatedObj, [return_body]).
 ```
 
+```go
+...
+```
+
 ```curl
 # When using curl, the context object is attached to the X-Riak-Vclock header
 
@@ -725,6 +761,10 @@ riakc_obj:vclock(Obj).
 %% The context object will look something like this in the Erlang shell:
 %% <<107,206,97,96,96,96,204,96,202,5,82,28,202,156,255,126,
 %% 6,175,157,255,57,131,41,145,49,143,149,225,240,...>>
+```
+
+```go
+...
 ```
 
 #### Write Parameters
@@ -811,6 +851,10 @@ Object = riakc_obj:new({<<"cars">>, <<"dodge">>},
                        <<"text/plain">>,
                        [{w, 3}]).
 riakc_pb_socket:put(Pid, Object).
+```
+
+```go
+...
 ```
 
 ```curl
@@ -908,6 +952,10 @@ Object = riakc_obj:new({<<"cars">>, <<"dodge">>},
                        <<"vroom">>,
                        <<"text/plain">>).
 riakc_pb_socket:put(Pid, Object, [return_body]).
+```
+
+```go
+...
 ```
 
 ```curl
@@ -1036,6 +1084,10 @@ riakc_pb_socket:put(Pid, Object).
                undefined}}
 ```
 
+```go
+...
+```
+
 ```curl
 curl -i -XPOST \
   -H "Content-Type: text/plain" \
@@ -1112,6 +1164,10 @@ client.deleteValue(options, function (err, rslt) {
 
 ```erlang
 riakc_pb_socket:delete(Pid, {<<"quotes">>, <<"oscar_wilde">>}, <<"genius">>)
+```
+
+```go
+...
 ```
 
 ```curl
@@ -1225,6 +1281,10 @@ client.fetchBucketProps({
 
 ```erlang
 riakc_pb_socket:get_bucket_type(Pid, <<"n_val_of_5">>).
+```
+
+```go
+...
 ```
 
 ```curl

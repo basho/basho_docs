@@ -50,5 +50,5 @@ Please select the language with which you'd like to proceed:
 <li><a href="/dev/taste-of-riak/querying-nodejs/"><img src="/images/plangs/nodejs.png" alt="Node.js"></a></li>
 <li><a href="/dev/taste-of-riak/querying-erlang/"><img src="/images/plangs/erlang.jpg" alt="Erlang"></a></li>
 <li><a href="/dev/taste-of-riak/querying-php/"><img src="/images/plangs/php.png" alt="PHP"></a></li>
+<li><a href="/dev/taste-of-riak/querying-golang/"><img src="/images/plangs/golang.png" alt="Go"></a></li>
 </ul>
-
