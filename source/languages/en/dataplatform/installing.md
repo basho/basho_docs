@@ -64,9 +64,8 @@ If you are using or plan to use Spark, you must install Java 8 on **each node th
 If you are on Ubuntu, run the following to install Java 8:
 
 ```Ubuntu
-$ 
-sudo apt-get install software-properties-common
-sudo apt-get install python-software-properties
+$ sudo apt-get install software-properties-common
+$ sudo apt-get install python-software-properties
 $ sudo add-apt-repository ppa:webupd8team/java
 $ sudo apt-get update
 $ sudo apt-get install -y oracle-java8-installer
@@ -77,12 +76,13 @@ If you are on CentOS, run the following to install Java 8:
 ```CentOS
 $ cd /opt
 $ sudo wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u45-b14/jdk-8u45-linux-x64.rpm"
+$ sudo yum -y localinstall jdk-8u45-linux-x64.rpm
 ```
 
 Regardless of your OS, once you have installed Java 8 you need to add a specific `JAVA_HOME` line to your /etc/environment. You can add the correct line by running: 
 
 ```shell
-grep JAVA_HOME /etc/environment >/dev/null 2>&1 || test $? -ne 0 && sudo bash -c "echo JAVA_HOME=$(dirname $(dirname $(readlink -f $(which javac)))) >>/etc/environment"
+$ grep JAVA_HOME /etc/environment >/dev/null 2>&1 || test $? -ne 0 && sudo bash -c "echo JAVA_HOME=$(dirname $(dirname $(readlink -f $(which javac)))) >>/etc/environment"
 export JAVA_HOME
 ```
 
@@ -100,12 +100,12 @@ Choose the installation instructions below that match your OS.
 ####Ubuntu
 
 1. Download the packages from the [downloads][bdp download] page (or packages from Zendesk).
-2. Unpack the packages using `sudo dpkg -i` for each one.
+2. Unpack the packages using `sudo dpkg -i »package_name_here«` for each one.
 
 ####CentOS
 
 1. Download the packages from the [downloads][bdp download] page (or packages from Zendesk).
-2. Unpack the packages using `sudo yum` and `sudo rpm`.
+2. Unpack the packages using `sudo yum »package_name_here«` and `sudo rpm »package_name_here«`.
 
 ##Next Steps
 
