@@ -8,7 +8,7 @@ index: true
 audience: beginner
 ---
 
-#Upgrading from Basho Data Platform Beta to 1.0.0
+##Upgrading from Basho Data Platform Beta to 1.0.0
 
 >**NOTE: 
 >This page only applies to people previously using the beta releases of Basho Data Platform.**
