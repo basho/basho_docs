@@ -25,11 +25,13 @@ Before you begin using cache proxy, you may want to set your environment variabl
 We suggest the following environment settings (and the remainder of this page assumes you are using these settings).
 
 If you are running Ubuntu, set this environment variable at the command line:
+
 ```bash
 BDP_PRIV="/usr/lib/riak/lib/data_platfor-1/priv"
 ```
 
 If you are running CentOS, set this environment variable at the command line:
+
 ```bash
 BDP_PRIV="/usr/lib64/riak/lib/data_platform-1/priv"
 ```
@@ -66,7 +68,7 @@ To add a Redis service configuration:
 data-platform-admin add-service-config my-redis redis HOST="10.0.0.1" REDIS_PORT="6379"
 ```
 
-###Cache Proxy Service Configuration 
+###Cache Proxy Service Configuration
 
 To add a Cache Proxy service configuration:
 
@@ -93,8 +95,6 @@ data-platform-admin start-service riak@10.0.0.1 my-group my-cache-proxy
 Here's a simple way to test your cache proxy configuration:
 
 ```bash
-
-
 BUCKET=$(date +%s)
 curl -s -X PUT -d "my-value" "http://${IP}:8098/buckets/${BUCKET}/keys/my-key"
 ${PRIV_DIR}/redis/bin/redis-cli -h ${IP} -p 11211 get ${BUCKET}:my-key
@@ -163,7 +163,7 @@ Are you ready to run the read-through test? You can run it as follows:
 ```
 
 ####Exceptions
-If the test does not pass, verify that both Redis and cache proxy are running. You can do this by running: 
+If the test does not pass, verify that both Redis and cache proxy are running. You can do this by running:
 
 ```
 sudo data-platform-admin services
@@ -171,7 +171,7 @@ sudo data-platform-admin services
 
 The result should list `my-redis` and `my-cache-proxy` with the Running Services table.
 
-Also, verify that Riak KV is started and listening on the protocol buffer port specified: 
+Also, verify that Riak KV is started and listening on the protocol buffer port specified:
 
 ```
 sudo riak config effective |grep proto
@@ -199,9 +199,9 @@ sudo data-platform-admin start-service 'my-cache-group' 'my-cache-proxy'
 ```
 
 ##Using Cache Proxy
-Once you've successfully configured cache proxy and established a Riak KV and Redis client in the language of your choosing, you're ready to start using cache proxy. 
+Once you've successfully configured cache proxy and established a Riak KV and Redis client in the language of your choosing, you're ready to start using cache proxy.
 
-For objects that should not be cached, interact with Riak KV as usual issuing GET, PUT, and DELETE commands through the Riak client. 
+For objects that should not be cached, interact with Riak KV as usual issuing GET, PUT, and DELETE commands through the Riak client.
 
 For objects that should be cached, read from cache proxy issuing GET commands through the Redis client, and write to Riak KV issuing PUT and DELETE commands through the Riak client.
 
