@@ -176,7 +176,7 @@ If you are using Spark, you need to set `JAVA_HOME` for the 'riak' user  on all 
 
 ```shell
 $ sudo su - riak
-$ {JAVA_HOME}/bin/java -version
+$ ${JAVA_HOME}/bin/java -version
 ```
 
 The first line of output from that command should begin with `java version "1.8…"`. For example:
@@ -215,7 +215,7 @@ You are ready to add services to your started, joined BDP nodes. There are sever
 First, specify the IP address your Spark instance binds to:
 
 ```shell
-sudo bash -c "echo "SPARK_MASTER_IP=<YOUR PUBLIC IP" >> /<YOUR_PATH_TO BDP>/priv/spark-master/conf/spark-env.sh"
+sudo bash -c "echo 'SPARK_MASTER_IP=»YOUR PUBLIC IP« >> /»YOUR_PATH_TO BDP«/priv/spark-master/conf/spark-env.sh'"
 ```
 
 Then add a Spark master service to a node:
