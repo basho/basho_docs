@@ -7,11 +7,11 @@ audience: beginner
 keywords: [developers]
 ---
 
-Riak version 2.0 includes deep changes and many new features effecting 
-all facets of Riak. This article gives an overview of the new features 
+Riak version 2.0 includes deep changes and many new features affecting 
+all facets of Riak. This article gives an overview of the new features
 and where you can learn more about using them in your Riak installation.
 
-For more in-depth implementation details check out the 
+For more in-depth implementation details check out the
 [version 2.0 release notes](https://github.com/basho/riak/blob/riak-2.0.0/RELEASE-NOTES.md).
 
 If you're upgrading to Riak 2.0 from an earlier version, please be aware
@@ -139,12 +139,12 @@ check out [part 2](https://www.youtube.com/watch?v=gXJxbhca5Xg).
 
 Riak 2.0 enables you to manage:
 
-* **Authorization** to perform specific tasks, from GETs and PUTs to 
+* **Authorization** to perform specific tasks, from GETs and PUTs to
 running MapReduce jobs to administering Riak Search.
 
 * **Authentication** of Riak clients seeking access to Riak.
 
-Previously, securing Riak was restricted to the network level. 
+Previously, securing Riak was restricted to the network level.
 Now, security measures can be applied to the internals of
 Riak itself and managed through a simple command-line interface.
 
@@ -230,7 +230,7 @@ update causality.
 Riak 2.0 has added support for dotted version vectors (DVVs).
 DVVs serve an analogous role to vector
 clocks but are more effective at containing [[sibling explosion|Causal
-Context#sibing-explosion]] and can reduce Riak cluster latency. 
+Context#sibing-explosion]] and can reduce Riak cluster latency.
 
 #### Relevant Docs
 
