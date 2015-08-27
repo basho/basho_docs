@@ -65,7 +65,7 @@ Once you've opened the file, you might find the following settings helpful:
 To add a Redis service configuration:
 
 ```shell
-data-platform-admin add-service-config my-redis redis HOST="10.0.0.1" REDIS_PORT="6379"
+data-platform-admin add-service-config my-redis redis HOST="0.0.0.0" REDIS_PORT="6379"
 ```
 
 ###Cache Proxy Service Configuration
