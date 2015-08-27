@@ -8,7 +8,7 @@ index: true
 audience: beginner
 ---
 
-[bdp install]: LINK
+[bdp install]: http://docs.basho.com/dataplatform/1.0.0/installing/
 [riak cluster setup]: http://docs.basho.com/riak/2.1.1/ops/building/basic-cluster-setup/
 [riak configure]: http://docs.basho.com/riak/2.1.1/ops/building/basic-cluster-setup/
 [riak_ensemble]: https://github.com/basho/riak_ensemble
@@ -17,7 +17,7 @@ audience: beginner
 
 Now that you've [installed Basho Data Platform][bdp install], you're ready to set up a Basho Data Platform (BDP) cluster. This page will guide you through this process.
 
-This page also lists the [default port connections for BDP](#configuration-defaults).
+This page also lists the default port connections for BDP.
 
 ##Prerequisites
 
@@ -31,7 +31,7 @@ This page also lists the [default port connections for BDP](#configuration-defau
 
 <div class="note">
 <div class="title">Note on Amazon Web Services</div>
-AWS security profile must allow incoming and outgoing traffic from ip/ports used by Riak, Spark, and BDP.  A [list of default ports](LINK) is at the end of this document. 
+AWS security profile must allow incoming and outgoing traffic from ip/ports used by Riak, Spark, and BDP.  A list of default ports is at the end of this document. 
 </div>
 
 <div class="warning">
@@ -40,13 +40,13 @@ AWS security profile must allow incoming and outgoing traffic from ip/ports used
 
 ##Configure a BDP Cluster
 
-1. First, [start your BDP nodes](#start-your-bdp-nodes).
-2. Then, [join your BDP nodes together](#join-bdp-nodes).
-3. Next, [make sure riak_ensemble is running](#start-riakensemble).
-4. Then, [configure the leader election service](#configure-the-leader-election-service)
-5. Next, if you're running a Spark cluster, [set up your Spark cluster metadata](#set-up-spark-cluster-metadata).
-6. After that, you'll need to [confirm that Java is correctly configured](#confirm-javahome-is-set-correctly).
-7. Finally, [add services to the nodes](#add-services).
+1. First, start your BDP nodes.
+2. Then, join your BDP nodes together.
+3. Next, make sure riak_ensemble is running.
+4. Then, configure the leader election service.
+5. Next, if you're running a Spark cluster, set up your Spark cluster metadata.
+6. After that, you'll need to confirm that Java is correctly configured.
+7. Finally, add services to the nodes.
  
 ###Start Your BDP Nodes
 
@@ -107,11 +107,11 @@ For more information on why this is important, please see our [strong consistenc
 
 ###Configure The Leader Election Service
 
-Before enabling the leader election service, you must have enabled `riak_ensemble` (as directed in the [previous step](#start-riakensemble)). If you skipped the previous step for any reason, please go back and do it now.
+Before enabling the leader election service, you must have enabled `riak_ensemble` (as directed in the previous step). If you skipped the previous step for any reason, please go back and do it now.
 
 1. Locate and open `riak.conf`.
 2. Find the line `## listener.leader_latch.internal = 127.0.0.1:5323`.
-3. Uncomment the line and set to your node's IP and port. (**Note:** Any port will work as long as it matches what you set in the [Spark master step](#spark-master) below.)
+3. Uncomment the line and set to your node's IP and port. (**Note:** Any port will work as long as it matches what you set in the Spark master step below.)
 
 <div class="note">
 The leader election service provides no authentication mechanism. We strongly suggest that you use a network shielded from external connection attempts, otherwise you run the risk of an attacker performing a Denial of Service attack against your cluster.
@@ -133,7 +133,7 @@ Changes to the `listener.leader_latch` setting will not have an impact on a live
 ###Set Up Spark Cluster Metadata
 
 <div class="note">
-Follow these steps ONLY if you are running a Spark cluster. Otherwise, skip to [Add Services](#add-services).
+Follow these steps ONLY if you are running a Spark cluster. Otherwise, skip to Add Services.
 </div>
 
 If you are running a Spark cluster, you need to connect it with BDP.
@@ -205,10 +205,10 @@ $ sudo riak restart
 
 You are ready to add services to your started, joined BDP nodes. There are several different types of services you can add to your BDP nodes:
 
-* [Spark master](#spark-master)
-* [Spark worker](#spark-worker)
-* [Redis](#redis)
-* [Cache proxy](#cache-proxy)
+* Spark master
+* Spark worker
+* Redis
+* Cache proxy
 
 ####Spark Master
 
@@ -258,7 +258,7 @@ The IP addresses you provide should be the IP addresses of the 3 BDP nodes you s
 ##Configuration Defaults
 
 
-Each service has one or more default ports if a port has not been specified when [adding a service configuration](#add-services).
+Each service has one or more default ports if a port has not been specified when adding a service configuration.
 
 For example, you can add a service configuration from the command line for Redis using a specified port:
 

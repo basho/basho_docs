@@ -21,13 +21,13 @@ Basho Data Platform (BDP) cache proxy provides pre-sharding and connection aggre
 
 On this page, you will find detailed descriptions of cache proxy's components, including what each component does and how you implement it. Cache proxy has the following components:
  
-* [Pre-sharding](#presharding)
-* [Connection Aggregation](#connection-aggregation)
-* [Command Pipelining](#command-pipelining)
-* [Read-through Cache](#readthrough-cache)
-* [Write-through Cache](#writethrough-cache)
+* Pre-sharding
+* Connection Aggregation
+* Command Pipelining
+* Read-through Cache
+* Write-through Cache
 
-You will also find a list of [commands](#commands) you can use with cache proxy.
+You will also find a list of commands you can use with cache proxy.
 
 ##Pre-sharding
 
@@ -72,12 +72,12 @@ In addition to developer efficiency gains, the Cache Proxy write-through strateg
 
 ## Commands
 
-For command details, refer to the Redis [documentation - http://redis.io/commands ](LINK)
+For command details, refer to the Redis [documentation](http://redis.io/commands)
 
 The Cache Proxy supports the following augmented Redis commands fully:
 
 * GET - get the value of a key from Redis or Riak KV utilizing the read-through caching strategy with a TTL set at service configuration time.
 
-The Cache Proxy also supports the set of Redis commands supported by Twemproxy, but only to the point of presharding and command pipelining, refer to the Twemproxy [documentation - https://github.com/twitter/twemproxy/blob/master/notes/redis.md ](LINK)
+The Cache Proxy also supports the set of Redis commands supported by Twemproxy, but only to the point of presharding and command pipelining, refer to the Twemproxy [documentation](https://github.com/twitter/twemproxy/blob/master/notes/redis.md)
 
 *!IMPORTANT!* While the Cache Proxy does support issuing DEL commands, PEXPIRE with a small TTL is suggested instead when the semantic intent is to remove an item from cache.  With write-through, the DEL command will issue a delete to the Riak backend.

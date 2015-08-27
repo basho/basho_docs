@@ -13,8 +13,8 @@ versions: true
 ---
 
 
-[bdp install]: ./installing
-[bdp reference]: ./learnaboutdataplatform.html
+[bdp install]: http://docs.basho.com/dataplatform/1.0.0/installing/
+[bdp reference]: http://docs.basho.com/dataplatform/1.0.0/learn-about-dataplatform/service-manager-features/
 [ee]: http://info.basho.com/Wiki_Riak_Enterprise_Request.html
 
 #Basho Data Platform

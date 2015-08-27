@@ -9,10 +9,10 @@ audience: beginner
 ---
 
 
-[bdp configure]: LINK 
-[bdp configure add services]: LINK
-[bdp install]: ./dataplatform/installing.html
-[bdp reference]: LINK
+[bdp configure]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/setup-a-cluster/
+[bdp configure add services]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/setup-a-cluster/#add-services
+[bdp install]: http://docs.basho.com/dataplatform/1.0.0/installing/
+[bdp reference]: http://docs.basho.com/dataplatform/1.0.0/learn-about-dataplatform/service-manager-features/
 
 
 You've [installed][bdp install] Basho Data Platform (BDP), [configured][bdp configure] your cluster, and [added services][bdp configure add services] to your nodes. The setup of your BDP cluster is complete! Now you can begin using your BDP cluster. 
@@ -22,10 +22,10 @@ You've [installed][bdp install] Basho Data Platform (BDP), [configured][bdp conf
 
 The very first thing you can do with your BDP cluster is start the services you added. In the last section of the [configuration instructions][bdp configure add services], you added the following services:
 
-* [Spark-master](#spark-master-service)
-* [Spark-worker](#spark-worker-service)
-* [Redis](#redis-service)
-* [Cache proxy](#cache-proxy-service)
+* Spark-master
+* Spark-worker
+* Redis
+* Cache proxy
 
 ###Spark-Master Service
 
@@ -91,7 +91,7 @@ $ data-platform-admin start-service »NODENAME«@»IPADDRESS« my-cache-proxy-gr
 
 ###Redis and Cache Proxy
 
-Do you use [CentOS](#centos) or [Ubuntu](#ubuntu)?
+Do you use CentOS or Ubuntu?
 
 ####CentOS
 
