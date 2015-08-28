@@ -165,7 +165,7 @@ Are you ready to run the read-through test? You can run it as follows:
 ####Exceptions
 If the test does not pass, verify that both Redis and cache proxy are running. You can do this by running:
 
-```
+```bash
 sudo data-platform-admin services
 ```
 
@@ -173,8 +173,8 @@ The result should list `my-redis` and `my-cache-proxy` with the Running Services
 
 Also, verify that Riak KV is started and listening on the protocol buffer port specified:
 
-```
-sudo riak config effective |grep proto
+```bash
+sudo riak config effective | grep proto
 ```
 
 If cache proxy is misconfigured, reconfigure it by updating the service config with the `--force` option.
@@ -221,7 +221,7 @@ telnet $CACHE_PROXY_HOST $CACHE_PROXY_STATISTICS_PORT
 
 Returns statistic results:
 
-```javascript
+```Json
 {
     "bdp_cache_proxy": {
         "192.168.50.2:6379": {
