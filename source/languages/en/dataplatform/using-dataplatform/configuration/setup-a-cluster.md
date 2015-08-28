@@ -81,8 +81,10 @@ We do not recommend enabling `riak_ensemble` on more than 5 nodes, as performanc
 
 To make sure `riak_ensemble` has started, you will need to enter the Riak console and run the enable command. To do this run:
 
- ```shell
+```shell
 sudo riak attach
+```
+```Erlang
 riak_ensemble_manager:enable().
 ```
 
@@ -152,7 +154,7 @@ riak-admin bucket-type create maps '{"props":{"datatype":"map"}}'
 
 Next activate the `map` bucket type by running:
 
-```
+```shell
 riak-admin bucket-type activate maps
 ```
 
@@ -175,8 +177,8 @@ active: true
 If you are using Spark, you need to set `JAVA_HOME` for the 'riak' user  on all the spark-master and spark-worker nodes. To confirm that it’s set correctly, run:
 
 ```shell
-$ sudo su - riak
-$ ${JAVA_HOME}/bin/java -version
+sudo su - riak
+${JAVA_HOME}/bin/java -version
 ```
 
 The first line of output from that command should begin with `java version "1.8…"`. For example:
@@ -191,14 +193,14 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.45-b02, mixed mode)
 If you are using Ubuntu, you need to preserve your environment when running data platform commands as a super user. To do this, add `JAVA_HOME` and append `$JAVA_HOME/bin` to `PATH` in /etc/environment.
 
 ```shell
-$ sudo vi /etc/sudoers
+sudo vi /etc/sudoers
 ```
 Add the following line: `Defaults        env_keep += "JAVA_HOME"`
 
 Then restart Riak
 
 ```shell
-$ sudo riak restart
+sudo riak restart
 ```
 
 ###Add Services
@@ -221,7 +223,7 @@ sudo bash -c "echo 'SPARK_MASTER_IP=»YOUR PUBLIC IP« >> /»YOUR_PATH_TO BDP«/
 Then add a Spark master service to a node:
 
 ```shell
-$ data-platform-admin add-service-config my-spark-master spark-master LEAD_ELECT_SERVICE_HOSTS="»IPADDRESS«:»PORT«,»IPADDRESS2«:»PORT2«,»IPADDRESS3«:»PORT3«" RIAK_HOSTS="»IPADDRESS«:»PORT«,»IPADDRESS2«:»PORT2«,»IPADDRESS3«:»PORT3«"
+data-platform-admin add-service-config my-spark-master spark-master LEAD_ELECT_SERVICE_HOSTS="»IPADDRESS«:»PORT«,»IPADDRESS2«:»PORT2«,»IPADDRESS3«:»PORT3«" RIAK_HOSTS="»IPADDRESS«:»PORT«,»IPADDRESS2«:»PORT2«,»IPADDRESS3«:»PORT3«"
 ```
 
 The IP addresses and ports you provide should be the IP addresses/ports of the 3 BDP nodes you started and joined earlier.
@@ -233,7 +235,7 @@ To add a Spark worker service to a node:
 ```shell
 data-platform-admin add-service-config my-spark-worker spark-worker MASTER_URL="spark://»HOSTNAME«:7077"
 ```
-If you have multiple masters, list them after 'spark://' as a comma-separated list of hostname:port entries (i.e. MASTER_URL=”spark://my-host-1:7077,my-host-2:7077”).
+If you have multiple masters, list them after 'spark://' as a comma-separated list of hostname:port entries (i.e. `MASTER_URL=”spark://my-host-1:7077,my-host-2:7077”`).
 
 The hostnames you enter must match what you set as `SPARK_MASTER_IP` in priv/spark-master/conf/spark-env.sh.
 
@@ -262,13 +264,13 @@ Each service has one or more default ports if a port has not been specified when
 
 For example, you can add a service configuration from the command line for Redis using a specified port:
 
-```
+```bash
 data-platform-admin add-service-config my-redis redis HOST="10.0.0.1" REDIS_PORT="9999"
 ```
 
 Or you can use the default port by leaving out the `REDIS_PORT` parameter:
 
-```
+```bash
 data-platform-admin add-service-config my-redis redis HOST="10.0.0.1"
 ```
 
