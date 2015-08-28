@@ -22,7 +22,7 @@ Usage: data-platform-admin { join | add-service-config | remove-service | start-
 
 Use `--help` after a sub-command for more details. For example:
 
-```
+```bash
 data-platform-admin join --help
 ```
 
@@ -31,7 +31,7 @@ data-platform-admin join --help
 
 Join a node to the Basho Data Platform cluster.
 
-```
+```bash
 data-platform-admin join <node>
 ```
 
@@ -46,7 +46,7 @@ data-platform-admin join <node>
 
 Remove a node from the Basho Data Platform cluster.
 
-```
+```bash
 data-platform-admin leave
 ```
 
@@ -55,7 +55,7 @@ data-platform-admin leave
 
 Display a summary of the status of nodes in the cluster.
 
-```
+```bash
 data-platform-admin cluster-status
 ```
 
@@ -64,7 +64,7 @@ data-platform-admin cluster-status
 
 Add a new service configuration to cluster.
 
-```
+```bash
 data-platform-admin add-service-config <service-name> <service> [<service-configuration>]
 ```
 
@@ -87,7 +87,7 @@ data-platform-admin add-service-config <service-name> <service> [<service-config
 
 Remove an existing service configuration from the cluster.
 
-```
+```bash
 data-platform-admin remove-service <service>
 ```
 
@@ -102,7 +102,7 @@ data-platform-admin remove-service <service>
 
 Start a service on the designated platform instance. The `-i/--output-ip` flag will cause the IP address of node to be printed back out on the console instead of the normal output.
 
-```
+```bash
 data-platform-admin start-service <node> <group> <service> [-i | --output-ip]
 ```
 
@@ -125,7 +125,7 @@ data-platform-admin start-service <node> <group> <service> [-i | --output-ip]
 
 Stop a service on the designated instance.
 
-```
+```bash
 data-platform-admin stop-service <node> <group> <service>
 ```
 
@@ -142,7 +142,7 @@ data-platform-admin stop-service <node> <group> <service>
 
 Display available services on the cluster.
 
-```
+```bash
 data-platform-admin services
 ```
 
@@ -151,7 +151,7 @@ data-platform-admin services
 
 Display all running services for the given node.
 
-```
+```bash
 data-platform-admin node-services <node>
 ```
 
@@ -166,7 +166,7 @@ data-platform-admin node-services <node>
 
 Display all nodes running the designated service.
 
-```
+```bash
 data-platform-admin service-nodes <service>
 ```
 
