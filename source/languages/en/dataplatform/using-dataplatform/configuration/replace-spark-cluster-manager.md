@@ -47,11 +47,11 @@ To replace your Spark Cluster Manager with the BDP cluster manager, you will do 
 1. On any node in your BDP cluster, run:
 
 
-   ```shell
-   sudo data-platform-admin add-service-config my-spark-master spark-master \
+```shell
+sudo data-platform-admin add-service-config my-spark-master spark-master \
 LEAD_ELECT_SERVICE_HOSTS="»IP:PORTS from `listener.leader_latch.internal` in riak.conf«" \
 RIAK_HOSTS="»IP:PORTS from `listener.protobuf.internal` in riak.conf«"
-   ```
+```
    Once this command is run, all nodes in the BDP cluster can start spark-master via the BDP Service Manager.
 
 1. Then, on any node in your BDP cluster, run:
