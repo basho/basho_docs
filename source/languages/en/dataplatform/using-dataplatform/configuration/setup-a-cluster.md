@@ -83,6 +83,11 @@ To make sure `riak_ensemble` has started, you will need to enter the Riak consol
 
 ```bash
 sudo riak attach
+```
+
+Within the attached Riak console, issue the following command:
+
+```erlang
 riak_ensemble_manager:enable().
 ```
 
