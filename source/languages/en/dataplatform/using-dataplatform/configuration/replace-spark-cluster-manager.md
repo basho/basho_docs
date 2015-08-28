@@ -103,16 +103,18 @@ A successful activation should cause an output like the following (with the IP a
 If you see a hostname rather than an IP address OR if this is your first time starting the worker service, you must:
 
 1. Stop the service: `sudo data-platform-admin stop-service riak@»PUBLICIPOFWORKERNODE« my-spark-group my-spark-worker`
-
 2. Kill the process: `sudo pkill -f deploy.worker.Worker`
-
 3. And then restart the service: `sudo data-platform-admin start-service riak@»PUBLICIPOFWORKERNODE« my-spark-group my-spark-worker`.
 </div>
 
 ###Verify Your Success
 At this point, your BDP manager and Spark cluster should be ready to go! Here are some ways to verify that your Spark cluster is connected to the BDP manager and running correctly. 
 
-1. For a readout of your running and available services, run `sudo data-platform-admin services`. You should see something like the following, with the IP addresses you input:
+1. For a readout of your running and available services, run 
+```shell
+sudo data-platform-admin services 
+```
+You should see something like the following, with the IP addresses you input:
 
 
 ```
