@@ -116,7 +116,7 @@ cd dev; ls
 You will see that five directories beginning with `dev` have been
 created:
 
-```bash
+```
 dev1       dev2       dev3       dev4       dev5
 ```
 
@@ -174,7 +174,7 @@ If the response is `pong`, then the node is up and running. Otherwise,
 the node is currently stopped and will return something like the
 following:
 
-```bash
+```
 Node 'dev1@127.0.0.1' not responding to pings.
 ```
 
