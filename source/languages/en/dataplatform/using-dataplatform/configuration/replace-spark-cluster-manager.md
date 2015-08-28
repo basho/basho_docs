@@ -166,7 +166,7 @@ You can clean up the index.html file when you are done by running: `sudo rm inde
 
 Make sure the README.md is in pwd. Then enter:
 
-```
+```Spark-Shell
 val textFile = sc.textFile("README.md")
 textFile.count()
 exit()
