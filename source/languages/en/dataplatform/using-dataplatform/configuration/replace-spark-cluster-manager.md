@@ -65,17 +65,17 @@ sudo data-platform-admin add-service-config my-spark-worker spark-worker MASTER_
 1. On any node in your BDP cluster, run: 
 
 
-   ```shell
-   sudo data-platform-admin start-service riak@»PUBLICIPOFMASTERNODE« my-spark-group my-spark-master
-   ```
+```shell
+sudo data-platform-admin start-service riak@»PUBLICIPOFMASTERNODE« my-spark-group my-spark-master
+```
    where the IP address is the address passed to [Spark master service config][bdp configure spark master].  This will start the Spark master on that machine.
 
 1. You can verify that the previous step was successful by running the following on the manager node:
 
 
-   ```shell
-   ps -ef | grep master.Master
-   ```
+```shell
+ps -ef | grep master.Master
+```
    A successful start of the spark-master service should cause an output like the following (with the IP address and port number of the spark-master you specified): `master.Master --ip 172.28.128.3 --port 7077 --webui-port 8080`.
    
    >Note: If you see a hostname rather than an IP address OR if this is your first time starting the manager service, you must:
@@ -86,9 +86,9 @@ sudo data-platform-admin add-service-config my-spark-worker spark-worker MASTER_
 1. Once your spark-master service has been started successfully, you should activate your spark-worker services. Do this by running the following command from any node in your BDP cluster:
 
 
-   ```shell
-   data-platform-admin start-service riak@»PUBLICIPOFWORKERNODE« my-spark-group my-spark-worker
-   ```
+```shell
+data-platform-admin start-service riak@»PUBLICIPOFWORKERNODE« my-spark-group my-spark-worker
+```
    To add multiple spark-worker services, run this command for each spark-worker you'd like to add.
 
 1. You can verify that the previous step was successful by running the following on the manager node:
