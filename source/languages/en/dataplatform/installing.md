@@ -15,9 +15,7 @@ audience: beginner
 
 Basho Data Platform (BDP) enables you to extend Riak with Spark and Redis. This page will guide you through the process of installing BDP on most supported operating systems.
 
-<div class="note">
-BDP is supported on a limited number of platforms. See the list of supported OSes [here][bdp compatibility].
-</div>
+>BDP is supported on a limited number of platforms. See the list of supported OSes [here][bdp compatibility].
 
 ##Prerequisites
 You need to have root or sudo access on the nodes you will be installing BDP on.
