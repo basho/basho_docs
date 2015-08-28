@@ -40,7 +40,7 @@ To replace your Spark Cluster Manager with the BDP cluster manager, you will do 
 
 1. Add BDP service configs for spark-master and spark-worker.
 2. Activate the services.
-3. Verify your success.
+3. Verify the services are running.
 
 ###Add BDP Service Configs
 
@@ -107,7 +107,7 @@ If you see a hostname rather than an IP address OR if this is your first time st
 3. And then restart the service: `sudo data-platform-admin start-service riak@»PUBLICIPOFWORKERNODE« my-spark-group my-spark-worker`.
 </div>
 
-###Verify Your Success
+###Verify The Services
 At this point, your BDP manager and Spark cluster should be ready to go! Here are some ways to verify that your Spark cluster is connected to the BDP manager and running correctly. 
 
 1. For a readout of your running and available services, run 
