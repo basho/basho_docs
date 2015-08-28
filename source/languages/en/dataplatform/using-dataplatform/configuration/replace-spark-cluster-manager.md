@@ -47,16 +47,17 @@ To replace your Spark Cluster Manager with the BDP cluster manager, you will do 
 1. On any node in your BDP cluster, run:
 
 
-   ```shell
-   sudo data-platform-admin add-service-config my-spark-master spark-master \
+```bash
+sudo data-platform-admin add-service-config my-spark-master spark-master \
 LEAD_ELECT_SERVICE_HOSTS="»IP:PORTS from `listener.leader_latch.internal` in riak.conf«" \
 RIAK_HOSTS="»IP:PORTS from `listener.protobuf.internal` in riak.conf«"
-   ```
+```
+
    Once this command is run, all nodes in the BDP cluster can start spark-master via the BDP Service Manager.
 
 1. Then, on any node in your BDP cluster, run:
 
-```shell
+```bash
 sudo data-platform-admin add-service-config my-spark-worker spark-worker MASTER_URL="spark://»PUBLICIPOFMASTERNODE«:»DEFAULTSPARKMASTERPORT«"
 ```
 
@@ -65,36 +66,39 @@ sudo data-platform-admin add-service-config my-spark-worker spark-worker MASTER_
 1. On any node in your BDP cluster, run: 
 
 
-   ```shell
-   sudo data-platform-admin start-service riak@»PUBLICIPOFMASTERNODE« my-spark-group my-spark-master
-   ```
+```bash
+sudo data-platform-admin start-service riak@»PUBLICIPOFMASTERNODE« my-spark-group my-spark-master
+```
    where the IP address is the address passed to [Spark master service config][bdp configure spark master].  This will start the Spark master on that machine.
 
 1. You can verify that the previous step was successful by running the following on the manager node:
 
 
-   ```shell
-   ps -ef | grep master.Master
-   ```
-   A successful start of the spark-master service should cause an output like the following (with the IP address and port number of the spark-master you specified): `master.Master --ip 172.28.128.3 --port 7077 --webui-port 8080`.
+```bash
+ps -ef | grep [s]park-master
+```
+
+A successful start of the spark-master service should cause an output like the following (with the IP address and port number of the spark-master you specified): `master.Master --ip 172.28.128.3 --port 7077 --webui-port 8080`.
    
-   >Note: If you see a hostname rather than an IP address OR if this is your first time starting the manager service, you must:
-   >1. Stop the service: `sudo data-platform-admin stop-service riak@»PUBLICIPOFMASTERNODE« my-spark-group my-spark-master`
-   >2. Kill the process: `sudo pkill -f deploy.master.Master`
-   >3. And then restart the service: `sudo data-platform-admin start-service riak@»PUBLICIPOFMASTERNODE« my-spark-group my-spark-master`.
+> Note: If you see a hostname rather than an IP address OR if this is your first time starting the manager service, you must:
+> 
+> 1. Stop the service: `sudo data-platform-admin stop-service riak@»PUBLICIPOFMASTERNODE« my-spark-group my-spark-master`
+> 2. Kill the process: `sudo pkill -f deploy.master.Master`
+> 3. And then restart the service: `sudo data-platform-admin start-service riak@»PUBLICIPOFMASTERNODE« my-spark-group my-spark-master`.
 
 1. Once your spark-master service has been started successfully, you should activate your spark-worker services. Do this by running the following command from any node in your BDP cluster:
 
 
-   ```shell
-   data-platform-admin start-service riak@»PUBLICIPOFWORKERNODE« my-spark-group my-spark-worker
-   ```
+```bash
+data-platform-admin start-service riak@»PUBLICIPOFWORKERNODE« my-spark-group my-spark-worker
+```
+
    To add multiple spark-worker services, run this command for each spark-worker you'd like to add.
 
 1. You can verify that the previous step was successful by running the following on the manager node:
 
-```shell
-ps -ef | grep worker.Worker
+```bash
+ps -ef | grep [s]park-worker
 ```
 
 A successful activation should cause an output like the following (with the IP address and port number of the spark-master service you specified): `worker.Worker --webui-port 8081 spark://172.28.128.3:7077`.
@@ -136,35 +140,34 @@ Available Services:
 2. To see how many workers are successfully joined with the manager, run:
 
 
-```shell
-curl »PUBLICIPOFMANAGERNODE«:»PORT«
-grep index.html
+```bash
+curl »SPARK_MASTER_IP«:»SPARK_MASTER_HTTP_PORT«
+cat index.html
 ```
 You will see an output like: `<li><strong>Workers:</strong> 1</li>`. The '1' indicates that one worker node has been joined with the manager node.
 
-You can clean up the index.html file when you are done by running: `sudo rm index.html`.
+You can clean up the index.html file when you are done by running: `rm index.html`.
 
 3. To verify that the spark-worker is operational, run:
 
 
-```shell
-curl »PUBLICIPOFWORKERNODE«:»PORT«
+```bash
+curl »SPARK_WORKER_IP«:»SPARK_WORKER_HTTP_PORT«
 grep index.html
 ```
 You will see an output like:  `<li><strong>Master URL:</strong> spark://172.28.128.3:7077</li>`. The IP address displayed should be the IP of the spark-master service.
 
-You can clean up the index.html file when you are done by running: `sudo rm index.html`.
+You can clean up the index.html file when you are done by running: `rm index.html`.
 
-4. You can also test if the cluster works by performing a job. From the command-line run the following:
+4. You can also test if the cluster works by performing a job. From the command-line, within the spark-worker path under the BDP priv path, run the following:
 
-
-```shell
-./bin/spark-shell --master spark://»PUBLICIPOFMASTERNODE«
+```bash
+./bin/spark-shell --master spark://»SPARK_MASTER_IP«:»SPARK_MASTER_PORT«
 ```
 
 Make sure the README.md is in pwd. Then enter:
 
-```
+```scala
 val textFile = sc.textFile("README.md")
 textFile.count()
 exit()
@@ -172,9 +175,9 @@ exit()
 
 You should have exited the prompt. Then run:
 
-```shell
-wget 172.28.128.3:8080
-nano index.html
+```bash
+wget »SPARK_MASTER_IP«:»SPARK_MASTER_HTTP_PORT«
+cat index.html
 ```
 
 You should see results like the following:

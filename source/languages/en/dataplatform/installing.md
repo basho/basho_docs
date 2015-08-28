@@ -30,9 +30,11 @@ You need to have root or sudo access on the nodes you will be installing BDP on.
 
 Before you can install BDP, both the total open-files limit and the per-user open-files limit must be high enough to allow BDP to function.
 
+For a fuller guide on changing limits for Riak, see [Changing the limit](http://docs.basho.com/riak/latest/ops/tuning/open-files-limit/#Changing-the-limit) .
+
 On most Linux distributions, the total limit for open files is controlled by `sysctl`.
 
-```shell
+```bash
 sudo sysctl fs.file-max fs.file-max=65536
 sudo sysctl -p
 ```
@@ -43,8 +45,7 @@ On CentOS systems, set a proper limit for the user you’re usually logging in w
 
 On Ubuntu systems, the following settings are recommended:
 
-
-```
+```config
 »USERNAME« hard nofile 65536
 »USERNAME« soft nofile 65536
 root hard nofile 65536
@@ -61,26 +62,28 @@ If you are using or plan to use Spark, you must install Java 8 on **each node th
 
 If you are on Ubuntu, run the following to install Java 8:
 
-```Ubuntu
-$ sudo apt-get install software-properties-common
-$ sudo apt-get install python-software-properties
-$ sudo add-apt-repository ppa:webupd8team/java
-$ sudo apt-get update
-$ sudo apt-get install -y oracle-java8-installer
+```bash
+sudo apt-get install -y software-properties-common python-software-properties debconf-utils
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+# accept java license
+sudo echo -e oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
+sudo apt-get install -y oracle-java8-installer
 ```
 
 If you are on CentOS, run the following to install Java 8:
 
-```CentOS
-$ cd /opt
-$ sudo wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u45-b14/jdk-8u45-linux-x64.rpm"
-$ sudo yum -y localinstall jdk-8u45-linux-x64.rpm
+```bash
+cd /opt
+sudo wget -O jdk-8.rpm --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u45-b14/jdk-8u45-linux-x64.rpm"
+sudo yum -y localinstall jdk-8.rpm
 ```
 
 Regardless of your OS, once you have installed Java 8 you need to add a specific `JAVA_HOME` line to your /etc/environment. You can add the correct line by running: 
 
 ```shell
-$ grep JAVA_HOME /etc/environment >/dev/null 2>&1 || test $? -ne 0 && sudo bash -c "echo JAVA_HOME=$(dirname $(dirname $(readlink -f $(which javac)))) >>/etc/environment"
+JAVA_HOME=$(dirname $(dirname $(readlink -f $(which javac))))
+grep JAVA_HOME /etc/environment >/dev/null 2>&1 || test $? -ne 0 && sudo bash -c "echo JAVA_HOME=$JAVA_HOME >>/etc/environment"
 export JAVA_HOME
 ```
 
@@ -103,7 +106,8 @@ Choose the installation instructions below that match your OS.
 ####CentOS
 
 1. Download the packages from the [downloads][bdp download] page (or packages from Zendesk).
-2. Unpack the packages using `sudo yum »package_name_here«` and `sudo rpm »package_name_here«`.
+2. Unpack the packages using `sudo yum -y --nogpgcheck --noplugins localinstall »package_name_here«` for each one.
+
 
 ##Next Steps
 

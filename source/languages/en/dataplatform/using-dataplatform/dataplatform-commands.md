@@ -32,14 +32,14 @@ data-platform-admin join --help
 Join a node to the Basho Data Platform cluster.
 
 ```
-data-platform-admin join <node>
+data-platform-admin join »node«
 ```
 
 ### Parameters
 
 | Parameters | Description |
 | ---------- | ----------- |
-| `<node>`   | The name of the Riak node. |
+| `»node«`   | The name of the Riak node. |
 
 
 ## leave
@@ -65,16 +65,16 @@ data-platform-admin cluster-status
 Add a new service configuration to cluster.
 
 ```
-data-platform-admin add-service-config <service-name> <service> [<service-configuration>]
+data-platform-admin add-service-config »service-name« »service« [»service-configuration«]
 ```
 
 ### Parameters
 
 | Parameters       | Description |
 | -----------------| ----------- |
-| `<service-name>` | The name of the service. |
-| `<service>`      | Valid services include: redis, cache-proxy, spark-worker, spark-master |
-| `[<service-configuration | Specified as Key/Value pairs: `my_config=42` |
+| `»service-name«` | The name of the service. |
+| `»service«`      | Valid services include: redis, cache-proxy, spark-worker, spark-master |
+| `»service-configuration` | Environment variables set on service start, Specified as Key/Value pairs (space-delimited): `HOST="0.0.0.0" THE_ANSWER="42"` |
 
 ### Options
 
@@ -88,14 +88,14 @@ data-platform-admin add-service-config <service-name> <service> [<service-config
 Remove an existing service configuration from the cluster.
 
 ```
-data-platform-admin remove-service <service>
+data-platform-admin remove-service »service«
 ```
 
 ### Parameters
 
 | Parameters  | Description |
 | ----------- | ----------- |
-| `<service>` | Valid services include: redis, cache-proxy, spark-worker, spark-master |
+| `»service«` | Valid services include: redis, cache-proxy, spark-worker, spark-master |
 
 
 ## start-service
@@ -103,16 +103,16 @@ data-platform-admin remove-service <service>
 Start a service on the designated platform instance. The `-i/--output-ip` flag will cause the IP address of node to be printed back out on the console instead of the normal output.
 
 ```
-data-platform-admin start-service <node> <group> <service> [-i | --output-ip]
+data-platform-admin start-service »node« »group« »service« [-i | --output-ip]
 ```
 
 ### Parameters
 
 | Parameters       | Description |
 | -----------------| ----------- |
-| `<node>`   | The name of the Riak node. |
-| `<group>`        | The name of the group. |
-| `<service>`      | Valid services include: redis, cache-proxy, spark-worker, spark-master |
+| `»node«`   | The name of the Riak node. |
+| `»group«`        | The name of the group. |
+| `»service«`      | Valid services include: redis, cache-proxy, spark-worker, spark-master |
 
 ### Options
 
@@ -126,16 +126,16 @@ data-platform-admin start-service <node> <group> <service> [-i | --output-ip]
 Stop a service on the designated instance.
 
 ```
-data-platform-admin stop-service <node> <group> <service>
+data-platform-admin stop-service »node« »group« »service«
 ```
 
 ### Parameters
 
 | Parameters       | Description |
 | -----------------| ----------- |
-| `<node>`   | The name of the Riak node. |
-| `<group>` | The name of the group. |
-| `<service>` | Valid services include: redis, cache-proxy, spark-worker, spark-master |
+| `»node«`   | The name of the Riak node. |
+| `»group«` | The name of the group. |
+| `»service«` | Valid services include: redis, cache-proxy, spark-worker, spark-master |
 
 
 ## services
@@ -152,14 +152,14 @@ data-platform-admin services
 Display all running services for the given node.
 
 ```
-data-platform-admin node-services <node>
+data-platform-admin node-services »node«
 ```
 
 ### Parameters
 
 | Parameters       | Description |
 | -----------------| ----------- |
-| `<node>`   | The name of the Riak node. |
+| `»node«`   | The name of the Riak node. |
 
 
 ## service-nodes
@@ -167,14 +167,14 @@ data-platform-admin node-services <node>
 Display all nodes running the designated service.
 
 ```
-data-platform-admin service-nodes <service>
+data-platform-admin service-nodes »service«
 ```
 
 ### Parameters
 
 | Parameters       | Description |
 | -----------------| ----------- |
-| `<service>`      | Valid services include: redis, cache-proxy, spark-worker, spark-master |
+| `»service«`      | Valid services include: redis, cache-proxy, spark-worker, spark-master |
 
 
 

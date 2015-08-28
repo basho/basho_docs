@@ -31,7 +31,7 @@ Before enabling the leader election service, strong consistency must be enabled 
 
 By default, any new data platform installation will include a commented template configuration for the leader election service in `riak.conf`. This should look something like this:
 
-```riak.conf
+```config
 ## listener.leader_latch.internal = 127.0.0.1:5323
 ```
 
@@ -48,7 +48,7 @@ You can replace “internal” with whatever name you like. You can also specify
 
 For example:
 
-```riak.conf
+```config
 listener.leader_latch.internal = 127.0.0.1:5323
 listener.leader_latch.external = 10.10.1.2:5323
 listener.leader_latch.testing = 192.168.0.42:12345
@@ -70,39 +70,30 @@ The protocol used for this service is a simple, line-based, ascii protocol. You 
 
 There is currently only one command a client can send to the service: 
 
+```telnet
+JOIN »group_name« »client_name«
 ```
 
-JOIN <group_name> <client_name>
-
-```
-
-This command tells the election service to add a client named `<client_name>` to an election group named `<group_name>`. 
+This command tells the election service to add a client named `»client_name«` to an election group named »group_name«`. 
 
 Both the client name and the group name must be ascii strings with no spaces in them. Under normal circumstances, the service should respond with:
 
 ```
-
-LEADER <current_leader>
-
+LEADER »current_leader«
 ```
 
 The connection must remain open as long as the client wishes to remain a part of the election group. Any subsequent leader changes will be asynchronously pushed to the client across this same connection.
 
-
 If the service becomes unavailable (for example, an outage involving a majority of Riak nodes) and a client attempts to join an election group, the server may respond with an error message reading:
 
 ```
-
 JOIN_FAILED SERVICE_UNAVAILABLE
-
 ```
 
 If a client attempts to execute any additional joins (to the same or other group names) on the same connection after the initial join is performed, the server will respond with: 
 
 ```
-
-ALREADY_JOINED <group_name> <client_name>
-
+ALREADY_JOINED »group_name« »client_name«
 ```
 
 And the additional join attempt(s) will fail. 
@@ -112,10 +103,11 @@ If a client attempts to send an invalid command the server will respond with `ER
 ###Example Session
 Following is an example interaction with the election service:
 
+```bash
+telnet 127.0.0.1 5323
 ```
 
-% telnet 127.0.0.1 5323
-
+```telnet
 Trying 127.0.0.1...
 
 Connected to localhost.
@@ -127,36 +119,50 @@ JOIN test_group 1
 JOIN_FAILED SERVICE_UNAVAILABLE
 
 Connection closed by foreign host.
-
 ```
 
 In this case the cluster only had one out of three members online, because we forgot to start the other two nodes. Because a majority of members were offline, we were unable to join the election group. If we start up the other two nodes and try again::
 
+```bash
+telnet 127.0.0.1 5323
 ```
-% telnet 127.0.0.1 5323
+
+```telnet
 Trying 127.0.0.1...
+
 Connected to localhost.
+
 Escape character is '^]'.
+
 JOIN test_group 1
+
 LEADER 1
 ```
 
 
 Great. We have one member named "1" in test_group, so as we expect, they are elected leader. Now let's leave that session running, then open another terminal and join another member to the group:
 
+```bash
+telnet 127.0.0.1 5323
 ```
-% telnet 127.0.0.1 5323
+
+```telnet
 Trying 127.0.0.1...
+
 Connected to localhost.
+
 Escape character is '^]'.
+
 JOIN test_group 2
+
 LEADER 1
 ```
 
 Since 1 is still up and running, they're still the leader. When we join 2 to the group, it tells us that 1 is the current leader. If we close our first terminal window, then this new session should be elected leader after a short timeout. Let's try it out:
 
-```
+```telnet
 LEADER 2
 ```
+
 Our new connection is notified that client 2 is the new leader.
 

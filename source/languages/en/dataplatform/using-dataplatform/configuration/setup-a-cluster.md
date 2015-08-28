@@ -52,7 +52,7 @@ AWS security profile must allow incoming and outgoing traffic from ip/ports used
 
 First, start all the nodes you have installed BDP on:
 
-```shell
+```bash
 user@machine1:~$ sudo riak start
 user@machine2:~$ sudo riak start
 user@machine3:~$ sudo riak start
@@ -63,8 +63,8 @@ user@machine3:~$ sudo riak start
 
 Then, join your BDP nodes together by running this command on all nodes in the cluster:
 
-```shell
-user@machine2:~$ sudo data-platform-admin join .»NODENAME (riak@IPADDRESS)« 
+```bash
+user@machine2:~$ sudo data-platform-admin join »NODENAME, ie riak@IPADDRESS)« 
 ```
 
 ### Start `riak_ensemble`
@@ -81,14 +81,14 @@ We do not recommend enabling `riak_ensemble` on more than 5 nodes, as performanc
 
 To make sure `riak_ensemble` has started, you will need to enter the Riak console and run the enable command. To do this run:
 
- ```shell
+```bash
 sudo riak attach
 riak_ensemble_manager:enable().
 ```
 
 You will then need to Ctrl-C twice to exit the Erlang shell `riak attach` brought you into. Once out, run:
 
-```shell
+```bash
 sudo riak-admin ensemble-status
 ```
 
@@ -119,7 +119,7 @@ The leader election service provides no authentication mechanism. We strongly su
 
 Add any additional interface/port pairs to listen on and change the '.internal' to whatever name helps you identify your interfaces. For instance:
 
-```riak.conf
+```config
 listener.leader_latch.internal = 127.0.0.1:5323
 listener.leader_latch.external = 10.10.1.2:15323
 listener.leader_latch.testing = 192.168.0.42:12345
@@ -140,26 +140,26 @@ If you are running a Spark cluster, you need to connect it with BDP.
 
 First, set up a consistent bucket called 'spark-bucket'  on your spark master node by running: 
 
-```shell
-riak-admin bucket-type create strong '{"props":{"consistent":true}}'
+```bash
+sudo riak-admin bucket-type create strong '{"props":{"consistent":true}}'
 ```
 
 Then enable the `map` bucket type by first running: 
 
-```shell
-riak-admin bucket-type create maps '{"props":{"datatype":"map"}}'
+```bash
+sudo riak-admin bucket-type create maps '{"props":{"datatype":"map"}}'
 ```
 
 Next activate the `map` bucket type by running:
 
 ```
-riak-admin bucket-type activate maps
+sudo riak-admin bucket-type activate maps
 ```
 
 Finally, verify that the `map` bucket type was successfully set up by running:
 
-```shell
-riak-admin bucket-type status maps
+```bash
+sudo riak-admin bucket-type status maps
 ```
 
 A successful response should contain:
@@ -174,15 +174,13 @@ active: true
 
 If you are using Spark, you need to set `JAVA_HOME` for the 'riak' user  on all the spark-master and spark-worker nodes. To confirm that it’s set correctly, run:
 
-```shell
-$ sudo su - riak
-$ ${JAVA_HOME}/bin/java -version
+```bash
+sudo -u riak bash -c '$JAVA_HOME/bin/java -version'
 ```
 
 The first line of output from that command should begin with `java version "1.8…"`. For example:
 
 ```
-${JAVA_HOME}/bin/java -version
 java version "1.8.0_45"
 Java(TM) SE Runtime Environment (build 1.8.0_45-b14)
 Java HotSpot(TM) 64-Bit Server VM (build 25.45-b02, mixed mode)
@@ -190,15 +188,15 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.45-b02, mixed mode)
 
 If you are using Ubuntu, you need to preserve your environment when running data platform commands as a super user. To do this, add `JAVA_HOME` and append `$JAVA_HOME/bin` to `PATH` in /etc/environment.
 
-```shell
-$ sudo vi /etc/sudoers
+```bash
+sudo vi /etc/sudoers
 ```
 Add the following line: `Defaults        env_keep += "JAVA_HOME"`
 
 Then restart Riak
 
-```shell
-$ sudo riak restart
+```bash
+sudo riak restart
 ```
 
 ###Add Services
@@ -214,24 +212,24 @@ You are ready to add services to your started, joined BDP nodes. There are sever
 
 First, specify the IP address your Spark instance binds to:
 
-```shell
-sudo bash -c "echo 'SPARK_MASTER_IP=»YOUR PUBLIC IP« >> /»YOUR_PATH_TO BDP«/priv/spark-master/conf/spark-env.sh'"
+```bash
+sudo bash -c "echo 'SPARK_MASTER_IP=»YOUR PUBLIC IP« >> »YOUR_PATH_TO BDP«/priv/spark-master/conf/spark-env.sh'"
 ```
 
-Then add a Spark master service to a node:
+To register the service configuration for Spark master, issue the following command:
 
-```shell
-$ data-platform-admin add-service-config my-spark-master spark-master LEAD_ELECT_SERVICE_HOSTS="»IPADDRESS«:»PORT«,»IPADDRESS2«:»PORT2«,»IPADDRESS3«:»PORT3«" RIAK_HOSTS="»IPADDRESS«:»PORT«,»IPADDRESS2«:»PORT2«,»IPADDRESS3«:»PORT3«"
+```bash
+sudo data-platform-admin add-service-config my-spark-master spark-master LEAD_ELECT_SERVICE_HOSTS="»RIAK_IP_1:»LEADER_ELECTION_PORT«,»RIAK_IP_2«:»LEADER_ELECTION_PORT«" RIAK_HOSTS="»RIAK_IP_1«:»RIAK_PB_PORT«,»RIAK_IP_2«:»RIAK_PB_PORT«"
 ```
 
 The IP addresses and ports you provide should be the IP addresses/ports of the 3 BDP nodes you started and joined earlier.
 
 ####Spark Worker
 
-To add a Spark worker service to a node:
+To register the service configuration for Spark worker, issue the following command:
 
-```shell
-data-platform-admin add-service-config my-spark-worker spark-worker MASTER_URL="spark://»HOSTNAME«:7077"
+```bash
+sudo data-platform-admin add-service-config my-spark-worker spark-worker MASTER_URL="spark://»SPARK_MASTER_IP«:»SPARK_MASTER_PORT«"
 ```
 If you have multiple masters, list them after 'spark://' as a comma-separated list of hostname:port entries (i.e. MASTER_URL=”spark://my-host-1:7077,my-host-2:7077”).
 
@@ -239,37 +237,36 @@ The hostnames you enter must match what you set as `SPARK_MASTER_IP` in priv/spa
 
 ####Redis
 
-To add a Redis service to a node:
+To register the service configuration for Redis, issue the following command:
 
-```shell
-data-platform-admin add-service-config my-redis redis HOST="0.0.0.0" REDIS_PORT="6379"
+```bash
+sudo data-platform-admin add-service-config my-redis redis HOST="0.0.0.0" REDIS_PORT="»REDIS_PORT«"
 ```
 
 ####Cache Proxy
 
-To add a cache proxy service to a node:
+To register the service configuration for Cache Proxy, issue the following command:
 
-```shell
-data-platform-admin add-service-config my-cache-proxy cache-proxy  HOST="0.0.0.0" CACHE_PROXY_PORT="11211" CACHE_PROXY_STATS_PORT="22123" CACHE_TTL="15s" RIAK_KV_SERVERS="»IPADDRESS«:»PROTOCOLBUFFERSPORT« »IPADDRESS2«:»PROTOCOLBUFFERSPORT« »IPADDRESS3«:»PROTOCOLBUFFERSPORT«" REDIS_SERVERS="»IPADDRESS«:6379 »IPADDRESS2«:6379 »IPADDRESS3«:6379"
+```bash
+sudo data-platform-admin add-service-config my-cache-proxy cache-proxy  HOST="0.0.0.0" CACHE_PROXY_PORT="»CACHE_PROXY_PORT«" CACHE_PROXY_STATS_PORT="»CACHE_PROXY_STATS_PORT«" CACHE_TTL="15s" RIAK_KV_SERVERS="»RIAK_IP_1«:»RIAK_PB_PORT«,»RIAK_IP_2«:»RIAK_PB_PORT«" REDIS_SERVERS="»REDIS_IP_1«:»REDIS_PORT«,»REDIS_IP_2«:»REDIS_PORT«"
 ```
 The IP addresses you provide should be the IP addresses of the 3 BDP nodes you started and joined earlier.
 
 
 ##Configuration Defaults
 
-
 Each service has one or more default ports if a port has not been specified when adding a service configuration.
 
 For example, you can add a service configuration from the command line for Redis using a specified port:
 
-```
-data-platform-admin add-service-config my-redis redis HOST="10.0.0.1" REDIS_PORT="9999"
+```bash
+sudo data-platform-admin add-service-config my-redis redis HOST="0.0.0.0" REDIS_PORT="»REDIS_PORT«"
 ```
 
 Or you can use the default port by leaving out the `REDIS_PORT` parameter:
 
 ```
-data-platform-admin add-service-config my-redis redis HOST="10.0.0.1"
+sudo data-platform-admin add-service-config my-redis redis HOST="0.0.0.0"
 ```
 
 In the above example, the Redis service will use the default port 6379.
@@ -285,3 +282,7 @@ In the above example, the Redis service will use the default port 6379.
 | Spark | `SPARK_MASTER_WEBUI_PORT` | 8080 |
 | Spark | `SPARK_WORKER_PORT` | 7078 |
 | Spark | `SPARK_WORKER_WEBUI_PORT` | 8081 |
+
+## In the Lab
+
+A vagrant BDP setup was developed to automate the validation of BDP packages, see [basho-labs/vagrant-bdp-setup](https://github.com/basho-labs/vagrant-bdp-cluster/).
