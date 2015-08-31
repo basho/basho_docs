@@ -31,7 +31,7 @@ Before enabling the leader election service, strong consistency must be enabled 
 
 By default, any new data platform installation will include a commented template configuration for the leader election service in `riak.conf`. This should look something like this:
 
-```config
+```riakconf
 ## listener.leader_latch.internal = 127.0.0.1:5323
 ```
 
@@ -48,7 +48,7 @@ You can replace “internal” with whatever name you like. You can also specify
 
 For example:
 
-```config
+```riakconf
 listener.leader_latch.internal = 127.0.0.1:5323
 listener.leader_latch.external = 10.10.1.2:5323
 listener.leader_latch.testing = 192.168.0.42:12345

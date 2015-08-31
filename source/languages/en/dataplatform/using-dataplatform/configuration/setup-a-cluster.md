@@ -124,7 +124,7 @@ The leader election service provides no authentication mechanism. We strongly su
 
 Add any additional interface/port pairs to listen on and change the '.internal' to whatever name helps you identify your interfaces. For instance:
 
-```config
+```riakconf
 listener.leader_latch.internal = 127.0.0.1:5323
 listener.leader_latch.external = 10.10.1.2:15323
 listener.leader_latch.testing = 192.168.0.42:12345
