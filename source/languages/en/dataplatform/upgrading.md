@@ -1,5 +1,5 @@
 ---
-title: Upgrading
+title: Upgrading from Basho Data Platform Beta to 1.0.0
 project: dataplatform
 version: 1.0.0+
 document: guide
@@ -7,8 +7,6 @@ toc: false
 index: true
 audience: beginner
 ---
-
-#Upgrading from Basho Data Platform Beta to 1.0.0
 
 >**NOTE: 
 >This page only applies to people previously using the beta releases of Basho Data Platform.**
