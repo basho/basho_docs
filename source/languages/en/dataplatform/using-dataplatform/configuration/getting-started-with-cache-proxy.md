@@ -64,44 +64,52 @@ Once you've opened the file, you might find the following settings helpful:
 
 To add a Redis service configuration:
 
-```shell
-data-platform-admin add-service-config my-redis redis HOST="0.0.0.0" REDIS_PORT="6379"
+```bash
+sudo data-platform-admin add-service-config my-redis redis HOST="0.0.0.0" REDIS_PORT="»REDIS_PORT«"
 ```
 
 ###Cache Proxy Service Configuration
 
 To add a Cache Proxy service configuration:
 
-```shell
-data-platform-admin add-service-config my-cache-proxy cache-proxy HOST="10.0.0.1" CACHE_PROXY_PORT="11211" CACHE_PROXY_STATS_PORT="11212" CACHE_TTL="15s" RIAK_KV_SERVERS="10.0.0.1:8087" REDIS_SERVERS="10.0.0.1:6379"
+```bash
+sudo data-platform-admin add-service-config my-cache-proxy cache-proxy HOST="0.0.0.0" CACHE_PROXY_PORT="»CACHE_PROXY_PORT«" CACHE_PROXY_STATS_PORT="»CACHE_PROXY_STATS_PORT«" CACHE_TTL="15s" RIAK_KV_SERVERS="»RIAK_IP_1«:»RIAK_PB_PORT«,»RIAK_IP_2«:»RIAK_PB_PORT«" REDIS_SERVERS="»REDIS_IP_1«:»REDIS_PORT«,»REDIS_IP_2«:»REDIS_PORT«"
 ```
 
 ###Start Redis Service
 
-To start the Redis service on a BDP node (e.g., riak@10.0.0.1), run:
+To start the Redis service on a BDP node, run:
 
-```shell
-data-platform-admin start-service riak@10.0.0.1 my-group my-redis
+```bash
+sudo data-platform-admin start-service »RIAK_NODENAME«@»RIAK_IP« my-group my-redis
 ```
 
 ###Start Cache Proxy Service
 
-To start the cache proxy service on a BDP node (e.g., riak@10.0.0.1), run:
+To start the cache proxy service on a BDP node, run:
 
 ```shell
-data-platform-admin start-service riak@10.0.0.1 my-group my-cache-proxy
+sudo data-platform-admin start-service »RIAK_NODENAME«@»RIAK_IP« my-group my-cache-proxy
 ```
 
 Here's a simple way to test your cache proxy configuration:
 
 ```bash
-BUCKET=$(date +%s)
-curl -s -X PUT -d "my-value" "http://${IP}:8098/buckets/${BUCKET}/keys/my-key"
-${PRIV_DIR}/redis/bin/redis-cli -h ${IP} -p 11211 get ${BUCKET}:my-key
-${PRIV_DIR}/redis/bin/redis-cli -h ${IP} -p 6379 get ${BUCKET}:my-key
+# NOTE: BDP_PRIV set above
+RIAK_IP=»RIAK_IP«
+RIAK_HTTP_PORT=»RIAK_HTTP_PORT«
+CACHE_PROXY_IP=»CACHE_PROXY_IP«
+CACHE_PROXY_PORT=»CACHE_PROXY_PORT«
+REDIS_IP=»REDIS_IP«
+REDIS_PORT=»REDIS_PORT«
+BUCKET="my-bucket"
+KEY="my-key"
+curl -s -X PUT -d "my-value" "http://$RIAK_IP:$RIAK_HTTP_PORT/buckets/$BUCKET/keys/$KEY"
+$BDP_PRIV/redis/bin/redis-cli -h $CACHE_PROXY_IP -p $CACHE_PROXY_PORT get $BUCKET:$KEY
+$BDP_PRIV/redis/bin/redis-cli -h $REDIS_IP -p $REDIS_PORT get $BUCKET:$KEY
 ```
 
-###Run the Read-Through Test (Enterprise only)
+###Run the Read-Through Test
 
 You can test your cache proxy setup with a specific script if you installed the Basho Data Platform Extras package (Enterprise only).
 
@@ -123,29 +131,29 @@ Before we get to the command to run the test script, let's look at the general b
 
 ```bash
 # set test environment
-RIAK_HTTP_HOST="127.0.0.1"
+RIAK_HTTP_IP="127.0.0.1"
 RIAK_HTTP_PORT="8098"
-CACHE_PROXY_HOST="127.0.0.1"
+CACHE_PROXY_IP="127.0.0.1"
 CACHE_PROXY_PORT="22122"
-CACHE_PROXY_STATISTICS_PORT="22122"
+CACHE_PROXY_STATISTICS_PORT="22123"
 RIAK_TEST_BUCKET="test"
 KEY="foo"
 VALUE="bar"
 
 # DELETE Riak object, ensure no siblings
-curl -s -X DELETE "http://$RIAK_HTTP_HOST:$RIAK_HTTP_PORT/buckets/$RIAK_TEST_BUCKET/keys/$KEY"
+curl -s -X DELETE "http://$RIAK_HTTP_IP:$RIAK_HTTP_PORT/buckets/$RIAK_TEST_BUCKET/keys/$KEY"
 
 # PUT Riak object
-curl -s -X PUT -d "$VALUE" "http://$RIAK_HTTP_HOST:$RIAK_HTTP_PORT/buckets/$RIAK_TEST_BUCKET/keys/$KEY"
+curl -s -X PUT -d "$VALUE" "http://$RIAK_HTTP_IP:$RIAK_HTTP_PORT/buckets/$RIAK_TEST_BUCKET/keys/$KEY"
 
 # GET Riak object
-RIAK_VALUE=$(curl -s -X GET "http://$RIAK_HTTP_HOST:$RIAK_HTTP_PORT/buckets/$RIAK_TEST_BUCKET/keys/$KEY")
+RIAK_VALUE=$(curl -s -X GET "http://$RIAK_HTTP_IP:$RIAK_HTTP_PORT/buckets/$RIAK_TEST_BUCKET/keys/$KEY")
 
 # GET Cache Proxy value
-CACHE_VALUE=$(redis-cli -h "$CACHE_PROXY_HOST" -p "$CACHE_PROXY_PORT" "$RIAK_TEST_BUCKET:$KEY"
+CACHE_VALUE=$(redis-cli -h "$CACHE_PROXY_IP" -p "$CACHE_PROXY_PORT" "$RIAK_TEST_BUCKET:$KEY"
 
 # DELETE Riak object, cleanup
-curl -s -X DELETE "http://$RIAK_HTTP_HOST:$RIAK_HTTP_PORT/buckets/$RIAK_TEST_BUCKET/keys/$KEY"
+curl -s -X DELETE "http://$RIAK_HTTP_IP:$RIAK_HTTP_PORT/buckets/$RIAK_TEST_BUCKET/keys/$KEY"
 
 # Assert
 if [[ "RIAK_VALUE" == "$CACHE_VALUE" ]]; then
@@ -165,7 +173,7 @@ Are you ready to run the read-through test? You can run it as follows:
 ####Exceptions
 If the test does not pass, verify that both Redis and cache proxy are running. You can do this by running:
 
-```
+```bash
 sudo data-platform-admin services
 ```
 
@@ -173,7 +181,7 @@ The result should list `my-redis` and `my-cache-proxy` with the Running Services
 
 Also, verify that Riak KV is started and listening on the protocol buffer port specified:
 
-```
+```bash
 sudo riak config effective |grep proto
 ```
 
@@ -216,7 +224,7 @@ For additional monitoring, cache proxy provides statistics on service availabili
 For example, running the following:
 
 ```bash
-telnet $CACHE_PROXY_HOST $CACHE_PROXY_STATISTICS_PORT
+telnet $CACHE_PROXY_IP $CACHE_PROXY_STATISTICS_PORT
 ```
 
 Returns statistic results:

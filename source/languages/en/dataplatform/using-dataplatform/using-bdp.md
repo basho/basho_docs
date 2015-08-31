@@ -32,14 +32,14 @@ The very first thing you can do with your BDP cluster is start the services you 
 
 To start the spark-master service, run the following, using the name and IP of the node you wish to start the service on:
 
-```shell
-data-platform-admin start-service »NODENAME«@»IPADDRESS« my-spark-group my-spark-master
+```bash
+sudo data-platform-admin start-service »NODENAME«@»IPADDRESS« my-spark-group my-spark-master
 ```
 
 Then verify that the spark-master service is running:
 
-```shell
-$ ps -ef | grep [s]park-master
+```bash
+ps -ef | grep [s]park-master
 ```
 
 You should see the output like this:
@@ -50,8 +50,8 @@ riak     23418     1  7 20:32 ?        00:00:13 /usr/local/jdk/bin/java -cp /usr
 
 If you need to stop the spark-master, the proper sequence is:
 
-```shell
-$ data-platform-admin stop-service »NODENAME«@»IPADDRESS« my-spark-group my-spark-master
+```bash
+sudo data-platform-admin stop-service »NODENAME«@»IPADDRESS« my-spark-group my-spark-master
 ```
 
 ###Spark-Worker Service
@@ -59,23 +59,23 @@ $ data-platform-admin stop-service »NODENAME«@»IPADDRESS« my-spark-group my-
 
 To start the spark-worker service, run the following, using the name and IP of the node you wish to start the service on:
 
-```shell
-data-platform-admin start-service »NODENAME«@»IPADDRESS« my-spark-group my-spark-worker
+```bash
+sudo data-platform-admin start-service »NODENAME«@»IPADDRESS« my-spark-group my-spark-worker
 ```
 You can repeat this command (using a different nodename and IP address) to add additional spark-worker services.
 
 To stop a spark-worker service, you need to stop the service first:
 
-```shell
-$ data-platform-admin stop-service »NODENAME«@»IPADDRESS« my-spark-group my-spark-worker
+```bash
+sudo data-platform-admin stop-service »NODENAME«@»IPADDRESS« my-spark-group my-spark-worker
 ```
 
 ###Redis Service
 
 To start the Redis service, run the following, using the name and IP of the node you wish to start the service on:
 
-```shell
-$ data-platform-admin start-service »NODENAME«@»IPADDRESS« my-redis-group my-redis
+```bash
+sudo data-platform-admin start-service »NODENAME«@»IPADDRESS« my-redis-group my-redis
 ```
 
 ###Cache Proxy Service
@@ -83,8 +83,8 @@ $ data-platform-admin start-service »NODENAME«@»IPADDRESS« my-redis-group my
 
 To start the cache proxy service, run: 
 
-```shell
-$ data-platform-admin start-service »NODENAME«@»IPADDRESS« my-cache-proxy-group my-cache-proxy
+```bash
+sudo data-platform-admin start-service »NODENAME«@»IPADDRESS« my-cache-proxy-group my-cache-proxy
 ```
 
 ##Verify The Services Are Running Correctly
@@ -95,58 +95,48 @@ Do you use CentOS or Ubuntu?
 
 ####CentOS
 
-First, add the Redis CLI utility to your `PATH`:
+Set the base path of BDP:
 
-```shell
-$ export PATH=$PATH:/usr/lib64/riak/lib/data_platform-1/priv/redis/bin
-```
-
-Then, add some test data to your Riak cluster, using the IP:Port of your Riak KV node:
-
-```shell
-$ curl -s -X PUT -d "my-value" "http://172.28.128.3:8098/buckets/my-bucket/keys/my-key"
-```
-
-Retrieve the test data via cache proxy, using the IP address you set for cache proxy:
-
-```shell
-$ redis-cli -h 172.28.128.3 -p 11211 get my-bucket:my-key
-```
-
-Finally, confirm that the data is now also in Redis:
-
-```shell
-$ redis-cli -h 172.28.128.3 -p 6379 get my-bucket:my-key
+```bash
+export BDP_HOME=/usr/lib64/riak/lib/data_platform-1
 ```
 
 ####Ubuntu
 
-First, install cURL to use an HTTP client for Riak KV:
+Set the base path of BDP:
 
-```shell
-$ sudo apt-get install curl
+```bash
+export BDP_HOME=/usr/lib/riak/lib/data_platform-1
 ```
 
-Then add the Redis CLI utility to your `PATH`:
+####Verification
+First, add the Redis CLI utility to your `PATH` and specify Ips and ports for the services involved in the test:
 
-```shell
-$ export PATH=$PATH:/usr//riak/lib/data_platform-1/priv/redis/bin
+```bash
+export PATH="$PATH:$BDP_HOME/priv/redis/bin"
+export RIAK_IP=»RIAK_IP
+export RIAK_HTTP_PORT=»RIAK_HTTP_PORT«
+export CACHE_PROXY_IP=»CACHE_PROXY_IP«
+export CACHE_PROXY_PORT=»CACHE_PROXY_PORT«
+export REDIS_IP=»REDIS_IP«
+export REDIS_PORT=»REDIS_PORT«
 ```
 
-Then, add some test data to your Riak cluster:
+Then, add some test data to your Riak cluster, using the IP:HttpPort of your Riak KV node:
 
-```shell
-$ curl -s -X PUT -d "my-value" "http://172.28.128.3:8098/buckets/my-bucket/keys/my-key"
+```bash
+curl -s -X PUT -d "my-value" "http://$RIAK_IP:$RIAK_HTTP_PORT/buckets/my-bucket/keys/my-key"
 ```
 
-Retrieve the test data via cache proxy:
+Retrieve the test data via cache proxy, using the IP address you set for cache proxy:
 
-```shell
-$ redis-cli -h 172.28.128.3 -p 11211 get my-bucket:my-key
+```bash
+redis-cli -h $CACHE_PROXY_IP -p $CACHE_PROXY_PORT get my-bucket:my-key
 ```
 
 Finally, confirm that the data is now also in Redis:
 
-```shell
-$ redis-cli -h 172.28.128.3 -p 6379 get my-bucket:my-key
+```bash
+redis-cli $REDIS_IP -p $REDIS_PORT get my-bucket:my-key
 ```
+

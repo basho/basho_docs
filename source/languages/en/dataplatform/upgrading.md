@@ -20,16 +20,12 @@ There were many changes between the Basho Data Platform (BDP) beta releases and 
 
 Choose the installation instructions below that match your OS.
 
->Important: 
->
->You must to run the following command as root or using `sudo`.
-
 ###Ubuntu or Debian
 Run the following to remove the BDP beta packages:
 
 ```bash
-$ dpkg --purge data-platform-extras
-$ dpkg --purge data-platform
+sudo dpkg --purge data-platform-extras
+sudo dpkg --purge data-platform
 ```
 
 Once you have run the above commands, you will need to check whether some files still remain. It is possible that some files will be need to be manually removed. Please check /usr/lib/riak or /usr/lib64/riak (for CentOS).
@@ -38,7 +34,7 @@ Once you have run the above commands, you will need to check whether some files 
 Run the following to remove the BDP beta packages:
 
 ```bash
-$ yum remove  data-platform-extras data-platform
+sudo yum remove data-platform-extras data-platform
 ```
 
 Once you have run the above commands, you will need to check whether some files still remain. It is possible that some files will be need to be manually removed. Please check /usr/lib/riak or /usr/lib64/riak (for CentOS).
