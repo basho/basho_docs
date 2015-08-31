@@ -19,7 +19,7 @@ You can simplify your operations by using the Basho Data Platform (BDP) cluster 
 
 Apache Zookeeper is an open-source application that provides a consistent distributed storage for client data as well as a set of synchronization primitives. BDP provides all the necessary functionality required for Spark Master high availability without the need to maintain and manage another software system (Zookeeper), creating a simple, centrally-managed, robust solution.
 
-##Prerequisites:
+##Prerequisites
 
 Before you replace Spark Standalone Cluster Manager with the one provided by BDP you must:
 
@@ -27,11 +27,11 @@ Before you replace Spark Standalone Cluster Manager with the one provided by BDP
 * Have CRDT enabled and activated as a bucket type. See how to do that [here][riak data types].
 * Have an operational Spark cluster (version 1.4.0+). 
 * Have the following information available:
-IP addresses of Riak cluster nodes and protobuf ports. They will look like: 172.31.9.125:10017,172.31.9.126:10017,172.31.9.127:10017.
-IP addresses and ports of LES service. They will look  like: 172.31.9.125:10012,172.31.9.126,172.31.9.127:10012.
-Name of the group for leader election. (It is set to 'spark_leaders' by default.)
-Name of consistent bucket for Spark metadata storage (you set this up during [configuration][bdp configure]).
-Name of CRDT map for metadata storage (i.e. 'spark-cluster-map'). The CRDT map stores serialized classes containing Workers, Applications and Jobs data. This data is stored in the map as a key-value pair with key composed of a prefix of entity type plus unique id (i.e. app_42343sdfd33), and value containing serialized (by serializer passed in by spark master) class for Worker, Application or Job.
+  * IP addresses of Riak cluster nodes and protobuf ports. They will look like: 172.31.9.125:10017, 172.31.9.126:10017, 172.31.9.127:10017.
+  * IP addresses and ports of LES service. They will look  like: 172.31.9.125:10012, 172.31.9.126:10012, 172.31.9.127:10012.
+  * Name of the group for leader election. (It is set to `spark_leaders` by default.)
+  * Name of consistent bucket for Spark metadata storage (you set this up during [configuration][bdp configure]).
+  * Name of CRDT map for metadata storage (i.e. `spark-cluster-map`). The CRDT map stores serialized classes containing Workers, Applications and Jobs data. This data is stored in the map as a key-value pair with key composed of a prefix of entity type plus unique id (i.e. `app_42343sdfd33`), and value containing serialized (by serializer passed in by spark-master) class for Worker, Application or Job.
 * You also will want to think about how many spark-workers you will want to establish. A node can effectively serve as either a spark-master or a spark-worker. A spark-master node can and will do work. Spark-worker nodes are helpful when there are enough spark-master nodes to delegate work so some nodes can be dedicated to only doing work, a.k.a. spark-worker nodes.
 
 ##Enabling BDP Spark Cluster Manager
@@ -40,7 +40,7 @@ To replace your Spark Cluster Manager with the BDP cluster manager, you will do 
 
 1. Add BDP service configs for spark-master and spark-worker.
 2. Activate the services.
-3. Verify
+3. Verify the services are running.
 
 ###Add BDP Service Configs
 
@@ -113,11 +113,16 @@ If you see a hostname rather than an IP address OR if this is your first time st
 3. And then restart the service: `sudo data-platform-admin start-service riak@»PUBLICIPOFWORKERNODE« my-spark-group my-spark-worker`.
 </div>
 
-###Verify Your Success
+###Verify The Services Are Running
 At this point, your BDP manager and Spark cluster should be ready to go! Here are some ways to verify that your Spark cluster is connected to the BDP manager and running correctly. 
 
-1. For a readout of your running and available services, run `sudo data-platform-admin services`. You should see something like the following, with the IP addresses you input:
+1. For a readout of your running and available services, run 
 
+```bash
+sudo data-platform-admin services
+```
+
+You should see something like the following, with the IP addresses you input:
 
 ```
 Running Services:
