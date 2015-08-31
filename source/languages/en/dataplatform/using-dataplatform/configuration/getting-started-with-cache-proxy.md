@@ -229,7 +229,7 @@ telnet $CACHE_PROXY_IP $CACHE_PROXY_STATISTICS_PORT
 
 Returns statistic results:
 
-```javascript
+```json
 {
     "bdp_cache_proxy": {
         "192.168.50.2:6379": {
