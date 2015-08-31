@@ -8,8 +8,8 @@ audience: beginner
 ---
 
 [ee]: http://info.basho.com/Wiki_Riak_Enterprise_Request.html
-[readthrough-strategy]: ./images/readthrough-strategy.png
-[writethrough-sequence]: ./images/writethrough-sequence.png
+[readthrough-strategy]: /readthrough-strategy.png
+[writethrough-sequence]: /writethrough-sequence.png
 
 <div class="note">
 Cache proxy is available to [Enterprise users only][ee].
