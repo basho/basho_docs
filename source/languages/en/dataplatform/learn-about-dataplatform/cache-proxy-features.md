@@ -11,9 +11,7 @@ audience: beginner
 [readthrough-strategy]: /readthrough-strategy.png
 [writethrough-sequence]: /writethrough-sequence.png
 
-<div class="note">
-Cache proxy is available to [Enterprise users only][ee].
-</div>
+>Cache proxy is available to [Enterprise users only][ee].
 
 ##Overview
 
