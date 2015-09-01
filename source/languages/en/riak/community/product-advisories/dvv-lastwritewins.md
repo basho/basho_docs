@@ -45,12 +45,13 @@ In all bucket types where `last_write_wins` is being used, this issue can be avo
 1. Fetch the patch [ZIP
 file](https://github.com/basho/basho_docs/raw/riak/2.1.1/source/data/dvv_lww_buckets.beam.zip)
 1. Uncompress the patch ZIP file.
-1. Place the beam file in your basho_patches directory (»riak_install_dir>/lib/basho_patches«).
-1. Execute the following commands from the /bin directory of your Riak installation: 
+1. Place the beam file in your basho-patches directory (»riak_install_dir«/lib/basho-patches).
+1. If the beam file is not already owned by the user that Riak is running
+under, set the permissions to ensure that it can be read by that user.
+1. Execute the following commands:
 
 ```riak
-cd »riak_install_dir«/bin
-./riak attach
+riak attach
 l(dvv_lww_buckets).
 dvv_lww_buckets:fix_buckets().
 ```
@@ -66,7 +67,7 @@ If you see any output of the form: `!! Fixing <<"foo">>: - resetting dvv_enabled
 
 When AAE is enabled, the next AAE run will repair any keys with the issue. Also, once the bucket properties are fixed, issuing a GET (for example, your application reading the key) will result in both a successful read and will repair that particular object.
 
-If AAE is disabled in your cluster, infrequently accessed data affected by this issue, will be in a damaged state until the next request. More information about AAE, and the risks associated with disabling it, is available at [https://docs.basho.com/riak/2.1.1/theory/concepts/aae/](https://docs.basho.com/riak/2.1.1/theory/concepts/aae/).
+If AAE is disabled in your cluster, infrequently accessed data affected by this issue will be in a damaged state until the next request. More information about AAE, and the risks associated with disabling it, is available at [https://docs.basho.com/riak/2.1.1/theory/concepts/aae/](https://docs.basho.com/riak/2.1.1/theory/concepts/aae/).
 
 In a future release we will ensure that dotted version vectors and `last_write_wins` cannot be enabled simultaneously.
 
