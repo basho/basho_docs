@@ -14,6 +14,7 @@ audience: beginner
 [riak_ensemble]: https://github.com/basho/riak_ensemble
 [riak kv]: http://docs.basho.com/riak/2.1.1
 [riak strong consistency]: http://docs.basho.com/riak/2.1.1/ops/advanced/strong-consistency/#Enabling-Strong-Consistency
+[aws marketplace]: http://docs.basho.com/riak/2.1.1/ops/building/installing/aws-marketplace/
 
 Now that you've [installed Basho Data Platform][bdp install], you're ready to set up a Basho Data Platform (BDP) cluster. This page will guide you through this process.
 
@@ -277,6 +278,11 @@ sudo data-platform-admin add-service-config my-redis redis HOST="0.0.0.0"
 In the above example, the Redis service will use the default port 6379.
 
 ### Default Ports
+
+<div class="note">
+<div class="title">AWS Security Group Settings</div>
+If you're using AWS, be sure to check out [Installing on AWS Marketplace][aws marketplace] for instructions on configuring security group settings to work with Riak.
+</div>
 
 | Service | Parameter | Default |
 | ---------- | -------------- | ---------- |
