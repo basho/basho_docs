@@ -279,10 +279,8 @@ In the above example, the Redis service will use the default port 6379.
 
 ### Default Ports
 
-<div class="note">
-<div class="title">AWS Security Group Settings</div>
-If you're using AWS, be sure to check out [Installing on AWS Marketplace][aws marketplace] for instructions on configuring security group settings to work with Riak.
-</div>
+> Note: If you're using AWS, be sure to check out [Installing on AWS Marketplace][aws marketplace] for instructions on configuring security group settings to work with Riak.
+
 
 | Service | Parameter | Default |
 | ---------- | -------------- | ---------- |
