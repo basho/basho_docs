@@ -23,7 +23,6 @@ On this page, you will find detailed descriptions of cache proxy's components, i
 * Connection Aggregation
 * Command Pipelining
 * Read-through Cache
-* Write-through Cache
 
 You will also find a list of commands you can use with cache proxy.
 
@@ -55,17 +54,6 @@ The read-through cache strategy is represented by the following sequence diagram
 The `CACHE_TTL` configuration option establishes how long the cache takes to become consistent with the backend server during a write (DELETE or PUT) to the backend server.  
 
 A short `CACHE_TTL`, for example “15s”, reduces a significant amount of read pressure from Riak, increasing performance of the overall solution.
-
-
-## Write-through Cache
-
-Write-through allows all client code to use the Redis protocol for KV object types, greatly reducing client code, allowing for greater focus on the specific business solution.  When a write is sent to the Cache Proxy, the underlying read-before-write, write to Riak, and cache invalidation are encapsulated in the Cache Proxy.
-
-A simplified form of the write-through strategy is represented by the following sequence diagram:
- 
- ![write-through strategy sequence diagram][writethrough-sequence]
-
-In addition to developer efficiency gains, the Cache Proxy write-through strategy implements proper sibling resolution, reducing runtime performance degradation due to the potential for “sibling explosion”.
 
 
 ## Commands
