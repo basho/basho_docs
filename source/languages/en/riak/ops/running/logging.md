@@ -280,7 +280,7 @@ Command Line#attach]]` command. Once you run this command and drop into
 the console, enter the following:
 
 ```erlang
-lager:set_logleve(lager_file_backend, "/var/log/riak/console.log", debug).
+lager:set_loglevel(lager_file_backend, "/var/log/riak/console.log", debug).
 ```
 
 You should replace the file location above (`/var/log/riak/console.log`)
