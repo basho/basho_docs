@@ -32,9 +32,9 @@ in the AWS EC2 environment.
 
 The most commonly used [instance
 types](http://aws.amazon.com/ec2/instance-types/) for Riak cluster nodes
-are `m1.large` and `m1.xlarge`. In cases where 10-gigabit Ethernet
-networking is desired, the Cluster Compute class of EC2 instances, such
-as `cc1.4xlarge` or `cc2.8xlarge` can be used.
+are `large` and `xlarge` `m` class (General Purpose), such as `m4.xlarge`. 
+In cases where 10-gigabit Ethernet networking is desired, the Cluster Compute
+class of EC2 instances, such as `cc2.8xlarge` can be used.
 
 Amazon also offers a High I/O Quadruple Extra Large instance
 (`hi1.4xlarge`) that is backed by solid state drives (SSD) and features
