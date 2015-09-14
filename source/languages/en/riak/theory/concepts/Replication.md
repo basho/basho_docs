@@ -160,7 +160,7 @@ partitions and storing an object on a partition.
 
   * Assume we have 3 nodes
   * Assume we store 3 replicas per object (N=3)
-  * Assume we have 8 partitions in our [[ring|Clusters#The-Ring]](ring_creation_size=8)
+  * Assume we have 8 partitions in our [[ring|Clusters#The-Ring]] \(ring_creation_size=8)
 
 **Note**: It is not recommended that you use such a small ring size.
 This is for demonstration purposes only.
