@@ -1,0 +1,12 @@
+# Build output
+public*
+
+
+# OS X files
+.DS_Store
+Thumbs.db
+
+# Editor temp files
+*.swp
+*.swo
+

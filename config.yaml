@@ -1,0 +1,77 @@
+---
+title: "Basho Documenttation"
+baseURL: "http://docs.basho.com/"
+languageCode: "en-us"
+
+metaDataFormat: "yaml" #TODO(Drew): Is this necessary? We're going to be using
+                       #            YAML here and for the front-mater, is
+                       #            specifying it here required?
+
+# This should always be set to false for deployment builds
+#TODO(Drew): Figure out if there's a way to enforce or set this in a e.g. deploy.rb script.
+buildDrafts: false
+
+
+# Below is a complete collection of options options and their default values
+#TODO(Drew): Settings prepended with '???' may merit additional investigation,
+#            because I'm not sure what they do. And I don't like not knowing.
+##########
+#     title:                      ""
+#     baseURL:                    ""            # hostname (and path) to the root eg. http://spf13.com/
+#     languageCode:               ""
+#     theme:                      ""            # theme to use (located in /themes/THEMENAME/)
+# ??? defaultLayout:              "post"
+#
+#     archetypedir:               "archetype"
+#     contentdir:                 "content"
+#     dataDir:                    "data"
+#     layoutdir:                  "layouts"
+#     staticdir:                  "static"
+#     publishdir:                 "public"
+# ??? destination:                ""            # filesystem path to write files to
+# ??? source:                     ""            # filesystem path to read files relative from
+#
+#     uglyURLs:                   false         # if true, use /filename.html instead of /filename/
+# ??? permalinks:
+#
+# ??? pygmentsStyle:              "monokai"     # color-codes for highlighting derived from this style
+# ??? pygmentsUseClasses:         false         # true: use pygments-css or false: color-codes directly
+#
+#
+#     buildDrafts:                false         # include content marked as draft
+#     buildFuture:                false         # include content with publishdate in the future
+#
+#     watch:                      false         # watch filesystem for changes and recreate as needed
+#     disableLiveReload:          false         #### I'm not sure if these are the same?
+#
+#     verbose:                    false         # verbose output
+#     stepAnalysis:               false         # display memory and timing of different steps of the program
+#     logFile:                    ""            # Log File path (if set, logging enabled automatically)
+#     verboseLog:                 false         # verbose logging
+#     log:                        false         # Enable Logging
+#
+#
+# ??? sitemap:                                  # default sitemap configuration map
+#     disableSitemap:             false         # Do not build Sitemap file
+#
+#     disableRSS:                 false         # Do not build RSS files
+#
+# ??? config:                     "config.toml" # config file (default is path/config.yaml|json|toml)
+# ??? metaDataFormat:             "toml"        # "yaml", "toml", "json"
+# ??? defaultExtension:           "html"
+#
+# ??? footnoteAnchorPrefix:       ""
+# ??? footnoteReturnLinkContents: ""
+#
+# ??? noTimes:                    false         # Don't sync modification time of files
+# ??? paginate:                   10
+# ??? paginatePath:               "page"
+#
+# ??? pluralizeListTitles:        true          # Pluralize titles in lists using inflect
+#
+#
+#     editor:                     ""            # edit new content with this editor, if provided
+#     newContentEditor:           ""            #### How are these settings different?
+#
+
+---
