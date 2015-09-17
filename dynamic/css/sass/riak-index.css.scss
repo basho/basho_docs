@@ -1,0 +1,353 @@
+#riak-index {
+
+  .mainarticle {
+    padding: 125px 0 0 20px;
+
+    @media screen and (max-width: 768px) {
+      padding: 0 0 0 0;
+    }
+  }
+
+  article {
+
+    section {
+      &.banner {
+        @include size(auto, 214px);
+        @include corner(left, bottom);
+        @include corner(right, bottom);
+        position : relative;
+        color    : rgb(102, 102, 102);
+        background     : rgba(247, 249, 249, 1.0);
+        border-bottom  : 1px solid #F1F1F1;
+        margin-bottom  : 1.2em;
+
+        @media screen and (max-width: 1024px) {
+          width   : auto;
+          height  : auto;
+          padding : 0 3% 1.5em 4.5%;
+          margin  : 1.2em 0;
+          @include allCorners();
+        }
+
+        @media screen and (max-width: 768px) {
+          margin  : 1.2em $mobilePageGutter;
+        }
+
+        header {
+          position : relative;
+          padding  : 3em 0 0 1.8em;
+
+          @media screen and (max-width: 1024px) {
+            padding  : 0;  
+          }
+
+          h1 {
+            font-size      : 3.9rem;
+            letter-spacing : -0.04em;
+
+            @media screen and (max-width: 1024px) {
+              padding-top    : 0.9em;
+              font-size      : 1.6rem;
+              letter-spacing : 0;
+            }
+
+            /*----------------------------------------*/
+            /*  Special Kerning between the r and t
+            /*  in 'Gettting Started'
+            /*----------------------------------------*/
+            #kern-fix-get-started {
+              letter-spacing : -0.2em;
+            }
+          }
+
+          p {
+            @extend .sans-light;
+            font-size    : 1.01rem;
+            padding-left : 0.25em;
+            padding-top  : 0.19em;
+            color        : rgb(102, 102, 102); /* Fallback for non-rgba browsers */
+            color        : rgba(102, 102, 102, 0.9);
+
+            @media screen and (max-width: 1024px) {
+
+            }
+          }
+        }
+
+        ul.resources {
+          position     : absolute;
+          top          : 34px;
+          left         : 420px;
+          padding-left : 0;
+          list-style   : none;
+
+          @media screen and (max-width: 1024px) {
+            position       : relative;
+            top            : auto;
+            left           : auto;
+            margin-bottom  : 0;
+          }
+
+          li {
+            @extend .sans-light;
+            padding-bottom : 0.9em;
+            padding-left   : 0.5em;
+            line-height    : 1em;
+            font-size      : 1.6rem;
+
+            @media screen and (max-width: 1024px) {
+              font-size      : 100%;
+              padding-bottom : 0;
+              padding-left   : 0;
+              line-height    : 1.5em;
+            }
+          
+            a {
+              color : #666666;
+            }
+          }
+
+          li:before {
+            @extend .icon-font;
+            padding-right : 0.5em;
+            color         : #666;
+          }
+        }
+
+        .nodes {
+          @include size(378px, 101px);
+          @include layout-sprite(nodes);
+          position : absolute;
+          top      : 0;
+          left     : 4px;
+        }
+      }
+    }
+
+    .box-row {
+      @include size(800px, auto);
+
+      a {
+        color : lighten($orange, 5%);
+        &:hover {
+          color : lighten($orange, 15%);
+        }
+      }
+
+      @media screen and (max-width: 1140px) {
+        width : auto;
+      }
+    }
+
+    section {
+      &.content-box {
+        max-width : 40.5%;
+        padding   : 0 3% 1.5em 4.5%;
+        float     : left;
+        @include allCorners();
+
+        @media screen and (max-width: 1024px) {
+          max-width : none;
+          margin    : 1.2em 0;
+        }
+
+        @media screen and (max-width: 768px) {
+          margin  : 1.2em $mobilePageGutter;
+        }
+
+        header {
+          h2 {
+            font-family : 'OpenSansLight';
+            font-size   : 1.6rem;
+            color       : #fff;
+            margin-top  : 0;
+            padding-top : 0.9em;
+            text-shadow : 1px 1px 1px rgba(0, 0, 0, 0.25);
+          }
+        }
+
+        p {
+          color       : #fff; /* Fallback for non-rgba browsers */
+          color       : rgba(255, 255, 255, 0.5);
+          text-shadow : 1px 1px 1px rgba(0, 0, 0, 0.1);
+
+          a {
+            white-space : nowrap;
+          };
+        }
+
+        &:first-child {
+          float : left;
+
+          @media screen and (max-width: 1024px) {
+            float : none;
+          }
+        }
+
+        &:nth-child(2) {
+          float : right;
+
+          @media screen and (max-width: 1024px) {
+            float : none;
+          }
+        }
+
+        [class^="icon-"] {
+          float          : right;
+          color          : rgb(81, 121, 126);
+          font-size      : 6em;
+          padding-top    : 16px;
+          padding-bottom : 30px;
+          text-shadow    : 2px 4px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        ul {
+          padding : 0;
+          margin  : 0;
+
+          li {
+            list-style-type     : disc;
+            list-style-position : inside;
+            color               : #fff;
+            text-shadow         : 1px 1px 1px rgba(0, 0, 0, 0.1);
+          }
+        }
+      }
+
+      &.green {
+        background : #3c6c72;
+
+        [class^="icon-"] {
+          color : rgb(81, 121, 126);
+        }
+      }
+
+      &.grey {
+        background : #525a61;
+
+        [class^="icon-"] {
+          color : rgb(91, 99, 105);
+          padding-left : 0.1em;
+        }
+      }
+    }
+
+    header {
+      
+      h1, p {
+        //padding : 0 25px;
+      }
+      
+      h1 {
+        //padding-top : 16px;
+        //text-align : center;
+        //border-bottom : 1px dashed #DDD;
+      }
+
+      a.command {
+        display         : block;
+        text-decoration : none;
+        
+        &:hover {
+          color           : #616366;
+        }
+      }
+      
+      .more {
+        @include corner(left, bottom, 5px);
+        @include corner(right, bottom, 5px);
+        padding    : 0 25px 5px;
+        border-top : 1px dashed silver;
+        background : rgba(0, 0, 0, .05);
+        text-align : center;
+        
+        &:hover {
+          background : rgba(249, 157, 51, .2);
+          cursor     : pointer;
+        }
+      }
+      
+      .more a {
+        width        : 0; 
+        height       : 0; 
+        border-left  : 10px solid transparent;
+        border-right : 10px solid transparent;
+        border-top   : 10px solid #666;
+        display      : inline-block;
+      }
+    }
+
+    .content {
+      display : none;
+      padding : 15px 25px 25px;
+      
+      h5 {
+       margin    : 0.5em 0;
+       font-size : 100%;
+      }
+      ul, li {
+        //list-style : none;
+        margin     : 0;
+        padding    : 0;
+      }
+      ul {
+        padding-left : 1.4em;
+        margin       : 0.5em 0;
+      }
+      section {
+        min-width : 40%;
+        float     : left;
+      }
+    }
+    
+    &#getting-started {
+      .content {
+        display : block;
+      }
+      .more {
+        display : none;
+      }
+    }
+    
+    /* &:hover {
+      border : 1px solid #F1F1FF;
+    } */
+
+    &#getting-started {
+      .content {
+        section {
+          width : 100%;
+        }
+        ul {
+          list-style : square;
+        }
+        ul li {
+          display    : list-item;
+        }
+      }
+    }
+  }
+
+
+
+  hr {
+    width        : 0; 
+    height       : 0; 
+    border-left  : 10px solid transparent;
+    border-right : 10px solid transparent;
+    border-top   : 10px solid #666;
+    margin       : 0 auto;
+  }
+}
+
+#query-riak {
+  p, ol, ul, h2, h3, h4, h5, h6, table, .CodeRay, .info, .note {
+    max-width: 100%;
+  }
+}
+
+#errors {
+  table {
+    max-width: 100%;
+  }
+}

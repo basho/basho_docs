@@ -1,0 +1,264 @@
+body {
+  font-family: "GandhiSerif",serif;
+}
+
+/* =============================================================================
+   Webfonts
+   ========================================================================== */
+/*   
+@font-face {
+    font-family : 'NoticiaItalic';
+    src: url('../fonts/noticiatext-italic-webfont-eot.eot');
+    src: url('../fonts/noticiatext-italic-webfont-eot.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/noticiatext-italic-webfont-woff.woff') format('woff'),
+         url('../fonts/noticiatext-italic-webfont-ttf.ttf') format('truetype'),
+         url('../fonts/noticiatext-italic-webfont-svg.svg#NoticiaItalic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+    text-rendering: optimizeLegibility;
+}
+@font-face {
+    font-family : 'Noticia';
+    src: url('../fonts/noticiatext-regular-webfont-eot.eot');
+    src: url('../fonts/noticiatext-regular-webfont-eot.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/noticiatext-regular-webfont-woff.woff') format('woff'),
+         url('../fonts/noticiatext-regular-webfont-ttf.ttf') format('truetype'),
+         url('../fonts/noticiatext-regular-webfont-svg.svg#Noticia') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    text-rendering: optimizeLegibility;
+}
+@font-face {
+    font-family : 'Titillium25l001';
+    src: url('../fonts/titilliumtext25l001-webfont-eot.eot');
+    src: url('../fonts/titilliumtext25l001-webfont-eot.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/titilliumtext25l001-webfont-woff.woff') format('woff'),
+         url('../fonts/titilliumtext25l001-webfont-ttf.ttf') format('truetype'),
+         url('../fonts/titilliumtext25l001-webfont-svg.svg#Titillium25l001') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    text-rendering: optimizeLegibility;
+}
+@font-face {
+    font-family: 'Titillium25l004';
+    src: url('../fonts/titilliumtext25l004-webfont-eot.eot');
+    src: url('../fonts/titilliumtext25l004-webfont-eot.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/titilliumtext25l004-webfont-woff.woff') format('woff'),
+         url('../fonts/titilliumtext25l004-webfont-ttf.ttf') format('truetype'),
+         url('../fonts/titilliumtext25l004-webfont-svg.svg#Titillium25l004') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    text-rendering: optimizeLegibility;
+}
+*/
+
+/* Open Sans */
+
+@font-face {
+    font-family: 'OpenSans';
+    src: url('../fonts/opensans-regular-webfont-eot.eot');
+    src: url('../fonts/opensans-regular-webfont-eot.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/opensans-regular-webfont-woff.woff') format('woff'),
+         url('../fonts/opensans-regular-webfont-ttf.ttf') format('truetype'),
+         url('../fonts/opensans-regular-webfont-svg.svg#OpenSans') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    text-rendering: optimizeLegibility;
+}
+
+@font-face {
+    font-family: 'OpenSansBold';
+    src: url('../fonts/opensans-bold-webfont-eot.eot');
+    src: url('../fonts/opensans-bold-webfont-eot.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/opensans-bold-webfont-woff.woff') format('woff'),
+         url('../fonts/opensans-bold-webfont-ttf.ttf') format('truetype'),
+         url('../fonts/opensans-bold-webfont-svg.svg#OpenSansBold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    text-rendering: optimizeLegibility;
+}
+
+@font-face {
+    font-family: 'OpenSansLight';
+    src: url('../fonts/opensans-light-webfont-eot.eot');
+    src: url('../fonts/opensans-light-webfont-eot.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/opensans-light-webfont-woff.woff') format('woff'),
+         url('../fonts/opensans-light-webfont-ttf.ttf') format('truetype'),
+         url('../fonts/opensans-light-webfont-svg.svg#OpenSansLight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    text-rendering: optimizeLegibility;
+}
+
+/* Gandhi Serif */
+
+@font-face {
+    font-family: 'GandhiSerif';
+    src: url('../fonts/gandhiserif-regular-webfont-eot.eot');
+    src: url('../fonts/gandhiserif-regular-webfont-eot.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/gandhiserif-regular-webfont-woff.woff') format('woff'),
+         url('../fonts/gandhiserif-regular-webfont-ttf.ttf') format('truetype'),
+         url('../fonts/gandhiserif-regular-webfont-svg.svg#GandhiSerif') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    text-rendering: optimizeLegibility;
+}
+
+@font-face {
+    font-family: 'GandhiSerifBold';
+    src: url('../fonts/gandhiserif-bold-webfont-eot.eot');
+    src: url('../fonts/gandhiserif-bold-webfont-eot.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/gandhiserif-bold-webfont-woff.woff') format('woff'),
+         url('../fonts/gandhiserif-bold-webfont-ttf.ttf') format('truetype'),
+         url('../fonts/gandhiserif-bold-webfont-svg.svg#GandhiSerifBold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    text-rendering: optimizeLegibility;
+}
+/*
+@font-face {
+    font-family: 'GandhiSerifItalic';
+    src: url('../fonts/gandhiserif-italic-webfont-eot.eot');
+    src: url('../fonts/gandhiserif-italic-webfont-eot.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/gandhiserif-italic-webfont-woff.woff') format('woff'),
+         url('../fonts/gandhiserif-italic-webfont-ttf.ttf') format('truetype'),
+         url('../fonts/gandhiserif-italic-webfont-svg.svg#GandhiSerifItalic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+    text-rendering: optimizeLegibility;
+}
+*/
+@font-face {
+    font-family: 'GandhiSerifBoldItalic';
+    src: url('../fonts/gandhiserif-bolditalic-webfont-eot.eot');
+    src: url('../fonts/gandhiserif-bolditalic-webfont-eot.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/gandhiserif-bolditalic-webfont-woff.woff') format('woff'),
+         url('../fonts/gandhiserif-bolditalic-webfont-ttf.ttf') format('truetype'),
+         url('../fonts/gandhiserif-bolditalic-webfont-svg.svg#GandhiSerifBoldItalic') format('svg');
+    font-weight: bold;
+    font-style: italic;
+    text-rendering: optimizeLegibility;
+}
+
+
+/* =============================================================================
+   Custom Font Icon Library
+   ========================================================================== */
+   
+@font-face {
+    font-family: 'DocsFontIcons';
+    src:url('../fonts/docsfonticons-webfont-eot.eot');
+    src:url('../fonts/docsfonticons-webfont-eot.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/docsfonticons-webfont-woff.woff') format('woff'),
+        url('../fonts/docsfonticons-webfont-ttf.ttf') format('truetype'),
+        url('../fonts/docsfonticons-webfont-svg.svg#DocsFontIcons') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* For using data attributes for inserting the navigation icons */
+[data-icon]:before {
+    font-family: 'DocsFontIcons';
+    content: attr(data-icon);
+    speak: none;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Icon Classes */
+.icon-lambda,
+.icon-lambda-bold,
+.icon-beaker,
+.icon-cog,
+.icon-github-alt,
+.icon-comments,
+.icon-bolt,
+.icon-question-sign,
+.icon-tools,
+.icon-search,
+.icon-download-alt,
+.icon-github,
+.icon-reorder,
+.icon-icon-more,
+.icon-riak,
+.icon-database,
+.icon-install,
+.icon-cloud,
+.icon-configure,
+.icon-references,
+.icon-time {
+    font-family: 'DocsFontIcons';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+}
+.icon-lambda:before {
+    content: "\e005";
+}
+.icon-lambda-bold:before {
+    content: "\e00b";
+}
+.icon-beaker:before {
+    content: "\f0c3";
+}
+.icon-cog:before {
+    content: "\f013";
+}
+.icon-github-alt:before {
+    content: "\e004";
+}
+.icon-comments:before {
+    content: "\e000";
+}
+.icon-bolt:before {
+    content: "\f0e7";
+}
+.icon-question-sign:before {
+    content: "\f059";
+}
+.icon-tools:before {
+    content: "\e001";
+}
+.icon-search:before {
+    content: "\f002";
+}
+.icon-download-alt:before {
+    content: "\f019";
+}
+.icon-github:before {
+    content: "\e009";
+}
+.icon-reorder:before {
+    content: "\f0c9";
+}
+.icon-more:before {
+    content: "\e002";
+}
+.icon-riak:before {
+    content: "\e003";
+}
+.icon-database:before {
+    content: "\e006";
+}
+.icon-install:before {
+    content: "\e007";
+}
+.icon-cloud:before {
+    content: "\e008";
+}
+.icon-configure:before {
+    content: "\e00a";
+}
+.icon-references:before {
+    content: "\f02d";
+}
+.icon-time:before {
+    content: "\f017";
+}
