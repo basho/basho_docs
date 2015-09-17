@@ -47,7 +47,7 @@ file](https://github.com/basho/basho_docs/raw/riak/2.1.1/source/data/dvv_lww_buc
 1. Uncompress the patch ZIP file.
 1. Place the beam file in your basho-patches directory (»riak_install_dir«/lib/basho-patches).
 1. If the beam file is not already owned by the user that Riak is running
-under, set the permissions to ensure that it can be read by that user.
+under, change the ownership to the user Riak is running under.
 1. Execute the following commands:
 
 ```riak
