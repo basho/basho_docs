@@ -170,6 +170,24 @@ var idx = new SearchIndex("famous");
 var rslt = client.PutSearchIndex(idx);
 ```
 
+```javascript
+var storeIndex_cb = function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+    if (!rslt) {
+        // error...
+    }
+};
+
+var store = new Riak.Commands.YZ.StoreIndex.Builder()
+    .withIndexName("famous")
+    .withCallback(storeIndex_cb)
+    .build();
+
+client.execute(store);
+```
+
 ```erlang
 riakc_pb_socket:create_search_index(Pid, <<"famous">>).
 ```
@@ -217,6 +235,16 @@ client.create_search_index('famous', '_yz_default')
 ```csharp
 var idx = new SearchIndex("famous", "_yz_default");
 var rslt = client.PutSearchIndex(idx);
+```
+
+```javascript
+var store = new Riak.Commands.YZ.StoreIndex.Builder()
+    .withIndexName("famous")
+    .withSchemaName("_yz_default")
+    .withCallback(storeIndex_cb)
+    .build();
+
+client.execute(store);
 ```
 
 ```erlang
@@ -314,6 +342,9 @@ bucket.set_properties({'search_index': 'famous'})
 var properties = new RiakBucketProperties();
 properties.SetSearchIndex("famous");
 var rslt = client.SetBucketProperties("cats", properties);
+```
+
+```javascript
 ```
 
 ```erlang
@@ -481,6 +512,9 @@ var panthroRiakObj = new RiakObject(panthroId, panthroObj);
 var rslts = client.Put(new[] {
     lionoRiakObj, cheetaraRiakObj, snarfRiakObj, panthroRiakObj
 });
+```
+
+```javascript
 ```
 
 ```erlang
@@ -681,6 +715,9 @@ foreach (RiakSearchResultDocument doc in searchResult.Documents)
 }
 ```
 
+```javascript
+```
+
 ```erlang
 {ok, Results} = riakc_pb_socket:search(Pid, <<"famous">>, <<"name_s:Lion*">>),
 io:fwrite("~p~n", [Results]),
@@ -802,6 +839,9 @@ Debug.WriteLine(Encoding.UTF8.GetString(obj.Value));
 // {"name_s":"Lion-o","age_i":30,"leader_b":true}
 ```
 
+```javascript
+```
+
 ```erlang
 [{Index,Doc}|_] = Docs,
 BType  = proplists:get_value(<<"_yz_rt">>, Doc),  %% <<"animals">>
@@ -881,6 +921,9 @@ var search = new RiakSearchRequest("famous", "age_i:[30 TO *]");
 var rslt = client.Search(search);
 ```
 
+```javascript
+```
+
 ```erlang
 riakc_pb_socket:search(Pid, <<"famous">>, <<"age_i:[30 TO *]">>),
 ```
@@ -932,6 +975,9 @@ var search = new RiakSearchRequest
 };
 ```
 
+```javascript
+```
+
 ```erlang
 riakc_pb_socket:search(Pid, <<"famous">>, <<"leader_b:true AND age_i:[30 TO *]">>),
 ```
@@ -968,6 +1014,9 @@ client.delete_search_index('famous')
 
 ```csharp
 var rslt = client.DeleteSearchIndex("famous");
+```
+
+```javascript
 ```
 
 ```erlang
@@ -1060,6 +1109,9 @@ var search = new RiakSearchRequest
 };
 
 var rslt = client.Search(search);
+```
+
+```javascript
 ```
 
 ```erlang
