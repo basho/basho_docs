@@ -1,4 +1,3 @@
-
 /* =============================================================================
    Convenient Extensible Classes
    ========================================================================== */
@@ -932,12 +931,12 @@ div[role="main"] {
 
     &[href^="http://"], &[href^="https://"] {
       @include size(10px, 10px);
-      background    : inline-image('external.png') no-repeat right;
+      // background    : inline-image('external.png') no-repeat right; //FIXME(Drew): Putting this code in a coma so we can compile it. We need to fix this.
       padding-right : 12px;
     }
     &[href$=".pdf"], &[href$=".PDF"] {
       @include size(14px, 16px);
-      background    : inline-image("pdf.png") no-repeat right;
+      // background    : inline-image("pdf.png") no-repeat right; //FIXME(Drew): Putting this code in a coma so we can compile it. We need to fix this.
       padding-right : 16px;
     }
   }
@@ -1381,7 +1380,7 @@ div[role="main"] {
 
     .info-icon {
       @include size(24px, 24px);
-      @include layout-sprite(info);
+      // @include layout-sprite(info); //FIXME(Drew): Putting this code in a coma so we can compile it. We need to fix this.
       display     : block;
       position    : absolute;
       top         : 17px;
@@ -2002,7 +2001,7 @@ article {
   @include transition(width 0.3s ease);
   border      : 1px solid silver;
   padding     : 2px 12px;
-  background  : inline-image('layout/small-search-icon.png') right 3px no-repeat #FFF;
+  // background  : inline-image('layout/small-search-icon.png') right 3px no-repeat #FFF; //FIXME(Drew): Putting this code in a coma so we can compile it. We need to fix this.
   font-weight : normal;
   font-family : 'titillium', verdana, arial, sans-serif;
   color       : #24514A;

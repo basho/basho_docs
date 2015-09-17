@@ -116,7 +116,7 @@
 
         .nodes {
           @include size(378px, 101px);
-          @include layout-sprite(nodes);
+          // @include layout-sprite(nodes); //FIXME(Drew): Putting this code in a coma so we can compile it. We need to fix this.
           position : absolute;
           top      : 0;
           left     : 4px;

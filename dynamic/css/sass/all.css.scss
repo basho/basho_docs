@@ -1,15 +1,22 @@
-// @import "compass";
+//TODO(Drew): Figure out if we actually use Compass for anything.
+@import "compass";
 // $layout-layout:smart;
+//TODO(Drew): Consider re-implementing Sprite Layouts.
 // @import "layout/*.png";
 // @include all-layout-sprites;
 
-@import "settings.css.scss";
-@import "boilerplate.css.scss";
-@import "common.css.scss";
-@import "faq.css.scss";
-@import "fonts.css.scss";
-@import "riak-index.css.scss";
-@import "riak-apis.css.scss";
-@import "dual.css.scss";
-@import "downloads.css.scss";
-@import "version-bar.css.scss";
+@import "settings.scss";
+@import "boilerplate.scss";
+@import "common.scss";
+@import "faq.scss";
+@import "fonts.scss";
+@import "riak-index.scss";
+@import "riak-apis.scss";
+@import "dual.scss";
+@import "downloads.scss";
+@import "version-bar.scss";
+
+// @import "basho-palette.css";
+// @import "bootstrap-tabs.css";
+// @import "foundation.css"; //TODO(Drew): I don't think we ever use this. Get rid of it?
+// @import "magula.css";     //TODO(Drew): I don't think we ever use this. Get rid of it?

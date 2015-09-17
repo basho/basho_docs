@@ -124,7 +124,7 @@
         font-size: 52px;
         letter-spacing: -0.02em;
         padding-right: 52px;
-        background: inline-image('layout/download.png') no-repeat 100% 4px;
+        // background: inline-image('layout/download.png') no-repeat 100% 4px; //FIXME(Drew): Putting this code in a coma so we can compile it. We need to fix this.
         height: 52px;
         margin-bottom: -2px;
         line-height: 52px;
