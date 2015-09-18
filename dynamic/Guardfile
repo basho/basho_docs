@@ -24,7 +24,7 @@ directories %w(dynamic) \
 
 group :js do
   guard 'rake', :task => 'build:js' do
-    # watch(%r{^$})
+    watch(%r{^dynamic/js/.*$})
   end
 end
 
@@ -38,7 +38,7 @@ end
 
 group :debug_js do
   guard 'rake', :task => 'build:debug:js' do
-    # watch(%r{^$})
+    watch(%r{^dynamic/js/.*$})
   end
 end
 

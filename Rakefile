@@ -17,17 +17,20 @@
 
 
 $css_source = "./dynamic/css"
-$css_dest   = "./dynamic/compiled"
+$css_dest   = "./dynamic/compiled/css"
+$js_source  = "./dynamic/js"
+$js_dest    = "./dynamic/compiled/js"
+$cache_dir  = "./dynamic/.cache"
 
 
+#TODO(Drew): These are maybe a bit much? Be more specific about what's deleted?
 task      :clean => ['clean:js', 'clean:css']
 namespace :clean do
 
   task :js do
-    puts "clean:js not yet implemented."
+    FileUtils.rm_rf($js_dest)
   end
 
-  #TODO(Drew): This is maybe a bit much? Can we be more specific?
   task :css do
     FileUtils.rm_rf($css_dest)
   end
@@ -37,9 +40,9 @@ end
 task      :build => ['build:js', 'build:css']
 namespace :build do
 
-  task :js do
-    puts "build:js not yet implemented."
-  end
+  #TODO(Drew): This just points to the debug version for now. That's... bad.
+  #            Finalize the debug version, implement a production version.
+  task :js => 'build:debug:js'
 
   task :css do
     compass_compile({
@@ -51,8 +54,22 @@ namespace :build do
   task      :debug => ['clean', 'build:debug:js', 'build:debug:css']
   namespace :debug do
 
-    task :js do
-      puts "build:debug:js not yet implemented."
+    directory "#{$js_dest}"
+    task :js => "#{$js_dest}" do
+      require 'sprockets'
+      require 'erb'
+      require 'yaml'
+      require 'coffee-script'
+
+      env = Sprockets::Environment.new(".")
+      env.append_path 'dynamic/js'
+
+      #TODO(Drew): We're just hardcoding the two JS files that we want for the
+      #            time being. That's an _awful_ solution, and these files
+      #            should be rolled into one, buuuut this is a quick first-pass.
+      #            **Fix this!**
+      File.open("#{$js_dest}/all.js", 'w') { |file| file.write env['all.js'].to_s }
+      File.open("#{$js_dest}/version-bar.coffee.erb", 'w') { |file| file.write env['version-bar.js'].to_s }
     end
 
     task :css do
@@ -103,7 +120,7 @@ def compass_compile(configs)
     configs[:http_path]     = "/"
     configs[:sass_path]     = $css_source
     configs[:css_path]      = $css_dest
-    configs[:cache_path]    = "#{$css_source}/.sass-cache"
+    configs[:cache_path]    = $cache_dir
     Compass.add_configuration(configs, "basho_docs_configs")
     compiler = Compass.sass_compiler({
         :only_sass_files => Dir.glob("#{$css_source}/*.scss")

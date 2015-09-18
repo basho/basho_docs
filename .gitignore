@@ -1,6 +1,6 @@
 # Build output
 public*
-**/.sass[-_]cache/**
+**/.cache/**
 
 # OS X files
 .DS_Store
