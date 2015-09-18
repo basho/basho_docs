@@ -9,6 +9,7 @@ gem "uglifier", "~>2.7.2"
 # gem "coderay", "~>"
 # gem "pygmentize", "~>"
 
-gem "watchr", "~>0.7"
 gem "rake", "~>10.4.2"
+gem "guard", "~>2.13.0"
+gem "guard-rake", "~>1.0.0"
 
