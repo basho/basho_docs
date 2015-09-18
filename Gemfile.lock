@@ -71,6 +71,7 @@ DEPENDENCIES
   compass (~> 1.0.3)
   guard (~> 2.13.0)
   guard-rake (~> 1.0.0)
+  pry (~> 0.10.1)
   rake (~> 10.4.2)
   sass (~> 3.4.18)
   sass-css-importer (>= 1.0.0.beta.0)
