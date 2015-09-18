@@ -17,9 +17,9 @@
 
 
 $css_source = "./dynamic/css"
-$css_dest   = "./dynamic/compiled/css"
+$css_dest   = "./static/css"
 $js_source  = "./dynamic/js"
-$js_dest    = "./dynamic/compiled/js"
+$js_dest    = "./static/js"
 $cache_dir  = "./dynamic/.cache"
 
 
@@ -72,7 +72,8 @@ namespace :build do
       File.open("#{$js_dest}/version-bar.coffee.erb", 'w') { |file| file.write env['version-bar.js'].to_s }
     end
 
-    task :css do
+    directory "#{$css_dest}"
+    task :css => "#{$css_dest}" do
       compass_compile({
         :output_style  => :nested,
         :line_comments => true
