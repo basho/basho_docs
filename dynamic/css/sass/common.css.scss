@@ -809,7 +809,7 @@ a.responsive-toggle, #nav-container a.responsive-toggle {
   display : none;
 
   //@include layout-sprite(toggle-button);
-  background-image : url(/shared/latest/images/layout/toggle-button.png); /* Temporary fix */
+  background-image : url(/images/shared/toggle-button.png); /* Temporary fix */
 
   @include size(40px, 27px);
   float   : right;
@@ -817,7 +817,7 @@ a.responsive-toggle, #nav-container a.responsive-toggle {
   padding : 0;
   &:hover {
     //@include layout-sprite(toggle-button);
-    background-image : url(/shared/latest/images/layout/toggle-button.png); /* Temporary fix */
+    background-image : url(/images/shared/toggle-button.png); /* Temporary fix */
   }
 
   @media screen and (max-width: 768px) {
@@ -1037,14 +1037,16 @@ div[role="main"] {
 
     a.responsive-toggle {
       //@include layout-sprite(toggle-button-light);
-      background-image : url(/shared/latest/images/layout/toggle-button-light.png); /* Temporary fix */
+      background-image : url(/images/shared/toggle-button-light.png); /* Temporary fix */
       margin  : 14px 12px 0 0;
     }
 
     .logo {
       @extend .block;
       @include size(185px, 33px);
-      background  : url('/shared/latest/images/layout/logo.png');
+      background        : url('/images/shared/basho_docs_logo.png');
+      background-size   : contain;
+      background-repeat : no-repeat;
       margin-top    : 11px;
       margin-left   : 78px;
       margin-bottom : 18px;
@@ -1287,7 +1289,7 @@ div[role="main"] {
   #marketing-banner {
     position     : relative;
     height       : 56px;
-    background   : #bed8dc url('/shared/latest/images/layout/bg-banner.png') no-repeat 60% 50%;
+    background   : #bed8dc url('/images/shared/bg-banner.png') no-repeat 60% 50%;
     text-align   : left;
     @extend .sans;
 
@@ -1307,7 +1309,7 @@ div[role="main"] {
     }
 
     .hugs {
-      background : url('/shared/latest/images/layout/hugs.png') no-repeat;
+      background : url('/images/shared/hugs.png') no-repeat;
       border-style: none;
       width      : 53px;
       height     : 53px;
@@ -1317,7 +1319,7 @@ div[role="main"] {
     }
 
     .more {
-      background: url('/shared/latest/images/layout/link-more.png') no-repeat;
+      background: url('/images/shared/link-more.png') no-repeat;
       overflow: hidden;
       position: absolute;
       width: 30px;
@@ -1577,7 +1579,7 @@ div[role="main"] {
 
       .riak_image {
         @include size(92%, 88px);
-        background     : url('/shared/latest/images/layout/smaller-riak-logo.png') center center no-repeat transparent;
+        background     : url('/images/shared/smaller-riak-logo.png') center center no-repeat transparent;
         border-bottom  : 1px solid #cfcfcf;
         padding-bottom : 20px;
         margin-top     : 37px;
@@ -1585,7 +1587,7 @@ div[role="main"] {
 
       .riak_kv_image {
         @include size(92%, 88px);
-        background     : url('/shared/latest/images/layout/riak-kv-logo-244x88.png') center center no-repeat transparent;
+        background     : url('/images/shared/riak-kv-logo.png') center center no-repeat transparent;
         border-bottom  : 1px solid #cfcfcf;
         padding-bottom : 20px;
         margin-top     : 37px;
@@ -1594,7 +1596,7 @@ div[role="main"] {
 
       .riak_s2_image {
         @include size(92%, 88px);
-        background     : url('/shared/latest/images/layout/riak-s2-logo-244x88.png') center center no-repeat transparent;
+        background     : url('/images/shared/riak-s2-logo.png') center center no-repeat transparent;
         border-bottom  : 1px solid #cfcfcf;
         padding-bottom : 20px;
         margin-top     : 37px;
@@ -1622,7 +1624,7 @@ div[role="main"] {
     }
 
     .separator {
-      @include size(2%, 100%);
+      @include size(0%, 100%);
       float      : left;
       text-align : center;
       .vert-line {
@@ -1633,11 +1635,11 @@ div[role="main"] {
     }
 
     #project_riakcs {
-      background : url('/shared/latest/images/layout/cs-cloud.png') center center no-repeat transparent;
+      background : url('/images/shared/cs-cloud.png') center center no-repeat transparent;
     }
 
     #project_dataplatform {
-      background : url('/shared/1.0.0/images/layout/basho_man_4.png') center 10px no-repeat transparent;
+      background : url('/images/shared/basho_man_4.png') center 10px no-repeat transparent;
       background-size : 100px;
     }
 
@@ -1645,7 +1647,7 @@ div[role="main"] {
       margin : 4em auto 7em;
 
       .project .riak_image {
-        background : url('/shared/latest/images/layout/smaller-riak-logo.png') center center no-repeat transparent;
+        background : url('/images/shared/smaller-riak-logo.png') center center no-repeat transparent;
         margin-top : 27px;
       }
       .project .riak_kv_image {
