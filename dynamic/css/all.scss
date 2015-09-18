@@ -16,7 +16,18 @@
 @import "downloads.scss";
 @import "version-bar.scss";
 
-// @import "basho-palette.css";
-// @import "bootstrap-tabs.css";
+// NOTE(Drew): Importing CSS into Sass/Compass is a bit weird, by which I mean
+// it's not been implemented. We're currently using the beta sass-css-importer
+// (https://github.com/chriseppstein/sass-css-importer) gem to modify (read:
+// sidestep) the Compass/Sass import process. The end result being the format
+// for imports below;
+//   * A prepended CSS:
+//   * No `.css` file extension
+//   * No love from the `--import-path` directive, so a full path
+// This somewhat calls into question the above process for including Scss files.
+// Do we want to use the full path for them as well? It also begs the question
+// 'why did we write any non-sass CSS?'
+@import "CSS:imports/basho-palette";
+@import "CSS:imports/bootstrap-tabs";
 // @import "foundation.css"; //TODO(Drew): I don't think we ever use this. Get rid of it?
 // @import "magula.css";     //TODO(Drew): I don't think we ever use this. Get rid of it?

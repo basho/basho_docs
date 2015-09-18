@@ -96,6 +96,7 @@ def compass_compile(configs)
     #            Hopefully no one gets bit by it.
     require 'compass'
     require 'compass/sass_compiler'
+    require 'sass-css-importer'
 
     Compass.configuration.add_import_path "#{$css_source}/imports"
     configs[:project_path]  = "."
