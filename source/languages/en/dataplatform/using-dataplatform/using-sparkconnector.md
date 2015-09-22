@@ -11,7 +11,7 @@ This is a quick, practical guide on how to use the Spark Riak connector.
 
 ##Dependencies
 
-If your Spark project uses Maven, iinclude the following dependency in your application's POM file to enable Spark Riak connector:
+If your Spark project uses Maven, include the following dependency in your application's POM file to enable Spark Riak connector:
 
 ```xml
 <dependencies>
