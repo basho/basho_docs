@@ -20,6 +20,7 @@ dataplatform:
           - "[[Replace Your Spark Cluster Manager with the Basho Data Platform Cluster Manager]]"
           - "[[Getting Started with Cache Proxy]]"
       - "[[Using your Basho Data Platform Cluster]]"
+      - "[[Using Spark Riak Connector]]"
       - "[[Data Platform Commands]]"
   - title: "Learn About Basho Data Platform"
     sub:
