@@ -15,6 +15,7 @@ audience: beginner
 [riak kv]: http://docs.basho.com/riak/2.1.1
 [riak strong consistency]: http://docs.basho.com/riak/2.1.1/ops/advanced/strong-consistency/#Enabling-Strong-Consistency
 [aws marketplace]: http://docs.basho.com/riak/2.1.1/ops/building/installing/aws-marketplace/
+[set spark ip]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/advanced/set-spark-ip-address/
 
 Now that you've [installed Basho Data Platform][bdp install], you're ready to set up a Basho Data Platform (BDP) cluster. This page will guide you through this process.
 
@@ -216,11 +217,7 @@ You are ready to add services to your started, joined BDP nodes. There are sever
 
 ####Spark Master
 
-First, specify the IP address your Spark instance binds to:
-
-```bash
-sudo bash -c "echo 'SPARK_MASTER_IP=»YOUR PUBLIC IP« >> »YOUR_PATH_TO BDP«/priv/spark-master/conf/spark-env.sh'"
-```
+>The Spark Master IP Address is selected automatically. If you need to set it manually, check out [Set Spark IP Address][set spark ip].
 
 To register the service configuration for Spark master, issue the following command:
 
@@ -279,7 +276,7 @@ In the above example, the Redis service will use the default port 6379.
 
 ### Default Ports
 
-> Note: If you're using AWS, be sure to check out [Installing on AWS Marketplace][aws marketplace] for instructions on configuring security group settings to work with Riak.
+>If you're using AWS, be sure to check out [Installing on AWS Marketplace][aws marketplace] for instructions on configuring security group settings to work with Riak.
 
 
 | Service | Parameter | Default |

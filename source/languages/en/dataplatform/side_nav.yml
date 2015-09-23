@@ -19,6 +19,9 @@ dataplatform:
           - "[[Set Up a Basho Data Platform Cluster]]"
           - "[[Replace Your Spark Cluster Manager with the Basho Data Platform Cluster Manager]]"
           - "[[Getting Started with Cache Proxy]]"
+      - title: "Advanced"
+        sub:
+          - "[[Set Spark IP Address]]"
       - "[[Using your Basho Data Platform Cluster]]"
       - "[[Using Spark Riak Connector]]"
       - "[[Data Platform Commands]]"
