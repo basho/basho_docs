@@ -236,8 +236,6 @@ sudo data-platform-admin add-service-config my-spark-worker spark-worker MASTER_
 ```
 If you have multiple masters, list them after 'spark://' as a comma-separated list of hostname:port entries (i.e. MASTER_URL=”spark://my-host-1:7077,my-host-2:7077”).
 
-The hostnames you enter must match what you set as `SPARK_MASTER_IP` in priv/spark-master/conf/spark-env.sh.
-
 ####Redis
 
 To register the service configuration for Redis, issue the following command:
