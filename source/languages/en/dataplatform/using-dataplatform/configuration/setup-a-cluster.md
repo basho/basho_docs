@@ -112,7 +112,9 @@ If `riak_ensemble` is enabled, you will see the following output :
 
 For more information on why this is important, please see our [strong consistency docs][riak strong consistency].
 
-###Configure The Leader Election Service
+###Configure The Leader Election Service (Enterprise Edition Only)
+
+>The following section is for Basho Data Platform Enterprise Edition. If you perform these steps in an open source version the Riak KV node under the BDP node will not start.
 
 Before enabling the leader election service, you must have enabled `riak_ensemble` (as directed in the previous step). If you skipped the previous step for any reason, please go back and do it now.
 
