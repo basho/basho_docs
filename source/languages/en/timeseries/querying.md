@@ -53,6 +53,21 @@ Additionally, you can extend the query beyond the key. For example, **??** what'
 riakc_ts:query(Pid, "select weather, temperature from GeoCheckin where time > 123456 and time < 987654 and myfamily = ‘family1’ and myseries = ‘series1’ and temperature > 27.0").
 ```
 
+When querying with user-supplied data, it is *essential* that you protect
+against SQL injection. Time Series clients provide bound parameters to
+eliminate the need to escape data on the client:
+
+```erlang
+riakc_ts:query(Pid,
+  "select weather, temperature from GeoCheckin where time > :start and time < :end and myfamily = :family and myseries = :series and temperature > :temperature",
+  [
+    {"start", 123456},
+    {"end", 987654},
+    {"family", "myfamily"},
+    {"series", "myseries"}
+  ]).
+```
+
 A small subset of SQL is supported. All comparisons are of the format: `Field Operator Constant`
 
 The following operators are supported for each data type
