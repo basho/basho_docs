@@ -37,12 +37,16 @@ Riak TS allows you to write multiple rows of data at a time. Simply put the data
 riakc_ts:put(Pid, "GeoCheckin", [[“family1”, “series1”, 1234567, “hot”, 23.5], [“family2”, “series99”, 1234567, “windy”, 19.8]]).
 ```
 
-The timestamps are in microseconds since ....
+The timestamps should be in UTC microseconds.
+
 **??** What other info does a user need about the above example and writing their own?
 
 
-If the data is correctly written the response is:
-ok **??** Is that the response?
+If all of the data are correctly written the response is:
+`ok`
+
+If some of the data failed to write, **??** do we really get an `RpbErrorResp`
+with a number that failed but no guidance about which ones??!
 
 **??** What happens if it doesn't work? What are some things the user could look at?
 
