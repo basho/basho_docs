@@ -112,7 +112,9 @@ If `riak_ensemble` is enabled, you will see the following output :
 
 For more information on why this is important, please see our [strong consistency docs][riak strong consistency].
 
-###Configure The Leader Election Service
+###Configure The Leader Election Service (Enterprise Edition Only)
+
+>The following section is for Basho Data Platform Enterprise Edition. If you perform these steps in an open source version the Riak KV node under the BDP node will not start.
 
 Before enabling the leader election service, you must have enabled `riak_ensemble` (as directed in the previous step). If you skipped the previous step for any reason, please go back and do it now.
 
@@ -235,8 +237,6 @@ To register the service configuration for Spark worker, issue the following comm
 sudo data-platform-admin add-service-config my-spark-worker spark-worker MASTER_URL="spark://»SPARK_MASTER_IP«:»SPARK_MASTER_PORT«"
 ```
 If you have multiple masters, list them after 'spark://' as a comma-separated list of hostname:port entries (i.e. MASTER_URL=”spark://my-host-1:7077,my-host-2:7077”).
-
-The hostnames you enter must match what you set as `SPARK_MASTER_IP` in priv/spark-master/conf/spark-env.sh.
 
 ####Redis
 
