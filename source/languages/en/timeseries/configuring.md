@@ -32,19 +32,20 @@ Riak TS tables have a one-to-one mapping with Riak KV buckets.
 
 Here is an example Riak TS `CREATE TABLE` statement (broken across many lines for clarity):
 
-```
+```sql
 CREATE TABLE GeoCheckin
 (
    myfamily    varchar   not null,
    myseries    varchar   not null,
    time        timestamp not null,
-   weather     varchar   not null, 
+   weather     varchar   not null,
    temperature float,
-PRIMARY KEY (
+   PRIMARY KEY (
      (quantum(time, 15, 'm'), myfamily, myseries),
-     time, myfamily, myseries
-
-            )
+     time,
+     myfamily,
+     myseries
+  )
 )
 ```
 
