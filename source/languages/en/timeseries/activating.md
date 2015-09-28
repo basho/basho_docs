@@ -10,7 +10,7 @@ audience: beginner
 
 Once you have [designed your bucket][designing] you can create it via `riak-admin`.
 
-##Creating Your Bucket
+## Creating Your Bucket
 Remember the example bucket?
 
 ```sql
