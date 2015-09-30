@@ -10,7 +10,7 @@ audience: beginner
 
 Now that you've [installed][installing] Riak TS, you can configure a bucket.
 
-##Basic Structure of a Riak TS Bucket
+## Basic Structure of a Riak TS Bucket
 
 Riak TS requires querying large amounts of related data, meaning keys behave differently than in Riak KV.
 
@@ -28,23 +28,24 @@ To make it easy we have combined the definition of the various keys and the data
 Riak TS tables have a one-to-one mapping with Riak KV buckets.
 
 
-###Anatomy of a Schema
+### Anatomy of a Schema
 
 Here is an example Riak TS `CREATE TABLE` statement (broken across many lines for clarity):
 
-```
+```sql
 CREATE TABLE GeoCheckin
 (
    myfamily    varchar   not null,
    myseries    varchar   not null,
    time        timestamp not null,
-   weather     varchar   not null, 
+   weather     varchar   not null,
    temperature float,
-PRIMARY KEY (
+   PRIMARY KEY (
      (quantum(time, 15, 'm'), myfamily, myseries),
-     time, myfamily, myseries
-
-            )
+     time,
+     myfamily,
+     myseries
+  )
 )
 ```
 
@@ -52,11 +53,11 @@ In addition to paying attention to case sensitivity, field names (`myfamily`, `m
 
 The field names section of the command defines the structure of the data, taking the format:
 
-```
+```sql
 name type [not null],
 ```
 
-Valid types are: 
+Valid types are:
 
 * `varchar`
 * `integer`
@@ -67,7 +68,7 @@ Valid types are:
 
 The `PRIMARY KEY` section describes the partition and local keys. The partition key is defined as the three named fields in brackets. The first one must be the quantum function:
 
-```
+```sql
 (quantum(time, 15, 'm'), myfamily, myseries),
 ```
 
