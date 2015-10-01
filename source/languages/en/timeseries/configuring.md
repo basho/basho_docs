@@ -25,14 +25,14 @@ In order to query TS data, data is stored in a schema. The schema defines what d
 
 To make it easy we have combined the definition of the various keys and the data schema into a single SQL-like statement. The query language is a full sub-set of SQL, so you will use the field names and the table name (as buckets are called in SQL) in those queries, and SQL conventions hold (such as case sensitivity).
 
-Riak TS tables have a one-to-one mapping with Riak KV buckets.
+Riak TS buckets have a one-to-one mapping with Riak KV buckets.
 
 
 ###Anatomy of a Schema
 
 Here is an example Riak TS `CREATE TABLE` statement (broken across many lines for clarity):
 
-```
+```sql
 CREATE TABLE GeoCheckin
 (
    myfamily    varchar   not null,
@@ -40,20 +40,22 @@ CREATE TABLE GeoCheckin
    time        timestamp not null,
    weather     varchar   not null, 
    temperature float,
-PRIMARY KEY (
+   PRIMARY KEY (
      (quantum(time, 15, 'm'), myfamily, myseries),
-     time, myfamily, myseries
+     time, 
+     myfamily, 
+     myseries
 
-            )
+   )
 )
 ```
 
-In addition to paying attention to case sensitivity, field names (`myfamily`, `myseries`, etc, etc) must be strings. If they need to contain special cases (spaces, punctutation), they can be single quoted.
+In addition to paying attention to case sensitivity, field names (`myfamily`, `myseries`, etc) must be strings. If they need to contain special cases (spaces, punctutation), they can be single quoted.
 
 ####Field Names
 The field names section of the command defines the structure of the data, taking the format:
 
-```
+```sql
 name type [not null],
 ```
 
@@ -69,7 +71,7 @@ Valid types are:
 ####Primary Key
 The `PRIMARY KEY` section of the command describes the partition and local keys. The partition key is defined as the three named fields in brackets. The first one must be the quantum function:
 
-```
+```sql
 (quantum(time, 15, 'm'), myfamily, myseries),
 ```
 
@@ -78,7 +80,7 @@ The quantum function takes 3 parameters:
 * the name of a field in the table definition of type `timestamp`
 * a quantity
 * a unit of time:
-  *  'y' - years
+  * 'y' - years
   * 'mo' - months
   * 'd'  - days
   * 'h' - hours
