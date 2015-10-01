@@ -37,6 +37,12 @@ Basic queries return the full range of values between two given times for a seri
 riakc_ts:query(Pid, "select * from GeoCheckin where time > 123456 and time < 987654 and myfamily = ‘family1’ and myseries = ‘series1’").
 ```
 
+```ruby
+client = Riak::Client.new 'myriakdb.host', pb_port: 10017
+query = Riak::Timeseries::Query.new client, "select * from GeoCheckin where time > 123456 and time < 987654 and myfamily = ‘family1’ and myseries = ‘series1’"
+results = query.issue!
+```
+
 The SQL query must cover the entire time series key (`time`,  `myfamily`, `myseries`). If any part of the time series key is missing, you will get an error.
 
 ## Specific Querying
@@ -46,11 +52,17 @@ You can also select particular fields from the data. In the below example, **??*
 ```erlang
 riakc_ts:query(Pid, "select weather, temperature from GeoCheckin where time > 123456 and time < 987654 and myfamily = ‘family1’ and myseries = ‘series1’").
 ```
+```ruby
+Riak::Timeseries::Query.new(client, "select weather, temperature from GeoCheckin where time > 123456 and time < 987654 and myfamily = ‘family1’ and myseries = ‘series1’").issue!
+```
 
 Additionally, you can extend the query beyond the key. For example, **??** what's happening in this example?:
 
 ```erlang
 riakc_ts:query(Pid, "select weather, temperature from GeoCheckin where time > 123456 and time < 987654 and myfamily = ‘family1’ and myseries = ‘series1’ and temperature > 27.0").
+```
+```ruby
+Riak::Timeseries::Query.new(client, "select weather, temperature from GeoCheckin where time > 123456 and time < 987654 and myfamily = ‘family1’ and myseries = ‘series1’ and temperature > 27.0").issue!
 ```
 
 When querying with user-supplied data, it is *essential* that you protect
@@ -66,6 +78,16 @@ riakc_ts:query(Pid,
     {"family", "myfamily"},
     {"series", "myseries"}
   ]).
+```
+```ruby
+query = Riak::Timeseries::Query.new(client, "select weather, temperature from GeoCheckin where time > :start and time < :end and myfamily = :family and myseries = :series and temperature > :temperature")
+query.interpolations = {
+  'start' => 123456,
+  'end' => 987654,
+  'family' => 'myfamily',
+  'series' => 'myseries'
+}
+query.issue!
 ```
 
 A small subset of SQL is supported. All comparisons are of the format: `Field Operator Constant`
