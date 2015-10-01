@@ -12,7 +12,7 @@ Now that you've [installed][installing] Riak TS, you can configure a bucket.
 
 ##Basic Structure of a Riak TS Bucket
 
-Riak TS requires querying large amounts of related data, meaning keys behave differently than in Riak KV.
+Riak TS enables querying large amounts of related data, so keys behave differently than in Riak KV.
 
 Riak TS has two types of keys:
 
@@ -50,6 +50,7 @@ PRIMARY KEY (
 
 In addition to paying attention to case sensitivity, field names (`myfamily`, `myseries`, etc, etc) must be strings. If they need to contain special cases (spaces, punctutation), they can be single quoted.
 
+####Field Names
 The field names section of the command defines the structure of the data, taking the format:
 
 ```
@@ -65,7 +66,8 @@ Valid types are:
 * `timestamp`
 * `any`
 
-The `PRIMARY KEY` section describes the partition and local keys. The partition key is defined as the three named fields in brackets. The first one must be the quantum function:
+####Primary Key
+The `PRIMARY KEY` section of the command describes the partition and local keys. The partition key is defined as the three named fields in brackets. The first one must be the quantum function:
 
 ```
 (quantum(time, 15, 'm'), myfamily, myseries),
@@ -89,6 +91,11 @@ The second key (local key) MUST contain the same 3 fields in the same order.
 
 Additionally, the fields declared in the keys must have the flag `not null`.
 
-These are general composite keys so the partition key and the local key have this particular time-series relationship.
+###Optimizing Bucket Configuration
 
+Multiple steps are involved in storing data with Riak TS. First, what partition the data goes in must be determined. Then it must be determined where in that partition the data will go. Since the data is guaranteed to have a timestamp (or similar), it is tempting to just partition by timestamp (partition key) and sort by timestamp (local key). But, frequently, there are other significant fields, too. 
+
+The partition and local keys are general composite keys. They do not cover this other significant information set. That must be included through the semantics of the other fields. 
+
+It is important to keep this in mind when configuring your bucket. Take a heartbeat sensor, for instance. You would want to partition by {timestamp, whose heartbeat it is, sensor_type}, so when you looking for a particular person's heartrate on a particular day, you can search via a time range, a person, and monitor type. This is where you see a bigger payoff. It's cheaper to read 1000 points from each of three places than it is to read 3000 points from one place or one point from 3000 places.
 
