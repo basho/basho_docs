@@ -136,6 +136,16 @@ The following operators are supported for each data type
 
 ## Limitations
 
-The queueing system currently allows you to run 3 simultaneous queries only.
+In this early version queries can only range over 1 to 4 quanta. If you write a range that is too large, your query will generate too many subqueries and the query system will refuse to run.
+
+For instance, if you have the default system with a `15m quanta`, then a query such as:
+
+`time > 1 o’clock and time < 2 o’clock`
+
+will be fine because it covers 4 quanta. While the query:
+
+`time > 1 o’clock and time < 3 o’clock`
+
+will fail.
 
 **??**There are buffer limitations, but I don't know what they are or how to guide users.
