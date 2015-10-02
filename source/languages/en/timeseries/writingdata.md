@@ -10,11 +10,11 @@ audience: beginner
 
 Now that you've [configured][configuring]and [activated][activating] a bucket, you are ready to write data to it.
 
-##
+## TODO: TOPIC HEADER
 
-Let's use the example bucket from earlier: 
+Let's use the example bucket from earlier:
 
-``` 
+```sql
 CREATE TABLE GeoCheckin
 (
   myfamily    varchar   not null,
@@ -25,30 +25,41 @@ CREATE TABLE GeoCheckin
 PRIMARY KEY (
     (quantum(time, 15, 'm'), myfamily, myseries),
     time, myfamily, myseries
- 
+
            )
 )
 ```
- 
+
 Riak TS allows you to write multiple rows of data at a time. Simply put the data in a list:
 
+```ruby
+client = Riak::Client.new 'myriakdb.host', pb_port: 10017
+submission = Riak::TimeSeries::Submission.new client, "GeoCheckin"
+submission.measurements = [["family1", "series1", 1234567, "hot", 23.5], ["family2", "series99", 1234567, "windy", 19.8]]
+submission.write!
 ```
+
+```erlang
 {ok, Pid} = riakc_pb_socket:start_link("myriakdb.host", 10017).
 riakc_ts:put(Pid, "GeoCheckin", [[“family1”, “series1”, 1234567, “hot”, 23.5], [“family2”, “series99”, 1234567, “windy”, 19.8]]).
 ```
- 
-The timestamps are in microseconds since ....
-**??** What other info does a user need about the above example and writing their own? 
 
- 
-If the data is correctly written the response is:
-ok **??**Is that the response?
- 
-**??**What happens if it doesn't work? What are some things the user could look at?
- 
-Error conditions
- 
+In the absence of information about which columns are provided, writing data
+assumes that columns are in the same order they've been declared in the table.
+
+The timestamps should be in UTC microseconds.
+
+If all of the data are correctly written the response is:
+`ok` in Erlang, and will not raise an error in Ruby.
+
+If some of the data failed to write, **??** do we really get an `RpbErrorResp`
+with a number that failed but no guidance about which ones??!
+
+**??** What happens if it doesn't work? What are some things the user could look at?
+
+## Error conditions
+
 There are two error conditions:
-·  	Writing data to a TS bucket that doesn’t exist
-·  	Writing data which doesn’t match the DDL**??** specification of the TS bucket
- 
+
+* Writing data to a TS bucket that doesn’t exist
+*	Writing data which doesn’t match the specification of the TS bucket

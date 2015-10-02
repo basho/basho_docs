@@ -10,7 +10,7 @@ audience: beginner
 
 Now that you've [installed][installing] Riak TS, you can configure a bucket.
 
-##Basic Structure of a Riak TS Bucket
+## Basic Structure of a Riak TS Bucket
 
 Riak TS enables querying large amounts of related data, so keys behave differently than in Riak KV.
 
@@ -28,7 +28,7 @@ To make it easy we have combined the definition of the various keys and the data
 Riak TS buckets have a one-to-one mapping with Riak KV buckets.
 
 
-###Anatomy of a Schema
+### Anatomy of a Schema
 
 Here is an example Riak TS `CREATE TABLE` statement (broken across many lines for clarity):
 
@@ -38,15 +38,14 @@ CREATE TABLE GeoCheckin
    myfamily    varchar   not null,
    myseries    varchar   not null,
    time        timestamp not null,
-   weather     varchar   not null, 
+   weather     varchar   not null,
    temperature float,
    PRIMARY KEY (
      (quantum(time, 15, 'm'), myfamily, myseries),
-     time, 
-     myfamily, 
+     time,
+     myfamily,
      myseries
-
-   )
+  )
 )
 ```
 
@@ -59,7 +58,7 @@ The field names section of the command defines the structure of the data, taking
 name type [not null],
 ```
 
-Valid types are: 
+Valid types are:
 
 * `varchar`
 * `integer`

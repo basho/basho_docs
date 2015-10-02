@@ -10,16 +10,16 @@ audience: beginner
 
 Once you have [designed your bucket][designing] you can create it via `riak-admin`.
 
-##Creating Your Bucket
+## Creating Your Bucket
 Remember the example bucket?
 
-```
+```sql
 CREATE TABLE GeoCheckin
 (
    myfamily    varchar   not null,
    myseries    varchar   not null,
    time        timestamp not null,
-   weather     varchar   not null, 
+   weather     varchar   not null,
    temperature float,
 PRIMARY KEY (
      (quantum(time, 15, 'm'), myfamily, myseries),
@@ -29,15 +29,15 @@ PRIMARY KEY (
 )
 ```
 
-To create the example bucket, run: 
+To create the example bucket, run:
 
-```
+```sh
 riak-admin bucket-type create my_bucket_type '{"props":{"n_val":1, "table_def": "CREATE TABLE.........."}}'
 ```
 
 Then it must be activated like any other bucket type:
 
-```
+```sh
 riak-admin bucket-type activate my_bucket_type
 ```
 
