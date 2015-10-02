@@ -37,7 +37,7 @@ Riak TS allows you to write multiple rows of data at a time. Simply put the data
 riakc_ts:put(Pid, "GeoCheckin", [[“family1”, “series1”, 1234567, “hot”, 23.5], [“family2”, “series99”, 1234567, “windy”, 19.8]]).
 ```
 ```java
-RiakClient client = RiakClient.newClient();
+RiakClient client = RiakClient.newClient(10017, "myriakdb.host");
 List<Row> rows = Arrays.asList(
     new Row(new Cell("family1"), new Cell("series1"), 
             Cell.newTimestamp(1234567), new Cell("hot"), new Cell(23.5)),
