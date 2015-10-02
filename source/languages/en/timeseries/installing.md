@@ -8,7 +8,7 @@ index: true
 audience: beginner
 ---
 
-With Riak TS, you no longer have to build your own time series database on Riak. Riak TS is a distributed NoSQL key/value store optimized for fast reads and writes of time series data.
+With Riak TS, you no longer have to build your own time series database on Riak KV. Riak TS is a distributed NoSQL key/value store optimized for fast reads and writes of time series data. 
 
 ## Installing
 
@@ -22,6 +22,12 @@ You install Riak TS the exact same way you install Riak. Choose your OS and foll
 * [SUSE](http://docs.basho.com/riak/latest/ops/building/installing/suse/)
 * [Windows Azure](http://docs.basho.com/riak/latest/ops/building/installing/azure/)
 
->**NOTE:**
+Once you've installed Riak TS, you must turn off [AAE](http://docs.basho.com/riak/latest/theory/concepts/aae/). To do this, edit riak.conf as follows:
+
+```riak.conf
+strong_consistency = off
+```
+
+>**NOTE:** 
 >
 >Riak TS beta is a stand-alone product, and should be installed on a test kit only. For this beta, we do not support ugrading an existing Riak installation OR using Riak TS in production use.
