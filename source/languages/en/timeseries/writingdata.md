@@ -44,8 +44,20 @@ submission.write!
 riakc_ts:put(Pid, "GeoCheckin", [[“family1”, “series1”, 1234567, “hot”, 23.5], [“family2”, “series99”, 1234567, “windy”, 19.8]]).
 ```
 
-In the absence of information about which columns are provided, writing data
-assumes that columns are in the same order they've been declared in the table.
+```java
+RiakClient client = RiakClient.newClient(10017, "myriakdb.host");
+List<Row> rows = Arrays.asList(
+    new Row(new Cell("family1"), new Cell("series1"), 
+            Cell.newTimestamp(1234567), new Cell("hot"), new Cell(23.5)),
+    
+    new Row(new Cell("family2"), new Cell("series99"),
+            Cell.newTimestamp(1234567), new Cell("windy"), new Cell(19.8)));
+
+Store storeCmd = new Store.Builder("GeoCheckin").withRows(rows).build();
+client.execute(storeCmd);
+```
+
+In the absence of information about which columns are provided, writing data assumes that columns are in the same order they've been declared in the table.
 
 The timestamps should be in UTC microseconds.
 

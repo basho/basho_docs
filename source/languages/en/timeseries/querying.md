@@ -37,6 +37,16 @@ Basic queries return the full range of values between two given times for a seri
 riakc_ts:query(Pid, "select * from GeoCheckin where time > 123456 and time < 987654 and myfamily = ‘family1’ and myseries = ‘series1’").
 ```
 
+```java
+RiakClient client = RiakClient.newClient(10017, "myriakdb.host");
+String queryText = "select * from GeoCheckin " +
+                   "where time > 123456 and time < 987654 and " +
+                   "myfamily = ‘family1’ and myseries = ‘series1’";
+
+Query query = new Query.Builder(queryText).build();
+QueryResult queryResult = client.execute(query);
+```
+
 The SQL query must cover the entire time series key (`time`,  `myfamily`, `myseries`). If any part of the time series key is missing, you will get an error.
 
 ## Specific Querying
@@ -47,10 +57,29 @@ You can also select particular fields from the data. In the below example, **??*
 riakc_ts:query(Pid, "select weather, temperature from GeoCheckin where time > 123456 and time < 987654 and myfamily = ‘family1’ and myseries = ‘series1’").
 ```
 
+```java
+String queryText = "select weather, temperature from GeoCheckin " +
+                   "where time > 123456 and time < 987654 and " +
+                   "myfamily = ‘family1’ and myseries = ‘series1’";
+
+Query query = new Query.Builder(queryText).build();
+QueryResult queryResult = client.execute(query);
+```
+
 Additionally, you can extend the query beyond the key. For example, **??** what's happening in this example?:
 
 ```erlang
 riakc_ts:query(Pid, "select weather, temperature from GeoCheckin where time > 123456 and time < 987654 and myfamily = ‘family1’ and myseries = ‘series1’ and temperature > 27.0").
+```
+
+```java
+String queryText = "select weather, temperature from GeoCheckin " +
+                   "where time > 123456 and time < 987654 and " +
+                   "myfamily = ‘family1’ and myseries = ‘series1’ " +
+                   "temperature > 27.0";
+
+Query query = new Query.Builder(queryText).build();
+QueryResult queryResult = client.execute(query);
 ```
 
 When querying with user-supplied data, it is *essential* that you protect
