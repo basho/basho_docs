@@ -47,6 +47,13 @@ Query query = new Query.Builder(queryText).build();
 QueryResult queryResult = client.execute(query);
 ```
 
+```ruby
+client = Riak::Client.new 'myriakdb.host', pb_port: 10017
+query = Riak::Timeseries::Query.new client, "select * from GeoCheckin where time > 123456 and time < 987654 and myfamily = ‘family1’ and myseries = ‘series1’"
+results = query.issue!
+>>>>>>> a0580a2273f2b212e24c716e5afb823ed7527f3b
+```
+
 The SQL query must cover the entire time series key (`time`,  `myfamily`, `myseries`). If any part of the time series key is missing, you will get an error.
 
 ## Specific Querying
@@ -55,6 +62,9 @@ You can also select particular fields from the data. In the below example, **??*
 
 ```erlang
 riakc_ts:query(Pid, "select weather, temperature from GeoCheckin where time > 123456 and time < 987654 and myfamily = ‘family1’ and myseries = ‘series1’").
+```
+```ruby
+Riak::Timeseries::Query.new(client, "select weather, temperature from GeoCheckin where time > 123456 and time < 987654 and myfamily = ‘family1’ and myseries = ‘series1’").issue!
 ```
 
 ```java
@@ -70,6 +80,9 @@ Additionally, you can extend the query beyond the key. For example, **??** what'
 
 ```erlang
 riakc_ts:query(Pid, "select weather, temperature from GeoCheckin where time > 123456 and time < 987654 and myfamily = ‘family1’ and myseries = ‘series1’ and temperature > 27.0").
+```
+```ruby
+Riak::Timeseries::Query.new(client, "select weather, temperature from GeoCheckin where time > 123456 and time < 987654 and myfamily = ‘family1’ and myseries = ‘series1’ and temperature > 27.0").issue!
 ```
 
 ```java
@@ -95,6 +108,16 @@ riakc_ts:query(Pid,
     {"family", "myfamily"},
     {"series", "myseries"}
   ]).
+```
+```ruby
+query = Riak::Timeseries::Query.new(client, "select weather, temperature from GeoCheckin where time > :start and time < :end and myfamily = :family and myseries = :series and temperature > :temperature")
+query.interpolations = {
+  'start' => 123456,
+  'end' => 987654,
+  'family' => 'myfamily',
+  'series' => 'myseries'
+}
+query.issue!
 ```
 
 A small subset of SQL is supported. All comparisons are of the format: `Field Operator Constant`
