@@ -5,9 +5,9 @@ version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, upgrading]
-next: "[[Installing Erlang]]"
 moved: {
-    '1.4.0-': '/tutorials/installation'
+    '1.4.0-': '/tutorials/installation',
+    '2.1.1-': '/ops/building/installing',
 }
 ---
 
@@ -18,13 +18,15 @@ properly install or upgrade Riak in one of the supported environments.
 Click the link for your operating system or virtualized environment for
 detailed Riak installation instructions.
 
-  * [[Debian and Ubuntu|Installing on Debian and Ubuntu]]
-  * [[RHEL and CentOS|Installing on RHEL and CentOS]]
-  * [[Mac OS X|Installing on Mac OS X]]
+  * [[Amazon Web Services|Installing on Amazon Web Services]]
+  * [[Debian & Ubuntu|Installing on Debian and Ubuntu]]
   * [[FreeBSD|Installing on FreeBSD]]
+  * [[Mac OS X|Installing on Mac OS X]]
+  * [[RHEL & CentOS|Installing on RHEL and CentOS]]
+  * [[SmartOS|Installing on SmartOS]]
+  * [[Solaris|Installing on Solaris]]
   * [[SUSE|Installing on SUSE]]
   * [[Windows Azure|Installing on Windows Azure]]
-  * [[AWS Marketplace|Installing on AWS Marketplace]]
   * [[From Source|Installing Riak from Source]] *(for unlisted-operating systems, requires [[Erlang installation|Installing Erlang]])*
 
 ### Chef Cookbooks

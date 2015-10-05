@@ -5,14 +5,12 @@ version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, suse]
-prev: "[[Installing on AWS Marketplace]]"
-up:   "[[Installing and Upgrading]]"
-next: "[[Post Installation]]"
 download:
   key: source
   name: "any OS in Source Form"
 moved: {
-    '1.4.0-': '/tutorials/installation/Installing-Riak-from-Source'
+    '1.4.0-': '/tutorials/installation/Installing-Riak-from-Source',
+    '2.1.1-': '/ops/building/Installing-Riak-from-Source'
 }
 ---
 
@@ -77,11 +75,16 @@ make rel
 ## Platform-Specific Instructions
 
 For instructions about specific platforms, see:
-
+  
+  * [[Installing on Amazon Web Services]]
   * [[Installing on Debian and Ubuntu]]
+  * [[Installing on FreeBSD]]
   * [[Installing on Mac OS X]]
   * [[Installing on RHEL and CentOS]]
+  * [[Installing on SmartOS]]
+  * [[Installing on Solaris]]
   * [[Installing on SUSE]]
+  * [[Installing on Windows Azure]]
 
 If you are running Riak on a platform not in the list above and need
 some help getting it up and running, join The Riak Mailing List and
@@ -92,11 +95,10 @@ Riak.
 
 Riak is not currently supported on Microsoft Windows.
 
-## Next Steps?
+## Next Steps
 
-From here you might want to check out:
+Now that Riak is installed, check out the following resources:
 
-* [[Post Installation Notes|Post Installation]]: for checking Riak
-  health after installation
-* [[Five Minute Install]]: a guide that will show you how to go from one
-  node to as many as you would like
+- [[Post-Installation Notes|Post Installation]]: For checking Riak
+  health after installation.
+- [[Five Minute Install]]: a guide for setting up a 5 node cluster and exploring Riak’s main features.

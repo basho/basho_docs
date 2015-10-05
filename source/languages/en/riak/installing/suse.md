@@ -5,11 +5,9 @@ version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, suse]
-prev: "[[Installing on Solaris]]"
-up:   "[[Installing and Upgrading]]"
-next: "[[Installing on Windows Azure]]"
 moved: {
-    '1.4.0-': '/tutorials/installation/Installing-on-SUSE'
+    '1.4.0-': '/tutorials/installation/Installing-on-SUSE',
+    '2.1.1-': '/ops/building/installing/Installing-on-SUSE'
 }
 ---
 
@@ -72,11 +70,10 @@ receive updates by running the following command:
 zypper mr -r Riak
 ```
 
-## Next Steps?
+## Next Steps
 
-From here you might want to check out:
+Now that Riak is installed, check out the following resources:
 
-* [[Post-Installation Notes|Post Installation]]: for checking Riak
-  health after installation
-* [[Five-Minute Install]]: a guide that will show you how to go from one
-  node to bigger than Google!
+- [[Post-Installation Notes|Post Installation]]: For checking Riak
+  health after installation.
+- [[Five Minute Install]]: a guide for setting up a 5 node cluster and exploring Riak’s main features.
