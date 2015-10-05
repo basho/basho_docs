@@ -135,7 +135,7 @@ module VersionDirs
             next
           elsif f =~ /^\.\/build\/(?:fonts|js|css)\//
             $versions.each do |proj, version|
-              next unless $only_versions.include?(version)
+              next unless $only_projects.include?(proj.to_s)
               version = version.sub(/(\d+[.]\d+[.]\d+).*/, "\\1")
               move_to = f.sub(/\.\/build\//, "./build/#{proj.to_s}/#{version}/")
               copy(f, move_to)
@@ -170,8 +170,17 @@ module VersionDirs
           FileUtils.rm(f)
         end
 
-        # remove all empty directories
+        # Remove all empty directories, and everything else we don't explicitly
+        # want to keep (the $only_projects list, and additional.
         cleanup("./build")
+
+        items_to_keep = $only_projects + ["css", "js", "shared", "favicon.ico", "index.html"]
+        (Dir.entries("./build") - [".", ".."]).each do |entry|
+          next if items_to_keep.include?(entry)
+          f = File.join("./build", entry)
+          puts "deleting #{f} -- not part of items_to_keep..."
+          FileUtils.rm_rf(f)
+        end
       end
     end
     alias :included :registered

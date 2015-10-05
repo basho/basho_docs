@@ -11,6 +11,7 @@ keywords: [product-advisories]
 This page contains product advisories that are periodically issued for
 Riak and Riak CS.
 
+* [[Incompatibility between Dotted Version Vectors and Last Write Wins]]
 * [[Default Configuration For Handoff May Cause Data Loss]]
 * [[SSL 3.0 Vulnerability and POODLE Attack]]
 * [[Map Data Type Disk Incompatibility]]

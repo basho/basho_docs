@@ -209,7 +209,7 @@ erlang.distribution.port_range.maximum = 5000
 {kernel, [
           % ...
           {inet_dist_listen_min, 3000},
-          {inet_dist_listen_min, 5000}
+          {inet_dist_listen_max, 5000}
           % ...
          ]}
 ```
