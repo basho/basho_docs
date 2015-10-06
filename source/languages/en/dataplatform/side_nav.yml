@@ -1,0 +1,34 @@
+dataplatform:
+  # - title: "Shortcuts"
+  #   class: "active shortcuts"
+  #   sub:
+  #     - "[[APIs|/dev/references/http/]]"
+  #     - "[[FAQs|Riak FAQs]]"
+  - title: "Start Here"
+    class: "start"
+    sub:
+      - "[[Basho Data Platform|Data Platform]]"
+      - "[[Installing|Installing Basho Data Platform]]"
+      - "[[Upgrading from Basho Data Platform Beta to 1.0.0]]"
+      - "[[Release Notes 1.0.0|Basho Data Platform 1.0.0 Release Notes]]"
+  - title: "Using Basho Data Platform"
+    sub:
+      - "[[Overview|Using Basho Data Platform Overview]]"
+      - title: "Configuring"
+        sub: 
+          - "[[Set Up a Basho Data Platform Cluster]]"
+          - "[[Replace Your Spark Cluster Manager with the Basho Data Platform Cluster Manager]]"
+          - "[[Getting Started with Cache Proxy]]"
+      - title: "Advanced"
+        sub:
+          - "[[Set Spark IP Address]]"
+      - "[[Using your Basho Data Platform Cluster]]"
+      - "[[Using Spark Riak Connector]]"
+      - "[[Data Platform Commands]]"
+  - title: "Learn About Basho Data Platform"
+    sub:
+      - "[[Overview|Learn About Basho Data Platform Overview]]"
+      - "[[Learn About Service Manager|Service Manager Features]]"
+      - "[[Learn About Cache Proxy|Cache Proxy Features]]"
+      - "[[Learn About Leader Election Service|Leader Election Service]]"
+      - "[[Learn About Spark Cluster Manager Features|Spark Cluster Manager Features]]"      

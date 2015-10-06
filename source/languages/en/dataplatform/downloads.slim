@@ -1,0 +1,60 @@
+---
+title: Downloads Basho Data Platform
+project: dataplatform
+version: 1.0.0+
+document: reference
+audience: beginner
+keywords: [downloads, operator, user]
+simple: true
+body_id: downloads
+---
+
+// This page assumes that the data-platform and the data-platform-extras
+// packaged are kept in parity; for _every_ data-platform package, there is a
+// sister data-platform-extras in the _exact_ child directory path. e.g.
+//     downloads.basho.com/data-platform/1.0/1.0.0/debian/7/data-platform-extras_1.0.0-1_amd64.deb
+//  implies
+//     downloads.basho.com/data-platform-extras/1.0/1.0.0/debian/7/data-platform-extras_1.0.0-1_amd64.deb
+
+- version = current_version(:dataplatform)
+- bdp_downloads = Downloads.new('data-platform', version)
+- bdp_e_downloads = Downloads.new('data-platform-extras', version)
+
+h1 Download Basho Data Platform #{version}
+
+p You should be able to find your operating system in the choices below.
+
+- for os, os_data in bdp_downloads
+  - next unless bdp_downloads.files?(os_data)
+  h3 id=os
+    img src="/images/layout/#{os_data['icon']}"
+    | &nbsp;
+    == os_data['name']
+  table
+    - for osv, osv_data in os_data["versions"]
+      - for arch, arch_data in osv_data["arch"]
+        - if arch_data['file']
+          tr
+            td.arch==arch_data['name']
+            td.link
+              a href=bdp_downloads.file_url(os, osv, arch_data['file'], arch_data['static_file'])
+                ==arch_data['file']
+            td.size
+              ==bdp_downloads.file_size(arch_data['file_size'])
+              | &nbsp;&nbsp;
+              - if arch_data['csum'].present?
+                a href="#{bdp_downloads.file_url(os, osv, arch_data['csum'], arch_data['static_csum'])}" hash
+          // This manually recreates the above `for y, z in x` chain to get us
+          // a workable `arch_data_extras` object.
+          - arch_data_extras = bdp_e_downloads[os]["versions"][osv]["arch"][arch]
+          - if arch_data_extras ['file']
+            tr
+              td.arch=="&emsp;&emsp;Extras"
+              td.link
+                a href=bdp_e_downloads.file_url(os, osv, arch_data_extras['file'], arch_data_extras['static_file'])
+                  ==arch_data_extras['file']
+              td.size
+                ==bdp_e_downloads.file_size(arch_data_extras['file_size'])
+                | &nbsp;&nbsp;
+                - if arch_data_extras['csum'].present?
+                  a href="#{bdp_e_downloads.file_url(os, osv, arch_data_extras['csum'], arch_data_extras['static_csum'])}" hash
