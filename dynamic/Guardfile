@@ -1,3 +1,6 @@
+# Notes from the base Guardfile
+################################################################################
+
 # Uncomment and set this to only include directories you want to watch
 directories %w(dynamic) \
  .select{|d| Dir.exists?(d) ? d : UI.warning("Directory #{d} does not exist")}
@@ -12,8 +15,10 @@ directories %w(dynamic) \
 #
 # and, you'll have to watch "config/Guardfile" instead of "Guardfile"
 
-# So it's been recorded, it looks like there might be an issue with guard and
-# OS X;
+################################################################################
+
+#NOTE: So it's been recorded, it looks like there might be an issue with guard
+# and OS X;
 # "If you are on Mac OS X and have problems with either Guard not reacting to
 #  file changes or Pry behaving strangely, then you probably suffer under a Ruby
 #  build that uses libedit instead of readline."
@@ -24,6 +29,9 @@ directories %w(dynamic) \
 
 group :js do
   guard 'rake', :task => 'build:js' do
+    #FIXME<drew.pirrone.brusse@gmail>: Some of the files is data/ (notably
+    # versions.yml) are used as part of the JS compilation process, so we'll
+    # need to modify this to watch those (that?) file as well.
     watch(%r{^dynamic/js/.*$})
   end
 end
