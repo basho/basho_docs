@@ -323,9 +323,9 @@ names are the same:
 
 ```java
 Location key1 =
-  new Location(new Namepace("type1", "my_bucket"), "my_key");
+  new Location(new Namespace("type1", "my_bucket"), "my_key");
 Location key2 =
-  new Location(new Namepace("type2", "my_bucket"), "my_key");
+  new Location(new Namespace("type2", "my_bucket"), "my_key");
 FetchValue fetch1 = new FetchValue.Builder(key1).build();
 FetchValue fetch2 = new FetchValue.Builder(key2).build();
 client.execute(fetch1);
@@ -587,7 +587,7 @@ allow_mult: true
 This is important to bear in mind when using versions of Riak 2.0 and
 later any time that you create, activate, and use your own bucket types.
 It is still possible to set `allow_mult` to `false` in any given bucket
-type, but it must be done explicitly. If we wanted to to set
+type, but it must be done explicitly. If we wanted to set
 `allow_mult` to `false` in our `n_val_of_2` bucket type from above, we
 would need to create or modify the already existing type as follows:
 
@@ -819,7 +819,7 @@ This query would both create the bucket `old_memes` and ensure that the
 configuration contained in the `no_siblings` bucket type is applied to
 the bucket all at once.
 
-If we wished, we could also store store both old and new memes in
+If we wished, we could also store both old and new memes in
 buckets with different types. We could use the `no_siblings` bucket from
 above if we didn't want to deal with siblings, vclocks, and the like,
 and we could use a `siblings_allowed` bucket type (with all of the

@@ -92,7 +92,7 @@ connect <sink_ip>:<port>`:
 riak-repl connect 10.60.77.10:9080
 ```
 
-> The port can be found in the `riak_core` section of the `app.config`
+> The port can be found in the `riak_core` section of the `advanced.config`
 > under `cluster_mgr`.
 
 #### View your active connections

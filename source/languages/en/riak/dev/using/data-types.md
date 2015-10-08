@@ -260,7 +260,8 @@ Location trafficTickets = new Location(countersBucket, "traffic_tickets");
 ```
 
 ```ruby
-counter = Riak::Crdt::Counter.new(bucket, 'traffic_tickets', 'counters')
+bucket = client.bucket_type('counters').bucket('counters')
+counter = Riak::Crdt::Counter.new(bucket, 'traffic_tickets')
 
 # Alternatively, the Ruby client enables you to set a bucket type as
 # being globally associated with a Riak Data Type. The following would
@@ -268,8 +269,8 @@ counter = Riak::Crdt::Counter.new(bucket, 'traffic_tickets', 'counters')
 
 Riak::Crdt::DEFAULT_BUCKET_TYPES[:counter] = 'counters'
 
-# This would enable us to create our counter either without specifying a
-# bucket type or if the bucket type is part of the bucket definition:
+# This would enable us to create our counter without specifying a bucket type
+bucket = client.bucket('counters')
 counter = Riak::Crdt::Counter.new(bucket, 'traffic_tickets')
 ```
 
@@ -691,7 +692,8 @@ Location set =
 # called Set. Make sure that you refer to the Ruby version as ::Set and
 # the Riak client version as Riak::Crdt::Set
 
-set = Riak::Crdt::Set.new(bucket, key, bucket_type)
+bucket = client.bucket_type('bucket_type_name').bucket('bucket_name')
+set = Riak::Crdt::Set.new(bucket, key)
 ```
 
 ```php
@@ -774,8 +776,8 @@ Location citiesSet =
 ```
 
 ```ruby
-travel = client.bucket('travel')
-cities_set = Riak::Crdt::Set.new(travel, 'cities', 'sets')
+travel = client.bucket_type('sets').bucket('travel')
+cities_set = Riak::Crdt::Set.new(travel, 'cities')
 
 # Alternatively, the Ruby client enables you to set a bucket type as
 # being globally associated with a Riak Data Type. The following would
@@ -785,7 +787,7 @@ Riak::Crdt::DEFAULT_BUCKET_TYPES[:set] = 'sets'
 
 # This would enable us to create our set without specifying a bucket
 # type:
-
+travel = client.bucket('travel')
 cities_set = Riak::Crdt::Set.new(travel, 'cities')
 ```
 
@@ -1372,6 +1374,7 @@ Location map =
 ```
 
 ```ruby
+bucket = client.bucket_type('bucket_type_name').bucket('bucket_name')
 map = Riak::Crdt::Map.new(bucket, key)
 ```
 
@@ -1423,8 +1426,7 @@ curl http://localhost:8098/types/<bucket_type>/buckets/<bucket>/datatypes/<key>
 Let's say that we want to use Riak to store information about our
 company's customers. We'll use the bucket `customers` to do so. Each
 customer's data will be contained in its own key in the `customers`
-bucket. Let's create a map for the user Ahmed (`ahmed_info`) in our
-bucket and simply call it `map` for simplicity's sake (we'll use the
+bucket. Let's create a map for the user Ahmed (`ahmed_info`) (we'll use the
 `maps` bucket type from above):
 
 ```java
@@ -1436,8 +1438,8 @@ Location ahmedMap =
 ```
 
 ```ruby
-customers = client.bucket('customers')
-map = Riak::Crdt::Map.new(customers, 'ahmed_info', 'maps')
+customers = client.bucket_type('maps').bucket('customers')
+map = Riak::Crdt::Map.new(customers, 'ahmed_info')
 
 # Alternatively, the Ruby client enables you to set a bucket type as being
 # globally associated with a Riak Data Type. The following would set all
@@ -1447,6 +1449,7 @@ Riak::Crdt::DEFAULT_BUCKET_TYPES[:map] = 'maps'
 
 # This would enable us to create our map without specifying a bucket type:
 
+customers = client.bucket('customers')
 map = Riak::Crdt::Map.new(customers, 'ahmed_info')
 ```
 

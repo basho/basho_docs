@@ -7,20 +7,19 @@ audience: intermediate
 keywords: [developers, upgrading]
 ---
 
-If you are upgrading to Riak 2.0 from an earlier version, we strongly
-recommend reading through each of the sections of this guide for
-information on which concrete steps need to be undertaken to
-successfully upgrade and which default Riak behaviors have changed.
+When upgrading to Riak 2.0 from an earlier version, we strongly
+recommend reading each section of the following guide. This guide
+explains which default Riak behaviors have changed and specific steps 
+to take for a sucessful upgrade.
 
-If you are looking for an overview of the new features and
-functionality included in version 2.0, we recommend checking out our
-guide to [[Riak 2.0]].
+For an overview of the new features and functionality
+included in version 2.0, check out our guide to [[Riak 2.0]].
 
 ## New Clients
 
 To take advantage of the new features available in Riak 2.0, we
 recommend upgrading your application to an official Basho client that
-was built with those features in mind. There exist official
+was built with those features in mind. There are official
 2.0-compatible clients in the following languages:
 
 * [Java](https://github.com/basho/riak-java-client)
@@ -42,21 +41,26 @@ while all bucket-level configurations were managed by setting [[bucket
 properties|The Basics#bucket-properties-and-operations]].
 
 In Riak 2.0, [[bucket types|Using Bucket Types]] are both an additional
-namespace for locating objects _and_ a new means of configuring bucket
-properties in a more systematic fashion. More comprehensive details on
+namespace for locating objects _and_ a new way of configuring bucket
+properties in a systematic fashion. More comprehensive details on
 usage can be found in the documentation on [[using bucket types]].
 Here, we'll list some of the things to be aware of when upgrading.
 
 #### Bucket types and object location
 
 With the introduction of bucket types, the location of all Riak objects
-is determined by bucket type, bucket, and key, meaning that there
-are three namespaces involved in object location instead of two. A full
-tutorial can be found in [[Using Bucket Types]].
+is determined by:
 
-If your application was written in conjunction with a version of Riak
-prior to 2.0, you should make sure that any endpoint in Riak targeted
-in terms of a bucket/key pairing be changed to accommodate a bucket
+* bucket type
+* bucket
+* key
+
+This means there are 3 namespaces involved in object location instead of 2.
+A full tutorial can be found in [[Using Bucket Types]].
+
+If your application was written using a version of Riak
+prior to 2.0, you should make sure that any endpoint in Riak targeting
+a bucket/key pairing is changed to accommodate a bucket
 type/bucket/key location.
 
 If you're using a pre-2.0-specific client and targeting a location
@@ -80,8 +84,8 @@ three options:
 
 #### Features that rely on bucket types
 
-One of the reasons that we recommend using bucket types for Riak 2.0
-and later is because a variety of newer Riak features were built with
+One reason we recommend using bucket types for Riak 2.0
+and later is because many newer Riak features were built with
 bucket types as a precondition:
 
 * [[Strong consistency]] --- Using Riak's strong consistency subsystem
@@ -94,24 +98,28 @@ bucket types as a precondition:
 
 #### Bucket types and downgrades
 
-If you do decide to use bucket types, please bear in mind that you
+If you decide to use bucket types, please remember that you
 cannot [[downgrade|Rolling Downgrades]] your cluster to a version of
 Riak prior to 2.0 if you have both created and activated a
 bucket type.
 
 ## New allow_mult Behavior
 
-One of the biggest changes in version 2.0 from the standpoint of
-application development involves Riak's default behavior regarding
-[[siblings|Causal Context#Siblings]]. In versions prior to 2.0, the
-`allow_mult` setting was set to `false` by default for all buckets,
-which means that Riak's default behavior was to resolve
+One of the biggest changes in version 2.0 regarding
+application development involves Riak's default
+[[siblings|Causal Context#Siblings]] behavior.
+
+In versions prior to 2.0, the
+`allow_mult` setting was set to `false` by default for all buckets.
+So Riak's default behavior was to resolve
 object replica [[conflicts|Conflict Resolution]] between nodes on its
-own, thus relieving connecting clients of the need to resolve those
+own; relieving connecting clients of the need to resolve those
 conflicts.
 
 **In 2.0, `allow_mult` is set to `true` for any bucket type that you
-create and activate.** This means that the default when [[using bucket
+create and activate.** 
+
+This means that the default when [[using bucket
 types]] is to handle [[conflict resolution]] on the client side using
 either traditional [[vector clocks|Causal Context#Vector-Clocks]] or the
 newer [[dotted version vectors|Causal Context#Dotted-Version-Vector]].
@@ -119,8 +127,8 @@ newer [[dotted version vectors|Causal Context#Dotted-Version-Vector]].
 If you wish to set `allow_mult` to `false` in version 2.0, you have two
 options:
 
-* Set your bucket type's `allow_mult` property to `false`
-* Don't use bucket types
+* Set your bucket type's `allow_mult` property to `false`.
+* Don't use bucket types.
 
 More information on handling siblings can be found in our documentation
 on [[conflict resolution]].
@@ -130,7 +138,7 @@ on [[conflict resolution]].
 The [[authentication and authorization|Authentication and
 Authorization]] mechanisms included with Riak 2.0 should only be turned
 on after careful testing in a non-production environment. Security
-changes the way in which all applications interact with Riak.
+changes the way all applications interact with Riak.
 
 ## When Downgrading is No Longer an Option
 
@@ -155,7 +163,7 @@ features after the downgrade.
 ## Upgrading Your Configuration System
 
 Riak 2.0 offers a new configuration system that both simplifies
-configuration syntax and utilizes one configuration file, `riak.conf`,
+configuration syntax and uses one configuration file, `riak.conf`,
 instead of the two files, `app.config` and `vm.args`, required by the
 older system. Full documentation of the new system can be found in
 [[Configuration Files]].

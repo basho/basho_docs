@@ -11,14 +11,14 @@ moved: {
 }
 ---
 
-This guide introduces some recommended best practices for performance
-tuning of Riak clusters in the Amazon Web Services (AWS) Elastic Compute
-Cloud (EC2) environment.
+This guide introduces best practices for tuning Riak cluster performance
+in the Amazon Web Services (AWS) Elastic Compute Cloud (EC2) environment.
 
 <div class="info">
-<div class="title">Tip</div>
-Be sure to check out [[System Performance Tuning]] for more general
-performance and tuning recommendations for Riak clusters.
+<div class="title">Note</div>
+The following guide is supplementary. Be sure to check out 
+[[System Performance Tuning]] for general performance and 
+tuning recommendations before continuing with this guide.
 </div>
 
 ## EC2 Instances
@@ -32,9 +32,9 @@ in the AWS EC2 environment.
 
 The most commonly used [instance
 types](http://aws.amazon.com/ec2/instance-types/) for Riak cluster nodes
-are `m1.large` and `m1.xlarge`. In cases where 10-gigabit Ethernet
-networking is desired, the Cluster Compute class of EC2 instances, such
-as `cc1.4xlarge` or `cc2.8xlarge` can be used.
+are `large` and `xlarge` `m` class (General Purpose), such as `m4.xlarge`. 
+In cases where 10-gigabit Ethernet networking is desired, the Cluster Compute
+class of EC2 instances, such as `cc2.8xlarge` can be used.
 
 Amazon also offers a High I/O Quadruple Extra Large instance
 (`hi1.4xlarge`) that is backed by solid state drives (SSD) and features

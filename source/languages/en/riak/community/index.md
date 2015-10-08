@@ -74,7 +74,7 @@ We're re-energizing meetups throughout the world. The most active are:
 * [Paris](http://www.meetup.com/Paris-Riak-Meetup/)
 * [London](http://www.meetup.com/riak-london/)
 
-The list of all related meetups are visible [here](http://riak.meetup.com). If you're looking for assistance getting a meetup or user group started
+The list of all related meetups are visible [here](http://www.meetup.com/pro/basho). If you're looking for assistance getting a meetup or user group started
 in your area, or want to tell the community about one that you're
 starting, email *community@basho.com*.
 

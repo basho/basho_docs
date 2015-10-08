@@ -71,14 +71,14 @@ also want to partition each collection object into some time period,
 that way the object doesn't grow too large (see note below).
 
 For `Timelines`, let's use the pattern `<username>_<type>_<date>` for
-users, and `<groupname>_Inbox_<date>` for groups, which will look like
-`joeuser_Sent_2014-03-06` or `marketing_group_Inbox_2014-03-05`,
+users, and `<groupname>_<type>_<date>` for groups, which will look like
+`joeuser_Sent_2014-03-06` or `marketing_group_Inbox_2014-03-06`,
 respectively.
 
 <div class="note">
 <div class="title">Note</div>
 Riak performs best with objects under 1-2MB. Objects larger than that
-can hurt performance, especially many siblings are being created. We
+can hurt performance, especially if many siblings are being created. We
 will cover siblings, sibling resolution, and sibling explosions in the
 next chapter.
 </div>

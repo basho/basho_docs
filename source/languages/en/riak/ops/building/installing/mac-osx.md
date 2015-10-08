@@ -61,7 +61,7 @@ it if it's not).
 Installing Riak 2.0 with [Homebrew](http://brew.sh/) is easy:
 
 ```bash
-brew install --devel riak
+brew install --devrel riak
 ```
 
 By default, this will place a `{{VERSION}}` folder in

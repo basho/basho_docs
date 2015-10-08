@@ -18,9 +18,9 @@ variety of configurable parameters.
 ## File
 
 The configuration for replication is kept in the `riak_repl` section of
-each node's `app.config`. That section looks like this:
+each node's `advanced.config`. That section looks like this:
 
-```appconfig
+```advancedconfig
 {riak_repl, [
              {fullsync_on_connect, true},
              {fullsync_interval, 360},
@@ -44,7 +44,7 @@ syntax, i.e. `{Setting, Value}`. For example, if you wished to set
 `riak_repl` section (appending a comma if you have more settings to
 follow):
 
-```erlang
+```advancedconfig
 {riak_repl, [
              % Other configs
              {ssl_enabled, true},
