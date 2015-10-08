@@ -8,8 +8,8 @@ audience: intermediate
 keywords: [operator, troubleshooting]
 ---
 
-[amazon]: [http://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html]
-[s3 api]: [http://docs.basho.com/riakcs/latest/references/apis/storage/s3/]
+[amazon]: http://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html
+[s3 api]: http://docs.basho.com/riakcs/latest/references/apis/storage/s3/
 
 Riak S2 (CS) includes metrics and operational statistics to help you monitor your system in more detail and diagnose system issues more easily. There are three major categories of metrics:
 
@@ -55,53 +55,115 @@ documentation][amazon].
 >
 >Unsigned requests will yield a <code>403 Forbidden</code> error.
 
-###`riak-cs-admin status`
+##`riak-cs-admin status`
 
-Running `riak-cs-admin status` will show the names and values of all available metrics. There are too many metrics to list all of them here, however each category has an associated prefix.
+Running `riak-cs-admin status` will show the names and values of all available metrics. 
 
-- S3 API statistics start with one of the following prefixes: `service`, `bucket`,
-  `list`, `multiple_delete`, `object` and `multipart` (all of which are names for S3 APIs). Each prefix is typically followed by a term like
-  `put`, `get` or `delete`. See [S3 API documentation][s3 api] for information on all available APIs.
-- Stanchion access statistics start with the prefix `velvet`. These statistics cover latency and counts accusing Stanchion process for
-  creating/updating/deleting buckets or creating users. They are
-  useful to know major latency of slow requests are in Stanchion or
-  not. Protocol between Riak CS and Stanchion is undocumented, but
-  hope all names are mostly self-describing.
-- riakc Client stuff talking to riak from S2- items starting with prefix `riakc` stand for latency and
-  call counts to Riak PB API. `riakc` usually followed by operations
-  like `put` or `get` and their targets like `manifests` or
-  `blocks`. They are also useful to know where major latency comes
-  from, like getting user record, bucket record, or updating manifests
-  and so on. Correspondence between S3 API is also undocumented, but
-  following section tries to describe it. 
+There are too many metrics (over 1000) to list all of them here. The following sections provide an overview of each major statistic category, associated prefixes, and major operations for that category.
+
+###S3 API statistics
+
+S3 API statistics start with one of the following prefixes (all of which are names for S3 APIs):
+
+- `service`
+- `bucket`
+- `list`
+- `multiple_delete`
+- `object`
+- `multipart`
+
+Each prefix is typically followed by operations such as:
+
+- `put`
+- `get`
+- `delete`
+
+Operation | Description
+:---------|:-----------
+`service_get` | GET Service
+`bucket_(put|head|delete)` | PUT, HEAD, DELETE Bucket
+`bucket_acl_(get|put)` | PUT, GET Bucket ACL
+`bucket_policy_(get|put|delete)` | PUT, GET, DELETE Bucket Policy
+`bucket_location_get` | GET Bucket Location
+`list_uploads` | listing all multipart uploads
+`multiple_delete` | Delete Multiple Objects
+`list_objects` | listing all objects in a bucket, equally GET Bucket
+`object_(get|put|delete)` | GET, PUT, DELETE, HEAD Objects
+`object_put_copy` | PUT Copy Object
+`object_acl` | GET, PUT Object ACL
+`multipart_post` | Initiate a multipart upload
+`multipart_upload_put` | PUT Multipart Upload, putting a part of an object by copying from existing object
+`multipart_upload_post` | complete a multipart upload
+`multipart_upload_delete` | delete a part of a multipart upload
+`multipart_upload_get` | get a list of parts in a multipart upload
+
+See the [S3 API documentation][s3 api] for information on all available APIs.
+
+###Stanchion access statistics
+
+Stanchion access statistics start with the prefix `velvet`.
+
+These statistics cover latency and counts for the Stanchion process creating/updating/deleting buckets or creating users. Stanchion access statistics can help determine if latency or slow requests are in Stanchion.
+
+Operation | Description
+:---------|:-----------
+`velvet_create_user` | requesting creating a user to Stanchion
+`velvet_update_user` | requesting updating a user to Stanchion
+`velvet_create_bucket` | requesting creating a bucket to Stanchion
+`velvet_delete_bucket` | requesting deleting a bucket to Stanchion
+`velvet_set_bucket_acl` | requesting updating a bucket ACL to Stanchion
+`velvet_set_bucket_policy` | requesting putting a new bucket policy to Stanchion
+`velvet_delete_bucket_policy` | requesting deleting a policy of the bucket to Stanchion
+
+###Riak access statistics
+
+Riak access statistics start with the prefix `riakc`.
+
+These statistics cover latency and call counts to Riak PB API. Riak access statistics are useful in determining the source of latency. For example getting a user record, bucket record, or updating manifests.
+
+The `riakc` prefix is typically followed by operations like: 
+
+- `put`
+- `get`
+
+And their targets, such as manifests or blocks.
+
+Operation | Description
+:---------|:-----------
+`riakc_ping` | ping PB API. invoked by /riak-cs/ping
+`riakc_get_cs_bucket` | getting a bucket record
+`riakc_get_cs_user_strong` | getting a user record with PR=all
+`riakc_get_cs_user` | getting a user record with R=quorum and PR=one
+`riakc_put_cs_user` | putting a user record after create/deleting a bucket
+`riakc_get_manifest` | getting a manifest
+`riakc_put_manifest` | putting a manifest
+`riakc_delete_manifest` | deleting a manifest (invoked via GC)
+`riakc_get_block_n_one` | getting a block with N=1 without sloppy quorum
+`riakc_get_block_n_all` | getting a block with N=3 after N=1 get failed
+`riakc_get_block_remote` | getting a block after N=3 get resulted in not found
+`riakc_get_block_legacy` | getting a block when N=1 get is turned off
+`riakc_put_block` | putting a block
+`riakc_put_block_resolved` | putting a block when block siblings resolution is invoked
+`riakc_head_block` | heading a block, invoked via GC
+`riakc_delete_block_constrained` | first trial to delete block with PW=all
+`riakc_delete_block_secondary` | second trial to delete block with PW=quorum, after PW=all failed
+`riakc_(get|put)_gc_manifest_set` | invoked when a manifest is being moved to GC bucket
+`riakc_(get|delete)_gc_manifest_set` | invoked when manifests are being collected
+`riakc_(get|put)_access` | getting access stats, putting access stats
+`riakc_(get|put)_storage` | getting storage stats, putting storage stats
+`riakc_fold_manifest_objs` | invoked inside GET Bucket (listing objects within a bucket)
+`riakc_mapred_storage` | stats on each MapReduce job performance
+`riakc_list_all_user_keys` | all users are listed out when starting storage calculation
+`riakc_list_all_manifest_keys` | only used when deleting a bucket to verify it's empty
+`riakc_list_users_receive_chunk` | listing users invoked via /riak-cs/users API.
+`riakc_get_uploads_by_index` |
+`riakc_get_user_by_index` |
+`riakc_get_gc_keys_by_index` |
+`riakc_get_cs_buckets_by_index` |
+`riakc_get_clusterid` | invoked when for the first time when a proxy_get is performed
 
 
-riakc_get_block_remote - getting a block after N=3 get resulted in not found
-riakc_get_block_legacy - getting a block when N=1 get is turned off
-riakc_put_block - putting a block
-riakc_put_block_resolved - putting a block when block siblings resolution is invoked
-riakc_head_block - heading a block, invoked via GC
-riakc_delete_block_constrained - first trial to delete block with PW=all
-riakc_delete_block_secondary - second trial to delete block with PW=quorum, after PW=all failed
-riakc_(get|put)_gc_manifest_set - invoked when a manifest is being moved to GC bucket
-riakc_(get|delete)_gc_manifest_set - invoked when manifests are being collected
-riakc_(get|put)_access - getting access stats, putting access stats
-riakc_(get|put)_storage - getting storage stats, putting storage stats
-riakc_fold_manifest_objs - invoked inside GET Bucket (listing objects within a bucket)
-riakc_mapred_storage - stats on each MapReduce job performance
-riakc_list_all_user_keys - all users are listed out when starting storage calculation
-riakc_list_all_manifest_keys - only used when deleting a bucket to verify it's empty
-riakc_list_users_receive_chunk - listing users invoked via /riak-cs/users API.
-riakc_get_uploads_by_index
-riakc_get_user_by_index
-riakc_get_gc_keys_by_index
-riakc_get_cs_buckets_by_index
-riakc_get_clusterid - invoked when for the first time when a proxy_get is performed
-
-
-
-
-###`/riak-cs/stats`
+##`/riak-cs/stats`
 
 That will return a JSON object containing a series of latency histograms
 and counters for a variety of operations, e.g. `object_get` and
