@@ -8,33 +8,100 @@ audience: intermediate
 keywords: [operator, troubleshooting]
 ---
 
-Riak CS provides operational statistics that can be useful for
+[amazon]: [http://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html]
+[s3 api]: [http://docs.basho.com/riakcs/latest/references/apis/storage/s3/]
+
+Riak S2 (CS) includes metrics and operational statistics to help you monitor your system in more detail and diagnose system issues more easily. There are three major categories of metrics:
+
+1. Frontend API performance
+2. Backend Riak performance (Stanchion)
+3. S2 internal performance
+ 
+Metrics are also available for Stanchion, in addition to the Stanchion-specific `stanchion-admin` command and `/stats` HTTP endpoint. 
+
+provides operational statistics that can be useful for
 monitoring through the Folsom statistics library, and initial probes for
 analysis of the running system with
 [DTrace](http://dtrace.org/blogs/about/).
 
-## Operational Statistics
+>**Note: Older Versions of Riak S2**
+>
+>All statistics available in versions of Riak S2 below 2.0.x have either been renamed or removed entirely.
 
-Much like Riak, Riak CS exposes statistics on critical operations that
+
+##Using Metrics
+
+Riak S2 exposes statistics on critical operations that
 are commonly used for monitoring, alerting, and trend analysis. These
-statistics can be accessed through HTTP requests to the following
-resource:
+statistics can be accessed through the command line:
+
+```bash
+riak-cs-admin status
+```
+
+or through HTTP requests to the following resource:
 
 ```http
 /riak-cs/stats
 ```
 
-<div class="note">
-<div class="title">Note on signed requests</div>
-In order to access statistics from the <code>/stats</code> endpoint, you
+>**Note**
+>
+>In order to access statistics from the <code>/stats</code> endpoint, you
 must issue signed requests containing the admin user's access key and
-secret key. The interface used by Riak CS is directly analogous to that
-of Amazon S3. For more information on signed requests, see <a
-href="http://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html">Amazon's
-documentation</a>.
+secret key. The interface used by Riak S2 is directly analogous to that
+of Amazon S3. For more information on signed requests, see [Amazon's
+documentation][amazon].
+>
+>Unsigned requests will yield a <code>403 Forbidden</code> error.
 
-Unsigned requests will yield a <code>403 Forbidden</code> error.
-</div>
+###`riak-cs-admin status`
+
+Running `riak-cs-admin status` will show the names and values of all available metrics. There are too many metrics to list all of them here, however each category has an associated prefix.
+
+- S3 API statistics start with one of the following prefixes: `service`, `bucket`,
+  `list`, `multiple_delete`, `object` and `multipart` (all of which are names for S3 APIs). Each prefix is typically followed by a term like
+  `put`, `get` or `delete`. See [S3 API documentation][s3 api] for information on all available APIs.
+- Stanchion access statistics start with the prefix `velvet`. These statistics cover latency and counts accusing Stanchion process for
+  creating/updating/deleting buckets or creating users. They are
+  useful to know major latency of slow requests are in Stanchion or
+  not. Protocol between Riak CS and Stanchion is undocumented, but
+  hope all names are mostly self-describing.
+- riakc Client stuff talking to riak from S2- items starting with prefix `riakc` stand for latency and
+  call counts to Riak PB API. `riakc` usually followed by operations
+  like `put` or `get` and their targets like `manifests` or
+  `blocks`. They are also useful to know where major latency comes
+  from, like getting user record, bucket record, or updating manifests
+  and so on. Correspondence between S3 API is also undocumented, but
+  following section tries to describe it. 
+
+
+riakc_get_block_remote - getting a block after N=3 get resulted in not found
+riakc_get_block_legacy - getting a block when N=1 get is turned off
+riakc_put_block - putting a block
+riakc_put_block_resolved - putting a block when block siblings resolution is invoked
+riakc_head_block - heading a block, invoked via GC
+riakc_delete_block_constrained - first trial to delete block with PW=all
+riakc_delete_block_secondary - second trial to delete block with PW=quorum, after PW=all failed
+riakc_(get|put)_gc_manifest_set - invoked when a manifest is being moved to GC bucket
+riakc_(get|delete)_gc_manifest_set - invoked when manifests are being collected
+riakc_(get|put)_access - getting access stats, putting access stats
+riakc_(get|put)_storage - getting storage stats, putting storage stats
+riakc_fold_manifest_objs - invoked inside GET Bucket (listing objects within a bucket)
+riakc_mapred_storage - stats on each MapReduce job performance
+riakc_list_all_user_keys - all users are listed out when starting storage calculation
+riakc_list_all_manifest_keys - only used when deleting a bucket to verify it's empty
+riakc_list_users_receive_chunk - listing users invoked via /riak-cs/users API.
+riakc_get_uploads_by_index
+riakc_get_user_by_index
+riakc_get_gc_keys_by_index
+riakc_get_cs_buckets_by_index
+riakc_get_clusterid - invoked when for the first time when a proxy_get is performed
+
+
+
+
+###`/riak-cs/stats`
 
 That will return a JSON object containing a series of latency histograms
 and counters for a variety of operations, e.g. `object_get` and
@@ -65,6 +132,8 @@ Operation | Description
 `object_delete` | Total OBJECT DELETE operations performed
 `object_get_acl` | Total OBJECT GET ACL operations performed
 `object_put_acl` | Total OBJECT PUT ACL operations performed
+
+## Stanchion
 
 ## DTrace Probes
 
