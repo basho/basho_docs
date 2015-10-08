@@ -7,4 +7,4 @@ timeseries:
   - title: "Start Here"
     class: "start"
     sub:
-     
+      - "[[Test Page|Installing Riak TS]]"
