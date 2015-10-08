@@ -15,31 +15,16 @@ riak:
 
   - title: "Installing"
     sub:
-      - "[[Overview|Installing and Upgrading]]"
       - "[[Download Riak|Downloads]]"
-      - "[[Amazon Web Services|Installing on Amazon Web Services]]"
-      - "[[Debian & Ubuntu|Installing on Debian and Ubuntu]]"
-      - "[[FreeBSD|Installing on FreeBSD]]"
-      - "[[Mac OS X|Installing on Mac OS X]]"
-      - "[[RHEL & CentOS|Installing on RHEL and CentOS]]"
-      - "[[SmartOS|Installing on SmartOS]]"
-      - "[[Solaris|Installing on Solaris]]"
-      - "[[SUSE|Installing on SUSE]]"
-      - "[[Windows Azure|Installing on Windows Azure]]"
-
-      - title: "From Source"
-        sub:
-          - "[[Installing Riak from Source|Installing Riak from Source]]"
-          - "[[Installing Erlang|Installing Erlang]]"
-          - "[[Installing the JVM|Installing the JVM]]"
-
-      - "[[Post Installation]]"
+      - "[[Installing Riak]]"
+      - "[[Installing Riak from Source]]"
+      - "[[Verifying a Riak Installation]]"
 
   - title: "Riak for Developers"
     sub:
       - title: "A Taste of Riak"
         sub:
-          - title: CRUD Operations
+          - title: "CRUD Operations"
             sub:
               - "[[Prerequisites|Taste of Riak: Prerequisites]]"
               - "[[Java|Taste of Riak: Java]]"
@@ -54,7 +39,7 @@ riak:
               - "[[Haskell|Taste of Riak: Haskell†]]"
               # - "[[Clojure|Taste of Riak: Clojure]]"
               # - "[[Go|Taste of Riak: Go]]"
-          - title: A Taste of Querying
+          - title: "A Taste of Querying"
             sub:
               - "[[Prerequisites|Taste of Riak: Querying]]"
               - "[[Java|Taste of Riak: Querying with Java]]"
@@ -64,7 +49,7 @@ riak:
               - "[[NodeJS|Taste of Riak: Querying with NodeJS]]"
               - "[[Erlang|Taste of Riak: Querying with Erlang]]"
               - "[[PHP|Taste of Riak: Querying with PHP]]"
-          - title: Object Modeling
+          - title: "Object Modeling"
             sub:
               - "[[Introduction|Taste of Riak: Object Modeling]]"
               - "[[Java|Taste of Riak: Object Modeling with Java]]"

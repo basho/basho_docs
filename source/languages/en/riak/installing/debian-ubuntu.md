@@ -194,7 +194,7 @@ wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/ubuntu
 sudo dpkg -i riak_{{VERSION}}-1_amd64.deb
 ```
 
-## Installing Riak From Source
+## Installing From Source
 
 First, install Riak dependencies using apt:
 
@@ -219,6 +219,6 @@ If the build was successful, a fresh build of Riak will exist in the
 
 Now that Riak is installed, check out the following resources:
 
-- [[Post-Installation Notes|Post Installation]]: For checking Riak
+- [[Verifying a Riak Installation]]: For checking Riak
   health after installation.
 - [[Five Minute Install]]: a guide for setting up a 5 node cluster and exploring Riak’s main features.

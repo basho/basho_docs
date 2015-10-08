@@ -1,5 +1,5 @@
 ---
-title: Installing and Upgrading
+title: Installing Riak
 project: riak
 version: 0.10.0+
 document: tutorial
@@ -11,12 +11,11 @@ moved: {
 }
 ---
 
+## Supported Platforms
+
 Riak is supported on numerous popular operating systems and virtualized
 environments. The following information will help you to
-properly install or upgrade Riak in one of the supported environments.
-
-Click the link for your operating system or virtualized environment for
-detailed Riak installation instructions.
+properly install or upgrade Riak in one of the supported environments:
 
   * [[Amazon Web Services|Installing on Amazon Web Services]]
   * [[Debian & Ubuntu|Installing on Debian and Ubuntu]]
@@ -29,11 +28,11 @@ detailed Riak installation instructions.
   * [[Windows Azure|Installing on Windows Azure]]
   * [[From Source|Installing Riak from Source]] *(for unlisted-operating systems, requires [[Erlang installation|Installing Erlang]])*
 
-### Chef Cookbooks
+## Chef
 
   * [[Installing Riak With Chef]]
 
-### Cloudsoft
+## Cloudsoft
 
 Cloudsoft provides tested, optimized Riak blueprints to help develop and deploy
 applications faster and easier on a wide range of environments. The AMP-Basho
@@ -44,6 +43,10 @@ combined with Cloudsoft's enterprise-supported Application Management Platform
 
   * [Install Riak with Cloudsoft](https://github.com/cloudsoft/amp-basho)
 
-### Upgrading
+## Building from Source
 
-  * [[Rolling Upgrades]]
+If your platform isn’t listed above, you may still be able to build Riak from source. Check out [[Installing Riak from Source]] for instructions.
+
+## Upgrading
+
+For information on upgrading an existing cluster, check out [[Rolling Upgrades]].

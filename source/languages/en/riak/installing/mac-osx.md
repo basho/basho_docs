@@ -83,7 +83,7 @@ the Riak installation directory via environment variables.
 
 **Note**: Homebrew will install Erlang if you don't have it already.
 
-## From Source
+## Installing From Source
 
 You must have Xcode tools installed from [Apple's Developer
 website](http://developer.apple.com/).
@@ -117,6 +117,6 @@ system (Snow Leopard and higher: 64bit{{#1.4.0-}}, everything else:
 
 Now that Riak is installed, check out the following resources:
 
-- [[Post-Installation Notes|Post Installation]]: For checking Riak
+- [[Verifying a Riak Installation]]: For checking Riak
   health after installation.
 - [[Five Minute Install]]: a guide for setting up a 5 node cluster and exploring Riak’s main features.

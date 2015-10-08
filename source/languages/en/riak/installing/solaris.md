@@ -80,6 +80,6 @@ If all responses indicate that riak is up and running, then you have successfull
 
 Now that Riak is installed, check out the following resources:
 
-- [[Post-Installation Notes|Post Installation]]: For checking Riak
+- [[Verifying a Riak Installation]]: For checking Riak
   health after installation.
 - [[Five Minute Install]]: a guide for setting up a 5 node cluster and exploring Riak’s main features.

@@ -1,10 +1,10 @@
 ---
-title: Post Installation
+title: Verifying a Riak Installation
 project: riak
 version: 0.10.0+
 document: tutorial
 audience: beginner
-keywords: [tutorial, installing, upgrading]
+keywords: [tutorial, installing, upgrading, verify, verifying]
 moved: {
     '1.4.0-': '/tutorials/installation/Post-Installation',
     '2.1.1-': '/ops/installing/Post-Installation'
