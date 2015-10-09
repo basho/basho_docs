@@ -494,134 +494,133 @@ More information about Erlang's etop tool can be found in the
 This command is the direct equivalent of `riak-cs-admin access`,
 documented [[above|Riak CS Command-line Tools#riak-cs-admin-access]].
 
-## riak-cs-multibag
+## riak-cs-supercluster
 
-Riak CS version 1.5 offers support for multibag operations. The
-`multibag` command interface enables you to interact with that system.
-More information can be found in [[Riak CS Multibag Support]].
+Riak CS version 1.5 offers support for supercluster operations. The
+`supercluster` command interface enables you to interact with that system.
+More information can be found in [[Riak CS Supercluster Support]].
 
 <div class="note">
 <div class="title">Note: technical preview</div>
-Riak CS multibag support is available only as a technical preview for
+Riak CS supercluster support is available only as a technical preview for
 users of Riak CS installations with support for Multi-Datacenter
 Replication.
 </div>
 
-#### list-bags
+#### list-members
 
-Lists the bags currently available in a multi-cluster Riak CS setup.
+Lists the members currently available in a multi-cluster Riak CS setup.
 
 ```bash
-riak-cs-multibag list-bags
+riak-cs-supercluster list-members
 ```
 
-The output will list the name, host, and port for each bag, as in the
+The output will list the name, host, and port for each member, as in the
 following example output:
 
 ```
-bag-A 127.0.0.1:10017
-bag-B 127.0.0.1:10027
+sc-member-A 127.0.0.1:10017
+sc-member-B 127.0.0.1:10027
 # and so on
 ```
 
 #### weight
 
-When new buckets are created, they are randomly assigned to a bag. The
-weight of each bag is the likelihood, expressed as a percentage, that
-new buckets will be stored in a given bag. You can use the commands
+When new buckets are created, they are randomly assigned to a member. The
+weight of each member is the likelihood, expressed as a percentage, that
+new buckets will be stored in a given member. You can use the commands
 under the `weight` heading to set, list, and refresh weight information
-stored in the master bag (which is shared between all Riak nodes).
+stored in the master member (which is shared between all Riak nodes).
 
 When the `weight` command itself is used without an argument, it will
-return the weights of all bags.
+return the weights of all members.
 
 ```bash
-riak-cs-multibag weight
+riak-cs-supercluster weight
 ```
 
-You can also return the weight for a specific bag on the basis of its
-bag ID:
+You can also return the weight for a specific member on the basis of its
+member ID:
 
 ```
-riak-cs-multibag weight <bag id>
+riak-cs-supercluster weight <member id>
 ```
 
-You can also set the weight for a bag:
+You can also set the weight for a member:
 
 ```bash
-riak-cs-multibag weight <bag id> <weight>
+riak-cs-supercluster weight <member id> <weight>
 ```
 
-This command would set the weight for bag `bag-A` to 40:
+This command would set the weight for member `sc-member-A` to 40:
 
 ```bash
-riak-cs-multibag weight bag-A 40
+riak-cs-supercluster weight sc-member-A 40
 ```
 
-Weights are assigned to bags as an integer. The percentage weight
-applied to a given bag is a function of the total weight assigned to all
-bags. So if you assign 30 to bag A, 30 to bag B, and 60 to bag C, they
-will bear the following weights, respectively: 25%, 25%, and 50%.
-Consequently, there is no specific number to which all bag weights need
+Weights are assigned to members as an integer. The percentage weight
+applied to a given member is a function of the total weight assigned to all
+members. So if you assign 30 to member A, 30 to member B, and 60 to member C, they will bear the following weights, respectively: 25%, 25%, and 50%.
+Consequently, there is no specific number to which all member weights need
 to add up.
 
 #### weight-manifest
 
-Retrieves the manifest weights for all currently available bags.
+Retrieves the manifest weights for all currently available members.
 
 ```bash
-riak-cs-multibag weight-manifest
+riak-cs-supercluster weight-manifest
 ```
 
-You can also retrieve the manifest weights for a specific bag on the
-basis of its bag ID:
+You can also retrieve the manifest weights for a specific member on the
+basis of its member ID:
 
 ```bash
-riak-cs-multibag weight-manifest <bag id>
+riak-cs-supercluster weight-manifest <member id>
 ```
 
-You can also set the manifest weight for a specific bag:
+You can also set the manifest weight for a specific member:
 
 ```bash
-riak-cs-multibag weight-manifest <bag id> <weight>
+riak-cs-supercluster weight-manifest <member id> <weight>
 ```
 
 #### weight-block
 
-Retrieves the block weights for all currently available bags.
+Retrieves the block weights for all currently available members.
 
 ```bash
-riak-cs-multibag weight-block
+riak-cs-supercluster weight-block
 ```
 
-You can also retrieve the block weight for a specific bag on the basis
-of its bag ID:
+You can also retrieve the block weight for a specific member on the basis
+of its member ID:
 
 ```bash
-riak-cs-multibag weight-block <bag id>
+riak-cs-supercluster weight-block <member id>
 ```
 
-Or you can set the weight block for a specific bag:
+Or you can set the weight block for a specific member:
 
 ```bash
-riak-cs-multibag weight-block <bag id> <weight>
+riak-cs-supercluster weight-block <member id> <weight>
 ```
 
 #### refresh
 
-Fetches all current weights from the master bag.
+Fetches all current weights from the master member.
 
 ```bash
-riak-cs-multibag refresh
+riak-cs-supercluster refresh
 ```
 
-When a bag's weight is updated, that weight is stored in the [[master
-bag|Riak CS Multibag Support#The-Master-Bag]] and cached in Riak CS.
-Riak CS fetches weights from the master bag only periodically. The
-`refresh` command syncs the weights stored in the master bag with the
+When a member's weight is updated, that weight is stored in the [[master
+member|Riak CS Supercluster Support#The-Master-Member]] and cached in Riak CS.
+Riak CS fetches weights from the master member only periodically. The
+`refresh` command syncs the weights stored in the master member with the
 weights cached in Riak CS so that there is no discrepancy.
 
-This command is particularly useful immediately after any bag weight
+This command is particularly useful immediately after any member weight
 changes are made that need to be registered across all clusters.
 
 

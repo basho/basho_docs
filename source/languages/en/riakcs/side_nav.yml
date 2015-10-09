@@ -59,7 +59,7 @@ riakcs:
           - "[[Rolling Upgrades|Rolling Upgrades For Riak CS]]"
           - "[[Monitoring and Metrics]]"
           - "[[Riak CS Control]]"
-          - "[[Riak CS Multibag Support]]"
+          - "[[Riak CS Supercluster Support]]"
   - title: "Theory & Concepts"
     sub:
       - "[[Stanchion]]"
