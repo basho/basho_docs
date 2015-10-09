@@ -2,7 +2,7 @@
 ################################################################################
 
 # Uncomment and set this to only include directories you want to watch
-directories %w(dynamic) \
+directories %w(dynamic data) \
  .select{|d| Dir.exists?(d) ? d : UI.warning("Directory #{d} does not exist")}
 
 ## Note: if you are using the `directories` clause above and you are not
@@ -29,10 +29,8 @@ directories %w(dynamic) \
 
 group :js do
   guard 'rake', :task => 'build:js' do
-    #FIXME<drew.pirrone.brusse@gmail>: Some of the files is data/ (notably
-    # versions.yml) are used as part of the JS compilation process, so we'll
-    # need to modify this to watch those (that?) file as well.
     watch(%r{^dynamic/js/.*$})
+    watch(%r{^data/versions.yml})
   end
 end
 
@@ -47,6 +45,7 @@ end
 group :debug_js do
   guard 'rake', :task => 'build:debug:js' do
     watch(%r{^dynamic/js/.*$})
+    watch(%r{^data/versions.yml})
   end
 end
 
