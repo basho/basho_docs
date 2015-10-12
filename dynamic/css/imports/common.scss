@@ -1579,7 +1579,7 @@ div[role="main"] {
 
       .riak_image {
         @include size(92%, 88px);
-        background     : url('/images/shared/smaller-riak-logo.png') center center no-repeat transparent;
+        background     : url('/images/index/smaller-riak-logo.png') center center no-repeat transparent;
         border-bottom  : 1px solid #cfcfcf;
         padding-bottom : 20px;
         margin-top     : 37px;
@@ -1587,7 +1587,7 @@ div[role="main"] {
 
       .riak_kv_image {
         @include size(92%, 88px);
-        background     : url('/images/shared/riak-kv-logo.png') center center no-repeat transparent;
+        background     : url('/images/index/riak-kv-logo.png') center center no-repeat transparent;
         border-bottom  : 1px solid #cfcfcf;
         padding-bottom : 20px;
         margin-top     : 37px;
@@ -1596,7 +1596,7 @@ div[role="main"] {
 
       .riak_s2_image {
         @include size(92%, 88px);
-        background     : url('/images/shared/riak-s2-logo.png') center center no-repeat transparent;
+        background     : url('/images/index/riak-s2-logo.png') center center no-repeat transparent;
         border-bottom  : 1px solid #cfcfcf;
         padding-bottom : 20px;
         margin-top     : 37px;
@@ -1635,11 +1635,11 @@ div[role="main"] {
     }
 
     #project_riakcs {
-      background : url('/images/shared/cs-cloud.png') center center no-repeat transparent;
+      background : url('/images/index/cs-cloud.png') center center no-repeat transparent;
     }
 
     #project_dataplatform {
-      background : url('/images/shared/basho_man_4.png') center 10px no-repeat transparent;
+      background : url('/images/index/basho_man_4.png') center 10px no-repeat transparent;
       background-size : 100px;
     }
 
@@ -1647,7 +1647,7 @@ div[role="main"] {
       margin : 4em auto 7em;
 
       .project .riak_image {
-        background : url('/images/shared/smaller-riak-logo.png') center center no-repeat transparent;
+        background : url('/images/index/smaller-riak-logo.png') center center no-repeat transparent;
         margin-top : 27px;
       }
       .project .riak_kv_image {
