@@ -170,6 +170,24 @@ var idx = new SearchIndex("famous");
 var rslt = client.PutSearchIndex(idx);
 ```
 
+```javascript
+var storeIndex_cb = function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+    if (!rslt) {
+        // error...
+    }
+};
+
+var store = new Riak.Commands.YZ.StoreIndex.Builder()
+    .withIndexName("famous")
+    .withCallback(storeIndex_cb)
+    .build();
+
+client.execute(store);
+```
+
 ```erlang
 riakc_pb_socket:create_search_index(Pid, <<"famous">>).
 ```
@@ -217,6 +235,16 @@ client.create_search_index('famous', '_yz_default')
 ```csharp
 var idx = new SearchIndex("famous", "_yz_default");
 var rslt = client.PutSearchIndex(idx);
+```
+
+```javascript
+var store = new Riak.Commands.YZ.StoreIndex.Builder()
+    .withIndexName("famous")
+    .withSchemaName("_yz_default")
+    .withCallback(storeIndex_cb)
+    .build();
+
+client.execute(store);
 ```
 
 ```erlang
@@ -314,6 +342,23 @@ bucket.set_properties({'search_index': 'famous'})
 var properties = new RiakBucketProperties();
 properties.SetSearchIndex("famous");
 var rslt = client.SetBucketProperties("cats", properties);
+```
+
+```javascript
+var bucketProps_cb = function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+    // success
+};
+
+var store = new Riak.Commands.KV.StoreBucketProps.Builder()
+    .withBucket("cats")
+    .withSearchIndex("famous")
+    .withCallback(bucketProps_cb)
+    .build();
+
+client.execute(store);
 ```
 
 ```erlang
@@ -480,6 +525,47 @@ var panthroRiakObj = new RiakObject(panthroId, panthroObj);
 
 var rslts = client.Put(new[] {
     lionoRiakObj, cheetaraRiakObj, snarfRiakObj, panthroRiakObj
+});
+```
+
+```javascript
+function store_cb(err, rslt, async_cb) {
+    if (err) {
+        throw new Error(err);
+    }
+    async_cb(null, rslt);
+}
+
+var objs = [
+    [ 'liono', { name_s: 'Lion-o', age_i: 30, leader: true } ],
+    [ 'cheetara', { name_s: 'Cheetara', age_i: 30, leader: false } ],
+    [ 'snarf', { name_s: 'Snarf', age_i: 43, leader: false } ],
+    [ 'panthro', { name_s: 'Panthro', age_i: 36, leader: false } ],
+];
+
+var storeFuncs = [];
+objs.forEach(function (o) {
+    var storeFunc = function (async_cb) {
+        var key = o[0];
+        var value = o[1];
+        var riakObj = new Riak.Commands.KV.RiakObject();
+        riakObj.setContentType('application/json');
+        riakObj.setBucketType('animals');
+        riakObj.setBucket('cats');
+        riakObj.setKey(key);
+        riakObj.setValue(value);
+        client.storeValue({ value: riakObj }, function (err, rslt) {
+            store_cb(err, rslt, async_cb);
+        });
+    };
+    storeFuncs.push(storeFunc);
+});
+
+async.parallel(storeFuncs, function (err, rslts) {
+    if (err) {
+        throw new Error(err);
+    }
+    // NB: all objects stored and indexed...
 });
 ```
 
@@ -681,6 +767,22 @@ foreach (RiakSearchResultDocument doc in searchResult.Documents)
 }
 ```
 
+```javascript
+function search_cb(err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+    logger.info("docs:", JSON.stringify(rslt.docs));
+}
+
+var search = new Riak.Commands.YZ.Search.Builder()
+    .withIndexName('famous')
+    .withQuery('name_s:Lion*')
+    .withCallback(search_cb)
+    .build();
+client.execute(search);
+```
+
 ```erlang
 {ok, Results} = riakc_pb_socket:search(Pid, <<"famous">>, <<"name_s:Lion*">>),
 io:fwrite("~p~n", [Results]),
@@ -802,6 +904,22 @@ Debug.WriteLine(Encoding.UTF8.GetString(obj.Value));
 // {"name_s":"Lion-o","age_i":30,"leader_b":true}
 ```
 
+```javascript
+var doc = rslt.docs.pop();
+var args = {
+    bucketType: doc._yz_rt,
+    bucket: doc._yz_rb,
+    key: doc._yz_rk,
+    convertToJs: true
+};
+client.fetchValue(args, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+    logger.info(rslt.values[0].value);
+});
+```
+
 ```erlang
 [{Index,Doc}|_] = Docs,
 BType  = proplists:get_value(<<"_yz_rt">>, Doc),  %% <<"animals">>
@@ -881,6 +999,15 @@ var search = new RiakSearchRequest("famous", "age_i:[30 TO *]");
 var rslt = client.Search(search);
 ```
 
+```javascript
+var search = new Riak.Commands.YZ.Search.Builder()
+    .withIndexName('famous')
+    .withQuery('age_i:[30 TO *]')
+    .withCallback(search_cb)
+    .build();
+client.execute(search);
+```
+
 ```erlang
 riakc_pb_socket:search(Pid, <<"famous">>, <<"age_i:[30 TO *]">>),
 ```
@@ -932,6 +1059,15 @@ var search = new RiakSearchRequest
 };
 ```
 
+```javascript
+var search = new Riak.Commands.YZ.Search.Builder()
+    .withIndexName('famous')
+    .withQuery('leader_b:true AND age_i:[30 TO *]')
+    .withCallback(search_cb)
+    .build();
+client.execute(search);
+```
+
 ```erlang
 riakc_pb_socket:search(Pid, <<"famous">>, <<"leader_b:true AND age_i:[30 TO *]">>),
 ```
@@ -968,6 +1104,26 @@ client.delete_search_index('famous')
 
 ```csharp
 var rslt = client.DeleteSearchIndex("famous");
+```
+
+```javascript
+function delete_cb(err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+    if (rslt === true) {
+        // success
+    } else {
+        // error
+    }
+}
+
+// NB: first make sure that no bucket types or buckets are using the index
+var search = new Riak.Commands.YZ.DeleteIndex.Builder()
+    .withIndexName('famous')
+    .withCallback(delete_cb)
+    .build();
+client.execute(search);
 ```
 
 ```erlang
@@ -1060,6 +1216,21 @@ var search = new RiakSearchRequest
 };
 
 var rslt = client.Search(search);
+```
+
+```javascript
+var rowsPerPage = 2;
+var page = 2;
+var start = rowsPerPage * (page - 1);
+
+var search = new Riak.Commands.YZ.Search.Builder()
+    .withIndexName('famous')
+    .withQuery('*:*')
+    .withStart(start)
+    .withNumRows(rowsPerPage)
+    .withCallback(search_cb)
+    .build();
+client.execute(search);
 ```
 
 ```erlang
