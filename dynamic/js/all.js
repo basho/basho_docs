@@ -1,6 +1,10 @@
 //= require_tree ./libs
 //= require_tree ./docs
 
+// The above requires are used by Sprocket to programatically import all .js and
+// .coffee script files into this master file before compiling/compressing/
+// minifying them into a single .js source.
+
 /*
  * Overly-paranoid jQuery docready call
  * Won't produce an error if jQuery doesn't load
