@@ -386,6 +386,7 @@ available in [[Garbage Collection]].
   The maximum number of worker processes that may be started by the garbage
   collection daemon to use for concurrent reaping of garbage-collection-eligible
   objects. The default value is 2.
+* `active_delete_threshold` (`active_delete_threshold` in `advanced.config` or `app.config`) --- Blocks of objects smaller than the threshold are synchronously deleted while their manifests are marked as `scheduled_delete`. The default value is 0.
 
 There are some additional settings that may only be configured in the
 `advanced.config` or `app.config` configuration files. **None of the below

@@ -222,6 +222,18 @@ Optionally, you can specify the number of leeway seconds:
 riak-cs-admin gc batch <leeway_seconds>
 ```
 
+In Riak CS 2.1 you can specify the target range of GC bucket key range, with start and end timestamps. For example:
+
+```bash
+riak-cs-admin gc batch --end=20150801T000000Z
+```
+
+Or
+
+```bash
+riak-cs-admin gc batch --start=20150801T000000Z --end=20150901T000000Z
+```
+
 #### status
 
 Returns the status of the garbage collection daemon, depending on its
@@ -276,6 +288,14 @@ seconds.
 
 ```bash
 riak-cs-admin gc set-leeway <interval_in_seconds>
+```
+
+#### earliest-keys
+
+Find oldest entry after `epoch_start` in garbage collection.
+
+```bash
+riak-cs-admin gc earliest-keys <supercluster members>
 ```
 
 ## riak-cs-stanchion
