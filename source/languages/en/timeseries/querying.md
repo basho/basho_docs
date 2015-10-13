@@ -69,7 +69,7 @@ Riak::Timeseries::Query.new(client, "select weather, temperature from GeoCheckin
 
 ```java
 String queryText = "select weather, temperature from GeoCheckin " +
-                   "where time > 123456 and time < 987654 and " +
+                   "where time > 1234560 and time < 1234569 and " +
                    "myfamily = 'family1' and myseries = 'series1'";
 
 Query query = new Query.Builder(queryText).build();
