@@ -41,7 +41,7 @@ submission.write!
 
 ```erlang
 {ok, Pid} = riakc_pb_socket:start_link("myriakdb.host", 10017).
-riakc_ts:put(Pid, "GeoCheckin", [[“family1”, “series1”, 1234567, “hot”, 23.5], [“family2”, “series99”, 1234567, “windy”, 19.8]]).
+riakc_ts:put(Pid, "GeoCheckin", [[<<"family1">>, <<"series1">>, 1234567, <<"hot">>, 23.5], [<<"family2">>, <<"series99">>, 1234567, <<"windy">>, 19.8]]).
 ```
 
 ```java
