@@ -134,6 +134,7 @@ def compile_scss(debug: false)
   configs[:sass_path]     = $css_source
   configs[:css_path]      = $css_dest
   configs[:cache_path]    = $cache_dir
+  configs[:images_path]   = "static/images/"
   configs[:output_style]  = debug ? :nested : :compressed
   configs[:line_comments] = debug ? true    : false
   Compass.add_configuration(configs, "basho_docs_configs")
