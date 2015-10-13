@@ -34,14 +34,14 @@ Basic queries return the full range of values between two given times for a seri
 
 ````erlang
 {ok, Pid} = riakc_pb_socket:start_link("myriakdb.host", 10017).
-riakc_ts:query(Pid, "select * from GeoCheckin where time > 123456 and time < 987654 and myfamily = ‘family1’ and myseries = ‘series1’").
+riakc_ts:query(Pid, "select * from GeoCheckin where time > 123456 and time < 987654 and myfamily = 'family1' and myseries = 'series1'").
 ```
 
 ```java
 RiakClient client = RiakClient.newClient(10017, "myriakdb.host");
 String queryText = "select * from GeoCheckin " +
                    "where time > 123456 and time < 987654 and " +
-                   "myfamily = ‘family1’ and myseries = ‘series1’";
+                   "myfamily = 'family1' and myseries = 'series1'";
 
 Query query = new Query.Builder(queryText).build();
 QueryResult queryResult = client.execute(query);
@@ -49,7 +49,7 @@ QueryResult queryResult = client.execute(query);
 
 ```ruby
 client = Riak::Client.new 'myriakdb.host', pb_port: 10017
-query = Riak::Timeseries::Query.new client, "select * from GeoCheckin where time > 123456 and time < 987654 and myfamily = ‘family1’ and myseries = ‘series1’"
+query = Riak::Timeseries::Query.new client, "select * from GeoCheckin where time > 123456 and time < 987654 and myfamily = 'family1' and myseries = 'series1'"
 results = query.issue!
 >>>>>>> a0580a2273f2b212e24c716e5afb823ed7527f3b
 ```
@@ -61,16 +61,16 @@ The SQL query must cover the entire time series key (`time`,  `myfamily`, `myser
 You can also select particular fields from the data. In the below example, **??** what specifically is happening here?:
 
 ```erlang
-riakc_ts:query(Pid, "select weather, temperature from GeoCheckin where time > 123456 and time < 987654 and myfamily = ‘family1’ and myseries = ‘series1’").
+riakc_ts:query(Pid, "select weather, temperature from GeoCheckin where time > 123456 and time < 987654 and myfamily = 'family1' and myseries = 'series1'").
 ```
 ```ruby
-Riak::Timeseries::Query.new(client, "select weather, temperature from GeoCheckin where time > 123456 and time < 987654 and myfamily = ‘family1’ and myseries = ‘series1’").issue!
+Riak::Timeseries::Query.new(client, "select weather, temperature from GeoCheckin where time > 123456 and time < 987654 and myfamily = 'family1' and myseries = 'series1'").issue!
 ```
 
 ```java
 String queryText = "select weather, temperature from GeoCheckin " +
                    "where time > 123456 and time < 987654 and " +
-                   "myfamily = ‘family1’ and myseries = ‘series1’";
+                   "myfamily = 'family1' and myseries = 'series1'";
 
 Query query = new Query.Builder(queryText).build();
 QueryResult queryResult = client.execute(query);
@@ -79,16 +79,16 @@ QueryResult queryResult = client.execute(query);
 Additionally, you can extend the query beyond the key. For example, **??** what's happening in this example?:
 
 ```erlang
-riakc_ts:query(Pid, "select weather, temperature from GeoCheckin where time > 123456 and time < 987654 and myfamily = ‘family1’ and myseries = ‘series1’ and temperature > 27.0").
+riakc_ts:query(Pid, "select weather, temperature from GeoCheckin where time > 123456 and time < 987654 and myfamily = 'family1' and myseries = 'series1' and temperature > 27.0").
 ```
 ```ruby
-Riak::Timeseries::Query.new(client, "select weather, temperature from GeoCheckin where time > 123456 and time < 987654 and myfamily = ‘family1’ and myseries = ‘series1’ and temperature > 27.0").issue!
+Riak::Timeseries::Query.new(client, "select weather, temperature from GeoCheckin where time > 123456 and time < 987654 and myfamily = 'family1' and myseries = 'series1' and temperature > 27.0").issue!
 ```
 
 ```java
 String queryText = "select weather, temperature from GeoCheckin " +
                    "where time > 123456 and time < 987654 and " +
-                   "myfamily = ‘family1’ and myseries = ‘series1’ " +
+                   "myfamily = 'family1' and myseries = 'series1' " +
                    "temperature > 27.0";
 
 Query query = new Query.Builder(queryText).build();
@@ -137,6 +137,8 @@ The following operators are supported for each data type
 ## Limitations
 
 In this early version queries can only range over 1 to 4 quanta. If you write a range that is too large, your query will generate too many subqueries and the query system will refuse to run.
+
+**??** will the "1 o’clock" thing actually work or am i being trolled
 
 For instance, if you have the default system with a `15m quanta`, then a query such as:
 
