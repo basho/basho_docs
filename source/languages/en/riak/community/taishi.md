@@ -18,16 +18,7 @@ Nominations are always welcome at http://bit.ly/taishi-nomination
 
 ## Current Members
 
-Our first team of Taishi were accepted in 2015 and their status will be maintained through RICON 2016. They are:
-
-* Pedram  “Deadzen” Nimreez
-* Shawn Debnath
-* Matt Ranney
-* Mariano Guerra
-* Eduardo Gurgel
-* Damien Krotkine
-* Daniel Dreier
-* Sean “Stabby” Kelly
+Our first team of Taishi were accepted in 2015 and their status will be maintained through RICON 2016. Learn more about the Taishi at [basho.com/community](http://basho.com/community/)
 
 # FAQ
 
