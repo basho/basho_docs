@@ -75,3 +75,7 @@ buildDrafts: false
 #
 
 ---
+
+# Fun note for debugging, we can drop this snippet in any partial/layout, and
+# get a full listing of objects in the `.` context,
+# {{ printf "%#v" . }}

@@ -67,7 +67,7 @@ namespace :watch do
 
   ################
   # Watch : Debug
-  task      :debug do sh 'bundle exec guard -g debug_js debug_css'; end
+  task      :debug => ['clean'] do sh 'bundle exec guard -g debug_js debug_css'; end
   namespace :debug do
     task :js  do sh 'bundle exec guard -g debug_js'; end
     task :css do sh 'bundle exec guard -g debug_css'; end
