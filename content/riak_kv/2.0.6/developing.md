@@ -6,6 +6,7 @@ menu:
     name: "Developing with Riak KV"
     identifier: "developing"
     weight: 300
+    pre: icon-lambda
 project: "riak_kv"
 project_version: "2.0.6"
 ---
