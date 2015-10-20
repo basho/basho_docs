@@ -9,12 +9,14 @@
 
 #TODO<drew.pirrone.brusse@gmail>: Make sure the above description is correct and
 # complete.
+#TODO<drew.pirrone.brusse@gmail>: Add in some usage clauses.
 
 $css_source = "./dynamic/css"
 $css_dest   = "./static/css"
 $js_source  = "./dynamic/js"
 $js_dest    = "./static/js"
 $cache_dir  = "./dynamic/.cache"
+$hugo_dest  = "./public" # Should always be set to `publishdir` from config.yml
 
 ### Rake directory definitions
 directory "#{$js_dest}"
@@ -24,23 +26,22 @@ directory "#{$cache_dir}"
 
 ######################################################################
 ### Rake Namespace and Task definitions
-#TODO<drew.pirrone.brusse@gmail>: Add in HTML rules to invoke Hugo?
-
 
 ########
 # Clean
-task      :clean => ['clean:js', 'clean:css']
+task      :clean => ['clean:js', 'clean:css', 'clean:hugo']
 namespace :clean do
   #TODO<drew.pirrone.brusse@gmail>: These `rm -rf`s are maybe a bit much? Should
   # we be more precise with what we delete (and, if so, how)?
   task :js do FileUtils.rm_rf($js_dest); end
   task :css do FileUtils.rm_rf($css_dest); end
+  task :hugo do FileUtils.rm_rf($hugo_dest); end
 end
 
 
 ########
 # Build
-task      :build => ['clean', 'build:js', 'build:css']
+task      :build => ['clean', 'build:js', 'build:css', 'build:hugo']
 namespace :build do
   #FIXME<drew.pirrone.brusse@gmail>: Implement a production version of the JS
   # compile process, and set this to `false`.
@@ -49,11 +50,14 @@ namespace :build do
 
   ################
   # Build : Debug
-  task      :debug => ['clean', 'build:debug:js', 'build:debug:css']
+  task      :debug => ['clean', 'build:debug:js', 'build:debug:css', 'build:hugo']
   namespace :debug do
     task :js => "#{$js_dest}" do compile_js(debug: true); end
     task :css => "#{$css_dest}" do compile_scss(debug: true); end
   end
+
+  task :hugo do sh "hugo server & PID=$!; "\
+                   "sleep 1; kill $PID"; end
 end
 
 
@@ -72,6 +76,9 @@ namespace :watch do
     task :js  do sh 'bundle exec guard -g debug_js'; end
     task :css do sh 'bundle exec guard -g debug_css'; end
   end
+
+  #TODO<drew.pirrone.brusse@gmail>: Add in some way to specify ip/port.
+  task :hugo do sh "hugo server -w"; end
 end
 
 
