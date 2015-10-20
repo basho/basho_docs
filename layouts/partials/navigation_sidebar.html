@@ -4,12 +4,11 @@
     <div id="primary-nav-content">
       <h2 class="responsive-link"><a class="responsive-toggle"></a></h2>
 
+      {{/* Search bar */}}
       <form action="http://search.basho.com">
         <div class="nav-field-container">
           <div id="icon-container-search">
-            <div class="icon-container">
-              <span aria-hidden="true" class="nav-icon nav-icon-search" data-icon="&#xf002;"></span>
-            </div>
+            <div class="icon-container"><span aria-hidden="true" class="nav-icon-search icon-search"></span></div>
             <span class="separator">&#124;</span>
           </div>
           <input id="main-search" name="q" placeholder="Search" size="5" type="search" />
@@ -18,6 +17,7 @@
 
       <div class="clear"></div>
 
+      {{/* Vist Basho link, only displayed in reduced-width */}}
       <h3 class="responsive-link visit-basho">
         <a href="http://www.basho.com">
           <div class="icon-container">
@@ -29,6 +29,7 @@
         </a>
       </h3>
 
+      {{/* All Projects (splash) link, only displayed in reduced-width */}}
       <h3 class="responsive-link">
         <a href="/index.html">
           <div class="icon-container">
@@ -40,10 +41,67 @@
         </a>
       </h3>
 
-      {{/*NOTE(Drew): I'm... pretty sure we need to give this nav bar an empty
-                      ul element as a closer? */}}
-      <ul></ul>
+      {{ $current_node := . }}{{/* "global" state. should be passed into partials. */}}
+      {{ $menu_depth := 1 }}
+      {{ $menu_title := (printf "%s-%s" .Params.project .Params.project_version) }}
+      {{ $root_menu := (index .Site.Menus $menu_title) }}
+      {{ range $root_menu }}
+        <h3>
+          <div class="icon-container"><span aria-hidden="true" class="nav-icon {{ .Pre }}"></span>&nbsp;</div>
+          <span class="separator">&#124;</span>
+          {{/*TODO(Drew): Do we really need this span? Does the Scss need to be refactored? */}}
+          {{/*TODO(Drew): Figure out a better way to accent when a root menu is selected. This will
+                          definitely take some extra Scss... */}}
+          <span class="menu-title"><a href="{{.URL}}">{{ if $current_node.IsMenuCurrent $menu_title . }}&nbsp;&nbsp;&nbsp;&nbsp;{{ end }}{{ .Name }}</a></span>
+          <div class="clear"></div>
+        </h3>
+        {{/*TODO(Drew): This is such a hack, and it makes me so sad.
+                        Once Hugo 0.15 is released and added to brew/yum/apt, we should be able to
+                        refactor all of the below into a recursive partial with e.g.
+                            partial "navigation_sidebar.html" (dict "current_node" $current_node
+                                                                    "current_menu" .
+                                                                    "menu_dept" (add 1 $menu_depth))
+                        At the time of writing, 0.15 is in development and -- while I am sorely
+                        tempted to -- requiring users to build Hugo from source would set the
+                        barrier-to-contribution far too high. Currently, the menu depth Scss rules
+                        (currently under common.scss:666) only do to depth-3, so we're going to
+                        hard-code that limit in here. Which is dumb. And ugly. And makes me so sad.
+                        */}}
+        {{/*TODO(Drew): Also, the below structure + CSS (and maybe JS?) are absolute trash. I
+                        completely disagree with the existence of the menu-toggle element being
+                        predicated on the h4 element. This all just makes me so sad. */}}
+        {{ if .HasChildren }}
+          <ul class="depth-1">{{ range .Children }}
+            <li{{ if $current_node.IsMenuCurrent $menu_title . }} class="current"{{end}}>
+              {{ if .HasChildren }}
+                {{/*TODO(Drew): Figure out if we need the span tag. */}}
+                {{/*TODO(Drew): Figure out if we need to record the project in the class. */}}
+                <h4><span><a href="{{.URL}}" class="{{$current_node.Params.project}}">{{.Name}}</a></span></h4>
+                <ul class="depth-2">{{ range .Children }}
+                  <li{{ if $current_node.IsMenuCurrent $menu_title . }} class="current"{{end}}>
+                    {{ if .HasChildren }}
+                      <h4><span><a href="{{.URL}}" class="{{$current_node.Params.project}}">{{.Name}}</a></span></h4>
+                      <ul class="depth-3">{{ range .Children }}
+                        <li{{ if $current_node.IsMenuCurrent $menu_title . }} class="current"{{end}}>
+                          <a href="{{.URL}}" class="{{$current_node.Params.project}}">{{.Name}}</a>
+                        </li>
+                      {{ end }}</ul>
+                    {{ else }}
+                      <a href="{{.URL}}" class="{{$current_node.Params.project}}">{{.Name}}</a>
+                    {{ end }}
+                  </li>
+                {{ end }}</ul>
+              {{ else }}
+                <a href="{{.URL}}" class="{{$current_node.Params.project}}">{{.Name}}</a>
+              {{ end }}
+            </li>
+          {{ end }}</ul>
+        {{ end }}
 
+
+      {{ end }}
+      {{/* This empty <ul> marks the end of the generated nav list */}}
+      <ul></ul>
     </div>
   </nav>
   <ul id="fixed-nav">

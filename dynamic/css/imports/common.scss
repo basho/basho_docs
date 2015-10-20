@@ -455,6 +455,14 @@ iframe {
       width : 1.75em;
       margin-left : $mobilePageGutter;
     }
+
+    .nav-icon {
+      color : #8e939a;
+    }
+
+    .nav-icon-search {
+      color : #fff;
+    }
   }
 
   .separator {
@@ -471,7 +479,7 @@ iframe {
   .menu-title {
     display       : inline-block;
     float         : left;
-    width         : 68%;
+    width         : 58%;
     margin-bottom : 8px;
     @extend .sans-bold;
   }
@@ -543,15 +551,6 @@ iframe {
     }
   }
 
-  .nav-icon {
-    font-family: 'DocsFontIcons';
-    color : #8e939a;
-
-    &.nav-icon-search {
-      color : #fff;
-    }
-  }
-
   /*
   h3.start {
     border      : 1px solid $fadedGreen;
@@ -618,6 +617,7 @@ iframe {
       background : none;
       padding    : 0;
       border     : 0;
+      border-right : 1px solid $lightGrey;
 
       &:hover {
         color      : $darkGrey;
@@ -644,6 +644,14 @@ iframe {
     @extend .sans-bold;
     border-bottom : 1px solid $lightGrey;
     font-size     : 0.9rem;
+
+    //NOTE(Drew): This is.... really ugly...
+    // &.current {
+    //   background : $blueGreen;
+    //   a {
+    //     color : #fff;
+    //   }
+    // }
   }
 
   h3 span a {
@@ -660,6 +668,10 @@ iframe {
 
     &:hover {
       color : $extraDarkGrey;
+    }
+
+    a {
+      margin-right : 40px;
     }
   }
 
@@ -696,7 +708,6 @@ iframe {
 
   h4 {
     @extend .sans;
-    padding-left : 18px;
   }
 
   ul {
@@ -711,9 +722,15 @@ iframe {
     @include bgPattern('nav-bg.jpg', #4f4f50);
 
     &.current {
-      background : $blueGreen;
+      > h4 {
+        background : $blueGreen;
+        a {
+          color : #fff;
+        }
+      }
 
-      a {
+      > a {
+        background : $blueGreen;
         color : #fff;
       }
     }
@@ -727,11 +744,12 @@ iframe {
     margin-left : 0px;
   }
 
-  .depth-2 {
-    a,
-    h4 {
-      padding-left : 26px;
-    }
+  .depth-1 a {
+    padding-left : 18px;
+  }
+
+  .depth-2 a {
+    padding-left : 26px;
   }
 
   .depth-3 a {
