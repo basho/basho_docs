@@ -12,9 +12,7 @@ audience: beginner
 [riak_ensemble]: https://github.com/basho/riak_ensemble
 
 
-<div class="note">
-Leader Election Service is available to [Enterprise users only][ee].
-</div>
+>Leader Election Service is available to [Enterprise users only][ee].
 
 ##Overview
 
