@@ -25,7 +25,7 @@ You install Riak TS the exact same way you install Riak. Choose your OS and foll
 Once you've installed Riak TS, you must turn off [AAE](http://docs.basho.com/riak/latest/theory/concepts/aae/). To do this, edit riak.conf as follows:
 
 ```riak.conf
-strong_consistency = off
+anti_entropy = passive
 ```
 
 >**NOTE:** 
