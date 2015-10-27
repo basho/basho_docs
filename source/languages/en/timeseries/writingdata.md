@@ -10,7 +10,7 @@ audience: beginner
 
 Now that you've [configured][configuring]and [activated][activating] a bucket, you are ready to write data to it.
 
-## TODO: TOPIC HEADER
+## Writing Data
 
 Let's use the example bucket from earlier:
 
@@ -31,6 +31,10 @@ PRIMARY KEY (
 ```
 
 Riak TS allows you to write multiple rows of data at a time. Simply put the data in a list:
+
+>**Note on client-side validation**:
+>Riak Time Series 1.0 does not have client-side insertion validation. The TS server (if enabled), checks if inserted rows and cells are the correct type, order, and nullability. 
+>These checks will be available in Riak Time Series 1.1 clients. Until then please take caution when creating data to insert. Ensure each row’s cells match the order/types of the table, and that you do not create a null-value cell for a non-nullable column.
 
 ```ruby
 client = Riak::Client.new 'myriakdb.host', pb_port: 10017
