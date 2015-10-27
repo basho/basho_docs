@@ -1151,7 +1151,7 @@ Here are some important bucket properties to be aware of:
 Parameter | Description | Default
 :---------|:------------|:-------
 `n_val` | The number of replicas for objects in a bucket. The `n_val` should be an integer greater than 0 and less than or equal to the number of nodes in the cluster.<br /><br />**Note**: If you change the `n_val` after keys have been added to the bucket, it may result in failed reads, as the new value may not be replicated to all of the appropriate partitions.| `3`
-`allow_mult` | With `allow_mult` set to `false`, clients will never be presented with siblings upon read. Though siblings will often be created in Riak during concurrent writes or network partitions even if `allow_mult` is set to `false`, only the most recent object as determined by timestamp will be presented to the client. If this parameter is set to `true`, Riak will present sibling objects to the client, which will then be responsible for resolving the confict. | `true`
+`allow_mult` | With `allow_mult` set to `false`, clients will never be presented with siblings upon read. Though siblings will often be created in Riak during concurrent writes or network partitions even if `allow_mult` is set to `false`, only the most recent object as determined by timestamp will be presented to the client. If this parameter is set to `true`, Riak will present sibling objects to the client, which will then be responsible for resolving the conflict. | `true`
 `last_write_wins` | If `allow_mult` is set to `false`, setting `last_write_wins` to `true`, Riak will _always_ overwrite existing objects and will ignore the timestamps associated with those objects. | `false`
 
 <div class="note">

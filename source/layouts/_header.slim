@@ -13,6 +13,14 @@ header.masthead
           a href="/riakcs-downloads/" class="riakcs"
             span.icon-download-alt
             == I18n.t(:downloads)
+        - elsif data.page.project == 'dataplatform'
+          a href="/downloads/" class="dataplatform"
+            span.icon-download-alt
+            == I18n.t(:downloads)
+        - elsif data.page.project == 'timeseries'
+          a href="/timeseries-downloads/" class="timeseries"
+            span.icon-download-alt
+            == I18n.t(:downloads)
         - else
           a href="/downloads/" class="riak"
             span.icon-download-alt

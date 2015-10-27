@@ -1,4 +1,4 @@
-timeseries:
+dataplatform:
   # - title: "Shortcuts"
   #   class: "active shortcuts"
   #   sub:
@@ -7,4 +7,4 @@ timeseries:
   - title: "Start Here"
     class: "start"
     sub:
-      - "[[Test Page|Installing Riak TS]]"
+      - "[[Test Page|Test Data Platform Page]]"

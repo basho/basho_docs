@@ -13,7 +13,7 @@ moved: {
 ---
 
 The `fullsync_interval` parameter can be configured in the `riak-repl`
-section of `[[app.config|Configuration Files#app.config]]` with either:
+section of `[[advanced.config|Configuration Files#The-advanced-config-file]]` with either:
 
 * a single integer value representing the duration to wait, in minutes,
   between fullsyncs, _or_
@@ -26,7 +26,7 @@ section of `[[app.config|Configuration Files#app.config]]` with either:
 
 Sharing a fullsync time (in minutes) for all sinks:
 
-```appconfig
+```advancedconfig
 {riak_repl, [
     % ...
     {data_root, "/configured/repl/data/root"},
@@ -37,7 +37,7 @@ Sharing a fullsync time (in minutes) for all sinks:
 
 List of multiple sinks with separate times in minutes:
 
-```appconfig
+```advancedconfig
 {riak_repl, [
     % ...
     {data_root, "/configured/repl/data/root"},

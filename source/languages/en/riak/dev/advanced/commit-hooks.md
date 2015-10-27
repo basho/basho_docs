@@ -75,7 +75,7 @@ on your Riak nodes.
 Once Riak is restarted, all that remains is to install the pre-commit hook into the target bucket(s) on which you wish it to operate. In this example, we have just one bucket, named `messages`, into which we're going to install our
 `validate` pre-commit function.
 
-You can use Riak's HTTP interface and the `curl` command line utility to install your named functions into into the relevant bucket(s). For our example, we'll install the `validate_json` module with its `validate` function into our `messages` bucket, like this:
+You can use Riak's HTTP interface and the `curl` command line utility to install your named functions into the relevant bucket(s). For our example, we'll install the `validate_json` module with its `validate` function into our `messages` bucket, like this:
 
 ```curl
 curl -XPUT \
@@ -178,7 +178,7 @@ Just like pre-commit hooks, send this file to your operator or read about [[inst
 Once Riak is restarted, all that remains is to install the post-commit hook on the target bucket(s) on which you wish it to operate. In this example, we have just one bucket, named `updates`, into which we're going to install our `log` function.
 
 You can use Riak's HTTP interface and the `curl` command line utility to
-install your named functions into into the relevant buckets. For our example,
+install your named functions into the relevant buckets. For our example,
 we'll install the `log_object` module and its `log` function into our `messages` bucket, like this:
 
 ```curl
