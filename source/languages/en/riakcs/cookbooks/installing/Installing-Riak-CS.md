@@ -51,6 +51,7 @@ Riak CS | Riak  | Stanchion
 1.5.3   | 1.4.12 | 1.5.0
 1.5.4   | 1.4.12 | 1.5.0
 2.0.0   | 2.0.5  | 2.0.0
+2.1.0   | 2.1.1  | 2.1.0
 
 We strongly recommend using one of the version combinations listed above
 when installing and running Riak CS.
