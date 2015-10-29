@@ -142,11 +142,11 @@ docs](https://packagecloud.io/basho/riak/install).
 
 Platform-specific pages are linked below:
 
-* [Lucid](https://packagecloud.io/basho/riak-cs/riak-cs_{{VERSION}}-1_amd64.deb?distro=lucid)
-* [Precise](https://packagecloud.io/basho/riak-cs/riak-cs_{{VERSION}}-1_amd64.deb?distro=precise)
-* [Squeeze](https://packagecloud.io/basho/riak-cs/riak-cs_{{VERSION}}-1_amd64.deb?distro=squeeze)
-* [Trusty](https://packagecloud.io/basho/riak-cs/riak-cs_{{VERSION}}-1_amd64.deb?distro=trusty)
-* [Wheezy](https://packagecloud.io/basho/riak-cs/riak-cs_{{VERSION}}-1_amd64.deb?distro=wheezy)
+* [Lucid](https://packagecloud.io/basho/riak-cs/packages/ubuntu/lucid/riak-cs_{{VERSION}}-1_amd64.deb)
+* [Precise](https://packagecloud.io/basho/riak-cs/packages/ubuntu/precise/riak-cs_{{VERSION}}-1_amd64.deb)
+* [Squeeze](https://packagecloud.io/basho/riak-cs/packages/debian/squeeze/riak-cs_{{VERSION}}-1_amd64.deb)
+* [Trusty](https://packagecloud.io/basho/riak-cs/packages/ubuntu/trusty/riak-cs_{{VERSION}}-1_amd64.deb)
+* [Wheezy](https://packagecloud.io/basho/riak-cs/packages/debian/wheezy/riak-cs_{{VERSION}}-1_amd64.deb)
 
 #### Advanced apt Installation
 
@@ -221,10 +221,10 @@ docs](https://packagecloud.io/basho/riak-cs/install).
 
 Platform-specific pages are linked below:
 
-* [el5](https://packagecloud.io/basho/riak-cs/riak-cs-{{VERSION}}-1.x86_64.rpm?distro=5)
+* [el5](https://packagecloud.io/basho/riak-cs/packages/el/5/riak-cs-{{VERSION}}-1.x86_64.rpm)
 * [el6](https://packagecloud.io/basho/riak-cs/packages/el/6/riak-cs-{{VERSION}}-1.el6.x86_64.rpm)
-<!-- * [el7](https://packagecloud.io/basho/riak-cs/riak-cs-{{VERSION}}-1.x86_64.rpm?distro=7) -->
-* [Fedora 19](https://packagecloud.io/basho/riak-cs/riak-cs-{{VERSION}}-1.fc19.x86_64.rpm?distro=19)
+* [el7](https://packagecloud.io/basho/riak-cs/packages/el/7/riak-cs-{{VERSION}}-1.el7.centos.x86_64.rpm)
+* [Fedora 19](https://packagecloud.io/basho/riak-cs/packages/fedora/19/riak-cs-{{VERSION}}-1.fc19.x86_64.rpm)
 
 #### Advanced rpm Installation
 
