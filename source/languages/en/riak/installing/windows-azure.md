@@ -5,11 +5,9 @@ version: 1.1.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, windows, azure]
-prev: "[[Installing on SUSE]]"
-up:   "[[Installing and Upgrading]]"
-next: "[[Installing on AWS Marketplace]]"
 moved: {
-    '1.4.0-': '/tutorials/installation/Installing-on-Windows-Azure'
+    '1.4.0-': '/tutorials/installation/Installing-on-Windows-Azure',
+    '2.1.1-': '/ops/building/installing/Installing-on-Windows-Azure'
 }
 ---
 

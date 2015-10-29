@@ -5,6 +5,9 @@ version: 2.0.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, jvm, java, search, solr]
+moved: {
+    '2.1.1-': '/ops/building/installing/Installing-the-JVM'
+}
 ---
 
 If you are using [[Riak Search 2.0|Using Search]], codename Yokozuna,
