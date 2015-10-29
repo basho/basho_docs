@@ -1,15 +1,13 @@
 ---
-title: Installing on AWS Marketplace
+title: Installing on Amazon Web Services
 project: riak
 version: 1.2.1+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, AWS, marketplace, amazon]
-prev: "[[Installing on Windows Azure]]"
-up:   "[[Installing and Upgrading]]"
-next: "[[Installing Riak from Source]]"
 moved: {
-    '1.4.0-': '/tutorials/installation/Installing-on-AWS-Marketplace'
+    '1.4.0-': '/tutorials/installation/Installing-on-AWS-Marketplace',
+    '2.1.1-': '/ops/building/installing/Installing-on-AWS-Marketplace'
 }
 ---
 

@@ -7,7 +7,8 @@ toc: true
 audience: intermediate
 keywords: [operator, installing, chef]
 moved: {
-    '1.4.0-': '/cookbooks/Installing-With-Chef'
+    '1.4.0-': '/cookbooks/Installing-With-Chef',
+    '2.1.1-': '/ops/building/installing/Installing-With-Chef'
 }
 ---
 
@@ -176,9 +177,6 @@ default['riak']['config']['merge_index']['buffer_rollover_size'] = 1048576
 default['riak']['config']['merge_index']['max_compact_segments'] = 20
 ```
 
-## Additional Resources
+## Next Steps
 
-More information related to cluster configuration and building development
-environments is available in our documentation.
-
-* [[Five-Minute Install]]
+Now that Riak is installed, check out [[Verifying a Riak Installation]].
