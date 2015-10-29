@@ -5,9 +5,6 @@ version: 1.2.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, solaris]
-prev: "[[Installing on SmartOS]]"
-up:   "[[Installing and Upgrading]]"
-next: "[[Installing on SUSE]]"
 download:
   key: solaris
   name: "Solaris"
