@@ -14,8 +14,9 @@ audience: beginner
 [riak_ensemble]: https://github.com/basho/riak_ensemble
 [riak kv]: http://docs.basho.com/riak/2.1.1
 [riak strong consistency]: http://docs.basho.com/riak/2.1.1/ops/advanced/strong-consistency/#Enabling-Strong-Consistency
-[aws marketplace]: http://docs.basho.com/riak/2.1.1/ops/building/installing/aws-marketplace/
+[aws marketplace]: http://docs.basho.com/riak/2.1.1/installing/amazon-web-services/
 [set spark ip]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/advanced/set-spark-ip-address/
+[default ports]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/reference/default-ports/
 
 Now that you've [installed Basho Data Platform][bdp install], you're ready to set up a Basho Data Platform (BDP) cluster. This page will guide you through this process.
 
@@ -28,13 +29,12 @@ This page also lists the default port connections for BDP.
 * You need to have joined the nodes you wish to run Riak KV on together before you continue. Check out [Basic Cluster Setup][riak cluster setup]. (We strongly advise you not to join your Redis or Spark nodes to nodes that are part of your Riak KV cluster. Join them to your BDP cluster, instead.)
 * This document assumes you have basic knowledge of configuring and running Riak KV cluster. If not, please read our [Riak KV documentation][riak kv].
 * You must have root access on the nodes in your cluster.
-* If you have a firewall, it should be configured to allow traffic for all network ports used by BDP.
+* If you have a firewall, it should be configured to allow traffic for all network ports used by BDP. A list of default ports can be found [here][default ports].
 * All of the steps in this guide assume you are working with your BDP nodes rather than any pre-existing Riak cluster.
 
-<div class="note">
-<div class="title">Note on Amazon Web Services</div>
-AWS security profile must allow incoming and outgoing traffic from ip/ports used by Riak, Spark, and BDP.  A list of default ports is at the end of this document. 
-</div>
+>**Note on Amazon Web Services**
+>AWS security profile must allow incoming and outgoing traffic from ip/ports used by Riak, Spark, and BDP. A list of default ports can be found [here][default ports]. Check out [Installing on Amazon Web Services][aws marketplace] for instructions on configuring security group settings to work with Riak.
+
 
 <div class="warning">
   DO NOT join a BDP node to a pre-existing Riak cluster.
@@ -276,18 +276,9 @@ In the above example, the Redis service will use the default port 6379.
 
 ### Default Ports
 
->If you're using AWS, be sure to check out [Installing on AWS Marketplace][aws marketplace] for instructions on configuring security group settings to work with Riak.
+>If you're using AWS, be sure to check out [Installing on Amazon Web Services][aws marketplace] for instructions on configuring security group settings to work with Riak.
 
-
-| Service | Parameter | Default |
-| ---------- | -------------- | ---------- |
-| Redis | `REDIS_PORT` | 6379 |
-| Cache-Proxy | `CACHE_PROXY_PORT` | 22122 |
-| Cache-Proxy | `CACHE_PROXY_STATS_PORT` | 22123 |
-| Spark | `SPARK_MASTER_PORT` | 7077 |
-| Spark | `SPARK_MASTER_WEBUI_PORT` | 8080 |
-| Spark | `SPARK_WORKER_PORT` | 7078 |
-| Spark | `SPARK_WORKER_WEBUI_PORT` | 8081 |
+If you have a firewall, it should be configured to allow traffic for all network ports used by BDP. A list of default ports can be found [here][default ports].
 
 ## In the Lab
 
