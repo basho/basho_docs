@@ -5,14 +5,12 @@ version: 1.2.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, freebsd]
-prev: "[[Installing on Mac OS X]]"
-up:   "[[Installing and Upgrading]]"
-next: "[[Installing on SmartOS]]"
 download:
   key: freebsd
   name: "FreeBSD"
 moved: {
-    '1.4.0-': '/tutorials/installation/Installing-on-FreeBSD'
+    '1.4.0-': '/tutorials/installation/Installing-on-FreeBSD',
+    '2.1.1-': '/ops/building/installing/Installing-on-FreeBSD'
 }
 ---
 
@@ -81,7 +79,7 @@ When building and installing Riak from source, you might be required to install 
 
 If you do not currently have the following software installed, please install it with packages or the ports collection before proceeding.
 
-* Erlang (Can also be installed via Kerl as described in [[Installing Erlang]].
+* Erlang ([[Installing Erlang]])
 * Curl
 * Git
 * OpenSSL (version 1.0.0_7)
@@ -117,17 +115,6 @@ If you'd prefer to build a development environment consisting of 4 nodes which c
 gmake devrel
 ```
 
-## Next Steps?
-From here you might want to check out:
+## Next Steps
 
-* [[Post Installation Notes|Post Installation]]: for checking Riak health after installation
-* [[Five Minute Install]]: a guide for setting up a 5 node cluster and exploring Riak’s main features.
-* [[Basic Configuration]]: a guide that will show you how to go from one node to bigger than Google!
-
-## References
-
-* [Basho Downloads](http://basho.com/resources/downloads/)
-* [[Installing and Upgrading]]
-* [[Installing Erlang]]
-* [Using the FreeBSD Package System](http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/packages-using.html)
-* [Using the FreeBSD Ports Collection](http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/ports-using.html)
+Now that Riak is installed, check out [[Verifying a Riak Installation]].

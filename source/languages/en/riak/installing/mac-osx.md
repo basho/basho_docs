@@ -4,15 +4,13 @@ project: riak
 version: 0.10.0+
 document: tutorial
 audience: beginner
-keywords: [tutorial, installing, osx]
-prev: "[[Installing on RHEL and CentOS]]"
-up:   "[[Installing and Upgrading]]"
-next: "[[Installing on FreeBSD]]"
+keywords: [tutorial, installing, osx, mac]
 download:
   key: osx
   name: "Mac OS X"
 moved: {
-    '1.4.0-': '/tutorials/installation/Installing-on-Mac-OS-X'
+    '1.4.0-': '/tutorials/installation/Installing-on-Mac-OS-X',
+    '2.1.1-': '/ops/building/installing/Installing-on-Mac-OS-X'
 }
 ---
 
@@ -85,7 +83,7 @@ the Riak installation directory via environment variables.
 
 **Note**: Homebrew will install Erlang if you don't have it already.
 
-## From Source
+## Installing From Source
 
 You must have Xcode tools installed from [Apple's Developer
 website](http://developer.apple.com/).
@@ -100,7 +98,6 @@ Riak requires [Erlang](http://www.erlang.org/)
 {{#2.0.0-}}R15B01{{/2.0.0-}}{{#2.0.0+}}R16B02+{{/2.0.0+}}.
 
 If you do not have Erlang already installed, see [[Installing Erlang]].
-Don't worry, it's easy!
 
 Next, download and unpack the source distribution.
 
@@ -116,11 +113,6 @@ please verify that you built Erlang with the same architecture as your
 system (Snow Leopard and higher: 64bit{{#1.4.0-}}, everything else:
 32bit{{/1.4.0-}}).
 
-## Next Steps?
+## Next Steps
 
-From here, you might want to check out:
-
-* [[Post Installation]] --- Information on checking Riak health after
-  installation
-* [[Five-Minute Install]] --- A guide that will show you how to go from
-  one node to as many as you'd like
+Now that Riak is installed, check out [[Verifying a Riak Installation]].

@@ -13,6 +13,13 @@ riak:
       - "[[Why Riak?|Why Riak]]"
       - "[[Five-minute Install|Five Minute Install]]"
 
+  - title: "Installing"
+    sub:
+      - "[[Download Riak|Downloads]]"
+      - "[[Installing Riak]]"
+      - "[[Installing Riak from Source]]"
+      - "[[Verifying a Riak Installation]]"
+
   - title: "Riak for Developers"
     sub:
       - title: "A Taste of Riak"
@@ -112,23 +119,6 @@ riak:
     sub:
       - title: "Building a Cluster"
         sub:
-          - title: "Installation"
-            sub:
-              - "[[Download Riak|Downloads]]"
-              - "[[Installing and Upgrading]]"
-              - "[[Installing Erlang]]"
-              - "[[Installing the JVM]]"
-              - "[[Debian and Ubuntu|Installing on Debian and Ubuntu]]"
-              - "[[RHEL and CentOS|Installing on RHEL and CentOS]]"
-              - "[[Mac OS X|Installing on Mac OS X]]"
-              - "[[FreeBSD|Installing on FreeBSD]]"
-              - "[[SmartOS|Installing on SmartOS]]"
-              - "[[Solaris 10|Installing on Solaris]]"
-              - "[[SUSE|Installing on SUSE]]"
-              - "[[Windows Azure|Installing on Windows Azure]]"
-              - "[[AWS Marketplace|Installing on AWS Marketplace]]"
-              - "[[From Source|Installing Riak from Source]]"
-              - "[[Post Installation]]"
           - title: "Planning"
             sub:
               - "[[Start Planning|Planning for a Riak System]]"

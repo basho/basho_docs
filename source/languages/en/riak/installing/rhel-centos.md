@@ -5,14 +5,12 @@ version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, rhel, centos, linux]
-prev: "[[Installing on Debian and Ubuntu]]"
-up:   "[[Installing and Upgrading]]"
-next: "[[Installing on Mac OS X]]"
 download:
   key: rhel
   name: "Red Hat or CentOS"
 moved: {
-    '1.4.0-': '/tutorials/installation/Installing-on-RHEL-and-CentOS'
+    '1.4.0-': '/tutorials/installation/Installing-on-RHEL-and-CentOS',
+    '2.1.1-': '/ops/building/installing/Installing-on-RHEL-and-CentOS'
 }
 ---
 
@@ -164,11 +162,6 @@ make rel
 
 You will now have a fresh build of Riak in the `rel/riak` directory.
 
-## Next Steps?
+## Next Steps
 
-From here you might want to check out:
-
-* [[Post Installation]] --- A guide to checking Riak health after
-  installation
-* [[Five-Minute Install]] --- A guide that will show you how to go from
-  one node to as many as you'd like
+Now that Riak is installed, check out [[Verifying a Riak Installation]].

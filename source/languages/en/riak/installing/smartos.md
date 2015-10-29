@@ -5,14 +5,12 @@ version: 1.2.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, smartos]
-prev: "[[Installing on FreeBSD]]"
-up:   "[[Installing and Upgrading]]"
-next: "[[Installing on Solaris]]"
 download:
   key: smartos
   name: "SmartOS"
 moved: {
-    '1.4.0-': '/tutorials/installation/Installing-on-SmartOS'
+    '1.4.0-': '/tutorials/installation/Installing-on-SmartOS',
+    '2.1.1-': '/ops/building/installing/Installing-on-SmartOS'
 }
 ---
 
@@ -106,10 +104,6 @@ Pinging Riak will result in a `pong` response if the node is up and reachable. I
 
 If all responses indicate that riak is up and running, then you have successfully installed and configured Riak as service on SmartOS.
 
-## Next Steps?
+## Next Steps
 
-Now that Riak is installed, check out the following resources:
-
--   [[Post Installation Notes|Post Installation]]: for checking Riak health after installation
--   [[Five Minute Install]]: A  guide that will show you how to go from one
-    node to bigger than Google!
+Now that Riak is installed, check out [[Verifying a Riak Installation]].
