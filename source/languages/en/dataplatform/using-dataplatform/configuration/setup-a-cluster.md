@@ -69,31 +69,15 @@ Then, join your BDP nodes together by running this command on all nodes in the c
 user@machine2:~$ sudo data-platform-admin join »NODENAME, ie riak@IPADDRESS)« 
 ```
 
-### Start `riak_ensemble`
+### Check `riak_ensemble`
 
-Once your BDP nodes are started and joined together, you need to set up [riak_ensemble][riak_ensemble].
+Once your BDP nodes are started and joined together, make sure [riak_ensemble][riak_ensemble] has started.
 
 <div class="note">
 Basho Data Platform will not function correctly if `riak_ensemble` is not running. 
 </div>
 
-<div class="note">
-We do not recommend enabling `riak_ensemble` on more than 5 nodes, as performance will degrade.
-</div>
-
-To make sure `riak_ensemble` has started, you will need to enter the Riak console and run the enable command. To do this run:
-
-```bash
-sudo riak attach
-```
-
-Within the attached Riak console, issue the following command:
-
-```erlang
-riak_ensemble_manager:enable().
-```
-
-You will then need to Ctrl-C twice to exit the Erlang shell `riak attach` brought you into. Once out, run:
+To check the status of `riak_ensemble`:
 
 ```bash
 sudo riak-admin ensemble-status
