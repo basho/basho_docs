@@ -8,6 +8,8 @@ index: true
 audience: beginner
 ---
 
+[installing]: http://
+
 Now that you've [installed][installing] Riak TS, you can configure a bucket.
 
 ## Basic Structure of a Riak TS Bucket
@@ -19,7 +21,7 @@ Riak TS has two types of keys:
 * *partition keys* determine where the data is placed on the cluster
 * *local keys* determine how the data is actually stashed on the disk
 
-*Time quantisation* is employed in partition keys to group data that will be queried together in the same physical part of the cluster. Time quantisation just says “group by data by 15 minute clumps, or 10 second clumps, or 2 month clumps” depending on the ingestion characteristics of your time series data. The quantisation is configurable on a bucket level.
+*Time quantization* is employed in partition keys to group data that will be queried together in the same physical part of the cluster. Time quantization just says “group by data by 15 minute clumps, or 10 second clumps, or 2 month clumps” depending on the ingestion characteristics of your time series data. The quantization is configurable on a bucket level.
 
 In order to query TS data, data is stored in a schema. The schema defines what data can be stored in a time series bucket and what type it has. Queries can then be written against that schema and the TS query system can validate and execute them.
 
@@ -41,11 +43,10 @@ CREATE TABLE GeoCheckin
    weather     varchar   not null,
    temperature float,
    PRIMARY KEY (
-     (quantum(time, 15, 'm'), myfamily, myseries),
-     time,
-     myfamily,
-     myseries
-  )
+     myfamily, myseries, (quantum(time, 15, 'm')),
+     myfamily, myseries, time
+
+           )
 )
 ```
 
@@ -68,11 +69,15 @@ Valid types are:
 * `any`
 
 ####Primary Key
-The `PRIMARY KEY` section of the command describes the partition and local keys. The partition key is defined as the three named fields in brackets. The first one must be the quantum function:
+The `PRIMARY KEY` section of the command describes the partition and local keys. The partition key is defined as the three named fields in brackets:
 
 ```sql
-(quantum(time, 15, 'm'), myfamily, myseries),
+(myfamily, myseries, (quantum(time, 15, 'm')),
 ```
+
+The first (family) field is used for grouping types of data for deletion/expiry, and the third (series) field is for sets of time series data.
+
+The second key (local key) MUST contain the same 3 fields in the same order.
 
 The quantum function takes 3 parameters:
 
@@ -86,9 +91,6 @@ The quantum function takes 3 parameters:
   * 'm' - minutes
   * 's' - seconds
 
-The second (family) field is used for grouping types of data for deletion/expiry, and the third (series) field is for sets of time series data.
-
-The second key (local key) MUST contain the same 3 fields in the same order.
 
 Additionally, the fields declared in the keys must have the flag `not null`.
 

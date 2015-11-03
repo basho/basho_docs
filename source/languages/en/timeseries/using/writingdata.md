@@ -23,11 +23,12 @@ CREATE TABLE GeoCheckin
   weather     varchar   not null,
   temperature float,
 PRIMARY KEY (
-    (quantum(time, 15, 'm'), myfamily, myseries),
-    time, myfamily, myseries
+     myfamily, myseries, (quantum(time, 15, 'm')),
+     myfamily, myseries, time
 
            )
 )
+
 ```
 
 Riak TS allows you to write multiple rows of data at a time. Simply put the data in a list:

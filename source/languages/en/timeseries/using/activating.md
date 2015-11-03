@@ -22,8 +22,8 @@ CREATE TABLE GeoCheckin
    weather     varchar   not null,
    temperature float,
 PRIMARY KEY (
-     (quantum(time, 15, 'm'), myfamily, myseries),
-     time, myfamily, myseries
+    (myfamily, myseries, quantum(time, 15, 'm')),
+    myfamily, myseries, time
 
             )
 )
@@ -32,7 +32,7 @@ PRIMARY KEY (
 To create the example bucket, run:
 
 ```sh
-riak-admin bucket-type create GeoCheckin '{"props":{"n_val":1, "table_def": "CREATE TABLE GeoCheckin \( myfamily varchar not null, myseries varchar not null,time timestamp not null, weather varchar not null, temperature float,PRIMARY KEY \( \(quantum\(time, 15, 'm'\), myfamily, myseries\),time, myfamily, myseries \)\)"}}'
+riak-admin bucket-type create GeoCheckin '{"props":{"n_val":1, "table_def": "CREATE TABLE GeoCheckin \( myfamily varchar not null, myseries varchar not null,time timestamp not null, weather varchar not null, temperature float,PRIMARY KEY \( \myfamily, myseries, (quantum\(time, 15, 'm'\)\), myfamily, myseries, time \)\)"}}'
 ```
 
 >Please note that Bucket Type Name must equal the Table Name.
@@ -72,10 +72,10 @@ ddl: {ddl_v1,<<"GeoCheckin">>,
               {riak_field_v1,<<"weather">>,4,binary,false},
               {riak_field_v1,<<"temperature">>,5,float,true}],
              {key_v1,[{hash_fn_v1,riak_ql_quanta,quantum,
-                                  [{param_v1,[<<"time">>]},15,m],
-                                  timestamp},
-                      {param_v1,[<<"myfamily">>]},
+                                  {param_v1,[<<"myfamily">>]},
                       {param_v1,[<<"myseries">>]}]},
+                      [{param_v1,[<<"time">>]},15,m],
+                                  timestamp},
              {key_v1,[{param_v1,[<<"time">>]},
                       {param_v1,[<<"myfamily">>]},
                       {param_v1,[<<"myseries">>]}]}}
@@ -100,14 +100,14 @@ The Key info contains the columns used for the Partition Key (defines how the da
 ```sh
 {key_v1,[
    {hash_fn_v1,riak_ql_quanta,quantum,
-      [{param_v1,[<<"time">>]},15,m],timestamp}, <- Partition Key Part 1
-   {param_v1,[<<"myfamily">>]},                  <- Partition Key Part 2 
-   {param_v1,[<<"myseries">>]}                   <- Partition Key Part 3
+               {param_v1,[<<"myfamily">>]},               <- Partition Key Part 1
+               {param_v1,[<<"myseries">>]},               <- Partition Key Part 2 
+               [{param_v1,[<<"time">>]},15,m],timestamp}  <- Partition Key Part 3
 
 ]},
 {key_v1,[
-   {param_v1,[<<"time">>]},      <- Local Key part 1
-   {param_v1,[<<"myfamily">>]},  <- Local Key part 2
-   {param_v1,[<<"myseries">>]}   <- Local Key part 3
+   {param_v1,[<<"myfamily">>]},  <- Local Key part 1
+   {param_v1,[<<"myseries">>]},  <- Local Key part 2
+   {param_v1,[<<"time">>]}       <- Local Key part 3
 ]}
 ```

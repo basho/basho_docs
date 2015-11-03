@@ -23,8 +23,8 @@ CREATE TABLE GeoCheckin
   weather     varchar   not null,
   temperature float,
 PRIMARY KEY (
-    (quantum(time, 15, 'm'), myfamily, myseries),
-    time, myfamily, myseries
+     myfamily, myseries, (quantum(time, 15, 'm')),
+     myfamily, myseries, time
 
            )
 )
@@ -54,7 +54,7 @@ results = query.issue!
 >>>>>>> a0580a2273f2b212e24c716e5afb823ed7527f3b
 ```
 
-The SQL query must cover the entire time series key (`time`,  `myfamily`, `myseries`). If any part of the time series key is missing, you will get an error.
+The SQL query must cover the entire time series key (`myfamily`, `myseries`, and `time`). If any part of the time series key is missing, you will get an error.
 
 ## Specific Querying
 
