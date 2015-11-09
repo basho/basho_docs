@@ -10,7 +10,7 @@ keywords: [developers, upgrading]
 When upgrading to Riak 2.0 from an earlier version, we strongly
 recommend reading each section of the following guide. This guide
 explains which default Riak behaviors have changed and specific steps 
-to take for a sucessful upgrade.
+to take for a successful upgrade.
 
 For an overview of the new features and functionality
 included in version 2.0, check out our guide to [[Riak 2.0]].
