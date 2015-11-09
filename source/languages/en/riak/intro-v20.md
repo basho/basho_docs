@@ -230,7 +230,7 @@ update causality.
 Riak 2.0 has added support for dotted version vectors (DVVs).
 DVVs serve an analogous role to vector
 clocks but are more effective at containing [[sibling explosion|Causal
-Context#sibing-explosion]] and can reduce Riak cluster latency.
+Context#sibling-explosion]] and can reduce Riak cluster latency.
 
 #### Relevant Docs
 
