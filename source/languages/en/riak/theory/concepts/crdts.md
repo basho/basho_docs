@@ -235,7 +235,7 @@ Data Type | Convergence rule
 :--------|:------------
 Flags | `enable` wins over `disable`
 Registers | The most chronologically recent value wins, based on timestamps
-Counters | Each actor keeps an independent count for increments and decrements; upon merge, the pairwise maximum of the counts for each actor will win (e.g. if one count for an actor holds 172 and the other holds 173, 173 will win upon merge)
+Counters | Implemented as a PN-Counter ([paper](http://hal.upmc.fr/docs/00/55/55/88/PDF/techreport.pdf)), so all increments and decrements by all actors are eventually applied.  Every actor wins.
 Sets | If an element is concurrently added and removed, the add will win
 Maps | If a field is concurrently added or updated and removed, the add/update will win
 
