@@ -91,20 +91,20 @@ requests from the outside network. The relevant setting is in your
 
 ```riakconf
 # For HTTP
-listener.http.internal = {"127.0.0.1",8098}
+listener.http.internal = 127.0.0.1:8098
 
 # For Protocol Buffers
-listener.protobuf.internal = {"127.0.0.1",8087}
+listener.protobuf.internal = 127.0.0.1:8087
 ```
 
 ```appconfig
-% In the riak_core section
+% In the riak_api section
 
 % For HTTP
 {http, [ {"127.0.0.1", 8098 } ]},
 
 % For Protocol Buffers
-{pb_ip,   "127.0.0.1" },
+{pb, [ {"127.0.0.1", 8087} ] },
 ```
 
 Either change it to use an IP address that corresponds to one of the
@@ -112,7 +112,7 @@ server's network interfaces, or 0.0.0.0 to allow access from all
 interfaces and networks, e.g.:
 
 ```riakconf
-listener.http.internal = {"0.0.0.0",8098}
+listener.http.internal = 0.0.0.0:8098
 ```
 
 ```appconfig
@@ -125,12 +125,12 @@ interface if you intend on using it (which we recommend). Change the
 following line:
 
 ```riakconf
-listener.protobuf.internal = {"0.0.0.0",8087}
+listener.protobuf.internal = 0.0.0.0":8087
 ```
 
 ```appconfig
 % In the riak_core section
-{pb_ip,   "127.0.0.1" },
+{pb, [ {"0.0.0.0", 8087} ] },
 ```
 
 ## Start the Node
