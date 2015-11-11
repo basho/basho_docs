@@ -43,8 +43,7 @@ CREATE TABLE GeoCheckin
    PRIMARY KEY (
      myfamily, myseries, (quantum(time, 15, 'm')),
      myfamily, myseries, time
-
-           )
+   )
 )
 ```
 
