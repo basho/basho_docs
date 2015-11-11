@@ -65,7 +65,6 @@ Valid types are:
 * `double`
 * `boolean`
 * `timestamp`
-* `any`
 
 Additionally, the fields declared in the keys must have the flag `not null`.
 
