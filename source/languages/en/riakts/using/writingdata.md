@@ -17,18 +17,16 @@ Let's use the example bucket from earlier:
 ```sql
 CREATE TABLE GeoCheckin
 (
-  myfamily    varchar   not null,
-  myseries    varchar   not null,
-  time        timestamp not null,
-  weather     varchar   not null,
-  temperature float,
-PRIMARY KEY (
-     myfamily, myseries, (quantum(time, 15, 'm')),
+   myfamily    varchar   not null,
+   myseries    varchar   not null,
+   time        timestamp not null,
+   weather     varchar   not null,
+   temperature double,
+   PRIMARY KEY (
+     (myfamily, myseries, quantum(time, 15, 'm')),
      myfamily, myseries, time
-
-           )
+   )
 )
-
 ```
 
 Riak TS allows you to write multiple rows of data at a time. Simply put the data in a list:
