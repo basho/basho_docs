@@ -32,7 +32,7 @@ PRIMARY KEY (
 To create the example bucket, run:
 
 ```sh
-riak-admin bucket-type create GeoCheckin '{"props":{"n_val":1, "table_def": "CREATE TABLE GeoCheckin \( myfamily varchar not null, myseries varchar not null,time timestamp not null, weather varchar not null, temperature float,PRIMARY KEY \( \myfamily, myseries, (quantum\(time, 15, 'm'\)\), myfamily, myseries, time \)\)"}}'
+riak-admin bucket-type create GeoCheckin '{"props":{"n_val":1, "table_def": "CREATE TABLE GeoCheckin (myfamily varchar not null, myseries varchar not null, time timestamp not null, weather varchar not null, temperature double, PRIMARY KEY (myfamily, myseries, (quantum (time, 15, 'm')), myfamily, myseries, time))"}}'
 ```
 
 >Please note that Bucket Type Name must equal the Table Name.
