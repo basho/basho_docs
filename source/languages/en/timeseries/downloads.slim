@@ -1,6 +1,6 @@
 ---
 title: Download Riak Time Series
-project: timeseries
+project: riakts
 version: 1.0.0+
 document: reference
 audience: beginner
@@ -9,8 +9,10 @@ simple: true
 body_id: downloads
 ---
 
-- version = current_version(:timeseries)
+- version = current_version(:riakts)
 - downloads = Downloads.new('riak_ts', version)
+- comment = "The above 'riak_ts' needs to match what's in our S3 downloads server. My assumption is that it will change to 'riak-ts' to maintain consistency."
+
 
 h1 Download Riak Time Series #{version}
 

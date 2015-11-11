@@ -1,6 +1,6 @@
 ---
 title: Writing Data to Riak TS
-project: timeseries
+project: riakts
 version: 1.0.0+
 document: guide
 toc: true

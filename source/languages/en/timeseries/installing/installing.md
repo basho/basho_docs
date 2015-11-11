@@ -1,6 +1,6 @@
 ---
 title: Installing Riak TS
-project: riak_ts
+project: riakts
 version: 1.0.0+
 document: guide
 toc: true

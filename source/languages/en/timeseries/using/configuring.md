@@ -1,6 +1,6 @@
 ---
 title: Configuring a Riak TS Table
-project: riak-ts
+project: riakts
 version: 1.0.0+
 document: guide
 toc: true
@@ -94,6 +94,6 @@ The quantum function takes 3 parameters:
   * 'h' - hours
   * 'm' - minutes
   * 's' - seconds
-  
+
 #####Local Key
 The second key (local key) MUST contain the same 3 fields in the same order as the partition key. This ensures that the same fields determining your data's partition also dictate the sorting of the data within that partition.

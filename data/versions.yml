@@ -27,9 +27,9 @@ riakcscontrol:
   - ['1.0.0', '1.0.1', '1.0.2']
 dataplatform:
   - ['1.0.0']
-timeseries:
+riakts:
   - ['0.8.0']
-gen_projects: ['riak', 'riakcs', 'dataplatform', 'timeseries']
+gen_projects: ['riak', 'riakcs', 'dataplatform', 'riakts']
 # Describes the latest version per project, for which a 'latest/'
 # directory will be automatically generated.
 currents:
@@ -39,4 +39,4 @@ currents:
   riakcscontrol: '1.0.2'
   stanchion: '2.0.0'
   dataplatform: '1.0.0'
-  timeseries: '0.8.0'
+  riakts: '0.8.0'
