@@ -1,6 +1,6 @@
 ---
 title: Installing on Debian and Ubuntu
-project: riak_ts
+project: riakts
 version: 1.0.0+
 document: tutorial
 audience: beginner

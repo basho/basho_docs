@@ -1,6 +1,6 @@
 ---
 title: Activating Your Riak TS Bucket
-project: timeseries
+project: riakts
 version: 1.0.0+
 document: guide
 toc: true

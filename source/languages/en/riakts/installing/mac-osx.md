@@ -1,6 +1,6 @@
 ---
 title: Installing on Mac OS X
-project: riak
+project: riakts
 version: 0.10.0+
 document: tutorial
 audience: beginner

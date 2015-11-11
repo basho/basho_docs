@@ -135,8 +135,8 @@ module BashoDocsHelpers
     yml.merge!(YAML::load(File.open(riakcs_yml_path)))
     dataplatform_yml_path = File.expand_path(File.join(File.dirname(__FILE__), '..', 'source', 'languages', I18n.locale.to_s, 'dataplatform', 'side_nav.yml'))
     yml.merge!(YAML::load(File.open(dataplatform_yml_path)))
-    timeseries_yml_path = File.expand_path(File.join(File.dirname(__FILE__), '..', 'source', 'languages', I18n.locale.to_s, 'timeseries', 'side_nav.yml'))
-    yml.merge!(YAML::load(File.open(timeseries_yml_path)))
+    riakts_yml_path = File.expand_path(File.join(File.dirname(__FILE__), '..', 'source', 'languages', I18n.locale.to_s, 'riakts', 'side_nav.yml'))
+    yml.merge!(YAML::load(File.open(riakts_yml_path)))
     $global_nav = yml
   end
 
