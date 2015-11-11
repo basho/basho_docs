@@ -18,7 +18,7 @@ Riak TS enables querying large amounts of related data, so keys behave different
 Riak TS has two types of keys:
 
 * *partition keys*, which determine where the data is placed on the cluster, and
-* *local keys*, which determine how the data is actually stashed on the disk.
+* *local keys*, which determine where the data is written in the partition.
 
 Partition keys use *time quantization* to group data that will be queried together in the same physical part of the cluster. Time quantization says “group data by 15 minute clumps, or 10 second clumps, or 60 day clumps” depending on how quickly your time series data come in and how you need to analyze them. The quantization is configurable on a table level.
 
@@ -50,7 +50,7 @@ CREATE TABLE GeoCheckin
 
 
 ####Field Names
-Field names (`myfamily`, `myseries`, etc) must be strings, in addition to having the correct case. If field names need to contain special cases (e.g. spaces or punctutation) they can be single quoted.
+Field names (`myfamily`, `myseries`, etc) must be strings, in addition to having the correct case. If field names need to contain special cases (e.g. spaces or punctuation) they can be single quoted.
 
 Field names define the structure of the data, taking the format:
 
@@ -67,37 +67,33 @@ Valid types are:
 * `timestamp`
 * `any`
 
+Additionally, the fields declared in the keys must have the flag `not null`.
 
 ####Primary Key
-The `PRIMARY KEY` describes the partition and local keys. The partition key is defined as the three named fields in brackets:
+The `PRIMARY KEY` describes the partition and local keys. 
+
+#####Partition Key 
+The partition key is defined as the three named fields in brackets:
 
 ```sql
 (myfamily, myseries, (quantum(time, 15, 'm')),
 ```
 
-You MUST have all three fields. The first (family) field is used for grouping types of data for deletion/expiry, and the second (series) field is for sets of time series data. The third (quantum) field sets the time intervals to group data by.
+You MUST have exactly three fields in the following order: 
 
-The second key (local key) MUST contain the same 3 fields in the same order.
+1. The first field (family) is a class or type of data. 
+2. The second field (series) identifies the specific instances of the class/type, such as username or device ID. 
+3. The third field (quantum) sets the time intervals to group data by.
 
 The quantum function takes 3 parameters:
 
 * the name of a field in the table definition of type `timestamp`
 * a quantity
 * a unit of time:
-  * 'y' - years
-  * 'mo' - months
   * 'd'  - days
   * 'h' - hours
   * 'm' - minutes
   * 's' - seconds
-
-
-Additionally, the fields declared in the keys must have the flag `not null`.
-
-###Optimizing Table Configuration
-
-Multiple steps are involved in storing data with Riak TS. First, you must determin what partition the data will go in. Then you must determine where in that partition the data will go. Since the data is guaranteed to have a timestamp (or similar), it is tempting to just partition by timestamp (partition key) and sort by timestamp (local key). But, frequently, there are other significant fields, too. 
-
-The partition and local keys are general composite keys. They do not cover this other significant information set. That must be included through the semantics of the other fields. 
-
-It is important to keep this in mind when configuring your table. Take a heartbeat sensor, for instance. You would want to partition by {timestamp, whose heartbeat it is, sensor_type}, so when you looking for a particular person's heartrate on a particular day, you can search via a time range, a person, and monitor type. This is where you see a bigger payoff. It's cheaper to read 1000 points from each of three places than it is to read 3000 points from one place or one point from 3000 places.
+  
+#####Local Key
+The second key (local key) MUST contain the same 3 fields in the same order.
