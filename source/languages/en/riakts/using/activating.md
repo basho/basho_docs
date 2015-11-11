@@ -23,10 +23,10 @@ CREATE TABLE GeoCheckin
    time        timestamp not null,
    weather     varchar   not null,
    temperature double,
-PRIMARY KEY (
-    (myfamily, myseries, quantum(time, 15, 'm')),
-    myfamily, myseries, time
-    )
+   PRIMARY KEY (
+     (myfamily, myseries, quantum(time, 15, 'm')),
+     myfamily, myseries, time
+   )
 )
 ```
 
