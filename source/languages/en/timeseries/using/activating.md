@@ -47,19 +47,19 @@ riak-admin bucket-type activate GeoCheckin
 
 
 ##Viewing Table Scheme
-To view the table scheme use the following:
+To view the table scheme use the following command:
 
 ```sh
-riak-admin bucket-type status
+riak-admin bucket-type status »TABLE NAME«
 ```
 
 For the example `GeoCheckin` table:
 
 ```sh
-riak-admin GeoCheckin status
+riak-admin bucket-type status GeoCheckin
 ```
 
-To check if your table was properly created, see the `ddl` section of the `riak-admin bucket-type status` response. For example:
+**Get devs to fix this** To check if your table was properly created, see the `ddl` section of the `riak-admin bucket-type status` response. For example:
 
 ```sh
 $riak-admin bucket-type status GeoCheckin

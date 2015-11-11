@@ -70,7 +70,7 @@ Valid types are:
 Additionally, the fields declared in the keys must have the flag `not null`.
 
 ####Primary Key
-The `PRIMARY KEY` describes the partition and local keys. 
+The `PRIMARY KEY` describes the partition and local keys. The partition key and the local key need to h
 
 #####Partition Key 
 The partition key is defined as the three named fields in brackets:
@@ -96,4 +96,4 @@ The quantum function takes 3 parameters:
   * 's' - seconds
   
 #####Local Key
-The second key (local key) MUST contain the same 3 fields in the same order.
+The second key (local key) MUST contain the same 3 fields in the same order as the partition key. This ensures that the same fields determining your data's partition also dictate the sorting of the data within that partition.
