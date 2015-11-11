@@ -8,10 +8,12 @@ index: true
 audience: beginner
 ---
 
-Once you have [designed your bucket][designing] you can create it via `riak-admin`.
+[configuring]: https://www.docs.basho.com/riakts/1.0.0/using/activating.html
 
-## Creating Your Bucket
-Remember the example bucket?
+Once you have [designed your table][configuring] you can create it via `riak-admin`.
+
+##Creating Your Table
+Remember the example table?
 
 ```sql
 CREATE TABLE GeoCheckin
@@ -29,37 +31,35 @@ PRIMARY KEY (
 )
 ```
 
-To create the example bucket, run:
+To create the example table, run:
 
 ```sh
 riak-admin bucket-type create GeoCheckin '{"props":{"n_val":1, "table_def": "CREATE TABLE GeoCheckin (myfamily varchar not null, myseries varchar not null, time timestamp not null, weather varchar not null, temperature double, PRIMARY KEY (myfamily, myseries, (quantum (time, 15, 'm')), myfamily, myseries, time))"}}'
 ```
 
->Please note that Bucket Type Name must equal the Table Name.
+>Please note that the `bucket-type` name must equal the table name.
 
-Then it must be activated like any other bucket type:
+Then, activate your table just like a bucket type:
 
 ```sh
 riak-admin bucket-type activate GeoCheckin
 ```
 
-Because there is a one-to-one correspondence between bucket types and buckets in Riak TS, we recommend that you name the bucket type the same as the table (bucket) in the `CREATE TABLE` command.
 
-## Viewing Table Scheme
-
-To view the Table scheme use the following:
+##Viewing Table Scheme
+To view the table scheme use the following:
 
 ```sh
 riak-admin bucket-type status
 ```
 
-So for the example `GeoCheckin` Bucket Type:
+For the example `GeoCheckin` table:
 
 ```sh
 riak-admin GeoCheckin status
 ```
 
-To check if your Bucket Type was properly created, see the `ddl` section of the `riak-admin bucket-type status` response. For example:
+To check if your table was properly created, see the `ddl` section of the `riak-admin bucket-type status` response. For example:
 
 ```sh
 $riak-admin bucket-type status GeoCheckin
@@ -81,7 +81,7 @@ ddl: {ddl_v1,<<"GeoCheckin">>,
                       {param_v1,[<<"myseries">>]}]}}
 ```
 
-The format can be read as:
+The format of the response is:
 
 ```sh
 ddl:  { ddl_v1, TABLE_NAME, 
@@ -95,7 +95,7 @@ The columns are each:
 {riak_field_v1,<<"FIELD_NAME">>,COLUMN_INDEX,COLUMN_TYPE,NULLABLE}
 ```
 
-The Key info contains the columns used for the Partition Key (defines how the data set is chunked, and then chunk data is co-located), and the Local Key(the unique identifier within a chunk). These two sets of columns will mostly be the same, but the Partition Key will have an additional Quantum definition for the timestamp column:
+The `key` information contains the columns used for the partition key, which defines how the data set is chunked and where the chunk data is co-located, and the local key which uniquely identifies the data within a chunk. These two sets of columns will mostly be the same, but the partition key will have an additional quantum definition for the timestamp column:
 
 ```sh
 {key_v1,[
