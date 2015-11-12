@@ -27,6 +27,11 @@
 // This somewhat calls into question the above process for including Scss files.
 // Do we want to use the full path for them as well? It also begs the question
 // 'why did we write any non-sass CSS?'
+//FIXME(Drew): The above may be incorrect;
+//   https://github.com/chriseppstein/sass-css-importer#more-complex-scenarios
+//   `add_import_path Sass::CssImporter::Importer.new("/path/to/the/css/files")`
+// This may require be a relatively small change to the Rakefile's
+// `compile_scss` function.
 @import "CSS:imports/basho-palette";
 @import "CSS:imports/bootstrap-tabs";
 // @import "foundation.css"; //TODO(Drew): I don't think we ever use this. Get rid of it?
