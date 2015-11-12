@@ -39,12 +39,11 @@ CREATE TABLE GeoCheckin
    myseries    varchar   not null,
    time        timestamp not null,
    weather     varchar   not null,
-   temperature float,
+   temperature double,
    PRIMARY KEY (
-     myfamily, myseries, (quantum(time, 15, 'm')),
+     (myfamily, myseries, quantum(time, 15, 'm')),
      myfamily, myseries, time
-
-           )
+   )
 )
 ```
 
@@ -61,11 +60,10 @@ name type [not null],
 Valid types are:
 
 * `varchar`
-* `integer`
-* `float`
+* `sint64`
+* `double`
 * `boolean`
 * `timestamp`
-* `any`
 
 Additionally, the fields declared in the keys must have the flag `not null`.
 

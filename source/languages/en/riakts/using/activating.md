@@ -22,19 +22,18 @@ CREATE TABLE GeoCheckin
    myseries    varchar   not null,
    time        timestamp not null,
    weather     varchar   not null,
-   temperature float,
-PRIMARY KEY (
-    (myfamily, myseries, quantum(time, 15, 'm')),
-    myfamily, myseries, time
-
-            )
+   temperature double,
+   PRIMARY KEY (
+     (myfamily, myseries, quantum(time, 15, 'm')),
+     myfamily, myseries, time
+   )
 )
 ```
 
 To create the example table, run:
 
 ```sh
-riak-admin bucket-type create GeoCheckin '{"props":{"n_val":1, "table_def": "CREATE TABLE GeoCheckin (myfamily varchar not null, myseries varchar not null, time timestamp not null, weather varchar not null, temperature double, PRIMARY KEY (myfamily, myseries, (quantum (time, 15, 'm')), myfamily, myseries, time))"}}'
+riak-admin bucket-type create GeoCheckin '{"props":{"n_val":1, "table_def": "CREATE TABLE GeoCheckin (myfamily varchar not null, myseries varchar not null, time timestamp not null, weather varchar not null, temperature double, PRIMARY KEY ((myfamily, myseries, quantum(time, 15, 'm')), myfamily, myseries, time))"}}'
 ```
 
 >Please note that the `bucket-type` name must equal the table name.
@@ -70,7 +69,7 @@ ddl: {ddl_v1,<<"GeoCheckin">>,
               {riak_field_v1,<<"myseries">>,2,binary,false},
               {riak_field_v1,<<"time">>,3,timestamp,false},
               {riak_field_v1,<<"weather">>,4,binary,false},
-              {riak_field_v1,<<"temperature">>,5,float,true}],
+              {riak_field_v1,<<"temperature">>,5,double,true}],
              {key_v1,[{hash_fn_v1,riak_ql_quanta,quantum,
                                   {param_v1,[<<"myfamily">>]},
                       {param_v1,[<<"myseries">>]}]},
