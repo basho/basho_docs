@@ -107,24 +107,20 @@ For example, follow these steps to enable PAM user limits and set the
 soft and hard values *for all users of the system* to allow for up to
 *65536* open files.
 
-Edit `/etc/pam.d/common-session` and append the following line:
+1.  Edit `/etc/pam.d/common-session` and append the following line:
 
-```config
+    ```config
 session    required   pam_limits.so
 ```
 
-If `/etc/pam.d/common-session-noninteractive` exists, append the same
-line as above.
+2. Save and close the file.  If `/etc/pam.d/common-session-noninteractive` exists, append the same line as above.
 
-Save and close the file.
-
-Edit `/etc/security/limits.conf` and append the following lines to the
+3. Edit `/etc/security/limits.conf` and append the following lines to the
 file:
 
-```config
-*               soft     nofile          65536
-*               hard     nofile          65536
-```
+    <div><pre><code>&ast;              soft     nofile          65536
+    &ast;              hard     nofile          65536
+    </code></pre></div>
 
 4. Save and close the file.
 
@@ -154,10 +150,9 @@ the new limits are set with the following command:
 1. Edit `/etc/security/limits.conf` and append the following lines to
 the file:
 
-    ```config
-    *               soft     nofile          65536
-    *               hard     nofile          65536
-    ```
+    <div><pre><code>&ast;              soft     nofile          65536
+    &ast;              hard     nofile          65536
+    </code></pre></div>
 
 2. Save and close the file.
 
@@ -168,12 +163,11 @@ the new limits are set with the following command:
     ulimit -a
     ```
 
-<div class="note">
-<div class="title">Note</div> In the above examples, the
+> **Note**: In the above examples, the
 open files limit is raised for all users of the system. If you prefer,
 the limit can be specified for the riak user only by substituting the
 two asterisks (`*`) in the examples with <tt>riak</tt>.
-</div>
+
 
 ## Solaris
 
