@@ -70,9 +70,11 @@ If all of the data are correctly written the response is:
 `ok` in Erlang, and will not raise an error in Ruby.
 
 If some of the data failed to write, **??** do we really get an `RpbErrorResp`
-with a number that failed but no guidance about which ones??!
+with a number that failed but no guidance about which ones??! -> Per Alex... yes.
 
 **??** What happens if it doesn't work? What are some things the user could look at?
+1. Data one at a time until one fails :( 
+2. Or binary search w/ half the data, etc.
 
 ## Error conditions
 
