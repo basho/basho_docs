@@ -43,9 +43,7 @@ end
 # Build
 task      :build => ['clean', 'build:js', 'build:css', 'build:hugo']
 namespace :build do
-  #FIXME<drew.pirrone.brusse@gmail>: Implement a production version of the JS
-  # compile process, and set this to `false`.
-  task :js => "#{$js_dest}" do compile_js(debug: true); end
+  task :js => "#{$js_dest}" do compile_js(debug: false); end
   task :css => "#{$css_dest}" do compile_scss(debug: false); end
 
   ################
@@ -86,12 +84,29 @@ end
 ### Helper/Compilation functions
 def compile_js(debug: false)
   require 'sprockets'
-  require 'erb'
   require 'yaml'
-  require 'coffee-script'
+  require 'uglifier'
 
   env = Sprockets::Environment.new(".")
-  env.append_path 'dynamic/js'
+  env.append_path $js_source
+
+  if (debug)
+    #TODO<drew.pirrone.brusse@gmail>: This doesn't make anything more readable.
+    #    I don't know how to -- or if we can -- improve readability of js that's
+    #    been run through Sprockets...
+    # env.js_compressor = Uglifier.new(
+    #   :output => {
+    #     :comments => :all,
+    #     # :preserve_line => true
+    #   },
+    #   :mangle => false,
+    #   :compress => false)
+  else
+    env.js_compressor = Uglifier.new(
+      :output => {
+        :comments => :none
+      })
+  end
 
   # This will produce a zipped array-of-arrays in the form,
   #     [[souce1, dest1], [source2, dest2], ..., [sourceN, destN]]
