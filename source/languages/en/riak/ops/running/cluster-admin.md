@@ -51,7 +51,7 @@ Displays a variety of information about the cluster.
 riak-admin cluster status
 ```
 
-This will return output like the following in a three-node cluster:
+This will return output like the following in a 3-node cluster:
 
 ```
 ---- Cluster Status ----
@@ -210,7 +210,7 @@ If there is no current cluster plan, the output will be `There are no
 staged changes`. If there is a staged change (or changes), however, you
 will see a detailed listing of what will take place upon commit, what
 the cluster will look like afterward, etc. If a `cluster leave`
-operation is staged in a three-node cluster, for example, the output
+operation is staged in a 3-node cluster, for example, the output
 will look something like this:
 
 ```

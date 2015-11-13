@@ -261,7 +261,7 @@ to `true`), is set up as a `map`, `set`, or `counter`, or is defined as a write-
 bucket (requiring `write_once` be set to `true`), then this will be true of
 the bucket types.
 
-If you need to change one of these properties, it is recommended that
+If you need to change one of these properties, we recommend that
 you simply create and activate a new bucket type.
 </div>
 

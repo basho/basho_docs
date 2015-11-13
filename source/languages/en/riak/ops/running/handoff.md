@@ -27,7 +27,7 @@ handoff** and **ownership transfer**.
 
 Hinted handoff occurs when a [[vnode|Vnodes]] temporarily takes over
 responsibility for some data and then returns that data to its original
-"owner." Imagine a three-node cluster with nodes A, B, and C. If node C
+"owner." Imagine a 3-node cluster with nodes A, B, and C. If node C
 goes offline, e.g. during a network partition, nodes A and B will pick
 up the slack, so to speak, assuming responsibility for node C's
 operations. When node C comes back online, responsibility will be handed

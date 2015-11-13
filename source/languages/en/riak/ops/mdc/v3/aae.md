@@ -88,7 +88,7 @@ Changing the rate of tree building can speed up this process, with the
 caveat that rebuilding a tree takes processing time from the cluster,
 and this should not be done without assessing the possible impact on
 get/put latencies for normal cluster operations. For a production
-cluster, it is recommended that you leave the default in place.
+cluster, we recommend leaving the default in place.
 
 For a test cluster, the build rate can be changed with
 `anti_entropy_build_limit` and `anti_entropy_concurrency`. If a

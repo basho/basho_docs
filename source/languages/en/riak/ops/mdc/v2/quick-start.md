@@ -31,7 +31,7 @@ This Guide assumes that you have completed the following steps:
 ## Scenario
 
 Configure Riak MDC to perform replication, given the following
-three-node Riak Enterprise clusters: 
+3-node Riak Enterprise clusters: 
 
 #### Cluster 1
 

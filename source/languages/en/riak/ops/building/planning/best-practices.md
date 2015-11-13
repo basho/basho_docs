@@ -11,10 +11,7 @@ moved: {
 }
 ---
 
-Riak is a database that's designed to be as easily operable and
-painlessly scalable as possible. But as with all databases, there are
-some best practices that will enable you to improve performance and
-reliability at all stages in the like of your Riak cluster.
+Riak is a database that's designed for easy operation and scaling. Below are some best practices that will enable you to improve performance and reliability at all stages in the life of your Riak cluster.
 
 ## Disk Capacity
 
