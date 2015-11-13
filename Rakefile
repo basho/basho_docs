@@ -111,8 +111,17 @@ def compile_js(debug: false)
 
   for src, dst in src_dst_list
     File.open(dst, 'w') { |file| file.write env[src].to_s }
-    #TODO<drew.pirrone.brusse@gmail>: Add some logging in here
+    log_js_write(dst)
   end
+end
+
+# Helper function that will print "    write #{file_name}" to the console, and
+# color the "write" text green. This is to match the Compass log output on file
+# writes.
+def log_js_write(file_name)
+  green = "\033[32m"
+  nc    = "\033[0m" # no color
+  print "    #{green}write#{nc} #{file_name}\n"
 end
 
 def compile_scss(debug: false)
