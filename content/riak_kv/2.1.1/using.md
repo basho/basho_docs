@@ -6,6 +6,7 @@ menu:
     name: "Using Riak KV"
     identifier: "using"
     weight: 200
+    pre: icon-cog
 project: "riak_kv"
 project_version: "2.1.1"
 ---

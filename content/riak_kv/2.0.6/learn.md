@@ -6,6 +6,7 @@ menu:
     name: "Learn You Some Riak"
     identifier: "learn"
     weight: 400
+    pre: icon-references
 project: "riak_kv"
 project_version: "2.0.6"
 ---

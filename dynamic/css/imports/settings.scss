@@ -50,8 +50,7 @@ $mobilePageGutter : 0.6em;
    ========================================================================== */
 
 @mixin bgPattern($url, $color: transparent) {
-  //background : image-url('/images/layout/' + $url) left top repeat $color
-  // background : inline-image('layout/' + $url) left top repeat $color; //FIXME(Drew): Putting this code in a coma so we can compile it. We need to fix this.
+  background : inline-image('layout/' + $url) left top repeat $color;
 }
 
 @mixin size($width: auto, $height: auto) {
