@@ -262,7 +262,7 @@ these settings.
 
 ### Object Size
 
-As stated above, Basho recommends _always_ keeping objects below 1-2 MB
+As stated above, we recommend _always_ keeping objects below 1-2 MB
 and preferably below 100 KB if possible. If you want to ensure that
 objects above a certain size do not get stored in Riak, you can do so by
 setting the `object.size.maximum` parameter lower than the default of

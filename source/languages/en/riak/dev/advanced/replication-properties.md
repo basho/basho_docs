@@ -580,7 +580,7 @@ A vector clock is not included with the write request and an object already exis
 ## Screencast
 
 Here is a brief screencast that shows just how the N, R, and W values
-function in our running three-node Riak cluster:
+function in our running 3-node Riak cluster:
 
 <div style="display:none" class="iframe-video"
 id="http://player.vimeo.com/video/11172656"></div>

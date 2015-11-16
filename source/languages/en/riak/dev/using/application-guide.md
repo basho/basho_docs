@@ -363,7 +363,7 @@ If you have a good sense of how you will be using Riak for your
 application (or if you just want to experiment), the following guides
 will help you get up and running:
 
-* [[Five-Minute Install]] --- Install Riak and start up a five-node Riak
+* [[Five-Minute Install]] --- Install Riak and start up a 5-node Riak
   cluster
 * [[Client Libraries]] --- A listing of official and non-official client
   libraries for building applications with Riak

@@ -13,7 +13,7 @@ moved: {
 
 In this tutorial, we'll share some quick start installers for OSX, as 
 well as provide instructions for building a
-[five-node](http://basho.com/why-your-riak-cluster-should-have-at-least-five-nodes/)
+[5-node](http://basho.com/why-your-riak-cluster-should-have-at-least-five-nodes/)
 Riak cluster running on your local machine.
 
 ## DMG Installer for OSX
@@ -27,7 +27,7 @@ application should not be used in a production deployment.
 
 ## Riak Dev Cluster for OSX
 
-To quickly create a five-node local devrel cluster on OSX, you may use the
+To quickly create a 5-node local devrel cluster on OSX, you may use the
 [[Riak Dev Cluster|https://github.com/basho-labs/riak-dev-cluster/]] project.
 This application will easily install and join a cluster of local nodes on OSX
 for testing and administration.  Note that this sample application should not 
@@ -294,7 +294,7 @@ the [[riak-admin command line]] documentation.
 
 ## Test the Cluster
 
-Now that we have a running five-node Riak cluster, let's make sure that
+Now that we have a running 5-node Riak cluster, let's make sure that
 it's working properly. For this we have a couple of options. The
 simplest is to run the `member-status` command on one of our nodes:
 
@@ -384,7 +384,7 @@ This will save the image to the current directory. You can open it with
 an image editor to verify that the image has been stored and retrieved
 correctly.
 
-Congratulations! You should now have a five-node Riak cluster up and
+Congratulations! You should now have a 5-node Riak cluster up and
 running.
 
 <div class="note">
@@ -508,13 +508,13 @@ the navbar on the left).
 ### Ruby
 
 How you connect to Riak with the Ruby client depends on whether you're
-using Riak in a development environment with a one-node
+using Riak in a development environment with a 1-node
 [[cluster|Clusters]] or if you're using multiple nodes, as you would in
 any production environment.
 
 If you're developing using a single-node cluster, you can create a
 `client` object and specify the host and [[Protocol Buffers|PBC API]]
-port. The example below connects the Ruby client to a one-node cluster
+port. The example below connects the Ruby client to a 1-node cluster
 running on the host 101.0.0.1 and the port 8087:
 
 ```ruby
@@ -549,13 +549,13 @@ Developers** section of the documentation (in the navbar on the left).
 ### Python
 
 How you connect to Riak with the Python client depends on whether you're
-using Riak in a development environment with a one-node
+using Riak in a development environment with a 1-node
 [[cluster|Clusters]] or if you're using multiple nodes, as you would in
 any production environment.
 
 If you're developing using a single-node cluster, you can create a
 `client` object and specify the host and [[Protocol Buffers|PBC API]]
-port. The example below connects the Python client to a one-node cluster
+port. The example below connects the Python client to a 1-node cluster
 running on host 101.0.0.1 and port 8087:
 
 ```python
@@ -675,7 +675,7 @@ the navbar on the left).
 ### Erlang
 
 How you connect to Riak with the Erlang client depends on whether you're
-using Riak in a development environment with a one-node
+using Riak in a development environment with a 1-node
 [[cluster|Clusters]] or if you're using multiple nodes, as you would in
 any production environment.
 
@@ -684,7 +684,7 @@ single process identifier (i.e.
 [pid](http://www.erlang.org/doc/reference_manual/data_types.html#id66818))
 to which your client will connect on the basis of the host and Protocol
 Buffers port you provide. The example below connects the Erlang client
-to a one-node cluster running on the host 101.0.0.1 and the port 8087:
+to a 1-node cluster running on the host 101.0.0.1 and the port 8087:
 
 ```erlang
 {ok, Pid} = riakc_pb_socket:start_link("101.0.0.1", 8087).
@@ -712,13 +712,13 @@ the navbar on the left).
 ### PHP
 
 How you connect to Riak with the PHP client depends on whether you're
-using Riak in a development environment with a one-node
+using Riak in a development environment with a 1-node
 [[cluster|Clusters]] or if you're using multiple nodes, as you would in
 any production environment.
 
 If you're developing using a single-node cluster, you can create a
 `client` object and specify the host and [[HTTP|HTTP API]]
-port. The example below connects the PHP client to a one-node cluster
+port. The example below connects the PHP client to a 1-node cluster
 running on host 101.0.0.1 and port 8098:
 
 ```PHP

@@ -10,23 +10,15 @@ moved: {
 }
 ---
 
-This document outlines the various elements and variables that should be
-considered when planning your Riak cluster. Your use case and
-environment variables will be specific to what you're building, but this
-document should set you on the right path when planning and launching a
-Riak cluster.
+This document outlines the various elements and variables to keep in mind when planning your Riak cluster. Your use case and environment variables will be specific to what you're building, but this document should set you on the right path when planning and launching a Riak cluster.
 
 ## RAM
 
-[RAM](http://en.wikipedia.org/wiki/Random-access_memory) should be
-viewed as the most important resource when sizing your Riak cluster.
-Aside from helping you keep more data closer to your users, memory will
-also be required when running complex MapReduce queries and for caching
-data to provide low-latency request times.
+[RAM](http://en.wikipedia.org/wiki/Random-access_memory) is the most important resource when sizing your Riak cluster. Memory keeps data closer to your users. Memory is essential for running complex MapReduce queries or caching data to provide low-latency request times.
 
 ### Bitcask and Memory Requirements
 
-Your choice of local storage backend for Riak directly impacts your RAM
+Your choice of local storage backend for Riak impacts your RAM
 needs. Though Riak has pluggable backend storage, Bitcask is the
 default.  Why? Because it's built for:
 
@@ -41,45 +33,34 @@ each file contained within each Bitcask backend) to a fixed-size
 structure giving the file, offset, and size of the most recently written
 entry for that bucket + key on disk.
 
-If you want to read more about what the keydir is and what it entails,
-as well as more about Bitcask in general, see the [Hello
-Bitcask](http://basho.com/hello-bitcask/) article from
-the Basho blog as well as Basho's [Introduction to
-Bitcask](http://basho.com/assets/bitcask-intro.pdf) paper.
+To learn about Bitcask see [Hello Bitcask](http://basho.com/hello-bitcask/) on the Basho blog as well as the [Introduction to Bitcask](http://basho.com/assets/bitcask-intro.pdf) paper.
 
-
-When you calculate that your RAM needs will exceed your hardware
-resources--in other words, if you can't afford the RAM to enable you to
-use Bitcask---we recommend that you use LevelDB.
+If your calculated RAM needs will exceed your hardware resources--in other words, if you can't afford the RAM to use Bitcask---we recommend that you use LevelDB.
 
 Check out [[Bitcask Capacity Planning]] for more details on designing a
 Bitcask-backed cluster.
 
 ### LevelDB
 
-If RAM requirements for Bitcask are prohibitive, Basho recommends use of
+If RAM requirements for Bitcask are prohibitive, we recommend use of
 the LevelDB backend. While LevelDB doesn't require a large amount of RAM
-to operate, supplying it with the maximum amount of memory available
-will lead to higher performance.
+to operate, supplying it with the maximum amount of memory available leads to higher performance.
 
 For more information see [[LevelDB]].
 
 ## Disk
 
-Now that you have an idea of how much RAM you'll need, it's time to
-think about disk space. Disk space needs are much easier to calculate
-and essentially boil down to this simple equation:
+Now that you have an idea of how much RAM you'll need, it's time to think about disk space. Disk space needs are much easier to calculate. Below is an equation to help you calculate disk space needs:
 
 #### Estimated Total Objects * Average Object Size * n_val
 
-For example, with
+For example:
 
 * 50,000,000 objects
 * an average object size of two kilobytes (2,048 bytes)
 * the default `n_val` of 3
 
-then you would need just over approximately **286 GB** of disk space in
-the entire cluster to accommodate your data.
+Then you would need just over approximately **286 GB** of disk space in the entire cluster to accommodate your data.
 
 We believe that databases should be durable out of the box. When we
 built Riak, we did so in a way that you could write to disk while
@@ -87,24 +68,18 @@ keeping response times below your users' expectations. So this
 calculation assumes that you'll be keeping the entire data set on disk.
 
 Many of the considerations taken when configuring a machine to serve a
-database can be applied to configuring a node for Riak as well. Mounting
+database apply to configuring a node for Riak as well. Mounting
 disks with noatime and having separate disks for your OS and Riak data
 lead to much better performance. See [[System Planning|Planning for a
 Riak System]] for more information.
 
 ### Disk Space Planning and Ownership Handoff
 
-When Riak nodes fail or leave the cluster for some other reason, other
-nodes in the cluster begin engaging in the process of **ownership
-handoff**, whereby the remaining nodes assume ownership of the data
-partitions handled by the node that has left. While this is an expected
-state of affairs in Riak, one side effect is that this requires more
-intensive disk space usage from the other nodes, in rare cases to the
-point of filling the disk of one or more of those nodes.
+When Riak nodes fail or leave the cluster, other nodes in the cluster start the **ownership handoff** process. Ownership handoff is when remaining nodes take ownership of the data partitions handled by an absent node. One side effect of this process is that the other nodes require more intensive disk space usage; in rare cases filling the disk of one or more of those nodes.
 
 When making disk space planning decisions, we recommend that you:
 
-* assume that one or more nodes may be down at any time, and
+* assume that one or more nodes may be down at any time
 * monitor your disk space usage and add additional space when usage
   exceeds 50-60% of available space.
 
@@ -128,8 +103,8 @@ won't need as much RAM available to cache those keys' values.
 The number of nodes (i.e. physical servers) in your Riak Cluster depends
 on the number of times data is [[replicated|Replication]] across the
 cluster.  To ensure that the cluster is always available to respond to
-read and write requests, Basho recommends a "sane default" of N=3
-replicas.  This requirement can be met with a three- or four-node
+read and write requests, we recommend a "sane default" of N=3
+replicas.  This requirement can be met with a 3 or 4-node
 cluster (you can tweak nodes installed through the [[Five Minute
 Install]]).
 
@@ -148,7 +123,7 @@ Riak can be scaled in two ways: vertically, via improved hardware, and
 horizontally, by adding more nodes. Both ways can provide performance
 and capacity benefits, but should be used in different circumstances.
 The [[riak-admin cluster command|riak-admin Command Line#cluster]] can
-assist in scaling in both directions.
+assist scaling in both directions.
 
 #### Vertical Scaling
 
@@ -181,32 +156,20 @@ between nodes in the cluster.
 
 #### Reducing Horizontal Scale
 
-In the case in which a Riak cluster is over provisioned, or in response
-to seasonal usage decreases, the horizontal scale of a Riak cluster can
-be decreased using the `riak-admin cluster leave` command.
+If a Riak cluster is over provisioned, or in response to seasonal usage decreases, the horizontal scale of a Riak cluster can be decreased using the `riak-admin cluster leave` command.
 
 ## Ring Size/Number of Partitions
 
-Ring size is the number of partitions that make up your Riak cluster.
-This is a number that is configured before you cluster is started, and
+Ring size is the number of partitions that make up your Riak cluster. Ring sizes must be a power of 2. Ring size is configured before your cluster is started, and
 is set in your [[configuration files]].
 
-The default number of partitions in a Riak cluster is 64. This works for
-smaller clusters, but if you plan to grow your cluster past 5 nodes it
-is recommended that you consider a larger ring size. Ring sizes must be
-a power of 2. The minimum number of partitions recommended per node is
-10, and you can determine the number of partitions that will be
-allocated per node by dividing the number of partitions by the number of
-nodes.
+The default number of partitions in a Riak cluster is 64. This works for smaller clusters, but if you plan to grow your cluster past 5 nodes we recommend a larger ring size.
 
-Because Riak clusters vary so greatly in terms of the features that are
-used, the use cases that are served, and so on, there are no
-hard-and-fast rules regarding the ideal partitions-per-node ratio. A
-good rule of thumb, however, is that you should have between 10 and 50
-data partitions per node. So if you're running a 3-node development
-cluster, a ring size of 64 or 128 should work just fine, while a 10-node
-cluster should work well with a ring size of 128 or 256 (64 is too small
-while 512 is likely too large).
+The minimum number of partitions recommended per node is 10. You can determine the number of partitions allocated per node by dividing the number of partitions by the number of nodes.
+
+There are no absolute rules for the ideal partitions-per-node ratio. This depends on your particular use case and what features the Riak cluster uses. We recommend between 10 and 50 data partitions per node. 
+
+So if you're running a 3-node development cluster, a ring size of 64 or 128 should work just fine. While a 10-node cluster should work well with a ring size of 128 or 256 (64 is too small while 512 is likely too large).
 
 The table below provides some suggested combinations:
 
@@ -238,18 +201,18 @@ your cluster performs under load for an extended period of time. Doing
 so will help you size your cluster for future growth and lead to optimal
 performance.
 
-Basho recommends using [[Basho Bench]] for benchmarking the performance
+We recommend using [[Basho Bench]] for benchmarking the performance
 of your cluster.
 
 ### Bandwidth
 
 Riak uses Erlang's built-in distribution capabilities to provide
 reliable access to data. A Riak cluster can be deployed in many
-different network topologies, but it is recommended that you produce as
+different network environments. We recommend that you produce as
 little latency between nodes as possible, as high latency leads to
-sub-optimal performance. It is not recommended that you deploy a single
-Riak cluster across two datacenters. If your use case requires this
-capability, Basho offers a [[Multi Data Center Replication:
+sub-optimal performance. 
+
+Deploying a single Riak cluster across two datacenters is not recommended. If your use case requires this capability, Basho offers a [[Multi Data Center Replication:
 Architecture]] option that is built to keep multiple Riak clusters in
 sync across several geographically diverse deployments.
 

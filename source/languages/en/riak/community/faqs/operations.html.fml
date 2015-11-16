@@ -214,7 +214,7 @@ Q: How can I back up my Riak data?
 A:
   **Note**: The `backup` command provided in `riak-admin` will only backup Riak KV data. The `backup` command has not been updated to work with Riak Search indexes.
   
-  When using the Bitcask (default Riak KV backend) and Merge Index (Riak Search backend) backends, it is recommended that you use standard filesystem backup utilities (`tar`) to back up Riak nodes. Both Bitcask and Merge Index are append-only data structures that perform incremental merge operations. This allows backups to be made while the system is running. Restoring backups involves moving the backups into the Riak `data` directory and starting the Riak node.
+  When using the Bitcask (default Riak KV backend) and Merge Index (Riak Search backend) backends, we recommend using standard filesystem backup utilities (`tar`) to back up Riak nodes. Both Bitcask and Merge Index are append-only data structures that perform incremental merge operations. This allows backups to be made while the system is running. Restoring backups involves moving the backups into the Riak `data` directory and starting the Riak node.
   
   The directories that need to be backed up are the following (the location of these will vary depending on how you installed and configured Riak or Riak Search):
   
@@ -339,7 +339,7 @@ A:
 
 Q: How many partitions should I assign to a new cluster?
 A:
-  You need to plan the number of partitions of your cluster ahead of time and set them in the `ring_creation_size` configuration parameter. A good rule of thumb is that `ring_creation_size` divided by `number_of_nodes` should be between 10 and 50. For 15 nodes, 256 is a good number; 512 or 1024 would be better if you intend to grow the cluster over time.
+  You need to plan the number of partitions of your cluster ahead of time and set them in the `ring_creation_size` configuration parameter. A good rule to follow is that `ring_creation_size` divided by `number_of_nodes` should be between 10 and 50. For 15 nodes, 256 is a good number; 512 or 1024 would be better if you intend to grow the cluster over time.
 
 Q: Is it possible to change the number of partitions in my Riak ring after it's already running?
 A:
