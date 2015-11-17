@@ -9,6 +9,7 @@ menu:
     pre: icon-cog
 project: "riak_kv"
 project_version: "2.0.6"
+toc: true
 ---
 
 # Et inquit sopistis de Aegides vertice
