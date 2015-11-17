@@ -50,13 +50,14 @@
                             = "\n"
       */}}
 
-      {{/*TODO(Drew): Implement the Table of Contents. */}}
-      <nav id="toc">
-        <h2 class="title">Contents</h2>
-        <div id="toc-wrapper">
-          <ol id="toc-items"></ol>
-        </div>
-      </nav>
+      {{ if .Params.toc }}
+        <nav id="toc">
+          <h2 class="title">Contents</h2>
+          <div id="toc-wrapper">
+            <ol id="toc-items"></ol>
+          </div>
+        </nav>
+      {{ end }}
 
       {{/*NOTE(Drew): At this point, if this were a downloads page, we'd be
                       rendering...
