@@ -2,10 +2,8 @@
 title: "Basho Documentation"
 baseURL: "http://docs.basho.com/"
 languageCode: "en-us"
-
-metaDataFormat: "yaml" #TODO(Drew): Is this necessary? We're going to be using
-                       #            YAML here and for the front-mater, is
-                       #            specifying it here required?
+metaDataFormat: "yaml" # Sets frontmatter format when content
+                       # is generated with archetypes.
 
 # This should always be set to false for deployment builds
 #TODO(Drew): Figure out if there's a way to enforce or set this in a e.g. deploy.rb script.
