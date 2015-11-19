@@ -127,7 +127,7 @@ partitions|Clusters#The-Ring]], leave the cluster, and shut down.
 riak-admin cluster leave
 ```
 
-You can also instruct another node (by nodemane) to leave the cluster:
+You can also instruct another node (by nodename) to leave the cluster:
 
 ```bash
 riak-admin cluster leave <node>

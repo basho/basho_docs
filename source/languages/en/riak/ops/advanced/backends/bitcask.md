@@ -55,7 +55,7 @@ file merging.
 * **Predictable lookup _and_ insert performance**
 
     For the reasons listed above, read operations from Bitcask have
-    fixed, predictable behavior. This is also true of writes to Bitask
+    fixed, predictable behavior. This is also true of writes to Bitcask
     because write operations require, at most, one seek to the end of
     the current open file followed by and append to that file.
 
