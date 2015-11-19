@@ -9824,6 +9824,75 @@ jQuery(function($) {
 }).call(this);
 (function() {
   $(function() {
+    return $("article").each(function() {
+      var article, h2s, h3s, h4s, h5s, h6s;
+      article = $(this);
+      h2s = article.find('h2');
+      h3s = article.find('h3');
+      h4s = article.find('h4');
+      h5s = article.find('h5');
+      h6s = article.find('h6');
+      h2s.each(function() {
+        var anchor, content, name;
+        if ($(this).hasClass('title')) {
+          return;
+        }
+        content = $(this).html();
+        name = content.replace(/\W+/g, '-');
+        anchor = "<a href=\"#" + name + "\">" + content + "</a>";
+        $(this).attr('id', name);
+        return $(this).html(anchor);
+      });
+      h3s.each(function() {
+        var anchor, content, name;
+        if ($(this).hasClass('title')) {
+          return;
+        }
+        content = $(this).html();
+        name = content.replace(/\W+/g, '-');
+        anchor = "<a href=\"#" + name + "\">" + content + "</a>";
+        $(this).attr('id', name);
+        return $(this).html(anchor);
+      });
+      h4s.each(function() {
+        var anchor, content, name;
+        if ($(this).hasClass('title')) {
+          return;
+        }
+        content = $(this).html();
+        name = content.replace(/\W+/g, '-');
+        anchor = "<a href=\"#" + name + "\">" + content + "</a>";
+        $(this).attr('id', name);
+        return $(this).html(anchor);
+      });
+      h5s.each(function() {
+        var anchor, content, name;
+        if ($(this).hasClass('title')) {
+          return;
+        }
+        content = $(this).html();
+        name = content.replace(/\W+/g, '-');
+        anchor = "<a href=\"#" + name + "\">" + content + "</a>";
+        $(this).attr('id', name);
+        return $(this).html(anchor);
+      });
+      return h6s.each(function() {
+        var anchor, content, name;
+        if ($(this).hasClass('title')) {
+          return;
+        }
+        content = $(this).html();
+        name = content.replace(/\W+/g, '-');
+        anchor = "<a href=\"#" + name + "\">" + content + "</a>";
+        $(this).attr('id', name);
+        return $(this).html(anchor);
+      });
+    });
+  });
+
+}).call(this);
+(function() {
+  $(function() {
     var details;
     if (window.location.hash != null) {
       details = $(window.location.hash);
@@ -10105,15 +10174,12 @@ function update_calculations() {
       h2s = article.find('h2');
       if (h2s.length >= 3) {
         h2s.each(function() {
-          var anchor, content, name;
+          var content, name;
           if ($(this).hasClass('title')) {
             return;
           }
           content = $(this).html();
           name = content.replace(/\W+/g, '-');
-          anchor = "<a href=\"#" + name + "\">" + content + "</a>";
-          $(this).attr('id', name);
-          $(this).html(anchor);
           return toc_items.append("<li><a href=\"#" + name + "\">" + content + "</a></li>");
         });
         if (h2s.length >= 6) {

@@ -9,6 +9,7 @@ menu:
     weight: 500
 project: "riak_kv"
 project_version: "2.1.1"
+toc: true
 ---
 
 # Et inquit sopistis de Aegides vertice
