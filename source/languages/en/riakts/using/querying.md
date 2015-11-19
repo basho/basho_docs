@@ -127,8 +127,8 @@ The following operators are supported for each data type
 | --------- | - | -- | - | - | -- | -- |
 | binary    | X | X  |   |   |    |    |
 | boolean   | X | X  |   |   |    |    |
-| integer   | X | X  | X | X | X  | X  |
-| float     | X | X  | X | X | X  | X  |
+| sint64    | X | X  | X | X | X  | X  |
+| double    | X | X  | X | X | X  | X  |
 | timestamp | X | X  | X | X | X  | X  |
 | any       |   |    |   |   |    |    |
 
