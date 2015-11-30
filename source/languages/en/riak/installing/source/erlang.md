@@ -16,7 +16,7 @@ Pre-packaged versions of Riak include an Erlang installation. If you are buildin
 
 <div class="note">
 <div class="title">Note on Official Support</div>
-Please note that only packaged Riak installs are officially support. Visit [[Installing and Upgrading|Installing and Upgrading]]for installing a supported Riak package.
+Please note that only packaged Riak installs are officially support. Visit [[Installing Riak]]for installing a supported Riak package.
 </div>
 
 ## Prerequisites
