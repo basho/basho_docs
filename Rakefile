@@ -23,6 +23,8 @@ directory "#{$js_dest}"
 directory "#{$css_dest}"
 directory "#{$cache_dir}"
 
+#TODO<drew.pirrone.brusse@gmail>: Check to make sure Hugo's version is >= 0.15
+
 
 ######################################################################
 ### Rake Namespace and Task definitions
@@ -44,17 +46,17 @@ end
 task      :build => ['clean', 'build:js', 'build:css', 'build:hugo']
 namespace :build do
   task :js => "#{$js_dest}" do compile_js(debug: false); end
-  task :css => "#{$css_dest}" do compile_scss(debug: false); end
+  task :css => "#{$css_dest}" do compile_css(debug: false); end
 
   ################
   # Build : Debug
   task      :debug => ['clean', 'build:debug:js', 'build:debug:css', 'build:hugo']
   namespace :debug do
     task :js => "#{$js_dest}" do compile_js(debug: true); end
-    task :css => "#{$css_dest}" do compile_scss(debug: true); end
+    task :css => "#{$css_dest}" do compile_css(debug: true); end
   end
 
-  task :hugo do sh "hugo server & PID=$!; "\
+  task :hugo do sh "hugo server --watch=false & PID=$!; "\
                    "sleep 1; kill $PID"; end
 end
 
@@ -76,7 +78,7 @@ namespace :watch do
   end
 
   #TODO<drew.pirrone.brusse@gmail>: Add in some way to specify ip/port.
-  task :hugo do sh "hugo server -w"; end
+  task :hugo do sh "hugo server"; end
 end
 
 
@@ -139,7 +141,7 @@ def log_js_write(file_name)
   print "    #{green}write#{nc} #{file_name}\n"
 end
 
-def compile_scss(debug: false)
+def compile_css(debug: false)
   # This code was largely inspired by this SO question
   # http://stackoverflow.com/questions/25399962/compass-from-ruby-sasscompiler-not-found
   # with addtional code and configuraion options drawn from:
