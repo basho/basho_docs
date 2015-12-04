@@ -51,7 +51,7 @@ The read-through cache strategy is represented by the following sequence diagram
 ![read-through strategy sequence diagram][readthrough-strategy]
 
 
-The `CACHE_TTL` configuration option establishes how long the cache takes to become consistent with the backend server during a write (DELETE or PUT) to the backend server.  
+The `CACHE_TTL` configuration option establishes how long the cache takes to become consistent with the backend server during a write (DELETE or PUT) to the backend server.
 
 A short `CACHE_TTL`, for example “15s”, reduces a significant amount of read pressure from Riak, increasing performance of the overall solution.
 
@@ -67,3 +67,22 @@ The Cache Proxy supports the following augmented Redis commands fully:
 The Cache Proxy also supports the set of Redis commands supported by Twemproxy, but only to the point of presharding and command pipelining, refer to the Twemproxy [documentation](https://github.com/twitter/twemproxy/blob/master/notes/redis.md)
 
 *!IMPORTANT!* While the Cache Proxy does support issuing DEL commands, PEXPIRE with a small TTL is suggested instead when the semantic intent is to remove an item from cache.  With write-through, the DEL command will issue a delete to the Riak backend.
+
+## Memory Usage
+
+The memory each Redis server uses depends on the amount of cached data. By default, if a data set keeps growing, each Redis server will use all the available memory of the box it runs on. Older data is removed through an [eviction mechanism](http://redis.io/topics/lru-cache).
+
+## Recommended number of Redis servers per BDP cluster
+
+The number of Redis servers is highly dependent on: 
+
+* amount of data used
+* amount of “hot” data to be cached in memory
+* number of connected clients
+* usage patterns. 
+
+If you are just starting to learn BDP, we suggest using at least 2 (better 3) Redis server instances. This approach has the benefit of not having a single point of failure and will work faster as client requests are distributed between those servers.
+
+## Recommended number of Cache Proxies per BDP cluster
+
+We recommend running Cache Proxy for each Redis server. This allows user applications (which use Redis driver) to connect to any Cache Proxy. All Proxy servers share the same configuration, including pool of Redis Servers, global value for TTL, etc. The overhead is very small and is easily justified by added benefits.
