@@ -12,6 +12,7 @@ audience: beginner
 
 Now that you've [installed][installing] Riak TS, you can configure a table.
 
+
 ## Basic Structure of a Riak TS Table
 Riak TS enables querying large amounts of related data, so keys behave differently than in Riak KV.
 
@@ -62,8 +63,11 @@ Valid types are:
 * `varchar`
 * `sint64`
 * `double`
+  * If you are using an IEEE specification, 'NaN' (not a number) and 'INF' (infinity) cannot be used.
 * `boolean`
 * `timestamp`
+  * Note: 0 (zero) is not a valid timestamp
+
 
 Additionally, the fields declared in the keys must have the flag `not null`.
 

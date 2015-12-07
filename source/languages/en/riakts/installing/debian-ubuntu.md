@@ -10,8 +10,8 @@ download:
   name: "Debian or Ubuntu"
 ---
 
-[AAE]: http://docs.basho.com/riak/2.1.1/theory/concepts/aae/
-[riak security]: http://docs.basho.com/riak/2.1.1/ops/running/authz/
+[AAE]: http://docs.basho.com/riak/2.1.2/theory/concepts/aae/
+[riak security]: http://docs.basho.com/riak/2.1.2/ops/running/authz/
 [configuring]: http://docs.basho.com/riakts/1.0.0/using/configuring
 
 Riak TS can be installed on Debian- or Ubuntu-based systems using a binary
@@ -34,18 +34,21 @@ sudo apt-get install libpam0g-dev
 
 
 ##Install Riak TS
+
 Once you have downloaded the package from ZenDesk, execute the following command to install Riak TS:
 
 ```bash
 sudo dpkg -i riak-ts_{{VERSION}}-1_amd64.deb
 ```
 
+Then confirm that [AAE][AAE] is turned off. To do this, check riak.conf for the following: `anti_entropy = passive`.
 
-##Turn off AAE
-Once you've installed Riak TS, you must turn off [AAE][AAE]. To do this, edit riak.conf as follows:
+##Activate Riak TS node
 
-```riak.conf
-anti_entropy = passive
+Once you've installed Riak TS, start it on your node:
+
+```bash
+riak start
 ```
 
 

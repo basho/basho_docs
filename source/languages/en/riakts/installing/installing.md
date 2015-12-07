@@ -22,17 +22,11 @@ Riak TS is a distributed NoSQL key/value store optimized for fast reads and writ
 
 Choose your OS and follow the instructions:
 
-* [CentOS 6 & 7][Centos]
+* [CentOS/RHEL 6 & 7][Centos]
 * [Debian 6 & 7][Debian]
 * [OSX 10.8][OSX]
 * [Ubuntu 12.04 & 14.04)][Ubuntu]
 
-
-Once you've installed Riak TS, you must turn off [AAE][AAE]. To do this, edit riak.conf as follows:
-
-```riak.conf
-anti_entropy = passive
-```
 
 >**Upgrade Note:** 
 >

@@ -10,6 +10,7 @@ download:
   name: "CentOS"
 ---
 
+[AAE]: 
 [configuring]: http://docs.basho.com/riakts/1.0.0/using/configuring
 
 Riak TS can be installed on CentOS-based systems using a binary
@@ -25,21 +26,7 @@ you encounter errors.
 
 ##Install Riak TS
 
-###For CentOS 5/RHEL 5
-Once you've downloaded the package from ZenDesk, you can install the package using `yum`:
-
-```bash
-sudo yum install riak-ts
-```
-
-Or manually:
-
-```bash
-sudo rpm -Uvh riak-ts-{{VERSION}}-1.el5.x86_64.rpm
-```
-
-
-### For CentOS 6 / RHEL 6
+###For CentOS 6 / RHEL 6
 Once you've downloaded the package from ZenDesk, you can install the package using `yum`:
 
 ```bash
@@ -53,11 +40,31 @@ sudo rpm -Uvh riak-ts-{{VERSION}}-1.el6.x86_64.rpm
 ```
 
 
-##Turn off AAE
-Once you've installed Riak TS, you must turn off [AAE][AAE]. To do this, edit riak.conf as follows:
+### For CentOS 7 / RHEL 7
+Once you've downloaded the package from ZenDesk, you can install the package using `yum`:
 
-```riak.conf
-anti_entropy = passive
+```bash
+sudo yum install riak-ts
+```
+
+Or manually:
+
+```bash
+sudo rpm -Uvh riak-ts-{{VERSION}}-1.el7.x86_64.rpm
+```
+
+
+###Turn off AAE
+
+Confirm that [AAE][AAE] is turned off. To do this, check riak.conf for the following: `anti_entropy = passive`.
+
+
+##Activate Riak TS node
+
+Once you've installed Riak TS, start it on your node:
+
+```bash
+riak start
 ```
 
 
