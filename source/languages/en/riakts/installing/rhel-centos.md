@@ -23,37 +23,35 @@ Check your e-mail for the link to the download in ZenDesk.
 you encounter errors.
 
 
-##Dependencies
-
-
 ##Install Riak TS
 
-###For Centos 5/RHEL 5
-Once you've downloaded the package from ZenDesk, you can install CentOS 5/RHEL 5 using yum:
+###For CentOS 5/RHEL 5
+Once you've downloaded the package from ZenDesk, you can install the package using `yum`:
 
 ```bash
-sudo yum install riak
+sudo yum install riak-ts
 ```
 
 Or manually:
 
 ```bash
-sudo rpm -Uvh riak-{{VERSION}}-1.el5.x86_64.rpm
+sudo rpm -Uvh riak-ts-{{VERSION}}-1.el5.x86_64.rpm
 ```
 
 
-### For Centos 6 / RHEL 6
-Once you've downloaded the package from ZenDesk, you can install CentOS 5/RHEL 5 using yum:
+### For CentOS 6 / RHEL 6
+Once you've downloaded the package from ZenDesk, you can install the package using `yum`:
 
 ```bash
-sudo yum install riak
+sudo yum install riak-ts
 ```
 
 Or manually:
 
 ```bash
-sudo rpm -Uvh riak-{{VERSION}}-1.el6.x86_64.rpm
+sudo rpm -Uvh riak-ts-{{VERSION}}-1.el6.x86_64.rpm
 ```
+
 
 ##Turn off AAE
 Once you've installed Riak TS, you must turn off [AAE][AAE]. To do this, edit riak.conf as follows:

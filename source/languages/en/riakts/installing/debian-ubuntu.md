@@ -22,7 +22,7 @@ Check your e-mail for the link to the download in ZenDesk.
 
 ##Dependencies
 
-###PAM Library Requirement for Ubuntu **?? Does this apply to TS?**
+###PAM Library Requirement for Ubuntu
 
 You must have the `libpam0g-dev` package used for [Pluggable Authentication Module (PAM)][riak security] authentication in order to install Riak TS.
 

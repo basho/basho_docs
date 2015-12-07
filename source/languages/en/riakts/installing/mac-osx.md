@@ -16,7 +16,7 @@ download:
 Riak TS can be installed on Mac OS X systems using a binary
 package available through ZenDesk.
 
->**Note**
+>**Important**
 >
 >Mac OS X is only supported for developing with Riak TS and NOT for general operations.
 
@@ -24,12 +24,12 @@ Check your e-mail for the link to the download in ZenDesk.
 
 ##Dependencies
 
->**`ulimit` on OS X**
->
->OS X gives you a very small limit on open file handles, so even with a
+###`ulimit`
+
+OS X gives you a very small limit on open file handles. Even with a
 backend that uses very few file handles, it's possible to run out. See
-[[Open Files Limit]] for more information about changing the limit.
-</div>
+[Open Files Limit][openfileslimit] for more information about changing the limit.
+
 
 ##Install Riak TS
 To install Riak TS on your Mac, download the package from ZenDesk and then run:
@@ -39,11 +39,6 @@ tar zxvf riak-ts-{{VERSION}}.tar.gz
 cd riak-ts-{{VERSION}}
 make rel
 ```
-
-If you receive errors when building about "incompatible architecture,"
-please verify that you built Erlang with the same architecture as your
-system (Snow Leopard and higher: 64bit{{#1.4.0-}}, everything else:
-32bit{{/1.4.0-}}). **?? Would this still apply to TS?**
 
 
 ##Turn off AAE
