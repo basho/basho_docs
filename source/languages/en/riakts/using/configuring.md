@@ -49,7 +49,7 @@ CREATE TABLE GeoCheckin
 
 
 ####Field Names
-Field names (`myfamily`, `myseries`, etc) must be strings, in addition to having the correct case. If field names need to contain special cases (e.g. spaces or punctuation) they can be single quoted.
+Field names (`myfamily`, `myseries`, etc) must be ASCII strings, in addition to having the correct case. If field names need to contain special cases (e.g. spaces or punctuation) they can be single quoted.
 
 Field names define the structure of the data, taking the format:
 
@@ -68,7 +68,7 @@ Valid types are:
 Additionally, the fields declared in the keys must have the flag `not null`.
 
 ####Primary Key
-The `PRIMARY KEY` describes the partition and local keys. The partition key and the local key need to h
+The `PRIMARY KEY` describes the partition and local keys. The partition key and the local key are nearly identical, differing only by the definition of the `quantum` used to colocate data.
 
 #####Partition Key 
 The partition key is defined as the three named fields in brackets:
