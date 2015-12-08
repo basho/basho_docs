@@ -10,8 +10,9 @@ download:
   name: "Mac OS X"
 ---
 
+[AAE]: http://docs.basho.com/riak/2.1.2/theory/concepts/aae/
 [openfileslimit]: http://docs.basho.com/riak/2.1.2/ops/tuning/open-files-limit/
-[configuring]: http://docs.basho.com/riakts/1.0.0/using/configuring
+[planning]: http://docs.basho.com/riakts/1.0.0/using/planning
 
 Riak TS can be installed on Mac OS X systems using a binary
 package available through ZenDesk.
@@ -40,7 +41,7 @@ cd riak-ts-{{VERSION}}
 make rel
 ```
 
-Then confirm that [AAE][AAE] is turned off. To do this, check riak.conf for the following: `anti_entropy = passive`.
+Then confirm that [AAE][AAE] is turned off. To do this, check /etc/riak/riak.conf for the following: `anti_entropy = passive`.
 
 
 ##Activate Riak TS node
@@ -52,5 +53,16 @@ riak start
 ```
 
 
+##Verify your installation
+
+You can verify that Riak TS is successfully installed by running: 
+
+```bash
+dpkg -l | grep riak
+```
+
+If Riak TS has been installed successfully `riak-ts` is returned.
+
+
 ##Next Steps
-Now that you've installed Riak TS, check out [Configuring Your Riak TS Table][configuring].
+Now that you've installed Riak TS, check out [Planning Your Riak TS Table][planning].

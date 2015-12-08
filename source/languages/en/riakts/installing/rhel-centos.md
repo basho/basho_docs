@@ -1,17 +1,17 @@
 ---
-title: Installing on CentOS
+title: Installing on CentOS/RHEL
 project: riakts
 version: 1.0.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, centos, linux]
 download:
-  key: rhel
-  name: "CentOS"
+  key: centos, rhel
+  name: "CentOS/RHEL"
 ---
 
-[AAE]: 
-[configuring]: http://docs.basho.com/riakts/1.0.0/using/configuring
+[AAE]: http://docs.basho.com/riak/2.1.2/theory/concepts/aae/
+[planning]: http://docs.basho.com/riakts/1.0.0/using/planning
 
 Riak TS can be installed on CentOS-based systems using a binary
 package available through ZenDesk.
@@ -56,7 +56,7 @@ sudo rpm -Uvh riak-ts-{{VERSION}}-1.el7.x86_64.rpm
 
 ###Turn off AAE
 
-Confirm that [AAE][AAE] is turned off. To do this, check riak.conf for the following: `anti_entropy = passive`.
+Confirm that [AAE][AAE] is turned off. To do this, check /etc/riak/riak.conf for the following: `anti_entropy = passive`.
 
 
 ##Activate Riak TS node
@@ -68,5 +68,16 @@ riak start
 ```
 
 
+##Verify your installation
+
+You can verify that Riak TS is successfully installed by running: 
+
+```bash
+dpkg -l | grep riak
+```
+
+If Riak TS has been installed successfully `riak-ts` is returned.
+
+
 ##Next Steps
-Now that you've installed Riak TS, check out [Configuring Your Riak TS Table][configuring].
+Now that you've installed Riak TS, check out [Planning Your Riak TS Table][planning].

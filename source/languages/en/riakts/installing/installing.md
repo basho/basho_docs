@@ -15,7 +15,7 @@ audience: beginner
 [Ubuntu]: http
 
 
-Riak TS is a distributed NoSQL key/value store optimized for fast reads and writes of time series data. To use it, you need to install the Riak TS package.
+Riak TS is a distributed NoSQL key/value store optimized for fast reads and writes of time series data. To use it, all you need to do is install the Riak TS package.
  
 
 ## Installing
@@ -30,4 +30,4 @@ Choose your OS and follow the instructions:
 
 >**Upgrade Note:** 
 >
->Risk TS is debuting as a standalone product. Upgrading from Riak KV to Riak TS is not currently supported.
+>Risk TS is debuting as a complete, standalone product. Upgrading from Riak KV to Riak TS is not currently supported.

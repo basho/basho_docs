@@ -11,10 +11,11 @@ download:
 ---
 
 [AAE]: http://docs.basho.com/riak/2.1.2/theory/concepts/aae/
+[planning]: http://docs.basho.com/riakts/1.0.0/using/planning
 [riak security]: http://docs.basho.com/riak/2.1.2/ops/running/authz/
-[configuring]: http://docs.basho.com/riakts/1.0.0/using/configuring
 
-Riak TS can be installed on Debian- or Ubuntu-based systems using a binary
+
+Riak TS can be installed on Debian or Ubuntu-based systems using a binary
 package available through ZenDesk.
 
 Check your e-mail for the link to the download in ZenDesk.
@@ -41,7 +42,7 @@ Once you have downloaded the package from ZenDesk, execute the following command
 sudo dpkg -i riak-ts_{{VERSION}}-1_amd64.deb
 ```
 
-Then confirm that [AAE][AAE] is turned off. To do this, check riak.conf for the following: `anti_entropy = passive`.
+Then confirm that [AAE][AAE] is turned off. To do this, check /etc/riak/riak.conf for the following: `anti_entropy = passive`.
 
 ##Activate Riak TS node
 
@@ -52,5 +53,16 @@ riak start
 ```
 
 
+##Verify your installation
+
+You can verify that Riak TS is successfully installed by running: 
+
+```bash
+dpkg -l | grep riak
+```
+
+If Riak TS has been installed successfully `riak-ts` is returned.
+
+
 ##Next Steps
-Now that you've installed Riak TS, check out [Configuring Your Riak TS Table][configuring].
+Now that you've installed Riak TS, check out [Planning Your Riak TS Table][planning].
