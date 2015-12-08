@@ -74,6 +74,8 @@ The quantum function takes 3 parameters:
   * 'm' - minutes
   * 's' - seconds
 
+>**Note:** Your quanta must be in UTC and UNIX epoch seconds in order for it to be queried. 
+
 #####Local Key
 
 The second key (local key) MUST contain the same 3 fields in the same order as the partition key. This ensures that the same fields determining your data's partition also dictate the sorting of the data within that partition.
