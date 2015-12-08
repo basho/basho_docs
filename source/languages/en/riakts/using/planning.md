@@ -8,15 +8,20 @@ index: true
 audience: beginner
 ---
 
+[activating]: https://www.docs.basho.com/riakts/1.0.0/using/activating
+[advancedplanning]: https://www.docs.basho.com/riakts/1.0.0/advancedplanning
 [installing]: https://www.docs.basho.com/riakts/1.0.0/installing/
+[sql]: https://www.docs.basho.com/riakts/1.0.0/sql
 
-Now that you've [installed][installing] Riak TS, you can configure a table.
+Now that you've [installed][installing] Riak TS, you're almost ready to create TS table. Before you can create your table, you'll need to plan it out. 
 
+This page provides a basic overview of what you'll need and some guidelines/limitations. For a deeper dive into planning and designing Riak TS tables, check out [Advanced Planning][advancedplanning].
 
+Riak TS tables are closely tied to SQL tables. If you are unfamiliar with SQL or would like to know more about how Riak TS integrates SQL, check out [SQL for Riak TS][sql].
 
+###Anatomy of a Schema
 
-### Anatomy of a Schema
-Here is an example Riak TS `CREATE TABLE` statement (broken across many lines for clarity):
+In order to create a working Riak TS table, you'll need plan your table out. Here is an example Riak TS `CREATE TABLE` statement (broken across many lines for clarity):
 
 ```sql
 CREATE TABLE GeoCheckin
@@ -35,38 +40,25 @@ CREATE TABLE GeoCheckin
 
 
 ####Field Names
+
 Field names (`myfamily`, `myseries`, etc) must be ASCII strings, in addition to having the correct case. If field names need to contain special cases (e.g. spaces or punctuation) they can be single quoted.
-
-Field names define the structure of the data, taking the format:
-
-```sql
-name type [not null],
-```
 
 Valid types are:
 
 * `varchar`
 * `sint64`
-* `double`
-  * If you are using an IEEE specification, 'NaN' (not a number) and 'INF' (infinity) cannot be used.
 * `boolean`
 * `timestamp`
   * Note: 0 (zero) is not a valid timestamp
+* `double`
+  * If you are using an IEEE specification, 'NaN' (not a number) and 'INF' (infinity) cannot be used.
 
 
 Additionally, the fields declared in the keys must have the flag `not null`.
 
 ####Primary Key
-The `PRIMARY KEY` describes the partition and local keys. The partition key and the local key are nearly identical, differing only by the definition of the `quantum` used to colocate data.
 
-#####Partition Key 
-The partition key is defined as the three named fields in brackets:
-
-```sql
-(myfamily, myseries, (quantum(time, 15, 'm')),
-```
-
-You MUST have exactly three fields in the following order: 
+You MUST have exactly three fields in the following order (ASCII only): 
 
 1. The first field (family) is a class or type of data. 
 2. The second field (series) identifies the specific instances of the class/type, such as username or device ID. 
@@ -77,10 +69,15 @@ The quantum function takes 3 parameters:
 * the name of a field in the table definition of type `timestamp`
 * a quantity
 * a unit of time:
-  * 'd'  - days
+  * 'd'  - days  
   * 'h' - hours
   * 'm' - minutes
   * 's' - seconds
 
 #####Local Key
+
 The second key (local key) MUST contain the same 3 fields in the same order as the partition key. This ensures that the same fields determining your data's partition also dictate the sorting of the data within that partition.
+
+##Next Steps
+
+Now that you know how your Riak TS table will be structured, you can move on to [creating and activating your table][activating].
