@@ -1,5 +1,5 @@
 ---
-title: Configuring a Riak TS Table
+title: Planning Your Riak TS Table
 project: riakts
 version: 1.0.0+
 document: guide
