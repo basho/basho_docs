@@ -33,7 +33,7 @@ CREATE TABLE GeoCheckin
 **the parser treats '2015-12-08 14:00 EDT' as a character literal/string/varchar, it doesn't turn into a date and won't successfully query against a timestamp column** must be in UNIX/UTC epoch seconds.
 Basic queries return the full range of values between two given times for a series in a family.To query a bucket, issue a SQL statement against the Riak TS bucket:
 
-````erlang
+```erlang
 {ok, Pid} = riakc_pb_socket:start_link("myriakdb.host", 10017).
 riakc_ts:query(Pid, "select * from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1'").
 ```
@@ -126,13 +126,14 @@ A small subset of SQL is supported. All comparisons are of the format: `Field Op
 
 The following operators are supported for each data type
 
-|           | = | != | > | < | <= | >= |
-| --------- | - | -- | - | - | -- | -- |
-| varchar   | X | X  |   |   |    |    |
-| boolean   | X | X  |   |   |    |    |
-| sint64    | X | X  | X | X | X  | X  |
-| double    | X | X  | X | X | X  | X  |
-| timestamp | X | X  | X | X | X  | X  |
+| |=|!=|>|<|<=|>=|
+|-----------|---|---|---|---|---|---|
+| varchar   | X | X |   |   |   |   |
+| boolean   | X | X |   |   |   |   |
+| sint64    | X | X | X | X | X | X |
+| double    | X | X | X | X | X | X |
+| timestamp | X | X | X | X | X | X |
+
 
 >**Note**
 >
