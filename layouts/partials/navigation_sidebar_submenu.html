@@ -1,0 +1,15 @@
+{{ $current_node := .current_node }}
+{{ $menu_title := .menu_title }}
+{{ $menu_depth := .menu_depth }}
+<ul class="depth-{{$menu_depth}}"{{if $current_node.IsMenuCurrent $menu_title .current_menu}} style="display: block;"{{end}}>{{ range .current_menu.Children }}
+  <li{{ if $current_node.IsMenuCurrent $menu_title . }} class="current"{{end}}>
+    {{ if .HasChildren }}
+      {{/*TODO(Drew): Figure out if we need the span tag. */}}
+      {{/*TODO(Drew): Figure out if we need to record the project in the class. */}}
+      <h4><span><a href="{{.URL}}" class="{{$current_node.Params.project}}">{{.Name}}</a></span></h4>
+      {{ partial "navigation_sidebar_submenu.html" (dict "current_menu" . "current_node" $current_node "menu_title" $menu_title "menu_depth" (add 1 $menu_depth)) }}
+    {{ else }}
+      <a href="{{.URL}}" class="{{$current_node.Params.project}}">{{.Name}}</a>
+    {{ end }}
+  </li>
+{{ end }}</ul>
