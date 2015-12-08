@@ -124,13 +124,14 @@ A small subset of SQL is supported. All comparisons are of the format: `Field Op
 
 The following operators are supported for each data type
 
-|           | = | != | > | < | <= | >= |
-| --------- | - | -- | - | - | -- | -- |
-| varchar   | X | X  |   |   |    |    |
-| boolean   | X | X  |   |   |    |    |
-| sint64    | X | X  | X | X | X  | X  |
-| double    | X | X  | X | X | X  | X  |
-| timestamp | X | X  | X | X | X  | X  |
+| |=|!=|>|<|<=|>=|
+|-----------|---|---|---|---|---|---|
+| varchar   | X | X |   |   |   |   |
+| boolean   | X | X |   |   |   |   |
+| sint64    | X | X | X | X | X | X |
+| double    | X | X | X | X | X | X |
+| timestamp | X | X | X | X | X | X |
+
 
 >**Note**
 >
