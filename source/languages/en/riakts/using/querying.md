@@ -29,9 +29,9 @@ CREATE TABLE GeoCheckin
 )
 ```
 
-Basic queries return the full range of values between two given times for a series in a family.To query a bucket, issue a SQL statement against the Riak TS bucket:
+**You can use unicode in queries** Basic queries return the full range of values between two given times for a series in a family.To query a bucket, issue a SQL statement against the Riak TS bucket:
 
-````erlang
+```erlang
 {ok, Pid} = riakc_pb_socket:start_link("myriakdb.host", 10017).
 riakc_ts:query(Pid, "select * from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1'").
 ```

@@ -50,3 +50,58 @@ The quantum function takes 3 parameters:
 
 #####Local Key
 The second key (local key) MUST contain the same 3 fields in the same order as the partition key. This ensures that the same fields determining your data's partition also dictate the sorting of the data within that partition.
+
+##Verify Activation
+
+You can verify that your table was properly created by looking at the `ddl` section of the `riak-admin bucket-type status` response. For example:
+
+```sh
+$riak-admin bucket-type status GeoCheckin
+GeoCheckin is active
+...
+ddl: {ddl_v1,<<"GeoCheckin">>,
+             [{riak_field_v1,<<"myfamily">>,1,binary,false},
+              {riak_field_v1,<<"myseries">>,2,binary,false},
+              {riak_field_v1,<<"time">>,3,timestamp,false},
+              {riak_field_v1,<<"weather">>,4,binary,false},
+              {riak_field_v1,<<"temperature">>,5,double,true}],
+             {key_v1,[{hash_fn_v1,riak_ql_quanta,quantum,
+                                  {param_v1,[<<"myfamily">>]},
+                      {param_v1,[<<"myseries">>]}]},
+                      [{param_v1,[<<"time">>]},15,m],
+                                  timestamp},
+             {key_v1,[{param_v1,[<<"time">>]},
+                      {param_v1,[<<"myfamily">>]},
+                      {param_v1,[<<"myseries">>]}]}}
+```
+
+The format of the response is:
+
+```sh
+ddl:  { ddl_v1, TABLE_NAME, 
+[ ARRAY OF COLUMNS], 
+[ KEY INFO ]}}
+```
+
+The columns are each:
+
+```sh
+{riak_field_v1,<<"FIELD_NAME">>,COLUMN_INDEX,COLUMN_TYPE,NULLABLE}
+```
+
+The `key` information contains the columns used for the partition key, which defines how the data set is chunked and where the chunk data is co-located, and the local key which uniquely identifies the data within a chunk. These two sets of columns will mostly be the same, but the partition key will have an additional quantum definition for the timestamp column:
+
+```sh
+{key_v1,[
+   {hash_fn_v1,riak_ql_quanta,quantum,
+               {param_v1,[<<"myfamily">>]},               <- Partition Key Part 1
+               {param_v1,[<<"myseries">>]},               <- Partition Key Part 2 
+               [{param_v1,[<<"time">>]},15,m],timestamp}  <- Partition Key Part 3
+
+]},
+{key_v1,[
+   {param_v1,[<<"myfamily">>]},  <- Local Key part 1
+   {param_v1,[<<"myseries">>]},  <- Local Key part 2
+   {param_v1,[<<"time">>]}       <- Local Key part 3
+]}
+```
