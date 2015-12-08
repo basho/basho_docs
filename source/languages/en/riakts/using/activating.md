@@ -36,7 +36,13 @@ To create the example table, run:
 riak-admin bucket-type create GeoCheckin '{"props":{"n_val":1, "table_def": "CREATE TABLE GeoCheckin (myfamily varchar not null, myseries varchar not null, time timestamp not null, weather varchar not null, temperature double, PRIMARY KEY ((myfamily, myseries, quantum(time, 15, 'm')), myfamily, myseries, time))"}}'
 ```
 
->Please note that the `bucket-type` name must equal the table name.
+Please take care:
+
+* The `bucket-type` name **must** equal the table name.
+* The syntax is very sensitive to whitespace and quoting.
+* It is easy to create a very long bucket type name with no corresponding
+  timeseries table if you leave out the space between the bucket type name
+  and the opening quote of the JSON properties.
 
 Then, activate your table just like a bucket type:
 
