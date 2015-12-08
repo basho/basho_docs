@@ -57,7 +57,7 @@ The SQL query must cover the entire time series key (`myfamily`, `myseries`, and
 
 ## Specific Querying
 
-You can also select particular fields from the data. In the below example, **??** what specifically is happening here?:
+You can also select particular fields from the data.
 
 ```erlang
 riakc_ts:query(Pid, "select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1'").
@@ -75,7 +75,7 @@ Query query = new Query.Builder(queryText).build();
 QueryResult queryResult = client.execute(query);
 ```
 
-Additionally, you can extend the query beyond the key. For example, **??** what's happening in this example?:
+Additionally, you can extend the query beyond the key.
 
 ```erlang
 riakc_ts:query(Pid, "select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1' and temperature > 27.0").
@@ -108,6 +108,7 @@ riakc_ts:query(Pid,
     {"series", "myseries"}
   ]).
 ```
+
 ```ruby
 query = Riak::Timeseries::Query.new(client, "select weather, temperature from GeoCheckin where time > :start and time < :end and myfamily = :family and myseries = :series and temperature > :temperature")
 query.interpolations = {
@@ -123,19 +124,24 @@ A small subset of SQL is supported. All comparisons are of the format: `Field Op
 
 The following operators are supported for each data type
 
-|           | = | != | > | < | =< | >= |
+|           | = | != | > | < | <= | >= |
 | --------- | - | -- | - | - | -- | -- |
-| binary    | X | X  |   |   |    |    |
+| varchar   | X | X  |   |   |    |    |
 | boolean   | X | X  |   |   |    |    |
 | sint64    | X | X  | X | X | X  | X  |
 | double    | X | X  | X | X | X  | X  |
 | timestamp | X | X  | X | X | X  | X  |
-| any       |   |    |   |   |    |    |
 
+>**Note**
+>
+>Field-to-field comparisons are not currently supported.
 
 ## Limitations
 
-In this early version queries can only range over 1 to 4 quanta. If you write a range that is too large, your query will generate too many subqueries and the query system will refuse to run.
+In this early version queries can only range over 1 to 4 quanta. A query covering more than 4 quanta will generate too many sub-queries and the query system will refuse to run it.  
+  * Example: Assume a default system with a 15min quanta.
+  * A query of “time > 1 o’clock and time < 2 o’clock” will be fine because it covers 4 quanta.
+  * A query of “time > 1 o’clock and time < 3 o’clock” will fail because it covers more than 4 quanta.
 
 **??** will the "1 o’clock" thing actually work or am i being trolled
 

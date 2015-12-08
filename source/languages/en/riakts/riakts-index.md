@@ -12,3 +12,4 @@ simple: true
 versions: true
 ---
 
+Riak TS is a complete Riak. No need to download KV. LevelDB is the only supported backend

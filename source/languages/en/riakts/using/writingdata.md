@@ -62,7 +62,7 @@ client.execute(storeCmd);
 
 In the absence of information about which columns are provided, writing data assumes that columns are in the same order they've been declared in the table.
 
-The timestamps should be in UTC microseconds.
+The timestamps should be in UTC milliseconds.
 
 If all of the data are correctly written the response is:
 `ok` in Erlang, and will not raise an error in Ruby.
@@ -79,4 +79,4 @@ with a number that failed but no guidance about which ones??! -> Per Alex... yes
 There are two error conditions:
 
 * Writing data to a TS bucket that doesn’t exist
-*	Writing data which doesn’t match the specification of the TS bucket
+* Writing data which doesn’t match the specification of the TS bucket
