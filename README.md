@@ -15,10 +15,14 @@ The primary branch for the on-going [Basho Docs][basho docs] conversion from [Mi
 ## Getting Started
 
 * `git clone https://github.com/basho/private_basho_docs.git`
-* Switch to `hugo/testing` branch
+* Switch to `hugo/testing` branch (`git checkout hugo/testing`)
 * [Install Hugo 0.15][install hugo] (`brew install hugo`)
+* Start `hugo server`
+* Open http://localhost:1313 in your browser
+
+## Compiling New JS and/or CSS
+
 * [Install RVM][rvm] & Ruby v2.2.3
 * `gem install bundler`
 * `bundle install`
-* `rake watch` (to compile assets)
-* `hugo server`
+* `rake watch` (or `rake watch:debug` if you'd like more readable compiled content)
