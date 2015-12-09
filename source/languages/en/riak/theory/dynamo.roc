@@ -362,7 +362,7 @@ Incremental scalability: Dynamo should be able to scale out one storage host (he
 to as “node”) at a time, with minimal impact on both operators of the system and the system itself.
 
 # Again, we agree. Each storage node is the same at its neighbor. Any node can coordinate 
-# a request and, in the event that a node goes does, its neighbors can cover for it until 
+# a request and, in the event that a node goes down, its neighbors can cover for it until 
 # it's restarted or decommissioned. 
 
 Symmetry: Every node in Dynamo should have the same set of responsibilities as its peers; 
