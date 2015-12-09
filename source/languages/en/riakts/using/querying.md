@@ -8,11 +8,24 @@ index: true
 audience: beginner
 ---
 
-Now that you have [written][writing] data to your Riak TS bucket, you can query it.
+[activating]: https://docs.basho.com/riakts/1.0.0/using/activating
+[writing]: https://docs.basho.com/riakts/1.0.0/using/writingdata
 
-## Basic Querying
 
-For ease and consistency, let's use the same example table:
+Now that you have [created][activating] a Riak TS table and [written][writing] data to it, you can query your data.
+
+
+##Basic Querying
+
+Before you begin querying, there are some guidelines to keep in mind:
+
+* You can use Unicode as well as ASCII.
+* You must query in UTC/UNIX epochs. 
+  * The parser will treat '2015-12-08 14:00 EDT' as a character literal/string/varchar.
+* 2i index will not work with Riak TS.
+* `riak search` will not work with Riak TS.
+
+Basic queries return the full range of values between two given times for a series in a family. To demonstrate, we'll use the same example table:
 
 ```sql
 CREATE TABLE GeoCheckin
@@ -29,12 +42,7 @@ CREATE TABLE GeoCheckin
 )
 ```
 
-**You can use unicode in queries** 
-**the parser treats '2015-12-08 14:00 EDT' as a character literal/string/varchar, it doesn't turn into a date and won't successfully query against a timestamp column** must be in UNIX/UTC epoch seconds.
-2i index doesn't work with TS.
-Yokozuna doesn't work with T
-
-Basic queries return the full range of values between two given times for a series in a family.To query a bucket, issue a SQL statement against the Riak TS bucket:
+Query a table by issuing a SQL statement against the table:
 
 ```erlang
 {ok, Pid} = riakc_pb_socket:start_link("myriakdb.host", 10017).
@@ -58,7 +66,7 @@ results = query.issue!
 >>>>>>> a0580a2273f2b212e24c716e5afb823ed7527f3b
 ```
 
-The SQL query must cover the entire time series key (`myfamily`, `myseries`, and `time`). If any part of the time series key is missing, you will get an error.
+Your query must cover the entire time series key (`myfamily`, `myseries`, and `time`). If any part of the time series key is missing, you will get an error.
 
 ## Specific Querying
 

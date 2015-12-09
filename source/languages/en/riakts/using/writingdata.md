@@ -9,7 +9,8 @@ audience: beginner
 ---
 
 [activating]: https://www.docs.basho.com/riakts/1.0.0/using/activating
-[planning]: http://docs.basho.com/riakts/1.0.0/using/planning
+[planning]: https://docs.basho.com/riakts/1.0.0/using/planning
+[querying]: https://docs.basho.com/riakts/1.0.0/using/querying
 
 Now that you've [planned][planning] and [activated][activating] your Riak TS table, you are ready to write data to it.
 
@@ -85,3 +86,7 @@ There are two error conditions:
 
 * Writing data to a TS table that doesn’t exist, or
 * Writing data which doesn’t match the specification of the TS table.
+
+##Next Steps
+
+Now that you've written data to your tables, you can [query][querying] your data.
