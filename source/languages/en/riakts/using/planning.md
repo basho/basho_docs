@@ -11,7 +11,7 @@ audience: beginner
 [activating]: https://www.docs.basho.com/riakts/1.0.0/using/activating
 [advancedplanning]: https://www.docs.basho.com/riakts/1.0.0/advancedplanning
 [installing]: https://www.docs.basho.com/riakts/1.0.0/installing/
-[sql]: https://www.docs.basho.com/riakts/1.0.0/sql
+[sql]: https://www.docs.basho.com/riakts/1.0.0/learn-about/sql
 
 Now that you've [installed][installing] Riak TS, you're almost ready to create TS table. Before you can create your table, you'll need to plan it out. 
 
@@ -74,7 +74,9 @@ The quantum function takes 3 parameters:
   * 'm' - minutes
   * 's' - seconds
 
->**Note:** Your quanta must be in UTC and UNIX epoch seconds in order for it to be queried. 
+>**Note:** Your quanta must be in UTC and UNIX epoch seconds in order for it to be queried.
+
+>**Another note:** While you can create a table with duplicated elements, we strongly recommend not doing so.
 
 #####Local Key
 

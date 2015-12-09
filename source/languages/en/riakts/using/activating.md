@@ -18,7 +18,7 @@ Once you have [planned out your table][planning] you can create it using `riak-a
 
 ##Creating Your Table
 
-Remember the [example table][planning]?
+Remember the example table?
 
 ```sql
 CREATE TABLE GeoCheckin
@@ -72,9 +72,9 @@ riak-admin bucket-type activate GeoCheckin
 ```
 
 
-##Viewing Table Scheme
+##Viewing Table Schema
 
-To view the table scheme use the following command:
+To view the table schema use the following command:
 
 ```sh
 riak-admin bucket-type status »TABLE NAME«

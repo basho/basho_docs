@@ -8,11 +8,15 @@ index: true
 audience: beginner
 ---
 
-Now that you've [configured][configuring]and [activated][activating] a bucket, you are ready to write data to it.
+[activating]: https://www.docs.basho.com/riakts/1.0.0/using/activating
+[planning]: http://docs.basho.com/riakts/1.0.0/using/planning
 
-## Writing Data
+Now that you've [planned][planning] and [activated][activating] your Riak TS table, you are ready to write data to it.
 
-Let's use the example bucket from earlier:
+
+##Writing Data
+
+Riak TS allows you to write multiple rows of data at a time. To demonstrate, we'll use the example table from earlier:
 
 ```sql
 CREATE TABLE GeoCheckin
@@ -29,11 +33,7 @@ CREATE TABLE GeoCheckin
 )
 ```
 
-Riak TS allows you to write multiple rows of data at a time. Simply put the data in a list:
-
->**Note on client-side validation**:
->Riak Time Series 1.0 does not have client-side insertion validation. The TS server (if enabled), checks if inserted rows and cells are the correct type, order, and nullability. 
->These checks will be available in Riak Time Series 1.1 clients. Until then please take caution when creating data to insert. Ensure each row’s cells match the order/types of the table, and that you do not create a null-value cell for a non-nullable column.
+To write data to your table, put the data in a list:
 
 ```ruby
 client = Riak::Client.new 'myriakdb.host', pb_port: 10017
@@ -60,23 +60,28 @@ Store storeCmd = new Store.Builder("GeoCheckin").withRows(rows).build();
 client.execute(storeCmd);
 ```
 
-In the absence of information about which columns are provided, writing data assumes that columns are in the same order they've been declared in the table.
+>**Note on validation**:
+>
+>Riak TS 1.0.0 does not have client-side insertion validation. Please take caution when creating data to insert by ensuring that each row’s cells match the order/types of the table, and that you do not create a null-value cell for a non-nullable column.
 
-The timestamps should be in UTC milliseconds.
+If all of the data are correctly written the response is: `ok` in Erlang, and will not raise an error in Ruby.
 
-If all of the data are correctly written the response is:
-`ok` in Erlang, and will not raise an error in Ruby.
+If some of the data failed to write, an `RpbErrorResp` error occurs with a number that failed. In the event that your write fails, you should:
 
-If some of the data failed to write, **??** do we really get an `RpbErrorResp`
-with a number that failed but no guidance about which ones??! -> Per Alex... yes.
+1. Do a binary search with half the data, then the other half, and etc. to pinpoint the problem; or
+2. Check the data one at a time until one fails.
+ 
 
-**??** What happens if it doesn't work? What are some things the user could look at?
-1. Data one at a time until one fails :( 
-2. Or binary search w/ half the data, etc.
+###Guidelines
 
-## Error conditions
+* In the absence of information about which columns are provided, a write will assume that columns are in the same order they've been declared in the table.
+* Timestamps should be in UTC milliseconds.
+* Only ASCII is supported.
+
+
+##Error conditions
 
 There are two error conditions:
 
-* Writing data to a TS bucket that doesn’t exist
-* Writing data which doesn’t match the specification of the TS bucket
+* Writing data to a TS table that doesn’t exist, or
+* Writing data which doesn’t match the specification of the TS table.

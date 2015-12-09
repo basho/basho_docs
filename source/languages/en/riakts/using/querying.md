@@ -31,6 +31,9 @@ CREATE TABLE GeoCheckin
 
 **You can use unicode in queries** 
 **the parser treats '2015-12-08 14:00 EDT' as a character literal/string/varchar, it doesn't turn into a date and won't successfully query against a timestamp column** must be in UNIX/UTC epoch seconds.
+2i index doesn't work with TS.
+Yokozuna doesn't work with T
+
 Basic queries return the full range of values between two given times for a series in a family.To query a bucket, issue a SQL statement against the Riak TS bucket:
 
 ```erlang
@@ -145,17 +148,30 @@ In this early version queries can only range over 1 to 4 quanta. A query coverin
   * Example: Assume a default system with a 15min quanta.
   * A query of “time > 1 o’clock and time < 2 o’clock” will be fine because it covers 4 quanta.
   * A query of “time > 1 o’clock and time < 3 o’clock” will fail because it covers more than 4 quanta.
+The important information to construct examples here: time values are now always strictly integers, and they are expressed in milliseconds.
 
-**??** will the "1 o’clock" thing actually work or am i being trolled
+So if I give you an example query like this: select weather from GeoCheckin where time >= 3000 and time < 30000 and user = 'user_1' and location = ‘Scotland'
 
-For instance, if you have the default system with a `15m quanta`, then a query such as:
+I’m saying that the time is >= 3 seconds and < 30 seconds.
 
-`time > 1 o’clock and time < 2 o’clock`
+The question of whether that spans multiple quanta, or indeed too many quanta, depends on the SQL(ish) code used to define the bucket type.
 
-will be fine because it covers 4 quanta. While the query:
+If, for example, this is the create table command issued:
 
-`time > 1 o’clock and time < 3 o’clock`
+CREATE TABLE GeoCheckin
+ (geohash varchar not null,
+  location varchar not null,
+  user varchar not null,
+  time timestamp not null,
+  weather varchar not null,
+  temperature varchar,
+    PRIMARY KEY((location, user, quantum(time, 15, 's')),
+                location, user, time))
 
-will fail.
+that data is stored in chunks of 15 seconds, so the query I showed you would have to talk to 2 vnodes (2 quanta): 0-14.999 seconds, and 15.0-29.999 seconds.
+
+Now that the quanta/query parameter is configurable, it’s harder to come up with a “definitive” example of a query that covers too much ground, but given the same table definition and 6 quanta as the limit, this query would not work because 6 quanta of 15 seconds each would be a total search space of 90 seconds:
+
+select weather from GeoCheckin where time >= 3000 and time < 100000 and user = 'user_1' and location = ‘Scotland'
 
 **??**There are buffer limitations, but I don't know what they are or how to guide users.
