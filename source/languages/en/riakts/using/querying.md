@@ -20,7 +20,7 @@ Now that you have [created][activating] a Riak TS table and [written][writing] d
 Before you begin querying, there are some guidelines to keep in mind:
 
 * You can use Unicode as well as ASCII.
-* You must query in UTC/UNIX epochs. 
+* You must query in UTC/UNIX epoch milliseconds. 
   * The parser will treat '2015-12-08 14:00 EDT' as a character literal/string/varchar.
 * 2i index will not work with Riak TS.
 * `riak search` will not work with Riak TS.
