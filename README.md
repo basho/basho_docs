@@ -18,4 +18,7 @@ The primary branch for the on-going [Basho Docs][basho docs] conversion from [Mi
 * Switch to `hugo/testing` branch
 * [Install Hugo 0.15][install hugo] (`brew install hugo`)
 * [Install RVM][rvm] & Ruby v2.2.3
+* `gem install bundler`
+* `bundle install`
+* `rake watch` (to compile assets)
 * `hugo server`
