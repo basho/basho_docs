@@ -19,11 +19,14 @@ Now that you have [created][activating] a Riak TS table and [written][writing] d
 
 Before you begin querying, there are some guidelines to keep in mind:
 
-* You can use Unicode as well as ASCII.
+* Data may be stored and queried as Unicode.
 * You must query in UTC/UNIX epoch milliseconds. 
-  * The parser will treat '2015-12-08 14:00 EDT' as a character literal/string/varchar.
-* 2i index will not work with Riak TS.
+  * The parser will treat '2015-12-08 14:00 EDT' as a character literal/string/varchar, not a timestamp.
+* Secondary indexing (aka 2i) will not work with Riak TS.
 * `riak search` will not work with Riak TS.
+* The `or` operator will work only for fields that are **not**
+  in the primary key. To select multiple field values for primary key
+  fields requires multiple queries.
 
 Basic queries return the full range of values between two given times for a series in a family. To demonstrate, we'll use the same example table:
 
@@ -66,7 +69,7 @@ results = query.issue!
 >>>>>>> a0580a2273f2b212e24c716e5afb823ed7527f3b
 ```
 
-Your query must cover the entire time series key (`myfamily`, `myseries`, and `time`). If any part of the time series key is missing, you will get an error.
+Your query must include all components of the primary key (`myfamily`, `myseries`, and `time`). If any part of the time series key is missing, you will get an error.
 
 ## Specific Querying
 
@@ -88,7 +91,8 @@ Query query = new Query.Builder(queryText).build();
 QueryResult queryResult = client.execute(query);
 ```
 
-Additionally, you can extend the query beyond the key.
+Additionally, you can extend the query beyond the primary key (with a
+performance cost, although we have worked to minimize that).
 
 ```erlang
 riakc_ts:query(Pid, "select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1' and temperature > 27.0").
