@@ -1,4 +1,5 @@
 source "https://rubygems.org"
+ruby "2.2.3"
 
 gem "sass", "~>3.4.18"
 gem "sass-css-importer", ">=1.0.0.beta.0"
