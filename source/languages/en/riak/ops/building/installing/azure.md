@@ -122,7 +122,7 @@ You can either use Riak Control or the command line to add nodes to your Riak Cl
 
 2. Visit https://dns-name.cloudapp.net/admin in your browser
 
-3. Ender 'admin' as the username, and the "Deployement ID" as the password.
+3. Enter 'admin' as the username, and the "Deployment ID" as the password.
 
 4. Select 'Cluster' on the left.
 

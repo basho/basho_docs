@@ -231,7 +231,7 @@ riak-admin handoff enable both --all
 
 As for enabling handoff, the `riak-admin disable` command requires that
 you specify both both a node or nodes to be targeted by the command and
-whether you'd like to disbale inbound handoff, outbound handoff, or
+whether you'd like to disable inbound handoff, outbound handoff, or
 both. The `disable` command works just like `enable`. This command
 would disable all forms of handoff on all nodes, to give just one
 example:
