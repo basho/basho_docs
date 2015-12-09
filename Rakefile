@@ -29,8 +29,21 @@ directory "#{$cache_dir}"
 ######################################################################
 ### Rake Namespace and Task definitions
 
+Rake::TaskManager.record_task_metadata = true
+########
+# Default
+task      :default do
+  puts "Basho Documentation Rake System Usage:"
+  puts ""
+  Rake::application.options.show_tasks = :tasks  # this solves sidewaysmilk problem
+  Rake::application.options.show_task_pattern = //
+  Rake::application.display_tasks_and_comments
+end;
+
+
 ########
 # Clean
+desc      "Clean previous builds"
 task      :clean => ['clean:js', 'clean:css', 'clean:hugo']
 namespace :clean do
   #TODO<drew.pirrone.brusse@gmail>: These `rm -rf`s are maybe a bit much? Should
@@ -43,6 +56,7 @@ end
 
 ########
 # Build
+desc      "Compile Compressed JS, Compile Compressed CSS, Build Hugo"
 task      :build => ['clean', 'build:js', 'build:css', 'build:hugo']
 namespace :build do
   task :js => "#{$js_dest}" do compile_js(debug: false); end
@@ -50,12 +64,15 @@ namespace :build do
 
   ################
   # Build : Debug
+  desc      "Compile Human-Readable JS, Compile Human-Readable CSS, Build Hugo"
   task      :debug => ['clean', 'build:debug:js', 'build:debug:css', 'build:hugo']
   namespace :debug do
     task :js => "#{$js_dest}" do compile_js(debug: true); end
     task :css => "#{$css_dest}" do compile_css(debug: true); end
   end
 
+  #TODO<drew.pirrone.brusse@gmail>: This just runs hugo, sits for a second, and
+  # then kills the process. This is not a permanent solution.
   task :hugo do sh "hugo server --watch=false & PID=$!; "\
                    "sleep 1; kill $PID"; end
 end
@@ -63,6 +80,7 @@ end
 
 ########
 # Watch
+desc      "Run Guard on JS and CSS"
 task      :watch do sh 'bundle exec guard -g css js'; end
 namespace :watch do
 
@@ -71,6 +89,7 @@ namespace :watch do
 
   ################
   # Watch : Debug
+  desc      "Run Guard on JS and CSS in Debug Mode"
   task      :debug => ['clean'] do sh 'bundle exec guard -g debug_js debug_css'; end
   namespace :debug do
     task :js  do sh 'bundle exec guard -g debug_js'; end
@@ -78,6 +97,7 @@ namespace :watch do
   end
 
   #TODO<drew.pirrone.brusse@gmail>: Add in some way to specify ip/port.
+  desc "Run Hugo Server"
   task :hugo do sh "hugo server"; end
 end
 
