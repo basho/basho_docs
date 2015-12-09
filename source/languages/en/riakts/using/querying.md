@@ -24,6 +24,9 @@ Before you begin querying, there are some guidelines to keep in mind:
   * The parser will treat '2015-12-08 14:00 EDT' as a character literal/string/varchar, not a timestamp.
 * Secondary indexing (aka 2i) will not work with Riak TS.
 * `riak search` will not work with Riak TS.
+* The `or` operator will work only for fields that are **not**
+  in the primary key. To select multiple field values for primary key
+  fields requires multiple queries.
 
 Basic queries return the full range of values between two given times for a series in a family. To demonstrate, we'll use the same example table:
 
