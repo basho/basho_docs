@@ -1,5 +1,5 @@
 ---
-title: Modelling Data in Riak TS
+title: Modeling Data in Riak TS
 project: riakts
 version: 1.0.0+
 document: guide

@@ -1,4 +1,28 @@
-## Basic Structure of a Riak TS Table
+---
+title: Advanced Planning Riak TS Tables
+project: riakts
+version: 1.0.0+
+document: guide
+toc: true
+index: true
+audience: advanced
+---
+
+[activating]: https://www.docs.basho.com/riakts/1.0.0/using/activating
+[planning]: http://docs.basho.com/riakts/1.0.0/using/planning
+[sql]: https://www.docs.basho.com/riakts/1.0.0/learn-about/sql
+
+
+This page provides more in-depth information about how Riak TS tables are structured. 
+
+If you just want to get started creating a table in Riak TS, check out our quick guide to [planning your Riak TS table][planning]. You may also be interested in [more information about SQL in Riak TS][sql].
+
+##Riak TS Tables
+
+With Riak TS, you no longer have to build your own time series database on Riak KV. Instead, Riak TS integrates SQL structure and functionality with Riak KV key/value storage. It does this through Riak TS tables, that you customize to fit your time series data and the needs of your workflow.
+
+##Basic Structure of a Riak TS Table
+
 Riak TS enables querying large amounts of related data, so keys behave differently than in Riak KV.
 
 Riak TS has two types of keys:
@@ -14,25 +38,58 @@ To make it easy we have combined the definition of the various keys and the data
 
 Riak TS tables have a one-to-one mapping with Riak KV buckets.
 
+###Example
+
+```sql
+CREATE TABLE GeoCheckin
+(
+   myfamily    varchar   not null,
+   myseries    varchar   not null,
+   time        timestamp not null,
+   weather     varchar   not null,
+   temperature double,
+   PRIMARY KEY (
+     (myfamily, myseries, quantum(time, 15, 'm')),
+     myfamily, myseries, time
+   )
+)
+```
+
+###Fields
+
+Fields, also called columns, refer to the items before the `PRIMARY KEY`. Field names (`myfamily`, `myseries`, etc) must be ASCII strings, in addition to having the correct case. If field names need to contain special cases (e.g. spaces or punctuation) they can be single quoted.
+
 Field names define the structure of the data, taking the format:
 
 ```sql
 name type [not null],
 ```
 
-####Primary Key
-The `PRIMARY KEY` describes the partition and local keys. The partition key and the local key are nearly identical, differing only by the definition of the `quantum` used to colocate data.
+The types associated with fields are limited. Valid types are:
 
-The `PRIMARY KEY` describes the partition and local keys. The partition key and the local key are nearly identical, differing only by the definition of the `quantum` used to colocate data.
+* `varchar`
+* `sint64`
+* `boolean`
+* `timestamp`
+  * Note: 0 (zero) is not a valid timestamp
+* `double`
+  * If you are using an IEEE specification, 'NaN' (not a number) and 'INF' (infinity) cannot be used.
 
-#####Partition Key 
+Additionally, the fields declared in the keys must have the flag `not null`.
+
+
+###Primary Key
+The `PRIMARY KEY` describes both the partition and local keys. The partition key and the local key are nearly identical, differing only by the definition of the `quantum` used to colocate data.
+
+
+####Partition Key 
 The partition key is defined as the three named fields in brackets:
 
 ```sql
 (myfamily, myseries, (quantum(time, 15, 'm')),
 ```
 
-You MUST have exactly three fields in the following order: 
+The partition key MUST have exactly three fields in the following order: 
 
 1. The first field (family) is a class or type of data. 
 2. The second field (series) identifies the specific instances of the class/type, such as username or device ID. 
@@ -48,12 +105,13 @@ The quantum function takes 3 parameters:
   * 'm' - minutes
   * 's' - seconds
 
-#####Local Key
+####Local Key
 The second key (local key) MUST contain the same 3 fields in the same order as the partition key. This ensures that the same fields determining your data's partition also dictate the sorting of the data within that partition.
 
-##Verify Activation
 
-You can verify that your table was properly created by looking at the `ddl` section of the `riak-admin bucket-type status` response. For example:
+##Riak TS Tables in Command Line
+
+When you [verify that your table was properly created][activating], you'll see a response that shows your table's schema on the command line. It will look something like this:  
 
 ```sh
 $riak-admin bucket-type status GeoCheckin
