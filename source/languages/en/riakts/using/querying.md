@@ -113,31 +113,7 @@ QueryResult queryResult = client.execute(query);
 ```
 ### SQL Injection
 When querying with user-supplied data, it is *essential* that you protect
-against SQL injection. Time Series clients provide bound parameters to
-eliminate the need to escape data on the client:
-
-```erlang
-riakc_ts:query(Pid,
-  "select weather, temperature from GeoCheckin where time > :start and time < :end and myfamily = :family and myseries = :series and temperature > :temperature",
-  [
-    {"start", 1234560},
-    {"end", 1234569},
-    {"family", "myfamily"},
-    {"series", "myseries"}
-  ]).
-```
-
-```ruby
-query = Riak::Timeseries::Query.new(client, "select weather, temperature from GeoCheckin where time > :start and time < :end and myfamily = :family and myseries = :series and temperature > :temperature")
-query.interpolations = {
-  'start' => 1234560,
-  'end' => 1234569,
-  'family' => 'myfamily',
-  'series' => 'myseries'
-}
-query.issue!
-```
-###WHERE'S THE JAVA?
+against SQL injection. Please verify the user-supplied data before constructing queries. 
 
 ##SQL Support
 
