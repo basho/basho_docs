@@ -35,12 +35,13 @@ Retrieve timeseries value by key.
 
 *Note* - This request is automatically retried.
    times if it fails due to network error.
-   
-Parameter      `table`:: The timeseries table.
-Parameter Type `table`: string or :class:`Table <riak.table.Table>`
-Parameter      `key`:: The timeseries value's key.
-Parameter Type `key`: list
-Return Type: :class:`TsObject <riak.ts_object.TsObject>`
+
+|Parameter| Parameter Type                             | Description                 |
+|---------|--------------------------------------------|-----------------------------|
+|`table`  | string or class `Table <riak.table.Table>` | The timeseries table.       |
+|`key  `  | list or dict                               | The timeseries value's key. |
+
+*Return Type*: class`TsObject <riak.ts_object.TsObject>`
  
 #### Put
 
@@ -51,9 +52,11 @@ Stores time series data in the Riak cluster.
 *Note* - This request is automatically retried.
    times if it fails due to network error.
 
-Parameter      `tsobj`:: the time series object to store
-Parameter Type `tsobj`: RiakTsObject
-Return Type: boolean
+|Parameter| Parameter Type       | Description                      |
+|---------|----------------------|----------------------------------|
+|`tsobj`  | class `RiakTsObject` | The time series object to store. |
+
+*Return Type*: boolean
 
 #### Delete
 
@@ -64,11 +67,12 @@ Delete timeseries value by key.
 *Note* - This request is automatically retried.
    times if it fails due to network error.
 
-Parameter      `table`:: The timeseries table.
-Parameter Type `table`: string or :class:`Table <riak.table.Table>`
-Parameter      `key`:: The timeseries value's key.
-Parameter Type `key`: list or dict
-Return Type: boolean
+|Parameter| Parameter Type                             | Description                 |
+|---------|--------------------------------------------|-----------------------------|
+|`table`  | string or class `Table <riak.table.Table>` | The timeseries table.       |
+|`key  `  | list or dict                               | The timeseries value's key. |
+
+*Return Type*: boolean
 
 #### Query
 
@@ -79,11 +83,12 @@ Queries time series data in the Riak cluster.
 *Note* - This request is automatically retried.
    times if it fails due to network error.
 
-Parameter      `table`:: The timeseries table.
-Parameter Type `table`: string or :class:`Table <riak.table.Table>`
-Parameter      `query`:: The timeseries query.
-Parameter Type `query`: string
-Return Type: :class:`TsObject <riak.ts_object.TsObject>`
+|Parameter| Parameter Type                             | Description          |
+|---------|--------------------------------------------|----------------------|
+|`table`  | string or class `Table <riak.table.Table>` | The timeseries table.|
+|`query`  | string                                     | The timeseries query.|
+
+*Return Type*: Class `TsObject <riak.ts_object.TsObject>`
 
 #### Stream ListKeys
 
@@ -96,19 +101,25 @@ either using :func:`contextlib.closing` or calling `close()`
 explicitly. Consuming the entire iterator will also close the
 stream. If it does not, the associated connection might
 not be returned to the pool. Example::
-    from contextlib import closing
-    # Using contextlib.closing
-    with closing(client.ts_stream_keys(mytable)) as keys:
-        for key_list in keys:
-            do_something(key_list)
-    # Explicit close()
-    stream = client.ts_stream_keys(mytable)
-    for key_list in stream:
-         do_something(key_list)
-    stream.close()
 
-Parameter      `table`:: the table from which to stream keys
-Parameter Type `table`: Table
-Parameter      `timeout`:: a timeout value in milliseconds
-Parameter Type `timeout`: int
-Return Type: iterator
+    
+```python 
+from contextlib import closing
+# Using contextlib.closing
+with closing(client.ts_stream_keys(mytable)) as keys:
+    for key_list in keys:
+        do_something(key_list)
+# Explicit close()
+stream = client.ts_stream_keys(mytable)
+for key_list in stream:
+     do_something(key_list)
+stream.close()
+```
+
+|Parameter| Parameter Type                             | Description                         |
+|---------|--------------------------------------------|-------------------------------------|
+|`table`  | string or class `Table <riak.table.Table>` | the table from which to stream keys |
+|`timeout`| int                                        | A timeout value in milliseconds     |
+
+
+*Return Type*: iterator
