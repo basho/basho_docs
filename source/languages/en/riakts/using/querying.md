@@ -19,14 +19,13 @@ Now that you have [created][activating] a Riak TS table and [written][writing] d
 
 Before you begin querying, there are some guidelines to keep in mind:
 
-* Data may be stored and queried as Unicode.
+* Data may queried as Unicode or ASCII.
 * You must query in UTC/UNIX epoch milliseconds. 
   * The parser will treat '2015-12-08 14:00 EDT' as a character literal/string/varchar, not a timestamp.
-* Secondary indexing (aka 2i) will not work with Riak TS.
-* Riak Search will not work with Riak TS.
-* The `or` operator will work only for columns that are **not**
-  in the primary key. To select multiple field values for primary key
-  fields requires multiple queries.
+* Secondary indexing (2i) will not work with Riak TS.
+* Riak search will not work with Riak TS.
+* The `or` operator will work only for columns that are NOT
+  in the primary key. Multiple queries are required to select multiple values for primary key fields.
 
 Basic queries return the full range of values between two given times for a series in a family. To demonstrate, we'll use the same example table:
 
@@ -46,8 +45,10 @@ CREATE TABLE GeoCheckin
 ```
 Your query must include all components of the primary key (`myfamily`, `myseries`, and `time`). If any part of the primary key is missing, you will get an error.
 
+
 ###Wildcard Example
-Query a table by issuing a SQL statement against the table. In this example we'll select all fields from the GeoCheckin table where `time`, `myfamily`, and `myseries` match our supplied parameters:
+
+Query a table by issuing a SQL statement against the table. In the following client-specific examples we'll select all fields from the GeoCheckin table where `time`, `myfamily`, and `myseries` match our supplied parameters:
 
 ```erlang
 {ok, Pid} = riakc_pb_socket:start_link("myriakdb.host", 10017).
@@ -70,9 +71,16 @@ query = Riak::Timeseries::Query.new client, "select * from GeoCheckin where time
 results = query.issue!
 ```
 
+
 ###Select Query
 
-You can also select particular fields from the data.
+You can also select particular fields from the data:
+
+```
+select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1'
+```
+
+Client-specific examples:
 
 ```erlang
 riakc_ts:query(Pid, "select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1'").
@@ -91,8 +99,16 @@ Query query = new Query.Builder(queryText).build();
 QueryResult queryResult = client.execute(query);
 ```
 
+
 ###Extended Query
-You can extend the query beyond the primary key and use secondary columns to filter results. In this example, we are extending our query to filter based on the `temperature` column.
+
+You can extend the query beyond the primary key and use secondary columns to filter results. In this example, we are extending our query to filter based on the `temperature` column:
+
+```
+select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1' and temperature > 27.0
+```
+
+Client-specific examples:
 
 ```erlang
 riakc_ts:query(Pid, "select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1' and temperature > 27.0").
@@ -111,10 +127,11 @@ String queryText = "select weather, temperature from GeoCheckin " +
 Query query = new Query.Builder(queryText).build();
 QueryResult queryResult = client.execute(query);
 ```
+
+
 ### SQL Injection
-When querying with user-supplied data, it is *essential* that you protect
-against SQL injection. Time Series clients provide bound parameters to
-eliminate the need to escape data on the client:
+
+When querying with user-supplied data, you MUST protect against SQL injection. Riak TS clients provide bound parameters to eliminate the need to escape data on the client:
 
 ```erlang
 riakc_ts:query(Pid,
@@ -139,6 +156,7 @@ query.issue!
 ```
 ###WHERE'S THE JAVA?
 
+
 ##SQL Support
 
 A small subset of SQL is supported. All columns are of the format: 
@@ -158,11 +176,9 @@ The following operators are supported for each data type:
 | timestamp | X | X | X | X | X | X |
 
 
->**Note**
->
->Field-to-field comparisons are not currently supported.
-
 ###Limitations
+
+Field-to-field comparisons are not currently supported.
 
 In this early version queries can only range over 1 to 4 quanta. A query covering more than 4 quanta will generate too many sub-queries and the query system will refuse to run it. Assuming a default quanta of 15min, the maximum query time range is 1hr. 
 
