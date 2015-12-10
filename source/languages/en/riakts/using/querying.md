@@ -15,7 +15,7 @@ audience: beginner
 Now that you have [created][activating] a Riak TS table and [written][writing] data to it, you can query your data.
 
 
-##Basic Querying
+##Querying
 
 Before you begin querying, there are some guidelines to keep in mind:
 
@@ -23,8 +23,8 @@ Before you begin querying, there are some guidelines to keep in mind:
 * You must query in UTC/UNIX epoch milliseconds. 
   * The parser will treat '2015-12-08 14:00 EDT' as a character literal/string/varchar, not a timestamp.
 * Secondary indexing (aka 2i) will not work with Riak TS.
-* `riak search` will not work with Riak TS.
-* The `or` operator will work only for fields that are **not**
+* Riak Search will not work with Riak TS.
+* The `or` operator will work only for columns that are **not**
   in the primary key. To select multiple field values for primary key
   fields requires multiple queries.
 
@@ -44,8 +44,10 @@ CREATE TABLE GeoCheckin
    )
 )
 ```
+Your query must include all components of the primary key (`myfamily`, `myseries`, and `time`). If any part of the primary key is missing, you will get an error.
 
-Query a table by issuing a SQL statement against the table:
+###Wildcard Example
+Query a table by issuing a SQL statement against the table. In this example we'll select all fields from the GeoCheckin table where `time`, `myfamily`, and `myseries` match our supplied parameters:
 
 ```erlang
 {ok, Pid} = riakc_pb_socket:start_link("myriakdb.host", 10017).
@@ -66,18 +68,16 @@ QueryResult queryResult = client.execute(query);
 client = Riak::Client.new 'myriakdb.host', pb_port: 10017
 query = Riak::Timeseries::Query.new client, "select * from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1'"
 results = query.issue!
->>>>>>> a0580a2273f2b212e24c716e5afb823ed7527f3b
 ```
 
-Your query must include all components of the primary key (`myfamily`, `myseries`, and `time`). If any part of the time series key is missing, you will get an error.
-
-## Specific Querying
+###Select Query
 
 You can also select particular fields from the data.
 
 ```erlang
 riakc_ts:query(Pid, "select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1'").
 ```
+
 ```ruby
 Riak::Timeseries::Query.new(client, "select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1'").issue!
 ```
@@ -91,12 +91,13 @@ Query query = new Query.Builder(queryText).build();
 QueryResult queryResult = client.execute(query);
 ```
 
-Additionally, you can extend the query beyond the primary key (with a
-performance cost, although we have worked to minimize that).
+###Extended Query
+You can extend the query beyond the primary key and use secondary columns to filter results. In this example, we are extending our query to filter based on the `temperature` column.
 
 ```erlang
 riakc_ts:query(Pid, "select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1' and temperature > 27.0").
 ```
+
 ```ruby
 Riak::Timeseries::Query.new(client, "select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1' and temperature > 27.0").issue!
 ```
@@ -110,7 +111,7 @@ String queryText = "select weather, temperature from GeoCheckin " +
 Query query = new Query.Builder(queryText).build();
 QueryResult queryResult = client.execute(query);
 ```
-
+### SQL Injection
 When querying with user-supplied data, it is *essential* that you protect
 against SQL injection. Time Series clients provide bound parameters to
 eliminate the need to escape data on the client:
@@ -136,10 +137,17 @@ query.interpolations = {
 }
 query.issue!
 ```
+###WHERE'S THE JAVA?
 
-A small subset of SQL is supported. All comparisons are of the format: `Field Operator Constant`
+##SQL Support
 
-The following operators are supported for each data type
+A small subset of SQL is supported. All columns are of the format: 
+
+```
+Field    Operator   Constant
+````
+
+The following operators are supported for each data type:
 
 | |=|!=|>|<|<=|>=|
 |-----------|---|---|---|---|---|---|
@@ -154,22 +162,13 @@ The following operators are supported for each data type
 >
 >Field-to-field comparisons are not currently supported.
 
-## Limitations
+###Limitations
 
-In this early version queries can only range over 1 to 4 quanta. A query covering more than 4 quanta will generate too many sub-queries and the query system will refuse to run it.  
-  * Example: Assume a default system with a 15min quanta.
-  * A query of “time > 1 o’clock and time < 2 o’clock” will be fine because it covers 4 quanta.
-  * A query of “time > 1 o’clock and time < 3 o’clock” will fail because it covers more than 4 quanta.
-The important information to construct examples here: time values are now always strictly integers, and they are expressed in milliseconds.
+In this early version queries can only range over 1 to 4 quanta. A query covering more than 4 quanta will generate too many sub-queries and the query system will refuse to run it. Assuming a default quanta of 15min, the maximum query time range is 1hr. 
 
-So if I give you an example query like this: select weather from GeoCheckin where time >= 3000 and time < 30000 and user = 'user_1' and location = ‘Scotland'
+The quanta is configurable but the 4 quanta limitation is not. In the below example we set a quanta of 15s:
 
-I’m saying that the time is >= 3 seconds and < 30 seconds.
-
-The question of whether that spans multiple quanta, or indeed too many quanta, depends on the SQL(ish) code used to define the bucket type.
-
-If, for example, this is the create table command issued:
-
+```sql
 CREATE TABLE GeoCheckin
  (geohash varchar not null,
   location varchar not null,
@@ -179,11 +178,6 @@ CREATE TABLE GeoCheckin
   temperature varchar,
     PRIMARY KEY((location, user, quantum(time, 15, 's')),
                 location, user, time))
+```
 
-that data is stored in chunks of 15 seconds, so the query I showed you would have to talk to 2 vnodes (2 quanta): 0-14.999 seconds, and 15.0-29.999 seconds.
-
-Now that the quanta/query parameter is configurable, it’s harder to come up with a “definitive” example of a query that covers too much ground, but given the same table definition and 6 quanta as the limit, this query would not work because 6 quanta of 15 seconds each would be a total search space of 90 seconds:
-
-select weather from GeoCheckin where time >= 3000 and time < 100000 and user = 'user_1' and location = ‘Scotland'
-
-**??**There are buffer limitations, but I don't know what they are or how to guide users.
+The maximum time range we can query is 60s, anything beyond will fail.
