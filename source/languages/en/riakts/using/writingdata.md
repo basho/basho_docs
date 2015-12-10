@@ -36,12 +36,6 @@ CREATE TABLE GeoCheckin
 
 To write data to your table, put the data in a list:
 
-```ruby
-client = Riak::Client.new 'myriakdb.host', pb_port: 10017
-submission = Riak::TimeSeries::Submission.new client, "GeoCheckin"
-submission.measurements = [["family1", "series1", 1234567, "hot", 23.5], ["family2", "series99", 1234567, "windy", 19.8]]
-submission.write!
-```
 
 ```erlang
 {ok, Pid} = riakc_pb_socket:start_link("myriakdb.host", 10017).
@@ -59,6 +53,17 @@ List<Row> rows = Arrays.asList(
 
 Store storeCmd = new Store.Builder("GeoCheckin").withRows(rows).build();
 client.execute(storeCmd);
+```
+
+```python
+TODO
+```
+
+```ruby
+client = Riak::Client.new 'myriakdb.host', pb_port: 10017
+submission = Riak::TimeSeries::Submission.new client, "GeoCheckin"
+submission.measurements = [["family1", "series1", 1234567, "hot", 23.5], ["family2", "series99", 1234567, "windy", 19.8]]
+submission.write!
 ```
 
 >**Note on validation**:

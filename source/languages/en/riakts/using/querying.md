@@ -64,6 +64,10 @@ Query query = new Query.Builder(queryText).build();
 QueryResult queryResult = client.execute(query);
 ```
 
+```python
+TODO
+```
+
 ```ruby
 client = Riak::Client.new 'myriakdb.host', pb_port: 10017
 query = Riak::Timeseries::Query.new client, "select * from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1'"
@@ -78,10 +82,6 @@ You can also select particular fields from the data.
 riakc_ts:query(Pid, "select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1'").
 ```
 
-```ruby
-Riak::Timeseries::Query.new(client, "select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1'").issue!
-```
-
 ```java
 String queryText = "select weather, temperature from GeoCheckin " +
                    "where time > 1234560 and time < 1234569 and " +
@@ -91,15 +91,19 @@ Query query = new Query.Builder(queryText).build();
 QueryResult queryResult = client.execute(query);
 ```
 
+```python
+TODO
+```
+
+```ruby
+Riak::Timeseries::Query.new(client, "select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1'").issue!
+```
+
 ###Extended Query
 You can extend the query beyond the primary key and use secondary columns to filter results. In this example, we are extending our query to filter based on the `temperature` column.
 
 ```erlang
 riakc_ts:query(Pid, "select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1' and temperature > 27.0").
-```
-
-```ruby
-Riak::Timeseries::Query.new(client, "select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1' and temperature > 27.0").issue!
 ```
 
 ```java
@@ -111,6 +115,15 @@ String queryText = "select weather, temperature from GeoCheckin " +
 Query query = new Query.Builder(queryText).build();
 QueryResult queryResult = client.execute(query);
 ```
+
+```python
+TODO
+```
+
+```ruby
+Riak::Timeseries::Query.new(client, "select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1' and temperature > 27.0").issue!
+```
+
 ### SQL Injection
 When querying with user-supplied data, it is *essential* that you protect
 against SQL injection. Please verify the user-supplied data before constructing queries. 
