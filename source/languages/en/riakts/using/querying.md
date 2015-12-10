@@ -65,7 +65,38 @@ QueryResult queryResult = client.execute(query);
 ```
 
 ```python
-TODO
+import datetime
+from riak.client import RiakClient
+
+epoch = datetime.datetime.utcfromtimestamp(0)
+
+def unix_time_millis(dt):
+    td = dt - epoch
+    return int(td.total_seconds() * 1000.0)
+
+tenMins = datetime.timedelta(0, 600)
+
+now = datetime.datetime(2015, 1, 1, 12, 0, 0)
+nowMS = unix_time_millis(now);
+
+tenMinsAgo = now - tenMins
+tenMinsAgoMS = unix_time_millis(tenMinsAgo);
+
+tenMinsFromNow = now + tenMins
+tenMinsFromNowMS = unix_time_millis(tenMinsFromNow);
+
+# NB: modify 'host' and 'pb_port' to match your installation
+client = RiakClient(host='myriakdb.host', pb_port=8087)
+
+fmt = """
+select * from GeoCheckin where
+    time > {t1} and time < {t2} and
+    myfamily = 'family1' and myseries = 'series1'
+"""
+query = fmt.format(t1=tenMinsAgoMS, t2=tenMinsFromNowMS)
+
+ts_obj = client.ts_query('GeoCheckin', query)
+print "Query result rows:", ts_obj.rows
 ```
 
 ```ruby
@@ -92,7 +123,13 @@ QueryResult queryResult = client.execute(query);
 ```
 
 ```python
-TODO
+fmt = """
+select weather, temperature from GeoCheckin where
+    time > {t1} and time < {t2} and
+    myfamily = 'family1' and myseries = 'series1'
+"""
+query = fmt.format(t1=tenMinsAgoMsec, t2=nowMsec)
+ts_obj = client.ts_query('GeoCheckin', query)
 ```
 
 ```ruby
@@ -117,7 +154,14 @@ QueryResult queryResult = client.execute(query);
 ```
 
 ```python
-TODO
+fmt = """
+select weather, temperature from GeoCheckin where
+    time > {t1} and time < {t2} and
+    myfamily = 'family1' and myseries = 'series1' and
+    temperature > 27.0
+"""
+query = fmt.format(t1=tenMinsAgoMsec, t2=nowMsec)
+ts_obj = client.ts_query('GeoCheckin', query)
 ```
 
 ```ruby

@@ -56,7 +56,23 @@ client.execute(storeCmd);
 ```
 
 ```python
-TODO
+import datetime
+from riak.client import RiakClient
+
+# NB: modify 'host' and 'pb_port' to match your installation
+client = RiakClient(host='myriakdb.host', pb_port=8087)
+
+fiveMins = datetime.timedelta(0, 300)
+ts0 = datetime.datetime(2015, 1, 1, 12, 0, 0)
+ts1 = ts0 + fiveMins
+
+table = client.table('GeoCheckin')
+rows = [
+    ['family1', 'series1', ts0, 'hot', 23.5],
+    ['family1', 'series1', ts1, 'windy', 19.8]
+]
+ts_obj = table.new(rows)
+print "Store result:", ts_obj.store()
 ```
 
 ```ruby
