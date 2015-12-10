@@ -171,7 +171,7 @@ CREATE TABLE GeoCheckin
 (
    myfamily    varchar   not null,                     -
    myseries    varchar   not null,                      |
-   time        timestamp not null,                       --> Columns/fields
+   time        timestamp not null,                       --> Columns
    weather     varchar   not null,                      |
    temperature double,                                 _
    PRIMARY KEY (
@@ -188,3 +188,6 @@ Riak TS queries work best when the data being queried is in the same family, ser
 Due to this limitation, there is a trade off to be made when deciding on the quanta size. Small quantas are best for writes and large quantas are best for queries. You should choose your quanta according to your data needs.
 
 It is difficult to make any recommendations on quanta size, because the size of your quanta is heavily dependent on both the kind of data you are gathering and what you need to do with it.
+
+##Editing Your Table
+Once created, you cannot edit your Riak TS table. If you discover something wrong with the setup of your Riak TS table, you will need to create it again. You will also need to decide whether to scrap the data in the existing bucket or move it from the old bucket to the new one.

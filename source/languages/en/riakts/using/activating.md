@@ -56,6 +56,7 @@ Please take care:
   and the opening quote of the JSON properties.
 * The table and field names are currently constrained to ASCII.
 
+Also note that if you discover something wrong with the setup of your DDL, you will need to create it again and decide whether to scrap the data in the existing bucket or move it from the old bucket to the new one.
 
 ##Activating Your Table
 
