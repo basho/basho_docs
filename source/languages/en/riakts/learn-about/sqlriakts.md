@@ -68,7 +68,7 @@ WHERE
 
 And we send the query to Riak TS. Once the query is sent to Riak TS the following happens:
 
-1. The planner receives the query from youq and parses it.
+1. The planner receives the query from you and parses it.
 2. The parser isolates the table name, and then 
 3. the parser constructs a tree out of the `WHERE` conditions, and identifies `WHERE` predicates that are connected with `AND` operations.
 3. The planner then loads the table’s DDL.
