@@ -68,6 +68,41 @@ Query query = new Query.Builder(queryText).build();
 QueryResult queryResult = client.execute(query);
 ```
 
+```python
+import datetime
+from riak.client import RiakClient
+
+epoch = datetime.datetime.utcfromtimestamp(0)
+
+def unix_time_millis(dt):
+    td = dt - epoch
+    return int(td.total_seconds() * 1000.0)
+
+tenMins = datetime.timedelta(0, 600)
+
+now = datetime.datetime(2015, 1, 1, 12, 0, 0)
+nowMS = unix_time_millis(now);
+
+tenMinsAgo = now - tenMins
+tenMinsAgoMS = unix_time_millis(tenMinsAgo);
+
+tenMinsFromNow = now + tenMins
+tenMinsFromNowMS = unix_time_millis(tenMinsFromNow);
+
+# NB: modify 'host' and 'pb_port' to match your installation
+client = RiakClient(host='myriakdb.host', pb_port=8087)
+
+fmt = """
+select * from GeoCheckin where
+    time > {t1} and time < {t2} and
+    myfamily = 'family1' and myseries = 'series1'
+"""
+query = fmt.format(t1=tenMinsAgoMS, t2=tenMinsFromNowMS)
+
+ts_obj = client.ts_query('GeoCheckin', query)
+print "Query result rows:", ts_obj.rows
+```
+
 ```ruby
 client = Riak::Client.new 'myriakdb.host', pb_port: 10017
 query = Riak::Timeseries::Query.new client, "select * from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1'"
@@ -89,10 +124,6 @@ Client-specific examples:
 riakc_ts:query(Pid, "select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1'").
 ```
 
-```ruby
-Riak::Timeseries::Query.new(client, "select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1'").issue!
-```
-
 ```java
 String queryText = "select weather, temperature from GeoCheckin " +
                    "where time > 1234560 and time < 1234569 and " +
@@ -100,6 +131,16 @@ String queryText = "select weather, temperature from GeoCheckin " +
 
 Query query = new Query.Builder(queryText).build();
 QueryResult queryResult = client.execute(query);
+```
+
+```python
+fmt = """
+select weather, temperature from GeoCheckin where
+    time > {t1} and time < {t2} and
+    myfamily = 'family1' and myseries = 'series1'
+"""
+query = fmt.format(t1=tenMinsAgoMsec, t2=nowMsec)
+ts_obj = client.ts_query('GeoCheckin', query)
 ```
 
 
@@ -117,10 +158,6 @@ Client-specific examples:
 riakc_ts:query(Pid, "select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1' and temperature > 27.0").
 ```
 
-```ruby
-Riak::Timeseries::Query.new(client, "select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1' and temperature > 27.0").issue!
-```
-
 ```java
 String queryText = "select weather, temperature from GeoCheckin " +
                    "where time > 1234560 and time < 1234569 and " +
@@ -129,6 +166,17 @@ String queryText = "select weather, temperature from GeoCheckin " +
 
 Query query = new Query.Builder(queryText).build();
 QueryResult queryResult = client.execute(query);
+```
+
+```python
+fmt = """
+select weather, temperature from GeoCheckin where
+    time > {t1} and time < {t2} and
+    myfamily = 'family1' and myseries = 'series1' and
+    temperature > 27.0
+"""
+query = fmt.format(t1=tenMinsAgoMsec, t2=nowMsec)
+ts_obj = client.ts_query('GeoCheckin', query)
 ```
 
 You can also use `or` when querying against values not in the primary key, such as `temperature` in our example. Note that the parentheses are required:
