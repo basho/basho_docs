@@ -37,7 +37,15 @@ A cell can hold 5 different types of raw data:
 **Boolean**s, which can hold a true/false value. 
 
 ##### Constructors
-There are Cell constructors that accept Strings(Varchar type), Longs(SInt64 type), Double (Double type), Boolean (Boolean type), Calendar (Timestamp type), and Date(Timestamp type).  There is also a special static helper for creating Cells with raw timestamps: `public static Cell newTimestamp(long value)`.
+There are Cell constructors that accept Strings(Varchar type), Longs(SInt64 type), Double (Double type), Boolean (Boolean type), Calendar (Timestamp type), and Date(Timestamp type).  There is also a special static helper for creating Cells with raw timestamps. 
+
+ * `public Cell(String varcharValue)`
+ * `public Cell(long sint64Value)`
+ * `public Cell(double doubleValue)`
+ * `public Cell(boolean booleanValue)`
+ * `public Cell(Calendar timestampValue)`
+ * `public Cell(Date timestampValue)`
+ * `public static Cell newTimestamp(long value)`
 
 ##### Instance Methods
 There are `has_X` and `get_X` methods for each data type. 
@@ -49,7 +57,8 @@ Note: Rows are immutable once created.
 
 ##### Constructors
 
-There are two Row constructors, one takes a known Collection of cells (`public Row(Collection<Cell> cells)`), the other takes a varargs of cells (`public Row(Cell... cells)`).
+ * `public Row(Collection<Cell> cells)`
+ * `public Row(Cell... cells)`
 
 ##### Public Instance Methods
 
@@ -64,7 +73,7 @@ Contains a column name and column type.
 
 ##### Constructors
 
-There is one constructor, that takes a name string, and column type enum value.  (`ColumnDescription(String name, ColumnType type)`)
+ * `ColumnDescription(String name, ColumnType type)`
 
 ##### Public Instance Methods
 
@@ -104,7 +113,7 @@ There are no public constructors for QueryResults.
 
 ##Command Classes Index
 
-All command classes have a static inner `Builder` to create and build each command. 
+All command classes have a static inner `Builder` class to create and build each command. 
 
 * Delete - Deletes a single time series row by it's key values.
 * Fetch - Fetches a single time series row by it's key values.
@@ -115,15 +124,101 @@ All command classes have a static inner `Builder` to create and build each comma
 
 ###Command Classes Details
 
+Each command is created through a static Builder subclass.  This pattern ensures that the commands are created as correctly as possible.  To create the command from the builder, call the `.build()` method. 
 
+To execute any command, you must have an instance of a `RiakClient` object. You then pass the command object as a parameter into the `execute()` or `executeAsync()` methods.
+
+```java
+RiakClient client = RiakClient.newClient(10017, "myriakdb.host");
+
+String queryText = "select weather, temperature from GeoCheckin " +
+                   "where time > 1234560 and time < 1234569 and " +
+                   "myfamily = 'family1' and myseries = 'series1'";
+
+Query query = new Query.Builder(queryText).build();
+
+// With the synchronous execute, any errors encountered will be thrown.
+QueryResult queryResult = client.execute(query);
+
+// With the executeAsync method, any errors will be stored for review.
+final RiakFuture<QueryResult, String> queryFuture = client.executeAsync(storeCmd);
+bool success = queryFuture.isSuccess();
+QueryResult result = queryFuture.get();
+Throwable error = queryFuture.cause();
+```
 
 ####`Delete`
 
+Deletes a single time series row by it's key values.
+
+##### Builder
+The builder for the Delete command takes the table name, and a list of cells that identify the primary key.  The order of the cells must match the order of the values in the primary key.
+
+ * `public Builder(String tableName, List<Cell> keyValues)`
+
+ There is also an instance method to specify a command timeout in milliseconds.
+
+ * `public Builder withTimeout(int timeout)`
+
+##### Return Value
+ * `void`
 
 ####`Fetch` 
 
+Fetches a single time series row by it's key values.
+
+##### Builder
+The builder for the Fetch command takes the table name, and a list of cells that identify the primary key.  The order of the cells must match the order of the values in the primary key.
+
+* `public Builder(String tableName, List<Cell> keyValues)`
+
+ There is also an instance method to specify a command timeout in milliseconds.
+
+ * `public Builder withTimeout(int timeout)`
+
+##### Return Value
+
+* `QueryResult` - with 1 row if a match was found, or 0 rows if it wasn't. 
+
 ####`ListKeys`
+
+Lists the primary keys of all the rows in a Time Series table.
+
+##### Builder
+The builder only takes the table name to list keys from.
+
+ * `public Builder(String tableName)`
+
+ There is also an instance method to specify a command timeout in milliseconds.
+
+ * `public Builder withTimeout(int timeout)`
+
+##### Return Value
+* `QueryResult` - with each PrimaryKey's cells as a row. May not contain values for ColumnDescriptions.
 
 ####`Query`
 
+Allows you to query a Time Series table, with the given query string.
+
+##### Builder
+The builder only takes the query text.
+ * `public Builder(String queryText)`
+
+##### Return Value
+ * `QueryResult` - contains all matching rows.
+
 ####`Store`
+Stores data into the Time Series table.
+
+##### Builder
+The builder constructor takes the table name.	
+ *`public Builder(String tableName)`
+
+ To add rows to store, use one of the `withRow()` or `withRows()` methods.
+
+  * `public Builder withRow(Row row)`
+  * `public Builder withRows(Collection<Row> rows)`
+
+##### Return Value
+* `void`
+
