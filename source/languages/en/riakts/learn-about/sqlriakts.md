@@ -10,7 +10,7 @@ audience: beginner
 
 Riak TS tables were designed around SQL tables. This page will go through some SQL basics and more in depth information about how SQL is used within Riak TS.  
 
-This document uses CAPITAL LETTERS for SQL keywords, although you do not ned to do so in using they keywords. This document also breaks out SQL queries into multiple lines for readability, but queries can be written as a single line.
+This document uses CAPITAL LETTERS for SQL keywords, although you do not need to do so in using the keywords. This document also breaks out SQL queries into multiple lines for readability, but queries can be written as a single line.
 
 ##SQL Basics
 
@@ -43,12 +43,11 @@ CREATE TABLE metrics (
     hostname, metric_name, time))
 ```
 
-
 ###Why is the quantized column last?
 
 The `PRIMARY KEY` declaration is made up of two pieces: the partition key and the local key. The first, `(hostname, metric_name, QUANTUM(time, 15, m))`, declares a partition key. The partition key determines which cluster members should store a given row. The quantized time means that a given partition of a Riak TS table contains rows with the exact same `hostname` and `metric_name`, and a range of time spanning fifteen minutes (in this case).
 
-**??** So why is it last? 
+On-disk, data is stored in sorted order. Since queries must exactly match a `hostname` and `metric_name`, it's most useful to seek to the beginning of a range of those, sweeping to find the lowest timestamp, and reading records until the timestamp leaves the desired range. This allows only records matching the `hostname`, `metric_name`, and timestamp range to be read. The alternatives, where the timestamp is not last, require reading non-matching records and filtering them out after they've been read from the disk.
 
 
 ##How Riak TS Processes SQL Queries
@@ -69,7 +68,7 @@ WHERE
 
 And we send the query to Riak TS. Once the query is sent to Riak TS the following happens:
 
-1. The planner receives the query from you and parses it.
+1. The planner receives the query from youq and parses it.
 2. The parser isolates the table name, and then 
 3. the parser constructs a tree out of the `WHERE` conditions, and identifies `WHERE` predicates that are connected with `AND` operations.
 3. The planner then loads the table’s DDL.
