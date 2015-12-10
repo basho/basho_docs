@@ -147,7 +147,7 @@ The columns are each:
 {riak_field_v1,<<"FIELD_NAME">>,COLUMN_INDEX,COLUMN_TYPE,NULLABLE}
 ```
 
-The `key` information contains the columns used for the partition key, which defines how the data set is chunked and where the chunk data is co-located, and the local key which uniquely identifies the data within a chunk. These two sets of columns will mostly be the same, but the partition key will have an additional quantum definition for the timestamp column:
+The two `key_v1` entries correspond to the partion key and the local key. The first key contains the columns used for the partition key, which defines how the data set is chunked and where the chunk data is co-located, and the second key contains the local key which uniquely identifies the data within a chunk. These two sets of columns will mostly be the same, but the partition key will have an additional quantum definition for the timestamp column:
 
 ```sh
 {key_v1,[
