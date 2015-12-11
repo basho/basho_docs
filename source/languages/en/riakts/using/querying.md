@@ -260,3 +260,25 @@ CREATE TABLE GeoCheckin
 The maximum time range we can query is 60s, anything beyond will fail.
 
 See the Data Modeling section in [Advanced Planning][advancedplanning] for more information.
+
+####Leap seconds and quantum boundaries
+
+Periodically [leap seconds](https://en.wikipedia.org/wiki/Leap_second)
+are announced. These are inserted at the end of one day (in UTC).
+
+UNIX treats them as one double-length second. For example, at the end of 1998 a second was added:
+
+```
+Date         Time of day   UNIX time
+1998-12-31   23:59:58      915148798
+1998-12-31   23:59:59      915148799
+1998-12-31   23:59:60      915148800     <== Artificial leap second
+1999-01-01   00:00:00      915148800
+```
+
+Effectively, there is no way in the UNIX time scheme to differentiate an event that occurred during the extra second at the end of 1998 to something that occurred the first second of 1999.
+
+Similarly, Riak TS would treat `915148800` as the start of a new time quantum, and any data points which a client added for that second would be considered to be in the first time quantum in 1999.
+
+The data is not lost, but a query against 1998 time quanta will not produce those data points despite the fact that some of the events flagged as `915148800` technically occurred in 1998.
+
