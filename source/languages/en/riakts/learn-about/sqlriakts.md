@@ -22,11 +22,11 @@ The subset of SQL used by Riak TS supports several kinds of literals:
 * single-quoted strings
 * time
 
-It also supports double-quoted column references.
+It also supports double-quoted column references (aka identifiers or field names).
 
 ##Schema Design
 
-Let's say you want to store and graph usage metrics on a heterogeneous collection of network servers: disk usage, memory usage, CPU temperatures, load averages, and other metrics. Our graphing is going to be a single metric for a single host at a time, so our primary key should cover time, hostname, and the metric name. Since some metrics won't be on every server (i.e. our Riak KV servers have more disks than our Puma servers), and we want to be able to add metrics in the future, we're going to have a narrow table, with only one metric per row. 
+Let's say you want to store and graph usage metrics on a heterogeneous collection of network servers: disk usage, memory usage, CPU temperatures, load averages, and other metrics. Our graphing is going to be a single metric for a single host at a time, so our primary key should cover time, hostname, and the metric name. Since some metrics won't be on every server (i.e. our Riak KV servers have more disks than our Rails servers), and we want to be able to add metrics in the future, we're going to have a narrow table, with only one metric per row. 
 
 Since we've decided to have our compound primary key cover time, hostname, and metric name, the only thing left to decide is the quantization. Right now, a query can only cover four quanta, so quantization comes down to how much time we want in a single graph. 
 
@@ -60,7 +60,7 @@ In particular, we want to ask about the last forty minutes of CPU temperature da
 SELECT * FROM metrics 
 WHERE
   hostname='bunnahabhain.islay' AND
-  metric_name=’core_temp’ AND
+  metric_name='core_temp' AND
   time < 1446762821844 AND
   time > 1446760421844 AND
   metric_value > 50;

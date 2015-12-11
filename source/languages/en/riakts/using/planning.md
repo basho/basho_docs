@@ -14,7 +14,7 @@ audience: beginner
 [installing]: https://www.docs.basho.com/riakts/1.0.0/installing/
 [sql]: https://www.docs.basho.com/riakts/1.0.0/learn-about/sql
 
-Now that you've [installed][installing] Riak TS, you're almost ready to create TS table. Before you can create your table, you'll need to plan it out. 
+Now that you've [installed][installing] Riak TS, you're almost ready to create a TS table. Before you can create your table, you'll need to plan it out. 
 
 This page provides a basic overview of what you'll need and some guidelines/limitations. For a deeper dive into planning and designing Riak TS tables, check out [Advanced Planning][advancedplanning]. 
 
@@ -39,48 +39,59 @@ CREATE TABLE GeoCheckin
 )
 ```
 
+####Fields
+Fields, also called columns, refer to the items before the `PRIMARY KEY`. Field names (`myfamily`, `myseries`, etc) must be ASCII strings, in addition to having the correct case. If field names need to contain spaces or punctuation they can be double quoted.
 
-####Field Names
+Field names define the structure of the data, taking the format:
 
-Field names (`myfamily`, `myseries`, etc) must be ASCII strings, in addition to having the correct case. If field names need to contain special cases (e.g. spaces or punctuation) they can be single quoted.
+```sql
+name type [not null],
+```
 
-Valid types are:
+Fields specified as part of the primary key must be defined as `not null`.
+
+The types associated with fields are limited. Valid types are:
 
 * `varchar`
-* `sint64`
+  * Any string content is valid, including Unicode. Can only be compared using strict equality, and will not be typecast (e.g., to an integer) for comparison purposes. Use single quotes to delimit varchar strings.
 * `boolean`
+  * `true` or `false` (any case)
 * `timestamp`
-  * Note: 0 (zero) is not a valid timestamp
+  * Timestamps are integer values expressing [UNIX epoch time in UTC](https://en.wikipedia.org/wiki/Unix_time) in **milliseconds**. Zero is not a valid timestamp.
+* `sint64`
+  * Signed 64-bit integer
 * `double`
-  * If you are using an IEEE specification, 'NaN' (not a number) and 'INF' (infinity) cannot be used.
+  * This type does not comply with its IEEE specification: `NaN` (not a number) and `INF` (infinity) cannot be used.
 
 
-Additionally, the fields declared in the keys must have the flag `not null`.
+###Primary Key
+The `PRIMARY KEY` describes both the partition and local keys. The partition key and the local key are nearly identical, differing only by the definition of the `quantum` used to colocate data.
 
-####Primary Key
 
-You MUST have exactly three fields in the following order (ASCII only): 
+####Partition Key 
+The partition key is defined as the three named fields in parentheses:
 
-1. The first field (family) is a class or type of data. 
-2. The second field (series) identifies the specific instances of the class/type, such as username or device ID. 
-3. The third field (quantum) sets the time intervals to group data by.
+```sql
+(myfamily, myseries, (quantum(time, 15, 'm')),
+```
+
+The partition key MUST have exactly three fields in the following order: 
+
+1. The first field (*family*) is a class or type of data. 
+2. The second field (*series*) identifies the specific instances of the class/type, such as username or device ID. 
+3. The third field (*quantum*) sets the time intervals to group data by.
 
 The quantum function takes 3 parameters:
 
 * the name of a field in the table definition of type `timestamp`
 * a quantity
 * a unit of time:
-  * 'd'  - days  
+  * 'd'  - days
   * 'h' - hours
   * 'm' - minutes
   * 's' - seconds
 
->**Note:** Your quanta must be in UTC and UNIX epoch seconds in order for it to be queried.
-
->**Another note:** While you can create a table with duplicated elements, we strongly recommend not doing so.
-
-#####Local Key
-
+####Local Key
 The second key (local key) MUST contain the same 3 fields in the same order as the partition key. This ensures that the same fields determining your data's partition also dictate the sorting of the data within that partition.
 
 ##More information

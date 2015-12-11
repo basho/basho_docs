@@ -17,15 +17,35 @@ Now that you have [created][activating] a Riak TS table and [written][writing] d
 
 ##Querying
 
-Before you begin querying, there are some guidelines to keep in mind:
+There are effectively three categories of fields, and each has a different set of rules for valid queries.
 
-* All elements of the compound primary key must be present
-* Data may queried as Unicode or ASCII.
-* You must query in UTC/UNIX epoch milliseconds. 
-  * The parser will treat '2015-12-08 14:00 EDT' as a character literal/string/varchar, not a timestamp.
-* All clauses must be in either 'ColumnName Comparison Literal' or 'Comparison BooleanOperator Comparison' order.
-* The `or` operator will work only for columns that are NOT
-  in the primary key. Multiple queries are required to select multiple values for primary key fields.
+### Timestamp in the primary key
+
+The timestamp in the primary key is an integer (in milliseconds) that must be compared either as a fully-enclosed range or as an exact match.
+
+* Valid: `time > 1449864277000 and time < 1449864290000`
+* Invalid: `time > 1449864277000`
+* Invalid: `time > 1449864277000 or time < 1449864290000`
+
+### Other fields in the primary key
+
+The other two fields in the primary key must be compared using strict equality against literal values. No ranges are permitted, `!=` must not be used, and `or` will not work.
+
+* Valid: `country_code = 'uk'`
+* Invalid: `(country_code = 'uk' or country_code = 'de')`
+* Invalid: `country_code != 'se'`
+* Invalid: `temperature < 85.0`
+
+### Fields not in the primary key
+
+These fields may be queried with unbounded ranges, `!=`, and `or` comparisons.
+
+### Other guidelines
+
+Before you begin querying, there are some guidelines to keep in mind.
+
+* Fields may not be compared against other fields in the query.
+* All elements of the compound primary key must be present.
 * When using `or`, you must surround the expression with parentheses or your query will return an error.
 
 Basic queries return the full range of values between two given times for a series in a family. To demonstrate, we'll use the same example table:
@@ -216,13 +236,14 @@ The following operators are supported for each data type:
 * Column to column comparisons are not currently supported.
 * Secondary indexing (2i) will not work with Riak TS.
 * Riak search will not work with Riak TS.
-* Your query can only range over up to 4 quanta. See below for more detail.
+* Queries are limited by the number of quanta they can span when specifying the time limits.
+
 
 ####Quanta query range
 
-In this early version queries can only range over 1 to 4 quanta. A query covering more than 4 quanta will generate too many sub-queries and the query system will refuse to run it. Assuming a default quanta of 15min, the maximum query time range is 1hr. 
+A query covering more than a certain number of quanta (5 by default) will generate too many sub-queries and the query system will refuse to run it. Assuming a default quanta of 15 minutes, the maximum query time range is 75 minutes. 
 
-The quanta is configurable but the 4 quanta limitation is not. In the below example we set a quanta of 15s:
+In the below example we set a quanta of 15s:
 
 ```sql
 CREATE TABLE GeoCheckin
@@ -237,3 +258,5 @@ CREATE TABLE GeoCheckin
 ```
 
 The maximum time range we can query is 60s, anything beyond will fail.
+
+See the Data Modeling section in [Advanced Planning][advancedplanning] for more information.
