@@ -9,8 +9,10 @@ audience: advanced
 ---
 
 [activating]: https://www.docs.basho.com/riakts/1.0.0/using/activating
+[configuring]: https://www.docs.basho.com/riakts/1.0.0/using/configuring
 [planning]: http://docs.basho.com/riakts/1.0.0/using/planning
 [sql]: https://www.docs.basho.com/riakts/1.0.0/learn-about/sql
+[bestpractices]: https://www.docs.basho.com/riakts/1.0.0/learn-about/bestpractices
 
 
 This page provides more in-depth information about how Riak TS tables are structured. 
@@ -34,7 +36,7 @@ Partition keys use *time quantization* to group data that will be queried togeth
 
 In order to query TS data, data is structured using a specific schema. The schema defines what data can be stored in a TS table and what type it has. Queries can then be written against that schema and the TS query system can validate and execute them.
 
-To make it easy we have combined the definition of the various keys and the data schema into a single SQL-like statement. The query language is a full sub-set of SQL, so you will use the field names and the table name in those queries, and SQL conventions, such as case sensitivity, hold.
+We have combined the definition of the various keys and the data schema into a single SQL-like statement. The query language is a subset of SQL, so you will use the field names and the table name in those queries; SQL conventions such as case sensitivity hold.
 
 Riak TS tables have a one-to-one mapping with Riak KV buckets.
 
@@ -57,7 +59,7 @@ CREATE TABLE GeoCheckin
 
 ###Fields
 
-Fields, also called columns, refer to the items before the `PRIMARY KEY`. Field names (`myfamily`, `myseries`, etc) must be ASCII strings, in addition to having the correct case. If field names need to contain special cases (e.g. spaces or punctuation) they can be single quoted.
+Fields, also called columns, refer to the items before the `PRIMARY KEY`. Field names (`myfamily`, `myseries`, etc) must be ASCII strings, in addition to having the correct case. If field names need to contain spaces or punctuation they can be double quoted.
 
 Field names define the structure of the data, taking the format:
 
@@ -65,17 +67,20 @@ Field names define the structure of the data, taking the format:
 name type [not null],
 ```
 
+Fields specified as part of the primary key must be defined as `not null`.
+
 The types associated with fields are limited. Valid types are:
 
 * `varchar`
-* `sint64`
+  * Any string content is valid, including Unicode. Can only be compared using strict equality, and will not be typecast (e.g., to an integer) for comparison purposes. Use single quotes to delimit varchar strings.
 * `boolean`
+  * `true` or `false` (any case)
 * `timestamp`
-  * Note: 0 (zero) is not a valid timestamp
+  * Timestamps are integer values expressing [UNIX epoch time in UTC](https://en.wikipedia.org/wiki/Unix_time) in **milliseconds**. Zero is not a valid timestamp.
+* `sint64`
+  * Signed 64-bit integer
 * `double`
-  * If you are using an IEEE specification, 'NaN' (not a number) and 'INF' (infinity) cannot be used.
-
-Additionally, the fields declared in the keys must have the flag `not null`.
+  * This type does not comply with its IEEE specification: `NaN` (not a number) and `INF` (infinity) cannot be used.
 
 
 ###Primary Key
@@ -83,7 +88,7 @@ The `PRIMARY KEY` describes both the partition and local keys. The partition key
 
 
 ####Partition Key 
-The partition key is defined as the three named fields in brackets:
+The partition key is defined as the three named fields in parentheses:
 
 ```sql
 (myfamily, myseries, (quantum(time, 15, 'm')),
@@ -114,7 +119,7 @@ The second key (local key) MUST contain the same 3 fields in the same order as t
 When you [verify that your table was properly created][activating], you'll see a response that shows your table's schema on the command line. It will look something like this:  
 
 ```sh
-$riak-admin bucket-type status GeoCheckin
+$ riak-admin bucket-type status GeoCheckin
 GeoCheckin is active
 ...
 ddl: {ddl_v1,<<"GeoCheckin">>,
@@ -183,11 +188,13 @@ CREATE TABLE GeoCheckin
 
 The values in the partition key determine which vnodes handle its writes and queries. If the `family` and `series` fields are the same for large numbers of writes, and the quanta that is specified has a large duration, only n_val vnodes will process the incoming writes. In these instances, Riak will not be able to parallelize the workload across CPUs.
 
-Riak TS queries work best when the data being queried is in the same family, series, and quanta because all keys and values are written contiguously on disk. For each family, series, and quanta, a sub-query is created and run against the vnodes that data is hashed to. Currently there is a limit of 4 sub-queries per single query to prevent overload.
+Riak TS queries work best when the data being queried is in the same family, series, and quanta because all keys and values are written contiguously on disk. For each co-located block of data a sub-query is created. Currently there is a default maximum of 5 sub-queries per single query to prevent overload; see [Configure Riak TS][configuring] for details on changing that value.
 
-Due to this limitation, there is a trade off to be made when deciding on the quanta size. Small quantas are best for writes and large quantas are best for queries. You should choose your quanta according to your data needs.
+Choosing a quanta size involves tradeoffs. Small quanta are best for writes while large quanta are best for queries. You should choose your quanta according to your data needs.
 
 It is difficult to make any recommendations on quanta size, because the size of your quanta is heavily dependent on both the kind of data you are gathering and what you need to do with it.
 
+See also [Riak TS Best Practices][bestpractices].
+
 ##Editing Your Table
-Once created, you cannot edit your Riak TS table. If you discover something wrong with the setup of your Riak TS table, you will need to create it again. You will also need to decide whether to scrap the data in the existing bucket or move it from the old bucket to the new one.
+Once created, you cannot edit your Riak TS table. If you discover something wrong with the setup of your Riak TS table, you will need to create it again. You will also need to decide whether to scrap the data in the existing table or move it from the old table to the new one.

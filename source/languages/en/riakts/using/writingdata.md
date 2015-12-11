@@ -88,25 +88,19 @@ submission.write!
 
 If all of the data are correctly written the response is: `ok` in Erlang, and will not raise an error in Ruby.
 
-If some of the data failed to write, an `RpbErrorResp` error occurs with a number that failed. In the event that your write fails, you should:
+If some of the data failed to write, an `RpbErrorResp` error occurs with a number of failures. In the event that your write fails, you should:
 
 1. Do a binary search with half the data, then the other half, and etc. to pinpoint the problem; or
-2. Check the data one at a time until one fails.
+2. Write the data one at a time until one fails.
+
+You could also try the original write again. Failures may be transitory when servers are temporarily unable to talk to each other.
  
 
 ###Guidelines
 
-* In the absence of information about which columns are provided, a write will assume that columns are in the same order they've been declared in the table.
+* Writes will assume that columns are in the same order they've been declared in the table.
 * Timestamps should be in UTC milliseconds.
-* Only ASCII is supported.
 
-
-##Error conditions
-
-There are two error conditions:
-
-* Writing data to a TS table that doesn’t exist, or
-* Writing data which doesn’t match the specification of the TS table.
 
 ##Next Steps
 

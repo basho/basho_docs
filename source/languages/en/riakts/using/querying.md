@@ -8,6 +8,7 @@ index: true
 audience: beginner
 ---
 
+[advancedplanning]: https://www.docs.basho.com/riakts/1.0.0/advancedplanning
 [activating]: https://docs.basho.com/riakts/1.0.0/using/activating
 [writing]: https://docs.basho.com/riakts/1.0.0/using/writingdata
 
@@ -17,15 +18,35 @@ Now that you have [created][activating] a Riak TS table and [written][writing] d
 
 ##Querying
 
-Before you begin querying, there are some guidelines to keep in mind:
+There are effectively three categories of fields, and each has a different set of rules for valid queries.
 
-* All elements of the compound primary key must be present
-* Data may queried as Unicode or ASCII.
-* You must query in UTC/UNIX epoch milliseconds. 
-  * The parser will treat '2015-12-08 14:00 EDT' as a character literal/string/varchar, not a timestamp.
-* All clauses must be in either 'ColumnName Comparison Literal' or 'Comparison BooleanOperator Comparison' order.
-* The `or` operator will work only for columns that are NOT
-  in the primary key. Multiple queries are required to select multiple values for primary key fields.
+### Timestamp in the primary key
+
+The timestamp in the primary key is an integer (in milliseconds) that must be compared either as a fully-enclosed range or as an exact match.
+
+* Valid: `time > 1449864277000 and time < 1449864290000`
+* Invalid: `time > 1449864277000`
+* Invalid: `time > 1449864277000 or time < 1449864290000`
+
+### Other fields in the primary key
+
+The other two fields in the primary key must be compared using strict equality against literal values. No ranges are permitted, `!=` must not be used, and `or` will not work.
+
+* Valid: `country_code = 'uk'`
+* Invalid: `(country_code = 'uk' or country_code = 'de')`
+* Invalid: `country_code != 'se'`
+* Invalid: `temperature < 85.0`
+
+### Fields not in the primary key
+
+These fields may be queried with unbounded ranges, `!=`, and `or` comparisons.
+
+### Other guidelines
+
+Before you begin querying, there are some guidelines to keep in mind.
+
+* Fields may not be compared against other fields in the query.
+* All elements of the compound primary key must be present.
 * When using `or`, you must surround the expression with parentheses or your query will return an error.
 
 Basic queries return the full range of values between two given times for a series in a family. To demonstrate, we'll use the same example table:
@@ -216,13 +237,14 @@ The following operators are supported for each data type:
 * Column to column comparisons are not currently supported.
 * Secondary indexing (2i) will not work with Riak TS.
 * Riak search will not work with Riak TS.
-* Your query can only range over up to 4 quanta. See below for more detail.
+* Queries are limited by the number of quanta they can span when specifying the time limits.
+
 
 ####Quanta query range
 
-In this early version queries can only range over 1 to 4 quanta. A query covering more than 4 quanta will generate too many sub-queries and the query system will refuse to run it. Assuming a default quanta of 15min, the maximum query time range is 1hr. 
+A query covering more than a certain number of quanta (5 by default) will generate too many sub-queries and the query system will refuse to run it. Assuming a default quanta of 15 minutes, the maximum query time range is 75 minutes. 
 
-The quanta is configurable but the 4 quanta limitation is not. In the below example we set a quanta of 15s:
+In the below example we set a quanta of 15s:
 
 ```sql
 CREATE TABLE GeoCheckin
@@ -238,21 +260,26 @@ CREATE TABLE GeoCheckin
 
 The maximum time range we can query is 60s, anything beyond will fail.
 
+See the Data Modeling section in [Advanced Planning][advancedplanning] for more information.
+
 ####Leap seconds and quantum boundaries
 
-Consider a DDL with a quantum of 60 sec. A leap second occurs at
-midnight, meaning the time point 60*60*24+1 since time zero is still
-day 0. If the client uses a datetime function to convert a calendar time
-"day 1 00:00:00" to unixtime, that will translate to 60*60*24+1 seconds.
+Periodically [leap seconds](https://en.wikipedia.org/wiki/Leap_second)
+are announced. These are inserted at the end of one day (in UTC).
 
-Riak is agnostic to leap seconds, always keeps quantum boundaries at
-exact multiples of quantum size, and will therefore see 60*60*24+1 as,
-technically, belonging to a quantum next following the quantum the
-client expects it to be. This will misalign quantum boundaries with
-respect to wall clock times. Riak will correctly store and fetch the
-data at the leap second, though.
+UNIX treats them as one double-length second. For example, at the end of 1998 a second was added:
 
-This eventual misalignment of qunata with respect to o'clock readings
-is what users should be aware of. No data will be lost; just, on days following
-leap seconds, a second-worth of data will be stored on a vnode different
-from what it would have if there were no leap seconds.
+```
+Date         Time of day   UNIX time
+1998-12-31   23:59:58      915148798
+1998-12-31   23:59:59      915148799
+1998-12-31   23:59:60      915148800     <== Artificial leap second
+1999-01-01   00:00:00      915148800
+```
+
+Effectively, there is no way in the UNIX time scheme to differentiate an event that occurred during the extra second at the end of 1998 to something that occurred the first second of 1999.
+
+Similarly, Riak TS would treat `915148800` as the start of a new time quantum, and any data points which a client added for that second would be considered to be in the first time quantum in 1999.
+
+The data is not lost, but a query against 1998 time quanta will not produce those data points despite the fact that some of the events flagged as `915148800` technically occurred in 1998.
+

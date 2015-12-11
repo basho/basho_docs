@@ -44,7 +44,7 @@ sudo su riak
 This will put you in a shell as the riak user. Then run:
 
 ```sh
-riak-admin bucket-type create GeoCheckin '{"props":{"n_val":1, "table_def": "CREATE TABLE GeoCheckin (myfamily varchar not null, myseries varchar not null, time timestamp not null, weather varchar not null, temperature double, PRIMARY KEY ((myfamily, myseries, quantum(time, 15, 'm')), myfamily, myseries, time))"}}'
+riak-admin bucket-type create GeoCheckin '{"props":{"table_def": "CREATE TABLE GeoCheckin (myfamily varchar not null, myseries varchar not null, time timestamp not null, weather varchar not null, temperature double, PRIMARY KEY ((myfamily, myseries, quantum(time, 15, 'm')), myfamily, myseries, time))"}}'
 ```
 
 Please take care:
@@ -56,7 +56,7 @@ Please take care:
   and the opening quote of the JSON properties.
 * The table and field names are currently constrained to ASCII.
 
-Also note that if you discover something wrong with the setup of your DDL, you will need to create it again and decide whether to scrap the data in the existing bucket or move it from the old bucket to the new one.
+Also note that if you discover something wrong with the setup of your DDL, you will need to create it again and decide whether to scrap the data in the existing table or move it from the old table to the new one.
 
 ##Activating Your Table
 
@@ -72,28 +72,12 @@ For the example `GeoCheckin` table:
 riak-admin bucket-type activate GeoCheckin
 ```
 
-
-##Viewing Table Schema
-
-To view the table schema use the following command:
-
-```sh
-riak-admin bucket-type status »TABLE NAME«
-```
-
-For the example `GeoCheckin` table:
-
-```sh
-riak-admin bucket-type status GeoCheckin
-```
-
-
 ##Verify Activation
 
 You can verify that your table was properly created by looking at the `ddl` section of the `riak-admin bucket-type status` response. For example:
 
 ```sh
-$riak-admin bucket-type status GeoCheckin
+$ riak-admin bucket-type status GeoCheckin
 GeoCheckin is active
 ...
 ddl: {ddl_v1,<<"GeoCheckin">>,
