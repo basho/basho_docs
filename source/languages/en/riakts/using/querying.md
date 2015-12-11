@@ -237,3 +237,22 @@ CREATE TABLE GeoCheckin
 ```
 
 The maximum time range we can query is 60s, anything beyond will fail.
+
+####Leap seconds and quantum boundaries
+
+Consider a DDL with a quantum of 60 sec. A leap second occurs at
+midnight, meaning the time point 60*60*24+1 since time zero is still
+day 0. If the client uses a datetime function to convert a calendar time
+"day 1 00:00:00" to unixtime, that will translate to 60*60*24+1 seconds.
+
+Riak is agnostic to leap seconds, always keeps quantum boundaries at
+exact multiples of quantum size, and will therefore see 60*60*24+1 as,
+technically, belonging to a quantum next following the quantum the
+client expects it to be. This will misalign quantum boundaries with
+respect to wall clock times. Riak will correctly store and fetch the
+data at the leap second, though.
+
+This eventual misalignment of qunata with respect to o'clock readings
+is what users should be aware of. No data will be lost; just, on days following
+leap seconds, a second-worth of data will be stored on a vnode different
+from what it would have if there were no leap seconds.
