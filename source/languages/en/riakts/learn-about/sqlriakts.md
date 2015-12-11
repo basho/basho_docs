@@ -60,7 +60,7 @@ In particular, we want to ask about the last forty minutes of CPU temperature da
 SELECT * FROM metrics 
 WHERE
   hostname='bunnahabhain.islay' AND
-  metric_name=’core_temp’ AND
+  metric_name='core_temp' AND
   time < 1446762821844 AND
   time > 1446760421844 AND
   metric_value > 50;
