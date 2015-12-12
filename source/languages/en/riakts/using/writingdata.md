@@ -98,8 +98,9 @@ You could also try the original write again. Failures may be transitory when ser
 
 ###Guidelines
 
+* Batches should not be too large. In our testing, 100 rows per write is a sweet spot, but you should expect different results depending on your hardware and schema.
 * Writes will assume that columns are in the same order they've been declared in the table.
-* Timestamps should be in UTC milliseconds.
+* Timestamps should be in Unix epoch/UTC milliseconds.
 
 
 ##Next Steps
