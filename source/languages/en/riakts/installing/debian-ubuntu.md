@@ -18,7 +18,7 @@ download:
 Riak TS can be installed on Debian or Ubuntu-based systems using a binary
 package available through ZenDesk.
 
-Check your e-mail for the link to the download in ZenDesk.
+Check your email for the link to the download in ZenDesk.
 
 
 ##Dependencies
@@ -65,4 +65,5 @@ If Riak TS has been installed successfully `riak-ts` is returned.
 
 
 ##Next Steps
+
 Now that you've installed Riak TS, check out [Planning Your Riak TS Table][planning].

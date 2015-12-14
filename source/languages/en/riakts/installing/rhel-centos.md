@@ -16,7 +16,7 @@ download:
 Riak TS can be installed on CentOS-based systems using a binary
 package available through ZenDesk.
 
-Check your e-mail for the link to the download in ZenDesk.
+Check your email for the link to the download in ZenDesk.
 
 >**Note on SELinux**
 >
@@ -27,6 +27,7 @@ you encounter errors.
 ##Install Riak TS
 
 ###For CentOS 6 / RHEL 6
+
 Once you've downloaded the package from ZenDesk, you can install the package using `yum`:
 
 ```bash
@@ -41,6 +42,7 @@ sudo rpm -Uvh riak-ts-{{VERSION}}-1.el6.x86_64.rpm
 
 
 ### For CentOS 7 / RHEL 7
+
 Once you've downloaded the package from ZenDesk, you can install the package using `yum`:
 
 ```bash
@@ -80,4 +82,5 @@ If Riak TS has been installed successfully `riak-ts` is returned.
 
 
 ##Next Steps
+
 Now that you've installed Riak TS, check out [Planning Your Riak TS Table][planning].

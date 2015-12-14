@@ -21,7 +21,7 @@ package available through ZenDesk.
 >
 >Mac OS X is only supported for developing with Riak TS and NOT for general operations.
 
-Check your e-mail for the link to the download in ZenDesk.
+Check your email for the link to the download in ZenDesk.
 
 ##Dependencies
 
@@ -33,6 +33,7 @@ backend that uses very few file handles, it's possible to run out. See
 
 
 ##Install Riak TS
+
 To install Riak TS on your Mac, download the package from ZenDesk and then run:
 
 ```bash
@@ -65,4 +66,5 @@ If Riak TS has been installed successfully `riak-ts` is returned.
 
 
 ##Next Steps
+
 Now that you've installed Riak TS, check out [Planning Your Riak TS Table][planning].
