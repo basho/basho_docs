@@ -2,13 +2,10 @@
 title: Learn About Riak TS
 project: riakts
 version: 1.0.0+
-document: index
+document: guide
+toc: true
 index: true
 audience: beginner
-keywords: [time series, riak ts]
-body_id: learn-about-riak-ts
-simple: true
-versions: true
 ---
 
 [advancedplanning]: http://docs.basho.com/riakts/1.0.0/learn-about/advancedplanning
