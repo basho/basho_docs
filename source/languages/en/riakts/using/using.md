@@ -3,12 +3,9 @@ title: Using Riak TS
 project: riakts
 version: 1.0.0+
 document: guide
+toc: true
 index: true
 audience: beginner
-keywords: [time series, riak ts]
-body_id: using-riak-ts
-simple: true
-versions: true
 ---
 
 [activating]: http://docs.basho.com/riakts/1.0.0/using/activating
