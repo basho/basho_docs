@@ -10,6 +10,12 @@ riakts:
       - "[[Riak TS]]"
       - "[[Installing|Installing Riak TS]]"
       - "[[Release Notes 1.0.0|Riak TS 1.0.0 Release Notes]]"
+  - title: "Installing Riak TS"
+    sub:
+      - "[[Installing|Installing Riak TS"
+      - "[[Debian Ubuntu|Installing on Debian and Ubuntu]]"
+      - "[[RHEL Centos|Installing on CentOS/RHEL]]"
+      - "[[MacOSX|Installing on Mac OS X]]"
   - title: "Using Riak TS"
     sub:
       - "[[Using|Using Riak TS]]"
