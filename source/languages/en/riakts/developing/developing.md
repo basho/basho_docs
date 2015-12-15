@@ -2,13 +2,10 @@
 title: Developing with Riak TS
 project: riakts
 version: 1.0.0+
-document: index
+document: guide
+toc: true
 index: true
-audience: advanced
-keywords: [time series, riak ts]
-body_id: developing-with-riak-ts
-simple: true
-versions: true
+audience: beginner
 ---
 
 [erlang]: http://docs.basho.com/riakts/1.0.0/devloping/erlang
