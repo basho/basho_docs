@@ -2,7 +2,7 @@
 title: Using Riak TS
 project: riakts
 version: 1.0.0+
-document: index
+document: guide
 index: true
 audience: beginner
 keywords: [time series, riak ts]
