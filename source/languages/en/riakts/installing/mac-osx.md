@@ -39,7 +39,6 @@ To install Riak TS on your Mac, download the package from ZenDesk and then run:
 ```bash
 tar zxvf riak-ts-{{VERSION}}.tar.gz
 cd riak-ts-{{VERSION}}
-make rel
 ```
 
 Then confirm that [AAE][AAE] is turned off. To do this, check etc/riak.conf for the following: `anti_entropy = passive`.
@@ -52,17 +51,6 @@ Once you've installed Riak TS, start it on your node:
 ```bash
 riak start
 ```
-
-
-##Verify your installation
-
-You can verify that Riak TS is successfully installed by running: 
-
-```bash
-dpkg -l | grep riak
-```
-
-If Riak TS has been installed successfully `riak-ts` is returned.
 
 
 ##Next Steps
