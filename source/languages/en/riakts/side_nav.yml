@@ -7,4 +7,26 @@ riakts:
   - title: "Start Here"
     class: "start"
     sub:
-      - "[[Test Page|Installing Riak TS]]"
+      - "[[Riak TS]]"
+      - "[[Installing|Installing Riak TS]]"
+      - "[[Release Notes 1.0.0|Riak TS 1.0.0 Release Notes]]"
+  - title: "Using Riak TS"
+    sub:
+      - "[[Using|Using Riak TS]]"
+      - "[[Planning|Planning Your Riak TS Table]]"
+      - "[[Creating Activating|Creating and Activating Your Riak TS Table]]"
+      - "[[Writing Data|Writing Data to Riak TS]]"
+      - "[[Querying|Querying Data in Riak TS]]"
+      - "[[Configuring|Configure Riak TS]]"
+  - title: "Developing with Riak TS"
+    sub:
+      - "[[Developing|Developing with Riak TS]]"
+      - "[[Erlang API|Erlang Client API]]"
+      - "[[Java API|Java Client API]]"
+      - "[[Python API|Python Client API]]"
+  - title: "Learn About Riak TS"
+    sub:
+      - "[[Learn About|Learn About Riak TS]]"
+      - "[[Advanced Planning|Advanced Planning Riak TS Tables]]"
+      - "[[Best Practices|Riak TS Best Practices]]"
+      - "[[SQL Riak TS|SQL for Riak TS]]"
