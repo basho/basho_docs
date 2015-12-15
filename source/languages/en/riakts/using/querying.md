@@ -8,7 +8,7 @@ index: true
 audience: beginner
 ---
 
-[advancedplanning]: https://www.docs.basho.com/riakts/1.0.0/advancedplanning
+[advancedplanning]: https://www.docs.basho.com/riakts/1.0.0/learn-about/advancedplanning
 [activating]: https://docs.basho.com/riakts/1.0.0/using/activating
 [writing]: https://docs.basho.com/riakts/1.0.0/using/writingdata
 

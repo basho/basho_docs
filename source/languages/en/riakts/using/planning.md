@@ -9,10 +9,10 @@ audience: beginner
 ---
 
 [activating]: https://www.docs.basho.com/riakts/1.0.0/using/activating
-[advancedplanning]: https://www.docs.basho.com/riakts/1.0.0/advancedplanning
+[advancedplanning]: https://www.docs.basho.com/riakts/1.0.0/learn-about/advancedplanning
 [bestpractices]: https://www.docs.basho.com/riakts/1.0.0/learn-about/bestpractices
 [installing]: https://www.docs.basho.com/riakts/1.0.0/installing/
-[sql]: https://www.docs.basho.com/riakts/1.0.0/learn-about/sql
+[sql]: https://www.docs.basho.com/riakts/1.0.0/learn-about/sqlriakts
 
 Now that you've [installed][installing] Riak TS, you're almost ready to create a TS table. Before you can create your table, you'll need to plan it out. 
 

@@ -10,7 +10,6 @@ audience: beginner
 
 [activating]: http://docs.basho.com/riakts/1.0.0/using/activating
 [configuring]: http://docs.basho.com/riakts/1.0.0/using/configuring
-[downloads]: http://docs.basho.com/riakts/latest/downloads/
 [installing]: http://docs.basho.com/riakts/1.0.0/installing
 [planning]: http://docs.basho.com/riakts/1.0.0/using/planning
 [querying]: http://docs.basho.com/riakts/1.0.0/using/querying
