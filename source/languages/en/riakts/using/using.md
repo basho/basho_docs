@@ -17,7 +17,7 @@ audience: beginner
 [writing]: http://docs.basho.com/riakts/1.0.0/using/writingdata
 
 
-Now that you've [downloaded][downloads] and [installed][installing] Riak TS, there's a recommended path for setting up and using it:
+Now that you've downloaded the package from ZenDesk and [installed][installing] Riak TS, there's a recommended path for setting up and using it:
 
 1. [Plan][planning] your Riak TS table. Once created, tables can't be edited, so it's important to get it right the first time.
 2. [Create and activate][activating] your Riak TS table. (You'll need `sudo` and `su` access for this step.)

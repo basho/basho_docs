@@ -8,7 +8,7 @@ index: true
 audience: beginner
 ---
 
-[AAE]: http://docs.basho.com/riak/2.1.2/theory/concepts/aae/
+[AAE]: http://docs.basho.com/riak/2.1.3/theory/concepts/aae/
 [Centos]: http://docs.basho.com/riakts/1.0.0/installing/rhel-centos
 [Debian]: http://docs.basho.com/riakts/1.0.0/installing/debian-ubuntu
 [OSX]: http://docs.basho.com/riakts/1.0.0/installing/mac-osx
