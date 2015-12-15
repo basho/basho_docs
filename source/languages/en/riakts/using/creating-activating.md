@@ -1,5 +1,5 @@
 ---
-title: Activating Your Riak TS Table
+title: Creating and Activating Your Riak TS Table
 project: riakts
 version: 1.0.0+
 document: guide
