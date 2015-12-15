@@ -10,8 +10,8 @@ download:
   name: "Mac OS X"
 ---
 
-[AAE]: http://docs.basho.com/riak/2.1.2/theory/concepts/aae/
-[openfileslimit]: http://docs.basho.com/riak/2.1.2/ops/tuning/open-files-limit/
+[AAE]: http://docs.basho.com/riak/2.1.3/theory/concepts/aae/
+[openfileslimit]: http://docs.basho.com/riak/2.1.3/ops/tuning/open-files-limit/
 [planning]: http://docs.basho.com/riakts/1.0.0/using/planning
 
 Riak TS can be installed on Mac OS X systems using a binary
@@ -42,7 +42,7 @@ cd riak-ts-{{VERSION}}
 make rel
 ```
 
-Then confirm that [AAE][AAE] is turned off. To do this, check /etc/riak/riak.conf for the following: `anti_entropy = passive`.
+Then confirm that [AAE][AAE] is turned off. To do this, check etc/riak.conf for the following: `anti_entropy = passive`.
 
 
 ##Activate Riak TS node

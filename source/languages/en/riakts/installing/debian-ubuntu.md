@@ -10,9 +10,9 @@ download:
   name: "Debian or Ubuntu"
 ---
 
-[AAE]: http://docs.basho.com/riak/2.1.2/theory/concepts/aae/
+[AAE]: http://docs.basho.com/riak/2.1.3/theory/concepts/aae/
 [planning]: http://docs.basho.com/riakts/1.0.0/using/planning
-[riak security]: http://docs.basho.com/riak/2.1.2/ops/running/authz/
+[riak security]: http://docs.basho.com/riak/2.1.3/ops/running/authz/
 
 
 Riak TS can be installed on Debian or Ubuntu-based systems using a binary
