@@ -12,7 +12,6 @@ simple: true
 versions: true
 ---
 
-[downloads]: http://docs.basho.com/riakts/latest/downloads
 [installing]: http://docs.basho.com/riakts/1.0.0/installing/
 [learnabout]: http://docs.basho.com/riakts/1.0.0/learn-about
 
@@ -40,7 +39,7 @@ With Riak TS, you can decided what sort of time-based data is grouped together a
 
 ##Get Started
 
-Get started with Riak TS by [downloading][downloads] it. Then check out how to [install][installing] it. 
+Get started with Riak TS by downloading the package from ZenDesk, then check out how to [install][installing] it. 
 
 If you want to learn more about how Riak TS was designed and how it is structured, checkout our [Learn About Riak TS][learnabout] section.
 
