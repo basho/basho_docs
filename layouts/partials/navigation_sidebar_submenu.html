@@ -6,10 +6,10 @@
     {{ if .HasChildren }}
       {{/*TODO(Drew): Figure out if we need the span tag. */}}
       {{/*TODO(Drew): Figure out if we need to record the project in the class. */}}
-      <h4><span><a href="{{.URL}}" class="{{$current_node.Params.project}}">{{.Name}}</a></span></h4>
+      <h4><span><a href="{{.URL}}">{{.Name}}</a></span></h4>
       {{ partial "navigation_sidebar_submenu.html" (dict "current_menu" . "current_node" $current_node "menu_title" $menu_title "menu_depth" (add 1 $menu_depth)) }}
     {{ else }}
-      <a href="{{.URL}}" class="{{$current_node.Params.project}}">{{.Name}}</a>
+      <a href="{{.URL}}">{{.Name}}</a>
     {{ end }}
   </li>
 {{ end }}</ul>
