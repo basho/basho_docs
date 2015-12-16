@@ -11,25 +11,36 @@ moved: {
 }
 ---
 
+[Install AWS]: http://docs.basho.com/riak/2.1.3/installing/amazon-web-services
+[Install Debian & Ubuntu]: http://docs.basho.com/riak/2.1.3/installing/debian-ubuntu
+[Install FreeBSD]: http://docs.basho.com/riak/2.1.3/installing/freebsd
+[Install Mac OSX]: http://docs.basho.com/riak/2.1.3/installing/mac-osx
+[Install RHEL & CentOS]: http://docs.basho.com/riak/2.1.3/installing/rhel-centos
+[Install SmartOS]: http://docs.basho.com/riak/2.1.3/installing/smartos
+[Install Solaris]: http://docs.basho.com/riak/2.1.3/installing/solaris
+[Install SUSE]: http://docs.basho.com/riak/2.1.3/installing/suse
+[Install Windows Azure]: http://docs.basho.com/riak/2.1.3/installing/windows-azure
+[Install From Source]: http://docs.basho.com/riak/2.1.3/installing/source
+
 ## Supported Platforms
 
 Riak is supported on numerous popular operating systems and virtualized
 environments. The following information will help you to
 properly install or upgrade Riak in one of the supported environments:
 
-  * [[Amazon Web Services|Installing on Amazon Web Services]]
-  * [[Debian & Ubuntu|Installing on Debian and Ubuntu]]
-  * [[FreeBSD|Installing on FreeBSD]]
-  * [[Mac OS X|Installing on Mac OS X]]
-  * [[RHEL & CentOS|Installing on RHEL and CentOS]]
-  * [[SmartOS|Installing on SmartOS]]
-  * [[Solaris|Installing on Solaris]]
-  * [[SUSE|Installing on SUSE]]
-  * [[Windows Azure|Installing on Windows Azure]]
+  * [Amazon Web Services][Install AWS]
+  * [Debian & Ubuntu][Install Debian & Ubuntu]
+  * [FreeBSD][Install FreeBSD]
+  * [Mac OS X][Install Mac OSX]
+  * [RHEL & CentOS][Install RHEL & CentOS]
+  * [SmartOS][Install SmartOS]
+  * [Solaris][Install Solaris]
+  * [SUSE][Install SUSE]
+  * [Windows Azure][Install Windows Azure]
 
 ## Building from Source
 
-If your platform isn’t listed above, you may be able to build Riak from source. See [[Installing Riak from Source]] for instructions.
+If your platform isn’t listed above, you may be able to build Riak from source. See [Installing Riak from Source][Install From Source] for instructions.
 
 ## Community Projects
 

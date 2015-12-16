@@ -11,6 +11,9 @@ moved: {
 }
 ---
 
+[Install Riak]: http://docs.basho.com/riak/2.1.3/installing
+[Install From Source]: http://docs.basho.com/riak/2.1.3/installing/source
+
 In this tutorial, we'll share some quick start installers for OSX, as 
 well as provide instructions for building a
 [5-node](http://basho.com/why-your-riak-cluster-should-have-at-least-five-nodes/)
@@ -35,59 +38,11 @@ be used in a production deployment.
 
 ## Install Riak
 
-The above installers helped you explore the basics of Riak on OSX.  
+The above installers helped you explore the basics of Riak on OSX. 
 For full instructions on installing Riak for your desired operating 
-system, follow the steps below. 
+system check out [Installing Riak][Install Riak]. 
 
-Basho's pre-packaged Riak binaries (found under [[Downloads]]) embed the
-Erlang runtime. This tutorial, however, is based on a source build, so
-you will need to [[install Erlang|Installing Erlang]] if it is not
-installed on your machine already.
-
-If you wish to build Riak 2.0 from source, we strongly recommend using
-Basho's patched version of Erlang. The tar file for this version can be
-downloaded
-[here](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho8.tar.gz).
-
-```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho8.tar.gz
-tar -xvf otp_src_R16B02-basho8.tar.gz
-cd otp_src_R16B02-basho8
-```
-
-Once you have unzipped the package, see our guide to [[installing
-Erlang]] for installation instructions.
-
-### Get the Source
-
-The following links provide platform-specific instructions for
-downloading and installing Riak from source.
-
-  * [[Debian and Ubuntu|Installing on Debian and
-    Ubuntu#Installing-From-Source]]
-  * [[RHEL and CentOS|Installing on RHEL and
-    CentOS#Installing-From-Source]]
-  * [[Mac OS X|Installing on Mac OS X#Installing-From-Source]]
-  * [[FreeBSD|Installing on FreeBSD#Installing-From-Source]]
-  * [[SUSE|Installing on SUSE]]
-  * [[Windows Azure|Installing on Windows Azure]]
-  * [[AWS Marketplace|Installing on AWS Marketplace]]
-  * [[Unlisted Operating System|Installing Riak from Source]]
-
-### Build Riak
-
-Now that you've downloaded and installed Riak using the instructions
-above, it's time to build it. Access the `riak` directory from your
-install and run `make all`:
-
-```bash
-cd riak-{{VERSION}}
-make all
-```
-
-The `make all` command grabs all of Riak's dependencies for you so that
-you don't have to chase them down on your own. This process will likely
-take a few moments.
+The following tutorial is based on a source build, so you will need to follow the instructions on [Installing Riak from Source][Install From Source].
 
 ## Start Up Five Nodes
 
