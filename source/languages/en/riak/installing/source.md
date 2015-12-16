@@ -14,6 +14,13 @@ moved: {
 }
 ---
 
+[Install Debian & Ubuntu#Source]: http://docs.basho.com/riak/2.1.3/installing/debian-ubuntu/#Installing-From-Source
+[Install FreeBSD#Source]: http://docs.basho.com/riak/2.1.3/installing/freebsd/#Installing-From-Source
+[Install Mac OSX#Source]: http://docs.basho.com/riak/2.1.3/installing/mac-osx/#Installing-From-Source
+[Install RHEL & CentOS#Source]: http://docs.basho.com/riak/2.1.3/installing/rhel-centos/#Installing-From-Source
+[Install Verify]: http://docs.basho.com/riak/2.1.3/installing/verify-install
+[Install Erlang]: http://docs.basho.com/riak/2.1.3/installing/source/erlang
+
 Riak should be installed from source if you are building on a platform
 for which a package does not exist or if you are interested in
 contributing to Riak.
@@ -24,7 +31,7 @@ contributing to Riak.
 
 To install Riak, you will need to have [Erlang](http://www.erlang.org/) installed. We strongly recommend using Basho's patched version of Erlang to install Riak 2.0. All of the patches in this version have been incorporated into later versions of the official Erlang/OTP release.
 
-See [[Installing Erlang]] for instructions.
+See [Installing Erlang][Install Erlang] for instructions.
 
 ### Git
 
@@ -73,10 +80,10 @@ make rel
 
 For instructions about specific platforms, see:
   
-  * [[Debian & Ubuntu|Installing on Debian and Ubuntu#Installing-From-Source]]
-  * [[FreeBSD|Installing on FreeBSD#Installing-From-Source]]
-  * [[Mac OS X|Installing on Mac OS X#Installing-From-Source]]
-  * [[RHEL & CentOS|Installing on RHEL and CentOS#Installing-From-Source]]
+  * [Debian & Ubuntu][Install Debian & Ubuntu#Source]
+  * [FreeBSD][Install FreeBSD#Source]
+  * [Mac OS X][Install Mac OSX#Source]
+  * [RHEL & CentOS][Install RHEL & CentOS#Source]
 
 If you are running Riak on a platform not in the list above and need
 some help getting it up and running, join The Riak Mailing List and
@@ -89,4 +96,4 @@ Riak is not currently supported on Microsoft Windows.
 
 ## Next Steps
 
-Now that Riak is installed, check out [[Verifying a Riak Installation]].
+Now that Riak is installed, check out [Verifying a Riak Installation][Install Verify].

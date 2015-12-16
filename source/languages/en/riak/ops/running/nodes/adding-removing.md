@@ -15,23 +15,6 @@ This page describes the process of adding and removing nodes to and from
 a Riak cluster. We'll look at how you join nodes together into a
 cluster, and what happens when you add or remove nodes.
 
-## Preconditions
-
-First, you will need to install Riak. Use one of our OS- or
-cloud-platform-specific installation docs to do so:
-
-* [[Debian and Ubuntu|Installing on Debian and Ubuntu]]
-* [[RHEL and CentOS|Installing on RHEL and CentOS]]
-* [[Mac OS X|Installing on Mac OS X]]
-* [[FreeBSD|Installing on FreeBSD]]
-* [[SmartOS|Installing on SmartOS]]
-* [[Solaris|Installing on Solaris]]
-* [[SUSE|Installing on SUSE]]
-* [[Windows Azure|Installing on Windows Azure]]
-* [[Amazon Web Services|Installing on AWS Marketplace]]
-
-You may also install Riak [[from source|Installing Riak from Source]].
-
 For most operations you need to access [[configuration files]], whose
 location depends on your mode of installation and the operating system.
 You may want to have any configuration files open throughout this
