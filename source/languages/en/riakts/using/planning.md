@@ -9,10 +9,11 @@ audience: beginner
 ---
 
 [activating]: https://www.docs.basho.com/riakts/1.0.0/using/activating
-[advancedplanning]: https://www.docs.basho.com/riakts/1.0.0/learn-about/advancedplanning
-[bestpractices]: https://www.docs.basho.com/riakts/1.0.0/learn-about/bestpractices
-[installing]: https://www.docs.basho.com/riakts/1.0.0/installing/
-[sql]: https://www.docs.basho.com/riakts/1.0.0/learn-about/sqlriakts
+[advancedplanning]: http://docs.basho.com/riakts/1.0.0/learn-about/advancedplanning/
+[bestpractices]: http://docs.basho.com/riakts/1.0.0/learn-about/bestpractices/
+[epoch]: https://en.wikipedia.org/wiki/Unix_time
+[installing]: http://docs.basho.com/riakts/1.0.0/installing/installing/
+[sql]: http://docs.basho.com/riakts/1.0.0/learn-about/sqlriakts/
 
 Now that you've [installed][installing] Riak TS, you're almost ready to create a TS table. Before you can create your table, you'll need to plan it out. 
 
@@ -57,7 +58,7 @@ The types associated with fields are limited. Valid types are:
 * `boolean`
   * `true` or `false` (any case)
 * `timestamp`
-  * Timestamps are integer values expressing [UNIX epoch time in UTC](https://en.wikipedia.org/wiki/Unix_time) in **milliseconds**. Zero is not a valid timestamp.
+  * Timestamps are integer values expressing [UNIX epoch time in UTC][epoch] in **milliseconds**. Zero is not a valid timestamp.
 * `sint64`
   * Signed 64-bit integer
 * `double`
