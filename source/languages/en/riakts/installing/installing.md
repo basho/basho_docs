@@ -25,7 +25,7 @@ Choose your OS and follow the instructions:
 * [CentOS/RHEL 6 & 7][Centos]
 * [Debian 6 & 7][Debian]
 * [OS X 10.8][OSX]
-* [Ubuntu 12.04 & 14.04)][Ubuntu]
+* [Ubuntu 12.04 & 14.04][Ubuntu]
 
 
 >**Upgrade Note:** 

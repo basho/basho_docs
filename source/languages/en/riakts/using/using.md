@@ -8,9 +8,9 @@ index: true
 audience: beginner
 ---
 
-[activating]: http://docs.basho.com/riakts/1.0.0/using/activating
+[activating]: http://docs.basho.com/riakts/1.0.0/using/creating-activating/
 [configuring]: http://docs.basho.com/riakts/1.0.0/using/configuring
-[installing]: http://docs.basho.com/riakts/1.0.0/installing
+[installing]: http://docs.basho.com/riakts/1.0.0/installing/installing/
 [planning]: http://docs.basho.com/riakts/1.0.0/using/planning
 [querying]: http://docs.basho.com/riakts/1.0.0/using/querying
 [writing]: http://docs.basho.com/riakts/1.0.0/using/writingdata
