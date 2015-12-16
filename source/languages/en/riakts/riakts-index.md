@@ -12,13 +12,13 @@ simple: true
 versions: true
 ---
 
-[installing]: http://docs.basho.com/riakts/1.0.0/installing/
-[learnabout]: http://docs.basho.com/riakts/1.0.0/learn-about/
+[installing]: http://docs.basho.com/riakts/1.0.0/installing/installing/
+[learnabout]: http://http://docs.basho.com/riakts/1.0.0/learn-about/learn-about/
 
 
 Riak TS is a distributed NoSQL key/value store optimized for time series data. It provides a performant time series database solution that is extensible and scalable.
 
-Riak TS is an available and partition-tolerate key/value time series database with the ability to co-locate keys of the same series for easy and efficient range queries using a subset of SQL. While Riak KV has a consistent hashing model, Riak TS (which includes a complete build of KV) adds the ability to co-locate keys within the same quanta for easy querying.
+Riak TS is an available and partition-tolerate key/value time series database with the ability to co-locate keys of the same series for easy and efficient range queries using a subset of SQL. Riak TS (which includes a complete build of KV) adds the ability to co-locate keys within the same quanta for easy querying.
 
 With Riak TS, you can decided what sort of time-based data is grouped together and where it it stored, which optimizes your READ times.
 
