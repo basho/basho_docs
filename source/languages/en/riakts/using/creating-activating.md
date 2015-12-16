@@ -35,7 +35,8 @@ CREATE TABLE GeoCheckin
 )
 ```
 
-To create the example table, first run (Note: Every):
+To create the example table, first run:
+(**Note: Mac OS X users can skip this step**)
 
 ```bash
 sudo su riak
