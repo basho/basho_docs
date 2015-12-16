@@ -30,4 +30,4 @@ Choose your OS and follow the instructions:
 
 >**Upgrade Note:** 
 >
->Risk TS is debuting as a complete, standalone product. Upgrading from Riak KV to Riak TS is not currently supported.
+>Riak TS is debuting as a complete, standalone product. Upgrading from Riak KV to Riak TS is not currently supported.

@@ -8,9 +8,9 @@ index: true
 audience: beginner
 ---
 
-[erlang]: http://docs.basho.com/riakts/1.0.0/devloping/erlang
-[java]: http://docs.basho.com/riakts/1.0.0/devloping/java
-[python]: http://docs.basho.com/riakts/1.0.0/devloping/python
+[erlang]: http://docs.basho.com/riakts/latest/developing/erlangapi/
+[java]: http://docs.basho.com/riakts/latest/developing/javaapi/
+[python]: http://docs.basho.com/riakts/latest/developing/pythonapi/ 
 
 
 Riak TS provides protobuf request APIs for the following clients:

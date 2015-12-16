@@ -48,8 +48,8 @@ Riak TS is compatible with the following operating systems:
 * RHEL/CentOS 7
 * Ubuntu 12.04 LTS
 * Ubuntu 14.04 LTS
-* Debian 6
-* Debian 7
+* Debian 6 (development only)
+* Debian 7 (development only)
 * OSX 10.8 (development only)
 
 
@@ -58,4 +58,4 @@ Riak TS is compatible with the following operating systems:
 * AAE must be turned off.
 * Riak Search is not supported.
 * Multi-Datacenter Replication is not supported.
-* When deleting, a PUT occurs to write the tombstone, then a GET reaps the tombstone. Since PUT and GET are asynchronous, it is possible for the GET to occur before the PUT resulting in the data not actually being deleted. 
+* When deleting, a PUT occurs to write the tombstone, then a GET reaps the tombstone. Since PUT and GET are asynchronous, it is possible for the GET to occur before the PUT resulting in the data not actually being deleted.  If this occurs, issue the DELETE again.
