@@ -8,11 +8,11 @@ index: true
 audience: advanced
 ---
 
-[activating]: https://www.docs.basho.com/riakts/1.0.0/using/activating
-[configuring]: https://www.docs.basho.com/riakts/1.0.0/using/configuring
+[activating]: http://docs.basho.com/riakts/1.0.0/using/creating-activating/
+[configuring]: http://docs.basho.com/riakts/1.0.0/using/configuring/
 [planning]: http://docs.basho.com/riakts/1.0.0/using/planning
-[sql]: https://www.docs.basho.com/riakts/1.0.0/learn-about/sqlriakts
-[bestpractices]: https://www.docs.basho.com/riakts/1.0.0/learn-about/bestpractices
+[sql]: http://docs.basho.com/riakts/1.0.0/learn-about/sqlriakts/
+[bestpractices]: http://docs.basho.com/riakts/1.0.0/learn-about/bestpractices/
 
 
 This page provides more in-depth information about how Riak TS tables are structured. 
