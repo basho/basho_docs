@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Cluster Administration Commands"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
-    weight: 100
-    parent: "configuring"
+    name: "Cluster Admin Commands"
+    identifier: "managing_cluster_admin_commands"
+    weight: 202
+    parent: "managing"
 toc: true
 ---
 

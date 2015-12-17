@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Using Commit Hooks"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
-    weight: 100
-    parent: "configuring"
+    name: "Using Commit Hooks"
+    identifier: "usage_commit_hooks"
+    weight: 108
+    parent: "developing_usage"
 toc: true
 ---
 

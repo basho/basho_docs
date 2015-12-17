@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Developing with Riak KV FAQ"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
-    weight: 100
-    parent: "configuring"
+    name: "Developing FAQ"
+    identifier: "developing_faq"
+    weight: 108
+    parent: "developing"
 toc: true
 ---
 

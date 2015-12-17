@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Secondary Indexes"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
-    weight: 100
-    parent: "configuring"
+    name: "Secondary Indexes"
+    identifier: "cluster_operations_2i"
+    weight: 109
+    parent: "managing_cluster_operations"
 toc: true
 ---
 

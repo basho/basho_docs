@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Creating Objects"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
+    name: "Creating Objects"
+    identifier: "usage_creating_objects"
     weight: 100
-    parent: "configuring"
+    parent: "developing_usage"
 toc: true
 ---
 

@@ -1,13 +1,13 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Implementing Strong Consistency"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
-    weight: 100
+    name: "Implementing Strong Consistency"
+    identifier: "configuring_strong_consistency"
+    weight: 105
     parent: "configuring"
 toc: true
 ---

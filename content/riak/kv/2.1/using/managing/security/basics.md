@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Security Basics"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
+    name: "Security Basics"
+    identifier: "security_basics"
     weight: 100
-    parent: "configuring"
+    parent: "managing_security"
 toc: true
 ---
 

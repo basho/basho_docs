@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Object Modeling"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
-    weight: 100
-    parent: "configuring"
+    name: "Object Modeling"
+    identifier: "getting_started_object_modeling"
+    weight: 102
+    parent: "developing_getting_started"
 toc: true
 ---
 

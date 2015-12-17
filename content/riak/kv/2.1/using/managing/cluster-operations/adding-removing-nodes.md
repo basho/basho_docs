@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Adding / Removing Nodes"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
+    name: "Adding/Removing Nodes"
+    identifier: "cluster_operations_add_remove_nodes"
     weight: 100
-    parent: "configuring"
+    parent: "managing_cluster_operations"
 toc: true
 ---
 

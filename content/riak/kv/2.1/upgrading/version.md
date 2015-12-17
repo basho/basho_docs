@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Upgrading by Version"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
+    name: "Upgrading by Version"
+    identifier: "upgrading_version"
     weight: 100
-    parent: "configuring"
+    parent: "upgrading"
 toc: true
 ---
 
@@ -77,3 +77,4 @@ Nominis haec lacrimis orba gloria obstipuere tu Ceyx tepebat fetus me equorum
 potero! Iampridem illi; deducit [reor orbem](http://heeeeeeeey.com/), comes, et
 nec rubebant pietas, ipsa.
 ```
+

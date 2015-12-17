@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Installing Riak KV From Source"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
-    weight: 100
-    parent: "configuring"
+    name: "Installing From Source"
+    identifier: "installing_source"
+    weight: 301
+    parent: "installing"
 toc: true
 ---
 

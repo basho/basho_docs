@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Benchmarking"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
+    name: "Benchmarking"
+    identifier: "performance_benchmarking"
     weight: 100
-    parent: "configuring"
+    parent: "managing_performance"
 toc: true
 ---
 

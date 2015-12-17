@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Searching with Data Types"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
-    weight: 100
-    parent: "configuring"
+    name: "Searching with Data Types"
+    identifier: "usage_search_data_types"
+    weight: 111
+    parent: "developing_usage"
 toc: true
 ---
 

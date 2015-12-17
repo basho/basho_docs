@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Replication"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
-    weight: 100
-    parent: "configuring"
+    name: "Replication"
+    identifier: "usage_replication"
+    weight: 115
+    parent: "developing_usage"
 toc: true
 ---
 

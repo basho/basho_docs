@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Choosing a Backend"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
+    name: "Choosing a Backend"
+    identifier: "planning_choose_backend"
     weight: 100
-    parent: "configuring"
+    parent: "planning"
 toc: true
 ---
 

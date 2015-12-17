@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Repair & Recovery"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
-    weight: 100
-    parent: "configuring"
+    name: "Repair & Recovery"
+    identifier: "managing_repair_recover"
+    weight: 204
+    parent: "managing"
 toc: true
 ---
 

@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Multi-Datacenter"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
-    weight: 100
-    parent: "configuring"
+    name: "Multi-Datacenter"
+    identifier: "cluster_operations_multi_datacenter"
+    weight: 113
+    parent: "managing_cluster_operations"
 toc: true
 ---
 

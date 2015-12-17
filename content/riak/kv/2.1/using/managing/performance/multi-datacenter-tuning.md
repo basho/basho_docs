@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Multi-Datacenter System Tuning"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
-    weight: 100
-    parent: "configuring"
+    name: "Multi-Datacenter Tuning"
+    identifier: "performance_multi_datacenter_tuning"
+    weight: 103
+    parent: "managing_performance"
 toc: true
 ---
 

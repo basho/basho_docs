@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Cluster Capacity Planning"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
-    weight: 100
-    parent: "configuring"
+    name: "Cluster Capacity"
+    identifier: "planning_cluster_capacity"
+    weight: 101
+    parent: "planning"
 toc: true
 ---
 

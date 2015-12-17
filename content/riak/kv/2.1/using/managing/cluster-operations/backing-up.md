@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Backing Up"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
-    weight: 100
-    parent: "configuring"
+    name: "Backing Up"
+    identifier: "cluster_operations_backing_up"
+    weight: 106
+    parent: "managing_cluster_operations"
 toc: true
 ---
 

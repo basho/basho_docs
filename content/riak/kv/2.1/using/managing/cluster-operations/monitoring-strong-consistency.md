@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Monitoring Strong Consistency"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
-    weight: 100
-    parent: "configuring"
+    name: "Monitoring Strong Consistency"
+    identifier: "cluster_operations_strong_consistency"
+    weight: 110
+    parent: "managing_cluster_operations"
 toc: true
 ---
 

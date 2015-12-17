@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Getting Started Overview"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
+    name: "Getting Started"
+    identifier: "developing_getting_started"
     weight: 100
-    parent: "configuring"
+    parent: "developing"
 toc: true
 ---
 

@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Riak KV Glossary"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
-    weight: 100
-    parent: "configuring"
+    name: "Riak KV Glossary"
+    identifier: "learn_glossary"
+    weight: 103
+    parent: "learn"
 toc: true
 ---
 

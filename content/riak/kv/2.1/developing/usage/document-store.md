@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Implementing a Document Store"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
-    weight: 100
-    parent: "configuring"
+    name: "Implementing a Document Store"
+    identifier: "usage_document_store"
+    weight: 112
+    parent: "developing_usage"
 toc: true
 ---
 

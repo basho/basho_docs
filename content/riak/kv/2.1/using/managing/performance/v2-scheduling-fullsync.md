@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "V2 Scheduling Fullsync"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
-    weight: 100
-    parent: "configuring"
+    name: "V2 Scheduling Fullsync"
+    identifier: "performance_v2_scheduling_fullsync"
+    weight: 102
+    parent: "managing_performance"
 toc: true
 ---
 

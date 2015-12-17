@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Managing Riak KV Reference"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
+    name: "Reference"
+    identifier: "managing_ref"
     weight: 100
-    parent: "configuring"
+    parent: "managing"
 toc: true
 ---
 

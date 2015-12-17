@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Querying"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
-    weight: 100
-    parent: "configuring"
+    name: "Querying"
+    identifier: "getting_started_query"
+    weight: 101
+    parent: "developing_getting_started"
 toc: true
 ---
 

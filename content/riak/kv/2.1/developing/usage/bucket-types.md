@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Using Bucket Types"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
-    weight: 100
-    parent: "configuring"
+    name: "Using Bucket Types"
+    identifier: "usage_bucket_types"
+    weight: 107
+    parent: "developing_usage"
 toc: true
 ---
 

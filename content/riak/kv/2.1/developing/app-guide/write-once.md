@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Write Once"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
-    weight: 100
-    parent: "configuring"
+    name: "Write Once"
+    identifier: "app_guide_write_once"
+    weight: 102
+    parent: "developing_app_guide"
 toc: true
 ---
 

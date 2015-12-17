@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Verifying a Riak KV Installation"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
-    weight: 100
-    parent: "configuring"
+    name: "Verifying an Installation"
+    identifier: "installing_verify"
+    weight: 302
+    parent: "installing"
 toc: true
 ---
 

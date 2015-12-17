@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "V2 / V3 SSL & CA Validation"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
-    weight: 100
-    parent: "configuring"
+    name: "V2/V3 SSL & CA Validation"
+    identifier: "security_validation"
+    weight: 103
+    parent: "managing_security"
 toc: true
 ---
 

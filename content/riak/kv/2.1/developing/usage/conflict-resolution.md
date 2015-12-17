@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Conflict Resolution"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
-    weight: 100
-    parent: "configuring"
+    name: "Conflict Resolution"
+    identifier: "usage_conflict_resolution"
+    weight: 116
+    parent: "developing_usage"
 toc: true
 ---
 

@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Running a Cluster"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
-    weight: 100
-    parent: "configuring"
+    name: "Running a Cluster"
+    identifier: "managing_running_a_cluster"
+    weight: 200
+    parent: "managing"
 toc: true
 ---
 

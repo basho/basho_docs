@@ -1,13 +1,13 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Load Balancing and Proxy Configuration"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
-    weight: 100
+    name: "Load Balancing & Proxy"
+    identifier: "configuring_load_balance"
+    weight: 106
     parent: "configuring"
 toc: true
 ---

@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "Using MapReduce"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
-    weight: 100
-    parent: "configuring"
+    name: "Using MapReduce"
+    identifier: "usage_mapreduce"
+    weight: 105
+    parent: "developing_usage"
 toc: true
 ---
 

@@ -1,14 +1,14 @@
 ---
-title: "Basic Riak KV Configuration"
+title: "REPL Hooks API"
 description: ""
 project: "riak_kv"
 project_version: "2.1"
 menu:
   riak_kv-2.1:
-    name: "Basic Configuration"
-    identifier: "configuring_basic"
+    name: "REPL Hooks API"
+    identifier: "apis_repl_hooks"
     weight: 100
-    parent: "configuring"
+    parent: "developing_apis"
 toc: true
 ---
 
