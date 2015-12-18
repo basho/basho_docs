@@ -269,7 +269,7 @@ A:
   
   If you can, small machines with 2 to 8 GB of RAM and a modern processor will work well. If you don't have extra machines, you can set up multiple Riak nodes running on a single machine (including your laptop). Just make sure you change the ports for each node.  
   
-  For more information, see our [[Five Minute Install]]. Also check out our blog post on [setting up a local cluster](http://basho.com/blog/technical/2011/02/04/creating-a-local-riak-cluster-with-vagrant-and-chef/) with Vagrant and Chef.
+  For more information, see our [[Five Minute Install]]. Also check out our blog post on [setting up a local cluster](http://basho.com/posts/technical/creating-a-local-riak-cluster-with-vagrant-and-chef/) with Vagrant and Chef.
 
 Q: If the size of the key index exceeds the amount of memory, how does Bitcask handle it?
 A:

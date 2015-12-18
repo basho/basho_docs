@@ -6,7 +6,7 @@ document: tutorial
 audience: beginner
 keywords: [cap, replication]
 interest: [
-"[[Installing and Upgrading]]",
+"[[Installing Riak]]",
 "[[Planning for a Riak System]]",
 "[[Cluster Capacity Planning]]",
 "[[Use Cases]]"

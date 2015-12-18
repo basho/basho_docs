@@ -30,16 +30,22 @@ Install [the Riak Node.js Client][node_js_installation] through [NPM][npm].
 
 ### Connecting to Riak
 
-Connecting to Riak with the Riak Node.js Client requires creating a new client object.
+Connecting to Riak with the Riak Node.js Client requires creating a new client
+object and using the callback argument to know when the client is fully
+initialized:
 
 ```javascript
 var Riak = require('basho-riak-client');
-var client = new Riak.Client([
+var nodes = [
     'riak-test:10017',
     'riak-test:10027',
     'riak-test:10037',
     'riak-test:10047'
-]);
+];
+var client = new Riak.Client(nodes, function (err, c) {
+    // NB: at this point the client is fully intialized, and
+    // 'client' and 'c' are the same object
+});
 ```
 
 This creates a new `Riak.Client` object which handles all the details of
@@ -49,13 +55,10 @@ Riak communications, the following method can be used to gracefully shut the
 client down and exit Node.js:
 
 ```javascript
-function client_shutdown() {
-    client.shutdown(function (state) {
-        if (state === Riak.Cluster.State.SHUTDOWN) {
-            process.exit();
-        }
-    });
-}
+client.stop(function (err, rslt) {
+    // NB: you may wish to check err
+    process.exit();
+});
 ```
 
 Let's make sure the cluster is online with a `Ping` request:

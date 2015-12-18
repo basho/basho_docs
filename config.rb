@@ -113,6 +113,9 @@ configure :build do
         Downloads.pull_data('riak-cs', $versions[:riakcs])
         Downloads.pull_data('stanchion', $versions[:stanchion])
         Downloads.pull_data('riak-cs-control', $versions[:riakcscontrol])
+        Downloads.pull_data('data-platform', $versions[:dataplatform])
+        Downloads.pull_data('data-platform-extras', $versions[:dataplatform])
+        Downloads.pull_data('riak_ts', $versions[:riakts])
       rescue => e
         $stderr.puts "  Details download failed"
         # we don't want to stop here unless it's a real deploy
@@ -120,7 +123,7 @@ configure :build do
       end
     end
 
-    if ENV.include?('DEPLOY')
+    if ENV['DEPLOY'] == "true"
       activate :s3_deploy do |s3|
         s3.access_key_id = ENV['AWS_ACCESS_KEY_ID']
         s3.secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
