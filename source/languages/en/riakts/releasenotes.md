@@ -15,7 +15,7 @@ This release is the introductory release of Riak TS.
 
 ##Features
 
-###Customize Tables
+###Create Tables
 
 Riak TS enables you to define and configure tables of time series data as a riak bucket type, and write data to these tables. The schema of Riak TS's tables are generated as bucket properties and installed as bucket types, which allows you to structure data as it is coming in and store both structured and semi-structured data.
 
@@ -29,7 +29,7 @@ You can query your data in Riak TS using a subset of SQL.
 
 ###Single Key DELETEs and GETs
 
-Riak TS enables single-key DELETs and GETs, which allow you to read and modify data without writing SQL.
+Riak TS enables single-key DELETEs and GETs, which allow you to read and modify data without writing SQL.
 
 ###List Key
 
@@ -37,7 +37,7 @@ The list key feature allows you to issue an API call to list all of the keys in 
 
 ###Java, Python, and Erlang Clients
 
-Riak TS offers protobuf requests through three different client APIs: Erlang, Java, and Python.
+Riak TS offers three client libraries : Erlang, Java and Python.
 
 
 ##Compatibility
@@ -50,7 +50,7 @@ Riak TS is compatible with the following operating systems:
 * Ubuntu 14.04 LTS
 * Debian 6 (development only)
 * Debian 7 (development only)
-* OSX 10.8 (development only)
+* OSX 10.8+ (development only)
 
 
 ##Known Issues
