@@ -73,8 +73,7 @@ namespace :build do
 
   #TODO<drew.pirrone.brusse@gmail>: This just runs hugo, sits for a second, and
   # then kills the process. This is not a permanent solution.
-  task :hugo do sh "hugo server --watch=false & PID=$!; "\
-                   "sleep 1; kill $PID"; end
+  task :hugo do sh "hugo"; end
 end
 
 
