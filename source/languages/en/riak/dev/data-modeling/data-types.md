@@ -123,7 +123,7 @@ var entityManager = new EntityManager(client);
 var Riak = require('basho-riak-client');
 
 var c = new Riak.Client([ 'localhost:8087' ], function (err, client) {
-    // NB: at this point the client is fully intialized, and
+    // NB: at this point the client is fully initialized, and
     // 'client' and 'c' are the same object
 });
 ```

@@ -43,7 +43,7 @@ var nodes = [
     'riak-test:10047'
 ];
 var client = new Riak.Client(nodes, function (err, c) {
-    // NB: at this point the client is fully intialized, and
+    // NB: at this point the client is fully initialized, and
     // 'client' and 'c' are the same object
 });
 ```

@@ -594,7 +594,7 @@ var client = cluster.CreateClient();
 There are a variety of ways to set up cluster interaction with the Node.js
 client. The following is the simplest way, which is to pass an array of
 `host:port` information to the `Riak.Client` constructor and use the callback
-argument to continue processing when the client is fully intialized.
+argument to continue processing when the client is fully initialized.
 
 ```javascript
 var Riak = require('basho-riak-client');
@@ -607,7 +607,7 @@ var riakNodes = [
 ];
 
 var client  new Riak.Client(riakNodes, function (err, c) {
-    // NB: at this point the client is fully intialized, and
+    // NB: at this point the client is fully initialized, and
     // 'client' and 'c' are the same object
 });
 ```
