@@ -31,7 +31,7 @@ you encounter errors.
 Once you've downloaded the package from ZenDesk, you can install the package using `yum`:
 
 ```bash
-sudo yum install riak-ts
+sudo yum install riak-ts-1.0.0-1.el6.centos.x86_64.rpm
 ```
 
 Or manually:
@@ -46,7 +46,7 @@ sudo rpm -Uvh riak-ts-{{VERSION}}-1.el6.x86_64.rpm
 Once you've downloaded the package from ZenDesk, you can install the package using `yum`:
 
 ```bash
-sudo yum install riak-ts
+sudo yum install riak-ts-1.0.0-1.el7.centos.x86_64.rpm
 ```
 
 Or manually:
