@@ -593,7 +593,8 @@ var client = cluster.CreateClient();
 
 There are a variety of ways to set up cluster interaction with the Node.js
 client. The following is the simplest way, which is to pass an array of
-`host:port` information to the `Riak.Client` constructor.
+`host:port` information to the `Riak.Client` constructor and use the callback
+argument to continue processing when the client is fully initialized.
 
 ```javascript
 var Riak = require('basho-riak-client');
@@ -605,19 +606,17 @@ var riakNodes = [
     'riak-test:10047'
 ];
 
-// Note: no need to call start() since the new Riak.Client object
-// will start the cluster connection
-var client  new Riak.Client(riakNodes);
+var client  new Riak.Client(riakNodes, function (err, c) {
+    // NB: at this point the client is fully initialized, and
+    // 'client' and 'c' are the same object
+});
 ```
 
-There is also a method to shut the cluster down:
+There is also a method to stop the client:
 
 ```javascript
-client.shutdown(function (state) {
-    if (state === Riak.Cluster.State.SHUTDOWN) {
-        // Do whatever steps are necessary now that client is shut down
-        // like process.exit()
-    }
+client.stop(function (err, rslt) {
+    // NB: at this point the client is fully stopped
 });
 ```
 

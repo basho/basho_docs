@@ -122,7 +122,10 @@ var entityManager = new EntityManager(client);
 ```javascript
 var Riak = require('basho-riak-client');
 
-var client = new Riak.Client([ 'localhost:8087' ]);
+var c = new Riak.Client([ 'localhost:8087' ], function (err, client) {
+    // NB: at this point the client is fully initialized, and
+    // 'client' and 'c' are the same object
+});
 ```
 
 <div class="note">
