@@ -8,9 +8,9 @@ index: true
 audience: beginner
 ---
 
-[bdp install]: http://docs.basho.com/dataplatform/1.0.0/installing/
-[bdp configure]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/setup-a-cluster/
-[bdp configure add services]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/setup-a-cluster/#add-services
+[bdp install]: http://docs.basho.com/dataplatform/1.1.0/installing/
+[bdp configure]: http://docs.basho.com/dataplatform/1.1.0/using-dataplatform/configuration/setup-a-cluster/
+[bdp configure add services]: http://docs.basho.com/dataplatform/1.1.0/using-dataplatform/configuration/setup-a-cluster/#add-services
 [ee]: http://info.basho.com/Wiki_Riak_Enterprise_Request.html
 
 

@@ -6,7 +6,7 @@ document: guide
 audience: beginner
 ---
 
-[bdp cli]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/dataplatform-commands/
+[bdp cli]: http://docs.basho.com/dataplatform/1.1.0/using-dataplatform/dataplatform-commands/
 
 ##Overview
 

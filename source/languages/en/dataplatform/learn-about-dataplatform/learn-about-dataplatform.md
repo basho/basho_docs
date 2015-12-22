@@ -12,10 +12,10 @@ versions: true
 ---
 
 [using bdp index]: LINK
-[cache proxy features]: http://docs.basho.com/dataplatform/1.0.0/learn-about-dataplatform/cache-proxy-features/
-[service manager features]: http://docs.basho.com/dataplatform/1.0.0/learn-about-dataplatform/service-manager-features/
-[leader election features]: http://docs.basho.com/dataplatform/1.0.0/learn-about-dataplatform/leader-election-service/
-[spark manager features]: http://docs.basho.com/dataplatform/1.0.0/learn-about-dataplatform/spark-cluster-manager-features/
+[cache proxy features]: http://docs.basho.com/dataplatform/1.1.0/learn-about-dataplatform/cache-proxy-features/
+[service manager features]: http://docs.basho.com/dataplatform/1.1.0/learn-about-dataplatform/service-manager-features/
+[leader election features]: http://docs.basho.com/dataplatform/1.1.0/learn-about-dataplatform/leader-election-service/
+[spark manager features]: http://docs.basho.com/dataplatform/1.1.0/learn-about-dataplatform/spark-cluster-manager-features/
 
 ##In This Section
 

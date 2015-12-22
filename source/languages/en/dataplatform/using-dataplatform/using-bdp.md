@@ -9,10 +9,10 @@ audience: beginner
 ---
 
 
-[bdp configure]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/setup-a-cluster/
-[bdp configure add services]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/setup-a-cluster/#add-services
-[bdp install]: http://docs.basho.com/dataplatform/1.0.0/installing/
-[bdp reference]: http://docs.basho.com/dataplatform/1.0.0/learn-about-dataplatform/service-manager-features/
+[bdp configure]: http://docs.basho.com/dataplatform/1.1.0/using-dataplatform/configuration/setup-a-cluster/
+[bdp configure add services]: http://docs.basho.com/dataplatform/1.1.0/using-dataplatform/configuration/setup-a-cluster/#add-services
+[bdp install]: http://docs.basho.com/dataplatform/1.1.0/installing/
+[bdp reference]: http://docs.basho.com/dataplatform/1.1.0/learn-about-dataplatform/service-manager-features/
 
 
 You've [installed][bdp install] Basho Data Platform (BDP), [configured][bdp configure] your cluster, and [added services][bdp configure add services] to your nodes. The setup of your BDP cluster is complete! Now you can begin using your BDP cluster. 

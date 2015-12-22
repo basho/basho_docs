@@ -8,15 +8,15 @@ index: true
 audience: beginner
 ---
 
-[bdp install]: http://docs.basho.com/dataplatform/1.0.0/installing/
+[bdp install]: http://docs.basho.com/dataplatform/1.1.0/installing/
 [riak cluster setup]: http://docs.basho.com/riak/2.1.1/ops/building/basic-cluster-setup/
 [riak configure]: http://docs.basho.com/riak/2.1.1/ops/building/basic-cluster-setup/
 [riak_ensemble]: https://github.com/basho/riak_ensemble
 [riak kv]: http://docs.basho.com/riak/2.1.1
 [riak strong consistency]: http://docs.basho.com/riak/2.1.1/ops/advanced/strong-consistency/#Enabling-Strong-Consistency
 [aws marketplace]: http://docs.basho.com/riak/2.1.1/installing/amazon-web-services/
-[set spark ip]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/advanced/set-spark-ip-address/
-[default ports]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/reference/default-ports/
+[set spark ip]: http://docs.basho.com/dataplatform/1.1.0/using-dataplatform/configuration/advanced/set-spark-ip-address/
+[default ports]: http://docs.basho.com/dataplatform/1.1.0/using-dataplatform/configuration/reference/default-ports/
 
 Now that you've [installed Basho Data Platform][bdp install], you're ready to set up a Basho Data Platform (BDP) cluster. This page will guide you through this process.
 

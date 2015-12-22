@@ -8,9 +8,9 @@ index: true
 audience: beginner
 ---
 
-[bdp compatibility]: http://docs.basho.com/dataplatform/1.0.0/#supported-operating-systems
-[bdp configure]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/setup-a-cluster/
-[bdp download]: http://docs.basho.com/dataplatform/1.0.0/downloads/
+[bdp compatibility]: http://docs.basho.com/dataplatform/1.1.0/#supported-operating-systems
+[bdp configure]: http://docs.basho.com/dataplatform/1.1.0/using-dataplatform/configuration/setup-a-cluster/
+[bdp download]: http://docs.basho.com/dataplatform/1.1.0/downloads/
 
 
 Basho Data Platform (BDP) enables you to extend Riak with Spark and Redis. This page will guide you through the process of installing BDP on most supported operating systems.

@@ -9,9 +9,9 @@ audience: beginner
 ---
 
 
-[bdp install]: http://docs.basho.com/dataplatform/1.0.0/installing/
-[bdp configure]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/setup-a-cluster/
-[bdp configure spark master]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/setup-a-cluster/#set-up-spark-cluster-metadata
+[bdp install]: http://docs.basho.com/dataplatform/1.1.0/installing/
+[bdp configure]: http://docs.basho.com/dataplatform/1.1.0/using-dataplatform/configuration/setup-a-cluster/
+[bdp configure spark master]: http://docs.basho.com/dataplatform/1.1.0/using-dataplatform/configuration/setup-a-cluster/#set-up-spark-cluster-metadata
 [ee]: http://info.basho.com/Wiki_Riak_Enterprise_Request.html
 [riak data types]: http://docs.basho.com/riak/2.1.1/dev/using/data-types/
 
