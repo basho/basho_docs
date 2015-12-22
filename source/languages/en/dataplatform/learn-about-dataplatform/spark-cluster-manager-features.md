@@ -1,7 +1,7 @@
 ---
 title: Spark Cluster Manager Features
 project: dataplatform
-version: 1.0.0+
+version: 1.1.0+
 document: guide
 audience: beginner
 ---

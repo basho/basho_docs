@@ -1,7 +1,7 @@
 ---
 title: Data Platform
 project: dataplatform
-version: 1.0.0+
+version: 1.1.0+
 document: tutorial
 toc: true
 index: true

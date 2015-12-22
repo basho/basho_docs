@@ -1,7 +1,7 @@
 ---
 title: Learn About Basho Data Platform Overview
 project: dataplatform
-version: 1.0.0+
+version: 1.1.0+
 document: tutorial
 index: true
 audience: beginner

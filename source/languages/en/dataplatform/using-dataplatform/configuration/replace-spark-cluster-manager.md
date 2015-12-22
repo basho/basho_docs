@@ -1,7 +1,7 @@
 ---
 title: Replace Your Spark Cluster Manager with the Basho Data Platform Cluster Manager
 project: dataplatform
-version: 1.0.0+
+version: 1.1.0+
 document: guide
 toc: true
 index: true

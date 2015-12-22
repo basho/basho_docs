@@ -1,7 +1,7 @@
 ---
 title: Using Spark Riak Connector
 project: dataplatform
-version: 1.0.0+
+version: 1.1.0+
 document: guide
 toc: true
 audience: beginner

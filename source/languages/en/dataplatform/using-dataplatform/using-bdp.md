@@ -1,7 +1,7 @@
 ---
 title: Using your Basho Data Platform Cluster
 project: dataplatform
-version: 1.0.0+
+version: 1.1.0+
 document: guide
 toc: true
 index: true

@@ -1,7 +1,7 @@
 ---
 title: Default Ports for Basho Data Platform
 project: dataplatform
-version: 1.0.0+
+version: 1.1.0+
 document: reference
 toc: true
 index: true
