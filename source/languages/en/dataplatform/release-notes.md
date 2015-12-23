@@ -69,4 +69,4 @@ You can find the install packages for BDP [here][bdp downloads] and the instruct
 
 ##Known Issues
 
-* (Enterprise Only) Bundled Riak TS 1.0.0 needs to be patched to resolve the memory leak issue. [Learn more](TODO add link to Riak TS patch here).
+* (Enterprise Only) Bundled Riak TS 1.0.0 needs to be patched to resolve a memory leak while servicing get requests. [Learn more](TODO add link to Riak TS patch here).
