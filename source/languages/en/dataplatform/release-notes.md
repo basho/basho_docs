@@ -15,7 +15,7 @@ keywords: [developers]
 
 Released December 23, 2015.
 
-This release adds number of new features, most important are the integration with newly released Riak TS (Time Series) 1.0, multiple new features and improvements in Spark integration and addition of write-through cache functionality in Redis integration.
+This release adds integration with [Riak TS (Time Series) 1.0][riak ts], improvements to Spark integration, and write-through cache functionality with Redis.
 
 ##Changes
 

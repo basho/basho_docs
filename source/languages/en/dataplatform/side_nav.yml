@@ -22,6 +22,7 @@ dataplatform:
       - "[[Using your Basho Data Platform Cluster]]"
       - "[[Using Spark Riak Connector]]"
       - "[[Data Platform Commands]]"
+      - "[[Working with Redis]]"
       - title: "Advanced"
         sub:
           - "[[Set Spark IP Address]]"
