@@ -21,7 +21,7 @@ This release adds number of new features, most important are the integration wit
 
 ###Core
 
-* Incorporate [Riak TS][riak ts] features.
+* (Enterprise Only) Incorporates [Riak TS 1.0][riak ts] storage instance. Note: OSS version still bunldes custom version of Riak KV.
 
 ###Service Manager
 
@@ -38,8 +38,9 @@ This release adds number of new features, most important are the integration wit
 * Open sourcing of Spark-Riak Connector.
 * Improve full bucket reads performance.
 * Basic support for Spark DataFrames.
-* Support for Riak TS Range Scan queries.
-* Add performance benchmarks.
+* Added performance benchmarks.
+* Support for Riak TS Range Scan queries (currenlty applies to Riak TS Enterprise only)
+* Tested with Spark 1.5.2
 
 ##Compatibility
 
@@ -67,3 +68,5 @@ You can find the install packages for BDP [here][bdp downloads] and the instruct
 * [DP-274](https://bashoeng.atlassian.net/browse/DP-274) Spark-Riak Connector integration test fails sometimes.
 
 ##Known Issues
+
+* (Enterprise Only) Bundled Riak TS 1.0.0 needs to be patched to resolve the memory leak issue. [Learn more](TODO add link to Riak TS patch here).
