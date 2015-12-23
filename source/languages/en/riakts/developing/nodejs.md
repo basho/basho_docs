@@ -9,30 +9,30 @@ audience: advanced
 ---
 
 
-You can develop with Riak TS (*T*ime *S*eries) through the Node.js client. This
+You can develop with Riak TS through the Node.js client. This
 document covers the Node.js protobuf requests to Riak TS.
 
-## Overview
+##Overview
 
-To use Time Series with the Node.js client, we've added several new commands in
+To use Riak TS with Node.js, we've added several new commands in
 the `Riak.Commands.TS` namespace.
 
-## TS Commands
+##TS Commands
 
-*Note* - These commands are automatically retried if they fail due to network
+>**Note:** These commands are automatically retried if they fail due to network
 error.
 
-### Commands
+###Commands
 
  * `Get`    - Fetch a single row based on the primary key values provided.
- * `Store`  - Store 1 or more rows to a Time Series table.
+ * `Store`  - Store 1 or more rows to a Riak TS table.
  * `Delete` - Delete a single row based on the primary key values provided.
- * `Query`  - Allows you to query a Time Series table, with the given query string.
- * `ListKeys` - Lists the primary keys of all the rows in a Time Series table.
+ * `Query`  - Allows you to query a Riak TS table, with the given query string.
+ * `ListKeys` - Lists the primary keys of all the rows in a Riak TS table.
 
-### Command Details
+###Command Details
 
-#### `Get`
+####`Get`
 
 ```javascript
 var Riak = require('basho-riak-client');
@@ -63,7 +63,7 @@ Retrieve time series value by key.
 
 *Return Type*: response object with `columns` and `rows` properties.
  
-#### `Store`
+####`Store`
 
 ```javascript
 var Riak = require('basho-riak-client');
@@ -111,7 +111,7 @@ Stores time series data in the Riak cluster.
 
 *Return Type*: boolean
 
-#### `Delete`
+####`Delete`
 
 ```javascript
 var Riak = require('basho-riak-client');
@@ -133,7 +133,7 @@ var cmd = new Riak.Commands.TS.Delete.Builder()
 client.execute(cmd);
 ```
 
-Delete timeseries value by key.
+Delete time series value by key.
 
 |Builder Method | Type    | Description                 |
 |---------------|---------|-----------------------------|
@@ -142,7 +142,7 @@ Delete timeseries value by key.
 
 *Return Type*: boolean
 
-#### `Query`
+####`Query`
 
 ```javascript
 var Riak = require('basho-riak-client');
@@ -174,7 +174,7 @@ Queries time series data in the Riak cluster.
 
 *Return Type*: response object with `columns` and `rows` properties.
 
-#### `ListKeys`
+####`ListKeys`
 
 ```javascript
 var Riak = require('basho-riak-client');
