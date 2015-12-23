@@ -21,7 +21,7 @@ This release adds number of new features, most important are the integration wit
 
 ###Core
 
-* (Enterprise Only) Incorporates [Riak TS 1.0][riak ts] storage instance. Note: OSS version still bunldes custom version of Riak KV.
+* (Enterprise Only) Incorporates official [Riak TS 1.0][riak ts] storage instance. Note: OSS version still bundles custom version of Riak KV.
 
 ###Service Manager
 
@@ -61,6 +61,10 @@ BDP also supports the following operating systems for development:
 
 You can find the install packages for BDP [here][bdp downloads] and the instructions to walk you through the installation process [here][bdp install].
 
+##Upgrading
+
+Becouse of multiple changes, the upgrade path is not supported. Please do clean install of BDP 1.1.0.
+
 ##Bugs Fixed
 
 * [DP-247](https://bashoeng.atlassian.net/browse/DP-247) Service manager starts spurious Spark masters.
@@ -69,4 +73,4 @@ You can find the install packages for BDP [here][bdp downloads] and the instruct
 
 ##Known Issues
 
-* (Enterprise Only) Bundled Riak TS 1.0.0 needs to be patched to resolve a memory leak while servicing get requests. [Learn more](TODO add link to Riak TS patch here).
+* (Enterprise Only) Bundled Riak TS 1.0.0 needs to be patched to resolve a memory leak while servicing GET requests. [Learn more](TODO add link to Riak TS patch here).
