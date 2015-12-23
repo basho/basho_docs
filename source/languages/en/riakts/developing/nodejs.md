@@ -9,26 +9,26 @@ audience: advanced
 ---
 
 
-You can develop with Riak TS (*T*ime *S*eries) through the Node.js client. This
+You can develop with Riak TS through the Node.js client. This
 document covers the Node.js protobuf requests to Riak TS.
 
 ## Overview
 
-To use Time Series with the Node.js client, we've added several new commands in
+To use Riak TS with Node.js, we've added several new commands in
 the `Riak.Commands.TS` namespace.
 
 ## TS Commands
 
-*Note* - These commands are automatically retried if they fail due to network
+>**Note:** These commands are automatically retried if they fail due to network
 error.
 
 ### Commands
 
  * `Get`    - Fetch a single row based on the primary key values provided.
- * `Store`  - Store 1 or more rows to a Time Series table.
+ * `Store`  - Store 1 or more rows to a Riak TS table.
  * `Delete` - Delete a single row based on the primary key values provided.
- * `Query`  - Allows you to query a Time Series table, with the given query string.
- * `ListKeys` - Lists the primary keys of all the rows in a Time Series table.
+ * `Query`  - Allows you to query a Riak TS table, with the given query string.
+ * `ListKeys` - Lists the primary keys of all the rows in a Riak TS table.
 
 ### Command Details
 
@@ -133,7 +133,7 @@ var cmd = new Riak.Commands.TS.Delete.Builder()
 client.execute(cmd);
 ```
 
-Delete timeseries value by key.
+Delete time series value by key.
 
 |Builder Method | Type    | Description                 |
 |---------------|---------|-----------------------------|

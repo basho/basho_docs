@@ -11,7 +11,7 @@ audience: beginner
 [erlang]: http://docs.basho.com/riakts/1.0.0/developing/erlang
 [java]: http://docs.basho.com/riakts/1.0.0/developing/java
 [python]: http://docs.basho.com/riakts/1.0.0/developing/python
-[node.js]: http://docs.basho.com/riakts/1.0.0/developing/nodejs
+[nodejs]: http://docs.basho.com/riakts/1.0.0/developing/nodejs
 
 
 Riak TS provides protobuf request APIs for the following clients:
