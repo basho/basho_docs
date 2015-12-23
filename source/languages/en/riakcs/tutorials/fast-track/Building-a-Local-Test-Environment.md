@@ -211,14 +211,14 @@ Change the following lines in `/etc/riak/riak.conf`
 
 ```riakconf
 listener.http.internal = 127.0.0.1:8098
-listener.protobuf.internal = 127.0.0.1:8097
+listener.protobuf.internal = 127.0.0.1:8087
 ```
 
 to
 
 ```riakconf
 listener.http.internal = 10.0.2.10:8098
-listener.protobuf.internal = 10.0.2.10:8097
+listener.protobuf.internal = 10.0.2.10:8087
 ```
 
 #### `/etc/riak-cs/riak-cs.conf`
