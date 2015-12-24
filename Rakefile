@@ -62,6 +62,8 @@ namespace :build do
   task :js => "#{$js_dest}" do compile_js(debug: false); end
   task :css => "#{$css_dest}" do compile_css(debug: false); end
 
+  task :hugo do sh "hugo -d ./static"; end
+
   ################
   # Build : Debug
   desc      "Compile Human-Readable JS, Compile Human-Readable CSS, Build Hugo"
@@ -70,10 +72,6 @@ namespace :build do
     task :js => "#{$js_dest}" do compile_js(debug: true); end
     task :css => "#{$css_dest}" do compile_css(debug: true); end
   end
-
-  #TODO<drew.pirrone.brusse@gmail>: This just runs hugo, sits for a second, and
-  # then kills the process. This is not a permanent solution.
-  task :hugo do sh "hugo"; end
 end
 
 
@@ -86,6 +84,10 @@ namespace :watch do
   task :js  do sh 'bundle exec guard -g js'; end
   task :css do sh 'bundle exec guard -g css'; end
 
+  #TODO<drew.pirrone.brusse@gmail>: Add in some way to specify ip/port.
+  desc "Run Hugo Server"
+  task :hugo do sh "hugo server"; end
+
   ################
   # Watch : Debug
   desc      "Run Guard on JS and CSS in Debug Mode"
@@ -94,10 +96,6 @@ namespace :watch do
     task :js  do sh 'bundle exec guard -g debug_js'; end
     task :css do sh 'bundle exec guard -g debug_css'; end
   end
-
-  #TODO<drew.pirrone.brusse@gmail>: Add in some way to specify ip/port.
-  desc "Run Hugo Server"
-  task :hugo do sh "hugo server"; end
 end
 
 
