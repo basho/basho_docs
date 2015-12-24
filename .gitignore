@@ -1,5 +1,4 @@
 # Build output
-public*
 **/.cache/**
 
 # OS X files
@@ -10,4 +9,14 @@ Thumbs.db
 *.swp
 *.swo
 
+# Ruby artifacts
 Gemfile.lock
+
+# Statically generated HTML
+static/index.html
+static/index.xml
+static/sitemap.xml
+static/404.html
+static/community/**
+static/dataplatform/**
+static/riak/**
