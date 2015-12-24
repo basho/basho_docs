@@ -9,7 +9,6 @@
 
 #TODO<drew.pirrone.brusse@gmail>: Make sure the above description is correct and
 # complete.
-#TODO<drew.pirrone.brusse@gmail>: Add in some usage clauses.
 
 $css_source = "./dynamic/css"
 $css_dest   = "./static/css"
@@ -170,9 +169,6 @@ def compile_css(debug: false)
   # Ruby API of Compass rather than building a shell call out of a Ruby string
   # and passing that to the OS layer. I don't know if it's the right choice, but
   # it's the choice I made. Hopefully no one gets bit by it.
-
-  #TODO<drew.pirrone.brusse@gmail>: Now that we have the above JS compilation
-  # steps working with Sprockets, should we go back and use Sprockets here too?
   require 'compass'
   require 'compass/sass_compiler'
   require 'sass-css-importer'
