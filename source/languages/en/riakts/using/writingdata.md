@@ -84,7 +84,7 @@ submission.write!
 
 >**Note on validation**:
 >
->Riak TS 1.0.0 does not have client-side insertion validation. Please take caution when creating data to insert by ensuring that each row’s cells match the order/types of the table, and that you do not create a null-value cell for a non-nullable column.
+>Riak TS 1.1.0 validates all rows on the server side before writing occurs, checking the number of row elements and types. If any of the rows fails validation then none of the rows will be written.  An error message will be returned with the index numbers of the invalid rows in the batch. The first item in the batch being index one.
 
 If all of the data are correctly written the response is: `ok` in Erlang, and will not raise an error in Ruby.
 
