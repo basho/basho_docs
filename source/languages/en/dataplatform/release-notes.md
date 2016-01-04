@@ -67,9 +67,9 @@ Becouse of multiple changes, the upgrade path is not supported. Please do clean 
 
 ##Bugs Fixed
 
-* [DP-247](https://bashoeng.atlassian.net/browse/DP-247) Service manager starts spurious Spark masters.
-* [DP-270](https://bashoeng.atlassian.net/browse/DP-270) Spark-Riak Connector - full bucket read doesn't return all results depending on spark.riak.input.fetch-size value.
-* [DP-274](https://bashoeng.atlassian.net/browse/DP-274) Spark-Riak Connector integration test fails sometimes.
+* Service manager starts spurious Spark masters.
+* Spark-Riak Connector - full bucket read doesn't return all results depending on `spark.riak.input.fetch-size` value ([PR](https://github.com/basho/spark-riak-connector/pull/31)).
+* Spark-Riak Connector integration test fails sometimes ([Commit](https://github.com/basho/spark-riak-connector/commit/2f5e92336eb3fe0ce2c0d382b546b69aef82eb5c)).
 
 ##Known Issues
 
