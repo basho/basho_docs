@@ -39,8 +39,8 @@ This release adds integration with [Riak TS (Time Series) 1.0][riak ts], improve
 * Improve full bucket reads performance.
 * Basic support for Spark DataFrames.
 * Added performance benchmarks.
-* Support for Riak TS Range Scan queries (currenlty applies to Riak TS Enterprise only)
-* Tested with Spark 1.5.2
+* Support for Riak TS Range Scan queries (currently applies to Riak TS Enterprise only).
+* Tested with Spark 1.5.2.
 
 ##Compatibility
 
@@ -63,7 +63,7 @@ You can find the install packages for BDP [here][bdp downloads] and the instruct
 
 ##Upgrading
 
-Becouse of multiple changes, the upgrade path is not supported. Please do clean install of BDP 1.1.0.
+Because of multiple changes, the upgrade path is not supported. Please do clean install of BDP 1.1.0.
 
 ##Bugs Fixed
 
@@ -73,4 +73,4 @@ Becouse of multiple changes, the upgrade path is not supported. Please do clean 
 
 ##Known Issues
 
-* (Enterprise Only) Bundled Riak TS 1.0.0 needs to be patched to resolve a memory leak while servicing GET requests. [Learn more](TODO add link to Riak TS patch here).
+* (Enterprise Only) Bundled Riak TS 1.0.0 needs to be patched to resolve a memory leak while servicing GET requests. [Learn more](https://help.basho.com/forums/23099466-Patches).
