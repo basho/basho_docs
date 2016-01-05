@@ -46,5 +46,5 @@ Check out [Set Up a Basho Data Platform Cluster][setup a cluster] for instructio
 
 After registering the new Redis server:
 
-* Start the new Redis Server instance [using BDP Service Manager][start services].
+* Start the new Redis Server instance [using BDP Service Manager][using bdp#start services].
 * Restart each Cache Proxy instance by [stopping][command stop-service] and then [starting][command start-service] it using Service Manager.
