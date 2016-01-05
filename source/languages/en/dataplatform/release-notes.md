@@ -13,7 +13,7 @@ keywords: [developers]
 [riak ts]: http://docs.basho.com/riakts/1.0.0/
 [spark-riak connector]: https://github.com/basho/spark-riak-connector
 
-Released January 4, 2016.
+Released January 6, 2016.
 
 This release adds integration with [Riak TS (Time Series) 1.0][riak ts], improvements to Spark integration, and write-through cache functionality with Redis.
 
