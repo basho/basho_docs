@@ -45,9 +45,9 @@ riakc_ts:put(Pid, "GeoCheckin", [[<<"family1">>, <<"series1">>, 1234567, <<"hot"
 ```java
 RiakClient client = RiakClient.newClient(10017, "myriakdb.host");
 List<Row> rows = Arrays.asList(
-    new Row(new Cell("family1"), new Cell("series1"), 
+    new Row(new Cell("family1"), new Cell("series1"),
             Cell.newTimestamp(1234567), new Cell("hot"), new Cell(23.5)),
-    
+
     new Row(new Cell("family2"), new Cell("series99"),
             Cell.newTimestamp(1234567), new Cell("windy"), new Cell(19.8)));
 
@@ -94,7 +94,7 @@ If some of the data failed to write, an `RpbErrorResp` error occurs with a numbe
 2. Write the data one at a time until one fails.
 
 You could also try the original write again. Failures may be transitory when servers are temporarily unable to talk to each other.
- 
+
 
 ###Guidelines
 
@@ -102,6 +102,56 @@ You could also try the original write again. Failures may be transitory when ser
 * Writes will assume that columns are in the same order they've been declared in the table.
 * Timestamps should be in Unix epoch/UTC milliseconds.
 
+
+##Deleting Data
+
+Below are examples of how to delete data by key in each of our time series supported clients.
+
+```erlang
+delete(Pid::pid(),
+       Table::[table_name()](#type-table_name),
+       Key::[[ts_value()](#type-ts_value)],
+       Options::[proplists:proplist()](proplists.html#type-proplist)) ->
+            ok | {error, Reason::term()}
+```
+
+```java
+final List<Cell> keyCells = Arrays.asList(new Cell("hash2"), new Cell("user4"), com.basho.riak.client.core
+        .query.timeseries.Cell
+        .newTimestamp(fifteenMinsAgo));
+
+Delete delete = new Delete.Builder(tableName, keyCells).build();
+
+client.execute(delete);
+```
+
+```ruby
+delete_operation = Riak::TimeSeries::Deletion.new client, 'GeoCheckins'
+delete_operation.key = ['myfamily', 'myseries', Time.now]
+delete_operation.delete!
+```
+
+```python
+client.ts_delete('GeoCheckin', ['hash1', 'user2'])
+```
+
+```javascript
+var key = [ 'family', 'series', 'KEY' ];
+
+var cb = function (err, rslt) {
+    // NB: rslt will be an object with two properties:
+    // 'columns' - table columns
+    // 'rows' - row matching the Get request
+};
+
+var cmd = new Riak.Commands.TS.Delete.Builder()
+    .withTable('TimeSeriesData')
+    .withKey(key)
+    .withCallback(cb)
+    .build();
+
+client.execute(cmd);
+```
 
 ##Next Steps
 

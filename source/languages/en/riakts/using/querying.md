@@ -70,7 +70,7 @@ Your query must include all components of the primary key (`myfamily`, `myseries
 
 ###Wildcard Example
 
-Query a table by issuing a SQL statement against the table. Your query MUST include a 'where' clause with all components. 
+Query a table by issuing a SQL statement against the table. Your query MUST include a 'where' clause with all components.
 
 In the following client-specific examples we'll select all fields from the GeoCheckin table where `time`, `myfamily`, and `myseries` match our supplied parameters:
 
@@ -215,7 +215,7 @@ When querying with user-supplied data, it is essential that you protect against 
 
 ##SQL Support
 
-A small subset of SQL is supported. All columns are of the format: 
+A small subset of SQL is supported. All columns are of the format:
 
 ```
 Field    Operator   Constant
@@ -242,7 +242,7 @@ The following operators are supported for each data type:
 
 ####Quanta query range
 
-A query covering more than a certain number of quanta (5 by default) will generate too many sub-queries and the query system will refuse to run it. Assuming a default quanta of 15 minutes, the maximum query time range is 75 minutes. 
+A query covering more than a certain number of quanta (5 by default) will generate too many sub-queries and the query system will refuse to run it. Assuming a default quanta of 15 minutes, the maximum query time range is 75 minutes.
 
 In the below example we set a quanta of 15s:
 
@@ -283,3 +283,110 @@ Similarly, Riak TS would treat `915148800` as the start of a new time quantum, a
 
 The data is not lost, but a query against 1998 time quanta will not produce those data points despite the fact that some of the events flagged as `915148800` technically occurred in 1998.
 
+##Single Key Fetch
+
+You may find the need to fetch a single key from Riak TS, below you will find an example of how to do that in each of our official clients that support time series.
+
+```erlang
+get(Pid::pid(),
+    Table::[table_name()](#type-table_name),
+    Key::[[ts_value()](#type-ts_value)],
+    Options::[proplists:proplist()](proplists.html#type-proplist)) ->
+        {Columns::[binary()], Record::[[ts_value()](#type-ts_value)]}
+```
+
+```java
+final List<Cell> keyCells = Arrays.asList(new Cell("hash2"), new Cell("user4"), com.basho.riak.client.core
+        .query.timeseries.Cell
+        .newTimestamp(fifteenMinsAgo));
+
+Fetch fetch = new Fetch.Builder(tableName, keyCells).build();
+
+QueryResult queryResult = client.execute(fetch);
+```
+
+```ruby
+read_operation = Riak::TimeSeries::Read.new client, 'GeoCheckins'
+read_operation.key = ['myfamily', 'myseries', Time.now]
+results = read_operation.read!
+```
+
+```python
+client.ts_get('GeoCheckin', ['hash1', 'user2'])
+```
+
+```javascript
+var Riak = require('basho-riak-client');
+
+var key = [ 'family', 'series', 'KEY' ];
+
+var cb = function (err, rslt) {
+    // NB: rslt will be an object with two properties:
+    // 'columns' - table columns
+    // 'rows' - row matching the Get request
+};
+
+var cmd = new Riak.Commands.TS.Get.Builder()
+    .withTable('TimeSeriesData')
+    .withKey(key)
+    .withCallback(cb)
+    .build();
+
+client.execute(cmd);
+```
+
+##List Keys
+
+Provided in the official client libraries is the ability to list all TS keys for a table space. Please keep in mind that this is an incredibly expensive operation that can cause performance loss on your Riak TS cluster, use with caution.
+
+```erlang
+stream_list_keys(pid(), table_name(), proplists:proplist()) ->
+    {ok, req_id()} | {error, term()}.
+```
+
+```ruby
+list_operation = Riak::TimeSeries::List.new client, 'GeoCheckins'
+list_operation.issue! do |key|
+  puts key
+end
+
+results = list_operation.issue!
+```
+
+```java
+// supply table name to list key builder
+ListKeys listKeys = new ListKeys.Builder("GeoCheckin").withTimeout(300).build();
+
+final RiakFuture<QueryResult, String> listKeysFuture = client.executeAsync(listKeys);
+
+// wait till command is finished if you want synchronous execution
+listKeysFuture.await();
+
+final QueryResult queryResult = listKeysFuture.get();
+```
+
+```python
+stream = client.ts_stream_keys(mytable)
+for key_list in stream:
+     do_something(key_list)
+stream.close()
+```
+
+```javascript
+var allKeys = [];
+var callback = function(err, resp) {
+    Array.prototype.push.apply(allKeys, resp.keys);
+    if (resp.done) {
+        // NB: at this point all keys have been received
+    }
+};
+
+var cmd = new Riak.Commands.TS.ListKeys.Builder()
+    .withTable('TimeSeriesData')
+    .withStreaming(true)
+    .withTimeout(1000)
+    .withCallback(callback)
+    .build();
+
+cluster.execute(cmd);
+```
