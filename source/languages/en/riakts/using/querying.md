@@ -288,11 +288,7 @@ The data is not lost, but a query against 1998 time quanta will not produce thos
 You may find the need to fetch a single key from Riak TS, below you will find an example of how to do that in each of our official clients that support time series.
 
 ```erlang
-get(Pid::pid(),
-    Table::[table_name()](#type-table_name),
-    Key::[[ts_value()](#type-ts_value)],
-    Options::[proplists:proplist()](proplists.html#type-proplist)) ->
-        {Columns::[binary()], Record::[[ts_value()](#type-ts_value)]}
+riakc_ts:get(Pid, <<"GeoCheckins">>, <<"mykey">>).
 ```
 
 ```java
@@ -305,14 +301,14 @@ Fetch fetch = new Fetch.Builder(tableName, keyCells).build();
 QueryResult queryResult = client.execute(fetch);
 ```
 
+```python
+client.ts_get('GeoCheckin', ['hash1', 'user2'])
+```
+
 ```ruby
 read_operation = Riak::TimeSeries::Read.new client, 'GeoCheckins'
 read_operation.key = ['myfamily', 'myseries', Time.now]
 results = read_operation.read!
-```
-
-```python
-client.ts_get('GeoCheckin', ['hash1', 'user2'])
 ```
 
 ```javascript
@@ -340,17 +336,7 @@ client.execute(cmd);
 Provided in the official client libraries is the ability to list all TS keys for a table space. Please keep in mind that this is an incredibly expensive operation that can cause performance loss on your Riak TS cluster, use with caution.
 
 ```erlang
-stream_list_keys(pid(), table_name(), proplists:proplist()) ->
-    {ok, req_id()} | {error, term()}.
-```
-
-```ruby
-list_operation = Riak::TimeSeries::List.new client, 'GeoCheckins'
-list_operation.issue! do |key|
-  puts key
-end
-
-results = list_operation.issue!
+riakc_ts:stream_list_keys(Pid, <<"GeoCheckins">>).
 ```
 
 ```java
@@ -370,6 +356,15 @@ stream = client.ts_stream_keys(mytable)
 for key_list in stream:
      do_something(key_list)
 stream.close()
+```
+
+```ruby
+list_operation = Riak::TimeSeries::List.new client, 'GeoCheckins'
+list_operation.issue! do |key|
+  puts key
+end
+
+results = list_operation.issue!
 ```
 
 ```javascript

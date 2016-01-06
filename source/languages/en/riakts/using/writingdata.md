@@ -108,11 +108,7 @@ You could also try the original write again. Failures may be transitory when ser
 Below are examples of how to delete data by key in each of our time series supported clients.
 
 ```erlang
-delete(Pid::pid(),
-       Table::[table_name()](#type-table_name),
-       Key::[[ts_value()](#type-ts_value)],
-       Options::[proplists:proplist()](proplists.html#type-proplist)) ->
-            ok | {error, Reason::term()}
+riakc_ts:delete(Pid, <<"GeoCheckins">>, <<"mykey">>).
 ```
 
 ```java
