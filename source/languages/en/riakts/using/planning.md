@@ -68,6 +68,8 @@ The types associated with fields are limited. Valid types are:
 ###Primary Key
 The `PRIMARY KEY` describes both the partition and local keys. The partition key and the local key are nearly identical, differing only by the definition of the `quantum` used to colocate data.
 
+Note: The order of fields in key spec must match the order in which they appear in the table definition.
+
 
 ####Partition Key 
 The partition key is defined as the three named fields in parentheses:
