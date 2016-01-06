@@ -50,7 +50,7 @@ Throughout this tutorial, we are assuming a setup where `allow_mult` is `true`
 and `last_write_wins` is `false`. The following is an example, using Riak KV's
 default HTTP port, of setting these bucket properties.
 
-```sh
+```bash
 curl -XPUT -H 'Content-Type: application/json' \
          -d '{"props": {"allow_mult": true, "last_write_wins": false}}' \
          'http://127.0.0.1:8098/buckets/test/props'
