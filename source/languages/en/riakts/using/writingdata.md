@@ -122,7 +122,7 @@ client.execute(delete);
 ```
 
 ```python
-client.ts_delete('GeoCheckin', ['hash1', 'user2'])
+client.ts_delete('GeoCheckin', ['hash1', 'user2', datetime.datetime(2015, 1, 1, 12, 0, 0)])
 ```
 
 ```ruby
