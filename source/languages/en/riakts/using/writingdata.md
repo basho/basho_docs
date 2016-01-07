@@ -45,9 +45,9 @@ riakc_ts:put(Pid, "GeoCheckin", [[<<"family1">>, <<"series1">>, 1234567, <<"hot"
 ```java
 RiakClient client = RiakClient.newClient(10017, "myriakdb.host");
 List<Row> rows = Arrays.asList(
-    new Row(new Cell("family1"), new Cell("series1"), 
+    new Row(new Cell("family1"), new Cell("series1"),
             Cell.newTimestamp(1234567), new Cell("hot"), new Cell(23.5)),
-    
+
     new Row(new Cell("family2"), new Cell("series99"),
             Cell.newTimestamp(1234567), new Cell("windy"), new Cell(19.8)));
 
@@ -94,7 +94,7 @@ If some of the data failed to write, an `RpbErrorResp` error occurs with a numbe
 2. Write the data one at a time until one fails.
 
 You could also try the original write again. Failures may be transitory when servers are temporarily unable to talk to each other.
- 
+
 
 ###Guidelines
 
@@ -102,6 +102,50 @@ You could also try the original write again. Failures may be transitory when ser
 * Writes will assume that columns are in the same order they've been declared in the table.
 * Timestamps should be in Unix epoch/UTC milliseconds.
 
+
+##Deleting Data
+
+Below are examples of how to delete data by key in each of our time series supported clients.
+
+```erlang
+riakc_ts:delete(Pid, <<"GeoCheckins">>, [<<"family1">>, <<"series1">>, 1420113600000]).
+```
+
+```java
+final List<Cell> keyCells = Arrays.asList(new Cell("family1"), new Cell("series1"), Cell.newTimestamp(1420113600000));
+
+Delete delete = new Delete.Builder("GeoCheckins", keyCells).build();
+
+client.execute(delete);
+```
+
+```python
+client.ts_delete('GeoCheckin', ['family1', 'series1', datetime.datetime(2015, 1, 1, 12, 0, 0)])
+```
+
+```ruby
+delete_operation = Riak::TimeSeries::Deletion.new client, 'GeoCheckins'
+delete_operation.key = ['family1', 'series1', 1420113600000]
+delete_operation.delete!
+```
+
+```javascript
+var key = [ 'family1', 'series1', 1420113600000 ];
+
+var cb = function (err, rslt) {
+    // NB: rslt will be an object with two properties:
+    // 'columns' - table columns
+    // 'rows' - row matching the Get request
+};
+
+var cmd = new Riak.Commands.TS.Delete.Builder()
+    .withTable('GeoCheckins')
+    .withKey(key)
+    .withCallback(cb)
+    .build();
+
+client.execute(cmd);
+```
 
 ##Next Steps
 
