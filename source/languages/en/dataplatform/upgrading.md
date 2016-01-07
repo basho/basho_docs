@@ -1,18 +1,14 @@
 ---
-title: Upgrading from Basho Data Platform Beta to 1.0.0
+title: Upgrading from Basho Data Platform 1.0.0 to 1.1.0
 project: dataplatform
-version: 1.0.0+
+version: 1.1.0+
 document: guide
 toc: false
 index: true
 audience: beginner
 ---
 
->**NOTE: 
->This page only applies to people previously using the beta releases of Basho Data Platform.**
-
-
-There were many changes between the Basho Data Platform (BDP) beta releases and the 1.0.0 release, resulting in no upgrade path from the beta builds to this current release. If you were previously using a BDP beta release, you must uninstall the BDP beta packages before you install the BDP 1.0.0 release.
+There were many changes between the Basho Data Platform (BDP) 1.0.0 release and the 1.1.0 release. If you were previously using a BDP 1.0.0 release, you must uninstall the BDP 1.0.0 packages before you install the BDP 1.1.0 release.
 
 ##Uninstall Instructions
 
