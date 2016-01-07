@@ -288,4 +288,4 @@ connection.del("test:food")
 
 ##In The Lab
 
-Check out [rrrmatey](https://github.com/paegun/rrrmatey), an ODM (Object-Document-Mapper) framework for use with Basho Data Platform (BDP) Cache Proxy and Riak KV.
+For a reference demonstrating the Riak and Redis client interactions with the BDP Cache Proxy and Riak KV check out [rrrmatey](https://github.com/paegun/rrrmatey), an ODM (Object-Document-Mapper) framework for use with Basho Data Platform (BDP) Cache Proxy and Riak KV.
