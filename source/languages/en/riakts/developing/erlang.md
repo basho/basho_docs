@@ -91,4 +91,6 @@ stream_list_keys(pid(), table_name(), proplists:proplist()) ->
     {ok, req_id()} | {error, term()}.
 ```
 
-Streaming list keys in Table, using client Pid.  Parameter Options is a proplist that can include a value for 'timeout'. Returns `{ok, ReqId}` or `{error, Reason}`.  {TODO: Do we need a warning about how keylisting can slow your cluster down?  Copy this from somewhere else maybe?}
+Streaming list keys in Table, using client Pid.  Parameter Options is a proplist that can include a value for 'timeout'. Returns `{ok, ReqId}` or `{error, Reason}`.
+
+>**Warning:** Listing keys is a very expensive operation for a Riak TS cluster.
