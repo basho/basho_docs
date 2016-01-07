@@ -1,5 +1,5 @@
 ---
-title: Erlang Client API 
+title: Erlang Client API
 project: riakts
 version: 1.0.0+
 document: reference
@@ -29,7 +29,7 @@ You can develop with Riak TS through the Erlang client. This document covers the
 * `get/4` - Get a record by primary key.
 * `put/3` - Make data records and insert them individually into a Riak TS table.
 * `query/2` - Execute a `SELECT ...` query with the client.
-* `stream_list_keys/3` - 
+* `stream_list_keys/3` -
 
 
 ###Function Details
@@ -37,10 +37,10 @@ You can develop with Riak TS through the Erlang client. This document covers the
 ####`delete/4`
 
 ```
-delete(Pid::pid(), 
-       Table::[table_name()](#type-table_name), 
-       Key::[[ts_value()](#type-ts_value)], 
-       Options::[proplists:proplist()](proplists.html#type-proplist)) -> 
+delete(Pid::pid(),
+       Table::[table_name()](#type-table_name),
+       Key::[[ts_value()](#type-ts_value)],
+       Options::[proplists:proplist()](proplists.html#type-proplist)) ->
             ok | {error, Reason::term()}
 ```
 
@@ -50,10 +50,10 @@ Delete a record by primary key. Specify the primary key by using a list of terms
 ####`get/4`
 
 ```
-get(Pid::pid(), 
-    Table::[table_name()](#type-table_name), 
-    Key::[[ts_value()](#type-ts_value)], 
-    Options::[proplists:proplist()](proplists.html#type-proplist)) -> 
+get(Pid::pid(),
+    Table::[table_name()](#type-table_name),
+    Key::[[ts_value()](#type-ts_value)],
+    Options::[proplists:proplist()](proplists.html#type-proplist)) ->
         {Columns::[binary()], Record::[[ts_value()](#type-ts_value)]}
 ```
 
@@ -63,11 +63,11 @@ Get a record by primary key. Specify the primary key by using a list of terms th
 ####`put/3`
 
 ```
-put(Pid::pid(), 
-    Table::[table_name()](#type-table_name), 
-    Data::[[[ts_value()](#type-ts_value)]]) -> 
+put(Pid::pid(),
+    Table::[table_name()](#type-table_name),
+    Data::[[[ts_value()](#type-ts_value)]]) ->
         ok | {error, Reason::term()}
-```  
+```
 
 Make data records and insert them individually into a Riak TS table using client PID. Each record is a list of values of appropriate types for the complete set of table columns, in the order in which they appear in table's DDL. Successful PUTs will return 'ok', while unsuccessful PUTs return an `{error, Reason}` tuple.
 
@@ -77,14 +77,14 @@ Make data records and insert them individually into a Riak TS table using client
 ####`query/2`
 
 ```
-query(Pid::pid(), 
-      Query::string()) -> 
+query(Pid::pid(),
+      Query::string()) ->
         {ColumnNames::[binary()], Rows::[tuple()]} | {error, Reason::term()}
-``` 
+```
 
 Execute a `SELECT ...` query with the client. The result returned is either a tuple containing a list of columns as binaries in the 1st element and a list of records, each represented as a list of values, in the 2nd element, or an `{error, Reason}` tuple.
 
-####`stream_list_keys/4`
+####`stream_list_keys/3`
 
 ```
 stream_list_keys(pid(), table_name(), proplists:proplist()) ->

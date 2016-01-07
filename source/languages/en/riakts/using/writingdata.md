@@ -108,31 +108,29 @@ You could also try the original write again. Failures may be transitory when ser
 Below are examples of how to delete data by key in each of our time series supported clients.
 
 ```erlang
-riakc_ts:delete(Pid, <<"GeoCheckins">>, [{time, 12345}, 2, 3]).
+riakc_ts:delete(Pid, <<"GeoCheckins">>, [<<"family1">>, <<"series1">>, 1420113600000]).
 ```
 
 ```java
-final List<Cell> keyCells = Arrays.asList(new Cell("hash2"), new Cell("user4"), com.basho.riak.client.core
-        .query.timeseries.Cell
-        .newTimestamp(fifteenMinsAgo));
+final List<Cell> keyCells = Arrays.asList(new Cell("family1"), new Cell("series1"), Cell.newTimestamp(1420113600000));
 
-Delete delete = new Delete.Builder(tableName, keyCells).build();
+Delete delete = new Delete.Builder("GeoCheckins", keyCells).build();
 
 client.execute(delete);
 ```
 
 ```python
-client.ts_delete('GeoCheckin', ['hash1', 'user2', datetime.datetime(2015, 1, 1, 12, 0, 0)])
+client.ts_delete('GeoCheckin', ['family1', 'series1', datetime.datetime(2015, 1, 1, 12, 0, 0)])
 ```
 
 ```ruby
 delete_operation = Riak::TimeSeries::Deletion.new client, 'GeoCheckins'
-delete_operation.key = ['myfamily', 'myseries', Time.now]
+delete_operation.key = ['family1', 'series1', 1420113600000]
 delete_operation.delete!
 ```
 
 ```javascript
-var key = [ 'family', 'series', 'KEY' ];
+var key = [ 'family1', 'series1', 1420113600000 ];
 
 var cb = function (err, rslt) {
     // NB: rslt will be an object with two properties:
@@ -141,7 +139,7 @@ var cb = function (err, rslt) {
 };
 
 var cmd = new Riak.Commands.TS.Delete.Builder()
-    .withTable('TimeSeriesData')
+    .withTable('GeoCheckins')
     .withKey(key)
     .withCallback(cb)
     .build();

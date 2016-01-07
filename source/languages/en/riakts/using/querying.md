@@ -294,13 +294,13 @@ riakc_ts:get(Pid, <<"GeoCheckins">>, [<<"family1">>, <<"series1">>, 142011360000
 ```java
 final List<Cell> keyCells = Arrays.asList(new Cell("family1"), new Cell("series1"), Cell.newTimestamp(1420113600000));
 
-Fetch fetch = new Fetch.Builder(tableName, keyCells).build();
+Fetch fetch = new Fetch.Builder("GeoCheckins", keyCells).build();
 
 QueryResult queryResult = client.execute(fetch);
 ```
 
 ```python
-client.ts_get('GeoCheckin', ['family1', 'series1', datetime.datetime(2015, 1, 1, 12, 0, 0)])
+client.ts_get('GeoCheckins', ['family1', 'series1', datetime.datetime(2015, 1, 1, 12, 0, 0)])
 ```
 
 ```ruby
@@ -310,8 +310,6 @@ results = read_operation.read!
 ```
 
 ```javascript
-var Riak = require('basho-riak-client');
-
 var key = [ 'family1', 'series1', 1420113600000 ];
 
 var cb = function (err, rslt) {
@@ -321,7 +319,7 @@ var cb = function (err, rslt) {
 };
 
 var cmd = new Riak.Commands.TS.Get.Builder()
-    .withTable('TimeSeriesData')
+    .withTable('GeoCheckins')
     .withKey(key)
     .withCallback(cb)
     .build();
@@ -334,12 +332,12 @@ client.execute(cmd);
 Provided in the official client libraries is the ability to list all TS keys for a table space. Please keep in mind that this is an incredibly expensive operation that can cause performance loss on your Riak TS cluster, use with caution.
 
 ```erlang
-riakc_ts:stream_list_keys(Pid, <<"GeoCheckins">>).
+riakc_ts:stream_list_keys(Pid, <<"GeoCheckins">>, []).
 ```
 
 ```java
 // supply table name to list key builder
-ListKeys listKeys = new ListKeys.Builder("GeoCheckin").withTimeout(30000).build();
+ListKeys listKeys = new ListKeys.Builder("GeoCheckins").withTimeout(30000).build();
 
 final RiakFuture<QueryResult, String> listKeysFuture = client.executeAsync(listKeys);
 
@@ -350,7 +348,7 @@ final QueryResult queryResult = listKeysFuture.get();
 ```
 
 ```python
-stream = client.ts_stream_keys(mytable)
+stream = client.ts_stream_keys('GeoCheckins')
 for key_list in stream:
      do_something(key_list)
 stream.close()
@@ -375,7 +373,7 @@ var callback = function(err, resp) {
 };
 
 var cmd = new Riak.Commands.TS.ListKeys.Builder()
-    .withTable('TimeSeriesData')
+    .withTable('GeoCheckins')
     .withStreaming(true)
     .withTimeout(1000)
     .withCallback(callback)
