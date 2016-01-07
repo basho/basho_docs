@@ -288,13 +288,11 @@ The data is not lost, but a query against 1998 time quanta will not produce thos
 You may find the need to fetch a single key from Riak TS, below you will find an example of how to do that in each of our official clients that support time series.
 
 ```erlang
-riakc_ts:get(Pid, <<"GeoCheckins">>, [{time, 12345}, 2, 3]).
+riakc_ts:get(Pid, <<"GeoCheckins">>, [<<"family1">>, <<"series1">>, 1420113600000]).
 ```
 
 ```java
-final List<Cell> keyCells = Arrays.asList(new Cell("hash2"), new Cell("user4"), com.basho.riak.client.core
-        .query.timeseries.Cell
-        .newTimestamp(fifteenMinsAgo));
+final List<Cell> keyCells = Arrays.asList(new Cell("family1"), new Cell("series1"), Cell.newTimestamp(1420113600000));
 
 Fetch fetch = new Fetch.Builder(tableName, keyCells).build();
 
@@ -302,19 +300,19 @@ QueryResult queryResult = client.execute(fetch);
 ```
 
 ```python
-client.ts_get('GeoCheckin', ['hash1', 'user2', datetime.datetime(2015, 1, 1, 12, 0, 0)])
+client.ts_get('GeoCheckin', ['family1', 'series1', datetime.datetime(2015, 1, 1, 12, 0, 0)])
 ```
 
 ```ruby
 read_operation = Riak::TimeSeries::Read.new client, 'GeoCheckins'
-read_operation.key = ['myfamily', 'myseries', Time.now]
+read_operation.key = ['family1', 'series1', 1420113600000]
 results = read_operation.read!
 ```
 
 ```javascript
 var Riak = require('basho-riak-client');
 
-var key = [ 'family', 'series', 'KEY' ];
+var key = [ 'family1', 'series1', 1420113600000 ];
 
 var cb = function (err, rslt) {
     // NB: rslt will be an object with two properties:
@@ -341,7 +339,7 @@ riakc_ts:stream_list_keys(Pid, <<"GeoCheckins">>).
 
 ```java
 // supply table name to list key builder
-ListKeys listKeys = new ListKeys.Builder("GeoCheckin").withTimeout(300).build();
+ListKeys listKeys = new ListKeys.Builder("GeoCheckin").withTimeout(30000).build();
 
 final RiakFuture<QueryResult, String> listKeysFuture = client.executeAsync(listKeys);
 
