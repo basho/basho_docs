@@ -108,7 +108,7 @@ You could also try the original write again. Failures may be transitory when ser
 Below are examples of how to delete data by key in each of our time series supported clients.
 
 ```erlang
-riakc_ts:delete(Pid, <<"GeoCheckins">>, <<"mykey">>).
+riakc_ts:delete(Pid, <<"GeoCheckins">>, [{time, 12345}, 2, 3]).
 ```
 
 ```java
@@ -121,14 +121,14 @@ Delete delete = new Delete.Builder(tableName, keyCells).build();
 client.execute(delete);
 ```
 
+```python
+client.ts_delete('GeoCheckin', ['hash1', 'user2'])
+```
+
 ```ruby
 delete_operation = Riak::TimeSeries::Deletion.new client, 'GeoCheckins'
 delete_operation.key = ['myfamily', 'myseries', Time.now]
 delete_operation.delete!
-```
-
-```python
-client.ts_delete('GeoCheckin', ['hash1', 'user2'])
 ```
 
 ```javascript

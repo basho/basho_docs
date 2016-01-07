@@ -288,7 +288,7 @@ The data is not lost, but a query against 1998 time quanta will not produce thos
 You may find the need to fetch a single key from Riak TS, below you will find an example of how to do that in each of our official clients that support time series.
 
 ```erlang
-riakc_ts:get(Pid, <<"GeoCheckins">>, <<"mykey">>).
+riakc_ts:get(Pid, <<"GeoCheckins">>, [{time, 12345}, 2, 3]).
 ```
 
 ```java
