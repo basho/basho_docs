@@ -28,7 +28,7 @@ SELECT 555, 1.1, 1e1, 1.123e-2 from GeoCheckin
 WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
 ```
 
-| 555<SINT64\> | 1.1<DOUBLE\> | 10.0<DOUBLE\> | 0.01123<DOUBLE\> |
+| 555\<SINT64\> | 1.1<DOUBLE\> | 10.0<DOUBLE\> | 0.01123<DOUBLE\> |
 |-------------|-------------|--------------|-----------------|
 | 555         | 1.1         | 10.0         | 0.01123         |
 
@@ -80,6 +80,6 @@ SELECT 1 + 2 * 3, (1 + 2) * 3 from GeoCheckin
 WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
 ```
 
-| (1+(2\*3))<SINT64\> | ((1+2)\*3)<SINT64\> |
+| (1+(2\*3))\<SINT64\> | ((1+2)\*3)\<SINT64\> |
 |-------------------|-------------------|
 | 7                 | 9                 |
