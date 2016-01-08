@@ -16,6 +16,22 @@ in a single value expression.
 Arithmetic operations default to 64-bit integer math, unless mixed with a
 `double`, at which point they become floating-point.
 
+### Numeric Literals
+
+* **Since:** 1.1.0
+
+Integer, decimal floating point, and exponent notation floating point
+numeric literals are accepted:
+
+```sql
+SELECT 555, 1.1, 1e1, 1.123e-2 from GeoCheckin
+WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
+```
+
+| 555<SINT64> | 1.1<DOUBLE> | 10.0<DOUBLE> | 0.01123<DOUBLE> |
+|-------------|-------------|--------------|-----------------|
+| 555         | 1.1         | 10.0         | 0.01123         |
+
 ### Addition and Subtraction
 
 * **Since:** 1.1.0
