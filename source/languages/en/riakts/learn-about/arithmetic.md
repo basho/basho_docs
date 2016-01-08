@@ -83,3 +83,21 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND
 | (temperature+(2\*3))\<DOUBLE\> | ((temperature\+2)\*3)\<DOUBLE\> |
 |-----------------------------|-----------------------------|
 | 33.1                        | 87.30000000000001           |
+
+
+### Exceptions
+
+* **Since:** 1.1.0
+
+Operations on floating point numbers that would return `Infinity` or `NaN` are
+not supported.
+
+For example, neither of these queries return successfully:
+
+```sql
+SELECT 0.0 / 0.0 from GeoCheckin
+WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
+
+SELECT 1.0 / 0.0 from GeoCheckin
+WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
+```
