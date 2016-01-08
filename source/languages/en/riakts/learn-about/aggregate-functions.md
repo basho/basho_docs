@@ -37,9 +37,7 @@ SELECT COUNT(*) FROM GeoCheckin
 WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
 ```
 
-Count the number of returned values.
-
-Returns `NULL` if no values were returned or all values were `NULL`.
+Count the number of returned values.  If a single column is used as an input then `NULL` values are ignored. If all values were `NULL` or no rows were returned by the query then `NULL` is returned.
 
 | Column Input Type | Return Type |
 |------------|-------------|
