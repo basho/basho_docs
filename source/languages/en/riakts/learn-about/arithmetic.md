@@ -76,10 +76,10 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND
 * **Since:** 1.1.0
 
 ```sql
-SELECT 1 + 2 * 3, (1 + 2) * 3 from GeoCheckin
+SELECT temperature + 2 * 3, (temperature + 2) * 3 from GeoCheckin
 WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
 ```
 
-| (1+(2\*3))\<SINT64\> | ((1+2)\*3)\<SINT64\> |
-|-------------------|-------------------|
-| 7                 | 9                 |
+| (temperature+(2\*3))\<DOUBLE\> | ((temperature\+2)\*3)\<DOUBLE\> |
+|-----------------------------|-----------------------------|
+| 33.1                        | 87.30000000000001           |
