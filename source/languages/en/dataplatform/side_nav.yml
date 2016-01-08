@@ -9,7 +9,7 @@ dataplatform:
     sub:
       - "[[Basho Data Platform|Data Platform]]"
       - "[[Installing|Installing Basho Data Platform]]"
-      - "[[Upgrading from Basho Data Platform Beta to 1.0.0]]"
+      - "[[Upgrading from Basho Data Platform 1.0.0 to 1.1.0]]"
       - "[[Release Notes 1.1.0|Basho Data Platform 1.1.0 Release Notes]]"
   - title: "Using Basho Data Platform"
     sub:
@@ -20,8 +20,9 @@ dataplatform:
           - "[[Replace Your Spark Cluster Manager with the Basho Data Platform Cluster Manager]]"
           - "[[Getting Started with Cache Proxy]]"
       - "[[Using your Basho Data Platform Cluster]]"
-      - "[[Using Spark Riak Connector]]"
-      - "[[Using Cache Proxy]]"
+      - "[[Spark Riak Connector|Using Spark Riak Connector]]"
+      - "[[Spark DataFrames|Using Spark DataFrames with Riak]]"
+      - "[[Cache Proxy|Using Cache Proxy]]"
       - "[[Data Platform Commands]]"
       - "[[Working with Redis]]"
       - title: "Advanced"

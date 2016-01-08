@@ -285,3 +285,7 @@ connection.del("test:food")
 |`pw`            | How many vnodes must respond for a write to be deemed successful | `0` |
 |`w`             | How many replicas need to acknowledge the write before responding | `2` |
 |`sloppy_quorum` | Whether to treat vnodes holding values for another vnode as acceptable within the quorum determination | `0` (false) |
+
+##In The Lab
+
+For a reference demonstrating the Riak and Redis client interactions with the BDP Cache Proxy and Riak KV check out [rrrmatey](https://github.com/paegun/rrrmatey), an ODM (Object-Document-Mapper) framework for use with Basho Data Platform (BDP) Cache Proxy and Riak KV.
