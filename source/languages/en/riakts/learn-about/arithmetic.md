@@ -85,7 +85,7 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND
 | 33.1                        | 87.30000000000001           |
 
 
-### Exceptions
+### Floating Point Odds and Ends
 
 * **Since:** 1.1.0
 
@@ -99,5 +99,18 @@ SELECT 0.0 / 0.0 from GeoCheckin
 WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
 
 SELECT 1.0 / 0.0 from GeoCheckin
+WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
+```
+
+### Operations with Multiple Field References
+
+* **Since:** 1.1.0
+
+Operations involving two or more references to fields/columns are not supported.
+
+This query will return an error:
+
+```sql
+SELECT temperature + temperature FROM GeoCheckin
 WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
 ```
