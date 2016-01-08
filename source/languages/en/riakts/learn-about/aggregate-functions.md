@@ -87,7 +87,7 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND
 
 Calculate the standard deviation for a set of values returned by the query.
 
-Returns `NULL` if less than non-null two values were returned.
+Returns `NULL` if less than two non-null values were returned.
 
 | Column Input Type | Return Type |
 |------------|-------------|
