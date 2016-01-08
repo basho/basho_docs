@@ -98,7 +98,7 @@ The quantum function takes 3 parameters:
 The second key (local key) MUST contain the same 3 fields in the same order as the partition key. This ensures that the same fields determining your data's partition also dictate the sorting of the data within that partition.
 
 ##Schema Discovery
-After creating a table, its schema can be discovered with `DECRIBE` statement, which will return, for each column, the following items:
+After creating a table, its schema can be discovered with `DESCRIBE` statement, which will return, for each column, the following items:
 * *Column*, field name;
 * *Type*, field type;
 * *Is Null*, _true_ is the field is optional, _false_ otherwise;
