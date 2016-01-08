@@ -1497,6 +1497,23 @@ riakc_pb_socket:get_bucket_type(Pid, <<"n_val_of_5">>).
 ```
 
 ```golang
+cmd, err := riak.NewFetchBucketPropsCommandBuilder().
+    WithBucketType("n_val_of_5").
+    WithBucket("any_bucket_name").
+    Build()
+
+if err != nil {
+    fmt.Println(err.Error())
+    return
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    fmt.Println(err.Error())
+    return
+}
+
+fbc := cmd.(*riak.FetchBucketPropsCommand)
+fmt.Println("bucket props:", fbc.Response)
 ```
 
 ```curl
