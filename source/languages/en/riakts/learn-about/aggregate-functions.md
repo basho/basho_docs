@@ -76,10 +76,10 @@ Returns `NULL` if no values were returned or all values were `NULL`.
 | sint64 | sint64 |
 | double | double |
 
-### STDEV
+### STDDEV
 
 ```sql
-SELECT STDEV(temperature) FROM GeoCheckin
+SELECT STDDEV(temperature) FROM GeoCheckin
 WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
 ```
 
