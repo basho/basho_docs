@@ -97,6 +97,14 @@ The quantum function takes 3 parameters:
 ####Local Key
 The second key (local key) MUST contain the same 3 fields in the same order as the partition key. This ensures that the same fields determining your data's partition also dictate the sorting of the data within that partition.
 
+##Schema Discovery
+After creating a table, its schema can be discovered with `DESCRIBE` statement, which will return, for each column, the following items:
+* *Column*, field name;
+* *Type*, field type;
+* *Is Null*, _true_ is the field is optional, _false_ otherwise;
+* *Primary Key*, position of this field in the primary key, or blank if it does not appear in the key;
+* *Local Key*, position of this field in the local key, or blank if it does not appear in the key.
+
 ##More information
 
 Still unsure how best to structure your Riak TS table? Check out our [best practice recommendations][bestpractices].
