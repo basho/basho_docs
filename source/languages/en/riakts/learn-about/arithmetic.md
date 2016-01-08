@@ -25,8 +25,8 @@ SELECT temperature, temperature + 1, temperature - 1 FROM GeoCheckin
 WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
 ```
 
-| temperature<DOUBLE> | (temperature+1)<DOUBLE> | (temperature-1)<DOUBLE> |
-|---------------------|-------------------------|-------------------------+
+| temperature<DOUBLE> | (temperature\+1)<DOUBLE> | (temperature\-1)<DOUBLE> |
+|---------------------|-------------------------|-------------------------|
 | 27.1                | 28.1                    | 26.1                    |
 
 ### Multiplication and Division
@@ -38,8 +38,8 @@ SELECT temperature, temperature * 2, temperature / 2 from GeoCheckin
 WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
 ```
 
-| temperature<DOUBLE> | (temperature*2)<DOUBLE> | (temperature/2)<DOUBLE> |
-|---------------------|-------------------------|-------------------------+
+| temperature<DOUBLE> | (temperature\*2)<DOUBLE> | (temperature/2)<DOUBLE> |
+|---------------------|-------------------------|-------------------------|
 | 27.1                | 54.2                    | 13.55                   |
 
 ### Negation
