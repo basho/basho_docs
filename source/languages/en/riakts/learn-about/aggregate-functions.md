@@ -8,6 +8,13 @@ index: true
 audience: intermediate
 ---
 
+Count - The COUNT() function returns the number of entries that match a specified criteria.
+Sum - The SUM() function returns the sum of entries that match a specified criteria.
+Mean - The MEAN() and AVG() functions return the average of entries that match a specified criteria.
+Min - The MIN() function returns the smallest value of entries that match a specified criteria.
+Max - The MAX() function returns the largest value of entries that match a specified criteria.
+Standard Deviation - The STDDEV() function returns the statistical standard deviation of all entries that match a specified criteria.
+
 ### AVG
 
 * **Since:** 1.1.0
