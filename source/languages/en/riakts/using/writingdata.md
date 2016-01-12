@@ -43,16 +43,16 @@ riakc_ts:put(Pid, "GeoCheckin", [[<<"family1">>, <<"series1">>, 1234567, <<"hot"
 ```
 
 ```java
-RiakClient client = RiakClient.newClient(10017, "myriakdb.host");
-List<Row> rows = Arrays.asList(
-    new Row(new Cell("family1"), new Cell("series1"),
-            Cell.newTimestamp(1234567), new Cell("hot"), new Cell(23.5)),
-
-    new Row(new Cell("family2"), new Cell("series99"),
-            Cell.newTimestamp(1234567), new Cell("windy"), new Cell(19.8)));
-
-Store storeCmd = new Store.Builder("GeoCheckin").withRows(rows).build();
-client.execute(storeCmd);
+import java.net.UnknownHostException;
+import java.util.concurrent.ExecutionException;
+import com.basho.riak.client.api.RiakClient;
+import com.basho.riak.client.api.commands.timeseries.Store;
+import com.basho.riak.client.core.query.timeseries.*;
+import java.util.*;
+public class RiakTSInsert {
+public static void main(String [] args) throws UnknownHostException, ExecutionException, InterruptedException
+{ // Riak Client with supplied IP and Port RiakClient client = RiakClient.newClient(10017, "myriakdb.host"); List<Row> rows = Arrays.asList( new Row(new Cell("family1"), new Cell("series1"), Cell.newTimestamp(1234567), new Cell("hot"), new Cell(23.5)), new Row(new Cell("family2"), new Cell("series99"), Cell.newTimestamp(1234567), new Cell("windy"), new Cell(19.8))); Store storeCmd = new Store.Builder("GeoCheckin").withRows(rows).build(); client.execute(storeCmd); client.shutdown(); }
+}
 ```
 
 ```python
