@@ -80,13 +80,16 @@ riakc_ts:query(Pid, "select * from GeoCheckin where time > 1234560 and time < 12
 ```
 
 ```java
-RiakClient client = RiakClient.newClient(10017, "myriakdb.host");
-String queryText = "select * from GeoCheckin " +
-                   "where time > 1234560 and time < 1234569 and " +
-                   "myfamily = 'family1' and myseries = 'series1'";
-
-Query query = new Query.Builder(queryText).build();
-QueryResult queryResult = client.execute(query);
+import java.net.UnknownHostException;
+import java.util.concurrent.ExecutionException;
+import com.basho.riak.client.api.RiakClient;
+import com.basho.riak.client.api.commands.timeseries.Query;
+import com.basho.riak.client.core.query.timeseries.*;
+import java.util.*;
+public class RiakTSQuery {
+public static void main(String [] args) throws UnknownHostException, ExecutionException, InterruptedException
+{ // Riak Client with supplied IP and Port RiakClient client = RiakClient.newClient(10017, "myriakdb.host"); String queryText = "select * from GeoCheckin " + "where time >= 1234567 and time <= 1234567 and " + "myfamily = 'family1' and myseries = 'series1' "; Query query = new Query.Builder(queryText).build(); QueryResult queryResult = client.execute(query); List<Row> rows = queryResult.getRowsCopy(); client.shutdown(); }
+}
 ```
 
 ```python
