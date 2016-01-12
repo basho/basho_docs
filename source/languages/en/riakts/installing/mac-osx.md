@@ -1,7 +1,7 @@
 ---
 title: Installing on Mac OS X
 project: riakts
-version: 1.0.0
+version: 1.1.0
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, osx, mac]
@@ -12,7 +12,7 @@ download:
 
 [AAE]: http://docs.basho.com/riak/2.1.3/theory/concepts/aae/
 [openfileslimit]: http://docs.basho.com/riak/2.1.3/ops/tuning/open-files-limit/
-[planning]: http://docs.basho.com/riakts/1.0.0/using/planning
+[planning]: http://docs.basho.com/riakts/1.1.0/using/planning
 
 Riak TS can be installed on Mac OS X systems using a binary
 package available through ZenDesk.
