@@ -1,7 +1,7 @@
 ---
 title: Node.js Client API 
 project: riakts
-version: 1.0.0+
+version: 1.1.0+
 document: reference
 toc: true
 index: true
@@ -9,30 +9,35 @@ audience: advanced
 ---
 
 
-You can develop with Riak TS through the Node.js client. This
-document covers the Node.js protobuf requests to Riak TS.
+You can develop applications and tools using Riak TS with the Riak Node.js client.
+This document covers the Node.js API for Riak TS.
+
 
 ##Overview
 
 To use Riak TS with Node.js, we've added several new commands in
 the `Riak.Commands.TS` namespace.
 
+
 ##TS Commands
 
 >**Note:** These commands are automatically retried if they fail due to network
 error.
+
 
 ###Commands
 
  * `Get`    - Fetch a single row based on the primary key values provided.
  * `Store`  - Store 1 or more rows to a Riak TS table.
  * `Delete` - Delete a single row based on the primary key values provided.
- * `Query`  - Allows you to query a Riak TS table, with the given query string.
+ * `Query`  - Allows you to query a Riak TS table with the given query string.
  * `ListKeys` - Lists the primary keys of all the rows in a Riak TS table.
+
 
 ###Command Details
 
 ####`Get`
+Retrieve time series value by key.
 
 ```javascript
 var Riak = require('basho-riak-client');
@@ -54,16 +59,16 @@ var cmd = new Riak.Commands.TS.Get.Builder()
 client.execute(cmd);
 ```
 
-Retrieve time series value by key.
-
 |Builder Method | Type    | Description                 |
 |---------------|---------|-----------------------------|
 |`withTable`    | string  | The time series table name  |
 |`withKey`      | array   | The time series value's key |
 
-*Return Type*: response object with `columns` and `rows` properties.
- 
+**Return Type**: response object with `columns` and `rows` properties.
+
+
 ####`Store`
+Stores time series data in the Riak cluster.
 
 ```javascript
 var Riak = require('basho-riak-client');
@@ -102,16 +107,16 @@ var cmd = new Riak.Commands.TS.Get.Builder()
 client.execute(cmd);
 ```
 
-Stores time series data in the Riak cluster.
-
 |Builder Method | Type   | Description                |
 |---------------|--------|----------------------------|
 |`withTable`    | string | The time series table name |
 |`withRows`     | array  | The time series data       |
 
-*Return Type*: boolean
+**Return Type**: boolean
+
 
 ####`Delete`
+Delete time series value by key.
 
 ```javascript
 var Riak = require('basho-riak-client');
@@ -133,16 +138,16 @@ var cmd = new Riak.Commands.TS.Delete.Builder()
 client.execute(cmd);
 ```
 
-Delete time series value by key.
-
 |Builder Method | Type    | Description                 |
 |---------------|---------|-----------------------------|
 |`withTable`    | string  | The time series table name  |
 |`withKey`      | array   | The time series value's key |
 
-*Return Type*: boolean
+**Return Type**: boolean
+
 
 ####`Query`
+Queries time series data in the Riak cluster.
 
 ```javascript
 var Riak = require('basho-riak-client');
@@ -165,16 +170,16 @@ var cmd = new Riak.Commands.TS.Query.Builder()
 client.execute(cmd);
 ```
 
-Queries time series data in the Riak cluster.
-
 |Builder Method | Type    | Description                 |
 |---------------|---------|-----------------------------|
 |`withTable`    | string  | The time series table name  |
 |`withQuery`    | string  | The time series query       |
 
-*Return Type*: response object with `columns` and `rows` properties.
+**Return Type**: response object with `columns` and `rows` properties.
+
 
 ####`ListKeys`
+Lists all keys in a time series table via a stream.
 
 ```javascript
 var Riak = require('basho-riak-client');
@@ -197,13 +202,10 @@ var cmd = new Riak.Commands.TS.ListKeys.Builder()
 cluster.execute(cmd);
 ```
 
-Lists all keys in a time series table via a stream.
-
 |Builder Method | Type    | Description                                       |
 |---------------|---------|---------------------------------------------------|
 |`withTable`    | string  | The time series table name                        |
 |`withStreaming`| boolean | `true` if you would like callback per-key chunk   |
 |`withTimeout`  | integer | Timeout in milliseconds for the list keys command |
 
-
-*Return Type*: response object with `keys` property.
+**Return Type**: response object with `keys` property.

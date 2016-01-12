@@ -1,7 +1,7 @@
 ---
 title: Java Client API 
 project: riakts
-version: 1.0.0+
+version: 1.1.0+
 document: reference
 toc: true
 index: true
@@ -9,35 +9,42 @@ audience: advanced
 ---
 
 
-You can develop with Riak TS through the Java client. This document covers the Java protobuf requests to Riak TS.
+You can develop applications and tools using Riak TS with the Riak Java client.
+This document covers the Java API for Riak TS.
 
-## Overview
 
-There are two packages that cover the public API for TS in the Java client.  The `com.basho.riak.client.api.commands.timeseries` package contains executable commands, and the `com.basho.riak.client.core.query.timeseries` package contains the common data types.
+##Overview
 
-## Data Types
+There are two packages that cover the public API for TS in the Java client:
 
- * Cell - Holds a single piece of data. 
- * Row - Holds a collection of Cells.
- * ColumnDescription - A Metadata description of a column in a Time Series table.
- * QueryResult - Holds a result set from a query, keylist, or fetch command.
+1. The `com.basho.riak.client.api.commands.timeseries` package contains executable commands, and 
+2. the `com.basho.riak.client.core.query.timeseries` package contains the common data types.
 
-### Data Types Details
+
+##Data Types
+
+ * `Cell` - Holds a single piece of data. 
+ * `Row` - Holds a collection of Cells.
+ * `ColumnDescription` - A metadata description of a column in a Riak TS table.
+ * `QueryResult` - Holds a result set from a query, key list, or fetch command.
+
+###Data Type Details
 
 ####`Cell`
-Holds a piece of data for a Time Series Row.
-Note: Cells are immutable once created.
+A cell contains a piece of data for a row in a Riak TS table.
+
+>**Note:** Cells are immutable once created.
 
 A cell can hold 5 different types of raw data:
 
-**Varchar**s, which can hold byte arrays. Commonly used to store encoded strings.
-**SInt64**s, which can hold any signed 64-bit integers.
-**Double**s, which can hold any 64-bit floating point numbers.
-**Timestamp**s, which can hold any unix/epoch timestamp. Millisecond resolution is required.
-**Boolean**s, which can hold a true/false value. 
+* `Varchar` - byte arrays commonly used to store encoded strings.
+* `SInt64` - any signed 64-bit integers.
+* `Double` - any 64-bit floating point numbers.
+* `Timestamp` - any Unix epoch timestamp; millisecond resolution is required.
+* `Boolean` - a true/false value. 
 
-##### Constructors
-There are Cell constructors that accept Strings(Varchar type), Longs(SInt64 type), Double (Double type), Boolean (Boolean type), Calendar (Timestamp type), and Date(Timestamp type).  There is also a special static helper for creating Cells with raw timestamps. 
+#####Constructors
+Cell constructors accept: strings (`Varchar`), longs (`SInt64`), double (`Double`), boolean (`Boolean`), calendar (`Timestamp`), and date (`Timestamp`).
 
  * `public Cell(String varcharValue)`
  * `public Cell(long sint64Value)`
@@ -45,22 +52,26 @@ There are Cell constructors that accept Strings(Varchar type), Longs(SInt64 type
  * `public Cell(boolean booleanValue)`
  * `public Cell(Calendar timestampValue)`
  * `public Cell(Date timestampValue)`
+ 
+There is also a special static helper for creating cells with raw timestamps. 
+ 
  * `public static Cell newTimestamp(long value)`
 
-##### Instance Methods
-There are `has_X` and `get_X` methods for each data type. 
+#####Instance Methods
+Each data type has the following methods: `has_X` and `get_X`. 
 
 
 ####`Row`
-Holds a collection of cells. 
-Note: Rows are immutable once created.
+A row contains a collection of cells. 
 
-##### Constructors
+>**Note:** Rows are immutable once created.
+
+#####Constructors
 
  * `public Row(Collection<Cell> cells)`
  * `public Row(Cell... cells)`
 
-##### Public Instance Methods
+#####Instance Methods
 
  * `int getCellsCount()` - Gets the total count of all cells in this row. 
  * `List<Cell> getCellsCopy()` - Returns a shallow copy of the immutable cell collection.
@@ -68,19 +79,19 @@ Note: Rows are immutable once created.
 
 
 ####`ColumnDescription`
-A Metadata description of a column in Riak Time Series.
-Contains a column name and column type.
+The column description is a metadata description of a column in a Riak TS table, and contains both a column name and type.
 
-##### Constructors
+#####Constructors
 
  * `ColumnDescription(String name, ColumnType type)`
 
-##### Public Instance Methods
+#####Instance Methods
 
  * `string getName()` - Returns the name of the column.
  * `ColumnType getType()` - Returns the type of the column.
 
-##### Public Subclasses
+#####Subclasses
+
  * `ColumnType` - Holds an enumeration of all the column types. 
 
 ```
@@ -94,37 +105,40 @@ public enum ColumnType
     }
 ```
 
+
 ####`QueryResult`
-Holds a result set from a query, keylist, or fetch.
-Note: QueryResults are immutable.
+The query result is the result set from a query, key list, or fetch command.
 
-##### Constructors
+>**Note:** Query results are immutable.
 
-There are no public constructors for QueryResults.
+#####Constructors
 
-##### Public Instance Methods
+There are no constructors for `QueryResult`.
 
- * `List<ColumnDescription> getColumnDescriptionsCopy()` - Returns a deep copy of the Query Result's Column Descriptions (if any).
+#####Instance Methods
+
+ * `List<ColumnDescription> getColumnDescriptionsCopy()` - Returns a deep copy of the query result's column descriptions (if any).
  * `int getRowCount()` - Gets the total count of all rows in this result. 
  * `List<Row> getRowsCopy()` - Returns a shallow copy of the immutable row collection.
  * `Iterator<Row> iterator()` - Returns an iterator to the immutable row collection.
-
 
 
 ##Command Classes Index
 
 All command classes have a static inner `Builder` class to create and build each command. 
 
-* Delete - Deletes a single time series row by it's key values.
-* Fetch - Fetches a single time series row by it's key values.
-* ListKeys - Lists the primary keys of all the rows in a Time Series table.
-* Query - Allows you to query a Time Series table, with the given query string.
-* Store - Stores data into the Time Series table.
+* `Delete` - Deletes a single row by it's key values.
+* `Fetch` - Fetches a single row by it's key values.
+* `Query` - Allows you to query a Riak TS table with the given query string.
+* `Store` - Stores data in the Riak TS table.
+* `ListKeys` - Lists the primary keys of all the rows in a Riak TS table.
+
+>**Warning:** `ListKeys` is a very expensive operation.
 
 
-###Command Classes Details
+###Command Class Details
 
-Each command is created through a static Builder subclass.  This pattern ensures that the commands are created as correctly as possible.  To create the command from the builder, call the `.build()` method. 
+Each command is created through a static `Builder` subclass. This pattern ensures the commands are created as correctly as possible. To create the command from the builder, call the `.build()` method. 
 
 To execute any command, you must have an instance of a `RiakClient` object. You then pass the command object as a parameter into the `execute()` or `executeAsync()` methods.
 
@@ -147,78 +161,88 @@ QueryResult result = queryFuture.get();
 Throwable error = queryFuture.cause();
 ```
 
+
 ####`Delete`
 
-Deletes a single time series row by it's key values.
+Deletes a single row by it's key values.
 
-##### Builder
-The builder for the Delete command takes the table name, and a list of cells that identify the primary key.  The order of the cells must match the order of the values in the primary key.
+#####Builder
+The builder for `Delete` takes the table name and a list of cells that identify the primary key. The order of the cells must match the order of the values in the primary key.
 
  * `public Builder(String tableName, List<Cell> keyValues)`
 
- There is also an instance method to specify a command timeout in milliseconds.
+There is also an instance method to specify a command timeout in milliseconds:
 
  * `public Builder withTimeout(int timeout)`
 
-##### Return Value
+#####Return Value
+
  * `void`
+
 
 ####`Fetch` 
 
-Fetches a single time series row by it's key values.
+Fetches a single row by it's key values.
 
-##### Builder
-The builder for the Fetch command takes the table name, and a list of cells that identify the primary key.  The order of the cells must match the order of the values in the primary key.
+#####Builder
+The builder for `Fetch` takes the table name and a list of cells that identify the primary key. The order of the cells must match the order of the values in the primary key.
 
 * `public Builder(String tableName, List<Cell> keyValues)`
 
- There is also an instance method to specify a command timeout in milliseconds.
+There is also an instance method to specify a command timeout in milliseconds:
 
  * `public Builder withTimeout(int timeout)`
 
-##### Return Value
+#####Return Value
 
-* `QueryResult` - with 1 row if a match was found, or 0 rows if it wasn't. 
+* `QueryResult` - 1 row if a match was found; 0 rows if no match was found. 
+
 
 ####`ListKeys`
 
-Lists the primary keys of all the rows in a Time Series table.
+Lists the primary keys of all the rows in a Riak TS table.
 
-##### Builder
-The builder only takes the table name to list keys from.
+#####Builder
+The builder only takes the table name to list keys from:
 
  * `public Builder(String tableName)`
 
- There is also an instance method to specify a command timeout in milliseconds.
+There is also an instance method to specify a command timeout in milliseconds:
 
  * `public Builder withTimeout(int timeout)`
 
-##### Return Value
-* `QueryResult` - with each PrimaryKey's cells as a row. May not contain values for ColumnDescriptions.
+#####Return Value
+
+* `QueryResult` - each primary key's cells as a row. May not contain values for column descriptions.
+
 
 ####`Query`
 
-Allows you to query a Time Series table, with the given query string.
+Allows you to query a Riak TS table with the given query string.
 
-##### Builder
-The builder only takes the query text.
+#####Builder
+The builder only takes the query text:
+
  * `public Builder(String queryText)`
 
-##### Return Value
+#####Return Value
+
  * `QueryResult` - contains all matching rows.
 
+
 ####`Store`
-Stores data into the Time Series table.
+Stores data in the Riak TS table.
 
-##### Builder
-The builder constructor takes the table name.	
- *`public Builder(String tableName)`
+#####Builder
+The builder constructor takes the table name:	
+ 
+ * `public Builder(String tableName)`
 
- To add rows to store, use one of the `withRow()` or `withRows()` methods.
+ To add rows to store, use one of the `withRow()` or `withRows()` methods:
 
   * `public Builder withRow(Row row)`
   * `public Builder withRows(Collection<Row> rows)`
 
-##### Return Value
-* `void`
+#####Return Value
 
+* `void`

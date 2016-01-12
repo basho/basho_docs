@@ -1,7 +1,7 @@
 ---
 title: Ruby Client API
 project: riakts
-version: 1.0.0+
+version: 1.1.0+
 document: reference
 toc: true
 index: true
@@ -22,7 +22,7 @@ to make sense of these operations.
 * `Scalar` - Not strictly a class itself, contains the basic Ruby core/stdlib: `String`, `Fixnum`, `Bignum`, `Float`, and `Time` instances that represent a
 single cell in a time series collection.
 * `Row` - an `Array` subclass that holds a collection of scalars.
-* `Collection` -  an `Array` subclass that holds a collection of `Row`s.
+* `Collection` -  an `Array` subclass that holds a collection of rows.
 
 ###Scalars in Ruby and Riak TS
 
@@ -39,14 +39,16 @@ TS `double`, which will later de-serialize as a Ruby `Float`.
 * Ruby `Rational` numbers raise the error: 
 `Riak::TimeSeriesError::SerializeRationalNumberError`.
 
+
 ##Operations
 
 Riak TS supports five basic operations: single-key reads and deletes, key
 listing, SQL queries, and writes/submissions.
 
+
 ###Single-key Reads
 
-To load a single row with a given key, use `Riak::TimeSeries::Read`.
+To load a single row with a given key use `Riak::TimeSeries::Read`:
 
 ```ruby
 read_operation = Riak::TimeSeries::Read.new client, 'GeoCheckins'
@@ -69,9 +71,10 @@ The `new` class method takes two arguments: `client` (the `Riak::Client` to use)
 * `read!` - issues the read operation to Riak and returns a `Row` of data. If
 no data are found, returns `nil`.
 
+
 ###Single-key Deletes
 
-To delete a single row with a given key, use `Riak::TimeSeries::Delete`.
+To delete a single row with a given key, use `Riak::TimeSeries::Delete`:
 
 ```ruby
 delete_operation = Riak::TimeSeries::Deletion.new client, 'GeoCheckins'
@@ -94,6 +97,7 @@ and delete.
 ####Instance Method
 
 * `delete!` - issues the deletion to Riak.
+
 
 ###Key Listing
 
@@ -142,7 +146,7 @@ With a block, each key from the listing will be `yield`ed into your block as a
 
 ###SQL Queries
 
-SQL queries are sent with a `Riak::TimeSeries::Query` object.
+SQL queries are sent with a `Riak::TimeSeries::Query` object:
 
 ```ruby
 query = Riak::TimeSeries::Query.new client, sql
@@ -166,11 +170,12 @@ and a `String` of `query_text`.
 The `issue!` method issues the query to Riak and populates the `results`
 accessor with the results.
 
+
 ###Writing
 
 Data can be submitted to Riak TS with the `Riak::TimeSeries::Submission` class.
-Measurements are expected as an `Array`, which represents a collection containing
-one or more `Array` instances representing rows, that contains scalar values for cells.
+Measurements are expected as an `Array` which represents a collection containing
+one or more `Array` instances representing rows that contain scalar values for cells.
 
 ```ruby
 submission = Riak::TimeSeries::Submission.new client, 'GeoCheckins'
