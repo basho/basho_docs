@@ -38,6 +38,6 @@ Riak TS includes a complete build of Riak KV, but adds the ability to co-locate 
 
 ##Get Started
 
-Get started with Riak TS by downloading the package from ZenDesk, then check out how to [install][installing] it. 
+Enterprise customers can download the Riak TS package from ZenDesk. Once you have downloaded the package, check out how to [install][installing] it. 
 
 If you want to learn more about how Riak TS was designed and how it is structured, checkout our [Learn About Riak TS][learnabout] section.
