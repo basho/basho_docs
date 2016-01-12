@@ -16,6 +16,22 @@ To use Time Series with the Python client, we've added 5 new operations to the `
 
 The Time Series API is only available through Protocol Buffers and not HTTP, so please set up your Python client accordingly.
 
+##Prerequisites
+
+In order for the Python client to install successfully on Ubuntu and CentOS, you must install some dependencies.
+
+**Ubuntu**
+
+```
+sudo apt-get install -y python-setuptools python-dev libffi-dev libssl-dev
+```
+
+**CentOS**
+
+```
+sudo yum install -y python-setuptools python-devel libffi-devel openssl-deve
+```
+
 ## RiakClient TS Operations
 
 ### Operations Index
