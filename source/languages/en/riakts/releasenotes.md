@@ -9,7 +9,7 @@ keywords: [time series, release notes]
 ---
 
 
-Released January 13, 2015.
+Released January 14, 2015.
 
 This release builds on Riak TS 1.0 to enable further analysis of time series data with aggregates and arithmetic functionality.
 
