@@ -16,9 +16,9 @@ audience: beginner
 Now that you have [created][activating] a Riak TS table and [written][writing] data to it, you can query your data.
 
 
-##Querying
+##Basic Querying
 
-There are effectively three categories of fields, and each has a different set of rules for valid queries.
+When querying your data via fields, there are three categories of fields, each with a different set of rules for valid queries.
 
 
 ###Timestamp in the primary key
@@ -45,7 +45,7 @@ The other two fields in the primary key must be compared using strict equality a
 These fields may be queried with unbounded ranges, `!=`, and `or` comparisons.
 
 
-###Other guidelines
+###General Guidelines
 
 Before you begin querying, there are some guidelines to keep in mind.
 
@@ -72,75 +72,11 @@ CREATE TABLE GeoCheckin
 Your query must include all components of the primary key (`myfamily`, `myseries`, and `time`). If any part of the primary key is missing, you will get an error.
 
 
-###Wildcard Example
-
-Query a table by issuing a SQL statement against the table. Your query MUST include a 'where' clause with all components.
-
-In the following client-specific examples we'll select all fields from the GeoCheckin table where `time`, `myfamily`, and `myseries` match our supplied parameters:
-
-```erlang
-{ok, Pid} = riakc_pb_socket:start_link("myriakdb.host", 10017).
-riakc_ts:query(Pid, "select * from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1'").
-```
-
-```java
-import java.net.UnknownHostException;
-import java.util.concurrent.ExecutionException;
-import com.basho.riak.client.api.RiakClient;
-import com.basho.riak.client.api.commands.timeseries.Query;
-import com.basho.riak.client.core.query.timeseries.*;
-import java.util.*;
-public class RiakTSQuery {
-public static void main(String [] args) throws UnknownHostException, ExecutionException, InterruptedException
-{ // Riak Client with supplied IP and Port RiakClient client = RiakClient.newClient(10017, "myriakdb.host"); String queryText = "select * from GeoCheckin " + "where time >= 1234567 and time <= 1234567 and " + "myfamily = 'family1' and myseries = 'series1' "; Query query = new Query.Builder(queryText).build(); QueryResult queryResult = client.execute(query); List<Row> rows = queryResult.getRowsCopy(); client.shutdown(); }
-}
-```
-
-```python
-import datetime
-from riak.client import RiakClient
-
-epoch = datetime.datetime.utcfromtimestamp(0)
-
-def unix_time_millis(dt):
-    td = dt - epoch
-    return int(td.total_seconds() * 1000.0)
-
-tenMins = datetime.timedelta(0, 600)
-
-now = datetime.datetime(2015, 1, 1, 12, 0, 0)
-nowMS = unix_time_millis(now);
-
-tenMinsAgo = now - tenMins
-tenMinsAgoMS = unix_time_millis(tenMinsAgo);
-
-tenMinsFromNow = now + tenMins
-tenMinsFromNowMS = unix_time_millis(tenMinsFromNow);
-
-# NB: modify 'host' and 'pb_port' to match your installation
-client = RiakClient(host='myriakdb.host', pb_port=8087)
-
-fmt = """
-select * from GeoCheckin where
-    time > {t1} and time < {t2} and
-    myfamily = 'family1' and myseries = 'series1'
-"""
-query = fmt.format(t1=tenMinsAgoMS, t2=tenMinsFromNowMS)
-
-ts_obj = client.ts_query('GeoCheckin', query)
-print "Query result rows:", ts_obj.rows
-```
-
-```ruby
-client = Riak::Client.new 'myriakdb.host', pb_port: 10017
-query = Riak::Timeseries::Query.new client, "select * from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1'"
-results = query.issue!
-```
-
+##Advanced Querying By Field
 
 ###Select Query
 
-You can also select particular fields from the data:
+You can select particular fields from the data to query:
 
 ```
 select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1'
@@ -298,9 +234,107 @@ Similarly, Riak TS would treat `915148800` as the start of a new time quantum, a
 
 The data is not lost, but a query against 1998 time quanta will not produce those data points despite the fact that some of the events flagged as `915148800` technically occurred in 1998.
 
+
+##Querying Tables
+
+###Query a table with SQL
+
+Query a table by issuing a SQL statement against the table. Your query MUST include a 'where' clause with all components.
+
+In the following client-specific examples we'll select all fields from the GeoCheckin table where `time`, `myfamily`, and `myseries` match our supplied parameters:
+
+```erlang
+{ok, Pid} = riakc_pb_socket:start_link("myriakdb.host", 10017).
+riakc_ts:query(Pid, "select * from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1'").
+```
+
+```java
+import java.net.UnknownHostException;
+import java.util.concurrent.ExecutionException;
+import com.basho.riak.client.api.RiakClient;
+import com.basho.riak.client.api.commands.timeseries.Query;
+import com.basho.riak.client.core.query.timeseries.*;
+import java.util.*;
+public class RiakTSQuery {
+public static void main(String [] args) throws UnknownHostException, ExecutionException, InterruptedException
+{ // Riak Client with supplied IP and Port RiakClient client = RiakClient.newClient(10017, "myriakdb.host"); String queryText = "select * from GeoCheckin " + "where time >= 1234567 and time <= 1234567 and " + "myfamily = 'family1' and myseries = 'series1' "; Query query = new Query.Builder(queryText).build(); QueryResult queryResult = client.execute(query); List<Row> rows = queryResult.getRowsCopy(); client.shutdown(); }
+}
+```
+
+```python
+import datetime
+from riak.client import RiakClient
+
+epoch = datetime.datetime.utcfromtimestamp(0)
+
+def unix_time_millis(dt):
+    td = dt - epoch
+    return int(td.total_seconds() * 1000.0)
+
+tenMins = datetime.timedelta(0, 600)
+
+now = datetime.datetime(2015, 1, 1, 12, 0, 0)
+nowMS = unix_time_millis(now);
+
+tenMinsAgo = now - tenMins
+tenMinsAgoMS = unix_time_millis(tenMinsAgo);
+
+tenMinsFromNow = now + tenMins
+tenMinsFromNowMS = unix_time_millis(tenMinsFromNow);
+
+# NB: modify 'host' and 'pb_port' to match your installation
+client = RiakClient(host='myriakdb.host', pb_port=8087)
+
+fmt = """
+select * from GeoCheckin where
+    time > {t1} and time < {t2} and
+    myfamily = 'family1' and myseries = 'series1'
+"""
+query = fmt.format(t1=tenMinsAgoMS, t2=tenMinsFromNowMS)
+
+ts_obj = client.ts_query('GeoCheckin', query)
+print "Query result rows:", ts_obj.rows
+```
+
+```ruby
+client = Riak::Client.new 'myriakdb.host', pb_port: 10017
+query = Riak::Timeseries::Query.new client, "select * from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1'"
+results = query.issue!
+```
+
+###Query a table definition
+
+You can now query a table definition with the `DESCRIBE` table query which returns the table's rows and columns.
+
+For example:
+
+```sql
+DESCRIBE GeoCheckin
+```
+
+Returns:
+ (Rows and Columns)
+
+```
+Column      | Type      | Is Null | Partition Key | Local Key
+--------------------------------------------------------
+myfamily    | varchar   | false   | 1             | 1
+myseries    | varchar   | false   | 2             | 2
+time        | timestamp | false   | 3             | 3
+weather     | varchar   | false   | <null>        | <null>
+temperature | double    | false   | <null>        | <null>
+```
+
+A successful DESCRIBE statement execution will return a language-specific representation of the table.
+
+* **Node.js** - you may use the `TS.Query` command to execute a `DESCRIBE` statement, or use the purpose-built `TS.Describe` command. In both cases, the response object will have `columns` and `rows` properties corresponding to the above table.
+* **Python** - either the `ts_query` or `ts_describe` methods of the client object can be used to executed a `DESCRIBE` statement. In both cases, the response object will have `columns` and `rows` properties corresponding to the above table.
+* **Ruby** - Use the `Riak::TimeSeries::Query` object to execute the DESCRIBE statement. The returned results will have a collection of rows as well as a `columns` property corresponding to the above table.
+
+
 ##Single Key Fetch
 
-You may find the need to fetch a single key from Riak TS, below you will find an example of how to do that in each of our official clients that support time series.
+You may find the need to fetch a single key from Riak TS, below you will find an example of how to do that in each of our official clients that support Riak TS.
 
 ```erlang
 riakc_ts:get(Pid, <<"GeoCheckins">>, [<<"family1">>, <<"series1">>, 1420113600000]).
@@ -340,60 +374,4 @@ var cmd = new Riak.Commands.TS.Get.Builder()
     .build();
 
 client.execute(cmd);
-```
-
-
-##List Keys
-
-Provided in the official client libraries is the ability to list all TS keys for a table space. Please keep in mind that this is an incredibly expensive operation that can cause performance loss on your Riak TS cluster, use with caution.
-
-```erlang
-riakc_ts:stream_list_keys(Pid, <<"GeoCheckins">>, []).
-```
-
-```java
-// supply table name to list key builder
-ListKeys listKeys = new ListKeys.Builder("GeoCheckins").withTimeout(30000).build();
-
-final RiakFuture<QueryResult, String> listKeysFuture = client.executeAsync(listKeys);
-
-// wait till command is finished if you want synchronous execution
-listKeysFuture.await();
-
-final QueryResult queryResult = listKeysFuture.get();
-```
-
-```python
-stream = client.ts_stream_keys('GeoCheckins')
-for key_list in stream:
-     do_something(key_list)
-stream.close()
-```
-
-```ruby
-list_operation = Riak::TimeSeries::List.new client, 'GeoCheckins'
-list_operation.issue! do |key|
-  puts key
-end
-
-results = list_operation.issue!
-```
-
-```javascript
-var allKeys = [];
-var callback = function(err, resp) {
-    Array.prototype.push.apply(allKeys, resp.keys);
-    if (resp.done) {
-        // NB: at this point all keys have been received
-    }
-};
-
-var cmd = new Riak.Commands.TS.ListKeys.Builder()
-    .withTable('GeoCheckins')
-    .withStreaming(true)
-    .withTimeout(1000)
-    .withCallback(callback)
-    .build();
-
-cluster.execute(cmd);
 ```
