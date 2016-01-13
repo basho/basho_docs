@@ -16,6 +16,8 @@ in a single value expression.
 Arithmetic operations default to 64-bit integer math, unless mixed with a
 `double`, at which point they become floating-point.
 
+>**Important:** Proper spacing around arithmetic operators is required.
+
 ###Numeric Literals
 
 Integer, decimal floating point, and exponent notation floating point
