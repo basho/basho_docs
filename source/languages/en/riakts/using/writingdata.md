@@ -109,18 +109,16 @@ submission.write!
 
 ```javascript
 var Riak = require('basho-riak-client');
-var client = new Riak.Client([
-    'riak-test:10017'
-]);
 
-var tableName = 'GeoCheckin';
+var hosts = [ 'riak-1:8087', 'riak-2:8087' ];
+var client = new Riak.Client(hosts);
 
 var columns = [
-    { name: 'geohash',     type: TS.ColumnType.Varchar },
-    { name: 'user',        type: TS.ColumnType.Varchar },
-    { name: 'time',        type: TS.ColumnType.Timestamp },
-    { name: 'weather',     type: TS.ColumnType.Varchar },
-    { name: 'temperature', type: TS.ColumnType.Double }
+    { name: 'geohash',     type: Riak.Commands.TS.ColumnType.Varchar },
+    { name: 'user',        type: Riak.Commands.TS.ColumnType.Varchar },
+    { name: 'time',        type: Riak.Commands.TS.ColumnType.Timestamp },
+    { name: 'weather',     type: Riak.Commands.TS.ColumnType.Varchar },
+    { name: 'temperature', type: Riak.Commands.TS.ColumnType.Double }
 ];
 
 var rows = [
@@ -130,21 +128,19 @@ var rows = [
     [ 'hash1', 'user2', now, 'snow', 20.1 ]
 ];
 
-var cb = function (err, rslt) {
-    // NB: rslt will be an object with two properties:
-    // 'columns' - table columns
-    // 'rows' - row matching the Get request
+var cb = function (err, response) {
+    // NB: response will be true on success
 };
 
-
-var store = new TS.Store.Builder()
-    .withTable(tableName)
+var store = new Riak.Commands.TS.Store.Builder()
+    .withTable('GeoCheckin')
     // NB: withColumns is optional
-    //   TS column types will be inferred if it's omitted
+    // TS column types will be inferred if it's omitted
     .withColumns(columns)
     .withRows(rows)
-    .withCallback(callback)
+    .withCallback(cb)
     .build();
+
 client.execute(store);
 ```
 
@@ -160,15 +156,7 @@ Successful responses:
 * Java - `void`, not throwing an exception indicates a successful write
 * Python - `true`
 * Ruby - `void`, not raising an error indicates a successful write
-* Node.js - You define your own success response with:
-
-```javascript
-var callback = function(err, resp, data) {
-                assert(!err, err);
-                assert(resp);
-                // Do "successful response work"
-            };
-```
+* Node.js - `true`
 
 Failure responses: 
 
@@ -176,16 +164,7 @@ Failure responses:
 * Java - exceptions will be thrown 
 * Python - `RiakError`
 * Ruby - `RpbErrorResp` with errors
-* Node.js - You define your own error response:
-
-```javascript
-var callback = function(err, resp, data) {
-                assert(!err, err);
-                assert(resp);
-                // Do "successful response work"
-            };
-```
-
+* Node.js - The `err` callback parameter will have information, and the `response` parameter will be `false`
 
 In the event that your write fails, you should:
 
@@ -232,10 +211,8 @@ delete_operation.delete!
 ```javascript
 var key = [ 'family1', 'series1', 1420113600000 ];
 
-var cb = function (err, rslt) {
-    // NB: rslt will be an object with two properties:
-    // 'columns' - table columns
-    // 'rows' - row matching the Get request
+var cb = function (err, response) {
+    // NB: response will be true on success
 };
 
 var cmd = new Riak.Commands.TS.Delete.Builder()
