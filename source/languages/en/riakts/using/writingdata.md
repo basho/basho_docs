@@ -166,10 +166,26 @@ Failure responses:
 * Ruby - `RpbErrorResp` with errors
 * Node.js - The `err` callback parameter will have information, and the `response` parameter will be `false`
 
-In the event that your write fails, you should:
+In the event that your write fails, you should check the error message to see which rows failed validation. For example:
 
-1. Do a binary search with half the data, then the other half, and etc. to pinpoint the problem; or
-2. Write the data one at a time until one fails.
+```
+RiakClient client = RiakClient.newClient(10017, "myriakdb.host"); 
+List<Row> someRows = Arrays.asList(
+        // Good Row
+        new Row(new Cell("hash1"), new Cell("user1"), Cell.newTimestamp(1234567), new Cell("cloudy"), new Cell(79.0)),
+        // Bad Rows
+        new Row(new Cell("hash1"), Cell.newTimestamp(fiveMinsAgo)), // too short
+        new Row() // no data
+        );
+
+Store store = new Store.Builder("GeoCheckin").withRows(someRows).build();
+final RiakFuture<Void, String> storeFuture = client.executeAsync(store);
+
+storeFuture.await();
+assertFalse(storeFuture.isSuccess());
+System.out.println(storeFuture.cause().detailMessage);
+// Prints "Invalid data found at row index(es) 2, 3"
+```
 
 You could also try the original write again. Failures may be transitory when servers are temporarily unable to talk to each other.
 
