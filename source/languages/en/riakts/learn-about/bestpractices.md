@@ -1,14 +1,14 @@
 ---
 title: Riak TS Best Practices
 project: riakts
-version: 1.0.0+
+version: 1.1.0+
 document: reference
 toc: true
 index: true
 audience: beginner
 ---
 
-[advancedplanning]: http://docs.basho.com/riakts/1.0.0/learn-about/advancedplanning/
+[advancedplanning]: http://docs.basho.com/riakts/1.1.0/learn-about/advancedplanning/
 
 
 There are many ways to interact with and use Riak TS. This page will give recommendations for structuring your storage region (DDL) and 
