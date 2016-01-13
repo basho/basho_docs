@@ -152,9 +152,42 @@ client.execute(store);
 >
 >Riak TS 1.1.0 validates all rows on the server side before writing occurs, checking the number of row elements and types. If any of the rows fails validation then none of the rows will be written.  An error message will be returned with the index numbers of the invalid rows in the batch. The first item in the batch being index one.
 
-If all of the data are correctly written the response is: `ok` in Erlang and will not raise an error in Ruby.
+Depending on your client, you will recieve different messages indicating whether or not your write was successful. 
 
-If some of the data failed to write, an `RpbErrorResp` error occurs with a number of failures. In the event that your write fails, you should:
+Successful responses:
+
+* Erlang - `ok`
+* Java - `void`, not throwing an exception indicates a successful write
+* Python - `true`
+* Ruby - `void`, not raising an error indicates a successful write
+* Node.js - You define your own success response with:
+
+```javascript
+var callback = function(err, resp, data) {
+                assert(!err, err);
+                assert(resp);
+                // Do "successful response work"
+            };
+```
+
+Failure responses: 
+
+* Erlang - `RpbErrorResp`
+* Java - exceptions will be thrown 
+* Python - `RiakError`
+* Ruby - `RpbErrorResp` with errors
+* Node.js - You define your own error response:
+
+```javascript
+var callback = function(err, resp, data) {
+                assert(!err, err);
+                assert(resp);
+                // Do "successful response work"
+            };
+```
+
+
+In the event that your write fails, you should:
 
 1. Do a binary search with half the data, then the other half, and etc. to pinpoint the problem; or
 2. Write the data one at a time until one fails.
