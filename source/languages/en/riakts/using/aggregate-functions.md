@@ -99,6 +99,8 @@ Returns `NULL` if no values were returned or all values were `NULL`.
 
 Calculate the standard deviation for a set of values returned by the query.
 
+>**Note:** We use the uncorrected sample standard deviation for our calculations.
+
 ```sql
 SELECT STDDEV(temperature) FROM GeoCheckin
 WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
