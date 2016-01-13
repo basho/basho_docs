@@ -154,7 +154,7 @@ Successful responses:
 
 * Erlang - `ok`
 * Java - `void`, not throwing an exception indicates a successful write
-* Python - `true`
+* Python - `True`
 * Ruby - `void`, not raising an error indicates a successful write
 * Node.js - `true`
 
@@ -162,7 +162,7 @@ Failure responses:
 
 * Erlang - `RpbErrorResp`
 * Java - exceptions will be thrown 
-* Python - `RiakError`
+* Python - exceptions will be thrown
 * Ruby - `RpbErrorResp` with errors
 * Node.js - The `err` callback parameter will have information, and the `response` parameter will be `false`
 
