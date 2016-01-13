@@ -73,7 +73,17 @@ For the example `GeoCheckin` table:
 riak-admin bucket-type activate GeoCheckin
 ```
 
-##Verify Activation
+##Creation via Client Library
+
+Using one of the Riak Client libraries, execute the `CREATE TABLE` statement via that library's query functionality. This will create and activate the table in one step. The result of the operation is library-dependent:
+
+* Java: the `QueryResult` object will be returned without any data for rows or columns.
+* Erlang:
+* Ruby: no exception thrown and result collection is empty.
+* Python: no exception thrown. Result object is present with `rows` and `columns` being empty.
+* Node.js:  no exception thrown. Result object is present with `rows` and `columns` being empty.
+
+##Verify Creation and Activation
 
 You can verify that your table was properly created by looking at the `ddl` section of the `riak-admin bucket-type status` response. For example:
 
