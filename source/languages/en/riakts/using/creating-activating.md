@@ -1,15 +1,15 @@
 ---
 title: Creating and Activating Your Riak TS Table
 project: riakts
-version: 1.0.0+
+version: 1.1.0+
 document: guide
 toc: true
 index: true
 audience: beginner
 ---
 
-[planning]: http://docs.basho.com/riakts/1.0.0/using/planning
-[writing]: http://docs.basho.com/riakts/1.0.0/using/writingdata
+[planning]: http://docs.basho.com/riakts/1.1.0/using/planning
+[writing]: http://docs.basho.com/riakts/1.1.0/using/writingdata
 
 Once you have [planned out your table][planning] you can create it using `riak-admin`.
 

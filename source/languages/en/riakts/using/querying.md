@@ -1,16 +1,16 @@
 ---
 title: Querying Data in Riak TS
 project: riakts
-version: 1.0.0+
+version: 1.1.0+
 document: guide
 toc: true
 index: true
 audience: beginner
 ---
 
-[advancedplanning]: https://www.docs.basho.com/riakts/1.0.0/learn-about/advancedplanning
-[activating]: https://docs.basho.com/riakts/1.0.0/using/activating
-[writing]: https://docs.basho.com/riakts/1.0.0/using/writingdata
+[advancedplanning]: https://www.docs.basho.com/riakts/1.1.0/learn-about/advancedplanning
+[activating]: https://docs.basho.com/riakts/1.1.0/using/activating
+[writing]: https://docs.basho.com/riakts/1.1.0/using/writingdata
 
 
 Now that you have [created][activating] a Riak TS table and [written][writing] data to it, you can query your data.
@@ -20,7 +20,8 @@ Now that you have [created][activating] a Riak TS table and [written][writing] d
 
 There are effectively three categories of fields, and each has a different set of rules for valid queries.
 
-### Timestamp in the primary key
+
+###Timestamp in the primary key
 
 The timestamp in the primary key is an integer (in milliseconds) that must be compared either as a fully-enclosed range or as an exact match.
 
@@ -28,7 +29,8 @@ The timestamp in the primary key is an integer (in milliseconds) that must be co
 * Invalid: `time > 1449864277000`
 * Invalid: `time > 1449864277000 or time < 1449864290000`
 
-### Other fields in the primary key
+
+###Other fields in the primary key
 
 The other two fields in the primary key must be compared using strict equality against literal values. No ranges are permitted, `!=` must not be used, and `or` will not work.
 
@@ -37,11 +39,13 @@ The other two fields in the primary key must be compared using strict equality a
 * Invalid: `country_code != 'se'`
 * Invalid: `temperature < 85.0`
 
-### Fields not in the primary key
+
+###Fields not in the primary key
 
 These fields may be queried with unbounded ranges, `!=`, and `or` comparisons.
 
-### Other guidelines
+
+###Other guidelines
 
 Before you begin querying, there are some guidelines to keep in mind.
 
@@ -167,6 +171,10 @@ query = fmt.format(t1=tenMinsAgoMsec, t2=nowMsec)
 ts_obj = client.ts_query('GeoCheckin', query)
 ```
 
+```ruby
+Riak::Timeseries::Query.new(client, "select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1'").issue!
+```
+
 
 ###Extended Query
 
@@ -201,6 +209,10 @@ select weather, temperature from GeoCheckin where
 """
 query = fmt.format(t1=tenMinsAgoMsec, t2=nowMsec)
 ts_obj = client.ts_query('GeoCheckin', query)
+```
+
+```ruby
+Riak::Timeseries::Query.new(client, "select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1' and temperature > 27.0").issue!
 ```
 
 You can also use `or` when querying against values not in the primary key, such as `temperature` in our example. Note that the parentheses are required:
@@ -329,6 +341,7 @@ var cmd = new Riak.Commands.TS.Get.Builder()
 
 client.execute(cmd);
 ```
+
 
 ##List Keys
 
