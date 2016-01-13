@@ -8,9 +8,10 @@ index: true
 audience: beginner
 ---
 
-[activating]: https://www.docs.basho.com/riakts/1.0.0/using/activating
-[planning]: https://docs.basho.com/riakts/1.0.0/using/planning
-[querying]: https://docs.basho.com/riakts/1.0.0/using/querying
+[activating]: https://www.docs.basho.com/riakts/1.1.0/using/activating
+[planning]: https://docs.basho.com/riakts/1.1.0/using/planning
+[querying]: https://docs.basho.com/riakts/1.1.0/using/querying
+
 
 Now that you've [planned][planning] and [activated][activating] your Riak TS table, you are ready to write data to it.
 
@@ -86,7 +87,7 @@ submission.write!
 >
 >Riak TS 1.1.0 validates all rows on the server side before writing occurs, checking the number of row elements and types. If any of the rows fails validation then none of the rows will be written.  An error message will be returned with the index numbers of the invalid rows in the batch. The first item in the batch being index one.
 
-If all of the data are correctly written the response is: `ok` in Erlang, and will not raise an error in Ruby.
+If all of the data are correctly written the response is: `ok` in Erlang and will not raise an error in Ruby.
 
 If some of the data failed to write, an `RpbErrorResp` error occurs with a number of failures. In the event that your write fails, you should:
 

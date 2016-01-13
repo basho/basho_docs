@@ -1,54 +1,108 @@
 ---
-title: Riak TS 1.0.0 Release Notes
+title: Riak TS 1.1.0 Release Notes
 project: riakts
-version: 1.0.0+
+version: 1.1.0+
 document: guide
 audience: beginner
 toc: true
 keywords: [time series, release notes]
 ---
 
-Released December 15, 2015.
 
-This release is the introductory release of Riak TS. 
+Released January 13, 2015.
+
+This release builds on Riak TS 1.0 to enable further analysis of time series data with aggregates and arithmetic functionality.
+
+##New Features
+
+###Aggregations
+In Riak TS 1.0.0 you could run a` WHERE` clause that returned a particular row set of time series data. In 1.1.0 you can apply a function (such as `COUNT`) in the `SELECT` clause that operates on those responses in aggregate.
+
+For instance,
+
+```
+SELECT fun(X) FROM tablename WHERE
+```
+
+Where `fun` is one of:
+
+* `SUM`
+* `COUNT`
+* `AVG` / `MEAN`
+* `MIN`
+* `MAX`
+* `STDDEV`
+
+And where is (X) is either a column name, or a multi-column expression avg(temperature/pressure).
 
 
-##Features
+###Arithmetic
+Riak TS now also supports arithmetic operations in the `SELECT` list. The arithmetic operations available in this release are: Numeric Literals, Addition, Subtraction, Multiplication, Division, and Negation. 
 
-###Create Tables
+* +
+* -
+* /
+* *
+* (
+* )
 
-Riak TS enables you to define and configure tables of time series data as a riak bucket type, and write data to these tables. The schema of Riak TS's tables are generated as bucket properties and installed as bucket types, which allows you to structure data as it is coming in and store both structured and semi-structured data.
+For example,
 
-###Data Locality
+```
+SELECT 555, 1.1, 1e1, 1.123e-2 from GeoCheckin
+WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
+```
 
-The structure of Riak TS tables enable data locality based on composite key (including time quanta), which allows for rapid querying and near-linear scaling.
+>**Important:** Arithmetic operations and aggregate functions cannot be mixed in a single value expression.
 
-###SQL-like Queries
+###Dynamic Schema Discovery
+You can now query a table definition with the `DESCRIBE` table query which returns the table's rows and columns.
 
-You can query your data in Riak TS using a subset of SQL.
+For example:
 
-###Single Key DELETEs and GETs
+```sql
+DESCRIBE GeoCheckin
+```
 
-Riak TS enables single-key DELETEs and GETs, which allow you to read and modify data without writing SQL.
+Returns (Rows and Columns):
 
-###List Key
+```
+Column      | Type      | Is Null | Partition Key | Local Key
+--------------------------------------------------------
+myfamily    | varchar   | false   | 1             | 1
+myseries    | varchar   | false   | 2             | 2
+time        | timestamp | false   | 3             | 3
+weather     | varchar   | false   | <null>        | <null>
+temperature | double    | false   | <null>        | <null>
+```
 
-The list key feature allows you to issue an API call to list all of the keys in your Riak TS database. This can be a useful operation, but it is incredibly resource intensive as all keys must be read and processed. 
+###Create Tables via Clients
+You can create tables using `CREATE TABLE`. Simply execute your `CREATE TABLE` command in a query, and it will be created. 
 
-###Java, Python, and Erlang Clients
+```sql 
+CREATE TABLE GeoCheckin
+(
+   myfamily    varchar   not null,
+   myseries    varchar   not null,
+   time        timestamp not null,
+   weather     varchar   not null,
+   temperature double,
+   PRIMARY KEY (
+     (myfamily, myseries, quantum(time, 15, 'm')),
+     myfamily, myseries, time
+   )
+)
+```
 
-Riak TS offers three client libraries : Erlang, Java and Python.
-
+A successful table creation will return nothing, and an exception response will be returned if the attempt was unsuccessful.
 
 ##Compatibility
-
 Riak TS is compatible with the following operating systems:
 
 * RHEL/CentOS 6
 * RHEL/CentOS 7
 * Ubuntu 12.04 LTS
 * Ubuntu 14.04 LTS
-* Debian 6 (development only)
 * Debian 7 (development only)
 * OSX 10.8+ (development only)
 
@@ -58,5 +112,4 @@ Riak TS is compatible with the following operating systems:
 * AAE must be turned off.
 * Riak Search is not supported.
 * Multi-Datacenter Replication is not supported.
-* When deleting, a PUT occurs to write the tombstone, then a GET reaps the tombstone. Since PUT and GET are asynchronous, it is possible for the GET to occur before the PUT resulting in the data not actually being deleted.  If this occurs, issue the DELETE again.
-* It is possible to write incorrect data (data that does not match the schema) into rows other than the first row. For instance, it is possible to input an integer for 'double'. In these cases, the write will succeed but any READ or query that includes the incorrect row will fail.
+* Arithmetic operations and aggregates cannot currently be combined.
