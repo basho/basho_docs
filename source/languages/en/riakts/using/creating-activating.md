@@ -8,7 +8,12 @@ index: true
 audience: beginner
 ---
 
+[erlang]: http://docs.basho.com/riakts/1.1.0/developing/erlang#query2
+[java]: http://docs.basho.com/riakts/1.1.0/developing/java#query
+[nodejs]: http://docs.basho.com/riakts/1.1.0/developing/nodejs#query
 [planning]: http://docs.basho.com/riakts/1.1.0/using/planning
+[python]: http://docs.basho.com/riakts/1.1.0/developing/python#query
+[ruby]: http://docs.basho.com/riakts/1.1.0/developing/ruby#sql-queries
 [writing]: http://docs.basho.com/riakts/1.1.0/using/writingdata
 
 Once you have [planned out your table][planning] you can create it using `riak-admin`.
@@ -77,11 +82,11 @@ riak-admin bucket-type activate GeoCheckin
 
 Using one of the Riak Client libraries, execute the `CREATE TABLE` statement via that library's query functionality. This will create and activate the table in one step. The result of the operation is library-dependent:
 
-* Java: the `QueryResult` object will be returned without any data for rows or columns.
-* Erlang: the returned term will consist of two empty lists `{[],[]}`
-* Ruby: no exception thrown and result collection is empty.
-* Python: no exception thrown. Result object is present with `rows` and `columns` being empty.
-* Node.js:  no exception thrown. Result object is present with `rows` and `columns` being empty.
+* [Java][java]: the `QueryResult` object will be returned without any data for rows or columns.
+* [Erlang][erlang]: the returned term will consist of two empty lists `{[],[]}`
+* [Ruby][ruby]: no exception thrown and result collection is empty.
+* [Python][python]: no exception thrown. Result object is present with `rows` and `columns` being empty.
+* [Node.js][nodejs]:  no exception thrown. Result object is present with `rows` and `columns` being empty.
 
 ##Verify Creation and Activation
 
