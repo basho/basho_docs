@@ -51,8 +51,32 @@ import com.basho.riak.client.api.commands.timeseries.Store;
 import com.basho.riak.client.core.query.timeseries.*;
 import java.util.*;
 public class RiakTSInsert {
-public static void main(String [] args) throws UnknownHostException, ExecutionException, InterruptedException
-{ // Riak Client with supplied IP and Port RiakClient client = RiakClient.newClient(10017, "myriakdb.host"); List<Row> rows = Arrays.asList( new Row(new Cell("family1"), new Cell("series1"), Cell.newTimestamp(1234567), new Cell("hot"), new Cell(23.5)), new Row(new Cell("family2"), new Cell("series99"), Cell.newTimestamp(1234567), new Cell("windy"), new Cell(19.8))); Store storeCmd = new Store.Builder("GeoCheckin").withRows(rows).build(); client.execute(storeCmd); client.shutdown(); }
+  public static void main(String [] args) 
+    throws UnknownHostException, ExecutionException, InterruptedException
+  { 
+    // Riak Client with supplied IP and Port 
+    RiakClient client = RiakClient.newClient(10017, "myriakdb.host"); 
+    List<Row> rows = Arrays.asList(
+      new Row(
+        new Cell("family1"), 
+        new Cell("series1"), 
+        Cell.newTimestamp(1234567), 
+        new Cell("hot"), 
+        new Cell(23.5)
+      ), 
+      new Row(
+        new Cell("family2"), 
+        new Cell("series99"), 
+        Cell.newTimestamp(1234567), 
+        new Cell("windy"), 
+        new Cell(19.8)
+      )
+    ); 
+
+    Store storeCmd = new Store.Builder("GeoCheckin").withRows(rows).build(); 
+    client.execute(storeCmd); 
+    client.shutdown(); 
+  }
 }
 ```
 
@@ -81,6 +105,47 @@ client = Riak::Client.new 'myriakdb.host', pb_port: 10017
 submission = Riak::TimeSeries::Submission.new client, "GeoCheckin"
 submission.measurements = [["family1", "series1", 1234567, "hot", 23.5], ["family2", "series99", 1234567, "windy", 19.8]]
 submission.write!
+```
+
+```javascript
+var Riak = require('basho-riak-client');
+var client = new Riak.Client([
+    'riak-test:10017'
+]);
+
+var tableName = 'GeoCheckin';
+
+var columns = [
+    { name: 'geohash',     type: TS.ColumnType.Varchar },
+    { name: 'user',        type: TS.ColumnType.Varchar },
+    { name: 'time',        type: TS.ColumnType.Timestamp },
+    { name: 'weather',     type: TS.ColumnType.Varchar },
+    { name: 'temperature', type: TS.ColumnType.Double }
+];
+
+var rows = [
+    [ 'hash1', 'user2', twentyMinsAgo, 'hurricane', 82.3 ],
+    [ 'hash1', 'user2', fifteenMinsAgo, 'rain', 79.0 ],
+    [ 'hash1', 'user2', fiveMinsAgo, 'wind', null ],
+    [ 'hash1', 'user2', now, 'snow', 20.1 ]
+];
+
+var cb = function (err, rslt) {
+    // NB: rslt will be an object with two properties:
+    // 'columns' - table columns
+    // 'rows' - row matching the Get request
+};
+
+
+var store = new TS.Store.Builder()
+    .withTable(tableName)
+    // NB: withColumns is optional
+    //   TS column types will be inferred if it's omitted
+    .withColumns(columns)
+    .withRows(rows)
+    .withCallback(callback)
+    .build();
+client.execute(store);
 ```
 
 >**Note on validation**:
@@ -113,7 +178,8 @@ riakc_ts:delete(Pid, <<"GeoCheckins">>, [<<"family1">>, <<"series1">>, 142011360
 ```
 
 ```java
-final List<Cell> keyCells = Arrays.asList(new Cell("family1"), new Cell("series1"), Cell.newTimestamp(1420113600000));
+final List<Cell> keyCells = Arrays.asList(
+  new Cell("family1"), new Cell("series1"), Cell.newTimestamp(1420113600000));
 
 Delete delete = new Delete.Builder("GeoCheckins", keyCells).build();
 
