@@ -23,11 +23,11 @@ Riak TS is a distributed NoSQL key/value store optimized for fast reads and writ
 Choose your OS and follow the instructions:
 
 * [CentOS/RHEL 6 & 7][Centos]
-* [Debian 6 & 7][Debian]
-* [OS X 10.8][OSX]
+* [Debian 7][Debian]
+* [OS X 10.8+][OSX]
 * [Ubuntu 12.04 & 14.04][Ubuntu]
 
 
 >**Upgrade Note:** 
 >
->Riak TS is debuting as a complete, standalone product. Upgrading from Riak KV to Riak TS is not currently supported.
+>Riak TS is a complete, standalone product. Upgrading from Riak KV to Riak TS is not currently supported.
