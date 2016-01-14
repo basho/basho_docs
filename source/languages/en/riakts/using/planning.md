@@ -8,7 +8,7 @@ index: true
 audience: beginner
 ---
 
-[activating]: https://www.docs.basho.com/riakts/1.1.0/using/activating
+[activating]: https://www.docs.basho.com/riakts/1.1.0/using/creating-activating
 [advancedplanning]: http://docs.basho.com/riakts/1.1.0/learn-about/advancedplanning/
 [bestpractices]: http://docs.basho.com/riakts/1.1.0/learn-about/bestpractices/
 [epoch]: https://en.wikipedia.org/wiki/Unix_time
