@@ -9,10 +9,10 @@ audience: beginner
 ---
 
 [AAE]: http://docs.basho.com/riak/2.1.3/theory/concepts/aae/
-[Centos]: http://docs.basho.com/riakts/1.1.0/installing/rhel-centos
-[Debian]: http://docs.basho.com/riakts/1.1.0/installing/debian-ubuntu
-[OSX]: http://docs.basho.com/riakts/1.1.0/installing/mac-osx
-[Ubuntu]: http://docs.basho.com/riakts/1.1.0/installing/debian-ubuntu
+[Centos]: http://docs.basho.com/riakts/1.1.0/riakts-installing/rhel-centos
+[Debian]: http://docs.basho.com/riakts/1.1.0//riakts-installing/debian-ubuntu
+[OSX]: http://docs.basho.com/riakts/1.1.0/riakts-installing//mac-osx
+[Ubuntu]: http://docs.basho.com/riakts/1.1.0/riakts-installing//debian-ubuntu
 
 
 Riak TS is a distributed NoSQL key/value store optimized for fast reads and writes of time series data. To use it, all you need to do is install the Riak TS package.
