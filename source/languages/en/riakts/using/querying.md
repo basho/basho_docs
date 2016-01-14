@@ -9,7 +9,7 @@ audience: beginner
 ---
 
 [advancedplanning]: https://www.docs.basho.com/riakts/1.1.0/learn-about/advancedplanning
-[activating]: https://docs.basho.com/riakts/1.1.0/using/activating
+[activating]: https://docs.basho.com/riakts/1.1.0/using/creating-activating
 [writing]: https://docs.basho.com/riakts/1.1.0/using/writingdata
 
 
