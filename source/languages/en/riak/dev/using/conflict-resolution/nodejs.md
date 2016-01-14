@@ -21,7 +21,7 @@ array with one value in it.
 
 [*Example:* creating object with siblings](https://github.com/basho/riak-nodejs-client-examples/blob/master/dev/using/conflict-resolution.js#L21-L68)
 
-So what happens if the length of `rslt.values` is greater than 0, as in the case
+So what happens if the length of `rslt.values` is greater than 1, as in the case
 above?
 
 In order to resolve siblings, you need to either fetch, update and store a
@@ -33,19 +33,19 @@ the canonical value.
 In this example, you will ignore the contents of the `values` array and will
 fetch, update and store the definitive value.
 
-[*Example:* resolving siblings via store](https://github.com/basho/riak-nodejs-client-examples/blob/master/dev/using/conflict-resolution.js#L72-L92)
+[*Example:* resolving siblings via store](https://github.com/basho/riak-nodejs-client-examples/blob/master/dev/using/conflict-resolution.js#L91-L111)
 
 ### Choosing a value from `rslt.values`
 
 This example shows a basic sibling resolution strategy in which the first
 sibling is chosen as the canonical value.
 
-[*Example:* resolving siblings via first](https://github.com/basho/riak-nodejs-client-examples/blob/master/dev/using/conflict-resolution.js#L94-L113)
+[*Example:* resolving siblings via first](https://github.com/basho/riak-nodejs-client-examples/blob/master/dev/using/conflict-resolution.js#L113-L133)
 
 ### Using `conflictResolver`
 
 This example shows a basic sibling resolution strategy in which the first
 sibling is chosen as the canonical value via a conflict resolution function.
 
-[*Example:* resolving siblings via `conflictResolver](https://github.com/basho/riak-nodejs-client-examples/blob/master/dev/using/conflict-resolution.js#L117-L151)
+[*Example:* resolving siblings via `conflictResolver](https://github.com/basho/riak-nodejs-client-examples/blob/master/dev/using/conflict-resolution.js#L135-L170)
 
