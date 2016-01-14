@@ -78,16 +78,6 @@ For the example `GeoCheckin` table:
 riak-admin bucket-type activate GeoCheckin
 ```
 
-##Creation via Client Library
-
-Using one of the Riak Client libraries, execute the `CREATE TABLE` statement via that library's query functionality. This will create and activate the table in one step. The result of the operation is library-dependent:
-
-* [Java][java]: the `QueryResult` object will be returned without any data for rows or columns.
-* [Erlang][erlang]: the returned term will consist of two empty lists `{[],[]}`
-* [Ruby][ruby]: no exception thrown and result collection is empty.
-* [Python][python]: no exception thrown. Result object is present with `rows` and `columns` being empty.
-* [Node.js][nodejs]:  no exception thrown. Result object is present with `rows` and `columns` being empty.
-
 ##Verify Creation and Activation
 
 You can verify that your table was properly created by looking at the `ddl` section of the `riak-admin bucket-type status` response. For example:
@@ -111,6 +101,30 @@ ddl: {ddl_v1,<<"GeoCheckin">>,
                       {param_v1,[<<"myfamily">>]},
                       {param_v1,[<<"myseries">>]}]}}
 ```
+
+##Creation via Client Library
+
+Using one of the Riak Client libraries, execute the `CREATE TABLE` statement via that library's query functionality. This will create and activate the table in one step. The result of the operation is library-dependent:
+
+* [Java][java]: the `QueryResult` object will be returned without any data for rows or columns.
+* [Erlang][erlang]: the returned term will consist of two empty lists `{[],[]}`
+* [Ruby][ruby]: no exception thrown and result collection is empty.
+* [Python][python]: no exception thrown. Result object is present with `rows` and `columns` being empty.
+* [Node.js][nodejs]:  no exception thrown. Result object is present with `rows` and `columns` being empty.
+
+
+##Verification via Client Library
+
+You can verify that your table was properly created by executing the `DESCRIBE table` query via the query function of your client library, or by using the `riak-admin bucket-type status` command as described above.
+
+The result of the `DESCRIBE table` command is library-dependent:
+
+* [Java][java]: the `QueryResult` object will be returned with rows and columns corresponding to the table's DDL.
+* [Erlang][erlang]: the returned term will consist of two lists corresponding to the table's DDL.
+* [Ruby][ruby]: no exception thrown and result collection will contain rows and columns corresponding to the table's DDL.
+* [Python][python]: no exception thrown. Result object is present with `rows` and `columns` corresponding to the table's DDL.
+* [Node.js][nodejs]:  no exception thrown. Result object is present with `rows` and `columns` corresponding to the table's DDL.
+
 
 ##Next Steps
 
