@@ -9,7 +9,7 @@ audience: intermediate
 ---
 
 
-[arithmetic]: https://www.docs.basho.com/riakts/1.1.0/using/arithmetic
+[arithmetic]: https://docs.basho.com/riakts/1.1.0/using/arithmetic-operations
 
 
 You can turn a set of rows in your Riak TS table into a value with the aggregate feature. This document will walk you through the functions that make up aggregation in Riak TS. 
