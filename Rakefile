@@ -29,11 +29,11 @@ directory "#{$cache_dir}"
 ### Rake Namespace and Task definitions
 
 Rake::TaskManager.record_task_metadata = true
-########
+##########
 # Default
-task      :default do
-  puts "Basho Documentation Rake System Usage:"
-  puts ""
+task :default do
+  puts("Basho Documentation Generate System Usage:")
+  puts("")
   Rake::application.options.show_tasks = :tasks  # this solves sidewaysmilk problem
   Rake::application.options.show_task_pattern = //
   Rake::application.display_tasks_and_comments
@@ -56,7 +56,7 @@ end
 ########
 # Build
 desc      "Compile Compressed JS, Compile Compressed CSS, Build Hugo"
-task      :build => ['clean', 'build:js', 'build:css', 'build:hugo']
+task      :build => ['build:js', 'build:css', 'build:hugo']
 namespace :build do
   task :js => "#{$js_dest}" do compile_js(debug: false); end
   task :css => "#{$css_dest}" do compile_css(debug: false); end
@@ -96,6 +96,14 @@ namespace :watch do
     task :css do sh 'bundle exec guard -g debug_css'; end
   end
 end
+
+
+#########
+# Deploy
+desc      "Build and deploy static artifacts"
+#TODO: Figure out if we want to depend on 'build'. I'm assuming not? Run that
+# manually, yeah?
+task      :deploy do do_deploy(); end
 
 
 ######################################################################
@@ -193,4 +201,258 @@ def compile_css(debug: false)
     :only_sass_files => Dir.glob("#{$css_source}/*.scss")
   })
   compiler.compile!
+end
+
+
+###########################
+# Deploy rules and helpers
+
+# Once the static/ directory has been fully and correctly generated, we can
+# upload the updated and new -- and delete the no longer generated -- files
+# to/from our S3 bucket, and send out CloudFront invalidation requests to
+# propagate those changes to Amazon's CDNs. To pull this off, we're going to re-
+# implement rsyn---I mean, compare the MD5 sums (and existence) of all of the
+# local objects with their S3 counterparts, and perform selective uploads. We'll
+# use the upload list to then generate the invalidation request.
+def do_deploy()
+  require 'digest/md5'
+  require 'aws-sdk'
+  require 'progressbar'
+  require 'simple-cloudfront-invalidator'
+
+  # Validation check for environment variables
+  if (   !ENV['AWS_S3_BUCKET']
+      || !ENV['AWS_ACCESS_KEY_ID']
+      || !ENV['AWS_SECRET_ACCESS_KEY']
+      || !ENV['AWS_CLOUDFRONT_DIST_ID'])
+    puts("The below required environment variable(s) have not been defined.\n"\
+         "Without them, the Deploy process cannot complete.\n"\
+         "Please verify that they have been correctly defined.")
+    puts("  * AWS_S3_BUCKET") if (!ENV['AWS_S3_BUCKET'])
+    puts("  * AWS_ACCESS_KEY_ID") if (!ENV['AWS_ACCESS_KEY_ID'])
+    puts("  * AWS_SECRET_ACCESS_KEY") if (!ENV['AWS_SECRET_ACCESS_KEY'])
+    puts("  * AWS_CLOUDFRONT_DIST_ID") if (!ENV['AWS_CLOUDFRONT_DIST_ID'])
+    exit()
+  end
+
+  puts("========================================")
+  puts("Beginning Deploy Process...")
+
+  # Move into the static/ directory, so file names lead with "./static"
+  Dir.chdir(File.join(File.dirname(__FILE__), "static"))
+
+  # Generate a list of every built file in the form of
+  # '["<FILE_NAME> <MD5SUM>", ... ]'
+  puts("  Aggregating Local Hash List...")
+  local_file_list = Dir["./**/*"]
+    .select{ |f| File.file?(f) }
+    .sort_by{ |f| f }
+    .map{ |f|
+      # The file names have a leading `./`. Strip those.
+      [f[2..-1], Digest::MD5.file(f).hexdigest] }
+
+
+  # Open up a connection to our S3 target bucket
+  puts("  Opening S3 Connection...")
+  aws_bucket = Aws::S3::Bucket.new(ENV['AWS_S3_BUCKET'], {
+      :region            => "us-east-1",
+      :access_key_id     => ENV['AWS_ACCESS_KEY_ID'],
+      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'],
+    })
+
+  # Fetch all objects, and filter out all of the files from the old Middleman
+  # deploy. (See below `should_ignore` for details)
+  # After the filter, generate a list of '["<FILE_NAME> <MD5SUM>", ... ]'
+  puts("  Filtering Remote Object List...")
+  # Fetching the actual count of objects in S3 takes 15 seconds---as long as
+  # the .reject fold itself. We're just going to use an estimate here, and track
+  # the actual as well. After we're doing updating, we can warn if the estimate
+  # is sufficiently off.
+  aws_obj_count_estimate = 33000
+  aws_obj_count_actual = 0
+  progress = ProgressBar.new("   Objects", aws_obj_count_estimate)
+  aws_object_list = aws_bucket
+    .objects()
+    .reject{ |objs| # AWS ObjectSummary
+      progress.inc
+      aws_obj_count_actual += 1
+      should_ignore(objs.key) }
+    .sort_by{ |objs| objs.key }
+    .map{ |objs|
+      # the etag (which is the md5sum) is wrapped in double-quotes. Strip those
+      # by 'translating' them into empty strings.
+      [objs.key, objs.etag.tr('"','')] }
+  progress.finish
+
+
+  # Now that we have the two lists, it's time to parse through them and generate
+  # lists of files we need to upload, and lists of files we need to delete.
+  # To do this, we're... going to use some brute force.
+  puts("  Comparing Object Hashes...")
+  upload_list = []
+  delete_list = []
+  lcl_i = 0
+  aws_i = 0
+  lcl_len = local_file_list.length
+  aws_len = aws_object_list.length
+  progress = ProgressBar.new("   Hash check", lcl_len)
+  while true
+    # Check if we've reached the end of either list and should break
+    break if (lcl_i == lcl_len || aws_i == aws_len)
+    lcl_file_name = local_file_list[lcl_i][0]
+    aws_file_name = aws_object_list[aws_i][0]
+    if (should_ignore(lcl_file_name))
+      Kernel.abort("ERROR: We are attempting to upload the file "\
+                   "\"#{lcl_file_name}\" which is among the set of locked "\
+                   "files from the Legacy Middleman build.\n"\
+                   "       Please verify that this file is among those you "\
+                   "want to upload and, if so, modify the \`do_deply\` "\
+                   "function of this Rakefile such that it is not included in "\
+                   "the \`should_ignore\` list.")
+    end
+    #### binding.pry if ((lcl_file_name <=> aws_file_name) != 0)
+    # Compare the file/object names
+    case lcl_file_name <=> aws_file_name
+    when  0 # File names are identical
+      # Compare md5sums, if they don't match, add the file to the upload list.
+      if (local_file_list[lcl_i][1] != aws_object_list[aws_i][1])
+        upload_list.push(lcl_file_name)
+      end
+      # In either case, increment the indexers
+      lcl_i += 1; progress.inc
+      aws_i += 1
+    when -1 # Local file name sorts first...
+      # The local file doesn't exist on AWS. Add it to the upload list, and
+      # increment only the local index variable.
+      upload_list.push(lcl_file_name)
+      lcl_i += 1; progress.inc
+    when  1 # AWS object name sorts first...
+      # The AWS object doesn't (no longer) exists in the locally built
+      # artifacts. Schedule it for deletion, and increment only the aws index.
+      delete_list.push(aws_file_name)
+      aws_i += 1
+    end
+  end
+
+  # If we're not at the end of the local file list, we need to add any new files
+  # to the upload list.
+  while (lcl_i < lcl_len)
+    upload_list.push(local_file_list[lcl_i][0])
+    lcl_i += 1; progress.inc
+  end
+
+  # If we're not at the end of the aws object list, we need to add those file to
+  # the delete list.
+  while (aws_i < aws_len)
+    delete_list.push(aws_object_list[aws_i][0])
+    aws_i += 1
+  end
+  progress.finish
+
+  puts("  Hash Check complete")
+  puts("    #{upload_list.length} files need to be uploaded to the remote")
+  puts("    #{delete_list.length} files need to be deleted from the remote")
+
+
+  # Upload the files in the upload list and delete the files in the delete list.
+  if (upload_list.length > 0)
+    puts("  Uploading files...")
+    progress = ProgressBar.new("   Uploads", upload_list.length)
+    upload_list.each{ |obj_path|
+      #TODO: Generate a log of the uploaded files?
+      if (aws_bucket.object(obj_path).upload_file(obj_path) != true)
+        #TODO: Maybe this should also be a `Kernel.abort`?
+        #TODO: Probably want to send this out on STDERR.
+        puts("ERROR: Failed to upload #{obj_path}!")
+      end
+    }
+    progress.finish
+  else
+    puts("  No files to upload...")
+  end
+
+  if (delete_list.length > 0)
+    puts("  Requesting Batch Delete...")
+    # Generate a Aws::S3::Types::Delete hash object.
+    delete_hash = {
+      delete: {
+        objects: delete_list.map{ |f| { key: f } },
+        quiet: false
+      }
+    }
+    #TODO: Generate a log of the deleted files?
+    response = aws_bucket.delete_objects(delete_hash)
+    if (response.errors.length > 0)
+      require 'pp'
+      Kernel.abort("ERRROR: Batch Deletion returned with errors\n"\
+                   "        Delete Hash Object:\n"\
+                   "#{pp(delete_hash)}\n"\
+                   "        Response Object:\n"\
+                   "#{pp(response)}")
+    end
+  else
+    puts("  No files to delete...")
+  end
+
+
+  # Invalidate any files that were modified---either uploaded or deleted
+  puts("  Sending Invalidation Request...")
+  invalidation_list = upload_list + delete_list
+  if (invalidation_list.length > 0)
+    cf_client = CloudfrontClient.new(ENV['AWS_ACCESS_KEY_ID'],
+                                     ENV['AWS_SECRET_ACCESS_KEY'],
+                                     ENV['AWS_CLOUDFRONT_DIST_ID'])
+    cf_report = cf_client.invalidate(invalidation_list)
+  else
+    puts("  No files to invalidate...")
+  end
+
+
+  puts("")
+  puts("Deploy Process Complete!")
+  puts("========================================")
+
+
+  # Bookkeeping check to alert if our file estimates are too far off.
+  acceptable = (aws_obj_count_estimate * 0.10)
+  if ((aws_obj_count_actual - aws_obj_count_estimate).abs > acceptable)
+    puts("")
+    puts("")
+    puts("DEVS: The estimated AWS object count (#{aws_obj_count_estimate}) is "\
+         " more than 10% off of actual (#{aws_obj_count_actual}).\n"\
+         "      Please consider modifying the \`aws_obj_count_estimate\` "\
+         " variable accordingly.")
+  end
+end
+
+# This function takes an object path, and returns `true` if it's in the set of
+# old Middleman-generated files that we don't want to modify.
+# This set includes...
+#   * BingSiteAuth.xml
+#   * google59ea6be0154fb436.html
+#   * css/standalone/*
+#   * js/standalone/*
+#   * riak/1.*.*/
+#   * riak/2.0.*/
+#   * riak/2.1.*/
+#   * riakcs/1.*.*/
+#   * riakcs/2.0.*/
+#   * riakcs/2.1.*/
+#   * riakee/*
+#   * riakts/*
+#   * dataplatform/1.*.*/
+#   * shared/*
+def should_ignore(obj_path)
+  return (obj_path == "BingSiteAuth.xml"            ||
+          obj_path == "google59ea6be0154fb436.html" ||
+          obj_path.start_with?("css/standalone/")   ||
+          obj_path.start_with?("js/standalone/")    ||
+          obj_path.start_with?("riakee/")           ||
+          obj_path.start_with?("riakts/")           ||
+          obj_path.start_with?("shared/")           ||
+          obj_path.start_with?("riakcs/")           ||
+          # `start_with?` can't take regexes, so use `=~` to avoid matching
+          # against e.g. riak/kv and dataplatform/1.0
+          obj_path =~ /^riak\/\d\.\d\.\d/           ||
+          obj_path =~ /^dataplatform\/\d\.\d\.\d/     )
 end

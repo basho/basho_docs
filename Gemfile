@@ -8,6 +8,10 @@ gem "sprockets", "~>3.3.4"
 gem "coffee-script", "~>2.4.1"
 gem "uglifier", "~>2.7.2"
 
+gem "aws-sdk"
+gem "aws-s3"
+gem "progressbar"
+
 # gem "github-markdown", "~>"
 # gem "coderay", "~>"
 # gem "pygmentize", "~>"
