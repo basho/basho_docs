@@ -37,7 +37,7 @@ backend that uses very few file handles, it's possible to run out. See
 To install Riak TS on your Mac, download the package from ZenDesk and then run:
 
 ```bash
-tar zxvf riak-ts-{{VERSION}}.tar.gz
+tar zxvf riak-ts-{{VERSION}}-OSX-x86_64.tar.gz
 cd riak-ts-{{VERSION}}
 ```
 
