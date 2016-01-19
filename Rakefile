@@ -365,6 +365,7 @@ def do_deploy()
         #TODO: Probably want to send this out on STDERR.
         puts("ERROR: Failed to upload #{obj_path}!")
       end
+      progress.inc
     }
     progress.finish
   else
@@ -399,9 +400,9 @@ def do_deploy()
   puts("  Sending Invalidation Request...")
   invalidation_list = upload_list + delete_list
   if (invalidation_list.length > 0)
-    cf_client = CloudfrontClient.new(ENV['AWS_ACCESS_KEY_ID'],
-                                     ENV['AWS_SECRET_ACCESS_KEY'],
-                                     ENV['AWS_CLOUDFRONT_DIST_ID'])
+    cf_client = SimpleCloudfrontInvalidator::CloudfrontClient.new(
+        ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY'],
+        ENV['AWS_CLOUDFRONT_DIST_ID'])
     cf_report = cf_client.invalidate(invalidation_list)
   else
     puts("  No files to invalidate...")
