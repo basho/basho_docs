@@ -221,10 +221,10 @@ def do_deploy()
   require 'simple-cloudfront-invalidator'
 
   # Validation check for environment variables
-  if (   !ENV['AWS_S3_BUCKET']
-      || !ENV['AWS_ACCESS_KEY_ID']
-      || !ENV['AWS_SECRET_ACCESS_KEY']
-      || !ENV['AWS_CLOUDFRONT_DIST_ID'])
+  if (!ENV['AWS_S3_BUCKET']         ||
+      !ENV['AWS_ACCESS_KEY_ID']     ||
+      !ENV['AWS_SECRET_ACCESS_KEY'] ||
+      !ENV['AWS_CLOUDFRONT_DIST_ID']  )
     puts("The below required environment variable(s) have not been defined.\n"\
          "Without them, the Deploy process cannot complete.\n"\
          "Please verify that they have been correctly defined.")
