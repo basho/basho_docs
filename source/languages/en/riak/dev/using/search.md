@@ -192,6 +192,18 @@ client.execute(store);
 riakc_pb_socket:create_search_index(Pid, <<"famous">>).
 ```
 
+```golang
+cmd, err := riak.NewStoreIndexCommandBuilder().
+    WithIndexName("famous").
+    WithTimeout(time.Second * 30).
+    Build()
+if err != nil {
+    return err
+}
+
+err = cluster.Execute(cmd)
+```
+
 ```curl
 export RIAK_HOST="http://localhost:8098"
 
@@ -249,6 +261,19 @@ client.execute(store);
 
 ```erlang
 riakc_pb_socket:create_search_index(Pid, <<"famous">>, <<"_yz_default">>, []).
+```
+
+```golang
+cmd, err := riak.NewStoreIndexCommandBuilder().
+    WithIndexName("famous").
+    WithSchemaName("_yz_default").
+    WithTimeout(time.Second * 30).
+    Build()
+if err != nil {
+    return err
+}
+
+err = cluster.Execute(cmd)
 ```
 
 ```curl
@@ -363,6 +388,19 @@ client.execute(store);
 
 ```erlang
 riakc_pb_socket:set_search_index(Pid, <<"cats">>, <<"famous">>).
+```
+
+```golang
+cmd, err := riak.NewStoreBucketPropsCommandBuilder().
+    WithBucketType("animals").
+    WithBucket("cats").
+    WithSearchIndex("famous").
+    Build()
+if err != nil {
+    return err
+}
+
+err = cluster.Execute(cmd)
 ```
 
 ```curl
@@ -591,6 +629,53 @@ C3 = riakc_obj:new({<<"animals">>, <<"cats">>}, <<"panthro">>,
 riakc_pb_socket:put(Pid, C3),
 ```
 
+```golang
+o1 := &riak.Object{
+    Key:             "liono",
+    Value:           []byte("{\"name_s\":\"Lion-o\",\"age_i\":30,\"leader_b\":true}"),
+}
+o2 := &riak.Object{
+    Key:             "cheetara",
+    Value:           []byte("{\"name_s\":\"Cheetara\",\"age_i\":30,\"leader_b\":false}"),
+}
+o3 := &riak.Object{
+    Key:             "snarf",
+    Value:           []byte("{\"name_s\":\"Snarf\",\"age_i\":43,\"leader_b\":false}"),
+}
+o4 := &riak.Object{
+    Key:             "panthro",
+    Value:           []byte("{\"name_s\":\"Panthro\",\"age_i\":36,\"leader_b\":false}"),
+}
+
+objs := [...]*riak.Object{o1, o2, o3, o4}
+
+wg := &sync.WaitGroup{}
+for _, obj := range objs {
+    obj.ContentType = "application/json"
+    obj.Charset = "utf-8"
+    obj.ContentEncoding = "utf-8"
+
+    cmd, err := riak.NewStoreValueCommandBuilder().
+        WithBucketType("animals").
+        WithBucket("cats").
+        WithContent(obj).
+        Build()
+    if err != nil {
+        return err
+    }
+
+    args := &riak.Async{
+        Command: cmd,
+        Wait:    wg,
+    }
+    if err := cluster.ExecuteAsync(args); err != nil {
+        return err
+    }
+}
+
+wg.Wait()
+```
+
 ```curl
 curl -XPUT $RIAK_HOST/types/animals/buckets/cats/keys/liono \
      -H 'Content-Type: application/json' \
@@ -792,6 +877,27 @@ io:fwrite("~p~n", [Docs]).
 %% Please note that this example relies on an Erlang record definition
 %% for the search_result record found here:
 %% https://github.com/basho/riak-erlang-client/blob/master/include/riakc.hrl
+```
+
+```golang
+cmd, err := riak.NewSearchCommandBuilder().
+    WithIndexName("famous").
+    WithQuery("name_s:Lion*").
+    Build();
+if err != nil {
+    return err
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    return err
+}
+
+sc := cmd.(*riak.SearchCommand)
+if json, jerr := json.MarshalIndent(sc.Response.Docs, "", "  "); jerr != nil {
+    return jerr
+} else {
+    fmt.Println(string(json))
+}
 ```
 
 ```curl
