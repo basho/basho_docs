@@ -1038,6 +1038,23 @@ io:fwrite("~s~n", [Val]).
 %% {"name_s":"Lion-o", "age_i":30, "leader_b":true}
 ```
 
+```golang
+doc := sc.Response.Docs[0] // NB: SearchDoc struct type
+
+cmd, err = riak.NewFetchValueCommandBuilder().
+    WithBucketType(doc.BucketType).
+    WithBucket(doc.Bucket).
+    WithKey(doc.Key).
+    Build()
+if err != nil {
+    return err
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    return err
+}
+```
+
 ```curl
 curl $RIAK_HOST/types/animals/buckets/cats/keys/liono
 
@@ -1118,6 +1135,20 @@ client.execute(search);
 riakc_pb_socket:search(Pid, <<"famous">>, <<"age_i:[30 TO *]">>),
 ```
 
+```golang
+cmd, err := riak.NewSearchCommandBuilder().
+    WithIndexName("famous").
+    WithQuery("age_i:[30 TO *]").
+    Build();
+if err != nil {
+    return err
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    return err
+}
+```
+
 ```curl
 curl "$RIAK_HOST/search/query/famous?wt=json&q=age_i:%5B30%20TO%20*%5D" | jsonpp
 ```
@@ -1178,6 +1209,20 @@ client.execute(search);
 riakc_pb_socket:search(Pid, <<"famous">>, <<"leader_b:true AND age_i:[30 TO *]">>),
 ```
 
+```golang
+cmd, err := riak.NewSearchCommandBuilder().
+    WithIndexName("famous").
+    WithQuery("leader_b:true AND age_i:[30 TO *]").
+    Build();
+if err != nil {
+    return err
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    return err
+}
+```
+
 ```curl
 curl "$RIAK_HOST/search/query/famous?wt=json&q=leader_b:true%20AND%20age_i:%5B25%20TO%20*%5D" | jsonpp
 ```
@@ -1234,6 +1279,32 @@ client.execute(search);
 
 ```erlang
 riakc_pb_socket:delete_search_index(Pid, <<"famous">>, []),
+```
+
+```golang
+cmd, err := riak.NewStoreBucketPropsCommandBuilder().
+    WithBucketType("animals").
+    WithBucket("cats").
+    WithSearchIndex("_dont_index_").
+    Build()
+if err != nil {
+    return err
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    return err
+}
+
+cmd, err = riak.NewDeleteIndexCommandBuilder().
+    WithIndexName("famous").
+    Build()
+if err != nil {
+    return err
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    return err
+}
 ```
 
 ```curl
@@ -1346,6 +1417,26 @@ Page = 2,
 Start = ?ROWS_PER_PAGE * (Page - 1),
 
 riakc_pb_socket:search(Pid, <<"famous">>, <<"*:*">>, [{start, Start},{rows, ?ROWS_PER_PAGE}]),
+```
+
+```golang
+rowsPerPage := uint32(2)
+page := uint32(2)
+start := rowsPerPage * (page - uint32(1))
+
+cmd, err := riak.NewSearchCommandBuilder().
+    WithIndexName("famous").
+    WithQuery("*:*").
+    WithStart(start).
+    WithNumRows(rowsPerPage).
+    Build();
+if err != nil {
+    return err
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    return err
+}
 ```
 
 ```curl
