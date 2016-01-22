@@ -8,7 +8,7 @@ audience: beginner
 keywords: [developers, client, go, golang]
 ---
 
-If you haven't set up a Riak Node and started it, please visit the
+If you haven't set up a Riak node and started it, please visit the
 [[Prerequisites|Taste of Riak: Prerequisites]] first and ensure you have
 [a working installation of Go](http://golang.org/doc/install).
 
@@ -131,7 +131,7 @@ First let’s create a few objects and a bucket to keep them in:
   wg.Wait()
 ```
 
-In our first object we have stored the integer 1 with the lookup key
+In our first object, we have stored the integer 1 with the lookup key
 of `one`:
 
 ```golang
@@ -143,7 +143,7 @@ of `one`:
 }
 ```
 
-For our second object we stored a simple string value of `two` with a
+For our second object, we stored a simple string value of `two` with a
 matching key:
 
 ```golang
@@ -308,7 +308,7 @@ util.Log.Println("updated object value: ", val3.MyValue)
 ## Deleting Objects
 
 As a last step, we’ll demonstrate how to delete data. You’ll see that
-the delete message can be called either against the bucket or the
+the delete message can be called against either the bucket or the
 object.
 
 ```golang
@@ -338,7 +338,7 @@ wg.Wait()
 Since the world is a little more complicated than simple integers and
 bits of strings, let’s see how we can work with more complex objects.
 
-For example, this `struct` that representing some information about
+For example, this `struct` that represents some information about
 a book:
 
 ```golang
@@ -359,7 +359,7 @@ book := &Book{
 }
 ```
 
-All right, so we have some information about our Moby Dick collection
+We now have some information about our Moby Dick collection
 that we want to save. Storing this to Riak should look familiar by now:
 
 ```golang
