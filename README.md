@@ -113,5 +113,5 @@ Don't forget to check out our [Contributing Guidelines][contributing] so you can
 [new issue]: https://github.com/basho/private_basho_docs/issues/new
 [find the file]: https://github.com/basho/private_basho_docs/find/hugo/testing
 [fork]: https://github.com/basho/private_basho_docs/#fork-destination-box
-[contributing]: https://github.com/404
-[contributing_headers]: https://github.com/404
+[contributing]: CONTRIBUTING.md
+[contributing_headers]: CONTRIBUTING.md
