@@ -8,13 +8,14 @@ audience: beginner
 keywords: [developers, client, 2i, search, go, golang, modeling]
 ---
 
-To get started, let's create the models that we'll be using.
 
 <div class="note">
 <div class="title">Code Download</div>
-You can also download the code for this chapter at
+You can download the code for this chapter at
 [Github](https://github.com/basho/taste-of-riak/tree/master/go/ch03/models).
 </div>
+
+To get started, let's create the models that we'll be using:
 
 ```model.go
 package models
@@ -144,7 +145,7 @@ Now that we've worked out how we will differentiate data in the system,
 let's figure out our bucket and key names.
 
 The bucket names are straightforward. We can use `Users`, `Msgs`, and
-`Timelines`. The key names, however, are a little more tricky. In past
+`Timelines`. The key names, however, are a little trickier. In past
 examples we've used sequential integers, but this presents a problem: we
 would need a secondary service to hand out these IDs. This service could
 easily be a future bottleneck in the system, so let's use a natural key.
@@ -172,7 +173,7 @@ also want to partition each collection object into some time period,
 that way the object doesn't grow too large (see note below).
 
 For `Timelines`, let's use the pattern `<username>_<type>_<date>` for
-users, and `<groupname>_Inbox_<date>` for groups, which will look like
+users and `<groupname>_Inbox_<date>` for groups, which will look like
 `joeuser_Sent_2014-03-06Z` or `marketing_group_Inbox_2014-03-05Z`,
 respectively.
 
@@ -520,17 +521,17 @@ func main() {
 
 As you can see, the repository pattern helps us with a few things:
 
-* It helps us to see if an object exists before creating a new one
-* It keeps our buckets and key names consistent
+* It helps us to see if an object exists before creating a new one.
+* It keeps our buckets and key names consistent.
 * It provides us with a consistent interface to work with.
 
 While this set of repositories solves many of our problems, it is very
 minimal and doesn't cover all the edge cases. For instance, what happens
 if two different people try to create a user with the same username?
 
-We can also easily "compute" key names now, but how do we quickly look
+Also, we can easily compute key names now, but how do we quickly look
 up the last 10 messages a user sent? Many of these answers will be
-application dependent. If your application shows the last 10 messages in
+application-dependent. If your application shows the last 10 messages in
 reverse order, for example, you may want to store that set of data in
 another collection object to make lookup faster. There are drawbacks to
 every solution, but we recommend seeking out the key/value-based
@@ -538,6 +539,6 @@ solution first, as it will likely be the quickest.
 
 So to recap, in this chapter we learned:
 
-* How to choose bucket names
+* How to choose bucket names.
 * How to choose natural keys based on how we want to partition our data.
 
