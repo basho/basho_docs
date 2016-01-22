@@ -66,9 +66,12 @@ namespace :build do
   ################
   # Build : Debug
   desc      "Compile Human-Readable JS, Compile Human-Readable CSS, Build Hugo"
-  task      :debug => ['clean', 'build:debug:js', 'build:debug:css', 'build:hugo']
+  task      :debug => ['build:debug:js', 'build:debug:css', 'build:hugo']
   namespace :debug do
+    desc "Compile Human-Readable JS"
     task :js => "#{$js_dest}" do compile_js(debug: true); end
+
+    desc "Compile Human-Readable CSS"
     task :css => "#{$css_dest}" do compile_css(debug: true); end
   end
 end
