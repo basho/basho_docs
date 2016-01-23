@@ -51,5 +51,5 @@ Please select the language with which you'd like to proceed:
 <li><a href="/dev/taste-of-riak/object-modeling-csharp/"><img src="/images/plangs/csharp.png" alt="CSharp"></a></li>
 <li><a href="/dev/taste-of-riak/object-modeling-nodejs/"><img src="/images/plangs/nodejs.png" alt="CSharp"></a></li>
 <li><a href="/dev/taste-of-riak/object-modeling-erlang/"><img src="/images/plangs/erlang.jpg" alt="Erlang"></a></li>
+<li><a href="/dev/taste-of-riak/object-modeling-golang/"><img src="/images/plangs/golang.png" alt="Go"></a></li>
 </ul>
-

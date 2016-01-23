@@ -107,6 +107,17 @@ client.fetchValue({ bucketType: 'animals', bucket: 'dogs', key: 'rufus' }, funct
                             <<"rufus">>).
 ```
 
+```golang
+cmd, err = riak.NewFetchValueCommandBuilder().
+  WithBucketType("animals").
+  WithBucket("dogs").
+  WithKey("rufus").
+  Build()
+if err != nil {
+    // error occurred
+}
+```
+
 ```curl
 curl http://localhost:8098/types/animals/buckets/dogs/keys/rufus
 ```
@@ -150,6 +161,12 @@ rslt.isNotFound === true;
 
 ```erlang
 {error,notfound}
+```
+
+```golang
+fvc := cmd.(*riak.FetchValueCommand)
+rsp := fvc.Response
+rsp.IsNotFound // Will be true
 ```
 
 ```curl
@@ -234,6 +251,35 @@ client.storeValue({
 });
 ```
 
+```golang
+obj := &riak.Object{
+    ContentType:     "text/plain",
+    Charset:         "utf-8",
+    ContentEncoding: "utf-8",
+    Value:           []byte("WOOF!"),
+}
+
+cmd, err := riak.NewStoreValueCommandBuilder().
+    WithBucketType("animals").
+    WithBucket("dogs").
+    WithKey("rufus").
+    WithContent(obj).
+    Build()
+
+if err != nil {
+    fmt.Println(err.Error())
+    return
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    fmt.Println(err.Error())
+    return
+}
+
+svc := cmd.(*riak.StoreValueCommand)
+rsp := svc.Response
+```
+
 Notice that we specified both a value for the object, i.e. `WOOF!`, and
 a content type, `text/plain`. We'll learn more about content types in
 the [[section below|The Basics#Content-Types]].
@@ -301,6 +347,10 @@ ArgumentError: content_type is not defined!
 %% specify that the object is "application/octet-stream"; if you store a
 %% string, the client will specify "application/x-erlang-binary"; and so
 %% on.
+```
+
+```golang
+// In the Go client, you must always specify a content type.
 ```
 
 Because content type negotiation varies so widely from client to client,
@@ -386,6 +436,28 @@ client.fetchValue(fetchOptions, function (err, rslt) {
                                 {<<"animals">>, <<"dogs">>},
                                 <<"rufus">>,
                                 [{r, 3}]).
+```
+
+```golang
+cmd, err := riak.NewFetchValueCommandBuilder().
+    WithBucketType("animals").
+    WithBucket("dogs").
+    WithKey("rufus").
+    WithR(3).
+    Build()
+
+if err != nil {
+    fmt.Println(err.Error())
+    return
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    fmt.Println(err.Error())
+    return
+}
+
+fvc := cmd.(*riak.FetchValueCommand)
+rsp := svc.Response
 ```
 
 ```curl
@@ -499,6 +571,35 @@ Object = riakc_obj:new({<<"quotes">>, <<"oscar_wilde">>},
 riakc_pb_socket:put(Pid, Object).
 ```
 
+```golang
+obj := &riak.Object{
+    ContentType:     "text/plain",
+    Charset:         "utf-8",
+    ContentEncoding: "utf-8",
+    Value:           []byte("I have nothing to declare but my genius"),
+}
+
+cmd, err := riak.NewStoreValueCommandBuilder().
+    WithBucketType("quotes").
+    WithBucket("oscar_wilde").
+    WithKey("genius").
+    WithContent(obj).
+    Build()
+
+if err != nil {
+    fmt.Println(err.Error())
+    return
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    fmt.Println(err.Error())
+    return
+}
+
+svc := cmd.(*riak.StoreValueCommand)
+rsp := svc.Response
+```
+
 ```curl
 curl -XPUT \
   -H "Content-Type: text/plain" \
@@ -523,8 +624,6 @@ context]]. These objects track the causal history of objects.
 They are attached to _all_ Riak objects as metadata, and they are not
 readable by humans. They may sound complex---and they are fairly complex
 behind the scenes---but using them in your application is very simple.
-
-Whenever you perform updates in Riak
 
 Using causal context in an update would involve the following steps;
 
@@ -646,6 +745,61 @@ UpdatedObj = riakc_obj:update_value(Obj, <<"Harlem Globetrotters">>),
 {ok, NewestObj} = riakc_pb_socket:put(Pid, UpdatedObj, [return_body]).
 ```
 
+```golang
+obj := &riak.Object{
+    ContentType:     "text/plain",
+    Charset:         "utf-8",
+    ContentEncoding: "utf-8",
+    Value:           []byte("Washington Generals"),
+}
+
+cmd, err := riak.NewStoreValueCommandBuilder().
+    WithBucketType("sports").
+    WithBucket("nba").
+    WithKey("champion").
+    WithContent(obj).
+    WithReturnBody(true).
+    Build()
+
+if err != nil {
+    fmt.Println(err.Error())
+    return
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    fmt.Println(err.Error())
+    return
+}
+
+svc := cmd.(*riak.StoreValueCommand)
+rsp := svc.Response
+obj = rsp.Values[0]
+obj.Value = []byte("Harlem Globetrotters")
+
+cmd, err = riak.NewStoreValueCommandBuilder().
+    WithBucketType("sports").
+    WithBucket("nba").
+    WithKey("champion").
+    WithContent(obj).
+    WithReturnBody(true).
+    Build()
+
+if err != nil {
+    fmt.Println(err.Error())
+    return
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    fmt.Println(err.Error())
+    return
+}
+
+svc = cmd.(*riak.StoreValueCommand)
+rsp = svc.Response
+obj = rsp.Values[0]
+fmt.Printf("champion: %v", string(obj.Value))
+```
+
 ```curl
 # When using curl, the context object is attached to the X-Riak-Vclock header
 
@@ -725,6 +879,15 @@ riakc_obj:vclock(Obj).
 %% The context object will look something like this in the Erlang shell:
 %% <<107,206,97,96,96,96,204,96,202,5,82,28,202,156,255,126,
 %% 6,175,157,255,57,131,41,145,49,143,149,225,240,...>>
+```
+
+```golang
+svc := cmd.(*riak.StoreValueCommand)
+rsp := svc.Response
+fmt.Println(rsp.VClock)
+
+// Output:
+// X3hNXFq3ythUqvvrG9eJEGbUyLS
 ```
 
 #### Write Parameters
@@ -811,6 +974,33 @@ Object = riakc_obj:new({<<"cars">>, <<"dodge">>},
                        <<"text/plain">>,
                        [{w, 3}]).
 riakc_pb_socket:put(Pid, Object).
+```
+
+```golang
+obj := &riak.Object{
+    ContentType:     "text/plain",
+    Charset:         "utf-8",
+    ContentEncoding: "utf-8",
+    Value:           []byte("vroom"),
+}
+
+cmd, err := riak.NewStoreValueCommandBuilder().
+    WithBucketType("cars").
+    WithBucket("dodge").
+    WithKey("viper").
+    WithW(3).
+    WithContent(obj).
+    Build()
+
+if err != nil {
+    fmt.Println(err.Error())
+    return
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    fmt.Println(err.Error())
+    return
+}
 ```
 
 ```curl
@@ -908,6 +1098,34 @@ Object = riakc_obj:new({<<"cars">>, <<"dodge">>},
                        <<"vroom">>,
                        <<"text/plain">>).
 riakc_pb_socket:put(Pid, Object, [return_body]).
+```
+
+```golang
+obj := &riak.Object{
+    ContentType:     "text/plain",
+    Charset:         "utf-8",
+    ContentEncoding: "utf-8",
+    Value:           []byte("vroom"),
+}
+
+cmd, err := riak.NewStoreValueCommandBuilder().
+    WithBucketType("cars").
+    WithBucket("dodge").
+    WithKey("viper").
+    WithW(3).
+    WithContent(obj).
+    WithReturnBody(true).
+    Build()
+
+if err != nil {
+    fmt.Println(err.Error())
+    return
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    fmt.Println(err.Error())
+    return
+}
 ```
 
 ```curl
@@ -1036,6 +1254,38 @@ riakc_pb_socket:put(Pid, Object).
                undefined}}
 ```
 
+```golang
+obj := &riak.Object{
+    ContentType:     "application/json",
+    Charset:         "utf-8",
+    ContentEncoding: "utf-8",
+    Value:           []byte("{'user':'data'}"),
+}
+
+cmd, err := riak.NewStoreValueCommandBuilder().
+    WithBucketType("users").
+    WithBucket("random_user_keys").
+    WithContent(obj).
+    Build()
+
+if err != nil {
+    fmt.Println(err.Error())
+    return
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    fmt.Println(err.Error())
+    return
+}
+
+svc := cmd.(*riak.StoreValueCommand)
+rsp := svc.Response
+fmt.Printf("Generated key: %v\n", rsp.GeneratedKey)
+
+// Output:
+// Generated key: QSHkZjFdWwfrxtKl3wtUhL2gz7N
+```
+
 ```curl
 curl -i -XPOST \
   -H "Content-Type: text/plain" \
@@ -1112,6 +1362,25 @@ client.deleteValue(options, function (err, rslt) {
 
 ```erlang
 riakc_pb_socket:delete(Pid, {<<"quotes">>, <<"oscar_wilde">>}, <<"genius">>)
+```
+
+```golang
+// Continuing from above example
+cmd, err = riak.NewDeleteValueCommandBuilder().
+    WithBucketType("users").
+    WithBucket("random_user_keys").
+    WithKey(rsp.GeneratedKey).
+    Build()
+
+if err != nil {
+    fmt.Println(err.Error())
+    return
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    fmt.Println(err.Error())
+    return
+}
 ```
 
 ```curl
@@ -1225,6 +1494,26 @@ client.fetchBucketProps({
 
 ```erlang
 riakc_pb_socket:get_bucket_type(Pid, <<"n_val_of_5">>).
+```
+
+```golang
+cmd, err := riak.NewFetchBucketPropsCommandBuilder().
+    WithBucketType("n_val_of_5").
+    WithBucket("any_bucket_name").
+    Build()
+
+if err != nil {
+    fmt.Println(err.Error())
+    return
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    fmt.Println(err.Error())
+    return
+}
+
+fbc := cmd.(*riak.FetchBucketPropsCommand)
+fmt.Println("bucket props:", fbc.Response)
 ```
 
 ```curl

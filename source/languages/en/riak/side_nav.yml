@@ -34,6 +34,7 @@ riak:
               - "[[NodeJS|Taste of Riak: NodeJS]]"
               - "[[Erlang|Taste of Riak: Erlang]]"
               - "[[PHP|Taste of Riak: PHP]]"
+              - "[[Go|Taste of Riak: Go]]"
               # - "[[C|Taste of Riak: C]]"
               # - "[[OCaml|Taste of Riak: OCaml]]"
               - "[[Haskell|Taste of Riak: Haskell†]]"
@@ -49,6 +50,7 @@ riak:
               - "[[NodeJS|Taste of Riak: Querying with NodeJS]]"
               - "[[Erlang|Taste of Riak: Querying with Erlang]]"
               - "[[PHP|Taste of Riak: Querying with PHP]]"
+              - "[[Go|Taste of Riak: Querying with Go]]"
           - title: Object Modeling
             sub:
               - "[[Introduction|Taste of Riak: Object Modeling]]"
@@ -58,6 +60,7 @@ riak:
               - "[[C#|Taste of Riak: Object Modeling with CSharp]]"
               - "[[NodeJS|Taste of Riak: Object Modeling with NodeJS]]"
               - "[[Erlang|Taste of Riak: Object Modeling with Erlang]]"
+              - "[[Go|Taste of Riak: Object Modeling with Go]]"
       - title: "Basic Usage"
         sub:
           - "[[Application Guide|Building Applications with Riak]]"

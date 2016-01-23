@@ -20,8 +20,8 @@ Amongst the four CRUD operations, object updates in Riak tend to be the
 least straightforward and to require a bit more subtle reasoning on the
 application side than the others. In this document, we'll discuss some
 best practices for updating Riak objects and provide code examples for
-each of our official [[client libraries]]: Java, Ruby, Python, .NET, and
-Erlang.
+each of our official [[client libraries]]: Java, Ruby, Python, .NET,
+Erlang, and Go.
 
 <div class="note">
 <div class="title">Note on immutable data</div>
@@ -59,6 +59,7 @@ with examples from our official client libraries:
   * [[Ruby|Conflict Resolution: Ruby]]
   * [[Python|Conflict Resolution: Python]]
   * [[C#|Conflict Resolution: CSharp]]
+  * [[Go|Conflict Resolution: Go]]
 2. **Modify the object** on the application side.
 3. **Write** the new, modified object to Riak. Because you read the
 object first, Riak will receive the object's causal context metadata.
@@ -101,9 +102,9 @@ obj = bucket.get('banana', deletedvclock: true)
 ## Example Update
 
 In this section, we'll provide an update example for Basho's official Ruby,
-Python, .NET, Node.js and Erlang clients. Because updates with the official Java client
-functions somewhat differently, those examples can be found in the [[section
-below|Object Updates#Java-Client-Example]].
+Python, .NET, Node.js, Erlang and Go clients. Because updates with the official
+Java client functions somewhat differently, those examples can be found in the
+[[section below|Object Updates#Java-Client-Example]].
 
 For our example, imagine that you are storing information about NFL head
 coaches in the bucket `coaches`, which will bear the bucket type
@@ -178,6 +179,34 @@ Obj = riakc_obj:new({<<"siblings">>, <<"coaches">>},
                      <<"Pete Carroll">>,
                      <<"text/plain">>).
 riakc_pb_socket:put(Pid, Obj).
+```
+
+```golang
+obj := &riak.Object{
+    ContentType:     "text/plain",
+    Charset:         "utf-8",
+    ContentEncoding: "utf-8",
+    Value:           []byte("Pete Carroll"),
+}
+
+cmd, err := riak.NewStoreValueCommandBuilder().
+    WithBucketType("siblings").
+    WithBucket("coaches").
+    WithKey("seahawks").
+    WithContent(obj).
+    Build()
+
+if err != nil {
+    fmt.Println(err.Error())
+    return
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    fmt.Println(err.Error())
+    return
+}
+
+fmt.Println("Stored Pete Carroll")
 ```
 
 Every once in a while, though, head coaches change in the NFL, which
@@ -282,6 +311,48 @@ update_coach(team, new_coach) ->
 
 %% Example usage
 update_coach('packers', 'Vince Lombardi')
+```
+
+```golang
+func updateCoach(cluster *riak.Cluster, team, newCoach string) error {
+	var cmd riak.Command
+	var err error
+
+	cmd, err = riak.NewFetchValueCommandBuilder().
+		WithBucketType("siblings").
+		WithBucket("coaches").
+		WithKey(team).
+		Build()
+
+	if err != nil {
+		return err
+	}
+
+	if err := cluster.Execute(cmd); err != nil {
+		return err
+	}
+
+	fvc := cmd.(*riak.FetchValueCommand)
+	obj := fvc.Response.Values[0]
+	obj.Value = []byte(newCoach)
+
+	cmd, err = riak.NewStoreValueCommandBuilder().
+		WithBucketType("siblings").
+		WithBucket("coaches").
+		WithKey(team).
+		WithContent(obj).
+		Build()
+
+	if err != nil {
+		return err
+	}
+
+	if err := cluster.Execute(cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
 ```
 
 In the example above, you can see the three steps in action: first, the
