@@ -75,8 +75,8 @@ sudo apt-get install -y libssl0.9.8
 ```
 
 Now, grab the appropriate packages: Riak, Riak CS, and Stanchion. See
-[[Download Riak|Downloads]] and [[Download Riak CS]]. You can skip Riak
-CS Control for now.
+[Download Riak](docs.basho.com/riak/latest/downloads/) and [[Download Riak CS]].
+You can skip Riak CS Control for now.
 
 Once you have the packages, install them per the instructions below.
 
@@ -164,13 +164,17 @@ You will need to make changes to several configuration files.
 
 #### `/etc/riak/riak.conf`
 
-Be sure the default bucket properties allow siblings, and that the storage
-backend is not set:
+Be sure the storage backend is not set:
 
 ```riakconf
 ## Delete this line
 storage_backend = . . .
-. . .
+```
+
+And that the default bucket properties allow siblings:
+
+```riakconf
+## Append this line at the end of the file
 buckets.default.allow_mult = true
 ```
 
@@ -351,7 +355,8 @@ Add this entry to `/etc/riak-cs/riak-cs.conf`:
 anonymous_user_creation = on
 ```
 
-Then run `riak-cs restart` to put the new config setting into effect.
+Then run `sudo riak-cs stop && sudo riak-cs start` to put the new config setting into
+effect.
 
 We can create the admin user with the following `curl` command, on the
 same Riak CS machine where the `anonymous_user_creation` configuration
@@ -428,8 +433,8 @@ admin.secret = RF7WD0b3RjfMK2cTaPfLkpZGbPDaeALDtqHeMw==
 Now we have to restart the services for the change to take effect:
 
 ```bash
-sudo stanchion restart
-sudo riak-cs restart
+sudo stanchion stop && sudo stanchion start
+sudo riak-cs stop && sudo riak-cs start
 ```
 
 ## Installing Additional Nodes
