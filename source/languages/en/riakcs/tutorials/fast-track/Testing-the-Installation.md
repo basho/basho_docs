@@ -23,6 +23,7 @@ sudo apt-get -y install s3cmd
 ```
 
 >**s3cmd versions**
+>
 > The above command will install s3cmd version 1.1.0~beta3, which is the latest
 > version available in Debian's package reposiory. More current insatll
 > instructions suggest using Python's [pip](https://pypi.python.org/pypi/pip)
@@ -73,6 +74,7 @@ installation steps.
 ## Interacting with Riak CS via S3cmd
 
 >**Warning: s3cmd Signature Version**
+>
 > If you are using s3cmd version 1.5.0 or greater you will need to append the
 > `--signature-v2` flag to every command that targets a Riak CS cluster to have
 > s3cmd use the AWS Signature version 2 rather than the default AWS Signature
