@@ -22,14 +22,25 @@ We can install it on Ubuntu by typing:
 sudo apt-get -y install s3cmd
 ```
 
-For OS X users, either use the package manager of your preference or
-download the S3 cmd package at [[http://s3tools.org/download]]. You will
-need to extract the `.tar` file, change directories into the folder, and
-build the package. The process should look something like this:
+>**s3cmd versions**
+>
+> The above command will install s3cmd version 1.1.0~beta3, which is the latest
+> version available in Debian's package reposiory. More current insatll
+> instructions suggest using Python's [pip](https://pypi.python.org/pypi/pip)
+> module to install s3cmd.
+> If this method is used, s3cmd will use AWS Signature version 3 which is
+> incompatible with RIak CS. As of s3cmd version 1.5.0, there is a
+> `--signature-v2` flag that can be used to have s3cmd use the older format, and
+> correctly interact with Riak CS.
+
+For OS X users, either use the package manager of your preference or download
+the S3 cmd package at [[http://sourceforge.net/projects/s3tools/files/s3cmd/]].
+You will need need to extract the `.tar` file, change directories into the
+folder, and build the package. The process should look something like this:
 
 ``` bash
-tar -xvzf s3cmd-1.5.0-alpha1.tar.gz
-cd s3cmd-1.5.0-alpha1
+tar -xvzf s3cmd-1.6.1.tar.gz
+cd s3cmd-1.6.1
 sudo python setup.py install
 ```
 
@@ -62,6 +73,13 @@ installation steps.
 
 ## Interacting with Riak CS via S3cmd
 
+>**Warning: s3cmd Signature Version**
+>
+> If you are using s3cmd version 1.5.0 or greater you will need to append the
+> `--signature-v2` flag to every command that targets a Riak CS cluster to have
+> s3cmd use the AWS Signature version 2 rather than the default AWS Signature
+> version 3
+
 Once `s3cmd` is configured, we can use it to create a test bucket:
 
 ``` bash
@@ -77,7 +95,7 @@ s3cmd -c ~/.s3cfgfasttrack ls
 We can now upload a test file to that bucket:
 
 ``` bash
-dd if=/dev/zero of=test_file bs=1m count=2 # Create a test file
+dd if=/dev/zero of=test_file bs=1M count=2 # Create a test file
 s3cmd -c ~/.s3cfgfasttrack put test_file s3://test-bucket
 ```
 
