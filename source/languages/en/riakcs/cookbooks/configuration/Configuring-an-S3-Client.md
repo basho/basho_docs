@@ -13,6 +13,7 @@ as an S3 client. While it won't cover all of the client's features, it
 will show you how to create a configuration and run some basic commands.
 
 >**Warning: s3cmd Signature Version**
+>
 > If you are using s3cmd version 1.5.0 or greater you will need to append the
 > `--signature-v2` flag to every command that targets a Riak CS cluster to have
 > s3cmd use the AWS Signature version 2 rather than the default AWS Signature
