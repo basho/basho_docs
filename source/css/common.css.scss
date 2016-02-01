@@ -1569,7 +1569,7 @@ div[role="main"] {
         }
       }
 
-      .big, .small, .riak_image, .riak_kv_image, .riak_s2_image {
+      .big, .small, .riak_image, .riak_kv_image, .riak_s2_image, .riak_ts_image {
         display     : block;
         line-height : 1.2;
         margin      : 0 auto;
@@ -1596,6 +1596,15 @@ div[role="main"] {
       .riak_s2_image {
         @include size(92%, 88px);
         background     : url('/shared/latest/images/layout/riak-s2-logo-244x88.png') center center no-repeat transparent;
+        border-bottom  : 1px solid #cfcfcf;
+        padding-bottom : 20px;
+        margin-top     : 37px;
+        background-size: contain;
+      }
+
+      .riak_ts_image {
+        @include size(92%, 88px);
+        background     : url('/shared/1.0.0/images/layout/riak_ts_logo_1182x436.png') center center no-repeat transparent;
         border-bottom  : 1px solid #cfcfcf;
         padding-bottom : 20px;
         margin-top     : 37px;
@@ -1653,6 +1662,9 @@ div[role="main"] {
         margin-top : 27px;
       }
       .project .riak_s2_image {
+        margin-top : 27px;
+      }
+      .project .riak_ts_image {
         margin-top : 27px;
       }
       .project a {
