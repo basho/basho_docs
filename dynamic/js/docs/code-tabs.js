@@ -35,18 +35,14 @@ $(function() {
     count = count.substring(count.length - 3);
 
     var linksList = $(this).children('ul.nav.nav-tabs');
-    // console.log(linksList + ' ' + suffix);
-
     var preTabs = $(this).children('div.tab-content').children();
-    // console.log(preTabs + ' ' + suffix);
-    // console.log(languages['vmargs']);
 
     preTabs.each(function() {
       var lang = $(this).children().attr('class');
       var langText = languages[lang];
       var suffix = lang + count;
       var href = '#' + suffix;
-      // console.log($(this) + ' ' + suffix);
+
       $(this).wrap('<div class="tab-pane" id="' + suffix + '">')
 
       if (langText !== undefined) {
@@ -57,23 +53,5 @@ $(function() {
 
     preTabs.first().parent().addClass('active');
     linksList.children().first().addClass('active');
-
-    // preTabs.first().parent().addClass('active');
-    // linksList.first().addClass('active');
-    // $(this).children('.tab-content pre').wrap(function() {
-    //   var lang = $(this).children().attr('class');
-    //   console.log(lang);
-    //   var tabsHtml = '<div class="tab-pane' + a + '">'
-
-    //   var link = '<a href="#' + lang + suffix + '" data-code="' + lang + '" data-toggle="tab">'
-    //   var linkText = languages[lang];
-
-    //   if (!linkText) {
-    //     return tabsHtml;
-    //   };
-
-    //   linksList.append('<li>' + link + linkText + '</a></li>');
-    //   return tabsHtml;
-    // });
   });
 });
