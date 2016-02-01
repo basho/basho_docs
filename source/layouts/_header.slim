@@ -17,6 +17,10 @@ header.masthead
           a href="/downloads/" class="dataplatform"
             span.icon-download-alt
             == I18n.t(:downloads)
+        - elsif data.page.project == 'riakts'
+          a href="/riakts-downloads/" class="riakts"
+            span.icon-download-alt
+            == I18n.t(:downloads)
         - else
           a href="/downloads/" class="riak"
             span.icon-download-alt

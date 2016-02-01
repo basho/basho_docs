@@ -284,6 +284,8 @@ module SitemapRenderOverride
           "HTTP"
         when "csharp"
           "C#"
+        when "golang"
+          "Go"
         when "json"
           "JSON"
         when "bash"
