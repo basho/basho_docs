@@ -2,17 +2,33 @@
 title: "Basho Documentation"
 baseURL: "http://docs.basho.com/"
 languageCode: "en-us"
-metaDataFormat: "yaml" # Sets frontmatter format when content
-                       # is generated with archetypes.
+metaDataFormat: "yaml" # Frontmatter format use with generative archetypes.
 
-# This should always be set to false for deployment builds
-#TODO(Drew): Figure out if there's a way to enforce or set this in a e.g. deploy.rb script.
-buildDrafts: false
+currents:
+  - name: "riak/kv"
+    latest: "2.1"
+    stable: "1.4"
+  - name: "riak/s2"
+    latest: "2.1"
+    stable: "1.4"
+  - name: "riak/ts"
+    latest: "1.0"
+    stable: "1.0"
+  - name: "dataplatform"
+    latest: "1.0"
+    stable: "1.0"
+---
 
 
-# Below is a complete collection of options options and their default values
-#TODO(Drew): Settings prepended with '???' may merit additional investigation,
-#            because I'm not sure what they do. And I don't like not knowing.
+#NOTE: Fun for debugging, we can drop this snippet in any partial/layout, and
+# get a full listing of objects in the `.` context,
+# {{ printf "%#v" . }}
+
+
+
+# Below is a (no-longer) complete collection of options and their default values
+#NOTE: Settings prepended with '???' may merit additional investigation,
+#      because I'm not sure what they do. And I don't like not knowing.
 ##########
 #     title:                      ""
 #     baseURL:                    ""            # hostname (and path) to the root eg. http://spf13.com/
@@ -71,9 +87,3 @@ buildDrafts: false
 #     editor:                     ""            # edit new content with this editor, if provided
 #     newContentEditor:           ""            #### How are these settings different?
 #
-
----
-
-# Fun note for debugging, we can drop this snippet in any partial/layout, and
-# get a full listing of objects in the `.` context,
-# {{ printf "%#v" . }}

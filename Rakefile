@@ -104,9 +104,9 @@ end
 #########
 # Deploy
 desc      "Build and deploy static artifacts"
-#TODO: Figure out if we want to depend on 'build'. I'm assuming not? Run that
-# manually, yeah?
-task      :deploy do do_deploy(); end
+task      :deploy => ['build'] do do_deploy(); end
+
+task      :deploy_now do do_deploy(); end
 
 
 ######################################################################
@@ -222,6 +222,7 @@ def do_deploy()
   require 'aws-sdk'
   require 'progressbar'
   require 'simple-cloudfront-invalidator'
+  require 'yaml'
 
   # Validation check for environment variables
   if (!ENV['AWS_S3_BUCKET']         ||
@@ -240,6 +241,16 @@ def do_deploy()
 
   puts("========================================")
   puts("Beginning Deploy Process...")
+
+  # Capture Hugo's config.yaml while we're in the same directory
+  config_file = YAML.load_file('config.yaml')
+
+  # Make sure we actually loaded a file, and didn't just set `config_file` to
+  # the string "config.yaml".
+  if (config_file == "config.yaml")
+    Kernel.abort("ERROR: Could not find 'config.yaml'. Are you running Rake "\
+                 "from the correct directory?")
+  end
 
   # Move into the static/ directory, so file names lead with "./static"
   Dir.chdir(File.join(File.dirname(__FILE__), "static"))
@@ -410,6 +421,44 @@ def do_deploy()
   else
     puts("  No files to invalidate...")
   end
+
+
+  # Fetch and rewrite the S3 Routing Rules to make sure the 'latest' of every
+  # project correctly re-route.
+  puts("  Configuring S3 Bucket Website redirect rules...")
+
+  # Open an S3 connection to the Bucket Website metadata
+  aws_bucket_website = Aws::S3::BucketWebsite.new(ENV['AWS_S3_BUCKET'], {
+      :region            => "us-east-1",
+      :access_key_id     => ENV['AWS_ACCESS_KEY_ID'],
+      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'],
+    })
+
+  # Build the routing rules based on the config.yaml's 'currents' list. One
+  # routing rule per project.
+  routing_rules = []
+  #TODO: Consider making the domain (below, `:HostName => `) a required EVN var
+  # so we can use this script to push to both docs.basho and stage.docs?
+  config_file['currents'].each do |project|
+    name = project['name']
+    ver  = project['latest']
+    routing_rules.push(
+      {
+        :condition => { :key_prefix_equals       => "#{name}/latest/" },
+        :redirect  => { :replace_key_prefix_with => "#{name}/#{ver}/",
+                        :host_name               => "stage.docs.basho.com" }
+      }
+    )
+  end
+  #TODO: Consider implementing some way of adding arbitrary routing rules. Maybe
+  # allow for a section in config.yaml that's just a JSON string that we parse?
+  new_website_configuration = {
+    :error_document => aws_bucket_website.error_document.to_hash,
+    :index_document => aws_bucket_website.index_document.to_hash,
+    :routing_rules  => routing_rules
+  }
+
+  aws_bucket_website.put({ website_configuration: new_website_configuration })
 
 
   puts("")
