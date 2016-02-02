@@ -302,7 +302,7 @@ body {
         z-index       : 900;
       }
       .mainarticle {
-        padding   : 10px 0 0 10px;
+        padding   : 10px 0 0 20px;
       }
     }
   }
@@ -482,6 +482,10 @@ iframe {
     width         : 58%;
     margin-bottom : 8px;
     @extend .sans-bold;
+
+    @media screen and (max-width: 768px) {
+      width : 80%;
+    }
   }
 
   .nav-field-container {
@@ -1554,7 +1558,7 @@ div[role="main"] {
     @include size(96%, 250px);
     font-size : 110%;
     position  : relative;
-    margin    : 4em auto 7em;
+    margin    : 4em auto 0em;
 
     .project {
       @include size(49%, 250px);
@@ -1684,6 +1688,9 @@ div[role="main"] {
         margin-top : 27px;
       }
       .project .riak_s2_image {
+        margin-top : 27px;
+      }
+      .project .riak_ts_image {
         margin-top : 27px;
       }
       .project a {
