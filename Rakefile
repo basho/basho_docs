@@ -59,9 +59,12 @@ desc      "Compile Compressed JS, Compile Compressed CSS, Build Hugo"
 task      :build => ['build:js', 'build:css', 'build:hugo']
 namespace :build do
   task :js => "#{$js_dest}" do compile_js(debug: false); end
-  task :css => "#{$css_dest}" do compile_css(debug: false); end
+  task :css => ['clean:css', "#{$css_dest}"] do compile_css(debug: false); end
 
   task :hugo do sh "hugo -d ./static"; end
+
+  desc "Shorthand for `rake build; rake watch:hugo` (Note: exits w/ an error)"
+  task :watch => ['build:js', 'build:css', 'watch:hugo']
 
   ################
   # Build : Debug
