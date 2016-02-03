@@ -193,7 +193,7 @@ about that, you can just ignore the result.
 
 The Riak Node.js Client has a lot of additional functionality that makes it easy
 to build rich, complex applications with Riak. Check out the
-[documentation][dotnet_wiki] to learn more about working with the Riak Node.js
+[documentation][nodejs_wiki] to learn more about working with the Riak Node.js
 Client and Riak.
 
 ## Next Steps
@@ -207,4 +207,4 @@ such as documents.
 [introduction.js]: https://github.com/basho/riak-nodejs-client-examples/blob/master/dev/taste-of-riak/introduction.js
 [node_js_installation]: https://github.com/basho/riak-nodejs-client/wiki/Installation
 [npm]: https://www.npmjs.com/package/basho-riak-client
-[dotnet_wiki]: https://github.com/basho/riak-dotnet-client/wiki
+[nodejs_wiki]: https://github.com/basho/riak-nodejs-client/wiki
