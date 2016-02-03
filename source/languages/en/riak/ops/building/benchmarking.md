@@ -429,7 +429,7 @@ The default level is `debug`.
 |:------------
 | `debug`
 | `info`
-| `warn`
+| `warning`
 | `error`
 
 #### report_interval
