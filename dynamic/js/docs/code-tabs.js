@@ -21,6 +21,16 @@ $(function() {
     'language-vmargs': 'vm.args',
   };
 
+  var replace = {
+    'language-advancedconfig': 'language-erlang',
+    'language-appconfig': 'language-erlang',
+    'language-curl': 'language-bash',
+    'language-riakconf': 'language-matlab',
+    'language-riakcsconf': 'language-matlab',
+    'language-stanionconf': 'language-matlab',
+    'language-vmargs': 'language-ini',
+  }
+
   $('pre').each(function() {
     if ($(this.parentNode).hasClass('tab-content')) return;
     $(this).nextUntil(':not(pre)').andSelf().wrapAll(
@@ -42,12 +52,17 @@ $(function() {
       var langText = languages[lang];
       var suffix = lang + count;
       var href = '#' + suffix;
+      var replaceClass = replace[lang];
 
       $(this).wrap('<div class="tab-pane" id="' + suffix + '">')
 
       if (langText !== undefined) {
         linksList.append('<li><a href="' + href + '" data-code="' +
         lang + '" data-toggle="tab">' + langText + '</a></li>');
+      };
+
+      if (replaceClass !== undefined) {
+        $(this).children().attr('class', replaceClass);
       };
     });
 
