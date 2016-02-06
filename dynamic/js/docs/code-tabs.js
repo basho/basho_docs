@@ -29,7 +29,7 @@ $(function() {
     'language-riakcsconf': 'language-matlab',
     'language-stanionconf': 'language-matlab',
     'language-vmargs': 'language-ini',
-  }
+  };
 
   $('pre').each(function() {
     if ($(this.parentNode).hasClass('tab-content')) return;
@@ -54,16 +54,16 @@ $(function() {
       var href = '#' + suffix;
       var replaceClass = replace[lang];
 
-      $(this).wrap('<div class="tab-pane" id="' + suffix + '">')
+      $(this).wrap('<div class="tab-pane" id="' + suffix + '">');
 
       if (langText !== undefined) {
         linksList.append('<li><a href="' + href + '" data-code="' +
         lang + '" data-toggle="tab">' + langText + '</a></li>');
-      };
+      }
 
       if (replaceClass !== undefined) {
         $(this).children().attr('class', replaceClass);
-      };
+      }
     });
 
     preTabs.first().parent().addClass('active');
