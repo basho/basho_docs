@@ -82,6 +82,9 @@
   </div>
 
   {{ partial "scripts.html" . }}
-
+  <script type="text/javascript">
+    var sheet = window.document.styleSheets[0]
+    sheet.insertRule('pre { visibility: visible; }', sheet.cssRules.length);
+  </script>
 </body>
 </html>
