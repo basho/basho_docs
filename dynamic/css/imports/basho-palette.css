@@ -1,33 +1,73 @@
 /* Code Palette for hightlight.js */
-.basho-comment, pre .comment, pre .title {
+.basho-comment,
+pre .hljs-comment,
+pre .hljs-title {
   color: #8e908c;
 }
 
-.basho-orange, pre .variable, pre .attribute, pre .tag, pre .regexp, pre .ruby .constant, pre .xml .tag .title, pre .xml .pi, pre .xml .doctype, pre .html .doctype, pre .css .id, pre .css .class, pre .css .pseudo {
+.basho-orange,
+pre .hljs-variable,
+pre .hljs-attribute,
+pre .hljs-tag,
+pre .hljs-regexp,
+pre .hljs-ruby .hljs-constant,
+pre .hljs-xml .hljs-tag .hljs-title,
+pre .hljs-xml .hljs-pi,
+pre .hljs-xml .hljs-doctype,
+pre .hljs-html .hljs-doctype,
+pre .hljs-css .hljs-id,
+pre .hljs-css .hljs-class,
+pre .hljs-css .hljs-pseudo {
   color: #ed9a4a;
 }
 
-.basho-red-orange, pre .number, pre .preprocessor, pre .pragma, pre .built_in, pre .literal, pre .params, pre .constant {
+.basho-red-orange,
+pre .hljs-number,
+pre .hljs-preprocessor,
+pre .hljs-pragma,
+pre .hljs-built_in,
+pre .hljs-literal,
+pre .hljs-params,
+pre .hljs-constant {
   color: #ea7107;
 }
 
-.basho-aqua, pre .ruby .class .title, pre .css .rules .attribute {
+.basho-aqua,
+pre .hljs-ruby .hljs-class .hljs-title,
+pre .hljs-css .hljs-rules .hljs-attribute {
   color: #71a7af;
 }
 
-.basho-light-orange, pre .string, pre .value, pre .inheritance, pre .header, pre .ruby .symbol, pre .xml .cdata {
+.basho-light-orange,
+pre .hljs-string,
+pre .hljs-value,
+pre .hljs-inheritance,
+pre .hljs-header,
+pre .hljs-ruby .hljs-symbol,
+pre .hljs-xml .hljs-cdata {
   color: #f2b156;
 }
 
-.basho-dark-blue, pre .css .hexcolor {
+.basho-dark-blue,
+pre .hljs-css .hljs-hexcolor {
   color: #3b4a5d;
 }
 
-.basho-dark-green, pre .function, pre .python .decorator, pre .python .title, pre .ruby .function .title, pre .ruby .title .keyword, pre .perl .sub, pre .javascript .title, pre .coffeescript .title {
+.basho-dark-green,
+pre .hljs-function,
+pre .hljs-python .hljs-decorator,
+pre .hljs-python .hljs-title,
+pre .hljs-ruby .hljs-function .hljs-title,
+pre .hljs-ruby .hljs-title .hljs-keyword,
+pre .hljs-perl .hljs-sub,
+pre .hljs-javascript .hljs-title,
+pre .hljs-coffeescript .hljs-title {
   color: #5a7471;
 }
 
-.basho-blue-grey, pre .keyword, pre .javascript .function {
+.basho-blue-grey,
+pre .hljs-keyword,
+pre .hljs-javascript .hljs-function {
   color: #6c8997;
 }
 
@@ -38,12 +78,12 @@ pre code {
   padding: 0.5em;
 }
 
-pre .coffeescript .javascript,
-pre .javascript .xml,
-pre .tex .formula,
-pre .xml .javascript,
-pre .xml .vbscript,
-pre .xml .css,
-pre .xml .cdata {
+pre .hljs-coffeescript .hljs-javascript,
+pre .hljs-javascript .hljs-xml,
+pre .hljs-tex .hljs-formula,
+pre .hljs-xml .hljs-javascript,
+pre .hljs-xml .hljs-vbscript,
+pre .hljs-xml .hljs-css,
+pre .hljs-xml .hljs-cdata {
   opacity: 0.5;
 }
