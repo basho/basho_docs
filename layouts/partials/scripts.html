@@ -1,3 +1,14 @@
 <script src="/js/all.js" type="text/javascript"></script>
 <script src="/js/version-bar.js" type= "text/javascript"></script>
-<script type= "text/javascript">hljs.initHighlightingOnLoad();</script>
+<script type= "text/javascript">
+  // Load Highlight.js without any language autodetection
+  hljs.configure({languages: []});
+  hljs.initHighlighting();
+
+  // Make visible all ".js_enabled pre" blocks
+  // Be sure to do it in a JQuery callback, since we only want to reveal these
+  // after code-tabs.js has gotten its callback in.
+  $(function() {
+    $(".js_enabled pre").css("visibility", "visible");
+  });
+</script>

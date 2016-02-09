@@ -5,16 +5,21 @@
 // @import "layout/*.png";
 // @include all-layout-sprites;
 
-@import "settings.scss";
-@import "boilerplate.scss";
-@import "common.scss";
-@import "faq.scss";
-@import "fonts.scss";
-@import "riak-index.scss";
-@import "riak-apis.scss";
-@import "dual.scss";
-@import "downloads.scss";
+@import "boilerplate.scss";     // HTML5 Boilerplate, for great website
+@import "fonts.scss";           // Common font-styles and font-icons
+@import "common.scss";          // Colors, mixins, shared variables, etc.
+@import "basho-highlight.scss"; // Color palette for Highlight.js
+@import "core.scss";            // The majority of our styles
+                                //TODO: Break apart core.scss into focused units
+//TODO: Review and refine the below
+//FIXME: This file contains font-faces that should possibly live in font.scss,
+//       And it DOES NOT include all of the style required for the version bar.
 @import "version-bar.scss";
+@import "downloads.scss";
+@import "riak-index.scss";
+@import "faq.scss";
+@import "dual.scss";
+@import "riak-apis.scss";
 
 // NOTE(Drew): Importing CSS into Sass/Compass is a bit weird, by which I mean
 // it's not been implemented. We're currently using the beta sass-css-importer
@@ -32,7 +37,6 @@
 //   `add_import_path Sass::CssImporter::Importer.new("/path/to/the/css/files")`
 // This may require be a relatively small change to the Rakefile's
 // `compile_scss` function.
-@import "CSS:imports/basho-palette";
+//FIXME(Drew): Find out what the hell this file is uesed for, and either turn it
+//             into an scss file, or get rid of it.
 @import "CSS:imports/bootstrap-tabs";
-// @import "foundation.css"; //TODO(Drew): I don't think we ever use this. Get rid of it?
-// @import "magula.css";     //TODO(Drew): I don't think we ever use this. Get rid of it?
