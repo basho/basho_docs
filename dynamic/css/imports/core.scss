@@ -1829,7 +1829,7 @@ div[role=main] {
     overflow-x : auto;
     background : #f8f8f8;
     //max-width  : 585px;
-    @include corner(right, top);
+    // @include corner(right, top);
     @include corner(right, bottom);
     @include corner(left, bottom);
     border: 1px solid #ddd;
@@ -1895,7 +1895,7 @@ div[role=main] {
   }
 
   div.tab-content {
-    max-width: 600px;
+    max-width: 643px;
     font-size: 85%;
   }
 
