@@ -44,7 +44,7 @@
       {{ $current_node := . }}
       {{ $menu_title := (printf "%s-%s" .Params.project .Params.project_version) }}
       {{ $root_menu := (index .Site.Menus $menu_title) }}
-      {{ range $root_menu }}
+      {{ if $root_menu }} {{ range $root_menu }}
         <h3>
           <div class="icon-container"><span aria-hidden="true" class="nav-icon {{ .Pre }}"></span>&nbsp;</div>
           <span class="separator">&#124;</span>
@@ -57,7 +57,7 @@
         {{ if .HasChildren }}
           {{ partial "navigation_sidebar_submenu.html" (dict "current_menu" . "current_node" $current_node "menu_title" $menu_title "menu_depth" 1) }}
         {{ end }}
-      {{ end }}
+      {{ end }} {{ end }}
       <ul></ul> {{/* This empty <ul> marks the end of the generated nav list */}}
     </div>
   </nav>
