@@ -9,10 +9,19 @@
 
   <title>{{ .Title }}</title>
 
-  <link href="/css/all.css" media="screen" rel= "stylesheet" type="text/css">
-  <link href="/css/print.css" media="print" rel= "stylesheet" type="text/css">
+  <link href="/css/all.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="/css/print.css" media="print" rel="stylesheet" type="text/css">
+
+  <!--
+    Iff JavaScript is enabled, we want to hide all pre>code blocks so we can
+    avoid the pre-to-post style bounce. We do this by hiding all pre elements
+    that follow a .js_enabled class, and apply that class to the HTML element
+    with some JavaScript.
+    We can't use the Modernizr .js class because we want this hidden before we
+    give modernizr a chance to load.
+  -->
+  <style type="text/css"> .js_enabled pre { visibility : hidden; } </style>
   <script type="text/javascript">
-    // var sheet = window.document.styleSheets[0]
-    // sheet.insertRule('pre { visibility: hidden; }', sheet.cssRules.length);
+    document.documentElement.className = 'js_enabled';
   </script>
 </head>
