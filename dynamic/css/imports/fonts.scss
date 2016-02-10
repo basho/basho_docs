@@ -5,7 +5,7 @@ body {
 /* =============================================================================
    Webfonts
    ========================================================================== */
-/*   
+/*
 @font-face {
     font-family : 'NoticiaItalic';
     src: url('../fonts/noticiatext-italic-webfont-eot.eot');
@@ -28,6 +28,9 @@ body {
     font-style: normal;
     text-rendering: optimizeLegibility;
 }
+*/
+
+/* Titillium Text */
 @font-face {
     font-family : 'Titillium25l001';
     src: url('../fonts/titilliumtext25l001-webfont-eot.eot');
@@ -50,10 +53,8 @@ body {
     font-style: normal;
     text-rendering: optimizeLegibility;
 }
-*/
 
 /* Open Sans */
-
 @font-face {
     font-family: 'OpenSans';
     src: url('../fonts/opensans-regular-webfont-eot.eot');
@@ -65,7 +66,6 @@ body {
     font-style: normal;
     text-rendering: optimizeLegibility;
 }
-
 @font-face {
     font-family: 'OpenSansBold';
     src: url('../fonts/opensans-bold-webfont-eot.eot');
@@ -91,7 +91,6 @@ body {
 }
 
 /* Gandhi Serif */
-
 @font-face {
     font-family: 'GandhiSerif';
     src: url('../fonts/gandhiserif-regular-webfont-eot.eot');
@@ -103,7 +102,6 @@ body {
     font-style: normal;
     text-rendering: optimizeLegibility;
 }
-
 @font-face {
     font-family: 'GandhiSerifBold';
     src: url('../fonts/gandhiserif-bold-webfont-eot.eot');
@@ -144,7 +142,7 @@ body {
 /* =============================================================================
    Custom Font Icon Library
    ========================================================================== */
-   
+
 @font-face {
     font-family: 'DocsFontIcons';
     src:url('../fonts/docsfonticons-webfont-eot.eot');

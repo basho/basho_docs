@@ -38,7 +38,6 @@
       contentWell      : 'div[role=main]',
       navToggle        : '#nav-toggle',
       header           : '#header',
-      watermark        : '.watermark-wrapper',
       responsiveToggle : '.responsive-toggle'
     },
 
