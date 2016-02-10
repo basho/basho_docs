@@ -142,7 +142,6 @@
     options.jq.contentWell.animate({marginLeft: options.params.closedNavMargin}, config || animConfig(false, 200, callback));
     options.jq.navContainer.animate({width: options.params.closedNavMargin}, config || animConfig());
     options.jq.header.animate({marginLeft: options.params.closedNavMargin}, config || animConfig());
-    options.jq.watermark.animate({marginLeft: options.params.closedNavMargin}, config || animConfig());
     setNavState(0);
   }
 
@@ -162,7 +161,6 @@
     options.jq.contentWell.animate({marginLeft: cm}, config || animConfig(false, 200, callback));
     options.jq.navContainer.animate({width: cm}, config || animConfig());
     options.jq.header.animate({marginLeft: cm}, config || animConfig());
-    options.jq.watermark.animate({marginLeft: cm}, config || animConfig());
     setNavState(1);
   }
 
