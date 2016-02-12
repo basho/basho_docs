@@ -137,7 +137,7 @@ Metric | Also | Notes
 ```riak_search_vnodeq_mean``` | ```_median```, ```_95```, ```_99```, ```_100``` | Number of unprocessed messages in the vnode message queues of the Riak Search subsystem on this node in the last minute. The queues give you an idea of how backed up Solr is getting.
 ```search_index_fail_one``` | | Number of "Failed to index document" errors Search encountered for the last minute
 ```pbc_active``` | | Number of currently active protocol buffer connections
-```pbc_connect``` | | Number of new protocol buffer connections established during the last minute
+```pbc_connects``` | | Number of new protocol buffer connections established during the last minute
 ```read_repairs``` | | Number of read repair operations this node has coordinated in the last minute (determine baseline, watch for abnormal spikes)
 ```list_fsm_active``` | | Number of List Keys FSMs currently active (should be 0)
 ```node_get_fsm_rejected``` | | Number of GET FSMs actively being rejected by Sidejob's overload protection
