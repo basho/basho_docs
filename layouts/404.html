@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{{ `<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"></html><![endif]-->` | safeHTML }}
+{{ `<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"></html><![endif]-->` | safeHTML }}
+{{ `<!--[if IE 8]><html class="no-js lt-ie9" lang="en"></html><![endif]-->` | safeHTML }}
+{{ `<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->` | safeHTML }}
+
+<head>
+  <meta charset="utf-8">
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width">
+  <meta name="base-url" content="/">
+
+  <title>Basho Documentation</title>
+
+  <link href="/css/all.css" media="screen" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  {{ partial "google_tag_manager.html" . }}
+
+  <div class="no-nav" role="main">
+    <article class="mainarticle">
+      <h1>404 - File Not Found</h1>
+      <p>Sorry, but the page you were trying to view isn't here.</p>
+      <p>It looks like this was the result of either:</p>
+      <ul>
+        <li>a mistyped address</li>
+        <li>an out-of-date link</li>
+      </ul>
+      <p>Check out:</p>
+      <ul>
+        <li><a href="/riak/kv/latest">Riak KV Docs</a></li>
+        <li><a href="/riak/ts/latest">Riak TS Docs</a></li>
+        <li><a href="/riak/cs/latest">Riak CS Docs</a></li>
+        <li><a href="/dataplatform/latest">Basho Data Platform Docs</a></li>
+      </ul>
+    </article>
+  </div>
+</body>
+</html>
