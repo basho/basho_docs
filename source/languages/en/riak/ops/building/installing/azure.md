@@ -111,7 +111,7 @@ If you are using a Windows computer, connect to the VM using PuTTY. PuTTY can be
 
 ```bash
 sudo su -
-curl -s https://raw.github.com/basho/riak_on_azure/1.0/azure_install_riak.sh | sh
+curl -s https://raw.githubusercontent.com/basho/riak_on_azure/1.0/azure_install_riak.sh | sh
 ```
 
 ## Configure Riak using Riak Control
