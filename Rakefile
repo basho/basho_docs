@@ -437,14 +437,14 @@ def do_deploy()
       :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'],
     })
 
-  # Build the routing rules based on the config.yaml's 'currents' list. One
+  # Build the routing rules based on the config.yaml's 'project_descripts'. One
   # routing rule per project.
   routing_rules = []
-  #TODO: Consider making the domain (below, `:HostName => `) a required EVN var
+  #TODO: Consider making the domain (below, `:host_name =>`) a required EVN var
   # so we can use this script to push to both docs.basho and stage.docs?
-  config_file['currents'].each do |project|
-    name = project['name']
-    ver  = project['latest']
+  config_file['params']['project_descriptions'].each do |project, description|
+    name = description['name']
+    ver  = description['latest']
     routing_rules.push(
       {
         :condition => { :key_prefix_equals       => "#{name}/latest/" },
@@ -455,6 +455,8 @@ def do_deploy()
   end
   #TODO: Consider implementing some way of adding arbitrary routing rules. Maybe
   # allow for a section in config.yaml that's just a JSON string that we parse?
+  #TODO: Figure out if we're correctly routing from archived content /latest/
+  # pages to the new site. I don't believe we currently are.
   new_website_configuration = {
     :error_document => aws_bucket_website.error_document.to_hash,
     :index_document => aws_bucket_website.index_document.to_hash,
