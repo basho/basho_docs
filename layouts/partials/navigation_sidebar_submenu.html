@@ -1,15 +1,24 @@
+<!-- Navigation Sidebar Sub Menus
+  This Partial **should not** be envoked with the usual `partial name.html .`
+  form. It should be envoked with a dictionary in the form,
+    dict "current_menu" <<current context>>
+         "current_node" $current_node
+         "menu_title"   $menu_title
+         "menu_depth"   <<next menu depth>>
+  The context (`.`) for $current_menu will be set by the range over any given
+  menu's children, $current_node and $menu_title will be built in
+  navigation_sidebar.html and will be passed on as they are, the next menu depth
+  is simply `$menu_depth += 1`.
 {{ $current_node := .current_node }}
-{{ $menu_title := .menu_title }}
-{{ $menu_depth := .menu_depth }}
-<ul class="depth-{{$menu_depth}}"{{if $current_node.IsMenuCurrent $menu_title .current_menu}} style="display: block;"{{end}}>{{ range .current_menu.Children }}
-  <li{{ if $current_node.IsMenuCurrent $menu_title . }} class="current"{{end}}>
-    {{ if .HasChildren }}
-      {{/*TODO(Drew): Figure out if we need the span tag. */}}
-      {{/*TODO(Drew): Figure out if we need to record the project in the class. */}}
-      <h4><span><a href="{{.URL}}">{{.Name}}</a></span></h4>
-      {{ partial "navigation_sidebar_submenu.html" (dict "current_menu" . "current_node" $current_node "menu_title" $menu_title "menu_depth" (add 1 $menu_depth)) }}
-    {{ else }}
-      <a href="{{.URL}}">{{.Name}}</a>
-    {{ end }}
-  </li>
-{{ end }}</ul>
+{{ $menu_title   := .menu_title }}
+{{ $menu_depth   := .menu_depth }} -->
+<ul class="depth-{{$menu_depth}}"{{if $current_node.IsMenuCurrent $menu_title .current_menu}} style="display: block;"{{end}}>
+  {{ range .current_menu.Children }}
+  <li {{ if $current_node.IsMenuCurrent $menu_title . }}class="current"{{end}}>
+  {{ if .HasChildren }}
+    <h4><span><a href="{{.URL}}">{{.Name}}</a></span></h4>
+    {{ partial "navigation_sidebar_submenu.html" (dict "current_menu" . "current_node" $current_node "menu_title" $menu_title "menu_depth" (add 1 $menu_depth)) }}
+  {{ else }}
+    <a href="{{.URL}}">{{.Name}}</a>
+  {{ end }}
+  </li>{{ end }}</ul>
