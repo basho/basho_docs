@@ -66,9 +66,7 @@
     {{ end }}
 
     <article class="mainarticle">
-    {{/*TODO(Drew): Correctly implement the version drop-down.
-                    Actually... Does anything need to happen for thi? */}}
-      <!-- <div class="versions"></div> -->
+      {{ partial "version-ddown.html" . }}
 
       {{/*NOTE(Drew): The .slim that generates this header is...
                           - unless !data.page.title || data.page.simple

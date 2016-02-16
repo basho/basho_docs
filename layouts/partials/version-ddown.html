@@ -1,0 +1,36 @@
+<div class="versions">
+  <div id="version-ddown-button" class="unselected">
+    <div class="version-ddown-title">Version</div>
+    <div class="version-ddown-number">{{ .Scratch.Get "version" }}</div>
+    <div class="version-ddown-arrow"></div>
+  </div>
+  <ol id="version-list" style="display: none;">
+  {{ range $index, $version := sort (.Scratch.Get "version_list") "value" "desc" }}
+    <!-- Enumerated Range over the sorted list of versions;
+      $index will be the nth entry in the list, used to set the style color
+      $version will be the displayed numbers (e.g. "2.0", "2.1") -->
+    <!-- Per-Version Element Variables
+      !!WARNING!!: If we ever change the layout of pages between versions, the
+                   links generate here **will not adjust** for that motion. We
+                   will need to either incorporate some kind of redirection
+                   frontmater[1] into our markdown content, or formulate some
+                   kind of S3-level routing logic[2].
+      [1]: See the `moved: {` JSON here:
+           github.com/basho/basho_docs/blob/riak/2.1.2/source/languages/en/riak/installing/source/erlang.md
+      [2]: http://docs.aws.amazon.com/AmazonS3/latest/dev/HowDoIWebsiteConfiguration.html#configure-bucket-as-website-routing-rule-syntax
+    {{ $is_dev := (eq $version ($.Scratch.Get "latest_version")) }}
+    {{ $is_lts := (eq $version ($.Scratch.Get "lts_version")) }}
+    {{ $target_url := (printf "/%s/%s/%s" ($.Scratch.Get "project_path") ($version) ($.Scratch.Get "relative_url")) }}
+    -->
+    <!--TODO: We are current misusing the "current" class (kindof). Either we
+              should restructure the below, or rename it renamed to reflect the
+              fact that we're just using it to lighten the DEV and LTS elements.
+              -->
+    {{ if $is_dev }}<li class="sans versions-{{$index}} current">DEV</li>{{ end }}
+    {{ if $is_lts }}<li class="sans versions-{{$index}} current">LTS</li>{{ end }}
+    <li class="versions-{{$index}} first"><a class="versioned" href="{{$target_url}}">{{.}}</a></li>
+  {{ end }}
+  {{ $archived_url := ($.Scratch.Get "") }}
+  {{ if $archived_url }}<li class="versions-5 first"><a class="sans versioned" href="{{$archived_url}}">older</a></li>{{ end }}
+  </ol>
+</div>
