@@ -1,13 +1,14 @@
 ---
-title: "Learn About Riak S2"
+title: "Why Riak CS"
 description: "Lorem ipsum quia dolor sit amet"
 menu:
-  riak_s2-2.0.1:
-    name: "Learn You Some Riak S2"
-    identifier: "learn"
-    weight: 400
-project: "riak_s2"
-project_version: "2.0.1"
+  riak_cs-2.1.0:
+    name: "Why Riak CS"
+    identifier: "why_riak_cs"
+    parent: "learn"
+    weight: 100
+project: "riak_cs"
+project_version: "2.1.0"
 ---
 
 # Et inquit sopistis de Aegides vertice

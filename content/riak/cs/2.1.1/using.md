@@ -1,14 +1,13 @@
 ---
-title: "Configuring Riak S2"
+title: "Using Riak CS"
 description: "Lorem ipsum quia dolor sit amet"
 menu:
-  riak_s2-2.1.0:
-    name: "Configuring"
-    identifier: "configuring_riak_s2"
-    parent: "using"
+  riak_cs-2.1.1:
+    name: "Using Riak CS"
+    identifier: "using"
     weight: 200
-project: "riak_s2"
-project_version: "2.1.0"
+project: "riak_cs"
+project_version: "2.1.1"
 ---
 
 # Et inquit sopistis de Aegides vertice
