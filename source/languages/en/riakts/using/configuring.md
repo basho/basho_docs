@@ -1,7 +1,7 @@
 ---
 title: Configure Riak TS
 project: riakts
-version: 1.1.0+
+version: 1.0.0+
 document: guide
 toc: true
 index: true

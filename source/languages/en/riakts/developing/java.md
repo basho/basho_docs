@@ -1,7 +1,7 @@
 ---
-title: Java Client API 
+title: Java Client API
 project: riakts
-version: 1.1.0+
+version: 1.0.0+
 document: reference
 toc: true
 index: true

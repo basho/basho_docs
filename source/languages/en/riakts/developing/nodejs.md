@@ -1,5 +1,5 @@
 ---
-title: Node.js Client API 
+title: Node.js Client API
 project: riakts
 version: 1.1.0+
 document: reference

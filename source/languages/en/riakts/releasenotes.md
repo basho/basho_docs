@@ -1,7 +1,7 @@
 ---
 title: Riak TS 1.1.0 Release Notes
 project: riakts
-version: 1.1.0+
+version: 1.0.0+
 document: guide
 audience: beginner
 toc: true
