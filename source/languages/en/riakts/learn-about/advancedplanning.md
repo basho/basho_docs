@@ -1,7 +1,7 @@
 ---
 title: Advanced Planning Riak TS Tables
 project: riakts
-version: 1.1.0+
+version: 1.0.0+
 document: guide
 toc: true
 index: true
