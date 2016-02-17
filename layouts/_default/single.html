@@ -1,33 +1,72 @@
 <!DOCTYPE html>
+{{/*TODO(Drew): Find out if we need to do this IE-safety shit anymore. */}}
 {{ `<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"></html><![endif]-->` | safeHTML }}
 {{ `<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"></html><![endif]-->` | safeHTML }}
 {{ `<!--[if IE 8]><html class="no-js lt-ie9" lang="en"></html><![endif]-->` | safeHTML }}
 {{ `<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->` | safeHTML }}
 
+<!-- Note on Design:
+  All Hugo Template blocks are going to be wrapped in these multi-line HTML
+  comments so the compiled source might be a bit prettier to look at; if
+  unwrapped, every Go call will get its own newline, and add an incredible
+  amount of padding to the source. -->
+<!-- Site-wide Variables.
+  The interesting ones are getting stored in `.Scratch` so they're accessible in
+  other scopes (e.g. partials).
+{{ $project := .Params.project }}
+{{ $version := .Params.project_version }}
+{{ $project_decription := (index .Site.Params.project_descriptions $project) }}
+{{ $latest_version     := (index $project_decription "latest") }}
+{{ $lts_version        := (index $project_decription "lts") }}
+{{ $project_path       := (index $project_decription "path") }}
+{{ $version_list       := (index $project_decription "version_list") }}
+{{ $archived_url       := (index $project_decription "archived_url") }}
+{{ $site_relative_url := (replace .Permalink .Site.BaseURL "") }}
+{{ $relative_url      := (replace $site_relative_url (printf "%s/%s/" (index $project_decription "path") $version) "") }}
+{{ $is_latest := (eq $version (index $project_decription "latest")) }}
+{{ $is_lts    := (eq $version (index $project_decription "lts")) }}
+
+{{ .Scratch.Add "project"            $project }}
+{{ .Scratch.Add "version"            $version }}
+{{ .Scratch.Add "latest_version"     $latest_version  }}
+{{ .Scratch.Add "lts_version"        $lts_version  }}
+{{ .Scratch.Add "project_path"       $project_path }}
+{{ .Scratch.Add "version_list"       $version_list }}
+{{ .Scratch.Add "site_relative_url"  $site_relative_url }}
+{{ .Scratch.Add "relative_url"       $relative_url }}
+{{ .Scratch.Add "archived_url"       $archived_url }}
+{{ .Scratch.Add "is_latest"          $is_latest }}
+{{ .Scratch.Add "is_lts"             $is_lts }}
+-->
+
 {{ partial "head.html" . }}
 
-{{/*TODO(Drew): We need to figure out if this `class="latest"`` is required for
-                that stupid marketing banner. Maybe just fix the CSS. */}}
-<body class="latest">
+<!--TODO: Figure out if we want the 'latest' tag to be part of the class list,
+          or if we can get away with it being Hugo metadata. -->
+<body class="{{$project}} {{$version}} {{if $is_latest}}latest{{end}} {{if $is_lts}}lts{{end}}">
+
   {{ partial "google_tag_manager.html" . }}
 
   {{ partial "navigation_sidebar.html" . }}
 
   <div role="main">
 
-  {{ partial "header.html" . }}
+    {{ partial "header.html" . }}
 
-    {{/*TODO(Drew): Do we want to extract this to live somewhere else?
-                    Also, be aware this is only present in the wide view of the
-                    site. */}}
+    <!-- Marketing Banner, only displayed in full-width and on the 'latest'
+                           project version -->
+    <!--TODO(Drew): Why is this called the ricon banner? It should be renamed to
+                      anything descriptive.
+                    Should the content be extracted to a config file somewhere?
+                      Hint: We should. -->
+    {{ if $is_latest }}
     <div id="ricon-temp-banner-responsive">
       <a class="register" href="http://basho.com/new-basho-data-platform-provides-outstanding-operational-simplicity-for-enterprise-big-data-applications/">Basho Data Platform coming soon.</a>
     </div>
+    {{ end }}
 
     <article class="mainarticle">
-    {{/*TODO(Drew): Correctly implement the version drop-down.
-                    Actually... Does anything need to happen for thi? */}}
-      <!-- <div class="versions"></div> -->
+      {{ partial "version-ddown.html" . }}
 
       {{/*NOTE(Drew): The .slim that generates this header is...
                           - unless !data.page.title || data.page.simple
@@ -39,7 +78,7 @@
 
                       It looks like we need to munge the title and add that
                       `class="small"` div if we're on an MDC page. */}}
-      {{/*TODO(Drew): Fix this. All of this. Fix all of the above. */}}
+      <!--TODO(Drew): Fix this. All of this. Fix all of the above. -->
       <header><h1>{{ .Title }}</h1></header>
 
       {{/*TODO(Drew): Find out what the below does, and re-implement it here...
@@ -50,12 +89,12 @@
       */}}
 
       {{ if .Params.toc }}
-        <nav id="toc">
-          <h2 class="title">Contents</h2>
-          <div id="toc-wrapper">
-            <ol id="toc-items"></ol>
-          </div>
-        </nav>
+      <nav id="toc">
+        <h2 class="title">Contents</h2>
+        <div id="toc-wrapper">
+          <ol id="toc-items"></ol>
+        </div>
+      </nav>
       {{ end }}
 
       {{/*NOTE(Drew): At this point, if this were a downloads page, we'd be
@@ -69,9 +108,7 @@
                             = "\n"
       */}}
 
-
       {{ .Content }}
-
 
       <div class="clear"></div>
 
@@ -82,5 +119,6 @@
   </div>
 
   {{ partial "scripts.html" . }}
+
 </body>
 </html>

@@ -4,19 +4,28 @@ baseURL: "http://docs.basho.com/"
 languageCode: "en-us"
 metaDataFormat: "yaml" # Frontmatter format use with generative archetypes.
 
-currents:
-  - name: "riak/kv"
-    latest: "2.1"
-    stable: "1.4"
-  - name: "riak/s2"
-    latest: "2.1"
-    stable: "1.4"
-  - name: "riak/ts"
-    latest: "1.0"
-    stable: "1.0"
-  - name: "dataplatform"
-    latest: "1.0"
-    stable: "1.0"
+params:
+  project_descriptions:
+    riak_kv:
+      path: "riak/kv"
+      version_list: ["2.0", "2.1"]
+      latest: "2.1"
+      lts: "2.0"
+      archived_url: "http://docs.basho.com/riak/1.4.12/"
+    riak_s2:
+      path: "riak/s2"
+      version_list: ["2.0", "2.1"]
+      latest: "2.1"
+      lts: "2.0"
+      archived_url: "http://docs.basho.com/riakcs/1.5.4/"
+    riak_ts:
+      path: "riak/ts"
+      version_list: ["1.0", "1.1"]
+      latest: "1.1"
+    dataplatform:
+      path: "dataplatform"
+      version_list: ["1.0"]
+      latest: "1.0"
 ---
 
 
@@ -48,7 +57,7 @@ currents:
 #     uglyURLs:                   false         # if true, use /filename.html instead of /filename/
 # ??? permalinks:
 #
-# ??? pygmentsStyle:              "monokai"     # color-codes for highlighting derived from this style
+# ??? pygmentsStyle:              "monokai"     # color-cwodes for highlighting derived from this style
 # ??? pygmentsUseClasses:         false         # true: use pygments-css or false: color-codes directly
 #
 #
