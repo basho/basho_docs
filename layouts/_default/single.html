@@ -57,18 +57,6 @@
 
     {{ partial "header.html" . }}
 
-    <!-- Marketing Banner, only displayed in full-width and on the 'latest'
-                           project version -->
-    <!--TODO(Drew): Why is this called the ricon banner? It should be renamed to
-                      anything descriptive.
-                    Should the content be extracted to a config file somewhere?
-                      Hint: Yes. -->
-    {{ if $is_latest }}
-    <div id="ricon-temp-banner-responsive">
-      <a class="register" href="http://basho.com/new-basho-data-platform-provides-outstanding-operational-simplicity-for-enterprise-big-data-applications/">Basho Data Platform coming soon.</a>
-    </div>
-    {{ end }}
-
     <article class="mainarticle">
       {{ partial "version-ddown.html" . }}
 
