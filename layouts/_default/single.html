@@ -6,20 +6,24 @@
 {{ `<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->` | safeHTML }}
 
 <!-- Note on Design:
+     --------------
   All Hugo Template blocks are going to be wrapped in these multi-line HTML
   comments so the compiled source might be a bit prettier to look at; if
   unwrapped, every Go call will get its own newline, and add an incredible
-  amount of padding to the source. -->
+  amount of padding to the source.
+-->
 <!-- Site-wide Variables.
+     -------------------
   The interesting ones are getting stored in `.Scratch` so they're accessible in
   other scopes (e.g. partials).
+
 {{ $project := .Params.project }}
 {{ $version := .Params.project_version }}
 {{ $project_decription := (index .Site.Params.project_descriptions $project) }}
 {{ $latest_version     := (index $project_decription "latest") }}
 {{ $lts_version        := (index $project_decription "lts") }}
 {{ $project_path       := (index $project_decription "path") }}
-{{ $version_list       := (index $project_decription "version_list") }}
+{{ $releases           := (index $project_decription "releases") }}
 {{ $archived_url       := (index $project_decription "archived_url") }}
 {{ $site_relative_url := (replace .Permalink .Site.BaseURL "") }}
 {{ $relative_url      := (replace $site_relative_url (printf "%s/%s/" (index $project_decription "path") $version) "") }}
@@ -31,7 +35,7 @@
 {{ .Scratch.Add "latest_version"     $latest_version  }}
 {{ .Scratch.Add "lts_version"        $lts_version  }}
 {{ .Scratch.Add "project_path"       $project_path }}
-{{ .Scratch.Add "version_list"       $version_list }}
+{{ .Scratch.Add "releases"           $releases }}
 {{ .Scratch.Add "site_relative_url"  $site_relative_url }}
 {{ .Scratch.Add "relative_url"       $relative_url }}
 {{ .Scratch.Add "archived_url"       $archived_url }}
@@ -58,7 +62,7 @@
     <!--TODO(Drew): Why is this called the ricon banner? It should be renamed to
                       anything descriptive.
                     Should the content be extracted to a config file somewhere?
-                      Hint: We should. -->
+                      Hint: Yes. -->
     {{ if $is_latest }}
     <div id="ricon-temp-banner-responsive">
       <a class="register" href="http://basho.com/new-basho-data-platform-provides-outstanding-operational-simplicity-for-enterprise-big-data-applications/">Basho Data Platform coming soon.</a>

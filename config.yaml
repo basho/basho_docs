@@ -1,31 +1,52 @@
 ---
+# General Hugo Configuration Options
+# ==================================
 title: "Basho Documentation"
 baseURL: "http://docs.basho.com/"
 languageCode: "en-us"
-metaDataFormat: "yaml" # Frontmatter format use with generative archetypes.
+
+# Use YAML for front matter, rather than TOML
+metaDataFormat: "yaml"
+
 
 params:
+  # Project Descriptions
+  # ====================
+  # The below `project_descriptions` map should contain elements in the form,
+  #     <<project_name>>:  // Project name, corresponds to`project:` content frontmater
+  #       path: "<<path>>" // Path to the project's version directories
+  #       releases:        // List (release series) of lists (versions in that series).
+  #         - ["<<version>>", "<<version>>", ...],
+  #         - ["<<version>>", "<<version>>", ...],
+  #       latest:       "<<version>>" // optional: Current development version
+  #       lts:          "<<version>>" // optional: Current LTS version
+  #       archived_url: "<<URI>>"     // optional: URL directing to un-maintained content
   project_descriptions:
     riak_kv:
       path: "riak/kv"
-      version_list: ["2.0", "2.1"]
-      latest: "2.1"
-      lts: "2.0"
+      releases:
+        - ["2.0.0", "2.0.1", "2.0.2", "2.0.4", "2.0.5", "2.0.6"]
+        - ["2.1.1", "2.1.3"]
+      latest: "2.1.3"
+      lts: "2.0.6"
       archived_url: "http://docs.basho.com/riak/1.4.12/"
-    riak_s2:
-      path: "riak/s2"
-      version_list: ["2.0", "2.1"]
-      latest: "2.1"
-      lts: "2.0"
+    riak_cs:
+      path: "riak/cs"
+      releases:
+        - ["2.0.0", "2.0.1"]
+        - ["2.1.0", "2.1.1"]
+      latest: "2.1.1"
+      lts: "2.0.1"
       archived_url: "http://docs.basho.com/riakcs/1.5.4/"
     riak_ts:
       path: "riak/ts"
-      version_list: ["1.0", "1.1"]
-      latest: "1.1"
+      releases:
+        - ["1.0.0"]
+        - ["1.1.0"]
     dataplatform:
       path: "dataplatform"
-      version_list: ["1.0"]
-      latest: "1.0"
+      releases:
+        - ["1.0.0"]
 ---
 
 
