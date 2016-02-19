@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{{/*TODO(Drew): Find out if we need to do this IE-safety shit anymore. */}}
+{{ `<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"></html><![endif]-->` | safeHTML }}
+{{ `<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"></html><![endif]-->` | safeHTML }}
+{{ `<!--[if IE 8]><html class="no-js lt-ie9" lang="en"></html><![endif]-->` | safeHTML }}
+{{ `<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->` | safeHTML }}
+
+<!-- Note on Design:
+     --------------
+  All Hugo Template blocks are going to be wrapped in these multi-line HTML
+  comments so the compiled source might be a bit prettier to look at; if
+  unwrapped, every Go call will get its own newline, and add an incredible
+  amount of padding to the source.
+-->
+
+{{ partial "head.html" . }}
+
+<!--TODO: Figure out if we want the 'latest' tag to be part of the class list,
+          or if we can get away with it being Hugo metadata. -->
+<body class="latest">
+
+  {{ partial "google_tag_manager.html" . }}
+
+  {{ partial "community_navigation_sidebar.html" . }}
+
+  <div role="main">
+
+    {{ partial "header.html" . }}
+
+    <article class="mainarticle">
+
+      <header><h1>{{ .Title }}</h1></header>
+
+      {{ if .Params.toc }}
+      <nav id="toc">
+        <h2 class="title">Contents</h2>
+        <div id="toc-wrapper">
+          <ol id="toc-items"></ol>
+        </div>
+      </nav>
+      {{ end }}
+
+      {{ .Content }}
+
+      <div class="clear"></div>
+
+    </article>
+
+    {{ partial "footer.html" . }}
+
+  </div>
+
+  {{ partial "scripts.html" . }}
+
+</body>
+</html>

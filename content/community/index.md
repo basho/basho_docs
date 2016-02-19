@@ -2,11 +2,11 @@
 title: "Community Overview"
 description: "Lorem ipsum quia dolor sit amet"
 menu:
-  dataplatform-1.0.0:
+  community:
     name: "Community"
     identifier: "community_overview"
     weight: 600
-    pre: icon-messages
+    pre: icon-comments
 ---
 
 ## Hanc capellae
