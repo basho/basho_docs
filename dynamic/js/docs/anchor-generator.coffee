@@ -14,5 +14,4 @@ $ ->
       content = $(this).html()
       name = content.replace(/\W+/g,'-')
       anchor = "<a href=\"##{name}\">#{content}</a>";
-      $(this).attr('id', name)
-      $(this).html(anchor)
+      $(this).html(anchor).attr('id', name)
