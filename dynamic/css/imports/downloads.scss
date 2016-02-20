@@ -13,13 +13,18 @@
   table {
     width:100%;
     td.arch{
-      width:35%;
+      width:20%;
     }
     td.link {
-      width:50%;
+      width:60%;
     }
     td.size {
-      width:20%;
+      width:15%;
+    }
+    tr {
+      h4 {
+        padding-top: 5;
+      }
     }
     /*
     td.checksum {

@@ -1,12 +1,12 @@
 ---
 description: ""
-project: "data_platform"
+project: "dataplatform"
 project_version: ""
 menu:
-  data_platform-X.Y.Z:
+  dataplatform-X.Y.Z:
     name: ""
     identifier: ""
-    weight: 
+    weight:
     pre: icon-
 toc: true
 ---

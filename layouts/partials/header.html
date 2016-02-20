@@ -3,9 +3,7 @@
     <!-- Marketing Banner
          ----------------
       Only displayed in full-width and on the 'latest' project version
-      TODO(Drew): Why is this called the ricon banner? It should be renamed to
-                    *anything* more descriptive.
-                  Should the content be extracted to a config file somewhere?
+      TODO(Drew): Should the content be extracted to a config file somewhere?
                     Hint: Yes.
     {{ if $.Scratch.Get "is_latest" }}
     {{ partial "marketing_banner.html" . }}
@@ -17,7 +15,7 @@
       <div id="top-nav">
         {{/*TODO(Drew): This used the be defined with `class={{project}}`.
                         find out if we need to re-add that. */}}
-        <a href="/{{ .Params.project }}/downloads/"><span class="icon-download-alt"></span>Downloads</a>
+        <a href="/{{$.Scratch.Get "project_path"}}/{{$.Scratch.Get "version"}}/downloads/"><span class="icon-download-alt"></span>Downloads</a>
         <div id="nav-more"><span class="icon-more"></span></div>
       </div>
 
