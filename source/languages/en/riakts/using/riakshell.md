@@ -158,7 +158,7 @@ riak_shell(7)>select time, weather, temperature from GeoCheckin where myfamily='
 
 ###Logging
 
-You can specify the name of your logfile by running: `logfile »mylogname«`.
+You can specify the name of your logfile by running: `logfile »"mylogname"«`.
 
 ```
 riak_shell>logfile "mylogfile";
