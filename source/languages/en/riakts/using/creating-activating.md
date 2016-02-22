@@ -1,20 +1,20 @@
 ---
 title: Creating and Activating Your Riak TS Table
 project: riakts
-version: 1.1.0+
+version: 1.0.0+
 document: guide
 toc: true
 index: true
 audience: beginner
 ---
 
-[erlang]: http://docs.basho.com/riakts/1.1.0/developing/erlang#query2
-[java]: http://docs.basho.com/riakts/1.1.0/developing/java#query
-[nodejs]: http://docs.basho.com/riakts/1.1.0/developing/nodejs#query
-[planning]: http://docs.basho.com/riakts/1.1.0/using/planning
-[python]: http://docs.basho.com/riakts/1.1.0/developing/python#query
-[ruby]: http://docs.basho.com/riakts/1.1.0/developing/ruby#sql-queries
-[writing]: http://docs.basho.com/riakts/1.1.0/using/writingdata
+[erlang]: http://docs.basho.com/riakts/1.2.0/developing/erlang#query2
+[java]: http://docs.basho.com/riakts/1.2.0/developing/java#query
+[nodejs]: http://docs.basho.com/riakts/1.2.0/developing/nodejs#query
+[planning]: http://docs.basho.com/riakts/1.2.0/using/planning
+[python]: http://docs.basho.com/riakts/1.2.0/developing/python#query
+[ruby]: http://docs.basho.com/riakts/1.2.0/developing/ruby#sql-queries
+[writing]: http://docs.basho.com/riakts/1.2.0/using/writingdata
 
 Once you have [planned out your table][planning] you can create it using `riak-admin`.
 

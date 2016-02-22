@@ -1,16 +1,16 @@
 ---
 title: Querying Data in Riak TS
 project: riakts
-version: 1.1.0+
+version: 1.0.0+
 document: guide
 toc: true
 index: true
 audience: beginner
 ---
 
-[advancedplanning]: https://docs.basho.com/riakts/1.1.0/learn-about/advancedplanning
-[activating]: https://docs.basho.com/riakts/1.1.0/using/creating-activating
-[writing]: https://docs.basho.com/riakts/1.1.0/using/writingdata
+[advancedplanning]: https://docs.basho.com/riakts/1.2.0/learn-about/advancedplanning
+[activating]: https://docs.basho.com/riakts/1.2.0/using/creating-activating
+[writing]: https://docs.basho.com/riakts/1.2.0/using/writingdata
 
 
 Now that you have [created][activating] a Riak TS table and [written][writing] data to it, you can query your data.

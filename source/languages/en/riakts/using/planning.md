@@ -8,12 +8,12 @@ index: true
 audience: beginner
 ---
 
-[activating]: https://www.docs.basho.com/riakts/1.1.0/using/creating-activating
-[advancedplanning]: http://docs.basho.com/riakts/1.1.0/learn-about/advancedplanning/
-[bestpractices]: http://docs.basho.com/riakts/1.1.0/learn-about/bestpractices/
+[activating]: https://www.docs.basho.com/riakts/1.2.0/using/creating-activating
+[advancedplanning]: http://docs.basho.com/riakts/1.2.0/learn-about/advancedplanning/
+[bestpractices]: http://docs.basho.com/riakts/1.2.0/learn-about/bestpractices/
 [epoch]: https://en.wikipedia.org/wiki/Unix_time
-[installing]: http://docs.basho.com/riakts/1.1.0/installing/installing/
-[sql]: http://docs.basho.com/riakts/1.1.0/learn-about/sqlriakts/
+[installing]: http://docs.basho.com/riakts/1.2.0/installing/installing/
+[sql]: http://docs.basho.com/riakts/1.2.0/learn-about/sqlriakts/
 
 Now that you've [installed][installing] Riak TS, you're almost ready to create a TS table. Before you can create your table, you'll need to plan it out. 
 
@@ -21,7 +21,7 @@ This page provides a basic overview of what you'll need and some guidelines/limi
 
 Riak TS tables are closely tied to SQL tables. If you are unfamiliar with SQL or would like to know more about how Riak TS integrates SQL, check out [SQL for Riak TS][sql].
 
-###Anatomy of a Schema
+##Anatomy of a Schema
 
 In order to create a working Riak TS table, you'll need plan your table out. Once created, your table cannot be changed. Here is an example Riak TS `CREATE TABLE` statement (broken across many lines for clarity):
 

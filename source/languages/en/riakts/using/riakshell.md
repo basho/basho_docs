@@ -9,7 +9,7 @@ audience: intermediate
 ---
 
 
-[creating]: http://docs.basho.com/riakts/1.1.0/using/creating-activating/
+[creating]: http://docs.basho.com/riakts/1.2.0/using/creating-activating/
 
 
 You can use riak_shell within Riak TS to run SQL and logging commands from one place.
@@ -73,7 +73,7 @@ riak_shell>show_nodes;
 The connected nodes are: ['dev1@127.0.0.1','dev2@127.0.0.1']
 ```
 
-You can reconnect riak_shell by running: `reconnect`. This will try to connect you to one of the nodes listed in your riak_shell.config. It will try each node until it succeeds. ??And stop if it doesn't?.
+You can reconnect riak_shell by running: `reconnect`. This will try to connect you to one of the nodes listed in your riak_shell.config. Each node will be tried until it succeeds or runs out of nodes to try.
 
 You can toggle a connection prompt to show the connect status in the prompt:
 

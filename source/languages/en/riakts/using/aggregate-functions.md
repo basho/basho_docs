@@ -9,7 +9,7 @@ audience: intermediate
 ---
 
 
-[arithmetic]: https://docs.basho.com/riakts/1.1.0/using/arithmetic-operations
+[arithmetic]: https://docs.basho.com/riakts/1.2.0/using/arithmetic-operations
 
 
 You can turn a set of rows in your Riak TS table into a value with the aggregate feature. This document will walk you through the functions that make up aggregation in Riak TS. 
@@ -22,7 +22,8 @@ You can turn a set of rows in your Riak TS table into a value with the aggregate
 * `MEAN()` & `AVG()` - Returns the average of entries that match a specified criteria.
 * `MIN()` - Returns the smallest value of entries that match a specified criteria.
 * `MAX()` - Returns the largest value of entries that match a specified criteria.
-* `STDDEV()` - Returns the statistical standard deviation of all entries that match a specified criteria using Population Standard Deviation.
+* `STDDEV()`/`STDDEV_SAMP()` - Returns the statistical standard deviation of all entries that match a specified criteria using Sample Standard Deviation.
+* `STDDEV_POP()` - Returns the statistical standard deviation of all entries that match a specified criteria using Population Standard Deviation.
 
 
 ###`AVG` & `MEAN`
@@ -93,11 +94,9 @@ Returns `NULL` if no values were returned or all values were `NULL`.
 | double | double |
 
 
-###`STDDEV`
+###`STDDEV`, `STDDEV_SAMP` & `STDDEV_POP`
 
 Calculate the standard deviation for a set of values returned by the query.
-
->**Note:** We use population standard deviation for our calculations.
 
 ```sql
 SELECT STDDEV(temperature) FROM GeoCheckin

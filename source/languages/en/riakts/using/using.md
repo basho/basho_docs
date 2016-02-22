@@ -8,14 +8,14 @@ index: true
 audience: beginner
 ---
 
-[activating]: http://docs.basho.com/riakts/1.1.0/using/creating-activating/
-[aggregate]: http://docs.basho.com/riakts/1.1.0/using/aggregate-functions/
-[arithmetic]: http://docs.basho.com/riakts/1.1.0/using/arithmetic-operations/
-[configuring]: http://docs.basho.com/riakts/1.1.0/using/configuring
-[installing]: http://docs.basho.com/riakts/1.1.0/installing/installing/
-[planning]: http://docs.basho.com/riakts/1.1.0/using/planning
-[querying]: http://docs.basho.com/riakts/1.1.0/using/querying
-[writing]: http://docs.basho.com/riakts/1.1.0/using/writingdata
+[activating]: http://docs.basho.com/riakts/1.2.0/using/creating-activating/
+[aggregate]: http://docs.basho.com/riakts/1.2.0/using/aggregate-functions/
+[arithmetic]: http://docs.basho.com/riakts/1.2.0/using/arithmetic-operations/
+[configuring]: http://docs.basho.com/riakts/1.2.0/using/configuring
+[installing]: http://docs.basho.com/riakts/1.2.0/installing/installing/
+[planning]: http://docs.basho.com/riakts/1.2.0/using/planning
+[querying]: http://docs.basho.com/riakts/1.2.0/using/querying
+[writing]: http://docs.basho.com/riakts/1.2.0/using/writingdata
 
 
 Now that you've downloaded the package from ZenDesk and [installed][installing] Riak TS, there's a recommended path for setting up and using it:
