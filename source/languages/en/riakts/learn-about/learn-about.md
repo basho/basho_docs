@@ -1,16 +1,16 @@
 ---
 title: Learn About Riak TS
 project: riakts
-version: 1.1.0+
+version: 1.0.0+
 document: guide
 toc: true
 index: true
 audience: beginner
 ---
 
-[advancedplanning]: http://docs.basho.com/riakts/1.1.0/learn-about/advancedplanning
-[bestpractices]: http://docs.basho.com/riakts/1.1.0/learn-about/bestpractices
-[sqlriakts]: http://docs.basho.com/riakts/1.1.0/learn-about/sqlriakts
+[advancedplanning]: http://docs.basho.com/riakts/1.2.0/learn-about/advancedplanning
+[bestpractices]: http://docs.basho.com/riakts/1.2.0/learn-about/bestpractices
+[sqlriakts]: http://docs.basho.com/riakts/1.2.0/learn-about/sqlriakts
 
 
 Welcome to Learning About Riak TS! In this section you will find the following:

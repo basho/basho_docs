@@ -1,18 +1,18 @@
 ---
 title: Advanced Planning Riak TS Tables
 project: riakts
-version: 1.1.0+
+version: 1.0.0+
 document: guide
 toc: true
 index: true
 audience: advanced
 ---
 
-[activating]: http://docs.basho.com/riakts/1.1.0/using/creating-activating/
-[configuring]: http://docs.basho.com/riakts/1.1.0/using/configuring/
-[planning]: http://docs.basho.com/riakts/1.1.0/using/planning
-[sql]: http://docs.basho.com/riakts/1.1.0/learn-about/sqlriakts/
-[bestpractices]: http://docs.basho.com/riakts/1.1.0/learn-about/bestpractices/
+[activating]: http://docs.basho.com/riakts/1.2.0/using/creating-activating/
+[configuring]: http://docs.basho.com/riakts/1.2.0/using/configuring/
+[planning]: http://docs.basho.com/riakts/1.2.0/using/planning
+[sql]: http://docs.basho.com/riakts/1.2.0/learn-about/sqlriakts/
+[bestpractices]: http://docs.basho.com/riakts/1.2.0/learn-about/bestpractices/
 
 
 This page provides more in-depth information about how Riak TS tables are structured. 
