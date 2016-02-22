@@ -8,7 +8,7 @@ riakts:
     class: "start"
     sub:
       - "[[Riak TS]]"
-      - "[[Release Notes|Riak TS 1.1.0 Release Notes]]"
+      - "[[Release Notes|Riak TS 1.2.0 Release Notes]]"
   - title: "Installing Riak TS"
     sub:
       - "[[Installing Riak TS]]"
@@ -25,6 +25,7 @@ riakts:
       - "[[Configure Riak TS]]"
       - "[[Riak TS Aggregate Functions]]"
       - "[[Riak TS Arithmetic Operations]]"
+      - "[[Using riak_shell]]"
   - title: "Developing with Riak TS"
     sub:
       - "[[Developing with Riak TS]]"
