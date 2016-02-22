@@ -1,7 +1,7 @@
 ---
 title: Installing on Debian and Ubuntu
 project: riakts
-version: 1.1.0+
+version: 1.0.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, debian, ubuntu, linux]
@@ -11,7 +11,7 @@ download:
 ---
 
 [AAE]: http://docs.basho.com/riak/2.1.3/theory/concepts/aae/
-[planning]: http://docs.basho.com/riakts/1.1.0/using/planning
+[planning]: http://docs.basho.com/riakts/1.2.0/using/planning
 [riak security]: http://docs.basho.com/riak/2.1.3/ops/running/authz/
 
 
