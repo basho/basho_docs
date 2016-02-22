@@ -1,7 +1,7 @@
 ---
-title: Riak TS 1.1.0 Release Notes
+title: Riak TS 1.2.0 Release Notes
 project: riakts
-version: 1.1.0+
+version: 1.0.0+
 document: guide
 audience: beginner
 toc: true
@@ -9,92 +9,29 @@ keywords: [time series, release notes]
 ---
 
 
-Released January 14, 2016.
+#Riak TS 1.2.0 Release Notes
 
-This release builds on Riak TS 1.0.0 to enable further analysis of time series data with aggregates and arithmetic functionality.
+Released February 23, 2016.
+
+Riak TS 1.2.0 introduces riak_shell, a shell that allows you to run SQL within Riak TS. This release also expands aggregate and arithmetic functionality to allow them to be used together, enabling deeper analysis of time series data. 
+
 
 ##New Features
 
-###Aggregations
-In Riak TS 1.0.0 you could run a` WHERE` clause that returned a particular row set of time series data. In 1.1.0 you can apply a function (such as `COUNT`) in the `SELECT` clause that operates on those responses in aggregate.
-
-For instance,
-
-```
-SELECT fun(X) FROM tablename WHERE
-```
-
-Where `fun` is one of:
-
-* `SUM`
-* `COUNT`
-* `AVG` / `MEAN`
-* `MIN`
-* `MAX`
-* `STDDEV`
-
-And where is (X) is either a column name, or a multi-column expression avg(temperature/pressure).
+* riak_shell is a configurable, extendable shell for Riak that allows you to run SQL commands and logging in a single shell within Riak TS. You can find more information about riak_shell [here](http://docs.basho.com/riakts/1.2/using/riakshell/).
 
 
-###Arithmetic
-Riak TS now also supports arithmetic operations in the `SELECT` list. The arithmetic operations available in this release are: Numeric Literals, Addition, Subtraction, Multiplication, Division, and Negation. 
+##Changes
 
-* +
-* -
-* /
-* *
-* (
-* )
+* Aggregate and arithmetic functions can now be used together in a single value expression. [[PR #1327](https://github.com/basho/riak_kv/pull/1327), [PR #90](https://github.com/basho/riak_ql/pull/90), and [PR #95](https://github.com/basho/riak_ql/pull/95)]
+* In Riak TS 1.1, `STDDEV()` was actually an implementation of Population Standard Deviation. Since it is standard in database systems to use `STDDEV()` for implementations of Sample Standard Deviation and `STDDEV_POP()` or similar for Population Standard Deviation, `STDDEV()` has been renamed `STDDEV_POP()`. Additionally, `STDDEV_SAMP` has been added for Sample Standard Deviation, and `STDDEV()` is now treated as Sample Standard Deviation as well. [[PR #98](https://github.com/basho/riak_ql/pull/98)]
 
-For example,
 
-```
-SELECT 555, 1.1, 1e1, 1.123e-2 from GeoCheckin
-WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
-```
+##Bugfixes
 
->**Important:** Arithmetic operations and aggregate functions cannot be mixed in a single value expression.
+* [[PR #95](https://github.com/basho/riak_ql/pull/95)] Semicolons are now valid statement terminators.
+* [[PR #1338](https://github.com/basho/riak_kv/pull/1338)] If you divide by zero using `SELECT`, you will now receive an error. 
 
-###Dynamic Schema Discovery
-You can now query a table definition with the `DESCRIBE` table query which returns the table's rows and columns.
-
-For example:
-
-```sql
-DESCRIBE GeoCheckin
-```
-
-Returns (Rows and Columns):
-
-```
-Column      | Type      | Is Null | Partition Key | Local Key
---------------------------------------------------------
-myfamily    | varchar   | false   | 1             | 1
-myseries    | varchar   | false   | 2             | 2
-time        | timestamp | false   | 3             | 3
-weather     | varchar   | false   | <null>        | <null>
-temperature | double    | false   | <null>        | <null>
-```
-
-###Create Tables via Clients
-You can create tables using `CREATE TABLE`. Simply execute your `CREATE TABLE` command in a query, and it will be created. 
-
-```sql 
-CREATE TABLE GeoCheckin
-(
-   myfamily    varchar   not null,
-   myseries    varchar   not null,
-   time        timestamp not null,
-   weather     varchar   not null,
-   temperature double,
-   PRIMARY KEY (
-     (myfamily, myseries, quantum(time, 15, 'm')),
-     myfamily, myseries, time
-   )
-)
-```
-
-A successful table creation will return nothing, and an exception response will be returned if the attempt was unsuccessful.
 
 ##Compatibility
 Riak TS is compatible with the following operating systems:
@@ -109,7 +46,8 @@ Riak TS is compatible with the following operating systems:
 
 ##Known Issues
 
+* For security reasons, you should change the owner of the /etc/init.d/riak file to the root user after installation has completed. See our [product advisory](http://docs.basho.com/riak/2.1.3/community/product-advisories/codeinjectioninitfiles/) for more information and further instruction.
+* Rolling upgrades are not supported.
 * AAE must be turned off.
 * Riak Search is not supported.
 * Multi-Datacenter Replication is not supported.
-* Arithmetic operations and aggregates cannot currently be combined.
