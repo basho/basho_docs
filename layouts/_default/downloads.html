@@ -88,11 +88,12 @@
 
         {{ range $os_map := (sort (where (index (index $.Site.Data.download_info $target_project) $target_version) "os" "!=" "source") "os") }}
           <!--TODO: Figure out if we need to class this. It's... quite confusing that we currently are. -->
+          {{ $os_title := (index (index $.Site.Data.os_meta $os_map.os) "title") }}
           <h3><img src="{{ (index (index $.Site.Data.os_meta $os_map.os) "image_src") }}">
-              {{$target_title}} for {{ (index (index $.Site.Data.os_meta $os_map.os) "title") }}</h3>
+              {{$target_title}} for {{ $os_title }}</h3>
           <table><tbody>
           {{ range $version_map := (sort $os_map.versions "version") }}
-            <tr class="version_title"><td colspan="3"><h4>{{$version_map.version}}</h4></td></tr>
+            <tr class="version_title"><td colspan="3"><h4>{{$os_title}} {{$version_map.version}}</h4></td></tr>
             {{ range $arch_map := (sort $version_map.architectures "arch") }}
             <tr>
               <td></td>
