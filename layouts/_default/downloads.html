@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+{{/*TODO(Drew): Find out if we need to do this IE-safety shit anymore. */}}
+{{ `<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"></html><![endif]-->` | safeHTML }}
+{{ `<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"></html><![endif]-->` | safeHTML }}
+{{ `<!--[if IE 8]><html class="no-js lt-ie9" lang="en"></html><![endif]-->` | safeHTML }}
+{{ `<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->` | safeHTML }}
+
+<!-- Note on Design:
+     --------------
+  All Hugo Template blocks are going to be wrapped in these multi-line HTML
+  comments so the compiled source might be a bit prettier to look at; if
+  unwrapped, every Go call will get its own newline, and add an incredible
+  amount of padding to the source.
+-->
+<!-- Site-wide Variables.
+     -------------------
+  The interesting ones are getting stored in `.Scratch` so they're accessible in
+  other scopes (e.g. partials).
+
+{{ $project := .Params.project }}
+{{ $version := .Params.project_version }}
+{{ $project_decription := (index .Site.Params.project_descriptions $project) }}
+{{ $presentation_title := (index $project_decription "presentation_title") }}
+{{ $latest_version     := (index $project_decription "latest") }}
+{{ $lts_version        := (index $project_decription "lts") }}
+{{ $project_path       := (index $project_decription "path") }}
+{{ $releases           := (index $project_decription "releases") }}
+{{ $archived_url       := (index $project_decription "archived_url") }}
+{{ $site_relative_url := (replace .Permalink .Site.BaseURL "") }}
+{{ $relative_url      := (replace $site_relative_url (printf "%s/%s/" (index $project_decription "path") $version) "") }}
+{{ $is_latest := (eq $version (index $project_decription "latest")) }}
+{{ $is_lts    := (eq $version (index $project_decription "lts")) }}
+
+{{ .Scratch.Add "project"            $project }}
+{{ .Scratch.Add "version"            $version }}
+{{ .Scratch.Add "latest_version"     $latest_version  }}
+{{ .Scratch.Add "lts_version"        $lts_version  }}
+{{ .Scratch.Add "project_path"       $project_path }}
+{{ .Scratch.Add "releases"           $releases }}
+{{ .Scratch.Add "site_relative_url"  $site_relative_url }}
+{{ .Scratch.Add "relative_url"       $relative_url }}
+{{ .Scratch.Add "archived_url"       $archived_url }}
+{{ .Scratch.Add "is_latest"          $is_latest }}
+{{ .Scratch.Add "is_lts"             $is_lts }}
+-->
+
+{{ partial "head.html" . }}
+
+<!--TODO: Figure out if we need the 'latest' and/or 'lts' classes here. -->
+<!--TODO: Why is "downloads" an ID here? What? WHY!? -->
+<body class="{{$project}} {{$version}} {{if $is_latest}}latest{{end}} {{if $is_lts}}lts{{end}}" id="downloads">
+
+  {{ partial "google_tag_manager.html" . }}
+
+  {{ partial "navigation_sidebar.html" . }}
+
+  <div role="main">
+
+    {{ partial "header.html" . }}
+
+    <article class="mainarticle">
+
+      {{ partial "version-ddown.html" . }}
+
+      <header><h1>{{.Title}}</h1></header>
+
+      {{ if .Params.toc }}
+      <nav id="toc">
+        <h2 class="title">Contents</h2>
+        <div id="toc-wrapper">
+          <ol id="toc-items"></ol>
+        </div>
+      </nav>
+      {{ end }}
+
+      <!-- Content from the markdown document -->
+      {{ .Content }}
+
+      <!-- Content, dynamically generated based on projects listed in the
+           markdown front matter, and information stored in downloads.yaml -->
+      {{ range $index, $project_map := $.Params.listed_projects }}
+        {{ $target_title   := $project_map.title }}
+        {{ $target_version := $project_map.version }}
+        {{ $target_project := $project_map.project }}
+
+        <h2>{{$target_title}} {{$target_version}}</h2>
+        <p>You should be able to find your operating system in the choices below.</p>
+
+        {{ range $os_map := (sort (where (index (index $.Site.Data.download_info $target_project) $target_version) "os" "!=" "source") "os") }}
+          <!--TODO: Figure out if we need to class this. It's... quite confusing that we currently are. -->
+          {{ $os_title := (index (index $.Site.Data.os_meta $os_map.os) "title") }}
+          <h3><img src="{{ (index (index $.Site.Data.os_meta $os_map.os) "image_src") }}">
+              {{$target_title}} for {{ $os_title }}</h3>
+          <table><tbody>
+          {{ range $version_map := (sort $os_map.versions "version") }}
+            <tr class="version_title"><td colspan="3"><h4>{{$os_title}} {{$version_map.version}}</h4></td></tr>
+            {{ range $arch_map := (sort $version_map.architectures "arch") }}
+            <tr>
+              <td></td>
+              <td class="arch">{{$arch_map.arch}}</td>
+              <td class="link"><a href="{{$arch_map.file_info.file_href}}">{{$arch_map.file_info.file_name}}</a></td>
+              <td class="size">{{(div (div $arch_map.file_info.file_size 1024) 1024)}} MB</td>
+              <td class="chksum"><a href="{{$arch_map.file_info.chksum_href}}">hash</a></td>
+            </tr>
+            {{ end}}
+          {{end}}
+          </tbody></table>
+          {{ if (index (index $.Site.Data.os_meta $os_map.os) "installing_path") }}
+          <p class="install_instruction">Here are further instructions for <a href="/{{$project_path}}/{{$target_version}}/{{ (index (index $.Site.Data.os_meta $os_map.os) "installing_path") }}">installing {{$target_title}} on this system</a>.</p>
+          {{end}}
+        {{end}}
+
+        {{ range $source_map := (where (index (index $.Site.Data.download_info $target_project) $target_version) "os" "==" "source") }}
+          <h3><img src="{{ (index (index $.Site.Data.os_meta "source") "image_src") }}">
+              Source Download for {{$target_title}}</h3>
+          <table><tbody>
+            <tr>
+              <td></td>
+              <td class="arch"></td>
+              <td class="link"><a href="{{$source_map.file_info.file_href}}">{{$source_map.file_info.file_name}}</a></td>
+              <td class="size">{{ (div (div $source_map.file_info.file_size 1024) 1024) }} MB</td>
+              <td class="chksum"><a href="{{$source_map.file_info.chksum_href}}">hash</a></td>
+            </tr>
+          </tbody></table>
+          {{ if (index (index $.Site.Data.os_meta "source") "installing_path") }}
+          <p class="install_instruction">Here are further instructions for <a href="/{{$project_path}}/{{$target_version}}/{{ (index (index $.Site.Data.os_meta "source") "installing_path") }}">installing {{$target_title}} from source</a>.</p>
+          {{end}}
+        {{end}}
+      {{ if not (eq (len $.Params.listed_projects) (add $index 1)) }}<hr>{{end}}
+      {{end}}
+
+      <div class="clear"></div>
+
+    </article>
+
+    {{ partial "footer.html" . }}
+
+  </div>
+
+  {{ partial "scripts.html" . }}
+
+</body>
+</html>

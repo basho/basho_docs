@@ -1,14 +1,21 @@
 <header class="masthead">
   <div id="header">
+    <!-- Marketing Banner
+         ----------------
+      Only displayed in full-width and on the 'latest' project version
+      TODO(Drew): Should the content be extracted to a config file somewhere?
+                    Hint: Yes.
+    {{ if $.Scratch.Get "is_latest" }}
     {{ partial "marketing_banner.html" . }}
-
+    {{ end }}
+    -->
     <div id="header-inner">
       <div class="icon-reorder" id="nav-toggle"></div>
 
       <div id="top-nav">
         {{/*TODO(Drew): This used the be defined with `class={{project}}`.
                         find out if we need to re-add that. */}}
-        <a href="/{{ .Params.project }}/downloads/"><span class="icon-download-alt"></span>Downloads</a>
+        <a href="/{{$.Scratch.Get "project_path"}}/{{$.Scratch.Get "version"}}/downloads/"><span class="icon-download-alt"></span>Downloads</a>
         <div id="nav-more"><span class="icon-more"></span></div>
       </div>
 

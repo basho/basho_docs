@@ -831,7 +831,7 @@ a.responsive-toggle, #nav-container a.responsive-toggle {
   display : none;
 
   //@include layout-sprite(toggle-button);
-  background-image : url(/images/shared/toggle-button.png); /* Temporary fix */
+  background-image : url(/images/layout/toggle-button.png); /* Temporary fix */
 
   @include size(40px, 27px);
   float   : right;
@@ -839,7 +839,7 @@ a.responsive-toggle, #nav-container a.responsive-toggle {
   padding : 0;
   &:hover {
     //@include layout-sprite(toggle-button);
-    background-image : url(/images/shared/toggle-button.png); /* Temporary fix */
+    background-image : url(/images/layout/toggle-button.png); /* Temporary fix */
   }
 
   @media screen and (max-width: 768px) {
@@ -1061,14 +1061,14 @@ div[role="main"] {
 
     a.responsive-toggle {
       //@include layout-sprite(toggle-button-light);
-      background-image : url(/images/shared/toggle-button-light.png); /* Temporary fix */
+      background-image : url(/images/layout/toggle-button-light.png); /* Temporary fix */
       margin  : 14px 12px 0 0;
     }
 
     .logo {
       @extend .block;
       @include size(185px, 33px);
-      background        : url('/images/shared/basho_docs_logo.png');
+      background        : url('/images/layout/basho_docs_logo.png');
       background-size   : contain;
       background-repeat : no-repeat;
       margin-top    : 11px;
@@ -1313,7 +1313,7 @@ div[role="main"] {
   #marketing-banner {
     position     : relative;
     height       : 56px;
-    background   : #bed8dc url('/images/shared/bg-banner.png') no-repeat 60% 50%;
+    background   : #bed8dc url('/images/layout/bg-banner.png') no-repeat 60% 50%;
     text-align   : left;
     @extend .sans;
 
@@ -1333,7 +1333,7 @@ div[role="main"] {
     }
 
     .hugs {
-      background : url('/images/shared/hugs.png') no-repeat;
+      background : url('/images/layout/hugs.png') no-repeat;
       border-style: none;
       width      : 53px;
       height     : 53px;
@@ -1343,7 +1343,7 @@ div[role="main"] {
     }
 
     .more {
-      background: url('/images/shared/link-more.png') no-repeat;
+      background: url('/images/layout/link-more.png') no-repeat;
       overflow: hidden;
       position: absolute;
       width: 30px;

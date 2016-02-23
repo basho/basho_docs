@@ -57,19 +57,8 @@
 
     {{ partial "header.html" . }}
 
-    <!-- Marketing Banner, only displayed in full-width and on the 'latest'
-                           project version -->
-    <!--TODO(Drew): Why is this called the ricon banner? It should be renamed to
-                      anything descriptive.
-                    Should the content be extracted to a config file somewhere?
-                      Hint: Yes. -->
-    {{ if $is_latest }}
-    <div id="ricon-temp-banner-responsive">
-      <a class="register" href="http://basho.com/new-basho-data-platform-provides-outstanding-operational-simplicity-for-enterprise-big-data-applications/">Basho Data Platform coming soon.</a>
-    </div>
-    {{ end }}
-
     <article class="mainarticle">
+
       {{ partial "version-ddown.html" . }}
 
       {{/*NOTE(Drew): The .slim that generates this header is...
@@ -83,6 +72,7 @@
                       It looks like we need to munge the title and add that
                       `class="small"` div if we're on an MDC page. */}}
       <!--TODO(Drew): Fix this. All of this. Fix all of the above. -->
+
       <header><h1>{{ .Title }}</h1></header>
 
       {{/*TODO(Drew): Find out what the below does, and re-implement it here...
@@ -100,17 +90,6 @@
         </div>
       </nav>
       {{ end }}
-
-      {{/*NOTE(Drew): At this point, if this were a downloads page, we'd be
-                      rendering...
-                          - if data.page.download.present?
-                            aside#download-button
-                              a href="/downloads/##{data.page.download['key']}"
-                                span.content
-                                  span.title riak
-                                  span.subtitle Download #{current_version('riak')} for #{data.page.download['name']}
-                            = "\n"
-      */}}
 
       {{ .Content }}
 
