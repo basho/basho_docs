@@ -2,11 +2,11 @@
 title: "Leader Election Service"
 description: "Lorem ipsum quia dolor sit amet"
 menu:
-  data_platform-1.0.0:
+  dataplatform-1.0.0:
     name: "Leader Election Service"
     identifier: "leader_election_service"
     weight: -300
-project: "data_platform"
+project: "dataplatform"
 project_version: "1.0.0"
 ---
 

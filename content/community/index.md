@@ -3,9 +3,10 @@ title: "Community Overview"
 description: "Lorem ipsum quia dolor sit amet"
 menu:
   community:
-    name: "Overview"
+    name: "Community"
     identifier: "community_overview"
-    weight: 200
+    weight: 600
+    pre: icon-comments
 ---
 
 ## Hanc capellae

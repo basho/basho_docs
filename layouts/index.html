@@ -33,10 +33,16 @@
 
       <h3 class="center-text">Choose a product below</h3>
 
+      <!-- Latest Project Versions --
+      {{ $riak_kv_latest := .Site.Params.project_descriptions.riak_kv.latest }}
+      {{ $riak_cs_latest := .Site.Params.project_descriptions.riak_cs.latest }}
+      {{ $riak_ts_latest := .Site.Params.project_descriptions.riak_ts.latest }}
+      {{ $dp_latest := .Site.Params.project_descriptions.dataplatform.latest }}
+      -->
       <div id="select-project">
         <!-- Riak KV Project -->
         <div class="project">
-          <a href="/riak/kv/2.1/">
+          <a href="/riak/kv/{{ $riak_kv_latest }}/">
             <span class="riak_kv_image"></span>
             <span class="small">Highly Available, Operationally<br>
                                 Simple, Distributed Database</span>
@@ -50,7 +56,7 @@
 
         <!-- Riak TS Project -->
         <div class="project">
-          <a href="/riak/ts/1.1/">
+          <a href="/riak/ts/{{ $riak_ts_latest }}/">
             <span class="riak_ts_image"></span>
             <span class="small">Distributed NoSQL Database Optimized<br>for IoT/Time Series</span>
           </a>
@@ -63,7 +69,7 @@
 
         <!-- Riak CS Project -->
         <div class="project" id="project_riakcs">
-          <a href="/riak/s2/2.1/">
+          <a href="/riak/cs/{{ $riak_cs_latest }}/">
             <span class="big">Riak&nbsp;<strong>Cloud Storage</strong></span>
             <span class="small">Fault-Tolerant, S3-Compatible,<br>
                                 Distributed Storage</span>
@@ -77,7 +83,7 @@
 
         <!-- Data Platform Project -->
         <div class="project" id="project_dataplatform">
-          <a href="/dataplatform/1.0/">
+          <a href="/dataplatform/{{ $dp_latest }}/">
             <span class="big">Basho&nbsp;<strong>Data Platform</strong></span>
             <span class="small">Integrated deployment of<br>
                                 Big Data applications</span>
