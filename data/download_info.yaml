@@ -3079,11 +3079,6 @@ riak_cs:
           file_href: http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/ubuntu/trusty/riak-cs_2.1.1-1_amd64.deb
           file_size: 22174054
           chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/ubuntu/trusty/riak-cs_2.1.1-1_amd64.deb.sha
-      - arch: amd64
-        file_info:
-          file_name: riak-cs_2.1.1rc1-1_amd64.deb
-          file_href: http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/ubuntu/trusty/riak-cs_2.1.1rc1-1_amd64.deb
-          file_size: 22175694
 stanchion:
   2.0.0:
   - os: source
