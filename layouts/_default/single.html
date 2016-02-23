@@ -5,42 +5,19 @@
 {{ `<!--[if IE 8]><html class="no-js lt-ie9" lang="en"></html><![endif]-->` | safeHTML }}
 {{ `<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->` | safeHTML }}
 
-<!-- Note on Design:
-     --------------
-  All Hugo Template blocks are going to be wrapped in these multi-line HTML
-  comments so the compiled source might be a bit prettier to look at; if
-  unwrapped, every Go call will get its own newline, and add an incredible
-  amount of padding to the source.
--->
-<!-- Site-wide Variables.
-     -------------------
-  The interesting ones are getting stored in `.Scratch` so they're accessible in
-  other scopes (e.g. partials).
+<!-- Site-wide and Page-wide Variables
+     ---------------------------------
+  We pull in "common_variables.html" to define a whole bunch of common variables
+  in the `.Scratch` object, and selectively extract the ones we want to use
+  below.
 
-{{ $project := .Params.project }}
-{{ $version := .Params.project_version }}
-{{ $project_decription := (index .Site.Params.project_descriptions $project) }}
-{{ $latest_version     := (index $project_decription "latest") }}
-{{ $lts_version        := (index $project_decription "lts") }}
-{{ $project_path       := (index $project_decription "path") }}
-{{ $releases           := (index $project_decription "releases") }}
-{{ $archived_url       := (index $project_decription "archived_url") }}
-{{ $site_relative_url := (replace .Permalink .Site.BaseURL "") }}
-{{ $relative_url      := (replace $site_relative_url (printf "%s/%s/" (index $project_decription "path") $version) "") }}
-{{ $is_latest := (eq $version (index $project_decription "latest")) }}
-{{ $is_lts    := (eq $version (index $project_decription "lts")) }}
+{{ partial "common_variables.html" . }}
 
-{{ .Scratch.Add "project"            $project }}
-{{ .Scratch.Add "version"            $version }}
-{{ .Scratch.Add "latest_version"     $latest_version  }}
-{{ .Scratch.Add "lts_version"        $lts_version  }}
-{{ .Scratch.Add "project_path"       $project_path }}
-{{ .Scratch.Add "releases"           $releases }}
-{{ .Scratch.Add "site_relative_url"  $site_relative_url }}
-{{ .Scratch.Add "relative_url"       $relative_url }}
-{{ .Scratch.Add "archived_url"       $archived_url }}
-{{ .Scratch.Add "is_latest"          $is_latest }}
-{{ .Scratch.Add "is_lts"             $is_lts }}
+{{ $project      := .Scratch.Get "project" }}
+{{ $version      := .Scratch.Get "version" }}
+{{ $project_path := .Scratch.Get "project_path" }}
+{{ $is_latest    := .Scratch.Get "is_latest" }}
+{{ $is_lts       := .Scratch.Get "is_lts" }}
 -->
 
 {{ partial "head.html" . }}
