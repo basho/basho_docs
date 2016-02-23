@@ -86,7 +86,7 @@
         <h2>{{$target_title}} {{$target_version}}</h2>
         <p>You should be able to find your operating system in the choices below.</p>
 
-        {{ range $os_map := (sort (where (index (index $.Site.Data.downloads $target_project) $target_version) "os" "!=" "source") "os") }}
+        {{ range $os_map := (sort (where (index (index $.Site.Data.download_info $target_project) $target_version) "os" "!=" "source") "os") }}
           <!--TODO: Figure out if we need to class this. It's... quite confusing that we currently are. -->
           <h3><img src="{{ (index (index $.Site.Data.os_meta $os_map.os) "image_src") }}">
               {{$target_title}} for {{ (index (index $.Site.Data.os_meta $os_map.os) "title") }}</h3>
@@ -109,7 +109,7 @@
           {{end}}
         {{end}}
 
-        {{ range $source_map := (where (index (index $.Site.Data.downloads $target_project) $target_version) "os" "==" "source") }}
+        {{ range $source_map := (where (index (index $.Site.Data.download_info $target_project) $target_version) "os" "==" "source") }}
           <h3><img src="{{ (index (index $.Site.Data.os_meta "source") "image_src") }}">
               Source Download for {{$target_title}}</h3>
           <table><tbody>
