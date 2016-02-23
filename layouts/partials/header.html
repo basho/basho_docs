@@ -5,10 +5,10 @@
       Only displayed in full-width and on the 'latest' project version
       TODO(Drew): Should the content be extracted to a config file somewhere?
                     Hint: Yes.
+    -->
     {{ if $.Scratch.Get "is_latest" }}
     {{ partial "marketing_banner.html" . }}
     {{ end }}
-    -->
     <div id="header-inner">
       <div class="icon-reorder" id="nav-toggle"></div>
 
