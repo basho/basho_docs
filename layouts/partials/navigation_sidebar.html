@@ -1,5 +1,11 @@
 <!-- Navigation Sidebar Content
-  Anything that shows up in the left bar of any webpage should be added here. -->
+     --------------------------
+  Anything that shows up in the left bar of any webpage should be added here.
+
+  This partial should be invoked with a dict containing the below members
+    "context"    -- The Context in which the partial was invoked
+    "menu_title" -- The name of the Hugo menu to render, "" if nothing.
+-->
 <aside id="nav-container" role="complementary">
   <nav class="overview" id="primary-nav" role="nav">
     <div id="primary-nav-content">
@@ -46,29 +52,30 @@
         Store the current node and menu title so they can be packed into a dict
         with every given node and passed to the navigation_sidebar_submenu.html
         partial.
-      {{ $current_node := . }}
-      {{ $menu_title   := (printf "%s-%s" .Params.project .Params.project_version) }}  -->
-      {{ range (index .Site.Menus $menu_title) }}
+      {{ $current_node := .context }}
+      -->
+      {{ range $current_menu := (index .context.Site.Menus .menu_title) }}
       <h3>
         <div class="icon-container"><span aria-hidden="true" class="nav-icon {{ .Pre }}"></span>&nbsp;</div>
         <span class="separator">&#124;</span>
-        <span class="menu-title"><a href="{{.URL}}">{{ if $current_node.IsMenuCurrent $menu_title . }}** {{ end }}{{ .Name }}</a></span>
+        <span class="menu-title"><a href="{{.URL}}">{{ if $current_node.IsMenuCurrent $.menu_title $current_menu }}** {{ end }}{{ .Name }}</a></span>
         <div class="clear"></div>
       </h3>
       <!--FIXME: The below structure + CSS (and maybe JS?) are absolute trash.
                  I completely disagree with the existence of the menu-toggle
                  element being predicated on the h4 element. This all just
                  makes me so sad. -->
-      {{ if .HasChildren }}
-        {{ partial "navigation_sidebar_submenu.html" (dict "current_menu" . "current_node" $current_node "menu_title" $menu_title "menu_depth" 1) }}
-      {{ end }} {{end}}
+      {{ if $current_menu.HasChildren }}
+        {{ partial "navigation_sidebar_submenu.html" (dict "current_menu" $current_menu "current_node" $current_node "menu_title" $.menu_title "menu_depth" 1) }}
+      {{ end }} {{ end }}
       <h3>
         <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-comments"></span>&nbsp;</div>
         <span class="separator">&#124;</span>
         <span class="menu-title"><a href="/community">Community</a></span>
         <div class="clear"></div>
       </h3>
-      <ul></ul> <!--NOTE: This empty <ul> marks the end of the generated nav list -->
+      <!--NOTE: This empty <ul> marks the end of the generated nav list -->
+      <ul></ul>
     </div>
   </nav>
 

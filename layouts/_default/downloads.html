@@ -28,7 +28,8 @@
 
   {{ partial "google_tag_manager.html" . }}
 
-  {{ partial "navigation_sidebar.html" . }}
+  {{ $menu_title := (printf "%s-%s" .Params.project .Params.project_version) }}
+  {{ partial "navigation_sidebar.html" (dict "context" . "menu_title" $menu_title) }}
 
   <div role="main">
 
