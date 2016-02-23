@@ -11,6 +11,7 @@
 # complete.
 
 require './libs/basho_rake_deploy'
+require './libs/basho_downloads_gen'
 
 $css_source = "./dynamic/css"
 $css_dest   = "./static/css"
@@ -111,7 +112,14 @@ end
 desc      "Build and deploy static artifacts"
 task      :deploy => ['build'] do do_deploy(); end
 
+# Perform deploy w/o building first. Use sparingly and with caution.
 task      :deploy_now do do_deploy(); end
+
+# Generate download.yaml metadata.
+#   This task should be run every time a new package is placed onto the
+#   downloads server, and the updated file(s) should be tracked in Git.
+desc "Generate package URI information"
+task :gen_download_info do generate_download_yaml(); end
 
 
 ######################################################################
