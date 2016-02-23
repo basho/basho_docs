@@ -44,7 +44,7 @@ def do_deploy()
   end
 
   # Move into the static/ directory, so file names lead with "./static"
-  Dir.chdir(File.join(File.dirname(__FILE__), "static"))
+  Dir.chdir(File.join(Dir.pwd, "static"))
 
   # Generate a list of every built file in the form of
   # '["<FILE_NAME> <MD5SUM>", ... ]'
@@ -178,37 +178,50 @@ def do_deploy()
   end
 
   if (delete_list.length > 0)
-    puts("  Requesting Batch Delete...")
-    # Generate a Aws::S3::Types::Delete hash object.
-    delete_hash = {
-      delete: {
-        objects: delete_list.map{ |f| { key: f } },
-        quiet: false
+
+    delete_list.each_slice(1000).with_index do |slice, index|
+      puts("  Requesting Batch Delete for objects #{index*1000}--#{(index+1)*1000}...")
+      # Generate a Aws::S3::Types::Delete hash object.
+      delete_hash = {
+        delete: {
+          objects: slice.map{ |f| { key: f } },
+          quiet: false
+        }
       }
-    }
-    #TODO: Generate a log of the deleted files?
-    response = aws_bucket.delete_objects(delete_hash)
-    if (response.errors.length > 0)
-      require 'pp'
-      Kernel.abort("ERRROR: Batch Deletion returned with errors\n"\
-                   "        Delete Hash Object:\n"\
-                   "#{pp(delete_hash)}\n"\
-                   "        Response Object:\n"\
-                   "#{pp(response)}")
+      #TODO: Generate a log of the deleted files?
+      begin
+        response = aws_bucket.delete_objects(delete_hash)
+      rescue Exception => e
+        require 'pp'
+        Kernel.abort("ERRROR: Batch Deletion returned with errors.\n"\
+                     "        Delete Hash Object:\n"\
+                     "#{pp(delete_hash)}\n"\
+                     "        Error message:\n"\
+                     "#{e.message}")
+      end
+      if (response.errors.length > 0)
+        require 'pp'
+        Kernel.abort("ERRROR: Batch Deletion returned with errors\n"\
+                     "        Delete Hash Object:\n"\
+                     "#{pp(delete_hash)}\n"\
+                     "        Response Object:\n"\
+                     "#{pp(response)}")
+      end
     end
   else
     puts("  No files to delete...")
   end
 
-
-  # Invalidate any files that were modified---either uploaded or deleted
-  puts("  Sending Invalidation Request...")
+  # Invalidate any files that were modified --- either uploaded or deleted
   invalidation_list = upload_list + delete_list
   if (invalidation_list.length > 0)
     cf_client = SimpleCloudfrontInvalidator::CloudfrontClient.new(
         ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY'],
         ENV['AWS_CLOUDFRONT_DIST_ID'])
-    cf_report = cf_client.invalidate(invalidation_list)
+    invalidation_list.each_slice(100).with_index do |slice, index|
+      puts("  Sending Invalidation Request for objects #{index*100}--#{(index+1)*100}...")
+      cf_report = cf_client.invalidate(slice)
+    end
   else
     puts("  No files to invalidate...")
   end
@@ -285,23 +298,17 @@ end
 #   * riakcs/2.0.*/
 #   * riakcs/2.1.*/
 #   * riakee/*
-#   * riakts/*
-#   * dataplatform/1.*.*/
 #   * shared/*
+#
 #TODO: Abstract this out to data, so we can more easilly manage what should be
 #      ignored.
-#TODO: Correct this! With minor versions being generated, this is now wrong.
 def should_ignore(obj_path)
-  return (obj_path == "BingSiteAuth.xml"            ||
-          obj_path == "google59ea6be0154fb436.html" ||
-          obj_path.start_with?("css/standalone/")   ||
-          obj_path.start_with?("js/standalone/")    ||
-          obj_path.start_with?("riakee/")           ||
-          obj_path.start_with?("riakts/")           ||
-          obj_path.start_with?("shared/")           ||
-          obj_path.start_with?("riakcs/")           ||
-          # `start_with?` can't take regexes, so use `=~` to avoid matching
-          # against e.g. riak/kv and dataplatform/1.0
-          obj_path =~ /^riak\/\d\.\d\.\d/           ||
-          obj_path =~ /^dataplatform\/\d\.\d\.\d/     )
+  return (obj_path =~ /^BingSiteAuth.xml$/             ||
+          obj_path =~ /^google59ea6be0154fb436\.html$/ ||
+          obj_path =~ /^css\/standalone\//             ||
+          obj_path =~ /^js\/standalone\//              ||
+          obj_path =~ /^riakee\//                      ||
+          obj_path =~ /^shared\//                      ||
+          obj_path =~ /^riakcs\//                      ||
+          obj_path =~ /^riak\/\d\.\d\.\d/                )
 end
