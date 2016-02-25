@@ -13,9 +13,9 @@
       <div class="icon-reorder" id="nav-toggle"></div>
 
       <div id="top-nav">
-        {{/*TODO(Drew): This used the be defined with `class={{project}}`.
-                        find out if we need to re-add that. */}}
+        {{ if $.Scratch.Get "project_path"}}
         <a href="/{{$.Scratch.Get "project_path"}}/{{$.Scratch.Get "version"}}/downloads/"><span class="icon-download-alt"></span>Downloads</a>
+        {{ end }}
         <div id="nav-more"><span class="icon-more"></span></div>
       </div>
 
