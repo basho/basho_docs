@@ -36,7 +36,25 @@ The shell is also trivially extendable for developer use.
 
 ##Getting Started
 
-To get started using riak_shell, make sure you are in the Riak TS directory then open a shell:
+To get started using riak_shell:
+
+1. Locate your riakshell.config configuration file. It will be in the same directory as Riak TS. This location will vary based on your OS.
+2. Open the configuration file, .../riakshell.config, and add your nodename and IP address to `nodes`:
+
+```
+[
+ {riak_shell, [
+              {logging, off},
+              {cookie, riak},
+              {show_connection_status, false},
+              {nodes, [
+                       'dev1@127.0.0.1',
+                       'yournodename@youripaddress'
+                      ]}
+             ]}
+].
+```
+3. Navigate back to your Riak TS directory, and open riak_shell:
 
 ```bash
 ./riak-shell
@@ -137,7 +155,7 @@ riak_shell>describe GeoCheckin;
 You can also select specific data points from your table:
 
 ```
-riak_shell(7)>select time, weather, temperature from GeoCheckin where myfamily='family1' and myseries='seriesX' and time > 0 and time < 1000;
+riak_shell>select time, weather, temperature from GeoCheckin where myfamily='family1' and myseries='seriesX' and time > 0 and time < 1000;
 +----+----------------+---------------------------+
 |time|    weather     |        temperature        |
 +----+----------------+---------------------------+
@@ -172,6 +190,21 @@ Logging turned on.
 riak_shell>log off;
 Logging turned off.
 ```
+Logging is off by default. The above command will allow you to turn logging on or off for the duration of your time using riak_shell. To change the default state, you must edit the riak_shell [configuration file](#configuration).
+
+You can check whether logging is currently on or off by running `show_log_status`:
+
+```
+riak-shell>show_log_status;
+Logging : on
+Date Log : off
+Logfile : "/users/myusername/riakts/riak-ts-1.2.0/bin/../log/riak_shell/riak_shell"
+Current Date: "2016_02_02-00:26:19"
+```
+
+>**Note:** If you have temporarily turned logging on/off, the output of `show_log_status` may differ from the output of `show_config`.
+
+If you would like your logfile to have a timestamp, run `date_log`.
 
 You can replay the current logfile regardless of whether logging is turned on. To replay your logfile, run `replay_log`.  
 
@@ -211,10 +244,10 @@ replay (2)> select time, weather, temperature from GeoCheckin where myfamily='fa
 
 To play a specific logfile, run `replay_log »filename.log«`.
 
-You can also run a regression test on your logfile by running `regression_log »"path to logfile"«`.
+You can also run a regression test on your logfile by running `regression_log »"path to logfile"«`. The `regression_log` command will check the output of the log to see if it matches the previous run.
 
 ```
-riak_shell(14)>regression_log "../log/riak_shell.log";
+riak_shell>regression_log "../log/riak_shell.log";
 
 Regression Testing "../log/riak_shell.log"
 No Regression Errors.
@@ -277,7 +310,7 @@ extension name and function name like 'help shell quit;'
 
 ##Configuration
 
-You can configure riak_shell from the riakshell.config file. You can find the file in ~/riakshell/etc/. 
+You can configure riak_shell from the riakshell.config file. You can find the file in your Riak TS directory. 
 
 The following things can be configured:
 
