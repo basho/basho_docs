@@ -262,50 +262,7 @@ You get help on riak_shell functions with the help command:
 riak_shell> help;
 ```
 
-The current state is:
-
-```
-riak_shell>help;
-The following functions are available
-(the number of arguments is given)
-
-Extension 'connection' provides:
--           connect: 1
-- connection_prompt: 1
--              ping: 0
--              ping: 1
--         reconnect: 0
--   show_connection: 0
--       show_cookie: 0
--        show_nodes: 0
-
-Extension 'debug' provides:
--     load: 0
-- observer: 0
-
-Extension 'history' provides:
-- clear_history: 0
--             h: 1
--       history: 1
--  show_history: 0
-
-Extension 'log' provides:
--        date_log: 1
--             log: 1
--         logfile: 1
--  regression_log: 1
--      replay_log: 0
--      replay_log: 1
-- show_log_status: 0
-
-Extension 'shell' provides:
--           q: 0
--        quit: 0
-- show_config: 0
-
-You can get more help by calling help with the
-extension name and function name like 'help shell quit;'
-```
+You can get more specific help by calling `help` with the extension name and function name like `help shell quit;`.
 
 
 ##Configuration
