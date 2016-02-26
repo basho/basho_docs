@@ -10,70 +10,104 @@ menu:
     weight: 101
     parent: "developing_apis"
 toc: true
+aliases:
+  - /riak/2.1.3/dev/references/backend-api
 ---
 
-## Hanc capellae
+[plan backend]: /riak/kv/2.1.3/setup/planning/backend
 
-Lorem markdownum Byblida. Modo **etiam** litora mittat vellera infelix caeli.
-Studiosius forte, potuit pectore. Puer undas dignior iam turpe sorores abesse.
-Deae Saturnia levius viribus membra.
+Riak's storage API uniformly applies to all of the
+[supported backends][plan backend]. This page presents the details of
+the storage backend API in the form of
+[Erlang type specifications](http://www.erlang.org/doc/reference_manual/typespec.html)
+(specs).
 
-## Iussorum ad fronti rutilasque tenuit cursu quae
+Specs are used by [dialyzer](http://www.erlang.org/doc/man/dialyzer.html),
+an Erlang static analysis tool. We recommend copying these specs into any
+custom backend modules and use them as a guide for development to
+avoid errors and ensure full compatibility with Riak.
 
-Nostros vovistis artes. **Fert** modulata Tyrrhenae nubigenas genu deque, vultus
-**manus ede** senilibus [oris](http://www.youtube.com/watch?v=MghiBW3r65M)
-transcurrere quem rarissima. Viderunt nutu quod, tumidaque, mihi mihi sacer pia.
-Summis rediit pavidus tersere et at prosiluit natus Phaethon noxa. Singultibus
-oblita **foedabis** orsa.
+Also included below is the function export list that can be pasted directly
+into a custom storage backend module.
 
-- Fecere aliis postquam inviti caliginis ab inque
-- Voverat dividuae et tardus huc magna non
-- Sex barba ipsaque Caucason corpora sono ecce
-- Non esse
-- Sibi atris regna licuit Antium carituraque nubes
+```erlang
+%% Riak Storage Backend API
+-export([api_version/0,
+         start/2,
+         stop/1,
+         get/3,
+         put/5,
+         delete/4,
+         drop/1,
+         fold_buckets/4,
+         fold_keys/4,
+         fold_objects/4,
+         is_empty/1,
+         status/1,
+         callback/3]).
 
-## Omni levare gelidumque minanti
+%% ===================================================================
+%% Public API
+%% ===================================================================
 
-Omnis adeunt ossibus gravis, Venus pinuque capit, et sereno viros ignara *plena
-incaluere* percussit mellaque, vertere arte. Ad silvarum Dryope, regnum nisi
-magnis idque osculaque temerarius tempora, *nomen* enumerare lenis, nostro. Ac
-mutabit [arma](http://www.thesecretofinvisibility.com/) operiri saxum ratione,
-crudelior feram, est usu tamen quod, hasta. Equos **sonant et deum**. Et amor
-regis sed agros misit citaeque fallitque *altrici* optat Thoantis ab aevo umeris
-coniugis.
+%% @doc Return the major version of the
+%% current API and a capabilities list.
+%% The current valid capabilities are async_fold
+%% and indexes.
+-spec api_version() -> {integer(), [atom()]}.
 
-## Troiana quoque
+%% @doc Start the backend
+-spec start(integer(), config()) -> {ok, state()} | {error, term()}.
 
-Equo uni Stygias trahunt, interea, in tela labores lumina, nam *Aganippe
-sanctique meum*; est. [Gente inimica
-premeret](http://en.wikipedia.org/wiki/Sterling_Archer), proximus; in num foret
-tibi cumque arma nec quoniam! Contribuere mollis, tu dum parem viscera, tamen
-ante. Dixit ignibus spectare asperitas, superi ineunt amore qua Persea deficeret
-quoque nec parabantur quae inlaesos cessant calcata certo. Utrimque ut sim
-suasque minus ego *gemitus*, illuc saxa sic medio gentes amorem suam ramis
-nimium in miserata?
+%% @doc Stop the backend
+-spec stop(state()) -> ok.
 
-1. `In naribus aequos aberant`
-2. Naturae murmura te rimas suarum vulnus quod
-3. Socios leto loquor timide
-4. Ergo sub
-5. Patrias mihi consumite breve
+%% @doc Retrieve an object from the backend
+-spec get(riak_object:bucket(), riak_object:key(), state()) ->
+                 {ok, any(), state()} |
+                 {ok, not_found, state()} |
+                 {error, term(), state()}.
 
-## Ruit huic movit luminibus excubias arma
+%% @doc Insert an object into the backend.
+-type index_spec() :: {add, Index, SecondaryKey} | {remove, Index, SecondaryKey}.
+-spec put(riak_object:bucket(), riak_object:key(), [index_spec()], binary(), state()) ->
+                 {ok, state()} |
+                 {error, term(), state()}.
 
-> Loco humo tecum gurgite timui. Peragant tu regia ut umbras premit condit. Lex
-vera forte tenebo colles sinat positis illis: tibi laudavit uno rostro extenuat
-*inque*. Pulveris inter offensa comes adulantes fluvios mutarent murmur, valens
-cumque cladis Cecropidas haec, dixit. Lucus cognomine **Achilles**: pastor nec.
+%% @doc Delete an object from the backend
+-spec delete(riak_object:bucket(), riak_object:key(), [index_spec()], state()) ->
+                    {ok, state()} |
+                    {error, term(), state()}.
 
-1. Hic causam et dilecte nudae nec corpus
-2. Cor Si nive
-3. Petis equos perosa tu perterrita exitus non
-4. Per et et ire geminos parte
-5. Aqua coniunx cecidisse sonum
+%% @doc Fold over all the buckets
+-spec fold_buckets(riak_kv_backend:fold_buckets_fun(),
+                   any(),
+                   [],
+                   state()) -> {ok, any()} | {async, fun()}.
 
-```
-Nominis haec lacrimis orba gloria obstipuere tu Ceyx tepebat fetus me equorum
-potero! Iampridem illi; deducit [reor orbem](http://heeeeeeeey.com/), comes, et
-nec rubebant pietas, ipsa.
+%% @doc Fold over all the keys for one or all buckets.
+-spec fold_keys(riak_kv_backend:fold_keys_fun(),
+                any(),
+                [{atom(), term()}],
+                state()) -> {ok, term()} | {async, fun()}.
+
+%% @doc Fold over all the objects for one or all buckets.
+-spec fold_objects(riak_kv_backend:fold_objects_fun(),
+                   any(),
+                   [{atom(), term()}],
+                   state()) -> {ok, any()} | {async, fun()}.
+
+%% @doc Delete all objects from this backend
+%% and return a fresh reference.
+-spec drop(state()) -> {ok, state()} | {error, term(), state()}.
+
+%% @doc Returns true if this backend contains any
+%% non-tombstone values; otherwise returns false.
+-spec is_empty(state()) -> boolean() | {error, term()}.
+
+%% @doc Get the status information for this backend
+-spec status(state()) -> [{atom(), term()}].
+
+%% @doc Register an asynchronous callback
+-spec callback(reference(), any(), state()) -> {ok, state()}.
 ```

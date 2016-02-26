@@ -16,7 +16,7 @@ toc: false
 [configuring]: http://docs.basho.com/riak/2.1.3/configuring/
 [developing]: http://docs.basho.com/riak/2.1.3/developing
 [download]: http://docs.basho.com/riak/2.1.3/downloads/
-[installing]: http://docs.basho.com/riak/2.1.3/installing/
+[install index]: http://docs.basho.com/riak/2.1.3/installing/
 [planning]: http://docs.basho.com/riak/2.1.3/planning/
 [google1]: openfileslimit
 [google2]: http://docs.basho.com/riak/2.1.3/installing/debian-ubuntu
@@ -34,7 +34,7 @@ Riak KV is a distributed NoSQL database designed to deliver maximum data availab
 
 Are you brand new to Riak KV? Start by [downloading][download] Riak KV, and then follow the below pages to get started:
 
-1. [Install Riak KV][installing]
+1. [Install Riak KV][install index]
 2. [Plan your Riak KV setup][planning]
 3. [Configure Riak KV for your needs][configuring]
 

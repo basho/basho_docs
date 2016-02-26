@@ -1,79 +1,95 @@
 ---
-title: "Using Bucket Types"
+title: "Bucket Types"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"
 menu:
   riak_kv-2.1.3:
-    name: "Using Bucket Types"
+    name: "Bucket Types"
     identifier: "usage_bucket_types"
-    weight: 107
+    weight: 108
     parent: "developing_usage"
 toc: true
 ---
 
-## Hanc capellae
+If you ever need to turn off indexing for a bucket, set the
+`search_index` property to the `_dont_index_` sentinel value.
 
-Lorem markdownum Byblida. Modo **etiam** litora mittat vellera infelix caeli.
-Studiosius forte, potuit pectore. Puer undas dignior iam turpe sorores abesse.
-Deae Saturnia levius viribus membra.
+## Bucket Properties
 
-## Iussorum ad fronti rutilasque tenuit cursu quae
+Although we recommend that you use all new buckets under a bucket type,
+if you have existing data with a type-free bucket (i.e. under the
+`default` bucket type) you can set the `search_index` property for a
+specific bucket.
 
-Nostros vovistis artes. **Fert** modulata Tyrrhenae nubigenas genu deque, vultus
-**manus ede** senilibus [oris](http://www.youtube.com/watch?v=MghiBW3r65M)
-transcurrere quem rarissima. Viderunt nutu quod, tumidaque, mihi mihi sacer pia.
-Summis rediit pavidus tersere et at prosiluit natus Phaethon noxa. Singultibus
-oblita **foedabis** orsa.
-
-- Fecere aliis postquam inviti caliginis ab inque
-- Voverat dividuae et tardus huc magna non
-- Sex barba ipsaque Caucason corpora sono ecce
-- Non esse
-- Sibi atris regna licuit Antium carituraque nubes
-
-## Omni levare gelidumque minanti
-
-Omnis adeunt ossibus gravis, Venus pinuque capit, et sereno viros ignara *plena
-incaluere* percussit mellaque, vertere arte. Ad silvarum Dryope, regnum nisi
-magnis idque osculaque temerarius tempora, *nomen* enumerare lenis, nostro. Ac
-mutabit [arma](http://www.thesecretofinvisibility.com/) operiri saxum ratione,
-crudelior feram, est usu tamen quod, hasta. Equos **sonant et deum**. Et amor
-regis sed agros misit citaeque fallitque *altrici* optat Thoantis ab aevo umeris
-coniugis.
-
-## Troiana quoque
-
-Equo uni Stygias trahunt, interea, in tela labores lumina, nam *Aganippe
-sanctique meum*; est. [Gente inimica
-premeret](http://en.wikipedia.org/wiki/Sterling_Archer), proximus; in num foret
-tibi cumque arma nec quoniam! Contribuere mollis, tu dum parem viscera, tamen
-ante. Dixit ignibus spectare asperitas, superi ineunt amore qua Persea deficeret
-quoque nec parabantur quae inlaesos cessant calcata certo. Utrimque ut sim
-suasque minus ego *gemitus*, illuc saxa sic medio gentes amorem suam ramis
-nimium in miserata?
-
-1. `In naribus aequos aberant`
-2. Naturae murmura te rimas suarum vulnus quod
-3. Socios leto loquor timide
-4. Ergo sub
-5. Patrias mihi consumite breve
-
-## Ruit huic movit luminibus excubias arma
-
-> Loco humo tecum gurgite timui. Peragant tu regia ut umbras premit condit. Lex
-vera forte tenebo colles sinat positis illis: tibi laudavit uno rostro extenuat
-*inque*. Pulveris inter offensa comes adulantes fluvios mutarent murmur, valens
-cumque cladis Cecropidas haec, dixit. Lucus cognomine **Achilles**: pastor nec.
-
-1. Hic causam et dilecte nudae nec corpus
-2. Cor Si nive
-3. Petis equos perosa tu perterrita exitus non
-4. Per et et ire geminos parte
-5. Aqua coniunx cecidisse sonum
-
+```java
+Namespace catsBucket = new Namespace("cats");
+StoreBucketPropsOperation storePropsOp = new StoreBucketPropsOperation.Builder(catsBucket)
+        .withSearchIndex("famous")
+        .build();
+client.execute(storePropsOp);
 ```
-Nominis haec lacrimis orba gloria obstipuere tu Ceyx tepebat fetus me equorum
-potero! Iampridem illi; deducit [reor orbem](http://heeeeeeeey.com/), comes, et
-nec rubebant pietas, ipsa.
+
+```ruby
+bucket = client.bucket('cats')
+bucket.properties = {'search_index' => 'famous'}
+```
+
+```php
+(new \Basho\Riak\Command\Builder\Search\AssociateIndex($riak))
+    ->withName('famous')
+    ->buildBucket('cats')
+    ->build()
+    ->execute();
+```
+
+```python
+bucket = client.bucket('cats')
+bucket.set_properties({'search_index': 'famous'})
+```
+
+```csharp
+var properties = new RiakBucketProperties();
+properties.SetSearchIndex("famous");
+var rslt = client.SetBucketProperties("cats", properties);
+```
+
+```javascript
+var bucketProps_cb = function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+    // success
+};
+
+var store = new Riak.Commands.KV.StoreBucketProps.Builder()
+    .withBucket("cats")
+    .withSearchIndex("famous")
+    .withCallback(bucketProps_cb)
+    .build();
+
+client.execute(store);
+```
+
+```erlang
+riakc_pb_socket:set_search_index(Pid, <<"cats">>, <<"famous">>).
+```
+
+```golang
+cmd, err := riak.NewStoreBucketPropsCommandBuilder().
+    WithBucketType("animals").
+    WithBucket("cats").
+    WithSearchIndex("famous").
+    Build()
+if err != nil {
+    return err
+}
+
+err = cluster.Execute(cmd)
+```
+
+```curl
+curl -XPUT $RIAK_HOST/buckets/cats/props \
+     -H'content-type:application/json' \
+     -d'{"props":{"search_index":"famous"}}'
 ```

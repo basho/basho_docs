@@ -7,7 +7,8 @@ languageCode: "en-us"
 
 # Use YAML for front matter, rather than TOML
 metaDataFormat: "yaml"
-
+# Ignore files (such as the reference links list) on build
+ignoreFiles: [ "\\_reference-links.md$" ]
 
 params:
   # Project Descriptions

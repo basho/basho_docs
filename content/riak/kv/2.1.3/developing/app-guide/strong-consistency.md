@@ -10,70 +10,247 @@ menu:
     weight: 101
     parent: "developing_app_guide"
 toc: true
+aliases:
+  - /riak/2.1.3/dev/advanced/strong-consistency
 ---
 
-## Hanc capellae
+> **Please Note:**
+>
+> Riak KV's strong consistency is an experimental feature and may be removed from the product in the future. Strong consistency is not commercially supported or production-ready. Strong consistency is incompatible with Multi-Datacenter Replication, Riak Search, Bitcask Expiration, LevelDB Secondary Indexes, Riak Data Types and Commit Hooks. We do not recommend its usage in any production environment.
 
-Lorem markdownum Byblida. Modo **etiam** litora mittat vellera infelix caeli.
-Studiosius forte, potuit pectore. Puer undas dignior iam turpe sorores abesse.
-Deae Saturnia levius viribus membra.
+In versions 2.0 and later, Riak allows you to create buckets that
+provide [[strong consistency]] guarantees for the data stored within
+them, enabling you to use Riak as a CP system (consistent plus partition
+tolerant) for all of the data in that bucket. You can store just some of
+your data in strongly consistent buckets or all of your data, depending
+on your use case. Strong consistency was added to complement Riak's
+standard [[eventually consistent|Eventual Consistency]], high
+availability mode.
 
-## Iussorum ad fronti rutilasque tenuit cursu quae
+## Tradeoffs
 
-Nostros vovistis artes. **Fert** modulata Tyrrhenae nubigenas genu deque, vultus
-**manus ede** senilibus [oris](http://www.youtube.com/watch?v=MghiBW3r65M)
-transcurrere quem rarissima. Viderunt nutu quod, tumidaque, mihi mihi sacer pia.
-Summis rediit pavidus tersere et at prosiluit natus Phaethon noxa. Singultibus
-oblita **foedabis** orsa.
+When data is stored in a bucket with strong consistency guarantees, a
+value is guaranteed readable by any client _immediately_ after a
+successful write has occurred to a given key. In this sense, single-key
+strongly consistent operations are atomic, and operations on a given key
+are [linearizable](http://en.wikipedia.org/wiki/Linearizability). This
+behavior comes at the expense of availability because a [[quorum|Strong
+Consistency#Trade-offs]] of primary [[vnodes|Vnodes]] responsible for
+the key must be online and reachable or the request will
+fail.
 
-- Fecere aliis postquam inviti caliginis ab inque
-- Voverat dividuae et tardus huc magna non
-- Sex barba ipsaque Caucason corpora sono ecce
-- Non esse
-- Sibi atris regna licuit Antium carituraque nubes
+This trade-off is unavoidable for strongly consistent data, but the
+[choice is now yours](http://en.wikipedia.org/wiki/CAP_theorem) to make.
 
-## Omni levare gelidumque minanti
+## Enabling Strong Consistency
 
-Omnis adeunt ossibus gravis, Venus pinuque capit, et sereno viros ignara *plena
-incaluere* percussit mellaque, vertere arte. Ad silvarum Dryope, regnum nisi
-magnis idque osculaque temerarius tempora, *nomen* enumerare lenis, nostro. Ac
-mutabit [arma](http://www.thesecretofinvisibility.com/) operiri saxum ratione,
-crudelior feram, est usu tamen quod, hasta. Equos **sonant et deum**. Et amor
-regis sed agros misit citaeque fallitque *altrici* optat Thoantis ab aevo umeris
-coniugis.
+Complete instructions on enabling strong consistency can be found in
+our documentation on [[strong consistency for operators|Managing Strong
+Consistency#Enabling-Strong-Consistency]].
 
-## Troiana quoque
+## Creating Consistent Bucket Types
 
-Equo uni Stygias trahunt, interea, in tela labores lumina, nam *Aganippe
-sanctique meum*; est. [Gente inimica
-premeret](http://en.wikipedia.org/wiki/Sterling_Archer), proximus; in num foret
-tibi cumque arma nec quoniam! Contribuere mollis, tu dum parem viscera, tamen
-ante. Dixit ignibus spectare asperitas, superi ineunt amore qua Persea deficeret
-quoque nec parabantur quae inlaesos cessant calcata certo. Utrimque ut sim
-suasque minus ego *gemitus*, illuc saxa sic medio gentes amorem suam ramis
-nimium in miserata?
+[[Strong consistency]] requirements in Riak are applied on a
+bucket-by-bucket basis, meaning that you can use some buckets in an
+eventually consistent fashion and others in a strongly consistent
+fashion, depending on your use case.
 
-1. `In naribus aequos aberant`
-2. Naturae murmura te rimas suarum vulnus quod
-3. Socios leto loquor timide
-4. Ergo sub
-5. Patrias mihi consumite breve
+To apply strong consistency to a bucket, you must create a [[bucket
+type|Using Bucket Types]] that sets the `consistent` bucket property to
+`true`, activate that type, and then apply that type to specific
+bucket/key pairs.
 
-## Ruit huic movit luminibus excubias arma
+To give an example, we'll create a bucket type called
+`strongly_consistent` with the `consistent` bucket property set to
+`true`:
 
-> Loco humo tecum gurgite timui. Peragant tu regia ut umbras premit condit. Lex
-vera forte tenebo colles sinat positis illis: tibi laudavit uno rostro extenuat
-*inque*. Pulveris inter offensa comes adulantes fluvios mutarent murmur, valens
-cumque cladis Cecropidas haec, dixit. Lucus cognomine **Achilles**: pastor nec.
-
-1. Hic causam et dilecte nudae nec corpus
-2. Cor Si nive
-3. Petis equos perosa tu perterrita exitus non
-4. Per et et ire geminos parte
-5. Aqua coniunx cecidisse sonum
-
+```bash
+riak-admin bucket-type create strongly_consistent \
+    '{"props":{"consistent":true}}'
 ```
-Nominis haec lacrimis orba gloria obstipuere tu Ceyx tepebat fetus me equorum
-potero! Iampridem illi; deducit [reor orbem](http://heeeeeeeey.com/), comes, et
-nec rubebant pietas, ipsa.
+
+<div class="note">
+<div class="title">Note on bucket type names</div>
+You can name [[bucket types|Using Bucket Types]] whatever you wish, with
+the exception of `default`, which is a reserved term (a full listing of
+the properties associated with the `default` bucket type can be found in
+the documentation on [[bucket properties and operations|The
+Basics#Bucket-Properties-and-Operations]]).
+</div>
+
+Once the `strongly_consistent` bucket type has been created, we can
+check the status of the type to ensure that it has propagated through
+all nodes and is thus ready to be activated:
+
+```bash
+riak-admin bucket-type status strongly_consistent
 ```
+
+If the console outputs `strongly_consistent has been created and may be
+activated` and the properties listing shows that `consistent` has been
+set to `true`, then you may proceed with activation:
+
+```bash
+riak-admin bucket-type activate strongly_consistent
+```
+
+When activation is successful, the console will return the following:
+
+```bash
+strongly_consistent has been activated
+```
+
+Now, any bucket that bears the type `strongly_consistent`---or whatever
+you wish to name it---will provide strong consistency guarantees.
+
+Elsewhere in the Riak docs, you can find more information on [[using
+bucket types]], on the concept of [[strong consistency]], and on strong
+consistency [[for operators|Managing Strong Consistency]].
+
+## Replication Properties
+
+Strongly consistent operations in Riak function much differently from
+their [[eventually consistent|Eventual Consistency]] counterparts.
+Whereas eventually consistent operations enable you to set values for a
+variety of [[replication properties]] either on each request or at the
+bucket level, [[using bucket types]], these settings are quietly ignored
+for strongly consistent operations. These settings include `r`, `pr`,
+`w`, `rw`, and others. Two replication properties that _can_ be set,
+however, are `n_val` and `return_body`.
+
+The `n_val` property is extremely important for two reasons:
+
+1. It dictates how fault tolerant a strongly consistent bucket is. More
+   information can be found in [[our recommendations for
+   operators|Managing Strong Consistency#Fault-Tolerance]].
+2. Once the `n_val` property is set for a given bucket type, it cannot
+   be changed. If you wish to change the `n_val` for one or more
+   strongly consistent buckets [[using bucket types]], you will need to
+   create a new bucket type with the desired `n_val`.
+
+We also recommend setting the `n_val` on strongly consistent buckets to
+at least 5. More on why we make this recommendation can be found in
+[[Fault Tolerance|Managing Strong Consistency#Fault-Tolerance]].
+
+## Causal Context
+
+Riak uses [[causal context]] to determine the causal history of objects.
+In versions of Riak prior to 2.0, [[vector clocks|Causal
+Context#Vector-Clocks]] were used to provide objects with causal context
+metadata. In Riak versions 2.0 and later there is an option to use
+[[dotted version vectors]], which function much like vector clocks from
+the standpoint of clients, but with important advantages over vector
+clocks.
+
+While we strongly recommend attaching context to objects for all
+updates---whether traditional vector clocks or the newer dotted version
+vectors---they are purely [[optional|Conflict Resolution]] for all
+eventually consistent operations in Riak. This is not the case for
+strongly consistent operations. **When modifying strongly consistent
+objects in Riak, you _must_ attach a causal context**.
+
+If you attempt to modify a strongly consistent object without attaching
+a context to the request, the request will always fail. And while it is
+possible to make writes to non-existing keys without attaching context,
+we recommend doing this only if you are certain that the key does not
+yet exist.
+
+Instructions on using causal context can be found in our documentation
+on [[object updates]].
+
+## Strongly Consistent Writes
+
+Writing to strongly consistent keys involves some of the same best
+practices that we advise when writing to eventually consistent keys. We
+recommend bearing the following in mind:
+
+1. If you _know_ that a key does not yet exist, you can write to that
+   key without supplying a [[context with the object|Using Strong
+   Consistency#Object-Context]]. If you are unsure, then you should
+   default to supplying a context object.
+2. If an object already exists under a key, strong consistency demands
+   that you supply a [[causal context|Using Strong
+   Consistency#Causal-Context]]. If you do not supply one, the update
+   will necessarily fail.
+3. Because strongly consistent writes must occasionally
+   [[sacrifice availability|Strong
+   Consistency#Strong-vs.-Eventual-Consistency]] for the sake of
+   consistency, **strongly consistent updates can fail even under normal
+   conditions**, particularly in the event of concurrent updates.
+
+## Error Messages
+
+For the most part, performing reads, writes, and deletes on data in
+strongly consistent buckets works much like it does in
+non-strongly-consistent-buckets. One important exception to this is how
+writes are performed. Strongly consistent buckets cannot allow siblings
+by definition, and so all writes to existing keys must include a context
+with the object.
+
+If you attempt a write to a non-empty key without including causal
+context, you will receive the following error:
+
+```ruby
+Riak::Conflict: The object is in conflict (has siblings) and cannot be treated singly or saved:
+```
+
+```java
+java.lang.IllegalArgumentException: VClock cannot be null.
+```
+
+```php
+$response->isSuccess();  // false
+$response->getStatusCode(); // 412
+```
+
+```python
+riak.RiakError: 'failed'
+```
+
+```erlang
+{error,<<"failed">>}
+```
+
+```curl
+<html><head><title>412 Precondition Failed</title></head><body><h1>Precondition Failed</h1>Precondition Failed<p><hr><address>mochiweb+webmachine web server</address></body></html>
+```
+
+<div class="note">
+<div class="title">Getting started with Riak clients</div>
+If you are connecting to Riak using one of Basho's official
+[[client libraries]], you can find more information about getting
+started with your client in our [[quickstart guide|Five-Minute
+Install#setting-up-your-riak-client]].
+</div>
+
+## Known Issue with Client Libraries
+
+All of Basho's official [[client libraries]] currently convert errors
+returned by Riak into generic exceptions, with a message derived from
+the error message returned by Riak. In many cases this presents no
+problems, since many error conditions are normal when using Riak.
+
+When working with strong consistency, however, operations like
+[[conditional puts|Strong Consistency#Implementation-Details]] commonly
+produce errors that are difficult for clients to interpret. For example,
+it is expected behavior for conditional puts to fail in the case of
+concurrent updates to an object. At present, the official Riak clients
+will convert this failure into an exception that is no different from
+other error conditions, i.e. they will not indicate any
+strong-consistency-specific errors.
+
+The best solution to this problem at the moment is to catch these
+exceptions on the application side and parse server-side error messages
+to see if the error involved a conditional failure. If so, you should
+set up your application to retry any updates, perhaps a specified number
+of times or perhaps indefinitely, depending on the use case.
+
+If you do set up a retry logic of this sort, however, it is necessary
+to retry the entire read/modify/put cycle, meaning that you will need
+to fetch the object, modify it, and then write. If you perform a simple
+put over and over again, without reading the object, the update will
+continue to fail.
+
+A future version of Riak will address these issues by modifying the
+server API to more accurately report errors specific to strongly
+consistent operations.
