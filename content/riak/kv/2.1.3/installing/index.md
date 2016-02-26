@@ -11,70 +11,48 @@ menu:
     parent: "index"
     pre: icon-cog
 toc: true
+aliases:
+  - /riak/2.1.1/installing/
+  - /riak/2.1.3/installing/
 ---
 
-## Hanc capellae
+[Install AWS]: /riak/kv/2.1.3/installing/amazon-web-services
+[Install Debian & Ubuntu]: /riak/kv/2.1.3/installing/debian-ubuntu
+[Install FreeBSD]: /riak/kv/2.1.3/installing/freebsd
+[Install Mac OSX]: /riak/kv/2.1.3/installing/mac-osx
+[Install RHEL & CentOS]: /riak/kv/2.1.3/installing/rhel-centos
+[Install SmartOS]: /riak/kv/2.1.3/installing/smartos
+[Install Solaris]: /riak/kv/2.1.3/installing/solaris
+[Install SUSE]: /riak/kv/2.1.3/installing/suse
+[Install Windows Azure]: /riak/kv/2.1.3/installing/windows-azure
+[Install From Source]: /riak/kv/2.1.3/installing/source
+[Community Projects]: /community/projects
+[Upgrading]: /riak/kv/2.1.3/upgrading
 
-Lorem markdownum Byblida. Modo **etiam** litora mittat vellera infelix caeli.
-Studiosius forte, potuit pectore. Puer undas dignior iam turpe sorores abesse.
-Deae Saturnia levius viribus membra.
+## Supported Platforms
 
-## Iussorum ad fronti rutilasque tenuit cursu quae
+Riak is supported on numerous popular operating systems and virtualized
+environments. The following information will help you to
+properly install or upgrade Riak in one of the supported environments:
 
-Nostros vovistis artes. **Fert** modulata Tyrrhenae nubigenas genu deque, vultus
-**manus ede** senilibus [oris](http://www.youtube.com/watch?v=MghiBW3r65M)
-transcurrere quem rarissima. Viderunt nutu quod, tumidaque, mihi mihi sacer pia.
-Summis rediit pavidus tersere et at prosiluit natus Phaethon noxa. Singultibus
-oblita **foedabis** orsa.
+  * [Amazon Web Services][Install AWS]
+  * [Debian & Ubuntu][Install Debian & Ubuntu]
+  * [FreeBSD][Install FreeBSD]
+  * [Mac OS X][Install Mac OSX]
+  * [RHEL & CentOS][Install RHEL & CentOS]
+  * [SmartOS][Install SmartOS]
+  * [Solaris][Install Solaris]
+  * [SUSE][Install SUSE]
+  * [Windows Azure][Install Windows Azure]
 
-- Fecere aliis postquam inviti caliginis ab inque
-- Voverat dividuae et tardus huc magna non
-- Sex barba ipsaque Caucason corpora sono ecce
-- Non esse
-- Sibi atris regna licuit Antium carituraque nubes
+## Building from Source
 
-## Omni levare gelidumque minanti
+If your platform isn’t listed above, you may be able to build Riak from source. See [Installing Riak from Source][Install From Source] for instructions.
 
-Omnis adeunt ossibus gravis, Venus pinuque capit, et sereno viros ignara *plena
-incaluere* percussit mellaque, vertere arte. Ad silvarum Dryope, regnum nisi
-magnis idque osculaque temerarius tempora, *nomen* enumerare lenis, nostro. Ac
-mutabit [arma](http://www.thesecretofinvisibility.com/) operiri saxum ratione,
-crudelior feram, est usu tamen quod, hasta. Equos **sonant et deum**. Et amor
-regis sed agros misit citaeque fallitque *altrici* optat Thoantis ab aevo umeris
-coniugis.
+## Community Projects
 
-## Troiana quoque
+Check out [Community Projects][Community Projects] for installing with tools such as [Chef](https://www.chef.io/chef/), [Ansible](http://www.ansible.com/), or [Cloudsoft](http://www.cloudsoftcorp.com/).
 
-Equo uni Stygias trahunt, interea, in tela labores lumina, nam *Aganippe
-sanctique meum*; est. [Gente inimica
-premeret](http://en.wikipedia.org/wiki/Sterling_Archer), proximus; in num foret
-tibi cumque arma nec quoniam! Contribuere mollis, tu dum parem viscera, tamen
-ante. Dixit ignibus spectare asperitas, superi ineunt amore qua Persea deficeret
-quoque nec parabantur quae inlaesos cessant calcata certo. Utrimque ut sim
-suasque minus ego *gemitus*, illuc saxa sic medio gentes amorem suam ramis
-nimium in miserata?
+## Upgrading
 
-1. `In naribus aequos aberant`
-2. Naturae murmura te rimas suarum vulnus quod
-3. Socios leto loquor timide
-4. Ergo sub
-5. Patrias mihi consumite breve
-
-## Ruit huic movit luminibus excubias arma
-
-> Loco humo tecum gurgite timui. Peragant tu regia ut umbras premit condit. Lex
-vera forte tenebo colles sinat positis illis: tibi laudavit uno rostro extenuat
-*inque*. Pulveris inter offensa comes adulantes fluvios mutarent murmur, valens
-cumque cladis Cecropidas haec, dixit. Lucus cognomine **Achilles**: pastor nec.
-
-1. Hic causam et dilecte nudae nec corpus
-2. Cor Si nive
-3. Petis equos perosa tu perterrita exitus non
-4. Per et et ire geminos parte
-5. Aqua coniunx cecidisse sonum
-
-```
-Nominis haec lacrimis orba gloria obstipuere tu Ceyx tepebat fetus me equorum
-potero! Iampridem illi; deducit [reor orbem](http://heeeeeeeey.com/), comes, et
-nec rubebant pietas, ipsa.
-```
+For information on upgrading an existing cluster, check out [Upgrading Riak KV][Upgrading].
