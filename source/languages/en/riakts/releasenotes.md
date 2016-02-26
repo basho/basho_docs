@@ -47,6 +47,7 @@ Riak TS is compatible with the following operating systems:
 ##Known Issues
 
 * For security reasons, you should change the owner of the /etc/init.d/riak file to the root user after installation has completed. See our [product advisory](http://docs.basho.com/riak/2.1.3/community/product-advisories/codeinjectioninitfiles/) for more information and further instruction.
+* Negation of an aggregate function returns an error. You can use negation by structuring any aggregate you'd like to negate as follows: `-1*COUNT(...)`.
 * Rolling upgrades are not supported.
 * AAE must be turned off.
 * Riak Search is not supported.

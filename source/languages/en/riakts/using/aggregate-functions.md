@@ -25,6 +25,9 @@ You can turn a set of rows in your Riak TS table into a value with the aggregate
 * `STDDEV()`/`STDDEV_SAMP()` - Returns the statistical standard deviation of all entries that match a specified criteria using Sample Standard Deviation.
 * `STDDEV_POP()` - Returns the statistical standard deviation of all entries that match a specified criteria using Population Standard Deviation.
 
+>**Note:** You cannot simply negate an aggregate function. If you attempt something like: `select -count(temperature)`, you will receive an error. Instead, you can achieve negation with `-1*`; for instance: `-1*COUNT(...)`.
+
+
 
 ###`AVG` & `MEAN`
 
