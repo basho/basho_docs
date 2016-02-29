@@ -32,6 +32,7 @@ dataplatform:
 riakts:
   - ['1.0.0']
   - ['1.1.0']
+  - ['1.2.0']
 gen_projects: ['riak', 'riakcs', 'dataplatform', 'riakts']
 # Describes the latest version per project, for which a 'latest/'
 # directory will be automatically generated.
@@ -42,4 +43,4 @@ currents:
   riakcscontrol: '1.0.2'
   stanchion: '2.1.0'
   dataplatform: '1.0.0'
-  riakts: '1.1.0'
+  riakts: '1.2.0'
