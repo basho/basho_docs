@@ -316,11 +316,6 @@
     }
   }
 
-
-  // Call this on the docready to add nav menu toggle buttons where needed
-  // `addNavMenuToggles` is now defined in nav-menu.js
-  options.jq.navContent.find('h3, h4').each(addNavMenuToggles);
-
   /*
    * checkForToggler()
    * Determines whether a nav header is open-able or not.
