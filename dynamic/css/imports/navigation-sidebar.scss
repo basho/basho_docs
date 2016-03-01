@@ -1,0 +1,529 @@
+/* Navigation Sidebar Container
+   ----------------------------
+   Styling for all things contained in the Navigation Sidebar.
+
+   Note that the sizing of the container itself is still set in the Wireframe
+   section of core.scss. There may still be some size-related styling that
+   should be moved between these two files.
+*/
+
+aside#nav-container {
+  @extend .sans;
+  @include boxShadow(none);
+  background : #eaecef;
+  //FIXME: I don't think this is used anywhere...
+  color : $subtleGray;
+
+  /* General Styling
+   * --------------- */
+  a {
+    @extend .block;
+    color           : $darkGrey;
+    //FIXME: Overridden in the h3/h4 sections below.
+    padding         : 7px 18px;
+    text-decoration : none;
+    @include transitionAll(color 0.5s ease);
+
+    &:hover {
+      color : $extraDarkGrey;
+    }
+
+    @media screen and (max-width: 500px) {
+       padding : 7px $mobilePageGutter;
+    }
+  }
+
+  .current {
+    a {
+      cursor : default;
+    }
+  }
+  /* ---------------
+   * General Styling */
+
+  /* Search Box
+   * ---------- */
+  .nav-field-container {
+    position   : relative;
+
+    //FIXME: We're not using the "text" input...thing anywhere.
+    input[type="search"],
+    input[type="text"] {
+      position         : relative;
+      width            : 76%;
+      background-color : $fieldGrey;
+      padding          : 10px 0 10px 24%;
+      margin           : 0;
+      border           : none;
+      color            : #fff;
+      line-height      : 1.3rem;
+      @extend .sans;
+
+      &::-webkit-input-placeholder { /* WebKit browsers */
+        color : #fff;
+      }
+      &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color : #fff;
+      }
+      &::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color : #fff;
+      }
+      &:-ms-input-placeholder { /* Internet Explorer 10+ */
+        color : #fff;
+      }
+
+      //FIXME: Please isolate reduced-width...stuff
+      @media screen and (max-width: 768px) {
+        font-size : 1rem;
+        padding   : 10px 0 10px 3.2em; /* Using rems here for padding-left to align input text on mobile devices */
+        @include allCorners(); /* Add rounded corners to the field when device is tablet or mobile */
+      }
+    }
+
+    input[type="search"]:focus,
+    input[type="text"]:focus {
+      color            : #fff;
+      background-color : $darkGrey;
+    }
+
+    #icon-container-search {
+
+      position : absolute;
+      //FIXME: Move this into the HTML
+      display  : block;
+      top      : 9px;
+      left     : 0;
+      width    : 4em;
+      z-index  : 800;
+
+      .separator {
+        color    : #fff;
+      }
+    }
+
+    //FIXME: Please isolate reduced-width...stuff
+    @media screen and (max-width: 768px) {
+      float       : left;
+      width       : 71%;
+      margin-top  : -5px;
+      margin-left : $mobilePageGutter;
+
+      .icon-container {
+        margin-left : 0.3em;
+      }
+    }
+  }
+  /* ----------
+   * Search Box */
+
+  /* Menu Entries
+   * ------------ */
+  /* Font Icon Container
+   * ------------------- */
+  .icon-container {
+    display     : inline-block;
+    width       : 1.5em;
+    margin-left : 0.9em;
+    float       : left;
+    text-align  : center;
+
+    //FIXME: Please isolate reduced-width...stuff
+    @media screen and (max-width: 768px) {
+      font-size : 1em;
+      width : 1.75em;
+      margin-left : $mobilePageGutter;
+    }
+
+    .nav-icon {
+      //FIXME: Why aren't we using a pre-defined color here?
+      color : #8e939a;
+    }
+
+    //FIXME: Why is this here, and no in the above nav-field-container section?
+    .nav-icon-search {
+      color : #fff;
+    }
+  }
+  /* -------------------
+   * Font Icon Container */
+
+  /* Vertical Separator
+   * ------------------ */
+  .separator {
+    //FIXME: Move this into the HTML
+    display      : inline-block;
+    //FIXME: Move this into the HTML
+    float        : left;
+    width        : 1em;
+    margin-right : 0.5em;
+    //FIXME: Why aren't we using a pre-defined color here?
+    color        : #8e939a;
+    text-align   : center;
+    @extend .sans;
+    font-size    : 0.9rem;
+  }
+  /* ------------------
+   * Vertical Separator */
+
+  /* Menu Title Text
+   * --------------- */
+  //FIXME: Everything below is all tangled up, even with the <a> in the above
+  //       General Styling section. We need to clean this shit up.
+  .menu-title {
+    //FIXME: Move this into the HTML
+    display       : inline-block;
+    //FIXME: Move this into the HTML
+    float         : left;
+    width         : 58%;
+    margin-bottom : 8px;
+    @extend .sans-bold;
+
+    //FIXME: Please isolate reduced-width...stuff
+    @media screen and (max-width: 768px) {
+      width : 80%;
+    }
+  }
+
+  h3, h4 {
+    @include bgPattern('nav-bg.jpg', #4f4f50);
+    @include transitionAll(color 0.5s ease);
+    position    : relative;
+    padding     : 8px 0 0 0;
+    overflow    : visible;
+    color       : $darkGrey;
+    cursor      : pointer;
+
+    a {
+      background : none;
+      padding    : 0;
+      border     : 0;
+      border-right : 1px solid $lightGrey;
+
+      &:hover {
+        color      : $darkGrey;
+        background : none;
+      }
+    }
+
+    span.menu-toggle {
+      padding-right : 0;
+    }
+
+    &:hover {
+      span.menu-toggle {
+        @include arrowVertical(top, bottom, 5px, $darkGrey);
+
+        &.open {
+          @include arrowVertical(bottom, top, 5px, $darkGrey);
+        }
+      }
+    }
+  }
+
+  h3 {
+    @extend .sans-bold;
+    border-bottom : 1px solid $lightGrey;
+    font-size     : 0.9rem;
+
+    //NOTE(Drew): This is.... really ugly...
+    // &.current {
+    //   background : $blueGreen;
+    //   a {
+    //     color : #fff;
+    //   }
+    // }
+  }
+
+  h3 span a {
+    display : inline-block;
+    width   : 100%;
+  }
+
+  h4 {
+    padding : 8px 0 8px 0;
+
+    span.menu-toggle {
+      top : 15px;
+    }
+
+    &:hover {
+      color : $extraDarkGrey;
+    }
+
+    a {
+      margin-right : 40px;
+    }
+  }
+
+  .depth-1 {
+    @extend .clear;
+  }
+
+  .depth-1 h3, .depth-2 h3, .depth-3 h3,
+  .depth-1 h4, .depth-2 h4, .depth-3 h4 {
+    margin-right : 0;
+  }
+
+  h2 {
+    @extend .sans;
+    margin-top  : 10px;
+    color       : #fff;
+    text-shadow : 0 1px 2px #000;
+  }
+
+  h3 {
+
+    @media screen and (max-width: 768px) {
+      font-size : 115%;
+    }
+
+    &:first-child {
+      margin-top : 25px;
+
+      @media screen and (max-width: 768px) {
+        margin-top : 10px;
+      }
+    }
+  }
+
+  h4 {
+    @extend .sans;
+  }
+
+  ul {
+    display : none;
+
+    &.depth-2, &.depth-3 {
+      margin-right : 0;
+    }
+  }
+
+  .depth-1 li {
+    @include bgPattern('nav-bg.jpg', #4f4f50);
+
+    &.current {
+      > h4 {
+        background : $blueGreen;
+        a {
+          color : #fff;
+        }
+      }
+
+      > a {
+        background : $blueGreen;
+        color : #fff;
+      }
+    }
+  }
+
+  .depth-1 li:last-child {
+    border-bottom : 1px solid $lightGrey;
+  }
+
+  .depth-2, .depth-3 {
+    margin-left : 0px;
+  }
+
+  .depth-1 a {
+    padding-left : 18px;
+  }
+
+  .depth-2 a {
+    padding-left : 26px;
+  }
+
+  .depth-3 a {
+    padding-left : 34px;
+  }
+
+  .depth-3 li:last-child,
+  .depth-2 li:last-child {
+    border-bottom : 0;
+  }
+
+  /* ---------------
+   * Menu Title Text */
+
+  /* Menu Toggle Element
+   * ------------------- */
+  //FIXME This should probably wrapped in a fixed-width element.
+  span.menu-toggle {
+    @extend .block;
+    @include size(1px, 0);
+    position      : absolute;
+    top           : 17px;
+    right         : 10px;
+    content       : '';
+    @include arrowVertical(top, bottom, 5px, $grey);
+    @include transitionAll(border-color 0.5s ease);
+
+    &.open {
+      @include arrowVertical(bottom, top, 5px, $grey);
+    }
+    //FIXME: Fairly certain that this is not in use anywhere.
+    &.extra-margin {
+      margin-top : 10px;
+    }
+  }
+  /* -------------------
+   * Menu Toggle Element */
+
+  #primary-nav {
+    -o-user-select      : none;
+    -ms-user-select     : none;
+    -moz-user-select    : none;
+    -webkit-user-select : none;
+    user-select         : none;
+
+    h3 {
+      clear:both; // ????????
+    }
+
+    // I have no idea if these .shortcuts classes are used anywhere, so... ???
+    /*
+    h3.shortcuts {
+      display :none;
+    }
+    ul.shortcuts {
+      li {
+        border-left : 0;
+        width       : 50%;
+        float       : left;
+        a {
+          border-left : 0;
+          text-align  : center;
+
+          color            : #24514A;
+          font-size        : 110%;
+          background       : #A8C7BF;
+          background-color : #A8C7BF;
+          @include bgPattern('light-green-bg.jpg');
+          padding          : 3px 12px;
+          margin           : 0 2px 0 0;
+          border           : 1px solid $darkGreen;
+          text-decoration  : none;
+
+          &:hover {
+            background : $orange;
+            border     : 1px solid $darkOrange;
+            color      : #fff;
+          }
+
+          &:first-child {
+            margin-top : 10px;
+          }
+
+        }
+      }
+      li.active {
+        a {
+          background : $orange;
+          border     : 1px solid $darkOrange;
+          color      : #fff;
+        }
+      }
+    }
+    */
+  }
+
+  /* Fixed Navigation Elements
+   * ------------------------- */
+  #fixed-nav {
+    display : block;
+    @include size(100%, 74px);
+    @extend .clear;
+    position        : relative;
+    height          : 82px;
+    margin          : -83px 0 0 0; // Top margin should be -(height + 1)
+    padding         : 0;
+    list-style-type : none;
+    border-top      : 1px solid #666; //$darkBlueGreen;
+
+    li {
+      margin  : 0;
+      padding : 0;
+      //height  : 30px;
+
+      a {
+        display       : block;
+        background    : $darkGrey; //$blueGreen;
+        color         : #fff;
+        height        : 32px;
+        border-bottom : 1px solid #666; //$darkBlueGreen;
+        padding       :  8px 0 0 0;
+        @extend .sans-bold;
+        font-size     : 0.9rem;
+
+        &:hover {
+          background : darken($darkGrey, 2%);
+        }
+
+        span {
+          padding-right : 5px;
+        }
+
+        .separator,
+        .nav-icon {
+          color : #fff;
+        }
+      }
+    }
+  }
+  /* -------------------------
+   * Fixed Navigation Elements */
+
+  /* Responsive Reduced-Width Elements
+   * --------------------------------- */
+   @media screen and (max-width: 768px) {
+     @include boxShadow(none);
+   }
+
+   /* Navigation Toggle element present when navigation is open */
+   h2.responsive-link {
+     display      : none;
+     color        : $darkGrey;
+     text-shadow  : none;
+     padding      : 0 12px 0 8%;
+
+     @media screen and (max-width: 768px) {
+       display : block;
+     }
+   }
+
+   /* Visit Basho and All Projects menu elements */
+   h3.responsive-link {
+     display : none;
+
+     &.visit-basho {
+       background : $orange; // fallback value for no rgba support
+       //background : rgba(249, 157, 51, .2);
+       border-top     : 1px solid lighten($orange, 15%); // fallback value for no rgba support
+       border-top     : 1px solid rgba(249, 157, 51, .4);
+       border-bottom  : 1px solid lighten($orange, 15%); // fallback value for no rgba support
+       border-bottom  : 1px solid rgba(249, 157, 51, .4);
+       color          : #fff;
+
+       .separator,
+       .nav-icon {
+         color : #fff;
+       }
+
+       a {
+         color       : $darkOrange; // fallback value for no rgba support
+         color       : rgba(255, 255, 255, 1);
+         //text-shadow : none; // fallback value for no rgba support
+         //text-shadow : 0 1px 2px rgba(0, 0, 0, 1);
+       }
+
+       @media screen and (max-width: 768px) {
+         margin-top : 13px;
+       }
+     }
+
+     @media screen and (max-width: 768px) {
+       display : block;
+     }
+   }
+  /* ---------------------------------
+   * Responsive Reduced-Width Elements */
+}
