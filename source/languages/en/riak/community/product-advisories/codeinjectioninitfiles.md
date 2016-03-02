@@ -30,7 +30,7 @@ Precompiled packages for RedHat/CentOS variants of Riak KV, Riak CS, and Riak TS
 Check the table to see if you are impacted; an 'X' indicates affected users:
 
 | OS                | installed via `yum`/`apt-get` | installed via rpm/deb |
-| ------------------|:-----------------------------:| -----:|
+| ------------------|:-----------------------------:|:-----:|
 | RHEL/CentOS       | X                             | X     |
 | Debian/Ubuntu     |                               |       |
 | OpenSUSE          |                               | X     |
