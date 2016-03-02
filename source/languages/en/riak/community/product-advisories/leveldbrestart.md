@@ -6,7 +6,7 @@ versions: false
 document: reference
 ---
 
-Data loss may occur during node restart when using LevelDB tiered storage on a low write volume cluster
+Data loss may occur during node restart when using LevelDB tiered storage on a low write volume cluster.
 
 Info | Value
 :----|:-----
@@ -157,10 +157,10 @@ To mitigate the issue, follow these steps:
       ```
       
 4.  Finally, we will create a symbolic link from the fast tier path (identified in step 3) to the log directory (identified in step 1). 
-
-```
-# As root or sudo
-ln -s ${FASTDIR} ${LOGDIR}
-```
-
-Make sure the Riak user has read/write permissions to that directory.
+    
+    ```
+    # As root or sudo
+    ln -s ${FASTDIR} ${LOGDIR}
+    ```
+    
+    Make sure the Riak user has read/write permissions to that directory.
