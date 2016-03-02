@@ -13,6 +13,7 @@ Riak and Riak CS.
 
 * [[Possibility of Code Injection on Riak Init File]]
 * [[Socket reuse issue with Riak Golang client 1.5.1]]
+* [[Potential data loss on restart with LevelDB tiered storage]]
 * [[Incompatibility between Dotted Version Vectors and Last Write Wins]]
 * [[Default Configuration For Handoff May Cause Data Loss]]
 * [[SSL 3.0 Vulnerability and POODLE Attack]]
