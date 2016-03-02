@@ -284,6 +284,7 @@ riak:
         sub:
           - "[[Advisory List|Product Advisories]]"
           - "[[Possibility of Code Injection on Riak Init File]]"
+          - "[[Socket reuse issue with Riak Golang client 1.5.1]]"
           - "[[Dotted Version Vectors and Last Write Wins|Incompatibility between Dotted Version Vectors and Last Write Wins]]"
           - "[[POODLE Vulnerability|SSL 3.0 Vulnerability and POODLE Attack]]"
           - "[[Map Data Type Disk Incompatibility]]"
