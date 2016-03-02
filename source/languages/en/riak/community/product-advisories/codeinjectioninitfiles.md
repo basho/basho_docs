@@ -32,10 +32,10 @@ Check the table to see if you are impacted; an 'X' indicates affected users:
 | OS                | installed via `yum`/`apt-get` | installed via rpm/deb |
 | ------------------|:-----------------------------:|:-----:|
 | RHEL/CentOS       | X                             | X     |
-| Debian/Ubuntu     |                               |       |
-| OpenSUSE          |                               | X     |
+| Debian/Ubuntu     | -                             | -     |
+| OpenSUSE          | -                             | X     |
 | Fedora (19 x64)   | X                             | X     |
-| FreeBSD (9.2 x64) |                               | X     |
+| FreeBSD (9.2 x64) | -                             | X     |
 
 
 ##Mitigation Instructions
