@@ -43,6 +43,6 @@ If it occurs in a GET/PUT cycles this may result in the incorrect GET response b
 ##Mitigation Strategy
 
 Downgrade to 1.5.0 or upgrade to the 1.6.0 Golang client which can be found here:
-[https://github.com/basho/riak-go-client/releases]
+[https://github.com/basho/riak-go-client/releases](https://github.com/basho/riak-go-client/releases)
 
 If you cannot upgrade, set `RequestTimeout` in `NodeOptions` to be a very large value (5 minutes, for instance) to reduce the likelihood of the socket being reused.
