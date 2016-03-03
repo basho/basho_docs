@@ -76,7 +76,7 @@ Once you have entered the Erlang shell, run `m(ssl_record).` (be sure
 to include the trailing period).
 
 In the resulting output, the `compiled: Date:` text should read
-`January 15 2015`. You can exit the shell using **Ctrl-C a**.
+`January 15 2015`. You can exit the shell using **Ctrl-G q**.
 
 ## Backout Plan
 

@@ -283,7 +283,7 @@ configuration file. Then, once the node is started, run `riak attach` to
 connect to the node. It may be necessary to enter an Erlang atom and
 press enter to obtain a prompt, by typing `x.` and pressing enter. The
 prompt obtained should contain the correct node name. Disconnect from
-the attached session with `^d` (**Ctrl-d**). Finally, run `riak-admin
+the attached session with **Ctrl-G q**. Finally, run `riak-admin
 member_status` to list all of the nodes and verify that all nodes listed
 have the correct names.
 
