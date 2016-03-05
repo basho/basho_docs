@@ -60,8 +60,7 @@ Riak's focus on availability makes it a good fit whenever downtime is
 unacceptable. No one can promise 100% uptime, but Riak is designed to
 survive network partitions and hardware failures that would
 significantly disrupt most databases. An exception to Riak's high
-availability approach is the optional [[strong consistency|Using Strong
-Consistency]] feature, which can be applied on a selective basis.
+availability approach is the experimental strong consistency feature, which can be applied on a selective basis.
 
 A less-heralded feature of Riak is its predictable latency. Because its
 fundamental operations---read, write, and delete---do not involve
