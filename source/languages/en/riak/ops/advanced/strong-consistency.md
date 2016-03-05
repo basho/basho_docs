@@ -7,11 +7,7 @@ audience: advanced
 keywords: [operators, strong-consistency]
 ---
 
-<div class="note">
-<div class="title">Note on commercial support</div>
-Riak's strong consistency feature is currently an open-source-only
-feature and is not yet commercially supported.
-</div>
+>**Note:** Riak KV's strong consistency is an experimental feature and may be removed from the product in the future. Strong consistency is not commercially supported or production-ready. Strong consistency is incompatible with Multi-Datacenter Replication, Riak Search, Bitcask Expiration, LevelDB Secondary Indexes, Riak Data Types and Commit Hooks. We do not recommend its usage in any production environment.
 
 This document provides information on configuring and monitoring a Riak
 cluster's optional [[strong consistency]] subsystem. Documentation for
