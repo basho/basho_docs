@@ -57,12 +57,12 @@ $mobilePageGutter : 0.6em;
   display : inline-block;
 }
 
-.float_left {
+.float-left {
   float : left;
 }
 
-.float_right {
-  float : left;
+.float-right {
+  float : right;
 }
 
 .clear {
@@ -77,8 +77,13 @@ $mobilePageGutter : 0.6em;
   clear : right;
 }
 
+.overflow,
 .clearfix {
   overflow : auto;
+}
+
+.overflow-hidden {
+  overflow : hidden;
 }
 
 /* =============================================================================
