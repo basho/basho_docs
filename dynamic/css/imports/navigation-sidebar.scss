@@ -10,6 +10,7 @@
 aside#nav-container {
   @extend .sans;
   @include boxShadow(none);
+  //FIXME: We should be using a named color here.
   background : #eaecef;
   //FIXME: I don't think this is used anywhere...
   color : $subtleGray;
@@ -47,8 +48,7 @@ aside#nav-container {
     position   : relative;
 
     //FIXME: We're not using the "text" input...thing anywhere.
-    input[type="search"],
-    input[type="text"] {
+    input[type="search"] {
       position         : relative;
       width            : 76%;
       background-color : $fieldGrey;
@@ -78,12 +78,11 @@ aside#nav-container {
         padding   : 10px 0 10px 3.2em; /* Using rems here for padding-left to align input text on mobile devices */
         @include allCorners(); /* Add rounded corners to the field when device is tablet or mobile */
       }
-    }
 
-    input[type="search"]:focus,
-    input[type="text"]:focus {
-      color            : #fff;
-      background-color : $darkGrey;
+      &:focus {
+        color            : #fff;
+        background-color : $darkGrey;
+      }
     }
 
     #icon-container-search {
@@ -121,10 +120,8 @@ aside#nav-container {
   /* Font Icon Container
    * ------------------- */
   .icon-container {
-    display     : inline-block;
     width       : 1.5em;
     margin-left : 0.9em;
-    float       : left;
     text-align  : center;
 
     //FIXME: Please isolate reduced-width...stuff
@@ -150,17 +147,18 @@ aside#nav-container {
   /* Vertical Separator
    * ------------------ */
   .separator {
-    //FIXME: Move this into the HTML
-    display      : inline-block;
-    //FIXME: Move this into the HTML
-    float        : left;
-    width        : 1em;
-    margin-right : 0.5em;
+    @extend .sans; // To reduce weight.
+
+    width         : 1em;
+    padding-right : 0.5em;
     //FIXME: Why aren't we using a pre-defined color here?
-    color        : #8e939a;
-    text-align   : center;
-    @extend .sans;
-    font-size    : 0.9rem;
+    color         : #8e939a;
+    text-align    : center;
+    font-size     : 0.9rem;
+
+    &::after {
+      content: "|";
+    }
   }
   /* ------------------
    * Vertical Separator */
@@ -170,17 +168,16 @@ aside#nav-container {
   //FIXME: Everything below is all tangled up, even with the <a> in the above
   //       General Styling section. We need to clean this shit up.
   .menu-title {
-    //FIXME: Move this into the HTML
-    display       : inline-block;
-    //FIXME: Move this into the HTML
-    float         : left;
-    width         : 58%;
     margin-bottom : 8px;
     @extend .sans-bold;
 
     //FIXME: Please isolate reduced-width...stuff
     @media screen and (max-width: 768px) {
       width : 80%;
+    }
+
+    &.border {
+      border-right: 1px solid #ccced1;
     }
   }
 
@@ -346,23 +343,22 @@ aside#nav-container {
 
   /* Menu Toggle Element
    * ------------------- */
-  //FIXME This should probably wrapped in a fixed-width element.
+  span.menu-toggle-buffer{
+    width: 43px;
+    float: right;
+  }
+
   span.menu-toggle {
-    @extend .block;
     @include size(1px, 0);
     position      : absolute;
     top           : 17px;
-    right         : 10px;
+    right         : 16px;
     content       : '';
     @include arrowVertical(top, bottom, 5px, $grey);
     @include transitionAll(border-color 0.5s ease);
 
     &.open {
       @include arrowVertical(bottom, top, 5px, $grey);
-    }
-    //FIXME: Fairly certain that this is not in use anywhere.
-    &.extra-margin {
-      margin-top : 10px;
     }
   }
   /* -------------------
@@ -378,52 +374,6 @@ aside#nav-container {
     h3 {
       clear:both; // ????????
     }
-
-    // I have no idea if these .shortcuts classes are used anywhere, so... ???
-    /*
-    h3.shortcuts {
-      display :none;
-    }
-    ul.shortcuts {
-      li {
-        border-left : 0;
-        width       : 50%;
-        float       : left;
-        a {
-          border-left : 0;
-          text-align  : center;
-
-          color            : #24514A;
-          font-size        : 110%;
-          background       : #A8C7BF;
-          background-color : #A8C7BF;
-          @include bgPattern('light-green-bg.jpg');
-          padding          : 3px 12px;
-          margin           : 0 2px 0 0;
-          border           : 1px solid $darkGreen;
-          text-decoration  : none;
-
-          &:hover {
-            background : $orange;
-            border     : 1px solid $darkOrange;
-            color      : #fff;
-          }
-
-          &:first-child {
-            margin-top : 10px;
-          }
-
-        }
-      }
-      li.active {
-        a {
-          background : $orange;
-          border     : 1px solid $darkOrange;
-          color      : #fff;
-        }
-      }
-    }
-    */
   }
 
   /* Fixed Navigation Elements
