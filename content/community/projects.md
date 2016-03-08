@@ -4,7 +4,7 @@ description: ""
 menu:
   community:
     name: "Community Projects"
-    identifier: "community_taishi"
+    identifier: "community_projects"
     weight: 300
     parent: "community_overview"
 toc: true

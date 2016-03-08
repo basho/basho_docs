@@ -102,6 +102,8 @@
 [cluster ops log]: /riak/kv/2.1.3/using/cluster-operations/logging
 [cluster ops backup]: /riak/kv/2.1.3/using/cluster-operations/backing-up
 [cluster ops mdc]: /riak/kv/2.1.3/using/cluster-operations/multi-datacenter
+[cluster ops strong consistency]: /riak/kv/2.1.3/using/cluster-operations/strong-consistency
+[cluster ops 2i]: /riak/kv/2.1.3/using/cluster-operations/secondary-indexes
 
 ### Security
 
@@ -129,6 +131,7 @@
 
 [dev index]: /riak/kv/2.1.3/developing
 [dev client libraries]: /riak/kv/2.1.3/developing/client-libraries
+[dev data types]: /riak/kv/2.1.3/developing/data-types
 
 ### Getting Started
 
@@ -147,10 +150,12 @@
 [usage content types]: /riak/kv/2.1.3/developing/usage/content-types
 [usage search]: /riak/kv/2.1.3/developing/usage/search
 [usage search schema]: /riak/kv/2.1.3/developing/usage/search-schemas
+[usage search data types]: /riak/kv/2.1.3/developing/usage/searching-data-types
 [usage conflict resolution]: /riak/kv/2.1.3/developing/usage/conflict-resolution
 [usage secondary-indexes]: /riak/kv/2.1.3/developing/usage/secondary-indexes
 [usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types
 [usage mapreduce]: /riak/kv/2.1.3/developing/usage/mapreduce
+[usage custom extractors]: /riak/kv/2.1.3/developing/usage/custom-extractors
 
 ### App Guide
 

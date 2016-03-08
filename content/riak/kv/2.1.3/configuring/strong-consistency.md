@@ -20,6 +20,21 @@ toc: true
 [concept eventual consistency]: /riak/kv/2.1.3/concepts/eventual-consistency
 [plan backend bitcask]: /riak/kv/2.1.3/setup/planning/backend/bitcask
 [glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode
+[concept buckets]: /riak/kv/2.1.3/concepts/buckets
+[cluster ops bucket types]: /riak/kv/2.1.3/using/cluster-operations/bucket-types
+[use admin riak-admin#ensemble]: /riak/kv/2.1.3/using/admin/riak-admin/#riak-admin-ensemble-status
+[use admin riak-admin]: /riak/kv/2.1.3/using/admin/riak-admin
+[config reference#advanced]: /riak/kv/2.1.3/configuring/reference/#Advanced-Configuration
+[plan cluster capacity]: /riak/kv/2.1.3/setup/planning/cluster-capacity
+[cluster ops strong consistency]: /riak/kv/2.1.3/using/cluster-operations/strong-consistency
+[apps replication properties]: /riak/kv/2.1.3/developing/app-guide/replication-properties
+[concept causal context]: /riak/kv/2.1.3/concepts/causal-context
+[dev data types]: /riak/kv/2.1.3/developing/data-types
+[glossary aae]: /riak/kv/2.1.3/learn/glossary/#Active-Anti-Entropy-AAE-
+[cluster ops 2i]: /riak/kv/2.1.3/using/cluster-operations/secondary-indexes
+[usage commit hooks]: /riak/kv/2.1.3/developing/usage/commit-hooks
+[cluster ops obj del]: /riak/kv/2.1.3/using/cluster-operations/object-deletion
+[dev client libraries]: /riak/kv/2.1.3/developing/client-libraries
 
 > **Please Note:**
 >
@@ -74,9 +89,9 @@ Remember that you must [restart your node][use admin riak cli] for
 configuration changes to take effect.
 
 For strong consistency requirements to be applied to specific keys,
-those keys must be in [[buckets]] bearing a bucket type with the
+those keys must be in [buckets][concept buckets] bearing a bucket type with the
 `consistent` property set to `true`. More information can be found in
-[[Using Bucket Types]].
+[Using Bucket Types][cluster ops bucket types].
 
 If you enable strong consistency on all nodes in a cluster with fewer
 than three nodes, strong consistency will be **enabled** but not yet
@@ -84,8 +99,7 @@ than three nodes, strong consistency will be **enabled** but not yet
 state. Once at least three nodes with strong consistency enabled are
 detected in the cluster, the system will be activated and ready for use.
 You can check on the status of the strong consistency subsystem using
-the `[[riak-admin ensemble-status|Managing Strong
-Consistency#riak-admin-ensemble-status]]` command.
+the [`riak-admin ensemble-status`][use admin riak-admin#ensemble] command.
 
 ## Fault Tolerance
 
@@ -117,11 +131,12 @@ strongly consistent operations. More on `n_val` in the section below.
 
 Due to the quorum requirements explained above, we recommend that you
 use _at least_ N=5 for strongly consistent data. You can set the value
-of N, i.e. `n_val`, for buckets [[using bucket types]]. For example, you
+of N, i.e. `n_val`, for buckets
+[using bucket types][cluster ops bucket types]. For example, you
 can create and activate a bucket type with N set to 5 and strong
 consistency enabled---we'll call the bucket type
 `consistent_and_fault_tolerant`---using the following series of
-[[commands|riak-admin Command Line]]:
+[commands][use admin riak-admin]:
 
 ```bash
 riak-admin bucket-type create consistent_and_fault_tolerant \
@@ -153,8 +168,7 @@ set `target_n_val` to 7.
 
 This setting is not contained in `riak.conf`, and must instead be set in
 the `advanced.config` file. For more information, see our documentation
-on [[advanced configuration|Configuration
-Files#Advanced-Configuration]].
+on [advanced configuration][config reference#advanced].
 
 If you are using strong consistency in a cluster that has already been
 created with a `target_n_val` that is too low (remember that the default
@@ -164,7 +178,7 @@ restart each node.
 #### Note on Bucket Properties
 
 The `consistent` bucket property is one of two bucket properties,
-alongside `[[datatype|Using Data Types]]`, that cannot be changed once a
+alongside [`datatype`][cluster ops bucket types], that cannot be changed once a
 bucket type has been created.
 
 Furthermore, if `consistent` is set to `true` for a bucket type, you
@@ -183,10 +197,7 @@ appropriate `n_val` and use the new bucket type instead.
 ### Fault Tolerance and Cluster Size
 
 From the standpoint of strongly consistent operations, larger clusters
-tend to be more fault tolerant. Spreading [[ensembles|Managing Strong
-Consistency#Implementation-Details]] across more nodes will decrease the
-number of ensembles active on each node and thus decrease the number of
-quorums affected when a node goes down.
+tend to be more fault tolerant. Spreading ensembles across more nodes will decrease the number of ensembles active on each node and thus decrease the number of quorums affected when a node goes down.
 
 Imagine a 3-node cluster in which all ensembles are N=3 ensembles. If
 two nodes go down, _all_ ensembles will lose quorum and will be unable
@@ -212,8 +223,7 @@ These examples illustrate why we recommend higher values for N---again,
 at least N=5---as well as clusters with many nodes. The 50-node cluster
 example above is used only to illustrate why larger clusters are more
 fault tolerant. The definition of "many" nodes will vary according to your needs.
-For recommendations regarding cluster size, see [[Cluster Capacity
-Planning]].
+For recommendations regarding cluster size, see [Cluster Capacity Planning][plan cluster capacity].
 
 ### Offline Node Recommendations
 
@@ -232,35 +242,30 @@ nodes, we recommend rebooting them very carefully. Rebooting nodes too
 quickly in succession can force the cluster to lose quorum and thus be
 unable to service strongly consistent operations. The best strategy is
 to reboot nodes one at a time and wait for each node to rejoin existing
-[[ensembles|Managing Strong Consistency#Implementation-Details]] before
+[ensembles][cluster ops strong consistency] before
 continuing to the next node. At any point in time, the state of
-currently existing ensembles can be checked using `[[riak-admin
-ensemble-status|Managing Strong
-Consistency#riak-admin-ensemble-status]]`.
+currently existing ensembles can be checked using [`riak-admin ensemble-status`][admin riak-admin#ensemble].
 
 ## Performance
 
 If you run into performance issues, bear in mind that the key space in a
-Riak cluster is spread across multiple [[consensus groups|Strong
-Consistency#Implementation-Details]], each of which manages a portion of
-that key space. Larger [[ring sizes|Clusters#The-Ring]] allow more
+Riak cluster is spread across multiple [consensus groups][cluster ops strong consistency], each of which manages a portion of
+that key space. Larger [ring sizes][concept clusters] allow more
 independent consensus groups to exist in a cluster, which can provide
 for more concurrency and higher throughput, and thus better performance.
 The ideal ring size, however, will also depend on the number of nodes in
-the cluster. General recommendations can be found in [[Cluster Capacity
-Planning|Cluster Capacity Planning#Ring-Size-Number-of-Partitions]].
+the cluster. General recommendations can be found in [Cluster Capacity Planning][plan cluster capacity].
 
 Adding nodes to your cluster is another means of enhancing the
 performance of strongly consistent operations. Instructions on doing so
-can be found in [[Adding and Removing Nodes]].
+can be found in [Adding and Removing Nodes][cluster ops add remove node].
 
 Your cluster's configuration can also affect strong consistency
-performance. See the section on [[configuration|Managing Strong
-Consistency#Configuring-Strong-Consistency]] below.
+performance. See the section on [configuration][config reference#strong-cons] below.
 
 ## riak-admin ensemble-status
 
-The `[[riak-admin|riak-admin Command Line#ensemble-status]]` interface
+The [`riak-admin`][use admin riak-admin] interface
 used for general node/cluster management has an `ensemble-status`
 command that provides insight into the current status of the consensus
 subsystem undergirding strong consistency.
@@ -303,7 +308,7 @@ The following table provides a guide to `ensemble-status` output:
 
 Item | Meaning
 :----|:-------
-`Enabled` | Whether the consensus subsystem is enabled on the current node, i.e. whether the `strong_consistency` parameter in <code><a href="/ops/advanced/configs/configuration-files#Strong-Consistency">riak.conf</a></code> has been set to `on`. If this reads `off` and you wish to enable strong consistency, see our documentation on <a href="/ops/advanced/strong-consistency#Enabling-Strong-Consistency">enabling strong consistency</a>.
+`Enabled` | Whether the consensus subsystem is enabled on the current node, i.e. whether the `strong_consistency` parameter in [`riak.conf`][config reference#strong-cons] has been set to `on`. If this reads `off` and you wish to enable strong consistency, see our documentation on <a href="/ops/advanced/strong-consistency#Enabling-Strong-Consistency">enabling strong consistency</a>.
 `Active` | Whether the consensus subsystem is active, i.e. whether there are enough nodes in the cluster to use strong consistency, which requires at least three nodes.
 `Ring Ready` | If `true`, then all of the [vnodes][glossary vnode] in the cluster have seen the current <a href="/theory/concepts/clusters#The-Ring">ring</a>, which means that the strong consistency subsystem can be used; if `false`, then the system is not yet ready. If you have recently added or removed one or more nodes to/from the cluster, it may take some time for `Ring Ready` to change.
 `Validation` | This will display `strong` if the `tree_validation` setting in <code><a href="/ops/advanced/configs/configuration-files#Strong-Consistency">riak.conf</a></code> has been set to `on` and `weak` if set to `off`.
@@ -362,8 +367,7 @@ Item | Meaning
 `Peers` | A list of peer [vnodes][glossary vnode] associated with the ensemble.<br /><ul><li><code>Peer</code> --- The ID of the peer</li><li><code>Status</code> --- Whether the peer is a leader or a follower</li><li><code>Trusted</code> --- Whether the peer's Merkle tree is currently considered trusted or not</li><li><code>Epoch</code> --- The current consensus epoch for the peer. The epoch is incremented each time the leader changes.</li><li><code>Node</code> --- The node on which the peer resides.</li></ul>
 
 More information on leaders, peers, Merkle trees, and other details can
-be found in [[Implementation Details|Managing Strong
-Consistency#Implementation-Details]] below.
+be found in [Implementation Details](#Implementation-Details) below.
 
 ## Implementation Details
 
@@ -376,8 +380,7 @@ operators configuring their cluster's usage of strong consistency.
 ### Basic Operations
 
 The first major difference is that strongly consistent Riak involves a
-different set of operations from [[eventually consistent|Eventual
-Consistency]] Riak. In strongly consistent buckets, there are four types
+different set of operations from [eventually consistent][concept eventual consistency] Riak KV. In strongly consistent buckets, there are four types
 of atomic operations on objects:
 
 * **Get** operations work just as they do against
@@ -386,7 +389,7 @@ of atomic operations on objects:
      written value (which makes those operations CP, i.e. consistent and
      partition tolerant)
   2. Reads on strongly consistent keys *never* return siblings, hence
-     there is no need to develop any sort of [[conflict resolution]]
+     there is no need to develop any sort of [conflict resolution][usage conflict resolution]
      strategy for those keys
 * **Conditional put** operations write an object only if no object
   currently exists in that key. The operation will fail if the key
@@ -397,7 +400,7 @@ of atomic operations on objects:
   since it was previously read.
 * **Delete** operations work mostly like they do against
   non-strongly-consistent keys, with the exception that
-  [[tombstones|Object Deletion#Tombstones]] are not harvested, which is
+  [tombstones][cluster ops obj deletion] are not harvested, which is
   the equivalent of having `delete_mode` set to `keep`.
 
 **From the standpoint of clients connecting to Riak, there is little
@@ -405,8 +408,7 @@ difference between strongly and non-strongly consistent data**. The
 operations performed on objects---reads, writes, deletes, etc.---are the
 same, which means that the client API for strong consistency is
 essentially the same as it is for eventually consistent operations, with
-the important exception of [[error handling|Using Strong
-Consistency#Error-Messages]].
+the important exception of error handling.
 
 ### Ensembles
 
@@ -415,21 +417,16 @@ The main actors in Riak's implementation of strong consistency are
 a Riak cluster's key space and coordinate strongly consistent operations
 across nodes. When watching over a given key space, ensembles must act
 upon multiple replicas of a given object, the number of which is
-specified by `n_val` (more on this in [[Replication Properties]]).
+specified by `n_val` (more on this in [Replication Properties][apps replication properties]).
 
 Eventually consistent Riak can service requests even when only a single
-object replica is available, using mechanisms like [[vector
-clocks|Causal Context#Vector-Clocks]] and [[dotted version
-vectors|Causal Context#Dotted-Version-Vectors]]---or, in a different
-way, [[Riak Data Types|Data Types]])---to ensure eventual consistency
-between replicas.  Strongly consistent Riak is different because it
+object replica is available, using mechanisms like [vector clocks][concept causal context] and [dotted version vectors][concept causal context]---or, in a different way, [Riak Data Types][dev data types])---to ensure eventual consistency between replicas.  Strongly consistent Riak is different because it
 requires that a **quorum** of object replicas be online and reachable,
 where a quorum is defined as `n_val` / 2 + 1. **If a quorum is not
 available for a key, all strongly consistent operations against that key
 will fail**.
 
-More information can be found in the section on [[Fault
-Tolerance|Managing Strong Consistency#fault-tolerance]] above.
+More information can be found in the section on Fault Tolerance above.
 
 ### Peers, Leaders, Followers, and Workers
 
@@ -464,7 +461,7 @@ guards against data corruption and inconsistency even in the face of
 network partitions and other adverse events that Riak was built to
 handle gracefully.
 
-Like Riak's [[active anti-entropy]] subsystem, strong consistency
+Like Riak's [active anti-entropy][glossary aae] subsystem, strong consistency
 integrity checking utilizes [Merkle
 trees](http://en.wikipedia.org/wiki/Merkle_tree) that are persisted on
 disk. All peers in an ensemble, i.e. all leaders and followers, maintain
@@ -483,16 +480,13 @@ information on configurable parameters.
 The `riak_ensemble` subsystem provides a wide variety of tunable
 parameters that you can adjust to fit the needs of your Riak cluster.
 All `riak_ensemble`-specific parameters, with the exception of the
-`strong_consistency` parameter used to [[enable strong
-consistency|Managing Strong Consistency#Enabling-Strong-Consistency]],
+`strong_consistency` parameter used to [enable strong consistency](#Enabling-Strong-Consistency),
 must be set in each node's `advanced.config` file, _not_ in `riak.conf`
 or `app.config`.
 
 Information on the syntax and usage of `advanced.config` can be found in
-our documentation on [[advanced configuration|Configuration
-Files#Advanced-Configuration]]. That same document also contains a full
-listing of [[strong-consistency-related configuration
-parameters|Configuration Files#Strong-Consistency]].
+our documentation on [advanced configuration][config reference#advanced]. That same document also contains a full
+listing of [strong-consistency-related configuration parameters][config reference#strong-cons].
 
 Please note that the sections below require a basic understanding of the
 following terms:
@@ -505,8 +499,7 @@ following terms:
 * integrity checking
 * Merkle tree
 
-For an explanation of these terms, see the [[Implementation
-Details|Managing Strong Consistency#Implementation-Details]] section
+For an explanation of these terms, see the [Implementation Details](#Implementation-Details) section
 above.
 
 #### Leader Behavior
@@ -603,31 +596,19 @@ is highly unlikely.
 
 ## Strong Consistency and Active Anti-Entropy
 
-Riak's [[active anti-entropy]] \(AAE) feature _can_ repair strongly
+Riak's [active anti-entropy][glossary aae] \(AAE) feature _can_ repair strongly
 consistent data. Although it is not necessary to use active anti-entropy
 if you are using strong consistency, we nonetheless recommend doing so.
 
-Without AAE, all object conflicts are repaired via [[read
-repair|Active Anti-Entropy#Read-Repair-vs.-Active-Anti-Entropy]].
+Without AAE, all object conflicts are repaired via read repair.
 Read repair, however, cannot repair conflicts in so-called "cold data,"
 i.e. data that may not be read for long periods of time. While using AAE
 does entail small performance losses, not using AAE can lead to problems
 with silent on-disk corruption.
 
-To avoid these problems, you should [[enable active anti-entropy|Managing
-Active Anti-Entropy##Enabling-Active-Anti-Entropy]] in your cluster.
-
 ## Strong Consistency and Bitcask
 
-One feature that is offered by Riak's optional [Bitcask][plan backend bitcask] backend is
-[[object expiry|Bitcask#Configuring-Bitcask]]. If you are using strong
-consistency and Bitcask together, you should be aware that object
-metadata is often updated by the strong consistency subsystem during
-leader changes, which typically take place when nodes go down or during
-network partitions. When these metadata updates take place, the time to
-live (TTL) of the object is refreshed, which can lead to general
-unpredictably in objects' TTL. Although leader changes will be rare in
-many clusters, we nonetheless recommend that you use object expiry in
+One feature that is offered by Riak's optional [Bitcask][plan backend bitcask] backend is object expiry. If you are using strong consistency and Bitcask together, you should be aware that object metadata is often updated by the strong consistency subsystem during leader changes, which typically take place when nodes go down or during network partitions. When these metadata updates take place, the time to live (TTL) of the object is refreshed, which can lead to general unpredictably in objects' TTL. Although leader changes will be rare in many clusters, we nonetheless recommend that you use object expiry in
 strongly consistent buckets only in situations when these occasional
 irregularities are acceptable.
 
@@ -636,14 +617,13 @@ irregularities are acceptable.
 The following Riak features are not currently available in strongly
 consistent buckets:
 
-* [[Secondary indexes|Using Secondary Indexes]] --- If you do attach
+* [Secondary indexes][cluster ops 2i] --- If you do attach
   secondary index metadata to objects in strongly consistent buckets,
   strongly consistent operations can still proceed, but that metadata
   will be silently ignored.
-* [[Riak Data Types|Using Data Types]] --- Data Types can currently be
+* [Riak Data Types][dev data types] --- Data Types can currently be
   used only in an eventually consistent fashion
-* [[Using commit hooks]] --- Neither pre- nor post-commit hooks are
-  supported in strongly consistent buckets. If you do associate a
+* [Using commit hooks][usage commit hooks] --- Neither pre- nor post-commit hooks are supported in strongly consistent buckets. If you do associate a
   strongly consistent bucket with one or more commit hooks, strongly
   consistent operations can proceed as normal in that bucket, but all
   commit hooks will be silently ignored.
@@ -660,7 +640,7 @@ There are a few known issues that you should be aware of when using the
 latest version of strong consistency.
 
 * **Consistent reads of never-written keys create tombstones** --- A
-  [[tombstone|Object Deletion]] will be written if you perform a read
+  [tombstone][cluster ops obj del] will be written if you perform a read
   against a key that a majority of peers claims to not exist. This is
   necessary for certain corner cases in which offline or unreachable
   replicas containing partially written data need to be rolled back in
@@ -671,21 +651,16 @@ latest version of strong consistency.
   non-strongly-consistent keys, it does present an issue for strong
   consistency due to the tombstone issues mentioned above.
 * **Secondary indexes not supported** --- Strongly consistent
-  operations do not support [[secondary indexes|Using Strong
-  Consistency]] \(2i) at this time. Furthermore, any other metadata
+  operations do not support [secondary indexes][cluster ops 2i] \(2i) at this time. Furthermore, any other metadata
   attached to objects, even if not related to 2i, will be silently
   ignored by Riak in strongly consistent buckets.
 * **Multi-Datacenter Replication not supported** --- At this time,
-  consistent keys are *not* replicated across clusters using [[Multi-
-  Datacenter Replication|Multi Data Center Replication: Architecture]]
-  \(MDC). This is because MDC Replication currently supports only
-  eventually consistent replication across clusters. Mixing strongly
+  consistent keys are *not* replicated across clusters using Multi-
+  Datacenter Replication \(MDC). This is because MDC Replication currently supports only eventually consistent replication across clusters. Mixing strongly
   consistent data within a cluster with eventually consistent data
   between clusters is difficult to reason about from the perspective of
   applications. In a future version of Riak, we will add support for
   strongly consistent replication across multiple datacenters/clusters.
-* **Client library exceptions** --- Basho's official [[client
-  libraries]] convert errors returned by Riak into generic exceptions,
+* **Client library exceptions** --- Basho's official [client
+  libraries][dev client libraries] convert errors returned by Riak into generic exceptions,
   with a message derived from the returned server-side error message.
-  More information on this problem can be found in [[Using Strong
-  Consistency|Using Strong Consistency#Error-Messages]].

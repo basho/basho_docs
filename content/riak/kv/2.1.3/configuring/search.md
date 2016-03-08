@@ -14,26 +14,29 @@ aliases:
   - /riak/2.1.3/ops/advanced/configs/search/
 ---
 
+[usage search]: /riak/kv/2.1.3/developing/usage/search
+[usage search schema]: /riak/kv/2.1.3/developing/usage/search-schemas
+[usage search data types]: /riak/kv/2.1.3/developing/usage/searching-data-types
+[usage custom extractors]: /riak/kv/2.1.3/developing/usage/custom-extractors
 [config reference]: /riak/kv/2.1.3/configuring/reference
+[config reference#search]: /riak/kv/2.1.3/configuring/reference/#Search
+[glossary aae]: /riak/kv/2.1.3/learn/glossary/#Active-Anti-Entropy-AAE-
+[security index]: /riak/kv/2.1.3/using/security/
 
-<div class="note">
-<div class="title">Note on Search 2.0 vs. Legacy Search</div>
-This document refers to the new Riak Search 2.0 with
-[[Solr|http://lucene.apache.org/solr/]] integration (codenamed
-Yokozuna). For information about the deprecated Riak Search, visit [[the
-old Riak Search
-Settings|http://docs.basho.com/riak/1.4.8/ops/advanced/configs/search/]].
-</div>
+> **Note on Search 2.0 vs. Legacy Search**
+>
+> This document refers to the new Riak Search 2.0 with
+[Solr](http://lucene.apache.org/solr/) integration (codenamed
+Yokozuna). For information about the deprecated Riak Search, visit [the old Riak Search Settings](http://docs.basho.com/riak/1.4.8/ops/advanced/configs/search/).
 
-This document covers Riak's [[Search|Using Search]] subsystem from an
+This document covers Riak's Search subsystem from an
 operational perspective. If you are looking for more developer-focused
 docs, we recommend the following:
 
-* [[Using Search]]
-* [[Search Schema]]
-* [[Search Details]]
-* [[Custom Search Extractors]]
-* [[Riak Data Types and Search]]
+* [Using Search][usage search]
+* [Search Schema][usage search schema]
+* [Custom Search Extractors][usage custom extractors]
+* [Riak KV Data Types and Search][usage search data types]
 
 ## Enabling Riak Search
 
@@ -59,12 +62,12 @@ page](http://www.oracle.com/technetwork/java/javase/documentation/index.html).
 
 Setting `search` to `on` is required, but other search settings are
 optional. A list of these parameters can also be found in our
-[[configuration files|Configuration Files#Search]] documentation.
+[configuration files][config reference#search] documentation.
 
 Field | Default | Valid values | Description
 :-----|:--------|:-------------|:-----------
 `search` | `off` | `on` or `off` | Enable or disable Search
-`search.anti_entropy.data_dir` | `./data/yz_anti_entropy` | Directory | The directory in which Riak Search stores files related to [[active anti-entropy]]
+`search.anti_entropy.data_dir` | `./data/yz_anti_entropy` | Directory | The directory in which Riak Search stores files related to [active anti-entropy][glossary aae]
 `search.root_dir` | `./data/yz` | Directory | The root directory in which index data and configuration is stored
 `search.solr.start_timeout` | `30s` | Integer with time units (eg. 2m) | How long Riak will wait for Solr to start (attempts twice before shutdown). Values lower than 1s will be rounded up to 1s.
 `search.solr.port` | `8093` | Integer | The port number to which Solr binds (note: binds on every interface)
@@ -79,14 +82,10 @@ cause Solr to require more time to start.
 
 Riak Search runs one Solr process per node to manage its indexing and
 search functionality. While the underlying project, Yokozuna, manages
-index distribution, node coverage for queries, [[active anti-entropy
-(AAE)|Search Details#Active-Anti-Entroy-AAE-]], and JVM process
-management, you should provide plenty of RAM and diskspace for running
-both Riak and the JVM running Solr. We recommend a minimum of 6GB of RAM
-per node.
+index distribution, node coverage for queries, active anti-entropy
+(AAE), and JVM process management, you should provide plenty of RAM and diskspace for running both Riak and the JVM running Solr. We recommend a minimum of 6GB of RAM per node.
 
-Concerning ports, be sure to take the necessary [[security|Security and
-Firewalls]] precautions to prevent exposing the extra Solr and JMX ports
+Concerning ports, be sure to take the necessary [security][security index] precautions to prevent exposing the extra Solr and JMX ports
 to the outside world.
 
 ## Solr for Operators

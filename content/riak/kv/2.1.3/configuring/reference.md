@@ -179,7 +179,7 @@ parameters below.
 <tr>
 <td><code>platform_bin_dir</code></td>
 <td>The directory in which the <code>[riak][use admin riak cli]</code>,
-<code>[[riak-admin|riak-admin Command Line]]</code>,
+[`riak-admin`][use admin riak-admin],
 <code>riak-debug</code>, and now-deprecated <code>search-cmd</code>
 executables are stored.</td>
 <td><code>./bin</code></td>

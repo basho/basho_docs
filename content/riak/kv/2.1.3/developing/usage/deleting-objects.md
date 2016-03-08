@@ -100,3 +100,55 @@ if err := cluster.Execute(cmd); err != nil {
 ```curl
 curl -XDELETE http://localhost:8098/types/quotes/buckets/oscar_wilde/keys/genius
 ```
+
+## Client Library Examples
+
+If you are updating an object that has been deleted---or if an update 
+might target a deleted object---we recommend that
+you first fetch the [[causal context]] of the object prior to updating.
+This can be done by setting the `deletedvclock` parameter to `true` as
+part of the [[fetch operation|PBC Fetch Object]]. This can also be done
+with the official Riak clients for Ruby, Java, and Erlang, as in the
+example below:
+
+
+```ruby
+object.delete
+deleted_object = bucket.get('bucket', 'key', deletedvclock: true)
+deleted_object.vclock
+```
+
+```python
+# It is not currently possible to fetch the causal context for a deleted
+# key in the Python client.
+```
+
+```java
+Location loc = new Location("<bucket>")
+    .setBucketType("<bucket_type>")
+    .setKey("<key>");
+FetchValue fetch = new FetchValue.Builder(loc)
+    .withOption(Option.DELETED_VCLOCK, true)
+    .build();
+FetchValue.Response response = client.execute(fetch);
+System.out.println(response.getVclock().asString());
+```
+
+```erlang
+{ok, Obj} = riakc_pb_socket:get(Pid,
+                              {<<"bucket_type">>, <<"bucket">>},
+                              <<"key">>,
+                              [{deleted_vclock}]).
+
+%% In the Erlang client, the vector clock is accessible using the Obj
+%% object obtained above.
+```
+
+```php
+$response = (new \Basho\Riak\Command\Builder\FetchObject($riak))
+  ->buildLocation('deleted_key', 'in_some_bucket', 'of_a_certain_type')
+  ->build()
+  ->execute();
+
+echo $response->getVclock(); // a85hYGBgzGDKBVI8m9WOeb835ZRhYCg1zGBKZM5jZdhnceAcXxYA
+```

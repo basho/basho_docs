@@ -16,6 +16,7 @@ aliases:
 
 [concept clusters]: /riak/kv/2.1.3/concepts/clusters
 [glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode
+[usage delete objects]: /riak/kv/2.1.3/developing/usage/deleting-objects
 
 In single-server, non-clustered data storage systems, object deletion
 is a trivial process. In an [[eventually consistent|Eventual
@@ -70,100 +71,9 @@ motion:
 3. If fallback vnodes are in use, the object will not be immediately
    removed
 
-## Configuring Object Deletion
-
-If step 3 in the process explained above is reached, the `delete_mode`
-setting in your [[configuration files|Configuration
-Files#advanced-configuration]] will determine what happens next. This
-setting determines how long Riak will wait after identifying an object
-for deletion and actually removing the object from the storage backend.
-
-There are three possible settings:
-
-* `keep` --- Disables tombstone removal; protects against an edge case
-  in which an object is deleted and recreated on the owning
-  [vnodes][glossary vnode] while a fallback is either down or awaiting handoff
-* `immediate` --- The tombstone is removed as soon as the request is
-  received
-* Custom time interval --- How long to wait until the tombstone is
-  removed, expressed in milliseconds. The default is `3000`, i.e. to
-  wait 3 seconds
-
-In general, we recommend setting the `delete_mode` parameter to `keep`
-if you plan to delete and recreate objects under the same key
-frequently.
-
-Setting `delete_mode` to `immediate` can be useful in situations in
-which an aggressive space reclamation process is necessary, such as
-when running [[MapReduce jobs|Using MapReduce]], but we do not recommend
-this in general.
-
-Setting `delete_mode` to a longer time duration than the default can be
-useful in certain edge cases involving [[Multi-Datacenter
-Replication|Multi Data Center Replication v3 Architecture]], e.g. when
-network connectivity is an issue.
-
-Please note that there is an edge case where tombstones will remain
-stored in the backend, even if the time interval-based `delete_mode` is
-used. This occurs if the node is stopped after a tombstone has been
-written but before it has been removed from the backend. In this case,
-the tombstone will show up in keylisting and MapReduce operations and
-will not disappear until you read the key, which has the effect of
-making Riak aware of the tombstone. In practice, if `delete_mode`is set
-to 10000, all keys that have been deleted during the last 10 seconds
-before a node is stopped will remain in the backend.
-
 ## Client Library Examples
 
-If you are updating an object that has been deleted---or if an update 
-might target a deleted object---we recommend that
-you first fetch the [[causal context]] of the object prior to updating.
-This can be done by setting the `deletedvclock` parameter to `true` as
-part of the [[fetch operation|PBC Fetch Object]]. This can also be done
-with the official Riak clients for Ruby, Java, and Erlang, as in the
-example below:
-
-
-```ruby
-object.delete
-deleted_object = bucket.get('bucket', 'key', deletedvclock: true)
-deleted_object.vclock
-```
-
-```python
-# It is not currently possible to fetch the causal context for a deleted
-# key in the Python client.
-```
-
-```java
-Location loc = new Location("<bucket>")
-    .setBucketType("<bucket_type>")
-    .setKey("<key>");
-FetchValue fetch = new FetchValue.Builder(loc)
-    .withOption(Option.DELETED_VCLOCK, true)
-    .build();
-FetchValue.Response response = client.execute(fetch);
-System.out.println(response.getVclock().asString());
-```
-
-```erlang
-{ok, Obj} = riakc_pb_socket:get(Pid,
-                              {<<"bucket_type">>, <<"bucket">>},
-                              <<"key">>,
-                              [{deleted_vclock}]).
-
-%% In the Erlang client, the vector clock is accessible using the Obj
-%% object obtained above.
-```
-
-```php
-$response = (new \Basho\Riak\Command\Builder\FetchObject($riak))
-  ->buildLocation('deleted_key', 'in_some_bucket', 'of_a_certain_type')
-  ->build()
-  ->execute();
-
-echo $response->getVclock(); // a85hYGBgzGDKBVI8m9WOeb835ZRhYCg1zGBKZM5jZdhnceAcXxYA
-```
+Check out [Deleting Objects][usage delete objects] in the Developing section for examples of deleting objects client-side.
 
 ## Resources
 
