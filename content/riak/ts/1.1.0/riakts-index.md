@@ -1,18 +1,19 @@
 ---
-title: "Riak TS"
-description: "Riak TS"
-menu:
-  riak_ts-1.0.0:
-    name: "Riak TS"
-    identifier: "introduction"
-    weight: 200
-project: "riak_ts"
-project_version: "1.0.0"
+title: Riak TS
+project: riakts
+version: 1.0.0+
+document: index
 toc: true
+index: true
+audience: beginner
+keywords: [riak, riak ts, getting started, time series]
+body_id: riakts-index
+simple: true
+versions: true
 ---
 
-[installing]: http://docs.basho.com/riakts/1.0.0/installing/installing/
-[learnabout]: http://docs.basho.com/riakts/1.0.0/learn-about/learn-about/
+[installing]: http://docs.basho.com/riakts/1.1.0/installing/installing/
+[learnabout]: http://docs.basho.com/riakts/1.1.0/learn-about/learn-about/
 
 
 Riak TS is a distributed NoSQL key/value store optimized for time series data. It provides a time series database solution that is extensible and scalable.
@@ -28,7 +29,6 @@ Riak TS includes a complete build of Riak KV, but adds the ability to co-locate 
 * RHEL 7
 * Ubuntu 12.04
 * Ubuntu 14.04
-* Debian 6 (development only)
 * Debian 7 (development only)
 * OS X 10.8 (development only)
 
@@ -37,6 +37,6 @@ Riak TS includes a complete build of Riak KV, but adds the ability to co-locate 
 
 ##Get Started
 
-Enterprise customers can download the Riak TS package from ZenDesk. Once you have downloaded the package, check out how to [install][installing] it. 
+Get started with Riak TS by downloading the package from ZenDesk, then check out how to [install][installing] it. 
 
 If you want to learn more about how Riak TS was designed and how it is structured, checkout our [Learn About Riak TS][learnabout] section.

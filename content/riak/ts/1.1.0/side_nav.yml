@@ -1,0 +1,41 @@
+riakts:
+  # - title: "Shortcuts"
+  #   class: "active shortcuts"
+  #   sub:
+  #     - "[[APIs|/dev/references/http/]]"
+  #     - "[[FAQs|Riak FAQs]]"
+  - title: "Start Here"
+    class: "start"
+    sub:
+      - "[[Riak TS]]"
+      - "[[Release Notes|Riak TS 1.1.0 Release Notes]]"
+  - title: "Installing Riak TS"
+    sub:
+      - "[[Installing Riak TS]]"
+      - "[[Debian and Ubuntu|Installing on Debian and Ubuntu]]"
+      - "[[CentOS and RHEL|Installing on CentOS/RHEL]]"
+      - "[[Mac OS X|Installing on Mac OS X]]"
+  - title: "Using Riak TS"
+    sub:
+      - "[[Using Riak TS]]"
+      - "[[Planning Your Riak TS Table]]"
+      - "[[Creating and Activating Your Riak TS Table]]"
+      - "[[Writing Data to Riak TS]]"
+      - "[[Querying Data in Riak TS]]"
+      - "[[Configure Riak TS]]"
+      - "[[Riak TS Aggregate Functions]]"
+      - "[[Riak TS Arithmetic Operations]]"
+  - title: "Developing with Riak TS"
+    sub:
+      - "[[Developing with Riak TS]]"
+      - "[[Erlang Client API]]"
+      - "[[Java Client API]]"
+      - "[[Node.js Client API]]"
+      - "[[Python Client API]]"
+      - "[[Ruby Client API]]"
+  - title: "Learn About Riak TS"
+    sub:
+      - "[[Learn About Riak TS]]"
+      - "[[Architecture of Riak TS Tables|Advanced Planning Riak TS Tables]]"
+      - "[[Riak TS Best Practices]]"
+      - "[[SQL for Riak TS]]"
