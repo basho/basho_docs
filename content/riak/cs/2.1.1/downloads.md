@@ -3,8 +3,8 @@ title: "Download Riak CS 2.1.1 and Other Tools"
 description: "Download some stuff!"
 menu:
   riak_cs-2.1.1:
-    name: "Download Riak KV"
-    identifier: "download_riak_kv"
+    name: "Download Riak CS"
+    identifier: "download_riak_cs"
     weight: 300
     pre: icon-lambda
 project: "riak_cs"
