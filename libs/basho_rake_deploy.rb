@@ -244,7 +244,7 @@ def do_deploy()
   #TODO: Figure out if we're correctly routing from archived content /latest/
   # pages to the new site. I don't believe we currently are.
   new_website_configuration = {
-    :error_document => aws_bucket_website.error_document.to_hash,
+    :error_document => {:key => "404.html"},
     :index_document => aws_bucket_website.index_document.to_hash,
     :routing_rules  => routing_rules
   }
