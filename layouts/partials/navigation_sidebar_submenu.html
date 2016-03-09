@@ -10,20 +10,28 @@
                       whenever this partial is called into).
   $current_node and $menu_title will be set in navigation_sidebar.html and
   will should passed on without any modification.
+{{ $current_menu := .current_menu }}
 {{ $current_node := .current_node }}
 {{ $menu_title   := .menu_title }}
 {{ $menu_depth   := .menu_depth }}
+{{ $is_current   := ($current_node.IsMenuCurrent $menu_title $current_menu) }}
+{{ $open         := or ($current_node.IsMenuCurrent $menu_title $current_menu) ($current_node.HasMenuCurrent $menu_title $current_menu) }}
 -->
-<ul class="depth-{{$menu_depth}}"{{ if or ($current_node.IsMenuCurrent $menu_title .current_menu) ($current_node.HasMenuCurrent $menu_title .current_menu) }} style="display: block;"{{end}}>
-  {{ range $next_menu := .current_menu.Children }}
-  <li{{ if $current_node.IsMenuCurrent $menu_title . }} class="current"{{end}}>
-  {{ if $next_menu.HasChildren }}
-    <h4>
-      <span><a href="{{$next_menu.URL}}">{{$next_menu.Name}}</a></span>
-      <span class="menu-toggle{{ if or ($current_node.IsMenuCurrent $menu_title $next_menu) ($current_node.HasMenuCurrent $menu_title $next_menu) }} open{{end}}"></span>
-    </h4>
+<ul class="depth-{{$menu_depth}}" style="display: {{if $open}}block{{else}}none{{end}}">
+  {{ range $next_menu := $current_menu.Children }}
+  {{ $is_current   := ($current_node.IsMenuCurrent $menu_title $next_menu) }}
+  {{ $open         := or $is_current ($current_node.HasMenuCurrent $menu_title $next_menu) }}
+  <li {{if $is_current}}class="current"{{end}}>
+    {{ if $next_menu.HasChildren }}
+    <div class="menu-title">
+      <span class="menu-toggle-buffer float-right">&nbsp;</span>
+      <span class="menu-toggle{{if $open}} open{{end}} float-right"></span>
+      <a class="toggle-border block overflow" href="{{$next_menu.URL}}">{{$next_menu.Name}}</a>
+    </div>
     {{ partial "navigation_sidebar_submenu.html" (dict "current_menu" $next_menu "current_node" $current_node "menu_title" $menu_title "menu_depth" (add 1 $menu_depth)) }}
-  {{ else }}
-    <h4><span><a href="{{$next_menu.URL}}">{{$next_menu.Name}}</a></span></h4>
+    {{ else }}
+    <a class="menu-title right-padding block" href="{{$next_menu.URL}}">{{$next_menu.Name}}</a>
+    {{ end }}
+  </li>
   {{ end }}
-  </li>{{ end }}</ul>
+</ul>
