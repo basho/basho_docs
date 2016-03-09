@@ -1,11 +1,15 @@
 ---
-title: Using riak_shell
-project: riakts
-version: 1.2.0+
-document: guide
+title: "Using riak_shell"
+description: "Using riak_shell"
+menu:
+  riak_ts-1.2.0:
+    name: "Using riak_shell"
+    identifier: "riak_shell"
+    weight: 400
+project: "riak_ts"
+project_version: "1.2.0"
 toc: true
-index: true
-audience: intermediate
+<link rel="canonical" href="docs.basho.com/riak/ts/latest/using/riakshell" />
 ---
 
 

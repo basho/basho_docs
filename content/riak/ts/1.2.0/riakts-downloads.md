@@ -1,10 +1,15 @@
 ---
-title: Download Riak TS 1.2.0
-project: riakts
-version: 1.0.0+
-keywords: [riak, riak ts, time series]
-simple: true
-versions: true
+title: "Download Riak TS"
+description: "Download Riak TS 1.1.0"
+menu:
+  riak_ts-1.2.0:
+    name: "Download Riak TS"
+    identifier: "download"
+    weight: 200
+project: "riak_ts"
+project_version: "1.2.0"
+toc: true
+<link rel="canonical" href="docs.basho.com/riak/ts/latest/downloads" />
 ---
 
 [enterprise]: http://basho.com/contact/

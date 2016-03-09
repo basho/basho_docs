@@ -1,11 +1,15 @@
 ---
-title: Learn About Riak TS
-project: riakts
-version: 1.0.0+
-document: guide
+title: "Learn About Riak TS"
+description: "Learn About Riak TS"
+menu:
+  riak_ts-1.2.0:
+    name: "Learn About Riak TS"
+    identifier: "introduction"
+    weight: 300
+project: "riak_ts"
+project_version: "1.2.0"
 toc: true
-index: true
-audience: beginner
+<link rel="canonical" href="docs.basho.com/riak/ts/latest/learn-about" />
 ---
 
 [advancedplanning]: http://docs.basho.com/riakts/1.2.0/learn-about/advancedplanning

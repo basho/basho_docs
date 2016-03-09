@@ -1,13 +1,15 @@
 ---
-title: Installing on CentOS/RHEL
-project: riakts
-version: 1.0.0+
-document: tutorial
-audience: beginner
-keywords: [tutorial, installing, centos, linux]
-download:
-  key: centos, rhel
-  name: "CentOS/RHEL"
+title: "Installing on CentOS/RHEL"
+description: "Installing on CentOS/RHEL"
+menu:
+  riak_ts-1.2.0:
+    name: "Installing on CentOS/RHEL"
+    identifier: "installing_on_centos_rhel"
+    weight: 400
+project: "riak_ts"
+project_version: "1.2.0"
+toc: true
+<link rel="canonical" href="docs.basho.com/riak/ts/latest/installing/rhel-centos" />
 ---
 
 [AAE]: http://docs.basho.com/riak/2.1.3/theory/concepts/aae/

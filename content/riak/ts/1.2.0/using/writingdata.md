@@ -1,11 +1,15 @@
 ---
-title: Writing Data to Riak TS
-project: riakts
-version: 1.0.0+
-document: guide
+title: "Writing Data to Riak TS"
+description: "Writing Data to Riak TS"
+menu:
+  riak_ts-1.2.0:
+    name: "Writing Data to Riak TS"
+    identifier: "writing_data_riakts"
+    weight: 400
+project: "riak_ts"
+project_version: "1.2.0"
 toc: true
-index: true
-audience: beginner
+<link rel="canonical" href="docs.basho.com/riak/ts/latest/using/writing" />
 ---
 
 [activating]: https://www.docs.basho.com/riakts/1.2.0/using/creating-activating

@@ -1,11 +1,15 @@
 ---
-title: Creating and Activating Your Riak TS Table
-project: riakts
-version: 1.0.0+
-document: guide
+title: "Creating and Activating Your Riak TS Table"
+description: "Creating and Activating Your Riak TS Table"
+menu:
+  riak_ts-1.2.0:
+    name: "Creating and Activating Your Riak TS Table"
+    identifier: "creating_activating_riakts"
+    weight: 400
+project: "riak_ts"
+project_version: "1.2.0"
 toc: true
-index: true
-audience: beginner
+<link rel="canonical" href="docs.basho.com/riak/ts/latest/using/creating-activating" />
 ---
 
 [erlang]: http://docs.basho.com/riakts/1.2.0/developing/erlang#query2

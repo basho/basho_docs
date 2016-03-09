@@ -1,15 +1,15 @@
 ---
-title: Riak TS
-project: riakts
-version: 1.0.0+
-document: index
+title: "Riak TS"
+description: "Riak TS"
+menu:
+  riak_ts-1.2.0:
+    name: "Riak TS"
+    identifier: "introduction"
+    weight: 200
+project: "riak_ts"
+project_version: "1.2.0"
 toc: true
-index: true
-audience: beginner
-keywords: [riak, riak ts, getting started, time series]
-body_id: riakts-index
-simple: true
-versions: true
+<link rel="canonical" href="docs.basho.com/riak/ts/latest" />
 ---
 
 [installing]: http://docs.basho.com/riakts/1.2.0/installing/installing/

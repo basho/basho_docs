@@ -1,11 +1,15 @@
 ---
-title: Python Client API 
-project: riakts
-version: 1.0.0+
-document: reference
+title: "Python Client API"
+description: "Python Client API"
+menu:
+  riak_ts-1.2.0:
+    name: "Python Client API"
+    identifier: "ts_python_api"
+    weight: 400
+project: "riak_ts"
+project_version: "1.2.0"
 toc: true
-index: true
-audience: advanced
+<link rel="canonical" href="docs.basho.com/riak/ts/latest/developing/python" />
 ---
 
 

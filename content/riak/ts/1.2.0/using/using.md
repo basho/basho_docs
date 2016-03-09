@@ -1,11 +1,15 @@
 ---
-title: Using Riak TS
-project: riakts
-version: 1.0.0+
-document: guide
+title: "Using Riak TS"
+description: "Using Riak TS"
+menu:
+  riak_ts-1.2.0:
+    name: "Using Riak TS"
+    identifier: "introduction"
+    weight: 300
+project: "riak_ts"
+project_version: "1.2.0"
 toc: true
-index: true
-audience: beginner
+<link rel="canonical" href="docs.basho.com/riak/ts/latest/using" />
 ---
 
 [activating]: http://docs.basho.com/riakts/1.2.0/using/creating-activating/

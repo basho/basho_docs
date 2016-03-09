@@ -1,14 +1,17 @@
 ---
-title: Installing on Debian and Ubuntu
-project: riakts
-version: 1.0.0+
-document: tutorial
-audience: beginner
-keywords: [tutorial, installing, debian, ubuntu, linux]
-download:
-  key: debian
-  name: "Debian or Ubuntu"
+title: "Installing on Debian and Ubuntu"
+description: "Installing on Debian and Ubuntu"
+menu:
+  riak_ts-1.2.0:
+    name: "Installing on Debian and Ubuntu"
+    identifier: "installing_on_debian_ubuntu"
+    weight: 400
+project: "riak_ts"
+project_version: "1.2.0"
+toc: true
+<link rel="canonical" href="docs.basho.com/riak/ts/latest/installing/debian-ubuntu" />
 ---
+
 
 [AAE]: http://docs.basho.com/riak/2.1.3/theory/concepts/aae/
 [planning]: http://docs.basho.com/riakts/1.2.0/using/planning
