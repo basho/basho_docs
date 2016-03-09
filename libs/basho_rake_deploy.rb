@@ -16,10 +16,11 @@ def do_deploy()
   require 'yaml'
 
   # Validation check for environment variables
-  if (!ENV['AWS_S3_BUCKET']         ||
-      !ENV['AWS_ACCESS_KEY_ID']     ||
-      !ENV['AWS_SECRET_ACCESS_KEY'] ||
-      !ENV['AWS_CLOUDFRONT_DIST_ID']  )
+  if (!ENV['AWS_S3_BUCKET']          ||
+      !ENV['AWS_ACCESS_KEY_ID']      ||
+      !ENV['AWS_SECRET_ACCESS_KEY']  ||
+      !ENV['AWS_CLOUDFRONT_DIST_ID'] ||
+      !ENV['AWS_HOST_NAME']            )
     puts("The below required environment variable(s) have not been defined.\n"\
          "Without them, the Deploy process cannot complete.\n"\
          "Please verify that they have been correctly defined.")
@@ -27,6 +28,7 @@ def do_deploy()
     puts("  * AWS_ACCESS_KEY_ID") if (!ENV['AWS_ACCESS_KEY_ID'])
     puts("  * AWS_SECRET_ACCESS_KEY") if (!ENV['AWS_SECRET_ACCESS_KEY'])
     puts("  * AWS_CLOUDFRONT_DIST_ID") if (!ENV['AWS_CLOUDFRONT_DIST_ID'])
+    puts("  * AWS_HOST_NAME") if (!ENV['AWS_HOST_NAME'])
     exit()
   end
 
@@ -212,21 +214,6 @@ def do_deploy()
     puts("  No files to delete...")
   end
 
-  # Invalidate any files that were modified --- either uploaded or deleted
-  invalidation_list = upload_list + delete_list
-  if (invalidation_list.length > 0)
-    cf_client = SimpleCloudfrontInvalidator::CloudfrontClient.new(
-        ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY'],
-        ENV['AWS_CLOUDFRONT_DIST_ID'])
-    invalidation_list.each_slice(100).with_index do |slice, index|
-      puts("  Sending Invalidation Request for objects #{index*100}--#{(index+1)*100}...")
-      cf_report = cf_client.invalidate(slice)
-    end
-  else
-    puts("  No files to invalidate...")
-  end
-
-
   # Fetch and rewrite the S3 Routing Rules to make sure the 'latest' of every
   # project correctly re-route.
   puts("  Configuring S3 Bucket Website redirect rules...")
@@ -241,8 +228,6 @@ def do_deploy()
   # Build the routing rules based on the config.yaml's 'project_descripts'. One
   # routing rule per project.
   routing_rules = []
-  #TODO: Consider making the domain (below, `:host_name =>`) a required EVN var
-  # so we can use this script to push to both docs.basho and stage.docs?
   config_file['params']['project_descriptions'].each do |project, description|
     name = description['name']
     ver  = description['latest']
@@ -250,7 +235,7 @@ def do_deploy()
       {
         :condition => { :key_prefix_equals       => "#{name}/latest/" },
         :redirect  => { :replace_key_prefix_with => "#{name}/#{ver}/",
-                        :host_name               => "stage.docs.basho.com" }
+                        :host_name               => ENV['AWS_HOST_NAME'] }
       }
     )
   end
@@ -266,6 +251,32 @@ def do_deploy()
 
   aws_bucket_website.put({ website_configuration: new_website_configuration })
 
+  # Invalidate any files that were modified --- either uploaded or deleted
+  invalidation_list = upload_list + delete_list
+  if (invalidation_list.length > 0)
+    #FIXME: Since we're still in development, and I've had some issues with the
+    #       deploy process (also b/c Amazon charges per invalidation, _not_ per
+    #       file invalidated), I'm going to be lazy here and just invalidate the
+    #       entire S3 bucket.
+    #       This should be fixed after we start using this deploy script.
+    if (false)
+      cf_client = SimpleCloudfrontInvalidator::CloudfrontClient.new(
+          ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY'],
+          ENV['AWS_CLOUDFRONT_DIST_ID'])
+      invalidation_list.each_slice(100).with_index do |slice, index|
+        puts("  Sending Invalidation Request for objects #{index*100}--#{(index+1)*100}...")
+        cf_report = cf_client.invalidate(slice)
+      end
+    else
+      cf_client = SimpleCloudfrontInvalidator::CloudfrontClient.new(
+          ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY'],
+          ENV['AWS_CLOUDFRONT_DIST_ID'])
+      puts("  Being lazy and sending Invalidation Request for \"/*\"...")
+      cf_report = cf_client.invalidate(['/*'])
+    end
+  else
+    puts("  No files to invalidate...")
+  end
 
   puts("")
   puts("Deploy Process Complete!")
