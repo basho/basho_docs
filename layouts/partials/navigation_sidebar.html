@@ -5,99 +5,120 @@
   This partial should be invoked with a dict containing the below members
     "context"    -- The Context in which the partial was invoked
     "menu_title" -- The name of the Hugo menu to render, "" if nothing.
+{{ $current_node := $.context }}
+{{ $menu_title   := $.menu_title }}
 -->
 <aside id="nav-container" role="complementary">
   <nav class="overview" id="primary-nav" role="nav">
     <div id="primary-nav-content">
-      <h2 class="responsive-link"><a class="responsive-toggle"></a></h2>
+      <!-- Navigation Menu Toggle, only displayed in reduced-width -->
+      <div class="responsive-link"><a class="responsive-toggle block float-right"></a></div>
 
       <!-- Search bar -->
       <form id="searchbox_011972015458788978446:zgdcy4fa-o0" action="">
         <div class="nav-field-container">
           <div id="icon-container-search">
-            <div class="icon-container"><span aria-hidden="true" class="nav-icon-search icon-search"></span></div>
-            <span class="separator">&#124;</span>
+            <div class="icon-container block float-left">
+              <span aria-hidden="true" class="nav-icon icon-search"></span>
+            </div>
+            <span class="separator block float-left"></span>
           </div>
-          <input id="main-search" name="q" placeholder="Search" size="5" type="search" />
+          <input id="main-search" name="q" placeholder="Search" size="5" type="search">
         </div>
       </form>
-
       <div class="clear"></div>
 
-      <!-- Vist Basho link, only displayed in reduced-width -->
-      <h3 class="responsive-link visit-basho">
-        <a href="http://www.basho.com">
-          <div class="icon-container">
-            <span aria-hidden="true" class="nav-icon" data-icon="&#xe003;"></span>
+      <ul class="depth-0">
+        <!-- Vist Basho link, only displayed in reduced-width -->
+        <li class="responsive-link visit-basho">
+          <div class="menu-title">
+            <span class="icon-container block float-left ">
+              <span aria-hidden="true" class="nav-icon icon-riak"></span>
+            </span>
+            <span class="separator block float-left"></span>
+            <a class="block overflow" href="http://www.basho.com">Visit Basho</a>
+            <div class="clear"></div>
           </div>
-          <span class="separator">&#124;</span>
-          <span class="menu-title">Visit Basho</span>
-          <div class="clear"></div>
-        </a>
-      </h3>
+        </li>
 
-      <!-- All Projects (splash) link, only displayed in reduced-width -->
-      <h3 class="responsive-link">
-        <a href="/index.html">
-          <div class="icon-container">
-            <span aria-hidden="true" class="nav-icon" data-icon="&#xe003;"></span>
+        <!-- All Projects (splash) link, only displayed in reduced-width -->
+        <li class="responsive-link">
+          <div class="menu-title">
+            <span class="icon-container block float-left">
+              <span aria-hidden="true" class="nav-icon icon-riak"></span>
+            </span>
+            <span class="separator block float-left"></span>
+            <a class="toggle-border block overflow" href="/index.html">All Riak Projects</a>
+            <div class="clear"></div>
           </div>
-          <span class="separator">&#124;</span>
-          <span class="menu-title">All Riak Projects</span>
-          <div class="clear"></div>
-        </a>
-      </h3>
+        </li>
 
-      <!-- Navigation Sidebar Entries -- One entry per page in the project
-        Store the current node and menu title so they can be packed into a dict
-        with every given node and passed to the navigation_sidebar_submenu.html
-        partial.
-      {{ $current_node := .context }}
-      -->
-      {{ range $current_menu := (index .context.Site.Menus .menu_title) }}
-      <h3>
-        <div class="icon-container"><span aria-hidden="true" class="nav-icon {{ .Pre }}"></span>&nbsp;</div>
-        <span class="separator">&#124;</span>
-        <span class="menu-title"><a href="{{.URL}}">{{ if $current_node.IsMenuCurrent $.menu_title $current_menu }}** {{ end }}{{ .Name }}</a></span>
-        <div class="clear"></div>
-      </h3>
-      <!--FIXME: The below structure + CSS (and maybe JS?) are absolute trash.
-                 I completely disagree with the existence of the menu-toggle
-                 element being predicated on the h4 element. This all just
-                 makes me so sad. -->
-      {{ if $current_menu.HasChildren }}
-        {{ partial "navigation_sidebar_submenu.html" (dict "current_menu" $current_menu "current_node" $current_node "menu_title" $.menu_title "menu_depth" 1) }}
-      {{ end }} {{ end }}
-      <h3>
-        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-comments"></span>&nbsp;</div>
-        <span class="separator">&#124;</span>
-        <span class="menu-title"><a href="/community">Community</a></span>
-        <div class="clear"></div>
-      </h3>
-      <!--NOTE: This empty <ul> marks the end of the generated nav list -->
-      <ul></ul>
+        <!-- Dynamic Navigation Sidebar Entries
+          One entry per page in the project.
+        -->
+        {{ range $current_menu := (index $.context.Site.Menus $menu_title) }}
+        <!--
+        {{ $is_current := ($current_node.IsMenuCurrent $menu_title $current_menu) }}
+        {{ $open       := or ($is_current) ($current_node.HasMenuCurrent $menu_title $current_menu) }}
+        {{ $toggle     := $current_menu.HasChildren }}
+        -->
+        <li {{if $is_current}}class="current"{{end}}>
+          <div class="menu-title">
+            <span class="icon-container block float-left">
+              <span aria-hidden="true" class="nav-icon {{ $current_menu.Pre }}"></span>&nbsp;
+            </span>
+            <span class="separator block float-left"></span>
+            {{if $toggle}}
+            <span class="menu-toggle-buffer float-right">&nbsp;</span>
+            <span class="menu-toggle{{if $open}} open{{end}} float-right"></span>
+            {{end}}
+            <a class="{{if $toggle}}toggle-border {{end}}block overflow" href="{{$current_menu.URL}}">
+              {{ $current_menu.Name }}
+            </a>
+            <div class="clear"></div>
+          </div>
+          {{ if $current_menu.HasChildren }}
+          {{ partial "navigation_sidebar_submenu.html" (dict "current_menu" $current_menu "current_node" $current_node "menu_title" $menu_title "menu_depth" 1) }}
+          {{ end }}
+        </li>
+        {{ end }}
+
+        <!-- Community Navigation Item -->
+        <li>
+          <div class="menu-title">
+            <span class="icon-container block float-left">
+              <span aria-hidden="true" class="nav-icon icon-comments"></span>&nbsp;
+            </span>
+            <span class="separator block float-left"></span>
+            <a class="block overflow" href="/community">Community</a>
+            <div class="clear"></div>
+          </div>
+        </li>
+      </ul>
     </div>
   </nav>
 
-  <!-- Additional Content
-    Github link
-    Get Help link
-    Community link (TODO) -->
+  <!-- Fixed Nav Content
+    The fixed-nav will be locked to the bottom of the navigation container.
+  -->
+  <!--TODO: Come up with a better name than "fixed-nav" -->
   <ul id="fixed-nav">
     <li>
       <a href="https://github.com/basho/basho_docs" target="_blank">
-        <div class="icon-container">
-          <span aria-hidden="true" class="nav-icon" data-icon="&#xe004;"></span>
-        </div>
-        <span class="separator">&#124;</span>Available on GitHub
+        <span class="icon-container block float-left">
+          <span aria-hidden="true" class="nav-icon icon-github-alt"></span>
+        </span>
+        <span class="separator block float-left"></span>
+        Available on GitHub
       </a>
     </li>
     <li>
       <a href="/riak/latest/community/">
-        <div class="icon-container">
-          <span aria-hidden="true" class="nav-icon" data-icon="&#xf059;"></span>
-        </div>
-        <span class="separator">&#124;</span>Get Help
+        <span class="icon-container block float-left">
+          <span aria-hidden="true" class="nav-icon icon-question-sign"></span>
+        </span>
+        <span class="separator block float-left"></span>
+        Get Help
       </a>
     </li>
   </ul>

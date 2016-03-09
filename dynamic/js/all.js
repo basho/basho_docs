@@ -316,11 +316,6 @@
     }
   }
 
-
-  // Call this on the docready to add nav menu toggle buttons where needed
-  // `addNavMenuToggles` is now defined in nav-menu.js
-  options.jq.navContent.find('h3, h4').each(addNavMenuToggles);
-
   /*
    * checkForToggler()
    * Determines whether a nav header is open-able or not.
@@ -334,12 +329,12 @@
   }
 
   /*
-   * Any time a nav header or menu toggle button gets clicked
-   * check to see if it is open-able.  Then open or close as needed.
+   * Any time a nav header or menu toggle button gets clicked check to see if it
+   * is open-able, then open or close as needed.
    * Use .click instead of .on('click') because mobile Safari doesn't register
    * live click handlers.
    */
-  $(options.selectors.navContent + ' h3, ' + options.selectors.navContent + ' h4').click(checkForToggler);
+  $(options.selectors.navContent + ' div.menu-title').click(checkForToggler);
 
 
 

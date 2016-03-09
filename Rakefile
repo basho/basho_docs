@@ -94,7 +94,7 @@ namespace :watch do
 
   #TODO<drew.pirrone.brusse@gmail>: Add in some way to specify ip/port.
   desc "Run Hugo Server"
-  task :hugo do sh "hugo server"; end
+  task :hugo do sh "hugo server --ignoreCache=true"; end
 
   ################
   # Watch : Debug

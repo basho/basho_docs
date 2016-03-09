@@ -27,6 +27,7 @@ $subtleBlueGreen : #ebf2f3;
 $fadedGreen      : #5a7772;
 $darkGreen       : #88b3a8;
 $inactiveText    : #AAA;
+$white           : #fff;
 
 $versionColor-2-0-x      : #ea7107;
 $lightVersionColor-2-0-x : lighten($versionColor-2-0-x, 5%);
@@ -44,6 +45,47 @@ $versionColorInactive    : #ddd;
 
 /* == Dimensions ================================= */
 $mobilePageGutter : 0.6em;
+
+/* =============================================================================
+   Convenience Classes -- Layout
+   ========================================================================== */
+
+.block {
+  display : block;
+}
+
+.inline-block {
+  display : inline-block;
+}
+
+.float-left {
+  float : left;
+}
+
+.float-right {
+  float : right;
+}
+
+.clear {
+  clear : both;
+}
+
+.clear-left {
+  clear : left;
+}
+
+.clear-right {
+  clear : right;
+}
+
+.overflow,
+.clearfix {
+  overflow : auto;
+}
+
+.overflow-hidden {
+  overflow : hidden;
+}
 
 /* =============================================================================
    Mixins
@@ -113,4 +155,55 @@ $mobilePageGutter : 0.6em;
   background : -webkit-linear-gradient(top, #{$rgbaTop} 0%, #{$rgbaBottom} 100%); /* Chrome10+,Safari5.1+ */
   background : -o-linear-gradient(top, #{$rgbaTop} 0%, #{$rgbaBottom} 100%); /* Opera 11.10+ */
   background : -ms-linear-gradient(top, #{$rgbaTop} 0%, #{$rgbaBottom} 100%); /* IE10+ */
+}
+
+
+/* =============================================================================
+   Convenience Classes -- Generic
+   ========================================================================== */
+
+.center-text {
+  text-align : center;
+}
+
+.green-link {
+  display         : block;
+  color           : darken(saturate($fadedGreen, 25%), 18%);
+  padding         : 2px 0 0 0;
+  text-decoration : none;
+  text-align      : center;
+  width           : 4.2em;
+}
+
+.horizontal-rule {
+  border-bottom : 1px solid $subtleGray;
+}
+
+.box-green {
+  @include allCorners();
+  background : $subtleBlueGreen;
+  border     : 1px solid $lightBlueGreen;
+}
+
+.box-blue {
+  @include allCorners();
+  background  : $subtleBlue;
+  border      : 1px solid $lightBlue;
+}
+
+.button-light-green {
+  @extend .sans-bold;
+  padding    : 3px 8px;
+  background : $subtleBlueGreen;
+  text-align : center;
+  cursor     : pointer;
+  color      : $darkBlueGreen;
+  font-size  : 0.75rem;
+  border     : 1px solid $lightBlueGreen;
+  @include allCorners();
+  //@include transitionAll(all 0.5s ease);
+
+  &:hover {
+    background : lighten($subtleBlueGreen, 2%);
+  }
 }
