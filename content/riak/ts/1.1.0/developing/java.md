@@ -1,11 +1,15 @@
 ---
-title: Java Client API
-project: riakts
-version: 1.0.0+
-document: reference
+title: "Java Client API"
+description: "Java Client API"
+menu:
+  riak_ts-1.1.0:
+    name: "JAva Client API"
+    identifier: "ts_java_api"
+    weight: 400
+project: "riak_ts"
+project_version: "1.1.0"
 toc: true
-index: true
-audience: advanced
+<link rel="canonical" href="docs.basho.com/riak/ts/latest/developing/java" />
 ---
 
 

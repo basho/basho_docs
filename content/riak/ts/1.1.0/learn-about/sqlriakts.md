@@ -1,11 +1,15 @@
 ---
-title: SQL for Riak TS
-project: riakts
-version: 1.0.0+
-document: reference
+title: "SQL for Riak TS"
+description: "SQL for Riak TS"
+menu:
+  riak_ts-1.1.0:
+    name: "SQL for Riak TS"
+    identifier: "riakts_sql"
+    weight: 400
+project: "riak_ts"
+project_version: "1.1.0"
 toc: true
-index: true
-audience: beginner
+<link rel="canonical" href="docs.basho.com/riak/ts/latest/learn-about/sqlriakts" />
 ---
 
 Riak TS tables were designed around SQL tables. This page will go through some SQL basics and more in depth information about how SQL is used within Riak TS.  

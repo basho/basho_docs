@@ -1,11 +1,15 @@
 ---
-title: Advanced Planning Riak TS Tables
-project: riakts
-version: 1.0.0+
-document: guide
+title: "Advanced Planning Riak TS Tables"
+description: "Advanced Planning Riak TS Tables"
+menu:
+  riak_ts-1.1.0:
+    name: "Advanced Planning Riak TS Tables"
+    identifier: "advanced_planning_riakts_tables"
+    weight: 400
+project: "riak_ts"
+project_version: "1.1.0"
 toc: true
-index: true
-audience: advanced
+<link rel="canonical" href="docs.basho.com/riak/ts/latest/learn-about/advancedplanning" />
 ---
 
 [activating]: http://docs.basho.com/riakts/1.1.0/using/creating-activating/

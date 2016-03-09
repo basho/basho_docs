@@ -1,12 +1,17 @@
 ---
-title: Riak TS Arithmetic Operations
-project: riakts
-version: 1.1.0+
-document: guide
+title: "Riak TS Arithmetic Operations"
+description: "Riak TS Arithmetic Operations"
+menu:
+  riak_ts-1.1.0:
+    name: "Riak TS Arithmetic Operations"
+    identifier: "arithmetic_operations_riakts"
+    weight: 400
+project: "riak_ts"
+project_version: "1.1.0"
 toc: true
-index: true
-audience: intermediate
+<link rel="canonical" href="docs.basho.com/riak/ts/latest/using/arithmetic-operations" />
 ---
+
 
 Riak TS supports arithmetic operations in the `SELECT` list.
 

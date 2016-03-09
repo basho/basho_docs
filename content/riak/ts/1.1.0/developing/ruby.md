@@ -1,12 +1,17 @@
 ---
-title: Ruby Client API
-project: riakts
-version: 1.1.0+
-document: reference
+title: "Ruby Client API"
+description: "Ruby Client API"
+menu:
+  riak_ts-1.1.0:
+    name: "Ruby Client API"
+    identifier: "ts_ruby_api"
+    weight: 400
+project: "riak_ts"
+project_version: "1.1.0"
 toc: true
-index: true
-audience: advanced
+<link rel="canonical" href="docs.basho.com/riak/ts/latest/developing/ruby" />
 ---
+
 
 You can develop applications and tools using Riak TS with the Riak Ruby client.
 This document covers the Ruby API for Riak TS.

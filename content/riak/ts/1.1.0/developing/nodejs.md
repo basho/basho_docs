@@ -1,11 +1,15 @@
 ---
-title: Node.js Client API
-project: riakts
-version: 1.1.0+
-document: reference
+title: "Node.js Client API"
+description: "Node.js Client API"
+menu:
+  riak_ts-1.1.0:
+    name: "Node.js Client API"
+    identifier: "ts_node.js_api"
+    weight: 400
+project: "riak_ts"
+project_version: "1.1.0"
 toc: true
-index: true
-audience: advanced
+<link rel="canonical" href="docs.basho.com/riak/ts/latest/developing/nodejs" />
 ---
 
 

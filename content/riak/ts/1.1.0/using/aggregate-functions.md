@@ -1,11 +1,15 @@
 ---
-title: Riak TS Aggregate Functions
-project: riakts
-version: 1.1.0+
-document: guide
+title: "Riak TS Aggregate Functions"
+description: "Riak TS Aggregate Functions"
+menu:
+  riak_ts-1.1.0:
+    name: "Riak TS Aggregate Functions"
+    identifier: "aggregate_functions_riakts"
+    weight: 400
+project: "riak_ts"
+project_version: "1.1.0"
 toc: true
-index: true
-audience: intermediate
+<link rel="canonical" href="docs.basho.com/riak/ts/latest/using/aggregate-functions" />
 ---
 
 
