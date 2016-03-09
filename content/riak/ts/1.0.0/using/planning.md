@@ -1,12 +1,17 @@
 ---
-title: Planning Your Riak TS Table
-project: riakts
-version: 1.0.0+
-document: guide
+title: "Planning Your Riak TS Table"
+description: "Planning Your Riak TS Table"
+menu:
+  riak_ts-1.0.0:
+    name: "Planning Your Riak TS Table"
+    identifier: "planning_riakts_table"
+    weight: 400
+project: "riak_ts"
+project_version: "1.0.0"
 toc: true
-index: true
-audience: beginner
+<link rel="canonical" href="docs.basho.com/riak/ts/latest/using/planning" />
 ---
+
 
 [activating]: https://www.docs.basho.com/riakts/1.0.0/using/activating
 [advancedplanning]: http://docs.basho.com/riakts/1.0.0/learn-about/advancedplanning/

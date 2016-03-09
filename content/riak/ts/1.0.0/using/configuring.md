@@ -1,11 +1,15 @@
 ---
-title: Configure Riak TS
-project: riakts
-version: 1.0.0+
-document: guide
+title: "Configure Riak TS"
+description: "Configure Riak TS"
+menu:
+  riak_ts-1.0.0:
+    name: "Configure Riak TS"
+    identifier: "configure_riakts"
+    weight: 400
+project: "riak_ts"
+project_version: "1.0.0"
 toc: true
-index: true
-audience: advanced
+<link rel="canonical" href="docs.basho.com/riak/ts/latest/using/configuring" />
 ---
 
 

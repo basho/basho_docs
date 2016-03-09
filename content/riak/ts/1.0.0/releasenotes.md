@@ -1,12 +1,17 @@
 ---
-title: Riak TS 1.0.0 Release Notes
-project: riakts
-version: 1.0.0+
-document: guide
-audience: beginner
+title: "Riak TS Release Notes"
+description: "Riak TS 1.0.0 Release Notes"
+menu:
+  riak_ts-1.0.0:
+    name: "Riak TS Release Notes"
+    identifier: "release_notes"
+    weight: 200
+project: "riak_ts"
+project_version: "1.0.0"
 toc: true
-keywords: [time series, release notes]
+<link rel="canonical" href="docs.basho.com/riak/ts/latest/releasenotes" />
 ---
+
 
 Released December 15, 2015.
 

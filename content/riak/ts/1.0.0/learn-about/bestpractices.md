@@ -1,12 +1,17 @@
 ---
-title: Riak TS Best Practices
-project: riakts
-version: 1.0.0+
-document: reference
+title: "Riak TS Best Practices"
+description: "Riak TS Best Practices"
+menu:
+  riak_ts-1.0.0:
+    name: "Riak TS Best Practices"
+    identifier: "riakts_best_practices"
+    weight: 400
+project: "riak_ts"
+project_version: "1.0.0"
 toc: true
-index: true
-audience: beginner
+<link rel="canonical" href="docs.basho.com/riak/ts/latest/learn-about/bestpractices" />
 ---
+
 
 [advancedplanning]: http://docs.basho.com/riakts/1.0.0/learn-about/advancedplanning/
 

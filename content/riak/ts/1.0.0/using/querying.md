@@ -1,12 +1,17 @@
 ---
-title: Querying Data in Riak TS
-project: riakts
-version: 1.0.0+
-document: guide
+title: "Querying Data in Riak TS"
+description: "Querying Data in Riak TS"
+menu:
+  riak_ts-1.0.0:
+    name: "Querying Data in Riak TS"
+    identifier: "querying_data_riakts"
+    weight: 400
+project: "riak_ts"
+project_version: "1.0.0"
 toc: true
-index: true
-audience: beginner
+<link rel="canonical" href="docs.basho.com/riak/ts/latest/using/querying" />
 ---
+
 
 [advancedplanning]: https://www.docs.basho.com/riakts/1.0.0/learn-about/advancedplanning
 [activating]: https://docs.basho.com/riakts/1.0.0/using/activating

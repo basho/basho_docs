@@ -1,14 +1,17 @@
 ---
-title: Installing on Mac OS X
-project: riakts
-version: 1.0.0
-document: tutorial
-audience: beginner
-keywords: [tutorial, installing, osx, mac]
-download:
-  key: osx
-  name: "Mac OS X"
+title: "Installing on Mac OS X"
+description: "Installing on Mac OS X"
+menu:
+  riak_ts-1.0.0:
+    name: "Installing on Mac OS X"
+    identifier: "installing_on_mac_os_x"
+    weight: 400
+project: "riak_ts"
+project_version: "1.0.0"
+toc: true
+<link rel="canonical" href="docs.basho.com/riak/ts/latest/installing/mac-osx" />
 ---
+
 
 [AAE]: http://docs.basho.com/riak/2.1.3/theory/concepts/aae/
 [openfileslimit]: http://docs.basho.com/riak/2.1.3/ops/tuning/open-files-limit/

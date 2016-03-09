@@ -1,12 +1,17 @@
 ---
-title: Installing Riak TS
-project: riakts
-version: 1.0.0+
-document: guide
+title: "Installing Riak TS"
+description: "Installing Riak TS"
+menu:
+  riak_ts-1.0.0:
+    name: "Installing Riak TS"
+    identifier: "introduction"
+    weight: 300
+project: "riak_ts"
+project_version: "1.0.0"
 toc: true
-index: true
-audience: beginner
+<link rel="canonical" href="docs.basho.com/riak/ts/latest/installing" />
 ---
+
 
 [AAE]: http://docs.basho.com/riak/2.1.3/theory/concepts/aae/
 [Centos]: http://docs.basho.com/riakts/1.0.0/installing/rhel-centos
