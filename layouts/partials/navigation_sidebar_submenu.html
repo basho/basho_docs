@@ -1,7 +1,7 @@
 <!-- Navigation Sidebar Sub Menus
      ----------------------------
   This partial should be invoked with a dict containing the below members,
-    "current_menu" -- The menu item to render, typically the current contenxt of
+    "current_menu" -- The menu item to render, typically the current context of
                       a `range` over Children
     "current_node" -- The current node (typically a page) that started the
                       sub-menu recursion
@@ -15,7 +15,7 @@
 {{ $menu_title   := .menu_title }}
 {{ $menu_depth   := .menu_depth }}
 {{ $is_current   := ($current_node.IsMenuCurrent $menu_title $current_menu) }}
-{{ $open         := or ($current_node.IsMenuCurrent $menu_title $current_menu) ($current_node.HasMenuCurrent $menu_title $current_menu) }}
+{{ $open         := or $is_current ($current_node.HasMenuCurrent $menu_title $current_menu) }}
 -->
 <ul class="depth-{{$menu_depth}}" style="display: {{if $open}}block{{else}}none{{end}}">
   {{ range $next_menu := $current_menu.Children }}
