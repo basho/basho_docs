@@ -229,12 +229,12 @@ def do_deploy()
   # routing rule per project.
   routing_rules = []
   config_file['params']['project_descriptions'].each do |project, description|
-    name = description['name']
+    path = description['path']
     ver  = description['latest']
     routing_rules.push(
       {
-        :condition => { :key_prefix_equals       => "#{name}/latest/" },
-        :redirect  => { :replace_key_prefix_with => "#{name}/#{ver}/",
+        :condition => { :key_prefix_equals       => "#{path}/latest" },
+        :redirect  => { :replace_key_prefix_with => "#{path}/#{ver}",
                         :host_name               => ENV['AWS_HOST_NAME'] }
       }
     )
