@@ -505,7 +505,7 @@ div[role="main"] {
       background-size   : contain;
       background-repeat : no-repeat;
       margin-top    : 11px;
-      margin-left   : 78px;
+      margin-left   : 86px;
       margin-bottom : 18px;
 
       h1 {
@@ -746,12 +746,22 @@ div[role="main"] {
   #marketing-banner {
     position     : relative;
     height       : 56px;
-    background   : #bed8dc url('/images/layout/bg-banner.png') no-repeat 60% 50%;
+    padding-left : 85px;
+    #marketing-banner-inner {
+      width    : 812px; // 800 for the actual width +12 for some weird padding
+                        // that's being added to the .more button by the rule
+                        // that adds the layout/external.png image to links
+      height   : 100%;
+      position : relative;
+    }
+
+    //TODO: We should be using pre-defined colors.
+    background   : #bed8dc;
     text-align   : left;
     @extend .sans;
 
     //font-family  : 'OpensSans','GandhiSerif';
-    padding-left : 100px;
+    //TODO: We should be using pre-defined colors.
     color        : #3c6c72;
     text-decoration: none;
     //@extend .sans-bold;
@@ -772,17 +782,17 @@ div[role="main"] {
       height     : 53px;
       position   : absolute;
       bottom     : 0;
-      left       : 7px;
+      right      : 57px;
     }
 
     .more {
       background: url('/images/layout/link-more.png') no-repeat;
       overflow: hidden;
       position: absolute;
-      width: 30px;
+      width: 31px;
       text-indent: -9999px;
       height: 30px;
-      right: 21px;
+      right: 0px;
       top: 50%;
       margin-top: -15px;
     }
