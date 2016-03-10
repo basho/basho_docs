@@ -9,7 +9,7 @@ menu:
 project: "riak_ts"
 project_version: "1.1.0"
 toc: true
-<link rel="canonical" href="docs.basho.com/riak/ts/latest/using" />
+cannonical_link: "docs.basho.com/riak/ts/latest/using"
 ---
 
 [activating]: http://docs.basho.com/riakts/1.1.0/using/creating-activating/
