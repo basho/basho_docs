@@ -4,7 +4,7 @@
   <meta name="viewport" content="width=device-width">
   <meta name="project" content="{{ .Params.project }}">
   <meta name="version" content="{{ .Params.project_version }}">
-  <meta name="base-url" content="{{ .URL }}">
+  <meta name="base-url" content="/{{ .Scratch.Get "site_relative_url" }}">
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 
   <title>{{ .Title }}</title>

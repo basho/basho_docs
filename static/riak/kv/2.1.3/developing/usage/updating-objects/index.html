@@ -1,0 +1,2213 @@
+<!DOCTYPE html>
+
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"></html><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"></html><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"></html><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->
+
+
+
+
+<head class="tutorials">
+  <meta charset="utf-8">
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width">
+  <meta name="project" content="riak_kv">
+  <meta name="version" content="2.1.3">
+  <meta name="base-url" content="">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+  <title>Updating Objects</title>
+
+  <link href="/css/all.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="/css/print.css" media="print" rel="stylesheet" type="text/css">
+
+  
+  <style type="text/css"> .js_enabled pre { visibility : hidden; } </style>
+  <script type="text/javascript">
+    document.documentElement.className = 'js_enabled';
+  </script>
+</head>
+
+
+
+<body class="riak_kv 2.1.3 latest ">
+
+  <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-T9C8MK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-T9C8MK');</script>
+
+  
+<aside id="nav-container" role="complementary">
+  <nav class="overview" id="primary-nav" role="nav">
+    <div id="primary-nav-content">
+      <h2 class="responsive-link"><a class="responsive-toggle"></a></h2>
+
+      
+      <form id="searchbox_011972015458788978446:zgdcy4fa-o0" action="">
+        <div class="nav-field-container">
+          <div id="icon-container-search">
+            <div class="icon-container"><span aria-hidden="true" class="nav-icon-search icon-search"></span></div>
+            <span class="separator">&#124;</span>
+          </div>
+          <input id="main-search" name="q" placeholder="Search" size="5" type="search" />
+        </div>
+      </form>
+
+      <div class="clear"></div>
+
+      
+      <h3 class="responsive-link visit-basho">
+        <a href="http://www.basho.com">
+          <div class="icon-container">
+            <span aria-hidden="true" class="nav-icon" data-icon="&#xe003;"></span>
+          </div>
+          <span class="separator">&#124;</span>
+          <span class="menu-title">Visit Basho</span>
+          <div class="clear"></div>
+        </a>
+      </h3>
+
+      
+      <h3 class="responsive-link">
+        <a href="/index.html">
+          <div class="icon-container">
+            <span aria-hidden="true" class="nav-icon" data-icon="&#xe003;"></span>
+          </div>
+          <span class="separator">&#124;</span>
+          <span class="menu-title">All Riak Projects</span>
+          <div class="clear"></div>
+        </a>
+      </h3>
+
+      
+      
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-riak"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/">Riak KV</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-download-alt"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/downloads/">Download Riak KV</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-install"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/setup/">Setup</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/planning/">Planning</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/start/">Start Planning</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/operating-system/">OS Support</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/planning/backend/">Choosing a Backend</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/backend/bitcask/">Bitcask</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/backend/leveldb/">LevelDB</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/backend/memory/">Memory</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/backend/multi/">Multi-backend</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/cluster-capacity/">Cluster Capacity</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/bitcask-capacity-calc/">Bitcask Capacity Calculator</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/best-practices/">Best Practices</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/future/">Planning for the Future</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/installing/">Installing</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/amazon-web-services/">Amazon Web Services</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/debian-ubuntu/">Debian &amp; Ubuntu</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/freebsd/">FreeBSD</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/mac-osx/">Mac OS X</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/rhel-centos/">RHEL &amp; CentOS</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/smartos/">SmartOS</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/solaris/">Solaris</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/suse/">SUSE</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/windows-azure/">Windows Azure</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/installing/source/">Installing From Source</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/source/erlang/">Installing Erlang</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/source/jvm/">Installing the JVM</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/verify/">Verifying an Installation</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/upgrading/">Upgrading</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/checklist/">Production Checklist</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/version/">Upgrading by Version</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/cluster/">Upgrading a Cluster</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/multi-datacenter/">Upgrading Multi-Datacenter</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/downgrade/">Downgrading</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-cog"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/configuring/">Configuring</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/basic/">Basic Configuration</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/backend/">Backend Configuration</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/managing/">Managing Configuration</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/reference/">Configuration Reference</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/strong-consistency/">Implementing Strong Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/load-balancing-proxy/">Load Balancing &amp; Proxy</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/mapreduce/">MapReduce Settings</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/search/">Search Settings</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/configuring/v3-multi-datacenter/">V3 Multi-Datacenter</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v3-multi-datacenter/quick-start/">Quickstart</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v3-multi-datacenter/nat/">With NAT</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v3-multi-datacenter/ssl/">SSL</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/configuring/v2-multi-datacenter/">V2 Multi-Datacenter</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v2-multi-datacenter/quick-start/">Quickstart</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v2-multi-datacenter/nat/">With NAT</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v2-multi-datacenter/ssl/">SSL</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-database"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/using/">Using</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/running-a-cluster/">Running a Cluster</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/admin/">Cluster Administration</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/admin/commands/">Cluster Admin Commands</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/admin/riak-admin/">riak-admin CLI</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/admin/riak-cli/">riak CLI</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/admin/riak-control/">Riak Control</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/cluster-operations/">Cluster Operations</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/adding-removing-nodes/">Adding/Removing Nodes</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/changing-cluster-info/">Changing Cluster Information</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/replacing-node/">Replacing a Node</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/inspecting-node/">Inspecting a Node</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/bucket-types/">Bucket Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/logging/">Logging</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/backing-up/">Backing Up</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/handoff/">Handoff</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/object-deletion/">Object Deletion</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/secondary-indexes/">Secondary Indexes</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/monitoring-strong-consistency/">Monitoring Strong Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/load-balancing/">Load Balancing</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/backend/">Backend</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/v3-multi-datacenter/">V3 Multi-Datacenter</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/v2-multi-datacenter/">V2 Multi-Datacenter</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/repair-recovery/">Repair &amp; Recovery</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/repair-recovery/failure-recovery/">Failure &amp; Recovery</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/repair-recovery/errors/">Errors</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/repair-recovery/repairs/">Repairs</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/repair-recovery/rolling-restart/">Rolling Restarts</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/security/">Security</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/security/basics/">Security Basics</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/security/managing-sources/">Managing Security Sources</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/security/best-practices/">Best Practices</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/security/v2-v3-ssl-ca/">V2/V3 SSL &amp; CA Validation</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/performance/">Performance</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/performance/benchmarking/">Benchmarking</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/performance/open-files-limit/">Open Files Limit</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/performance/v2-scheduling-fullsync/">V2 Scheduling Fullsync</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/performance/multi-datacenter-tuning/">Multi-Datacenter Replication</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/troubleshooting/">Troubleshooting</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/">Product Advisories</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/210-dataloss/">Default Configuration For Handoff May Cause Data Loss</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/appconfig-foward/">Forward Incompatibility of app.config</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/dvv-lastwritewins/">Incompatibility between Dotted Version Vectors and Last Write Wins</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/maps-204/">Map Data Type Disk Incompatibility</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/ssl-poodle/">SSL 3.0 Vulnerability and POODLE Attack</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/http-204/">HTTP 204</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/reference/">Reference</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/logging/">Logging</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/handoff/">Handoff</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/bucket-types/">Bucket Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/object-deletion/">Object Deletion</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/runtime-interaction/">Runtime Interaction</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/failure-recovery/">Failure &amp; Recovery</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/monitoring/">Monitoring</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/search-secondary-indexes/">Search &amp; Secondary Indexes</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/strong-consistency/">Strong Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/multi-datacenter/">Multi-Datacenter</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/v3/">V3 Replication</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/v2/">V2 Replication</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/architecture/">Architecture</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-lambda"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/developing/">Developing</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/">Getting Started</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/java/">Java</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/java/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/java/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/java/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/ruby/">Ruby</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/ruby/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/ruby/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/ruby/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/python/">Python</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/python/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/python/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/python/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/csharp/">C Sharp</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/csharp/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/csharp/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/csharp/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/nodejs/">NodeJS</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/nodejs/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/nodejs/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/nodejs/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/erlang/">Erlang</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/erlang/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/erlang/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/erlang/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/golang/">Go</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/golang/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/golang/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/golang/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/php/">PHP</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/php/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/php/querying/">Querying</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/usage/">Usage</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/creating-objects/">Creating Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/reading-objects/">Reading Objects</a>
+  
+  </li>
+  <li class="current">
+  
+    <a href="/riak/kv/2.1.3/developing/usage/updating-objects/">Updating Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/deleting-objects/">Deleting Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/content-types/">Content Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/search/">Searching</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/mapreduce/">Using MapReduce</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/secondary-indexes/">Using Secondary Indexes</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/bucket-types/">Bucket Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/commit-hooks/">Using Commit Hooks</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/search-schemas/">Creating Search Schemas</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/searching-data-types/">Searching with Data Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/document-store/">Implementing a Document Store</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/custom-extractors/">Custom Extractors</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/usage/security/">Security</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/java/">Java</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/ruby/">Ruby</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/python/">Python</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/erlang/">Erlang</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/php/">PHP</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/replication/">Replication</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/">Conflict Resolution</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/java/">Java</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/ruby/">Ruby</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/python/">Python</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/csharp/">C Sharp</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/nodejs/">NodeJS</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/php/">PHP</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/golang/">Go</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/data-types/">Data Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/data-modeling/">Data Modeling</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/app-guide/">Application Guide</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/app-guide/replication-properties/">Replication Properties</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/app-guide/strong-consistency/">Strong Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/app-guide/write-once/">Write Once</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/app-guide/reference/">Reference</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/client-libraries/">Client Libraries</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/api/">APIs</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/api/repl-hooks/">V2 Multi-Datacenter REPL Hooks API</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/api/backend/">Backend API</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/faq/">Developing FAQ</a>
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-beaker"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/learn/">Learning</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/why-riak-kv/">Why Riak KV?</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/use-cases/">Use Cases</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/new-to-nosql/">New to NoSQL?</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/glossary/">Riak KV Glossary</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/learn/concepts/">Concepts</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/active-anti-entropy/">Active Anti-Entropy</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/buckets/">Buckets</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/capability-negotiation/">Capability Negotiation</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/causal-context/">Causal Context</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/clusters/">Clusters</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/crdts/">Data Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/eventual-consistency/">Eventual Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/keys-and-objects/">Keys and Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/replication/">Replication</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/vnodes/">Vnodes</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-comments"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/community">Community</a></span>
+        <div class="clear"></div>
+      </h3>
+      <ul></ul> 
+    </div>
+  </nav>
+
+  
+  <ul id="fixed-nav">
+    <li>
+      <a href="https://github.com/basho/basho_docs" target="_blank">
+        <div class="icon-container">
+          <span aria-hidden="true" class="nav-icon" data-icon="&#xe004;"></span>
+        </div>
+        <span class="separator">&#124;</span>Available on GitHub
+      </a>
+    </li>
+    <li>
+      <a href="/riak/latest/community/">
+        <div class="icon-container">
+          <span aria-hidden="true" class="nav-icon" data-icon="&#xf059;"></span>
+        </div>
+        <span class="separator">&#124;</span>Get Help
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+  <script>
+  (function() {
+    var cx = '011972015458788978446:zgdcy4fa-o0';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<div style="width:0px;overflow:hidden;height:0px;">
+  <gcse:search></gcse:search>
+</div>
+
+
+  <div role="main">
+
+    <header class="masthead">
+  <div id="header">
+    
+    <div id="header-inner">
+      <div class="icon-reorder" id="nav-toggle"></div>
+
+      <div id="top-nav">
+        
+        <a href="/riak/kv/2.1.3/downloads/"><span class="icon-download-alt"></span>Downloads</a>
+        <div id="nav-more"><span class="icon-more"></span></div>
+      </div>
+
+      <a class="responsive-toggle"></a>
+      
+      
+      <a class="logo" href="/index.html"><h1>Riak Docs</h1></a>
+      
+      <span class="tagline">Product tutorials, how-tos, and fully-documented APIs.</span>
+      <div id="nav-menu">
+        <h2>Links</h2>
+        <ul>
+          <li><a href="http://docs.basho.com/">Docs Home</a></li>
+          <li><a href="http://basho.com/">Basho Website</a></li>
+        </ul>
+        
+        <div id="nav-menu-arrow"></div>
+        <div id="nav-menu-arrow-back"></div>
+      </div>
+
+      <div class="clear"></div>
+
+      <div class="header-rule"></div>
+    </div>
+  </div>
+</header>
+
+
+    <article class="mainarticle">
+
+      <div class="versions">
+  <div id="version-ddown-button" class="unselected">
+    <div class="version-ddown-title">Version</div>
+    <div class="version-ddown-number">2.1.3</div>
+    <div class="version-ddown-arrow"></div>
+  </div>
+  <ol id="version-list" style="display: none;">
+  
+  
+    
+    
+      
+      
+      <li class="sans versions-0 current">DEV</li>
+      
+      <li class="current versions-0"><a class="versioned" href="/riak/kv/2.1.3/developing/usage/updating-objects/">2.1.3</a></li>
+    
+    
+      
+      
+      
+      <li class=" versions-0 first"><a class="versioned" href="/riak/kv/2.1.1/developing/usage/updating-objects/">2.1.1</a></li>
+    
+  
+    
+    
+      
+      
+      
+      <li class="sans versions-1 current">LTS</li>
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.6/developing/usage/updating-objects/">2.0.6</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.5/developing/usage/updating-objects/">2.0.5</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.4/developing/usage/updating-objects/">2.0.4</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.2/developing/usage/updating-objects/">2.0.2</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.1/developing/usage/updating-objects/">2.0.1</a></li>
+    
+    
+      
+      
+      
+      <li class=" versions-1 first"><a class="versioned" href="/riak/kv/2.0.0/developing/usage/updating-objects/">2.0.0</a></li>
+    
+  
+  
+  <li class="versions-5 first"><a class="sans versioned" href="http://docs.basho.com/riak/1.4.12/">older</a></li>
+  </ol>
+</div>
+
+
+      
+      
+
+      <header><h1>Updating Objects</h1></header>
+
+      
+
+      
+      <nav id="toc">
+        <h2 class="title">Contents</h2>
+        <div id="toc-wrapper">
+          <ol id="toc-items"></ol>
+        </div>
+      </nav>
+      
+
+      
+
+<h4 id="using-causal-context:2ac200821b7ca3e9bfd835cfed355d70">Using Causal Context</h4>
+
+<p>If an object already exists under a certain key and you want to write a
+new object to that key, Riak needs to know what to do, especially if
+multiple writes are happening at the same time. Which of the objects
+being written should be deemed correct? These kinds of scenarios can
+arise quite frequently in distributed, [[eventually consistent|Eventual
+Consistency]] systems.</p>
+
+<p>Riak decides which object to choose in case of conflict using [[causal
+context]]. These objects track the causal history of objects.
+They are attached to <em>all</em> Riak objects as metadata, and they are not
+readable by humans. They may sound complex&mdash;and they are fairly complex
+behind the scenes&mdash;but using them in your application is very simple.</p>
+
+<p>Using causal context in an update would involve the following steps;</p>
+
+<ol>
+<li>Fetch the object</li>
+<li>Modify the object&rsquo;s value (without modifying the fetched [[context
+object|Causal Context]])</li>
+<li>Write the new object to Riak</li>
+</ol>
+
+<p>Step 2 is the most important here. All of Basho&rsquo;s official Riak clients
+enable you to modify an object&rsquo;s value without modifying its [[causal
+context]]. Although a more detailed tutorial on context objects and
+object updates can be found in [[Conflict Resolution]], we&rsquo;ll walk you
+through a basic example here.</p>
+
+<p>Let&rsquo;s say that the current NBA champion is the Washington Generals.
+We&rsquo;ve stored that data in Riak under the key <code>champion</code> in the bucket
+<code>nba</code>, which bears the bucket type <code>sports</code>. The value of the object is
+a simple text snippet that says <code>Washington Generals</code>.</p>
+
+<p>But one day the Harlem Globetrotters enter the league and dethrone the
+hapless Generals (forever, as it turns out). Because we want our Riak
+database to reflect this new development in the league, we want to make
+a new write to the <code>champion</code> key. Let&rsquo;s read the object stored there
+and modify the value.</p>
+
+<pre><code class="language-java">Location currentChampion = new Location(new Namespace(&quot;sports&quot;, &quot;nba&quot;), &quot;champion&quot;);
+FetchValue fetch = new FetchValue.Builder(currentChampion)
+        .build();
+FetchValue.Response response = client.execute(fetch);
+RiakObject obj = response.getValue(RiakObject.class);
+obj.setValue(BinaryValue.create(&quot;Harlem Globetrotters&quot;))
+</code></pre>
+
+<pre><code class="language-ruby">bucket = client.bucket_type('sports').bucket('nba')
+obj = bucket.get('champion')
+obj.raw_data = 'Harlem Globetrotters'
+obj.store
+</code></pre>
+
+<pre><code class="language-php">$location = new \Basho\Riak\Location('champion', new \Basho\Riak\Bucket('nba', 'sports'));
+$object = (new \Basho\Riak\Command\Builder\FetchObject($riak))
+  -&gt;withLocation($location)
+  -&gt;build()
+  -&gt;execute()
+  -&gt;getObject();
+
+$object-&gt;setData('Harlem Globetrotters');
+
+(new \Basho\Riak\Command\Builder\StoreObject($riak))
+  -&gt;withLocation($location)
+  -&gt;withObject($object)
+  -&gt;build()
+  -&gt;execute();
+</code></pre>
+
+<pre><code class="language-python">bucket = client.bucket_type('sports').bucket('nba')
+obj = bucket.get('champion')
+obj.data = 'Harlem Globetrotters'
+</code></pre>
+
+<pre><code class="language-csharp">var id = new RiakObjectId(&quot;sports&quot;, &quot;nba&quot;, &quot;champion&quot;);
+var obj = new RiakObject(id, &quot;Washington Generals&quot;,
+    RiakConstants.ContentTypes.TextPlain);
+var rslt = client.Put(obj);
+
+rslt = client.Get(id);
+obj = rslt.Value;
+obj.SetObject(&quot;Harlem Globetrotters&quot;,
+    RiakConstants.ContentTypes.TextPlain);
+rslt = client.Put(obj);
+</code></pre>
+
+<pre><code class="language-javascript">var riakObj = new Riak.Commands.KV.RiakObject();
+riakObj.setContentType('text/plain');
+riakObj.setValue('Washington Generals');
+
+var options = {
+    bucketType: 'sports', bucket: 'nba', key: 'champion',
+    value: riakObj
+};
+client.storeValue(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+    delete options.value;
+    client.fetchValue(options, function (err, rslt) {
+        if (err) {
+            throw new Error(err);
+        }
+        var fetchedObj = rslt.values.shift();
+        fetchedObj.setValue('Harlem Globetrotters');
+        options.value = fetchedObj;
+        options.returnBody = true;
+        client.storeValue(options, function (err, rslt) {
+            if (err) {
+                throw new Error(err);
+            }
+            var updatedObj = rslt.values.shift();
+            logger.info(&quot;champion: %s&quot;, updatedObj.value.toString('utf8'));
+        });
+    });
+});
+</code></pre>
+
+<pre><code class="language-erlang">%% In the Erlang client, you cannot view a context objectdirectly, but it
+%% will be included in the output when you fetch an object:
+
+{ok, Obj} = riakc_pb_socket:get(Pid,
+                                {&lt;&lt;&quot;sports&quot;&gt;&gt;, &lt;&lt;&quot;nba&quot;&gt;&gt;},
+                                &lt;&lt;&quot;champion&quot;&gt;&gt;),
+UpdatedObj = riakc_obj:update_value(Obj, &lt;&lt;&quot;Harlem Globetrotters&quot;&gt;&gt;),
+{ok, NewestObj} = riakc_pb_socket:put(Pid, UpdatedObj, [return_body]).
+</code></pre>
+
+<pre><code class="language-golang">obj := &amp;riak.Object{
+    ContentType:     &quot;text/plain&quot;,
+    Charset:         &quot;utf-8&quot;,
+    ContentEncoding: &quot;utf-8&quot;,
+    Value:           []byte(&quot;Washington Generals&quot;),
+}
+
+cmd, err := riak.NewStoreValueCommandBuilder().
+    WithBucketType(&quot;sports&quot;).
+    WithBucket(&quot;nba&quot;).
+    WithKey(&quot;champion&quot;).
+    WithContent(obj).
+    WithReturnBody(true).
+    Build()
+
+if err != nil {
+    fmt.Println(err.Error())
+    return
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    fmt.Println(err.Error())
+    return
+}
+
+svc := cmd.(*riak.StoreValueCommand)
+rsp := svc.Response
+obj = rsp.Values[0]
+obj.Value = []byte(&quot;Harlem Globetrotters&quot;)
+
+cmd, err = riak.NewStoreValueCommandBuilder().
+    WithBucketType(&quot;sports&quot;).
+    WithBucket(&quot;nba&quot;).
+    WithKey(&quot;champion&quot;).
+    WithContent(obj).
+    WithReturnBody(true).
+    Build()
+
+if err != nil {
+    fmt.Println(err.Error())
+    return
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    fmt.Println(err.Error())
+    return
+}
+
+svc = cmd.(*riak.StoreValueCommand)
+rsp = svc.Response
+obj = rsp.Values[0]
+fmt.Printf(&quot;champion: %v&quot;, string(obj.Value))
+</code></pre>
+
+<pre><code class="language-curl"># When using curl, the context object is attached to the X-Riak-Vclock header
+
+curl -i http://localhost:8098/types/sports/buckets/nba/keys/champion
+
+# In the resulting output, the header will look something like this:
+
+X-Riak-Vclock: a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
+
+# When performing a write to the same key, that same header needs to
+# accompany the write for Riak to be able to use the context object
+</code></pre>
+
+<p>In the samples above, we didn&rsquo;t need to actually interact with the
+context object, as retaining and passing along the context object was
+accomplished automatically by the client. If, however, you do need
+access to an object&rsquo;s context, the clients enable you to fetch it from
+the object:</p>
+
+<pre><code class="language-java">// Using the RiakObject obj from above:
+
+Vclock vClock = obj.getVclock();
+System.out.println(vClock.asString());
+
+// The context object will look something like this:
+// a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
+</code></pre>
+
+<pre><code class="language-ruby"># Using the RObject obj from above:
+
+obj.vclock
+
+# The context object will look something like this:
+# a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
+</code></pre>
+
+<pre><code class="language-php"># Using the RObject obj from above:
+
+echo $object-&gt;getVclock(); // a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
+</code></pre>
+
+<pre><code class="language-python"># Using the RiakObject obj from above:
+
+obj.vclock
+
+# The context object will look something like this:
+# a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
+</code></pre>
+
+<pre><code class="language-csharp">// Using the RiakObject obj from above:
+var vclock = result.Value.VectorClock;
+Console.WriteLine(Convert.ToBase64String(vclock));
+
+// The output will look something like this:
+// a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
+</code></pre>
+
+<pre><code class="language-javascript">// Using the RiakObject fetchedObj from above:
+var fetchedObj = rslt.values.shift();
+logger.info(&quot;vclock: %s&quot;, fetchedObj.getVClock().toString('base64'));
+
+// The output will look something like this:
+// vclock: a85hYGBgymDKBVIcR4M2cov1HeHKYEpkymNlsE2cfo4PKjXXjuOU+FHdWqAUM1CqECSVBQA=
+</code></pre>
+
+<pre><code class="language-erlang">%% Using the Obj object from above:
+
+riakc_obj:vclock(Obj).
+
+%% The context object will look something like this in the Erlang shell:
+%% &lt;&lt;107,206,97,96,96,96,204,96,202,5,82,28,202,156,255,126,
+%% 6,175,157,255,57,131,41,145,49,143,149,225,240,...&gt;&gt;
+</code></pre>
+
+<pre><code class="language-golang">svc := cmd.(*riak.StoreValueCommand)
+rsp := svc.Response
+fmt.Println(rsp.VClock)
+
+// Output:
+// X3hNXFq3ythUqvvrG9eJEGbUyLS
+</code></pre>
+
+<h2 id="the-object-update-cycle:2ac200821b7ca3e9bfd835cfed355d70">The Object Update Cycle</h2>
+
+<p>If you decide that your application requires mutable data in Riak, we
+recommend that you:</p>
+
+<ul>
+<li>avoid high-frequency object updates to the same key (i.e. multiple
+updates per second for long periods of time), as this will degrade
+Riak performance; and that you</li>
+<li>follow a read-modify-write cycle when performing updates.</li>
+</ul>
+
+<p>That cycle looks something like this:</p>
+
+<ol>
+<li><strong>Read</strong> the object from Riak. This step is important for updates
+because this enables you to fetch the object&rsquo;s [[causal context]], which
+is the information that Riak uses to make decisions about which object
+values are most recent (this is especially useful for objects that are
+frequently updated). This context object needs to be passed back to Riak
+when you update the object. This step is handled for you by Basho&rsquo;s
+client libraries as long as you perform a read prior to an update. In
+addition, if you have chosen to allow Riak to generate
+[[siblings|Conflict Resolution#Siblings]] (which we recommend), you
+should <strong>resolve sibling conflicts</strong> upon read if they exist. For more
+on this, please see our documentation on [[conflict resolution]], along
+with examples from our official client libraries:
+
+<ul>
+<li>[[Java|Conflict Resolution: Java]]</li>
+<li>[[Ruby|Conflict Resolution: Ruby]]</li>
+<li>[[Python|Conflict Resolution: Python]]</li>
+<li>[[C#|Conflict Resolution: CSharp]]</li>
+<li>[[Go|Conflict Resolution: Go]]</li>
+</ul></li>
+<li><strong>Modify the object</strong> on the application side.</li>
+<li><strong>Write</strong> the new, modified object to Riak. Because you read the
+object first, Riak will receive the object&rsquo;s causal context metadata.
+Remember that this happens automatically.</li>
+</ol>
+
+<p>In general, you should read an object before modifying it. Think of it
+as performing a <code>GET</code> prior to any <code>PUT</code> when interacting with a REST
+API.</p>
+
+<div class="note">
+<div class="title">Note on strong consistency</div>
+If you are using Riak's [[strong consistency|Using Strong Consistency]]
+feature, it is not only desirable but also necessary to use the
+read/modify/write cycle explained in the section above. If you attempt
+to update an object without fetching the object first, your update
+operation will necessarily fail. More information can be found in the
+[[strong consistency documentation|Using Strong
+Consistency#Strongly-Consistent-Writes]].
+</div>
+
+<h3 id="updating-deleted-objects:2ac200821b7ca3e9bfd835cfed355d70">Updating Deleted Objects</h3>
+
+<p>You should use the read-modify-write cycle explained above at all times,
+<em>even if you&rsquo;re updating deleted objects</em>. The reasons for that can be
+found in our documentation on [[tombstones|Object Deletion#Tombstones]].
+There are some modifications that you may need to make if you are
+updating objects that may have been deleted previously. If you are using
+the Java client, an explanation and examples are given in the
+[[Java-specific section below|Object Updates#Java-Client-Example]]. If
+you are using the Python or Erlang clients, causal context for deleted
+objects will be handled automatically. If you are using the Ruby client,
+you will need to explicitly set the <code>deletedvclock</code> parameter to <code>true</code>
+when reading an object, like so:</p>
+
+<pre><code class="language-ruby">bucket = client.bucket('fruits')
+obj = bucket.get('banana', deletedvclock: true)
+</code></pre>
+
+<h2 id="example-update:2ac200821b7ca3e9bfd835cfed355d70">Example Update</h2>
+
+<p>In this section, we&rsquo;ll provide an update example for Basho&rsquo;s official Ruby,
+Python, .NET, Node.js, Erlang and Go clients. Because updates with the official
+Java client functions somewhat differently, those examples can be found in the
+[[section below|Object Updates#Java-Client-Example]].</p>
+
+<p>For our example, imagine that you are storing information about NFL head
+coaches in the bucket <code>coaches</code>, which will bear the bucket type
+<code>siblings</code>, which sets <code>allow_mult</code> to <code>true</code>. The key for each object
+is the name of the team, e.g. <code>giants</code>, <code>broncos</code>, etc. Each object will
+consist of the name of the coach in plain text. Here&rsquo;s an example of
+creating and storing such an object:</p>
+
+<pre><code class="language-ruby">bucket = client.bucket('coaches')
+obj = bucket.get_or_new('seahawks', type: 'siblings')
+obj.content_type = 'text/plain'
+obj.raw_data = 'Pete Carroll'
+obj.store
+</code></pre>
+
+<pre><code class="language-php">$location = new \Basho\Riak\Location('seahawks', new \Basho\Riak\Bucket('coaches', 'siblings'));
+$response = (new \Basho\Riak\Command\Builder\FetchObject($riak))
+  -&gt;atLocation($location)
+  -&gt;build()
+  -&gt;execute();
+
+if ($response-&gt;isSuccess()) {
+  $object = $response-&gt;getObject();
+  $object-&gt;setData('Pete Carroll');
+} else {
+  $object = new \Basho\Riak\Object('Pete Carroll', 'text/plain');
+}
+
+(new \Basho\Riak\Command\Builder\StoreObject($riak))
+  -&gt;withObject($object)
+  -&gt;atLocation($location)
+  -&gt;build()
+  -&gt;execute();
+</code></pre>
+
+<pre><code class="language-python">bucket = client.bucket_type('siblings').bucket('coaches')
+obj = RiakObject(client, bucket, 'seahawks')
+obj.content_type = 'text/plain'
+obj.data = 'Pete Carroll'
+obj.store()
+</code></pre>
+
+<pre><code class="language-csharp">var id = new RiakObjectId(&quot;siblings&quot;, &quot;coaches&quot;, &quot;seahawks&quot;);
+var obj = new RiakObject(id, &quot;Pete Carroll&quot;,
+    RiakConstants.ContentTypes.TextPlain);
+var rslt = client.Put(obj);
+</code></pre>
+
+<pre><code class="language-javascript">var riakObj = new Riak.Commands.KV.RiakObject();
+riakObj.setContentType('text/plain');
+riakObj.setBucketType('siblings');
+riakObj.setBucket('coaches');
+riakObj.setKey('seahawks');
+riakObj.setValue('Pete Carroll');
+client.storeValue({ value: riakObj }, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    } else {
+        logger.info('Stored Pete Carroll');
+    }
+});
+</code></pre>
+
+<pre><code class="language-erlang">Obj = riakc_obj:new({&lt;&lt;&quot;siblings&quot;&gt;&gt;, &lt;&lt;&quot;coaches&quot;&gt;&gt;},
+                     &lt;&lt;&quot;seahawks&quot;&gt;&gt;,
+                     &lt;&lt;&quot;Pete Carroll&quot;&gt;&gt;,
+                     &lt;&lt;&quot;text/plain&quot;&gt;&gt;).
+riakc_pb_socket:put(Pid, Obj).
+</code></pre>
+
+<pre><code class="language-golang">obj := &amp;riak.Object{
+    ContentType:     &quot;text/plain&quot;,
+    Charset:         &quot;utf-8&quot;,
+    ContentEncoding: &quot;utf-8&quot;,
+    Value:           []byte(&quot;Pete Carroll&quot;),
+}
+
+cmd, err := riak.NewStoreValueCommandBuilder().
+    WithBucketType(&quot;siblings&quot;).
+    WithBucket(&quot;coaches&quot;).
+    WithKey(&quot;seahawks&quot;).
+    WithContent(obj).
+    Build()
+
+if err != nil {
+    fmt.Println(err.Error())
+    return
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    fmt.Println(err.Error())
+    return
+}
+
+fmt.Println(&quot;Stored Pete Carroll&quot;)
+</code></pre>
+
+<p>Every once in a while, though, head coaches change in the NFL, which
+means that our data would need to be updated. Below is an example
+function for updating such objects:</p>
+
+<pre><code class="language-ruby">def update_coach(team, new_coach)
+  bucket = client.bucket('coaches')
+  # The read phase
+  obj = bucket.get_or_new(team, type: 'siblings')
+  # The modify phase
+  obj.data = new_coach
+  # The write phase
+  obj.store
+end
+
+# Example usage
+update_coach('packers', 'Vince Lombardi')
+</code></pre>
+
+<pre><code class="language-php">function update_coach($team, $coach) {
+  $location = new \Basho\Riak\Location('seahawks', new \Basho\Riak\Bucket('coaches', 'siblings'));
+  $response = (new \Basho\Riak\Command\Builder\FetchObject($riak))
+    -&gt;atLocation($location)
+    -&gt;build()
+    -&gt;execute();
+
+  if ($response-&gt;isSuccess()) {
+    $object = $response-&gt;getObject();
+    $object-&gt;setData('Pete Carroll');
+  } else {
+    $object = new \Basho\Riak\Object('Pete Carroll', 'text/plain');
+  }
+
+  $response = (new \Basho\Riak\Command\Builder\StoreObject($riak))
+    -&gt;withObject($object)
+    -&gt;atLocation($location)
+    -&gt;build()
+    -&gt;execute();
+
+  return $response-&gt;isSuccess();
+}
+
+echo update_coach('packers', 'Vince Lombardi'); // true
+</code></pre>
+
+<pre><code class="language-python">def update_coach(team, new_coach):
+    bucket = client.bucket_type('siblings').bucket('coaches')
+    # The read phase
+    obj = bucket.get(team)
+    # The modify phase
+    obj.data = new_coach
+    # The write phase
+    obj.store()
+
+# Example usage
+update_coach('packers', 'Vince Lombardi')
+</code></pre>
+
+<pre><code class="language-csharp">private void UpdateCoach(string team, string newCoach)
+{
+    var id = new RiakObjectId(&quot;siblings&quot;, &quot;coaches&quot;, team);
+    var getResult = client.Get(id);
+
+    RiakObject obj = getResult.Value;
+    obj.SetObject&lt;string&gt;(newCoach, RiakConstants.ContentTypes.TextPlain);
+    client.Put(obj);
+}
+</code></pre>
+
+<pre><code class="language-javascript">function update_coach(team, newCoach) {
+    client.fetchValue({
+        bucketType: 'siblings', bucket: 'coaches', key: team
+    }, function (err, rslt) {
+        if (err) {
+            throw new Error(err);
+        }
+
+        var riakObj = rslt.values.shift();
+        riakObj.setValue(newCoach);
+        client.storeValue({ value: riakObj }, function (err, rslt) {
+            if (err) {
+                throw new Error(err);
+            }
+        });
+    });
+}
+</code></pre>
+
+<pre><code class="language-erlang">update_coach(team, new_coach) -&gt;
+    {ok, Obj} = riakc_pb_socket:get(Pid,
+                                    {&lt;&lt;&quot;siblings&quot;&gt;&gt;, &lt;&lt;&quot;coaches&quot;&gt;&gt;},
+                                    &lt;&lt;team&gt;&gt;),
+    ModifiedObj = riakc_obj:update(Obj, &lt;&lt;new_coach&gt;&gt;),
+    riakc_pb_socket:put(Pid, ModifiedObj).
+
+%% Example usage
+update_coach('packers', 'Vince Lombardi')
+</code></pre>
+
+<pre><code class="language-golang">func updateCoach(cluster *riak.Cluster, team, newCoach string) error {
+    var cmd riak.Command
+    var err error
+
+    cmd, err = riak.NewFetchValueCommandBuilder().
+        WithBucketType(&quot;siblings&quot;).
+        WithBucket(&quot;coaches&quot;).
+        WithKey(team).
+        Build()
+
+    if err != nil {
+        return err
+    }
+
+    if err := cluster.Execute(cmd); err != nil {
+        return err
+    }
+
+    fvc := cmd.(*riak.FetchValueCommand)
+    obj := fvc.Response.Values[0]
+    obj.Value = []byte(newCoach)
+
+    cmd, err = riak.NewStoreValueCommandBuilder().
+        WithBucketType(&quot;siblings&quot;).
+        WithBucket(&quot;coaches&quot;).
+        WithKey(team).
+        WithContent(obj).
+        Build()
+
+    if err != nil {
+        return err
+    }
+
+    if err := cluster.Execute(cmd); err != nil {
+        return err
+    }
+
+    return nil
+}
+</code></pre>
+
+<p>In the example above, you can see the three steps in action: first, the
+object is read, which automatically fetches the object&rsquo;s causal context;
+then the object is modified, i.e. the object&rsquo;s value is set to the name
+of the new coach; and finally the object is written back to Riak.</p>
+
+<h2 id="object-update-anti-patterns:2ac200821b7ca3e9bfd835cfed355d70">Object Update Anti-patterns</h2>
+
+<p>The most important thing to bear in mind when updating objects is this:
+you should always read an object prior to updating it <em>unless</em> you are
+certain that no object is stored there. If you are storing [[sensor
+data|Use Cases#Sensor-Data]] in Riak and using timestamps as keys, for
+example, then you can be sure that keys are not repeated. In that case,
+making writes to Riak without first reading the object is fine. If
+you&rsquo;re not certain, however, then we recommend always reading the object
+first.</p>
+
+<h2 id="java-client-example:2ac200821b7ca3e9bfd835cfed355d70">Java Client Example</h2>
+
+<p>As with the other official clients, object updates using the Java client
+will automatically fetch the object&rsquo;s causal context metadata, modify
+the object, and then write the modified value back to Riak. You can
+update object values by creating your own <code>UpdateValue</code> operations that
+extend the abstract class <code>Update&lt;T&gt;</code>. An <code>UpdateValue</code> operation must
+have an <code>apply</code> method that returns a new <code>T</code>. In our case, the data
+class that we&rsquo;re dealing with is <code>User</code>. First, let&rsquo;s create a very
+basic <code>User</code> class:</p>
+
+<pre><code class="language-java">public class User {
+  public String username;
+  public List&lt;String&gt; hobbies;
+
+  public User(String username, List&lt;String&gt; hobbies) {
+    this.name = username;
+    this.hobbies = hobbies;
+  }
+}
+</code></pre>
+
+<p>In the example below, we&rsquo;ll create an update value operation called
+<code>UpdateUserName</code>:</p>
+
+<pre><code class="language-java">import com.basho.riak.client.api.commands.kv.UpdateValue.Update;
+
+public class UpdateUserName extends Update&lt;User&gt; {
+    @Override
+    public User apply(User original) {
+        // update logic goes here
+    }
+}
+</code></pre>
+
+<p>In the example above, we didn&rsquo;t specify any actual update logic. Let&rsquo;s
+change that by creating an <code>UpdateValue</code> operation that changes a <code>User</code>
+object&rsquo;s <code>name</code> parameter:</p>
+
+<pre><code class="language-java">public class UpdateUserName extends Update&lt;User&gt; {
+    private String newUsername;
+
+    public UpdateUserName(String newUsername) {
+        this.newUsername = newUsername;
+    }
+
+    @Override
+    public User apply(User original) {
+        original.username = newUsername;
+        return original;
+    }
+}
+</code></pre>
+
+<p>Now, let&rsquo;s put our <code>UpdateUserName</code> operation into effect. In the
+example below, we&rsquo;ll change a <code>User</code> object&rsquo;s <code>username</code> from whatever
+it currently is to <code>cliffhuxtable1986</code>:</p>
+
+<pre><code class="language-java">import com.basho.riak.client.api.commands.kv.FetchValue;
+
+Location location = new Location(...);
+UpdateValue updateOp = new UpdateValue.Builder(location)
+        .withFetchOption(FetchValue.Option.DELETED_VCLOCK, true)
+        .withUpdate(new UpdateUserName(&quot;cliffhuxtable1986&quot;))
+        .build();
+client.execute(updateOp);
+</code></pre>
+
+<p>You may notice that a fetch option was added to our <code>UpdateValue</code>
+operation: <code>FetchValue.Option.DELETED_VCLOCK</code> was set to <code>true</code>.
+Remember from the section above that you should always read an object
+before modifying and writing it, <em>even if the object has been deleted</em>.
+Setting this option to <code>true</code> ensures that the causal context is fetched
+from Riak if the object has been deleted. We recommend always setting
+this option to <code>true</code> when constructing <code>UpdateValue</code> operations.</p>
+
+<h3 id="clobber-updates:2ac200821b7ca3e9bfd835cfed355d70">Clobber Updates</h3>
+
+<p>If you&rsquo;d like to update an object by simply replacing it with an
+entirely new value of the same type (unlike in the section above, where
+only one property of the object was updated), the Java client provides
+you with a &ldquo;clobber&rdquo; update that you can use to replace the existing
+object with a new object of the same type rather than changing one or
+more properties of the object. Imagine that there is a <code>User</code> object
+stored in the bucket <code>users</code> in the key <code>cliffhuxtable1986</code>, as in the
+example above, and we simply want to replace the object with a brand new
+object:</p>
+
+<pre><code class="language-java">Location location = new Location(new Namespace(&quot;users&quot;), &quot;cliffhuxtable1986&quot;);
+User brandNewUser = new User(/* new user info */);
+UpdateValue updateOp = new UpdateValue.Builder(Location)
+        // As before, we set this option to true
+        .withFetchOption(FetchValue.Option.DELETED_VCLOCK, true)
+        .withUpdate(Update.clobberUpdate(brandNewUser))
+        .build();
+client.execute(updateOp);
+</code></pre>
+
+<h3 id="no-operation-updates-in-java:2ac200821b7ca3e9bfd835cfed355d70">No-operation Updates in Java</h3>
+
+<p>The Java client also enables you to construct <strong>no-operation updates</strong>
+that don&rsquo;t actually modify the object and simply write the original
+value back to Riak. What is the use of that, given that it isn&rsquo;t
+changing the value of the object at all? No-operation updates can be
+useful because they can help Riak resolve [[sibling conflicts|Conflict
+Resolution#Siblings]]. If you have an object&mdash;or many objects, for that
+matter&mdash;with siblings, a no-operation update will fetch the object <em>and
+its causal context</em> and write the object back to Riak with the same,
+fetched context. This has the effect of telling Riak that you deem this
+value to be most current. Riak can then use this information in internal
+sibling resolution operations.</p>
+
+<p>Below is an example:</p>
+
+<pre><code class="language-java">Location loc = new Location(...);
+UpdateValue updateOp = new UpdateValue.Builder(loc)
+        .withUpdate(Update.noopUpdate())
+        .build();
+client.execute(updateOp);
+</code></pre>
+
+<p>The example above would update the object without fetching it. You
+could, however, use a no-operation update to <em>read</em> an object as well if
+you set <code>return_body</code> to <code>true</code> in your request:</p>
+
+<pre><code class="language-java">// Using the Location object &quot;loc&quot; from above:
+UpdateValue updateOp = new UpdateValue.Builder(loc)
+        .withFetchOption(Option.RETURN_BODY, true)
+        .withUpdate(Update.noopUpdate())
+        .build();
+UpdateValue.Response response = client.execute(updateOp);
+RiakObject object = response.getValue(RiakObject.class);
+
+// Or to continue the User example from above:
+User user = response.getValue(User.class);
+</code></pre>
+
+<p>In general, you should use no-operation updates only on keys that you
+suspect may have accumulated siblings or on keys that are frequently
+updated (and thus bear the possibility of accumulating siblings).
+Otherwise, you&rsquo;re better off performing normal reads.</p>
+
+
+      <div class="clear"></div>
+
+    </article>
+
+    <footer class="mastfooter">
+    This work is licensed under a
+    <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">
+        Creative Commons Attribution 4.0 International Public License
+    </a><br>
+    &copy; 2011-2016&nbsp;<a href="http://www.basho.com">Basho Technologies, Inc.</a>
+</footer>
+
+
+  </div>
+
+  <script src="/js/all.js" type="text/javascript"></script>
+<script type= "text/javascript">
+  
+  hljs.configure({languages: []});
+  hljs.initHighlighting();
+
+  
+  
+  
+  $(function() {
+    $(".js_enabled pre").css("visibility", "visible");
+  });
+</script>
+
+
+</body>
+</html>

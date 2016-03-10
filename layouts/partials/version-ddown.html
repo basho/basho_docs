@@ -49,7 +49,6 @@
               (poorly) distinguish the DEV and LTS elements. We should probably
               give those elements their own style and class.
               -->
-      {{ if $is_dev }}<li class="sans versions-{{sub $release_index 1}} current">DEV</li>{{ end }}
       {{ if $is_lts }}<li class="sans versions-{{sub $release_index 1}} current">LTS</li>{{ end }}
       <li class="{{if $is_current}}current{{end}} versions-{{sub $release_index 1}}"><a class="versioned" href="{{$target_url}}">{{$version}}</a></li>
     {{ end }}
@@ -61,7 +60,6 @@
       {{ $is_current := (eq $version ($.Scratch.Get "version")) }}
       {{ $target_url := (printf "/%s/%s/%s" ($.Scratch.Get "project_path") ($version) ($.Scratch.Get "relative_url")) }}
       -->
-      {{ if $is_dev }}<li class="sans versions-{{sub $release_index 1}} current">DEV</li>{{ end }}
       {{ if $is_lts }}<li class="sans versions-{{sub $release_index 1}} current">LTS</li>{{ end }}
       <li class="{{if $is_current}}current{{end}} versions-{{sub $release_index 1}} first"><a class="versioned" href="{{$target_url}}">{{$version}}</a></li>
     {{ end }}

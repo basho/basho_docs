@@ -3,6 +3,44 @@ body {
 }
 
 /* =============================================================================
+   Convenience Classes
+   ========================================================================== */
+
+.sans {
+  font-family : 'OpenSans', verdana, arial, sans-serif;
+  font-weight : normal;
+}
+
+.serif {
+  font-family : 'GandhiSerif', serif;
+  font-weight : normal;
+}
+
+.serif-italic {
+  font-family : 'GandhiSerifItalic', serif;
+  font-weight : normal;
+}
+
+.sans-bold {
+  font-family : 'OpenSansBold', verdana, arial, sans-serif;
+  font-weight : normal;
+}
+
+.sans-light {
+  font-family : 'OpenSansLight', verdana, arial, sans-serif;
+  font-weight : normal;
+}
+
+.icon-font {
+  font-family : 'DocsFontIcons';
+  font-weight : normal;
+}
+
+.text-shadow {
+  text-shadow : 0 2px 2px #000;
+}
+
+/* =============================================================================
    Webfonts
    ========================================================================== */
 /*

@@ -316,42 +316,6 @@
     }
   }
 
-
-  /*
-   * checkOpenMenu()
-   * Checks menu titles to see if they should be open at page load
-   * If so, returns true.
-   */
-  function checkOpenMenu(text, correspondingUl) {
-    if(correspondingUl.find('.current').length) {return true;}
-    if(correspondingUl.prev('.active').length){return true;}
-    return false;
-  }
-
-  /*
-   * addNavMenuToggles()
-   * For every h3 or h4, check if the corresponding nav menu has items in it.
-   * If so, give that h tag a toggle button.
-   */
-  function addNavMenuToggles(index, item) {
-    var that         = $(this),
-        nextItem     = that.next(),
-        nextItemIsUl = (nextItem[0].tagName.toLowerCase() === 'ul'),
-        text;
-    if (nextItemIsUl && nextItem.find('li').length) {
-      text = that.text().toLowerCase();
-      if (checkOpenMenu(text, nextItem)) {
-        nextItem.show();
-        that.prepend('<span class="menu-toggle open"></span>');
-      } else {
-        that.prepend('<span class="menu-toggle"></span>');
-      }
-    }
-  }
-  // Call this on the docready to add nav menu toggle buttons where needed
-  options.jq.navContent.find('h3, h4').each(addNavMenuToggles);
-
-
   /*
    * checkForToggler()
    * Determines whether a nav header is open-able or not.
@@ -365,12 +329,12 @@
   }
 
   /*
-   * Any time a nav header or menu toggle button gets clicked
-   * check to see if it is open-able.  Then open or close as needed.
+   * Any time a nav header or menu toggle button gets clicked check to see if it
+   * is open-able, then open or close as needed.
    * Use .click instead of .on('click') because mobile Safari doesn't register
    * live click handlers.
    */
-  $(options.selectors.navContent + ' h3, ' + options.selectors.navContent + ' h4').click(checkForToggler);
+  $(options.selectors.navContent + ' div.menu-title').click(checkForToggler);
 
 
 

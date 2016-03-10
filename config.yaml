@@ -7,21 +7,29 @@ languageCode: "en-us"
 
 # Use YAML for front matter, rather than TOML
 metaDataFormat: "yaml"
+<<<<<<< HEAD
 # Ignore files (such as the reference links list) on build
 ignoreFiles: [ "\\_reference-links.md$" ]
+=======
+
+# Default directory to build the completed site
+publishdir: "public"
+
+>>>>>>> 40034a5f65dd4e3f003210b2fc7bcf70e9244c8d
 
 params:
   # Project Descriptions
   # ====================
   # The below `project_descriptions` map should contain elements in the form,
-  #     <<project_name>>:  // Project name, corresponds to`project:` content frontmater
+  #
+  #     <<project_name>>:  // Project name, corresponds to `project:` content frontmater
   #       path: "<<path>>" // Path to the project's version directories
   #       releases:        // List (release series) of lists (versions in that series).
   #         - ["<<version>>", "<<version>>", ...],
   #         - ["<<version>>", "<<version>>", ...],
-  #       latest:       "<<version>>" // optional: Current development version
-  #       lts:          "<<version>>" // optional: Current LTS version
-  #       archived_url: "<<URI>>"     // optional: URL directing to un-maintained content
+  #       latest:       "<<version>>" // Current development version
+  #       lts:          "<<version>>" // *Optional*: Current LTS version
+  #       archived_url: "<<URI>>"     // *Optional*: URL directing to un-maintained content
   project_descriptions:
     riak_kv:
       path: "riak/kv"

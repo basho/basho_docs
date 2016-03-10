@@ -1,0 +1,3346 @@
+<!DOCTYPE html>
+
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"></html><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"></html><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"></html><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->
+
+
+
+
+<head class="tutorials">
+  <meta charset="utf-8">
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width">
+  <meta name="project" content="riak_kv">
+  <meta name="version" content="2.1.3">
+  <meta name="base-url" content="">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+  <title>Using Secondary Indexes (2i)</title>
+
+  <link href="/css/all.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="/css/print.css" media="print" rel="stylesheet" type="text/css">
+
+  
+  <style type="text/css"> .js_enabled pre { visibility : hidden; } </style>
+  <script type="text/javascript">
+    document.documentElement.className = 'js_enabled';
+  </script>
+</head>
+
+
+
+<body class="riak_kv 2.1.3 latest ">
+
+  <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-T9C8MK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-T9C8MK');</script>
+
+  
+<aside id="nav-container" role="complementary">
+  <nav class="overview" id="primary-nav" role="nav">
+    <div id="primary-nav-content">
+      <h2 class="responsive-link"><a class="responsive-toggle"></a></h2>
+
+      
+      <form id="searchbox_011972015458788978446:zgdcy4fa-o0" action="">
+        <div class="nav-field-container">
+          <div id="icon-container-search">
+            <div class="icon-container"><span aria-hidden="true" class="nav-icon-search icon-search"></span></div>
+            <span class="separator">&#124;</span>
+          </div>
+          <input id="main-search" name="q" placeholder="Search" size="5" type="search" />
+        </div>
+      </form>
+
+      <div class="clear"></div>
+
+      
+      <h3 class="responsive-link visit-basho">
+        <a href="http://www.basho.com">
+          <div class="icon-container">
+            <span aria-hidden="true" class="nav-icon" data-icon="&#xe003;"></span>
+          </div>
+          <span class="separator">&#124;</span>
+          <span class="menu-title">Visit Basho</span>
+          <div class="clear"></div>
+        </a>
+      </h3>
+
+      
+      <h3 class="responsive-link">
+        <a href="/index.html">
+          <div class="icon-container">
+            <span aria-hidden="true" class="nav-icon" data-icon="&#xe003;"></span>
+          </div>
+          <span class="separator">&#124;</span>
+          <span class="menu-title">All Riak Projects</span>
+          <div class="clear"></div>
+        </a>
+      </h3>
+
+      
+      
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-riak"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/">Riak KV</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-download-alt"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/downloads/">Download Riak KV</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-install"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/setup/">Setup</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/planning/">Planning</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/start/">Start Planning</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/operating-system/">OS Support</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/planning/backend/">Choosing a Backend</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/backend/bitcask/">Bitcask</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/backend/leveldb/">LevelDB</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/backend/memory/">Memory</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/backend/multi/">Multi-backend</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/cluster-capacity/">Cluster Capacity</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/bitcask-capacity-calc/">Bitcask Capacity Calculator</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/best-practices/">Best Practices</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/future/">Planning for the Future</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/installing/">Installing</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/amazon-web-services/">Amazon Web Services</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/debian-ubuntu/">Debian &amp; Ubuntu</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/freebsd/">FreeBSD</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/mac-osx/">Mac OS X</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/rhel-centos/">RHEL &amp; CentOS</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/smartos/">SmartOS</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/solaris/">Solaris</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/suse/">SUSE</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/windows-azure/">Windows Azure</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/installing/source/">Installing From Source</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/source/erlang/">Installing Erlang</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/source/jvm/">Installing the JVM</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/verify/">Verifying an Installation</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/upgrading/">Upgrading</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/checklist/">Production Checklist</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/version/">Upgrading by Version</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/cluster/">Upgrading a Cluster</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/multi-datacenter/">Upgrading Multi-Datacenter</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/downgrade/">Downgrading</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-cog"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/configuring/">Configuring</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/basic/">Basic Configuration</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/backend/">Backend Configuration</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/managing/">Managing Configuration</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/reference/">Configuration Reference</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/strong-consistency/">Implementing Strong Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/load-balancing-proxy/">Load Balancing &amp; Proxy</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/mapreduce/">MapReduce Settings</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/search/">Search Settings</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/configuring/v3-multi-datacenter/">V3 Multi-Datacenter</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v3-multi-datacenter/quick-start/">Quickstart</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v3-multi-datacenter/nat/">With NAT</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v3-multi-datacenter/ssl/">SSL</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/configuring/v2-multi-datacenter/">V2 Multi-Datacenter</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v2-multi-datacenter/quick-start/">Quickstart</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v2-multi-datacenter/nat/">With NAT</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v2-multi-datacenter/ssl/">SSL</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-database"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/using/">Using</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/running-a-cluster/">Running a Cluster</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/admin/">Cluster Administration</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/admin/commands/">Cluster Admin Commands</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/admin/riak-admin/">riak-admin CLI</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/admin/riak-cli/">riak CLI</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/admin/riak-control/">Riak Control</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/cluster-operations/">Cluster Operations</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/adding-removing-nodes/">Adding/Removing Nodes</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/changing-cluster-info/">Changing Cluster Information</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/replacing-node/">Replacing a Node</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/inspecting-node/">Inspecting a Node</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/bucket-types/">Bucket Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/logging/">Logging</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/backing-up/">Backing Up</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/handoff/">Handoff</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/object-deletion/">Object Deletion</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/secondary-indexes/">Secondary Indexes</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/monitoring-strong-consistency/">Monitoring Strong Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/load-balancing/">Load Balancing</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/backend/">Backend</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/v3-multi-datacenter/">V3 Multi-Datacenter</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/v2-multi-datacenter/">V2 Multi-Datacenter</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/repair-recovery/">Repair &amp; Recovery</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/repair-recovery/failure-recovery/">Failure &amp; Recovery</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/repair-recovery/errors/">Errors</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/repair-recovery/repairs/">Repairs</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/repair-recovery/rolling-restart/">Rolling Restarts</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/security/">Security</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/security/basics/">Security Basics</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/security/managing-sources/">Managing Security Sources</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/security/best-practices/">Best Practices</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/security/v2-v3-ssl-ca/">V2/V3 SSL &amp; CA Validation</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/performance/">Performance</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/performance/benchmarking/">Benchmarking</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/performance/open-files-limit/">Open Files Limit</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/performance/v2-scheduling-fullsync/">V2 Scheduling Fullsync</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/performance/multi-datacenter-tuning/">Multi-Datacenter Replication</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/troubleshooting/">Troubleshooting</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/">Product Advisories</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/210-dataloss/">Default Configuration For Handoff May Cause Data Loss</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/appconfig-foward/">Forward Incompatibility of app.config</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/dvv-lastwritewins/">Incompatibility between Dotted Version Vectors and Last Write Wins</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/maps-204/">Map Data Type Disk Incompatibility</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/ssl-poodle/">SSL 3.0 Vulnerability and POODLE Attack</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/http-204/">HTTP 204</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/reference/">Reference</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/logging/">Logging</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/handoff/">Handoff</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/bucket-types/">Bucket Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/object-deletion/">Object Deletion</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/runtime-interaction/">Runtime Interaction</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/failure-recovery/">Failure &amp; Recovery</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/monitoring/">Monitoring</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/search-secondary-indexes/">Search &amp; Secondary Indexes</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/strong-consistency/">Strong Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/multi-datacenter/">Multi-Datacenter</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/v3/">V3 Replication</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/v2/">V2 Replication</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/architecture/">Architecture</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-lambda"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/developing/">Developing</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/">Getting Started</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/java/">Java</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/java/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/java/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/java/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/ruby/">Ruby</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/ruby/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/ruby/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/ruby/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/python/">Python</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/python/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/python/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/python/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/csharp/">C Sharp</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/csharp/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/csharp/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/csharp/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/nodejs/">NodeJS</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/nodejs/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/nodejs/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/nodejs/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/erlang/">Erlang</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/erlang/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/erlang/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/erlang/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/golang/">Go</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/golang/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/golang/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/golang/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/php/">PHP</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/php/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/php/querying/">Querying</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/usage/">Usage</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/creating-objects/">Creating Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/reading-objects/">Reading Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/updating-objects/">Updating Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/deleting-objects/">Deleting Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/content-types/">Content Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/search/">Searching</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/mapreduce/">Using MapReduce</a>
+  
+  </li>
+  <li class="current">
+  
+    <a href="/riak/kv/2.1.3/developing/usage/secondary-indexes/">Using Secondary Indexes</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/bucket-types/">Bucket Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/commit-hooks/">Using Commit Hooks</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/search-schemas/">Creating Search Schemas</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/searching-data-types/">Searching with Data Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/document-store/">Implementing a Document Store</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/custom-extractors/">Custom Extractors</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/usage/security/">Security</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/java/">Java</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/ruby/">Ruby</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/python/">Python</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/erlang/">Erlang</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/php/">PHP</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/replication/">Replication</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/">Conflict Resolution</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/java/">Java</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/ruby/">Ruby</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/python/">Python</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/csharp/">C Sharp</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/nodejs/">NodeJS</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/php/">PHP</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/golang/">Go</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/data-types/">Data Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/data-modeling/">Data Modeling</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/app-guide/">Application Guide</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/app-guide/replication-properties/">Replication Properties</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/app-guide/strong-consistency/">Strong Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/app-guide/write-once/">Write Once</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/app-guide/reference/">Reference</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/client-libraries/">Client Libraries</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/api/">APIs</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/api/repl-hooks/">V2 Multi-Datacenter REPL Hooks API</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/api/backend/">Backend API</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/faq/">Developing FAQ</a>
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-beaker"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/learn/">Learning</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/why-riak-kv/">Why Riak KV?</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/use-cases/">Use Cases</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/new-to-nosql/">New to NoSQL?</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/glossary/">Riak KV Glossary</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/learn/concepts/">Concepts</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/active-anti-entropy/">Active Anti-Entropy</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/buckets/">Buckets</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/capability-negotiation/">Capability Negotiation</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/causal-context/">Causal Context</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/clusters/">Clusters</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/crdts/">Data Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/eventual-consistency/">Eventual Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/keys-and-objects/">Keys and Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/replication/">Replication</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/vnodes/">Vnodes</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-comments"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/community">Community</a></span>
+        <div class="clear"></div>
+      </h3>
+      <ul></ul> 
+    </div>
+  </nav>
+
+  
+  <ul id="fixed-nav">
+    <li>
+      <a href="https://github.com/basho/basho_docs" target="_blank">
+        <div class="icon-container">
+          <span aria-hidden="true" class="nav-icon" data-icon="&#xe004;"></span>
+        </div>
+        <span class="separator">&#124;</span>Available on GitHub
+      </a>
+    </li>
+    <li>
+      <a href="/riak/latest/community/">
+        <div class="icon-container">
+          <span aria-hidden="true" class="nav-icon" data-icon="&#xf059;"></span>
+        </div>
+        <span class="separator">&#124;</span>Get Help
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+  <script>
+  (function() {
+    var cx = '011972015458788978446:zgdcy4fa-o0';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<div style="width:0px;overflow:hidden;height:0px;">
+  <gcse:search></gcse:search>
+</div>
+
+
+  <div role="main">
+
+    <header class="masthead">
+  <div id="header">
+    
+    <div id="header-inner">
+      <div class="icon-reorder" id="nav-toggle"></div>
+
+      <div id="top-nav">
+        
+        <a href="/riak/kv/2.1.3/downloads/"><span class="icon-download-alt"></span>Downloads</a>
+        <div id="nav-more"><span class="icon-more"></span></div>
+      </div>
+
+      <a class="responsive-toggle"></a>
+      
+      
+      <a class="logo" href="/index.html"><h1>Riak Docs</h1></a>
+      
+      <span class="tagline">Product tutorials, how-tos, and fully-documented APIs.</span>
+      <div id="nav-menu">
+        <h2>Links</h2>
+        <ul>
+          <li><a href="http://docs.basho.com/">Docs Home</a></li>
+          <li><a href="http://basho.com/">Basho Website</a></li>
+        </ul>
+        
+        <div id="nav-menu-arrow"></div>
+        <div id="nav-menu-arrow-back"></div>
+      </div>
+
+      <div class="clear"></div>
+
+      <div class="header-rule"></div>
+    </div>
+  </div>
+</header>
+
+
+    <article class="mainarticle">
+
+      <div class="versions">
+  <div id="version-ddown-button" class="unselected">
+    <div class="version-ddown-title">Version</div>
+    <div class="version-ddown-number">2.1.3</div>
+    <div class="version-ddown-arrow"></div>
+  </div>
+  <ol id="version-list" style="display: none;">
+  
+  
+    
+    
+      
+      
+      <li class="sans versions-0 current">DEV</li>
+      
+      <li class="current versions-0"><a class="versioned" href="/riak/kv/2.1.3/developing/usage/secondary-indexes/">2.1.3</a></li>
+    
+    
+      
+      
+      
+      <li class=" versions-0 first"><a class="versioned" href="/riak/kv/2.1.1/developing/usage/secondary-indexes/">2.1.1</a></li>
+    
+  
+    
+    
+      
+      
+      
+      <li class="sans versions-1 current">LTS</li>
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.6/developing/usage/secondary-indexes/">2.0.6</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.5/developing/usage/secondary-indexes/">2.0.5</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.4/developing/usage/secondary-indexes/">2.0.4</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.2/developing/usage/secondary-indexes/">2.0.2</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.1/developing/usage/secondary-indexes/">2.0.1</a></li>
+    
+    
+      
+      
+      
+      <li class=" versions-1 first"><a class="versioned" href="/riak/kv/2.0.0/developing/usage/secondary-indexes/">2.0.0</a></li>
+    
+  
+  
+  <li class="versions-5 first"><a class="sans versioned" href="http://docs.basho.com/riak/1.4.12/">older</a></li>
+  </ol>
+</div>
+
+
+      
+      
+
+      <header><h1>Using Secondary Indexes (2i)</h1></header>
+
+      
+
+      
+      <nav id="toc">
+        <h2 class="title">Contents</h2>
+        <div id="toc-wrapper">
+          <ol id="toc-items"></ol>
+        </div>
+      </nav>
+      
+
+      
+
+<div class="note">
+<div class="title">Note: Riak Search preferred for querying</div>
+If you're interested in non-primary-key-based querying in Riak, i.e. if
+you're looking to go beyond straightforward K/V operations, we now
+recommend [[Riak Search|Using Search]] rather than secondary indexes for
+a variety of reasons. Most importantly, Riak Search has a far more
+capacious querying API and can be used with all of Riak's storage
+backends.
+</div>
+
+<p>Secondary indexes (2i) in Riak enable you to tag objects stored in Riak,
+at write time, with one or more queryable values. Those values can then
+be used to find multiple objects in Riak. If you&rsquo;re storing [[user
+data|Use Cases#User-Accounts]], for example, you could tag each object
+associated with that user with a username or other unique marker. Once
+tagged, you could find all objects in a Riak bucket sharing that tag.
+Secondary indexes can be either a binary or string, such as
+<code>sensor_1_data</code> or <code>admin_user</code> or <code>click_event</code>, or an integer, such as
+<code>99</code> or <code>141121</code>.</p>
+
+<p>[[Riak Search|Using Search]] serves analogous purposes but is quite
+different because it parses key/value data itself and builds indexes on
+the basis of Solr schemas.</p>
+
+<p>Please note that 2i can be used only with the <a href="/riak/kv/2.1.3/setup/planning/backend/leveldb">LevelDB</a> and <a href="/riak/kv/2.1.3/setup/planning/backend/memory">Memory</a>
+backends.</p>
+
+<h2 id="features:8f582a417be53e585b1ca16f14cd486b">Features</h2>
+
+<ul>
+<li>Allows two types of secondary attributes: integers and strings (aka
+binaries)</li>
+<li>Allows querying by exact match or range on one index</li>
+<li>Allows pagination of results</li>
+<li>Allows streaming of results</li>
+<li>Query results can be used as input to a [[MapReduce|Using MapReduce]]
+query</li>
+</ul>
+
+<div class="note">
+<div class="title">Note on 2i and strong consistency</div>
+Secondary indexes do not currently work with the [[strong consistency]]
+feature introduced in Riak version 2.0. If you store objects in
+[[strongly consistent buckets|Using Strong
+Consistency#Creating-a-Strongly-Consistent-Bucket-Type]] and attach
+secondary index metadata to those objects, you can still perform
+strongly consistent operations on those objects but the secondary
+indexes will be ignored.
+</div>
+
+<h2 id="when-to-use-secondary-indexes:8f582a417be53e585b1ca16f14cd486b">When to Use Secondary Indexes</h2>
+
+<p>Secondary indexes are useful when you want to find data on the basis of
+something other than objects&rsquo; bucket type, bucket, and key, i.e. when
+you want objects to be discoverable based on more than their location
+alone.</p>
+
+<p>2i works best for objects whose value is stored in an opaque blob, like
+a binary file, because those objects don&rsquo;t offer any clues that enable
+you to discover them later. Indexing enables you to tag those objects
+and find all objects with the same tag in a specified bucket later on.</p>
+
+<p>2i is thus recommended when your use case requires an easy-to-use search
+mechanism that does not require a schema (as does [[Riak Search|Search
+Details#schemas]]) and a basic query interface, i.e. an interface that
+enables an application to tell Riak things like &ldquo;fetch all objects
+tagged with the string <code>Milwaukee_Bucks</code>&rdquo; or &ldquo;fetch all objects tagged
+with numbers between 1500 and 1509.&rdquo;</p>
+
+<p>2i is also recommended if your use case requires anti-entropy. Since
+secondary indexes are just metadata attached to key/value objects, 2i
+piggybacks off of read-repair.</p>
+
+<h2 id="when-not-to-use-secondary-indexes:8f582a417be53e585b1ca16f14cd486b">When Not to Use Secondary Indexes</h2>
+
+<ul>
+<li>If your ring size exceeds 512 partitions, 2i can cause performance
+issues in large clusters.</li>
+<li>When you need more than the exact match and range searches that 2i
+supports. If that&rsquo;s the case, we recommend checking out [[Riak
+Search|Using Search]].</li>
+<li>When you want to use composite queries. A query like
+<code>last_name=zezeski AND state=MD</code> would have to be split into two
+queries and the results merged (or it would need to involve
+[[MapReduce|Using MapReduce]]).</li>
+</ul>
+
+<h2 id="query-interfaces-and-examples:8f582a417be53e585b1ca16f14cd486b">Query Interfaces and Examples</h2>
+
+<p>Typically, the result set from a 2i query is a list of object keys from
+the specified bucket that include the index values in question. As we&rsquo;ll
+see below, when executing range queries in Riak 1.4 or higher, it is
+possible to retrieve the index values along with the object keys.</p>
+
+<h3 id="inserting-objects-with-secondary-indexes:8f582a417be53e585b1ca16f14cd486b">Inserting Objects with Secondary Indexes</h3>
+
+<p>In this example, the key <code>john_smith</code> is used to store user data in the
+bucket <code>users</code>, which bears the <code>default</code> bucket type. Let&rsquo;s say that an
+application would like add a Twitter handle and an email address to this
+object as secondary indexes.</p>
+
+<pre><code class="language-java">Location johnSmithKey = new Location(new Namespace(&quot;default&quot;, &quot;users&quot;), &quot;john_smith&quot;);
+
+// In the Java client (and all clients), if you do not specify a bucket type,
+// the client will use the default type. And so the following store command
+// would be equivalent to the one above:
+Location johnSmithKey = new Location(new Namespace(&quot;users&quot;), &quot;john_smith&quot;);
+
+RiakObject obj = new RiakObject()
+        .setContentType(&quot;application/json&quot;)
+        .setValue(BinaryValue.create(&quot;{'user_data':{ ... }}&quot;));
+
+obj.getIndexes().getIndex(StringBinIndex.named(&quot;twitter&quot;)).add(&quot;jsmith123&quot;);
+obj.getIndexes().getIndex(StringBinIndex.named(&quot;email&quot;)).add(&quot;jsmith@basho.com&quot;);
+
+StoreValue store = new StoreValue.Builder(obj)
+        .withLocation(johnSmithKey)
+        .build();
+client.execute(store);
+</code></pre>
+
+<pre><code class="language-ruby">bucket = client.bucket_type('default').bucket('users')
+obj = Riak::RObject.new(bucket, 'john_smith')
+obj.content_type = 'application/json'
+obj.raw_data = '{&quot;user_data&quot;:{ ... }}'
+
+# String/binary indexes must be set as an array of strings
+obj.indexes['twitter_bin'] = %w{ jsmith123 }
+obj.indexes['email_bin'] = %w{ jsmith@basho.com }
+obj.store
+
+# In the Ruby client (and all clients), if you do not specify a bucket
+# type, the client will use the default type. And so the following set
+# of commands would be equivalent to the one above:
+
+bucket = client.bucket('users')
+# repeat the same commands for building the object
+obj.store
+</code></pre>
+
+<pre><code class="language-php">$object = (new \Basho\Riak\Object('{&quot;user_data&quot;:{ ... }}', ['Content-type' =&gt; 'application/json']))
+  -&gt;addValueToIndex('twitter_bin', 'jsmith123')
+  -&gt;addValueToIndex('email_bin', 'jsmith@basho.com');
+
+(new \Basho\Riak\Command\Builder\StoreObject($riak))
+  -&gt;withObject($object)
+  -&gt;buildLocation('john_smith', 'users', 'default')
+  -&gt;build()
+  -&gt;execute();
+</code></pre>
+
+<pre><code class="language-python">bucket = client.bucket_type('default').bucket('users')
+# In the Python client (and all clients), if you do not specify a bucket type,
+# the client will use the default type. And so the following store command
+# would be equivalent to the one above:
+bucket = client.bucket('users')
+
+obj = RiakObject(client, bucket, 'john_smith')
+obj.content_type = 'text/plain'
+obj.data = '...user data...'
+obj.add_index('twitter_bin', 'jsmith123')
+obj.add_index('email_bin', 'jsmith@basho.com')
+obj.store()
+</code></pre>
+
+<pre><code class="language-csharp">var id = new RiakObjectId(&quot;default&quot;, &quot;users&quot;, &quot;john_smith&quot;);
+var obj = new RiakObject(id, &quot;...user data...&quot;,
+    RiakConstants.ContentTypes.TextPlain);
+obj.BinIndex(&quot;twitter&quot;).Set(&quot;jsmith123&quot;);
+obj.BinIndex(&quot;email&quot;).Set&quot;jsmith@basho.com&quot;);
+var rslt = client.Put(obj);
+</code></pre>
+
+<pre><code class="language-javascript">var riakObj = new Riak.Commands.KV.RiakObject();
+riakObj.setContentType('text/plain');
+riakObj.setBucket('users');
+riakObj.setKey('john_smith');
+riakObj.setValue('...user data...');
+riakObj.addToIndex('twitter_bin', 'jsmith123');
+riakObj.addToIndex('email_bin', 'jsmith@basho.com');
+client.storeValue({ value: riakObj }, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+});
+</code></pre>
+
+<pre><code class="language-erlang">Obj = riakc_obj:new({&lt;&lt;&quot;default&quot;&gt;&gt;, &lt;&lt;&quot;users&quot;&gt;&gt;},
+                    &lt;&lt;&quot;john_smith&quot;&gt;&gt;,
+                    &lt;&lt;&quot;...user data...&quot;&gt;&gt;,
+                    &lt;&lt;&quot;text/plain&quot;&gt;&gt;),
+%% In the Erlang client (and all clients), if you do not specify a bucket type,
+%% the client will use the default type. And so the following object would be
+%% equivalent to the one above:
+
+Obj = riakc_obj:new(&lt;&lt;&quot;users&quot;&gt;&gt;,
+                    &lt;&lt;&quot;john_smith&quot;&gt;&gt;,
+                    &lt;&lt;&quot;...user data...&quot;&gt;&gt;,
+                    &lt;&lt;&quot;text/plain&quot;&gt;&gt;),
+MD1 = riakc_obj:get_update_metadata(Obj),
+MD2 = riakc_obj:set_secondary_index(
+    MD1,
+    [{{binary_index, &quot;twitter&quot;}, [&lt;&lt;&quot;jsmith123&quot;&gt;&gt;]},
+     {{binary_index, &quot;email&quot;}, [&lt;&lt;&quot;jsmith@basho.com&quot;&gt;&gt;]}]),
+Obj2 = riakc_obj:update_metadata(Obj, MD2),
+riakc_pb_socket:put(Pid, Obj2).
+</code></pre>
+
+<pre><code class="language-golang">obj := &amp;riak.Object{
+    ContentType:     &quot;text/plain&quot;,
+    Charset:         &quot;utf-8&quot;,
+    ContentEncoding: &quot;utf-8&quot;,
+    BucketType:      &quot;indexes&quot;,
+    Bucket:          &quot;users&quot;,
+    Key:             &quot;john_smith&quot;,
+    Value:           []byte(&quot;…user data…&quot;),
+}
+
+obj.AddToIndex(&quot;twitter_bin&quot;, &quot;jsmith123&quot;)
+obj.AddToIndex(&quot;email_bin&quot;, &quot;jsmith@basho.com&quot;)
+
+cmd, err := riak.NewStoreValueCommandBuilder().
+    WithContent(obj).
+    Build()
+if err != nil {
+    return err
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    return err
+}
+</code></pre>
+
+<pre><code class="language-curl">curl -XPOST localhost:8098/types/indexes/buckets/users/keys/john_smith \
+  -H 'x-riak-index-twitter_bin: jsmith123' \
+  -H 'x-riak-index-email_bin: jsmith@basho.com' \
+  -H 'Content-Type: application/json' \
+  -d '{&quot;userData&quot;:&quot;data&quot;}'
+</code></pre>
+
+<div class="note">
+<div class="title">Getting started with Riak clients</div>
+If you are connecting to Riak using one of Basho's official [[client
+libraries]], you can find more information about getting started with
+your client in our [[quickstart guide|Five-Minute
+Install#setting-up-your-riak-client]].
+</div>
+
+<p>This has accomplished the following:</p>
+
+<ul>
+<li>The object has been stored with a primary bucket/key of
+<code>users</code>/<code>john_smith</code></li>
+<li>The object now has a secondary index called <code>twitter_bin</code> with a value
+of <code>jsmith123</code></li>
+<li>The object now has a secondary index called <code>email_bin</code> with a value
+of <code>jsmith@basho.com</code></li>
+</ul>
+
+<h3 id="querying-objects-with-secondary-indexes:8f582a417be53e585b1ca16f14cd486b">Querying Objects with Secondary Indexes</h3>
+
+<p>Let&rsquo;s query the <code>users</code> bucket on the basis of Twitter handle to make
+sure that we can find our stored object:</p>
+
+<pre><code class="language-java">Namespace usersBucket = new Namespace(&quot;users&quot;);
+BinIndexQuery biq = new BinIndexQuery.Builder(usersBucket, &quot;twitter&quot;, &quot;jsmith123&quot;)
+        .build();
+BinIndexQuery.Response response = client.execute(biq);
+List&lt;BinIndexQuery.Response.Entry&gt; entries = response.getEntries();
+for (BinIndexQuery.Response.Entry entry : entries) {
+    System.out.println(entry.getRiakObjectLocation().getKey());
+}
+</code></pre>
+
+<pre><code class="language-ruby">bucket = client.bucket('users')
+bucket.get_index('twitter_bin', 'jsmith123')
+
+# This is equivalent to the following:
+bucket = client.bucket_type('default').bucket('users')
+bucket.get_index('twitter_bin', 'jsmith123')
+</code></pre>
+
+<pre><code class="language-php">$response = (new \Basho\Riak\Command\Builder\QueryIndex($riak))
+  -&gt;buildBucket('users')
+  -&gt;withIndexName('twitter_bin')
+  -&gt;withScalarValue('jsmith123')
+  -&gt;build()
+  -&gt;execute()
+  -&gt;getResults();
+</code></pre>
+
+<pre><code class="language-python">bucket = client.bucket('users') # equivalent to client.bucket_type('default').bucket('users')
+bucket.get_index('twitter_bin', 'jsmith123').results
+</code></pre>
+
+<pre><code class="language-csharp">var idxId = new RiakIndexId(&quot;default&quot;, &quot;users&quot;, &quot;twitter&quot;);
+var rslt = client.GetSecondaryIndex(idxId, &quot;jsmith123&quot;);
+var idxRslt = rslt.Value;
+foreach (var keyTerm in idxRslt.IndexKeyTerms)
+{
+    Debug.WriteLine(keyTerm.Key);
+}
+</code></pre>
+
+<pre><code class="language-javascript">var query_keys = [];
+function query_cb(err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+
+    if (rslt.done) {
+        query_keys.forEach(function (key) {
+            logger.info(&quot;2i query key: '%s'&quot;, key);
+        });
+    }
+
+    if (rslt.values.length &gt; 0) {
+        Array.prototype.push.apply(query_keys,
+            rslt.values.map(function (value) {
+                return value.objectKey;
+            }));
+    }
+}
+
+var cmd = new Riak.Commands.KV.SecondaryIndexQuery.Builder()
+    .withBucket('users')
+    .withIndexName('twitter_bin')
+    .withIndexKey('jsmith123')
+    .withCallback(query_cb)
+    .build();
+client.execute(cmd);
+</code></pre>
+
+<pre><code class="language-erlang">{ok, Results} =
+    riakc_pb_socket:get_index(Pid,
+                              &lt;&lt;&quot;users&quot;&gt;&gt;, %% bucket
+                              {binary_index, &quot;twitter&quot;}, %% index name
+                              &lt;&lt;&quot;jsmith123&quot;&gt;&gt;). %% index
+</code></pre>
+
+<pre><code class="language-golang">cmd, err := riak.NewSecondaryIndexQueryCommandBuilder().
+    WithBucketType(&quot;indexes&quot;).
+    WithBucket(&quot;users&quot;).
+    WithIndexName(&quot;twitter_bin&quot;).
+    WithIndexKey(&quot;jsmith123&quot;).
+    Build()
+if err != nil {
+    return err
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    return err
+}
+</code></pre>
+
+<pre><code class="language-curl">curl localhost:8098/buckets/users/index/twitter_bin/jsmith123
+</code></pre>
+
+<p>The response:</p>
+
+<pre><code class="language-java">john_smith
+</code></pre>
+
+<pre><code class="language-ruby">[&quot;john_smith&quot;]
+</code></pre>
+
+<pre><code class="language-php">['john_smith']
+</code></pre>
+
+<pre><code class="language-python">['john_smith']
+</code></pre>
+
+<pre><code class="language-csharp">john_smith
+</code></pre>
+
+<pre><code class="language-javascript">john_smith
+</code></pre>
+
+<pre><code class="language-erlang">{ok,{index_results_v1,[&lt;&lt;&quot;john_smith&quot;&gt;&gt;],
+                      undefined,undefined}}.
+</code></pre>
+
+<pre><code class="language-golang">john_smith
+</code></pre>
+
+<pre><code class="language-curl">{
+  &quot;keys&quot;: [
+    &quot;john_smith&quot;
+  ]
+}
+</code></pre>
+
+<h2 id="examples:8f582a417be53e585b1ca16f14cd486b">Examples</h2>
+
+<p>To run the following examples, make sure that Riak is configured to use
+an index-capable storage backend, such as <a href="/riak/kv/2.1.3/setup/planning/backend/leveldb">LevelDB</a> or <a href="/riak/kv/2.1.3/setup/planning/backend/memory">Memory</a>.</p>
+
+<h2 id="indexing-objects:8f582a417be53e585b1ca16f14cd486b">Indexing Objects</h2>
+
+<p>The following example indexes four different objects. Notice that we&rsquo;re
+storing both integer and string (aka binary) fields. Field names are
+automatically lowercased, some fields have multiple values, and
+duplicate fields are automatically de-duplicated, as in the following
+example:</p>
+
+<pre><code class="language-java">Namespace peopleBucket = new Namespace(&quot;indexes&quot;, &quot;people&quot;);
+
+RiakObject larry = new RiakObject()
+        .setValue(BinaryValue.create(&quot;My name is Larry&quot;));
+larry.getIndexes().getIndex(StringBinIndex.named(&quot;field1&quot;)).add(&quot;val1&quot;);
+larry.getIndexes().getIndex(LongIntIndex.named(&quot;field2&quot;)).add(1001L);
+StoreValue storeLarry = new StoreValue.Builder(larry)
+        .withLocation(peopleBucket.setKey(&quot;larry&quot;))
+        .build();
+client.execute(storeLarry);
+
+RiakObject moe = new RiakObject()
+        .setValue(BinaryValue.create(&quot;Ny name is Moe&quot;));
+moe.getIndexes().getIndex(StringBinIdex.named(&quot;Field1&quot;)).add(&quot;val2&quot;);
+moe.getIndexes().getIndex(LongIntIndex.named(&quot;Field2&quot;)).add(1002L);
+StoreValue storeMoe = new StoreValue.Builder(moe)
+        .withLocation(peopleBucket.setKey(&quot;moe&quot;))
+        .build();
+client.execute(storeMoe);
+
+RiakObject curly = new RiakObject()
+        .setValue(BinaryValue.create(&quot;My name is Curly&quot;));
+curly.getIndexes().getIndex(StringBinIndex.named(&quot;FIELD1&quot;)).add(&quot;val3&quot;);
+curly.getIndexes().getIndex(LongIntIndex.named(&quot;FIELD2&quot;)).add(1003L);
+StoreValue storeCurly = new StoreValue.Builder(curly)
+        .withLocation(peopleBucket.setKey(&quot;curly&quot;))
+        .build();
+client.execute(storeCurly);
+
+RiakObject veronica = new RiakObject()
+        .setValue(BinaryValue.create(&quot;My name is Veronica&quot;));
+veronica.getIndexes().getIndex(StringBinIndex.named(&quot;field1&quot;))
+        .add(&quot;val4&quot;).add(&quot;val4&quot;);
+veronica.getIndexes().getIndex(LongIntIndex.named(&quot;field2&quot;))
+        .add(1004L).add(1005L).add(1006L).add(1004L).add(1004L).add(1007L);
+StoreValue storeVeronica = new StoreValue.Builder(veronica)
+        .withLocation(peopleBucket.setKey(&quot;veronica&quot;))
+        .build();
+client.execute(storeVeronica);
+</code></pre>
+
+<pre><code class="language-ruby">bucket = client.bucket_type('indexes').bucket('people')
+
+obj1 = Riak::RObject.new(bucket, 'larry')
+obj1.content_type = 'text/plain'
+obj1.raw_data = 'My name is Larry'
+obj1.indexes['field1_bin'] = %w{ val1 }
+# Like binary/string indexes, integer indexes must be set as an array,
+# even if you wish to add only a single index
+obj1.indexes['field2_int'] = [1001]
+obj1.store
+
+obj2 = Riak::RObject.new(bucket, 'moe')
+obj2.content_type = 'text/plain'
+obj2.raw_data = 'My name is Larry'
+obj2.indexes['Field1_bin'] = %w{ val2 }
+obj2.indexes['Field2_int'] = [1002]
+obj2.store
+
+obj3 = Riak::RObject.new(bucket, 'curly')
+obj3.content_type = 'text/plain'
+obj3.raw_data = 'My name is Curly'
+obj3.indexes['FIELD1_BIN'] = %w{ val3 }
+obj3.indexes['FIELD2_INT'] = [1003]
+obj3.store
+
+obj4 = Riak::RObject.new(bucket, 'veronica')
+obj4.content_type = 'text/plain'
+obj4.raw_data = 'My name is Veronica'
+obj4.indexes['field1_bin'] = %w{ val4 val4 val4a val4b }
+obj4.indexes['field2_int'] = [1004, 1004, 1005, 1006]
+obj4.indexes['field2_int'] = [1004]
+obj4.indexes['field2_int'] = [1004]
+obj4.indexes['field2_int'] = [1004]
+obj4.indexes['field2_int'] = [1007]
+obj4.store
+</code></pre>
+
+<pre><code class="language-php">$bucket = new \Basho\Riak\Bucket('people', 'indexes');
+
+$object = (new \Basho\Riak\Object'My name is Larry', ['Content-type' =&gt; 'text/plain']))
+  -&gt;addValueToIndex('field1_bin', 'val1')
+  -&gt;addValueToIndex('field2_int', 1001);
+
+(new \Basho\Riak\Command\Builder\StoreObject($riak))
+  -&gt;withObject($object)
+  -&gt;withLocation(new \Basho\Riak\Location('larry', $bucket))
+  -&gt;build()
+  -&gt;execute();
+
+$object = (new \Basho\Riak\Object'My name is Moe', ['Content-type' =&gt; 'text/plain']))
+  -&gt;addValueToIndex('Field1_bin', 'val2')
+  -&gt;addValueToIndex('Field2_int', 1002);
+
+(new \Basho\Riak\Command\Builder\StoreObject($riak))
+  -&gt;withObject($object)
+  -&gt;withLocation(new \Basho\Riak\Location('moe', $bucket))
+  -&gt;build()
+  -&gt;execute();
+
+$object = (new \Basho\Riak\Object'My name is Curly', ['Content-type' =&gt; 'text/plain']))
+  -&gt;addValueToIndex('FIELD1_BIN', 'val3')
+  -&gt;addValueToIndex('FIELD2_int', 1003);
+
+(new \Basho\Riak\Command\Builder\StoreObject($riak))
+  -&gt;withObject($object)
+  -&gt;withLocation(new \Basho\Riak\Location('curly', $bucket))
+  -&gt;build()
+  -&gt;execute();
+
+$object = (new \Basho\Riak\Object'My name is Veronica', ['Content-type' =&gt; 'text/plain']))
+  -&gt;addValueToIndex('field1_bin', 'val4')
+  -&gt;addValueToIndex('field1_bin', 'val4')
+  -&gt;addValueToIndex('field1_bin', 'val4a')
+  -&gt;addValueToIndex('field1_bin', 'val4b')
+  -&gt;addValueToIndex('field2_int', 1004)
+  -&gt;addValueToIndex('field2_int', 1005)
+  -&gt;addValueToIndex('field2_int', 1006)
+  -&gt;addValueToIndex('field2_int', 1004)
+  -&gt;addValueToIndex('field2_int', 1004)
+  -&gt;addValueToIndex('field2_int', 1007);
+
+(new \Basho\Riak\Command\Builder\StoreObject($riak))
+  -&gt;withObject($object)
+  -&gt;withLocation(new \Basho\Riak\Location('veronica', $bucket))
+  -&gt;build()
+  -&gt;execute();
+</code></pre>
+
+<pre><code class="language-python">bucket = client.bucket_type('indexes').bucket('people')
+
+obj1 = RiakObject(client, bucket, 'larry')
+obj1.content_type = 'text/plain'
+obj1.data = 'My name is Larry'
+obj1.add_index('field1_bin', 'val1').add_index('field2_int', 1001)
+obj1.store()
+
+obj2 = RiakObject(client, bucket, 'moe')
+obj2.content_type = 'text/plain'
+obj2data = 'Moe'
+obj2.add_index('Field1_bin', 'val2').add_index('Field2_int', 1002)
+obj2.store()
+
+obj3 = RiakObject(client, bucket, 'curly')
+obj3.content_type = 'text/plain'
+obj3.data = 'Curly'
+obj3.add_index('FIELD1_BIN', 'val3').add_index('FIELD2_INT', 1003)
+obj3.store()
+
+obj4 = RiakObject(client, bucket, 'veronica')
+obj4.content_type = 'text/plain'
+obj4.data = 'Veronica'
+obj4.add_index('field1_bin', 'val4').add_index('field1_bin', 'val4a').add_index('field1_bin', 'val4b').add_index('field2_int', 1004).add_index('field2_int', 1004).add_index('field2_int', 1005).add_index('field2_int', 1006).add_index('field2_int', 1004).add_index('field2_int', 1004).add_index('field2_int', 1004).add_index('field2_int', 1007)
+obj4.store()
+</code></pre>
+
+<pre><code class="language-csharp">var larryId = new RiakObjectId(&quot;indexes&quot;, &quot;people&quot;, &quot;larry&quot;);
+var larry = new RiakObject(larryId, &quot;My name is Larry&quot;,
+    RiakConstants.ContentTypes.TextPlain);
+
+larry.BinIndex(&quot;field1&quot;).Set(&quot;val1&quot;);
+larry.IntIndex(&quot;field2&quot;).Set(1001);
+
+client.Put(larry);
+
+var moeId = new RiakObjectId(&quot;indexes&quot;, &quot;people&quot;, &quot;moe&quot;);
+var moe = new RiakObject(moeId, &quot;My name is Moe&quot;,
+    RiakConstants.ContentTypes.TextPlain);
+
+moe.BinIndex(&quot;Field1&quot;).Set(&quot;val2&quot;);
+moe.IntIndex(&quot;Field2&quot;).Set(1002);
+
+client.Put(moe);
+
+var curlyId = new RiakObjectId(&quot;indexes&quot;, &quot;people&quot;, &quot;curly&quot;);
+var curly = new RiakObject(curlyId, &quot;My name is Curly&quot;,
+    RiakConstants.ContentTypes.TextPlain);
+
+curly.BinIndex(&quot;FIELD1&quot;).Set(&quot;val3&quot;);
+curly.IntIndex(&quot;FIELD2&quot;).Set(1003);
+
+client.Put(curly);
+
+var veronicaId = new RiakObjectId(&quot;indexes&quot;, &quot;people&quot;, &quot;veronica&quot;);
+var veronica = new RiakObject(veronicaId, &quot;My name is Veronica&quot;,
+    RiakConstants.ContentTypes.TextPlain);
+
+veronica.BinIndex(&quot;FIELD1&quot;).Set(new string[] { &quot;val4&quot;, &quot;val4a&quot;, &quot;val4b&quot; });
+veronica.IntIndex(&quot;FIELD2&quot;).Set(new BigInteger[] {
+    1004, 1005, 1006, 1004, 1004, 1007
+});
+
+client.Put(veronica);
+</code></pre>
+
+<pre><code class="language-javascript">function store_cb(err, rslt, async_cb) {
+    if (err) {
+        throw new Error(err);
+    }
+    async_cb(null, rslt);
+}
+
+var storeFuncs = [
+    function (async_cb) {
+        var riakObj = new Riak.Commands.KV.RiakObject();
+        riakObj.setContentType('text/plain');
+        riakObj.setBucketType('indexes');
+        riakObj.setBucket('people');
+        riakObj.setKey('larry');
+        riakObj.setValue('My name is Larry');
+        riakObj.addToIndex('field1_bin', 'val1');
+        riakObj.addToIndex('field2_int', 1001);
+        client.storeValue({ value: riakObj }, function (err, rslt) {
+            store_cb(err, rslt, async_cb);
+        });
+    },
+    function (async_cb) {
+        var riakObj = new Riak.Commands.KV.RiakObject();
+        riakObj.setContentType('text/plain');
+        riakObj.setBucketType('indexes');
+        riakObj.setBucket('people');
+        riakObj.setKey('moe');
+        riakObj.setValue('My name is Moe');
+        riakObj.addToIndex('Field1_bin', 'val2');
+        riakObj.addToIndex('Field2_int', 1002);
+        client.storeValue({ value: riakObj }, function (err, rslt) {
+            store_cb(err, rslt, async_cb);
+        });
+    },
+    function (async_cb) {
+        var riakObj = new Riak.Commands.KV.RiakObject();
+        riakObj.setContentType('text/plain');
+        riakObj.setBucketType('indexes');
+        riakObj.setBucket('people');
+        riakObj.setKey('curly');
+        riakObj.setValue('My name is Curly');
+        riakObj.addToIndex('FIELD1_BIN', 'val3');
+        riakObj.addToIndex('FIELD2_INT', 1003);
+        client.storeValue({ value: riakObj }, function (err, rslt) {
+            store_cb(err, rslt, async_cb);
+        });
+    },
+    function (async_cb) {
+        var riakObj = new Riak.Commands.KV.RiakObject();
+        riakObj.setContentType('text/plain');
+        riakObj.setBucketType('indexes');
+        riakObj.setBucket('people');
+        riakObj.setKey('veronica');
+        riakObj.setValue('My name is Veronica');
+        riakObj.addToIndex('FIELD1_bin', 'val4');
+        riakObj.addToIndex('FIELD1_bin', 'val4');
+        riakObj.addToIndex('FIELD1_bin', 'val4a');
+        riakObj.addToIndex('FIELD1_bin', 'val4b');
+        riakObj.addToIndex('FIELD2_int', 1004);
+        riakObj.addToIndex('FIELD2_int', 1005);
+        riakObj.addToIndex('FIELD2_int', 1006);
+        riakObj.addToIndex('FIELD2_int', 1004);
+        riakObj.addToIndex('FIELD2_int', 1004);
+        riakObj.addToIndex('FIELD2_int', 1007);
+        client.storeValue({ value: riakObj }, function (err, rslt) {
+            store_cb(err, rslt, async_cb);
+        });
+    }
+];
+async.parallel(storeFuncs, function (err, rslts) {
+    if (err) {
+        throw new Error(err);
+    }
+});
+</code></pre>
+
+<pre><code class="language-erlang">Larry = riakc_obj:new(
+    {&lt;&lt;&quot;indexes&quot;&gt;&gt;, &lt;&lt;&quot;people&quot;&gt;&gt;},
+    &lt;&lt;&quot;larry&quot;&gt;&gt;,
+    &lt;&lt;&quot;My name is Larry&quot;&gt;&gt;,
+    &lt;&lt;&quot;text/plain&quot;&gt;&gt;),
+LarryMetadata = riakc_obj:get_update_metadata(Larry),
+LarryIndexes = riakc_obj:set_secondary_index(
+    LarryMetadata,
+    [{{binary_index, &quot;field1&quot;}, [&lt;&lt;&quot;val1&quot;&gt;&gt;]}, {{integer_index, &quot;field2&quot;}, [1001]}]
+),
+LarryWithIndexes = riakc_obj:update_metadata(Larry, LarryIndexes).
+
+Moe = riakc_obj:new(
+    {&lt;&lt;&quot;indexes&quot;&gt;&gt;, &lt;&lt;&quot;people&quot;&gt;&gt;},
+    &lt;&lt;&quot;moe&quot;&gt;&gt;,
+    &lt;&lt;&quot;My name is Moe&quot;&gt;&gt;,
+    &lt;&lt;&quot;text/plain&quot;&gt;&gt;),
+MoeMetadata = riakc_obj:get_update_metadata(Moe),
+MoeIndexes = riakc_obj:set_secondary_index(
+    MoeMetadata,
+    [{{binary_index, &quot;Field1&quot;}, [&lt;&lt;&quot;val2&quot;&gt;&gt;]}, {{integer_index, &quot;Field2&quot;}, [1002]}]
+),
+MoeWithIndexes = riakc_obj:update_metadata(Moe, MoeIndexes).
+
+Curly = riakc_obj:new(
+    {&lt;&lt;&quot;indexes&quot;&gt;&gt;, &lt;&lt;&quot;people&quot;&gt;&gt;},
+    &lt;&lt;&quot;curly&quot;&gt;&gt;,
+    &lt;&lt;&quot;My name is Curly&quot;&gt;&gt;,
+    &lt;&lt;&quot;text/plain&quot;&gt;&gt;),
+CurlyMetadata = riakc_obj:get_update_metadata(Curly),
+CurlyIndexes = riakc_obj:set_secondary_index(
+    CurlyMetadata,
+    [{{binary_index, &quot;FIELD1&quot;}, [&lt;&lt;&quot;val3&quot;&gt;&gt;]}, {{integer_index, &quot;FIELD2&quot;}, [1003]}]
+),
+CurlyWithIndexes = riakc_obj:update_metadata(Curly, CurlyIndexes).
+
+Veronica = riakc_obj:new(
+    {&lt;&lt;&quot;indexes&quot;&gt;&gt;, &lt;&lt;&quot;people&quot;&gt;&gt;},
+    &lt;&lt;&quot;veronica&quot;&gt;&gt;,
+    &lt;&lt;&quot;My name is Veronica&quot;&gt;&gt;,
+    &lt;&lt;&quot;text/plain&quot;&gt;&gt;),
+VeronicaMetadata = riakc_obj:get_update_metadata(Veronica),
+VeronicaIndexes = riakc_obj:set_secondary_index(
+    VeronicaMetadata,
+    [{{binary_index, &quot;field1&quot;}, [&lt;&lt;&quot;val4&quot;&gt;&gt;]}, {{binary_index, &quot;field1&quot;}, [&lt;&lt;&quot;val4&quot;&gt;&gt;]}, {{integer_index, &quot;field2&quot;}, [1004]}, {{integer_index, &quot;field2&quot;}, [1004]}, {{integer_index, &quot;field2&quot;}, [1005]}, {{integer_index, &quot;field2&quot;}, [1006]}, {{integer_index, &quot;field2&quot;}, [1004]}, {{integer_index, &quot;field2&quot;}, [1004]}, {{integer_index, &quot;field2&quot;}, [1007]}]
+),
+VeronicaWithIndexes = riakc_obj:update_metadata(Veronica, VeronicaIndexes).
+</code></pre>
+
+<pre><code class="language-golang">o1 := &amp;riak.Object{
+    Key:   &quot;larry&quot;,
+    Value: []byte(&quot;My name is Larry&quot;),
+}
+o1.AddToIndex(&quot;field1_bin&quot;, &quot;val1&quot;)
+o1.AddToIntIndex(&quot;field2_int&quot;, 1001)
+
+o2 := &amp;riak.Object{
+    Key:   &quot;moe&quot;,
+    Value: []byte(&quot;My name is Moe&quot;),
+}
+o2.AddToIndex(&quot;Field1_bin&quot;, &quot;val2&quot;)
+o2.AddToIntIndex(&quot;Field2_int&quot;, 1002)
+
+o3 := &amp;riak.Object{
+    Key:   &quot;curly&quot;,
+    Value: []byte(&quot;My name is Curly&quot;),
+}
+o3.AddToIndex(&quot;FIELD1_BIN&quot;, &quot;val3&quot;)
+o3.AddToIntIndex(&quot;FIELD2_INT&quot;, 1003)
+
+o4 := &amp;riak.Object{
+    Key:   &quot;veronica&quot;,
+    Value: []byte(&quot;My name is Veronica&quot;),
+}
+o4.AddToIndex(&quot;FIELD1_bin&quot;, &quot;val4&quot;)
+o4.AddToIndex(&quot;FIELD1_bin&quot;, &quot;val4&quot;)
+o4.AddToIndex(&quot;FIELD1_bin&quot;, &quot;val4a&quot;)
+o4.AddToIndex(&quot;FIELD1_bin&quot;, &quot;val4b&quot;)
+o4.AddToIntIndex(&quot;FIELD2_int&quot;, 1004)
+o4.AddToIntIndex(&quot;FIELD2_int&quot;, 1005)
+o4.AddToIntIndex(&quot;FIELD2_int&quot;, 1006)
+o4.AddToIntIndex(&quot;FIELD2_int&quot;, 1004)
+o4.AddToIntIndex(&quot;FIELD2_int&quot;, 1004)
+o4.AddToIntIndex(&quot;FIELD2_int&quot;, 1007)
+
+objs := [...]*riak.Object{o1, o2, o3, o4}
+
+wg := &amp;sync.WaitGroup{}
+for _, obj := range objs {
+    obj.ContentType = &quot;text/plain&quot;
+    obj.Charset = &quot;utf-8&quot;
+    obj.ContentEncoding = &quot;utf-8&quot;
+
+    cmd, err := riak.NewStoreValueCommandBuilder().
+        WithBucketType(&quot;indexes&quot;).
+        WithBucket(&quot;people&quot;).
+        WithContent(obj).
+        Build()
+    if err != nil {
+        return err
+    }
+
+    args := &amp;riak.Async{
+        Command: cmd,
+        Wait:    wg,
+    }
+    if err := cluster.ExecuteAsync(args); err != nil {
+        return err
+    }
+}
+
+wg.Wait()
+</code></pre>
+
+<pre><code class="language-curl">curl -v -XPUT localhost:8098/types/indexes/buckets/people/keys/larry \
+  -H &quot;x-riak-index-field1_bin: val1&quot; \
+  -H &quot;x-riak-index-field2_int: 1001&quot; \
+  -d 'My name is Larry'
+
+curl -v -XPUT localhost:8098/types/indexes/buckets/people/keys/moe \
+  -H &quot;x-riak-index-Field1_bin: val2&quot; \
+  -H &quot;x-riak-index-Field2_int: 1002&quot; \
+  -d 'My name is Moe'
+
+curl -v -XPUT localhost:8098/types/indexes/buckets/people/keys/curly \
+  -H &quot;X-RIAK-INDEX-FIELD1_BIN: val3&quot; \
+  -H &quot;X-RIAK-INDEX-FIELD2_INT: 1003&quot; \
+  -d 'My name is Curly'
+
+curl -v -XPUT 127.0.0.1:8098/types/indexes/buckets/people/keys/veronica \
+  -H &quot;x-riak-index-field1_bin: val4, val4, val4a, val4b&quot; \
+  -H &quot;x-riak-index-field2_int: 1004, 1004, 1005, 1006&quot; \
+  -H &quot;x-riak-index-field2_int: 1004&quot; \
+  -H &quot;x-riak-index-field2_int: 1004&quot; \
+  -H &quot;x-riak-index-field2_int: 1004&quot; \
+  -H &quot;x-riak-index-field2_int: 1007&quot; \
+  -d 'My name is Veronica'
+</code></pre>
+
+<p>The above objects will end up having the following secondary indexes,
+respectively:</p>
+
+<ul>
+<li><code>Larry</code> &mdash; Binary index <code>field1_bin</code> and integer index <code>field2_int</code></li>
+<li><code>Moe</code> &mdash; Binary index <code>field1_bin</code> and integer index <code>field2_int</code>
+(note that the index names are set to lowercase by Riak)</li>
+<li><code>Curly</code> &mdash; Binary index <code>field1_bin</code> and integer index <code>field2_int</code>
+(note again that the index names are set to lowercase)</li>
+<li><code>Veronica</code> &mdash; Binary index <code>field1_bin</code> with the values <code>val4</code>,
+<code>val4a</code>, and <code>val4b</code> and integer index <code>field2_int</code> with the values
+<code>1004</code>, <code>1005</code>, <code>1006</code>, and <code>1007</code> (note that redundancies have been removed)</li>
+</ul>
+
+<p>As these examples show, there are safeguards in Riak that both normalize
+the names of indexes and prevent the accumulation of redundant indexes.</p>
+
+<h2 id="invalid-field-names-and-types:8f582a417be53e585b1ca16f14cd486b">Invalid Field Names and Types</h2>
+
+<p>The following examples demonstrate what happens when an index field is
+specified with an invalid field name or type. The system responds with
+<code>400 Bad Request</code> and a description of the error.</p>
+
+<p>Invalid field name:</p>
+
+<pre><code class="language-java">// The Java client will not allow you to provide invalid index names,
+// because you are not required to add &quot;_bin&quot; or &quot;_int&quot; to the end of
+// those names
+</code></pre>
+
+<pre><code class="language-ruby">bucket = client.bucket_type('indexes').bucket('people')
+obj = Riak::RObject.new(bucket, 'larry')
+obj.indexes['field2_foo'] = [1001]
+
+# The Ruby client will let you get away with this...at first. But when
+# you attempt to store the object, you will get an error response such
+# as this:
+
+NoMethodError: undefined method 'map' for 1001:Fixnum
+</code></pre>
+
+<pre><code class="language-php">// throws \InvalidArgumentException
+$object = (new \Basho\Riak\Object('{&quot;user_data&quot;:{ ... }}', ['Content-type' =&gt; 'application/json']))
+  -&gt;addValueToIndex('twitter', 'jsmith123');
+</code></pre>
+
+<pre><code class="language-python">bucket = client.bucket_type('indexes').bucket('people')
+obj = RiakObject(client, bucket, 'larry')
+obj.add_index('field2_foo', 1001)
+
+# Result:
+riak.RiakError: &quot;Riak 2i fields must end with either '_bin' or '_int'.&quot;
+</code></pre>
+
+<pre><code class="language-csharp">// The Riak .NET Client will not allow you to provide invalid index names,
+// because you are not required to add &quot;_bin&quot; or &quot;_int&quot; to the end of
+// those names
+</code></pre>
+
+<pre><code class="language-javascript">var cmd = new Riak.Commands.KV.SecondaryIndexQuery.Builder()
+    .withBucketType('indexes')
+    .withBucket('people')
+    .withIndexName('field2_foo')
+    .withIndexKey('jsmith123')
+    .withCallback(query_cb)
+    .build();
+client.execute(cmd);
+
+// Produces the following stack trace (truncated):
+error: query_cb err: 'Error processing incoming message: error:function_clause:[{riak_api_pb_server,
+    send_error,
+    [{unknown_field_type,
+        &lt;&lt;&quot;field2_foo&quot;&gt;&gt;},
+    {state,
+        {gen_tcp,inet},
+        #Port&lt;0.68338&gt;,
+        undefined,
+        ...
+        ...
+        ...
+</code></pre>
+
+<pre><code class="language-erlang">Obj = riakc_obj:new(
+    {&lt;&lt;&quot;indexes&quot;&gt;&gt;, &lt;&lt;&quot;people&quot;&gt;&gt;},
+    &lt;&lt;&quot;larry&quot;&gt;&gt;,
+    &lt;&lt;&quot;some data&quot;&gt;&gt;,
+    &lt;&lt;&quot;text/plain&quot;&gt;&gt;
+),
+MD1 = riakc_obj:get_update_metadata(Obj),
+MD2 = riakc_obj:set_secondary_index(MD1, [{{foo_index, &quot;field2&quot;}, [1001]}]).
+
+%% The Erlang client will return an error message along these lines:
+** exception error: no function clause matching
+                    riakc_obj:set_secondary_index( ... ).
+</code></pre>
+
+<pre><code class="language-golang">cmd, err := riak.NewSecondaryIndexQueryCommandBuilder().
+    WithBucketType(&quot;indexes&quot;).
+    WithBucket(&quot;users&quot;).
+    WithIndexName(&quot;field2_foo&quot;).
+    WithIndexKey(&quot;jsmith123&quot;).
+    Build()
+if err != nil {
+    return err
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    fmt.Println(&quot;[DevUsing2i] field name error:&quot;, err)
+} else {
+    return errors.New(&quot;[DevUsing2i] expected an error!&quot;)
+}
+
+// Produces the following stack trace (truncated):
+error: query_cb err: 'Error processing incoming message: error:function_clause:[{riak_api_pb_server,
+    send_error,
+    [{unknown_field_type,
+        &lt;&lt;&quot;field2_foo&quot;&gt;&gt;},
+    {state,
+        {gen_tcp,inet},
+        #Port&lt;0.68338&gt;,
+        undefined,
+        ...
+        ...
+        ...
+</code></pre>
+
+<pre><code class="language-curl">curl -XPUT 127.0.0.1:8098/types/indexes/buckets/people/keys/larry \
+  -H &quot;x-riak-index-field2_foo: 1001&quot; \
+  -d 'data1'
+
+# Response
+Unknown field type for field: 'field2_foo'.
+</code></pre>
+
+<p>Incorrect data type:</p>
+
+<pre><code class="language-java">Location key = new Location(new Namespace(&quot;people&quot;), &quot;larry&quot;);
+RiakObject obj = new RiakObject();
+obj.getIndexes().getIndex(LongIntIndex.named(&quot;field2&quot;)).add(&quot;bar&quot;);
+
+// The Java client will return a response indicating a type mismatch.
+// The output may look something like this:
+
+Error:(46, 68) java: no suitable method found for add(java.lang.String)
+    method com.basho.riak.client.query.indexes.RiakIndex.add(java.lang.Long) is not applicable
+      (argument mismatch; java.lang.String cannot be converted to java.lang.Long)
+    method com.basho.riak.client.query.indexes.RiakIndex.add(java.util.Collection&lt;java.lang.Long&gt;) is not applicable
+      (argument mismatch; java.lang.String cannot be converted to java.util.Collection&lt;java.lang.Long&gt;)
+</code></pre>
+
+<pre><code class="language-ruby">bucket = client.bucket_type('indexes').bucket('people')
+obj = Riak::RObject.new(bucket, 'larry')
+obj.indexes['field2_int'] = %w{ bar }
+
+# The Ruby client will let you get away with this...at first. But when
+# you attempt to store the object, you will get an error response such
+# as this:
+
+NoMethodError: undefined method 'map' for 1001:Fixnum
+</code></pre>
+
+<pre><code class="language-php">// throws \InvalidArgumentException
+$object = (new \Basho\Riak\Object('{&quot;user_data&quot;:{ ... }}', ['Content-type' =&gt; 'application/json']))
+  -&gt;addValueToIndex('twitter_int', 'not_an_int');
+
+// throws \InvalidArgumentException
+$object = (new \Basho\Riak\Object('{&quot;user_data&quot;:{ ... }}', ['Content-type' =&gt; 'application/json']))
+  -&gt;addValueToIndex('twitter_int', ['arrays', 'are', 'not', 'strings']);
+
+// does not throw an exception, it will just write ints as a string
+// only requirement is that value is scalar (int, float, string, bool)
+$object = (new \Basho\Riak\Object('{&quot;user_data&quot;:{ ... }}', ['Content-type' =&gt; 'application/json']))
+  -&gt;addValueToIndex('twitter_bin', 12);
+</code></pre>
+
+<pre><code class="language-python">bucket = client.bucket_type('indexes').bucket('people')
+obj = RiakObject(client, bucket, 'larry')
+obj.add_index('field2_int', 'bar')
+
+# The Python client will let you get away with this...at first. But when you
+# attempt to store the object, you will get an error response such as this:
+riak.RiakError: '{precommit_fail,[{field_parsing_failed,{&lt;&lt;&quot;field2_int&quot;&gt;&gt;,&lt;&lt;&quot;bar&quot;&gt;&gt;}}]}'
+</code></pre>
+
+<pre><code class="language-csharp">var id = new RiakObjectId(&quot;indexes&quot;, &quot;people&quot;, &quot;larry&quot;);
+var obj = new RiakObject(id, &quot;test value&quot;, &quot;text/plain&quot;);
+var intIdx = obj.IntIndex(&quot;test-int-idx&quot;);
+intIdx.Add(&quot;invalid-value&quot;);
+
+// The .NET client will throw a FormatException at this point
+// The output may look something like this:
+
+The value could not be parsed.
+</code></pre>
+
+<pre><code class="language-javascript">var riakObj = new Riak.Commands.KV.RiakObject();
+riakObj.setContentType('text/plain');
+riakObj.setBucketType('indexes');
+riakObj.setBucket('people');
+riakObj.setKey('larry');
+riakObj.addToIndex('field2_int', 'bar');
+try {
+    client.storeValue({ value: riakObj }, function (err, rslt) {
+        logger.error(&quot;incorrect_data_type err: '%s'&quot;, err);
+    });
+} catch (e) {
+    logger.error(&quot;incorrect_data_type err: '%s'&quot;, e);
+}
+
+// Output:
+buffer.js:67
+    throw new TypeError('must start with number, buffer, array or string');
+          ^
+TypeError: must start with number, buffer, array or string
+    at new Buffer (buffer.js:67:11)
+</code></pre>
+
+<pre><code class="language-erlang">Obj = riakc_obj:new(
+    {&lt;&lt;&quot;indexes&quot;&gt;&gt;, &lt;&lt;&quot;people&quot;&gt;&gt;},
+    &lt;&lt;&quot;larry&quot;&gt;&gt;,
+    &lt;&lt;&quot;some data&quot;&gt;&gt;,
+    &lt;&lt;&quot;text/plain&quot;&gt;&gt;
+),
+MD1 = riakc_obj:get_update_metadata(Obj),
+MD2 = riakc_obj:set_secondary_index(MD1, [{{integer_index, &quot;field2&quot;}, [&lt;&lt;&quot;bar&quot;&gt;&gt;]}]).
+
+%% The Erlang client will return an error message along these lines:
+** exception error: bad argument
+     in function  integer_to_list/1
+        called as integer_to_list(&lt;&lt;&quot;bar&quot;&gt;&gt;) ...
+</code></pre>
+
+<pre><code class="language-golang">obj := &amp;riak.Object{
+    BucketType:      &quot;indexes&quot;,
+    Bucket:          &quot;people&quot;,
+    Key:             &quot;larry&quot;,
+    ContentType:     &quot;text/plain&quot;,
+    Charset:         &quot;utf-8&quot;,
+    ContentEncoding: &quot;utf-8&quot;,
+    Value:           []byte(&quot;My name is Larry&quot;),
+}
+obj.AddToIndex(&quot;field2_int&quot;, &quot;bar&quot;)
+
+cmd, err := riak.NewStoreValueCommandBuilder().
+    WithContent(obj).
+    Build()
+if err != nil {
+    return err
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    fmt.Println(&quot;[DevUsing2i] index data type error:&quot;, err)
+} else {
+    return errors.New(&quot;[DevUsing2i] expected an error!&quot;)
+}
+
+// The riak.Error object will contain:
+{precommit_fail,[{field_parsing_failed,{&lt;&lt;&quot;field2_int&quot;&gt;&gt;,&lt;&lt;&quot;bar&quot;&gt;&gt;}}]}
+</code></pre>
+
+<pre><code class="language-curl">curl -XPUT 127.0.0.1:8098/types/indexes/buckets/people/keys/larry \
+  -H &quot;x-riak-index-field2_int: bar&quot; \
+  -d 'data1'
+
+# Response
+HTTP/1.1 400 Bad Request
+
+Could not parse field 'field2_int', value 'bar'.
+</code></pre>
+
+<h2 id="querying:8f582a417be53e585b1ca16f14cd486b">Querying</h2>
+
+<div class="note">
+<div class="title">Note on 2i queries and the R parameter</div>
+For all 2i queries, the [[R|Replication
+Properties#R-Value-and-Read-Failure-Tolerance]] parameter is set to 1,
+which means that queries that are run while [[handoffs|Riak
+Glossary#Hinted-Handoff]] and related operations are underway may not
+return all keys as expected.
+</div>
+
+<h3 id="exact-match:8f582a417be53e585b1ca16f14cd486b">Exact Match</h3>
+
+<p>The following examples perform an exact match index query.</p>
+
+<p>Query a binary index:</p>
+
+<pre><code class="language-java">Namespace myBucket = new Namespace(&quot;indexes&quot;, &quot;people&quot;);
+BinIndexQuery biq = new BinIndexQuery.Builder(myBucket, &quot;field1&quot;, &quot;val1&quot;).build();
+BinIndexQuery.Response response = client.execute(biq);
+</code></pre>
+
+<pre><code class="language-ruby">bucket = client.bucket_type('indexes').bucket('people')
+bucket.get_index('field1_bin', 'val1')
+</code></pre>
+
+<pre><code class="language-php">(new \Basho\Riak\Command\Builder\QueryIndex($riak))
+  -&gt;buildBucket('people', 'indexes')
+  -&gt;withIndexName('field1_bin')
+  -&gt;withScalarValue('val1')
+  -&gt;build()
+  -&gt;execute()
+  -&gt;getResults();
+</code></pre>
+
+<pre><code class="language-python">bucket = client.bucket_type('indexes').bucket('people')
+bucket.get_index('field1_bin', 'val1')
+</code></pre>
+
+<pre><code class="language-csharp">var riakIndexId = new RiakIndexId(&quot;indexes&quot;, &quot;people&quot;, &quot;field1&quot;);
+// Note: using a string argument indicates a binary index query:
+var indexRiakResult = client.GetSecondaryIndex(riakIndexId, &quot;val1&quot;);
+var indexResult = indexRiakResult.Value;
+</code></pre>
+
+<pre><code class="language-javascript">var binIdxCmd = new Riak.Commands.KV.SecondaryIndexQuery.Builder()
+    .withBucketType('indexes')
+    .withBucket('people')
+    .withIndexName('field1_bin')
+    .withIndexKey('val1')
+    .withCallback(query_cb)
+    .build();
+client.execute(binIdxCmd);
+</code></pre>
+
+<pre><code class="language-erlang">{ok, Results} = riakc_pb_socket:get_index(
+    Pid,
+    {&lt;&lt;&quot;indexes&quot;&gt;&gt;, &lt;&lt;&quot;people&quot;&gt;&gt;}, %% bucket type and bucket name
+    {binary_index, &quot;field2&quot;},
+    &lt;&lt;&quot;val1&quot;&gt;&gt;
+).
+</code></pre>
+
+<pre><code class="language-golang">c1, err := riak.NewSecondaryIndexQueryCommandBuilder().
+    WithBucketType(&quot;indexes&quot;).
+    WithBucket(&quot;people&quot;).
+    WithIndexName(&quot;field1_bin&quot;).
+    WithIndexKey(&quot;val1&quot;).
+    Build()
+if err != nil {
+    return err
+}
+</code></pre>
+
+<pre><code class="language-curl">curl localhost:8098/types/indexes/buckets/people/index/field1_bin/val1
+</code></pre>
+
+<p>Query an integer index:</p>
+
+<pre><code class="language-java">Namespace myBucket = new Namespace(&quot;indexes&quot;, &quot;people&quot;);
+IntIndexQuery iiq = new IntIndexQuery.Builder(myBucket, &quot;field2&quot;, 1001L)
+        .build();
+IntIndexQuery.Response response = client.execute(iiq);
+</code></pre>
+
+<pre><code class="language-ruby">bucket = client.bucket_type('indexes').bucket('people')
+bucket.get_index('field2_int', 1001)
+</code></pre>
+
+<pre><code class="language-php">(new \Basho\Riak\Command\Builder\QueryIndex($riak))
+  -&gt;buildBucket('people', 'indexes')
+  -&gt;withIndexName('field2_int')
+  -&gt;withScalarValue(1001)
+  -&gt;build()
+  -&gt;execute()
+  -&gt;getResults();
+</code></pre>
+
+<pre><code class="language-python">bucket = client.bucket_type('indexes').bucket('people')
+bucket.get_index('field2_int', 1001)
+</code></pre>
+
+<pre><code class="language-csharp">var riakIndexId = new RiakIndexId(&quot;indexes&quot;, &quot;people&quot;, &quot;field2&quot;);
+// Note: using an integer argument indicates an int index query:
+var indexRiakResult = client.GetSecondaryIndex(riakIndexId, 1001);
+var indexResult = indexRiakResult.Value;
+</code></pre>
+
+<pre><code class="language-javascript">var intIdxCmd = new Riak.Commands.KV.SecondaryIndexQuery.Builder()
+    .withBucketType('indexes')
+    .withBucket('people')
+    .withIndexName('field2_int')
+    .withIndexKey(1001)
+    .withCallback(query_cb)
+    .build();
+client.execute(intIdxCmd);
+</code></pre>
+
+<pre><code class="language-erlang">{ok, Results} = riakc_pb_socket:get_index(
+    Pid,
+    {&lt;&lt;&quot;indexes&quot;&gt;&gt;, &lt;&lt;&quot;people&quot;&gt;&gt;}, %% bucket type and bucket name
+    {integer_index, &quot;field2&quot;},
+    1001
+).
+</code></pre>
+
+<pre><code class="language-golang">cmd, err := riak.NewSecondaryIndexQueryCommandBuilder().
+    WithBucketType(&quot;indexes&quot;).
+    WithBucket(&quot;people&quot;).
+    WithIndexName(&quot;field2_int&quot;).
+    WithIntIndexKey(1001).
+    Build()
+if err != nil {
+    return err
+}
+</code></pre>
+
+<pre><code class="language-curl">curl localhost:8098/types/indexes/buckets/people/index/field2_int/1001
+</code></pre>
+
+<p>The following example performs an exact match query and pipes the
+results into a MapReduce job:</p>
+
+<pre><code class="language-curl">curl -XPOST localhost:8098/mapred \
+  -H &quot;Content-Type: application/json&quot; \
+  -d @-&lt;&lt;EOF
+{
+  &quot;inputs&quot;: {
+    &quot;bucket&quot;: &quot;people&quot;,
+    &quot;index&quot;: &quot;field2_bin&quot;,
+    &quot;key&quot;:&quot;val3&quot;
+  },
+  &quot;query&quot;: [
+    {
+      &quot;reduce&quot;: {
+        &quot;language&quot;:&quot;erlang&quot;,
+        &quot;module&quot;: &quot;riak_kv_mapreduce&quot;,
+        &quot;function&quot;: &quot;reduce_identity&quot;,
+        &quot;keep&quot;: true
+      }
+    }
+  ]
+}
+EOF
+</code></pre>
+
+<h3 id="range:8f582a417be53e585b1ca16f14cd486b">Range</h3>
+
+<p>The following examples perform a range query.</p>
+
+<p>Query a binary index&hellip;</p>
+
+<pre><code class="language-java">Namespace myBucket = new Namespace(&quot;indexes&quot;, &quot;people&quot;);
+BinIndexQuery biq = new BinIndexQuery.Builder(myBucket, &quot;field1&quot;, &quot;val2&quot;, &quot;val4&quot;)
+        .build();
+BinIndexQuery.Response response = client.execute(biq);
+</code></pre>
+
+<pre><code class="language-ruby">bucket = client.bucket_type('indexes').bucket('people')
+bucket.get_index('field1_bin', 'val2'..'val4')
+</code></pre>
+
+<pre><code class="language-php">(new \Basho\Riak\Command\Builder\QueryIndex($riak))
+  -&gt;buildBucket('people', 'indexes')
+  -&gt;withIndexName('field1_bin')
+  -&gt;withRangeValue('val2', 'val4')
+  -&gt;build()
+  -&gt;execute()
+  -&gt;getResults();
+</code></pre>
+
+<pre><code class="language-python">bucket = client.bucket_type('indexes').bucket('people')
+bucket.get_index('field1_bin', 'val2', 'val4')
+</code></pre>
+
+<pre><code class="language-csharp">var riakIndexId = new RiakIndexId(&quot;indexes&quot;, &quot;people&quot;, &quot;field1&quot;);
+var indexRiakResult = client.GetSecondaryIndex(riakIndexId, &quot;val2&quot;, &quot;val4&quot;);
+var indexResult = indexRiakResult.Value;
+</code></pre>
+
+<pre><code class="language-javascript">var binIdxCmd = new Riak.Commands.KV.SecondaryIndexQuery.Builder()
+    .withBucketType('indexes')
+    .withBucket('people')
+    .withIndexName('field1_bin')
+    .withRange('val2', 'val4')
+    .withCallback(query_cb)
+    .build();
+client.execute(binIdxCmd);
+</code></pre>
+
+<pre><code class="language-erlang">{ok, Results} = riakc_pb_socket:get_index_range(
+    Pid,
+    {&lt;&lt;&quot;indexes&quot;&gt;&gt;, &lt;&lt;&quot;people&quot;&gt;&gt;}, %% bucket type and bucket name
+    {binary_index, &quot;field1&quot;}, %% index name
+    &lt;&lt;&quot;val2&quot;&gt;&gt;, &lt;&lt;&quot;val4&quot;&gt;&gt; %% range query for keys between &quot;val2&quot; and &quot;val4&quot;
+).
+</code></pre>
+
+<pre><code class="language-golang">c1, err := riak.NewSecondaryIndexQueryCommandBuilder().
+    WithBucketType(&quot;indexes&quot;).
+    WithBucket(&quot;people&quot;).
+    WithIndexName(&quot;field1_bin&quot;).
+    WithRange(&quot;val2&quot;, &quot;val4&quot;).
+    Build()
+if err != nil {
+    return err
+}
+</code></pre>
+
+<pre><code class="language-curl">curl localhost:8098/types/indexes/buckets/people/index/field1_bin/val2/val4
+</code></pre>
+
+<p>Or query an integer index&hellip;</p>
+
+<pre><code class="language-java">Namespace myBucket = new Namespace(&quot;indexes&quot;, &quot;people&quot;);
+IntIndexQuery iiq = new IntIndexQuery.Builder(myBucket, &quot;field2&quot;, 1002L, 1004L)
+        .build();
+IntIndexQuery.Response response = client.execute(iiq);
+</code></pre>
+
+<pre><code class="language-ruby">bucket = client.bucket_type('indexes').bucket('people')
+bucket.get_index('field2_int', 1002..1004)
+</code></pre>
+
+<pre><code class="language-php">(new \Basho\Riak\Command\Builder\QueryIndex($riak))
+  -&gt;buildBucket('people', 'indexes')
+  -&gt;withIndexName('field2_int')
+  -&gt;withRangeValue(1002, 1004)
+  -&gt;build()
+  -&gt;execute()
+  -&gt;getResults();
+</code></pre>
+
+<pre><code class="language-python">bucket = client.bucket_type('indexes').bucket('people')
+bucket.get_index('field2_int', 1002, 1004)
+</code></pre>
+
+<pre><code class="language-csharp">var riakIndexId = new RiakIndexId(&quot;indexes&quot;, &quot;people&quot;, &quot;field2&quot;);
+var indexRiakResult = client.GetSecondaryIndex(riakIndexId, 1002, 1004);
+var indexResult = indexRiakResult.Value;
+</code></pre>
+
+<pre><code class="language-javascript">var intIdxCmd = new Riak.Commands.KV.SecondaryIndexQuery.Builder()
+    .withBucketType('indexes')
+    .withBucket('people')
+    .withIndexName('field2_int')
+    .withRange(1002, 1004)
+    .withCallback(query_cb)
+    .build();
+client.execute(intIdxCmd);
+</code></pre>
+
+<pre><code class="language-erlang">{ok, Results} = riakc_pb_socket:get_index_range(
+    Pid,
+    {&lt;&lt;&quot;indexes&quot;&gt;&gt;, &lt;&lt;&quot;people&quot;&gt;&gt;}, %% bucket type and bucket name
+    {integer_index, &quot;field2&quot;}, %% index name
+    1002, 1004 %% range query for keys between &quot;val2&quot; and &quot;val4&quot;
+).
+</code></pre>
+
+<pre><code class="language-golang">cmd, err := riak.NewSecondaryIndexQueryCommandBuilder().
+    WithBucketType(&quot;indexes&quot;).
+    WithBucket(&quot;people&quot;).
+    WithIndexName(&quot;field2_int&quot;).
+    WithIntRange(1002, 1004).
+    Build()
+</code></pre>
+
+<pre><code class="language-curl">curl localhost:8098/types/indexes/buckets/people/index/field2_int/1002/1004
+</code></pre>
+
+<p>The following example performs a range query and pipes the results into
+a MapReduce job:</p>
+
+<pre><code class="language-curl">curl -XPOST localhost:8098/mapred\
+  -H &quot;Content-Type: application/json&quot; \
+  -d @-&lt;&lt;EOF
+{
+  &quot;inputs&quot;: {
+    &quot;bucket&quot;: &quot;people&quot;,
+    &quot;index&quot;: &quot;field2_bin&quot;,
+    &quot;start&quot;: &quot;1002&quot;,
+    &quot;end&quot;: &quot;1004&quot;
+  },
+  &quot;query&quot;: [
+    {
+      &quot;reduce&quot;: {
+        &quot;language&quot;: &quot;erlang&quot;,
+        &quot;module&quot;: &quot;riak_kv_mapreduce&quot;,
+        &quot;function&quot;: &quot;reduce_identity&quot;,
+        &quot;keep&quot;: true
+      }
+    }
+  ]
+}
+EOF
+</code></pre>
+
+<h4 id="range-with-terms:8f582a417be53e585b1ca16f14cd486b">Range with terms</h4>
+
+<p>When performing a range query, it is possible to retrieve the matched
+index values alongside the Riak keys using <code>return_terms=true</code>. An
+example from a small sampling of Twitter data with indexed hash tags:</p>
+
+<pre><code class="language-java">Namespace tweetsBucket = new Namespace(&quot;indexes&quot;, &quot;tweets&quot;);
+BinIndexQuery biq = new BinIndexQuery.Builder(tweetsBucket, &quot;hashtags&quot;, &quot;rock&quot;, &quot;rocl&quot;)
+        .withKeyAndIndex(true)
+        .build();
+BinIndexQuery.Response response = client.execute(biq);
+</code></pre>
+
+<pre><code class="language-ruby">bucket = client.bucket_type('indexes').bucket('tweets')
+bucket.get_index('hashtags_bin', 'rock'..'rocl', return_terms: true)
+</code></pre>
+
+<pre><code class="language-php">(new \Basho\Riak\Command\Builder\QueryIndex($riak))
+  -&gt;buildBucket('tweets', 'indexes')
+  -&gt;withIndexName('hashtags')
+  -&gt;withRangeValue('rock', 'rocl')
+  -&gt;withReturnTerms()
+  -&gt;build()
+  -&gt;execute()
+  -&gt;getResults();
+</code></pre>
+
+<pre><code class="language-python">bucket = client.bucket_type('indexes').bucket('tweets')
+bucket.get_index('hashtags_bin', 'rock', 'rocl', return_terms=True)
+</code></pre>
+
+<pre><code class="language-csharp">var riakIndexId = new RiakIndexId(&quot;indexes&quot;, &quot;tweets&quot;, &quot;hashtags&quot;);
+var options = new RiakIndexGetOptions();
+options.SetReturnTerms(true);
+var indexRiakResult = client.GetSecondaryIndex(riakIndexId, &quot;rock&quot;, &quot;rocl&quot;, options);
+var indexResult = indexRiakResult.Value;
+</code></pre>
+
+<pre><code class="language-javascript">var binIdxCmd = new Riak.Commands.KV.SecondaryIndexQuery.Builder()
+    .withBucketType('indexes')
+    .withBucket('tweets')
+    .withIndexName('hashtags_bin')
+    .withRange('rock', 'rocl')
+    .withReturnKeyAndIndex(true)
+    .withCallback(query_cb)
+    .build();
+client.execute(binIdxCmd);
+</code></pre>
+
+<pre><code class="language-erlang">{ok, Results} = riakc_pb_socket:get_index_range(
+    Pid,
+    {&lt;&lt;&quot;indexes&quot;&gt;&gt;, &lt;&lt;&quot;people&quot;&gt;&gt;}, %% bucket type and bucket name
+    {binary_index, &quot;hashtags&quot;},     %% index name
+    &lt;&lt;&quot;rock&quot;&gt;&gt;, &lt;&lt;&quot;rocl&quot;&gt;&gt;          %% range query for keys between &quot;val2&quot; and &quot;val4&quot;
+).
+</code></pre>
+
+<pre><code class="language-golang">cmd, err := riak.NewSecondaryIndexQueryCommandBuilder().
+    WithBucketType(&quot;indexes&quot;).
+    WithBucket(&quot;tweets&quot;).
+    WithIndexName(&quot;hashtags_bin&quot;).
+    WithRange(&quot;rock&quot;, &quot;rocl&quot;).
+    Build()
+if err != nil {
+    return err
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    return err
+}
+</code></pre>
+
+<pre><code class="language-curl">curl localhost:8098/types/indexes/buckets/tweets/index/hashtags_bin/rock/rocl?return_terms=true
+</code></pre>
+
+<p>Response:</p>
+
+<pre><code class="language-json">{
+  &quot;results&quot;: [
+    {
+      &quot;rock&quot;: &quot;349224101224787968&quot;
+    },
+    {
+      &quot;rocks&quot;: &quot;349223639880699905&quot;
+    }
+  ]
+}
+</code></pre>
+
+<h3 id="pagination:8f582a417be53e585b1ca16f14cd486b">Pagination</h3>
+
+<p>When asking for large result sets, it is often desirable to ask the
+servers to return chunks of results instead of a firehose. You can do so
+using <code>max_results=&lt;n&gt;</code>, where <code>n</code> is the number of results you&rsquo;d like
+to receive.</p>
+
+<p>Assuming more keys are available, a <code>continuation</code> value will be
+included in the results to allow the client to request the next page.</p>
+
+<p>Here is an example of a range query with both <code>return_terms</code> and
+pagination against the same Twitter data set.</p>
+
+<pre><code class="language-java">Namespace tweetsBucket = new Namespace(&quot;indexes&quot;, &quot;tweets&quot;);
+BinIndexQuery biq = new BinIndexQuery.Builder(tweetsBucket, &quot;hashtags&quot;, &quot;ri&quot;, &quot;ru&quot;)
+        .withMaxResults(5)
+        .build();
+BinIndexQuery.Response response = client.execute(biq);
+</code></pre>
+
+<pre><code class="language-ruby">bucket = client.bucket_type('indexes').bucket('tweets')
+bucket.get_index('hashtags_bin', 'ri'..'ru', max_results: 5)
+</code></pre>
+
+<pre><code class="language-php">(new \Basho\Riak\Command\Builder\QueryIndex($riak))
+  -&gt;buildBucket('tweets', 'indexes')
+  -&gt;withIndexName('hashtags')
+  -&gt;withRangeValue('ri', 'ru')
+  -&gt;withMaxResults(5)
+  -&gt;build()
+  -&gt;execute()
+  -&gt;getResults();
+</code></pre>
+
+<pre><code class="language-python">bucket = client.bucket_type('indexes').bucket('tweets')
+bucket.get_index('hashtags_bin', 'ri', 'ru', max_results=5)
+</code></pre>
+
+<pre><code class="language-csharp">var idxId = new RiakIndexId(&quot;indexes&quot;, &quot;tweets&quot;, &quot;hashtags&quot;);
+var options = new RiakIndexGetOptions();
+options.SetMaxResults(5);
+var rslt = client.GetSecondaryIndex(idxId, &quot;ri&quot;, &quot;ru&quot;, options);
+
+options.SetContinuation(rslt.Continuation);
+rslt = client.GetSecondaryIndex(idxId, &quot;ri&quot;, &quot;ru&quot;, options);
+</code></pre>
+
+<pre><code class="language-javascript">function do_query(continuation) {
+    var binIdxCmdBuilder = new Riak.Commands.KV.SecondaryIndexQuery.Builder()
+        .withBucketType('indexes')
+        .withBucket('tweets')
+        .withIndexName('hashtags_bin')
+        .withRange('ri', 'ru')
+        .withMaxResults(5)
+        .withCallback(pagination_cb);
+
+    if (continuation) {
+        binIdxCmdBuilder.withContinuation(continuation);
+    }
+
+    client.execute(binIdxCmdBuilder.build());
+}
+
+var query_keys = [];
+function pagination_cb(err, rslt) {
+    if (err) {
+        logger.error(&quot;query_cb err: '%s'&quot;, err);
+        return;
+    }
+
+    if (rslt.done) {
+        query_keys.forEach(function (key) {
+            logger.info(&quot;2i query key: '%s'&quot;, key);
+        });
+        query_keys = [];
+
+        if (rslt.continuation) {
+            do_query(rslt.continuation);
+        }
+    }
+
+    if (rslt.values.length &gt; 0) {
+        Array.prototype.push.apply(query_keys,
+            rslt.values.map(function (value) {
+                return value.objectKey;
+            }));
+    }
+}
+
+do_query();
+</code></pre>
+
+<pre><code class="language-erlang">{ok, Results} = riakc_pb_socket:get_index_range(
+    Pid,
+    {&lt;&lt;&quot;indexes&quot;&gt;&gt;, &lt;&lt;&quot;tweets&quot;&gt;&gt;}, %% bucket type and bucket name
+    {binary_index, &quot;hashtags&quot;}, %% index name
+    &lt;&lt;&quot;ri&quot;&gt;&gt;, &lt;&lt;&quot;ru&quot;&gt;&gt;, %% range query from &quot;ri&quot; to &quot;ru&quot;
+    {max_results, 5}
+).
+</code></pre>
+
+<pre><code class="language-golang">func doPaginatedQuery(cluster *riak.Cluster, continuation []byte) error {
+  builder := riak.NewSecondaryIndexQueryCommandBuilder().
+    WithBucketType(&quot;indexes&quot;).
+    WithBucket(&quot;tweets&quot;).
+    WithIndexName(&quot;hashtags_bin&quot;).
+    WithRange(&quot;ri&quot;, &quot;ru&quot;).
+    WithMaxResults(5)
+
+  if continuation != nil &amp;&amp; len(continuation) &gt; 0 {
+    builder.WithContinuation(continuation)
+  }
+
+  cmd, err := builder.Build()
+  if err != nil {
+    return err
+  }
+
+  if err := cluster.Execute(cmd); err != nil {
+    return err
+  }
+
+  printIndexQueryResults(cmd)
+
+  sciq := cmd.(*riak.SecondaryIndexQueryCommand)
+  if sciq.Response == nil {
+    return errors.New(&quot;[DevUsing2i] expected response but did not get one&quot;)
+  }
+
+  rc := sciq.Response.Continuation 
+  if rc != nil &amp;&amp; len(rc) &gt; 0 {
+    return doPaginatedQuery(cluster, sciq.Response.Continuation)
+  }
+
+  return nil
+}
+
+func queryingPagination(cluster *riak.Cluster) error {
+  return doPaginatedQuery(cluster, nil)
+}
+</code></pre>
+
+<pre><code class="language-curl">curl localhost:8098/types/indexes/buckets/tweets/index/hashtags_bin/ri/ru?max_results=5&amp;return_terms=true
+</code></pre>
+
+<p>Here is an example JSON response (your client-specific response may differ):</p>
+
+<pre><code class="language-json">{
+  &quot;continuation&quot;: &quot;g2gCbQAAAAdyaXBqYWtlbQAAABIzNDkyMjA2ODcwNTcxMjk0NzM=&quot;,
+  &quot;results&quot;: [
+    { &quot;rice&quot;: &quot;349222574510710785&quot; },
+    { &quot;rickross&quot;: &quot;349222868095217664&quot; },
+    { &quot;ridelife&quot;: &quot;349221819552763905&quot; },
+    { &quot;ripjake&quot;: &quot;349220649341952001&quot; },
+    { &quot;ripjake&quot;: &quot;349220687057129473&quot; }
+  ]
+}
+</code></pre>
+
+<p>Take the continuation value from the previous result set and feed it
+back into the query.</p>
+
+<pre><code class="language-java">Namespace tweetsBucket = new Namespace(&quot;indexes&quot;, &quot;tweets&quot;);
+BinIndexQuery biq = new BinIndexQuery.Builder(tweetsBucket, &quot;hashtags&quot;, &quot;ri&quot;, &quot;ru&quot;)
+        .withContinuation(BinaryValue.create(&quot;g2gCbQAAAAdyaXBqYWtlbQAAABIzNDkyMjA2ODcwNTcxMjk0NzM&quot;))
+        .withMaxResults(5)
+        .withKeyAndIndex(true)
+        .build();
+BinIndexQuery.Response response = client.execute(biq);
+</code></pre>
+
+<pre><code class="language-ruby">bucket = client.bucket_type('indexes').bucket('tweets')
+bucket.get_index(
+  'hashtags_bin',
+  'ri'..'ru',
+  continuation: 'g2gCbQAAAAdyaXBqYWtlbQAAABIzNDkyMjA2ODcwNTcxMjk0NzM',
+  max_results: 5,
+  return_terms: true
+)
+</code></pre>
+
+<pre><code class="language-php">(new \Basho\Riak\Command\Builder\QueryIndex($riak))
+  -&gt;buildBucket('tweets', 'indexes')
+  -&gt;withIndexName('hashtags')
+  -&gt;withRangeValue('ri', 'ru')
+  -&gt;withMaxResults(5)
+  -&gt;withContinuation('g2gCbQAAAAdyaXBqYWtlbQAAABIzNDkyMjA2ODcwNTcxMjk0NzM')
+  -&gt;build()
+  -&gt;execute()
+  -&gt;getResults();
+</code></pre>
+
+<pre><code class="language-python">bucket = client.bucket_type('indexes').bucket('tweets')
+bucket.get_index(
+    'hashtags_bin',
+    'ri', 'ru',
+    continuation='g2gCbQAAAAdyaXBqYWtlbQAAABIzNDkyMjA2ODcwNTcxMjk0NzM',
+    max_results=5,
+    return_terms=True
+)
+</code></pre>
+
+<pre><code class="language-csharp">// rslt is the previous 2i fetch result
+var idxId = new RiakIndexId(&quot;indexes&quot;, &quot;tweets&quot;, &quot;hashtags&quot;);
+var options = new RiakIndexGetOptions();
+options.SetMaxResults(5);
+options.SetContinuation(rslt.Continuation);
+rslt = client.GetSecondaryIndex(idxId, &quot;ri&quot;, &quot;ru&quot;, options);
+</code></pre>
+
+<pre><code class="language-javascript">// See above example
+</code></pre>
+
+<pre><code class="language-erlang">{ok, Results} = riakc_pb_socket:get_index_range(
+    Pid,
+    {&lt;&lt;&quot;indexes&quot;&gt;&gt;, &lt;&lt;&quot;tweets&quot;&gt;&gt;}, %% bucket type and bucket name
+    {binary_index, &quot;hashtags&quot;}, %% index name
+    &lt;&lt;&quot;ri&quot;&gt;&gt;, &lt;&lt;&quot;ru&quot;&gt;&gt;, %% range query from &quot;ri&quot; to &quot;ru&quot;
+    [
+        {continuation, &lt;&lt;&quot;g2gCbQAAAAdyaXBqYWtlbQAAABIzNDkyMjA2ODcwNTcxMjk0NzM&quot;&gt;&gt;},
+        {max_results, 5},
+        {return_terms, true}
+    ]
+).
+</code></pre>
+
+<pre><code class="language-golang">// See above example
+</code></pre>
+
+<pre><code class="language-curl">curl localhost:8098/types/indexes/buckets/tweets/index/hashtags_bin/ri/ru?continuation=g2gCbQAAAAdyaXBqYWtlbQAAABIzNDkyMjA2ODcwNTcxMjk0NzM=&amp;max_results=5&amp;return_terms=true
+</code></pre>
+
+<p>The result:</p>
+
+<pre><code class="language-json">{
+  &quot;continuation&quot;: &quot;g2gCbQAAAAlyb2Jhc2VyaWFtAAAAEjM0OTIyMzcwMjc2NTkxMjA2NQ==&quot;,
+  &quot;results&quot;: [
+    {
+      &quot;ripjake&quot;: &quot;349221198774808579&quot;
+    },
+    {
+      &quot;ripped&quot;: &quot;349224017347100672&quot;
+    },
+    {
+      &quot;roadtrip&quot;: &quot;349221207155032066&quot;
+    },
+    {
+      &quot;roastietime&quot;: &quot;349221370724491265&quot;
+    },
+    {
+      &quot;robaseria&quot;: &quot;349223702765912065&quot;
+    }
+  ]
+}
+</code></pre>
+
+<h3 id="streaming:8f582a417be53e585b1ca16f14cd486b">Streaming</h3>
+
+<p>It is also possible to stream results:</p>
+
+<pre><code class="language-java">/*
+  It is not currently possible to stream results using the Java client
+*/
+</code></pre>
+
+<pre><code class="language-ruby">bucket = client.bucket_type('indexes').bucket('people')
+bucket.get_index('myindex_bin', 'foo', stream: true)
+</code></pre>
+
+<pre><code class="language-php">/*
+  It is not currently possible to stream results using the PHP client
+*/
+</code></pre>
+
+<pre><code class="language-python">bucket = client.bucket_type('indexes').bucket('people')
+keys = []
+for key in bucket.stream_index('myindex_bin', 'foo'):
+    keys.append(key)
+</code></pre>
+
+<pre><code class="language-csharp">var riakIndexId = new RiakIndexId(&quot;indexes&quot;, &quot;tweets&quot;, &quot;hashtags&quot;);
+var indexRiakResult = client.StreamGetSecondaryIndex(riakIndexId, &quot;ri&quot;, &quot;ru&quot;);
+var indexResult = indexRiakResult.Value;
+foreach (var key in indexResult.IndexKeyTerms)
+{
+    // Do something with key...
+}
+</code></pre>
+
+<pre><code class="language-javascript">var binIdxCmd = new Riak.Commands.KV.SecondaryIndexQuery.Builder()
+    .withBucketType('indexes')
+    .withBucket('tweets')
+    .withIndexName('hashtags_bin')
+    .withRange('ri', 'ru')
+    .withStreaming(true);
+    .withCallback(query_cb) // See query_cb in other examples
+    .build();
+client.execute(binIdxCmd);
+</code></pre>
+
+<pre><code class="language-erlang">{ok, KeyStream} = riakc_pb_socket:get_index_eq(
+    Pid,
+    {&lt;&lt;&quot;indexes&quot;&gt;&gt;, &lt;&lt;&quot;people&quot;&gt;&gt;}, %% bucket type and bucket name
+    {binary_index, &quot;myindex&quot;}, %% index name and type
+    &lt;&lt;&quot;foo&quot;&gt;&gt;, %% value of the index
+    [{stream, true}] %% enable streaming
+).
+</code></pre>
+
+<pre><code class="language-golang">cmd, err := riak.NewSecondaryIndexQueryCommandBuilder().
+    WithBucketType(&quot;indexes&quot;).
+    WithBucket(&quot;tweets&quot;).
+    WithIndexName(&quot;hashtags_bin&quot;).
+    WithRange(&quot;ri&quot;, &quot;ru&quot;).
+    WithStreaming(true).
+    WithCallback(streamingCallback).
+    Build()
+if err != nil {
+    return err
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    return err
+}
+</code></pre>
+
+<pre><code class="language-curl">curl localhost:8098/types/indexes/buckets/people/index/myindex_bin/foo?stream=true
+</code></pre>
+
+<p>Streaming can also be combined with <code>pagination</code> and <code>return_terms</code>.</p>
+
+<h3 id="sorting:8f582a417be53e585b1ca16f14cd486b">Sorting</h3>
+
+<p>As of Riak 1.4, the result set is sorted on index values (when executing
+range queries) and object keys. See the pagination example above: hash
+tags (2i keys) are returned in ascending order, and the object keys
+(Twitter IDs) for the messages which contain the <code>ripjake</code> hash tag are
+also returned in ascending order.</p>
+
+<h3 id="retrieve-all-bucket-keys-via-the-bucket-index:8f582a417be53e585b1ca16f14cd486b">Retrieve all Bucket Keys via the <code>$bucket</code> Index</h3>
+
+<p>The following example retrieves the keys for all objects stored in the
+bucket <code>people</code> using an exact match on the special <code>$bucket</code> index.</p>
+
+<pre><code class="language-curl">curl localhost:8098/types/indexes/buckets/people/index/\$bucket/_
+</code></pre>
+
+<h3 id="count-bucket-objects-via-bucket-index:8f582a417be53e585b1ca16f14cd486b">Count Bucket Objects via $bucket Index</h3>
+
+<p>The following example performs a secondary index lookup on the $bucket
+index like in the previous example and pipes this into a MapReduce that
+counts the number of records in the <code>people</code> bucket. In order to
+improve efficiency, the batch size has been increased from the default
+size of 20.</p>
+
+<pre><code class="language-curl">curl -XPOST localhost:8098/mapred\
+  -H &quot;Content-Type: application/json&quot; \
+  -d @-&lt;&lt;EOF
+{
+  &quot;inputs&quot;: {
+    &quot;bucket&quot;: &quot;people&quot;,
+    &quot;index&quot;: &quot;$bucket&quot;,
+    &quot;key&quot;:&quot;people&quot;
+  },
+  &quot;query&quot;: [
+    {
+      &quot;reduce&quot;: {
+        &quot;language&quot;: &quot;erlang&quot;,
+        &quot;module&quot;: &quot;riak_kv_mapreduce&quot;,
+        &quot;function&quot;: &quot;reduce_count_inputs&quot;,
+        &quot;arg&quot;: {
+          &quot;reduce_phase_batch_size&quot;:1000
+        }
+      }
+    }
+  ]
+}
+EOF
+</code></pre>
+
+
+      <div class="clear"></div>
+
+    </article>
+
+    <footer class="mastfooter">
+    This work is licensed under a
+    <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">
+        Creative Commons Attribution 4.0 International Public License
+    </a><br>
+    &copy; 2011-2016&nbsp;<a href="http://www.basho.com">Basho Technologies, Inc.</a>
+</footer>
+
+
+  </div>
+
+  <script src="/js/all.js" type="text/javascript"></script>
+<script type= "text/javascript">
+  
+  hljs.configure({languages: []});
+  hljs.initHighlighting();
+
+  
+  
+  
+  $(function() {
+    $(".js_enabled pre").css("visibility", "visible");
+  });
+</script>
+
+
+</body>
+</html>

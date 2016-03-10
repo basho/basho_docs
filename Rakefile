@@ -64,7 +64,7 @@ namespace :build do
   task :js => "#{$js_dest}" do compile_js(debug: false); end
   task :css => ['clean:css', "#{$css_dest}"] do compile_css(debug: false); end
 
-  task :hugo do sh "hugo -d ./static"; end
+  task :hugo do sh "hugo -d #{$hugo_dest}"; end
 
   desc "Shorthand for `rake build; rake watch:hugo` (Note: exits w/ an error)"
   task :watch => ['build:js', 'build:css', 'watch:hugo']
@@ -94,7 +94,7 @@ namespace :watch do
 
   #TODO<drew.pirrone.brusse@gmail>: Add in some way to specify ip/port.
   desc "Run Hugo Server"
-  task :hugo do sh "hugo server"; end
+  task :hugo do sh "hugo server --ignoreCache=true"; end
 
   ################
   # Watch : Debug
