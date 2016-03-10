@@ -4,7 +4,7 @@ description: "Learn About Riak TS"
 menu:
   riak_ts-1.0.0:
     name: "Learn About Riak TS"
-    identifier: "introduction"
+    identifier: "about"
     weight: 300
 project: "riak_ts"
 project_version: "1.0.0"

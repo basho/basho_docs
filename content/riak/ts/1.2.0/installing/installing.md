@@ -4,7 +4,7 @@ description: "Installing Riak TS"
 menu:
   riak_ts-1.2.0:
     name: "Installing Riak TS"
-    identifier: "introduction"
+    identifier: "installing"
     weight: 300
 project: "riak_ts"
 project_version: "1.2.0"
