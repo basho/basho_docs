@@ -9,7 +9,7 @@ menu:
 project: "riak_ts"
 project_version: "1.2.0"
 toc: true
-<link rel="canonical" href="docs.basho.com/riak/ts/latest/learn-about/bestpractices" />
+cannonical_link: "docs.basho.com/riak/ts/latest/learn-about/bestpractices"
 ---
 
 [advancedplanning]: http://docs.basho.com/riakts/1.2.0/learn-about/advancedplanning/

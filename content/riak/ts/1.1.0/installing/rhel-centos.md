@@ -9,7 +9,7 @@ menu:
 project: "riak_ts"
 project_version: "1.1.0"
 toc: true
-<link rel="canonical" href="docs.basho.com/riak/ts/latest/installing/rhel-centos" />
+cannonical_link: "docs.basho.com/riak/ts/latest/installing/rhel-centos"
 ---
 
 [AAE]: http://docs.basho.com/riak/2.1.3/theory/concepts/aae/
