@@ -47,7 +47,7 @@ def do_deploy()
 
   # Move into the Hugo destination directory, so file names are only prefixed
   # with "./"
-  Dir.chdir(File.join(Dir.pwd, "public"))
+  Dir.chdir(File.join(Dir.pwd, "#{$hugo_dest}"))
 
   # Generate a list of every built file in the form of
   # '["<FILE_NAME> <MD5SUM>", ... ]'
