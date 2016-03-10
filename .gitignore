@@ -13,10 +13,4 @@ Thumbs.db
 Gemfile.lock
 
 # Statically generated HTML
-static/index.html
-static/index.xml
-static/sitemap.xml
-static/404.html
-static/community/**
-static/dataplatform/**
-static/riak/**
+public/**

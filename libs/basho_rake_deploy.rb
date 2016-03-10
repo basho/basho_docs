@@ -1,13 +1,13 @@
 ###########################
 # Deploy rules and helpers
 
-# Once the static/ directory has been fully and correctly generated, we can
-# upload the updated and new -- and delete the no longer generated -- files
-# to/from our S3 bucket, and send out CloudFront invalidation requests to
-# propagate those changes to Amazon's CDNs. To pull this off, we're going to re-
-# implement rsyn---I mean, compare the MD5 sums (and existence) of all of the
-# local objects with their S3 counterparts, and perform selective uploads. We'll
-# use the upload list to then generate the invalidation request.
+# Once the Hugo site has been fully and correctly generated, we can upload the
+# updated and new -- and delete the no longer generated -- files to/from our S3
+# bucket, and send out CloudFront invalidation requests to propagate those
+# changes to Amazon's CDNs. To pull this off, we're going to re-implement rsyn--
+# I mean, compare the MD5 sums (and existence) of all of the local objects
+# with their S3 counterparts, and perform selective uploads. We'll use the
+# upload list to then generate the invalidation request.
 def do_deploy()
   require 'digest/md5'
   require 'aws-sdk'
@@ -45,8 +45,9 @@ def do_deploy()
                  "from the correct directory?")
   end
 
-  # Move into the static/ directory, so file names lead with "./static"
-  Dir.chdir(File.join(Dir.pwd, "static"))
+  # Move into the Hugo destination directory, so file names are only prefixed
+  # with "./"
+  Dir.chdir(File.join(Dir.pwd, "public"))
 
   # Generate a list of every built file in the form of
   # '["<FILE_NAME> <MD5SUM>", ... ]'
