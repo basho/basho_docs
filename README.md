@@ -16,17 +16,21 @@ Please let us know if you'd like to help out!
 ## Building The HTML Locally
 
 1. **Install [Hugo][hugo]**
+
     Check out [Hugo's Installing][installing hugo] page.
 
 1. **Clone the Repository**
+
     `git clone https://github.com/basho/private_basho_docs.git`
     `cd private_basho_docs`
     `git checkout hugo/testing`
 
 1. **Run Hugo**
+
     `hugo server`
 
 1. **Play**
+
     http://localhost:1313
 
 [hugo]: http://gohugo.io/
@@ -56,22 +60,27 @@ The scripts and CSS files used to render Hugo content are expected to live in th
 
 To convert the Coffee and Sass into `.js` and `.css` files, you'll need to...
 
-1. **Install [RVM][rvm]**
-    or equivalent.
-    <sub>You might need to restart your shell to get the `rvm` command to be recognized.</sub>
+1. **Install [RVM][rvm]** or equivalent.
+
+    You might need to restart your shell to get the `rvm` command to be recognized.
 
 1. **Install Ruby version 2.2.3**
+
     `rvm install ruby-2.2.3`
     or the current version specified in the .ruby-version and Gemfile files.
-    <sub>If it doesn't match, please [open a new issue][new issue] and let us know this README isn't up to date!</sub>
+    
+    If it doesn't match, please [open a new issue][new issue] and let us know this README isn't up to date!
 
 1. **Install [Bundler] With The ruby-2.2.3 Gem**
+
     `gem install bundler`
 
 1. **Install the Rest of the Dependencies**
+
     `bundle install`
 
 1. **Use [Rake] to do Everything Else**
+
     Like rebuild a copy of everything that should live in `static/`.
     `rake build`
 
@@ -81,7 +90,8 @@ To convert the Coffee and Sass into `.js` and `.css` files, you'll need to...
     Or maybe you want any changes you make to `.coffee` and `.scss` files to be automatically detected, and rendered live in your browser?
     `rake watch`
 
-    For a list of some of the useful commands, just run,
+For a list of some of the useful commands, just run,
+
     `rake`
 
 [coffee]: coffeescript.org
