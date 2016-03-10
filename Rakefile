@@ -110,7 +110,7 @@ end
 #########
 # Deploy
 desc      "Build and deploy static artifacts"
-task      :deploy => ['build'] do do_deploy(); end
+task      :deploy => ['clean', 'build'] do do_deploy(); end
 
 # Perform deploy w/o building first. Use sparingly and with caution.
 task      :deploy_now do do_deploy(); end
