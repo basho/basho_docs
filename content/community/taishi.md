@@ -8,9 +8,6 @@ menu:
     weight: 200
     parent: "community_overview"
 toc: true
-aliases:
-  - /riak/2.1.3/community/taishi/
-  - /riak/2.1.1/community/taishi/
 ---
 
 The team at Basho knows that our community is more than any one product or one person; it’s a collection of people who share a passion for our mission to simplify distributed systems. As a mature community with thousands of participants, it’s important to take the time to thank those who continue to contribute to our collective success.
