@@ -1,0 +1,1883 @@
+<!DOCTYPE html>
+
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"></html><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"></html><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"></html><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->
+
+
+
+
+<head class="tutorials">
+  <meta charset="utf-8">
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width">
+  <meta name="project" content="riak_kv">
+  <meta name="version" content="2.1.3">
+  <meta name="base-url" content="">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+  <title>Client Libraries</title>
+
+  <link href="/css/all.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="/css/print.css" media="print" rel="stylesheet" type="text/css">
+
+  
+  <style type="text/css"> .js_enabled pre { visibility : hidden; } </style>
+  <script type="text/javascript">
+    document.documentElement.className = 'js_enabled';
+  </script>
+</head>
+
+
+
+<body class="riak_kv 2.1.3 latest ">
+
+  <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-T9C8MK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-T9C8MK');</script>
+
+  
+<aside id="nav-container" role="complementary">
+  <nav class="overview" id="primary-nav" role="nav">
+    <div id="primary-nav-content">
+      <h2 class="responsive-link"><a class="responsive-toggle"></a></h2>
+
+      
+      <form id="searchbox_011972015458788978446:zgdcy4fa-o0" action="">
+        <div class="nav-field-container">
+          <div id="icon-container-search">
+            <div class="icon-container"><span aria-hidden="true" class="nav-icon-search icon-search"></span></div>
+            <span class="separator">&#124;</span>
+          </div>
+          <input id="main-search" name="q" placeholder="Search" size="5" type="search" />
+        </div>
+      </form>
+
+      <div class="clear"></div>
+
+      
+      <h3 class="responsive-link visit-basho">
+        <a href="http://www.basho.com">
+          <div class="icon-container">
+            <span aria-hidden="true" class="nav-icon" data-icon="&#xe003;"></span>
+          </div>
+          <span class="separator">&#124;</span>
+          <span class="menu-title">Visit Basho</span>
+          <div class="clear"></div>
+        </a>
+      </h3>
+
+      
+      <h3 class="responsive-link">
+        <a href="/index.html">
+          <div class="icon-container">
+            <span aria-hidden="true" class="nav-icon" data-icon="&#xe003;"></span>
+          </div>
+          <span class="separator">&#124;</span>
+          <span class="menu-title">All Riak Projects</span>
+          <div class="clear"></div>
+        </a>
+      </h3>
+
+      
+      
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-riak"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/">Riak KV</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-download-alt"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/downloads/">Download Riak KV</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-install"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/setup/">Setup</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/planning/">Planning</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/start/">Start Planning</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/operating-system/">OS Support</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/planning/backend/">Choosing a Backend</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/backend/bitcask/">Bitcask</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/backend/leveldb/">LevelDB</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/backend/memory/">Memory</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/backend/multi/">Multi-backend</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/cluster-capacity/">Cluster Capacity</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/bitcask-capacity-calc/">Bitcask Capacity Calculator</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/best-practices/">Best Practices</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/future/">Planning for the Future</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/installing/">Installing</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/amazon-web-services/">Amazon Web Services</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/debian-ubuntu/">Debian &amp; Ubuntu</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/freebsd/">FreeBSD</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/mac-osx/">Mac OS X</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/rhel-centos/">RHEL &amp; CentOS</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/smartos/">SmartOS</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/solaris/">Solaris</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/suse/">SUSE</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/windows-azure/">Windows Azure</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/installing/source/">Installing From Source</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/source/erlang/">Installing Erlang</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/source/jvm/">Installing the JVM</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/verify/">Verifying an Installation</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/upgrading/">Upgrading</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/checklist/">Production Checklist</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/version/">Upgrading by Version</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/cluster/">Upgrading a Cluster</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/multi-datacenter/">Upgrading Multi-Datacenter</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/downgrade/">Downgrading</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-cog"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/configuring/">Configuring</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/basic/">Basic Configuration</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/backend/">Backend Configuration</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/managing/">Managing Configuration</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/reference/">Configuration Reference</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/strong-consistency/">Implementing Strong Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/load-balancing-proxy/">Load Balancing &amp; Proxy</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/mapreduce/">MapReduce Settings</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/search/">Search Settings</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/configuring/v3-multi-datacenter/">V3 Multi-Datacenter</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v3-multi-datacenter/quick-start/">Quickstart</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v3-multi-datacenter/nat/">With NAT</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v3-multi-datacenter/ssl/">SSL</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/configuring/v2-multi-datacenter/">V2 Multi-Datacenter</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v2-multi-datacenter/quick-start/">Quickstart</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v2-multi-datacenter/nat/">With NAT</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v2-multi-datacenter/ssl/">SSL</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-database"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/using/">Using</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/running-a-cluster/">Running a Cluster</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/admin/">Cluster Administration</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/admin/commands/">Cluster Admin Commands</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/admin/riak-admin/">riak-admin CLI</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/admin/riak-cli/">riak CLI</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/admin/riak-control/">Riak Control</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/cluster-operations/">Cluster Operations</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/adding-removing-nodes/">Adding/Removing Nodes</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/changing-cluster-info/">Changing Cluster Information</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/replacing-node/">Replacing a Node</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/inspecting-node/">Inspecting a Node</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/bucket-types/">Bucket Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/logging/">Logging</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/backing-up/">Backing Up</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/handoff/">Handoff</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/object-deletion/">Object Deletion</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/secondary-indexes/">Secondary Indexes</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/monitoring-strong-consistency/">Monitoring Strong Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/load-balancing/">Load Balancing</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/backend/">Backend</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/v3-multi-datacenter/">V3 Multi-Datacenter</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/v2-multi-datacenter/">V2 Multi-Datacenter</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/repair-recovery/">Repair &amp; Recovery</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/repair-recovery/failure-recovery/">Failure &amp; Recovery</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/repair-recovery/errors/">Errors</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/repair-recovery/repairs/">Repairs</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/repair-recovery/rolling-restart/">Rolling Restarts</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/security/">Security</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/security/basics/">Security Basics</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/security/managing-sources/">Managing Security Sources</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/security/best-practices/">Best Practices</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/security/v2-v3-ssl-ca/">V2/V3 SSL &amp; CA Validation</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/performance/">Performance</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/performance/benchmarking/">Benchmarking</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/performance/open-files-limit/">Open Files Limit</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/performance/v2-scheduling-fullsync/">V2 Scheduling Fullsync</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/performance/multi-datacenter-tuning/">Multi-Datacenter Replication</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/troubleshooting/">Troubleshooting</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/">Product Advisories</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/210-dataloss/">Default Configuration For Handoff May Cause Data Loss</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/appconfig-foward/">Forward Incompatibility of app.config</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/dvv-lastwritewins/">Incompatibility between Dotted Version Vectors and Last Write Wins</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/maps-204/">Map Data Type Disk Incompatibility</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/ssl-poodle/">SSL 3.0 Vulnerability and POODLE Attack</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/http-204/">HTTP 204</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/reference/">Reference</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/logging/">Logging</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/handoff/">Handoff</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/bucket-types/">Bucket Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/object-deletion/">Object Deletion</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/runtime-interaction/">Runtime Interaction</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/failure-recovery/">Failure &amp; Recovery</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/monitoring/">Monitoring</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/search-secondary-indexes/">Search &amp; Secondary Indexes</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/strong-consistency/">Strong Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/multi-datacenter/">Multi-Datacenter</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/v3/">V3 Replication</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/v2/">V2 Replication</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/architecture/">Architecture</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-lambda"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/developing/">Developing</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/">Getting Started</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/java/">Java</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/java/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/java/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/java/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/ruby/">Ruby</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/ruby/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/ruby/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/ruby/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/python/">Python</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/python/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/python/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/python/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/csharp/">C Sharp</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/csharp/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/csharp/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/csharp/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/nodejs/">NodeJS</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/nodejs/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/nodejs/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/nodejs/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/erlang/">Erlang</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/erlang/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/erlang/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/erlang/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/golang/">Go</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/golang/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/golang/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/golang/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/php/">PHP</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/php/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/php/querying/">Querying</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/usage/">Usage</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/creating-objects/">Creating Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/reading-objects/">Reading Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/updating-objects/">Updating Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/deleting-objects/">Deleting Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/content-types/">Content Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/search/">Searching</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/mapreduce/">Using MapReduce</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/secondary-indexes/">Using Secondary Indexes</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/bucket-types/">Bucket Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/commit-hooks/">Using Commit Hooks</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/search-schemas/">Creating Search Schemas</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/searching-data-types/">Searching with Data Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/document-store/">Implementing a Document Store</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/custom-extractors/">Custom Extractors</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/usage/security/">Security</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/java/">Java</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/ruby/">Ruby</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/python/">Python</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/erlang/">Erlang</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/php/">PHP</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/replication/">Replication</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/">Conflict Resolution</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/java/">Java</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/ruby/">Ruby</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/python/">Python</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/csharp/">C Sharp</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/nodejs/">NodeJS</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/php/">PHP</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/golang/">Go</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/data-types/">Data Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/data-modeling/">Data Modeling</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/app-guide/">Application Guide</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/app-guide/replication-properties/">Replication Properties</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/app-guide/strong-consistency/">Strong Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/app-guide/write-once/">Write Once</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/app-guide/reference/">Reference</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li class="current">
+  
+    <a href="/riak/kv/2.1.3/developing/client-libraries/">Client Libraries</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/api/">APIs</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/api/repl-hooks/">V2 Multi-Datacenter REPL Hooks API</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/api/backend/">Backend API</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/faq/">Developing FAQ</a>
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-beaker"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/learn/">Learning</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/why-riak-kv/">Why Riak KV?</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/use-cases/">Use Cases</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/new-to-nosql/">New to NoSQL?</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/glossary/">Riak KV Glossary</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/learn/concepts/">Concepts</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/active-anti-entropy/">Active Anti-Entropy</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/buckets/">Buckets</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/capability-negotiation/">Capability Negotiation</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/causal-context/">Causal Context</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/clusters/">Clusters</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/crdts/">Data Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/eventual-consistency/">Eventual Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/keys-and-objects/">Keys and Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/replication/">Replication</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/vnodes/">Vnodes</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-comments"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/community">Community</a></span>
+        <div class="clear"></div>
+      </h3>
+      <ul></ul> 
+    </div>
+  </nav>
+
+  
+  <ul id="fixed-nav">
+    <li>
+      <a href="https://github.com/basho/basho_docs" target="_blank">
+        <div class="icon-container">
+          <span aria-hidden="true" class="nav-icon" data-icon="&#xe004;"></span>
+        </div>
+        <span class="separator">&#124;</span>Available on GitHub
+      </a>
+    </li>
+    <li>
+      <a href="/riak/latest/community/">
+        <div class="icon-container">
+          <span aria-hidden="true" class="nav-icon" data-icon="&#xf059;"></span>
+        </div>
+        <span class="separator">&#124;</span>Get Help
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+  <script>
+  (function() {
+    var cx = '011972015458788978446:zgdcy4fa-o0';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<div style="width:0px;overflow:hidden;height:0px;">
+  <gcse:search></gcse:search>
+</div>
+
+
+  <div role="main">
+
+    <header class="masthead">
+  <div id="header">
+    
+    <div id="header-inner">
+      <div class="icon-reorder" id="nav-toggle"></div>
+
+      <div id="top-nav">
+        
+        <a href="/riak/kv/2.1.3/downloads/"><span class="icon-download-alt"></span>Downloads</a>
+        <div id="nav-more"><span class="icon-more"></span></div>
+      </div>
+
+      <a class="responsive-toggle"></a>
+      
+      
+      <a class="logo" href="/index.html"><h1>Riak Docs</h1></a>
+      
+      <span class="tagline">Product tutorials, how-tos, and fully-documented APIs.</span>
+      <div id="nav-menu">
+        <h2>Links</h2>
+        <ul>
+          <li><a href="http://docs.basho.com/">Docs Home</a></li>
+          <li><a href="http://basho.com/">Basho Website</a></li>
+        </ul>
+        
+        <div id="nav-menu-arrow"></div>
+        <div id="nav-menu-arrow-back"></div>
+      </div>
+
+      <div class="clear"></div>
+
+      <div class="header-rule"></div>
+    </div>
+  </div>
+</header>
+
+
+    <article class="mainarticle">
+
+      <div class="versions">
+  <div id="version-ddown-button" class="unselected">
+    <div class="version-ddown-title">Version</div>
+    <div class="version-ddown-number">2.1.3</div>
+    <div class="version-ddown-arrow"></div>
+  </div>
+  <ol id="version-list" style="display: none;">
+  
+  
+    
+    
+      
+      
+      <li class="sans versions-0 current">DEV</li>
+      
+      <li class="current versions-0"><a class="versioned" href="/riak/kv/2.1.3/developing/client-libraries/">2.1.3</a></li>
+    
+    
+      
+      
+      
+      <li class=" versions-0 first"><a class="versioned" href="/riak/kv/2.1.1/developing/client-libraries/">2.1.1</a></li>
+    
+  
+    
+    
+      
+      
+      
+      <li class="sans versions-1 current">LTS</li>
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.6/developing/client-libraries/">2.0.6</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.5/developing/client-libraries/">2.0.5</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.4/developing/client-libraries/">2.0.4</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.2/developing/client-libraries/">2.0.2</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.1/developing/client-libraries/">2.0.1</a></li>
+    
+    
+      
+      
+      
+      <li class=" versions-1 first"><a class="versioned" href="/riak/kv/2.0.0/developing/client-libraries/">2.0.0</a></li>
+    
+  
+  
+  <li class="versions-5 first"><a class="sans versioned" href="http://docs.basho.com/riak/1.4.12/">older</a></li>
+  </ol>
+</div>
+
+
+      
+      
+
+      <header><h1>Client Libraries</h1></header>
+
+      
+
+      
+      <nav id="toc">
+        <h2 class="title">Contents</h2>
+        <div id="toc-wrapper">
+          <ol id="toc-items"></ol>
+        </div>
+      </nav>
+      
+
+      
+
+<h2 id="basho-supported-libraries:15cd9520a716a78a836569db73239545">Basho-Supported Libraries</h2>
+
+<p>Basho officially supports a number of open-source client libraries for a
+variety of programming languages and environments.</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">Language</th>
+<th align="left">Source</th>
+<th align="left">Documentation</th>
+<th align="left">Download</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">Java</td>
+<td align="left"><a href="https://github.com/basho/riak-java-client">riak-java-client</a></td>
+<td align="left"><a href="http://basho.github.com/riak-java-client">javadoc</a>, <a href="https://github.com/basho/riak-java-client/wiki">wiki</a></td>
+<td align="left"><a href="http://search.maven.org/?#search%7Cgav%7C1%7Cg%3A%22com.basho.riak%22%20AND%20a%3A%22riak-client%22">Maven Central</a></td>
+</tr>
+
+<tr>
+<td align="left">Ruby</td>
+<td align="left"><a href="https://github.com/basho/riak-ruby-client">riak-ruby-client</a></td>
+<td align="left"><a href="http://basho.github.io/riak-ruby-client/">GitHub Pages</a></td>
+<td align="left"><a href="https://rubygems.org/gems/riak-client">RubyGems</a></td>
+</tr>
+
+<tr>
+<td align="left">Python</td>
+<td align="left"><a href="https://github.com/basho/riak-python-client">riak-python-client</a></td>
+<td align="left"><a href="http://basho.github.com/riak-python-client">sphinx</a></td>
+<td align="left"><a href="http://pypi.python.org/pypi?:action=display&amp;name=riak#downloads">PyPI</a></td>
+</tr>
+
+<tr>
+<td align="left">C#</td>
+<td align="left"><a href="https://github.com/basho/riak-dotnet-client">riak-dotnet-client</a></td>
+<td align="left"><a href="http://basho.github.io/riak-dotnet-client-api/">api docs</a>, <a href="https://github.com/basho/riak-dotnet-client/wiki">wiki</a></td>
+<td align="left"><a href="http://www.nuget.org/List/Packages/RiakClient">NuGet package</a>, <a href="https://github.com/basho/riak-dotnet-client/releases">GitHub Releases</a></td>
+</tr>
+
+<tr>
+<td align="left">Node.js</td>
+<td align="left"><a href="https://github.com/basho/riak-nodejs-client">riak-nodejs-client</a></td>
+<td align="left"><a href="http://basho.github.com/riak-nodejs-client/">api docs</a>, <a href="https://github.com/basho/riak-nodejs-client/wiki">wiki</a></td>
+<td align="left"><a href="https://www.npmjs.com/package/basho-riak-client">NPM</a>, <a href="https://github.com/basho/riak-nodejs-client/releases">GitHub Releases</a></td>
+</tr>
+
+<tr>
+<td align="left">PHP</td>
+<td align="left"><a href="https://github.com/basho/riak-php-client">riak-php-client</a></td>
+<td align="left"><a href="http://basho.github.io/riak-php-client">apigen</a></td>
+<td align="left"></td>
+</tr>
+
+<tr>
+<td align="left">Erlang</td>
+<td align="left"><a href="https://github.com/basho/riak-erlang-client">riak-erlang-client (riakc)</a></td>
+<td align="left"><a href="http://basho.github.com/riak-erlang-client/">edoc</a></td>
+<td align="left"><a href="https://github.com/basho/riak-erlang-client">GitHub</a></td>
+</tr>
+
+<tr>
+<td align="left">Go</td>
+<td align="left"><a href="https://github.com/basho/riak-go-client">riak-go-client</a></td>
+<td align="left"><a href="https://godoc.org/github.com/basho/riak-go-client">GoDoc</a></td>
+<td align="left"><a href="https://github.com/basho/riak-go-client">GitHub</a></td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Note</strong>: All official clients use the integrated issue tracker on
+GitHub for bug reporting.</p>
+
+<p>In addition to the official clients, Basho provides some unofficial
+client libraries, listed below. There are also many client libraries and
+related [[community projects]].</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">Language</th>
+<th align="left">Source</th>
+<th align="left">Documentation</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">C</td>
+<td align="left"><a href="https://github.com/basho/riak-c-client">riak-c-client</a></td>
+<td align="left"><a href="http://basho.github.io/riak-c-client/index.html">C Client Documentation</a></td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="community-libraries:15cd9520a716a78a836569db73239545">Community Libraries</h2>
+
+<p>The Riak Community is developing at a break-neck pace, and the number of
+community-contributed libraries and drivers is growing right along side
+it. Here is a list of projects that may suit your programming needs or
+curiosities. If you know of something that needs to be added or are
+developing something that you wish to see added to this list, please
+fork the <a href="https://github.com/basho/basho_docs">Riak Docs repo on GitHub</a>
+and send us a pull request.</p>
+
+<div class="note">
+<div class="title">Note on community-produced libraries</div>
+All of these projects and libraries are at various stages of
+completeness and may not suit your application's needs based on their
+level of maturity and activity.
+</div>
+
+<h3 id="client-libraries-and-frameworks:15cd9520a716a78a836569db73239545">Client Libraries and Frameworks</h3>
+
+<h4 id="c-c:15cd9520a716a78a836569db73239545">C/C++</h4>
+
+<ul>
+<li><a href="https://github.com/ajtack/riak-cpp">riak-cpp</a> &mdash; A C++ Riak client
+library for use with C++11 compilers</li>
+<li><a href="https://github.com/fenek/riak-c-driver">Riak C Driver</a> &mdash; A library
+to communicate with Riak using cURL and Protocol Buffers</li>
+<li><a href="https://github.com/trifork/riack">Riack</a> &mdash; A simple C client
+library</li>
+<li><a href="https://github.com/TriKaspar/riack_cpp">Riack++</a> &mdash; A C++ wrapper
+around riack</li>
+</ul>
+
+<h4 id="clojure:15cd9520a716a78a836569db73239545">Clojure</h4>
+
+<ul>
+<li><a href="https://github.com/reiddraper/knockbox">knockbox</a> &mdash; An eventual
+consistency toolbox for Clojure</li>
+<li><a href="http://clojureriak.info">Welle</a> &mdash; An expressive Clojure client with
+batteries included</li>
+<li><a href="http://github.com/mmcgrana/clj-riak">clj-riak</a> &mdash; Clojure bindings
+to the Riak Protocol Buffers API</li>
+<li><a href="https://github.com/reiddraper/sumo">sumo</a> &mdash; A Protocol
+Buffer-specific client for Riak with KV, 2i, and MapReduce support</li>
+<li><a href="|https://github.com/bluemont/kria">kria</a> &mdash; Riak 2.0 Asynchronous
+(NIO.2) Clojure client. Callback driven, low level, Protocol Buffer
+API, Java 7.</li>
+</ul>
+
+<h4 id="coldfusion:15cd9520a716a78a836569db73239545">ColdFusion</h4>
+
+<ul>
+<li><a href="https://github.com/getrailo/Riak-Cache-Extension">Riak-Cache-Extension</a>
+&mdash; A Riak-backed cache extension for Railo/ColdFusion</li>
+</ul>
+
+<h4 id="common-lisp:15cd9520a716a78a836569db73239545">Common Lisp</h4>
+
+<ul>
+<li><a href="https://github.com/whee/cl-riak">cl-riak (1)</a></li>
+<li><a href="https://github.com/eriknomitch/cl-riak">cl-riak (2)</a></li>
+</ul>
+
+<h4 id="dart:15cd9520a716a78a836569db73239545">Dart</h4>
+
+<ul>
+<li><a href="https://github.com/agilord/riak_dart_client">riak-dart</a> &mdash; HTTP
+client for Riak written in Dart</li>
+</ul>
+
+<h4 id="django-python:15cd9520a716a78a836569db73239545">Django (Python)</h4>
+
+<ul>
+<li><a href="https://github.com/flashingpumpkin/django-riak-sessions">django-riak-sessions</a>
+&mdash; Riak-based Session Backend for Django</li>
+<li><a href="https://github.com/oubiwann/django-riak-engine">Django Riak Engine</a>
+&mdash; A Riak backend for Django</li>
+</ul>
+
+<h4 id="erlang:15cd9520a716a78a836569db73239545">Erlang</h4>
+
+<ul>
+<li><a href="https://github.com/unisontech/uriak_pool">Uriak Pool</a> &mdash; Erlang
+connection pool library from the team at
+<a href="http://www.unison.com">Unison</a></li>
+<li><a href="https://github.com/snoopaloop/Riak-PBC-Pool">Riak PBC Pool</a> &mdash; Riak
+Protocol Buffer Client pool application</li>
+<li><a href="https://github.com/aberman/pooly">Pooly</a> &mdash; Riak Process Pool</li>
+<li><a href="https://github.com/dweldon/riakpool">riakpool</a> &mdash; Application for
+maintaining a dynamic pool of Protocol Buffer client connections to a
+Riak database</li>
+<li><a href="https://github.com/seth/pooler">pooler</a> &mdash; An OTP Process Pool
+Application</li>
+<li><a href="https://github.com/klarna/krc">krc</a> &mdash; A simple wrapper around the
+official Riak client for Erlang</li>
+<li><a href="https://github.com/brb/riakc_pool">riakc_pool</a> &mdash; A really simple
+Riak client process pool based on poolboy</li>
+</ul>
+
+<h4 id="go:15cd9520a716a78a836569db73239545">Go</h4>
+
+<ul>
+<li><a href="https://github.com/riaken">riaken</a> &mdash; A fast and extendable Riak
+Protocol Buffer Client</li>
+<li><a href="https://github.com/tpjg/goriakpbc">goriakpbc</a> &mdash; A Golang Riak
+client inspired by the Ruby riak-client from Basho and riakpbc from mrb</li>
+<li><a href="https://github.com/mrb/riakpbc">riakpbc</a> &mdash; A Riak Protocol Buffer
+client in Go</li>
+</ul>
+
+<h4 id="grails:15cd9520a716a78a836569db73239545">Grails</h4>
+
+<ul>
+<li><a href="http://www.grails.org/plugin/riak">Grails ORM for Riak</a></li>
+</ul>
+
+<h4 id="griffon:15cd9520a716a78a836569db73239545">Griffon</h4>
+
+<ul>
+<li><a href="http://docs.codehaus.org/display/GRIFFON/Riak+Plugin">Riak Plugin for
+Griffon</a></li>
+</ul>
+
+<h4 id="groovy:15cd9520a716a78a836569db73239545">Groovy</h4>
+
+<ul>
+<li><a href="https://github.com/jbrisbin/spring-riak">spring-riak</a> &mdash; Riak
+support from Groovy and/or Java</li>
+</ul>
+
+<h4 id="haskell:15cd9520a716a78a836569db73239545">Haskell</h4>
+
+<ul>
+<li><a href="https://github.com/markhibberd/riak-haskell-client">Riak Haskell Client</a>
+&mdash; A fast Haskell client library from the team at MailRank.</li>
+</ul>
+
+<h4 id="java:15cd9520a716a78a836569db73239545">Java</h4>
+
+<ul>
+<li><a href="http://github.com/krestenkrab/riak-java-pb-client">Riak-Java-PB-Client</a>
+&mdash; Java Client Library for Riak based on the Protocol Buffers API</li>
+<li><a href="https://github.com/jbrisbin/riak-async-java-client">Asynchronous Riak Java Client</a>
+&mdash; Asynchronous, NIO-based Protocol Buffers client for Riak</li>
+<li><a href="http://www.playframework.org/modules/riak-head/home">Riak Module for the Play
+Framework</a></li>
+</ul>
+
+<h4 id="lisp-flavored-erlang:15cd9520a716a78a836569db73239545">Lisp-flavored Erlang</h4>
+
+<ul>
+<li><a href="https://github.com/dysinger/gutenberg/">Gutenberg</a> &mdash; Riak MapReduce
+examples written in LFE</li>
+</ul>
+
+<h4 id="node-js:15cd9520a716a78a836569db73239545">Node.js</h4>
+
+<ul>
+<li><a href="https://github.com/natural/zukai">zukai</a> &mdash; Riak ODM for Node.js
+from Troy Melhase</li>
+<li><a href="https://github.com/CrowdProcess/riak-pb">riak-pb</a> &mdash; Riak Protocol
+Buffers client for Node.js from the team at
+<a href="http://crowdprocess.com">CrowdProcess</a></li>
+<li><a href="https://github.com/mranney/node_riak">node_riak</a> &mdash; Voxer&rsquo;s
+production Node.js client for Riak.</li>
+<li><a href="https://github.com/nlf/riakpbc">riakpbc</a> &mdash; A simple Riak Protocol
+Buffer client library for Node.js</li>
+<li><a href="https://npmjs.org/package/nodiak">nodiak</a> &mdash; Supports bulk
+get/save/delete, sibling auto-resolution, MapReduce chaining, Search,
+and 2i&rsquo;s</li>
+<li><a href="https://github.com/admazely/resourceful-riak">resourceful-riak</a> &mdash; A
+Riak engine to the
+<a href="https://github.com/flatiron/resourceful/">resourceful</a> model
+framework from <a href="https://github.com/flatiron/">flatiron</a></li>
+<li><a href="https://github.com/frank06/connect-riak">Connect-Riak</a> &mdash; Riak
+session store for Connect backed by [[Riak-js|<a href="http://riakjs.org/]">http://riakjs.org/]</a>]</li>
+<li><a href="http://riakjs.com">Riak-js</a> &mdash; Node.js client for Riak with support
+for HTTP and Protocol Buffers</li>
+<li><a href="https://github.com/dandean/riakjs-model">Riakjs-model</a> &mdash; a model
+abstraction around riak-js</li>
+<li><a href="http://github.com/orlandov/node-riak">Node-Riak</a> &mdash; A wrapper around
+Node&rsquo;s HTTP facilities for communicating with Riak</li>
+<li><a href="https://github.com/janearc/riak-dc">riak-dc</a> &mdash; A very thin, very small
+http-based interface to Riak using promises intended to be used for small
+tools like command-line applications; aims to have the &ldquo;most-synchronous-
+like&rdquo; interface.</li>
+<li><a href="https://github.com/sgonyea/nori">Nori</a> &mdash; Experimental Riak HTTP
+library for Node.js modeled after Ripple</li>
+<li><a href="http://github.com/mauritslamers/OrionNodeRiak">OrionNodeRiak</a> &mdash;
+Node-based server and database-frontend for Sproutcore</li>
+<li><a href="https://npmjs.org/package/chinood">Chinood</a> &mdash; Object data mapper
+for Riak built on Nodiak</li>
+<li><a href="https://npmjs.org/package/simpleriak">SimpleRiak</a> &mdash; A very simple
+Riak HTTP client</li>
+</ul>
+
+<h4 id="ocaml:15cd9520a716a78a836569db73239545">OCaml</h4>
+
+<ul>
+<li><a href="http://metadave.github.com/riak-ocaml-client/">Riak OCaml Client</a> &mdash;
+Riak OCaml client</li>
+<li><a href="https://github.com/orbitz/ocaml-riakc">OCaml Riakc</a> &mdash; A Protocol
+Buffers client for Riak</li>
+</ul>
+
+<h4 id="perl:15cd9520a716a78a836569db73239545">Perl</h4>
+
+<ul>
+<li><a href="http://search.cpan.org/~franckc/Net-Riak/">Net::Riak</a> &mdash; A Perl
+interface to Riak</li>
+<li><a href="http://github.com/franckcuny/anyevent-riak">AnyEvent-Riak adapter</a>
+&mdash; Non-blocking Riak adapter using anyevent</li>
+<li><a href="https://github.com/tempire/riak-tiny">riak-tiny</a> &mdash; Perl interface
+to Riak without Moose</li>
+<li><a href="https://metacpan.org/module/Riak::Light">Riak::Light</a> &mdash; Fast and
+lightweight Perl client for Riak (PBC only)</li>
+</ul>
+
+<h4 id="php:15cd9520a716a78a836569db73239545">PHP</h4>
+
+<ul>
+<li><a href="https://github.com/php-riak/riak-client">riak-client</a> &mdash; A Riak
+2.0-compliant PHP client with support for Protocol Buffers by <a href="https://github.com/FabioBatSilva">Fabio
+Silva</a></li>
+<li><a href="https://github.com/KevBurnsJr/ripple-php">Ripple-PHP</a> &mdash; A port of
+Ripple to PHP</li>
+<li><a href="https://bitbucket.org/intel352/riiak">riiak</a> &mdash; A Riak PHP client
+library for the [[Yii Framework|<a href="http://www.yiiframework.com/]">http://www.yiiframework.com/]</a>]</li>
+<li><a href="https://github.com/marksteele/riak-php">riak-php</a> &mdash; A Riak PHP
+client with support for Protocol Buffers</li>
+<li><a href="https://github.com/remialvado/RiakBundle">RiakBundle</a> &mdash;
+[[Symfony|<a href="http://symfony.com]">http://symfony.com]</a>] Bundle designed to ease interaction
+with Riak</li>
+<li><a href="https://github.com/TriKaspar/php_riak">php_riak</a> &mdash; A PHP extension
+written in C, Both Riak client and PHP session module</li>
+</ul>
+
+<h4 id="python:15cd9520a716a78a836569db73239545">Python</h4>
+
+<ul>
+<li><a href="https://github.com/calston/riakasaurus">Riakasaurus</a> &mdash; A Riak
+client library for Twisted (based on txriak)</li>
+<li><a href="http://shuhaowu.com/riakkit">RiakKit</a> &mdash; A small Python ORM that
+sits on top of riak-python-client, similar to mongokit and couchdbkit</li>
+<li><a href="https://github.com/Linux2Go/riakalchemy">riakalchemy</a> &mdash; Object
+mapper for Riak written in Python</li>
+<li><a href="https://github.com/ericmoritz/riak_crdt">riak_crdt</a> &mdash; A CRDT
+(Conflict-Free Replicated Data Type) loader for Riak using the <a href="https://github.com/ericmoritz/crdt">CRDT
+API</a></li>
+<li><a href="https://launchpad.net/txriak">txriak</a> &mdash; A Twisted module for
+communicating with Riak via the HTTP interface</li>
+<li><a href="https://github.com/williamsjj/txriakidx">txriakidx</a> &mdash; Riak client
+for Twisted Python that implements transparent indexes</li>
+</ul>
+
+<h4 id="racket:15cd9520a716a78a836569db73239545">Racket</h4>
+
+<ul>
+<li><a href="https://github.com/shofetim/riak.rkt">riak.rkt</a> &mdash; Racket API to
+Riak</li>
+<li><a href="https://github.com/dkvasnicka/racket-riak">Racket Riak</a> &mdash; Racket
+1.3.x API to Riak</li>
+</ul>
+
+<h4 id="ruby:15cd9520a716a78a836569db73239545">Ruby</h4>
+
+<ul>
+<li><a href="https://github.com/krainboltgreene/shogun">Shogun</a> &mdash; A lightweight,
+powerful Ruby web application framework with first class support for
+Riak</li>
+<li><a href="https://github.com/aphyr/risky">Risky</a> &mdash; A lightweight Ruby ORM for
+Riak</li>
+<li><a href="http://github.com/igorgue/riak_sessions">riak_sessions</a> &mdash;
+Riak-backed session storage for Rack</li>
+<li><a href="http://github.com/benmyles/riaktor">Riaktor</a> &mdash; Ruby client and
+object mapper for Riak</li>
+<li><a href="http://github.com/mikeric/dm-riak-adapter">dm-riak-adapter</a> &mdash;
+DataMapper adapter for Riak</li>
+<li><a href="https://github.com/sgonyea/riak-pbclient">Riak PB Client</a> &mdash; Riak
+Protocol Buffer Client in Ruby</li>
+<li><a href="http://github.com/frank06/devise-ripple">Devise-Ripple</a> &mdash; An ORM
+strategy to use Devise with Riak</li>
+<li><a href="http://github.com/bkaney/ripple-anaf">ripple-anaf</a> &mdash; Accepts nested
+attributes support for Ripple</li>
+<li><a href="https://github.com/sgonyea/pabst">Pabst</a> &mdash; Cross-platform Ruby
+extension for Protocol Buffers written in both Objective-C and
+Objective-C++</li>
+</ul>
+
+<h4 id="scala:15cd9520a716a78a836569db73239545">Scala</h4>
+
+<ul>
+<li><a href="http://github.com/timperrett/riakka">Riakka</a> &mdash; Scala library for
+talking to Riak</li>
+<li><a href="http://github.com/softprops/ryu">Ryu</a> &mdash; A Tornado Whirlwind Kick
+Scala client for the Riak raw HTTP interface</li>
+<li><a href="https://github.com/gideondk/Raiku">Raiku</a> &mdash; An Akka IO- and
+Sentinel-driven Riak Scala client</li>
+</ul>
+
+<h4 id="smalltalk:15cd9520a716a78a836569db73239545">Smalltalk</h4>
+
+<ul>
+<li><a href="http://www.squeaksource.com/Phriak/">Phriak</a> &mdash; A Riak client for
+Pharo Smalltalk based on Runar Jordahl&rsquo;s EpigentRiakInterface</li>
+<li><a href="http://www.squeaksource.com/EpigentRiakInterface/">EpigentRiakInterface</a>
+&mdash; A Pharo Smalltalk interface to Riak. There is also a blog post
+with some additional info about the client
+<a href="http://blog.epigent.com/2011/03/riak-interface-for-pharo-smalltalk.html">here</a>.</li>
+</ul>
+
+
+      <div class="clear"></div>
+
+    </article>
+
+    <footer class="mastfooter">
+    This work is licensed under a
+    <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">
+        Creative Commons Attribution 4.0 International Public License
+    </a><br>
+    &copy; 2011-2016&nbsp;<a href="http://www.basho.com">Basho Technologies, Inc.</a>
+</footer>
+
+
+  </div>
+
+  <script src="/js/all.js" type="text/javascript"></script>
+<script type= "text/javascript">
+  
+  hljs.configure({languages: []});
+  hljs.initHighlighting();
+
+  
+  
+  
+  $(function() {
+    $(".js_enabled pre").css("visibility", "visible");
+  });
+</script>
+
+
+</body>
+</html>

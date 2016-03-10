@@ -12,68 +12,35 @@ menu:
 toc: true
 ---
 
-## Hanc capellae
+[install index]: /riak/kv/2.1.3/setup/installing
+[dev client libraries]: /riak/kv/2.1.3/developing/client-libraries
 
-Lorem markdownum Byblida. Modo **etiam** litora mittat vellera infelix caeli.
-Studiosius forte, potuit pectore. Puer undas dignior iam turpe sorores abesse.
-Deae Saturnia levius viribus membra.
+Welcome, new Riak developer! This guide will get you started developing
+against Riak KV with minimal fuss.
 
-## Iussorum ad fronti rutilasque tenuit cursu quae
+## Installing Riak KV
 
-Nostros vovistis artes. **Fert** modulata Tyrrhenae nubigenas genu deque, vultus
-**manus ede** senilibus [oris](http://www.youtube.com/watch?v=MghiBW3r65M)
-transcurrere quem rarissima. Viderunt nutu quod, tumidaque, mihi mihi sacer pia.
-Summis rediit pavidus tersere et at prosiluit natus Phaethon noxa. Singultibus
-oblita **foedabis** orsa.
+The easiest way to get started with Riak KV is to complete the
+[installation][install index] process.
 
-- Fecere aliis postquam inviti caliginis ab inque
-- Voverat dividuae et tardus huc magna non
-- Sex barba ipsaque Caucason corpora sono ecce
-- Non esse
-- Sibi atris regna licuit Antium carituraque nubes
+## Choose Your Programming Language
 
-## Omni levare gelidumque minanti
+Basho officially supports a number of open-source [client libraries][dev client libraries]
+for various programming languages and environments. Please select the
+language with which you'd like to proceed:
 
-Omnis adeunt ossibus gravis, Venus pinuque capit, et sereno viros ignara *plena
-incaluere* percussit mellaque, vertere arte. Ad silvarum Dryope, regnum nisi
-magnis idque osculaque temerarius tempora, *nomen* enumerare lenis, nostro. Ac
-mutabit [arma](http://www.thesecretofinvisibility.com/) operiri saxum ratione,
-crudelior feram, est usu tamen quod, hasta. Equos **sonant et deum**. Et amor
-regis sed agros misit citaeque fallitque *altrici* optat Thoantis ab aevo umeris
-coniugis.
+<ul class="planguages">
+<li><a href="/developing/getting-started/java/"><img src="/images/plangs/java.jpg" alt="Java"></a></li>
+<li><a href="/developing/getting-started/ruby/"><img src="/images/plangs/ruby.jpg" alt="Ruby"></a></li>
+<li><a href="/developing/getting-started/python/"><img src="/images/plangs/python.png" alt="Python"></a></li>
+<li><a href="/developing/getting-started/csharp/"><img src="/images/plangs/csharp.png" alt="CSharp"></a></li>
+<li><a href="/developing/getting-started/nodejs/"><img src="/images/plangs/nodejs.png" alt="Node.js"></a></li>
+<li><a href="/developing/getting-started/erlang/"><img src="/images/plangs/erlang.jpg" alt="Erlang"></a></li>
+<li><a href="/developing/getting-started/php/"><img src="/images/plangs/php.png" alt="PHP"></a></li>
+<li><a href="/developing/getting-started/golang/"><img src="/images/plangs/golang.png" alt="Go"></a></li>
+</ul>
 
-## Troiana quoque
+### Community-supported Client Libraries
 
-Equo uni Stygias trahunt, interea, in tela labores lumina, nam *Aganippe
-sanctique meum*; est. [Gente inimica
-premeret](http://en.wikipedia.org/wiki/Sterling_Archer), proximus; in num foret
-tibi cumque arma nec quoniam! Contribuere mollis, tu dum parem viscera, tamen
-ante. Dixit ignibus spectare asperitas, superi ineunt amore qua Persea deficeret
-quoque nec parabantur quae inlaesos cessant calcata certo. Utrimque ut sim
-suasque minus ego *gemitus*, illuc saxa sic medio gentes amorem suam ramis
-nimium in miserata?
-
-1. `In naribus aequos aberant`
-2. Naturae murmura te rimas suarum vulnus quod
-3. Socios leto loquor timide
-4. Ergo sub
-5. Patrias mihi consumite breve
-
-## Ruit huic movit luminibus excubias arma
-
-> Loco humo tecum gurgite timui. Peragant tu regia ut umbras premit condit. Lex
-vera forte tenebo colles sinat positis illis: tibi laudavit uno rostro extenuat
-*inque*. Pulveris inter offensa comes adulantes fluvios mutarent murmur, valens
-cumque cladis Cecropidas haec, dixit. Lucus cognomine **Achilles**: pastor nec.
-
-1. Hic causam et dilecte nudae nec corpus
-2. Cor Si nive
-3. Petis equos perosa tu perterrita exitus non
-4. Per et et ire geminos parte
-5. Aqua coniunx cecidisse sonum
-
-```
-Nominis haec lacrimis orba gloria obstipuere tu Ceyx tepebat fetus me equorum
-potero! Iampridem illi; deducit [reor orbem](http://heeeeeeeey.com/), comes, et
-nec rubebant pietas, ipsa.
-```
+Please see our [client libraries][dev client libraries] page for a listing of
+community-supported clients.

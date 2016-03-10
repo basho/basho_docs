@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"></html><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"></html><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"></html><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->
+
+
+
+
+<head class="tutorials">
+  <meta charset="utf-8">
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width">
+  <meta name="project" content="riak_cs">
+  <meta name="version" content="2.1.1">
+  <meta name="base-url" content="">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+  <title>Download Riak CS 2.1.1 and Other Tools</title>
+
+  <link href="/css/all.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="/css/print.css" media="print" rel="stylesheet" type="text/css">
+
+  
+  <style type="text/css"> .js_enabled pre { visibility : hidden; } </style>
+  <script type="text/javascript">
+    document.documentElement.className = 'js_enabled';
+  </script>
+</head>
+
+
+
+
+<body class="riak_cs 2.1.1 latest " id="downloads">
+
+  <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-T9C8MK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-T9C8MK');</script>
+
+  
+<aside id="nav-container" role="complementary">
+  <nav class="overview" id="primary-nav" role="nav">
+    <div id="primary-nav-content">
+      <h2 class="responsive-link"><a class="responsive-toggle"></a></h2>
+
+      
+      <form id="searchbox_011972015458788978446:zgdcy4fa-o0" action="">
+        <div class="nav-field-container">
+          <div id="icon-container-search">
+            <div class="icon-container"><span aria-hidden="true" class="nav-icon-search icon-search"></span></div>
+            <span class="separator">&#124;</span>
+          </div>
+          <input id="main-search" name="q" placeholder="Search" size="5" type="search" />
+        </div>
+      </form>
+
+      <div class="clear"></div>
+
+      
+      <h3 class="responsive-link visit-basho">
+        <a href="http://www.basho.com">
+          <div class="icon-container">
+            <span aria-hidden="true" class="nav-icon" data-icon="&#xe003;"></span>
+          </div>
+          <span class="separator">&#124;</span>
+          <span class="menu-title">Visit Basho</span>
+          <div class="clear"></div>
+        </a>
+      </h3>
+
+      
+      <h3 class="responsive-link">
+        <a href="/index.html">
+          <div class="icon-container">
+            <span aria-hidden="true" class="nav-icon" data-icon="&#xe003;"></span>
+          </div>
+          <span class="separator">&#124;</span>
+          <span class="menu-title">All Riak Projects</span>
+          <div class="clear"></div>
+        </a>
+      </h3>
+
+      
+      
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon "></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/cs/2.1.1/using/">Using Riak CS</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <a href="/riak/cs/2.1.1/using/configuring/">Configuring</a>
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-lambda"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/cs/2.1.1/downloads/">** Download Riak KV</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon "></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/cs/2.1.1/learn/">Learn You Some Riak CS</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <a href="/riak/cs/2.1.1/learn/why_riak_s2/">Why Riak CS</a>
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-comments"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/community">Community</a></span>
+        <div class="clear"></div>
+      </h3>
+      <ul></ul> 
+    </div>
+  </nav>
+
+  
+  <ul id="fixed-nav">
+    <li>
+      <a href="https://github.com/basho/basho_docs" target="_blank">
+        <div class="icon-container">
+          <span aria-hidden="true" class="nav-icon" data-icon="&#xe004;"></span>
+        </div>
+        <span class="separator">&#124;</span>Available on GitHub
+      </a>
+    </li>
+    <li>
+      <a href="/riak/latest/community/">
+        <div class="icon-container">
+          <span aria-hidden="true" class="nav-icon" data-icon="&#xf059;"></span>
+        </div>
+        <span class="separator">&#124;</span>Get Help
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+  <div role="main">
+
+    <header class="masthead">
+  <div id="header">
+    
+    <div id="header-inner">
+      <div class="icon-reorder" id="nav-toggle"></div>
+
+      <div id="top-nav">
+        
+        <a href="/riak/cs/2.1.1/downloads/"><span class="icon-download-alt"></span>Downloads</a>
+        <div id="nav-more"><span class="icon-more"></span></div>
+      </div>
+
+      <a class="responsive-toggle"></a>
+      
+      
+      <a class="logo" href="/index.html"><h1>Riak Docs</h1></a>
+      
+      <span class="tagline">Product tutorials, how-tos, and fully-documented APIs.</span>
+      <div id="nav-menu">
+        <h2>Links</h2>
+        <ul>
+          <li><a href="http://docs.basho.com/">Docs Home</a></li>
+          <li><a href="http://basho.com/">Basho Website</a></li>
+        </ul>
+        
+        <div id="nav-menu-arrow"></div>
+        <div id="nav-menu-arrow-back"></div>
+      </div>
+
+      <div class="clear"></div>
+
+      <div class="header-rule"></div>
+    </div>
+  </div>
+</header>
+
+
+    <article class="mainarticle">
+
+      <div class="versions">
+  <div id="version-ddown-button" class="unselected">
+    <div class="version-ddown-title">Version</div>
+    <div class="version-ddown-number">2.1.1</div>
+    <div class="version-ddown-arrow"></div>
+  </div>
+  <ol id="version-list" style="display: none;">
+  
+  
+    
+    
+      
+      
+      <li class="sans versions-0 current">DEV</li>
+      
+      <li class="current versions-0"><a class="versioned" href="/riak/cs/2.1.1/downloads/">2.1.1</a></li>
+    
+    
+      
+      
+      
+      <li class=" versions-0 first"><a class="versioned" href="/riak/cs/2.1.0/downloads/">2.1.0</a></li>
+    
+  
+    
+    
+      
+      
+      
+      <li class="sans versions-1 current">LTS</li>
+      <li class=" versions-1"><a class="versioned" href="/riak/cs/2.0.1/downloads/">2.0.1</a></li>
+    
+    
+      
+      
+      
+      <li class=" versions-1 first"><a class="versioned" href="/riak/cs/2.0.0/downloads/">2.0.0</a></li>
+    
+  
+  
+  <li class="versions-5 first"><a class="sans versioned" href="http://docs.basho.com/riakcs/1.5.4/">older</a></li>
+  </ol>
+</div>
+
+
+      <header><h1>Download Riak CS 2.1.1 and Other Tools</h1></header>
+
+      
+      <nav id="toc">
+        <h2 class="title">Contents</h2>
+        <div id="toc-wrapper">
+          <ol id="toc-items"></ol>
+        </div>
+      </nav>
+      
+
+      
+      <p>Content (that&rsquo;s written in the Markdown document) can go here.</p>
+
+
+      
+      
+        
+        
+        
+
+        <h2>Riak CS 2.1.1</h2>
+        <p>You should be able to find your operating system in the choices below.</p>
+
+        
+          
+          
+          <h3><img src="/images/shared/operating_system_branding/debian.png">
+              Riak CS for Debian</h3>
+          <table><tbody>
+          
+            <tr class="version_title"><td colspan="3"><h4>Debian 6</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">amd64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/debian/6/riak-cs_2.1.1-1_amd64.deb">riak-cs_2.1.1-1_amd64.deb</a></td>
+              <td class="size">25 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/debian/6/riak-cs_2.1.1-1_amd64.deb.sha">hash</a></td>
+            </tr>
+            
+          
+            <tr class="version_title"><td colspan="3"><h4>Debian 7</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">amd64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/debian/7/riak-cs_2.1.1-1_amd64.deb">riak-cs_2.1.1-1_amd64.deb</a></td>
+              <td class="size">25 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/debian/7/riak-cs_2.1.1-1_amd64.deb.sha">hash</a></td>
+            </tr>
+            
+          
+          </tbody></table>
+          
+          <p class="install_instruction">Here are further instructions for <a href="/riak/cs/2.1.1/installing/debian-ubuntu/">installing Riak CS on this system</a>.</p>
+          
+        
+          
+          
+          <h3><img src="/images/shared/operating_system_branding/freebsd.png">
+              Riak CS for FreeBSD</h3>
+          <table><tbody>
+          
+            <tr class="version_title"><td colspan="3"><h4>FreeBSD 9.2</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">amd64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/freebsd/9.2/riak-cs-2.1.1-FreeBSD-amd64.tbz">riak-cs-2.1.1-FreeBSD-amd64.tbz</a></td>
+              <td class="size">30 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/freebsd/9.2/riak-cs-2.1.1-FreeBSD-amd64.tbz.sha">hash</a></td>
+            </tr>
+            
+          
+            <tr class="version_title"><td colspan="3"><h4>FreeBSD 10</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">txz</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/freebsd/10/riak-cs-2.1.1.txz">riak-cs-2.1.1.txz</a></td>
+              <td class="size">24 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/freebsd/10/riak-cs-2.1.1.txz.sha">hash</a></td>
+            </tr>
+            
+          
+          </tbody></table>
+          
+          <p class="install_instruction">Here are further instructions for <a href="/riak/cs/2.1.1/installing/freebsd/">installing Riak CS on this system</a>.</p>
+          
+        
+          
+          
+          <h3><img src="/images/shared/operating_system_branding/mac.png">
+              Riak CS for Mac OS X</h3>
+          <table><tbody>
+          
+            <tr class="version_title"><td colspan="3"><h4>Mac OS X 10.8</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">x86_64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/osx/10.8/riak-cs-2.1.1-OSX-x86_64.tar.gz">riak-cs-2.1.1-OSX-x86_64.tar.gz</a></td>
+              <td class="size">25 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/osx/10.8/riak-cs-2.1.1-OSX-x86_64.tar.gz.sha">hash</a></td>
+            </tr>
+            
+          
+          </tbody></table>
+          
+          <p class="install_instruction">Here are further instructions for <a href="/riak/cs/2.1.1/installing/osx/">installing Riak CS on this system</a>.</p>
+          
+        
+          
+          
+          <h3><img src="/images/shared/operating_system_branding/redhat.png">
+              Riak CS for Red Hat Enterprise Linux </h3>
+          <table><tbody>
+          
+            <tr class="version_title"><td colspan="3"><h4>Red Hat Enterprise Linux  5</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">source</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/rhel/5/riak-cs-2.1.1-1.src.rpm">riak-cs-2.1.1-1.src.rpm</a></td>
+              <td class="size">10 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/rhel/5/riak-cs-2.1.1-1.src.rpm.sha">hash</a></td>
+            </tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">x86_64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/rhel/5/riak-cs-2.1.1-1.el5.x86_64.rpm">riak-cs-2.1.1-1.el5.x86_64.rpm</a></td>
+              <td class="size">25 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/rhel/5/riak-cs-2.1.1-1.el5.x86_64.rpm.sha">hash</a></td>
+            </tr>
+            
+          
+            <tr class="version_title"><td colspan="3"><h4>Red Hat Enterprise Linux  6</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">source</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/rhel/6/riak-cs-2.1.1-1.el6.src.rpm">riak-cs-2.1.1-1.el6.src.rpm</a></td>
+              <td class="size">10 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/rhel/6/riak-cs-2.1.1-1.el6.src.rpm.sha">hash</a></td>
+            </tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">x86_64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/rhel/6/riak-cs-2.1.1-1.el6.x86_64.rpm">riak-cs-2.1.1-1.el6.x86_64.rpm</a></td>
+              <td class="size">23 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/rhel/6/riak-cs-2.1.1-1.el6.x86_64.rpm.sha">hash</a></td>
+            </tr>
+            
+          
+            <tr class="version_title"><td colspan="3"><h4>Red Hat Enterprise Linux  7</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">source</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/rhel/7/riak-cs-2.1.1-1.el7.centos.src.rpm">riak-cs-2.1.1-1.el7.centos.src.rpm</a></td>
+              <td class="size">10 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/rhel/7/riak-cs-2.1.1-1.el7.centos.src.rpm.sha">hash</a></td>
+            </tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">x86_64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/rhel/7/riak-cs-2.1.1-1.el7.centos.x86_64.rpm">riak-cs-2.1.1-1.el7.centos.x86_64.rpm</a></td>
+              <td class="size">22 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/rhel/7/riak-cs-2.1.1-1.el7.centos.x86_64.rpm.sha">hash</a></td>
+            </tr>
+            
+          
+          </tbody></table>
+          
+          <p class="install_instruction">Here are further instructions for <a href="/riak/cs/2.1.1/installing/rhel/">installing Riak CS on this system</a>.</p>
+          
+        
+          
+          
+          <h3><img src="/images/shared/operating_system_branding/smartos.png">
+              Riak CS for Smart OS</h3>
+          <table><tbody>
+          
+            <tr class="version_title"><td colspan="3"><h4>Smart OS 1.8</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">x86_64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/smartos/1.8/riak_cs-2.1.1-SmartOS-x86_64.tgz">riak_cs-2.1.1-SmartOS-x86_64.tgz</a></td>
+              <td class="size">32 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/smartos/1.8/riak_cs-2.1.1-SmartOS-x86_64.tgz.sha">hash</a></td>
+            </tr>
+            
+          
+            <tr class="version_title"><td colspan="3"><h4>Smart OS 13.1</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">x86_64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/smartos/13.1/riak_cs-2.1.1-SmartOS-x86_64.tgz">riak_cs-2.1.1-SmartOS-x86_64.tgz</a></td>
+              <td class="size">32 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/smartos/13.1/riak_cs-2.1.1-SmartOS-x86_64.tgz.sha">hash</a></td>
+            </tr>
+            
+          
+          </tbody></table>
+          
+          <p class="install_instruction">Here are further instructions for <a href="/riak/cs/2.1.1/installing/smartos/">installing Riak CS on this system</a>.</p>
+          
+        
+          
+          
+          <h3><img src="/images/shared/operating_system_branding/solaris.png">
+              Riak CS for Solaris</h3>
+          <table><tbody>
+          
+            <tr class="version_title"><td colspan="3"><h4>Solaris 10</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">x86_64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/solaris/10/BASHOriak-cs-2.1.1-Solaris10-x86_64.pkg.gz">BASHOriak-cs-2.1.1-Solaris10-x86_64.pkg.gz</a></td>
+              <td class="size">29 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/solaris/10/BASHOriak-cs-2.1.1-Solaris10-x86_64.pkg.gz.sha">hash</a></td>
+            </tr>
+            
+          
+          </tbody></table>
+          
+          <p class="install_instruction">Here are further instructions for <a href="/riak/cs/2.1.1/installing/solaris/">installing Riak CS on this system</a>.</p>
+          
+        
+          
+          
+          <h3><img src="/images/shared/operating_system_branding/ubuntu.png">
+              Riak CS for Ubuntu</h3>
+          <table><tbody>
+          
+            <tr class="version_title"><td colspan="3"><h4>Ubuntu lucid</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">amd64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/ubuntu/lucid/riak-cs_2.1.1-1_amd64.deb">riak-cs_2.1.1-1_amd64.deb</a></td>
+              <td class="size">25 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/ubuntu/lucid/riak-cs_2.1.1-1_amd64.deb.sha">hash</a></td>
+            </tr>
+            
+          
+            <tr class="version_title"><td colspan="3"><h4>Ubuntu precise</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">amd64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/ubuntu/precise/riak-cs_2.1.1-1_amd64.deb">riak-cs_2.1.1-1_amd64.deb</a></td>
+              <td class="size">25 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/ubuntu/precise/riak-cs_2.1.1-1_amd64.deb.sha">hash</a></td>
+            </tr>
+            
+          
+            <tr class="version_title"><td colspan="3"><h4>Ubuntu trusty</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">amd64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/ubuntu/trusty/riak-cs_2.1.1-1_amd64.deb">riak-cs_2.1.1-1_amd64.deb</a></td>
+              <td class="size">21 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/ubuntu/trusty/riak-cs_2.1.1-1_amd64.deb.sha">hash</a></td>
+            </tr>
+            
+          
+          </tbody></table>
+          
+          <p class="install_instruction">Here are further instructions for <a href="/riak/cs/2.1.1/installing/debian-ubuntu/">installing Riak CS on this system</a>.</p>
+          
+        
+
+        
+          <h3><img src="/images/shared/operating_system_branding/targz.png">
+              Source Download for Riak CS</h3>
+          <table><tbody>
+            <tr>
+              <td></td>
+              <td class="arch"></td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs/2.1/2.1.1/riak-cs-2.1.1.tar.gz">riak-cs-2.1.1.tar.gz</a></td>
+              <td class="size">10 MB</td>
+              <td class="chksum"><a href="">hash</a></td>
+            </tr>
+          </tbody></table>
+          
+          <p class="install_instruction">Here are further instructions for <a href="/riak/cs/2.1.1/installing/source/">installing Riak CS from source</a>.</p>
+          
+        
+      <hr>
+      
+        
+        
+        
+
+        <h2>Stanchion 2.1.1</h2>
+        <p>You should be able to find your operating system in the choices below.</p>
+
+        
+          
+          
+          <h3><img src="/images/shared/operating_system_branding/debian.png">
+              Stanchion for Debian</h3>
+          <table><tbody>
+          
+            <tr class="version_title"><td colspan="3"><h4>Debian 6</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">amd64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/debian/6/stanchion_2.1.1-1_amd64.deb">stanchion_2.1.1-1_amd64.deb</a></td>
+              <td class="size">23 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/debian/6/stanchion_2.1.1-1_amd64.deb.sha">hash</a></td>
+            </tr>
+            
+          
+            <tr class="version_title"><td colspan="3"><h4>Debian 7</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">amd64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/debian/7/stanchion_2.1.1-1_amd64.deb">stanchion_2.1.1-1_amd64.deb</a></td>
+              <td class="size">23 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/debian/7/stanchion_2.1.1-1_amd64.deb.sha">hash</a></td>
+            </tr>
+            
+          
+          </tbody></table>
+          
+          <p class="install_instruction">Here are further instructions for <a href="/riak/cs/2.1.1/installing/debian-ubuntu/">installing Stanchion on this system</a>.</p>
+          
+        
+          
+          
+          <h3><img src="/images/shared/operating_system_branding/freebsd.png">
+              Stanchion for FreeBSD</h3>
+          <table><tbody>
+          
+            <tr class="version_title"><td colspan="3"><h4>FreeBSD 9.2</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">amd64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/freebsd/9.2/stanchion-2.1.1-FreeBSD-amd64.tbz">stanchion-2.1.1-FreeBSD-amd64.tbz</a></td>
+              <td class="size">29 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/freebsd/9.2/stanchion-2.1.1-FreeBSD-amd64.tbz.sha">hash</a></td>
+            </tr>
+            
+          
+            <tr class="version_title"><td colspan="3"><h4>FreeBSD 10</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">txz</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/freebsd/10/stanchion-2.1.1.txz">stanchion-2.1.1.txz</a></td>
+              <td class="size">23 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/freebsd/10/stanchion-2.1.1.txz.sha">hash</a></td>
+            </tr>
+            
+          
+          </tbody></table>
+          
+          <p class="install_instruction">Here are further instructions for <a href="/riak/cs/2.1.1/installing/freebsd/">installing Stanchion on this system</a>.</p>
+          
+        
+          
+          
+          <h3><img src="/images/shared/operating_system_branding/mac.png">
+              Stanchion for Mac OS X</h3>
+          <table><tbody>
+          
+            <tr class="version_title"><td colspan="3"><h4>Mac OS X 10.8</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">x86_64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/osx/10.8/stanchion-2.1.1-OSX-x86_64.tar.gz">stanchion-2.1.1-OSX-x86_64.tar.gz</a></td>
+              <td class="size">24 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/osx/10.8/stanchion-2.1.1-OSX-x86_64.tar.gz.sha">hash</a></td>
+            </tr>
+            
+          
+          </tbody></table>
+          
+          <p class="install_instruction">Here are further instructions for <a href="/riak/cs/2.1.1/installing/osx/">installing Stanchion on this system</a>.</p>
+          
+        
+          
+          
+          <h3><img src="/images/shared/operating_system_branding/redhat.png">
+              Stanchion for Red Hat Enterprise Linux </h3>
+          <table><tbody>
+          
+            <tr class="version_title"><td colspan="3"><h4>Red Hat Enterprise Linux  5</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">source</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/rhel/5/stanchion-2.1.1-1.src.rpm">stanchion-2.1.1-1.src.rpm</a></td>
+              <td class="size">5 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/rhel/5/stanchion-2.1.1-1.src.rpm.sha">hash</a></td>
+            </tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">x86_64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/rhel/5/stanchion-2.1.1-1.el5.x86_64.rpm">stanchion-2.1.1-1.el5.x86_64.rpm</a></td>
+              <td class="size">23 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/rhel/5/stanchion-2.1.1-1.el5.x86_64.rpm.sha">hash</a></td>
+            </tr>
+            
+          
+            <tr class="version_title"><td colspan="3"><h4>Red Hat Enterprise Linux  6</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">source</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/rhel/6/stanchion-2.1.1-1.el6.src.rpm">stanchion-2.1.1-1.el6.src.rpm</a></td>
+              <td class="size">5 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/rhel/6/stanchion-2.1.1-1.el6.src.rpm.sha">hash</a></td>
+            </tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">x86_64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/rhel/6/stanchion-2.1.1-1.el6.x86_64.rpm">stanchion-2.1.1-1.el6.x86_64.rpm</a></td>
+              <td class="size">21 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/rhel/6/stanchion-2.1.1-1.el6.x86_64.rpm.sha">hash</a></td>
+            </tr>
+            
+          
+            <tr class="version_title"><td colspan="3"><h4>Red Hat Enterprise Linux  7</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">source</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/rhel/7/stanchion-2.1.1-1.el7.centos.src.rpm">stanchion-2.1.1-1.el7.centos.src.rpm</a></td>
+              <td class="size">5 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/rhel/7/stanchion-2.1.1-1.el7.centos.src.rpm.sha">hash</a></td>
+            </tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">x86_64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/rhel/7/stanchion-2.1.1-1.el7.centos.x86_64.rpm">stanchion-2.1.1-1.el7.centos.x86_64.rpm</a></td>
+              <td class="size">21 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/rhel/7/stanchion-2.1.1-1.el7.centos.x86_64.rpm.sha">hash</a></td>
+            </tr>
+            
+          
+          </tbody></table>
+          
+          <p class="install_instruction">Here are further instructions for <a href="/riak/cs/2.1.1/installing/rhel/">installing Stanchion on this system</a>.</p>
+          
+        
+          
+          
+          <h3><img src="/images/shared/operating_system_branding/smartos.png">
+              Stanchion for Smart OS</h3>
+          <table><tbody>
+          
+            <tr class="version_title"><td colspan="3"><h4>Smart OS 1.8</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">x86_64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/smartos/1.8/stanchion-2.1.1-SmartOS-x86_64.tgz">stanchion-2.1.1-SmartOS-x86_64.tgz</a></td>
+              <td class="size">30 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/smartos/1.8/stanchion-2.1.1-SmartOS-x86_64.tgz.sha">hash</a></td>
+            </tr>
+            
+          
+            <tr class="version_title"><td colspan="3"><h4>Smart OS 13.1</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">x86_64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/smartos/13.1/stanchion-2.1.1-SmartOS-x86_64.tgz">stanchion-2.1.1-SmartOS-x86_64.tgz</a></td>
+              <td class="size">30 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/smartos/13.1/stanchion-2.1.1-SmartOS-x86_64.tgz.sha">hash</a></td>
+            </tr>
+            
+          
+          </tbody></table>
+          
+          <p class="install_instruction">Here are further instructions for <a href="/riak/cs/2.1.1/installing/smartos/">installing Stanchion on this system</a>.</p>
+          
+        
+          
+          
+          <h3><img src="/images/shared/operating_system_branding/solaris.png">
+              Stanchion for Solaris</h3>
+          <table><tbody>
+          
+            <tr class="version_title"><td colspan="3"><h4>Solaris 10</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">x86_64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/solaris/10/BASHOstanchion-2.1.1-Solaris10-x86_64.pkg.gz">BASHOstanchion-2.1.1-Solaris10-x86_64.pkg.gz</a></td>
+              <td class="size">27 MB</td>
+              <td class="chksum"><a href="">hash</a></td>
+            </tr>
+            
+          
+          </tbody></table>
+          
+          <p class="install_instruction">Here are further instructions for <a href="/riak/cs/2.1.1/installing/solaris/">installing Stanchion on this system</a>.</p>
+          
+        
+          
+          
+          <h3><img src="/images/shared/operating_system_branding/ubuntu.png">
+              Stanchion for Ubuntu</h3>
+          <table><tbody>
+          
+            <tr class="version_title"><td colspan="3"><h4>Ubuntu lucid</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">amd64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/ubuntu/lucid/stanchion_2.1.1-1_amd64.deb">stanchion_2.1.1-1_amd64.deb</a></td>
+              <td class="size">23 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/ubuntu/lucid/stanchion_2.1.1-1_amd64.deb.sha">hash</a></td>
+            </tr>
+            
+          
+            <tr class="version_title"><td colspan="3"><h4>Ubuntu precise</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">amd64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/ubuntu/precise/stanchion_2.1.1-1_amd64.deb">stanchion_2.1.1-1_amd64.deb</a></td>
+              <td class="size">23 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/ubuntu/precise/stanchion_2.1.1-1_amd64.deb.sha">hash</a></td>
+            </tr>
+            
+          
+            <tr class="version_title"><td colspan="3"><h4>Ubuntu trusty</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">amd64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/ubuntu/trusty/stanchion_2.1.1-1_amd64.deb">stanchion_2.1.1-1_amd64.deb</a></td>
+              <td class="size">19 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/ubuntu/trusty/stanchion_2.1.1-1_amd64.deb.sha">hash</a></td>
+            </tr>
+            
+          
+          </tbody></table>
+          
+          <p class="install_instruction">Here are further instructions for <a href="/riak/cs/2.1.1/installing/debian-ubuntu/">installing Stanchion on this system</a>.</p>
+          
+        
+
+        
+          <h3><img src="/images/shared/operating_system_branding/targz.png">
+              Source Download for Stanchion</h3>
+          <table><tbody>
+            <tr>
+              <td></td>
+              <td class="arch"></td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/stanchion-2.1.1.tar.gz">stanchion-2.1.1.tar.gz</a></td>
+              <td class="size">5 MB</td>
+              <td class="chksum"><a href="">hash</a></td>
+            </tr>
+          </tbody></table>
+          
+          <p class="install_instruction">Here are further instructions for <a href="/riak/cs/2.1.1/installing/source/">installing Stanchion from source</a>.</p>
+          
+        
+      <hr>
+      
+        
+        
+        
+
+        <h2>Riak CS Control 1.0.2</h2>
+        <p>You should be able to find your operating system in the choices below.</p>
+
+        
+          
+          
+          <h3><img src="/images/shared/operating_system_branding/debian.png">
+              Riak CS Control for Debian</h3>
+          <table><tbody>
+          
+            <tr class="version_title"><td colspan="3"><h4>Debian 6</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">amd64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/debian/6/riak-cs-control_1.0.2-1_amd64.deb">riak-cs-control_1.0.2-1_amd64.deb</a></td>
+              <td class="size">21 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/debian/6/riak-cs-control_1.0.2-1_amd64.deb.sha">hash</a></td>
+            </tr>
+            
+          
+            <tr class="version_title"><td colspan="3"><h4>Debian 7</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">amd64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/debian/7/riak-cs-control_1.0.2-1_amd64.deb">riak-cs-control_1.0.2-1_amd64.deb</a></td>
+              <td class="size">21 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/debian/7/riak-cs-control_1.0.2-1_amd64.deb.sha">hash</a></td>
+            </tr>
+            
+          
+          </tbody></table>
+          
+          <p class="install_instruction">Here are further instructions for <a href="/riak/cs/1.0.2/installing/debian-ubuntu/">installing Riak CS Control on this system</a>.</p>
+          
+        
+          
+          
+          <h3><img src="/images/shared/operating_system_branding/fedora.png">
+              Riak CS Control for Fedora</h3>
+          <table><tbody>
+          
+            <tr class="version_title"><td colspan="3"><h4>Fedora 17</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">source</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/fedora/17/riak-cs-control-1.0.2-1.fc17.src.rpm">riak-cs-control-1.0.2-1.fc17.src.rpm</a></td>
+              <td class="size">3 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/fedora/17/riak-cs-control-1.0.2-1.fc17.src.rpm.sha">hash</a></td>
+            </tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">x86_64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/fedora/17/riak-cs-control-1.0.2-1.fc17.x86_64.rpm">riak-cs-control-1.0.2-1.fc17.x86_64.rpm</a></td>
+              <td class="size">19 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/fedora/17/riak-cs-control-1.0.2-1.fc17.x86_64.rpm.sha">hash</a></td>
+            </tr>
+            
+          
+          </tbody></table>
+          
+          <p class="install_instruction">Here are further instructions for <a href="/riak/cs/1.0.2/installing/fedora/">installing Riak CS Control on this system</a>.</p>
+          
+        
+          
+          
+          <h3><img src="/images/shared/operating_system_branding/freebsd.png">
+              Riak CS Control for FreeBSD</h3>
+          <table><tbody>
+          
+            <tr class="version_title"><td colspan="3"><h4>FreeBSD 9</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">amd64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/freebsd/9/riak-cs-control-1.0.2-FreeBSD-amd64.tbz">riak-cs-control-1.0.2-FreeBSD-amd64.tbz</a></td>
+              <td class="size">26 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/freebsd/9/riak-cs-control-1.0.2-FreeBSD-amd64.tbz.sha">hash</a></td>
+            </tr>
+            
+          
+          </tbody></table>
+          
+          <p class="install_instruction">Here are further instructions for <a href="/riak/cs/1.0.2/installing/freebsd/">installing Riak CS Control on this system</a>.</p>
+          
+        
+          
+          
+          <h3><img src="/images/shared/operating_system_branding/mac.png">
+              Riak CS Control for Mac OS X</h3>
+          <table><tbody>
+          
+            <tr class="version_title"><td colspan="3"><h4>Mac OS X 10.8</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">x86_64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/osx/10.8/riak-cs-control-1.0.2-OSX-x86_64.tar.gz">riak-cs-control-1.0.2-OSX-x86_64.tar.gz</a></td>
+              <td class="size">21 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/osx/10.8/riak-cs-control-1.0.2-OSX-x86_64.tar.gz.sha">hash</a></td>
+            </tr>
+            
+          
+          </tbody></table>
+          
+          <p class="install_instruction">Here are further instructions for <a href="/riak/cs/1.0.2/installing/osx/">installing Riak CS Control on this system</a>.</p>
+          
+        
+          
+          
+          <h3><img src="/images/shared/operating_system_branding/redhat.png">
+              Riak CS Control for Red Hat Enterprise Linux </h3>
+          <table><tbody>
+          
+            <tr class="version_title"><td colspan="3"><h4>Red Hat Enterprise Linux  5</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">source</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/rhel/5/riak-cs-control-1.0.2-1.src.rpm">riak-cs-control-1.0.2-1.src.rpm</a></td>
+              <td class="size">3 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/rhel/5/riak-cs-control-1.0.2-1.src.rpm.sha">hash</a></td>
+            </tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">x86_64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/rhel/5/riak-cs-control-1.0.2-1.el5.x86_64.rpm">riak-cs-control-1.0.2-1.el5.x86_64.rpm</a></td>
+              <td class="size">22 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/rhel/5/riak-cs-control-1.0.2-1.el5.x86_64.rpm.sha">hash</a></td>
+            </tr>
+            
+          
+            <tr class="version_title"><td colspan="3"><h4>Red Hat Enterprise Linux  6</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">source</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/rhel/6/riak-cs-control-1.0.2-1.el6.src.rpm">riak-cs-control-1.0.2-1.el6.src.rpm</a></td>
+              <td class="size">3 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/rhel/6/riak-cs-control-1.0.2-1.el6.src.rpm.sha">hash</a></td>
+            </tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">x86_64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/rhel/6/riak-cs-control-1.0.2-1.el6.x86_64.rpm">riak-cs-control-1.0.2-1.el6.x86_64.rpm</a></td>
+              <td class="size">19 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/rhel/6/riak-cs-control-1.0.2-1.el6.x86_64.rpm.sha">hash</a></td>
+            </tr>
+            
+          
+          </tbody></table>
+          
+          <p class="install_instruction">Here are further instructions for <a href="/riak/cs/1.0.2/installing/rhel/">installing Riak CS Control on this system</a>.</p>
+          
+        
+          
+          
+          <h3><img src="/images/shared/operating_system_branding/smartos.png">
+              Riak CS Control for Smart OS</h3>
+          <table><tbody>
+          
+            <tr class="version_title"><td colspan="3"><h4>Smart OS 1.6</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">x86_64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/smartos/1.6/riak_cs_control-1.0.2-SmartOS-x86_64.tgz">riak_cs_control-1.0.2-SmartOS-x86_64.tgz</a></td>
+              <td class="size">27 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/smartos/1.6/riak_cs_control-1.0.2-SmartOS-x86_64.tgz.sha">hash</a></td>
+            </tr>
+            
+          
+            <tr class="version_title"><td colspan="3"><h4>Smart OS 1.8</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">x86_64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/smartos/1.8/riak_cs_control-1.0.2-SmartOS-x86_64.tgz">riak_cs_control-1.0.2-SmartOS-x86_64.tgz</a></td>
+              <td class="size">28 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/smartos/1.8/riak_cs_control-1.0.2-SmartOS-x86_64.tgz.sha">hash</a></td>
+            </tr>
+            
+          
+            <tr class="version_title"><td colspan="3"><h4>Smart OS 13.1</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">x86_64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/smartos/13.1/riak_cs_control-1.0.2-SmartOS-x86_64.tgz">riak_cs_control-1.0.2-SmartOS-x86_64.tgz</a></td>
+              <td class="size">28 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/smartos/13.1/riak_cs_control-1.0.2-SmartOS-x86_64.tgz.sha">hash</a></td>
+            </tr>
+            
+          
+          </tbody></table>
+          
+          <p class="install_instruction">Here are further instructions for <a href="/riak/cs/1.0.2/installing/smartos/">installing Riak CS Control on this system</a>.</p>
+          
+        
+          
+          
+          <h3><img src="/images/shared/operating_system_branding/solaris.png">
+              Riak CS Control for Solaris</h3>
+          <table><tbody>
+          
+            <tr class="version_title"><td colspan="3"><h4>Solaris 10</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">x86_64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/solaris/10/BASHOriak-cs-control-1.0.2-Solaris10-x86_64.pkg.gz">BASHOriak-cs-control-1.0.2-Solaris10-x86_64.pkg.gz</a></td>
+              <td class="size">26 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/solaris/10/BASHOriak-cs-control-1.0.2-Solaris10-x86_64.pkg.gz.sha">hash</a></td>
+            </tr>
+            
+          
+          </tbody></table>
+          
+          <p class="install_instruction">Here are further instructions for <a href="/riak/cs/1.0.2/installing/solaris/">installing Riak CS Control on this system</a>.</p>
+          
+        
+          
+          
+          <h3><img src="/images/shared/operating_system_branding/ubuntu.png">
+              Riak CS Control for Ubuntu</h3>
+          <table><tbody>
+          
+            <tr class="version_title"><td colspan="3"><h4>Ubuntu lucid</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">amd64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/ubuntu/lucid/riak-cs-control_1.0.2-1_amd64.deb">riak-cs-control_1.0.2-1_amd64.deb</a></td>
+              <td class="size">21 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/ubuntu/lucid/riak-cs-control_1.0.2-1_amd64.deb.sha">hash</a></td>
+            </tr>
+            
+          
+            <tr class="version_title"><td colspan="3"><h4>Ubuntu natty</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">amd64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/ubuntu/natty/riak-cs-control_1.0.2-1_amd64.deb">riak-cs-control_1.0.2-1_amd64.deb</a></td>
+              <td class="size">21 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/ubuntu/natty/riak-cs-control_1.0.2-1_amd64.deb.sha">hash</a></td>
+            </tr>
+            
+          
+            <tr class="version_title"><td colspan="3"><h4>Ubuntu precise</h4></td></tr>
+            
+            <tr>
+              <td></td>
+              <td class="arch">amd64</td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/ubuntu/precise/riak-cs-control_1.0.2-1_amd64.deb">riak-cs-control_1.0.2-1_amd64.deb</a></td>
+              <td class="size">21 MB</td>
+              <td class="chksum"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/ubuntu/precise/riak-cs-control_1.0.2-1_amd64.deb.sha">hash</a></td>
+            </tr>
+            
+          
+          </tbody></table>
+          
+          <p class="install_instruction">Here are further instructions for <a href="/riak/cs/1.0.2/installing/debian-ubuntu/">installing Riak CS Control on this system</a>.</p>
+          
+        
+
+        
+          <h3><img src="/images/shared/operating_system_branding/targz.png">
+              Source Download for Riak CS Control</h3>
+          <table><tbody>
+            <tr>
+              <td></td>
+              <td class="arch"></td>
+              <td class="link"><a href="http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.2/riak-cs-control-1.0.2.tar.gz">riak-cs-control-1.0.2.tar.gz</a></td>
+              <td class="size">3 MB</td>
+              <td class="chksum"><a href="">hash</a></td>
+            </tr>
+          </tbody></table>
+          
+          <p class="install_instruction">Here are further instructions for <a href="/riak/cs/1.0.2/installing/source/">installing Riak CS Control from source</a>.</p>
+          
+        
+      
+      
+
+      <div class="clear"></div>
+
+    </article>
+
+    <footer class="mastfooter">
+    This work is licensed under a
+    <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">
+        Creative Commons Attribution 4.0 International Public License
+    </a><br>
+    &copy; 2011-2016&nbsp;<a href="http://www.basho.com">Basho Technologies, Inc.</a>
+</footer>
+
+
+  </div>
+
+  <script src="/js/all.js" type="text/javascript"></script>
+<script type= "text/javascript">
+  
+  hljs.configure({languages: []});
+  hljs.initHighlighting();
+
+  
+  
+  
+  $(function() {
+    $(".js_enabled pre").css("visibility", "visible");
+  });
+</script>
+
+
+</body>
+</html>

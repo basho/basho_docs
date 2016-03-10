@@ -237,13 +237,13 @@ em {
 }
 
 blockquote {
-  @extend .serif-italic;
+  // @extend .serif-italic;
   @include allCorners();
   margin     : 2em 40px;
   background : lighten($orange, 30%);
   border     : 1px solid lighten($orange, 15%);
   padding    : 7px 15px;
-  font-style : italic;
+  font-style : normal;
   font-size  : 95%;
   color      : $darkOrange;
 }
@@ -840,7 +840,7 @@ div[role="main"] {
     line-height : 1.5;
     position    : relative;
 
-    .title {
+    .title, strong {
       @extend .sans-bold;
       font-style     : normal;
       font-size      : 135%;

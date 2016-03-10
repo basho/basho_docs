@@ -1,0 +1,2409 @@
+<!DOCTYPE html>
+
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"></html><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"></html><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"></html><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->
+
+
+
+
+<head class="tutorials">
+  <meta charset="utf-8">
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width">
+  <meta name="project" content="riak_kv">
+  <meta name="version" content="2.1.3">
+  <meta name="base-url" content="">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+  <title>Security Basics</title>
+
+  <link href="/css/all.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="/css/print.css" media="print" rel="stylesheet" type="text/css">
+
+  
+  <style type="text/css"> .js_enabled pre { visibility : hidden; } </style>
+  <script type="text/javascript">
+    document.documentElement.className = 'js_enabled';
+  </script>
+</head>
+
+
+
+<body class="riak_kv 2.1.3 latest ">
+
+  <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-T9C8MK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-T9C8MK');</script>
+
+  
+<aside id="nav-container" role="complementary">
+  <nav class="overview" id="primary-nav" role="nav">
+    <div id="primary-nav-content">
+      <h2 class="responsive-link"><a class="responsive-toggle"></a></h2>
+
+      
+      <form id="searchbox_011972015458788978446:zgdcy4fa-o0" action="">
+        <div class="nav-field-container">
+          <div id="icon-container-search">
+            <div class="icon-container"><span aria-hidden="true" class="nav-icon-search icon-search"></span></div>
+            <span class="separator">&#124;</span>
+          </div>
+          <input id="main-search" name="q" placeholder="Search" size="5" type="search" />
+        </div>
+      </form>
+
+      <div class="clear"></div>
+
+      
+      <h3 class="responsive-link visit-basho">
+        <a href="http://www.basho.com">
+          <div class="icon-container">
+            <span aria-hidden="true" class="nav-icon" data-icon="&#xe003;"></span>
+          </div>
+          <span class="separator">&#124;</span>
+          <span class="menu-title">Visit Basho</span>
+          <div class="clear"></div>
+        </a>
+      </h3>
+
+      
+      <h3 class="responsive-link">
+        <a href="/index.html">
+          <div class="icon-container">
+            <span aria-hidden="true" class="nav-icon" data-icon="&#xe003;"></span>
+          </div>
+          <span class="separator">&#124;</span>
+          <span class="menu-title">All Riak Projects</span>
+          <div class="clear"></div>
+        </a>
+      </h3>
+
+      
+      
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-riak"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/">Riak KV</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-download-alt"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/downloads/">Download Riak KV</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-install"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/setup/">Setup</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/planning/">Planning</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/start/">Start Planning</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/operating-system/">OS Support</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/planning/backend/">Choosing a Backend</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/backend/bitcask/">Bitcask</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/backend/leveldb/">LevelDB</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/backend/memory/">Memory</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/backend/multi/">Multi-backend</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/cluster-capacity/">Cluster Capacity</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/bitcask-capacity-calc/">Bitcask Capacity Calculator</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/best-practices/">Best Practices</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/future/">Planning for the Future</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/installing/">Installing</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/amazon-web-services/">Amazon Web Services</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/debian-ubuntu/">Debian &amp; Ubuntu</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/freebsd/">FreeBSD</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/mac-osx/">Mac OS X</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/rhel-centos/">RHEL &amp; CentOS</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/smartos/">SmartOS</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/solaris/">Solaris</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/suse/">SUSE</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/windows-azure/">Windows Azure</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/installing/source/">Installing From Source</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/source/erlang/">Installing Erlang</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/source/jvm/">Installing the JVM</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/verify/">Verifying an Installation</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/upgrading/">Upgrading</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/checklist/">Production Checklist</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/version/">Upgrading by Version</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/cluster/">Upgrading a Cluster</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/multi-datacenter/">Upgrading Multi-Datacenter</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/downgrade/">Downgrading</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-cog"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/configuring/">Configuring</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/basic/">Basic Configuration</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/backend/">Backend Configuration</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/managing/">Managing Configuration</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/reference/">Configuration Reference</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/strong-consistency/">Implementing Strong Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/load-balancing-proxy/">Load Balancing &amp; Proxy</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/mapreduce/">MapReduce Settings</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/search/">Search Settings</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/configuring/v3-multi-datacenter/">V3 Multi-Datacenter</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v3-multi-datacenter/quick-start/">Quickstart</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v3-multi-datacenter/nat/">With NAT</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v3-multi-datacenter/ssl/">SSL</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/configuring/v2-multi-datacenter/">V2 Multi-Datacenter</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v2-multi-datacenter/quick-start/">Quickstart</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v2-multi-datacenter/nat/">With NAT</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v2-multi-datacenter/ssl/">SSL</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-database"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/using/">Using</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/running-a-cluster/">Running a Cluster</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/admin/">Cluster Administration</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/admin/commands/">Cluster Admin Commands</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/admin/riak-admin/">riak-admin CLI</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/admin/riak-cli/">riak CLI</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/admin/riak-control/">Riak Control</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/cluster-operations/">Cluster Operations</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/adding-removing-nodes/">Adding/Removing Nodes</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/changing-cluster-info/">Changing Cluster Information</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/replacing-node/">Replacing a Node</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/inspecting-node/">Inspecting a Node</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/bucket-types/">Bucket Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/logging/">Logging</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/backing-up/">Backing Up</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/handoff/">Handoff</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/object-deletion/">Object Deletion</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/secondary-indexes/">Secondary Indexes</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/monitoring-strong-consistency/">Monitoring Strong Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/load-balancing/">Load Balancing</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/backend/">Backend</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/v3-multi-datacenter/">V3 Multi-Datacenter</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/v2-multi-datacenter/">V2 Multi-Datacenter</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/repair-recovery/">Repair &amp; Recovery</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/repair-recovery/failure-recovery/">Failure &amp; Recovery</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/repair-recovery/errors/">Errors</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/repair-recovery/repairs/">Repairs</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/repair-recovery/rolling-restart/">Rolling Restarts</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/security/">Security</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li class="current">
+  
+    <a href="/riak/kv/2.1.3/using/security/basics/">Security Basics</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/security/managing-sources/">Managing Security Sources</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/security/best-practices/">Best Practices</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/security/v2-v3-ssl-ca/">V2/V3 SSL &amp; CA Validation</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/performance/">Performance</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/performance/benchmarking/">Benchmarking</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/performance/open-files-limit/">Open Files Limit</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/performance/v2-scheduling-fullsync/">V2 Scheduling Fullsync</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/performance/multi-datacenter-tuning/">Multi-Datacenter Replication</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/troubleshooting/">Troubleshooting</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/">Product Advisories</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/210-dataloss/">Default Configuration For Handoff May Cause Data Loss</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/appconfig-foward/">Forward Incompatibility of app.config</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/dvv-lastwritewins/">Incompatibility between Dotted Version Vectors and Last Write Wins</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/maps-204/">Map Data Type Disk Incompatibility</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/ssl-poodle/">SSL 3.0 Vulnerability and POODLE Attack</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/http-204/">HTTP 204</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/reference/">Reference</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/logging/">Logging</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/handoff/">Handoff</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/bucket-types/">Bucket Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/object-deletion/">Object Deletion</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/runtime-interaction/">Runtime Interaction</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/failure-recovery/">Failure &amp; Recovery</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/monitoring/">Monitoring</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/search-secondary-indexes/">Search &amp; Secondary Indexes</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/strong-consistency/">Strong Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/multi-datacenter/">Multi-Datacenter</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/v3/">V3 Replication</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/v2/">V2 Replication</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/architecture/">Architecture</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-lambda"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/developing/">Developing</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/">Getting Started</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/java/">Java</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/java/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/java/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/java/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/ruby/">Ruby</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/ruby/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/ruby/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/ruby/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/python/">Python</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/python/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/python/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/python/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/csharp/">C Sharp</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/csharp/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/csharp/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/csharp/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/nodejs/">NodeJS</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/nodejs/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/nodejs/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/nodejs/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/erlang/">Erlang</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/erlang/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/erlang/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/erlang/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/golang/">Go</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/golang/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/golang/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/golang/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/php/">PHP</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/php/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/php/querying/">Querying</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/usage/">Usage</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/creating-objects/">Creating Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/reading-objects/">Reading Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/updating-objects/">Updating Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/deleting-objects/">Deleting Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/content-types/">Content Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/search/">Searching</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/mapreduce/">Using MapReduce</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/secondary-indexes/">Using Secondary Indexes</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/bucket-types/">Bucket Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/commit-hooks/">Using Commit Hooks</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/search-schemas/">Creating Search Schemas</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/searching-data-types/">Searching with Data Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/document-store/">Implementing a Document Store</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/custom-extractors/">Custom Extractors</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/usage/security/">Security</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/java/">Java</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/ruby/">Ruby</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/python/">Python</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/erlang/">Erlang</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/php/">PHP</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/replication/">Replication</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/">Conflict Resolution</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/java/">Java</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/ruby/">Ruby</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/python/">Python</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/csharp/">C Sharp</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/nodejs/">NodeJS</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/php/">PHP</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/golang/">Go</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/data-types/">Data Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/data-modeling/">Data Modeling</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/app-guide/">Application Guide</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/app-guide/replication-properties/">Replication Properties</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/app-guide/strong-consistency/">Strong Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/app-guide/write-once/">Write Once</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/app-guide/reference/">Reference</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/client-libraries/">Client Libraries</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/api/">APIs</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/api/repl-hooks/">V2 Multi-Datacenter REPL Hooks API</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/api/backend/">Backend API</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/faq/">Developing FAQ</a>
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-beaker"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/learn/">Learning</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/why-riak-kv/">Why Riak KV?</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/use-cases/">Use Cases</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/new-to-nosql/">New to NoSQL?</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/glossary/">Riak KV Glossary</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/learn/concepts/">Concepts</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/active-anti-entropy/">Active Anti-Entropy</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/buckets/">Buckets</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/capability-negotiation/">Capability Negotiation</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/causal-context/">Causal Context</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/clusters/">Clusters</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/crdts/">Data Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/eventual-consistency/">Eventual Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/keys-and-objects/">Keys and Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/replication/">Replication</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/vnodes/">Vnodes</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-comments"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/community">Community</a></span>
+        <div class="clear"></div>
+      </h3>
+      <ul></ul> 
+    </div>
+  </nav>
+
+  
+  <ul id="fixed-nav">
+    <li>
+      <a href="https://github.com/basho/basho_docs" target="_blank">
+        <div class="icon-container">
+          <span aria-hidden="true" class="nav-icon" data-icon="&#xe004;"></span>
+        </div>
+        <span class="separator">&#124;</span>Available on GitHub
+      </a>
+    </li>
+    <li>
+      <a href="/riak/latest/community/">
+        <div class="icon-container">
+          <span aria-hidden="true" class="nav-icon" data-icon="&#xf059;"></span>
+        </div>
+        <span class="separator">&#124;</span>Get Help
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+  <script>
+  (function() {
+    var cx = '011972015458788978446:zgdcy4fa-o0';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<div style="width:0px;overflow:hidden;height:0px;">
+  <gcse:search></gcse:search>
+</div>
+
+
+  <div role="main">
+
+    <header class="masthead">
+  <div id="header">
+    
+    <div id="header-inner">
+      <div class="icon-reorder" id="nav-toggle"></div>
+
+      <div id="top-nav">
+        
+        <a href="/riak/kv/2.1.3/downloads/"><span class="icon-download-alt"></span>Downloads</a>
+        <div id="nav-more"><span class="icon-more"></span></div>
+      </div>
+
+      <a class="responsive-toggle"></a>
+      
+      
+      <a class="logo" href="/index.html"><h1>Riak Docs</h1></a>
+      
+      <span class="tagline">Product tutorials, how-tos, and fully-documented APIs.</span>
+      <div id="nav-menu">
+        <h2>Links</h2>
+        <ul>
+          <li><a href="http://docs.basho.com/">Docs Home</a></li>
+          <li><a href="http://basho.com/">Basho Website</a></li>
+        </ul>
+        
+        <div id="nav-menu-arrow"></div>
+        <div id="nav-menu-arrow-back"></div>
+      </div>
+
+      <div class="clear"></div>
+
+      <div class="header-rule"></div>
+    </div>
+  </div>
+</header>
+
+
+    <article class="mainarticle">
+
+      <div class="versions">
+  <div id="version-ddown-button" class="unselected">
+    <div class="version-ddown-title">Version</div>
+    <div class="version-ddown-number">2.1.3</div>
+    <div class="version-ddown-arrow"></div>
+  </div>
+  <ol id="version-list" style="display: none;">
+  
+  
+    
+    
+      
+      
+      <li class="sans versions-0 current">DEV</li>
+      
+      <li class="current versions-0"><a class="versioned" href="/riak/kv/2.1.3/using/security/basics/">2.1.3</a></li>
+    
+    
+      
+      
+      
+      <li class=" versions-0 first"><a class="versioned" href="/riak/kv/2.1.1/using/security/basics/">2.1.1</a></li>
+    
+  
+    
+    
+      
+      
+      
+      <li class="sans versions-1 current">LTS</li>
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.6/using/security/basics/">2.0.6</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.5/using/security/basics/">2.0.5</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.4/using/security/basics/">2.0.4</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.2/using/security/basics/">2.0.2</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.1/using/security/basics/">2.0.1</a></li>
+    
+    
+      
+      
+      
+      <li class=" versions-1 first"><a class="versioned" href="/riak/kv/2.0.0/using/security/basics/">2.0.0</a></li>
+    
+  
+  
+  <li class="versions-5 first"><a class="sans versioned" href="http://docs.basho.com/riak/1.4.12/">older</a></li>
+  </ol>
+</div>
+
+
+      
+      
+
+      <header><h1>Security Basics</h1></header>
+
+      
+
+      
+      <nav id="toc">
+        <h2 class="title">Contents</h2>
+        <div id="toc-wrapper">
+          <ol id="toc-items"></ol>
+        </div>
+      </nav>
+      
+
+      
+
+<div class="info">
+<div class="title">Note on Network security</div>
+This document covers only the 2.0 authentication and authorization
+features. For a look at network security in Riak, see [[Security and
+Firewalls]].
+</div>
+
+<p>As of version 2.0, Riak administrators can selectively apportion
+access to a wide variety of Riak&rsquo;s functionality, including accessing,
+modifying, and deleting objects, changing bucket properties, and
+running MapReduce jobs.</p>
+
+<h2 id="terminology:adb90e22eee79282d53440b555325fbd">Terminology</h2>
+
+<ul>
+<li><strong>Authentication</strong> is the process of identifying a user.</li>
+<li><strong>Authorization</strong> is verifying whether a user has access to perform
+the requested operation.</li>
+<li><strong>Groups</strong> can have permissions assigned to them, but cannot be
+authenticated.</li>
+<li><strong>Users</strong> can be authenticated and authorized; permissions
+(authorization) may be granted directly or via group membership.</li>
+<li><strong>Sources</strong> are used to define authentication mechanisms. A user
+cannot be authenticated to Riak until a source is defined.</li>
+</ul>
+
+<h2 id="security-checklist:adb90e22eee79282d53440b555325fbd">Security Checklist</h2>
+
+<p>There are a few key steps that all applications will need to undertake
+when turning on Riak security. Missing one of these steps will almost
+certainly break your application, so make sure that you have done each
+of the following <strong>before</strong> enabling security:</p>
+
+<ol>
+<li>Make certain that the original Riak Search (version 1) and link
+walking are not required. Enabling security will break this
+functionality. If you wish to use security and Search together, you
+will need to use the [[new Search feature|Using Search]].</li>
+<li>Because Riak security requires a secure SSL connection, you will need
+to generate appropriate SSL certs, [[enable SSL|Authentication and
+Authorization#Enabling-SSL]] and establish a [[certification
+configuration|Authentication and
+Authorization#Certificate-Configuration]] on each node. <strong>If you
+enable security without having established a functioning SSL
+connection, all requests to Riak will fail</strong>.</li>
+<li>Define [[users|Authentication and Authorization#User-Management]]
+and, optionally, groups</li>
+<li>Define an [[authentication source|Authentication and
+Authorization#Managing-Sources]] for each user</li>
+<li>Grant the necessary [[permissions|Authentication and
+Authorization#Managing-Permissions]] to each user (and/or group)</li>
+<li>Check any Erlang MapReduce code for invocations of Riak modules other
+than <code>riak_kv_mapreduce</code>. Enabling security will prevent those from
+succeeding unless those modules are available via the <code>add_path</code>
+mechanism documented in [[Installing Custom Code]].</li>
+<li>Make sure that your client software will work properly:
+
+<ul>
+<li>It must pass authentication information with each request</li>
+<li>It must support HTTPS or encrypted [[Protocol Buffers|PBC API]]
+traffic</li>
+<li>If using HTTPS, the proper port (presumably 443) is open from
+client to server</li>
+<li>Code that uses Riak&rsquo;s deprecated [[Link Walking]] feature <strong>will
+not work</strong> with security enabled</li>
+</ul></li>
+<li>If you have applications that rely on an already existing Riak
+cluster, make sure that those applications are prepared to gracefully
+transition into using Riak security once security is enabled.</li>
+</ol>
+
+<p>Security should be enabled only after all of the above steps have been
+performed and your security setup has been properly vetted.</p>
+
+<p>Clients that use [[Protocol Buffers|PBC API]] will typically have to be
+reconfigured/restarted with the proper credentials once security is
+enabled.</p>
+
+<h2 id="security-basics:adb90e22eee79282d53440b555325fbd">Security Basics</h2>
+
+<p>Riak security may be checked, enabled, or disabled by an administrator
+through the command line. This allows an administrator to change
+security settings for the whole cluster quickly without needing to
+change settings on a node-by-node basis.</p>
+
+<p><strong>Note</strong>: Currently, Riak security commands can be run only through
+the command line, using the <code>riak-admin security</code> command. In future
+versions of Riak, administrators may have the option of issuing
+those commands through the Protocol Buffers and HTTP interfaces.</p>
+
+<h3 id="enabling-security:adb90e22eee79282d53440b555325fbd">Enabling Security</h3>
+
+<div class="note">
+<div class="title">Warning: Enable security with caution</div>
+<strong>Enabling security will change the way your client libraries and
+your applications interact with Riak.</strong> Once security is enabled,
+all client connections must be encrypted and all permissions will be
+denied by default. Do not enable this in production until you have
+worked through the [[security checklist|Authentication and
+Authorization#Security-Checklist]] above and tested everything in a
+non-production environment.
+</div>
+
+<p>Riak security is disabled by default. To enable it:</p>
+
+<pre><code class="language-bash">riak-admin security enable
+</code></pre>
+
+<p><strong>As per the warning above, do not enable security in production without
+taking the appropriate precautions.</strong></p>
+
+<p>All users, groups, authentication sources, and permissions can be
+configured while security is disabled, allowing you to create a
+security configuration of any level of complexity without prematurely
+impacting the service. This should be borne in mind when you are
+[[managing users|Authentication and Authorization#User-Management]] and
+[[managing sources|Authentication and Authorization#Managing-Sources]].</p>
+
+<h3 id="disabling-security:adb90e22eee79282d53440b555325fbd">Disabling Security</h3>
+
+<p>If you disable security, this means that you have disable all of the
+various permissions checks that take place when executing operations
+against Riak. Users, groups, and other security attributes remain
+available for configuration while security is disabled, and will be
+applied if and when security is re-enabled.</p>
+
+<pre><code class="language-bash">riak-admin security disable
+</code></pre>
+
+<p>While security is disabled, clients will need to be reconfigured to no
+longer require TLS and send credentials.</p>
+
+<h3 id="checking-security-status:adb90e22eee79282d53440b555325fbd">Checking Security Status</h3>
+
+<p>To check whether security is currently enabled for the cluster, use the
+<code>status</code> command:</p>
+
+<pre><code class="language-bash">riak-admin security status
+</code></pre>
+
+<p>This command will usually return <code>Enabled</code> or <code>Disabled</code>, but if
+security is enabled on a mixed-mode cluster (running a combination of
+Riak 2.0 and older versions) it will indicate that security is enabled
+but not yet available.</p>
+
+<h2 id="user-management:adb90e22eee79282d53440b555325fbd">User Management</h2>
+
+<p>Riak security enables you to control <em>authorization</em> by creating,
+modifying, and deleting user characteristics and granting users
+selective access to Riak functionality (and also to revoke access).
+Users can be assigned one or more of the following characteristics:</p>
+
+<ul>
+<li><code>username</code></li>
+<li><code>groups</code></li>
+<li><code>password</code></li>
+</ul>
+
+<p>You may also assign users characteristics beyond those listed
+above&mdash;e.g., listing email addresses or other information&mdash;but those
+values will carry no special significance for Riak.</p>
+
+<p><strong>Note</strong>: The <code>username</code> is the one user characteristic that cannot be
+changed once a user has been created.</p>
+
+<h3 id="retrieve-a-current-user-or-group-list:adb90e22eee79282d53440b555325fbd">Retrieve a Current User or Group List</h3>
+
+<p>A list of currently existing users can be accessed at any time:</p>
+
+<pre><code class="language-bash">riak-admin security print-users
+</code></pre>
+
+<p>The same goes for groups:</p>
+
+<pre><code class="language-bash">riak-admin security print-groups
+</code></pre>
+
+<p>Example output, assuming user named <code>riakuser</code> with an assigned
+password:</p>
+
+<pre><code>+----------+--------+----------------------+------------------------------+
+| username | groups |       password       |           options            |
++----------+--------+----------------------+------------------------------+
+| riakuser |        |983e8ae1421574b8733824|              []              |
++----------+--------+----------------------+------------------------------+
+</code></pre>
+
+<p><strong>Note</strong>: All passwords are displayed in encrypted form in console
+output.</p>
+
+<p>If the user <code>riakuser</code> were assigned to the group <code>dev</code> and a <code>name</code> of
+<code>lucius</code>, the output would look like this:</p>
+
+<pre><code class="language-bash">+----------+----------------+----------------------+---------------------+
+| username |     groups     |       password       |       options       |
++----------+----------------+----------------------+---------------------+
+| riakuser |      dev       |983e8ae1421574b8733824| [{&quot;name&quot;,&quot;lucius&quot;}] |
++----------+----------------+----------------------+---------------------+
+</code></pre>
+
+<p>If you&rsquo;d like to see which permissions have been assigned to
+<code>riakuser</code>, you would need to use the <code>print-grants</code> command, detailed
+below.</p>
+
+<p>The <code>security print-user</code> or <code>security-print-group</code> (singular) commands
+can be used with a name as argument to see the same information as
+above, except for only that user or group.</p>
+
+<h3 id="permissions-grants-for-a-single-user-or-group:adb90e22eee79282d53440b555325fbd">Permissions Grants For a Single User or Group</h3>
+
+<p>You can retrieve authorization information about a specific user or
+group using the <code>print-grants</code> command, which takes the form of
+<code>riak-admin security print-grants &lt;username&gt;</code>.</p>
+
+<p>The output will look like this if the user <code>riakuser</code> has been
+explicitly granted a <code>riak_kv.get</code> permission on the bucket
+<code>shopping_list</code> and inherits a set of permissions from the <code>admin</code>
+group:</p>
+
+<pre><code class="language-bash">Inherited permissions (user/riakuser)
+
++--------+----------+----------+----------------------------------------+
+| group  |   type   |  bucket  |                 grants                 |
++--------+----------+----------+----------------------------------------+
+| admin  |    *     |    *     |      riak_kv.get, riak_kv.delete,      |
+|        |          |          |              riak_kv.put               |
++--------+----------+----------+----------------------------------------+
+
+Dedicated permissions (user/riakuser)
+
++----------+-------------+----------------------------------------+
+|   type   |   bucket    |                 grants                 |
++----------+-------------+----------------------------------------+
+|   ANY    |shopping_list|               riak_kv.get              |
++----------+-------------+----------------------------------------+
+
+Cumulative permissions (user/riakuser)
+
++----------+-------------+----------------------------------------+
+|   type   |   bucket    |                 grants                 |
++----------+-------------+----------------------------------------+
+|    *     |      *      |      riak_kv.get, riak_kv.delete,      |
+|          |             |               riak_kv.put              |
+|   ANY    |shopping_list|               riak_kv.get              |
++----------+-------------+----------------------------------------+
+</code></pre>
+
+<p><strong>Note</strong>: The term <code>admin</code> is not a reserved term in Riak security. It
+is used here only for illustrative purposes.</p>
+
+<p>Because the same name can represent both a user and a group, a prefix
+(<code>user/</code> or <code>group/</code>) can be used before the name (e.g., <code>print-grants
+user/admin</code>). If a name collides and no prefix is supplied, grants for
+both will be listed separately.</p>
+
+<h3 id="add-group:adb90e22eee79282d53440b555325fbd">Add Group</h3>
+
+<p>For easier management of permissions across several users, it is
+possible to create groups to be assigned to those users.</p>
+
+<pre><code class="language-bash">riak-admin security add-group admin
+</code></pre>
+
+<h3 id="add-user:adb90e22eee79282d53440b555325fbd">Add User</h3>
+
+<p>To create a user with the username <code>riakuser</code>, we use the <code>add-user</code>
+command:</p>
+
+<pre><code class="language-bash">riak-admin security add-user riakuser
+</code></pre>
+
+<p>Using the command this way will create the user <code>riakuser</code> without <em>any</em>
+characteristics beyond a username, which is the only attribute that you
+must assign upon user creation.</p>
+
+<p>Alternatively, a password&mdash;or other attributes&mdash;can be assigned to the
+user upon creation. Here, we&rsquo;ll assign a password:</p>
+
+<pre><code class="language-bash">riak-admin security add-user riakuser password=Test1234
+</code></pre>
+
+<h3 id="assigning-a-password-and-altering-existing-user-characteristics:adb90e22eee79282d53440b555325fbd">Assigning a Password and Altering Existing User Characteristics</h3>
+
+<p>While passwords and other characteristics can be set upon user creation,
+it often makes sense to change user characteristics after the user has
+already been created. Let&rsquo;s say that the user <code>riakuser</code> was created
+without a password (or created <em>with</em> a password that we&rsquo;d like to
+change). The <code>alter-user</code> command can be used to modify our <code>riakuser</code>
+user:</p>
+
+<pre><code class="language-bash">riak-admin security alter-user riakuser password=opensesame
+</code></pre>
+
+<p>When creating or altering a user, any number of <code>&lt;option&gt;=&lt;value&gt;</code>
+pairs can be appended to the end of the command. Any non-standard
+options will be stored and displayed via the <code>riak-admin security
+print-users</code> command.</p>
+
+<pre><code class="language-bash">riak-admin security alter-user riakuser name=bill age=47 fav_color=red
+</code></pre>
+
+<p>Now, the <code>print-users</code> command should return this:</p>
+
+<pre><code>+----------+--------+----------+--------------------------------------------------+
+| username | groups | password |                     options                      |
++----------+--------+----------+--------------------------------------------------+
+| riakuser |        |          |[{&quot;fav_color&quot;,&quot;red&quot;},{&quot;age&quot;,&quot;47&quot;},{&quot;name&quot;,&quot;bill&quot;}]|
++----------+--------+----------+--------------------------------------------------+
+</code></pre>
+
+<p><strong>Note</strong>: Usernames <em>cannot</em> be changed using the <code>alter-user</code> command.
+If you attempt to do so by running <code>alter-user riakuser
+username=other-name</code>, for example, this will add the
+<code>{&quot;username&quot;,&quot;other-name&quot;}</code> tuple to <code>riakuser</code>&rsquo;s options.</p>
+
+<h3 id="managing-groups-for-a-user:adb90e22eee79282d53440b555325fbd">Managing Groups for a User</h3>
+
+<p>If we have a user <code>jane_goodall</code> and we&rsquo;d like to assign her to the
+<code>admin</code> group, we assign the value <code>admin</code> to the option <code>groups</code>:</p>
+
+<pre><code class="language-bash">riak-admin security alter-user jane_goodall groups=admin
+</code></pre>
+
+<p>If we&rsquo;d like to make the user <code>jane_goodall</code> both an <code>admin</code> and an
+<code>archoverlord</code>:</p>
+
+<pre><code class="language-bash">riak-admin alter-user jane_goodall groups=admin,archoverlord
+</code></pre>
+
+<p>There is no way to incrementally add groups; even if <code>jane_goodall</code> was
+already an <code>admin</code>, it is necessary to list it again when adding the
+<code>archoverlord</code> group. Thus, to remove a group from a user, use
+<code>alter-user</code> and list all <em>other</em> groups.</p>
+
+<p>If the user should be removed from all groups, use <code>groups=</code> with no
+list:</p>
+
+<pre><code class="language-bash">riak-admin alter-user jane_goodall groups=
+</code></pre>
+
+<h3 id="managing-groups-for-groups:adb90e22eee79282d53440b555325fbd">Managing Groups for Groups</h3>
+
+<p>Groups can be added to other groups for cascading permissions.</p>
+
+<pre><code class="language-bash">riak-admin alter-group admin groups=dev
+</code></pre>
+
+<h3 id="deleting-a-user-or-group:adb90e22eee79282d53440b555325fbd">Deleting a User or Group</h3>
+
+<p>If you&rsquo;d like to remove a user, use the <code>del-user</code> command:</p>
+
+<pre><code>riak-admin security del-user riakuser
+</code></pre>
+
+<p>For groups, use the <code>del-group</code> command:</p>
+
+<pre><code>riak-admin security del-group admin
+</code></pre>
+
+<h3 id="adding-or-deleting-multiple-users:adb90e22eee79282d53440b555325fbd">Adding or Deleting Multiple Users</h3>
+
+<p>The <code>riak-admin security</code> command does not currently allow you to
+add or delete multiple users using a single command. Instead, they must
+be added or deleted one by one.</p>
+
+<h2 id="managing-permissions:adb90e22eee79282d53440b555325fbd">Managing Permissions</h2>
+
+<p>Permission to perform a wide variety of operations against Riak can be
+granted to&mdash;or revoked from&mdash;users via the <code>grant</code> and <code>revoke</code>
+commands.</p>
+
+<h3 id="basic-form:adb90e22eee79282d53440b555325fbd">Basic Form</h3>
+
+<p>The <code>grant</code> command takes one of the following forms:</p>
+
+<pre><code class="language-bash">riak-admin security grant &lt;permissions&gt; on any to all|{&lt;user&gt;|&lt;group&gt;[,...]}
+riak-admin security grant &lt;permissions&gt; on &lt;bucket-type&gt; to all|{&lt;user&gt;|&lt;group&gt;[,...]}
+riak-admin security grant &lt;permissions&gt; on &lt;bucket-type&gt; &lt;bucket&gt; to all|{&lt;user&gt;|&lt;group&gt;[,...]}
+</code></pre>
+
+<p>The <code>revoke</code> command is essentially the same, except that <code>to</code> is
+replaced with <code>from</code> of <code>to</code>:</p>
+
+<pre><code class="language-bash">riak-admin security revoke &lt;permissions&gt; on any from all|{&lt;user&gt;|&lt;group&gt;[,...]}
+riak-admin security revoke &lt;permissions&gt; on &lt;bucket-type&gt; from all|{&lt;user&gt;|&lt;group&gt;[,...]}
+riak-admin security revoke &lt;permissions&gt; on &lt;bucket-type&gt; &lt;bucket&gt; from all|{&lt;user&gt;|&lt;group&gt;[,...]}
+</code></pre>
+
+<p>If you select <code>any</code>, this means that the permission (or set of
+permissions) is granted/revoked for all buckets and [[bucket types|Using
+Bucket Types]]. If you specify a bucket type only, then the permission
+is granted/revoked for all buckets of that type. If you specify a bucket
+type <em>and</em> a bucket, the permission is granted/revoked only for that
+bucket type/bucket combination.</p>
+
+<p><strong>Note</strong>: You cannot grant/revoke permissions with respect to a bucket
+alone. You must specify either a bucket type by itself or a bucket type
+and bucket. This limitation reflects the naming structure underlying
+buckets and bucket types.</p>
+
+<p>Selecting <code>all</code> grants or revokes a permission (or set of permissions)
+for all users in all groups. When specifying the user(s)/group(s) to
+which you want to apply a permission (or set of permissions), you may
+list any number of users or groups comma-separated with no whitespace.
+Here is an example of granting multiple permissions across all buckets
+and bucket types to multiple users:</p>
+
+<pre><code class="language-bash">riak-admin security grant riak_kv.get,riak_search.query on any to jane,ahmed
+</code></pre>
+
+<p>If the same name is used for both a user and a group, the <code>grant</code>
+command will ask for the name to be prefixed with <code>user/</code> or <code>group/</code>
+to disambiguate.</p>
+
+<h3 id="key-value-permissions:adb90e22eee79282d53440b555325fbd">Key/Value Permissions</h3>
+
+<p>Permissions that can be granted for basic key/value access
+functionality:</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">Permission</th>
+<th align="left">Operation</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left"><code>riak_kv.get</code></td>
+<td align="left">Retrieve objects</td>
+</tr>
+
+<tr>
+<td align="left"><code>riak_kv.put</code></td>
+<td align="left">Create or update objects</td>
+</tr>
+
+<tr>
+<td align="left"><code>riak_kv.delete</code></td>
+<td align="left">Delete objects</td>
+</tr>
+
+<tr>
+<td align="left"><code>riak_kv.index</code></td>
+<td align="left">Index objects using secondary indexes (2i)</td>
+</tr>
+
+<tr>
+<td align="left"><code>riak_kv.list_keys</code></td>
+<td align="left">List all of the keys in a bucket</td>
+</tr>
+
+<tr>
+<td align="left"><code>riak_kv.list_buckets</code></td>
+<td align="left">List all buckets</td>
+</tr>
+</tbody>
+</table>
+
+<div class="note">
+<div class="title">Note on Listing Keys and Buckets</div>
+<code>riak_kv.list_keys</code> and <code>riak_kv.list_buckets</code> are
+both very expensive operations that should be performed very rarely and
+never in production. Access to this functionality should be granted very
+carefully.
+</div>
+
+<p>If you&rsquo;d like to create, for example, a <code>client</code> account that is
+allowed only to run <code>GET</code> and <code>PUT</code> requests on all buckets:</p>
+
+<pre><code class="language-bash">riak-admin security add-user client
+riak-admin security grant riak_kv.get,riak_kv.put on any to client
+</code></pre>
+
+<h3 id="mapreduce-permissions:adb90e22eee79282d53440b555325fbd">MapReduce Permissions</h3>
+
+<p>Permission to perform [[MapReduce|Using MapReduce]] jobs can be assigned
+using <code>riak_kv.mapreduce</code>. The following example grants MapReduce
+permissions to the user <code>mapreduce-power-user</code> for all buckets and
+bucket types:</p>
+
+<pre><code class="language-bash">riak-admin security grant riak_kv.mapreduce on any to mapreduce-power-user
+</code></pre>
+
+<h3 id="bucket-type-permissions:adb90e22eee79282d53440b555325fbd">Bucket Type Permissions</h3>
+
+<p>In versions 2.0 and later, Riak users can manage [[bucket types|Using
+Bucket Types]] in addition to setting bucket properties. <code>riak-admin
+security</code> allows you to manage the following bucket type-related
+permissions:</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">Permission</th>
+<th align="left">Operation</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left"><code>riak_core.get_bucket</code></td>
+<td align="left">Retrieve the <code>props</code> associated with a bucket</td>
+</tr>
+
+<tr>
+<td align="left"><code>riak_core.set_bucket</code></td>
+<td align="left">Modify the <code>props</code> associated with a bucket</td>
+</tr>
+
+<tr>
+<td align="left"><code>riak_core.get_bucket_type</code></td>
+<td align="left">Retrieve the set of <code>props</code> associated with a bucket type</td>
+</tr>
+
+<tr>
+<td align="left"><code>riak_core.set_bucket_type</code></td>
+<td align="left">Modify the set of <code>props</code> associated with a bucket type</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="search-query-permission-riak-search-version-1:adb90e22eee79282d53440b555325fbd">Search Query Permission (Riak Search version 1)</h3>
+
+<p>Security is incompatible with the original (and now deprecated) Riak
+Search. Riak Search version 1 will stop working if security is enabled.</p>
+
+<h3 id="search-query-permissions-riak-search-version-2-aka-yokozuna:adb90e22eee79282d53440b555325fbd">Search Query Permissions (Riak Search version 2, aka Yokozuna)</h3>
+
+<p>If you are using the new Riak Search, i.e. the Solr-compatible search
+capabilities included with Riak versions 2.0 and greater, the following
+search-related permissions can be granted/revoked:</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">Permission</th>
+<th align="left">Operation</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left"><code>search.admin</code></td>
+<td align="left">The ability to perform search admin-related tasks, such as creating and deleting indexes and adding and modifying search schemas</td>
+</tr>
+
+<tr>
+<td align="left"><code>search.query</code></td>
+<td align="left">The ability to query an index</td>
+</tr>
+</tbody>
+</table>
+
+<div class="note">
+<div class="title">Note on Search Permissions</div>
+Search must be enabled in order to successfully grant/revoke Search
+permissions. If you attempt to grant/revoke permissions while Search is
+disabled, you will get the following error:
+
+```
+{error,{unknown_permission,"search.query"}}
+```
+
+More information on Riak Search and how to enable it can be found in the
+[[Riak Search Settings]] document.
+</div>
+
+<h4 id="usage-examples:adb90e22eee79282d53440b555325fbd">Usage Examples</h4>
+
+<p>To grant the user <code>riakuser</code> the ability to query all indexes:</p>
+
+<pre><code class="language-bash">riak-admin security grant search.query on index to riakuser
+
+# To revoke:
+# riak-admin security revoke search.query on index from riakuser
+</code></pre>
+
+<p>To grant the user <code>riakuser</code> the ability to query all schemas:</p>
+
+<pre><code class="language-bash">riak-admin security grant search.query on schema to riakuser
+
+# To revoke:
+# riak-admin security revoke search.query on schema from riakuser
+</code></pre>
+
+<p>To grant the user <code>riakuser</code> admin privileges only on the index
+<code>riakusers_index</code>:</p>
+
+<pre><code class="language-bash">riak-admin security grant search.admin on index riakusers_index to riakuser
+
+# To revoke:
+# riak-admin security revoke search.admin on index riakusers_index from riakuser
+</code></pre>
+
+<p>To grant <code>riakuser</code> querying and admin permissions on the index
+<code>riakusers_index</code>:</p>
+
+<pre><code class="language-bash">riak-admin security grant search.query,search.admin on index riakusers_index to riakuser
+
+# To revoke:
+# riak-admin security revoke search.query,search.admin on index riakusers_index from riakuser
+</code></pre>
+
+<h2 id="managing-sources:adb90e22eee79282d53440b555325fbd">Managing Sources</h2>
+
+<p>While user management enables you to control <em>authorization</em> with regard
+to users, security <strong>sources</strong> provide you with an interface for
+managing means of <em>authentication</em>. If you create users and grant them
+access to some or all of Riak&rsquo;s functionality as described in the [[User
+Management|Authentication and Authorization#User-Management]] section,
+you will then need to define security sources required for
+authentication.</p>
+
+<p>An more in-depth tutorial can be found in [[Managing Security Sources]].</p>
+
+<h3 id="add-source:adb90e22eee79282d53440b555325fbd">Add Source</h3>
+
+<p>Riak security sources may be applied to a specific user, multiple users,
+or all users (<code>all</code>).</p>
+
+<h4 id="available-sources:adb90e22eee79282d53440b555325fbd">Available Sources</h4>
+
+<table>
+<thead>
+<tr>
+<th align="left">Source</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left"><code>trust</code></td>
+<td align="left">Always authenticates successfully if access has been granted to a user or all users on the specified CIDR range</td>
+</tr>
+
+<tr>
+<td align="left"><code>password</code></td>
+<td align="left">Check the user&rsquo;s password against the <a href="http://en.wikipedia.org/wiki/PBKDF2">PBKFD2</a>-hashed password stored in Riak</td>
+</tr>
+
+<tr>
+<td align="left"><code>pam</code></td>
+<td align="left">Authenticate against the given pluggable authentication module (PAM) service</td>
+</tr>
+
+<tr>
+<td align="left"><code>certificate</code></td>
+<td align="left">Authenticate using a client certificate</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="example-adding-a-trusted-source:adb90e22eee79282d53440b555325fbd">Example: Adding a Trusted Source</h3>
+
+<p>Security sources can be added either to a specific user, multiple users,
+or all users (<code>all</code>).</p>
+
+<p>In general, the <code>add-source</code> command takes the following form:</p>
+
+<pre><code class="language-bash">riak-admin security add-source all|&lt;users&gt; &lt;CIDR&gt; &lt;source&gt; [&lt;option&gt;=&lt;value&gt;[...]]
+</code></pre>
+
+<p>Using <code>all</code> indicates that the authentication source can be added to
+all users. A source can be added to a specific user, e.g. <code>add-source
+superuser</code>, or to a list of users separated by commas, e.g. <code>add-source
+jane,bill,admin</code>.</p>
+
+<p>Let&rsquo;s say that we want to give all users trusted access to securables
+(without a password) when requests come from <code>localhost</code>:</p>
+
+<pre><code class="language-bash">riak-admin security add-source all 127.0.0.1/32 trust
+</code></pre>
+
+<p>At that point, the <code>riak-admin security print-sources</code> command would
+print the following:</p>
+
+<pre><code>+--------------------+------------+----------+----------+
+|       users        |    cidr    |  source  | options  |
++--------------------+------------+----------+----------+
+|        all         |127.0.0.1/32|  trust   |    []    |
++--------------------+------------+----------+----------+
+</code></pre>
+
+<h3 id="deleting-sources:adb90e22eee79282d53440b555325fbd">Deleting Sources</h3>
+
+<p>If we wish to remove the <code>trust</code> source that we granted to <code>all</code> in the
+example above, we can simply use the <code>del-source</code> command and specify
+the CIDR.</p>
+
+<pre><code class="language-bash">riak-admin security del-source all 127.0.0.1/32
+</code></pre>
+
+<p>Note that this does not require that you specify which type of source is
+being deleted. You only need to specify the user(s) or <code>all</code>, because
+only one source can be applied to a user or <code>all</code> at any given time.</p>
+
+<p>The following command would remove the source for <code>riakuser</code> on
+<code>localhost</code>, regardless of which source is being used:</p>
+
+<pre><code class="language-bash">riak-admin security del-source riakuser 127.0.0.1/32
+</code></pre>
+
+<div class="note">
+<div class="title">Note on Removing Sources</div>
+If you apply a security source both to <code>all</code> and to specific
+users and then wish to remove that source, you will need to do so in
+separate steps. The <code>riak-admin security del-source all ...</code>
+command by itself is not sufficient.
+
+For example, if you have assigned the source <code>password</code> to
+both <code>all</code> and to the user <code>riakuser</code> on the
+network <code>127.0.0.1/32</code>, the following two-step process would
+be required to fully remove the source:
+
+```bash
+riak-admin security del-source all 127.0.0.1/32 password
+riak-admin security del-source riakuser 127.0.0.1/32 password
+```
+</div>
+
+<h3 id="more-usage-examples:adb90e22eee79282d53440b555325fbd">More Usage Examples</h3>
+
+<p>This section provides only a very brief overview of the syntax for
+working with sources. For more information on using the <code>trust</code>,
+<code>password</code>, <code>pam</code>, and <code>certificate</code> sources, please see our [[Managing
+Security Sources]] document.</p>
+
+<h2 id="security-ciphers:adb90e22eee79282d53440b555325fbd">Security Ciphers</h2>
+
+<p>To view a list of currently available security ciphers or change Riak&rsquo;s
+preferences, use the <code>ciphers</code> command:</p>
+
+<pre><code class="language-bash">riak-admin security ciphers
+</code></pre>
+
+<p>That command by itself will return a large list of available ciphers:</p>
+
+<pre><code>Configured ciphers
+
+ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256: ...
+
+Valid ciphers(35)
+
+ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256: ...
+
+Unknown/Unsupported ciphers(32)
+
+ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256: ...
+</code></pre>
+
+<p>To alter the list, i.e. to constrain it and/or to set preferred ciphers
+higher in the list:</p>
+
+<pre><code class="language-bash">riak-admin security ciphers DHE-RSA-AES256-SHA:AES128-GCM-SHA256
+</code></pre>
+
+<p>The list of configured ciphers should now look like this:</p>
+
+<pre><code>Configured ciphers
+
+DHE-RSA-AES256-SHA:AES128-GCM-SHA256
+
+Valid ciphers(1)
+
+DHE-RSA-AES256-SHA
+
+Unknown/Unsupported ciphers(1)
+
+AES128-GCM-SHA256
+</code></pre>
+
+<p>A list of available ciphers on a server can be obtained using the
+<code>openssl</code> command:</p>
+
+<pre><code class="language-bash">openssl ciphers
+</code></pre>
+
+<p>That should return a list structured like this:</p>
+
+<pre><code>DHE-RSA-AES256-SHA:DHE-DSS-AES256-SHA:AES256-SHA:EDH-RSA-DES-CBC3-SHA: # and so on
+</code></pre>
+
+<p>Riak&rsquo;s cipher preferences were taken from <a href="https://wiki.mozilla.org/Security/Server_Side_TLS">Mozilla&rsquo;s Server-Side TLS
+documentation</a>.</p>
+
+<h3 id="client-vs-server-cipher-order:adb90e22eee79282d53440b555325fbd">Client vs. Server Cipher Order</h3>
+
+<p>By default, Riak prefers the cipher order that you set on the server,
+i.e. the <code>[[honor_cipher_order|Configuration Files#Security]]</code> setting
+is set to <code>on</code>. If you prefer, however, that clients&rsquo; preferred cipher
+order dictate which cipher is chosen, set <code>honor_cipher_order</code> to <code>off</code>.</p>
+
+<div class="note">
+<div class="title">Note on Erlang versions</div>
+Riak's default cipher order behavior has the potential to crash Erlang
+VMs that do not support it. Erlang VMs that are known to support it
+include Basho's patched version of Erlang R16. Instructions on
+installing it can be found in [[Installing Erlang]]. This issue should
+not affect Erlang 17.0 and later.
+</div>
+
+<h2 id="enabling-ssl:adb90e22eee79282d53440b555325fbd">Enabling SSL</h2>
+
+<p>In order to use any authentication or authorization features, you must
+enable SSL for Riak. <strong>SSL is disabled by default</strong>, but you will need
+to enable it prior to enabling security. If you are using [[Protocol
+Buffers|PBC API]] as a transport protocol for Riak (which we strongly
+recommend), enabling SSL on a given node requires only that you specify
+a [[host and port|Configuration Files#Client-Interfaces]] for the node
+as well as a [[certification configuration|Authentication and
+Authorization#Certificate-Configuration]].</p>
+
+<p>If, however, you are using the [[HTTP API]] for Riak and would like to
+configure HTTPS, you will need to not only establish a [[certificate
+configuration|Authentication and
+Authorization#Certificate-Configuration]] but also specify an HTTPS host
+and port. The following configuration would establish port 8088 on
+<code>localhost</code> as the HTTPS port:</p>
+
+<pre><code class="language-riakconf">listener.https.$name = 127.0.0.1:8088
+
+# By default, &quot;internal&quot; is used as the &quot;name&quot; setting
+</code></pre>
+
+<pre><code class="language-appconfig">{riak_core, [
+             %% Other configs
+             {https, [{&quot;127.0.0.1&quot;, 8088}]},
+             %% Other configs
+            ]}
+</code></pre>
+
+<h2 id="tls-settings:adb90e22eee79282d53440b555325fbd">TLS Settings</h2>
+
+<p>When using Riak security, you can choose which versions of SSL/TLS are
+allowed. By default, only TLS 1.2 is allowed, but this version can be
+disabled and others enabled by setting the following [[configurable
+parameters|Configuration Files#Security]] to <code>on</code> or <code>off</code>:</p>
+
+<ul>
+<li><code>tls_protocols.tlsv1</code></li>
+<li><code>tls_protocols.tlsv1.1</code></li>
+<li><code>tls_protocols.tlsv1.2</code></li>
+<li><code>tls_protocols.sslv3</code></li>
+</ul>
+
+<p>Three things to note:</p>
+
+<ul>
+<li>Among the four available options, only TLS version 1.2 is enabled by
+default</li>
+<li>You can enable more than one protocol at a time</li>
+<li>We strongly recommend that you do <em>not</em> use SSL version 3 unless
+absolutely necessary</li>
+</ul>
+
+<h2 id="certificate-configuration:adb90e22eee79282d53440b555325fbd">Certificate Configuration</h2>
+
+<p>If you are using any of the available [[security sources|Managing
+Security Sources]], including [[trust-based authentication|Managing
+Security Sources#Trust-based-Authentication]], you will need to do so
+over a secure SSL connection. In order to establish a secure connection,
+you will need to ensure that each Riak node&rsquo;s [[configuration
+files|Configuration Files#Security]] point to the proper paths for your
+generated certs. By default, Riak assumes that all certs are stored in
+each node&rsquo;s <code>/etc</code> directory.</p>
+
+<p>If you are using the newer, <code>riak.conf</code>-based configuration system, you
+can change the location of the <code>/etc</code> directory by modifying the
+<code>platform_etc_dir</code>. More information can be found in our documentation
+on [[configuring directories|Configuration Files#Directories]].</p>
+
+<table class="riak-conf">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Parameter</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Signing authority</strong></td>
+      <td><code>ssl.cacertfile</code></td>
+      <td><code>#(platform_etc_dir)/cacertfile.pem</code></td>
+    </tr>
+    <tr>
+      <td><strong>Cert</strong></td>
+      <td><code>ssl.certfile</code></td>
+      <td><code>#(platform_etc_dir)/cert.pem</code></td>
+    </tr>
+    <tr>
+      <td><strong>Key file</strong></td>
+      <td><code>ssl.keyfile</code></td>
+      <td><code>#(platform_etc_dir)/key.pem</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>If you are using the older, <code>app.config</code>-based configuration system,
+these paths can be set in the <code>ssl</code> subsection of the <code>riak_core</code>
+section. The corresponding parameters are shown in the example below:</p>
+
+<pre><code class="language-appconfig">{riak_core, [
+    %% Other configs
+
+    {ssl, [
+           {certfile, &quot;./etc/cert.pem&quot;},
+           {keyfile, &quot;./etc/key.pem&quot;},
+           {cacertfile, &quot;./etc/cacertfile.pem&quot;}
+          ]},
+
+    %% Other configs
+]}
+</code></pre>
+
+<h2 id="referer-checks-and-certificate-revocation-lists:adb90e22eee79282d53440b555325fbd">Referer Checks and Certificate Revocation Lists</h2>
+
+<p>In order to provide safeguards against
+<a href="http://en.wikipedia.org/wiki/Cross-site_scripting">cross-site-scripting</a>
+(XSS) and
+<a href="http://en.wikipedia.org/wiki/Cross-site_request_forgery">request-forgery</a>
+attacks, Riak performs <a href="http://en.wikipedia.org/wiki/HTTP_referer">secure referer
+checks</a> by default. Those
+checks make it impossible to serve data directly from Riak. To disable
+those checks, set the <code>secure_referer_check</code> parameter to <code>off</code>.</p>
+
+<p>If you are using [[certificate-based authentication|Managing Security
+Sources#Certificate-based-Authentication]], Riak will check the
+certificate revocation list (CRL) of connecting clients&rsquo; certificate by
+default. To disable this behavior, set the <code>check_crl</code> parameter to
+<code>off</code>.</p>
+
+
+      <div class="clear"></div>
+
+    </article>
+
+    <footer class="mastfooter">
+    This work is licensed under a
+    <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">
+        Creative Commons Attribution 4.0 International Public License
+    </a><br>
+    &copy; 2011-2016&nbsp;<a href="http://www.basho.com">Basho Technologies, Inc.</a>
+</footer>
+
+
+  </div>
+
+  <script src="/js/all.js" type="text/javascript"></script>
+<script type= "text/javascript">
+  
+  hljs.configure({languages: []});
+  hljs.initHighlighting();
+
+  
+  
+  
+  $(function() {
+    $(".js_enabled pre").css("visibility", "visible");
+  });
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,2704 @@
+<!DOCTYPE html>
+
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"></html><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"></html><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"></html><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->
+
+
+
+
+<head class="tutorials">
+  <meta charset="utf-8">
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width">
+  <meta name="project" content="riak_kv">
+  <meta name="version" content="2.1.3">
+  <meta name="base-url" content="">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+  <title>Using Search</title>
+
+  <link href="/css/all.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="/css/print.css" media="print" rel="stylesheet" type="text/css">
+
+  
+  <style type="text/css"> .js_enabled pre { visibility : hidden; } </style>
+  <script type="text/javascript">
+    document.documentElement.className = 'js_enabled';
+  </script>
+</head>
+
+
+
+<body class="riak_kv 2.1.3 latest ">
+
+  <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-T9C8MK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-T9C8MK');</script>
+
+  
+<aside id="nav-container" role="complementary">
+  <nav class="overview" id="primary-nav" role="nav">
+    <div id="primary-nav-content">
+      <h2 class="responsive-link"><a class="responsive-toggle"></a></h2>
+
+      
+      <form id="searchbox_011972015458788978446:zgdcy4fa-o0" action="">
+        <div class="nav-field-container">
+          <div id="icon-container-search">
+            <div class="icon-container"><span aria-hidden="true" class="nav-icon-search icon-search"></span></div>
+            <span class="separator">&#124;</span>
+          </div>
+          <input id="main-search" name="q" placeholder="Search" size="5" type="search" />
+        </div>
+      </form>
+
+      <div class="clear"></div>
+
+      
+      <h3 class="responsive-link visit-basho">
+        <a href="http://www.basho.com">
+          <div class="icon-container">
+            <span aria-hidden="true" class="nav-icon" data-icon="&#xe003;"></span>
+          </div>
+          <span class="separator">&#124;</span>
+          <span class="menu-title">Visit Basho</span>
+          <div class="clear"></div>
+        </a>
+      </h3>
+
+      
+      <h3 class="responsive-link">
+        <a href="/index.html">
+          <div class="icon-container">
+            <span aria-hidden="true" class="nav-icon" data-icon="&#xe003;"></span>
+          </div>
+          <span class="separator">&#124;</span>
+          <span class="menu-title">All Riak Projects</span>
+          <div class="clear"></div>
+        </a>
+      </h3>
+
+      
+      
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-riak"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/">Riak KV</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-download-alt"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/downloads/">Download Riak KV</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-install"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/setup/">Setup</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/planning/">Planning</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/start/">Start Planning</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/operating-system/">OS Support</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/planning/backend/">Choosing a Backend</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/backend/bitcask/">Bitcask</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/backend/leveldb/">LevelDB</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/backend/memory/">Memory</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/backend/multi/">Multi-backend</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/cluster-capacity/">Cluster Capacity</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/bitcask-capacity-calc/">Bitcask Capacity Calculator</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/best-practices/">Best Practices</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/future/">Planning for the Future</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/installing/">Installing</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/amazon-web-services/">Amazon Web Services</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/debian-ubuntu/">Debian &amp; Ubuntu</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/freebsd/">FreeBSD</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/mac-osx/">Mac OS X</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/rhel-centos/">RHEL &amp; CentOS</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/smartos/">SmartOS</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/solaris/">Solaris</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/suse/">SUSE</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/windows-azure/">Windows Azure</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/installing/source/">Installing From Source</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/source/erlang/">Installing Erlang</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/source/jvm/">Installing the JVM</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/verify/">Verifying an Installation</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/upgrading/">Upgrading</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/checklist/">Production Checklist</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/version/">Upgrading by Version</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/cluster/">Upgrading a Cluster</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/multi-datacenter/">Upgrading Multi-Datacenter</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/downgrade/">Downgrading</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-cog"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/configuring/">Configuring</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/basic/">Basic Configuration</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/backend/">Backend Configuration</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/managing/">Managing Configuration</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/reference/">Configuration Reference</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/strong-consistency/">Implementing Strong Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/load-balancing-proxy/">Load Balancing &amp; Proxy</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/mapreduce/">MapReduce Settings</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/search/">Search Settings</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/configuring/v3-multi-datacenter/">V3 Multi-Datacenter</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v3-multi-datacenter/quick-start/">Quickstart</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v3-multi-datacenter/nat/">With NAT</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v3-multi-datacenter/ssl/">SSL</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/configuring/v2-multi-datacenter/">V2 Multi-Datacenter</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v2-multi-datacenter/quick-start/">Quickstart</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v2-multi-datacenter/nat/">With NAT</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v2-multi-datacenter/ssl/">SSL</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-database"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/using/">Using</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/running-a-cluster/">Running a Cluster</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/admin/">Cluster Administration</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/admin/commands/">Cluster Admin Commands</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/admin/riak-admin/">riak-admin CLI</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/admin/riak-cli/">riak CLI</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/admin/riak-control/">Riak Control</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/cluster-operations/">Cluster Operations</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/adding-removing-nodes/">Adding/Removing Nodes</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/changing-cluster-info/">Changing Cluster Information</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/replacing-node/">Replacing a Node</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/inspecting-node/">Inspecting a Node</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/bucket-types/">Bucket Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/logging/">Logging</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/backing-up/">Backing Up</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/handoff/">Handoff</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/object-deletion/">Object Deletion</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/secondary-indexes/">Secondary Indexes</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/monitoring-strong-consistency/">Monitoring Strong Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/load-balancing/">Load Balancing</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/backend/">Backend</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/v3-multi-datacenter/">V3 Multi-Datacenter</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/v2-multi-datacenter/">V2 Multi-Datacenter</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/repair-recovery/">Repair &amp; Recovery</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/repair-recovery/failure-recovery/">Failure &amp; Recovery</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/repair-recovery/errors/">Errors</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/repair-recovery/repairs/">Repairs</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/repair-recovery/rolling-restart/">Rolling Restarts</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/security/">Security</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/security/basics/">Security Basics</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/security/managing-sources/">Managing Security Sources</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/security/best-practices/">Best Practices</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/security/v2-v3-ssl-ca/">V2/V3 SSL &amp; CA Validation</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/performance/">Performance</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/performance/benchmarking/">Benchmarking</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/performance/open-files-limit/">Open Files Limit</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/performance/v2-scheduling-fullsync/">V2 Scheduling Fullsync</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/performance/multi-datacenter-tuning/">Multi-Datacenter Replication</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/troubleshooting/">Troubleshooting</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/">Product Advisories</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/210-dataloss/">Default Configuration For Handoff May Cause Data Loss</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/appconfig-foward/">Forward Incompatibility of app.config</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/dvv-lastwritewins/">Incompatibility between Dotted Version Vectors and Last Write Wins</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/maps-204/">Map Data Type Disk Incompatibility</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/ssl-poodle/">SSL 3.0 Vulnerability and POODLE Attack</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/http-204/">HTTP 204</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/reference/">Reference</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/logging/">Logging</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/handoff/">Handoff</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/bucket-types/">Bucket Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/object-deletion/">Object Deletion</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/runtime-interaction/">Runtime Interaction</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/failure-recovery/">Failure &amp; Recovery</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/monitoring/">Monitoring</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/search-secondary-indexes/">Search &amp; Secondary Indexes</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/strong-consistency/">Strong Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/multi-datacenter/">Multi-Datacenter</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/v3/">V3 Replication</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/v2/">V2 Replication</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/architecture/">Architecture</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-lambda"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/developing/">Developing</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/">Getting Started</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/java/">Java</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/java/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/java/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/java/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/ruby/">Ruby</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/ruby/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/ruby/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/ruby/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/python/">Python</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/python/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/python/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/python/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/csharp/">C Sharp</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/csharp/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/csharp/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/csharp/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/nodejs/">NodeJS</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/nodejs/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/nodejs/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/nodejs/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/erlang/">Erlang</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/erlang/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/erlang/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/erlang/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/golang/">Go</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/golang/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/golang/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/golang/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/php/">PHP</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/php/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/php/querying/">Querying</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/usage/">Usage</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/creating-objects/">Creating Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/reading-objects/">Reading Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/updating-objects/">Updating Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/deleting-objects/">Deleting Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/content-types/">Content Types</a>
+  
+  </li>
+  <li class="current">
+  
+    <a href="/riak/kv/2.1.3/developing/usage/search/">Searching</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/mapreduce/">Using MapReduce</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/secondary-indexes/">Using Secondary Indexes</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/bucket-types/">Bucket Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/commit-hooks/">Using Commit Hooks</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/search-schemas/">Creating Search Schemas</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/searching-data-types/">Searching with Data Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/document-store/">Implementing a Document Store</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/custom-extractors/">Custom Extractors</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/usage/security/">Security</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/java/">Java</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/ruby/">Ruby</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/python/">Python</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/erlang/">Erlang</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/php/">PHP</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/replication/">Replication</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/">Conflict Resolution</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/java/">Java</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/ruby/">Ruby</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/python/">Python</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/csharp/">C Sharp</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/nodejs/">NodeJS</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/php/">PHP</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/golang/">Go</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/data-types/">Data Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/data-modeling/">Data Modeling</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/app-guide/">Application Guide</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/app-guide/replication-properties/">Replication Properties</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/app-guide/strong-consistency/">Strong Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/app-guide/write-once/">Write Once</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/app-guide/reference/">Reference</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/client-libraries/">Client Libraries</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/api/">APIs</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/api/repl-hooks/">V2 Multi-Datacenter REPL Hooks API</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/api/backend/">Backend API</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/faq/">Developing FAQ</a>
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-beaker"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/learn/">Learning</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/why-riak-kv/">Why Riak KV?</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/use-cases/">Use Cases</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/new-to-nosql/">New to NoSQL?</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/glossary/">Riak KV Glossary</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/learn/concepts/">Concepts</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/active-anti-entropy/">Active Anti-Entropy</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/buckets/">Buckets</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/capability-negotiation/">Capability Negotiation</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/causal-context/">Causal Context</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/clusters/">Clusters</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/crdts/">Data Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/eventual-consistency/">Eventual Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/keys-and-objects/">Keys and Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/replication/">Replication</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/vnodes/">Vnodes</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-comments"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/community">Community</a></span>
+        <div class="clear"></div>
+      </h3>
+      <ul></ul> 
+    </div>
+  </nav>
+
+  
+  <ul id="fixed-nav">
+    <li>
+      <a href="https://github.com/basho/basho_docs" target="_blank">
+        <div class="icon-container">
+          <span aria-hidden="true" class="nav-icon" data-icon="&#xe004;"></span>
+        </div>
+        <span class="separator">&#124;</span>Available on GitHub
+      </a>
+    </li>
+    <li>
+      <a href="/riak/latest/community/">
+        <div class="icon-container">
+          <span aria-hidden="true" class="nav-icon" data-icon="&#xf059;"></span>
+        </div>
+        <span class="separator">&#124;</span>Get Help
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+  <script>
+  (function() {
+    var cx = '011972015458788978446:zgdcy4fa-o0';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<div style="width:0px;overflow:hidden;height:0px;">
+  <gcse:search></gcse:search>
+</div>
+
+
+  <div role="main">
+
+    <header class="masthead">
+  <div id="header">
+    
+    <div id="header-inner">
+      <div class="icon-reorder" id="nav-toggle"></div>
+
+      <div id="top-nav">
+        
+        <a href="/riak/kv/2.1.3/downloads/"><span class="icon-download-alt"></span>Downloads</a>
+        <div id="nav-more"><span class="icon-more"></span></div>
+      </div>
+
+      <a class="responsive-toggle"></a>
+      
+      
+      <a class="logo" href="/index.html"><h1>Riak Docs</h1></a>
+      
+      <span class="tagline">Product tutorials, how-tos, and fully-documented APIs.</span>
+      <div id="nav-menu">
+        <h2>Links</h2>
+        <ul>
+          <li><a href="http://docs.basho.com/">Docs Home</a></li>
+          <li><a href="http://basho.com/">Basho Website</a></li>
+        </ul>
+        
+        <div id="nav-menu-arrow"></div>
+        <div id="nav-menu-arrow-back"></div>
+      </div>
+
+      <div class="clear"></div>
+
+      <div class="header-rule"></div>
+    </div>
+  </div>
+</header>
+
+
+    <article class="mainarticle">
+
+      <div class="versions">
+  <div id="version-ddown-button" class="unselected">
+    <div class="version-ddown-title">Version</div>
+    <div class="version-ddown-number">2.1.3</div>
+    <div class="version-ddown-arrow"></div>
+  </div>
+  <ol id="version-list" style="display: none;">
+  
+  
+    
+    
+      
+      
+      <li class="sans versions-0 current">DEV</li>
+      
+      <li class="current versions-0"><a class="versioned" href="/riak/kv/2.1.3/developing/usage/search/">2.1.3</a></li>
+    
+    
+      
+      
+      
+      <li class=" versions-0 first"><a class="versioned" href="/riak/kv/2.1.1/developing/usage/search/">2.1.1</a></li>
+    
+  
+    
+    
+      
+      
+      
+      <li class="sans versions-1 current">LTS</li>
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.6/developing/usage/search/">2.0.6</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.5/developing/usage/search/">2.0.5</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.4/developing/usage/search/">2.0.4</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.2/developing/usage/search/">2.0.2</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.1/developing/usage/search/">2.0.1</a></li>
+    
+    
+      
+      
+      
+      <li class=" versions-1 first"><a class="versioned" href="/riak/kv/2.0.0/developing/usage/search/">2.0.0</a></li>
+    
+  
+  
+  <li class="versions-5 first"><a class="sans versioned" href="http://docs.basho.com/riak/1.4.12/">older</a></li>
+  </ol>
+</div>
+
+
+      
+      
+
+      <header><h1>Using Search</h1></header>
+
+      
+
+      
+      <nav id="toc">
+        <h2 class="title">Contents</h2>
+        <div id="toc-wrapper">
+          <ol id="toc-items"></ol>
+        </div>
+      </nav>
+      
+
+      
+
+<h2 id="setup:4953bf99d7018c161b1b361cb25f1331">Setup</h2>
+
+<p>Riak Search 2.0 is an integration of Solr (for indexing and querying)
+and Riak (for storage and distribution). There are a few points of
+interest that a user of Riak Search will have to keep in mind in order
+to properly store and later query for values.</p>
+
+<ol>
+<li><strong>Schemas</strong> explain to Solr how to index fields</li>
+<li><strong>Indexes</strong> are named Solr indexes against which you will query</li>
+<li><strong>Bucket-index association</strong> signals to Riak <em>when</em> to index values
+(this also includes bucket type-index association)</li>
+</ol>
+
+<p>Riak Search must first be configured with a Solr schema so that Solr
+knows how to index value fields. If you don&rsquo;t define one, you&rsquo;re
+provided with a default schema named <code>_yz_default</code>, which can be found
+<a href="https://raw.githubusercontent.com/basho/yokozuna/develop/priv/default_schema.xml">on
+GitHub</a>.</p>
+
+<p>The examples in this document will presume the default. You can read
+more about creating custom schemas in <a href="/riak/kv/2.1.3/developing/usage/search-schemas">Search Schema</a>, which you&rsquo;ll likely want to use in a production environment.</p>
+
+<p>Next, you must create a named Solr index through Riak Search. This index
+represents a collection of similar data that you connect with to perform
+queries. When creating an index, you can optionally provide a schema. If
+you do not, the default schema will be used. Here we&rsquo;ll <code>curl</code> create an
+index named <code>famous</code> with the default schema.</p>
+
+<p>Both schema and index creation will be covered immediately below.</p>
+
+<div class="note">
+<div class="title">Note on index names</div>
+Note that index names may only be
+[ASCII](http://en.wikipedia.org/wiki/ASCII) values from 32-127 (spaces,
+standard punctuation, digits, and word characters). This may change in
+the future to allow full [Unicode](http://en.wikipedia.org/wiki/Unicode)
+support.
+</div>
+
+<p>All <code>curl</code> examples in this document assume that you have set an
+environment variable named <code>RIAK_HOST</code>, which points to a Riak base URL,
+such as <code>http://localhost:8098</code>. The appropriate value for <code>RIAK_HOST</code>
+will depend on your [[configuration|Configuration
+Files#Client-Interfaces]].</p>
+
+<h2 id="creating-an-index:4953bf99d7018c161b1b361cb25f1331">Creating an Index</h2>
+
+<p>Let&rsquo;s start by creating an index called <code>famous</code> that uses the default
+schema.</p>
+
+<pre><code class="language-java">YokozunaIndex famousIndex = new YokozunaIndex(&quot;famous&quot;);
+StoreIndex storeIndex =
+    new StoreIndex.Builder(famousIndex).build();
+client.execute(storeIndex);
+</code></pre>
+
+<pre><code class="language-ruby">client.create_search_index('famous')
+</code></pre>
+
+<pre><code class="language-php">$response = (new \Basho\Riak\Command\Builder\Search\StoreIndex($riak))
+  -&gt;withName('famouse')
+  -&gt;build()
+  -&gt;execute();
+</code></pre>
+
+<pre><code class="language-python">client.create_search_index('famous')
+</code></pre>
+
+<pre><code class="language-csharp">var idx = new SearchIndex(&quot;famous&quot;);
+var rslt = client.PutSearchIndex(idx);
+</code></pre>
+
+<pre><code class="language-javascript">var storeIndex_cb = function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+    if (!rslt) {
+        // error...
+    }
+};
+
+var store = new Riak.Commands.YZ.StoreIndex.Builder()
+    .withIndexName(&quot;famous&quot;)
+    .withCallback(storeIndex_cb)
+    .build();
+
+client.execute(store);
+</code></pre>
+
+<pre><code class="language-erlang">riakc_pb_socket:create_search_index(Pid, &lt;&lt;&quot;famous&quot;&gt;&gt;).
+</code></pre>
+
+<pre><code class="language-golang">cmd, err := riak.NewStoreIndexCommandBuilder().
+    WithIndexName(&quot;famous&quot;).
+    WithTimeout(time.Second * 30).
+    Build()
+if err != nil {
+    return err
+}
+
+err = cluster.Execute(cmd)
+</code></pre>
+
+<pre><code class="language-curl">export RIAK_HOST=&quot;http://localhost:8098&quot;
+
+curl -XPUT $RIAK_HOST/search/index/famous
+</code></pre>
+
+<div class="note">
+<div class="title">Getting started with Riak clients</div>
+If you are connecting to Riak using one of Basho's official [[client
+libraries]], you can find more information about getting started with
+your client in our [[quickstart guide|Five-Minute
+Install#setting-up-your-riak-client]].
+</div>
+
+<p>Note that the above command is exactly the same as the following, which
+explicitly defines the default schema.</p>
+
+<pre><code class="language-java">YokozunaIndex famousIndex = new YokozunaIndex(&quot;famous&quot;, &quot;_yz_default&quot;);
+StoreIndex storeIndex = new StoreIndex.Builder(famousIndex)
+        .build();
+client.execute(storeIndex);
+</code></pre>
+
+<pre><code class="language-ruby">client.create_search_index(&quot;famous&quot;, &quot;_yz_default&quot;)
+</code></pre>
+
+<pre><code class="language-php">$response = (new \Basho\Riak\Command\Builder\Search\StoreIndex($riak))
+  -&gt;withName('scores')
+  -&gt;usingSchema('_yz_default')
+  -&gt;build()
+  -&gt;execute();
+</code></pre>
+
+<pre><code class="language-python">client.create_search_index('famous', '_yz_default')
+</code></pre>
+
+<pre><code class="language-csharp">var idx = new SearchIndex(&quot;famous&quot;, &quot;_yz_default&quot;);
+var rslt = client.PutSearchIndex(idx);
+</code></pre>
+
+<pre><code class="language-javascript">var store = new Riak.Commands.YZ.StoreIndex.Builder()
+    .withIndexName(&quot;famous&quot;)
+    .withSchemaName(&quot;_yz_default&quot;)
+    .withCallback(storeIndex_cb)
+    .build();
+
+client.execute(store);
+</code></pre>
+
+<pre><code class="language-erlang">riakc_pb_socket:create_search_index(Pid, &lt;&lt;&quot;famous&quot;&gt;&gt;, &lt;&lt;&quot;_yz_default&quot;&gt;&gt;, []).
+</code></pre>
+
+<pre><code class="language-golang">cmd, err := riak.NewStoreIndexCommandBuilder().
+    WithIndexName(&quot;famous&quot;).
+    WithSchemaName(&quot;_yz_default&quot;).
+    WithTimeout(time.Second * 30).
+    Build()
+if err != nil {
+    return err
+}
+
+err = cluster.Execute(cmd)
+</code></pre>
+
+<pre><code class="language-curl">curl -XPUT $RIAK_HOST/search/index/famous \
+     -H 'Content-Type: application/json' \
+     -d '{&quot;schema&quot;:&quot;_yz_default&quot;}'
+</code></pre>
+
+<p>The last setup item that you need to perform is to associate either a
+bucket or a [[bucket type|Using Bucket Types]] with a Solr index. You
+only need do this once per bucket type, and all buckets within that type
+will use the same Solr index. For example, to associate a bucket type
+named <code>animals</code> with the <code>famous</code> index, you can set the bucket type
+property <code>search_index</code> to <code>animals</code>. If a Solr index is to be used by
+only <em>one</em> Riak bucket, you can set the <code>search_index</code> property on that
+bucket. If more than one bucket is to share a Solr index, a bucket type
+should be used. More on bucket types in the section directly below.</p>
+
+<h2 id="riak-search-security-setup:4953bf99d7018c161b1b361cb25f1331">Riak Search Security Setup</h2>
+
+<p>[[Security|Authentication and Authorization]] is a new feature as of
+Riak 2.0 that lets an administrator limit access to certain resources.
+In the case of search, your options are to limit administration of
+schemas or indexes (the <code>search.admin</code> permission) to certain users, and
+to limit querying (the <code>search.query</code> permission) to any index or to a
+specific index. The example below shows the various options.</p>
+
+<pre><code class="language-bash">riak-admin security grant search.admin on schema to username
+riak-admin security grant search.admin on index to username
+riak-admin security grant search.query on index to username
+riak-admin security grant search.query on index famous to username
+</code></pre>
+
+<p>Those permissions can also be revoked:</p>
+
+<pre><code class="language-bash">riak-admin security revoke search.admin on schema from username
+riak-admin security revoke search.admin on index from username
+riak-admin security revoke search.query on index from username
+riak-admin security revoke search.query on index famous from username
+</code></pre>
+
+<h2 id="indexing-values:4953bf99d7018c161b1b361cb25f1331">Indexing Values</h2>
+
+<div class="note">
+<div class="title">Note on indexing and lag times</div>
+There is typically a one-second delay between storing an object in Riak
+and that object being available in Search queries. You should take this
+into account when writing Riak client tests, benchmarking, and so on.
+More information can be found in the [Solr
+documentation](http://wiki.apache.org/solr/SolrPerformanceFactors).
+</div>
+
+<p>With a Solr schema, index, and association in place (and possibly a
+security setup as well), we&rsquo;re ready to start using Riak Search. First,
+populate the <code>cat</code> bucket with values, in this case information about
+four cats: Liono, Cheetara, Snarf, and Panthro.</p>
+
+<p>Depending on the driver you use, you may have to specify the content
+type, which for this example is <code>application/json</code>. In the case of Ruby
+and Python the content type is automatically set for you based on the
+object given.</p>
+
+<pre><code class="language-java">Namespace animalsBucket = new Namespace(&quot;animals&quot;);
+String json = &quot;application/json&quot;;
+
+RiakObject liono = new RiakObject()
+        .setContentType(json)
+        .setValue(BinaryValue.create(&quot;{\&quot;name_s\&quot;:\&quot;Lion-o\&quot;,\&quot;age_i\&quot;:30,\&quot;leader_b\&quot;:true}&quot;));
+RiakObject cheetara = new RiakObject()
+        .setContentType(json)
+        .setValue(BinaryValue.create(&quot;{\&quot;name_s\&quot;:\&quot;Cheetara\&quot;,\&quot;age_i\&quot;:30,\&quot;leader_b\&quot;:false}&quot;));
+RiakObject snarf = new RiakObject()
+        .setContentType(json)
+        .setValue(BinaryValue.create(&quot;{\&quot;name_s\&quot;:\&quot;Snarf\&quot;,\&quot;age_i\&quot;:43,\&quot;leader_b\&quot;:false}&quot;));
+RiakObject panthro = new RiakObject()
+        .setContentType(json)
+        .setValue(BinaryValue.create(&quot;{\&quot;name_s\&quot;:\&quot;Panthro\&quot;,\&quot;age_i\&quot;:36,\&quot;leader_b\&quot;:false}&quot;));
+Location lionoLoc = new Location(animalsBucket, &quot;liono&quot;);
+Location cheetaraLoc = new Location(animalsBucket, &quot;cheetara&quot;);
+Location snarfLoc = new Location(animalsBucket, &quot;snarf&quot;);
+Location panthroLoc = new Location(animalsBucket, &quot;panthro&quot;);
+
+StoreValue lionoStore = new StoreValue.Builder(liono).withLocation(lionoLoc).build();
+// The other StoreValue operations can be built the same way
+
+client.execute(lionoStore);
+// The other storage operations can be performed the same way
+</code></pre>
+
+<pre><code class="language-ruby">bucket = client.bucket_type('animals').bucket(&quot;cats&quot;)
+
+cat = bucket.get_or_new(&quot;liono&quot;)
+cat.data = {&quot;name_s&quot; =&gt; &quot;Lion-o&quot;, &quot;age_i&quot; =&gt; 30, &quot;leader_b&quot; =&gt; true}
+cat.store
+
+cat = bucket.get_or_new(&quot;cheetara&quot;)
+cat.data = {&quot;name_s&quot; =&gt; &quot;Cheetara&quot;, &quot;age_i&quot; =&gt; 28, &quot;leader_b&quot; =&gt; false}
+cat.store
+
+cat = bucket.get_or_new(&quot;snarf&quot;)
+cat.data = {&quot;name_s&quot; =&gt; &quot;Snarf&quot;, &quot;age_i&quot; =&gt; 43}
+cat.store
+
+cat = bucket.get_or_new(&quot;panthro&quot;)
+cat.data = {&quot;name_s&quot; =&gt; &quot;Panthro&quot;, &quot;age_i&quot; =&gt; 36}
+cat.store
+</code></pre>
+
+<pre><code class="language-php">$bucket = new \Basho\Riak\Bucket('cats', 'animals');
+
+$storeObjectBuilder = (new \Basho\Riak\Command\Builder\StoreObject($riak))
+  -&gt;withLocation(new \Basho\Riak\Location('liono', $bucket))
+  -&gt;buildJsonObject(['name_s' =&gt; 'Lion-o', 'age_i' =&gt; 30, 'leader_b' =&gt; true]);
+
+$storeObjectBuilder-&gt;build()-&gt;execute();
+
+$storeObjectBuilder-&gt;withLocation(new \Basho\Riak\Location('cheetara', $bucket))
+  -&gt;buildJsonObject(['name_s' =&gt; 'Cheetara', 'age_i' =&gt; 28, 'leader_b' =&gt; false]);
+
+$storeObjectBuilder-&gt;build()-&gt;execute();
+
+$storeObjectBuilder-&gt;withLocation(new \Basho\Riak\Location('snarf', $bucket))
+  -&gt;buildJsonObject(['name_s' =&gt; 'Snarf', 'age_i' =&gt; 43]);
+
+$storeObjectBuilder-&gt;build()-&gt;execute();
+
+$storeObjectBuilder-&gt;withLocation(new \Basho\Riak\Location('panthro', $bucket))
+  -&gt;buildJsonObject(['name_s' =&gt; 'Panthro', 'age_i' =&gt; 36]);
+
+$storeObjectBuilder-&gt;build()-&gt;execute();
+</code></pre>
+
+<pre><code class="language-python">bucket = client.bucket_type('animals').bucket('cats')
+
+cat = bucket.new('liono', {'name_s': 'Lion-o', 'age_i': 30, 'leader_b': True})
+cat.store()
+
+cat = bucket.new('cheetara', {'name_s':'Cheetara', 'age_i':28, 'leader_b': True})
+cat.store()
+
+cat = bucket.new('snarf', {'name_s':'Snarf', 'age_i':43})
+cat.store()
+
+cat = bucket.new('panthro', {'name_s':'Panthro', 'age_i':36})
+cat.store()
+</code></pre>
+
+<pre><code class="language-csharp">var lionoId = new RiakObjectId(&quot;animals&quot;, &quot;cats&quot;, &quot;liono&quot;);
+var lionoObj = new { name_s = &quot;Lion-o&quot;, age_i = 30, leader = true };
+var lionoRiakObj = new RiakObject(lionoId, lionoObj);
+
+var cheetaraId = new RiakObjectId(&quot;animals&quot;, &quot;cats&quot;, &quot;cheetara&quot;);
+var cheetaraObj = new { name_s = &quot;Cheetara&quot;, age_i = 30, leader = false };
+var cheetaraRiakObj = new RiakObject(cheetaraId, cheetaraObj);
+
+var snarfId = new RiakObjectId(&quot;animals&quot;, &quot;cats&quot;, &quot;snarf&quot;);
+var snarfObj = new { name_s = &quot;Snarf&quot;, age_i = 43, leader = false };
+var snarfRiakObj = new RiakObject(snarfId, snarfObj);
+
+var panthroId = new RiakObjectId(&quot;animals&quot;, &quot;cats&quot;, &quot;panthro&quot;);
+var panthroObj = new { name_s = &quot;Panthro&quot;, age_i = 36, leader = false };
+var panthroRiakObj = new RiakObject(panthroId, panthroObj);
+
+var rslts = client.Put(new[] {
+    lionoRiakObj, cheetaraRiakObj, snarfRiakObj, panthroRiakObj
+});
+</code></pre>
+
+<pre><code class="language-javascript">function store_cb(err, rslt, async_cb) {
+    if (err) {
+        throw new Error(err);
+    }
+    async_cb(null, rslt);
+}
+
+var objs = [
+    [ 'liono', { name_s: 'Lion-o', age_i: 30, leader: true } ],
+    [ 'cheetara', { name_s: 'Cheetara', age_i: 30, leader: false } ],
+    [ 'snarf', { name_s: 'Snarf', age_i: 43, leader: false } ],
+    [ 'panthro', { name_s: 'Panthro', age_i: 36, leader: false } ],
+];
+
+var storeFuncs = [];
+objs.forEach(function (o) {
+    var storeFunc = function (async_cb) {
+        var key = o[0];
+        var value = o[1];
+        var riakObj = new Riak.Commands.KV.RiakObject();
+        riakObj.setContentType('application/json');
+        riakObj.setBucketType('animals');
+        riakObj.setBucket('cats');
+        riakObj.setKey(key);
+        riakObj.setValue(value);
+        client.storeValue({ value: riakObj }, function (err, rslt) {
+            store_cb(err, rslt, async_cb);
+        });
+    };
+    storeFuncs.push(storeFunc);
+});
+
+async.parallel(storeFuncs, function (err, rslts) {
+    if (err) {
+        throw new Error(err);
+    }
+    // NB: all objects stored and indexed...
+});
+</code></pre>
+
+<pre><code class="language-erlang">CO = riakc_obj:new({&lt;&lt;&quot;animals&quot;&gt;&gt;, &lt;&lt;&quot;cats&quot;&gt;&gt;}, &lt;&lt;&quot;liono&quot;&gt;&gt;,
+    &lt;&lt;&quot;{\&quot;name_s\&quot;:\&quot;Lion-o\&quot;, \&quot;age_i\&quot;:30, \&quot;leader_b\&quot;:true}&quot;&gt;&gt;,
+    &quot;application/json&quot;),
+riakc_pb_socket:put(Pid, CO),
+
+C1 = riakc_obj:new({&lt;&lt;&quot;animals&quot;&gt;&gt;, &lt;&lt;&quot;cats&quot;&gt;&gt;}, &lt;&lt;&quot;cheetara&quot;&gt;&gt;,
+    &lt;&lt;&quot;{\&quot;name_s\&quot;:\&quot;Cheetara\&quot;, \&quot;age_i\&quot;:28, \&quot;leader_b\&quot;:false}&quot;&gt;&gt;,
+    &quot;application/json&quot;),
+riakc_pb_socket:put(Pid, C1),
+
+C2 = riakc_obj:new({&lt;&lt;&quot;animals&quot;&gt;&gt;, &lt;&lt;&quot;cats&quot;&gt;&gt;}, &lt;&lt;&quot;snarf&quot;&gt;&gt;,
+    &lt;&lt;&quot;{\&quot;name_s\&quot;:\&quot;Snarf\&quot;, \&quot;age_i\&quot;:43}&quot;&gt;&gt;,
+    &quot;application/json&quot;),
+riakc_pb_socket:put(Pid, C2),
+
+C3 = riakc_obj:new({&lt;&lt;&quot;animals&quot;&gt;&gt;, &lt;&lt;&quot;cats&quot;&gt;&gt;}, &lt;&lt;&quot;panthro&quot;&gt;&gt;,
+    &lt;&lt;&quot;{\&quot;name_s\&quot;:\&quot;Panthro\&quot;, \&quot;age_i\&quot;:36}&quot;&gt;&gt;,
+    &quot;application/json&quot;),
+riakc_pb_socket:put(Pid, C3),
+</code></pre>
+
+<pre><code class="language-golang">o1 := &amp;riak.Object{
+    Key:             &quot;liono&quot;,
+    Value:           []byte(&quot;{\&quot;name_s\&quot;:\&quot;Lion-o\&quot;,\&quot;age_i\&quot;:30,\&quot;leader_b\&quot;:true}&quot;),
+}
+o2 := &amp;riak.Object{
+    Key:             &quot;cheetara&quot;,
+    Value:           []byte(&quot;{\&quot;name_s\&quot;:\&quot;Cheetara\&quot;,\&quot;age_i\&quot;:30,\&quot;leader_b\&quot;:false}&quot;),
+}
+o3 := &amp;riak.Object{
+    Key:             &quot;snarf&quot;,
+    Value:           []byte(&quot;{\&quot;name_s\&quot;:\&quot;Snarf\&quot;,\&quot;age_i\&quot;:43,\&quot;leader_b\&quot;:false}&quot;),
+}
+o4 := &amp;riak.Object{
+    Key:             &quot;panthro&quot;,
+    Value:           []byte(&quot;{\&quot;name_s\&quot;:\&quot;Panthro\&quot;,\&quot;age_i\&quot;:36,\&quot;leader_b\&quot;:false}&quot;),
+}
+
+objs := [...]*riak.Object{o1, o2, o3, o4}
+
+wg := &amp;sync.WaitGroup{}
+for _, obj := range objs {
+    obj.ContentType = &quot;application/json&quot;
+    obj.Charset = &quot;utf-8&quot;
+    obj.ContentEncoding = &quot;utf-8&quot;
+
+    cmd, err := riak.NewStoreValueCommandBuilder().
+        WithBucketType(&quot;animals&quot;).
+        WithBucket(&quot;cats&quot;).
+        WithContent(obj).
+        Build()
+    if err != nil {
+        return err
+    }
+
+    args := &amp;riak.Async{
+        Command: cmd,
+        Wait:    wg,
+    }
+    if err := cluster.ExecuteAsync(args); err != nil {
+        return err
+    }
+}
+
+wg.Wait()
+</code></pre>
+
+<pre><code class="language-curl">curl -XPUT $RIAK_HOST/types/animals/buckets/cats/keys/liono \
+     -H 'Content-Type: application/json' \
+     -d '{&quot;name_s&quot;:&quot;Lion-o&quot;, &quot;age_i&quot;:30, &quot;leader_b&quot;:true}'
+
+curl -XPUT $RIAK_HOST/types/animals/buckets/cats/keys/cheetara \
+     -H 'Content-Type: application/json' \
+     -d '{&quot;name_s&quot;:&quot;Cheetara&quot;, &quot;age_i&quot;:28, &quot;leader_b&quot;:false}'
+
+curl -XPUT $RIAK_HOST/types/animals/buckets/cats/keys/snarf \
+     -H 'Content-Type: application/json' \
+     -d '{&quot;name_s&quot;:&quot;Snarf&quot;, &quot;age_i&quot;:43}'
+
+curl -XPUT $RIAK_HOST/types/animals/buckets/cats/keys/panthro \
+     -H 'Content-Type: application/json' \
+     -d '{&quot;name_s&quot;:&quot;Panthro&quot;, &quot;age_i&quot;:36}'
+</code></pre>
+
+<p>If you&rsquo;ve used Riak before, you may have noticed that this is no
+different from storing values without Riak Search. That&rsquo;s because we
+designed Riak Search with the following design goal in mind:</p>
+
+<h4 id="write-it-like-riak-query-it-like-solr:4953bf99d7018c161b1b361cb25f1331">Write it like Riak, query it like Solr</h4>
+
+<p>But how does Riak Search know how to index values, given that you can
+store opaque values in Riak? For that, we employ extractors.</p>
+
+<h2 id="extractors:4953bf99d7018c161b1b361cb25f1331">Extractors</h2>
+
+<p>Extractors are modules in Riak that accept a Riak value with a certain
+content type and convert it into a list of fields that can be indexed by
+Solr. This is done transparently and automatically as part of the
+indexing process. You can even create your own [[custom
+extractors|Custom Search Extractors]].</p>
+
+<p>Our current example uses the JSON extractor, but Riak Search also
+extracts indexable fields from the following content types:</p>
+
+<ul>
+<li>JSON (<code>application/json</code>)</li>
+<li>XML (<code>application/xml</code>, <code>text/xml</code>)</li>
+<li>Plain text (<code>text/plain</code>)</li>
+<li>[[Riak Data Types|Using Data Types]]
+
+<ul>
+<li>counter (<code>application/riak_counter</code>)</li>
+<li>map (<code>application/riak_map</code>)</li>
+<li>set (<code>application/riak_set</code>)</li>
+</ul></li>
+<li>noop (unknown content type)</li>
+</ul>
+
+<p>More on Riak Data Types can be found in [[Riak Data Types and Search]].</p>
+
+<p>In the examples we&rsquo;ve seen, the JSON field <code>name_s</code> is translated to a
+Solr index document field insert. Solr will index any field that it
+recognizes, based on the index&rsquo;s schema. The default schema
+(<code>_yz_default</code>) uses the suffix to decide the field type (<code>_s</code>
+represents a string, <code>_i</code> is an integer, <code>_b</code> is binary and so on).</p>
+
+<p>If the content type allows for nested values (e.g. JSON and XML), the
+extractors will flatten each field, separated by dots. For example, if
+you have this XML:</p>
+
+<pre><code class="language-xml">&lt;person&gt;
+  &lt;pets&gt;
+    &lt;pet&gt;
+      &lt;name_s&gt;Spot&lt;/name_s&gt;
+    &lt;/pet&gt;
+  &lt;/pets&gt;
+&lt;/person&gt;
+</code></pre>
+
+<p>The extractor will convert it to the Solr field <code>person.pets.pet.name_s</code>
+with value <code>Spot</code>. Lists of values are assumed to be Solr multi-valued
+fields.</p>
+
+<pre><code class="language-json">{&quot;people_ss&quot;:[&quot;Ryan&quot;, &quot;Eric&quot;, &quot;Brett&quot;]}
+</code></pre>
+
+<p>The above JSON will insert a list of three values into Solr to be
+indexed: <code>people_ss=Ryan</code>, <code>people_ss=Eric</code>, <code>people_ss=Brett</code>.</p>
+
+<p>You can also create your own custom extractors if your data doesn&rsquo;t fit
+one of the default types. A full tutorial can be found in [[Custom
+Search Extractors]].</p>
+
+<h3 id="automatic-fields:4953bf99d7018c161b1b361cb25f1331">Automatic Fields</h3>
+
+<p>When a Riak object is indexed, Riak Search automatically inserts a few
+extra fields as well. These are necessary for a variety of technical
+reasons, and for the most part you don&rsquo;t need to think about them.
+However, there are a few fields which you may find useful:</p>
+
+<ul>
+<li><code>_yz_rk</code> (Riak key)</li>
+<li><code>_yz_rt</code> (Riak bucket type)</li>
+<li><code>_yz_rb</code> (Riak bucket)</li>
+<li><code>_yz_err</code> (extraction error)</li>
+</ul>
+
+<p>You can query on the basis of these fields, just like any other normal
+Solr fields. Most of the time, however, you&rsquo;ll use <code>_yz_rk</code> as a query
+result, which tells you the Riak key that matches the query you just
+ran. Let&rsquo;s see this in detail by running some queries in the next
+section.</p>
+
+<h2 id="querying:4953bf99d7018c161b1b361cb25f1331">Querying</h2>
+
+<p>After the schema, index, association, and population/extraction/indexing
+are taken care of, you can get down to the fun part of querying your
+data.</p>
+
+<h3 id="simple-query:4953bf99d7018c161b1b361cb25f1331">Simple Query</h3>
+
+<p>The basic query parameter is <code>q</code> via HTTP, or the first parameter of
+your chosen driver&rsquo;s <code>search</code> function (there are examples from all of
+our client libraries below). All distributed Solr queries are supported,
+which actually includes most of the single-node Solr queries. This
+example searches for all documents in which the <code>name_s</code> value begins
+with <code>Lion</code> by means of a glob (wildcard) match.</p>
+
+<pre><code class="language-java">SearchOperation searchOp = new SearchOperation
+        .Builder(BinaryValue.create(&quot;famous&quot;), &quot;name_s:Lion*&quot;)
+        .build();
+cluster.execute(searchOp);
+// This will display the actual results as a List of Maps:
+List&lt;Map&lt;String, List&lt;String&gt;&gt;&gt; results = searchOp.get().getAllResults();
+// This will display the number of results:
+System.out.println(results);
+</code></pre>
+
+<pre><code class="language-ruby">results = client.search(&quot;famous&quot;, &quot;name_s:Lion*&quot;)
+p results
+p results['docs']
+</code></pre>
+
+<pre><code class="language-php">$response = (new \Basho\Riak\Command\Builder\Search\FetchObjects($riak))
+  -&gt;withIndexName('famous')
+  -&gt;withQuery('name_s:Lion*')
+  -&gt;build()
+  -&gt;execute();
+
+$response-&gt;getNumFound(); // 1
+
+var_dump($response-&gt;getDocs());
+</code></pre>
+
+<pre><code class="language-python">results = client.fulltext_search('famous', 'name_s:Lion*')
+print results
+print results['docs']
+</code></pre>
+
+<pre><code class="language-csharp">var search = new RiakSearchRequest
+{
+    Query = new RiakFluentSearch(&quot;famous&quot;, &quot;name_s&quot;)
+        .Search(&quot;Lion*&quot;)
+        .Build()
+};
+
+var rslt = client.Search(search);
+RiakSearchResult searchResult = rslt.Value;
+foreach (RiakSearchResultDocument doc in searchResult.Documents)
+{
+    var args = new[] {
+        doc.BucketType,
+        doc.Bucket,
+        doc.Key,
+        string.Join(&quot;, &quot;, doc.Fields.Select(f =&gt; f.Value).ToArray())
+    };
+    Debug.WriteLine(
+        format: &quot;BucketType: {0} Bucket: {1} Key: {2} Values: {3}&quot;,
+        args: args);
+}
+</code></pre>
+
+<pre><code class="language-javascript">function search_cb(err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+    logger.info(&quot;docs:&quot;, JSON.stringify(rslt.docs));
+}
+
+var search = new Riak.Commands.YZ.Search.Builder()
+    .withIndexName('famous')
+    .withQuery('name_s:Lion*')
+    .withCallback(search_cb)
+    .build();
+client.execute(search);
+</code></pre>
+
+<pre><code class="language-erlang">{ok, Results} = riakc_pb_socket:search(Pid, &lt;&lt;&quot;famous&quot;&gt;&gt;, &lt;&lt;&quot;name_s:Lion*&quot;&gt;&gt;),
+io:fwrite(&quot;~p~n&quot;, [Results]),
+Docs = Results#search_results.docs,
+io:fwrite(&quot;~p~n&quot;, [Docs]).
+
+%% Please note that this example relies on an Erlang record definition
+%% for the search_result record found here:
+%% https://github.com/basho/riak-erlang-client/blob/master/include/riakc.hrl
+</code></pre>
+
+<pre><code class="language-golang">cmd, err := riak.NewSearchCommandBuilder().
+    WithIndexName(&quot;famous&quot;).
+    WithQuery(&quot;name_s:Lion*&quot;).
+    Build();
+if err != nil {
+    return err
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    return err
+}
+
+sc := cmd.(*riak.SearchCommand)
+if json, jerr := json.MarshalIndent(sc.Response.Docs, &quot;&quot;, &quot;  &quot;); jerr != nil {
+    return jerr
+} else {
+    fmt.Println(string(json))
+}
+</code></pre>
+
+<pre><code class="language-curl">curl &quot;$RIAK_HOST/search/query/famous?wt=json&amp;q=name_s:Lion*&quot; | jsonpp
+</code></pre>
+
+<p>The response to a query will be an object containing details about the
+response, such as a query&rsquo;s max score and a list of documents which
+match the given query. It&rsquo;s worth noting two things:</p>
+
+<ul>
+<li>The documents returned are Search documents (a set of Solr
+field/values), not a Riak value</li>
+<li>The HTTP response is a direct Solr response, while the drivers use
+Protocol Buffers and are encoded with different field names</li>
+</ul>
+
+<p>This is a common HTTP <code>response</code> value:</p>
+
+<pre><code class="language-json">{
+  &quot;numFound&quot;: 1,
+  &quot;start&quot;: 0,
+  &quot;maxScore&quot;: 1.0,
+  &quot;docs&quot;: [
+    {
+      &quot;leader_b&quot;: true,
+      &quot;age_i&quot;: 30,
+      &quot;name_s&quot;: &quot;Lion-o&quot;,
+      &quot;_yz_id&quot;: &quot;default_cats_liono_37&quot;,
+      &quot;_yz_rk&quot;: &quot;liono&quot;,
+      &quot;_yz_rt&quot;: &quot;default&quot;,
+      &quot;_yz_rb&quot;: &quot;cats&quot;
+    }
+  ]
+}
+</code></pre>
+
+<p>The most important field returned is <code>docs</code>, which is the list of
+objects that each contain fields about matching index documents. The
+values you&rsquo;ll use most often are <code>_yz_rt</code> (Riak bucket type), <code>_yz_rb</code>
+(Riak bucket), <code>_yz_rk</code> (Riak key), and <code>score</code> which represent the
+similarity of the matching doc to the query via <a href="https://lucene.apache.org/core/4_6_0/core/org/apache/lucene/search/package-summary.html#scoring">Lucene
+scoring</a>.</p>
+
+<p>In this example the query fields are returned because they&rsquo;re stored in
+Solr. This depends on your schema. If they are not stored, you&rsquo;ll have
+to perform a separate Riak GET operation to retrieve the value using the
+<code>_yz_rk</code> value.</p>
+
+<pre><code class="language-java">// Using the results object from above
+Map&lt;String, List&lt;String&gt; doc = results.get(0);
+String bucketType = doc.get(&quot;_yz_rt&quot;).get(0);
+String bucket = doc.get(&quot;yz_rb&quot;).get(0);
+String key = doc.get(&quot;_yz_rk&quot;).get(0);
+Namespace namespace = new Namespace(bucketType, bucket);
+Location objectLocation = new Location(namespace, key);
+FetchValue fetchOp = new FetchValue.Builder(objectLocation)
+        .build();
+RiakObject obj = client.execute(fetchOp).getValue(RiakObject.class);
+System.out.println(obj.getValue());
+
+// {&quot;name_s&quot;: &quot;Lion-o&quot;, &quot;age_i&quot;: 30, &quot;leader_b&quot;: true}
+</code></pre>
+
+<pre><code class="language-ruby">doc = results['docs'].first
+btype = Riak::BucketType.new(client, doc[&quot;_yz_rt&quot;]) # animals
+bucket = Riak::Bucket.new(client, doc[&quot;_yz_rb&quot;])    # cats
+object = bucket.get( doc[&quot;_yz_rk&quot;] )                # liono
+p object.data
+
+# {&quot;name_s&quot; =&gt; &quot;Lion-o&quot;, &quot;age_i&quot; =&gt; 30, &quot;leader_b&quot; =&gt; true}
+</code></pre>
+
+<pre><code class="language-php">$doc = $response-&gt;getDocs()[0];
+$btype = $doc-&gt;_yz_rt; // animals
+$bucket = $doc-&gt;_yz_rb; // cats
+$key = $doc-&gt;_yz_rk; // liono
+$name = $doc-&gt;name_s; // Lion-o
+
+$object = (new \Basho\Riak\Command\Builder\FetchObject($riak))
+  -&gt;buildLocation($key, $bucket, $btype)
+  -&gt;build()
+  -&gt;execute()
+  -&gt;getObject();
+
+var_dump($object-&gt;getData());
+</code></pre>
+
+<pre><code class="language-python">doc = results['docs'][0]
+bucket = client.bucket_type(doc['_yz_rt']).bucket(doc['_yz_rb']) # animals/cats
+object = bucket.get(doc['_yz_rk'])    # liono
+print object.data
+
+# {&quot;name_s&quot;: &quot;Lion-o&quot;, &quot;age_i&quot;: 30, &quot;leader_b&quot;: true}
+</code></pre>
+
+<pre><code class="language-csharp">RiakSearchResult searchResult = searchRslt.Value;
+
+RiakSearchResultDocument doc = searchResult.Documents.First();
+var id = new RiakObjectId(doc.BucketType, doc.Bucket, doc.Key);
+var rslt = client.Get(id);
+
+RiakObject obj = rslt.Value;
+Debug.WriteLine(Encoding.UTF8.GetString(obj.Value));
+
+// {&quot;name_s&quot;:&quot;Lion-o&quot;,&quot;age_i&quot;:30,&quot;leader_b&quot;:true}
+</code></pre>
+
+<pre><code class="language-javascript">var doc = rslt.docs.pop();
+var args = {
+    bucketType: doc._yz_rt,
+    bucket: doc._yz_rb,
+    key: doc._yz_rk,
+    convertToJs: true
+};
+client.fetchValue(args, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+    logger.info(rslt.values[0].value);
+});
+</code></pre>
+
+<pre><code class="language-erlang">[{Index,Doc}|_] = Docs,
+BType  = proplists:get_value(&lt;&lt;&quot;_yz_rt&quot;&gt;&gt;, Doc),  %% &lt;&lt;&quot;animals&quot;&gt;&gt;
+Bucket = proplists:get_value(&lt;&lt;&quot;_yz_rb&quot;&gt;&gt;, Doc),  %% &lt;&lt;&quot;cats&quot;&gt;&gt;
+Key    = proplists:get_value(&lt;&lt;&quot;_yz_rk&quot;&gt;&gt;, Doc),  %% &lt;&lt;&quot;liono&quot;&gt;&gt;
+{ok, Obj} = riakc_pb_socket:get(Pid, {BType, Bucket}, Key),
+Val = riakc_obj:get_value(Obj),
+io:fwrite(&quot;~s~n&quot;, [Val]).
+
+%% {&quot;name_s&quot;:&quot;Lion-o&quot;, &quot;age_i&quot;:30, &quot;leader_b&quot;:true}
+</code></pre>
+
+<pre><code class="language-golang">doc := sc.Response.Docs[0] // NB: SearchDoc struct type
+
+cmd, err = riak.NewFetchValueCommandBuilder().
+    WithBucketType(doc.BucketType).
+    WithBucket(doc.Bucket).
+    WithKey(doc.Key).
+    Build()
+if err != nil {
+    return err
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    return err
+}
+</code></pre>
+
+<pre><code class="language-curl">curl $RIAK_HOST/types/animals/buckets/cats/keys/liono
+
+# Response:
+
+{&quot;name_s&quot;:&quot;Lion-o&quot;, &quot;age_i&quot;:30, &quot;leader_b&quot;:true}
+</code></pre>
+
+<p>This was one simple glob query example. There are many query options, a
+more complete list of which can be found by digging into <a href="https://cwiki.apache.org/confluence/display/solr/Searching">searching
+Solr</a>. Let&rsquo;s
+look at a few others.</p>
+
+<h3 id="range-queries:4953bf99d7018c161b1b361cb25f1331">Range Queries</h3>
+
+<p>Range queries are searches within a
+<a href="https://cwiki.apache.org/confluence/display/solr/The+Standard+Query+Parser#TheStandardQueryParser-DifferencesbetweenLuceneQueryParserandtheSolrStandardQueryParser">range</a>
+of numerical or
+date/<a href="http://lucene.apache.org/solr/4_6_0/solr-core/org/apache/solr/util/DateMathParser.html">datemath</a>
+values.</p>
+
+<p>To find the ages of all famous cats who are 30 or younger: <code>age_i:[0 TO
+30]</code>. If you wanted to find all cats 30 or older, you could include a
+glob as a top end of the range: <code>age_i:[30 TO *]</code>.</p>
+
+<pre><code class="language-java">String index = &quot;famous&quot;;
+String query = &quot;age_i:[30 TO *]&quot;;
+SearchOperation searchOp = new SearchOperation
+        .Builder(BinaryValue.create(index), query)
+        .build();
+cluster.execute(searchOp);
+SearchOperation.Response results = searchOp.get();
+</code></pre>
+
+<pre><code class="language-ruby">client.search(&quot;famous&quot;, &quot;age_i:[30 TO *]&quot;)
+</code></pre>
+
+<pre><code class="language-php">$response = (new \Basho\Riak\Command\Builder\Search\FetchObjects($riak))
+  -&gt;withIndexName('famous')
+  -&gt;withQuery('age_i:[30 TO *]')
+  -&gt;build()
+  -&gt;execute();
+</code></pre>
+
+<pre><code class="language-python">client.fulltext_search('famous', 'age_i:[30 TO *]')
+</code></pre>
+
+<pre><code class="language-csharp">var search = new RiakSearchRequest(&quot;famous&quot;, &quot;age_i:[30 TO *]&quot;);
+
+/*
+ * Fluent interface:
+ * 
+ * var search = new RiakSearchRequest
+ * {
+ *     Query = new RiakFluentSearch(&quot;famous&quot;, &quot;age_i&quot;)
+ *         .Between(&quot;30&quot;, &quot;*&quot;)
+ *         .Build()
+ * };
+ */
+var rslt = client.Search(search);
+</code></pre>
+
+<pre><code class="language-javascript">var search = new Riak.Commands.YZ.Search.Builder()
+    .withIndexName('famous')
+    .withQuery('age_i:[30 TO *]')
+    .withCallback(search_cb)
+    .build();
+client.execute(search);
+</code></pre>
+
+<pre><code class="language-erlang">riakc_pb_socket:search(Pid, &lt;&lt;&quot;famous&quot;&gt;&gt;, &lt;&lt;&quot;age_i:[30 TO *]&quot;&gt;&gt;),
+</code></pre>
+
+<pre><code class="language-golang">cmd, err := riak.NewSearchCommandBuilder().
+    WithIndexName(&quot;famous&quot;).
+    WithQuery(&quot;age_i:[30 TO *]&quot;).
+    Build();
+if err != nil {
+    return err
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    return err
+}
+</code></pre>
+
+<pre><code class="language-curl">curl &quot;$RIAK_HOST/search/query/famous?wt=json&amp;q=age_i:%5B30%20TO%20*%5D&quot; | jsonpp
+</code></pre>
+
+<!-- TODO: pubdate:[NOW-1YEAR/DAY TO NOW/DAY+1DAY] -->
+
+<h3 id="boolean:4953bf99d7018c161b1b361cb25f1331">Boolean</h3>
+
+<p>You can perform logical conjunctive, disjunctive, and negative
+operations on query elements as, respectively, <code>AND</code>, <code>OR</code>, and <code>NOT</code>.
+Let&rsquo;s say we want to see who is capable of being a US Senator (at least
+30 years old, and a leader). It requires a conjunctive query:
+<code>leader_b:true AND age_i:[25 TO *]</code>.</p>
+
+<pre><code class="language-java">String index = &quot;famous&quot;;
+String query = &quot;leader_b:true AND age_i:[30 TO *]&quot;;
+Search searchOp = new Search.Builder(index, query).build();
+cluster.execute(searchOp);
+SearchOperation.Response results = searchOp.get();
+</code></pre>
+
+<pre><code class="language-ruby">client.search(&quot;famous&quot;, &quot;leader_b:true AND age_i:[30 TO *]&quot;)
+</code></pre>
+
+<pre><code class="language-php">$response = (new \Basho\Riak\Command\Builder\Search\FetchObjects($riak))
+  -&gt;withIndexName('famous')
+  -&gt;withQuery('leader_b:true AND age_i:[30 TO *]')
+  -&gt;build()
+  -&gt;execute();
+</code></pre>
+
+<pre><code class="language-python">client.fulltext_search('famous', 'leader_b:true AND age_i:[30 TO *]')
+</code></pre>
+
+<pre><code class="language-csharp">var search = new RiakSearchRequest
+{
+    Query = new RiakFluentSearch(&quot;famous&quot;, &quot;leader_b&quot;)
+        .Search(&quot;true&quot;).AndBetween(&quot;age_i&quot;, &quot;30&quot;, &quot;*&quot;)
+        .Build()
+};
+</code></pre>
+
+<pre><code class="language-javascript">var search = new Riak.Commands.YZ.Search.Builder()
+    .withIndexName('famous')
+    .withQuery('leader_b:true AND age_i:[30 TO *]')
+    .withCallback(search_cb)
+    .build();
+client.execute(search);
+</code></pre>
+
+<pre><code class="language-erlang">riakc_pb_socket:search(Pid, &lt;&lt;&quot;famous&quot;&gt;&gt;, &lt;&lt;&quot;leader_b:true AND age_i:[30 TO *]&quot;&gt;&gt;),
+</code></pre>
+
+<pre><code class="language-golang">cmd, err := riak.NewSearchCommandBuilder().
+    WithIndexName(&quot;famous&quot;).
+    WithQuery(&quot;leader_b:true AND age_i:[30 TO *]&quot;).
+    Build();
+if err != nil {
+    return err
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    return err
+}
+</code></pre>
+
+<pre><code class="language-curl">curl &quot;$RIAK_HOST/search/query/famous?wt=json&amp;q=leader_b:true%20AND%20age_i:%5B25%20TO%20*%5D&quot; | jsonpp
+</code></pre>
+
+<h3 id="deleting-indexes:4953bf99d7018c161b1b361cb25f1331">Deleting Indexes</h3>
+
+<p>Indexes may be deleted if they have no buckets associated with them:</p>
+
+<pre><code class="language-java">String index = &quot;famous&quot;;
+YzDeleteIndexOperation deleteOp = new YzDeleteIndexOperation.Builder(index)
+        .build();
+cluster.execute(deleteOp);
+</code></pre>
+
+<pre><code class="language-ruby">client.delete_search_index('famous')
+</code></pre>
+
+<pre><code class="language-php">(new Command\Builder\Search\DeleteIndex($riak))
+  -&gt;withName('famous')
+  -&gt;build()
+  -&gt;execute();
+</code></pre>
+
+<pre><code class="language-python">client.delete_search_index('famous')
+</code></pre>
+
+<pre><code class="language-csharp">var rslt = client.DeleteSearchIndex(&quot;famous&quot;);
+</code></pre>
+
+<pre><code class="language-javascript">function delete_cb(err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+    if (rslt === true) {
+        // success
+    } else {
+        // error
+    }
+}
+
+// NB: first make sure that no bucket types or buckets are using the index
+var search = new Riak.Commands.YZ.DeleteIndex.Builder()
+    .withIndexName('famous')
+    .withCallback(delete_cb)
+    .build();
+client.execute(search);
+</code></pre>
+
+<pre><code class="language-erlang">riakc_pb_socket:delete_search_index(Pid, &lt;&lt;&quot;famous&quot;&gt;&gt;, []),
+</code></pre>
+
+<pre><code class="language-golang">cmd, err := riak.NewStoreBucketPropsCommandBuilder().
+    WithBucketType(&quot;animals&quot;).
+    WithBucket(&quot;cats&quot;).
+    WithSearchIndex(&quot;_dont_index_&quot;).
+    Build()
+if err != nil {
+    return err
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    return err
+}
+
+cmd, err = riak.NewDeleteIndexCommandBuilder().
+    WithIndexName(&quot;famous&quot;).
+    Build()
+if err != nil {
+    return err
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    return err
+}
+</code></pre>
+
+<pre><code class="language-curl">curl -XDELETE $RIAK_HOST/search/index/famous
+</code></pre>
+
+<p>If an index does have a bucket associated with it, then that index&rsquo;s
+<code>search_index</code> property must be changed to either a different index name
+or to the sentinel value <code>_dont_index_</code>.</p>
+
+<pre><code class="language-curl">curl -XPUT $RIAK_HOST/types/animals/buckets/cats/props \
+     -H 'Content-Type: application/json' \
+     -d '{&quot;props&quot;:{&quot;search_index&quot;:&quot;_dont_index_&quot;}}'
+</code></pre>
+
+<h4 id="pagination:4953bf99d7018c161b1b361cb25f1331">Pagination</h4>
+
+<p>A common requirement you may face is paginating searches, where an
+ordered set of matching documents are returned in non-overlapping
+sequential subsets (in other words, <em>pages</em>). This is easy to do with
+the <code>start</code> and <code>rows</code> parameters, where <code>start</code> is the number of
+documents to skip over (the offset) and <code>rows</code> are the number of results
+to return in one go.</p>
+
+<p>For example, assuming we want two results per page, getting the second
+page is easy, where <code>start</code> is calculated as (rows per page) * (page
+number - 1).</p>
+
+<pre><code class="language-java">int rowsPerPage = 2;
+int page = 2;
+int start = rowsPerPage * (page - 1);
+
+SearchOperation searchOp = new SearchOperation
+        .Builder(BinaryValue.create(&quot;famous&quot;), &quot;*:*&quot;)
+        .withStart(start)
+        .withNumRows(rowsPerPage)
+        .build();
+client.execute(searchOp);
+StoreOperation.Response response = searchOp.get();
+</code></pre>
+
+<pre><code class="language-ruby">ROWS_PER_PAGE=2
+page = 2
+start = ROWS_PER_PAGE * (page - 1)
+
+client.search(&quot;famous&quot;, &quot;*:*&quot;, {:start =&gt; start, :rows =&gt; ROWS_PER_PAGE})
+</code></pre>
+
+<pre><code class="language-php">$maxRows = 2;
+$page = 2;
+$start = $rowsPerPAge * (page - 1);
+
+(new \Basho\Riak\Command\Builder\Search\FetchObjects($riak))
+  -&gt;withIndexName('famous')
+  -&gt;withQuery('*:*')
+  -&gt;withMaxRows($maxRows)
+  -&gt;withStartRow($start)
+  -&gt;build()
+  -&gt;execute();
+</code></pre>
+
+<pre><code class="language-python">ROWS_PER_PAGE=2
+page = 2
+start = ROWS_PER_PAGE * (page - 1)
+
+client.fulltext_search('famous', '*:*', start=start, rows=ROWS_PER_PAGE)
+</code></pre>
+
+<pre><code class="language-csharp">int rowsPerPage = 2;
+int page = 2;
+int start = rowsPerPage * (page - 1);
+
+var search = new RiakSearchRequest
+{
+    Start = start,
+    Rows = rowsPerPage,
+    Query = new RiakFluentSearch(&quot;famous&quot;, &quot;*&quot;)
+        .Search(&quot;*&quot;)
+        .Build(),
+};
+
+var rslt = client.Search(search);
+</code></pre>
+
+<pre><code class="language-javascript">var rowsPerPage = 2;
+var page = 2;
+var start = rowsPerPage * (page - 1);
+
+var search = new Riak.Commands.YZ.Search.Builder()
+    .withIndexName('famous')
+    .withQuery('*:*')
+    .withStart(start)
+    .withNumRows(rowsPerPage)
+    .withCallback(search_cb)
+    .build();
+client.execute(search);
+</code></pre>
+
+<pre><code class="language-erlang">-define(ROWS_PER_PAGE, 2).
+
+Page = 2,
+Start = ?ROWS_PER_PAGE * (Page - 1),
+
+riakc_pb_socket:search(Pid, &lt;&lt;&quot;famous&quot;&gt;&gt;, &lt;&lt;&quot;*:*&quot;&gt;&gt;, [{start, Start},{rows, ?ROWS_PER_PAGE}]),
+</code></pre>
+
+<pre><code class="language-golang">rowsPerPage := uint32(2)
+page := uint32(2)
+start := rowsPerPage * (page - uint32(1))
+
+cmd, err := riak.NewSearchCommandBuilder().
+    WithIndexName(&quot;famous&quot;).
+    WithQuery(&quot;*:*&quot;).
+    WithStart(start).
+    WithNumRows(rowsPerPage).
+    Build();
+if err != nil {
+    return err
+}
+
+if err := cluster.Execute(cmd); err != nil {
+    return err
+}
+</code></pre>
+
+<pre><code class="language-curl">ROWS_PER_PAGE=2
+PAGE=2
+START=$(($ROWS_PER_PAGE * ($PAGE-1)))
+
+curl
+curl &quot;$RIAK_HOST/search/query/famous?wt=json&amp;q=*:*&amp;start=$START&amp;rows=$ROWS_PER_PAGE&quot; | jsonpp
+</code></pre>
+
+<h3 id="pagination-warning:4953bf99d7018c161b1b361cb25f1331">Pagination Warning</h3>
+
+<p>Distributed pagination in Riak Search cannot be used reliably when
+sorting on fields that can have different values per replica of the same
+object, namely <code>score</code> and <code>_yz_id</code>. In the case of sorting by these
+fields, you may receive redundant objects. In the case of <code>score</code>, the
+top-N can return different results over multiple runs.</p>
+
+<p>If you are paginating simply to get all keys that match and don&rsquo;t care
+about the score, then you can sort on type-bucket-key (eg. <code>_yz_rt asc</code>,
+<code>_yz_rb asc</code>, <code>_yz_rk asc</code>) to get consistent results.</p>
+
+<p>If you want to sort by score without repeating results then you must set
+<code>rows</code> &gt;= <code>numFound</code>. This requires having some idea of how many rows
+will match before running the query.</p>
+
+<p><a href="https://github.com/basho/yokozuna/issues/355">This issue</a> is caused by
+the way Search must minimally distribute a query across multiple Solr
+nodes (called a <em>coverage plan</em>) and then filter duplicate results to
+retrieve a full result set. Since this plan is frequently recalculated,
+successive page queries may use a different plan, and thus calculate
+alternate <code>score</code>s or filter different <code>_yz_id</code> values. We have plans to
+fix this shortcoming in a future version of Riak.</p>
+
+<h3 id="mapreduce:4953bf99d7018c161b1b361cb25f1331">MapReduce</h3>
+
+<p>Riak Search allows for piping search results as inputs for
+[[MapReduce|Using MapReduce]] jobs. This is a useful cross-section for
+performing post-calculations of results or aggregations of ad-hoc
+queries. The Riak Search MapReduce integration works similarly to
+regular MapReduce, with the notable exception that your input is not a
+bucket, but rather index and query arguments to the <code>yokozuna</code> module
+and <code>mapred_search</code> function (an Erlang <code>module:function</code> pair that adds
+the Riak Search hook to MapReduce).</p>
+
+<pre><code class="language-json">{
+  &quot;inputs&quot;: {
+    &quot;module&quot;: &quot;yokozuna&quot;,
+    &quot;function&quot;: &quot;mapred_search&quot;,
+    &quot;arg&quot;: [&quot;famous&quot;,&quot;NOT leader_b:true&quot;]
+  },
+  &quot;query&quot;: [
+    {
+      &quot;map&quot;: {
+        &quot;language&quot;: &quot;javascript&quot;,
+        &quot;keep&quot;: false,
+        &quot;source&quot;: &quot;function(v) { return [1]; }&quot;
+      }
+    },
+    {
+      &quot;reduce&quot;: {
+        &quot;language&quot;: &quot;javascript&quot;,
+        &quot;keep&quot;: true,
+        &quot;name&quot;: &quot;Riak.reduceSum&quot;
+      }
+    }
+  ]
+}
+</code></pre>
+
+<p>In this example we&rsquo;re searching for all famous cats that are not
+leaders and counting up the results using Javascript for both map and
+reduce. It should return the reduced sum of <code>[3]</code>.</p>
+
+<pre><code class="language-curl">curl -XPOST $RIAK_HOST/mapred \
+     -H 'Content-Type: application/json' \
+     -d '{&quot;inputs&quot;:{&quot;module&quot;:&quot;yokozuna&quot;,&quot;function&quot;:&quot;mapred_search&quot;,&quot;arg&quot;:[&quot;famous&quot;,&quot;NOT leader_b:true&quot;]},&quot;query&quot;:[{&quot;map&quot;:{&quot;language&quot;:&quot;javascript&quot;,&quot;keep&quot;:false,&quot;source&quot;:&quot;function(v) { return [1]; }&quot;}},{&quot;reduce&quot;:{&quot;language&quot;:&quot;javascript&quot;,&quot;keep&quot;:true,&quot;name&quot;:&quot;Riak.reduceSum&quot;}}]}'
+</code></pre>
+
+
+      <div class="clear"></div>
+
+    </article>
+
+    <footer class="mastfooter">
+    This work is licensed under a
+    <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">
+        Creative Commons Attribution 4.0 International Public License
+    </a><br>
+    &copy; 2011-2016&nbsp;<a href="http://www.basho.com">Basho Technologies, Inc.</a>
+</footer>
+
+
+  </div>
+
+  <script src="/js/all.js" type="text/javascript"></script>
+<script type= "text/javascript">
+  
+  hljs.configure({languages: []});
+  hljs.initHighlighting();
+
+  
+  
+  
+  $(function() {
+    $(".js_enabled pre").css("visibility", "visible");
+  });
+</script>
+
+
+</body>
+</html>

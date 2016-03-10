@@ -9,68 +9,98 @@ menu:
     pre: icon-comments
 ---
 
-## Hanc capellae
+Our Community is an eclectic group of engineers, architects, academics and enthusiasts who care about solving the hardest problems of distributed systems with open source software. Riak, written in Erlang, tackles the continuing complexity of persisting unstructured data with an architecture uniquely designed to scale.
 
-Lorem markdownum Byblida. Modo **etiam** litora mittat vellera infelix caeli.
-Studiosius forte, potuit pectore. Puer undas dignior iam turpe sorores abesse.
-Deae Saturnia levius viribus membra.
+As a Community, our core belief is that there is no question too simple. You can freely share questions, answers and feedback without hesitation. Whether you need help or simply want to get involved, we are easy to contact.
 
-## Iussorum ad fronti rutilasque tenuit cursu quae
+## Platforms
+We're big on answering questions for beginner and veteran users alike. To make sure we can answer them, we curate a number of discussions on a daily basis. 
 
-Nostros vovistis artes. **Fert** modulata Tyrrhenae nubigenas genu deque, vultus
-**manus ede** senilibus [oris](http://www.youtube.com/watch?v=MghiBW3r65M)
-transcurrere quem rarissima. Viderunt nutu quod, tumidaque, mihi mihi sacer pia.
-Summis rediit pavidus tersere et at prosiluit natus Phaethon noxa. Singultibus
-oblita **foedabis** orsa.
+### Mailing List
 
-- Fecere aliis postquam inviti caliginis ab inque
-- Voverat dividuae et tardus huc magna non
-- Sex barba ipsaque Caucason corpora sono ecce
-- Non esse
-- Sibi atris regna licuit Antium carituraque nubes
+The [Riak Users Mailing
+List](http://lists.basho.com/mailman/listinfo/riak-users_lists.basho.com)
+is highly trafficked and a great resource for technical discussions, Riak issues and questions, and community events and announcements.
 
-## Omni levare gelidumque minanti
+We pride ourselves on answering every email that comes over the Riak User mailing list. [Sign up](http://lists.basho.com/mailman/listinfo/riak-users_lists.basho.com) and send away. If you prefer points for your questions, you can always [tag Riak on StackOverflow](http://stackoverflow.com/questions/tagged/riak). 
 
-Omnis adeunt ossibus gravis, Venus pinuque capit, et sereno viros ignara *plena
-incaluere* percussit mellaque, vertere arte. Ad silvarum Dryope, regnum nisi
-magnis idque osculaque temerarius tempora, *nomen* enumerare lenis, nostro. Ac
-mutabit [arma](http://www.thesecretofinvisibility.com/) operiri saxum ratione,
-crudelior feram, est usu tamen quod, hasta. Equos **sonant et deum**. Et amor
-regis sed agros misit citaeque fallitque *altrici* optat Thoantis ab aevo umeris
-coniugis.
 
-## Troiana quoque
+### Code
 
-Equo uni Stygias trahunt, interea, in tela labores lumina, nam *Aganippe
-sanctique meum*; est. [Gente inimica
-premeret](http://en.wikipedia.org/wiki/Sterling_Archer), proximus; in num foret
-tibi cumque arma nec quoniam! Contribuere mollis, tu dum parem viscera, tamen
-ante. Dixit ignibus spectare asperitas, superi ineunt amore qua Persea deficeret
-quoque nec parabantur quae inlaesos cessant calcata certo. Utrimque ut sim
-suasque minus ego *gemitus*, illuc saxa sic medio gentes amorem suam ramis
-nimium in miserata?
+Basho uses GitHub for the development of all of our
+code. Our core products are developed [under the Basho organization](http://github.com/basho/). We also have [Basho Labs](http://github.com/basho-labs/), where we curate the rich ecosystem of contributors from our community. We also make use of GitHub for the submission and integration of all internal code and community pull requests. If you have general feedback beyond the scope of a single repo, open an issue under [The Riak Community](https://github.com/basho-labs/the-riak-community/issues).
 
-1. `In naribus aequos aberant`
-2. Naturae murmura te rimas suarum vulnus quod
-3. Socios leto loquor timide
-4. Ergo sub
-5. Patrias mihi consumite breve
+### Events on Meetup.com
 
-## Ruit huic movit luminibus excubias arma
+We have local meetups everywhere from Paris to San Francisco and back again. To find the one closest to you, search for [Riak on Meetup.com](http://www.meetup.com/find/riak/).
 
-> Loco humo tecum gurgite timui. Peragant tu regia ut umbras premit condit. Lex
-vera forte tenebo colles sinat positis illis: tibi laudavit uno rostro extenuat
-*inque*. Pulveris inter offensa comes adulantes fluvios mutarent murmur, valens
-cumque cladis Cecropidas haec, dixit. Lucus cognomine **Achilles**: pastor nec.
+### Riak on IRC
 
-1. Hic causam et dilecte nudae nec corpus
-2. Cor Si nive
-3. Petis equos perosa tu perterrita exitus non
-4. Per et et ire geminos parte
-5. Aqua coniunx cecidisse sonum
+The [#riak IRC room on irc.freenode.net](http://irc.lc/freenode/riak) is a great place for real-time help with your Riak issues and questions.
 
-```
-Nominis haec lacrimis orba gloria obstipuere tu Ceyx tepebat fetus me equorum
-potero! Iampridem illi; deducit [reor orbem](http://heeeeeeeey.com/), comes, et
-nec rubebant pietas, ipsa.
-```
+### The Basho Blog
+
+Members of the Basho team write frequently on [The Basho
+Blog](http://basho.com/blog/).
+
+### Videos
+
+You can watch all the Basho-curated videos [on YouTube](https://www.youtube.com/user/BashoTechnologies) and a few others on the [Basho Vimeo Page](http://vimeo.com/bashotech/videos).
+
+
+### Other Social 
+
+We are easy to find on social media sites. Like us on [Facebook](http://www.facebook.com/pages/Riak/143599935667217), chat on the [Riak
+LinkedIn Group](http://www.linkedin.com/groups?mostPopular=&gid=2913983) and follow us on [Twitter](http://twitter.com/basho). We have a growing following [on Reddit as well](http://www.reddit.com/r/Riak/).
+
+## Programs 
+Our platforms are complemented by the amazing efforts of the Basho team and the greater contributor community. Here are a few you don't want to miss.
+
+### The Riak Recap
+
+The Riak Recap is a periodic email to the Riak Users Mailing List to
+keep subscribers up-to-date on what’s happening in and around the
+Riak Community.
+
+### Meetups
+
+We're re-energizing meetups throughout the world. The most active are: 
+
+* [San Francisco](http://www.meetup.com/San-Francisco-Riak-Meetup/)
+* [New York](http://www.meetup.com/NYC-Riak-Meetup)
+* [Boston](http://www.meetup.com/Boston-Riak)
+* [Paris](http://www.meetup.com/Paris-Riak-Meetup/)
+* [London](http://www.meetup.com/riak-london/)
+
+The list of all related meetups are visible [here](http://www.meetup.com/pro/basho). If you're looking for assistance getting a meetup or user group started
+in your area, or want to tell the community about one that you're
+starting, email *community@basho.com*.
+
+### RICON
+
+RICON 2015 [details are out](http://ricon.io/)! 
+
+If you’re as excited about distributed systems as we are, be sure to join our yearly conference known as RICON. It’s an intimate, multi-track day for sysadmins, developers and computer scientists alike. We welcome anyone, regardless of title or company, to join us.
+
+You can [see past talks](http://ricon.io/archive/2014/index.html) as well.
+
+## Process
+A healthy community includes the right amount of processes for everyone to work together. Here is the short list of resources: 
+
+* [[Community FAQs]] has additional specifics to questions on contribution.
+* [[Reporting Bugs]] for understanding bug process and triage.
+
+### Give Back
+A Community is built around the code to help foster its growth, maturity, and adoption. Like the code, it needs to evolve, and unless it’s moving forward and being refined continuously, it ceases to be valuable.
+
+You can give back as a member of our community by contributing to our public project: [The Riak Community](https://github.com/basho-labs/the-riak-community). You can help define [our Meetup strategy](https://github.com/basho-labs/the-riak-community/blob/master/meetup-strategy.md) and [Code of Conduct](https://github.com/basho-labs/the-riak-community/blob/master/code-of-conduct.md) or [open GitHub issues](https://github.com/basho-labs/the-riak-community/issues) for other requests.
+
+And thank you. We’re happy you’re here.
+
+
+## Professional Support
+
+If you run into an issue you just can't crack, [Basho](http://basho.com)
+sells support for Riak, as well as licenses for [Riak
+Enterprise](http://basho.com/riak-enterprise/). Please [contact
+Basho](http://basho.com/contact/) at any time for more information.

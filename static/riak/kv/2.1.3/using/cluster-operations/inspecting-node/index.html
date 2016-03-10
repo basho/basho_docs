@@ -1,0 +1,2871 @@
+<!DOCTYPE html>
+
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"></html><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"></html><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"></html><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->
+
+
+
+
+<head class="tutorials">
+  <meta charset="utf-8">
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width">
+  <meta name="project" content="riak_kv">
+  <meta name="version" content="2.1.3">
+  <meta name="base-url" content="">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+  <title>Inspecting a Node</title>
+
+  <link href="/css/all.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="/css/print.css" media="print" rel="stylesheet" type="text/css">
+
+  
+  <style type="text/css"> .js_enabled pre { visibility : hidden; } </style>
+  <script type="text/javascript">
+    document.documentElement.className = 'js_enabled';
+  </script>
+</head>
+
+
+
+<body class="riak_kv 2.1.3 latest ">
+
+  <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-T9C8MK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-T9C8MK');</script>
+
+  
+<aside id="nav-container" role="complementary">
+  <nav class="overview" id="primary-nav" role="nav">
+    <div id="primary-nav-content">
+      <h2 class="responsive-link"><a class="responsive-toggle"></a></h2>
+
+      
+      <form id="searchbox_011972015458788978446:zgdcy4fa-o0" action="">
+        <div class="nav-field-container">
+          <div id="icon-container-search">
+            <div class="icon-container"><span aria-hidden="true" class="nav-icon-search icon-search"></span></div>
+            <span class="separator">&#124;</span>
+          </div>
+          <input id="main-search" name="q" placeholder="Search" size="5" type="search" />
+        </div>
+      </form>
+
+      <div class="clear"></div>
+
+      
+      <h3 class="responsive-link visit-basho">
+        <a href="http://www.basho.com">
+          <div class="icon-container">
+            <span aria-hidden="true" class="nav-icon" data-icon="&#xe003;"></span>
+          </div>
+          <span class="separator">&#124;</span>
+          <span class="menu-title">Visit Basho</span>
+          <div class="clear"></div>
+        </a>
+      </h3>
+
+      
+      <h3 class="responsive-link">
+        <a href="/index.html">
+          <div class="icon-container">
+            <span aria-hidden="true" class="nav-icon" data-icon="&#xe003;"></span>
+          </div>
+          <span class="separator">&#124;</span>
+          <span class="menu-title">All Riak Projects</span>
+          <div class="clear"></div>
+        </a>
+      </h3>
+
+      
+      
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-riak"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/">Riak KV</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-download-alt"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/downloads/">Download Riak KV</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-install"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/setup/">Setup</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/planning/">Planning</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/start/">Start Planning</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/operating-system/">OS Support</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/planning/backend/">Choosing a Backend</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/backend/bitcask/">Bitcask</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/backend/leveldb/">LevelDB</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/backend/memory/">Memory</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/backend/multi/">Multi-backend</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/cluster-capacity/">Cluster Capacity</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/bitcask-capacity-calc/">Bitcask Capacity Calculator</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/best-practices/">Best Practices</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/future/">Planning for the Future</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/installing/">Installing</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/amazon-web-services/">Amazon Web Services</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/debian-ubuntu/">Debian &amp; Ubuntu</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/freebsd/">FreeBSD</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/mac-osx/">Mac OS X</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/rhel-centos/">RHEL &amp; CentOS</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/smartos/">SmartOS</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/solaris/">Solaris</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/suse/">SUSE</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/windows-azure/">Windows Azure</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/installing/source/">Installing From Source</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/source/erlang/">Installing Erlang</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/source/jvm/">Installing the JVM</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/verify/">Verifying an Installation</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/upgrading/">Upgrading</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/checklist/">Production Checklist</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/version/">Upgrading by Version</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/cluster/">Upgrading a Cluster</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/multi-datacenter/">Upgrading Multi-Datacenter</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/downgrade/">Downgrading</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-cog"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/configuring/">Configuring</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/basic/">Basic Configuration</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/backend/">Backend Configuration</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/managing/">Managing Configuration</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/reference/">Configuration Reference</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/strong-consistency/">Implementing Strong Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/load-balancing-proxy/">Load Balancing &amp; Proxy</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/mapreduce/">MapReduce Settings</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/search/">Search Settings</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/configuring/v3-multi-datacenter/">V3 Multi-Datacenter</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v3-multi-datacenter/quick-start/">Quickstart</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v3-multi-datacenter/nat/">With NAT</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v3-multi-datacenter/ssl/">SSL</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/configuring/v2-multi-datacenter/">V2 Multi-Datacenter</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v2-multi-datacenter/quick-start/">Quickstart</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v2-multi-datacenter/nat/">With NAT</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v2-multi-datacenter/ssl/">SSL</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-database"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/using/">Using</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/running-a-cluster/">Running a Cluster</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/admin/">Cluster Administration</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/admin/commands/">Cluster Admin Commands</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/admin/riak-admin/">riak-admin CLI</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/admin/riak-cli/">riak CLI</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/admin/riak-control/">Riak Control</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/cluster-operations/">Cluster Operations</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/adding-removing-nodes/">Adding/Removing Nodes</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/changing-cluster-info/">Changing Cluster Information</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/replacing-node/">Replacing a Node</a>
+  
+  </li>
+  <li class="current">
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/inspecting-node/">Inspecting a Node</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/bucket-types/">Bucket Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/logging/">Logging</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/backing-up/">Backing Up</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/handoff/">Handoff</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/object-deletion/">Object Deletion</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/secondary-indexes/">Secondary Indexes</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/monitoring-strong-consistency/">Monitoring Strong Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/load-balancing/">Load Balancing</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/backend/">Backend</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/v3-multi-datacenter/">V3 Multi-Datacenter</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/v2-multi-datacenter/">V2 Multi-Datacenter</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/repair-recovery/">Repair &amp; Recovery</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/repair-recovery/failure-recovery/">Failure &amp; Recovery</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/repair-recovery/errors/">Errors</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/repair-recovery/repairs/">Repairs</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/repair-recovery/rolling-restart/">Rolling Restarts</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/security/">Security</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/security/basics/">Security Basics</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/security/managing-sources/">Managing Security Sources</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/security/best-practices/">Best Practices</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/security/v2-v3-ssl-ca/">V2/V3 SSL &amp; CA Validation</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/performance/">Performance</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/performance/benchmarking/">Benchmarking</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/performance/open-files-limit/">Open Files Limit</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/performance/v2-scheduling-fullsync/">V2 Scheduling Fullsync</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/performance/multi-datacenter-tuning/">Multi-Datacenter Replication</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/troubleshooting/">Troubleshooting</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/">Product Advisories</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/210-dataloss/">Default Configuration For Handoff May Cause Data Loss</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/appconfig-foward/">Forward Incompatibility of app.config</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/dvv-lastwritewins/">Incompatibility between Dotted Version Vectors and Last Write Wins</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/maps-204/">Map Data Type Disk Incompatibility</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/ssl-poodle/">SSL 3.0 Vulnerability and POODLE Attack</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/http-204/">HTTP 204</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/reference/">Reference</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/logging/">Logging</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/handoff/">Handoff</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/bucket-types/">Bucket Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/object-deletion/">Object Deletion</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/runtime-interaction/">Runtime Interaction</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/failure-recovery/">Failure &amp; Recovery</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/monitoring/">Monitoring</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/search-secondary-indexes/">Search &amp; Secondary Indexes</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/strong-consistency/">Strong Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/multi-datacenter/">Multi-Datacenter</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/v3/">V3 Replication</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/v2/">V2 Replication</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/architecture/">Architecture</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-lambda"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/developing/">Developing</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/">Getting Started</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/java/">Java</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/java/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/java/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/java/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/ruby/">Ruby</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/ruby/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/ruby/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/ruby/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/python/">Python</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/python/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/python/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/python/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/csharp/">C Sharp</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/csharp/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/csharp/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/csharp/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/nodejs/">NodeJS</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/nodejs/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/nodejs/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/nodejs/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/erlang/">Erlang</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/erlang/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/erlang/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/erlang/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/golang/">Go</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/golang/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/golang/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/golang/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/php/">PHP</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/php/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/php/querying/">Querying</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/usage/">Usage</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/creating-objects/">Creating Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/reading-objects/">Reading Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/updating-objects/">Updating Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/deleting-objects/">Deleting Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/content-types/">Content Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/search/">Searching</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/mapreduce/">Using MapReduce</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/secondary-indexes/">Using Secondary Indexes</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/bucket-types/">Bucket Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/commit-hooks/">Using Commit Hooks</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/search-schemas/">Creating Search Schemas</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/searching-data-types/">Searching with Data Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/document-store/">Implementing a Document Store</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/custom-extractors/">Custom Extractors</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/usage/security/">Security</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/java/">Java</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/ruby/">Ruby</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/python/">Python</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/erlang/">Erlang</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/php/">PHP</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/replication/">Replication</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/">Conflict Resolution</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/java/">Java</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/ruby/">Ruby</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/python/">Python</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/csharp/">C Sharp</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/nodejs/">NodeJS</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/php/">PHP</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/golang/">Go</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/data-types/">Data Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/data-modeling/">Data Modeling</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/app-guide/">Application Guide</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/app-guide/replication-properties/">Replication Properties</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/app-guide/strong-consistency/">Strong Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/app-guide/write-once/">Write Once</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/app-guide/reference/">Reference</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/client-libraries/">Client Libraries</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/api/">APIs</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/api/repl-hooks/">V2 Multi-Datacenter REPL Hooks API</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/api/backend/">Backend API</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/faq/">Developing FAQ</a>
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-beaker"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/learn/">Learning</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/why-riak-kv/">Why Riak KV?</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/use-cases/">Use Cases</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/new-to-nosql/">New to NoSQL?</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/glossary/">Riak KV Glossary</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/learn/concepts/">Concepts</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/active-anti-entropy/">Active Anti-Entropy</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/buckets/">Buckets</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/capability-negotiation/">Capability Negotiation</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/causal-context/">Causal Context</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/clusters/">Clusters</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/crdts/">Data Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/eventual-consistency/">Eventual Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/keys-and-objects/">Keys and Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/replication/">Replication</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/vnodes/">Vnodes</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-comments"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/community">Community</a></span>
+        <div class="clear"></div>
+      </h3>
+      <ul></ul> 
+    </div>
+  </nav>
+
+  
+  <ul id="fixed-nav">
+    <li>
+      <a href="https://github.com/basho/basho_docs" target="_blank">
+        <div class="icon-container">
+          <span aria-hidden="true" class="nav-icon" data-icon="&#xe004;"></span>
+        </div>
+        <span class="separator">&#124;</span>Available on GitHub
+      </a>
+    </li>
+    <li>
+      <a href="/riak/latest/community/">
+        <div class="icon-container">
+          <span aria-hidden="true" class="nav-icon" data-icon="&#xf059;"></span>
+        </div>
+        <span class="separator">&#124;</span>Get Help
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+  <script>
+  (function() {
+    var cx = '011972015458788978446:zgdcy4fa-o0';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<div style="width:0px;overflow:hidden;height:0px;">
+  <gcse:search></gcse:search>
+</div>
+
+
+  <div role="main">
+
+    <header class="masthead">
+  <div id="header">
+    
+    <div id="header-inner">
+      <div class="icon-reorder" id="nav-toggle"></div>
+
+      <div id="top-nav">
+        
+        <a href="/riak/kv/2.1.3/downloads/"><span class="icon-download-alt"></span>Downloads</a>
+        <div id="nav-more"><span class="icon-more"></span></div>
+      </div>
+
+      <a class="responsive-toggle"></a>
+      
+      
+      <a class="logo" href="/index.html"><h1>Riak Docs</h1></a>
+      
+      <span class="tagline">Product tutorials, how-tos, and fully-documented APIs.</span>
+      <div id="nav-menu">
+        <h2>Links</h2>
+        <ul>
+          <li><a href="http://docs.basho.com/">Docs Home</a></li>
+          <li><a href="http://basho.com/">Basho Website</a></li>
+        </ul>
+        
+        <div id="nav-menu-arrow"></div>
+        <div id="nav-menu-arrow-back"></div>
+      </div>
+
+      <div class="clear"></div>
+
+      <div class="header-rule"></div>
+    </div>
+  </div>
+</header>
+
+
+    <article class="mainarticle">
+
+      <div class="versions">
+  <div id="version-ddown-button" class="unselected">
+    <div class="version-ddown-title">Version</div>
+    <div class="version-ddown-number">2.1.3</div>
+    <div class="version-ddown-arrow"></div>
+  </div>
+  <ol id="version-list" style="display: none;">
+  
+  
+    
+    
+      
+      
+      <li class="sans versions-0 current">DEV</li>
+      
+      <li class="current versions-0"><a class="versioned" href="/riak/kv/2.1.3/using/cluster-operations/inspecting-node/">2.1.3</a></li>
+    
+    
+      
+      
+      
+      <li class=" versions-0 first"><a class="versioned" href="/riak/kv/2.1.1/using/cluster-operations/inspecting-node/">2.1.1</a></li>
+    
+  
+    
+    
+      
+      
+      
+      <li class="sans versions-1 current">LTS</li>
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.6/using/cluster-operations/inspecting-node/">2.0.6</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.5/using/cluster-operations/inspecting-node/">2.0.5</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.4/using/cluster-operations/inspecting-node/">2.0.4</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.2/using/cluster-operations/inspecting-node/">2.0.2</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.1/using/cluster-operations/inspecting-node/">2.0.1</a></li>
+    
+    
+      
+      
+      
+      <li class=" versions-1 first"><a class="versioned" href="/riak/kv/2.0.0/using/cluster-operations/inspecting-node/">2.0.0</a></li>
+    
+  
+  
+  <li class="versions-5 first"><a class="sans versioned" href="http://docs.basho.com/riak/1.4.12/">older</a></li>
+  </ol>
+</div>
+
+
+      
+      
+
+      <header><h1>Inspecting a Node</h1></header>
+
+      
+
+      
+      <nav id="toc">
+        <h2 class="title">Contents</h2>
+        <div id="toc-wrapper">
+          <ol id="toc-items"></ol>
+        </div>
+      </nav>
+      
+
+      
+
+<p>When inspection of a Riak node to gather metrics on performance or
+potential issues is desired, a number of tools are available to help,
+and are either included with Riak itself or made available through the
+Riak community.</p>
+
+<p>This guide provides starting points and details on some of the available
+tools for inspecting a Riak node.</p>
+
+<h2 id="riak-admin-status:a81dc8ab8ee74d8d9db666652ea58b44">riak-admin status</h2>
+
+<p><code>riak-admin status</code> is a subcommand of the <code>riak-admin</code> command that is
+included with every installation of Riak. The <code>status</code> subcommand
+provides data related to the current operating status for a node. The
+output of <code>riak-admin status</code> is categorized and detailed below.</p>
+
+<p>Please note, for some counters, such as <code>node_get_fsm_objsize</code>, a
+minimum of 5 transactions is required for statistics to be generated.</p>
+
+<h4 id="performance:a81dc8ab8ee74d8d9db666652ea58b44">Performance</h4>
+
+<p>{{#1.2.0-1.2.1}}
+The <code>riak-admin status</code> command should not be executed more than once a
+minute as statistics are recalculated every time the command is
+executed.
+{{/1.2.0-1.2.1}}</p>
+
+<p>{{#1.3.0+}}
+Repeated runs of the <code>riak-admin status</code> command does not have a
+negative performance impact as the statstics are cached internally in
+Riak.
+{{/1.3.0+}}</p>
+
+<h3 id="active-stats:a81dc8ab8ee74d8d9db666652ea58b44">Active Stats</h3>
+
+<p>Active Stats represent current activity on the node.</p>
+
+<table>
+<thead>
+<tr>
+<th>Stat</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>pbc_active</code></td>
+<td>Number of active Protocol Buffers connections</td>
+</tr>
+
+<tr>
+<td><code>node_get_fsm_active</code></td>
+<td>Number of active GET FSMs</td>
+</tr>
+
+<tr>
+<td><code>node_put_fsm_active</code></td>
+<td>Number of active PUT FSMs</td>
+</tr>
+
+<tr>
+<td><code>index_fsm_active</code></td>
+<td>Number of active Secondary Index FSMs</td>
+</tr>
+
+<tr>
+<td><code>list_fsm_active</code></td>
+<td>Number of active Keylisting FSMs</td>
+</tr>
+
+<tr>
+<td><code>node_get_fsm_rejected</code></td>
+<td>Number of GET FSMs actively being rejected by Sidejob&rsquo;s overload protection</td>
+</tr>
+
+<tr>
+<td><code>node_put_fsm_rejected</code></td>
+<td>Number of PUT FSMs actively being rejected by Sidejob&rsquo;s overload protection</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="average-stats:a81dc8ab8ee74d8d9db666652ea58b44">Average Stats</h3>
+
+<p>Average Stats represent an average calculated as (total occurrences /
+number of samples) since this node was started.  In the below stats the
+sample time is 1s, giving us a per-second average.  Currently, the only
+Average Stats are reported by Sidejob - an Erlang library that
+implements a parallel, capacity-limited request pool.</p>
+
+<table>
+<thead>
+<tr>
+<th>Stat</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>node_get_fsm_in_rate</code></td>
+<td>Average number of GET FSMs enqueued by Sidejob</td>
+</tr>
+
+<tr>
+<td><code>node_get_fsm_out_rate</code></td>
+<td>Average number of GET FSMs dequeued by Sidejob</td>
+</tr>
+
+<tr>
+<td><code>node_put_fsm_in_rate</code></td>
+<td>Average number of PUT FSMs enqueued by Sidejob</td>
+</tr>
+
+<tr>
+<td><code>node_put_fsm_out_rate</code></td>
+<td>Average number of PUT FSMs dequeued by Sidejob</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="one-minute-stats:a81dc8ab8ee74d8d9db666652ea58b44">One-Minute Stats</h3>
+
+<p>One-Minute Stats represent the number of times a particular activity has
+occurred within the last minute on this node.</p>
+
+<h4 id="general-one-minute-stats:a81dc8ab8ee74d8d9db666652ea58b44">General One-Minute Stats</h4>
+
+<table>
+<thead>
+<tr>
+<th>Stat</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>node_gets</code></td>
+<td>Number of GETs coordinated by this node, including GETs to non-local vnodes in the last minute</td>
+</tr>
+
+<tr>
+<td><code>node_puts</code></td>
+<td>Number of PUTs coordinated by this node, where a PUT is sent to a local vnode in the last minute</td>
+</tr>
+
+<tr>
+<td><code>vnode_gets</code></td>
+<td>Number of GET operations coordinated by local vnodes on this node in the last minute</td>
+</tr>
+
+<tr>
+<td><code>vnode_puts</code></td>
+<td>Number of PUT operations coordinated by local vnodes on this node in the last minute</td>
+</tr>
+
+<tr>
+<td><code>vnode_index_refreshes</code></td>
+<td>Number of secondary indexes refreshed on this node during secondary index anti-entropy in the last minute</td>
+</tr>
+
+<tr>
+<td><code>vnode_index_reads</code></td>
+<td>Number of local replicas participating in secondary index reads in the last minute</td>
+</tr>
+
+<tr>
+<td><code>vnode_index_writes</code></td>
+<td>Number of local replicas participating in secondary index writes in the last minute</td>
+</tr>
+
+<tr>
+<td><code>vnode_index_writes_postings</code></td>
+<td>Number of individual secondary index values written in the last minute</td>
+</tr>
+
+<tr>
+<td><code>vnode_index_deletes</code></td>
+<td>Number of local replicas participating in secondary index deletes in the last minute</td>
+</tr>
+
+<tr>
+<td><code>vnode_index_deletes_postings</code></td>
+<td>Number of individual secondary index values deleted in the last minute</td>
+</tr>
+
+<tr>
+<td><code>pbc_connects</code></td>
+<td>Number of Protocol Buffers connections made in the last minute</td>
+</tr>
+
+<tr>
+<td><code>node_get_fsm_active_60s</code></td>
+<td>Number of GET FSMs active in the last minute</td>
+</tr>
+
+<tr>
+<td><code>node_put_fsm_active_60s</code></td>
+<td>Number of PUT FSMs active in the last minute</td>
+</tr>
+
+<tr>
+<td><code>node_get_fsm_rejected_60s</code></td>
+<td>Number of GET FSMs rejected by Sidejob&rsquo;s overload protection in the last minute</td>
+</tr>
+
+<tr>
+<td><code>node_put_fsm_rejected_60s</code></td>
+<td>Number of PUT FSMs rejected by Sidejob&rsquo;s overload protection in the last minute</td>
+</tr>
+
+<tr>
+<td><code>index_fsm_create</code></td>
+<td>Number of Secondary Index query FSMs created in the last minute</td>
+</tr>
+
+<tr>
+<td><code>index_fsm_create_error</code></td>
+<td>Number of Secondary Index query FSM creation errors in the last minute</td>
+</tr>
+
+<tr>
+<td><code>list_fsm_create</code></td>
+<td>Number of Keylisting FSMs created in the last minute</td>
+</tr>
+
+<tr>
+<td><code>list_fsm_create_error</code></td>
+<td>Number of Keylisting FSM creation errors in the last minute</td>
+</tr>
+
+<tr>
+<td><code>read_repairs</code></td>
+<td>Number of read repair operations this node has coordinated in the last minute</td>
+</tr>
+
+<tr>
+<td><code>read_repairs_primary_outofdate_one</code></td>
+<td>Number of read repair operations performed on primary vnodes in the last minute due to stale replicas</td>
+</tr>
+
+<tr>
+<td><code>read_repairs_primary_notfound_one</code></td>
+<td>Number of read repair operations performed on primary vnodes in the last minute due to missing replicas</td>
+</tr>
+
+<tr>
+<td><code>read_repairs_fallback_outofdate_one</code></td>
+<td>Number of read repair operations performed on fallback vnodes in the last minute due to stale replicas</td>
+</tr>
+
+<tr>
+<td><code>read_repairs_fallback_notfound_one</code></td>
+<td>Number of read repair operations performed on fallback vnodes in the last minute due to missing replicas</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="fsm-time:a81dc8ab8ee74d8d9db666652ea58b44">FSM Time</h4>
+
+<p>FSM Time Stats represent the amount of time in microseconds required to
+traverse the GET or PUT Finite State Machine code, offering a picture of
+general node health. From your application&rsquo;s perspective, FSM Time
+effectively represents experienced latency. Mean, Median, and 95th-,
+99th-, and 100th-percentile (Max) counters are displayed. These are
+one-minute stats.</p>
+
+<table>
+<thead>
+<tr>
+<th>Stat</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>node_get_fsm_time_mean</code></td>
+<td>Mean time between reception of client GET request and subsequent response to client</td>
+</tr>
+
+<tr>
+<td><code>node_get_fsm_time_median</code></td>
+<td>Median time between reception of client GET request and subsequent response to client</td>
+</tr>
+
+<tr>
+<td><code>node_get_fsm_time_95</code></td>
+<td>95th percentile time between reception of client GET request and subsequent response to client</td>
+</tr>
+
+<tr>
+<td><code>node_get_fsm_time_99</code></td>
+<td>99th percentile time between reception of client GET request and subsequent response to client</td>
+</tr>
+
+<tr>
+<td><code>node_get_fsm_time_100</code></td>
+<td>100th percentile time between reception of client GET request and subsequent response to client</td>
+</tr>
+
+<tr>
+<td><code>node_put_fsm_time_mean</code></td>
+<td>Mean time between reception of client PUT request and subsequent response to client</td>
+</tr>
+
+<tr>
+<td><code>node_put_fsm_time_median</code></td>
+<td>Median time between reception of client PUT request and subsequent response to client</td>
+</tr>
+
+<tr>
+<td><code>node_put_fsm_time_95</code></td>
+<td>95th percentile time between reception of client PUT request and subsequent response to client</td>
+</tr>
+
+<tr>
+<td><code>node_put_fsm_time_99</code></td>
+<td>99th percentile time between reception of client PUT request and subsequent response to client</td>
+</tr>
+
+<tr>
+<td><code>node_put_fsm_time_100</code></td>
+<td>100th percentile time between reception of client PUT request and subsequent response to client</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="get-fsm-siblings:a81dc8ab8ee74d8d9db666652ea58b44">GET FSM Siblings</h4>
+
+<p>GET FSM Sibling Stats offer a count of the number of siblings
+encountered by this node on the occasion of a GET request. These are
+one-minute stats.</p>
+
+<table>
+<thead>
+<tr>
+<th>Stat</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>node_get_fsm_siblings_mean</code></td>
+<td>Mean number of siblings encountered during all GET operations by this node within the last minute</td>
+</tr>
+
+<tr>
+<td><code>node_get_fsm_siblings_median</code></td>
+<td>Median number of siblings encountered during all GET operations by this node within the last minute</td>
+</tr>
+
+<tr>
+<td><code>node_get_fsm_siblings_95</code></td>
+<td>95th percentile of siblings encountered during all GET operations by this node within the last minute</td>
+</tr>
+
+<tr>
+<td><code>node_get_fsm_siblings_99</code></td>
+<td>99th percentile of siblings encountered during all GET operations by this node within the last minute</td>
+</tr>
+
+<tr>
+<td><code>node_get_fsm_siblings_100</code></td>
+<td>100th percentile of siblings encountered during all GET operations by this node within the last minute</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="get-fsm-objsize:a81dc8ab8ee74d8d9db666652ea58b44">GET FSM Objsize</h4>
+
+<p>GET FSM Objsize Stats represent a view of the sizes of objects flowing
+through this node&rsquo;s GET FSMs. The size of an object is obtained by
+summing the length of the bucket name, key, serialized vector clock,
+value, and serialized metadata of each sibling. GET FSM Objsize and GET
+FSM Siblings are inextricably linked. These are one-minute stats.</p>
+
+<table>
+<thead>
+<tr>
+<th>Stat</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>node_get_fsm_objsize_mean</code></td>
+<td>Mean object size encountered by this node within the last minute</td>
+</tr>
+
+<tr>
+<td><code>node_get_fsm_objsize_median</code></td>
+<td>Median object size encountered by this node within the last minute</td>
+</tr>
+
+<tr>
+<td><code>node_get_fsm_objsize_95</code></td>
+<td>95th percentile object size encountered by this node within the last minute</td>
+</tr>
+
+<tr>
+<td><code>node_get_fsm_objsize_99</code></td>
+<td>99th percentile object size encountered by this node within the last minute</td>
+</tr>
+
+<tr>
+<td><code>node_get_fsm_objsize_100</code></td>
+<td>100th percentile object size encountered by this node within the last minute</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="total-stats:a81dc8ab8ee74d8d9db666652ea58b44">Total Stats</h3>
+
+<p>Total Stats represent the total number of times a particular activity
+has occurred since this node was started.</p>
+
+<table>
+<thead>
+<tr>
+<th>Stat</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>node_gets_total</code></td>
+<td>Total number of GETs coordinated by this node, including GETs to non-local vnodes</td>
+</tr>
+
+<tr>
+<td><code>node_puts_total</code></td>
+<td>Total number of PUTs coordinated by this node, including PUTs to non-local vnodes</td>
+</tr>
+
+<tr>
+<td><code>vnode_gets_total</code></td>
+<td>Total number of GETs coordinated by local vnodes</td>
+</tr>
+
+<tr>
+<td><code>vnode_puts_total</code></td>
+<td>Total number of PUTS coordinated by local vnodes</td>
+</tr>
+
+<tr>
+<td><code>read_repairs_total</code></td>
+<td>Total number of Read Repairs this node has coordinated</td>
+</tr>
+
+<tr>
+<td><code>coord_redirs_total</code></td>
+<td>Total number of requests this node has redirected to other nodes for coordination</td>
+</tr>
+
+<tr>
+<td><code>vnode_index_refreshes_total</code></td>
+<td>Total number of indexes refreshed during secondary index anti-entropy</td>
+</tr>
+
+<tr>
+<td><code>vnode_index_reads_total</code></td>
+<td>Total number of local replicas participating in secondary index reads</td>
+</tr>
+
+<tr>
+<td><code>vnode_index_writes_total</code></td>
+<td>Total number of local replicas participating in secondary index writes</td>
+</tr>
+
+<tr>
+<td><code>vnode_index_writes_postings_total</code></td>
+<td>Total number of individual secondary index values written</td>
+</tr>
+
+<tr>
+<td><code>vnode_index_deletes_total</code></td>
+<td>Total number of local replicas participating in secondary index deletes</td>
+</tr>
+
+<tr>
+<td><code>vnode_index_deletes_postings_total</code></td>
+<td>Total number of individual secondary index values deleted</td>
+</tr>
+
+<tr>
+<td><code>pbc_connects_total</code></td>
+<td>Total number of Protocol Buffers connections made</td>
+</tr>
+
+<tr>
+<td><code>precommit_fail</code></td>
+<td>Total number of pre-commit hook failures</td>
+</tr>
+
+<tr>
+<td><code>postcommit_fail</code></td>
+<td>Total number of post-commit hook failures</td>
+</tr>
+
+<tr>
+<td><code>node_get_fsm_rejected_total</code></td>
+<td>Total number of GET FSMs rejected by Sidejob&rsquo;s overload protection</td>
+</tr>
+
+<tr>
+<td><code>node_put_fsm_rejected_total</code></td>
+<td>Total number of PUT FSMs rejected by Sidejob&rsquo;s overload protection</td>
+</tr>
+
+<tr>
+<td><code>read_repairs_primary_outofdate_count</code></td>
+<td>Total number of read repair operations performed on primary vnodes due to stale replicas</td>
+</tr>
+
+<tr>
+<td><code>read_repairs_primary_notfound_count</code></td>
+<td>Total number of read repair operations performed on primary vnodes due to missing replicas</td>
+</tr>
+
+<tr>
+<td><code>read_repairs_fallback_outofdate_count</code></td>
+<td>Total number of read repair operations performed on fallback vnodes due to stale replicas</td>
+</tr>
+
+<tr>
+<td><code>read_repairs_fallback_notfound_count</code></td>
+<td>Total number of read repair operations performed on fallback vnodes due to missing replicas</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="timestamps:a81dc8ab8ee74d8d9db666652ea58b44">Timestamps</h3>
+
+<p>Some of the Erlang applications that Riak is comprised of contribute
+statistics to <code>riak-admin status</code>.  The below timestamps record, in
+Epoch time, the last time statistics for that application were
+generated.</p>
+
+<table>
+<thead>
+<tr>
+<th>Stat</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>riak_kv_stat_ts</code></td>
+<td>The last time Riak KV stats were generated.</td>
+</tr>
+
+<tr>
+<td><code>riak_pipe_stat_ts</code></td>
+<td>The last time Riak Pipe stats were generated.</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="ring:a81dc8ab8ee74d8d9db666652ea58b44">Ring</h3>
+
+<p>General ring information is reported in <code>riak-admin status</code>.</p>
+
+<table>
+<thead>
+<tr>
+<th>Stat</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>ring_members</code></td>
+<td>List of nodes that are members of the ring</td>
+</tr>
+
+<tr>
+<td><code>ring_num_partitions</code></td>
+<td>The number of partitions in the ring</td>
+</tr>
+
+<tr>
+<td><code>ring_ownership</code></td>
+<td>List of all nodes in the ring and their associated partition ownership</td>
+</tr>
+
+<tr>
+<td><code>ring_creation_size</code></td>
+<td>Ring size this cluster was created with</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="cpu-and-memory:a81dc8ab8ee74d8d9db666652ea58b44">CPU and Memory</h3>
+
+<p>CPU statistics are taken directly from Erlang’s cpu_sup module.
+Documentation for which can be found at <a href="http://erldocs.com/R14B04/os_mon/cpu_sup.html">ErlDocs:
+cpu_sup</a>.</p>
+
+<table>
+<thead>
+<tr>
+<th>Stat</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>cpu_nprocs</code></td>
+<td>Number of operating system processes</td>
+</tr>
+
+<tr>
+<td><code>cpu_avg1</code></td>
+<td>The average number of active processes for the last 1 minute (equivalent to top(1) command’s load average when divided by 256())</td>
+</tr>
+
+<tr>
+<td><code>cpu_avg5</code></td>
+<td>The average number of active processes for the last 5 minutes (equivalent to top(1) command’s load average when divided by 256())</td>
+</tr>
+
+<tr>
+<td><code>cpu_avg15</code></td>
+<td>The average number of active processes for the last 15 minutes (equivalent to top(1) command’s load average when divided by 256())</td>
+</tr>
+</tbody>
+</table>
+
+<p>Memory statistics are taken directly from the Erlang virtual machine.
+Documentation for which can be found at <a href="http://erldocs.com/R14B04/erts/erlang.html?i=0&amp;search=erlang:memory#memory/0">ErlDocs:
+Memory</a>.</p>
+
+<table>
+<thead>
+<tr>
+<th>Stat</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>memory_total</code></td>
+<td>Total allocated memory (sum of processes and system)</td>
+</tr>
+
+<tr>
+<td><code>memory_processes</code></td>
+<td>Total amount of memory allocated for Erlang processes</td>
+</tr>
+
+<tr>
+<td><code>memory_processes_used</code></td>
+<td>Total amount of memory used by Erlang processes</td>
+</tr>
+
+<tr>
+<td><code>memory_system</code></td>
+<td>Total allocated memory that is not directly related to an Erlang process</td>
+</tr>
+
+<tr>
+<td><code>memory_atom</code></td>
+<td>Total amount of memory currently allocated for atom storage</td>
+</tr>
+
+<tr>
+<td><code>memory_atom_used</code></td>
+<td>Total amount of memory currently used for atom storage</td>
+</tr>
+
+<tr>
+<td><code>memory_binary</code></td>
+<td>Total amount of memory used for binaries</td>
+</tr>
+
+<tr>
+<td><code>memory_code</code></td>
+<td>Total amount of memory allocated for Erlang code</td>
+</tr>
+
+<tr>
+<td><code>memory_ets</code></td>
+<td>Total memory allocated for Erlang Term Storage</td>
+</tr>
+
+<tr>
+<td><code>mem_total</code></td>
+<td>Total available system memory</td>
+</tr>
+
+<tr>
+<td><code>mem_allocated</code></td>
+<td>Total memory allocated for this node</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="erlang-vm:a81dc8ab8ee74d8d9db666652ea58b44">Erlang VM</h3>
+
+<p>The below statistics describe properties of the Erlang VM.</p>
+
+<table>
+<thead>
+<tr>
+<th>Stat</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>nodename</code></td>
+<td>The name this node uses to identify itself</td>
+</tr>
+
+<tr>
+<td><code>connected_nodes</code></td>
+<td>A list of the nodes that this node is aware of at this time</td>
+</tr>
+
+<tr>
+<td><code>sys_driver_version</code></td>
+<td>String representing the Erlang driver version in use by the runtime system</td>
+</tr>
+
+<tr>
+<td><code>sys_global_heaps_size</code></td>
+<td>Current size of the shared global heap</td>
+</tr>
+
+<tr>
+<td><code>sys_heap_type</code></td>
+<td>String representing the heap type in use (one of private, shared, hybrid)</td>
+</tr>
+
+<tr>
+<td><code>sys_logical_processors</code></td>
+<td>Number of logical processors available on the system</td>
+</tr>
+
+<tr>
+<td><code>sys_otp_release</code></td>
+<td>Erlang OTP release version in use on the node</td>
+</tr>
+
+<tr>
+<td><code>sys_process_count</code></td>
+<td>Number of processes currently running in the Erlang VM</td>
+</tr>
+
+<tr>
+<td><code>sys_smp_support</code></td>
+<td>Boolean value representing whether symmetric multi-processing (SMP) is available</td>
+</tr>
+
+<tr>
+<td><code>sys_system_version</code></td>
+<td>Detailed Erlang version information</td>
+</tr>
+
+<tr>
+<td><code>sys_system_architecture</code></td>
+<td>The node operating system and hardware architecture</td>
+</tr>
+
+<tr>
+<td><code>sys_threads_enabled</code></td>
+<td>Boolean value representing whether threads are enabled</td>
+</tr>
+
+<tr>
+<td><code>sys_thread_pool_size</code></td>
+<td>Number of threads in the asynchronous thread pool</td>
+</tr>
+
+<tr>
+<td><code>sys_wordsize</code></td>
+<td>Size of Erlang term words in bytes as an integer, for examples, on 32-bit architectures 4 is returned and on 64-bit architectures 8 is returned</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="miscellaneous-information:a81dc8ab8ee74d8d9db666652ea58b44">Miscellaneous Information</h3>
+
+<p>Miscellaneous Information provide additional details particular to this
+node.</p>
+
+<table>
+<thead>
+<tr>
+<th>Stat</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>leveldb_read_block_error</code></td>
+<td>The number of LevelDB read block errors.  Will read as undefined if LevelDB is not being used.</td>
+</tr>
+
+<tr>
+<td><code>disk</code></td>
+<td>Information about the disk, taken from Erlang&rsquo;s disksup module.  Reported as [{&ldquo;ID&rdquo;,KBytes_Used,Percent_Util}].</td>
+</tr>
+
+<tr>
+<td><code>storage_backend</code></td>
+<td>The storage backend currently in use.</td>
+</tr>
+</tbody>
+</table>
+
+<p>{{#1.2.0+}}</p>
+
+<h3 id="pipeline-metrics:a81dc8ab8ee74d8d9db666652ea58b44">Pipeline Metrics</h3>
+
+<p>The following metrics from from riak_pipe are generated during MapReduce
+operations.</p>
+
+<table>
+<thead>
+<tr>
+<th>Stat</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>pipeline_active</code></td>
+<td>The number of pipelines active in the last 60 seconds</td>
+</tr>
+
+<tr>
+<td><code>pipeline_create_count</code></td>
+<td>The total number of pipelines created since the node was started</td>
+</tr>
+
+<tr>
+<td><code>pipeline_create_error_count</code></td>
+<td>The total number of pipeline creation errors since the node was started</td>
+</tr>
+
+<tr>
+<td><code>pipeline_create_error_one</code></td>
+<td>The number of pipeline creation errors in the last 60 seconds</td>
+</tr>
+
+<tr>
+<td><code>pipeline_create_one</code></td>
+<td>The number of pipelines created in the last 60 seconds</td>
+</tr>
+</tbody>
+</table>
+
+<p>{{/1.2.0+}}</p>
+
+<h3 id="application-and-subsystem-versions:a81dc8ab8ee74d8d9db666652ea58b44">Application and Subsystem Versions</h3>
+
+<p>The specific version of each Erlang application and subsystem which
+makes up a Riak node is present in the <code>riak-admin status</code> output.  Each
+application is linked below next to it&rsquo;s version identifier.</p>
+
+<table>
+<thead>
+<tr>
+<th>Stat</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>erlydtl_version</code></td>
+<td><a href="http://github.com/erlydtl/erlydtl">ErlyDTL</a></td>
+</tr>
+
+<tr>
+<td><code>riak_control_version</code></td>
+<td><a href="http://github.com/basho/riak_control">Riak Control</a></td>
+</tr>
+
+<tr>
+<td><code>cluster_info_version</code></td>
+<td><a href="http://github.com/basho/cluster_info">Cluster Information</a></td>
+</tr>
+
+<tr>
+<td><code>riak_search_version</code></td>
+<td><a href="http://github.com/basho/riak_search">Riak Search</a></td>
+</tr>
+
+<tr>
+<td><code>merge_index_version</code></td>
+<td><a href="http://github.com/basho/merge_index">Merge Index</a></td>
+</tr>
+
+<tr>
+<td><code>riak_kv_version</code></td>
+<td><a href="http://github.com/basho/riak_kv">Riak KV</a></td>
+</tr>
+
+<tr>
+<td><code>sidejob_version</code></td>
+<td><a href="http://github.com/basho/sidejob">Sidejob</a></td>
+</tr>
+
+<tr>
+<td><code>riak_api_version</code></td>
+<td><a href="http://github.com/basho/riak_api">Riak API</a></td>
+</tr>
+
+<tr>
+<td><code>riak_pipe_version</code></td>
+<td><a href="http://github.com/basho/riak_pipe">Riak Pipe</a></td>
+</tr>
+
+<tr>
+<td><code>riak_core_version</code></td>
+<td><a href="http://github.com/basho/riak_core">Riak Core</a></td>
+</tr>
+
+<tr>
+<td><code>bitcask_version</code></td>
+<td><a href="http://github.com/basho/bitcask">Bitcask</a></td>
+</tr>
+
+<tr>
+<td><code>basho_stats_version</code></td>
+<td><a href="http://github.com/basho/basho_stats">Basho Stats</a> {{#&lt;1.3.0}}</td>
+</tr>
+
+<tr>
+<td><code>webmachine_version</code></td>
+<td><a href="http://github.com/basho/webmachine">Webmachine</a></td>
+</tr>
+
+<tr>
+<td><code>mochiweb_version</code></td>
+<td><a href="http://github.com/basho/mochiweb">MochiWeb</a></td>
+</tr>
+
+<tr>
+<td><code>inets_version</code></td>
+<td><a href="http://erlang.org/doc/apps/inets/">inets</a></td>
+</tr>
+
+<tr>
+<td><code>erlang_js_version</code></td>
+<td><a href="http://github.com/basho/erlang_js">Erlang JS</a></td>
+</tr>
+
+<tr>
+<td><code>runtime_tools_version</code></td>
+<td><a href="http://erlang.org/doc/apps/runtime_tools/">Erlang Runtime Tools</a></td>
+</tr>
+
+<tr>
+<td><code>os_mon_version</code></td>
+<td><a href="http://erlang.org/doc/apps/os_mon/">Erlang Operating System Monitor</a></td>
+</tr>
+
+<tr>
+<td><code>riak_sysmon_version</code></td>
+<td><a href="http://github.com/basho/riak_sysmon">Riak System Monitor</a></td>
+</tr>
+
+<tr>
+<td><code>ssl_version</code></td>
+<td><a href="http://erlang.org/doc/apps/ssl/">Erlang Secure Sockets Layer (SSL)</a></td>
+</tr>
+
+<tr>
+<td><code>public_key_version</code></td>
+<td><a href="http://erlang.org/doc/apps/public_key/">Erlang Public Key</a></td>
+</tr>
+
+<tr>
+<td><code>crypto_version</code></td>
+<td><a href="http://erlang.org/doc/apps/crypto/">Erlang crypto</a></td>
+</tr>
+
+<tr>
+<td><code>sasl_version</code></td>
+<td><a href="http://erlang.org/doc/apps/sasl/">SASL</a></td>
+</tr>
+
+<tr>
+<td><code>lager_version</code></td>
+<td><a href="http://github.com/DeadZen/lager">Lager</a></td>
+</tr>
+
+<tr>
+<td><code>goldrush_version</code></td>
+<td><a href="http://github.com/DeadZen/goldrush">Goldrush</a></td>
+</tr>
+
+<tr>
+<td><code>compiler_version</code></td>
+<td><a href="http://erlang.org/doc/apps/compiler/">Erlang Compiler</a></td>
+</tr>
+
+<tr>
+<td><code>syntax_tools_version</code></td>
+<td><a href="http://www.erlang.org/doc/apps/syntax_tools/">Erlang Syntax Tools</a></td>
+</tr>
+
+<tr>
+<td><code>stdlib_version</code></td>
+<td><a href="http://erlang.org/doc/apps/stdlib/">Standard Library</a></td>
+</tr>
+
+<tr>
+<td><code>kernel_version</code></td>
+<td><a href="http://erlang.org/doc/apps/kernel/">Kernel</a></td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="riak-search-statistics:a81dc8ab8ee74d8d9db666652ea58b44">Riak Search Statistics</h3>
+
+<p>The following statistics related to Riak Search message queues are
+available.</p>
+
+<table>
+<thead>
+<tr>
+<th>Stat</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>riak_search_vnodeq_max</code></td>
+<td>Maximum number of unprocessed messages all virtual node (vnode) message queues in the Riak Search subsystem have received on this node in the last minute</td>
+</tr>
+
+<tr>
+<td><code>riak_search_vnodeq_mean</code></td>
+<td>Mean number of unprocessed messages all vnode message queues in the Riak Search subsystem have received on this node in the last minute</td>
+</tr>
+
+<tr>
+<td><code>riak_search_vnodeq_median</code></td>
+<td>Median number of unprocessed messages all vnode message queues in the Riak Search subsystem have received on this node in the last minute</td>
+</tr>
+
+<tr>
+<td><code>riak_search_vnodeq_min</code></td>
+<td>Minimum number of unprocessed messages all vnode message queues in the Riak Search subsystem have received on this node in the last minute</td>
+</tr>
+
+<tr>
+<td><code>riak_search_vnodeq_total</code></td>
+<td>Total number of unprocessed messages all vnode message queues in the Riak Search subsystem have received on this node since it was started</td>
+</tr>
+
+<tr>
+<td><code>riak_search_vnodes_running</code></td>
+<td>Total number of vnodes currently running in the Riak Search subsystem</td>
+</tr>
+</tbody>
+</table>
+
+<p>Note that under ideal operation and with the exception of
+<code>riak_search_vnodes_running</code> these statistics should contain low values
+(e.g., 0-10). Presence of higher values could be indicative of an issue.</p>
+
+<h2 id="riaknostic:a81dc8ab8ee74d8d9db666652ea58b44">Riaknostic</h2>
+
+<p><a href="http://riaknostic.basho.com/">Riaknostic</a> is a small suite of
+diagnostic checks that can be run against a Riak node to discover common
+problems. It often offers recommendations about how to resolve those
+problems as well. These checks are derived from the experience of the
+Basho Client Services Team as well as numerous public discussions on the
+mailing list, <code>#riak</code> IRC channel, and other online media.</p>
+
+<p>Getting started with Riaknostic is easy, and instructions for
+installation and use are provided on the <a href="http://riaknostic.basho.com/">Riaknostic
+website</a>. Once downloaded and installed,
+Riaknostic adds a <code>diag</code> subcommand to the <code>riak-admin</code>
+command.{{/1.3.0-}}</p>
+
+<p>Riaknostic is installed with Riak by default and exposed through the
+<code>riak-admin diag</code> command interface. It is an open source project
+developed by Basho Technologies and Riak community members. The code is
+available in the Riaknostic Github repository.</p>
+
+<h2 id="strong-consistency-stats:a81dc8ab8ee74d8d9db666652ea58b44">Strong Consistency Stats</h2>
+
+<p>Riak tabulates a variety of stats related to Riak&rsquo;s optional [[strong
+consistency]] feature. The table below lists those stats.</p>
+
+<h3 id="get-related-stats:a81dc8ab8ee74d8d9db666652ea58b44">GET-related stats</h3>
+
+<table>
+<thead>
+<tr>
+<th align="left">Stat</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left"><code>consistent_gets</code></td>
+<td align="left">Number of strongly consistent GETs coordinated by this node in the last minute</td>
+</tr>
+
+<tr>
+<td align="left"><code>consistent_gets_total</code></td>
+<td align="left">Total number of strongly consistent GETs coordinated by this node</td>
+</tr>
+
+<tr>
+<td align="left"><code>consistent_get_objsize_mean</code></td>
+<td align="left">Mean object size for strongly consistent GETs on this node in the last minute</td>
+</tr>
+
+<tr>
+<td align="left"><code>consistent_get_objsize_median</code></td>
+<td align="left">Median object size for strongly consistent GETs on this node in the last minute</td>
+</tr>
+
+<tr>
+<td align="left"><code>consistent_get_objsize_95</code></td>
+<td align="left">95th-percentile object size for strongly consistent GETs on this node in the last minute</td>
+</tr>
+
+<tr>
+<td align="left"><code>consistent_get_objsize_99</code></td>
+<td align="left">99th-percentile object size for strongly consistent GETs on this node in the last minute</td>
+</tr>
+
+<tr>
+<td align="left"><code>consistent_get_objsize_100</code></td>
+<td align="left">100th-percentile object size for strongly consistent GETs on this node in the last minute</td>
+</tr>
+
+<tr>
+<td align="left"><code>consistent_get_time_mean</code></td>
+<td align="left">Mean time between reception of client GETs to strongly consistent keys and subsequent response</td>
+</tr>
+
+<tr>
+<td align="left"><code>consistent_get_time_median</code></td>
+<td align="left">Median time between reception of client GETs to strongly consistent keys and subsequent response</td>
+</tr>
+
+<tr>
+<td align="left"><code>consistent_get_time_95</code></td>
+<td align="left">95th-percentile time between reception of client GETs to strongly consistent keys and subsequent response</td>
+</tr>
+
+<tr>
+<td align="left"><code>consistent_get_time_99</code></td>
+<td align="left">99th-percentile time between reception of client GETs to strongly consistent keys and subsequent response</td>
+</tr>
+
+<tr>
+<td align="left"><code>consistent_get_time_100</code></td>
+<td align="left">100th-percentile time between reception of client GETs to strongly consistent keys and subsequent response</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="put-related-stats:a81dc8ab8ee74d8d9db666652ea58b44">PUT-related stats</h3>
+
+<table>
+<thead>
+<tr>
+<th align="left">Stat</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left"><code>consistent_puts</code></td>
+<td align="left">Number of strongly consistent PUTs coordinated by this node in the last minute</td>
+</tr>
+
+<tr>
+<td align="left"><code>consistent_puts_total</code></td>
+<td align="left">Total number of strongly consistent PUTs coordinated by this node</td>
+</tr>
+
+<tr>
+<td align="left"><code>consistent_put_objsize_mean</code></td>
+<td align="left">Mean object size for strongly consistent PUTs on this node in the last minute</td>
+</tr>
+
+<tr>
+<td align="left"><code>consistent_put_objsize_median</code></td>
+<td align="left">Median object size for strongly consistent PUTs on this node in the last minute</td>
+</tr>
+
+<tr>
+<td align="left"><code>consistent_put_objsize_95</code></td>
+<td align="left">95th-percentile object size for strongly consistent PUTs on this node in the last minute</td>
+</tr>
+
+<tr>
+<td align="left"><code>consistent_put_objsize_99</code></td>
+<td align="left">99th-percentile object size for strongly consistent PUTs on this node in the last minute</td>
+</tr>
+
+<tr>
+<td align="left"><code>consistent_put_objsize_100</code></td>
+<td align="left">100th-percentile object size for strongly consistent PUTs on this node in the last minute</td>
+</tr>
+
+<tr>
+<td align="left"><code>consistent_put_time_mean</code></td>
+<td align="left">Mean time between reception of client PUTs to strongly consistent keys and subsequent response</td>
+</tr>
+
+<tr>
+<td align="left"><code>consistent_put_time_median</code></td>
+<td align="left">Median time between reception of client PUTs to strongly consistent keys and subsequent response</td>
+</tr>
+
+<tr>
+<td align="left"><code>consistent_put_time_95</code></td>
+<td align="left">95th-percentile time between reception of client PUTs to strongly consistent keys and subsequent response</td>
+</tr>
+
+<tr>
+<td align="left"><code>consistent_put_time_99</code></td>
+<td align="left">99th-percentile time between reception of client PUTs to strongly consistent keys and subsequent response</td>
+</tr>
+
+<tr>
+<td align="left"><code>consistent_put_time_100</code></td>
+<td align="left">100th-percentile time between reception of client PUTs to strongly consistent keys and subsequent response</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="riak-admin-diag:a81dc8ab8ee74d8d9db666652ea58b44">riak-admin diag</h2>
+
+<p>Running <code>riak-admin diag</code> by itself will perform a check of all of the
+data partitions in your cluster. It will return a listing of partitions
+that have been checked, each of which looks something like this:</p>
+
+<pre><code>{1392993748081016843912887106182707253109560705024, % the partition checked
+ 'dev-rel@127.0.0.1'},                              % that partition's nodename
+</code></pre>
+
+<p>At the end of that (potentially very long) listing of checked
+partitions, it will print notices, warnings, and other pieces of
+information about issues that it has found, including date/time, message
+type, and a detailed description. Here&rsquo;s an example:</p>
+
+<pre><code>15:34:52.736 [warning] Riak crashed at Wed, 07 Dec 2011 21:47:50 GMT, leaving crash dump in /srv/riak/log/erl_crash.dump. Please inspect or remove the file.
+15:34:52.736 [notice] Data directory /srv/riak/data/bitcask is not mounted with 'noatime'. Please remount its disk with the 'noatime' flag to improve performance.
+</code></pre>
+
+<p>Messages bear the following types (derived from
+<a href="http://en.wikipedia.org/wiki/Syslog">syslog</a> security levels):</p>
+
+<ul>
+<li><code>debug</code></li>
+<li><code>info</code></li>
+<li><code>notice</code></li>
+<li><code>warning</code></li>
+<li><code>error</code></li>
+<li><code>critical</code></li>
+<li><code>alert</code></li>
+<li><code>emergency</code></li>
+</ul>
+
+<h4 id="command-flags:a81dc8ab8ee74d8d9db666652ea58b44">Command flags</h4>
+
+<p>Attaching the <code>--help</code> flag will return a list of flags and commands
+that can be used with Riaknostic:</p>
+
+<pre><code>Usage: riak-admin diag [-d &lt;level&gt;] [-l] [-h] [--export] [check_name ...]
+
+-h, --help            Display help/usage dialogue
+-d, --level           Minimum message severity level (default: notice)
+-l, --list            Describe available diagnostic tasks
+--export              Package system info in '/export.zip'
+check_name            A specific check to run
+</code></pre>
+
+<p>Running <code>riak-admin diag</code>  with the <code>--list</code> flag will return a list of
+available diagnostic checks. The following checks are available:</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">Check</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left"><code>disk</code></td>
+<td align="left">Data directory permissions and atime</td>
+</tr>
+
+<tr>
+<td align="left"><code>dumps</code></td>
+<td align="left">Find crash dumps</td>
+</tr>
+
+<tr>
+<td align="left"><code>memory_use</code></td>
+<td align="left">Measure memory usage</td>
+</tr>
+
+<tr>
+<td align="left"><code>nodes_connected</code></td>
+<td align="left">Cluster node liveness</td>
+</tr>
+
+<tr>
+<td align="left"><code>ring_membership</code></td>
+<td align="left">Cluster membership validity</td>
+</tr>
+
+<tr>
+<td align="left"><code>ring_preflists</code></td>
+<td align="left">Check if the ring satisfies <code>n_val</code></td>
+</tr>
+
+<tr>
+<td align="left"><code>ring_size</code></td>
+<td align="left">Check if the ring size valid</td>
+</tr>
+
+<tr>
+<td align="left"><code>search</code></td>
+<td align="left">Check whether Riak Search is enabled on all nodes</td>
+</tr>
+</tbody>
+</table>
+
+<p>The <code>--level</code> flag enables you to specify the log level and thus to
+filter messages based on type. You can pass in any of the message types
+listed above (<code>debug</code>, <code>info</code>, etc.).</p>
+
+<p>The <code>--level</code> flag can be used when running <code>riak-admin diag</code> with or
+without specifying a diagnostic check.</p>
+
+<h4 id="contributing:a81dc8ab8ee74d8d9db666652ea58b44">Contributing</h4>
+
+<p>Do you have an idea that would help us improve Riaknostic? If so, fork
+the <a href="https://github.com/basho/riaknostic">GitHub repository</a> and send us
+a pull request with your changes. The code is documented with
+<a href="http://riaknostic.basho.com/edoc/index.html">edoc</a>, so give the API
+Docs a read before you contribute.</p>
+
+<p>If you want to run the Riaknostic script while developing and you don&rsquo;t
+have it hooked up to your local Riak installation, you can invoke it
+directly like so:</p>
+
+<pre><code class="language-bash">./riaknostic --etc ~/code/riak/rel/riak/etc --base ~/code/riak/rel/riak --user `whoami` [other options]
+</code></pre>
+
+<p>Those extra options are usually assigned by the <code>riak-admin</code> script for
+you, but here&rsquo;s how to set them:</p>
+
+<ul>
+<li><code>--etc</code> &mdash; The location of your Riak configuration directory (usually
+<code>/etc</code>). In the example above, configuration is in the generated
+directory of a source checkout of Riak.</li>
+<li><code>--base</code> &mdash; The &ldquo;base&rdquo; directory of Riak, usually the root of the
+generated directory or <code>/usr/lib/riak</code> on Linux. Scan the
+<code>riak-admin</code> script for how the <code>RUNNER_BASE_DIR</code> variable is
+assigned on your platform.</li>
+<li><code>--user</code> &mdash; The user/UID as which the Riak node runs. In a source
+checkout, it&rsquo;s the current user; on most systems, it&rsquo;s <code>riak</code>.</li>
+</ul>
+
+<h2 id="related-resources:a81dc8ab8ee74d8d9db666652ea58b44">Related Resources</h2>
+
+<ul>
+<li>[[The riak-admin configuration management tool|riak-admin Command
+Line]]</li>
+<li><a href="http://riaknostic.basho.com/">Riaknostic</a></li>
+<li>[[HTTP API Status|HTTP Status]]</li>
+</ul>
+
+
+      <div class="clear"></div>
+
+    </article>
+
+    <footer class="mastfooter">
+    This work is licensed under a
+    <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">
+        Creative Commons Attribution 4.0 International Public License
+    </a><br>
+    &copy; 2011-2016&nbsp;<a href="http://www.basho.com">Basho Technologies, Inc.</a>
+</footer>
+
+
+  </div>
+
+  <script src="/js/all.js" type="text/javascript"></script>
+<script type= "text/javascript">
+  
+  hljs.configure({languages: []});
+  hljs.initHighlighting();
+
+  
+  
+  
+  $(function() {
+    $(".js_enabled pre").css("visibility", "visible");
+  });
+</script>
+
+
+</body>
+</html>

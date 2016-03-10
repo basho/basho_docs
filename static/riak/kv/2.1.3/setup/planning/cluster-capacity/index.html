@@ -1,0 +1,1722 @@
+<!DOCTYPE html>
+
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"></html><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"></html><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"></html><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->
+
+
+
+
+<head class="tutorials">
+  <meta charset="utf-8">
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width">
+  <meta name="project" content="riak_kv">
+  <meta name="version" content="2.1.3">
+  <meta name="base-url" content="">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+  <title>Cluster Capacity Planning</title>
+
+  <link href="/css/all.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="/css/print.css" media="print" rel="stylesheet" type="text/css">
+
+  
+  <style type="text/css"> .js_enabled pre { visibility : hidden; } </style>
+  <script type="text/javascript">
+    document.documentElement.className = 'js_enabled';
+  </script>
+</head>
+
+
+
+<body class="riak_kv 2.1.3 latest ">
+
+  <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-T9C8MK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-T9C8MK');</script>
+
+  
+<aside id="nav-container" role="complementary">
+  <nav class="overview" id="primary-nav" role="nav">
+    <div id="primary-nav-content">
+      <h2 class="responsive-link"><a class="responsive-toggle"></a></h2>
+
+      
+      <form id="searchbox_011972015458788978446:zgdcy4fa-o0" action="">
+        <div class="nav-field-container">
+          <div id="icon-container-search">
+            <div class="icon-container"><span aria-hidden="true" class="nav-icon-search icon-search"></span></div>
+            <span class="separator">&#124;</span>
+          </div>
+          <input id="main-search" name="q" placeholder="Search" size="5" type="search" />
+        </div>
+      </form>
+
+      <div class="clear"></div>
+
+      
+      <h3 class="responsive-link visit-basho">
+        <a href="http://www.basho.com">
+          <div class="icon-container">
+            <span aria-hidden="true" class="nav-icon" data-icon="&#xe003;"></span>
+          </div>
+          <span class="separator">&#124;</span>
+          <span class="menu-title">Visit Basho</span>
+          <div class="clear"></div>
+        </a>
+      </h3>
+
+      
+      <h3 class="responsive-link">
+        <a href="/index.html">
+          <div class="icon-container">
+            <span aria-hidden="true" class="nav-icon" data-icon="&#xe003;"></span>
+          </div>
+          <span class="separator">&#124;</span>
+          <span class="menu-title">All Riak Projects</span>
+          <div class="clear"></div>
+        </a>
+      </h3>
+
+      
+      
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-riak"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/">Riak KV</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-download-alt"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/downloads/">Download Riak KV</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-install"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/setup/">Setup</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/planning/">Planning</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/start/">Start Planning</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/operating-system/">OS Support</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/planning/backend/">Choosing a Backend</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/backend/bitcask/">Bitcask</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/backend/leveldb/">LevelDB</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/backend/memory/">Memory</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/backend/multi/">Multi-backend</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li class="current">
+  
+    <a href="/riak/kv/2.1.3/setup/planning/cluster-capacity/">Cluster Capacity</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/bitcask-capacity-calc/">Bitcask Capacity Calculator</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/best-practices/">Best Practices</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/planning/future/">Planning for the Future</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/installing/">Installing</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/amazon-web-services/">Amazon Web Services</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/debian-ubuntu/">Debian &amp; Ubuntu</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/freebsd/">FreeBSD</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/mac-osx/">Mac OS X</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/rhel-centos/">RHEL &amp; CentOS</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/smartos/">SmartOS</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/solaris/">Solaris</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/suse/">SUSE</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/windows-azure/">Windows Azure</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/installing/source/">Installing From Source</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/source/erlang/">Installing Erlang</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/source/jvm/">Installing the JVM</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/installing/verify/">Verifying an Installation</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/setup/upgrading/">Upgrading</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/checklist/">Production Checklist</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/version/">Upgrading by Version</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/cluster/">Upgrading a Cluster</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/multi-datacenter/">Upgrading Multi-Datacenter</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/setup/upgrading/downgrade/">Downgrading</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-cog"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/configuring/">Configuring</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/basic/">Basic Configuration</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/backend/">Backend Configuration</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/managing/">Managing Configuration</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/reference/">Configuration Reference</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/strong-consistency/">Implementing Strong Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/load-balancing-proxy/">Load Balancing &amp; Proxy</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/mapreduce/">MapReduce Settings</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/search/">Search Settings</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/configuring/v3-multi-datacenter/">V3 Multi-Datacenter</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v3-multi-datacenter/quick-start/">Quickstart</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v3-multi-datacenter/nat/">With NAT</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v3-multi-datacenter/ssl/">SSL</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/configuring/v2-multi-datacenter/">V2 Multi-Datacenter</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v2-multi-datacenter/quick-start/">Quickstart</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v2-multi-datacenter/nat/">With NAT</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/configuring/v2-multi-datacenter/ssl/">SSL</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-database"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/using/">Using</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/running-a-cluster/">Running a Cluster</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/admin/">Cluster Administration</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/admin/commands/">Cluster Admin Commands</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/admin/riak-admin/">riak-admin CLI</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/admin/riak-cli/">riak CLI</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/admin/riak-control/">Riak Control</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/cluster-operations/">Cluster Operations</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/adding-removing-nodes/">Adding/Removing Nodes</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/changing-cluster-info/">Changing Cluster Information</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/replacing-node/">Replacing a Node</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/inspecting-node/">Inspecting a Node</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/bucket-types/">Bucket Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/logging/">Logging</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/backing-up/">Backing Up</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/handoff/">Handoff</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/object-deletion/">Object Deletion</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/secondary-indexes/">Secondary Indexes</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/monitoring-strong-consistency/">Monitoring Strong Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/load-balancing/">Load Balancing</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/backend/">Backend</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/v3-multi-datacenter/">V3 Multi-Datacenter</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/cluster-operations/v2-multi-datacenter/">V2 Multi-Datacenter</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/repair-recovery/">Repair &amp; Recovery</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/repair-recovery/failure-recovery/">Failure &amp; Recovery</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/repair-recovery/errors/">Errors</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/repair-recovery/repairs/">Repairs</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/repair-recovery/rolling-restart/">Rolling Restarts</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/security/">Security</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/security/basics/">Security Basics</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/security/managing-sources/">Managing Security Sources</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/security/best-practices/">Best Practices</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/security/v2-v3-ssl-ca/">V2/V3 SSL &amp; CA Validation</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/performance/">Performance</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/performance/benchmarking/">Benchmarking</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/performance/open-files-limit/">Open Files Limit</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/performance/v2-scheduling-fullsync/">V2 Scheduling Fullsync</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/performance/multi-datacenter-tuning/">Multi-Datacenter Replication</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/troubleshooting/">Troubleshooting</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/">Product Advisories</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/210-dataloss/">Default Configuration For Handoff May Cause Data Loss</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/appconfig-foward/">Forward Incompatibility of app.config</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/dvv-lastwritewins/">Incompatibility between Dotted Version Vectors and Last Write Wins</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/maps-204/">Map Data Type Disk Incompatibility</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/product-advisories/ssl-poodle/">SSL 3.0 Vulnerability and POODLE Attack</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/troubleshooting/http-204/">HTTP 204</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/using/reference/">Reference</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/logging/">Logging</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/handoff/">Handoff</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/bucket-types/">Bucket Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/object-deletion/">Object Deletion</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/runtime-interaction/">Runtime Interaction</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/failure-recovery/">Failure &amp; Recovery</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/monitoring/">Monitoring</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/search-secondary-indexes/">Search &amp; Secondary Indexes</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/strong-consistency/">Strong Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/multi-datacenter/">Multi-Datacenter</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/v3/">V3 Replication</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/v2/">V2 Replication</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/using/reference/architecture/">Architecture</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-lambda"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/developing/">Developing</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/">Getting Started</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/java/">Java</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/java/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/java/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/java/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/ruby/">Ruby</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/ruby/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/ruby/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/ruby/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/python/">Python</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/python/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/python/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/python/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/csharp/">C Sharp</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/csharp/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/csharp/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/csharp/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/nodejs/">NodeJS</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/nodejs/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/nodejs/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/nodejs/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/erlang/">Erlang</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/erlang/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/erlang/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/erlang/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/golang/">Go</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/golang/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/golang/querying/">Querying</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/golang/object-modeling/">Object Modeling</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/getting-started/php/">PHP</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/php/crud-operations/">CRUD Operations</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/getting-started/php/querying/">Querying</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/usage/">Usage</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/creating-objects/">Creating Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/reading-objects/">Reading Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/updating-objects/">Updating Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/deleting-objects/">Deleting Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/content-types/">Content Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/search/">Searching</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/mapreduce/">Using MapReduce</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/secondary-indexes/">Using Secondary Indexes</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/bucket-types/">Bucket Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/commit-hooks/">Using Commit Hooks</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/search-schemas/">Creating Search Schemas</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/searching-data-types/">Searching with Data Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/document-store/">Implementing a Document Store</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/custom-extractors/">Custom Extractors</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/usage/security/">Security</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/java/">Java</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/ruby/">Ruby</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/python/">Python</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/erlang/">Erlang</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/security/php/">PHP</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/replication/">Replication</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/">Conflict Resolution</a></span></h4>
+    
+<ul class="depth-3">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/java/">Java</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/ruby/">Ruby</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/python/">Python</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/csharp/">C Sharp</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/nodejs/">NodeJS</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/php/">PHP</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution/golang/">Go</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/data-types/">Data Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/data-modeling/">Data Modeling</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/app-guide/">Application Guide</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/app-guide/replication-properties/">Replication Properties</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/app-guide/strong-consistency/">Strong Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/app-guide/write-once/">Write Once</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/app-guide/reference/">Reference</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/client-libraries/">Client Libraries</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/developing/api/">APIs</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/api/repl-hooks/">V2 Multi-Datacenter REPL Hooks API</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/api/backend/">Backend API</a>
+  
+  </li></ul>
+
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/developing/faq/">Developing FAQ</a>
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-beaker"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/riak/kv/2.1.3/learn/">Learning</a></span>
+        <div class="clear"></div>
+      </h3>
+      
+      
+        
+<ul class="depth-1">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/why-riak-kv/">Why Riak KV?</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/use-cases/">Use Cases</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/new-to-nosql/">New to NoSQL?</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/glossary/">Riak KV Glossary</a>
+  
+  </li>
+  <li >
+  
+    <h4><span><a href="/riak/kv/2.1.3/learn/concepts/">Concepts</a></span></h4>
+    
+<ul class="depth-2">
+  
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/active-anti-entropy/">Active Anti-Entropy</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/buckets/">Buckets</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/capability-negotiation/">Capability Negotiation</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/causal-context/">Causal Context</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/clusters/">Clusters</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/crdts/">Data Types</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/eventual-consistency/">Eventual Consistency</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/keys-and-objects/">Keys and Objects</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/replication/">Replication</a>
+  
+  </li>
+  <li >
+  
+    <a href="/riak/kv/2.1.3/learn/concepts/vnodes/">Vnodes</a>
+  
+  </li></ul>
+
+  
+  </li></ul>
+
+       
+      <h3>
+        <div class="icon-container"><span aria-hidden="true" class="nav-icon icon-comments"></span>&nbsp;</div>
+        <span class="separator">&#124;</span>
+        <span class="menu-title"><a href="/community">Community</a></span>
+        <div class="clear"></div>
+      </h3>
+      <ul></ul> 
+    </div>
+  </nav>
+
+  
+  <ul id="fixed-nav">
+    <li>
+      <a href="https://github.com/basho/basho_docs" target="_blank">
+        <div class="icon-container">
+          <span aria-hidden="true" class="nav-icon" data-icon="&#xe004;"></span>
+        </div>
+        <span class="separator">&#124;</span>Available on GitHub
+      </a>
+    </li>
+    <li>
+      <a href="/riak/latest/community/">
+        <div class="icon-container">
+          <span aria-hidden="true" class="nav-icon" data-icon="&#xf059;"></span>
+        </div>
+        <span class="separator">&#124;</span>Get Help
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+  <script>
+  (function() {
+    var cx = '011972015458788978446:zgdcy4fa-o0';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<div style="width:0px;overflow:hidden;height:0px;">
+  <gcse:search></gcse:search>
+</div>
+
+
+  <div role="main">
+
+    <header class="masthead">
+  <div id="header">
+    
+    <div id="header-inner">
+      <div class="icon-reorder" id="nav-toggle"></div>
+
+      <div id="top-nav">
+        
+        <a href="/riak/kv/2.1.3/downloads/"><span class="icon-download-alt"></span>Downloads</a>
+        <div id="nav-more"><span class="icon-more"></span></div>
+      </div>
+
+      <a class="responsive-toggle"></a>
+      
+      
+      <a class="logo" href="/index.html"><h1>Riak Docs</h1></a>
+      
+      <span class="tagline">Product tutorials, how-tos, and fully-documented APIs.</span>
+      <div id="nav-menu">
+        <h2>Links</h2>
+        <ul>
+          <li><a href="http://docs.basho.com/">Docs Home</a></li>
+          <li><a href="http://basho.com/">Basho Website</a></li>
+        </ul>
+        
+        <div id="nav-menu-arrow"></div>
+        <div id="nav-menu-arrow-back"></div>
+      </div>
+
+      <div class="clear"></div>
+
+      <div class="header-rule"></div>
+    </div>
+  </div>
+</header>
+
+
+    <article class="mainarticle">
+
+      <div class="versions">
+  <div id="version-ddown-button" class="unselected">
+    <div class="version-ddown-title">Version</div>
+    <div class="version-ddown-number">2.1.3</div>
+    <div class="version-ddown-arrow"></div>
+  </div>
+  <ol id="version-list" style="display: none;">
+  
+  
+    
+    
+      
+      
+      <li class="sans versions-0 current">DEV</li>
+      
+      <li class="current versions-0"><a class="versioned" href="/riak/kv/2.1.3/setup/planning/cluster-capacity/">2.1.3</a></li>
+    
+    
+      
+      
+      
+      <li class=" versions-0 first"><a class="versioned" href="/riak/kv/2.1.1/setup/planning/cluster-capacity/">2.1.1</a></li>
+    
+  
+    
+    
+      
+      
+      
+      <li class="sans versions-1 current">LTS</li>
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.6/setup/planning/cluster-capacity/">2.0.6</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.5/setup/planning/cluster-capacity/">2.0.5</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.4/setup/planning/cluster-capacity/">2.0.4</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.2/setup/planning/cluster-capacity/">2.0.2</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.1/setup/planning/cluster-capacity/">2.0.1</a></li>
+    
+    
+      
+      
+      
+      <li class=" versions-1 first"><a class="versioned" href="/riak/kv/2.0.0/setup/planning/cluster-capacity/">2.0.0</a></li>
+    
+  
+  
+  <li class="versions-5 first"><a class="sans versioned" href="http://docs.basho.com/riak/1.4.12/">older</a></li>
+  </ol>
+</div>
+
+
+      
+      
+
+      <header><h1>Cluster Capacity Planning</h1></header>
+
+      
+
+      
+      <nav id="toc">
+        <h2 class="title">Contents</h2>
+        <div id="toc-wrapper">
+          <ol id="toc-items"></ol>
+        </div>
+      </nav>
+      
+
+      
+
+<p>This document outlines the various elements and variables to keep in mind when planning your Riak cluster. Your use case and environment variables will be specific to what you&rsquo;re building, but this document should set you on the right path when planning and launching a Riak cluster.</p>
+
+<h2 id="ram:6c7dd14b3d922b6343633774781f023f">RAM</h2>
+
+<p><a href="http://en.wikipedia.org/wiki/Random-access_memory">RAM</a> is the most important resource when sizing your Riak cluster. Memory keeps data closer to your users. Memory is essential for running complex MapReduce queries or caching data to provide low-latency request times.</p>
+
+<h3 id="bitcask-and-memory-requirements:6c7dd14b3d922b6343633774781f023f">Bitcask and Memory Requirements</h3>
+
+<p>Your choice of local storage backend for Riak impacts your RAM
+needs. Though Riak has pluggable backend storage, Bitcask is the
+default.  Why? Because it&rsquo;s built for:</p>
+
+<ul>
+<li>low-latency request times</li>
+<li>high throughput</li>
+<li>the ability to handle data sets much larger than RAM w/o degradation</li>
+</ul>
+
+<p>Bitcask&rsquo;s one major requirement, however, is that it must keep the
+entire <strong>keydir</strong> in memory. The keydir is a hash table that maps each
+concatenated bucket + key name in a Bitcask (“a Bitcask” is the name for
+each file contained within each Bitcask backend) to a fixed-size
+structure giving the file, offset, and size of the most recently written
+entry for that bucket + key on disk.</p>
+
+<p>To learn about Bitcask see <a href="http://basho.com/hello-bitcask/">Hello Bitcask</a> on the Basho blog as well as the <a href="http://basho.com/assets/bitcask-intro.pdf">Introduction to Bitcask</a> paper.</p>
+
+<p>If your calculated RAM needs will exceed your hardware resources&ndash;in other words, if you can&rsquo;t afford the RAM to use Bitcask&mdash;we recommend that you use LevelDB.</p>
+
+<p>Check out <a href="/riak/kv/2.1.3/setup/planning/bitcask-capacity-calc">Bitcask Capacity Planning</a> for more details on designing a Bitcask-backed cluster.</p>
+
+<h3 id="leveldb:6c7dd14b3d922b6343633774781f023f">LevelDB</h3>
+
+<p>If RAM requirements for Bitcask are prohibitive, we recommend use of
+the LevelDB backend. While LevelDB doesn&rsquo;t require a large amount of RAM
+to operate, supplying it with the maximum amount of memory available leads to higher performance.</p>
+
+<p>For more information see <a href="/riak/kv/2.1.3/setup/planning/backend/leveldb">LevelDB</a>.</p>
+
+<h2 id="disk:6c7dd14b3d922b6343633774781f023f">Disk</h2>
+
+<p>Now that you have an idea of how much RAM you&rsquo;ll need, it&rsquo;s time to think about disk space. Disk space needs are much easier to calculate. Below is an equation to help you calculate disk space needs:</p>
+
+<h4 id="estimated-total-objects-average-object-size-n-val:6c7dd14b3d922b6343633774781f023f">Estimated Total Objects * Average Object Size * n_val</h4>
+
+<p>For example:</p>
+
+<ul>
+<li>50,000,000 objects</li>
+<li>an average object size of two kilobytes (2,048 bytes)</li>
+<li>the default <code>n_val</code> of 3</li>
+</ul>
+
+<p>Then you would need just over approximately <strong>286 GB</strong> of disk space in the entire cluster to accommodate your data.</p>
+
+<p>We believe that databases should be durable out of the box. When we
+built Riak, we did so in a way that you could write to disk while
+keeping response times below your users&rsquo; expectations. So this
+calculation assumes that you&rsquo;ll be keeping the entire data set on disk.</p>
+
+<p>Many of the considerations taken when configuring a machine to serve a
+database apply to configuring a node for Riak as well. Mounting
+disks with noatime and having separate disks for your OS and Riak data
+lead to much better performance. See [Planning for a
+Riak System][TODO] for more information.</p>
+
+<h3 id="disk-space-planning-and-ownership-handoff:6c7dd14b3d922b6343633774781f023f">Disk Space Planning and Ownership Handoff</h3>
+
+<p>When Riak nodes fail or leave the cluster, other nodes in the cluster start the <strong>ownership handoff</strong> process. Ownership handoff is when remaining nodes take ownership of the data partitions handled by an absent node. One side effect of this process is that the other nodes require more intensive disk space usage; in rare cases filling the disk of one or more of those nodes.</p>
+
+<p>When making disk space planning decisions, we recommend that you:</p>
+
+<ul>
+<li>assume that one or more nodes may be down at any time</li>
+<li>monitor your disk space usage and add additional space when usage
+exceeds 50-60% of available space.</li>
+</ul>
+
+<p>Another possibility worth considering is using Riak with a filesystem
+that allows for growth, for example
+<a href="http://en.wikipedia.org/wiki/Logical_Volume_Manager_(Linux">LVM</a>),
+<a href="http://en.wikipedia.org/wiki/RAID">RAID</a>, or
+<a href="http://en.wikipedia.org/wiki/ZFS">ZFS</a>.</p>
+
+<h2 id="read-write-profile:6c7dd14b3d922b6343633774781f023f">Read/Write Profile</h2>
+
+<p>Read/write ratios, as well as the distribution of key access, should
+influence the configuration and design of your cluster. If your use case
+is write heavy, you will need less RAM for caching, and if only a
+certain portion of keys is accessed regularly, such as a <a href="http://en.wikipedia.org/wiki/Pareto_distribution">Pareto
+distribution</a>, you
+won&rsquo;t need as much RAM available to cache those keys&rsquo; values.</p>
+
+<h2 id="number-of-nodes:6c7dd14b3d922b6343633774781f023f">Number of Nodes</h2>
+
+<p>The number of nodes (i.e. physical servers) in your Riak Cluster depends
+on the number of times data is <a href="/riak/kv/2.1.3/concepts/replication">replicated</a> across the
+cluster.  To ensure that the cluster is always available to respond to
+read and write requests, we recommend a &ldquo;sane default&rdquo; of N=3
+replicas.  This requirement can be met with a 3 or 4-node
+cluster.</p>
+
+<p>For production deployments, however, we recommend using no fewer than 5
+nodes, as node failures in smaller clusters can compromise the
+fault-tolerance of the system.  Additionally, in clusters smaller than 5
+nodes, a high percentage of the nodes (75-100% of them) will need to
+respond to each request, putting undue load on the cluster that may
+degrade performance.  For more details on this recommendation, see our
+blog post on <a href="http://basho.com/posts/technical/Why-Your-Riak-Cluster-Should-Have-At-Least-Five-Nodes/">Why Your Riak Cluster Should Have at Least Five
+Nodes</a>.</p>
+
+<h2 id="scaling:6c7dd14b3d922b6343633774781f023f">Scaling</h2>
+
+<p>Riak can be scaled in two ways: vertically, via improved hardware, and
+horizontally, by adding more nodes. Both ways can provide performance
+and capacity benefits, but should be used in different circumstances.
+The <a href="/riak/kv/2.1.3/using/admin/riak-admin/#cluster">riak-admin cluster command</a> can
+assist scaling in both directions.</p>
+
+<h4 id="vertical-scaling:6c7dd14b3d922b6343633774781f023f">Vertical Scaling</h4>
+
+<p>Vertical scaling, or improving the capabilities of a node/server,
+provides greater capacity to the node but does not decrease the overall
+load on existing members of the cluster. That is, the ability of the
+improved node to handle existing load is increased but the load itself
+is unchanged. Reasons to scale vertically include increasing IOPS (I/O
+Operations Per Second), increasing CPU/RAM capacity, and increasing disk
+capacity.</p>
+
+<h4 id="horizontal-scaling:6c7dd14b3d922b6343633774781f023f">Horizontal Scaling</h4>
+
+<p>Horizontal scaling, or increasing the number of nodes in the cluster,
+reduces the responsibilities of each member node by reducing the number
+of partitions and providing additional endpoints for client connections.
+That is, the capacity of each individual node does not change but its
+load is decreased. Reasons to scale horizontally include increasing I/O
+concurrency, reducing the load on existing nodes, and increasing disk
+capacity.</p>
+
+<blockquote>
+<p><strong>Note on horizontal scaling</strong></p>
+
+<p>When scaling horizontally, it&rsquo;s best to add all planned nodes at once
+with multiple <code>riak-admin cluster join</code> commands followed by
+a <code>riak-admin cluster plan</code> and <code>riak-admin cluster commit</code>. This will help reduce the amount of data transferred between nodes in the cluster.</p>
+</blockquote>
+
+<h4 id="reducing-horizontal-scale:6c7dd14b3d922b6343633774781f023f">Reducing Horizontal Scale</h4>
+
+<p>If a Riak cluster is over provisioned, or in response to seasonal usage decreases, the horizontal scale of a Riak cluster can be decreased using the <code>riak-admin cluster leave</code> command.</p>
+
+<h2 id="ring-size-number-of-partitions:6c7dd14b3d922b6343633774781f023f">Ring Size/Number of Partitions</h2>
+
+<p>Ring size is the number of partitions that make up your Riak cluster. Ring sizes must be a power of 2. Ring size is configured before your cluster is started, and is set in your <a href="/riak/kv/2.1.3/configuring/reference">configuration files</a>.</p>
+
+<p>The default number of partitions in a Riak cluster is 64. This works for smaller clusters, but if you plan to grow your cluster past 5 nodes we recommend a larger ring size.</p>
+
+<p>The minimum number of partitions recommended per node is 10. You can determine the number of partitions allocated per node by dividing the number of partitions by the number of nodes.</p>
+
+<p>There are no absolute rules for the ideal partitions-per-node ratio. This depends on your particular use case and what features the Riak cluster uses. We recommend between 10 and 50 data partitions per node.</p>
+
+<p>So if you&rsquo;re running a 3-node development cluster, a ring size of 64 or 128 should work just fine. While a 10-node cluster should work well with a ring size of 128 or 256 (64 is too small while 512 is likely too large).</p>
+
+<p>The table below provides some suggested combinations:</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">Number of nodes</th>
+<th align="left">Number of data partitions</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">3, 4, 5</td>
+<td align="left">64, 128</td>
+</tr>
+
+<tr>
+<td align="left">5</td>
+<td align="left">64, 128</td>
+</tr>
+
+<tr>
+<td align="left">6</td>
+<td align="left">64, 128, 256</td>
+</tr>
+
+<tr>
+<td align="left">7, 8, 9, 10</td>
+<td align="left">128, 256</td>
+</tr>
+
+<tr>
+<td align="left">11, 12</td>
+<td align="left">128, 256, 512</td>
+</tr>
+</tbody>
+</table>
+
+<p>By extension, a ring size of 1024 is advisable only in clusters with
+more than 20 nodes, 2048 in clusters with more than 40 nodes, etc.</p>
+
+<p>If you&rsquo;re unsure about the best number of partitions to use, consult the
+<a href="http://lists.basho.com/mailman/listinfo/riak-users_lists.basho.com">Riak mailing
+list</a>
+for suggestions from the Riak community.</p>
+
+<h2 id="other-factors:6c7dd14b3d922b6343633774781f023f">Other Factors</h2>
+
+<p>Riak is built to run in a clustered environment, and while it will
+compensate for network partitions, they do cause increased load on the
+system. In addition, running in a virtualized environment that lacks
+low-latency IO access can drastically decrease performance. Before
+putting your Riak cluster in production is recommended that you gain a
+full understanding of your environment&rsquo;s behavior so that you know how
+your cluster performs under load for an extended period of time. Doing
+so will help you size your cluster for future growth and lead to optimal
+performance.</p>
+
+<p>We recommend using <a href="/riak/kv/2.1.3/using/performance/benchmarking">Basho Bench</a> for benchmarking the performance of your cluster.</p>
+
+<h3 id="bandwidth:6c7dd14b3d922b6343633774781f023f">Bandwidth</h3>
+
+<p>Riak uses Erlang&rsquo;s built-in distribution capabilities to provide
+reliable access to data. A Riak cluster can be deployed in many
+different network environments. We recommend that you produce as
+little latency between nodes as possible, as high latency leads to
+sub-optimal performance.</p>
+
+<p>Deploying a single Riak cluster across two datacenters is not recommended. If your use case requires this capability, Basho offers a <a href="/">Multi Data Center Replication: Architecture</a> option that is built to keep multiple Riak clusters in
+sync across several geographically diverse deployments.</p>
+
+<ul>
+<li><a href="http://basho.com/products/riak-overview/">Learn more about Riak Enterprise</a>.</li>
+</ul>
+
+<h3 id="i-o:6c7dd14b3d922b6343633774781f023f">I/O</h3>
+
+<p>In general, the biggest bottleneck for Riak will be the amount of I/O
+available to it, especially in the case of write-heavy workloads. Riak
+functions much like any other database and the design of your disk
+access should take this into account. Because Riak is clustered and your
+data is stored on multiple physical nodes, you should consider forgoing
+a traditional RAID setup for redundancy and focus on providing the least
+latency possible using SATA Drives or SSDs, for example.</p>
+
+
+      <div class="clear"></div>
+
+    </article>
+
+    <footer class="mastfooter">
+    This work is licensed under a
+    <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">
+        Creative Commons Attribution 4.0 International Public License
+    </a><br>
+    &copy; 2011-2016&nbsp;<a href="http://www.basho.com">Basho Technologies, Inc.</a>
+</footer>
+
+
+  </div>
+
+  <script src="/js/all.js" type="text/javascript"></script>
+<script type= "text/javascript">
+  
+  hljs.configure({languages: []});
+  hljs.initHighlighting();
+
+  
+  
+  
+  $(function() {
+    $(".js_enabled pre").css("visibility", "visible");
+  });
+</script>
+
+
+</body>
+</html>

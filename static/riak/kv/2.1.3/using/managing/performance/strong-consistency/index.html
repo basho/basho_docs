@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"></html><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"></html><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"></html><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->
+
+
+
+<head class="tutorials">
+  <meta charset="utf-8">
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width">
+  <meta name="project" content="riak_kv">
+  <meta name="version" content="2.1.3">
+  <meta name="base-url" content="/riak/kv/2.1.3/using/managing/performance/strong-consistency/">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+  <title>Strong Consistency Performance</title>
+
+  <link href="/css/all.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="/css/print.css" media="print" rel="stylesheet" type="text/css">
+
+  
+  <style type="text/css"> .js_enabled pre { visibility : hidden; } </style>
+  <script type="text/javascript">
+    document.documentElement.className = 'js_enabled';
+  </script>
+</head>
+
+
+
+<body class="riak_kv 2.1.3 latest ">
+
+  <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-T9C8MK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-T9C8MK');</script>
+
+  
+  
+<aside id="nav-container" role="complementary">
+  <nav class="overview" id="primary-nav" role="nav">
+    <div id="primary-nav-content">
+      
+      <div class="responsive-link"><a class="responsive-toggle block float-right"></a></div>
+
+      
+      <form id="searchbox_011972015458788978446:zgdcy4fa-o0" action="">
+        <div class="nav-field-container">
+          <div id="icon-container-search">
+            <div class="icon-container block float-left">
+              <span aria-hidden="true" class="nav-icon icon-search"></span>
+            </div>
+            <span class="separator block float-left"></span>
+          </div>
+          <input id="main-search" name="q" placeholder="Search" size="5" type="search">
+        </div>
+      </form>
+      <div class="clear"></div>
+
+      <ul class="depth-0">
+        
+        <li class="responsive-link visit-basho">
+          <div class="menu-title">
+            <span class="icon-container block float-left ">
+              <span aria-hidden="true" class="nav-icon icon-riak"></span>
+            </span>
+            <span class="separator block float-left"></span>
+            <a class="block overflow" href="http://www.basho.com">Visit Basho</a>
+            <div class="clear"></div>
+          </div>
+        </li>
+
+        
+        <li class="responsive-link">
+          <div class="menu-title">
+            <span class="icon-container block float-left">
+              <span aria-hidden="true" class="nav-icon icon-riak"></span>
+            </span>
+            <span class="separator block float-left"></span>
+            <a class="toggle-border block overflow" href="/index.html">All Riak Projects</a>
+            <div class="clear"></div>
+          </div>
+        </li>
+
+        
+        
+        
+        <li >
+          <div class="menu-title">
+            <span class="icon-container block float-left">
+              <span aria-hidden="true" class="nav-icon icon-"></span>&nbsp;
+            </span>
+            <span class="separator block float-left"></span>
+            
+            <span class="menu-toggle-buffer float-right">&nbsp;</span>
+            <span class="menu-toggle float-right"></span>
+            
+            <a class="toggle-border block overflow" href="/riak/kv/2.1.3/">
+              Riak KV
+            </a>
+            <div class="clear"></div>
+          </div>
+          
+          
+<ul class="depth-1" style="display: none">
+  
+  
+  
+  <li >
+    
+    <div class="menu-title">
+      <span class="menu-toggle-buffer float-right">&nbsp;</span>
+      <span class="menu-toggle float-right"></span>
+      <a class="toggle-border block overflow" href="/riak/kv/2.1.3/upgrading/">Upgrading</a>
+    </div>
+    
+<ul class="depth-2" style="display: none">
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/upgrading/version/">Upgrading by Version</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/upgrading/cluster/">Upgrading a Cluster</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/upgrading/multi-datacenter/">Upgrading Multi-Datacenter</a>
+    
+  </li>
+  
+</ul>
+
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <div class="menu-title">
+      <span class="menu-toggle-buffer float-right">&nbsp;</span>
+      <span class="menu-toggle float-right"></span>
+      <a class="toggle-border block overflow" href="/riak/kv/2.1.3/installing/">Installing</a>
+    </div>
+    
+<ul class="depth-2" style="display: none">
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/installing/source/">Installing From Source</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/installing/verify/">Verifying an Installation</a>
+    
+  </li>
+  
+</ul>
+
+    
+  </li>
+  
+</ul>
+
+          
+        </li>
+        
+        
+        <li >
+          <div class="menu-title">
+            <span class="icon-container block float-left">
+              <span aria-hidden="true" class="nav-icon icon-cog"></span>&nbsp;
+            </span>
+            <span class="separator block float-left"></span>
+            
+            <span class="menu-toggle-buffer float-right">&nbsp;</span>
+            <span class="menu-toggle open float-right"></span>
+            
+            <a class="toggle-border block overflow" href="/riak/kv/2.1.3/using/">
+              Using
+            </a>
+            <div class="clear"></div>
+          </div>
+          
+          
+<ul class="depth-1" style="display: block">
+  
+  
+  
+  <li >
+    
+    <div class="menu-title">
+      <span class="menu-toggle-buffer float-right">&nbsp;</span>
+      <span class="menu-toggle float-right"></span>
+      <a class="toggle-border block overflow" href="/riak/kv/2.1.3/using/planning/">Planning</a>
+    </div>
+    
+<ul class="depth-2" style="display: none">
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/planning/backend/">Choosing a Backend</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/planning/cluster-capacity/">Cluster Capacity</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/planning/best-practices/">Best Practices</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/planning/future/">Planning for the Future</a>
+    
+  </li>
+  
+</ul>
+
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <div class="menu-title">
+      <span class="menu-toggle-buffer float-right">&nbsp;</span>
+      <span class="menu-toggle float-right"></span>
+      <a class="toggle-border block overflow" href="/riak/kv/2.1.3/using/configuring/">Configuring</a>
+    </div>
+    
+<ul class="depth-2" style="display: none">
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/configuring/basic/">Basic Configuration</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/configuring/choose-backend/">Choose &amp; Install Backend</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/configuring/backend/">Backend Configuration</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/configuring/managing/">Managing Your Configuration</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/configuring/reference/">Configuration Reference</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/configuring/strong-consistency/">Implementing Strong Consistency</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/configuring/load-balancing-proxy/">Load Balancing &amp; Proxy</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/configuring/map-reduce/">MapReduce Settings</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/configuring/search/">Search Settings</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/configuring/v3-multi-datacenter/">V3 Configuration</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/configuring/v2-multi-datacenter/">V2 Configuration</a>
+    
+  </li>
+  
+</ul>
+
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <div class="menu-title">
+      <span class="menu-toggle-buffer float-right">&nbsp;</span>
+      <span class="menu-toggle open float-right"></span>
+      <a class="toggle-border block overflow" href="/riak/kv/2.1.3/using/managing/">Managing</a>
+    </div>
+    
+<ul class="depth-2" style="display: block">
+  
+  
+  
+  <li >
+    
+    <div class="menu-title">
+      <span class="menu-toggle-buffer float-right">&nbsp;</span>
+      <span class="menu-toggle float-right"></span>
+      <a class="toggle-border block overflow" href="/riak/kv/2.1.3/using/managing/reference/">Reference</a>
+    </div>
+    
+<ul class="depth-3" style="display: none">
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/reference/logging/">Logging</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/reference/handoff/">Handoff</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/reference/bucket-types/">Bucket Types</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/reference/object-deletion/">Object Deletion</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/reference/runtime-interaction/">Runtime Interaction</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/reference/failure-recovery/">Failure &amp; Recovery</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/reference/monitoring/">Monitoring</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/reference/search-secondary-indexes/">Search &amp; Secondary Indexes</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/reference/strong-consistency/">Strong Consistency</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/reference/multi-datacenter/">Multi-Datacenter</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/reference/v3/">V3 Replication</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/reference/v2/">V2 Replication</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/reference/architecture/">Architecture</a>
+    
+  </li>
+  
+</ul>
+
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/running-a-cluster/">Running a Cluster</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/cluster-admin-commands/">Cluster Admin Commands</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <div class="menu-title">
+      <span class="menu-toggle-buffer float-right">&nbsp;</span>
+      <span class="menu-toggle float-right"></span>
+      <a class="toggle-border block overflow" href="/riak/kv/2.1.3/using/managing/cluster-operations/">Cluster Operations</a>
+    </div>
+    
+<ul class="depth-3" style="display: none">
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/cluster-operations/adding-removing-nodes/">Adding/Removing Nodes</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/cluster-operations/changing-cluster-info/">Changing Cluster Information</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/cluster-operations/replacing-node/">Replacing a Node</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/cluster-operations/inspecting-node/">Inspecting a Node</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/cluster-operations/bucket-types/">Bucket Types</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/cluster-operations/logging/">Logging</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/cluster-operations/backing-up/">Backing Up</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/cluster-operations/handoff/">Handoff</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/cluster-operations/object-deletion/">Object Deletion</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/cluster-operations/secondary-indexes/">Secondary Indexes</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/cluster-operations/monitoring-strong-consistency/">Monitoring Strong Consistency</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/cluster-operations/load-balancing/">Load Balancing</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/cluster-operations/backend/">Backend</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/cluster-operations/multi-datacenter/">Multi-Datacenter</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/cluster-operations/v3/">V3</a>
+    
+  </li>
+  
+</ul>
+
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <div class="menu-title">
+      <span class="menu-toggle-buffer float-right">&nbsp;</span>
+      <span class="menu-toggle float-right"></span>
+      <a class="toggle-border block overflow" href="/riak/kv/2.1.3/using/managing/repair-recovery/">Repair &amp; Recovery</a>
+    </div>
+    
+<ul class="depth-3" style="display: none">
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/repair-recovery/failure-recovery/">Failure &amp; Recovery</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/repair-recovery/repairs/">Repairs</a>
+    
+  </li>
+  
+</ul>
+
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <div class="menu-title">
+      <span class="menu-toggle-buffer float-right">&nbsp;</span>
+      <span class="menu-toggle float-right"></span>
+      <a class="toggle-border block overflow" href="/riak/kv/2.1.3/using/managing/security/">Security</a>
+    </div>
+    
+<ul class="depth-3" style="display: none">
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/security/basics/">Security Basics</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/security/managing-sources/">Managing Security Sources</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/security/best-practices/">Best Practices</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/security/v2-v3-ssl-ca/">V2/V3 SSL &amp; CA Validation</a>
+    
+  </li>
+  
+</ul>
+
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <div class="menu-title">
+      <span class="menu-toggle-buffer float-right">&nbsp;</span>
+      <span class="menu-toggle open float-right"></span>
+      <a class="toggle-border block overflow" href="/riak/kv/2.1.3/using/managing/performance/">Performance</a>
+    </div>
+    
+<ul class="depth-3" style="display: block">
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/performance/benchmarking/">Benchmarking</a>
+    
+  </li>
+  
+  
+  
+  <li class="current">
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/performance/strong-consistency/">Strong Consistency</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/performance/v2-scheduling-fullsync/">V2 Scheduling Fullsync</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/performance/multi-datacenter-tuning/">Multi-Datacenter Tuning</a>
+    
+  </li>
+  
+</ul>
+
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <div class="menu-title">
+      <span class="menu-toggle-buffer float-right">&nbsp;</span>
+      <span class="menu-toggle float-right"></span>
+      <a class="toggle-border block overflow" href="/riak/kv/2.1.3/using/managing/troubleshooting/">Troubleshooting</a>
+    </div>
+    
+<ul class="depth-3" style="display: none">
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/troubleshooting/product-advisories/">Product Advisories</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/using/managing/troubleshooting/http-204/">HTTP 204</a>
+    
+  </li>
+  
+</ul>
+
+    
+  </li>
+  
+</ul>
+
+    
+  </li>
+  
+</ul>
+
+          
+        </li>
+        
+        
+        <li >
+          <div class="menu-title">
+            <span class="icon-container block float-left">
+              <span aria-hidden="true" class="nav-icon icon-lambda"></span>&nbsp;
+            </span>
+            <span class="separator block float-left"></span>
+            
+            <span class="menu-toggle-buffer float-right">&nbsp;</span>
+            <span class="menu-toggle float-right"></span>
+            
+            <a class="toggle-border block overflow" href="/riak/kv/2.1.3/developing/">
+              Developing
+            </a>
+            <div class="clear"></div>
+          </div>
+          
+          
+<ul class="depth-1" style="display: none">
+  
+  
+  
+  <li >
+    
+    <div class="menu-title">
+      <span class="menu-toggle-buffer float-right">&nbsp;</span>
+      <span class="menu-toggle float-right"></span>
+      <a class="toggle-border block overflow" href="/riak/kv/2.1.3/developing/getting-started/">Getting Started</a>
+    </div>
+    
+<ul class="depth-2" style="display: none">
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/developing/getting-started/crud-operations/">CRUD Operations</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/developing/getting-started/querying/">Querying</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/developing/getting-started/object-modeling/">Object Modeling</a>
+    
+  </li>
+  
+</ul>
+
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <div class="menu-title">
+      <span class="menu-toggle-buffer float-right">&nbsp;</span>
+      <span class="menu-toggle float-right"></span>
+      <a class="toggle-border block overflow" href="/riak/kv/2.1.3/developing/usage/">Usage</a>
+    </div>
+    
+<ul class="depth-2" style="display: none">
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/developing/usage/creating-objects/">Creating Objects</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/developing/usage/reading-objects/">Reading Objects</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/developing/usage/updating-objects/">Updating Objects</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/developing/usage/deleting-objects/">Deleting Objects</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/developing/usage/searching/">Searching</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/developing/usage/mapreduce/">Using MapReduce</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/developing/usage/secondary-indexes/">Using Secondary Indexes</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/developing/usage/bucket-types/">Using Bucket Types</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/developing/usage/commit-hooks/">Using Commit Hooks</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/developing/usage/search-schemas/">Creating Search Schemas</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/developing/usage/searching-data-types/">Searching with Data Types</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/developing/usage/document-store/">Implementing a Document Store</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/developing/usage/custom-extractors/">Custom Extractors</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/developing/usage/security/">Security</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/developing/usage/replication/">Replication</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/developing/usage/conflict-resolution/">Conflict Resolution</a>
+    
+  </li>
+  
+</ul>
+
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/developing/data-types/">Data Types</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/developing/data-modeling/">Data Modeling</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <div class="menu-title">
+      <span class="menu-toggle-buffer float-right">&nbsp;</span>
+      <span class="menu-toggle float-right"></span>
+      <a class="toggle-border block overflow" href="/riak/kv/2.1.3/developing/app-guide/">Application Guide</a>
+    </div>
+    
+<ul class="depth-2" style="display: none">
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/developing/app-guide/replication-properties/">Replication Properties</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/developing/app-guide/strong-consistency/">Strong Consistency</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/developing/app-guide/write-once/">Write Once</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/developing/app-guide/reference/">Reference</a>
+    
+  </li>
+  
+</ul>
+
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/developing/client-libraries/">Client Libraries</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <div class="menu-title">
+      <span class="menu-toggle-buffer float-right">&nbsp;</span>
+      <span class="menu-toggle float-right"></span>
+      <a class="toggle-border block overflow" href="/riak/kv/2.1.3/developing/api/">APIs</a>
+    </div>
+    
+<ul class="depth-2" style="display: none">
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/developing/api/repl-hooks/">REPL Hooks API</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/developing/api/backend/">Backend API</a>
+    
+  </li>
+  
+</ul>
+
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/developing/faq/">Developing FAQ</a>
+    
+  </li>
+  
+</ul>
+
+          
+        </li>
+        
+        
+        <li >
+          <div class="menu-title">
+            <span class="icon-container block float-left">
+              <span aria-hidden="true" class="nav-icon icon-lambda"></span>&nbsp;
+            </span>
+            <span class="separator block float-left"></span>
+            
+            <a class="block overflow" href="/riak/kv/2.1.3/downloads/">
+              Download Riak KV
+            </a>
+            <div class="clear"></div>
+          </div>
+          
+        </li>
+        
+        
+        <li >
+          <div class="menu-title">
+            <span class="icon-container block float-left">
+              <span aria-hidden="true" class="nav-icon icon-beaker"></span>&nbsp;
+            </span>
+            <span class="separator block float-left"></span>
+            
+            <span class="menu-toggle-buffer float-right">&nbsp;</span>
+            <span class="menu-toggle float-right"></span>
+            
+            <a class="toggle-border block overflow" href="/riak/kv/2.1.3/learn/">
+              Learning
+            </a>
+            <div class="clear"></div>
+          </div>
+          
+          
+<ul class="depth-1" style="display: none">
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/learn/why-riak-kv/">Why Riak KV?</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/learn/use-cases/">Use Cases</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/learn/new-to-nosql/">New to NoSQL?</a>
+    
+  </li>
+  
+  
+  
+  <li >
+    
+    <a class="menu-title right-padding block" href="/riak/kv/2.1.3/learn/glossary/">Riak KV Glossary</a>
+    
+  </li>
+  
+</ul>
+
+          
+        </li>
+        
+
+        
+        <li>
+          <div class="menu-title">
+            <span class="icon-container block float-left">
+              <span aria-hidden="true" class="nav-icon icon-comments"></span>&nbsp;
+            </span>
+            <span class="separator block float-left"></span>
+            <a class="block overflow" href="/community">Community</a>
+            <div class="clear"></div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  
+  
+  <ul id="fixed-nav">
+    <li>
+      <a href="https://github.com/basho/basho_docs" target="_blank">
+        <span class="icon-container block float-left">
+          <span aria-hidden="true" class="nav-icon icon-github-alt"></span>
+        </span>
+        <span class="separator block float-left"></span>
+        Available on GitHub
+      </a>
+    </li>
+    <li>
+      <a href="/riak/latest/community/">
+        <span class="icon-container block float-left">
+          <span aria-hidden="true" class="nav-icon icon-question-sign"></span>
+        </span>
+        <span class="separator block float-left"></span>
+        Get Help
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+  <script>
+  (function() {
+    var cx = '011972015458788978446:zgdcy4fa-o0';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<div style="width:0px;overflow:hidden;height:0px;">
+  <gcse:search></gcse:search>
+</div>
+
+
+  <div role="main">
+
+    <header class="masthead">
+  <div id="header">
+    
+    
+    <div id="marketing-banner">
+  <div class="hugs"></div>
+  <div class="temp-banner-text">
+    <strong>Register with Basho</strong> to be kept up-to-date on Riak releases, education, and events
+  </div>
+  <a class="more" href="http://info.basho.com/DocsBanner.html"></a>
+</div>
+
+    
+    <div id="header-inner">
+      <div class="icon-reorder" id="nav-toggle"></div>
+
+      <div id="top-nav">
+        
+        <a href="/riak/kv/2.1.3/downloads/"><span class="icon-download-alt"></span>Downloads</a>
+        
+        <div id="nav-more"><span class="icon-more"></span></div>
+      </div>
+
+      <a class="responsive-toggle"></a>
+      
+      
+      <a class="logo" href="/index.html"><h1>Riak Docs</h1></a>
+      
+      <span class="tagline">Product tutorials, how-tos, and fully-documented APIs.</span>
+      <div id="nav-menu">
+        <h2>Links</h2>
+        <ul>
+          <li><a href="http://docs.basho.com/">Docs Home</a></li>
+          <li><a href="http://basho.com/">Basho Website</a></li>
+        </ul>
+        
+        <div id="nav-menu-arrow"></div>
+        <div id="nav-menu-arrow-back"></div>
+      </div>
+
+      <div class="clear"></div>
+
+      <div class="header-rule"></div>
+    </div>
+  </div>
+</header>
+
+
+    <article class="mainarticle">
+
+      <div class="versions">
+  <div id="version-ddown-button" class="unselected">
+    <div class="version-ddown-title">Version</div>
+    <div class="version-ddown-number">2.1.3</div>
+    <div class="version-ddown-arrow"></div>
+  </div>
+  <ol id="version-list" style="display: none;">
+  
+  
+    
+    
+      
+      
+      <li class="sans versions-0 current">DEV</li>
+      
+      <li class="current versions-0"><a class="versioned" href="/riak/kv/2.1.3/using/managing/performance/strong-consistency/">2.1.3</a></li>
+    
+    
+      
+      
+      
+      <li class=" versions-0 first"><a class="versioned" href="/riak/kv/2.1.1/using/managing/performance/strong-consistency/">2.1.1</a></li>
+    
+  
+    
+    
+      
+      
+      
+      <li class="sans versions-1 current">LTS</li>
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.6/using/managing/performance/strong-consistency/">2.0.6</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.5/using/managing/performance/strong-consistency/">2.0.5</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.4/using/managing/performance/strong-consistency/">2.0.4</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.2/using/managing/performance/strong-consistency/">2.0.2</a></li>
+    
+      
+      
+      
+      
+      <li class=" versions-1"><a class="versioned" href="/riak/kv/2.0.1/using/managing/performance/strong-consistency/">2.0.1</a></li>
+    
+    
+      
+      
+      
+      <li class=" versions-1 first"><a class="versioned" href="/riak/kv/2.0.0/using/managing/performance/strong-consistency/">2.0.0</a></li>
+    
+  
+  
+  <li class="versions-5 first"><a class="sans versioned" href="http://docs.basho.com/riak/1.4.12/">older</a></li>
+  </ol>
+</div>
+
+
+      
+      
+
+      <header><h1>Strong Consistency Performance</h1></header>
+
+      
+
+      
+      <nav id="toc">
+        <h2 class="title">Contents</h2>
+        <div id="toc-wrapper">
+          <ol id="toc-items"></ol>
+        </div>
+      </nav>
+      
+
+      
+
+<h2 id="hanc-capellae:12852f79e49b73416cfd63bb30fc96d8">Hanc capellae</h2>
+
+<p>Lorem markdownum Byblida. Modo <strong>etiam</strong> litora mittat vellera infelix caeli.
+Studiosius forte, potuit pectore. Puer undas dignior iam turpe sorores abesse.
+Deae Saturnia levius viribus membra.</p>
+
+<h2 id="iussorum-ad-fronti-rutilasque-tenuit-cursu-quae:12852f79e49b73416cfd63bb30fc96d8">Iussorum ad fronti rutilasque tenuit cursu quae</h2>
+
+<p>Nostros vovistis artes. <strong>Fert</strong> modulata Tyrrhenae nubigenas genu deque, vultus
+<strong>manus ede</strong> senilibus <a href="http://www.youtube.com/watch?v=MghiBW3r65M">oris</a>
+transcurrere quem rarissima. Viderunt nutu quod, tumidaque, mihi mihi sacer pia.
+Summis rediit pavidus tersere et at prosiluit natus Phaethon noxa. Singultibus
+oblita <strong>foedabis</strong> orsa.</p>
+
+<ul>
+<li>Fecere aliis postquam inviti caliginis ab inque</li>
+<li>Voverat dividuae et tardus huc magna non</li>
+<li>Sex barba ipsaque Caucason corpora sono ecce</li>
+<li>Non esse</li>
+<li>Sibi atris regna licuit Antium carituraque nubes</li>
+</ul>
+
+<h2 id="omni-levare-gelidumque-minanti:12852f79e49b73416cfd63bb30fc96d8">Omni levare gelidumque minanti</h2>
+
+<p>Omnis adeunt ossibus gravis, Venus pinuque capit, et sereno viros ignara <em>plena
+incaluere</em> percussit mellaque, vertere arte. Ad silvarum Dryope, regnum nisi
+magnis idque osculaque temerarius tempora, <em>nomen</em> enumerare lenis, nostro. Ac
+mutabit <a href="http://www.thesecretofinvisibility.com/">arma</a> operiri saxum ratione,
+crudelior feram, est usu tamen quod, hasta. Equos <strong>sonant et deum</strong>. Et amor
+regis sed agros misit citaeque fallitque <em>altrici</em> optat Thoantis ab aevo umeris
+coniugis.</p>
+
+<h2 id="troiana-quoque:12852f79e49b73416cfd63bb30fc96d8">Troiana quoque</h2>
+
+<p>Equo uni Stygias trahunt, interea, in tela labores lumina, nam <em>Aganippe
+sanctique meum</em>; est. <a href="http://en.wikipedia.org/wiki/Sterling_Archer">Gente inimica
+premeret</a>, proximus; in num foret
+tibi cumque arma nec quoniam! Contribuere mollis, tu dum parem viscera, tamen
+ante. Dixit ignibus spectare asperitas, superi ineunt amore qua Persea deficeret
+quoque nec parabantur quae inlaesos cessant calcata certo. Utrimque ut sim
+suasque minus ego <em>gemitus</em>, illuc saxa sic medio gentes amorem suam ramis
+nimium in miserata?</p>
+
+<ol>
+<li><code>In naribus aequos aberant</code></li>
+<li>Naturae murmura te rimas suarum vulnus quod</li>
+<li>Socios leto loquor timide</li>
+<li>Ergo sub</li>
+<li>Patrias mihi consumite breve</li>
+</ol>
+
+<h2 id="ruit-huic-movit-luminibus-excubias-arma:12852f79e49b73416cfd63bb30fc96d8">Ruit huic movit luminibus excubias arma</h2>
+
+<blockquote>
+<p>Loco humo tecum gurgite timui. Peragant tu regia ut umbras premit condit. Lex
+vera forte tenebo colles sinat positis illis: tibi laudavit uno rostro extenuat
+<em>inque</em>. Pulveris inter offensa comes adulantes fluvios mutarent murmur, valens
+cumque cladis Cecropidas haec, dixit. Lucus cognomine <strong>Achilles</strong>: pastor nec.</p>
+</blockquote>
+
+<ol>
+<li>Hic causam et dilecte nudae nec corpus</li>
+<li>Cor Si nive</li>
+<li>Petis equos perosa tu perterrita exitus non</li>
+<li>Per et et ire geminos parte</li>
+<li>Aqua coniunx cecidisse sonum</li>
+</ol>
+
+<pre><code>Nominis haec lacrimis orba gloria obstipuere tu Ceyx tepebat fetus me equorum
+potero! Iampridem illi; deducit [reor orbem](http://heeeeeeeey.com/), comes, et
+nec rubebant pietas, ipsa.
+</code></pre>
+
+
+      <div class="clear"></div>
+
+    </article>
+
+    <footer class="mastfooter">
+    This work is licensed under a
+    <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">
+        Creative Commons Attribution 4.0 International Public License
+    </a><br>
+    &copy; 2011-2016&nbsp;<a href="http://www.basho.com">Basho Technologies, Inc.</a>
+</footer>
+
+
+  </div>
+
+  <script src="/js/all.js" type="text/javascript"></script>
+<script type= "text/javascript">
+  
+  hljs.configure({languages: []});
+  hljs.initHighlighting();
+
+  
+  
+  
+  $(function() {
+    $(".js_enabled pre").css("visibility", "visible");
+  });
+</script>
+
+
+</body>
+</html>
