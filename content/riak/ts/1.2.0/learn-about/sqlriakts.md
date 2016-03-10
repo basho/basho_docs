@@ -9,7 +9,7 @@ menu:
 project: "riak_ts"
 project_version: "1.2.0"
 toc: true
-cannonical_link: "docs.basho.com/riak/ts/latest/learn-about/sqlriakts"
+canonical_link: "docs.basho.com/riak/ts/latest/learn-about/sqlriakts"
 ---
 
 Riak TS tables were designed around SQL tables. This page will go through some SQL basics and more in depth information about how SQL is used within Riak TS.  

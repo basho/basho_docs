@@ -9,7 +9,7 @@ menu:
 project: "riak_ts"
 project_version: "1.2.0"
 toc: true
-cannonical_link: "docs.basho.com/riak/ts/latest/learn-about/advancedplanning"
+canonical_link: "docs.basho.com/riak/ts/latest/learn-about/advancedplanning"
 ---
 
 [activating]: http://docs.basho.com/riakts/1.2.0/using/creating-activating/

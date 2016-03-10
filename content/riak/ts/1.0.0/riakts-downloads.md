@@ -9,7 +9,7 @@ menu:
 project: "riak_ts"
 project_version: "1.0.0"
 toc: true
-cannonical_link: "docs.basho.com/riak/ts/latest/downloads"
+canonical_link: "docs.basho.com/riak/ts/latest/downloads"
 ---
 
 

@@ -9,7 +9,7 @@ menu:
 project: "riak_ts"
 project_version: "1.2.0"
 toc: true
-cannonical_link: "docs.basho.com/riak/ts/latest/using/arithmetic-operations"
+canonical_link: "docs.basho.com/riak/ts/latest/using/arithmetic-operations"
 ---
 
 Riak TS supports arithmetic operations in the `SELECT` list.

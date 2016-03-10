@@ -9,7 +9,7 @@ menu:
 project: "riak_ts"
 project_version: "1.1.0"
 toc: true
-cannonical_link: "docs.basho.com/riak/ts/latest/installing"
+canonical_link: "docs.basho.com/riak/ts/latest/installing"
 ---
 
 [AAE]: http://docs.basho.com/riak/2.1.3/theory/concepts/aae/

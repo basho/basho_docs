@@ -9,7 +9,7 @@ menu:
 project: "riak_ts"
 project_version: "1.2.0"
 toc: true
-cannonical_link: "docs.basho.com/riak/ts/latest/using/creating-activating"
+canonical_link: "docs.basho.com/riak/ts/latest/using/creating-activating"
 ---
 
 [erlang]: http://docs.basho.com/riakts/1.2.0/developing/erlang#query2

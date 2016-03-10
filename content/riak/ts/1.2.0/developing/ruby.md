@@ -9,7 +9,7 @@ menu:
 project: "riak_ts"
 project_version: "1.2.0"
 toc: true
-cannonical_link: "docs.basho.com/riak/ts/latest/developing/ruby"
+canonical_link: "docs.basho.com/riak/ts/latest/developing/ruby"
 ---
 
 You can develop applications and tools using Riak TS with the Riak Ruby client.
