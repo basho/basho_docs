@@ -13,11 +13,13 @@
 
 {{ partial "common_variables.html" . }}
 
-{{ $project      := .Scratch.Get "project" }}
-{{ $version      := .Scratch.Get "version" }}
-{{ $project_path := .Scratch.Get "project_path" }}
-{{ $is_latest    := .Scratch.Get "is_latest" }}
-{{ $is_lts       := .Scratch.Get "is_lts" }}
+{{ $project             := .Scratch.Get "project" }}
+{{ $version             := .Scratch.Get "version" }}
+{{ $project_path        := .Scratch.Get "project_path" }}
+{{ $is_latest           := .Scratch.Get "is_latest" }}
+{{ $is_lts              := .Scratch.Get "is_lts" }}
+{{ $toc                 := .Scratch.Get "toc"}}
+{{ $commercial_offering := .Scratch.Get "commercial_offering"}}
 {{ $has_supertext := isset .Params "title_supertext" }}
 -->
 
@@ -47,12 +49,11 @@
         <h1>{{ .Title }}</h1>
       </header>
 
-      {{/*TODO(Drew): Find out what the below does, and re-implement it here...
-                          - if data.page.header == 'riakee'
-                            .enterprise
-                              == I18n.t(:"riak_ee.info.body")
-                            = "\n"
-      */}}
+      {{ if $commercial_offering }}
+      <div class="enterprise">
+        This document applies only to Riak Enterprise, Basho's <a href="http://info.basho.com/Wiki_Riak_Enterprise_Request.html">commercial offering</a>.
+      </div>
+      {{ end }}
 
       {{ if .Params.toc }}
       <nav id="toc">
