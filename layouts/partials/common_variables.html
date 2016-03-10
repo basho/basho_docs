@@ -34,4 +34,18 @@
 {{ .Scratch.Add "archived_url"       $archived_url }}
 {{ .Scratch.Add "is_latest"          $is_latest }}
 {{ .Scratch.Add "is_lts"             $is_lts }}
+
+# TOC shoudl default to `true`
+{{ if isset .Params "toc" }}
+  {{ .Scratch.Add "toc" .Params.toc }}
+{{ else }}
+  {{ .Scratch.Add "toc" true }}
+{{ end }}
+
+# Commercial Offering should default to false
+{{ if isset .Params "commercial_offering" }}
+  {{ .Scratch.Add "commercial_offering" .Params.commercial_offering }}
+{{ else }}
+  {{ .Scratch.Add "commercial_offering" false }}
+{{ end }}
 -->

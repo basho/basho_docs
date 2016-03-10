@@ -4,7 +4,7 @@ description: "Developing with Riak TS"
 menu:
   riak_ts-1.1.0:
     name: "Developing with Riak TS"
-    identifier: "introduction"
+    identifier: "devloping"
     weight: 300
 project: "riak_ts"
 project_version: "1.1.0"

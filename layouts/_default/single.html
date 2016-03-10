@@ -13,11 +13,14 @@
 
 {{ partial "common_variables.html" . }}
 
-{{ $project      := .Scratch.Get "project" }}
-{{ $version      := .Scratch.Get "version" }}
-{{ $project_path := .Scratch.Get "project_path" }}
-{{ $is_latest    := .Scratch.Get "is_latest" }}
-{{ $is_lts       := .Scratch.Get "is_lts" }}
+{{ $project             := .Scratch.Get "project" }}
+{{ $version             := .Scratch.Get "version" }}
+{{ $project_path        := .Scratch.Get "project_path" }}
+{{ $is_latest           := .Scratch.Get "is_latest" }}
+{{ $is_lts              := .Scratch.Get "is_lts" }}
+{{ $toc                 := .Scratch.Get "toc"}}
+{{ $commercial_offering := .Scratch.Get "commercial_offering"}}
+{{ $has_supertext := isset .Params "title_supertext" }}
 -->
 
 {{ partial "head.html" . }}
@@ -41,26 +44,16 @@
 
       {{ partial "version-ddown.html" . }}
 
-      {{/*NOTE(Drew): The .slim that generates this header is...
-                          - unless !data.page.title || data.page.simple
-                          header
-                            - title = data.page.title
-                            - if title =~ /Multi.Data.Center.Replication.?\:?(.*)/
-                              - title = "<div class=small>Multi-Datacenter Replication:</div> #{$1}"
-                            h1== title
+      <header>
+        {{ if $has_supertext }}<h1 class="title_supertext">{{ .Params.title_supertext }}</h1>{{ end }}
+        <h1>{{ .Title }}</h1>
+      </header>
 
-                      It looks like we need to munge the title and add that
-                      `class="small"` div if we're on an MDC page. */}}
-      <!--TODO(Drew): Fix this. All of this. Fix all of the above. -->
-
-      <header><h1>{{ .Title }}</h1></header>
-
-      {{/*TODO(Drew): Find out what the below does, and re-implement it here...
-                          - if data.page.header == 'riakee'
-                            .enterprise
-                              == I18n.t(:"riak_ee.info.body")
-                            = "\n"
-      */}}
+      {{ if $commercial_offering }}
+      <div class="enterprise">
+        This document applies only to Riak Enterprise, Basho's <a href="http://info.basho.com/Wiki_Riak_Enterprise_Request.html">commercial offering</a>.
+      </div>
+      {{ end }}
 
       {{ if .Params.toc }}
       <nav id="toc">

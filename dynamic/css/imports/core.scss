@@ -328,8 +328,8 @@ div[role="main"] {
       }
     }
 
-    div.small {
-      font-size: 70%;
+    &.title_supertext {
+      font-size: 200%; // ~= 285% * 70%
       line-height:1;
     }
 
