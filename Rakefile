@@ -50,19 +50,28 @@ task      :clean => ['clean:js', 'clean:css', 'clean:hugo']
 namespace :clean do
   #TODO<drew.pirrone.brusse@gmail>: These `rm -rf`s are maybe a bit much? Should
   # we be more precise with what we delete (and, if so, how)?
-  task :js do FileUtils.rm_rf($js_dest); end
-  task :css do FileUtils.rm_rf($css_dest); end
-  task :hugo do FileUtils.rm_rf($hugo_dest); end
+  task :js do
+    log_dir_deletion($js_dest)
+    FileUtils.rm_rf($js_dest)
+  end
+  task :css do
+    log_dir_deletion($css_dest)
+    FileUtils.rm_rf($css_dest)
+  end
+  task :hugo do
+    log_dir_deletion($hugo_dest)
+    FileUtils.rm_rf($hugo_dest)
+  end
 end
 
 
 ########
 # Build
 desc      "Compile Compressed JS, Compile Compressed CSS, Build Hugo"
-task      :build => ['build:js', 'build:css', 'build:hugo']
+task      :build => ['clean', 'build:js', 'build:css', 'build:hugo']
 namespace :build do
   task :js => "#{$js_dest}" do compile_js(debug: false); end
-  task :css => ['clean:css', "#{$css_dest}"] do compile_css(debug: false); end
+  task :css => "#{$css_dest}" do compile_css(debug: false); end
 
   task :hugo do sh "hugo -d #{$hugo_dest}"; end
 
@@ -124,6 +133,15 @@ task :gen_download_info do generate_download_yaml(); end
 
 ######################################################################
 ### Helper/Compilation functions
+
+# Helper function that will print "    deleting #{dir_name}" to the console, and
+# color the "deleting" text red.
+def log_dir_deletion(dir_name)
+  red = "\033[31m"
+  nc  = "\033[0m" # no color
+  print "    #{red}deleting#{nc} #{dir_name}\n"
+end
+
 def compile_js(debug: false)
   require 'sprockets'
   require 'yaml'
