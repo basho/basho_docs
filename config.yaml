@@ -7,15 +7,12 @@ languageCode: "en-us"
 
 # Use YAML for front matter, rather than TOML
 metaDataFormat: "yaml"
-<<<<<<< HEAD
+
 # Ignore files (such as the reference links list) on build
 ignoreFiles: [ "\\_reference-links.md$" ]
-=======
 
 # Default directory to build the completed site
 publishdir: "public"
-
->>>>>>> 40034a5f65dd4e3f003210b2fc7bcf70e9244c8d
 
 params:
   # Project Descriptions
