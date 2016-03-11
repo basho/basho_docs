@@ -42,8 +42,9 @@ aside#nav-container {
     position : relative;
   }
 
-  div.menu-title { padding : 8px 0    8px 0; }
-  a.menu-title   { padding : 8px 11px 8px 0; }
+  div.menu-title             { padding : 8px 11px 8px 0; }
+  a.menu-title               { padding : 8px 11px 8px 0; }
+  div.menu-title.with_toggle { padding : 8px 0    8px 0; }
 
   .menu-title .toggle-border { border-right: 1px solid #ccced1; }
 

@@ -63,7 +63,7 @@
         {{ $toggle     := $current_menu.HasChildren }}
         -->
         <li {{if $is_current}}class="current"{{end}}>
-          <div class="menu-title">
+          <div class="menu-title{{if $toggle}} with_toggle{{end}}">
             <span class="icon-container block float-left">
               <span aria-hidden="true" class="nav-icon {{ $current_menu.Pre }}"></span>&nbsp;
             </span>
