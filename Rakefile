@@ -50,19 +50,36 @@ task      :clean => ['clean:js', 'clean:css', 'clean:hugo']
 namespace :clean do
   #TODO<drew.pirrone.brusse@gmail>: These `rm -rf`s are maybe a bit much? Should
   # we be more precise with what we delete (and, if so, how)?
-  task :js do FileUtils.rm_rf($js_dest); end
-  task :css do FileUtils.rm_rf($css_dest); end
-  task :hugo do FileUtils.rm_rf($hugo_dest); end
+  task :js do
+    # Ignoring files from standalone/, as they're from the Middleman content
+    js_file_list = Dir["#{$js_dest}/**/**"].reject { |f| f =~ /standalone/ }
+    js_file_list.each do |f|
+      log_dir_deletion(f)
+      FileUtils.rm(f)
+    end
+  end
+  task :css do
+    # Ignoring files from standalone/, as they're from the Middleman content
+    css_file_list = Dir["#{$css_dest}/**/**"].reject { |f| f =~ /standalone/ }
+    css_file_list.each do |f|
+      log_dir_deletion(f)
+      FileUtils.rm(f)
+    end
+  end
+  task :hugo do
+    log_dir_deletion($hugo_dest)
+    FileUtils.rm_rf($hugo_dest)
+  end
 end
 
 
 ########
 # Build
 desc      "Compile Compressed JS, Compile Compressed CSS, Build Hugo"
-task      :build => ['build:js', 'build:css', 'build:hugo']
+task      :build => ['clean', 'build:js', 'build:css', 'build:hugo']
 namespace :build do
   task :js => "#{$js_dest}" do compile_js(debug: false); end
-  task :css => ['clean:css', "#{$css_dest}"] do compile_css(debug: false); end
+  task :css => "#{$css_dest}" do compile_css(debug: false); end
 
   task :hugo do sh "hugo -d #{$hugo_dest}"; end
 
@@ -110,10 +127,49 @@ end
 #########
 # Deploy
 desc      "Build and deploy static artifacts"
-task      :deploy => ['clean', 'build'] do do_deploy(); end
+task      :deploy => ['clean', 'deploy:archived_content', 'build'] do do_deploy(); end
+namespace :deploy do
 
-# Perform deploy w/o building first. Use sparingly and with caution.
-task      :deploy_now do do_deploy(); end
+  # Fetch and extract the archived content that we want to survive from the
+  # Middleman website.
+  #TODO: Clean this up. It could be done so much better than it's being done.
+  task :archived_content do
+    puts("Fetching archived_docs.basho.com.tar.bz2 (this may take some time)...")
+    if (not File.file?(File.join(Dir.pwd, "archived_docs.basho.com.tar.bz2")))
+      Kernel.abort("ERROR: Archived documentation tarball not found\n"\
+                   "       In the not-too-distant future, this archive will "\
+                   "be automagically downloaded from somewhere, buuut we "\
+                   "don't have it hosted anywhere right now.\n"\
+                   "       You're going to have to go ask Drew for the "\
+                   "archived content tarball.")
+    end
+
+    puts("Verifying prior extraction...")
+    puts("    Please note, this only checks for directories.\n"\
+         "    If something went wrong with a previous extraction or if any "\
+         "of the extracted files were modified, please delete e.g. "\
+         "static/riak/ to trigger a re-extraction.")
+    should_extract = (
+      (not File.exist?("static/css/standalone")) ||
+      (not File.exist?("static/js/standalone"))  ||
+      (not File.exist?("static/riak"))           ||
+      (not File.exist?("static/riakcs"))         ||
+      (not File.exist?("static/riakee"))         ||
+      (not File.exist?("static/shared"))           )
+
+    if (should_extract)
+      puts("Extracting archived_docs.basho.com.tar.bz2 (this may take a lot of time)...")
+      successful = system('tar -xjf archived_docs.basho.com.tar.bz2 -C static')
+
+      if (not successful)
+        Kernel.abort("ERROR: archived_docs.basho.com.tar.bz2 failed to "\
+                     "extract.\n"\
+                     "       I... actually don't know why. Not sure how to "\
+                     "extract error messages from this system call...")
+      end
+    end
+  end
+end
 
 # Generate download.yaml metadata.
 #   This task should be run every time a new package is placed onto the
@@ -124,6 +180,15 @@ task :gen_download_info do generate_download_yaml(); end
 
 ######################################################################
 ### Helper/Compilation functions
+
+# Helper function that will print "    deleting #{dir_name}" to the console, and
+# color the "deleting" text red.
+def log_dir_deletion(dir_name)
+  red = "\033[31m"
+  nc  = "\033[0m" # no color
+  print "    #{red}deleting#{nc} #{dir_name}\n"
+end
+
 def compile_js(debug: false)
   require 'sprockets'
   require 'yaml'

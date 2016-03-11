@@ -47,15 +47,15 @@ def do_deploy()
 
   # Move into the Hugo destination directory, so file names are only prefixed
   # with "./"
-  Dir.chdir(File.join(Dir.pwd, "public"))
+  Dir.chdir(File.join(Dir.pwd, "#{$hugo_dest}"))
 
-  # Generate a list of every built file in the form of
-  # '["<FILE_NAME> <MD5SUM>", ... ]'
+  # Generate a list of every file in $hugo_dest, and `map` them into the form,
+  #   [["«file_name»", "«md5sum»"], ... ]
   puts("  Aggregating Local Hash List...")
   local_file_list = Dir["./**/*"]
-    .select{ |f| File.file?(f) }
-    .sort_by{ |f| f }
-    .map{ |f|
+    .select { |f| File.file?(f) }
+    .sort_by { |f| f }
+    .map { |f|
       # The file names have a leading `./`. Strip those.
       [f[2..-1], Digest::MD5.file(f).hexdigest] }
 
@@ -68,76 +68,55 @@ def do_deploy()
       :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'],
     })
 
-  # Fetch all objects, and filter out all of the files from the old Middleman
-  # deploy. (See below `should_ignore` for details)
-  # After the filter, generate a list of '["<FILE_NAME> <MD5SUM>", ... ]'
-  puts("  Filtering Remote Object List...")
-  # Fetching the actual count of objects in S3 takes 15 seconds---as long as
-  # the .reject fold itself. We're just going to use an estimate here, and track
-  # the actual as well. After we're doing updating, we can warn if the estimate
-  # is sufficiently off.
-  aws_obj_count_estimate = 33000
-  aws_obj_count_actual = 0
-  progress = ProgressBar.new("   Objects", aws_obj_count_estimate)
-  aws_object_list = aws_bucket
+  # Fetch all objects from the remote, and `map` them into the form,
+  #   [["«file_name»", "«md5sum»"], ... ]
+  puts("  Fetching Remote Object List (this may take up to ~30 seconds)...")
+  aws_file_list = aws_bucket
     .objects()
-    .reject{ |objs| # AWS ObjectSummary
-      progress.inc
-      aws_obj_count_actual += 1
-      should_ignore(objs.key) }
-    .sort_by{ |objs| objs.key }
-    .map{ |objs|
+    .sort_by { |objs| objs.key }
+    .map { |objs|
       # the etag (which is the md5sum) is wrapped in double-quotes. Strip those
       # by 'translating' them into empty strings.
       [objs.key, objs.etag.tr('"','')] }
-  progress.finish
 
 
-  # Now that we have the two lists, it's time to parse through them and generate
-  # lists of files we need to upload, and lists of files we need to delete.
-  # To do this, we're... going to use some brute force.
+  # Now that we have the two lists, we need to compare them and generate the
+  # list of files we need to upload, and the list of files we need to delete.
+  # To do this, we're going to use some brute force.
   puts("  Comparing Object Hashes...")
   upload_list = []
   delete_list = []
   lcl_i = 0
   aws_i = 0
   lcl_len = local_file_list.length
-  aws_len = aws_object_list.length
+  aws_len = aws_file_list.length
   progress = ProgressBar.new("   Hash check", lcl_len)
   while true
     # Check if we've reached the end of either list and should break
     break if (lcl_i == lcl_len || aws_i == aws_len)
     lcl_file_name = local_file_list[lcl_i][0]
-    aws_file_name = aws_object_list[aws_i][0]
-    if (should_ignore(lcl_file_name))
-      Kernel.abort("ERROR: We are attempting to upload the file "\
-                   "\"#{lcl_file_name}\" which is among the set of locked "\
-                   "files from the Legacy Middleman build.\n"\
-                   "       Please verify that this file is among those you "\
-                   "want to upload and, if so, modify the \`do_deply\` "\
-                   "function of this Rakefile such that it is not included in "\
-                   "the \`should_ignore\` list.")
-    end
-    #### binding.pry if ((lcl_file_name <=> aws_file_name) != 0)
+    aws_file_name = aws_file_list[aws_i][0]
+
     # Compare the file/object names
     case lcl_file_name <=> aws_file_name
     when  0 # File names are identical
-      # Compare md5sums, if they don't match, add the file to the upload list.
-      if (local_file_list[lcl_i][1] != aws_object_list[aws_i][1])
+      # Compare md5sums. If they don't match, add the file to the upload list.
+      if (local_file_list[lcl_i][1] != aws_file_list[aws_i][1])
         upload_list.push(lcl_file_name)
       end
-      # In either case, increment the indexers
+      # In either case, increment both index variables
       lcl_i += 1; progress.inc
       aws_i += 1
     when -1 # Local file name sorts first...
-      # The local file doesn't exist on AWS. Add it to the upload list, and
-      # increment only the local index variable.
+      # The local file doesn't exist on AWS. Add it to the upload list.
       upload_list.push(lcl_file_name)
+      # And only increment the local index variable.
       lcl_i += 1; progress.inc
     when  1 # AWS object name sorts first...
-      # The AWS object doesn't (no longer) exists in the locally built
-      # artifacts. Schedule it for deletion, and increment only the aws index.
+      # The AWS object doesn't (or no longer) exist in the locally built
+      # artifacts. Schedule it for deletion.
       delete_list.push(aws_file_name)
+      # And only increment the aws index variable.
       aws_i += 1
     end
   end
@@ -152,7 +131,7 @@ def do_deploy()
   # If we're not at the end of the aws object list, we need to add those file to
   # the delete list.
   while (aws_i < aws_len)
-    delete_list.push(aws_object_list[aws_i][0])
+    delete_list.push(aws_file_list[aws_i][0])
     aws_i += 1
   end
   progress.finish
@@ -166,10 +145,9 @@ def do_deploy()
   if (upload_list.length > 0)
     puts("  Uploading files...")
     progress = ProgressBar.new("   Uploads", upload_list.length)
-    upload_list.each{ |obj_path|
+    upload_list.each { |obj_path|
       #TODO: Generate a log of the uploaded files?
       if (aws_bucket.object(obj_path).upload_file(obj_path) != true)
-        #TODO: Maybe this should also be a `Kernel.abort`?
         #TODO: Probably want to send this out on STDERR.
         puts("ERROR: Failed to upload #{obj_path}!")
       end
@@ -240,10 +218,8 @@ def do_deploy()
       }
     )
   end
-  #TODO: Consider implementing some way of adding arbitrary routing rules. Maybe
-  # allow for a section in config.yaml that's just a JSON string that we parse?
-  #TODO: Figure out if we're correctly routing from archived content /latest/
-  # pages to the new site. I don't believe we currently are.
+  #TODO: We need to implement some way of adding arbitrary routing rules. Maybe
+  # add a section in config.yaml that's just a JSON string that we parse?
   new_website_configuration = {
     :error_document => {:key => "404.html"},
     :index_document => aws_bucket_website.index_document.to_hash,
@@ -282,45 +258,4 @@ def do_deploy()
   puts("")
   puts("Deploy Process Complete!")
   puts("========================================")
-
-
-  # Bookkeeping check to alert if our file estimates are too far off.
-  acceptable = (aws_obj_count_estimate * 0.10)
-  if ((aws_obj_count_actual - aws_obj_count_estimate).abs > acceptable)
-    puts("")
-    puts("")
-    puts("DEVS: The estimated AWS object count (#{aws_obj_count_estimate}) is "\
-         " more than 10% off of actual (#{aws_obj_count_actual}).\n"\
-         "      Please consider modifying the \`aws_obj_count_estimate\` "\
-         " variable accordingly.")
-  end
-end
-
-# This function takes an object path, and returns `true` if it's in the set of
-# old Middleman-generated files that we don't want to modify.
-# This set includes...
-#   * BingSiteAuth.xml
-#   * google59ea6be0154fb436.html
-#   * css/standalone/*
-#   * js/standalone/*
-#   * riak/1.*.*/
-#   * riak/2.0.*/
-#   * riak/2.1.*/
-#   * riakcs/1.*.*/
-#   * riakcs/2.0.*/
-#   * riakcs/2.1.*/
-#   * riakee/*
-#   * shared/*
-#
-#TODO: Abstract this out to data, so we can more easilly manage what should be
-#      ignored.
-def should_ignore(obj_path)
-  return (obj_path =~ /^BingSiteAuth.xml$/             ||
-          obj_path =~ /^google59ea6be0154fb436\.html$/ ||
-          obj_path =~ /^css\/standalone\//             ||
-          obj_path =~ /^js\/standalone\//              ||
-          obj_path =~ /^riakee\//                      ||
-          obj_path =~ /^shared\//                      ||
-          obj_path =~ /^riakcs\//                      ||
-          obj_path =~ /^riak\/\d\.\d\.\d/                )
 end

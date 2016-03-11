@@ -14,3 +14,12 @@ Gemfile.lock
 
 # Statically generated HTML
 public/**
+
+# Files maintained from the middleman build
+archived_docs.basho.com.tar.bz2
+static/css/standalone/**
+static/js/standalone/**
+static/riak/**
+static/riakcs/**
+static/riakee/**
+static/shared/**
