@@ -8,6 +8,16 @@ menu:
     weight: 300
     parent: "community_overview"
 toc: true
+aliases:
+  - /riak/2.1.3/dev/advanced/community-projects/
+  - /riak/2.1.1/dev/advanced/community-projects/
+  - /riak/2.0.6/dev/advanced/community-projects/
+  - /riak/2.0.5/dev/advanced/community-projects/
+  - /riak/2.0.4/dev/advanced/community-projects/
+  - /riak/2.0.3/dev/advanced/community-projects/
+  - /riak/2.0.2/dev/advanced/community-projects/
+  - /riak/2.0.1/dev/advanced/community-projects/
+  - /riak/2.0.0/dev/advanced/community-projects/
 ---
 
 Here are all projects that have come about out of community contribution. [Let us know](mailto:community@basho.com) if you choose to maintain one of them!
