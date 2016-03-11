@@ -51,12 +51,20 @@ namespace :clean do
   #TODO<drew.pirrone.brusse@gmail>: These `rm -rf`s are maybe a bit much? Should
   # we be more precise with what we delete (and, if so, how)?
   task :js do
-    log_dir_deletion($js_dest)
-    FileUtils.rm_rf($js_dest)
+    # Ignoring files from standalone/, as they're from the Middleman content
+    js_file_list = Dir["#{$js_dest}/**/**"].reject { |f| f =~ /standalone/ }
+    js_file_list.each do |f|
+      log_dir_deletion(f)
+      FileUtils.rm(f)
+    end
   end
   task :css do
-    log_dir_deletion($css_dest)
-    FileUtils.rm_rf($css_dest)
+    # Ignoring files from standalone/, as they're from the Middleman content
+    css_file_list = Dir["#{$css_dest}/**/**"].reject { |f| f =~ /standalone/ }
+    css_file_list.each do |f|
+      log_dir_deletion(f)
+      FileUtils.rm(f)
+    end
   end
   task :hugo do
     log_dir_deletion($hugo_dest)
