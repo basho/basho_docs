@@ -103,34 +103,34 @@ body {
     }
   }
 
-  footer.mastfooter {
-    @include size(730px, auto);
-    padding       : 25px 25px 25px 65px;
-    margin        : 25px 0 0 0;
-    line-height   : 1.2;
-    border-top    : 1px solid $subtleGray;
-    color         : $darkGrey;
-    a {
-      color           : $darkGrey;
-      text-decoration : none;
-      &[href^="http://"], &[href^="https://"] {
-        background    : none;
-        padding-right : 0;
-      }
-    }
+  // footer.mastfooter {
+  //   @include size(730px, auto);
+  //   padding       : 25px 25px 25px 65px;
+  //   margin        : 25px 0 0 0;
+  //   line-height   : 1.2;
+  //   border-top    : 1px solid $subtleGray;
+  //   color         : $darkGrey;
+  //   a {
+  //     color           : $darkGrey;
+  //     text-decoration : none;
+  //     &[href^="http://"], &[href^="https://"] {
+  //       background    : none;
+  //       padding-right : 0;
+  //     }
+  //   }
 
-    @media screen and (max-width: 1140px) {
-      width : auto;
-    }
+  //   @media screen and (max-width: 1140px) {
+  //     width : auto;
+  //   }
 
-    @media screen and (max-width: 768px) {
-      margin : 0;
-    }
+  //   @media screen and (max-width: 768px) {
+  //     margin : 0;
+  //   }
 
-    @media screen and (max-width: 500px) {
-      padding : 25px 12px 25px 12px;
-    }
-  }
+  //   @media screen and (max-width: 500px) {
+  //     padding : 25px 12px 25px 12px;
+  //   }
+  // }
 
   &.root {
     div[role="main"] {
@@ -153,11 +153,11 @@ body {
   }
 }
 
-body.root {
-  footer.mastfooter {
-    margin: 10px auto;
-  }
-}
+// body.root {
+//   footer.mastfooter {
+//     margin: 10px auto;
+//   }
+// }
 
 
 /* =============================================================================
@@ -1248,15 +1248,11 @@ nav#toc {
   }
 }
 
-.mastfooter {
-  @extend .center-text;
-  color     : #fff;
-  font-size : 80%;
-}
-
-.secondary {
-
-}
+// .mastfooter {
+//   @extend .center-text;
+//   color     : #fff;
+//   font-size : 80%;
+// }
 
 /* =============================================================================
    Code Styles

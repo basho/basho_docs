@@ -1,0 +1,40 @@
+footer {
+  @include size(730px, auto);
+  padding       : 25px 25px 25px 65px;
+  margin        : 25px 0 0 0;
+  line-height   : 1.2;
+  border-top    : 1px solid $subtleGray;
+  color         : $darkGrey;
+  a {
+    color           : $darkGrey;
+    text-decoration : none;
+    &[href^="http://"], &[href^="https://"] {
+      background    : none;
+      padding-right : 0;
+    }
+  }
+
+  @media screen and (max-width: 1140px) {
+    width : auto;
+  }
+
+  @media screen and (max-width: 768px) {
+    margin : 0;
+  }
+
+  @media screen and (max-width: 500px) {
+    padding : 25px 12px 25px 12px;
+  }
+}
+
+// .mastfooter {
+//   @extend .center-text;
+//   color     : #fff;
+//   font-size : 80%;
+// }
+
+body.root {
+  footer {
+    margin: 10px auto;
+  }
+}
