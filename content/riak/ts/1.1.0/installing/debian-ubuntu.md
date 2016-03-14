@@ -3,9 +3,10 @@ title: "Installing on Debian and Ubuntu"
 description: "Installing on Debian and Ubuntu"
 menu:
   riak_ts-1.1.0:
-    name: "Installing on Debian and Ubuntu"
+    name: "Debian and Ubuntu"
     identifier: "installing_on_debian_ubuntu"
-    weight: 400
+    weight: 201
+    parent: "installing"
 project: "riak_ts"
 project_version: "1.1.0"
 toc: true
