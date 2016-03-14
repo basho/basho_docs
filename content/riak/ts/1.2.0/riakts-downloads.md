@@ -15,7 +15,7 @@ canonical_link: "docs.basho.com/riak/ts/latest/downloads"
 [enterprise]: http://basho.com/contact/
 [installing]: http://docs.basho.com/riakts/1.2.0/installing/installing/
 
-#Download Riak TS 1.2.0
+# Download Riak TS 1.2.0
 
 Riak TS is currently only available to our [enterprise] customers. 
 

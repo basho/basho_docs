@@ -18,7 +18,7 @@ Riak TS tables were designed around SQL tables. This page will go through some S
 
 This document uses CAPITAL LETTERS for SQL keywords, although you do not need to do so in using the keywords. This document also breaks out SQL queries into multiple lines for readability, but queries can be written as a single line.
 
-##SQL Basics
+## SQL Basics
 
 Riak TS supports a subset of Structured Query Language (SQL): SELECT statements for querying called Data Manipulation Language (DML) or Data Query Language (DQL), and CREATE TABLE statements for defining Riak TS storage regions/bucket types, also known as Data Definition Language (DDL).
 
@@ -30,7 +30,7 @@ The subset of SQL used by Riak TS supports several kinds of literals:
 
 It also supports double-quoted column references (aka identifiers or field names).
 
-##Schema Design
+## Schema Design
 
 Let's say you want to store and graph usage metrics on a heterogeneous collection of network servers: disk usage, memory usage, CPU temperatures, load averages, and other metrics. Our graphing is going to be a single metric for a single host at a time, so our primary key should cover time, hostname, and the metric name. Since some metrics won't be on every server (i.e. our Riak KV servers have more disks than our Rails servers), and we want to be able to add metrics in the future, we're going to have a narrow table, with only one metric per row. 
 
@@ -49,14 +49,14 @@ CREATE TABLE metrics (
     hostname, metric_name, time))
 ```
 
-###Why is the quantized column last?
+### Why is the quantized column last?
 
 The `PRIMARY KEY` declaration is made up of two pieces: the partition key and the local key. The first, `(hostname, metric_name, QUANTUM(time, 15, m))`, declares a partition key. The partition key determines which cluster members should store a given row. The quantized time means that a given partition of a Riak TS table contains rows with the exact same `hostname` and `metric_name`, and a range of time spanning fifteen minutes (in this case).
 
 On-disk, data is stored in sorted order. Since queries must exactly match a `hostname` and `metric_name`, it's most useful to seek to the beginning of a range of those, sweeping to find the lowest timestamp, and reading records until the timestamp leaves the desired range. This allows only records matching the `hostname`, `metric_name`, and timestamp range to be read. The alternatives, where the timestamp is not last, require reading non-matching records and filtering them out after they've been read from the disk.
 
 
-##How Riak TS Processes SQL Queries
+## How Riak TS Processes SQL Queries
 
 Assume we have way too many computers and we aren’t sure why one of them is being unreliable. We think it’s running hot but we’re not sure, so we’re going to look at our metrics data and see whether or not it is.
 

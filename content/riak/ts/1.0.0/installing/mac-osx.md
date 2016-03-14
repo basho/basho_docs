@@ -27,7 +27,7 @@ package available through ZenDesk.
 
 Check your email for the link to the download in ZenDesk.
 
-##Dependencies
+## Dependencies
 
 ###`ulimit`
 
@@ -36,7 +36,7 @@ backend that uses very few file handles, it's possible to run out. See
 [Open Files Limit][openfileslimit] for more information about changing the limit.
 
 
-##Install Riak TS
+## Install Riak TS
 
 To install Riak TS on your Mac, download the package from ZenDesk and then run:
 
@@ -48,7 +48,7 @@ cd riak-ts-{{VERSION}}
 Then confirm that [AAE][AAE] is turned off. To do this, check etc/riak.conf for the following: `anti_entropy = passive`.
 
 
-##Activate Riak TS node
+## Activate Riak TS node
 
 Once you've installed Riak TS, start it on your node:
 
@@ -57,6 +57,6 @@ riak start
 ```
 
 
-##Next Steps
+## Next Steps
 
 Now that you've installed Riak TS, check out [Planning Your Riak TS Table][planning].

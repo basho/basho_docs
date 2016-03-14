@@ -21,7 +21,7 @@ Riak TS is a distributed NoSQL key/value store optimized for time series data. I
 Riak TS includes a complete build of Riak KV, but adds the ability to co-locate keys of the same series within the same quanta for fast and efficient READs. As  an available and partition-tolerant time series database, Riak TS uses a subset of SQL to make querying even easier.
 
 
-##Supported Operating Systems
+## Supported Operating Systems
 
 * CentOS 6
 * CentOS 7
@@ -35,7 +35,7 @@ Riak TS includes a complete build of Riak KV, but adds the ability to co-locate 
 >**Note:** At this release, LevelDB is the only supported backend.
 
 
-##Get Started
+## Get Started
 
 Get started with Riak TS by downloading the package from ZenDesk, then check out how to [install][installing] it. 
 

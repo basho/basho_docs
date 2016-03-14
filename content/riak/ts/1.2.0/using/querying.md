@@ -20,12 +20,12 @@ canonical_link: "docs.basho.com/riak/ts/latest/using/querying"
 Now that you have [created][activating] a Riak TS table and [written][writing] data to it, you can query your data.
 
 
-##Basic Querying
+## Basic Querying
 
 When querying your data via fields, there are three categories of fields, each with a different set of rules for valid queries.
 
 
-###Timestamp in the primary key
+### Timestamp in the primary key
 
 The timestamp in the primary key is an integer (in milliseconds) that must be compared either as a fully-enclosed range or as an exact match.
 
@@ -34,7 +34,7 @@ The timestamp in the primary key is an integer (in milliseconds) that must be co
 * Invalid: `time > 1449864277000 or time < 1449864290000`
 
 
-###Other fields in the primary key
+### Other fields in the primary key
 
 The other two fields in the primary key must be compared using strict equality against literal values. No ranges are permitted, `!=` must not be used, and `or` will not work.
 
@@ -44,12 +44,12 @@ The other two fields in the primary key must be compared using strict equality a
 * Invalid: `temperature < 85.0`
 
 
-###Fields not in the primary key
+### Fields not in the primary key
 
 These fields may be queried with unbounded ranges, `!=`, and `or` comparisons.
 
 
-###General Guidelines
+### General Guidelines
 
 Before you begin querying, there are some guidelines to keep in mind.
 
@@ -76,9 +76,9 @@ CREATE TABLE GeoCheckin
 Your query must include all components of the primary key (`myfamily`, `myseries`, and `time`). If any part of the primary key is missing, you will get an error.
 
 
-##Advanced Querying By Field
+## Advanced Querying By Field
 
-###Select Query
+### Select Query
 
 You can select particular fields from the data to query:
 
@@ -116,7 +116,7 @@ Riak::Timeseries::Query.new(client, "select weather, temperature from GeoCheckin
 ```
 
 
-###Extended Query
+### Extended Query
 
 You can extend the query beyond the primary key and use secondary columns to filter results. In this example, we are extending our query to filter based on the `temperature` column:
 
@@ -163,12 +163,12 @@ select weather, temperature from GeoCheckin where time > 1234560 and time < 1234
 
 You cannot use `or` between two complete clauses, since keys cannot be specified twice.
 
-###SQL Injection
+### SQL Injection
 
 When querying with user-supplied data, it is essential that you protect against SQL injection. Please verify the user-supplied data before constructing queries.
 
 
-##SQL Support
+## SQL Support
 
 A small subset of SQL is supported. All columns are of the format:
 
@@ -187,7 +187,7 @@ The following operators are supported for each data type:
 | timestamp | X | X | X | X | X | X |
 
 
-###Limitations
+### Limitations
 
 * Column to column comparisons are not currently supported.
 * Secondary indexing (2i) will not work with Riak TS.
@@ -195,7 +195,7 @@ The following operators are supported for each data type:
 * Queries are limited by the number of quanta they can span when specifying the time limits.
 
 
-####Quanta query range
+#### Quanta query range
 
 A query covering more than a certain number of quanta (5 by default) will generate too many sub-queries and the query system will refuse to run it. Assuming a default quanta of 15 minutes, the maximum query time range is 75 minutes.
 
@@ -217,7 +217,7 @@ The maximum time range we can query is 60s, anything beyond will fail.
 
 See the Data Modeling section in [Advanced Planning][advancedplanning] for more information.
 
-####Leap seconds and quantum boundaries
+#### Leap seconds and quantum boundaries
 
 Periodically [leap seconds](https://en.wikipedia.org/wiki/Leap_second)
 are announced. These are inserted at the end of one day (in UTC).
@@ -239,9 +239,9 @@ Similarly, Riak TS would treat `915148800` as the start of a new time quantum, a
 The data is not lost, but a query against 1998 time quanta will not produce those data points despite the fact that some of the events flagged as `915148800` technically occurred in 1998.
 
 
-##Querying Tables
+## Querying Tables
 
-###Query a table with SQL
+### Query a table with SQL
 
 Query a table by issuing a SQL statement against the table. Your query MUST include a 'where' clause with all components.
 
@@ -306,7 +306,7 @@ query = Riak::Timeseries::Query.new client, "select * from GeoCheckin where time
 results = query.issue!
 ```
 
-###Query a table definition
+### Query a table definition
 
 You can now query a table definition with the `DESCRIBE` table query which returns the table's rows and columns.
 
@@ -336,7 +336,7 @@ A successful DESCRIBE statement execution will return a language-specific repres
 * **Ruby** - Use the `Riak::TimeSeries::Query` object to execute the DESCRIBE statement. The returned results will have a collection of rows as well as a `columns` property corresponding to the above table.
 
 
-##Single Key Fetch
+## Single Key Fetch
 
 You may find the need to fetch a single key from Riak TS, below you will find an example of how to do that in each of our official clients that support Riak TS.
 

@@ -19,7 +19,7 @@ canonical_link: "docs.basho.com/riak/ts/latest/using/aggregate-functions"
 You can turn a set of rows in your Riak TS table into a value with the aggregate feature. This document will walk you through the functions that make up aggregation in Riak TS. 
 
 
-##Aggregate Functions
+## Aggregate Functions
 
 * `COUNT()` - Returns the number of entries that match a specified criteria.
 * `SUM()` - Returns the sum of entries that match a specified criteria.

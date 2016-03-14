@@ -22,7 +22,7 @@ canonical_link: "docs.basho.com/riak/ts/latest/using/querying"
 Now that you have [created][activating] a Riak TS table and [written][writing] data to it, you can query your data.
 
 
-##Querying
+## Querying
 
 There are effectively three categories of fields, and each has a different set of rules for valid queries.
 
@@ -74,7 +74,7 @@ CREATE TABLE GeoCheckin
 Your query must include all components of the primary key (`myfamily`, `myseries`, and `time`). If any part of the primary key is missing, you will get an error.
 
 
-###Wildcard Example
+### Wildcard Example
 
 Query a table by issuing a SQL statement against the table. Your query MUST include a 'where' clause with all components. 
 
@@ -137,7 +137,7 @@ results = query.issue!
 ```
 
 
-###Select Query
+### Select Query
 
 You can also select particular fields from the data:
 
@@ -171,7 +171,7 @@ ts_obj = client.ts_query('GeoCheckin', query)
 ```
 
 
-###Extended Query
+### Extended Query
 
 You can extend the query beyond the primary key and use secondary columns to filter results. In this example, we are extending our query to filter based on the `temperature` column:
 
@@ -214,12 +214,12 @@ select weather, temperature from GeoCheckin where time > 1234560 and time < 1234
 
 You cannot use `or` between two complete clauses, since keys cannot be specified twice.
 
-###SQL Injection
+### SQL Injection
 
 When querying with user-supplied data, it is essential that you protect against SQL injection. Please verify the user-supplied data before constructing queries.
 
 
-##SQL Support
+## SQL Support
 
 A small subset of SQL is supported. All columns are of the format: 
 
@@ -238,7 +238,7 @@ The following operators are supported for each data type:
 | timestamp | X | X | X | X | X | X |
 
 
-###Limitations
+### Limitations
 
 * Column to column comparisons are not currently supported.
 * Secondary indexing (2i) will not work with Riak TS.
@@ -246,7 +246,7 @@ The following operators are supported for each data type:
 * Queries are limited by the number of quanta they can span when specifying the time limits.
 
 
-####Quanta query range
+#### Quanta query range
 
 A query covering more than a certain number of quanta (5 by default) will generate too many sub-queries and the query system will refuse to run it. Assuming a default quanta of 15 minutes, the maximum query time range is 75 minutes. 
 
@@ -268,7 +268,7 @@ The maximum time range we can query is 60s, anything beyond will fail.
 
 See the Data Modeling section in [Advanced Planning][advancedplanning] for more information.
 
-####Leap seconds and quantum boundaries
+#### Leap seconds and quantum boundaries
 
 Periodically [leap seconds](https://en.wikipedia.org/wiki/Leap_second)
 are announced. These are inserted at the end of one day (in UTC).
