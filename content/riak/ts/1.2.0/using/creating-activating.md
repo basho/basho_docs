@@ -25,7 +25,7 @@ Once you have [planned out your table][planning] you can create it using `riak-a
 >**Note:** You will need to have access to `sudo` and `su` with the below commands, unless you are operating on Mac OS X.
 
 
-##Creating Your Table
+## Creating Your Table
 
 Remember the example table?
 
@@ -68,7 +68,7 @@ Please take care:
 
 Also note that if you discover something wrong with the setup of your DDL, you will need to create it again and decide whether to scrap the data in the existing table or move it from the old table to the new one.
 
-##Activating Your Table
+## Activating Your Table
 
 You activate your table just like you would activate a bucket type:
 
@@ -82,7 +82,7 @@ For the example `GeoCheckin` table:
 riak-admin bucket-type activate GeoCheckin
 ```
 
-##Verify Creation and Activation
+## Verify Creation and Activation
 
 You can verify that your table was properly created by looking at the `ddl` section of the `riak-admin bucket-type status` response. For example:
 
@@ -106,7 +106,7 @@ ddl: {ddl_v1,<<"GeoCheckin">>,
                       {param_v1,[<<"myseries">>]}]}}
 ```
 
-##Creation via Client Library
+## Creation via Client Library
 
 Using one of the Riak Client libraries, execute the `CREATE TABLE` statement via that library's query functionality. This will create and activate the table in one step. The result of the operation is library-dependent:
 
@@ -117,7 +117,7 @@ Using one of the Riak Client libraries, execute the `CREATE TABLE` statement via
 * [Node.js][nodejs]:  no exception thrown. Result object is present with `rows` and `columns` being empty.
 
 
-##Verification via Client Library
+## Verification via Client Library
 
 You can verify that your table was properly created by executing the `DESCRIBE table` query via the query function of your client library, or by using the `riak-admin bucket-type status` command as described above.
 
@@ -130,6 +130,6 @@ The result of the `DESCRIBE table` command is library-dependent:
 * [Node.js][nodejs]:  no exception thrown. Result object is present with `rows` and `columns` corresponding to the table's DDL.
 
 
-##Next Steps
+## Next Steps
 
 Now that you've created and activated your Riak TS table, you can [write data][writing] to it.

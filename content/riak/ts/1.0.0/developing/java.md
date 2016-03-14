@@ -116,7 +116,7 @@ There are no public constructors for QueryResults.
 
 
 
-##Command Classes Index
+## Command Classes Index
 
 All command classes have a static inner `Builder` class to create and build each command. 
 
@@ -127,7 +127,7 @@ All command classes have a static inner `Builder` class to create and build each
 * Store - Stores data into the Time Series table.
 
 
-###Command Classes Details
+### Command Classes Details
 
 Each command is created through a static Builder subclass.  This pattern ensures that the commands are created as correctly as possible.  To create the command from the builder, call the `.build()` method. 
 

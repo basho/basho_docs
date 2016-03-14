@@ -19,7 +19,7 @@ Arithmetic operations default to 64-bit integer math, unless mixed with a
 
 >**Important:** Proper spacing around arithmetic operators is required.
 
-###Numeric Literals
+### Numeric Literals
 
 Integer, decimal floating point, and exponent notation floating point
 numeric literals are accepted:
@@ -34,7 +34,7 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND
 | 555         | 1.1         | 10.0         | 0.01123         |
 
 
-###Addition and Subtraction
+### Addition and Subtraction
 
 ```sql
 SELECT temperature, temperature + 1, temperature - 1 FROM GeoCheckin
@@ -46,7 +46,7 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND
 | 27.1                | 28.1                    | 26.1                    |
 
 
-###Multiplication and Division
+### Multiplication and Division
 
 ```sql
 SELECT temperature, temperature * 2, temperature / 2 from GeoCheckin
@@ -58,7 +58,7 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND
 | 27.1                | 54.2                    | 13.55                   |
 
 
-###Negation
+### Negation
 
 ```sql
 SELECT temperature, -temperature from GeoCheckin
@@ -70,7 +70,7 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND
 | 27.1                | -27.1                |
 
 
-###Order of Operations
+### Order of Operations
 
 ```sql
 SELECT temperature + 2 * 3, (temperature + 2) * 3 from GeoCheckin
@@ -82,7 +82,7 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND
 | 33.1                        | 87.30000000000001           |
 
 
-###Floating Point Odds and Ends
+### Floating Point Odds and Ends
 
 Operations on floating point numbers that would return `Infinity` or `NaN` are
 not supported.
@@ -98,7 +98,7 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND
 ```
 
 
-###Operations with Multiple Field References
+### Operations with Multiple Field References
 
 Operations involving two or more references to fields/columns are not supported.
 

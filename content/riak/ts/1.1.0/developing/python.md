@@ -16,14 +16,14 @@ canonical_link: "docs.basho.com/riak/ts/latest/developing/python"
 You can develop applications and tools using Riak TS with the Riak Python client. This document covers the Python API for Riak TS.
 
 
-##Overview
+## Overview
 
 To use Riak TS with the Python client, we've added 5 new operations to the `riak.client.RiakClient` object.
 
 The Riak TS API is only available through Protocol Buffers and not HTTP, so please set up your Python client accordingly.
 
 
-##Prerequisites
+## Prerequisites
 
 In order for the Python client to install successfully on Ubuntu and CentOS, you must install some dependencies.
 
@@ -40,9 +40,9 @@ sudo yum install -y python-setuptools python-devel libffi-devel openssl-deve
 ```
 
 
-##Client Operations
+## Client Operations
 
-###Operations Index
+### Operations Index
 
  * `Get` - Fetch a single row based on the primary key values provided.
  * `Put` - Store 1 or more rows to a Riak TS table.
@@ -51,9 +51,9 @@ sudo yum install -y python-setuptools python-devel libffi-devel openssl-deve
  * `Stream ListKeys` - Lists the primary keys of all the rows in a Riak TS table.
 
 
-###Operations Details
+### Operations Details
 
-####Get
+#### Get
 Retrieve time series value by key.
 
 `ts_get(table, key)`
@@ -68,7 +68,7 @@ Retrieve time series value by key.
 **Return Type**: class `TsObject <riak.ts_object.TsObject>`
 
 
-####Put
+#### Put
 Stores time series data in the Riak TS cluster.
 
 `ts_put(tsobj)`
@@ -82,7 +82,7 @@ Stores time series data in the Riak TS cluster.
 **Return Type**: boolean
 
 
-####Delete
+#### Delete
 Delete time series value by key.
 
 `ts_delete(table, key)`
@@ -97,7 +97,7 @@ Delete time series value by key.
 **Return Type**: boolean
 
 
-####Query
+#### Query
 Queries time series data in the Riak cluster.
 
 `ts_query(table, query)`
@@ -112,7 +112,7 @@ Queries time series data in the Riak cluster.
 **Return Type**: Class `TsObject <riak.ts_object.TsObject>`
 
 
-####Stream ListKeys
+#### Stream ListKeys
 Lists all keys in a Riak TS table via a stream. This is a
 generator method which should be iterated over. The caller should explicitly close the returned iterator,
 either using :func:`contextlib.closing` or calling `close()`

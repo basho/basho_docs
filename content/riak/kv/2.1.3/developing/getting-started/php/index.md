@@ -24,7 +24,7 @@ From the `taste-of-riak` directory, use composer to install the Riak PHP 2.0 Cli
 ```bash
 php path/to/your/composer.phar install
 
-#If you did a global install of composer, run this instead:
+# If you did a global install of composer, run this instead:
 composer install
 ```
 

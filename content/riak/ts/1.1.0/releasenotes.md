@@ -17,9 +17,9 @@ Released January 14, 2016.
 
 This release builds on Riak TS 1.0.0 to enable further analysis of time series data with aggregates and arithmetic functionality.
 
-##New Features
+## New Features
 
-###Aggregations
+### Aggregations
 In Riak TS 1.0.0 you could run a` WHERE` clause that returned a particular row set of time series data. In 1.1.0 you can apply a function (such as `COUNT`) in the `SELECT` clause that operates on those responses in aggregate.
 
 For instance,
@@ -40,7 +40,7 @@ Where `fun` is one of:
 And where is (X) is either a column name, or a multi-column expression avg(temperature/pressure).
 
 
-###Arithmetic
+### Arithmetic
 Riak TS now also supports arithmetic operations in the `SELECT` list. The arithmetic operations available in this release are: Numeric Literals, Addition, Subtraction, Multiplication, Division, and Negation. 
 
 * +
@@ -59,7 +59,7 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND
 
 >**Important:** Arithmetic operations and aggregate functions cannot be mixed in a single value expression.
 
-###Dynamic Schema Discovery
+### Dynamic Schema Discovery
 You can now query a table definition with the `DESCRIBE` table query which returns the table's rows and columns.
 
 For example:
@@ -80,7 +80,7 @@ weather     | varchar   | false   | <null>        | <null>
 temperature | double    | false   | <null>        | <null>
 ```
 
-###Create Tables via Clients
+### Create Tables via Clients
 You can create tables using `CREATE TABLE`. Simply execute your `CREATE TABLE` command in a query, and it will be created. 
 
 ```sql 
@@ -100,7 +100,7 @@ CREATE TABLE GeoCheckin
 
 A successful table creation will return nothing, and an exception response will be returned if the attempt was unsuccessful.
 
-##Compatibility
+## Compatibility
 Riak TS is compatible with the following operating systems:
 
 * RHEL/CentOS 6
@@ -111,7 +111,7 @@ Riak TS is compatible with the following operating systems:
 * OSX 10.8+ (development only)
 
 
-##Known Issues
+## Known Issues
 
 * AAE must be turned off.
 * Riak Search is not supported.

@@ -16,20 +16,20 @@ canonical_link: "docs.basho.com/riak/ts/latest/developing/ruby"
 You can develop applications and tools using Riak TS with the Riak Ruby client.
 This document covers the Ruby API for Riak TS.
 
-##Overview
+## Overview
 
 Riak Ruby client versions 2.3.0+ have new objects in the
 `Riak::TimeSeries` module, including the necessary operations and data types
 to make sense of these operations.
 
-##Data Types
+## Data Types
 
 * `Scalar` - Not strictly a class itself, contains the basic Ruby core/stdlib: `String`, `Fixnum`, `Bignum`, `Float`, and `Time` instances that represent a
 single cell in a time series collection.
 * `Row` - an `Array` subclass that holds a collection of scalars.
 * `Collection` -  an `Array` subclass that holds a collection of rows.
 
-###Scalars in Ruby and Riak TS
+### Scalars in Ruby and Riak TS
 
 * Ruby's `nil` round-trips to Riak TS's `NULL` without issue so long as the Riak TS cell is nullable.
 * Ruby's `String` and Riak TS's `varchar` are interchanged without loss.
@@ -45,13 +45,13 @@ TS `double`, which will later de-serialize as a Ruby `Float`.
 `Riak::TimeSeriesError::SerializeRationalNumberError`.
 
 
-##Operations
+## Operations
 
 Riak TS supports five basic operations: single-key reads and deletes, key
 listing, SQL queries, and writes/submissions.
 
 
-###Single-key Reads
+### Single-key Reads
 
 To load a single row with a given key use `Riak::TimeSeries::Read`:
 
@@ -61,23 +61,23 @@ read_operation.key = ['myfamily', 'myseries', Time.now]
 results = read_operation.read!
 ```
 
-####Constructor
+#### Constructor
 
 The `new` class method takes two arguments: `client` (the `Riak::Client` to use) and `table_name` (a `String` of the name of the table).
 
-####Instance Accessors
+#### Instance Accessors
 
 * `key` - (read/write) this is how you tell the `Read` object what key to find.
 * `client` - (read-only) the `Riak::Client` this `Read` will use.
 * `table_name` - (read-only) the `String` table name this `Read` will use.
 
-####Instance Method
+#### Instance Method
 
 * `read!` - issues the read operation to Riak and returns a `Row` of data. If
 no data are found, returns `nil`.
 
 
-###Single-key Deletes
+### Single-key Deletes
 
 To delete a single row with a given key, use `Riak::TimeSeries::Delete`:
 
@@ -87,24 +87,24 @@ delete_operation.key = ['myfamily', 'myseries', Time.now]
 delete_operation.delete!
 ```
 
-####Constructor
+#### Constructor
 
 The `new` class method takes two arguments: `client` (the `Riak::Client` to use)
 and `table_name` (a `String` of the name of the table).
 
-####Instance Accessors
+#### Instance Accessors
 
 * `key`-  (read/write) this is how you tell the `Deletion` object what key to find
 and delete.
 * `client` - (read-only) the `Riak::Client` this `Deletion` will use.
 * `table_name` -  (read-only) the `String` table name this `Deletion` will use.
 
-####Instance Method
+#### Instance Method
 
 * `delete!` - issues the deletion to Riak.
 
 
-###Key Listing
+### Key Listing
 
 To list keys in a table, use the `Riak::TimeSeries::List` class.
 
@@ -121,12 +121,12 @@ results = list_operation.issue!
 
 `List` is only available via streaming API by invoking the `issue!` method. If the `issue!` method is called with a block, `issue!` will `yield` each key (which will be a `Row` object) to the provided block in the order that it receives them. When called without a block, `issue!` returns and stores the listing of all keys.
 
-####Constructor
+#### Constructor
 
 The `new` class method takes two arguments: `client` (the `Riak::Client` to use)
 and `table_name` (a `String` of the name of the table).
 
-####Instance Accessors
+#### Instance Accessors
 
 * `client` - (read-only) the `Riak::Client` this `List` will use.
 * `table_name` - (read-only) the `String` table name this `List` will use.
@@ -134,7 +134,7 @@ and `table_name` (a `String` of the name of the table).
 * `results` - either the `Riak::TimeSeries::Collection` of found keys or `nil` if
 the listing wasn't retrieved for storage.
 
-####Instance Method
+#### Instance Method
 
 The `issue!` method that starts the key listing can work in two different ways.
 
@@ -149,7 +149,7 @@ other issues.
 With a block, each key from the listing will be `yield`ed into your block as a
 `Riak::TimeSeries::Row` and not otherwise saved.
 
-###SQL Queries
+### SQL Queries
 
 SQL queries are sent with a `Riak::TimeSeries::Query` object:
 
@@ -159,24 +159,24 @@ query.issue!
 query.results
 ```
 
-####Constructor
+#### Constructor
 
 The `new` class method takes two arguments: `client` (the `Riak::Client` to use)
 and a `String` of `query_text`.
 
-####Instance Accessors
+#### Instance Accessors
 
 * `query_text` - (read/write) the SQL query `String`.
 * `client` - (read-only) the `Riak::Client` this `Query` will use.
 * `results` - (read-only) the `Riak::TimeSeries::Collection` of results.
 
-####Instance Method
+#### Instance Method
 
 The `issue!` method issues the query to Riak and populates the `results`
 accessor with the results.
 
 
-###Writing
+### Writing
 
 Data can be submitted to Riak TS with the `Riak::TimeSeries::Submission` class.
 Measurements are expected as an `Array` which represents a collection containing
@@ -192,12 +192,12 @@ submission.measurements = [
 submission.write!
 ```
 
-####Constructor
+#### Constructor
 
 The `new` class method takes two arguments: `client` (the `Riak::Client` to use) 
 and a `String` of `query_text`.
 
-####Instance Accessors
+#### Instance Accessors
 
 * `client` - (read-only) the `Riak::Client` this `Write` will use.
 * `table_name` - (read-only) the `String` table name this `Write` will use.
@@ -205,6 +205,6 @@ and a `String` of `query_text`.
 inner `Array`s of scalars are order-sensitive: data will be written in the order
 the cells are in the table's DDL.
 
-####Instance Method
+#### Instance Method
 
 The `write!` method writes the data to Riak TS.
