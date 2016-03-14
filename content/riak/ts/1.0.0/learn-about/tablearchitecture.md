@@ -10,7 +10,7 @@ menu:
 project: "riak_ts"
 project_version: "1.0.0"
 toc: true
-canonical_link: "docs.basho.com/riak/ts/latest/learn-about/advancedplanning"
+canonical_link: "docs.basho.com/riak/ts/latest/learn-about/tablearchitecture"
 ---
 
 
