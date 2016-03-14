@@ -3,9 +3,10 @@ title: "Creating and Activating Your Riak TS Table"
 description: "Creating and Activating Your Riak TS Table"
 menu:
   riak_ts-1.0.0:
-    name: "Creating and Activating Your Riak TS Table"
+    name: "Create and Activate Your Table"
     identifier: "creating_activating_riakts"
-    weight: 400
+    weight: 302
+    parent: "using"
 project: "riak_ts"
 project_version: "1.0.0"
 toc: true

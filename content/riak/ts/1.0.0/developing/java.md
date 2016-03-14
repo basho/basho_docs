@@ -3,9 +3,10 @@ title: "Java Client API"
 description: "Java Client API"
 menu:
   riak_ts-1.0.0:
-    name: "JAva Client API"
+    name: "Java"
     identifier: "ts_java_api"
-    weight: 400
+    weight: 402
+    parent: "developing"
 project: "riak_ts"
 project_version: "1.0.0"
 toc: true
