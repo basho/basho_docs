@@ -19,34 +19,34 @@ Released December 15, 2015.
 This release is the introductory release of Riak TS. 
 
 
-##Features
+## Features
 
-###Create Tables
+### Create Tables
 
 Riak TS enables you to define and configure tables of time series data as a riak bucket type, and write data to these tables. The schema of Riak TS's tables are generated as bucket properties and installed as bucket types, which allows you to structure data as it is coming in and store both structured and semi-structured data.
 
-###Data Locality
+### Data Locality
 
 The structure of Riak TS tables enable data locality based on composite key (including time quanta), which allows for rapid querying and near-linear scaling.
 
-###SQL-like Queries
+### SQL-like Queries
 
 You can query your data in Riak TS using a subset of SQL.
 
-###Single Key DELETEs and GETs
+### Single Key DELETEs and GETs
 
 Riak TS enables single-key DELETEs and GETs, which allow you to read and modify data without writing SQL.
 
-###List Key
+### List Key
 
 The list key feature allows you to issue an API call to list all of the keys in your Riak TS database. This can be a useful operation, but it is incredibly resource intensive as all keys must be read and processed. 
 
-###Java, Python, and Erlang Clients
+### Java, Python, and Erlang Clients
 
 Riak TS offers three client libraries : Erlang, Java and Python.
 
 
-##Compatibility
+## Compatibility
 
 Riak TS is compatible with the following operating systems:
 
@@ -59,7 +59,7 @@ Riak TS is compatible with the following operating systems:
 * OSX 10.8+ (development only)
 
 
-##Known Issues
+## Known Issues
 
 * AAE must be turned off.
 * Riak Search is not supported.

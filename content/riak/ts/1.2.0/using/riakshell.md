@@ -18,7 +18,7 @@ canonical_link: "docs.basho.com/riak/ts/latest/using/riakshell"
 
 You can use riak_shell within Riak TS to run SQL and logging commands from one place.
 
-##Capabilities
+## Capabilities
 
 While riak_shell is in the early stages of development, the following are well-supported: 
 
@@ -38,7 +38,7 @@ While riak_shell is in the early stages of development, the following are well-s
 The shell is also trivially extendable for developer use.
 
 
-##Getting Started
+## Getting Started
 
 To get started using riak_shell:
 
@@ -70,9 +70,9 @@ You can verify your connection by running `show_connection`. You should see a re
 riak_shell is connected to: 'dev1@127.0.0.1' on port 10017
 ```
 
-##Basic Commands
+## Basic Commands
 
-###Connecting and reconnecting
+### Connecting and reconnecting
 
 You can connect riak_shell to multiple nodes.
 
@@ -106,7 +106,7 @@ Connection Prompt turned off
 ```
 
 
-###History and repeating past commands
+### History and repeating past commands
 
 You can see the log of your activity in riak_shell by running `>show_history;`
 
@@ -133,7 +133,7 @@ rerun (6)> show_connection;
 riak_shell is connected to: 'dev2@127.0.0.1' on port 10027
 ```
 
-###SQL
+### SQL
 
 You can use riak_shell to [create a table][creating]:
 
@@ -177,7 +177,7 @@ riak_shell>select time, weather, temperature from GeoCheckin where myfamily='fam
 ```
 
 
-###Logging
+### Logging
 
 You can specify the name of your logfile by running: `logfile »"mylogname"«`.
 
@@ -258,7 +258,7 @@ No Regression Errors.
 ```
 
 
-###Help
+### Help
 
 You get help on riak_shell functions with the help command:
 
@@ -269,7 +269,7 @@ riak_shell> help;
 You can get more specific help by calling `help` with the extension name and function name like `help shell quit;`.
 
 
-##Configuration
+## Configuration
 
 You can configure riak_shell from the riakshell.config file. You can find the file in your Riak TS directory. 
 
@@ -283,7 +283,7 @@ The following things can be configured:
 * nodes ([ nodenames]) - a list of nodes to try and connect to on startup or 'reconnect;'
 
 
-##Command Line Flags
+## Command Line Flags
 
 
 There are 4 different configurations, two of which trigger batch mode.
@@ -312,7 +312,7 @@ You can run a riak_shell regression log for batch/scripting:
 ./riak-shell -r ../path/to/my.log
 ```
 
-##Extending riak_shell
+## Extending riak_shell
 
 riak_shell uses a magic architecture with convention.
 
@@ -375,7 +375,7 @@ cd ~/riakshell/bin
 ./riak-shell -d
 ```
 
-###Architecture Notes
+### Architecture Notes
 
 This shell has a simpler architecture than conventional Erlang/LFE/Elixir REPLS.
 

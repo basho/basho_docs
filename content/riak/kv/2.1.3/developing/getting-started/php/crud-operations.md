@@ -114,7 +114,7 @@ As a last step, we’ll demonstrate how to delete data.  We just build a [Delete
 (new Command\Builder\DeleteObject($riak))->atLocation($location3)->build()->execute();
 ```
 
-###Working With Complex Objects
+### Working With Complex Objects
 Since the world is a little more complicated than simple integers and bits of strings, let’s see how we can work with more complex objects.  Take for example, this plain old PHP object(POPO) that encapsulates some knowledge about a book.
 
 ```php

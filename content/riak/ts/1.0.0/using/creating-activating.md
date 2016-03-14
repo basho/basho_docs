@@ -22,7 +22,7 @@ Once you have [planned out your table][planning] you can create it using `riak-a
 >**Note:** You will need to have access to `sudo` and `su` with the below commands, unless you are operating on Mac OS X.
 
 
-##Creating Your Table
+## Creating Your Table
 
 Remember the example table?
 
@@ -65,7 +65,7 @@ Please take care:
 
 Also note that if you discover something wrong with the setup of your DDL, you will need to create it again and decide whether to scrap the data in the existing table or move it from the old table to the new one.
 
-##Activating Your Table
+## Activating Your Table
 
 You activate your table just like you would activate a bucket type:
 
@@ -79,7 +79,7 @@ For the example `GeoCheckin` table:
 riak-admin bucket-type activate GeoCheckin
 ```
 
-##Verify Activation
+## Verify Activation
 
 You can verify that your table was properly created by looking at the `ddl` section of the `riak-admin bucket-type status` response. For example:
 
@@ -103,6 +103,6 @@ ddl: {ddl_v1,<<"GeoCheckin">>,
                       {param_v1,[<<"myseries">>]}]}}
 ```
 
-##Next Steps
+## Next Steps
 
 Now that you've created and activated your Riak TS table, you can [write data][writing] to it.

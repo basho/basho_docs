@@ -25,7 +25,7 @@ This page provides a basic overview of what you'll need and some guidelines/limi
 
 Riak TS tables are closely tied to SQL tables. If you are unfamiliar with SQL or would like to know more about how Riak TS integrates SQL, check out [SQL for Riak TS][sql].
 
-##Anatomy of a Schema
+## Anatomy of a Schema
 
 In order to create a working Riak TS table, you'll need plan your table out. Once created, your table cannot be changed. Here is an example Riak TS `CREATE TABLE` statement (broken across many lines for clarity):
 
@@ -44,7 +44,7 @@ CREATE TABLE GeoCheckin
 )
 ```
 
-####Fields
+#### Fields
 Fields, also called columns, refer to the items before the `PRIMARY KEY`. Field names (`myfamily`, `myseries`, etc) must be ASCII strings, in addition to having the correct case. If field names need to contain spaces or punctuation they can be double quoted.
 
 Field names define the structure of the data, taking the format:
@@ -69,13 +69,13 @@ The types associated with fields are limited. Valid types are:
   * This type does not comply with its IEEE specification: `NaN` (not a number) and `INF` (infinity) cannot be used.
 
 
-###Primary Key
+### Primary Key
 The `PRIMARY KEY` describes both the partition and local keys. The partition key and the local key are nearly identical, differing only by the definition of the `quantum` used to colocate data.
 
 Note: The order of fields in key spec must match the order in which they appear in the table definition.
 
 
-####Partition Key 
+#### Partition Key
 The partition key is defined as the three named fields in parentheses:
 
 ```sql
@@ -98,10 +98,10 @@ The quantum function takes 3 parameters:
   * 'm' - minutes
   * 's' - seconds
 
-####Local Key
+#### Local Key
 The second key (local key) MUST contain the same 3 fields in the same order as the partition key. This ensures that the same fields determining your data's partition also dictate the sorting of the data within that partition.
 
-##Schema Discovery
+## Schema Discovery
 After creating a table, its schema can be discovered with `DESCRIBE` statement, which will return, for each column, the following items:
 * *Column*, field name;
 * *Type*, field type;
@@ -109,13 +109,13 @@ After creating a table, its schema can be discovered with `DESCRIBE` statement, 
 * *Primary Key*, position of this field in the primary key, or blank if it does not appear in the key;
 * *Local Key*, position of this field in the local key, or blank if it does not appear in the key.
 
-##More information
+## More information
 
 Still unsure how best to structure your Riak TS table? Check out our [best practice recommendations][bestpractices].
 
 Confused about columns, primary key, etc? Check out [Advanced Planning][advancedplanning] for full definitions.
 
 
-##Next Steps
+## Next Steps
 
 Now that you know how your Riak TS table will be structured, you can move on to [creating and activating your table][activating].

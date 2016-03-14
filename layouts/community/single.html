@@ -5,23 +5,43 @@
 {{ `<!--[if IE 8]><html class="no-js lt-ie9" lang="en"></html><![endif]-->` | safeHTML }}
 {{ `<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->` | safeHTML }}
 
-<!-- Note on Design:
-     --------------
-  All Hugo Template blocks are going to be wrapped in these multi-line HTML
-  comments so the compiled source might be a bit prettier to look at; if
-  unwrapped, every Go call will get its own newline, and add an incredible
-  amount of padding to the source.
+<!-- Page-wide Variables
+     -------------------
+  These would normally be set in common_variables.html, but that file make
+  assumptions about front matter and file paths that aren't true for pages in
+  the Community section.
+
+# TOC should default to `true`
+{{ if isset .Params "toc" }}
+  {{ .Scratch.Add "toc" .Params.toc }}
+{{ else }}
+  {{ .Scratch.Add "toc" true }}
+{{ end }}
+
+# Commercial Offering should default to false
+{{ if isset .Params "commercial_offering" }}
+  {{ .Scratch.Add "commercial_offering" .Params.commercial_offering }}
+{{ else }}
+  {{ .Scratch.Add "commercial_offering" false }}
+{{ end }}
+
+# We have to use the Scratch to store a calculated value, then retrieve here
+# because variables set in the scope of an `if` won't be set globally.
+{{ $toc                 := .Scratch.Get "toc"}}
+{{ $commercial_offering := .Scratch.Get "commercial_offering"}}
+{{ $has_supertext := isset .Params "title_supertext" }}
 -->
 
 {{ partial "head.html" . }}
 
-<!--TODO: Figure out if we want the 'latest' tag to be part of the class list,
-          or if we can get away with it being Hugo metadata. -->
-<body class="latest">
+<body class="community">
 
   {{ partial "google_tag_manager.html" . }}
 
-  {{ partial "community_navigation_sidebar.html" . }}
+  {{ partial "navigation_sidebar.html" (dict "context" . "menu_title" "community") }}
+
+  <!--TODO: Should this be moved to align with/be part of scripts.html? -->
+  {{ partial "search.html" . }}
 
   <div role="main">
 
@@ -29,9 +49,18 @@
 
     <article class="mainarticle">
 
-      <header><h1>{{ .Title }}</h1></header>
+      <header>
+        {{ if $has_supertext }}<h1 class="title_supertext">{{ .Params.title_supertext }}</h1>{{ end }}
+        <h1>{{ .Title }}</h1>
+      </header>
 
-      {{ if .Params.toc }}
+      {{ if $commercial_offering }}
+      <div class="enterprise">
+        This document applies only to Riak Enterprise, Basho's <a href="http://info.basho.com/Wiki_Riak_Enterprise_Request.html">commercial offering</a>.
+      </div>
+      {{ end }}
+
+      {{ if $toc }}
       <nav id="toc">
         <h2 class="title">Contents</h2>
         <div id="toc-wrapper">

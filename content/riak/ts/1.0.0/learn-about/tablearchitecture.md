@@ -94,6 +94,7 @@ The `PRIMARY KEY` describes both the partition and local keys. The partition key
 
 
 #### Partition Key 
+
 The partition key is defined as the three named fields in parentheses:
 
 ```sql

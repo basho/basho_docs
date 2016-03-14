@@ -23,7 +23,7 @@
   {{ $open         := or $is_current ($current_node.HasMenuCurrent $menu_title $next_menu) }}
   <li {{if $is_current}}class="current"{{end}}>
     {{ if $next_menu.HasChildren }}
-    <div class="menu-title">
+    <div class="menu-title with-toggle">
       <span class="menu-toggle-buffer float-right">&nbsp;</span>
       <span class="menu-toggle{{if $open}} open{{end}} float-right"></span>
       <a class="toggle-border block overflow" href="{{$next_menu.URL}}">{{$next_menu.Name}}</a>
