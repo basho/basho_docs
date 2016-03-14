@@ -72,7 +72,7 @@ Note: Rows are immutable once created.
  * `Iterator<Cell> iterator()` - Returns an iterator to the immutable cell collection.
 
 
-####`ColumnDescription`
+#### `ColumnDescription`
 A Metadata description of a column in Riak Time Series.
 Contains a column name and column type.
 
@@ -99,7 +99,7 @@ public enum ColumnType
     }
 ```
 
-####`QueryResult`
+#### `QueryResult`
 Holds a result set from a query, keylist, or fetch.
 Note: QueryResults are immutable.
 
@@ -116,7 +116,7 @@ There are no public constructors for QueryResults.
 
 
 
-##Command Classes Index
+## Command Classes Index
 
 All command classes have a static inner `Builder` class to create and build each command. 
 
@@ -127,7 +127,7 @@ All command classes have a static inner `Builder` class to create and build each
 * Store - Stores data into the Time Series table.
 
 
-###Command Classes Details
+### Command Classes Details
 
 Each command is created through a static Builder subclass.  This pattern ensures that the commands are created as correctly as possible.  To create the command from the builder, call the `.build()` method. 
 
@@ -152,7 +152,7 @@ QueryResult result = queryFuture.get();
 Throwable error = queryFuture.cause();
 ```
 
-####`Delete`
+#### `Delete`
 
 Deletes a single time series row by it's key values.
 
@@ -168,7 +168,7 @@ The builder for the Delete command takes the table name, and a list of cells tha
 ##### Return Value
  * `void`
 
-####`Fetch` 
+#### `Fetch` 
 
 Fetches a single time series row by it's key values.
 
@@ -185,7 +185,7 @@ The builder for the Fetch command takes the table name, and a list of cells that
 
 * `QueryResult` - with 1 row if a match was found, or 0 rows if it wasn't. 
 
-####`ListKeys`
+#### `ListKeys`
 
 Lists the primary keys of all the rows in a Time Series table.
 
@@ -201,7 +201,7 @@ The builder only takes the table name to list keys from.
 ##### Return Value
 * `QueryResult` - with each PrimaryKey's cells as a row. May not contain values for ColumnDescriptions.
 
-####`Query`
+#### `Query`
 
 Allows you to query a Time Series table, with the given query string.
 
@@ -212,7 +212,7 @@ The builder only takes the query text.
 ##### Return Value
  * `QueryResult` - contains all matching rows.
 
-####`Store`
+#### `Store`
 Stores data into the Time Series table.
 
 ##### Builder

@@ -25,11 +25,11 @@ This page provides more in-depth information about how Riak TS tables are struct
 
 If you just want to get started creating a table in Riak TS, check out our quick guide to [planning your Riak TS table][planning]. You may also be interested in [more information about SQL in Riak TS][sql].
 
-##Riak TS Tables
+## Riak TS Tables
 
 With Riak TS, you no longer have to build your own time series database on Riak KV. Instead, Riak TS integrates SQL structure and functionality with Riak KV key/value storage. It does this through Riak TS tables, that you customize to fit your time series data and the needs of your workflow.
 
-##Basic Structure of a Riak TS Table
+## Basic Structure of a Riak TS Table
 
 Riak TS enables querying large amounts of related data, so keys behave differently than in Riak KV.
 
@@ -46,7 +46,7 @@ We have combined the definition of the various keys and the data schema into a s
 
 Riak TS tables have a one-to-one mapping with Riak KV buckets.
 
-###Example
+### Example
 
 ```sql
 CREATE TABLE GeoCheckin
@@ -63,7 +63,7 @@ CREATE TABLE GeoCheckin
 )
 ```
 
-###Fields
+### Fields
 
 Fields, also called columns, refer to the items before the `PRIMARY KEY`. Field names (`myfamily`, `myseries`, etc) must be ASCII strings, in addition to having the correct case. If field names need to contain spaces or punctuation they can be double quoted.
 
@@ -89,11 +89,11 @@ The types associated with fields are limited. Valid types are:
   * This type does not comply with its IEEE specification: `NaN` (not a number) and `INF` (infinity) cannot be used.
 
 
-###Primary Key
+### Primary Key
 The `PRIMARY KEY` describes both the partition and local keys. The partition key and the local key are nearly identical, differing only by the definition of the `quantum` used to colocate data.
 
 
-####Partition Key 
+#### Partition Key 
 The partition key is defined as the three named fields in parentheses:
 
 ```sql
@@ -116,11 +116,11 @@ The quantum function takes 3 parameters:
   * 'm' - minutes
   * 's' - seconds
 
-####Local Key
+#### Local Key
 The second key (local key) MUST contain the same 3 fields in the same order as the partition key. This ensures that the same fields determining your data's partition also dictate the sorting of the data within that partition.
 
 
-##Riak TS Tables in Command Line
+## Riak TS Tables in Command Line
 
 When you [verify that your table was properly created][activating], you'll see a response that shows your table's schema on the command line. It will look something like this:  
 
@@ -175,7 +175,7 @@ The two `key_v1` entries correspond to the partion key and the local key. The fi
 ]}
 ```
 
-##Data Modeling
+## Data Modeling
 
 ```sql
 CREATE TABLE GeoCheckin
@@ -202,5 +202,5 @@ It is difficult to make any recommendations on quanta size, because the size of 
 
 See also [Riak TS Best Practices][bestpractices].
 
-##Editing Your Table
+## Editing Your Table
 Once created, you cannot edit your Riak TS table. If you discover something wrong with the setup of your Riak TS table, you will need to create it again. You will also need to decide whether to scrap the data in the existing table or move it from the old table to the new one.

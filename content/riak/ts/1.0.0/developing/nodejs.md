@@ -17,17 +17,17 @@ canonical_link: "docs.basho.com/riak/ts/latest/developing/nodejs"
 You can develop with Riak TS through the Node.js client. This
 document covers the Node.js protobuf requests to Riak TS.
 
-##Overview
+## Overview
 
 To use Riak TS with Node.js, we've added several new commands in
 the `Riak.Commands.TS` namespace.
 
-##TS Commands
+## TS Commands
 
 >**Note:** These commands are automatically retried if they fail due to network
 error.
 
-###Commands
+### Commands
 
  * `Get`    - Fetch a single row based on the primary key values provided.
  * `Store`  - Store 1 or more rows to a Riak TS table.
@@ -35,9 +35,9 @@ error.
  * `Query`  - Allows you to query a Riak TS table, with the given query string.
  * `ListKeys` - Lists the primary keys of all the rows in a Riak TS table.
 
-###Command Details
+### Command Details
 
-####`Get`
+#### `Get`
 
 ```javascript
 var Riak = require('basho-riak-client');
@@ -68,7 +68,7 @@ Retrieve time series value by key.
 
 *Return Type*: response object with `columns` and `rows` properties.
  
-####`Store`
+#### `Store`
 
 ```javascript
 var Riak = require('basho-riak-client');
@@ -116,7 +116,7 @@ Stores time series data in the Riak cluster.
 
 *Return Type*: boolean
 
-####`Delete`
+#### `Delete`
 
 ```javascript
 var Riak = require('basho-riak-client');
@@ -147,7 +147,7 @@ Delete time series value by key.
 
 *Return Type*: boolean
 
-####`Query`
+#### `Query`
 
 ```javascript
 var Riak = require('basho-riak-client');
@@ -179,7 +179,7 @@ Queries time series data in the Riak cluster.
 
 *Return Type*: response object with `columns` and `rows` properties.
 
-####`ListKeys`
+#### `ListKeys`
 
 ```javascript
 var Riak = require('basho-riak-client');
