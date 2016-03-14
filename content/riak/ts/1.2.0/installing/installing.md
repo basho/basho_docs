@@ -3,9 +3,10 @@ title: "Installing Riak TS"
 description: "Installing Riak TS"
 menu:
   riak_ts-1.2.0:
-    name: "Installing Riak TS"
+    name: "Install"
     identifier: "installing"
-    weight: 300
+    weight: 200
+    pre: icon-install
 project: "riak_ts"
 project_version: "1.2.0"
 toc: true

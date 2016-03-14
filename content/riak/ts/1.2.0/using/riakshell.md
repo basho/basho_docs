@@ -3,9 +3,10 @@ title: "Using riak_shell"
 description: "Using riak_shell"
 menu:
   riak_ts-1.2.0:
-    name: "Using riak_shell"
+    name: "riak_shell"
     identifier: "riak_shell"
-    weight: 400
+    weight: 308
+    parent: "using"
 project: "riak_ts"
 project_version: "1.2.0"
 toc: true

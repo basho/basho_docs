@@ -3,9 +3,10 @@ title: "Riak TS Aggregate Functions"
 description: "Riak TS Aggregate Functions"
 menu:
   riak_ts-1.2.0:
-    name: "Riak TS Aggregate Functions"
+    name: "Aggregate Functions"
     identifier: "aggregate_functions_riakts"
-    weight: 400
+    weight: 306
+    parent: "using"
 project: "riak_ts"
 project_version: "1.2.0"
 toc: true

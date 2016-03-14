@@ -5,7 +5,8 @@ menu:
   riak_ts-1.2.0:
     name: "SQL for Riak TS"
     identifier: "riakts_sql"
-    weight: 400
+    weight: 502
+    parent: "about"
 project: "riak_ts"
 project_version: "1.2.0"
 toc: true

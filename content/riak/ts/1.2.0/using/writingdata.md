@@ -3,9 +3,10 @@ title: "Writing Data to Riak TS"
 description: "Writing Data to Riak TS"
 menu:
   riak_ts-1.2.0:
-    name: "Writing Data to Riak TS"
+    name: "Write Data"
     identifier: "writing_data_riakts"
-    weight: 400
+    weight: 303
+    parent: "using"
 project: "riak_ts"
 project_version: "1.2.0"
 toc: true

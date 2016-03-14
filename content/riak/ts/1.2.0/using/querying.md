@@ -3,9 +3,10 @@ title: "Querying Data in Riak TS"
 description: "Querying Data in Riak TS"
 menu:
   riak_ts-1.2.0:
-    name: "Querying Data in Riak TS"
+    name: "Query Data"
     identifier: "querying_data_riakts"
-    weight: 400
+    weight: 304
+    parent: "using"
 project: "riak_ts"
 project_version: "1.2.0"
 toc: true

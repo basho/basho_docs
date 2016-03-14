@@ -3,9 +3,10 @@ title: "Learn About Riak TS"
 description: "Learn About Riak TS"
 menu:
   riak_ts-1.2.0:
-    name: "Learn About Riak TS"
+    name: "Learn"
     identifier: "about"
-    weight: 300
+    weight: 500
+    pre: icon-beaker
 project: "riak_ts"
 project_version: "1.2.0"
 toc: true

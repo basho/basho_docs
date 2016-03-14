@@ -3,9 +3,10 @@ title: "Configure Riak TS"
 description: "Configure Riak TS"
 menu:
   riak_ts-1.2.0:
-    name: "Configure Riak TS"
+    name: "Configure"
     identifier: "configure_riakts"
-    weight: 400
+    weight: 305
+    parent: "using"
 project: "riak_ts"
 project_version: "1.2.0"
 toc: true
