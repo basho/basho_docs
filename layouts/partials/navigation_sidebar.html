@@ -84,6 +84,7 @@
         {{ end }}
 
         <!-- Community Navigation Item -->
+        {{ if not (eq $menu_title "community") }}
         <li>
           <div class="menu-title">
             <span class="icon-container block float-left">
@@ -94,6 +95,7 @@
             <div class="clear"></div>
           </div>
         </li>
+        {{ end }}
       </ul>
     </div>
   </nav>
