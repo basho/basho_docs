@@ -3,7 +3,7 @@ title: "Developing with Riak TS"
 description: "Developing with Riak TS"
 menu:
   riak_ts-1.1.0:
-    name: "Developing with Riak TS"
+    name: "Develop"
     identifier: "devloping"
     weight: 400
     pre: icon-lambda
