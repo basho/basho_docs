@@ -3,9 +3,10 @@ title: "Developing with Riak TS"
 description: "Developing with Riak TS"
 menu:
   riak_ts-1.0.0:
-    name: "Developing with Riak TS"
+    name: "Develop"
     identifier: "developing"
-    weight: 300
+    weight: 400
+    pre: icon-lambda
 project: "riak_ts"
 project_version: "1.0.0"
 toc: true
