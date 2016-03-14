@@ -25,8 +25,6 @@
 
 {{ partial "head.html" . }}
 
-<!--TODO: Figure out if we want the 'latest' tag to be part of the class list,
-          or if we can get away with it being Hugo metadata. -->
 <body class="{{$project}} {{$version}} {{if $is_latest}}latest{{end}} {{if $is_lts}}lts{{end}}">
 
   {{ partial "google_tag_manager.html" . }}
@@ -34,6 +32,7 @@
   {{ $menu_title := (printf "%s-%s" .Params.project .Params.project_version) }}
   {{ partial "navigation_sidebar.html" (dict "context" . "menu_title" $menu_title) }}
 
+  <!--TODO: Should this be moved to align with/be part of scripts.html? -->
   {{ partial "search.html" . }}
 
   <div role="main">
@@ -55,7 +54,7 @@
       </div>
       {{ end }}
 
-      {{ if .Params.toc }}
+      {{ if $toc }}
       <nav id="toc">
         <h2 class="title">Contents</h2>
         <div id="toc-wrapper">
