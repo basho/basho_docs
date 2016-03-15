@@ -1,9 +1,10 @@
-footer {
+div[role=main] footer footer {
   @include size(730px, auto);
   padding       : 25px 25px 25px 65px;
   margin        : 25px 0 0 0;
   line-height   : 1.2;
   border-top    : 1px solid $subtleGray;
+  font-size: 80%;
   color         : $darkGrey;
   a {
     color           : $darkGrey;
