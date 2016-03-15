@@ -3,9 +3,10 @@ title: "Erlang Client API"
 description: "Erlang Client API"
 menu:
   riak_ts-1.0.0:
-    name: "Erlang Client API"
+    name: "Erlang"
     identifier: "ts_erlang_api"
-    weight: 400
+    weight: 401
+    parent: "developing"
 project: "riak_ts"
 project_version: "1.0.0"
 toc: true
@@ -16,18 +17,18 @@ canonical_link: "docs.basho.com/riak/ts/latest/developing/erlang"
 You can develop with Riak TS through the Erlang client. This document covers the Erlang protobuf requests to Riak TS.
 
 
-##Data Types
+## Data Types
 
-###table_name()
+### table_name()
 
 `table_name() = binary()`
 
-###ts_value()
+### ts_value()
 
 `ts_value() = number() | binary()`
 
 
-##Function Index
+## Function Index
 
 * `delete/4` - Delete a record by primary key.
 * `get/4` - Get a record by primary key.
@@ -36,7 +37,7 @@ You can develop with Riak TS through the Erlang client. This document covers the
 * `stream_list_keys/3` - 
 
 
-###Function Details
+### Function Details
 
 ####`delete/4`
 

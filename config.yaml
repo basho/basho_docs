@@ -46,10 +46,11 @@ params:
       archived_url: "http://docs.basho.com/riakcs/1.5.4/"
     riak_ts:
       path: "riak/ts"
-      latest: "1.1.0"
+      latest: "1.2.0"
       releases:
         - ["1.0.0"]
         - ["1.1.0"]
+        - ["1.2.0"]
     dataplatform:
       path: "dataplatform"
       latest: "1.0.0"

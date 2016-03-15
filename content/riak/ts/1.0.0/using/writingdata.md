@@ -3,9 +3,10 @@ title: "Writing Data to Riak TS"
 description: "Writing Data to Riak TS"
 menu:
   riak_ts-1.0.0:
-    name: "Writing Data to Riak TS"
+    name: "Write Data"
     identifier: "writing_data_riakts"
-    weight: 400
+    weight: 303
+    parent: "using"
 project: "riak_ts"
 project_version: "1.0.0"
 toc: true
@@ -20,7 +21,7 @@ canonical_link: "docs.basho.com/riak/ts/latest/using/writing"
 Now that you've [planned][planning] and [activated][activating] your Riak TS table, you are ready to write data to it.
 
 
-##Writing Data
+## Writing Data
 
 Riak TS allows you to write multiple rows of data at a time. To demonstrate, we'll use the example table from earlier:
 
@@ -101,13 +102,13 @@ If some of the data failed to write, an `RpbErrorResp` error occurs with a numbe
 You could also try the original write again. Failures may be transitory when servers are temporarily unable to talk to each other.
  
 
-###Guidelines
+### Guidelines
 
 * Batches should not be too large. In our testing, 100 rows per write is a sweet spot, but you should expect different results depending on your hardware and schema.
 * Writes will assume that columns are in the same order they've been declared in the table.
 * Timestamps should be in Unix epoch/UTC milliseconds.
 
 
-##Next Steps
+## Next Steps
 
 Now that you've written data to your tables, you can [query][querying] your data.

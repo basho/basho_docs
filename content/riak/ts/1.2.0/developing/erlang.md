@@ -17,18 +17,18 @@ You can develop applications and tools using Riak TS with the Riak Erlang client
 This document covers the Erlang API for Riak TS.
 
 
-##Data Types
+## Data Types
 
-###table_name()
+### table_name()
 
 `table_name() = binary()`
 
-###ts_value()
+### ts_value()
 
 `ts_value() = number() | binary()`
 
 
-##Function Index
+## Function Index
 
 * `delete/4` - Delete a record by primary key.
 * `get/4` - Get a record by primary key.
@@ -39,7 +39,7 @@ This document covers the Erlang API for Riak TS.
 >**Note:** `stream_list_keys/3` is an extremely expensive function and will list every key.
 
 
-###Function Details
+### Function Details
 
 ####`delete/4`
 

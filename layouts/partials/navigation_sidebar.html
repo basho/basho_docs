@@ -63,7 +63,7 @@
         {{ $toggle     := $current_menu.HasChildren }}
         -->
         <li {{if $is_current}}class="current"{{end}}>
-          <div class="menu-title">
+          <div class="menu-title{{if $toggle}} with-toggle{{end}}">
             <span class="icon-container block float-left">
               <span aria-hidden="true" class="nav-icon {{ $current_menu.Pre }}"></span>&nbsp;
             </span>
@@ -84,6 +84,7 @@
         {{ end }}
 
         <!-- Community Navigation Item -->
+        {{ if not (eq $menu_title "community") }}
         <li>
           <div class="menu-title">
             <span class="icon-container block float-left">
@@ -94,6 +95,7 @@
             <div class="clear"></div>
           </div>
         </li>
+        {{ end }}
       </ul>
     </div>
   </nav>

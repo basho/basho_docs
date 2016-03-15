@@ -158,7 +158,7 @@ pp customer
 Which returns our amalgamated objects:
 
 ```ruby
-#Combined Customer and Order Summary:
+# Combined Customer and Order Summary:
 {"customer_id"=>1,
  "name"=>"John Smith",
  "address"=>"123 Main Street",
@@ -213,7 +213,7 @@ pp order_bucket.get_index('salesperson_id_int', 9000)
 Which returns:
 
 ```ruby
-#Jane's Orders:
+# Jane's Orders:
 ["1", "3"]
 ```
 
@@ -228,7 +228,7 @@ pp order_bucket.get_index('order_date_bin', '20131001'..'20131031')
 Which returns:
 
 ```ruby
-#October's Orders:
+# October's Orders:
 ["1", "2"]
 ```
 

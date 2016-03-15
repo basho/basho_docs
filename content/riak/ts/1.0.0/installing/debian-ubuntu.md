@@ -3,9 +3,10 @@ title: "Installing on Debian and Ubuntu"
 description: "Installing on Debian and Ubuntu"
 menu:
   riak_ts-1.0.0:
-    name: "Installing on Debian and Ubuntu"
+    name: "Debian and Ubuntu"
     identifier: "installing_on_debian_ubuntu"
-    weight: 400
+    weight: 201
+    parent: "installing"
 project: "riak_ts"
 project_version: "1.0.0"
 toc: true
@@ -24,9 +25,9 @@ package available through ZenDesk.
 Check your email for the link to the download in ZenDesk.
 
 
-##Dependencies
+## Dependencies
 
-###PAM Library Requirement for Ubuntu
+### PAM Library Requirement for Ubuntu
 
 You must have the `libpam0g-dev` package used for [Pluggable Authentication Module (PAM)][riak security] authentication in order to install Riak TS.
 
@@ -37,7 +38,7 @@ sudo apt-get install libpam0g-dev
 ```
 
 
-##Install Riak TS
+## Install Riak TS
 
 Once you have downloaded the package from ZenDesk, execute the following command to install Riak TS:
 
@@ -47,7 +48,7 @@ sudo dpkg -i riak-ts_{{VERSION}}-1_amd64.deb
 
 Then confirm that [AAE][AAE] is turned off. To do this, check /etc/riak/riak.conf for the following: `anti_entropy = passive`.
 
-##Activate Riak TS node
+## Activate Riak TS node
 
 Once you've installed Riak TS, start it on your node:
 
@@ -56,7 +57,7 @@ riak start
 ```
 
 
-##Verify your installation
+## Verify your installation
 
 You can verify that Riak TS is successfully installed by running: 
 
@@ -67,6 +68,6 @@ dpkg -l | grep riak
 If Riak TS has been installed successfully `riak-ts` is returned.
 
 
-##Next Steps
+## Next Steps
 
 Now that you've installed Riak TS, check out [Planning Your Riak TS Table][planning].

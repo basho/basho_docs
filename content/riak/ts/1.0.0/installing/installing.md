@@ -3,9 +3,10 @@ title: "Installing Riak TS"
 description: "Installing Riak TS"
 menu:
   riak_ts-1.0.0:
-    name: "Installing Riak TS"
+    name: "Install"
     identifier: "installing"
-    weight: 300
+    weight: 200
+    pre: icon-install
 project: "riak_ts"
 project_version: "1.0.0"
 toc: true
@@ -23,7 +24,7 @@ canonical_link: "docs.basho.com/riak/ts/latest/installing"
 Riak TS is a distributed NoSQL key/value store optimized for fast reads and writes of time series data. To use it, all you need to do is install the Riak TS package.
  
 
-##Installing
+## Installing
 
 Choose your OS and follow the instructions:
 

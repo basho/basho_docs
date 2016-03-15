@@ -3,9 +3,10 @@ title: "Riak TS Best Practices"
 description: "Riak TS Best Practices"
 menu:
   riak_ts-1.0.0:
-    name: "Riak TS Best Practices"
+    name: "Best Practices"
     identifier: "riakts_best_practices"
-    weight: 400
+    weight: 501
+    parent: "about"
 project: "riak_ts"
 project_version: "1.0.0"
 toc: true
@@ -18,7 +19,7 @@ canonical_link: "docs.basho.com/riak/ts/latest/learn-about/bestpractices"
 
 There are many ways to interact with and use Riak TS. This page will give recommendations for structuring your storage region (DDL) and 
 
-###DDL Definition 
+### DDL Definition
 
 One of the first things you will encounter setting up Riak TS is defining storage regions/bucket types, also known as Data Definition Language (DDL). Creating a table will specify the DDL and compile it, which will create a bucket. The bucket information is passed around the ring. 
 
@@ -31,7 +32,7 @@ For instance, let's say we have a time series database storing information about
 The most common queries we'll have will be to determine, for a given location and timeframe, the spikes in O2 for a given temperature. Since our use case requires fast reads, we'll choose to correlate data with Spark. In that case, we'll choose to use geohas location and timestamp for the family and series fields in the primary key, since queries are faster on primary key. And we'll put CO2, smog, temperature, and humidity data as [column fields][advancedplanning].
 
 
-##Quantum
+## Quantum
 
 The quantum, the time-based part of the primary key, plays an important role in how data is distributed around the Riak ring, which determines the performance of writes. To provide better data locality, writes are sequential based on the primary key. The quantum was introduced to provide grouping of a time span for these sequential writes and allow for better data distribution around the ring.
 

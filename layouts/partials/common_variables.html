@@ -35,7 +35,7 @@
 {{ .Scratch.Add "is_latest"          $is_latest }}
 {{ .Scratch.Add "is_lts"             $is_lts }}
 
-# TOC shoudl default to `true`
+# TOC should default to `true`
 {{ if isset .Params "toc" }}
   {{ .Scratch.Add "toc" .Params.toc }}
 {{ else }}

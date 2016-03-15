@@ -21,7 +21,7 @@ You can turn a set of rows in your Riak TS table into a value with the aggregate
 >**Note:** At the moment, you cannot combine [arithmetic functions][arithmetic] with aggregation functions.
 
 
-##Aggregate Functions
+## Aggregate Functions
 
 * `COUNT()` - Returns the number of entries that match a specified criteria.
 * `SUM()` - Returns the sum of entries that match a specified criteria.
