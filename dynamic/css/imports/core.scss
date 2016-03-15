@@ -103,35 +103,6 @@ body {
     }
   }
 
-  // footer.mastfooter {
-  //   @include size(730px, auto);
-  //   padding       : 25px 25px 25px 65px;
-  //   margin        : 25px 0 0 0;
-  //   line-height   : 1.2;
-  //   border-top    : 1px solid $subtleGray;
-  //   color         : $darkGrey;
-  //   a {
-  //     color           : $darkGrey;
-  //     text-decoration : none;
-  //     &[href^="http://"], &[href^="https://"] {
-  //       background    : none;
-  //       padding-right : 0;
-  //     }
-  //   }
-
-  //   @media screen and (max-width: 1140px) {
-  //     width : auto;
-  //   }
-
-  //   @media screen and (max-width: 768px) {
-  //     margin : 0;
-  //   }
-
-  //   @media screen and (max-width: 500px) {
-  //     padding : 25px 12px 25px 12px;
-  //   }
-  // }
-
   &.root {
     div[role="main"] {
       #ricon-temp-banner,
@@ -152,13 +123,6 @@ body {
     }
   }
 }
-
-// body.root {
-//   footer.mastfooter {
-//     margin: 10px auto;
-//   }
-// }
-
 
 /* =============================================================================
    Main Element Styles
@@ -611,7 +575,7 @@ div[role="main"] {
 
       a {
         background    : $orange;
-        margin        : 0 10px 0 0;
+        margin        : 0 0 0 0;
         padding-right : 16px;
         @extend .sans-bold;
 
@@ -624,28 +588,6 @@ div[role="main"] {
         [class^="icon-"] {
           padding : 0 10px;
         }
-      }
-
-      #nav-more {
-        font-family : 'DocsFontIcons';
-        margin      : 0;
-        background  : $darkGrey;
-
-        &.selected,
-        &.selected:hover {
-          background : $darkerGrey;
-          color      : #fff; /* Fallback */
-          color      : rgba(255, 255, 255, 0.25);
-        }
-
-        &.unselected {
-          //background : $blueGreen;
-        }
-
-        &:hover {
-          color : #fff; /* Fallback */
-          color : rgba(255, 255, 255, 1.0);
-        } 
       }
 
       @media screen and (max-width: 768px) {
