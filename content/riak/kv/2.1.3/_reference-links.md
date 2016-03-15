@@ -71,8 +71,17 @@
 [config load balance]: /riak/kv/2.1.3/configuring/load-balancing-proxy
 [config mapreduce]: /riak/kv/2.1.3/configuring/map-reduce
 [config search]: /riak/kv/2.1.3/configuring/search
+
 [config v3 mdc]: /riak/kv/2.1.3/configuring/v3-multi-datacenter
+[config v3 nat]: /riak/kv/2.1.3/configuring/v3-multi-datacenter/nat
+[config v3 quickstart]: /riak/kv/2.1.3/configuring/v3-multi-datacenter/quick-start
+[config v3 ssl]: /riak/kv/2.1.3/configuring/v3-multi-datacenter/ssl
+
 [config v2 mdc]: /riak/kv/2.1.3/configuring/v2-multi-datacenter
+[config v2 nat]: /riak/kv/2.1.3/configuring/v2-multi-datacenter/nat
+[config v2 quickstart]: /riak/kv/2.1.3/configuring/v2-multi-datacenter/quick-start
+[config v2 ssl]: /riak/kv/2.1.3/configuring/v2-multi-datacenter/ssl
+
 
 
 ## Using
@@ -105,6 +114,8 @@
 [cluster ops mdc]: /riak/kv/2.1.3/using/cluster-operations/multi-datacenter
 [cluster ops strong consistency]: /riak/kv/2.1.3/using/cluster-operations/strong-consistency
 [cluster ops 2i]: /riak/kv/2.1.3/using/cluster-operations/secondary-indexes
+[cluster ops v3 mdc]: /riak/kv/2.1.3/using/cluster-operations/v3-multi-datacenter
+[cluster ops v2 mdc]: /riak/kv/2.1.3/using/cluster-operations/v2-multi-datacenter
 
 ### Security
 
@@ -189,3 +200,13 @@
 [concept replication]: /riak/kv/2.1.3/concepts/replication
 [concept strong consistency]: /riak/kv/2.1.3/concepts/strong-consistency
 [concept vnodes]: /riak/kv/2.1.3/concepts/vnodes
+
+
+
+## Community
+
+[community]: /community
+[community projects]: /community/projects
+[reporting bugs]: /community/reporting-bugs
+[taishi]: /community/taishi
+

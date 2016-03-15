@@ -94,7 +94,7 @@ Some projects have lost its maintainer with time. Here are all projects that hav
 * [bitcask-ruby](https://github.com/aphyr/bitcask-ruby) --- An interface to the Bitcask storage system
 * [Riak BTree Backend](https://github.com/krestenkrab/riak_btree_backend) --- Backend for Riak/KV based on couch_btree*
 * [Riak Link Index](https://github.com/krestenkrab/riak_link_index) --- Simple Indexer for Riak based on Links
-* [rack-rekon](https://github.com/seomoz/rack-rekon) --- A Rack application to serve [[Rekon|https://github.com/adamhunter/rekon/]]
+* [rack-rekon](https://github.com/seomoz/rack-rekon) --- A Rack application to serve [Rekon](https://github.com/adamhunter/rekon/)
 * [ring-session-riak](https://github.com/ossareh/ring-session-riak) --- A Riak implementation for Ring Session
 * [Riak to CSV Export](https://github.com/bradfordw/riak_csv) --- A simple way to export your Riak buckets to CSV files
 * [Couch to Riak](http://github.com/mattsta/couchdb/tree/couch_file-to-riak)
