@@ -13,13 +13,13 @@ toc: false
 ---
 
 [aboutenterprise]: http://basho.com/contact/
-[configuring]: http://docs.basho.com/riak/2.1.3/configuring/
-[developing]: http://docs.basho.com/riak/2.1.3/developing
-[download]: http://docs.basho.com/riak/2.1.3/downloads/
-[install index]: http://docs.basho.com/riak/2.1.3/installing/
-[planning]: http://docs.basho.com/riak/2.1.3/planning/
+[configuring]: /riak/kv/2.1.3/configuring/
+[developing]: /riak/kv/2.1.3/developing
+[download]: /riak/kv/2.1.3/downloads/
+[install index]: /riak/kv/2.1.3/setup/installing/
+[planning]: /riak/kv/2.1.3/setup/planning/
 [google1]: openfileslimit
-[google2]: http://docs.basho.com/riak/2.1.3/installing/debian-ubuntu
+[google2]: http://docs.basho.com/riak/2.1.3/setup/installing/debian-ubuntu
 [google3]: /
 [google4]: /
 [google5]: /
@@ -32,20 +32,20 @@ Riak KV is a distributed NoSQL database designed to deliver maximum data availab
 
 ## Getting Started
 
-Are you brand new to Riak KV? Start by [downloading][download] Riak KV, and then follow the below pages to get started:
+Are you brand new to Riak KV? Start by [downloading][downloads] Riak KV, and then follow the below pages to get started:
 
 1. [Install Riak KV][install index]
-2. [Plan your Riak KV setup][planning]
-3. [Configure Riak KV for your needs][configuring]
+2. [Plan your Riak KV setup][plan index]
+3. [Configure Riak KV for your needs][config index]
 
 >**Developing with Riak KV**
 >
->If you are looking to integrate Riak KV with your existing tools, check out the [Developing with Riak KV][developing] docs. They provide instructions and examples for languages such as: Java, Ruby, Python, Go, Haskell, NodeJS, Erlang, and more.
+>If you are looking to integrate Riak KV with your existing tools, check out the [Developing with Riak KV][dev index] docs. They provide instructions and examples for languages such as: Java, Ruby, Python, Go, Haskell, NodeJS, Erlang, and more.
 
 ## Popular Docs
 
-1. [Open Files Limit][google1]
-2. [Installing on Debian-Ubuntu][google2]
-3. [Developing with Riak KV: Searching][google3]
-4. [Developing with Riak KV: Getting Started][google4]
-5. [Developing with Riak KV: Client Libraries][google5]
+1. [Open Files Limit][perf open files]
+2. [Installing on Debian-Ubuntu][install debian & ubuntu]
+3. [Developing with Riak KV: Searching][usage search]
+4. [Developing with Riak KV: Getting Started][getting started]
+5. [Developing with Riak KV: Client Libraries][dev client libraries]
