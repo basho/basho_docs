@@ -37,7 +37,7 @@ error.
 
 ### Command Details
 
-####`Get`
+#### `Get`
 
 ```javascript
 var Riak = require('basho-riak-client');
@@ -68,7 +68,7 @@ Retrieve time series value by key.
 
 *Return Type*: response object with `columns` and `rows` properties.
  
-####`Store`
+#### `Store`
 
 ```javascript
 var Riak = require('basho-riak-client');
@@ -116,7 +116,7 @@ Stores time series data in the Riak cluster.
 
 *Return Type*: boolean
 
-####`Delete`
+#### `Delete`
 
 ```javascript
 var Riak = require('basho-riak-client');
@@ -147,7 +147,7 @@ Delete time series value by key.
 
 *Return Type*: boolean
 
-####`Query`
+#### `Query`
 
 ```javascript
 var Riak = require('basho-riak-client');
@@ -179,7 +179,7 @@ Queries time series data in the Riak cluster.
 
 *Return Type*: response object with `columns` and `rows` properties.
 
-####`ListKeys`
+#### `ListKeys`
 
 ```javascript
 var Riak = require('basho-riak-client');

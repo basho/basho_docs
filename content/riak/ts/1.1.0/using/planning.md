@@ -3,9 +3,10 @@ title: "Planning Your Riak TS Table"
 description: "Planning Your Riak TS Table"
 menu:
   riak_ts-1.1.0:
-    name: "Planning Your Riak TS Table"
+    name: "Plan Your Table"
     identifier: "planning_riakts_table"
-    weight: 400
+    weight: 301
+    parent: "using"
 project: "riak_ts"
 project_version: "1.1.0"
 toc: true

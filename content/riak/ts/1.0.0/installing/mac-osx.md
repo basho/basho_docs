@@ -29,7 +29,7 @@ Check your email for the link to the download in ZenDesk.
 
 ## Dependencies
 
-###`ulimit`
+### `ulimit`
 
 OS X gives you a very small limit on open file handles. Even with a
 backend that uses very few file handles, it's possible to run out. See

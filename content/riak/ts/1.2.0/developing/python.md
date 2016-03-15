@@ -3,9 +3,10 @@ title: "Python Client API"
 description: "Python Client API"
 menu:
   riak_ts-1.2.0:
-    name: "Python Client API"
+    name: "Python"
     identifier: "ts_python_api"
-    weight: 400
+    weight: 404
+    parent: "developing"
 project: "riak_ts"
 project_version: "1.2.0"
 toc: true

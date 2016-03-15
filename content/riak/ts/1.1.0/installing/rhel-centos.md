@@ -3,9 +3,10 @@ title: "Installing on CentOS/RHEL"
 description: "Installing on CentOS/RHEL"
 menu:
   riak_ts-1.1.0:
-    name: "Installing on CentOS/RHEL"
+    name: "CentOS/RHEL"
     identifier: "installing_on_centos_rhel"
-    weight: 400
+    weight: 203
+    parent: "installing"
 project: "riak_ts"
 project_version: "1.1.0"
 toc: true

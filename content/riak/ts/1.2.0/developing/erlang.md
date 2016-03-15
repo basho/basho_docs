@@ -3,9 +3,10 @@ title: "Erlang Client API"
 description: "Erlang Client API"
 menu:
   riak_ts-1.2.0:
-    name: "Erlang Client API"
+    name: "Erlang"
     identifier: "ts_erlang_api"
-    weight: 400
+    weight: 401
+    parent: "developing"
 project: "riak_ts"
 project_version: "1.2.0"
 toc: true

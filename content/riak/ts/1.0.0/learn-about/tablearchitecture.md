@@ -10,7 +10,7 @@ menu:
 project: "riak_ts"
 project_version: "1.0.0"
 toc: true
-canonical_link: "docs.basho.com/riak/ts/latest/learn-about/advancedplanning"
+canonical_link: "docs.basho.com/riak/ts/latest/learn-about/tablearchitecture"
 ---
 
 
@@ -93,7 +93,8 @@ The types associated with fields are limited. Valid types are:
 The `PRIMARY KEY` describes both the partition and local keys. The partition key and the local key are nearly identical, differing only by the definition of the `quantum` used to colocate data.
 
 
-#### Partition Key
+#### Partition Key 
+
 The partition key is defined as the three named fields in parentheses:
 
 ```sql

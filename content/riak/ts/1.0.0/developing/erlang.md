@@ -39,7 +39,7 @@ You can develop with Riak TS through the Erlang client. This document covers the
 
 ### Function Details
 
-####`delete/4`
+#### `delete/4`
 
 ```
 delete(Pid::pid(), 
@@ -52,7 +52,7 @@ delete(Pid::pid(),
 Delete a record by primary key. Specify the primary key by using a list of terms that match the primary key values. The order of the terms must match the order of the values in the primary key. `Options` is a proplist which can include values for 'vclock' and 'timeout'. Unless 'vclock' is supplied (see `get/4` below), a GET is called in order to obtain one.
 
 
-####`get/4`
+#### `get/4`
 
 ```
 get(Pid::pid(), 
@@ -65,7 +65,7 @@ get(Pid::pid(),
 Get a record by primary key. Specify the primary key by using a list of terms that match the primary key values. The order of the terms must match the order of the values in the primary key. Returns a tuple with a list of column names in its 1st element, and a record found as a list of values in its 2nd element. If no record is found, the return value is `{[], []}`. `Options` is a proplist which can include a value for 'timeout'.
 
 
-####`put/3`
+#### `put/3`
 
 ```
 put(Pid::pid(), 
@@ -79,7 +79,7 @@ Make data records and insert them individually into a Riak TS table using client
 >**Note:** Type validation is done on the first record only. If any subsequent record contains fewer or more elements than there are columns, or some element fails to convert to the appropriate type, the rest of the records will not get inserted.
 
 
-####`query/2`
+#### `query/2`
 
 ```
 query(Pid::pid(), 
@@ -89,7 +89,7 @@ query(Pid::pid(),
 
 Execute a `SELECT ...` query with the client. The result returned is either a tuple containing a list of columns as binaries in the 1st element and a list of records, each represented as a list of values, in the 2nd element, or an `{error, Reason}` tuple.
 
-####`stream_list_keys/4`
+#### `stream_list_keys/4`
 
 ```
 stream_list_keys(pid(), table_name(), proplists:proplist()) ->

@@ -3,9 +3,10 @@ title: "Node.js Client API"
 description: "Node.js Client API"
 menu:
   riak_ts-1.2.0:
-    name: "Node.js Client API"
+    name: "Node.js"
     identifier: "ts_node.js_api"
-    weight: 400
+    weight: 403
+    parent: "developing"
 project: "riak_ts"
 project_version: "1.2.0"
 toc: true

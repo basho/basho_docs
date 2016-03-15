@@ -3,9 +3,10 @@ title: "Riak TS Best Practices"
 description: "Riak TS Best Practices"
 menu:
   riak_ts-1.1.0:
-    name: "Riak TS Best Practices"
+    name: "Best Practices"
     identifier: "riakts_best_practices"
-    weight: 400
+    weight: 501
+    parent: "about"
 project: "riak_ts"
 project_version: "1.1.0"
 toc: true

@@ -1,16 +1,18 @@
 ---
-title: "Advanced Planning Riak TS Tables"
+title: "Architecture of Riak TS Tables"
 description: "Advanced Planning Riak TS Tables"
 menu:
   riak_ts-1.2.0:
-    name: "Advanced Planning Riak TS Tables"
+    name: "Table Architecture "
     identifier: "advanced_planning_riakts_tables"
-    weight: 400
+    weight: 503
+    parent: "about"
 project: "riak_ts"
 project_version: "1.2.0"
 toc: true
-canonical_link: "docs.basho.com/riak/ts/latest/learn-about/advancedplanning"
+canonical_link: "docs.basho.com/riak/ts/latest/learn-about/tablearchitecture"
 ---
+
 
 [activating]: http://docs.basho.com/riakts/1.2.0/using/creating-activating/
 [configuring]: http://docs.basho.com/riakts/1.2.0/using/configuring/

@@ -3,9 +3,10 @@ title: "Using Riak TS"
 description: "Using Riak TS"
 menu:
   riak_ts-1.2.0:
-    name: "Using Riak TS"
+    name: "Use"
     identifier: "using"
     weight: 300
+    pre: icon-database
 project: "riak_ts"
 project_version: "1.2.0"
 toc: true

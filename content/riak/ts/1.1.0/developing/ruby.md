@@ -3,9 +3,10 @@ title: "Ruby Client API"
 description: "Ruby Client API"
 menu:
   riak_ts-1.1.0:
-    name: "Ruby Client API"
+    name: "Ruby"
     identifier: "ts_ruby_api"
-    weight: 400
+    weight: 405
+    parent: "developing"
 project: "riak_ts"
 project_version: "1.1.0"
 toc: true

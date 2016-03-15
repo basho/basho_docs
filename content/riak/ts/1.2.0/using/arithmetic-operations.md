@@ -3,9 +3,10 @@ title: "Riak TS Arithmetic Operations"
 description: "Riak TS Arithmetic Operations"
 menu:
   riak_ts-1.2.0:
-    name: "Riak TS Arithmetic Operations"
+    name: "Arithmetic Operations"
     identifier: "arithmetic_operations_riakts"
-    weight: 400
+    weight: 307
+    parent: "using"
 project: "riak_ts"
 project_version: "1.2.0"
 toc: true

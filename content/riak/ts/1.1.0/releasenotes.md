@@ -3,9 +3,10 @@ title: "Riak TS Release Notes"
 description: "Riak TS 1.1.0 Release Notes"
 menu:
   riak_ts-1.1.0:
-    name: "Riak TS Release Notes"
+    name: "Release Notes"
     identifier: "release_notes"
-    weight: 200
+    weight: 101
+    parent: "introduction"
 project: "riak_ts"
 project_version: "1.1.0"
 toc: true

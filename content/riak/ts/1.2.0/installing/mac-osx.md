@@ -3,9 +3,10 @@ title: "Installing on Mac OS X"
 description: "Installing on Mac OS X"
 menu:
   riak_ts-1.2.0:
-    name: "Installing on Mac OS X"
+    name: "Mac OS X"
     identifier: "installing_on_mac_os_x"
-    weight: 400
+    weight: 202
+    parent: "installing"
 project: "riak_ts"
 project_version: "1.2.0"
 toc: true
