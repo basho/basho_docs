@@ -84,6 +84,7 @@
 ### Reference
 
 [use ref handoff]: /riak/kv/2.1.3/using/reference/handoff
+[use ref search 2i]: /riak/kv/2.1.3/using/reference/search-secondary-indexes
 
 ### Cluster Admin
 

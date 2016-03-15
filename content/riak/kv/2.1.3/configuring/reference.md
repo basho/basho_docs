@@ -14,8 +14,6 @@ aliases:
   - /riak/2.1.3/ops/advanced/configs/configuration-files/
 ---
 
-**TODO: Markup for tables so reference-style links render. Or use `<a>` elements**
-
 [concept clusters]: /riak/kv/2.1.3/concepts/clusters
 [plan backend bitcask]: /riak/kv/2.1.3/setup/planning/backend/bitcask
 [plan backend leveldb]: /riak/kv/2.1.3/setup/planning/backend/leveldb
@@ -23,6 +21,15 @@ aliases:
 [plan backend multi]: /riak/kv/2.1.3/setup/planning/backend/multi
 [use admin riak cli]: /riak/kv/2.1.3/using/admin/riak-cli
 [use admin riak-admin]: /riak/kv/2.1.3/using/admin/riak-admin
+[glossary aae]: /riak/kv/2.1.3/learn/glossary/#Active-Anti-Entropy-AAE-
+[use ref search 2i]: /riak/kv/2.1.3/using/reference/search-secondary-indexes
+[cluster ops bucket types]: /riak/kv/2.1.3/using/cluster-operations/bucket-types
+[usage conflict resolution]: /riak/kv/2.1.3/developing/usage/conflict-resolution
+[concept causal context]: /riak/kv/2.1.3/concepts/causal-context
+[usage mapreduce]: /riak/kv/2.1.3/developing/usage/mapreduce
+[security index]: /riak/kv/2.1.3/using/security/
+[cluster ops strong consistency]: /riak/kv/2.1.3/using/cluster-operations/strong-consistency
+[glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode
 
 Riak has a `riak.conf` configuration file located in `/etc` if you are
 using a source install or in `/etc/riak` or `/usr/local/etc` if you used
@@ -33,14 +40,13 @@ node, from the storage backend that the node will use to store data to
 the location of SSL-related files to sibling resolution parameters and
 beyond.
 
-<div class="note">
-<div class="title">Note on upgrades to 2.0</div>
-If your cluster is currently running a version of Riak prior to 2.0 and
+> **Note on upgrades to 2.0**
+>
+> If your cluster is currently running a version of Riak prior to 2.0 and
 you'd like to upgrade to version 2.0 or later, you may continue to use
 your old `app.config` and `vm.args` files. You may also use the newer
 `riak.conf` alongside them, but please be aware that any settings in
 `app.config` or `vm.args` will override settings in `riak.conf`.
-</div>
 
 ## The advanced.config file
 
@@ -178,8 +184,7 @@ parameters below.
 
 <tr>
 <td><code>platform_bin_dir</code></td>
-<td>The directory in which the <code>[riak][use admin riak cli]</code>,
-[`riak-admin`][use admin riak-admin],
+<td>The directory in which the <a href="/riak/kv/2.1.3/using/admin/riak-admin"><code>riak-admin</code></a>,
 <code>riak-debug</code>, and now-deprecated <code>search-cmd</code>
 executables are stored.</td>
 <td><code>./bin</code></td>
@@ -188,8 +193,7 @@ executables are stored.</td>
 <tr>
 <td><code>platform_data_dir</code></td>
 <td>The directory in which Riak stores its storage backend data, as well
-as [[ring state|Clusters]] data, [[active anti-entropy]] data, and
-[[cluster metadata]].</td>
+as <a href="/riak/kv/2.1.3/concepts/clusters">ring state</a> data, <a href="/riak/kv/2.1.3/learn/glossary/#Active-Anti-Entropy-AAE-">active anti-entropy</a> data, and cluster metadata.</td>
 <td><code>./data</code></td>
 </tr>
 
@@ -220,8 +224,7 @@ Each of these directory parameters can be used to construct values for
 other parameters by placing it within a `$(...)`. Thus,
 `platform_log_dir` becomes `$(platform_log_dir)` and so on.
 
-To give an example, you can select the directory used by Riak's [[active
-anti-entropy|Configuration Files#active-anti-entropy]] system using the
+To give an example, you can select the directory used by Riak's [active anti-entropy](#active-anti-entropy) system using the
 `anti_entropy.data_dir` parameter. When setting that parameter, you can
 specify an absolute directory, as below:
 
@@ -237,7 +240,7 @@ anti_entropy.data_dir = $(platform_data_dir)/anti_entropy
 
 ## Search
 
-Configuration parameters for [[Riak Search|Using Search]].
+Configuration parameters for [Riak KV Search][use ref search 2i].
 
 <table class="riak-conf">
 <thead>
@@ -426,8 +429,7 @@ threshold.</td>
 
 ## Default Bucket Properties
 
-When configuring buckets [[using bucket types]], the table below lists
-the bucket properties that are used when no bucket type is specified.
+When configuring buckets [using bucket types][cluster ops bucket types], the table below lists the bucket properties that are used when no bucket type is specified.
 
 <table class="riak-conf">
 <thead>
@@ -443,7 +445,7 @@ the bucket properties that are used when no bucket type is specified.
 <td><code>buckets.default.allow_mult</code></td>
 <td>Whether or not siblings are allowed
 <br /><br />
-<strong>Note</strong>: See <a href="/dev/using/conflict-resolution/">
+<strong>Note</strong>: See <a href="/riak/kv/2.1.3/developing/usage/conflict-resolution">
 Conflict Resolution</a> for a discussion of siblings.</td>
 <td><code>true</code></td>
 </tr>
@@ -554,8 +556,7 @@ indicating that the write was received.</td>
 
 ## Object Settings
 
-Configurable parameters for [[conflict resolution]] and dealing with
-[[sibling explosion|Causal Context#Sibling-Explosion]].
+Configurable parameters for [conflict resolution][usage conflict resolution] and dealing with [sibling explosion][concept causal context].
 
 <table class="riak-conf">
 <thead>
@@ -853,7 +854,7 @@ specified duration elapses, all existing processes are killed.</td>
 ## JavaScript MapReduce
 
 Configurable parameters for Riak's now-deprecated JavaScript
-[[MapReduce|Using MapReduce]] system.
+[MapReduce][usage mapreduce] system.
 
 <table class="riak-conf">
 <thead>
@@ -912,8 +913,7 @@ map functions.</td>
 
 ## Security
 
-Configurable parameters for [[Riak Security|Authentication and
-Authorization]].
+Configurable parameters for [Riak KV Security][security index].
 
 <table class="riak-conf">
 <thead>
@@ -1006,7 +1006,7 @@ dictates which cipher is chosen.</td>
 ## Client Interfaces
 
 Configurable parameters for clients connecting to Riak either through
-Riak's [[Protocol Buffers|PBC API]] or [[HTTP|HTTP API]] API.
+Riak's Protocol Buffers or HTTP API.
 
 <table class="riak-conf">
 <thead>
@@ -1226,8 +1226,7 @@ built-in error logger</td>
 
 ## Active Anti-Entropy
 
-Configurable parameters for Riak's [[active anti-entropy|Managing
-Active Anti-Entropy]] subsystem.
+Configurable parameters for Riak's active anti-entropy subsystem.
 
 <table class="riak-conf">
 <thead>
@@ -1366,7 +1365,7 @@ to <code>off</code> can cut down on system resource usage.
 
 ## Intra-Cluster Handoff
 
-Configurable parameters for intra-cluster, i.e. inter-node, [[handoff]].
+Configurable parameters for intra-cluster, i.e. inter-node, handoff.
 
 <table class="riak-conf">
 <thead>
@@ -1467,8 +1466,8 @@ values for compression tend to be more CPU intensive.</td>
 
 ## SNMP
 
-Configurable parameters for the [[Simple Network Management
-Protocol|SNMP]] \(SNMP) server built into
+Configurable parameters for the Simple Network Management
+Protocol\(SNMP) server built into
 [Riak Enterprise](http://basho.com/riak-enterprise/).
 
 <table class="riak-conf">
@@ -1581,7 +1580,7 @@ stats.</td>
 
 ## JMX
 
-Configuration parameters for the [[JMX Monitoring]] system built into
+Configuration parameters for the JMX Monitoring system built into
 [Riak Enterprise](http://basho.com/riak-enterprise/).
 
 <table class="riak-conf">
@@ -1633,7 +1632,7 @@ Riak's strong consistency feature has a variety of tunable parameters
 that allow you to enable and disable strong consistency, modify the
 behavior of leaders and followers, set various timeouts, and more. More
 detailed information from an operations perspective can be found in our
-documentation on [[managing strong consistency]].
+documentation on [managing strong consistency][cluster ops strong consistency].
 
 Strong consistency is disabled by default. The `strong_consistency`
 parameter enables you to turn it on. This setting is available in each
@@ -1672,13 +1671,11 @@ that file. That section looks like this:
 ```
 
 Further instructions on setting parameters in `advanced.config` can be
-found in the [[advanced configuration|Configuration
-Files#Advanced-Configuration]] section below.
+found in the [advanced configuration](#Advanced-Configuration) section below.
 
 Using these settings properly demands a firm understanding of the basic
 architecture of Riak's implementation of strong consistency. We highly
-recommend reading our documentation on the [[implementation
-details|Managing Strong Consistency#Implementation-Details]] behind
+recommend reading our documentation on the [implementation details][cluster ops strong consistency] behind
 strong consistency before changing the defaults on these parameters.
 
 <table class="riak-conf">
@@ -1726,7 +1723,7 @@ abandons the leader (in milliseconds). This must be set greater than the
 <tr>
 <td><code>alive_tokens</code></td>
 <td>Determines the number of ticks the leader will wait to hear from its
-associated [[vnode|Riak Glossary#vnode]] before assuming that the vnode
+associated <a href="/riak/kv/2.1.3/learn/glossary/#Vnode">vnode</a> before assuming that the vnode
 is unhealthy and stepping down as leader. If the vnode does not respond
 to the leader before <code>ensemble_tick</code> *
 <code>alive_tokens</code> milliseconds have elapsed, the leader will
@@ -2052,8 +2049,8 @@ only in Riak Enterprise 2.0 and later.</td>
 
 #### Upgrading Riak Search with `advanced.config`
 
-If you are upgrading to Riak 2.x and wish to upgrade to the new [[Riak
-Search|Using Search]] \(codename Yokozuna), you will need to enable
+If you are upgrading to Riak 2.x and wish to upgrade to the new Riak
+Search\(codename Yokozuna), you will need to enable
 legacy Search while the upgrade is underway. You can add the following
 snippet to your `advanced.config` configuration to do so:
 
