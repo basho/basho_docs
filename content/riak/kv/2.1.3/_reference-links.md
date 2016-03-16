@@ -57,7 +57,7 @@
 [upgrade version]: /riak/kv/2.1.3/setup/upgrading/version
 [upgrade cluster]: /riak/kv/2.1.3/setup/upgrading/cluster
 [upgrade mdc]: /riak/kv/2.1.3/setup/upgrading/multi-datacenter
-[upgrade downgrade]: /riak/kv/2.1.3/setup/upgrading/multi-datacenter
+[upgrade downgrade]: /riak/kv/2.1.3/setup/upgrading/downgrade
 
 
 ## Configuring
@@ -93,6 +93,7 @@
 ### Reference
 
 [use ref handoff]: /riak/kv/2.1.3/using/reference/handoff
+[use ref monitoring]: /riak/kv/2.1.3/using/reference/monitoring
 [use ref search 2i]: /riak/kv/2.1.3/using/reference/search-secondary-indexes
 
 ### Cluster Admin
@@ -106,6 +107,7 @@
 
 [cluster ops add remove node]: /riak/kv/2.1.3/using/cluster-operations/adding-removing-nodes
 [cluster ops inspect node]: /riak/kv/2.1.3/using/cluster-operations/inspecting-node
+[cluster ops change info]: /riak/kv/2.1.3/using/cluster-operations/changing-cluster-info
 [cluster ops load balance]: /riak/kv/2.1.3/using/cluster-operations/load-balancing
 [cluster ops bucket types]: /riak/kv/2.1.3/using/cluster-operations/bucket-types
 [cluster ops handoff]: /riak/kv/2.1.3/using/cluster-operations/handoff
@@ -117,10 +119,15 @@
 [cluster ops v3 mdc]: /riak/kv/2.1.3/using/cluster-operations/v3-multi-datacenter
 [cluster ops v2 mdc]: /riak/kv/2.1.3/using/cluster-operations/v2-multi-datacenter
 
+### Repair/Recover
+
+[repair recover index]: /riak/kv/2.1.3/repair-recovery
+
 ### Security
 
 [security index]: /riak/kv/2.1.3/using/security/
 [security basics]: /riak/kv/2.1.3/using/security/basics
+[security managing]: /riak/kv/2.1.3/using/security/managing-sources
 
 ### Performance
 
@@ -167,6 +174,7 @@
 [usage secondary-indexes]: /riak/kv/2.1.3/developing/usage/secondary-indexes
 [usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types
 [usage mapreduce]: /riak/kv/2.1.3/developing/usage/mapreduce
+[usage commit hooks]: /riak/kv/2.1.3/developing/usage/commit-hooks
 [usage custom extractors]: /riak/kv/2.1.3/developing/usage/custom-extractors
 
 ### App Guide

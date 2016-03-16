@@ -14,8 +14,14 @@ aliases:
   - /riak/2.1.3/ops/running/cluster-admin
 ---
 
-This document explains usage of the `[[riak-admin cluster|riak-admin
-Command Line#cluster]]` interface, which enables you to perform a wide
+[use admin riak-admin#cluster]: /riak/kv/2.1.3/using/admin/riak-admin/#cluster
+[concept clusters]: /riak/kv/2.1.3/concepts/clusters
+[cluster ops add remove node]: /riak/kv/2.1.3/using/cluster-operations/adding-removing-nodes
+[use admin riak-admin#cluster-plan]: /riak/kv/2.1.3/using/admin/riak-admin/#cluster-plan
+[use admin riak-admin#cluster-commit]: /riak/kv/2.1.3/using/admin/riak-admin/#cluster-commit
+
+
+This document explains usage of the [`riak-admin cluster`][use admin riak-admin#cluster] interface, which enables you to perform a wide
 variety of cluster-level actions.
 
 ## How Cluster Administration Works
@@ -31,24 +37,21 @@ Enacting cluster-level changes typically follows this set of steps:
 1. Choose an action or set of actions, such as adding a node, removing
 multiple nodes, etc. These actions will be **staged** rather than
 executed immediately.
-1. **Plan** the changes using the `[[cluster plan|Cluster
-Administration#plan]]` command. This will return a list of staged
+1. **Plan** the changes using the [`cluster plan`](#plan) command. This will return a list of staged
 commands that you can review.
-1. **Commit** the changes using the `[[cluster commit|Cluster
-Administration#commit]]` command. This will execute the changes that
+1. **Commit** the changes using the [`cluster commit`](#commit) command. This will execute the changes that
 have been staged and reviewed.
 
-<div class="note">
-<div class="title">Note on command names</div>
-Many of the commands available through the `riak-admin cluster`
+> **Note on command names**
+>
+> Many of the commands available through the `riak-admin cluster`
 interface are also available as self-standing commands. The `riak-admin
 member-status` command is now the `riak-admin cluster status` command,
 `riak-admin join` is now `riak-admin cluster join`, etc.
-
-We recommend using the `riak-admin cluster` interface over the older,
+>
+> We recommend using the `riak-admin cluster` interface over the older,
 deprecated commands. You will receive a deprecation warning if you use
 the older commands.
-</div>
 
 ## status
 
@@ -74,7 +77,7 @@ Ring ready: true
 ```
 
 In the above output, `Ring ready` denotes whether or not the cluster
-agrees on [[the ring|Clusters#The-Ring]], i.e. whether the cluster is
+agrees on [the ring][concept clusters], i.e. whether the cluster is
 ready to begin taking requests.
 
 The following information is then displayed for each node, by nodename
@@ -83,7 +86,7 @@ The following information is then displayed for each node, by nodename
 * `status` --- There are five possible values for status:
   * `valid` --- The node has begun participating in cluster operations
   * `leaving` --- The node is is currently unloading ownership of its
-    [[data partitions|Clusters#The-Ring]] to other nodes
+    [data partitions][concept clusters] to other nodes
   * `exiting` --- The node's ownership transfers are complete and it is
     currently shutting down
   * `joining` --- The node is in the process of joining the cluster but
@@ -91,12 +94,11 @@ The following information is then displayed for each node, by nodename
   * `down` --- The node is not currently responding
 * `avail` --- There are two possible values: `up` if the node is
     available and taking requests and `down!` if the node is unavailable
-* `ring` --- What percentage of the Riak [[ring|Clusters#The-Ring]] the
+* `ring` --- What percentage of the Riak [ring][concept clusters] the
   node is responsible for
 * `pending` --- The number of pending transfers to or from the node
 
-In addition, the cluster's [[claimant node|Adding and Removing
-Nodes#How-Cluster-Membership-Changes-Work]] node will have a `(C)` next
+In addition, the cluster's [claimant node][cluster ops add remove node] node will have a `(C)` next
 to it.
 
 ## join
@@ -118,17 +120,16 @@ riak-admin cluster join riak1@127.0.0.1
 Once a node joins, all of the operations necessary to establish
 communication with all other nodes proceeds automatically.
 
-**Note**: As with all cluster-level actions, the changes made when you
+> **Note**: As with all cluster-level actions, the changes made when you
 run the `cluster join` command will take effect only after you have both
-planned the changes by running `[[riak-admin cluster plan|riak-admin
-Command Line#cluster-plan]]` and committed the changes by running
-`[[riak-admin cluster commit|riak-admin Command Line#cluster-commit]]`.
+planned the changes by running [`riak-admin cluster plan`][use admin riak-admin#cluster-plan] and committed the changes by running
+[`riak-admin cluster commit`][use admin riak-admin#cluster-commit].
 You can stage multiple joins before planning/committing.
 
 ## leave
 
-Instructs the current node to hand off its [[data
-partitions|Clusters#The-Ring]], leave the cluster, and shut down.
+Instructs the current node to hand off its
+[data partitions][concept clusters], leave the cluster, and shut down.
 
 ```bash
 riak-admin cluster leave
@@ -140,18 +141,16 @@ You can also instruct another node (by nodename) to leave the cluster:
 riak-admin cluster leave <node>
 ```
 
-**Note**: As with all cluster-level actions, the changes made when you
+> **Note**: As with all cluster-level actions, the changes made when you
 run the `cluster leave` command will take effect only after you have
-both planned the changes by running `[[riak-admin cluster
-plan|riak-admin Command Line#cluster-plan]]` and committed the changes
-by running `[[riak-admin cluster commit|riak-admin Command
-Line#cluster-commit]]`. You can stage multiple leave command before
-planning/committing.
+both planned the changes by running [`riak-admin cluster plan`][use admin riak-admin#cluster-plan] and committed the changes
+by running [`riak-admin cluster commit`][use admin riak-admin#cluster-commit].
+You can stage multiple leave command before planning/committing.
 
 ## force-remove
 
 Removes another node from the cluster (by nodename) _without_ first
-handing off its [[data partitions|Clusters#The-Ring]]. This command is
+handing off its [data partitions][concept clusters]. This command is
 designed for crashed, unrecoverable nodes and should be used with
 caution.
 
@@ -159,35 +158,30 @@ caution.
 riak-admin cluster force-remove <node>
 ```
 
-**Note**: As with all cluster-level actions, the changes made when you
-run the `cluster force-remove` command will take effect only after you
-have both planned the changes by running `[[riak-admin cluster
-plan|riak-admin Command Line#cluster-plan]]` and committed the changes
-by running `[[riak-admin cluster commit|riak-admin Command
-Line#cluster-commit]]`. You can stage multiple force-remove actions
+> **Note**: As with all cluster-level actions, the changes made when you
+run the `cluster force-remove` command will take effect only after you have
+both planned the changes by running [`riak-admin cluster plan`][use admin riak-admin#cluster-plan] and committed the changes
+by running [`riak-admin cluster commit`][use admin riak-admin#cluster-commit]. You can stage multiple force-remove actions
 before planning/committing.
 
 ## replace
 
-Instructs a node to transfer all of its [[data
-partitions|Clusters#The-Ring]] to another node and then to leave the
+Instructs a node to transfer all of its [data partitions][concept clusters] to another node and then to leave the
 cluster and shut down.
 
 ```bash
 riak-admin cluster replace <node1> <node2>
 ```
 
-**Note**: As with all cluster-level actions, the changes made when you
+> **Note**: As with all cluster-level actions, the changes made when you
 run the `cluster replace` command will take effect only after you have
-both planned the changes by running `[[riak-admin cluster
-plan|riak-admin Command Line#cluster-plan]]` and committed the changes
-by running `[[riak-admin cluster commit|riak-admin Command
-Line#cluster-commit]]`. You can stage multiple replace actions before
+both planned the changes by running [`riak-admin cluster plan`][use admin riak-admin#cluster-plan] and committed the changes
+by running [`riak-admin cluster commit`][use admin riak-admin#cluster-commit]. You can stage multiple replace actions before
 planning/committing.
 
 ## force-replace
 
-Reassigns all [[data partitions|Clusters#The-Ring]] owned by one node to
+Reassigns all [data partitions][concept clusters] owned by one node to
 another node _without_ first handing off data.
 
 ```bash
@@ -197,12 +191,10 @@ riak-admin force-replace <node_being_replaced> <replacement_node>
 Once the data partitions have been reassigned, the node that is being
 replaced will be removed from the cluster.
 
-**Note**: As with all cluster-level actions, the changes made when you
-run the `cluster force-replace` command will take effect only after you
-have both planned the changes by running `[[riak-admin cluster
-plan|riak-admin Command Line#cluster-plan]]` and committed the changes
-by running `[[riak-admin cluster commit|riak-admin Command
-Line#cluster-commit]]`. You can stage multiple force-replace actions
+> **Note**: As with all cluster-level actions, the changes made when you
+run the `cluster force-replace` command will take effect only after you have
+both planned the changes by running [`riak-admin cluster plan`][use admin riak-admin#cluster-plan] and committed the changes
+by running [`riak-admin cluster commit`][use admin riak-admin#cluster-commit]. You can stage multiple force-replace actions
 before planning/committing.
 
 ## plan
@@ -273,8 +265,7 @@ data transfers, etc.
 ## commit
 
 Commits the currently staged cluster changes. Staged cluster changes
-must be reviewed using `[[riak-admin cluster plan|Cluster
-Administration#plan]]` prior to being committed.
+must be reviewed using [`riak-admin cluster plan`][use admin riak-admin#cluster-plan] prior to being committed.
 
 ```bash
 riak-admin cluster commit
@@ -353,8 +344,7 @@ this:
 ```
 
 The `partitions` column displays the number of partitions claimed by the
-node, while the `pct` column displays the percentage of the
-[[ring|Clusters#The-Ring]] claimed.
+node, while the `pct` column displays the percentage of the ring claimed.
 
 ## partition
 
