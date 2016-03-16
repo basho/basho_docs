@@ -1,5 +1,5 @@
 ---
-title: "V3 Replication Reference"
+title: "V3 Multi-Datacenter Replication Reference"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"

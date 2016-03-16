@@ -6,7 +6,7 @@ project_version: "2.1.3"
 menu:
   riak_kv-2.1.3:
     name: "Multi-Datacenter"
-    identifier: "managing_ref_multi_datacenter"
+    identifier: "managing_ref_mdc"
     weight: 109
     parent: "managing_ref"
 toc: true
