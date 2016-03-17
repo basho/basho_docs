@@ -98,7 +98,7 @@ var cb = function (err, rslt) {
     // NB: rslt will be true when successful
 };
 
-var cmd = new Riak.Commands.TS.Get.Builder()
+var cmd = new Riak.Commands.TS.Store.Builder()
     .withTable('TimeSeriesData')
     .withRows(rows)
     .withCallback(cb)
