@@ -83,7 +83,8 @@
           {{end}}
           </tbody></table>
           {{ if (index (index $.Site.Data.os_meta $os_map.os) "installing_path") }}
-          <p class="install_instruction">Here are further instructions for <a href="/{{$project_path}}/{{$target_version}}/{{ (index (index $.Site.Data.os_meta $os_map.os) "installing_path") }}">installing {{$target_title}} on this system</a>.</p>
+          {{ $installing_path := (index (index $.Site.Data.os_meta $os_map.os) "installing_path") }}
+          <p class="install_instruction">Here are further instructions for <a href="/{{$project_path}}/{{$target_version}}/{{$installing_path}}">installing {{$target_title}} on this system</a>.</p>
           {{end}}
         {{end}}
 
