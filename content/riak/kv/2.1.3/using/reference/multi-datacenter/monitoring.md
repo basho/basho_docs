@@ -8,7 +8,7 @@ menu:
     name: "Monitoring"
     identifier: "managing_ref_mdc_monitor"
     weight: 102
-    parent: "managing_ref_mdc""
+    parent: "managing_ref_mdc"
 toc: true
 aliases:
   - /riak/2.1.3/ops/mdc/monitoring

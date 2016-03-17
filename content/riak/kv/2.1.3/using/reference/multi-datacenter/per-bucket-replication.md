@@ -8,7 +8,7 @@ menu:
     name: "Per Bucket"
     identifier: "managing_ref_mdc_per_bucket"
     weight: 101
-    parent: "managing_ref_mdc""
+    parent: "managing_ref_mdc"
 toc: true
 aliases:
   - /riak/2.1.3/ops/mdc/per-bucket
