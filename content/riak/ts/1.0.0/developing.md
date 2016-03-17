@@ -13,10 +13,10 @@ toc: true
 canonical_link: "docs.basho.com/riak/ts/latest/developing"
 ---
 
-[erlang]: http://docs.basho.com/riakts/1.0.0/developing/erlang
-[java]: http://docs.basho.com/riakts/1.0.0/developing/java
-[nodejs]: http://docs.basho.com/riakts/1.0.0/developing/nodejs
-[python]: http://docs.basho.com/riakts/1.0.0/developing/python
+[erlang]: erlang/
+[java]: java/
+[nodejs]: nodejs/
+[python]: python/
 
 
 
