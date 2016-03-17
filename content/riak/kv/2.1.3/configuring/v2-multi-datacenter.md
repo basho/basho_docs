@@ -16,6 +16,8 @@ aliases:
 
 **TODO: Riak EE Header**
 
+[config v2 ssl]: /riak/kv/2.1.3/configuring/v2-multi-datacenter/ssl
+
 Riak Enterprise's Multi-Datacenter Replication capabilities offer a
 variety of configurable parameters.
 
@@ -146,5 +148,4 @@ Setting | Options | Default | Description
  peers presenting certificates not matching any of the patterns will not be
  allowed to connect.
  If no ACLs are configured, no checks on the common name are done, except
- as described for [[Identical Local and Peer Common Names
- |Multi Data Center Replication: SSL#Verifying-Peer-Certificates]].
+ as described for [Identical Local and Peer Common Names][config v2 ssl].

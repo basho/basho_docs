@@ -28,9 +28,8 @@ clusters.
 This Guide assumes that you have completed the following steps:
 
 * [Installing Riak Enterprise](http://basho.com/riak-enterprise/)
-* [[Performing system tuning|System Performance Tuning]]
-* [[Reviewing configuration|Multi Data Center Replication:
-  Configuration]]
+* [Performing system tuning|System Performance Tuning][perf index]
+* [Reviewing configuration][config v2 mdc]
 
 ## Scenario
 
@@ -93,8 +92,7 @@ Source cluster.
 Verify the replication configuration using `riak-repl status` on both a
 Cluster1 node and a Cluster2 node. A full description of the `riak-repl
 status` command's output can be found in the documentation for
-`riak-repl`'s [[status output|Multi Data Center Replication:
-Operations#riak-repl-status-output]].
+`riak-repl`'s [status output][cluster ops v2 mdc#status].
 
 On the Cluster1 node, verify that there are `listener_<nodename>`s for
 each listening node, and that `leader` and `server_stats` are populated.
@@ -221,8 +219,7 @@ riak-repl add-site 192.168.1.21 9010 Cluster2
 Verify the replication configuration using `riak-repl status` on a
 Cluster1 node and a Cluster2 node. A full description of the `riak-repl
 status` command's output can be found in the documentation for
-`riak-repl`'s [[status output|Multi Data Center Replication:
-Operations#riak-repl-status-output]].
+`riak-repl`'s [status output][cluster ops v2 mdc#status].
 
 On the Cluster1 node, verify that `Cluster2_ips`, `leader`, and
 `client_stats` are populated. They should look similar to the following:
@@ -340,8 +337,7 @@ the queue is full due to high traffic or a bulk loading operation, some
 objects will be dropped from replication. These dropped objects can be
 sent to the Site cluster by running a fullsync operation. The settings
 for the realtime replication queue and their explanations are available
-in the [[configuration|Multi Data Center Replication: Configuration]]
-documentation.
+in the [configuration][config v2 mdc] documentation.
 
 ### Initiating a fullsync
 
@@ -363,5 +359,4 @@ riak-repl cancel-fullsync
   
 Fullsync operations may also be paused, resumed, or scheduled for
 certain times using cron jobs. A complete list of fullsync commands is
-available in the [[MDC Operations|Multi Data Center Replication:
-Operations#Operations]] documentation.
+available in the [MDC Operations][cluster ops v2 mdc] documentation.

@@ -9,6 +9,10 @@ menu:
     pre: icon-comments
 ---
 
+[community projects]: /community/projects
+[reporting bugs]: /community/reporting-bugs
+[taishi]: /community/taishi
+
 Our Community is an eclectic group of engineers, architects, academics and enthusiasts who care about solving the hardest problems of distributed systems with open source software. Riak, written in Erlang, tackles the continuing complexity of persisting unstructured data with an architecture uniquely designed to scale.
 
 As a Community, our core belief is that there is no question too simple. You can freely share questions, answers and feedback without hesitation. Whether you need help or simply want to get involved, we are easy to contact.
@@ -87,8 +91,7 @@ You can [see past talks](http://ricon.io/archive/2014/index.html) as well.
 ## Process
 A healthy community includes the right amount of processes for everyone to work together. Here is the short list of resources: 
 
-* [[Community FAQs]] has additional specifics to questions on contribution.
-* [[Reporting Bugs]] for understanding bug process and triage.
+* [Reporting Bugs][reporting bugs] for understanding bug process and triage.
 
 ### Give Back
 A Community is built around the code to help foster its growth, maturity, and adoption. Like the code, it needs to evolve, and unless it’s moving forward and being refined continuously, it ceases to be valuable.

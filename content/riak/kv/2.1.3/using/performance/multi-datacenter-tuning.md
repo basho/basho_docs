@@ -12,13 +12,15 @@ menu:
 toc: true
 ---
 
+[perf index]: /riak/kv/2.1.3/using/performance
+
 Depending on the size of your objects and your replication latency
 needs, you may need to configure your kernel settings to optimize
 throughput.
 
 ## Linux
 
-Refer to the [[System Performance Tuning]] document.
+Refer to the [System Performance Tuning][perf index] document.
 
 ## Solaris
 

@@ -16,7 +16,7 @@ aliases:
 
 [glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode
 
-#### Using Causal Context
+## Using Causal Context
 
 If an object already exists under a certain key and you want to write a
 new object to that key, Riak needs to know what to do, especially if
@@ -571,7 +571,7 @@ update_coach(team, new_coach) ->
     {ok, Obj} = riakc_pb_socket:get(Pid,
                                     {<<"siblings">>, <<"coaches">>},
                                     <<team>>),
-    ModifiedObj = riakc_obj:update(Obj, <<new_coach>>),
+    ModifiedObj = riakc_obj:update_value(Obj, <<new_coach>>),
     riakc_pb_socket:put(Pid, ModifiedObj).
 
 %% Example usage

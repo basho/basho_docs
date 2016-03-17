@@ -16,10 +16,15 @@ aliases:
 
 **TODO: Riak EE Header**
 
+[config v3 mdc]: /riak/kv/2.1.3/configuring/v3-multi-datacenter
+[config v3 nat]: /riak/kv/2.1.3/configuring/v3-multi-datacenter/nat
+[config v3 quickstart]: /riak/kv/2.1.3/configuring/v3-multi-datacenter/quick-start
+[config v3 ssl]: /riak/kv/2.1.3/configuring/v3-multi-datacenter/ssl
+[ref v3 stats]: /riak/kv/2.1.3/using/reference/v3-multi-datacenter/statistics
+
 This document explains how to manage replication with the `riak-repl`
 command. Some of these commands can be set or behavior altered by
-setting appropriate [[configuration|Multi Data Center Replication v3
-Configuration]] values.
+setting appropriate [configuration][config v3 mdc] values.
 
 All commands need to be run only once on a single node of a cluster for
 the changes to propagate to all other nodes. All changes will persist
@@ -141,8 +146,7 @@ Stop realtime replication from a source cluster to sink clusters.
 ## Fullsync Replication Commands
 
 These behaviors can be altered by using the `advanced.config`
-`fullsync_on_connect` parameter. See the [[Configuration Guide|Multi
-Data Center Replication v3 Configuration]] for more information.
+`fullsync_on_connect` parameter. See the [Configuration Guide][config v3 mdc] for more information.
 
 #### fullsync enable
 
@@ -180,9 +184,6 @@ Stops a fullsync.
 
 ## Cascading Realtime Writes
 
-See the [[Multi Data Center Replication: Cascading Realtime Writes]]
-guide.
-
 #### realtime cascades
 
 Shows the current cascading realtime setting.
@@ -207,8 +208,7 @@ Disable realtime cascading writes.
 
 ## NAT
 
-**Note**: See the [[Configuration Guide|Multi Data Center Replication v3
-With NAT]] for more information.
+**Note**: See the [V3 Multi Data Center Replication With NAT][config v3 nat] for more information.
 
 #### nat-map show
 
@@ -299,14 +299,13 @@ included when passed to `*-block-provider-redirect`.
 ## `riak-repl` Status Output
 
 Details about the `riak-repl status` command can be found under
-[[Statistics|Multi Data Center Replication: Statistics]].
+[Statistics][ref v3 stats].
 
 
 ## Tuning
 
 These tuning values may also be set via the node's `advanced.config` file.
-See the [[Configuration Guide|Multi Data Center Replication v3
-Configuration]] for more information.
+See the [Configuration Guide][config v3 mdc] for more information.
 
 #### `fullsync max_fssource_node`
 
