@@ -1,5 +1,6 @@
 ---
-title: "Getting Started: Querying with Erlang"
+title_supertext: "Getting Started:"
+title: "Querying with Erlang"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"

@@ -1,5 +1,6 @@
 ---
-title: "Client Security: PHP"
+title_supertext: "Client Security:"
+title: "PHP"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"

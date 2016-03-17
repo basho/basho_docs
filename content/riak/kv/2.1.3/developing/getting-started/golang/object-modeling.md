@@ -1,5 +1,6 @@
 ---
-title: "Getting Started: Object Modeling with Go"
+title_supertext: "Getting Started:"
+title: "Object Modeling with Go"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"

@@ -1,5 +1,6 @@
 ---
-title: "Installing on SmartOS"
+title_supertext: "Installing on"
+title: "SmartOS"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"

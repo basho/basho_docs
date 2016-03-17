@@ -1,5 +1,6 @@
 ---
-title: "Getting Started: Querying with Python"
+title_supertext: "Getting Started:"
+title: "Querying with Python"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"

@@ -1,5 +1,6 @@
 ---
-title: "Getting Started: CRUD Operations with Go"
+title_supertext: "Getting Started:"
+tiGetting Started: CRUD Operations with Go"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"

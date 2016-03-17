@@ -1,5 +1,6 @@
 ---
-title: "Installing on Solaris"
+title_supertext: "Installing on"
+title: "Solaris"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"

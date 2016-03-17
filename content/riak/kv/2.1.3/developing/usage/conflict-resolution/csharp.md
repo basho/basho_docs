@@ -1,5 +1,6 @@
 ---
-title: "Conflict Resolution: C Sharp"
+title_supertext: "Conflict Resolution:"
+title: "C Sharp"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"

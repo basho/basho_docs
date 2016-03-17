@@ -1,5 +1,6 @@
 ---
-title: "V2 Multi-Datacenter Replication: Quickstart"
+title_supertext: "V2 Multi-Datacenter Replication:"
+title: "Quickstart"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"
@@ -10,11 +11,10 @@ menu:
     weight: 100
     parent: "configuring_v2"
 toc: true
+commercial_offering: true
 aliases:
   - /riak/2.1.3/ops/mdc/v2/quick-start
 ---
-
-**TODO: Riak EE Header**
 
 The Riak Multi-Datacenter Replication Quick Start will walk you through
 the process of configuring Riak's version 2 Replication to perform

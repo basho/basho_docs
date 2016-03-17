@@ -1,5 +1,6 @@
 ---
-title: "Getting Started: CRUD Operations with PHP"
+title_supertext: "Getting Started:"
+title: "CRUD Operations with PHP"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"

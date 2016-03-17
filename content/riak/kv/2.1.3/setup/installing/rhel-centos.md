@@ -1,5 +1,6 @@
 ---
-title: "Installing on RHEL and CentOS"
+title_supertext: "Installing on"
+title: "RHEL and CentOS"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"

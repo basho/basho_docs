@@ -1,5 +1,6 @@
 ---
-title: "Getting Started: Object Modeling with NodeJS"
+title_supertext: "Getting Started:"
+title: "Object Modeling with NodeJS"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"

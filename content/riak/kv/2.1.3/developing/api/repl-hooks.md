@@ -1,5 +1,6 @@
 ---
-title: "V2 Multi-Datacenter Replication: Hooks API"
+title_supertext: "V2 Multi-Datacenter Replication:"
+title: "Hooks API"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"
@@ -10,11 +11,10 @@ menu:
     weight: 100
     parent: "developing_apis"
 toc: true
+commercial_offering: true
 aliases:
   - /riak/2.1.3/ops/mdc/v2/hooks
 ---
-
-**TODO: Riak EE Header**
 
 This document is a guide to developing extensions for Riak Enterprise's
 Multi-Datacenter Replication feature.

@@ -1,5 +1,6 @@
 ---
-title: "Installing on FreeBSD"
+title_supertext: "Installing on"
+title: "FreeBSD"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"

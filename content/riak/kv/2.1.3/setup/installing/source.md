@@ -1,5 +1,6 @@
 ---
-title: "Installing Riak KV From Source"
+title_supertext: "Installing"
+title: "Riak KV From Source"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"

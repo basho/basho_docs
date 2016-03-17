@@ -1,5 +1,6 @@
 ---
-title: "V3 Multi-Datacenter Replication: Quickstart"
+title_supertext: "V3 Multi-Datacenter Replication:"
+title: "Quickstart"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"
@@ -10,11 +11,10 @@ menu:
     weight: 100
     parent: "configuring_v3"
 toc: true
+commercial_offering: true
 aliases:
   - /riak/2.1.3/ops/mdc/v3/quick-start
 ---
-
-**TODO: Riak EE Header**
 
 This guide will walk you through the process of configuring Riak's v3
 Replication to perform replication between two sample Riak clusters on
