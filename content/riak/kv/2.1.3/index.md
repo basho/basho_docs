@@ -19,7 +19,7 @@ toc: false
 [install index]: /riak/kv/2.1.3/setup/installing/
 [planning]: /riak/kv/2.1.3/setup/planning/
 [google1]: openfileslimit
-[google2]: http://docs.basho.com/riak/2.1.3/setup/installing/debian-ubuntu
+[google2]: /riak/2.1.3/setup/installing/debian-ubuntu
 [google3]: /
 [google4]: /
 [google5]: /

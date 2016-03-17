@@ -30,6 +30,7 @@ aliases:
 [security index]: /riak/kv/2.1.3/using/security/
 [cluster ops strong consistency]: /riak/kv/2.1.3/using/cluster-operations/strong-consistency
 [glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode
+[cluster ops handoff]: /riak/kv/2.1.3/using/cluster-operations/handoff
 
 Riak has a `riak.conf` configuration file located in `/etc` if you are
 using a source install or in `/etc/riak` or `/usr/local/etc` if you used
@@ -1365,7 +1366,7 @@ to <code>off</code> can cut down on system resource usage.
 
 ## Intra-Cluster Handoff
 
-Configurable parameters for intra-cluster, i.e. inter-node, handoff.
+Configurable parameters for intra-cluster, i.e. inter-node, [handoff][cluster ops handoff].
 
 <table class="riak-conf">
 <thead>
@@ -1380,7 +1381,7 @@ Configurable parameters for intra-cluster, i.e. inter-node, handoff.
 <tr>
 <td><code>handoff.max_rejects</code></td>
 <td>The maximum number of times that a secondary system within Riak,
-such as <a href="/dev/using/search">Riak Search</a>, can block handoff
+such as <a href="/dev/using/search">Riak Search</a>, can block <a href="/riak/kv/2.1.3/using/cluster-operations/handoff">handoff</a>
 of primary key/value data. The approximate maximum duration that a vnode
 can be blocked can be determined by multiplying this setting by
 <code>vnode_management_timer</code>. If you want to prevent handoff from
@@ -1453,7 +1454,7 @@ down on system resource usage.</td>
 
 <tr>
 <td><code>datatypes.compression_level</code></td>
-<td>Whether serialized Data Types will use compression and at what
+<td>Whether serialized <a href="/riak/kv/2.1.3/developing/data-types">Data Types</a> will use compression and at what
 level. When set to an integer, the parameter refers to the
 aggressiveness of compression, on a scale from 0 to 9. <code>on</code>
 is equivalent to 6, whereas <code>off</code> is equivalent to 0. Higher
@@ -1466,8 +1467,7 @@ values for compression tend to be more CPU intensive.</td>
 
 ## SNMP
 
-Configurable parameters for the Simple Network Management
-Protocol\(SNMP) server built into
+Configurable parameters for the [Simple Network Management Protocol][use ref snmp]\(SNMP) server built into
 [Riak Enterprise](http://basho.com/riak-enterprise/).
 
 <table class="riak-conf">
@@ -1580,7 +1580,7 @@ stats.</td>
 
 ## JMX
 
-Configuration parameters for the JMX Monitoring system built into
+Configuration parameters for the [JMX Monitoring][use ref jmx] system built into
 [Riak Enterprise](http://basho.com/riak-enterprise/).
 
 <table class="riak-conf">
@@ -1623,10 +1623,9 @@ if the JMX server crashes.</td>
 
 ## Strong Consistency
 
-<div class="note">
-<div class="title">Please Note:</div>
-Riak KV's strong consistency is an experimental feature and may be removed from the product in the future. Strong consistency is not commercially supported or production-ready. Strong consistency is incompatible with Multi-Datacenter Replication, Riak Search, Bitcask Expiration, LevelDB Secondary Indexes, Riak Data Types and Commit Hooks. We do not recommend its usage in any production environment.
-</div>
+> **Please Note:**
+>
+> Riak KV's strong consistency is an experimental feature and may be removed from the product in the future. Strong consistency is not commercially supported or production-ready. Strong consistency is incompatible with Multi-Datacenter Replication, Riak Search, Bitcask Expiration, LevelDB Secondary Indexes, Riak Data Types and Commit Hooks. We do not recommend its usage in any production environment.
 
 Riak's strong consistency feature has a variety of tunable parameters
 that allow you to enable and disable strong consistency, modify the
@@ -2049,8 +2048,7 @@ only in Riak Enterprise 2.0 and later.</td>
 
 #### Upgrading Riak Search with `advanced.config`
 
-If you are upgrading to Riak 2.x and wish to upgrade to the new Riak
-Search\(codename Yokozuna), you will need to enable
+If you are upgrading to Riak 2.x and wish to upgrade to the new [Riak Search][use ref search]\(codename Yokozuna), you will need to enable
 legacy Search while the upgrade is underway. You can add the following
 snippet to your `advanced.config` configuration to do so:
 

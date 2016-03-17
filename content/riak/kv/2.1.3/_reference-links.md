@@ -95,6 +95,8 @@
 [use ref handoff]: /riak/kv/2.1.3/using/reference/handoff
 [use ref monitoring]: /riak/kv/2.1.3/using/reference/monitoring
 [use ref search 2i]: /riak/kv/2.1.3/using/reference/search-secondary-indexes
+[use ref snmp]: /riak/kv/2.1.3/using/reference/snmp
+[use ref jmx]: /riak/kv/2.1.3/using/reference/jmx
 
 ### Cluster Admin
 
