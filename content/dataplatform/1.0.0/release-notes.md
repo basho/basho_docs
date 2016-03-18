@@ -7,8 +7,9 @@ menu:
   dataplatform-1.0.0:
     name: "Release Notes"
     identifier: "release_notes"
-    weight: 102
-    pre: icon-
+    weight: 103
+    pre: icon-bolt
+    parent: "index"
 toc: true
 ---
 

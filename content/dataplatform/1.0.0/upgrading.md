@@ -7,8 +7,9 @@ menu:
   dataplatform-1.0.0:
     name: "Upgrading from Beta to 1.0.0"
     identifier: "upgrading"
-    weight: 101
+    weight: 102
     pre: icon-cog
+    parent: "index"
 toc: true
 ---
 

@@ -9,6 +9,7 @@ menu:
     identifier: "installing"
     weight: 101
     pre: icon-install
+    parent: "index"
 toc: true
 ---
 
