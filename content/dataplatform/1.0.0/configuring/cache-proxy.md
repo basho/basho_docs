@@ -14,9 +14,9 @@ aliases:
   - /dataplatform/1.0.0/using-dataplatform/configuration/getting-started-with-cache-proxy/
 ---
 
-[bdp install]: http://docs.basho.com/dataplatform/1.0.0/installing/
-[bdp configure]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/setup-a-cluster/
-[bdp configure add services]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/setup-a-cluster/#add-services
+[bdp install]: /dataplatform/1.0.0/installing/
+[bdp configure]: /dataplatform/1.0.0/configuring/setup-a-cluster/
+[bdp configure add services]: /dataplatform/1.0.0/configuring/setup-a-cluster/#Add-Services
 [ee]: http://info.basho.com/Wiki_Riak_Enterprise_Request.html
 
 
@@ -29,6 +29,7 @@ This page will walk you through configuring and using BDP cache proxy.
 ## Prerequisites
 
 ### Setting Your Environment
+
 Before you begin using cache proxy, you may want to set your environment variables. You will be using these paths frequently, and you may find it easier to use their logical names rather than typing the paths out each time.
 
 We suggest the following environment settings (and the remainder of this page assumes you are using these settings).

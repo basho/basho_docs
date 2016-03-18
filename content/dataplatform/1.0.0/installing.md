@@ -13,10 +13,9 @@ menu:
 toc: true
 ---
 
-[bdp compatibility]: http://docs.basho.com/dataplatform/1.0.0/#supported-operating-systems
-[bdp configure]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/setup-a-cluster/
-[bdp download]: http://docs.basho.com/dataplatform/1.0.0/downloads/
-
+[bdp compatibility]: /dataplatform/1.0.0/#Supported-Operating-Systems
+[bdp configure]: /dataplatform/1.0.0/configuring/setup-a-cluster/
+[bdp download]: /dataplatform/1.0.0/downloads/
 
 Basho Data Platform (BDP) enables you to extend Riak with Spark and Redis. This page will guide you through the process of installing BDP on most supported operating systems.
 
@@ -35,7 +34,7 @@ You need to have root or sudo access on the nodes you will be installing BDP on.
 
 Before you can install BDP, both the total open-files limit and the per-user open-files limit must be high enough to allow BDP to function.
 
-For a fuller guide on changing limits for Riak, see [Changing the limit](http://docs.basho.com/riak/latest/ops/tuning/open-files-limit/#Changing-the-limit) .
+For a fuller guide on changing limits for Riak, see [Changing the limit](/riak/kv/2.1.3/using/performance/open-files-limit) .
 
 On most Linux distributions, the total limit for open files is controlled by `sysctl`.
 

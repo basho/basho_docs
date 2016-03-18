@@ -14,20 +14,20 @@ aliases:
   - /dataplatform/1.0.0/using-dataplatform/configuration/replace-spark-cluster-manager/
 ---
 
-[bdp install]: http://docs.basho.com/dataplatform/1.0.0/installing/
-[bdp configure]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/setup-a-cluster/
-[bdp configure spark master]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/setup-a-cluster/#set-up-spark-cluster-metadata
+[bdp install]: /dataplatform/1.0.0/installing/
+[bdp configure]: /dataplatform/1.0.0/configuring/setup-a-cluster/
+[bdp configure spark master]: /dataplatform/1.0.0/configuring/setup-a-cluster/#Set-Up-Spark-Cluster-Metadata
 [ee]: http://info.basho.com/Wiki_Riak_Enterprise_Request.html
-[riak data types]: http://docs.basho.com/riak/2.1.1/dev/using/data-types/
+[riak data types]: /riak/kv/2.1.3/developing/data-types/
 
 
->The Basho Data Platform cluster manager is available to [Enterprise users only][ee].
+> The Basho Data Platform cluster manager is available to [Enterprise users only][ee].
 
 You can simplify your operations by using the Basho Data Platform (BDP) cluster manager instead of Apache Zookeeper to manage your Spark cluster. This document will walk you through the steps.
 
 Apache Zookeeper is an open-source application that provides a consistent distributed storage for client data as well as a set of synchronization primitives. BDP provides all the necessary functionality required for Spark Master high availability without the need to maintain and manage another software system (Zookeeper), creating a simple, centrally-managed, robust solution.
 
-##Prerequisites
+## Prerequisites
 
 Before you replace Spark Standalone Cluster Manager with the one provided by BDP you must:
 
@@ -42,7 +42,7 @@ Before you replace Spark Standalone Cluster Manager with the one provided by BDP
   * Name of CRDT map for metadata storage (i.e. `spark-cluster-map`). The CRDT map stores serialized classes containing Workers, Applications and Jobs data. This data is stored in the map as a key-value pair with key composed of a prefix of entity type plus unique id (i.e. `app_42343sdfd33`), and value containing serialized (by serializer passed in by spark-master) class for Worker, Application or Job.
 * You also will want to think about how many spark-workers you will want to establish. A node can effectively serve as either a spark-master or a spark-worker. A spark-master node can and will do work. Spark-worker nodes are helpful when there are enough spark-master nodes to delegate work so some nodes can be dedicated to only doing work, a.k.a. spark-worker nodes.
 
-##Enabling BDP Spark Cluster Manager
+## Enabling BDP Spark Cluster Manager
 
 To replace your Spark Cluster Manager with the BDP cluster manager, you will do the following:
 
@@ -50,7 +50,7 @@ To replace your Spark Cluster Manager with the BDP cluster manager, you will do 
 2. Activate the services.
 3. Verify the services are running.
 
-###Add BDP Service Configs
+### Add BDP Service Configs
 
 1. On any node in your BDP cluster, run:
 
@@ -69,7 +69,7 @@ RIAK_HOSTS="»IP:PORTS from `listener.protobuf.internal` in riak.conf«"
 sudo data-platform-admin add-service-config my-spark-worker spark-worker MASTER_URL="spark://»PUBLICIPOFMASTERNODE«:»DEFAULTSPARKMASTERPORT«"
 ```
 
-###Activate The Services
+### Activate The Services
 
 1. On any node in your BDP cluster, run: 
 
@@ -121,7 +121,7 @@ If you see a hostname rather than an IP address OR if this is your first time st
 3. And then restart the service: `sudo data-platform-admin start-service riak@»PUBLICIPOFWORKERNODE« my-spark-group my-spark-worker`.
 </div>
 
-###Verify The Services Are Running
+### Verify The Services Are Running
 At this point, your BDP manager and Spark cluster should be ready to go! Here are some ways to verify that your Spark cluster is connected to the BDP manager and running correctly. 
 
 1. For a readout of your running and available services, run 

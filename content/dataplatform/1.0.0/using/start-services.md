@@ -14,16 +14,15 @@ aliases:
   - /dataplatform/1.0.0/using-dataplatform/using-bdp/
 ---
 
-[bdp configure]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/setup-a-cluster/
-[bdp configure add services]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/setup-a-cluster/#add-services
-[bdp install]: http://docs.basho.com/dataplatform/1.0.0/installing/
-[bdp reference]: http://docs.basho.com/dataplatform/1.0.0/learn-about-dataplatform/service-manager-features/
+[bdp configure]: /dataplatform/1.0.0/configuring/setup-a-cluster/
+[bdp configure add services]: /dataplatform/1.0.0/configuring/setup-a-cluster/#Add-Services
+[bdp install]: /dataplatform/1.0.0/installing/
+[bdp reference]: /dataplatform/1.0.0/learn/service-manager/
 
 
 You've [installed][bdp install] Basho Data Platform (BDP), [configured][bdp configure] your cluster, and [added services][bdp configure add services] to your nodes. The setup of your BDP cluster is complete! Now you can begin using your BDP cluster. 
 
-##Start Services
-
+## Start Services
 
 The very first thing you can do with your BDP cluster is start the services you added. In the last section of the [configuration instructions][bdp configure add services], you added the following services:
 
@@ -32,8 +31,7 @@ The very first thing you can do with your BDP cluster is start the services you 
 * Redis
 * Cache proxy
 
-###Spark-Master Service
-
+### Spark-Master Service
 
 To start the spark-master service, run the following, using the name and IP of the node you wish to start the service on:
 
@@ -59,8 +57,7 @@ If you need to stop the spark-master, the proper sequence is:
 sudo data-platform-admin stop-service »NODENAME«@»IPADDRESS« my-spark-group my-spark-master
 ```
 
-###Spark-Worker Service
-
+### Spark-Worker Service
 
 To start the spark-worker service, run the following, using the name and IP of the node you wish to start the service on:
 
@@ -75,7 +72,7 @@ To stop a spark-worker service, you need to stop the service first:
 sudo data-platform-admin stop-service »NODENAME«@»IPADDRESS« my-spark-group my-spark-worker
 ```
 
-###Redis Service
+### Redis Service
 
 To start the Redis service, run the following, using the name and IP of the node you wish to start the service on:
 
@@ -83,8 +80,7 @@ To start the Redis service, run the following, using the name and IP of the node
 sudo data-platform-admin start-service »NODENAME«@»IPADDRESS« my-redis-group my-redis
 ```
 
-###Cache Proxy Service
-
+### Cache Proxy Service
 
 To start the cache proxy service, run: 
 
@@ -92,13 +88,13 @@ To start the cache proxy service, run:
 sudo data-platform-admin start-service »NODENAME«@»IPADDRESS« my-cache-proxy-group my-cache-proxy
 ```
 
-##Verify The Services Are Running Correctly
+## Verify The Services Are Running Correctly
 
-###Redis and Cache Proxy
+### Redis and Cache Proxy
 
 Do you use CentOS or Ubuntu?
 
-####CentOS
+#### CentOS
 
 Set the base path of BDP:
 
@@ -106,7 +102,7 @@ Set the base path of BDP:
 export BDP_HOME=/usr/lib64/riak/lib/data_platform-1
 ```
 
-####Ubuntu
+#### Ubuntu
 
 Set the base path of BDP:
 
@@ -114,7 +110,8 @@ Set the base path of BDP:
 export BDP_HOME=/usr/lib/riak/lib/data_platform-1
 ```
 
-####Verification
+#### Verification
+
 First, add the Redis CLI utility to your `PATH` and specify Ips and ports for the services involved in the test:
 
 ```bash

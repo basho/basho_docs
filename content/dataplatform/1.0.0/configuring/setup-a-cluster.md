@@ -14,21 +14,21 @@ aliases:
   - /dataplatform/1.0.0/using-dataplatform/configuration/setup-a-cluster/
 ---
 
-[bdp install]: http://docs.basho.com/dataplatform/1.0.0/installing/
-[riak cluster setup]: http://docs.basho.com/riak/2.1.1/ops/building/basic-cluster-setup/
-[riak configure]: http://docs.basho.com/riak/2.1.1/ops/building/basic-cluster-setup/
+[bdp install]: /dataplatform/1.0.0/installing/
+[riak cluster setup]: /riak/kv/2.1.3/using/running-a-cluster/
+[riak configure]: /riak/kv/2.1.3/configuring/
 [riak_ensemble]: https://github.com/basho/riak_ensemble
-[riak kv]: http://docs.basho.com/riak/2.1.1
-[riak strong consistency]: http://docs.basho.com/riak/2.1.1/ops/advanced/strong-consistency/#Enabling-Strong-Consistency
-[aws marketplace]: http://docs.basho.com/riak/2.1.1/installing/amazon-web-services/
-[set spark ip]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/advanced/set-spark-ip-address/
-[default ports]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/reference/default-ports/
+[riak kv]: /riak/kv/2.1.3/
+[riak strong consistency]: /riak/kv/2.1.3/using/reference/strong-consistency
+[aws marketplace]: /riak/kv/2.1.3/setup/installing/amazon-web-services/
+[set spark ip]: /dataplatform/1.0.0/configuring/spark-ip-address/
+[default ports]: /dataplatform/1.0.0/configuring/default-ports/
 
 Now that you've [installed Basho Data Platform][bdp install], you're ready to set up a Basho Data Platform (BDP) cluster. This page will guide you through this process.
 
 This page also lists the default port connections for BDP.
 
-##Prerequisites
+## Prerequisites
 
 * We recommend running BDP on at least 5 nodes. Minimally, you will need 3 available, with BDP installed on all 3 nodes.
 * You must have basic Riak configuration parameters, including listen interfaces (`listen.protobuf.internal` and `listen.http.internal`) and nodename, configured before you begin. You can view a guide to the process [here][riak configure].
@@ -38,15 +38,16 @@ This page also lists the default port connections for BDP.
 * If you have a firewall, it should be configured to allow traffic for all network ports used by BDP. A list of default ports can be found [here][default ports].
 * All of the steps in this guide assume you are working with your BDP nodes rather than any pre-existing Riak cluster.
 
->**Note on Amazon Web Services**
->AWS security profile must allow incoming and outgoing traffic from ip/ports used by Riak, Spark, and BDP. A list of default ports can be found [here][default ports]. Check out [Installing on Amazon Web Services][aws marketplace] for instructions on configuring security group settings to work with Riak.
+> **Note on Amazon Web Services**
+>
+> AWS security profile must allow incoming and outgoing traffic from ip/ports used by Riak, Spark, and BDP. A list of default ports can be found [here][default ports]. Check out [Installing on Amazon Web Services][aws marketplace] for instructions on configuring security group settings to work with Riak.
 
 
 <div class="warning">
   DO NOT join a BDP node to a pre-existing Riak cluster.
 </div>
 
-##Configure a BDP Cluster
+## Configure a BDP Cluster
 
 1. First, start your BDP nodes.
 2. Then, join your BDP nodes together.
@@ -56,7 +57,7 @@ This page also lists the default port connections for BDP.
 6. After that, you'll need to confirm that Java is correctly configured.
 7. Finally, add services to the nodes.
  
-###Start Your BDP Nodes
+### Start Your BDP Nodes
 
 First, start all the nodes you have installed BDP on:
 
@@ -66,7 +67,7 @@ user@machine2:~$ sudo riak start
 user@machine3:~$ sudo riak start
 ```
 
-###Join BDP Nodes
+### Join BDP Nodes
 
 
 Then, join your BDP nodes together by running this command on all nodes in the cluster:
@@ -102,7 +103,7 @@ If `riak_ensemble` is enabled, you will see the following output :
 
 For more information on why this is important, please see our [strong consistency docs][riak strong consistency].
 
-###Configure The Leader Election Service (Enterprise Edition Only)
+### Configure The Leader Election Service (Enterprise Edition Only)
 
 >The following section is for Basho Data Platform Enterprise Edition. If you perform these steps in an open source version the Riak KV node under the BDP node will not start.
 
@@ -129,7 +130,7 @@ Changes to the `listener.leader_latch` setting will not have an impact on a live
 </div>
 
 
-###Set Up Spark Cluster Metadata
+### Set Up Spark Cluster Metadata
 
 <div class="note">
 Follow these steps ONLY if you are running a Spark cluster. Otherwise, skip to Add Services.
@@ -169,7 +170,7 @@ datatype: map
 active: true
 ```
 
-###Confirm `JAVA_HOME` Is Set Correctly
+### Confirm `JAVA_HOME` Is Set Correctly
 
 If you are using Spark, you need to set `JAVA_HOME` for the 'riak' user  on all the spark-master and spark-worker nodes. To confirm that it’s set correctly, run:
 
@@ -198,7 +199,7 @@ Then restart Riak
 sudo riak restart
 ```
 
-###Add Services
+### Add Services
 
 You are ready to add services to your started, joined BDP nodes. There are several different types of services you can add to your BDP nodes:
 
@@ -207,7 +208,7 @@ You are ready to add services to your started, joined BDP nodes. There are sever
 * Redis
 * Cache proxy
 
-####Spark Master
+#### Spark Master
 
 >The Spark Master IP Address is selected automatically. If you need to set it manually, check out [Set Spark IP Address][set spark ip].
 
@@ -219,7 +220,7 @@ sudo data-platform-admin add-service-config my-spark-master spark-master LEAD_EL
 
 The IP addresses and ports you provide should be the IP addresses/ports of the 3 BDP nodes you started and joined earlier.
 
-####Spark Worker
+#### Spark Worker
 
 To register the service configuration for Spark worker, issue the following command:
 
@@ -228,7 +229,7 @@ sudo data-platform-admin add-service-config my-spark-worker spark-worker MASTER_
 ```
 If you have multiple masters, list them after 'spark://' as a comma-separated list of hostname:port entries (i.e. MASTER_URL=”spark://my-host-1:7077,my-host-2:7077”).
 
-####Redis
+#### Redis
 
 To register the service configuration for Redis, issue the following command:
 
@@ -236,7 +237,7 @@ To register the service configuration for Redis, issue the following command:
 sudo data-platform-admin add-service-config my-redis redis HOST="0.0.0.0" REDIS_PORT="»REDIS_PORT«"
 ```
 
-####Cache Proxy
+#### Cache Proxy
 
 To register the service configuration for Cache Proxy, issue the following command:
 
@@ -246,7 +247,7 @@ sudo data-platform-admin add-service-config my-cache-proxy cache-proxy  HOST="0.
 The IP addresses you provide should be the IP addresses of the 3 BDP nodes you started and joined earlier.
 
 
-##Configuration Defaults
+## Configuration Defaults
 
 Each service has one or more default ports if a port has not been specified when adding a service configuration.
 

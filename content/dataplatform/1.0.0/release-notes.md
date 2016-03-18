@@ -23,6 +23,7 @@ This release is the introductory release of Basho Data Platform (BDP), so everyt
 ## Features
 
 ### Service Manager
+
 The service manager is the heart of BDP. It provides the means for building a cluster of nodes that can deploy, run, and manage the platform services. Specifically, the service manager provides the following capabilities:
 
 * Create a cluster of platform nodes that can run services.
@@ -34,15 +35,19 @@ The service manager is the heart of BDP. It provides the means for building a cl
 * Subsystem responsible for running and monitoring services on relevant nodes, restarting services as necessary.
 
 ### Cache Proxy + Redis (Enterprise only)
+
 BDP's cache proxy provides caching as a service. Cache proxy builds upon Twemproxy, allowing BDP to spread cache writes across multiple Redis instances using consistent hashing for presharding, reduces connections to Redis and Riak instances, and extends Twemproxy to support Riak KV as a backend, implementing a read-through cache strategy by retrieving values from Riak KV (including sibling resolution) before writing values to the Redis frontend cache.
 
 ### Spark-Riak Connector
+
 The Spark-Riak connector provides both development and runtime performance gains while developing Spark analytics jobs that read and write values from Riak KV.  To aid in development, the Spark-Riak connector automatically serializes the Spark RRD format content to a value.  Performance gains are yielded by utilizing the most optimal Riak KV bucket queries for the types of query patterns that are typical in Spark jobs.
 
 ### Leader Election Service (Enterprise only)
+
 BDP's leader election service (LES) enables Spark clusters to run without a ZooKeeper instance by using a simple, line-based, ASCII protocol to interact with Spark. This creates a simplified interface to manage many services under BDP.
 
 ### Spark Cluster Manager (Enterprise only)
+
 The Spark cluster manager forms a pair with the leader election service. It enables Spark to use the LES rather than ZooKeeper. Spark cluster manager provides all the functionality required for Spark Master high availability without the need to manage yet another software system. 
 
 ## Compatibility

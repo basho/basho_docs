@@ -17,7 +17,7 @@ aliases:
 This is a quick, practical guide on how to use the Spark Riak connector.
 
 
-##Dependencies
+## Dependencies
 
 If your Spark project uses Maven, include the following dependency in your application's POM file to enable Spark Riak connector:
 
@@ -43,7 +43,7 @@ If your Spark application is going to be written in Java, add the following depe
 ```
 
 
-##Creating Spark Context
+## Creating Spark Context
 
 The following import statements have to be included at the top of your Spark application to enable the connector:
 
@@ -66,7 +66,7 @@ val sc = new SparkContext("spark://192.168.1.100:7077", "Best Spark App Ever", c
 ```
 
 
-##Loading Data from Riak KV into Spark
+## Loading Data from Riak KV into Spark
 
 Once the Spark Context is created we can load data stored in Riak buckets into Spark as RDDs.
 
@@ -90,7 +90,8 @@ What if you want a range of values (say, from 1 to 5000) defined by a numeric 2i
 val rdd = sc.riakBucket(new Namespace("BAR"))
       .query2iRange("myIndex", 1L, 5000L)
 ```
-##Saving Data into Riak KV from Spark
+
+## Saving Data into Riak KV from Spark
 
 To save your calculation results from Spark into a Riak bucket, you need to first add this import line at the top of your application:
 

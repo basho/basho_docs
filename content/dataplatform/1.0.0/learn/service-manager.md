@@ -14,7 +14,7 @@ aliases:
   - /dataplatform/1.0.0/learn-about-dataplatform/service-manager-features/
 ---
 
-[bdp cli]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/dataplatform-commands/
+[bdp cli]: /dataplatform/1.0.0/using/commands/
 
 ## Overview
 

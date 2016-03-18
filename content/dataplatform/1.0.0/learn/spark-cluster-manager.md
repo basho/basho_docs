@@ -14,8 +14,8 @@ aliases:
   - /dataplatform/1.0.0/learn-about-dataplatform/spark-cluster-manager-features/
 ---
 
-[bdp leader election]: http://docs.basho.com/dataplatform/1.0.0/learn-about-dataplatform/leader-election-service/
-[bdp cluster manager]: http://docs.basho.com/dataplatform/1.0.0/using-dataplatform/configuration/replace-spark-cluster-manager/
+[bdp leader election]: /dataplatform/1.0.0/learn/leader-election-service/
+[bdp cluster manager]: /dataplatform/1.0.0/configuring/replace-spark-cluster-manager/
 [ee]: http://info.basho.com/Wiki_Riak_Enterprise_Request.html
 
 > The Spark cluster manager is available to [Enterprise users only][ee].
