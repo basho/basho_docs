@@ -13,10 +13,10 @@ toc: true
 canonical_link: "docs.basho.com/riak/ts/latest/installing/mac-osx"
 ---
 
+[AAE]: /riak/kv/2.1.3/learn/concepts/active-anti-entropy
+[openfileslimit]: /riak/kv/2.1.3/using/performance/open-files-limit
+[planning]: ../using/planning
 
-[AAE]: http://docs.basho.com/riak/2.1.3/theory/concepts/aae/
-[openfileslimit]: http://docs.basho.com/riak/2.1.3/ops/tuning/open-files-limit/
-[planning]: http://docs.basho.com/riakts/1.0.0/using/planning
 
 Riak TS can be installed on Mac OS X systems using a binary
 package available through ZenDesk.

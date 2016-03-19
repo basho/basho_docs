@@ -13,9 +13,9 @@ toc: true
 canonical_link: "docs.basho.com/riak/ts/latest/installing/rhel-centos"
 ---
 
+[AAE]: /riak/kv/2.1.3/learn/concepts/active-anti-entropy
+[planning]: ../using/planning
 
-[AAE]: http://docs.basho.com/riak/2.1.3/theory/concepts/aae/
-[planning]: http://docs.basho.com/riakts/1.0.0/using/planning
 
 Riak TS can be installed on CentOS-based systems using a binary
 package available through ZenDesk.

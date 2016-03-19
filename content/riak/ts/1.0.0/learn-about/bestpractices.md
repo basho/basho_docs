@@ -13,8 +13,7 @@ toc: true
 canonical_link: "docs.basho.com/riak/ts/latest/learn-about/bestpractices"
 ---
 
-
-[advancedplanning]: http://docs.basho.com/riakts/1.0.0/learn-about/advancedplanning/
+[advancedplanning]: advancedplanning/
 
 
 There are many ways to interact with and use Riak TS. This page will give recommendations for structuring your storage region (DDL) and 

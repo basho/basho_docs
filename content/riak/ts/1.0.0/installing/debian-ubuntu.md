@@ -14,9 +14,9 @@ canonical_link: "docs.basho.com/riak/ts/latest/installing/debian-ubuntu"
 ---
 
 
-[AAE]: http://docs.basho.com/riak/2.1.3/theory/concepts/aae/
-[planning]: http://docs.basho.com/riakts/1.0.0/using/planning
-[riak security]: http://docs.basho.com/riak/2.1.3/ops/running/authz/
+[AAE]: /riak/kv/2.1.3/learn/concepts/active-anti-entropy
+[planning]: ../using/planning
+[riak security]: /riak/kv/2.1.3/using/security/basics
 
 
 Riak TS can be installed on Debian or Ubuntu-based systems using a binary

@@ -13,8 +13,8 @@ toc: true
 canonical_link: "docs.basho.com/riak/ts/latest"
 ---
 
-[installing]: http://docs.basho.com/riakts/1.0.0/installing/installing/
-[learnabout]: http://docs.basho.com/riakts/1.0.0/learn-about/learn-about/
+[installing]: installing/
+[learnabout]: learn-about/
 
 
 Riak TS is a distributed NoSQL key/value store optimized for time series data. It provides a time series database solution that is extensible and scalable.
