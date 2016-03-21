@@ -8,7 +8,6 @@ menu:
     name: "Upgrading from Beta to 1.0.0"
     identifier: "upgrading"
     weight: 102
-    pre: icon-cog
     parent: "index"
 toc: true
 ---

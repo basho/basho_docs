@@ -6,7 +6,6 @@ menu:
     name: "Download Basho Data Platform"
     identifier: "download_dataplatform"
     weight: 100
-    pre: icon-download-alt
     parent: "index"
 project: "dataplatform"
 project_version: "1.0.0"

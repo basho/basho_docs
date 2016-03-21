@@ -8,7 +8,6 @@ menu:
     name: "Release Notes"
     identifier: "release_notes"
     weight: 103
-    pre: icon-bolt
     parent: "index"
 toc: true
 ---
