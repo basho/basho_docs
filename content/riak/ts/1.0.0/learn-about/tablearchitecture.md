@@ -14,11 +14,11 @@ canonical_link: "docs.basho.com/riak/ts/latest/learn-about/tablearchitecture"
 ---
 
 
-[activating]: ../using/creating-activating/
-[configuring]: ../using/configuring/
-[planning]: ../using/planning
-[sql]: sqlriakts/
-[bestpractices]: bestpractices/
+[activating]: ../../using/creating-activating/
+[configuring]: ../../using/configuring/
+[planning]: ../../using/planning
+[sql]: ../sqlriakts/
+[bestpractices]: ../bestpractices/
 
 
 This page provides more in-depth information about how Riak TS tables are structured. 

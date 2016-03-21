@@ -14,12 +14,12 @@ canonical_link: "docs.basho.com/riak/ts/latest/using"
 ---
 
 
-[activating]: http://docs.basho.com/riakts/1.0.0/using/creating-activating/
-[configuring]: http://docs.basho.com/riakts/1.0.0/using/configuring
-[installing]: http://docs.basho.com/riakts/1.0.0/installing/installing/
-[planning]: http://docs.basho.com/riakts/1.0.0/using/planning
-[querying]: http://docs.basho.com/riakts/1.0.0/using/querying
-[writing]: http://docs.basho.com/riakts/1.0.0/using/writingdata
+[activating]: creating-activating/
+[configuring]: configuring/
+[installing]: ../installing/
+[planning]: planning/
+[querying]: querying/
+[writing]: writingdata/
 
 
 Now that you've downloaded the package from ZenDesk and [installed][installing] Riak TS, there's a recommended path for setting up and using it:

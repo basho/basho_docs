@@ -13,7 +13,7 @@ toc: true
 canonical_link: "docs.basho.com/riak/ts/latest/installing/rhel-centos"
 ---
 
-[AAE]: /riak/kv/2.1.3/learn/concepts/active-anti-entropy
+[concept aae]: /riak/kv/2.1.3/learn/concepts/active-anti-entropy
 [planning]: ../using/planning
 
 
@@ -62,7 +62,7 @@ sudo rpm -Uvh riak-ts-{{VERSION}}-1.el7.x86_64.rpm
 
 ### Turn off AAE
 
-Confirm that [AAE][AAE] is turned off. To do this, check /etc/riak/riak.conf for the following: `anti_entropy = passive`.
+Confirm that [AAE][concept aae] is turned off. To do this, check /etc/riak/riak.conf for the following: `anti_entropy = passive`.
 
 
 ## Activate Riak TS node

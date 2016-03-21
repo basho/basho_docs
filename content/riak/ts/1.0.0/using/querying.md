@@ -14,9 +14,9 @@ canonical_link: "docs.basho.com/riak/ts/latest/using/querying"
 ---
 
 
-[advancedplanning]: https://www.docs.basho.com/riakts/1.0.0/learn-about/advancedplanning
-[activating]: https://docs.basho.com/riakts/1.0.0/using/activating
-[writing]: https://docs.basho.com/riakts/1.0.0/using/writingdata
+[table arch]: ../../learn-about/tablearchitecture
+[activating]: ../creating-activating/
+[writing]: ../writingdata/
 
 
 Now that you have [created][activating] a Riak TS table and [written][writing] data to it, you can query your data.
