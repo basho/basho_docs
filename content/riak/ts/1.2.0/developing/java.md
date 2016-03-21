@@ -6,7 +6,8 @@ menu:
     name: "Java"
     identifier: "ts_java_api"
     weight: 402
-    parent: "developing"project: "riak_ts"
+    parent: "developing"
+project: "riak_ts"
 project_version: "1.2.0"
 toc: true
 canonical_link: "docs.basho.com/riak/ts/latest/developing/java"

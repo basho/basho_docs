@@ -6,9 +6,9 @@ project_version: "2.1.3"
 menu:
   riak_kv-2.1.3:
     name: "Monitoring"
-    identifier: "managing_ref_mdc_monitor"
+    identifier: "managing_ref_mdc_comparison"
     weight: 102
-    parent: "managing_ref_mdc""
+    parent: "managing_ref_mdc"
 toc: true
 aliases:
   - /riak/2.1.3/ops/mdc/comparison

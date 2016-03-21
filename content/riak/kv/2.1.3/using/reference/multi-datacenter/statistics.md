@@ -8,7 +8,7 @@ menu:
     name: "Statistics"
     identifier: "managing_ref_mdc_stats"
     weight: 100
-    parent: "managing_ref_mdc""
+    parent: "managing_ref_mdc"
 toc: true
 aliases:
   - /riak/2.1.3/ops/mdc/statistics
