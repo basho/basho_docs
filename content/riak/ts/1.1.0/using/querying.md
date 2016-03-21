@@ -13,9 +13,9 @@ toc: true
 canonical_link: "docs.basho.com/riak/ts/latest/using/querying"
 ---
 
-[advancedplanning]: https://docs.basho.com/riakts/1.1.0/learn-about/advancedplanning
-[activating]: https://docs.basho.com/riakts/1.1.0/using/creating-activating
-[writing]: https://docs.basho.com/riakts/1.1.0/using/writingdata
+[table arch]: ../../learn-about/tablearchitecture
+[activating]: ../creating-activating/
+[writing]: ../writingdata/
 
 
 Now that you have [created][activating] a Riak TS table and [written][writing] data to it, you can query your data.
@@ -216,7 +216,7 @@ CREATE TABLE GeoCheckin
 
 The maximum time range we can query is 60s, anything beyond will fail.
 
-See the Data Modeling section in [Advanced Planning][advancedplanning] for more information.
+See the Data Modeling section in [Table Architecture][table arch] for more information.
 
 #### Leap seconds and quantum boundaries
 

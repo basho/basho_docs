@@ -13,7 +13,7 @@ toc: true
 canonical_link: "docs.basho.com/riak/ts/latest/learn-about/bestpractices"
 ---
 
-[advancedplanning]: http://docs.basho.com/riakts/1.1.0/learn-about/advancedplanning/
+[table arch]: ../tablearchitecture/
 
 
 There are many ways to interact with and use Riak TS. This page will give recommendations for structuring your storage region (DDL) and 
@@ -22,7 +22,7 @@ There are many ways to interact with and use Riak TS. This page will give recomm
 
 One of the first things you will encounter setting up Riak TS is defining storage regions/bucket types, also known as Data Definition Language (DDL). Creating a table will specify the DDL and compile it, which will create a bucket. The bucket information is passed around the ring. 
 
-There are two reasons that how you set up your DDL is really important. First, the values you choose for the [family and series fields][advancedplanning] will impact the speed of your query returns. Second, once activated, the bucket definition cannot be changed, so the DDL cannot be changed either.
+There are two reasons that how you set up your DDL is really important. First, the values you choose for the [family and series fields][table arch] will impact the speed of your query returns. Second, once activated, the bucket definition cannot be changed, so the DDL cannot be changed either.
 
 To help speed the performance of Riak TS and avoid recreating DDL definitions, think about the most common queries you will be executing and what tools you will be using to process the data. The answers to those will determine what value you use for the family and series fields in the primary key.
 
@@ -37,7 +37,7 @@ The quantum, the time-based part of the primary key, plays an important role in 
 
 When choosing the quantum, you'll want to consider how fast your writes will be coming in and the speed of the disks on your nodes. These answers will determine how fast a set of writes for a quantum happen. Think specifically about: 
 
-* Rate of data received/written given your other [primary key][advancedplanning] fields (family, series).
+* Rate of data received/written given your other [primary key][table arch] fields (family, series).
 * How many writes a given quantum needs to hold and how large the object size. 
 
 Choosing a quantum that is too big will create hotspots. But, while choosing a quantum that is smaller will even out the distribution of objects, a too-small quantum will negatively impact query performance.

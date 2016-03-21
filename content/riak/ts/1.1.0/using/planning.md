@@ -13,16 +13,16 @@ toc: true
 canonical_link: "docs.basho.com/riak/ts/latest/using/planning"
 ---
 
-[activating]: https://www.docs.basho.com/riakts/1.1.0/using/creating-activating
-[advancedplanning]: http://docs.basho.com/riakts/1.1.0/learn-about/advancedplanning/
-[bestpractices]: http://docs.basho.com/riakts/1.1.0/learn-about/bestpractices/
+[activating]: ../creating-activating/
+[table arch]: ../../learn-about/tablearchitecture/
+[bestpractices]: ../../learn-about/bestpractices/
 [epoch]: https://en.wikipedia.org/wiki/Unix_time
-[installing]: http://docs.basho.com/riakts/1.1.0/installing/installing/
-[sql]: http://docs.basho.com/riakts/1.1.0/learn-about/sqlriakts/
+[installing]: ../../installing/
+[sql]: ../../learn-about/sqlriakts/
 
 Now that you've [installed][installing] Riak TS, you're almost ready to create a TS table. Before you can create your table, you'll need to plan it out. 
 
-This page provides a basic overview of what you'll need and some guidelines/limitations. For a deeper dive into planning and designing Riak TS tables, check out [Advanced Planning][advancedplanning]. 
+This page provides a basic overview of what you'll need and some guidelines/limitations. For a deeper dive into planning and designing Riak TS tables, check out [Table Architecture][table arch]. 
 
 Riak TS tables are closely tied to SQL tables. If you are unfamiliar with SQL or would like to know more about how Riak TS integrates SQL, check out [SQL for Riak TS][sql].
 
@@ -114,7 +114,7 @@ After creating a table, its schema can be discovered with `DESCRIBE` statement, 
 
 Still unsure how best to structure your Riak TS table? Check out our [best practice recommendations][bestpractices].
 
-Confused about columns, primary key, etc? Check out [Advanced Planning][advancedplanning] for full definitions.
+Confused about columns, primary key, etc? Check out [Table Architecture][table arch] for full definitions.
 
 
 ## Next Steps
