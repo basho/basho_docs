@@ -13,13 +13,13 @@ toc: true
 canonical_link: "docs.basho.com/riak/ts/latest/using/creating-activating"
 ---
 
-[erlang]: http://docs.basho.com/riakts/1.2.0/developing/erlang#query2
-[java]: http://docs.basho.com/riakts/1.2.0/developing/java#query
-[nodejs]: http://docs.basho.com/riakts/1.2.0/developing/nodejs#query
-[planning]: http://docs.basho.com/riakts/1.2.0/using/planning
-[python]: http://docs.basho.com/riakts/1.2.0/developing/python#query
-[ruby]: http://docs.basho.com/riakts/1.2.0/developing/ruby#sql-queries
-[writing]: http://docs.basho.com/riakts/1.2.0/using/writingdata
+[erlang]: ../../developing/erlang#query2
+[java]: ../../developing/java#query
+[nodejs]: ../../nodejs#query
+[python]: ../../developing/python#query
+[ruby]: ../../developing/ruby#sql-queries
+[planning]: ../planning/
+[writing]: ../writingdata/
 
 Once you have [planned out your table][planning] you can create it using `riak-admin`.
 

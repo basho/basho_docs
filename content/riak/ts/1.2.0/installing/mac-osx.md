@@ -13,9 +13,9 @@ toc: true
 canonical_link: "docs.basho.com/riak/ts/latest/installing/mac-osx"
 ---
 
-[AAE]: http://docs.basho.com/riak/2.1.3/theory/concepts/aae/
-[openfileslimit]: http://docs.basho.com/riak/2.1.3/ops/tuning/open-files-limit/
-[planning]: http://docs.basho.com/riakts/1.2.0/using/planning
+[concept aae]: /riak/kv/2.1.3/learn/concepts/active-anti-entropy
+[perf open files]: /riak/kv/2.1.3/using/performance/open-files-limit
+[planning]: ../using/planning
 
 Riak TS can be installed on Mac OS X systems using a binary
 package available through ZenDesk.
@@ -32,7 +32,7 @@ Check your email for the link to the download in ZenDesk.
 
 OS X gives you a very small limit on open file handles. Even with a
 backend that uses very few file handles, it's possible to run out. See
-[Open Files Limit][openfileslimit] for more information about changing the limit.
+[Open Files Limit][perf open files] for more information about changing the limit.
 
 
 ## Install Riak TS
@@ -44,7 +44,7 @@ tar zxvf riak-ts-{{VERSION}}-OSX-x86_64.tar.gz
 cd riak-ts-{{VERSION}}
 ```
 
-Then confirm that [AAE][AAE] is turned off. To do this, check etc/riak.conf for the following: `anti_entropy = passive`.
+Then confirm that [AAE][concept aae] is turned off. To do this, check etc/riak.conf for the following: `anti_entropy = passive`.
 
 
 ## Activate Riak TS node

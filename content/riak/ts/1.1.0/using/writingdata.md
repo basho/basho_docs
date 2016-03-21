@@ -13,9 +13,9 @@ toc: true
 canonical_link: "docs.basho.com/riak/ts/latest/using/writing"
 ---
 
-[activating]: https://www.docs.basho.com/riakts/1.1.0/using/creating-activating
-[planning]: https://docs.basho.com/riakts/1.1.0/using/planning
-[querying]: https://docs.basho.com/riakts/1.1.0/using/querying
+[activating]: ../activating/
+[planning]: ../planning/
+[querying]: ../querying/
 
 
 Now that you've [planned][planning] and [activated][activating] your Riak TS table, you are ready to write data to it.

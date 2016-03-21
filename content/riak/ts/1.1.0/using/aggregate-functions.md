@@ -14,7 +14,7 @@ canonical_link: "docs.basho.com/riak/ts/latest/using/aggregate-functions"
 ---
 
 
-[arithmetic]: https://docs.basho.com/riakts/1.1.0/using/arithmetic-operations
+[arithmetic]: ../arithmetic-operations
 
 
 You can turn a set of rows in your Riak TS table into a value with the aggregate feature. This document will walk you through the functions that make up aggregation in Riak TS. 

@@ -14,8 +14,8 @@ canonical_link: "docs.basho.com/riak/ts/latest/using/creating-activating"
 ---
 
 
-[planning]: http://docs.basho.com/riakts/1.0.0/using/planning
-[writing]: http://docs.basho.com/riakts/1.0.0/using/writingdata
+[planning]: ../planning/
+[writing]: ../writingdata/
 
 Once you have [planned out your table][planning] you can create it using `riak-admin`.
 

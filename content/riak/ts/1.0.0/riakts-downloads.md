@@ -14,7 +14,7 @@ canonical_link: "docs.basho.com/riak/ts/latest/downloads"
 ---
 
 
-[installing]: http://docs.basho.com/riakts/1.0.0/installing/installing/
+[installing]: ../installing/
 
 # Download Riak TS 1.0.0
 
