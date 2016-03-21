@@ -14,7 +14,7 @@ canonical_link: "docs.basho.com/riak/ts/latest/using/riakshell"
 ---
 
 
-[creating]: http://docs.basho.com/riakts/1.2.0/using/creating-activating/
+[creating]: ../creating-activating/
 
 
 You can use riak_shell within Riak TS to run SQL and logging commands from one place.
