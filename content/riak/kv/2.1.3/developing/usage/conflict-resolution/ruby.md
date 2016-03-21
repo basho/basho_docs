@@ -1,5 +1,6 @@
 ---
-title: "Conflict Resolution: Ruby"
+title_supertext: "Conflict Resolution:"
+title: "Ruby"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"

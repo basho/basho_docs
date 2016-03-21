@@ -1,5 +1,6 @@
 ---
-title: "Client Security: Erlang"
+title_supertext: "Client Security:"
+title: "Erlang"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"

@@ -1,5 +1,6 @@
 ---
-title: "Configuring: V2 Multi-Datacenter"
+title_supertext: "Configuring:"
+title: "V2 Multi-Datacenter Replication"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"
@@ -10,11 +11,10 @@ menu:
     weight: 110
     parent: "configuring"
 toc: true
+commercial_offering: true
 aliases:
   - /riak/2.1.3/ops/mdc/v2/configuration
 ---
-
-**TODO: Riak EE Header**
 
 [config v2 ssl]: /riak/kv/2.1.3/configuring/v2-multi-datacenter/ssl
 

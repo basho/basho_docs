@@ -1,5 +1,6 @@
 ---
-title: "Configuring: V3 Multi-Datacenter"
+ttile_supertext: "Configuring:"
+title: "V3 Multi-Datacenter Replication"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"
@@ -10,11 +11,10 @@ menu:
     weight: 109
     parent: "configuring"
 toc: true
+commercial_offering: true
 aliases:
   - /riak/2.1.3/ops/mdc/v3/configuration
 ---
-
-**TODO: Riak EE Header**
 
 <div class="note">
 <div class="title">Note on the <code>cluster_mgr</code> setting</div>

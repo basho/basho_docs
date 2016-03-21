@@ -10,6 +10,7 @@ menu:
     weight: 110
     parent: "managing_ref"
 toc: true
+commercial_offering: true
 ---
 
 ## TODO

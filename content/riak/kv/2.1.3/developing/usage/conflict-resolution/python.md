@@ -1,5 +1,6 @@
 ---
-title: "Conflict Resolution: Python"
+title_supertext: "Conflict Resolution:"
+title: "Python"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"

@@ -1,5 +1,6 @@
 ---
-title: "Multi Data Center Replication: System Tuning"
+title_supertext: "Multi Data Center Replication:"
+title: "System Tuning"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"
@@ -10,6 +11,7 @@ menu:
     weight: 104
     parent: "managing_performance"
 toc: true
+commercial_offering: true
 ---
 
 [perf index]: /riak/kv/2.1.3/using/performance

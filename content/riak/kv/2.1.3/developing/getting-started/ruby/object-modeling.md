@@ -1,5 +1,6 @@
 ---
-title: "Getting Started: Object Modeling with Ruby"
+title_supertext: "Getting Started:"
+title: "Object Modeling with Ruby"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"

@@ -1,5 +1,6 @@
 ---
-title: "Client Security: Python"
+title_supertext: "Client Security:"
+title: "Python"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"

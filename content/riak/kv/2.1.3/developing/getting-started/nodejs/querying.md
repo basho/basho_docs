@@ -1,5 +1,6 @@
 ---
-title: "Getting Started: Querying with NodeJS"
+title_supertext: "Getting Started:"
+title: "Querying with NodeJS"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"

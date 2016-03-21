@@ -10,6 +10,7 @@ menu:
     weight: 103
     parent: "managing_performance"
 toc: true
+commercial_offering: true
 ---
 
 With the `pause` and `resume` commands it is possible to limit the

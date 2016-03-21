@@ -1,5 +1,6 @@
 ---
-title: "Getting Started: CRUD Operations with Java"
+title_supertext: "Getting Started:"
+title: "CRUD Operations with Java"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"

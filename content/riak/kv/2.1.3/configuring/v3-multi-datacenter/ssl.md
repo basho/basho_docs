@@ -1,5 +1,6 @@
 ---
-title: "V3 Multi-Datacenter Replication: SSL"
+title_supertext: "V3 Multi-Datacenter Replication:"
+title: "SSL"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"
@@ -10,11 +11,10 @@ menu:
     weight: 103
     parent: "configuring_v3"
 toc: true
+commercial_offering: true
 aliases:
   - /riak/2.1.3/ops/mdc/v3/ssl
 ---
-
-**TODO: Riak EE Header**
 
 ## Features
 

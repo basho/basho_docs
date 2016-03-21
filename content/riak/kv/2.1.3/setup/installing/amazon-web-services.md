@@ -1,5 +1,6 @@
 ---
-title: "Installing on Amazon Web Services"
+title_supertext: "Installing on"
+title: "Amazon Web Services"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"

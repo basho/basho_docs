@@ -1,5 +1,6 @@
 ---
-title: "V3 Multi-Datacenter Replication Operations"
+title_supertext: "V3 Multi-Datacenter"
+title: "Replication Operations"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"
@@ -10,11 +11,10 @@ menu:
     weight: 114
     parent: "managing_cluster_operations"
 toc: true
+commercial_offering: true
 aliases:
   - /riak/2.1.3/ops/mdc/v3/operations
 ---
-
-**TODO: Riak EE Header**
 
 [config v3 mdc]: /riak/kv/2.1.3/configuring/v3-multi-datacenter
 [config v3 nat]: /riak/kv/2.1.3/configuring/v3-multi-datacenter/nat

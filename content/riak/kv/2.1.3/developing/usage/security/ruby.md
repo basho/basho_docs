@@ -1,5 +1,6 @@
 ---
-title: "Client Security: Ruby"
+title_supertext: "Client Security:"
+title: "Ruby"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"

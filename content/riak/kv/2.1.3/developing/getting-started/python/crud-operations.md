@@ -1,5 +1,6 @@
 ---
-title: "Getting Started: CRUD Operations with Python"
+title_supertext: "Getting Started:"
+title: "CRUD Operations with Python"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"

@@ -1,5 +1,6 @@
 ---
-title: "Installing on Debian and Ubuntu"
+title_supertext: "Installing on"
+title: "Debian and Ubuntu"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"

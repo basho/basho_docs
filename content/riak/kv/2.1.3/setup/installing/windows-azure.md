@@ -1,5 +1,6 @@
 ---
-title: "Installing on Windows Azure"
+title_supertext: "Installing on"
+title: "Windows Azure"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"

@@ -1,5 +1,6 @@
 ---
-title: "Client Security: Java"
+title_supertext: "Client Security:"
+title: "Java"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"

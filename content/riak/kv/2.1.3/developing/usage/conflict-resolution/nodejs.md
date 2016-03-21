@@ -1,5 +1,6 @@
 ---
-title: "Conflict Resolution: NodeJS"
+title_supertext: "Conflict Resolution:"
+title: "NodeJS"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"

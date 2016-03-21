@@ -1,5 +1,6 @@
 ---
-title: "Conflict Resolution: PHP"
+title_supertext: "Conflict Resolution:"
+title: "PHP"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"
