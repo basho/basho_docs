@@ -271,8 +271,8 @@ You can configure riak_shell from the riakshell.config file. You can find the fi
 
 The following things can be configured:
 
-* logging (on/off)
-* date_log (on/off)
+* logging (on | off)
+* date_log (on | off)
 * logfile ("../some/dir/mylogfile.log") - defaults to ../log/riakshell.log
 * cookie - any erlang atom the underlying Erlang cookie riak_shell uses to connect
 * show_connection_status (true | false) - shows the green tick or red cross in the command line
