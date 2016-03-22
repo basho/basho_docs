@@ -16,11 +16,13 @@ aliases:
   - /riak/2.1.3/ops/mdc/v3/configuration
 ---
 
-<div class="note">
-<div class="title">Note on the <code>cluster_mgr</code> setting</div>
-The <code>cluster_mgr</code> setting <em>must</em> be set in order for
-version 3 replication to run.
-</div>
+[config reference#advanced]: /riak/kv/2.1.3/configuring/reference/#Advanced-Configuration
+[config v3 ssl#verify-peer]: /riak/kv/2.1.3/configuring/v3-multi-datacenter/ssl/#Verifying-Peer-Certificates
+
+> **Note on the `cluster_mgr` setting**
+>
+> The `cluster_mgr` setting _must_ be set in order for version 3 replication to run.
+
 
 The configuration for Multi-Datacenter (MDC) Replication is kept in
 both the `riak_core` and `riak_repl` sections of the `app.config`
@@ -30,8 +32,7 @@ If you are using Riak Enterprise version 2.0, configuration is managed
 using the `advanced.config` files on
 each node. The semantics of the `advanced.config` file are similar to
 the formerly used `app.config` file. For more information and for a list
-of configurable parameters, see our documentation on [[Advanced
-Configuration|Configuration Files#Advanced-Configuration]].
+of configurable parameters, see our documentation on [Advanced Configuration][config reference#advanced].
 
 Here is a sample of the syntax:
 
@@ -136,5 +137,4 @@ the connection really has been compromised.
   peers presenting certificates not matching any of the patterns will not be
   allowed to connect.
   If no ACLs are configured, no checks on the common name are done, except
-  as described for [[Identical Local and Peer Common Names
-  |Multi Data Center Replication v3 SSL#Verifying-Peer-Certificates]].
+  as described for [Identical Local and Peer Common Names][config v3 ssl#verify-peer].

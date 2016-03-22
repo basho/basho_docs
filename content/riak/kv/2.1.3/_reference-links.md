@@ -152,7 +152,9 @@
 
 [dev index]: /riak/kv/2.1.3/developing
 [dev client libraries]: /riak/kv/2.1.3/developing/client-libraries
+[dev data model]: /riak/kv/2.1.3/developing/data-modeling
 [dev data types]: /riak/kv/2.1.3/developing/data-types
+[dev kv model]: /riak/kv/2.1.3/developing/key-value-modeling
 
 ### Getting Started
 
@@ -167,17 +169,18 @@
 
 ### Usage
 
-[usage delete objects]: /riak/kv/2.1.3/developing/usage/deleting-objects
+[usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types
+[usage commit hooks]: /riak/kv/2.1.3/developing/usage/commit-hooks
+[usage conflict resolution]: /riak/kv/2.1.3/developing/usage/conflict-resolution
 [usage content types]: /riak/kv/2.1.3/developing/usage/content-types
+[usage create objects]: /riak/kv/2.1.3/developing/usage/create-objects
+[usage custom extractors]: /riak/kv/2.1.3/developing/usage/custom-extractors
+[usage delete objects]: /riak/kv/2.1.3/developing/usage/deleting-objects
+[usage mapreduce]: /riak/kv/2.1.3/developing/usage/mapreduce
 [usage search]: /riak/kv/2.1.3/developing/usage/search
 [usage search schema]: /riak/kv/2.1.3/developing/usage/search-schemas
 [usage search data types]: /riak/kv/2.1.3/developing/usage/searching-data-types
-[usage conflict resolution]: /riak/kv/2.1.3/developing/usage/conflict-resolution
 [usage secondary-indexes]: /riak/kv/2.1.3/developing/usage/secondary-indexes
-[usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types
-[usage mapreduce]: /riak/kv/2.1.3/developing/usage/mapreduce
-[usage commit hooks]: /riak/kv/2.1.3/developing/usage/commit-hooks
-[usage custom extractors]: /riak/kv/2.1.3/developing/usage/custom-extractors
 
 ### App Guide
 

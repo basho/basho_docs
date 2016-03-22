@@ -7,7 +7,7 @@ menu:
   riak_kv-2.1.3:
     name: "Client Libraries"
     identifier: "developing_client_libraries"
-    weight: 105
+    weight: 106
     parent: "developing"
 toc: true
 aliases:

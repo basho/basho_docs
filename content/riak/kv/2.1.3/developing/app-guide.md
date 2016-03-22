@@ -7,7 +7,7 @@ menu:
   riak_kv-2.1.3:
     name: "Application Guide"
     identifier: "developing_app_guide"
-    weight: 104
+    weight: 105
     parent: "developing"
 toc: true
 aliases:
@@ -42,7 +42,7 @@ Riak tends to be an excellent choice if you're dealing with any of the
 following:
 
 * **Immutable data** --- While Riak provides several means of
-  [[resolving conflicts|Conflict Resolution]] between different replicas
+  [resolving conflicts][usage conflict resolution] between different replicas
   of objects, those processes can lead to slower performance in some
   cases. Storing immutable data means that you can avoid those processes
   altogether and get the most out of Riak.
@@ -50,24 +50,22 @@ following:
   like video files or other
   [BLOB](http://en.wikipedia.org/wiki/Binary_large_object)s. We built
   [Riak CS](http://basho.com/riak-cloud-storage/) for that. Riak is
-  great, however, for JSON, [[log files|Use Cases#log-data]], [[sensor
-  data|Use Cases#sensor-data]], HTML files, and other objects that tend
+  great, however, for JSON, [log files][dev data model#log], [sensor data][dev data model#sensor], HTML files, and other objects that tend
   to run smaller than 1 MB.
 * **Independent objects** --- Objects that do not have interdependencies
-  on other objects are a good fit for Riak's [[eventually
-  consistent|Eventual Consistency]] nature.
+  on other objects are a good fit for Riak's [eventually consistent][concept eventual consistency] nature.
 * **Objects with "natural" keys** --- It is almost always advisable to
-  build keys for objects out of timestamps, [[usernames|User Accounts]],
-  or other [["natural" markers|Key/Value Modeling]] that distinguish
+  build keys for objects out of timestamps, [usernames][dev data model#user],
+  or other ["natural" markers][dev kv model] that distinguish
   that object from other objects. Data that can be modeled this way fits
   nicely with Riak because Riak emphasizes extremely fast object lookup.
-* **Data compatible with [[Riak Data Types|Using Data Types]]** --- If
+* **Data compatible with [Riak Data Types][dev data types]** --- If
   you're working with mutable data, one option is to run basic CRUD
   operations on that data in a standard key/value fashion and either
   manage conflict resolution yourself or allow Riak to do so. But if
-  your data can be modeled as a [[counter|Using Data Types#Counters]],
-  [[set|Using Data Types#Sets]], or [[map|Using Data Types#Map]], you
-  should seriously consider using [[Riak Data Types|Using Data Types]],
+  your data can be modeled as a [counter][dev data types#counters],
+  [set][dev data types#sets], or [map][dev data types#maps], you
+  should seriously consider using [Riak Data Types][dev data types],
   which can speed application development and transfer a great deal of
   complexity away from the application and to Riak itself.
 
@@ -98,8 +96,7 @@ and development strategies we recommend.
 
 Basic CRUD key/value operations are almost always the most performant
 operations when using Riak. If your needs can be served using CRUD
-operations, we recommend checking out our tutorial on [[key/value
-modeling]] for some basic guidelines. But if basic CRUD key/value
+operations, we recommend checking out our tutorial on [key/value modeling][dev kv model] for some basic guidelines. But if basic CRUD key/value
 operations don't quite suffice for your use case, Riak offers a variety
 of features that may be just what you're looking for. In the sections
 immediately below, you can find brief descriptions of those features as
@@ -111,8 +108,7 @@ Riak Search provides you with [Apache
 Solr](http://lucene.apache.org/solr/)-powered full-text indexing and
 querying on top of the scalability, fault tolerance, and operational
 simplicity of Riak. Our motto for Riak Search: **Write it like Riak.
-Query it like Solr**. That is, you can store objects in Riak [[like
-normal|The Basics]] and run full-text queries on those objects later on
+Query it like Solr**. That is, you can store objects in Riak [like normal][usage create objects] and run full-text queries on those objects later on
 using the Solr API.
 
 * [[Using Search]] --- Getting started with Riak Search

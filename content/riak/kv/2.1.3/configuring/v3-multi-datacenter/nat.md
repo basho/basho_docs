@@ -16,13 +16,13 @@ aliases:
   - /riak/2.1.3/ops/mdc/v3/nat
 ---
 
+[config v3 ssl]: /riak/kv/2.1.3/configuring/v3-multi-datacenter/ssl
+
 Riak Enterprise Version 3 Replication supports replication of data on
 networks that use static NAT.
 
 This can be used for replicating data over the internet where servers
-have both internal and public IP addresses (see the [[Replication SSL
-docs|Multi Data Center Replication v3 SSL]] if you replicate data over a
-public network).
+have both internal and public IP addresses (see the [Replication SSL docs][config v3 ssl] if you replicate data over a public network).
 
 ### Requirements
 
