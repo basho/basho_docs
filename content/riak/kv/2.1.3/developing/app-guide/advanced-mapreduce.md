@@ -14,16 +14,15 @@ aliases:
   - /riak/2.1.3/dev/advanced/mapreduce/
 ---
 
-<div class="note">
-<div class="title">Use MapReduce sparingly</div>
-In Riak, MapReduce is the primary method for non-primary-key-based
+> **Use MapReduce sparingly**
+>
+> In Riak, MapReduce is the primary method for non-primary-key-based
 querying. Although useful for a limited range of purposes, such as batch
 processing jobs, MapReduce operations can be very computationally
 expensive, sometimes to the extent that they can degrade performance in
 production clusters operating under load. Thus, we recommend running
 MapReduce operations in a controlled, rate-limited fashion and never for
 realtime querying purposes.
-</div>
 
 MapReduce, the data processing paradigm popularized by
 [Google](http://research.google.com/archive/mapreduce.html), is provided
@@ -33,7 +32,7 @@ by Riak to aggregate results as background batch processes.
 
 In Riak, MapReduce is one of the primary methods for
 non-primary-key-based querying in Riak, alongside
-[[secondary indexes|Using Secondary Indexes]].  Riak allows you to
+[secondary indexes][usage 2i].  Riak allows you to
 run MapReduce jobs using Erlang or JavaScript, but JavaScript support
 is deprecated as of Riak 2.0, so this document covers Erlang exclusively.
 
@@ -78,8 +77,7 @@ to a representative sample of the cluster where the data is expected to
 be found, and if one server lacks a copy of data it's supposed to have,
 a MapReduce job will not attempt to look for it elsewhere.
 
-For more on the value of `R`, see our documentation on [[replication
-properties]].
+For more on the value of `R`, see our documentation on [replication properties][apps replication properties].
 
 ### Key lists
 
@@ -108,7 +106,7 @@ If Riak 2.0's security functionality is enabled, there are two restrictions on M
 * Other than the module `riak_kv_mapreduce`, any Erlang modules
   distributed with Riak will **not** be accessible to custom MapReduce
   code unless made available via the `add_path` mechanism documented
-  in [[Installing Custom Code]].
+  in [Installing Custom Code][use ref custom code].
 
 
 ## How Riak's MapReduce Queries Are Specified
@@ -117,7 +115,7 @@ MapReduce queries in Riak have two components: (1) a list of inputs and
 (2) a list of "steps," or "phases."
 
 Each element of the input list is an object location, as specified by
-[[bucket type|Using Bucket Types]], bucket, and key. This location may
+[bucket type][usage bucket types], bucket, and key. This location may
 also be annotated with "key-data," which will be passed as an
 argument to a map function when evaluated on the object stored under
 that bucket-key pair.
@@ -142,21 +140,20 @@ phase.
 The input list to a map phase must be a list of (possibly annotated)
 bucket-key pairs. For each pair, Riak will send the request to evaluate
 the map function to the partition that is responsible for storing the
-data for that bucket-key. The [[vnode|Vnodes]] hosting that partition
+data for that bucket-key. The [vnode][glossary vnode] hosting that partition
 will look up the object stored under that bucket-key and evaluate the
 map function with the object as an argument. The other arguments to the
 function will be the annotation, if any is included, with the
 bucket-key, and the static data for the phase, as specified in the
 query.
 
-<div class="note">
-<div class="title">Tombstones</div>
-Be aware that most Riak clusters will retain deleted objects for some
+> **Tombstones**
+>
+> Be aware that most Riak KV clusters will retain deleted objects for some
 period of time (3 seconds by default), and the MapReduce framework does
 not conceal these from submitted jobs. These tombstones can be
-recognized and filtered out by looking for <code>X-Riak-Deleted</code>
-in the object metadata with a value of <code>true</code>.
-</div>
+recognized and filtered out by looking for `X-Riak-Deleted`
+in the object metadata with a value of `true`.
 
 ### Reduce Phase
 
@@ -220,11 +217,11 @@ get_keys(Value,_Keydata,_Arg) ->
 
 Save this file as `mr_example.erl` and proceed to compiling the module.
 
-<div class="info">
-<div class="title">Note on the Erlang Compiler</div>
-You must use the Erlang compiler (<code>erlc</code>) associated with the
+> **Note on the Erlang Compiler**
+>
+> You must use the Erlang compiler (`erlc`) associated with the
 Riak installation or the version of Erlang used when compiling Riak from
-source.</div>
+source.
 
 Compiling the module is a straightforward process:
 
@@ -234,8 +231,7 @@ erlc mr_example.erl
 
 Successful compilation will result in a new `.beam` file, `mr_example.beam`.
 
-Send this file to your operator, or read about
-[[installing custom code]] on your Riak nodes. Once your file has been
+Send this file to your operator, or read about [installing custom code][use ref custom code] on your Riak nodes. Once your file has been
 installed, all that remains is to try the custom function in a
 MapReduce query. For example, let's return keys contained within a
 bucket named `messages` (please pick a bucket which contains keys in
@@ -367,15 +363,14 @@ Riak supports describing MapReduce queries in Erlang syntax through the
 Protocol Buffers API. This section demonstrates how to do so using the
 Erlang client.
 
-<div class="note">
-<div class="title">Distributing Erlang MapReduce Code</div>
-Any modules and functions you use in your Erlang MapReduce calls must be
+> **Distributing Erlang MapReduce Code**
+>
+> Any modules and functions you use in your Erlang MapReduce calls must be
 available on all nodes in the cluster. You can add them in Erlang
-applications by specifying the <code>-pz</code> option in
-[[vm.args|Configuration Files]] or by adding the path to the
-<code>add_paths</code> setting in your <code>app.config</code>
+applications by specifying the `-pz` option in
+[vm.args][config reference] or by adding the path to the
+`add_paths` setting in your `app.config`
 configuration file.
-</div>
 
 ### Erlang Example
 
@@ -421,13 +416,12 @@ many occurrences of groceries.
 9> L = dict:to_list(R).
 ```
 
-<div class="note">
-<div class="title">Riak Object Representations</div>
-Note how the <code>riak_object</code> module is used in the MapReduce
-function but the <code>riakc_obj</code> module is used on the client.
+> **Riak Object Representations**
+>
+> Note how the `riak_object` module is used in the MapReduce
+function but the `riakc_obj` module is used on the client.
 Riak objects are represented differently internally to the cluster than
 they are externally.
-</div>
 
 Given the lists of groceries we created, the sequence of commands above
 would result in L being bound to `[{"bread",1},{"eggs",1},{"bacon",2}]`.

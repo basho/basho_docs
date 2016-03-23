@@ -92,6 +92,7 @@
 
 ### Reference
 
+[use ref custom code]: /riak/kv/2.1.3/using/reference/custom-code
 [use ref handoff]: /riak/kv/2.1.3/using/reference/handoff
 [use ref monitoring]: /riak/kv/2.1.3/using/reference/monitoring
 [use ref search]: /riak/kv/2.1.3/using/reference/search

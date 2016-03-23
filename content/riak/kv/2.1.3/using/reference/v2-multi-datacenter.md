@@ -7,7 +7,7 @@ menu:
   riak_kv-2.1.3:
     name: "V2 Replication"
     identifier: "managing_ref_v2"
-    weight: 112
+    weight: 113
     parent: "managing_ref"
 toc: true
 ---
