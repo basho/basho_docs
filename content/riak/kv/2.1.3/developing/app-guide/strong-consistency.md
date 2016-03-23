@@ -14,9 +14,25 @@ aliases:
   - /riak/2.1.3/dev/advanced/strong-consistency
 ---
 
-[usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types
 [use ref strong consistency]: /riak/2.1.3/using/reference/strong-consistency
+[concept eventual consistency]: /riak/kv/2.1.3/concepts/eventual-consistency
+[use ref strong consistency#trade-offs]: /riak/2.1.3/using/reference/strong-consistency/#Trade-offs
+[glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode
+[config strong consistency#enable]: /riak/kv/2.1.3/configuring/strong-consistency/#Enabling-Strong-Consistency
+[usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types
+[cluster ops bucket types]: /riak/kv/2.1.3/using/cluster-operations/bucket-types
 [apps replication properties]: /riak/kv/2.1.3/developing/app-guide/replication-properties
+[config strong consistency]: /riak/kv/2.1.3/configuring/strong-consistency
+[config strong consistency#fault]: /riak/kv/2.1.3/configuring/strong-consistency/#Fault-Tolerance
+[concept causal context]: /riak/kv/2.1.3/concepts/causal-context
+[concept causal context#vector]: /riak/kv/2.1.3/concepts/causal-context/#Vector-Clocks
+[concept version vector]: /riak/kv/2.1.3/concepts/dotted-version-vectors
+[usage conflict resolution]: /riak/kv/2.1.3/developing/usage/conflict-resolution
+[usage update objects]: /riak/kv/2.1.3/developing/usage/updating-objects
+[use ref strong consistency#vs]: /riak/2.1.3/using/reference/strong-consistency/#Strong-vs.-Eventual-Consistency
+[dev client libraries]: /riak/kv/2.1.3/developing/client-libraries
+[getting started]: /riak/kv/2.1.3/developing/getting-started
+[config strong consistency#details]: /riak/kv/2.1.3/configuring/strong-consistency/#Implementation-Details
 
 > **Please Note:**
 >
