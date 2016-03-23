@@ -30,7 +30,7 @@ GET /types/<type>/buckets/<bucket>/keys/<key>
 ```
 
 Here is an example of a read performed on the key `rufus` in the bucket
-`dogs`, which bears the [[bucket type|Using Bucket Types]] `animals`:
+`dogs`, which bears the [[bucket type](/riak/kv/2.1.3/developing/usage/bucket-types)]] `animals`:
 
 ```java
 // In the Java client, it is best to specify a bucket type/bucket/key

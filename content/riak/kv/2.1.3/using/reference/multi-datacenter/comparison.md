@@ -14,8 +14,8 @@ aliases:
   - /riak/2.1.3/ops/mdc/comparison
 ---
 
-This document is a systematic comparison of [[Version 2|Multi Data
-Center Replication: Architecture]] and [[Version 3|Multi Data Center
+This document is a systematic comparison of [[Version 2](/riak/kv/2.1.3/setup/planning/backend/multi) Data
+Center Replication: Architecture]] and [[Version 3](/riak/kv/2.1.3/setup/planning/backend/multi) Data Center
 Replication v3 Architecture]] of Riak Enterprise's Multi-Datacenter
 Replication capabilities.
 

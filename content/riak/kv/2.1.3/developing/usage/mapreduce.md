@@ -34,8 +34,8 @@ transferring a potentially huge dataset to a client algorithm.
 Developers can use MapReduce for things like filtering documents by
 tags, counting words in documents, and extracting links to related data.
 In Riak, MapReduce is one method for querying that is not strictly based
-on key querying, alongside [[secondary indexes|Using Secondary Indexes]]
-and [[Search|Using Search]]. MapReduce jobs can be submitted through the
+on key querying, alongside [[secondary indexes](/riak/kv/2.1.3/developing/usage/secondary-indexes/]]
+and [[Search](/riak/kv/2.1.3/developing/usage/search/]]. MapReduce jobs can be submitted through the
 [[HTTP API]] or the [[Protocol Buffers API|PBC API]], although we
 strongly recommend using the Protocol Buffers API for performance
 reasons.
@@ -51,9 +51,9 @@ reasons.
 
 * When you know the set of objects over which you want to MapReduce
   (i.e. the locations of the objects, as specified by [[bucket
-  type|Using Bucket Types]], bucket, and key)
+  type](/riak/kv/2.1.3/developing/usage/bucket-types)]], bucket, and key)
 * When you want to return actual objects or pieces of objects and not
-  just the keys. [[Search|Using Search]] and [[secondary indexes|Using
+  just the keys. [[Search](/riak/kv/2.1.3/developing/usage/search/]] and [[secondary indexes|Using
   Secondary Indexes]] are other means of returning objects based on
   non-key-based queries, but they only return lists of keys and not
   whole objects.
@@ -89,7 +89,7 @@ Riak MapReduce queries have two components:
 * A list of phases
 
 The elements of the input list are object locations as specified by
-[[bucket type|Using Bucket Types]], bucket, and key. The elements of the
+[[bucket type](/riak/kv/2.1.3/developing/usage/bucket-types)]], bucket, and key. The elements of the
 phases list are chunks of information related to a map, a reduce, or a
 link function.
 
@@ -116,7 +116,7 @@ orchestrates a MapReduce job.
 
 In this example, we'll create four objects with the text "caremad"
 repeated a varying number of times and store those objects in the bucket
-`training` (which does not bear a [[bucket type|Using Bucket Types]]).
+`training` (which does not bear a [[bucket type](/riak/kv/2.1.3/developing/usage/bucket-types)]]).
 An Erlang MapReduce function will be used to count the occurrences of
 the word "caremad."
 

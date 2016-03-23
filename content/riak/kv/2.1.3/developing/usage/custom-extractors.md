@@ -318,7 +318,7 @@ curl -XPUT $RIAK_HOST/search/index/header_data \
      -d '{"schema":"http_header_schema"}'
 ```
 
-Now, we can create and activate a [[bucket type|Using Bucket Types]]
+Now, we can create and activate a [[bucket type](/riak/kv/2.1.3/developing/usage/bucket-types)]]
 for all of the HTTP header data that we plan to store. Any bucket that
 bears this type will be associated with our `header_data` search index.
 We'll call our bucket type `http_data_store`.

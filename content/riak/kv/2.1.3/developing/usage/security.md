@@ -44,7 +44,7 @@ Riak's approach to security is highly flexible. If you choose to use
 Riak's security feature, you do not need to require that all clients
 authenticate via the same means. Instead, you can specify authentication
 sources on a client-by-client, i.e. user-by-user, basis. This means that
-you can require clients performing, say, [[MapReduce|Using MapReduce]]
+you can require clients performing, say, [[MapReduce](/riak/kv/2.1.3/developing/usage/mapreduce/]]
 operations to use certificate auth, while clients performing [[K/V
 Operations|The Basics]] have to use username and password. The approach
 that you adopt will depend on your security needs.

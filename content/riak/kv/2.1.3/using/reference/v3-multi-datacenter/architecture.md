@@ -15,7 +15,7 @@ aliases:
 ---
 
 [glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode
-[concept clusters]: /riak/kv/2.1.3/concepts/clusters
+[concept clusters]: /riak/kv/2.1.3/learn/concepts/clusters
 
 ## How Version 3 Replication Works
 

@@ -14,7 +14,7 @@ aliases:
   - /riak/2.1.3/ops/advanced/deletion
 ---
 
-[concept clusters]: /riak/kv/2.1.3/concepts/clusters
+[concept clusters]: /riak/kv/2.1.3/learn/concepts/clusters
 [glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode
 [usage delete objects]: /riak/kv/2.1.3/developing/usage/deleting-objects
 
@@ -66,7 +66,7 @@ When a delete request is sent to Riak, the following process is set in
 motion:
 
 1. A tombstone object (`<<>>`) is written to N [vnodes][glossary vnode], with N
-   defined by `[[n_val|Replication Properties#n-value-and-replication]]`
+   defined by `[[n_val](/riak/kv/2.1.3/developing/app-guide/replication-properties#n-value-and-replication]]`
 2. If all N vnodes store the tombstone, the object is removed
 3. If fallback vnodes are in use, the object will not be immediately
    removed

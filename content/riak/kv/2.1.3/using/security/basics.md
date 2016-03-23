@@ -48,7 +48,7 @@ of the following **before** enabling security:
 1. Make certain that the original Riak Search (version 1) and link
    walking are not required. Enabling security will break this
    functionality. If you wish to use security and Search together, you
-   will need to use the [[new Search feature|Using Search]].
+   will need to use the [[new Search feature](/riak/kv/2.1.3/developing/usage/search/]].
 1. Because Riak security requires a secure SSL connection, you will need
    to generate appropriate SSL certs, [[enable SSL|Authentication and
    Authorization#Enabling-SSL]] and establish a [[certification
@@ -474,7 +474,7 @@ riak-admin security grant riak_kv.get,riak_kv.put on any to client
 
 ### MapReduce Permissions
 
-Permission to perform [[MapReduce|Using MapReduce]] jobs can be assigned
+Permission to perform [[MapReduce](/riak/kv/2.1.3/developing/usage/mapreduce/]] jobs can be assigned
 using `riak_kv.mapreduce`. The following example grants MapReduce
 permissions to the user `mapreduce-power-user` for all buckets and
 bucket types:

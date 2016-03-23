@@ -14,7 +14,7 @@ aliases:
   - /riak/2.1.3/dev/advanced/search
 ---
 
-[concept clusters]: /riak/kv/2.1.3/concepts/clusters
+[concept clusters]: /riak/kv/2.1.3/learn/concepts/clusters
 
 <div class="note">
 <div class="title">Note on Search 2.0 vs. Legacy Search</div>
@@ -128,7 +128,7 @@ but logically partition them in KV by using a date as the bucket name.
 A bucket _cannot_ be associated with many indexes---the `search_index`
 property must be a single name, not a list.
 
-See the [[main Search doc|Using Search#Simple-Setup]] for details on
+See the [[main Search doc](/riak/kv/2.1.3/developing/usage/search/#Simple-Setup]] for details on
 creating an index.
 
 ## Extractors

@@ -25,9 +25,7 @@ every node participate in each request.
 If you are using Riak in an [[eventually consistent|Eventual
 Consistency]] way, conflicts between object values on different nodes is
 unavoidable. Often, Riak can resolve these conflicts on its own
-internally if you use causal context, i.e. [[vector clocks|Causal
-Context#Vector-Clocks]] or [[dotted version vectors|Causal
-Context#Dotted-Version-Vectors]], when updating objects. Instructions
+internally if you use causal context, i.e. [[vector clocks](/riak/kv/2.1.3/learn/concepts/causal-context#Vector-Clocks]] or [[dotted version vectors](/riak/kv/2.1.3/learn/concepts/causal-context#Dotted-Version-Vectors]], when updating objects. Instructions
 on this can be found in the section [[below|Conflict
 Resolution#Siblings]].
 
@@ -82,8 +80,7 @@ strong consistency feature, please refer to the following documents:
 
 Riak's eventual consistency model is powerful because Riak is
 fundamentally non-opinionated about how data resolution takes place.
-While Riak _does_ have a set of [[defaults|Replication
-Properties#available-parameters]], there are a variety of general
+While Riak _does_ have a set of [[defaults](/riak/kv/2.1.3/developing/app-guide/replication-properties#available-parameters]], there are a variety of general
 approaches to conflict resolution that are available. In Riak, you can
 mix and match conflict resolution strategies at the bucket level,
 [using bucket types][usage bucket types]. The most important [[bucket properties|Buckets]]
@@ -161,13 +158,13 @@ client-library-specific docs:
 * [[Node.js|Conflict Resolution: NodeJS]]
 
 In Riak versions 2.0 and later, `allow_mult` is set to `true` by default
-for any [[bucket types|Using Bucket Types]] that you create. This means
+for any [[bucket types](/riak/kv/2.1.3/developing/usage/bucket-types)]] that you create. This means
 that if you wish to avoid client-side sibling resolution, you have a few
 options:
 
-* Explicitly create and activate [[bucket types|Using Bucket Types]]
+* Explicitly create and activate [[bucket types](/riak/kv/2.1.3/developing/usage/bucket-types)]]
   that set `allow_mult` to `false`
-* Use Riak's [[configuration files]] to change the [[default bucket
+* Use Riak's [Configuration Files](/riak/kv/2.1.3/configuring/reference) to change the [[default bucket
   properties|Configuration Files#Default-Bucket-Properties]] for your
   cluster. If you set the `buckets.default.allow_mult` parameter to
   `false`, all bucket types that you create will have `allow_mult` set
@@ -179,9 +176,8 @@ When a value is stored in Riak, it is tagged with a piece of metadata
 called a **causal context** which establishes the object's initial
 version. Causal context comes in one of two possible forms, depending
 on what value you set for `dvv_enabled`. If set to `true`, [[dotted
-version vectors|Causal Context#Dotted-Version-Vectors]] will be used; if
-set to `false` (the default), [[vector clocks|Causal
-Context#Vector-Clocks]] will be used.
+version vectors](/riak/kv/2.1.3/learn/concepts/causal-context#Dotted-Version-Vectors]] will be used; if
+set to `false` (the default), [[vector clocks](/riak/kv/2.1.3/learn/concepts/causal-context#Vector-Clocks]] will be used.
 
 Causal context essentially enables Riak to compare the different values
 of objects stored in Riak and to determine a number of important things

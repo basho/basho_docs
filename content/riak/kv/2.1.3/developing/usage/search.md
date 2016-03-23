@@ -203,7 +203,7 @@ curl -XPUT $RIAK_HOST/search/index/famous \
 ```
 
 The last setup item that you need to perform is to associate either a
-bucket or a [[bucket type|Using Bucket Types]] with a Solr index. You
+bucket or a [[bucket type](/riak/kv/2.1.3/developing/usage/bucket-types)]] with a Solr index. You
 only need do this once per bucket type, and all buckets within that type
 will use the same Solr index. For example, to associate a bucket type
 named `animals` with the `famous` index, you can set the bucket type
@@ -519,7 +519,7 @@ extracts indexable fields from the following content types:
 * JSON (`application/json`)
 * XML (`application/xml`, `text/xml`)
 * Plain text (`text/plain`)
-* [[Riak Data Types|Using Data Types]]
+* [[Riak Data Types](/riak/kv/2.1.3/developing/data-types/]]
   * counter (`application/riak_counter`)
   * map (`application/riak_map`)
   * set (`application/riak_set`)
@@ -1277,7 +1277,7 @@ fix this shortcoming in a future version of Riak.
 ### MapReduce
 
 Riak Search allows for piping search results as inputs for
-[[MapReduce|Using MapReduce]] jobs. This is a useful cross-section for
+[[MapReduce](/riak/kv/2.1.3/developing/usage/mapreduce/]] jobs. This is a useful cross-section for
 performing post-calculations of results or aggregations of ad-hoc
 queries. The Riak Search MapReduce integration works similarly to
 regular MapReduce, with the notable exception that your input is not a

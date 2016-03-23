@@ -117,6 +117,5 @@ It is important to note that both clusters must have certain attributes
 in common for Multi-Datacenter Replication to work. If you are using
 either fullsync or realtime replication, both clusters must have the
 same [[ring size|Clusters#The-Ring]]; if you are using fullsync
-replication, every bucket's `[[n_val|Replication
-Properties#N-Value-and-Replication]]` must be the same in both the
+replication, every bucket's `[[n_val](/riak/kv/2.1.3/developing/app-guide/replication-properties#N-Value-and-Replication]]` must be the same in both the
 source and sink cluster.

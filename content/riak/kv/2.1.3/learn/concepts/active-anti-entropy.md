@@ -15,8 +15,8 @@ aliases:
 ---
 
 [cluster ops v3 mdc]: /riak/kv/2.1.3/using/cluster-operations/v3-multi-datacenter
-[concept clusters]: /riak/kv/2.1.3/concepts/clusters
-[concept eventual consistency]: /riak/kv/2.1.3/concepts/eventual-consistency
+[concept clusters]: /riak/kv/2.1.3/learn/concepts/clusters
+[concept eventual consistency]: /riak/kv/2.1.3/learn/concepts/eventual-consistency
 [config v3 mdc]: /riak/kv/2.1.3/configuring/v3-multi-datacenter
 [glossary read rep]: /riak/kv/2.1.3/learn/glossary/#read-repair
 [glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode

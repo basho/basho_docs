@@ -14,7 +14,7 @@ aliases:
   - /riak/2.1.3/ops/advanced/backends/multi/
 ---
 
-[concept buckets]: /riak/kv/2.1.3/concepts/buckets
+[concept buckets]: /riak/kv/2.1.3/learn/concepts/buckets
 [plan backend bitcask]: /riak/kv/2.1.3/setup/planning/backend/bitcask
 [plan backend leveldb]: /riak/kv/2.1.3/setup/planning/backend/leveldb
 [plan backend memory]: /riak/kv/2.1.3/setup/planning/backend/memory

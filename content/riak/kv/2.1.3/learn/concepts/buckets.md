@@ -18,10 +18,10 @@ aliases:
 [apps cluster metadata]: /riak/kv/2.1.3/developing/app-guide/cluster-metadata
 [cluster ops bucket types]: /riak/kv/2.1.3/using/cluster-operations/bucket-types
 [cluster ops strong consistency]: /riak/kv/2.1.3/using/cluster-operations/strong-consistency
-[concept causal context]: /riak/kv/2.1.3/concepts/causal-context
-[concept causal context sib]: /riak/kv/2.1.3/concepts/causal-context/#siblings
-[concept replication]: /riak/kv/2.1.3/concepts/replication
-[concept strong consistency]: /riak/kv/2.1.3/concepts/strong-consistency
+[concept causal context]: /riak/kv/2.1.3/learn/concepts/causal-context
+[concept causal context sib]: /riak/kv/2.1.3/learn/concepts/causal-context/#siblings
+[concept replication]: /riak/kv/2.1.3/learn/concepts/replication
+[concept strong consistency]: /riak/kv/2.1.3/learn/concepts/strong-consistency
 [config basic]: /riak/kv/2.1.3/configuring/basic
 [dev api http]: /riak/kv/2.1.3/developing/api/http
 [dev data types]: /riak/kv/2.1.3/developing/data-types

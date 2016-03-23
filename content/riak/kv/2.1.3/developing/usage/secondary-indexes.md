@@ -22,7 +22,7 @@ aliases:
 <div class="title">Note: Riak Search preferred for querying</div>
 If you're interested in non-primary-key-based querying in Riak, i.e. if
 you're looking to go beyond straightforward K/V operations, we now
-recommend [[Riak Search|Using Search]] rather than secondary indexes for
+recommend [[Riak Search](/riak/kv/2.1.3/developing/usage/search/]] rather than secondary indexes for
 a variety of reasons. Most importantly, Riak Search has a far more
 capacious querying API and can be used with all of Riak's storage
 backends.
@@ -31,14 +31,14 @@ backends.
 Secondary indexes (2i) in Riak enable you to tag objects stored in Riak,
 at write time, with one or more queryable values. Those values can then
 be used to find multiple objects in Riak. If you're storing [[user
-data|Use Cases#User-Accounts]], for example, you could tag each object
+data](/riak/kv/2.1.3/developing/data-modeling/#User-Accounts]], for example, you could tag each object
 associated with that user with a username or other unique marker. Once
 tagged, you could find all objects in a Riak bucket sharing that tag.
 Secondary indexes can be either a binary or string, such as
 `sensor_1_data` or `admin_user` or `click_event`, or an integer, such as
 `99` or `141121`.
 
-[[Riak Search|Using Search]] serves analogous purposes but is quite
+[[Riak Search](/riak/kv/2.1.3/developing/usage/search/]] serves analogous purposes but is quite
 different because it parses key/value data itself and builds indexes on
 the basis of Solr schemas.
 
@@ -52,7 +52,7 @@ backends.
 * Allows querying by exact match or range on one index
 * Allows pagination of results
 * Allows streaming of results
-* Query results can be used as input to a [[MapReduce|Using MapReduce]]
+* Query results can be used as input to a [[MapReduce](/riak/kv/2.1.3/developing/usage/mapreduce/]]
   query
 
 <div class="note">
@@ -95,11 +95,11 @@ piggybacks off of read-repair.
   issues in large clusters.
 * When you need more than the exact match and range searches that 2i
   supports. If that's the case, we recommend checking out [[Riak
-  Search|Using Search]].
+  Search](/riak/kv/2.1.3/developing/usage/search/]].
 * When you want to use composite queries. A query like
   `last_name=zezeski AND state=MD` would have to be split into two
   queries and the results merged (or it would need to involve
-  [[MapReduce|Using MapReduce]]).
+  [[MapReduce](/riak/kv/2.1.3/developing/usage/mapreduce/]]).
 
 ## Query Interfaces and Examples
 
@@ -1153,8 +1153,7 @@ Could not parse field 'field2_int', value 'bar'.
 
 <div class="note">
 <div class="title">Note on 2i queries and the R parameter</div>
-For all 2i queries, the [[R|Replication
-Properties#R-Value-and-Read-Failure-Tolerance]] parameter is set to 1,
+For all 2i queries, the [[R](/riak/kv/2.1.3/developing/app-guide/replication-properties#R-Value-and-Read-Failure-Tolerance]] parameter is set to 1,
 which means that queries that are run while [[handoffs|Riak
 Glossary#Hinted-Handoff]] and related operations are underway may not
 return all keys as expected.

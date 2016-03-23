@@ -161,6 +161,7 @@
 [getting started java]: /riak/kv/2.1.3/developing/getting-started/java
 [getting started ruby]: /riak/kv/2.1.3/developing/getting-started/ruby
 [getting started python]: /riak/kv/2.1.3/developing/getting-started/python
+[getting started php]: /riak/kv/2.1.3/developing/getting-started/php
 [getting started csharp]: /riak/kv/2.1.3/developing/getting-started/csharp
 [getting started nodejs]: /riak/kv/2.1.3/developing/getting-started/nodejs
 [getting started erlang]: /riak/kv/2.1.3/developing/getting-started/erlang
@@ -213,17 +214,17 @@
 [glossary read rep]: /riak/kv/2.1.3/learn/glossary/#read-repair
 [glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode
 
-[concept aae]: /riak/kv/2.1.3/concepts/active-anti-entropy
-[concept buckets]: /riak/kv/2.1.3/concepts/buckets
-[concept cap neg]: /riak/kv/2.1.3/concepts/capability-negotiation
-[concept causal context]: /riak/kv/2.1.3/concepts/causal-context
-[concept clusters]: /riak/kv/2.1.3/concepts/clusters
-[concept crdts]: /riak/kv/2.1.3/concepts/crdts
-[concept eventual consistency]: /riak/kv/2.1.3/concepts/eventual-consistency
-[concept keys objects]: /riak/kv/2.1.3/concepts/keys-and-objects
-[concept replication]: /riak/kv/2.1.3/concepts/replication
-[concept strong consistency]: /riak/kv/2.1.3/concepts/strong-consistency
-[concept vnodes]: /riak/kv/2.1.3/concepts/vnodes
+[concept aae]: /riak/kv/2.1.3/learn/concepts/active-anti-entropy
+[concept buckets]: /riak/kv/2.1.3/learn/concepts/buckets
+[concept cap neg]: /riak/kv/2.1.3/learn/concepts/capability-negotiation
+[concept causal context]: /riak/kv/2.1.3/learn/concepts/causal-context
+[concept clusters]: /riak/kv/2.1.3/learn/concepts/clusters
+[concept crdts]: /riak/kv/2.1.3/learn/concepts/crdts
+[concept eventual consistency]: /riak/kv/2.1.3/learn/concepts/eventual-consistency
+[concept keys objects]: /riak/kv/2.1.3/learn/concepts/keys-and-objects
+[concept replication]: /riak/kv/2.1.3/learn/concepts/replication
+[concept strong consistency]: /riak/kv/2.1.3/learn/concepts/strong-consistency
+[concept vnodes]: /riak/kv/2.1.3/learn/concepts/vnodes
 
 
 

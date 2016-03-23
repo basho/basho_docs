@@ -27,8 +27,8 @@ aliases:
 [plan backend bitcask]: /riak/kv/2.1.3/setup/planning/backend/bitcask
 [usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types
 [apps replication properties]: /riak/kv/2.1.3/developing/app-guide/replication-properties
-[concept buckets]: /riak/kv/2.1.3/concepts/buckets
-[concept eventual consistency]: /riak/kv/2.1.3/concepts/eventual-consistency
+[concept buckets]: /riak/kv/2.1.3/learn/concepts/buckets
+[concept eventual consistency]: /riak/kv/2.1.3/learn/concepts/eventual-consistency
 [perf benchmark]: /riak/kv/2.1.3/using/performance/benchmarking
 [perf open files]: /riak/kv/2.1.3/using/performance/open-files-limit
 [perf index]: /riak/kv/2.1.3/using/performance

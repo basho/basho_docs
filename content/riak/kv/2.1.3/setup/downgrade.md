@@ -42,7 +42,7 @@ downgrade steps for both 1.4 and 1.3 are performed.  </div>
 
 * Riak Control should be disabled throughout the rolling downgrade
   process
-* [[Configuration files]] must be replaced with those of the version
+* [Configuration Files](/riak/kv/2.1.3/configuring/reference) must be replaced with those of the version
   being downgraded to
 * [[Active anti-entropy]] should be disabled if downgrading to a version
   below 1.3.

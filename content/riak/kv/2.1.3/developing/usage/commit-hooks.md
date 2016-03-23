@@ -39,7 +39,7 @@ functions.
 
 ## Setting Commit Hooks Using Bucket Types
 
-Because hooks are defined at the bucket level, you can create [[bucket types|Using Bucket Types]]
+Because hooks are defined at the bucket level, you can create [[bucket types](/riak/kv/2.1.3/developing/usage/bucket-types)]]
 that associate one or more hooks with any bucket that bears that type.
 Let's create a bucket type called `with_post_commit` that adds a
 post-commit hook to operations on any bucket that bears the

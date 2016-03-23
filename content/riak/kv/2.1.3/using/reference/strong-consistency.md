@@ -13,7 +13,7 @@ toc: true
 ---
 
 [usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types
-[concept eventual consistency]: /riak/kv/2.1.3/concepts/eventual-consistency
+[concept eventual consistency]: /riak/kv/2.1.3/learn/concepts/eventual-consistency
 
 Riak was originally designed as an [[eventually consistent|Eventual
 Consistency]] system, fundamentally geared toward providing partition
@@ -28,7 +28,7 @@ enables developers to apply strong consistency guarantees on a per-key
 basis.
 
 Elsewhere in the documentation there are instructions for [[enabling
-and using|Using Strong Consistency]] strong consistency, as well as a
+and using](/riak/kv/2.1.3/developing/app-guide/strong-consistency/]] strong consistency, as well as a
 [[guide for operators|Managing Strong Consistency]] looking to manage,
 configure, and monitor strong consistency.
 

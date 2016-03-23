@@ -12,7 +12,7 @@ menu:
 toc: true
 ---
 
-If you haven't set up a Riak Node and started it, please visit the [[Prerequisites|Taste of Riak: Prerequisites]] first.
+If you haven't set up a Riak Node and started it, please visit [Running A Cluster](/riak/kv/2.1.3/using/running-a-cluster) first.
 
 To try this flavor of Riak, a working installation of PHP is required, and [Composer](https://getcomposer.org/) is required to be installed to fetch the client library package. 
 
@@ -70,4 +70,4 @@ We are now ready to start interacting with Riak.
 
 ## Next Steps
 
- 
+[CRUD Operations](/riak/kv/2.1.3/developing/getting-started/php/crud-operations)

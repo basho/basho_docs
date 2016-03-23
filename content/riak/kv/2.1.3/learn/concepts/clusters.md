@@ -38,8 +38,8 @@ the Amazon [[Dynamo paper|Dynamo]], it nonetheless provides a summary of
 how Riak implements the distribution of data throughout a cluster.
 
 Any client interface to Riak interacts with objects in terms of the
-[[bucket|Buckets]] and [[key|Keys and Objects]] in which a value is
-stored, as well as the [[bucket type|Using Bucket Types]] that is used
+[[bucket|Buckets]] and [[key](/riak/kv/2.1.3/learn/concepts/keys-and-objects/] in which a value is
+stored, as well as the [[bucket type](/riak/kv/2.1.3/developing/usage/bucket-types)]] that is used
 to set the bucket's properties.
 
 Internally, Riak computes a 160-bit binary hash of each bucket/key pair
@@ -70,8 +70,7 @@ as the **coordinating node** for the request. The coordinating node
 consults the ring state to determine which vnode owns the partition in
 which the value's key belongs, then sends the write request to that
 vnode as well as to the vnodes responsible for the next N-1 partitions
-in the ring (where N is a [[configurable parameter|Replication
-Properties]] that describes how many copies of the value to store). The
+in the ring (where N is a [[configurable parameter](/riak/kv/2.1.3/developing/app-guide/replication-properties]] that describes how many copies of the value to store). The
 write request may also specify that at least W (=< N) of those vnodes
 reply with success, and that DW (=< W) reply with success only after
 durably storing the value.
@@ -89,7 +88,7 @@ When N is set to 3, the value `REM` is stored in the key `artist`. That
 key is assigned to 3 partitions out of 32 available partitions. When a
 read request is made to Riak, the ring state will be used to determine
 which partitions are responsible. From there, a variety of
-[[configurable parameters|Replication Properties]] determine how Riak
+[[configurable parameters](/riak/kv/2.1.3/developing/app-guide/replication-properties]] determine how Riak
 will behave in case the value is not immediately found.
 
 ## Gossiping

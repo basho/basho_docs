@@ -43,14 +43,14 @@ defaults if you want to employ a different strategy.
 
 Among those strategies, you can enable Riak to resolve object conflicts
 automatically, whether via internal [[vector clocks]], timestamps, or
-special eventually consistent [[data types]], or you can resolve those
+special eventually consistent [Data Types](/riak/kv/2.1.3/developing/data-types/), or you can resolve those
 conflicts on the application side by employing a use case-specific logic
 of your choosing. More information on this can be found in our guide to
 [[conflict resolution]].
 
 This variety of options enables you to manage Riak's eventually
 consistent behavior in accordance with your application's [[data model
-or models|Use Cases]].
+or models](/riak/kv/2.1.3/developing/data-modeling/]].
 
 ## Replication Properties and Request Tuning
 

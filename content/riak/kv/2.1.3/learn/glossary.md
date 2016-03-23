@@ -12,8 +12,8 @@ menu:
 toc: true
 ---
 
-[concept eventual consistency]: /riak/kv/2.1.3/concepts/eventual-consistency
-[concept clusters]: /riak/kv/2.1.3/concepts/clusters
+[concept eventual consistency]: /riak/kv/2.1.3/learn/concepts/eventual-consistency
+[concept clusters]: /riak/kv/2.1.3/learn/concepts/clusters
 [glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode
 [apps replication properties]: /riak/kv/2.1.3/developing/app-guide/replication-properties
 
@@ -40,7 +40,7 @@ Basho Bench is a benchmarking tool created to conduct accurate and
 repeatable performance tests and stress tests and to produce performance
 graphs.
 
-* [[Basho Bench]]
+* [Basho Bench](/riak/kv/2.1.3/using/performance/benchmarking)
 * [[GitHub repository|http://github.com/basho/basho_bench/]]
 
 ## Bucket
@@ -59,7 +59,7 @@ Bucket types enable you to create and manage sets of bucket properties
 that, when applied to buckets, dictate those buckets' behavior. They
 also act as a third namespace in Riak in addition to buckets and keys.
 
-* [[Bucket Types|Using Bucket Types]]
+* [[Bucket Types](/riak/kv/2.1.3/developing/usage/bucket-types)]]
 
 ## Cluster
 
@@ -300,7 +300,7 @@ operations.
 
 * [[Keys and Objects]]
 * [[Developer Basics|The Basics]]
-* [[Data Types]]
+* [Data Types](/riak/kv/2.1.3/developing/data-types/)
 * [[Using Data Types]]
 
 ## Vector Clock

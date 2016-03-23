@@ -15,7 +15,7 @@ aliases:
 ---
 
 [config reference]: /riak/kv/2.1.3/configuring/reference
-[concept clusters]: /riak/kv/2.1.3/concepts/clusters
+[concept clusters]: /riak/kv/2.1.3/learn/concepts/clusters
 
 Riak's [configuration files][config reference] provide a variety of parameters that
 enable you to fine-tune how Riak interacts with two important elements

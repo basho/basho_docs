@@ -14,7 +14,7 @@ aliases:
   - /riak/2.1.3/ops/running/backups
 ---
 
-[concept clusters]: /riak/kv/2.1.3/concepts/clusters
+[concept clusters]: /riak/kv/2.1.3/learn/concepts/clusters
 [config reference]: /riak/kv/2.1.3/configuring/reference
 [plan backend leveldb]: /riak/kv/2.1.3/setup/planning/backend/leveldb
 [plan backend bitcask]: /riak/kv/2.1.3/setup/planning/backend/bitcask

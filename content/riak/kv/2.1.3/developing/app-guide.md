@@ -17,7 +17,7 @@ aliases:
 [usage conflict resolution]: /riak/kv/2.1.3/developing/usage/conflict-resolution
 [dev data model#log]: /riak/kv/2.1.3/developing/data-modeling/#Log-Data
 [dev data model#sensor]: /riak/kv/2.1.3/developing/data-modeling/#Sensor-Data
-[concept eventual consistency]: /riak/kv/2.1.3/concepts/eventual-consistency
+[concept eventual consistency]: /riak/kv/2.1.3/learn/concepts/eventual-consistency
 [dev data model#user]: /riak/kv/2.1.3/developing/data-modeling/#User-Data
 [dev kv model]: /riak/kv/2.1.3/developing/key-value-modeling
 [dev data types]: /riak/kv/2.1.3/developing/data-types
@@ -29,7 +29,7 @@ aliases:
 [use ref search]: /riak/kv/2.1.3/using/reference/search
 [usage 2i]: /riak/kv/2.1.3/developing/usage/secondary-indexes
 [dev client libraries]: /riak/kv/2.1.3/developing/client-libraries
-[concept crdts]: /riak/kv/2.1.3/concepts/crdts
+[concept crdts]: /riak/kv/2.1.3/learn/concepts/crdts
 [dev data model]: /riak/kv/2.1.3/developing/data-modeling
 [usage mapreduce]: /riak/kv/2.1.3/developing/usage/mapreduce
 [apps mapreduce]: /riak/kv/2.1.3/developing/app-guide/advanced-mapreduce
@@ -44,7 +44,7 @@ aliases:
 [obj model nodejs]: /riak/kv/2.1.3/developing/getting-started/nodejs/object-modeling
 [obj model erlang]: /riak/kv/2.1.3/developing/getting-started/erlang/object-modeling
 [obj model golang]: /riak/kv/2.1.3/developing/getting-started/golang/object-modeling
-[concept strong consistency]: /riak/kv/2.1.3/concepts/strong-consistency
+[concept strong consistency]: /riak/kv/2.1.3/learn/concepts/strong-consistency
 [use ref strong consistency]: /riak/2.1.3/using/reference/strong-consistency
 [cluster ops strong consistency]: /riak/kv/2.1.3/using/cluster-operations/strong-consistency
 [config strong consistency]: /riak/kv/2.1.3/configuring/strong-consistency

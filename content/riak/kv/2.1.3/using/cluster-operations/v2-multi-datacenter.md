@@ -220,7 +220,7 @@ Field | Description
 
 The bounded queue is responsible for holding objects that are waiting to
 participate in realtime replication. Please see the [[Riak Enterprise
-MDC Replication Configuration|Multi-Data-Center Replication:
+MDC Replication Configuration](/riak/kv/2.1.3/setup/planning/backend/multi)-Data-Center Replication:
 Configuration]] guide for more information.
 
 Field | Description

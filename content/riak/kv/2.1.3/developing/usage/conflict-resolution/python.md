@@ -240,7 +240,7 @@ always carry potential drawbacks of this sort.
 ## Riak Data Types
 
 An important thing to always bear in mind when working with conflict
-resolution is that Riak offers a variety of [[Data Types]] that have
+resolution is that Riak offers a variety of [Data Types](/riak/kv/2.1.3/developing/data-types/) that have
 specific conflict resolution mechanics built in. If you have data that
 can be modeled as a [[counter|Data Types#Counters]], [[set|Data
 Types#Sets]], or [[map|Data Types#Maps]], then you should seriously
@@ -253,4 +253,4 @@ object. The merge operation that we built to handle conflict resolution
 is analogous to the resolution logic that is built into Riak sets. For
 more information on how you could potentially replace the client-side
 resolution that we implemented above, see our [[tutorial on Riak
-sets|Using Data Types#Sets]].
+sets](/riak/kv/2.1.3/developing/data-types/#Sets]].

@@ -14,7 +14,7 @@ aliases:
   - /riak/2.1.3/dev/advanced/search-schema
 ---
 
-[concept clusters]: /riak/kv/2.1.3/concepts/clusters
+[concept clusters]: /riak/kv/2.1.3/learn/concepts/clusters
 
 <div class="note">
 <div class="title">Note on Search 2.0 vs. Legacy Search</div>
@@ -28,7 +28,7 @@ docs|http://docs.basho.com/riak/1.4.10/dev/using/search/]].
 Riak Search is built for ease of use, allowing you to write values into
 Riak and query for values using Solr. Riak Search does a lot of work
 under the hood to convert your values---plain text, JSON, XML, [[Riak
-Data Types|Using Data Types]], and [[more|Custom Search
+Data Types](/riak/kv/2.1.3/developing/data-types/]], and [[more|Custom Search
 Extractors]]---into something that can be indexed and searched later.
 Nonetheless, you must still instruct Riak/Solr how to index a value. Are
 you providing and array of strings? An integer? A date? Is your text in

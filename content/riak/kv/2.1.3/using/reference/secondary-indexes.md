@@ -21,13 +21,13 @@ aliases:
 <div class="title">Note: Riak Search preferred for querying</div>
 If you're interested in non-primary-key-based querying in Riak, i.e. if
 you're looking to go beyond straightforward K/V operations, we now
-recommend [[Riak Search|Using Search]] rather than secondary indexes for
+recommend [[Riak Search](/riak/kv/2.1.3/developing/usage/search/]] rather than secondary indexes for
 a variety of reasons. Riak Search has a far more capacious querying API
 and can be used with all of Riak's storage backends.
 </div>
 
 This document provides implementation and other details for Riak's
-[[secondary indexes|Using Secondary Indexes]] \(2i) feature.
+[[secondary indexes](/riak/kv/2.1.3/developing/usage/secondary-indexes/]] \(2i) feature.
 
 ## How It Works
 

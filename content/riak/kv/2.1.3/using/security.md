@@ -99,7 +99,7 @@ Protocol | Port
 
 ### Riak Search Ports
 
-Riak's [[search|Using Search]] feature relies on [Apache
+Riak's [[search](/riak/kv/2.1.3/developing/usage/search/]] feature relies on [Apache
 Solr](http://lucene.apache.org/solr/), which runs on each Riak node if
 security has been [[enabled|Riak Search Settings#Enabling-Riak-Search]].
 When Riak's Search subsystem starts up,

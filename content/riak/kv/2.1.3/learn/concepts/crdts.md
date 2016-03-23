@@ -19,7 +19,7 @@ within it. Any key can be associated with values of any conceivable
 type, from short strings to large JSON objects to video files. Riak
 began as a pure key/value store, but over time it has become more and
 more aware of the data stored in it through features like [[secondary
-indexes|using secondary indexes]] and [[Search|using search]].
+indexes](/riak/kv/2.1.3/developing/usage/secondary-indexes/]] and [[Search](/riak/kv/2.1.3/developing/usage/search/]].
 
 In version 2.0, Riak continued this evolution by introducing a series of
 eventually convergent **Data Types**. Riak Data Types are convergent
@@ -203,7 +203,7 @@ The beauty of Data Types is that Riak "knows" how to resolve value
 conflicts by applying Data Type-specific rules. In general, Riak does
 this by remembering the **history** of a value and broadcasting that
 history along with the current value in the form of a [[context
-object|Using Data Types#Data-Types-and-Context]] that is similar to a
+object](/riak/kv/2.1.3/developing/data-types/#Data-Types-and-Context]] that is similar to a
 [[vector clock|Vector Clocks]] or [[dotted version vector|Dotted Version
 Vectors]]. Riak uses the history of each Data Type to make deterministic
 judgments about which value should be deemed correct.

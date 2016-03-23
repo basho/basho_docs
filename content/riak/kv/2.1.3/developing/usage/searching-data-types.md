@@ -157,7 +157,7 @@ Let's say that we're storing scores in a multiplayer online game in
 Riak. The game is called Boulderdash and it involves smashing digital
 boulders armed with nothing but witty retorts and arcane trivia
 knowledge. We'll create and activate a [[bucket type|Using Bucket
-Types]] for [[storing counters|Using Data Types#Counters]] simply called
+Types]] for [[storing counters](/riak/kv/2.1.3/developing/data-types/#Counters]] simply called
 `counters`, like so:
 
 ```bash
@@ -618,7 +618,7 @@ curl "$RIAK_HOST/search/query/scores?wt=json&q=counter:17" | jsonpp
 
 Let's say that we're storing information about the hobbies of a group of
 people in sets. We'll create and activate a [[bucket type|Using Bucket
-Types]] for [[storing sets|Using Data Types#Sets]] simply called `sets`,
+Types]] for [[storing sets](/riak/kv/2.1.3/developing/data-types/#Sets]] simply called `sets`,
 like so:
 
 ```bash
@@ -992,7 +992,7 @@ Just as expected, both sets we stored contain the element `winning`.
 
 This example will build on the example in the [[Using Data Types]]
 tutorial. That tutorial walks you through storing CMS-style user data in
-Riak [[maps|Using Data Types#Maps]], and we'd suggest that you
+Riak [[maps](/riak/kv/2.1.3/developing/data-types/#Maps]], and we'd suggest that you
 familiarize yourself with that tutorial first. More specifically, user
 data is stored in the following fields in each user's map:
 

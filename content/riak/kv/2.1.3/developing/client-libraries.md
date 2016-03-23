@@ -35,7 +35,7 @@ GitHub for bug reporting.
 
 In addition to the official clients, Basho provides some unofficial
 client libraries, listed below. There are also many client libraries and
-related [[community projects]].
+related [community projects](/community/projects/).
 
 Language | Source | Documentation
 :--------|:-------|:-------------
@@ -186,7 +186,7 @@ level of maturity and activity.
   [resourceful](https://github.com/flatiron/resourceful/) model
   framework from [flatiron](https://github.com/flatiron/)
 * [Connect-Riak](https://github.com/frank06/connect-riak) --- Riak
-  session store for Connect backed by [[Riak-js|http://riakjs.org/]]
+  session store for Connect backed by [Riak-js](http://riakjs.org/)
 * [Riak-js](http://riakjs.com) --- Node.js client for Riak with support
   for HTTP and Protocol Buffers
 * [Riakjs-model](https://github.com/dandean/riakjs-model) --- a model
@@ -232,11 +232,11 @@ level of maturity and activity.
 * [Ripple-PHP](https://github.com/KevBurnsJr/ripple-php) --- A port of
   Ripple to PHP
 * [riiak](https://bitbucket.org/intel352/riiak) --- A Riak PHP client
-  library for the [[Yii Framework|http://www.yiiframework.com/]]
+  library for the [Yii Framework](http://www.yiiframework.com/)
 * [riak-php](https://github.com/marksteele/riak-php) --- A Riak PHP
   client with support for Protocol Buffers
 * [RiakBundle](https://github.com/remialvado/RiakBundle) ---
-  [[Symfony|http://symfony.com]] Bundle designed to ease interaction
+  [Symfony](http://symfony.com) Bundle designed to ease interaction
   with Riak
 * [php_riak](https://github.com/TriKaspar/php_riak) --- A PHP extension
   written in C, Both Riak client and PHP session module

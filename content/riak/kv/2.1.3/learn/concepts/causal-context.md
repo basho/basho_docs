@@ -15,9 +15,9 @@ aliases:
 ---
 
 
-[concept aae]: /riak/kv/2.1.3/concepts/active-anti-entropy
-[concept clusters]: /riak/kv/2.1.3/concepts/clusters
-[concept eventual consistency]: /riak/kv/2.1.3/concepts/eventual-consistency
+[concept aae]: /riak/kv/2.1.3/learn/concepts/active-anti-entropy
+[concept clusters]: /riak/kv/2.1.3/learn/concepts/clusters
+[concept eventual consistency]: /riak/kv/2.1.3/learn/concepts/eventual-consistency
 [CRM]: http://en.wikipedia.org/wiki/Customer_relationship_management
 [dev api http]: /riak/kv/2.1.3/developing/api/http
 [dev key value]: /riak/kv/2.1.3/developing/key-value-modeling

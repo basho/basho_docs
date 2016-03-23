@@ -71,7 +71,7 @@ data management software from a variety of paradigms, such as
 
 From the standpoint of the actual content of your data, Riak might also
 be a good choice if your data can be modeled as one of Riak's currently
-available [[Data Types|Using Data Types]]: flags, registers, counters,
+available [[Data Types](/riak/kv/2.1.3/developing/data-types/]]: flags, registers, counters,
 sets, or maps. These Data Types enable you to take advantage of Riak's
 high availability approach while simplifying application development.
 
@@ -98,7 +98,7 @@ Correspondingly, if your application demands a high query load by any
 means other than key/value lookup---e.g. SQL-style `SELECT * FROM table`
 operations---Riak will not be as efficient as other databases. If you
 wish to compare Riak with other data technologies, Basho offers a tool
-called [[Basho Bench]] to help measure its performance, so that you can
+called [Basho Bench](/riak/kv/2.1.3/using/performance/benchmarking) to help measure its performance, so that you can
 decide whether the availability and operational benefits of Riak
 outweigh its disadvantages.
 
@@ -192,7 +192,7 @@ themselves if that is a better fit for your use case.
 ### Riak Data Types
 
 If you are not interested in dealing with version conflicts on the
-application side, [[Riak Data Types|Using Data Types]] offer a powerful
+application side, [[Riak Data Types](/riak/kv/2.1.3/developing/data-types/]] offer a powerful
 yet easy-to-use means of storing certain types of data while allowing
 Riak to handle merge conflicts. These conflicts are resolved
 automatically by Riak using Data Type-specific algorithms inspired by

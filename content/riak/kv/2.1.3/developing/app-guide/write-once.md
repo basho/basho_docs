@@ -25,7 +25,7 @@ the cost of different semantics in the degenerate case of sibling resolution.
 
 ## Configuration
 
-When the new `write_once` [[bucket type|Using Bucket Types]] parameter is set to
+When the new `write_once` [bucket type](/riak/kv/2.1.3/developing/usage/bucket-types) parameter is set to
 `true`, buckets of type will treat all key/value entries as semantically "write
 once;" once written, entries should not be modified or overwritten by the user.
 
@@ -33,8 +33,7 @@ The `write_once` property is a boolean property applied to a bucket type and may
 only be set at bucket creation time. Once a bucket type has been set with this
 property and activated, the `write_once` property may not be modified.
 
-The `write_once` property is incompatible with [[Riak data
-types|Using Data Types]] and [[strong consistency|Using Strong Consistency]],
+The `write_once` property is incompatible with [Riak data types](/riak/kv/2.1.3/developing/data-types/) and [strong consistency](/riak/kv/2.1.3/developing/app-guide/strong-consistency/),
 This means that if you attempt to create a bucket type with the `write_once`
 property set to `true`, any attempt to set the `datatype` parameter or to set
 the `consistent` parameter to `true` will fail.
@@ -125,6 +124,6 @@ backends.
 
 <div class="note">
 <div class="title">Note on the `multi` backend</div>
-The [[Multi]] backend does not support asynchronous writes. Therefore, if
+The [Multi](/riak/kv/2.1.3/setup/planning/backend/multi) backend does not support asynchronous writes. Therefore, if
 LevelDB is used with the Multi backend, it will be used in synchronous mode.
 </div>

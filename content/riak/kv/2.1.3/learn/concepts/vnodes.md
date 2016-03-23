@@ -90,7 +90,7 @@ asynchronous tasks on behalf of the vnode.
 
 If you're navigating through the file system of a Riak node, you'll
 notice that each node's `/data` directory holds a variety of
-subdirectories. If you're using, say, [[Bitcask]] as a backend, navigate
+subdirectories. If you're using, say, [Bitcask](/riak/kv/2.1.3/setup/planning/backend/bitcask) as a backend, navigate
 into the `/bitcask` directory (you'll also see a `/ring` directory and
 several others). If you open up the `/bitcask` directory, you'll see a
 wide assortment of directories with numbers as names, e.g. `0` or

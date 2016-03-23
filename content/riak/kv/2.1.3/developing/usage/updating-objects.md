@@ -35,7 +35,7 @@ Using causal context in an update would involve the following steps;
 
 1. Fetch the object
 2. Modify the object's value (without modifying the fetched [[context
-   object|Causal Context]])
+   object](/riak/kv/2.1.3/learn/concepts/causal-context]])
 3. Write the new object to Riak
 
 Step 2 is the most important here. All of Basho's official Riak clients
@@ -336,7 +336,7 @@ API.
 
 <div class="note">
 <div class="title">Note on strong consistency</div>
-If you are using Riak's [[strong consistency|Using Strong Consistency]]
+If you are using Riak's [[strong consistency](/riak/kv/2.1.3/developing/app-guide/strong-consistency/]]
 feature, it is not only desirable but also necessary to use the
 read/modify/write cycle explained in the section above. If you attempt
 to update an object without fetching the object first, your update
@@ -630,7 +630,7 @@ of the new coach; and finally the object is written back to Riak.
 The most important thing to bear in mind when updating objects is this:
 you should always read an object prior to updating it _unless_ you are
 certain that no object is stored there. If you are storing [[sensor
-data|Use Cases#Sensor-Data]] in Riak and using timestamps as keys, for
+data](/riak/kv/2.1.3/developing/data-modeling/#Sensor-Data]] in Riak and using timestamps as keys, for
 example, then you can be sure that keys are not repeated. In that case,
 making writes to Riak without first reading the object is fine. If
 you're not certain, however, then we recommend always reading the object
