@@ -14,14 +14,20 @@ aliases:
   - /riak/2.1.3/theory/concepts/capability-negotiation
 ---
 
-In versions of Riak prior to 1.2.0, [[rolling upgrades]] from an older version of Riak to a newer involved (a) disabling all new features associated with the newer version, and then (b) re-enabling those features once all nodes in the cluster were upgraded.
+
+[glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode
+[upgrade cluster]: /riak/kv/2.1.3/setup/upgrading/cluster
+[usage mapreduce]: /riak/kv/2.1.3/developing/usage/mapreduce
+
+
+In versions of Riak prior to 1.2.0, [rolling upgrades][upgrade cluster] from an older version of Riak to a newer involved (a) disabling all new features associated with the newer version, and then (b) re-enabling those features once all nodes in the cluster were upgraded.
 
 This process has been simplified in versions 1.2.0. Rolling upgrades no longer require you to disable and then re-enable features, as Riak versions 1.2.0 and later now feature a **capability negotiation** subsystem that automatically manages the addition of new features. Using this subsystem, nodes negotiate with each other to automatically determine which versions are supported on which nodes, which allows clusters to maintain normal operations even when divergent versions of Riak are present in the cluster.
 
-<div class="note">
-<div class="title">Note on mixed versions</div>
-The capability negotiation subsystem is used to manage mixed versions of Riak within a cluster <em>solely</em> during rolling upgrades. We strongly recommend not running mixed versions during normal operations.
-</div>
+>**Note on mixed versions:**
+>
+>The capability negotiation subsystem is used to manage mixed versions of Riak within a cluster *solely* during rolling upgrades. We strongly recommend not running mixed versions during normal operations.
+
 
 ## Configuration Changes
 
@@ -29,11 +35,11 @@ With the addition of automatic capability negotiation, there are some configurat
 
 Setting | Description
 :-------|:-----------
-`riak_core/legacy_vnode_routing` | Uses the newer <a href="/theory/concepts/glossary/#vnode">vnode</a> routing layer when supported; otherwise defaults to the legacy routing protocol
+`riak_core/legacy_vnode_routing` | Uses the newer [vnode][glossary vnode] routing layer when supported; otherwise defaults to the legacy routing protocol
 `riak_kv/legacy_keylisting` | Uses coverage-based keylisting (introduced in Riak 1.0) when supported; otherwise defaults to the legacy keylisting behavior
 `riak_kv/listkeys_backpressure` | Enables listkeys backpressure (introduced in Riak 1.1) when supported
-`riak_kv/mapred_2i_pipe` | Use parallel secondary-index input to <a href="/riak/latest/dev/using/mapreduce">MapReduce</a> jobs (introduced in Riak 1.1) when supported
-`riak_kv/mapred_system` | Use `riak_pipe` for <a href="/riak/latest/dev/using/mapreduce">MapReduce</a> jobs (introduced in Riak 1.0) when supported; otherwise default to the legacy `luke` system
+`riak_kv/mapred_2i_pipe` | Use parallel secondary-index input to [MapReduce][usage mapreduce] jobs (introduced in Riak 1.1) when supported
+`riak_kv/mapred_system` | Use `riak_pipe` for [MapReduce][usage mapreduce] jobs (introduced in Riak 1.0) when supported; otherwise default to the legacy `luke` system
 
 Although is not recommended, you can override capability negotiation if you wish. This must be done on a per-component basis in each node's `app.config`. You can either instruct Riak not to use capability negotiation for a specific component by setting `use` to `false` as in this example, which turns off capability negotiation for the `listkeys_backpressure` setting:
 
