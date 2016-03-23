@@ -94,8 +94,10 @@
 
 [use ref handoff]: /riak/kv/2.1.3/using/reference/handoff
 [use ref monitoring]: /riak/kv/2.1.3/using/reference/monitoring
-[use ref search 2i]: /riak/kv/2.1.3/using/reference/search-secondary-indexes
+[use ref search]: /riak/kv/2.1.3/using/reference/search
+[use ref 2i]: /riak/kv/2.1.3/using/reference/secondary-indexes
 [use ref snmp]: /riak/kv/2.1.3/using/reference/snmp
+[use ref strong consistency]: /riak/2.1.3/using/reference/strong-consistency
 [use ref jmx]: /riak/kv/2.1.3/using/reference/jmx
 
 ### Cluster Admin
@@ -143,10 +145,6 @@
 
 [troubleshoot http]: /riak/kv/2.1.3/using/troubleshooting/http-204
 
-### Reference
-
-[using reference strong consistency]: /riak/2.1.3/using/reference/strong-consistency
-
 
 ## Developing
 
@@ -167,8 +165,17 @@
 [getting started erlang]: /riak/kv/2.1.3/developing/getting-started/erlang
 [getting started golang]: /riak/kv/2.1.3/developing/getting-started/golang
 
+[obj model java]: /riak/kv/2.1.3/developing/getting-started/java/object-modeling
+[obj model ruby]: /riak/kv/2.1.3/developing/getting-started/ruby/object-modeling
+[obj model python]: /riak/kv/2.1.3/developing/getting-started/python/object-modeling
+[obj model csharp]: /riak/kv/2.1.3/developing/getting-started/csharp/object-modeling
+[obj model nodejs]: /riak/kv/2.1.3/developing/getting-started/nodejs/object-modeling
+[obj model erlang]: /riak/kv/2.1.3/developing/getting-started/erlang/object-modeling
+[obj model golang]: /riak/kv/2.1.3/developing/getting-started/golang/object-modeling
+
 ### Usage
 
+[usage index]: /riak/kv/2.1.3/developing/usage
 [usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types
 [usage commit hooks]: /riak/kv/2.1.3/developing/usage/commit-hooks
 [usage conflict resolution]: /riak/kv/2.1.3/developing/usage/conflict-resolution
@@ -180,10 +187,12 @@
 [usage search]: /riak/kv/2.1.3/developing/usage/search
 [usage search schema]: /riak/kv/2.1.3/developing/usage/search-schemas
 [usage search data types]: /riak/kv/2.1.3/developing/usage/searching-data-types
-[usage secondary-indexes]: /riak/kv/2.1.3/developing/usage/secondary-indexes
+[usage 2i]: /riak/kv/2.1.3/developing/usage/secondary-indexes
+[usage update objects]: /riak/kv/2.1.3/developing/usage/updating-objects
 
 ### App Guide
 
+[apps mapreduce]: /riak/kv/2.1.3/developing/app-guide/advanced-mapreduce
 [apps replication properties]: /riak/kv/2.1.3/developing/app-guide/replication-properties
 [apps strong consistency]: /riak/kv/2.1.3/developing/app-guide/strong-consistency
 

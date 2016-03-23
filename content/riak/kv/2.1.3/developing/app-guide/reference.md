@@ -7,7 +7,7 @@ menu:
   riak_kv-2.1.3:
     name: "Reference"
     identifier: "app_guide_reference"
-    weight: 103
+    weight: 104
     parent: "developing_app_guide"
 toc: true
 ---

@@ -14,6 +14,48 @@ aliases:
   - /riak/2.1.3/dev/using/application-guide/
 ---
 
+[usage conflict resolution]: /riak/kv/2.1.3/developing/usage/conflict-resolution
+[dev data model#log]: /riak/kv/2.1.3/developing/data-modeling/#Log-Data
+[dev data model#sensor]: /riak/kv/2.1.3/developing/data-modeling/#Sensor-Data
+[concept eventual consistency]: /riak/kv/2.1.3/concepts/eventual-consistency
+[dev data model#user]: /riak/kv/2.1.3/developing/data-modeling/#User-Data
+[dev kv model]: /riak/kv/2.1.3/developing/key-value-modeling
+[dev data types]: /riak/kv/2.1.3/developing/data-types
+[dev data types#counters]: /riak/kv/2.1.3/developing/data-types/#Counters
+[dev data types#sets]: /riak/kv/2.1.3/developing/data-types/#Sets
+[dev data types#maps]: /riak/kv/2.1.3/developing/data-types/#Maps
+[usage create objects]: /riak/kv/2.1.3/developing/usage/create-objects
+[usage search]: /riak/kv/2.1.3/developing/usage/search
+[use ref search]: /riak/kv/2.1.3/using/reference/search
+[usage 2i]: /riak/kv/2.1.3/developing/usage/secondary-indexes
+[dev client libraries]: /riak/kv/2.1.3/developing/client-libraries
+[concept crdts]: /riak/kv/2.1.3/concepts/crdts
+[dev data model]: /riak/kv/2.1.3/developing/data-modeling
+[usage mapreduce]: /riak/kv/2.1.3/developing/usage/mapreduce
+[apps mapreduce]: /riak/kv/2.1.3/developing/app-guide/advanced-mapreduce
+[use ref 2i]: /riak/kv/2.1.3/using/reference/secondary-indexes
+[plan backend leveldb]: /riak/kv/2.1.3/setup/planning/backend/leveldb
+[plan backend bitcask]: /riak/kv/2.1.3/setup/planning/backend/bitcask
+[plan backend memory]: /riak/kv/2.1.3/setup/planning/backend/memory
+[obj model java]: /riak/kv/2.1.3/developing/getting-started/java/object-modeling
+[obj model ruby]: /riak/kv/2.1.3/developing/getting-started/ruby/object-modeling
+[obj model python]: /riak/kv/2.1.3/developing/getting-started/python/object-modeling
+[obj model csharp]: /riak/kv/2.1.3/developing/getting-started/csharp/object-modeling
+[obj model nodejs]: /riak/kv/2.1.3/developing/getting-started/nodejs/object-modeling
+[obj model erlang]: /riak/kv/2.1.3/developing/getting-started/erlang/object-modeling
+[obj model golang]: /riak/kv/2.1.3/developing/getting-started/golang/object-modeling
+[concept strong consistency]: /riak/kv/2.1.3/concepts/strong-consistency
+[use ref strong consistency]: /riak/2.1.3/using/reference/strong-consistency
+[cluster ops strong consistency]: /riak/kv/2.1.3/using/cluster-operations/strong-consistency
+[config strong consistency]: /riak/kv/2.1.3/configuring/strong-consistency
+[apps strong consistency]: /riak/kv/2.1.3/developing/app-guide/strong-consistency
+[usage update objects]: /riak/kv/2.1.3/developing/usage/updating-objects
+[apps replication properties]: /riak/kv/2.1.3/developing/app-guide/replication-properties
+[install index]: /riak/kv/2.1.3/setup/installing
+[getting started]: /riak/kv/2.1.3/developing/getting-started
+[usage index]: /riak/kv/2.1.3/developing/usage
+[glossary]: /riak/kv/2.1.3/learn/glossary
+
 So you've decided to build an application using Riak as a data store. We
 think that this is a wise choice for a broad variety of use cases. But
 using Riak isn't always straightforward, especially if you're used to
@@ -111,10 +153,10 @@ simplicity of Riak. Our motto for Riak Search: **Write it like Riak.
 Query it like Solr**. That is, you can store objects in Riak [like normal][usage create objects] and run full-text queries on those objects later on
 using the Solr API.
 
-* [[Using Search]] --- Getting started with Riak Search
-* [[Search Details]] --- A detailed overview of the concepts and design
+* [Using Search][usage search] --- Getting started with Riak Search
+* [Search Details][use ref search] --- A detailed overview of the concepts and design
   consideration behind Riak Search
-* [[Search Schema]] --- How to create custom schemas for extracting data
+* [Search Schema][usage search schema] --- How to create custom schemas for extracting data
   from Riak Search
 
 ### When to Use Search
@@ -123,22 +165,20 @@ using the Solr API.
   to the entirety of [Solr](http://lucene.apache.org/solr/)'s extremely
   broad API, which enables you to query on the basis of wildcards,
   strings, booleans, geolocation, ranges, language-specific fulltext,
-  and far more. You can even use Search in conjunction with [[Riak Data
-  Types|Using Data Types]] \(documentation coming soon).
+  and far more. You can even use Search in conjunction with [Riak Data Types][dev data types] \(documentation coming soon).
 
-<div class="note">
-<div class="title">Search is preferred for querying</div>
-In general, you should consider Search to be the default choice for
+> **Search is preferred for querying**
+>
+> In general, you should consider Search to be the default choice for
 nearly all querying needs that go beyond basic CRUD/KV operations. If
 your use case demands some sort of querying mechanism and you're in
 doubt about what to use, you should assume that Search is the right tool
 for you.
-</div>
 
 ### When Not to Use Search
 
 * **When deep pagination is needed** --- At the moment, you should
-    consider [[secondary indexes|Using Secondary Indexes]] instead of
+    consider [secondary indexes][usage 2i] instead of
     Search if your use case requires deep pagination. This will be
     changed, however, in a future release of Riak, at which point you
     should consider Search the default choice for _all_ querying needs.
@@ -154,27 +194,26 @@ When performing basic K/V operations, Riak is agnostic toward the actual
 data stored within objects. Beginning with Riak 2.0, however, you now
 have access to operations-based objects based on academic research on
 [CRDTs](http://hal.upmc.fr/docs/00/55/55/88/PDF/techreport.pdf). Riak
-Data Types enable you to update and read [[counters|Using Data
-Types#counters]], [[sets|Using Data Types#sets]], and [[maps|Using Data
-Types#maps]] directly in Riak, as well as [[registers|Data Types#maps]]
-and [[flags|Data Types#maps]] inside of Riak maps.
+Data Types enable you to update and read [counters][dev data types#counters],
+[sets][dev data types#sets], and [maps][dev data types#maps] directly in Riak, as well as [registers][dev data types#maps] and [flags][dev data types#maps] inside of Riak maps.
 
 The beauty of Riak Data Types is that all convergence logic is handled
 by Riak itself according to deterministic, Data Type-specific rules,
 which means that your application doesn't need to reason about
-[[siblings|Conflict Resolution#Siblings]]. In many cases, this can
+[siblings][usage conflict resolution]. In many cases, this can
 unburden applications of the need to handle object convergence on their
 own.
 
-* [[Using Data Types]] --- A guide to setting up Riak to use Data Types,
+* [Using Data Types][dev data types] --- A guide to setting up Riak to use Data Types,
   including a variety of code samples for all of the Basho's official
-  [[client libraries]]
-* [[Data Types]] --- A theoretical treatment of Riak Data Types, along
+  [client libraries][dev client libraries]
+* [Data Types][concept crdts] --- A theoretical treatment of Riak Data Types, along
   with implementation details
-* [[Data Modeling with Riak Data Types]] --- An object modeling example
-  that relies on Riak Data Types
+* [Data Modeling with Riak Data Types][dev data model] --- An object modeling example that relies on Riak Data Types.
 
-**Note**: Riak Data Types can be used in conjunction with Riak Search,
+> **Note**:
+>
+> Riak Data Types can be used in conjunction with Riak Search,
 meaning that the data stored in counters, sets, and maps can be indexed
 and searched just like any other data in Riak. Documentation on Data
 Types and Search is coming soon.
@@ -222,8 +261,8 @@ comes equipped with a set of default MapReduce jobs that you can employ,
 or you can write and run your own MapReduce jobs in
 [Erlang](http://www.erlang.org/).
 
-* [[Using MapReduce]] --- A general guide to using MapReduce
-* [[Advanced MapReduce]] --- A more in-depth guide to MapReduce,
+* [Using MapReduce][usage mapreduce] --- A general guide to using MapReduce
+* [Advanced MapReduce][apps mapreduce] --- A more in-depth guide to MapReduce,
   including code samples and implementation details
 
 ### When to Use MapReduce
@@ -238,15 +277,13 @@ or you can write and run your own MapReduce jobs in
 ### When Not to Use MapReduce
 
 * **When another Riak feature will do** --- Before even considering
-  using MapReduce, you should thoroughly investigate [[Riak Search|Using
-  Search]] or [[secondary indexes|Using Secondary Indexes]] as possible
+  using MapReduce, you should thoroughly investigate [Riak Search][usage search] or [secondary indexes][usage 2i] as possible
   solutions to your needs.
 
 In general, you should not think of MapReduce as, for example, Hadoop
 within Riak. While it can be useful for certain types of
 non-primary-key-based queries, it is neither a "Big Data" processing
-tool nor an indexing mechanism nor a replacement for [[Riak Search|Using
-Search]]. If you do need a tool like Hadoop or Apache Spark, you should
+tool nor an indexing mechanism nor a replacement for [Riak Search][usage search]. If you do need a tool like Hadoop or Apache Spark, you should
 consider using Riak in conjunction with a more suitable data processing
 tool.
 
@@ -257,13 +294,12 @@ following problem: how do I know which keys I should look for? Secondary
 indexes (2i) provide a solution to this problem, enabling you to tag
 objects with either binary or integer metadata and then query Riak for
 all of the keys that share specific tags. 2i is especially useful if
-you're storing binary data that is opaque to features like [[Riak
-Search|Using Search]].
+you're storing binary data that is opaque to features like [Riak Search][usage search].
 
-* [[Using Secondary Indexes]] --- A general guide to using 2i, along
+* [Using Secondary Indexes][usage 2i] --- A general guide to using 2i, along
   with code samples and information on 2i features like pagination,
   streaming, and sorting
-* [[Advanced Secondary Indexes]] --- Implementation details behind 2i
+* [Advanced Secondary Indexes][use ref 2i] --- Implementation details behind 2i
 
 ### When to Use Secondary Indexes
 
@@ -279,8 +315,7 @@ Search|Using Search]].
     involve deep pagination, we recommend Search over 2i for _all_
     querying purposes.
 * **If you're using Bitcask** --- 2i is available only in the
-    [[LevelDB]] backend. If you'd like to use [[Bitcask]] or the
-    [[Memory]] backend, you will not be able to use 2i.
+    [LevelDB][plan backend leveldb] backend. If you'd like to use [Bitcask][plan backend bitcask] or the [Memory][plan backend memory] backend, you will not be able to use 2i.
 
 ## Mixed Approach
 
@@ -295,41 +330,41 @@ use none at all and stick to key/value operations.
 
 It's difficult to offer universally applicable data modeling guidelines
 because data models differ so markedly from use case to use case. What
-works when storing [[user data|Use Cases#user-data]], for example, might
-be a poor fit when working with [[sensor data|Use Cases#sensor-data]].
+works when storing [user data][dev data model#user], for example, might
+be a poor fit when working with [sensor data][dev data model#sensor].
 Nonetheless, there's a variety of material in our documentation that
 might be helpful when thinking about data modeling:
 
-* [[Object Modeling in Riak|Taste of Riak: Object Modeling]]
-    - [[Java|Taste of Riak: Object Modeling with Java]]
-    - [[Ruby|Taste of Riak: Object Modeling with Ruby]]
-    - [[Python|Taste of Riak: Object Modeling with Python]]
-    - [[C#|Taste of Riak: Object Modeling with CSharp]]
-    - [[Erlang|Taste of Riak: Object Modeling with Erlang]]
-* [[Key/Value Modeling]]
+* Object Modeling in Riak KV:
+    - [Java][obj model java]
+    - [Ruby][obj model ruby]
+    - [Python][obj model python]
+    - [C#][obj model csharp]
+    - [NodeJS][obj model nodejs]
+    - [Erlang][obj model erlang]
+    - [Go][obj model golang]
+* [Key/Value Modeling][dev kv model]
 
 ### Data Types
 
-One feature to always bear in mind when using Riak is [[Riak Data
-Types|Using Data Types]]. If some or all of your data can be modeled in
+One feature to always bear in mind when using Riak is [Riak Data Types][dev data types]. If some or all of your data can be modeled in
 accordance with one of the available Data Types---flags (similar to
 Booleans), registers (good for storing small binaries or text snippets),
-[[counters|Using Data Types#counters]], [[sets|Using Data Types#sets]],
-or [[maps|Using Data Types#maps]]---you might be able to streamline
+[counters][dev data types#counters], [sets][dev data types#sets],
+or [maps][dev data types#maps]---you might be able to streamline
 application development by using them as an alternative to key/value
 operations. In some cases, it might even be worthwhile to transform your
 data modeling strategy in accordance with To see if this feature might
 be a good fit for your application, we recommend checking out the
 following documentation:
 
-* [[Data Types]]
-* [[Using Data Types]]
-* [[Data Modeling with Riak Data Types]]
+* [Data Types][concept crdts]
+* [Using Data Types][dev data types]
+* [Data Modeling with Riak Data Types][dev data model]
 
 ## What are Your Consistency Requirements?
 
-Riak has traditionally been thought of as an [[eventually
-consistent|Eventual Consistency]], AP system, i.e. as a system that
+Riak has traditionally been thought of as an [eventually consistent][concept eventual consistency], AP system, i.e. as a system that
 favors availability and partition tolerance over data consistency. In
 Riak versions 2.0 and later, the option of applying strong consistency
 guarantees is available to developers that want to use Riak as a strict
@@ -342,9 +377,9 @@ any way you wish.
 If you need some or all of your data to be subject to strong consistency
 requirements, we recommend checking out the following documentation:
 
-* [[Strong Consistency]]
-* [[Using Strong Consistency]]
-* [[Managing Strong Consistency]]
+* [Strong Consistency][use ref strong consistency]
+* [Using Strong Consistency][apps strong consistency]
+* [Managing Strong Consistency][cluster ops strong consistency]
 
 ## Are Your Objects Mutable?
 
@@ -356,9 +391,9 @@ conflict resolution strategy for when object conflicts arise, which is a
 normal occurrence in Riak. For more implementation details, we recommend
 checking out the following docs:
 
-* [[Conflict Resolution]]
-* [[Object Updates]]
-* [[Replication Properties]]
+* [Conflict Resolution][usage conflict resolution]
+* [Object Updates][usage update objects]
+* [Replication Properties][apps replication properties]
 
 ## Getting Started
 
@@ -366,15 +401,14 @@ If you have a good sense of how you will be using Riak for your
 application (or if you just want to experiment), the following guides
 will help you get up and running:
 
-* [[Five-Minute Install]] --- Install Riak and start up a 5-node Riak
+* [Installing Riak KV][install index] --- Install Riak KV and start up a 5-node Riak
   cluster
-* [[Client Libraries]] --- A listing of official and non-official client
+* [Client Libraries][dev client libraries] --- A listing of official and non-official client
   libraries for building applications with Riak
-* [[Getting Started with Client
-  Libraries|Five-Minute Install#Setting-Up-Your-Riak-Client]] --- How to
+* [Getting Started with Client Libraries][getting started] --- How to
   get up and going with one of Basho's official client libraries (Java,
   Ruby, Python, and Erlang)
-* [[The Basics]] --- A guide to basic key/value operations in Riak
-* [[Riak Glossary]] --- A listing of frequently used terms in Riak's
+* [Developing with Riak KV: Usage][usage index] --- A guide to basic key/value operations and other common tasks in Riak KV.
+* [Riak KV Glossary][glossary] --- A listing of frequently used terms in Riak's
   documentation
 
