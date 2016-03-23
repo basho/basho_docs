@@ -14,6 +14,8 @@ aliases:
   - /riak/2.1.3/dev/advanced/write-once
 ---
 
+[glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode
+
 Riak 2.1.0 introduces the concept of write-once buckets, buckets whose entries
 are intended to be written exactly once and never updated or overwritten.
 Buckets of this type circumvent the normal "coordinated PUT" path, which would
@@ -73,7 +75,7 @@ nodes.
 ## Runtime
 
 The write-once path circumvents the normal coordinated PUT code path, and
-instead sends write requests directly to all [[vnodes]] (or vnode proxies) in
+instead sends write requests directly to all [vnodes][glossary vnode] (or vnode proxies) in
 the effective preference list for the write operation.
 
 In place of the `put_fsm` used in the normal path, we introduce a collection of

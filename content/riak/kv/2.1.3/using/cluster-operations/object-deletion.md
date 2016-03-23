@@ -14,6 +14,8 @@ aliases:
   - /riak/2.1.3/ops/advanced/deletion
 ---
 
+[glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode
+
 ## Configuring Object Deletion
 
 If step 3 in the process explained above is reached, the `delete_mode`
@@ -26,7 +28,7 @@ There are three possible settings:
 
 * `keep` --- Disables tombstone removal; protects against an edge case
   in which an object is deleted and recreated on the owning
-  [[vnodes]] while a fallback is either down or awaiting handoff
+  [vnodes][glossary vnode] while a fallback is either down or awaiting handoff
 * `immediate` --- The tombstone is removed as soon as the request is
   received
 * Custom time interval --- How long to wait until the tombstone is

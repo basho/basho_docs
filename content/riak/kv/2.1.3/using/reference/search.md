@@ -14,6 +14,8 @@ aliases:
   - /riak/2.1.3/dev/advanced/search
 ---
 
+[concept clusters]: /riak/kv/2.1.3/concepts/clusters
+
 <div class="note">
 <div class="title">Note on Search 2.0 vs. Legacy Search</div>
 This document refers to the new Riak Search 2.0 with
@@ -70,7 +72,7 @@ Unlike Solr by itself, Riak Search knows how to do all of the following:
 
 ## Solr/JVM OS Process
 
-Every node in a Riak [[cluster|Clusters]] has a corresponding operating
+Every node in a Riak [cluster][concept clusters] has a corresponding operating
 system (OS) process running a JVM which hosts Solr on the Jetty
 application server. This OS process is a child of the Erlang OS process
 running Riak.

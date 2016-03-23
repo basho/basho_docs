@@ -14,6 +14,8 @@ aliases:
   - /riak/2.1.3/dev/advanced/search-schema
 ---
 
+[concept clusters]: /riak/kv/2.1.3/concepts/clusters
+
 <div class="note">
 <div class="title">Note on Search 2.0 vs. Legacy Search</div>
 This document refers to the new Riak Search 2.0 with
@@ -179,7 +181,7 @@ Refer to the [Solr 4.7 reference
 guide](http://archive.apache.org/dist/lucene/solr/ref-guide/apache-solr-ref-guide-4.7.pdf)
 for a complete list. You should be aware, however, that there are a few
 fields that are required by Riak Search in order to properly distribute
-an object across a [[cluster|Clusters]]. These fields are all prefixed
+an object across a [cluster][concept clusters]. These fields are all prefixed
 with `_yz`, which stands for
 [Yokozuna](https://github.com/basho/yokozuna), the original code name
 for Riak Search.

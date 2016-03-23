@@ -16,6 +16,7 @@ aliases:
 
 [plan backend leveldb]: /riak/kv/2.1.3/setup/planning/backend/leveldb
 [plan backend memory]: /riak/kv/2.1.3/setup/planning/backend/memory
+[use ref strong consistency]: /riak/2.1.3/using/reference/strong-consistency
 
 <div class="note">
 <div class="title">Note: Riak Search preferred for querying</div>
@@ -56,7 +57,7 @@ backends.
 
 <div class="note">
 <div class="title">Note on 2i and strong consistency</div>
-Secondary indexes do not currently work with the [[strong consistency]]
+Secondary indexes do not currently work with the [strong consistency][use ref strong consistency]
 feature introduced in Riak version 2.0. If you store objects in
 [[strongly consistent buckets|Using Strong
 Consistency#Creating-a-Strongly-Consistent-Bucket-Type]] and attach

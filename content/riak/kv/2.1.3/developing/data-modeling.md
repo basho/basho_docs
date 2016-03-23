@@ -15,6 +15,7 @@ aliases:
 ---
 
 [plan backend bitcask]: /riak/kv/2.1.3/setup/planning/backend/bitcask
+[apps replication properties]: /riak/kv/2.1.3/developing/app-guide/replication-properties
 
 Riak is a flexible data storage technology capable of addressing
 a wide variety of problems in a scalable way. In this guide, we'll list
@@ -102,7 +103,7 @@ based on, for example, a campaign or company ID for easy retrieval.
 
 In the advertising industry, being able to serve ads quickly to many
 users and platforms is often the most important factor in selecting and
-tuning a database. Riak's tunable [[Replication Properties]] can be set
+tuning a database. Riak's tunable [replication properties][apps replication properties] can be set
 to favor fast read performance. By setting R to 1, only one of N
 replicas will need to be returned to complete a read operation, yielding
 lower read latency than an R value equal to the number of replicas

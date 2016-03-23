@@ -14,6 +14,8 @@ aliases:
   - /riak/2.1.3/dev/using/commit-hooks
 ---
 
+[usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types
+
 Pre- and post-commit hooks are functions that are invoked before or
 after an object has been written to Riak. To provide a few examples,
 commit hooks can:
@@ -29,7 +31,7 @@ infinite cycle unless the hook functions are carefully written to detect
 and short-circuit such cycles.
 
 Pre- and post-commit hooks are applied at the [[bucket|Buckets]] level,
-[[using bucket types]]. They are run once per successful response to the
+[using bucket types][usage bucket types]. They are run once per successful response to the
 client.
 
 Both pre- and post-commit hooks are named [Erlang](http://learnyousomeerlang.com/)

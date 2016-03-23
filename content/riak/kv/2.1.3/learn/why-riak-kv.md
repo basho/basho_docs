@@ -14,6 +14,8 @@ aliases:
   - /riak/2.1.3/theory/why-riak/
 ---
 
+[apps replication properties]: /riak/kv/2.1.3/developing/app-guide/replication-properties
+
 ## What is Riak?
 
 Riak is a distributed database designed to deliver maximum data
@@ -219,5 +221,5 @@ availability even when nodes are down or laggy. The same applies for the
 W in writes. If this value is not specified, Riak defaults to `quorum`,
 according to which the majority of nodes must respond.
 
-There is more on [[replication properties]] elsewhere in the
+There is more on [replication properties][apps replication properties] elsewhere in the
 documentation.

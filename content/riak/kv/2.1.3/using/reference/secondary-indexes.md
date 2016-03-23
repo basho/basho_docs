@@ -14,6 +14,9 @@ aliases:
   - /riak/2.1.3/dev/advanced/2i
 ---
 
+[usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types
+[use ref strong consistency]: /riak/2.1.3/using/reference/strong-consistency
+
 <div class="note">
 <div class="title">Note: Riak Search preferred for querying</div>
 If you're interested in non-primary-key-based querying in Riak, i.e. if
@@ -57,7 +60,7 @@ that an object will be present in future index queries as soon as the
 write operation completes.
 
 Riak stores 3 replicas of all objects by default, although this can be
-changed [[using bucket types]], which manage buckets' [[replication
+changed [using bucket types][usage bucket types], which manage buckets' [[replication
 properties]]. The system is capable of generating a full set of results
 from one third of the system’s partitions as long as it chooses the
 right set of partitions. The query is sent to each partition, the index
@@ -66,7 +69,7 @@ requesting node.
 
 <div class="note">
 <div class="title">Note on 2i and strong consistency</div>
-Secondary indexes do not currently work with the [[strong consistency]]
+Secondary indexes do not currently work with the [strong consistency][use ref strong consistency]
 feature introduced in Riak version 2.0. If you store objects in
 [[strongly consistent buckets|Using Strong
 Consistency#Creating-a-Strongly-Consistent-Bucket-Type]] and attach

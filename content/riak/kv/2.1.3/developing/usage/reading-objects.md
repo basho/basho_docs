@@ -12,6 +12,8 @@ menu:
 toc: true
 ---
 
+[glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode
+
 **TODO: Revise body-copy**
 
 You can think of reads in Riak as analogous to HTTP `GET` requests. You
@@ -93,7 +95,7 @@ curl http://localhost:8098/types/animals/buckets/dogs/keys/rufus
 Parameter | Default | Description
 :---------|:--------|:-----------
 `r` | `2` | How many replicas need to agree when retrieving an existing object before the write
-`pr` | `0` | How many [[vnodes]] must respond for a read to be deemed successful
+`pr` | `0` | How many [vnodes][glossary vnode] must respond for a read to be deemed successful
 `notfound_ok` | If set to `true`, if the first vnode to respond doesn't have a copy of the object, Riak will deem the failure authoritative and immediately return a `notfound` error to the client
 
 Riak also accepts many query parameters, including `r` for setting the

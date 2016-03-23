@@ -18,6 +18,7 @@ aliases:
 [config reference]: /riak/kv/2.1.3/configuring/reference
 [plan backend leveldb]: /riak/kv/2.1.3/setup/planning/backend/leveldb
 [plan backend bitcask]: /riak/kv/2.1.3/setup/planning/backend/bitcask
+[use ref strong consistency]: /riak/2.1.3/using/reference/strong-consistency
 
 Riak KV is a [clustered][concept clusters] system built to survive a wide range of
 failure scenarios, including the loss of nodes due to network or
@@ -131,7 +132,7 @@ Strong consistency | `/opt/riak/data/ensembles`
 <div class="note">
 <div class="title">Note on strong consistency directories</div>
 The listings above show directories for data related to Riak's
-[[strong consistency]] feature. This feature is purely optional, so
+[strong consistency][use ref strong consistency] feature. This feature is purely optional, so
 <code>/ensembles</code> directories will not exist in your installation
 if this feature is not being used. For more information, see [[Using
 Strong Consistency]] and [[Managing Strong Consistency]].
@@ -174,7 +175,7 @@ tar -czf /mnt/riak_backups/riak_data_`date +%Y%m%d_%H%M`.tar.gz \
 
 ### Strong Consistency Data
 
-Persistently stored data used by Riak's [[strong consistency]] feature
+Persistently stored data used by Riak's [strong consistency][use ref strong consistency] feature
 can be stored in an analogous fashion:
 
 ```bash

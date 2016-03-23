@@ -15,6 +15,7 @@ toc: true
 [concept eventual consistency]: /riak/kv/2.1.3/concepts/eventual-consistency
 [concept clusters]: /riak/kv/2.1.3/concepts/clusters
 [glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode
+[apps replication properties]: /riak/kv/2.1.3/developing/app-guide/replication-properties
 
 Below is a list of terms that you may run into frequently in the
 documentation for Riak, along with links to more in-depth treatments.
@@ -188,7 +189,7 @@ Quorum in Riak has two meanings:
   `n_val` / 2 + 1. The default setting is `2`.
 
 * [Eventual Consistency][concept eventual consistency]
-* [[Replication Properties]]
+* [replication properties][apps replication properties]
 * [[Understanding Riak's Configurable Behaviors: Part
   2|http://basho.com/riaks-config-behaviors-part-2/]]
 

@@ -14,6 +14,9 @@ aliases:
   - /riak/2.1.3/dev/using/conflict-resolution
 ---
 
+[usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types
+[use ref strong consistency]: /riak/2.1.3/using/reference/strong-consistency
+
 One of Riak's [[central goals|Why Riak]] is high availability. It was
 built as a [[clustered|Clusters]] system in which any [[node|Riak
 Glossary#Node]] is capable of receiving requests without requiring that
@@ -71,7 +74,7 @@ strong consistency feature, please refer to the following documents:
 
 * [[Using Strong Consistency]] --- A guide for developers<br />
 * [[Managing Strong Consistency]] --- A guide for operators<br />
-* [[Strong Consistency]] --- A more theoretical explication of strong
+* [strong consistency][use ref strong consistency] --- A more theoretical explication of strong
   consistency
 </div>
 
@@ -83,7 +86,7 @@ While Riak _does_ have a set of [[defaults|Replication
 Properties#available-parameters]], there are a variety of general
 approaches to conflict resolution that are available. In Riak, you can
 mix and match conflict resolution strategies at the bucket level,
-[[using bucket types]]. The most important [[bucket properties|Buckets]]
+[using bucket types][usage bucket types]. The most important [[bucket properties|Buckets]]
 to consider when reasoning about conflict resolution are the
 `allow_mult` and `last_write_wins` properties.
 

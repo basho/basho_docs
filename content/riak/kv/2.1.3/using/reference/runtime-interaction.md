@@ -15,6 +15,7 @@ aliases:
 ---
 
 [config reference]: /riak/kv/2.1.3/configuring/reference
+[concept clusters]: /riak/kv/2.1.3/concepts/clusters
 
 Riak's [configuration files][config reference] provide a variety of parameters that
 enable you to fine-tune how Riak interacts with two important elements
@@ -23,7 +24,7 @@ processes/garbage collection.
 
 ## Ports
 
-Distribution ports connect Riak nodes within a [[cluster|Clusters]]. The
+Distribution ports connect Riak nodes within a [cluster][concept clusters]. The
 following port-related parameters are available:
 
 * `runtime_health.triggers.distribution_port` --- Whether distribution

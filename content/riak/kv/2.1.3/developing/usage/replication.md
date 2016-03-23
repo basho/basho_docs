@@ -14,11 +14,14 @@ aliases:
   - /riak/2.1.3/dev/advanced/replication-properties
 ---
 
+[usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types
 [concept eventual consistency]: /riak/kv/2.1.3/concepts/eventual-consistency
 [plan backend leveldb]: /riak/kv/2.1.3/setup/planning/backend/leveldb
 [plan backend bitcask]: /riak/kv/2.1.3/setup/planning/backend/bitcask
+[use ref strong consistency]: /riak/2.1.3/using/reference/strong-consistency
+[concept clusters]: /riak/kv/2.1.3/concepts/clusters
 
-Riak was built to act as a multi-node [[cluster|Clusters]].  It
+Riak was built to act as a multi-node [cluster][concept clusters].  It
 distributes data across multiple physical servers, which enables it to
 provide strong availability guarantees and fault tolerance.
 
@@ -29,7 +32,7 @@ consistency, availability, and partition (i.e. failure) tolerance. Riak
 can be used either as an AP, i.e. available/partition-tolerant, system
 or as a CP, i.e. consistent/partition-tolerant, system. The former
 relies on an [Eventual Consistency][concept eventual consistency] model, while the latter relies on
-a special [[strong consistency]] subsystem.
+a special [strong consistency][use ref strong consistency] subsystem.
 
 Although the [CAP theorem](http://en.wikipedia.org/wiki/CAP_theorem)
 dictates that there is a necessary trade-off between data consistency
@@ -59,7 +62,7 @@ in this tutorial.
 
 When using Riak, there are two ways of choosing replication properties:
 1. On a per-request basis
-2. In a more programmatic fashion, [[using bucket types]]
+2. In a more programmatic fashion, [using bucket types][usage bucket types]
 
 ### Per-request Replication Properties
 
@@ -431,7 +434,7 @@ Not submitting a value for R, W, PR, RW, or DW is the same as using
 
 ## Client-level Replication Settings
 
-Adjusting replication properties at the bucket level by [[using bucket types]]
+Adjusting replication properties at the bucket level by [using bucket types][usage bucket types]
 is how you set default properties for _all_ of a bucket's reads and
 writes. But you can also set replication properties for specific reads
 and writes without setting those properties at the bucket level, instead

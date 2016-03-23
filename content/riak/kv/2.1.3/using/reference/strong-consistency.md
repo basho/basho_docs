@@ -12,6 +12,9 @@ menu:
 toc: true
 ---
 
+[usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types
+[concept eventual consistency]: /riak/kv/2.1.3/concepts/eventual-consistency
+
 Riak was originally designed as an [[eventually consistent|Eventual
 Consistency]] system, fundamentally geared toward providing partition
 (i.e. fault) tolerance and high read and write availability.
@@ -20,7 +23,7 @@ While this focus on high availability is a great fit for many data
 storage needs, there are also many use cases for which strong data
 consistency is more important than availability. Basho introduced a new
 strong consistency option in version 2.0 to address these use cases.
-In Riak, strong consistency is applied [[using bucket types]], which
+In Riak, strong consistency is applied [using bucket types][usage bucket types], which
 enables developers to apply strong consistency guarantees on a per-key
 basis.
 
@@ -45,7 +48,7 @@ when a cluster is experiencing significant service degradation.
 
 ### Example
 
-Building on the example presented in the [[eventual consistency]] doc,
+Building on the example presented in the [eventual consistency][concept eventual consistency] doc,
 imagine that information about who manages Manchester United is stored
 in Riak, in the key `manchester-manager`. In the eventual consistency
 example, the value associated with this key was originally
