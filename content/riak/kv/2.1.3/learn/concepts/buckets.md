@@ -15,21 +15,41 @@ aliases:
   - /riak/2.1.3/theory/concepts/buckets
 ---
 
+[apps cluster metadata]: /riak/kv/2.1.3/developing/app-guide/cluster-metadata
+[cluster ops bucket types]: /riak/kv/2.1.3/using/cluster-operations/bucket-types
+[cluster ops strong consistency]: /riak/kv/2.1.3/using/cluster-operations/strong-consistency
+[concept causal context]: /riak/kv/2.1.3/concepts/causal-context
+[concept causal context sib]: /riak/kv/2.1.3/concepts/causal-context/#siblings
+[concept replication]: /riak/kv/2.1.3/concepts/replication
+[concept strong consistency]: /riak/kv/2.1.3/concepts/strong-consistency
+[config basic]: /riak/kv/2.1.3/configuring/basic
+[dev api http]: /riak/kv/2.1.3/developing/api/http
+[dev data types]: /riak/kv/2.1.3/developing/data-types
+[glossary ring]: /riak/kv/2.1.3/learn/glossary/#ring
+[plan backend leveldb]: /riak/kv/2.1.3/setup/planning/backend/leveldb
+[plan backend bitcask]: /riak/kv/2.1.3/setup/planning/backend/bitcask
+[plan backend memory]: /riak/kv/2.1.3/setup/planning/backend/memory
+[plan backend multi]: /riak/kv/2.1.3/setup/planning/backend/multi
+[usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types
+[usage commit hooks]: /riak/kv/2.1.3/developing/usage/commit-hooks
+[usage conflict resolution]: /riak/kv/2.1.3/developing/usage/conflict-resolution
+[usage replication]: /riak/kv/2.1.3/developing/usage/replication
+
+
 Buckets are used to define a virtual keyspace for storing Riak objects.
 They enable you to define non-default configurations over that keyspace
-concerning [[replication properties]] and [[other
-parameters|Buckets#configuration]].
+concerning [replication properties][concept replication] and [other
+parameters][config basic].
 
 In certain respects, buckets can be compared to tables in relational
 databases or folders in filesystems, respectively. From the standpoint
 of performance, buckets with default configurations are essentially
-"free," while non-default configurations, defined [[using bucket
-types]], will be gossiped around [[the ring|Clusters#the-ring]] using
-Riak's [[cluster metadata]] subsystem.
+"free," while non-default configurations, defined [using bucket
+types][cluster ops bucket types], will be gossiped around [the ring][glossary read rep] using Riak's [cluster metadata][apps cluster metadata] subsystem.
 
 ## Configuration
 
-Bucket configurations are defined [[using bucket types]], which enables
+Bucket configurations are defined [using bucket types][cluster ops bucket types], which enables
 you to create and modify sets of configurations and apply them to as
 many buckets as you wish. With bucket types, you can configure the
 following bucket-level parameters, overriding the default values if you
@@ -37,77 +57,69 @@ wish.
 
 #### allow_mult
 
-Determines whether sibling values can be created. See [[siblings|Causal
-Context#Siblings]]. The default can be `true` or `false` depending on
-the context. See the documentation on [[`allow_mult` in Riak 2.0|Using
-Bucket Types#bucket-types-and-the-allow_mult-setting]] for more
+Determines whether sibling values can be created. See [siblings][concept causal context sib]. The default can be `true` or `false` depending on
+the context. See the documentation on [`allow_mult`][usage bucket types] for more
 information.
 
 #### n_val
 
 Specifies the number of copies of each object to be stored in the
-cluster. See the documentation on [[replication properties]]. Default:
+cluster. See the documentation on [replication properties][usage replication]. Default:
 `3`.
 
 #### last_write_wins
 
 Indicates if an object's timestamp will be used to decide the canonical
-write in the case of a conflict. See the documentation on [[vector
-clocks]] and on [[conflict resolution]] for more information. Default:
+write in the case of a conflict. See the documentation on [vector
+clocks][concept causal context] and on [conflict resolution][usage conflict resolution] for more information. Default:
 `false`.
 
 #### r, pr, w, dw, pw, rw, notfound_ok, basic_quorum
 
-See the documentation on [[replication properties]] for more information
+See the documentation on [replication properties][usage replication] for more information
 on all of these properties.
 
 #### precommit
 
 A list of Erlang functions to be executed before writing an object. See
-our documentation on [[pre-commit hooks|Using Commit
-Hooks#pre-commit-hooks]] for more information. Default: no pre-commit
+our documentation on [pre-commit hooks][usage commit hooks] for more information. Default: no pre-commit
 hooks, i.e. an empty list.
 
 #### postcommit
 
 A list of Erlang functions to be executed after writing an object. See
-our documentation on [[post-commit hooks|Using Commit
-Hooks#post-commit-hooks]] for more information. Default: no post-commit
+our documentation on [pre-commit hooks][usage commit hooks] for more information. Default: no post-commit
 hooks, i.e. an empty list.
 
 #### old_vclock, young_vclock, small_vclock, big_vclock
 
-These settings enable you to manage [[vector clock pruning|Conflict
-Resolution#Vector-Clock-Pruning]].
+These settings enable you to manage [vector clock pruning][concept causal context].
 
 #### backend
 
-If you are using the [[Multi]] backend, this property enables you to
-determine which of Riak's available backends---[[Bitcask]], [[LevelDB]],
-or [[Memory]]---will be used in buckets of this type. If you are using
+If you are using the [Multi][plan backend multi] backend, this property enables you to
+determine which of Riak's available backends---[Bitcask][plan backend bitcask], [LevelDB][plan backend leveldb], or [Memory][plan backend memory]---will be used in buckets of this type. If you are using
 LevelDB, Bitcask, or the Memory backend at a cluster-wide level, _all_
 buckets of all types will use the assigned backend.
 
 #### consistent
 
-If you wish to use Riak's [[strong consistency]] feature for buckets
+If you are using Riak's experimental [strong consistency][concept strong consistency] feature for buckets
 bearing a type, this setting must be set to `true`. The default is
-`false`. More information can be found in our documentation on [[using
-strong consistency]].
+`false`. More information can be found in our documentation on [using
+strong consistency][cluster ops strong consistency].
 
 #### datatype
 
-If you are using [[Riak Data Types|Using Data Types]], this setting
-determines [[which data type|Using Data
-Types#setting-up-buckets-to-use-riak-data-types]] will be used in
+If you are using [Riak data types][dev data types], this setting
+determines which data type will be used in
 buckets of this bucket type. Possible values: `counter`, `set`, or
 `map`.
 
 #### dvv_enabled
 
-Whether [[dotted version vectors|Causal Context#Dotted-Version-Vectors]]
-will be used instead of traditional [[vector clocks|Causal
-Context#Vector-Clocks]] for [[conflict resolution]]. Default: `false`.
+Whether [dotted version vectors][concept causal context]
+will be used instead of traditional vector clocks for [conflict resolution][usage conflict resolution]. Default: `false`.
 
 #### chash_keyfun, linkfun
 
@@ -117,8 +129,8 @@ need to adjust these values.
 ## Fetching Bucket Properties
 
 If you'd like to see how a particular bucket has been configured, you
-can do so using our official client libraries or through Riak's [[HTTP
-API]]. The following would fetch the properties for the bucket
+can do so using our official client libraries or through Riak's [HTTP
+API][dev api http]. The following would fetch the properties for the bucket
 `animals` if that bucket had a default configuration, i.e. the `default`
 bucket type:
 

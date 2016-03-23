@@ -200,6 +200,7 @@
 
 [glossary]: /riak/kv/2.1.3/learn/glossary
 [glossary aae]: /riak/kv/2.1.3/learn/glossary/#Active-Anti-Entropy-AAE-
+[glossary read rep]: /riak/kv/2.1.3/learn/glossary/#read-repair
 [glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode
 
 [concept aae]: /riak/kv/2.1.3/concepts/active-anti-entropy
