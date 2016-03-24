@@ -14,7 +14,21 @@ aliases:
   - /riak/2.1.3/dev/data-modeling/
 ---
 
+
+[dev data model articles etc]: /riak/kv/2.1.3/developing/data-modeling/#Articles-Blog-Posts-and-Other-Content
+[dev data model log data]: /riak/kv/2.1.3/developing/data-modeling/#Log-Data
+[dev data model sensor data]: /riak/kv/2.1.3/developing/data-modeling/#Sensor-Data
+[dev data model serve advertisements]: /riak/kv/2.1.3/developing/data-modeling/#Serving-Advertisements
+[dev data model sess storage]: /riak/kv/2.1.3/developing/data-modeling/#Session-Storage
+[dev data model user acct]: /riak/kv/2.1.3/developing/data-modeling/#User-Accounts
+[dev data model user events]: /riak/kv/2.1.3/developing/data-modeling/#User-Events-and-Timelines
+[dev data model user settings]: /riak/kv/2.1.3/developing/data-modeling/#User-Settings-and-Preferences
+[dev data types]: /riak/kv/2.1.3/developing/data-types
 [plan backend bitcask]: /riak/kv/2.1.3/setup/planning/backend/bitcask
+[usage mapreduce]: /riak/kv/2.1.3/developing/usage/mapreduce
+[usage search]: /riak/kv/2.1.3/developing/usage/search
+[usage secondary-indexes]: /riak/kv/2.1.3/developing/usage/secondary-indexes
+
 
 Riak is a flexible data storage technology capable of addressing
 a wide variety of problems in a scalable way. In this guide, we'll list
@@ -26,9 +40,9 @@ provide links to videos and documentation for further exploration.
 How you structure your application to run on Riak should take into
 account the unique needs of your use case, including access patterns
 such as read/write distribution, latency differences between various
-operations, use of Riak features including [Data Types](/riak/kv/2.1.3/developing/data-types/),
-[[MapReduce](/riak/kv/2.1.3/developing/usage/mapreduce/]], [[Search](/riak/kv/2.1.3/developing/usage/search/]],
-[[secondary indexes (2i)](/riak/kv/2.1.3/developing/usage/secondary-indexes/]] and more. This guide
+operations, use of Riak features including [Data Types][dev data types],
+[MapReduce][usage mapreduce], [Search][usage search],
+[secondary indexes (2i)][usage secondary-indexes], and more. This guide
 is intended to be illustrative only.
 
 ## High Read/Write, Simple Applications
@@ -37,22 +51,20 @@ The following are examples of Riak use cases that require high
 read/write performance without necessarily utilizing complex data
 structures:
 
-* [[Session Storage](/riak/kv/2.1.3/developing/data-modeling/#Session-Storage]]
-* [[Serving Advertisements](/riak/kv/2.1.3/developing/data-modeling/#Serving-Advertisements]]
-* [[Log Data](/riak/kv/2.1.3/developing/data-modeling/#Log-Data]]
-* [[Sensor Data](/riak/kv/2.1.3/developing/data-modeling/#Sensor-Data]]
+* [Session Storage][dev data model sess storage]
+* [Serving Advertisements][dev data model serve advertisements]
+* [Log Data][dev data model log data]
+* [Sensor Data][dev data model sensor data]
 
 ## Content Management, Social Applications
 
 The following application types require more subtle relationships
 between objects, e.g. one-to-many and many-to-many relationships.
 
-* [[User Accounts](/riak/kv/2.1.3/developing/data-modeling/#User-Accounts]]
-* [[User Settings and Preferences|Use
-  Cases#User-Settings-and-Preferences]]
-* [[User Events and Timelines](/riak/kv/2.1.3/developing/data-modeling/#User-Events-and-Timelines]]
-* [[Articles, Blog Posts, and Other
-  Content](/riak/kv/2.1.3/developing/data-modeling/#Articles-Blog-Posts-and-Other-Content]]
+* [User Accounts][dev data model user acct]
+* [User Settings and Preferences][dev data model user settings]
+* [User Events and Timelines][dev data model user events]
+* [Articles, Blog Posts, and Other Content][dev data model articles etc]
 
 ## Session Storage
 
@@ -70,11 +82,11 @@ administrative changes to schemas.
 Riak has features that allow for more complex session storage use cases.
 The [Bitcask][plan backend bitcask] storage backend, for example, supports automatic expiry
 of keys, which frees application developers from implementing manual
-session expiry. Riak's [[MapReduce](/riak/kv/2.1.3/developing/usage/mapreduce/]] system can also be
+session expiry. Riak's [MapReduce][usage mapreduce] system can also be
 used to perform batch processing analysis on large bodies of session
 data, for example to compute the average number of active users. If
 sessions must be retrieved using multiple keys (e.g. a UUID or email
-address), [[using secondary indexes]] can provide an easy solution.
+address), [using secondary indexes][usage secondary-indexes] can provide an easy solution.
 
 ### Session Storage Community Examples
 
@@ -129,7 +141,7 @@ involves serving reads.
 ## Log Data
 
 A common use case for Riak is storing large amounts of log data, either
-for analysis [[using MapReduce]] or as a storage system used in
+for analysis [using MapReduce][usage secondary-indexes] or as a storage system used in
 conjunction with a secondary analytics cluster used to perform more
 advanced analytics tasks. To store log data, you can use a bucket called
 `logs` (just to give an example) and use a unique value, such as a date,
@@ -177,9 +189,9 @@ and then store update data as the value.
 
 That data could then be queried on the basis of the interval.
 Alternatively, a timestamp could be attached to each object as a
-[[secondary index](/riak/kv/2.1.3/developing/usage/secondary-indexes/]], which would allow you to
+[secondary index][usage secondary-indexes], which would allow you to
 perform queries on specific time interval ranges or to perform
-[[MapReduce](/riak/kv/2.1.3/developing/usage/mapreduce/]] queries against the indexes.
+[MapReduce][usage mapreduce] queries against the indexes.
 
 ### Sensor Data Complex Case
 
@@ -215,7 +227,7 @@ and a read request could be performed on the corresponding key.
 There are, however, several drawbacks to this approach. What happens if
 a user wants to change their username later on? The most common solution
 would be to use a UUID-type key for the user and store the user's
-username as a [[secondary index](/riak/kv/2.1.3/developing/usage/secondary-indexes/]] for efficient
+username as a [secondary index][usage secondary-indexes] for efficient
 lookup.
 
 ### User Accounts Complex Case
@@ -224,7 +236,7 @@ For simple retrieval of a specific account, a user ID (plus perhaps a
 secondary index on a username or email) is enough. If you foresee the
 need to make queries on additional user attributes (e.g. creation time,
 user type, or region), plan ahead and either set up additional secondary
-indexes or consider using [[Riak Search](/riak/kv/2.1.3/developing/usage/search/]] to index the JSON
+indexes or consider using [Riak Search][usage search] to index the JSON
 contents of the user account.
 
 ### User Accounts Community Examples
@@ -310,7 +322,7 @@ In Riak, you can store content of any kind, from HTML files to plain
 text to JSON or XML or another document type entirely. Keep in mind that
 data in Riak is opaque, with the exception of [[Riak Data Types|Data Types]],
 and so Riak won't "know" about the object unless it is indexed
-[[using Riak Search](/riak/kv/2.1.3/developing/usage/search/]] or [[using secondary indexes]].
+[using Riak Search][usage search] or [using secondary indexes][usage secondary-indexes].
 
 ### Articles et al Complex Case
 
@@ -329,9 +341,9 @@ with comments would require your application to call from the posts
 and comments buckets to assemble the view.
 
 Other possible cases may involve performing operations on content beyond
-key/value pairs. [[Riak Search](/riak/kv/2.1.3/developing/usage/search/]] is recommended for use cases
+key/value pairs. [Riak Search][usage search] is recommended for use cases
 involving full-text search. For lighter-weight querying,
-[[using secondary indexes]] \(2i) enables you to add metadata to objects to
+[using secondary indexes][usage secondary-indexes] \(2i) enables you to add metadata to objects to
 either query for exact matches or to perform range queries. 2i also
 enables you to tag posts with dates, timestamps, topic areas, or other
 pieces of information useful for later retrieval.

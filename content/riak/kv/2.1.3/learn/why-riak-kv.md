@@ -14,7 +14,16 @@ aliases:
   - /riak/2.1.3/theory/why-riak/
 ---
 
+
 [apps replication properties]: /riak/kv/2.1.3/developing/app-guide/replication-properties
+[Basho Bench]: /riak/kv/2.1.3/using/performance/benchmarking
+[cluster ops strong consistency]: /riak/kv/2.1.3/using/cluster-operations/strong-consistency
+[concept eventual consistency]: /riak/kv/2.1.3/concepts/eventual-consistency
+[convergent replicated data types]: http://hal.upmc.fr/docs/00/55/55/88/PDF/techreport.pdf
+[Datomic]: http://www.datomic.com/overview.html
+[dev data types]: /riak/kv/2.1.3/developing/data-types
+[glossary read rep]: /riak/kv/2.1.3/learn/glossary/#read-repair
+
 
 ## What is Riak?
 
@@ -59,19 +68,18 @@ Riak's focus on availability makes it a good fit whenever downtime is
 unacceptable. No one can promise 100% uptime, but Riak is designed to
 survive network partitions and hardware failures that would
 significantly disrupt most databases. An exception to Riak's high
-availability approach is the optional [[strong consistency|Using Strong
-Consistency]] feature, which can be applied on a selective basis.
+availability approach is the optional [strong consistency][cluster ops strong consistency] feature, which can be applied on a selective basis.
 
 A less-heralded feature of Riak is its predictable latency. Because its
 fundamental operations---read, write, and delete---do not involve
 complex data joins or locks, it services those requests promptly. Thanks
 to this capability, Riak is often selected as a data storage backend for
 data management software from a variety of paradigms, such as
-[Datomic](http://www.datomic.com/overview.html).
+[Datomic].
 
 From the standpoint of the actual content of your data, Riak might also
 be a good choice if your data can be modeled as one of Riak's currently
-available [[Data Types](/riak/kv/2.1.3/developing/data-types/]]: flags, registers, counters,
+available [Data Types][dev data types]:  flags, registers, counters,
 sets, or maps. These Data Types enable you to take advantage of Riak's
 high availability approach while simplifying application development.
 
@@ -98,7 +106,7 @@ Correspondingly, if your application demands a high query load by any
 means other than key/value lookup---e.g. SQL-style `SELECT * FROM table`
 operations---Riak will not be as efficient as other databases. If you
 wish to compare Riak with other data technologies, Basho offers a tool
-called [Basho Bench](/riak/kv/2.1.3/using/performance/benchmarking) to help measure its performance, so that you can
+called [Basho Bench] to help measure its performance, so that you can
 decide whether the availability and operational benefits of Riak
 outweigh its disadvantages.
 
@@ -175,7 +183,7 @@ In any system that replicates data, conflicts can arise, for example
 when two clients update the same object at the exact same time or when
 not all updates have yet reached hardware that is experiencing lag.
 
-In Riak, replicas are [[eventually consistent|Eventual Consistency]],
+In Riak, replicas are [eventually consistent][concept eventual consistency],
 meaning that while data is always available, not all replicas may have
 the most recent update at the exact same time, causing brief
 periods---generally on the order of milliseconds---of inconsistency
@@ -192,18 +200,17 @@ themselves if that is a better fit for your use case.
 ### Riak Data Types
 
 If you are not interested in dealing with version conflicts on the
-application side, [[Riak Data Types](/riak/kv/2.1.3/developing/data-types/]] offer a powerful
+application side, [Riak Data Types][dev data types] offer a powerful
 yet easy-to-use means of storing certain types of data while allowing
 Riak to handle merge conflicts. These conflicts are resolved
 automatically by Riak using Data Type-specific algorithms inspired by
-research into [convergent replicated data
-types](http://hal.upmc.fr/docs/00/55/55/88/PDF/techreport.pdf).
+research into [convergent replicated data types].
 
 ### Read Repair
 
 When an outdated replica is returned as part of a read request, Riak
 will automatically update the out-of-sync replica to make it consistent.
-[[Read repair|Riak Glossary#Read-Repair]], a self-healing property of
+[Read repair][glossary read rep], a self-healing property of
 the database, will even update a replica that returns a `not_found` in
 the event that a node loses the data due to physical failure.
 
