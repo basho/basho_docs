@@ -136,7 +136,7 @@ records, which are all stored in the bucket `users` with each user's
 username acting as the key. The problem at this point is this: how can
 Riak know which user records actually exist?
 
-One way to determine this is to [[list all keys|PBC List Keys]] in the
+One way to determine this is to [list all keys](/riak/kv/2.1.3/developing/api/pbc/list-keys) in the
 bucket `users`. This approach, however, is _not_ recommended, because
 listing all keys in a bucket is a very expensive operation that should
 not be used in production. And so another strategy must be employed.

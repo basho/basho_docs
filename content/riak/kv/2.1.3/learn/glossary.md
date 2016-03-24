@@ -160,7 +160,7 @@ Hinted handoff allows Riak to ensure database availability.  When a node
 fails, Riak can continue to handle requests as if the node were still
 there.
 
-* [[Recovering a Failed Node]][repair recover failure recovery]
+* [Recovering a Failed Node][repair recover failure recovery]
 
 ## Key
 

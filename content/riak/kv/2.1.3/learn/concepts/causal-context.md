@@ -25,7 +25,7 @@ aliases:
 [perf latency reduc]: /riak/kv/2.1.3/using/performance/latency-reduction
 [usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types
 [usage conflict resolution]: /riak/kv/2.1.3/developing/usage/conflict-resolution
-[usage protocol buffers]: /riak/kv/2.1.3/developing/usage/protocol-buffers
+[usage protocol buffers]: /riak/kv/2.1.3/developing/api/protocol-buffers
 [usage updating objects]: /riak/kv/2.1.3/developing/usage/updating-objects
 [Vector Clocks on Wikipedia]: http://en.wikipedia.org/wiki/Vector_clock
 [Why Vector Clocks are Easy]: http://blog.basho.com/2010/01/29/why-vector-clocks-are-easy/
@@ -77,7 +77,7 @@ sections below.
 
 In the case of outcome 2, the choice between **a** and **b** is yours to
 to make. If you set the `allow_mult` parameter to `true` for a bucket,
-[[using bucket types]], all writes to that bucket will create siblings
+[using bucket types](/riak/kv/2.1.3/developing/usage/bucket-types), all writes to that bucket will create siblings
 in the case of concurrent writes (and occasionally under other
 scenarios, e.g. healed network partitions).
 
@@ -242,7 +242,7 @@ the `dvv_enabled` parameter has been changed.
 
 For compatibility's sake, DVVs contained in Riak objects' metadata are
 still labeled `X-Riak-Vclock` if you're using the [HTTP API][dev api http] and
-`vclock` if using the [[Protocol Buffers interface][usage protocol buffers].
+`vclock` if using the [Protocol Buffers interface][usage protocol buffers].
 
 More on using vector clocks and DVVs on the application side can be
 found in our documentation on [conflict resolution][usage conflict resolution].

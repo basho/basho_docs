@@ -114,7 +114,7 @@ based on, for example, a campaign or company ID for easy retrieval.
 
 In the advertising industry, being able to serve ads quickly to many
 users and platforms is often the most important factor in selecting and
-tuning a database. Riak's tunable [[apps replication properties]] can be set
+tuning a database. Riak's tunable [apps replication properties](/riak/kv/2.1.3/developing/app-guide/replication-properties) can be set
 to favor fast read performance. By setting R to 1, only one of N
 replicas will need to be returned to complete a read operation, yielding
 lower read latency than an R value equal to the number of replicas
@@ -320,7 +320,7 @@ part of a URL string, etc.
 
 In Riak, you can store content of any kind, from HTML files to plain
 text to JSON or XML or another document type entirely. Keep in mind that
-data in Riak is opaque, with the exception of [[Riak Data Types|Data Types]],
+data in Riak is opaque, with the exception of [Riak Data Types](/riak/kv/2.1.3/developing/data-types),
 and so Riak won't "know" about the object unless it is indexed
 [using Riak Search][usage search] or [using secondary indexes][usage secondary-indexes].
 

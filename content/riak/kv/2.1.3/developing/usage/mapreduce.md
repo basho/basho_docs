@@ -36,7 +36,7 @@ tags, counting words in documents, and extracting links to related data.
 In Riak, MapReduce is one method for querying that is not strictly based
 on key querying, alongside [secondary indexes](/riak/kv/2.1.3/developing/usage/secondary-indexes/)
 and [Search](/riak/kv/2.1.3/developing/usage/search/). MapReduce jobs can be submitted through the
-[HTTP API](/riak/kv/2.1.3/developing/api/http) or the [[Protocol Buffers API|PBC API]], although we
+[HTTP API](/riak/kv/2.1.3/developing/api/http) or the [Protocol Buffers API](/riak/kv/2.1.3/developing/api/pbc/), although we
 strongly recommend using the Protocol Buffers API for performance
 reasons.
 

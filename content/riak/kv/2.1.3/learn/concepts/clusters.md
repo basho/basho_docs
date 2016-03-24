@@ -33,7 +33,7 @@ hosts.
 
 Each host in the cluster runs a single instance of Riak, referred to as
 a Riak node. Each Riak node manages a set of virtual nodes, or
-[[vnodes][glossary vnode], that are responsible for storing a
+[vnodes][glossary vnode], that are responsible for storing a
 separate portion of the keys stored in the cluster.
 
 In contrast to some high-availability systems, Riak nodes are _not_
