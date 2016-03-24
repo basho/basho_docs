@@ -19,60 +19,59 @@ operations you can perform via HTTP and can be used as a guide for
 developing a compliant client. All URLs assume the default configuration
 values where applicable. All examples use `curl` to interact with Riak.
 
-<div class="note">
-<div class="title">URL Escaping</div>
-Buckets, keys, and link specifications may not contain unescaped
+> **URL Escaping**
+>
+> Buckets, keys, and link specifications may not contain unescaped
 slashes. Use a URL-escaping library or replace slashes with `%2F`.
-</div>
 
 ## Bucket-related Operations
 
 Method | URL | Doc
 :------|:----|:---
-`GET` | `/types/<type>/buckets/<bucket>/props` | [[HTTP Get Bucket Properties]]
-`PUT` | `/types/<type>/buckets/<bucket>/props` | [[HTTP Set Bucket Properties]]
-`DELETE` | `/types/<type>/buckets/<bucket>/props` | [[HTTP Reset Bucket Properties]]
-`GET` | `/types/<type>/buckets?buckets=true` | [[HTTP List Buckets]]
-`GET` | `/types/<type>/buckets/<bucket>/keys?keys=true` | [[HTTP List Keys]]
+`GET` | `/types/<type>/buckets/<bucket>/props` | [HTTP Get Bucket Properties](/riak/kv/2.1.3/developing/api/http/get-bucket-props)
+`PUT` | `/types/<type>/buckets/<bucket>/props` | [HTTP Set Bucket Properties](/riak/kv/2.1.3/developing/api/http/set-bucket-props)
+`DELETE` | `/types/<type>/buckets/<bucket>/props` | [HTTP Reset Bucket Properties](/riak/kv/2.1.3/developing/api/http/reset-bucket-props)
+`GET` | `/types/<type>/buckets?buckets=true` | [HTTP List Buckets](/riak/kv/2.1.3/developing/api/http/list-buckets)
+`GET` | `/types/<type>/buckets/<bucket>/keys?keys=true` | [HTTP List Keys](/riak/kv/2.1.3/developing/api/http/list-keys)
 
 ## Object-related Operations
 
 Method | URL | Doc
 :------|:----|:---
-`GET` | `/types/<type>/buckets/<bucket>/keys/<key>` | [[HTTP Fetch Object]]
-`POST` | `/types/<type>/buckets/<bucket>/keys/<key>` | [[HTTP Store Object]]
-`PUT` | `/types/<type>/buckets/<bucket>/keys/<key>` | [[HTTP Store Object]]
-`DELETE` | `/types/<type>/buckets/<bucket>/keys/<key>` | [[HTTP Delete Object]]
+`GET` | `/types/<type>/buckets/<bucket>/keys/<key>` | [HTTP Fetch Object](/riak/kv/2.1.3/developing/api/http/fetch-object)
+`POST` | `/types/<type>/buckets/<bucket>/keys/<key>` | [HTTP Store Object](/riak/kv/2.1.3/developing/api/http/store-object)
+`PUT` | `/types/<type>/buckets/<bucket>/keys/<key>` | [HTTP Store Object](/riak/kv/2.1.3/developing/api/http/store-object)
+`DELETE` | `/types/<type>/buckets/<bucket>/keys/<key>` | [HTTP Delete Object](/riak/kv/2.1.3/developing/api/http/delete-object)
 
 ## Riak-Data-Type-related Operations
 
-For documentation on the HTTP API for [[Riak Data Types|Data Types]],
-see the `curl` examples in [[Using Data Types]].
+For documentation on the HTTP API for [Riak Data Types](/riak/kv/2.1.3/learn/concepts/crdts),
+see the `curl` examples in [Using Data Types](/riak/kv/2.1.3/developing/data-types).
 
 ## Query-related Operations
 
 Method | URL | Doc
 :------|:----|:---
-`POST` | `/mapred` | [[HTTP MapReduce]]
-`GET` | `/types/<type>/buckets/<bucket>/index/<index>/<value>` | [[HTTP Secondary Indexes]]
-`GET` | `/types/<type>/buckets/<bucket>/index/<index>/<start>/<end>` | [[HTTP Secondary Indexes]]
+`POST` | `/mapred` | [HTTP MapReduce](/riak/kv/2.1.3/developing/api/http/mapreduce)
+`GET` | `/types/<type>/buckets/<bucket>/index/<index>/<value>` | [HTTP Secondary Indexes](/riak/kv/2.1.3/developing/api/http/secondary-indexes)
+`GET` | `/types/<type>/buckets/<bucket>/index/<index>/<start>/<end>` | [HTTP Secondary Indexes](/riak/kv/2.1.3/developing/api/http/secondary-indexes)
 
 ## Server-related Operations
 
 Method | URL | Doc
 :------|:----|:---
-`GET` | `/ping` | [[HTTP Ping]]
-`GET` | `/stats` | [[HTTP Status]]
-`GET` | `/` | [[HTTP List Resources]]
+`GET` | `/ping` | [HTTP Ping](/riak/kv/2.1.3/developing/api/http/ping)
+`GET` | `/stats` | [HTTP Status](/riak/kv/2.1.3/developing/api/http/status)
+`GET` | `/` | [HTTP List Resources](/riak/kv/2.1.3/developing/api/http/list-resources)
 
 ## Search-related Operations
 
 Method | URL | Doc
 :------|:----|:---
-`GET` | `/search/query/<index_name>` | [[HTTP Search Query]]
-`GET` | `/search/index` | [[HTTP Search Index Info]]
-`GET` | `/search/index/<index_name>` | [[HTTP Fetch Search Index]]
-`PUT` | `/search/index/<index_name>` | [[HTTP Store Search Index]]
-`DELETE` | `/search/index/<index_name>` | [[HTTP Delete Search Index]]
-`GET` | `/search/schema/<schema_name>` | [[HTTP Fetch Search Schema]]
-`PUT` | `/search/schema/<schema_name>` | [[HTTP Store Search Schema]]
+`GET` | `/search/query/<index_name>` | [HTTP Search Query](/riak/kv/2.1.3/developing/api/http/search-query)
+`GET` | `/search/index` | [HTTP Search Index Info](/riak/kv/2.1.3/developing/api/http/search-index-info)
+`GET` | `/search/index/<index_name>` | [HTTP Fetch Search Index](/riak/kv/2.1.3/developing/api/http/fetch-search-index)
+`PUT` | `/search/index/<index_name>` | [HTTP Store Search Index](/riak/kv/2.1.3/developing/api/http/store-search-index)
+`DELETE` | `/search/index/<index_name>` | [HTTP Delete Search Index](/riak/kv/2.1.3/developing/api/http/delete-search-index)
+`GET` | `/search/schema/<schema_name>` | [HTTP Fetch Search Schema](/riak/kv/2.1.3/developing/api/http/fetch-search-schema)
+`PUT` | `/search/schema/<schema_name>` | [HTTP Store Search Schema](/riak/kv/2.1.3/developing/api/http/store-search-schema)
