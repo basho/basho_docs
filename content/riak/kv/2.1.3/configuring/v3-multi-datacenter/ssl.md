@@ -16,6 +16,8 @@ aliases:
   - /riak/2.1.3/ops/mdc/v3/ssl
 ---
 
+[config reference#advanced.config]: /riak/kv/2.1.3/configuring/reference/#The-advanced-config-file
+
 ## Features
 
 Riak Multi-Datacenter (MDC) Replication SSL consists of the following
@@ -25,18 +27,16 @@ items:
   * SSL certificate chain validation
   * SSL common name whitelisting support
 
-<div class="note">
-<div class="title">Note on cross-internet traffic</div>
-As an alternative to Riak Enterprise's built-in SSL capabilities, we
+> **Note on cross-internet traffic**
+>
+> As an alternative to Riak Enterprise's built-in SSL capabilities, we
 recommend using [stunnel](https://www.stunnel.org/index.html) or a
 virtual private network (VPM) for inter-datacenter connections.
-</div>
 
 ## SSL Configuration
 
 To configure SSL, you will need to include the following 4 settings in
-the `riak-core` section of `[[advanced.confg|Configuration
-Files#The-advanced-config-file]]`:
+the `riak-core` section of [`advanced.confg`][config reference#advanced.config]:
 
 ```advancedconfig
 {riak_core, [

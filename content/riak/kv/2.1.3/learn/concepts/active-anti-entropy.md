@@ -14,8 +14,17 @@ aliases:
   - /riak/2.1.3/theory/concepts/aae
 ---
 
-In a [[clustered|Clusters]], [[eventually consistent|Eventual
-Consistency]] system like Riak, conflicts between object replicas stored
+[cluster ops v3 mdc]: /riak/kv/2.1.3/using/cluster-operations/v3-multi-datacenter
+[concept clusters]: /riak/kv/2.1.3/learn/concepts/clusters
+[concept eventual consistency]: /riak/kv/2.1.3/learn/concepts/eventual-consistency
+[config v3 mdc]: /riak/kv/2.1.3/configuring/v3-multi-datacenter
+[glossary read rep]: /riak/kv/2.1.3/learn/glossary/#read-repair
+[glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode
+[Merkle tree]: http://en.wikipedia.org/wiki/Merkle_tree
+[usage search]: /riak/kv/2.1.3/developing/usage/search
+
+
+In a [clustered][concept clusters], [eventually consistent][concept eventual consistency] system like Riak, conflicts between object replicas stored
 on different nodes are an expected byproduct of node failure, concurrent
 client updates, physical data loss and corruption, and other events that
 distributed systems are built to handle. These conflicts occur when
@@ -26,29 +35,19 @@ objects are either
 * **divergent**, as when the values of an existing object differ across
   nodes.
 
-Riak offers two means of resolving object conflicts: read repair and
+Riak KV offers two means of resolving object conflicts: read repair and
 active anti-entropy (AAE). Both of these conflict resolution mechanisms
 apply both to normal key/value data in Riak as well as to
-[[search indexes|Search Details#indexes]].
+[search indexes][usage search]
 
-{{#2.0.0+}}
-
-<div class="note">
-<div class="title">Note on AAE and strong consistency</div>
-If you wish to use Riak's [[strong consistency]] feature for some or all
-of your data, you will need to activate AAE. Instructions on doing so
-can be found in the documentation on [[using strong consistency]].
-</div>
-
-{{/2.0.0+}}
 
 ## Read Repair vs. Active Anti-Entropy
 
 In versions of Riak prior to 1.3, replica conflicts were healed via
-[[read repair|Riak Glossary#read-repair]] alone, which is a _passive_
+[read repair][glossary read rep] which is a _passive_
 anti-entropy mechanism that heals object conflicts only when a read
 request reaches Riak from a client. Under read repair, if the
-[[vnode|Riak Glossary#vnode]] coordinating the read request determines
+[vnode][glossary vnode] coordinating the read request determines
 that different nodes hold divergent values for the object, the repair
 process will be set in motion.
 
@@ -67,7 +66,7 @@ called "cold data" that may not be read for long periods of time, even
 months or years, and is thus not reachable by read repair.
 
 Although AAE is enabled by default, it can be turned off if necessary.
-See our documentation on [[managing active anti-entropy]] for
+See our documentation on [managing active anti-entropy][cluster ops v3 mdc]
 information on how to enable and disable AAE, as well as on configuring
 and monitoring AAE.
 
@@ -75,7 +74,7 @@ and monitoring AAE.
 
 In order to compare object values between replicas without using more
 resources than necessary, Riak relies on [Merkle
-tree](http://en.wikipedia.org/wiki/Merkle_tree) hash exchanges between
+tree] hash exchanges between
 nodes.
 
 Using this type of exchange enables Riak to compare a balanced tree of
@@ -103,10 +102,4 @@ regenerates all hash trees from on-disk key/value data, which enables
 Riak to detect silent data corruption to on-disk data arising from disk
 failure, faulty hardware, and other sources. The default time period for
 this regeneration is one week, but this can be adjusted in each node's
-[[configuration file|Configuration Files#active-anti-entropy]].
-
-## Resources
-
-<!-- * [Active Anti-Entropy video](http://coffee.jtuple.com/video/AAE.html)
-by Basho engineer [Joseph Blomstedt](https://github.com/jtuple) -->
-* [Riak 1.3 Release Notes](https://github.com/basho/riak/blob/1.3/RELEASE-NOTES.md#active-anti-entropy)
+[configuration file][config v3 mdc].

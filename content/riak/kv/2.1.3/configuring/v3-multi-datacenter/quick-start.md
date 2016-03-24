@@ -16,6 +16,10 @@ aliases:
   - /riak/2.1.3/ops/mdc/v3/quick-start
 ---
 
+[perf index]: /riak/kv/2.1.3/using/performance
+[config v3 mdc]: /riak/kv/2.1.3/configuring/v3-multi-datacenter
+[cluster ops v3 mdc]: /riak/kv/2.1.3/using/cluster-operations/v3-multi-datacenter
+
 This guide will walk you through the process of configuring Riak's v3
 Replication to perform replication between two sample Riak clusters on
 separate networks. This guide will also cover bidirectional replication,
@@ -29,8 +33,8 @@ of nodes.
 This guide assumes that you have completed the following steps:
 
 * Install [Riak Enterprise](http://basho.com/riak-enterprise/)
-* Perform [[System Tuning|System Performance Tuning]]
-* Review [[Configuration|Multi Data Center Replication v3 Configuration]]
+* Perform [System Tuning][perf index]
+* Review [Configuration][config v3 mdc]
 
 ## About v3 Replication in 1.3
 
@@ -162,5 +166,4 @@ Once this is done, bidirectional replication should be operating.
 ## More information
 
 For a full list of commands, you may enter `riak-repl` to see full
-instructions on usage, or check the [[Operations|Multi Data Center
-Replication v3 Operations]] documentation.
+instructions on usage, or check the [Operations][cluster ops v3 mdc] documentation.

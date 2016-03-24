@@ -15,20 +15,30 @@ aliases:
   - /riak/2.1.3/theory/concepts/eventual-consistency
 ---
 
+
+[concept buckets]: /riak/kv/2.1.3/concepts/buckets
+[concept causal context vc]: /riak/kv/2.1.3/concepts/causal-context/#vector-clocks
+[concept clusters]: /riak/kv/2.1.3/concepts/clusters
+[concept replication]: /riak/kv/2.1.3/concepts/replication
+[glossary node]: /riak/kv/2.1.3/learn/glossary/#node
+[glossary read rep]: /riak/kv/2.1.3/learn/glossary/#read-repair
+[usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types
+[usage conflict resolution]: /riak/kv/2.1.3/developing/usage/conflict-resolution
+
+
 In a distributed and fault-tolerant system like Riak, server and network
 failures are expected. Riak is designed to respond to requests even when
-[[nodes|Riak Glossary#node]] are offline or the cluster is experiencing
+[nodes][glossary node] are offline or the cluster is experiencing
 a network partition.
 
 Riak handles this problem by enabling conflicting copies of data stored
-in the same location, as specified by [[bucket type|Using Bucket
-Types]], bucket, and key, to exist at the same time in the cluster. This
+in the same location, as specified by [bucket type][concept buckets], bucket, and key, to exist at the same time in the cluster. This
 gives rise to the problem of **data inconsistency**.
 
 ## Data Inconsistency
 
 Conflicts between replicas of an object are inevitable in
-highly-available, [[clustered|Clusters]] systems like Riak because there
+highly-available, [clustered][concept clusters] systems like Riak because there
 is nothing in those systems to guarantee so-called [ACID
 transactions](http://en.wikipedia.org/wiki/ACID). Because of this, these
 systems need to rely on some form of conflict-resolution mechanism.
@@ -36,21 +46,20 @@ systems need to rely on some form of conflict-resolution mechanism.
 One of the things that makes Riak's eventual consistency model powerful
 is that Riak does not dictate how data resolution takes place. While
 Riak does ship with a set of defaults regarding how data is
-[[replicated|Eventual
-Consistency#replication-properties-and-request-tuning]] and how
-[[conflicts are resolved|Conflict Resolution]], you can override these
+[replicated](#replication-properties-and-request-tuning) and how
+[conflicts are resolved][usage conflict resolution], you can override these
 defaults if you want to employ a different strategy.
 
 Among those strategies, you can enable Riak to resolve object conflicts
-automatically, whether via internal [[vector clocks]], timestamps, or
-special eventually consistent [[data types]], or you can resolve those
+automatically, whether via internal [vector clocks][concept causal context vc], timestamps, or
+special eventually consistent [Data Types](/riak/kv/2.1.3/developing/data-types/), or you can resolve those
 conflicts on the application side by employing a use case-specific logic
 of your choosing. More information on this can be found in our guide to
-[[conflict resolution]].
+[conflict resolution][usage conflict resolution].
 
 This variety of options enables you to manage Riak's eventually
-consistent behavior in accordance with your application's [[data model
-or models|Use Cases]].
+consistent behavior in accordance with your application's [data model
+or models](/riak/kv/2.1.3/developing/data-modeling/).
 
 ## Replication Properties and Request Tuning
 
@@ -62,7 +71,7 @@ other requests.
 
 An in-depth discussion of these behaviors and how they can be
 implemented on the application side can be found in our guides to
-[[replication properties]] and [[conflict resolution]].
+[replication properties][concept replication] and [conflict resolution][usage conflict resolution].
 
 In addition to our official documentation, we also recommend checking
 out the [Understanding Riak's Configurable
@@ -93,8 +102,7 @@ request, `David Moyes` will be returned as the value to the client,
 because `Alex Ferguson` is recognized as an older value.
 
 Why is this? How does Riak make this decision? Behind the scenes, after
-`David Moyes` is sent to the client, a [[read repair|Riak
-Glossary#read-repair]] mechanism will occur on the cluster to fix the
+`David Moyes` is sent to the client, a [read repair][glossary read rep] mechanism will occur on the cluster to fix the
 older value on the node that just came back online. Because Riak tags
 all objects with versioning information, it can make these kinds of
 decisions on its own, if you wish.
@@ -167,20 +175,20 @@ The same is true of writes: W=2 or W=3 will work fine with the primary
 node offline, as will PW=2 (primary write), but PW=3 will result in an
 error.
 
-<div class="note">
-<div class="title">Errors and Failures</div>
-It is important to understand the difference between an error and a
+>**Note: Errors and Failures**
+>
+>It is important to understand the difference between an error and a
 failure.
-
-The <code>PW=3</code> request in this scenario will result in an error,
-<strong>but the value will still be written to the two surviving primary
-nodes</strong>.
-
-By specifying <code>PW=3</code> the client indicated that 3 primary
+>
+>The `PW=3` request in this scenario will result in an error,
+but the value will still be written to the two surviving primary
+nodes.
+>
+>By specifying `PW=3` the client indicated that 3 primary
 nodes must respond for the operation to be considered successful, which
 it wasn't, but there's no way to tell without performing another read
 whether the operation truly failed.
-</div>
+
 
 ## Further Reading
 

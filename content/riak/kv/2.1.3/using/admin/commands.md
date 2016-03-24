@@ -15,7 +15,7 @@ aliases:
 ---
 
 [use admin riak-admin#cluster]: /riak/kv/2.1.3/using/admin/riak-admin/#cluster
-[concept clusters]: /riak/kv/2.1.3/concepts/clusters
+[concept clusters]: /riak/kv/2.1.3/learn/concepts/clusters
 [cluster ops add remove node]: /riak/kv/2.1.3/using/cluster-operations/adding-removing-nodes
 [use admin riak-admin#cluster-plan]: /riak/kv/2.1.3/using/admin/riak-admin/#cluster-plan
 [use admin riak-admin#cluster-commit]: /riak/kv/2.1.3/using/admin/riak-admin/#cluster-commit

@@ -14,20 +14,17 @@ aliases:
   - /riak/2.1.3/dev/advanced/search-schema
 ---
 
-<div class="note">
-<div class="title">Note on Search 2.0 vs. Legacy Search</div>
-This document refers to the new Riak Search 2.0 with
-[[Solr|http://lucene.apache.org/solr/]] integration (codenamed
-Yokozuna). For information about the deprecated Riak Search, visit [[the
-old Using Riak Search
-docs|http://docs.basho.com/riak/1.4.10/dev/using/search/]].
-</div>
+[concept clusters]: /riak/kv/2.1.3/learn/concepts/clusters
+
+> **Note on Search 2.0 vs. Legacy Search**
+>
+> This document refers to the new Riak Search 2.0 with
+[Solr](http://lucene.apache.org/solr/) integration (codenamed
+Yokozuna). For information about the deprecated Riak Search, visit [the old Using Riak Search docs](http://docs.basho.com/riak/1.4.10/dev/using/search/).
 
 Riak Search is built for ease of use, allowing you to write values into
 Riak and query for values using Solr. Riak Search does a lot of work
-under the hood to convert your values---plain text, JSON, XML, [[Riak
-Data Types|Using Data Types]], and [[more|Custom Search
-Extractors]]---into something that can be indexed and searched later.
+under the hood to convert your values---plain text, JSON, XML, [Riak Data Types](/riak/kv/2.1.3/developing/data-types/), and [more](/riak/kv/2.1.3/developing/usage/custom-extractors)---into something that can be indexed and searched later.
 Nonetheless, you must still instruct Riak/Solr how to index a value. Are
 you providing and array of strings? An integer? A date? Is your text in
 English or Russian? You can provide such instructions to Riak Search by
@@ -179,7 +176,7 @@ Refer to the [Solr 4.7 reference
 guide](http://archive.apache.org/dist/lucene/solr/ref-guide/apache-solr-ref-guide-4.7.pdf)
 for a complete list. You should be aware, however, that there are a few
 fields that are required by Riak Search in order to properly distribute
-an object across a [[cluster|Clusters]]. These fields are all prefixed
+an object across a [cluster][concept clusters]. These fields are all prefixed
 with `_yz`, which stands for
 [Yokozuna](https://github.com/basho/yokozuna), the original code name
 for Riak Search.
@@ -226,7 +223,7 @@ Malformed JSON or XML will cause Riak Search to index a key and set
 Field   | Name | Description
 :-------|:-----|:-----------
 `_yz_id`  | ID | Unique identifier of this Solr document
-`_yz_ed`  | Entropy Data | Data related to [[active anti-entropy]]
+`_yz_ed`  | Entropy Data | Data related to [active anti-entropy](/riak/kv/2.1.3/learn/concepts/active-anti-entropy)
 `_yz_pn`  | Partition Number | Used as a filter query parameter to remove duplicate replicas across nodes
 `_yz_fpn` | First Partition Number | The first partition in this doc's preflist, used for further filtering on overlapping partitions
 `_yz_vtag`| VTag | If there is a sibling, use vtag to differentiate them
@@ -424,12 +421,12 @@ the case.
 <td><code>true</code></td>
 <td></td>
 <td><code>false</code></td>
-<td><code>true</code>[[1|Search Schema#notes]]</td>
+<td><code>true</code>[1](#notes)</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>use field boosts[[5|Search Schema#notes]]</a></td>
+<td>use field boosts[5](#notes)</td>
 <td></td>
 <td></td>
 <td></td>
@@ -448,15 +445,15 @@ the case.
 </tr>
 <tr>
 <td>highlighting</td>
-<td><code>true</code>[[4|Search Schema#notes]]</td>
+<td><code>true</code>[4](#notes)</td>
 <td><code>true</code></td>
 <td></td>
 <td></td>
-<td>[[2|Search Schema#notes]]</td>
-<td><code>true</code>[[3|Search Schema#notes]]</td>
+<td>[2](#notes)</td>
+<td><code>true</code>[3](#notes)</td>
 </tr>
 <tr>
-<td>faceting[[5|Search Schema#notes]]</td>
+<td>faceting[5](#notes)</td>
 <td><code>true</code></td>
 <td></td>
 <td></td>
@@ -483,12 +480,12 @@ the case.
 <td></td>
 </tr>
 <tr>
-<td>MoreLikeThis[[5|Search Schema#notes]]</td>
+<td>MoreLikeThis[5](#notes)</td>
 <td></td>
 <td></td>
 <td></td>
 <td></td>
-<td><code>true</code>[[6|Search Schema#notes]]</td>
+<td><code>true</code>[6](#notes)</td>
 <td></td>
 </tr>
 </tbody></table>

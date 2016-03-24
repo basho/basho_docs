@@ -15,23 +15,33 @@ aliases:
   - /riak/2.1.3/theory/concepts/replication
 ---
 
+
+[cluster ops v3 mdc]: /riak/kv/2.1.3/using/cluster-operations/v3-multi-datacenter
+[concept aae]: /riak/kv/2.1.3/concepts/active-anti-entropy
+[concept causal context vc]: /riak/kv/2.1.3/concepts/causal-context/#vector-clocks
+[concept clusters]: /riak/kv/2.1.3/concepts/clusters
+[concept vnodes]: /riak/kv/2.1.3/concepts/vnodes
+[glossary node]: /riak/kv/2.1.3/learn/glossary/#node
+[glossary ring]: /riak/kv/2.1.3/learn/glossary/#ring
+[usage replication]: /riak/kv/2.1.3/developing/usage/replication
+
+
 Data replication is a core feature of Riak's basic architecture. Riak
-was designed to operate as a [[clustered|Clusters]] system containing
-multiple Riak [[nodes|Riak Glossary#nodes]], which allows data to live
+was designed to operate as a [clustered][concept clusters] system containing
+multiple Riak [nodes][glossary node], which allows data to live
 on multiple machines at once in case a node in the cluster goes down.
 
 Replication is fundamental and automatic in Riak, providing security
 that your data will still be there if a node in your Riak cluster goes
 down. All data stored in Riak will be replicated to a number of nodes in
 the cluster according to the N value (`n_val`) property set in a
-bucket's [[bucket type|Using Bucket Types]].
+bucket's [bucket type](/riak/kv/2.1.3/developing/usage/bucket-types).
 
-<div class="note">
-<div class="title">Replication across clusters</div>
-If you're interested in replication not just within a cluster but across
+>**Note: Replication across clusters**
+>
+>If you're interested in replication not just within a cluster but across
 multiple clusters, we recommend checking out our documentation on Riak's
-[[Multi-Datacenter Replications|Multi Data Center Replication:
-Architecture]] capabilities.  </div>
+[Multi-Datacenter Replications](/riak/kv/2.1.3/setup/planning/backend/multi) capabilities.
 
 ## Selecting an N value (`n_val`)
 
@@ -57,8 +67,8 @@ nodes with the data will cause the read to fail.
 
 ## Setting the N value (`n_val`)
 
-To change the N value for a bucket, you need to create a [[bucket
-type|Using Bucket Types]] with `n_val` set to your desired value and
+To change the N value for a bucket, you need to create a [bucket
+type](/riak/kv/2.1.3/developing/usage/bucket-types) with `n_val` set to your desired value and
 then make sure that the bucket bears that type.
 
 In this example, we'll set N to 2. First, we'll create the bucket type
@@ -72,25 +82,25 @@ riak-admin bucket-type activate n_val_of_2
 Now, any bucket that bears the type `n_val_of_2` will propagate objects
 to 2 nodes.
 
-<div class="note">
-<div class="title">Note on changing the value of N</div>
-Changing the N value after a bucket has data in it is <strong>not
-recommended</strong>. If you do change the value, especially if you
+>**Note on changing the value of N**
+>
+>Changing the N value after a bucket has data in it is *not
+recommended*. If you do change the value, especially if you
 increase it, you might need to force read repair (more on that below).
 Overwritten objects and newly stored objects will automatically be
-replicated to the correct number of nodes.  </div>
+replicated to the correct number of nodes.
 
 ## Changing the N value (`n_val`)
 
 While raising the value of N for a bucket or object shouldn't cause
 problems, it's important that you never lower N. If you do so, you can
 wind up with dead, i.e. unreachable data. This can happen because
-objects' preflists, i.e. lists of [[vnodes]] responsible for the object,
+objects' preflists, i.e. lists of [vnodes][concept vnodes] responsible for the object,
 can end up 
 
 Unreachable data is a problem because it can negatively impact coverage
-queries, e.g. [[secondary index|Using Secondary Indexes]] and
-[[MapReduce|Using MapReduce]] queries. Lowering an object or bucket's
+queries, e.g. [secondary index](/riak/kv/2.1.3/developing/usage/secondary-indexes/) and
+[MapReduce](/riak/kv/2.1.3/developing/usage/mapreduce/) queries. Lowering an object or bucket's
 `n_val` will likely mean that objects that you would expect to
 be returned from those queries will no longer be returned.
 
@@ -100,8 +110,9 @@ Riak's active anti-entropy (AAE) subsystem is a continuous background
 process that compares and repairs any divergent or missing object
 replicas. For more information on AAE, see the following documents:
 
-* [[Active Anti-Entropy]]
-* [[Managing Active Anti-Entropy]]
+* [Active Anti-Entropy][concept aae]
+* [Managing Active Anti-Entropy][cluster ops v3 mdc]
+
 
 ## Read Repair
 
@@ -112,7 +123,7 @@ here for the errant nodes:
 
 1. The node responded with a `not found` for the object, meaning that
    it doesn't have a copy.
-2. The node responded with a [[vector clock|Vector Clocks]] that is an
+2. The node responded with a [vector clock][concept causal context vc] that is an
    ancestor of the vector clock of the successful read.
 
 When this situation occurs, Riak will force the errant nodes to update
@@ -123,8 +134,8 @@ the object's value based on the value of the successful read.
 When you increase the `n_val` of a bucket, you may start to see failed
 read operations, especially if the R value you use is larger than the
 number of replicas that originally stored the object. Forcing read
-repair will solve this issue. Or if you have [[active
-anti-entropy|Replication#active-anti-entropy]] enabled, your values will
+repair will solve this issue. Or if you have [active
+anti-entropy][usage replication] enabled, your values will
 eventually replicate as a background task.
 
 For each object that fails read (or the whole bucket, if you like), read
@@ -164,7 +175,7 @@ partitions and storing an object on a partition.
 
   * Assume we have 3 nodes
   * Assume we store 3 replicas per object (N=3)
-  * Assume we have 8 partitions in our [[ring|Clusters#The-Ring]] \(ring_creation_size=8)
+  * Assume we have 8 partitions in our [ring][glossary ring] \(ring_creation_size=8)
 
 **Note**: It is not recommended that you use such a small ring size.
 This is for demonstration purposes only.

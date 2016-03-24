@@ -21,8 +21,7 @@ changes are made and when in order to measure the impact of those
 changes.
 
 For performance and tuning recommendations specific to running Riak
-clusters on the Amazon Web Services EC2 environment, see [[AWS
-Performance Tuning]].
+clusters on the Amazon Web Services EC2 environment, see [AWS Performance Tuning](/riak/kv/2.1.3/using/performance/amazon-web-services).
 
 <div class="note">
 <div class="title">Note on other operating systems</div>
@@ -238,12 +237,12 @@ These settings have been tested and benchmarked by Basho in nodes with
 
 Riak and supporting tools can consume a large number of open file
 handles during normal operation. For stability, increasing the number of
-open files limit is necessary. See [[Open Files Limit]] for more
+open files limit is necessary. See [Open Files Limit](/riak/kv/2.1.3/using/performance/open-files-limit/) for more
 details.
 
 ## Other Tuning Docs
 
-* [[AWS Performance Tuning]]
-* [[Erlang VM Tuning]]
-* [[Latency Reduction|Latency Reduction Checklist]]
-* [[Open Files Limit]]
+* [AWS Performance Tuning](/riak/kv/2.1.3/using/performance/amazon-web-services)
+* [Erlang VM Tuning](/riak/kv/2.1.3/using/performance/erlang)
+* [Latency Reduction](/riak/kv/2.1.3/using/performance/latency-reduction-checklist)
+* [Open Files Limit](/riak/kv/2.1.3/using/performance/open-files-limit/)

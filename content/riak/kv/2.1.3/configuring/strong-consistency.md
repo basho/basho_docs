@@ -13,14 +13,14 @@ toc: true
 ---
 
 [apps strong consistency]: /riak/kv/2.1.3/developing/app-guide/strong-consistency
-[concept strong consistency]: /riak/kv/2.1.3/concepts/strong-consistency
+[concept strong consistency]: /riak/kv/2.1.3/learn/concepts/strong-consistency
 [cluster ops add remove node]: /riak/kv/2.1.3/using/cluster-operations/adding-removing-nodes
 [config reference#strong-cons]: /riak/kv/2.1.3/configuring/reference/#Strong-Consistency
 [use admin riak cli]: /riak/kv/2.1.3/using/admin/riak-cli
-[concept eventual consistency]: /riak/kv/2.1.3/concepts/eventual-consistency
+[concept eventual consistency]: /riak/kv/2.1.3/learn/concepts/eventual-consistency
 [plan backend bitcask]: /riak/kv/2.1.3/setup/planning/backend/bitcask
 [glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode
-[concept buckets]: /riak/kv/2.1.3/concepts/buckets
+[concept buckets]: /riak/kv/2.1.3/learn/concepts/buckets
 [cluster ops bucket types]: /riak/kv/2.1.3/using/cluster-operations/bucket-types
 [use admin riak-admin#ensemble]: /riak/kv/2.1.3/using/admin/riak-admin/#riak-admin-ensemble-status
 [use admin riak-admin]: /riak/kv/2.1.3/using/admin/riak-admin
@@ -28,7 +28,7 @@ toc: true
 [plan cluster capacity]: /riak/kv/2.1.3/setup/planning/cluster-capacity
 [cluster ops strong consistency]: /riak/kv/2.1.3/using/cluster-operations/strong-consistency
 [apps replication properties]: /riak/kv/2.1.3/developing/app-guide/replication-properties
-[concept causal context]: /riak/kv/2.1.3/concepts/causal-context
+[concept causal context]: /riak/kv/2.1.3/learn/concepts/causal-context
 [dev data types]: /riak/kv/2.1.3/developing/data-types
 [glossary aae]: /riak/kv/2.1.3/learn/glossary/#Active-Anti-Entropy-AAE-
 [cluster ops 2i]: /riak/kv/2.1.3/using/cluster-operations/secondary-indexes

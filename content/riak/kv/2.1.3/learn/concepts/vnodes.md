@@ -14,20 +14,33 @@ aliases:
   - /riak/2.1.3/theory/concepts/vnodes
 ---
 
+
+[concept causal context]: /riak/kv/2.1.3/concepts/causal-context
+[concept clusters ring]: /riak/kv/2.1.3/concepts/clusters/#the-ring
+[concept replication]: /riak/kv/2.1.3/concepts/replication
+[concept strong consistency]: /riak/kv/2.1.3/concepts/strong-consistency
+[glossary node]: /riak/kv/2.1.3/learn/glossary/#node
+[glossary ring]: /riak/kv/2.1.3/learn/glossary/#ring
+[perf strong consistency]: /riak/kv/2.1.3/using/performance/strong-consistency
+[plan backend]: /riak/kv/2.1.3/setup/planning/backend
+[plan cluster capacity]: /riak/kv/2.1.3/setup/planning/cluster-capacity
+[use admin riak cli]: /riak/kv/2.1.3/using/admin/riak-cli
+
+
 Virtual nodes, more commonly referred to as **vnodes**, are processes
-that manage partitions in the Riak [[ring|Clusters#The-Ring]]. Each data
+that manage partitions in the Riak [ring][glossary ring]. Each data
 partition in a Riak cluster has a vnode that **claims** that partition.
 Vnodes perform a wide variety of operations, from K/V storage operations
-to guaranteeing [[strong consistency]] if you choose to use that
+to guaranteeing [strong consistency][concept strong consistency] if you choose to use that
 feature.
 
 ## The Number of Vnodes in a Cluster
 
-The term [[node|Riak Glossary#Node]] refers to a full instance of Riak,
+The term [node][glossary node] refers to a full instance of Riak,
 be it on its own physical machine or alongside others on a single
 machine, as in a development cluster on your laptop. Each Riak node
-contains multiple vnodes. The number per node is the [[ring
-size|Clusters#The-Ring]] divided by the number of nodes in the cluster.
+contains multiple vnodes. The number per node is the [ring
+size][concept clusters ring] divided by the number of nodes in the cluster.
 
 This means that in some clusters different nodes will have different
 numbers of data partitions (and hence a different number of vnodes),
@@ -36,7 +49,7 @@ If the ring size of your cluster is 64 and you are running three nodes,
 two of your nodes will have 21 vnodes, while the third node holds 22
 vnodes.
 
-The output of the `[[riak-admin member-status|riak-admin Command Line]]`
+The output of the [`riak-admin member-status`][use admin riak cli]
 command shows this:
 
 ```
@@ -56,14 +69,13 @@ of 64 partitions. This is normal and expected behavior in Riak.
 
 We strongly recommend setting the appropriate ring size, and by
 extension the number of vnodes, prior to building a cluster. A full
-guide can be found in our [[cluster planning|Cluster Capacity
-Planning#Ring-Size-Number-of-Partitions]] documentation.
+guide can be found in our [cluster planning][plan cluster capacity] documentation.
 
 ## The Role of Vnodes
 
 Vnodes essentially watch over a designated subset of a cluster's key
 space. Riak computes a 160-bit binary hash of each bucket/key pair and
-maps this value to a position on an ordered [[ring|Clusters#The-Ring]]
+maps this value to a position on an ordered [ring][concept clusters ring]
 of all such values. The illustration below provides a visual
 representation of the Riak ring:
 
@@ -72,9 +84,9 @@ Ring](http://docs.basho.com/shared/2.0.2/images/riak-ring.png?1416296175)
 
 You can think of vnodes as managers, responsible for handling incoming
 requests from other nodes/vnodes, storing objects in the appropriate
-storage backend, fetching objects from backends, interpreting [[causal
-context]] metadata for objects, acting as [[strong consistency
-ensembles|Managing Strong Consistency#Implementation-Details]] and much
+storage backend, fetching objects from backends, interpreting [causal
+context][concept causal context] metadata for objects, acting as [strong consistency
+ensembles][perf strong consistency] and much
 more.  At the system level, vnodes are Erlang processes build on top of
 the [`gen_fsm`](http://www.erlang.org/doc/design_principles/fsm.html)
 abstraction in Erlang, i.e. you can think of vnodes as **finite state
@@ -90,7 +102,7 @@ asynchronous tasks on behalf of the vnode.
 
 If you're navigating through the file system of a Riak node, you'll
 notice that each node's `/data` directory holds a variety of
-subdirectories. If you're using, say, [[Bitcask]] as a backend, navigate
+subdirectories. If you're using, say, [Bitcask](/riak/kv/2.1.3/setup/planning/backend/bitcask) as a backend, navigate
 into the `/bitcask` directory (you'll also see a `/ring` directory and
 several others). If you open up the `/bitcask` directory, you'll see a
 wide assortment of directories with numbers as names, e.g. `0` or
@@ -99,7 +111,7 @@ each house the data from a particular partition.
 
 ## Vnodes and Replication Properties
 
-In our documentation on [[replication properties]], we make frequent
+In our documentation on [replication properties][concept replication], we make frequent
 mention of users' ability to choose how many nodes store copies of
 data, how many nodes must respond for a read request to succeed, and so
 on. This is slightly misleading, as the fundamental units of replication
@@ -118,7 +130,7 @@ vnodes responsible for the same partition.
 ## Vnode Status
 
 You can check the current status of all vnodes in your cluster using the
-`[[riak-admin vnode-status|riak-admin Command Line#vnode-status]]`
+[`riak-admin vnode-status`][use admin riak cli]
 command. When you run that command, you will see a series of reports on
 each of the vnodes active on the local node. The output of this command
 consists of a series of reports on each active vnode. The report for a
@@ -140,5 +152,5 @@ The meaning of each field is given in the table below.
 Field | Description
 :-----|:-----------
 `VNode` | The ID of the vnode in question
-`Backend` | The storage <a href="/ops/building/planning/backends">backend</a> utilized by the vnode
+`Backend` | The storage [backend][plan backend] utilized by the vnode
 `Status` | The number of keys managed by the vnode and the file where the vnode stores its data. The other information can be ignored.

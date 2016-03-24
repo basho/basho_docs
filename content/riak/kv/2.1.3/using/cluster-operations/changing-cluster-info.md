@@ -114,9 +114,9 @@ To rename a single-node development cluster:
 
 For multi-node clusters, a rename is a slightly more complex procedure; however, it is very similar to the process for renaming a single node.
 
-Previous to Riak version 1.2, a cluster node's name could only be changed with the `[[riak-admin reip|riak-admin Command Line#reip]]` command, which involves downtime for the entire cluster. As of Riak version 1.2, that method has been superseded by `[[riak-admin cluster force-replace|riak-admin Command Line#cluster-force-replace]]`, which is safer and does not require cluster wide downtime.
+Previous to Riak version 1.2, a cluster node's name could only be changed with the [`riak-admin reip`](/riak/kv/2.1.3/using/admin/riak-admin/#reip) command, which involves downtime for the entire cluster. As of Riak version 1.2, that method has been superseded by [`riak-admin cluster force-replace`](/riak/kv/2.1.3/using/admin/riak-admin/#cluster-force-replace), which is safer and does not require cluster wide downtime.
 
-There still exist scenarios that require nodes to be renamed while stopped, such as seeding a cluster with backups from another cluster that does not share the same node names. Please see the [[Clusters from Backups|Renaming Nodes#Clusters-From-Backups]] section for more details on renaming in this scenario.
+There still exist scenarios that require nodes to be renamed while stopped, such as seeding a cluster with backups from another cluster that does not share the same node names. Please see the [Clusters from Backups](#Clusters-From-Backups) section for more details on renaming in this scenario.
 
 The following example describes reconfiguring node names with the new `riak-admin cluster force-replace` method.
 
@@ -138,9 +138,9 @@ The nodes in our example cluster are currently configured to use the *10.1.42.* 
 
 This process can be accomplished in three phases. The details and steps required of each phase are presented in the following section.
 
-1. [[Down the node to be reconfigured|Renaming-Nodes#down]]
-2. [[Reconfigure node to use new address|Renaming-Nodes#reconfigure]]
-3. [[Repeat previous steps on each node|Renaming-Nodes#repeat]]
+1. [Down the node to be reconfigured](#down)
+2. [Reconfigure node to use new address](#reconfigure)
+3. [Repeat previous steps on each node](#repeat)
 
 
 <a id="down"></a>
@@ -184,9 +184,9 @@ Reconfigure `node1.localdomain` to listen on the new private IP address *192.168
     `riak.conf`: `nodename = riak@192.168.17.11`  
     `vm.args` : `-name riak@192.168.17.11`
 
-2. Change any IP addresses to *192.168.17.11* in `riak.conf` or `app.config` as previously described in step 3 of [[Single Node Clusters|Renaming Nodes#Single-Node-Clusters]].
+2. Change any IP addresses to *192.168.17.11* in `riak.conf` or `app.config` as previously described in step 3 of [Single Node Clusters](#Single-Node-Clusters).
 
-3. Rename the node's `ring` directory, the location of which is described in step 4 of [[Single Node Clusters|Renaming Nodes#Single-Node-Clusters]].  You may rename it to whatever you like, as it will only be used as a backup during the node renaming process. 
+3. Rename the node's `ring` directory, the location of which is described in step 4 of [Single Node Clusters](#Single-Node-Clusters).  You may rename it to whatever you like, as it will only be used as a backup during the node renaming process. 
 
 4. Start Riak on `node1.localdomain`.
     
@@ -376,7 +376,7 @@ Once all nodes are marked as down and our first node is listed as the claimant, 
 
 1.  On each of the remaining nodes, change `nodename` in `riak.conf`, or `-name` in `vm.args` as described above.
 
-2.  Move aside the ring directory. As in [[Multi-Node Clusters|Renaming Nodes#Multi-Node-Clusters]], we will save this ring directory as a backup until were finished.
+2.  Move aside the ring directory. As in [Multi-Node Clusters](#Multi-Node-Clusters), we will save this ring directory as a backup until were finished.
 
 3.  Start each node. They will start as if they are each a member of their own cluster, but will retain their restored data.
 

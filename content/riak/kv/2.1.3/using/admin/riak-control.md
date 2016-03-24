@@ -21,10 +21,7 @@ manipulating Riak clusters.
 
 ## Requirements
 
-Though Riak Control [is maintained as a separate
-application](https://github.com/basho/riak_control), the necessary code
-for it ships with versions of Riak 1.1 and above and requires no
-additional installation steps.
+Though Riak Control [is maintained as a separate application](https://github.com/basho/riak_control), the necessary code for it ships with versions of Riak 1.1 and above and requires no additional installation steps.
 
 Before getting started, you should know the address and port of the HTTP (or 
 HTTPS) listeners for the cluster member(s) running Riak Control.  You can obtain 
@@ -112,11 +109,7 @@ and configured SSL and HTTPS.
 ## Enabling SSL and HTTPS
 
 In order to use SSL in conjunction with Riak Control, SSL must be
-enabled on each Riak node. For more information, see our [[security
-documentation|Authentication and
-Authorization#Enabling-SSL]]. Once SSL is enabled, you can proceed to
-setting up [[authentication|Riak Control#Authentication]] for Riak
-Control.
+enabled on each Riak node. For more information, see our [security documentation](/riak/kv/2.1.3/using/security/basics#Enabling-SSL). Once SSL is enabled, you can proceed to setting up [authentication](#Authentication) for Riak Control.
 
 Please note that Riak Control will not work if you have enabled
 authentication but SSL is not set up properly.
@@ -232,7 +225,7 @@ nodes in the cluster.
 ### Ring View
 
 One level deeper than the cluster view is the ring view. This is where you can
-see the health of each [[vnode|Vnodes]].
+see the health of each [vnode](/riak/kv/2.1.3/learn/glossary/#Vnode).
 
 [ ![Ring View](/images/control_current_ring.png) ] (/images/control_current_ring.png)
 

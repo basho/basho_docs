@@ -14,7 +14,7 @@ aliases:
   - /riak/2.1.3/ops/advanced/configs/configuration-files/
 ---
 
-[concept clusters]: /riak/kv/2.1.3/concepts/clusters
+[concept clusters]: /riak/kv/2.1.3/learn/concepts/clusters
 [plan backend bitcask]: /riak/kv/2.1.3/setup/planning/backend/bitcask
 [plan backend leveldb]: /riak/kv/2.1.3/setup/planning/backend/leveldb
 [plan backend memory]: /riak/kv/2.1.3/setup/planning/backend/memory
@@ -25,7 +25,7 @@ aliases:
 [use ref search 2i]: /riak/kv/2.1.3/using/reference/search-secondary-indexes
 [cluster ops bucket types]: /riak/kv/2.1.3/using/cluster-operations/bucket-types
 [usage conflict resolution]: /riak/kv/2.1.3/developing/usage/conflict-resolution
-[concept causal context]: /riak/kv/2.1.3/concepts/causal-context
+[concept causal context]: /riak/kv/2.1.3/learn/concepts/causal-context
 [usage mapreduce]: /riak/kv/2.1.3/developing/usage/mapreduce
 [security index]: /riak/kv/2.1.3/using/security/
 [cluster ops strong consistency]: /riak/kv/2.1.3/using/cluster-operations/strong-consistency
@@ -194,7 +194,7 @@ executables are stored.</td>
 <tr>
 <td><code>platform_data_dir</code></td>
 <td>The directory in which Riak stores its storage backend data, as well
-as <a href="/riak/kv/2.1.3/concepts/clusters">ring state</a> data, <a href="/riak/kv/2.1.3/learn/glossary/#Active-Anti-Entropy-AAE-">active anti-entropy</a> data, and cluster metadata.</td>
+as <a href="/riak/kv/2.1.3/learn/concepts/clusters">ring state</a> data, <a href="/riak/kv/2.1.3/learn/glossary/#Active-Anti-Entropy-AAE-">active anti-entropy</a> data, and cluster metadata.</td>
 <td><code>./data</code></td>
 </tr>
 

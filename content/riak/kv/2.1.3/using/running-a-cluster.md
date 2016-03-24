@@ -18,8 +18,7 @@ Configuring a Riak cluster involves instructing each node to listen on a
 non-local interface, i.e. not `127.0.0.1`, and then joining all of the
 nodes together to participate in the cluster.
 
-Most configuration changes will be applied to the [[configuration
-file|Configuration Files]] located in your `rel/riak/etc` directory (if
+Most configuration changes will be applied to the [configuration file](/riak/kv/2.1.3/configuring/reference/) located in your `rel/riak/etc` directory (if
 you compiled from source) or `/etc` (if you used a binary install of
 Riak).
 
@@ -29,27 +28,24 @@ the usage of `bin/riak` with `sudo /usr/sbin/riak` and `bin/riak-admin`
 with `sudo /usr/sbin/riak-admin`. The `riak` and `riak-admin` scripts
 are located in the `/bin` directory of your installation.
 
-<div class="info">
-<div class="title">Note on changing the `name` value</div>
-If possible, you should avoid starting Riak prior to editing the name of
+> **Note on changing the `name` value**
+>
+> If possible, you should avoid starting Riak prior to editing the name of
 a node. This setting corresponds to the `nodename` parameter in the
 `riak.conf` file if you are using the newer configuration system, and to
 the `-name` parameter in `vm.args` (as described below) if you are using
 the older configuration system. If you have already started Riak with
 the default settings, you cannot change the `-name` setting and then
 successfully restart the node.
-
-If you cannot restart after changing the `-name` value you have two
+>
+> If you cannot restart after changing the `-name` value you have two
 options:
-<ol>
-<li>Discard the existing ring metadata by removing the contents of the
+>
+> * Discard the existing ring metadata by removing the contents of the
 `ring` directory. This will require rejoining all nodes into a
-cluster again.</li>
-<li>Rename the node using the <code>[[riak-admin cluster replace|riak-admin
-Command Line#cluster-replace]]</code> command. This will not work if you have
-previously only started Riak with a single node.</li>
-</ol>
-</div>
+cluster again.
+>
+> *Rename the node using the [`riak-admin cluster replace`](/riak/kv/2.1.3/using/admin/riak-admin/#cluster-replace) command. This will not work if you have previously only started Riak with a single node.
 
 ## Configure the First Node
 
@@ -62,8 +58,7 @@ riak stop
 #### Select an IP address and port
 
 Let's say that the IP address for your cluster is 192.168.1.10 and that
-you'll be using the default port (8087). If you're using the [[Protocol
-Buffers interface|PBC API]] to Riak (which we recommend over the HTTP
+you'll be using the default port (8087). If you're using the [Protocol Buffers interface](/riak/kv/2.1.3/developing/api/pbc/) to Riak (which we recommend over the HTTP
 interface due to performance gains), you should change your
 configuration file:
 
@@ -152,20 +147,15 @@ nodename = riak@192.168.1.10
 -name riak@192.168.1.10
 ```
 
-<div class="note">
-<div class="title">Node Names</div>
-Use fully qualified domain names (<a
-href="http://en.wikipedia.org/wiki/Fully_qualified_domain_name">FQDN</a>s)
-rather than IP addresses for the cluster member node names. For example,
-`riak@cluster.example.com` and `riak@192.168.1.10`
+> **Node Names**
+>
+> Use fully qualified domain names ([FQDNs](http://en.wikipedia.org/wiki/Fully_qualified_domain_name)) rather than IP addresses for the cluster member node names. For example, `riak@cluster.example.com` and `riak@192.168.1.10`
 are both acceptable node naming schemes, but using the FQDN style is
 preferred.
-
-Once a node has been started, in order to change the name you must
+>
+> Once a node has been started, in order to change the name you must
 either remove ring files from the `/data/ring` directory or
-`[[riak-admin cluster force-replace|riak-admin Command
-Line#cluster-force-replace]]` the node.
-</div>
+[`riak-admin cluster force-replace`](/riak/kv/2.1.3/using/admin/riak-admin/#cluster-force-replace) the node.
 
 #### Start the node
 
@@ -262,19 +252,18 @@ into which you can type the following command:
     ```
 
 To join additional nodes to your cluster, repeat the above steps.  You
-can also find more detailed instructions about [[adding and removing
-nodes]] from a cluster.
+can also find more detailed instructions about [adding and removing nodes](/riak/kv/2.1.3/using/cluster-operations/adding-removing-nodes) from a cluster.
 
-<div class="note">
-<div class="title">Ring Creation Size</div> All nodes in the cluster
+> **Ring Creation Size**
+>
+> All nodes in the cluster
 must have the same initial ring size setting in order to join, and
 participate in cluster activity. This setting can be adjusted in your
 configuration file using the `ring_creation_size` parameter if you're
 using the older configuration system or `ring_size` in the new system.
-
-Check the value of all nodes if you receive a message like this:
-<code>Failed: riak@10.0.1.156 has a different ring_creation_size</code>
-</div>
+>
+> Check the value of all nodes if you receive a message like this:
+> `Failed: riak@10.0.1.156 has a different ring_creation_size`
 
 ## Running Multiple Nodes on One Host
 

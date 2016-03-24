@@ -14,12 +14,24 @@ aliases:
   - /riak/2.1.3/theory/concepts/crdts
 ---
 
+
+[concept causal context dvv]: /riak/kv/2.1.3/concepts/causal-context/#dotted-version-vectors
+[concept causal context sib]: /riak/kv/2.1.3/concepts/causal-context/#siblings
+[concept causal context vc]: /riak/kv/2.1.3/concepts/causal-context/#vector-clocks
+[concept eventual consistency]: /riak/kv/2.1.3/concepts/eventual-consistency
+[concept strong consistency]: /riak/kv/2.1.3/concepts/strong-consistency
+[dev data types]: /riak/kv/2.1.3/developing/data-types
+[glossary node]: /riak/kv/2.1.3/learn/glossary/#node
+[glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode
+[usage conflict resolution]: /riak/kv/2.1.3/developing/usage/conflict-resolution
+
+
 A pure key/value store is completely agnostic toward the data stored
 within it. Any key can be associated with values of any conceivable
 type, from short strings to large JSON objects to video files. Riak
 began as a pure key/value store, but over time it has become more and
-more aware of the data stored in it through features like [[secondary
-indexes|using secondary indexes]] and [[Search|using search]].
+more aware of the data stored in it through features like [secondary
+indexes](/riak/kv/2.1.3/developing/usage/secondary-indexes/) and [Search](/riak/kv/2.1.3/developing/usage/search/).
 
 In version 2.0, Riak continued this evolution by introducing a series of
 eventually convergent **Data Types**. Riak Data Types are convergent
@@ -46,14 +58,12 @@ on which they are based, the convergence logic is _state based_ behind
 the scenes. In other words, Riak Data Types enable applications to use
 CRDTs through a simple interface, without being exposed to the complex
 state-based logic underneath. More on Data Types and state can be found
-in the section on [[implementation|Data
-Types#Riak-Data-Types-Under-the-Hood]] below.
+in the section on [implementation][dev data types] below.
 
 ## Advantages and Disadvantages of Data Types
 
-[[Conflict resolution]] in Riak can be difficult because it involves
-reasoning about concurrency, [[eventual consistency]], [[siblings|Vector
-Clocks#Siblings]], and other issues that many other databases don't
+[Conflict resolution][usage conflict resolution] in Riak can be difficult because it involves
+reasoning about concurrency, [eventual consistency][concept eventual consistency], [siblings][concept causal context sib], and other issues that many other databases don't
 require you to take into account.
 
 One of the core purposes behind Data Types is to relieve developers
@@ -193,7 +203,7 @@ Conflicts between replicas are inevitable in a distributed system like
 Riak. If a map is stored in the key `my_map`, for example, it is always
 possible that the value of `my_map` will be different in nodes A and B.
 Without using Data Types, that conflict must be resolved using
-timestamps, [[vector clocks]], [[dotted version vectors]], or some other
+timestamps, [vector clocks][concept causal context vc], [dotted version vectors][concept causal context dvv], or some other
 means. With Data Types, conflicts are resolved by Riak itself, using a
 subsystem called [`riak_dt`](https://github.com/basho/riak_dt).
 
@@ -202,16 +212,14 @@ subsystem called [`riak_dt`](https://github.com/basho/riak_dt).
 The beauty of Data Types is that Riak "knows" how to resolve value
 conflicts by applying Data Type-specific rules. In general, Riak does
 this by remembering the **history** of a value and broadcasting that
-history along with the current value in the form of a [[context
-object|Using Data Types#Data-Types-and-Context]] that is similar to a
-[[vector clock|Vector Clocks]] or [[dotted version vector|Dotted Version
-Vectors]]. Riak uses the history of each Data Type to make deterministic
+history along with the current value in the form of a [context
+object](/riak/kv/2.1.3/developing/data-types/#Data-Types-and-Context) that is similar to a
+[vector clock][concept causal context vc] or `[dotted version vectors][concept causal context dvv]. Riak uses the history of each Data Type to make deterministic
 judgments about which value should be deemed correct.
 
 #### Example
 
-Imagine a set stored in the key `fruits`. On one [[node|Riak
-Glossary#Node]], the set `fruits` has two elements, `apple` and
+Imagine a set stored in the key `fruits`. On one [node][glossary node], the set `fruits` has two elements, `apple` and
 `orange`, while on another node the set has only one element, `apple`.
 What happens when the two nodes communicate and note the divergence?
 
@@ -226,7 +234,7 @@ In general, convergence involves the following stages:
 2. Riak applies Data Type-specific merge rules, like in the `fruits`
    set example above, which will result in a "correct" value.
 3. After the merge logic is applied and the correct value is determined,
-   the relevant [[vnodes|Riak Glossary#vnode]] are notified and act to
+   the relevant [vnodes][glossary vnode] are notified and act to
    correct the divergence.
 
 ### Convergence Rules
@@ -247,8 +255,8 @@ Maps | If a field is concurrently added or updated and removed, the add/update w
 
 In a production Riak cluster being hit by lots and lots of concurrent
 writes, value conflicts are inevitable, and Riak Data Types are not
-perfect, particularly in that they do _not_ guarantee [[strong
-consistency]] and in that you cannot specify the rules yourself. But the
+perfect, particularly in that they do _not_ guarantee [strong
+consistency][concept strong consistency] and in that you cannot specify the rules yourself. But the
 rules that dictate the convergence logic behind the five Riak Data Types
 were carefully chosen to minimize the potential downsides associated
 with value conflicts.

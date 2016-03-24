@@ -17,7 +17,7 @@ aliases:
 [plan backend leveldb]: /riak/kv/2.1.3/setup/planning/backend/leveldb
 [plan bitcask capacity]: /riak/kv/2.1.3/setup/planning/bitcask-capacity-calc
 [plan index]: /riak/kv/2.1.3/setup/planning
-[concept replication]: /riak/kv/2.1.3/concepts/replication
+[concept replication]: /riak/kv/2.1.3/learn/concepts/replication
 [use admin riak-admin#cluster]: /riak/kv/2.1.3/using/admin/riak-admin/#cluster
 [config reference]: /riak/kv/2.1.3/configuring/reference
 [perf benchmark]: /riak/kv/2.1.3/using/performance/benchmarking

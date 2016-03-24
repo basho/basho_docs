@@ -37,7 +37,7 @@ does not necessarily cause data loss, as other replicas of every key are
 available elsewhere in the cluster. Once the node is detected as down,
 other nodes in the cluster will take over its responsibilities
 temporarily and transmit the updated data to it when it eventually
-returns to service (also called [[hinted handoff|Riak Glossary#hinted-handoff]]).
+returns to service (also called [hinted handoff](/riak/kv/2.1.3/learn/glossary/#hinted-handoff)).
 
 More severe data loss scenarios usually relate to hardware failure.
 If data is lost, several options are available for restoring it.
@@ -91,10 +91,7 @@ too much data and growing the cluster may be necessary. Additional RAM
 may also improve latency because more of the active dataset will be
 cached by the operating system.
 
-Sometimes extreme latency spikes can be caused by [[sibling explosion
-|Vector Clocks#Siblings]]. This condition occurs when the client
-application does not resolve conflicts properly or in a timely fashion.
-In that scenario, the size of the value on disk grows in proportion to
+Sometimes extreme latency spikes can be caused by [sibling explosion](/riak/kv/2.1.3/developing/usage/conflict-resolution#Siblings). This condition occurs when the client application does not resolve conflicts properly or in a timely fashion. In that scenario, the size of the value on disk grows in proportion to
 the number of siblings, causing longer disk service times and slower
 network responses.
 
@@ -119,9 +116,9 @@ spreading load and increasing available CPU and IOPS.
 The general procedure for recovering a cluster from catastrophic failure
 involves:
 
-<div class="note"><div class="title">Note</div>
-If you are restoring in an environment where the new nodes will have new network addresses (such as with AWS for example) or you will otherwise need to give the nodes new names, you will need to rename the nodes in the cluster.  After performing steps 1-8, use the instructions in the [[Renaming Nodes]] document to finish restoring this cluster.
-</div>
+> **Note**
+>
+> If you are restoring in an environment where the new nodes will have new network addresses (such as with AWS for example) or you will otherwise need to give the nodes new names, you will need to rename the nodes in the cluster.  After performing steps 1-8, use the instructions in the [Renaming Nodes](/riak/kv/2.1.3/using/cluster-operations/changing-cluster-info) document to finish restoring this cluster.
 
 1. Establish replacement cluster configured with the same number of nodes.
 2. Restore the Riak configuration on each of the nodes.
@@ -135,7 +132,7 @@ If you are restoring in an environment where the new nodes will have new network
 7. After renaming the nodes with `riak-admin replace` if necessary, you should
    check the `vm.args` configuration file to ensure that each node has the
    updated name.
-8. Make sure the [[firewall settings|Security and Firewalls]] for the new
+8. Make sure the [firewall settings](/riak/kv/2.1.3/using/security/) for the new
    nodes allow the same traffic that was permitted between the old nodes.
    The first node will not be able to start up if attempts to contact the
    other down nodes hang instead of being refused.

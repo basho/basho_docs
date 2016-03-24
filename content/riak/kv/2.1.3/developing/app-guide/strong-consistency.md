@@ -14,17 +14,37 @@ aliases:
   - /riak/2.1.3/dev/advanced/strong-consistency
 ---
 
+[use ref strong consistency]: /riak/2.1.3/using/reference/strong-consistency
+[concept eventual consistency]: /riak/kv/2.1.3/learn/concepts/eventual-consistency
+[use ref strong consistency#trade-offs]: /riak/2.1.3/using/reference/strong-consistency/#Trade-offs
+[glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode
+[config strong consistency#enable]: /riak/kv/2.1.3/configuring/strong-consistency/#Enabling-Strong-Consistency
+[usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types
+[cluster ops bucket types]: /riak/kv/2.1.3/using/cluster-operations/bucket-types
+[apps replication properties]: /riak/kv/2.1.3/developing/app-guide/replication-properties
+[config strong consistency]: /riak/kv/2.1.3/configuring/strong-consistency
+[config strong consistency#fault]: /riak/kv/2.1.3/configuring/strong-consistency/#Fault-Tolerance
+[concept causal context]: /riak/kv/2.1.3/learn/concepts/causal-context
+[concept causal context#vector]: /riak/kv/2.1.3/learn/concepts/causal-context/#Vector-Clocks
+[concept version vector]: /riak/kv/2.1.3/learn/concepts/dotted-version-vectors
+[usage conflict resolution]: /riak/kv/2.1.3/developing/usage/conflict-resolution
+[usage update objects]: /riak/kv/2.1.3/developing/usage/updating-objects
+[use ref strong consistency#vs]: /riak/2.1.3/using/reference/strong-consistency/#Strong-vs.-Eventual-Consistency
+[dev client libraries]: /riak/kv/2.1.3/developing/client-libraries
+[getting started]: /riak/kv/2.1.3/developing/getting-started
+[config strong consistency#details]: /riak/kv/2.1.3/configuring/strong-consistency/#Implementation-Details
+
 > **Please Note:**
 >
 > Riak KV's strong consistency is an experimental feature and may be removed from the product in the future. Strong consistency is not commercially supported or production-ready. Strong consistency is incompatible with Multi-Datacenter Replication, Riak Search, Bitcask Expiration, LevelDB Secondary Indexes, Riak Data Types and Commit Hooks. We do not recommend its usage in any production environment.
 
 In versions 2.0 and later, Riak allows you to create buckets that
-provide [[strong consistency]] guarantees for the data stored within
+provide [strong consistency][use ref strong consistency] guarantees for the data stored within
 them, enabling you to use Riak as a CP system (consistent plus partition
 tolerant) for all of the data in that bucket. You can store just some of
 your data in strongly consistent buckets or all of your data, depending
 on your use case. Strong consistency was added to complement Riak's
-standard [[eventually consistent|Eventual Consistency]], high
+standard [eventually consistent][concept eventual consistency], high
 availability mode.
 
 ## Tradeoffs
@@ -34,9 +54,7 @@ value is guaranteed readable by any client _immediately_ after a
 successful write has occurred to a given key. In this sense, single-key
 strongly consistent operations are atomic, and operations on a given key
 are [linearizable](http://en.wikipedia.org/wiki/Linearizability). This
-behavior comes at the expense of availability because a [[quorum|Strong
-Consistency#Trade-offs]] of primary [[vnodes|Vnodes]] responsible for
-the key must be online and reachable or the request will
+behavior comes at the expense of availability because a [quorum][use ref strong consistency#trade-offs] of primary [vnodes][glossary vnode] responsible for the key must be online and reachable or the request will
 fail.
 
 This trade-off is unavoidable for strongly consistent data, but the
@@ -45,18 +63,14 @@ This trade-off is unavoidable for strongly consistent data, but the
 ## Enabling Strong Consistency
 
 Complete instructions on enabling strong consistency can be found in
-our documentation on [[strong consistency for operators|Managing Strong
-Consistency#Enabling-Strong-Consistency]].
+our documentation on [configuring strong consistency][config strong consistency#enable].
 
 ## Creating Consistent Bucket Types
 
-[[Strong consistency]] requirements in Riak are applied on a
-bucket-by-bucket basis, meaning that you can use some buckets in an
-eventually consistent fashion and others in a strongly consistent
+[Strong Consistency][use ref strong consistency] requirements in Riak are applied on a bucket-by-bucket basis, meaning that you can use some buckets in an eventually consistent fashion and others in a strongly consistent
 fashion, depending on your use case.
 
-To apply strong consistency to a bucket, you must create a [[bucket
-type|Using Bucket Types]] that sets the `consistent` bucket property to
+To apply strong consistency to a bucket, you must create a [bucket type][usage bucket types] that sets the `consistent` bucket property to
 `true`, activate that type, and then apply that type to specific
 bucket/key pairs.
 
@@ -69,14 +83,12 @@ riak-admin bucket-type create strongly_consistent \
     '{"props":{"consistent":true}}'
 ```
 
-<div class="note">
-<div class="title">Note on bucket type names</div>
-You can name [[bucket types|Using Bucket Types]] whatever you wish, with
+> **Note on bucket type names**
+>
+> You can name [bucket types][usage bucket types] whatever you wish, with
 the exception of `default`, which is a reserved term (a full listing of
 the properties associated with the `default` bucket type can be found in
-the documentation on [[bucket properties and operations|The
-Basics#Bucket-Properties-and-Operations]]).
-</div>
+the documentation on [bucket properties and operations][cluster ops bucket types]).
 
 Once the `strongly_consistent` bucket type has been created, we can
 check the status of the type to ensure that it has propagated through
@@ -103,17 +115,16 @@ strongly_consistent has been activated
 Now, any bucket that bears the type `strongly_consistent`---or whatever
 you wish to name it---will provide strong consistency guarantees.
 
-Elsewhere in the Riak docs, you can find more information on [[using
-bucket types]], on the concept of [[strong consistency]], and on strong
-consistency [[for operators|Managing Strong Consistency]].
+Elsewhere in the Riak docs, you can find more information on [using bucket types][usage bucket types], on the concept of [strong consistency][use ref strong consistency], and on strong
+consistency [for operators][config strong consistency].
 
 ## Replication Properties
 
 Strongly consistent operations in Riak function much differently from
-their [[eventually consistent|Eventual Consistency]] counterparts.
+their [eventually consistent][concept eventual consistency] counterparts.
 Whereas eventually consistent operations enable you to set values for a
-variety of [[replication properties]] either on each request or at the
-bucket level, [[using bucket types]], these settings are quietly ignored
+variety of [replication properties][apps replication properties] either on each request or at the
+bucket level, [using bucket types][usage bucket types], these settings are quietly ignored
 for strongly consistent operations. These settings include `r`, `pr`,
 `w`, `rw`, and others. Two replication properties that _can_ be set,
 however, are `n_val` and `return_body`.
@@ -121,30 +132,28 @@ however, are `n_val` and `return_body`.
 The `n_val` property is extremely important for two reasons:
 
 1. It dictates how fault tolerant a strongly consistent bucket is. More
-   information can be found in [[our recommendations for
-   operators|Managing Strong Consistency#Fault-Tolerance]].
+   information can be found in [our recommendations for operators][config strong consistency#fault].
 2. Once the `n_val` property is set for a given bucket type, it cannot
    be changed. If you wish to change the `n_val` for one or more
-   strongly consistent buckets [[using bucket types]], you will need to
+   strongly consistent buckets [using bucket types][usage bucket types], you will need to
    create a new bucket type with the desired `n_val`.
 
 We also recommend setting the `n_val` on strongly consistent buckets to
 at least 5. More on why we make this recommendation can be found in
-[[Fault Tolerance|Managing Strong Consistency#Fault-Tolerance]].
+[Fault Tolerance][config strong consistency#fault].
 
 ## Causal Context
 
-Riak uses [[causal context]] to determine the causal history of objects.
-In versions of Riak prior to 2.0, [[vector clocks|Causal
-Context#Vector-Clocks]] were used to provide objects with causal context
+Riak uses [causal context][concept causal context] to determine the causal history of objects.
+In versions of Riak KV prior to 2.0, [vector clocks][concept causal context#vector] were used to provide objects with causal context
 metadata. In Riak versions 2.0 and later there is an option to use
-[[dotted version vectors]], which function much like vector clocks from
+[dotted version vectors][concept version vector], which function much like vector clocks from
 the standpoint of clients, but with important advantages over vector
 clocks.
 
 While we strongly recommend attaching context to objects for all
 updates---whether traditional vector clocks or the newer dotted version
-vectors---they are purely [[optional|Conflict Resolution]] for all
+vectors---they are purely [optional][usage conflict resolution] for all
 eventually consistent operations in Riak. This is not the case for
 strongly consistent operations. **When modifying strongly consistent
 objects in Riak, you _must_ attach a causal context**.
@@ -156,7 +165,7 @@ we recommend doing this only if you are certain that the key does not
 yet exist.
 
 Instructions on using causal context can be found in our documentation
-on [[object updates]].
+on [object updates][usage update objects].
 
 ## Strongly Consistent Writes
 
@@ -165,16 +174,12 @@ practices that we advise when writing to eventually consistent keys. We
 recommend bearing the following in mind:
 
 1. If you _know_ that a key does not yet exist, you can write to that
-   key without supplying a [[context with the object|Using Strong
-   Consistency#Object-Context]]. If you are unsure, then you should
-   default to supplying a context object.
+   key without supplying a context with the object. If you are unsure, then you should default to supplying a context object.
 2. If an object already exists under a key, strong consistency demands
-   that you supply a [[causal context|Using Strong
-   Consistency#Causal-Context]]. If you do not supply one, the update
+   that you supply a [causal context](#Causal-Context). If you do not supply one, the update
    will necessarily fail.
 3. Because strongly consistent writes must occasionally
-   [[sacrifice availability|Strong
-   Consistency#Strong-vs.-Eventual-Consistency]] for the sake of
+   [sacrifice availability][use ref strong consistency#vs] for the sake of
    consistency, **strongly consistent updates can fail even under normal
    conditions**, particularly in the event of concurrent updates.
 
@@ -215,23 +220,18 @@ riak.RiakError: 'failed'
 <html><head><title>412 Precondition Failed</title></head><body><h1>Precondition Failed</h1>Precondition Failed<p><hr><address>mochiweb+webmachine web server</address></body></html>
 ```
 
-<div class="note">
-<div class="title">Getting started with Riak clients</div>
-If you are connecting to Riak using one of Basho's official
-[[client libraries]], you can find more information about getting
-started with your client in our [[quickstart guide|Five-Minute
-Install#setting-up-your-riak-client]].
-</div>
+> **Getting Started with Riak KV clients**
+>
+> If you are connecting to Riak using one of Basho's official
+[client libraries][dev client libraries], you can find more information about getting started with your client in our [Developing with Riak KV: Getting Started][getting started] section.
 
 ## Known Issue with Client Libraries
 
-All of Basho's official [[client libraries]] currently convert errors
-returned by Riak into generic exceptions, with a message derived from
-the error message returned by Riak. In many cases this presents no
+All of Basho's official [client libraries][dev client libraries] currently convert errors returned by Riak into generic exceptions, with a message derived from the error message returned by Riak. In many cases this presents no
 problems, since many error conditions are normal when using Riak.
 
 When working with strong consistency, however, operations like
-[[conditional puts|Strong Consistency#Implementation-Details]] commonly
+[conditional puts][config strong consistency#details] commonly
 produce errors that are difficult for clients to interpret. For example,
 it is expected behavior for conditional puts to fail in the case of
 concurrent updates to an object. At present, the official Riak clients

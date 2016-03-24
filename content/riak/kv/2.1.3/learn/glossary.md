@@ -12,9 +12,43 @@ menu:
 toc: true
 ---
 
-[concept eventual consistency]: /riak/kv/2.1.3/concepts/eventual-consistency
-[concept clusters]: /riak/kv/2.1.3/concepts/clusters
+
+[apps replication properties]: /riak/kv/2.1.3/developing/app-guide/replication-properties
+[basho bench GH]: http://github.com/basho/basho_bench/
+[cluster ops add remove node]: /riak/kv/2.1.3/using/cluster-operations/adding-removing-nodes
+[cluster ops strong consistency]: /riak/kv/2.1.3/using/cluster-operations/strong-consistency
+[concept buckets]: /riak/kv/2.1.3/concepts/buckets
+[concept causal context vc]: /riak/kv/2.1.3/concepts/causal-context/#vector-clocks
+[concept clusters]: /riak/kv/2.1.3/learn/concepts/clusters
+[concept crdts]: /riak/kv/2.1.3/concepts/crdts
+[concept eventual consistency]: /riak/kv/2.1.3/learn/concepts/eventual-consistency
+[concept keys objects]: /riak/kv/2.1.3/concepts/keys-and-objects
+[concept replication]: /riak/kv/2.1.3/concepts/replication
+[concept strong consistency]: /riak/kv/2.1.3/concepts/strong-consistency
+[dev kv model]: /riak/kv/2.1.3/developing/key-value-modeling
+[concept replication aae]: /riak/kv/2.1.3/concepts/replication/#active-anti-entropy
+[dev api http]: /riak/kv/2.1.3/developing/api/http
+[dev data model]: /riak/kv/2.1.3/developing/data-modeling
+[dev data types]: /riak/kv/2.1.3/developing/data-types
+[glossary read rep]: /riak/kv/2.1.3/learn/glossary/#read-repair
 [glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode
+[Lager]: https://github.com/basho/lager
+[learn dynamo]: /riak/kv/2.1.3/learn/dynamo
+[plan cluster capacity]: /riak/kv/2.1.3/setup/planning/cluster-capacity
+[repair recover failure recovery]: /riak/kv/2.1.3/repair-recovery/failure-recovery
+[repair recover repairs]: /riak/kv/2.1.3/repair-recovery/repairs
+[Riak Core]: https://github.com/basho/riak_core
+[Riak KV]: https://github.com/basho/riak_kv
+[Riak Pipe]: https://github.com/basho/riak_pipe
+[Riak Pipe - the New MapReduce Power]: http://basho.com/riak-pipe-the-new-mapreduce-power/
+[Riak Pipe - Riak's Distributed Processing Framework]: http://vimeo.com/53910999
+[Understanding Riak's Configurable Behaviors]: http://basho.com/riaks-config-behaviors-part-2/
+[usage mapreduce]: /riak/kv/2.1.3/developing/usage/mapreduce
+[usage search]: /riak/kv/2.1.3/developing/usage/search
+[usage secondary-indexes]: /riak/kv/2.1.3/developing/usage/secondary-indexes
+[Where To Start With Riak Core]: http://basho.com/where-to-start-with-riak-core/
+[Wikipedia:Consistent Hashing]: http://en.wikipedia.org/wiki/Consistent_hashing
+
 
 Below is a list of terms that you may run into frequently in the
 documentation for Riak, along with links to more in-depth treatments.
@@ -22,8 +56,8 @@ documentation for Riak, along with links to more in-depth treatments.
 ## Active Anti-Entropy (AAE)
 
 A continuous background process that compares and repairs any divergent,
-missing, or corrupted replicas. Unlike [[read
-repair|Replication#Read-Repair]], which is only triggered when data is
+missing, or corrupted replicas. Unlike [read
+repair][glossary read rep], which is only triggered when data is
 read, the Active Anti-Entropy system ensures the integrity of all data
 stored in Riak. This is particularly useful in clusters containing “cold
 data,” i.e. data that may not be read for long periods of time,
@@ -31,7 +65,7 @@ potentially years. Furthermore, unlike the repair command, Active
 Anti-Entropy is an automatic process requiring no user intervention. It
 is enabled by default in Riak 1.3 and greater.
 
-* [[Replication|Replication#Active-Anti-Entropy-AAE-]]
+* [Replication][concept replication aae]
 
 ## Basho Bench
 
@@ -39,8 +73,8 @@ Basho Bench is a benchmarking tool created to conduct accurate and
 repeatable performance tests and stress tests and to produce performance
 graphs.
 
-* [[Basho Bench]]
-* [[GitHub repository|http://github.com/basho/basho_bench/]]
+* [Basho Bench](/riak/kv/2.1.3/using/performance/benchmarking)
+* [GitHub repository][basho bench GH]
 
 ## Bucket
 
@@ -49,8 +83,8 @@ properties for its contents, e.g. the number of replicas (`n_val`),
 whether siblings are returned on reads (`allow_mult`), etc. Buckets'
 properties are determined by their bucket type (see below).
 
-* [[Buckets]]
-* [[HTTP Bucket Operations|HTTP API#Bucket-Operations]]
+* [Buckets][concept buckets]
+* [HTTP Bucket Operations][dev api http]
 
 ## Bucket Type
 
@@ -58,7 +92,7 @@ Bucket types enable you to create and manage sets of bucket properties
 that, when applied to buckets, dictate those buckets' behavior. They
 also act as a third namespace in Riak in addition to buckets and keys.
 
-* [[Bucket Types|Using Bucket Types]]
+* [Bucket Types](/riak/kv/2.1.3/developing/usage/bucket-types)
 
 ## Cluster
 
@@ -67,7 +101,7 @@ equally-sized partitions. Each vnode in the Riak Ring is responsible for
 one of these partitions.
 
 * [Clusters][concept clusters]
-* [[Dynamo]]
+* [Dynamo][learn dynamo]
 
 ## Consistent Hashing
 
@@ -79,8 +113,8 @@ responsible for storing each object are determined using the consistent
 hashing technique.
 
 * [Clusters][concept clusters]
-* [[Dynamo]]
-* [[Wikipedia:Consistent Hashing|http://en.wikipedia.org/wiki/Consistent_hashing]]
+* [Dynamo][learn dynamo]
+* [Wikipedia:Consistent Hashing]
 
 ## Data Types
 
@@ -90,9 +124,9 @@ certain rules of convergence to dictate how conflicts between replicas
 are resolved in Riak's eventually consistent system. There are five Riak
 Data Types in total: flags, registers, counters, sets, and maps.
 
-* [[Data Types Concept|Data Types]]
-* [[Using Data Types]]
-* [[Data Modeling with Riak Data Types]]
+* [Data Types Concept][concept crdts]
+* [Using Data Types][dev data types]
+* [Data Modeling with Riak Data Types][dev data model]
 
 ## Eventual Consistency
 
@@ -112,7 +146,7 @@ periodically sends its current view of the ring state to a randomly
 selected peer in case any nodes missed previous updates.
 
 * [Clusters][concept clusters]
-* [[Adding and Removing Nodes|Adding and Removing Nodes#The-Node-Join-Process]]
+* [Adding and Removing Nodes][cluster ops add remove node]
 
 ## Hinted Handoff
 
@@ -126,19 +160,19 @@ Hinted handoff allows Riak to ensure database availability.  When a node
 fails, Riak can continue to handle requests as if the node were still
 there.
 
-* [[Recovering a Failed Node]]
+* [Recovering a Failed Node][repair recover failure recovery]
 
 ## Key
 
 Keys are unique object identifiers in Riak and are scoped within buckets
 and bucket types.
 
-* [[Keys and Objects]]
-* [[Developer Basics|The Basics]]
+* [Keys and Objects][concept keys objects]
+* [Key/Value Development][dev kv model]
 
 ## Lager
 
-[[Lager|https://github.com/basho/lager]] is an Erlang/OTP framework that
+[Lager] is an Erlang/OTP framework that
 ships as Riak's default logger.
 
 ## MapReduce
@@ -146,8 +180,7 @@ ships as Riak's default logger.
 Riak's MapReduce gives developers the capability to perform more
 powerful queries over the data stored in their key/value data.
 
-* [[Using MapReduce]]
-* [[Advanced MapReduce]]
+* [Using MapReduce][usage mapreduce]
 
 ## Node
 
@@ -155,14 +188,14 @@ A node is analogous to a physical server. Nodes run a certain number of
 nodes, each of which claims a partition in the Riak Ring key space.
 
 * [Clusters][concept clusters]
-* [[Adding and Removing Nodes]]
+* [Adding and Removing Nodes][cluster ops add remove node]
 
 ## Object
 
 An object is another name for a value.
 
-* [[Keys and Objects]]
-* [[Developer Basics|The Basics]]
+* [Keys and Objects][concept keys objects]
+* [Key/Value Development][dev kv model]
 
 ## Partition
 
@@ -174,7 +207,7 @@ object's key.
 
 * [Clusters][concept clusters]
 * [Eventual Consistency][concept eventual consistency]
-* [[Cluster Capacity Planning|Cluster Capacity Planning#Ring-Size-Number-of-Partitions]]
+* [Cluster Capacity Planning][plan cluster capacity]
 
 ## Quorum
 
@@ -188,9 +221,8 @@ Quorum in Riak has two meanings:
   `n_val` / 2 + 1. The default setting is `2`.
 
 * [Eventual Consistency][concept eventual consistency]
-* [[Replication Properties]]
-* [[Understanding Riak's Configurable Behaviors: Part
-  2|http://basho.com/riaks-config-behaviors-part-2/]]
+* [Replication properties][apps replication properties]
+* [Understanding Riak's Configurable Behaviors]
 
 ## Sloppy Quorum
 
@@ -198,7 +230,7 @@ During failure scenarios, in which available nodes < total nodes, sloppy
 quorum is used to ensure that Riak is still available to take writes.
 When a primary node is unavailable, another node will accept its write
 requests. When the node returns, data is transferred to the primary node
-via the [[Hinted Handoff|Riak Glossary#Hinted-Handoff]] process.
+via the [Hinted Handoff](#hinted-handoff) process.
 
 ## Read Repair
 
@@ -206,7 +238,7 @@ Read repair is an anti-entropy mechanism that Riak uses to
 optimistically update stale replicas when they reply to a read request
 with stale data.
 
-* [[More about Read Repair|Replication]]
+* [More about Read Repair][concept replication]
 
 ## Replica
 
@@ -216,32 +248,30 @@ and should be set based on your application's consistency and
 availability requirements.
 
 * [Eventual Consistency][concept eventual consistency]
-* [[Understanding Riak's Configurable Behaviors: Part
-  2|http://basho.com/riaks-config-behaviors-part-2/]]
+* [Understanding Riak's Configurable Behaviors]
 
 ## Riak Core
 
 Riak Core is the modular distributed systems framework that serves as
 the foundation for Riak's scalable architecture.
 
-* [[Riak Core|https://github.com/basho/riak_core]]
-* [[Where To Start With Riak
-  Core|http://basho.com/where-to-start-with-riak-core/]]
+* [Riak Core]
+* [Where To Start With Riak Core]
 
 ## Riak KV
 
 Riak KV is the key/value datastore for Riak.
 
-* [[Riak KV|https://github.com/basho/riak_kv]]
+* [Riak KV]
 
 ## Riak Pipe
 
 Riak Pipe is the processing layer that powers Riak's MapReduce. It's
 best described as "UNIX pipes for Riak."
 
-* [[Riak Pipe|https://github.com/basho/riak_pipe]]
-* [[Riak Pipe - the New MapReduce Power|http://basho.com/riak-pipe-the-new-mapreduce-power/]]
-* [[Riak Pipe - Riak's Distributed Processing Framework|http://vimeo.com/53910999]]
+* [Riak Pipe]
+* [Riak Pipe - the New MapReduce Power]
+* [Riak Pipe - Riak's Distributed Processing Framework]
 
 ## Riak Search
 
@@ -249,8 +279,7 @@ Riak Search is a distributed, scalable, failure-tolerant, realtime,
 full-text search engine integrating [Apache
 Solr](https://lucene.apache.org/solr/) with Riak KV.
 
-* [[Using Search]]
-* [[Search Details]]
+* [Using Search][usage search]
 
 ## Ring
 
@@ -259,28 +288,26 @@ into partitions, each of which is claimed by a vnode, which themselves
 reside on actual physical server nodes.
 
 * [Clusters][concept clusters]
-* [[Dynamo]]
-* [[Cluster Capacity Planning|Cluster Capacity Planning#Ring-Size-Number-of-Partitions]]
+* [Dynamo][learn dynamo]
+* [Cluster Capacity Planning][plan cluster capacity]
 
 ## Secondary Indexing (2i)
 
 Secondary Indexing in Riak gives developers the ability to tag an object
 stored in Riak with one or more values which can then be queried.
 
-* [[Using Secondary Indexes]]
-* [[Advanced Secondary Indexes]]
-* [[Repairing Indexes]]
+* [Using Secondary Indexes][usage secondary-indexes]
+* [Repairing Indexes][repair recover repairs]
 
 ## Strong Consistency
 
-While Riak is most well known as an [[eventually consistent|Eventual
-Consistency]] data storage system, versions of Riak 2.0 and greater
+While Riak is most well known as an [eventually consistent][concept eventual consistency] data storage system, versions of Riak 2.0 and greater
 enable you to apply strong consistency guarantees to some or all of your
 data, thus using Riak as a CP (consistent plus partition-tolerant)
 rather than AP (highly available plus partition-tolerant) system.
 
-* [[Strong Consistency Concept|Strong Consistency]]
-* [[Using Strong Consistency]]
+* [Strong Consistency Concept][concept strong consistency]
+* [Using Strong Consistency][cluster ops strong consistency]
 
 ## Value
 
@@ -291,16 +318,16 @@ JSON object, a text document, etc. Modifying values involves fetching
 the value that exists in Riak and substituting it for a new value;
 operations on values are thus basic CRUD operations.
 
-[[Riak Data Types|Data Types]], added in version 2.0, are an important
+[Riak Data Types][dev data types], added in version 2.0, are an important
 exception to this. While still considered values---because they are
 stored in bucket type/bucket/key locations, like anything in Riak---Riak
 Data Types are not BLOBs and are modified by Data Type-specific
 operations.
 
-* [[Keys and Objects]]
-* [[Developer Basics|The Basics]]
-* [[Data Types]]
-* [[Using Data Types]]
+* [Keys and Objects][concept keys objects]
+* [Key/Value Development][dev kv model]
+* [Data Types][dev data types]
+
 
 ## Vector Clock
 
@@ -314,7 +341,7 @@ that this vector clock can be extended to reflect the update.  Riak can
 then compare vector clocks on different versions of the object and
 determine certain attributes of the data.
 
-* [[Vector clocks]]
+* [Vector clocks][concept causal context vc]
 
 ## Vnode
 
@@ -323,4 +350,4 @@ the Riak Ring, and they coordinate requests for these partitions.
 
 * [vnodes][glossary vnode]
 * [Clusters][concept clusters]
-* [[Dynamo]]
+* [Dynamo][learn dynamo]

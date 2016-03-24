@@ -8,7 +8,7 @@
 [upgrade index]: /riak/kv/2.1.3/upgrading
 [plan index]: /riak/kv/2.1.3/planning
 [config index]: /riak/2.1.3/using/configuring/
-[config reference]: /riak/kv/2.1.3/configuring/reference
+[config reference]: /riak/kv/2.1.3/configuring/reference/
 [manage index]: /riak/kv/2.1.3/using/managing
 [performance index]: /riak/kv/2.1.3/using/performance
 [glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode
@@ -66,11 +66,11 @@
 [config basic]: /riak/kv/2.1.3/configuring/basic
 [config backend]: /riak/kv/2.1.3/configuring/backend
 [config manage]: /riak/kv/2.1.3/configuring/managing
-[config reference]: /riak/kv/2.1.3/configuring/reference
+[config reference]: /riak/kv/2.1.3/configuring/reference/
 [config strong consistency]: /riak/kv/2.1.3/configuring/strong-consistency
 [config load balance]: /riak/kv/2.1.3/configuring/load-balancing-proxy
 [config mapreduce]: /riak/kv/2.1.3/configuring/map-reduce
-[config search]: /riak/kv/2.1.3/configuring/search
+[config search]: /riak/kv/2.1.3/configuring/search/
 
 [config v3 mdc]: /riak/kv/2.1.3/configuring/v3-multi-datacenter
 [config v3 nat]: /riak/kv/2.1.3/configuring/v3-multi-datacenter/nat
@@ -92,18 +92,25 @@
 
 ### Reference
 
+[use ref custom code]: /riak/kv/2.1.3/using/reference/custom-code
 [use ref handoff]: /riak/kv/2.1.3/using/reference/handoff
 [use ref monitoring]: /riak/kv/2.1.3/using/reference/monitoring
-[use ref search 2i]: /riak/kv/2.1.3/using/reference/search-secondary-indexes
+[use ref search]: /riak/kv/2.1.3/using/reference/search
+[use ref 2i]: /riak/kv/2.1.3/using/reference/secondary-indexes
 [use ref snmp]: /riak/kv/2.1.3/using/reference/snmp
+[use ref strong consistency]: /riak/2.1.3/using/reference/strong-consistency
 [use ref jmx]: /riak/kv/2.1.3/using/reference/jmx
+[use ref obj del]: /riak/kv/2.1.3/using/reference/object-deletion/
+[use ref v3 mdc]: /riak/kv/2.1.3/using/reference/v3-multi-datacenter
+[use ref v2 mdc]: /riak/kv/2.1.3/using/reference/v2-multi-datacenter
 
 ### Cluster Admin
 
-[use admin commands]: /riak/kv/2.1.3/using/admin/commands
-[use admin riak cli]: /riak/kv/2.1.3/using/admin/riak-cli
-[use admin riak-admin]: /riak/kv/2.1.3/using/admin/riak-admin
-[use admin riak control]: /riak/kv/2.1.3/using/admin/riak-control
+[use admin index]: /riak/kv/2.1.3/using/admin/
+[use admin commands]: /riak/kv/2.1.3/using/admin/commands/
+[use admin riak cli]: /riak/kv/2.1.3/using/admin/riak-cli/
+[use admin riak-admin]: /riak/kv/2.1.3/using/admin/riak-admin/
+[use admin riak control]: /riak/kv/2.1.3/using/admin/riak-control/
 
 ### Cluster Operations
 
@@ -114,6 +121,7 @@
 [cluster ops bucket types]: /riak/kv/2.1.3/using/cluster-operations/bucket-types
 [cluster ops handoff]: /riak/kv/2.1.3/using/cluster-operations/handoff
 [cluster ops log]: /riak/kv/2.1.3/using/cluster-operations/logging
+[cluster ops obj del]: /riak/kv/2.1.3/using/cluster-operations/object-deletion
 [cluster ops backup]: /riak/kv/2.1.3/using/cluster-operations/backing-up
 [cluster ops mdc]: /riak/kv/2.1.3/using/cluster-operations/multi-datacenter
 [cluster ops strong consistency]: /riak/kv/2.1.3/using/cluster-operations/strong-consistency
@@ -124,35 +132,35 @@
 ### Repair/Recover
 
 [repair recover index]: /riak/kv/2.1.3/repair-recovery
+[repair recover index]: /riak/kv/2.1.3/repair-recovery/failure-recovery/
 
 ### Security
 
 [security index]: /riak/kv/2.1.3/using/security/
 [security basics]: /riak/kv/2.1.3/using/security/basics
-[security managing]: /riak/kv/2.1.3/using/security/managing-sources
+[security managing]: /riak/kv/2.1.3/using/security/managing-sources/
 
 ### Performance
 
-[perf index]: /riak/kv/2.1.3/using/performance
+[perf index]: /riak/kv/2.1.3/using/performance/
 [perf benchmark]: /riak/kv/2.1.3/using/performance/benchmarking
-[perf open files]: /riak/kv/2.1.3/using/performance/open-files-limit
+[perf open files]: /riak/kv/2.1.3/using/performance/open-files-limit/
 [perf erlang]: /riak/kv/2.1.3/using/performance/erlang
 [perf aws]: /riak/kv/2.1.3/using/performance/amazon-web-services
+[perf latency checklist]: /riak/kv/2.1.3/using/performance/latency-reduction-checklist
 
 ### Troubleshooting
 
 [troubleshoot http]: /riak/kv/2.1.3/using/troubleshooting/http-204
-
-### Reference
-
-[using reference strong consistency]: /riak/2.1.3/using/reference/strong-consistency
 
 
 ## Developing
 
 [dev index]: /riak/kv/2.1.3/developing
 [dev client libraries]: /riak/kv/2.1.3/developing/client-libraries
+[dev data model]: /riak/kv/2.1.3/developing/data-modeling
 [dev data types]: /riak/kv/2.1.3/developing/data-types
+[dev kv model]: /riak/kv/2.1.3/developing/key-value-modeling
 
 ### Getting Started
 
@@ -160,33 +168,49 @@
 [getting started java]: /riak/kv/2.1.3/developing/getting-started/java
 [getting started ruby]: /riak/kv/2.1.3/developing/getting-started/ruby
 [getting started python]: /riak/kv/2.1.3/developing/getting-started/python
+[getting started php]: /riak/kv/2.1.3/developing/getting-started/php
 [getting started csharp]: /riak/kv/2.1.3/developing/getting-started/csharp
 [getting started nodejs]: /riak/kv/2.1.3/developing/getting-started/nodejs
 [getting started erlang]: /riak/kv/2.1.3/developing/getting-started/erlang
 [getting started golang]: /riak/kv/2.1.3/developing/getting-started/golang
 
+[obj model java]: /riak/kv/2.1.3/developing/getting-started/java/object-modeling
+[obj model ruby]: /riak/kv/2.1.3/developing/getting-started/ruby/object-modeling
+[obj model python]: /riak/kv/2.1.3/developing/getting-started/python/object-modeling
+[obj model csharp]: /riak/kv/2.1.3/developing/getting-started/csharp/object-modeling
+[obj model nodejs]: /riak/kv/2.1.3/developing/getting-started/nodejs/object-modeling
+[obj model erlang]: /riak/kv/2.1.3/developing/getting-started/erlang/object-modeling
+[obj model golang]: /riak/kv/2.1.3/developing/getting-started/golang/object-modeling
+
 ### Usage
 
-[usage delete objects]: /riak/kv/2.1.3/developing/usage/deleting-objects
+[usage index]: /riak/kv/2.1.3/developing/usage
+[usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types
+[usage commit hooks]: /riak/kv/2.1.3/developing/usage/commit-hooks
+[usage conflict resolution]: /riak/kv/2.1.3/developing/usage/conflict-resolution
 [usage content types]: /riak/kv/2.1.3/developing/usage/content-types
+[usage create objects]: /riak/kv/2.1.3/developing/usage/create-objects
+[usage custom extractors]: /riak/kv/2.1.3/developing/usage/custom-extractors
+[usage delete objects]: /riak/kv/2.1.3/developing/usage/deleting-objects
+[usage mapreduce]: /riak/kv/2.1.3/developing/usage/mapreduce
 [usage search]: /riak/kv/2.1.3/developing/usage/search
 [usage search schema]: /riak/kv/2.1.3/developing/usage/search-schemas
 [usage search data types]: /riak/kv/2.1.3/developing/usage/searching-data-types
-[usage conflict resolution]: /riak/kv/2.1.3/developing/usage/conflict-resolution
-[usage secondary-indexes]: /riak/kv/2.1.3/developing/usage/secondary-indexes
-[usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types
-[usage mapreduce]: /riak/kv/2.1.3/developing/usage/mapreduce
-[usage commit hooks]: /riak/kv/2.1.3/developing/usage/commit-hooks
-[usage custom extractors]: /riak/kv/2.1.3/developing/usage/custom-extractors
+[usage 2i]: /riak/kv/2.1.3/developing/usage/secondary-indexes
+[usage update objects]: /riak/kv/2.1.3/developing/usage/updating-objects
 
 ### App Guide
 
+[apps mapreduce]: /riak/kv/2.1.3/developing/app-guide/advanced-mapreduce
 [apps replication properties]: /riak/kv/2.1.3/developing/app-guide/replication-properties
 [apps strong consistency]: /riak/kv/2.1.3/developing/app-guide/strong-consistency
 
 ### API
 
 [dev api backend]: /riak/kv/2.1.3/developing/api/backend
+[dev api http]: /riak/kv/2.1.3/developing/api/http
+[dev api http status]: /riak/kv/2.1.3/developing/api/http/status
+[dev api pbc]: /riak/kv/2.1.3/developing/api/pbc/
 
 
 ## Learn
@@ -195,21 +219,22 @@
 [learn use cases]: /riak/kv/learn/use-cases
 [learn why riak]: /riak/kv/learn/why-riak-kv
 
-[glossary]: /riak/kv/2.1.3/learn/glossary
+[glossary]: /riak/kv/2.1.3/learn/glossary/
 [glossary aae]: /riak/kv/2.1.3/learn/glossary/#Active-Anti-Entropy-AAE-
+[glossary read rep]: /riak/kv/2.1.3/learn/glossary/#read-repair
 [glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode
 
-[concept aae]: /riak/kv/2.1.3/concepts/active-anti-entropy
-[concept buckets]: /riak/kv/2.1.3/concepts/buckets
-[concept cap neg]: /riak/kv/2.1.3/concepts/capability-negotiation
-[concept causal context]: /riak/kv/2.1.3/concepts/causal-context
-[concept clusters]: /riak/kv/2.1.3/concepts/clusters
-[concept crdts]: /riak/kv/2.1.3/concepts/crdts
-[concept eventual consistency]: /riak/kv/2.1.3/concepts/eventual-consistency
-[concept keys objects]: /riak/kv/2.1.3/concepts/keys-and-objects
-[concept replication]: /riak/kv/2.1.3/concepts/replication
-[concept strong consistency]: /riak/kv/2.1.3/concepts/strong-consistency
-[concept vnodes]: /riak/kv/2.1.3/concepts/vnodes
+[concept aae]: /riak/kv/2.1.3/learn/concepts/active-anti-entropy/
+[concept buckets]: /riak/kv/2.1.3/learn/concepts/buckets
+[concept cap neg]: /riak/kv/2.1.3/learn/concepts/capability-negotiation
+[concept causal context]: /riak/kv/2.1.3/learn/concepts/causal-context
+[concept clusters]: /riak/kv/2.1.3/learn/concepts/clusters/
+[concept crdts]: /riak/kv/2.1.3/learn/concepts/crdts
+[concept eventual consistency]: /riak/kv/2.1.3/learn/concepts/eventual-consistency
+[concept keys objects]: /riak/kv/2.1.3/learn/concepts/keys-and-objects
+[concept replication]: /riak/kv/2.1.3/learn/concepts/replication
+[concept strong consistency]: /riak/kv/2.1.3/learn/concepts/strong-consistency
+[concept vnodes]: /riak/kv/2.1.3/learn/concepts/vnodes
 
 
 

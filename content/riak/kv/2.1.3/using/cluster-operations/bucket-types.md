@@ -25,9 +25,7 @@ the network. In other words, buckets using the <tt>default</tt> bucket
 type are free. More on that in the next section.
 </div>
 
-In Riak versions 2.0 and later, Basho suggests that you [[use bucket
-types|Using Bucket Types]] to namespace and configure all buckets you
-use. Bucket types have a lower overhead within the cluster than the
+In Riak versions 2.0 and later, Basho suggests that you [use bucket types](/riak/kv/2.1.3/developing/usage/bucket-types) to namespace and configure all buckets you use. Bucket types have a lower overhead within the cluster than the
 default bucket namespace but require an additional setup step on the
 command line.
 
