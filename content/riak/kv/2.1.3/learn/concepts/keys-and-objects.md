@@ -14,6 +14,9 @@ aliases:
   - /riak/2.1.3/theory/concepts/keys-and-values
 ---
 
+[concept buckets]: /riak/kv/2.1.3/concepts/buckets
+[concept causal context vc]: /riak/kv/2.1.3/concepts/causal-context/#vector-clocks
+
 In an RDBMS, data is organized by tables that are individually
 identifiable entities. Within those tables exist rows of a data
 organized into columns. It is possible to retrieve or update entire
@@ -30,7 +33,7 @@ Keys in Riak are simply binary values (or strings) used to identify
 Objects. From the perspective of a client interacting with Riak,
 each bucket appears to represent a separate keyspace. It is important
 to understand that Riak treats the bucket-key pair as a single entity
-when performing fetch and store operations (see: [[Buckets]]).
+when performing fetch and store operations (see: [Buckets][concept buckets]).
 
 ## Objects
 
@@ -42,4 +45,4 @@ pair, but when there are more than one, the object is said to have
 "siblings". These siblings may occur both within a single node and
 across multiple nodes, and do occur when either more than one actor
 updates an object, a network partition occurs, or a stale vector clock
-is submitted when updating an object (see: [[Vector Clocks]]).
+is submitted when updating an object (see: [Vector Clocks][concept causal context vc]).
