@@ -17,22 +17,19 @@ aliases:
 [usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types
 [use ref strong consistency]: /riak/2.1.3/using/reference/strong-consistency
 
-<div class="note">
-<div class="title">Note: Riak Search preferred for querying</div>
-If you're interested in non-primary-key-based querying in Riak, i.e. if
+> **Note: Riak Search preferred for querying**
+>
+> If you're interested in non-primary-key-based querying in Riak, i.e. if
 you're looking to go beyond straightforward K/V operations, we now
-recommend [[Riak Search](/riak/kv/2.1.3/developing/usage/search/]] rather than secondary indexes for
-a variety of reasons. Riak Search has a far more capacious querying API
-and can be used with all of Riak's storage backends.
-</div>
+recommend [Riak Search](/riak/kv/2.1.3/developing/usage/search/) rather than secondary indexes for a variety of reasons. Riak Search has a far more capacious querying API and can be used with all of Riak's storage backends.
 
 This document provides implementation and other details for Riak's
-[[secondary indexes](/riak/kv/2.1.3/developing/usage/secondary-indexes/]] \(2i) feature.
+[secondary indexes](/riak/kv/2.1.3/developing/usage/secondary-indexes/) \(2i) feature.
 
 ## How It Works
 
 Secondary indexes use **document-based partitioning**, a system where
-indexes reside with each document, local to the [[vnode|Vnodes]]. This
+indexes reside with each document, local to the [vnode](/riak/kv/2.1.3/learn/glossary/#Vnode). This
 system is also a local index. Secondary indexes are a list of key/value
 pairs that are similar to HTTP headers. At write time, objects are
 tagged with index entries consisting of key/value metadata. This
@@ -60,20 +57,15 @@ that an object will be present in future index queries as soon as the
 write operation completes.
 
 Riak stores 3 replicas of all objects by default, although this can be
-changed [using bucket types][usage bucket types], which manage buckets' [[replication
-properties]]. The system is capable of generating a full set of results
+changed [using bucket types][usage bucket types], which manage buckets' [replication properties](/riak/kv/2.1.3/developing/app-guide/replication-properties). The system is capable of generating a full set of results
 from one third of the system’s partitions as long as it chooses the
 right set of partitions. The query is sent to each partition, the index
 data is read, and a list of keys is generated and then sent back to the
 requesting node.
 
-<div class="note">
-<div class="title">Note on 2i and strong consistency</div>
-Secondary indexes do not currently work with the [strong consistency][use ref strong consistency]
-feature introduced in Riak version 2.0. If you store objects in
-[[strongly consistent buckets|Using Strong
-Consistency#Creating-a-Strongly-Consistent-Bucket-Type]] and attach
+> **Note on 2i and strong consistency**
+>
+> Secondary indexes do not currently work with the [strong consistency][use ref strong consistency] feature introduced in Riak version 2.0. If you store objects in [strongly consistent buckets](/riak/kv/2.1.3/developing/app-guide/strong-consistency/#Creating-a-Strongly-Consistent-Bucket-Type) and attach
 secondary index metadata to those objects, you can still perform
 strongly consistent operations on those objects but the secondary
 indexes will be ignored.
-</div>

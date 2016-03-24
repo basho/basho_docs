@@ -19,8 +19,7 @@ aliases:
 ## Configuring Object Deletion
 
 If step 3 in the process explained above is reached, the `delete_mode`
-setting in your [[configuration files|Configuration
-Files#advanced-configuration]] will determine what happens next. This
+setting in your [configuration files](/riak/kv/2.1.3/configuring/reference/#advanced-configuration) will determine what happens next. This
 setting determines how long Riak will wait after identifying an object
 for deletion and actually removing the object from the storage backend.
 
@@ -41,12 +40,11 @@ frequently.
 
 Setting `delete_mode` to `immediate` can be useful in situations in
 which an aggressive space reclamation process is necessary, such as
-when running [[MapReduce jobs](/riak/kv/2.1.3/developing/usage/mapreduce/]], but we do not recommend
+when running [MapReduce jobs](/riak/kv/2.1.3/developing/usage/mapreduce/), but we do not recommend
 this in general.
 
 Setting `delete_mode` to a longer time duration than the default can be
-useful in certain edge cases involving [[Multi-Datacenter
-Replication](/riak/kv/2.1.3/setup/planning/backend/multi) Data Center Replication v3 Architecture]], e.g. when
+useful in certain edge cases involving [Multi-Datacenter Replication](/riak/kv/2.1.3/using/cluster-operations/v3-multi-datacenter), e.g. when
 network connectivity is an issue.
 
 Please note that there is an edge case where tombstones will remain

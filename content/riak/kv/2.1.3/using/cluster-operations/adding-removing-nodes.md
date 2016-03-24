@@ -23,7 +23,7 @@ Just like the initial configuration steps, this step has to be repeated
 for every node in your cluster. Before a node can join an existing
 cluster it needs to be started. Depending on your mode of installation,
 use either the init scripts installed by the Riak binary packages or
-simply the script `[[riak|riak Command Line]]`:
+simply the script [`riak`](/riak/kv/2.1.3/using/admin/riak-cli/):
 
 ```bash
 /etc/init.d/riak start

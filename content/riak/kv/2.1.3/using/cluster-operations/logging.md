@@ -14,9 +14,7 @@ toc: true
 
 If you'd like to enable debug logging on the current node, i.e. set the
 console log level to `debug`, you can do so without restarting the node
-by accessing the Erlang console directly using the `[[riak attach|riak
-Command Line#attach]]` command. Once you run this command and drop into
-the console, enter the following:
+by accessing the Erlang console directly using the [`riak attach`](/riak/kv/2.1.3/using/admin/riak-cli/#attach) command. Once you run this command and drop into the console, enter the following:
 
 ```erlang
 lager:set_loglevel(lager_file_backend, "/var/log/riak/console.log", debug).
@@ -25,7 +23,7 @@ lager:set_loglevel(lager_file_backend, "/var/log/riak/console.log", debug).
 You should replace the file location above (`/var/log/riak/console.log`)
 with your platform-specific location, e.g. `./log/console.log` for a
 source installation. This location is specified by the
-`log.console.file` parameter explained [[above|Logging#Console-Logs]].
+`log.console.file` parameter explained above.
 
 If you'd like to enable debug logging on _all_ nodes instead of just one
 node, you can enter the Erlang console of any running by running `riak

@@ -100,7 +100,7 @@ riak ertspath
 
 ## chkconfig
 
-Checks whether the [[configuration file|Configuration Files]] is valid. If so, `config is OK` will be included in the output.
+Checks whether the [configuration file](/riak/kv/2.1.3/configuring/reference/) is valid. If so, `config is OK` will be included in the output.
 
 ```bash
 riak chkconfig
@@ -138,11 +138,11 @@ The `riak top` command is the direct equivalent of `riak-admin top`:
 riak top [-interval N] [-sort { reductions | memory | msg_q }] [-lines N] }
 ```
 
-More detailed information can be found in the `[[riak-admin|riak-admin Command Line#top]]` documentation.
+More detailed information can be found in the [`riak-admin`](/riak/kv/2.1.3/using/admin/riak-admin/#top) documentation.
 
 ## config
 
-Provides information about the current [[configuration|Configuration Files]] of a Riak node, i.e. the parameters and values in the node's `riak.conf` or `app.config` (depending on which configuration system is being used).
+Provides information about the current [configuration](/riak/kv/2.1.3/configuring/reference/) of a Riak node, i.e. the parameters and values in the node's `riak.conf` or `app.config` (depending on which configuration system is being used).
 
 ```bash
 riak config { effective | describe VARIABLE }

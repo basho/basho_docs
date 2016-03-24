@@ -39,9 +39,7 @@ back up the data, ring, and configuration directories of your nodes.
 Due to Riak's eventually consistent nature, backups can become slightly
 inconsistent from node to node. Data could exist on some nodes and not
 others at the exact time a backup is made. Any inconsistency will be
-corrected once a backup is restored, either by Riak's [[active
-anti-entropy]] processes or when the object is read, via [[read
-repair|Active Anti-Entropy#Read-Repair-vs-Active-Anti-Entropy]].
+corrected once a backup is restored, either by Riak's [active anti-entropy](/riak/kv/2.1.3/learn/concepts/active-anti-entropy/) processes or when the object is read, via [read repair](/riak/kv/2.1.3/learn/concepts/active-anti-entropy/#Read-Repair-vs-Active-Anti-Entropy).
 
 Additionally, backups must be performed on a stopped node to prevent
 data loss as a result of the background merging and compaction processes
@@ -129,24 +127,18 @@ Ring | `/opt/riak/ring`
 Configuration | `/opt/riak/etc`
 Strong consistency | `/opt/riak/data/ensembles`
 
-<div class="note">
-<div class="title">Note on strong consistency directories</div>
-The listings above show directories for data related to Riak's
-[strong consistency][use ref strong consistency] feature. This feature is purely optional, so
-<code>/ensembles</code> directories will not exist in your installation
-if this feature is not being used. For more information, see [[Using
-Strong Consistency]] and [[Managing Strong Consistency]].
-</div>
+> **Note on strong consistency directories**
+>
+> The listings above show directories for data related to Riak's
+[strong consistency][use ref strong consistency] feature. This feature is purely optional, so `/ensembles` directories will not exist in your installation if this feature is not being used. For more information, see [Using Strong Consistency](/riak/kv/2.1.3/developing/app-guide/strong-consistency) and [Managing Strong Consistency](/riak/kv/2.1.3/using/cluster-operations/strong-consistency).
 
 ## Performing Backups
 
-<div class="note">
-<div class="title">Deprecation notice</div>
-In previous versions of Riak, there was a `[[riak-admin
-backup|riak-admin Command Line#backup]]` command commonly used for
+> **Deprecation notice**
+>
+> In previous versions of Riak, there was a [`riak-admin backup`](/riak/kv/2.1.3/using/admin/riak-admin/#backup) command commonly used for
 backups. This functionality is now deprecated. We strongly recommend
 using the backup procedure documented below instead.
-</div>
 
 Backups of both Bitcask and LevelDB can be accomplished through a
 variety of common methods. Standard utilities such `cp`, `rsync`, and
@@ -216,20 +208,18 @@ node that the restored backup was taken from, you will need to
 additionally:
 
 1. Mark the original instance down in the cluster using
-   `[[riak-admin down <node>|riak-admin Command Line#down]]`
+   [`riak-admin down <node>`](/riak/kv/2.1.3/using/admin/riak-admin/#down)
 2. Join the restored node to the cluster using
-   `[[riak-admin cluster join <node>|riak-admin Command Line#cluster-join]]`
+   [`riak-admin cluster join <node>`](/riak/kv/2.1.3/using/admin/riak-admin/#cluster-join)
 3. Replace the original instance with the renamed instance with
-   `[[riak-admin cluster force-replace <node1> <node2>|riak-admin
-   Command Line#cluster-force-replace]]`
+   [`riak-admin cluster force-replace <node1> <node2>`](/riak/kv/2.1.3/using/admin/riak-admin/#cluster-force-replace)
 4. Plan the changes to the cluster with `riak-admin cluster plan`
 5. Finally, commit the cluster changes with `riak-admin cluster commit`
 
-<div class="note">
-<div class="title">Further information</div>
-For more information on the <code>riak-admin cluster</code> commands,
-refer to our documentation on [[cluster administration]].
-</div>
+> **Further information**
+>
+> For more information on the `riak-admin cluster` commands,
+refer to our documentation on [cluster administration](/riak/kv/2.1.3/using/admin/).
 
 For example, if there are five nodes in the cluster with the original
 node names `riak1.example.com` through `riak5.example.com` and you wish
@@ -298,5 +288,4 @@ have the correct names.
 
 ## Restoring a Cluster
 
-Restoring a cluster from backups is documented [[on its own page|Failure
-and Recovery#Cluster-Recovery-From-Backups]].
+Restoring a cluster from backups is documented [on its own page](/riak/kv/2.1.3/repair-recovery/failure-recovery/#Cluster-Recovery-From-Backups).

@@ -8,7 +8,7 @@
 [upgrade index]: /riak/kv/2.1.3/upgrading
 [plan index]: /riak/kv/2.1.3/planning
 [config index]: /riak/2.1.3/using/configuring/
-[config reference]: /riak/kv/2.1.3/configuring/reference
+[config reference]: /riak/kv/2.1.3/configuring/reference/
 [manage index]: /riak/kv/2.1.3/using/managing
 [performance index]: /riak/kv/2.1.3/using/performance
 [glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode
@@ -66,11 +66,11 @@
 [config basic]: /riak/kv/2.1.3/configuring/basic
 [config backend]: /riak/kv/2.1.3/configuring/backend
 [config manage]: /riak/kv/2.1.3/configuring/managing
-[config reference]: /riak/kv/2.1.3/configuring/reference
+[config reference]: /riak/kv/2.1.3/configuring/reference/
 [config strong consistency]: /riak/kv/2.1.3/configuring/strong-consistency
 [config load balance]: /riak/kv/2.1.3/configuring/load-balancing-proxy
 [config mapreduce]: /riak/kv/2.1.3/configuring/map-reduce
-[config search]: /riak/kv/2.1.3/configuring/search
+[config search]: /riak/kv/2.1.3/configuring/search/
 
 [config v3 mdc]: /riak/kv/2.1.3/configuring/v3-multi-datacenter
 [config v3 nat]: /riak/kv/2.1.3/configuring/v3-multi-datacenter/nat
@@ -101,13 +101,16 @@
 [use ref strong consistency]: /riak/2.1.3/using/reference/strong-consistency
 [use ref jmx]: /riak/kv/2.1.3/using/reference/jmx
 [use ref obj del]: /riak/kv/2.1.3/using/reference/object-deletion/
+[use ref v3 mdc]: /riak/kv/2.1.3/using/reference/v3-multi-datacenter
+[use ref v2 mdc]: /riak/kv/2.1.3/using/reference/v2-multi-datacenter
 
 ### Cluster Admin
 
-[use admin commands]: /riak/kv/2.1.3/using/admin/commands
-[use admin riak cli]: /riak/kv/2.1.3/using/admin/riak-cli
-[use admin riak-admin]: /riak/kv/2.1.3/using/admin/riak-admin
-[use admin riak control]: /riak/kv/2.1.3/using/admin/riak-control
+[use admin index]: /riak/kv/2.1.3/using/admin/
+[use admin commands]: /riak/kv/2.1.3/using/admin/commands/
+[use admin riak cli]: /riak/kv/2.1.3/using/admin/riak-cli/
+[use admin riak-admin]: /riak/kv/2.1.3/using/admin/riak-admin/
+[use admin riak control]: /riak/kv/2.1.3/using/admin/riak-control/
 
 ### Cluster Operations
 
@@ -129,6 +132,7 @@
 ### Repair/Recover
 
 [repair recover index]: /riak/kv/2.1.3/repair-recovery
+[repair recover index]: /riak/kv/2.1.3/repair-recovery/failure-recovery/
 
 ### Security
 
@@ -138,11 +142,12 @@
 
 ### Performance
 
-[perf index]: /riak/kv/2.1.3/using/performance
+[perf index]: /riak/kv/2.1.3/using/performance/
 [perf benchmark]: /riak/kv/2.1.3/using/performance/benchmarking
-[perf open files]: /riak/kv/2.1.3/using/performance/open-files-limit
+[perf open files]: /riak/kv/2.1.3/using/performance/open-files-limit/
 [perf erlang]: /riak/kv/2.1.3/using/performance/erlang
 [perf aws]: /riak/kv/2.1.3/using/performance/amazon-web-services
+[perf latency checklist]: /riak/kv/2.1.3/using/performance/latency-reduction-checklist
 
 ### Troubleshooting
 
@@ -204,6 +209,8 @@
 
 [dev api backend]: /riak/kv/2.1.3/developing/api/backend
 [dev api http]: /riak/kv/2.1.3/developing/api/http
+[dev api http status]: /riak/kv/2.1.3/developing/api/http/status
+[dev api pbc]: /riak/kv/2.1.3/developing/api/pbc/
 
 
 ## Learn
@@ -212,16 +219,16 @@
 [learn use cases]: /riak/kv/learn/use-cases
 [learn why riak]: /riak/kv/learn/why-riak-kv
 
-[glossary]: /riak/kv/2.1.3/learn/glossary
+[glossary]: /riak/kv/2.1.3/learn/glossary/
 [glossary aae]: /riak/kv/2.1.3/learn/glossary/#Active-Anti-Entropy-AAE-
 [glossary read rep]: /riak/kv/2.1.3/learn/glossary/#read-repair
 [glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode
 
-[concept aae]: /riak/kv/2.1.3/learn/concepts/active-anti-entropy
+[concept aae]: /riak/kv/2.1.3/learn/concepts/active-anti-entropy/
 [concept buckets]: /riak/kv/2.1.3/learn/concepts/buckets
 [concept cap neg]: /riak/kv/2.1.3/learn/concepts/capability-negotiation
 [concept causal context]: /riak/kv/2.1.3/learn/concepts/causal-context
-[concept clusters]: /riak/kv/2.1.3/learn/concepts/clusters
+[concept clusters]: /riak/kv/2.1.3/learn/concepts/clusters/
 [concept crdts]: /riak/kv/2.1.3/learn/concepts/crdts
 [concept eventual consistency]: /riak/kv/2.1.3/learn/concepts/eventual-consistency
 [concept keys objects]: /riak/kv/2.1.3/learn/concepts/keys-and-objects

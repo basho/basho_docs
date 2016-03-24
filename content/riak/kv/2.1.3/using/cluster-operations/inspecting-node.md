@@ -367,8 +367,7 @@ available in the Riaknostic Github repository.
 
 ## Strong Consistency Stats
 
-Riak tabulates a variety of stats related to Riak's optional [[strong
-consistency]] feature. The table below lists those stats.
+Riak tabulates a variety of stats related to Riak's optional [strong consistency](/riak/2.1.3/using/reference/strong-consistency) feature. The table below lists those stats.
 
 ### GET-related stats
 
@@ -503,7 +502,6 @@ you, but here's how to set them:
 
 ## Related Resources
 
-* [[The riak-admin configuration management tool|riak-admin Command
-  Line]]
+* [The riak-admin configuration management tool](/riak/kv/2.1.3/using/admin/riak-admin/)
 * [Riaknostic](http://riaknostic.basho.com/)
-* [[HTTP API Status|HTTP Status]]
+* [HTTP API Status](/riak/kv/2.1.3/developing/api/http/status/)

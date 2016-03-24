@@ -142,7 +142,7 @@ list of target tuples, a search index, or modfun tuple: `INPUT`.
 
 For the remaining common error codes, they are often marked by Erlang
 atoms (and quite often wrapped within an `{error,{badmatch,{...` tuple,
-as described in the [[Error|Common Errors#Erlang-Errors]] section
+as described in the [Error](#Erlang-Errors) section
 above). This table lays out those terse error codes and related log
 messages, if they exist.
 
@@ -326,7 +326,7 @@ enif_send: env==NULL on non-SMP VM/usr/lib/riak/lib/os_mon-2.2.9/priv/bin/memsup
 exit with reason bad return value: {error,eaddrinuse} in context start_error | An error like this example can occur when another process is already bound to the same address as the process being started is attempting to bind to. Use operating system tools like `netstat`, `ps`, and `lsof` to determine the root cause for resolving this kind of errors; check for existence of stale  `beam.smp` processes.
 exited with reason: eaddrnotavail in gen_server:init_it/6 line 320 | An error like this example can result when Riak cannot bind to the addresses specified in the configuration. In this case, you should verify HTTP and Protocol Buffers addresses in `app.config` and ensure that the ports being used are not in the privileged (1-1024) range as the `riak` user will not have access to such ports.
 gen_server riak_core_capability terminated with reason: no function clause matching orddict:fetch('riak@192.168.2.2', []) line 72 | Error output like this example can indicate that a previously running Riak node with an original `-name` value in `vm.args` has been modified by simply changing the value in `vm.args` and not properly through `riak-admin cluster replace`.
-** Configuration error: [FRAMEWORK-MIB]: missing context.conf file => generating a default file | This error is commonly encountered when starting Riak Enterprise without prior [[SNMP]] configuration.
+** Configuration error: [FRAMEWORK-MIB]: missing context.conf file => generating a default file | This error is commonly encountered when starting Riak Enterprise without prior [SNMP](/riak/kv/2.1.3/using/reference/snmp) configuration.
 RPC to 'node@example.com' failed: {'EXIT', {badarg, [{ets,lookup, [schema_table,<<"search-example">>], []} {riak_search_config,get_schema,1, [{file,"src/riak_search_config.erl"}, {line,69}]} ...| This error can be caused when attempting to use Riak Search without first enabling it in each node's `app.config`. See the [configuration files][config reference] documentation for more information on enabling Riak Search.
 
 

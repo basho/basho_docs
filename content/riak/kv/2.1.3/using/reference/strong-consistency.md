@@ -15,8 +15,7 @@ toc: true
 [usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types
 [concept eventual consistency]: /riak/kv/2.1.3/learn/concepts/eventual-consistency
 
-Riak was originally designed as an [[eventually consistent|Eventual
-Consistency]] system, fundamentally geared toward providing partition
+Riak was originally designed as an [eventually consistent](/riak/kv/2.1.3/learn/concepts/eventual-consistency) system, fundamentally geared toward providing partition
 (i.e. fault) tolerance and high read and write availability.
 
 While this focus on high availability is a great fit for many data
@@ -27,9 +26,7 @@ In Riak, strong consistency is applied [using bucket types][usage bucket types],
 enables developers to apply strong consistency guarantees on a per-key
 basis.
 
-Elsewhere in the documentation there are instructions for [[enabling
-and using](/riak/kv/2.1.3/developing/app-guide/strong-consistency/]] strong consistency, as well as a
-[[guide for operators|Managing Strong Consistency]] looking to manage,
+Elsewhere in the documentation there are instructions for [enabling and using](/riak/kv/2.1.3/developing/app-guide/strong-consistency/) strong consistency, as well as a [guide for operators](/riak/kv/2.1.3/configuring/strong-consistency) looking to manage,
 configure, and monitor strong consistency.
 
 ## Strong vs. Eventual Consistency
@@ -38,8 +35,7 @@ If you successfully write a value to a key in a strongly consistent
 system, the next successful read of that key is guaranteed to show that
 write. A client will never see out-of-date values. The drawback is that
 some operations may fail if an insufficient number of object replicas
-are available. More on this in the section on [[trade-offs|Strong
-Consistency#Trade-offs]].
+are available. More on this in the section on [trade-offs](#Trade-offs).
 
 In an eventually consistent system, on the other hand, a read may return
 an out-of-date value, particularly during system or network failures.
@@ -138,15 +134,12 @@ tolerance. Consistent operations can still succeed when a minority of
 replicas in each ensemble can be offline, faulty, or unreachable. In
 other words, **strongly consistent operations will succeed as long as
 quorum is maintained**. A fuller discussion can be found in the
-[[operations|Managing Strong Consistency#Fault-Tolerance]]
+[operations](/riak/kv/2.1.3/configuring/strong-consistency/#Fault-Tolerance)
 documentation.
 
 A second trade-off regards performance. Riak's implementation of strong
-consistency involves a complex [[consensus subsystem|Strong
-Consistency#Implementation-Details]] that typically requires more
-communication between Riak nodes than eventually consistent operations,
+consistency involves a complex [consensus subsystem](/riak/kv/2.1.3/learn/concepts/strong-consistency/#Implementation-Details) that typically requires more communication between Riak nodes than eventually consistent operations,
 which can entail a performance hit of varying proportions, depending on
 a variety of factors.
 
-Ways to address this issue can be found in [[strong consistency and
-performance|Managing Strong Consistency#Performance]].
+Ways to address this issue can be found in [strong consistency and performance](/riak/kv/2.1.3/configuring/strong-consistency/#Performance).

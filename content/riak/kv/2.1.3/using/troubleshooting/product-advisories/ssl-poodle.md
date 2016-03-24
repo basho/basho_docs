@@ -74,9 +74,7 @@ appropriate directory for that system:
 (**541b4a78044808b70b871a0897013b82**)
 1. Start the node
 
-To verify that the patch has been installed properly, run the `[[riak
-attach|riak Command Line#attach]]` command (or `[[riak-cs attach|Riak CS
-Command-line Tools#riak-cs]]`).
+To verify that the patch has been installed properly, run the [`riak attach`](/riak/kv/2.1.3/using/admin/riak-cli/#attach) command (or [`riak-cs attach`](/riak/cs/2.1.1/cookbooks/command-line-tools/#riak-cs)).
 
 Once you have entered the Erlang shell, run `m(ssl_record).` (be sure
 to include the trailing period).

@@ -102,7 +102,7 @@ you’re usually logging in with to do any kind of work on the machine,
 including managing Riak. On CentOS, `sudo` properly inherits the values
 from the executing user.
 
-Reference: [[http://www.cyberciti.biz/faq/linux-increase-the-maximum-number-of-open-files/]]
+[Reference](http://www.cyberciti.biz/faq/linux-increase-the-maximum-number-of-open-files/)
 
 ### Enable PAM-Based Limits for Debian & Ubuntu
 
@@ -185,7 +185,7 @@ increase the per-process limit on Solaris, add the following line to
 set rlim_fd_max=65536
 ```
 
-Reference: [[http://blogs.oracle.com/elving/entry/too_many_open_files]]
+[Reference](http://blogs.oracle.com/elving/entry/too_many_open_files)
 
 ## Mac OS X
 

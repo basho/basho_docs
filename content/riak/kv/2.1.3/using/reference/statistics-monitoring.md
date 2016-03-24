@@ -16,16 +16,13 @@ aliases:
 
 Riak provides data related to current operating status, which includes
 statistics in the form of counters and histograms. These statistics
-are made available through the HTTP API via the `[[/stats|HTTP
-Status]]` endpoint, or through the `[[riak-admin|riak-admin Command
-Line]]` interface, in particular the `stat` and `status` commands.
+are made available through the HTTP API via the [`/stats`](/riak/kv/2.1.3/developing/api/http/status) endpoint, or through the [`riak-admin`](/riak/kv/2.1.3/using/admin/riak-admin/) interface, in particular the `stat` and `status` commands.
 
 This page presents the most commonly monitored and gathered
 statistics, as well as numerous solutions for monitoring and gathering
 statistics that our customers and community report using successfully
 in Riak cluster environments. You can learn more about the specific
-Riak statistics provided in the [[Inspecting a Node]] and [[HTTP
-Status]] documentation.
+Riak statistics provided in the [Inspecting a Node](/riak/kv/2.1.3/using/cluster-operations/inspecting-node) and [HTTP Status](/riak/kv/2.1.3/developing/api/http/status) documentation.
 
 ## System Metrics To Graph
 
@@ -49,8 +46,7 @@ We also recommend tracking your system's virtual and
 writebacks. Things like massive flushes of dirty pages or steadily
 climbing writeback volumes can indicate poor virtual memory tuning.
 More information can be found [here][sysctl_vm_txt] and in our
-documentation on [[system tuning|System Performance
-Tuning#Storage-and-File-System-Tuning]].
+documentation on [system tuning](/riak/kv/2.1.3/using/performance/#Storage-and-File-System-Tuning).
 
 ## Riak Metrics to Graph
 Riak metrics fall into several general categories:
@@ -60,7 +56,7 @@ Riak metrics fall into several general categories:
 3. Erlang resource usage metrics
 4. General Riak load/health metrics
 
-If graphing all of the [[available Riak metrics|Inspecting a Node]] is
+If graphing all of the [available Riak metrics](/riak/kv/2.1.3/using/cluster-operations/inspecting-node) is
 not practical, you should pick a minimum relevant subset from these
 categories. Some of the most helpful metrics are discussed below.
 
@@ -148,7 +144,7 @@ Metric | Also | Notes
 
 ## Command-line Interface
 
-The `[[riak-admin|riak-admin Command Line]]` tool provides two
+The [`riak-admin`](/riak/kv/2.1.3/using/admin/riak-admin/) tool provides two
 interfaces for retrieving statistics and other information: `status`
 and `stat`.
 
@@ -173,14 +169,14 @@ consistent_get_objsize_195 : 0
 ```
 
 A comprehensive list of available stats can be found in the
-[[Inspecting a Node|Inspecting a Node#riak-admin-status]] document.
+[Inspecting a Node](/riak/kv/2.1.3/using/cluster-operations/inspecting-node/#riak-admin-status) document.
 
 ### stat
 
 The `riak-admin stat` command is related to the `riak-admin status`
 command but provides a more fine-grained interface for interacting with
 stats and information. Full documentation of this command can be found
-in the [[Inspecting a Node|Inspecting a Node#riak-admin-stat]] document.
+in the [Inspecting a Node](/riak/kv/2.1.3/using/cluster-operations/inspecting-node/#riak-admin-stat) document.
 
 ## Statistics and Monitoring Tools
 
@@ -225,7 +221,7 @@ troubleshooting issues on Riak nodes.
 
 #### Riak Control
 
-[[Riak Control]] is Basho's REST-driven user-interface for managing Riak
+[Riak Control](/riak/kv/2.1.3/using/admin/riak-control/) is Basho's REST-driven user-interface for managing Riak
 clusters. It is designed to give you quick insight into the health of
 your cluster and allow for easy management of nodes.
 
@@ -249,7 +245,7 @@ clusters and grids. Customers and community members using Riak have
 reported success in using Ganglia to monitor Riak clusters.
 
 A [Riak Ganglia module][riak_ganglia] for collecting statistics from
-the Riak HTTP `[[/stats|HTTP Status]]` endpoint is also available.
+the Riak HTTP [`/stats`](/riak/kv/2.1.3/developing/api/http/status) endpoint is also available.
 
 #### Nagios
 
@@ -323,15 +319,14 @@ capacity planning in a Riak cluster environment.
 that can provide information on the current and past states of Riak nodes and
 visualizations of machine generated data such as log files.
 
-A [Riak New Relic Agent][riak_new_relic] for collecting statistics from the Riak
-HTTP `[[/stats|HTTP Status]]` endpoint is also available.
+A [Riak New Relic Agent][riak_new_relic] for collecting statistics from the Riak HTTP [`/stats`](/riak/kv/2.1.3/developing/api/http/status) endpoint is also available.
 
 #### Splunk
 
 [Splunk](http://www.splunk.com) is available as downloadable software or
 as a service, and provides tools for visualization of machine generated
 data such as log files. It can be connected to Riak's HTTP statistics
-`[[/stats|HTTP Status]]` endpoint.
+[`/stats`](/riak/kv/2.1.3/developing/api/http/status) endpoint.
 
 Splunk can be used to aggregate all Riak cluster node operational log
 files, including operating system and Riak-specific logs and Riak
@@ -353,9 +348,9 @@ Docs](https://github.com/basho/basho_docs).
 
 ## References
 
-* [[Inspecting a Node]]
+* [Inspecting a Node](/riak/kv/2.1.3/using/cluster-operations/inspecting-node)
 * [Riaknostic](http://riaknostic.basho.com)
-* [[Riak Control]]
+* [Riak Control](/riak/kv/2.1.3/using/admin/riak-control/)
 * [collectd](http://collectd.org)
 * [Ganglia](http://ganglia.info)
 * [Nagios](http://www.nagios.org)

@@ -35,8 +35,7 @@ You will need:
     Riak for resources.
 2. The [R statistics language](http://www.r-project.org/) must be
     installed (somewhere available to you) if you wish to generate
-    graphs (see the [[Generating Benchmark Graphs|Basho
-    Bench#Generating-Benchmark-Graphs]] section, below).
+    graphs (see the [Generating Benchmark Graphs](#Generating-Benchmark-Graphs) section, below).
 
 ### Download ```basho_bench```
 
@@ -51,7 +50,7 @@ You can download the pre-built packages below, or build it from source.
 
 #### Prerequisites
 
-* Erlang must be installed. See [[Installing Erlang]] for instructions
+* Erlang must be installed. See [Installing Erlang](/riak/kv/2.1.3/setup/installing/source/erlang) for instructions
     and versioning requirements. Note: Unless you're an experienced
     Erlang developer, we recommend that you use Ubuntu 14.04 LTS (and
     not CentOS), when building ```basho_bench``` from source.  Later
@@ -100,7 +99,7 @@ current directory):
 This will generate results in `tests/current/`. You will need to
 create a configuration file. The recommended approach is to start from
 a file in the `examples` directory and modify settings using the
-[[Configuration|Basho Bench#Configuration]] section below for
+[Configuration](#Configuration) section below for
 reference.
 
 ## Generating Benchmark Graphs
@@ -130,8 +129,8 @@ sudo apt-get install r-base
 
 #### Installing R on Other Platforms
 
--   More information: [[http://www.r-project.org/]]
--   Download R: [[http://cran.r-project.org/mirrors.html]]
+-   [More information](http://www.r-project.org/)
+-   [Download R](http://cran.r-project.org/mirrors.html)
 
 Follow the instructions for your platform to install R.
 
@@ -166,8 +165,7 @@ priv/summary.r -i tests/current
 
 ### Troubleshooting Graph Generation
 
-For additional help, see the [[Troubleshooting Graph
-Generation|https://github.com/basho/basho_bench#troubleshooting-graph-generation]]
+For additional help, see the [Troubleshooting Graph Generation](https://github.com/basho/basho_bench#troubleshooting-graph-generation)
 section of the ```basho_bench/README```.
 
 ## How does it work?
@@ -185,15 +183,12 @@ During test setup, Basho Bench creates the following:
     regular intervals, the histograms are dumped to `summary.csv` as
     well as operation-specific latency CSVs (e.g. `put_latencies.csv`
     for the PUT operation).
-* N **workers**, where N is specified by the [[concurrent|Basho
-    Bench#concurrent]] configuration setting
+* N **workers**, where N is specified by the [concurrent](#concurrent) configuration setting
     (`basho_bench_worker.erl`). The worker process wraps a driver
-    module, specified by the [[driver|Basho Bench#driver]]
+    module, specified by the [driver](#driver)
     configuration setting. The driver is randomly invoked using the
-    distribution of operations as specified by the [[operations|Basho
-    Bench#operations]] configuration setting. The rate at which the
-    driver invokes operations is governed by the [[mode|Basho
-    Bench#mode]] setting.
+    distribution of operations as specified by the [operations](#operations) configuration setting. The rate at which the
+    driver invokes operations is governed by the [mode](#mode) setting.
 
 Once these processes have been created and initialized, Basho Bench
 sends a run command to all worker processes, causing them to begin the
