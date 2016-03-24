@@ -18,17 +18,11 @@ aliases:
 This tutorial shows you how to set up a Riak Ruby client to authenticate
 itself when connecting to Riak.
 
-If you are using [[trust-|Managing Security Sources]] or [[PAM|Managing
-Security Sources#PAM-based-authentication]]-based authentication, you
-can use the security setup described in the [[Ruby Client
-Basics|Client-side Security: Ruby#Ruby-Client-Basics]] section.
-[[Password|Managing Security
-Sources#Password-based-Authentication]]-based authentication is covered
-in a [[later section|Client-side Security:
-Ruby#Password-based-Authentication]], while [[certificate|Managing
-Security Sources#Certificate-based-Authentication]]-based authentication
-is covered [[further down|Client-side Security:
-Ruby#Certificate-Based-Authentication]].
+If you are using [trust-](/riak/kv/2.1.3/using/security/managing-sources/) or [PAM](/riak/kv/2.1.3/using/security/managing-sources/#PAM-based-authentication)-based authentication, you
+can use the security setup described in the [Ruby Client Basics](#Ruby-Client-Basics) section.
+[Password](/riak/kv/2.1.3/using/security/managing-sources/#Password-based-Authentication)-based authentication is covered
+in a [later section](#Password-based-Authentication), while [certificate](/riak/kv/2.1.3/using/security/managing-sources/#Certificate-based-Authentication)-based authentication
+is covered [further down](#Certificate-Based-Authentication).
 
 <div class="note">
 <div class="title">Note on certificate generation</div>
@@ -49,9 +43,7 @@ needs to be used can be passed to the object upon instantiation in an
 
 If you are using Riak Security, _all_ connecting clients should have
 access to the same Certificate Authority (CA) used on the server side,
-regardless of which [[security source|Managing Security Sources]] you
-choose. All clients should also provide a username. The example below
-sets up a client object (we'll simply call it `client`) that connects
+regardless of which [security source](/riak/kv/2.1.3/using/security/managing-sources/) you choose. All clients should also provide a username. The example below sets up a client object (we'll simply call it `client`) that connects
 to Riak on `localhost` and on port 8087, specifies `riakuser` as a
 username, and points the client to a CA located at
 `/ssl_dir/cacertfile.pem`.
@@ -72,8 +64,7 @@ client = Riak::Client.new(
 This client object is currently not set up to use any of the available
 security sources, except trust-based auth, provided that the CIDR from
 which the client is connecting has been specified as trusted. More on
-this in [[Trust-based Authentication|Managing Security
-Sources#Trust-based-Authentication]].
+this in [Trust-based Authentication](/riak/kv/2.1.3/using/security/managing-sources/#Trust-based-Authentication).
 
 ## Password-based Authentication
 
@@ -96,11 +87,10 @@ client = Riak::Client.new(
 ## PAM-based Authentication
 
 If you have specified that a specific client be authenticated using
-[[PAM|Managing Security Sources#PAM-based-Authentication]], you will
+[PAM](/riak/kv/2.1.3/using/security/managing-sources/#PAM-based-Authentication), you will
 need to provide a CA as well as the username and password that you
 specified when creating the user in Riak. For more, see our
-documentation on [[User Management|Authentication and
-Authorization#User-Management]].
+documentation on [User Management](/riak/kv/2.1.3/using/security/basics#User-Management).
 
 
 ## Certificate-based Authentication

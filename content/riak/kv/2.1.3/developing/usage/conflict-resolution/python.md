@@ -50,8 +50,7 @@ below.
 Let's say that we're building a social network application and storing
 lists of usernames representing each user's "friends." Each user will
 be of the class `User`, which we'll create below. All of the data for our
-application will be stored in buckets that bear the [[bucket type|Using
-Bucket Types]] `siblings`, and for this bucket type `allow_mult` is set
+application will be stored in buckets that bear the [bucket type](/riak/kv/2.1.3/developing/usage/bucket-types) `siblings`, and for this bucket type `allow_mult` is set
 to `true`, which means that Riak will generate siblings in certain
 cases---siblings that our application will need to be equipped to
 resolve when necessary.

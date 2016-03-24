@@ -14,55 +14,49 @@ aliases:
   - /riak/2.1.3/dev/advanced/client-security
 ---
 
-Versions of Riak 2.0 and later come equipped with a [[security
-subsystem|Authentication and Authorization]] that enables you to choose
+Versions of Riak 2.0 and later come equipped with a [security subsystem](/riak/kv/2.1.3/using/security/basics) that enables you to choose
 
 * which Riak users/clients are authorized to perform a wide variety of
   Riak operations, and
 * how those users/clients are required to authenticate themselves.
 
-The following four authentication mechanisms, aka [[security
-sources|Managing Security Sources]] are available:
+The following four authentication mechanisms, aka [security sources](/riak/kv/2.1.3/using/security/managing-sources/) are available:
 
-* [[Trust|Managing Security Sources#Trust-based-Authentication]]-based
+* [Trust](/riak/kv/2.1.3/using/security/managing-sources/#Trust-based-Authentication)-based
   authentication enables you to specify trusted
   [CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)s
   from which all clients will be authenticated by default
-* [[Password|Managing Security
-  Sources#Password-based-Authentication]]-based authentication requires
+* [Password](/riak/kv/2.1.3/using/security/managing-sources/#Password-based-Authentication)-based authentication requires
   that clients provide a username and password
-* [[Certificate|Managing Security
-  Sources#Certificate-based-Authentication]]-based authentication
+* [Certificate](/riak/kv/2.1.3/using/security/managing-sources/#Certificate-based-Authentication)-based authentication
   requires that clients
-* [[Pluggable authentication module (PAM)|Managing Security
-  Sources#PAM-based-Authentication]]-based authentication requires
+* [Pluggable authentication module (PAM)](/riak/kv/2.1.3/using/security/managing-sources/#PAM-based-Authentication)-based authentication requires
   clients to authenticate using the PAM service specified using the
-  `[[riak-admin security|Authentication and Authorization#Managing-Sources]]`
+  `[riak-admin security](/riak/kv/2.1.3/using/security/managing-sources/#Managing-Sources)`
   command line interface
 
 Riak's approach to security is highly flexible. If you choose to use
 Riak's security feature, you do not need to require that all clients
 authenticate via the same means. Instead, you can specify authentication
 sources on a client-by-client, i.e. user-by-user, basis. This means that
-you can require clients performing, say, [[MapReduce](/riak/kv/2.1.3/developing/usage/mapreduce/]]
-operations to use certificate auth, while clients performing [[K/V
-Operations|The Basics]] have to use username and password. The approach
+you can require clients performing, say, [MapReduce](/riak/kv/2.1.3/developing/usage/mapreduce/)
+operations to use certificate auth, while clients performing [K/V Operations](/riak/kv/2.1.3/developing/usage) have to use username and password. The approach
 that you adopt will depend on your security needs.
 
 This document provides a general overview of how that works. For
 managing security in Riak itself, see the following documents:
 
-* [[Authentication and Authorization]]
-* [[Managing Security Sources]]
+* [Authentication and Authorization](/riak/kv/2.1.3/using/security/basics)
+* [Managing Security Sources](/riak/kv/2.1.3/using/security/managing-sources/)
 
 We also provide client-library-specific guides for the following
 officially supported clients:
 
-* [[Java|Client-side Security: Java]]
-* [[Ruby|Client-side Security: Ruby]]
-* [[PHP|Client-side Security: PHP]]
-* [[Python|Client-side Security: Python]]
-* [[Erlang|Client-side Security: Erlang]]
+* [Java](/riak/kv/2.1.3/developing/usage/security/java)
+* [Ruby](/riak/kv/2.1.3/developing/usage/security/ruby)
+* [PHP](/riak/kv/2.1.3/developing/usage/security/php)
+* [Python](/riak/kv/2.1.3/developing/usage/security/python)
+* [Erlang](/riak/kv/2.1.3/developing/usage/security/erlang)
 
 ## Certificates, Keys, and Authorities
 
@@ -84,16 +78,15 @@ To prevent so-called [Man-in-the-Middle
 attacks](http://en.wikipedia.org/wiki/Man-in-the-middle_attack), private
 keys should never be shared beyond Riak and connecting clients.
 
-<div class="note">
-<div class="title">HTTP not supported</div>
-Certificate-based authentication is available only through Riak's
+> **HTTP not supported**
+>
+> Certificate-based authentication is available only through Riak's
 [[Protocol Buffers|PBC API]] interface. It is not available through the
 [HTTP API](/riak/kv/2.1.3/developing/api/http).
-</div>
 
 ### Default Names
 
-In Riak's [[configuration files|Configuration Files#Security]], the
+In Riak's [configuration files](/riak/kv/2.1.3/configuring/reference/#Security), the
 default certificate file names are as follows:
 
 Cert | Filename

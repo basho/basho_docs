@@ -100,6 +100,7 @@
 [use ref snmp]: /riak/kv/2.1.3/using/reference/snmp
 [use ref strong consistency]: /riak/2.1.3/using/reference/strong-consistency
 [use ref jmx]: /riak/kv/2.1.3/using/reference/jmx
+[use ref obj del]: /riak/kv/2.1.3/using/reference/object-deletion/
 
 ### Cluster Admin
 
@@ -133,7 +134,7 @@
 
 [security index]: /riak/kv/2.1.3/using/security/
 [security basics]: /riak/kv/2.1.3/using/security/basics
-[security managing]: /riak/kv/2.1.3/using/security/managing-sources
+[security managing]: /riak/kv/2.1.3/using/security/managing-sources/
 
 ### Performance
 
