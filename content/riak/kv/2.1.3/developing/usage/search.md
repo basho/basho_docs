@@ -203,7 +203,7 @@ curl -XPUT $RIAK_HOST/search/index/famous \
 ```
 
 The last setup item that you need to perform is to associate either a
-bucket or a [[bucket type](/riak/kv/2.1.3/developing/usage/bucket-types)]] with a Solr index. You
+bucket or a [bucket type](/riak/kv/2.1.3/developing/usage/bucket-types) with a Solr index. You
 only need do this once per bucket type, and all buckets within that type
 will use the same Solr index. For example, to associate a bucket type
 named `animals` with the `famous` index, you can set the bucket type

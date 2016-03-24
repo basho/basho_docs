@@ -15,8 +15,7 @@ aliases:
   - /riak/2.1.3/dev/using/conflict-resolution/python
 ---
 
-For reasons explained in the [[Introduction to conflict
-resolution|Conflict Resolution]], we strongly recommend adopting a
+For reasons explained in the [Introduction to conflict resolution](/riak/kv/2.1.3/developing/usage/conflict-resolution), we strongly recommend adopting a
 conflict resolution strategy that requires applications to resolve
 siblings according to use-case-specific criteria. Here, we'll provide a
 brief guide to conflict resolution using the official [Riak Python
@@ -184,8 +183,7 @@ step is the subject of this tutorial)
 made
 
 You can find more on writing objects to Riak, including code examples
-from the official Python client library, in [[The Basics|The
-Basics#Object-Key-Operations]].
+from the official Python client library, in the [Developing with Riak KV: Usage](/riak/kv/2.1.3/developing/usage) section.
 
 ## More Advanced Example
 
@@ -242,8 +240,7 @@ always carry potential drawbacks of this sort.
 An important thing to always bear in mind when working with conflict
 resolution is that Riak offers a variety of [Data Types](/riak/kv/2.1.3/developing/data-types/) that have
 specific conflict resolution mechanics built in. If you have data that
-can be modeled as a [[counter|Data Types#Counters]], [[set|Data
-Types#Sets]], or [[map|Data Types#Maps]], then you should seriously
+can be modeled as a [counter](/riak/kv/2.1.3/developing/data-types/#Counters), [set](/riak/kv/2.1.3/developing/data-types/#Sets), or [map](/riak/kv/2.1.3/developing/data-types/#Maps), then you should seriously
 consider using those Data Types instead of creating your own
 application-side resolution logic.
 
@@ -252,5 +249,4 @@ set, in particular the `friends` list associated with each `User`
 object. The merge operation that we built to handle conflict resolution
 is analogous to the resolution logic that is built into Riak sets. For
 more information on how you could potentially replace the client-side
-resolution that we implemented above, see our [[tutorial on Riak
-sets](/riak/kv/2.1.3/developing/data-types/#Sets]].
+resolution that we implemented above, see our [tutorial on Riak sets](/riak/kv/2.1.3/developing/data-types/#Sets).

@@ -105,7 +105,7 @@ curl -XDELETE http://localhost:8098/types/quotes/buckets/oscar_wilde/keys/genius
 
 If you are updating an object that has been deleted---or if an update 
 might target a deleted object---we recommend that
-you first fetch the [[causal context]] of the object prior to updating.
+you first fetch the [causal context](/riak/kv/2.1.3/learn/concepts/causal-context) of the object prior to updating.
 This can be done by setting the `deletedvclock` parameter to `true` as
 part of the [[fetch operation|PBC Fetch Object]]. This can also be done
 with the official Riak clients for Ruby, Java, and Erlang, as in the

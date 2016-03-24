@@ -41,18 +41,18 @@ manner, you can fine-tune that trade-off. The ability to make these
 kinds of fundamental choices has immense value for your applications and
 is one of the features that differentiates Riak from other databases.
 
-At the bottom of the page, you'll find a [[screencast](/riak/kv/2.1.3/developing/app-guide/replication-properties#screencast]] that briefly explains how to adjust your
+At the bottom of the page, you'll find a [screencast](/riak/kv/2.1.3/developing/app-guide/replication-properties#screencast) that briefly explains how to adjust your
 replication levels to match your application and business needs.
 
 <div class="note">
 <div class="title">Note on strong consistency</div>
 An option introduced in Riak version 2.0 is to use Riak as a
-<a href="/theory/concepts/strong-consistency/">strongly consistent</a>
+<a href="/riak/kv/2.1.3/learn/concepts/strong-consistency/">strongly consistent</a>
 system for data in specified buckets. Using Riak in this way is
 fundamentally different from adjusting replication properties and
 fine-tuning the availability/consistency trade-off, as it sacrifices
 <em>all</em> availability guarantees when necessary. Therefore, you
-should consult the <a href="/dev/advanced/strong-consistency">Using
+should consult the <a href="/riak/kv/2.1.3/developing/app-guide/strong-consistency">Using
 Strong Consistency</a> documentation, as this option will not be covered
 in this tutorial.
 </div>

@@ -309,14 +309,14 @@ recommend that you:
 That cycle looks something like this:
 
 1. **Read** the object from Riak. This step is important for updates
-because this enables you to fetch the object's [[causal context]], which
+because this enables you to fetch the object's [causal context](/riak/kv/2.1.3/learn/concepts/causal-context), which
 is the information that Riak uses to make decisions about which object
 values are most recent (this is especially useful for objects that are
 frequently updated). This context object needs to be passed back to Riak
 when you update the object. This step is handled for you by Basho's
 client libraries as long as you perform a read prior to an update. In
 addition, if you have chosen to allow Riak to generate
-[[siblings|Conflict Resolution#Siblings]] \(which we recommend), you
+[siblings](/riak/kv/2.1.3/developing/usage/conflict-resolution/#Siblings) \(which we recommend), you
 should **resolve sibling conflicts** upon read if they exist. For more
 on this, please see our documentation on [[conflict resolution]], along
 with examples from our official client libraries:

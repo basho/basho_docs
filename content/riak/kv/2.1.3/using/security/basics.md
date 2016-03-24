@@ -764,7 +764,7 @@ a [[host and port|Configuration Files#Client-Interfaces]] for the node
 as well as a [[certification configuration|Authentication and
 Authorization#Certificate-Configuration]].
 
-If, however, you are using the [[HTTP API]] for Riak and would like to
+If, however, you are using the [HTTP API](/riak/kv/2.1.3/developing/api/http) for Riak and would like to
 configure HTTPS, you will need to not only establish a [[certificate
 configuration|Authentication and
 Authorization#Certificate-Configuration]] but also specify an HTTPS host

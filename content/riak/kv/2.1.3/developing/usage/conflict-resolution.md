@@ -191,11 +191,11 @@ If `allow_mult` is set to `true`, you should _always_ use causal context
 when updating objects, _unless you are certain that no object exists
 under that key_. Failing to use causal context with mutable data,
 especially for objects that are frequently updated, can lead to
-[[sibling explosion|Latency Reduction Checklist#Siblings]], which can
+[sibling explosion](/riak/kv/2.1.3/using/performance/latency-reduction-checklist#Siblings), which can
 produce a variety of problems in your cluster. Fortunately, much of the
 work involved with using causal context is handled automatically by
-Basho's official [[client libraries]]. Examples can be found for each
-client library in the [[Object Updates]] document.
+Basho's official [client libraries](/riak/kv/2.1.3/developing/client-libraries). Examples can be found for each
+client library in the [Object Updates](/riak/kv/2.1.3/developing/usage/updating-objects) document.
 
 ## Siblings
 
@@ -210,7 +210,7 @@ clients, Riak may not be able to choose a single value to store, in
 which case the object will be given a sibling. These writes could happen
 on the same node or on different nodes.
 2. **Stale causal context** --- Writes from any client using a stale
-[[causal context]]. This is a less likely scenario if a client updates
+[causal context](/riak/kv/2.1.3/learn/concepts/causal-context). This is a less likely scenario if a client updates
 the object by reading the object first, fetching the causal context
 currently attached to the object, and then returning that causal context
 to Riak when performing the update (fortunately, our client libraries
@@ -356,13 +356,10 @@ curl -XPUT http://localhost:8098/types/siblings_allowed/nickolodeon/whatever/key
   -d "Stimpy"
 ```
 
-<div class="note">
-<div class="title">Getting started with Riak clients</div>
-If you are connecting to Riak using one of Basho's official
-[[client libraries]], you can find more information about getting
-started with your client in our [[quickstart
-guide|Five-Minute Install#setting-up-your-riak-client]].
-</div>
+> **Getting started with Riak KV clients**
+>
+> If you are connecting to Riak using one of Basho's official
+[client libraries](/riak/kv/2.1.3/developing/client-libraries), you can find more information about getting started with your client in [Developing with Riak KV: Getting Started](/riak/kv/2.1.3/developing/getting-started) section.
 
 At this point, multiple objects have been stored in the same key without
 passing any causal context to Riak. Let's see what happens if we try to
@@ -483,11 +480,11 @@ by presenting the conflicting objects to the end user. For more
 information on application-side conflict resolution, see our
 client-library-specific documentation for the following languages:
 
-* [[Java|Conflict Resolution: Java]]
-* [[Ruby|Conflict Resolution: Ruby]]
-* [[Python|Conflict Resolution: Python]]
-* [[C#|Conflict Resolution: CSharp]]
-* [[Node.js|Conflict Resolution: NodeJS]]
+* [Java](/riak/kv/2.1.3/developing/usage/conflict-resolution/java)
+* [Ruby](/riak/kv/2.1.3/developing/usage/conflict-resolution/ruby)
+* [Python](/riak/kv/2.1.3/developing/usage/conflict-resolution/python)
+* [C#](/riak/kv/2.1.3/developing/usage/conflict-resolution/csharp)
+* [Node.js](/riak/kv/2.1.3/developing/usage/conflict-resolution/nodejs)
 
 We won't deal with conflict resolution in this section. Instead, we'll
 focus on how to use causal context.
@@ -616,9 +613,7 @@ and fail once that limit has been exceeded.
 Sibling explosion occurs when an object rapidly collects siblings
 without being reconciled. This can lead to myriad issues. Having an
 enormous object in your node can cause reads of that object to crash
-the entire node. Other issues include [[increased cluster
-latency|Latency Reduction Checklist]] as the object is replicated and
-out-of-memory errors.
+the entire node. Other issues include [increased cluster latency](/riak/kv/2.1.3/using/performance/latency-reduction-checklist) as the object is replicated and out-of-memory errors.
 
 ### Vector Clock Explosion
 
@@ -627,8 +622,7 @@ large when a significant volume of updates are performed on a single
 object in a small period of time. While updating a single object
 _extremely_ frequently is not recommended, you can tune Riak's vector
 clock pruning to prevent vector clocks from growing too large too
-quickly. More on pruning in the [[section below|Conflict
-Resolution#vector-clock-pruning]].
+quickly. More on pruning in the [section below](#vector-clock-pruning).
 
 ### How does `last_write_wins` affect resolution?
 
