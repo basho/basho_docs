@@ -381,8 +381,7 @@ version 1.3 release notes](https://github.com/basho/riak/blob/1.3/RELEASE-NOTES.
 
 ## diag
 
-The `diag` command invokes the [Riaknostic](http://riaknostic.basho.com/)
-diagnostic system.
+The `diag` command invokes the diagnostic system.
 
 ```bash
 riak-admin diag
