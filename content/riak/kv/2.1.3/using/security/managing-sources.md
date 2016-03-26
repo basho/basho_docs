@@ -122,7 +122,7 @@ Authority](http://en.wikipedia.org/wiki/Root_certificate).
 > **Note**
 >
 > At this time, client certificates are not supported in Riak's HTTP
-interface, and can be used only through the [protocol buffers interface](/riak/kv/2.1.3/developing/api/pbc/).
+interface, and can be used only through the [protocol buffers interface](/riak/kv/2.1.3/developing/api/protocol-buffers/).
 
 Let's specify that our user `riakuser` is going to be authenticated
 using a certificate on `localhost`:

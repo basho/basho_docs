@@ -61,7 +61,7 @@ of the following **before** enabling security:
    mechanism documented in [Installing Custom Code](/riak/kv/2.1.3/using/reference/custom-code).
 1. Make sure that your client software will work properly:
     * It must pass authentication information with each request
-    * It must support HTTPS or encrypted [Protocol Buffers](/riak/kv/2.1.3/developing/api/pbc/)
+    * It must support HTTPS or encrypted [Protocol Buffers](/riak/kv/2.1.3/developing/api/protocol-buffers/)
       traffic
     * If using HTTPS, the proper port (presumably 443) is open from
       client to server
@@ -74,7 +74,7 @@ of the following **before** enabling security:
 Security should be enabled only after all of the above steps have been
 performed and your security setup has been properly vetted.
 
-Clients that use [Protocol Buffers](/riak/kv/2.1.3/developing/api/pbc/) will typically have to be
+Clients that use [Protocol Buffers](/riak/kv/2.1.3/developing/api/protocol-buffers/) will typically have to be
 reconfigured/restarted with the proper credentials once security is
 enabled.
 
@@ -736,7 +736,7 @@ not affect Erlang 17.0 and later.
 
 In order to use any authentication or authorization features, you must
 enable SSL for Riak. **SSL is disabled by default**, but you will need
-to enable it prior to enabling security. If you are using [Protocol Buffers](/riak/kv/2.1.3/developing/api/pbc/) as a transport protocol for Riak (which we strongly recommend), enabling SSL on a given node requires only that you specify a [host and port](/riak/kv/2.1.3/configuring/reference/#Client-Interfaces) for the node
+to enable it prior to enabling security. If you are using [Protocol Buffers](/riak/kv/2.1.3/developing/api/protocol-buffers/) as a transport protocol for Riak (which we strongly recommend), enabling SSL on a given node requires only that you specify a [host and port](/riak/kv/2.1.3/configuring/reference/#Client-Interfaces) for the node
 as well as a [certification configuration](#Certificate-Configuration).
 
 If, however, you are using the [HTTP API](/riak/kv/2.1.3/developing/api/http) for Riak and would like to

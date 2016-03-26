@@ -210,7 +210,7 @@
 [dev api backend]: /riak/kv/2.1.3/developing/api/backend
 [dev api http]: /riak/kv/2.1.3/developing/api/http
 [dev api http status]: /riak/kv/2.1.3/developing/api/http/status
-[dev api pbc]: /riak/kv/2.1.3/developing/api/pbc/
+[dev api pbc]: /riak/kv/2.1.3/developing/api/protocol-buffers/
 
 
 ## Learn
