@@ -10,6 +10,8 @@ menu:
     weight: 108
     parent: "developing_usage"
 toc: true
+aliases:
+    - /riak/2.0.6/dev/advanced/bucket-types
 ---
 
 If you ever need to turn off indexing for a bucket, set the
