@@ -15,7 +15,7 @@ aliases:
 ---
 
 An operation to update a set, either on its own (at the bucket/key
-level) or [[inside of a map|PBC Data Type Map Store]].
+level) or [inside of a map](/riak/kv/2.1.3/developing/api/protocol-buffers/dt-map-store).
 
 ## Request
 

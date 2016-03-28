@@ -28,9 +28,9 @@ message RpbSetBucketReq {
 
 You must specify the name of the bucket (`bucket`) and include an
 `RpbBucketProps` message. More on that message type can be found in the
-[[PBC Get Bucket Properties]] documentation.
+[PBC Get Bucket Properties](/riak/kv/2.1.3/developing/api/protocol-buffers/get-bucket-props) documentation.
 
-You can also specify a [[bucket type|Using Bucket Types]] using the
+You can also specify a [bucket type](/riak/kv/2.1.3/developing/usage/bucket-types) using the
 `type` value. If you do not specify a bucket type, the `default` bucket
 type will be used by Riak.
 

@@ -15,14 +15,11 @@ aliases:
 ---
 
 Stores an object under the specified location, as determined by the
-intended [[key|Keys and Objects]], [[bucket|Buckets]], and [[bucket
-type|Using Bucket Types]]. A bucket must always be specified (via
+intended [key](/riak/kv/2.1.3/learn/concepts/keys-and-objects), [bucket](/riak/kv/2.1.3/learn/concepts/buckets), and [bucket type](/riak/kv/2.1.3/developing/usage/bucket-types). A bucket must always be specified (via
 `bucket`), whereas key (`key`) and bucket type (`type`) are optional. If
 no key is specified, Riak will assign a random key to the object. If no
-[[bucket type|Using Bucket Types]] is assigned, Riak will assign
-`default`, which means that the [[default bucket
-configuration|Configuration Files#Default-Bucket-Properties]] will be
-used.
+[bucket type](/riak/kv/2.1.3/developing/usage/bucket-types) is assigned, Riak will assign
+`default`, which means that the [default bucket configuration](/riak/kv/2.1.3/configuring/reference/#Default-Bucket-Properties) will be used.
 
 #### Request
 
@@ -52,7 +49,7 @@ message RpbPutReq {
 Parameter | Description
 :---------|:-----------
 `bucket` | The name of the bucket, in bytes, in which the key/value is to reside
-`content` | The new or updated contented of the object. Uses the same `RpbContent` message returned as part of an `RpbGetResp` message, documented in [[PBC Fetch Object]]
+`content` | The new or updated contented of the object. Uses the same `RpbContent` message returned as part of an `RpbGetResp` message, documented in [PBC Fetch Object](/riak/kv/2.1.3/developing/api/protocol-buffers/fetch-object)
 
 #### Optional Parameters
 
@@ -98,7 +95,7 @@ message RpbPutResp {
 
 If `return_body` is set to `true` on the PUT request, the `RpbPutResp`
 will contain the current object after the PUT completes, in `contents`,
-as well as the object's [[causal context]], in the `vclock`
+as well as the object's [causal context](/riak/kv/2.1.3/learn/concepts/causal-context), in the `vclock`
 field. The `key` will be sent only if the server generated a random key
 for the object.
 

@@ -28,22 +28,6 @@ The standard resources are:
 * `riak_kv_wm_props` - [HTTP Set Bucket Properties](/riak/kv/2.1.3/developing/api/http/set-bucket-props)
 * `riak_kv_wm_stats` - [HTTP Status](/riak/kv/2.1.3/developing/api/http/status)
 
-{{#2.0.0-}}
-
-If Search is enabled, the following resources will also be included:
-
-* `riak_solr_searcher_wm` - [[Solr search|http://docs.basho.com/riak/1.4.8/dev/using/search/#Querying]]
-* `riak_solr_indexer_wm` - [[Solr indexing|http://docs.basho.com/riak/1.4.8/dev/advanced/search/#Indexing-using-the-Solr-Interface]]
-
-{{/2.0.0-}}
-{{#1.0.0-}}
-
-If Luwak is enabled, the following resource will also be included:
-
-* `luwak_wm_file` - [[Luwak Operations|HTTP API#Luwak Operations (Large Objects)]]
-
-{{/1.0.0-}}
-
 ## Request
 
 ```bash

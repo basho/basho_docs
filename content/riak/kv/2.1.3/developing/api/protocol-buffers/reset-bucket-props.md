@@ -26,7 +26,7 @@ message RpbResetBucketReq {
 ```
 
 You must specify the name of the bucket (`bucket`) and optionally a
-[[bucket type|Using Bucket Types]] using the `type` value. If you do not
+[bucket type](/riak/kv/2.1.3/developing/usage/bucket-types) using the `type` value. If you do not
 specify a bucket type, the `default` bucket type will be used by Riak.
 
 ## Response

@@ -14,7 +14,7 @@ aliases:
   - /riak/2.1.3/dev/references/protocol-buffers/yz-schema-put
 ---
 
-Create a new Solr [[search schema]].
+Create a new Solr [search schema](/riak/kv/2.1.3/developing/usage/search-schemas).
 
 ## Request
 
@@ -33,5 +33,4 @@ message RpbYokozunaSchema {
 }
 ```
 
-This message *must* include both the schema `name` and its Solr [[search
-schema]] `content` as XML.
+This message *must* include both the schema `name` and its Solr [search schema](/riak/kv/2.1.3/developing/usage/search-schemas) `content` as XML.
