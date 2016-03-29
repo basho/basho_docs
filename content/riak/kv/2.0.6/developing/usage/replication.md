@@ -60,6 +60,7 @@ in this tutorial.
 ## How Replication Properties Work
 
 When using Riak, there are two ways of choosing replication properties:
+
 1. On a per-request basis
 2. In a more programmatic fashion, [using bucket types][usage bucket types]
 
