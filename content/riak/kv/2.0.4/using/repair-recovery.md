@@ -1,14 +1,14 @@
 ---
-title: "Developing with Riak KV"
+title: "Repair & Recovery"
 description: ""
 project: "riak_kv"
 project_version: "2.0.4"
 menu:
   riak_kv-2.0.4:
-    name: "Developing"
-    identifier: "developing"
-    weight: 300
-    pre: icon-lambda
+    name: "Repair & Recovery"
+    identifier: "managing_repair_recover"
+    weight: 204
+    parent: "managing"
 toc: true
 ---
 

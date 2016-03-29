@@ -1,14 +1,14 @@
 ---
-title: "Developing with Riak KV"
+title: "V3 Multi-Datacenter Replication Reference"
 description: ""
 project: "riak_kv"
 project_version: "2.0.4"
 menu:
   riak_kv-2.0.4:
-    name: "Developing"
-    identifier: "developing"
-    weight: 300
-    pre: icon-lambda
+    name: "V3 Replication"
+    identifier: "managing_ref_v3"
+    weight: 112
+    parent: "managing_ref"
 toc: true
 ---
 

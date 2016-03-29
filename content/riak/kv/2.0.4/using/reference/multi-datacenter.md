@@ -1,15 +1,16 @@
 ---
-title: "Developing with Riak KV"
+title: "Multi-Datacenter Reference"
 description: ""
 project: "riak_kv"
 project_version: "2.0.4"
 menu:
   riak_kv-2.0.4:
-    name: "Developing"
-    identifier: "developing"
-    weight: 300
-    pre: icon-lambda
+    name: "Multi-Datacenter"
+    identifier: "managing_ref_mdc"
+    weight: 111
+    parent: "managing_ref"
 toc: true
+commercial_offering: true
 ---
 
 ## TODO

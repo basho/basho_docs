@@ -1,14 +1,14 @@
 ---
-title: "Developing with Riak KV"
+title: "Cluster Operations"
 description: ""
 project: "riak_kv"
 project_version: "2.0.4"
 menu:
   riak_kv-2.0.4:
-    name: "Developing"
-    identifier: "developing"
-    weight: 300
-    pre: icon-lambda
+    name: "Cluster Operations"
+    identifier: "managing_cluster_operations"
+    weight: 203
+    parent: "managing"
 toc: true
 ---
 

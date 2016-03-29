@@ -1,14 +1,14 @@
 ---
-title: "Developing with Riak KV"
+title: "Planning Overview"
 description: ""
 project: "riak_kv"
 project_version: "2.0.4"
 menu:
   riak_kv-2.0.4:
-    name: "Developing"
-    identifier: "developing"
-    weight: 300
-    pre: icon-lambda
+    name: "Planning"
+    identifier: "planning"
+    weight: 100
+    parent: "setup_index"
 toc: true
 ---
 
