@@ -185,8 +185,8 @@
 ### Usage
 
 [usage index]: /riak/kv/2.1.3/developing/usage
-[usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types
-[usage commit hooks]: /riak/kv/2.1.3/developing/usage/commit-hooks
+[usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types/
+[usage commit hooks]: /riak/kv/2.1.3/developing/usage/commit-hooks/
 [usage conflict resolution]: /riak/kv/2.1.3/developing/usage/conflict-resolution
 [usage content types]: /riak/kv/2.1.3/developing/usage/content-types
 [usage create objects]: /riak/kv/2.1.3/developing/usage/create-objects
@@ -204,13 +204,14 @@
 [apps mapreduce]: /riak/kv/2.1.3/developing/app-guide/advanced-mapreduce
 [apps replication properties]: /riak/kv/2.1.3/developing/app-guide/replication-properties
 [apps strong consistency]: /riak/kv/2.1.3/developing/app-guide/strong-consistency
+[apps write once]: /riak/kv/2.1.3/developing/app-guide/write-once
 
 ### API
 
 [dev api backend]: /riak/kv/2.1.3/developing/api/backend
 [dev api http]: /riak/kv/2.1.3/developing/api/http
 [dev api http status]: /riak/kv/2.1.3/developing/api/http/status
-[dev api pbc]: /riak/kv/2.1.3/developing/api/pbc/
+[dev api pbc]: /riak/kv/2.1.3/developing/api/protocol-buffers/
 
 
 ## Learn

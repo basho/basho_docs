@@ -58,7 +58,7 @@ riak stop
 #### Select an IP address and port
 
 Let's say that the IP address for your cluster is 192.168.1.10 and that
-you'll be using the default port (8087). If you're using the [Protocol Buffers interface](/riak/kv/2.1.3/developing/api/pbc/) to Riak (which we recommend over the HTTP
+you'll be using the default port (8087). If you're using the [Protocol Buffers interface](/riak/kv/2.1.3/developing/api/protocol-buffers/) to Riak (which we recommend over the HTTP
 interface due to performance gains), you should change your
 configuration file:
 

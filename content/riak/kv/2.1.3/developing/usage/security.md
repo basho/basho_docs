@@ -81,7 +81,7 @@ keys should never be shared beyond Riak and connecting clients.
 > **HTTP not supported**
 >
 > Certificate-based authentication is available only through Riak's
-[Protocol Buffers](/riak/kv/2.1.3/developing/api/pbc/) interface. It is not available through the
+[Protocol Buffers](/riak/kv/2.1.3/developing/api/protocol-buffers/) interface. It is not available through the
 [HTTP API](/riak/kv/2.1.3/developing/api/http).
 
 ### Default Names
