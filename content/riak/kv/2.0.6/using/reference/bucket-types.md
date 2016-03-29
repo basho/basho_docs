@@ -40,9 +40,8 @@ with a few crucial differences:
   those configurations to as many buckets as you wish, whereas the
   previous system required configuration to be set on a per-bucket basis
 * Nearly all bucket properties can be updated using bucket types, except the
-  `datatype`, `consistent`, and `write_once` properties, related to
-  [Riak data types](/riak/kv/2.0.6/developing/data-types), [strong consistency](/riak/kv/2.0.6/developing/app-guide/strong-consistency), and
-  [write-once buckets](/riak/kv/2.0.6/developing/app-guide/write-once) respectively
+  `datatype` and `consistent` properties, related to
+  [Riak data types](/riak/kv/2.0.6/developing/data-types), and [strong consistency](/riak/kv/2.0.6/developing/app-guide/strong-consistency) respectively
 * Bucket types are more performant than bucket properties because
   divergence from Riak's defaults doesn't have to be gossiped around the
   cluster for every bucket, which means less computational overhead
@@ -84,9 +83,6 @@ system of bucket configuration, including the following:
   `riak-admin bucket-type` interface (discussed in depth below) enables
   you to manage bucket configurations on the operations side, without
   recourse to Riak clients.
-* Some special usecases -- [strong consistency](/riak/kv/2.0.6/configuring/strong-consistency),
-  [data types](/riak/kv/2.0.6/developing/data-types), and [write-once buckets](/riak/kv/2.0.6/developing/app-guide/write-once) -- are only
-  available through bucket properties or bucket types.
 
 For these reasons, we recommend _always_ using bucket types in versions
 of Riak 2.0 and later.
@@ -247,22 +243,11 @@ of the type:
 riak-admin bucket-type update type_to_update '{"props":{ ... }}'
 ```
 
-<div class="note"><div class="title">Immutable Configurations</div>
-Any bucket properties associated with a type can be modified after a bucket is
-created, with three important exceptions:
-
-* `consistent`
-* `datatype`
-* `write_once`
-
-If a bucket type entails strong consistency (requiring that `consistent` be set
-to `true`), is set up as a `map`, `set`, or `counter`, or is defined as a write-once 
-bucket (requiring `write_once` be set to `true`), then this will be true of
-the bucket types.
-
-If you need to change one of these properties, we recommend that
-you simply create and activate a new bucket type.
-</div>
+> **Note**
+>
+> Any bucket properties associated with a type can be modified after a bucket is created, with two important exceptions: `consistent` and `datatype`. If a bucket type entails strong consistency (requiring that `consistent` be set to `true`) or is set up as a `map`, `set`, or `counter`, then this will be true of the bucket type once and for all.
+>
+> If you need to change one of these properties, it is recommended that you simply create and activate a new bucket type.
 
 ## Buckets as Namespaces
 
