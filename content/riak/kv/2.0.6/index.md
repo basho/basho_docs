@@ -13,16 +13,16 @@ toc: false
 ---
 
 [aboutenterprise]: http://basho.com/contact/
-[configuring]: /riak/kv/2.0.6/configuring/
-[developing]: /riak/kv/2.0.6/developing
-[download]: /riak/kv/2.0.6/downloads/
+[config index]: /riak/kv/2.0.6/configuring
+[dev index]: /riak/kv/2.0.6/developing
+[downloads]: /riak/kv/2.0.6/downloads/
 [install index]: /riak/kv/2.0.6/setup/installing/
-[planning]: /riak/kv/2.0.6/setup/planning/
-[google1]: openfileslimit
-[google2]: /riak/2.1.3/setup/installing/debian-ubuntu
-[google3]: /
-[google4]: /
-[google5]: /
+[plan index]: /riak/kv/2.0.6/setup/planning
+[perf open files]: /riak/kv/2.0.6/using/performance/open-files-limit
+[install debian & ubuntu]: /riak/kv/2.0.6/setup/installing/debian-ubuntu
+[usage search]: /riak/kv/2.0.6/developing/usage/search
+[getting started]: /riak/kv/2.0.6/developing/getting-started
+[dev client libraries]: /riak/kv/2.0.6/developing/client-libraries
 
 
 

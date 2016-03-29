@@ -34,8 +34,7 @@ defining a Solr **schema**.
 
 Riak Search comes bundled with a default schema named `_yz_default`. The
 default schema covers a wide range of possible field types. You can find
-the default schema [on
-GitHub](https://raw.github.com/basho/yokozuna/develop/priv/default_schema.xml).
+the default schema [on GitHub](https://raw.github.com/basho/yokozuna/develop/priv/default_schema.xml).
 While using the default schema provides an easy path to starting
 development, we recommend that you define your own schema in production.
 Take note of `dynamicField name="*"`, which is a catch-all index for any
