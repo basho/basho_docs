@@ -89,7 +89,7 @@ This code will force all keys in each partition on a node to be reread, thus reb
     [riak_search_vnode:repair(P) || P <- Partitions].
     ```
 
-5. When you're done, press `Ctrl-D` to disconnect the console. DO NOT RUN q() which will cause the running Riak node to quit. Note that `Ctrl-D` merely disconnects the console from the service, it does not stop the code from running.
+5. When you're done, press **Ctrl-G q** to disconnect the console. Note that **Ctrl-G q** merely disconnects the console from the service, it does not stop the code from running.
 
 
 ### Monitoring a Repair
@@ -100,7 +100,7 @@ The above Repair command can be slow, so if you reattach to the console, you can
 [{P, riak_search_vnode:repair_status(P)} || P <- Partitions].
 ```
 
-When you're done, press `Ctrl-D` to disconnect the console.
+When you're done, press **Ctrl-G q** to disconnect the console.
 
 ### Killing a Repair
 
@@ -128,7 +128,7 @@ Here is an example of executing the call remotely.
 rpc:call('dev1@127.0.0.1', riak_core_vnode_manager, kill_repairs, [killed_by_user]).
 ```
 
-When you're done, press `Ctrl-D` to disconnect the console.
+When you're done, press **Ctrl-G q** to disconnect the console.
 
 Repairs are not allowed to occur during ownership changes.  Since
 ownership entails the moving of partition data it is safest to make

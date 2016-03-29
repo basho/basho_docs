@@ -107,13 +107,13 @@ riak-cs console
 
 If the node is already running in the background, you will see the
 output `Node is already running - use 'riak-cs attach' instead`. If the
-command is successful, you can exit the shell by pressing **Ctrl-C**
-twice.
+command is successful, you can exit the shell by pressing **Ctrl-G q**.
 
 #### attach
 
 Attaches to the console of a Riak CS node running in the background,
-providing access to the Erlang shell and to runtime messages.
+providing access to the Erlang shell and to runtime messages. You can
+exit the shell by pressing **Ctrl-G q**.
 
 ```bash
 riak-cs attach
