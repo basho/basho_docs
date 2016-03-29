@@ -1,15 +1,17 @@
 ---
-title: "Developing with Riak KV"
+title: "Cluster Administration"
 description: ""
 project: "riak_kv"
 project_version: "2.0.5"
 menu:
   riak_kv-2.0.5:
-    name: "Developing"
-    identifier: "developing"
-    weight: 300
-    pre: icon-lambda
+    name: "Cluster Administration"
+    identifier: "managing_cluster_admin"
+    weight: 202
+    parent: "managing"
 toc: true
+aliases:
+  - /riak/2.1.3/ops/running/cluster-admin
 ---
 
 ## TODO
