@@ -1,14 +1,14 @@
 ---
-title: "Developing with Riak KV"
+title: "APIs"
 description: ""
 project: "riak_kv"
 project_version: "2.0.5"
 menu:
   riak_kv-2.0.5:
-    name: "Developing"
-    identifier: "developing"
-    weight: 300
-    pre: icon-lambda
+    name: "APIs"
+    identifier: "developing_apis"
+    weight: 107
+    parent: "developing"
 toc: true
 ---
 
