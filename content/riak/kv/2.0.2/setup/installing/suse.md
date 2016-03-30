@@ -21,7 +21,7 @@ aliases:
 >
 > Riak version 2.0.2 is not currently available for SUSE due to a known
 issue. If you'd like to upgrade Riak, we'd recommend waiting for the
-2.0.2 release.
+2.0.4 release.
 
 The following steps should get you up and running with Riak on SuSE.
 
