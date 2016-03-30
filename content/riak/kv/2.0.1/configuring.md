@@ -1,14 +1,14 @@
 ---
-title: "Developing with Riak KV"
+title: "Configuring Riak KV"
 description: ""
 project: "riak_kv"
 project_version: "2.0.1"
 menu:
   riak_kv-2.0.1:
-    name: "Developing"
-    identifier: "developing"
-    weight: 300
-    pre: icon-lambda
+    name: "Configuring"
+    identifier: "configuring"
+    weight: 200
+    pre: icon-cog
 toc: true
 ---
 

@@ -1,14 +1,14 @@
 ---
-title: "Developing with Riak KV"
+title: "Riak KV Usage Reference"
 description: ""
 project: "riak_kv"
 project_version: "2.0.1"
 menu:
   riak_kv-2.0.1:
-    name: "Developing"
-    identifier: "developing"
-    weight: 300
-    pre: icon-lambda
+    name: "Reference"
+    identifier: "managing_ref"
+    weight: 208
+    parent: "managing"
 toc: true
 ---
 
