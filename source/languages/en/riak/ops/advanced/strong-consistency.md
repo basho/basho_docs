@@ -52,7 +52,7 @@ strong_consistency = on
 
 {riak_core, [
     % ...
-    {enable_consensus, on},
+    {enable_consensus, true},
     % ...
     ]}
 ```
