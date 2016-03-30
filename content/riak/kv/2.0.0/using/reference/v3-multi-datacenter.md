@@ -1,14 +1,14 @@
 ---
-title: "Learn About Riak KV"
+title: "V3 Multi-Datacenter Replication Reference"
 description: ""
 project: "riak_kv"
 project_version: "2.0.0"
 menu:
   riak_kv-2.0.0:
-    name: "Learning"
-    identifier: "learn"
-    weight: 400
-    pre: icon-beaker
+    name: "V3 Replication"
+    identifier: "managing_ref_v3"
+    weight: 112
+    parent: "managing_ref"
 toc: true
 ---
 

@@ -1,15 +1,16 @@
 ---
-title: "Learn About Riak KV"
+title: "Multi-Datacenter Reference"
 description: ""
 project: "riak_kv"
 project_version: "2.0.0"
 menu:
   riak_kv-2.0.0:
-    name: "Learning"
-    identifier: "learn"
-    weight: 400
-    pre: icon-beaker
+    name: "Multi-Datacenter"
+    identifier: "managing_ref_mdc"
+    weight: 111
+    parent: "managing_ref"
 toc: true
+commercial_offering: true
 ---
 
 ## TODO

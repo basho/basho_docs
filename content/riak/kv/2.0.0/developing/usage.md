@@ -1,14 +1,14 @@
 ---
-title: "Learn About Riak KV"
+title: "Usage Overview"
 description: ""
 project: "riak_kv"
 project_version: "2.0.0"
 menu:
   riak_kv-2.0.0:
-    name: "Learning"
-    identifier: "learn"
-    weight: 400
-    pre: icon-beaker
+    name: "Usage"
+    identifier: "developing_usage"
+    weight: 101
+    parent: "developing"
 toc: true
 ---
 

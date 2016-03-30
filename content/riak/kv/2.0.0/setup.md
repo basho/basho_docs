@@ -1,15 +1,15 @@
 ---
-title: "Learn About Riak KV"
+title: "Setup Riak KV"
 description: ""
 project: "riak_kv"
 project_version: "2.0.0"
 menu:
   riak_kv-2.0.0:
-    name: "Learning"
-    identifier: "learn"
-    weight: 400
-    pre: icon-beaker
-toc: true
+    name: "Setup"
+    identifier: "setup_index"
+    weight: 110
+    pre: icon-install
+toc: false
 ---
 
 ## TODO

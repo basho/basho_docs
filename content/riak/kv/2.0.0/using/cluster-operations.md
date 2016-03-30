@@ -1,14 +1,14 @@
 ---
-title: "Learn About Riak KV"
+title: "Cluster Operations"
 description: ""
 project: "riak_kv"
 project_version: "2.0.0"
 menu:
   riak_kv-2.0.0:
-    name: "Learning"
-    identifier: "learn"
-    weight: 400
-    pre: icon-beaker
+    name: "Cluster Operations"
+    identifier: "managing_cluster_operations"
+    weight: 203
+    parent: "managing"
 toc: true
 ---
 
