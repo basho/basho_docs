@@ -22,6 +22,10 @@ aliases:
 [install source erlang]: /riak/kv/2.0.2/setup/installing/source/erlang
 [install verify]: /riak/kv/2.0.2/setup/installing/verify
 
+> **Note: 2.0.2 not currently available**
+>
+> Riak version 2.0.2 is not currently available for Debian/Ubuntu due to a known issue. If you'd like to upgrade Riak, we'd recommend waiting for the 2.0.4 release.
+
 Riak KV can be installed on Debian or Ubuntu-based systems using a binary
 package or by compiling from source code.
 
