@@ -21,6 +21,11 @@ aliases:
 [install source erlang]: /riak/kv/2.0.4/setup/installing/source/erlang
 [install verify]: /riak/kv/2.0.4/setup/installing/verify
 
+> **Note: 2.0.4 not currently available**
+>
+> Riak version 2.0.4 is not currently available for RHEL/CentOS due to a known issue. If you'd like to upgrade Riak, we'd recommend waiting for the 2.0.5 release.
+
+
 Riak KV can be installed on CentOS- or Red-Hat-based systems using a binary
 package or by [compiling Riak from source code][install source index]. The following steps have been tested to work with Riak on
 CentOS/RHEL 5.10, 6.5, and 7.0.1406.
