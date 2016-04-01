@@ -137,9 +137,8 @@ default['stanchion']['args']['-env']['ERL_CRASH_DUMP'] = "/var/log/stanchion/erl
 
 #### Storage Backends
 
-Riak CS uses a specific combination of storage backends. [[Bitcask]] is used to
-store blocks and [[LevelDB]] to store manifests. The `riak_cs_kv_multi_backend`
-must be specified in the Riak configuration file for Riak CS to work:
+Riak CS uses a specific combination of storage backends. [Bitcask](/riak/kv/2.1.3/setup/planning/backend/bitcask) is used to
+store blocks and [LevelDB](/riak/kv/2.1.3/setup/planning/backend/leveldb) to store manifests. The `riak_cs_kv_multi_backend` must be specified in the Riak configuration file for Riak CS to work:
 
 ```ruby
 default['riak']['config']['riak_kv']['storage_backend'] = "riak_cs_kv_multi_backend"
@@ -183,5 +182,5 @@ default['stanchion']['config']['lager']['error_logger_redirect'] = true
 
 More information related to cluster configuration and building development environments is available in our documentation.
 
-* [[Building a Local Test Environment]]
-* [[Building a Virtual Testing Environment]]
+* [Building a Local Test Environment](/riak/cs/2.1.1/tutorials/fast-track/local-testing-environment)
+* [Building a Virtual Testing Environment](/riak/cs/2.1.1/tutorials/fast-track/virtual-test-environment)

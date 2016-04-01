@@ -23,10 +23,7 @@ Multi-Datacenter Replication can be used in two or more sites, and data
 can be replicated across datacenters using realtime or fullsync
 synchronization.
 
-If you are interested, sign up for a [[developer
-trial|http://info.basho.com/RiakCS1.1_DeveloperTrialRequest.html]] of
-Riak CS Enterprise or [[contact us|http://basho.com/contact/]] for more
-information.
+If you are interested, sign up for a [developer trial](http://info.basho.com/RiakCS1.1_DeveloperTrialRequest.html) of Riak CS Enterprise or [contact us](http://basho.com/contact/) for more information.
 
 <div class="note">
 <div class="title">Riak CS Enterprise requires a separate download</div>

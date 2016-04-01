@@ -40,11 +40,11 @@ Riak CS, but can still be useful for more experienced users as well.
 
 The Fast Track takes you through the following sections:
 
-* [[What is Riak CS?|What is Riak CS]] --- A high-level overview of Riak
+* [What is Riak CS?](what-is-riak-cs) --- A high-level overview of Riak
   CS and its architecture
-* [[Building a Local Test Environment]] --- Instructions on setting up a
+* [Building a Local Test Environment](local-testing-environment) --- Instructions on setting up a
   local environment on your machine
-* [[Building a Virtual Testing Environment]] --- Instructions on setting
+* [Building a Virtual Testing Environment](virtual-test-environment) --- Instructions on setting
   up a virtual environment on your machine
-* [[Testing the Riak CS Installation]] ---  Using s3cmd to test your
+* [Testing the Riak CS Installation](test-installation) ---  Using s3cmd to test your
   local Riak CS installation

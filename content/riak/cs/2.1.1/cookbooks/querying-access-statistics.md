@@ -25,13 +25,12 @@ terms "usage" and access.
 </div>
 
 For information about how access statistics are logged, please read
-[[Usage and Billing Data]].
+[Usage and Billing Data](/riak/cs/2.1.1/cookbooks/usage-and-billing-data).
 
 The following sections discuss accessing the access statistics using
 bare HTTP requests. Query parameters are used to specify the types and
 date ranges of information to include. For information on using `s3cmd`
-(or other tools) to fetch statistics as S3 objects, skip to the [The
-Magic `usage` Bucket](#The-Magic-usage-Bucket) section.
+(or other tools) to fetch statistics as S3 objects, skip to the [The Magic `usage` Bucket](#The-Magic-usage-Bucket) section.
 
 The examples on this page assume that the `admin_port` has not
 been configured to something other than default CS port of `8080`.
@@ -80,13 +79,10 @@ HTTP/1.1 404 Object Not Found
 
 ## Enable Access Results
 
-<div class="note"><div class="title">Authentication Required</div>
-Queries to the usage resources described here must be authenticated as
-described in the [[Authentication documentation|Authentication]]. Keep
-this in mind when using `curl`. Authentication credentials for `s3cmd`
-or `s3-curl` can be specified in their respective configuration
-files.
-</div>
+> **Authentication Required**
+>
+> Queries to the usage resources described here must be authenticated as
+described in the [Authentication documentation](/riak/cs/2.1.1/cookbooks/authentication). Keep this in mind when using `curl`. Authentication credentials for `s3cmd` or `s3-curl` can be specified in their respective configuration files.
 
 The usage HTTP resource provides both access and storage statistics.
 Since each of these queries can be taxing in its own right, they are
@@ -239,7 +235,7 @@ the amount of time that may be retrieved in any request is limited.
 
 The limit is configured by the `riak_cs` application environment
 variable `usage_request_limit`. The value is expressed as an integer
-number of archive intervals (see [[Usage and Billing Data]] for a
+number of archive intervals (see [Usage and Billing Data](/riak/cs/2.1.1/cookbooks/usage-and-billing-data) for a
 description of archive intervals).
 
 The default value is `744`, which is 31 days at the default archive

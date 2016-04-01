@@ -205,7 +205,7 @@ Operation | Description
 ## DTrace Probes
 
 Riak CS is built with some probes for use with
-[[DTrace|http://dtrace.org/blogs/about/]] to inspect certain operations
+[DTrace](http://dtrace.org/blogs/about/) to inspect certain operations
 in the live system, which can be helpful in diagnosing issues.
 
 ### Usage Examples

@@ -22,18 +22,15 @@ Enterprise</a> customers. It is not yet suitable for production use.
 
 While [Riak CS Enterprise](http://basho.com/riak-enterprise) enables
 you to distribute Riak CS objects across multiple data centers in a
-[[source/sink pattern|Multi Data Center Replication v3 Architecture]],
-all linked clusters are treated the same. In Riak CS version 1.5.0,
-however, Basho has added **supercluster** support to Riak CS Enterprise.
+[source/sink pattern](/riak/kv/2.1.3/using/reference/v3-multi-datacenter/architecture), all linked clusters are treated the same. In Riak CS version 1.5.0, however, Basho has added **supercluster** support to Riak CS Enterprise.
 
 With supercluster support, you can store object manifests and blocks in
 separate clusters or groups of clusters, a.k.a. **a set of supercluser members**, enhancing the scalability and overall storage capabilities of a Riak CS installation.
 
 ## Supercluster members
 
-A supercluster member is a set of clusters linked together via [[Multi-Datacenter
-Replication|Multi Data Center Replication v3 Architecture]] \(MDC).
-Without MDC support, a supercluster member consists of a single cluster. With MDC support, however, a supercluster member can consist of several linked clusters. You can assign members **weights** that determine the likelihood that objects, blocks, and manifests will be stored there. For example, if you expect to use one supercluster member more heavily than another you can increase the weight of that member using the interface described in [[Riak CS Command-line Tools]].
+A supercluster member is a set of clusters linked together via [Multi-Datacenter Replication](/riak/kv/2.1.3/using/reference/v3-multi-datacenter/architecture)\(MDC).
+Without MDC support, a supercluster member consists of a single cluster. With MDC support, however, a supercluster member can consist of several linked clusters. You can assign members **weights** that determine the likelihood that objects, blocks, and manifests will be stored there. For example, if you expect to use one supercluster member more heavily than another you can increase the weight of that member using the interface described in [Riak CS Command-line Tools](/riak/cs/2.1.1/cookbooks/command-line-tools).
 
 ## The Master Member
 
@@ -128,20 +125,18 @@ That involves performing the following steps on each node:
 1. Stop the node
 2. Upgrade Stanchion to a version that supports Riak CS supercluster, i.e.
    Riak CS 1.5.0 and later
-3. Set your desired Stanchion [[configuration|Configuring Stanchion]]
+3. Set your desired Stanchion [configuration](/riak/cs/2.1.1/cookbooks/configuration/stanchion)
 4. Start Stanchion on each node
 
 ### Add Clusters
 
 To add clusters to a supercluster installation, you must set up Riak CS and
 Stanchion to communicate with those clusters. You can specify the
-connection information as explained above in the [[supercluster
-Configuration|Riak CS Supercluster Support#Supercluster-Configuration]] section.
+connection information as explained above in the [supercluster Configuration](#Supercluster-Configuration) section.
 
 ### Set Weights
 
-When a new supercluster member is added, you must first set the weight of that member to zero using the [[`riak-cs-supercluster`|Riak CS Command-Line Tools]]
-command-line interface. 
+When a new supercluster member is added, you must first set the weight of that member to zero using the [`riak-cs-supercluster`](/riak/cs/2.1.1/cookbooks/command-line-tools) command-line interface. 
 
 The example below sets the weight of the recently added supercluster member `Alpha` to zero:
 
@@ -149,10 +144,7 @@ The example below sets the weight of the recently added supercluster member `Alp
 riak-cs-supercluster weight Alpha 0
 ```
 
-All weights are stored in the [[master member|Riak CS Supercluster
-Support#The-Master-Member]] and shared with all Riak CS nodes, which means
-that you only have to set weights once for them to be valid throughout
-your cluster.
+All weights are stored in the [master member](#The-Master-Member) and shared with all Riak CS nodes, which means that you only have to set weights once for them to be valid throughout your cluster.
 
 All supercluster members must begin their life with a weight of zero. However, you can set non-zero weights once all Riak CS and Stanchion nodes are properly
 set up to recognize one another in the cluster. Let's say that we've set
@@ -176,11 +168,9 @@ supercluster feature.
 ## Command Line Interface
 
 Complete documentation for the `riak-cs-supercluster` interface can be found
-in our documentation on [[Riak CS Command Line Tools|Riak CS Command
-Line Tools#riak-cs-supercluster]].
+in our documentation on [Riak CS Command Line Tools](/riak/cs/2.1.1/cookbooks/command-line-tools/#riak-cs-supercluster).
 
 ## Limitations
 
-Riak CS supercluster does not currently support [[proxy
-gets|Multi Data Center Replication v3 Operations#Riak-CS-MDC-Gets]] from
+Riak CS supercluster does not currently support [proxy gets](/riak/kv/2.1.3/using/cluster-operations/v3-multi-datacenter/#Riak-CS-MDC-Gets) from
 sink clusters.

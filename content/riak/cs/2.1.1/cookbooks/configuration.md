@@ -27,7 +27,7 @@ If your system consists of several nodes, configuration primarily represents set
 
 ## Configuration of System Components
 
-* [[Configuring Riak|Configuring Riak for CS]]
-* [[Configuring Riak CS]]
-* [[Configuring Stanchion]]
-* [[Configuring an S3 client]]
+* [Configuring Riak](/riak/cs/2.1.1/cookbooks/configuration/riak-for-cs)
+* [configuring Riak CS](/riak/cs/2.1.1/cookbooks/configuration/riak-cs)
+* [Configuring Stanchion](/riak/cs/2.1.1/cookbooks/configuration/stanchion)
+* [Configuring an S3 client](/riak/cs/2.1.1/cookbooks/configuration/s3-client)

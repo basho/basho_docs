@@ -19,9 +19,7 @@ managing users in a Riak CS Cluster.
 
 ## Installing Riak CS Control
 
-Riak CS Control [is maintained as a separate
-application](https://github.com/basho/riak_cs_control) and can be
-installed via [[source or package|Download Riak CS]].
+Riak CS Control [is maintained as a separate application](https://github.com/basho/riak_cs_control) and can be installed via [source or package](/riak/cs/2.1.1/downloads).
 
 ## Setting Up Riak CS Control
 

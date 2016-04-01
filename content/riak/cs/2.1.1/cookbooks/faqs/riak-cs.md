@@ -15,19 +15,19 @@ aliases:
 
 Q: What is Riak CS?
 A:
-  Riak CS is [multi-tenant](http://en.wikipedia.org/wiki/Multitenancy) cloud storage software for public and private clouds. Built on Basho's distributed database [[Riak]], Riak CS is commercial software designed to provide simple, available, distributed cloud storage at any scale. Riak CS is S3 API compatible and supports per-tenant reporting for billing and metering use cases.
+  Riak CS is [multi-tenant](http://en.wikipedia.org/wiki/Multitenancy) cloud storage software for public and private clouds. Built on Basho's distributed database [Riak KV](/riak/kv/2.1.3), Riak CS is commercial software designed to provide simple, available, distributed cloud storage at any scale. Riak CS is S3 API compatible and supports per-tenant reporting for billing and metering use cases.
 
 Q: Can users share data?
 A:
   Data is private by default. Users can manipulate Access Control Lists (ACLs) to grant access to their buckets or objects to other users---or even to unauthenticated requesters.
 
-  For implementation details, see the [[Access Control Lists]] documentation.
+  For implementation details, see the [Access Control Lists](http://docs.aws.amazon.com/AmazonS3/latest/dev/ACLOverview.html) documentation.
 
 Q: Is it possible to specify a filesystem where my Riak CS buckets will live?
 A: You can specify the location of **all** Riak CS bucket data by changing the settings for Riak's backends to a path on a particular filesystem. If this is your goal, you can configure Riak to suit your environment.
 
   If you look at our example Riak `advanced.config`/`app.config` backend
-  definition from the [[Configuring Riak for CS]] section, it looks like this:
+  definition from the [Configuring Riak for CS](/riak/cs/2.1.1/cookbooks/configuration/riak-for-cs) section, it looks like this:
 
   ```advanced.config
   {riak_kv, [

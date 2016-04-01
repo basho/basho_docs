@@ -54,39 +54,30 @@ Multipart Uploads {{1.3.0-}} | Coming Soon | Planned for future release |
 
 ## Service-level Operations
 
-* [[GET Service|RiakCS GET Service]] --- Returns a list of all buckets
- owned by the user who sent the request
+* [GET Service](/riak/cs/2.1.1/references/apis/storage/s3/get-service) --- Returns a list of all buckets owned by the user who sent the request
 
 ## Bucket-level Operations
 
-* [[GET Bucket|RiakCS GET Bucket]] --- Returns a list of the objects
+* [GET Bucket](/riak/cs/2.1.1/references/apis/storage/s3/get-bucket) --- Returns a list of the objects
   within a bucket
-* [[GET Bucket ACL|RiakCS GET Bucket ACL]] --- Returns the [[Access
-  Control List]] (ACL) associated with a bucket
-* [[GET Bucket policy|RiakCS GET Bucket policy]] --- Gets the policy of
-  a bucket
-* [[PUT Bucket|RiakCS PUT Bucket]] --- Creates a new bucket
-* [[PUT Bucket ACL|RiakCS PUT Bucket ACL]] --- Sets the ACL permissions
+* [GET Bucket ACL](/riak/cs/2.1.1/references/apis/storage/s3/get-bucket-acl) --- Returns the [Access Control List (ACL)](http://docs.aws.amazon.com/AmazonS3/latest/dev/ACLOverview.html) associated with a bucket
+* [GET Bucket policy](/riak/cs/2.1.1/references/apis/storage/s3/get-bucket-policy) --- Gets the policy of a bucket
+* [PUT Bucket](/riak/cs/2.1.1/references/apis/storage/s3/put-bucket) --- Creates a new bucket
+* [PUT Bucket ACL](/riak/cs/2.1.1/references/apis/storage/s3/put-bucket-acl) --- Sets the ACL permissions
   for a bucket
-* [[PUT Bucket policy|RiakCS PUT Bucket policy]] --- Sets the policy for
-  a bucket
-* [[DELETE Bucket|RiakCS DELETE Bucket]] --- Deletes a bucket
-* [[DELETE Bucket policy|RiakCS DELETE Bucket policy]] --- Deletes the
-  policy of a bucket
+* [PUT Bucket policy](/riak/cs/2.1.1/references/apis/storage/s3/put-bucket-policy) --- Sets the policy for a bucket
+* [DELETE Bucket](/riak/cs/2.1.1/references/apis/storage/s3/delete-bucket) --- Deletes a bucket
+* [DELETE Bucket policy](/riak/cs/2.1.1/references/apis/storage/s3/delete-bucket-policy) --- Deletes the policy of a bucket
 
 ## Object-level Operations
 
-* [[GET Object|RiakCS GET Object]] --- Retrieves an object
-* [[GET Object ACL|RiakCS GET Object ACL]] --- Returns the ACLs
-  associated with an object
-* [[PUT Object|RiakCS PUT Object]] --- Stores an object to a bucket
-* [[PUT Object (Copy)|RiakCS PUT Object (Copy)]] --- Creates a copy of
-  an object
-* [[PUT Object ACL|RiakCS PUT Object ACL]] --- Sets the ACLs associated
-  with an object
-* [[HEAD Object|RiakCS HEAD Object]] --- Retrieves object metadata (not
-  the full content of the object)
-* [[DELETE Object|RiakCS DELETE Object]] --- Deletes an object
+* [GET Object](/riak/cs/2.1.1/references/apis/storage/s3/get-object) --- Retrieves an object
+* [GET Object ACL](/riak/cs/2.1.1/references/apis/storage/s3/get-object-acl) --- Returns the ACLs associated with an object
+* [PUT Object](/riak/cs/2.1.1/references/apis/storage/s3/put-object) --- Stores an object to a bucket
+* [PUT Object (Copy)](/riak/cs/2.1.1/references/apis/storage/s3/put-object-copy) --- Creates a copy of an object
+* [PUT Object ACL](/riak/cs/2.1.1/references/apis/storage/s3/put-object-acl) --- Sets the ACLs associated with an object
+* [HEAD Object](/riak/cs/2.1.1/references/apis/storage/s3/head-object) --- Retrieves object metadata (not the full content of the object)
+* [DELETE Object](/riak/cs/2.1.1/references/apis/storage/s3/delete-object) --- Deletes an object
 
 ## Multipart Upload
 
@@ -95,27 +86,19 @@ Object parts can be uploaded independently and in any order. After all
 parts are uploaded, Riak CS assembles an object out of the parts. When
 your object size reaches 100MB, you should consider using multipart
 uploads instead of uploading the object in a single operation. Read more
-about multipart uploads on the [[overview|Multipart Upload Overview]]
-page.
+about multipart uploads on the [overview page](/riak/cs/2.1.1/multipart-upload-overview).
 
-* [[Initiate Multipart Upload|RiakCS Initiate Multipart Upload]] ---
-  Initiates a multipart upload and returns an upload ID
-* [[Upload Part|RiakCS Upload Part]] --- Uploads a part in a multipart
-  upload
-* [[Complete Multipart Upload|RiakCS Complete Multipart Upload]] ---
-  Completes a multipart upload and assembles previously uploaded parts
-* [[Abort Multipart Upload|RiakCS Abort Multipart Upload]] --- Aborts a
-  multipart upload and eventually frees storage consumed by previously
-  uploaded parts
-* [[List Parts|RiakCS List Parts]] --- Lists the parts that have been
-  uploaded for a specific multipart upload.
-* [[List Multipart Uploads|RiakCS List Multipart Uploads]] --- Lists
-  multipart uploads that have not yet been completed or aborted.
+* [Initiate Multipart Upload](/riak/cs/2.1.1/references/apis/storage/s3/initiate-multipart-upload) --- Initiates a multipart upload and returns an upload ID
+* [Upload Part](/riak/cs/2.1.1/references/apis/storage/s3/upload-part) --- Uploads a part in a multipart upload
+* [Complete Multipart Upload](/riak/cs/2.1.1/references/apis/storage/s3/complete-multipart-upload) --- Completes a multipart upload and assembles previously uploaded parts
+* [Abort Multipart Upload](/riak/cs/2.1.1/references/apis/storage/s3/abort-multipart-upload) --- Aborts a multipart upload and eventually frees storage consumed by previously uploaded parts
+* [List Parts](/riak/cs/2.1.1/references/apis/storage/s3/list-parts) --- Lists the parts that have been uploaded for a specific multipart upload.
+* [List Multipart Uploads](/riak/cs/2.1.1/references/apis/storage/s3/list-multipart-uploads) --- Lists multipart uploads that have not yet been completed or aborted.
 
 ## Common Headers
 
-* [[Common RiakCS Request Headers]]
-* [[Common RiakCS Response Headers]]
+* [Common Riak CS Request Headers](/riak/cs/2.1.1/references/apis/storage/s3/common-request-headers)
+* [Common Riak CS Response Headers](/riak/cs/2.1.1/references/apis/storage/s3/common-response-headers)
 
 There are two storage API options for Riak CS. The first and most fully
 featured is the S3 API. There is also limited but improving support for
@@ -134,13 +117,13 @@ resource modules.
 
 * Module: `riak_cs_s3_rewrite`
 * [Documentation](http://docs.aws.amazon.com/AmazonS3/latest/API/APIRest.html)
-* [[Mapping|Mapping From S3 API to Riak CS internal API]]
+* [Mapping](/riak/cs/2.1.1/references/apis/storage/s3/mapping-from-s3-api-to-riak-cs-internal-api)
 
 ### Openstack Object Storage API (v1)
 
 * Module: `riak_cs_oos_rewrite`
 * [Documentation](http://docs.openstack.org/api/openstack-object-storage/1.0/content/index.html)
-* [[Mapping|Mapping From OOS API to Riak CS internal API]]
+* [Mapping](/riak/cs/2.1.1/references/apis/storage/openstack/mapping-from-oos-api-to-riak-cs-internal-api)
 
 Selecting an API is done by adding or changing the `rewrite_module` key in the
 Riak CS `riak-cs.conf` file, or the old-style `advanced.config` or `app.config`
@@ -173,5 +156,5 @@ included when installing a Riak CS package or building from source.
 More details for each option can be found by following one of the
 following links:
 
-* [[S3 API|RiakCS S3 Storage API]]
-* [[OpenStack API|RiakCS OpenStack Storage API]]
+* [S3 API](/riak/cs/2.1.1/references/apis/storage/s3/)
+* [OpenStack API](/riak/cs/2.1.1/references/apis/storage/openstack/)

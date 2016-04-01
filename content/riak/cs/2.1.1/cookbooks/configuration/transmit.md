@@ -36,7 +36,9 @@ Defining a connection looks like this:
 
 ![Trasmit screenshot](/images/riak_cs_transmit0.jpg)
 
-<div class="info"><div class="title">Note</div>Transmit expects a secure connection, so ensure that your Riak CS proxy server is configured with SSL support. For information on configuring a software solution like HAProxy with SSL for use with Riak CS, see [[Load Balancing and Proxy Configuration]].</div>
+> **Note**
+>
+> Transmit expects a secure connection, so ensure that your Riak CS proxy server is configured with SSL support. For information on configuring a software solution like HAProxy with SSL for use with Riak CS, see [Load Balancing and Proxy Configuration](/riak/cs/2.1.1/cookbooks/configuration/load-balancing-proxy).
 
 Finally, test the connection to Riak CS by clicking **Connect**.
 

@@ -44,16 +44,15 @@ Please note that the older `app.config` file supersedes the newer configuration
 files. If an `app.config` file is present, neither the `riak-cs.config` nor the
 `advanced.config` will be used.
 
-<div class="note"><div class="title">Note on Legacy app.config</div>
-If you are upgrading to Riak CS 2.0 from a previous version of Riak and plan
+> **Note on Legacy app.config**
+>
+> If you are upgrading to Riak CS 2.0 from a previous version of Riak and plan
 to continue usage of the legacy `app.config` file, please note that some
 configuration options have changed names.  Most notably, the IP/Port format
 has changed in 2.0 for Stanchion, Riak, and Riak CS.  To view these changes, 
-please review the [[Rolling Upgrades|Rolling Upgrades for Riak CS]] Document. 
-
-For a comprehensive listing of available parameters and a full list of `app.config` 
-parameters, see the [[Full Configuration Reference|Riak CS Configuration Reference]].
-</div>
+please review the [Rolling Upgrades](/riak/cs/2.1.1/cookbooks/rolling-upgrades) Document. 
+>
+> For a comprehensive listing of available parameters and a full list of `app.config` parameters, see the [Full Configuration Reference](/riak/cs/2.1.1/cookbooks/configuration/reference).
 
 The sections below walk you through some of the main configuration categories
 that you will likely encounter while operating Riak CS.   
@@ -82,16 +81,12 @@ case address translation is required.
 </div>
 
 After making any changes to the `riak-cs.conf` file in Riak CS,
-[[restart|Riak CS Command-line Tools#riak-cs]] the node if it is already
-running.
+[restart](/riak/cs/2.1.1/cookbooks/command-line-tools/#riak-cs) the node if it is already running.
 
 ## Specifying the Stanchion Node
 
 If you're running a single Riak CS node, you don't have to change the
-[[Stanchion|Configuring Stanchion]] settings because Stanchion runs on
-the local host. If your Riak CS system has multiple nodes, however, you
-must specify the IP address and port for the Stanchion node and whether
-or not SSL is enabled.
+[Stanchion](/riak/cs/2.1.1/cookbooks/configuration/stanchion) settings because Stanchion runs on the local host. If your Riak CS system has multiple nodes, however, you must specify the IP address and port for the Stanchion node and whether or not SSL is enabled.
 
 The Stanchion settings reside in the Riak CS `riak-cs.conf` file, which is
 located in the `/etc/riak-cs` directory of each Riak CS node.
@@ -270,17 +265,9 @@ particular use case.
 ### Tuning
 
 We strongly recommend that you take care when setting the value of the
-[[`pb_backlog` setting|Configuring Riak for
-CS#Setting-Up-Riak-to-Use-Protocol-Buffers]] in Riak. When a Riak CS node is
+[`pb_backlog` setting](/riak/cs/2.1.1/cookbooks/configuration/riak-for-cs/#Setting-Up-Riak-to-Use-Protocol-Buffers) in Riak. When a Riak CS node is
 started, each connection pool begins to establish connections to Riak. This can
-result in a [[thundering
-herd problem|http://en.wikipedia.org/wiki/Thundering_herd_problem]] in which
-connections in the pool believe they are connected to Riak, but in reality some
-of the connections have been reset. Due to TCP `RST` packet rate limiting
-(controlled by `net.inet.icmp.icmplim`) some of the connections may not receive
-notification until they are used to service a user's request. This manifests
-itself as an `{error, disconnected}` message in the Riak CS logs and an error
-returned to the user.
+result in a [thundering herd problem](http://en.wikipedia.org/wiki/Thundering_herd_problem) in which connections in the pool believe they are connected to Riak, but in reality some of the connections have been reset. Due to TCP `RST` packet rate limiting (controlled by `net.inet.icmp.icmplim`) some of the connections may not receive notification until they are used to service a user's request. This manifests itself as an `{error, disconnected}` message in the Riak CS logs and an error returned to the user.
 
 ## Enabling SSL in Riak CS
 
@@ -368,7 +355,7 @@ data.riakcs.net
 
 The following options are available to make adjustments to the Riak CS garbage
 collection system. More details about garbage collection in Riak CS are
-available in [[Garbage Collection]].
+available in [Garbage Collection](/riak/cs/2.1.1/cookbooks/garbage-collection).
 
 * `gc.leeway_period` (`leeway_seconds` in `advanced.config` or `app.config`) ---
   The amount of time that must elapse before an object version that has been
@@ -434,4 +421,4 @@ been deprecated, and <em>will be removed</em> in the next major release.
 ## Other Riak CS Settings
 
 For a complete listing of configurable parameters for Riak CS, see the
-[[configuration reference|Riak CS Configuration Reference]] document.
+[configuration reference](/riak/cs/2.1.1/cookbooks/configuration/reference) document.
