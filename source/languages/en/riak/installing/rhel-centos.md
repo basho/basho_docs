@@ -105,7 +105,7 @@ instructions.
 You can install CentOS 5/RHEL 5 using yum, which we recommend:
 
 ```bash
-sudo yum install http://yum.basho.com/gpg/basho-release-5-1.noarch.rpm
+sudo yum install https://packagecloud.io/basho/riak/packages/el/5/riak-{{VERSION}}-1.x86_64.rpm
 sudo yum install riak
 ```
 
@@ -121,7 +121,7 @@ sudo rpm -Uvh riak-{{VERSION}}-1.el5.x86_64.rpm
 You can install using yum, which we recommend:
 
 ```bash
-sudo yum install http://yum.basho.com/gpg/basho-release-6-1.noarch.rpm
+sudo yum install https://packagecloud.io/basho/riak/packages/el/6/riak-{{VERSION}}-1.el6.x86_64.rpm
 sudo yum install riak
 ```
 
