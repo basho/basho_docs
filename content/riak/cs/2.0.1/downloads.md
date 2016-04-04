@@ -16,7 +16,7 @@ listed_projects:
     version: "2.0.1"
     title: "Riak CS"
   - project: "stanchion"
-    version: "2.0.1"
+    version: "2.0.0"
     title: "Stanchion"
   - project: "riak_cs_control"
     version: "1.0.2"
