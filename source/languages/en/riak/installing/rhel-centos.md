@@ -25,8 +25,6 @@ CentOS enables SELinux by default, so you may need to disable SELinux if
 you encounter errors.
 </div>
 
-## Installing with rpm
-
 For versions of Riak prior to 2.0, Basho used a self-hosted
 [rpm](http://www.rpm.org/) repository for CentOS and RHEL packages. For
 versions 2.0 and later, Basho has moved those packages to the
