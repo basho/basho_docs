@@ -1,5 +1,5 @@
 ---
-title: "Scaling and Operating Riak Best Practices"
+title: "Scaling and Operating Riak KV Best Practices"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"
