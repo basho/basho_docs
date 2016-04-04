@@ -15,8 +15,6 @@ aliases:
   - /riak/2.1.3/installing/debian-ubuntu/
 ---
 
-**TODO: Fix Package Versions (2.1.3)**
-
 [install source index]: /riak/kv/2.1.3/setup/installing/source/
 [security index]: /riak/kv/2.1.3/using/security/
 [install source erlang]: /riak/kv/2.1.3/setup/installing/source/erlang

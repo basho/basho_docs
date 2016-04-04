@@ -15,8 +15,6 @@ aliases:
   - /riak/2.1.3/installing/mac-osx/
 ---
 
-**TODO: Fix Package Versions (2.1.3)**
-
 [perf open files]: /riak/kv/2.1.3/using/performance/open-files-limit
 [install source erlang]: /riak/kv/2.1.3/setup/installing/source/erlang
 [install verify]: /riak/kv/2.1.3/setup/installing/verify

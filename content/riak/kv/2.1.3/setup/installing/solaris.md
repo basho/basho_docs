@@ -15,8 +15,6 @@ aliases:
   - /riak/2.1.3/installing/solaris/
 ---
 
-**TODO: Fix Package Versions (2.1.3)**
-
 [install verify]: /riak/kv/2.1.3/setup/installing/verify
 
 The following steps have been tested to work with Riak version 1.3.1 on Solaris 10 i386. They demonstrate installation of a Riak node on Solaris as the root user.
