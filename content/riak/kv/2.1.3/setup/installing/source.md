@@ -15,7 +15,7 @@ aliases:
   - /riak/2.1.3/installing/source/
 ---
 
-**TODO: Fix Package Versions ({{VERSION}})**
+**TODO: Fix Package Versions (2.1.3)**
 
 [install source erlang]: /riak/kv/2.1.3/setup/installing/source/erlang
 [downloads]: /riak/kv/2.1.3/downloads/
@@ -57,9 +57,9 @@ or cloned source.
 Download the Riak source package from the [Download Center][downloads] and build:
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/riak-{{VERSION}}.tar.gz
-tar zxvf riak-{{VERSION}}.tar.gz
-cd riak-{{VERSION}}
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.3/riak-2.1.3.tar.gz
+tar zxvf riak-2.1.3.tar.gz
+cd riak-2.1.3
 make locked-deps
 make rel
 ```

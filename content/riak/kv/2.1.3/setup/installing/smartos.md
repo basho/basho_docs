@@ -15,7 +15,7 @@ aliases:
   - /riak/2.1.3/installing/smartos/
 ---
 
-**TODO: Fix Package Versions ({{VERSION}})**
+**TODO: Fix Package Versions (2.1.3)**
 
 [install verify]: /riak/kv/2.1.3/setup/installing/verify
 
@@ -69,13 +69,13 @@ cat /opt/local/etc/pkgin/repositories.conf
 Download your version of the Riak binary package for SmartOS:
 
 ```bash
-curl -o /tmp/riak-{{VERSION}}-SmartOS-x86_64.tgz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/smartos/1.8/riak-{{VERSION}}-SmartOS-x86_64.tgz
+curl -o /tmp/riak-2.1.3-SmartOS-x86_64.tgz http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.3/smartos/1.8/riak-2.1.3-SmartOS-x86_64.tgz
 ```
 
 Next, install the package:
 
 ```
-pkg_add /tmp/riak-{{VERSION}}-SmartOS-x86_64.tgz
+pkg_add /tmp/riak-2.1.3-SmartOS-x86_64.tgz
 ```
 
 After installing the package, enable the Riak and Erlang Port Mapper Daemon (epmd) services:
