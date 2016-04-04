@@ -1,0 +1,50 @@
+---
+title: "Riak CS OpenStack Delete Container"
+description: ""
+project: "riak_cs"
+project_version: "2.0.1"
+aliases:
+  - /riakcs/2.0.1/references/apis/storage/openstack/RiakCS-OpenStack-Delete-Container
+---
+
+Deletes a container.
+
+<div class="note"><div clas="title">Note</div>All objects in the container must be deleted before you can delete the container.</div>
+
+## Requests
+
+### Request Syntax
+
+```http
+DELETE /<api version>/<account>/<container> HTTP/1.1
+Host: data.basho.com
+X-Auth-Token: auth_token
+```
+
+## Responses
+
+This operation does not return a response.
+
+## Examples
+
+### Sample Request
+
+A request that deletes a container named `basho-docs`.
+
+```http
+DELETE /v1.0/deadbeef/basho-docs HTTP/1.1
+Host: data.basho.com
+Date: Wed, 06 Jun 2012 20:47:15 +0000
+X-Auth-Token: aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa
+```
+
+### Sample Response
+
+```http
+HTTP/1.1 204 No Content
+Date: Wed, 06 Jun 2012 20:47:15 +0000
+Connection: close
+Server: RiakCS
+Content-Length: 0
+Content-Type: text/plain; charset=UTF-8
+```
