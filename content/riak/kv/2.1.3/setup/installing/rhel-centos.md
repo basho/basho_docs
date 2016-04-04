@@ -51,13 +51,13 @@ releases, use yum and packagecloud:
 curl -s https://packagecloud.io/install/repositories/basho/riak/script.rpm.sh | sudo bash
 ```
 
-### For CentOS 5 / RHEL 5:
+#### For CentOS 5 / RHEL 5:
 
 ```bash
 sudo yum install riak-2.1.3-1.el5.x86_64
 ```
 
-### For CentOS 6 / RHEL 6:
+#### For CentOS 6 / RHEL 6:
 
 ```bash
 sudo yum install riak-2.1.3-1.el6.x86_64
@@ -68,7 +68,7 @@ sudo yum install riak-2.1.3-1.el6.x86_64
 If you wish to install the RHEL/CentOS packages by hand, follow these
 instructions.
 
-### For Centos 5 / RHEL 5
+#### For Centos 5 / RHEL 5
 
 Download the package and install:
 
@@ -77,7 +77,7 @@ wget http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.3/rhel/5/riak-2.1.
 sudo yum install riak-2.1.3-1.el5.x86_64
 ```
 
-### For Centos 6 / RHEL 6
+#### For Centos 6 / RHEL 6
 
 Download the package and install:
 
@@ -88,14 +88,14 @@ sudo yum install riak-2.1.3-1.el6.x86_64
 
 ## Installing with rpm
 
-### For Centos 5 / RHEL 5
+#### For Centos 5 / RHEL 5
 
 ```bash
 wget http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.3/rhel/5/riak-2.1.3-1.el5.x86_64.rpm
 sudo rpm -Uvh riak-2.1.3-1.el5.x86_64.rpm
 ```
 
-### For Centos 6 / RHEL 6
+#### For Centos 6 / RHEL 6
 
 ```bash
 wget http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.3/rhel/6/riak-2.1.3-1.el6.x86_64.rpm
