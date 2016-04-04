@@ -19,8 +19,7 @@ does not attempt to optimize your installation for your particular
 architecture.
 
 If you want to build a testing environment with a minimum of
-configuration, there is an option for [[Building a Virtual Testing
-Environment]].
+configuration, there is an option for [Building a Virtual Testing Environment](/riak/cs/2.1.1/tutorials/fast-track/virtual-test-environment).
 
 ## Installing Your First Node
 
@@ -30,7 +29,7 @@ and running Riak and Riak CS.
 ### Step 1: Raise your system's open file limits
 
 Riak can consume a large number of open file handles during normal
-operation. See the [[Open Files Limit]] document for more information on
+operation. See the [Open Files Limit](/riak/kv/2.1.3/using/performance/open-files-limit) document for more information on
 how to increase your system's open files limit.
 
 If you are the root user, you can increase the system's open files limit
@@ -52,8 +51,7 @@ riak soft nofile 65536
 riak hard nofile 65536
 ```
 
-For Mac OS X, consult the [[open files limit|Open Files Limit#Mac-OS-X]]
-documentation.
+For Mac OS X, consult the [open files limit](/riak/kv/2.1.3/using/performance/open-files-limit/#Mac-OS-X) documentation.
 
 ### Step 2: Download and install packages
 
@@ -68,15 +66,14 @@ sudo apt-get install -y curl
 substitute the appropriate CLI commands.
 
 If you are running Ubuntu 11.10 or later, you will also need the
-`libssl0.9.8` package. See [[Installing on Debian and Ubuntu]] for more
-information.
+`libssl0.9.8` package. See [Installing on Debian and Ubuntu](/riak/kv/2.1.3/setup/installing/debian-ubuntu) for more information.
 
 ```bash
 sudo apt-get install -y libssl0.9.8
 ```
 
 Now, grab the appropriate packages: Riak, Riak CS, and Stanchion. See
-[Download Riak](docs.basho.com/riak/latest/downloads/) and [[Download Riak CS]].
+[Download Riak](/riak/kv/2.1.3/downloads/) and [Download Riak CS](/riak/cs/2.1.1/downloads).
 You can skip Riak CS Control for now.
 
 Once you have the packages, install them per the instructions below.
@@ -89,14 +86,14 @@ installing Riak.
 **Do not attempt to configure or start Riak until step 3 in this
 document.**
 
-  * [[Debian and Ubuntu|Installing on Debian and Ubuntu]]
-  * [[RHEL and CentOS|Installing on RHEL and CentOS]]
-  * [[Mac OS X|Installing on Mac OS X]]
-  * [[FreeBSD|Installing on FreeBSD]]
-  * [[SUSE|Installing on SUSE]]
-  * [[Windows Azure|Installing on Windows Azure]]
-  * [[AWS Marketplace|Installing on AWS Marketplace]]
-  * [[From Source|Installing Riak from Source]]
+  * [Debian and Ubuntu](/riak/kv/2.1.3/setup/installing/debian-ubuntu)
+  * [RHEL and CentOS](/riak/kv/2.1.3/setup/installing/rhel-centos)
+  * [Mac OS X](/riak/kv/2.1.3/setup/installing/mac-osx)
+  * [FreeBSD](/riak/kv/2.1.3/setup/installing/freebsd)
+  * [SUSE](/riak/kv/2.1.3/setup/installing/suse)
+  * [Windows Azure](/riak/kv/2.1.3/setup/installing/windows-azure)
+  * [AWS Marketplace](/riak/kv/2.1.3/setup/installing/amazon-web-services)
+  * [From Source](/riak/kv/2.1.3/setup/installing/source)
 
 #### Next, install Riak CS
 
@@ -460,18 +457,15 @@ your first node with two exceptions:
 You will then need to verify the cluster plan with the `riak-admin
 cluster plan` command, and commit the cluster changes with `riak-admin
 cluster commit` to complete the join process. More information is
-available in the [[Command Line Tools|riak-admin Command Line#cluster]]
-documentation.
+available in the [Command Line Tools](/riak/kv/2.1.3/using/admin/riak-admin/#cluster) documentation.
 
-<div class="note">
-<div class="title">Note</div>
-**Riak CS is not designed to function directly on TCP port 80, and
+> **Note**
+>
+> **Riak CS is not designed to function directly on TCP port 80, and
 should not be operated in a manner which exposes it directly to the
 public internet**. Instead, consider a load balancing solution,
-such as a dedicated device, <a href="http://haproxy.1wt.eu">HAProxy</a>,
-or <a href="http://wiki.nginx.org/Main">Nginx</a> between Riak CS and
+such as a dedicated device, [HAProxy](http://haproxy.1wt.eu),
+or [Nginx](http://wiki.nginx.org/Main) between Riak CS and
 the outside world.
-</div>
 
-Once you have completed this step, You can progress to [[testing the
-Riak CS installation]] using s3cmd.
+Once you have completed this step, You can progress to [testing the Riak CS installation](/riak/cs/2.1.1/tutorials/fast-track/test-installation) using s3cmd.

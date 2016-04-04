@@ -8,7 +8,7 @@ aliases:
   - /riakcs/2.1.1/references/apis/storage/s3/RiakCS-Upload-Part/
 ---
 
-This operation uploads a part in a multipart upload. You must [[initiate a multipart upload|RiakCS Initiate Multipart Upload]] before you can upload any part. In this operation you provide part data in your request.
+This operation uploads a part in a multipart upload. You must [initiate a multipart upload](/riak/cs/2.1.1/references/apis/storage/s3/initiate-multipart-upload) before you can upload any part. In this operation you provide part data in your request.
 
 ## Requests
 
@@ -53,7 +53,7 @@ This operation does not use request elements.
 
 ### Response Headers
 
-This implementation of the operation uses only response headers that are common to most responses. For more information, see [[Common RiakCS Response Headers]].
+This implementation of the operation uses only response headers that are common to most responses. For more information, see [Common Riak CS Response Headers](/riak/cs/2.1.1/references/apis/storage/s3/common-response-headers).
 
 ### Response Elements
 
@@ -63,7 +63,7 @@ This operation does not use response elements.
 
 ### Sample Request
 
-The following `PUT` request uploads part number 1 in a multipart upload. This request includes the upload ID from an [[Initiate Multipart Upload|RiakCS Initiate Multipart Upload]] request.
+The following `PUT` request uploads part number 1 in a multipart upload. This request includes the upload ID from an [Initiate Multipart Upload](/riak/cs/2.1.1/references/apis/storage/s3/initiate-multipart-upload) request.
 
 ```
 PUT /large.iso?partNumber=1&uploadId=VXBsb2FkIElEIGZvciA2aWWpbmcncyBteS1tb3ZpZS5tMnRzIHVwbG9hZA HTTP/1.1
@@ -78,7 +78,7 @@ Authorization: AWS AKIAIOSFODNN7EXAMPLE:VGhpcyBtZXNzYWdlIHNpZ25lZGGieSRlbHZpbmc=
 
 ### Sample Response
 
-The response includes the `ETag` header. This value must be retained for when you send the [[Complete Multipart Upload|RiakCS Complete Multipart Upload]] request.
+The response includes the `ETag` header. This value must be retained for when you send the [Complete Multipart Upload](/riak/cs/2.1.1/references/apis/storage/s3/complete-multipart-upload) request.
 
 ```
 HTTP/1.1 200 OK

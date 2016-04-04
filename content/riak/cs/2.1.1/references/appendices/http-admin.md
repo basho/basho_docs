@@ -18,10 +18,10 @@ above and beyond those associated with Riak itself:
 
 Task | CS URI | Further reading
 :----|:-------|:---------------
-User management        | `/riak-cs/user`  | [[Account Management]]
-User access statistics | `/riak-cs/usage` | [[Querying Access Statistics]]
-Storage statistics     | `/riak-cs/usage` | [[Querying Storage Statistics]]
-Global statistics      | `/riak-cs/stats` | [[Monitoring and Metrics]]
+User management        | `/riak-cs/user`  | [Account Management](/riak/cs/2.1.1/cookbooks/account-management)
+User access statistics | `/riak-cs/usage` | [Querying Access Statistics](/riak/cs/2.1.1/cookbooks/querying-access-statistics)
+Storage statistics     | `/riak-cs/usage` | [Querying Storage Statistics](/riak/cs/2.1.1/cookbooks/querying-storage-statistics)
+Global statistics      | `/riak-cs/stats` | [Monitoring and Metrics](/riak/cs/2.1.1/cookbooks/monitoring-and-metrics)
 
 By default, these are accessible over the same IP/port as the rest of
 the CS API, but they can be configured to run elsewhere, with or without
@@ -51,13 +51,13 @@ details.
 
 ## Related Resources
 
-* [[Configuring Riak CS]]
-* [[Querying Access Statistics]]
-    * [[Usage and Billing Data]]
+* [configuring Riak CS](/riak/cs/2.1.1/cookbooks/configuration/riak-cs)
+* [Querying Access Statistics](/riak/cs/2.1.1/cookbooks/querying-access-statistics)
+    * [Usage and Billing Data](/riak/cs/2.1.1/cookbooks/usage-and-billing-data)
     * [Github wiki](https://github.com/basho/riak_cs/wiki/Querying-Access-Stats)
-* [[Querying Storage Statistics]]
+* [Querying Storage Statistics](/riak/cs/2.1.1/cookbooks/querying-storage-statistics)
     * [Enabling storage statistics](https://github.com/basho/riak_cs/wiki/Logging-Storage-Stats)
     * [Github wiki](https://github.com/basho/riak_cs/wiki/Logging-Storage-Stats)
-* [[Account Management]]
+* [Account Management](/riak/cs/2.1.1/cookbooks/account-management)
     * [Github wiki](https://github.com/basho/riak_cs/wiki/User-Management)
-* [[Monitoring and Metrics]]
+* [Monitoring and Metrics](/riak/cs/2.1.1/cookbooks/monitoring-and-metrics)

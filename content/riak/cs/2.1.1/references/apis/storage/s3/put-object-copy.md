@@ -22,7 +22,7 @@ PUT Object (Copy) is currently only supported when the source and destination ob
 
 PUT Object (Copy) offers the option to specify the permissions you want to grant to specific accounts or groups for the copied object. You can grant permissions to accounts or groups with request headers, using one of the following two methods:
 
-* Specify a predefined ACL using the `x-amz-acl` request header. More information about predefined ACLs is available [[here|http://docs.amazonwebservices.com/AmazonS3/latest/dev/ACLOverview.html#CannedACL]].
+* Specify a predefined ACL using the `x-amz-acl` request header. More information about predefined ACLs is available [here](http://docs.amazonwebservices.com/AmazonS3/latest/dev/ACLOverview.html#CannedACL).
 * Specify access permissions explicitly using the `x-amz-grant-read`, `x-amz-grant-write`, `x-amz-grant-read-acp`, `x-amz-grant-write-acp`, `x-amz-grant-full-control` headers, which map to the set of ACL permissions supported by Amazon S3.
 
 <div class="note">

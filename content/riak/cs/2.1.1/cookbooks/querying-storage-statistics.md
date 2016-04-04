@@ -25,35 +25,28 @@ terms "usage" and access.
 </div>
 
 
-**Note**: Storage statistics are not calculated by default. Please read [[Usage and Billing Data]] for details about how to enable storage calculation archiving.
+> **Note**:
+> 
+> Storage statistics are not calculated by default. Please read [Usage and Billing Data](/riak/cs/2.1.1/cookbooks/usage-and-billing-data) for details about how to enable storage calculation archiving.
 
-The basics of querying storage statistics, including the URL used and the parameters for specifying the time slice, are the same as they are for [[Querying Access Statistics]].
+The basics of querying storage statistics, including the URL used and the parameters for specifying the time slice, are the same as they are for [Querying Access Statistics](/riak/cs/2.1.1/cookbooks/querying-access-statistics).
 
 Please refer to the descriptions there for more details.
 
-{{#1.3.0+}}The examples on this page assume that the `admin_port` has not
-been configured to something other than default CS port of `8080`.{{/1.3.0+}}
+The examples on this page assume that the `admin_port` has not
+been configured to something other than default CS port of `8080`.
 
 ## Enable Storage Results
 
-<div class="note"><div class="title">Authentication Required</div>Queries to the usage resources described here must be authenticated as described in the
-[[Authentication documentation|Authentication]]. Keep this in mind when using
-<tt>curl</tt>. Authentication credentials for <tt>s3cmd</tt> or <tt>s3-curl</tt> can be specified in their respective configuration files.</div>
+> **Authentication Required**
+>
+> Queries to the usage resources described here must be authenticated as described in the [Authentication documentation](/riak/cs/2.1.1/cookbooks/authentication). Keep this in mind when using `curl`. Authentication credentials for `s3cmd` or `s3-curl` can be specified in their respective configuration files.
 
 The usage HTTP resource provides both access and storage statistics. Since each of these queries can be taxing in its own right, they are both omitted from the result by default:
-
-{{#1.3.0-}}
-
-```curl
-curl http://localhost:8080/usage/8NK4FH2SGKJJM8JIP2GU
-```
-{{/1.3.0-}}
-{{#1.3.0+}}
 
 ```curl
 curl http://localhost:8080/riak-cs/usage/8NK4FH2SGKJJM8JIP2GU
 ```
-{{/1.3.0+}}
 
 Sample responses (reformatted for easy reading):
 
@@ -114,35 +107,17 @@ There are no statistics included in this report because the default time span is
 
 ### S3 Object-style Access
 
-As described in [[Querying Access Statistics]], these statistics are also available as S3 objects. To add storage statistics to the result, add the character `b` to the `Options` portion of the object's path. For example, the following command would produce storage statistics in XML format:
-
-{{#1.3.0-}}
-
-```bash
-s3cmd get s3://usage/8NK4FH2SGKJJM8JIP2GU/bx/20120315T140000Z/20120315T160000Z
-```
-{{/1.3.0-}}
-{{#1.3.0+}}
+As described in [Querying Access Statistics](/riak/cs/2.1.1/cookbooks/querying-access-statistics), these statistics are also available as S3 objects. To add storage statistics to the result, add the character `b` to the `Options` portion of the object's path. For example, the following command would produce storage statistics in XML format:
 
 ```bash
 s3cmd get s3://riak-cs/usage/8NK4FH2SGKJJM8JIP2GU/bx/20120315T140000Z/20120315T160000Z
 ```
-{{/1.3.0+}}
 
 You may also pass both `b` and `a` as `Options` to fetch both types of stats, as in:
-
-{{#1.3.0-}}
-
-```bash
-s3cmd get s3://usage/8NK4FH2SGKJJM8JIP2GU/abx/20120315T140000Z/20120315T160000Z
-```
-{{/1.3.0-}}
-{{#1.3.0+}}
 
 ```bash
 s3cmd get s3://riak-cs/usage/8NK4FH2SGKJJM8JIP2GU/abx/20120315T140000Z/20120315T160000Z
 ```
-{{/1.3.0+}}
 
 ## Interpreting the Results
 

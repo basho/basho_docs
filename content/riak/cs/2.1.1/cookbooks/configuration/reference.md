@@ -51,13 +51,13 @@ It should now read:
 ]},
 ```
 
-and so on. More details can be found at [[Configuring Riak CS]].
+and so on. More details can be found at [configuring Riak CS](/riak/cs/2.1.1/cookbooks/configuration/riak-cs).
 </div>
 
 
 This document is intended as a reference listing of all configurable parameters
 for Riak CS. For a more narrative-style walkthrough of configuring Riak CS, we
-recommend consulting the [[Configuring Riak CS]] tutorial.
+recommend consulting the [configuring Riak CS](/riak/cs/2.1.1/cookbooks/configuration/riak-cs) tutorial.
 
 The configuration for Riak CS is handled through either the `riak-cs.conf` and
 `advanced.config` file pair, which were introduced in Riak CS 2.0.0, or the two
@@ -127,7 +127,7 @@ The tables below will show settings for both `riak-cs.conf` and
 <tr>
 <td><code>riak_host</code></td>
 <td>The IP address/port for the Riak CS node's corresponding Riak node (used by
-Riak's [[Protocol Buffers|PBC API]] interface)
+Riak's <a href="/riak/kv/2.1.3/developing/api/protocol-buffers">Protocol Buffers</a> interface)
 <td><code>127.0.0.1:8087</code></td>
 </tr>
 <tr>
@@ -154,7 +154,7 @@ the corresponding HTTP host).</td>
 <tr>
 <td><code>riak_host</code></td>
 <td>The TCP IP/port for the Riak CS node's corresponding Riak node (used by
-Riak's [[Protocol Buffers|PBC API]] interface)
+Riak's <a href="/riak/kv/2.1.3/developing/api/protocol-buffers">Protocol Buffers</a> interface)
 <td><code>{"127.0.0.1", 8087}</code></td>
 </tr>
 <tr>
@@ -295,7 +295,7 @@ tasks use the IP and port as all other Riak CS traffic.</td>
 <td>The admin key used for administrative access to Riak CS, e.g. usage of the
 <code>/riak-cs/stats</code> endpoint. Please note that both
 <code>admin.key</code> and <code>admin.secret</code> must match the
-corresponding settings in the [[Stanchion]] node's <code>stanchion.conf</code>.
+corresponding settings in the <a href="/riak/cs/2.1.1/theory/stanchion">Stanchion</a> node's <code>stanchion.conf</code>.
 </td>
 <td><code>admin-key</code></td>
 </tr>
@@ -323,7 +323,7 @@ this setting unless you implement a custom authentication scheme.</td>
 <tr>
 <td><code>rewrite_module</code></td>
 <td>A rewrite module contains a set of rules for translating requests made using
-a particular API to requests in the the native [[Riak CS storage API]]. We do
+a particular API to requests in the the native <a href="/riak/cs/2.1.1/references/apis/storage">Riak CS storage API</a>. We do
 not recommend changing this setting unless you implement a custom module.</td>
 <td><code>riak_cs_s3_rewrite</code></td>
 </tr>
@@ -348,7 +348,7 @@ tasks use the IP and port as all other Riak CS traffic.</td>
 <td>The admin key used for administrative access to Riak CS, e.g. usage
 of the <code>/riak-cs/stats</code> endpoint. Please note that both
 <code>admin_key</code> and <code>admin_secret</code> must match the
-corresponding settings in the [[Stanchion]] node's
+corresponding settings in the <a href="/riak/cs/2.1.1/theory/stanchion">Stanchion</a> node's
 <code>app.config</code>.</td>
 <td><code></code></td>
 </tr>
@@ -384,8 +384,7 @@ actions, including bucket deletion.</td>
 <tr>
 <td><code>rewrite_module</code></td>
 <td>A rewrite module contains a set of rules for translating requests
-made using a particular API to requests in the the native [[Riak CS
-storage API]]. We do not recommend changing this setting unless you
+made using a particular API to requests in the the native <a href="/riak/cs/2.1.1/references/apis/storage">Riak CS storage API</a>. We do not recommend changing this setting unless you
 implement a custom module.</td>
 <td><code>riak_cs_s3_rewrite</code></td>
 </tr>
@@ -394,7 +393,7 @@ implement a custom module.</td>
 
 ## Usage Recording
 
-These settings relate to Riak CS's [[access logs|Usage and Billing Data]].
+These settings relate to Riak CS's [access logs](/riak/cs/2.1.1/cookbooks/usage-and-billing-data).
 
 ### `riak-cs.conf`
 
@@ -517,7 +516,7 @@ of <code>86400</code> translates to 1 day.</td>
 
 ## Garbage Collection
 
-Settings related to Riak CS's [[garbage collection]] \(GC) process.
+Settings related to Riak CS's [garbage collection](/riak/cs/2.1.1/cookbooks/garbage-collection) \(GC) process.
 
 ### `riak-cs.conf`
 
@@ -659,7 +658,7 @@ blocks to Riak.</td>
 <tr>
 <td><code>cs_version</code></td>
 <td>The Riak CS version number. This number is used to selectively enable new
-features for the current version to better support [[rolling upgrades]]. New
+features for the current version to better support <a href="/riak/cs/2.1.1/cookbooks/rolling-upgrades">rolling upgrades</a>. New
 installs shouldn't need to modify this. If you're performing a rolling upgrade,
 keep the original value (if not defined, Riak CS uses <code>0</code>) of the old
 <code>app.config</code> until all nodes have been upgraded. At that point, set
@@ -694,11 +693,7 @@ source IP address as an input (which is the default).</td>
 <tr>
 <td><code>cs_version</code></td>
 <td>The Riak CS version number. This number is used to selectively
-enable new features for the current version to better support [[rolling
-upgrades]]. New installs shouldn't need to modify this. If you're
-performing a rolling upgrade, keep the original value (if not defined,
-Riak CS uses <code>0</code>) of the old <code>app.config</code> until
-all nodes have been upgraded. At that point, set to the new value.</td>
+enable new features for the current version to better support <a href="/riak/cs/2.1.1/cookbooks/rolling-ugrades">rolling upgrades</a>. New installs shouldn't need to modify this. If you're performing a rolling upgrade, keep the original value (if not defined, Riak CS uses <code>0</code>) of the old <code>app.config</code> until all nodes have been upgraded. At that point, set to the new value.</td>
 <td><code></code></td>
 </tr>
 <tr>

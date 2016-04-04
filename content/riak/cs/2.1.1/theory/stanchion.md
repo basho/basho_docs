@@ -14,12 +14,7 @@ aliases:
 ---
 
 Stanchion is an application used by Riak CS to manage the serialization
-of requests, which enables Riak CS to manage [[globally unique
-entities|Stanchion#Globally-Unique-Entities]] like users and bucket
-names. Serialization in this context means that the entire cluster
-agrees upon a single value for any globally unique entity at any given
-time; when that value is changed, the new value must be recognized
-throughout the entire cluster.
+of requests, which enables Riak CS to manage [globally unique entities](#Globally-Unique-Entities) like users and bucket names. Serialization in this context means that the entire cluster agrees upon a single value for any globally unique entity at any given time; when that value is changed, the new value must be recognized throughout the entire cluster.
 
 ## The Role of Stanchion in a Riak CS Cluster
 
@@ -29,11 +24,9 @@ Riak CS cluster at any time. Correspondingly, your Stanchion
 installation must be managed and configured separately. For more
 information, see the following documents:
 
-* [[Configuring Stanchion]]
-* [[Installing Stanchion|Installing Riak
-  CS#Installing-Stanchion-on-a-Node]]
-* [[The Stantion Command-line Interface|Riak CS Command-line
-  Tools#stanchion]]
+* [Configuring Stanchion](/riak/cs/2.1.1/cookbooks/configuration/stanchion)
+* [Installing Stanchion](/riak/cs/2.1.1/cookbooks/installing#Installing-Stanchion-on-a-Node)
+* [The Stantion Command-line Interface](/riak/cs/2.1.1/cookbooks/command-line-tools#stanchion)
 
 For a more in-depth discussion of implementation details, see the
 project's
@@ -57,9 +50,7 @@ rejected.
 The uniqueness of these entities is enforced by serializing any creation
 or modification requests that involve them. This process is handled by
 Stanchion. What happens under the hood is essentially that Stanchion
-mandates that all [[vnodes|Riak Glossary#vnode]] in the underlying Riak
-cluster that are responsible for the user or bucket being created must
-be available at creation time.
+mandates that all [vnodes](/riak/kv/2.1.3/learn/glossary#vnode) in the underlying Riak cluster that are responsible for the user or bucket being created must be available at creation time.
 
 One result of this enforcement is that user creation requests and bucket
 creation or modification, i.e. deletion, requests are not highly

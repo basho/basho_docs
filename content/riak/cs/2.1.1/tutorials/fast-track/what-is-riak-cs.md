@@ -14,8 +14,7 @@ aliases:
 ---
 
 This page introduces the architecture behind Riak CS. If you already
-know this, you can skip it and progress to [[Building a Local Test
-Environment]] or [[Building a Virtual Testing Environment]]
+know this, you can skip it and progress to [Building a Local Test Environment](../local-testing-environment) or [Building a Virtual Testing Environment](../virtual-test-environment).
 
 ## Architecture
 
@@ -35,8 +34,7 @@ automatically take over the responsibility of failed or
 non-communicative nodes, data remains available even in the event of
 node failure or network partition.
 
-When an object is uploaded via the [[storage API|Riak CS Storage API]],
-Riak CS breaks the object into smaller chunks that are streamed,
+When an object is uploaded via the [storage API](/riak/cs/2.1.1/references/apis/storage), Riak CS breaks the object into smaller chunks that are streamed,
 written, and replicated in Riak. Each chunk is associated with metadata
 for later retrieval. The diagram below provides a visualization.
 
@@ -50,5 +48,4 @@ to serve global traffic, create availability zones, maintain active
 backups, or meet disaster recovery and regulatory requirements.
 Multi-Datacenter Replication can be used in two or more sites. Data can
 be replicated across data centers using realtime or fullsync
-replication. To try out Riak CS Enterprise, sign up for a [developer
-trial](http://info.basho.com/RiakCS1.1_DeveloperTrialRequest.html).
+replication. To try out Riak CS Enterprise, sign up for a [developer trial](http://info.basho.com/RiakCS1.1_DeveloperTrialRequest.html).

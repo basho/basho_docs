@@ -29,8 +29,7 @@ CS cluster.
 
 As of Riak release 1.4.0, there are two different MDC replication modes
 that Riak CS can use to request data from remote clusters. Please see
-the [[comparison|Multi Data Center Replication: Comparison]] doc for
-more information.
+the [comparison](/riak/kv/2.1.3/using/reference/multi-datacenter/comparison) doc for more information.
 
 ### Replication Version 3 Configuration
 
@@ -77,11 +76,9 @@ configured **sink cluster**.
 
 See also:
 
-* [[Upgrading from v2 to v3|Multi Data Center Replication: Upgrading
-  from V2 to V3]]
-* [[Comparing v2 and v3|Multi Data Center Replication: Comparison]]
-* [[Multi-Datacenter Operations|Multi Data Center Replication v3
-  Operations]]
+* [Upgrading from v2 to v3](/riak/kv/2.1.3/setup/upgrading/multi-datacenter)
+* [Comparing v2 and v3](/riak/kv/2.1.3/using/reference/multi-datacenter/comparison)
+* [Multi-Datacenter Operations](/riak/kv/2.1.3/using/cluster-operations/v3-multi-datacenter)
 
 ## Riak CS Configuration
 
@@ -123,11 +120,10 @@ Replace the `node` variable above with the nodename specified in the
 
 ## Stanchion Configuration
 
-Though there is no specific configuration for [[Stanchion]], note that
+Though there is no specific configuration for [Stanchion](/riak/cs/2.1.1/theory/stanchion), note that
 Stanchion should be a single, globally unique process to which every
 Riak CS node sends requests, even if there are multiple replicated
 sites.  Unlike Riak and Riak CS, Stanchion should run on _only one node
 in a given cluster_, perhaps on its own, dedicated hardware if you wish.
 Stanchion runs on only one node because it manages strongly consistent
-updates to [[globally unique
-entities|Stanchion#Globally-Unique-Entities]] like users and buckets.
+updates to [globally unique entities](/riak/cs/2.1.1/theory/stanchion/#Globally-Unique-Entities) like users and buckets.

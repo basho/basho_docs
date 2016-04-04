@@ -15,7 +15,7 @@ aliases:
 
 This document describes some of the implementation details behind Riak
 CS's garbage collection process. For information on configuring this
-system, please see our documentation on [[configuring Riak CS]].
+system, please see our documentation on [configuring Riak CS](/riak/cs/2.1.1/cookbooks/configuration/riak-cs).
 
 ## Versions and Manifests
 
@@ -145,57 +145,6 @@ the user who issued the request.
 
 ## Garbage Collection Daemon
 
-{{#1.5.0-}}
-
-The asynchronous portion of the garbage collection process is
-orchestrated by the garbage collection daemon that wakes up at
-specific intervals and checks the `riak-cs-gc` bucket for any
-scheduled entries that are eligible for reaping. The daemon enters a
-*working* state and begins to delete the object blocks associated with
-the eligible keys and continues until all keys have been processed.
-The duration of this working state varies depending on the the number of
-keys involved and the size of the objects they represent. The daemon
-checks for messages after processing each object so that the work
-interval may be manually interrupted if needed.
-
-Deletion eligibility is determined using the key values in the
-`riak-cs-gc` bucket. The keys in the `riak-cs-gc` bucket are
-representations of epoch time values with random suffixes
-appended. The purpose of the random suffix is to avoid hot keys when
-the system is dealing with high volumes of deletes or overwrites. If
-the current time according to the daemon is later than the time
-represented by a key plus the leeway interval then the blocks for any
-object manifests stored in that key are eligible for deletion and the
-daemon attempts to delete them.
-
-The daemon gathers the eligible keys for deletion by performing a
-secondary index range query on the `$key` index with a lower bound of
-time 0 and an upper bound of the current time. This allows the
-daemon to collect all the keys that are eligible for deletion and have
-some way of accounting for clock skew.
-
-The daemon may also be configured to use more efficient paginated
-index queries to gather the deletion-eligible keys by setting the
-`paginated_index` configuration option to `true`. In this case the gc
-daemon requests up to `gc_batch_size` keys from the GC bucket and
-deletes the manifests associated with those keys before requesting the
-next set of keys. The value for `gc_batch_size` may be configured and
-the default value is 1000.
-
-The daemon also has two options to add concurrency to the GC
-process: concurrency can be added in order to use multiple GC worker
-processes to operate on different groups of keys from the GC bucket or
-it may be added to have multiple workers process the deletion of data
-blocks associated with a particular manifest. The latter is discussed
-more in the [[Object Block Reaping|Garbage
-Collection#Object-Block-Reaping]] section below.
-
-Once all of the object blocks represented by a key in the `riak-cs-gc`
-bucket have been deleted, the key is deleted from the `riak-cs-gc`
-bucket.
-{{/1.5.0-}}
-{{#1.5.0+}}
-
 The asynchronous portion of the garbage collection process is
 orchestrated by the garbage collection daemon that wakes up at specific
 intervals and checks the `riak-cs-gc` bucket for any scheduled entries
@@ -254,7 +203,6 @@ discussed more in the *Object Block Reaping* section below.
 Once all of the objects represented by manifests stored for a
 particular key in the `riak-cs-gc` bucket have been deleted, the key
 is deleted from the `riak-cs-gc` bucket.
-{{/1.5.0+}}
 
 ### One Daemon per Cluster
 
@@ -262,8 +210,7 @@ We recommend using only _one_ active garbage collection daemon in any
 Riak CS cluster. If multiple daemons are currently being used, you can
 disable the others by setting the `gc.interval` parameter to `infinity`
 on those nodes. More information on how to do that can be found in the
-[[CS configuration doc|Configuring Riak
-CS#Garbage-Collection-Settings]].
+[CS configuration doc](/riak/cs/2.1.1/cookbooks/configuration/riak-cs/#Garbage-Collection-Settings).
 
 ## Controlling the GC Daemon
 
@@ -276,15 +223,14 @@ list of the available commands.
 
 Command | Description
 :-------|:-----------
-`batch` | Manually start garbage collection for a batch of eligible objects.{{#1.5.0+}} This command takes an optional argument to indicate a leeway time other than the currently configured `gc.leeway_period` time for the batch.{{/1.5.0+}}
+`batch` | Manually start garbage collection for a batch of eligible objects. This command takes an optional argument to indicate a leeway time other than the currently configured `gc.leeway_period` time for the batch.
 `status` | Get the current status of the garbage collection daemon. The output is dependent on the current state of the daemon.
 `pause` | Pause the current batch of object garbage collection. It has no effect if there is no active batch.
 `resume` | Resume a paused garbage collection batch. It has no effect if there is no previously paused batch.
 `set-interval` | Set or update the garbage collection interval. This setting uses a unit of seconds.
-`set-leeway` | Set or update the garbage collection leeway time. This setting indicates how many seconds must elapse after an object is deleted or overwritten before the garbage collection system may reap the object. This setting uses a unit of seconds.{{1.5.0+}}
+`set-leeway` | Set or update the garbage collection leeway time. This setting indicates how many seconds must elapse after an object is deleted or overwritten before the garbage collection system may reap the object. This setting uses a unit of seconds.
 
-For more information, see our documentation on [[Riak CS command-line
-tools]].
+For more information, see our documentation on [Riak CS command-line tools](/riak/cs/2.1.1/cookbooks/command-line-tools).
 
 ## Manifest Updates
 
@@ -328,11 +274,9 @@ manifest keys that could linger indefinitely.
 
 Riak CS's garbage collection implementation gives the deployer several
 knobs to adjust for fine-tuning system performace. More information
-can be found in our documentation on [[configuring Riak CS|Configuring
-Riak CS#Garbage-Collection-Settings]].
+can be found in our documentation on [configuring Riak CS](/riak/cs/2.1.1/cookbooks/configuration/riak-cs/#Garbage-Collection-Settings).
 
 ## More Information
 
 If you'd like more in-depth material on garbage collection in Riak CS,
-we recommend consulting the [Riak CS
-wiki](https://github.com/basho/riak_cs/wiki/Object-Chunking-and-Garbage-Collection)
+we recommend consulting the [Riak CS wiki](https://github.com/basho/riak_cs/wiki/Object-Chunking-and-Garbage-Collection)

@@ -207,7 +207,7 @@ More information about Erlang's etop tool can be found in the
 
 ## riak-cs-admin gc
 
-This command controls Riak CS's [[garbage collection]] system.
+This command controls Riak CS's [garbage collection](/riak/cs/2.1.1/cookbooks/garbage-collection) system.
 
 ```bash
 riak-cs-admin gc <subcommand>
@@ -313,8 +313,7 @@ undergirding Riak CS.
 
 Temporarily changes the host and/or port used by Stanchion. This change
 is effective until the node is restarted, at which point Stanchion will
-begin listening on the host and port specified in your [[configuration
-files]].
+begin listening on the host and port specified in your [configuration files](/riak/cs/2.1.1/cookbooks/configuration/reference).
 
 ```bash
 riak-cs-stanchion switch HOST PORT
@@ -351,7 +350,7 @@ Current Stanchion Address: http://127.0.0.1:8085
 ## riak-cs-admin storage
 
 This command is the direct equivalent of `riak-cs-admin storage`
-documented [[above|Riak CS Command Line Tools#riak-cs-admin]].
+documented [above](#riak-cs-admin).
 
 ## stanchion
 
@@ -517,13 +516,13 @@ More information about Erlang's etop tool can be found in the
 ## riak-cs-access
 
 This command is the direct equivalent of `riak-cs-admin access`,
-documented [[above|Riak CS Command-line Tools#riak-cs-admin-access]].
+documented [above](#riak-cs-admin-access).
 
 ## riak-cs-supercluster
 
 Riak CS version 1.5 offers support for supercluster operations. The
 `supercluster` command interface enables you to interact with that system.
-More information can be found in [[Riak CS Supercluster Support]].
+More information can be found in [Riak CS Supercluster Support](/riak/cs/2.1.1/cookbooks/supercluster).
 
 <div class="note">
 <div class="title">Note: technical preview</div>
@@ -639,9 +638,7 @@ Fetches all current weights from the master member.
 riak-cs-supercluster refresh
 ```
 
-When a member's weight is updated, that weight is stored in the [[master
-member|Riak CS Supercluster Support#The-Master-Member]] and cached in Riak CS.
-Riak CS fetches weights from the master member only periodically. The
+When a member's weight is updated, that weight is stored in the [master member](/riak/cs/2.1.1/cookbooks/supercluster/#The-Master-Member) and cached in Riak CS. Riak CS fetches weights from the master member only periodically. The
 `refresh` command syncs the weights stored in the master member with the
 weights cached in Riak CS so that there is no discrepancy.
 

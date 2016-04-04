@@ -20,14 +20,12 @@ default ACL will be created alongside it that grants full control to the
 creating party and denies access to all other parties.
 
 Riak CS ACLs are modeled after S3 ACLs. For more information, see the
-Amazon [Access Control List
-Overview](http://docs.amazonwebservices.com/AmazonS3/latest/dev/ACLOverview.html)
+Amazon [Access Control List Overview](http://docs.amazonwebservices.com/AmazonS3/latest/dev/ACLOverview.html)
 documentation.
 
-<div class="note">
-<div class="title">ACL Limit</div>
-An ACL can have up to 100 grants.
-</div>
+> **ACL Limit**
+>
+> An ACL can have up to 100 grants.
 
 ## Representations
 
@@ -84,16 +82,11 @@ Riak CS permissions are split into two types: **bucket permissions** and
 
 ## Buckets
 
-Bucket names **must** be [[globally
-unique|Stanchion#Globally-Unique-Entities]]. To avoid conflicts, all
+Bucket names **must** be [globally unique](/riak/cs/2.1.1/theory/stanchion/#Globally-Unique-Entities). To avoid conflicts, all
 bucket creation requests are made to an application called
-[[Stanchion|Configuring Stanchion]]. This means that all requests for
-modification of a bucket ACL should be serialized through Stanchion.
-While this may cause undesirable serialization of these requests, we
+[Stanchion](/riak/cs/2.1.1/cookbooks/configuration/stanchion). This means that all requests for modification of a bucket ACL should be serialized through Stanchion. While this may cause undesirable serialization of these requests, we
 believe it is appropriate based on the following statement from this
-[documentation on bucket
-restrictions](http://docs.amazonwebservices.com/AmazonS3/latest/dev/BucketRestrictions.html)
-from Amazon regarding restrictions on bucket operations:
+[documentation on bucket restrictions](http://docs.amazonwebservices.com/AmazonS3/latest/dev/BucketRestrictions.html) from Amazon regarding restrictions on bucket operations:
 
 > Because bucket operations work against a centralized, global
 resource space, it is not appropriate to make bucket create or delete
@@ -112,4 +105,4 @@ created granting the creator both ownership and full access control and
 denying access to all other parties.
 
 For information on specifying an ACL when making a `PUT` request, see
-[[RiakCS PUT Object ACL]].
+[Riak CS PUT Object ACL](/riak/cs/2.1.1/references/apis/storage/s3/put-object-acl).

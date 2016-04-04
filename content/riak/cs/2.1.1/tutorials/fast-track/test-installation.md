@@ -35,8 +35,7 @@ sudo apt-get -y install s3cmd
 > `--signature-v2` flag that can be used to have s3cmd use the older format, and
 > correctly interact with Riak CS.
 
-For OS X users, either use the package manager of your preference or download
-the S3 cmd package at [[http://sourceforge.net/projects/s3tools/files/s3cmd/]].
+For OS X users, either use the package manager of your preference or [download the S3 cmd package](http://sourceforge.net/projects/s3tools/files/s3cmd/).
 You will need need to extract the `.tar` file, change directories into the
 folder, and build the package. The process should look something like this:
 
@@ -141,6 +140,6 @@ bit of learning to be done, so make sure and check out the Reference
 section (click "Reference" on the nav on the left side of this page). A
 few items that may be of particular interest:
 
-* [[Details about API operations|Riak CS Storage API]]
-* [[Information about the Ruby Fog client|Fog on Riak CS]]
-* [[Release Notes]]
+* [Details about API operations](/riak/cs/2.1.1/references/apis/storage)
+* [Information about the Ruby Fog client](/riak/cs/2.1.1/cookbooks/fog)
+* [Release Notes](/riak/cs/2.1.1/cookbooks/release-notes)
