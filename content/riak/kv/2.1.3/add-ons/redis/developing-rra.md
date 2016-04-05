@@ -13,12 +13,12 @@ toc: true
 ---
 
 [redis-clients]: http://redis.io/clients
-[usage bucket types]: http://docs.basho.com/riak/latest/dev/advanced/bucket-types/
-[dev api http]: http://docs.basho.com/riak/latest/dev/references/http/set-bucket-props/
+[usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types/
+[dev api http]: /riak/kv/2.1.3/developing/api/http
 [config-behaviors]: http://basho.com/posts/technical/riaks-config-behaviors-part-4/
-[apps replication properties]: http://docs.basho.com/riak/latest/dev/advanced/replication-properties/
-[usage commit hooks]: http://docs.basho.com/riak/latest/dev/using/commit-hooks/
-[concept causal context]: http://docs.basho.com/riak/latest/theory/concepts/context/
+[apps replication properties]: /riak/kv/2.1.3/developing/app-guide/replication-properties
+[usage commit hooks]: /riak/kv/2.1.3/developing/usage/commit-hooks/
+[concept causal context]: /riak/kv/2.1.3/learn/concepts/causal-context
 [ee]: http://basho.com/contact/
 
 

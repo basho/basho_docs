@@ -12,8 +12,8 @@ menu:
 toc: true
 ---
 
-[addon redis develop]: http://docs.basho.com/riak/latest/add-ons/redis/developing-rra/
-[addon redis setup]: http://docs.basho.com/riak/latest/add-ons/redis/set-up-rra/
+[addon redis develop]: .developing-rra/
+[addon redis setup]: .set-up-rra/
 [ee]: http://basho.com/contact/
 
 >**Enterprise only.** Riak Redis Add-on is only available to Enterprise users. To get Riak Enterprise, fill out the contact form [here][ee].

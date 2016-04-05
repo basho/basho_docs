@@ -12,11 +12,11 @@ menu:
 toc: true
 ---
 
-[addon redis develop]: http://docs.basho.com/riak/latest/add-ons/redis/developing-rra/
-[addon redis use]: http://docs.basho.com/riak/latest/add-ons/redis/get-started-with-rra/
+[addon redis develop]: .developing-rra/
+[addon redis use]: .get-started-with-rra/
 [ee]: http://basho.com/contact/
-[install index]: http://docs.basho.com/riak/latest/installing/
-[perf open files]: http://docs.basho.com/riak/latest/ops/tuning/open-files-limit/#Changing-the-limit
+[install index]: /riak/kv/2.1.3/setup/installing
+[perf open files]: /riak/kv/2.1.3/using/performance/open-files-limit/#Changing-the-limit
 
 
 >**Enterprise only.** Riak Redis Add-on is only available to Enterprise users. To get Riak Enterprise, fill out the contact form [here][ee]. 

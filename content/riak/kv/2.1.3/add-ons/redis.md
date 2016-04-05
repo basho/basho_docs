@@ -13,10 +13,10 @@ toc: true
 ---
 
 
-[addon redis develop]: http://docs.basho.com/riak/latest/add-ons/redis/developing-rra/
-[addon redis features]: http://docs.basho.com/riak/latest/add-ons/redis/redis-add-on-features/
-[addon redis setup]: http://docs.basho.com/riak/latest/add-ons/redis/set-up-rra/
-[addon redis use]: http://docs.basho.com/riak/latest/add-ons/redis/get-started-with-rra/
+[addon redis develop]: ./developing-rra/
+[addon redis features]: ./redis-add-on-features/
+[addon redis setup]: ./set-up-rra/
+[addon redis use]: ./get-started-with-rra/
 [ee]: http://basho.com/contact/
 
 
