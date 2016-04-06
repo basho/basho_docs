@@ -10,6 +10,7 @@ menu:
     weight: 203
     parent: "add-ons_redis"
 toc: true
+commercial_offering: true
 ---
 
 [redis-clients]: http://redis.io/clients
@@ -20,9 +21,6 @@ toc: true
 [usage commit hooks]: /riak/kv/2.1.3/developing/usage/commit-hooks/
 [concept causal context]: /riak/kv/2.1.3/learn/concepts/causal-context
 [ee]: http://basho.com/contact/
-
-
->**Enterprise only.** Riak Redis Add-on is only available to Enterprise users. To get Riak Enterprise, fill out the contact form [here][ee].
 
 This page will walk you through setting up your environment for development with Riak Redis Add-on (RRA), as well as present examples and configuration parameters for basic development operations.
 

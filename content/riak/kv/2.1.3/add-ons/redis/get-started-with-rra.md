@@ -10,13 +10,12 @@ menu:
     weight: 202
     parent: "add-ons_redis"
 toc: true
+commercial_offering: true
 ---
 
 [addon redis develop]: .developing-rra/
 [addon redis setup]: .set-up-rra/
 [ee]: http://basho.com/contact/
-
->**Enterprise only.** Riak Redis Add-on is only available to Enterprise users. To get Riak Enterprise, fill out the contact form [here][ee].
 
 Now that you’ve [set up Riak Redis Add-on (RRA)][addon redis setup], you're ready to use RRA with any Redis client that supports the `GET` command.
 
