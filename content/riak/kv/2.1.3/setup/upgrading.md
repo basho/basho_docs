@@ -28,7 +28,7 @@ An overview of what to consider before upgrading Riak KV in a production environ
 
 ### [Upgrading by Version][upgrade version]
 
-A tutorial on updating from Riak KV v2.1.1 to v2.13.
+A tutorial on updating to Riak KV 2.0+
 
 [Learn More >>][upgrade version]
 
