@@ -1,4 +1,5 @@
 ---
+title_supertext: "Developing with Riak KV"
 title: "Client Libraries"
 description: ""
 project: "riak_kv"

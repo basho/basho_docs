@@ -1,5 +1,6 @@
 ---
-title: "Riak KV Key/Value Modeling"
+title_supertext: "Developing with Riak KV"
+title: "Key/Value Modeling"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"

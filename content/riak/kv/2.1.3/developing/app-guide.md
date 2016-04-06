@@ -1,5 +1,6 @@
 ---
-title: "Riak KV Application Guide"
+title_supertext: "Developing with Riak KV"
+title: "Application Guide"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"
