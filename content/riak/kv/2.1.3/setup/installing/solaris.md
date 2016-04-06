@@ -15,8 +15,6 @@ aliases:
   - /riak/2.1.3/installing/solaris/
 ---
 
-**TODO: Fix Package Versions ({{VERSION}})**
-
 [install verify]: /riak/kv/2.1.3/setup/installing/verify
 
 The following steps have been tested to work with Riak version 1.3.1 on Solaris 10 i386. They demonstrate installation of a Riak node on Solaris as the root user.
@@ -51,14 +49,14 @@ Note that you must restart to have the above settings take effect.
 Download your version of the Riak binary package for Solaris 10:
 
 ```bash
-curl -o /tmp/BASHOriak-{{VERSION}}-Solaris10-i386.pkg.gz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/solaris/10/BASHOriak-{{VERSION}}-Solaris10-x86_64.pkg.gz
+curl -o /tmp/BASHOriak-2.1.3-Solaris10-i386.pkg.gz http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.3/solaris/10/BASHOriak-2.1.3-Solaris10-x86_64.pkg.gz
 ```
 
 Next, install the package:
 
 ```bash
-gunzip /tmp/BASHOriak-{{VERSION}}-Solaris10-i386.pkg.gz
-pkgadd /tmp/BASHOriak-{{VERSION}}-Solaris10-i386.pkg
+gunzip /tmp/BASHOriak-2.1.3-Solaris10-i386.pkg.gz
+pkgadd /tmp/BASHOriak-2.1.3-Solaris10-i386.pkg
 ```
 
 After installing the package, be sure to include `/opt/riak/bin` in the

@@ -86,7 +86,7 @@ body {
     }
 
     p b, p strong {
-      font-size: 110%;
+      font-size: 103%;
     }
 
     @media screen and (max-width: 768px) {
@@ -197,7 +197,6 @@ code {
 
 em {
   @extend .serif-italic;
-  font-size : 95%;
 }
 
 blockquote {
@@ -224,7 +223,8 @@ iframe {
 //FIXME: We need the `#nav-container a.responsive-toggle` here b/c the <a> in
 //       the nav_container General Styling section overrides and sets the
 //       padding in a bad way.
-a.responsive-toggle, #nav-container a.responsive-toggle {
+               a.responsive-toggle,
+#nav-container a.responsive-toggle {
   display : none;
 
   //@include layout-sprite(toggle-button);

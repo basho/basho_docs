@@ -15,8 +15,6 @@ aliases:
   - /riak/2.1.3/installing/mac-osx/
 ---
 
-**TODO: Fix Package Versions ({{VERSION}})**
-
 [perf open files]: /riak/kv/2.1.3/using/performance/open-files-limit
 [install source erlang]: /riak/kv/2.1.3/setup/installing/source/erlang
 [install verify]: /riak/kv/2.1.3/setup/installing/verify
@@ -40,8 +38,8 @@ appropriate platform:
 ### 64-bit
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/osx/10.8/riak-{{VERSION}}-OSX-x86_64.tar.gz
-tar xzvf riak-{{VERSION}}-osx-x86_64.tar.gz
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.3/osx/10.8/riak-2.1.3-OSX-x86_64.tar.gz
+tar xzvf riak-2.1.3-osx-x86_64.tar.gz
 ```
 
 After the release is untarred, you will be able to `cd` into the `riak`
@@ -63,7 +61,7 @@ Installing Riak 2.0 with [Homebrew](http://brew.sh/) is easy:
 brew install --devrel riak
 ```
 
-By default, this will place a `{{VERSION}}` folder in
+By default, this will place a `2.1.3` folder in
 `/usr/local/Cellar/riak`.
 
 Be aware that you will most likely see the following message after
@@ -103,9 +101,9 @@ If you do not have Erlang already installed, see [Installing Erlang][install sou
 Next, download and unpack the source distribution.
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/riak-{{VERSION}}.tar.gz
-tar zxvf riak-{{VERSION}}.tar.gz
-cd riak-{{VERSION}}
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.3/riak-2.1.3.tar.gz
+tar zxvf riak-2.1.3.tar.gz
+cd riak-2.1.3
 make rel
 ```
 
