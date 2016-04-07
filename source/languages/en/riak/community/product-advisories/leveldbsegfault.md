@@ -85,12 +85,14 @@ Do *not* apply the eleveldb.so patch to Riak TS, it will prevent it functioning 
 
 This patch contains natively compiled code. The `eleveldb.so` file must be installed to the eleveldb priv directory and cannot be added to basho-patches.
 
-By default in RHEL/CentOS, this directory is: `/usr/lib64/riak/lib/eleveldb-2.1.10-0-g0537ca9/priv/`,
-On Debian/Ubuntu, it is: `/usr/lib/riak/lib/eleveldb-2.1.10-0-g0537ca9/priv/`
-On Solaris, it is: `/opt/riak/lib/eleveldb-2.1.10-0-g0537ca9/priv/`,
-On SmartOS it is: `/opt/local/lib/riak/lib/eleveldb-2.1.10-0-g0537ca9/priv/`
-On FreeBSD it is: `/usr/local/lib/riak/lib/eleveldb-2.1.10-0-g0537ca9/priv/`
-on other platforms it may be: `/usr/lib/riak/lib/eleveldb-2.1.10-0-g0537ca9/priv/`
+By default, this directory is in the following locations per OS:
+
+* RHEL/CentOS - `/usr/lib64/riak/lib/eleveldb-2.1.10-0-g0537ca9/priv/`,
+* Debian/Ubuntu - `/usr/lib/riak/lib/eleveldb-2.1.10-0-g0537ca9/priv/`,
+* Solaris - `/opt/riak/lib/eleveldb-2.1.10-0-g0537ca9/priv/`,
+* SmartOS - `/opt/local/lib/riak/lib/eleveldb-2.1.10-0-g0537ca9/priv/`,
+* FreeBSD - `/usr/local/lib/riak/lib/eleveldb-2.1.10-0-g0537ca9/priv/`,
+* On other platforms it may be `/usr/lib/riak/lib/eleveldb-2.1.10-0-g0537ca9/priv/`.
 
 
 #### To install this patch, on each node in the cluster you must:
