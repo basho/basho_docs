@@ -12,6 +12,12 @@ toc: true
 ---
 
 
+[POODLE]: https://www.us-cert.gov/ncas/alerts/TA14-290A
+[ZIP file]: https://github.com/basho/basho_docs/raw/master/source/data/poodle-1.x.zip
+[use admin riak cli]: /riak/kv/2.0.2/using/admin/riak-cli/#attach
+[riak cs cli]: /riak/cs/2.1.1/cookbooks/command-line-tools/#riak-cs
+
+
 Info | Value
 :----|:-----
 Date issued | January 27, 2015
@@ -22,7 +28,7 @@ Affected Riak CS versions | All versions up to 1.5.2
 ## Overview
 
 SSL version 3 has been revealed as insecure via an attack on
-[POODLE](https://www.us-cert.gov/ncas/alerts/TA14-290A). The Erlang VM
+[POODLE]. The Erlang VM
 on which Riak relies supports this old version.
 
 ## Description
@@ -58,7 +64,7 @@ To install the patch, perform the following on each node in your
 cluster:
 
 1. Fetch the patch [ZIP
-file](https://github.com/basho/basho_docs/raw/master/source/data/poodle-1.x.zip)
+file]
 1. Stop the node
 1. Uncompress the patch ZIP file
 1. Copy the `ssl_record.beam` file from the unzipped file to the
@@ -74,9 +80,8 @@ appropriate directory for that system:
 (**541b4a78044808b70b871a0897013b82**)
 1. Start the node
 
-To verify that the patch has been installed properly, run the `[[riak
-attach|riak Command Line#attach]]` command (or `[[riak-cs attach|Riak CS
-Command-line Tools#riak-cs]]`).
+To verify that the patch has been installed properly, run the [`riak
+attach`][use admin riak cli] command (or [`riak-cs attach`][riak cs cli]).
 
 Once you have entered the Erlang shell, run `m(ssl_record).` (be sure
 to include the trailing period).

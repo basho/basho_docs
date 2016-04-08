@@ -21,19 +21,19 @@ Affected KV versions | 2.0.0+ and 2.1.0+
 Affected TS versions | 1.0.0+
 
 
-##Overview
+## Overview
 
 This issue is limited to customers using LevelDB tiered storage. There is a recognized error in the LevelDB tiered storage subsystem whereby if less than 60MB of data is written per vnode before Riak is restarted, the data will be unavailable for reads. The data is written to an incorrectly located recovery log that is not found on restart. Once more than 60MB of data is written to the vnode, no data will be lost upon restart.
 
 
-##Description
+## Description
 
 When using LevelDB tiered storage as the backend for Riak, LevelDB creates the first (and only the first) recovery log per vnode, 0000xxxx.log, in an incorrect location. This first recovery log file is only used by LevelDB if the Riak server restarts prior to committing it permanently. LevelDB obsoletes a recovery file once it writes the newly arrived data to a long term storage file (an .sst table file). All subsequent recovery files exist in the location anticipated by LevelDB's startup procedures. The data loss is therefore limited to the contents of this first recovery log and only if LevelDB has not subsequently rewritten the data to long term storage.
 
 The only symptom of this issue is that the data within the first recovery is unavailable for reads after a restart. However, Riak has several resiliency features that mitigate the likelihood of the read failure. Riak defaults to a replication factor of n_val = 3. This means that Riak is writing the data to 3 different locations. Therefore, all 3 locations must restart within the same short period for data loss to occur. Otherwise, Riak will automatically correct individual nodes with missing data from other nodes via its read-repair and/or AAE features.
 
 
-##Affected Users
+## Affected Users
 
 This issue will affect you if ALL of these conditions are true:
 
@@ -42,7 +42,7 @@ This issue will affect you if ALL of these conditions are true:
 * All Riak nodes responsible for the n_val copies of the data are restarted before LevelDB rewrites the initial recovery log into a permanent .sst table file. (60MB data per vnode).
 
 
-##Mitigation Strategy
+## Mitigation Strategy
 
 This issue can be mitigated in an existing Riak installation by creating a soft link between the incorrect log location and the fast tier directory. The same steps can be used if you need to create a fresh install with tiered storage before starting Riak the first time.
 
@@ -53,7 +53,7 @@ To mitigate the issue, follow these steps:
 3. Identify where the fast tiered storage directory is - {leveldb.tiered.path.fast}/{leveldb.data_root}
 4. Create a symbolic link from the fast path data_root to the standard data_root.
 
-###Step-by-Step Instructions
+### Step-by-Step Instructions
 
 1.  Locate where the first LevelDB log files are being written to. To do so, look at the `Set Value`:
 
