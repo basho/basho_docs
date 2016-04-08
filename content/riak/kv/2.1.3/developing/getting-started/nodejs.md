@@ -16,7 +16,6 @@ toc: true
 [npm]: https://www.npmjs.com/package/basho-riak-client
 [node_js_installation]: https://github.com/basho/riak-nodejs-client/wiki/Installation
 [nodejs_wiki]: https://github.com/basho/riak-nodejs-client/wiki
-[TODO]: /
 
 If you haven't set up a Riak Node and started it, please visit [Running A Cluster](/riak/kv/2.1.3/using/running-a-cluster) first.
 

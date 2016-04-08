@@ -92,6 +92,7 @@
 
 ### Reference
 
+[use ref bucket types]: /riak/kv/2.1.3/using/reference/bucket-types
 [use ref custom code]: /riak/kv/2.1.3/using/reference/custom-code
 [use ref handoff]: /riak/kv/2.1.3/using/reference/handoff
 [use ref monitoring]: /riak/kv/2.1.3/using/reference/monitoring
