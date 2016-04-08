@@ -717,16 +717,6 @@ div[role="main"] {
       @extend .sans-bold;
     }
 
-    .hugs {
-      background : url('/images/layout/hugs.png') no-repeat;
-      border-style: none;
-      width      : 53px;
-      height     : 53px;
-      position   : absolute;
-      bottom     : 0;
-      right      : 57px;
-    }
-
     .more {
       background: url('/images/layout/link-more.png') no-repeat;
       overflow: hidden;
