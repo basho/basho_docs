@@ -22,7 +22,7 @@ For more in-depth implementation details check out the
 If you're upgrading to Riak 2.0 from an earlier version, please be aware
 that all of the new features listed below are optional:
 
-* **Riak Data Types** --- Riak's new CRDT-based [[Data Types]] can
+* **Riak Data Types** --- Riak's new CRDT-based [Data Types](/riak/kv/2.1.3/developing/data-types) can
   simplify modeling data in Riak, but are only used in buckets
   explicitly configured to use them.
 * **Strong Consistency, Riak Security, and the New Riak Search** ---

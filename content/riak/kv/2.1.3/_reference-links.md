@@ -229,7 +229,7 @@
 [concept aae]: /riak/kv/2.1.3/learn/concepts/active-anti-entropy/
 [concept buckets]: /riak/kv/2.1.3/learn/concepts/buckets
 [concept cap neg]: /riak/kv/2.1.3/learn/concepts/capability-negotiation
-[concept causal context]: /riak/kv/2.1.3/learn/concepts/causal-context
+[concept causal context]: /riak/kv/2.1.3/learn/concepts/causal-context/
 [concept clusters]: /riak/kv/2.1.3/learn/concepts/clusters/
 [concept crdts]: /riak/kv/2.1.3/learn/concepts/crdts
 [concept eventual consistency]: /riak/kv/2.1.3/learn/concepts/eventual-consistency
