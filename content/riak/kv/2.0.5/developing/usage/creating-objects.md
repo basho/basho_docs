@@ -12,8 +12,6 @@ menu:
 toc: true
 ---
 
-**TODO: Revise body-copy**
-
 [usage content types]: /riak/kv/2.0.5/developing/usage/content-types
 
 Writes in Riak KV (storing or modifying objects) are like HTTP `PUT`

@@ -13,16 +13,16 @@ aliases:
   - /riakcs/2.0.0/cookbooks/Riak-CS-Release-Notes/
 ---
 
-## Riak S2 (Riak CS) 2.0.0 Release Notes
+## Riak S2 (Riak CS) 2.1.0 Release Notes
 
 Released October 13, 2015.
 
-This is a backwards-compatible* release that introduces a new metrics system, garbage collection refinements, and several other new features. Riak S2 2.1 is designed to work with both Riak KV 2.0.5+ and 2.0.0+.
+This is a backwards-compatible* release that introduces a new metrics system, garbage collection refinements, and several other new features. Riak S2 2.1 is designed to work with both Riak KV 2.0.5+ and 2.1.1+.
 
 **Note:** This release is backwards compatible only with the Riak S2 2.x series.
 
-### Riak KV 2.0.0 Usage Note
-Riak KV 2.0.0 includes a copy of `riak_cs_kv_multi_backend`, therefore there is no need to add lines specifying special `multi_backend` and `add_paths` configurations in advanced.config.
+### Riak KV 2.1.1 Usage Note
+Riak KV 2.1.1 includes a copy of `riak_cs_kv_multi_backend`, therefore there is no need to add lines specifying special `multi_backend` and `add_paths` configurations in advanced.config.
 
 Instead, you can set the following in riak.conf:
 
@@ -117,7 +117,7 @@ More information on garbage collection can be found in the [documentation](http:
 
 
 ###Changes
-* Dependency versions have been updated in Riak S2 and Stanchion as follows: cuttlefish 2.0.4, node_package 2.0.3, riak-erlang-client 2.0.0, lager 2.2.0, lager_syslog 2.0.0, eper 0.92 (Basho patched), cluster_info 2.0.3, riak_repl_pb_api 2.0.0, and riak_cs_multibag 2.0.0. [[PR 1190](https://github.com/basho/riak_cs/pull/1190), [PR 1197 ](https://github.com/basho/riak_cs/pull/1197), [PR 27](https://github.com/basho/riak_cs_multibag/pull/27), [PR 1245](https://github.com/basho/riak_cs/pull/1245), and [PR 104](https://github.com/basho/stanchion/pull/104)].
+* Dependency versions have been updated in Riak S2 and Stanchion as follows: cuttlefish 2.0.4, node_package 2.0.3, riak-erlang-client 2.1.1, lager 2.2.0, lager_syslog 2.1.1, eper 0.92 (Basho patched), cluster_info 2.0.3, riak_repl_pb_api 2.1.1, and riak_cs_multibag 2.1.0. [[PR 1190](https://github.com/basho/riak_cs/pull/1190), [PR 1197 ](https://github.com/basho/riak_cs/pull/1197), [PR 27](https://github.com/basho/riak_cs_multibag/pull/27), [PR 1245](https://github.com/basho/riak_cs/pull/1245), and [PR 104](https://github.com/basho/stanchion/pull/104)].
 * Riak CS has moved from Folsom to Exometer. [[PR 1165](https://github.com/basho/riak_cs/pull/1165) and [PR 1180](https://github.com/basho/riak_cs/pull/1180)]
 * Improvements have been made to error tracing for retrieving blocks from client GET requests. There is a complex logic to resolve blocks when a GET is requested from the client. First, Riak CS tries to retrieve a block with `n_val=1`. If it fails, a retry will be done using `n_val=3`. If the block cannot be resolved locally, `proxy_get` is enabled, and the system is configured with datacenter replication, then Riak CS will try to perform a proxied GET to the remote site. The fallback and retry logic is complex and hard to trace, especially in a faulty or unstable situation. This improvement adds error tracing for the whole sequence described above, which will help diagnose issues. Specifically, for each block, the block server stacks all errors returned from the Riak client and reports the reason for every error as well as the type of call in which the error occurred. [[PR 1177](https://github.com/basho/riak_cs/pull/1177)]
 * Using the `GET Bucket` API with a specified prefix to list objects in a bucket needed optimization. It had been specifying end keys for folding objects in Riak too loosely. With this change, a tighter end key is specified for folding objects in Riak, which omits unnecessary fold in vnodes. [[PR 1233](https://github.com/basho/riak_cs/pull/1233)]
@@ -142,11 +142,11 @@ More information on garbage collection can be found in the [documentation](http:
 * [[Issue 1097](https://github.com/basho/riak_cs/issues/1097)/[PR 1212](https://github.com/basho/riak_cs/pull/1212) and [PR 4](https://github.com/basho/s3-tests/pull/4)] Riak S2 did not copy the metadata of an original resource when the `x-amz-metadata-directive=COPY` command was used, nor when `x-amz-metadata-directive` was specified. Handling of the `x-amz-metadata-directive` command in PUT Object Copy API has been added.
 * [[Issue 1097](https://github.com/basho/riak_cs/issues/1097)/[PR 1212](https://github.com/basho/riak_cs/pull/1212) and [PR 4](https://github.com/basho/s3-tests/pull/4)] Riak CS did not store `Content-Type` in COPY requests when the `x-amz-metadata-directive=REPLACE` command was used. Handling of the `x-amz-metadata-directive` command in PUT Object Copy API has been added.
 *  [[Issue 1097](https://github.com/basho/riak_cs/issues/1097)/[PR 1212](https://github.com/basho/riak_cs/pull/1212) and [PR 4](https://github.com/basho/s3-tests/pull/4)] Fixed the handling of uploaded parts that should be deleted after Multipart Complete Request.
-* [[Issue 1214](https://github.com/basho/riak_cs/issues/1244)/[PR 1246](https://github.com/basho/riak_cs/pull/1246)] Prior to Riak S2 2.0.0, a PUT Copy API command with identical source and destination changed user metadata (`x-amz-meta-*` headers) but failed to update Content-Type. Content-Type is now correctly updated by the API call.
+* [[Issue 1214](https://github.com/basho/riak_cs/issues/1244)/[PR 1246](https://github.com/basho/riak_cs/pull/1246)] Prior to Riak S2 2.1.0, a PUT Copy API command with identical source and destination changed user metadata (`x-amz-meta-*` headers) but failed to update Content-Type. Content-Type is now correctly updated by the API call.
 * [[Issue PR 1261](https://github.com/basho/riak_cs/pull/1261), [[PR 1263](https://github.com/basho/riak_cs/pull/1263)] Fix `riak-cs-debug` to include `app.config` when no generated files are found when `riak-cs.conf` is not used.
 
 
-## Riak CS 2.0.0 Release Notes
+## Riak CS 2.0.1 Release Notes
 
 ### General Information
 
@@ -846,7 +846,7 @@ they will all share the name "struct".
 * Improve performance of manifest pruning
 * Optionally use paginated 2i for the GC daemon. This is to help prevent timeouts when collecting data that can be garbage collected.
 * Improve handling of Riak disconnects on block fetches
-* Update to Lager 2.0.0
+* Update to Lager 2.0.1
 * Optionally prune manifests based on count, in addition to time
 * Allow multiple access archiver processes to run concurrently
 

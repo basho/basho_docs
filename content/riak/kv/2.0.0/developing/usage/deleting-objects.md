@@ -12,8 +12,6 @@ menu:
 toc: true
 ---
 
-**TODO: Revise body-copy**
-
 The delete command follows a predictable pattern and looks like this:
 
 ```
@@ -25,8 +23,8 @@ Content` and `404 Not Found`. 404 responses are *normal*, in the sense
 that `DELETE` operations are idempotent and not finding the resource has
 the same effect as deleting it.
 
-Let's try to delete our `genius` key from the `oscar_wilde` bucket
-(which bears the type `quotes`) from above.
+Let's try to delete the `genius` key from the `oscar_wilde` bucket
+(which bears the type `quotes`):
 
 ```java
 Location geniusQuote = new Location(new Namespace("quotes", "oscar_wilde"), "genius");

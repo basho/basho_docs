@@ -14,8 +14,6 @@ toc: true
 
 [glossary vnode]: /riak/kv/2.1.1/learn/glossary/#Vnode
 
-**TODO: Revise body-copy**
-
 You can think of reads in Riak as analogous to HTTP `GET` requests. You
 specify a bucket type, bucket, and key, and Riak either returns the
 object that's stored there---including its [siblings](/riak/kv/2.1.1/developing/usage/conflict-resolution/#Siblings) \(more on that later)---or it returns `not found` (the

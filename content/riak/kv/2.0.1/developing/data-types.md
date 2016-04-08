@@ -174,7 +174,6 @@ curl http://localhost:8098/types/counters/buckets/counters/datatypes/<key>
 > **Getting started with Riak clients**
 >
 > If you are connecting to Riak using one of Basho's official [client libraries](/riak/kv/2.0.1/developing/client-libraries), you can find more information about getting started with your client in our [Developing with Riak KV: Getting Started](/riak/kv/2.0.1/developing/getting-started) section.
-</div>
 
 To create a counter, you need to specify a bucket/key pair to hold that
 counter. Here is the general syntax for doing so:
