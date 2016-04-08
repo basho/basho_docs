@@ -1,16 +1,18 @@
 ---
-title: "Incompatibility between Dotted Version Vectors and Last Write Wins"
+title: "Incompatibility between Dotted Version Vectors and Last-Write Wins"
 description: ""
-project: "riak_kv"
-project_version: "2.0.2"
 menu:
-  riak_kv-2.0.2:
-    name: "Incompatibility between Dotted Version Vectors and Last Write Wins"
-    identifier: "product_advisories_incompat_dvv_lastwritewins"
-    weight: 102
-    parent: "troubleshooting_product_advisories"
+  community:
+    name: "Incompatiblility with DVV and Last-Write Wins"
+    identifier: "incompdvvlww"
+    weight: 300
+    parent: "productadvisories"
 toc: true
 ---
+
+
+[ZIP file]: https://github.com/basho/basho_docs/raw/riak/2.1.1/source/data/dvv_lww_buckets.beam.zip
+
 
 Info | Value
 :----|:-----
@@ -49,7 +51,7 @@ The issue manifests itself as failure to read a key or keys that are affected. T
 In all bucket types where `last_write_wins` is being used, this issue can be avoided by setting `dvv_enabled` to 'false'. Setting `dvv_enabled=false` will enable AAE or read repair to fix those affected keys. In order to make this process as easy as possible, we have provided a pre-compiled Erlang module called dvv_lww_buckets.beam that can be used to scan for and fix affected buckets. 
 
 1. Fetch the patch [ZIP
-file](https://github.com/basho/basho_docs/raw/riak/2.1.1/source/data/dvv_lww_buckets.beam.zip)
+file].
 1. Uncompress the patch ZIP file.
 1. Place the beam file in your basho-patches directory (»riak_install_dir«/lib/basho-patches).
 1. If the beam file is not already owned by the user that Riak is running
@@ -73,7 +75,7 @@ If you see any output of the form: `!! Fixing <<"foo">>: - resetting dvv_enabled
 
 When AAE is enabled, the next AAE run will repair any keys with the issue. Also, once the bucket properties are fixed, issuing a GET (for example, your application reading the key) will result in both a successful read and will repair that particular object.
 
-If AAE is disabled in your cluster, infrequently accessed data affected by this issue will be in a damaged state until the next request. More information about AAE, and the risks associated with disabling it, is available at [https://docs.basho.com/riak/2.1.1/theory/concepts/aae/](https://docs.basho.com/riak/2.1.1/theory/concepts/aae/).
+If AAE is disabled in your cluster, infrequently accessed data affected by this issue will be in a damaged state until the next request. More information about AAE, and the risks associated with disabling it, is available at [https://docs.basho.com/riak/2.1.1/learn/concepts/active-anti-entropy/](/riak/kv/2.1.1/learn/concepts/active-anti-entropy/).
 
 In a future release we will ensure that dotted version vectors and `last_write_wins` cannot be enabled simultaneously.
 

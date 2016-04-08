@@ -5,7 +5,7 @@ menu:
   community:
     name: "Taishi Program"
     identifier: "community_taishi"
-    weight: 200
+    weight: 300
     parent: "community_overview"
 toc: true
 aliases:

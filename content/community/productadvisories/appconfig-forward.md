@@ -1,15 +1,9 @@
 ---
-title: "Forward Incompatibility of app.config"
-description: ""
-project: "riak_kv"
-project_version: "2.1.1"
-menu:
-  riak_kv-2.1.1:
-    name: "Forward Incompatibility of app.config"
-    identifier: "product_advisories_forward_incompat_app_config"
-    weight: 101
-    parent: "troubleshooting_product_advisories"
-toc: true
+title: Forward Incompatibility of app.config
+project: riak
+version: 1.0.0+ 
+versions: false
+document: reference
 ---
 
 Info | Value
