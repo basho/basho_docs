@@ -20,7 +20,7 @@ explains which default Riak behaviors have changed and specific steps
 to take for a successful upgrade.
 
 For an overview of the new features and functionality
-included in version 2.0, check out our guide to [Riak 2.0](TODO).
+included in version 2.0, check out our guide to [Riak 2.0](/riak/kv/2.1.3/introduction).
 
 ## New Clients
 
