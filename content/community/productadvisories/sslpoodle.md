@@ -1,28 +1,34 @@
+
 ---
 title: "SSL 3.0 Vulnerability and POODLE Attack"
 description: ""
-project: "riak_kv"
-project_version: "2.0.1"
 menu:
-  riak_kv-2.0.1:
+  community:
     name: "SSL 3.0 Vulnerability and POODLE Attack"
-    identifier: "product_advisories_ssl_poodle"
-    weight: 103
-    parent: "troubleshooting_product_advisories"
+    identifier: "sslpoodle"
+    weight: 350
+    parent: "productadvisories"
 toc: true
 ---
+
+
+[POODLE]: https://www.us-cert.gov/ncas/alerts/TA14-290A
+[ZIP file]: https://github.com/basho/basho_docs/raw/master/source/data/poodle-1.x.zip
+[use admin riak cli]: /riak/kv/2.0.2/using/admin/riak-cli/#attach
+[riak cs cli]: /riak/cs/2.1.1/cookbooks/command-line-tools/#riak-cs
+
 
 Info | Value
 :----|:-----
 Date issued | January 27, 2015
 Product | Riak and Riak CS
-Affected Riak versions | 1.2.x, 1.3.x, 1.4.x, 2.0.0-2.0.1
+Affected Riak versions | 1.2.x, 1.3.x, 1.4.x, 2.0.0-2.0.2
 Affected Riak CS versions | All versions up to 1.5.2
 
 ## Overview
 
 SSL version 3 has been revealed as insecure via an attack on
-[POODLE](https://www.us-cert.gov/ncas/alerts/TA14-290A). The Erlang VM
+[POODLE]. The Erlang VM
 on which Riak relies supports this old version.
 
 ## Description
@@ -48,9 +54,9 @@ indicated.
 
 ## Riak 2.0 Users
 
-If you have installed Riak 2.0.1, you will not need to apply the patch,
-as that version includes the fix. If you are using Riak 2.0.0 to 2.0.1,
-please upgrade to 2.0.1.
+If you have installed Riak 2.0.5, you will not need to apply the patch,
+as that version includes the fix. If you are using Riak 2.0.0 to 2.0.2,
+please upgrade to 2.0.5.
 
 ## Riak CS and Riak 1.2-1.4 Users
 
@@ -58,7 +64,7 @@ To install the patch, perform the following on each node in your
 cluster:
 
 1. Fetch the patch [ZIP
-file](https://github.com/basho/basho_docs/raw/master/source/data/poodle-1.x.zip)
+file]
 1. Stop the node
 1. Uncompress the patch ZIP file
 1. Copy the `ssl_record.beam` file from the unzipped file to the
@@ -74,7 +80,8 @@ appropriate directory for that system:
 (**541b4a78044808b70b871a0897013b82**)
 1. Start the node
 
-To verify that the patch has been installed properly, run the [`riak attach`](/riak/kv/2.0.1/using/admin/riak-cli/#attach) command (or [`riak-cs attach`](/riak/cs/2.1.1/cookbooks/command-line-tools/#riak-cs)).
+To verify that the patch has been installed properly, run the [`riak
+attach`][use admin riak cli] command (or [`riak-cs attach`][riak cs cli]).
 
 Once you have entered the Erlang shell, run `m(ssl_record).` (be sure
 to include the trailing period).
@@ -93,4 +100,4 @@ cluster:
 
 ## Moving Forward
 
-This patch is included in Riak 2.0.1 and all releases thereafter.
+This patch is included in Riak 2.0.5 and all releases thereafter.
