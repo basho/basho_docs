@@ -6,7 +6,7 @@ menu:
     name: "LevelDB segfault"
     identifier: "leveldbsegv"
     weight: 100
-    parent: "product-advisories"
+    parent: "productadvisories"
 toc: true
 ---
 

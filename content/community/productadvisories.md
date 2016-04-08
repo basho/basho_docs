@@ -4,7 +4,7 @@ description: "Product Advisories for Basho products"
 menu:
   community:
     name: "Product Advisories"
-    identifier: "product-advisories"
+    identifier: "productadvisories"
     weight: 200
     parent: "community_overview"
 toc: true
