@@ -5,7 +5,7 @@ menu:
   community:
     name: "Community Projects"
     identifier: "community_projects"
-    weight: 300
+    weight: 400
     parent: "community_overview"
 toc: true
 aliases:

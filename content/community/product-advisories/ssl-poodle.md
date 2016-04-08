@@ -1,15 +1,9 @@
 ---
-title: "SSL 3.0 Vulnerability and POODLE Attack"
-description: ""
-project: "riak_kv"
-project_version: "2.1.3"
-menu:
-  riak_kv-2.1.3:
-    name: "SSL 3.0 Vulnerability and POODLE Attack"
-    identifier: "product_advisories_ssl_poodle"
-    weight: 103
-    parent: "troubleshooting_product_advisories"
-toc: true
+title: SSL 3.0 Vulnerability and POODLE Attack
+project: riak
+version: 1.0.0+
+versions: false
+document: reference
 ---
 
 Info | Value
@@ -74,7 +68,9 @@ appropriate directory for that system:
 (**541b4a78044808b70b871a0897013b82**)
 1. Start the node
 
-To verify that the patch has been installed properly, run the [`riak attach`](/riak/kv/2.1.3/using/admin/riak-cli/#attach) command (or [`riak-cs attach`](/riak/cs/2.1.1/cookbooks/command-line-tools/#riak-cs)).
+To verify that the patch has been installed properly, run the `[[riak
+attach|riak Command Line#attach]]` command (or `[[riak-cs attach|Riak CS
+Command-line Tools#riak-cs]]`).
 
 Once you have entered the Erlang shell, run `m(ssl_record).` (be sure
 to include the trailing period).

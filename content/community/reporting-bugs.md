@@ -5,7 +5,7 @@ menu:
   community:
     name: "Reporting Bugs"
     identifier: "reporting_bugs"
-    weight: 400
+    weight: 500
     parent: "community_overview"
 toc: true
 ---

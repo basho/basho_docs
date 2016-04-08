@@ -1,15 +1,9 @@
 ---
-title: "Map Data Type Disk Incompatibility"
-description: ""
-project: "riak_kv"
-project_version: "2.1.3"
-menu:
-  riak_kv-2.1.3:
-    name: "Map Data Type Disk Incompatibility"
-    identifier: "product_advisories_maps_204"
-    weight: 103
-    parent: "troubleshooting_product_advisories"
-toc: true
+title: Map Data Type Disk Incompatibility
+project: riak
+version: 1.0.0+
+versions: false
+document: reference
 ---
 
 Info | Value
@@ -24,14 +18,15 @@ Cause | Change in the on-disk format of Riak maps
 
 On January 20th, 2015, a user
 [reported](http://lists.basho.com/pipermail/riak-users_lists.basho.com/2015-January/016568.html)
-issues with [Riak Data Types](/riak/kv/2.1.3/developing/data-types) upon upgrading from Riak
-2.0.2 to 2.0.4. It was discovered that keys storing [Riak maps](/riak/kv/2.1.3/developing/data-types/#Maps) are unreadable after upgrading due to a change in the
+issues with [[Riak Data Types|Data Types]] upon upgrading from Riak
+2.0.2 to 2.0.4. It was discovered that keys storing [[Riak maps|Using
+Data Types#Maps]] are unreadable after upgrading due to a change in the
 on-disk format of maps that was introduced as a performance improvement.
 
 ## Identification
 
 You can verify whether this issue is affecting your cluster by checking
-your cluster's [logs](/riak/kv/2.1.3/using/cluster-operations/logging). You will see errors along the following
+your cluster's [[logs|Logging]]. You will see errors along the following
 lines if your cluster is affected:
 
 ```

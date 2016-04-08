@@ -1,15 +1,9 @@
 ---
-title: "Incompatibility between Dotted Version Vectors and Last Write Wins"
-description: ""
-project: "riak_kv"
-project_version: "2.1.3"
-menu:
-  riak_kv-2.1.3:
-    name: "Incompatibility between Dotted Version Vectors and Last Write Wins"
-    identifier: "product_advisories_incompat_dvv_lastwritewins"
-    weight: 102
-    parent: "troubleshooting_product_advisories"
-toc: true
+title: Incompatibility between Dotted Version Vectors and Last Write Wins
+project: riak
+version: 2.0.0+
+versions: false
+document: reference
 ---
 
 Info | Value
