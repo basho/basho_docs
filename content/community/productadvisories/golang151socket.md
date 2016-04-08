@@ -1,10 +1,15 @@
 ---
-title: Socket reuse issue with Riak Golang client 1.5.1
-project: riak
-version: 1.0.0+
-versions: false
-document: reference
+title: "Socket reuse issue with Riak Golang client 1.5.1"
+description: ""
+menu:
+  community:
+    name: "Socket Reuse in Riak Golang 1.5.1"
+    identifier: "socketgolang"
+    weight: 175
+    parent: "productadvisories"
+toc: true
 ---
+
 
 Info | Value
 :----|:-----

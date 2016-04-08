@@ -1,10 +1,16 @@
+
 ---
-title: Map Data Type Disk Incompatibility
-project: riak
-version: 1.0.0+
-versions: false
-document: reference
+title: "Map Data Type Disk Incompatibility"
+description: ""
+menu:
+  community:
+    name: "Map Data Type Disk Incompatibility"
+    identifier: "mapdata"
+    weight: 400
+    parent: "productadvisories"
+toc: true
 ---
+
 
 Info | Value
 :----|:-----

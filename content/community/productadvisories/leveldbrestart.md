@@ -1,10 +1,15 @@
 ---
-title: Potential data loss on restart with LevelDB tiered storage
-project: riak
-version: 1.0.0+
-versions: false
-document: reference
+title: "Potential data loss on restart with LevelDB tiered storage"
+description: ""
+menu:
+  community:
+    name: "Potential Data Loss with LevelDB Tiered Storage"
+    identifier: "datalossleveldb"
+    weight: 250
+    parent: "productadvisories"
+toc: true
 ---
+
 
 Data loss may occur during node restart when using LevelDB tiered storage on a low write volume cluster.
 

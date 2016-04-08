@@ -1,10 +1,16 @@
+
 ---
-title: SSL 3.0 Vulnerability and POODLE Attack
-project: riak
-version: 1.0.0+
-versions: false
-document: reference
+title: "SSL 3.0 Vulnerability and POODLE Attack"
+description: ""
+menu:
+  community:
+    name: "SSL 3.0 Vulnerability and POODLE Attack"
+    identifier: "sslpoodle"
+    weight: 350
+    parent: "productadvisories"
+toc: true
 ---
+
 
 Info | Value
 :----|:-----

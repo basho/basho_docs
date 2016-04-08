@@ -1,10 +1,15 @@
 ---
-title: Default Configuration For Handoff May Cause Data Loss
-project: riak
-version: 1.0.0+
-versions: false
-document: reference
+title: "Default Configuration For Handoff May Cause Data Loss"
+description: ""
+menu:
+  community:
+    name: "Data Loss KV 2.1.0"
+    identifier: "dataloss"
+    weight: 325
+    parent: "productadvisories"
+toc: true
 ---
+
 
 Info | Value
 :----|:-----
