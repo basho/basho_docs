@@ -8,16 +8,16 @@ index: true
 audience: beginner
 ---
 
-[activating]: https://www.docs.basho.com/riakts/1.2.0/using/creating-activating
+[activating]: https://docs.basho.com/riakts/1.2.0/using/creating-activating/
 [advancedplanning]: http://docs.basho.com/riakts/1.2.0/learn-about/advancedplanning/
 [bestpractices]: http://docs.basho.com/riakts/1.2.0/learn-about/bestpractices/
 [epoch]: https://en.wikipedia.org/wiki/Unix_time
 [installing]: http://docs.basho.com/riakts/1.2.0/installing/installing/
 [sql]: http://docs.basho.com/riakts/1.2.0/learn-about/sqlriakts/
 
-Now that you've [installed][installing] Riak TS, you're almost ready to create a TS table. Before you can create your table, you'll need to plan it out. 
+Now that you've [installed][installing] Riak TS, you're almost ready to create a TS table. Before you can create your table, you'll need to plan it out.
 
-This page provides a basic overview of what you'll need and some guidelines/limitations. For a deeper dive into planning and designing Riak TS tables, check out [Advanced Planning][advancedplanning]. 
+This page provides a basic overview of what you'll need and some guidelines/limitations. For a deeper dive into planning and designing Riak TS tables, check out [Advanced Planning][advancedplanning].
 
 Riak TS tables are closely tied to SQL tables. If you are unfamiliar with SQL or would like to know more about how Riak TS integrates SQL, check out [SQL for Riak TS][sql].
 
@@ -71,17 +71,17 @@ The `PRIMARY KEY` describes both the partition and local keys. The partition key
 Note: The order of fields in key spec must match the order in which they appear in the table definition.
 
 
-####Partition Key 
+####Partition Key
 The partition key is defined as the three named fields in parentheses:
 
 ```sql
 (myfamily, myseries, (quantum(time, 15, 'm')),
 ```
 
-The partition key MUST have exactly three fields in the following order: 
+The partition key MUST have exactly three fields in the following order:
 
-1. The first field (*family*) is a class or type of data. 
-2. The second field (*series*) identifies the specific instances of the class/type, such as username or device ID. 
+1. The first field (*family*) is a class or type of data.
+2. The second field (*series*) identifies the specific instances of the class/type, such as username or device ID.
 3. The third field (*quantum*) sets the time intervals to group data by.
 
 The quantum function takes 3 parameters:
