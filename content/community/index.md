@@ -7,6 +7,7 @@ menu:
     identifier: "community_overview"
     weight: 600
     pre: icon-comments
+canonical_link: "docs.basho.com/community/"
 ---
 
 [community projects]: /community/projects
