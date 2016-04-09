@@ -1,4 +1,4 @@
----
+s---
 title: "Planning Your Riak TS Table"
 description: "Planning Your Riak TS Table"
 menu:
@@ -28,7 +28,7 @@ Riak TS tables are closely tied to SQL tables. If you are unfamiliar with SQL or
 
 ## Anatomy of a Schema
 
-In order to create a working Riak TS table, you'll need plan your table out. Once created, your table cannot be changed. Here is an example Riak TS `CREATE TABLE` statement (broken across many lines for clarity):
+In order to create a working Riak TS table, you'll need to plan your table out. Once created, your table cannot be changed. Here is an example Riak TS `CREATE TABLE` statement (broken across many lines for clarity):
 
 ```sql
 CREATE TABLE GeoCheckin
