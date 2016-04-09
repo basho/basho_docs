@@ -208,19 +208,6 @@ statistics!
 
 ### Self-Hosted Monitoring Tools
 
-#### Riaknostic
-
-[Riaknostic](http://riaknostic.basho.com) is a growing suite of
-diagnostic checks that can be run against your Riak node to discover
-common problems and recommend how to resolve them. These checks are
-derived from the experience of the Basho Client Services Team as well as
-numerous public discussions on the mailing list, IRC room, and other
-online media.
-
-Riaknostic integrates into the `riak-admin` command via a `diag`
-subcommand, and is a great first step in the process of diagnosing and
-troubleshooting issues on Riak nodes.
-
 #### Riak Control
 
 [[Riak Control]] is Basho's REST-driven user-interface for managing Riak
@@ -352,7 +339,6 @@ Docs](https://github.com/basho/basho_docs).
 ## References
 
 * [[Inspecting a Node]]
-* [Riaknostic](http://riaknostic.basho.com)
 * [[Riak Control]]
 * [collectd](http://collectd.org)
 * [Ganglia](http://ganglia.info)

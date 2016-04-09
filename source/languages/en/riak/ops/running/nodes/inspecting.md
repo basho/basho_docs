@@ -5,7 +5,7 @@ version: 0.10.0+
 document: appendix
 toc: true
 audience: intermediate
-keywords: [operator, status, riaknostic]
+keywords: [operator, status]
 moved: {
     '1.4.0-': '/references/appendices/Inspecting-a-Node'
 }
@@ -344,26 +344,6 @@ Note that under ideal operation and with the exception of
 `riak_search_vnodes_running` these statistics should contain low values
 (e.g., 0-10). Presence of higher values could be indicative of an issue.
 
-## Riaknostic
-
-[Riaknostic](http://riaknostic.basho.com/) is a small suite of
-diagnostic checks that can be run against a Riak node to discover common
-problems. It often offers recommendations about how to resolve those
-problems as well. These checks are derived from the experience of the
-Basho Client Services Team as well as numerous public discussions on the
-mailing list, `#riak` IRC channel, and other online media.
-
-Getting started with Riaknostic is easy, and instructions for
-installation and use are provided on the [Riaknostic
-website](http://riaknostic.basho.com/). Once downloaded and installed,
-Riaknostic adds a `diag` subcommand to the `riak-admin`
-command.{{/1.3.0-}}
-
-Riaknostic is installed with Riak by default and exposed through the
-`riak-admin diag` command interface. It is an open source project
-developed by Basho Technologies and Riak community members. The code is
-available in the Riaknostic Github repository.
-
 ## Strong Consistency Stats
 
 Riak tabulates a variety of stats related to Riak's optional [[strong
@@ -402,6 +382,7 @@ Stat | Description
 `consistent_put_time_95` | 95th-percentile time between reception of client PUTs to strongly consistent keys and subsequent response
 `consistent_put_time_99` | 99th-percentile time between reception of client PUTs to strongly consistent keys and subsequent response
 `consistent_put_time_100` | 100th-percentile time between reception of client PUTs to strongly consistent keys and subsequent response
+
 ## riak-admin diag
 
 Running `riak-admin diag` by itself will perform a check of all of the
@@ -437,8 +418,7 @@ Messages bear the following types (derived from
 
 #### Command flags
 
-Attaching the `--help` flag will return a list of flags and commands
-that can be used with Riaknostic:
+Attaching the `--help` flag will return a list of flags and commands:
 
 ```
 Usage: riak-admin diag [-d <level>] [-l] [-h] [--export] [check_name ...]
@@ -471,38 +451,9 @@ listed above (`debug`, `info`, etc.).
 The `--level` flag can be used when running `riak-admin diag` with or
 without specifying a diagnostic check.
 
-#### Contributing
-
-Do you have an idea that would help us improve Riaknostic? If so, fork
-the [GitHub repository](https://github.com/basho/riaknostic) and send us
-a pull request with your changes. The code is documented with
-[edoc](http://riaknostic.basho.com/edoc/index.html), so give the API
-Docs a read before you contribute.
-
-If you want to run the Riaknostic script while developing and you don't
-have it hooked up to your local Riak installation, you can invoke it
-directly like so:
-
-```bash
-./riaknostic --etc ~/code/riak/rel/riak/etc --base ~/code/riak/rel/riak --user `whoami` [other options]
-```
-
-Those extra options are usually assigned by the `riak-admin` script for
-you, but here's how to set them:
-
-* `--etc` --- The location of your Riak configuration directory (usually
-    `/etc`). In the example above, configuration is in the generated
-    directory of a source checkout of Riak.
-* `--base` --- The "base" directory of Riak, usually the root of the
-    generated directory or `/usr/lib/riak` on Linux. Scan the
-    `riak-admin` script for how the `RUNNER_BASE_DIR` variable is
-    assigned on your platform.
-* `--user` --- The user/UID as which the Riak node runs. In a source
-    checkout, it's the current user; on most systems, it's `riak`.
 
 ## Related Resources
 
 * [[The riak-admin configuration management tool|riak-admin Command
   Line]]
-* [Riaknostic](http://riaknostic.basho.com/)
 * [[HTTP API Status|HTTP Status]]

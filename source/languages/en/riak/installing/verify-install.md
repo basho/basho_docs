@@ -132,20 +132,6 @@ The output above shows a successful response (`HTTP 200 OK`) and additional
 details from the verbose option. The response also contains the bucket
 properties for the `default` bucket type.
 
-## Riaknostic
-
-It is a good idea to verify some basic configuration and general health
-of the Riak node after installation by using Riak's built-in diagnostic
-utility [Riaknostic](http://riaknostic.basho.com/).
-
-To start up Riaknostic, ensure that Riak is running on the node and issue the following command:
-
-```bash
-riak-admin diag
-```
-
-More extensive documentation for Riaknostic can be found in the [[Inspecting a Node]] guide.
-
 ## Now what?
 
 You have a working Riak node!
