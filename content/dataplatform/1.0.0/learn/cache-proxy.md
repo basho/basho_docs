@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /dataplatform/1.0.0/learn-about-dataplatform/cache-proxy-features/
+canonical_link: "docs.basho.com/dataplatform/latest/learn/cache-proxy/"
 ---
 
 [ee]: http://info.basho.com/Wiki_Riak_Enterprise_Request.html

@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /dataplatform/1.0.0/using-dataplatform/configuration/replace-spark-cluster-manager/
+canonical_link: "docs.basho.com/dataplatform/latest/configuring/replace-spark-cluster-manager/"
 ---
 
 [bdp install]: /dataplatform/1.0.0/installing/
