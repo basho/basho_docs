@@ -12,14 +12,14 @@ menu:
 toc: true
 ---
 
-[use running cluster]: /riak/kv/2.1.3/using/running-a-cluster
-[use admin index]: /riak/kv/2.1.3/using/admin/
-[cluster ops index]: /riak/kv/2.1.3/using/cluster-operations
-[repair recover index]: /riak/kv/2.1.3/repair-recovery
-[security index]: /riak/kv/2.1.3/using/security
-[perf index]: /riak/kv/2.1.3/using/performance
-[troubleshoot index]: /riak/kv/2.1.3/using/troubleshooting
-[use ref]: /riak/2.1.3/using/reference
+[use running cluster]: ../using/running-a-cluster
+[use admin index]: ../using/admin/
+[cluster ops index]: ../using/cluster-operations
+[repair recover index]: ../repair-recovery
+[security index]: ../using/security
+[perf index]: ../using/performance
+[troubleshoot index]: ../using/troubleshooting
+[use ref]: ../using/reference
 
 ## In This Section
 

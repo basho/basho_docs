@@ -12,10 +12,10 @@ menu:
 toc: false
 ---
 
-[plan index]: /riak/kv/2.1.3/setup/planning
-[install index]: /riak/kv/2.1.3/setup/installing
-[upgrade index]: /riak/kv/2.1.3/setup/upgrading
-[downgrade]: /riak/kv/2.1.3/setup/upgrading/downgrade
+[plan index]: ../setup/planning
+[install index]: ../setup/installing
+[upgrade index]: ../setup/upgrading
+[downgrade]: ../setup/upgrading/downgrade
 
 ## In This Section
 

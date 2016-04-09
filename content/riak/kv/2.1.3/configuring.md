@@ -12,16 +12,16 @@ menu:
 toc: true
 ---
 
-[config basic]: /riak/kv/2.1.3/configuring/basic
-[config backend]: /riak/kv/2.1.3/configuring/backend
-[config manage]: /riak/kv/2.1.3/configuring/managing
-[config reference]: /riak/kv/2.1.3/configuring/reference
-[config strong consistency]: /riak/kv/2.1.3/configuring/strong-consistency
-[config load balance]: /riak/kv/2.1.3/configuring/load-balancing-proxy
-[config mapreduce]: /riak/kv/2.1.3/configuring/map-reduce
-[config search]: /riak/kv/2.1.3/configuring/search
-[config v3 mdc]: /riak/kv/2.1.3/configuring/v3-multi-datacenter
-[config v2 mdc]: /riak/kv/2.1.3/configuring/v2-multi-datacenter
+[config basic]: ../configuring/basic
+[config backend]: ../configuring/backend
+[config manage]: ../configuring/managing
+[config reference]: ../configuring/reference
+[config strong consistency]: ../configuring/strong-consistency
+[config load balance]: ../configuring/load-balancing-proxy
+[config mapreduce]: ../configuring/map-reduce
+[config search]: ../configuring/search
+[config v3 mdc]: ../configuring/v3-multi-datacenter
+[config v2 mdc]: ../configuring/v2-multi-datacenter
 
 ## In This Section
 
