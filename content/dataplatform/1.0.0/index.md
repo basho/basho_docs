@@ -10,6 +10,7 @@ menu:
     weight: 100
     pre: icon-riak
 toc: false
+canonical_link: "docs.basho.com/dataplatform/latest/"
 ---
 
 [bdp install]: /dataplatform/1.0.0/installing/

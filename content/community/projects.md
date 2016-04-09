@@ -18,6 +18,7 @@ aliases:
   - /riak/2.0.2/dev/advanced/community-projects/
   - /riak/2.0.1/dev/advanced/community-projects/
   - /riak/2.0.0/dev/advanced/community-projects/
+canonical_link: "docs.basho.com/community/projects/"
 ---
 
 Here are all projects that have come about out of community contribution. [Let us know](mailto:community@basho.com) if you choose to maintain one of them!

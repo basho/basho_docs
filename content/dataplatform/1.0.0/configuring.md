@@ -10,6 +10,7 @@ menu:
     weight: 103
     pre: icon-configure
 toc: true
+canonical_link: "docs.basho.com/dataplatform/latest/configuring/"
 ---
 
 [learn bdp index]: /dataplatform/1.0.0/learn/

@@ -7,6 +7,7 @@ menu:
     identifier: "community_overview"
     weight: 600
     pre: icon-comments
+canonical_link: "docs.basho.com/community/"
 ---
 
 [community projects]: /community/projects
@@ -49,8 +50,7 @@ Blog](http://basho.com/blog/).
 
 ### Videos
 
-You can watch all the Basho-curated videos [on YouTube](https://www.youtube.com/user/BashoTechnologies) and a few others on the [Basho Vimeo Page](http://vimeo.com/bashotech/videos).
-
+You can watch all the Basho-curated videos [here](http://basho.com/resources/video/). You can also find videos from RICON, panels, and other talks [on YouTube](https://www.youtube.com/user/BashoTechnologies) and on the [Basho Vimeo Page](http://vimeo.com/bashotech/videos).
 
 ### Other Social 
 

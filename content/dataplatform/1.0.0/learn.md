@@ -12,6 +12,7 @@ menu:
 toc: false
 aliases:
   - /dataplatform/1.0.0/learn-about-dataplatform/learn-about-dataplatform/
+canonical_link: "docs.basho.com/dataplatform/latest/learn/"
 ---
 
 [using bdp index]: /dataplatform/1.0.0/using/

@@ -13,7 +13,7 @@ aliases:
   - /riak/2.1.1/community/product-advisories/
   - /riak/2.0.6/community/product-advisories/
   - /riak/2.0.5/community/product-advisories/
-  - /riak/2.0.4/community/product-advisories/
+  - /riak/2.0.4/community/product-advisories/canonical_link: "docs.basho.com/community/productadvisories/"
 ---
 
 
