@@ -38,7 +38,7 @@ that all of the new features listed below are optional:
   will still be recognized in version 2.0.
 * **Bucket Types** --- While we strongly recommend [using bucket types](/riak/kv/2.1.1/using/reference/bucket-types) when creating new buckets, they are not required.
 * **Dotted Version Vectors (DVVs)** --- This alternative to traditional
-  [vector clocks](/riak/kv/2.1.1/learn/concepts/causal-context/#Vector-Clocks) is enabled by default
+  [vector clocks](/riak/kv/2.1.1/learn/concepts/causal-context/#vector-clocks) is enabled by default
   in all [bucket types](/riak/kv/2.1.1/using/reference/bucket-types), but DVVs can be disabled
   by setting the `dvv_enabled` property to `false` on any bucket type.
 
@@ -50,7 +50,7 @@ including the following:
 * [Cluster metadata](/riak/kv/2.1.1/developing/app-guide/cluster-metadata) --- This is a subsystem of Riak added in 2.0 that
   reduces the amount of inter-node gossip in Riak clusters, which can
   reduce network congestion.
-* [Active Anti-Entropy](/riak/kv/2.1.1/learn/glossary/#Active-Anti-Entropy-AAE-) --- While Riak has had an Active Anti-Entropy
+* [Active Anti-Entropy](/riak/kv/2.1.1/learn/glossary/#active-anti-entropy-aae-) --- While Riak has had an Active Anti-Entropy
   (AAE) feature that is turned on by default since version 1.3, AAE
   performance has been improved in version 2.0.
 * [Bug patches](https://github.com/basho/riak/blob/2.0/RELEASE-NOTES.md)
@@ -71,9 +71,9 @@ Riak 2.0 offers a new approach to this problem for a wide range of use
 cases in the form of [Riak Data Types](/riak/kv/2.1.1/developing/data-types). Instead of
 forcing the application to resolve conflicts, Riak offers five Data
 Types that can reduce some of the complexities of developing using
-Riak: [flags](/riak/kv/2.1.1/developing/data-types/#Flags), [registers](/riak/kv/2.1.1/developing/data-types/#Registers),
-[counters](/riak/kv/2.1.1/developing/data-types/#Counters), [sets](/riak/kv/2.1.1/developing/data-types/#Sets), and
-[maps](/riak/kv/2.1.1/developing/data-types/#Maps).
+Riak: [flags](/riak/kv/2.1.1/developing/data-types/#flags), [registers](/riak/kv/2.1.1/developing/data-types/#registers),
+[counters](/riak/kv/2.1.1/developing/data-types/#counters), [sets](/riak/kv/2.1.1/developing/data-types/#sets), and
+[maps](/riak/kv/2.1.1/developing/data-types/#maps).
 
 #### Relevant Docs
 
@@ -224,7 +224,7 @@ and [Jordan West](https://github.com/jrwest).
 ## Dotted Version Vectors
 
 In prior versions of Riak, [conflict resolution](/riak/kv/2.1.1/developing/usage/conflict-resolution) was managed using
-[vector clocks](/riak/kv/2.1.1/learn/concepts/causal-context/#Vector-Clocks), which track object update causality.
+[vector clocks](/riak/kv/2.1.1/learn/concepts/causal-context/#vector-clocks), which track object update causality.
 
 Riak 2.0 has added support for dotted version vectors (DVVs).
 DVVs serve an analogous role to vector
@@ -232,7 +232,7 @@ clocks but are more effective at containing [sibling explosion](/riak/kv/2.1.1/l
 
 #### Relevant Docs
 
-* [Dotted Version Vectors](/riak/kv/2.1.1/learn/concepts/causal-context/#Dotted-Version-Vectors) explains some of the theoretical nuances behind the distinction between DVVs and vector clocks and offers instructions on implementing DVVs.
+* [Dotted Version Vectors](/riak/kv/2.1.1/learn/concepts/causal-context/#dotted-version-vectors) explains some of the theoretical nuances behind the distinction between DVVs and vector clocks and offers instructions on implementing DVVs.
 
 ## New Client Libraries
 

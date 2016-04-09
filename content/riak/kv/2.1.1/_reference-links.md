@@ -11,7 +11,7 @@
 [config reference]: /riak/kv/2.1.1/configuring/reference/
 [manage index]: /riak/kv/2.1.1/using/managing
 [performance index]: /riak/kv/2.1.1/using/performance
-[glossary vnode]: /riak/kv/2.1.1/learn/glossary/#Vnode
+[glossary vnode]: /riak/kv/2.1.1/learn/glossary/#vnode
 [contact basho]: http://basho.com/contact/
 
 
@@ -220,9 +220,9 @@
 [learn why riak]: /riak/kv/learn/why-riak-kv
 
 [glossary]: /riak/kv/2.1.1/learn/glossary/
-[glossary aae]: /riak/kv/2.1.1/learn/glossary/#Active-Anti-Entropy-AAE-
+[glossary aae]: /riak/kv/2.1.1/learn/glossary/#active-anti-entropy-aae-
 [glossary read rep]: /riak/kv/2.1.1/learn/glossary/#read-repair
-[glossary vnode]: /riak/kv/2.1.1/learn/glossary/#Vnode
+[glossary vnode]: /riak/kv/2.1.1/learn/glossary/#vnode
 
 [concept aae]: /riak/kv/2.1.1/learn/concepts/active-anti-entropy/
 [concept buckets]: /riak/kv/2.1.1/learn/concepts/buckets

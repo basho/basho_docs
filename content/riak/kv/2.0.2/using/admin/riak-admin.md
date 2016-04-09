@@ -19,11 +19,11 @@ aliases:
 [use admin commands#join]: /riak/kv/2.0.2/using/admin/commands/#join
 [use admin commands#leave]: /riak/kv/2.0.2/using/admin/commands/#leave
 [cluster ops backup]: /riak/kv/2.0.2/using/cluster-operations/backing-up
-[config reference#node-metadata]: /riak/kv/2.0.2/configuring/reference/#Node-Metadata
+[config reference#node-metadata]: /riak/kv/2.0.2/configuring/reference/#node-metadata
 [cluster ops change info]: /riak/kv/2.0.2/using/cluster-operations/changing-cluster-info
 [usage mapreduce]: /riak/kv/2.0.2/developing/usage/mapreduce
 [usage commit hooks]: /riak/kv/2.0.2/developing/usage/commit-hooks
-[config reference#ring]: /riak/kv/2.0.2/configuring/reference/#Ring
+[config reference#ring]: /riak/kv/2.0.2/configuring/reference/#ring
 [cluster ops inspect node]: /riak/kv/2.0.2/using/cluster-operations/inspecting-node
 [use ref monitoring]: /riak/kv/2.0.2/using/reference/monitoring
 [downgrade]: /riak/kv/2.0.2/setup/upgrading/downgrade

@@ -17,7 +17,7 @@ canonical_link: "docs.basho.com/dataplatform/latest/configuring/cache-proxy/"
 
 [bdp install]: /dataplatform/1.0.0/installing/
 [bdp configure]: /dataplatform/1.0.0/configuring/setup-a-cluster/
-[bdp configure add services]: /dataplatform/1.0.0/configuring/setup-a-cluster/#Add-Services
+[bdp configure add services]: /dataplatform/1.0.0/configuring/setup-a-cluster/#add-services
 [ee]: http://info.basho.com/Wiki_Riak_Enterprise_Request.html
 
 

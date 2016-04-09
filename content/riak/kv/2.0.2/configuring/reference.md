@@ -21,7 +21,7 @@ aliases:
 [plan backend multi]: /riak/kv/2.0.2/setup/planning/backend/multi
 [use admin riak cli]: /riak/kv/2.0.2/using/admin/riak-cli
 [use admin riak-admin]: /riak/kv/2.0.2/using/admin/riak-admin
-[glossary aae]: /riak/kv/2.0.2/learn/glossary/#Active-Anti-Entropy-AAE-
+[glossary aae]: /riak/kv/2.0.2/learn/glossary/#active-anti-entropy-aae-
 [use ref search 2i]: /riak/kv/2.0.2/using/reference/search-secondary-indexes
 [cluster ops bucket types]: /riak/kv/2.0.2/using/cluster-operations/bucket-types
 [usage conflict resolution]: /riak/kv/2.0.2/developing/usage/conflict-resolution
@@ -29,7 +29,7 @@ aliases:
 [usage mapreduce]: /riak/kv/2.0.2/developing/usage/mapreduce
 [security index]: /riak/kv/2.0.2/using/security/
 [cluster ops strong consistency]: /riak/kv/2.0.2/using/cluster-operations/strong-consistency
-[glossary vnode]: /riak/kv/2.0.2/learn/glossary/#Vnode
+[glossary vnode]: /riak/kv/2.0.2/learn/glossary/#vnode
 [cluster ops handoff]: /riak/kv/2.0.2/using/cluster-operations/handoff
 
 Riak has a `riak.conf` configuration file located in `/etc` if you are
@@ -56,7 +56,7 @@ for configuration management. But some installations, particularly those
 upgrading from an earlier version of Riak to version 2.0 or later, may
 need to make use of an `advanced.config` file to control some settings
 available only in versions prior to 2.0. If this applies to your
-installation, please see the [Advanced Configuration](#Advanced-Configuration) section below.
+installation, please see the [Advanced Configuration](#advanced-configuration) section below.
 
 ## Node Metadata
 
@@ -140,10 +140,10 @@ the cluster). Must be a power of 2. The minimum is 8 and the maximum is
 
 Riak enables you to choose from the following storage backends:
 
-* [Bitcask][plan backend bitcask] --- [configuration](#Bitcask)
-* [LevelDB][plan backend leveldb] --- [configuration](#LevelDB)
-* [Memory][plan backend memory] --- [configuration](#Memory-Backend)
-* [Multi][plan backend multi] --- [configuration](#Multi-Backend)
+* [Bitcask][plan backend bitcask] --- [configuration](#bitcask)
+* [LevelDB][plan backend leveldb] --- [configuration](#leveldb)
+* [Memory][plan backend memory] --- [configuration](#memory-backend)
+* [Multi][plan backend multi] --- [configuration](#multi-backend)
 
 <table class="riak-conf">
 <thead>
@@ -1670,7 +1670,7 @@ that file. That section looks like this:
 ```
 
 Further instructions on setting parameters in `advanced.config` can be
-found in the [advanced configuration](#Advanced-Configuration) section below.
+found in the [advanced configuration](#advanced-configuration) section below.
 
 Using these settings properly demands a firm understanding of the basic
 architecture of Riak's implementation of strong consistency. We highly

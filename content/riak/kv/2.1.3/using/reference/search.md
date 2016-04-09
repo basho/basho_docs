@@ -125,7 +125,7 @@ but logically partition them in KV by using a date as the bucket name.
 A bucket _cannot_ be associated with many indexes---the `search_index`
 property must be a single name, not a list.
 
-See the [main Search documentation](/riak/kv/2.1.3/developing/usage/search/#Simple-Setup) for details on creating an index.
+See the [main Search documentation](/riak/kv/2.1.3/developing/usage/search/#simple-setup) for details on creating an index.
 
 ## Extractors
 

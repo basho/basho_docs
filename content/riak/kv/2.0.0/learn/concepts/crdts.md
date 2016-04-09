@@ -22,7 +22,7 @@ aliases:
 [concept strong consistency]: /riak/kv/2.0.0/concepts/strong-consistency
 [dev data types]: /riak/kv/2.0.0/developing/data-types
 [glossary node]: /riak/kv/2.0.0/learn/glossary/#node
-[glossary vnode]: /riak/kv/2.0.0/learn/glossary/#Vnode
+[glossary vnode]: /riak/kv/2.0.0/learn/glossary/#vnode
 [usage conflict resolution]: /riak/kv/2.0.0/developing/usage/conflict-resolution
 
 

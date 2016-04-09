@@ -15,7 +15,7 @@ aliases:
 ---
 
 [concept clusters]: /riak/kv/2.0.0/learn/concepts/clusters
-[glossary vnode]: /riak/kv/2.0.0/learn/glossary/#Vnode
+[glossary vnode]: /riak/kv/2.0.0/learn/glossary/#vnode
 [usage delete objects]: /riak/kv/2.0.0/developing/usage/deleting-objects
 
 In single-server, non-clustered data storage systems, object deletion
@@ -33,7 +33,7 @@ concretely using the following example:
 * A Riak client sends a delete request to node A, which forwards that
   request to node B
 * On nodes A and B, the object is marked as deleted with a
-  [tombstone](#Tombstones)
+  [tombstone](#tombstones)
 * Node C comes back online
 * The object has been marked as deleted on nodes A and B, but it still
   lives on node C
@@ -48,7 +48,7 @@ nodes again?
 
 What happens in this scenario depends on how you have configured Riak to
 handle deletion. More on configuration can be found in the
-[section below](#Configuring-Object-Deletion).
+[section below](#configuring-object-deletion).
 
 ## Tombstones
 

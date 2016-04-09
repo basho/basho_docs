@@ -13,7 +13,7 @@ toc: true
 
 [reported]: http://lists.basho.com/pipermail/riak-users_lists.basho.com/2015-January/016568.html
 [dev data types]: /riak/kv/2.0.4/developing/data-types
-[dev data types maps]: /riak/kv/2.0.4/developing/data-types/#Maps
+[dev data types maps]: /riak/kv/2.0.4/developing/data-types/#maps
 [cluster ops log]: /riak/kv/2.1.3/using/cluster-operations/logging
 [downloads]: http://docs.basho.com/riak/latest/downloads/
 

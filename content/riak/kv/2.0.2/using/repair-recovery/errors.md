@@ -142,7 +142,7 @@ list of target tuples, a search index, or modfun tuple: `INPUT`.
 
 For the remaining common error codes, they are often marked by Erlang
 atoms (and quite often wrapped within an `{error,{badmatch,{...` tuple,
-as described in the [Error](#Erlang-Errors) section
+as described in the [Error](#erlang-errors) section
 above). This table lays out those terse error codes and related log
 messages, if they exist.
 

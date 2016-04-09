@@ -19,7 +19,7 @@ intended [key](/riak/kv/2.0.2/learn/concepts/keys-and-objects), [bucket](/riak/k
 `bucket`), whereas key (`key`) and bucket type (`type`) are optional. If
 no key is specified, Riak will assign a random key to the object. If no
 [bucket type](/riak/kv/2.0.2/developing/usage/bucket-types) is assigned, Riak will assign
-`default`, which means that the [default bucket configuration](/riak/kv/2.0.2/configuring/reference/#Default-Bucket-Properties) will be used.
+`default`, which means that the [default bucket configuration](/riak/kv/2.0.2/configuring/reference/#default-bucket-properties) will be used.
 
 #### Request
 

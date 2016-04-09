@@ -39,7 +39,7 @@ back up the data, ring, and configuration directories of your nodes.
 Due to Riak's eventually consistent nature, backups can become slightly
 inconsistent from node to node. Data could exist on some nodes and not
 others at the exact time a backup is made. Any inconsistency will be
-corrected once a backup is restored, either by Riak's [active anti-entropy](/riak/kv/2.1.3/learn/concepts/active-anti-entropy/) processes or when the object is read, via [read repair](/riak/kv/2.1.3/learn/concepts/active-anti-entropy/#Read-Repair-vs-Active-Anti-Entropy).
+corrected once a backup is restored, either by Riak's [active anti-entropy](/riak/kv/2.1.3/learn/concepts/active-anti-entropy/) processes or when the object is read, via [read repair](/riak/kv/2.1.3/learn/concepts/active-anti-entropy/#read-repair-vs-active-anti-entropy).
 
 Additionally, backups must be performed on a stopped node to prevent
 data loss as a result of the background merging and compaction processes
@@ -288,4 +288,4 @@ have the correct names.
 
 ## Restoring a Cluster
 
-Restoring a cluster from backups is documented [on its own page](/riak/kv/2.1.3/repair-recovery/failure-recovery/#Cluster-Recovery-From-Backups).
+Restoring a cluster from backups is documented [on its own page](/riak/kv/2.1.3/repair-recovery/failure-recovery/#cluster-recovery-from-backups).

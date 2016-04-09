@@ -17,7 +17,7 @@ aliases:
 Link walking (traversal) finds and returns objects by following links attached
 to them, starting from the object specified by the bucket and key portion.  It
 is a special case of [MapReduce](/riak/kv/2.0.2/developing/usage/mapreduce), and can be expressed more verbosely as such.
-[Read more about Links](/riak/kv/2.0.2/learn/glossary/#Links).
+[Read more about Links](/riak/kv/2.0.2/learn/glossary/#links).
 
 ## Request
 

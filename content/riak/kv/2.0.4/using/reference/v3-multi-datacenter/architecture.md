@@ -14,7 +14,7 @@ aliases:
   - /riak/2.1.3/ops/mdc/v3/architecture
 ---
 
-[glossary vnode]: /riak/kv/2.0.4/learn/glossary/#Vnode
+[glossary vnode]: /riak/kv/2.0.4/learn/glossary/#vnode
 [concept clusters]: /riak/kv/2.0.4/learn/concepts/clusters
 
 ## How Version 3 Replication Works

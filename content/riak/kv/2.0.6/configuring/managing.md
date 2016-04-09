@@ -14,7 +14,7 @@ toc: true
 
 [use admin riak cli]: /riak/kv/2.0.6/using/admin/riak-cli
 [use admin riak cli#chkconfig]: /riak/kv/2.0.6/using/admin/riak-cli/#chkconfig
-[config reference#search]: /riak/kv/2.0.6/configuring/reference/#Search
+[config reference#search]: /riak/kv/2.0.6/configuring/reference/#search
 
 ## Retrieving a Configuration Listing
 

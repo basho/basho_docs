@@ -55,7 +55,7 @@ support.
 All `curl` examples in this document assume that you have set an
 environment variable named `RIAK_HOST`, which points to a Riak base URL,
 such as `http://localhost:8098`. The appropriate value for `RIAK_HOST`
-will depend on your [configuration](/riak/kv/2.0.1/configuring/reference#Client-Interfaces).
+will depend on your [configuration](/riak/kv/2.0.1/configuring/reference#client-interfaces).
 
 ## Creating an Index
 

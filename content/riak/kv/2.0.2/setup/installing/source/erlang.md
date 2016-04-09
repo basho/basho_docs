@@ -27,11 +27,11 @@ Pre-packaged versions of Riak include an Erlang installation. If you are buildin
 
 #### Contents
 
-* [kerl](#kerl-Prerequisites)
-* [Debian/Ubuntu](#Debian-Ubuntu-Prerequisites)
-* [FreeBSD/Solaris](#FreeBSD-Solaris-Prerequisites)
-* [Mac OS X](#Mac-OS-X-Prerequisites)
-* [RHEL/CentOS](#RHEL-CentOS-Prerequisites)
+* [kerl](#kerl-prerequisites)
+* [Debian/Ubuntu](#debian-ubuntu-prerequisites)
+* [FreeBSD/Solaris](#freebsd-solaris-prerequisites)
+* [Mac OS X](#mac-os-x-prerequisites)
+* [RHEL/CentOS](#rhel-centos-prerequisites)
 
 To build and install Erlang you must have a GNU-compatible build system and these tools:
 
@@ -63,7 +63,7 @@ chmod a+x kerl
 
 If you are using Mac OS X, FreeBSD, or Solaris, see the following sections for additional requirements before building with kerl.
 
-Otherwise, continue with [Installing with kerl](#Installing-with-kerl).
+Otherwise, continue with [Installing with kerl](#installing-with-kerl).
 
 ### Configuring kerl on FreeBSD/Solaris
 
@@ -92,7 +92,7 @@ sudo pkg update
 sudo pkg install autoconf
 ```
 
-Once you've configured kerl and installed autoconf continue with [Installing with kerl](#Installing-with-kerl).
+Once you've configured kerl and installed autoconf continue with [Installing with kerl](#installing-with-kerl).
 
 
 ### Configuring kerl on Mac OS X
@@ -137,7 +137,7 @@ cd autoconf-2.69
 ./configure && make && sudo make install
 ```
 
-Once you've configured kerl and installed autoconf continue with [Installing with kerl](#Installing-with-kerl).
+Once you've configured kerl and installed autoconf continue with [Installing with kerl](#installing-with-kerl).
 
 
 
@@ -171,7 +171,7 @@ sudo apt-get install libwxbase2.8 libwxgtk2.8-dev libqt4-opengl-dev
 
 ### Next Steps
 
-Once you've installed the prerequisites, continue with [Installing on Debian/Ubuntu](#Installing-on-Debian-Ubuntu).
+Once you've installed the prerequisites, continue with [Installing on Debian/Ubuntu](#installing-on-debian-ubuntu).
 
 
 
@@ -198,7 +198,7 @@ sudo pkg install wx28-gtk2-2.8.12_4
 
 ### Next Steps
 
-Once you've installed the prerequisites, continue with [Installing on FreeBSD/Solaris](#Installing-on-FreeBSD-Solaris).
+Once you've installed the prerequisites, continue with [Installing on FreeBSD/Solaris](#installing-on-freebsd-solaris).
 
 
 
@@ -236,7 +236,7 @@ cd autoconf-2.69
 ./configure && make && sudo make install
 ```
 
-Once you've installed the prerequisites continue with [Installing on Mac OS X](#Installing-on-Mac-OS-X).
+Once you've installed the prerequisites continue with [Installing on Mac OS X](#installing-on-mac-os-x).
 
 ## RHEL/CentOS Prerequisites
 
@@ -260,21 +260,21 @@ sudo yum install wxBase.x86_64
 
 ### Next Steps
 
-Once you've installed the prerequisites, continue with [Installing on RHEL/CentOS](#Installing-on-RHEL-CentOS).
+Once you've installed the prerequisites, continue with [Installing on RHEL/CentOS](#installing-on-rhel-centos).
 
 
 
 ## Installation
 
-* [Installing with kerl](#Installing-with-kerl)
-* [Installing on Debian/Ubuntu](#Installing-on-Debian-Ubuntu)
-* [Installing on FreeBSD/Solaris](#Installing-on-FreeBSD-Solaris)
-* [Installing on Mac OS X](#Installing-on-Mac-OS-X)
-* [Installing on RHEL/CentOS](#Installing-on-RHEL-CentOS)
+* [Installing with kerl](#installing-with-kerl)
+* [Installing on Debian/Ubuntu](#installing-on-debian-ubuntu)
+* [Installing on FreeBSD/Solaris](#installing-on-freebsd-solaris)
+* [Installing on Mac OS X](#installing-on-mac-os-x)
+* [Installing on RHEL/CentOS](#installing-on-rhel-centos)
 
 ## Installing with kerl
 
-First make sure you have installed the necessary dependencies and prerequisites found in [kerl Prerequisites](#kerl-Prerequisites).
+First make sure you have installed the necessary dependencies and prerequisites found in [kerl Prerequisites](#kerl-prerequisites).
 
 With [kerl](https://github.com/yrashk/kerl)  installed, you can install Basho's recommended version of
 Erlang [from Github](https://github.com/basho/otp) using the following
@@ -352,7 +352,7 @@ erl
 
 ## Installing on FreeBSD/Solaris
 
-First make sure you installed the necessary dependencies in [FreeBSD/Solaris Prerequisites](#FreeBSD-Solaris-Prerequisites).
+First make sure you installed the necessary dependencies in [FreeBSD/Solaris Prerequisites](#freebsd-solaris-prerequisites).
 
 Next download [Basho's patched version of Erlang](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho8.tar.gz):
 
@@ -389,13 +389,13 @@ erl
 
 ## Installing on Mac OS X
 
-First make sure you have installed the necessary dependencies found in [Mac OS X Prerequisites](#Mac-OS-X-Prerequisites).
+First make sure you have installed the necessary dependencies found in [Mac OS X Prerequisites](#mac-os-x-prerequisites).
 
 You can install Erlang in several ways on OS X:
 
-* [From Source](#Installing-on-Mac-OS-X-from-Source)
-* [Homebrew](#Installing-on-Mac-OS-X-with-Homebrew)
-* [MacPorts](#Installing-on-Mac-OS-X-with-MacPorts)
+* [From Source](#installing-on-mac-os-x-from-source)
+* [Homebrew](#installing-on-mac-os-x-with-homebrew)
+* [MacPorts](#installing-on-mac-os-x-with-macports)
 
 ## Installing on Mac OS X from Source
 
@@ -514,7 +514,7 @@ erl
 
 ## Installing on RHEL/CentOS
 
-First make sure you have installed the necessary dependencies and prerequisites found in [RHEL/CentOS Prerequisites](#RHEL-CentOS-Prerequisites).
+First make sure you have installed the necessary dependencies and prerequisites found in [RHEL/CentOS Prerequisites](#rhel-centos-prerequisites).
 
 Using `wget`:
 

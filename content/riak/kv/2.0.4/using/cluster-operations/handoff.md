@@ -102,7 +102,7 @@ ongoing transfers`. Otherwise, you will something like this:
 
 ### config
 
-This command displays the values for handoff-specific [configurable parameters](/riak/kv/2.0.4/configuring/reference/#Intra-Cluster-Handoff) on each node in
+This command displays the values for handoff-specific [configurable parameters](/riak/kv/2.0.4/configuring/reference/#intra-cluster-handoff) on each node in
 the cluster, including:
 
 * `transfer_limit`

@@ -46,7 +46,7 @@ We also recommend tracking your system's virtual and
 writebacks. Things like massive flushes of dirty pages or steadily
 climbing writeback volumes can indicate poor virtual memory tuning.
 More information can be found [here][sysctl_vm_txt] and in our
-documentation on [system tuning](/riak/kv/2.1.3/using/performance/#Storage-and-File-System-Tuning).
+documentation on [system tuning](/riak/kv/2.1.3/using/performance/#storage-and-file-system-tuning).
 
 ## Riak Metrics to Graph
 Riak metrics fall into several general categories:

@@ -29,7 +29,7 @@ This document provides implementation and other details for Riak's
 ## How It Works
 
 Secondary indexes use **document-based partitioning**, a system where
-indexes reside with each document, local to the [vnode](/riak/kv/2.0.4/learn/glossary/#Vnode). This
+indexes reside with each document, local to the [vnode](/riak/kv/2.0.4/learn/glossary/#vnode). This
 system is also a local index. Secondary indexes are a list of key/value
 pairs that are similar to HTTP headers. At write time, objects are
 tagged with index entries consisting of key/value metadata. This
@@ -65,7 +65,7 @@ requesting node.
 
 > **Note on 2i and strong consistency**
 >
-> Secondary indexes do not currently work with the [strong consistency][use ref strong consistency] feature introduced in Riak version 2.0. If you store objects in [strongly consistent buckets](/riak/kv/2.0.4/developing/app-guide/strong-consistency/#Creating-a-Strongly-Consistent-Bucket-Type) and attach
+> Secondary indexes do not currently work with the [strong consistency][use ref strong consistency] feature introduced in Riak version 2.0. If you store objects in [strongly consistent buckets](/riak/kv/2.0.4/developing/app-guide/strong-consistency/#creating-a-strongly-consistent-bucket-type) and attach
 secondary index metadata to those objects, you can still perform
 strongly consistent operations on those objects but the secondary
 indexes will be ignored.

@@ -13,7 +13,7 @@ toc: true
 canonical_link: "docs.basho.com/dataplatform/latest/installing/"
 ---
 
-[bdp compatibility]: /dataplatform/1.0.0/#Supported-Operating-Systems
+[bdp compatibility]: /dataplatform/1.0.0/#supported-operating-systems
 [bdp configure]: /dataplatform/1.0.0/configuring/setup-a-cluster/
 [bdp download]: /dataplatform/1.0.0/downloads/
 

@@ -35,7 +35,7 @@ You will need:
     Riak for resources.
 2. The [R statistics language](http://www.r-project.org/) must be
     installed (somewhere available to you) if you wish to generate
-    graphs (see the [Generating Benchmark Graphs](#Generating-Benchmark-Graphs) section, below).
+    graphs (see the [Generating Benchmark Graphs](#generating-benchmark-graphs) section, below).
 
 ### Download ```basho_bench```
 
@@ -99,7 +99,7 @@ current directory):
 This will generate results in `tests/current/`. You will need to
 create a configuration file. The recommended approach is to start from
 a file in the `examples` directory and modify settings using the
-[Configuration](#Configuration) section below for
+[Configuration](#configuration) section below for
 reference.
 
 ## Generating Benchmark Graphs

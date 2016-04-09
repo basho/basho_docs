@@ -15,10 +15,10 @@ aliases:
 ---
 
 [upgrade 2.0#upgrading-leveldB]: /
-[glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode
+[glossary vnode]: /riak/kv/2.1.3/learn/glossary/#vnode
 [config reference]: /riak/kv/2.1.3/configuring/reference
 [perf index]: /riak/kv/2.1.3/using/performance
-[config reference#aae]: /riak/kv/2.1.3/configuring/reference/#Active-Anti-Entropy
+[config reference#aae]: /riak/kv/2.1.3/configuring/reference/#active-anti-entropy
 
 > **Note on upgrading to 2.0**
 >

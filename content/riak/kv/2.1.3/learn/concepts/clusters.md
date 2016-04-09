@@ -20,7 +20,7 @@ aliases:
 [concept keys objects]: /riak/kv/2.1.3/concepts/keys-and-objects
 [concept replication]: /riak/kv/2.1.3/concepts/replication
 [glossary node]: /riak/kv/2.1.3/learn/glossary/#node
-[glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode
+[glossary vnode]: /riak/kv/2.1.3/learn/glossary/#vnode
 [learn dynamo]: /riak/kv/2.1.3/learn/dynamo
 [usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types
 [usage conflict resolution]: /riak/kv/2.1.3/developing/usage/conflict-resolution

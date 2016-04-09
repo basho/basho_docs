@@ -18,10 +18,10 @@ aliases:
 This tutorial shows you how to set up a Riak Erlang client to
 authenticate itself when connecting to Riak.
 
-If you are using [trust](/riak/kv/2.0.1/using/security/managing-sources/), [PAM-](/riak/kv/2.0.1/using/security/managing-sources/#PAM-based-authentication), you can use the security setup described [below](#Erlang-Client-Basics). [Password](/riak/kv/2.0.1/using/security/managing-sources/#Password-based-Authentication)-based authentication is covered
-in a [later section](#Password-based-Authentication). If you are using
-[certificate](/riak/kv/2.0.1/using/security/managing-sources/#Certificate-based-Authentication)-based authentication, follow
-the instructions in the [section below](#Certificate-Based-Authentication).
+If you are using [trust](/riak/kv/2.0.1/using/security/managing-sources/), [PAM-](/riak/kv/2.0.1/using/security/managing-sources/#pam-based-authentication), you can use the security setup described [below](#erlang-client-basics). [Password](/riak/kv/2.0.1/using/security/managing-sources/#password-based-authentication)-based authentication is covered
+in a [later section](#password-based-authentication). If you are using
+[certificate](/riak/kv/2.0.1/using/security/managing-sources/#certificate-based-authentication)-based authentication, follow
+the instructions in the [section below](#certificate-based-authentication).
 
 <div class="note">
 <div class="title">Note on certificate generation</div>
@@ -69,7 +69,7 @@ This client is not currently set up to use any of the available security
 sources, with the exception of trust-based authentication, provided that
 the [CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
 from which the client is connecting has been specified as trusted. More
-on specifying trusted CIDRs can be found in [Trust-based Authentication](/riak/kv/2.0.1/using/security/managing-sources/#Trust-based-Authentication).
+on specifying trusted CIDRs can be found in [Trust-based Authentication](/riak/kv/2.0.1/using/security/managing-sources/#trust-based-authentication).
 
 ## Password-based Authentication
 
@@ -91,10 +91,10 @@ SecurityOptions = [
 ## PAM-based Authentication
 
 If you have specified that a specific client be authenticated using
-[PAM](/riak/kv/2.0.1/using/security/managing-sources/#PAM-based-Authentication), you will
+[PAM](/riak/kv/2.0.1/using/security/managing-sources/#pam-based-authentication), you will
 need to provide a CA as well as the username and password that you
 specified when creating the user in Riak. For more, see our
-documentation on [User Management](/riak/kv/2.0.1/using/security/basics/#User-Management).
+documentation on [User Management](/riak/kv/2.0.1/using/security/basics/#user-management).
 
 ## Certificate-based Authentication
 

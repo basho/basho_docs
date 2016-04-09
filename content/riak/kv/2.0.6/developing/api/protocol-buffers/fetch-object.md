@@ -113,7 +113,7 @@ of the following optional parameters:
 * `charset` --- The character encoding of the object, e.g. `utf-8`
 * `content_encoding` --- The content encoding of the object, e.g.
   `video/mp4`
-* `vtag` --- The object's [vtag](/riak/kv/2.0.6/learn/glossary/#Vector-Clock)
+* `vtag` --- The object's [vtag](/riak/kv/2.0.6/learn/glossary/#vector-clock)
 * `links` --- This parameter is associated with the now-deprecated link
   walking feature and should not be used by Riak clients
 * `last_mod` --- A timestamp for when the object was last modified, in

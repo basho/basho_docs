@@ -14,7 +14,7 @@ aliases:
   - /riak/2.1.3/ops/advanced/deletion
 ---
 
-[glossary vnode]: /riak/kv/2.0.0/learn/glossary/#Vnode
+[glossary vnode]: /riak/kv/2.0.0/learn/glossary/#vnode
 
 ## Configuring Object Deletion
 

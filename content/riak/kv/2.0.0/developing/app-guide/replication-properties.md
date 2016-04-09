@@ -311,7 +311,7 @@ seeks to write the object to is unavailable.
 
 ## Primary Reads and Writes with PR and PW
 
-In Riak's replication model, there are N [vnodes](/riak/kv/2.0.0/learn/glossary/#Vnode),
+In Riak's replication model, there are N [vnodes](/riak/kv/2.0.0/learn/glossary/#vnode),
 called _primary vnodes_, that hold primary responsibility for any given
 key. Riak will attempt reads and writes to primary vnodes first, but in
 case of failure, those operations will go to failover nodes in order to
@@ -543,7 +543,7 @@ In case the above explanations were a bit too abstract for your tastes,
 the following table lays out a number of possible scenarios for reads
 and writes in Riak and how Riak is likely to respond. Some of these
 scenarios involve issues surrounding conflict resolution, vector clocks,
-and siblings, so we recommend reading the [Vector Clocks](/riak/kv/2.0.0/learn/concepts/causal-context#Vector-Clocks) documentation for more information.
+and siblings, so we recommend reading the [Vector Clocks](/riak/kv/2.0.0/learn/concepts/causal-context#vector-clocks) documentation for more information.
 
 #### Read Scenarios
 

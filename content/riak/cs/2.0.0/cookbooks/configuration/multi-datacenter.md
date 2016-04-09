@@ -126,4 +126,4 @@ Riak CS node sends requests, even if there are multiple replicated
 sites.  Unlike Riak and Riak CS, Stanchion should run on _only one node
 in a given cluster_, perhaps on its own, dedicated hardware if you wish.
 Stanchion runs on only one node because it manages strongly consistent
-updates to [globally unique entities](/riak/cs/2.0.0/theory/stanchion/#Globally-Unique-Entities) like users and buckets.
+updates to [globally unique entities](/riak/cs/2.0.0/theory/stanchion/#globally-unique-entities) like users and buckets.

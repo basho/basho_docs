@@ -16,7 +16,7 @@ aliases:
 
 [config reference]: /riak/kv/2.0.0/configuring/reference
 [plan backend multi]: /riak/kv/2.0.0/setup/planning/backend/multi
-[glossary vnode]: /riak/kv/2.0.0/learn/glossary/#Vnode
+[glossary vnode]: /riak/kv/2.0.0/learn/glossary/#vnode
 [plan backend leveldb]: /riak/kv/2.0.0/setup/planning/backend/leveldb
 
 The Memory storage backend uses in-memory tables to store all data.

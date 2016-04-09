@@ -18,7 +18,7 @@ aliases:
 [apps replication properties]: /riak/kv/2.0.6/developing/app-guide/replication-properties
 [use ref custom code]: /riak/kv/2.0.6/using/reference/custom-code
 [usage bucket types]: /riak/kv/2.0.6/developing/usage/bucket-types
-[glossary vnode]: /riak/kv/2.0.6/learn/glossary/#Vnode
+[glossary vnode]: /riak/kv/2.0.6/learn/glossary/#vnode
 [config reference]: /riak/kv/2.0.6/configuring/reference
 
 > **Use MapReduce sparingly**

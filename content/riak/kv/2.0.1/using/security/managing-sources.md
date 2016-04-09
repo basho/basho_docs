@@ -25,8 +25,8 @@ respectively, in the `riak-admin security` interface.
 
 The examples below will assume that the network in question is
 `127.0.0.1/32` and that a Riak user named `riakuser` has been
-[created](/riak/kv/2.0.1/using/security/basics/#User-Management) and that
-security has been [enabled](/riak/kv/2.0.1/using/security/basics/#The-Basics).
+[created](/riak/kv/2.0.1/using/security/basics/#user-management) and that
+security has been [enabled](/riak/kv/2.0.1/using/security/basics/#the-basics).
 
 <div class="note">
 <div class="title">Note on SSL connections</div>

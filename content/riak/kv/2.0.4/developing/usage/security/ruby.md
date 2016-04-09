@@ -18,11 +18,11 @@ aliases:
 This tutorial shows you how to set up a Riak Ruby client to authenticate
 itself when connecting to Riak.
 
-If you are using [trust-](/riak/kv/2.0.4/using/security/managing-sources/) or [PAM](/riak/kv/2.0.4/using/security/managing-sources/#PAM-based-authentication)-based authentication, you
-can use the security setup described in the [Ruby Client Basics](#Ruby-Client-Basics) section.
-[Password](/riak/kv/2.0.4/using/security/managing-sources/#Password-based-Authentication)-based authentication is covered
-in a [later section](#Password-based-Authentication), while [certificate](/riak/kv/2.0.4/using/security/managing-sources/#Certificate-based-Authentication)-based authentication
-is covered [further down](#Certificate-Based-Authentication).
+If you are using [trust-](/riak/kv/2.0.4/using/security/managing-sources/) or [PAM](/riak/kv/2.0.4/using/security/managing-sources/#pam-based-authentication)-based authentication, you
+can use the security setup described in the [Ruby Client Basics](#ruby-client-basics) section.
+[Password](/riak/kv/2.0.4/using/security/managing-sources/#password-based-authentication)-based authentication is covered
+in a [later section](#password-based-authentication), while [certificate](/riak/kv/2.0.4/using/security/managing-sources/#certificate-based-authentication)-based authentication
+is covered [further down](#certificate-based-authentication).
 
 <div class="note">
 <div class="title">Note on certificate generation</div>
@@ -64,7 +64,7 @@ client = Riak::Client.new(
 This client object is currently not set up to use any of the available
 security sources, except trust-based auth, provided that the CIDR from
 which the client is connecting has been specified as trusted. More on
-this in [Trust-based Authentication](/riak/kv/2.0.4/using/security/managing-sources/#Trust-based-Authentication).
+this in [Trust-based Authentication](/riak/kv/2.0.4/using/security/managing-sources/#trust-based-authentication).
 
 ## Password-based Authentication
 
@@ -87,10 +87,10 @@ client = Riak::Client.new(
 ## PAM-based Authentication
 
 If you have specified that a specific client be authenticated using
-[PAM](/riak/kv/2.0.4/using/security/managing-sources/#PAM-based-Authentication), you will
+[PAM](/riak/kv/2.0.4/using/security/managing-sources/#pam-based-authentication), you will
 need to provide a CA as well as the username and password that you
 specified when creating the user in Riak. For more, see our
-documentation on [User Management](/riak/kv/2.0.4/using/security/basics#User-Management).
+documentation on [User Management](/riak/kv/2.0.4/using/security/basics#user-management).
 
 
 ## Certificate-based Authentication

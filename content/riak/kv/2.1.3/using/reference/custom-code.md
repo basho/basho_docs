@@ -23,7 +23,7 @@ they can send to you as a *beam* file. You should note that in Erlang, a file
 name must have the same name the module. So if you are given a file named
 `validate_json.beam`, do not rename it.
 
-> *Note: The [Configure](#Configure) step (`add_paths`) also applies to installing JavaScript files.*
+> *Note: The [Configure](#configure) step (`add_paths`) also applies to installing JavaScript files.*
 
 ### Compiling
 

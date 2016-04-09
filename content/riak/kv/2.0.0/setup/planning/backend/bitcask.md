@@ -18,12 +18,12 @@ aliases:
 [bitcask design pdf]: http://basho.com/assets/bitcask-intro.pdf
 [use admin riak cli]: /riak/kv/2.0.0/using/admin/riak-cli
 [config reference]: /riak/kv/2.0.0/configuring/reference
-[glossary vnode]: /riak/kv/2.0.0/learn/glossary/#Vnode
+[glossary vnode]: /riak/kv/2.0.0/learn/glossary/#vnode
 [learn clusters]: /riak/kv/2.0.0/learn/concepts/clusters
 [plan backend multi]: /riak/kv/2.0.0/setup/planning/backend/multi
 [usage search]: /riak/kv/2.0.0/developing/usage/search
 [TODO LINK]: /
-[glossary aae]: /riak/kv/2.0.0/learn/glossary/#Active-Anti-Entropy-AAE-
+[glossary aae]: /riak/kv/2.0.0/learn/glossary/#active-anti-entropy-aae-
 [perf open files]: /riak/kv/2.0.0/using/performance/open-files-limit
 [TODO LINK FAQ 1]: /
 [TODO LINK FAQ 2]: /

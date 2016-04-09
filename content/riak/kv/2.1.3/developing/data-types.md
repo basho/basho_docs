@@ -23,13 +23,13 @@ treatment of how CRDTs work in Riak, see our [Data Types](/riak/kv/2.1.3/develop
 While Riak was originally built as a mostly data-agnostic key/value
 store, Riak Data Types enable you to use Riak as a _data-aware_ system
 in which you can perform a variety of transactions on five CRDT-inspired
-data types: flags, registers, [counters](#Counters),
-[sets](#Sets), and [maps](#Maps).
+data types: flags, registers, [counters](#counters),
+[sets](#sets), and [maps](#maps).
 
 Of those five types, counters, sets, and maps can be used as
 bucket-level data types, i.e. types that you can interact with directly.
 Flags and registers, however, must be embedded in maps (more on that
-[below](/riak/kv/2.1.3/developing/data-types/#Maps).
+[below](/riak/kv/2.1.3/developing/data-types/#maps).
 
 <div class="note">
 <div class="title">Note on counters in earlier versions of Riak</div>
@@ -92,7 +92,7 @@ Riak Data Types can be searched just like any other object, but with the
 added benefit that you Data Type is indexed as a different type by Solr,
 the search platform undergirding Riak Search. In our Search
 documentation we offer a [full tutorial](/riak/kv/2.1.3/developing/usage/searching-data-types) as well as a variety of
-[examples](/riak/kv/2.1.3/developing/usage/search/#Data-Types-and-Search-Examples), including code
+[examples](/riak/kv/2.1.3/developing/usage/search/#data-types-and-search-examples), including code
 samples from each of our official client libraries.
 
 ## Usage Examples
@@ -106,7 +106,7 @@ bucket type names if you wish.
 ## Counters
 
 Counters are a bucket-level Riak Data Type that can be used either by
-themselves, i.e. associated with a bucket/key pair, or [within a map](#Maps). The examples in this section will show you
+themselves, i.e. associated with a bucket/key pair, or [within a map](#maps). The examples in this section will show you
 how to use counters on their own.
 
 First, we need to point our client to the bucket type/bucket/key
