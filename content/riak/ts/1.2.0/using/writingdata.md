@@ -153,7 +153,7 @@ client.execute(store);
 >
 >Riak TS 1.1.0 validates all rows on the server side before writing occurs, checking the number of row elements and types. If any of the rows fails validation then none of the rows will be written.  An error message will be returned with the index numbers of the invalid rows in the batch. The first item in the batch being index one.
 
-Depending on your client, you will recieve different messages indicating whether or not your write was successful. 
+Depending on your client, you will receive different messages indicating whether or not your write was successful. 
 
 Successful responses:
 
