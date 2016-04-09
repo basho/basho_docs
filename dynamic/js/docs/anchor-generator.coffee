@@ -12,6 +12,10 @@ $ ->
     headers.each ->
       return if $(this).hasClass('title')
       content = $(this).html()
-      name = content.replace(/\W+/g,'-')
-      anchor = "<a href=\"##{name}\">#{content}</a>";
+      name = content
+             .replace(/[\W+_]/g,'-')
+             .replace(/--+/g,'-')
+             .replace(/-+$/g,'')
+             .toLowerCase()
+      anchor = "<a href=\"##{name}\">#{content}</a>"
       $(this).html(anchor).attr('id', name)
