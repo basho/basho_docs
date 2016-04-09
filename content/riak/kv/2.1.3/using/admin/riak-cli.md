@@ -68,7 +68,7 @@ riak ping
 
 Starts the Riak node in the foreground, giving access to the Erlang shell and
 runtime messages. Prints `Node is already running - use 'riak attach' instead`
-when the node is running in the background. You can exit the shell by pressing **Ctrl-C** twice.
+when the node is running in the background. You can exit the shell by pressing **Ctrl-G q**.
 
 ```bash
 riak console
@@ -84,7 +84,7 @@ riak attach
 
 ## attach-direct
 
-Attaches to the console of a Riak running in the background using a directly-connected first-in-first-out (FIFO), providing access to the Erlang shell and runtime messages. Prints `Node is not running!` when the node cannot be reached. You can exit the shell by pressing **Ctrl-D**.
+Attaches to the console of a Riak running in the background using a directly-connected first-in-first-out (FIFO), providing access to the Erlang shell and runtime messages. Prints `Node is not running!` when the node cannot be reached. You can exit the shell by pressing **Ctrl-G q**.
 
 ```bash
 riak attach-direct

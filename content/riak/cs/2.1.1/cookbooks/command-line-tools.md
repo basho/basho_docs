@@ -112,8 +112,7 @@ riak-cs console
 
 If the node is already running in the background, you will see the
 output `Node is already running - use 'riak-cs attach' instead`. If the
-command is successful, you can exit the shell by pressing **Ctrl-C**
-twice.
+command is successful, you can exit the shell by pressing **Ctrl-G q**.
 
 #### attach
 
@@ -137,7 +136,7 @@ riak-cs attach-direct
 ```
 
 Prints `Node is not running!` when the node cannot be reached. You can
-exit the shell by pressing **Ctrl-D**.
+exit the shell by pressing **Ctrl-G q**.
 
 #### ertspath
 
