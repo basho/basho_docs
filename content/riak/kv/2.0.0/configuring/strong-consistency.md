@@ -30,7 +30,7 @@ toc: true
 [apps replication properties]: /riak/kv/2.0.0/developing/app-guide/replication-properties
 [concept causal context]: /riak/kv/2.0.0/learn/concepts/causal-context
 [dev data types]: /riak/kv/2.0.0/developing/data-types
-[glossary aae]: /riak/kv/2.0.0/learn/glossary/#active-anti-entropy-aae-
+[glossary aae]: /riak/kv/2.0.0/learn/glossary/#active-anti-entropy-aae
 [cluster ops 2i]: /riak/kv/2.0.0/using/cluster-operations/secondary-indexes
 [usage commit hooks]: /riak/kv/2.0.0/developing/usage/commit-hooks
 [cluster ops obj del]: /riak/kv/2.0.0/using/cluster-operations/object-deletion
@@ -308,11 +308,11 @@ The following table provides a guide to `ensemble-status` output:
 
 Item | Meaning
 :----|:-------
-`Enabled` | Whether the consensus subsystem is enabled on the current node, i.e. whether the `strong_consistency` parameter in [`riak.conf`][config reference#strong-cons] has been set to `on`. If this reads `off` and you wish to enable strong consistency, see our documentation on <a href="/ops/advanced/strong-consistency#Enabling-Strong-Consistency">enabling strong consistency</a>.
+`Enabled` | Whether the consensus subsystem is enabled on the current node, i.e. whether the `strong_consistency` parameter in [`riak.conf`][config reference#strong-cons] has been set to `on`. If this reads `off` and you wish to enable strong consistency, see our documentation on <a href="ops/advanced/strong-consistency#enabling-strong-consistency">enabling strong consistency</a>.
 `Active` | Whether the consensus subsystem is active, i.e. whether there are enough nodes in the cluster to use strong consistency, which requires at least three nodes.
-`Ring Ready` | If `true`, then all of the [vnodes][glossary vnode] in the cluster have seen the current <a href="/theory/concepts/clusters#The-Ring">ring</a>, which means that the strong consistency subsystem can be used; if `false`, then the system is not yet ready. If you have recently added or removed one or more nodes to/from the cluster, it may take some time for `Ring Ready` to change.
-`Validation` | This will display `strong` if the `tree_validation` setting in <code><a href="/ops/advanced/configs/configuration-files#Strong-Consistency">riak.conf</a></code> has been set to `on` and `weak` if set to `off`.
-`Metadata` | This depends on the value of the `synchronous_tree_updates` setting in <code><a href="/ops/advanced/configs/configuration-files#Strong-Consistency">riak.conf</a></code>, which determines whether strong consistency-related Merkle trees are updated synchronously or asynchronously. If `best-effort replication (asynchronous)`, then `synchronous_tree_updates` is set to `false`; if `guaranteed replication (synchronous)` then `synchronous_tree_updates` is set to `true`.
+`Ring Ready` | If `true`, then all of the [vnodes][glossary vnode] in the cluster have seen the current <a href="theory/concepts/clusters#the-ring">ring</a>, which means that the strong consistency subsystem can be used; if `false`, then the system is not yet ready. If you have recently added or removed one or more nodes to/from the cluster, it may take some time for `Ring Ready` to change.
+`Validation` | This will display `strong` if the `tree_validation` setting in <code><a href="ops/advanced/configs/configuration-files#strong-consistency">riak.conf</a></code> has been set to `on` and `weak` if set to `off`.
+`Metadata` | This depends on the value of the `synchronous_tree_updates` setting in <code><a href="ops/advanced/configs/configuration-files#strong-consistency">riak.conf</a></code>, which determines whether strong consistency-related Merkle trees are updated synchronously or asynchronously. If `best-effort replication (asynchronous)`, then `synchronous_tree_updates` is set to `false`; if `guaranteed replication (synchronous)` then `synchronous_tree_updates` is set to `true`.
 `Ensembles` | This displays a list of all of the currently existing ensembles active in the cluster.<br /><ul><li><code>Ensemble</code> --- The ID of the ensemble</li><li><code>Quorum</code> --- The number of ensemble peers that are either leading or following</li><li><code>Nodes</code> --- The number of nodes currently online</li><li><code>Leader</code> --- The current leader node for the ensemble</li></ul>
 
 **Note**: The **root ensemble**, designated by `root` in the sample

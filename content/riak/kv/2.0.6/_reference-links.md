@@ -220,7 +220,7 @@
 [learn why riak]: /riak/kv/learn/why-riak-kv
 
 [glossary]: /riak/kv/2.0.6/learn/glossary/
-[glossary aae]: /riak/kv/2.0.6/learn/glossary/#active-anti-entropy-aae-
+[glossary aae]: /riak/kv/2.0.6/learn/glossary/#active-anti-entropy-aae
 [glossary read rep]: /riak/kv/2.0.6/learn/glossary/#read-repair
 [glossary vnode]: /riak/kv/2.0.6/learn/glossary/#vnode
 

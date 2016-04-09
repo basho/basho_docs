@@ -16,7 +16,7 @@ aliases:
 
 [use ref handoff]: /riak/kv/2.0.5/using/reference/handoff
 [config mapreduce]: /riak/kv/2.0.5/configuring/map-reduce
-[glossary aae]: /riak/kv/2.0.5/learn/glossary/#active-anti-entropy-aae-
+[glossary aae]: /riak/kv/2.0.5/learn/glossary/#active-anti-entropy-aae
 [cluster ops add remove node]: /riak/kv/2.0.5/using/cluster-operations/adding-removing-nodes
 
 Riak KV is a database designed for easy operation and scaling. Below are some best practices that will enable you to improve performance and reliability at all stages in the life of your Riak cluster.

@@ -44,8 +44,8 @@ File | Significance
 :----|:------------
 `console.log` | Console log output
 `crash.log` | Crash logs
-`erlang.log` | Logs emitted by the <a href="/ops/tuning/erlang">Erlang VM</a> on which Riak runs.
-`error.log` | <a href="/ops/running/recovery/errors">Common errors</a> emitted by Riak.
+`erlang.log` | Logs emitted by the <a href="ops/tuning/erlang">Erlang VM</a> on which Riak runs.
+`error.log` | <a href="ops/running/recovery/errors">Common errors</a> emitted by Riak.
 `run_erl.log` | The log file for an Erlang process called `run_erl`. This file can typically be ignored.
 
 ## Log Syntax

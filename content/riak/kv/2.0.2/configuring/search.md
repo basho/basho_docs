@@ -20,7 +20,7 @@ aliases:
 [usage custom extractors]: /riak/kv/2.0.2/developing/usage/custom-extractors
 [config reference]: /riak/kv/2.0.2/configuring/reference
 [config reference#search]: /riak/kv/2.0.2/configuring/reference/#search
-[glossary aae]: /riak/kv/2.0.2/learn/glossary/#active-anti-entropy-aae-
+[glossary aae]: /riak/kv/2.0.2/learn/glossary/#active-anti-entropy-aae
 [security index]: /riak/kv/2.0.2/using/security/
 
 > **Note on Search 2.0 vs. Legacy Search**

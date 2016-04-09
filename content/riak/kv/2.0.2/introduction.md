@@ -50,7 +50,7 @@ including the following:
 * [Cluster metadata](/riak/kv/2.0.2/developing/app-guide/cluster-metadata) --- This is a subsystem of Riak added in 2.0 that
   reduces the amount of inter-node gossip in Riak clusters, which can
   reduce network congestion.
-* [Active Anti-Entropy](/riak/kv/2.0.2/learn/glossary/#active-anti-entropy-aae-) --- While Riak has had an Active Anti-Entropy
+* [Active Anti-Entropy](/riak/kv/2.0.2/learn/glossary/#active-anti-entropy-aae) --- While Riak has had an Active Anti-Entropy
   (AAE) feature that is turned on by default since version 1.3, AAE
   performance has been improved in version 2.0.
 * [Bug patches](https://github.com/basho/riak/blob/2.0/RELEASE-NOTES.md)

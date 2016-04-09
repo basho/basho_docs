@@ -93,8 +93,8 @@ cluster on the following TCP ports:
 
 Protocol | Port
 :--------|:----
-<a href="/dev/references/http">HTTP</a> | TCP port 8098
-<a href="/dev/references/protocol-buffers">Protocol Buffers</a> | TCP port 8087
+<a href="dev/references/http">HTTP</a> | TCP port 8098
+<a href="dev/references/protocol-buffers">Protocol Buffers</a> | TCP port 8087
 
 ### Riak Search Ports
 

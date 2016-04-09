@@ -23,7 +23,7 @@ aliases:
 [plan backend multi]: /riak/kv/2.0.4/setup/planning/backend/multi
 [usage search]: /riak/kv/2.0.4/developing/usage/search
 [TODO LINK]: /
-[glossary aae]: /riak/kv/2.0.4/learn/glossary/#active-anti-entropy-aae-
+[glossary aae]: /riak/kv/2.0.4/learn/glossary/#active-anti-entropy-aae
 [perf open files]: /riak/kv/2.0.4/using/performance/open-files-limit
 [TODO LINK FAQ 1]: /
 [TODO LINK FAQ 2]: /

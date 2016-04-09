@@ -21,7 +21,7 @@ aliases:
 [plan backend multi]: /riak/kv/2.0.6/setup/planning/backend/multi
 [use admin riak cli]: /riak/kv/2.0.6/using/admin/riak-cli
 [use admin riak-admin]: /riak/kv/2.0.6/using/admin/riak-admin
-[glossary aae]: /riak/kv/2.0.6/learn/glossary/#active-anti-entropy-aae-
+[glossary aae]: /riak/kv/2.0.6/learn/glossary/#active-anti-entropy-aae
 [use ref search 2i]: /riak/kv/2.0.6/using/reference/search-secondary-indexes
 [cluster ops bucket types]: /riak/kv/2.0.6/using/cluster-operations/bucket-types
 [usage conflict resolution]: /riak/kv/2.0.6/developing/usage/conflict-resolution
@@ -194,7 +194,7 @@ executables are stored.</td>
 <tr>
 <td><code>platform_data_dir</code></td>
 <td>The directory in which Riak stores its storage backend data, as well
-as <a href="/riak/kv/2.0.6/learn/concepts/clusters">ring state</a> data, <a href="/riak/kv/2.0.6/learn/glossary/#Active-Anti-Entropy-AAE-">active anti-entropy</a> data, and cluster metadata.</td>
+as <a href="/riak/kv/2.0.6/learn/concepts/clusters">ring state</a> data, <a href="/riak/kv/2.0.6/learn/glossary/#active-anti-entropy-aae">active anti-entropy</a> data, and cluster metadata.</td>
 <td><code>./data</code></td>
 </tr>
 
@@ -480,7 +480,7 @@ to be deemed successful.</td>
 conflicts. The default is <code>2</code> in Riak 2.0 for typed buckets
 and <code>1</code> for non-typed buckets. This setting reduces sibling
 creation through additional metadata on each sibling (also known as <a
-href="/theory/concepts/context#Dotted-Version-Vectors">Dotted
+href="theory/concepts/context#dotted-version-vectors">Dotted
 Version Vectors</a>). Setting this to <code>1</code> is the default for
 Riak 1.4 and earlier, and may duplicate siblings that originated in the
 same write.</td>
@@ -492,7 +492,7 @@ same write.</td>
 <td>The number of replicas stored.
 <br /><br />
 <strong>Note</strong>: See
-<a href="/dev/advanced/replication-properties">Replication Properties</a>
+<a href="dev/advanced/replication-properties">Replication Properties</a>
 for further discussion.</td>
 <td><code>3</code></td>
 </tr>
@@ -1381,7 +1381,7 @@ Configurable parameters for intra-cluster, i.e. inter-node, [handoff][cluster op
 <tr>
 <td><code>handoff.max_rejects</code></td>
 <td>The maximum number of times that a secondary system within Riak,
-such as <a href="/dev/using/search">Riak Search</a>, can block <a href="/riak/kv/2.0.6/using/cluster-operations/handoff">handoff</a>
+such as <a href="dev/using/search">Riak Search</a>, can block <a href="/riak/kv/2.0.6/using/cluster-operations/handoff">handoff</a>
 of primary key/value data. The approximate maximum duration that a vnode
 can be blocked can be determined by multiplying this setting by
 <code>vnode_management_timer</code>. If you want to prevent handoff from
@@ -1722,7 +1722,7 @@ abandons the leader (in milliseconds). This must be set greater than the
 <tr>
 <td><code>alive_tokens</code></td>
 <td>Determines the number of ticks the leader will wait to hear from its
-associated <a href="/riak/kv/2.0.6/learn/glossary/#Vnode">vnode</a> before assuming that the vnode
+associated <a href="/riak/kv/2.0.6/learn/glossary/#vnode">vnode</a> before assuming that the vnode
 is unhealthy and stepping down as leader. If the vnode does not respond
 to the leader before <code>ensemble_tick</code> *
 <code>alive_tokens</code> milliseconds have elapsed, the leader will
@@ -1871,8 +1871,8 @@ package) and in R14B04 via a custom repository and branch.</td>
 <tr>
 <td><code>vnode_management_timer</code></td>
 <td>Sets the frequency with which <a
-href="/theory/concepts/glossary/#Vnode">vnodes</a> attempt to trigger <a
-href="/theory/concepts/glossary/#Hinted-Handoff">handoff</a> between
+href="theory/concepts/glossary#vnode">vnodes</a> attempt to trigger <a
+href="theory/concepts/glossary#hinted-handoff">handoff</a> between
 this node and other nodes in the cluster.</td>
 <td><code>10s</code> (10 seconds)</td>
 </tr>
@@ -2086,10 +2086,10 @@ There are three non-`riak_repl` settings available in
 <tr>
 <td><code>add_paths</code></td>
 <td><code>riak_kv</code></td>
-<td>If you are <a href="/ops/advanced/install-custom-code">installing
+<td>If you are <a href="ops/advanced/install-custom-code">installing
 custom code</a> for Riak, e.g. for the purpose of running <a
-href="/dev/using/mapreduce">MapReduce</a> jobs or <a
-href="/dev/using/commit-hooks">commit hooks</a>, this setting specifies
+href="dev/using/mapreduce">MapReduce</a> jobs or <a
+href="dev/using/commit-hooks">commit hooks</a>, this setting specifies
 the paths to any compiled <code>.beam</code> files that you wish to use.
 This is expressed as a list of absolute paths on the node's filesystem,
 e.g. <code>[ "/tmp", "/other" ]</code>.</td>
@@ -2115,7 +2115,7 @@ disables tombstone removal altogether; <code>immediate</code> removes
 objects' tombstones as soon as the delete request is received; and
 setting <code>delete_mode</code> to an integer value specifies the
 number of milliseconds to wait before removing tombstones. More
-information can be found in <a href="/ops/advanced/deletion">Object
+information can be found in <a href="ops/advanced/deletion">Object
 Deletion</a>.</td>
 <td><code>3000</code> (3 seconds)</td>
 </tr>
