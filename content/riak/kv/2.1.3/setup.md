@@ -42,4 +42,3 @@ Guides on upgrading your Riak KV cluster.
 A guide on downgrading your Riak KV cluster.
 
 [Learn More >>][downgrade]
-
