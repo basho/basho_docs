@@ -9,7 +9,7 @@
 This repository contains all the bits and pieces, large and small required to render and deploy
 ### http://docs.basho.com/
 
-This is a Work In Progress! It's the current (and continually growing) crop of our [continuing transition work][task list] from a Middleman based system to a Hugo based system.
+This is a Work In Progress!
 Please let us know if you'd like to help out!
 
 
@@ -38,13 +38,11 @@ Please let us know if you'd like to help out!
 [homebrew]: http://brew.sh/
 
 #### No Really, _Go_ Play
-<sub>That was a pun. Did you catch it? "Go"? The Go language? That Hugo uses? I'm bad at puns.</sub>
+<sub>See what we did there?</sub>
 
 At this point, any changes you make to the markdown files in the `content/` directory will be automatically detected and rendered live in your local browser. Change some stuff! Have fun!
 
 If you want to modify the [content templates][hugo content templates] that define how each pages' HTML is generated, modifying the [Go Templates][hugo go template primer] in `layouts/_default/` and the [partial templates][hugo partial templates] in `layouts/partials/` will also be automatically detected and rendered live in your browser.
-
-**TODO**: Drop a link to the list of shortcodes we (don't currently) have.
 
 [hugo content templates]: https://gohugo.io/templates/content/
 [hugo go template primer]: https://gohugo.io/templates/go-templates/
@@ -54,9 +52,11 @@ If you want to modify the [content templates][hugo content templates] that defin
 
 ## Modifying the `.js` and `.css` Files
 
+>**Note:** Generally, unless you're helping us out with a specific task or project that you've discussed with us, you should not be altering the .js or .css files in this repo.
+
 If you want to mess with the scripts and CSS that this site uses, it's not _quite_ as easy as modifying the HTML.
 
-The scripts and CSS files used to render Hugo content are expected to live in the `static/` directory. We use a lot of [Coffee Script][coffee] and [Sass][sass] for our scripting and styling needs, and we convert those files to `.js` and `.css` as a pre-render step. Because we're clever, we put those `.coffee` and `.scss` files into the `dynamic/` directory. <sub>(we're not really that clever. We try, though.)</sub>
+The scripts and CSS files used to render Hugo content are expected to live in the `static/` directory. We use a lot of [Coffee Script][coffee] and [Sass][sass] for our scripting and styling needs, and we convert those files to `.js` and `.css` as a pre-render step. We put those `.coffee` and `.scss` files into the `dynamic/` directory.
 
 To convert the Coffee and Sass into `.js` and `.css` files, you'll need to...
 
@@ -118,10 +118,8 @@ This repository operates just like any other open source repo, and only thrives 
 
 Don't forget to check out our [Contributing Guidelines][contributing] so you can read up on all our weird little quirks, like how we [don't want you to use `<h1>` headers][contributing_headers].
 
-**TODO**: The above links all point to private_basho_docs and hugo/testing. Once (or before) we're ready to cut these over, we should modify the links s.t. they point to the right place.
-
-[new issue]: https://github.com/basho/private_basho_docs/issues/new
-[find the file]: https://github.com/basho/private_basho_docs/find/hugo/testing
-[fork]: https://github.com/basho/private_basho_docs/#fork-destination-box
+[new issue]: https://github.com/basho/basho_docs/issues/new
+[find the file]: https://github.com/basho/basho_docs/find/master
+[fork]: https://github.com/basho/basho_docs/#fork-destination-box
 [contributing]: CONTRIBUTING.md
 [contributing_headers]: CONTRIBUTING.md
