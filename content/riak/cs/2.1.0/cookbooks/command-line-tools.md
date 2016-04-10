@@ -638,7 +638,7 @@ Fetches all current weights from the master member.
 riak-cs-supercluster refresh
 ```
 
-When a member's weight is updated, that weight is stored in the [master member](/riak/cs/2.1.0/cookbooks/supercluster/#The-Master-Member) and cached in Riak CS. Riak CS fetches weights from the master member only periodically. The
+When a member's weight is updated, that weight is stored in the [master member](/riak/cs/2.1.0/cookbooks/supercluster/#the-master-member) and cached in Riak CS. Riak CS fetches weights from the master member only periodically. The
 `refresh` command syncs the weights stored in the master member with the
 weights cached in Riak CS so that there is no discrepancy.
 

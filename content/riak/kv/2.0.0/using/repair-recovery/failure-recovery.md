@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/ops/running/recovery/failure-recovery
+canonical_link: "docs.basho.com/riak/kv/latest/using/repair-recovery/failure-recovery.md"
 ---
 
 Riak was built to withstand---or at the very least reduce the severity
@@ -91,7 +92,7 @@ too much data and growing the cluster may be necessary. Additional RAM
 may also improve latency because more of the active dataset will be
 cached by the operating system.
 
-Sometimes extreme latency spikes can be caused by [sibling explosion](/riak/kv/2.0.0/developing/usage/conflict-resolution#Siblings). This condition occurs when the client application does not resolve conflicts properly or in a timely fashion. In that scenario, the size of the value on disk grows in proportion to
+Sometimes extreme latency spikes can be caused by [sibling explosion](/riak/kv/2.0.0/developing/usage/conflict-resolution#siblings). This condition occurs when the client application does not resolve conflicts properly or in a timely fashion. In that scenario, the size of the value on disk grows in proportion to
 the number of siblings, causing longer disk service times and slower
 network responses.
 

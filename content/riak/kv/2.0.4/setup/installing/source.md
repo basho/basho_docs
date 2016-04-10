@@ -13,16 +13,17 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/installing/source/
+canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/source.md"
 ---
 
 **TODO: Fix Package Versions ({{VERSION}})**
 
 [install source erlang]: /riak/kv/2.0.4/setup/installing/source/erlang
 [downloads]: /riak/kv/2.0.4/downloads/
-[install debian & ubuntu#source]: /riak/kv/2.0.4/setup/installing/debian-ubuntu/#Installing-From-Source
-[install freebsd#source]: /riak/kv/2.0.4/setup/installing/freebsd/#Installing-From-Source
-[install mac osx#source]: /riak/kv/2.0.4/setup/installing/mac-osx/#Installing-From-Source
-[install rhel & centos#source]: /riak/kv/2.0.4/setup/installing/rhel-centos/#Installing-From-Source
+[install debian & ubuntu#source]: /riak/kv/2.0.4/setup/installing/debian-ubuntu/#installing-from-source
+[install freebsd#source]: /riak/kv/2.0.4/setup/installing/freebsd/#installing-from-source
+[install mac osx#source]: /riak/kv/2.0.4/setup/installing/mac-osx/#installing-from-source
+[install rhel & centos#source]: /riak/kv/2.0.4/setup/installing/rhel-centos/#installing-from-source
 [install verify]: /riak/kv/2.0.4/setup/installing/verify
 
 Riak should be installed from source if you are building on a platform

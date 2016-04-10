@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/references/http/fetch-object
+canonical_link: "docs.basho.com/riak/kv/latest/developing/api/http/fetch-object.md"
 ---
 
 Reads an object from the specified bucket/key.
@@ -25,7 +26,7 @@ GET /buckets/bucket/keys/key
 Important headers:
 
 * `Accept` - When `multipart/mixed` is the preferred content-type, objects with
-siblings will return all siblings in single request. See [Siblings examples](#Siblings-examples). See
+siblings will return all siblings in single request. See [Siblings examples](#siblings-examples). See
 also RFC 2616 - [Accept header definition](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1).
 
 Optional headers:
@@ -48,7 +49,7 @@ and you get 2 errors and a success `basic_quorum=true` would return an error)
 * `notfound_ok` - whether to treat notfounds as successful reads for the
 purposes of R ([default is defined by the bucket](/riak/kv/2.0.4/developing/api/http/set-bucket-props))
 * `vtag` - when accessing an object with siblings, which sibling to retrieve.
-Scroll down to the [Manually requesting siblings](#Manually-requesting-siblings) example for more information.
+Scroll down to the [Manually requesting siblings](#manually-requesting-siblings) example for more information.
 
 ## Response
 
@@ -73,7 +74,7 @@ Important headers:
 and validation-based caching
 * `Last-Modified` - a timestamp for when the object was last written, in HTTP
 datetime format
-* `Link` - user- and system-defined links to other resources. [Read more about Links.](/riak/kv/2.0.4/learn/glossary/#Links)
+* `Link` - user- and system-defined links to other resources. [Read more about Links.](/riak/kv/2.0.4/learn/glossary/#links)
 
 The body of the response will be the contents of the object except when siblings
 are present.

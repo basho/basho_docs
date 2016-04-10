@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/advanced/client-security
+canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/security.md"
 ---
 
 Versions of Riak 2.0 and later come equipped with a [security subsystem](/riak/kv/2.1.3/using/security/basics) that enables you to choose
@@ -22,17 +23,17 @@ Versions of Riak 2.0 and later come equipped with a [security subsystem](/riak/k
 
 The following four authentication mechanisms, aka [security sources](/riak/kv/2.1.3/using/security/managing-sources/) are available:
 
-* [Trust](/riak/kv/2.1.3/using/security/managing-sources/#Trust-based-Authentication)-based
+* [Trust](/riak/kv/2.1.3/using/security/managing-sources/#trust-based-authentication)-based
   authentication enables you to specify trusted
   [CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)s
   from which all clients will be authenticated by default
-* [Password](/riak/kv/2.1.3/using/security/managing-sources/#Password-based-Authentication)-based authentication requires
+* [Password](/riak/kv/2.1.3/using/security/managing-sources/#password-based-authentication)-based authentication requires
   that clients provide a username and password
-* [Certificate](/riak/kv/2.1.3/using/security/managing-sources/#Certificate-based-Authentication)-based authentication
+* [Certificate](/riak/kv/2.1.3/using/security/managing-sources/#certificate-based-authentication)-based authentication
   requires that clients
-* [Pluggable authentication module (PAM)](/riak/kv/2.1.3/using/security/managing-sources/#PAM-based-Authentication)-based authentication requires
+* [Pluggable authentication module (PAM)](/riak/kv/2.1.3/using/security/managing-sources/#pam-based-authentication)-based authentication requires
   clients to authenticate using the PAM service specified using the
-  `[riak-admin security](/riak/kv/2.1.3/using/security/managing-sources/#Managing-Sources)`
+  `[riak-admin security](/riak/kv/2.1.3/using/security/managing-sources/#managing-sources)`
   command line interface
 
 Riak's approach to security is highly flexible. If you choose to use
@@ -86,7 +87,7 @@ keys should never be shared beyond Riak and connecting clients.
 
 ### Default Names
 
-In Riak's [configuration files](/riak/kv/2.1.3/configuring/reference/#Security), the
+In Riak's [configuration files](/riak/kv/2.1.3/configuring/reference/#security), the
 default certificate file names are as follows:
 
 Cert | Filename

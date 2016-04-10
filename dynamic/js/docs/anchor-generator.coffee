@@ -10,8 +10,14 @@ $ ->
       .add(article.find('h6'))
 
     headers.each ->
-      return if $(this).hasClass('title')
-      content = $(this).html()
-      name = content.replace(/\W+/g,'-')
-      anchor = "<a href=\"##{name}\">#{content}</a>";
-      $(this).html(anchor).attr('id', name)
+      that = $(this)
+      return if that.hasClass('title')
+      content = that.html()
+      name = that.text()
+                 .replace(/[\W+_]/g,'-')
+                 .replace(/-+$/g,'')
+                 .replace(/^-+/g,'')
+                 .replace(/--+/g,'-')
+                 .toLowerCase()
+      anchor = "<a href=\"##{name}\">#{content}</a>"
+      that.html(anchor).attr('id', name)

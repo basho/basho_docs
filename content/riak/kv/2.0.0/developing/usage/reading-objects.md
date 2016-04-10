@@ -10,13 +10,14 @@ menu:
     weight: 101
     parent: "developing_usage"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/reading-objects.md"
 ---
 
-[glossary vnode]: /riak/kv/2.0.0/learn/glossary/#Vnode
+[glossary vnode]: /riak/kv/2.0.0/learn/glossary/#vnode
 
 You can think of reads in Riak as analogous to HTTP `GET` requests. You
 specify a bucket type, bucket, and key, and Riak either returns the
-object that's stored there---including its [siblings](/riak/kv/2.0.0/developing/usage/conflict-resolution/#Siblings) \(more on that later)---or it returns `not found` (the
+object that's stored there---including its [siblings](/riak/kv/2.0.0/developing/usage/conflict-resolution/#siblings) \(more on that later)---or it returns `not found` (the
 equivalent of an HTTP `404 Object Not Found`).
 
 Here is the basic command form for retrieving a specific key from a

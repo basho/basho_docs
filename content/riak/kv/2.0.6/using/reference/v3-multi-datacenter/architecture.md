@@ -12,9 +12,10 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/ops/mdc/v3/architecture
+canonical_link: "docs.basho.com/riak/kv/latest/using/reference/v3-multi-datacenter/architecture.md"
 ---
 
-[glossary vnode]: /riak/kv/2.0.6/learn/glossary/#Vnode
+[glossary vnode]: /riak/kv/2.0.6/learn/glossary/#vnode
 [concept clusters]: /riak/kv/2.0.6/learn/concepts/clusters
 
 ## How Version 3 Replication Works

@@ -12,17 +12,18 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/data-modeling/
+canonical_link: "docs.basho.com/riak/kv/latest/learn/use-cases.md"
 ---
 
 
-[dev data model articles etc]: /riak/kv/2.0.1/developing/data-modeling/#Articles-Blog-Posts-and-Other-Content
-[dev data model log data]: /riak/kv/2.0.1/developing/data-modeling/#Log-Data
-[dev data model sensor data]: /riak/kv/2.0.1/developing/data-modeling/#Sensor-Data
-[dev data model serve advertisements]: /riak/kv/2.0.1/developing/data-modeling/#Serving-Advertisements
-[dev data model sess storage]: /riak/kv/2.0.1/developing/data-modeling/#Session-Storage
-[dev data model user acct]: /riak/kv/2.0.1/developing/data-modeling/#User-Accounts
-[dev data model user events]: /riak/kv/2.0.1/developing/data-modeling/#User-Events-and-Timelines
-[dev data model user settings]: /riak/kv/2.0.1/developing/data-modeling/#User-Settings-and-Preferences
+[dev data model articles etc]: /riak/kv/2.0.1/developing/data-modeling/#articles-blog-posts-and-other-content
+[dev data model log data]: /riak/kv/2.0.1/developing/data-modeling/#log-data
+[dev data model sensor data]: /riak/kv/2.0.1/developing/data-modeling/#sensor-data
+[dev data model serve advertisements]: /riak/kv/2.0.1/developing/data-modeling/#serving-advertisements
+[dev data model sess storage]: /riak/kv/2.0.1/developing/data-modeling/#session-storage
+[dev data model user acct]: /riak/kv/2.0.1/developing/data-modeling/#user-accounts
+[dev data model user events]: /riak/kv/2.0.1/developing/data-modeling/#user-events-and-timelines
+[dev data model user settings]: /riak/kv/2.0.1/developing/data-modeling/#user-settings-and-preferences
 [dev data types]: /riak/kv/2.0.1/developing/data-types
 [plan backend bitcask]: /riak/kv/2.0.1/setup/planning/backend/bitcask
 [usage mapreduce]: /riak/kv/2.0.1/developing/usage/mapreduce

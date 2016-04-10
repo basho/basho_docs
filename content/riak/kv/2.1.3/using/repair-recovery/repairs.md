@@ -15,6 +15,7 @@ aliases:
   - /riak/2.1.3/ops/running/recovery/failed-node
   - /riak/2.1.3/ops/running/recovery/repairing-leveldb
   - /riak/2.1.3/ops/running/recovery/repairing-partitions
+canonical_link: "docs.basho.com/riak/kv/latest/using/repair-recovery/repairs.md"
 ---
 
 ## Repairing Secondary Indexes
@@ -93,7 +94,7 @@ This code will force all keys in each partition on a node to be reread, thus reb
     [riak_search_vnode:repair(P) || P <- Partitions].
     ```
 
-5. When you're done, press `Ctrl-D` to disconnect the console. DO NOT RUN q() which will cause the running Riak node to quit. Note that `Ctrl-D` merely disconnects the console from the service, it does not stop the code from running.
+5. When you're done, press **Ctrl-G q** to disconnect the console. Note that **Ctrl-G q** merely disconnects the console from the service, it does not stop the code from running.
 
 
 ### Monitoring a Repair
@@ -104,7 +105,7 @@ The above Repair command can be slow, so if you reattach to the console, you can
 [{P, riak_search_vnode:repair_status(P)} || P <- Partitions].
 ```
 
-When you're done, press `Ctrl-D` to disconnect the console.
+When you're done, press **Ctrl-G q** to disconnect the console.
 
 ### Killing a Repair
 
@@ -220,7 +221,7 @@ riak start
 
 If you have experienced a loss of object replicas in your cluster, you
 may need to perform a repair operation on one or more of your data
-[partitions](/riak/kv/2.1.3/learn/concepts/clusters/#The-Ring). Repairs of Riak KV data are typically
+[partitions](/riak/kv/2.1.3/learn/concepts/clusters/#the-ring). Repairs of Riak KV data are typically
 run in situations where partitions or whole nodes are lost due to
 corruption or hardware failure. In these cases, nodes or partitions are
 brought back online without any data, which means that the need to
@@ -228,15 +229,15 @@ repair data will depend mainly on your use case and on whether [active anti-entr
 
 You will need to run a repair if the following are both true:
 
-* Active anti-entropy is [disabled](/riak/kv/2.1.3/learn/concepts/active-anti-entropy/#Disabling-Active-Anti-Entropy)
+* Active anti-entropy is [disabled](/riak/kv/2.1.3/learn/concepts/active-anti-entropy/#disabling-active-anti-entropy)
 * You have both non-expiring data and keys that are not accessed
   frequently (which means that they are not likely to be subject to
-  [read repair](/riak/kv/2.1.3/learn/concepts/active-anti-entropy/#Read-Repair-vs-Active-Anti-Entropy))
+  [read repair](/riak/kv/2.1.3/learn/concepts/active-anti-entropy/#read-repair-vs-active-anti-entropy))
 
 You will most likely not need to run a repair operation if _any_ of the
 following is true:
 
-* Active anti-entropy is [enabled](/riak/kv/2.1.3/learn/concepts/active-anti-entropy/#Enabling-Active-Anti-Entropy)
+* Active anti-entropy is [enabled](/riak/kv/2.1.3/learn/concepts/active-anti-entropy/#enabling-active-anti-entropy)
 * Your entire key set is accessed frequently, allowing passive read
   repair to repair the partitions
 * Your data expires frequently

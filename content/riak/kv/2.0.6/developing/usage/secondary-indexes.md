@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/using/2i
+canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/secondary-indexes.md"
 ---
 
 [plan backend leveldb]: /riak/kv/2.0.6/setup/planning/backend/leveldb
@@ -29,7 +30,7 @@ backends.
 
 Secondary indexes (2i) in Riak enable you to tag objects stored in Riak,
 at write time, with one or more queryable values. Those values can then
-be used to find multiple objects in Riak. If you're storing [user data](/riak/kv/2.0.6/developing/data-modeling/#User-Accounts), for example, you could tag each object
+be used to find multiple objects in Riak. If you're storing [user data](/riak/kv/2.0.6/developing/data-modeling/#user-accounts), for example, you could tag each object
 associated with that user with a username or other unique marker. Once
 tagged, you could find all objects in a Riak bucket sharing that tag.
 Secondary indexes can be either a binary or string, such as
@@ -56,7 +57,7 @@ backends.
 > **Note on 2i and strong consistency**
 Secondary indexes do not currently work with the [strong consistency][use ref strong consistency]
 feature introduced in Riak version 2.0. If you store objects in
-[strongly consistent buckets](/riak/kv/2.0.6/developing/app-guide/strong-consistency/#Creating-a-Strongly-Consistent-Bucket-Type) and attach
+[strongly consistent buckets](/riak/kv/2.0.6/developing/app-guide/strong-consistency/#creating-a-strongly-consistent-bucket-type) and attach
 secondary index metadata to those objects, you can still perform
 strongly consistent operations on those objects but the secondary
 indexes will be ignored.
@@ -1143,8 +1144,8 @@ Could not parse field 'field2_int', value 'bar'.
 
 > **Note on 2i queries and the R parameter**
 >
-> For all 2i queries, the [R](/riak/kv/2.0.6/developing/app-guide/replication-properties#R-Value-and-Read-Failure-Tolerance) parameter is set to 1,
-which means that queries that are run while [handoffs](/riak/kv/2.0.6/learn/glossary/#Hinted-Handoff) and related operations are underway may not
+> For all 2i queries, the [R](/riak/kv/2.0.6/developing/app-guide/replication-properties#r-value-and-read-failure-tolerance) parameter is set to 1,
+which means that queries that are run while [handoffs](/riak/kv/2.0.6/learn/glossary/#hinted-handoff) and related operations are underway may not
 return all keys as expected.
 
 ### Exact Match

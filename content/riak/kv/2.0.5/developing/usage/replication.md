@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/advanced/replication-properties
+canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/replication.md"
 ---
 
 [usage bucket types]: /riak/kv/2.0.5/developing/usage/bucket-types
@@ -96,8 +97,8 @@ Parameter | Common name | Default value | Description
 `n_val` | N | `3` | Replication factor, i.e. the number of nodes in the cluster on which an object is to be stored
 `r` | R | `quorum` | The number of servers that must respond to a read request
 `w` | W | `quorum` | Number of servers that must respond to a write request
-`pr` | PR | `0` | The number of primary <a href="/theory/concepts/vnodes">vnodes</a> that must respond to a read request
-`pw` | PW | `0` | The number of primary <a href="/theory/concepts/vnodes">vnodes</a> that must respond to a write request
+`pr` | PR | `0` | The number of primary <a href="theory/concepts/vnodes">vnodes</a> that must respond to a read request
+`pw` | PW | `0` | The number of primary <a href="theory/concepts/vnodes">vnodes</a> that must respond to a write request
 `dw` | DW | `quorum` | The number of servers that must report that a write has been successfully written to disk
 `rw` | RW | `quorum` | If R and W are undefined, this parameter will substitute for both R and W during object deletes. It is extremely unlikely that you will need to adjust this parameter.
 `notfound_ok` | | `true` | This parameter determines how Riak responds if a read fails on a node. Setting to `true` (the default) is the equivalent to setting R to 1: if the first node to respond doesn't have a copy of the object, Riak will immediately return a `not found` error. If set to `false`, Riak will continue to look for the object on the number of nodes specified by N (aka `n_val`).
@@ -320,7 +321,7 @@ seeks to write the object to is unavailable.
 
 ## Primary Reads and Writes with PR and PW
 
-In Riak's replication model, there are N [vnodes](/riak/kv/2.0.5/learn/glossary/#Vnode),
+In Riak's replication model, there are N [vnodes](/riak/kv/2.0.5/learn/glossary/#vnode),
 called _primary vnodes_, that hold primary responsibility for any given
 key. Riak will attempt reads and writes to primary vnodes first, but in
 case of failure, those operations will go to failover nodes in order to
@@ -552,7 +553,7 @@ In case the above explanations were a bit too abstract for your tastes,
 the following table lays out a number of possible scenarios for reads
 and writes in Riak and how Riak is likely to respond. Some of these
 scenarios involve issues surrounding conflict resolution, vector clocks,
-and siblings, so we recommend reading the [Vector Clocks](/riak/kv/2.0.5/learn/concepts/causal-context#Vector-Clocks) documentation for more information.
+and siblings, so we recommend reading the [Vector Clocks](/riak/kv/2.0.5/learn/concepts/causal-context#vector-clocks) documentation for more information.
 
 #### Read Scenarios
 
@@ -562,8 +563,8 @@ vnodes responsible for an object.
 Scenario | What happens in Riak
 :--------|:--------------------
 All 3 vnodes agree on the value | Once the first 2 vnodes return the value, that value is returned to the client
-2 of 3 vnodes agree on the value, and those 2 are the first to reach the coordinating node | The value is returned to the client. Read repair will deal with the conflict per the later scenarios, which means that a future read may return a different value or <a href="/riak/kv/2.0.5/learn/concepts/context#Siblings">siblings</a>
-2 conflicting values reach the coordinating node and <a href="/riak/kv/2.0.5/learn/concepts/context#Vector-Clocks">vector clocks</a> allow for resolution | The vector clocks are used to resolve the conflict and return a single value, which is propagated via read repair to the relevant vnodes
+2 of 3 vnodes agree on the value, and those 2 are the first to reach the coordinating node | The value is returned to the client. Read repair will deal with the conflict per the later scenarios, which means that a future read may return a different value or <a href="/riak/kv/2.0.5/learn/concepts/context#siblings">siblings</a>
+2 conflicting values reach the coordinating node and <a href="/riak/kv/2.0.5/learn/concepts/context#vector-clocks">vector clocks</a> allow for resolution | The vector clocks are used to resolve the conflict and return a single value, which is propagated via read repair to the relevant vnodes
 2 conflicting values reach the coordinating node, vector clocks indicate a fork in the object history, and `allow_mult` is set to `false` | The object with the most recent timestamp is returned and propagated via read repair to the relevant vnodes
 2 siblings or conflicting values reach the coordinating node, vector clocks indicate a fork in the object history, and `allow_mult` is set to `true` | All keys are returned as siblings, optionally with associated values (depending on how the request is made)
 

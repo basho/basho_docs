@@ -147,7 +147,7 @@ buckets.default.allow_mult = true
 ]}
 ```
 
-This will enable Riak to create [siblings](/riak/kv/2.1.3/learn/concepts/causal-context/#Siblings), which is necessary for Riak CS to function. If you are connecting to Riak CS from a [client library](/riak/kv/2.1.3/developing/client-libraries), don't worry: you will not have to manage [conflict resolution](/riak/kv/2.1.3/developing/usage/conflict-resolution), as all Riak CS
+This will enable Riak to create [siblings](/riak/kv/2.1.3/learn/concepts/causal-context/#siblings), which is necessary for Riak CS to function. If you are connecting to Riak CS from a [client library](/riak/kv/2.1.3/developing/client-libraries), don't worry: you will not have to manage [conflict resolution](/riak/kv/2.1.3/developing/usage/conflict-resolution), as all Riak CS
 operations are strongly consistent by definition.
 
 <div class="note">

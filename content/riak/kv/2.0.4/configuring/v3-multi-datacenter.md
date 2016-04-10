@@ -14,10 +14,11 @@ toc: true
 commercial_offering: true
 aliases:
   - /riak/2.1.3/ops/mdc/v3/configuration
+canonical_link: "docs.basho.com/riak/kv/latest/configuring/v3-multi-datacenter.md"
 ---
 
-[config reference#advanced]: /riak/kv/2.0.4/configuring/reference/#Advanced-Configuration
-[config v3 ssl#verify-peer]: /riak/kv/2.0.4/configuring/v3-multi-datacenter/ssl/#Verifying-Peer-Certificates
+[config reference#advanced]: /riak/kv/2.0.4/configuring/reference/#advanced-configuration
+[config v3 ssl#verify-peer]: /riak/kv/2.0.4/configuring/v3-multi-datacenter/ssl/#verifying-peer-certificates
 
 > **Note on the `cluster_mgr` setting**
 >
@@ -92,8 +93,8 @@ Setting | Options | Default | Description
 `rtq_overload_recover` | `length` (integer) | `1000` | The length to which the realtime replication queue, in an overload mode, must shrink before new objects are replicated again.
 `rtq_max_bytes` | `bytes` (integer) | `104857600` | The maximum size to which the realtime replication queue can grow before new objects are dropped. Defaults to 100MB. Dropped objects will need to be replicated with a fullsync.
 `proxy_get` | `enabled`, `disabled` | `disabled` | Enable Riak CS `proxy_get` and block filter.
-`rt_heartbeat_interval` | `seconds` (integer) | `15` | A full explanation can be found [below](/ops/mdc/v3/configuration/#Heartbeat-Settings).
-`rt_heartbeat_timeout` | `seconds` (integer) | `15` | A full explanation can be found [below](/ops/mdc/v3/configuration/#Heartbeat-Settings).
+`rt_heartbeat_interval` | `seconds` (integer) | `15` | A full explanation can be found [below](/ops/mdc/v3/configuration/#heartbeat-settings).
+`rt_heartbeat_timeout` | `seconds` (integer) | `15` | A full explanation can be found [below](/ops/mdc/v3/configuration/#heartbeat-settings).
 
 
 ## riak_core Settings

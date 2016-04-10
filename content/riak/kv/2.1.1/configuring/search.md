@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/ops/advanced/configs/search/
+canonical_link: "docs.basho.com/riak/kv/latest/configuring/search.md"
 ---
 
 [usage search]: /riak/kv/2.1.1/developing/usage/search
@@ -19,8 +20,8 @@ aliases:
 [usage search data types]: /riak/kv/2.1.1/developing/usage/searching-data-types
 [usage custom extractors]: /riak/kv/2.1.1/developing/usage/custom-extractors
 [config reference]: /riak/kv/2.1.1/configuring/reference
-[config reference#search]: /riak/kv/2.1.1/configuring/reference/#Search
-[glossary aae]: /riak/kv/2.1.1/learn/glossary/#Active-Anti-Entropy-AAE-
+[config reference#search]: /riak/kv/2.1.1/configuring/reference/#search
+[glossary aae]: /riak/kv/2.1.1/learn/glossary/#active-anti-entropy-aae
 [security index]: /riak/kv/2.1.1/using/security/
 
 > **Note on Search 2.0 vs. Legacy Search**

@@ -12,10 +12,11 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/theory/concepts/capability-negotiation
+canonical_link: "docs.basho.com/riak/kv/latest/learn/concepts/capability-negotiation.md"
 ---
 
 
-[glossary vnode]: /riak/kv/2.0.4/learn/glossary/#Vnode
+[glossary vnode]: /riak/kv/2.0.4/learn/glossary/#vnode
 [upgrade cluster]: /riak/kv/2.0.4/setup/upgrading/cluster
 [usage mapreduce]: /riak/kv/2.0.4/developing/usage/mapreduce
 

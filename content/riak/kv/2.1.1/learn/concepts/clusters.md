@@ -13,6 +13,7 @@ toc: true
 aliases:
   - /riak/2.1.3/theory/concepts/Clusters
   - /riak/2.1.3/theory/concepts/clusters
+canonical_link: "docs.basho.com/riak/kv/latest/learn/concepts/clusters.md"
 ---
 
 
@@ -20,7 +21,7 @@ aliases:
 [concept keys objects]: /riak/kv/2.1.1/concepts/keys-and-objects
 [concept replication]: /riak/kv/2.1.1/concepts/replication
 [glossary node]: /riak/kv/2.1.1/learn/glossary/#node
-[glossary vnode]: /riak/kv/2.1.1/learn/glossary/#Vnode
+[glossary vnode]: /riak/kv/2.1.1/learn/glossary/#vnode
 [learn dynamo]: /riak/kv/2.1.1/learn/dynamo
 [usage bucket types]: /riak/kv/2.1.1/developing/usage/bucket-types
 [usage conflict resolution]: /riak/kv/2.1.1/developing/usage/conflict-resolution

@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/ops/advanced/configs/mapreduce/
+canonical_link: "docs.basho.com/riak/kv/latest/configuring/mapreduce.md"
 ---
 
 [usage mapreduce]: /riak/kv/2.0.6/developing/usage/mapreduce

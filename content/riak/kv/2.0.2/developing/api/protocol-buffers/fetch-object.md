@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/references/protocol-buffers/fetch-object
+canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/fetch-object.md"
 ---
 
 Fetch an object from the specified bucket type/bucket/key location
@@ -113,7 +114,7 @@ of the following optional parameters:
 * `charset` --- The character encoding of the object, e.g. `utf-8`
 * `content_encoding` --- The content encoding of the object, e.g.
   `video/mp4`
-* `vtag` --- The object's [vtag](/riak/kv/2.0.2/learn/glossary/#Vector-Clock)
+* `vtag` --- The object's [vtag](/riak/kv/2.0.2/learn/glossary/#vector-clock)
 * `links` --- This parameter is associated with the now-deprecated link
   walking feature and should not be used by Riak clients
 * `last_mod` --- A timestamp for when the object was last modified, in

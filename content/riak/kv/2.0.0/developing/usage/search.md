@@ -10,6 +10,7 @@ menu:
     weight: 105
     parent: "developing_usage"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/search.md"
 ---
 
 [usage search schema]: /riak/kv/2.0.0/developing/usage/search-schemas
@@ -55,7 +56,7 @@ support.
 All `curl` examples in this document assume that you have set an
 environment variable named `RIAK_HOST`, which points to a Riak base URL,
 such as `http://localhost:8098`. The appropriate value for `RIAK_HOST`
-will depend on your [configuration](/riak/kv/2.0.0/configuring/reference#Client-Interfaces).
+will depend on your [configuration](/riak/kv/2.0.0/configuring/reference#client-interfaces).
 
 ## Creating an Index
 

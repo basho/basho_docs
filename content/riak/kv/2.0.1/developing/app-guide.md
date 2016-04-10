@@ -12,18 +12,19 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/using/application-guide/
+canonical_link: "docs.basho.com/riak/kv/latest/developing/app-guide.md"
 ---
 
 [usage conflict resolution]: /riak/kv/2.0.1/developing/usage/conflict-resolution
-[dev data model#log]: /riak/kv/2.0.1/developing/data-modeling/#Log-Data
-[dev data model#sensor]: /riak/kv/2.0.1/developing/data-modeling/#Sensor-Data
+[dev data model#log]: /riak/kv/2.0.1/developing/data-modeling/#log-data
+[dev data model#sensor]: /riak/kv/2.0.1/developing/data-modeling/#sensor-data
 [concept eventual consistency]: /riak/kv/2.0.1/learn/concepts/eventual-consistency
-[dev data model#user]: /riak/kv/2.0.1/developing/data-modeling/#User-Data
+[dev data model#user]: /riak/kv/2.0.1/developing/data-modeling/#user-data
 [dev kv model]: /riak/kv/2.0.1/developing/key-value-modeling
 [dev data types]: /riak/kv/2.0.1/developing/data-types
-[dev data types#counters]: /riak/kv/2.0.1/developing/data-types/#Counters
-[dev data types#sets]: /riak/kv/2.0.1/developing/data-types/#Sets
-[dev data types#maps]: /riak/kv/2.0.1/developing/data-types/#Maps
+[dev data types#counters]: /riak/kv/2.0.1/developing/data-types/#counters
+[dev data types#sets]: /riak/kv/2.0.1/developing/data-types/#sets
+[dev data types#maps]: /riak/kv/2.0.1/developing/data-types/#maps
 [usage create objects]: /riak/kv/2.0.1/developing/usage/create-objects
 [usage search]: /riak/kv/2.0.1/developing/usage/search
 [use ref search]: /riak/kv/2.0.1/using/reference/search

@@ -12,11 +12,12 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/ops/building/planning/best-practices
+canonical_link: "docs.basho.com/riak/kv/latest/setup/planning/best-practices.md"
 ---
 
 [use ref handoff]: /riak/kv/2.0.0/using/reference/handoff
 [config mapreduce]: /riak/kv/2.0.0/configuring/map-reduce
-[glossary aae]: /riak/kv/2.0.0/learn/glossary/#Active-Anti-Entropy-AAE-
+[glossary aae]: /riak/kv/2.0.0/learn/glossary/#active-anti-entropy-aae
 [cluster ops add remove node]: /riak/kv/2.0.0/using/cluster-operations/adding-removing-nodes
 
 Riak KV is a database designed for easy operation and scaling. Below are some best practices that will enable you to improve performance and reliability at all stages in the life of your Riak cluster.

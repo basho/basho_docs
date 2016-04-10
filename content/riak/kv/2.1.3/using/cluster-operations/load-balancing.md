@@ -10,6 +10,7 @@ menu:
     weight: 111
     parent: "managing_cluster_operations"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/load-balancing.md"
 ---
 
 **TODO: Add content (not sure where this exists in docs)**

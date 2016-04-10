@@ -12,17 +12,18 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/using/conflict-resolution
+canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/conflict-resolution.md"
 ---
 
 [usage bucket types]: /riak/kv/2.0.0/developing/usage/bucket-types
 [use ref strong consistency]: /riak/2.1.3/using/reference/strong-consistency
 
-One of Riak's [central goals](/riak/kv/learn/why-riak-kv) is high availability. It was built as a [clustered](/riak/kv/2.0.0/learn/concepts/clusters) system in which any [node](/riak/kv/2.0.0/learn/glossary/#Node) is capable of receiving requests without requiring that
+One of Riak's [central goals](/riak/kv/learn/why-riak-kv) is high availability. It was built as a [clustered](/riak/kv/2.0.0/learn/concepts/clusters) system in which any [node](/riak/kv/2.0.0/learn/glossary/#node) is capable of receiving requests without requiring that
 every node participate in each request.
 
 If you are using Riak in an [eventually consistent](/riak/kv/2.0.0/learn/concepts/eventual-consistency) way, conflicts between object values on different nodes is
 unavoidable. Often, Riak can resolve these conflicts on its own
-internally if you use causal context, i.e. [vector clocks](/riak/kv/2.0.0/learn/concepts/causal-context#Vector-Clocks) or [dotted version vectors](/riak/kv/2.0.0/learn/concepts/causal-context#Dotted-Version-Vectors), when updating objects. Instructions on this can be found in the section [below](#Siblings).
+internally if you use causal context, i.e. [vector clocks](/riak/kv/2.0.0/learn/concepts/causal-context#vector-clocks) or [dotted version vectors](/riak/kv/2.0.0/learn/concepts/causal-context#dotted-version-vectors), when updating objects. Instructions on this can be found in the section [below](#siblings).
 
 <div class="note">
 <div class="title">Important note on terminology</div>
@@ -39,7 +40,7 @@ But even when you use causal context, Riak cannot always decide which
 value is most causally recent, especially in cases involving concurrent
 updates to an object. So how does Riak behave when it can't decide on a
 single most-up-to-date value? **That is your choice**. A full listing of
-available options can be found in the [section below](#Client-and-Server-side-Conflict-Resolution). For now,
+available options can be found in the [section below](#client-and-server-side-conflict-resolution). For now,
 though, please bear in mind that we strongly recommend one of the
 following two options:
 
@@ -48,7 +49,7 @@ following two options:
    because all of them have conflict resolution _built in_, completely
    relieving applications of the need to engage in conflict resolution.
 2. If your data cannot be modeled as one of the available Data Types,
-   we recommend allowing Riak to generate [siblings](#Siblings) and to design your application to resolve
+   we recommend allowing Riak to generate [siblings](#siblings) and to design your application to resolve
    conflicts in a way that fits your use case. Developing your own
    **conflict resolution strategy** can be tricky, but it has clear
    advantages over other approaches.
@@ -156,7 +157,7 @@ options:
 
 * Explicitly create and activate [bucket types](/riak/kv/2.0.0/developing/usage/bucket-types)
   that set `allow_mult` to `false`
-* Use Riak's [Configuration Files](/riak/kv/2.0.0/configuring/reference) to change the [default bucket properties](/riak/kv/2.0.0/configuring/reference#Default-Bucket-Properties) for your
+* Use Riak's [Configuration Files](/riak/kv/2.0.0/configuring/reference) to change the [default bucket properties](/riak/kv/2.0.0/configuring/reference#default-bucket-properties) for your
   cluster. If you set the `buckets.default.allow_mult` parameter to
   `false`, all bucket types that you create will have `allow_mult` set
   to `false` by default.
@@ -166,7 +167,7 @@ options:
 When a value is stored in Riak, it is tagged with a piece of metadata
 called a **causal context** which establishes the object's initial
 version. Causal context comes in one of two possible forms, depending
-on what value you set for `dvv_enabled`. If set to `true`, [dotted version vectors](/riak/kv/2.0.0/learn/concepts/causal-context#Dotted-Version-Vectors) will be used; if set to `false` (the default), [vector clocks](/riak/kv/2.0.0/learn/concepts/causal-context#Vector-Clocks) will be used.
+on what value you set for `dvv_enabled`. If set to `true`, [dotted version vectors](/riak/kv/2.0.0/learn/concepts/causal-context#dotted-version-vectors) will be used; if set to `false` (the default), [vector clocks](/riak/kv/2.0.0/learn/concepts/causal-context#vector-clocks) will be used.
 
 Causal context essentially enables Riak to compare the different values
 of objects stored in Riak and to determine a number of important things
@@ -191,7 +192,7 @@ If `allow_mult` is set to `true`, you should _always_ use causal context
 when updating objects, _unless you are certain that no object exists
 under that key_. Failing to use causal context with mutable data,
 especially for objects that are frequently updated, can lead to
-[sibling explosion](/riak/kv/2.0.0/using/performance/latency-reduction-checklist#Siblings), which can
+[sibling explosion](/riak/kv/2.0.0/using/performance/latency-reduction-checklist#siblings), which can
 produce a variety of problems in your cluster. Fortunately, much of the
 work involved with using causal context is handled automatically by
 Basho's official [client libraries](/riak/kv/2.0.0/developing/client-libraries). Examples can be found for each

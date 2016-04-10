@@ -93,23 +93,24 @@ cluster on the following TCP ports:
 
 Protocol | Port
 :--------|:----
-<a href="/dev/references/http">HTTP</a> | TCP port 8098
-<a href="/dev/references/protocol-buffers">Protocol Buffers</a> | TCP port 8087
+<a href="dev/references/http">HTTP</a> | TCP port 8098
+<a href="dev/references/protocol-buffers">Protocol Buffers</a> | TCP port 8087
 
 ### Riak Search Ports
 
 Riak's [search](/riak/kv/2.0.1/developing/usage/search/) feature relies on [Apache
 Solr](http://lucene.apache.org/solr/), which runs on each Riak node if
-security has been [enabled](/riak/kv/2.0.1/configuring/search/#Enabling-Riak-Search). When Riak's Search subsystem starts up,
+security has been [enabled](/riak/kv/2.0.1/configuring/search/#enabling-riak-search). When Riak's Search subsystem starts up,
 [JMX](http://www.oracle.com/technetwork/java/javase/tech/javamanagement-140525.html)
 opens a well-known port as well as some ephemeral ports. The well-known
 port is determined by the value of the `search.solr.jmx_port` in each
-node's [Search configuration](/riak/kv/2.0.1/configuring/reference/#Search). The default is 8985.
+node's [Search configuration](/riak/kv/2.0.1/configuring/reference/#search). The default is 8985.
 
 In addition to JMX ports, Solr also binds to a well-known port of its
 own, as determined by each node's `search.solr.port` setting, which is
 also located in each node's Search configuration. The default is 8093.
 
+canonical_link: "docs.basho.com/riak/kv/latest/using/security.md"
 ---
 
 # Riak Security Community

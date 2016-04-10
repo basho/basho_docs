@@ -12,11 +12,12 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/ops/advanced/backends/memory/
+canonical_link: "docs.basho.com/riak/kv/latest/setup/planning/backend/memory.md"
 ---
 
 [config reference]: /riak/kv/2.0.5/configuring/reference
 [plan backend multi]: /riak/kv/2.0.5/setup/planning/backend/multi
-[glossary vnode]: /riak/kv/2.0.5/learn/glossary/#Vnode
+[glossary vnode]: /riak/kv/2.0.5/learn/glossary/#vnode
 [plan backend leveldb]: /riak/kv/2.0.5/setup/planning/backend/leveldb
 
 The Memory storage backend uses in-memory tables to store all data.

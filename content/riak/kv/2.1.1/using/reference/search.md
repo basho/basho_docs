@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/advanced/search
+canonical_link: "docs.basho.com/riak/kv/latest/using/reference/search.md"
 ---
 
 [concept clusters]: /riak/kv/2.1.1/learn/concepts/clusters
@@ -125,7 +126,7 @@ but logically partition them in KV by using a date as the bucket name.
 A bucket _cannot_ be associated with many indexes---the `search_index`
 property must be a single name, not a list.
 
-See the [main Search documentation](/riak/kv/2.1.1/developing/usage/search/#Simple-Setup) for details on creating an index.
+See the [main Search documentation](/riak/kv/2.1.1/developing/usage/search/#simple-setup) for details on creating an index.
 
 ## Extractors
 

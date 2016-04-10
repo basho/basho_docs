@@ -13,6 +13,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/data-modeling/key-value/
+canonical_link: "docs.basho.com/riak/kv/latest/developing/key-value-modeling.md"
 ---
 
 While Riak enables you to take advantage of a wide variety of features
@@ -142,7 +143,7 @@ bucket `users`. This approach, however, is _not_ recommended, because
 listing all keys in a bucket is a very expensive operation that should
 not be used in production. And so another strategy must be employed.
 
-A better possibility is to use [Riak sets](/riak/kv/2.1.3/developing/data-types/#Sets) to
+A better possibility is to use [Riak sets](/riak/kv/2.1.3/developing/data-types/#sets) to
 store lists of keys in a bucket. Riak sets are a [Riak Data Type](/riak/kv/2.1.3/developing/data-types) that enable you to store lists of binaries or strings in Riak.
 Unlike normal Riak objects, you can interact with Riak sets much like
 you interact with sets in most programming languages, i.e. you can add

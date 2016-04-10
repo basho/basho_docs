@@ -11,6 +11,7 @@ menu:
     weight: 102
     parent: "getting_started_ruby"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/ruby/object-modeling.md"
 ---
 
 To get started, let's create the models that we'll be using. Since the

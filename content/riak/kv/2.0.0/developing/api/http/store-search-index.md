@@ -12,9 +12,10 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/references/http/store-search-index
+canonical_link: "docs.basho.com/riak/kv/latest/developing/api/http/store-search-index.md"
 ---
 
-Creates a new Riak Search [index](/riak/kv/2.0.0/developing/usage/search/#Simple-Setup).
+Creates a new Riak Search [index](/riak/kv/2.0.0/developing/usage/search/#simple-setup).
 
 ## Request
 
@@ -25,11 +26,11 @@ PUT /search/index/<index_name>
 ## Optional Request Body
 
 If you run a `PUT` request to this endpoint without a request body, Riak
-will create a new Search index that uses the [default Search schema](/riak/kv/2.0.0/developing/usage/search-schemas/#The-Default-Schema), i.e. `_yz_default`.
+will create a new Search index that uses the [default Search schema](/riak/kv/2.0.0/developing/usage/search-schemas/#the-default-schema), i.e. `_yz_default`.
 
 To specify a different schema, however, you must pass Riak a JSON object
 as the request body in which the `schema` field specifies the name of
-the schema to use. If you've [stored a schema](/riak/kv/2.0.0/developing/usage/search-schemas/#Custom-Schemas) called `my_custom_schema`, the following `PUT`
+the schema to use. If you've [stored a schema](/riak/kv/2.0.0/developing/usage/search-schemas/#custom-schemas) called `my_custom_schema`, the following `PUT`
 request would create an index called `my_index` that used that schema:
 
 ```curl

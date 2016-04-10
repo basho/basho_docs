@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/references/protocol-buffers/get-bucket-props
+canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/get-bucket-props.md"
 ---
 
 Fetch a bucket's properties.
@@ -84,7 +85,7 @@ message RpbBucketProps {
 Each `RpbBucketProps` message returns all of the properties associated
 with a particular bucket. Default values for bucket properties, as well
 as descriptions of all of the above properties, can be found in the
-[configuration file](/riak/kv/2.0.4/configuring/reference/#Default-Bucket-Properties) documentation.
+[configuration file](/riak/kv/2.0.4/configuring/reference/#default-bucket-properties) documentation.
 
 It should be noted that the value of an `RpbBucketProps` message may
 include other message types, such as `RpbModFun` (specifying

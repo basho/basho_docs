@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/upgrade-v20/
+canonical_link: "docs.basho.com/riak/kv/latest/setup/upgrading/version.md"
 ---
 
 When upgrading to Riak 2.0 from an earlier version, we strongly
@@ -75,8 +76,8 @@ configurations. The following URLs are equivalent in Riak 2.0:
 If you use object locations that don't specify a bucket type, you have
 three options:
 
-* Accept Riak's [default bucket configurations](/riak/kv/2.0.2/using/reference/bucket-types/#Buckets-as-Namespaces)
-* Change Riak's defaults using your [configuration files](/riak/kv/2.0.2/configuring/reference/#Default-Bucket-Properties)
+* Accept Riak's [default bucket configurations](/riak/kv/2.0.2/using/reference/bucket-types/#buckets-as-namespaces)
+* Change Riak's defaults using your [configuration files](/riak/kv/2.0.2/configuring/reference/#default-bucket-properties)
 * Manage multiple sets of bucket properties by specifying those
   properties for all operations (not recommended)
 
@@ -104,7 +105,7 @@ bucket type.
 
 One of the biggest changes in version 2.0 regarding
 application development involves Riak's default
-[siblings](/riak/kv/2.0.2/learn/concepts/causal-context/#Siblings) behavior.
+[siblings](/riak/kv/2.0.2/learn/concepts/causal-context/#siblings) behavior.
 
 In versions prior to 2.0, the
 `allow_mult` setting was set to `false` by default for all buckets.
@@ -117,7 +118,7 @@ conflicts.
 create and activate.** 
 
 This means that the default when [using bucket types](/riak/kv/2.0.2/using/reference/bucket-types/) is to handle [conflict resolution](/riak/kv/2.0.2/developing/usage/conflict-resolution) on the client side using
-either traditional [vector clocks](/riak/kv/2.0.2/learn/concepts/causal-context/#Vector-Clocks) or the newer [dotted version vectors](/riak/kv/2.0.2/learn/concepts/causal-context/#Dotted-Version-Vector).
+either traditional [vector clocks](/riak/kv/2.0.2/learn/concepts/causal-context/#vector-clocks) or the newer [dotted version vectors](/riak/kv/2.0.2/learn/concepts/causal-context/#dotted-version-vector).
 
 If you wish to set `allow_mult` to `false` in version 2.0, you have two
 options:

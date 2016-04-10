@@ -10,6 +10,7 @@ menu:
     weight: 112
     parent: "managing_cluster_operations"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/backend.md"
 ---
 
 **TODO: Add content**

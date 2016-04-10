@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/references/protocol-buffers/list-buckets
+canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/list-buckets.md"
 ---
 
 List all of the bucket names available.

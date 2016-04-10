@@ -13,13 +13,14 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/advanced/client-security/php
+canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/security/php.md"
 ---
 
 This tutorial shows you how to set up a Riak PHP client to authenticate
 itself when connecting to Riak.
 
-If you are using [trust-](/riak/kv/2.0.4/using/security/managing-sources/#Trust-based-Authentication) or [PAM](/riak/kv/2.0.4/using/security/managing-sources/#PAM-based-Authentication)-based authentication, you can use the
-security setup described [below](PHP-Client-Basics). [Certificate](/riak/kv/2.0.4/using/security/managing-sources/#Certificate-based-Authentication)-based authentication is not
+If you are using [trust-](/riak/kv/2.0.4/using/security/managing-sources/#trust-based-authentication) or [PAM](/riak/kv/2.0.4/using/security/managing-sources/#pam-based-authentication)-based authentication, you can use the
+security setup described [below](PHP-Client-Basics). [Certificate](/riak/kv/2.0.4/using/security/managing-sources/#certificate-based-authentication)-based authentication is not
 yet supported in the PHP client due to limitations of the HTTP interface of Riak.
 
 ## PHP Client Basics

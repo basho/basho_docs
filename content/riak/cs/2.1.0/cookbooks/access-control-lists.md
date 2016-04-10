@@ -82,7 +82,7 @@ Riak CS permissions are split into two types: **bucket permissions** and
 
 ## Buckets
 
-Bucket names **must** be [globally unique](/riak/cs/2.1.0/theory/stanchion/#Globally-Unique-Entities). To avoid conflicts, all
+Bucket names **must** be [globally unique](/riak/cs/2.1.0/theory/stanchion/#globally-unique-entities). To avoid conflicts, all
 bucket creation requests are made to an application called
 [Stanchion](/riak/cs/2.1.0/cookbooks/configuration/stanchion). This means that all requests for modification of a bucket ACL should be serialized through Stanchion. While this may cause undesirable serialization of these requests, we
 believe it is appropriate based on the following statement from this

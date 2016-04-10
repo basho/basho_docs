@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/references/http/set-bucket-props
+canonical_link: "docs.basho.com/riak/kv/latest/developing/api/http/set-bucket-props.md"
 ---
 
 Sets bucket properties like "n_val" and "allow_mult".

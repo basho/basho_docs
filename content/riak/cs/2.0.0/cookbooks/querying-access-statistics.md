@@ -30,7 +30,7 @@ For information about how access statistics are logged, please read
 The following sections discuss accessing the access statistics using
 bare HTTP requests. Query parameters are used to specify the types and
 date ranges of information to include. For information on using `s3cmd`
-(or other tools) to fetch statistics as S3 objects, skip to the [The Magic `usage` Bucket](#The-Magic-usage-Bucket) section.
+(or other tools) to fetch statistics as S3 objects, skip to the [The Magic `usage` Bucket](#the-magic-usage-bucket) section.
 
 The examples on this page assume that the `admin_port` has not
 been configured to something other than default CS port of `8080`.

@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/ops/building/basic-cluster-setup
+canonical_link: "docs.basho.com/riak/kv/latest/using/running-a-cluster.md"
 ---
 
 Configuring a Riak cluster involves instructing each node to listen on a
@@ -96,7 +97,7 @@ systems. Bear in mind that you need to use either the older or the newer
 but never both simultaneously.
 
 More on configuring Riak can be found in the <a
-href="/latest/ops/advanced/configs/configuration-files">Configuration
+href="latest/ops/advanced/configs/configuration-files">Configuration
 Files</a> documentation.
 </div>
 

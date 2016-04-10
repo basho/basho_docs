@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/theory/concepts/crdts
+canonical_link: "docs.basho.com/riak/kv/latest/learn/concepts/crdts.md"
 ---
 
 
@@ -22,7 +23,7 @@ aliases:
 [concept strong consistency]: /riak/kv/2.1.3/concepts/strong-consistency
 [dev data types]: /riak/kv/2.1.3/developing/data-types
 [glossary node]: /riak/kv/2.1.3/learn/glossary/#node
-[glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode
+[glossary vnode]: /riak/kv/2.1.3/learn/glossary/#vnode
 [usage conflict resolution]: /riak/kv/2.1.3/developing/usage/conflict-resolution
 
 

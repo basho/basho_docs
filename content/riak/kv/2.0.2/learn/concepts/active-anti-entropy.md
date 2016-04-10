@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/theory/concepts/aae
+canonical_link: "docs.basho.com/riak/kv/latest/learn/concepts/active-anti-entropy.md"
 ---
 
 [cluster ops v3 mdc]: /riak/kv/2.0.2/using/cluster-operations/v3-multi-datacenter
@@ -19,7 +20,7 @@ aliases:
 [concept eventual consistency]: /riak/kv/2.0.2/learn/concepts/eventual-consistency
 [config v3 mdc]: /riak/kv/2.0.2/configuring/v3-multi-datacenter
 [glossary read rep]: /riak/kv/2.0.2/learn/glossary/#read-repair
-[glossary vnode]: /riak/kv/2.0.2/learn/glossary/#Vnode
+[glossary vnode]: /riak/kv/2.0.2/learn/glossary/#vnode
 [Merkle tree]: http://en.wikipedia.org/wiki/Merkle_tree
 [usage search]: /riak/kv/2.0.2/developing/usage/search
 

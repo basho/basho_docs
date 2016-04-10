@@ -10,6 +10,7 @@ menu:
     weight: 103
     parent: "developing_usage"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/deleting-objects.md"
 ---
 
 The delete command follows a predictable pattern and looks like this:

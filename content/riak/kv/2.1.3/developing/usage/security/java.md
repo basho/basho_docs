@@ -13,13 +13,14 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/advanced/client-security/java
+canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/security/java.md"
 ---
 
 This tutorial shows you how to set up a Riak Java client to authenticate
 itself when connecting to Riak.
 
-If you are using [trust-](/riak/kv/2.1.3/using/security/managing-sources/#Trust-based-Authentication) or [PAM](/riak/kv/2.1.3/using/security/managing-sources/#PAM-based-Authentication)-based authentication, you can use the
-security setup described [below](#Java-Client-Basics). [Certificate](/riak/kv/2.1.3/using/security/managing-sources/#Certificate-based-Authentication)-based authentication is not
+If you are using [trust-](/riak/kv/2.1.3/using/security/managing-sources/#trust-based-authentication) or [PAM](/riak/kv/2.1.3/using/security/managing-sources/#pam-based-authentication)-based authentication, you can use the
+security setup described [below](#java-client-basics). [Certificate](/riak/kv/2.1.3/using/security/managing-sources/#certificate-based-authentication)-based authentication is not
 yet supported in the Java client.
 
 <div class="note">

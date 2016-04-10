@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/references/http/list-resources
+canonical_link: "docs.basho.com/riak/kv/latest/developing/api/http/list-resources.md"
 ---
 
 List available HTTP resources for the Riak node. This can be used by clients to
@@ -19,11 +20,11 @@ automatically recognize the location of the resources for specific operations.
 
 The standard resources are:
 
-* `riak_kv_wm_buckets` - [Bucket Operations](/riak/kv/2.0.5/developing/api/http/#Bucket-Operations)
+* `riak_kv_wm_buckets` - [Bucket Operations](/riak/kv/2.0.5/developing/api/http/#bucket-operations)
 * `riak_kv_wm_index` - [HTTP Secondary Indexes](/riak/kv/2.0.5/developing/api/http/secondary-indexes)
 * `riak_kv_wm_link_walker` - [HTTP Link Walking](/riak/kv/2.0.5/developing/api/http/link-walking)
 * `riak_kv_wm_mapred` - [HTTP MapReduce](/riak/kv/2.0.5/developing/api/http/mapreduce)
-* `riak_kv_wm_object`- [Object/Key Operations](/riak/kv/2.0.5/developing/api/http/#Object-Key-Operations)
+* `riak_kv_wm_object`- [Object/Key Operations](/riak/kv/2.0.5/developing/api/http/#object-key-operations)
 * `riak_kv_wm_ping` - [HTTP Ping](/riak/kv/2.0.5/developing/api/http/ping)
 * `riak_kv_wm_props` - [HTTP Set Bucket Properties](/riak/kv/2.0.5/developing/api/http/set-bucket-props)
 * `riak_kv_wm_stats` - [HTTP Status](/riak/kv/2.0.5/developing/api/http/status)
@@ -75,5 +76,5 @@ Date: Wed, 27 Nov 2013 20:20:05 GMT
 Content-Type: text/html
 Content-Length: 666
 
-<html><body><ul><li><a href="/buckets">riak_kv_wm_buckets</a></li><li><a href="/riak">riak_kv_wm_buckets</a></li><li><a href="/buckets">riak_kv_wm_counter</a></li><li><a href="/buckets">riak_kv_wm_index</a></li><li><a href="/buckets">riak_kv_wm_keylist</a></li><li><a href="/buckets">riak_kv_wm_link_walker</a></li><li><a href="/riak">riak_kv_wm_link_walker</a></li><li><a href="/mapred">riak_kv_wm_mapred</a></li><li><a href="/buckets">riak_kv_wm_object</a></li><li><a href="/riak">riak_kv_wm_object</a></li><li><a href="/ping">riak_kv_wm_ping</a></li><li><a href="/buckets">riak_kv_wm_props</a></li><li><a href="/stats">riak_kv_wm_stats</a></li></ul></body></html>
+<html><body><ul><li><a href="buckets">riak_kv_wm_buckets</a></li><li><a href="/riak">riak_kv_wm_buckets</a></li><li><a href="buckets">riak_kv_wm_counter</a></li><li><a href="buckets">riak_kv_wm_index</a></li><li><a href="buckets">riak_kv_wm_keylist</a></li><li><a href="buckets">riak_kv_wm_link_walker</a></li><li><a href="/riak">riak_kv_wm_link_walker</a></li><li><a href="mapred">riak_kv_wm_mapred</a></li><li><a href="buckets">riak_kv_wm_object</a></li><li><a href="/riak">riak_kv_wm_object</a></li><li><a href="ping">riak_kv_wm_ping</a></li><li><a href="buckets">riak_kv_wm_props</a></li><li><a href="stats">riak_kv_wm_stats</a></li></ul></body></html>
 ```

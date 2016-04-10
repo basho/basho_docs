@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/using/data-modeling
+canonical_link: "docs.basho.com/riak/kv/latest/developing/data-modeling.md"
 ---
 
 [plan backend bitcask]: /riak/kv/2.1.1/setup/planning/backend/bitcask
@@ -38,20 +39,20 @@ The following are examples of Riak use cases that require high
 read/write performance without necessarily utilizing complex data
 structures:
 
-* [Session Storage](/riak/kv/2.1.1/developing/data-modeling/#Session-Storage)
-* [Serving Advertisements](/riak/kv/2.1.1/developing/data-modeling/#Serving-Advertisements)
-* [Log Data](/riak/kv/2.1.1/developing/data-modeling/#Log-Data)
-* [Sensor Data](/riak/kv/2.1.1/developing/data-modeling/#Sensor-Data)
+* [Session Storage](/riak/kv/2.1.1/developing/data-modeling/#session-storage)
+* [Serving Advertisements](/riak/kv/2.1.1/developing/data-modeling/#serving-advertisements)
+* [Log Data](/riak/kv/2.1.1/developing/data-modeling/#log-data)
+* [Sensor Data](/riak/kv/2.1.1/developing/data-modeling/#sensor-data)
 
 ## Content Management, Social Applications
 
 The following application types require more subtle relationships
 between objects, e.g. one-to-many and many-to-many relationships.
 
-* [User Accounts](/riak/kv/2.1.1/developing/data-modeling/#User-Accounts)
-* [User Settings and Preferences](/riak/kv/2.1.1/developing/data-modeling/#User-Settings-and-Preferences)
-* [User Events and Timelines](/riak/kv/2.1.1/developing/data-modeling/#User-Events-and-Timelines)
-* [Articles, Blog Posts, and Other Content](/riak/kv/2.1.1/developing/data-modeling/#Articles-Blog-Posts-and-Other-Content)
+* [User Accounts](/riak/kv/2.1.1/developing/data-modeling/#user-accounts)
+* [User Settings and Preferences](/riak/kv/2.1.1/developing/data-modeling/#user-settings-and-preferences)
+* [User Events and Timelines](/riak/kv/2.1.1/developing/data-modeling/#user-events-and-timelines)
+* [Articles, Blog Posts, and Other Content](/riak/kv/2.1.1/developing/data-modeling/#articles-blog-posts-and-other-content)
 
 ## Session Storage
 

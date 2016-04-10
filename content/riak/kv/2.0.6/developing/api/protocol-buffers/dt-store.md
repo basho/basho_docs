@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/references/protocol-buffers/dt-store
+canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/dt-store.md"
 ---
 
 A request to update the value of a [Riak Data Type](/riak/kv/2.0.6/developing/data-types).
@@ -69,7 +70,7 @@ message DtOp {
 <div class="title">Note on defaults and special values</div>
 All of the optional parameters below have default values determined on a
 per-bucket basis. Please refer to the documentation on <a
-href="/dev/references/protocol-buffers/set-bucket-props">setting bucket
+href="dev/references/protocol-buffers/set-bucket-props">setting bucket
 properties</a> for more information.
 
 Furthermore, you can assign an integer value to the <code>w</code>,
@@ -84,7 +85,7 @@ is less than or equal to N, <em>or</em> a special value denoting
 Parameter | Description
 :---------|:-----------
 `key` | The key where the Data Type is stored. If not specified, Riak will assign a random key and return that key to the client is `return_body` is set to `true`.
-`context` | The opaque binary "context" that informs Riak which version of a data type the client has seen, analogous to [vector clocks](/riak/kv/2.0.6/learn/glossary/#Vector-Clock)
+`context` | The opaque binary "context" that informs Riak which version of a data type the client has seen, analogous to [vector clocks](/riak/kv/2.0.6/learn/glossary/#vector-clock)
 `w` | Write quorum, i.e. how many replicas to write to before returning a successful response
 `dw` | Durable write quorum, i.e. how many replicas to commit to durable storage before returning a successful response
 `pw` | Primary write quorum, i.e. how many primary nodes must be up when the write is attempted

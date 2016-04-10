@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/references/backend-api
+canonical_link: "docs.basho.com/riak/kv/latest/developing/api/backend.md"
 ---
 
 [plan backend]: /riak/kv/2.0.1/setup/planning/backend

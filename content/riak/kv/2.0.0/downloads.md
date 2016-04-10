@@ -17,6 +17,7 @@ listed_projects:
       title: "Riak KV"
 aliases:
   - /riak/2.1.3/downloads
+canonical_link: "docs.basho.com/riak/kv/latest/downloads.md"
 ---
 
 Content (that's written in the Markdown document) can go here.

@@ -10,6 +10,7 @@ menu:
     weight: 104
     parent: "developing_app_guide"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/developing/app-guide/cluster-metadata.md"
 ---
 
 Cluster metadata is a subsystem inside of Riak that enables systems
@@ -54,7 +55,7 @@ already reached all nodes in the previous set of members.
 
 All cluster metadata is eventually stored both in memory and on disk,
 but it should be noted that reads are only from memory, while writes are
-made both to memory and to disk. Logical clocks, namely [dotted version vectors](/riak/kv/2.0.6/learn/concepts/causal-context/#Dotted-Version-Vectors), are used in place of [vector clocks](/riak/kv/2.0.6/learn/concepts/causal-context/#Vector-Clocks) or timestamps to resolve value conflicts. Values stored as cluster metadata are opaque Erlang
+made both to memory and to disk. Logical clocks, namely [dotted version vectors](/riak/kv/2.0.6/learn/concepts/causal-context/#dotted-version-vectors), are used in place of [vector clocks](/riak/kv/2.0.6/learn/concepts/causal-context/#vector-clocks) or timestamps to resolve value conflicts. Values stored as cluster metadata are opaque Erlang
 terms addressed by both prefix and a key.
 
 ## Erlang Code Interface

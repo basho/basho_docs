@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/references/protocol-buffers/dt-fetch
+canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/dt-fetch.md"
 ---
 
 The equivalent of [`RpbGetReq`](/riak/kv/2.0.2/developing/api/protocol-buffers/fetch-object) for [Riak Data Types](/riak/kv/2.0.2/developing/data-types). This request results in a `DtFetchResp`
@@ -91,7 +92,7 @@ message DtFetchResp {
 If the `include_context` option is specified, an opaque "context" value
 will be returned along with the user-readable data. When sending an
 update request, the client should send this context as well, just as one
-would send a [vclock](/riak/kv/2.0.2/learn/glossary/#Vector-Clock) for standard KV updates.
+would send a [vclock](/riak/kv/2.0.2/learn/glossary/#vector-clock) for standard KV updates.
 
 The type of the Data Type is specified in the `type` field, and must be
 one of the three possible values of the `DataType` enum (`COUNTER`,

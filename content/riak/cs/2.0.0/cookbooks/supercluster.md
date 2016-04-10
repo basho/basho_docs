@@ -132,7 +132,7 @@ That involves performing the following steps on each node:
 
 To add clusters to a supercluster installation, you must set up Riak CS and
 Stanchion to communicate with those clusters. You can specify the
-connection information as explained above in the [supercluster Configuration](#Supercluster-Configuration) section.
+connection information as explained above in the [supercluster Configuration](#supercluster-configuration) section.
 
 ### Set Weights
 
@@ -144,7 +144,7 @@ The example below sets the weight of the recently added supercluster member `Alp
 riak-cs-supercluster weight Alpha 0
 ```
 
-All weights are stored in the [master member](#The-Master-Member) and shared with all Riak CS nodes, which means that you only have to set weights once for them to be valid throughout your cluster.
+All weights are stored in the [master member](#the-master-member) and shared with all Riak CS nodes, which means that you only have to set weights once for them to be valid throughout your cluster.
 
 All supercluster members must begin their life with a weight of zero. However, you can set non-zero weights once all Riak CS and Stanchion nodes are properly
 set up to recognize one another in the cluster. Let's say that we've set
@@ -172,5 +172,5 @@ in our documentation on [Riak CS Command Line Tools](/riak/cs/2.0.0/cookbooks/co
 
 ## Limitations
 
-Riak CS supercluster does not currently support [proxy gets](/riak/kv/2.1.3/using/cluster-operations/v3-multi-datacenter/#Riak-CS-MDC-Gets) from
+Riak CS supercluster does not currently support [proxy gets](/riak/kv/2.1.3/using/cluster-operations/v3-multi-datacenter/#riak-cs-mdc-gets) from
 sink clusters.

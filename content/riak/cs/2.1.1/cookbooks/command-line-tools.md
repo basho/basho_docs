@@ -112,8 +112,7 @@ riak-cs console
 
 If the node is already running in the background, you will see the
 output `Node is already running - use 'riak-cs attach' instead`. If the
-command is successful, you can exit the shell by pressing **Ctrl-C**
-twice.
+command is successful, you can exit the shell by pressing **Ctrl-G q**.
 
 #### attach
 
@@ -137,7 +136,7 @@ riak-cs attach-direct
 ```
 
 Prints `Node is not running!` when the node cannot be reached. You can
-exit the shell by pressing **Ctrl-D**.
+exit the shell by pressing **Ctrl-G q**.
 
 #### ertspath
 
@@ -638,7 +637,7 @@ Fetches all current weights from the master member.
 riak-cs-supercluster refresh
 ```
 
-When a member's weight is updated, that weight is stored in the [master member](/riak/cs/2.1.1/cookbooks/supercluster/#The-Master-Member) and cached in Riak CS. Riak CS fetches weights from the master member only periodically. The
+When a member's weight is updated, that weight is stored in the [master member](/riak/cs/2.1.1/cookbooks/supercluster/#the-master-member) and cached in Riak CS. Riak CS fetches weights from the master member only periodically. The
 `refresh` command syncs the weights stored in the master member with the
 weights cached in Riak CS so that there is no discrepancy.
 

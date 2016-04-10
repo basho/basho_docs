@@ -14,6 +14,7 @@ toc: true
 commercial_offering: true
 aliases:
   - /riak/2.1.3/ops/mdc/v2/hooks
+canonical_link: "docs.basho.com/riak/kv/latest/developing/api/repl-hooks.md"
 ---
 
 This document is a guide to developing extensions for Riak Enterprise's
@@ -39,7 +40,7 @@ riak_core:register([{repl_helper, MyMod}]).
 
 The following is a simple replication hook that will log when an object
 is received via replication. For more information about the functions in
-the sample, see the [Replication Hook API](#Replication-Hook-API) section below.
+the sample, see the [Replication Hook API](#replication-hook-api) section below.
 
 Here is the relevant Erlang code:
 

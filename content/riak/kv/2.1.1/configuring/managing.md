@@ -10,11 +10,12 @@ menu:
     weight: 103
     parent: "configuring"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/configuring/managing.md"
 ---
 
 [use admin riak cli]: /riak/kv/2.1.1/using/admin/riak-cli
 [use admin riak cli#chkconfig]: /riak/kv/2.1.1/using/admin/riak-cli/#chkconfig
-[config reference#search]: /riak/kv/2.1.1/configuring/reference/#Search
+[config reference#search]: /riak/kv/2.1.1/configuring/reference/#search
 
 ## Retrieving a Configuration Listing
 

@@ -10,11 +10,12 @@ menu:
     weight: 102
     parent: "managing_ref"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/using/reference/bucket-types.md"
 ---
 
 Bucket types allow groups of buckets to share configuration details and
 for Riak users to manage bucket properties more efficiently than in the
-older configuration system based on [bucket properties](/riak/kv/2.0.0/developing/usage/bucket-types/#Bucket-Properties-and-Operations).
+older configuration system based on [bucket properties](/riak/kv/2.0.0/developing/usage/bucket-types/#bucket-properties-and-operations).
 
 <div class="note">
 <div class="title">Important note on cluster downgrades</div>
@@ -47,7 +48,7 @@ with a few crucial differences:
   cluster for every bucket, which means less computational overhead
 
 It is important to note that buckets are not assigned types in the same
-way that they are configured when using [bucket properties](/riak/kv/2.0.0/developing/usage/bucket-types/#Bucket-Properties-and-Operations). You cannot simply take a
+way that they are configured when using [bucket properties](/riak/kv/2.0.0/developing/usage/bucket-types/#bucket-properties-and-operations). You cannot simply take a
 bucket `my_bucket` and assign it a type the way that you would, say,
 set `allow_mult` to `false` or `n_val` to `5`, because there is no
 `type` parameter contained within the bucket's properties (i.e.
@@ -513,7 +514,7 @@ associated with the `default` bucket type:
 
 ## Bucket Types and the `allow_mult` Setting
 
-Prior to Riak 2.0, Riak created [siblings](/riak/kv/2.0.0/learn/concepts/causal-context/#Siblings) in the case of conflicting updates only when explicitly instructed to do so, i.e. when `allow_mult` is to `true`. The default `allow_mult` setting was `false`.
+Prior to Riak 2.0, Riak created [siblings](/riak/kv/2.0.0/learn/concepts/causal-context/#siblings) in the case of conflicting updates only when explicitly instructed to do so, i.e. when `allow_mult` is to `true`. The default `allow_mult` setting was `false`.
 
 In version 2.0, this is changing in a subtle way. Now, there are two
 different default settings for `allow_mult` in play:
@@ -577,7 +578,7 @@ riak-admin bucket-type update n_val_of_2 '{"props":{"allow_mult":false}}'
 ## Bucket Type Example
 
 Let's say that you'd like to create a bucket type called
-`user_account_bucket` with a [pre-commit hook](/riak/kv/2.0.0/developing/usage/commit-hooks/#Pre-Commit-Hooks) called `syntax_check` and two [post-commit
+`user_account_bucket` with a [pre-commit hook](/riak/kv/2.0.0/developing/usage/commit-hooks/#pre-commit-hooks) called `syntax_check` and two [post-commit
 hooks](/riak/kv/2.0.0/developing/usage/commit-hooks/#Post-Commit-Hooks) called `welcome_email` and `update_registry`. This would involve four steps:
 
 1. Creating a JavaScript object containing the appropriate `props`
@@ -706,7 +707,7 @@ curl -XPUT \
 In this example, the bucket `sensitive_user_data` bears the
 configuration established by the `no_siblings` bucket type, and it bears
 that configuration _on the basis of the query's structure_. This is
-because buckets act as a [separate namespace](#Buckets-As-Namespaces) in Riak, in addition to [buckets](/riak/kv/2.0.0/learn/concepts/buckets) and [keys](/riak/kv/2.0.0/learn/concepts/keys-and-objects).
+because buckets act as a [separate namespace](#buckets-as-namespaces) in Riak, in addition to [buckets](/riak/kv/2.0.0/learn/concepts/buckets) and [keys](/riak/kv/2.0.0/learn/concepts/keys-and-objects).
 
 Let's say that we're using Riak to store internet memes. We've been
 using a bucket called `current_memes` using the bucket type

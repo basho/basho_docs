@@ -11,6 +11,7 @@ menu:
     weight: 101
     parent: "getting_started_nodejs"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/nodejs/querying.md"
 ---
 
 ## Node.js Version Setup

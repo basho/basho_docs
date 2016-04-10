@@ -12,18 +12,19 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/ops/advanced/backends/bitcask/
+canonical_link: "docs.basho.com/riak/kv/latest/setup/planning/backend/bitcask.md"
 ---
 
 [github bitcask]: https://github.com/basho/bitcask
 [bitcask design pdf]: http://basho.com/assets/bitcask-intro.pdf
 [use admin riak cli]: /riak/kv/2.0.4/using/admin/riak-cli
 [config reference]: /riak/kv/2.0.4/configuring/reference
-[glossary vnode]: /riak/kv/2.0.4/learn/glossary/#Vnode
+[glossary vnode]: /riak/kv/2.0.4/learn/glossary/#vnode
 [learn clusters]: /riak/kv/2.0.4/learn/concepts/clusters
 [plan backend multi]: /riak/kv/2.0.4/setup/planning/backend/multi
 [usage search]: /riak/kv/2.0.4/developing/usage/search
 [TODO LINK]: /
-[glossary aae]: /riak/kv/2.0.4/learn/glossary/#Active-Anti-Entropy-AAE-
+[glossary aae]: /riak/kv/2.0.4/learn/glossary/#active-anti-entropy-aae
 [perf open files]: /riak/kv/2.0.4/using/performance/open-files-limit
 [TODO LINK FAQ 1]: /
 [TODO LINK FAQ 2]: /
