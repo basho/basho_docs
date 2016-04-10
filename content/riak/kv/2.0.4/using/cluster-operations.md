@@ -10,7 +10,7 @@ menu:
     weight: 203
     parent: "managing"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations.md"
+canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations"
 ---
 
 ## TODO

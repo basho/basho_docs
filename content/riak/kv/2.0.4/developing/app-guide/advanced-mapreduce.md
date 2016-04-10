@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/advanced/mapreduce/
-canonical_link: "docs.basho.com/riak/kv/latest/developing/app-guide/advanced-mapreduce.md"
+canonical_link: "docs.basho.com/riak/kv/latest/developing/app-guide/advanced-mapreduce"
 ---
 
 [usage 2i]: /riak/kv/2.0.4/developing/usage/secondary-indexes

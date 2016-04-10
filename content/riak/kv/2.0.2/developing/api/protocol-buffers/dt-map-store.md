@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/references/protocol-buffers/dt-map-store
-canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/dt-map-store.md"
+canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/dt-map-store"
 ---
 
 An operation to be applied to a value stored in a map (the contents of an update operation). The operation field that is present depends on the type of the field to which it is applied. All operations apply to individual fields nested in the map, i.e. counter-specific operations apply to specified counters in the map, set-specific operations to sets, etc.

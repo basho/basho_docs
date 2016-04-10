@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/ops/upgrading/production-checklist/
-canonical_link: "docs.basho.com/riak/kv/latest/setup/upgrading/checklist.md"
+canonical_link: "docs.basho.com/riak/kv/latest/setup/upgrading/checklist"
 ---
 
 [perf open files]: /riak/kv/2.0.0/using/performance/open-files-limit

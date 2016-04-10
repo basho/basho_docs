@@ -11,7 +11,7 @@ menu:
     parent: "add-ons"
 toc: true
 commercial_offering: true
-canonical_link: "docs.basho.com/riak/kv/latest/add-ons/redis.md"
+canonical_link: "docs.basho.com/riak/kv/latest/add-ons/redis"
 ---
 
 

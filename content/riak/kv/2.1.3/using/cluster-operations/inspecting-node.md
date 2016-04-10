@@ -10,7 +10,7 @@ menu:
     weight: 103
     parent: "managing_cluster_operations"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/inspecting-node.md"
+canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/inspecting-node"
 ---
 
 When inspection of a Riak node to gather metrics on performance or

@@ -13,7 +13,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/installing/amazon-web-services/
-canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/amazon-web-services.md"
+canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/amazon-web-services"
 ---
 
 ## Launching Riak VMs via the AWS Marketplace

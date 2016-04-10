@@ -13,7 +13,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/advanced/client-security/python
-canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/security/python.md"
+canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/security/python"
 ---
 
 This tutorial shows you how to set up a Riak Python client to

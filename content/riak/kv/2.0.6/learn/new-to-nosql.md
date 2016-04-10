@@ -10,7 +10,7 @@ menu:
     weight: 102
     parent: "learn"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/learn/new-to-nosql.md"
+canonical_link: "docs.basho.com/riak/kv/latest/learn/new-to-nosql"
 ---
 
 **TODO: Add content (not sure where this lives in existing docs)**

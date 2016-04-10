@@ -10,7 +10,7 @@ menu:
     weight: 104
     parent: "developing_app_guide"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/developing/app-guide/reference.md"
+canonical_link: "docs.basho.com/riak/kv/latest/developing/app-guide/reference"
 ---
 
 **TODO: Add content**

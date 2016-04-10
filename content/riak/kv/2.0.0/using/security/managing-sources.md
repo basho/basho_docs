@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/ops/running/security-sources
-canonical_link: "docs.basho.com/riak/kv/latest/using/security/managing-sources.md"
+canonical_link: "docs.basho.com/riak/kv/latest/using/security/managing-sources"
 ---
 
 If you're looking for more general information on Riak Security, it may

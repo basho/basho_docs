@@ -10,7 +10,7 @@ menu:
     weight: 107
     parent: "developing"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/developing/api.md"
+canonical_link: "docs.basho.com/riak/kv/latest/developing/api"
 ---
 
 ## TODO

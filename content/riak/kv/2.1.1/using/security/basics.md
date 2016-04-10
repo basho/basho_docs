@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/ops/running/authz
-canonical_link: "docs.basho.com/riak/kv/latest/using/security/basics.md"
+canonical_link: "docs.basho.com/riak/kv/latest/using/security/basics"
 ---
 
 > **Note on Network security**

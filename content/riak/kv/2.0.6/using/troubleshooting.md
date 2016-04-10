@@ -10,7 +10,7 @@ menu:
     weight: 207
     parent: "managing"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/using/troubleshooting.md"
+canonical_link: "docs.basho.com/riak/kv/latest/using/troubleshooting"
 ---
 
 ## TODO

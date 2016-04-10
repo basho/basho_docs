@@ -13,7 +13,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/installing/freebsd/
-canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/freebsd.md"
+canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/freebsd"
 ---
 
 **TODO: Fix Package Versions ({{VERSION}})**

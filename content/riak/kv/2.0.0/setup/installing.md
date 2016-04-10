@@ -13,7 +13,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/installing/
-canonical_link: "docs.basho.com/riak/kv/latest/setup/installing.md"
+canonical_link: "docs.basho.com/riak/kv/latest/setup/installing"
 ---
 
 [install aws]: /riak/kv/2.0.0/setup/installing/amazon-web-services

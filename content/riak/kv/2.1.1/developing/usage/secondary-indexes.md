@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/using/2i
-canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/secondary-indexes.md"
+canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/secondary-indexes"
 ---
 
 [plan backend leveldb]: /riak/kv/2.1.1/setup/planning/backend/leveldb

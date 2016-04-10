@@ -10,7 +10,7 @@ menu:
     weight: 101
     parent: "planning"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/setup/planning/operating-system.md"
+canonical_link: "docs.basho.com/riak/kv/latest/setup/planning/operating-system"
 ---
 
 [downloads]: /riak/kv/2.1.1/downloads/

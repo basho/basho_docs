@@ -10,7 +10,7 @@ menu:
     weight: 109
     parent: "managing_cluster_operations"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/secondary-indexes.md"
+canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/secondary-indexes"
 ---
 
 ## Hanc capellae

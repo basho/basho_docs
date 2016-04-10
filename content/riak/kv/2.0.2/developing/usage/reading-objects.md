@@ -10,7 +10,7 @@ menu:
     weight: 101
     parent: "developing_usage"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/reading-objects.md"
+canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/reading-objects"
 ---
 
 [glossary vnode]: /riak/kv/2.0.2/learn/glossary/#vnode

@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/references/protocol-buffers/secondary-indexes
-canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/secondary-indexes.md"
+canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/secondary-indexes"
 ---
 
 Request a set of keys that match a secondary index query.

@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/ops/building/planning/best-practices
-canonical_link: "docs.basho.com/riak/kv/latest/setup/planning/best-practices.md"
+canonical_link: "docs.basho.com/riak/kv/latest/setup/planning/best-practices"
 ---
 
 [use ref handoff]: /riak/kv/2.0.2/using/reference/handoff

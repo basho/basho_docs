@@ -10,7 +10,7 @@ menu:
     weight: 100
     parent: "developing"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started.md"
+canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started"
 ---
 
 [install index]: /riak/kv/2.0.4/setup/installing
