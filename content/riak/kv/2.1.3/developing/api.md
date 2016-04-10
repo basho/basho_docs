@@ -11,6 +11,7 @@ menu:
     weight: 107
     parent: "developing"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/developing/api.md"
 ---
 
 [dev api http]: /riak/kv/2.1.3/developing/api/http

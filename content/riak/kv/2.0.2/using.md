@@ -10,6 +10,7 @@ menu:
     weight: 201
     pre: icon-database
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/using.md"
 ---
 
 ## TODO

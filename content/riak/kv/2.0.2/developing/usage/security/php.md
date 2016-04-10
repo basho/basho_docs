@@ -13,6 +13,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/advanced/client-security/php
+canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/security/php.md"
 ---
 
 This tutorial shows you how to set up a Riak PHP client to authenticate

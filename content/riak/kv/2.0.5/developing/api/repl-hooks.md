@@ -14,6 +14,7 @@ toc: true
 commercial_offering: true
 aliases:
   - /riak/2.1.3/ops/mdc/v2/hooks
+canonical_link: "docs.basho.com/riak/kv/latest/developing/api/repl-hooks.md"
 ---
 
 This document is a guide to developing extensions for Riak Enterprise's

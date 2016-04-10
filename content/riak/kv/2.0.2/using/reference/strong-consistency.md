@@ -10,6 +10,7 @@ menu:
     weight: 108
     parent: "managing_ref"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/using/reference/strong-consistency.md"
 ---
 
 [usage bucket types]: /riak/kv/2.0.2/developing/usage/bucket-types

@@ -11,6 +11,7 @@ menu:
     weight: 100
     parent: "getting_started_php"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/php/crud-operations.md"
 ---
 
 ## Creating Objects In Riak

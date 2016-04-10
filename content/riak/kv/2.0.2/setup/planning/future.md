@@ -10,6 +10,7 @@ menu:
     weight: 106
     parent: "planning"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/setup/planning/future.md"
 ---
 
 **TODO: Add content**

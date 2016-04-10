@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/community/faqs/developing
+canonical_link: "docs.basho.com/riak/kv/latest/developing/faq.md"
 ---
 
 <h2>General</h2>

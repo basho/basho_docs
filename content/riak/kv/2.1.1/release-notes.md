@@ -10,6 +10,7 @@ menu:
     weight: 101
     parent: index
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/release-notes.md"
 ---
 
 *NOTE: Riak 2.1.1 has replaced Riak 2.1.0*

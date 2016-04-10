@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/ops/mdc/v3/architecture
+canonical_link: "docs.basho.com/riak/kv/latest/using/reference/v3-multi-datacenter/architecture.md"
 ---
 
 [glossary vnode]: /riak/kv/2.0.2/learn/glossary/#vnode

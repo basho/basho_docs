@@ -10,6 +10,7 @@ menu:
     weight: 100
     parent: "setup_index"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/setup/planning.md"
 ---
 
 [plan start]: /riak/kv/2.1.3/setup/planning/start

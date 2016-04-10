@@ -10,6 +10,7 @@ menu:
     weight: 104
     parent: "developing_getting_started"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/nodejs.md"
 ---
 
 [introduction.js]: https://github.com/basho/riak-nodejs-client-examples/blob/master/dev/taste-of-riak/introduction.js

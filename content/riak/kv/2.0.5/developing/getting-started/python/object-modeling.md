@@ -11,6 +11,7 @@ menu:
     weight: 102
     parent: "getting_started_python"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/python/object-modeling.md"
 ---
 
 To get started, let's create the data structures that we'll be using.

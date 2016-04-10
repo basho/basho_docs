@@ -10,6 +10,7 @@ menu:
     weight: 107
     parent: "managing_cluster_operations"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/handoff.md"
 ---
 
 Riak KV provides a command-line interface for enabling and disabling handoff on the fly, without needing to set your configuration and restart the node. To

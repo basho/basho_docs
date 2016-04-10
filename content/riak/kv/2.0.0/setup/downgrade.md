@@ -10,6 +10,7 @@ menu:
     weight: 103
     parent: "setup_index"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/setup/downgrade.md"
 ---
 
 Downgrades of Riak are tested and supported for two feature release

@@ -13,6 +13,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/installing/solaris/
+canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/solaris.md"
 ---
 
 [install verify]: /riak/kv/2.1.3/setup/installing/verify

@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/theory/why-riak/
+canonical_link: "docs.basho.com/riak/kv/latest/learn/why-riak-kv.md"
 ---
 
 

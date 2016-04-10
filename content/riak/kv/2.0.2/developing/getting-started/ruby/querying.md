@@ -11,6 +11,7 @@ menu:
     weight: 101
     parent: "getting_started_ruby"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/ruby/querying.md"
 ---
 
 #### A Quick Note on Querying and Schemas

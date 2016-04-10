@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/advanced/search-schema
+canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/search-schemas.md"
 ---
 
 [concept clusters]: /riak/kv/2.1.3/learn/concepts/clusters

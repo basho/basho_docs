@@ -10,6 +10,7 @@ menu:
     weight: 113
     parent: "managing_ref"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/using/reference/snmp.md"
 ---
 
 Riak Enterprise provides a built-in SNMP server that allows an external system, such as Hyperic, to query the Riak node for statistics such as the average get and put times as well as the number of puts and gets. This document only covers SNMP v2c support at this time.

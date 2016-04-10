@@ -10,6 +10,7 @@ menu:
     weight: 103
     parent: "configuring"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/configuring/managing.md"
 ---
 
 [use admin riak cli]: /riak/kv/2.0.6/using/admin/riak-cli

@@ -10,6 +10,7 @@ menu:
     weight: 103
     parent: "developing_apis"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers.md"
 ---
 
 This is an overview of the operations you can perform using the

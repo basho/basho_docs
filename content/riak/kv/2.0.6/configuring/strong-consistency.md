@@ -10,6 +10,7 @@ menu:
     weight: 105
     parent: "configuring"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/configuring/strong-consistency.md"
 ---
 
 [apps strong consistency]: /riak/kv/2.0.6/developing/app-guide/strong-consistency

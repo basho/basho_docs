@@ -10,6 +10,7 @@ menu:
     weight: 108
     parent: "developing_usage"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/bucket-types.md"
 ---
 
 If you ever need to turn off indexing for a bucket, set the

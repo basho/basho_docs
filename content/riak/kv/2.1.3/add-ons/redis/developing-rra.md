@@ -11,6 +11,7 @@ menu:
     parent: "add-ons_redis"
 toc: true
 commercial_offering: true
+canonical_link: "docs.basho.com/riak/kv/latest/add-ons/redis/developing-rra.md"
 ---
 
 [redis-clients]: http://redis.io/clients

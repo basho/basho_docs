@@ -11,6 +11,7 @@ menu:
     weight: 102
     parent: "getting_started_go"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/golang/object-modeling.md"
 ---
 
 <div class="note">

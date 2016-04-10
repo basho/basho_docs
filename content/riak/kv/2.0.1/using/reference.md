@@ -10,6 +10,7 @@ menu:
     weight: 208
     parent: "managing"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/using/reference.md"
 ---
 
 ## TODO
