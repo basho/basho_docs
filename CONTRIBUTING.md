@@ -1,6 +1,6 @@
 **A Note Regarding Front Matter**
 
-So the front matter that starts off every content file is very important. And it's very important to make sure it's right. I have plans to build a front-matter-checker that will be included in the `rake build:hugo` task, so we can nip issues in the bud, but for now, please see below for a discussion of the front matter we're expecting, and how we're going to be using it.
+So the front matter that starts off every content file is very important. And it's very important to make sure it's right. There are future plans to build a front-matter-checker that will be included in the `rake build:hugo` task, so we can nip issues in the bud, but for now please see below for a discussion of the front matter we're expecting and how we're going to be using it.
 
 ```
 # We're using YAML for the front matter, so we start it and end it with `---`
@@ -9,7 +9,7 @@ title: "Page Title"         # Required: Will be rendered as the top <h1> title.
 
 title_supertext: "Title"    # Optional: Smaller supertext that will appear above the title.
 
-description: "Descriptions" # Required (by Hugo). Page Description. Will... Be used? Probably?
+description: "Descriptions" # Required (by Hugo). Page Description.
                             #           Treat is as something you'd expect to see as title text when
                             #           hovering you mouse over menus items.
 project: "riak_s2"          # Required: Project Designation that this page is associated with.
