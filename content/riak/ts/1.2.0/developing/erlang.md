@@ -6,7 +6,7 @@ menu:
     name: "Erlang"
     identifier: "ts_erlang_api"
     weight: 401
-    parent: "developing"
+    parent: "develop"
 project: "riak_ts"
 project_version: "1.2.0"
 toc: true

@@ -6,7 +6,7 @@ menu:
     name: "Node.js"
     identifier: "ts_node.js_api"
     weight: 403
-    parent: "developing"
+    parent: "develop"
 project: "riak_ts"
 project_version: "1.2.0"
 toc: true

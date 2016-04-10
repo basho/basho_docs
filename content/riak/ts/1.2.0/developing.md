@@ -4,7 +4,7 @@ description: "Developing with Riak TS"
 menu:
   riak_ts-1.2.0:
     name: "Develop"
-    identifier: "developing"
+    identifier: "develop"
     weight: 400
     pre: icon-lambda
 project: "riak_ts"
