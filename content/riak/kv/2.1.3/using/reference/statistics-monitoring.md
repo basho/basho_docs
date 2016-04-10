@@ -209,7 +209,7 @@ statistics!
 
 #### Riaknostic
 
-[Riaknostic](http://riaknostic.basho.com) is a growing suite of
+Riaknostic is a growing suite of
 diagnostic checks that can be run against your Riak node to discover
 common problems and recommend how to resolve them. These checks are
 derived from the experience of the Basho Client Services Team as well as
@@ -350,7 +350,6 @@ Docs](https://github.com/basho/basho_docs).
 ## References
 
 * [Inspecting a Node](/riak/kv/2.1.3/using/cluster-operations/inspecting-node)
-* [Riaknostic](http://riaknostic.basho.com)
 * [Riak Control](/riak/kv/2.1.3/using/admin/riak-control/)
 * [collectd](http://collectd.org)
 * [Ganglia](http://ganglia.info)

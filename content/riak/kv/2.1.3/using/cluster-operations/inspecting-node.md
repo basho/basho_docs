@@ -348,18 +348,15 @@ Note that under ideal operation and with the exception of
 
 ## Riaknostic
 
-[Riaknostic](http://riaknostic.basho.com/) is a small suite of
+Riaknostic is a small suite of
 diagnostic checks that can be run against a Riak node to discover common
 problems. It often offers recommendations about how to resolve those
 problems as well. These checks are derived from the experience of the
 Basho Client Services Team as well as numerous public discussions on the
 mailing list, `#riak` IRC channel, and other online media.
 
-Getting started with Riaknostic is easy, and instructions for
-installation and use are provided on the [Riaknostic
-website](http://riaknostic.basho.com/). Once downloaded and installed,
-Riaknostic adds a `diag` subcommand to the `riak-admin`
-command.{{/1.3.0-}}
+Getting started with Riaknostic is easy. Riaknostic adds a `diag` subcommand to the `riak-admin`
+command.
 
 Riaknostic is installed with Riak by default and exposed through the
 `riak-admin diag` command interface. It is an open source project
@@ -474,12 +471,6 @@ without specifying a diagnostic check.
 
 #### Contributing
 
-Do you have an idea that would help us improve Riaknostic? If so, fork
-the [GitHub repository](https://github.com/basho/riaknostic) and send us
-a pull request with your changes. The code is documented with
-[edoc](http://riaknostic.basho.com/edoc/index.html), so give the API
-Docs a read before you contribute.
-
 If you want to run the Riaknostic script while developing and you don't
 have it hooked up to your local Riak installation, you can invoke it
 directly like so:
@@ -504,5 +495,4 @@ you, but here's how to set them:
 ## Related Resources
 
 * [The riak-admin configuration management tool](/riak/kv/2.1.3/using/admin/riak-admin/)
-* [Riaknostic](http://riaknostic.basho.com/)
 * [HTTP API Status](/riak/kv/2.1.3/developing/api/http/status/)

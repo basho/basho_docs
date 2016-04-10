@@ -143,7 +143,7 @@ properties for the `default` bucket type.
 
 It is a good idea to verify some basic configuration and general health
 of the Riak node after installation by using Riak's built-in diagnostic
-utility [Riaknostic](http://riaknostic.basho.com/).
+utility Riaknostic.
 
 To start up Riaknostic, ensure that Riak is running on the node and issue the following command:
 
