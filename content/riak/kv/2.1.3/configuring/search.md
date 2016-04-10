@@ -19,8 +19,8 @@ aliases:
 [usage search data types]: /riak/kv/2.1.3/developing/usage/searching-data-types
 [usage custom extractors]: /riak/kv/2.1.3/developing/usage/custom-extractors
 [config reference]: /riak/kv/2.1.3/configuring/reference
-[config reference#search]: /riak/kv/2.1.3/configuring/reference/#Search
-[glossary aae]: /riak/kv/2.1.3/learn/glossary/#Active-Anti-Entropy-AAE-
+[config reference#search]: /riak/kv/2.1.3/configuring/reference/#search
+[glossary aae]: /riak/kv/2.1.3/learn/glossary/#active-anti-entropy-aae
 [security index]: /riak/kv/2.1.3/using/security/
 
 > **Note on Search 2.0 vs. Legacy Search**

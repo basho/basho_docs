@@ -109,7 +109,7 @@ and configured SSL and HTTPS.
 ## Enabling SSL and HTTPS
 
 In order to use SSL in conjunction with Riak Control, SSL must be
-enabled on each Riak node. For more information, see our [security documentation](/riak/kv/2.0.1/using/security/basics#Enabling-SSL). Once SSL is enabled, you can proceed to setting up [authentication](#Authentication) for Riak Control.
+enabled on each Riak node. For more information, see our [security documentation](/riak/kv/2.0.1/using/security/basics#enabling-ssl). Once SSL is enabled, you can proceed to setting up [authentication](#authentication) for Riak Control.
 
 Please note that Riak Control will not work if you have enabled
 authentication but SSL is not set up properly.
@@ -225,7 +225,7 @@ nodes in the cluster.
 ### Ring View
 
 One level deeper than the cluster view is the ring view. This is where you can
-see the health of each [vnode](/riak/kv/2.0.1/learn/glossary/#Vnode).
+see the health of each [vnode](/riak/kv/2.0.1/learn/glossary/#vnode).
 
 [ ![Ring View](/images/control_current_ring.png) ] (/images/control_current_ring.png)
 

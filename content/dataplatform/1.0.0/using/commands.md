@@ -16,7 +16,7 @@ canonical_link: "docs.basho.com/dataplatform/latest/using/commands/"
 ---
 
 [bdp configure]: /dataplatform/1.0.0/configuring/setup-a-cluster/
-[bdp configure add services]: /dataplatform/1.0.0/configuring/setup-a-cluster/#Add-Services
+[bdp configure add services]: /dataplatform/1.0.0/configuring/setup-a-cluster/#add-services
 [bdp install]: /dataplatform/1.0.0/installing/
 [bdp reference]: /dataplatform/1.0.0/learn/service-manager/
 

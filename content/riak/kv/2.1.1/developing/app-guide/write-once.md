@@ -14,7 +14,7 @@ aliases:
   - /riak/2.1.3/dev/advanced/write-once
 ---
 
-[glossary vnode]: /riak/kv/2.1.1/learn/glossary/#Vnode
+[glossary vnode]: /riak/kv/2.1.1/learn/glossary/#vnode
 
 Riak 2.1.0 introduces the concept of write-once buckets, buckets whose entries
 are intended to be written exactly once and never updated or overwritten.

@@ -109,7 +109,7 @@ User bashobunny = new User("bashobunny", friends);
 
 So what happens if siblings are present and the user `bashobunny` has
 different friend lists in different object replicas? For that we can
-implement the `ConflictResolver` class described [above](#How-the-Java-Client-Handles-Conflict-Resolution). We
+implement the `ConflictResolver` class described [above](#how-the-java-client-handles-conflict-resolution). We
 need to implement that interface in a way that is specific to the need
 at hand, i.e. taking a list of `User` objects and returning the `User`
 object that has the longest `friends` list:
@@ -259,7 +259,7 @@ always carry potential drawbacks of this sort.
 An important thing to always bear in mind when working with conflict
 resolution is that Riak offers a variety of [Data Types](/riak/kv/2.0.6/developing/data-types/) that have
 specific conflict resolution mechanics built in. If you have data that
-can be modeled as a [counter](/riak/kv/2.0.6/developing/data-types/#Counters), [set](/riak/kv/2.0.6/developing/data-types/#Sets), or [map](/riak/kv/2.0.6/developing/data-types/#Maps), then you should seriously
+can be modeled as a [counter](/riak/kv/2.0.6/developing/data-types/#counters), [set](/riak/kv/2.0.6/developing/data-types/#sets), or [map](/riak/kv/2.0.6/developing/data-types/#maps), then you should seriously
 consider using those Data Types instead of creating your own
 application-side resolution logic.
 
@@ -268,4 +268,4 @@ set, in particular the `friends` list associated with each `User`
 object. The merge operation that we built to handle conflict resolution
 is analogous to the resolution logic that is built into Riak sets. For
 more information on how you could potentially replace the client-side
-resolution that we implemented above, see our [tutorial on Riak sets](/riak/kv/2.0.6/developing/data-types/#Sets).
+resolution that we implemented above, see our [tutorial on Riak sets](/riak/kv/2.0.6/developing/data-types/#sets).

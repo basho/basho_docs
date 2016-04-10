@@ -16,23 +16,23 @@ aliases:
 
 [use ref strong consistency]: /riak/2.1.3/using/reference/strong-consistency
 [concept eventual consistency]: /riak/kv/2.1.3/learn/concepts/eventual-consistency
-[use ref strong consistency#trade-offs]: /riak/2.1.3/using/reference/strong-consistency/#Trade-offs
-[glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode
-[config strong consistency#enable]: /riak/kv/2.1.3/configuring/strong-consistency/#Enabling-Strong-Consistency
+[use ref strong consistency#trade-offs]: /riak/2.1.3/using/reference/strong-consistency/#trade-offs
+[glossary vnode]: /riak/kv/2.1.3/learn/glossary/#vnode
+[config strong consistency#enable]: /riak/kv/2.1.3/configuring/strong-consistency/#enabling-strong-consistency
 [usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types
 [cluster ops bucket types]: /riak/kv/2.1.3/using/cluster-operations/bucket-types
 [apps replication properties]: /riak/kv/2.1.3/developing/app-guide/replication-properties
 [config strong consistency]: /riak/kv/2.1.3/configuring/strong-consistency
-[config strong consistency#fault]: /riak/kv/2.1.3/configuring/strong-consistency/#Fault-Tolerance
+[config strong consistency#fault]: /riak/kv/2.1.3/configuring/strong-consistency/#fault-tolerance
 [concept causal context]: /riak/kv/2.1.3/learn/concepts/causal-context
-[concept causal context#vector]: /riak/kv/2.1.3/learn/concepts/causal-context/#Vector-Clocks
+[concept causal context#vector]: /riak/kv/2.1.3/learn/concepts/causal-context/#vector-clocks
 [concept version vector]: /riak/kv/2.1.3/learn/concepts/dotted-version-vectors
 [usage conflict resolution]: /riak/kv/2.1.3/developing/usage/conflict-resolution
 [usage update objects]: /riak/kv/2.1.3/developing/usage/updating-objects
-[use ref strong consistency#vs]: /riak/2.1.3/using/reference/strong-consistency/#Strong-vs.-Eventual-Consistency
+[use ref strong consistency#vs]: /riak/2.1.3/using/reference/strong-consistency/#strong-vs.-eventual-consistency
 [dev client libraries]: /riak/kv/2.1.3/developing/client-libraries
 [getting started]: /riak/kv/2.1.3/developing/getting-started
-[config strong consistency#details]: /riak/kv/2.1.3/configuring/strong-consistency/#Implementation-Details
+[config strong consistency#details]: /riak/kv/2.1.3/configuring/strong-consistency/#implementation-details
 
 > **Please Note:**
 >
@@ -176,7 +176,7 @@ recommend bearing the following in mind:
 1. If you _know_ that a key does not yet exist, you can write to that
    key without supplying a context with the object. If you are unsure, then you should default to supplying a context object.
 2. If an object already exists under a key, strong consistency demands
-   that you supply a [causal context](#Causal-Context). If you do not supply one, the update
+   that you supply a [causal context](#causal-context). If you do not supply one, the update
    will necessarily fail.
 3. Because strongly consistent writes must occasionally
    [sacrifice availability][use ref strong consistency#vs] for the sake of

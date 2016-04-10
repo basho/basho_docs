@@ -13,7 +13,7 @@ toc: true
 
 [reported]: http://lists.basho.com/pipermail/riak-users_lists.basho.com/2015-January/016568.html
 [dev data types]: /riak/kv/2.0.4/developing/data-types
-[dev data types maps]: /riak/kv/2.0.4/developing/data-types/#Maps
+[dev data types maps]: /riak/kv/2.0.4/developing/data-types/#maps
 [cluster ops log]: /riak/kv/2.1.3/using/cluster-operations/logging
 [downloads]: http://docs.basho.com/riak/latest/downloads/
 
@@ -31,8 +31,9 @@ Cause | Change in the on-disk format of Riak maps
 On January 20th, 2015, a user
 [reported]
 issues with [Riak data types][dev data types] upon upgrading from Riak
-2.0.2 to 2.0.4. It was discovered that keys storing [Riak maps][dev data types maps]: /riak/kv/2.0.4/developing/data-types/#Maps are unreadable after upgrading due to a change in the
-on-disk format of maps that was introduced as a performance improvement.
+2.0.2 to 2.0.4. It was discovered that keys storing
+[Riak maps][dev data types maps] are unreadable after upgrading due to a change
+in the on-disk format of maps that was introduced as a performance improvement.
 
 ## Identification
 

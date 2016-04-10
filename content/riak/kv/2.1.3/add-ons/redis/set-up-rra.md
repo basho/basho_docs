@@ -17,7 +17,7 @@ commercial_offering: true
 [addon redis use]: .get-started-with-rra/
 [ee]: http://basho.com/contact/
 [install index]: /riak/kv/2.1.3/setup/installing
-[perf open files]: /riak/kv/2.1.3/using/performance/open-files-limit/#Changing-the-limit
+[perf open files]: /riak/kv/2.1.3/using/performance/open-files-limit/#changing-the-limit
 
 This page will walk you through the process of installing Riak Redis Add-on (RRA) and configuring it to run in your environment. Check the [prerequisites](#prerequisites) before you get started to make sure you have everything you need in order to successfully install and use RRA.
 

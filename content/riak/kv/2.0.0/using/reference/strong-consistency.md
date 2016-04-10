@@ -35,7 +35,7 @@ If you successfully write a value to a key in a strongly consistent
 system, the next successful read of that key is guaranteed to show that
 write. A client will never see out-of-date values. The drawback is that
 some operations may fail if an insufficient number of object replicas
-are available. More on this in the section on [trade-offs](#Trade-offs).
+are available. More on this in the section on [trade-offs](#trade-offs).
 
 In an eventually consistent system, on the other hand, a read may return
 an out-of-date value, particularly during system or network failures.
@@ -134,12 +134,12 @@ tolerance. Consistent operations can still succeed when a minority of
 replicas in each ensemble can be offline, faulty, or unreachable. In
 other words, **strongly consistent operations will succeed as long as
 quorum is maintained**. A fuller discussion can be found in the
-[operations](/riak/kv/2.0.0/configuring/strong-consistency/#Fault-Tolerance)
+[operations](/riak/kv/2.0.0/configuring/strong-consistency/#fault-tolerance)
 documentation.
 
 A second trade-off regards performance. Riak's implementation of strong
-consistency involves a complex [consensus subsystem](/riak/kv/2.0.0/learn/concepts/strong-consistency/#Implementation-Details) that typically requires more communication between Riak nodes than eventually consistent operations,
+consistency involves a complex [consensus subsystem](/riak/kv/2.0.0/learn/concepts/strong-consistency/#implementation-details) that typically requires more communication between Riak nodes than eventually consistent operations,
 which can entail a performance hit of varying proportions, depending on
 a variety of factors.
 
-Ways to address this issue can be found in [strong consistency and performance](/riak/kv/2.0.0/configuring/strong-consistency/#Performance).
+Ways to address this issue can be found in [strong consistency and performance](/riak/kv/2.0.0/configuring/strong-consistency/#performance).

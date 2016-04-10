@@ -347,7 +347,7 @@ Q: How do I spread requests across---i.e. load balance---a Riak cluster?
 A:
   There are at least two acceptable strategies for load balancing requests across your Riak cluster: **virtual IPs** and **reverse-proxy**.
 
-  For further information see [System Planning](/riak/kv/2.0.2/setup/planning/start/#Network-Configuration-Load-Balancing).
+  For further information see [System Planning](/riak/kv/2.0.2/setup/planning/start/#network-configuration-load-balancing).
 
 Q: Why does it seem that Bitcask merging is only triggered when a Riak node is restarted?
   There have been situations where the data directory for a Riak node (e.g. `data/bitcask`) grows continually and does not seem to merge. After restarting the node a series of merges are kicked off and the total size of the data directory shrinks. Why does this happen?
@@ -375,7 +375,7 @@ A:
 
   It is possible to get siblings with the same vtag during vector clock pruning and read/repair.
 
-  See [vector clocks](/riak/kv/2.0.2/learn/concepts/causal-context#Vector-Clocks) for more information.
+  See [vector clocks](/riak/kv/2.0.2/learn/concepts/causal-context#vector-clocks) for more information.
 
 
 Q: How should I structure larger data objects?

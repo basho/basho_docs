@@ -17,7 +17,7 @@ aliases:
 Although [Riak Data Types](/riak/kv/2.1.3/developing/data-types) function differently from other
 Riak objects in some respects, when you're using Search you can think of
 them as normal Riak objects with special metadata attached (metadata
-that you don't need to worry about as a user). Riak's [counters](/riak/kv/2.1.3/developing/data-types/#Counters), [sets](/riak/kv/2.1.3/developing/data-types/#Sets), and [maps](/riak/kv/2.1.3/developing/data-types/#Maps)
+that you don't need to worry about as a user). Riak's [counters](/riak/kv/2.1.3/developing/data-types/#counters), [sets](/riak/kv/2.1.3/developing/data-types/#sets), and [maps](/riak/kv/2.1.3/developing/data-types/#maps)
 can be indexed and have their contents searched just like other Riak
 objects.
 
@@ -54,7 +54,7 @@ maps, which means that the `_yz_default` schema will automatically index
 Data Types on the basis of their assigned content type. This means that
 there is no extra work involved in indexing Riak Data Types. You can
 simply store them and begin querying, provided that they are properly
-indexed, which is covered in the [examples](#Riak-Data-Types-and-Search) section below.
+indexed, which is covered in the [examples](#riak-data-types-and-search) section below.
 
 As mentioned above, there are no default schemas available for maps.
 This is because maps are essentially carriers for the other Data Types.
@@ -68,7 +68,7 @@ to search Data Types, they are provided only for reference.
 
 ### Top-level Schemas
 
-The default schema for [counters](/riak/kv/2.1.3/developing/data-types/#Counters) indexes each
+The default schema for [counters](/riak/kv/2.1.3/developing/data-types/#counters) indexes each
 counter as an integer.
 
 ```xml
@@ -85,7 +85,7 @@ Counters with a value below 10 and above 50 | `counter:[* TO 10] AND counter:[50
 Counters with a value of 15 | `counter:15`
 All counters within the index | `counter:*`
 
-The schema for [sets](/riak/kv/2.1.3/developing/data-types/#Sets) indexes each element of a set as
+The schema for [sets](/riak/kv/2.1.3/developing/data-types/#sets) indexes each element of a set as
 a string and indexes the set itself as multi-valued.
 
 ```xml
@@ -104,7 +104,7 @@ All sets within the index | `set:*`
 
 ### Embedded Schemas
 
-For searching within [maps](/riak/kv/2.1.3/developing/data-types/#Maps), there are four schemas
+For searching within [maps](/riak/kv/2.1.3/developing/data-types/#maps), there are four schemas
 for embedded, aka dynamic, fields. Flags are indexed as booleans:
 
 ```xml
@@ -154,7 +154,7 @@ slightly more complex map example.
 Let's say that we're storing scores in a multiplayer online game in
 Riak. The game is called Boulderdash and it involves smashing digital
 boulders armed with nothing but witty retorts and arcane trivia
-knowledge. We'll create and activate a [bucket type](/riak/kv/2.1.3/developing/usage/bucket-types) for [storing counters](/riak/kv/2.1.3/developing/data-types/#Counters) simply called
+knowledge. We'll create and activate a [bucket type](/riak/kv/2.1.3/developing/usage/bucket-types) for [storing counters](/riak/kv/2.1.3/developing/data-types/#counters) simply called
 `counters`, like so:
 
 ```bash
@@ -614,7 +614,7 @@ curl "$RIAK_HOST/search/query/scores?wt=json&q=counter:17" | jsonpp
 ## Sets Example
 
 Let's say that we're storing information about the hobbies of a group of
-people in sets. We'll create and activate a [bucket type](/riak/kv/2.1.3/developing/usage/bucket-types) for [storing sets](/riak/kv/2.1.3/developing/data-types/#Sets) simply called `sets`,
+people in sets. We'll create and activate a [bucket type](/riak/kv/2.1.3/developing/usage/bucket-types) for [storing sets](/riak/kv/2.1.3/developing/data-types/#sets) simply called `sets`,
 like so:
 
 ```bash
@@ -988,7 +988,7 @@ Just as expected, both sets we stored contain the element `winning`.
 
 This example will build on the example in the [Using Data Types](/riak/kv/2.1.3/developing/data-types)
 tutorial. That tutorial walks you through storing CMS-style user data in
-Riak [maps](/riak/kv/2.1.3/developing/data-types/#Maps), and we'd suggest that you
+Riak [maps](/riak/kv/2.1.3/developing/data-types/#maps), and we'd suggest that you
 familiarize yourself with that tutorial first. More specifically, user
 data is stored in the following fields in each user's map:
 

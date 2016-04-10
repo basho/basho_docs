@@ -17,7 +17,7 @@ canonical_link: "docs.basho.com/dataplatform/latest/configuring/replace-spark-cl
 
 [bdp install]: /dataplatform/1.0.0/installing/
 [bdp configure]: /dataplatform/1.0.0/configuring/setup-a-cluster/
-[bdp configure spark master]: /dataplatform/1.0.0/configuring/setup-a-cluster/#Set-Up-Spark-Cluster-Metadata
+[bdp configure spark master]: /dataplatform/1.0.0/configuring/setup-a-cluster/#set-up-spark-cluster-metadata
 [ee]: http://info.basho.com/Wiki_Riak_Enterprise_Request.html
 [riak data types]: /riak/kv/2.1.3/developing/data-types/
 

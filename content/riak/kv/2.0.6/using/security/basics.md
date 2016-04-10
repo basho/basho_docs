@@ -48,13 +48,13 @@ of the following **before** enabling security:
    functionality. If you wish to use security and Search together, you
    will need to use the [new Search feature](/riak/kv/2.0.6/developing/usage/search/).
 1. Because Riak security requires a secure SSL connection, you will need
-   to generate appropriate SSL certs, [enable SSL](#Enabling-SSL) and establish a [certification configuration](#Certificate-Configuration) on each node. **If you
+   to generate appropriate SSL certs, [enable SSL](#enabling-ssl) and establish a [certification configuration](#certificate-configuration) on each node. **If you
    enable security without having established a functioning SSL
    connection, all requests to Riak will fail**.
-1. Define [users](#User-Management)
+1. Define [users](#user-management)
    and, optionally, groups
-1. Define an [authentication source](#Managing-Sources) for each user
-1. Grant the necessary [permissions](#Managing-Permissions) to each user (and/or group)
+1. Define an [authentication source](#managing-sources) for each user
+1. Grant the necessary [permissions](#managing-permissions) to each user (and/or group)
 1. Check any Erlang MapReduce code for invocations of Riak modules other
    than `riak_kv_mapreduce`. Enabling security will prevent those from
    succeeding unless those modules are available via the `add_path`
@@ -97,7 +97,7 @@ those commands through the Protocol Buffers and HTTP interfaces.
 > Enabling security will change the way your client libraries and
 your applications interact with Riak.
 >
-> Once security is enabled, all client connections must be encrypted and all permissions will be denied by default. Do not enable this in production until you have worked through the [security checklist](#Security-Checklist) above and tested everything in a non-production environment.
+> Once security is enabled, all client connections must be encrypted and all permissions will be denied by default. Do not enable this in production until you have worked through the [security checklist](#security-checklist) above and tested everything in a non-production environment.
 
 Riak security is disabled by default. To enable it:
 
@@ -112,7 +112,7 @@ All users, groups, authentication sources, and permissions can be
 configured while security is disabled, allowing you to create a
 security configuration of any level of complexity without prematurely
 impacting the service. This should be borne in mind when you are
-[managing users](#User-Management) and [managing sources](#Managing-Sources).
+[managing users](#user-management) and [managing sources](#managing-sources).
 
 ### Disabling Security
 
@@ -555,7 +555,7 @@ riak-admin security grant search.query,search.admin on index riakusers_index to 
 While user management enables you to control _authorization_ with regard
 to users, security **sources** provide you with an interface for
 managing means of _authentication_. If you create users and grant them
-access to some or all of Riak's functionality as described in the [User Management](#User-Management) section,
+access to some or all of Riak's functionality as described in the [User Management](#user-management) section,
 you will then need to define security sources required for
 authentication.
 
@@ -721,7 +721,7 @@ documentation](https://wiki.mozilla.org/Security/Server_Side_TLS).
 ### Client vs. Server Cipher Order
 
 By default, Riak prefers the cipher order that you set on the server,
-i.e. the [`honor_cipher_order`](/riak/kv/2.0.6/configuring/reference/#Security) setting is set to `on`. If you prefer, however, that clients' preferred cipher
+i.e. the [`honor_cipher_order`](/riak/kv/2.0.6/configuring/reference/#security) setting is set to `on`. If you prefer, however, that clients' preferred cipher
 order dictate which cipher is chosen, set `honor_cipher_order` to `off`.
 
 > **Note on Erlang versions**
@@ -736,11 +736,11 @@ not affect Erlang 17.0 and later.
 
 In order to use any authentication or authorization features, you must
 enable SSL for Riak. **SSL is disabled by default**, but you will need
-to enable it prior to enabling security. If you are using [Protocol Buffers](/riak/kv/2.0.6/developing/api/protocol-buffers/) as a transport protocol for Riak (which we strongly recommend), enabling SSL on a given node requires only that you specify a [host and port](/riak/kv/2.0.6/configuring/reference/#Client-Interfaces) for the node
-as well as a [certification configuration](#Certificate-Configuration).
+to enable it prior to enabling security. If you are using [Protocol Buffers](/riak/kv/2.0.6/developing/api/protocol-buffers/) as a transport protocol for Riak (which we strongly recommend), enabling SSL on a given node requires only that you specify a [host and port](/riak/kv/2.0.6/configuring/reference/#client-interfaces) for the node
+as well as a [certification configuration](#certificate-configuration).
 
 If, however, you are using the [HTTP API](/riak/kv/2.0.6/developing/api/http) for Riak and would like to
-configure HTTPS, you will need to not only establish a [certificate configuration](#Certificate-Configuration) but also specify an HTTPS host
+configure HTTPS, you will need to not only establish a [certificate configuration](#certificate-configuration) but also specify an HTTPS host
 and port. The following configuration would establish port 8088 on
 `localhost` as the HTTPS port:
 
@@ -762,7 +762,7 @@ listener.https.$name = 127.0.0.1:8088
 
 When using Riak security, you can choose which versions of SSL/TLS are
 allowed. By default, only TLS 1.2 is allowed, but this version can be
-disabled and others enabled by setting the following [configurable parameters](/riak/kv/2.0.6/configuring/reference/#Security) to `on` or `off`:
+disabled and others enabled by setting the following [configurable parameters](/riak/kv/2.0.6/configuring/reference/#security) to `on` or `off`:
 
 * `tls_protocols.tlsv1`
 * `tls_protocols.tlsv1.1`
@@ -779,16 +779,16 @@ Three things to note:
 
 ## Certificate Configuration
 
-If you are using any of the available [security sources](/riak/kv/2.0.6/using/security/managing-sources/), including [trust-based authentication](/riak/kv/2.0.6/using/security/managing-sources/#Trust-based-Authentication), you will need to do so
+If you are using any of the available [security sources](/riak/kv/2.0.6/using/security/managing-sources/), including [trust-based authentication](/riak/kv/2.0.6/using/security/managing-sources/#trust-based-authentication), you will need to do so
 over a secure SSL connection. In order to establish a secure connection,
-you will need to ensure that each Riak node's [configuration files](/riak/kv/2.0.6/configuring/reference/#Security) point to the proper paths for your
+you will need to ensure that each Riak node's [configuration files](/riak/kv/2.0.6/configuring/reference/#security) point to the proper paths for your
 generated certs. By default, Riak assumes that all certs are stored in
 each node's `/etc` directory.
 
 If you are using the newer, `riak.conf`-based configuration system, you
 can change the location of the `/etc` directory by modifying the
 `platform_etc_dir`. More information can be found in our documentation
-on [configuring directories](/riak/kv/2.0.6/configuring/reference/#Directories).
+on [configuring directories](/riak/kv/2.0.6/configuring/reference/#directories).
 
 <table class="riak-conf">
   <thead>
@@ -846,6 +846,6 @@ checks](http://en.wikipedia.org/wiki/HTTP_referer) by default. Those
 checks make it impossible to serve data directly from Riak. To disable
 those checks, set the `secure_referer_check` parameter to `off`.
 
-If you are using [certificate-based authentication](/riak/kv/2.0.6/using/security/managing-sources/#Certificate-based-Authentication), Riak will check the certificate revocation list (CRL) of connecting clients' certificate by
+If you are using [certificate-based authentication](/riak/kv/2.0.6/using/security/managing-sources/#certificate-based-authentication), Riak will check the certificate revocation list (CRL) of connecting clients' certificate by
 default. To disable this behavior, set the `check_crl` parameter to
 `off`.

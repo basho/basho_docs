@@ -24,9 +24,9 @@ three components, all of which must be installed separately:
 * [Riak](http://docs.basho.com/riak/2.0.5/) --- The distributed
   database on top of which Riak CS is built
 * Riak CS itself
-* [Stanchion](/riak/cs/2.0.1/theory/stanchion) --- An application used to manage [globally unique entities](/riak/cs/2.0.1/theory/stanchion/#Globally-Unique-Entities) such as users and buckets.
+* [Stanchion](/riak/cs/2.0.1/theory/stanchion) --- An application used to manage [globally unique entities](/riak/cs/2.0.1/theory/stanchion/#globally-unique-entities) such as users and buckets.
 
-[Riak KV](#Installing-Riak) and [Riak CS](#Installing-Riak-CS-on-a-Node) must be installed on each node in your cluster. [Stanchion](#Installing-Stanchion-on-a-Node), however, needs to be installed on only one node.
+[Riak KV](#installing-riak) and [Riak CS](#installing-riak-cs-on-a-node) must be installed on each node in your cluster. [Stanchion](#installing-stanchion-on-a-node), however, needs to be installed on only one node.
 
 ## Version Compatibility
 
@@ -281,11 +281,11 @@ can achieve this by specifying a load balancer IP as the Stanchion IP
 in each Riak CS node's `riak-cs.conf`. This load balancer must be
 configured to send all requests to a single Stanchion node, failing over
 to a secondary Stanchion node if the primary is unavailable. More
-details can be found in [Specifying the Stanchion Node](/riak/cs/2.0.1/cookbooks/configuration/#Specifying-the-Stanchion-Node).
+details can be found in [Specifying the Stanchion Node](/riak/cs/2.0.1/cookbooks/configuration/#specifying-the-stanchion-node).
 
 ### Installing Stanchion on Mac OS X
 
-First, download the appropriate package from the [downloads](/riak/cs/2.0.1/downloads/#Stanchion-1-4-3) page.
+First, download the appropriate package from the [downloads](/riak/cs/2.0.1/downloads/#stanchion-1-4-3) page.
 
 ```bash
 curl -O http://s3.amazonaws.com/downloads.basho.com/stanchion/1.4/1.4.3/osx/10.8/stanchion-2.0.0-OSX-x86_64.tar.gz

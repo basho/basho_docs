@@ -15,7 +15,7 @@ aliases:
 ---
 
 
-[glossary vnode]: /riak/kv/2.1.3/learn/glossary/#Vnode
+[glossary vnode]: /riak/kv/2.1.3/learn/glossary/#vnode
 [upgrade cluster]: /riak/kv/2.1.3/setup/upgrading/cluster
 [usage mapreduce]: /riak/kv/2.1.3/developing/usage/mapreduce
 

@@ -265,7 +265,7 @@ particular use case.
 ### Tuning
 
 We strongly recommend that you take care when setting the value of the
-[`pb_backlog` setting](/riak/cs/2.0.1/cookbooks/configuration/riak-for-cs/#Setting-Up-Riak-to-Use-Protocol-Buffers) in Riak. When a Riak CS node is
+[`pb_backlog` setting](/riak/cs/2.0.1/cookbooks/configuration/riak-for-cs/#setting-up-riak-to-use-protocol-buffers) in Riak. When a Riak CS node is
 started, each connection pool begins to establish connections to Riak. This can
 result in a [thundering herd problem](http://en.wikipedia.org/wiki/Thundering_herd_problem) in which connections in the pool believe they are connected to Riak, but in reality some of the connections have been reset. Due to TCP `RST` packet rate limiting (controlled by `net.inet.icmp.icmplim`) some of the connections may not receive notification until they are used to service a user's request. This manifests itself as an `{error, disconnected}` message in the Riak CS logs and an error returned to the user.
 
