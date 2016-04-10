@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/installing/verify-install/
-canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/verify.md"
+canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/verify"
 ---
 
 [dev client libraries]: /riak/kv/2.0.1/developing/client-libraries

@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/references/protocol-buffers/mapreduce
-canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/mapreduce.md"
+canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/mapreduce"
 ---
 
 Execute a MapReduce job.

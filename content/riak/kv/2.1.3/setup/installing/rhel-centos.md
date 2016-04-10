@@ -13,7 +13,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/installing/rhel-centos/
-canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/rhel-centos.md"
+canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/rhel-centos"
 ---
 
 [install source index]: /riak/kv/2.1.3/setup/installing/source

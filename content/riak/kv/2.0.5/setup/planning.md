@@ -10,7 +10,7 @@ menu:
     weight: 100
     parent: "setup_index"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/setup/planning.md"
+canonical_link: "docs.basho.com/riak/kv/latest/setup/planning"
 ---
 
 ## TODO

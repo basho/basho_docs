@@ -13,7 +13,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/using/conflict-resolution/php
-canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/conflict-resolution/php.md"
+canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/conflict-resolution/php"
 ---
 
 For reasons explained in the [Introduction to conflict resolution](/riak/kv/2.0.6/developing/usage/conflict-resolution), we strongly recommend adopting a

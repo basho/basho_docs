@@ -10,7 +10,7 @@ menu:
     weight: 400
     pre: icon-tools
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/add-ons.md"
+canonical_link: "docs.basho.com/riak/kv/latest/add-ons"
 ---
 
 Stuff things.

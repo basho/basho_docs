@@ -11,7 +11,7 @@ menu:
     weight: 101
     parent: "getting_started_python"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/python/querying.md"
+canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/python/querying"
 ---
 
 #### A Quick Note on Querying and Schemas

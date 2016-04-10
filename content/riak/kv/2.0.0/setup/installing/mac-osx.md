@@ -13,7 +13,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/installing/mac-osx/
-canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/mac-osx.md"
+canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/mac-osx"
 ---
 
 **TODO: Fix Package Versions ({{VERSION}})**

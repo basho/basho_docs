@@ -13,7 +13,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/installing/suse/
-canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/suse.md"
+canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/suse"
 ---
 
 [install verify]: /riak/kv/2.0.2/setup/installing/verify

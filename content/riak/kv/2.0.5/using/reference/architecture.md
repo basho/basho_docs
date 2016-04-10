@@ -10,7 +10,7 @@ menu:
     weight: 112
     parent: "managing_ref"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/using/reference/architecture.md"
+canonical_link: "docs.basho.com/riak/kv/latest/using/reference/architecture"
 ---
 
 ## Hanc capellae

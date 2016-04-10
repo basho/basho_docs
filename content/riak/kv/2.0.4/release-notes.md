@@ -10,7 +10,7 @@ menu:
     weight: 101
     parent: index
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/release-notes.md"
+canonical_link: "docs.basho.com/riak/kv/latest/release-notes"
 ---
 
 ## Changes

@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/references/protocol-buffers/store-object
-canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/store-object.md"
+canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/store-object"
 ---
 
 Stores an object under the specified location, as determined by the

@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/ops/mdc/v3/cascading-writes
-canonical_link: "docs.basho.com/riak/kv/latest/using/reference/v3-multi-datacenter/cascading-writes.md"
+canonical_link: "docs.basho.com/riak/kv/latest/using/reference/v3-multi-datacenter/cascading-writes"
 ---
 
 ## Introduction

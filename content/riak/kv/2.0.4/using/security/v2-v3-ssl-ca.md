@@ -10,7 +10,7 @@ menu:
     weight: 103
     parent: "managing_security"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/using/security/v2-v3-ssl-ca.md"
+canonical_link: "docs.basho.com/riak/kv/latest/using/security/v2-v3-ssl-ca"
 ---
 
 ## Hanc capellae

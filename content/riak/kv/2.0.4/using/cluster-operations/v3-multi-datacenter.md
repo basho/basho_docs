@@ -14,7 +14,7 @@ toc: true
 commercial_offering: true
 aliases:
   - /riak/2.1.3/ops/mdc/v3/operations
-canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/v3-multi-datacenter.md"
+canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/v3-multi-datacenter"
 ---
 
 [config v3 mdc]: /riak/kv/2.0.4/configuring/v3-multi-datacenter

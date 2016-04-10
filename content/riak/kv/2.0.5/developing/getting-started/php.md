@@ -10,7 +10,7 @@ menu:
     weight: 107
     parent: "developing_getting_started"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/php.md"
+canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/php"
 ---
 
 If you haven't set up a Riak Node and started it, please visit [Running A Cluster](/riak/kv/2.0.5/using/running-a-cluster) first.

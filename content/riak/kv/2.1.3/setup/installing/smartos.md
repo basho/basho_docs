@@ -13,7 +13,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/installing/smartos/
-canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/smartos.md"
+canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/smartos"
 ---
 
 [install verify]: /riak/kv/2.1.3/setup/installing/verify

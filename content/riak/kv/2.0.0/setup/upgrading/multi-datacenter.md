@@ -10,7 +10,7 @@ menu:
     weight: 103
     parent: "upgrading"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/setup/upgrading/multi-datacenter.md"
+canonical_link: "docs.basho.com/riak/kv/latest/setup/upgrading/multi-datacenter"
 ---
 
 ## TODO
