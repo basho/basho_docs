@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
     - /riak/2.0.0/dev/advanced/bucket-types
-canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/bucket-types.md"
+canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/bucket-types"
 ---
 
 If you ever need to turn off indexing for a bucket, set the

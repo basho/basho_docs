@@ -13,7 +13,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/installing/windows-azure/
-canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/windows-azure.md"
+canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/windows-azure"
 ---
 
 ## Creating CentOS VMs

@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/ops/running/stats-and-monitoring
-canonical_link: "docs.basho.com/riak/kv/latest/using/reference/statistics-monitoring.md"
+canonical_link: "docs.basho.com/riak/kv/latest/using/reference/statistics-monitoring"
 ---
 
 Riak provides data related to current operating status, which includes

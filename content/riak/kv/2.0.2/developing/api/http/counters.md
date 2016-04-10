@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/references/http/counters
-canonical_link: "docs.basho.com/riak/kv/latest/developing/api/http/counters.md"
+canonical_link: "docs.basho.com/riak/kv/latest/developing/api/http/counters"
 ---
 
 Riak counters are a CRDT (convergent replicated data type) that (eventually)

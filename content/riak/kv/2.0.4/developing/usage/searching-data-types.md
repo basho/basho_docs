@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/search/search-data-types
-canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/searching-data-types.md"
+canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/searching-data-types"
 ---
 
 Although [Riak Data Types](/riak/kv/2.0.4/developing/data-types) function differently from other

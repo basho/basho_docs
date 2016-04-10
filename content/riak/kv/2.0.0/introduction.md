@@ -10,7 +10,7 @@ menu:
     weight: 100
     parent: index
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/introduction.md"
+canonical_link: "docs.basho.com/riak/kv/latest/introduction"
 ---
 
 Riak version 2.0 includes deep changes and many new features affecting 

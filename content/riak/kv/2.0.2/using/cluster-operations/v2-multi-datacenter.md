@@ -14,7 +14,7 @@ toc: true
 commercial_offering: true
 aliases:
   - /riak/2.1.3/ops/mdc/v2/operations
-canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/v2-multi-datacenter.md"
+canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/v2-multi-datacenter"
 ---
 
 Riak Enterprise's Multi-Datacenter Replication system is largely

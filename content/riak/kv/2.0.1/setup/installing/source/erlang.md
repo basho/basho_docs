@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/installing/source/erlang/
-canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/source/erlang.md"
+canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/source/erlang"
 ---
 
 [install index]: /riak/kv/2.0.1/setup/installing

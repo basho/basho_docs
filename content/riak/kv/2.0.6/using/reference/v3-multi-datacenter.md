@@ -10,7 +10,7 @@ menu:
     weight: 114
     parent: "managing_ref"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/using/reference/v3-multi-datacenter.md"
+canonical_link: "docs.basho.com/riak/kv/latest/using/reference/v3-multi-datacenter"
 ---
 
 [v3 mdc arch]: ./architecture

@@ -11,7 +11,7 @@ menu:
     weight: 101
     parent: "getting_started_java"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/java/querying.md"
+canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/java/querying"
 ---
 
 ## Java Version Setup

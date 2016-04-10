@@ -11,7 +11,7 @@ project_version: "2.0.5"
 #    parent: "managing_cluster_operations"
 draft: true
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/secondary-indexes.md"
+canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/secondary-indexes"
 ---
 
 ## Hanc capellae

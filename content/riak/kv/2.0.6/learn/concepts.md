@@ -10,7 +10,7 @@ menu:
     weight: 104
     parent: "learn"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/learn/concepts.md"
+canonical_link: "docs.basho.com/riak/kv/latest/learn/concepts"
 ---
 
 [concept aae]: /riak/kv/2.0.6/concepts/active-anti-entropy

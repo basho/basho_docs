@@ -10,7 +10,7 @@ menu:
     weight: 103
     parent: "developing_getting_started"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/csharp.md"
+canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/csharp"
 ---
 
 

@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/ops/tuning/open-files-limit/
-canonical_link: "docs.basho.com/riak/kv/latest/using/performance/open-files-limit.md"
+canonical_link: "docs.basho.com/riak/kv/latest/using/performance/open-files-limit"
 ---
 
 [plan backend bitcask]: /riak/kv/2.0.6/setup/planning/backend/bitcask

@@ -11,7 +11,7 @@ project_version: "2.0.6"
 #    parent: "planning"
 draft: true
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/setup/planning/future.md"
+canonical_link: "docs.basho.com/riak/kv/latest/setup/planning/future"
 ---
 
 **TODO: Add content**

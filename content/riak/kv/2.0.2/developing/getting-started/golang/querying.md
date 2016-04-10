@@ -11,7 +11,7 @@ menu:
     weight: 101
     parent: "getting_started_go"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/golang/querying.md"
+canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/golang/querying"
 ---
 
 ## Go Version Setup
