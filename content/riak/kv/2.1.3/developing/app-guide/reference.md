@@ -9,6 +9,7 @@ project_version: "2.1.3"
 #    identifier: "app_guide_reference"
 #    weight: 104
 #    parent: "developing_app_guide"
+draft: true
 toc: true
 canonical_link: "docs.basho.com/riak/kv/latest/developing/app-guide/reference.md"
 ---

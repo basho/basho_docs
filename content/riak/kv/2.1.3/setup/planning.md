@@ -53,10 +53,6 @@ A set of best practices that will enable you to improve performance and reliabil
 
 [Learn More >>][plan best practices]
 
-### [Planning for the Future][plan future]
 
-A guide on planning for future scaling of your Riak KV cluster.
-
-[Learn More >>][plan future]
 
 

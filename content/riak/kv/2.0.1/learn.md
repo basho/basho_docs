@@ -33,11 +33,7 @@ Details use cases and applications in which Riak KV excels.
 
 [Learn More >>][learn use cases]
 
-#### [New to NoSQL?][learn new nosql]
 
-Information on NoSQL databases in general as well as the theory behind Riak.
-
-[Learn More >>][learn new nosql]
 
 #### [Glossary][glossary]
 
