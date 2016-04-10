@@ -6,7 +6,7 @@ menu:
     name: "Python"
     identifier: "ts_python_api"
     weight: 404
-    parent: "developing"
+    parent: "develop"
 project: "riak_ts"
 project_version: "1.2.0"
 toc: true

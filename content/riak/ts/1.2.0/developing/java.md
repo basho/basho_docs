@@ -6,7 +6,7 @@ menu:
     name: "Java"
     identifier: "ts_java_api"
     weight: 402
-    parent: "developing"
+    parent: "develop"
 project: "riak_ts"
 project_version: "1.2.0"
 toc: true

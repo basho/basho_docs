@@ -6,7 +6,7 @@ menu:
     name: "Ruby"
     identifier: "ts_ruby_api"
     weight: 405
-    parent: "developing"
+    parent: "develop"
 project: "riak_ts"
 project_version: "1.2.0"
 toc: true
