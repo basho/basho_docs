@@ -10,6 +10,7 @@ menu:
     weight: 101
     parent: "add-ons"
 toc: true
+commercial_offering: true
 ---
 
 
@@ -25,8 +26,6 @@ Riak Redis Add-on (RRA) is a distributed cache service that joins the power of R
 RRA enables you to reduce latency for Riak KV reads through the use of a distributed cache layer. This type of caching is most effective for keys that are immutable or have an infrequent change rate.
 
 Whether you are looking to build out a session, shopping cart, advertisement or other dynamically-rendered copy, RRA helps reduce read pressure on your persistent store (Riak KV).
-
->**Enterprise only.** RRA is only available to Enterprise users. To get Riak Enterprise, fill out the contact form [here][ee]. 
 
 ## Compatibility
 

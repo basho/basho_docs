@@ -10,6 +10,7 @@ menu:
     weight: 204
     parent: "add-ons_redis"
 toc: true
+commercial_offering: true
 ---
 
 [ee]: http://basho.com/contact/
@@ -19,10 +20,6 @@ toc: true
 [Object-lifetime]: /images/redis/Object_lifetime.msc.png
 [redis docs]: http://redis.io/commands
 [twemproxy docs]: https://github.com/twitter/twemproxy/blob/master/notes/redis.md
-
-
->**Enterprise only.** Riak Redis Add-on is only available to Enterprise users. To get Riak Enterprise, fill out the contact form [here][ee].
-
 
 ## Overview
 
