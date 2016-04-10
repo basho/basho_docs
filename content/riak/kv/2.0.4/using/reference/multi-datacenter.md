@@ -7,7 +7,7 @@ menu:
   riak_kv-2.0.4:
     name: "Multi-Datacenter"
     identifier: "managing_ref_mdc"
-    weight: 111
+    weight: 113
     parent: "managing_ref"
 toc: true
 commercial_offering: true

@@ -7,7 +7,7 @@ menu:
   riak_kv-2.0.0:
     name: "Strong Consistency"
     identifier: "managing_ref_strong_consistency"
-    weight: 108
+    weight: 112
     parent: "managing_ref"
 toc: true
 canonical_link: "docs.basho.com/riak/kv/latest/using/reference/strong-consistency.md"

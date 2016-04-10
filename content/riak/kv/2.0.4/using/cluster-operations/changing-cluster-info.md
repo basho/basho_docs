@@ -5,7 +5,7 @@ project: "riak_kv"
 project_version: "2.0.4"
 menu:
   riak_kv-2.0.4:
-    name: "Changing Cluster Information"
+    name: "Changing Cluster Info"
     identifier: "cluster_operations_change_info"
     weight: 101
     parent: "managing_cluster_operations"

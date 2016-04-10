@@ -7,7 +7,7 @@ menu:
   riak_kv-2.0.5:
     name: "Secondary Indexes"
     identifier: "managing_ref_2i"
-    weight: 108
+    weight: 110
     parent: "managing_ref"
 toc: true
 aliases:

@@ -7,7 +7,7 @@ menu:
   riak_kv-2.0.5:
     name: "V2 Replication"
     identifier: "managing_ref_v2"
-    weight: 113
+    weight: 115
     parent: "managing_ref"
 toc: true
 canonical_link: "docs.basho.com/riak/kv/latest/using/reference/v2-multi-datacenter.md"
