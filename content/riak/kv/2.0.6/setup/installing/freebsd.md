@@ -16,7 +16,7 @@ aliases:
 canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/freebsd.md"
 ---
 
-**TODO: Fix Package Versions ({{VERSION}})**
+
 
 [install source erlang]: /riak/kv/2.0.6/setup/installing/source/erlang
 [downloads]: /riak/kv/2.0.6/downloads/

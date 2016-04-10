@@ -16,7 +16,7 @@ aliases:
 canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/source.md"
 ---
 
-**TODO: Fix Package Versions ({{VERSION}})**
+
 
 [install source erlang]: /riak/kv/2.1.1/setup/installing/source/erlang
 [downloads]: /riak/kv/2.1.1/downloads/

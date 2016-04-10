@@ -13,11 +13,11 @@ toc: true
 canonical_link: "docs.basho.com/riak/kv/latest/setup/upgrading.md"
 ---
 
-[upgrade checklist]: /riak/kv/2.1.3/setup/upgrading/checklist
-[upgrade version]: /riak/kv/2.1.3/setup/upgrading/version
-[upgrade cluster]: /riak/kv/2.1.3/setup/upgrading/cluster
-[upgrade mdc]: /riak/kv/2.1.3/setup/upgrading/multi-datacenter
-[downgrade]: /riak/kv/2.1.3/setup/downgrade
+[upgrade checklist]: ./checklist
+[upgrade version]: ./version
+[upgrade cluster]: ./cluster
+[upgrade mdc]: ./multi-datacenter
+[upgrade search]: ./search
 
 ## In This Section
 
@@ -27,7 +27,7 @@ An overview of what to consider before upgrading Riak KV in a production environ
 
 [Learn More >>][upgrade checklist]
 
-### [Upgrading by Version][upgrade version]
+### [Upgrading to Riak KV 2.0][upgrade version]
 
 A tutorial on updating to Riak KV 2.0+
 
@@ -35,7 +35,7 @@ A tutorial on updating to Riak KV 2.0+
 
 ### [Upgrading a Cluster][upgrade cluster]
 
-General guide on updating to a new version of Riak KV.
+General guide on rolling upgrades / updating to a new version of Riak KV.
 
 [Learn More >>][upgrade cluster]
 
@@ -45,9 +45,9 @@ Updating to a new version of Riak KV with Multi-Datacenter.
 
 [Learn More >>][upgrade mdc]
 
-### [Downgrading][downgrade]
+### [Upgrading Search from 1.x to 2.x][upgrade search]
 
-A tutorial on downgrading to previous version of Riak KV
+Overview of upgrading to Riak KV's new search.
 
-[Learn More >>][downgrade]
+[Learn More >>][upgrade search]
 

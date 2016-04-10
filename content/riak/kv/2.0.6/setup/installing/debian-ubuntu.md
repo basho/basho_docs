@@ -16,7 +16,7 @@ aliases:
 canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/debian-ubuntu.md"
 ---
 
-**TODO: Fix Package Versions ({{VERSION}})**
+
 
 [install source index]: /riak/kv/2.0.6/setup/installing/source/
 [security index]: /riak/kv/2.0.6/using/security/

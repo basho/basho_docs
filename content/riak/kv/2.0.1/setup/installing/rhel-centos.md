@@ -16,7 +16,7 @@ aliases:
 canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/rhel-centos.md"
 ---
 
-**TODO: Fix Package Versions ({{VERSION}})**
+
 
 [install source index]: /riak/kv/2.0.1/setup/installing/source
 [install source erlang]: /riak/kv/2.0.1/setup/installing/source/erlang

@@ -16,7 +16,7 @@ aliases:
 canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/mac-osx.md"
 ---
 
-**TODO: Fix Package Versions ({{VERSION}})**
+
 
 [perf open files]: /riak/kv/2.0.0/using/performance/open-files-limit
 [install source erlang]: /riak/kv/2.0.0/setup/installing/source/erlang

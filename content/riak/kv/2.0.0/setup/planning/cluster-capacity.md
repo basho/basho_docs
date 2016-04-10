@@ -22,7 +22,7 @@ canonical_link: "docs.basho.com/riak/kv/latest/setup/planning/cluster-capacity.m
 [use admin riak-admin#cluster]: /riak/kv/2.0.0/using/admin/riak-admin/#cluster
 [config reference]: /riak/kv/2.0.0/configuring/reference
 [perf benchmark]: /riak/kv/2.0.0/using/performance/benchmarking
-[TODO LINK 1]: /
+
 
 This document outlines the various elements and variables to keep in mind when planning your Riak cluster. Your use case and environment variables will be specific to what you're building, but this document should set you on the right path when planning and launching a Riak cluster.
 
@@ -84,7 +84,7 @@ Many of the considerations taken when configuring a machine to serve a
 database apply to configuring a node for Riak as well. Mounting
 disks with noatime and having separate disks for your OS and Riak data
 lead to much better performance. See [Planning for a
-Riak System][TODO] for more information.
+Riak System](../start) for more information.
 
 ### Disk Space Planning and Ownership Handoff
 
@@ -219,7 +219,7 @@ different network environments. We recommend that you produce as
 little latency between nodes as possible, as high latency leads to
 sub-optimal performance. 
 
-Deploying a single Riak cluster across two datacenters is not recommended. If your use case requires this capability, Basho offers a [Multi Data Center Replication: Architecture][TODO LINK 1] option that is built to keep multiple Riak clusters in
+Deploying a single Riak cluster across two datacenters is not recommended. If your use case requires this capability, Basho offers a [Multi Data Center Replication: Architecture](../../../using/reference/v3-multi-datacenter/architecture) option that is built to keep multiple Riak clusters in
 sync across several geographically diverse deployments.
 
 * [Learn more about Riak Enterprise](http://basho.com/products/riak-overview/).
