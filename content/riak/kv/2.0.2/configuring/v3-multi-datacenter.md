@@ -1,5 +1,5 @@
 ---
-ttile_supertext: "Configuring:"
+tile_supertext: "Configuring:"
 title: "V3 Multi-Datacenter Replication"
 description: ""
 project: "riak_kv"
