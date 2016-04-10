@@ -13,7 +13,12 @@ toc: true
 canonical_link: "docs.basho.com/riak/kv/latest/using/troubleshooting.md"
 ---
 
-## TODO
+[http 204]: ./http-204
 
-- **Add section overview**
-- **Add links + descriptions for each page within the section**
+## In This Section
+
+#### [HTTP 204][http 204]
+
+About the HTTP 204 response.
+
+[Learn More >>][http 204]

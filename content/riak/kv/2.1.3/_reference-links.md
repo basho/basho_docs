@@ -134,7 +134,7 @@
 ### Repair/Recover
 
 [repair recover index]: /riak/kv/2.1.3/repair-recovery
-[repair recover index]: /riak/kv/2.1.3/repair-recovery/failure-recovery/
+[repair recover fail]: /riak/kv/2.1.3/repair-recovery/failure-recovery/
 
 ### Security
 
