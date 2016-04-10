@@ -1,5 +1,6 @@
 ---
-title: "Riak CS"
+title_supertext: "Riak Cloud Storage"
+title: ""
 description: ""
 menu:
   riak_cs-2.0.0:
@@ -13,16 +14,16 @@ aliases:
   - /riakcs/2.0.0/
 ---
 
-![Riak CS Logo](/images/index/cs-cloud.png)
+![Riak CS Logo](/images/riak-cs-logo.png)
 
-Riak CS (Cloud Storage) is easy-to-use object storage software built on
-top of [Riak KV](http://basho.com/riak/), Basho's distributed database.
-Riak CS is designed to provide simple, available, distributed cloud
-storage at any scale, and can be used to build cloud architectures---be
-they public or private---or as storage infrastructure for heavy-duty
-applications and services. Riak CS's API is [Amazon S3 compatible](http://docs.aws.amazon.com/AmazonS3/latest/API/APIRest.html)
-and supports per-tenant reporting for use cases involving billing and
-metering.
+Riak CS is easy-to-use object storage software built on top of
+[Riak KV](http://basho.com/riak/), Basho's distributed database. Riak CS is
+designed to provide simple, available, distributed cloud storage at any scale,
+and can be used to build cloud architectures---be they public or private---or
+as storage infrastructure for heavy-duty applications and services. Riak CS's
+API is [Amazon S3 compatible](http://docs.aws.amazon.com/AmazonS3/latest/API/APIRest.html)
+and supports per-tenant reporting for use cases involving billing
+and metering.
 
 Riak CS is open source and [free for download](/riak/cs/2.0.0/downloads).
 
