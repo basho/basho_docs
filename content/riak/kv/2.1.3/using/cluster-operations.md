@@ -21,17 +21,8 @@ canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations.md"
 [ops log]: ./logging
 [ops backup]: ./backing-up
 [ops handoff]: ./handoff
-
-
-[ops load balance]: ./load-balancing
-
-
-
 [ops obj del]: ./object-deletion
-
-[ops mdc]: ./multi-datacenter
 [ops strong consistency]: ./strong-consistency
-[ops 2i]: ./secondary-indexes
 [ops v3 mdc]: ./v3-multi-datacenter
 [ops v2 mdc]: ./v2-multi-datacenter
 
@@ -94,38 +85,29 @@ Information on using the `riak-admin handoff` interface to enable and disable ha
 [Learn More >>][ops handoff]
 
 
-#### [Object Deletion]
+#### [Object Deletion][ops obj del]
 
-[Learn More >>]
+Describes possible settings for `delete_mode`.
 
-
-#### [Secondary Indexes]
-
-[Learn More >>]
+[Learn More >>][ops obj del]
 
 
-#### [Monitoring Strong Consistency]
+#### [Monitoring Strong Consistency][ops strong consistency]
 
-[Learn More >>]
+Overview of the various statistics used in monitoring strong consistency.
 
-
-#### [Load Balancing]
-
-[Learn More >>]
+[Learn More >>][ops strong consistency]
 
 
-#### [Backend]
+#### [V3 Multi-Datacenter][ops v3 mdc]
 
-[Learn More >>]
+Explains how to manage V3 replication with the `riak-repl` command.
 
-
-#### [V3 Multi-Datacenter]
-
-[Learn More >>]
+[Learn More >>][ops v3 mdc]
 
 
-#### [V2 Multi-Datacenter]
+#### [V2 Multi-Datacenter][ops v2 mdc]
 
-[Learn More >>]
+Explains how to manage V2 replication with the `riak-repl` command.
 
-
+[Learn More >>][ops v2 mdc]
