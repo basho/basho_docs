@@ -1,6 +1,5 @@
 ---
-title_supertext: "Riak Cloud Storage"
-title: ""
+title: "Riak Cloud Storage"
 description: ""
 menu:
   riak_cs-2.1.1:
@@ -14,9 +13,7 @@ aliases:
   - /riakcs/2.1.1/
 ---
 
-![Riak CS Logo](/images/riak-cs-logo.png)
-
-Riak CS is easy-to-use object storage software built on top of
+Riak CS (Cloud Storage) is easy-to-use object storage software built on top of
 [Riak KV](http://basho.com/riak/), Basho's distributed database. Riak CS is
 designed to provide simple, available, distributed cloud storage at any scale,
 and can be used to build cloud architectures---be they public or private---or
