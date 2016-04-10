@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/ops/mdc/statistics
+canonical_link: "docs.basho.com/riak/kv/latest/using/reference/multi-datacenter/statistics.md"
 ---
 
 The following definitions describe the output of `riak-repl status`.

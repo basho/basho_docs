@@ -11,6 +11,7 @@ menu:
     weight: 101
     parent: "getting_started_erlang"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/erlang/querying.md"
 ---
 
 ## A Quick Note on Querying and Schemas

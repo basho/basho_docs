@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/using/updates
+canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/updating-objects.md"
 ---
 
 [glossary vnode]: /riak/kv/2.0.6/learn/glossary/#Vnode

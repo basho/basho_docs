@@ -11,6 +11,7 @@ menu:
     parent: "managing_performance"
 toc: true
 commercial_offering: true
+canonical_link: "docs.basho.com/riak/kv/latest/using/performance/v2-scheduling-fullsync.md"
 ---
 
 With the `pause` and `resume` commands it is possible to limit the

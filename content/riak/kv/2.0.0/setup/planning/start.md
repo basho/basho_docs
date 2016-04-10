@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/ops/building/planning/system-planning
+canonical_link: "docs.basho.com/riak/kv/latest/setup/planning/start.md"
 ---
 
 [plan backend]: /riak/kv/2.0.0/setup/planning/backend

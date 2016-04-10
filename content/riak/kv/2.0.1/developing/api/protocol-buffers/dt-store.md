@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/references/protocol-buffers/dt-store
+canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/dt-store.md"
 ---
 
 A request to update the value of a [Riak Data Type](/riak/kv/2.0.1/developing/data-types).

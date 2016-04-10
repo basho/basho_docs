@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/references/protocol-buffers/auth-req
+canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/auth-req.md"
 ---
 
 Sends a username (`user`) and password (`password`) to Riak as part of

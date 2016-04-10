@@ -13,6 +13,7 @@ toc: true
 aliases:
   - /riak/2.1.3/theory/concepts/Eventual-Consistency
   - /riak/2.1.3/theory/concepts/eventual-consistency
+canonical_link: "docs.basho.com/riak/kv/latest/learn/concepts/eventual-consistency.md"
 ---
 
 

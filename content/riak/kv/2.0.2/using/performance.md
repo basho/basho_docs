@@ -10,6 +10,7 @@ menu:
     weight: 206
     parent: "managing"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/using/performance.md"
 ---
 
 Many Unix-like operating systems and distributions are tuned for desktop

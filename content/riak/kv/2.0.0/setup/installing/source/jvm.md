@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/installing/source/jvm/
+canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/source/jvm.md"
 ---
 
 [usage search]: /riak/kv/2.0.0/developing/usage/search

@@ -10,6 +10,7 @@ menu:
     weight: 200
     pre: icon-cog
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/configuring.md"
 ---
 
 [config basic]: /riak/kv/2.1.3/configuring/basic

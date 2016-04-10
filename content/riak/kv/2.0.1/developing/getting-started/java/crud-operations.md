@@ -11,6 +11,7 @@ menu:
     weight: 100
     parent: "getting_started_java"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/java/crud-operations.md"
 ---
 
 ## Creating Objects in Riak

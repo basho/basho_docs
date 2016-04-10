@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/ops/running/handoff/
+canonical_link: "docs.basho.com/riak/kv/latest/using/reference/handoff.md"
 ---
 
 [cluster ops handoff]: /riak/kv/2.0.2/using/cluster-operations/handoff

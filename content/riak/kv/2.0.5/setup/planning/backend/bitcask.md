@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/ops/advanced/backends/bitcask/
+canonical_link: "docs.basho.com/riak/kv/latest/setup/planning/backend/bitcask.md"
 ---
 
 [github bitcask]: https://github.com/basho/bitcask

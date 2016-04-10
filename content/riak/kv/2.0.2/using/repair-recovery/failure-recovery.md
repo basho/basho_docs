@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/ops/running/recovery/failure-recovery
+canonical_link: "docs.basho.com/riak/kv/latest/using/repair-recovery/failure-recovery.md"
 ---
 
 Riak was built to withstand---or at the very least reduce the severity

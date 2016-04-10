@@ -10,6 +10,7 @@ menu:
     weight: 113
     parent: "managing_ref"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/using/reference/v2-multi-datacenter.md"
 ---
 
 ## TODO

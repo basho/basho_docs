@@ -10,6 +10,7 @@ menu:
     weight: 102
     parent: "developing_getting_started"
 toc: true
+canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/python.md"
 ---
 
 [TODO]: /
