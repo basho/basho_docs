@@ -55,7 +55,7 @@ var cb = function (err, rslt) {
     // 'rows' - row matching the Get request
 };
 
-var cmd = new Riak.Commands.TS.Get.Builder()
+var cmd = new Riak.Commands.TS.Store.Builder()
     .withTable('TimeSeriesData')
     .withKey(key)
     .withCallback(cb)
