@@ -7,7 +7,7 @@ menu:
   riak_kv-2.0.1:
     name: "SNMP"
     identifier: "managing_ref_snmp"
-    weight: 113
+    weight: 107
     parent: "managing_ref"
 toc: true
 canonical_link: "docs.basho.com/riak/kv/latest/using/reference/snmp"

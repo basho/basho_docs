@@ -16,7 +16,7 @@ aliases:
 canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/debian-ubuntu"
 ---
 
-**TODO: Fix Package Versions ({{VERSION}})**
+
 
 [install source index]: /riak/kv/2.0.0/setup/installing/source/
 [security index]: /riak/kv/2.0.0/using/security/

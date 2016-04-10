@@ -16,7 +16,7 @@ aliases:
 canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/solaris"
 ---
 
-**TODO: Fix Package Versions ({{VERSION}})**
+
 
 [install verify]: /riak/kv/2.0.2/setup/installing/verify
 

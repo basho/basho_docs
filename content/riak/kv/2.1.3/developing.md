@@ -13,14 +13,14 @@ toc: true
 canonical_link: "docs.basho.com/riak/kv/latest/developing"
 ---
 
-[getting started]: /riak/kv/2.1.3/developing/getting-started
-[usage index]: /riak/kv/2.1.3/developing/usage
-[client libraries]: /riak/kv/2.1.3/developing/client-libraries
-[dev data types]: /riak/kv/2.1.3/developing/data-types
-[dev data modeling]: /riak/kv/2.1.3/developing/data-modeling
-[apps index]: /riak/kv/2.1.3/developing/app-guide
-[dev api index]: /riak/kv/2.1.3/developing/api
-[dev faq]: /riak/kv/2.1.3/developing/faq
+[getting started]: ../developing/getting-started
+[usage index]: ../developing/usage
+[client libraries]: ../developing/client-libraries
+[dev data types]: ../developing/data-types
+[dev data modeling]: ../developing/data-modeling
+[apps index]: ../developing/app-guide
+[dev api index]: ../developing/api
+[dev faq]: ../developing/faq
 
 ## In This Section
 

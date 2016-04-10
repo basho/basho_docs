@@ -13,13 +13,13 @@ toc: true
 canonical_link: "docs.basho.com/riak/kv/latest/setup/planning"
 ---
 
-[plan start]: /riak/kv/2.1.3/setup/planning/start
-[plan backend]: /riak/kv/2.1.3/setup/planning/backend
-[plan cluster capacity]: /riak/kv/2.1.3/setup/planning/cluster-capacity
-[plan bitcask capacity]: /riak/kv/2.1.3/setup/planning/bitcask-capacity-calc
-[plan backend bitcask]: /riak/kv/2.1.3/setup/planning/backend/bitcask
-[plan best practices]: /riak/kv/2.1.3/setup/planning/best-practices
-[plan future]: /riak/kv/2.1.3/setup/planning/future
+[plan start]: ./start
+[plan backend]: ./backend
+[plan cluster capacity]: ./cluster-capacity
+[plan bitcask capacity]: ./bitcask-capacity-calc
+[plan backend bitcask]: ./backend/bitcask
+[plan best practices]: ./best-practices
+[plan future]: ./future
 
 ## In This Section
 
@@ -53,10 +53,6 @@ A set of best practices that will enable you to improve performance and reliabil
 
 [Learn More >>][plan best practices]
 
-### [Planning for the Future][plan future]
 
-A guide on planning for future scaling of your Riak KV cluster.
-
-[Learn More >>][plan future]
 
 

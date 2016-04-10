@@ -18,8 +18,7 @@ canonical_link: "docs.basho.com/riak/kv/latest/using/reference/runtime-interacti
 [config reference]: /riak/kv/2.1.3/configuring/reference
 [concept clusters]: /riak/kv/2.1.3/learn/concepts/clusters
 
-Riak's [configuration files][config reference] provide a variety of parameters that
-enable you to fine-tune how Riak interacts with two important elements
+Riak's [configuration files][config reference] provide a variety of parameters that enable you to fine-tune how Riak interacts with two important elements
 of the underlying operating system: distribution ports and OS
 processes/garbage collection.
 

@@ -1,5 +1,5 @@
 ---
-title: "Upgrading by Version"
+tite: "Upgrading to Riak KV 2.0"
 description: ""
 project: "riak_kv"
 project_version: "2.0.2"

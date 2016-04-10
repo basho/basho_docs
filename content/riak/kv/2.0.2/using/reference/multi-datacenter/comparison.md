@@ -5,9 +5,9 @@ project: "riak_kv"
 project_version: "2.0.2"
 menu:
   riak_kv-2.0.2:
-    name: "Monitoring"
+    name: "Comparison"
     identifier: "managing_ref_mdc_comparison"
-    weight: 102
+    weight: 103
     parent: "managing_ref_mdc"
 toc: true
 aliases:

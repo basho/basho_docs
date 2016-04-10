@@ -14,9 +14,9 @@ toc: true
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api"
 ---
 
-[dev api http]: /riak/kv/2.1.3/developing/api/http
-[dev api backend]: /riak/kv/2.1.3/developing/api/backend
-[dev api pbc]: /riak/kv/2.1.3/developing/api/protocol-buffers/
+[dev api http]: ./http
+[dev api backend]: ./backend
+[dev api pbc]: ./protocol-buffers/
 
 ## In This Section
 

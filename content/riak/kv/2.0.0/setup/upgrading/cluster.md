@@ -23,8 +23,7 @@ canonical_link: "docs.basho.com/riak/kv/latest/setup/upgrading/cluster"
 [riak enterprise]: http://basho.com/products/riak-kv/
 [cluster ops mdc]: /riak/kv/2.0.0/using/cluster-operations/multi-datacenter
 [config v3 mdc]: /riak/kv/2.0.0/configuring/v3-multi-datacenter
-[TODO LINK 1]: /
-[TODO LINK 2]: /
+
 
 
 >**Note on upgrading Riak KV from older versions**
@@ -271,8 +270,8 @@ directories.
 7. The `app.config` file from `riak_ee` will be significantly different from your backed-up file. While it will contain all of the same sections as your original, it will have many new ones. Copy the customizations from your original `app.config` file into the appropriate sections in the new one. Ensure that the following sections are present in `app.config`:
   * `riak_core` --- the `cluster_mgr` setting must be present. See [MDC v3 Configuration][config v3 mdc] for more information.
   * `riak_repl` --- See [MDC v3 Configuration][config v3 mdc] for more information.
-  * `riak_jmx` --- See [JMX Monitoring][TODO LINK 1] for more information.
-  * `snmp` --- See [SNMP][TODO LINK 2] for more information.
+  * `riak_jmx` --- See [JMX Monitoring](../../../using/reference/jmx) for more information.
+  * `snmp` --- See [SNMP](../../../using/reference/snmp) for more information.
 8. Start Riak KV on the upgraded node.
 
 ## Basho Patches

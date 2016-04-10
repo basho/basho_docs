@@ -16,7 +16,7 @@ aliases:
 canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/smartos"
 ---
 
-**TODO: Fix Package Versions ({{VERSION}})**
+
 
 [install verify]: /riak/kv/2.1.1/setup/installing/verify
 

@@ -7,7 +7,7 @@ menu:
   riak_kv-2.0.1:
     name: "Architecture"
     identifier: "managing_ref_architecture"
-    weight: 112
+    weight: 116
     parent: "managing_ref"
 toc: true
 canonical_link: "docs.basho.com/riak/kv/latest/using/reference/architecture"

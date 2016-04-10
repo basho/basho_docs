@@ -3,12 +3,13 @@ title: "Secondary Indexes"
 description: ""
 project: "riak_kv"
 project_version: "2.1.1"
-menu:
-  riak_kv-2.1.1:
-    name: "Secondary Indexes"
-    identifier: "cluster_operations_2i"
-    weight: 109
-    parent: "managing_cluster_operations"
+#menu:
+#  riak_kv-2.1.1:
+#    name: "Secondary Indexes"
+#    identifier: "cluster_operations_2i"
+#    weight: 109
+#    parent: "managing_cluster_operations"
+draft: true
 toc: true
 canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/secondary-indexes"
 ---

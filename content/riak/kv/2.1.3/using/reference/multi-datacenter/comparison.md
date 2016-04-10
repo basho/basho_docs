@@ -1,13 +1,13 @@
 ---
-title: "Multi-Datacenter Replication Reference: Comparsion"
+title: "Multi-Datacenter Replication Reference: Comparison"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"
 menu:
   riak_kv-2.1.3:
-    name: "Monitoring"
+    name: "Comparison"
     identifier: "managing_ref_mdc_comparison"
-    weight: 102
+    weight: 103
     parent: "managing_ref_mdc"
 toc: true
 aliases:

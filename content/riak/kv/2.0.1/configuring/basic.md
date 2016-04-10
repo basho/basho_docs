@@ -34,7 +34,7 @@ canonical_link: "docs.basho.com/riak/kv/latest/configuring/basic"
 [perf open files]: /riak/kv/2.0.1/using/performance/open-files-limit
 [perf index]: /riak/kv/2.0.1/using/performance
 [perf aws]: /riak/kv/2.0.1/using/performance/amazon-web-services
-[TODO LINK 1]: /
+
 
 This document covers the parameters that are commonly adjusted when
 setting up a new cluster. We recommend that you also review the detailed

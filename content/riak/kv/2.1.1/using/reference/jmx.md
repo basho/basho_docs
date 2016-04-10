@@ -7,7 +7,7 @@ menu:
   riak_kv-2.1.1:
     name: "JMX Monitoring"
     identifier: "managing_ref_jmx"
-    weight: 114
+    weight: 108
     parent: "managing_ref"
 toc: true
 canonical_link: "docs.basho.com/riak/kv/latest/using/reference/jmx"

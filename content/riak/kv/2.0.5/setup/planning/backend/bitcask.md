@@ -23,12 +23,10 @@ canonical_link: "docs.basho.com/riak/kv/latest/setup/planning/backend/bitcask"
 [learn clusters]: /riak/kv/2.0.5/learn/concepts/clusters
 [plan backend multi]: /riak/kv/2.0.5/setup/planning/backend/multi
 [usage search]: /riak/kv/2.0.5/developing/usage/search
-[TODO LINK]: /
+
 [glossary aae]: /riak/kv/2.0.5/learn/glossary/#active-anti-entropy-aae
 [perf open files]: /riak/kv/2.0.5/using/performance/open-files-limit
-[TODO LINK FAQ 1]: /
-[TODO LINK FAQ 2]: /
-[TODO LINK FAQ 3]: /
+
 [plan bitcask capacity]: /riak/kv/2.0.5/setup/planning/bitcask-capacity-calc
 [usage delete objects]: /riak/kv/2.0.5/developing/usage/deleting-objects
 
@@ -754,7 +752,7 @@ bitcask.expiry.grace_time = 1h
 #### Automatic expiration and Riak Search
 
 If you are using [Riak Search][usage search] in conjunction with
-Bitcask, please be aware that automatic expiry does not apply to [Search Indexes][TODO LINK]. If objects are indexed using Search,
+Bitcask, please be aware that automatic expiry does not apply to [Search Indexes](../../../../developing/usage/search). If objects are indexed using Search,
 those objects can be expired by Bitcask yet still registered in Search
 indexes, which means that Search queries may return keys that no longer
 exist. Riak's [active anti-entropy (AAE)][glossary aae] subsystem will eventually

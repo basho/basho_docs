@@ -7,7 +7,7 @@ menu:
   riak_kv-2.1.3:
     name: "Search"
     identifier: "managing_ref_search"
-    weight: 107
+    weight: 109
     parent: "managing_ref"
 toc: true
 aliases:
