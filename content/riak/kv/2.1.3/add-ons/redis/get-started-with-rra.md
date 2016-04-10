@@ -137,6 +137,8 @@ For objects that should be cached, read from RRA: issuing GET, SET, and DEL comm
 
 Since RRA is installed as a service, the system service monitoring daemon will automatically restart a service with the correct configuration in the event that the service’s process was killed or terminated by other means.
 
+The log file for RRA is stored by default in /var/log/cache_proxy.log . RRA is logrotate friendly, responding to the signal to reopen the log file following a rotate.
+
 For additional monitoring, RRA provides statistics on service availability.  The statistics provided are generally useful in monitoring the health of the RRA service.
 
 For example, running the following command (using the loopback interface and the default statistics port as an example):
