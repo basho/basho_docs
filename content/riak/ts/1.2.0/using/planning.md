@@ -1,4 +1,4 @@
-s---
+---
 title: "Planning Your Riak TS Table"
 description: "Planning Your Riak TS Table"
 menu:
