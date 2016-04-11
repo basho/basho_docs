@@ -11,7 +11,8 @@ menu:
     parent: "installing_source"
 toc: true
 aliases:
-  - /riak/2.1.3/installing/source/jvm/
+  - /riak/2.0.4/installing/source/jvm/
+  - /riak/kv/2.0.4/installing/source/jvm/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/source/jvm"
 ---
 

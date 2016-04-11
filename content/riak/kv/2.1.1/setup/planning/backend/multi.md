@@ -11,7 +11,8 @@ menu:
     parent: "planning_choose_backend"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/advanced/backends/multi/
+  - /riak/2.1.1/ops/advanced/backends/multi/
+  - /riak/kv/2.1.1/ops/advanced/backends/multi/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/planning/backend/multi"
 ---
 

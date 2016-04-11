@@ -11,7 +11,8 @@ menu:
     parent: "apis_http"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/references/http/store-object
+  - /riak/2.0.1/dev/references/http/store-object
+  - /riak/kv/2.0.1/dev/references/http/store-object
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/http/store-object"
 ---
 

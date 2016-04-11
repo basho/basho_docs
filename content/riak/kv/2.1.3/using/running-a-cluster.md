@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/ops/building/basic-cluster-setup
+  - /riak/kv/2.1.3/ops/building/basic-cluster-setup
 canonical_link: "docs.basho.com/riak/kv/latest/using/running-a-cluster"
 ---
 

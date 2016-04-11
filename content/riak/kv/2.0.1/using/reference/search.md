@@ -11,7 +11,8 @@ menu:
     parent: "managing_ref"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/advanced/search
+  - /riak/2.0.1/dev/advanced/search
+  - /riak/kv/2.0.1/dev/advanced/search
 canonical_link: "docs.basho.com/riak/kv/latest/using/reference/search"
 ---
 

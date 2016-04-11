@@ -11,7 +11,8 @@ menu:
     parent: "developing_usage"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/search/search-data-types
+  - /riak/2.0.1/dev/search/search-data-types
+  - /riak/kv/2.0.1/dev/search/search-data-types
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/searching-data-types"
 ---
 

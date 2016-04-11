@@ -11,10 +11,14 @@ menu:
     parent: "managing_repair_recover"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/running/recovery/repairing-indexes
-  - /riak/2.1.3/ops/running/recovery/failed-node
-  - /riak/2.1.3/ops/running/recovery/repairing-leveldb
-  - /riak/2.1.3/ops/running/recovery/repairing-partitions
+  - /riak/2.0.4/ops/running/recovery/repairing-indexes
+  - /riak/kv/2.0.4/ops/running/recovery/repairing-indexes
+  - /riak/2.0.4/ops/running/recovery/failed-node
+  - /riak/kv/2.0.4/ops/running/recovery/failed-node
+  - /riak/2.0.4/ops/running/recovery/repairing-leveldb
+  - /riak/kv/2.0.4/ops/running/recovery/repairing-leveldb
+  - /riak/2.0.4/ops/running/recovery/repairing-partitions
+  - /riak/kv/2.0.4/ops/running/recovery/repairing-partitions
 canonical_link: "docs.basho.com/riak/kv/latest/using/repair-recovery/repairs"
 ---
 

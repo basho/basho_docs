@@ -11,7 +11,8 @@ menu:
     parent: "developing_usage"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/advanced/replication-properties
+  - /riak/2.0.1/dev/advanced/replication-properties
+  - /riak/kv/2.0.1/dev/advanced/replication-properties
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/replication"
 ---
 

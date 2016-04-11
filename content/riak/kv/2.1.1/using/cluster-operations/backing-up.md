@@ -11,7 +11,8 @@ menu:
     parent: "managing_cluster_operations"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/running/backups
+  - /riak/2.1.1/ops/running/backups
+  - /riak/kv/2.1.1/ops/running/backups
 canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/backing-up"
 ---
 

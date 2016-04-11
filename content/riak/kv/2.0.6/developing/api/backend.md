@@ -11,7 +11,8 @@ menu:
     parent: "developing_apis"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/references/backend-api
+  - /riak/2.0.6/dev/references/backend-api
+  - /riak/kv/2.0.6/dev/references/backend-api
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/backend"
 ---
 

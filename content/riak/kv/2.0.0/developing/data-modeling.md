@@ -11,7 +11,8 @@ menu:
     parent: "developing"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/using/data-modeling
+  - /riak/2.0.0/dev/using/data-modeling
+  - /riak/kv/2.0.0/dev/using/data-modeling
 canonical_link: "docs.basho.com/riak/kv/latest/developing/data-modeling"
 ---
 

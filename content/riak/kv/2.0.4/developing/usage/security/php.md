@@ -12,7 +12,8 @@ menu:
     parent: "usage_security"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/advanced/client-security/php
+  - /riak/2.0.4/dev/advanced/client-security/php
+  - /riak/kv/2.0.4/dev/advanced/client-security/php
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/security/php"
 ---
 

@@ -11,7 +11,8 @@ menu:
     parent: "apis_http"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/references/http/status
+  - /riak/2.0.5/dev/references/http/status
+  - /riak/kv/2.0.5/dev/references/http/status
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/http/status"
 ---
 

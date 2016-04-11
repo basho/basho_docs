@@ -11,7 +11,8 @@ menu:
     parent: "apis_pbc"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/references/protocol-buffers/list-buckets
+  - /riak/2.1.1/dev/references/protocol-buffers/list-buckets
+  - /riak/kv/2.1.1/dev/references/protocol-buffers/list-buckets
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/list-buckets"
 ---
 

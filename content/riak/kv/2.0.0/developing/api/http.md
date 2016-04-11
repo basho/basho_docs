@@ -11,7 +11,8 @@ menu:
     parent: "developing_apis"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/references/http
+  - /riak/2.0.0/dev/references/http
+  - /riak/kv/2.0.0/dev/references/http
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/http"
 ---
 

@@ -11,7 +11,8 @@ menu:
     parent: "developing"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/using/application-guide/
+  - /riak/2.0.1/dev/using/application-guide/
+  - /riak/kv/2.0.1/dev/using/application-guide/
 canonical_link: "docs.basho.com/riak/kv/latest/developing/app-guide"
 ---
 

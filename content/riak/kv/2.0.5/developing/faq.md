@@ -11,7 +11,8 @@ menu:
     parent: "developing"
 toc: true
 aliases:
-  - /riak/2.1.3/community/faqs/developing
+  - /riak/2.0.5/community/faqs/developing
+  - /riak/kv/2.0.5/community/faqs/developing
 canonical_link: "docs.basho.com/riak/kv/latest/developing/faq"
 ---
 

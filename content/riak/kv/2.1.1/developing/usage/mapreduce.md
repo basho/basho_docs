@@ -11,7 +11,8 @@ menu:
     parent: "developing_usage"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/using/mapreduce
+  - /riak/2.1.1/dev/using/mapreduce
+  - /riak/kv/2.1.1/dev/using/mapreduce
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/mapreduce"
 ---
 

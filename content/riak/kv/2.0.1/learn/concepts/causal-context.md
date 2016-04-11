@@ -11,7 +11,8 @@ menu:
     parent: "learn_concepts"
 toc: true
 aliases:
-  - /riak/2.1.3/theory/concepts/context
+  - /riak/2.0.1/theory/concepts/context
+  - /riak/kv/2.0.1/theory/concepts/context
 canonical_link: "docs.basho.com/riak/kv/latest/learn/concepts/causal-context"
 ---
 
