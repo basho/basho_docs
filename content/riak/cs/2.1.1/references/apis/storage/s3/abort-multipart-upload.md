@@ -6,6 +6,7 @@ project_version: "2.1.1"
 toc: true
 aliases:
   - /riakcs/2.1.1/references/apis/storage/s3/RiakCS-Abort-Multipart-Upload
+  - /riak/cs/2.1.1/references/apis/storage/s3/RiakCS-Abort-Multipart-Upload
 ---
 
 Aborts a multipart upload. After a multipart upload is aborted, the storage

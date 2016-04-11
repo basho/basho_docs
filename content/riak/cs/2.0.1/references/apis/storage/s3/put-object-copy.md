@@ -6,6 +6,7 @@ project_version: "2.0.1"
 toc: true
 aliases:
   - /riakcs/2.0.1/references/apis/storage/s3/RiakCS-PUT-Object-Copy/
+  - /riak/cs/2.0.1/references/apis/storage/s3/RiakCS-PUT-Object-Copy/
 ---
 
 The `PUT Object (Copy)` creates a copy of an object that is already stored in Riak CS. Adding the `x-amz-copy-source` HTTP header makes the PUT operation copy the source object into the destination bucket.

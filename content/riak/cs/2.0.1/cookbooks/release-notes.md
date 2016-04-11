@@ -11,6 +11,7 @@ project: "riak_cs"
 project_version: "2.0.1"
 aliases:
   - /riakcs/2.0.1/cookbooks/Riak-CS-Release-Notes/
+  - /riak/cs/2.0.1/cookbooks/Riak-CS-Release-Notes/
 ---
 
 ## Riak S2 (Riak CS) 2.1.0 Release Notes

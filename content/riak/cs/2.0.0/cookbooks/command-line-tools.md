@@ -11,6 +11,7 @@ project: "riak_cs"
 project_version: "2.0.0"
 aliases:
   - /riakcs/2.0.0/cookbooks/command-line-tools/
+  - /riak/cs/2.0.0/cookbooks/command-line-tools/
 ---
 
 Riak CS comes equipped with a variety of command-line interfaces that

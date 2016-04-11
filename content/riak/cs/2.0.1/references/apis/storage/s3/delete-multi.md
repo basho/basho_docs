@@ -6,6 +6,7 @@ project_version: "2.0.1"
 toc: true
 aliases:
   - /riakcs/2.0.1/references/apis/storage/s3/RiakCS-DELETE-Multi
+  - /riak/cs/2.0.1/references/apis/storage/s3/RiakCS-DELETE-Multi
 ---
 
 Multi-object `DELETE` enables you to delete multiple objects from a

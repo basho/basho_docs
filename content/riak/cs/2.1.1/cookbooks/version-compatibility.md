@@ -11,6 +11,7 @@ project: "riak_cs"
 project_version: "2.1.1"
 aliases:
   - /riakcs/2.1.1/cookbooks/Version-Compatibility/
+  - /riak/cs/2.1.1/cookbooks/Version-Compatibility/
 ---
 
 If you are deploying Riak CS in combination with an existing Riak

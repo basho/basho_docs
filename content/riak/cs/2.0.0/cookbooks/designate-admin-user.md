@@ -5,6 +5,7 @@ project: "riak_cs"
 project_version: "2.0.0"
 aliases:
   - /riakcs/2.0.0/cookbooks/Designating-an-Admin-User/
+  - /riak/cs/2.0.0/cookbooks/Designating-an-Admin-User/
 ---
 
 Once a user has been created, you should designate a user as an admin by
