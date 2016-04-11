@@ -146,11 +146,15 @@ def do_deploy()
     puts("  Uploading files...")
     progress = ProgressBar.new("   Uploads", upload_list.length)
     upload_list.each { |obj_path|
+      require 'pry'
+      binding.pry
       #TODO: Generate a log of the uploaded files?
-      if (aws_bucket.object(obj_path).upload_file(obj_path) != true)
-        #TODO: Probably want to send this out on STDERR.
-        puts("ERROR: Failed to upload #{obj_path}!")
-      end
+      #TODO: Error checking.
+      aws_bucket.put_object({
+          acl: "public-read",
+          key: obj_path,
+          object: File.open(obj_path)
+        })
       progress.inc
     }
     progress.finish
