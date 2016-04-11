@@ -26,4 +26,4 @@ This is a bugfix release providing patches for the [Riak init file](http://docs.
 
 ## Bugs Fixed
 
-* [[Issue #796](https://github.com/basho/riak/issues/796)/[PR #798](https://github.com/basho/riak/pull/798) riak-debug has been updated to be compatible with Solaris systems.
+* [[Issue #796](https://github.com/basho/riak/issues/796)/[PR #798](https://github.com/basho/riak/pull/798)] riak-debug has been updated to be compatible with Solaris systems.
