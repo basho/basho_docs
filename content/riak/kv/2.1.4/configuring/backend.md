@@ -2,9 +2,9 @@
 title: "Backend Configuration"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Backend Configuration"
     identifier: "configuring_backend"
     weight: 102
@@ -13,10 +13,10 @@ toc: true
 canonical_link: "docs.basho.com/riak/kv/latest/configuring/backend"
 ---
 
-[plan backend leveldb]: /riak/kv/2.1.3/setup/planning/backend/leveldb
-[plan backend bitcask]: /riak/kv/2.1.3/setup/planning/backend/bitcask
-[plan backend memory]: /riak/kv/2.1.3/setup/planning/backend/memory
-[plan backend multi]: /riak/kv/2.1.3/setup/planning/backend/multi
+[plan backend leveldb]: /riak/kv/2.1.4/setup/planning/backend/leveldb
+[plan backend bitcask]: /riak/kv/2.1.4/setup/planning/backend/bitcask
+[plan backend memory]: /riak/kv/2.1.4/setup/planning/backend/memory
+[plan backend multi]: /riak/kv/2.1.4/setup/planning/backend/multi
 
 ## LevelDB
 

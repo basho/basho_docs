@@ -2,27 +2,27 @@
 title: "Upgrading a Cluster"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Upgrading a Cluster"
     identifier: "upgrading_cluster"
     weight: 102
     parent: "upgrading"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/upgrading/rolling-upgrades/
+  - /riak/2.1.4/ops/upgrading/rolling-upgrades/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/upgrading/cluster"
 ---
 
-[use admin riak control]: /riak/kv/2.1.3/using/admin/riak-control
-[use admin commands]: /riak/kv/2.1.3/using/admin/commands
-[use admin riak-admin]: /riak/kv/2.1.3/using/admin/riak-admin
-[usage secondary-indexes]: /riak/kv/2.1.3/developing/usage/secondary-indexes
+[use admin riak control]: /riak/kv/2.1.4/using/admin/riak-control
+[use admin commands]: /riak/kv/2.1.4/using/admin/commands
+[use admin riak-admin]: /riak/kv/2.1.4/using/admin/riak-admin
+[usage secondary-indexes]: /riak/kv/2.1.4/developing/usage/secondary-indexes
 [release notes]: https://github.com/basho/riak/blob/master/RELEASE-NOTES.md
 [riak enterprise]: http://basho.com/products/riak-kv/
-[cluster ops mdc]: /riak/kv/2.1.3/using/cluster-operations/multi-datacenter
-[config v3 mdc]: /riak/kv/2.1.3/configuring/v3-multi-datacenter
+[cluster ops mdc]: /riak/kv/2.1.4/using/cluster-operations/multi-datacenter
+[config v3 mdc]: /riak/kv/2.1.4/configuring/v3-multi-datacenter
 
 
 

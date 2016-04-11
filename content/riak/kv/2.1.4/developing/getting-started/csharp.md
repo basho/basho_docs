@@ -2,9 +2,9 @@
 title: "Getting Started with C Sharp"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "C Sharp"
     identifier: "getting_started_csharp"
     weight: 103
@@ -13,7 +13,7 @@ toc: true
 canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/csharp"
 ---
 
-If you haven't set up a Riak Node and started it, please visit [Running A Cluster](/riak/kv/2.1.3/using/running-a-cluster) first.
+If you haven't set up a Riak Node and started it, please visit [Running A Cluster](/riak/kv/2.1.4/using/running-a-cluster) first.
 
 To try this flavor of Riak, a working installation of the .NET Framework or Mono is required. 
 
@@ -73,4 +73,4 @@ We are now ready to start interacting with Riak.
 
 ## Next Steps
 
-[CRUD Operations](/riak/kv/2.1.3/developing/getting-started/csharp/crud-operations)
+[CRUD Operations](/riak/kv/2.1.4/developing/getting-started/csharp/crud-operations)

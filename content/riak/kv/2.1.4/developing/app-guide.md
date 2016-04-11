@@ -3,60 +3,60 @@ title_supertext: "Developing with Riak KV"
 title: "Application Guide"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Application Guide"
     identifier: "developing_app_guide"
     weight: 105
     parent: "developing"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/using/application-guide/
+  - /riak/2.1.4/dev/using/application-guide/
 canonical_link: "docs.basho.com/riak/kv/latest/developing/app-guide"
 ---
 
-[usage conflict resolution]: /riak/kv/2.1.3/developing/usage/conflict-resolution
-[dev data model#log]: /riak/kv/2.1.3/developing/data-modeling/#log-data
-[dev data model#sensor]: /riak/kv/2.1.3/developing/data-modeling/#sensor-data
-[concept eventual consistency]: /riak/kv/2.1.3/learn/concepts/eventual-consistency
-[dev data model#user]: /riak/kv/2.1.3/developing/data-modeling/#user-data
-[dev kv model]: /riak/kv/2.1.3/developing/key-value-modeling
-[dev data types]: /riak/kv/2.1.3/developing/data-types
-[dev data types#counters]: /riak/kv/2.1.3/developing/data-types/#counters
-[dev data types#sets]: /riak/kv/2.1.3/developing/data-types/#sets
-[dev data types#maps]: /riak/kv/2.1.3/developing/data-types/#maps
-[usage create objects]: /riak/kv/2.1.3/developing/usage/create-objects
-[usage search]: /riak/kv/2.1.3/developing/usage/search
-[use ref search]: /riak/kv/2.1.3/using/reference/search
-[usage 2i]: /riak/kv/2.1.3/developing/usage/secondary-indexes
-[dev client libraries]: /riak/kv/2.1.3/developing/client-libraries
-[concept crdts]: /riak/kv/2.1.3/learn/concepts/crdts
-[dev data model]: /riak/kv/2.1.3/developing/data-modeling
-[usage mapreduce]: /riak/kv/2.1.3/developing/usage/mapreduce
-[apps mapreduce]: /riak/kv/2.1.3/developing/app-guide/advanced-mapreduce
-[use ref 2i]: /riak/kv/2.1.3/using/reference/secondary-indexes
-[plan backend leveldb]: /riak/kv/2.1.3/setup/planning/backend/leveldb
-[plan backend bitcask]: /riak/kv/2.1.3/setup/planning/backend/bitcask
-[plan backend memory]: /riak/kv/2.1.3/setup/planning/backend/memory
-[obj model java]: /riak/kv/2.1.3/developing/getting-started/java/object-modeling
-[obj model ruby]: /riak/kv/2.1.3/developing/getting-started/ruby/object-modeling
-[obj model python]: /riak/kv/2.1.3/developing/getting-started/python/object-modeling
-[obj model csharp]: /riak/kv/2.1.3/developing/getting-started/csharp/object-modeling
-[obj model nodejs]: /riak/kv/2.1.3/developing/getting-started/nodejs/object-modeling
-[obj model erlang]: /riak/kv/2.1.3/developing/getting-started/erlang/object-modeling
-[obj model golang]: /riak/kv/2.1.3/developing/getting-started/golang/object-modeling
-[concept strong consistency]: /riak/kv/2.1.3/learn/concepts/strong-consistency
-[use ref strong consistency]: /riak/2.1.3/using/reference/strong-consistency
-[cluster ops strong consistency]: /riak/kv/2.1.3/using/cluster-operations/strong-consistency
-[config strong consistency]: /riak/kv/2.1.3/configuring/strong-consistency
-[apps strong consistency]: /riak/kv/2.1.3/developing/app-guide/strong-consistency
-[usage update objects]: /riak/kv/2.1.3/developing/usage/updating-objects
-[apps replication properties]: /riak/kv/2.1.3/developing/app-guide/replication-properties
-[install index]: /riak/kv/2.1.3/setup/installing
-[getting started]: /riak/kv/2.1.3/developing/getting-started
-[usage index]: /riak/kv/2.1.3/developing/usage
-[glossary]: /riak/kv/2.1.3/learn/glossary
+[usage conflict resolution]: /riak/kv/2.1.4/developing/usage/conflict-resolution
+[dev data model#log]: /riak/kv/2.1.4/developing/data-modeling/#log-data
+[dev data model#sensor]: /riak/kv/2.1.4/developing/data-modeling/#sensor-data
+[concept eventual consistency]: /riak/kv/2.1.4/learn/concepts/eventual-consistency
+[dev data model#user]: /riak/kv/2.1.4/developing/data-modeling/#user-data
+[dev kv model]: /riak/kv/2.1.4/developing/key-value-modeling
+[dev data types]: /riak/kv/2.1.4/developing/data-types
+[dev data types#counters]: /riak/kv/2.1.4/developing/data-types/#counters
+[dev data types#sets]: /riak/kv/2.1.4/developing/data-types/#sets
+[dev data types#maps]: /riak/kv/2.1.4/developing/data-types/#maps
+[usage create objects]: /riak/kv/2.1.4/developing/usage/create-objects
+[usage search]: /riak/kv/2.1.4/developing/usage/search
+[use ref search]: /riak/kv/2.1.4/using/reference/search
+[usage 2i]: /riak/kv/2.1.4/developing/usage/secondary-indexes
+[dev client libraries]: /riak/kv/2.1.4/developing/client-libraries
+[concept crdts]: /riak/kv/2.1.4/learn/concepts/crdts
+[dev data model]: /riak/kv/2.1.4/developing/data-modeling
+[usage mapreduce]: /riak/kv/2.1.4/developing/usage/mapreduce
+[apps mapreduce]: /riak/kv/2.1.4/developing/app-guide/advanced-mapreduce
+[use ref 2i]: /riak/kv/2.1.4/using/reference/secondary-indexes
+[plan backend leveldb]: /riak/kv/2.1.4/setup/planning/backend/leveldb
+[plan backend bitcask]: /riak/kv/2.1.4/setup/planning/backend/bitcask
+[plan backend memory]: /riak/kv/2.1.4/setup/planning/backend/memory
+[obj model java]: /riak/kv/2.1.4/developing/getting-started/java/object-modeling
+[obj model ruby]: /riak/kv/2.1.4/developing/getting-started/ruby/object-modeling
+[obj model python]: /riak/kv/2.1.4/developing/getting-started/python/object-modeling
+[obj model csharp]: /riak/kv/2.1.4/developing/getting-started/csharp/object-modeling
+[obj model nodejs]: /riak/kv/2.1.4/developing/getting-started/nodejs/object-modeling
+[obj model erlang]: /riak/kv/2.1.4/developing/getting-started/erlang/object-modeling
+[obj model golang]: /riak/kv/2.1.4/developing/getting-started/golang/object-modeling
+[concept strong consistency]: /riak/kv/2.1.4/learn/concepts/strong-consistency
+[use ref strong consistency]: /riak/2.1.4/using/reference/strong-consistency
+[cluster ops strong consistency]: /riak/kv/2.1.4/using/cluster-operations/strong-consistency
+[config strong consistency]: /riak/kv/2.1.4/configuring/strong-consistency
+[apps strong consistency]: /riak/kv/2.1.4/developing/app-guide/strong-consistency
+[usage update objects]: /riak/kv/2.1.4/developing/usage/updating-objects
+[apps replication properties]: /riak/kv/2.1.4/developing/app-guide/replication-properties
+[install index]: /riak/kv/2.1.4/setup/installing
+[getting started]: /riak/kv/2.1.4/developing/getting-started
+[usage index]: /riak/kv/2.1.4/developing/usage
+[glossary]: /riak/kv/2.1.4/learn/glossary
 
 So you've decided to build an application using Riak as a data store. We
 think that this is a wise choice for a broad variety of use cases. But

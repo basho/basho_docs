@@ -2,16 +2,16 @@
 title: "PBC Auth Request"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Auth Request"
     identifier: "pbc_auth_request"
     weight: 125
     parent: "apis_pbc"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/references/protocol-buffers/auth-req
+  - /riak/2.1.4/dev/references/protocol-buffers/auth-req
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/auth-req"
 ---
 
@@ -27,4 +27,4 @@ message RpbAuthReq {
 }
 ```
 
-For more on authentication, see our documentation on [Authentication and Authorization](/riak/kv/2.1.3/using/security/basics).
+For more on authentication, see our documentation on [Authentication and Authorization](/riak/kv/2.1.4/using/security/basics).

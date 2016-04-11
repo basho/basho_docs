@@ -3,22 +3,22 @@ title_supertext: "Installing on"
 title: "RHEL and CentOS"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "RHEL & CentOS"
     identifier: "installing_rhel_centos"
     weight: 304
     parent: "installing"
 toc: true
 aliases:
-  - /riak/2.1.3/installing/rhel-centos/
+  - /riak/2.1.4/installing/rhel-centos/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/rhel-centos"
 ---
 
-[install source index]: /riak/kv/2.1.3/setup/installing/source
-[install source erlang]: /riak/kv/2.1.3/setup/installing/source/erlang
-[install verify]: /riak/kv/2.1.3/setup/installing/verify
+[install source index]: /riak/kv/2.1.4/setup/installing/source
+[install source erlang]: /riak/kv/2.1.4/setup/installing/source/erlang
+[install verify]: /riak/kv/2.1.4/setup/installing/verify
 
 Riak KV can be installed on CentOS- or Red-Hat-based systems using a binary
 package or by [compiling Riak from source code][install source index]. The following steps have been tested to work with Riak on
@@ -38,10 +38,10 @@ Chef, and Puppet can be found in packagecloud's [installation docs](https://pack
 
 Platform-specific pages are linked below:
 
-* [el5](https://packagecloud.io/basho/riak/packages/el/5/riak-2.1.3-1.x86_64.rpm)
-* [el6](https://packagecloud.io/basho/riak/packages/el/6/riak-2.1.3-1.el6.x86_64.rpm)
-* [el7](https://packagecloud.io/basho/riak/packages/el/7/riak-2.1.3-1.el7.centos.x86_64.rpm)
-* [Fedora 19](https://packagecloud.io/basho/riak/packages/fedora/19/riak-2.1.3-1.fc19.x86_64.rpm)
+* [el5](https://packagecloud.io/basho/riak/packages/el/5/riak-2.1.4-1.x86_64.rpm)
+* [el6](https://packagecloud.io/basho/riak/packages/el/6/riak-2.1.4-1.el6.x86_64.rpm)
+* [el7](https://packagecloud.io/basho/riak/packages/el/7/riak-2.1.4-1.el7.centos.x86_64.rpm)
+* [Fedora 19](https://packagecloud.io/basho/riak/packages/fedora/19/riak-2.1.4-1.fc19.x86_64.rpm)
 
 ## Installing with Yum and Packagecloud
 
@@ -55,13 +55,13 @@ curl -s https://packagecloud.io/install/repositories/basho/riak/script.rpm.sh | 
 #### For CentOS 5 / RHEL 5:
 
 ```bash
-sudo yum install riak-2.1.3-1.el5.x86_64
+sudo yum install riak-2.1.4-1.el5.x86_64
 ```
 
 #### For CentOS 6 / RHEL 6:
 
 ```bash
-sudo yum install riak-2.1.3-1.el6.x86_64
+sudo yum install riak-2.1.4-1.el6.x86_64
 ```
 
 ## Installing with Yum and Packages
@@ -74,8 +74,8 @@ instructions.
 Download the package and install:
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.3/rhel/5/riak-2.1.3-1.el5.x86_64.rpm
-sudo yum install riak-2.1.3-1.el5.x86_64
+wget http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.4/rhel/5/riak-2.1.4-1.el5.x86_64.rpm
+sudo yum install riak-2.1.4-1.el5.x86_64
 ```
 
 #### For Centos 6 / RHEL 6
@@ -83,8 +83,8 @@ sudo yum install riak-2.1.3-1.el5.x86_64
 Download the package and install:
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.3/rhel/6/riak-2.1.3-1.el6.x86_64.rpm
-sudo yum install riak-2.1.3-1.el6.x86_64
+wget http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.4/rhel/6/riak-2.1.4-1.el6.x86_64.rpm
+sudo yum install riak-2.1.4-1.el6.x86_64
 ```
 
 ## Installing with rpm
@@ -92,15 +92,15 @@ sudo yum install riak-2.1.3-1.el6.x86_64
 #### For Centos 5 / RHEL 5
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.3/rhel/5/riak-2.1.3-1.el5.x86_64.rpm
-sudo rpm -Uvh riak-2.1.3-1.el5.x86_64.rpm
+wget http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.4/rhel/5/riak-2.1.4-1.el5.x86_64.rpm
+sudo rpm -Uvh riak-2.1.4-1.el5.x86_64.rpm
 ```
 
 #### For Centos 6 / RHEL 6
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.3/rhel/6/riak-2.1.3-1.el6.x86_64.rpm
-sudo rpm -Uvh riak-2.1.3-1.el6.x86_64.rpm
+wget http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.4/rhel/6/riak-2.1.4-1.el6.x86_64.rpm
+sudo rpm -Uvh riak-2.1.4-1.el6.x86_64.rpm
 ```
 
 ## Installing From Source
@@ -125,9 +125,9 @@ sudo yum install gcc gcc-c++ glibc-devel make git pam-devel
 Now we can download and install Riak:
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.3/riak-2.1.3.tar.gz
-tar zxvf riak-2.1.3.tar.gz
-cd riak-2.1.3
+wget http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.4/riak-2.1.4.tar.gz
+tar zxvf riak-2.1.4.tar.gz
+cd riak-2.1.4
 make rel
 ```
 

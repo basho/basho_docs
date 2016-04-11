@@ -2,27 +2,27 @@
 title: "Object Deletion Reference"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Object Deletion"
     identifier: "managing_ref_object_deletion"
     weight: 103
     parent: "managing_ref"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/advanced/deletion
+  - /riak/2.1.4/ops/advanced/deletion
 canonical_link: "docs.basho.com/riak/kv/latest/using/reference/object-deletion"
 ---
 
-[concept clusters]: /riak/kv/2.1.3/learn/concepts/clusters
-[glossary vnode]: /riak/kv/2.1.3/learn/glossary/#vnode
-[usage delete objects]: /riak/kv/2.1.3/developing/usage/deleting-objects
+[concept clusters]: /riak/kv/2.1.4/learn/concepts/clusters
+[glossary vnode]: /riak/kv/2.1.4/learn/glossary/#vnode
+[usage delete objects]: /riak/kv/2.1.4/developing/usage/deleting-objects
 
 In single-server, non-clustered data storage systems, object deletion
-is a trivial process. In an [eventually consistent](/riak/kv/2.1.3/learn/concepts/eventual-consistency), [clustered][concept clusters] system like Riak, however,
+is a trivial process. In an [eventually consistent](/riak/kv/2.1.4/learn/concepts/eventual-consistency), [clustered][concept clusters] system like Riak, however,
 object deletion is far less trivial because objects live on multiple
-[nodes](/riak/kv/2.1.3/learn/glossary/#nodes), which means that a deletion process must be chosen to determine when an object can be removed from the storage backend.
+[nodes](/riak/kv/2.1.4/learn/glossary/#nodes), which means that a deletion process must be chosen to determine when an object can be removed from the storage backend.
 
 ## Object Deletion Example Scenario
 
@@ -39,7 +39,7 @@ concretely using the following example:
 * The object has been marked as deleted on nodes A and B, but it still
   lives on node C
 * A client attempts to read the object, Riak senses that there are
-  divergent replicas and initiates a repair process (either [read repair](/riak/kv/2.1.3/learn/concepts/active-anti-entropy/#read-repair) or [active anti-entropy](/riak/kv/2.1.3/learn/concepts/active-anti-entropy/),
+  divergent replicas and initiates a repair process (either [read repair](/riak/kv/2.1.4/learn/concepts/active-anti-entropy/#read-repair) or [active anti-entropy](/riak/kv/2.1.4/learn/concepts/active-anti-entropy/),
   depending on configuration)
 
 At this point, Riak needs to make a decision about what to do. Should
@@ -63,7 +63,7 @@ When a delete request is sent to Riak, the following process is set in
 motion:
 
 1. A tombstone object (`<<>>`) is written to N [vnodes][glossary vnode], with N
-   defined by [`n_val`](/riak/kv/2.1.3/developing/app-guide/replication-properties#n-value-and-replication)
+   defined by [`n_val`](/riak/kv/2.1.4/developing/app-guide/replication-properties#n-value-and-replication)
 2. If all N vnodes store the tombstone, the object is removed
 3. If fallback vnodes are in use, the object will not be immediately
    removed

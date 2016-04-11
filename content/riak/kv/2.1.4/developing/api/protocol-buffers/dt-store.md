@@ -2,20 +2,20 @@
 title: "PBC Data Type Store"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Data Type Store"
     identifier: "pbc_dt_store"
     weight: 116
     parent: "apis_pbc"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/references/protocol-buffers/dt-store
+  - /riak/2.1.4/dev/references/protocol-buffers/dt-store
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/dt-store"
 ---
 
-A request to update the value of a [Riak Data Type](/riak/kv/2.1.3/developing/data-types).
+A request to update the value of a [Riak Data Type](/riak/kv/2.1.4/developing/data-types).
 
 ## Request
 
@@ -25,7 +25,7 @@ Data Type's opaque context should be returned in the resulting
 `DtUpdateResp`.
 
 The `DtOp` value specifies which Data Type-specific operation is being
-performed. More on that in the [PBC Data Type Union](/riak/kv/2.1.3/developing/api/protocol-buffers/dt-union) document.
+performed. More on that in the [PBC Data Type Union](/riak/kv/2.1.4/developing/api/protocol-buffers/dt-union) document.
 
 ```protobuf
 message DtUpdateReq {
@@ -50,11 +50,11 @@ message DtUpdateReq {
 Parameter | Description
 :---------|:-----------
 `bucket` | The name of the bucket in which the Data Type is stored
-`type` | The bucket type of the bucket in which the Data Type is stored, _not_ the type of Data Type (i.e. counter, set, or map). Learn more about [using bucket types](/riak/kv/2.1.3/using/cluster-operations/bucket-types).
+`type` | The bucket type of the bucket in which the Data Type is stored, _not_ the type of Data Type (i.e. counter, set, or map). Learn more about [using bucket types](/riak/kv/2.1.4/using/cluster-operations/bucket-types).
 
 Also required is a `DtOp` message that specifies which operation is to
 be performed, depending on whether the Data Type being updated is a
-[counter](/riak/kv/2.1.3/developing/api/protocol-buffers/dt-counter-store), [set](/riak/kv/2.1.3/developing/api/protocol-buffers/dt-set-store), or [map](/riak/kv/2.1.3/developing/api/protocol-buffers/dt-map-store).
+[counter](/riak/kv/2.1.4/developing/api/protocol-buffers/dt-counter-store), [set](/riak/kv/2.1.4/developing/api/protocol-buffers/dt-set-store), or [map](/riak/kv/2.1.4/developing/api/protocol-buffers/dt-map-store).
 
 ```protobuf
 message DtOp {
@@ -85,7 +85,7 @@ is less than or equal to N, <em>or</em> a special value denoting
 Parameter | Description
 :---------|:-----------
 `key` | The key where the Data Type is stored. If not specified, Riak will assign a random key and return that key to the client is `return_body` is set to `true`.
-`context` | The opaque binary "context" that informs Riak which version of a data type the client has seen, analogous to [vector clocks](/riak/kv/2.1.3/learn/glossary/#vector-clock)
+`context` | The opaque binary "context" that informs Riak which version of a data type the client has seen, analogous to [vector clocks](/riak/kv/2.1.4/learn/glossary/#vector-clock)
 `w` | Write quorum, i.e. how many replicas to write to before returning a successful response
 `dw` | Durable write quorum, i.e. how many replicas to commit to durable storage before returning a successful response
 `pw` | Primary write quorum, i.e. how many primary nodes must be up when the write is attempted
@@ -99,7 +99,7 @@ Defaults to `false`.
 ## Response
 
 The response to a Data Type update request is analogous to
-[`RpbPutResp`](/riak/kv/2.1.3/developing/api/protocol-buffers/store-object) for KV operations. If the
+[`RpbPutResp`](/riak/kv/2.1.4/developing/api/protocol-buffers/store-object) for KV operations. If the
 `return_body` is set in the update request message (as explained above),
 the message will include the opaque context of the Data Type (`context`)
 and the new value of the Data Type _after_ the update has completed

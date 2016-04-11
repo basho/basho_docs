@@ -2,24 +2,24 @@
 title: "Choosing a Backend"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Choosing a Backend"
     identifier: "planning_choose_backend"
     weight: 102
     parent: "planning"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/building/planning/backends/
+  - /riak/2.1.4/ops/building/planning/backends/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/planning/backend"
 ---
 
-[plan backend bitcask]: /riak/kv/2.1.3/setup/planning/backend/bitcask
-[plan backend leveldb]: /riak/kv/2.1.3/setup/planning/backend/leveldb
-[plan backend memory]: /riak/kv/2.1.3/setup/planning/backend/memory
-[plan backend multi]: /riak/kv/2.1.3/setup/planning/backend/multi
-[dev api backend]: /riak/kv/2.1.3/developing/api/backend
+[plan backend bitcask]: /riak/kv/2.1.4/setup/planning/backend/bitcask
+[plan backend leveldb]: /riak/kv/2.1.4/setup/planning/backend/leveldb
+[plan backend memory]: /riak/kv/2.1.4/setup/planning/backend/memory
+[plan backend multi]: /riak/kv/2.1.4/setup/planning/backend/multi
+[dev api backend]: /riak/kv/2.1.4/developing/api/backend
 
 Pluggable storage backends are a key feature of Riak KV. They enable you to
 choose a low-level storage engine that suits specific operational needs.

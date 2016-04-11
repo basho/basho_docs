@@ -2,37 +2,37 @@
 title: "Production Checklist"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Production Checklist"
     identifier: "upgrading_checklist"
     weight: 100
     parent: "upgrading"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/upgrading/production-checklist/
+  - /riak/2.1.4/ops/upgrading/production-checklist/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/upgrading/checklist"
 ---
 
-[perf open files]: /riak/kv/2.1.3/using/performance/open-files-limit
-[perf index]: /riak/kv/2.1.3/using/performance
+[perf open files]: /riak/kv/2.1.4/using/performance/open-files-limit
+[perf index]: /riak/kv/2.1.4/using/performance
 [ntp]: http://www.ntp.org/
-[security basics]: /riak/kv/2.1.3/using/security/basics
-[cluster ops load balance]: /riak/kv/2.1.3/using/cluster-operations/load-balancing
-[config reference]: /riak/kv/2.1.3/configuring/reference
-[config backend]: /riak/kv/2.1.3/configuring/backend
-[usage search]: /riak/kv/2.1.3/developing/usage/search
-[usage conflict resolution]: /riak/kv/2.1.3/developing/usage/conflict-resolution
-[concept eventual consistency]: /riak/kv/2.1.3/learn/concepts/eventual-consistency
-[apps replication properties]: /riak/kv/2.1.3/developing/app-guide/replication-properties
-[concept strong consistency]: /riak/kv/2.1.3/learn/concepts/strong-consistency
-[cluster ops bucket types]: /riak/kv/2.1.3/using/cluster-operations/bucket-types
-[use admin commands]: /riak/kv/2.1.3/using/admin/commands
-[use admin riak control]: /riak/kv/2.1.3/using/admin/riak-control
-[cluster ops inspect node]: /riak/kv/2.1.3/using/cluster-operations/inspecting-node
-[troubleshoot http]: /riak/kv/2.1.3/using/troubleshooting/http-204
-[use admin riak-admin]: /riak/kv/2.1.3/using/admin/riak-admin
+[security basics]: /riak/kv/2.1.4/using/security/basics
+[cluster ops load balance]: /riak/kv/2.1.4/using/cluster-operations/load-balancing
+[config reference]: /riak/kv/2.1.4/configuring/reference
+[config backend]: /riak/kv/2.1.4/configuring/backend
+[usage search]: /riak/kv/2.1.4/developing/usage/search
+[usage conflict resolution]: /riak/kv/2.1.4/developing/usage/conflict-resolution
+[concept eventual consistency]: /riak/kv/2.1.4/learn/concepts/eventual-consistency
+[apps replication properties]: /riak/kv/2.1.4/developing/app-guide/replication-properties
+[concept strong consistency]: /riak/kv/2.1.4/learn/concepts/strong-consistency
+[cluster ops bucket types]: /riak/kv/2.1.4/using/cluster-operations/bucket-types
+[use admin commands]: /riak/kv/2.1.4/using/admin/commands
+[use admin riak control]: /riak/kv/2.1.4/using/admin/riak-control
+[cluster ops inspect node]: /riak/kv/2.1.4/using/cluster-operations/inspecting-node
+[troubleshoot http]: /riak/kv/2.1.4/using/troubleshooting/http-204
+[use admin riak-admin]: /riak/kv/2.1.4/using/admin/riak-admin
 [SANs]: http://en.wikipedia.org/wiki/Storage_area_network
 
 Deploying Riak KV to a realtime production environment from a development or testing environment can be a complex process. While the specifics of that process will always depend on your environment and practices, there are some basics for you to consider and a few questions that you will want to ask while making this transition.

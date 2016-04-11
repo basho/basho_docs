@@ -2,22 +2,22 @@
 title: "V3 Multi-Datacenter Replication Reference: With Active Anti-Entropy"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Active Anti-Entropy"
     identifier: "managing_ref_v3_aae"
     weight: 101
     parent: "managing_ref_v3"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/mdc/v3/aae
+  - /riak/2.1.4/ops/mdc/v3/aae
 canonical_link: "docs.basho.com/riak/kv/latest/using/reference/v3-multi-datacenter/aae"
 ---
 
-[glossary aae]: /riak/kv/2.1.3/learn/glossary/#active-anti-entropy-aae
-[config reference#advanced]: /riak/kv/2.1.3/configuring/reference/#advanced-configuration
-[concept clusters]: /riak/kv/2.1.3/learn/concepts/clusters
+[glossary aae]: /riak/kv/2.1.4/learn/glossary/#active-anti-entropy-aae
+[config reference#advanced]: /riak/kv/2.1.4/configuring/reference/#advanced-configuration
+[concept clusters]: /riak/kv/2.1.4/learn/concepts/clusters
 
 > **Note: Technical preview**
 >

@@ -2,30 +2,30 @@
 title: "Clusters"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Clusters"
     identifier: "learn_concepts_clusters"
     weight: 103
     parent: "learn_concepts"
 toc: true
 aliases:
-  - /riak/2.1.3/theory/concepts/Clusters
-  - /riak/2.1.3/theory/concepts/clusters
+  - /riak/2.1.4/theory/concepts/Clusters
+  - /riak/2.1.4/theory/concepts/clusters
 canonical_link: "docs.basho.com/riak/kv/latest/learn/concepts/clusters"
 ---
 
 
-[concept buckets]: /riak/kv/2.1.3/concepts/buckets
-[concept keys objects]: /riak/kv/2.1.3/concepts/keys-and-objects
-[concept replication]: /riak/kv/2.1.3/concepts/replication
-[glossary node]: /riak/kv/2.1.3/learn/glossary/#node
-[glossary vnode]: /riak/kv/2.1.3/learn/glossary/#vnode
-[learn dynamo]: /riak/kv/2.1.3/learn/dynamo
-[usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types
-[usage conflict resolution]: /riak/kv/2.1.3/developing/usage/conflict-resolution
-[usage replication]: /riak/kv/2.1.3/developing/usage/replication
+[concept buckets]: /riak/kv/2.1.4/concepts/buckets
+[concept keys objects]: /riak/kv/2.1.4/concepts/keys-and-objects
+[concept replication]: /riak/kv/2.1.4/concepts/replication
+[glossary node]: /riak/kv/2.1.4/learn/glossary/#node
+[glossary vnode]: /riak/kv/2.1.4/learn/glossary/#vnode
+[learn dynamo]: /riak/kv/2.1.4/learn/dynamo
+[usage bucket types]: /riak/kv/2.1.4/developing/usage/bucket-types
+[usage conflict resolution]: /riak/kv/2.1.4/developing/usage/conflict-resolution
+[usage replication]: /riak/kv/2.1.4/developing/usage/replication
 
 
 Riak's default mode of operation is to work as a cluster consisting of

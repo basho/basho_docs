@@ -2,9 +2,9 @@
 title: "Downgrading"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Downgrading"
     identifier: "downgrading"
     weight: 103
@@ -15,7 +15,7 @@ canonical_link: "docs.basho.com/riak/kv/latest/setup/downgrade"
 
 Downgrades of Riak are tested and supported for two feature release
 versions, with the general procedure being similar to that of a
-[rolling upgrade](/riak/kv/2.1.3/setup/upgrading/cluster).
+[rolling upgrade](/riak/kv/2.1.4/setup/upgrading/cluster).
 
 You should perform the following actions on each node:
 
@@ -43,9 +43,9 @@ downgrade steps for both 1.4 and 1.3 are performed.  </div>
 
 * Riak Control should be disabled throughout the rolling downgrade
   process
-* [Configuration Files](/riak/kv/2.1.3/configuring/reference) must be replaced with those of the version
+* [Configuration Files](/riak/kv/2.1.4/configuring/reference) must be replaced with those of the version
   being downgraded to
-* [Active anti-entropy](/riak/kv/2.1.3/learn/concepts/active-anti-entropy/) should be disabled if downgrading to a version
+* [Active anti-entropy](/riak/kv/2.1.4/learn/concepts/active-anti-entropy/) should be disabled if downgrading to a version
   below 1.3.
 
 ## Before Stopping a Node
@@ -88,7 +88,7 @@ will need to be downgraded before the rolling downgrade begins.
 This can be done using the --downgrade flag with `riak-admin
 reformat-indexes` More information on the `riak-admin reformat-indexes`
 command, and downgrading indexes can be found in the
-[`riak-admin`](/riak/kv/2.1.3/using/admin/riak-admin/#reformat-indexes) documentation.
+[`riak-admin`](/riak/kv/2.1.4/using/admin/riak-admin/#reformat-indexes) documentation.
 
 ## Before Starting a Node
 

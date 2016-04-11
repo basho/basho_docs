@@ -2,20 +2,20 @@
 title: "Write Once"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Write Once"
     identifier: "app_guide_write_once"
     weight: 102
     parent: "developing_app_guide"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/advanced/write-once
+  - /riak/2.1.4/dev/advanced/write-once
 canonical_link: "docs.basho.com/riak/kv/latest/developing/app-guide/write-once"
 ---
 
-[glossary vnode]: /riak/kv/2.1.3/learn/glossary/#vnode
+[glossary vnode]: /riak/kv/2.1.4/learn/glossary/#vnode
 
 Riak 2.1.0 introduces the concept of write-once buckets, buckets whose entries
 are intended to be written exactly once and never updated or overwritten.
@@ -26,7 +26,7 @@ the cost of different semantics in the degenerate case of sibling resolution.
 
 ## Configuration
 
-When the new `write_once` [bucket type](/riak/kv/2.1.3/developing/usage/bucket-types) parameter is set to
+When the new `write_once` [bucket type](/riak/kv/2.1.4/developing/usage/bucket-types) parameter is set to
 `true`, buckets of type will treat all key/value entries as semantically "write
 once;" once written, entries should not be modified or overwritten by the user.
 
@@ -34,7 +34,7 @@ The `write_once` property is a boolean property applied to a bucket type and may
 only be set at bucket creation time. Once a bucket type has been set with this
 property and activated, the `write_once` property may not be modified.
 
-The `write_once` property is incompatible with [Riak data types](/riak/kv/2.1.3/developing/data-types/) and [strong consistency](/riak/kv/2.1.3/developing/app-guide/strong-consistency/),
+The `write_once` property is incompatible with [Riak data types](/riak/kv/2.1.4/developing/data-types/) and [strong consistency](/riak/kv/2.1.4/developing/app-guide/strong-consistency/),
 This means that if you attempt to create a bucket type with the `write_once`
 property set to `true`, any attempt to set the `datatype` parameter or to set
 the `consistent` parameter to `true` will fail.
@@ -125,6 +125,6 @@ backends.
 
 <div class="note">
 <div class="title">Note on the `multi` backend</div>
-The [Multi](/riak/kv/2.1.3/setup/planning/backend/multi) backend does not support asynchronous writes. Therefore, if
+The [Multi](/riak/kv/2.1.4/setup/planning/backend/multi) backend does not support asynchronous writes. Therefore, if
 LevelDB is used with the Multi backend, it will be used in synchronous mode.
 </div>

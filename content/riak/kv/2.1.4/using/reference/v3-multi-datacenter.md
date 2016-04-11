@@ -2,9 +2,9 @@
 title: "V3 Multi-Datacenter Replication Reference"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "V3 Replication"
     identifier: "managing_ref_v3"
     weight: 114

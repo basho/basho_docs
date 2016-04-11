@@ -2,16 +2,16 @@
 title: "Failure & Recovery"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Failure & Recovery"
     identifier: "repair_recover_failure"
     weight: 100
     parent: "managing_repair_recover"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/running/recovery/failure-recovery
+  - /riak/2.1.4/ops/running/recovery/failure-recovery
 canonical_link: "docs.basho.com/riak/kv/latest/using/repair-recovery/failure-recovery"
 ---
 
@@ -38,7 +38,7 @@ does not necessarily cause data loss, as other replicas of every key are
 available elsewhere in the cluster. Once the node is detected as down,
 other nodes in the cluster will take over its responsibilities
 temporarily and transmit the updated data to it when it eventually
-returns to service (also called [hinted handoff](/riak/kv/2.1.3/learn/glossary/#hinted-handoff)).
+returns to service (also called [hinted handoff](/riak/kv/2.1.4/learn/glossary/#hinted-handoff)).
 
 More severe data loss scenarios usually relate to hardware failure.
 If data is lost, several options are available for restoring it.
@@ -92,7 +92,7 @@ too much data and growing the cluster may be necessary. Additional RAM
 may also improve latency because more of the active dataset will be
 cached by the operating system.
 
-Sometimes extreme latency spikes can be caused by [sibling explosion](/riak/kv/2.1.3/developing/usage/conflict-resolution#siblings). This condition occurs when the client application does not resolve conflicts properly or in a timely fashion. In that scenario, the size of the value on disk grows in proportion to
+Sometimes extreme latency spikes can be caused by [sibling explosion](/riak/kv/2.1.4/developing/usage/conflict-resolution#siblings). This condition occurs when the client application does not resolve conflicts properly or in a timely fashion. In that scenario, the size of the value on disk grows in proportion to
 the number of siblings, causing longer disk service times and slower
 network responses.
 
@@ -119,7 +119,7 @@ involves:
 
 > **Note**
 >
-> If you are restoring in an environment where the new nodes will have new network addresses (such as with AWS for example) or you will otherwise need to give the nodes new names, you will need to rename the nodes in the cluster.  After performing steps 1-8, use the instructions in the [Renaming Nodes](/riak/kv/2.1.3/using/cluster-operations/changing-cluster-info) document to finish restoring this cluster.
+> If you are restoring in an environment where the new nodes will have new network addresses (such as with AWS for example) or you will otherwise need to give the nodes new names, you will need to rename the nodes in the cluster.  After performing steps 1-8, use the instructions in the [Renaming Nodes](/riak/kv/2.1.4/using/cluster-operations/changing-cluster-info) document to finish restoring this cluster.
 
 1. Establish replacement cluster configured with the same number of nodes.
 2. Restore the Riak configuration on each of the nodes.
@@ -133,7 +133,7 @@ involves:
 7. After renaming the nodes with `riak-admin replace` if necessary, you should
    check the `vm.args` configuration file to ensure that each node has the
    updated name.
-8. Make sure the [firewall settings](/riak/kv/2.1.3/using/security/) for the new
+8. Make sure the [firewall settings](/riak/kv/2.1.4/using/security/) for the new
    nodes allow the same traffic that was permitted between the old nodes.
    The first node will not be able to start up if attempts to contact the
    other down nodes hang instead of being refused.

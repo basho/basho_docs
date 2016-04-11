@@ -2,9 +2,9 @@
 title: "Creating Objects in Riak KV"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Creating Objects"
     identifier: "usage_creating_objects"
     weight: 100
@@ -13,7 +13,7 @@ toc: true
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/creating-objects"
 ---
 
-[usage content types]: /riak/kv/2.1.3/developing/usage/content-types
+[usage content types]: /riak/kv/2.1.4/developing/usage/content-types
 
 Writes in Riak KV (storing or modifying objects) are like HTTP `PUT`
 requests. Here is the basic form of writes:
@@ -28,7 +28,7 @@ In the example above, our read was unsuccessful because our Riak cluster
 is currently empty. Let's change that by storing an object containing
 information about a dog named Rufus. We'll store that object in the
 location described above, i.e. in the key `rufus` in the bucket `dogs`,
-which bears the `animals` [bucket type](/riak/kv/2.1.3/developing/usage/bucket-types).
+which bears the `animals` [bucket type](/riak/kv/2.1.4/developing/usage/bucket-types).
 
 The object we're storing will be very simple, just a basic text snippet
 of something that Rufus might say. Let's build the object and then store
@@ -123,7 +123,7 @@ rsp := svc.Response
 Notice that we specified both a value for the object, i.e. `WOOF!`, and
 a content type, `text/plain`. See [content types][usage content types] for more information.
 
-Now, run the same read operation in [Reading Objects](/riak/kv/2.1.3/developing/usage/reading-objects). If the write operation was successful, you should be able to successfully read the object. Your Riak cluster is no
+Now, run the same read operation in [Reading Objects](/riak/kv/2.1.4/developing/usage/reading-objects). If the write operation was successful, you should be able to successfully read the object. Your Riak cluster is no
 longer empty!
 
 ### Store an Object
@@ -144,7 +144,7 @@ PUT /types/TYPE/buckets/BUCKET/keys/KEY
 There is no need to intentionally create buckets in Riak. They pop into
 existence when keys are added to them, and disappear when all keys have
 been removed from them. If you don't specify a bucket's type, the type
-`[default](/riak/kv/2.1.3/developing/usage/bucket-types)` will be applied.
+`[default](/riak/kv/2.1.4/developing/usage/bucket-types)` will be applied.
 
 #### Write Parameters
 

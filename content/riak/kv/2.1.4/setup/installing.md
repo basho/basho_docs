@@ -2,9 +2,9 @@
 title: "Installing Riak KV"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Installing"
     identifier: "installing"
     weight: 101
@@ -12,22 +12,22 @@ menu:
     pre: icon-cog
 toc: true
 aliases:
-  - /riak/2.1.3/installing/
+  - /riak/2.1.4/installing/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/installing"
 ---
 
-[install aws]: /riak/kv/2.1.3/setup/installing/amazon-web-services
-[install debian & ubuntu]: /riak/kv/2.1.3/setup/installing/debian-ubuntu
-[install freebsd]: /riak/kv/2.1.3/setup/installing/freebsd
-[install mac osx]: /riak/kv/2.1.3/setup/installing/mac-osx
-[install rhel & centos]: /riak/kv/2.1.3/setup/installing/rhel-centos
-[install smartos]: /riak/kv/2.1.3/setup/installing/smartos
-[install solaris]: /riak/kv/2.1.3/setup/installing/solaris
-[install suse]: /riak/kv/2.1.3/setup/installing/suse
-[install windows azure]: /riak/kv/2.1.3/setup/installing/windows-azure
-[install source index]: /riak/kv/2.1.3/setup/installing/source
+[install aws]: /riak/kv/2.1.4/setup/installing/amazon-web-services
+[install debian & ubuntu]: /riak/kv/2.1.4/setup/installing/debian-ubuntu
+[install freebsd]: /riak/kv/2.1.4/setup/installing/freebsd
+[install mac osx]: /riak/kv/2.1.4/setup/installing/mac-osx
+[install rhel & centos]: /riak/kv/2.1.4/setup/installing/rhel-centos
+[install smartos]: /riak/kv/2.1.4/setup/installing/smartos
+[install solaris]: /riak/kv/2.1.4/setup/installing/solaris
+[install suse]: /riak/kv/2.1.4/setup/installing/suse
+[install windows azure]: /riak/kv/2.1.4/setup/installing/windows-azure
+[install source index]: /riak/kv/2.1.4/setup/installing/source
 [community projects]: /community/projects
-[upgrade index]: /riak/kv/2.1.3/setup/upgrading
+[upgrade index]: /riak/kv/2.1.4/setup/upgrading
 
 ## Supported Platforms
 

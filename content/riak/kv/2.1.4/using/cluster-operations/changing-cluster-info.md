@@ -2,9 +2,9 @@
 title: "Changing Cluster Information"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Changing Cluster Info"
     identifier: "cluster_operations_change_info"
     weight: 101
@@ -13,7 +13,7 @@ toc: true
 canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/changing-cluster-info"
 ---
 
-[config reference]: /riak/kv/2.1.3/configuring/reference
+[config reference]: /riak/kv/2.1.4/configuring/reference
 
 ## Change the Node Name
 
@@ -115,7 +115,7 @@ To rename a single-node development cluster:
 
 For multi-node clusters, a rename is a slightly more complex procedure; however, it is very similar to the process for renaming a single node.
 
-Previous to Riak version 1.2, a cluster node's name could only be changed with the [`riak-admin reip`](/riak/kv/2.1.3/using/admin/riak-admin/#reip) command, which involves downtime for the entire cluster. As of Riak version 1.2, that method has been superseded by [`riak-admin cluster force-replace`](/riak/kv/2.1.3/using/admin/riak-admin/#cluster-force-replace), which is safer and does not require cluster wide downtime.
+Previous to Riak version 1.2, a cluster node's name could only be changed with the [`riak-admin reip`](/riak/kv/2.1.4/using/admin/riak-admin/#reip) command, which involves downtime for the entire cluster. As of Riak version 1.2, that method has been superseded by [`riak-admin cluster force-replace`](/riak/kv/2.1.4/using/admin/riak-admin/#cluster-force-replace), which is safer and does not require cluster wide downtime.
 
 There still exist scenarios that require nodes to be renamed while stopped, such as seeding a cluster with backups from another cluster that does not share the same node names. Please see the [Clusters from Backups](#clusters-from-backups) section for more details on renaming in this scenario.
 

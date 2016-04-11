@@ -3,26 +3,26 @@ title_supertext: "Installing"
 title: "Riak KV From Source"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Installing From Source"
     identifier: "installing_source"
     weight: 310
     parent: "installing"
 toc: true
 aliases:
-  - /riak/2.1.3/installing/source/
+  - /riak/2.1.4/installing/source/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/source"
 ---
 
-[install source erlang]: /riak/kv/2.1.3/setup/installing/source/erlang
-[downloads]: /riak/kv/2.1.3/downloads/
-[install debian & ubuntu#source]: /riak/kv/2.1.3/setup/installing/debian-ubuntu/#installing-from-source
-[install freebsd#source]: /riak/kv/2.1.3/setup/installing/freebsd/#installing-from-source
-[install mac osx#source]: /riak/kv/2.1.3/setup/installing/mac-osx/#installing-from-source
-[install rhel & centos#source]: /riak/kv/2.1.3/setup/installing/rhel-centos/#installing-from-source
-[install verify]: /riak/kv/2.1.3/setup/installing/verify
+[install source erlang]: /riak/kv/2.1.4/setup/installing/source/erlang
+[downloads]: /riak/kv/2.1.4/downloads/
+[install debian & ubuntu#source]: /riak/kv/2.1.4/setup/installing/debian-ubuntu/#installing-from-source
+[install freebsd#source]: /riak/kv/2.1.4/setup/installing/freebsd/#installing-from-source
+[install mac osx#source]: /riak/kv/2.1.4/setup/installing/mac-osx/#installing-from-source
+[install rhel & centos#source]: /riak/kv/2.1.4/setup/installing/rhel-centos/#installing-from-source
+[install verify]: /riak/kv/2.1.4/setup/installing/verify
 
 Riak should be installed from source if you are building on a platform
 for which a package does not exist or if you are interested in
@@ -56,9 +56,9 @@ or cloned source.
 Download the Riak source package from the [Download Center][downloads] and build:
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.3/riak-2.1.3.tar.gz
-tar zxvf riak-2.1.3.tar.gz
-cd riak-2.1.3
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.4/riak-2.1.4.tar.gz
+tar zxvf riak-2.1.4.tar.gz
+cd riak-2.1.4
 make locked-deps
 make rel
 ```

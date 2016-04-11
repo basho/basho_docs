@@ -2,9 +2,9 @@
 title: "Getting Started with Python"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Python"
     identifier: "getting_started_python"
     weight: 102
@@ -13,7 +13,7 @@ toc: true
 canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/python"
 ---
 
-If you haven't set up a Riak Node and started it, please visit [Running A Cluster](/riak/kv/2.1.3/using/running-a-cluster) first.
+If you haven't set up a Riak Node and started it, please visit [Running A Cluster](/riak/kv/2.1.4/using/running-a-cluster) first.
 
 To try this flavor of Riak, a working installation of Python is
 required, with Python 2.7 preferred. One of the Python package managers,
@@ -92,4 +92,4 @@ We are now ready to start interacting with Riak.
 
 ## Next Steps
 
-[CRUD Operations](/riak/kv/2.1.3/developing/getting-started/python/crud-operations)
+[CRUD Operations](/riak/kv/2.1.4/developing/getting-started/python/crud-operations)

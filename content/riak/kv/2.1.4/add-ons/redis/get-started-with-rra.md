@@ -2,9 +2,9 @@
 title: "Getting Started with Riak Redis Add-on"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Get Started with Redis Addon"
     identifier: "add-ons_redis_getstarted"
     weight: 202

@@ -2,9 +2,9 @@
 title: "Getting Started with PHP"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "PHP"
     identifier: "getting_started_php"
     weight: 107
@@ -13,7 +13,7 @@ toc: true
 canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/php"
 ---
 
-If you haven't set up a Riak Node and started it, please visit [Running A Cluster](/riak/kv/2.1.3/using/running-a-cluster) first.
+If you haven't set up a Riak Node and started it, please visit [Running A Cluster](/riak/kv/2.1.4/using/running-a-cluster) first.
 
 To try this flavor of Riak, a working installation of PHP is required, and [Composer](https://getcomposer.org/) is required to be installed to fetch the client library package. 
 
@@ -71,4 +71,4 @@ We are now ready to start interacting with Riak.
 
 ## Next Steps
 
-[CRUD Operations](/riak/kv/2.1.3/developing/getting-started/php/crud-operations)
+[CRUD Operations](/riak/kv/2.1.4/developing/getting-started/php/crud-operations)

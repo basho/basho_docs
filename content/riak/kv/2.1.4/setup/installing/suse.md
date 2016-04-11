@@ -3,20 +3,20 @@ title_supertext: "Installing on"
 title: "SUSE"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "SUSE"
     identifier: "installing_suse"
     weight: 307
     parent: "installing"
 toc: true
 aliases:
-  - /riak/2.1.3/installing/suse/
+  - /riak/2.1.4/installing/suse/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/suse"
 ---
 
-[install verify]: /riak/kv/2.1.3/setup/installing/verify
+[install verify]: /riak/kv/2.1.4/setup/installing/verify
 
 > **Note: 2.0.4 not currently available**
 >

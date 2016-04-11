@@ -2,9 +2,9 @@
 title: "Upgrading Search from 1.x to 2.x"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Upgrading Search 1.x to 2.x"
     identifier: "upgrading_search"
     weight: 104

@@ -2,25 +2,25 @@
 title: "Advanced MapReduce"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Advanced MapReduce"
     identifier: "app_guide_mapreduce"
     weight: 103
     parent: "developing_app_guide"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/advanced/mapreduce/
+  - /riak/2.1.4/dev/advanced/mapreduce/
 canonical_link: "docs.basho.com/riak/kv/latest/developing/app-guide/advanced-mapreduce"
 ---
 
-[usage 2i]: /riak/kv/2.1.3/developing/usage/secondary-indexes
-[apps replication properties]: /riak/kv/2.1.3/developing/app-guide/replication-properties
-[use ref custom code]: /riak/kv/2.1.3/using/reference/custom-code
-[usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types
-[glossary vnode]: /riak/kv/2.1.3/learn/glossary/#vnode
-[config reference]: /riak/kv/2.1.3/configuring/reference
+[usage 2i]: /riak/kv/2.1.4/developing/usage/secondary-indexes
+[apps replication properties]: /riak/kv/2.1.4/developing/app-guide/replication-properties
+[use ref custom code]: /riak/kv/2.1.4/using/reference/custom-code
+[usage bucket types]: /riak/kv/2.1.4/developing/usage/bucket-types
+[glossary vnode]: /riak/kv/2.1.4/learn/glossary/#vnode
+[config reference]: /riak/kv/2.1.4/configuring/reference
 
 > **Use MapReduce sparingly**
 >

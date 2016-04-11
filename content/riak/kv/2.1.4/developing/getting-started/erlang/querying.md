@@ -3,9 +3,9 @@ title_supertext: "Getting Started:"
 title: "Querying with Erlang"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Querying"
     identifier: "getting_started_erlang_query"
     weight: 101
@@ -24,7 +24,7 @@ data to having fields in your data that are related by name. These
 querying methods will introduce you to some ways of laying out your data
 in Riak, along with how to query it back.
 
-A more comprehensive discussion can be found in [Key/Value Modeling](/riak/kv/2.1.3/developing/key-value-modeling).
+A more comprehensive discussion can be found in [Key/Value Modeling](/riak/kv/2.1.4/developing/key-value-modeling).
 
 ## Denormalization
 

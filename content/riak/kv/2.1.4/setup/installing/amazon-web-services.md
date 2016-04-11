@@ -3,16 +3,16 @@ title_supertext: "Installing on"
 title: "Amazon Web Services"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Amazon Web Services"
     identifier: "installing_amazon_web_services"
     weight: 301
     parent: "installing"
 toc: true
 aliases:
-  - /riak/2.1.3/installing/amazon-web-services/
+  - /riak/2.1.4/installing/amazon-web-services/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/amazon-web-services"
 ---
 
@@ -52,7 +52,7 @@ Once the virtual machine is created, you should verify that your selected EC2 se
 
     ![EC2 Security Group Settings](/images/aws-marketplace-security-group.png)
 
-We also recommend that you read more about Riak's [Security and Firewalls](/riak/kv/2.1.3/using/security/).
+We also recommend that you read more about Riak's [Security and Firewalls](/riak/kv/2.1.4/using/security/).
 
 ## Clustering Riak on AWS
 

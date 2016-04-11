@@ -2,16 +2,16 @@
 title: "PBC Get Client ID"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Get Client ID"
     identifier: "pbc_get_client_id"
     weight: 127
     parent: "apis_pbc"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/references/protocol-buffers/get-client-id
+  - /riak/2.1.4/dev/references/protocol-buffers/get-client-id
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/get-client-id"
 ---
 
@@ -25,7 +25,7 @@ compatible with Riak 1.4 or later, you can safely ignore client IDs.
 Get the client id used for this connection. Client ids are used for
 conflict resolution and each unique actor in the system should be
 assigned one.  A client id is assigned randomly when the socket is
-connected and can be changed using [Set Client ID](/riak/kv/2.1.3/developing/api/protocol-buffers/set-client-id).
+connected and can be changed using [Set Client ID](/riak/kv/2.1.4/developing/api/protocol-buffers/set-client-id).
 
 ## Request
 

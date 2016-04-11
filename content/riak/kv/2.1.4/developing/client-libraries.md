@@ -3,16 +3,16 @@ title_supertext: "Developing with Riak KV"
 title: "Client Libraries"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Client Libraries"
     identifier: "developing_client_libraries"
     weight: 106
     parent: "developing"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/using/libraries
+  - /riak/2.1.4/dev/using/libraries
 canonical_link: "docs.basho.com/riak/kv/latest/developing/client-libraries"
 ---
 

@@ -3,20 +3,20 @@ title_supertext: "Conflict Resolution:"
 title: "NodeJS"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "NodeJS"
     identifier: "usage_conflict_resolution_nodejs"
     weight: 104
     parent: "usage_conflict_resolution"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/using/conflict-resolution/nodejs
+  - /riak/2.1.4/dev/using/conflict-resolution/nodejs
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/conflict-resolution/nodejs"
 ---
 
-For reasons explained in the [Introduction to conflict resolution](/riak/kv/2.1.3/developing/usage/conflict-resolution), we strongly recommend adopting a conflict resolution strategy that
+For reasons explained in the [Introduction to conflict resolution](/riak/kv/2.1.4/developing/usage/conflict-resolution), we strongly recommend adopting a conflict resolution strategy that
 requires applications to resolve siblings according to use-case-specific
 criteria. Here, we'll provide a brief guide to conflict resolution using the
 official [Riak Node.js client](https://github.com/basho/riak-nodejs-client).

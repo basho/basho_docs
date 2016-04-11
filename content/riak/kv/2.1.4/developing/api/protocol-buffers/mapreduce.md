@@ -2,16 +2,16 @@
 title: "PBC MapReduce"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "MapReduce"
     identifier: "pbc_mapreduce"
     weight: 107
     parent: "apis_pbc"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/references/protocol-buffers/mapreduce
+  - /riak/2.1.4/dev/references/protocol-buffers/mapreduce
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/mapreduce"
 ---
 
@@ -38,8 +38,8 @@ Mapreduce jobs can be encoded in two different ways
 * `application/json` --- JSON-encoded MapReduce job
 * `application/x-erlang-binary` --- Erlang external term format
 
-The JSON encoding is the same as [REST API](/riak/kv/2.1.3/developing/usage/mapreduce/#rest) and
-the external term format is the same as the [local Erlang API](/riak/kv/2.1.3/developing/app-guide/advanced-mapreduce/#erlang)
+The JSON encoding is the same as [REST API](/riak/kv/2.1.4/developing/usage/mapreduce/#rest) and
+the external term format is the same as the [local Erlang API](/riak/kv/2.1.4/developing/app-guide/advanced-mapreduce/#erlang)
 
 ## Response
 

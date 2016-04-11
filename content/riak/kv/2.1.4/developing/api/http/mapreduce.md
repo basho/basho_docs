@@ -2,20 +2,20 @@
 title: "HTTP MapReduce"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "MapReduce"
     identifier: "http_mapreduce"
     weight: 108
     parent: "apis_http"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/references/http/mapreduce
+  - /riak/2.1.4/dev/references/http/mapreduce
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/http/mapreduce"
 ---
 
-[MapReduce](/riak/kv/2.1.3/developing/usage/mapreduce) is a generic way to query Riak by specifying inputs and constructing a set of map, reduce, and link phases through which data will flow.
+[MapReduce](/riak/kv/2.1.4/developing/usage/mapreduce) is a generic way to query Riak by specifying inputs and constructing a set of map, reduce, and link phases through which data will flow.
 
 ## Request
 
@@ -24,7 +24,7 @@ POST /mapred
 ```
 
 Important headers:
-* `Content-Type` - must always be `application/json`.  The format of the request body is described in detail on the [MapReduce](/riak/kv/2.1.3/developing/usage/mapreduce) page.
+* `Content-Type` - must always be `application/json`.  The format of the request body is described in detail on the [MapReduce](/riak/kv/2.1.4/developing/usage/mapreduce) page.
 
 Optional query parameters:
 * `chunked` - when set to `true`, results will be returned as they are received in `multipart/mixed` format using chunked-encoding.

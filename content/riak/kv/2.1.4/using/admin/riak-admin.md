@@ -2,40 +2,40 @@
 title: "riak-admin Command Line Interface"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "riak-admin CLI"
     identifier: "cluster_admin_cli"
     weight: 101
     parent: "managing_cluster_admin"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/running/tools/riak-admin
+  - /riak/2.1.4/ops/running/tools/riak-admin
 canonical_link: "docs.basho.com/riak/kv/latest/using/admin/riak-admin"
 ---
 
-[config reference]: /riak/kv/2.1.3/configuring/reference
-[use admin commands]: /riak/kv/2.1.3/using/admin/commands
-[use admin commands#join]: /riak/kv/2.1.3/using/admin/commands/#join
-[use admin commands#leave]: /riak/kv/2.1.3/using/admin/commands/#leave
-[cluster ops backup]: /riak/kv/2.1.3/using/cluster-operations/backing-up
-[config reference#node-metadata]: /riak/kv/2.1.3/configuring/reference/#node-metadata
-[cluster ops change info]: /riak/kv/2.1.3/using/cluster-operations/changing-cluster-info
-[usage mapreduce]: /riak/kv/2.1.3/developing/usage/mapreduce
-[usage commit hooks]: /riak/kv/2.1.3/developing/usage/commit-hooks
-[config reference#ring]: /riak/kv/2.1.3/configuring/reference/#ring
-[cluster ops inspect node]: /riak/kv/2.1.3/using/cluster-operations/inspecting-node
-[use ref monitoring]: /riak/kv/2.1.3/using/reference/monitoring
-[downgrade]: /riak/kv/2.1.3/setup/upgrading/downgrade
-[security index]: /riak/kv/2.1.3/using/security/
-[security managing]: /riak/kv/2.1.3/using/security/managing-sources
-[cluster ops bucket types]: /riak/kv/2.1.3/using/cluster-operations/bucket-types
-[cluster ops 2i]: /riak/kv/2.1.3/using/cluster-operations/secondary-indexes
-[repair recover index]: /riak/kv/2.1.3/repair-recovery
-[cluster ops strong consistency]: /riak/kv/2.1.3/using/cluster-operations/strong-consistency
-[cluster ops handoff]: /riak/kv/2.1.3/using/cluster-operations/handoff
-[use admin riak-admin#stats]: /riak/kv/2.1.3/using/admin/riak-admin/#stats
+[config reference]: /riak/kv/2.1.4/configuring/reference
+[use admin commands]: /riak/kv/2.1.4/using/admin/commands
+[use admin commands#join]: /riak/kv/2.1.4/using/admin/commands/#join
+[use admin commands#leave]: /riak/kv/2.1.4/using/admin/commands/#leave
+[cluster ops backup]: /riak/kv/2.1.4/using/cluster-operations/backing-up
+[config reference#node-metadata]: /riak/kv/2.1.4/configuring/reference/#node-metadata
+[cluster ops change info]: /riak/kv/2.1.4/using/cluster-operations/changing-cluster-info
+[usage mapreduce]: /riak/kv/2.1.4/developing/usage/mapreduce
+[usage commit hooks]: /riak/kv/2.1.4/developing/usage/commit-hooks
+[config reference#ring]: /riak/kv/2.1.4/configuring/reference/#ring
+[cluster ops inspect node]: /riak/kv/2.1.4/using/cluster-operations/inspecting-node
+[use ref monitoring]: /riak/kv/2.1.4/using/reference/monitoring
+[downgrade]: /riak/kv/2.1.4/setup/upgrading/downgrade
+[security index]: /riak/kv/2.1.4/using/security/
+[security managing]: /riak/kv/2.1.4/using/security/managing-sources
+[cluster ops bucket types]: /riak/kv/2.1.4/using/cluster-operations/bucket-types
+[cluster ops 2i]: /riak/kv/2.1.4/using/cluster-operations/secondary-indexes
+[repair recover index]: /riak/kv/2.1.4/repair-recovery
+[cluster ops strong consistency]: /riak/kv/2.1.4/using/cluster-operations/strong-consistency
+[cluster ops handoff]: /riak/kv/2.1.4/using/cluster-operations/handoff
+[use admin riak-admin#stats]: /riak/kv/2.1.4/using/admin/riak-admin/#stats
 
 ## riak-admin
 

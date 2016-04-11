@@ -3,9 +3,9 @@ title_supertext: "V2 Multi-Datacenter"
 title: "Replication Operations"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "V2 Multi-Datacenter"
     identifier: "cluster_operations_v2"
     weight: 115
@@ -13,7 +13,7 @@ menu:
 toc: true
 commercial_offering: true
 aliases:
-  - /riak/2.1.3/ops/mdc/v2/operations
+  - /riak/2.1.4/ops/mdc/v2/operations
 canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/v2-multi-datacenter"
 ---
 
@@ -220,7 +220,7 @@ Field | Description
 ## Bounded Queue
 
 The bounded queue is responsible for holding objects that are waiting to
-participate in realtime replication. Please see the [Riak Enterprise MDC Replication Configuration](/riak/kv/2.1.3/configuring/v2-multi-datacenter/) guide for more information.
+participate in realtime replication. Please see the [Riak Enterprise MDC Replication Configuration](/riak/kv/2.1.4/configuring/v2-multi-datacenter/) guide for more information.
 
 Field | Description
 ------|------------

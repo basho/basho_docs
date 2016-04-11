@@ -2,21 +2,21 @@
 title: "PBC Set Bucket Type"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Set Bucket Type"
     identifier: "pbc_set_bucket_type"
     weight: 113
     parent: "apis_pbc"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/references/protocol-buffers/set-bucket-type
+  - /riak/2.1.4/dev/references/protocol-buffers/set-bucket-type
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/set-bucket-type"
 ---
 
-Assigns a set of [bucket properties](/riak/kv/2.1.3/developing/api/protocol-buffers/set-bucket-props) to a
-[bucket type](/riak/kv/2.1.3/developing/usage/bucket-types).
+Assigns a set of [bucket properties](/riak/kv/2.1.4/developing/api/protocol-buffers/set-bucket-props) to a
+[bucket type](/riak/kv/2.1.4/developing/usage/bucket-types).
 
 ## Request
 
@@ -28,4 +28,4 @@ message RpbSetBucketTypeReq {
 ```
 
 The `type` field specifies the name of the bucket type as a binary. The
-`props` field contains an [`RpbBucketProps`](/riak/kv/2.1.3/developing/api/protocol-buffers/get-bucket-props).
+`props` field contains an [`RpbBucketProps`](/riak/kv/2.1.4/developing/api/protocol-buffers/get-bucket-props).

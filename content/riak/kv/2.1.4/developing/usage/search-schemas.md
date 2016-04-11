@@ -2,20 +2,20 @@
 title: "Creating Search Schemas"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Creating Search Schemas"
     identifier: "usage_search_schemas"
     weight: 110
     parent: "developing_usage"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/advanced/search-schema
+  - /riak/2.1.4/dev/advanced/search-schema
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/search-schemas"
 ---
 
-[concept clusters]: /riak/kv/2.1.3/learn/concepts/clusters
+[concept clusters]: /riak/kv/2.1.4/learn/concepts/clusters
 
 > **Note on Search 2.0 vs. Legacy Search**
 >
@@ -25,7 +25,7 @@ Yokozuna). For information about the deprecated Riak Search, visit [the old Usin
 
 Riak Search is built for ease of use, allowing you to write values into
 Riak and query for values using Solr. Riak Search does a lot of work
-under the hood to convert your values---plain text, JSON, XML, [Riak Data Types](/riak/kv/2.1.3/developing/data-types/), and [more](/riak/kv/2.1.3/developing/usage/custom-extractors)---into something that can be indexed and searched later.
+under the hood to convert your values---plain text, JSON, XML, [Riak Data Types](/riak/kv/2.1.4/developing/data-types/), and [more](/riak/kv/2.1.4/developing/usage/custom-extractors)---into something that can be indexed and searched later.
 Nonetheless, you must still instruct Riak/Solr how to index a value. Are
 you providing and array of strings? An integer? A date? Is your text in
 English or Russian? You can provide such instructions to Riak Search by
@@ -224,7 +224,7 @@ Malformed JSON or XML will cause Riak Search to index a key and set
 Field   | Name | Description
 :-------|:-----|:-----------
 `_yz_id`  | ID | Unique identifier of this Solr document
-`_yz_ed`  | Entropy Data | Data related to [active anti-entropy](/riak/kv/2.1.3/learn/concepts/active-anti-entropy)
+`_yz_ed`  | Entropy Data | Data related to [active anti-entropy](/riak/kv/2.1.4/learn/concepts/active-anti-entropy)
 `_yz_pn`  | Partition Number | Used as a filter query parameter to remove duplicate replicas across nodes
 `_yz_fpn` | First Partition Number | The first partition in this doc's preflist, used for further filtering on overlapping partitions
 `_yz_vtag`| VTag | If there is a sibling, use vtag to differentiate them

@@ -3,9 +3,9 @@ tile_supertext: "Configuring:"
 title: "V3 Multi-Datacenter Replication"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "V3 Multi-Datacenter"
     identifier: "configuring_v3"
     weight: 109
@@ -13,12 +13,12 @@ menu:
 toc: true
 commercial_offering: true
 aliases:
-  - /riak/2.1.3/ops/mdc/v3/configuration
+  - /riak/2.1.4/ops/mdc/v3/configuration
 canonical_link: "docs.basho.com/riak/kv/latest/configuring/v3-multi-datacenter"
 ---
 
-[config reference#advanced]: /riak/kv/2.1.3/configuring/reference/#advanced-configuration
-[config v3 ssl#verify-peer]: /riak/kv/2.1.3/configuring/v3-multi-datacenter/ssl/#verifying-peer-certificates
+[config reference#advanced]: /riak/kv/2.1.4/configuring/reference/#advanced-configuration
+[config v3 ssl#verify-peer]: /riak/kv/2.1.4/configuring/v3-multi-datacenter/ssl/#verifying-peer-certificates
 
 > **Note on the `cluster_mgr` setting**
 >

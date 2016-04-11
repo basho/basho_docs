@@ -2,9 +2,9 @@
 title: "Implementing Strong Consistency"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Implementing Strong Consistency"
     identifier: "configuring_strong_consistency"
     weight: 105
@@ -13,29 +13,29 @@ toc: true
 canonical_link: "docs.basho.com/riak/kv/latest/configuring/strong-consistency"
 ---
 
-[apps strong consistency]: /riak/kv/2.1.3/developing/app-guide/strong-consistency
-[concept strong consistency]: /riak/kv/2.1.3/learn/concepts/strong-consistency
-[cluster ops add remove node]: /riak/kv/2.1.3/using/cluster-operations/adding-removing-nodes
-[config reference#strong-cons]: /riak/kv/2.1.3/configuring/reference/#strong-consistency
-[use admin riak cli]: /riak/kv/2.1.3/using/admin/riak-cli
-[concept eventual consistency]: /riak/kv/2.1.3/learn/concepts/eventual-consistency
-[plan backend bitcask]: /riak/kv/2.1.3/setup/planning/backend/bitcask
-[glossary vnode]: /riak/kv/2.1.3/learn/glossary/#vnode
-[concept buckets]: /riak/kv/2.1.3/learn/concepts/buckets
-[cluster ops bucket types]: /riak/kv/2.1.3/using/cluster-operations/bucket-types
-[use admin riak-admin#ensemble]: /riak/kv/2.1.3/using/admin/riak-admin/#riak-admin-ensemble-status
-[use admin riak-admin]: /riak/kv/2.1.3/using/admin/riak-admin
-[config reference#advanced]: /riak/kv/2.1.3/configuring/reference/#advanced-configuration
-[plan cluster capacity]: /riak/kv/2.1.3/setup/planning/cluster-capacity
-[cluster ops strong consistency]: /riak/kv/2.1.3/using/cluster-operations/strong-consistency
-[apps replication properties]: /riak/kv/2.1.3/developing/app-guide/replication-properties
-[concept causal context]: /riak/kv/2.1.3/learn/concepts/causal-context
-[dev data types]: /riak/kv/2.1.3/developing/data-types
-[glossary aae]: /riak/kv/2.1.3/learn/glossary/#active-anti-entropy-aae
-[cluster ops 2i]: /riak/kv/2.1.3/using/cluster-operations/secondary-indexes
-[usage commit hooks]: /riak/kv/2.1.3/developing/usage/commit-hooks
-[cluster ops obj del]: /riak/kv/2.1.3/using/cluster-operations/object-deletion
-[dev client libraries]: /riak/kv/2.1.3/developing/client-libraries
+[apps strong consistency]: /riak/kv/2.1.4/developing/app-guide/strong-consistency
+[concept strong consistency]: /riak/kv/2.1.4/learn/concepts/strong-consistency
+[cluster ops add remove node]: /riak/kv/2.1.4/using/cluster-operations/adding-removing-nodes
+[config reference#strong-cons]: /riak/kv/2.1.4/configuring/reference/#strong-consistency
+[use admin riak cli]: /riak/kv/2.1.4/using/admin/riak-cli
+[concept eventual consistency]: /riak/kv/2.1.4/learn/concepts/eventual-consistency
+[plan backend bitcask]: /riak/kv/2.1.4/setup/planning/backend/bitcask
+[glossary vnode]: /riak/kv/2.1.4/learn/glossary/#vnode
+[concept buckets]: /riak/kv/2.1.4/learn/concepts/buckets
+[cluster ops bucket types]: /riak/kv/2.1.4/using/cluster-operations/bucket-types
+[use admin riak-admin#ensemble]: /riak/kv/2.1.4/using/admin/riak-admin/#riak-admin-ensemble-status
+[use admin riak-admin]: /riak/kv/2.1.4/using/admin/riak-admin
+[config reference#advanced]: /riak/kv/2.1.4/configuring/reference/#advanced-configuration
+[plan cluster capacity]: /riak/kv/2.1.4/setup/planning/cluster-capacity
+[cluster ops strong consistency]: /riak/kv/2.1.4/using/cluster-operations/strong-consistency
+[apps replication properties]: /riak/kv/2.1.4/developing/app-guide/replication-properties
+[concept causal context]: /riak/kv/2.1.4/learn/concepts/causal-context
+[dev data types]: /riak/kv/2.1.4/developing/data-types
+[glossary aae]: /riak/kv/2.1.4/learn/glossary/#active-anti-entropy-aae
+[cluster ops 2i]: /riak/kv/2.1.4/using/cluster-operations/secondary-indexes
+[usage commit hooks]: /riak/kv/2.1.4/developing/usage/commit-hooks
+[cluster ops obj del]: /riak/kv/2.1.4/using/cluster-operations/object-deletion
+[dev client libraries]: /riak/kv/2.1.4/developing/client-libraries
 
 > **Please Note:**
 >

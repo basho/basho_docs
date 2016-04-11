@@ -3,9 +3,9 @@ title_supertext: "Developing with Riak KV"
 title: "Getting Started Overview"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Getting Started"
     identifier: "developing_getting_started"
     weight: 100
@@ -14,8 +14,8 @@ toc: true
 canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started"
 ---
 
-[install index]: /riak/kv/2.1.3/setup/installing
-[dev client libraries]: /riak/kv/2.1.3/developing/client-libraries
+[install index]: /riak/kv/2.1.4/setup/installing
+[dev client libraries]: /riak/kv/2.1.4/developing/client-libraries
 
 Welcome, new Riak developer! This guide will get you started developing
 against Riak KV with minimal fuss.

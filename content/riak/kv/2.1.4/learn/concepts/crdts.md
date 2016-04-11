@@ -2,29 +2,29 @@
 title: "Data Types"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Data Types"
     identifier: "learn_concepts_data_types"
     weight: 104
     parent: "learn_concepts"
 toc: true
 aliases:
-  - /riak/2.1.3/theory/concepts/crdts
+  - /riak/2.1.4/theory/concepts/crdts
 canonical_link: "docs.basho.com/riak/kv/latest/learn/concepts/crdts"
 ---
 
 
-[concept causal context dvv]: /riak/kv/2.1.3/concepts/causal-context/#dotted-version-vectors
-[concept causal context sib]: /riak/kv/2.1.3/concepts/causal-context/#siblings
-[concept causal context vc]: /riak/kv/2.1.3/concepts/causal-context/#vector-clocks
-[concept eventual consistency]: /riak/kv/2.1.3/concepts/eventual-consistency
-[concept strong consistency]: /riak/kv/2.1.3/concepts/strong-consistency
-[dev data types]: /riak/kv/2.1.3/developing/data-types
-[glossary node]: /riak/kv/2.1.3/learn/glossary/#node
-[glossary vnode]: /riak/kv/2.1.3/learn/glossary/#vnode
-[usage conflict resolution]: /riak/kv/2.1.3/developing/usage/conflict-resolution
+[concept causal context dvv]: /riak/kv/2.1.4/concepts/causal-context/#dotted-version-vectors
+[concept causal context sib]: /riak/kv/2.1.4/concepts/causal-context/#siblings
+[concept causal context vc]: /riak/kv/2.1.4/concepts/causal-context/#vector-clocks
+[concept eventual consistency]: /riak/kv/2.1.4/concepts/eventual-consistency
+[concept strong consistency]: /riak/kv/2.1.4/concepts/strong-consistency
+[dev data types]: /riak/kv/2.1.4/developing/data-types
+[glossary node]: /riak/kv/2.1.4/learn/glossary/#node
+[glossary vnode]: /riak/kv/2.1.4/learn/glossary/#vnode
+[usage conflict resolution]: /riak/kv/2.1.4/developing/usage/conflict-resolution
 
 
 A pure key/value store is completely agnostic toward the data stored
@@ -32,7 +32,7 @@ within it. Any key can be associated with values of any conceivable
 type, from short strings to large JSON objects to video files. Riak
 began as a pure key/value store, but over time it has become more and
 more aware of the data stored in it through features like [secondary
-indexes](/riak/kv/2.1.3/developing/usage/secondary-indexes/) and [Search](/riak/kv/2.1.3/developing/usage/search/).
+indexes](/riak/kv/2.1.4/developing/usage/secondary-indexes/) and [Search](/riak/kv/2.1.4/developing/usage/search/).
 
 In version 2.0, Riak continued this evolution by introducing a series of
 eventually convergent **Data Types**. Riak Data Types are convergent
@@ -214,7 +214,7 @@ The beauty of Data Types is that Riak "knows" how to resolve value
 conflicts by applying Data Type-specific rules. In general, Riak does
 this by remembering the **history** of a value and broadcasting that
 history along with the current value in the form of a [context
-object](/riak/kv/2.1.3/developing/data-types/#Data-Types-and-Context) that is similar to a
+object](/riak/kv/2.1.4/developing/data-types/#Data-Types-and-Context) that is similar to a
 [vector clock][concept causal context vc] or `[dotted version vectors][concept causal context dvv]. Riak uses the history of each Data Type to make deterministic
 judgments about which value should be deemed correct.
 

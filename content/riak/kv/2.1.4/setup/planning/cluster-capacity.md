@@ -2,26 +2,26 @@
 title: "Cluster Capacity Planning"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Cluster Capacity"
     identifier: "planning_cluster_capacity"
     weight: 103
     parent: "planning"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/building/planning/cluster
+  - /riak/2.1.4/ops/building/planning/cluster
 canonical_link: "docs.basho.com/riak/kv/latest/setup/planning/cluster-capacity"
 ---
 
-[plan backend leveldb]: /riak/kv/2.1.3/setup/planning/backend/leveldb
-[plan bitcask capacity]: /riak/kv/2.1.3/setup/planning/bitcask-capacity-calc
-[plan index]: /riak/kv/2.1.3/setup/planning
-[concept replication]: /riak/kv/2.1.3/learn/concepts/replication
-[use admin riak-admin#cluster]: /riak/kv/2.1.3/using/admin/riak-admin/#cluster
-[config reference]: /riak/kv/2.1.3/configuring/reference
-[perf benchmark]: /riak/kv/2.1.3/using/performance/benchmarking
+[plan backend leveldb]: /riak/kv/2.1.4/setup/planning/backend/leveldb
+[plan bitcask capacity]: /riak/kv/2.1.4/setup/planning/bitcask-capacity-calc
+[plan index]: /riak/kv/2.1.4/setup/planning
+[concept replication]: /riak/kv/2.1.4/learn/concepts/replication
+[use admin riak-admin#cluster]: /riak/kv/2.1.4/using/admin/riak-admin/#cluster
+[config reference]: /riak/kv/2.1.4/configuring/reference
+[perf benchmark]: /riak/kv/2.1.4/using/performance/benchmarking
 
 
 This document outlines the various elements and variables to keep in mind when planning your Riak cluster. Your use case and environment variables will be specific to what you're building, but this document should set you on the right path when planning and launching a Riak cluster.

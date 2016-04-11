@@ -3,20 +3,20 @@ title_supertext: "Conflict Resolution:"
 title: "Go"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Go"
     identifier: "usage_conflict_resolution_golang"
     weight: 106
     parent: "usage_conflict_resolution"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/using/conflict-resolution/golang
+  - /riak/2.1.4/dev/using/conflict-resolution/golang
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/conflict-resolution/golang"
 ---
 
-For reasons explained in the [Introduction to conflict resolution](/riak/kv/2.1.3/developing/usage/conflict-resolution), we strongly recommend adopting a conflict resolution strategy that
+For reasons explained in the [Introduction to conflict resolution](/riak/kv/2.1.4/developing/usage/conflict-resolution), we strongly recommend adopting a conflict resolution strategy that
 requires applications to resolve siblings according to usecase-specific
 criteria. Here, we'll provide a brief guide to conflict resolution using the
 official [Riak Go client](https://github.com/basho/riak-go-client).

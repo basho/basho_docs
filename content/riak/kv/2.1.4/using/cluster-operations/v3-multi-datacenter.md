@@ -3,9 +3,9 @@ title_supertext: "V3 Multi-Datacenter"
 title: "Replication Operations"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "V3 Multi-Datacenter"
     identifier: "cluster_operations_v3"
     weight: 114
@@ -13,15 +13,15 @@ menu:
 toc: true
 commercial_offering: true
 aliases:
-  - /riak/2.1.3/ops/mdc/v3/operations
+  - /riak/2.1.4/ops/mdc/v3/operations
 canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/v3-multi-datacenter"
 ---
 
-[config v3 mdc]: /riak/kv/2.1.3/configuring/v3-multi-datacenter
-[config v3 nat]: /riak/kv/2.1.3/configuring/v3-multi-datacenter/nat
-[config v3 quickstart]: /riak/kv/2.1.3/configuring/v3-multi-datacenter/quick-start
-[config v3 ssl]: /riak/kv/2.1.3/configuring/v3-multi-datacenter/ssl
-[ref v3 stats]: /riak/kv/2.1.3/using/reference/v3-multi-datacenter/statistics
+[config v3 mdc]: /riak/kv/2.1.4/configuring/v3-multi-datacenter
+[config v3 nat]: /riak/kv/2.1.4/configuring/v3-multi-datacenter/nat
+[config v3 quickstart]: /riak/kv/2.1.4/configuring/v3-multi-datacenter/quick-start
+[config v3 ssl]: /riak/kv/2.1.4/configuring/v3-multi-datacenter/ssl
+[ref v3 stats]: /riak/kv/2.1.4/using/reference/v3-multi-datacenter/statistics
 
 This document explains how to manage replication with the `riak-repl`
 command. Some of these commands can be set or behavior altered by

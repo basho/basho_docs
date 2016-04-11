@@ -2,16 +2,16 @@
 title: "PBC Yokozuna Index Get"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Yokozuna Index Get"
     identifier: "pbc_yz_index_get"
     weight: 120
     parent: "apis_pbc"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/references/protocol-buffers/yz-index-get
+  - /riak/2.1.4/dev/references/protocol-buffers/yz-index-get
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/yz-index-get"
 ---
 
@@ -53,7 +53,7 @@ message RpbYokozunaIndex {
 ```
 
 Each message specifying an index must include the index's name as a
-binary (as `name`). Optionally, you can specify a [`schema`](/riak/kv/2.1.3/developing/usage/search-schemas) name and/or an `n_val`, i.e. the number of nodes on which the
+binary (as `name`). Optionally, you can specify a [`schema`](/riak/kv/2.1.4/developing/usage/search-schemas) name and/or an `n_val`, i.e. the number of nodes on which the
 index is stored (for GET requests) or on which you wish the index to be
 stored (for PUT requests). An index's `n_val` must match the associated
 bucket's `n_val`.

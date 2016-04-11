@@ -2,9 +2,9 @@
 title: "Reading Objects"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Reading Objects"
     identifier: "usage_reading_objects"
     weight: 101
@@ -13,11 +13,11 @@ toc: true
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/reading-objects"
 ---
 
-[glossary vnode]: /riak/kv/2.1.3/learn/glossary/#vnode
+[glossary vnode]: /riak/kv/2.1.4/learn/glossary/#vnode
 
 You can think of reads in Riak as analogous to HTTP `GET` requests. You
 specify a bucket type, bucket, and key, and Riak either returns the
-object that's stored there---including its [siblings](/riak/kv/2.1.3/developing/usage/conflict-resolution/#siblings) \(more on that later)---or it returns `not found` (the
+object that's stored there---including its [siblings](/riak/kv/2.1.4/developing/usage/conflict-resolution/#siblings) \(more on that later)---or it returns `not found` (the
 equivalent of an HTTP `404 Object Not Found`).
 
 Here is the basic command form for retrieving a specific key from a
@@ -28,7 +28,7 @@ GET /types/<type>/buckets/<bucket>/keys/<key>
 ```
 
 Here is an example of a read performed on the key `rufus` in the bucket
-`dogs`, which bears the [bucket type](/riak/kv/2.1.3/developing/usage/bucket-types) `animals`:
+`dogs`, which bears the [bucket type](/riak/kv/2.1.4/developing/usage/bucket-types) `animals`:
 
 ```java
 // In the Java client, it is best to specify a bucket type/bucket/key

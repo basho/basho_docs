@@ -3,22 +3,22 @@ title_supertext: "Installing on"
 title: "Mac OS X"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Mac OS X"
     identifier: "installing_macosx"
     weight: 303
     parent: "installing"
 toc: true
 aliases:
-  - /riak/2.1.3/installing/mac-osx/
+  - /riak/2.1.4/installing/mac-osx/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/mac-osx"
 ---
 
-[perf open files]: /riak/kv/2.1.3/using/performance/open-files-limit
-[install source erlang]: /riak/kv/2.1.3/setup/installing/source/erlang
-[install verify]: /riak/kv/2.1.3/setup/installing/verify
+[perf open files]: /riak/kv/2.1.4/using/performance/open-files-limit
+[install source erlang]: /riak/kv/2.1.4/setup/installing/source/erlang
+[install verify]: /riak/kv/2.1.4/setup/installing/verify
 
 The following steps are known to work with Mac OS X 10.8, 10.9
 (Mavericks), and Yosemite. You can install from source or download a
@@ -39,8 +39,8 @@ appropriate platform:
 ### 64-bit
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.3/osx/10.8/riak-2.1.3-OSX-x86_64.tar.gz
-tar xzvf riak-2.1.3-osx-x86_64.tar.gz
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.4/osx/10.8/riak-2.1.4-OSX-x86_64.tar.gz
+tar xzvf riak-2.1.4-osx-x86_64.tar.gz
 ```
 
 After the release is untarred, you will be able to `cd` into the `riak`
@@ -62,7 +62,7 @@ Installing Riak 2.0 with [Homebrew](http://brew.sh/) is easy:
 brew install --devrel riak
 ```
 
-By default, this will place a `2.1.3` folder in
+By default, this will place a `2.1.4` folder in
 `/usr/local/Cellar/riak`.
 
 Be aware that you will most likely see the following message after
@@ -102,9 +102,9 @@ If you do not have Erlang already installed, see [Installing Erlang][install sou
 Next, download and unpack the source distribution.
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.3/riak-2.1.3.tar.gz
-tar zxvf riak-2.1.3.tar.gz
-cd riak-2.1.3
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.4/riak-2.1.4.tar.gz
+tar zxvf riak-2.1.4.tar.gz
+cd riak-2.1.4
 make rel
 ```
 

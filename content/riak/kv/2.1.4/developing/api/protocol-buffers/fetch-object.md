@@ -2,16 +2,16 @@
 title: "PBC Fetch Object"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Fetch Object"
     identifier: "pbc_fetch_object"
     weight: 105
     parent: "apis_pbc"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/references/protocol-buffers/fetch-object
+  - /riak/2.1.4/dev/references/protocol-buffers/fetch-object
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/fetch-object"
 ---
 
@@ -47,7 +47,7 @@ message RpbGetReq {
 > **Note on defaults and special values**
 >
 > All of the optional parameters below have default values determined on a
-per-bucket basis. Please refer to the documentation on [setting bucket properties](/riak/kv/2.1.3/developing/api/protocol-buffers/set-bucket-props) for more information.
+per-bucket basis. Please refer to the documentation on [setting bucket properties](/riak/kv/2.1.4/developing/api/protocol-buffers/set-bucket-props) for more information.
 >
 > Furthermore, you can assign an integer value to the `r` and
 `pr` parameters, provided that that integer value is less than or
@@ -87,7 +87,7 @@ Value | Description
 The <code>content</code> entries hold the object value and any metadata.
 Below is the structure of a <code>RpbContent</code> message, which is
 included in GET/PUT responses (`RpbGetResp` (above) and
-[`RpbPutResp`](/riak/kv/2.1.3/developing/api/protocol-buffers/store-object), respectively):
+[`RpbPutResp`](/riak/kv/2.1.4/developing/api/protocol-buffers/store-object), respectively):
 
 ```protobuf
 message RpbContent {
@@ -114,7 +114,7 @@ of the following optional parameters:
 * `charset` --- The character encoding of the object, e.g. `utf-8`
 * `content_encoding` --- The content encoding of the object, e.g.
   `video/mp4`
-* `vtag` --- The object's [vtag](/riak/kv/2.1.3/learn/glossary/#vector-clock)
+* `vtag` --- The object's [vtag](/riak/kv/2.1.4/learn/glossary/#vector-clock)
 * `links` --- This parameter is associated with the now-deprecated link
   walking feature and should not be used by Riak clients
 * `last_mod` --- A timestamp for when the object was last modified, in
@@ -132,7 +132,7 @@ of the following optional parameters:
     }
     ```
     Notice that both a key and value can be stored or just a key.
-    `RpbPair` messages are also used to attach [secondary indexes](/riak/kv/2.1.3/developing/usage/secondary-indexes) to objects (in the optional
+    `RpbPair` messages are also used to attach [secondary indexes](/riak/kv/2.1.4/developing/usage/secondary-indexes) to objects (in the optional
     `indexes` field).
 * `deleted` --- Whether the object has been deleted (i.e. whether a
   tombstone for the object has been found under the specified key)

@@ -2,9 +2,9 @@
 title: "Setup Riak KV"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Setup"
     identifier: "setup_index"
     weight: 110

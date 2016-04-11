@@ -2,16 +2,16 @@
 title: "PBC Set Client ID"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Set Client ID"
     identifier: "pbc_set_client_id"
     weight: 126
     parent: "apis_pbc"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/references/protocol-buffers/set-client-id
+  - /riak/2.1.4/dev/references/protocol-buffers/set-client-id
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/set-client-id"
 ---
 

@@ -3,24 +3,24 @@ title_supertext: "Client Security:"
 title: "Java"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Java"
     identifier: "usage_security_java"
     weight: 100
     parent: "usage_security"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/advanced/client-security/java
+  - /riak/2.1.4/dev/advanced/client-security/java
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/security/java"
 ---
 
 This tutorial shows you how to set up a Riak Java client to authenticate
 itself when connecting to Riak.
 
-If you are using [trust-](/riak/kv/2.1.3/using/security/managing-sources/#trust-based-authentication) or [PAM](/riak/kv/2.1.3/using/security/managing-sources/#pam-based-authentication)-based authentication, you can use the
-security setup described [below](#java-client-basics). [Certificate](/riak/kv/2.1.3/using/security/managing-sources/#certificate-based-authentication)-based authentication is not
+If you are using [trust-](/riak/kv/2.1.4/using/security/managing-sources/#trust-based-authentication) or [PAM](/riak/kv/2.1.4/using/security/managing-sources/#pam-based-authentication)-based authentication, you can use the
+security setup described [below](#java-client-basics). [Certificate](/riak/kv/2.1.4/using/security/managing-sources/#certificate-based-authentication)-based authentication is not
 yet supported in the Java client.
 
 <div class="note">
@@ -41,7 +41,7 @@ configuration. In this document, we will be working with only one node.
 
 If you are using Riak security, _all_ connecting clients should have
 access to the same Certificate Authority (CA) used on the server side,
-regardless of which [security source](/riak/kv/2.1.3/using/security/managing-sources/) you
+regardless of which [security source](/riak/kv/2.1.4/using/security/managing-sources/) you
 choose. All clients should also provide a username, regardless of
 security source. The example below sets up a single node object (we'll
 simply call it `node`) that connects to Riak on `localhost` and on port

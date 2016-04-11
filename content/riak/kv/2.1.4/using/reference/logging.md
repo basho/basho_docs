@@ -2,26 +2,26 @@
 title: "Logging Reference"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Logging"
     identifier: "managing_ref_logging"
     weight: 100
     parent: "managing_ref"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/running/logging
+  - /riak/2.1.4/ops/running/logging
 canonical_link: "docs.basho.com/riak/kv/latest/using/reference/logging"
 ---
 
-[cluster ops log]: /riak/kv/2.1.3/using/cluster-operations/logging
+[cluster ops log]: /riak/kv/2.1.4/using/cluster-operations/logging
 
 Logging in Riak KV is handled by a Basho-produced logging framework for
 [Erlang](http://www.erlang.org) called
 [lager](https://github.com/basho/lager).
 
-lager provides a number of configuration options that you can use to fine-tune your Riak cluster's logging output. A compact listing of parameters can be found in our [configuration files](/riak/kv/2.1.3/configuring/reference/#lager) documentation. A more thorough explanation of these options can be found in this document.
+lager provides a number of configuration options that you can use to fine-tune your Riak cluster's logging output. A compact listing of parameters can be found in our [configuration files](/riak/kv/2.1.4/configuring/reference/#lager) documentation. A more thorough explanation of these options can be found in this document.
 
 ## Log Directory
 
@@ -259,11 +259,11 @@ or to neither. This is determined by the value that you give to the
 * `file` --- Console logs will be emitted to a file. This is Riak's
     default behavior. The location of that file is determined by the
     `log.console.file` parameter. The default location is
-    `./log/console.log` on an installation from [source](/riak/kv/2.1.3/setup/installing/source), but will differ on platform-specific installation,
+    `./log/console.log` on an installation from [source](/riak/kv/2.1.4/setup/installing/source), but will differ on platform-specific installation,
     e.g.  `/var/log/riak` on Ubuntu, Debian, CentOS, and RHEL or
     `/opt/riak/log` on Solaris-based platforms.
 * `console` --- Console logs will be emitted to standard output, which
-    can be viewed by running the [`riak attach-direct`](/riak/kv/2.1.3/using/admin/riak-cli/#attach-direct) command
+    can be viewed by running the [`riak attach-direct`](/riak/kv/2.1.4/using/admin/riak-cli/#attach-direct) command
 * `both` --- Console logs will be emitted both to a file and to standard
     output
 * `off` --- Console log messages will be disabled

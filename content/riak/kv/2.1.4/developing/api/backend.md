@@ -2,20 +2,20 @@
 title: "Backend API"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Backend API"
     identifier: "apis_backend"
     weight: 101
     parent: "developing_apis"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/references/backend-api
+  - /riak/2.1.4/dev/references/backend-api
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/backend"
 ---
 
-[plan backend]: /riak/kv/2.1.3/setup/planning/backend
+[plan backend]: /riak/kv/2.1.4/setup/planning/backend
 
 Riak's storage API uniformly applies to all of the
 [supported backends][plan backend]. This page presents the details of

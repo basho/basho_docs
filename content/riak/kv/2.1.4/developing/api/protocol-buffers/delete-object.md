@@ -2,20 +2,20 @@
 title: "PBC Delete Object"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Delete Object"
     identifier: "pbc_delete_object"
     weight: 107
     parent: "apis_pbc"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/references/protocol-buffers/delete-object
+  - /riak/2.1.4/dev/references/protocol-buffers/delete-object
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/delete-object"
 ---
 
-Delete an object in the specified [bucket type](/riak/kv/2.1.3/using/cluster-operations/bucket-types)/bucket/key location.
+Delete an object in the specified [bucket type](/riak/kv/2.1.4/using/cluster-operations/bucket-types)/bucket/key location.
 
 ## Request
 

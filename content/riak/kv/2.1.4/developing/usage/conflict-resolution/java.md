@@ -3,20 +3,20 @@ title_supertext: "Conflict Resolution:"
 title: "Java"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Java"
     identifier: "usage_conflict_resolution_java"
     weight: 100
     parent: "usage_conflict_resolution"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/using/conflict-resolution/java
+  - /riak/2.1.4/dev/using/conflict-resolution/java
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/conflict-resolution/java"
 ---
 
-For reasons explained in the [Introduction to conflict resolution](/riak/kv/2.1.3/developing/usage/conflict-resolution), we strongly recommend adopting a
+For reasons explained in the [Introduction to conflict resolution](/riak/kv/2.1.4/developing/usage/conflict-resolution), we strongly recommend adopting a
 conflict resolution strategy that requires applications to resolve
 siblings according to use-case-specific criteria. Here, we'll provide a
 brief guide to conflict resolution using the official [Riak Java
@@ -56,7 +56,7 @@ Let's say that we're building a social network application and storing
 lists of usernames representing each user's "friends" in the network.
 Each user will bear the class `User`, which we'll create below. All of
 the data for our application will be stored in buckets that bear the
-[bucket type](/riak/kv/2.1.3/developing/usage/bucket-types) `siblings`, and for this bucket type
+[bucket type](/riak/kv/2.1.4/developing/usage/bucket-types) `siblings`, and for this bucket type
 `allow_mult` is set to `true`, which means that Riak will generate
 siblings in certain cases---siblings that our application will need to
 be equipped to resolve when they arise.
@@ -189,7 +189,7 @@ step is the subject of this tutorial)
 made
 
 You can find more on writing objects to Riak, including examples from
-the official Java client library, in the [Developing with Riak KV: Usage](/riak/kv/2.1.3/developing/usage) section.
+the official Java client library, in the [Developing with Riak KV: Usage](/riak/kv/2.1.4/developing/usage) section.
 
 ## More Advanced Example
 
@@ -258,9 +258,9 @@ always carry potential drawbacks of this sort.
 ## Riak Data Types
 
 An important thing to always bear in mind when working with conflict
-resolution is that Riak offers a variety of [Data Types](/riak/kv/2.1.3/developing/data-types/) that have
+resolution is that Riak offers a variety of [Data Types](/riak/kv/2.1.4/developing/data-types/) that have
 specific conflict resolution mechanics built in. If you have data that
-can be modeled as a [counter](/riak/kv/2.1.3/developing/data-types/#counters), [set](/riak/kv/2.1.3/developing/data-types/#sets), or [map](/riak/kv/2.1.3/developing/data-types/#maps), then you should seriously
+can be modeled as a [counter](/riak/kv/2.1.4/developing/data-types/#counters), [set](/riak/kv/2.1.4/developing/data-types/#sets), or [map](/riak/kv/2.1.4/developing/data-types/#maps), then you should seriously
 consider using those Data Types instead of creating your own
 application-side resolution logic.
 
@@ -269,4 +269,4 @@ set, in particular the `friends` list associated with each `User`
 object. The merge operation that we built to handle conflict resolution
 is analogous to the resolution logic that is built into Riak sets. For
 more information on how you could potentially replace the client-side
-resolution that we implemented above, see our [tutorial on Riak sets](/riak/kv/2.1.3/developing/data-types/#sets).
+resolution that we implemented above, see our [tutorial on Riak sets](/riak/kv/2.1.4/developing/data-types/#sets).

@@ -2,9 +2,9 @@
 title: "Getting Started with Go"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Go"
     identifier: "getting_started_go"
     weight: 107
@@ -13,7 +13,7 @@ toc: true
 canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/golang"
 ---
 
-If you haven't set up a Riak Node and started it, please visit [Running A Cluster](/riak/kv/2.1.3/using/running-a-cluster) first and ensure you have
+If you haven't set up a Riak Node and started it, please visit [Running A Cluster](/riak/kv/2.1.4/using/running-a-cluster) first and ensure you have
 [a working installation of Go](http://golang.org/doc/install).
 
 ## Client Setup
@@ -73,4 +73,4 @@ We are now ready to start interacting with Riak.
 
 ## Next Steps
 
-[CRUD Operations](/riak/kv/2.1.3/developing/getting-started/golang/crud-operations)
+[CRUD Operations](/riak/kv/2.1.4/developing/getting-started/golang/crud-operations)

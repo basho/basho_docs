@@ -3,26 +3,26 @@ title_supertext: "Client Security:"
 title: "Python"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Python"
     identifier: "usage_security_python"
     weight: 102
     parent: "usage_security"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/advanced/client-security/python
+  - /riak/2.1.4/dev/advanced/client-security/python
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/security/python"
 ---
 
 This tutorial shows you how to set up a Riak Python client to
 authenticate itself when connecting to Riak.
 
-If you are using [trust-](/riak/kv/2.1.3/using/security/managing-sources/) or [PAM-](/riak/kv/2.1.3/using/security/managing-sources/#pam-based-authentication), you can use the security
-setup described [below](#python-client-basics). [Password](/riak/kv/2.1.3/using/security/managing-sources/#password-based-authentication)-based authentication is covered
+If you are using [trust-](/riak/kv/2.1.4/using/security/managing-sources/) or [PAM-](/riak/kv/2.1.4/using/security/managing-sources/#pam-based-authentication), you can use the security
+setup described [below](#python-client-basics). [Password](/riak/kv/2.1.4/using/security/managing-sources/#password-based-authentication)-based authentication is covered
 in a [later section](#password-based-authentication). If you are using
-[certificate](/riak/kv/2.1.3/using/security/managing-sources/#certificate-based-authentication)-based authentication, follow
+[certificate](/riak/kv/2.1.4/using/security/managing-sources/#certificate-based-authentication)-based authentication, follow
 the instructions in the [section below](#certificate-based-authentication).
 
 <div class="note">
@@ -53,7 +53,7 @@ instantiation by creating a `SecurityCreds` object.
 
 If you are using Riak Security, _all_ connecting clients should have
 access to the same Certificate Authority (CA) used on the server side,
-regardless of which [security source](/riak/kv/2.1.3/using/security/managing-sources/) you
+regardless of which [security source](/riak/kv/2.1.4/using/security/managing-sources/) you
 choose. All clients should also provide a username. The example below
 sets up a client object (we'll simply call it `client`) that connects to
 Riak on `localhost` and on port 8087 without any security credentials:
@@ -85,7 +85,7 @@ provided that the
 [CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) from
 which the client is connecting has been specified as trusted. More on
 specifying trusted CIDRs can be found in [Trust-based
-Authentication](/riak/kv/2.1.3/using/security/managing-sources/#Trust-based-Authentication).
+Authentication](/riak/kv/2.1.4/using/security/managing-sources/#Trust-based-Authentication).
 
 **Note**: The examples in the following sections specify certs on the
 basis of their filepaths, e.g. `/ssl_dir/cacertfile.pem`. In addition to
@@ -108,10 +108,10 @@ creds = SecurityCreds(username='riakuser',
 ## PAM-based Authentication
 
 If you have specified that a specific client be authenticated using
-[PAM](/riak/kv/2.1.3/using/security/managing-sources/#pam-based-authentication), you will
+[PAM](/riak/kv/2.1.4/using/security/managing-sources/#pam-based-authentication), you will
 need to provide a CA as well as the username and password that you
 specified when creating the user in Riak. For more, see our
-documentation on [User Management](/riak/kv/2.1.3/using/security/basics/#user-management).
+documentation on [User Management](/riak/kv/2.1.4/using/security/basics/#user-management).
 
 ## Certificate-based Authentication
 
@@ -140,7 +140,7 @@ creds = SecurityCreds(username='riakuser',
 
 ## Specifying Ciphers
 
-To specify a list of preferred [security ciphers](/riak/kv/2.1.3/using/security/basics/#security-ciphers), you can pass in a colon-delimited
+To specify a list of preferred [security ciphers](/riak/kv/2.1.4/using/security/basics/#security-ciphers), you can pass in a colon-delimited
 string to the `ciphers` parameter:
 
 ```python

@@ -3,9 +3,9 @@ title_supertext: "Configuring:"
 title: "V2 Multi-Datacenter Replication"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "V2 Multi-Datacenter"
     identifier: "configuring_v2"
     weight: 110
@@ -13,11 +13,11 @@ menu:
 toc: true
 commercial_offering: true
 aliases:
-  - /riak/2.1.3/ops/mdc/v2/configuration
+  - /riak/2.1.4/ops/mdc/v2/configuration
 canonical_link: "docs.basho.com/riak/kv/latest/configuring/v2-multi-datacenter"
 ---
 
-[config v2 ssl]: /riak/kv/2.1.3/configuring/v2-multi-datacenter/ssl
+[config v2 ssl]: /riak/kv/2.1.4/configuring/v2-multi-datacenter/ssl
 
 Riak Enterprise's Multi-Datacenter Replication capabilities offer a
 variety of configurable parameters.

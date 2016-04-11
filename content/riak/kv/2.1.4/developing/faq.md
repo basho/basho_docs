@@ -3,16 +3,16 @@ title_supertext: "Developing with Riak KV"
 title: "Frequently Asked Questions"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Developing FAQ"
     identifier: "developing_faq"
     weight: 108
     parent: "developing"
 toc: true
 aliases:
-  - /riak/2.1.3/community/faqs/developing
+  - /riak/2.1.4/community/faqs/developing
 canonical_link: "docs.basho.com/riak/kv/latest/developing/faq"
 ---
 
@@ -21,7 +21,7 @@ canonical_link: "docs.basho.com/riak/kv/latest/developing/faq"
 Q: How can I automatically expire a key from Riak?
   I want to regularly purge items from Riak that are older than a certain timestamp, but MapReduce times out on large numbers of items. Can I expire data automatically?
 A:
-  If you're using [Bitcask](/riak/kv/2.1.3/setup/planning/backend/bitcask), the default storage backend, and you want items to expire at a consistent interval (assuming that they are not updated), set the `expiry_secs` option in `app.config`. Items that persist past this threshold will not be returned on get/fetch operations and will eventually be removed from disk by Bitcask's merging process. For example:
+  If you're using [Bitcask](/riak/kv/2.1.4/setup/planning/backend/bitcask), the default storage backend, and you want items to expire at a consistent interval (assuming that they are not updated), set the `expiry_secs` option in `app.config`. Items that persist past this threshold will not be returned on get/fetch operations and will eventually be removed from disk by Bitcask's merging process. For example:
 
   ```erlang
   {bitcask, [
@@ -32,7 +32,7 @@ A:
 
   There is no limit on how large or small the `expiry_secs` setting can be as long as it is greater than 0.
 
-  You can also set auto-expire using the [Memory](/riak/kv/2.1.3/setup/planning/backend/memory) storage backend, but it will be limited by RAM.
+  You can also set auto-expire using the [Memory](/riak/kv/2.1.4/setup/planning/backend/memory) storage backend, but it will be limited by RAM.
 
 Q: Is there better performance for a few objects in many buckets, or many objects in a few buckets?
 A:
@@ -213,7 +213,7 @@ A:
   {add_paths, "/etc/riak/erlang"},
   ```
 
-  You can find more details in the [Configuration Files](/riak/kv/2.1.3/configuring/reference) document.
+  You can find more details in the [Configuration Files](/riak/kv/2.1.4/configuring/reference) document.
 
 Q: Is it possible to use key filtering to just return a list of keys that match a particular pattern without performing a MapReduce on it?
   When running a MapReduce query, a map phase results in Riak pulling an object off of disk. Some queries are only interested in the keys of an object and not the value. Is it possible to run a MapReduce query that does not have to pull objects off of disk?
@@ -304,7 +304,7 @@ A:
 
 Q: Is there a limit on the size of files that can be stored on Riak?
 A:
-  There isn't a limit on object size, but we suggest you keep it to no more than 1-2MB for performance reasons. Variables such as network speed can directly affect the maximum usable object size for a given cluster. You should use a tool like [Basho Bench](/riak/kv/2.1.3/using/performance/benchmarking) to determine the performance of your cluster with a given object size before moving to production use. Or if your use case demands storing many large objects, you may want to consider the [Riak CS](/riak/cs/2.1.1) object storage system, which is designed for precisely that purpose.
+  There isn't a limit on object size, but we suggest you keep it to no more than 1-2MB for performance reasons. Variables such as network speed can directly affect the maximum usable object size for a given cluster. You should use a tool like [Basho Bench](/riak/kv/2.1.4/using/performance/benchmarking) to determine the performance of your cluster with a given object size before moving to production use. Or if your use case demands storing many large objects, you may want to consider the [Riak CS](/riak/cs/2.1.1) object storage system, which is designed for precisely that purpose.
   
 Q: Does the bucket name impact key storage size?
 A:
@@ -349,7 +349,7 @@ Q: How do I spread requests across---i.e. load balance---a Riak cluster?
 A:
   There are at least two acceptable strategies for load balancing requests across your Riak cluster: **virtual IPs** and **reverse-proxy**.
 
-  For further information see [System Planning](/riak/kv/2.1.3/setup/planning/start/#network-configuration-load-balancing).
+  For further information see [System Planning](/riak/kv/2.1.4/setup/planning/start/#network-configuration-load-balancing).
 
 Q: Why does it seem that Bitcask merging is only triggered when a Riak node is restarted?
   There have been situations where the data directory for a Riak node (e.g. `data/bitcask`) grows continually and does not seem to merge. After restarting the node a series of merges are kicked off and the total size of the data directory shrinks. Why does this happen?
@@ -377,7 +377,7 @@ A:
 
   It is possible to get siblings with the same vtag during vector clock pruning and read/repair.
 
-  See [vector clocks](/riak/kv/2.1.3/learn/concepts/causal-context#vector-clocks) for more information.
+  See [vector clocks](/riak/kv/2.1.4/learn/concepts/causal-context#vector-clocks) for more information.
 
 
 Q: How should I structure larger data objects?
@@ -399,12 +399,12 @@ A:
 Q: Is there a way to enforce a schema on data in a given bucket?
   Suppose I'd like to set up a bucket to store data adhering to a particular schema. Is there any way to set this up with Riak? This way, when my application attempts to store data in a particular bucket, it will check with this schema first before storing it. Otherwise, it will produce an error.
 A:
-  Riak does not implement any form of schema validation. A pre-commit hook can be used in this scenario but would need to be written by your development team. You can read more about [commit hooks](/riak/kv/2.1.3/developing/usage/commit-hooks) in the docs. This document provides two pre-commit hook examples, one in Erlang that restricts objects that are too large and one in Javascript that restricts non-JSON content.
+  Riak does not implement any form of schema validation. A pre-commit hook can be used in this scenario but would need to be written by your development team. You can read more about [commit hooks](/riak/kv/2.1.4/developing/usage/commit-hooks) in the docs. This document provides two pre-commit hook examples, one in Erlang that restricts objects that are too large and one in Javascript that restricts non-JSON content.
 
 Q: How does the Erlang Riak Client manage node failures?
   Does the Erlang Riak Client manage its own reconnect logic? What should a client do to maintain the connection or reconnect in case of nodes going down?
 A:
-  The [Erlang Riak Client](/riak/kv/2.1.3/developing/client-libraries) gives you several options for how to manage connections. You can set these when starting a `riakc_pb_socket` process or by using the `set_options` function.
+  The [Erlang Riak Client](/riak/kv/2.1.4/developing/client-libraries) gives you several options for how to manage connections. You can set these when starting a `riakc_pb_socket` process or by using the `set_options` function.
 
   * `queue_if_disconnected` (default: `false`) --- requests will be queued when the connection to the server is lost.
   * `auto_reconnect` (default: `false`) --- if the connection is lost, `riakc_pb_socket` will attempt to reconnect automatically. This is set to `true` if `queue_if_disconnected` is set to `true`.
@@ -415,13 +415,13 @@ Q: Is there a limiting factor for the number of buckets in a cluster?
 A:
   As long as you use the default bucket properties, buckets consume no resources. Each bucket with non-default bucket properties is stored in the gossiped ring state, so the more buckets with custom properties, the more ring data must be handed off to every node.
 
-  More on [Bucket Properties](/riak/kv/2.1.3/developing/usage).
+  More on [Bucket Properties](/riak/kv/2.1.4/developing/usage).
 
 Q: Is it possible to configure a single bucket's properties in `app.config`?
 A:
   Not a specific bucket, only the defaults. However, you should only need to change them once, since after that the settings will be reflected in the ring state.
 
-  You can read more on `app.config` in [Configuration Files](/riak/kv/2.1.3/configuring/reference).
+  You can read more on `app.config` in [Configuration Files](/riak/kv/2.1.4/configuring/reference).
 
 Q: Is there a simple command to delete a bucket?
 A:
@@ -437,7 +437,7 @@ A:
 
 Q: How can I limit the number of keys retrieved?
 A:
-  You'll need to use a [MapReduce](/riak/kv/2.1.3/developing/usage/mapreduce/) job for this.
+  You'll need to use a [MapReduce](/riak/kv/2.1.4/developing/usage/mapreduce/) job for this.
 
   You could also run `keys=stream` and close the connection when you have the designated number. This will not, however, reduce load on the Riak cluster. It will only reduce load on your client.
 
@@ -470,7 +470,7 @@ A:
 
 Q: When searching over a bucket using MapReduce, is it recommended to perform the search during the map phase or the reduce phase?
 A:
-  Aside from the performance considerations of doing a full-bucket [MapReduce](/riak/kv/2.1.3/developing/usage/mapreduce/), searching is a form of filtering, which should be done in the map phase.
+  Aside from the performance considerations of doing a full-bucket [MapReduce](/riak/kv/2.1.4/developing/usage/mapreduce/), searching is a form of filtering, which should be done in the map phase.
 
 Q: Is it possible to delete data from Riak with a JavaScript MapReduce job?
 A:

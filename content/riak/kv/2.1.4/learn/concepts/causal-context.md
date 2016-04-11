@@ -2,32 +2,32 @@
 title: "Causal Context"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Causal Context"
     identifier: "learn_concepts_causal_context"
     weight: 103
     parent: "learn_concepts"
 toc: true
 aliases:
-  - /riak/2.1.3/theory/concepts/context
+  - /riak/2.1.4/theory/concepts/context
 canonical_link: "docs.basho.com/riak/kv/latest/learn/concepts/causal-context"
 ---
 
 
-[concept aae]: /riak/kv/2.1.3/learn/concepts/active-anti-entropy
-[concept clusters]: /riak/kv/2.1.3/learn/concepts/clusters
-[concept eventual consistency]: /riak/kv/2.1.3/learn/concepts/eventual-consistency
+[concept aae]: /riak/kv/2.1.4/learn/concepts/active-anti-entropy
+[concept clusters]: /riak/kv/2.1.4/learn/concepts/clusters
+[concept eventual consistency]: /riak/kv/2.1.4/learn/concepts/eventual-consistency
 [CRM]: http://en.wikipedia.org/wiki/Customer_relationship_management
-[dev api http]: /riak/kv/2.1.3/developing/api/http
-[dev key value]: /riak/kv/2.1.3/developing/key-value-modeling
-[glossary read rep]: /riak/kv/2.1.3/learn/glossary/#read-repair
-[perf latency reduc]: /riak/kv/2.1.3/using/performance/latency-reduction
-[usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types
-[usage conflict resolution]: /riak/kv/2.1.3/developing/usage/conflict-resolution
-[usage protocol buffers]: /riak/kv/2.1.3/developing/api/protocol-buffers
-[usage updating objects]: /riak/kv/2.1.3/developing/usage/updating-objects
+[dev api http]: /riak/kv/2.1.4/developing/api/http
+[dev key value]: /riak/kv/2.1.4/developing/key-value-modeling
+[glossary read rep]: /riak/kv/2.1.4/learn/glossary/#read-repair
+[perf latency reduc]: /riak/kv/2.1.4/using/performance/latency-reduction
+[usage bucket types]: /riak/kv/2.1.4/developing/usage/bucket-types
+[usage conflict resolution]: /riak/kv/2.1.4/developing/usage/conflict-resolution
+[usage protocol buffers]: /riak/kv/2.1.4/developing/api/protocol-buffers
+[usage updating objects]: /riak/kv/2.1.4/developing/usage/updating-objects
 [Vector Clocks on Wikipedia]: http://en.wikipedia.org/wiki/Vector_clock
 [Why Vector Clocks are Easy]: http://blog.basho.com/2010/01/29/why-vector-clocks-are-easy/
 [Why Vector Clocks are Hard]: http://blog.basho.com/2010/04/05/why-vector-clocks-are-hard/
@@ -78,7 +78,7 @@ sections below.
 
 In the case of outcome 2, the choice between **a** and **b** is yours to
 to make. If you set the `allow_mult` parameter to `true` for a bucket,
-[using bucket types](/riak/kv/2.1.3/developing/usage/bucket-types), all writes to that bucket will create siblings
+[using bucket types](/riak/kv/2.1.4/developing/usage/bucket-types), all writes to that bucket will create siblings
 in the case of concurrent writes (and occasionally under other
 scenarios, e.g. healed network partitions).
 

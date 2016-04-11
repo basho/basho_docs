@@ -2,9 +2,9 @@
 title: "Inspecting a Node"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Inspecting a Node"
     identifier: "cluster_operations_inspecting_node"
     weight: 103
@@ -365,7 +365,7 @@ available in the Riaknostic Github repository.
 
 ## Strong Consistency Stats
 
-Riak tabulates a variety of stats related to Riak's optional [strong consistency](/riak/2.1.3/using/reference/strong-consistency) feature. The table below lists those stats.
+Riak tabulates a variety of stats related to Riak's optional [strong consistency](/riak/2.1.4/using/reference/strong-consistency) feature. The table below lists those stats.
 
 ### GET-related stats
 
@@ -494,5 +494,5 @@ you, but here's how to set them:
 
 ## Related Resources
 
-* [The riak-admin configuration management tool](/riak/kv/2.1.3/using/admin/riak-admin/)
-* [HTTP API Status](/riak/kv/2.1.3/developing/api/http/status/)
+* [The riak-admin configuration management tool](/riak/kv/2.1.4/using/admin/riak-admin/)
+* [HTTP API Status](/riak/kv/2.1.4/developing/api/http/status/)

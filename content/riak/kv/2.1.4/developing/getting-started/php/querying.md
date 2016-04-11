@@ -3,9 +3,9 @@ title_supertext: "Getting Started:"
 title: "Querying with PHP"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Querying"
     identifier: "getting_started_php_query"
     weight: 101

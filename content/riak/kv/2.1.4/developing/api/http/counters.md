@@ -2,16 +2,16 @@
 title: "HTTP Counters"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Counters"
     identifier: "http_counters"
     weight: 118
     parent: "apis_http"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/references/http/counters
+  - /riak/2.1.4/dev/references/http/counters
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/http/counters"
 ---
 
@@ -54,7 +54,7 @@ GET /buckets/BUCKET/counters/KEY
 
 ## Response
 
-The regular POST/PUT ([HTTP Store Object](/riak/kv/2.1.3/developing/api/http/store-object)) and GET ([HTTP Fetch Object](/riak/kv/2.1.3/developing/api/http/fetch-object)) responses apply here.
+The regular POST/PUT ([HTTP Store Object](/riak/kv/2.1.4/developing/api/http/store-object)) and GET ([HTTP Fetch Object](/riak/kv/2.1.4/developing/api/http/fetch-object)) responses apply here.
 
 Caveats: Counters have no support for Secondary Indexes (2i), Links or Custom HTTP Metadata.
 

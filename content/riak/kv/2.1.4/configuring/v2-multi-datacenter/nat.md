@@ -3,9 +3,9 @@ title_supertext: "V2 Multi-Datacenter Replication:"
 title: "With NAT"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "With NAT"
     identifier: "configuring_v2_replication_nat"
     weight: 101
@@ -13,11 +13,11 @@ menu:
 toc: true
 commercial_offering: true
 aliases:
-  - /riak/2.1.3/ops/mdc/v2/nat
+  - /riak/2.1.4/ops/mdc/v2/nat
 canonical_link: "docs.basho.com/riak/kv/latest/configuring/v2-multi-datacenter/nat"
 ---
 
-[config v2 ssl]: /riak/kv/2.1.3/configuring/v2-multi-datacenter/ssl
+[config v2 ssl]: /riak/kv/2.1.4/configuring/v2-multi-datacenter/ssl
 
 Riak Enterprise supports replication of data on networks that use static
 NAT. This capability can be used for replicating data over the internet

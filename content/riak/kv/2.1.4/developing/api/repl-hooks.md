@@ -3,9 +3,9 @@ title_supertext: "V2 Multi-Datacenter Replication:"
 title: "Hooks API"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "V2 Multi-Datacenter REPL Hooks API"
     identifier: "apis_repl_hooks"
     weight: 100
@@ -13,7 +13,7 @@ menu:
 toc: true
 commercial_offering: true
 aliases:
-  - /riak/2.1.3/ops/mdc/v2/hooks
+  - /riak/2.1.4/ops/mdc/v2/hooks
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/repl-hooks"
 ---
 

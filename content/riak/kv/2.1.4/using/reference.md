@@ -2,9 +2,9 @@
 title: "Riak KV Usage Reference"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Reference"
     identifier: "managing_ref"
     weight: 208

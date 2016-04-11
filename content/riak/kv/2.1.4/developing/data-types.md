@@ -3,23 +3,23 @@ title_supertext: "Developing with Riak KV"
 title: "Data Types"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Data Types"
     identifier: "developing_data_types"
     weight: 102
     parent: "developing"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/using/data-types
+  - /riak/2.1.4/dev/using/data-types
 canonical_link: "docs.basho.com/riak/kv/latest/developing/data-types"
 ---
 
 In versions 2.0 and greater, Riak users can make use of a variety of
 Riak-specific data types inspired by research on convergent replicated
 data types, more commonly known as **CRDTs**. For a more theoretical
-treatment of how CRDTs work in Riak, see our [Data Types](/riak/kv/2.1.3/developing/data-types/) doc.
+treatment of how CRDTs work in Riak, see our [Data Types](/riak/kv/2.1.4/developing/data-types/) doc.
 
 While Riak was originally built as a mostly data-agnostic key/value
 store, Riak Data Types enable you to use Riak as a _data-aware_ system
@@ -30,7 +30,7 @@ data types: flags, registers, [counters](#counters),
 Of those five types, counters, sets, and maps can be used as
 bucket-level data types, i.e. types that you can interact with directly.
 Flags and registers, however, must be embedded in maps (more on that
-[below](/riak/kv/2.1.3/developing/data-types/#maps).
+[below](/riak/kv/2.1.4/developing/data-types/#maps).
 
 <div class="note">
 <div class="title">Note on counters in earlier versions of Riak</div>
@@ -44,7 +44,7 @@ counters.
 
 ## Setting Up Buckets to Use Riak Data Types
 
-In order to use Riak Data Types, you must first create a [bucket type](/riak/kv/2.1.3/developing/usage/bucket-types) that sets the `datatype` bucket parameter to
+In order to use Riak Data Types, you must first create a [bucket type](/riak/kv/2.1.4/developing/usage/bucket-types) that sets the `datatype` bucket parameter to
 either `counter`, `map`, or `set`.
 
 The following would create a separate bucket type for each of the three
@@ -92,8 +92,8 @@ To check whether activation has been successful, simply use the same
 Riak Data Types can be searched just like any other object, but with the
 added benefit that you Data Type is indexed as a different type by Solr,
 the search platform undergirding Riak Search. In our Search
-documentation we offer a [full tutorial](/riak/kv/2.1.3/developing/usage/searching-data-types) as well as a variety of
-[examples](/riak/kv/2.1.3/developing/usage/search/#data-types-and-search-examples), including code
+documentation we offer a [full tutorial](/riak/kv/2.1.4/developing/usage/searching-data-types) as well as a variety of
+[examples](/riak/kv/2.1.4/developing/usage/search/#data-types-and-search-examples), including code
 samples from each of our official client libraries.
 
 ## Usage Examples
@@ -175,7 +175,7 @@ curl http://localhost:8098/types/counters/buckets/counters/datatypes/<key>
 
 > **Getting started with Riak clients**
 >
-> If you are connecting to Riak using one of Basho's official [client libraries](/riak/kv/2.1.3/developing/client-libraries), you can find more information about getting started with your client in our [Developing with Riak KV: Getting Started](/riak/kv/2.1.3/developing/getting-started) section.
+> If you are connecting to Riak using one of Basho's official [client libraries](/riak/kv/2.1.4/developing/client-libraries), you can find more information about getting started with your client in our [Developing with Riak KV: Getting Started](/riak/kv/2.1.4/developing/getting-started) section.
 
 To create a counter, you need to specify a bucket/key pair to hold that
 counter. Here is the general syntax for doing so:
@@ -1015,7 +1015,7 @@ Canada, but if we visit them, we won't have time to visit Montreal, so
 we need to remove it from the list. It needs to be noted here that
 removing an element from a set is a bit trickier than adding elements. In
 order to remove an item (or multiple items), we need to first fetch the
-set, which provides our client access to the set's [causal context](/riak/kv/2.1.3/learn/concepts/causal-context).
+set, which provides our client access to the set's [causal context](/riak/kv/2.1.4/learn/concepts/causal-context).
 Once we've fetched the set, we can remove the element `Montreal` and
 store the set.
 
@@ -3132,13 +3132,13 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
 ## Data Types and Context
 
 When performing normal key/value updates in Riak, we advise that you use
-[causal context](/riak/kv/2.1.3/learn/concepts/causal-context), which enables Riak to make intelligent decisions
+[causal context](/riak/kv/2.1.4/learn/concepts/causal-context), which enables Riak to make intelligent decisions
 behind the scenes about which object values should be considered more
 causally recent than others in cases of conflict. In some of the
 examples above, you saw references to **context** metadata included with
 each Data Type stored in Riak.
 
-Data Type contexts are similar to [causal context](/riak/kv/2.1.3/learn/concepts/causal-context) in that they are
+Data Type contexts are similar to [causal context](/riak/kv/2.1.4/learn/concepts/causal-context) in that they are
 opaque (i.e. not readable by humans) and also perform a similar function
 to that of causal context, i.e. they inform Riak which version of the
 Data Type a client is attempting to modify. This information is required

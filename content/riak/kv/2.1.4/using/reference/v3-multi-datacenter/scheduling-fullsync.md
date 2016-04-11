@@ -2,20 +2,20 @@
 title: "V3 Multi-Datacenter Replication Reference: Scheduling Fullsync"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Scheduling Fullsync"
     identifier: "managing_ref_v3_fullsync"
     weight: 103
     parent: "managing_ref_v3"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/mdc/v3/scheduling-fullsync
+  - /riak/2.1.4/ops/mdc/v3/scheduling-fullsync
 canonical_link: "docs.basho.com/riak/kv/latest/using/reference/v3-multi-datacenter/scheduling-fullsync"
 ---
 
-[config reference#advanced]: /riak/kv/2.1.3/configuring/reference/#advanced-configuration
+[config reference#advanced]: /riak/kv/2.1.4/configuring/reference/#advanced-configuration
 
 The `fullsync_interval` parameter can be configured in the `riak-repl`
 section of [`advanced.config`][config reference#advanced] with either:

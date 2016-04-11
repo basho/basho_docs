@@ -2,16 +2,16 @@
 title: "HTTP Fetch Object"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Fetch Object"
     identifier: "http_fetch_object"
     weight: 105
     parent: "apis_http"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/references/http/fetch-object
+  - /riak/2.1.4/dev/references/http/fetch-object
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/http/fetch-object"
 ---
 
@@ -40,14 +40,14 @@ response. See also RFC 2616 - [304 Not Modified](http://www.w3.org/Protocols/rfc
 Optional query parameters:
 
 * `r` - (read quorum) how many replicas need to agree when retrieving the
-object ([default is defined by the bucket](/riak/kv/2.1.3/developing/api/http/set-bucket-props))
+object ([default is defined by the bucket](/riak/kv/2.1.4/developing/api/http/set-bucket-props))
 * `pr` - how many primary replicas need to be online when doing the read
-([default is defined by the bucket](/riak/kv/2.1.3/developing/api/http/set-bucket-props))
+([default is defined by the bucket](/riak/kv/2.1.4/developing/api/http/set-bucket-props))
 * `basic_quorum` - whether to return early in some failure cases (eg. when r=1
 and you get 2 errors and a success `basic_quorum=true` would return an error)
-([default is defined by the bucket](/riak/kv/2.1.3/developing/api/http/set-bucket-props))
+([default is defined by the bucket](/riak/kv/2.1.4/developing/api/http/set-bucket-props))
 * `notfound_ok` - whether to treat notfounds as successful reads for the
-purposes of R ([default is defined by the bucket](/riak/kv/2.1.3/developing/api/http/set-bucket-props))
+purposes of R ([default is defined by the bucket](/riak/kv/2.1.4/developing/api/http/set-bucket-props))
 * `vtag` - when accessing an object with siblings, which sibling to retrieve.
 Scroll down to the [Manually requesting siblings](#manually-requesting-siblings) example for more information.
 
@@ -74,7 +74,7 @@ Important headers:
 and validation-based caching
 * `Last-Modified` - a timestamp for when the object was last written, in HTTP
 datetime format
-* `Link` - user- and system-defined links to other resources. [Read more about Links.](/riak/kv/2.1.3/learn/glossary/#links)
+* `Link` - user- and system-defined links to other resources. [Read more about Links.](/riak/kv/2.1.4/learn/glossary/#links)
 
 The body of the response will be the contents of the object except when siblings
 are present.

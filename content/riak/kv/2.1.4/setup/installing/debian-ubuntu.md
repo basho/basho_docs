@@ -3,23 +3,23 @@ title_supertext: "Installing on"
 title: "Debian and Ubuntu"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Debian & Ubuntu"
     identifier: "installing_debian_ubuntu"
     weight: 302
     parent: "installing"
 toc: true
 aliases:
-  - /riak/2.1.3/installing/debian-ubuntu/
+  - /riak/2.1.4/installing/debian-ubuntu/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/debian-ubuntu"
 ---
 
-[install source index]: /riak/kv/2.1.3/setup/installing/source/
-[security index]: /riak/kv/2.1.3/using/security/
-[install source erlang]: /riak/kv/2.1.3/setup/installing/source/erlang
-[install verify]: /riak/kv/2.1.3/setup/installing/verify
+[install source index]: /riak/kv/2.1.4/setup/installing/source/
+[security index]: /riak/kv/2.1.4/using/security/
+[install source erlang]: /riak/kv/2.1.4/setup/installing/source/erlang
+[install verify]: /riak/kv/2.1.4/setup/installing/verify
 
 Riak KV can be installed on Debian or Ubuntu-based systems using a binary
 package or by compiling from source code.
@@ -38,11 +38,11 @@ installation, Chef, and Puppet can be found in packagecloud's
 
 Platform-specific pages are linked below:
 
-* [Lucid](https://packagecloud.io/basho/riak/packages/ubuntu/lucid/riak_2.1.3-1_amd64.deb)
-* [Precise](https://packagecloud.io/basho/riak/packages/ubuntu/precise/riak_2.1.3-1_amd64.deb)
-* [Squeeze](https://packagecloud.io/basho/riak/packages/debian/squeeze/riak_2.1.3-1_amd64.deb)
-* [Trusty](https://packagecloud.io/basho/riak/packages/ubuntu/trusty/riak_2.1.3-1_amd64.deb)
-* [Wheezy](https://packagecloud.io/basho/riak/packages/debian/wheezy/riak_2.1.3-1_amd64.deb)
+* [Lucid](https://packagecloud.io/basho/riak/packages/ubuntu/lucid/riak_2.1.4-1_amd64.deb)
+* [Precise](https://packagecloud.io/basho/riak/packages/ubuntu/precise/riak_2.1.4-1_amd64.deb)
+* [Squeeze](https://packagecloud.io/basho/riak/packages/debian/squeeze/riak_2.1.4-1_amd64.deb)
+* [Trusty](https://packagecloud.io/basho/riak/packages/ubuntu/trusty/riak_2.1.4-1_amd64.deb)
+* [Wheezy](https://packagecloud.io/basho/riak/packages/debian/wheezy/riak_2.1.4-1_amd64.deb)
 
 Our documentation also includes instructions regarding signing keys and
 sources lists, which can be found in the section below.
@@ -83,7 +83,7 @@ Next download & install Riak KV:
 
 ```bash
 curl -s https://packagecloud.io/install/repositories/basho/riak/script.deb.sh | sudo bash
-sudo apt-get install riak=2.1.3-1
+sudo apt-get install riak=2.1.4-1
 ```
 
 ## Installing From Package
@@ -138,22 +138,22 @@ for the target platform:
 #### Ubuntu Lucid Lynx (10.04)
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.3/ubuntu/lucid/riak_2.1.3-1_amd64.deb
-sudo dpkg -i riak_2.1.3-1_amd64.deb
+wget http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.4/ubuntu/lucid/riak_2.1.4-1_amd64.deb
+sudo dpkg -i riak_2.1.4-1_amd64.deb
 ```
 
 #### Ubuntu Natty Narwhal (11.04)
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.3/ubuntu/natty/riak_2.1.3-1_amd64.deb
-sudo dpkg -i riak_2.1.3-1_amd64.deb
+wget http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.4/ubuntu/natty/riak_2.1.4-1_amd64.deb
+sudo dpkg -i riak_2.1.4-1_amd64.deb
 ```
 
 #### Ubuntu Precise Pangolin (12.04)
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.3/ubuntu/precise/riak_2.1.3-1_amd64.deb
-sudo dpkg -i riak_2.1.3-1_amd64.deb
+wget http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.4/ubuntu/precise/riak_2.1.4-1_amd64.deb
+sudo dpkg -i riak_2.1.4-1_amd64.deb
 ```
 
 ## Installing From Source
@@ -168,9 +168,9 @@ Riak requires an [Erlang](http://www.erlang.org/) installation.
 Instructions can be found in [Installing Erlang][install source erlang].
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.3/riak-2.1.3.tar.gz
-tar zxvf riak-2.1.3.tar.gz
-cd riak-2.1.3
+wget http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.4/riak-2.1.4.tar.gz
+tar zxvf riak-2.1.4.tar.gz
+cd riak-2.1.4
 make rel
 ```
 

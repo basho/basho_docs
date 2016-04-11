@@ -3,9 +3,9 @@ title_supertext: "Getting Started:"
 title: "Object Modeling with Erlang"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Object Modeling"
     identifier: "getting_started_erlang_object"
     weight: 102
@@ -42,7 +42,7 @@ omitted here for brevity.
 -record(timeline, {owner, msg_type, msgs}).
 ```
 
-We'll be using the bucket `Users` to store our data. We won't be [using bucket types](/riak/kv/2.1.3/developing/usage/bucket-types) here, so we don't need to specify one.
+We'll be using the bucket `Users` to store our data. We won't be [using bucket types](/riak/kv/2.1.4/developing/usage/bucket-types) here, so we don't need to specify one.
 
 To use these records to store data, we will first have to create a user
 record. Then, when a user creates a message, we will append that message

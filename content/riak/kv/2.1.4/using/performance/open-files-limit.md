@@ -2,20 +2,20 @@
 title: "Open Files Limit"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Open Files Limit"
     identifier: "performance_open_files_limit"
     weight: 101
     parent: "managing_performance"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/tuning/open-files-limit/
+  - /riak/2.1.4/ops/tuning/open-files-limit/
 canonical_link: "docs.basho.com/riak/kv/latest/using/performance/open-files-limit"
 ---
 
-[plan backend bitcask]: /riak/kv/2.1.3/setup/planning/backend/bitcask
+[plan backend bitcask]: /riak/kv/2.1.4/setup/planning/backend/bitcask
 
 Riak can consume a large number of open file handles during normal
 operation. The [Bitcask][plan backend bitcask] backend in particular may accumulate a high

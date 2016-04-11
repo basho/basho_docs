@@ -2,16 +2,16 @@
 title: "Running a Cluster"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Running a Cluster"
     identifier: "managing_running_a_cluster"
     weight: 200
     parent: "managing"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/building/basic-cluster-setup
+  - /riak/2.1.4/ops/building/basic-cluster-setup
 canonical_link: "docs.basho.com/riak/kv/latest/using/running-a-cluster"
 ---
 
@@ -19,7 +19,7 @@ Configuring a Riak cluster involves instructing each node to listen on a
 non-local interface, i.e. not `127.0.0.1`, and then joining all of the
 nodes together to participate in the cluster.
 
-Most configuration changes will be applied to the [configuration file](/riak/kv/2.1.3/configuring/reference/) located in your `rel/riak/etc` directory (if
+Most configuration changes will be applied to the [configuration file](/riak/kv/2.1.4/configuring/reference/) located in your `rel/riak/etc` directory (if
 you compiled from source) or `/etc` (if you used a binary install of
 Riak).
 
@@ -46,7 +46,7 @@ options:
 `ring` directory. This will require rejoining all nodes into a
 cluster again.
 >
-> *Rename the node using the [`riak-admin cluster replace`](/riak/kv/2.1.3/using/admin/riak-admin/#cluster-replace) command. This will not work if you have previously only started Riak with a single node.
+> *Rename the node using the [`riak-admin cluster replace`](/riak/kv/2.1.4/using/admin/riak-admin/#cluster-replace) command. This will not work if you have previously only started Riak with a single node.
 
 ## Configure the First Node
 
@@ -59,7 +59,7 @@ riak stop
 #### Select an IP address and port
 
 Let's say that the IP address for your cluster is 192.168.1.10 and that
-you'll be using the default port (8087). If you're using the [Protocol Buffers interface](/riak/kv/2.1.3/developing/api/protocol-buffers/) to Riak (which we recommend over the HTTP
+you'll be using the default port (8087). If you're using the [Protocol Buffers interface](/riak/kv/2.1.4/developing/api/protocol-buffers/) to Riak (which we recommend over the HTTP
 interface due to performance gains), you should change your
 configuration file:
 
@@ -156,7 +156,7 @@ preferred.
 >
 > Once a node has been started, in order to change the name you must
 either remove ring files from the `/data/ring` directory or
-[`riak-admin cluster force-replace`](/riak/kv/2.1.3/using/admin/riak-admin/#cluster-force-replace) the node.
+[`riak-admin cluster force-replace`](/riak/kv/2.1.4/using/admin/riak-admin/#cluster-force-replace) the node.
 
 #### Start the node
 
@@ -253,7 +253,7 @@ into which you can type the following command:
     ```
 
 To join additional nodes to your cluster, repeat the above steps.  You
-can also find more detailed instructions about [adding and removing nodes](/riak/kv/2.1.3/using/cluster-operations/adding-removing-nodes) from a cluster.
+can also find more detailed instructions about [adding and removing nodes](/riak/kv/2.1.4/using/cluster-operations/adding-removing-nodes) from a cluster.
 
 > **Ring Creation Size**
 >

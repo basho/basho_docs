@@ -2,9 +2,9 @@
 title: "Add-ons"
 description: "Add-on technology for Riak KV"
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Add-ons"
     identifier: "add-ons"
     weight: 400

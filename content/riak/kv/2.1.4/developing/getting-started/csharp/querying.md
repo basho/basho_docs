@@ -3,9 +3,9 @@ title_supertext: "Getting Started:"
 tiGetting Started: Querying with C Sharp"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Querying"
     identifier: "getting_started_csharp_query"
     weight: 101

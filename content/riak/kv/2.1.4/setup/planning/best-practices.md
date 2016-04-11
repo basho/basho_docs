@@ -2,23 +2,23 @@
 title: "Scaling and Operating Riak KV Best Practices"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Best Practices"
     identifier: "planning_best_practices"
     weight: 105
     parent: "planning"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/building/planning/best-practices
+  - /riak/2.1.4/ops/building/planning/best-practices
 canonical_link: "docs.basho.com/riak/kv/latest/setup/planning/best-practices"
 ---
 
-[use ref handoff]: /riak/kv/2.1.3/using/reference/handoff
-[config mapreduce]: /riak/kv/2.1.3/configuring/map-reduce
-[glossary aae]: /riak/kv/2.1.3/learn/glossary/#active-anti-entropy-aae
-[cluster ops add remove node]: /riak/kv/2.1.3/using/cluster-operations/adding-removing-nodes
+[use ref handoff]: /riak/kv/2.1.4/using/reference/handoff
+[config mapreduce]: /riak/kv/2.1.4/configuring/map-reduce
+[glossary aae]: /riak/kv/2.1.4/learn/glossary/#active-anti-entropy-aae
+[cluster ops add remove node]: /riak/kv/2.1.4/using/cluster-operations/adding-removing-nodes
 
 Riak KV is a database designed for easy operation and scaling. Below are some best practices that will enable you to improve performance and reliability at all stages in the life of your Riak cluster.
 

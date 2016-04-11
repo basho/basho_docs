@@ -2,9 +2,9 @@
 title: "Failure & Recovery Reference"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Failure & Recovery"
     identifier: "managing_ref_failure_recovery"
     weight: 105

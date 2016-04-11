@@ -2,16 +2,16 @@
 title: "PBC Get Bucket Properties"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Get Bucket Properties"
     identifier: "pbc_get_bucket_props"
     weight: 102
     parent: "apis_pbc"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/references/protocol-buffers/get-bucket-props
+  - /riak/2.1.4/dev/references/protocol-buffers/get-bucket-props
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/get-bucket-props"
 ---
 
@@ -26,7 +26,7 @@ message RpbGetBucketReq {
 }
 ```
 
-The bucket's name (`bucket`) must be specified. The [bucket type](/riak/kv/2.1.3/using/cluster-operations/bucket-types) parameter (`type`) is optional. If it is not specified,
+The bucket's name (`bucket`) must be specified. The [bucket type](/riak/kv/2.1.4/using/cluster-operations/bucket-types) parameter (`type`) is optional. If it is not specified,
 the `default` bucket type will be used.
 
 ## Response
@@ -85,7 +85,7 @@ message RpbBucketProps {
 Each `RpbBucketProps` message returns all of the properties associated
 with a particular bucket. Default values for bucket properties, as well
 as descriptions of all of the above properties, can be found in the
-[configuration file](/riak/kv/2.1.3/configuring/reference/#default-bucket-properties) documentation.
+[configuration file](/riak/kv/2.1.4/configuring/reference/#default-bucket-properties) documentation.
 
 It should be noted that the value of an `RpbBucketProps` message may
 include other message types, such as `RpbModFun` (specifying

@@ -2,9 +2,9 @@
 title: "Managing Your Configuration"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Managing Configuration"
     identifier: "configuring_managing"
     weight: 103
@@ -13,9 +13,9 @@ toc: true
 canonical_link: "docs.basho.com/riak/kv/latest/configuring/managing"
 ---
 
-[use admin riak cli]: /riak/kv/2.1.3/using/admin/riak-cli
-[use admin riak cli#chkconfig]: /riak/kv/2.1.3/using/admin/riak-cli/#chkconfig
-[config reference#search]: /riak/kv/2.1.3/configuring/reference/#search
+[use admin riak cli]: /riak/kv/2.1.4/using/admin/riak-cli
+[use admin riak cli#chkconfig]: /riak/kv/2.1.4/using/admin/riak-cli/#chkconfig
+[config reference#search]: /riak/kv/2.1.4/configuring/reference/#search
 
 ## Retrieving a Configuration Listing
 

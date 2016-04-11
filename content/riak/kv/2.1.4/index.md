@@ -2,9 +2,9 @@
 title: "Riak KV"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Riak KV"
     identifier: "index"
     weight: 100
@@ -14,16 +14,16 @@ canonical_link: "docs.basho.com/riak/kv/latest/index"
 ---
 
 [aboutenterprise]: http://basho.com/contact/
-[config index]: /riak/kv/2.1.3/configuring
-[dev index]: /riak/kv/2.1.3/developing
-[downloads]: /riak/kv/2.1.3/downloads/
-[install index]: /riak/kv/2.1.3/setup/installing/
-[plan index]: /riak/kv/2.1.3/setup/planning
-[perf open files]: /riak/kv/2.1.3/using/performance/open-files-limit
-[install debian & ubuntu]: /riak/kv/2.1.3/setup/installing/debian-ubuntu
-[usage search]: /riak/kv/2.1.3/developing/usage/search
-[getting started]: /riak/kv/2.1.3/developing/getting-started
-[dev client libraries]: /riak/kv/2.1.3/developing/client-libraries
+[config index]: /riak/kv/2.1.4/configuring
+[dev index]: /riak/kv/2.1.4/developing
+[downloads]: /riak/kv/2.1.4/downloads/
+[install index]: /riak/kv/2.1.4/setup/installing/
+[plan index]: /riak/kv/2.1.4/setup/planning
+[perf open files]: /riak/kv/2.1.4/using/performance/open-files-limit
+[install debian & ubuntu]: /riak/kv/2.1.4/setup/installing/debian-ubuntu
+[usage search]: /riak/kv/2.1.4/developing/usage/search
+[getting started]: /riak/kv/2.1.4/developing/getting-started
+[dev client libraries]: /riak/kv/2.1.4/developing/client-libraries
 
 
 

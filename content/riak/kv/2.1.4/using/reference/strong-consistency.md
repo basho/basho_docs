@@ -2,9 +2,9 @@
 title: "Strong Consistency Reference"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Strong Consistency"
     identifier: "managing_ref_strong_consistency"
     weight: 112
@@ -13,15 +13,15 @@ toc: true
 canonical_link: "docs.basho.com/riak/kv/latest/using/reference/strong-consistency"
 ---
 
-[usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types
-[concept eventual consistency]: /riak/kv/2.1.3/learn/concepts/eventual-consistency
+[usage bucket types]: /riak/kv/2.1.4/developing/usage/bucket-types
+[concept eventual consistency]: /riak/kv/2.1.4/learn/concepts/eventual-consistency
 
 <div class="note">
 <div class="title">Please Note:</div>
 Riak KV's strong consistency is an experimental feature and may be removed from the product in the future. Strong consistency is not commercially supported or production-ready. Strong consistency is incompatible with Multi-Datacenter Replication, Riak Search, Bitcask Expiration, LevelDB Secondary Indexes, Riak Data Types and Commit Hooks. We do not recommend its usage in any production environment.
 </div>
 
-Riak was originally designed as an [eventually consistent](/riak/kv/2.1.3/learn/concepts/eventual-consistency) system, fundamentally geared toward providing partition
+Riak was originally designed as an [eventually consistent](/riak/kv/2.1.4/learn/concepts/eventual-consistency) system, fundamentally geared toward providing partition
 (i.e. fault) tolerance and high read and write availability.
 
 While this focus on high availability is a great fit for many data
@@ -32,7 +32,7 @@ In Riak, strong consistency is applied [using bucket types][usage bucket types],
 enables developers to apply strong consistency guarantees on a per-key
 basis.
 
-Elsewhere in the documentation there are instructions for [enabling and using](/riak/kv/2.1.3/developing/app-guide/strong-consistency/) strong consistency, as well as a [guide for operators](/riak/kv/2.1.3/configuring/strong-consistency) looking to manage,
+Elsewhere in the documentation there are instructions for [enabling and using](/riak/kv/2.1.4/developing/app-guide/strong-consistency/) strong consistency, as well as a [guide for operators](/riak/kv/2.1.4/configuring/strong-consistency) looking to manage,
 configure, and monitor strong consistency.
 
 ## Strong vs. Eventual Consistency
@@ -140,12 +140,12 @@ tolerance. Consistent operations can still succeed when a minority of
 replicas in each ensemble can be offline, faulty, or unreachable. In
 other words, **strongly consistent operations will succeed as long as
 quorum is maintained**. A fuller discussion can be found in the
-[operations](/riak/kv/2.1.3/configuring/strong-consistency/#fault-tolerance)
+[operations](/riak/kv/2.1.4/configuring/strong-consistency/#fault-tolerance)
 documentation.
 
 A second trade-off regards performance. Riak's implementation of strong
-consistency involves a complex [consensus subsystem](/riak/kv/2.1.3/learn/concepts/strong-consistency/#implementation-details) that typically requires more communication between Riak nodes than eventually consistent operations,
+consistency involves a complex [consensus subsystem](/riak/kv/2.1.4/learn/concepts/strong-consistency/#implementation-details) that typically requires more communication between Riak nodes than eventually consistent operations,
 which can entail a performance hit of varying proportions, depending on
 a variety of factors.
 
-Ways to address this issue can be found in [strong consistency and performance](/riak/kv/2.1.3/configuring/strong-consistency/#performance).
+Ways to address this issue can be found in [strong consistency and performance](/riak/kv/2.1.4/configuring/strong-consistency/#performance).

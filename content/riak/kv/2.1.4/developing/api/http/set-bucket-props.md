@@ -2,16 +2,16 @@
 title: "HTTP Set Bucket Properties"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Set Bucket Properties"
     identifier: "http_set_bucket_props"
     weight: 101
     parent: "apis_http"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/references/http/set-bucket-props
+  - /riak/2.1.4/dev/references/http/set-bucket-props
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/http/set-bucket-props"
 ---
 
@@ -37,8 +37,8 @@ Available properties:
 (concurrent updates)
 * `last_write_wins` (true or false) - whether to ignore object history (vector
 clock) when writing
-* `precommit` - [precommit hooks](/riak/kv/2.1.3/developing/usage/commit-hooks)
-* `postcommit` - [postcommit hooks](/riak/kv/2.1.3/developing/usage/commit-hooks)
+* `precommit` - [precommit hooks](/riak/kv/2.1.4/developing/usage/commit-hooks)
+* `postcommit` - [postcommit hooks](/riak/kv/2.1.4/developing/usage/commit-hooks)
 * `r, w, dw, rw` - default quorum values for operations on keys in the bucket.
 Valid values are:
   * `"all"` - all nodes must respond

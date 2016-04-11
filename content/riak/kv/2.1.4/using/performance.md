@@ -2,9 +2,9 @@
 title: "Improving Performance"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Performance"
     identifier: "managing_performance"
     weight: 206
@@ -22,7 +22,7 @@ changes are made and when in order to measure the impact of those
 changes.
 
 For performance and tuning recommendations specific to running Riak
-clusters on the Amazon Web Services EC2 environment, see [AWS Performance Tuning](/riak/kv/2.1.3/using/performance/amazon-web-services).
+clusters on the Amazon Web Services EC2 environment, see [AWS Performance Tuning](/riak/kv/2.1.4/using/performance/amazon-web-services).
 
 <div class="note">
 <div class="title">Note on other operating systems</div>
@@ -238,12 +238,12 @@ These settings have been tested and benchmarked by Basho in nodes with
 
 Riak and supporting tools can consume a large number of open file
 handles during normal operation. For stability, increasing the number of
-open files limit is necessary. See [Open Files Limit](/riak/kv/2.1.3/using/performance/open-files-limit/) for more
+open files limit is necessary. See [Open Files Limit](/riak/kv/2.1.4/using/performance/open-files-limit/) for more
 details.
 
 ## Other Tuning Docs
 
-* [AWS Performance Tuning](/riak/kv/2.1.3/using/performance/amazon-web-services)
-* [Erlang VM Tuning](/riak/kv/2.1.3/using/performance/erlang)
-* [Latency Reduction](/riak/kv/2.1.3/using/performance/latency-reduction-checklist)
-* [Open Files Limit](/riak/kv/2.1.3/using/performance/open-files-limit/)
+* [AWS Performance Tuning](/riak/kv/2.1.4/using/performance/amazon-web-services)
+* [Erlang VM Tuning](/riak/kv/2.1.4/using/performance/erlang)
+* [Latency Reduction](/riak/kv/2.1.4/using/performance/latency-reduction-checklist)
+* [Open Files Limit](/riak/kv/2.1.4/using/performance/open-files-limit/)

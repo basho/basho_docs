@@ -3,16 +3,16 @@ title_supertext: "Installing on"
 title: "Windows Azure"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Windows Azure"
     identifier: "installing_windows_azure"
     weight: 308
     parent: "installing"
 toc: true
 aliases:
-  - /riak/2.1.3/installing/windows-azure/
+  - /riak/2.1.4/installing/windows-azure/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/windows-azure"
 ---
 

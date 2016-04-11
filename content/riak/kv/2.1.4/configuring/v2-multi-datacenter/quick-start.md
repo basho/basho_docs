@@ -3,9 +3,9 @@ title_supertext: "V2 Multi-Datacenter Replication:"
 title: "Quickstart"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Quickstart"
     identifier: "configuring_v2_quickstart"
     weight: 100
@@ -13,7 +13,7 @@ menu:
 toc: true
 commercial_offering: true
 aliases:
-  - /riak/2.1.3/ops/mdc/v2/quick-start
+  - /riak/2.1.4/ops/mdc/v2/quick-start
 canonical_link: "docs.basho.com/riak/kv/latest/configuring/v2-multi-datacenter/quick-start"
 ---
 

@@ -2,27 +2,27 @@
 title: "Search Settings"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.1.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.1.4:
     name: "Search Settings"
     identifier: "configuring_search"
     weight: 108
     parent: "configuring"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/advanced/configs/search/
+  - /riak/2.1.4/ops/advanced/configs/search/
 canonical_link: "docs.basho.com/riak/kv/latest/configuring/search"
 ---
 
-[usage search]: /riak/kv/2.1.3/developing/usage/search
-[usage search schema]: /riak/kv/2.1.3/developing/usage/search-schemas
-[usage search data types]: /riak/kv/2.1.3/developing/usage/searching-data-types
-[usage custom extractors]: /riak/kv/2.1.3/developing/usage/custom-extractors
-[config reference]: /riak/kv/2.1.3/configuring/reference
-[config reference#search]: /riak/kv/2.1.3/configuring/reference/#search
-[glossary aae]: /riak/kv/2.1.3/learn/glossary/#active-anti-entropy-aae
-[security index]: /riak/kv/2.1.3/using/security/
+[usage search]: /riak/kv/2.1.4/developing/usage/search
+[usage search schema]: /riak/kv/2.1.4/developing/usage/search-schemas
+[usage search data types]: /riak/kv/2.1.4/developing/usage/searching-data-types
+[usage custom extractors]: /riak/kv/2.1.4/developing/usage/custom-extractors
+[config reference]: /riak/kv/2.1.4/configuring/reference
+[config reference#search]: /riak/kv/2.1.4/configuring/reference/#search
+[glossary aae]: /riak/kv/2.1.4/learn/glossary/#active-anti-entropy-aae
+[security index]: /riak/kv/2.1.4/using/security/
 
 > **Note on Search 2.0 vs. Legacy Search**
 >
