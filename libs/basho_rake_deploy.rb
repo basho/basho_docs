@@ -223,7 +223,21 @@ def do_deploy()
     )
     routing_rules.push(
       {
+        :condition => { :key_prefix_equals       => "#{archived_path}/latest" },
+        :redirect  => { :replace_key_prefix_with => "#{path}/#{ver}/",
+                        :host_name               => ENV['AWS_HOST_NAME'] }
+      }
+    )
+    routing_rules.push(
+      {
         :condition => { :key_prefix_equals       => "#{path}/latest/" },
+        :redirect  => { :replace_key_prefix_with => "#{path}/#{ver}/",
+                        :host_name               => ENV['AWS_HOST_NAME'] }
+      }
+    )
+    routing_rules.push(
+      {
+        :condition => { :key_prefix_equals       => "#{path}/latest" },
         :redirect  => { :replace_key_prefix_with => "#{path}/#{ver}/",
                         :host_name               => ENV['AWS_HOST_NAME'] }
       }
