@@ -146,8 +146,6 @@ def do_deploy()
     puts("  Uploading files...")
     progress = ProgressBar.new("   Uploads", upload_list.length)
     upload_list.each { |obj_path|
-      require 'pry'
-      binding.pry
       #TODO: Generate a log of the uploaded files?
       #TODO: Error checking.
       aws_bucket.put_object({
