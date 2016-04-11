@@ -7,7 +7,7 @@ menu:
   riak_kv-2.1.4:
     name: "Develop with Redis Add-on"
     identifier: "add-ons_redis_develop"
-    weight: 203
+    weight: 403
     parent: "add-ons_redis"
 toc: true
 commercial_offering: true

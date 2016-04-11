@@ -7,7 +7,7 @@ menu:
   riak_kv-2.1.4:
     name: "Set Up Redis Add-on"
     identifier: "add-ons_redis_setup"
-    weight: 202
+    weight: 201
     parent: "add-ons_redis"
 toc: true
 commercial_offering: true

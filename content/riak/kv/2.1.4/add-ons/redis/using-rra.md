@@ -1,24 +1,28 @@
 ---
-title: "Getting Started with Riak Redis Add-on"
+title: "Using Riak Redis Add-on"
 description: ""
 project: "riak_kv"
 project_version: "2.1.4"
 menu:
   riak_kv-2.1.4:
-    name: "Get Started with Redis Addon"
+    name: "Using Redis Addon"
     identifier: "add-ons_redis_getstarted"
-    weight: 202
+    weight: 302
     parent: "add-ons_redis"
 toc: true
 commercial_offering: true
-canonical_link: "docs.basho.com/riak/kv/latest/add-ons/redis/get-started-with-rra"
+aliases:
+  - /riak/kv/2.1.4/add-ons/redis/get-started-with-rra
+canonical_link: "docs.basho.com/riak/kv/latest/add-ons/redis/using-rra"
 ---
 
 [addon redis develop]: .developing-rra/
 [addon redis setup]: .set-up-rra/
+[dev api http]: /riak/kv/2.1.4/developing/api/http/
 [ee]: http://basho.com/contact/
 
-Now that you’ve [set up Riak Redis Add-on (RRA)][addon redis setup], you're ready to use RRA with any Redis client that supports the `GET` command.
+
+Now that you’ve [set up Riak Redis Add-on (RRA)][addon redis setup], you're ready to use RRA with any Redis client which supports `GET`, `PUT` and `DEL` operations.
 
 This page will walk you through using RRA.
 
@@ -26,7 +30,7 @@ This page will walk you through using RRA.
 
 We assume that the Redis client (`redis-cli`) is installed, either alongside the Redis server or on a test machine.
 
-You will need the list of Riak KV and Riak Redis Add-on host:port combinations. For testing, Riak KV values are obtained via the HTTP port.
+You will need the list of Riak KV and Riak Redis Add-on host:port combinations. For testing, Riak KV values are obtained via the [HTTP API][dev api http].
 
 ## Run the Read-Through Test
 
