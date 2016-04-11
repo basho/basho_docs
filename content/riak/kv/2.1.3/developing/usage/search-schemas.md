@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/advanced/search-schema
+  - /riak/kv/2.1.3/dev/advanced/search-schema
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/search-schemas"
 ---
 
@@ -254,7 +255,7 @@ field, you also must set `multiValued` to `true`.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
-<schema name="schedule" version="1.0">
+<schema name="schedule" version="1.5">
  <fields>
    <field name="name"   type="string"  indexed="true" stored="true" />
    <field name="age"    type="int"     indexed="true" stored="false" />

@@ -13,7 +13,8 @@ menu:
 toc: true
 commercial_offering: true
 aliases:
-  - /riak/2.1.3/ops/mdc/v3/nat
+  - /riak/2.0.0/ops/mdc/v3/nat
+  - /riak/kv/2.0.0/ops/mdc/v3/nat
 canonical_link: "docs.basho.com/riak/kv/latest/configuring/v3-multi-datacenter/nat"
 ---
 

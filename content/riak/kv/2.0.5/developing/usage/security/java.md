@@ -12,7 +12,8 @@ menu:
     parent: "usage_security"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/advanced/client-security/java
+  - /riak/2.0.5/dev/advanced/client-security/java
+  - /riak/kv/2.0.5/dev/advanced/client-security/java
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/security/java"
 ---
 

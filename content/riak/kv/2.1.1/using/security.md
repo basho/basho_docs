@@ -11,7 +11,8 @@ menu:
     parent: "managing"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/advanced/security
+  - /riak/2.1.1/ops/advanced/security
+  - /riak/kv/2.1.1/ops/advanced/security
 ---
 
 > **Internal security**

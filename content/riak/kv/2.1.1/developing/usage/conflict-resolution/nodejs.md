@@ -12,7 +12,8 @@ menu:
     parent: "usage_conflict_resolution"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/using/conflict-resolution/nodejs
+  - /riak/2.1.1/dev/using/conflict-resolution/nodejs
+  - /riak/kv/2.1.1/dev/using/conflict-resolution/nodejs
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/conflict-resolution/nodejs"
 ---
 

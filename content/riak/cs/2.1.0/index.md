@@ -11,6 +11,7 @@ project: "riak_cs"
 project_version: "2.1.0"
 aliases:
   - /riakcs/2.1.0/
+  - /riak/cs/2.1.0/
 ---
 
 Riak CS (Cloud Storage) is easy-to-use object storage software built on top of

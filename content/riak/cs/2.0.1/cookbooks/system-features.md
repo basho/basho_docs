@@ -5,6 +5,7 @@ project: "riak_cs"
 project_version: "2.0.1"
 aliases:
   - /riakcs/2.0.1/cookbooks/System-Features/
+  - /riak/cs/2.0.1/cookbooks/System-Features/
 ---
 
 The following pages detail Riak CS's system features.

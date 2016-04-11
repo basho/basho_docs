@@ -11,7 +11,8 @@ menu:
     parent: "managing_ref"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/running/logging
+  - /riak/2.0.4/ops/running/logging
+  - /riak/kv/2.0.4/ops/running/logging
 canonical_link: "docs.basho.com/riak/kv/latest/using/reference/logging"
 ---
 

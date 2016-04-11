@@ -11,7 +11,8 @@ menu:
     parent: "managing_ref_v3"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/mdc/v3/architecture
+  - /riak/2.0.1/ops/mdc/v3/architecture
+  - /riak/kv/2.0.1/ops/mdc/v3/architecture
 canonical_link: "docs.basho.com/riak/kv/latest/using/reference/v3-multi-datacenter/architecture"
 ---
 

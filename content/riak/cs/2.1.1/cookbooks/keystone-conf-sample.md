@@ -5,6 +5,7 @@ project: "riak_cs"
 project_version: "2.1.1"
 aliases:
   - /riakcs/2.1.1/cookbooks/Keystone-Conf-Sample/
+  - /riak/cs/2.1.1/cookbooks/Keystone-Conf-Sample/
 ---
 
 The following displays the contents of a sample `keystone.conf` file

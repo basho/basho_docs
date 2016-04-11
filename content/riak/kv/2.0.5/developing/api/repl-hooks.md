@@ -13,7 +13,8 @@ menu:
 toc: true
 commercial_offering: true
 aliases:
-  - /riak/2.1.3/ops/mdc/v2/hooks
+  - /riak/2.0.5/ops/mdc/v2/hooks
+  - /riak/kv/2.0.5/ops/mdc/v2/hooks
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/repl-hooks"
 ---
 

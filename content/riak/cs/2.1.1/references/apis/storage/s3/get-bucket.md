@@ -6,6 +6,7 @@ project_version: "2.1.1"
 toc: true
 aliases:
   - /riakcs/2.1.1/references/apis/storage/s3/RiakCS-GET-Bucket
+  - /riak/cs/2.1.1/references/apis/storage/s3/RiakCS-GET-Bucket
 ---
 
 The `GET Bucket` operation returns a list of objects (all or up to 1,000) in a bucket.

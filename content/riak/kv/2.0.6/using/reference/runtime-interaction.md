@@ -11,7 +11,8 @@ menu:
     parent: "managing_ref"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/advanced/runtime
+  - /riak/2.0.6/ops/advanced/runtime
+  - /riak/kv/2.0.6/ops/advanced/runtime
 canonical_link: "docs.basho.com/riak/kv/latest/using/reference/runtime-interaction"
 ---
 

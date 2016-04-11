@@ -11,7 +11,8 @@ menu:
     parent: "learn"
 toc: true
 aliases:
-  - /riak/2.1.3/theory/why-riak/
+  - /riak/2.0.5/theory/why-riak/
+  - /riak/kv/2.0.5/theory/why-riak/
 canonical_link: "docs.basho.com/riak/kv/latest/learn/why-riak-kv"
 ---
 

@@ -11,8 +11,10 @@ menu:
     parent: "learn_concepts"
 toc: true
 aliases:
-  - /riak/2.1.3/theory/concepts/Replication
-  - /riak/2.1.3/theory/concepts/replication
+  - /riak/2.0.4/theory/concepts/Replication
+  - /riak/kv/2.0.4/theory/concepts/Replication
+  - /riak/2.0.4/theory/concepts/replication
+  - /riak/kv/2.0.4/theory/concepts/replication
 canonical_link: "docs.basho.com/riak/kv/latest/learn/concepts/replication"
 ---
 

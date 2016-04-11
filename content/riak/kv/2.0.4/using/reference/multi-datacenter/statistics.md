@@ -11,7 +11,8 @@ menu:
     parent: "managing_ref_mdc"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/mdc/statistics
+  - /riak/2.0.4/ops/mdc/statistics
+  - /riak/kv/2.0.4/ops/mdc/statistics
 canonical_link: "docs.basho.com/riak/kv/latest/using/reference/multi-datacenter/statistics"
 ---
 

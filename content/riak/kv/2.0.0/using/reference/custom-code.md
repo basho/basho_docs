@@ -11,7 +11,8 @@ menu:
     parent: "managing_ref"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/advanced/install-custom-code/
+  - /riak/2.0.0/ops/advanced/install-custom-code/
+  - /riak/kv/2.0.0/ops/advanced/install-custom-code/
 canonical_link: "docs.basho.com/riak/kv/latest/using/reference/custom-code"
 ---
 

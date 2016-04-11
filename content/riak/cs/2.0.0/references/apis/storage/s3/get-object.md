@@ -6,6 +6,7 @@ project_version: "2.0.0"
 toc: true
 aliases:
   - /riakcs/2.0.0/references/apis/storage/s3/RiakCS-GET-Object
+  - /riak/cs/2.0.0/references/apis/storage/s3/RiakCS-GET-Object
 ---
 
 The `GET Object` operation retrieves objects from the Riak CS storage.

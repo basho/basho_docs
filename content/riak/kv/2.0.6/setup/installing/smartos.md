@@ -12,7 +12,8 @@ menu:
     parent: "installing"
 toc: true
 aliases:
-  - /riak/2.1.3/installing/smartos/
+  - /riak/2.0.6/installing/smartos/
+  - /riak/kv/2.0.6/installing/smartos/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/smartos"
 ---
 

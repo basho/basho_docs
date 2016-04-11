@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/references/http/fetch-search-index
+  - /riak/kv/2.1.3/dev/references/http/fetch-search-index
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/http/fetch-search-index"
 ---
 

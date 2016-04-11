@@ -11,7 +11,8 @@ menu:
     parent: "managing_cluster_operations"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/advanced/deletion
+  - /riak/2.0.6/ops/advanced/deletion
+  - /riak/kv/2.0.6/ops/advanced/deletion
 canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/object-deletion"
 ---
 

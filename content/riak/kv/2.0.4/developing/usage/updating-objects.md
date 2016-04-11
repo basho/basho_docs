@@ -11,7 +11,8 @@ menu:
     parent: "developing_usage"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/using/updates
+  - /riak/2.0.4/dev/using/updates
+  - /riak/kv/2.0.4/dev/using/updates
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/updating-objects"
 ---
 

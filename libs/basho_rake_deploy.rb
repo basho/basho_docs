@@ -147,10 +147,13 @@ def do_deploy()
     progress = ProgressBar.new("   Uploads", upload_list.length)
     upload_list.each { |obj_path|
       #TODO: Generate a log of the uploaded files?
-      if (aws_bucket.object(obj_path).upload_file(obj_path) != true)
-        #TODO: Probably want to send this out on STDERR.
-        puts("ERROR: Failed to upload #{obj_path}!")
-      end
+      #TODO: Error checking.
+      #TODO: Stop publishing read/write.
+      aws_bucket.put_object({
+          acl: "public-read-write",
+          key: obj_path,
+          body: File.open(obj_path)
+        })
       progress.inc
     }
     progress.finish
@@ -208,12 +211,34 @@ def do_deploy()
   # routing rule per project.
   routing_rules = []
   config_file['params']['project_descriptions'].each do |project, description|
-    path = description['path']
-    ver  = description['latest']
+    path          = description['path']
+    archived_path = description['archived_path']
+    ver           = description['latest']
+    routing_rules.push(
+      {
+        :condition => { :key_prefix_equals       => "#{archived_path}/latest/" },
+        :redirect  => { :replace_key_prefix_with => "#{path}/#{ver}/",
+                        :host_name               => ENV['AWS_HOST_NAME'] }
+      }
+    )
+    routing_rules.push(
+      {
+        :condition => { :key_prefix_equals       => "#{archived_path}/latest" },
+        :redirect  => { :replace_key_prefix_with => "#{path}/#{ver}/",
+                        :host_name               => ENV['AWS_HOST_NAME'] }
+      }
+    )
+    routing_rules.push(
+      {
+        :condition => { :key_prefix_equals       => "#{path}/latest/" },
+        :redirect  => { :replace_key_prefix_with => "#{path}/#{ver}/",
+                        :host_name               => ENV['AWS_HOST_NAME'] }
+      }
+    )
     routing_rules.push(
       {
         :condition => { :key_prefix_equals       => "#{path}/latest" },
-        :redirect  => { :replace_key_prefix_with => "#{path}/#{ver}",
+        :redirect  => { :replace_key_prefix_with => "#{path}/#{ver}/",
                         :host_name               => ENV['AWS_HOST_NAME'] }
       }
     )

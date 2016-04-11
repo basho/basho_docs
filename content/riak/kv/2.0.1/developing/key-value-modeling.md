@@ -11,7 +11,8 @@ menu:
     parent: "developing"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/data-modeling/key-value/
+  - /riak/2.0.1/dev/data-modeling/key-value/
+  - /riak/kv/2.0.1/dev/data-modeling/key-value/
 canonical_link: "docs.basho.com/riak/kv/latest/developing/key-value-modeling"
 ---
 

@@ -13,6 +13,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/advanced/client-security/ruby
+  - /riak/kv/2.1.3/dev/advanced/client-security/ruby
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/security/ruby"
 ---
 

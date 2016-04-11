@@ -11,7 +11,8 @@ menu:
     parent: "planning"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/building/planning/backends/
+  - /riak/2.1.1/ops/building/planning/backends/
+  - /riak/kv/2.1.1/ops/building/planning/backends/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/planning/backend"
 ---
 

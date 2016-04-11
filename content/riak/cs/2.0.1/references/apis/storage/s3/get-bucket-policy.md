@@ -6,6 +6,7 @@ project_version: "2.0.1"
 toc: true
 aliases:
   - /riakcs/2.0.1/references/apis/storage/s3/RiakCS-GET-Bucket-policy
+  - /riak/cs/2.0.1/references/apis/storage/s3/RiakCS-GET-Bucket-policy
 ---
 
 The `GET Bucket policy` operation uses the `policy` subresource to fetch the policy currently set to an existing bucket. If the bucket does not have a policy the call ends up in 404 Not Found. To perform this operation, you must be the bucket owner.

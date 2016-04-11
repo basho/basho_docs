@@ -11,7 +11,8 @@ menu:
     parent: "configuring"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/advanced/configs/configuration-files/
+  - /riak/2.0.0/ops/advanced/configs/configuration-files/
+  - /riak/kv/2.0.0/ops/advanced/configs/configuration-files/
 canonical_link: "docs.basho.com/riak/kv/latest/configuring/reference"
 ---
 

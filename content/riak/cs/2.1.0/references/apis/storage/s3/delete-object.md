@@ -6,6 +6,7 @@ project_version: "2.1.0"
 toc: true
 aliases:
   - /riakcs/2.1.0/references/apis/storage/s3/RiakCS-DELETE-Object
+  - /riak/cs/2.1.0/references/apis/storage/s3/RiakCS-DELETE-Object
 ---
 
 The `DELETE Object` operation removes an object, if one exists.

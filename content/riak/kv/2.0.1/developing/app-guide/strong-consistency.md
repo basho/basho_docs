@@ -11,7 +11,8 @@ menu:
     parent: "developing_app_guide"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/advanced/strong-consistency
+  - /riak/2.0.1/dev/advanced/strong-consistency
+  - /riak/kv/2.0.1/dev/advanced/strong-consistency
 canonical_link: "docs.basho.com/riak/kv/latest/developing/app-guide/strong-consistency"
 ---
 
