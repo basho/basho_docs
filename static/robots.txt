@@ -1,6 +1,6 @@
-User-agent: *
-Disallow: /
-
+#User-agent: *
+#Disallow: /
+#
 # This is a dummy robots.txt for use in the staging docs
 # site to keep the Great Googs from indexing our testing
 # kruft.
