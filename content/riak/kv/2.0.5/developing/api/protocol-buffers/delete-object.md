@@ -11,7 +11,8 @@ menu:
     parent: "apis_pbc"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/references/protocol-buffers/delete-object
+  - /riak/2.0.5/dev/references/protocol-buffers/delete-object
+  - /riak/kv/2.0.5/dev/references/protocol-buffers/delete-object
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/delete-object"
 ---
 

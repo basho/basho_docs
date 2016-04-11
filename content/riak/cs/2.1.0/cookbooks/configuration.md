@@ -11,6 +11,7 @@ project: "riak_cs"
 project_version: "2.1.0"
 aliases:
   - /riakcs/2.1.0/cookbooks/configuration/
+  - /riak/cs/2.1.0/cookbooks/configuration/
 ---
 
 In a Riak CS storage system, three components work in conjunction with one another, which means that you must configure each component to work with the others:

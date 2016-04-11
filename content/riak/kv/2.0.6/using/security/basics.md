@@ -11,7 +11,8 @@ menu:
     parent: "managing_security"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/running/authz
+  - /riak/2.0.6/ops/running/authz
+  - /riak/kv/2.0.6/ops/running/authz
 canonical_link: "docs.basho.com/riak/kv/latest/using/security/basics"
 ---
 

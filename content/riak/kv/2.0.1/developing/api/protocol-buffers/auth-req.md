@@ -11,7 +11,8 @@ menu:
     parent: "apis_pbc"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/references/protocol-buffers/auth-req
+  - /riak/2.0.1/dev/references/protocol-buffers/auth-req
+  - /riak/kv/2.0.1/dev/references/protocol-buffers/auth-req
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/auth-req"
 ---
 

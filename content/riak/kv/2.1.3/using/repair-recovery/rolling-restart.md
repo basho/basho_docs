@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/ops/running/recovery/rolling-restart
+  - /riak/kv/2.1.3/ops/running/recovery/rolling-restart
 canonical_link: "docs.basho.com/riak/kv/latest/using/repair-recovery/rolling-restart"
 ---
 

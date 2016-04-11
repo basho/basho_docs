@@ -12,7 +12,8 @@ menu:
     parent: "usage_security"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/advanced/client-security/erlang
+  - /riak/2.1.1/dev/advanced/client-security/erlang
+  - /riak/kv/2.1.1/dev/advanced/client-security/erlang
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/security/erlang"
 ---
 

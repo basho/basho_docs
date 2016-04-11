@@ -11,7 +11,8 @@ menu:
     parent: "apis_http"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/references/http/list-buckets
+  - /riak/2.0.0/dev/references/http/list-buckets
+  - /riak/kv/2.0.0/dev/references/http/list-buckets
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/http/list-buckets"
 ---
 

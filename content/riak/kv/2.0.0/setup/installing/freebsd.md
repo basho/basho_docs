@@ -12,7 +12,8 @@ menu:
     parent: "installing"
 toc: true
 aliases:
-  - /riak/2.1.3/installing/freebsd/
+  - /riak/2.0.0/installing/freebsd/
+  - /riak/kv/2.0.0/installing/freebsd/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/freebsd"
 ---
 

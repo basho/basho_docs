@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/data-modeling/
+  - /riak/kv/2.1.3/dev/data-modeling/
 canonical_link: "docs.basho.com/riak/kv/latest/learn/use-cases"
 ---
 

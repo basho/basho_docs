@@ -6,6 +6,7 @@ project_version: "2.1.0"
 toc: true
 aliases:
   - /riakcs/2.1.0/references/apis/storage/s3/RiakCS-List-Multipart-Uploads/
+  - /riak/cs/2.1.0/references/apis/storage/s3/RiakCS-List-Multipart-Uploads/
 ---
 
 Lists multipart uploads that have not yet been completed or aborted.

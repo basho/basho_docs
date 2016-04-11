@@ -6,6 +6,7 @@ project_version: "2.1.1"
 toc: true
 aliases:
   - /riakcs/2.1.1/references/apis/storage/s3/RiakCS-GET-Object-ACL
+  - /riak/cs/2.1.1/references/apis/storage/s3/RiakCS-GET-Object-ACL
 ---
 
 The `GET Object acl` operation uses the `acl` subresource to return the access control list (ACL) of an object.

@@ -5,6 +5,7 @@ project: "riak_cs"
 project_version: "2.0.1"
 aliases:
   - /riakcs/2.0.1/references/apis/storage/openstack/RiakCS-OpenStack-Create-Object
+  - /riak/cs/2.0.1/references/apis/storage/openstack/RiakCS-OpenStack-Create-Object
 ---
 
 Writes or overwrites an object's content and metadata.

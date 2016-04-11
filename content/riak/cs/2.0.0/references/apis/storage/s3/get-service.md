@@ -6,6 +6,7 @@ project_version: "2.0.0"
 toc: true
 aliases:
   - /riakcs/2.0.0/references/apis/storage/s3/RiakCS-GET-Service
+  - /riak/cs/2.0.0/references/apis/storage/s3/RiakCS-GET-Service
 ---
 
 The `GET Service` operation returns a list of all buckets owned by the *authenticated* user who sent sent the request.

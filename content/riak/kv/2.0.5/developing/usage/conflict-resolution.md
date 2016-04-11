@@ -11,7 +11,8 @@ menu:
     parent: "developing_usage"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/using/conflict-resolution
+  - /riak/2.0.5/dev/using/conflict-resolution
+  - /riak/kv/2.0.5/dev/using/conflict-resolution
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/conflict-resolution"
 ---
 

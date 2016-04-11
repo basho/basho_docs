@@ -6,6 +6,7 @@ project_version: "2.0.0"
 toc: true
 aliases:
   - /riakcs/2.0.0/references/apis/storage/s3/RiakCS-DELETE-Bucket
+  - /riak/cs/2.0.0/references/apis/storage/s3/RiakCS-DELETE-Bucket
 ---
 
 The `DELETE Bucket` operation deletes the bucket specified in the URI.

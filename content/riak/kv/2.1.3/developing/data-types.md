@@ -13,6 +13,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/dev/using/data-types
+  - /riak/kv/2.1.3/dev/using/data-types
 canonical_link: "docs.basho.com/riak/kv/latest/developing/data-types"
 ---
 

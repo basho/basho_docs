@@ -12,7 +12,8 @@ menu:
     parent: "installing"
 toc: true
 aliases:
-  - /riak/2.1.3/installing/amazon-web-services/
+  - /riak/2.1.1/installing/amazon-web-services/
+  - /riak/kv/2.1.1/installing/amazon-web-services/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/amazon-web-services"
 ---
 

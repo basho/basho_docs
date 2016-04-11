@@ -23,6 +23,7 @@ listed_projects:
     title: "Riak CS Control"
 aliases:
   - /riakcs/2.0.0/riakcs-downloads/
+  - /riak/cs/2.0.0/riakcs-downloads/
 ---
 
 Content (that's written in the Markdown document) can go here.

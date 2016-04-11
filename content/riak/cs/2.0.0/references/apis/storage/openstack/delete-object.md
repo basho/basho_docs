@@ -5,6 +5,7 @@ project: "riak_cs"
 project_version: "2.0.0"
 aliases:
   - /riakcs/2.0.0/references/apis/storage/openstack/RiakCS-OpenStack-Delete-Object
+  - /riak/cs/2.0.0/references/apis/storage/openstack/RiakCS-OpenStack-Delete-Object
 ---
 
 Removes the specified object, if it exists.

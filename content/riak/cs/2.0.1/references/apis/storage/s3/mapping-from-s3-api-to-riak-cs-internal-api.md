@@ -6,6 +6,7 @@ project_version: "2.0.1"
 toc: true
 aliases:
   - /riakcs/2.0.1/references/apis/storage/s3/Mapping-From-S3-API-to-Riak-CS-internal-API
+  - /riak/cs/2.0.1/references/apis/storage/s3/Mapping-From-S3-API-to-Riak-CS-internal-API
 ---
 
 ## Overview

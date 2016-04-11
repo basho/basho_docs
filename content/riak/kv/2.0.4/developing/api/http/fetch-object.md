@@ -11,7 +11,8 @@ menu:
     parent: "apis_http"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/references/http/fetch-object
+  - /riak/2.0.4/dev/references/http/fetch-object
+  - /riak/kv/2.0.4/dev/references/http/fetch-object
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/http/fetch-object"
 ---
 

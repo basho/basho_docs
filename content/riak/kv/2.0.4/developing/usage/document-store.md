@@ -11,7 +11,8 @@ menu:
     parent: "developing_usage"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/search/document-store
+  - /riak/2.0.4/dev/search/document-store
+  - /riak/kv/2.0.4/dev/search/document-store
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/document-store"
 ---
 

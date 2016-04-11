@@ -11,7 +11,8 @@ menu:
     parent: "managing"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/running/cluster-admin
+  - /riak/2.1.1/ops/running/cluster-admin
+  - /riak/kv/2.1.1/ops/running/cluster-admin
 canonical_link: "docs.basho.com/riak/kv/latest/using/admin"
 ---
 

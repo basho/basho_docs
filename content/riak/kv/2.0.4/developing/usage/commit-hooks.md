@@ -11,7 +11,8 @@ menu:
     parent: "developing_usage"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/using/commit-hooks
+  - /riak/2.0.4/dev/using/commit-hooks
+  - /riak/kv/2.0.4/dev/using/commit-hooks
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/commit-hooks"
 ---
 

@@ -11,7 +11,8 @@ menu:
     parent: "apis_http"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/references/http/reset-bucket-props
+  - /riak/2.1.1/dev/references/http/reset-bucket-props
+  - /riak/kv/2.1.1/dev/references/http/reset-bucket-props
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/http/reset-bucket-props"
 ---
 

@@ -11,6 +11,7 @@ project: "riak_cs"
 project_version: "2.0.1"
 aliases:
   - /riakcs/2.0.1/cookbooks/Load-Balancing-and-Proxy-Configuration/
+  - /riak/cs/2.0.1/cookbooks/Load-Balancing-and-Proxy-Configuration/
 ---
 
 <div class="note"><div class="title">Note on Legacy app.config usage</div>

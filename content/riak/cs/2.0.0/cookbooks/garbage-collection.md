@@ -11,6 +11,7 @@ project: "riak_cs"
 project_version: "2.0.0"
 aliases:
   - /riakcs/2.0.0/cookbooks/garbage-collection/
+  - /riak/cs/2.0.0/cookbooks/garbage-collection/
 ---
 
 This document describes some of the implementation details behind Riak

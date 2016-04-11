@@ -11,7 +11,8 @@ menu:
     parent: "planning"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/building/planning/system-planning
+  - /riak/2.1.1/ops/building/planning/system-planning
+  - /riak/kv/2.1.1/ops/building/planning/system-planning
 canonical_link: "docs.basho.com/riak/kv/latest/setup/planning/start"
 ---
 
