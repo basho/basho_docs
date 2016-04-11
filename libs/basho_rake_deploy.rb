@@ -148,10 +148,11 @@ def do_deploy()
     upload_list.each { |obj_path|
       #TODO: Generate a log of the uploaded files?
       #TODO: Error checking.
+      #TODO: Stop publishing read/write.
       aws_bucket.put_object({
-          acl: "public-read",
+          acl: "public-read-write",
           key: obj_path,
-          object: File.open(obj_path)
+          body: File.open(obj_path)
         })
       progress.inc
     }
