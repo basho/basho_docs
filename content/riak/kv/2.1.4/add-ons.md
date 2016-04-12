@@ -17,4 +17,4 @@ canonical_link: "docs.basho.com/riak/kv/latest/add-ons"
 
 Here at Basho, we've developed integrations between Riak KV and other best-of-breed components in your application stack. Each integration, called an add-on, is explained in this section, from installation to feature-set.
 
-* [Riak Redis Add-on](http://docs.basho.com/riak/kv/2.1.3/add-ons/redis/)
+* [Riak Redis Add-on](/riak/kv/2.1.4/add-ons/redis/)
