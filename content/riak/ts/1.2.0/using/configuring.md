@@ -10,6 +10,8 @@ menu:
 project: "riak_ts"
 project_version: "1.2.0"
 toc: true
+aliases:
+    - /riakts/1.2.0/using/configuring/
 canonical_link: "docs.basho.com/riak/ts/latest/using/configuring"
 ---
 
