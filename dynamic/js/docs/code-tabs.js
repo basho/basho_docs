@@ -20,7 +20,7 @@ $(function() {
     'language-riakconf': 'riak.conf',
     'language-riakcsconf': 'riak-cs.conf',
     'language-ruby': 'Ruby',
-    'language-stanionconf': 'stanchion.conf',
+    'language-stanchionconf': 'stanchion.conf',
     'language-vmargs': 'vm.args',
   };
 
@@ -31,7 +31,7 @@ $(function() {
     'language-curl': 'language-bash',
     'language-riakconf': 'language-matlab',
     'language-riakcsconf': 'language-matlab',
-    'language-stanionconf': 'language-matlab',
+    'language-stanchionconf': 'language-matlab',
     'language-vmargs': 'language-ini',
   };
 
