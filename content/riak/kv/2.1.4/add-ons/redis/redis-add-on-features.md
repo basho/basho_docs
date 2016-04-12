@@ -7,7 +7,7 @@ menu:
   riak_kv-2.1.4:
     name: "Redis Add-on Features"
     identifier: "add-ons_redis_features"
-    weight: 204
+    weight: 504
     parent: "add-ons_redis"
 toc: true
 commercial_offering: true
@@ -70,7 +70,7 @@ Implementing caching strategies in the cache proxy service reduces the cost of i
 The read-through cache strategy of the GET command is represented by the
 following sequence diagram:
 
-![GET command sequence diagram][GET-sequence]
+![GET command sequence diagram](/images/redis/GET_seq.msc.png)
 
 
 The `CACHE_TTL` configuration option establishes how long the cache takes to
@@ -97,12 +97,12 @@ expected to be followed by several accurate cache hits.
 The write-around cache strategy of the SET command is represented by the
 following sequence diagram:
 
-![SET command sequence diagram][SET-sequence]
+![SET command sequence diagram](/images/redis/SET_seq.msc.png)
 
 The write-around cache strategy of the DEL command is represented by the
 following sequence diagram:
 
-![DEL command sequence diagram][DEL-sequence]
+![DEL command sequence diagram](/images/redis/DEL_seq.msc.png)
 
 ## Commands
 
@@ -129,4 +129,4 @@ With the combination of read-through and write-around cache strategies, the
 full object lifetime for a key-value is represented by the following
 sequence diagram:
 
-![Object lifetime sequence diagram][Object-lifetime]
+![Object lifetime sequence diagram](/images/redis/Object_lifetime.msc.png)

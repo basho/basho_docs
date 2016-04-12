@@ -7,7 +7,7 @@ menu:
   riak_kv-2.1.3:
     name: "Set Up Redis Add-on"
     identifier: "add-ons_redis_setup"
-    weight: 202
+    weight: 201
     parent: "add-ons_redis"
 toc: true
 commercial_offering: true
@@ -19,6 +19,7 @@ canonical_link: "docs.basho.com/riak/kv/latest/add-ons/redis/set-up-rra"
 [ee]: http://basho.com/contact/
 [install index]: /riak/kv/2.1.3/setup/installing
 [perf open files]: /riak/kv/2.1.3/using/performance/open-files-limit/#changing-the-limit
+[lab ansible]: https://github.com/paegun/ansible-cache-proxy
 
 This page will walk you through the process of installing Riak Redis Add-on (RRA) and configuring it to run in your environment. Check the [prerequisites](#prerequisites) before you get started to make sure you have everything you need in order to successfully install and use RRA.
 
@@ -29,8 +30,14 @@ Before you begin installing Riak Redis Add-on (RRA), you will need to ensure tha
 While this page assumes that Redis is not already installed, existing installations of Redis are supported. If you have an existing Redis installation, look for the *skip ahead* instructions as you go.
 
 This page assumes that Redis is (or will be) installed on separate hosts from Riak KV. You will need the list of Riak KV and Redis host:port combinations. RRA communicates with Riak KV via the protobuf port, and the host:port values are used
-to configure the cache proxy. 
+to configure the cache proxy.
 
+## In the Lab
+
+An ansible setup for the Riak Redis Add-on (RRA) was developed to provide a
+runnable example of an installation, see [ansible cache proxy][lab ansible].
+The remainder of this setup guide lists the commands required to install and
+configure RRA manually.
 
 ## Installing
 
@@ -232,14 +239,14 @@ Set the list of Riak KV servers by listing the servers, separated by `-`, under 
 If you are on Ubuntu, run the following to start RRA:
 
 ```bash
-sudo service nutcracker start
+sudo service cache_proxy start
 ```
 
 If you are on CentOS, run the following to restart Redis and ensure redis-server
 is enabled to start on boot:
 
 ```bash
-systemctl start nutcracker
+systemctl start cache_proxy
 ```
 
 To verify RRA is running and listening on the expected port, run the

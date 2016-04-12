@@ -7,7 +7,7 @@ menu:
   riak_kv-2.1.4:
     name: "Develop with Redis Add-on"
     identifier: "add-ons_redis_develop"
-    weight: 203
+    weight: 403
     parent: "add-ons_redis"
 toc: true
 commercial_offering: true
@@ -76,7 +76,10 @@ versions 2.0 and greater. Values, which we'll refer to as objects, are identifia
 Objects accessed via the cache proxy service in Riak Redis Add-on are restricted to plaintext format. This plaintext format may be a simple string, JSON, XML, or other plaintext representations that can be parsed in the client application (e.g. YAML).
 
 While buckets are a flat namespace in Riak KV and you can name them
-whatever you'd like (`bucket` or `a90bf521c` or `___`), within the cache proxy service, Redis bucket:key is mapped to Riak KV bucket/key, so bucket names should not contain colon (`:`).
+whatever you'd like (`bucket` or `a90bf521c` or `___`), within the cache proxy
+service, Redis bucket_type:bucket:key is mapped to Riak KV
+bucket_type/bucket/key, so bucket type and bucket names should not contain
+colon (`:`). When not specified, bucket type defaults to "default".
 
 Outside of the above restriction, bucket names have no intrinsic significance beyond allowing you to store objects with the same key in different buckets. 
 

@@ -2,9 +2,9 @@
 title: "Developing with Riak Redis Add-on"
 description: ""
 project: "riak_kv"
-project_version: "2.1.3"
+project_version: "2.0.4"
 menu:
-  riak_kv-2.1.3:
+  riak_kv-2.0.4:
     name: "Develop with Redis Add-on"
     identifier: "add-ons_redis_develop"
     weight: 403
@@ -15,12 +15,12 @@ canonical_link: "docs.basho.com/riak/kv/latest/add-ons/redis/developing-rra"
 ---
 
 [redis-clients]: http://redis.io/clients
-[usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types/
-[dev api http]: /riak/kv/2.1.3/developing/api/http
+[usage bucket types]: /riak/kv/2.0.4/developing/usage/bucket-types/
+[dev api http]: /riak/kv/2.0.4/developing/api/http
 [config-behaviors]: http://basho.com/posts/technical/riaks-config-behaviors-part-4/
-[apps replication properties]: /riak/kv/2.1.3/developing/app-guide/replication-properties
-[usage commit hooks]: /riak/kv/2.1.3/developing/usage/commit-hooks/
-[concept causal context]: /riak/kv/2.1.3/learn/concepts/causal-context
+[apps replication properties]: /riak/kv/2.0.4/developing/app-guide/replication-properties
+[usage commit hooks]: /riak/kv/2.0.4/developing/usage/commit-hooks/
+[concept causal context]: /riak/kv/2.0.4/learn/concepts/causal-context
 [ee]: http://basho.com/contact/
 
 This page will walk you through setting up your environment for development with Riak Redis Add-on (RRA), as well as present examples and configuration parameters for basic development operations.
