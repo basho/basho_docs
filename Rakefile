@@ -127,7 +127,13 @@ end
 #########
 # Deploy
 desc      "Build and deploy static artifacts"
-task      :deploy => ['clean', 'deploy:archived_content', 'build'] do do_deploy(); end
+task      :deploy => [
+                      'clean',
+                      'deploy:archived_content',
+                      'build:js',
+                      'build:css',
+                      'build:hugo'
+                     ] do do_deploy(); end
 namespace :deploy do
 
   # Fetch and extract the archived content that we want to survive from the
