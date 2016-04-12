@@ -245,6 +245,23 @@ def do_deploy()
   end
   #TODO: We need to implement some way of adding arbitrary routing rules. Maybe
   # add a section in config.yaml that's just a JSON string that we parse?
+  riak_path = config_file['params']['project_descriptions']['riak_kv']['path']
+  riak_ver  = config_file['params']['project_descriptions']['riak_kv']['latest']
+  routing_rules.push(
+    {
+      :condition => { :key_prefix_equals       => "riakee/latest/" },
+      :redirect  => { :replace_key_prefix_with => "#{riak_path}/#{riak_ver}/",
+                      :host_name               => ENV['AWS_HOST_NAME'] }
+    }
+  )
+  routing_rules.push(
+    {
+      :condition => { :key_prefix_equals       => "riakee/latest" },
+      :redirect  => { :replace_key_prefix_with => "#{riak_path}/#{riak_ver}",
+                      :host_name               => ENV['AWS_HOST_NAME'] }
+    }
+  )
+
   new_website_configuration = {
     :error_document => {:key => "404.html"},
     :index_document => aws_bucket_website.index_document.to_hash,
