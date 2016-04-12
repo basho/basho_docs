@@ -12,7 +12,10 @@ menu:
     parent: "installing"
 toc: true
 aliases:
-  - /riak/2.1.3/installing/rhel-centos/
+  - /riak/2.0.2/ops/building/installing/Installing-on-RHEL-and-CentOS
+  - /riak/kv/2.0.2/ops/building/installing/Installing-on-RHEL-and-CentOS
+  - /riak/2.0.2/installing/rhel-centos/
+  - /riak/kv/2.0.2/installing/rhel-centos/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/rhel-centos"
 ---
 

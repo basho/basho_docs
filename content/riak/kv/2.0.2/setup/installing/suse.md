@@ -12,7 +12,10 @@ menu:
     parent: "installing"
 toc: true
 aliases:
-  - /riak/2.1.3/installing/suse/
+  - /riak/2.0.2/ops/building/installing/Installing-on-SUSE
+  - /riak/kv/2.0.2/ops/building/installing/Installing-on-SUSE
+  - /riak/2.0.2/installing/suse/
+  - /riak/kv/2.0.2/installing/suse/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/suse"
 ---
 

@@ -12,6 +12,8 @@ menu:
     parent: "installing"
 toc: true
 aliases:
+  - /riak/2.0.1/ops/building/installing/Installing-on-Windows-Azure
+  - /riak/kv/2.0.1/ops/building/installing/Installing-on-Windows-Azure
   - /riak/2.0.1/installing/windows-azure/
   - /riak/kv/2.0.1/installing/windows-azure/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/windows-azure"

@@ -11,6 +11,8 @@ menu:
     parent: "installing_source"
 toc: true
 aliases:
+  - /riak/2.0.4/ops/building/installing/erlang
+  - /riak/kv/2.0.4/ops/building/installing/erlang
   - /riak/2.0.4/installing/source/erlang/
   - /riak/kv/2.0.4/installing/source/erlang/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/source/erlang"

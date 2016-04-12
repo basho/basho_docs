@@ -12,6 +12,8 @@ menu:
     parent: "installing"
 toc: true
 aliases:
+  - /riak/2.0.5/ops/building/Installing-Riak-from-Source
+  - /riak/kv/2.0.5/ops/building/Installing-Riak-from-Source
   - /riak/2.0.5/installing/source/
   - /riak/kv/2.0.5/installing/source/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/source"

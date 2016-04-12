@@ -12,6 +12,8 @@ menu:
     parent: "installing"
 toc: true
 aliases:
+  - /riak/2.1.3/ops/building/installing/Installing-on-Mac-OS-X
+  - /riak/kv/2.1.3/ops/building/installing/Installing-on-Mac-OS-X
   - /riak/2.1.3/installing/mac-osx/
   - /riak/kv/2.1.3/installing/mac-osx/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/mac-osx"

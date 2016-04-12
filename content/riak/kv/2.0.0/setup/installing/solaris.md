@@ -12,6 +12,8 @@ menu:
     parent: "installing"
 toc: true
 aliases:
+  - /riak/2.0.0/ops/building/installing/Installing-on-Solaris
+  - /riak/kv/2.0.0/ops/building/installing/Installing-on-Solaris
   - /riak/2.0.0/installing/solaris/
   - /riak/kv/2.0.0/installing/solaris/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/solaris"
