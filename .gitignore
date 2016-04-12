@@ -1,5 +1,9 @@
 # Build output
 **/.cache/**
+new_file_list-*.txt
+updated_file_list-*.txt
+deleted_list-*.txt
+
 
 # OS X files
 .DS_Store
