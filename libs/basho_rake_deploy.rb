@@ -84,8 +84,9 @@ def do_deploy()
   # list of files we need to upload, and the list of files we need to delete.
   # To do this, we're going to use some brute force.
   puts("  Comparing Object Hashes...")
-  upload_list = []
-  delete_list = []
+  new_list     = []
+  updated_list = []
+  delete_list  = []
   lcl_i = 0
   aws_i = 0
   lcl_len = local_file_list.length
@@ -100,16 +101,16 @@ def do_deploy()
     # Compare the file/object names
     case lcl_file_name <=> aws_file_name
     when  0 # File names are identical
-      # Compare md5sums. If they don't match, add the file to the upload list.
+      # Compare md5sums. If they don't match, add the file to the updated list.
       if (local_file_list[lcl_i][1] != aws_file_list[aws_i][1])
-        upload_list.push(lcl_file_name)
+        updated_list.push(lcl_file_name)
       end
       # In either case, increment both index variables
       lcl_i += 1; progress.inc
       aws_i += 1
     when -1 # Local file name sorts first...
-      # The local file doesn't exist on AWS. Add it to the upload list.
-      upload_list.push(lcl_file_name)
+      # The local file doesn't exist on AWS. Add it to the new list.
+      new_list.push(lcl_file_name)
       # And only increment the local index variable.
       lcl_i += 1; progress.inc
     when  1 # AWS object name sorts first...
@@ -122,9 +123,9 @@ def do_deploy()
   end
 
   # If we're not at the end of the local file list, we need to add any new files
-  # to the upload list.
+  # to the new list.
   while (lcl_i < lcl_len)
-    upload_list.push(local_file_list[lcl_i][0])
+    new_list.push(local_file_list[lcl_i][0])
     lcl_i += 1; progress.inc
   end
 
@@ -137,11 +138,14 @@ def do_deploy()
   progress.finish
 
   puts("  Hash Check complete")
+  puts("    #{new_list.length} new files, and #{updated_list.length} updated..")
   puts("    #{upload_list.length} files need to be uploaded to the remote")
   puts("    #{delete_list.length} files need to be deleted from the remote")
 
 
-  # Upload the files in the upload list and delete the files in the delete list.
+  # Upload the files in the upload updated and new lists, and delete the files
+  # in the delete list.
+  upload_list = updated_list + new_list
   if (upload_list.length > 0)
     puts("  Uploading files...")
     progress = ProgressBar.new("   Uploads", upload_list.length)
@@ -162,9 +166,10 @@ def do_deploy()
   end
 
   if (delete_list.length > 0)
-
     delete_list.each_slice(1000).with_index do |slice, index|
-      puts("  Requesting Batch Delete for objects #{index*1000}--#{(index+1)*1000}...")
+      index_from = index * 1000
+      index_to   = ((index+1)*1000) < delete_list.length ? ((index+1)*1000) : delete_list.length
+      puts("  Requesting Batch Delete for objects #{index_from}--#{index_to}...")
       # Generate a Aws::S3::Types::Delete hash object.
       delete_hash = {
         delete: {
@@ -277,31 +282,27 @@ def do_deploy()
 
   aws_bucket_website.put({ website_configuration: new_website_configuration })
 
-  # Invalidate any files that were modified --- either uploaded or deleted
-  invalidation_list = upload_list + delete_list
-  if (invalidation_list.length > 0)
-    #FIXME: Since we're still in development, and I've had some issues with the
-    #       deploy process (also b/c Amazon charges per invalidation, _not_ per
-    #       file invalidated), I'm going to be lazy here and just invalidate the
-    #       entire S3 bucket.
-    #       This should be fixed after we start using this deploy script.
-    if (false)
-      cf_client = SimpleCloudfrontInvalidator::CloudfrontClient.new(
-          ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY'],
-          ENV['AWS_CLOUDFRONT_DIST_ID'])
-      invalidation_list.each_slice(100).with_index do |slice, index|
-        puts("  Sending Invalidation Request for objects #{index*100}--#{(index+1)*100}...")
-        cf_report = cf_client.invalidate(slice)
-      end
-    else
-      cf_client = SimpleCloudfrontInvalidator::CloudfrontClient.new(
-          ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY'],
-          ENV['AWS_CLOUDFRONT_DIST_ID'])
-      puts("  Being lazy and sending Invalidation Request for \"/*\"...")
-      cf_report = cf_client.invalidate(['/*'])
+  # Invalidate any files that were deleted or modified.
+  cf_client = SimpleCloudfrontInvalidator::CloudfrontClient.new(
+      ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY'],
+      ENV['AWS_CLOUDFRONT_DIST_ID'])
+  invalidation_list = updated_list + delete_list
+  if (invalidation_list.length == 0)
+    puts("  No files to invalidate...")
+  elsif (invalidation_list.length < 500)
+    # The invalidation list is sufficiently short that we can invalidate each
+    # individual file
+    invalidation_list.each_slice(100).with_index do |slice, index|
+      index_from = (index*100)
+      index_to   = ((index+1)*100) < delete_list.length ? ((index+1)*100) : delete_list.length
+      puts("  Sending Invalidation Request for objects #{index_from}--#{index_to}...")
+      cf_report = cf_client.invalidate(slice)
     end
   else
-    puts("  No files to invalidate...")
+    # The invalidation list is large enough that we should skip getting charged
+    # and invalidate the entire site.
+    puts("  Sending Invalidation Request for the entire site (\"/*\")...")
+    cf_report = cf_client.invalidate(['/*'])
   end
 
   puts("")
