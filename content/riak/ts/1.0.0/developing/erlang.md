@@ -10,6 +10,8 @@ menu:
 project: "riak_ts"
 project_version: "1.0.0"
 toc: true
+aliases:
+    - /riakts/1.0.0/developing/erlang/
 canonical_link: "docs.basho.com/riak/ts/latest/developing/erlang"
 ---
 
