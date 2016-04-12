@@ -11,7 +11,7 @@ menu:
     parent: "apis_http"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/references/http/delete-search-index
+  - /riak/2.0.2/dev/references/http/delete-search-index
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/http/delete-search-index"
 ---
 

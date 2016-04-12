@@ -11,7 +11,7 @@ menu:
     parent: "managing_performance"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/building/benchmarking
+  - /riak/2.0.2/ops/building/benchmarking
 canonical_link: "docs.basho.com/riak/kv/latest/using/performance/benchmarking"
 ---
 

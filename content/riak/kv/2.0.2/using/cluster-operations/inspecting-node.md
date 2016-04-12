@@ -10,6 +10,9 @@ menu:
     weight: 103
     parent: "managing_cluster_operations"
 toc: true
+aliases:
+  - /riak/2.0.2/ops/running/nodes/inspecting
+  - /riak/kv/2.0.2/ops/running/nodes/inspecting
 canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/inspecting-node"
 ---
 
@@ -368,7 +371,7 @@ available in the Riaknostic Github repository.
 
 ## Strong Consistency Stats
 
-Riak tabulates a variety of stats related to Riak's optional [strong consistency](/riak/2.1.3/using/reference/strong-consistency) feature. The table below lists those stats.
+Riak tabulates a variety of stats related to Riak's optional [strong consistency](/riak/2.0.2/using/reference/strong-consistency) feature. The table below lists those stats.
 
 ### GET-related stats
 

@@ -12,7 +12,7 @@ menu:
     parent: "usage_security"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/advanced/client-security/python
+  - /riak/2.0.2/dev/advanced/client-security/python
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/security/python"
 ---
 

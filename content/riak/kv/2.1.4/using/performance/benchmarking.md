@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.4/ops/building/benchmarking
+  - /riak/kv/2.1.4/ops/building/benchmarking
 canonical_link: "docs.basho.com/riak/kv/latest/using/performance/benchmarking"
 ---
 

@@ -11,7 +11,7 @@ menu:
     parent: "apis_pbc"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/references/protocol-buffers/set-bucket-props
+  - /riak/2.0.2/dev/references/protocol-buffers/set-bucket-props
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/set-bucket-props"
 ---
 

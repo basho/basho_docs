@@ -11,7 +11,7 @@ menu:
     parent: "managing_repair_recover"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/running/recovery/failure-recovery
+  - /riak/2.0.2/ops/running/recovery/failure-recovery
 canonical_link: "docs.basho.com/riak/kv/latest/using/repair-recovery/failure-recovery"
 ---
 

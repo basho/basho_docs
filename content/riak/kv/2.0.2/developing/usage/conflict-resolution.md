@@ -11,12 +11,12 @@ menu:
     parent: "developing_usage"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/using/conflict-resolution
+  - /riak/2.0.2/dev/using/conflict-resolution
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/conflict-resolution"
 ---
 
 [usage bucket types]: /riak/kv/2.0.2/developing/usage/bucket-types
-[use ref strong consistency]: /riak/2.1.3/using/reference/strong-consistency
+[use ref strong consistency]: /riak/2.0.2/using/reference/strong-consistency
 
 One of Riak's [central goals](/riak/kv/learn/why-riak-kv) is high availability. It was built as a [clustered](/riak/kv/2.0.2/learn/concepts/clusters) system in which any [node](/riak/kv/2.0.2/learn/glossary/#node) is capable of receiving requests without requiring that
 every node participate in each request.

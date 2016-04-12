@@ -11,13 +11,13 @@ menu:
     parent: "developing_app_guide"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/advanced/strong-consistency
+  - /riak/2.0.2/dev/advanced/strong-consistency
 canonical_link: "docs.basho.com/riak/kv/latest/developing/app-guide/strong-consistency"
 ---
 
-[use ref strong consistency]: /riak/2.1.3/using/reference/strong-consistency
+[use ref strong consistency]: /riak/2.0.2/using/reference/strong-consistency
 [concept eventual consistency]: /riak/kv/2.0.2/learn/concepts/eventual-consistency
-[use ref strong consistency#trade-offs]: /riak/2.1.3/using/reference/strong-consistency/#trade-offs
+[use ref strong consistency#trade-offs]: /riak/2.0.2/using/reference/strong-consistency/#trade-offs
 [glossary vnode]: /riak/kv/2.0.2/learn/glossary/#vnode
 [config strong consistency#enable]: /riak/kv/2.0.2/configuring/strong-consistency/#enabling-strong-consistency
 [usage bucket types]: /riak/kv/2.0.2/developing/usage/bucket-types
@@ -30,7 +30,7 @@ canonical_link: "docs.basho.com/riak/kv/latest/developing/app-guide/strong-consi
 [concept version vector]: /riak/kv/2.0.2/learn/concepts/dotted-version-vectors
 [usage conflict resolution]: /riak/kv/2.0.2/developing/usage/conflict-resolution
 [usage update objects]: /riak/kv/2.0.2/developing/usage/updating-objects
-[use ref strong consistency#vs]: /riak/2.1.3/using/reference/strong-consistency/#strong-vs.-eventual-consistency
+[use ref strong consistency#vs]: /riak/2.0.2/using/reference/strong-consistency/#strong-vs.-eventual-consistency
 [dev client libraries]: /riak/kv/2.0.2/developing/client-libraries
 [getting started]: /riak/kv/2.0.2/developing/getting-started
 [config strong consistency#details]: /riak/kv/2.0.2/configuring/strong-consistency/#implementation-details

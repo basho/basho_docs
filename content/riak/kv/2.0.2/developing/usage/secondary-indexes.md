@@ -11,13 +11,13 @@ menu:
     parent: "developing_usage"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/using/2i
+  - /riak/2.0.2/dev/using/2i
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/secondary-indexes"
 ---
 
 [plan backend leveldb]: /riak/kv/2.0.2/setup/planning/backend/leveldb
 [plan backend memory]: /riak/kv/2.0.2/setup/planning/backend/memory
-[use ref strong consistency]: /riak/2.1.3/using/reference/strong-consistency
+[use ref strong consistency]: /riak/2.0.2/using/reference/strong-consistency
 
 > **Note: Riak Search preferred for querying**
 >

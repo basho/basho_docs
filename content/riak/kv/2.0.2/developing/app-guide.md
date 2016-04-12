@@ -11,7 +11,7 @@ menu:
     parent: "developing"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/using/application-guide/
+  - /riak/2.0.2/dev/using/application-guide/
 canonical_link: "docs.basho.com/riak/kv/latest/developing/app-guide"
 ---
 
@@ -46,7 +46,7 @@ canonical_link: "docs.basho.com/riak/kv/latest/developing/app-guide"
 [obj model erlang]: /riak/kv/2.0.2/developing/getting-started/erlang/object-modeling
 [obj model golang]: /riak/kv/2.0.2/developing/getting-started/golang/object-modeling
 [concept strong consistency]: /riak/kv/2.0.2/learn/concepts/strong-consistency
-[use ref strong consistency]: /riak/2.1.3/using/reference/strong-consistency
+[use ref strong consistency]: /riak/2.0.2/using/reference/strong-consistency
 [cluster ops strong consistency]: /riak/kv/2.0.2/using/cluster-operations/strong-consistency
 [config strong consistency]: /riak/kv/2.0.2/configuring/strong-consistency
 [apps strong consistency]: /riak/kv/2.0.2/developing/app-guide/strong-consistency

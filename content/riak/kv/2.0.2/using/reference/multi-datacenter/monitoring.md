@@ -11,7 +11,7 @@ menu:
     parent: "managing_ref_mdc"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/mdc/monitoring
+  - /riak/2.0.2/ops/mdc/monitoring
 ---
 
 Monitoring Riak's realtime replication allows you to identify trends and

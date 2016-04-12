@@ -10,6 +10,9 @@ menu:
     weight: 103
     parent: "managing_cluster_operations"
 toc: true
+aliases:
+  - /riak/2.0.6/ops/running/nodes/inspecting
+  - /riak/kv/2.0.6/ops/running/nodes/inspecting
 canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/inspecting-node"
 ---
 

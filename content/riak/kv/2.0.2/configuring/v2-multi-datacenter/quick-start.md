@@ -13,7 +13,7 @@ menu:
 toc: true
 commercial_offering: true
 aliases:
-  - /riak/2.1.3/ops/mdc/v2/quick-start
+  - /riak/2.0.2/ops/mdc/v2/quick-start
 canonical_link: "docs.basho.com/riak/kv/latest/configuring/v2-multi-datacenter/quick-start"
 ---
 

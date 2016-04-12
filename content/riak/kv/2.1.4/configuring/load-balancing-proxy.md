@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.4/ops/advanced/configs/load-balanacing-proxy/
+  - /riak/kv/2.1.4/ops/advanced/configs/load-balanacing-proxy/
 canonical_link: "docs.basho.com/riak/kv/latest/configuring/load-balancing-proxy"
 ---
 

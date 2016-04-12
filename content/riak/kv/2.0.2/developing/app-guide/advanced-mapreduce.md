@@ -11,7 +11,7 @@ menu:
     parent: "developing_app_guide"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/advanced/mapreduce/
+  - /riak/2.0.2/dev/advanced/mapreduce/
 canonical_link: "docs.basho.com/riak/kv/latest/developing/app-guide/advanced-mapreduce"
 ---
 

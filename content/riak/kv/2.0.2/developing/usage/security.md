@@ -11,7 +11,7 @@ menu:
     parent: "developing_usage"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/advanced/client-security
+  - /riak/2.0.2/dev/advanced/client-security
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/security"
 ---
 
