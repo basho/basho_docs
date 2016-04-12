@@ -261,6 +261,13 @@ def do_deploy()
                       :host_name               => ENV['AWS_HOST_NAME'] }
     }
   )
+  routing_rules.push(
+    {
+      :condition => { :key_prefix_equals       => "riakts/" },
+      :redirect  => { :replace_key_prefix_with => "riak/ts/",
+                      :host_name               => ENV['AWS_HOST_NAME'] }
+    }
+  )
 
   new_website_configuration = {
     :error_document => {:key => "404.html"},
