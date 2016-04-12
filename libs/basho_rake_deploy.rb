@@ -137,15 +137,26 @@ def do_deploy()
   end
   progress.finish
 
+  upload_list = updated_list + new_list
+
   puts("  Hash Check complete")
   puts("    #{new_list.length} new files, and #{updated_list.length} updated..")
   puts("    #{upload_list.length} files need to be uploaded to the remote")
   puts("    #{delete_list.length} files need to be deleted from the remote")
+  current_time = Time.now.getutc.to_s.gsub(" ","_")
+  File.open("new_file_list-#{current_time}.txt", "w+") do |f|
+    f.puts(new_list)
+  end
+  File.open("updated_file_list-#{current_time}.txt", "w+") do |f|
+    f.puts(upload_list)
+  end
+  File.open("deleted_list-#{current_time}.txt", "w+") do |f|
+    f.puts(delete_list)
+  end
 
 
   # Upload the files in the upload updated and new lists, and delete the files
   # in the delete list.
-  upload_list = updated_list + new_list
   if (upload_list.length > 0)
     puts("  Uploading files...")
     progress = ProgressBar.new("   Uploads", upload_list.length)
@@ -169,7 +180,7 @@ def do_deploy()
     delete_list.each_slice(1000).with_index do |slice, index|
       index_from = index * 1000
       index_to   = ((index+1)*1000) < delete_list.length ? ((index+1)*1000) : delete_list.length
-      puts("  Requesting Batch Delete for objects #{index_from}--#{index_to}...")
+      puts("  Requesting Batch Delete for objects #{index_from}-#{index_to}...")
       # Generate a Aws::S3::Types::Delete hash object.
       delete_hash = {
         delete: {
@@ -295,7 +306,7 @@ def do_deploy()
     invalidation_list.each_slice(100).with_index do |slice, index|
       index_from = (index*100)
       index_to   = ((index+1)*100) < delete_list.length ? ((index+1)*100) : delete_list.length
-      puts("  Sending Invalidation Request for objects #{index_from}--#{index_to}...")
+      puts("  Sending Invalidation Request for objects #{index_from}-#{index_to}...")
       cf_report = cf_client.invalidate(slice)
     end
   else
