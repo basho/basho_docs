@@ -19,5 +19,3 @@ aliases:
   - /riak/2.1.4/downloads
 canonical_link: "docs.basho.com/riak/kv/latest/downloads"
 ---
-
-Content (that's written in the Markdown document) can go here.
