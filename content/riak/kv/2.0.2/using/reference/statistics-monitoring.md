@@ -11,7 +11,7 @@ menu:
     parent: "managing_ref"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/running/stats-and-monitoring
+  - /riak/2.0.2/ops/running/stats-and-monitoring
 canonical_link: "docs.basho.com/riak/kv/latest/using/reference/statistics-monitoring"
 ---
 

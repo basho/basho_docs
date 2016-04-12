@@ -13,7 +13,7 @@ menu:
 toc: true
 commercial_offering: true
 aliases:
-  - /riak/2.1.3/ops/mdc/v2/operations
+  - /riak/2.0.2/ops/mdc/v2/operations
 canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/v2-multi-datacenter"
 ---
 

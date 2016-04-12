@@ -11,13 +11,14 @@ menu:
     parent: "developing_app_guide"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/advanced/replication-properties
+  - /riak/2.0.2/dev/advanced/replication-properties
+  - /riak/kv/2.0.2/dev/advanced/replication-properties
 canonical_link: "docs.basho.com/riak/kv/latest/developing/app-guide/replication-properties"
 ---
 
 [usage bucket types]: /riak/kv/2.0.2/developing/usage/bucket-types
 [concept eventual consistency]: /riak/kv/2.0.2/learn/concepts/eventual-consistency
-[use ref strong consistency]: /riak/2.1.3/using/reference/strong-consistency
+[use ref strong consistency]: /riak/2.0.2/using/reference/strong-consistency
 [concept clusters]: /riak/kv/2.0.2/learn/concepts/clusters
 
 Riak was built to act as a multi-node [cluster][concept clusters].  It

@@ -11,7 +11,7 @@ menu:
     parent: "upgrading"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/upgrading/production-checklist/
+  - /riak/2.0.2/ops/upgrading/production-checklist/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/upgrading/checklist"
 ---
 

@@ -11,8 +11,8 @@ menu:
     parent: "learn_concepts"
 toc: true
 aliases:
-  - /riak/2.1.3/theory/concepts/Buckets
-  - /riak/2.1.3/theory/concepts/buckets
+  - /riak/2.0.2/theory/concepts/Buckets
+  - /riak/2.0.2/theory/concepts/buckets
 canonical_link: "docs.basho.com/riak/kv/latest/learn/concepts/buckets"
 ---
 

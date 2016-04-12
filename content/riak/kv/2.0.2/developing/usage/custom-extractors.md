@@ -11,7 +11,7 @@ menu:
     parent: "developing_usage"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/search/custom-extractors
+  - /riak/2.0.2/dev/search/custom-extractors
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/custom-extractors"
 ---
 

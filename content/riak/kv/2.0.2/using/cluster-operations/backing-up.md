@@ -11,7 +11,7 @@ menu:
     parent: "managing_cluster_operations"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/running/backups
+  - /riak/2.0.2/ops/running/backups
 canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/backing-up"
 ---
 
@@ -19,7 +19,7 @@ canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/backing-
 [config reference]: /riak/kv/2.0.2/configuring/reference
 [plan backend leveldb]: /riak/kv/2.0.2/setup/planning/backend/leveldb
 [plan backend bitcask]: /riak/kv/2.0.2/setup/planning/backend/bitcask
-[use ref strong consistency]: /riak/2.1.3/using/reference/strong-consistency
+[use ref strong consistency]: /riak/2.0.2/using/reference/strong-consistency
 
 Riak KV is a [clustered][concept clusters] system built to survive a wide range of
 failure scenarios, including the loss of nodes due to network or

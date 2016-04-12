@@ -11,7 +11,7 @@ menu:
     parent: "configuring"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/advanced/configs/search/
+  - /riak/2.0.2/ops/advanced/configs/search/
 canonical_link: "docs.basho.com/riak/kv/latest/configuring/search"
 ---
 

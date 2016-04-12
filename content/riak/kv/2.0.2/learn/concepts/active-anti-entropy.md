@@ -11,7 +11,7 @@ menu:
     parent: "learn_concepts"
 toc: true
 aliases:
-  - /riak/2.1.3/theory/concepts/aae
+  - /riak/2.0.2/theory/concepts/aae
 canonical_link: "docs.basho.com/riak/kv/latest/learn/concepts/active-anti-entropy"
 ---
 

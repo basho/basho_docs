@@ -11,7 +11,7 @@ menu:
     parent: "developing_usage"
 toc: true
 aliases:
-  - /riak/2.1.3/dev/advanced/search-schema
+  - /riak/2.0.2/dev/advanced/search-schema
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/search-schemas"
 ---
 

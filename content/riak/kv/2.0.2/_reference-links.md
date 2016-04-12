@@ -1,5 +1,5 @@
 
-# Riak KV 2.1.3 Reference Links List
+# Riak KV 2.0.2 Reference Links List
 
 
 ## Common
@@ -8,7 +8,7 @@
 [install index]: /riak/kv/2.0.2/setup/installing
 [upgrade index]: /riak/kv/2.0.2/upgrading
 [plan index]: /riak/kv/2.0.2/planning
-[config index]: /riak/2.1.3/using/configuring/
+[config index]: /riak/2.0.2/using/configuring/
 [config reference]: /riak/kv/2.0.2/configuring/reference/
 [manage index]: /riak/kv/2.0.2/using/managing
 [performance index]: /riak/kv/2.0.2/using/performance
@@ -99,7 +99,7 @@
 [use ref search]: /riak/kv/2.0.2/using/reference/search
 [use ref 2i]: /riak/kv/2.0.2/using/reference/secondary-indexes
 [use ref snmp]: /riak/kv/2.0.2/using/reference/snmp
-[use ref strong consistency]: /riak/2.1.3/using/reference/strong-consistency
+[use ref strong consistency]: /riak/2.0.2/using/reference/strong-consistency
 [use ref jmx]: /riak/kv/2.0.2/using/reference/jmx
 [use ref obj del]: /riak/kv/2.0.2/using/reference/object-deletion/
 [use ref v3 mdc]: /riak/kv/2.0.2/using/reference/v3-multi-datacenter

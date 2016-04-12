@@ -11,7 +11,7 @@ menu:
     parent: "configuring"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/building/configuration/
+  - /riak/2.0.2/ops/building/configuration/
 canonical_link: "docs.basho.com/riak/kv/latest/configuring/basic"
 ---
 

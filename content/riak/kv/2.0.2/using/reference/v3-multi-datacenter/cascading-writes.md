@@ -11,7 +11,7 @@ menu:
     parent: "managing_ref_v3"
 toc: true
 aliases:
-  - /riak/2.1.3/ops/mdc/v3/cascading-writes
+  - /riak/2.0.2/ops/mdc/v3/cascading-writes
 canonical_link: "docs.basho.com/riak/kv/latest/using/reference/v3-multi-datacenter/cascading-writes"
 ---
 
