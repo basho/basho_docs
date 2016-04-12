@@ -34,6 +34,12 @@ You will need the list of Riak KV and Riak Redis Add-on host:port combinations. 
 
 ## Run the Read-Through Test
 
+Throughout this test example, the bucket "test" and key "foo" are used to
+demonstrate how to address the hieararchical namespace support in Riak KV
+through the flat Redis key. The bucket type is not specified in this example,
+so is effectively the default bucket type, named "default". For additional
+information regarding key namespace, see [develop Riak Redis Add-on (RRA)][addon redis develop].
+
 The read-through test ensures that your configuration correctly tracks values obtained from Riak KV and Riak Redis Add-on (RRA). The main actions of the test are:
 
 * DELETE the Riak object at the `test` bucket with the key `foo`, which checks that there are no siblings.
@@ -105,7 +111,7 @@ sudo riak config effective |grep proto
 If RRA is misconfigured, [reconfigure][redis add-on setup] it, and restart the service with the following:
 
 ```bash
-sudo service nutcracker restart
+sudo service cache_proxy restart
 ```
 
 If RRA is configured correctly and all required services are running, you may want to restart each service from front to back as follows:
@@ -117,14 +123,14 @@ If RRA is configured correctly and all required services are running, you may wa
 5. Start RRA.
 
 ```bash
-sudo service nutcracker stop
+sudo service cache_proxy stop
 sudo service redis stop
 
 # optional
 sudo riak restart
 
 sudo service redis start
-sudo service nutcracker start
+sudo service cache_proxy start
 ```
 
 ## Using Riak Redis Add-on
