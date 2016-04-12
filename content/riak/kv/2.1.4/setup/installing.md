@@ -12,7 +12,10 @@ menu:
     pre: icon-cog
 toc: true
 aliases:
+  - /riak/2.1.4/ops/building/installing
+  - /riak/kv/2.1.4/ops/building/installing
   - /riak/2.1.4/installing/
+  - /riak/kv/2.1.4/installing/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/installing"
 ---
 

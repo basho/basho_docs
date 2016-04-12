@@ -11,6 +11,8 @@ menu:
     parent: "installing"
 toc: true
 aliases:
+  - /riak/2.1.3/ops/installing/Post-Installation
+  - /riak/kv/2.1.3/ops/installing/Post-Installation
   - /riak/2.1.3/installing/verify-install/
   - /riak/kv/2.1.3/installing/verify-install/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/verify"

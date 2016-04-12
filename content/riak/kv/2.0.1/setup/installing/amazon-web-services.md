@@ -12,6 +12,8 @@ menu:
     parent: "installing"
 toc: true
 aliases:
+  - /riak/2.0.1/ops/building/installing/Installing-on-AWS-Marketplace
+  - /riak/kv/2.0.1/ops/building/installing/Installing-on-AWS-Marketplace
   - /riak/2.0.1/installing/amazon-web-services/
   - /riak/kv/2.0.1/installing/amazon-web-services/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/amazon-web-services"
