@@ -8,6 +8,8 @@ menu:
     weight: 150
     parent: "productadvisories"
 toc: true
+aliases:
+  - /riak/latest/community/product-advisories/codeinjectioninitfiles/
 ---
 
 Info | Value

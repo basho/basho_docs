@@ -17,7 +17,7 @@ canonical_link: "docs.basho.com/riak/kv/latest/release-notes"
 
 Released April 11, 2016.
 
-This is a bugfix release providing patches for the [Riak init file](http://docs.basho.com/riak/latest/community/product-advisories/codeinjectioninitfiles/) Product Advisory and the [leveldb segfault](http://docs.basho.com/riak/latest/community/product-advisories/leveldbsegfault/) Product Advisory.
+This is a bugfix release providing patches for the [Riak init file](http://docs.basho.com/community/productadvisories/codeinjectioninitfiles/) Product Advisory and the [leveldb segfault](http://docs.basho.com/community/productadvisories/leveldbsegfault/) Product Advisory.
 
 ## Upgraded Components
 
