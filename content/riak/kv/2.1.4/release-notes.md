@@ -21,7 +21,7 @@ This is a bugfix release providing patches for the [Riak init file](http://docs.
 
 ## Upgraded Components
 
-* LevelDB has been updated to version 2.0.15
+* LevelDB has been updated to version 2.0.17
 * node_package has been updated to version 3.0.0. [See the node_package release notes](https://github.com/basho/node_package/blob/develop/RELEASE-NOTES.md)
 
 ## Bugs Fixed
