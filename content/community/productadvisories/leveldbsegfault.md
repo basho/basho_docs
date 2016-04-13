@@ -8,6 +8,8 @@ menu:
     weight: 100
     parent: "productadvisories"
 toc: true
+aliases:
+  - /riak/latest/community/product-advisories/leveldbsegfault/
 ---
 
 
