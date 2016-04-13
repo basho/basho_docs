@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/ops/advanced/security
+canonical_link: "docs.basho.com/riak/kv/latest/using/security"
 ---
 
 > **Internal security**
@@ -109,9 +110,6 @@ node's [Search configuration](/riak/kv/2.0.2/configuring/reference/#search). The
 In addition to JMX ports, Solr also binds to a well-known port of its
 own, as determined by each node's `search.solr.port` setting, which is
 also located in each node's Search configuration. The default is 8093.
-
-canonical_link: "docs.basho.com/riak/kv/latest/using/security"
----
 
 # Riak Security Community
 
