@@ -17,5 +17,6 @@ listed_projects:
       title: "Riak KV"
 aliases:
   - /riak/2.0.2/downloads
+  - /riak/kv/2.0.2/downloads
 canonical_link: "docs.basho.com/riak/kv/latest/downloads"
 ---

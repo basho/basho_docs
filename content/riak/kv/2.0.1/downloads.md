@@ -20,4 +20,3 @@ aliases:
   - /riak/kv/2.0.1/downloads
 canonical_link: "docs.basho.com/riak/kv/latest/downloads"
 ---
-
