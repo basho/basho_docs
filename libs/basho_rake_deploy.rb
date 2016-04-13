@@ -320,7 +320,7 @@ def do_deploy()
     # individual file
     invalidation_list.each_slice(100).with_index do |slice, index|
       index_from = (index*100)
-      index_to   = ((index+1)*100) < delete_list.length ? ((index+1)*100) : delete_list.length
+      index_to   = ((index+1)*100) < invalidation_list.length ? ((index+1)*100) : invalidation_list.length
       puts("  Sending Invalidation Request for objects #{index_from}-#{index_to}...")
       cf_report = cf_client.invalidate(slice)
     end
