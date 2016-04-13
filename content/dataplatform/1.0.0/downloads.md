@@ -19,5 +19,3 @@ listed_projects:
       version: "1.0.0"
       title: "Basho Data Platform Extras"
 ---
-
-Content (that's written in the Markdown document) can go here.
