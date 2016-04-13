@@ -1,9 +1,10 @@
 ---
-title:
-project: riak
-version: 1.0.0+
-versions: false
-document: reference
+#title:
+#project: riak
+#version: 1.0.0+
+#versions: false
+#document: reference
+draft: true
 ---
 
 Info | Value
