@@ -32,8 +32,17 @@ def do_deploy()
     exit()
   end
 
+  start_time = Time.now.getutc.to_s.gsub(" ","_")
+  dry_run = ENV['DRY_RUN'] != "False"
+
   puts("========================================")
   puts("Beginning Deploy Process...")
+  puts("  As a Dry Run.") if (dry_run)
+
+  log_dir = File.join(Dir.pwd, "deploy_logs")
+  if (!File.directory?(log_dir))
+    Dir.mkdir("#{log_dir}")
+  end
 
   # Capture Hugo's config.yaml while we're in the same directory
   config_file = YAML.load_file('config.yaml')
@@ -143,17 +152,23 @@ def do_deploy()
   puts("    #{new_list.length} new files, and #{updated_list.length} updated..")
   puts("    #{upload_list.length} files need to be uploaded to the remote")
   puts("    #{delete_list.length} files need to be deleted from the remote")
-  current_time = Time.now.getutc.to_s.gsub(" ","_")
-  File.open("new_file_list-#{current_time}.txt", "w+") do |f|
+  File.open(File.join(log_dir, "#{start_time}.new.txt"), "w+") do |f|
     f.puts(new_list)
   end
-  File.open("updated_file_list-#{current_time}.txt", "w+") do |f|
+  File.open(File.join(log_dir, "#{start_time}.updated.txt"), "w+") do |f|
     f.puts(upload_list)
   end
-  File.open("deleted_list-#{current_time}.txt", "w+") do |f|
+  File.open(File.join(log_dir, "#{start_time}.deleted.txt"), "w+") do |f|
     f.puts(delete_list)
   end
 
+  if (dry_run)
+    puts("")
+    puts("Dry Run Complete.")
+    puts("Pending changes Logged to #{log_dir}/.")
+    puts("========================================")
+    exit(0)
+  end
 
   # Upload the files in the upload updated and new lists, and delete the files
   # in the delete list.

@@ -201,6 +201,8 @@ namespace :deploy do
       end
     end
   end
+
+  task :immediately_and_unsafely do do_deploy(); end
 end
 
 # Generate download.yaml metadata.
