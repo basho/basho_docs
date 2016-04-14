@@ -14,6 +14,8 @@ toc: true
 aliases:
   - /riak/2.1.4/dev/using/data-types
   - /riak/kv/2.1.4/dev/using/data-types
+  - /riak/2.1.4/dev/data-modeling/data-types
+  - /riak/kv/2.1.4/dev/data-modeling/data-types
 canonical_link: "docs.basho.com/riak/kv/latest/developing/data-types"
 ---
 
