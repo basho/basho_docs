@@ -10,6 +10,9 @@ menu:
     weight: 102
     parent: "managing_cluster_operations"
 toc: true
+aliases:
+  - /riak/2.1.4/ops/running/nodes/replacing
+  - /riak/kv/2.1.4/ops/running/nodes/replacing
 canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/replacing-node"
 ---
 

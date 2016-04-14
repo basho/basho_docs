@@ -10,6 +10,9 @@ menu:
     weight: 104
     parent: "learn"
 toc: true
+aliases:
+  - /riak/2.1.4/theory/concepts/
+  - /riak/kv/2.1.4/theory/concepts/
 canonical_link: "docs.basho.com/riak/kv/latest/learn/concepts"
 ---
 

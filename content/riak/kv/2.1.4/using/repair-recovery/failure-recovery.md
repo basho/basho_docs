@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.4/ops/running/recovery/failure-recovery
+  - /riak/kv/2.1.4/ops/running/recovery/failure-recovery
 canonical_link: "docs.basho.com/riak/kv/latest/using/repair-recovery/failure-recovery"
 ---
 

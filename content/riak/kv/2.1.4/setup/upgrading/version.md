@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.4/upgrade-v20/
+  - /riak/kv/2.1.4/upgrade-v20/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/upgrading/version"
 ---
 

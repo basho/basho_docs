@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.4/ops/mdc/per-bucket
+  - /riak/kv/2.1.4/ops/mdc/per-bucket
 canonical_link: "docs.basho.com/riak/kv/latest/using/reference/multi-datacenter/per-bucket-replication"
 ---
 

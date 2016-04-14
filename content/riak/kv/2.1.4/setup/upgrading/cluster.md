@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.4/ops/upgrading/rolling-upgrades/
+  - /riak/kv/2.1.4/ops/upgrading/rolling-upgrades/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/upgrading/cluster"
 ---
 

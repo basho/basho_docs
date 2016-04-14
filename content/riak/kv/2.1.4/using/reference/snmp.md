@@ -10,6 +10,9 @@ menu:
     weight: 107
     parent: "managing_ref"
 toc: true
+aliases:
+  - /riak/2.1.4/ops/running/monitoring/snmp
+  - /riak/kv/2.1.4/ops/running/monitoring/snmp
 canonical_link: "docs.basho.com/riak/kv/latest/using/reference/snmp"
 ---
 

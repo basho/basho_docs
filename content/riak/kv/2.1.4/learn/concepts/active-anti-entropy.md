@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.4/theory/concepts/aae
+  - /riak/kv/2.1.4/theory/concepts/aae
 canonical_link: "docs.basho.com/riak/kv/latest/learn/concepts/active-anti-entropy"
 ---
 

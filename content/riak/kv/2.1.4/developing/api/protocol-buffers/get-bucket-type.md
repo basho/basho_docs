@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.4/dev/references/protocol-buffers/get-bucket-type
+  - /riak/kv/2.1.4/dev/references/protocol-buffers/get-bucket-type
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/get-bucket-type"
 ---
 

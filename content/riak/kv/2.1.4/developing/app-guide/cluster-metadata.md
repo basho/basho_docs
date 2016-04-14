@@ -10,6 +10,9 @@ menu:
     weight: 104
     parent: "developing_app_guide"
 toc: true
+aliases:
+  - /riak/2.1.4/dev/advanced/cluster-metadata
+  - /riak/kv/2.1.4/dev/advanced/cluster-metadata
 canonical_link: "docs.basho.com/riak/kv/latest/developing/app-guide/cluster-metadata"
 ---
 

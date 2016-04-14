@@ -3,12 +3,13 @@ title: "V2 / V3 SSL & CA Validation"
 description: ""
 project: "riak_kv"
 project_version: "2.1.4"
-menu:
-  riak_kv-2.1.4:
-    name: "V2/V3 SSL & CA Validation"
-    identifier: "security_validation"
-    weight: 103
-    parent: "managing_security"
+#menu:
+#  riak_kv-2.1.4:
+#    name: "V2/V3 SSL & CA Validation"
+#    identifier: "security_validation"
+#    weight: 103
+#    parent: "managing_security"
+draft: true
 toc: true
 canonical_link: "docs.basho.com/riak/kv/latest/using/security/v2-v3-ssl-ca"
 ---

@@ -13,6 +13,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.4/dev/advanced/client-security/java
+  - /riak/kv/2.1.4/dev/advanced/client-security/java
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/security/java"
 ---
 

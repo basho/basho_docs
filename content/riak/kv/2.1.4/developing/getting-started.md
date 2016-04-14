@@ -11,6 +11,9 @@ menu:
     weight: 100
     parent: "developing"
 toc: true
+aliases:
+  - /riak/2.1.4/dev/taste-of-riak/
+  - /riak/kv/2.1.4/dev/taste-of-riak/
 canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started"
 ---
 

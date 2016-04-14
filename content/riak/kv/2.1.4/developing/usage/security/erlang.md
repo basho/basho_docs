@@ -13,6 +13,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.4/dev/advanced/client-security/erlang
+  - /riak/kv/2.1.4/dev/advanced/client-security/erlang
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/security/erlang"
 ---
 

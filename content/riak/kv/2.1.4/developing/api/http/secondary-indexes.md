@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.4/dev/references/http/secondary-indexes
+  - /riak/kv/2.1.4/dev/references/http/secondary-indexes
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/http/secondary-indexes"
 ---
 

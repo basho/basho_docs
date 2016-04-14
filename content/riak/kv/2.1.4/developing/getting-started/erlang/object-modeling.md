@@ -11,6 +11,9 @@ menu:
     weight: 102
     parent: "getting_started_erlang"
 toc: true
+aliases:
+  - /riak/2.1.4/dev/taste-of-riak/object-modeling-erlang
+  - /riak/kv/2.1.4/dev/taste-of-riak/object-modeling-erlang
 canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/erlang/object-modeling"
 ---
 

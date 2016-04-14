@@ -13,6 +13,8 @@ toc: true
 aliases:
   - /riak/2.1.4/theory/concepts/Buckets
   - /riak/2.1.4/theory/concepts/buckets
+  - /riak/kv/2.1.4/theory/concepts/Buckets
+  - /riak/kv/2.1.4/theory/concepts/buckets
 canonical_link: "docs.basho.com/riak/kv/latest/learn/concepts/buckets"
 ---
 

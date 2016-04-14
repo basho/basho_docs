@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.4/ops/mdc/v3/aae
+  - /riak/kv/2.1.4/ops/mdc/v3/aae
 canonical_link: "docs.basho.com/riak/kv/latest/using/reference/v3-multi-datacenter/aae"
 ---
 

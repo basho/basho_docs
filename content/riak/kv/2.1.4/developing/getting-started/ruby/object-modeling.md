@@ -11,6 +11,9 @@ menu:
     weight: 102
     parent: "getting_started_ruby"
 toc: true
+aliases:
+  - /riak/2.1.4/dev/taste-of-riak/object-modeling-ruby
+  - /riak/kv/2.1.4/dev/taste-of-riak/object-modeling-ruby
 canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/ruby/object-modeling"
 ---
 

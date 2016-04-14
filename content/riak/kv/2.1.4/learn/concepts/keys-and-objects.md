@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.4/theory/concepts/keys-and-values
+  - /riak/kv/2.1.4/theory/concepts/keys-and-values
 canonical_link: "docs.basho.com/riak/kv/latest/learn/concepts/keys-and-objects"
 ---
 

@@ -14,6 +14,7 @@ toc: true
 commercial_offering: true
 aliases:
   - /riak/2.1.4/ops/mdc/v2/hooks
+  - /riak/kv/2.1.4/ops/mdc/v2/hooks
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/repl-hooks"
 ---
 

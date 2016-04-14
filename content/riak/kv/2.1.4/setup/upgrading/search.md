@@ -10,6 +10,9 @@ menu:
     weight: 104
     parent: "upgrading"
 toc: true
+aliases:
+  - /riak/2.1.4/ops/advanced/upgrading-search-2
+  - /riak/kv/2.1.4/ops/advanced/upgrading-search-2
 canonical_link: "docs.basho.com/riak/kv/latest/setup/upgrading/search"
 ---
 
