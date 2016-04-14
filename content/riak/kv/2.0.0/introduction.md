@@ -10,6 +10,9 @@ menu:
     weight: 100
     parent: index
 toc: true
+aliases:
+  - /riak/kv/2.0.0/intro-v20
+  - /riak/2.0.0/intro-v20
 canonical_link: "docs.basho.com/riak/kv/latest/introduction"
 ---
 

@@ -10,6 +10,8 @@ menu:
     weight: 206
     parent: "managing"
 toc: true
+aliases:
+  - /riak/kv/2.1.4/ops/tuning/erlang/
 canonical_link: "docs.basho.com/riak/kv/latest/using/performance"
 ---
 
