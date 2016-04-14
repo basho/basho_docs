@@ -10,6 +10,9 @@ menu:
     weight: 105
     parent: "configuring"
 toc: true
+aliases:
+  - /riak/kv/2.1.4/ops/advanced/strong-consistency/
+  - /riak/2.1.4/ops/advanced/strong-consistency/
 canonical_link: "docs.basho.com/riak/kv/latest/configuring/strong-consistency"
 ---
 

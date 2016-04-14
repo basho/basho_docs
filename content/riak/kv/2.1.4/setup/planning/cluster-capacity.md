@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.4/ops/building/planning/cluster
+  - /riak/kv/2.1.4/ops/building/planning/cluster
 canonical_link: "docs.basho.com/riak/kv/latest/setup/planning/cluster-capacity"
 ---
 

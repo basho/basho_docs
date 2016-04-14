@@ -11,6 +11,9 @@ menu:
     weight: 101
     parent: "getting_started_erlang"
 toc: true
+aliases:
+  - /riak/2.1.4/dev/taste-of-riak/querying-erlang
+  - /riak/kv/2.1.4/dev/taste-of-riak/querying-erlang
 canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/erlang/querying"
 ---
 

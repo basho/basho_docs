@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.4/ops/building/configuration/
+  - /riak/kv/2.1.4/ops/building/configuration/
 canonical_link: "docs.basho.com/riak/kv/latest/configuring/basic"
 ---
 

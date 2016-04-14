@@ -3,12 +3,13 @@ title: "Security Best Practices"
 description: ""
 project: "riak_kv"
 project_version: "2.1.4"
-menu:
-  riak_kv-2.1.4:
-    name: "Best Practices"
-    identifier: "security_best_practices"
-    weight: 102
-    parent: "managing_security"
+#menu:
+#  riak_kv-2.1.4:
+#    name: "Best Practices"
+#    identifier: "security_best_practices"
+#    weight: 102
+#    parent: "managing_security"
+draft: true
 toc: true
 canonical_link: "docs.basho.com/riak/kv/latest/using/security/best-practices"
 ---

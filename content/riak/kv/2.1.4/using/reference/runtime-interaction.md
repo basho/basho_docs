@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.4/ops/advanced/runtime
+  - /riak/kv/2.1.4/ops/advanced/runtime
 canonical_link: "docs.basho.com/riak/kv/latest/using/reference/runtime-interaction"
 ---
 

@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.4/dev/advanced/strong-consistency
+  - /riak/kv/2.1.4/dev/advanced/strong-consistency
 canonical_link: "docs.basho.com/riak/kv/latest/developing/app-guide/strong-consistency"
 ---
 

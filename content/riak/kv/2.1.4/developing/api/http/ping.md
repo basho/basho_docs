@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.4/dev/references/http/ping
+  - /riak/kv/2.1.4/dev/references/http/ping
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/http/ping"
 ---
 

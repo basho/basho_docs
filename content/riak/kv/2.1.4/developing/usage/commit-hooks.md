@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.4/dev/using/commit-hooks
+  - /riak/kv/2.1.4/dev/using/commit-hooks
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/commit-hooks"
 ---
 

@@ -10,6 +10,9 @@ menu:
     weight: 105
     parent: "managing_cluster_operations"
 toc: true
+aliases:
+  - /riak/2.1.4/ops/running/logging
+  - /riak/kv/2.1.4/ops/running/logging
 canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/logging"
 ---
 

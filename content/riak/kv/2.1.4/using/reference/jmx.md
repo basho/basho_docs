@@ -10,6 +10,9 @@ menu:
     weight: 108
     parent: "managing_ref"
 toc: true
+aliases:
+  - /riak/2.1.4/ops/running/monitoring/jmx
+  - /riak/kv/2.1.4/ops/running/monitoring/jmx
 canonical_link: "docs.basho.com/riak/kv/latest/using/reference/jmx"
 ---
 

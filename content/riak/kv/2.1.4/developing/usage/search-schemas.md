@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.4/dev/advanced/search-schema
+  - /riak/kv/2.1.4/dev/advanced/search-schema
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/search-schemas"
 ---
 

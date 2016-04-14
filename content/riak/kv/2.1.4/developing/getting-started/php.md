@@ -10,6 +10,9 @@ menu:
     weight: 107
     parent: "developing_getting_started"
 toc: true
+aliases:
+  - /riak/2.1.4/dev/taste-of-riak/php
+  - /riak/kv/2.1.4/dev/taste-of-riak/php
 canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/php"
 ---
 

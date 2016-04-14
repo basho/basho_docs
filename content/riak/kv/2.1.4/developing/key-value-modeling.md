@@ -13,6 +13,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.4/dev/data-modeling/key-value/
+  - /riak/kv/2.1.4/dev/data-modeling/key-value/
 canonical_link: "docs.basho.com/riak/kv/latest/developing/key-value-modeling"
 ---
 

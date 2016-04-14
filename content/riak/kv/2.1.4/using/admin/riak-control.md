@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.4/ops/advanced/riak-control
+  - /riak/kv/2.1.4/ops/advanced/riak-control
 canonical_link: "docs.basho.com/riak/kv/latest/using/admin/riak-control"
 ---
 

@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.4/dev/references/protocol-buffers/list-keys
+  - /riak/kv/2.1.4/dev/references/protocol-buffers/list-keys
 canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/list-keys"
 ---
 

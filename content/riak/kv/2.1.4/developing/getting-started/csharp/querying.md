@@ -11,6 +11,9 @@ menu:
     weight: 101
     parent: "getting_started_csharp"
 toc: true
+aliases:
+  - /riak/2.1.4/dev/taste-of-riak/querying-csharp
+  - /riak/kv/2.1.4/dev/taste-of-riak/querying-csharp
 canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/csharp/querying"
 ---
 

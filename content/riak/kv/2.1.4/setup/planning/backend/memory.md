@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.4/ops/advanced/backends/memory/
+  - /riak/kv/2.1.4/ops/advanced/backends/memory/
 canonical_link: "docs.basho.com/riak/kv/latest/setup/planning/backend/memory"
 ---
 

@@ -13,6 +13,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.4/dev/advanced/client-security/python
+  - /riak/kv/2.1.4/dev/advanced/client-security/python
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/security/python"
 ---
 

@@ -11,6 +11,9 @@ menu:
     weight: 101
     parent: "developing"
 toc: true
+aliases:
+  - /riak/2.1.4/dev/using/basics
+  - /riak/kv/2.1.4/dev/using/basics
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage"
 ---
 

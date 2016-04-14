@@ -10,6 +10,9 @@ menu:
     weight: 108
     parent: "developing_usage"
 toc: true
+aliases:
+  - /riak/2.1.4/dev/advanced/bucket-types
+  - /riak/kv/2.1.4/dev/advanced/bucket-types
 canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/bucket-types"
 ---
 
