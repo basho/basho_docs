@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.1.4/ops/building/planning/best-practices
   - /riak/kv/2.1.4/ops/building/planning/best-practices
-canonical_link: "docs.basho.com/riak/kv/latest/setup/planning/best-practices"
+canonical_link: "https://docs.basho.com/riak/kv/latest/setup/planning/best-practices"
 ---
 
 [use ref handoff]: /riak/kv/2.1.4/using/reference/handoff

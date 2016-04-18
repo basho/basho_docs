@@ -16,7 +16,7 @@ aliases:
   - /riak/kv/2.1.4/dev/using/data-types
   - /riak/2.1.4/dev/data-modeling/data-types
   - /riak/kv/2.1.4/dev/data-modeling/data-types
-canonical_link: "docs.basho.com/riak/kv/latest/developing/data-types"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/data-types"
 ---
 
 In versions 2.0 and greater, Riak users can make use of a variety of

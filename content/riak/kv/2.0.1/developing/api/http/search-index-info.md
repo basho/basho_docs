@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.0.1/dev/references/http/search-index-info
   - /riak/kv/2.0.1/dev/references/http/search-index-info
-canonical_link: "docs.basho.com/riak/kv/latest/developing/api/http/search-index-info"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/http/search-index-info"
 ---
 
 Retrieves information about all currently available [Search indexes](/riak/kv/2.0.1/developing/usage/search) in JSON format.

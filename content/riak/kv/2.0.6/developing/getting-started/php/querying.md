@@ -11,7 +11,7 @@ menu:
     weight: 101
     parent: "getting_started_php"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/php/querying"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/php/querying"
 ---
 
 ## A Quick Note on Querying and Schemas

@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.1.4/dev/advanced/replication-properties
   - /riak/kv/2.1.4/dev/advanced/replication-properties
-canonical_link: "docs.basho.com/riak/kv/latest/developing/app-guide/replication-properties"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/app-guide/replication-properties"
 ---
 
 [usage bucket types]: /riak/kv/2.1.4/developing/usage/bucket-types

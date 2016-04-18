@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/kv/2.1.1/intro-v20
   - /riak/2.1.1/intro-v20
-canonical_link: "docs.basho.com/riak/kv/latest/introduction"
+canonical_link: "https://docs.basho.com/riak/kv/latest/introduction"
 ---
 
 Riak version 2.0 includes deep changes and many new features affecting 

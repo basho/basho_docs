@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/dev/references/http/search-query
-canonical_link: "docs.basho.com/riak/kv/latest/developing/api/http/search-query"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/http/search-query"
 ---
 
 Performs a [Riak KV Search](/riak/kv/2.0.2/developing/usage/search) query.

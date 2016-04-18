@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.0.1/ops/advanced/riak-control
   - /riak/kv/2.0.1/ops/advanced/riak-control
-canonical_link: "docs.basho.com/riak/kv/latest/using/admin/riak-control"
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/admin/riak-control"
 ---
 
 [config reference]: /riak/kv/2.0.1/configuring/reference

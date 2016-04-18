@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.1.4/theory/concepts/glossary
   - /riak/kv/2.1.4/theory/concepts/glossary
-canonical_link: "docs.basho.com/riak/kv/latest/learn/glossary"
+canonical_link: "https://docs.basho.com/riak/kv/latest/learn/glossary"
 ---
 
 

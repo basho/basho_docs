@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/dev/references/http/list-keys
-canonical_link: "docs.basho.com/riak/kv/latest/developing/api/http/list-keys"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/http/list-keys"
 ---
 
 Lists keys in a bucket.

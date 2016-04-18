@@ -17,7 +17,7 @@ aliases:
   - /riak/kv/2.0.1/ops/building/installing/Installing-the-JVM
   - /riak/2.0.1/installing/source/jvm/
   - /riak/kv/2.0.1/installing/source/jvm/
-canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/source/jvm"
+canonical_link: "https://docs.basho.com/riak/kv/latest/setup/installing/source/jvm"
 ---
 
 [usage search]: /riak/kv/2.0.1/developing/usage/search

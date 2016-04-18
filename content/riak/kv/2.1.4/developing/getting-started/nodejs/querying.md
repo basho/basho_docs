@@ -14,7 +14,7 @@ toc: true
 aliases:
   - /riak/2.1.4/dev/taste-of-riak/querying-nodejs
   - /riak/kv/2.1.4/dev/taste-of-riak/querying-nodejs
-canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/nodejs/querying"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/nodejs/querying"
 ---
 
 ## Node.js Version Setup

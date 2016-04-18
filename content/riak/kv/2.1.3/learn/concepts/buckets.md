@@ -15,7 +15,7 @@ aliases:
   - /riak/kv/2.1.3/theory/concepts/Buckets
   - /riak/2.1.3/theory/concepts/buckets
   - /riak/kv/2.1.3/theory/concepts/buckets
-canonical_link: "docs.basho.com/riak/kv/latest/learn/concepts/buckets"
+canonical_link: "https://docs.basho.com/riak/kv/latest/learn/concepts/buckets"
 ---
 
 [apps cluster metadata]: /riak/kv/2.1.3/developing/app-guide/cluster-metadata

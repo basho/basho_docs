@@ -10,7 +10,7 @@ menu:
     weight: 100
     parent: "developing_getting_started"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/java"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/java"
 ---
 
 If you haven't set up a Riak Node and started it, please visit [Running A Cluster](/riak/kv/2.1.3/using/running-a-cluster) first.

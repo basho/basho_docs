@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.0.1/ops/advanced/configs/search/
   - /riak/kv/2.0.1/ops/advanced/configs/search/
-canonical_link: "docs.basho.com/riak/kv/latest/configuring/search"
+canonical_link: "https://docs.basho.com/riak/kv/latest/configuring/search"
 ---
 
 [usage search]: /riak/kv/2.0.1/developing/usage/search

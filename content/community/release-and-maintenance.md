@@ -15,7 +15,7 @@ aliases:
   - /riak/kv/2.1.4/community/releaseandmaintenance/
   - /riak/kv/2.1.3/community/releaseandmaintenance/
   - /riak/kv/2.1.1/community/releaseandmaintenance/
-canonical_link: "docs.basho.com/community/release-and-maintenance/"
+canonical_link: "https://docs.basho.com/community/release-and-maintenance/"
 ---
 
 Basho may change or supplement this Policy in its sole discretion.  Basho will exercise commercially reasonable efforts to notify then-current customers of any such changes provided that, in all cases, the revised Policy is effective upon posting. 

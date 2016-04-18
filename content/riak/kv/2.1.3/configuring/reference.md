@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.1.3/ops/advanced/configs/configuration-files/
   - /riak/kv/2.1.3/ops/advanced/configs/configuration-files/
-canonical_link: "docs.basho.com/riak/kv/latest/configuring/reference"
+canonical_link: "https://docs.basho.com/riak/kv/latest/configuring/reference"
 ---
 
 [concept clusters]: /riak/kv/2.1.3/learn/concepts/clusters

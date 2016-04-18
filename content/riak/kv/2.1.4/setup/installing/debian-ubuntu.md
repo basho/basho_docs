@@ -16,7 +16,7 @@ aliases:
   - /riak/kv/2.1.4/ops/building/installing/Installing-on-Debian-and-Ubuntu
   - /riak/2.1.4/installing/debian-ubuntu/
   - /riak/kv/2.1.4/installing/debian-ubuntu/
-canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/debian-ubuntu"
+canonical_link: "https://docs.basho.com/riak/kv/latest/setup/installing/debian-ubuntu"
 ---
 
 [install source index]: /riak/kv/2.1.4/setup/installing/source/

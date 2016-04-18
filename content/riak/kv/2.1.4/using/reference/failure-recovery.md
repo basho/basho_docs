@@ -11,5 +11,5 @@ project_version: "2.1.4"
 #    parent: "managing_ref"
 draft: true
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/using/reference/failure-recovery"
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/reference/failure-recovery"
 ---

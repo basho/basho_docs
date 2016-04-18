@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.1.1/dev/references/http/delete-object
   - /riak/kv/2.1.1/dev/references/http/delete-object
-canonical_link: "docs.basho.com/riak/kv/latest/developing/api/http/delete-object"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/http/delete-object"
 ---
 
 Deletes an object from the specified bucket / key.

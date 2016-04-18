@@ -10,7 +10,7 @@ menu:
     weight: 100
     pre: icon-riak
 toc: false
-canonical_link: "docs.basho.com/riak/kv/latest/index"
+canonical_link: "https://docs.basho.com/riak/kv/latest/index"
 ---
 
 [aboutenterprise]: http://basho.com/contact/
