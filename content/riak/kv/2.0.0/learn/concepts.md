@@ -13,17 +13,17 @@ toc: true
 canonical_link: "docs.basho.com/riak/kv/latest/learn/concepts"
 ---
 
-[concept aae]: /riak/kv/2.0.0/concepts/active-anti-entropy
-[concept buckets]: /riak/kv/2.0.0/concepts/buckets
-[concept cap neg]: /riak/kv/2.0.0/concepts/capability-negotiation
-[concept causal context]: /riak/kv/2.0.0/concepts/causal-context
-[concept clusters]: /riak/kv/2.0.0/concepts/clusters
-[concept crdts]: /riak/kv/2.0.0/concepts/crdts
-[concept eventual consistency]: /riak/kv/2.0.0/concepts/eventual-consistency
-[concept keys objects]: /riak/kv/2.0.0/concepts/keys-and-objects
-[concept replication]: /riak/kv/2.0.0/concepts/replication
-[concept strong consistency]: /riak/kv/2.0.0/concepts/strong-consistency
-[concept vnodes]: /riak/kv/2.0.0/concepts/vnodes
+[concept aae]: /riak/kv/2.0.0/learn/concepts/active-anti-entropy
+[concept buckets]: /riak/kv/2.0.0/learn/concepts/buckets
+[concept cap neg]: /riak/kv/2.0.0/learn/concepts/capability-negotiation
+[concept causal context]: /riak/kv/2.0.0/learn/concepts/causal-context
+[concept clusters]: /riak/kv/2.0.0/learn/concepts/clusters
+[concept crdts]: /riak/kv/2.0.0/learn/concepts/crdts
+[concept eventual consistency]: /riak/kv/2.0.0/learn/concepts/eventual-consistency
+[concept keys objects]: /riak/kv/2.0.0/learn/concepts/keys-and-objects
+[concept replication]: /riak/kv/2.0.0/learn/concepts/replication
+[concept strong consistency]: /riak/kv/2.0.0/learn/concepts/strong-consistency
+[concept vnodes]: /riak/kv/2.0.0/learn/concepts/vnodes
 [config index]: /riak/kv/2.0.0/configuring
 [plan index]: /riak/kv/2.0.0/setup/planning
 [use index]: /riak/kv/2.0.0/using/
