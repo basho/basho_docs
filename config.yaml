@@ -2,7 +2,7 @@
 # General Hugo Configuration Options
 # ==================================
 title: "Basho Documentation"
-baseURL: "http://docs.basho.com/"
+baseURL: "https://docs.basho.com/"
 languageCode: "en-us"
 
 # Use YAML for front matter, rather than TOML
