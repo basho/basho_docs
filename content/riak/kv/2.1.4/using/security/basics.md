@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.1.4/ops/running/authz
   - /riak/kv/2.1.4/ops/running/authz
-canonical_link: "docs.basho.com/riak/kv/latest/using/security/basics"
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/security/basics"
 ---
 
 > **Note on Network security**

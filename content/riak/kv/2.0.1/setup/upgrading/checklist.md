@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.0.1/ops/upgrading/production-checklist/
   - /riak/kv/2.0.1/ops/upgrading/production-checklist/
-canonical_link: "docs.basho.com/riak/kv/latest/setup/upgrading/checklist"
+canonical_link: "https://docs.basho.com/riak/kv/latest/setup/upgrading/checklist"
 ---
 
 [perf open files]: /riak/kv/2.0.1/using/performance/open-files-limit

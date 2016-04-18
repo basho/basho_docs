@@ -10,7 +10,7 @@ menu:
     weight: 101
     parent: index
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/release-notes"
+canonical_link: "https://docs.basho.com/riak/kv/latest/release-notes"
 ---
 
 **2.1.3 - Released December 9, 2015**

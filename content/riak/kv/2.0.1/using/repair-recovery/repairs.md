@@ -19,7 +19,7 @@ aliases:
   - /riak/kv/2.0.1/ops/running/recovery/repairing-leveldb
   - /riak/2.0.1/ops/running/recovery/repairing-partitions
   - /riak/kv/2.0.1/ops/running/recovery/repairing-partitions
-canonical_link: "docs.basho.com/riak/kv/latest/using/repair-recovery/repairs"
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/repair-recovery/repairs"
 ---
 
 ## Repairing Secondary Indexes

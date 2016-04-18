@@ -12,7 +12,7 @@ project_version: "1.0.0"
 toc: true
 aliases:
     - /riakts/1.0.0/developing/developing/
-canonical_link: "docs.basho.com/riak/ts/latest/developing"
+canonical_link: "https://docs.basho.com/riak/ts/latest/developing"
 ---
 
 [erlang]: erlang/

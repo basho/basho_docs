@@ -14,7 +14,7 @@ toc: true
 aliases:
   - /riak/2.1.4/dev/taste-of-riak/object-modeling-csharp
   - /riak/kv/2.1.4/dev/taste-of-riak/object-modeling-csharp
-canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/csharp/object-modeling"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/csharp/object-modeling"
 ---
 
 To get started, refer to [this source code][1] for the models that we'll

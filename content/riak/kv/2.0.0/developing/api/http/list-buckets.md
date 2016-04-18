@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.0.0/dev/references/http/list-buckets
   - /riak/kv/2.0.0/dev/references/http/list-buckets
-canonical_link: "docs.basho.com/riak/kv/latest/developing/api/http/list-buckets"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/http/list-buckets"
 ---
 
 Lists all known buckets (ones that have keys stored in them).

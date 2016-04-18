@@ -11,7 +11,7 @@ project_version: "2.0.0"
 #    parent: "managing_ref"
 draft: true
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/using/reference/architecture"
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/reference/architecture"
 ---
 
 <!-- TODO: Content -->

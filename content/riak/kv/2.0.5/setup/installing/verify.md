@@ -15,7 +15,7 @@ aliases:
   - /riak/kv/2.0.5/ops/installing/Post-Installation
   - /riak/2.0.5/installing/verify-install/
   - /riak/kv/2.0.5/installing/verify-install/
-canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/verify"
+canonical_link: "https://docs.basho.com/riak/kv/latest/setup/installing/verify"
 ---
 
 [dev client libraries]: /riak/kv/2.0.5/developing/client-libraries

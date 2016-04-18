@@ -11,7 +11,7 @@ menu:
     weight: 100
     parent: "getting_started_python"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/python/crud-operations"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/python/crud-operations"
 ---
 
 ## Creating Objects In Riak

@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/ops/mdc/v2/scheduling-fullsync
-canonical_link: "docs.basho.com/riak/kv/latest/using/reference/v2-multi-datacenter/scheduling-fullsync"
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/reference/v2-multi-datacenter/scheduling-fullsync"
 ---
 
 ## Scheduling Fullsync Operation

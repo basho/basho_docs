@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/dev/references/protocol-buffers/delete-object
-canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/delete-object"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/delete-object"
 ---
 
 Delete an object in the specified [bucket type](/riak/kv/2.0.2/using/cluster-operations/bucket-types)/bucket/key location.

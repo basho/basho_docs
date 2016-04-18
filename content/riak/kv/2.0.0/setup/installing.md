@@ -16,7 +16,7 @@ aliases:
   - /riak/kv/2.0.0/ops/building/installing
   - /riak/2.0.0/installing/
   - /riak/kv/2.0.0/installing/
-canonical_link: "docs.basho.com/riak/kv/latest/setup/installing"
+canonical_link: "https://docs.basho.com/riak/kv/latest/setup/installing"
 ---
 
 [install aws]: /riak/kv/2.0.0/setup/installing/amazon-web-services

@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.0.5/ops/building/basic-cluster-setup
   - /riak/kv/2.0.5/ops/building/basic-cluster-setup
-canonical_link: "docs.basho.com/riak/kv/latest/using/running-a-cluster"
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/running-a-cluster"
 ---
 
 Configuring a Riak cluster involves instructing each node to listen on a

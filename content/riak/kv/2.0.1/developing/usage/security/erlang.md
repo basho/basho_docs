@@ -14,7 +14,7 @@ toc: true
 aliases:
   - /riak/2.0.1/dev/advanced/client-security/erlang
   - /riak/kv/2.0.1/dev/advanced/client-security/erlang
-canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/security/erlang"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage/security/erlang"
 ---
 
 This tutorial shows you how to set up a Riak Erlang client to

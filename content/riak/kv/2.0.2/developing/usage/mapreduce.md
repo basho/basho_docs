@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/dev/using/mapreduce
-canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/mapreduce"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage/mapreduce"
 ---
 
 <div class="note">

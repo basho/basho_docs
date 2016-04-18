@@ -14,7 +14,7 @@ toc: true
 commercial_offering: true
 aliases:
   - /riak/2.1.4/ops/mdc/v3/quick-start
-canonical_link: "docs.basho.com/riak/kv/latest/configuring/v3-multi-datacenter/quick-start"
+canonical_link: "https://docs.basho.com/riak/kv/latest/configuring/v3-multi-datacenter/quick-start"
 ---
 
 [perf index]: /riak/kv/2.1.4/using/performance

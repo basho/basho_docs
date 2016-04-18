@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.0.0/ops/running/recovery/rolling-restart
   - /riak/kv/2.0.0/ops/running/recovery/rolling-restart
-canonical_link: "docs.basho.com/riak/kv/latest/using/repair-recovery/rolling-restart"
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/repair-recovery/rolling-restart"
 ---
 
 Because Riak functions as a multi-node system, cluster-level [Riak version upgrades](/riak/kv/2.0.0/setup/upgrading/cluster) and restarts can be performed on a node-by-node, "rolling" basis.

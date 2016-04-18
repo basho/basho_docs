@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.0.4/dev/using/commit-hooks
   - /riak/kv/2.0.4/dev/using/commit-hooks
-canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/commit-hooks"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage/commit-hooks"
 ---
 
 [usage bucket types]: /riak/kv/2.0.4/developing/usage/bucket-types

@@ -11,7 +11,7 @@ menu:
     parent: "managing_ref"
 toc: true
 commercial_offering: true
-canonical_link: "docs.basho.com/riak/kv/latest/using/reference/multi-datacenter"
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/reference/multi-datacenter"
 ---
 
 [ref mdc stats]: ./statistics

@@ -14,7 +14,7 @@ toc: true
 aliases:
   - /riak/2.1.4/dev/using/basics
   - /riak/kv/2.1.4/dev/using/basics
-canonical_link: "docs.basho.com/riak/kv/latest/developing/usage"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage"
 ---
 
 ## In This Section

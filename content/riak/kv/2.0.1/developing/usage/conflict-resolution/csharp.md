@@ -14,7 +14,7 @@ toc: true
 aliases:
   - /riak/2.0.1/dev/using/conflict-resolution/csharp
   - /riak/kv/2.0.1/dev/using/conflict-resolution/csharp
-canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/conflict-resolution/csharp"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage/conflict-resolution/csharp"
 ---
 
 For reasons explained in the [Introduction to conflict resolution](/riak/kv/2.0.1/developing/usage/conflict-resolution), we strongly recommend adopting a conflict resolution strategy that requires applications to resolve siblings according to use-case-specific

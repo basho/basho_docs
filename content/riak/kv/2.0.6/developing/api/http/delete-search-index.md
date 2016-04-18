@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.0.6/dev/references/http/delete-search-index
   - /riak/kv/2.0.6/dev/references/http/delete-search-index
-canonical_link: "docs.basho.com/riak/kv/latest/developing/api/http/delete-search-index"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/http/delete-search-index"
 ---
 
 Deletes a Riak Search index.
