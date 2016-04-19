@@ -142,6 +142,7 @@ namespace :deploy do
     puts("Verifying archived content...")
     if (not File.file?(File.join(Dir.pwd, "archived_docs.basho.com.tar.bz2")))
       # If we have wget and md5sum, go ahead and fetch and verify.
+      web_md5 = Net::HTTP.get('s3.amazonaws.com', '/downloads.basho.com/documentation_content/archived_docs.basho.com.tar.bz2.md5').split(" ")[0]
       if (not `which wget`.empty? and not `which md5sum`.empty?)
         puts("  Using wget to fetch archived_docs.basho.com.tar.bz2 "\
              "(this may take some time)...")
@@ -154,7 +155,6 @@ namespace :deploy do
                        "    http://s3.amazonaws.com/downloads.basho.com/documentation_content/archived_docs.basho.com.tar.bz2\n"\
                        "    262cfdd0e0b1e678727f4c7f713ff822")
         end
-        web_md5 = Net::HTTP.get('s3.amazonaws.com', '/downloads.basho.com/documentation_content/md5sum.txt').split(" ")[0]
         loc_md5 = `md5sum archived_docs.basho.com.tar.bz2`.split(" ")[0]
         if (web_md5 != loc_md5)
           Kernel.abort("ERROR: Fetch archived_docs.basho.com.tar.bz2 does not "\
@@ -171,7 +171,7 @@ namespace :deploy do
                      "into this directory, and verify that it has the listed "\
                      "md5sum.\n"\
                      "    http://s3.amazonaws.com/downloads.basho.com/documentation_content/archived_docs.basho.com.tar.bz2\n"\
-                     "    262cfdd0e0b1e678727f4c7f713ff822")
+                     "    #{web_md5}")
       end
     end
 
