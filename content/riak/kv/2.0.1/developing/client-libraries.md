@@ -265,9 +265,6 @@ level of maturity and activity.
 
 #### Ruby
 
-* [Shogun](https://github.com/krainboltgreene/shogun) --- A lightweight,
-  powerful Ruby web application framework with first class support for
-  Riak
 * [Risky](https://github.com/aphyr/risky) --- A lightweight Ruby ORM for
   Riak
 * [riak_sessions](http://github.com/igorgue/riak_sessions) ---
