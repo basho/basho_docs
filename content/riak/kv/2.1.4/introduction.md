@@ -246,7 +246,7 @@ have undergone major changes in anticipation of the 2.0 release.
 
 Language | Docs
 :--------|:----
-[Java](https://github.com/basho/riak-java-client) | [Javadoc](http://basho.github.io/riak-java-client/2.0.0-SNAPSHOT/)
+[Java](https://github.com/basho/riak-java-client) | [Javadoc](http://basho.github.io/riak-java-client/2.0.0/)
 [Ruby](https://github.com/basho/riak-ruby-client) | [API](http://basho.github.io/riak-ruby-client)
 [Python](https://github.com/basho/riak-python-client) | [Sphinx](http://basho.github.io/riak-python-client/)
 [.NET](https://github.com/basho/riak-dotnet-client) | [wiki](https://github.com/basho/riak-dotnet-client/wiki), [API](http://basho.github.io/riak-dotnet-client-api/)

@@ -1,3 +1,4 @@
+
 ---
 title: "Implementing Strong Consistency"
 description: ""

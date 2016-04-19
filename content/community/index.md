@@ -96,7 +96,7 @@ A healthy community includes the right amount of processes for everyone to work 
 ### Give Back
 A Community is built around the code to help foster its growth, maturity, and adoption. Like the code, it needs to evolve, and unless it’s moving forward and being refined continuously, it ceases to be valuable.
 
-You can give back as a member of our community by contributing to our public project: [The Riak Community](https://github.com/basho-labs/the-riak-community). You can help define [our Meetup strategy](https://github.com/basho-labs/the-riak-community/blob/master/meetup-strategy.md) and [Code of Conduct](https://github.com/basho-labs/the-riak-community/blob/master/code-of-conduct.md) or [open GitHub issues](https://github.com/basho-labs/the-riak-community/issues) for other requests.
+You can give back as a member of our community by contributing to our public project: [The Riak Community](https://github.com/basho-labs/the-riak-community). You can help define [our Meetup strategy](https://github.com/basho-labs/the-basho-community/blob/master/strategy/meetup-strategy.md) and [Code of Conduct](https://github.com/basho-labs/the-riak-community/blob/master/code-of-conduct.md) or [open GitHub issues](https://github.com/basho-labs/the-riak-community/issues) for other requests.
 
 And thank you. We’re happy you’re here.
 

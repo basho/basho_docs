@@ -447,7 +447,7 @@ coordinate with followers. This is known as granting a **leader lease**.
 Leader leases are enabled by default, and are disabled (or re-enabled)
 at the cluster level. A more in-depth account of ensemble behavior can
 be found in our [internal
-documentation](https://github.com/basho/riak_ensemble/tree/feature/add-docs/doc).
+documentation](https://github.com/basho/riak_ensemble/tree/develop/doc).
 
 In addition to leaders and followers, ensemble peers use lightweight
 Erlang processes called **workers** to perform long-running K/V
