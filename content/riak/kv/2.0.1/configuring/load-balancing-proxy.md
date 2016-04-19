@@ -167,7 +167,7 @@ echo "enable server <backend>/<riak_node>" | socat stdio /etc/haproxy/haproxysoc
 Consult the following HAProxy documentation resources for more
 information on configuring HAProxy in your environment:
 
-* [HAProxy Documentation](http://code.google.com/p/haproxy-docs/w/list)
+* [HAProxy Documentation](http://developers.google.com/s/results/?q=haproxy)
 * [HAProxy Architecture](http://haproxy.1wt.eu/download/1.2/doc/architecture.txt)
 
 ## Nginx
