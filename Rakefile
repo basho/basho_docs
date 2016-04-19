@@ -129,80 +129,14 @@ end
 desc      "Build and deploy static artifacts"
 task      :deploy => [
                       'clean',
-                      'deploy:archived_content',
+                      'deploy:fetch_archived_content',
                       'build:js',
                       'build:css',
                       'build:hugo'
                      ] do do_deploy(); end
 namespace :deploy do
-
-  # Fetch and extract the archived content that we want to survive from the
-  # Middleman website.
-  task :archived_content do
-    puts("Verifying archived content...")
-    if (not File.file?(File.join(Dir.pwd, "archived_docs.basho.com.tar.bz2")))
-      # If we have wget and md5sum, go ahead and fetch and verify.
-      web_md5 = Net::HTTP.get('s3.amazonaws.com', '/downloads.basho.com/documentation_content/archived_docs.basho.com.tar.bz2.md5').split(" ")[0]
-      if (not `which wget`.empty? and not `which md5sum`.empty?)
-        puts("  Using wget to fetch archived_docs.basho.com.tar.bz2 "\
-             "(this may take some time)...")
-        successful = system('wget http://s3.amazonaws.com/downloads.basho.com/documentation_content/archived_docs.basho.com.tar.bz2')
-        if (not successful)
-          Kernel.abort("ERROR: Failed to get archived_docs.basho.com.tar.bz2\n"\
-                       "       Please download the file from the below "\
-                       "address into this directory, and verify that it has "\
-                       "the listed md5sum.\n"\
-                       "    http://s3.amazonaws.com/downloads.basho.com/documentation_content/archived_docs.basho.com.tar.bz2\n"\
-                       "    262cfdd0e0b1e678727f4c7f713ff822")
-        end
-        loc_md5 = `md5sum archived_docs.basho.com.tar.bz2`.split(" ")[0]
-        if (web_md5 != loc_md5)
-          Kernel.abort("ERROR: Fetch archived_docs.basho.com.tar.bz2 does not "\
-                       "match the expected md5sum.\n"\
-                       "       Please verify that the file downloaded "\
-                       "correctly, or reach out to our dev team to ensure "\
-                       "that the listed md5sum is correct.")
-        end
-      else # We don't have wget. Exit and present a message do do this manually.
-        Kernel.abort("ERROR: archived_docs.basho.com.tar.bz2 was not found, "\
-                     "and this system doesn't have access to `wget` and/or "\
-                     "`md5sum`.\n"\
-                     "       Please download the file from the below address "\
-                     "into this directory, and verify that it has the listed "\
-                     "md5sum.\n"\
-                     "    http://s3.amazonaws.com/downloads.basho.com/documentation_content/archived_docs.basho.com.tar.bz2\n"\
-                     "    #{web_md5}")
-      end
-    end
-
-    puts("Verifying archived content extraction...")
-    puts("    Please note, this only checks for directories.\n"\
-         "    If something went wrong with a previous extraction or if any "\
-         "of the extracted files were modified, please delete e.g. "\
-         "static/riak/ to trigger a re-extraction.")
-    #TODO: Consider if this is a good idea or not. I'm leaning towards not.
-    should_extract = (
-      (not File.exist?("static/css/standalone")) ||
-      (not File.exist?("static/js/standalone"))  ||
-      (not File.exist?("static/riak"))           ||
-      (not File.exist?("static/riakcs"))         ||
-      (not File.exist?("static/riakee"))         ||
-      (not File.exist?("static/shared"))           )
-
-    if (should_extract)
-      puts("Extracting archived_docs.basho.com.tar.bz2 (this may take a lot of time)...")
-      successful = system('tar -xjf archived_docs.basho.com.tar.bz2 -C static')
-
-      if (not successful)
-        Kernel.abort("ERROR: archived_docs.basho.com.tar.bz2 failed to "\
-                     "extract.\n"\
-                     "       I... actually don't know why. Not sure how to "\
-                     "extract error messages from this system call...")
-      end
-    end
-  end
-
   task :immediately_and_unsafely do do_deploy(); end
+  task :fetch_archived_content do do_fetch_archived_content(); end
 end
 
 # Generate download.yaml metadata.
