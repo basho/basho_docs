@@ -14,7 +14,7 @@ toc: true
 aliases:
   - /riak/2.1.4/dev/taste-of-riak/querying-golang
   - /riak/kv/2.1.4/dev/taste-of-riak/querying-golang
-canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/golang/querying"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/golang/querying"
 ---
 
 ## Go Version Setup

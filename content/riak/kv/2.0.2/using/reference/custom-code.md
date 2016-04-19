@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/ops/advanced/install-custom-code/
-canonical_link: "docs.basho.com/riak/kv/latest/using/reference/custom-code"
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/reference/custom-code"
 ---
 
 Riak supports the use of Erlang named functions in compiled modules for

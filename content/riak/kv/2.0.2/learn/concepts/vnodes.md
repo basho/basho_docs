@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/theory/concepts/vnodes
-canonical_link: "docs.basho.com/riak/kv/latest/learn/concepts/vnodes"
+canonical_link: "https://docs.basho.com/riak/kv/latest/learn/concepts/vnodes"
 ---
 
 

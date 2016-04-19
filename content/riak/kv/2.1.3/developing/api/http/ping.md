@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.1.3/dev/references/http/ping
   - /riak/kv/2.1.3/dev/references/http/ping
-canonical_link: "docs.basho.com/riak/kv/latest/developing/api/http/ping"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/http/ping"
 ---
 
 Checks if the server is alive. This is useful for monitoring tools, load-balancers and automated scripts.

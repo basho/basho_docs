@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.0.6/ops/mdc/comparison
   - /riak/kv/2.0.6/ops/mdc/comparison
-canonical_link: "docs.basho.com/riak/kv/latest/using/reference/multi-datacenter/comparison"
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/reference/multi-datacenter/comparison"
 ---
 
 This document is a systematic comparison of [Version 2](/riak/kv/2.0.6/using/reference/v2-multi-datacenter) and [Version 3](/riak/kv/2.0.6/using/reference/v3-multi-datacenter) of Riak Enterprise's Multi-Datacenter

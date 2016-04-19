@@ -14,7 +14,7 @@ toc: true
 aliases:
   - /riak/2.1.4/dev/taste-of-riak/querying-erlang
   - /riak/kv/2.1.4/dev/taste-of-riak/querying-erlang
-canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/erlang/querying"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/erlang/querying"
 ---
 
 ## A Quick Note on Querying and Schemas

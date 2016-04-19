@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.1.4/ops/running/nodes/adding-removing
   - /riak/kv/2.1.4/ops/running/nodes/adding-removing
-canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/adding-removing-nodes"
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/cluster-operations/adding-removing-nodes"
 ---
 
 [use running cluster]: /riak/kv/2.1.4/using/running-a-cluster

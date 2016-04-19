@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.0.6/theory/why-riak/
   - /riak/kv/2.0.6/theory/why-riak/
-canonical_link: "docs.basho.com/riak/kv/latest/learn/why-riak-kv"
+canonical_link: "https://docs.basho.com/riak/kv/latest/learn/why-riak-kv"
 ---
 
 

@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.1.3/upgrade-v20/
   - /riak/kv/2.1.3/upgrade-v20/
-canonical_link: "docs.basho.com/riak/kv/latest/setup/upgrading/version"
+canonical_link: "https://docs.basho.com/riak/kv/latest/setup/upgrading/version"
 ---
 
 When upgrading to Riak 2.0 from an earlier version, we strongly

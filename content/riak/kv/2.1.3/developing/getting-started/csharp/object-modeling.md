@@ -11,7 +11,7 @@ menu:
     weight: 102
     parent: "getting_started_csharp"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/csharp/object-modeling"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/csharp/object-modeling"
 ---
 
 To get started, refer to [this source code][1] for the models that we'll

@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/dev/references/protocol-buffers/list-keys
-canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/list-keys"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/list-keys"
 ---
 
 List all of the keys in a bucket. This is a streaming call, with
