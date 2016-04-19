@@ -543,7 +543,7 @@ refer to the tutorial on [basic key/value operations in Riak KV](/riak/kv/2.1.1/
 or to client-specific documentation:
 
 * [Ruby](https://github.com/basho/riak-ruby-client/blob/master/README.markdown)
-* [Java](http://basho.github.io/riak-java-client/2.0.0-SNAPSHOT/)
+* [Java](http://basho.github.io/riak-java-client/2.0.0/)
 * [Python](http://basho.github.io/riak-python-client/)
 * [Erlang](http://basho.github.io/riak-erlang-client/)
 
