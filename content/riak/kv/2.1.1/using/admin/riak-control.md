@@ -161,7 +161,7 @@ riak_control.auth.user.riakrocks.password = cap_theorem_4_life
 
 ## User Interface
 
-To begin using Riak Control, navigate to https://ip_address_of_https_listener:https_port/admin`
+To begin using Riak Control, navigate to https://ip_address_of_https_listener:https_port/admin
 For a default configuration, this will be <https://localhost:8069/admin>.
 
 If your browser warns you that it cannot authenticate the page, this may
