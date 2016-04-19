@@ -23,6 +23,7 @@ canonical_link: "docs.basho.com/riak/kv/latest/setup/planning/cluster-capacity"
 [use admin riak-admin#cluster]: /riak/kv/2.0.4/using/admin/riak-admin/#cluster
 [config reference]: /riak/kv/2.0.4/configuring/reference
 [perf benchmark]: /riak/kv/2.0.4/using/performance/benchmarking
+[LVM]: http://en.wikipedia.org/wiki/Logical_Volume_Manager_(Linux)
 
 
 This document outlines the various elements and variables to keep in mind when planning your Riak cluster. Your use case and environment variables will be specific to what you're building, but this document should set you on the right path when planning and launching a Riak cluster.
@@ -99,7 +100,7 @@ When making disk space planning decisions, we recommend that you:
 
 Another possibility worth considering is using Riak with a filesystem
 that allows for growth, for example
-[LVM](http://en.wikipedia.org/wiki/Logical_Volume_Manager_(Linux)),
+[LVM],
 [RAID](http://en.wikipedia.org/wiki/RAID), or
 [ZFS](http://en.wikipedia.org/wiki/ZFS).
 
