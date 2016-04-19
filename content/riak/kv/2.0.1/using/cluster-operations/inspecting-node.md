@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.0.1/ops/running/nodes/inspecting
   - /riak/kv/2.0.1/ops/running/nodes/inspecting
-canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/inspecting-node"
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/cluster-operations/inspecting-node"
 ---
 
 When inspection of a Riak node to gather metrics on performance or

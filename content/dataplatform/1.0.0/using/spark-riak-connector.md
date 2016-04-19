@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /dataplatform/1.0.0/using-dataplatform/using-sparkconnector/
-canonical_link: "docs.basho.com/dataplatform/latest/using/spark-riak-connector/"
+canonical_link: "https://docs.basho.com/dataplatform/latest/using/spark-riak-connector/"
 ---
 
 This is a quick, practical guide on how to use the Spark Riak connector.

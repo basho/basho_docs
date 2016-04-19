@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/dev/references/http/list-resources
-canonical_link: "docs.basho.com/riak/kv/latest/developing/api/http/list-resources"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/http/list-resources"
 ---
 
 List available HTTP resources for the Riak node. This can be used by clients to

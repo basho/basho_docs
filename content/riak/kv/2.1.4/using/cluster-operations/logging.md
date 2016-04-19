@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.1.4/ops/running/logging
   - /riak/kv/2.1.4/ops/running/logging
-canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/logging"
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/cluster-operations/logging"
 ---
 
 If you'd like to enable debug logging on the current node, i.e. set the

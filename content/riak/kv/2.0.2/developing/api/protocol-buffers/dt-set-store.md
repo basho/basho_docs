@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/dev/references/protocol-buffers/dt-set-store
-canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/dt-set-store"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/dt-set-store"
 ---
 
 An operation to update a set, either on its own (at the bucket/key

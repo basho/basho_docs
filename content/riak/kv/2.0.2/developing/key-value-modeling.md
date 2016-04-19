@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/dev/data-modeling/key-value/
-canonical_link: "docs.basho.com/riak/kv/latest/developing/key-value-modeling"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/key-value-modeling"
 ---
 
 While Riak enables you to take advantage of a wide variety of features

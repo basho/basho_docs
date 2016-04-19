@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/ops/building/benchmarking
-canonical_link: "docs.basho.com/riak/kv/latest/using/performance/benchmarking"
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/performance/benchmarking"
 ---
 
 Basho Bench is a benchmarking tool created to conduct accurate and

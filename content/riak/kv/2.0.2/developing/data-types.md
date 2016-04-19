@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/dev/using/data-types
-canonical_link: "docs.basho.com/riak/kv/latest/developing/data-types"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/data-types"
 ---
 
 In versions 2.0 and greater, Riak users can make use of a variety of

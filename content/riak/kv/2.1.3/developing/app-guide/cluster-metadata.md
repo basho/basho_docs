@@ -10,7 +10,7 @@ menu:
     weight: 104
     parent: "developing_app_guide"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/developing/app-guide/cluster-metadata"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/app-guide/cluster-metadata"
 ---
 
 Cluster metadata is a subsystem inside of Riak that enables systems

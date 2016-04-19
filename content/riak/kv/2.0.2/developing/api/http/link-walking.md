@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/dev/references/http/link-walking
-canonical_link: "docs.basho.com/riak/kv/latest/developing/api/http/link-walking"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/http/link-walking"
 ---
 
 Link walking (traversal) finds and returns objects by following links attached

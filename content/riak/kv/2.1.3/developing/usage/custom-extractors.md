@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.1.3/dev/search/custom-extractors
   - /riak/kv/2.1.3/dev/search/custom-extractors
-canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/custom-extractors"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage/custom-extractors"
 ---
 
 Solr, and by extension Riak Search, has default extractors for a wide

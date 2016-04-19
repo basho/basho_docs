@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.1.4/ops/upgrading/rolling-downgrades/
   - /riak/kv/2.1.4/ops/upgrading/rolling-downgrades/
-canonical_link: "docs.basho.com/riak/kv/latest/setup/downgrade"
+canonical_link: "https://docs.basho.com/riak/kv/latest/setup/downgrade"
 ---
 
 Downgrades of Riak are tested and supported for two feature release

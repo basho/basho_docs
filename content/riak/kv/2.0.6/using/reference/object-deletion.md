@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.0.6/ops/advanced/deletion
   - /riak/kv/2.0.6/ops/advanced/deletion
-canonical_link: "docs.basho.com/riak/kv/latest/using/reference/object-deletion"
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/reference/object-deletion"
 ---
 
 [concept clusters]: /riak/kv/2.0.6/learn/concepts/clusters

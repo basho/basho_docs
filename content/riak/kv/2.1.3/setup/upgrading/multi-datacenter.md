@@ -11,7 +11,7 @@ project_version: "2.1.3"
 #    parent: "upgrading"
 draft: true
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/setup/upgrading/multi-datacenter"
+canonical_link: "https://docs.basho.com/riak/kv/latest/setup/upgrading/multi-datacenter"
 ---
 
 ## TODO

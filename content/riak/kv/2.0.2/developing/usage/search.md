@@ -10,7 +10,7 @@ menu:
     weight: 105
     parent: "developing_usage"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/search"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage/search"
 ---
 
 [usage search schema]: /riak/kv/2.0.2/developing/usage/search-schemas

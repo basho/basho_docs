@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.1.3/dev/advanced/2i
   - /riak/kv/2.1.3/dev/advanced/2i
-canonical_link: "docs.basho.com/riak/kv/latest/using/reference/secondary-indexes"
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/reference/secondary-indexes"
 ---
 
 [usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types

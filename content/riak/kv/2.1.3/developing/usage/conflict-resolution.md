@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.1.3/dev/using/conflict-resolution
   - /riak/kv/2.1.3/dev/using/conflict-resolution
-canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/conflict-resolution"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage/conflict-resolution"
 ---
 
 [usage bucket types]: /riak/kv/2.1.3/developing/usage/bucket-types

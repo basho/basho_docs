@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.1.3/ops/running/cluster-admin
   - /riak/kv/2.1.3/ops/running/cluster-admin
-canonical_link: "docs.basho.com/riak/kv/latest/using/admin"
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/admin"
 ---
 
 [use admin commands]: ./commands/

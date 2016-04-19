@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.1.4/dev/references/protocol-buffers/dt-fetch
   - /riak/kv/2.1.4/dev/references/protocol-buffers/dt-fetch
-canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/dt-fetch"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/dt-fetch"
 ---
 
 The equivalent of [`RpbGetReq`](/riak/kv/2.1.4/developing/api/protocol-buffers/fetch-object) for [Riak Data Types](/riak/kv/2.1.4/developing/data-types). This request results in a `DtFetchResp`

@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/dev/references/protocol-buffers/dt-union
-canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/dt-union"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/dt-union"
 ---
 
 A "union" type for update operations.

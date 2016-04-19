@@ -14,7 +14,7 @@ toc: true
 aliases:
   - /riak/2.1.4/dev/taste-of-riak/object-modeling-erlang
   - /riak/kv/2.1.4/dev/taste-of-riak/object-modeling-erlang
-canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/erlang/object-modeling"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/erlang/object-modeling"
 ---
 
 To get started, let's create the records that we'll be using.

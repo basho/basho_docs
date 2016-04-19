@@ -14,7 +14,7 @@ toc: true
 commercial_offering: true
 aliases:
   - /riak/2.1.4/ops/mdc/v2/nat
-canonical_link: "docs.basho.com/riak/kv/latest/configuring/v2-multi-datacenter/nat"
+canonical_link: "https://docs.basho.com/riak/kv/latest/configuring/v2-multi-datacenter/nat"
 ---
 
 [config v2 ssl]: /riak/kv/2.1.4/configuring/v2-multi-datacenter/ssl

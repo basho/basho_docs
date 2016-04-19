@@ -10,7 +10,7 @@ menu:
     weight: 102
     parent: "configuring"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/configuring/backend"
+canonical_link: "https://docs.basho.com/riak/kv/latest/configuring/backend"
 ---
 
 [plan backend leveldb]: /riak/kv/2.1.1/setup/planning/backend/leveldb

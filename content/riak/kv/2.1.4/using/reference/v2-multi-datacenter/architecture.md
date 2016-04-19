@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.1.4/ops/mdc/v2/architecture
   - /riak/kv/2.1.4/ops/mdc/v2/architecture
-canonical_link: "docs.basho.com/riak/kv/latest/using/reference/v2-multi-datacenter/architecture"
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/reference/v2-multi-datacenter/architecture"
 ---
 
 This document provides a basic overview of the architecture undergirding

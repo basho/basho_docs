@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.0.1/ops/running/backups
   - /riak/kv/2.0.1/ops/running/backups
-canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/backing-up"
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/cluster-operations/backing-up"
 ---
 
 [concept clusters]: /riak/kv/2.0.1/learn/concepts/clusters

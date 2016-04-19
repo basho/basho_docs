@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/ops/advanced/deletion
-canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/object-deletion"
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/cluster-operations/object-deletion"
 ---
 
 [glossary vnode]: /riak/kv/2.0.2/learn/glossary/#vnode

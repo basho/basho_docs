@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.0.5/dev/references/protocol-buffers/search
   - /riak/kv/2.0.5/dev/references/protocol-buffers/search
-canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/search"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/search"
 ---
 
 Send a Search request to retrieve a list of documents, along with a few
