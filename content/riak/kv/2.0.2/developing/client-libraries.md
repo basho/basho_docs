@@ -38,9 +38,6 @@ In addition to the official clients, Basho provides some unofficial
 client libraries, listed below. There are also many client libraries and
 related [community projects](/community/projects/).
 
-Language | Source | Documentation
-:--------|:-------|:-------------
-C | [riak-c-client](https://github.com/basho/riak-c-client) | [C Client Documentation](http://basho.github.io/riak-c-client/index.html)
 
 ## Community Libraries
 
