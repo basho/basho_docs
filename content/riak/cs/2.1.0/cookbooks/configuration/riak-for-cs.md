@@ -10,8 +10,8 @@ menu:
 project: "riak_cs"
 project_version: "2.1.0"
 aliases:
-  - /riakcs/2.1.0/cookbooks/Configuring-Riak/
-  - /riak/cs/2.1.0/cookbooks/Configuring-Riak/
+  - /riakcs/2.1.0/cookbooks/configuration/Configuring-Riak/
+  - /riak/cs/2.1.0/cookbooks/configuration/Configuring-Riak/
 ---
 
 Because Riak CS is an application built on top of Riak, it's important

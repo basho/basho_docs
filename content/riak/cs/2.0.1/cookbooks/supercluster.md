@@ -11,7 +11,6 @@ project: "riak_cs"
 project_version: "2.0.1"
 aliases:
   - /riakcs/2.0.1/cookbooks/supercluster/
-  - /riak/cs/2.0.1/cookbooks/supercluster/
 ---
 
 <div class="note">
