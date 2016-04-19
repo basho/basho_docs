@@ -230,7 +230,7 @@ Stat         | Description
 
 Memory statistics are taken directly from the Erlang virtual machine.
 Documentation for which can be found at [ErlDocs:
-Memory](http://erldocs.com/R14B04/erts/erlang.html?i=0&search=erlang:memory#memory/0).
+Memory](http://erlang.org/doc/man/erlang.html#memory-0#memory/0).
 
 Stat                    | Description
 ------------------------|---------------------------------------------------
