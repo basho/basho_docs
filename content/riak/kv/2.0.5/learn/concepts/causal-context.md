@@ -30,7 +30,7 @@ canonical_link: "docs.basho.com/riak/kv/latest/learn/concepts/causal-context"
 [usage protocol buffers]: /riak/kv/2.0.5/developing/api/protocol-buffers
 [usage updating objects]: /riak/kv/2.0.5/developing/usage/updating-objects
 [Vector Clocks on Wikipedia]: http://en.wikipedia.org/wiki/Vector_clock
-[Why Vector Clocks are Easy]: http://blog.basho.com/2010/01/29/why-vector-clocks-are-easy/
+[Why Vector Clocks are Easy]: http://basho.com/posts/technical/why-vector-clocks-are-easy/
 [Why Vector Clocks are Hard]: http://blog.basho.com/2010/04/05/why-vector-clocks-are-hard/
 [work of Leslie Lamport]: http://portal.acm.org/citation.cfm?id=359563
 [Evaluating Dotted Version Vectors in Riak]: http://asc.di.fct.unl.pt/~nmp/pubs/inforum-2011-2.pdf
