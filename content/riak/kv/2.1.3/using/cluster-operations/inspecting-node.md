@@ -219,7 +219,7 @@ Stat                 | Description
 
 CPU statistics are taken directly from Erlang’s cpu_sup module.
 Documentation for which can be found at [ErlDocs:
-cpu_sup](http://erldocs.com/R14B04/os_mon/cpu_sup.html).
+cpu_sup](http://erlang.org/doc/man/cpu_sup.html).
 
 Stat         | Description
 -------------|---------------------------------------------------
