@@ -170,7 +170,7 @@ def do_deploy()
       # the etag (which is the md5sum) is wrapped in double-quotes. Strip those
       # by 'translating' them into empty strings.
       [objs.key, objs.etag.tr('"','')] }
-
+    .reject { |objs| objs[0] == "last_deployed_time.txt" }
 
   # Now that we have the two lists, we need to compare them and generate the
   # list of files we need to upload, and the list of files we need to delete.
@@ -413,6 +413,14 @@ def do_deploy()
     puts("  Sending Invalidation Request for the entire site (\"/*\")...")
     cf_report = cf_client.invalidate(['/*'])
   end
+
+  # Write a dummy file to mark the time of the last successful deploy.
+  aws_bucket.put_object({
+    acl: "public-read-write",
+    key: "last_deployed_time.txt",
+    body: "#{Time.new.utc}"
+  })
+
 
   puts("")
   puts("Deploy Process Complete!")
