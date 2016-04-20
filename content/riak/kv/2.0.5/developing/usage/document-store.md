@@ -85,7 +85,7 @@ list:
 ```
 
 You can see the full schema [on
-GitHub](https://github.com/basho/basho_docs/raw/master/source/data/blog_post_schema.xml).
+GitHub](https://github.com/basho/basho_docs/raw/master/extras/data/blog_post_schema.xml).
 Let's store that schema in a file called `blog_post_schema.xml` and
 upload that schema to Riak:
 

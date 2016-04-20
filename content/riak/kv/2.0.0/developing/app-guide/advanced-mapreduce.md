@@ -559,9 +559,9 @@ chmod +x load_data.erl
 Download the CSV file of stock data linked below and place it in the
 `dev` directory where we've been working.
 
-* [goog.csv](https://github.com/basho/basho_docs/raw/master/source/data/goog.csv) --- Google historical stock data
-* [load_stocks.rb](https://github.com/basho/basho_docs/raw/master/source/data/load_stocks.rb) --- Alternative script in Ruby to load the data
-* [load_data.erl](https://github.com/basho/basho_docs/raw/master/source/data/load_data.erl) --- Erlang script to load data (as shown in snippet)
+* [goog.csv](https://github.com/basho/basho_docs/raw/master/extras/data/goog.csv) --- Google historical stock data
+* [load_stocks.rb](https://github.com/basho/basho_docs/raw/master/extras/code-examples/load_stocks.rb) --- Alternative script in Ruby to load the data
+* [load_data.erl](https://github.com/basho/basho_docs/raw/master/extras/code-examples/load_data.erl) --- Erlang script to load data (as shown in snippet)
 
 Now load the data into Riak.
 
