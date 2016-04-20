@@ -34,7 +34,7 @@ You can turn a set of rows in your Riak TS table into a value with the aggregate
 * `STDDEV()` - Returns the statistical standard deviation of all entries that match a specified criteria using Population Standard Deviation.
 
 
-###`AVG` & `MEAN`
+### `AVG` & `MEAN`
 
 Mean average over the specified `sint64` or `double` column.
 
@@ -51,7 +51,7 @@ Returns `NULL` if no values were returned or all values were `NULL`.
 | double | double |
 
 
-###`COUNT`
+### `COUNT`
 
 Count the number of returned values.
 
@@ -68,7 +68,7 @@ If a single column is used as an input then `NULL` values are ignored. If all va
 | `*` | sint64 |
 
 
-###`MAX`
+### `MAX`
 
 The largest value from the set of values returned by the query.
 
@@ -85,7 +85,7 @@ Returns `NULL` if no values were returned or all values were `NULL`.
 | double | double |
 
 
-###`MIN`
+### `MIN`
 
 The smallest value from the set of values returned by the query.
 
@@ -102,7 +102,7 @@ Returns `NULL` if no values were returned or all values were `NULL`.
 | double | double |
 
 
-###`STDDEV`
+### `STDDEV`
 
 Calculate the standard deviation for a set of values returned by the query.
 
@@ -121,7 +121,7 @@ Returns `NULL` if less than two non-null values were returned.
 | double | double |
 
 
-###`SUM`
+### `SUM`
 
 The sum of all the values of one `sint64` or `double` column returned by the query.
 

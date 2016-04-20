@@ -17,7 +17,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/creating-activating
 
 [erlang]: ../../developing/erlang#query2
 [java]: ../../developing/java#query
-[nodejs]: ../../nodejs#query
+[nodejs]: ../../developing/nodejs#query
 [python]: ../../developing/python#query
 [ruby]: ../../developing/ruby#sql-queries
 [planning]: ../planning/
