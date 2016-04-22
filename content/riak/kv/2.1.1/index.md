@@ -10,6 +10,8 @@ menu:
     weight: 100
     pre: icon-riak
 toc: false
+aliases:
+  - /riak/2.1.1/
 canonical_link: "https://docs.basho.com/riak/kv/latest/index"
 ---
 
