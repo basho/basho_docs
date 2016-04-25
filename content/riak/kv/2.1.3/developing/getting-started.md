@@ -32,14 +32,14 @@ for various programming languages and environments. Please select the
 language with which you'd like to proceed:
 
 <ul class="planguages">
-<li><a href="developing/getting-started/java/"><img src="/images/plangs/java.jpg" alt="Java"></a></li>
-<li><a href="developing/getting-started/ruby/"><img src="/images/plangs/ruby.jpg" alt="Ruby"></a></li>
-<li><a href="developing/getting-started/python/"><img src="/images/plangs/python.png" alt="Python"></a></li>
-<li><a href="developing/getting-started/csharp/"><img src="/images/plangs/csharp.png" alt="CSharp"></a></li>
-<li><a href="developing/getting-started/nodejs/"><img src="/images/plangs/nodejs.png" alt="Node.js"></a></li>
-<li><a href="developing/getting-started/erlang/"><img src="/images/plangs/erlang.jpg" alt="Erlang"></a></li>
-<li><a href="developing/getting-started/php/"><img src="/images/plangs/php.png" alt="PHP"></a></li>
-<li><a href="developing/getting-started/golang/"><img src="/images/plangs/golang.png" alt="Go"></a></li>
+<li><a href="java/"><img src="/images/plangs/java.jpg" alt="Java"></a></li>
+<li><a href="ruby/"><img src="/images/plangs/ruby.jpg" alt="Ruby"></a></li>
+<li><a href="python/"><img src="/images/plangs/python.png" alt="Python"></a></li>
+<li><a href="csharp/"><img src="/images/plangs/csharp.png" alt="CSharp"></a></li>
+<li><a href="nodejs/"><img src="/images/plangs/nodejs.png" alt="Node.js"></a></li>
+<li><a href="erlang/"><img src="/images/plangs/erlang.jpg" alt="Erlang"></a></li>
+<li><a href="php/"><img src="/images/plangs/php.png" alt="PHP"></a></li>
+<li><a href="golang/"><img src="/images/plangs/golang.png" alt="Go"></a></li>
 </ul>
 
 ### Community-supported Client Libraries

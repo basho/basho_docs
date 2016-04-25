@@ -11,7 +11,8 @@ menu:
     parent: "developing_usage"
 toc: true
 aliases:
-    - /riak/2.0.1/dev/advanced/bucket-types
+  - /riak/2.0.1/dev/advanced/bucket-types
+  - /riak/kv/2.0.1/dev/advanced/bucket-types
 canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage/bucket-types"
 ---
 

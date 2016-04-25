@@ -11,6 +11,9 @@ menu:
     weight: 101
     parent: "getting_started_nodejs"
 toc: true
+aliases:
+  - /riak/2.0.4/dev/taste-of-riak/querying-nodejs
+  - /riak/kv/2.0.4/dev/taste-of-riak/querying-nodejs
 canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/nodejs/querying"
 ---
 

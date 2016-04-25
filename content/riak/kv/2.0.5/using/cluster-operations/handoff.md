@@ -10,6 +10,9 @@ menu:
     weight: 107
     parent: "managing_cluster_operations"
 toc: true
+aliases:
+  - /riak/2.0.5/ops/running/handoff
+  - /riak/kv/2.0.5/ops/running/handoff
 canonical_link: "https://docs.basho.com/riak/kv/latest/using/cluster-operations/handoff"
 ---
 

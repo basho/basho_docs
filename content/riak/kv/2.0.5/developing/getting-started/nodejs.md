@@ -10,6 +10,9 @@ menu:
     weight: 104
     parent: "developing_getting_started"
 toc: true
+aliases:
+  - /riak/2.0.5/dev/taste-of-riak/nodejs
+  - /riak/kv/2.0.5/dev/taste-of-riak/nodejs
 canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/nodejs"
 ---
 

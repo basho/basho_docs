@@ -11,6 +11,9 @@ menu:
     weight: 101
     parent: "getting_started_java"
 toc: true
+aliases:
+  - /riak/2.0.6/dev/taste-of-riak/querying-java
+  - /riak/kv/2.0.6/dev/taste-of-riak/querying-java
 canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/java/querying"
 ---
 

@@ -10,6 +10,9 @@ menu:
     weight: 103
     parent: "developing_apis"
 toc: true
+aliases:
+  - /riak/2.0.1/dev/references/protocol-buffers
+  - /riak/kv/2.0.1/dev/references/protocol-buffers
 canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/protocol-buffers"
 ---
 

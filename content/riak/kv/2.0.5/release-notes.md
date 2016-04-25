@@ -10,6 +10,8 @@ menu:
     weight: 101
     parent: index
 toc: true
+aliases:
+  - /riak/2.0.5/community/release-notes
 canonical_link: "https://docs.basho.com/riak/kv/latest/release-notes"
 ---
 

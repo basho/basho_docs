@@ -10,6 +10,9 @@ menu:
     weight: 102
     parent: "developing_getting_started"
 toc: true
+aliases:
+  - /riak/2.1.3/dev/taste-of-riak/python
+  - /riak/kv/2.1.3/dev/taste-of-riak/python
 canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/python"
 ---
 

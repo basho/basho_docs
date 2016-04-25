@@ -10,6 +10,9 @@ menu:
     weight: 107
     parent: "developing_getting_started"
 toc: true
+aliases:
+  - /riak/2.0.0/dev/taste-of-riak/golang
+  - /riak/kv/2.0.0/dev/taste-of-riak/golang
 canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/golang"
 ---
 

@@ -11,6 +11,9 @@ menu:
     weight: 102
     parent: "getting_started_python"
 toc: true
+aliases:
+  - /riak/2.1.1/dev/taste-of-riak/object-modeling-python
+  - /riak/kv/2.1.1/dev/taste-of-riak/object-modeling-python
 canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/python/object-modeling"
 ---
 

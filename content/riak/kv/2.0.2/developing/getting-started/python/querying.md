@@ -11,6 +11,9 @@ menu:
     weight: 101
     parent: "getting_started_python"
 toc: true
+aliases:
+  - /riak/2.0.2/dev/taste-of-riak/querying-python
+  - /riak/kv/2.0.2/dev/taste-of-riak/querying-python
 canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/python/querying"
 ---
 

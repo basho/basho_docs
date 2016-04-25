@@ -11,6 +11,9 @@ menu:
     weight: 102
     parent: "getting_started_nodejs"
 toc: true
+aliases:
+  - /riak/2.0.1/dev/taste-of-riak/object-modeling-nodejs
+  - /riak/kv/2.0.1/dev/taste-of-riak/object-modeling-nodejs
 canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/nodejs/object-modeling"
 ---
 
