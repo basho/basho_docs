@@ -37,7 +37,7 @@ There are two packages that cover the public API for TS in the Java client:
 
 ### Data Type Details
 
-####`Cell`
+#### `Cell`
 A cell contains a piece of data for a row in a Riak TS table.
 
 >**Note:** Cells are immutable once created.
@@ -68,7 +68,7 @@ There is also a special static helper for creating cells with raw timestamps.
 Each data type has the following methods: `has_X` and `get_X`. 
 
 
-####`Row`
+#### `Row`
 A row contains a collection of cells. 
 
 >**Note:** Rows are immutable once created.
@@ -85,7 +85,7 @@ A row contains a collection of cells.
  * `Iterator<Cell> iterator()` - Returns an iterator to the immutable cell collection.
 
 
-####`ColumnDescription`
+#### `ColumnDescription`
 The column description is a metadata description of a column in a Riak TS table, and contains both a column name and type.
 
 ##### Constructors
@@ -113,7 +113,7 @@ public enum ColumnType
 ```
 
 
-####`QueryResult`
+#### `QueryResult`
 The query result is the result set from a query, key list, or fetch command.
 
 >**Note:** Query results are immutable.
@@ -169,7 +169,7 @@ Throwable error = queryFuture.cause();
 ```
 
 
-####`Delete`
+#### `Delete`
 
 Deletes a single row by it's key values.
 
@@ -187,7 +187,7 @@ There is also an instance method to specify a command timeout in milliseconds:
  * `void`
 
 
-####`Fetch` 
+#### `Fetch` 
 
 Fetches a single row by it's key values.
 
@@ -205,7 +205,7 @@ There is also an instance method to specify a command timeout in milliseconds:
 * `QueryResult` - 1 row if a match was found; 0 rows if no match was found. 
 
 
-####`ListKeys`
+#### `ListKeys`
 
 Lists the primary keys of all the rows in a Riak TS table.
 
@@ -223,7 +223,7 @@ There is also an instance method to specify a command timeout in milliseconds:
 * `QueryResult` - each primary key's cells as a row. May not contain values for column descriptions.
 
 
-####`Query`
+#### `Query`
 
 Allows you to query a Riak TS table with the given query string.
 
@@ -237,7 +237,7 @@ The builder only takes the query text:
  * `QueryResult` - contains all matching rows.
 
 
-####`Store`
+#### `Store`
 Stores data in the Riak TS table.
 
 ##### Builder

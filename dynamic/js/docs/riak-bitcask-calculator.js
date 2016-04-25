@@ -3,19 +3,6 @@
    http://lists.basho.com/pipermail/riak-users_lists.basho.com/2011-May/004292.html
 */
 
-if(window.pageInVersion("1.4.0+")) {
-    // ~32 bytes for the OS/malloc + khash overhead @ 50M keys (amortized, so bigger for fewer keys, smaller for more keys).
-    // + 16 bytes of erlang allocator overhead
-    // + 44.5 bytes for the NIF C structure
-    // + 8 bytes for the entry pointer stored in the khash
-    // + 13 bytes of kv overhead
-    REST_API = 91;
-    PB_API = 91;
-} else {
-    REST_API = 472; // 447 in 0.14.2
-    PB_API = 381;   // 356 in 0.14.2
-}
-
 bites_per = {
     "KiB": 1024,
     "MiB": 1048576,
@@ -160,11 +147,10 @@ var estimate_nodes = function () {
 
 var estimate_storage = function () {
     // using REST/HTTP API (which creates HTTP headers in kb/p's creating unexpected overhead)
-    return ( 14 + ( 13 + Bucket() + Key()) +
-           ( ( (API() == 'REST') ? REST_API : PB_API ) +
-           Bucket() + Key() + Value()) +
-           (18 + ( 13 + Bucket() + Key() ) ) )
-           * NumEntries() * N_Val();
+    return ( 14 + ( 13 + Bucket() + Key())
+             + ( 91 + Bucket() + Key() + Value() )
+             + ( 18 + ( 13 + Bucket() + Key() ) )
+           ) * NumEntries() * N_Val();
     // still doesn't account for link headers, tombstones, etc.
 }
 

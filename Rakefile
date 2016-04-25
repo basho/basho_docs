@@ -76,7 +76,7 @@ end
 ########
 # Build
 desc      "Compile Compressed JS, Compile Compressed CSS, Build Hugo"
-task      :build => ['clean', 'build:js', 'build:css', 'build:hugo']
+task      :build => ['clean', 'build:js', 'build:css']
 namespace :build do
   task :js => "#{$js_dest}" do compile_js(debug: false); end
   task :css => "#{$css_dest}" do compile_css(debug: false); end

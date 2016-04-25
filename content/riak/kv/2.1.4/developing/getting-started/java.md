@@ -36,7 +36,7 @@ project's dependencies. Here is a Maven example:
 ```
 
 Next, download
-[`TasteOfRiak.java`](https://github.com/basho/basho_docs/raw/master/source/data/TasteOfRiak.java)
+[`TasteOfRiak.java`](https://github.com/basho/basho_docs/raw/master/extras/code-examples/TasteOfRiak.java)
 source code for this tutorial, and save it to your working directory.
 
 <div class="note">
