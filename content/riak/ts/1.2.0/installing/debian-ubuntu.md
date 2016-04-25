@@ -17,7 +17,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/installing/debian-ubuntu"
 
 
 [concept aae]: /riak/kv/2.1.3/learn/concepts/active-anti-entropy
-[planning]: ../using/planning
+[planning]: /riak/ts/1.2.0/using/planning
 [security basics]: /riak/kv/2.1.3/using/security/basics
 
 
