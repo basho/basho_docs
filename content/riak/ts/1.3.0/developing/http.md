@@ -25,11 +25,11 @@ All Riak TS calls use the '/ts' endpoint. Each API call has a corresponding URL:
 
 | Call   | Request URL         | Request type | Description  |
 |------------|---------------------|--------------|--------------|
-| get        | http://server/ts/tables/»Table«/keys/»Family«/»a-family«/»Series«/»a-series«/»Time«/»a-time«  | GET          | single-key get of a value | 
-| put        | http://server/ts/tables/»Table«/keys  | PUT          | put a single or a batch of records    |
-| delete     | http://server/ts/tables/»Table«/»Family«/»a-family/»Series«/»a-series«/»Time«/»a-time«  | DELETE       | single-key delete         |
-| list_keys  | http://server/ts/v1/tables/»Table«/list_keys  | GET          | streaming list keys     |
-| query      | http://server/ts/query  | POST         | execute a query |
+| get        | http://»Server«/ts/v1/tables/»Table«/keys/»Family«/»a-family«/»Series«/»a-series«/»Time«/»a-time«  | GET          | single-key get of a value | 
+| put        | http://»Server«/ts/v1/tables/»Table«/keys --data "[»Record(s)«]" | POST          | put a single or a batch of records    |
+| delete     | http://»Server«/ts/v1/tables/»Table«/keys/»Family«/»a-family«/»Series«/»a-series«/»Time«/»a-time«  | DELETE       | single-key delete         |
+| list_keys  | http://»Server«/ts/v1/tables/»Table«/list_keys  | GET          | streaming list keys     |
+| query      | http://»Server«/ts/v1/query --data "»Query«"  | POST         | execute a query |
 
 
 ## Keys and values
