@@ -15,7 +15,7 @@ aliases:
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/writing"
 ---
 
-[activating]: ../activating/
+[activating]: ../creating-activating/
 [planning]: ../planning/
 [querying]: ../querying/
 
