@@ -7,6 +7,16 @@ menu:
     identifier: "community_overview"
     weight: 600
     pre: icon-comments
+aliases:
+  - /riak/kv/2.1.4/community
+  - /riak/kv/2.1.3/community
+  - /riak/kv/2.1.1/community
+  - /riak/kv/2.0.6/community
+  - /riak/kv/2.0.5/community
+  - /riak/kv/2.0.4/community
+  - /riak/kv/2.0.2/community
+  - /riak/kv/2.0.1/community
+  - /riak/kv/2.0.0/community
 canonical_link: "https://docs.basho.com/community/"
 ---
 

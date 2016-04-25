@@ -10,6 +10,9 @@ menu:
     weight: 103
     parent: "setup_index"
 toc: true
+aliases:
+  - /riak/2.0.0/ops/upgrading/rolling-downgrades/
+  - /riak/kv/2.0.0/ops/upgrading/rolling-downgrades/
 canonical_link: "https://docs.basho.com/riak/kv/latest/setup/downgrade"
 ---
 

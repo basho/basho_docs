@@ -10,6 +10,9 @@ menu:
     weight: 100
     parent: "developing_getting_started"
 toc: true
+aliases:
+  - /riak/2.0.5/dev/taste-of-riak/java
+  - /riak/kv/2.0.5/dev/taste-of-riak/java
 canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/java"
 ---
 

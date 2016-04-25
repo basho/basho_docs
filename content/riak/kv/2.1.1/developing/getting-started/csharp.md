@@ -10,6 +10,9 @@ menu:
     weight: 103
     parent: "developing_getting_started"
 toc: true
+aliases:
+  - /riak/2.1.1/dev/taste-of-riak/csharp
+  - /riak/kv/2.1.1/dev/taste-of-riak/csharp
 canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/csharp"
 ---
 

@@ -1,6 +1,6 @@
 ---
 title_supertext: "Getting Started:"
-tiGetting Started: Querying with C Sharp"
+title: "Querying with C Sharp"
 description: ""
 project: "riak_kv"
 project_version: "2.1.4"

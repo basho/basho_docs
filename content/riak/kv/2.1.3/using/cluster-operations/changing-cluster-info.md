@@ -10,6 +10,9 @@ menu:
     weight: 101
     parent: "managing_cluster_operations"
 toc: true
+aliases:
+  - /riak/2.1.3/ops/running/nodes/renaming
+  - /riak/kv/2.1.3/ops/running/nodes/renaming
 canonical_link: "https://docs.basho.com/riak/kv/latest/using/cluster-operations/changing-cluster-info"
 ---
 

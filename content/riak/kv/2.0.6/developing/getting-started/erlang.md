@@ -10,6 +10,9 @@ menu:
     weight: 105
     parent: "developing_getting_started"
 toc: true
+aliases:
+  - /riak/2.0.6/dev/taste-of-riak/erlang
+  - /riak/kv/2.0.6/dev/taste-of-riak/erlang
 canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/erlang"
 ---
 

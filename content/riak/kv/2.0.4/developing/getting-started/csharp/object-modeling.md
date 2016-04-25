@@ -11,6 +11,9 @@ menu:
     weight: 102
     parent: "getting_started_csharp"
 toc: true
+aliases:
+  - /riak/2.0.4/dev/taste-of-riak/object-modeling-csharp
+  - /riak/kv/2.0.4/dev/taste-of-riak/object-modeling-csharp
 canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/csharp/object-modeling"
 ---
 

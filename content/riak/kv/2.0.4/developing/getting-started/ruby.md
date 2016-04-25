@@ -10,6 +10,9 @@ menu:
     weight: 101
     parent: "developing_getting_started"
 toc: true
+aliases:
+  - /riak/2.0.4/dev/taste-of-riak/ruby
+  - /riak/kv/2.0.4/dev/taste-of-riak/ruby
 canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/ruby"
 ---
 

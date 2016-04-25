@@ -9,6 +9,8 @@ menu:
     identifier: "index_release_notes"
     weight: 101
     parent: index
+aliases:
+  - /riak/2.1.4/community/release-notes
 toc: true
 canonical_link: "https://docs.basho.com/riak/kv/latest/release-notes"
 ---
