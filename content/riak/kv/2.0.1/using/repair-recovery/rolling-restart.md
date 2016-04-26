@@ -7,7 +7,7 @@ menu:
   riak_kv-2.0.1:
     name: "Rolling Restarts"
     identifier: "repair_recover_restart"
-    weight: 102
+    weight: 103
     parent: "managing_repair_recover"
 toc: true
 aliases:

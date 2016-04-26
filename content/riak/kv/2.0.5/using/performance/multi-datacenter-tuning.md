@@ -8,7 +8,7 @@ menu:
   riak_kv-2.0.5:
     name: "Multi-Datacenter Replication"
     identifier: "performance_multi_datacenter_tuning"
-    weight: 104
+    weight: 110
     parent: "managing_performance"
 toc: true
 commercial_offering: true

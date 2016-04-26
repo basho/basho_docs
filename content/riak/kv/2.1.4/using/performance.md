@@ -11,7 +11,8 @@ menu:
     parent: "managing"
 toc: true
 aliases:
-  - /riak/kv/2.1.4/ops/tuning/erlang/
+  - /riak/kv/2.1.4/ops/tuning/linux/
+  - /riak/2.1.4/ops/tuning/linux/
 canonical_link: "https://docs.basho.com/riak/kv/latest/using/performance"
 ---
 
