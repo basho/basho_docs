@@ -336,7 +336,7 @@ Erlang VM. The corresponding setting in `vm.args` is `+e`.
 Higher values for `erlang.max_ets_tables` will tend to provide more
 quick-access data storage but at the cost of higher RAM usage. Please
 note that the default values for `erlang.max_ets_tables` and
-`erlang.distribution_size` (explained in the section [above](#distribution-buffer) are the same.
+`erlang.distribution_size` (explained in the section [above](#distribution-buffer)) are the same.
 
 ## Crash Dumps
 
