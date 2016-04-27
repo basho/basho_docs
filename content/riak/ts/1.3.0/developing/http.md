@@ -60,51 +60,97 @@ In this section, the example Riak TS calls use the HTTP API and access the follo
 ```
 CREATE TABLE GeoCheckin
 (
-   myfamily    varchar   not null,
-   myseries    varchar   not null,
+   state       varchar   not null,
+   city        varchar   not null,
    time        timestamp not null,
    weather     varchar   not null,
    temperature double,
    PRIMARY KEY (
-     (myfamily, myseries, quantum(time, 15, 'm')),
-      myfamily, myseries, time
+     (state, city, quantum(time, 15, 'm')),
+      state, city, time
    )
 )
 ```
 
-Let's say we want to write the following rows to the table:
+The following example is a `query` call that can be used to run a CREATE TABLE statement to create the `GeoCheckin` table:
 
 ```
-"family1", "series1", 1234567, "hot", 23.5
-"family2", "series99", 1234568, "windy", 19.8
+$ curl -XPOST http://127.0.0.1:8098/ts/v1/query --data "CREATE TABLE GeoCheckin (state varchar not null, city varchar not null, time timestamp not null, weather varchar not null, temperature double, PRIMARY KEY ((state, city, quantum(time, 15, 'm')), state, city, time))"
+
+{"success":true}
+```
+
+Let's write the following rows to the table:
+
+```
+"Florida", "Miami", 1234567, "hot", 23.5
+"Illinois", "Chicago", 1234568, "windy", 19.8
 ```
 
 The following example is a `put` call that can be used to write the two rows:
 
 ```
-curl -XPOST http://127.0.0.1:8098/ts/v1/tables/GeoCheckin/keys --data '[{"myfamily":"family1","myseries":"series1","time":1234567,"weather":"hot","temperature":23.5},{"myfamily":"family2","myseries":"series99","time":1234568,"weather":"windy","temperature":19.8}]'
+$ curl -XPOST http://127.0.0.1:8098/ts/v1/tables/GeoCheckin/keys --data '[{"state":"Florida","city":"Miami","time":1234567,"weather":"hot","temperature":23.5},{"state":"Illinois","city":"Chicago","time":1234568,"weather":"windy","temperature":19.8}]'
+
+{"success":true}
 ```
 
 The following example is a `get` call that can be used to read one of the rows:
 
 ```
-curl -XGET http://127.0.0.1:8098/ts/v1/tables/GeoCheckin/keys/myfamily/family1/myseries/series1/time/1234567
+$ curl -XGET http://127.0.0.1:8098/ts/v1/tables/GeoCheckin/keys/state/Florida/city/Miami/time/1234567
+
+{"state":"Florida","city":"Miami","time":1234567,"weather":"hot","temperature":23.5}
 ```
 
-The following example is a `query` call that can be used to run a SELECT query to return all rows that satisfy the condition in the WHERE clause:
+The following example is a `query` call that can be used to run a SELECT query to display all columns of the `GeoCheckin` table and return all rows that satisfy the WHERE clause:
 
 ```
-curl -XPOST http://127.0.0.1:8098/ts/v1/query --data "SELECT * FROM GeoCheckin WHERE myfamily = 'family2' AND myseries = 'series99' AND time >= 1200000 and time <= 1500000"
+$ curl -XPOST http://127.0.0.1:8098/ts/v1/query --data "SELECT * FROM GeoCheckin WHERE state = 'Illinois' AND city = 'Chicago' AND time >= 1200000 and time <= 1500000"
+
+{"columns":["state","city","time","weather","temperature"],"rows":[["Illinois","Chicago",1234568,"windy",19.8]]}
 ```
 
 The following example is a `list_keys` call that can be used to stream a list of keys in the table.
 
 ```
-curl -XGET http://127.0.0.1:8098/ts/v1/tables/GeoCheckin/list_keys
+$ curl -XGET http://127.0.0.1:8098/ts/v1/tables/GeoCheckin/list_keys
+
+http://127.0.0.1:8098/ts/v1/tables/GeoCheckin/keys/state/Florida/city/Miami/time/1234567
+http://127.0.0.1:8098/ts/v1/tables/GeoCheckin/keys/state/Illinois/city/Chicago/time/1234568
 ```
 
 The following example is a `delete` call that can be used to delete one of the rows:
 
 ```
-curl -XDELETE http://127.0.0.1:8098/ts/v1/tables/GeoCheckin/keys/myfamily/family2/myseries/series99/time/1234568
+$ curl -XDELETE http://127.0.0.1:8098/ts/v1/tables/GeoCheckin/keys/state/Illinois/city/Chicago/time/1234568
+
+{"success":true}
 ```
+
+The following examples are calls that result in various errors:
+
+```
+$ curl -XPOST http://127.0.0.1:8098/ts/v1/query --data "CREATE TABLE GeoCheckin (state varchar not null, city varchar not null, time timestamp not null, weather varchar not null, temperature double, PRIMARY KEY ((state, city, quantum(timecol, 15, 'm')), state, city, time))"
+
+Query error: Local key does not match primary key
+
+$ curl -XPOST http://127.0.0.1:8098/ts/v1/tables/GeoCheckin/keys --data '[{"state":"Florida","city":"Miami","time":1234567,"weather":50,"temperature":23.5}]'
+
+Bad value for field "weather" of type varchar in table "GeoCheckin"
+
+$ curl -XGET http://127.0.0.1:8098/ts/v1/tables/GeoCheckin2/keys/state/Florida/city/Miami/time/1234567
+
+Table "GeoCheckin2" does not exist
+
+$ curl -XPOST http://192.168.99.14:8098/ts/v1/query --data "SELECT ? FROM GeoCheckin WHERE state = 'Illinois' AND city = 'Chicago' AND time >= 1200000 and time <= 1500000"
+
+Query error: Unexpected token '?'.
+
+$ curl -XDELETE http://127.0.0.1:8098/ts/v1/tables/GeoCheckin/keys/state/Colorado/city/Denver/time/1234570
+
+Key not found
+
+```
+
+192.168.99.14
