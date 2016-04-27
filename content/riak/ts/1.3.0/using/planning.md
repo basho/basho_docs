@@ -38,14 +38,14 @@ In order to create a working Riak TS table, you'll need to plan your table out. 
 ```sql
 CREATE TABLE GeoCheckin
 (
-   region       varchar   not null,
-   state        varchar   not null,
-   time         timestamp not null,
-   weather      varchar   not null,
-   temperature  double,
+   region       VARCHAR   NOT NULL,
+   state        VARCHAR   NOT NULL,
+   time         TIMESTAMP NOT NULL,
+   weather      VARCHAR   NOT NULL,
+   temperature  DOUBLE,
    PRIMARY KEY (
-     (region, state, quantum(time, 15, 'm')),
-     region, state, time
+     (region, state, QUANTUM(time, 15, 'm')),
+      region, state, time
    )
 )
 ```
@@ -58,10 +58,10 @@ Fields, also called columns, refer to the items preceding the `PRIMARY KEY`. Fie
 Field names define the structure of the data, taking the format:
 
 ```sql
-name type [not null],
+name type [NOT NULL],
 ```
 
-Fields specified as part of the primary key must be defined as `not null`.
+Fields specified as part of the primary key must be defined as `NOT NULL`.
 
 The field definitions for the keys can be specified in any order in the `CREATE TABLE` statement. For instance both are correct:
 
@@ -69,14 +69,14 @@ The field definitions for the keys can be specified in any order in the `CREATE 
 ```sql
 CREATE TABLE GeoCheckin
 (
-   region       varchar   not null,
-   state        varchar   not null,
-   time         timestamp not null,
-   weather      varchar not null,
-   temperature  double,
+   region       VARCHAR   NOT NULL,
+   state        VARCHAR   NOT NULL,
+   time         TIMESTAMP NOT NULL,
+   weather      VARCHAR   NOT NULL,
+   temperature  DOUBLE,
    PRIMARY KEY (
-     (region, state, quantum(time, 15, 'm')),
-     region, state, time
+     (region, state, QUANTUM(time, 15, 'm')),
+      region, state, time
    )
 )
 ```
@@ -85,25 +85,25 @@ CREATE TABLE GeoCheckin
 ```sql
 CREATE TABLE GeoCheckin
 (
-   time         timestamp not null,
-   state        varchar   not null,
-   weather      varchar not null,
-   region       varchar   not null,
-   temperature  double,
+   time         TIMESTAMP NOT NULL,
+   state        VARCHAR   NOT NULL,
+   weather      VARCHAR   NOT NULL,
+   region       VARCHAR   NOT NULL,
+   temperature  DOUBLE,
    PRIMARY KEY (
-     (quantum(time, 15, 'm'), state, region),
-     time, state, region
+     (QUANTUM(time, 15, 'm'), state, region),
+      time, state, region
    )
 )
 ```
 
 The types associated with fields are limited. Valid types are:
 
-* `varchar` - Any string content is valid, including Unicode. Can only be compared using strict equality, and will not be typecast (e.g., to an integer) for comparison purposes. Use single quotes to delimit varchar strings.
-* `boolean` - `true` or `false` (any case)
-* `timestamp` - Timestamps are integer values expressing [UNIX epoch time in UTC][epoch] in **milliseconds**. Zero is not a valid timestamp.
-* `sint64` - Signed 64-bit integer
-* `double` - This type does not comply with its IEEE specification: `NaN` (not a number) and `INF` (infinity) cannot be used.
+* `VARCHAR` - Any string content is valid, including Unicode. Can only be compared using strict equality, and will not be typecast (e.g., to an integer) for comparison purposes. Use single quotes to delimit varchar strings.
+* `BOOLEAN` - `true` or `false` (any case)
+* `TIMESTAMP` - Timestamps are integer values expressing [UNIX epoch time in UTC][epoch] in **milliseconds**. Zero is not a valid timestamp.
+* `SINT64` - Signed 64-bit integer
+* `DOUBLE` - This type does not comply with its IEEE specification: `NaN` (not a number) and `INF` (infinity) cannot be used.
 
 
 ### Primary Key
@@ -113,14 +113,14 @@ The `PRIMARY KEY` describes both the partition and local keys. The partition key
 ```sql
 CREATE TABLE GeoCheckin
 (
-   region       varchar   not null,
-   state        varchar   not null,
-   time         timestamp not null,
-   weather      varchar not null,
-   temperature  double,
+   region       VARCHAR   NOT NULL,
+   state        VARCHAR   NOT NULL,
+   time         TIMESTAMP NOT NULL,
+   weather      VARCHAR   NOT NULL,
+   temperature  DOUBLE,
    PRIMARY KEY (
-     (region, state, quantum(time, 15, 'm')), /* <-- PARTITION KEY */
-     region, state, time /* <-- LOCAL KEY */
+     (region, state, QUANTUM(time, 15, 'm')), /* <-- PARTITION KEY */
+      region, state, time /* <-- LOCAL KEY */
    )
 )
 ```
@@ -131,14 +131,14 @@ The field definitions for the `PRIMARY KEY` can be specified in any order in the
 ```sql
 CREATE TABLE GeoCheckin
 (
-   region       varchar   not null,
-   state        varchar   not null,
-   time         timestamp not null,
-   weather      varchar not null,
-   temperature  double,
+   region       VARCHAR   NOT NULL,
+   state        VARCHAR   NOT NULL,
+   time         TIMESTAMP NOT NULL,
+   weather      VARCHAR   NOT NULL,
+   temperature  DOUBLE,
    PRIMARY KEY (
-     (region, state, quantum(time, 15, 'm')),
-     region, state, time
+     (region, state, QUANTUM(time, 15, 'm')),
+      region, state, time
    )
 )
 ```
@@ -147,14 +147,14 @@ CREATE TABLE GeoCheckin
 ```sql
 CREATE TABLE GeoCheckin
 (
-   region       varchar   not null,
-   state        varchar   not null,
-   time         timestamp not null,
-   weather      varchar not null,
-   temperature  double,
+   region       VARCHAR   NOT NULL,
+   state        VARCHAR   NOT NULL,
+   time         TIMESTAMP NOT NULL,
+   weather      VARCHAR   NOT NULL,
+   temperature  DOUBLE,
    PRIMARY KEY (
-     (state, region, quantum(time, 15, 'm')),
-     state, region, time
+     (state, region, QUANTUM(time, 15, 'm')),
+      state, region, time
    )
 )
 ```
@@ -167,18 +167,18 @@ The partition key is the first key, and is defined as the named fields in parent
 You can use a quantum to colocate data on one of the partition key's timestamp fields:
 
 ```sql
-  PRIMARY KEY  ((region, state, quantum(time, 1, 's')), ...)
+  PRIMARY KEY  ((region, state, QUANTUM(time, 1, 's')), ...)
 ```
 
 The timestamp field can occur at any point in the partition key. For example, this is snippet is also valid:
 
 ```sql
-  PRIMARY KEY  ((quantum(time, 1, 's'), region, state), ...)
+  PRIMARY KEY  ((QUANTUM(time, 1, 's'), region, state), ...)
 ```
 
 The quantum function takes 3 parameters:
 
-* the name of a field in the table definition of type `timestamp`
+* the name of a field in the table definition of type `TIMESTAMP`
 * a quantity
 * a unit of time:
   * 'd'  - days
@@ -197,15 +197,15 @@ The local key may also contain additional fields so long as they come after the 
 
 ```sql
    PRIMARY KEY (
-     (region, state, quantum(time, 15, 'm')),
-     region, state, time, latitude, longitude
+     (region, state, QUANTUM(time, 15, 'm')),
+      region, state, time, weather, temperature
    )
 ```
 
 
 ## Schema Discovery
 
-After creating a table, its schema can be discovered with the `DESCRIBE` statement, which will return, for each column, the following items:
+After creating a table, its schema can be discovered with the `describe` statement, which will return, for each column, the following items:
 
 * *Column*, field name;
 * *Type*, field type;
@@ -214,7 +214,7 @@ After creating a table, its schema can be discovered with the `DESCRIBE` stateme
 * *Local Key*, position of this field in the local key, or blank if it does not appear in the key.
 
 ```sql
-DESCRIBE GeoCheckin
+describe GeoCheckin
 ```
 
 
