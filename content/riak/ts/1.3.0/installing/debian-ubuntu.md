@@ -33,7 +33,7 @@ package available [here][download].
 
 ### `ulimit`
 
-Debian and Ubuntu gives you a very small limit on open file handles. Even with a
+Debian and Ubuntu give you a very small limit on open file handles. Even with a
 backend that uses very few file handles, it's possible to run out. See
 [Open Files Limit][openfileslimit] for more information about changing the limit.
 
@@ -75,7 +75,7 @@ You can verify that Riak TS is successfully installed by running:
 dpkg -l | grep riak
 ```
 
-If Riak TS has been installed successfully, `riak-ts` is returned.
+If Riak TS has been installed successfully `riak-ts` is returned.
 
 
 ## Next Steps

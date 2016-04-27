@@ -33,7 +33,7 @@ you encounter errors.
 
 ### `ulimit`
 
-CentOS and RHEL gives you a very small limit on open file handles. Even with a
+CentOS and RHEL give you a very small limit on open file handles. Even with a
 backend that uses very few file handles, it's possible to run out. See
 [Open Files Limit][openfileslimit] for more information about changing the limit.
 
@@ -93,7 +93,7 @@ or
 rpm -q riak-ts
 ```
 
-If Riak TS has been installed successfully, `riak-ts` is returned.
+If Riak TS has been installed successfully `riak-ts` is returned.
 
 
 ## Next Steps
