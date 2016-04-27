@@ -152,5 +152,3 @@ $ curl -XDELETE http://127.0.0.1:8098/ts/v1/tables/GeoCheckin/keys/state/Colorad
 Key not found
 
 ```
-
-192.168.99.14
