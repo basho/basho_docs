@@ -283,7 +283,7 @@ No Regression Errors.
 You get help on riak-shell functions with the `help` command:
 
 ```
-riak_shell> help;
+riak-shell> help;
 ```
 
 You can get more specific help by calling `help` with the extension name and function name like `help shell quit;`.
@@ -300,7 +300,7 @@ The following things can be configured:
 * logfile ("../some/dir/mylogfile.log") - defaults to ../log/riak_shell.log
 * cookie - any erlang atom the underlying Erlang cookie riak_shell uses to connect
 * show_connection_status (true | false) - shows the green tick or red cross in the command line
-* nodes ([ nodenames]) - a list of nodes to try and connect to on startup or 'reconnect;'
+* nodes ([nodenames]) - a list of nodes to try and connect to on startup or 'reconnect;'
 
 
 ## Command Line Flags
@@ -386,7 +386,7 @@ To be a good citizen you should add a clause to the help function like:
 
 If you have a function with the same name that appears in 2 EXT modules riak_shell will not start. It will not check if the arities match. You may have the same function with different arities in the same module - but there is only one help call.
 
-As a convenience to the developer there is a module called `debug_EXT.erl`. This implements a function which reloads and reregisters all extensions `riak_shell>load`, and can hot-load changes into the shell (it won't work on first-creation of a new EXT module, only on reloading). The only EXT that debug doesn't load is `debug_EXT` so please do not add functions to it.
+As a convenience to the developer there is a module called `debug_EXT.erl`. This implements a function which reloads and reregisters all extensions `riak-shell>load`, and can hot-load changes into the shell (it won't work on first-creation of a new EXT module, only on reloading). The only EXT that debug doesn't load is `debug_EXT` so please do not add functions to it.
 
 The riak-shell suppresses error messages that would otherwise be written to the console (for instance if the remote Riak node goes down the protocol buffer connection is torn down). This makes debugging painful. You can stop this behavior by starting riak_shell in the debug mode by starting it from the shell with the `-d` flag:
 

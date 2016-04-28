@@ -50,6 +50,8 @@ CREATE TABLE GeoCheckin
 )
 ```
 
+In the SQL statements shown throughout this document, keywords appear in all uppercase letters to distinguish them from other entities of the statement such as table and column names.  However, keywords can be specified using lowercase or uppercase letters as they are not case sensitive.
+
 
 #### Fields
 
