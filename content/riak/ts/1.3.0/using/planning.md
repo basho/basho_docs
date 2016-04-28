@@ -207,7 +207,7 @@ The local key may also contain additional fields so long as they come after the 
 
 ## Schema Discovery
 
-After creating a table, its schema can be discovered with the `describe` statement, which will return, for each column, the following items:
+After creating a table, its schema can be discovered with the `DESCRIBE` statement, which will return, for each column, the following items:
 
 * *Column*, field name;
 * *Type*, field type;
@@ -216,7 +216,7 @@ After creating a table, its schema can be discovered with the `describe` stateme
 * *Local Key*, position of this field in the local key, or blank if it does not appear in the key.
 
 ```sql
-describe GeoCheckin
+DESCRIBE GeoCheckin
 ```
 
 
