@@ -20,12 +20,12 @@ canonical_link: "docs.basho.com/riak/ts/latest/using/riakshell"
 [writing]: /riak/ts/1.3.0/using/writingdata
 
 
-You can use riak-shell within Riak TS to run SQL and logging commands from one place.
+You can use riak shell within Riak TS to run SQL and logging commands from one place.
 
 
 ## Capabilities
 
-While riak-shell is in the early stages of development, the following are well-supported: 
+While riak shell is in the early stages of development, the following are well-supported: 
 
 * logging
 * log replay
@@ -45,7 +45,7 @@ The shell is also trivially extendable for developer use.
 
 ## Getting Started
 
-To get started using riak-shell:
+To get started using riak shell:
 
 1\. Locate your riak_shell.config configuration file. It will be in the `/etc/riak` directory with the other Riak TS configuration files. On Apple Mac OS X, the configuration files are in the `riak-ts-1.3.0/etc` directory.
 
@@ -67,7 +67,7 @@ To get started using riak-shell:
 
 3\. If you change the IP address in any of the configuration files, you will need to perform the steps in the [Rename Single Node Clusters][nodename] before proceeding.
 
-4\. Navigate back to your Riak TS directory, and open riak-shell:
+4\. Navigate back to your Riak TS directory, and open riak shell:
 
 ```bash
 ./riak-shell
@@ -84,11 +84,11 @@ riak_shell is connected to: 'dev1@127.0.0.1' on port 8087
 
 ### Connecting and reconnecting
 
-You can connect riak-shell to multiple nodes.
+You can connect riak shell to multiple nodes.
 
 >**Warning**
 >
->You cannot run more than one riak-shell per machine. If you try to connect two riak-shells to a single machine, you will receive an error message.
+>You cannot run more than one riak shell per machine. If you try to connect two riak shells to a single machine, you will receive an error message.
 
 To connect to a specific node, run: `connect '»nodename«'`
 
@@ -104,7 +104,7 @@ riak-shell>show_nodes;
 The connected nodes are: ['dev1@127.0.0.1','dev2@127.0.0.1']
 ```
 
-You can reconnect riak-shell by running: `reconnect`. This will try to connect you to one of the nodes listed in your riak_shell.config. Each node will be tried until it succeeds or runs out of nodes to try.
+You can reconnect riak shell by running: `reconnect`. This will try to connect you to one of the nodes listed in your riak_shell.config. Each node will be tried until it succeeds or runs out of nodes to try.
 
 You can toggle a connection prompt to show the connect status in the prompt:
 
@@ -118,7 +118,7 @@ Connection Prompt turned off
 
 ### History and repeating past commands
 
-You can see the log of your activity in riak-shell by running `>show_history;`
+You can see the log of your activity in riak shell by running `>show_history;`
 
 ```
 riak-shell>show_history;
@@ -146,13 +146,13 @@ riak-shell is connected to: 'dev2@127.0.0.1' on port 8097
 
 ### SQL
 
-You can use riak-shell to [create a table][creating]:
+You can use riak shell to [create a table][creating]:
 
 ```
 riak-shell>CREATE TABLE GeoCheckin (myfamily VARCHAR NOT NULL, myseries VARCHAR NOT NULL, time  TIMESTAMP NOT NULL, weather VARCHAR NOT NULL, temperature DOUBLE, PRIMARY KEY ((myfamily, myseries, QUANTUM(time, 15, 'm')), myfamily, myseries, time));
 ```
 
-Then, you can see the table in riak-shell:
+Then, you can see the table in riak shell:
 
 ```
 riak-shell>describe GeoCheckin;
@@ -214,7 +214,7 @@ riak-shell>log off;
 Logging turned off.
 ```
 
-Logging is off by default. The above command will allow you to turn logging on or off for the duration of your time using riak-shell. To change the default state, you must edit the `riak_shell.config` [configuration file](#configuration).
+Logging is off by default. The above command will allow you to turn logging on or off for the duration of your time using riak shell. To change the default state, you must edit the `riak_shell.config` [configuration file](#configuration).
 
 You can check whether logging is currently on or off by running `show_log_status`:
 
@@ -280,7 +280,7 @@ No Regression Errors.
 
 ### Help
 
-You get help on riak-shell functions with the `help` command:
+You get help on riak shell functions with the `help` command:
 
 ```
 riak-shell> help;
@@ -291,7 +291,7 @@ You can get more specific help by calling `help` with the extension name and fun
 
 ## Configuration
 
-You can configure riak-shell from the riak_shell.config file. You can find the file in your Riak TS directory. 
+You can configure riak shell from the riak_shell.config file. You can find the file in your Riak TS directory. 
 
 The following things can be configured:
 
@@ -307,7 +307,7 @@ The following things can be configured:
 
 There are 4 different configurations, two of which trigger batch mode.
 
-By default riak-shell swallows error messages, this makes it hard to develop new extensions. You can run it in debug mode as shown below:
+By default riak shell swallows error messages, this makes it hard to develop new extensions. You can run it in debug mode as shown below:
 
 ``` 
 ./riak-shell -d
@@ -319,26 +319,26 @@ You can pass in a different config file than `../etc/riak/riak_shell.config`:
 ./riak-shell -c ../path/to/my.config
 ```
 
-You can run a riak-shell replay log for batch/scripting:
+You can run a riak shell replay log for batch/scripting:
 
 ```
 ./riak-shell -f ../path/to/my.log
 ```
 
-You can run a riak-shell regression log for batch/scripting:
+You can run a riak shell regression log for batch/scripting:
 
 ```
 ./riak-shell -r ../path/to/my.log
 ```
 
 
-## Extending riak-shell
+## Extending riak shell
 
-riak-shell uses a magic architecture with convention.
+riak shell uses a magic architecture with convention.
 
-Riak modules with names like `mymodule_EXT.erl` are considered to be riak-shell extension modules.
+Riak modules with names like `mymodule_EXT.erl` are considered to be riak shell extension modules.
 
-All exported functions with an arity >= 1 are automatically exposed in riak-shell mode, with some exceptions.
+All exported functions with an arity >= 1 are automatically exposed in riak shell mode, with some exceptions.
 
 Exported functions with the following names will be silently ignored:
 
@@ -353,7 +353,7 @@ Functions that share a name with the first keyword of supported SQL statements w
 * `describe/N`
 * `select/N`
 
-As additional SQL statements are supported, adding them to the macro `IMPLEMENTED_SQL_STATEMENTS` in `riakshell.hrl` will automatically make them available to riak-shell and exclude them from extensions.
+As additional SQL statements are supported, adding them to the macro `IMPLEMENTED_SQL_STATEMENTS` in `riakshell.hrl` will automatically make them available to riak shell and exclude them from extensions.
 
 To add a function which appears to the user like:
 
@@ -384,11 +384,11 @@ To be a good citizen you should add a clause to the help function like:
     "This is how you use my function";
 ```
 
-If you have a function with the same name that appears in 2 EXT modules riak_shell will not start. It will not check if the arities match. You may have the same function with different arities in the same module - but there is only one help call.
+If you have a function with the same name that appears in 2 EXT modules riak shell will not start. It will not check if the arities match. You may have the same function with different arities in the same module - but there is only one help call.
 
 As a convenience to the developer there is a module called `debug_EXT.erl`. This implements a function which reloads and reregisters all extensions `riak-shell>load`, and can hot-load changes into the shell (it won't work on first-creation of a new EXT module, only on reloading). The only EXT that debug doesn't load is `debug_EXT` so please do not add functions to it.
 
-The riak-shell suppresses error messages that would otherwise be written to the console (for instance if the remote Riak node goes down the protocol buffer connection is torn down). This makes debugging painful. You can stop this behavior by starting riak_shell in the debug mode by starting it from the shell with the `-d` flag:
+The riak shell suppresses error messages that would otherwise be written to the console (for instance if the remote Riak node goes down the protocol buffer connection is torn down). This makes debugging painful. You can stop this behavior by starting riak_shell in the debug mode by starting it from the shell with the `-d` flag:
 
 ```
 cd ~/riakshell/bin
