@@ -15,8 +15,8 @@ aliases:
 canonical_link: "docs.basho.com/riak/ts/latest/installing/debian-ubuntu"
 ---
 
-[concept aae]: /riak/kv/2.1.4/learn/concepts/active-anti-entropy
 [download]: /riak/ts/1.3.0/downloads
+[openfileslimit]: /riak/kv/2.1.4/using/performance/open-files-limit
 [planning]: /riak/ts/1.3.0/using/planning
 [security basics]: /riak/kv/2.1.4/using/security/basics
 
@@ -24,8 +24,19 @@ canonical_link: "docs.basho.com/riak/ts/latest/installing/debian-ubuntu"
 Riak TS can be installed on Debian or Ubuntu-based systems using a binary
 package available [here][download].
 
+>**Important**
+>
+>Debian is only supported for developing with Riak TS and NOT for general operations.
+
 
 ## Dependencies
+
+### `ulimit`
+
+Debian and Ubuntu give you a very small limit on open file handles. Even with a
+backend that uses very few file handles, it's possible to run out. See
+[Open Files Limit][openfileslimit] for more information about changing the limit.
+
 
 ### PAM Library Requirement for Ubuntu
 
@@ -43,10 +54,8 @@ sudo apt-get install libpam0g-dev
 Once you have [downloaded][download] the package, execute the following command to install Riak TS:
 
 ```bash
-sudo dpkg -i riak-ts_{{VERSION}}-1_amd64.deb
+sudo dpkg -i riak-ts_1.3.0-1_amd64.deb
 ```
-
-Then confirm that [AAE][concept AAE] is turned off. To do this, check /etc/riak/riak.conf for the following: `anti_entropy = passive`.
 
 
 ## Activate Riak TS node
