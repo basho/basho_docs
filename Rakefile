@@ -46,7 +46,7 @@ end;
 ########
 # Clean
 desc      "Clean previous builds"
-task      :clean => ['clean:js', 'clean:css', 'clean:hugo']
+task      :clean => ['clean:js', 'clean:css']
 namespace :clean do
   #TODO<drew.pirrone.brusse@gmail>: These `rm -rf`s are maybe a bit much? Should
   # we be more precise with what we delete (and, if so, how)?
@@ -81,7 +81,8 @@ namespace :build do
   task :js => "#{$js_dest}" do compile_js(debug: false); end
   task :css => "#{$css_dest}" do compile_css(debug: false); end
 
-  task :hugo do sh "hugo -d #{$hugo_dest}"; end
+  desc "Build all statically-generated Hugo content"
+  task :hugo => ['clean:hugo'] do sh "hugo -d #{$hugo_dest}"; end
 
   desc "Shorthand for `rake build; rake watch:hugo` (Note: exits w/ an error)"
   task :watch => ['build:js', 'build:css', 'watch:hugo']
