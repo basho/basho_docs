@@ -169,27 +169,20 @@ The partition key is the first key, and is defined as the named fields in parent
 You can use a quantum to colocate data on one of the partition key's timestamp fields:
 
 ```sql
-  PRIMARY KEY  ((region, state, QUANTUM(time, 1, 's')), ...)
+PRIMARY KEY  ((region, state, QUANTUM(time, 1, 's')), ...)
 ```
 
-The timestamp field can occur at any point in the partition key. For example, this is snippet is also valid:
-
-```sql
-  PRIMARY KEY  ((QUANTUM(time, 1, 's'), region, state), ...)
-```
+A maximum of one quantum function can be specified and it must be the last element of the paritition key.
 
 The quantum function takes 3 parameters:
 
 * the name of a field in the table definition of type `TIMESTAMP`
-* a quantity
+* a quantity as a positive integer, greater than zero.
 * a unit of time:
-  * 'd'  - days
-  * 'h' - hours
-  * 'm' - minutes
-  * 's' - seconds
-
-There may only be one quantum in the partition key. The quantum must be a positive integer over '0' or there will be errors.
-
+  * `'d'` - days
+  * `'h'` - hours
+  * `'m'` - minutes
+  * `'s'` - seconds
 
 #### Local Key
 

@@ -102,22 +102,25 @@ The `PRIMARY KEY` describes both the partition & local keys and the SQL syntax t
 
 #### Partition Key
 
-The partition key is defined as one or more named fields in parentheses:
+The partition key is the first key, and is defined as the named fields in parentheses. The partition key must have **at least one** field.
+
+You can use a quantum to colocate data on one of the partition key's timestamp fields:
 
 ```sql
 (myfamily, myseries, (quantum(time, 15, 'm')),
 ```
 
-The quantum function is optional and can be used at any position in the partition key and takes 3 parameters:
+A maximum of one quantum function can be specified and it must be the last element of the paritition key.
 
-* the name of a field in the table definition of type `timestamp`
-* a quantity
+The quantum function takes 3 parameters:
+
+* the name of a field in the table definition of type `TIMESTAMP`
+* a quantity as a positive integer, greater than zero.
 * a unit of time:
-  * 'd' - days
-  * 'h' - hours
-  * 'm' - minutes
-  * 's' - seconds
-
+  * `'d'` - days
+  * `'h'` - hours
+  * `'m'` - minutes
+  * `'s'` - seconds
 
 #### Local Key
 
