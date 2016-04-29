@@ -149,7 +149,7 @@ riak-shell is connected to: 'dev2@127.0.0.1' on port 8097
 You can use riak shell to [create a table][creating]:
 
 ```
-riak-shell>CREATE TABLE GeoCheckin (myfamily VARCHAR NOT NULL, myseries VARCHAR NOT NULL, time  TIMESTAMP NOT NULL, weather VARCHAR NOT NULL, temperature DOUBLE, PRIMARY KEY ((myfamily, myseries, QUANTUM(time, 15, 'm')), myfamily, myseries, time));
+riak-shell>CREATE TABLE GeoCheckin (region varchar not null, state varchar not null, time  timestamp not null, weather  varchar not null, temperature double, PRIMARY KEY ((region, state, quantum(time, 15, 'm')), region, state, time));
 ```
 
 Then, you can see the table in riak shell:
@@ -159,8 +159,8 @@ riak-shell>describe GeoCheckin;
 +-----------+---------+-------+-----------+---------+
 |  Column   |  Type   |Is Null|Primary Key|Local Key|
 +-----------+---------+-------+-----------+---------+
-| myfamily  | varchar | false |     1     |    1    |
-| myseries  | varchar | false |     2     |    2    |
+| region    | varchar | false |     1     |    1    |
+| state     | varchar | false |     2     |    2    |
 |   time    |timestamp| false |     3     |    3    |
 |  weather  | varchar | false |           |         |
 |temperature| double  | true  |           |         |
@@ -170,7 +170,7 @@ riak-shell>describe GeoCheckin;
 You can also select specific data points from your table:
 
 ```
-riak-shell>SELECT time, weather, temperature FROM GeoCheckin WHERE myfamily='family1' AND myseries='seriesX' AND time > 0 AND time < 1000;
+riak-shell>select time, weather, temperature from GeoCheckin where region='South Atlantic' and state='South Carolina' and time > 0 and time < 1000;
 +----+----------------+---------------------------+
 |time|    weather     |        temperature        |
 +----+----------------+---------------------------+
@@ -190,7 +190,7 @@ riak-shell>SELECT time, weather, temperature FROM GeoCheckin WHERE myfamily='fam
 You can add data via a simple SQL `INSERT` statement, too:
 
 ```sql
-riak-shell>INSERT INTO GeoCheckin (myfamily, myseries, time, weather, temperature) VALUES ('family1','series1',1420113600000,'snow',25.2);
+riak-shell>INSERT INTO GeoCheckin (region, state, time, weather, temperature) VALUES ('South Atlantic','South Carolina',1420113600000,'snow',25.2);
 ```
 
 See [Writing Data][writing] for more details.
@@ -241,14 +241,14 @@ replay (1)> describe GeoCheckin;
 +-----------+---------+-------+-----------+---------+
 |  Column   |  Type   |Is Null|Primary Key|Local Key|
 +-----------+---------+-------+-----------+---------+
-| myfamily  | varchar | false |     1     |    1    |
-| myseries  | varchar | false |     2     |    2    |
+| region    | varchar | false |     1     |    1    |
+| state     | varchar | false |     2     |    2    |
 |   time    |timestamp| false |     3     |    3    |
 |  weather  | varchar | false |           |         |
 |temperature| double  | true  |           |         |
 +-----------+---------+-------+-----------+---------+
 
-replay (2)> SELECT time, weather, temperature FROM GeoCheckin WHERE myfamily='family1' AND myseries='seriesX' AND time > 0 AND time < 1000;
+replay (2)> select time, weather, temperature from GeoCheckin where region='South Atlantic' and state='South Carolina' and time > 0 and time < 1000;
 
 +----+----------------+---------------------------+
 |time|    weather     |        temperature        |

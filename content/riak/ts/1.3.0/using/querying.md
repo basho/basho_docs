@@ -33,7 +33,7 @@ CREATE TABLE tab2(
 a SINT64 NOT NULL,     --
 b TIMESTAMP NOT NULL,    |-> Columns
 c BOOLEAN NOT NULL,    --
-PRIMARY KEY  ((a,quantum(b, 1, 's'))<-Partition Key, a,b,c)<-Local Key)
+PRIMARY KEY  ((a, QUANTUM(b, 1, 's'))<-Partition Key, a,b,c)<-Local Key)
 ```
 
 
@@ -87,14 +87,14 @@ Basic queries return the full range of values between two given times for a seri
 ```sql
 CREATE TABLE GeoCheckin
 (
-   myfamily    varchar   not null,
-   myseries    varchar   not null,
-   time        timestamp not null,
-   weather     varchar   not null,
-   temperature double,
+   region       VARCHAR   NOT NULL,
+   state        VARCHAR   NOT NULL,
+   time         TIMESTAMP NOT NULL,
+   weather      VARCHAR NOT NULL,
+   temperature  DOUBLE,
    PRIMARY KEY (
-     (myfamily, myseries, quantum(time, 15, 'm')),
-     myfamily, myseries, time
+     (region, state, QUANTUM(time, 15, 'm')),
+     region, state, time
    )
 )
 ```
@@ -108,7 +108,7 @@ Your query must include all components of the partition key. If any part of the 
 You can select particular fields from the data to query:
 
 ```
-select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1'
+select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and region = 'South Atlantic' and state = 'South Carolina'
 ```
 
 Client-specific examples:
@@ -116,21 +116,21 @@ Client-specific examples:
 ```java
 String queryText = "select weather, temperature from GeoCheckin " +
                    "where time > 1234560 and time < 1234569 and " +
-                   "myfamily = 'family1' and myseries = 'series1'";
+                   "region = 'South Atlantic' and state = 'South Carolina'";
 
 Query query = new Query.Builder(queryText).build();
 QueryResult queryResult = client.execute(query);
 ```
 
 ```ruby
-Riak::Timeseries::Query.new(client, "select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1'").issue!
+Riak::Timeseries::Query.new(client, "select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and region = 'South Atlantic' and state = 'South Carolina'").issue!
 ```
 
 ```python
 fmt = """
 select weather, temperature from GeoCheckin where
     time > {t1} and time < {t2} and
-    myfamily = 'family1' and myseries = 'series1'
+    region = 'South Atlantic' and state = 'South Carolina'
 """
 query = fmt.format(t1=tenMinsAgoMsec, t2=nowMsec)
 ts_obj = client.ts_query('GeoCheckin', query)
@@ -139,7 +139,7 @@ ts_obj = client.ts_query('GeoCheckin', query)
 ```csharp
 var now = DateTime.UtcNow;
 var tenMinsAgo = now.AddMinutes(-10);
-var qfmt = "SELECT * FROM GeoCheckin WHERE time > {0} and time < {1} and myfamily = 'family1' and myseries = 'series1'";
+var qfmt = "SELECT * FROM GeoCheckin WHERE time > {0} and time < {1} and region = 'South Atlantic' and state = 'South Carolina'";
 var q = string.Format(
     qfmt,
     DateTimeUtil.ToUnixTimeMillis(tenMinsAgo),
@@ -162,7 +162,7 @@ var callback = function(err, resp) {
 // millisecond resolution
 var queryText = "select * from GeoCheckin where time > " + t1 +
                 " and time < " + t2 +
-                " and myfamily = 'family1' and myseries = 'series1'";
+                " and region = 'South Atlantic' and state = 'South Carolina'";
 var q = new Riak.Commands.TS.Query.Builder()
     .withQuery(queryText)
     .withCallback(callback)
@@ -171,12 +171,12 @@ cluster.execute(q);
 ```
 
 ```erlang
-riakc_ts:query(Pid, "select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1'").
+riakc_ts:query(Pid, "select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and region = 'South Atlantic' and state = 'South Carolina'").
 ```
 
 ```php
 $response = (new Command\Builder\TimeSeries\Query($riak))
-    ->withQuery("select weather, temperature from GeoCheckin where family = 'family1' and series = 'myseries1' and time > 1234560 and time < 1234569")
+    ->withQuery("select weather, temperature from GeoCheckin where region = 'South Atlantic' and state = 'state1' and time > 1234560 and time < 1234569")
     ->build()
     ->execute();
 ```
@@ -187,7 +187,7 @@ $response = (new Command\Builder\TimeSeries\Query($riak))
 You can extend the query beyond the primary key and use secondary columns to filter results. In this example, we are extending our query to filter based on the `temperature` column:
 
 ```
-select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1' and temperature > 27.0
+select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and region = 'South Atlantic' and state = 'South Carolina' and temperature > 27.0
 ```
 
 Client-specific examples:
@@ -195,7 +195,7 @@ Client-specific examples:
 ```java
 String queryText = "select weather, temperature from GeoCheckin " +
                    "where time > 1234560 and time < 1234569 and " +
-                   "myfamily = 'family1' and myseries = 'series1' " +
+                   "region = 'South Atlantic' and state = 'South Carolina' " +
                    "temperature > 27.0";
 
 Query query = new Query.Builder(queryText).build();
@@ -203,14 +203,14 @@ QueryResult queryResult = client.execute(query);
 ```
 
 ```ruby
-Riak::Timeseries::Query.new(client, "select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1' and temperature > 27.0").issue!
+Riak::Timeseries::Query.new(client, "select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and region = 'South Atlantic' and state = 'South Carolina' and temperature > 27.0").issue!
 ```
 
 ```python
 fmt = """
 select weather, temperature from GeoCheckin where
     time > {t1} and time < {t2} and
-    myfamily = 'family1' and myseries = 'series1' and
+    region = 'South Atlantic' and state = 'South Carolina' and
     temperature > 27.0
 """
 query = fmt.format(t1=tenMinsAgoMsec, t2=nowMsec)
@@ -220,7 +220,7 @@ ts_obj = client.ts_query('GeoCheckin', query)
 ```csharp
 var now = DateTime.UtcNow;
 var tenMinsAgo = now.AddMinutes(-10);
-var qfmt = "SELECT weather, temperature FROM GeoCheckin WHERE time > {0} and time < {1} and myfamily = 'family1' and myseries = 'series1' and temperature > 27.0";
+var qfmt = "SELECT weather, temperature FROM GeoCheckin WHERE time > {0} and time < {1} and region = 'South Atlantic' and state = 'South Carolina' and temperature > 27.0";
 var q = string.Format(
     qfmt,
     DateTimeUtil.ToUnixTimeMillis(tenMinsAgo),
@@ -243,7 +243,7 @@ var callback = function(err, resp) {
 // millisecond resolution
 var queryText = "select weather, temperature from GeoCheckin where time > " + t1 +
                 " and time < " + t2 +
-                " and myfamily = 'family1' and myseries = 'series1'" +
+                " and region = 'South Atlantic' and state = 'South Carolina'" +
                 " and temperature > 27.0";
 var q = new Riak.Commands.TS.Query.Builder()
     .withQuery(queryText)
@@ -253,12 +253,12 @@ cluster.execute(q);
 ```
 
 ```erlang
-riakc_ts:query(Pid, "select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1' and temperature > 27.0").
+riakc_ts:query(Pid, "select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and region = 'South Atlantic' and state = 'South Carolina' and temperature > 27.0").
 ```
 
 ```php
 $response = (new Command\Builder\TimeSeries\Query($riak))
-    ->withQuery("select weather, temperature from GeoCheckin where family = 'family1' and series = 'myseries1' and time > 1234560 and time < 1234569 and temperature > 27.0")
+    ->withQuery("select weather, temperature from GeoCheckin where region = 'South Atlantic' and state = 'state1' and time > 1234560 and time < 1234569 and temperature > 27.0")
     ->build()
     ->execute();
 ```
@@ -266,7 +266,7 @@ $response = (new Command\Builder\TimeSeries\Query($riak))
 You can also use `or` when querying against column values, such as `temperature` in our example. Note that the parentheses are required:
 
 ```
-select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1' and (temperature > 27.0 or temperature < 0.0)
+select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and region = 'South Atlantic' and state = 'South Carolina' and (temperature > 27.0 or temperature < 0.0)
 ```
 
 You cannot use `or` between two complete clauses, since keys cannot be specified twice.
@@ -355,7 +355,7 @@ The data is not lost, but a query against 1998 time quanta will not produce thos
 
 Query a table by issuing a SQL statement against the table. Your query MUST include a 'where' clause with all components.
 
-In the following client-specific examples we'll select all fields from the GeoCheckin table where `time`, `myfamily`, and `myseries` match our supplied parameters:
+In the following client-specific examples we'll select all fields from the GeoCheckin table where `time`, `region`, and `state` match our supplied parameters:
 
 ```java
 import java.net.UnknownHostException;
@@ -371,7 +371,7 @@ public class RiakTSQuery
     {
         // Riak Client with supplied IP and Port
         RiakClient client = RiakClient.newClient(10017, "myriakdb.host");
-        String queryText = "select * from GeoCheckin " + "where time >= 1234567 and time <= 1234567 and " + "myfamily = 'family1' and myseries = 'series1' ";
+        String queryText = "select * from GeoCheckin " + "where time >= 1234567 and time <= 1234567 and " + "region = 'South Atlantic' and state = 'South Carolina' ";
         Query query = new Query.Builder(queryText).build();
         QueryResult queryResult = client.execute(query);
         List<Row> rows = queryResult.getRowsCopy();
@@ -382,7 +382,7 @@ public class RiakTSQuery
 
 ```ruby
 client = Riak::Client.new 'myriakdb.host', pb_port: 10017
-query = Riak::Timeseries::Query.new client, "select * from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1'"
+query = Riak::Timeseries::Query.new client, "select * from GeoCheckin where time > 1234560 and time < 1234569 and region = 'South Atlantic' and state = 'South Carolina'"
 results = query.issue!
 ```
 
@@ -413,7 +413,7 @@ client = RiakClient(host='myriakdb.host', pb_port=8087)
 fmt = """
 select * from GeoCheckin where
     time > {t1} and time < {t2} and
-    myfamily = 'family1' and myseries = 'series1'
+    region = 'South Atlantic' and state = 'South Carolina'
 """
 query = fmt.format(t1=tenMinsAgoMS, t2=tenMinsFromNowMS)
 
@@ -425,7 +425,7 @@ print "Query result rows:", ts_obj.rows
 var now = DateTime.UtcNow;
 var tenMinsAgo = now.AddMinutes(-10);
 var tenMinsFromNow = now.AddMinutes(10);
-var qfmt = "SELECT * FROM GeoCheckin WHERE time > {0} and time < {1} and myfamily = 'family1' and myseries = 'series1'";
+var qfmt = "SELECT * FROM GeoCheckin WHERE time > {0} and time < {1} and region = 'South Atlantic' and state = 'South Carolina'";
 var q = string.Format(
     qfmt,
     DateTimeUtil.ToUnixTimeMillis(tenMinsAgo),
@@ -454,7 +454,7 @@ var tenMinsFromNow = nowUtcMs + tenMinsInMsec;
 
 var queryText = "select weather, temperature from GeoCheckin where time > " + tenMinsAgo +
                 " and time < " + tenMinsFromNow +
-                " and myfamily = 'family1' and myseries = 'series1'";
+                " and region = 'South Atlantic' and state = 'South Carolina'";
 var q = new Riak.Commands.TS.Query.Builder()
     .withQuery(queryText)
     .withCallback(callback)
@@ -464,12 +464,12 @@ cluster.execute(q);
 
 ```erlang
 {ok, Pid} = riakc_pb_socket:start_link("myriakdb.host", 10017).
-riakc_ts:query(Pid, "select * from GeoCheckin where time > 1234560 and time < 1234569 and myfamily = 'family1' and myseries = 'series1'").
+riakc_ts:query(Pid, "select * from GeoCheckin where time > 1234560 and time < 1234569 and region = 'South Atlantic' and state = 'South Carolina'").
 ```
 
 ```php
 $response = (new Command\Builder\TimeSeries\Query($riak))
-    ->withQuery("select * from GeoCheckin where family = 'family1' and series = 'myseries1' and (time > 1234560 and time < 1234569)")
+    ->withQuery("select * from GeoCheckin where region = 'South Atlantic' and state = 'South Carolina' and (time > 1234560 and time < 1234569)")
     ->build()
     ->execute();
 ```
@@ -491,8 +491,8 @@ Returns:
 ```
 Column      | Type      | Is Null | Partition Key | Local Key
 --------------------------------------------------------
-myfamily    | varchar   | false   | 1             | 1
-myseries    | varchar   | false   | 2             | 2
+region      | varchar   | false   | 1             | 1
+state       | varchar   | false   | 2             | 2
 time        | timestamp | false   | 3             | 3
 weather     | varchar   | false   | <null>        | <null>
 temperature | double    | false   | <null>        | <null>
@@ -512,7 +512,7 @@ A successful `DESCRIBE` statement execution will return a language-specific repr
 You may find the need to fetch a single key from Riak TS, below you will find an example of how to do that in each of our official clients that support Riak TS.
 
 ```java
-final List<Cell> keyCells = Arrays.asList(new Cell("family1"), new Cell("series1"), Cell.newTimestamp(1420113600000));
+final List<Cell> keyCells = Arrays.asList(new Cell("South Atlantic"), new Cell("South Carolina"), Cell.newTimestamp(1420113600000));
 
 Fetch fetch = new Fetch.Builder("GeoCheckin", keyCells).build();
 
@@ -521,12 +521,12 @@ QueryResult queryResult = client.execute(fetch);
 
 ```ruby
 read_operation = Riak::TimeSeries::Read.new client, 'GeoCheckin'
-read_operation.key = ['family1', 'series1', 1420113600000]
+read_operation.key = ['South Atlantic', 'South Carolina', 1420113600000]
 results = read_operation.read!
 ```
 
 ```python
-client.ts_get('GeoCheckin', ['family1', 'series1', datetime.datetime(2015, 1, 1, 12, 0, 0)])
+client.ts_get('GeoCheckin', ['South Atlantic', 'South Carolina', datetime.datetime(2015, 1, 1, 12, 0, 0)])
 ```
 
 ```csharp
@@ -548,7 +548,7 @@ RiakResult rslt = client.Execute(cmd);
 ```
 
 ```javascript
-var key = [ 'family1', 'series1', 1420113600000 ];
+var key = [ 'South Atlantic', 'South Carolina', 1420113600000 ];
 
 var cb = function (err, rslt) {
     // NB: rslt will be an object with two properties:
@@ -566,14 +566,14 @@ client.execute(cmd);
 ```
 
 ```erlang
-riakc_ts:get(Pid, <<"GeoCheckin">>, [<<"family1">>, <<"series1">>, 1420113600000]).
+riakc_ts:get(Pid, <<"GeoCheckin">>, [<<"South Atlantic">>, <<"South Carolina">>, 1420113600000]).
 ```
 
 ```php
 $response = (new Command\Builder\TimeSeries\FetchRow($riak))
     ->atKey([
-        (new Cell("family"))->setValue("family1"),
-        (new Cell("series"))->setValue("series1"),
+        (new Cell("region"))->setValue("South Atlantic"),
+        (new Cell("state"))->setValue("South Carolina"),
         (new Cell("time"))->setTimestampValue(1420113600),
     ])
     ->inTable('GeoCheckins')

@@ -56,14 +56,14 @@ Riak TS tables have a one-to-one mapping with Riak KV bucket types.
 ```sql
 CREATE TABLE GeoCheckin
 (
-   myfamily    varchar   not null,
-   myseries    varchar   not null,
-   time        timestamp not null,
-   weather     varchar   not null,
-   temperature double,
+   region    VARCHAR   NOT NULL,                     -
+   state     VARCHAR   NOT NULL,                      |
+   time        TIMESTAMP NOT NULL,                    |  --> Columns
+   weather     VARCHAR   NOT NULL,                    |
+   temperature DOUBLE,                               _
    PRIMARY KEY (
-     (myfamily, myseries, quantum(time, 15, 'm')),
-     myfamily, myseries, time
+     (region, state, QUANTUM(time, 15, 'm')),        <-- Partition Key
+     region, state, time                             <-- Local Key
    )
 )
 ```
@@ -71,27 +71,27 @@ CREATE TABLE GeoCheckin
 
 ### Fields
 
-Fields, also called columns, refer to the items before the `PRIMARY KEY`. Field names (`myfamily`, `myseries`, etc) must be ASCII strings, in addition to having the correct case. If field names need to contain spaces or punctuation they can be double quoted.
+Fields, also called columns, refer to the items before the `PRIMARY KEY`. Field names (`region`, `state`, etc) must be ASCII strings, in addition to having the correct case. If field names need to contain spaces or punctuation they can be double quoted.
 
 Field names define the structure of the data, taking the format:
 
 ```sql
-name type [not null],
+name TYPE [NOT NULL],
 ```
 
-Fields specified as part of the primary key must be defined as `not null`.
+Fields specified as part of the primary key must be defined as `NOT NULL`.
 
 The types associated with fields are limited. Valid types are:
 
-* `varchar`
+* `VARCHAR`
   * Any string content is valid, including Unicode. Can only be compared using strict equality, and will not be typecast (e.g., to an integer) for comparison purposes. Use single quotes to delimit varchar strings.
-* `boolean`
+* `BOOLEAN`
   * `true` or `false` (any case)
-* `timestamp`
+* `TIMESTAMP`
   * Timestamps are integer values expressing [UNIX epoch time in UTC](https://en.wikipedia.org/wiki/Unix_time) in **milliseconds**. Zero is not a valid timestamp.
-* `sint64`
+* `SINT64`
   * Signed 64-bit integer
-* `double`
+* `DOUBLE`
   * This type does not comply with its IEEE specification: `NaN` (not a number) and `INF` (infinity) cannot be used.
 
 
@@ -107,7 +107,7 @@ The partition key is the first key, and is defined as the named fields in parent
 You can use a quantum to colocate data on one of the partition key's timestamp fields:
 
 ```sql
-(myfamily, myseries, (quantum(time, 15, 'm')),
+(region, state, QUANTUM(time, 15, 'm')),
 ```
 
 A maximum of one quantum function can be specified and it must be the last element of the paritition key.
@@ -116,7 +116,7 @@ The quantum function takes 3 parameters:
 
 * the name of a field in the table definition of type `TIMESTAMP`
 * a quantity as a positive integer, greater than zero.
-* a unit of time:
+* a unit of time (must be lower case):
   * `'d'` - days
   * `'h'` - hours
   * `'m'` - minutes
@@ -129,10 +129,10 @@ The second key (local key) MUST have the same fields in the same order as the pa
 It can also have additional fields AFTER the fields in the partition key.
 
 ```sql
-((myfamily, myseries, (quantum(time, 15, 'm')), myfamily, myseries, time, weather)
+((region, state, QUANTUM(time, 15, 'm')), region, state, time, weather)
 ```
 
-Note that weather is in the local key but not in the partition key.  Fields in the partition key must be covered by a querys where clause, additional fields in the local key do **not** have to be covered.
+Note that weather is in the local key but not in the partition key.  Fields in the partition key must be covered by a queries where clause, additional fields in the local key do **not** have to be covered.
 
 
 ## Riak TS Tables in Command Line
@@ -144,19 +144,19 @@ $ riak-admin bucket-type status GeoCheckin
 GeoCheckin is active
 ...
 ddl: {ddl_v1,<<"GeoCheckin">>,
-             [{riak_field_v1,<<"myfamily">>,1,binary,false},
-              {riak_field_v1,<<"myseries">>,2,binary,false},
+             [{riak_field_v1,<<"region">>,1,binary,false},
+              {riak_field_v1,<<"state">>,2,binary,false},
               {riak_field_v1,<<"time">>,3,timestamp,false},
               {riak_field_v1,<<"weather">>,4,binary,false},
               {riak_field_v1,<<"temperature">>,5,double,true}],
              {key_v1,[{hash_fn_v1,riak_ql_quanta,quantum,
-                                  {param_v1,[<<"myfamily">>]},
-                      {param_v1,[<<"myseries">>]}]},
+                                  {param_v1,[<<"region">>]},
+                      {param_v1,[<<"state">>]}]},
                       [{param_v1,[<<"time">>]},15,m],
                                   timestamp},
              {key_v1,[{param_v1,[<<"time">>]},
-                      {param_v1,[<<"myfamily">>]},
-                      {param_v1,[<<"myseries">>]}]}}
+                      {param_v1,[<<"region">>]},
+                      {param_v1,[<<"state">>]}]}}
 ```
 
 The format of the response is:
@@ -178,15 +178,15 @@ The two `key_v1` entries correspond to the partion key and the local key. The fi
 ```sh
 {key_v1,[
    {hash_fn_v1,riak_ql_quanta,quantum,
-               {param_v1,[<<"myfamily">>]},               <- Partition Key Part 1
-               {param_v1,[<<"myseries">>]},               <- Partition Key Part 2
+               {param_v1,[<<"region">>]},                 <- Partition Key Part 1
+               {param_v1,[<<"state">>]},                  <- Partition Key Part 2
                [{param_v1,[<<"time">>]},15,m],timestamp}  <- Partition Key Part 3
 
 ]},
 {key_v1,[
-   {param_v1,[<<"myfamily">>]},  <- Local Key part 1
-   {param_v1,[<<"myseries">>]},  <- Local Key part 2
-   {param_v1,[<<"time">>]}       <- Local Key part 3
+   {param_v1,[<<"region">>]},  <- Local Key part 1
+   {param_v1,[<<"state">>]},   <- Local Key part 2
+   {param_v1,[<<"time">>]}     <- Local Key part 3
 ]}
 ```
 
@@ -196,14 +196,14 @@ The two `key_v1` entries correspond to the partion key and the local key. The fi
 ```sql
 CREATE TABLE GeoCheckin
 (
-   myfamily    varchar   not null,                     -
-   myseries    varchar   not null,                      |
-   time        timestamp not null,                       --> Columns
-   weather     varchar   not null,                      |
-   temperature double,                                 _
+   region      VARCHAR   NOT NULL,                -
+   state       VARCHAR   NOT NULL,                 |
+   time        TIMESTAMP NOT NULL,                 |--> Columns
+   weather     VARCHAR   NOT NULL,                 |
+   temperature DOUBLE,                            _
    PRIMARY KEY (
-     (myfamily, myseries, quantum(time, 15, 'm')),     <-- Partition key
-     myfamily, myseries, time                          <-- Local key
+     (region, state, QUANTUM(time, 15, 'm')),     <-- Partition key
+     region, state, time                          <-- Local key
    )
 )
 ```

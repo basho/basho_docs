@@ -21,22 +21,35 @@ This document will cover the API calls for accessing Riak TS data over HTTP.
 
 ## Overview
 
-All Riak TS calls use the '/ts' endpoint. Each API call has a corresponding URL:
+All Riak TS calls use the '/ts' endpoint. Using the following table schema, each API call has a corresponding URL:
+
+```sql
+CREATE TABLE GeoCheckin
+(
+   region       VARCHAR   NOT NULL,
+   state        VARCHAR   NOT NULL,
+   time         TIMESTAMP NOT NULL,
+   weather      VARCHAR   NOT NULL,
+   temperature  DOUBLE,
+   PRIMARY KEY (
+     (region, state, QUANTUM(time, 15, 'm')),
+     region, state, time
+   )
+)
+```
 
 | Call   | Request URL         | Request type | Description  |
 |------------|---------------------|--------------|--------------|
-| get        | http://»Server«/ts/v1/tables/»Table«/keys/»Family«/»a-family«/»Series«/»a-series«/»Time«/»a-time«  | GET          | single-key get of a value | 
-| put        | http://»Server«/ts/v1/tables/»Table«/keys --data '[»Row(s)«]' | POST          | put a single or a batch of rows    |
-| delete     | http://»Server«/ts/v1/tables/»Table«/keys/»Family«/»a-family«/»Series«/»a-series«/»Time«/»a-time«  | DELETE       | single-key delete         |
-| list_keys  | http://»Server«/ts/v1/tables/»Table«/list_keys  | GET          | streaming list keys     |
-| query      | http://»Server«/ts/v1/query --data "»Query«"  | POST         | execute a query |
+| put        | http://»Server name«/ts/v1/tables/GeoCheckin/keys '[»Row(s)«]' | PUT         | put a single or a batch of rows    |
+| get        | http://»Server name«/ts/v1/tables/GeoCheckin/keys/region/South Atlantic/state/South Carolina/time/1420113600  | GET          | single-key get of a value |
+| delete     | http://»Server name«/ts/v1/tables/GeoCheckin/keys/region/South Atlantic/state/South Carolina/time/1420113600  | DELETE       | single-key delete         |
+| query      | http://»Server name«/ts/v1/query --data "»Query«"  | POST         | execute a query |
+| list_keys  | http://»Server name«/ts/v1/tables/GeoCheckin/list_keys  | GET          | streaming list keys     |
 
 
 ## Keys and Values
 
-Single-key `get` uses the full Family-Series-Time path to determine which row to get. The entire row will be returned.
-
-`delete` also uses the full path to designate which row to delete.
+Single-key `get` and `delete` requires the complete Primary Key to be serialized in the path of the url using the order defined in the schema to determine which record to get. The entire record will be returned.
 
 The `put` call uses a full row or a list of full rows in order to add entries to the table.  Each row is specified in a separate tuple.
 

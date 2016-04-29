@@ -34,14 +34,14 @@ Riak TS allows you to write multiple rows of data at a time. To demonstrate, we'
 ```sql
 CREATE TABLE GeoCheckin
 (
-   myfamily    varchar   not null,
-   myseries    varchar   not null,
-   time        timestamp not null,
-   weather     varchar   not null,
-   temperature double,
+   region       varchar   not null,
+   state        varchar   not null,
+   time         timestamp not null,
+   weather      varchar not null,
+   temperature  double,
    PRIMARY KEY (
-     (myfamily, myseries, quantum(time, 15, 'm')),
-     myfamily, myseries, time
+     (region, state, quantum(time, 15, 'm')), /* <-- PARTITION KEY */
+     region, state, time /* <-- LOCAL KEY */
    )
 )
 ```
@@ -64,15 +64,15 @@ public class RiakTSInsert {
     RiakClient client = RiakClient.newClient(10017, "myriakdb.host");
     List<Row> rows = Arrays.asList(
       new Row(
-        new Cell("family1"),
-        new Cell("series1"),
+        new Cell("South Atlantic"),
+        new Cell("South Carolina"),
         Cell.newTimestamp(1234567),
         new Cell("hot"),
         new Cell(23.5)
       ),
       new Row(
-        new Cell("family2"),
-        new Cell("series99"),
+        new Cell("Mid-Atlantic"),
+        new Cell("New York"),
         Cell.newTimestamp(1234567),
         new Cell("windy"),
         new Cell(19.8)
@@ -89,7 +89,7 @@ public class RiakTSInsert {
 ```ruby
 client = Riak::Client.new 'myriakdb.host', pb_port: 10017
 submission = Riak::TimeSeries::Submission.new client, "GeoCheckin"
-submission.measurements = [["family1", "series1", 1234567, "hot", 23.5], ["family2", "series99", 1234567, "windy", 19.8]]
+submission.measurements = [["South Atlantic", "South Carolina", 1234567, "hot", 23.5], ["Mid-Atlantic", "New York", 1234567, "windy", 19.8]]
 submission.write!
 ```
 
@@ -106,8 +106,8 @@ ts1 = ts0 + fiveMins
 
 table = client.table('GeoCheckin')
 rows = [
-    ['family1', 'series1', ts0, 'hot', 23.5],
-    ['family1', 'series1', ts1, 'windy', 19.8]
+    ['South Atlantic', 'South Carolina', ts0, 'hot', 23.5],
+    ['Mid-Atlantic', 'New York', ts1, 'windy', 19.8]
 ]
 ts_obj = table.new(rows)
 print "Store result:", ts_obj.store()
@@ -116,8 +116,8 @@ print "Store result:", ts_obj.store()
 ```csharp
 var cells0 = new Cell[]
 {
-    new Cell<string>("hash1"),
-    new Cell<string>("user2"),
+    new Cell<string>("Pacific"),
+    new Cell<string>("Washington"),
     new Cell<DateTime>(TwentyMinsAgo),
     new Cell<string>("hurricane"),
     new Cell<double>(82.3)
@@ -125,8 +125,8 @@ var cells0 = new Cell[]
 
 var cells1 = new Cell[]
 {
-    new Cell<string>("hash1"),
-    new Cell<string>("user2"),
+    new Cell<string>("Pacific"),
+    new Cell<string>("Washington"),
     new Cell<DateTime>(FifteenMinsAgo),
     new Cell<string>("rain"),
     new Cell<double>(79.0)
@@ -134,8 +134,8 @@ var cells1 = new Cell[]
 
 var cells2 = new Cell[]
 {
-    new Cell<string>("hash1"),
-    new Cell<string>("user2"),
+    new Cell<string>("Pacific"),
+    new Cell<string>("Washington"),
     new Cell<DateTime>(FiveMinsAgo),
     new Cell<string>("wind"),
     Cell.Null
@@ -143,8 +143,8 @@ var cells2 = new Cell[]
 
 var cells3 = new Cell[]
 {
-    new Cell<string>("hash1"),
-    new Cell<string>("user2"),
+    new Cell<string>("Pacific"),
+    new Cell<string>("Washington"),
     new Cell<DateTime>(Now),
     new Cell<string>("snow"),
     new Cell<double>(20.1)
@@ -160,8 +160,8 @@ var rows = new Row[]
 
 var columns = new Column[]
 {
-    new Column("geohash",     ColumnType.Varchar),
-    new Column("user",        ColumnType.Varchar),
+    new Column("region",     ColumnType.Varchar),
+    new Column("state",        ColumnType.Varchar),
     new Column("time",        ColumnType.Timestamp),
     new Column("weather",     ColumnType.Varchar),
     new Column("temperature", ColumnType.Double)
@@ -183,18 +183,18 @@ var hosts = [ 'riak-1:8087', 'riak-2:8087' ];
 var client = new Riak.Client(hosts);
 
 var columns = [
-    { name: 'geohash',     type: Riak.Commands.TS.ColumnType.Varchar },
-    { name: 'user',        type: Riak.Commands.TS.ColumnType.Varchar },
+    { name: 'region',     type: Riak.Commands.TS.ColumnType.Varchar },
+    { name: 'state',        type: Riak.Commands.TS.ColumnType.Varchar },
     { name: 'time',        type: Riak.Commands.TS.ColumnType.Timestamp },
     { name: 'weather',     type: Riak.Commands.TS.ColumnType.Varchar },
     { name: 'temperature', type: Riak.Commands.TS.ColumnType.Double }
 ];
 
 var rows = [
-    [ 'hash1', 'user2', twentyMinsAgo, 'hurricane', 82.3 ],
-    [ 'hash1', 'user2', fifteenMinsAgo, 'rain', 79.0 ],
-    [ 'hash1', 'user2', fiveMinsAgo, 'wind', null ],
-    [ 'hash1', 'user2', now, 'snow', 20.1 ]
+    [ 'Pacific', 'Washington', twentyMinsAgo, 'hurricane', 82.3 ],
+    [ 'Pacific', 'Washington', fifteenMinsAgo, 'rain', 79.0 ],
+    [ 'Pacific', 'Washington', fiveMinsAgo, 'wind', null ],
+    [ 'Pacific', 'Washington', now, 'snow', 20.1 ]
 ];
 
 var cb = function (err, response) {
@@ -215,7 +215,7 @@ client.execute(store);
 
 ```erlang
 {ok, Pid} = riakc_pb_socket:start_link("myriakdb.host", 10017).
-riakc_ts:put(Pid, "GeoCheckin", [[<<"family1">>, <<"series1">>, 1234567, <<"hot">>, 23.5], [<<"family2">>, <<"series99">>, 1234567, <<"windy">>, 19.8]]).
+riakc_ts:put(Pid, "GeoCheckin", [[<<"South Atlantic">>, <<"South Carolina">>, 1234567, <<"hot">>, 23.5], [<<"Mid-Atlantic">>, <<"New York">>, 1234567, <<"windy">>, 19.8]]).
 ```
 
 ```php
@@ -236,8 +236,8 @@ $riak = new Riak([$node], [], new Riak\Api\Pb());
 $response = (new Command\Builder\TimeSeries\StoreRows($riak))
     ->inTable('GeoCheckins')
     ->withRow([
-        (new Cell("family"))->setValue("family1"),
-        (new Cell("series"))->setValue("series1"),
+        (new Cell("region"))->setValue("South Atlantic"),
+        (new Cell("state"))->setValue("South Carolina"),
         (new Cell("time"))->setTimestampValue(1420113600),
         (new Cell("weather"))->setValue("hot"),
         (new Cell("temperature"))->setValue(23.5),
@@ -283,9 +283,9 @@ In the event that your write fails, you should check the error message to see wh
 RiakClient client = RiakClient.newClient(10017, "myriakdb.host");
 List<Row> someRows = Arrays.asList(
         // Good Row
-        new Row(new Cell("hash1"), new Cell("user1"), Cell.newTimestamp(1234567), new Cell("cloudy"), new Cell(79.0)),
+        new Row(new Cell("East North Central"), new Cell("Ohio"), Cell.newTimestamp(1234567), new Cell("cloudy"), new Cell(79.0)),
         // Bad Rows
-        new Row(new Cell("hash1"), Cell.newTimestamp(fiveMinsAgo)), // too short
+        new Row(new Cell("East North Central"), Cell.newTimestamp(fiveMinsAgo)), // too short
         new Row() // no data
         );
 
@@ -322,13 +322,17 @@ If you want to adjust that value, the configuration parameter `timeseries_max_ba
 This can be done either through the [query interface][querying] or via [riak_shell][riakshell]. Basic SQL INSERT functionality is available, but more complicated things such as `INSERT...SELECT` or subqueries are not.
 
 Here is are a couple of examples of adding rows from SQL:
+
 ```sql
-INSERT INTO GeoCheckin (myfamily, myseries, time, weather, temperature) VALUES ('family1','series1',1420113600000,'snow',25.2);
+INSERT INTO GeoCheckin (region, state, time, weather, temperature) VALUES ('South Atlantic','South Carolina',1420113600000,'snow',25.2);
 ```
+
 or
+
 ```sql
-INSERT INTO GeoCheckin VALUES ('family1','series1',1420113700000,'rain',37.8);
+INSERT INTO GeoCheckin VALUES ('South Atlantic','South Carolina',1420113700000,'rain',37.8);
 ```
+
 As with standard SQL, if all of the column names are not provided before the `VALUES` keyword, the other columns are assumed to be null.
 
 The columns they can be in any order, but the column name and the values must match up. Without the `VALUES` keyword, all columns must be present in the same order as the schema definition.
@@ -340,9 +344,10 @@ The data types are validated on the server just like the client PUT commands abo
 
 Below are examples of how to delete data by key in each of our time series supported clients.
 
+
 ```java
 final List<Cell> keyCells = Arrays.asList(
-  new Cell("family1"), new Cell("series1"), Cell.newTimestamp(1420113600000));
+  new Cell("South Atlantic"), new Cell("South Carolina"), Cell.newTimestamp(1420113600000));
 
 Delete delete = new Delete.Builder("GeoCheckins", keyCells).build();
 
@@ -351,19 +356,19 @@ client.execute(delete);
 
 ```ruby
 delete_operation = Riak::TimeSeries::Deletion.new client, 'GeoCheckins'
-delete_operation.key = ['family1', 'series1', 1420113600000]
+delete_operation.key = ['South Atlantic', 'South Carolina', 1420113600000]
 delete_operation.delete!
 ```
 
 ```python
-client.ts_delete('GeoCheckin', ['family1', 'series1', datetime.datetime(2015, 1, 1, 12, 0, 0)])
+client.ts_delete('GeoCheckin', ['South Atlantic', 'South Carolina', datetime.datetime(2015, 1, 1, 12, 0, 0)])
 ```
 
 ```csharp
 var keyCells = new Cell[]
 {
-    new Cell<string>("hash1"),
-    new Cell<string>("user2"),
+    new Cell<string>("Pacific"),
+    new Cell<string>("Washington"),
     new Cell<DateTime>(FifteenMinsAgo)
 };
 var keyToDelete = new Row(keyCells);
@@ -377,7 +382,7 @@ RiakResult rslt = client.Execute(delete);
 ```
 
 ```javascript
-var key = [ 'family1', 'series1', 1420113600000 ];
+var key = [ 'South Atlantic', 'South Carolina', 1420113600000 ];
 
 var cb = function (err, response) {
     // NB: response will be true on success
@@ -393,13 +398,13 @@ client.execute(cmd);
 ```
 
 ```erlang
-riakc_ts:delete(Pid, <<"GeoCheckins">>, [<<"family1">>, <<"series1">>, 1420113600000]).
+riakc_ts:delete(Pid, <<"GeoCheckins">>, [<<"South Atlantic">>, <<"South Carolina">>, 1420113600000]).
 ```
 
 ```php
 $key = [
-    (new Cell("family"))->setValue("family1"),
-    (new Cell("series"))->setValue("series1"),
+    (new Cell("region"))->setValue("South Atlantic"),
+    (new Cell("state"))->setValue("South Carolina"),
     (new Cell("time"))->setTimestampValue(1420113600),
 ];
 
