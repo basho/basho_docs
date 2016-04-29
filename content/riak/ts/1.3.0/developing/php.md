@@ -19,10 +19,10 @@ canonical_link: "docs.basho.com/riak/ts/latest/developing/php"
 You can develop applications and tools using Riak TS with the Riak PHP client.
 This document covers the PHP API for Riak TS.
 
-## Overview
+##Overview
 
-TS support within the PHP client is implemented through the following 5 command builders:
-namespace **???**
+TimeSeries support within the PHP client is implemented through the following 5 command builders:
+namespace
 
 * Basho\Riak\Command\Builder\TimeSeries\StoreRows
 * Basho\Riak\Command\Builder\TimeSeries\FetchRow
@@ -30,16 +30,14 @@ namespace **???**
 * Basho\Riak\Command\Builder\TimeSeries\Query
 * Basho\Riak\Command\Builder\TimeSeries\DescribeTable
 
-
-## Data Types
+##Data Types
 
  * `Cell` - Holds the cell name and a single piece of data.
  * `Row` - An array of cells.
 
+###Data Type Details
 
-### Data Type Details
-
-#### `Cell`
+####`Cell`
 
 A cell contains a piece of data for a row in a Riak TS table.
 
@@ -53,35 +51,25 @@ A cell can hold 5 different types of raw data:
 * `Timestamp` - any Unix epoch timestamp
 * `Boolean` - a true/false value.
 
+#####Constructors
 
-##### Constructors
+A cell is constructed by providing the name of the column the cell resides in, e.g. `$cell = (new Cell("region"))->setValue("South Atlantic")`
 
-A cell is constructed by providing the name of the column the cell resides in, e.g. `$cell = (new Cell("family"))->setValue("family1")`
-
-
-##### Instance Methods
-
+#####Instance Methods
 Cells have object getters to retrieve the column name, the cell value and the data type of the value.
 
-
-#### `Row`
-
+####`Row`
 A row contains an array of cells.
 
-
-### `\Basho\Riak\Command\TimeSeries\Response`
-
+###`\Basho\Riak\Command\TimeSeries\Response`
 The object returned by all non-query commands (Store, Fetch, Delete). Fetch command will have values populated in instance method `getRow()`.
 
-
-### `\Basho\Riak\Command\TimeSeries\Query\Response`
-
+###`\Basho\Riak\Command\TimeSeries\Query\Response`
 The query response is the result set from a query command. The response object will have the first row available within `getResult()` and all results within `getResults()`.
 
 >**Note:** Query results are immutable.
 
-
-## Command Classes Index
+##Command Classes Index
 
 All command classes have a `Builder` class to create and build each command.
 
@@ -90,8 +78,7 @@ All command classes have a `Builder` class to create and build each command.
 * `Query` - Allows you to query a Riak TS table with the given query string.
 * `Store` - Stores data in the Riak TS table.
 
-
-### Command Class Details
+###Command Class Details
 
 Each command is created through a `Builder` class. This pattern ensures the commands are created as correctly as possible. To create the command from the builder, call the `.build()` method.
 
@@ -115,12 +102,12 @@ $riak = new Riak([$node], [], new Riak\Api\Pb());
 # create table
 $table_definition = "
     CREATE TABLE %s (
-        family varchar not null,
-        series varchar not null,
+        region varchar not null,
+        state varchar not null,
         time timestamp not null,
         weather varchar not null,
         temperature double,
-        PRIMARY KEY((family, series, quantum(time, 15, 'm')), family, series, time)
+        PRIMARY KEY((region, state, quantum(time, 15, 'm')), region, state, time)
     )";
 
 $command = (new Command\Builder\TimeSeries\Query($riak))
@@ -133,8 +120,7 @@ if (!$response->isSuccess()) {
 }
 ```
 
-
-#### `Delete`
+####`Delete`
 
 Deletes a single row by it's key values.
 
@@ -142,8 +128,8 @@ Deletes a single row by it's key values.
 # delete a row
 $response = (new Command\Builder\TimeSeries\DeleteRow($riak))
     ->atKey([
-        (new Cell("family"))->setValue("family1"),
-        (new Cell("series"))->setValue("series1"),
+        (new Cell("region"))->setValue("South Atlantic"),
+        (new Cell("state"))->setValue("South Carolina"),
         (new Cell("time"))->setTimestampValue(1420113600),
     ])
     ->inTable('GeoCheckins')
@@ -156,8 +142,7 @@ if (!$response->isSuccess()) {
 }
 ```
 
-
-#### `Fetch`
+####`Fetch`
 
 Fetches a single row by it's key values.
 
@@ -165,8 +150,8 @@ Fetches a single row by it's key values.
 /** @var Command\TimeSeries\Response $response */
 $response = (new Command\Builder\TimeSeries\FetchRow($riak))
     ->atKey([
-        (new Cell("family"))->setValue("family1"),
-        (new Cell("series"))->setValue("series1"),
+        (new Cell("region"))->setValue("South Atlantic"),
+        (new Cell("state"))->setValue("South Carolina"),
         (new Cell("time"))->setTimestampValue(1420113600),
     ])
     ->inTable('GeoCheckins')
@@ -200,14 +185,13 @@ foreach ($response->getRow() as $index => $column) {
 }
 ```
 
-
-#### `Query`
+####`Query`
 
 Allows you to query a Riak TS table with the given query string.
 
 ```php
 $response = (new Command\Builder\TimeSeries\Query($riak))
-    ->withQuery("select * from GeoCheckins where family = 'family1' and series = 'myseries1' and (time > 1420113500 and time < 1420116000)")
+    ->withQuery("select * from GeoCheckins where region = 'South Atlantic' and state = 'South Carolina' and (time > 1420113500 and time < 1420116000)")
     ->build()
     ->execute();
 
@@ -235,9 +219,7 @@ foreach ($response->getResults() as $row_index => $row) {
 }
 ```
 
-
-#### `Store`
-
+####`Store`
 Stores data in the Riak TS table.
 
 ```php
@@ -245,8 +227,8 @@ Stores data in the Riak TS table.
 $response = (new Command\Builder\TimeSeries\StoreRows($riak))
     ->inTable('GeoCheckins')
     ->withRow([
-        (new Cell("family"))->setValue("family1"),
-        (new Cell("series"))->setValue("series1"),
+        (new Cell("region"))->setValue("South Atlantic"),
+        (new Cell("state"))->setValue("South Carolina"),
         (new Cell("time"))->setTimestampValue(1420113600),
         (new Cell("weather"))->setValue("hot"),
         (new Cell("temperature"))->setValue(23.5),
@@ -265,15 +247,15 @@ $response = (new Command\Builder\TimeSeries\StoreRows($riak))
     ->inTable('GeoCheckins')
     ->withRows([
         [
-            (new Cell("family"))->setValue("family1"),
-            (new Cell("series"))->setValue("series1"),
+            (new Cell("region"))->setValue("South Atlantic"),
+            (new Cell("state"))->setValue("South Carolina"),
             (new Cell("time"))->setTimestampValue(1420115400),
             (new Cell("weather"))->setValue("hot"),
             (new Cell("temperature"))->setValue(22.4),
         ],
         [
-            (new Cell("family"))->setValue("family1"),
-            (new Cell("series"))->setValue("series1"),
+            (new Cell("region"))->setValue("South Atlantic"),
+            (new Cell("state"))->setValue("South Carolina"),
             (new Cell("time"))->setTimestampValue(1420117200),
             (new Cell("weather"))->setValue("warm"),
             (new Cell("temperature"))->setValue(20.5),

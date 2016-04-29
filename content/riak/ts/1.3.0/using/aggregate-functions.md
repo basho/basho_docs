@@ -32,6 +32,9 @@ You can turn a set of rows in your Riak TS table into a value with the aggregate
 * `STDDEV()`/`STDDEV_SAMP()` - Returns the statistical standard deviation of all entries that match a specified criteria using Sample Standard Deviation.
 * `STDDEV_POP()` - Returns the statistical standard deviation of all entries that match a specified criteria using Population Standard Deviation.
 
+>**Note:** You cannot simply negate an aggregate function. If you attempt something like: `select -count(temperature)`, you will receive an error. Instead, you can achieve negation with `-1*`; for instance: `-1*COUNT(...)`.
+
+
 
 ### `AVG` & `MEAN`
 
@@ -39,7 +42,7 @@ Mean average over the specified `sint64` or `double` column.
 
 ```sql
 SELECT AVG(temperature) FROM GeoCheckin
-WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
+WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic' AND state = 'South Carolina'
 ```
 
 Returns `NULL` if no values were returned or all values were `NULL`.
@@ -50,13 +53,13 @@ Returns `NULL` if no values were returned or all values were `NULL`.
 | double | double |
 
 
-### `COUNT`
+###`COUNT`
 
 Count the number of returned values.
 
 ```sql
 SELECT COUNT(*) FROM GeoCheckin
-WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
+WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic' AND state = 'South Carolina'
 ```
 
 If a single column is used as an input then `NULL` values are ignored. If all values were `NULL` or no rows were returned by the query then `NULL` is returned.
@@ -67,13 +70,13 @@ If a single column is used as an input then `NULL` values are ignored. If all va
 | `*` | sint64 |
 
 
-### `MAX`
+###`MAX`
 
 The largest value from the set of values returned by the query.
 
 ```sql
 SELECT MAX(temperature) FROM GeoCheckin
-WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
+WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic' AND state = 'South Carolina'
 ```
 
 Returns `NULL` if no values were returned or all values were `NULL`.
@@ -84,13 +87,13 @@ Returns `NULL` if no values were returned or all values were `NULL`.
 | double | double |
 
 
-### `MIN`
+###`MIN`
 
 The smallest value from the set of values returned by the query.
 
 ```sql
 SELECT MIN(temperature) FROM GeoCheckin
-WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
+WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic' AND state = 'South Carolina'
 ```
 
 Returns `NULL` if no values were returned or all values were `NULL`.
@@ -101,13 +104,13 @@ Returns `NULL` if no values were returned or all values were `NULL`.
 | double | double |
 
 
-### `STDDEV`, `STDDEV_SAMP` & `STDDEV_POP`
+###`STDDEV`, `STDDEV_SAMP` & `STDDEV_POP`
 
 Calculate the standard deviation for a set of values returned by the query.
 
 ```sql
 SELECT STDDEV(temperature) FROM GeoCheckin
-WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
+WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic' AND state = 'South Carolina'
 ```
 
 Returns `NULL` if less than two non-null values were returned.
@@ -118,13 +121,13 @@ Returns `NULL` if less than two non-null values were returned.
 | double | double |
 
 
-### `SUM`
+###`SUM`
 
 The sum of all the values of one `sint64` or `double` column returned by the query.
 
 ```sql
 SELECT SUM(temperature) FROM GeoCheckin
-WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
+WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic' AND state = 'South Carolina'
 ```
 
 Returns `NULL` if no values were returned or all values were `NULL`.

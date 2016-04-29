@@ -22,27 +22,43 @@ Arithmetic operations default to 64-bit integer math, unless mixed with a
 
 >**Important:** Proper spacing around arithmetic operators is required.
 
+The examples on this page will assume you are using the following table schema:
 
-### Numeric Literals
+```sql
+CREATE TABLE GeoCheckin
+(
+   region       varchar   not null,
+   state        varchar   not null,
+   time         timestamp not null,
+   weather      varchar not null,
+   temperature  double,
+   PRIMARY KEY (
+     (region, state, quantum(time, 15, 'm')), /* <-- PARTITION KEY */
+     region, state, time /* <-- LOCAL KEY */
+   )
+)
+```
+
+###Numeric Literals
 
 Integer, decimal floating point, and exponent notation floating point
 numeric literals are accepted:
 
 ```sql
 SELECT 555, 1.1, 1e1, 1.123e-2 from GeoCheckin
-WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
+WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic' AND state = 'South Carolina'
 ```
 
 | 555\<SINT64\> | 1.1\<DOUBLE\> | 10.0\<DOUBLE\> | 0.01123\<DOUBLE\> |
 |-------------|-------------|--------------|-----------------|
 | 555         | 1.1         | 10.0         | 0.01123         |
 
-1.3.0
-### Addition and Subtraction
+
+###Addition and Subtraction
 
 ```sql
 SELECT temperature, temperature + 1, temperature - 1 FROM GeoCheckin
-WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
+WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic' AND state = 'South Carolina'
 ```
 
 | temperature\<DOUBLE\> | (temperature\+1)\<DOUBLE\> | (temperature\-1)\<DOUBLE\> |
@@ -50,11 +66,11 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND
 | 27.1                | 28.1                    | 26.1                    |
 
 
-### Multiplication and Division
+###Multiplication and Division
 
 ```sql
 SELECT temperature, temperature * 2, temperature / 2 from GeoCheckin
-WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
+WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic' AND state = 'South Carolina'
 ```
 
 | temperature\<DOUBLE\> | (temperature\*2)\<DOUBLE\> | (temperature/2)\<DOUBLE\> |
@@ -62,11 +78,11 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND
 | 27.1                | 54.2                    | 13.55                   |
 
 
-### Negation
+###Negation
 
 ```sql
 SELECT temperature, -temperature from GeoCheckin
-WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
+WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic' AND state = 'South Carolina'
 ```
 
 | temperature\<DOUBLE\> | -temperature\<DOUBLE\> |
@@ -74,11 +90,11 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND
 | 27.1                | -27.1                |
 
 
-### Order of Operations
+###Order of Operations
 
 ```sql
 SELECT temperature + 2 * 3, (temperature + 2) * 3 from GeoCheckin
-WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
+WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic' AND state = 'South Carolina'
 ```
 
 | (temperature+(2\*3))\<DOUBLE\> | ((temperature\+2)\*3)\<DOUBLE\> |
@@ -86,7 +102,7 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND
 | 33.1                        | 87.30000000000001           |
 
 
-### Floating Point Odds and Ends
+###Floating Point Odds and Ends
 
 Operations on floating point numbers that would return `Infinity` or `NaN` are
 not supported.
@@ -95,14 +111,14 @@ For example, neither of these queries return successfully:
 
 ```sql
 SELECT 0.0 / 0.0 from GeoCheckin
-WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
+WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic' AND state = 'South Carolina'
 
 SELECT 1.0 / 0.0 from GeoCheckin
-WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
+WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic' AND state = 'South Carolina'
 ```
 
 
-### Operations with Multiple Field References
+###Operations with Multiple Field References
 
 Operations involving two or more references to fields/columns are not supported.
 
@@ -110,5 +126,5 @@ This query will return an error:
 
 ```sql
 SELECT temperature + temperature FROM GeoCheckin
-WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
+WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic' AND state = 'South Carolina'
 ```

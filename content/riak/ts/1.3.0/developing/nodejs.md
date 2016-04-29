@@ -20,19 +20,35 @@ You can develop applications and tools using Riak TS with the Riak Node.js clien
 This document covers the Node.js API for Riak TS.
 
 
-## Overview
+##Overview
 
 To use Riak TS with Node.js, we've added several new commands in
 the `Riak.Commands.TS` namespace.
 
+The examples on this page will assume you are using the following table schema:
 
-## TS Commands
+```sql
+CREATE TABLE GeoCheckin
+(
+   region       varchar   not null,
+   state        varchar   not null,
+   time         timestamp not null,
+   weather      varchar not null,
+   temperature  double,
+   PRIMARY KEY (
+     (region, state, quantum(time, 15, 'm')), /* <-- PARTITION KEY */
+     region, state, time /* <-- LOCAL KEY */
+   )
+)
+```
+
+##TS Commands
 
 >**Note:** These commands are automatically retried if they fail due to network
 error.
 
 
-### Commands
+###Commands
 
  * `Get`    - Fetch a single row based on the primary key values provided.
  * `Store`  - Store 1 or more rows to a Riak TS table.
@@ -40,17 +56,16 @@ error.
  * `Query`  - Allows you to query a Riak TS table with the given query string.
  * `ListKeys` - Lists the primary keys of all the rows in a Riak TS table.
 
+###Command Details
 
-### Command Details
-
-#### `Get`
+####`Get`
 
 Retrieve time series value by key.
 
 ```javascript
 var Riak = require('basho-riak-client');
 
-var key = [ 'family', 'series', 'KEY' ];
+var key = [ 'South Carolina', 'South Carolina', now ];
 
 var cb = function (err, rslt) {
     // NB: rslt will be an object with two properties:
@@ -75,7 +90,7 @@ client.execute(cmd);
 **Return Type**: response object with `columns` and `rows` properties.
 
 
-#### `Store`
+####`Store`
 
 Stores time series data in the Riak cluster.
 
@@ -97,10 +112,10 @@ var twentyMinsAgo = new Date(now);
 twentyMinsAgo.setMinutes(now.getMinutes() - 20);
 
 var rows = [
-    [ 'family', 'series', twentyMinsAgo, 'hurricane', 82.3 ],
-    [ 'family', 'series', fifteenMinsAgo, 'rain', 79.0 ],
-    [ 'family', 'series', fiveMinsAgo, 'wind', null ],
-    [ 'family', 'series', now, 'snow', 20.1 ]
+    [ 'South Carolina', 'South Carolina', twentyMinsAgo, 'hurricane', 82.3 ],
+    [ 'South Carolina', 'South Carolina', fifteenMinsAgo, 'rain', 79.0 ],
+    [ 'South Carolina', 'South Carolina', fiveMinsAgo, 'wind', null ],
+    [ 'South Carolina', 'South Carolina', now, 'snow', 20.1 ]
 ];
 
 var cb = function (err, rslt) {
@@ -124,14 +139,14 @@ client.execute(cmd);
 **Return Type**: boolean
 
 
-#### `Delete`
+####`Delete`
 
 Delete time series value by key.
 
 ```javascript
 var Riak = require('basho-riak-client');
 
-var key = [ 'family', 'series', 'KEY' ];
+var key = [ 'South Carolina', 'South Carolina', now ];
 
 var cb = function (err, rslt) {
     // NB: rslt will be an object with two properties:
@@ -156,7 +171,7 @@ client.execute(cmd);
 **Return Type**: boolean
 
 
-#### `Query`
+####`Query`
 
 Queries time series data in the Riak cluster.
 
@@ -171,7 +186,7 @@ var cb = function (err, rslt) {
 
 var query = "select * from TimeSeriesData \
     where time > 0 and time < 10 and \
-    family = 'hash1' and series = 'user1'";
+    region = 'South Atlantic' and state = 'South Carolina'";
 
 var cmd = new Riak.Commands.TS.Query.Builder()
     .withQuery(query)
@@ -189,8 +204,7 @@ client.execute(cmd);
 **Return Type**: response object with `columns` and `rows` properties.
 
 
-#### `ListKeys`
-
+####`ListKeys`
 Lists all keys in a time series table via a stream.
 
 ```javascript
