@@ -14,7 +14,7 @@ toc: true
 canonical_link: "docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage/streaming-example"
 ---
 
-The Spark-Riak Connector can be used with Spark Streaming. To demonstrate this usage, we will work through a small Scala example. The TS Streaming example is located in the [examples folder](https://github.com/basho/spark-riak-connector/blob/master/examples/src/main/scala/com/basho/riak/spark/examples/streaming/) of the Spark-Riak Connector repo.
+The Spark-Riak connector can be used with Spark Streaming. To demonstrate this usage, we will work through a small Scala example. The TS Streaming example is located in the [examples folder](https://github.com/basho/spark-riak-connector/blob/master/examples/src/main/scala/com/basho/riak/spark/examples/streaming/) of the Spark-Riak connector repo.
 
 These examples require the use of Kafka. Please install Kafka and setup a Kafka broker prior to running this example. We will assume that there is a Kafka broker running at `127.0.0.1:9092` with a topic called `streaming`. Instructions on setting up Kafka topics can be found in [this guide](https://kafka.apache.org/documentation.html#quickstart). You can create a broker and topic with the following:
 

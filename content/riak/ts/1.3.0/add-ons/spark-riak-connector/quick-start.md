@@ -14,15 +14,15 @@ toc: true
 canonical_link: "docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/quick-start"
 ---
 
-This guide will run you through a quick example that uses the Spark-Riak Connector to read and write data using Java, Scala, and Python. We will assume you are running this guide on Mac OSX. 
+This guide will run you through a quick example that uses the Spark-Riak connector to read and write data using Java, Scala, and Python. We will assume you are running this guide on Mac OSX. 
 
 ## Prerequisites
 
-- Update brew with `brew update`.
+- Update Homebrew with `brew update`.
 - Install Riak TS OSX build. Instruction can be found [here](http://docs.basho.com/riak/ts/1.2.0/installing/mac-osx/)
 - Set open file limits for Riak by following the guide [here](http://docs.basho.com/riak/latest/ops/tuning/open-files-limit/#Mac-OS-X).
 - Install Spark with `brew install apache-spark`.
-- Download the Spark-Riak Connector uber jar (containing all dependencies) from here: https://github.com/basho/spark-riak-connector/releases/latest.
+- Download the Spark-Riak connector uber jar (containing all dependencies) from here: https://github.com/basho/spark-riak-connector/releases/latest.
 
 Start Riak TS with `riak start`.
 
@@ -33,7 +33,7 @@ Scroll down or click below to find the desired quick start guide:
 
 ## Scala
 
-In this quick start guide we will run you through some examples usages of the Spark-Riak Connector using the Spark Scala REPL.
+In this quick start guide we will run you through some examples usages of the Spark-Riak connector using the Spark Scala REPL.
 
 Start Spark Scala REPL with: 
 
@@ -143,7 +143,7 @@ Make the following imports:
 ```scala
 import org.apache.spark.sql.SaveMode
 import java.sql.Timestamp
-import com.basho.riak.spark.rdd.connector.RiakConnector
+import com.basho.riak.spark.rdd.connector.Riakconnector
 ```
 
 Then set up Spark sqlContext:
@@ -173,7 +173,7 @@ Then, create a TS table with the same data format as the testRDD that we created
 
 ```scala
 val tableName = "ts_table_c"
-val connector = RiakConnector(sc.getConf)
+val connector = Riakconnector(sc.getConf)
 
 connector.withSessionDo(session =>{
           val request = new com.basho.riak.client.api.commands.timeseries.Query.Builder(
@@ -213,7 +213,7 @@ df2.show()
 
 ## Python
 
-In this quick start guide we will run  through some examples usages of the Spark-Riak Connector using the Spark Python REPL, pyspark. Please note that Python currently only works with TS tables in Riak TS. We currently do not support Python with KV buckets in Riak KV or Riak TS.
+In this quick start guide we will run  through some examples usages of the Spark-Riak connector using the Spark Python REPL, pyspark. Please note that Python currently only works with TS tables in Riak TS. We currently do not support Python with KV buckets in Riak KV or Riak TS.
 
 Start pyspark with: 
 

@@ -26,7 +26,7 @@ In order to build the Spark-Riak connector, you'll need to have the following in
 * [Java OpenJDK 8](http://openjdk.java.net/install/)
 * [Maven 3](https://maven.apache.org/download.cgi)
 * [Spark 1.6](http://spark.apache.org/docs/latest/#downloading)
-* [Riak KV](http://docs.basho.com/riak/kv/2.2.0/setup/installing/) or [Riak TS](http://docs.basho.com/riak/ts/latest/installing/)
+* [Riak KV](http://docs.basho.com/riak/kv/2.2.0/setup/installing/)
 
 
 ## Download
@@ -63,7 +63,7 @@ You'll find the results of the build in your local maven repository in the com/b
 
 ## Test
 
-For the Spark-Riak Connector, unit tests are separated from integration tests. 
+For the Spark-Riak connector, unit tests are separated from integration tests. 
 If there is no Riak installation running, it is still possible to successfully run unit tests:
 
 ```bash
@@ -82,26 +82,26 @@ mvn clean verify -P riak_ts
 mvn clean verify -P riak_kv
 ```
 
-A Riak host can be provided in `com.basho.riak.pbchost` variable
+A Riak host can be provided in `com.basho.riak.pbchost` variable:
 
 ```bash
-mvn clean verify -P riak_ts -Dcom.basho.riak.pbchost=myhost:8087
+mvn clean verify -P riak -Dcom.basho.riak.pbchost=myhost:8087
 ```
 
-If Riak was installed with devrel and is running on localhost on 10017 port, it is possible to use special `devrel` maven profile instead of providing `com.basho.riak.pbchost` variable
+If Riak was installed with devrel and is running on localhost on 10017 port, it is possible to use special `devrel` Maven profile instead:
 
 ```bash
-mvn clean verify -P devrel,riak_ts
+mvn clean verify -P devrel,riak
 ```
 
 Or
 
 ```bash
-mvn clean verify -P riak_ts -Denvironment=devrel
+mvn clean verify -P riak -Denvironment=devrel
 ```
 
-Will do the same as 
+Both of the above will accomplish the same as:
 
 ```bash
-mvn clean verify -P riak_ts -Dcom.basho.riak.pbchost=localhost:10017
+mvn clean verify -P riak -Dcom.basho.riak.pbchost=localhost:10017
 ```

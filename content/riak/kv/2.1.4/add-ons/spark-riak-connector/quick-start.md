@@ -14,21 +14,21 @@ toc: true
 canonical_link: "docs.basho.com/riak/kv/latest/add-ons/spark-riak-connector/quick-start"
 ---
 
-This guide will run you through a quick example that uses the Spark-Riak Connector to read and write data using Java and Scala. We will assume you are running this guide on Mac OSX. 
+This guide will run you through a quick example that uses the Spark-Riak connector to read and write data using Java and Scala. We will assume you are running this guide on Mac OSX. 
 
 ## Prerequisites
 
-- Update brew with `brew update`.
+- Update Homebrew with `brew update`.
 - Install Riak KV OSX build. Instruction can be found [here](../../../setup/installing/mac-osx/)
 - Set open file limits for Riak by following the guide [here](../../../using/performance/open-files-limit/#mac-os-x).
 - Install Spark with `brew install apache-spark`.
-- Download the Spark-Riak Connector uber jar (containing all dependencies) from here: https://github.com/basho/spark-riak-connector/releases/latest.
+- Download the Spark-Riak connector uber jar (containing all dependencies) from here: https://github.com/basho/spark-riak-connector/releases/latest.
 
 Start Riak KV with `riak start`.
 
 ## Scala
 
-In this quick start guide we will run you through some examples usages of the Spark-Riak Connector using the Spark Scala REPL.
+In this quick start guide we will run you through some examples usages of the Spark-Riak connector using the Spark Scala REPL.
 
 Start Spark Scala REPL with: 
 
