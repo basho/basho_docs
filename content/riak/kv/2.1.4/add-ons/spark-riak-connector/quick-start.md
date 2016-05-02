@@ -54,7 +54,7 @@ val testRDD = sc.parallelize(data)
 testRDD.saveToRiak(new Namespace("kv_bucket_a"))
 ```
 
-When saving RDD's to Riak that only have values (i.e not key-value pairs), keys will be automatically generated for each value in the RDD.
+When saving RDDs that only have values (i.e. not key-value pairs) to Riak, keys will be automatically generated for each value in the RDD.
 
 Query Riak KV bucket and print results:
 
@@ -120,9 +120,9 @@ scala> keyRDD.collect().foreach(println)
 2
 ```
 
-You will notice that this prints out (2,4,6).
+You will notice that this prints out 2,4,6.
 
-If your data contains 2i secondary indices you can query by that too:
+If your data contains secondary indices (2i) you can query by that too:
 
 ```scala
 val rangeRDD = sc.riakBucket[String](new Namespace("kv_bucket_b")).query2iRange("myIndex", 1L, 5000L)

@@ -14,11 +14,15 @@ toc: true
 canonical_link: "docs.basho.com/riak/kv/latest/add-ons/spark-riak-connector/usage/streaming-example"
 ---
 
+> **Note:**
+>
+> This guide assumes you are using Mac OSX.
+
 The Spark-Riak connector can be used with Spark Streaming. To demonstrate this usage, we will work through a small Scala example. The KV Streaming example is located in the [examples folder](https://github.com/basho/spark-riak-connector/blob/master/examples/src/main/scala/com/basho/riak/spark/examples/streaming/) of the Spark-Riak connector repo.
 
 This example requires the use of Kafka. Please install Kafka and setup a Kafka broker prior to running this example. We will assume that there is a Kafka broker running at `127.0.0.1:9092` with a topic called `streaming`. Instructions on setting up Kafka topics can be found in [this guide](https://kafka.apache.org/documentation.html#quickstart). You can create a broker and topic with the following:
 
-```
+```bash
 path/to/kafka/bin/zookeeper-server-start.sh config/zookeeper.properties
 path/to/kafka/bin/kafka-server-start.sh config/server.properties
 path/to/kafka/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic streaming
@@ -67,29 +71,30 @@ Then, we are using `KafkaUtils` to create a stream from the Kafka topic `streami
         }.saveToRiak(namespace)
       }
 ```
- And finally, we are starting the stream:
- 
- ```scala
- streamCtx.start()
- streamCtx.awaitTermination()
- ```
 
- Now that we understand the code, we can run the `StreamingKVExample.scala` example with:
+And finally, we are starting the stream:
  
- ```
- /path/to/spark-riak-connector-examples/bin/run-example streaming.StreamingKVExample
- ```
+```scala
+streamCtx.start()
+streamCtx.awaitTermination()
+```
+
+Now that we understand the code, we can run the `StreamingKVExample.scala` example with:
  
- This will start a stream from the Kafka topic `streaming` into the KV bucket `test-data` that we just created. This stream will run until terminated. Whenever a message is produced for Kafka topic `streaming`, the Spark Streaming context that the example creates will automatically stream the message from the topic into the KV bucket. To see this in action, we need to send a message to the Kafka topic `streaming` with the Kafka console producer script, which can be found in the Kafka directory.
+```bash
+/path/to/spark-riak-connector-examples/bin/run-example streaming.StreamingKVExample
+```
  
- ```
- /path/to/kafka/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic streaming
- ```
+This will start a stream from the Kafka topic `streaming` into the KV bucket `test-data` that we just created. This stream will run until terminated. Whenever a message is produced for Kafka topic `streaming`, the Spark Streaming context that the example creates will automatically stream the message from the topic into the KV bucket. To see this in action, we need to send a message to the Kafka topic `streaming` with the Kafka console producer script, which can be found in the Kafka directory.
  
- This script will read messages from the terminal and pass it to the topic. From the topic, the Spark Streaming context will write the message to Riak KV bucket `test-data`.  As an example put the following into the terminal:
+```bash
+/path/to/kafka/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic streaming
+```
  
- ```
- {"time": "2016-01-01 08:30:00.000", "weather": "sunny", "temperature": 25.0, "humidity": 67.0, "pressure": 30.20, "family": "f"}
- ```
+This script will read messages from the terminal and pass it to the topic. From the topic, the Spark Streaming context will write the message to Riak KV bucket `test-data`.  As an example put the following into the terminal:
+ 
+```bash
+{"time": "2016-01-01 08:30:00.000", "weather": "sunny", "temperature": 25.0, "humidity": 67.0, "pressure": 30.20, "family": "f"}
+```
  
 You should now be able to see this data entry in the KV bucket `test-data`.

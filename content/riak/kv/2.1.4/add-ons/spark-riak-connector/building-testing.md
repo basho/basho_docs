@@ -55,10 +55,10 @@ The following command should be used to skip tests:
 mvn clean install -DskipTests
 ```
 
-Once the connector is built there are several jars that are produced:
+Once the connector is built several jars are produced:
 `spark-riak-connector/target/` contains `spark-riak-connector-{{version}}.jar` - this is the connector jar. 
 
-You'll find the results of the build in your local maven repository in the com/basho/riak directory. Most likely that will be in your home directory and the path will look like this: `~/.m2/repository/com/basho/riak/`
+You'll find the results of the build in your local Maven repository in the `com/basho/riak` directory. Most likely that will be in your home directory and the path will look like this: `~/.m2/repository/com/basho/riak/`
 
 
 ## Test
@@ -70,38 +70,36 @@ If there is no Riak installation running, it is still possible to successfully r
 mvn clean test
 ```
 
-If Riak is installed it is possible to run both unit tests and integration test. Futhermore, KV-specific integration tests are separated from TS-specific ones. To choose which set of tests to run appropriate maven profile should be selected: 
+If Riak is installed it is possible to run both unit tests and integration test. Futhermore, KV-specific integration tests are separated from TS-specific ones. To choose which set of tests to run appropriate Maven profile should be selected: 
 
 Profile name |Tests                                      | Default |
 -------------|-------------------------------------------|---------|
-riak_ts      | TS-specific tests and majority of KV-tests| no      |
 riak_kv      | KV-only tests                             | yes     |
 
 ```bash
-mvn clean verify -P riak_ts
 mvn clean verify -P riak_kv
 ```
 
-A Riak host can be provided in `com.basho.riak.pbchost` variable:
+A Riak host can be provided in the `com.basho.riak.pbchost` variable:
 
 ```bash
-mvn clean verify -P riak -Dcom.basho.riak.pbchost=myhost:8087
+mvn clean verify -P riak_kv -Dcom.basho.riak.pbchost=myhost:8087
 ```
 
-If Riak was installed with devrel and is running on localhost on 10017 port, it is possible to use special `devrel` Maven profile instead:
+If Riak was installed with `devrel` and is running on localhost on 10017 port, it is possible to use a `devrel` Maven profile instead:
 
 ```bash
-mvn clean verify -P devrel,riak
+mvn clean verify -P devrel,riak_kv
 ```
 
 Or
 
 ```bash
-mvn clean verify -P riak -Denvironment=devrel
+mvn clean verify -P riak_kv -Denvironment=devrel
 ```
 
 Both of the above will accomplish the same as:
 
 ```bash
-mvn clean verify -P riak -Dcom.basho.riak.pbchost=localhost:10017
+mvn clean verify -P riak_kv -Dcom.basho.riak.pbchost=localhost:10017
 ```

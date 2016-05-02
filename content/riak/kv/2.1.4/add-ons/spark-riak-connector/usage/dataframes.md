@@ -16,7 +16,7 @@ canonical_link: "docs.basho.com/riak/kv/latest/add-ons/spark-riak-connector/usag
 
 ## Spark Dataframes With KV Bucket
 
-You can use Spark DataFrames on top of an RDD that was created from a KV Bucket. First you need to create a SQLContext from SparkContext:
+You can use Spark DataFrames on top of an RDD that was created from a KV Bucket. First you need to create a `SQLContext` from `SparkContext`:
 
 ```scala
 val sqlContext = new org.apache.spark.sql.SQLContext(sc)
@@ -28,13 +28,13 @@ Then import:
 import sqlContext.implicits._
 ```
 
-Next, you have to specify a user defined type to allow schema inference using reflection:
+Next, you have to specify a User Defined Type to allow schema inference using reflection:
 
 ```scala
 case class UserData(user_id: String, name: String, age: Int, category: String)
 ```    
 
-Then, you can use the toDF() method on your RDD.
+Then, you can use the `toDF()` method on your RDD:
 
 ```scala  
 val kv_bucket_name = new Namespace("test-data")
@@ -42,50 +42,51 @@ val riakRdd = sc.riakBucket[UserData](kv_bucket_name).queryAll()
 val df = riakRdd.toDF()
 ```
 
-Once you have your DataFrame you can use its methods for filtering
+Once you have your DataFrame, you can use its methods for filtering:
 
 ```scala
 df.where(df("age") >= 50).select("id", "name")
 ```
 
-or do more complex operations like grouping.
+or do more complex operations like grouping:
 
 
 ```scala
 df.groupBy("category").count
 ```
 
-Alternatively, you can register a table
+Alternatively, you can register a table with:
 
 ```scala
 df.registerTempTable("users")
 ```
 
-and use Spark SQL queries over it.
+and use Spark SQL queries over it:
 
 
 ```scala
 sqlContext.sql("select * from users where age >= 50")
 ```
 
-Another thing you can use are user defined functions (UDFs). First, you have to register a UDF.
+Another thing you can use are User Defined Functions (UDFs). First, you have to register a UDF:
 
 ```scala
 sqlContext.udf.register("stringLength", (s: String) => s.length)
 ```
 
-After that you can use it in SQL queries   
+After that you can use it in SQL queries: 
 
 ```scala
 sqlContext.sql("select user_id, name, stringLength(name) nameLength from users order by nameLength")
 ```
-When you already have a DataFrame, you can save it into Riak. To do that, make sure you have imported `com.basho.riak.spark._` so that saveToRiak() method is available.
+
+When you already have a DataFrame, you can save it into Riak. To do that, make sure you have imported `com.basho.riak.spark._` so that the `saveToRiak()` method is available:
 
 ```scala
 import com.basho.riak.spark._
 ```
 
-Then you can use toJSON() method to save data to riak in json format
+Then you can use the `toJSON()` method to save data to Riak in `json` format:
 
 ```
 dataFrame.toJSON.map {

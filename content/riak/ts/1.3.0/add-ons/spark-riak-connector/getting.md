@@ -57,22 +57,21 @@ To add the Spark-Riak connector to your Java project, add the following to your 
 
 ## Python
 
-**Be sure to check the latest release version by going to https://github.com/basho/spark-riak-connector/releases/latest**
-
 You can download the Spark-Riak connector library by going to https://github.com/basho/spark-riak-connector/releases/latest and clicking on the latest release jar file.
 
-Here's another way to download and install it in your home directory:
+You can also download and install the library in your home directory by running:
 
+```bash
+curl https://bintray.com/artifact/download/basho/data-platform/com/basho/riak/spark-riak-connector/»VERSION«/spark-riak-connector-»VERSION«-uber.jar \
+                    -o ~/spark-riak-connector-»VERSION«-uber.jar
 ```
-curl https://bintray.com/artifact/download/basho/data-platform/com/basho/riak/spark-riak-connector/{{version}}/spark-riak-connector-{{version}}-uber.jar \
-                    -o ~/spark-riak-connector-{{version}}-uber.jar
-```
-You will need to replace `{{version}}` with the latest version. Once you've downloaded the connector, you can add it to the driver classpath when submitting your Python app to Spark, like this:
 
-```
+Once you've downloaded the connector, you can add it to the driver classpath when submitting your Python app to Spark, like this:
+
+```bash
 /path/to/spark-submit \
     --master "local[*]" \
-    --driver-class-path /path/to/spark-riak-connector-{{version}}-uber.jar \
+    --driver-class-path /path/to/spark-riak-connector-»VERSION«-uber.jar \
     /path/to/your-python-script.py
 ```
 
@@ -84,19 +83,19 @@ As an alternative, you can add the Spark-Riak connector library in the packages 
 ```
 $SPARK_HOME/bin/spark-submit \
 --repositories https://dl.bintray.com/basho/data-platform \
---packages com.basho.riak:spark-riak-connector:{{version}}
+--packages com.basho.riak:spark-riak-connector:»VERSION«
 ```
 
 **Scala**
 ```
 $SPARK_HOME/bin/spark-shell \
 --repositories https://dl.bintray.com/basho/data-platform \
---packages com.basho.riak:spark-riak-connector:{{version}}
+--packages com.basho.riak:spark-riak-connector:»VERSION«
 ```
 
 **Python**
 ```
 $SPARK_HOME/bin/pyspark \
 --repositories https://dl.bintray.com/basho/data-platform \
---packages com.basho.riak:spark-riak-connector:{{version}}
+--packages com.basho.riak:spark-riak-connector:»VERSION«
 ```

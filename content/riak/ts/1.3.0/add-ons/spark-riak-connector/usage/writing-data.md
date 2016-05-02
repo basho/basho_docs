@@ -14,10 +14,6 @@ toc: true
 canonical_link: "docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage/writing-data"
 ---
 
-> **Note:**
->
-> Currently, if you are using Python, only Riak TS tables, Spark DataFrames and Spark SQL are supported. Reading and writing to Riak KV buckets is not supported yet with Python.
-
 ## Writing Data To TS Table
 
 ### Scala

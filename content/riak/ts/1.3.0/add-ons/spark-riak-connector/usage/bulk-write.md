@@ -16,20 +16,18 @@ canonical_link: "docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usag
 
 To write into a Riak TS table, the Spark-Riak Connector splits the initial set of rows into smaller bulks and processes them in parallel. Bulk size can be configured using `spark.riakts.write.bulk-size` property. The default number is `100`.
 
-As an example, lets say your RDD has 2000 rows and you set `spark.riakts.write.bulk-size` to 200 and `spark.riak.connections.min` to 5. Then, there will be 10 bulks with 200 rows and each bulk will have 5 parallel write connections to Riak. The bulk size option can be configured in SparkConf:
+As an example, let's say your RDD has 2000 rows and you set `spark.riakts.write.bulk-size` to 200 and `spark.riak.connections.min` to 5. Then, there will be 10 bulks with 200 rows and each bulk will have 5 parallel write connections to Riak. The bulk size option can be configured in SparkConf:
 
-**Scala**
 ```scala
 val conf = new SparkConf().set("spark.riakts.write.bulk-size", "500")
 ```
-**Python**
+
 ```python
 conf = new SparkConf().set("spark.riakts.write.bulk-size", "500")
 ```
 
 Or you can set the `spark.riakts.write.bulk-size` property in the DataFrame's `.option()`:
 
-**Scala**
 ```scala
 val df = sqlContext.write
   .option("spark.riakts.write.bulk-size", "500")
@@ -37,7 +35,7 @@ val df = sqlContext.write
         .mode(SaveMode.Append)
         .save(bucketName)
 ```
-**Python**
+
 ```python
 df = sqlContext.write
   .option("spark.riakts.write.bulk-size", "500")
@@ -48,13 +46,12 @@ df = sqlContext.write
 
 Bulks will be written in parallel. The number of parallel writes for each partition is defined with the `spark.riak.connections.min` property (default is `20`):
 
-**Scala**
 ```scala
 val conf = new SparkConf()
   .set("spark.riakts.write.bulk-size", "500")
         .set("spark.riak.connections.min", "50")
 ```
-**Python**
+
 ```python
 conf = pyspark.SparkConf()
 conf.set("spark.riakts.write.bulk-size", "500")

@@ -18,7 +18,7 @@ This section will walk you through setting up your application for development w
 
 > **Note:**
 >
-> Currently, if you are using Python, only Riak TS tables, Spark DataFrames and Spark SQL are supported. Reading and writing to Riak KV buckets is not supported yet with Python.
+> If you are using Python, only Riak TS tables, Spark DataFrames and Spark SQL are supported. Reading and writing to Riak KV buckets is not supported yet with Python.
 
 * [Configuration of Spark Context](config-spark-context)
 * [Reading Data From KV Bucket](reading-data)

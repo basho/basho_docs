@@ -40,105 +40,10 @@ Start Spark Scala REPL with:
 ```
 path/to/spark-shell \
 --conf spark.riak.connection.host=127.0.0.1:8087 \
---driver-class-path /path/to/spark-riak-connector-{{version}}-uber.jar
+--driver-class-path /path/to/spark-riak-connector-»VERSION«-uber.jar
 ```
 
 Import the following:
-
-```scala
-import com.basho.riak.client.core.query.Namespace
-import org.apache.spark.{SparkContext, SparkConf}
-import com.basho.riak.spark._
-```
-
-Create an RDD with some test data and save to Riak KV bucket:
-
-```scala
-val data = Array(1, 2, 3, 4, 5)
-val testRDD = sc.parallelize(data)
-testRDD.saveToRiak(new Namespace("kv_bucket_a"))
-```
-
-When saving RDD's to Riak that only have values (i.e not key-value pairs), keys will be automatically generated for each value in the RDD.
-
-Query Riak TS bucket and print results:
-
-```scala
-val queryRDD = sc.riakBucket[String](new Namespace("kv_bucket_a")).queryAll()
-queryRDD.collect().foreach(println)
-```
-
-You should see:
-
-```scala
-scala> queryRDD.collect().foreach(println)
-5
-4
-3
-1
-2
-```
-
-You will notice that all values (1,2,3,4,5) are printed.
-
-Create a key-value pair RDD and save it to Riak KV bucket:
-
-```scala
-val data = Array((1,2), (2,4), (3,6), (4,8), (5,10))
-val testRDD = sc.parallelize(data)
-testRDD.saveToRiak(new Namespace("kv_bucket_b"))
-```
-
-Query Riak KV bucket and print results:
-
-```scala
-val queryRDD = sc.riakBucket[String](new Namespace("kv_bucket_b")).queryAll()
-queryRDD.collect().foreach(println)
-```
-
-You should see:
-
-```scala
-scala> queryRDD.collect().foreach(println)
-4
-6
-10
-2
-8
-```
-
-You will notice only 2, 4, 6, 8, and 10 are printed. When using tuples, the first value is the key and the second value is the value.
-
-Query Riak KV bucket by keys:
-
-```scala
-val keyRDD = sc.riakBucket[String](new Namespace("kv_bucket_b")).queryBucketKeys("1", "2", "3")
-keyRDD.collect().foreach(println)
-```
-
-You should see:
-
-```scala
-scala> keyRDD.collect().foreach(println)
-4
-6
-2
-```
-
-You will notice that this prints out (2,4,6).
-
-If your data contains 2i secondary indices you can query by that too:
-
-```scala
-val rangeRDD = sc.riakBucket[String](new Namespace("kv_bucket_b")).query2iRange("myIndex", 1L, 5000L)
-rangeRDD.collect().foreach(println)
-```
-
-Since none of our test data had a secondary index associated with it, our rangeRDD will be empty.
-
-Now let's create a Spark SQL DataFrame and write it to a Riak TS table.
-
-Make the following imports:
 
 ```scala
 import org.apache.spark.sql.SaveMode
@@ -146,7 +51,7 @@ import java.sql.Timestamp
 import com.basho.riak.spark.rdd.connector.Riakconnector
 ```
 
-Then set up Spark sqlContext:
+Then set up Spark `SQLContext`:
 
 ```scala
 val sqlContext = new org.apache.spark.sql.SQLContext(sc)
@@ -199,7 +104,7 @@ Now, write the Spark SQL DataFrame to the newly created Riak TS table:
 df.write.format("org.apache.spark.sql.riak").mode(SaveMode.Append).save(tableName)
 ```
 
-And, finally, check that the table was successfully written into the Riak TS table by making a simple query and printing the result:
+And, finally, check that the table was successfully written into the Riak TS by making a simple query and printing the result:
 
 ```scala
 
@@ -213,9 +118,9 @@ df2.show()
 
 ## Python
 
-In this quick start guide we will run  through some examples usages of the Spark-Riak connector using the Spark Python REPL, pyspark. Please note that Python currently only works with TS tables in Riak TS. We currently do not support Python with KV buckets in Riak KV or Riak TS.
+In this quick start guide we will run  through some examples usages of the Spark-Riak connector using the Spark Python REPL, `pyspark`.
 
-Start pyspark with: 
+Start `pyspark` with: 
 
 ```
 /path/to/bin/pyspark \
@@ -223,7 +128,7 @@ Start pyspark with:
 --driver-class-path /path/to/spark-riak-connector-{{version}}-uber.jar 
 ```
 
-Make some imports:
+Make some `imports`:
 
 ```python
 import riak, datetime, time, random
@@ -344,7 +249,7 @@ df.write \
     .save(table_name) 
 ```
 
-Lets check that the write was successful by reading the TS table into a new DataFrame:
+Let's check that the write was successful by reading the TS table into a new DataFrame:
 
 ```python
 sqlContext = SQLContext(sc)
@@ -398,7 +303,7 @@ You should see something like this:
 +----+-------+---------------+------------------+
 ```
 
-Register the DataFrame as a temp sql table and run a sql query to obtain the average of the "value" column:
+Register the DataFrame as a temp SQL table and run a SQL query to obtain the average of the "value" column:
  
  ```python
 df2.registerTempTable("pyspark_tmp")

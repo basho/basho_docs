@@ -14,15 +14,15 @@ toc: true
 canonical_link: "docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage/range-query-partition"
 ---
 
-Riak TS range queries are limited to a maximum of 5 quanta (see http://docs.basho.com/riakts/latest/using/querying/). To work around this limitation or simply achieve higher read performance, large ranges can be split into smaller sub-ranges at partitioning time.
+Riak TS range queries are limited to a maximum of 5 quanta (see [Querying Data in Riak TS](http://docs.basho.com/riakts/latest/using/querying/)). To work around this limitation or simply achieve higher read performance, large ranges can be split into smaller sub-ranges at partitioning time.
 
-To use this functionality it's required to provide the following options:
+To use this functionality, you must provide the following options:
+
 * `spark.riak.partitioning.ts-range-field-name` to identify quantized field
 * `spark.riak.input.split.count` to identify number of partitions/subranges (default value is `10`)
 
 For example:
 
-**Scala**
 ```scala
    val df = sqlContext.read
       .option("spark.riak.input.split.count", "5")
@@ -32,7 +32,7 @@ For example:
       .load(ts_table_name)
       .filter(s"time >= CAST(111111 AS TIMESTAMP) AND time <= CAST(555555 AS TIMESTAMP) AND col1 = 'val1'")
 ```
-**Python**
+
 ```python
 df = sqlContext.read \
       .option("spark.riak.input.split.count", "5") \
@@ -45,6 +45,7 @@ df = sqlContext.read \
 ```
 
 The initial range query will be split into 5 subqueries (one per each partition) as follows:
+
 * ```time >= CAST(111111 AS TIMESTAMP) AND time < CAST(222222 AS TIMESTAMP) AND col1 = 'val1'```
 * ```time >= CAST(222222 AS TIMESTAMP) AND time < CAST(333333 AS TIMESTAMP) AND col1 = 'val1'```
 * ```time >= CAST(333333 AS TIMESTAMP) AND time < CAST(444444 AS TIMESTAMP) AND col1 = 'val1'```

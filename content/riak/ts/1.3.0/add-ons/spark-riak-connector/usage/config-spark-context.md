@@ -14,7 +14,7 @@ toc: true
 canonical_link: "docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage/config-spark-context"
 ---
 
-The following import statements should be included at the top of your Spark application to enable the connector:
+The following `import` statements should be included at the top of your Spark application to enable the connector:
 
 ```scala
 import com.basho.riak.client.core.query.Namespace
@@ -33,7 +33,7 @@ import pyspark
 
 ## Configuration Options
 
-You can control how your Spark application interacts with Riak by configuring different options for your `SparkContext` or `SQLContext`. You can set these options within the $SPARK_HOME/conf/spark-default.conf.  If you don't set an option, it will be automatically set to the default values listed below.
+You can control how your Spark application interacts with Riak by configuring different options for your `SparkContext` or `SQLContext`. You can set these options within the `$SPARK_HOME/conf/spark-default.conf`.  If you don't set an option, it will be automatically set to the default values listed below.
 
 You can set the below options for the `SparkConf` object:
 

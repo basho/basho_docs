@@ -14,10 +14,6 @@ toc: true
 canonical_link: "docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage/reading-data"
 ---
 
-> **Note:**
->
-> Currently, if you are using Python, only Riak TS tables, Spark DataFrames and Spark SQL are supported. Reading and writing to Riak KV buckets is not supported yet with Python.
-
 ## Reading Data From TS Table
 
 ### Scala
@@ -32,7 +28,7 @@ val rdd = sc.riakTSTable(ts_table_name)
 
 ### Java
 
-To use any of the Riak query functions, the initial RiakTSJavaRDD must be created by using SparkContextJavaFunctions.riakTSBucket() method. The resulting RiakTSJavaRDD still needs a sql query string to perform range scan:
+To use any of the Riak query functions, the initial `RiakTSJavaRDD` must be created by using `SparkContextJavaFunctions.riakTSBucket()` method. The resulting `RiakTSJavaRDD` still needs a SQL query string to perform a range scan:
 
 ```java
 

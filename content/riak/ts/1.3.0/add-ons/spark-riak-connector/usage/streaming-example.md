@@ -14,6 +14,10 @@ toc: true
 canonical_link: "docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage/streaming-example"
 ---
 
+> **Note:**
+>
+> This guide assumes you are using Mac OSX.
+
 The Spark-Riak connector can be used with Spark Streaming. To demonstrate this usage, we will work through a small Scala example. The TS Streaming example is located in the [examples folder](https://github.com/basho/spark-riak-connector/blob/master/examples/src/main/scala/com/basho/riak/spark/examples/streaming/) of the Spark-Riak connector repo.
 
 These examples require the use of Kafka. Please install Kafka and setup a Kafka broker prior to running this example. We will assume that there is a Kafka broker running at `127.0.0.1:9092` with a topic called `streaming`. Instructions on setting up Kafka topics can be found in [this guide](https://kafka.apache.org/documentation.html#quickstart). You can create a broker and topic with the following:
@@ -30,9 +34,7 @@ You will need to build the TS example as well. Please follow the instructions on
 
 ## Spark Streaming TS Table Example
 
-Having seen how Spark Streaming works with KV buckets, let's now look at the TS table example [here](https://github.com/basho/spark-riak-connector/blob/master/examples/src/main/scala/com/basho/riak/spark/examples/streaming/StreamingTSExample.scala). 
-
-The code is somewhat similar to the KV bucket example, but with crucial differences. Let's have a look:
+Let's now look at the TS table example ([found here](https://github.com/basho/spark-riak-connector/blob/master/examples/src/main/scala/com/basho/riak/spark/examples/streaming/StreamingTSExample.scala)):
 
 ```scala
  val schema = StructType(List(
@@ -63,7 +65,7 @@ The code is somewhat similar to the KV bucket example, but with crucial differen
 
 This first section of code just sets up the table schema, a Spark Streaming context, a Spark SQL context, and Kafka properties. Note that we need to set up a TS table that reflect the schema in the previous section of code. We can create this TS table with:
 
-```
+```bash
 curl -v -XPUT -H 'Content-Type: application/json' "http://$RIAK_HTTP/admin/explore/clusters/default/bucket_types/ts_weather_demo" -d '{"props":{"n_val":3, "table_def":"CREATE TABLE ts_weather_demo (weather varchar not null,family varchar not null,time timestamp not null,temperature  double,humidity double,pressure double,PRIMARY KEY ((weather, family, quantum(time, 1, 'h')), weather, family, time))"}}'
 ```
 
@@ -86,24 +88,25 @@ The next section of the code is:
           .save("ts_weather_demo")
       }
 ```
+
 In this section of code, we are setting up a stream from Kafka topic `streaming` into TS table `ts_weather_demo`. Here we are using our Spark SQL context to read each RDD streamed from the Kafka topic and then write into the TS table.
 
 Now that we have seen the code let's run the example (see [here](https://github.com/basho/spark-riak-connector/tree/master/examples#building-and-running-examplesdemos) if you need to build the example). You can run the `StreamingTSExample.scala` example, after building, with:
 
- ```
- /path/to/spark-riak-connector-examples/bin/run-example streaming.StreamingTSExample
- ```
+```bash
+/path/to/spark-riak-connector-examples/bin/run-example streaming.StreamingTSExample
+```
 
 Now that the stream is up and running, we need to actually send data to the Kafka topic. Let's start the Kafka console producer. This will allow us to stream messages from the terminal into the Kafka `streaming` topic.
 
- ```
- /path/to/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic streaming
- ```
+```bash
+/path/to/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic streaming
+```
  
 Now paste the following message into the terminal:
 
- ```
- {"time": "2016-01-01 08:30:00.000", "weather": "sunny", "temperature": 25.0, "humidity": 67.0, "pressure": 30.20, "family": "f"}
- ```
+```
+{"time": "2016-01-01 08:30:00.000", "weather": "sunny", "temperature": 25.0, "humidity": 67.0, "pressure": 30.20, "family": "f"}
+```
 
 You can check that this worked by doing a simple SQL query for the example data.

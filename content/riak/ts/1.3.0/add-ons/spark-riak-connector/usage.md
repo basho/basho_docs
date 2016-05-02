@@ -16,10 +16,6 @@ canonical_link: "docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usag
 
 This section will walk you through setting up your application for development with the Spark-Riak connector.
 
-> **Note:**
->
-> Currently, if you are using Python, only Riak TS tables, Spark DataFrames and Spark SQL are supported. Reading and writing to Riak KV buckets is not supported yet with Python.
-
 * [Configuration of Spark Context](config-spark-context)
 * [Reading Data From TS Table](reading-data)
 * [Writing Data To TS Table](writing-data)
