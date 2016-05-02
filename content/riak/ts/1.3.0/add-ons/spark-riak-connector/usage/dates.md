@@ -1,5 +1,5 @@
 ---
-title_supertext: "Using The Spark-Riak Connector"
+title_supertext: "Spark-Riak Connector Add-on (Riak TS)"
 title: "Working With Riak TS Dates"
 description: ""
 project: "riak_ts"
@@ -8,10 +8,10 @@ menu:
   riak_ts-1.3.0:
     name: "Working With TS Dates"
     identifier: "spark_riak_usage_ts_dates"
-    weight: 106
+    weight: 105
     parent: "spark_riak_usage"
 toc: true
-canonical_link: "docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage/ts-dates"
+canonical_link: "docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage/dates"
 ---
 
 Riak TS automatically stores all datetimes as a Long integer that represents milliseconds from the beginning of the epic. This is not very human friendly so we have provided a Spark configuration option called `spark.riakts.bindings.timestamp`. This option is for use with Automatic Schema Discovery and allows for conversion from Riak TS datetimes, which are stored as Longs, to Timestamps.  The default value of this option is `useTimestamp` which converts Longs to Timestamps. If you would like to use the original Long value, you can use the option value of `useLong`. All conversion takes place during Automatic Schema Discovery when reading from Riak TS tables.

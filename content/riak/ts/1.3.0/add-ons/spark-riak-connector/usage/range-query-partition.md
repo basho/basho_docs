@@ -1,6 +1,6 @@
 ---
-title_supertext: "Using The Spark-Riak Connector"
-title: "Riak TS Table Range Query Partitioning"
+title_supertext: "Spark-Riak Connector Add-on (Riak TS)"
+title: "Table Range Query Partitioning"
 description: ""
 project: "riak_ts"
 project_version: "1.3.0"
@@ -8,10 +8,10 @@ menu:
   riak_ts-1.3.0:
     name: "TS Table Range Query Partitioning"
     identifier: "spark_riak_usage_ts_range_query_partition"
-    weight: 107
+    weight: 106
     parent: "spark_riak_usage"
 toc: true
-canonical_link: "docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage/ts-range-query-partition"
+canonical_link: "docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage/range-query-partition"
 ---
 
 Riak TS range queries are limited to a maximum of 5 quanta (see http://docs.basho.com/riakts/latest/using/querying/). To work around this limitation or simply achieve higher read performance, large ranges can be split into smaller sub-ranges at partitioning time.

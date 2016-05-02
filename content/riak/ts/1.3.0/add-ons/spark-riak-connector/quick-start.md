@@ -1,5 +1,5 @@
 ---
-title_supertext: "Spark-Riak Connector Add-on"
+title_supertext: "Spark-Riak Connector Add-on (Riak TS)"
 title: "Quick Start Guide"
 description: ""
 project: "riak_ts"

@@ -1,23 +1,27 @@
 ---
-title: "Spark-Riak Connector Add-on (Riak TS)"
-description: "Spark-Riak Connector Add-on for Riak TS"
-project: "riak_ts"
-project_version: "1.3.0"
+title: "Spark-Riak Connector Add-on (Riak KV)"
+description: "Spark-Riak Connector Add-on for Riak KV"
+project: "riak_kv"
+project_version: "2.1.4"
 menu:
-  riak_ts-1.3.0:
+  riak_kv-2.1.4:
     name: "Spark-Riak Connector"
     identifier: "addons_spark_riak"
-    weight: 101
+    weight: 102
     parent: "addons"
 toc: true
-canonical_link: "docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector"
+canonical_link: "docs.basho.com/riak/kv/latest/add-ons/spark-riak-connector"
 ---
 
 The Spark-Riak Connector enables you to connect Spark applications to Riak KV and Riak TS with the Spark RDD and Spark DataFrames APIs. You can write your app in Scala, Python, and Java. The connector makes it easy to partition the data you get from Riak so multiple Spark workers can process the data in parallel and it has support for failover if a Riak node goes down while your Spark job is running.
 
+> **Note:**
+>
+> Currently, if you are using Python, only Riak TS tables, Spark DataFrames and Spark SQL are supported. Reading and writing to Riak KV buckets is not supported yet with Python.
+
 ## Compatibility
 
-* Riak TS 1.2+ (or Riak KV 2.1+)
+* Riak KV 2.1+ (or Riak TS 1.2+)
 * Apache Spark 1.6+
 * Scala 2.10
 * Java 8

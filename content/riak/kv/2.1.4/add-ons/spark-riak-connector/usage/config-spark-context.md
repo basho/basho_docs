@@ -1,17 +1,17 @@
 ---
-title_supertext: "Spark-Riak Connector Add-on (Riak TS)"
+title_supertext: "Spark-Riak Connector Add-on (Riak KV)"
 title: "Configuration of Spark Context"
 description: ""
-project: "riak_ts"
-project_version: "1.3.0"
+project: "riak_kv"
+project_version: "2.1.4"
 menu:
-  riak_ts-1.3.0:
+  riak_kv-2.1.4:
     name: "Spark Context Configuration"
     identifier: "spark_riak_usage_config_context"
     weight: 101
     parent: "spark_riak_usage"
 toc: true
-canonical_link: "docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage/config-spark-context"
+canonical_link: "docs.basho.com/riak/kv/latest/add-ons/spark-riak-connector/usage/config-spark-context"
 ---
 
 The following import statements should be included at the top of your Spark application to enable the connector:
@@ -21,10 +21,6 @@ import com.basho.riak.client.core.query.Namespace
 import com.basho.riak.spark.rdd.RiakFunctions
 import org.apache.spark.{SparkContext, SparkConf}
 import com.basho.riak.spark._
-```
-
-```python
-import pyspark
 ```
 
 ```java
@@ -60,14 +56,6 @@ val conf = new SparkConf()
         .set("spark.riak.connections.max", "50")
 
 val sc = new SparkContext("spark://127.0.0.1:7077", "test", conf)
-```
-
-```python
-conf = pyspark.SparkConf().setAppName("My Spark Riak App")
-conf.set("spark.riak.connection.host", "127.0.0.1:8087")
-conf.set("spark.riak.connections.min", "20")
-conf.set("spark.riak.connections.max", "50")
-sc = pyspark.SparkContext("spark://127.0.0.1:7077", "test", conf)
 ```
 
 ```java
