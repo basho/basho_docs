@@ -214,6 +214,11 @@ client.execute(store);
 ```
 
 ```erlang
+%% TS 1.3 or newer. Records are represented as tuples.
+{ok, Pid} = riakc_pb_socket:start_link("myriakdb.host", 10017).
+riakc_ts:put(Pid, "GeoCheckin", [{<<"South Atlantic">>, <<"South Carolina">>, 1234567, <<"hot">>, 23.5}, {<<"Mid-Atlantic">>, <<"New York">>, 1234567, <<"windy">>, 19.8}]).
+
+%% TS 1.2 or earlier. Records are represented as lists.
 {ok, Pid} = riakc_pb_socket:start_link("myriakdb.host", 10017).
 riakc_ts:put(Pid, "GeoCheckin", [[<<"South Atlantic">>, <<"South Carolina">>, 1234567, <<"hot">>, 23.5], [<<"Mid-Atlantic">>, <<"New York">>, 1234567, <<"windy">>, 19.8]]).
 ```
