@@ -24,7 +24,11 @@ import com.basho.riak.spark._
 ```
 
 ```java
-// TODO add imports
+import com.basho.riak.client.core.query.Namespace;
+import com.basho.riak.spark.japi.SparkJavaUtil;
+import org.apache.spark.SparkConf;
+import org.apache.spark.api.java.JavaRDD;
+import org.apache.spark.api.java.JavaSparkContext;
 ```
 
 ## Configuration Options
@@ -59,6 +63,11 @@ val sc = new SparkContext("spark://127.0.0.1:7077", "test", conf)
 ```
 
 ```java
+SparkConf sparkConf = new SparkConf().setAppName("My Spark Riak App");
+
+  setSparkOpt(sparkConf, "spark.riak.connection.host", "127.0.0.1:8087");
+  setSparkOpt(sparkConf, "spark.riak.connections.min", "20");
+  setSparkOpt(sparkConf, "spark.riak.connections.max", "50");
+
 JavaSparkContext jsc = new JavaSparkContext(sparkConf);
-// TODO example of setting options
 ```
