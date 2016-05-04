@@ -34,14 +34,14 @@ Riak TS allows you to write multiple rows of data at a time. To demonstrate, we'
 ```sql
 CREATE TABLE GeoCheckin
 (
-   region       varchar   not null,
-   state        varchar   not null,
-   time         timestamp not null,
-   weather      varchar not null,
-   temperature  double,
+   region       VARCHAR   NOT NULL,
+   state        VARCHAR   NOT NULL,
+   time         TIMESTAMP NOT NULL,
+   weather      VARCHAR NOT NULL,
+   temperature  DOUBLE,
    PRIMARY KEY (
-     (region, state, quantum(time, 15, 'm')), /* <-- PARTITION KEY */
-     region, state, time /* <-- LOCAL KEY */
+     (region, state, QUANTUM(time, 15, 'm')),
+     region, state, time
    )
 )
 ```
@@ -258,7 +258,7 @@ if (!$response->isSuccess()) {
 
 >**Note on validation**:
 >
->Riak TS validates all rows on the server side before writing occurs, checking the number of row elements and types. If any of the rows fails validation then none of the rows will be written.  An error message will be returned with the index numbers of the invalid rows in the batch. The first item in the batch being index one. »**Does this still happen?**«
+>Riak TS validates all rows on the server side before writing occurs, checking the number of row elements and types. If any of the rows fails validation then none of the rows will be written.  An error message will be returned with the index numbers of the invalid rows in the batch, the first item in the batch being index one.
 
 Depending on your client, you will receive different messages indicating whether or not your write was successful.
 
@@ -308,12 +308,12 @@ You could also try the original write again. Failures may be transitory when ser
 
 ### Guidelines
 
-* Batches should not be too large. In our testing, 100 rows per write is a sweet spot, but you should expect different results depending on your hardware and schema.
-* Writes will assume that columns are in the same order they've been declared in the table.
+* Batches should not be too large. Our testing revealed 100 rows per write as a sweet spot, but you should expect different results depending on your hardware and schema.
+* Writes will assume that fields are in the same order as they've been declared in the table.
 * Timestamps should be in Unix epoch/UTC milliseconds.
 
 
-### Tuning batches
+### Tuning Batches
 
 Batches of data from a single write are packaged for delivery to each destination server as a performance optimization. For Enterprise customers using [MDC], those batches are sent to the remote cluster via realtime sync.
 
@@ -324,9 +324,9 @@ If you want to adjust that value, the configuration parameter `timeseries_max_ba
 
 ## Adding Data via SQL
 
-This can be done either through the [query interface][querying] or via [riak_shell][riakshell]. Basic SQL INSERT functionality is available, but more complicated things such as `INSERT...SELECT` or subqueries are not.
+This can be done either through the [query interface][querying] or via [riak shell][riakshell]. Basic SQL `INSERT` functionality is available, but more complicated things such as `INSERT...SELECT` or subqueries are not.
 
-Here is are a couple of examples of adding rows from SQL:
+Here are a couple examples of adding rows from SQL:
 
 ```sql
 INSERT INTO GeoCheckin (region, state, time, weather, temperature) VALUES ('South Atlantic','South Carolina',1420113600000,'snow',25.2);
@@ -338,16 +338,16 @@ or
 INSERT INTO GeoCheckin VALUES ('South Atlantic','South Carolina',1420113700000,'rain',37.8);
 ```
 
-As with standard SQL, if all of the column names are not provided before the `VALUES` keyword, the other columns are assumed to be null.
+As with standard SQL, if all of the field names are not provided before the `VALUES` keyword, the other fields are assumed to be null.
 
-The columns they can be in any order, but the column name and the values must match up. Without the `VALUES` keyword, all columns must be present in the same order as the schema definition.
+The fields can be in any order, but the field name and the values must match up. Without the `VALUES` keyword, all fields must be present in the same order as the schema definition.
 
 The data types are validated on the server just like the client PUT commands above.
 
 
 ## Deleting Data
 
-Below are examples of how to delete data by key in each of our time series supported clients.
+Below are examples of how to delete data by key in each of our Riak TS-supported clients:
 
 
 ```java

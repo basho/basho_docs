@@ -22,15 +22,19 @@ canonical_link: "docs.basho.com/riak/ts/latest/using"
 [configuring]: configuring/
 [download]: /riak/ts/1.3.0/downloads/
 [installing]: ../installing/
+[mdc]: mdc/
 [planning]: planning/
 [querying]: querying/
+[riakshell]: riakshell/
 [writing]: writingdata/
 
 
 Now that you've [downloaded][download] and [installed][installing] Riak TS, there's a recommended path for setting up and using it:
 
 1. [Plan][planning] your Riak TS table. Once created, tables can't be edited, so it's important to get it right the first time.
-2. [Create and activate][activating] your Riak TS table. (You'll need `sudo` and `su` access for this step.)
+2. [Create and activate][activating] your Riak TS table. (You'll need `sudo` and `su` access for this step.) Then, if you are an Enterprise user, [set up Multi-Datacenter replication][mdc].
 3. [Write data][writing] to your table.
 
-Once you've completed these steps you can go on to [query][querying] your data,[customize your Riak TS configuration][configuring], analyze your data with [aggregate functions][aggregate], or apply some [arithmetic operations][arithmetic].
+Check out [riak shell][riakshell] for a handy tool for using TS.
+ 
+Then check out how to [query][querying] your data,[customize your Riak TS configuration][configuring], analyze your data with [aggregate functions][aggregate], or apply some [arithmetic operations][arithmetic].

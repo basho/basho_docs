@@ -39,6 +39,7 @@ While riak shell is in the early stages of development, the following are well-s
 * batch mode
 * management of connections to remote Riak nodes
 * shell management (including cookies)
+* debugging
 
 The shell is also trivially extendable for developer use.
 
@@ -47,7 +48,7 @@ The shell is also trivially extendable for developer use.
 
 To get started using riak shell:
 
-1\. Locate your riak_shell.config configuration file. It will be in the `/etc/riak` directory with the other Riak TS configuration files. On Apple Mac OS X, the configuration files are in the `riak-ts-1.3.0/etc` directory.
+1\. Locate your riak_shell.config configuration file. It will be in the `/etc/riak` directory with the other Riak TS configuration files. On Mac OS X, the configuration files are in the `riak-ts-1.3.0/etc` directory.
 
 2\. Open the configuration file, riak_shell.config, and add your nodename and IP address to `nodes`:
 
@@ -88,7 +89,7 @@ You can connect riak shell to multiple nodes.
 
 >**Warning**
 >
->You cannot run more than one riak shell per machine. If you try to connect two riak shells to a single machine, you will receive an error message.
+>You cannot run more than one shell per machine. If you try to connect two shells to a single machine, you will receive an error message.
 
 To connect to a specific node, run: `connect '»nodename«'`
 
@@ -149,7 +150,7 @@ riak-shell is connected to: 'dev2@127.0.0.1' on port 8097
 You can use riak shell to [create a table][creating]:
 
 ```
-riak-shell>CREATE TABLE GeoCheckin (region varchar not null, state varchar not null, time  timestamp not null, weather  varchar not null, temperature double, PRIMARY KEY ((region, state, quantum(time, 15, 'm')), region, state, time));
+riak-shell>CREATE TABLE GeoCheckin (region VARCHAR NOT NULL, state VARCHAR NOT NULL, time  TIMESTAMP NOT NULL, weather  VARCHAR NOT NULL, temperature DOUBLE, PRIMARY KEY ((region, state, QUANTUM(time, 15, 'm')), region, state, time));
 ```
 
 Then, you can see the table in riak shell:
@@ -194,6 +195,8 @@ riak-shell>INSERT INTO GeoCheckin (region, state, time, weather, temperature) VA
 ```
 
 See [Writing Data][writing] for more details.
+
+>**Note:** SQL commands in riak shell may span multiple lines.
 
 
 ### Logging
@@ -295,12 +298,12 @@ You can configure riak shell from the riak_shell.config file. You can find the f
 
 The following things can be configured:
 
-* logging (on | off)
-* date_log (on | off)
-* logfile ("../some/dir/mylogfile.log") - defaults to ../log/riak_shell.log
-* cookie - any erlang atom the underlying Erlang cookie riak_shell uses to connect
-* show_connection_status (true | false) - shows the green tick or red cross in the command line
-* nodes ([nodenames]) - a list of nodes to try and connect to on startup or 'reconnect;'
+* logging (on | off) - Defaults to 'off'; determines whether or not to enable logging.
+* date_log (on | off) - Defaults to 'off'; determines whether or not to add timestamp information to the logs.
+* logfile ("../some/dir/mylogfile.log") - Defaults to '../log/riak_shell.log'; sets the name and location of the logfile.
+* cookie - No default; any atom representing the Erlang cookie that riak shell uses to connect to Riak.
+* show_connection_status (true | false) - Defaults to 'false'; sets whether to show the green tick or red cross in the command line.
+* nodes ([nodenames]) - No defaults; a list of nodes to try and connect to on startup or 'reconnect;'.
 
 
 ## Command Line Flags
@@ -332,7 +335,7 @@ You can run a riak shell regression log for batch/scripting:
 ```
 
 
-## Extending riak shell
+## Extending Riak Shell
 
 riak shell uses a magic architecture with convention.
 
@@ -384,11 +387,11 @@ To be a good citizen you should add a clause to the help function like:
     "This is how you use my function";
 ```
 
-If you have a function with the same name that appears in 2 EXT modules riak shell will not start. It will not check if the arities match. You may have the same function with different arities in the same module - but there is only one help call.
+If you have a function with the same name that appears in two EXT modules riak shell will not start. It will not check if the arities match. You may have the same function with different arities in the same module - but there is only one help call.
 
-As a convenience to the developer there is a module called `debug_EXT.erl`. This implements a function which reloads and reregisters all extensions `riak-shell>load`, and can hot-load changes into the shell (it won't work on first-creation of a new EXT module, only on reloading). The only EXT that debug doesn't load is `debug_EXT` so please do not add functions to it.
+As a convenience, there is a module called `debug_EXT.erl`. This module implements a function which reloads and reregisters all extensions `riak-shell>load`, and can hot-load changes into the shell (it won't work on first-creation of a new EXT module, only on reloading). The only EXT that debug doesn't load is `debug_EXT`, so please do not add functions to it.
 
-The riak shell suppresses error messages that would otherwise be written to the console (for instance if the remote Riak node goes down the protocol buffer connection is torn down). This makes debugging painful. You can stop this behavior by starting riak_shell in the debug mode by starting it from the shell with the `-d` flag:
+riak shell suppresses error messages that would otherwise be written to the console. For instance, if the remote Riak node goes down the protocol buffer connection is torn down. This makes debugging painful. You can stop this behavior by starting riak shell in debug mode. You can do this by starting it from the shell with the `-d` flag:
 
 ```
 cd ~/riakshell/bin
