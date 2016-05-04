@@ -10,7 +10,9 @@ menu:
     weight: 101
     parent: index
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/release-notes"
+aliases:
+  - /riak/2.1.3/community/release-notes
+canonical_link: "https://docs.basho.com/riak/kv/latest/release-notes"
 ---
 
 **2.1.3 - Released December 9, 2015**
@@ -137,7 +139,7 @@ For more information about this change, please see [issue #727](https://github.c
 ## Fixes
 Riak 2.1.0 introduced a bug that has been fixed in Riak 2.1.1. The default configuration for handoff.ip caused vnodes marked for transfer during handoff to be removed without transferring data to their new destination nodes. A mandatory change to configuration (riak.conf) mitigates this issue for 2.1.0 users. While not all users were impacted by this issue, we recommend that all 2.1.0 users upgrade to 2.1.1.
 
-Detailed information on the issue is available in the Basho Documentation [Product Advisories](http://docs.basho.com/riak/latest/community/product-advisories/210-dataloss/).
+Detailed information on the issue is available in the Basho Documentation [Product Advisories](http://docs.basho.com/community/productadvisories/210-dataloss/).
 
 * Make default `handoff_ip` value 0.0.0.0 in vars.config.
   * [riak/pull/734](https://github.com/basho/riak/pull/734)

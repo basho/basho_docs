@@ -11,7 +11,10 @@ menu:
     weight: 102
     parent: "getting_started_nodejs"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/nodejs/object-modeling"
+aliases:
+  - /riak/2.0.4/dev/taste-of-riak/object-modeling-nodejs
+  - /riak/kv/2.0.4/dev/taste-of-riak/object-modeling-nodejs
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/nodejs/object-modeling"
 ---
 
 To get started, let's create the models that we'll be using.

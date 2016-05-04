@@ -14,7 +14,7 @@ toc: true
 aliases:
   - /riak/2.0.5/dev/advanced/client-security/python
   - /riak/kv/2.0.5/dev/advanced/client-security/python
-canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/security/python"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage/security/python"
 ---
 
 This tutorial shows you how to set up a Riak Python client to

@@ -14,7 +14,7 @@ aliases:
     - /riakts/1.0.0/riakts-downloads/
     - /riakts/1.0.0/downloads/
     - /riak/ts/1.0.0/downloads/
-canonical_link: "docs.basho.com/riak/ts/latest/downloads"
+canonical_link: "https://docs.basho.com/riak/ts/latest/downloads"
 ---
 
 

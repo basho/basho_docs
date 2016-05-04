@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.1.4/ops/running/tools/riak-admin
   - /riak/kv/2.1.4/ops/running/tools/riak-admin
-canonical_link: "docs.basho.com/riak/kv/latest/using/admin/riak-admin"
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/admin/riak-admin"
 ---
 
 [config reference]: /riak/kv/2.1.4/configuring/reference

@@ -12,10 +12,10 @@ project_version: "1.2.0"
 toc: true
 aliases:
     - /riakts/1.2.0/
-canonical_link: "docs.basho.com/riak/ts/latest"
+canonical_link: "https://docs.basho.com/riak/ts/latest"
 ---
 
-[installing]: installing/
+[installing]: /riak/ts/1.2.0/installing/
 [learnabout]: learn-about/
 
 

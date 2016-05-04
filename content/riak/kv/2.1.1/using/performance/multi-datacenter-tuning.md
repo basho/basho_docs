@@ -8,11 +8,11 @@ menu:
   riak_kv-2.1.1:
     name: "Multi-Datacenter Replication"
     identifier: "performance_multi_datacenter_tuning"
-    weight: 104
+    weight: 110
     parent: "managing_performance"
 toc: true
 commercial_offering: true
-canonical_link: "docs.basho.com/riak/kv/latest/using/performance/multi-datacenter-tuning"
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/performance/multi-datacenter-tuning"
 ---
 
 [perf index]: /riak/kv/2.1.1/using/performance

@@ -10,16 +10,16 @@ menu:
     weight: 101
     parent: "developing"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/developing/usage"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage"
 ---
 
 ## In This Section
 
-#### [Creating Objects](./creating-obects)
+#### [Creating Objects](./creating-objects)
 
 Creating and storing objects in Riak KV.
 
-[Learn More >>](./creating-obects)
+[Learn More >>](./creating-objects)
 
 
 #### [Reading Objects](./reading-objects)

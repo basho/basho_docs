@@ -2552,10 +2552,10 @@ riak_kv:
       architectures:
       - arch: amd64
         file_info:
-          file_name: riak_2.1.4-1_amd64.deb
-          file_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.4/ubuntu/precise/riak_2.1.4-1_amd64.deb
-          file_size: 66032628
-          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.4/ubuntu/precise/riak_2.1.4-1_amd64.deb.sha
+          file_name: riak_2.1.4-2_amd64.deb
+          file_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.4/ubuntu/precise/riak_2.1.4-2_amd64.deb
+          file_size: 66028586
+          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.4/ubuntu/precise/riak_2.1.4-2_amd64.deb.sha
     - version: trusty
       architectures:
       - arch: amd64

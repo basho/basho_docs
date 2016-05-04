@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.1.4/dev/taste-of-riak/java
   - /riak/kv/2.1.4/dev/taste-of-riak/java
-canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/java"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/java"
 ---
 
 If you haven't set up a Riak Node and started it, please visit [Running A Cluster](/riak/kv/2.1.4/using/running-a-cluster) first.
@@ -36,7 +36,7 @@ project's dependencies. Here is a Maven example:
 ```
 
 Next, download
-[`TasteOfRiak.java`](https://github.com/basho/basho_docs/raw/master/source/data/TasteOfRiak.java)
+[`TasteOfRiak.java`](https://github.com/basho/basho_docs/raw/master/extras/code-examples/TasteOfRiak.java)
 source code for this tutorial, and save it to your working directory.
 
 <div class="note">

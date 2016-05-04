@@ -11,7 +11,7 @@ toc: true
 ---
 
 
-[ZIP file]: https://github.com/basho/basho_docs/raw/riak/2.1.1/source/data/dvv_lww_buckets.beam.zip
+[ZIP file]: https://github.com/basho/basho_docs/raw/riak/2.1.1/extras/binaries/dvv_lww_buckets.beam.zip
 
 
 Info | Value

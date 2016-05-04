@@ -11,7 +11,10 @@ menu:
     weight: 102
     parent: "getting_started_java"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/java/object-modeling"
+aliases:
+  - /riak/2.0.2/dev/taste-of-riak/object-modeling-java
+  - /riak/kv/2.0.2/dev/taste-of-riak/object-modeling-java
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/java/object-modeling"
 ---
 
 To get started, let's create the models that we'll be using.

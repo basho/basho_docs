@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.0.0/dev/search/document-store
   - /riak/kv/2.0.0/dev/search/document-store
-canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/document-store"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage/document-store"
 ---
 
 Although Riak wasn't explicitly created as a document store, two
@@ -85,7 +85,7 @@ list:
 ```
 
 You can see the full schema [on
-GitHub](https://github.com/basho/basho_docs/raw/master/source/data/blog_post_schema.xml).
+GitHub](https://github.com/basho/basho_docs/raw/master/extras/data/blog_post_schema.xml).
 Let's store that schema in a file called `blog_post_schema.xml` and
 upload that schema to Riak:
 

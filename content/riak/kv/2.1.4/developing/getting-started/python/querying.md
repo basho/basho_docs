@@ -14,7 +14,7 @@ toc: true
 aliases:
   - /riak/2.1.4/dev/taste-of-riak/querying-python
   - /riak/kv/2.1.4/dev/taste-of-riak/querying-python
-canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/python/querying"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/python/querying"
 ---
 
 #### A Quick Note on Querying and Schemas

@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.1.3/ops/building/planning/bitcask
   - /riak/kv/2.1.3/ops/building/planning/bitcask
-canonical_link: "docs.basho.com/riak/kv/latest/setup/planning/bitcask-capacity-calc"
+canonical_link: "https://docs.basho.com/riak/kv/latest/setup/planning/bitcask-capacity-calc"
 ---
 
 [plan backend bitcask]: /riak/kv/2.1.3/setup/planning/backend/bitcask

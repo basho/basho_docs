@@ -11,7 +11,10 @@ menu:
     weight: 102
     parent: "getting_started_erlang"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/erlang/object-modeling"
+aliases:
+  - /riak/2.0.0/dev/taste-of-riak/object-modeling-erlang
+  - /riak/kv/2.0.0/dev/taste-of-riak/object-modeling-erlang
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/erlang/object-modeling"
 ---
 
 To get started, let's create the records that we'll be using.

@@ -15,7 +15,7 @@ commercial_offering: true
 aliases:
   - /riak/2.0.1/ops/mdc/v2/quick-start
   - /riak/kv/2.0.1/ops/mdc/v2/quick-start
-canonical_link: "docs.basho.com/riak/kv/latest/configuring/v2-multi-datacenter/quick-start"
+canonical_link: "https://docs.basho.com/riak/kv/latest/configuring/v2-multi-datacenter/quick-start"
 ---
 
 The Riak Multi-Datacenter Replication Quick Start will walk you through

@@ -1,6 +1,89 @@
 ###########################
 # Deploy rules and helpers
 
+def do_fetch_archived_content()
+  # Fetch and extract the archived content that we want to survive from the
+  # Middleman website.
+  puts("Verifying archived content...")
+  # Verify that the tar.bz2 is present.
+  if (not File.file?(File.join(Dir.pwd, "archived_docs.basho.com.tar.bz2")))
+    if (`which wget`.empty?)
+      # If we don't have wget. Error out.
+      Kernel.abort("ERROR: archived_docs.basho.com.tar.bz2 was not found, "\
+                   "and this system doesn't have access to `wget`.\n"\
+                   "       Please either install `wget` and re-run this "\
+                   "deploy, or manually download the file from the below "\
+                   "address and place it into this directory.\n"\
+                   "    http://s3.amazonaws.com/downloads.basho.com/documentation_content/archived_docs.basho.com.tar.bz2")
+    else
+      # We have wget, but not the file. Fetch it.
+      puts("  Using wget to fetch archived_docs.basho.com.tar.bz2 "\
+           "(this may take some time)...")
+      successful = system('wget http://s3.amazonaws.com/downloads.basho.com/documentation_content/archived_docs.basho.com.tar.bz2')
+      if (not successful)
+        Kernel.abort("ERROR: Failed to get archived_docs.basho.com.tar.bz2\n"\
+                     "       Please download the file from the below "\
+                     "address and copy it into this directory.\n"\
+                     "    http://s3.amazonaws.com/downloads.basho.com/documentation_content/archived_docs.basho.com.tar.bz2")
+      end
+    end
+  end
+
+  # Verify the file is correct via an md5sum, unless NO_CHECK has been set
+  if (ENV['NO_CHECK'] == "True")
+    puts("  Skipping archived_docs.basho.com.tar.bz2 sha1 check. Good luck.")
+  else
+    if (`which md5sum`.empty?)
+      # We don't have md5sum, and we want to perform a check. Error out.
+      Kernel.abort("ERROR: This system does not have `md5sum`, so the "\
+                   "contents of archived_docs.basho.com.tar.bz2 cannot be "\
+                   "verified.\n"\
+                   "       Please install the md5sum tool (possibly named "\
+                   "md5sha1sum).\n"\
+                   "       You may also re-run this script after running "\
+                   "`export NO_CHECK=\"True\"`, but it is **highly "\
+                   "recommended** that you install `md5sum` instead.")
+    end
+    web_md5 = Net::HTTP.get('s3.amazonaws.com', '/downloads.basho.com/documentation_content/archived_docs.basho.com.tar.bz2.md5').split(" ")[0]
+    loc_md5 = `md5sum archived_docs.basho.com.tar.bz2`.split(" ")[0]
+    if (web_md5 != loc_md5)
+      Kernel.abort("ERROR: Fetch archived_docs.basho.com.tar.bz2 does not "\
+                   "match the expected md5sum.\n"\
+                   "       Please remove the current "\
+                   "archived_docs.basho.com.tar.bz2, reset the contents of "\
+                   "the static/ directory (`git clean -xdf static; git "\
+                   "checkout -f static`), and re-run this script.")
+    end
+  end
+
+  puts("Verifying archived content extraction...")
+  puts("    Please note, this only checks for directories.\n"\
+       "    If something went wrong with a previous extraction or if any "\
+       "of the extracted files were modified, please delete e.g. "\
+       "static/riak/ to trigger a re-extraction.")
+  #TODO: Consider if this is a good idea or not. I'm leaning towards not.
+  should_extract = (
+    (not File.exist?("static/css/standalone")) ||
+    (not File.exist?("static/js/standalone"))  ||
+    (not File.exist?("static/riak"))           ||
+    (not File.exist?("static/riakcs"))         ||
+    (not File.exist?("static/riakee"))         ||
+    (not File.exist?("static/shared"))           )
+
+  if (should_extract)
+    puts("Extracting archived_docs.basho.com.tar.bz2 (this may take a lot "\
+         "of time)...")
+    successful = system('tar -xjf archived_docs.basho.com.tar.bz2 -C static')
+
+    if (not successful)
+      Kernel.abort("ERROR: archived_docs.basho.com.tar.bz2 failed to "\
+                   "extract.\n"\
+                   "       I... actually don't know why. Not sure how to "\
+                   "extract error messages from this system call.")
+    end
+  end
+end
+
 # Once the Hugo site has been fully and correctly generated, we can upload the
 # updated and new -- and delete the no longer generated -- files to/from our S3
 # bucket, and send out CloudFront invalidation requests to propagate those
@@ -87,7 +170,7 @@ def do_deploy()
       # the etag (which is the md5sum) is wrapped in double-quotes. Strip those
       # by 'translating' them into empty strings.
       [objs.key, objs.etag.tr('"','')] }
-
+    .reject { |objs| objs[0] == "last_deployed_time.txt" }
 
   # Now that we have the two lists, we need to compare them and generate the
   # list of files we need to upload, and the list of files we need to delete.
@@ -330,6 +413,14 @@ def do_deploy()
     puts("  Sending Invalidation Request for the entire site (\"/*\")...")
     cf_report = cf_client.invalidate(['/*'])
   end
+
+  # Write a dummy file to mark the time of the last successful deploy.
+  aws_bucket.put_object({
+    acl: "public-read-write",
+    key: "last_deployed_time.txt",
+    body: "#{Time.new.utc} -- #{`git rev-parse HEAD`[0..6]}"
+  })
+
 
   puts("")
   puts("Deploy Process Complete!")

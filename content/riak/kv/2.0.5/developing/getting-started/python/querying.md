@@ -11,7 +11,10 @@ menu:
     weight: 101
     parent: "getting_started_python"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/python/querying"
+aliases:
+  - /riak/2.0.5/dev/taste-of-riak/querying-python
+  - /riak/kv/2.0.5/dev/taste-of-riak/querying-python
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/python/querying"
 ---
 
 #### A Quick Note on Querying and Schemas

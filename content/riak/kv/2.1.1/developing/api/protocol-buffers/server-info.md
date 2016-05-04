@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.1.1/dev/references/protocol-buffers/server-info
   - /riak/kv/2.1.1/dev/references/protocol-buffers/server-info
-canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/server-info"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/server-info"
 ---
 
 A message from Riak that contains two pieces of information about the

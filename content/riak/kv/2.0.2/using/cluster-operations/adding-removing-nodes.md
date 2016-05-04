@@ -10,7 +10,10 @@ menu:
     weight: 100
     parent: "managing_cluster_operations"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/adding-removing-nodes"
+aliases:
+  - /riak/2.0.2/ops/running/nodes/adding-removing
+  - /riak/kv/2.0.2/ops/running/nodes/adding-removing
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/cluster-operations/adding-removing-nodes"
 ---
 
 [use running cluster]: /riak/kv/2.0.2/using/running-a-cluster

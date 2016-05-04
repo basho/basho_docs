@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.0.1/dev/advanced/replication-properties
   - /riak/kv/2.0.1/dev/advanced/replication-properties
-canonical_link: "docs.basho.com/riak/kv/latest/developing/app-guide/replication-properties"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/app-guide/replication-properties"
 ---
 
 [usage bucket types]: /riak/kv/2.0.1/developing/usage/bucket-types
@@ -535,7 +535,7 @@ refer to the section on [development usage with Riak KV](/riak/kv/2.0.1/developi
 or to client-specific documentation:
 
 * [Ruby](https://github.com/basho/riak-ruby-client/blob/master/README.markdown)
-* [Java](http://basho.github.io/riak-java-client/2.0.0-SNAPSHOT/)
+* [Java](http://basho.github.io/riak-java-client/2.0.0/)
 * [Python](http://basho.github.io/riak-python-client/)
 * [Erlang](http://basho.github.io/riak-erlang-client/)
 

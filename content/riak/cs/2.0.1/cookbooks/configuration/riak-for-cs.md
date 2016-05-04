@@ -10,8 +10,8 @@ menu:
 project: "riak_cs"
 project_version: "2.0.1"
 aliases:
-  - /riakcs/2.0.1/cookbooks/Configuring-Riak/
-  - /riak/cs/2.0.1/cookbooks/Configuring-Riak/
+  - /riakcs/2.0.1/cookbooks/configuration/Configuring-Riak/
+  - /riak/cs/2.0.1/cookbooks/configuration/Configuring-Riak/
 ---
 
 Because Riak CS is an application built on top of Riak, it's important
@@ -73,6 +73,9 @@ to use the custom backend provided by Riak CS. We need to use either the
 `advanced.config` or `app.config` file and insert the following options:
 
 ```advancedconfig
+{eleveldb, [
+    {total_leveldb_mem_percent, 30}
+    ]},
 {riak_kv, [
     %% Other configs
     {add_paths, ["/usr/lib/riak-cs/lib/riak_cs-{{VERSION}}/ebin"]},
@@ -81,7 +84,6 @@ to use the custom backend provided by Riak CS. We need to use either the
     {multi_backend_default, be_default},
     {multi_backend, [
         {be_default, riak_kv_eleveldb_backend, [
-            {total_leveldb_mem_percent, 30},
             {data_root, "/var/lib/riak/leveldb"}
         ]},
         {be_blocks, riak_kv_bitcask_backend, [
@@ -93,6 +95,9 @@ to use the custom backend provided by Riak CS. We need to use either the
 ```
 
 ```appconfig
+{eleveldb, [
+    {total_leveldb_mem_percent, 30}
+    ]},
 {riak_kv, [
     %% Other configs
     {add_paths, ["/usr/lib/riak-cs/lib/riak_cs-{{VERSION}}/ebin"]},
@@ -101,7 +106,6 @@ to use the custom backend provided by Riak CS. We need to use either the
     {multi_backend_default, be_default},
     {multi_backend, [
         {be_default, riak_kv_eleveldb_backend, [
-            {total_leveldb_mem_percent, 30},
             {data_root, "/var/lib/riak/leveldb"}
         ]},
         {be_blocks, riak_kv_bitcask_backend, [

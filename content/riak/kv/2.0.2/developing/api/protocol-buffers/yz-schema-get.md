@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/dev/references/protocol-buffers/yz-schema-get
-canonical_link: "docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/yz-schema-get"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/yz-schema-get"
 ---
 
 Fetch a [search schema](/riak/kv/2.0.2/developing/usage/search-schemas) from Riak Search.

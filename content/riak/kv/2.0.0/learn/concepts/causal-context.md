@@ -11,9 +11,11 @@ menu:
     parent: "learn_concepts"
 toc: true
 aliases:
+  - /riak/2.0.0/theory/concepts/Vector-Clocks/
+  - /riak/kv/2.0.0/theory/concepts/Vector-Clocks/
   - /riak/2.0.0/theory/concepts/context
   - /riak/kv/2.0.0/theory/concepts/context
-canonical_link: "docs.basho.com/riak/kv/latest/learn/concepts/causal-context"
+canonical_link: "https://docs.basho.com/riak/kv/latest/learn/concepts/causal-context"
 ---
 
 
@@ -30,8 +32,8 @@ canonical_link: "docs.basho.com/riak/kv/latest/learn/concepts/causal-context"
 [usage protocol buffers]: /riak/kv/2.0.0/developing/api/protocol-buffers
 [usage updating objects]: /riak/kv/2.0.0/developing/usage/updating-objects
 [Vector Clocks on Wikipedia]: http://en.wikipedia.org/wiki/Vector_clock
-[Why Vector Clocks are Easy]: http://blog.basho.com/2010/01/29/why-vector-clocks-are-easy/
-[Why Vector Clocks are Hard]: http://blog.basho.com/2010/04/05/why-vector-clocks-are-hard/
+[Why Vector Clocks are Easy]: http://basho.com/posts/technical/why-vector-clocks-are-easy/
+[Why Vector Clocks are Hard]: http://basho.com/posts/technical/why-vector-clocks-are-hard/
 [work of Leslie Lamport]: http://portal.acm.org/citation.cfm?id=359563
 [Evaluating Dotted Version Vectors in Riak]: http://asc.di.fct.unl.pt/~nmp/pubs/inforum-2011-2.pdf
 [Improving Logical Clocks in Riak with Dotted Version Vectors: A Case Study]: http://paginas.fe.up.pt/~prodei/dsie12/papers/paper_19.pdf

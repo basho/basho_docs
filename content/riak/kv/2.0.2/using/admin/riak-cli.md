@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/ops/running/tools/riak
-canonical_link: "docs.basho.com/riak/kv/latest/using/admin/riak-cli"
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/admin/riak-cli"
 ---
 
 ## riak

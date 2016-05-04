@@ -10,7 +10,7 @@ menu:
     weight: 105
     parent: "managing_ref"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/using/reference/failure-recovery"
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/reference/failure-recovery"
 ---
 
 ## Hanc capellae

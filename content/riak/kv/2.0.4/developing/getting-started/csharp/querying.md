@@ -1,6 +1,6 @@
 ---
 title_supertext: "Getting Started:"
-tiGetting Started: Querying with C Sharp"
+title: "Querying with C Sharp"
 description: ""
 project: "riak_kv"
 project_version: "2.0.4"
@@ -11,7 +11,10 @@ menu:
     weight: 101
     parent: "getting_started_csharp"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/csharp/querying"
+aliases:
+  - /riak/2.0.4/dev/taste-of-riak/querying-csharp
+  - /riak/kv/2.0.4/dev/taste-of-riak/querying-csharp
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/csharp/querying"
 ---
 
 ## C Sharp Version Setup

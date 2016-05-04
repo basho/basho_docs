@@ -10,7 +10,10 @@ menu:
     weight: 103
     parent: "developing_getting_started"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/csharp"
+aliases:
+  - /riak/2.1.3/dev/taste-of-riak/csharp
+  - /riak/kv/2.1.3/dev/taste-of-riak/csharp
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/csharp"
 ---
 
 If you haven't set up a Riak Node and started it, please visit [Running A Cluster](/riak/kv/2.1.3/using/running-a-cluster) first.

@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.1.3/ops/running/stats-and-monitoring
   - /riak/kv/2.1.3/ops/running/stats-and-monitoring
-canonical_link: "docs.basho.com/riak/kv/latest/using/reference/statistics-monitoring"
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/reference/statistics-monitoring"
 ---
 
 Riak provides data related to current operating status, which includes
@@ -275,7 +275,7 @@ the [tcollector framework][tcollector].
 
 #### Riemann
 
-[Riemann](http://aphyr.github.com/riemann/) uses a powerful stream
+[Riemann](http://github.com/riemann/riemann/) uses a powerful stream
 processing language to aggregate events from client agents running on
 Riak nodes, and can help track trends or report on events as they occur.
 Statistics can be gathered from your nodes and forwarded to a solution
@@ -357,7 +357,7 @@ Docs](https://github.com/basho/basho_docs).
 * [Nagios](http://www.nagios.org)
 * [OpenTSDB](http://opentsdb.net)
 * [tcollector framework][tcollector]
-* [Riemann](http://aphyr.github.com/riemann/)
+* [Riemann](http://github.com/riemann/riemann/)
 * [Riemann Github](https://github.com/aphyr/riemann)
 * [Zabbix](http://www.zabbix.com)
 * [Circonus](http://circonus.com)

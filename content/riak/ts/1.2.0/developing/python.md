@@ -12,7 +12,7 @@ project_version: "1.2.0"
 toc: true
 aliases:
     - /riakts/1.2.0/developing/python/
-canonical_link: "docs.basho.com/riak/ts/latest/developing/python"
+canonical_link: "https://docs.basho.com/riak/ts/latest/developing/python"
 ---
 
 

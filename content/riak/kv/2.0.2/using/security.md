@@ -12,7 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/ops/advanced/security
-canonical_link: "docs.basho.com/riak/kv/latest/using/security"
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/security"
 ---
 
 > **Internal security**

@@ -10,7 +10,10 @@ menu:
     weight: 105
     parent: "developing_getting_started"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/erlang"
+aliases:
+  - /riak/2.1.1/dev/taste-of-riak/erlang
+  - /riak/kv/2.1.1/dev/taste-of-riak/erlang
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/erlang"
 ---
 
 If you haven't set up a Riak Node and started it, please visit [Running A Cluster](/riak/kv/2.1.1/using/running-a-cluster) first.

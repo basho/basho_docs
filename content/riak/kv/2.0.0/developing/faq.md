@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.0.0/community/faqs/developing
   - /riak/kv/2.0.0/community/faqs/developing
-canonical_link: "docs.basho.com/riak/kv/latest/developing/faq"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/faq"
 ---
 
 <h2>General</h2>
@@ -474,7 +474,7 @@ A:
 
 Q: Is it possible to delete data from Riak with a JavaScript MapReduce job?
 A:
-  This is not currently possible. If you want to delete objects from MapReduce, use an Erlang reduce phase like the one on [contrib.basho.com](http://contrib.basho.com).
+  This is not currently possible. If you want to delete objects from MapReduce, use an Erlang reduce phase like the one on [contrib.basho.com](https://github.com/basho/riak_function_contrib).
 
 Q: Why does MapReduce return a JSON object on occasion instead of an array?
 A:

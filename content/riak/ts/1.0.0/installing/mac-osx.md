@@ -12,12 +12,12 @@ project_version: "1.0.0"
 toc: true
 aliases:
     - /riakts/1.0.0/installing/mac-osx/
-canonical_link: "docs.basho.com/riak/ts/latest/installing/mac-osx"
+canonical_link: "https://docs.basho.com/riak/ts/latest/installing/mac-osx"
 ---
 
 [concept aae]: /riak/kv/2.1.3/learn/concepts/active-anti-entropy
 [perf open files]: /riak/kv/2.1.3/using/performance/open-files-limit
-[planning]: ../using/planning
+[planning]: ../../using/planning
 
 
 Riak TS can be installed on Mac OS X systems using a binary

@@ -233,7 +233,6 @@
       options.jq.navContainer.removeAttr('style');
       options.jq.navContent.removeAttr('style');
       options.jq.header.removeAttr('style');
-      options.jq.watermark.removeAttr('style');
       options.jq.navToggle.removeClass('open, closed');
     }
   }

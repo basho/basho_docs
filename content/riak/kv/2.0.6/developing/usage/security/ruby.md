@@ -14,7 +14,7 @@ toc: true
 aliases:
   - /riak/2.0.6/dev/advanced/client-security/ruby
   - /riak/kv/2.0.6/dev/advanced/client-security/ruby
-canonical_link: "docs.basho.com/riak/kv/latest/developing/usage/security/ruby"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage/security/ruby"
 ---
 
 This tutorial shows you how to set up a Riak Ruby client to authenticate

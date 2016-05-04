@@ -11,7 +11,6 @@ project: "riak_cs"
 project_version: "2.1.1"
 aliases:
   - /riakcs/2.1.1/cookbooks/Monitoring-and-Metrics/
-  - /riak/cs/2.1.1/cookbooks/Monitoring-and-Metrics/
 ---
 
 [amazon]: http://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html
@@ -61,7 +60,7 @@ documentation][amazon].
 >
 >Unsigned requests will yield a <code>403 Forbidden</code> error.
 
-##`riak-cs-admin status`
+## `riak-cs-admin status`
 
 Running `riak-cs-admin status` will show the names and values of all available metrics. 
 
@@ -169,7 +168,7 @@ Operation | Description
 `riakc_get_clusterid` | invoked when for the first time when a proxy_get is performed
 
 
-##`/riak-cs/stats`
+## `/riak-cs/stats`
 
 That will return a JSON object containing a series of latency histograms
 and counters for a variety of operations, e.g. `object_get` and

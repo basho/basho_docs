@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.1.4/dev/taste-of-riak/nodejs
   - /riak/kv/2.1.4/dev/taste-of-riak/nodejs
-canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/nodejs"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/nodejs"
 ---
 
 [introduction.js]: https://github.com/basho/riak-nodejs-client-examples/blob/master/dev/taste-of-riak/introduction.js

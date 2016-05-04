@@ -14,7 +14,7 @@ toc: true
 aliases:
   - /riak/2.1.3/dev/using/libraries
   - /riak/kv/2.1.3/dev/using/libraries
-canonical_link: "docs.basho.com/riak/kv/latest/developing/client-libraries"
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/client-libraries"
 ---
 
 ## Basho-Supported Libraries
@@ -40,9 +40,6 @@ In addition to the official clients, Basho provides some unofficial
 client libraries, listed below. There are also many client libraries and
 related [community projects](/community/projects/).
 
-Language | Source | Documentation
-:--------|:-------|:-------------
-C | [riak-c-client](https://github.com/basho/riak-c-client) | [C Client Documentation](http://basho.github.io/riak-c-client/index.html)
 
 ## Community Libraries
 
@@ -269,9 +266,6 @@ level of maturity and activity.
 
 #### Ruby
 
-* [Shogun](https://github.com/krainboltgreene/shogun) --- A lightweight,
-  powerful Ruby web application framework with first class support for
-  Riak
 * [Risky](https://github.com/aphyr/risky) --- A lightweight Ruby ORM for
   Riak
 * [riak_sessions](http://github.com/igorgue/riak_sessions) ---

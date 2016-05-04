@@ -10,7 +10,7 @@ menu:
     weight: 105
     parent: "configuring"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/configuring/strong-consistency"
+canonical_link: "https://docs.basho.com/riak/kv/latest/configuring/strong-consistency"
 ---
 
 [apps strong consistency]: /riak/kv/2.0.5/developing/app-guide/strong-consistency
@@ -444,7 +444,7 @@ coordinate with followers. This is known as granting a **leader lease**.
 Leader leases are enabled by default, and are disabled (or re-enabled)
 at the cluster level. A more in-depth account of ensemble behavior can
 be found in our [internal
-documentation](https://github.com/basho/riak_ensemble/tree/feature/add-docs/doc).
+documentation](https://github.com/basho/riak_ensemble/tree/develop/doc).
 
 In addition to leaders and followers, ensemble peers use lightweight
 Erlang processes called **workers** to perform long-running K/V

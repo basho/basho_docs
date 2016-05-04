@@ -12,7 +12,7 @@ project_version: "1.1.0"
 toc: true
 aliases:
     - /riakts/1.1.0/developing/nodejs/
-canonical_link: "docs.basho.com/riak/ts/latest/developing/nodejs"
+canonical_link: "https://docs.basho.com/riak/ts/latest/developing/nodejs"
 ---
 
 
@@ -43,7 +43,7 @@ error.
 
 ### Command Details
 
-####`Get`
+#### `Get`
 Retrieve time series value by key.
 
 ```javascript
@@ -74,7 +74,7 @@ client.execute(cmd);
 **Return Type**: response object with `columns` and `rows` properties.
 
 
-####`Store`
+#### `Store`
 Stores time series data in the Riak cluster.
 
 ```javascript
@@ -122,7 +122,7 @@ client.execute(cmd);
 **Return Type**: boolean
 
 
-####`Delete`
+#### `Delete`
 Delete time series value by key.
 
 ```javascript
@@ -153,7 +153,7 @@ client.execute(cmd);
 **Return Type**: boolean
 
 
-####`Query`
+#### `Query`
 Queries time series data in the Riak cluster.
 
 ```javascript
@@ -185,7 +185,7 @@ client.execute(cmd);
 **Return Type**: response object with `columns` and `rows` properties.
 
 
-####`ListKeys`
+#### `ListKeys`
 Lists all keys in a time series table via a stream.
 
 ```javascript

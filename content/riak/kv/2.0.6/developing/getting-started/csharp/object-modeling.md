@@ -11,7 +11,10 @@ menu:
     weight: 102
     parent: "getting_started_csharp"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/developing/getting-started/csharp/object-modeling"
+aliases:
+  - /riak/2.0.6/dev/taste-of-riak/object-modeling-csharp
+  - /riak/kv/2.0.6/dev/taste-of-riak/object-modeling-csharp
+canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/csharp/object-modeling"
 ---
 
 To get started, refer to [this source code][1] for the models that we'll

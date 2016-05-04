@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.0.0/ops/running/nodes/inspecting
   - /riak/kv/2.0.0/ops/running/nodes/inspecting
-canonical_link: "docs.basho.com/riak/kv/latest/using/cluster-operations/inspecting-node"
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/cluster-operations/inspecting-node"
 ---
 
 When inspection of a Riak node to gather metrics on performance or
@@ -219,7 +219,7 @@ Stat                 | Description
 
 CPU statistics are taken directly from Erlang’s cpu_sup module.
 Documentation for which can be found at [ErlDocs:
-cpu_sup](http://erldocs.com/R14B04/os_mon/cpu_sup.html).
+cpu_sup](http://erlang.org/doc/man/cpu_sup.html).
 
 Stat         | Description
 -------------|---------------------------------------------------
@@ -230,7 +230,7 @@ Stat         | Description
 
 Memory statistics are taken directly from the Erlang virtual machine.
 Documentation for which can be found at [ErlDocs:
-Memory](http://erldocs.com/R14B04/erts/erlang.html?i=0&search=erlang:memory#memory/0).
+Memory](http://erlang.org/doc/man/erlang.html#memory-0#memory/0).
 
 Stat                    | Description
 ------------------------|---------------------------------------------------

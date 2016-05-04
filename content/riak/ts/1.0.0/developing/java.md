@@ -12,7 +12,7 @@ project_version: "1.0.0"
 toc: true
 aliases:
     - /riakts/1.0.0/developing/java/
-canonical_link: "docs.basho.com/riak/ts/latest/developing/java"
+canonical_link: "https://docs.basho.com/riak/ts/latest/developing/java"
 ---
 
 
@@ -31,7 +31,7 @@ There are two packages that cover the public API for TS in the Java client.  The
 
 ### Data Types Details
 
-####`Cell`
+#### `Cell`
 Holds a piece of data for a Time Series Row.
 Note: Cells are immutable once created.
 
@@ -58,7 +58,7 @@ There are Cell constructors that accept Strings(Varchar type), Longs(SInt64 type
 There are `has_X` and `get_X` methods for each data type. 
 
 
-####`Row`
+#### `Row`
 Holds a collection of cells. 
 Note: Rows are immutable once created.
 

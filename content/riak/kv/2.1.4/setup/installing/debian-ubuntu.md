@@ -16,7 +16,7 @@ aliases:
   - /riak/kv/2.1.4/ops/building/installing/Installing-on-Debian-and-Ubuntu
   - /riak/2.1.4/installing/debian-ubuntu/
   - /riak/kv/2.1.4/installing/debian-ubuntu/
-canonical_link: "docs.basho.com/riak/kv/latest/setup/installing/debian-ubuntu"
+canonical_link: "https://docs.basho.com/riak/kv/latest/setup/installing/debian-ubuntu"
 ---
 
 [install source index]: /riak/kv/2.1.4/setup/installing/source/
@@ -55,7 +55,7 @@ sources lists, which can be found in the section below.
 > **Note on Debian 7**
 >
 > If you wish to install Riak on Debian 7, you may need to install
-[libc6](://packages.debian.org/search?keywords=libc6) version 2.15 or
+[libc6](https://packages.debian.org/search?keywords=libc6) version 2.15 or
 later, which in turn requires upgrading your system to
 [sid](https://www.debian.org/releases/sid/). Installation instructions
 can be found

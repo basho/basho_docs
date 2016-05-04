@@ -7,7 +7,28 @@ menu:
     identifier: "community_overview"
     weight: 600
     pre: icon-comments
-canonical_link: "docs.basho.com/community/"
+aliases:
+  - /riak/latest/community
+  - /riak/2.1.4/community
+  - /riak/2.1.3/community
+  - /riak/2.1.1/community
+  - /riak/2.0.6/community
+  - /riak/2.0.5/community
+  - /riak/2.0.4/community
+  - /riak/2.0.2/community
+  - /riak/2.0.1/community
+  - /riak/2.0.0/community
+  - /riak/kv/latest/community
+  - /riak/kv/2.1.4/community
+  - /riak/kv/2.1.3/community
+  - /riak/kv/2.1.1/community
+  - /riak/kv/2.0.6/community
+  - /riak/kv/2.0.5/community
+  - /riak/kv/2.0.4/community
+  - /riak/kv/2.0.2/community
+  - /riak/kv/2.0.1/community
+  - /riak/kv/2.0.0/community
+canonical_link: "https://docs.basho.com/community/"
 ---
 
 [community projects]: /community/projects
@@ -96,7 +117,7 @@ A healthy community includes the right amount of processes for everyone to work 
 ### Give Back
 A Community is built around the code to help foster its growth, maturity, and adoption. Like the code, it needs to evolve, and unless it’s moving forward and being refined continuously, it ceases to be valuable.
 
-You can give back as a member of our community by contributing to our public project: [The Riak Community](https://github.com/basho-labs/the-riak-community). You can help define [our Meetup strategy](https://github.com/basho-labs/the-riak-community/blob/master/meetup-strategy.md) and [Code of Conduct](https://github.com/basho-labs/the-riak-community/blob/master/code-of-conduct.md) or [open GitHub issues](https://github.com/basho-labs/the-riak-community/issues) for other requests.
+You can give back as a member of our community by contributing to our public project: [The Riak Community](https://github.com/basho-labs/the-riak-community). You can help define [our Meetup strategy](https://github.com/basho-labs/the-basho-community/blob/master/strategy/meetup-strategy.md) and [Code of Conduct](https://github.com/basho-labs/the-riak-community/blob/master/code-of-conduct.md) or [open GitHub issues](https://github.com/basho-labs/the-riak-community/issues) for other requests.
 
 And thank you. We’re happy you’re here.
 

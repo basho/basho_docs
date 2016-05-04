@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.1.3/dev/data-modeling/
   - /riak/kv/2.1.3/dev/data-modeling/
-canonical_link: "docs.basho.com/riak/kv/latest/learn/use-cases"
+canonical_link: "https://docs.basho.com/riak/kv/latest/learn/use-cases"
 ---
 
 
@@ -353,11 +353,6 @@ pieces of information useful for later retrieval.
 ### Articles et al Community Examples
 
 <table class="links">
-  <tr>
-    <td><a href="http://blog.clipboard.com/2012/03/18/0-Milking-Performance-From-Riak-Search" class="vid_img" target="_blank"><img src="/images/milking-perf-from-riak.png" title="Milking Performance"></a>
-    </td>
-    <td>Clipboard on <a href="http://blog.clipboard.com/2012/03/18/0-Milking-Performance-From-Riak-Search" target="_blank">storing and searching data in Riak.</a>
-  </tr>
   <tr>
     <td><a href="http://media.basho.com/pdf/Linkfluence-Case-Study-v2-1.pdf" class="vid_img" link target="_blank"><img src="/images/linkfluence-case-study.png" title="Milking Performance"></a>
     </td>

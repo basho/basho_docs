@@ -13,7 +13,7 @@ toc: true
 aliases:
   - /riak/2.1.4/ops/advanced/configs/load-balanacing-proxy/
   - /riak/kv/2.1.4/ops/advanced/configs/load-balanacing-proxy/
-canonical_link: "docs.basho.com/riak/kv/latest/configuring/load-balancing-proxy"
+canonical_link: "https://docs.basho.com/riak/kv/latest/configuring/load-balancing-proxy"
 ---
 
 [perf open files]: /riak/kv/2.1.4/using/performance/open-files-limit
@@ -167,7 +167,7 @@ echo "enable server <backend>/<riak_node>" | socat stdio /etc/haproxy/haproxysoc
 Consult the following HAProxy documentation resources for more
 information on configuring HAProxy in your environment:
 
-* [HAProxy Documentation](http://code.google.com/p/haproxy-docs/w/list)
+* [HAProxy Documentation](http://developers.google.com/s/results/?q=haproxy)
 * [HAProxy Architecture](http://haproxy.1wt.eu/download/1.2/doc/architecture.txt)
 
 ## Nginx
