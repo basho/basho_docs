@@ -20,7 +20,7 @@ Released May 4, 2016.
 
 Riak TS 1.3.0 is open source! In addition to becoming OSS, version 1.3.0 introduces a broad range of new functionality including: an HTTP API, additional SQL commands, and relaxed key restrictions. It also includes fullsync Multi-Datacenter (MDC) replication for our Enterprise users.
 
-We've also added AWS AMI support. You can find instructions for installing Riak TS on AWS [here](http://docs.basho.com/riak/ts/1.2.0/installing/aws/).
+We've also added AWS AMI support. You can find instructions for installing Riak TS on AWS [here](http://docs.basho.com/riak/ts/1.3.0/installing/aws/).
 
 
 ## New Features
@@ -43,7 +43,7 @@ We've also added AWS AMI support. You can find instructions for installing Riak 
     * [[PR #1364](https://github.com/basho/riak_kv/pull/1364)]
     * [[riak_ql PR #110](https://github.com/basho/riak_ql/pull/110)]
     * [[riak_shell PR #25](https://github.com/basho/riak_shell/pull/25)]
-* The relaxed key restrictions mean the family and series keys are no longer required, making TS table schemas more flexible and customizing the data you store and how you store even easier. 
+* The relaxed key restrictions mean the family and series keys are no longer required, which makes TS table schemas more flexible, and makes customizing the data you store and how you store even easier. 
     * [[PR #1357](https://github.com/basho/riak_kv/pull/1357)]
     * [[riak_ql PR #108](https://github.com/basho/riak_ql/pull/108)]
 * TS now supports MDC fullsync replication on TS tables. At this time, MDC support in TS does not include AAE fullsync. To use MDC, you will need to create your TS tables in your clusters and then [configure](http://http://docs.basho.com/riak/ts/1.3.0/using/mdc/) MDC. 
@@ -61,8 +61,8 @@ We've also added AWS AMI support. You can find instructions for installing Riak 
 
 ## Changes
 
-*  AWS AMI is now available. You can find instructions for installing Riak TS on AWS [here](http://docs.basho.com/riak/ts/1.2.0/installing/aws/). [[PR #89](https://github.com/basho/aws-ansible/pull/89)]
-* riak_shell has had several changes:  the `command` record (which includes result) has been added, optional debugging has been added to exceptions, and SQL commands are allowed to span multiple lines. [[PR #23](https://github.com/basho/riak_shell/pull/23)]
+*  AWS AMI is now available. You can find instructions for installing Riak TS on AWS [here](http://docs.basho.com/riak/ts/1.3.0/installing/aws/). [[PR #89](https://github.com/basho/aws-ansible/pull/89)]
+* riak shell has had several changes:  the `command` record (which includes result) has been added, optional debugging has been added to exceptions, and SQL commands are allowed to span multiple lines. [[PR #23](https://github.com/basho/riak_shell/pull/23)]
 * Several changes have been made to facilitate rolling upgrades/downgrades in future releases:
     * The DDL compiler has been updated to facilitate rolling upgrade/downgrade functionality in future releases. [[riak_ql PR #115](https://github.com/basho/riak_ql/pull/115)]
     * On startup, the Riak node will walk through the riak_kv_compile DETS table and force a recompile, which will help facilitate rolling upgrade/downgrade functionality in future releases. [[PR #1377](https://github.com/basho/riak_kv/pull/1377)]
@@ -73,12 +73,12 @@ We've also added AWS AMI support. You can find instructions for installing Riak 
 * module_info calls have been removed from riak_core_coverage_fsm:init() to speed up small queries. [[PR #829](https://github.com/basho/riak_core/pull/829)]
 
 
-##Bugfixes
+## Bugfixes
 
 * [[Issue #29](https://github.com/basho/riak_ee-issues/issues/29)/[PR #111](https://github.com/basho/riak_ql/pull/111)] The quantum time period was not validated correctly. Validation of the partition key has been added to ensure only one quantum (if any) is specified during table creation, as specifying more than one causes errors.
 * [[PR #1372](https://github.com/basho/riak_kv/pull/1372)] A bug manifested when using '>' with a right side value one less that the quanta boundary.
 * [[PR #1377](https://github.com/basho/riak_kv/pull/1377)] Fix DETs to accomodate downgrades.
-* [[PR #1354](https://github.com/basho/riak_kv/pull/1354)] Negation of an aggregate function returned an error. Negation of an aggregate function is now allowed.
+* [[PR #1354](https://github.com/basho/riak_kv/pull/1354)] Negation of an aggregate function returned an error, but is now allowed.
 
 
 ## Compatibility
@@ -90,7 +90,7 @@ Riak TS is compatible with the following:
 * Ubuntu 12.04 LTS
 * Ubuntu 14.04 LTS
 * Debian 7 (development only)
-* OSX 10.8+ (development only)
+* OS X 10.8+ (development only)
 * AWS Marketplace
 
 

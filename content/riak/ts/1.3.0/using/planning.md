@@ -53,19 +53,19 @@ CREATE TABLE GeoCheckin
 While the keywords appear in all uppercase letters here, they can be specified using lowercase or uppercase letters as they are not case sensitive.
 
 
-#### Fields
+#### Column Definitions
 
-Fields refer to the items preceding the `PRIMARY KEY`. Field names (`region`, `state`, etc) must be ASCII strings, in addition to having the correct case. If field names need to contain spaces or punctuation they can be double quoted.
-
-Field names define the structure of the data, taking the format:
+Column definitions are the lines preceding the `PRIMARY KEY` in the example. Column definitions define the structure of the data. They are comprised of three parts: a column name, a data type, and (optionally) an inline constraint. 
 
 ```sql
-name type [NOT NULL],
+column_name data_type [NOT NULL],
 ```
 
-Fields specified as part of the primary key must be defined as `NOT NULL`.
+Column names (`region`, `state`, etc) must be ASCII strings, in addition to having the correct case. If column names need to contain spaces or punctuation they can be double quoted.
 
-The field definitions for the keys can be specified in any order in the `CREATE TABLE` statement. For instance both are correct:
+Any column names specified as part of the primary key must be defined as `NOT NULL`.
+
+The column definitions for the keys can be specified in any order in the `CREATE TABLE` statement. For instance both are correct:
 
 **A.**
 ```sql
@@ -99,18 +99,18 @@ CREATE TABLE GeoCheckin
 )
 ```
 
-The types associated with fields are limited. Valid types are:
+The data types in column definitions are limited. Valid types are:
 
 * `VARCHAR` - Any string content is valid, including Unicode. Can only be compared using strict equality, and will not be typecast (e.g., to an integer) for comparison purposes. Use single quotes to delimit varchar strings.
 * `BOOLEAN` - `true` or `false` (any case)
-* `TIMESTAMP` - Timestamps are integer values expressing [UNIX epoch time in UTC][epoch] in **milliseconds**. Zero is not a valid timestamp.
+* `TIMESTAMP` - Timestamps are integer values expressing [UNIX epoch time in UTC][epoch] in milliseconds. Zero is not a valid timestamp.
 * `SINT64` - Signed 64-bit integer
 * `DOUBLE` - This type does not comply with its IEEE specification: `NaN` (not a number) and `INF` (infinity) cannot be used.
 
 
 ### Primary Key
 
-The `PRIMARY KEY` describes both the partition and local keys. The partition key is a prefix of the local key, consisting of one or more fields. The local key must begin with the same fields as the partition key, but may have more fields.
+The `PRIMARY KEY` describes both the partition key and local key. The partition key is a prefix of the local key, consisting of one or more column names. The local key must begin with the same column names as the partition key, but may also contain additional column names.
 
 ```sql
 CREATE TABLE GeoCheckin
@@ -164,15 +164,15 @@ CREATE TABLE GeoCheckin
 
 #### Partition Key
 
-The partition key is the first key, and is defined as the named fields in parentheses. The partition key must have at least one field.
+The partition key is the first element of the primary key, and is defined as a list of  column names and quantum in parentheses. The partition key must have at least one column name and a quantum.
 
-You can use a quantum to colocate data on one of the partition key's timestamp fields:
+The quantum is used to colocate data on one of the partition key's timestamp fields:
 
 ```sql
 PRIMARY KEY  ((region, state, QUANTUM(time, 1, 's')), ...)
 ```
 
-A maximum of one quantum function can be specified and it must be the last element of the partition key.
+Only one quantum function may be specified and it must be the last element of the partition key.
 
 The quantum function takes 3 parameters:
 
@@ -184,13 +184,13 @@ The quantum function takes 3 parameters:
   * `'m'` - minutes
   * `'s'` - seconds
 
-A general guideline to get you started if you are not sure how best to structure your partition key is: make the first field a class or type of data and the second field a specific instance(s) of the class/type.
+A general guideline to get you started if you are not sure how best to structure your partition key is to first choose a column name that represents a class or type of data, and then choose a  second column name represents is a more specific instance(s) of the class/type.
 
 #### Local Key
 
-The local key comes after the partition key. It must first contain the same fields in the same order as the partition key. This ensures that the same fields determining your data's partition also dictate the sorting of the data within that partition.
+The local key comes after the partition key. It must first contain the same column names in the same order as the partition key. This ensures that the same column names determining your data's partition also dictate the sorting of the data within that partition.
 
-The local key may also contain additional fields so long as they come after the fields present in the partition key. For example:
+The local key may also contain additional column names so long as they come after the column names present in the partition key. For example:
 
 ```sql
    PRIMARY KEY (
@@ -210,9 +210,9 @@ DESCRIBE GeoCheckin
 
 The `DESCRIBE` statement will return the following:
 
-* **Column**, field name;
-* **Type**, field type;
-* **Is Null**, _true_ is the field is optional, _false_ otherwise;
+* **Column**, column name;
+* **Type**, data type;
+* **Is Null**, _true_ if the field is optional, _false_ otherwise;
 * **Primary Key**, position of this field in the primary key, or blank if it does not appear in the key;
 * **Local Key**, position of this field in the local key, or blank if it does not appear in the key.
 
@@ -221,7 +221,7 @@ The `DESCRIBE` statement will return the following:
 
 Still unsure how best to structure your Riak TS table? Check out our [best practice recommendations][bestpractices].
 
-Confused about fields, primary key, etc? Check out [Table Architecture][table arch] for an in-depth explanation of TS tables.
+Confused about column definition, primary key, etc? Check out [Table Architecture][table arch] for an in-depth explanation of TS tables.
 
 
 ## Next Steps

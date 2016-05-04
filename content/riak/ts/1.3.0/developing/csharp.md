@@ -29,7 +29,7 @@ The `RiakClient.Commands.TS` namespace covers the public API for Riak TS in the 
 
  * `Cell` - Holds a single piece of data. 
  * `Row` - Holds a collection of Cells.
- * `Column` - A metadata description of a column in a Riak TS table.
+ * `Column` - A metadata description of a column definition in a Riak TS table.
 
 
 ### Data Type Details
@@ -72,7 +72,7 @@ A row contains a collection of cells.
 
 #### `Column`
 
-The column is a metadata description of a column in a Riak TS table, and contains both a column name and type.
+The column is a metadata description of a column definition in a Riak TS table, and contains both a column name and type.
 
 
 ##### Constructor
@@ -113,7 +113,7 @@ To execute any command, you must have an instance of a `RiakClient` object. You 
 
 #### `Delete`
 
-Deletes a single row by it's key values.
+Deletes a single row by its key values.
 
 
 ##### Builder
@@ -166,7 +166,7 @@ The builder takes the table name to list keys from:
 
  * `WithTable(string table)`
 
-You may also specify a callback that will be called every time data is available from the streaming operation. If no callback is specified rows will be buffered completely in memory until the operation completes:
+You may also specify a callback that will be called everytime data is available from the streaming operation. If no callback is specified rows will be buffered completely in memory until the operation completes:
 
  * `WithCallback(Action<ListKeysResponse> callback)`
 

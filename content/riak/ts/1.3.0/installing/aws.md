@@ -17,7 +17,7 @@ canonical_link: "docs.basho.com/riak/ts/latest/installing/rhel-centos"
 
 
 [AWS]: http://aws.amazon.com
-[download]: /riak/ts/1.3.0/downloads
+[download]: ../../downloads/
 [ec2 guide]: http://docs.amazonwebservices.com/AWSEC2/latest/UserGuide/AccessingInstances.html
 [security basics]: /riak/kv/2.1.4/using/security/basics
 
@@ -108,9 +108,9 @@ You can find more information on connecting to an instance on the official [Amaz
 You now have a Riak cluster running on AWS.
 
 
-## Configure riak_shell
+## Configure riak shell
 
-In order to function, riak_shell must know about each node in the cluster.
+In order to function, riak shell must know about each node in the cluster.
 
 1. On each node, obtain the internal IP addresses:
     ```bash
@@ -139,7 +139,7 @@ In order to function, riak_shell must know about each node in the cluster.
     sudo riak-shell
     ```
 
-    You should see a riak_shell prompt:
+    You should see a riak shell prompt:    
     ```bash
     [ec2-user ~]$ sudo riak-shell 
     Erlang R16B02_basho10 (erts-5.10.3) [source] [64-bit] [smp:2:2] [async-threads:10] [hipe] [kernel-poll:false] [frame-pointer]
@@ -157,4 +157,4 @@ In order to function, riak_shell must know about each node in the cluster.
     riak-shell(2)>
     ```
 
-riak_shell is now configured and ready for use.
+riak shell is now configured and ready for use.

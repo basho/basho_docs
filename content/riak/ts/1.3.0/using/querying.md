@@ -19,6 +19,7 @@ canonical_link: "docs.basho.com/riak/ts/latest/using/querying"
 [table arch]: ../../learn-about/tablearchitecture
 [activating]: ../creating-activating/
 [writing]: ../writingdata/
+[planning]: ../planning#column-definitions
 
 
 Now that you have [created][activating] a Riak TS table and [written][writing] data to it, you can query your data.
@@ -26,7 +27,7 @@ Now that you have [created][activating] a Riak TS table and [written][writing] d
 
 ## Basic Querying
 
-You query data via columns. There are three categories of column, each with a different set of rules for valid queries. Query columns are based on fields in your TS table.
+You query data via columns. There are three categories of column, each with a different set of rules for valid queries. Query columns are based on rows in your TS table.
 
 ```
 CREATE TABLE tab2(
@@ -52,7 +53,7 @@ The timestamp in the partition key is an integer (in milliseconds) that must be 
 
 ### Local Key
 
-Fields that are in the local key but not in the partition key are not required for the query.
+Column names that are in the local key but not in the partition key are not required for the query.
 
 ```
 PRIMARY KEY ((a,b),a,b,c)
@@ -60,7 +61,7 @@ PRIMARY KEY ((a,b),a,b,c)
 
 Here 'c' is in the local key only so does not have to be in the query.
 
-Columns from the local key must be compared using strict equality against literal values. No ranges are permitted, `!=` must not be used, and `or` will not work.
+Column names from the local key must be compared using strict equality against literal values. No ranges are permitted, `!=` must not be used, and `or` will not work.
 
 * Valid: `country_code = 'uk'`
 * Invalid: `(country_code = 'uk' or country_code = 'de')`
@@ -68,9 +69,9 @@ Columns from the local key must be compared using strict equality against litera
 * Invalid: `temperature < 85.0`
 
 
-### Columns
+### Column Definitions
 
-Columns pertaining to the fields prior to the primary key may be queried with unbounded ranges, `!=`, and `or` comparisons.
+[Column definitions][planning] may be queried with unbounded ranges, `!=`, and `or` comparisons.
 
 
 ### General Guidelines

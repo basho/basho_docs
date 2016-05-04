@@ -15,9 +15,9 @@ aliases:
 canonical_link: "docs.basho.com/riak/ts/latest/installing/rhel-centos"
 ---
 
-[download]: /riak/ts/1.3.0/downloads
+[download]: ../../downloads/
 [openfileslimit]: /riak/kv/2.1.4/using/performance/open-files-limit
-[planning]: /riak/ts/1.3.0/using/planning
+[planning]: ../../using/planning/
 
 
 Riak TS can be installed on CentOS-based systems using a binary

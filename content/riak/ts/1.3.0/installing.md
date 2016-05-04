@@ -20,7 +20,7 @@ canonical_link: "docs.basho.com/riak/ts/latest/installing"
 [concept aae]: /riak/kv/2.1.3/learn/concepts/active-anti-entropy
 [Centos]: rhel-centos/
 [Debian]: debian-ubuntu/
-[download]: /riak/ts/latest/downloads
+[download]: ../downloads/
 [OSX]: mac-osx/
 [Ubuntu]: debian-ubuntu/
 
@@ -41,4 +41,4 @@ Riak TS is also available on [AWS Marketplace][AWS].
 
 >**Upgrade Note:** 
 >
->Riak TS is a complete, standalone product. Upgrading from Riak KV to Riak TS is not currently supported.
+>Riak TS is a complete, standalone product. Upgrading from Riak KV to Riak TS is not supported.

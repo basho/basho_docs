@@ -20,7 +20,7 @@ You can develop applications and tools using Riak TS with the Riak Node.js clien
 This document covers the Node.js API for Riak TS.
 
 
-##Overview
+## Overview
 
 To use Riak TS with Node.js, we've added several new commands in
 the `Riak.Commands.TS` namespace.
@@ -30,25 +30,26 @@ The examples on this page will assume you are using the following table schema:
 ```sql
 CREATE TABLE GeoCheckin
 (
-   region       varchar   not null,
-   state        varchar   not null,
-   time         timestamp not null,
-   weather      varchar not null,
-   temperature  double,
+   region       VARCHAR   NOT NULL,
+   state        VARCHAR   NOT NULL,
+   time         TIMESTAMP NOT NULL,
+   weather      VARCHAR NOT NULL,
+   temperature  DOUBLE,
    PRIMARY KEY (
-     (region, state, quantum(time, 15, 'm')), /* <-- PARTITION KEY */
-     region, state, time /* <-- LOCAL KEY */
+     (region, state, QUANTUM(time, 15, 'm')),
+     region, state, time
    )
 )
 ```
 
-##TS Commands
+
+## TS Commands
 
 >**Note:** These commands are automatically retried if they fail due to network
 error.
 
 
-###Commands
+### Commands
 
  * `Get`    - Fetch a single row based on the primary key values provided.
  * `Store`  - Store 1 or more rows to a Riak TS table.
@@ -56,11 +57,12 @@ error.
  * `Query`  - Allows you to query a Riak TS table with the given query string.
  * `ListKeys` - Lists the primary keys of all the rows in a Riak TS table.
 
-###Command Details
 
-####`Get`
+### Command Details
 
-Retrieve time series value by key.
+#### `Get`
+
+Retrieve TS value by key.
 
 ```javascript
 var Riak = require('basho-riak-client');
@@ -84,13 +86,13 @@ client.execute(cmd);
 
 |Builder Method | Type    | Description                 |
 |---------------|---------|-----------------------------|
-|`withTable`    | string  | The time series table name  |
-|`withKey`      | array   | The time series value's key |
+|`withTable`    | string  | The TS table name  |
+|`withKey`      | array   | The TS value's key |
 
 **Return Type**: response object with `columns` and `rows` properties.
 
 
-####`Store`
+#### `Store`
 
 Stores time series data in the Riak cluster.
 
@@ -133,15 +135,15 @@ client.execute(cmd);
 
 |Builder Method | Type   | Description                |
 |---------------|--------|----------------------------|
-|`withTable`    | string | The time series table name |
+|`withTable`    | string | The TS table name |
 |`withRows`     | array  | The time series data       |
 
 **Return Type**: boolean
 
 
-####`Delete`
+#### `Delete`
 
-Delete time series value by key.
+Delete TS value by key.
 
 ```javascript
 var Riak = require('basho-riak-client');
@@ -165,13 +167,13 @@ client.execute(cmd);
 
 |Builder Method | Type    | Description                 |
 |---------------|---------|-----------------------------|
-|`withTable`    | string  | The time series table name  |
-|`withKey`      | array   | The time series value's key |
+|`withTable`    | string  | The TS table name  |
+|`withKey`      | array   | The TS value's key |
 
 **Return Type**: boolean
 
 
-####`Query`
+#### `Query`
 
 Queries time series data in the Riak cluster.
 
@@ -198,14 +200,15 @@ client.execute(cmd);
 
 |Builder Method | Type    | Description                 |
 |---------------|---------|-----------------------------|
-|`withTable`    | string  | The time series table name  |
-|`withQuery`    | string  | The time series query       |
+|`withTable`    | string  | The TS table name  |
+|`withQuery`    | string  | The TS query       |
 
 **Return Type**: response object with `columns` and `rows` properties.
 
 
-####`ListKeys`
-Lists all keys in a time series table via a stream.
+#### `ListKeys`
+
+Lists all keys in a TS table via a stream.
 
 ```javascript
 var Riak = require('basho-riak-client');
@@ -230,7 +233,7 @@ cluster.execute(cmd);
 
 |Builder Method | Type    | Description                                       |
 |---------------|---------|---------------------------------------------------|
-|`withTable`    | string  | The time series table name                        |
+|`withTable`    | string  | The TS table name                        |
 |`withStreaming`| boolean | `true` if you would like callback per-key chunk   |
 |`withTimeout`  | integer | Timeout in milliseconds for the list keys command |
 

@@ -121,7 +121,7 @@ Please take care with the following:
 * It is easy to create a very long bucket type name with no corresponding
   TS table if you leave out the space between the bucket type name
   and the opening quote of the JSON properties.
-* The table and field names are currently constrained to ASCII.
+* The table and column names are currently constrained to ASCII.
 
 Also note that if you discover something wrong with the setup of your Data Definition Language (DDL), you will need to create it again and decide whether to scrap the data in the existing table or move it from the old table to the new one.
 

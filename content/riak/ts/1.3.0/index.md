@@ -16,9 +16,9 @@ canonical_link: "docs.basho.com/riak/ts/latest"
 ---
 
 
-[download]: /riak/ts/1.3.0/downloads
-[installing]: /riak/ts/1.3.0/installing
-[learnabout]: /riak/ts/1.3.0/learn-about
+[download]: downloads/
+[installing]: installing/
+[learnabout]: learn-about/
 
 
 Riak TS is a distributed NoSQL key/value store optimized for time series data. With TS, you can associate a number of data points with a specific point in time. Time quantization says “group data by 15 minute clumps, or 10 second clumps, or 60 day clumps” depending on how quickly your time series data come in and how you need to analyze them. For example, you can store humidity and temperature readings from a meter together.

@@ -58,7 +58,7 @@ sudo yum install -y python-setuptools python-devel libffi-devel openssl-deve
 
 #### Get
 
-Retrieve time series value by key.
+Retrieve TS value by key.
 
 `ts_get(table, key)`
 
@@ -66,8 +66,8 @@ Retrieve time series value by key.
 
 |Parameter| Parameter Type                             | Description                 |
 |---------|--------------------------------------------|-----------------------------|
-|`table`  | string or class `Table <riak.table.Table>` | The time series table.       |
-|`key  `  | list or dict                               | The time series value's key. |
+|`table`  | string or class `Table <riak.table.Table>` | The TS table.       |
+|`key  `  | list or dict                               | The TS value's key. |
 
 **Return Type**: class `TsObject <riak.ts_object.TsObject>`
 
@@ -82,14 +82,14 @@ Stores time series data in the Riak TS cluster.
 
 |Parameter| Parameter Type       | Description                      |
 |---------|----------------------|----------------------------------|
-|`tsobj`  | class `RiakTsObject` | The time series object to store. |
+|`tsobj`  | class `RiakTsObject` | The TS object to store. |
 
 **Return Type**: boolean
 
 
 #### Delete
 
-Delete time series value by key.
+Delete TS value by key.
 
 `ts_delete(table, key)`
 
@@ -97,8 +97,8 @@ Delete time series value by key.
 
 |Parameter| Parameter Type                             | Description                 |
 |---------|--------------------------------------------|-----------------------------|
-|`table`  | string or class `Table <riak.table.Table>` | The time series table.       |
-|`key  `  | list or dict                               | The time series value's key. |
+|`table`  | string or class `Table <riak.table.Table>` | The TS table.       |
+|`key  `  | list or dict                               | The TS value's key. |
 
 **Return Type**: boolean
 
@@ -113,8 +113,8 @@ Queries time series data in the Riak cluster.
 
 |Parameter| Parameter Type                             | Description          |
 |---------|--------------------------------------------|----------------------|
-|`table`  | string or class `Table <riak.table.Table>` | The timeseries table.|
-|`query`  | string                                     | The timeseries query.|
+|`table`  | string or class `Table <riak.table.Table>` | The TS table.|
+|`query`  | string                                     | The TS query.|
 
 **Return Type**: Class `TsObject <riak.ts_object.TsObject>`
 
@@ -122,11 +122,8 @@ Queries time series data in the Riak cluster.
 #### Stream ListKeys
 
 Lists all keys in a Riak TS table via a stream. This is a
-generator method which should be iterated over. The caller should explicitly close the returned iterator,
-either using :func:`contextlib.closing` or calling `close()`
-explicitly. Consuming the entire iterator will also close the
-stream. If it does not, the associated connection might
-not be returned to the pool. 
+generator method which should be iterated over. The caller should explicitly close the returned iterator, either using :func:`contextlib.closing` or calling `close()`
+explicitly. Consuming the entire iterator will also close the stream. If it does not, the associated connection might not be returned to the pool. 
 
 `riak.client.RiakClient:ts_stream_keys(table, timeout=None)`
 

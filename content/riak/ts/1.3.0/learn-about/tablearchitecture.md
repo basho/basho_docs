@@ -1,6 +1,6 @@
 ---
 title: "Architecture of Riak TS Tables"
-description: "Advanced Planning Riak TS Tables"
+description: "TS Tables Architecture"
 menu:
   riak_ts-1.3.0:
     name: "Table Architecture "
@@ -25,12 +25,14 @@ canonical_link: "docs.basho.com/riak/ts/latest/learn-about/tablearchitecture"
 
 This page provides more in-depth information about how Riak TS tables are structured.
 
-If you just want to get started creating a table in Riak TS, check out our quick guide to [planning your Riak TS table][planning]. You may also be interested in [more information about SQL in Riak TS][sql].
+If you just want to get started creating a table in Riak TS, check out our quick guide to [planning your Riak TS table][planning]. 
+
+You may also be interested in [more information about SQL in Riak TS][sql].
 
 
 ## Riak TS Tables
 
-With Riak TS, you no longer have to build your own time series database on Riak KV. Instead, Riak TS integrates SQL structure and functionality with Riak KV key/value storage. It does this through Riak TS tables, that you customize to fit your time series data and the needs of your workflow.
+With Riak TS, you no longer have to build your own time series database on Riak KV. Instead, Riak TS integrates SQL structure and functionality with Riak KV key/value storage. It does this through Riak TS tables that you customize to fit your time series data and the needs of your workflow.
 
 
 ## Basic Structure of a Riak TS Table
@@ -46,7 +48,7 @@ Partition keys use *time quantization* to group data that will be queried togeth
 
 In order to query TS data, data is structured using a specific schema. The schema defines what data can be stored in a TS table and what type it has. Queries can then be written against that schema and the TS query system can validate and execute them.
 
-We have combined the definition of the various keys and the data schema into a single SQL-like statement. The query language is a subset of SQL, so you will use the field names and the table name in those queries; SQL conventions such as case sensitivity hold.
+We have combined the definition of the various keys and the data schema into a single SQL-like statement. The query language is a subset of SQL, so you will use the column names and the table name in those queries; SQL conventions such as case sensitivity hold.
 
 Riak TS tables have a one-to-one mapping with Riak KV bucket types.
 
@@ -56,9 +58,9 @@ Riak TS tables have a one-to-one mapping with Riak KV bucket types.
 ```sql
 CREATE TABLE GeoCheckin
 (
-   region    VARCHAR   NOT NULL,                     -
-   state     VARCHAR   NOT NULL,                      |
-   time        TIMESTAMP NOT NULL,                    |  --> Columns
+   region      VARCHAR   NOT NULL,                   -
+   state       VARCHAR   NOT NULL,                    |
+   time        TIMESTAMP NOT NULL,                    |  --> Column Definitions
    weather     VARCHAR   NOT NULL,                    |
    temperature DOUBLE,                               _
    PRIMARY KEY (
@@ -69,58 +71,91 @@ CREATE TABLE GeoCheckin
 ```
 
 
-### Fields
+### Column Definitions
 
-Fields, also called columns, refer to the items before the `PRIMARY KEY`. Field names (`region`, `state`, etc) must be ASCII strings, in addition to having the correct case. If field names need to contain spaces or punctuation they can be double quoted.
-
-Field names define the structure of the data, taking the format:
+Column definitions are the lines preceding the `PRIMARY KEY` in the example. Column definitions define the structure of the data. They are comprised of three parts: a column name, a data type, and (optionally) an inline constraint. 
 
 ```sql
-name TYPE [NOT NULL],
+column_name data_type [NOT NULL],
 ```
 
-Fields specified as part of the primary key must be defined as `NOT NULL`.
+Column names (`region`, `state`, etc) must be ASCII strings, in addition to having the correct case. If column names need to contain spaces or punctuation they can be double quoted.
 
-The types associated with fields are limited. Valid types are:
+Any column names specified as part of the primary key must be defined as `NOT NULL`.
 
-* `VARCHAR`
-  * Any string content is valid, including Unicode. Can only be compared using strict equality, and will not be typecast (e.g., to an integer) for comparison purposes. Use single quotes to delimit varchar strings.
-* `BOOLEAN`
-  * `true` or `false` (any case)
-* `TIMESTAMP`
-  * Timestamps are integer values expressing [UNIX epoch time in UTC](https://en.wikipedia.org/wiki/Unix_time) in **milliseconds**. Zero is not a valid timestamp.
-* `SINT64`
-  * Signed 64-bit integer
-* `DOUBLE`
-  * This type does not comply with its IEEE specification: `NaN` (not a number) and `INF` (infinity) cannot be used.
+The column definitions for the keys can be specified in any order in the `CREATE TABLE` statement. For instance both are correct:
+
+**A.**
+```sql
+CREATE TABLE GeoCheckin
+(
+   region       VARCHAR   NOT NULL,
+   state        VARCHAR   NOT NULL,
+   time         TIMESTAMP NOT NULL,
+   weather      VARCHAR   NOT NULL,
+   temperature  DOUBLE,
+   PRIMARY KEY (
+     (region, state, QUANTUM(time, 15, 'm')),
+      region, state, time
+   )
+)
+```
+
+**B.**
+```sql
+CREATE TABLE GeoCheckin
+(
+   time         TIMESTAMP NOT NULL,
+   state        VARCHAR   NOT NULL,
+   weather      VARCHAR   NOT NULL,
+   region       VARCHAR   NOT NULL,
+   temperature  DOUBLE,
+   PRIMARY KEY (
+     (region, state, QUANTUM(time, 15, 'm')),
+      region, state, time
+   )
+)
+```
+
+The data types in column definitions are limited. Valid types are:
+
+* `VARCHAR` - Any string content is valid, including Unicode. Can only be compared using strict equality, and will not be typecast (e.g., to an integer) for comparison purposes. Use single quotes to delimit varchar strings.
+* `BOOLEAN` - `true` or `false` (any case)
+* `TIMESTAMP` - Timestamps are integer values expressing [UNIX epoch time in UTC][epoch] in milliseconds. Zero is not a valid timestamp.
+* `SINT64` - Signed 64-bit integer
+* `DOUBLE` - This type does not comply with its IEEE specification: `NaN` (not a number) and `INF` (infinity) cannot be used.
 
 
 ### Primary Key
 
-The `PRIMARY KEY` describes both the partition & local keys and the SQL syntax to define them.
+The `PRIMARY KEY` describes both the partition key and local key. The partition key is a prefix of the local key, consisting of one or more column names. The local key must begin with the same column names as the partition key, but may also contain additional column names.
 
 
 #### Partition Key
 
-The partition key is the first key, and is defined as the named fields in parentheses. The partition key must have **at least one** field.
 
-You can use a quantum to colocate data on one of the partition key's timestamp fields:
+The partition key is the first element of the primary key, and is defined as a list of  column names and quantum in parentheses. The partition key must have at least one column name and a quantum.
+
+The quantum is used to colocate data on one of the partition key's timestamp fields:
 
 ```sql
-(region, state, QUANTUM(time, 15, 'm')),
+PRIMARY KEY  ((region, state, QUANTUM(time, 1, 's')), ...)
 ```
 
-A maximum of one quantum function can be specified and it must be the last element of the paritition key.
+Only one quantum function may be specified and it must be the last element of the partition key.
 
 The quantum function takes 3 parameters:
 
 * the name of a field in the table definition of type `TIMESTAMP`
 * a quantity as a positive integer, greater than zero.
-* a unit of time (must be lower case):
+* a unit of time:
   * `'d'` - days
   * `'h'` - hours
   * `'m'` - minutes
   * `'s'` - seconds
+
+A general guideline to get you started if you are not sure how best to structure your partition key is to first choose a column name that represents a class or type of data, and then choose a  second column name represents is a more specific instance(s) of the class/type.
+
 
 #### Local Key
 
@@ -163,17 +198,17 @@ The format of the response is:
 
 ```sh
 ddl:  { ddl_v1, TABLE_NAME,
-[ ARRAY OF COLUMNS],
+[ ARRAY OF COLUMN DEFINITIONS],
 [ KEY INFO ]}}
 ```
 
-The columns are each:
+The columns definitions are each:
 
 ```sh
-{riak_field_v1,<<"FIELD_NAME">>,COLUMN_INDEX,COLUMN_TYPE,NULLABLE}
+{riak_field_v1,<<"COLUMN_NAME">>,COLUMN_INDEX,COLUMN_TYPE,NULLABLE}
 ```
 
-The two `key_v1` entries correspond to the partion key and the local key. The first key contains the columns used for the partition key, which defines how the data set is chunked and where the chunk data is co-located, and the second key contains the local key which uniquely identifies the data within a chunk. These two sets of columns will mostly be the same, but the partition key will have an additional quantum definition for the timestamp column:
+The two `key_v1` entries correspond to the partion key and the local key. The first key contains the column names used for the partition key, which defines how the data set is chunked and where the chunk data is co-located, and the second key contains the local key which uniquely identifies the data within a chunk. These two sets of column names will mostly be the same, but the partition key will have an additional quantum definition for the timestamp and the local key may have additional column names:
 
 ```sh
 {key_v1,[
@@ -184,9 +219,10 @@ The two `key_v1` entries correspond to the partion key and the local key. The fi
 
 ]},
 {key_v1,[
-   {param_v1,[<<"region">>]},  <- Local Key part 1
-   {param_v1,[<<"state">>]},   <- Local Key part 2
-   {param_v1,[<<"time">>]}     <- Local Key part 3
+   {param_v1,[<<"region">>]},     <- Local Key part 1
+   {param_v1,[<<"state">>]},      <- Local Key part 2
+   {param_v1,[<<"time">>]}        <- Local Key part 3
+   {param_v1,[<<"temperature">>]} <- Local Key part 4
 ]}
 ```
 
@@ -198,7 +234,7 @@ CREATE TABLE GeoCheckin
 (
    region      VARCHAR   NOT NULL,                -
    state       VARCHAR   NOT NULL,                 |
-   time        TIMESTAMP NOT NULL,                 |--> Columns
+   time        TIMESTAMP NOT NULL,                 |--> Column Definitions
    weather     VARCHAR   NOT NULL,                 |
    temperature DOUBLE,                            _
    PRIMARY KEY (
@@ -208,15 +244,17 @@ CREATE TABLE GeoCheckin
 )
 ```
 
-The values in the partition key determine which vnodes handle its writes and queries. If the `family` and `series` fields are the same for large numbers of writes, and the quanta that is specified has a large duration, only n_val vnodes will process the incoming writes. In these instances, Riak will not be able to parallelize the workload across CPUs.
+The column names in the partition key are used to determine which vnodes handle the writes and queries, which is why we suggest using a column definition that captures a class or type of data and another that captures an instance of that class or type. For instance, `region` represents a class of data, whereas `state` is an instance of that class.
 
-Riak TS queries work best when the data being queried is in the same family, series, and quanta because all keys and values are written contiguously on disk. For each co-located block of data a sub-query is created. Currently there is a default maximum of 5 sub-queries per single query to prevent overload; see [Configure Riak TS][configuring] for details on changing that value.
+If both column names represent the same class or type of data for large numbers of writes, and the quanta that is specified has a large duration, only n_val vnodes will process the incoming writes. In these instances, Riak will not be able to parallelize the workload across CPUs.
+
+All keys and values are written contiguously on disk. For each co-located block of data a sub-query is created. Currently there is a default maximum of 5 sub-queries per single query to prevent overload; see [Configure Riak TS][configuring] for details on changing that value.
 
 Choosing a quanta size involves tradeoffs. Small quanta are best for writes while large quanta are best for queries. You should choose your quanta according to your data needs.
 
 It is difficult to make any recommendations on quanta size, because the size of your quanta is heavily dependent on both the kind of data you are gathering and what you need to do with it.
 
-See also [Riak TS Best Practices][bestpractices].
+Also see [Riak TS Best Practices][bestpractices] for more guidance on choosing an appropriate quantum size.
 
 
 ## Editing Your Table
