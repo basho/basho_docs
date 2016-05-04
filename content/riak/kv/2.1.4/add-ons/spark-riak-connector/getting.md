@@ -55,18 +55,20 @@ To add the Spark-Riak connector to your Java project, add the following to your 
 
 ## Alternative (Scala, Java)
 
-As an alternative, you can add the Spark-Riak connector library in the packages option when submitting the app to Spark. The Spark-Riak connector can be found on spark-packages.org. You can either download it and supply Spark with its local address or have spark automatically download it when starting up the Spark shell as show by the following.
+As an alternative, you can have Spark automatically download it when starting up the Spark shell as show by the following:
 
-**Scala, Java**
+For Scala or Java:
+
 ```
 $SPARK_HOME/bin/spark-submit \
 --repositories https://dl.bintray.com/basho/data-platform \
---packages com.basho.riak:spark-riak-connector:{{version}}
+--packages com.basho.riak:spark-riak-connector:»VERSION«
 ```
 
-**Scala**
+Alternative for Scala:
+
 ```
 $SPARK_HOME/bin/spark-shell \
 --repositories https://dl.bintray.com/basho/data-platform \
---packages com.basho.riak:spark-riak-connector:{{version}}
+--packages com.basho.riak:spark-riak-connector:»VERSION«
 ```

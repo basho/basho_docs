@@ -18,7 +18,7 @@ canonical_link: "docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usag
 
 ### Scala
 
-You can save an RDD of type `<org.apache.spark.sql.Row>` to Riak TS as follows
+You can save an RDD of type `<org.apache.spark.sql.Row>` to Riak TS as follows:
 
 ```scala
 val output_ts_table = "test-bucket"
@@ -27,7 +27,7 @@ rdd.saveToRiakTS(output_ts_table);
 
 ### Java
 
-An existing JavaRDD<org.apache.spark.sql.Row>, `sqlRdd`, can be saved to Riak TS as follows
+An existing JavaRDD<org.apache.spark.sql.Row>, `sqlRdd`, can be saved to Riak TS as follows:
 
 ```java
 SparkJavaUtil.javaFunctions(sqlRdd).saveToRiakTS(TABLE_NAME);

@@ -29,7 +29,7 @@ import com.basho.riak.spark._
 
 ## Configuration Options
 
-You can control how your Spark application interacts with Riak by configuring different options for your `SparkContext` or `SQLContext`. You can set these options within the $SPARK_HOME/conf/spark-default.conf.  If you don't set an option, it will be automatically set to the default values listed below.
+You can control how your Spark application interacts with Riak by configuring different options for your `SparkContext` or `SQLContext`. You can set these options within the `$SPARK_HOME/conf/spark-default.conf`.  If you don't set an option, it will be automatically set to the default values listed below.
 
 You can set the below options for the `SparkConf` object:
 

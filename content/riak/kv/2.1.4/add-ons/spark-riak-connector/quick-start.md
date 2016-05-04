@@ -28,14 +28,14 @@ Start Riak KV with `riak start`.
 
 ## Scala
 
-In this quick start guide we will run you through some examples usages of the Spark-Riak connector using the Spark Scala REPL.
+In this quick start guide we will run you through an example usage of the Spark-Riak connector using the Spark Scala REPL.
 
 Start Spark Scala REPL with: 
 
 ```
 path/to/spark-shell \
 --conf spark.riak.connection.host=127.0.0.1:8087 \
---driver-class-path /path/to/spark-riak-connector-{{version}}-uber.jar
+--driver-class-path /path/to/spark-riak-connector-»VERSION«-uber.jar
 ```
 
 Import the following:

@@ -43,7 +43,7 @@ An existing JavaRDD<{UserDefinedType}>, `rdd`, can be saved to KV bucket as foll
 SparkJavaUtil.javaFunctions(rdd).saveToRiak(NAMESPACE);
 ```
 
-{UserDefinedType} must be serializable and can use annotations from com.basho.riak.client.api.annotations package.
+`{UserDefinedType}` must be serializable and can use annotations from the `com.basho.riak.client.api.annotations` package.
 
 ```java
 class SimpleUDT implements Serializable {

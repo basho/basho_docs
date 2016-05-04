@@ -33,7 +33,7 @@ Scroll down or click below to find the desired quick start guide:
 
 ## Scala
 
-In this quick start guide we will run you through some examples usages of the Spark-Riak connector using the Spark Scala REPL.
+In this quick start guide we will run you through an example usage of the Spark-Riak connector using the Spark Scala REPL.
 
 Start Spark Scala REPL with: 
 
