@@ -16,7 +16,7 @@ canonical_link: "docs.basho.com/riak/ts/latest/using/configuring"
 ---
 
 
-Riak TS exposes a few configuration settings via `riak.conf`. Make certain the configuratio nfile on each node gets the same parameters to avoid inconsistent behavior.
+Riak TS exposes a few configuration settings via `riak.conf`. Make certain the configuration file on each node gets the same parameters to avoid inconsistent behavior.
 
 Benchmarking of your use cases and traffic load is recommended when changing these parameters. Settings which are too permissive can result in a slow database under heavy load.
 
