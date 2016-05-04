@@ -16,13 +16,15 @@ canonical_link: "docs.basho.com/riak/ts/latest/learn-about/sqlriakts"
 ---
 
 
+[stackoverflow]: http://stackoverflow.com/questions/2578194/what-is-ddl-and-dml
+
 Riak TS tables were designed around SQL tables. This page will go through some SQL basics and more in depth information about how SQL is used within Riak TS.  
 
 This document uses CAPITAL LETTERS for SQL keywords, although you do not need to do so in using the keywords. This document also breaks out SQL queries into multiple lines for readability, but queries can be written as a single line.
 
 ## SQL Basics
 
-Riak TS supports a subset of Structured Query Language (SQL): SELECT statements for querying called Data Manipulation Language (DML) or Data Query Language (DQL), and CREATE TABLE statements for defining Riak TS storage regions, also known as Data Definition Language (DDL).
+Riak TS supports a subset of Structured Query Language (SQL): `SELECT` statements for querying called Data Manipulation Language (DML) or Data Query Language (DQL), and `CREATE TABLE` statements for defining Riak TS storage regions, also known as Data Definition Language (DDL). (You can read a nice division of DML and DDL [here][stackoverflow].)
 
 The subset of SQL used by Riak TS supports several kinds of literals: 
 
@@ -30,12 +32,12 @@ The subset of SQL used by Riak TS supports several kinds of literals:
 * single-quoted strings
 * time
 
-It also supports double-quoted column references (aka identifiers or field names).
+It also supports double-quoted column references (a.k.a. field names).
 
 
 ## Schema Design
 
-Let's say you want to store and graph usage metrics on a heterogeneous collection of network servers: disk usage, memory usage, CPU temperatures, load averages, and other metrics. Our graphing is going to be a single metric for a single host at a time, so our primary key should cover time, hostname, and the metric name. Since some metrics won't be on every server (i.e. our Riak KV servers have more disks than our Rails servers), and we want to be able to add metrics in the future, we're going to have a narrow table, with only one metric per row. 
+Let's say you want to store and graph usage metrics on a heterogeneous collection of network servers: disk usage, memory usage, CPU temperatures, load averages, and other metrics. Our graphing is going to be a single metric for a single host at a time, so our primary key should cover time, hostname, and the metric name. Since some metrics won't be on every server (i.e. our Riak servers have more disks than our Rails servers) and we want to be able to add metrics in the future, we're going to have a narrow table with only one metric per row. 
 
 Since we've decided to have our compound primary key cover time, hostname, and metric name, the only thing left to decide is the quantization. Right now, a query can only cover four quanta, so quantization comes down to how much time we want in a single graph.»**Is this still true?**« 
 
