@@ -16,6 +16,9 @@ canonical_link: "docs.basho.com/riak/ts/latest/using/configuring"
 ---
 
 
+[glossary quanta]: ../../learn/glossary/quanta
+
+
 Depending on your needs, you can configure Riak TS in each node's riak.conf file.
 
 
@@ -32,13 +35,13 @@ timeseries_query_timeout_ms = 10000
 
 ### Maximum quanta
 
-Use `timeseries_query_max_quanta_span` to configure the maximum number of quanta that a query can span.  The quanta relates to the table's quantum.
+Use `timeseries_query_max_quanta_span` to configure the maximum number of quanta that a query can span. You can read a definition of quanta [here](glossary quanta).
 
 ```
 timeseries_query_max_quanta_span = 3
 ```
 
-For example, if you set `quantum(time, 15, 'm')` in your Riak TS table, setting `timeseries_query_max_quanta_span` to '5' would allow a query to return results within a time span of 75 minutes.  If a query has a larger time span, an error would be returned to the client and the query would not run.
+For example, if you set `QUANTUM(time, 15, 'm')` in your TS table, setting `timeseries_query_max_quanta_span` to '5' would allow a query to return results within a time span of 75 minutes.  If a query has a larger time span, an error would be returned to the client and the query would not run.
 
 This option is intended to prevent excessively long-running queries that could affect the performance of the cluster.
 
