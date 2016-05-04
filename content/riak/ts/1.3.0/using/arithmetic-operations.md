@@ -15,9 +15,13 @@ aliases:
 canonical_link: "docs.basho.com/riak/ts/latest/using/arithmetic-operations"
 ---
 
-Riak TS supports arithmetic operations in the `SELECT` list.
 
-Arithmetic operations default to 64-bit integer math, unless mixed with a
+[querying select]: ../querying/#select-query
+
+
+Riak TS supports arithmetic operations in the [`SELECT` statement](querying select).
+
+Arithmetic operations default to 64-bit integer math unless mixed with a
 `double`, at which point they become floating-point.
 
 >**Important:** Proper spacing around arithmetic operators is required.
@@ -27,82 +31,92 @@ The examples on this page will assume you are using the following table schema:
 ```sql
 CREATE TABLE GeoCheckin
 (
-   region       varchar   not null,
-   state        varchar   not null,
-   time         timestamp not null,
-   weather      varchar not null,
-   temperature  double,
+   region       VARCHAR   NOT NULL,
+   state        VARCHAR   NOT NULL,
+   time         TIMESTAMP NOT NULL,
+   weather      VARCHAR NOT NULL,
+   temperature  DOUBLE,
    PRIMARY KEY (
-     (region, state, quantum(time, 15, 'm')), /* <-- PARTITION KEY */
-     region, state, time /* <-- LOCAL KEY */
+     (region, state, QUANTUM(time, 15, 'm')),
+     region, state, time
    )
 )
 ```
 
-###Numeric Literals
+### Numeric Literals
 
 Integer, decimal floating point, and exponent notation floating point
-numeric literals are accepted:
+numeric literals are accepted.
 
 ```sql
 SELECT 555, 1.1, 1e1, 1.123e-2 from GeoCheckin
 WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic' AND state = 'South Carolina'
 ```
 
+Returns:
+
 | 555\<SINT64\> | 1.1\<DOUBLE\> | 10.0\<DOUBLE\> | 0.01123\<DOUBLE\> |
-|-------------|-------------|--------------|-----------------|
-| 555         | 1.1         | 10.0         | 0.01123         |
+|---------------|---------------|----------------|-----------------|
+| 555           | 1.1           | 10.0           | 0.01123         |
 
 
-###Addition and Subtraction
+### Addition and Subtraction
 
 ```sql
 SELECT temperature, temperature + 1, temperature - 1 FROM GeoCheckin
 WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic' AND state = 'South Carolina'
 ```
 
+Returns: 
+
 | temperature\<DOUBLE\> | (temperature\+1)\<DOUBLE\> | (temperature\-1)\<DOUBLE\> |
-|---------------------|-------------------------|-------------------------|
-| 27.1                | 28.1                    | 26.1                    |
+|-----------------------|----------------------------|-------------------------|
+| 27.1                  | 28.1                       | 26.1                    |
 
 
-###Multiplication and Division
+### Multiplication and Division
 
 ```sql
 SELECT temperature, temperature * 2, temperature / 2 from GeoCheckin
 WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic' AND state = 'South Carolina'
 ```
 
+Returns:
+
 | temperature\<DOUBLE\> | (temperature\*2)\<DOUBLE\> | (temperature/2)\<DOUBLE\> |
-|---------------------|-------------------------|-------------------------|
-| 27.1                | 54.2                    | 13.55                   |
+|-----------------------|----------------------------|-------------------------|
+| 27.1                  | 54.2                       | 13.55                   |
 
 
-###Negation
+### Negation
 
 ```sql
 SELECT temperature, -temperature from GeoCheckin
 WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic' AND state = 'South Carolina'
 ```
 
+Returns:
+
 | temperature\<DOUBLE\> | -temperature\<DOUBLE\> |
-|---------------------|----------------------|
-| 27.1                | -27.1                |
+|-----------------------|----------------------|
+| 27.1                  | -27.1                |
 
 
-###Order of Operations
+### Order of Operations
 
 ```sql
 SELECT temperature + 2 * 3, (temperature + 2) * 3 from GeoCheckin
 WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic' AND state = 'South Carolina'
 ```
 
+Returns:
+
 | (temperature+(2\*3))\<DOUBLE\> | ((temperature\+2)\*3)\<DOUBLE\> |
-|-----------------------------|-----------------------------|
-| 33.1                        | 87.30000000000001           |
+|--------------------------------|-----------------------------|
+| 33.1                           | 87.30000000000001           |
 
 
-###Floating Point Odds and Ends
+### Floating Point Odds and Ends
 
 Operations on floating point numbers that would return `Infinity` or `NaN` are
 not supported.
@@ -118,9 +132,9 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic
 ```
 
 
-###Operations with Multiple Field References
+### Operations with Multiple Column References
 
-Operations involving two or more references to fields/columns are not supported.
+Operations involving two or more references to columns are not supported.
 
 This query will return an error:
 

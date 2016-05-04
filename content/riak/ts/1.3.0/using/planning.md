@@ -50,12 +50,12 @@ CREATE TABLE GeoCheckin
 )
 ```
 
-In the SQL statements shown throughout this document, keywords appear in all uppercase letters to distinguish them from other entities of the statement such as table and column names.  However, keywords can be specified using lowercase or uppercase letters as they are not case sensitive.
+While the keywords appear in all uppercase letters here, they can be specified using lowercase or uppercase letters as they are not case sensitive.
 
 
 #### Fields
 
-Fields, also called columns, refer to the items preceding the `PRIMARY KEY`. Field names (`region`, `state`, etc) must be ASCII strings, in addition to having the correct case. If field names need to contain spaces or punctuation they can be double quoted.
+Fields refer to the items preceding the `PRIMARY KEY`. Field names (`region`, `state`, etc) must be ASCII strings, in addition to having the correct case. If field names need to contain spaces or punctuation they can be double quoted.
 
 Field names define the structure of the data, taking the format:
 
@@ -93,8 +93,8 @@ CREATE TABLE GeoCheckin
    region       VARCHAR   NOT NULL,
    temperature  DOUBLE,
    PRIMARY KEY (
-     (QUANTUM(time, 15, 'm'), state, region),
-      time, state, region
+     (region, state, QUANTUM(time, 15, 'm')),
+      region, state, time
    )
 )
 ```
@@ -121,8 +121,8 @@ CREATE TABLE GeoCheckin
    weather      VARCHAR   NOT NULL,
    temperature  DOUBLE,
    PRIMARY KEY (
-     (region, state, QUANTUM(time, 15, 'm')), /* <-- PARTITION KEY */
-      region, state, time /* <-- LOCAL KEY */
+     (region, state, QUANTUM(time, 15, 'm')),  <-- PARTITION KEY
+      region, state, time                      <-- LOCAL KEY
    )
 )
 ```
@@ -164,7 +164,7 @@ CREATE TABLE GeoCheckin
 
 #### Partition Key
 
-The partition key is the first key, and is defined as the named fields in parentheses. The partition key must have **at least one** field.
+The partition key is the first key, and is defined as the named fields in parentheses. The partition key must have at least one field.
 
 You can use a quantum to colocate data on one of the partition key's timestamp fields:
 
@@ -172,7 +172,7 @@ You can use a quantum to colocate data on one of the partition key's timestamp f
 PRIMARY KEY  ((region, state, QUANTUM(time, 1, 's')), ...)
 ```
 
-A maximum of one quantum function can be specified and it must be the last element of the paritition key.
+A maximum of one quantum function can be specified and it must be the last element of the partition key.
 
 The quantum function takes 3 parameters:
 
@@ -184,11 +184,13 @@ The quantum function takes 3 parameters:
   * `'m'` - minutes
   * `'s'` - seconds
 
+A general guideline to get you started if you are not sure how best to structure your partition key is: make the first field a class or type of data and the second field a specific instance(s) of the class/type.
+
 #### Local Key
 
-The local key comes after the partition key. It **must first contain the same fields in the same order** as the partition key. This ensures that the same fields determining your data's partition also dictate the sorting of the data within that partition.
+The local key comes after the partition key. It must first contain the same fields in the same order as the partition key. This ensures that the same fields determining your data's partition also dictate the sorting of the data within that partition.
 
-The local key may also contain additional fields so long as they come after the fields present in the partition key.
+The local key may also contain additional fields so long as they come after the fields present in the partition key. For example:
 
 ```sql
    PRIMARY KEY (
@@ -200,24 +202,26 @@ The local key may also contain additional fields so long as they come after the 
 
 ## Schema Discovery
 
-After creating a table, its schema can be discovered with the `DESCRIBE` statement, which will return, for each column, the following items:
-
-* *Column*, field name;
-* *Type*, field type;
-* *Is Null*, _true_ is the field is optional, _false_ otherwise;
-* *Primary Key*, position of this field in the primary key, or blank if it does not appear in the key;
-* *Local Key*, position of this field in the local key, or blank if it does not appear in the key.
+After creating a table, its schema can be discovered with the `DESCRIBE` statement:
 
 ```sql
 DESCRIBE GeoCheckin
 ```
+
+The `DESCRIBE` statement will return the following:
+
+* **Column**, field name;
+* **Type**, field type;
+* **Is Null**, _true_ is the field is optional, _false_ otherwise;
+* **Primary Key**, position of this field in the primary key, or blank if it does not appear in the key;
+* **Local Key**, position of this field in the local key, or blank if it does not appear in the key.
 
 
 ## More information
 
 Still unsure how best to structure your Riak TS table? Check out our [best practice recommendations][bestpractices].
 
-Confused about columns, primary key, etc? Check out [Table Architecture][table arch] for full definitions.
+Confused about fields, primary key, etc? Check out [Table Architecture][table arch] for an in-depth explanation of TS tables.
 
 
 ## Next Steps

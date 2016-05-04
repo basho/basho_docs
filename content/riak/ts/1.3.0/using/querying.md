@@ -26,13 +26,13 @@ Now that you have [created][activating] a Riak TS table and [written][writing] d
 
 ## Basic Querying
 
-When querying your data via fields, there are three categories of fields, each with a different set of rules for valid queries.
+You query data via columns. There are three categories of column, each with a different set of rules for valid queries. Query columns are based on fields in your TS table.
 
 ```
 CREATE TABLE tab2(
-a SINT64 NOT NULL,     --
-b TIMESTAMP NOT NULL,    |-> Columns
-c BOOLEAN NOT NULL,    --
+a SINT64 NOT NULL,
+b TIMESTAMP NOT NULL,
+c BOOLEAN NOT NULL,
 PRIMARY KEY  ((a, QUANTUM(b, 1, 's'))<-Partition Key, a,b,c)<-Local Key)
 ```
 
@@ -41,9 +41,7 @@ PRIMARY KEY  ((a, QUANTUM(b, 1, 's'))<-Partition Key, a,b,c)<-Local Key)
 
 All queries must cover the partition key.
 
-If the parition key has a quantum, then the query must use greater than and less than (>, >=, <, <=).
-
-If the partition key does not have a quantum, the query must have an equals filter (=).  In other words, if there is no quantum, the partition key must be specified exactly in the query.
+The query must use greater than and less than (>, >=, <, <=).
 
 The timestamp in the partition key is an integer (in milliseconds) that must be compared either as a fully-enclosed range or as an exact match.
 
@@ -62,7 +60,7 @@ PRIMARY KEY ((a,b),a,b,c)
 
 Here 'c' is in the local key only so does not have to be in the query.
 
-Fields in the local key must be compared using strict equality against literal values. No ranges are permitted, `!=` must not be used, and `or` will not work.
+Columns from the local key must be compared using strict equality against literal values. No ranges are permitted, `!=` must not be used, and `or` will not work.
 
 * Valid: `country_code = 'uk'`
 * Invalid: `(country_code = 'uk' or country_code = 'de')`
@@ -72,17 +70,17 @@ Fields in the local key must be compared using strict equality against literal v
 
 ### Columns
 
-These fields may be queried with unbounded ranges, `!=`, and `or` comparisons.
+Columns pertaining to the fields prior to the primary key may be queried with unbounded ranges, `!=`, and `or` comparisons.
 
 
 ### General Guidelines
 
 Before you begin querying, there are some guidelines to keep in mind.
 
-* Fields may not be compared against other fields in the query.
+* Columns may not be compared against other columns in the query.
 * When using `or`, you must surround the expression with parentheses or your query will return an error.
 
-Basic queries return the full range of values between two given times for a series in a family. To demonstrate, we'll use the same example table:
+Basic queries return the full range of values between two given times for an instance within a class or type of data. To demonstrate, we'll use the same example table, in which the `state` is an instance within the `region`:
 
 ```sql
 CREATE TABLE GeoCheckin
@@ -98,14 +96,15 @@ CREATE TABLE GeoCheckin
    )
 )
 ```
+
 Your query must include all components of the partition key. If any part of the partition key is missing, you will get an error.
 
 
-## Advanced Querying By Field
+## Advanced Querying By Column
 
 ### Select Query
 
-You can select particular fields from the data to query:
+You can select particular columns from the data to query:
 
 ```
 select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and region = 'South Atlantic' and state = 'South Carolina'
@@ -184,7 +183,7 @@ $response = (new Command\Builder\TimeSeries\Query($riak))
 
 ### Extended Query
 
-You can extend the query beyond the primary key and use secondary columns to filter results. In this example, we are extending our query to filter based on the `temperature` column:
+You can extend the query beyond the primary key and use secondary columns to filter results. In this example, we are extending our query to filter based on `temperature`:
 
 ```
 select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and region = 'South Atlantic' and state = 'South Carolina' and temperature > 27.0
@@ -287,7 +286,7 @@ Field    Operator   Constant
 
 The following operators are supported for each data type:
 
-| |=|!=|>|<|<=|>=|
+|           |=  |!= |>  |<  |<= |>=|
 |-----------|---|---|---|---|---|---|
 | varchar   | X | X |   |   |   |   |
 | boolean   | X | X |   |   |   |   |
@@ -300,31 +299,31 @@ The following operators are supported for each data type:
 
 * Column to column comparisons are not currently supported.
 * Secondary indexing (2i) will not work with Riak TS.
-* Riak search will not work with Riak TS.
+* Riak Search will not work with Riak TS.
 * Queries are limited by the number of quanta they can span when specifying the time limits.
 
 
 #### Quanta query range
 
-A query covering more than a certain number of quanta (5 by default) will generate too many sub-queries and the query system will refuse to run it. Assuming a default quanta of 15 minutes, the maximum query time range is 75 minutes.
+A query covering more than a certain number of quanta (5 by default) will generate too many sub-queries and the query system will refuse to run it. Assuming a default quantum of 15 minutes, the maximum query time range is 75 minutes.
 
-In the below example we set a quanta of 15s:
+In the below example we set a quantum of 15s:
 
 ```sql
 CREATE TABLE GeoCheckin
- (geohash varchar not null,
-  location varchar not null,
-  user varchar not null,
-  time timestamp not null,
-  weather varchar not null,
-  temperature varchar,
-    PRIMARY KEY((location, user, quantum(time, 15, 's')),
+ (geohash VARCHAR NOT NULL,
+  location VARCHAR NOT NULL,
+  user VARCHAR NOT NULL,
+  time TIMESTAMP NOT NULL,
+  weather VARCHAR NOT NULL,
+  temperature VARCHAR,
+    PRIMARY KEY((location, user, QUANTUM(time, 15, 's')),
                 location, user, time))
 ```
 
 The maximum time range we can query is 60s, anything beyond will fail.
 
-See the Data Modeling section in [Advanced Planning][advancedplanning] for more information.
+See the Data Modeling section in [Table Architecture][table arch] for more information.
 
 
 #### Leap seconds and quantum boundaries
@@ -355,7 +354,7 @@ The data is not lost, but a query against 1998 time quanta will not produce thos
 
 Query a table by issuing a SQL statement against the table. Your query MUST include a 'where' clause with all components.
 
-In the following client-specific examples we'll select all fields from the GeoCheckin table where `time`, `region`, and `state` match our supplied parameters:
+In the following client-specific examples we'll specify columns by selecting all fields from the GeoCheckin table where `time`, `region`, and `state` match our supplied parameters:
 
 ```java
 import java.net.UnknownHostException;
@@ -477,7 +476,7 @@ $response = (new Command\Builder\TimeSeries\Query($riak))
 
 ### Query a table definition
 
-You can now query a table definition with the `DESCRIBE` table query which returns the table's rows and columns.
+You can now query a table definition with the `DESCRIBE` table query which returns the table's information in rows and columns.
 
 For example:
 
@@ -486,7 +485,6 @@ DESCRIBE GeoCheckin
 ```
 
 Returns:
- (Rows and Columns)
 
 ```
 Column      | Type      | Is Null | Partition Key | Local Key
@@ -501,7 +499,7 @@ temperature | double    | false   | <null>        | <null>
 A successful `DESCRIBE` statement execution will return a language-specific representation of the table.
 
 * **Java** - Use a `Query` command to execute a `DESCRIBE` statement.
-* **Ruby** - Use the `Riak::TimeSeries::Query` object to execute the DESCRIBE statement. The returned results will have a collection of rows as well as a `columns` property corresponding to the above table.
+* **Ruby** - Use the `Riak::TimeSeries::Query` object to execute the `DESCRIBE` statement. The returned results will have a collection of rows as well as a `columns` property corresponding to the above table.
 * **Python** - either the `ts_query` or `ts_describe` methods of the client object can be used to executed a `DESCRIBE` statement. In both cases, the response object will have `columns` and `rows` properties corresponding to the above table.
 * **C#** - Use a `Query` command to execute a `DESCRIBE` statement.
 * **Node.js** - you may use the `TS.Query` command to execute a `DESCRIBE` statement, or use the purpose-built `TS.Describe` command. In both cases, the response object will have `columns` and `rows` properties corresponding to the above table.

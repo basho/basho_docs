@@ -16,19 +16,21 @@ canonical_link: "docs.basho.com/riak/ts/latest/using/creating-activating"
 ---
 
 
+[csharp]: ../../developing/csharp#query
 [erlang]: ../../developing/erlang#query2
 [java]: ../../developing/java#query
 [nodejs]: ../../nodejs#query
+[php]: ../../developing/php#query
 [python]: ../../developing/python#query
 [ruby]: ../../developing/ruby#sql-queries
 [planning]: ../planning/
 [writing]: ../writingdata/
 
 
-Once you have [planned out your table][planning] you can create it by
+Once you have [planned out your table][planning] you can create it by:
 
-* Executing a `CREATE TABLE` query, using any Riak client, or
-* Running the `riak-admin` command (needs to be run as root, using `su` or `sudo`).
+* Executing a `CREATE TABLE` query using any Riak client, or
+* Running the `riak-admin` command (as root, using `su` or `sudo`).
 
 Throughout this document, we will again be using the example table:
 
@@ -54,11 +56,11 @@ Using one of the Riak client libraries, execute the `CREATE TABLE` statement via
 
 * [Java][java]: the `QueryResult` object will be returned without any data for rows or columns.
 * [Ruby][ruby]: no exception thrown and result collection is empty.
-* [Python][python]: no exception thrown. Result object is present with `rows` and `columns` being empty.
-* [C#][csharp]: no exception thrown. Result object is present with `Value` and `Columns` being empty.
-* [Node.js][nodejs]:  no exception thrown. Result object is present with `rows` and `columns` being empty.
-* [Erlang][erlang]: the returned term will consist of two empty lists `{[],[]}`
-* [PHP][php]: the response object has a boolean `isSuccess()` instance method
+* [Python][python]: no exception thrown; result object is present with `rows` and `columns` being empty.
+* [C#][csharp]: no exception thrown; result object is present with `Value` and `Columns` being empty.
+* [Node.js][nodejs]:  no exception thrown; result object is present with `rows` and `columns` being empty.
+* [Erlang][erlang]: the returned term will consist of two empty lists `{[],[]}`.
+* [PHP][php]: the response object has a boolean `isSuccess()` instance method.
 
 
 ### Using the `WITH` clause
@@ -74,7 +76,7 @@ CREATE TABLE (...) WITH (
 
 Please note the following when using the `WITH` clause:
 
-* The property values can be of numeric or string types (parsable as
+* The property values can be of numeric or string types (parseable as
   `sint64`, `double` or `varchar`, correspondingly). String values
   should be quoted with a `'`; literal single quote characters
   appearing in the string should be doubled (and not escaped with a `\`).
@@ -83,15 +85,15 @@ Please note the following when using the `WITH` clause:
 
 ### Verification via Client Library
 
-You can verify that your table was properly created by executing the `DESCRIBE table` query via the query function of your client library, or by using the `riak-admin bucket-type status` command as described in the section below.
+You can verify that your table was properly created by executing the `DESCRIBE table` query via the query function of your client library, or by using the [`riak-admin bucket-type status` command](#verify-creation-and-activation).
 
 The result of the `DESCRIBE table` command is library-dependent:
 
 * [Java][java]: the `QueryResult` object will be returned with rows and columns corresponding to the table's DDL.
 * [Ruby][ruby]: no exception thrown and result collection will contain rows and columns corresponding to the table's DDL.
-* [Python][python]: no exception thrown. Result object is present with `rows` and `columns` corresponding to the table's DDL.
-* [C#][csharp]: no exception thrown. Result object is present with `Value` and `Columns` corresponding to the table's DDL.
-* [Node.js][nodejs]:  no exception thrown. Result object is present with `rows` and `columns` corresponding to the table's DDL.
+* [Python][python]: no exception thrown and result object is present with `rows` and `columns` corresponding to the table's DDL.
+* [C#][csharp]: no exception thrown and result object is present with `Value` and `Columns` corresponding to the table's DDL.
+* [Node.js][nodejs]:  no exception thrown and result object is present with `rows` and `columns` corresponding to the table's DDL.
 * [Erlang][erlang]: the returned term will consist of two lists corresponding to the table's DDL.
 * [PHP][php]: the response object will contain an array of rows, each one representing a column definition for the table's DDL
 
@@ -99,6 +101,7 @@ The result of the `DESCRIBE table` command is library-dependent:
 ## `riak-admin`
 
 To create the example table, first run:
+
 (**Note: Mac OS X users can skip this step**)
 
 ```bash
@@ -108,7 +111,7 @@ sudo su riak
 This will put you in a shell as the riak user. Then run:
 
 ```sh
-riak-admin bucket-type create GeoCheckin '{"props":{"table_def": "CREATE TABLE GeoCheckin (region varchar not null, state varchar not null, time timestamp not null, weather varchar not null, temperature double, PRIMARY KEY ((region, state, quantum(time, 15, 'm')), region, state, time))"}}'
+riak-admin bucket-type create GeoCheckin '{"props":{"table_def": "CREATE TABLE GeoCheckin (region VARCHAR NOT NULL, state VARCHAR NOT NULL, time TIMESTAMP NOT NULL, weather VARCHAR NOT NULL, temperature DOUBLE, PRIMARY KEY ((region, state, QUANTUM(time, 15, 'm')), region, state, time))"}}'
 ```
 
 Please take care with the following:
@@ -116,11 +119,11 @@ Please take care with the following:
 * The `bucket-type` name must equal the table name.
 * The syntax is very sensitive to whitespace and quoting.
 * It is easy to create a very long bucket type name with no corresponding
-  timeseries table if you leave out the space between the bucket type name
+  TS table if you leave out the space between the bucket type name
   and the opening quote of the JSON properties.
 * The table and field names are currently constrained to ASCII.
 
-Also note that if you discover something wrong with the setup of your DDL, you will need to create it again and decide whether to scrap the data in the existing table or move it from the old table to the new one.
+Also note that if you discover something wrong with the setup of your Data Definition Language (DDL), you will need to create it again and decide whether to scrap the data in the existing table or move it from the old table to the new one.
 
 
 ### Activating Your Table

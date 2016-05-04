@@ -42,7 +42,7 @@ Multi-Datacenter (MDC) replication makes it possible to replicate time series da
 Please see our documentation on basic [configuration for MDC][cluster ops v3 mdc].
 
 Unlike fullsync, realtime replication can be globally disabled for
-timeseries data without impacting the synchronization of Riak KV data.
+time series data without impacting the synchronization of Riak KV data.
 
 Realtime replication for TS data can be disabled in the `riak_repl`
 section of your advanced.config file by adding the following setting:
@@ -53,7 +53,7 @@ section of your advanced.config file by adding the following setting:
 
 >**Note:** If `{ts_realtime, false}` is not the last entry in your `riak_repl` configuration block, be sure to add a comma at the end of the line.
 
-See also **Turn off replication per-table** below for more granular controls.
+See [below](#turn-off-replication-pertable) for more granular controls.
 
 
 ### TS Tables

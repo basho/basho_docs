@@ -32,13 +32,12 @@ You can turn a set of rows in your Riak TS table into a value with the aggregate
 * `STDDEV()`/`STDDEV_SAMP()` - Returns the statistical standard deviation of all entries that match a specified criteria using Sample Standard Deviation.
 * `STDDEV_POP()` - Returns the statistical standard deviation of all entries that match a specified criteria using Population Standard Deviation.
 
->**Note:** You cannot simply negate an aggregate function. If you attempt something like: `select -count(temperature)`, you will receive an error. Instead, you can achieve negation with `-1*`; for instance: `-1*COUNT(...)`.
-
+>**Note:** You cannot negate an aggregate function. If you attempt something like: `select -count(temperature)`, you will receive an error. Instead, you can achieve negation with `-1*`; for instance: `-1*COUNT(...)`.
 
 
 ### `AVG` & `MEAN`
 
-Mean average over the specified `sint64` or `double` column.
+Calculate the mean average over the specified `sint64` or `double` column.
 
 ```sql
 SELECT AVG(temperature) FROM GeoCheckin
@@ -48,12 +47,12 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic
 Returns `NULL` if no values were returned or all values were `NULL`.
 
 | Column Input Type | Return Type |
-|------------|-------------|
-| sint64 | sint64 |
-| double | double |
+|-------------------|-------------|
+| sint64            | sint64 |
+| double            | double |
 
 
-###`COUNT`
+### `COUNT`
 
 Count the number of returned values.
 
@@ -65,12 +64,12 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic
 If a single column is used as an input then `NULL` values are ignored. If all values were `NULL` or no rows were returned by the query then `NULL` is returned.
 
 | Column Input Type | Return Type |
-|------------|-------------|
-| Any | sint64 |
-| `*` | sint64 |
+|-------------------|-------------|
+| Any               | sint64 |
+| `*`               | sint64 |
 
 
-###`MAX`
+### `MAX`
 
 The largest value from the set of values returned by the query.
 
@@ -82,12 +81,12 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic
 Returns `NULL` if no values were returned or all values were `NULL`.
 
 | Column Input Type | Return Type |
-|------------|-------------|
-| sint64 | sint64 |
-| double | double |
+|-------------------|-------------|
+| sint64            | sint64 |
+| double            | double |
 
 
-###`MIN`
+### `MIN`
 
 The smallest value from the set of values returned by the query.
 
@@ -99,14 +98,14 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic
 Returns `NULL` if no values were returned or all values were `NULL`.
 
 | Column Input Type | Return Type |
-|------------|-------------|
-| sint64 | sint64 |
-| double | double |
+|-------------------|-------------|
+| sint64            | sint64 |
+| double            | double |
 
 
-###`STDDEV`, `STDDEV_SAMP` & `STDDEV_POP`
+### `STDDEV`, `STDDEV_SAMP` & `STDDEV_POP`
 
-Calculate the standard deviation for a set of values returned by the query.
+Calculate the standard deviation for the set of values returned by the query.
 
 ```sql
 SELECT STDDEV(temperature) FROM GeoCheckin
@@ -116,12 +115,12 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic
 Returns `NULL` if less than two non-null values were returned.
 
 | Column Input Type | Return Type |
-|------------|-------------|
-| sint64 | double |
-| double | double |
+|-------------------|-------------|
+| sint64            | double |
+| double            | double |
 
 
-###`SUM`
+### `SUM`
 
 The sum of all the values of one `sint64` or `double` column returned by the query.
 
@@ -133,6 +132,6 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic
 Returns `NULL` if no values were returned or all values were `NULL`.
 
 | Column Input Type | Return Type |
-|------------|-------------|
-| sint64 | sint64 |
-| double | double |
+|-------------------|-------------|
+| sint64            | sint64 |
+| double            | double |
