@@ -33,7 +33,7 @@ Multi-Datacenter (MDC) replication makes it possible to replicate time series da
 >**Warning:** Do not attempt to replicate TS data to a Riak cluster on Riak KV or any version of Riak TS prior to 1.3.0.
 
 * You must be using Multi-Datacenter v3 (v2 is incompatible with Riak TS).
-
+* We do not yet support AAE-based fullsync with Riak TS.
 
 ## Configuration
 
