@@ -37,18 +37,20 @@ It also supports double-quoted column references (a.k.a. field names).
 
 ## Schema Design
 
-Let's say you want to store and graph usage metrics on a heterogeneous collection of network servers: disk usage, memory usage, CPU temperatures, load averages, and other metrics. Our graphing is going to be a single metric for a single host at a time, so our primary key should cover time, hostname, and the metric name. Since some metrics won't be on every server (i.e. our Riak servers have more disks than our Rails servers) and we want to be able to add metrics in the future, we're going to have a narrow table with only one metric per row. 
+Let's say you want to store and graph usage metrics on a heterogeneous collection of network servers: disk usage, memory usage, CPU temperatures, load averages, and other metrics. Our graphing is going to be a single metric for a single host at a time, so our primary key should cover time, hostname, and the metric name. Since some metrics won't be on every server (i.e. our Riak servers have more disks than our Rails servers) and we want to be able to add metrics in the future, we're going to have a narrow table with only one metric per row.
 
-Since we've decided to have our compound primary key cover time, hostname, and metric name, the only thing left to decide is the quantization. Right now, a query can only cover four quanta, so quantization comes down to how much time we want in a single graph.»**Is this still true?**« 
+Since we've decided to have our compound primary key cover time, hostname, and metric name, the only thing left to decide is the quantization.
+
+A query can span only a certain number of quanta (configurable at the system level, default maximum of 5) to limit the impact of aggressive querying on the database. This may lead developers to use a large quantum size, but that can lead to overloaded servers in the cluster, so benchmarking and careful tuning is recommended.
 
 You can’t use `OR` to select different non-quantized options on a field in the primary key. If you are selecting different options on a non-quantized primary key field, put them in multiple queries.
 
 ```sql
 CREATE TABLE metrics (
-  time TIMESTAMP NOT NULL, 
-  hostname VARCHAR NOT NULL, 
-  metric_name VARCHAR NOT NULL, 
-  metric_value DOUBLE, 
+  time TIMESTAMP NOT NULL,
+  hostname VARCHAR NOT NULL,
+  metric_name VARCHAR NOT NULL,
+  metric_value DOUBLE,
   PRIMARY KEY (
     (hostname, metric_name, QUANTUM(time, 15, m)),
     hostname, metric_name, time))
