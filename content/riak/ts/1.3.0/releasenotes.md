@@ -18,14 +18,14 @@ canonical_link: "docs.basho.com/riak/ts/latest/releasenotes"
 
 Released May 4, 2016.
 
-Riak TS 1.3.0 is open source! In addition to becoming OSS, version 1.3.0 introduces a broad range of new functionality including: an HTTP API, additional SQL commands, and relaxed key restrictions. It also includes fullsync Multi-Datacenter (MDC) replication for our Enterprise users.
+Riak TS 1.3.0 is [open source]( https://github.com/basho/riak/releases/tag/riak_ts-1.3.0)! In addition to becoming OSS, version 1.3.0 introduces a broad range of new functionality including: an HTTP API, additional SQL commands, and relaxed key restrictions. It also includes fullsync Multi-Datacenter (MDC) replication for our Enterprise users.
 
 We've also added AWS AMI support. You can find instructions for installing Riak TS on AWS [here](http://docs.basho.com/riak/ts/1.3.0/installing/aws/).
 
 
 ## New Features
 
-* Riak TS is now open source. 
+* Riak TS is now open source. You can find the source code [here]( https://github.com/basho/riak/releases/tag/riak_ts-1.3.0)! 
     * [[PR #815](https://github.com/basho/riak/pull/815)]
     * [[riak_ql PR #100](https://github.com/basho/riak_ql/pull/100)]
 * The HTTP API is a development tool added for development and debugging purposes. It is ideal for quick prototyping efforts, and provides API calls for accessing Riak TS data over HTTP.
