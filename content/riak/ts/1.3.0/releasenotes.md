@@ -29,11 +29,7 @@ We've also added AWS AMI support. You can find instructions for installing Riak 
     * [[PR #815](https://github.com/basho/riak/pull/815)]
     * [[riak_ql PR #100](https://github.com/basho/riak_ql/pull/100)]
 * The HTTP API is a development tool added for development and debugging purposes. It is ideal for quick prototyping efforts, and provides API calls for accessing Riak TS data over HTTP.
-    * [[PR #1342](https://github.com/basho/riak_kv/pull/1342)]
-    * [[PR #1350](https://github.com/basho/riak_kv/pull/1350)]
-    * [[PR #1351](https://github.com/basho/riak_kv/pull/1351)]
-    * [[PR #1355](https://github.com/basho/riak_kv/pull/1355)]
-    * [[PR #1371](https://github.com/basho/riak_kv/pull/1371)]
+    * [[PR #1398](https://github.com/basho/riak_kv/pull/1398)]
 * Our supported SQL commands have expanded to include `WITH` and `INSERT`. The `WITH` clause makes creating a TS table even easier, and `INSERT` provides another way to add data to your TS table.
     * [[PR #1369](https://github.com/basho/riak_kv/pull/1369)]
     * [[PR #805](https://github.com/basho/riak_core/pull/805)]
