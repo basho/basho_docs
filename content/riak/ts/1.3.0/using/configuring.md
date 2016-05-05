@@ -36,7 +36,7 @@ timeseries_query_timeout_ms = 10000
 
 ### Maximum quanta
 
-Use `timeseries_query_max_quanta_span` to configure the maximum number of quanta that a query can span. You can read a definition of quanta [here](glossary quanta).
+Use `timeseries_query_max_quanta_span` to configure the maximum number of quanta that a query can span
 
 ```
 timeseries_query_max_quanta_span = 3

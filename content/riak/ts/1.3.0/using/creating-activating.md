@@ -17,9 +17,9 @@ canonical_link: "docs.basho.com/riak/ts/latest/using/creating-activating"
 
 
 [csharp]: ../../developing/csharp#query
-[erlang]: ../../developing/erlang#query2
+[erlang]: ../../developing/erlang/#query-2
 [java]: ../../developing/java#query
-[nodejs]: ../../nodejs#query
+[nodejs]: ../../developing/nodejs/#query
 [php]: ../../developing/php#query
 [python]: ../../developing/python#query
 [ruby]: ../../developing/ruby#sql-queries

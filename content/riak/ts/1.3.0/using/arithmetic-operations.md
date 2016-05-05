@@ -16,10 +16,10 @@ canonical_link: "docs.basho.com/riak/ts/latest/using/arithmetic-operations"
 ---
 
 
-[querying select]: ../querying/#select-query
+[querying select]: riak/ts/1.3.0/using/querying/#select-query
 
 
-Riak TS supports arithmetic operations in the [`SELECT` statement](querying select).
+Riak TS supports arithmetic operations in the `SELECT` statement.
 
 Arithmetic operations default to 64-bit integer math unless mixed with a
 `double`, at which point they become floating-point.

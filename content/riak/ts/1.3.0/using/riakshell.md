@@ -1,9 +1,9 @@
 ---
-title: "Using riak_shell"
-description: "Using riak_shell"
+title: "Using riak shell"
+description: "Using riak shell"
 menu:
   riak_ts-1.3.0:
-    name: "riak_shell"
+    name: "riak shell"
     identifier: "riak_shell"
     weight: 309
     parent: "using"
@@ -15,7 +15,7 @@ aliases:
 canonical_link: "docs.basho.com/riak/ts/latest/using/riakshell"
 ---
 
-[nodename]: /riak/kv/latest/using/cluster-operations/changing-cluster-info
+[nodename]: /riak/kv/2.1.4/using/cluster-operations/changing-cluster-info/
 [creating]: /riak/ts/1.3.0/using/creating-activating
 [writing]: /riak/ts/1.3.0/using/writingdata
 

@@ -17,7 +17,7 @@ canonical_link: "docs.basho.com/riak/ts/latest/using/mdc"
 
 
 [activating]: /riak/ts/1.3.0/using/creating-activating
-[cluster ops v3 mdc]: /riak/kv/2.1.3/using/cluster-operations/v3-multi-datacenter
+[cluster ops v3 mdc]: /riak/kv/2.1.4/using/cluster-operations/v3-multi-datacenter
 [ee]: http://basho.com/contact/
 [install]: /riak/ts/1.3.0/installing
 
@@ -53,7 +53,7 @@ section of your advanced.config file by adding the following setting:
 
 >**Note:** If `{ts_realtime, false}` is not the last entry in your `riak_repl` configuration block, be sure to add a comma at the end of the line.
 
-See [below](#turn-off-replication-pertable) for more granular controls.
+See [below](#turn-off-replication-per-table) for more granular controls.
 
 
 ### TS Tables
