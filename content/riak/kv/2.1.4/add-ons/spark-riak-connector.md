@@ -8,7 +8,7 @@ menu:
     name: "Spark-Riak Connector"
     identifier: "addons_spark_riak"
     weight: 102
-    parent: "addons"
+    parent: "add-ons"
 toc: true
 canonical_link: "docs.basho.com/riak/kv/latest/add-ons/spark-riak-connector"
 ---
