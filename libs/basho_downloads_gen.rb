@@ -108,6 +108,7 @@ def generate_download_yaml()
     riak_major_versions = fetch_index_json("#{s3_root}")
                            .select { |k,v| v["type"] == "dir" }
                            .select { |k,v| k != "CURRENT" }
+                           .select { |k,v| k =~ /^\d+\.\d+$/ }
                            .select { |k,v| k.to_f >= project_meta["min_maj_ver"] }
                            .keys()
     riak_major_versions.each do |riak_major_version|
@@ -115,6 +116,7 @@ def generate_download_yaml()
       riak_versions = fetch_index_json("#{s3_root}/#{riak_major_version}")
                         .select { |k,v| v["type"] == "dir" }
                         .select { |k,v| k != "CURRENT" }
+                        .select { |k,v| k =~ /^\d+\.\d+\.\d+$/ }
                         .keys()
       riak_versions.each do |riak_version|
         version_hash["#{riak_version}"] = os_list = []
