@@ -15,6 +15,7 @@ listed_projects:
     - project: "riak_kv"
       version: "2.0.6"
       title: "Riak KV"
+      install_instructions_set: "setup/installing"
 aliases:
   - /riak/2.0.6/downloads
   - /riak/kv/2.0.6/downloads
