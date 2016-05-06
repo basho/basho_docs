@@ -22,6 +22,7 @@ canonical_link: "docs.basho.com/riak/ts/latest/installing/rhel-centos"
 [ec2 guide]: http://docs.amazonwebservices.com/AWSEC2/latest/UserGuide/AccessingInstances.html
 [security basics]: /riak/kv/2.1.4/using/security/basics
 
+>**Note:** TS AWS will not be available for another few days, according to Amazon. Please check back.
 
 Riak TS can be installed on AWS virtual machines (VMs) using a binary
 package available [here][download]. This page will walk you through the process of setting up your AWS environment and installing Riak TS on it.
