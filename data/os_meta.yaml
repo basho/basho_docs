@@ -26,7 +26,7 @@ osx:
 rhel:
   title: "Red Hat Enterprise Linux "
   image_src: "/images/shared/operating_system_branding/redhat.png"
-  installing_path: "setup/installing/rhel/"
+  installing_path: "setup/installing/rhel-centos/"
 sles:
   title: "SUSE Linux Enterprise Server"
   image_src: "/images/shared/operating_system_branding/suse.png"
