@@ -33,3 +33,19 @@ canonical_link: "docs.basho.com/riak/ts/latest/downloads"
 <img height="1" width="1" style="display:none;" alt="" src="//t.co/i/adsct?txn_id=nuu8u&p_id=Twitter&tw_sale_amount=0&tw_order_quantity=0" />
 </noscript>
 <!-- End Twitter single-event website tag code -->
+
+<script>
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+
+})(window,document,'script','https://www.google­analytics.com/analytics.js','ga');
+
+ga('create', 'UA­10051263­6', 'auto');
+
+ga('send', 'pageview');
+
+</script>
