@@ -22,6 +22,7 @@ canonical_link: "docs.basho.com/riak/ts/latest/installing"
 [Debian]: debian-ubuntu/
 [download]: ../downloads/
 [OSX]: mac-osx/
+[source]: source/
 [Ubuntu]: debian-ubuntu/
 
 
@@ -38,6 +39,8 @@ Choose your OS and follow the instructions:
 * [Ubuntu 12.04 & 14.04][Ubuntu]
 
 Riak TS is also available on [AWS Marketplace][AWS].
+
+If your OS is not in this list, you can also install [from source][source].
 
 >**Upgrade Note:** 
 >
