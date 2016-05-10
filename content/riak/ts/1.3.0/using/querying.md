@@ -281,9 +281,9 @@ When querying with user-supplied data, it is essential that you protect against 
 
 A small subset of SQL is supported. All columns are of the format:
 
-```
+```sql
 Field    Operator   Constant
-````
+```
 
 The following operators are supported for each data type:
 
