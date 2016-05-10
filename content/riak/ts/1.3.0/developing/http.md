@@ -15,9 +15,7 @@ aliases:
 canonical_link: "docs.basho.com/riak/ts/latest/developing/http"
 ---
 
-
 This document will cover the API calls for accessing Riak TS data over HTTP.
-
 
 ## Overview
 
@@ -38,14 +36,17 @@ CREATE TABLE GeoCheckin
 )
 ```
 
-| Call   | Request URL         | Request type | Description  |
-|------------|---------------------|--------------|--------------|
-| put        | http://»Server name«/ts/v1/tables/GeoCheckin/keys '[»Row(s)«]' | PUT         | put a single or a batch of rows    |
-| get        | http://»Server name«/ts/v1/tables/GeoCheckin/keys/region/South Atlantic/state/South Carolina/time/1420113600  | GET          | single-key get of a value |
-| delete     | http://»Server name«/ts/v1/tables/GeoCheckin/keys/region/South Atlantic/state/South Carolina/time/1420113600  | DELETE       | single-key delete         |
-| query      | http://»Server name«/ts/v1/query --data "»Query«"  | POST         | execute a query |
-| list_keys  | http://»Server name«/ts/v1/tables/GeoCheckin/list_keys  | GET          | streaming list keys     |
+| Call      | Method | Type  | Description <br> Endpoint & Payload      |
+|-----------|--------|-------|------------------------------------------|
+| put       | PUT    | Write | Single row or batch of rows json encoded within the request body <br> <span style="font-size:.92em;background-color:#eee;">`/ts/v1/tables/GeoCheckin/keys --data '[»Row(s)«]'`</span> |
+| get       | GET    | Read  | Single-key fetch / get of a TS row <br> <span style="font-size:.92em;background-color:#eee;">`/ts/v1/tables/GeoCheckin/keys/region/South%20Atlantic/state/South%20Carolina/time/1420113600`</span> |
+| delete    | DELETE | Write | Single-key deletion of a TS row <br> <span style="font-size:.92em;background-color:#eee;">`/ts/v1/tables/GeoCheckin/keys/region/South%20Atlantic/state/South%20Carolina/time/1420113600`</span> |
+| query     | POST   | Query | Executes a TS SQL query <br> <span style="font-size:.92em;background-color:#eee;">`/ts/v1/query --data "»Query«"`</span> |
+| list_keys | GET    | Read  | Returns a chunked plain/text new line delimited list of keys <br> <span style="font-size:.92em;background-color:#eee;">`/ts/v1/tables/GeoCheckin/list_keys`</span> |
 
+## Percent-encoding
+
+All keys need to be implemented in the query string using Percent-encoding (or URL encoding), which can be seen in the examples above for the `get` and `delete` operations. Failing to do so will result in a `400 - Bad Request` response. Percent-encoding variants where a space character is replaced with a `+` will work as expected but it is recommended that modern variants are used where spaces are encoded as `%20`.
 
 ## Keys and Values
 
@@ -58,7 +59,6 @@ Streaming `list_keys` returns all the URLs as plain text separated by a new line
 The `query` to be executed should be sent as a plain text string in the body of the request.
 
 The value of `»Server«` is the IP address of your system and the HTTP interface port, separated by a colon.  This value is the `listener.http.internal` setting in the `riak.conf` file.
-
 
 ## Returning Results
 
