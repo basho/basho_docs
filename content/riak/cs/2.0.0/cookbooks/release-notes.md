@@ -13,6 +13,13 @@ aliases:
   - /riakcs/2.0.0/cookbooks/Riak-CS-Release-Notes/
   - /riak/cs/2.0.0/cookbooks/Riak-CS-Release-Notes/
 ---
+[riak_cs_multibag_support]: /riak/cs/2.0.0/cookbooks/supercluster
+
+[riak_cs_1.5_release_notes_upgrading]: https://github.com/basho/riak_cs/blob/release/1.5/RELEASE-NOTES.md#notes-on-upgrading
+[riak_cs_1.5_release_notes_upgrading_1]: https://github.com/basho/riak_cs/blob/release/1.5/RELEASE-NOTES.md#notes-on-upgrading-1
+[riak_cs_1.5_release_notes_incomplete_mutipart]: https://github.com/basho/riak_cs/blob/release/1.5/RELEASE-NOTES.md#incomplete-multipart-uploads
+[riak_cs_1.5_release_notes_leeway_and_disk]: https://github.com/basho/riak_cs/blob/release/1.5/RELEASE-NOTES.md#leeway-seconds-and-disk-space
+[riak_cs_2.0.0_release_notes]: https://github.com/basho/riak_cs/blob/develop/RELEASE-NOTES.md
 
 ## Riak S2 (Riak CS) 2.1.0 Release Notes
 
@@ -38,6 +45,7 @@ If you need storage calculation, you will still require the `add_paths` config t
 ### New Features
 #### Metrics
 New metrics have been added that enable you to determine the health of your Riak S2 system, as well as get reports on your storage utilization per bucket or user. The following stats items are available:
+
   * All calls, latencies, and counters in the S3 API
   * All calls, latencies, and counters in Stanchion
   * All Riak Erlang client operations, latencies, and counters
@@ -117,7 +125,7 @@ More information on garbage collection can be found in the [documentation](http:
 * Added a generic function for manual operations to resolve siblings of manifests and blocks, which will assist Basho Client Service Engineers with troubleshooting and solving issues. [[PR 1188](https://github.com/basho/riak_cs/pull/1188)]
 
 
-###Changes
+### Changes
 * Dependency versions have been updated in Riak S2 and Stanchion as follows: cuttlefish 2.0.4, node_package 2.0.3, riak-erlang-client 2.1.1, lager 2.2.0, lager_syslog 2.1.1, eper 0.92 (Basho patched), cluster_info 2.0.3, riak_repl_pb_api 2.1.1, and riak_cs_multibag 2.1.0. [[PR 1190](https://github.com/basho/riak_cs/pull/1190), [PR 1197 ](https://github.com/basho/riak_cs/pull/1197), [PR 27](https://github.com/basho/riak_cs_multibag/pull/27), [PR 1245](https://github.com/basho/riak_cs/pull/1245), and [PR 104](https://github.com/basho/stanchion/pull/104)].
 * Riak CS has moved from Folsom to Exometer. [[PR 1165](https://github.com/basho/riak_cs/pull/1165) and [PR 1180](https://github.com/basho/riak_cs/pull/1180)]
 * Improvements have been made to error tracing for retrieving blocks from client GET requests. There is a complex logic to resolve blocks when a GET is requested from the client. First, Riak CS tries to retrieve a block with `n_val=1`. If it fails, a retry will be done using `n_val=3`. If the block cannot be resolved locally, `proxy_get` is enabled, and the system is configured with datacenter replication, then Riak CS will try to perform a proxied GET to the remote site. The fallback and retry logic is complex and hard to trace, especially in a faulty or unstable situation. This improvement adds error tracing for the whole sequence described above, which will help diagnose issues. Specifically, for each block, the block server stacks all errors returned from the Riak client and reports the reason for every error as well as the type of call in which the error occurred. [[PR 1177](https://github.com/basho/riak_cs/pull/1177)]
@@ -127,7 +135,7 @@ More information on garbage collection can be found in the [documentation](http:
 * The infinity timeout option has been set so that several functions make synchronous `gen_fsm` calls  indefinitely, which prevents unnecessary timeouts. [[PR 1249](https://github.com/basho/riak_cs/pull/1249)]
 
 
-###Bugs Fixed
+### Bugs Fixed
 * [[Issue 1097](https://github.com/basho/riak_cs/issues/1097)/[PR 1212](https://github.com/basho/riak_cs/pull/1212)] When `x-amz-metadata-directive=COPY` was specified, Riak CS did not actually COPY the metadata of original resource. Instead, it would treat it as a `REPLACE`.  When directed to `x-amz-metadata-directive=REPLACE` `Content-Type`, Riack CS would `REPLACE` it. Correct handling for the `x-amz-metadata-directive` has been added to PUT Object Copy API.
 * [[Issue 1099](https://github.com/basho/riak_cs/issues/1099)/[PR 1096](https://github.com/basho/riak_cs/pull/1096)] There was an unnecessary NextMarker in Get Bucket's response if `CommonPrefixes` contained the last key. Fixed handling of uploaded parts that should be deleted after Multipart Complete Request.
 * [[Issue 939](https://github.com/basho/riak_cs/issues/939)/[PR 1200](https://github.com/basho/riak_cs/pull/1200)] Copy requests without Content-Length request headers failed with 5xx errors. Such requests are now allowed without Content-Length header in Copy API calls. Additionally, Copy API calls with Content-Lengths more than zero have been given explicit errors.
@@ -383,11 +391,6 @@ configuration settings, please see the
 [Full Riak CS 2.0.0 Release Notes][riak_cs_2.0.0_release_notes]**
 
 
-[riak_cs_1.5_release_notes_upgrading]: https://github.com/basho/riak_cs/blob/release/1.5/RELEASE-NOTES.md#notes-on-upgrading
-[riak_cs_1.5_release_notes_upgrading_1]: https://github.com/basho/riak_cs/blob/release/1.5/RELEASE-NOTES.md#notes-on-upgrading-1
-[riak_cs_1.5_release_notes_incomplete_mutipart]: https://github.com/basho/riak_cs/blob/release/1.5/RELEASE-NOTES.md#incomplete-multipart-uploads
-[riak_cs_1.5_release_notes_leeway_and_disk]: https://github.com/basho/riak_cs/blob/release/1.5/RELEASE-NOTES.md#leeway-seconds-and-disk-space
-[riak_cs_2.0.0_release_notes]: https://github.com/basho/riak_cs/blob/develop/RELEASE-NOTES.md
 
 
 ## Riak CS 1.5.4
@@ -776,8 +779,9 @@ Multibag, the ability to store object manifests and blocks in separate
 clusters or groups of clusters, has been added as an Enterprise feature,
 but it is in early preview status. `proxy_get` has not yet been
 implemented for this preview feature, so multibag is intended for a
-single DC only at this time. More information on Multibag is available
-[[here|Riak CS Multibag Support]].
+single DC only at this time.  
+
+> **Note**: CS Multibag was renamed to CS Supercluster.  More information on Supercluster Support is available [here][riak_cs_multibag_support].
 
 ### Known Issues and Limitations
 
