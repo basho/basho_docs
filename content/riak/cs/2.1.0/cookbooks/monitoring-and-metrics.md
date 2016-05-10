@@ -34,7 +34,7 @@ analysis of the running system with
 >All statistics available in versions of Riak S2 below 2.0.x have either been renamed or removed entirely.
 
 
-##Using Metrics
+## Using Metrics
 
 Riak S2 exposes statistics on critical operations that
 are commonly used for monitoring, alerting, and trend analysis. These
@@ -66,7 +66,7 @@ Running `riak-cs-admin status` will show the names and values of all available m
 
 There are too many metrics (over 1000) to list all of them here. The following sections provide an overview of each major statistic category, associated prefixes, and major operations for that category.
 
-###S3 API statistics
+### S3 API statistics
 
 S3 API statistics start with one of the following prefixes (all of which are names for S3 APIs):
 
@@ -86,14 +86,14 @@ Each prefix is typically followed by operations such as:
 Operation | Description
 :---------|:-----------
 `service_get` | GET Service
-`bucket_(put|head|delete)` | PUT, HEAD, DELETE Bucket
-`bucket_acl_(get|put)` | PUT, GET Bucket ACL
-`bucket_policy_(get|put|delete)` | PUT, GET, DELETE Bucket Policy
+`bucket_(put∣head∣delete)` | PUT, HEAD, DELETE Bucket
+`bucket_acl_(get∣put)` | PUT, GET Bucket ACL
+`bucket_policy_(get∣put∣delete)` | PUT, GET, DELETE Bucket Policy
 `bucket_location_get` | GET Bucket Location
 `list_uploads` | listing all multipart uploads
 `multiple_delete` | Delete Multiple Objects
 `list_objects` | listing all objects in a bucket, equally GET Bucket
-`object_(get|put|delete)` | GET, PUT, DELETE, HEAD Objects
+`object_(get∣put∣delete)` | GET, PUT, DELETE, HEAD Objects
 `object_put_copy` | PUT Copy Object
 `object_acl` | GET, PUT Object ACL
 `multipart_post` | Initiate a multipart upload
@@ -104,7 +104,7 @@ Operation | Description
 
 See the [S3 API documentation][s3 api] for information on all available APIs.
 
-###Stanchion access statistics
+### Stanchion access statistics
 
 Stanchion access statistics start with the prefix `velvet`.
 
@@ -120,7 +120,7 @@ Operation | Description
 `velvet_set_bucket_policy` | requesting putting a new bucket policy to Stanchion
 `velvet_delete_bucket_policy` | requesting deleting a policy of the bucket to Stanchion
 
-###Riak access statistics
+### Riak access statistics
 
 Riak access statistics start with the prefix `riakc`.
 
@@ -152,10 +152,10 @@ Operation | Description
 `riakc_head_block` | heading a block, invoked via GC
 `riakc_delete_block_constrained` | first trial to delete block with PW=all
 `riakc_delete_block_secondary` | second trial to delete block with PW=quorum, after PW=all failed
-`riakc_(get|put)_gc_manifest_set` | invoked when a manifest is being moved to GC bucket
-`riakc_(get|delete)_gc_manifest_set` | invoked when manifests are being collected
-`riakc_(get|put)_access` | getting access stats, putting access stats
-`riakc_(get|put)_storage` | getting storage stats, putting storage stats
+`riakc_(get∣put)_gc_manifest_set` | invoked when a manifest is being moved to GC bucket
+`riakc_(get∣delete)_gc_manifest_set` | invoked when manifests are being collected
+`riakc_(get∣put)_access` | getting access stats, putting access stats
+`riakc_(get∣put)_storage` | getting storage stats, putting storage stats
 `riakc_fold_manifest_objs` | invoked inside GET Bucket (listing objects within a bucket)
 `riakc_mapred_storage` | stats on each MapReduce job performance
 `riakc_list_all_user_keys` | all users are listed out when starting storage calculation
