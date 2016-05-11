@@ -14,47 +14,47 @@ aliases:
   - /riak/cs/2.1.0/cookbooks/configuration/configuration-reference
 ---
 
-<div class="note"><div class="title">Note on Legacy app.config usage</div>
-**If you choose to use the legacy `app.config` files for Riak CS and/or
-Stanchion, some parameters have changed names and must be updated**.
+{{% note title="Note on Legacy Configuration Usage" %}}
+  **If you choose to use the legacy `app.config` files for Riak CS and/or
+  Stanchion, some parameters have changed names and must be updated**.
 
-In particular, for the Riak CS `app.config`:  
-\- `cs_ip` and `cs_port` have been combined into `listener`.  
-\- `riak_ip` and `riak_pb_port` have been combined into `riak_host`.  
-\- `stanchion_ip` and `stanchion_port` have been combined into
-`stanchion_host`.  
-\- `admin_ip` and `admin_port` have been combined into `admin_listener`.  
-\- `webmachine_log_handler` has become `webmachine_access_log_handler`.  
-\- `{max_open_files, 50}` has been depricated and should be replaced with
-`{total_leveldb_mem_percent, 30}`.  
+  In particular, for the Riak CS `app.config`:
 
-For the Stanchion `app.config`:  
-\- `stanchion_ip` and `stanchion_port` have been combined into `listener`.  
-\- `riak_ip` and `riak_port` have been combined into `riak_host`.  
+  - `cs_ip` and `cs_port` have been combined into `listener`.
+  - `riak_ip` and `riak_pb_port` have been combined into `riak_host`.
+  - `stanchion_ip` and `stanchion_port` have been combined into `stanchion_host`.
+  - `admin_ip` and `admin_port` have been combined into `admin_listener`.
+  - `webmachine_log_handler` has become `webmachine_access_log_handler`.
+  - `{max_open_files, 50}` has been depricated and should be replaced with
+    `{total_leveldb_mem_percent, 30}`.
 
-Each of the above pairs follows a similar form. For example, if your legacy
-`app.config` configuration was previously:
+  For the Stanchion `app.config`:
 
-```
-{riak_cs, [
-    {cs_ip, "127.0.0.1"},
-    {cs_port, 8080 },
-    . . .
-]},
-```
+  - `stanchion_ip` and `stanchion_port` have been combined into `listener`.
+  - `riak_ip` and `riak_port` have been combined into `riak_host`.
 
-It should now read:
+  Each of the above pairs follows a similar form. For example, if your legacy
+  `app.config` configuration was previously:
 
-```
-{riak_cs, [
-    {listener, {"127.0.0.1", 8080}},
-    . . .
-]},
-```
+  ```
+  {riak_cs, [
+      {cs_ip, "127.0.0.1"},
+      {cs_port, 8080 },
+      . . .
+  ]},
+  ```
 
-and so on. More details can be found at [configuring Riak CS](/riak/cs/2.1.0/cookbooks/configuration/riak-cs).
-</div>
+  It should now read:
 
+  ```
+  {riak_cs, [
+      {listener, {"127.0.0.1", 8080}},
+      . . .
+  ]},
+  ```
+
+  and so on. More details can be found at [configuring Riak CS](/riak/cs/2.1.1/cookbooks/configuration/riak-cs).
+{{% /note %}}
 
 This document is intended as a reference listing of all configurable parameters
 for Riak CS. For a more narrative-style walkthrough of configuring Riak CS, we

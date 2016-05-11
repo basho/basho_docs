@@ -772,7 +772,7 @@ div[role="main"] {
     line-height : 1.5;
     position    : relative;
 
-    .title, strong {
+    .title {
       @extend .sans-bold;
       font-style     : normal;
       font-size      : 135%;
@@ -811,8 +811,15 @@ div[role="main"] {
     width     : 800px;
     z-index   : 400;
 
-    p, ol, ul, h2, h3, h4, h5, h6, table, blockquote, .info, .note, aside.secondary {
+    p, ol, ul, h2, h3, h4, h5, h6, table, .info, aside.secondary {
       max-width: 600px;
+      &.center-text {
+        max-width : 100%;
+      }
+    }
+
+    blockquote {
+      max-width: 587px;
       &.center-text {
         max-width : 100%;
       }
@@ -1206,6 +1213,11 @@ div[role=main] {
   }
 
   .note {
+    max-width: 628px;
+    &.center-text {
+      max-width : 100%;
+    }
+
     pre,
     code {
       background : #fdfdfd;
