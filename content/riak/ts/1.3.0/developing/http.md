@@ -38,16 +38,28 @@ CREATE TABLE GeoCheckin
 )
 ```
 
-| Call   | Request URL         | Request type | Description  |
-|------------|---------------------|--------------|--------------|
-| put        | http://»Server name«/ts/v1/tables/GeoCheckin/keys '[»Row(s)«]' | PUT         | put a single or a batch of rows    |
-| get        | http://»Server name«/ts/v1/tables/GeoCheckin/keys/region/South Atlantic/state/South Carolina/time/1420113600  | GET          | single-key get of a value |
-| delete     | http://»Server name«/ts/v1/tables/GeoCheckin/keys/region/South Atlantic/state/South Carolina/time/1420113600  | DELETE       | single-key delete         |
-| query      | http://»Server name«/ts/v1/query --data "»Query«"  | POST         | execute a query |
-| list_keys  | http://»Server name«/ts/v1/tables/GeoCheckin/list_keys  | GET          | streaming list keys     |
+| Call  | Request URL         | Type | Description  |
+|:------|---------------------|:--------------:|--------------|
+|put    | /ts/v1/tables/GeoCheckin/keys '[»Row(s)«]' | PUT | put a single or a batch of rows |
+|get    | /ts/v1/tables/GeoCheckin/keys/region/North%20West/state/WA/time/14201136 | GET | single-key get of a value |
+|delete | /ts/v1/tables/GeoCheckin/keys/region/North%20West/state/WA/time/14201136 | DELETE | single-key delete         |
+|query  | /ts/v1/query --data "»Query«"  | POST | execute a query |
+|list_keys | /ts/v1/tables/GeoCheckin/list_keys  | GET | streaming list keys     |
 
+
+## Percent-encoding
+
+All keys need to be implemented in the query string using percent-encoding (or URL encoding), which can be seen in the examples above for the `get` and `delete` operations. Failing to do so will result in a `400 - Bad Request` response. Percent-encoding variants where a space character is replaced with a `+` will work as expected, but it is recommended that modern variants are used where spaces are encoded as `%20`.
 
 ## Keys and Values
+
+| Call      | Method | Type  |
+|-----------|--------|-------|
+| put       | PUT    | Write |
+| get       | GET    | Read  |
+| delete    | DELETE | Write |
+| query     | POST   | Query |
+| list_keys | GET    | Read  |
 
 Single-key `get` and `delete` requires the complete primary key to be serialized in the path of the URL, using the order defined in the schema to determine which row to get. The entire row will be returned.
 
