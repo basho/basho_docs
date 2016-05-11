@@ -1,4 +1,4 @@
-**A Note Regarding Front Matter**
+## Front Matter
 
 So the front matter that starts off every content file is very important. And it's very important to make sure it's right. There are future plans to build a front-matter-checker that will be included in the `rake build:hugo` task, so we can nip issues in the bud, but for now please see below for a discussion of the front matter we're expecting and how we're going to be using it.
 
@@ -63,3 +63,16 @@ listed_projects:            # Required: List of maps that defines the packages t
     version: "1.0.12"       # Required: A different Project Version.
     title: "Something Cool" # Required: Fancy title text to render.
 ```
+
+## Problematic Markdown (and Workarounds)
+
+#### Markdown Tables
+<!-- 
+Added 2016/05/10 after Hipchat conversation between LR and CV - This workaround will ideally
+be removed if/when the Hugo MD renderer addresses this precedence issue.  -cv
+-->
+**Problem**: Inserting an element with a `|` character can cause a table to render incorrectly.  
+**Solution**: Replace the `|` with the HTML entity `&#124;`.  
+**Note**: This workaround will not work when the `|` is inside of backticks. In that case, use the Divides character ("∣"—U+2223) in place of those instances of the pipe character.
+
+ 
