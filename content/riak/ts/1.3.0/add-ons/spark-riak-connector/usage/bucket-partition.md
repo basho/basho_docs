@@ -1,17 +1,17 @@
 ---
-title_supertext: "Spark-Riak Connector Add-on (Riak KV)"
+title_supertext: "Spark-Riak Connector Add-on"
 title: "Partitioning for KV Buckets"
 description: ""
-project: "riak_kv"
-project_version: "2.1.4"
+project: "riak_ts"
+project_version: "1.3.0"
 menu:
-  riak_kv-2.1.4:
+  riak_ts-1.3.0:
     name: "Partitioning for KV Buckets"
     identifier: "spark_riak_usage_partition_kv"
-    weight: 105
+    weight: 109
     parent: "spark_riak_usage"
 toc: true
-canonical_link: "docs.basho.com/riak/kv/latest/add-ons/spark-riak-connector/usage/bucket-partition"
+canonical_link: "docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage/bucket-partition"
 ---
 
 ## Key-Based Partitioning
