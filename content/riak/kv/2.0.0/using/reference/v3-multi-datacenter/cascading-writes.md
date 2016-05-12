@@ -1,5 +1,6 @@
 ---
-title: "V3 Multi-Datacenter Replication Reference: Cascading Realtime Writes"
+title_supertext: "V3 Multi-Datacenter Replication Reference:"
+title: "Cascading Realtime Writes"
 description: ""
 project: "riak_kv"
 project_version: "2.0.0"
@@ -10,6 +11,7 @@ menu:
     weight: 102
     parent: "managing_ref_v3"
 toc: true
+commercial_offering: true
 aliases:
   - /riak/2.0.0/ops/mdc/v3/cascading-writes
   - /riak/kv/2.0.0/ops/mdc/v3/cascading-writes
