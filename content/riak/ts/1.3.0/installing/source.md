@@ -23,9 +23,7 @@ canonical_link: "docs.basho.com/riak/ts/latest/installing/source/"
 [Riak TS GitHub respository]: https://github.com/basho/riak/tree/riak_ts-1.3.0
 
 
-Riak TS can be installed from source if you are building on a platform
-for which a package does not exist, or if you are interested in
-contributing back to the project.
+If there isn't a package for your OS or you are interested in contributing back to the project, you can install Riak TS from source!
 
 
 ## Dependencies
@@ -81,7 +79,17 @@ make rel
 
 ## Verify Your Installation
 
-Now that Riak TS is installed, 
+You can verify that Riak TS was successfully installed by running riak shell:
+
+```bash
+./riak-shell
+```
+
+Verify your connection by running `show_connection`. You should see a reply like this one:
+
+```
+riak_shell is connected to: 'dev1@127.0.0.1' on port 8087
+```
 
 
 ## Next Steps
