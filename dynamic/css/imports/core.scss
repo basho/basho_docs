@@ -313,18 +313,22 @@ div[role="main"] {
     @extend .sans;
     font-size   : 200%;
     line-height : 1.2;
-    padding     : .8em 0 .1em 0;
+    padding-bottom : .1em;
+    // To reduce the appearance of excess whitespace before headings.
+    padding-top : 109px;
+    margin-top  : -64px;
 
     a {
-      color           : $headerColor;
-      //text-decoration : underline;
+      color : $headerColor;
     }
   }
 
   h3 {
     @extend .sans;
     font-size   : 175%;
-    padding-top : .8em;
+    // To reduce the appearance of excess whitespace before headings.
+    padding-top : 113px;
+    margin-top  : -89px;
 
     a {
       color : $headerColor;
@@ -333,11 +337,25 @@ div[role="main"] {
 
   h4 {
     font-size : 125%;
-    padding-top: .8em;
+    // To reduce the appearance of excess whitespace before headings.
+    padding-top : 121px;
+    margin-top  : -104px;
 
     a {
       color : $headerColor;
     }
+  }
+
+  h5 {
+    // To reduce the appearance of excess whitespace before headings.
+    padding-top : 129px;
+    margin-top  : -129px;
+  }
+
+  h6 {
+    // To reduce the appearance of excess whitespace before headings.
+    padding-top : 131px;
+    margin-top  : -131px;
   }
 
   a {
@@ -827,12 +845,6 @@ div[role="main"] {
 
     aside.secondary {
       max-width: 748px;
-    }
-
-    h2 {
-      // To reduce the appearance 0f excess whitespace before headings
-      padding-top : 106px;
-      margin-top  : -78px;
     }
 
     nav.tutorial {
@@ -1616,13 +1628,33 @@ body.latest {
     padding   : 154px 0 0 20px;
 
     h2 {
-      // To reduce the appearance 0f excess whitespace before headings
-      padding-top : 154px;
-      margin-top  : -108px;
+      // To reduce the appearance of excess whitespace before headings
+      padding-top : 155px;
+      margin-top  : -110px;
+    }
+    h3 {
+      // To reduce the appearance of excess whitespace before headings.
+      padding-top : 159px;
+      margin-top  : -135px;
+    }
+    h4 {
+      // To reduce the appearance of excess whitespace before headings.
+      padding-top : 167px;
+      margin-top  : -150px;
+    }
+    h5 {
+      // To reduce the appearance of excess whitespace before headings.
+      padding-top : 175px;
+      margin-top  : -175px;
+    }
+    h6 {
+      // To reduce the appearance of excess whitespace before headings.
+      padding-top : 177px;
+      margin-top  : -177px;
     }
 
-     @media screen and (max-width: 768px) {
-       padding   : 54px 0 0 20px;
-     }
+    @media screen and (max-width: 768px) {
+      padding   : 54px 0 0 20px;
+    }
   }
 }

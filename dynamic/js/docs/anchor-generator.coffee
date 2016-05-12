@@ -1,3 +1,4 @@
+# Please note that this file must be run before toc-generator.coffee
 $ ->
   $("article").each ->
     article = $(this)
@@ -11,13 +12,10 @@ $ ->
 
     headers.each ->
       that = $(this)
-      return if that.hasClass('title')
+      return if that.hasClass('title') # Early out for e.g. ToC titles.
+      # Hugo will have already converted the header's text into and ID. Pull
+      # that and use it to create an <a> element.
+      id = that.attr('id')
       content = that.html()
-      name = that.text()
-                 .replace(/[\W+_]/g,'-')
-                 .replace(/-+$/g,'')
-                 .replace(/^-+/g,'')
-                 .replace(/--+/g,'-')
-                 .toLowerCase()
-      anchor = "<a href=\"##{name}\">#{content}</a>"
-      that.html(anchor).attr('id', name)
+      anchor = "<a href=\"##{id}\">#{content}</a>"
+      that.html(anchor)

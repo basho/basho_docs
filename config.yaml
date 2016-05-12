@@ -8,6 +8,12 @@ languageCode: "en-us"
 # Use YAML for front matter, rather than TOML
 metaDataFormat: "yaml"
 
+# Have Hugo generate `id`s for all header elements, without the default sha1
+# string appended. This means that anchors will be unique to a page, but _not_
+# to the site.
+blackfriday:
+  plainIDAnchors: true
+
 # Ignore files (such as the reference links list) on build
 ignoreFiles: [
     "\\_reference-links.md$",
