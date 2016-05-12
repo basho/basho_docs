@@ -318,6 +318,12 @@ div[role="main"] {
     padding-top : 109px;
     margin-top  : -64px;
 
+    // Reduce the padding on the ToC
+    // TODO: Should probably find a better place for this
+    &.title {
+      margin-top : -94px;
+    }
+
     a {
       color : $headerColor;
     }
@@ -778,7 +784,7 @@ div[role="main"] {
     }
   }
 
-  .enterprise, .info, .note, blockquote {
+  .info, .note, blockquote {
     @extend .box-green;
     //@extend .serif-italic;
     @include allCorners();
@@ -806,12 +812,16 @@ div[role="main"] {
       left        : 9px;
     }
   }
+
   .enterprise {
      @include gradient('575e64', rgba(87,95,101,1.0), rgba(73,81,88,1.0));
-     border: 0px;
-     color: #fff;
-     font-size: 100%;
-     font-family : 'OpenSansBold', sans-serif;
+     @include allCorners();
+     padding       : 16px 25px 16px 25px;
+     margin-bottom : 15px;
+     color         : #fff;
+     text-align    : center;
+     font-family   : 'OpenSansBold', sans-serif;
+     // Remove the external-link widget.
      a {
       color: $orange;
       text-decoration : none;
@@ -828,6 +838,10 @@ div[role="main"] {
     font-size : 110%;
     width     : 800px;
     z-index   : 400;
+
+    header {
+      margin-bottom: 30px;
+    }
 
     p, ol, ul, h2, h3, h4, h5, h6, table, .info, aside.secondary {
       max-width: 600px;
@@ -1170,6 +1184,7 @@ nav#toc {
 
   #toc-wrapper {
     width : auto;
+    padding-bottom : 0.7em;
 
     &.multi {
       -webkit-column-count : 2;
@@ -1182,11 +1197,6 @@ nav#toc {
       column-gap           : 20px;
       column-width         : 15em;
     }
-
-    //border-bottom  : 1px dashed #ccc;
-    @extend .horizontal-rule;
-    padding-bottom : 0.7em;
-    margin-bottom  : 0.7em;
   }
 
   #toc-items  {
@@ -1631,6 +1641,10 @@ body.latest {
       // To reduce the appearance of excess whitespace before headings
       padding-top : 155px;
       margin-top  : -110px;
+      // Reduce the padding on the ToC
+      &.title {
+        margin-top : -140px;
+      }
     }
     h3 {
       // To reduce the appearance of excess whitespace before headings.

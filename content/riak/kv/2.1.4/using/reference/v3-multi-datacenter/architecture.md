@@ -1,5 +1,6 @@
 ---
-title: "V3 Multi-Datacenter Replication Reference: Architecture"
+title_supertext: "V3 Multi-Datacenter Replication Reference:"
+title: "Architecture"
 description: ""
 project: "riak_kv"
 project_version: "2.1.4"
@@ -10,6 +11,7 @@ menu:
     weight: 100
     parent: "managing_ref_v3"
 toc: true
+commercial_offering: true
 aliases:
   - /riak/2.1.4/ops/mdc/v3/architecture
   - /riak/kv/2.1.4/ops/mdc/v3/architecture

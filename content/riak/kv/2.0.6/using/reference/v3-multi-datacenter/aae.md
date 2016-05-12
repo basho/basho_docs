@@ -1,5 +1,6 @@
 ---
-title: "V3 Multi-Datacenter Replication Reference: With Active Anti-Entropy"
+title_supertext: "V3 Multi-Datacenter Replication Reference:"
+title: "Fullsync via Active Anti-Entropy"
 description: ""
 project: "riak_kv"
 project_version: "2.0.6"
@@ -10,6 +11,7 @@ menu:
     weight: 101
     parent: "managing_ref_v3"
 toc: true
+commercial_offering: true
 aliases:
   - /riak/2.0.6/ops/mdc/v3/aae
   - /riak/kv/2.0.6/ops/mdc/v3/aae
