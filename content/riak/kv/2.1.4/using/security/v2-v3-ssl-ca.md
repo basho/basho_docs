@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "V2 / V3 SSL & CA Validation"
 description: ""
 project: "riak_kv"
@@ -9,7 +10,6 @@ project_version: "2.1.4"
 #    identifier: "security_validation"
 #    weight: 103
 #    parent: "managing_security"
-draft: true
 toc: true
 canonical_link: "https://docs.basho.com/riak/kv/latest/using/security/v2-v3-ssl-ca"
 ---

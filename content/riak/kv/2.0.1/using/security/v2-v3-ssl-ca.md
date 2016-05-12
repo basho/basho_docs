@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "V2 / V3 SSL & CA Validation"
 description: ""
 project: "riak_kv"

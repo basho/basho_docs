@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "Secondary Indexes"
 description: ""
 project: "riak_kv"
@@ -9,7 +10,6 @@ project_version: "2.0.6"
 #    identifier: "cluster_operations_2i"
 #    weight: 109
 #    parent: "managing_cluster_operations"
-draft: true
 toc: true
 canonical_link: "https://docs.basho.com/riak/kv/latest/using/cluster-operations/secondary-indexes"
 ---
