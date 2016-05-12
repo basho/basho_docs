@@ -18,7 +18,7 @@ canonical_link: "docs.basho.com/riak/ts/latest/releasenotes"
 
 Released May 4, 2016.
 
-Riak TS 1.3.0 is [open source](https://github.com/basho/riak/tree/riak_ts-1.3.0)! In addition to becoming OSS, version 1.3.0 introduces a broad range of new functionality including: an HTTP API, additional SQL commands, and relaxed key restrictions. It also includes fullsync Multi-Datacenter (MDC) replication for our Enterprise users.
+Riak TS 1.3.0 is [open source](https://github.com/basho/riak/tree/riak_ts-1.3.0)! In addition to becoming OSS, version 1.3.0 introduces a broad range of new functionality including: an HTTP API, additional SQL commands, and relaxed key restrictions. It also includes Multi-Datacenter (MDC) replication for our Enterprise users.
 
 We've also added AWS AMI support. You can find instructions for installing Riak TS on AWS [here](http://docs.basho.com/riak/ts/1.3.0/installing/aws/).
 
@@ -42,7 +42,7 @@ We've also added AWS AMI support. You can find instructions for installing Riak 
 * The relaxed key restrictions mean the family and series keys are no longer required, which makes TS table schemas more flexible, and makes customizing the data you store and how you store even easier. 
     * [[PR #1357](https://github.com/basho/riak_kv/pull/1357)]
     * [[riak_ql PR #108](https://github.com/basho/riak_ql/pull/108)]
-* TS now supports MDC fullsync replication on TS tables. At this time, MDC support in TS does not include AAE fullsync. To use MDC, you will need to create your TS tables in your clusters and then [configure](http://http://docs.basho.com/riak/ts/1.3.0/using/mdc/) MDC. 
+* TS now supports MDC replication on TS tables. At this time, MDC support in TS does not include AAE fullsync. To use MDC, you will need to create your TS tables in your clusters and then [configure](http://http://docs.basho.com/riak/ts/1.3.0/using/mdc/) MDC. 
     * [[riak_repl PR #738](https://github.com/basho/riak_repl/pull/738)]
     * [[PR #1381](https://github.com/basho/riak_kv/pull/1381)]
 * Riak TS now offers integration with PHP and .NET clients.
