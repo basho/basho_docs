@@ -18,7 +18,7 @@ aliases:
 canonical_link: "https://docs.basho.com/riak/kv/latest/setup/installing/verify"
 ---
 
-[dev client libraries]: /riak/kv/2.1.1/developing/client-libraries
+[client libraries]: /riak/kv/2.1.1/developing/client-libraries
 [perf open files]: /riak/kv/2.1.1/using/performance/open-files-limit
 [cluster ops bucket types]: /riak/kv/2.1.1/using/cluster-operations/bucket-types
 [cluster ops inspect node]: /riak/kv/2.1.1/using/cluster-operations/inspecting-node
@@ -154,7 +154,7 @@ To start up Riaknostic, ensure that Riak is running on the node and issue the fo
 riak-admin diag
 ```
 
-More extensive documentation for Riaknostic can be found in the [Inspecting a Node][cluster ops inspecting node] guide.
+More extensive documentation for Riaknostic can be found in the [Inspecting a Node][cluster ops inspect node] guide.
 
 ## Now what?
 
