@@ -15,7 +15,7 @@ $fadedGray : saturate(lighten($darkGrey, 10), 5);
 aside#nav-container {
   @extend .sans;
   @include boxShadow(none);
-  background : $subtleGray;
+  background : $subtleGrey;
 
   -o-user-select      : none;
   -ms-user-select     : none;
@@ -70,7 +70,7 @@ aside#nav-container {
    * ----------------------- */
   .current > a {
     background : $blueGreen;
-    color : $subtleGray;
+    color : $subtleGrey;
   }
   .current > div {
     background : $blueGreen;
@@ -78,12 +78,12 @@ aside#nav-container {
     a,
     .separator,
     .nav-icon {
-      color : $subtleGray;
+      color : $subtleGrey;
     }
     .menu-toggle {
-      border-top-color    : $subtleGray;
+      border-top-color    : $subtleGrey;
       /* selector specificity bump */
-      &.open { border-bottom-color : $subtleGray; }
+      &.open { border-bottom-color : $subtleGrey; }
     }
   }
 

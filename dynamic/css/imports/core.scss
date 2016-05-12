@@ -3,7 +3,7 @@
    ========================================================================== */
 
 html {
-  //@include bgPattern('content-bg.jpg', $subtleGray);
+  //@include bgPattern('content-bg.jpg', $subtleGrey);
 }
 
 body {
@@ -72,7 +72,7 @@ body {
   }
 
   div[role="main"] {
-    //@include bgPattern('content-bg.jpg', $subtleGray);
+    //@include bgPattern('content-bg.jpg', $subtleGrey);
     @include minSize(172px, 100%); // 172 is the width of #nav-container - this div's padding
     padding  : 0 25px 0 65px;
     margin   : 0 0 0 232px;
@@ -559,7 +559,7 @@ div[role="main"] {
     .shadow-divider {
       @include size(100%, 1px);
       padding       : 1.2em 0 0 .5em;
-      border-bottom : 1px solid $subtleGray;
+      border-bottom : 1px solid $subtleGrey;
       margin-bottom : 1.2em;
 
       @media screen and (max-width: 768px) {
@@ -1385,7 +1385,7 @@ article {
 
     ul {
       padding    : 5px 5px 10px;
-      border-top : 1px solid $subtleGray;
+      border-top : 1px solid $subtleGrey;
       //border-top : 1px dashed silver;
 
       li {
@@ -1562,7 +1562,7 @@ body#dual {
         }
       }
       th.docs, th.code {
-        border-bottom: 1px solid $subtleGray;
+        border-bottom: 1px solid $subtleGrey;
         h2 {
           font-size:28pt;
           padding: 5px;
