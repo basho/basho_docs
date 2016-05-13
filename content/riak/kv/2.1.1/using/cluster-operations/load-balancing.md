@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "Load Balancing"
 description: ""
 project: "riak_kv"
@@ -9,7 +10,6 @@ project_version: "2.1.1"
 #    identifier: "cluster_operations_load_balancing"
 #    weight: 111
 #    parent: "managing_cluster_operations"
-draft: true
 toc: true
 canonical_link: "https://docs.basho.com/riak/kv/latest/using/cluster-operations/load-balancing"
 ---

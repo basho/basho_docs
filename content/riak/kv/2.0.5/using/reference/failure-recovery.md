@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "Failure & Recovery Reference"
 description: ""
 project: "riak_kv"
