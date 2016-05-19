@@ -122,7 +122,7 @@
 [cluster ops bucket types]: /riak/kv/2.0.2/using/cluster-operations/bucket-types
 [cluster ops handoff]: /riak/kv/2.0.2/using/cluster-operations/handoff
 [cluster ops log]: /riak/kv/2.0.2/using/cluster-operations/logging
-[cluster ops obj del]: /riak/kv/2.0.2/using/cluster-operations/object-deletion
+[cluster ops obj del]: /riak/kv/2.0.2/using/reference/object-deletion
 [cluster ops backup]: /riak/kv/2.0.2/using/cluster-operations/backing-up
 [cluster ops mdc]: /riak/kv/2.0.2/using/cluster-operations/multi-datacenter
 [cluster ops strong consistency]: /riak/kv/2.0.2/using/cluster-operations/strong-consistency

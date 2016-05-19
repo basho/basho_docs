@@ -34,7 +34,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/configuring/strong-consis
 [glossary aae]: /riak/kv/2.1.3/learn/glossary/#active-anti-entropy-aae
 [cluster ops 2i]: /riak/kv/2.1.3/using/cluster-operations/secondary-indexes
 [usage commit hooks]: /riak/kv/2.1.3/developing/usage/commit-hooks
-[cluster ops obj del]: /riak/kv/2.1.3/using/cluster-operations/object-deletion
+[cluster ops obj del]: /riak/kv/2.1.3/using/reference/object-deletion
 [dev client libraries]: /riak/kv/2.1.3/developing/client-libraries
 
 > **Please Note:**
