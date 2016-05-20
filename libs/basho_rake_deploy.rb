@@ -59,8 +59,8 @@ def do_fetch_archived_content()
   puts("Verifying archived content extraction...")
   puts("    Please note, this only checks for directories.\n"\
        "    If something went wrong with a previous extraction or if any "\
-       "of the extracted files were modified, please delete e.g. "\
-       "static/riak/ to trigger a re-extraction.")
+       "of the extracted files were modified, please run \`git clean "\
+       "-xdf static/\` and re-run this deploy script.")
   #TODO: Consider if this is a good idea or not. I'm leaning towards not.
   should_extract = (
     (not File.exist?("static/css/standalone")) ||
@@ -231,17 +231,22 @@ def do_deploy()
 
   upload_list = updated_list + new_list
 
+  new_files_log = File.join(log_dir, "#{start_time}.new.txt")
+  updated_files_log = File.join(log_dir, "#{start_time}.updated.txt")
+  deleted_files_log = File.join(log_dir, "#{start_time}.deleted.txt")
+
   puts("  Hash Check complete")
-  puts("    #{new_list.length} new files, and #{updated_list.length} updated..")
+  puts("    #{new_list.length} new files (logged to #{new_files_log})")
+  puts("    #{updated_list.length} updated files (logged to #{updated_files_log})")
   puts("    #{upload_list.length} files need to be uploaded to the remote")
-  puts("    #{delete_list.length} files need to be deleted from the remote")
-  File.open(File.join(log_dir, "#{start_time}.new.txt"), "w+") do |f|
+  puts("    #{delete_list.length} files need to be deleted from the remote (logged to #{deleted_files_log})")
+  File.open(new_files_log, "w+") do |f|
     f.puts(new_list)
   end
-  File.open(File.join(log_dir, "#{start_time}.updated.txt"), "w+") do |f|
+  File.open(updated_files_log, "w+") do |f|
     f.puts(upload_list)
   end
-  File.open(File.join(log_dir, "#{start_time}.deleted.txt"), "w+") do |f|
+  File.open(deleted_files_log, "w+") do |f|
     f.puts(delete_list)
   end
 
@@ -259,14 +264,16 @@ def do_deploy()
     puts("  Uploading files...")
     progress = ProgressBar.new("   Uploads", upload_list.length)
     upload_list.each { |obj_path|
-      #TODO: Generate a log of the uploaded files?
+      object_ext = File.extname(obj_path)
+      object_descriptor = {
+        key: obj_path,
+        body: File.open(obj_path),
+        acl: "public-read"
+      }
+      #TODO: Add additional file_ext -> ContentType detection.
+      object_descriptor[:content_type] = "text/html" if object_ext == ".html"
       #TODO: Error checking.
-      #TODO: Stop publishing read/write.
-      aws_bucket.put_object({
-          acl: "public-read-write",
-          key: obj_path,
-          body: File.open(obj_path)
-        })
+      aws_bucket.put_object(object_descriptor)
       progress.inc
     }
     progress.finish
@@ -286,7 +293,6 @@ def do_deploy()
           quiet: false
         }
       }
-      #TODO: Generate a log of the deleted files?
       begin
         response = aws_bucket.delete_objects(delete_hash)
       rescue Exception => e
