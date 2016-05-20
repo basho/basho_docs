@@ -47,12 +47,17 @@ objects such as:
 
 In order to use Riak CS supercluster, you need to modify multiple configuration
 files. First, in each Riak CS node you need to alter the node's
-`advanced.config` or `app.config` file to specify the host and port of each supercluster member.
+`riak-cs.conf`, `advanced.config`, or `app.config` file to specify the host and port of each supercluster member.
 
 For example, if you wanted to set up supercluster members on host `127.0.0.1` with three different ports -- `10017`,`10027`, and `10037` -- you would add the following section:
 
+```riakcsconf
+supercluster.member.Alpha = 127.0.0.1:10017
+supercluster.member.Bravo = 127.0.0.1:10027
+supercluster.member.Charlie = 127.0.0.1:10037
+```
 ```advancedconfig
-{riak_cs_supercluster, [
+{riak_cs, [
   %% Other configs
     {supercluster_members,
      [
@@ -64,7 +69,7 @@ For example, if you wanted to set up supercluster members on host `127.0.0.1` wi
 ]},
 ```
 ```appconfig
-{riak_cs_supercluster, [
+{riak_cs, [
   %% Other configs
     {supercluster_members,
      [
@@ -80,9 +85,14 @@ For example, if you wanted to set up supercluster members on host `127.0.0.1` wi
 changes to take effect.
 
 In addition to configuring Riak CS to use supercluster support, you will need to mirror the configuration changes shown above in Stanchion. In the
-`advanced.config` or `app.config` file in each Stanchion node, the following
+`stanchion.conf`, `advanced.config`, or `app.config` file in each Stanchion node, the following
 section would need to be inserted:
 
+```stanchionconf
+supercluster.member.Alpha = 127.0.0.1:10017
+supercluster.member.Bravo = 127.0.0.1:10027
+supercluster.member.Charlie = 127.0.0.1:10037
+```
 ```advancedconfig
 {stanchion, [
   %% Other configs
