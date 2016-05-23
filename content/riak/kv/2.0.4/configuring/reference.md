@@ -16,23 +16,23 @@ aliases:
 canonical_link: "https://docs.basho.com/riak/kv/latest/configuring/reference"
 ---
 
-[concept clusters]: /riak/kv/2.0.4/learn/concepts/clusters
-[plan backend bitcask]: /riak/kv/2.0.4/setup/planning/backend/bitcask
-[plan backend leveldb]: /riak/kv/2.0.4/setup/planning/backend/leveldb
-[plan backend memory]: /riak/kv/2.0.4/setup/planning/backend/memory
-[plan backend multi]: /riak/kv/2.0.4/setup/planning/backend/multi
-[use admin riak cli]: /riak/kv/2.0.4/using/admin/riak-cli
-[use admin riak-admin]: /riak/kv/2.0.4/using/admin/riak-admin
-[glossary aae]: /riak/kv/2.0.4/learn/glossary/#active-anti-entropy-aae
-[use ref search 2i]: /riak/kv/2.0.4/using/reference/search-secondary-indexes
-[cluster ops bucket types]: /riak/kv/2.0.4/using/cluster-operations/bucket-types
-[usage conflict resolution]: /riak/kv/2.0.4/developing/usage/conflict-resolution
-[concept causal context]: /riak/kv/2.0.4/learn/concepts/causal-context
-[usage mapreduce]: /riak/kv/2.0.4/developing/usage/mapreduce
-[security index]: /riak/kv/2.0.4/using/security/
-[cluster ops strong consistency]: /riak/kv/2.0.4/using/cluster-operations/strong-consistency
-[glossary vnode]: /riak/kv/2.0.4/learn/glossary/#vnode
-[cluster ops handoff]: /riak/kv/2.0.4/using/cluster-operations/handoff
+[concept clusters]: ../../learn/concepts/clusters
+[plan backend bitcask]: ../../setup/planning/backend/bitcask
+[plan backend leveldb]: ../../setup/planning/backend/leveldb
+[plan backend memory]: ../../setup/planning/backend/memory
+[plan backend multi]: ../../setup/planning/backend/multi
+[use admin riak cli]: ../../using/admin/riak-cli
+[use admin riak-admin]: ../../using/admin/riak-admin
+[glossary aae]: ../../learn/glossary/#active-anti-entropy-aae
+[use ref search 2i]: ../../using/reference/search-secondary-indexes
+[cluster ops bucket types]: ../../using/cluster-operations/bucket-types
+[usage conflict resolution]: ../../developing/usage/conflict-resolution
+[concept causal context]: ../../learn/concepts/causal-context
+[usage mapreduce]: ../../developing/usage/mapreduce
+[security index]: ../../using/security/
+[cluster ops strong consistency]: ../../using/cluster-operations/strong-consistency
+[glossary vnode]: ../../learn/glossary/#vnode
+[cluster ops handoff]: ../../using/cluster-operations/handoff
 
 Riak has a `riak.conf` configuration file located in `/etc` if you are
 using a source install or in `/etc/riak` or `/usr/local/etc` if you used
@@ -187,7 +187,7 @@ parameters below.
 
 <tr>
 <td><code>platform_bin_dir</code></td>
-<td>The directory in which the <a href="/riak/kv/2.0.4/using/admin/riak-admin"><code>riak-admin</code></a>,
+<td>The directory in which the <a href="../../using/admin/riak-admin"><code>riak-admin</code></a>,
 <code>riak-debug</code>, and now-deprecated <code>search-cmd</code>
 executables are stored.</td>
 <td><code>./bin</code></td>
@@ -196,7 +196,7 @@ executables are stored.</td>
 <tr>
 <td><code>platform_data_dir</code></td>
 <td>The directory in which Riak stores its storage backend data, as well
-as <a href="/riak/kv/2.0.4/learn/concepts/clusters">ring state</a> data, <a href="/riak/kv/2.0.4/learn/glossary/#active-anti-entropy-aae">active anti-entropy</a> data, and cluster metadata.</td>
+as <a href="../../learn/concepts/clusters">ring state</a> data, <a href="../../learn/glossary/#active-anti-entropy-aae">active anti-entropy</a> data, and cluster metadata.</td>
 <td><code>./data</code></td>
 </tr>
 
@@ -448,7 +448,7 @@ When configuring buckets [using bucket types][cluster ops bucket types], the tab
 <td><code>buckets.default.allow_mult</code></td>
 <td>Whether or not siblings are allowed
 <br /><br />
-<strong>Note</strong>: See <a href="/riak/kv/2.0.4/developing/usage/conflict-resolution">
+<strong>Note</strong>: See <a href="../../developing/usage/conflict-resolution">
 Conflict Resolution</a> for a discussion of siblings.</td>
 <td><code>true</code></td>
 </tr>
@@ -494,7 +494,7 @@ same write.</td>
 <td>The number of replicas stored.
 <br /><br />
 <strong>Note</strong>: See
-<a href="dev/advanced/replication-properties">Replication Properties</a>
+<a href="../../developing/app-guide/replication-properties">Replication Properties</a>
 for further discussion.</td>
 <td><code>3</code></td>
 </tr>
@@ -1383,7 +1383,7 @@ Configurable parameters for intra-cluster, i.e. inter-node, [handoff][cluster op
 <tr>
 <td><code>handoff.max_rejects</code></td>
 <td>The maximum number of times that a secondary system within Riak,
-such as <a href="dev/using/search">Riak Search</a>, can block <a href="/riak/kv/2.0.4/using/cluster-operations/handoff">handoff</a>
+such as <a href="../../developing/usage/search">Riak Search</a>, can block <a href="../../using/cluster-operations/handoff">handoff</a>
 of primary key/value data. The approximate maximum duration that a vnode
 can be blocked can be determined by multiplying this setting by
 <code>vnode_management_timer</code>. If you want to prevent handoff from
@@ -1456,7 +1456,7 @@ down on system resource usage.</td>
 
 <tr>
 <td><code>datatypes.compression_level</code></td>
-<td>Whether serialized <a href="/riak/kv/2.0.4/developing/data-types">Data Types</a> will use compression and at what
+<td>Whether serialized <a href="../../developing/data-types">Data Types</a> will use compression and at what
 level. When set to an integer, the parameter refers to the
 aggressiveness of compression, on a scale from 0 to 9. <code>on</code>
 is equivalent to 6, whereas <code>off</code> is equivalent to 0. Higher
@@ -1724,7 +1724,7 @@ abandons the leader (in milliseconds). This must be set greater than the
 <tr>
 <td><code>alive_tokens</code></td>
 <td>Determines the number of ticks the leader will wait to hear from its
-associated <a href="/riak/kv/2.0.4/learn/glossary/#vnode">vnode</a> before assuming that the vnode
+associated <a href="../../learn/glossary/#vnode">vnode</a> before assuming that the vnode
 is unhealthy and stepping down as leader. If the vnode does not respond
 to the leader before <code>ensemble_tick</code> *
 <code>alive_tokens</code> milliseconds have elapsed, the leader will
@@ -2088,7 +2088,7 @@ There are three non-`riak_repl` settings available in
 <tr>
 <td><code>add_paths</code></td>
 <td><code>riak_kv</code></td>
-<td>If you are <a href="ops/advanced/install-custom-code">installing
+<td>If you are <a href="../../using/reference/custom-code">installing
 custom code</a> for Riak, e.g. for the purpose of running <a
 href="dev/using/mapreduce">MapReduce</a> jobs or <a
 href="dev/using/commit-hooks">commit hooks</a>, this setting specifies
@@ -2117,7 +2117,7 @@ disables tombstone removal altogether; <code>immediate</code> removes
 objects' tombstones as soon as the delete request is received; and
 setting <code>delete_mode</code> to an integer value specifies the
 number of milliseconds to wait before removing tombstones. More
-information can be found in <a href="ops/advanced/deletion">Object
+information can be found in <a href="../../using/reference/object-deletion">Object
 Deletion</a>.</td>
 <td><code>3000</code> (3 seconds)</td>
 </tr>

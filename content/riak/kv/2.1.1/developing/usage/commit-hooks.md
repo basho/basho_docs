@@ -88,7 +88,7 @@ Riak object being modified. Remember that deletes are also considered
 "writes," and so pre-commit hooks will be fired when a delete occurs in
 the bucket as well. This means that hook functions will need to inspect
 the object for the `X-Riak-Deleted` metadata entry (more on this in our
-documentation on [object deletion](/riak/kv/2.1.1/using/cluster-operations/object-deletion)) to determine whether a delete is
+documentation on [object deletion](/riak/kv/2.1.1/using/reference/object-deletion)) to determine whether a delete is
 occurring.
 
 Erlang pre-commit functions are allowed three possible return values:
