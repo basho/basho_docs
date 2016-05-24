@@ -5,6 +5,11 @@ title: "Basho Documentation"
 baseURL: "https://docs.basho.com/"
 languageCode: "en-us"
 
+copyright: "This work is licensed under a Creative Commons Attribution 4.0 International Public License -- © 2011-2016 Basho Technologies, Inc."
+
+taxonomies:
+  announcement: "announcements"
+
 # Use YAML for front matter, rather than TOML
 metaDataFormat: "yaml"
 
