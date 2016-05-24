@@ -32,9 +32,10 @@ params:
   #       releases:        // List (release series) of lists (versions in that series).
   #         - ["<<version>>", "<<version>>", ...],
   #         - ["<<version>>", "<<version>>", ...],
-  #       latest:       "<<version>>" // Current development version
-  #       lts:          "<<version>>" // *Optional*: Current LTS version
-  #       archived_url: "<<URI>>"     // *Optional*: URL directing to un-maintained content
+  #       latest:        "<<version>>" // Current development version
+  #       lts:           "<<version>>" // *Optional*: Current LTS version
+  #       archived_url:  "<<URI>>"     // *Optional*: URL directing to un-maintained content
+  #       archived_path: "<<path>>"    // Previous path to project content; used for redirects
   project_descriptions:
     riak_kv:
       path: "riak/kv"
