@@ -1,6 +1,7 @@
 ---
 title: "Product Advisories"
 description: "Product Advisories for Basho products"
+date: "2016-04-08"
 menu:
   community:
     name: "Product Advisories"

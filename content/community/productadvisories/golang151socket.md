@@ -1,6 +1,8 @@
 ---
 title: "Socket reuse issue with Riak Golang client 1.5.1"
 description: ""
+date: "2016-03-01"
+announcements: ["Product Advisories"]
 menu:
   community:
     name: "Socket Reuse in Riak Golang 1.5.1"

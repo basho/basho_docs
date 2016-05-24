@@ -1,6 +1,7 @@
 ---
 title: "Taishi Program"
 description: ""
+date: "2016-03-07"
 menu:
   community:
     name: "Taishi Program"

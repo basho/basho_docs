@@ -1,7 +1,8 @@
-
 ---
 title: "SSL 3.0 Vulnerability and POODLE Attack"
 description: ""
+date: "2015-01-27"
+announcements: ["Product Advisories"]
 menu:
   community:
     name: "SSL 3.0 Vulnerability and POODLE Attack"

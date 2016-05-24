@@ -1,6 +1,7 @@
 ---
 title: "Community Overview"
 description: "Lorem ipsum quia dolor sit amet"
+date: "2015-10-15"
 menu:
   community:
     name: "Community"

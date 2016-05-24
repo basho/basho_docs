@@ -1,6 +1,7 @@
 ---
 title: "Reporting Bugs"
 description: ""
+date: "2016-03-15"
 menu:
   community:
     name: "Reporting Bugs"

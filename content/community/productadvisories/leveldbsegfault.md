@@ -1,6 +1,8 @@
 ---
 title: "LevelDB SEGV in Riak KV 2.1.3"
 description: ""
+date: "2016-04-08"
+announcements: ["Product Advisories"]
 menu:
   community:
     name: "LeveDB Segfault"
