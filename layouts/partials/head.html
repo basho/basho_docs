@@ -6,12 +6,20 @@
   <meta name="version" content="{{ .Params.project_version }}">
   <meta name="base-url" content="/{{ .Scratch.Get "site_relative_url" }}">
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-  <link rel="canonical" href="{{ .Params.canonical_link }}" />
+  {{ with .Params.canonical_link }}<link rel="canonical" href="{{ . }}" />{{ end }}
 
   <title>{{ .Title }}</title>
 
   <link href="/css/all.css" media="screen" rel="stylesheet" type="text/css">
   <link href="/css/print.css" media="print" rel="stylesheet" type="text/css">
+
+  {{ if .RSSlink }}
+    <link href="{{ .RSSlink }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" />
+    <link href="{{ .RSSlink }}" rel="feed" type="application/rss+xml" title="{{ .Site.Title }}" />
+  {{ else if in .Params.announcements "Product Advisories" }}
+    <link href="/announcements/product-advisories/index.xml" rel="alternate" type="application/rss+xml" title="Product Advisories" />
+    <link href="/announcements/product-advisories/index.xml" rel="feed" type="application/rss+xml" title="Product Advisories" />
+  {{ end }}
 
   <!--
     Iff JavaScript is enabled, we want to hide all pre>code blocks so we can
