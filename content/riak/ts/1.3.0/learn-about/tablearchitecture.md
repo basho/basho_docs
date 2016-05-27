@@ -44,7 +44,7 @@ Riak TS has two types of keys:
 * *partition keys*, which determine where the data is placed on the cluster, and
 * *local keys*, which determine where the data is written in the partition.
 
-Partition keys use *time quantization* to group data that will be queried together in the same physical part of the cluster. Time quantization says “group data by 15 minute clumps, or 10 second clumps, or 60 day clumps” depending on how quickly your time series data come in and how you need to analyze them. The quantization is configurable on a table level.
+Partition keys can use *time quantization* to group data that will be queried together in the same physical part of the cluster. Time quantization says “group data by 15 minute clumps, or 10 second clumps, or 60 day clumps” depending on how quickly your time series data come in and how you need to analyze them. The quantization is configurable on a table level.
 
 In order to query TS data, data is structured using a specific schema. The schema defines what data can be stored in a TS table and what type it has. Queries can then be written against that schema and the TS query system can validate and execute them.
 
@@ -134,9 +134,9 @@ The `PRIMARY KEY` describes both the partition key and local key. The partition 
 #### Partition Key
 
 
-The partition key is the first element of the primary key, and is defined as a list of  column names and quantum in parentheses. The partition key must have at least one column name and a quantum.
+The partition key is the first element of the primary key, and is defined as a list of  column names in parentheses. The partition key must have at least one column name.
 
-The quantum is used to colocate data on one of the partition key's timestamp fields:
+If you choose to include a quantum, it will be used to colocate data on one of the partition key's timestamp fields:
 
 ```sql
 PRIMARY KEY  ((region, state, QUANTUM(time, 1, 's')), ...)

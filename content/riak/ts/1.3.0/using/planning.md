@@ -139,7 +139,7 @@ CREATE TABLE GeoCheckin
    weather      VARCHAR   NOT NULL,
    temperature  DOUBLE,
    PRIMARY KEY (
-     (region, state, QUANTUM(time, 15, 'm')),
+     (region, state,
       region, state, time
    )
 )
@@ -155,7 +155,7 @@ CREATE TABLE GeoCheckin
    weather      VARCHAR   NOT NULL,
    temperature  DOUBLE,
    PRIMARY KEY (
-     (state, region, QUANTUM(time, 15, 'm')),
+     (state, region,
       state, region, time
    )
 )
@@ -164,9 +164,9 @@ CREATE TABLE GeoCheckin
 
 #### Partition Key
 
-The partition key is the first element of the primary key, and is defined as a list of  column names and quantum in parentheses. The partition key must have at least one column name and a quantum.
+The partition key is the first element of the primary key, and is defined as a list of  column names in parentheses. The partition key must have at least one column name.
 
-The quantum is used to colocate data on one of the partition key's timestamp fields:
+You may specify a quantum, which is used to colocate data on one of the partition key's timestamp fields:
 
 ```sql
 PRIMARY KEY  ((region, state, QUANTUM(time, 1, 's')), ...)
