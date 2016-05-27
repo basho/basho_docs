@@ -36,17 +36,9 @@ minimum of 5 transactions is required for statistics to be generated.
 
 #### Performance
 
-{{#1.2.0-1.2.1}}
-The `riak-admin status` command should not be executed more than once a
-minute as statistics are recalculated every time the command is
-executed.
-{{/1.2.0-1.2.1}}
-
-{{#1.3.0+}}
 Repeated runs of the `riak-admin status` command does not have a
 negative performance impact as the statstics are cached internally in
 Riak.
-{{/1.3.0+}}
 
 ### Active Stats
 
@@ -278,7 +270,6 @@ Stat                       | Description
 `disk`                     | Information about the disk, taken from Erlang's disksup module.  Reported as [{"ID",KBytes_Used,Percent_Util}].
 `storage_backend`          | The storage backend currently in use.
 
-{{#1.2.0+}}
 ### Pipeline Metrics
 
 The following metrics from from riak_pipe are generated during MapReduce
@@ -291,7 +282,6 @@ Stat                            | Description
 `pipeline_create_error_count`   | The total number of pipeline creation errors since the node was started
 `pipeline_create_error_one`     | The number of pipeline creation errors in the last 60 seconds
 `pipeline_create_one`           | The number of pipelines created in the last 60 seconds
-{{/1.2.0+}}
 
 ### Application and Subsystem Versions
 
@@ -312,7 +302,7 @@ Stat                    | Description
 `riak_pipe_version`     | [Riak Pipe](http://github.com/basho/riak_pipe)
 `riak_core_version`     | [Riak Core](http://github.com/basho/riak_core)
 `bitcask_version`       | [Bitcask](http://github.com/basho/bitcask)
-`basho_stats_version`   | [Basho Stats](http://github.com/basho/basho_stats) {{#<1.3.0}}
+`basho_stats_version`   | [Basho Stats](http://github.com/basho/basho_stats)
  `webmachine_version`   | [Webmachine](http://github.com/basho/webmachine)
 `mochiweb_version`      | [MochiWeb](http://github.com/basho/mochiweb)
 `inets_version`         | [inets](http://erlang.org/doc/apps/inets/)
