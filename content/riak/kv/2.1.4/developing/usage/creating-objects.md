@@ -144,7 +144,7 @@ PUT /types/TYPE/buckets/BUCKET/keys/KEY
 There is no need to intentionally create buckets in Riak. They pop into
 existence when keys are added to them, and disappear when all keys have
 been removed from them. If you don't specify a bucket's type, the type
-`[default](/riak/kv/2.1.4/developing/usage/bucket-types)` will be applied.
+[`default`](/riak/kv/2.1.4/developing/usage/bucket-types) will be applied.
 
 #### Write Parameters
 
