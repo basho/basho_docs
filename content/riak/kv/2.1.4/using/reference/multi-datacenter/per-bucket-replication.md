@@ -37,7 +37,7 @@ and above:
 ### Example of Disabling
 
 ```curl
-curl -v -XPUT http://127.0.0.1:8091/riak/my_bucket \
+curl -v -XPUT http://127.0.0.1:8098/buckets/my_bucket \
   -H "Content-Type: application/json" \
   -d '{"props":{"repl":false}}'
 ```
@@ -45,7 +45,7 @@ curl -v -XPUT http://127.0.0.1:8091/riak/my_bucket \
 ### Example of Enabling
 
 ```curl
-curl -v -XPUT http://127.0.0.1:8091/riak/my_bucket \
+curl -v -XPUT http://127.0.0.1:8098/buckets/my_bucket \
   -H "Content-Type: application/json" \
   -d '{"props":{"repl":true}}'
 ```
