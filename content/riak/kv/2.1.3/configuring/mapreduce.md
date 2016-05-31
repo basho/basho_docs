@@ -32,7 +32,7 @@ follows under `riak_kv`
 
 `mapred_name` is the URL directory used to submit M/R requests to Riak.
 By default `mapred`, making the command path, for example:
-`http://localhost:8091/mapred`
+`http://localhost:8098/mapred`
 
 ```erlang
     {mapred_name, "mapred"},
