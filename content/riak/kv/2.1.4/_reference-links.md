@@ -70,7 +70,7 @@
 [config reference]: /riak/kv/2.1.4/configuring/reference/
 [config strong consistency]: /riak/kv/2.1.4/configuring/strong-consistency
 [config load balance]: /riak/kv/2.1.4/configuring/load-balancing-proxy
-[config mapreduce]: /riak/kv/2.1.4/configuring/map-reduce
+[config mapreduce]: /riak/kv/2.1.4/configuring/mapreduce
 [config search]: /riak/kv/2.1.4/configuring/search/
 
 [config v3 mdc]: /riak/kv/2.1.4/configuring/v3-multi-datacenter
@@ -119,7 +119,7 @@
 [cluster ops add remove node]: /riak/kv/2.1.4/using/cluster-operations/adding-removing-nodes
 [cluster ops inspect node]: /riak/kv/2.1.4/using/cluster-operations/inspecting-node
 [cluster ops change info]: /riak/kv/2.1.4/using/cluster-operations/changing-cluster-info
-[cluster ops load balance]: /riak/kv/2.1.4/using/cluster-operations/load-balancing
+[cluster ops load balance]: /riak/kv/2.1.4/configuring/load-balancing-proxy
 [cluster ops bucket types]: /riak/kv/2.1.4/using/cluster-operations/bucket-types
 [cluster ops handoff]: /riak/kv/2.1.4/using/cluster-operations/handoff
 [cluster ops log]: /riak/kv/2.1.4/using/cluster-operations/logging

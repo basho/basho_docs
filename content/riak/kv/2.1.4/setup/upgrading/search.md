@@ -99,9 +99,9 @@ algorithm is bad at getting rid of large index files.
 
 2. For every schema in legacy Search, you must create a comparable
 schema in new Search. If you want to use the default schema named
-[_yz_default](../../../developing/search-schemas), you can skip this step, but we highly recommend you create your own custom schema.
+[_yz_default](../../../developing/usage/search-schemas), you can skip this step, but we highly recommend you create your own custom schema.
 
-    To create a schema, you can follow the Solr [search schema](../../../developing/search-schemas)
+    To create a schema, you can follow the Solr [search schema](../../../developing/usage/search-schemas)
     instructions to learn how to define your xml file. Once you've created
     the file, you can upload it to the cluster.
 
