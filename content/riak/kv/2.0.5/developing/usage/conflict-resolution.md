@@ -193,7 +193,7 @@ If `allow_mult` is set to `true`, you should _always_ use causal context
 when updating objects, _unless you are certain that no object exists
 under that key_. Failing to use causal context with mutable data,
 especially for objects that are frequently updated, can lead to
-[sibling explosion](/riak/kv/2.0.5/using/performance/latency-reduction-checklist#siblings), which can
+[sibling explosion](/riak/kv/2.0.5/using/performance/latency-reduction#siblings), which can
 produce a variety of problems in your cluster. Fortunately, much of the
 work involved with using causal context is handled automatically by
 Basho's official [client libraries](/riak/kv/2.0.5/developing/client-libraries). Examples can be found for each
@@ -615,7 +615,7 @@ and fail once that limit has been exceeded.
 Sibling explosion occurs when an object rapidly collects siblings
 without being reconciled. This can lead to myriad issues. Having an
 enormous object in your node can cause reads of that object to crash
-the entire node. Other issues include [increased cluster latency](/riak/kv/2.0.5/using/performance/latency-reduction-checklist) as the object is replicated and out-of-memory errors.
+the entire node. Other issues include [increased cluster latency](/riak/kv/2.0.5/using/performance/latency-reduction) as the object is replicated and out-of-memory errors.
 
 ### Vector Clock Explosion
 

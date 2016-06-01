@@ -95,7 +95,7 @@
 
 [use ref custom code]: /riak/kv/2.0.4/using/reference/custom-code
 [use ref handoff]: /riak/kv/2.0.4/using/reference/handoff
-[use ref monitoring]: /riak/kv/2.0.4/using/reference/monitoring
+[use ref monitoring]: /riak/kv/2.0.4/using/reference/statistics-monitoring
 [use ref search]: /riak/kv/2.0.4/using/reference/search
 [use ref 2i]: /riak/kv/2.0.4/using/reference/secondary-indexes
 [use ref snmp]: /riak/kv/2.0.4/using/reference/snmp
@@ -133,7 +133,7 @@
 ### Repair/Recover
 
 [repair recover index]: /riak/kv/2.0.4/repair-recovery
-[repair recover index]: /riak/kv/2.0.4/repair-recovery/failure-recovery/
+[repair recover index]: /riak/kv/2.0.4/using/repair-recovery/failure-recovery/
 
 ### Security
 
@@ -148,7 +148,7 @@
 [perf open files]: /riak/kv/2.0.4/using/performance/open-files-limit/
 [perf erlang]: /riak/kv/2.0.4/using/performance/erlang
 [perf aws]: /riak/kv/2.0.4/using/performance/amazon-web-services
-[perf latency checklist]: /riak/kv/2.0.4/using/performance/latency-reduction-checklist
+[perf latency checklist]: /riak/kv/2.0.4/using/performance/latency-reduction
 
 ### Troubleshooting
 

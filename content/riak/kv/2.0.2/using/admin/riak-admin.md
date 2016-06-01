@@ -26,7 +26,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/using/admin/riak-admin"
 [usage commit hooks]: /riak/kv/2.0.2/developing/usage/commit-hooks
 [config reference#ring]: /riak/kv/2.0.2/configuring/reference/#ring
 [cluster ops inspect node]: /riak/kv/2.0.2/using/cluster-operations/inspecting-node
-[use ref monitoring]: /riak/kv/2.0.2/using/reference/monitoring
+[use ref monitoring]: /riak/kv/2.0.2/using/reference/statistics-monitoring
 [downgrade]: /riak/kv/2.0.2/setup/upgrading/downgrade
 [security index]: /riak/kv/2.0.2/using/security/
 [security managing]: /riak/kv/2.0.2/using/security/managing-sources

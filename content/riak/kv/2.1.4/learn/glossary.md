@@ -39,7 +39,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/learn/glossary"
 [Lager]: https://github.com/basho/lager
 [learn dynamo]: /riak/kv/2.1.4/learn/dynamo
 [plan cluster capacity]: /riak/kv/2.1.4/setup/planning/cluster-capacity
-[repair recover failure recovery]: /riak/kv/2.1.4/repair-recovery/failure-recovery
+[repair recover failure recovery]: /riak/kv/2.1.4/using/repair-recovery/failure-recovery
 [repair recover repairs]: /riak/kv/2.1.4/repair-recovery/repairs
 [Riak Core]: https://github.com/basho/riak_core
 [Riak KV]: https://github.com/basho/riak_kv

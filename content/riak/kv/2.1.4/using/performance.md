@@ -248,5 +248,5 @@ details.
 
 * [AWS Performance Tuning](/riak/kv/2.1.4/using/performance/amazon-web-services)
 * [Erlang VM Tuning](/riak/kv/2.1.4/using/performance/erlang)
-* [Latency Reduction](/riak/kv/2.1.4/using/performance/latency-reduction-checklist)
+* [Latency Reduction](/riak/kv/2.1.4/using/performance/latency-reduction)
 * [Open Files Limit](/riak/kv/2.1.4/using/performance/open-files-limit/)

@@ -22,7 +22,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/using/cluster-operations/
 [config v3 nat]: /riak/kv/2.0.5/configuring/v3-multi-datacenter/nat
 [config v3 quickstart]: /riak/kv/2.0.5/configuring/v3-multi-datacenter/quick-start
 [config v3 ssl]: /riak/kv/2.0.5/configuring/v3-multi-datacenter/ssl
-[ref v3 stats]: /riak/kv/2.0.5/using/reference/v3-multi-datacenter/statistics
+[ref v3 stats]: /riak/kv/2.0.5/using/reference/multi-datacenter/statistics
 
 This document explains how to manage replication with the `riak-repl`
 command. Some of these commands can be set or behavior altered by
