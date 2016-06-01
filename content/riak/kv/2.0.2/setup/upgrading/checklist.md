@@ -19,7 +19,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/setup/upgrading/checklist
 [perf index]: /riak/kv/2.0.2/using/performance
 [ntp]: http://www.ntp.org/
 [security basics]: /riak/kv/2.0.2/using/security/basics
-[cluster ops load balance]: /riak/kv/2.0.2/using/cluster-operations/load-balancing
+[cluster ops load balance]: /riak/kv/2.0.2/configuring/load-balancing-proxy
 [config reference]: /riak/kv/2.0.2/configuring/reference
 [config backend]: /riak/kv/2.0.2/configuring/backend
 [usage search]: /riak/kv/2.0.2/developing/usage/search

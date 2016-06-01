@@ -11,7 +11,7 @@ project_version: "2.0.0"
 #    weight: 111
 #    parent: "managing_cluster_operations"
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/cluster-operations/load-balancing"
+canonical_link: "https://docs.basho.com/riak/kv/latest/configuring/load-balancing-proxy"
 ---
 
 **TODO: Add content (not sure where this exists in docs)**

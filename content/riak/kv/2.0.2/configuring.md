@@ -19,7 +19,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/configuring"
 [config reference]: ../configuring/reference
 [config strong consistency]: ../configuring/strong-consistency
 [config load balance]: ../configuring/load-balancing-proxy
-[config mapreduce]: ../configuring/map-reduce
+[config mapreduce]: ../configuring/mapreduce
 [config search]: ../configuring/search
 [config v3 mdc]: ../configuring/v3-multi-datacenter
 [config v2 mdc]: ../configuring/v2-multi-datacenter

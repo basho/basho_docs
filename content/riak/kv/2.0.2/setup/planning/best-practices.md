@@ -16,7 +16,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/setup/planning/best-pract
 ---
 
 [use ref handoff]: /riak/kv/2.0.2/using/reference/handoff
-[config mapreduce]: /riak/kv/2.0.2/configuring/map-reduce
+[config mapreduce]: /riak/kv/2.0.2/configuring/mapreduce
 [glossary aae]: /riak/kv/2.0.2/learn/glossary/#active-anti-entropy-aae
 [cluster ops add remove node]: /riak/kv/2.0.2/using/cluster-operations/adding-removing-nodes
 
