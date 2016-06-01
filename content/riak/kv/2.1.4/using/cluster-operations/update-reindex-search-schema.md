@@ -13,9 +13,7 @@ toc: true
 canonical_link: "https://docs.basho.com/riak/kv/latest/using/cluster-operations/update-reindex-search-schema"
 ---
 
-<<Introduction>>
-
-If you need to update a [search schema]()...
+The following page provides instruction on updating [search schemas](../../../developing/usage/search-schemas) as well as reindexing existing data.
 
 ## Update the Search Schema
 
@@ -29,7 +27,7 @@ curl -XPUT $RIAK_HOST/search/index/famous \ -H 'Content-Type: application/json' 
 
 Then update the new schema within Riak KV by either:
 
-* Performing a [rolling restart]() to trigger a Solr reload of the schema.
+* Performing a [rolling restart](../../repair-recovery/rolling-restart) to trigger a Solr reload of the schema.
 * Or starting a `riak attach` session and run:
   `yz_index:reload(<<"index_name">>).`
 
@@ -37,15 +35,11 @@ Then update the new schema within Riak KV by either:
 >
 > Please note the `riak attach` method used above is a blocking, cluster-wide call but it will trigger a live reload of the Solr schema. New data will now contain the updated fields but existing data will not have their indexes updated.
 
-<<We recommend blank>>
-
 ## Reindex Existing Data
 
-### Option 1
+The first option to reindex existing data is rePUT all of your data.  You can do this by using a script or the [data migrator tool](https://github.com/dankerrigan/riak-data-migrator).
 
-The first option is to simply rePUT all of your data.  You can do this by using a script or the [data migrator tool]() <<?>>.
-
-### Option 2
+The second option for reindexing existing data is to:
 
 1. Delete all of your Solr data from the index that you changed the schema on.  You do not need to delete the configurations.
 2. Expire the YZ AAE trees by entering a `riak attach` session and running the following command:  `rpc:multicall([node() | nodes()], yz_entropy_mgr, expire_trees, []).`
@@ -55,7 +49,7 @@ The first option is to simply rePUT all of your data.  You can do this by using 
 
 By default search reindexing through AAE happens at the same rate as KV AAE. AAE trees are rebuilt at a rate of 1 tree per node per hour, and AAE trees are expired once every week. With these settings it likely will take a great deal of time for the index to rebuild after the trees expire.
 
-The [Active Anti Entropy][0] settings are described in our documentation. Of particular interest to you I think will be the following settings in `riak.conf` format, shown with their default values:
+The [Active Anti Entropy][../active-anti-entropy] settings are described in our documentation. Of particular interest to you I think will be the following settings in `riak.conf` format, shown with their default values:
 
 ```
 
