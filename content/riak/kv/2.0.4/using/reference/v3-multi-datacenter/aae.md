@@ -73,14 +73,10 @@ of configurable parameters, see our documentation on [Advanced Configuration][co
 To enable [active anti-entropy][glossary aae] \(AAE) in Riak Enterprise, you must enable it in Riak in both source and sink clusters. If it is not
 enabled, the `keylist` strategy will be used.
 
-To enable AAERiak KV:
+To enable AAE in Riak KV:
 
-```advancedconfig
-{riak_kv, [
-    % ...
-    {anti_entropy, {on, []}},
-    % ...
-    ]}
+```riakconf
+anti_entropy = active
 ```
 
 By default, it could take a couple of days for the cluster to build all
@@ -94,8 +90,7 @@ and this should not be done without assessing the possible impact on
 get/put latencies for normal cluster operations. For a production
 cluster, we recommend leaving the default in place.
 
-For a test cluster, the build rate can be changed with
-`anti_entropy_build_limit` and `anti_entropy_concurrency`. If a
+For a test cluster, the build rate can be changed in `riak.conf`. If a
 partition has not had its AAE tree built yet, it will default to using
 the `keylist` replication strategy. Instructions on these settings can
 be found in the section directly below.
@@ -104,16 +99,14 @@ be found in the section directly below.
 
 ### AAE Tree Build Optimization
 
-You can speed up the build rate for AAE-related hash trees by raising
-the frequency dictated by the `anti_entropy_build_limit` setting.
+You can speed up the build rate for AAE-related hash trees by adjusting
+the `anti_entropy.tree.build_limit.*` and `anti_entropy.concurrency_limit`
+settings.
 
-```advancedconfig
-{riak_kv, [
-    % ...
-    {anti_entropy_build_limit, {10, 3600000}}, %% up to 10 per hour
-    {anti_entropy_concurrency, 10}             %% up to 10 concurrent builds
-    % ...
-    ]}
+```riakconf
+anti_entropy.tree.build_limit.number = 10
+anti_entropy.tree.build_limit.per_timespan = 1h
+anti_entropy.concurrency_limit = 10
 ```
 
 ### Enable AAE Fullsync Replication Strategy
