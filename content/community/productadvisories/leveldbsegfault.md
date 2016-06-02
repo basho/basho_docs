@@ -47,7 +47,7 @@ An affected node will reference uninitialized memory and will likely exit with a
 
 # Mitigation Strategy
 
-Upgrade to a release of Riak KV at 2.0.7/2.1.4 or later to resolve the issue, or patch the eleveldb.so shared library.
+Upgrade to a release of Riak KV at 2.0.7 / 2.1.4 or later to resolve the issue, or patch the eleveldb.so shared library.
 
 Riak KV 2.1.4 is the same as Riak KV 2.1.3 with a corrected version of the eleveldb.so library. Riak KV 2.1.4 will be released in the next few days.
 
