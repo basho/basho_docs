@@ -14,8 +14,8 @@ commercial_offering: true
 canonical_link: "https://docs.basho.com/riak/kv/latest/add-ons/redis/set-up-rra"
 ---
 
-[addon redis develop]: .developing-rra/
-[addon redis use]: .get-started-with-rra/
+[addon redis develop]: ../developing-rra/
+[addon redis use]: ../using-rra
 [ee]: http://basho.com/contact/
 [install index]: /riak/kv/2.0.5/setup/installing
 [perf open files]: /riak/kv/2.0.5/using/performance/open-files-limit/#changing-the-limit

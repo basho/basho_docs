@@ -191,7 +191,7 @@
 [usage commit hooks]: /riak/kv/2.1.4/developing/usage/commit-hooks/
 [usage conflict resolution]: /riak/kv/2.1.4/developing/usage/conflict-resolution
 [usage content types]: /riak/kv/2.1.4/developing/usage/content-types
-[usage create objects]: /riak/kv/2.1.4/developing/usage/create-objects
+[usage create objects]: /riak/kv/2.1.4/developing/usage/creating-objects
 [usage custom extractors]: /riak/kv/2.1.4/developing/usage/custom-extractors
 [usage delete objects]: /riak/kv/2.1.4/developing/usage/deleting-objects
 [usage mapreduce]: /riak/kv/2.1.4/developing/usage/mapreduce

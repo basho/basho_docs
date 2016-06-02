@@ -25,7 +25,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/developing/app-guide"
 [dev data types#counters]: /riak/kv/2.0.2/developing/data-types/#counters
 [dev data types#sets]: /riak/kv/2.0.2/developing/data-types/#sets
 [dev data types#maps]: /riak/kv/2.0.2/developing/data-types/#maps
-[usage create objects]: /riak/kv/2.0.2/developing/usage/create-objects
+[usage create objects]: /riak/kv/2.0.2/developing/usage/creating-objects
 [usage search]: /riak/kv/2.0.2/developing/usage/search
 [use ref search]: /riak/kv/2.0.2/using/reference/search
 [usage 2i]: /riak/kv/2.0.2/developing/usage/secondary-indexes
