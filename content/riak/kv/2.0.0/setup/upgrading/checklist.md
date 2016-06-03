@@ -199,7 +199,7 @@ be addressed before going to production.
   - Urgent is for problems causing production outages or for those
     issues that are likely to turn into production outages very soon.
     On-call engineers respond to urgent requests within 30 minutes,
-    24/7.
+    24 / 7.
 * Does your team know how to gather `riak-debug` results from the whole
   cluster when opening tickets? If not, that process goes something like
   this:

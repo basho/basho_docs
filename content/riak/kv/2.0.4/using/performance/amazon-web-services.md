@@ -108,7 +108,7 @@ available, including system logs like `dmesg` and `syslog`. Make sure
 that the other nodes in the Riak cluster are still operating normally
 and are not affected by a wider problem like an AWS service outage. Try
 to determine the cause of the problem from the data you have collected.
-If you are a licensed [Riak Enterprise Edition](http://basho.com/riak-enterprise/) user and the failure comes from Riak or is not immediately obvious, you may open a ticket on the Basho Client Services help desk or contact the 24/7 emergency line.
+If you are a licensed [Riak Enterprise Edition](http://basho.com/riak-enterprise/) user and the failure comes from Riak or is not immediately obvious, you may open a ticket on the Basho Client Services help desk or contact the 24 / 7 emergency line.
 
 Have your collected data ready when contacting Basho Client Services. A
 Client Services Engineer (CSE) might request log files, configuration
