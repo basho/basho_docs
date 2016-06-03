@@ -87,7 +87,7 @@ Object parts can be uploaded independently and in any order. After all
 parts are uploaded, Riak CS assembles an object out of the parts. When
 your object size reaches 100MB, you should consider using multipart
 uploads instead of uploading the object in a single operation. Read more
-about multipart uploads on the [overview page](/riak/cs/2.1.1/multipart-upload-overview).
+about multipart uploads on the [overview page](/riak/cs/2.1.1/cookbooks/multipart-upload-overview).
 
 * [Initiate Multipart Upload](/riak/cs/2.1.1/references/apis/storage/s3/initiate-multipart-upload) --- Initiates a multipart upload and returns an upload ID
 * [Upload Part](/riak/cs/2.1.1/references/apis/storage/s3/upload-part) --- Uploads a part in a multipart upload

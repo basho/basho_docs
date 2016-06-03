@@ -19,7 +19,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/learn/glossary"
 [cluster ops add remove node]: /riak/kv/2.1.3/using/cluster-operations/adding-removing-nodes
 [cluster ops strong consistency]: /riak/kv/2.1.3/using/cluster-operations/strong-consistency
 [concept buckets]: /riak/kv/2.1.3/learn/concepts/buckets
-[concept causal context vc]: /riak/kv/2.1.3/concepts/causal-context/#vector-clocks
+[concept causal context vc]: /riak/kv/2.1.3/learn/concepts/causal-context/#vector-clocks
 [concept clusters]: /riak/kv/2.1.3/learn/concepts/clusters
 [concept crdts]: /riak/kv/2.1.3/learn/concepts/crdts
 [concept eventual consistency]: /riak/kv/2.1.3/learn/concepts/eventual-consistency

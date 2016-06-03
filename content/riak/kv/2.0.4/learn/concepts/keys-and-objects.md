@@ -17,7 +17,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/learn/concepts/keys-and-o
 ---
 
 [concept buckets]: /riak/kv/2.0.4/learn/concepts/buckets
-[concept causal context vc]: /riak/kv/2.0.4/concepts/causal-context/#vector-clocks
+[concept causal context vc]: /riak/kv/2.0.4/learn/concepts/causal-context/#vector-clocks
 
 In an RDBMS, data is organized by tables that are individually
 identifiable entities. Within those tables exist rows of a data
