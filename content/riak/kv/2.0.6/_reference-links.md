@@ -124,15 +124,15 @@
 [cluster ops log]: /riak/kv/2.0.6/using/cluster-operations/logging
 [cluster ops obj del]: /riak/kv/2.0.6/using/reference/object-deletion
 [cluster ops backup]: /riak/kv/2.0.6/using/cluster-operations/backing-up
-[cluster ops mdc]: /riak/kv/2.0.6/using/cluster-operations/multi-datacenter
+[cluster ops mdc]: /riak/kv/2.0.6/using/cluster-operations/v3-multi-datacenter
 [cluster ops strong consistency]: /riak/kv/2.0.6/using/cluster-operations/strong-consistency
-[cluster ops 2i]: /riak/kv/2.0.6/using/cluster-operations/secondary-indexes
+[cluster ops 2i]: /riak/kv/2.0.6/using/reference/secondary-indexes
 [cluster ops v3 mdc]: /riak/kv/2.0.6/using/cluster-operations/v3-multi-datacenter
 [cluster ops v2 mdc]: /riak/kv/2.0.6/using/cluster-operations/v2-multi-datacenter
 
 ### Repair/Recover
 
-[repair recover index]: /riak/kv/2.0.6/repair-recovery
+[repair recover index]: /riak/kv/2.0.6/using/repair-recovery
 [repair recover index]: /riak/kv/2.0.6/using/repair-recovery/failure-recovery/
 
 ### Security
@@ -234,7 +234,7 @@
 [concept eventual consistency]: /riak/kv/2.0.6/learn/concepts/eventual-consistency
 [concept keys objects]: /riak/kv/2.0.6/learn/concepts/keys-and-objects
 [concept replication]: /riak/kv/2.0.6/learn/concepts/replication
-[concept strong consistency]: /riak/kv/2.0.6/learn/concepts/strong-consistency
+[concept strong consistency]: /riak/kv/2.0.6/using/reference/strong-consistency
 [concept vnodes]: /riak/kv/2.0.6/learn/concepts/vnodes
 
 

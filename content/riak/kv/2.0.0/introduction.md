@@ -127,7 +127,7 @@ some (or perhaps all) of your data.
 * [Using Strong Consistency](/riak/kv/2.0.0/using/cluster-operations/strong-consistency) shows you how to enable Riak's strong
   consistency subsystem and to apply strong consistency guarantees to
   data stored in specified buckets.
-* [Strong Consistency](/riak/kv/2.0.0/learn/concepts/strong-consistency) provides a theoretical treatment of how a
+* [Strong Consistency](/riak/kv/2.0.0/using/reference/strong-consistency) provides a theoretical treatment of how a
   strongly consistent system differs from an [eventually consistent](/riak/kv/2.0.0/learn/concepts/eventual-consistency) system, as well as details about how
   strong consistency is implemented in Riak.
 * [Managing Strong Consistency](/riak/kv/2.0.0/configuring/strong-consistency) is a guide to strong consistency for

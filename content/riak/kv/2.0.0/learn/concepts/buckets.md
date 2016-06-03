@@ -24,7 +24,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/learn/concepts/buckets"
 [concept causal context]: /riak/kv/2.0.0/learn/concepts/causal-context
 [concept causal context sib]: /riak/kv/2.0.0/learn/concepts/causal-context/#siblings
 [concept replication]: /riak/kv/2.0.0/learn/concepts/replication
-[concept strong consistency]: /riak/kv/2.0.0/learn/concepts/strong-consistency
+[concept strong consistency]: /riak/kv/2.0.0/using/reference/strong-consistency
 [config basic]: /riak/kv/2.0.0/configuring/basic
 [dev api http]: /riak/kv/2.0.0/developing/api/http
 [dev data types]: /riak/kv/2.0.0/developing/data-types

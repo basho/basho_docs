@@ -14,7 +14,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/using/cluster-operations/
 ---
 
 At some point, for various reasons, you might need to replace a node in
-your Riak cluster (which is different from [recovering a failed node](/riak/kv/2.0.4/repair-recovery)). Here is the recommended way to go
+your Riak cluster (which is different from [recovering a failed node](/riak/kv/2.0.4/using/repair-recovery)). Here is the recommended way to go
 about replacing a node.
 
 1. Back up your data directory on the node in question. In this example

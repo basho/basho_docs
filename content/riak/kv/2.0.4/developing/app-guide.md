@@ -46,7 +46,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/developing/app-guide"
 [obj model nodejs]: /riak/kv/2.0.4/developing/getting-started/nodejs/object-modeling
 [obj model erlang]: /riak/kv/2.0.4/developing/getting-started/erlang/object-modeling
 [obj model golang]: /riak/kv/2.0.4/developing/getting-started/golang/object-modeling
-[concept strong consistency]: /riak/kv/2.0.4/learn/concepts/strong-consistency
+[concept strong consistency]: /riak/kv/2.0.4/using/reference/strong-consistency
 [use ref strong consistency]: /riak/2.1.3/using/reference/strong-consistency
 [cluster ops strong consistency]: /riak/kv/2.0.4/using/cluster-operations/strong-consistency
 [config strong consistency]: /riak/kv/2.0.4/configuring/strong-consistency

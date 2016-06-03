@@ -32,8 +32,8 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/using/admin/riak-admin"
 [security index]: /riak/kv/2.1.3/using/security/
 [security managing]: /riak/kv/2.1.3/using/security/managing-sources
 [cluster ops bucket types]: /riak/kv/2.1.3/using/cluster-operations/bucket-types
-[cluster ops 2i]: /riak/kv/2.1.3/using/cluster-operations/secondary-indexes
-[repair recover index]: /riak/kv/2.1.3/repair-recovery
+[cluster ops 2i]: /riak/kv/2.1.3/using/reference/secondary-indexes
+[repair recover index]: /riak/kv/2.1.3/using/repair-recovery
 [cluster ops strong consistency]: /riak/kv/2.1.3/using/cluster-operations/strong-consistency
 [cluster ops handoff]: /riak/kv/2.1.3/using/cluster-operations/handoff
 [use admin riak-admin#stats]: /riak/kv/2.1.3/using/admin/riak-admin/#stats

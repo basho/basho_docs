@@ -27,7 +27,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/setup/upgrading/checklist
 [usage conflict resolution]: /riak/kv/2.1.3/developing/usage/conflict-resolution
 [concept eventual consistency]: /riak/kv/2.1.3/learn/concepts/eventual-consistency
 [apps replication properties]: /riak/kv/2.1.3/developing/app-guide/replication-properties
-[concept strong consistency]: /riak/kv/2.1.3/learn/concepts/strong-consistency
+[concept strong consistency]: /riak/kv/2.1.3/using/reference/strong-consistency
 [cluster ops bucket types]: /riak/kv/2.1.3/using/cluster-operations/bucket-types
 [use admin commands]: /riak/kv/2.1.3/using/admin/commands
 [use admin riak control]: /riak/kv/2.1.3/using/admin/riak-control

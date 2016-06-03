@@ -22,7 +22,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/setup/upgrading/cluster"
 [usage secondary-indexes]: /riak/kv/2.1.4/developing/usage/secondary-indexes
 [release notes]: https://github.com/basho/riak/blob/master/RELEASE-NOTES.md
 [riak enterprise]: http://basho.com/products/riak-kv/
-[cluster ops mdc]: /riak/kv/2.1.4/using/cluster-operations/multi-datacenter
+[cluster ops mdc]: /riak/kv/2.1.4/using/cluster-operations/v3-multi-datacenter
 [config v3 mdc]: /riak/kv/2.1.4/configuring/v3-multi-datacenter
 
 

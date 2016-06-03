@@ -216,7 +216,7 @@ For more on bucket properties, we recommend reviewing our docs on
 
 If the default bucket properties are modified in your configuration
 files and the node is restarted, any existing buckets will **not** be
-directly impacted, although the mechanism described in [HTTP Reset Bucket Properties](/riak/kv/2.0.0/api/http/reset-bucket-props) can be used to force them to pick up the new
+directly impacted, although the mechanism described in [HTTP Reset Bucket Properties](/riak/kv/2.0.0/developing/api/http/reset-bucket-props) can be used to force them to pick up the new
 defaults.
 
 ## System tuning

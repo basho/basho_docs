@@ -19,7 +19,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/learn/why-riak-kv"
 [apps replication properties]: /riak/kv/2.0.2/developing/app-guide/replication-properties
 [Basho Bench]: /riak/kv/2.0.2/using/performance/benchmarking
 [cluster ops strong consistency]: /riak/kv/2.0.2/using/cluster-operations/strong-consistency
-[concept eventual consistency]: /riak/kv/2.0.2/concepts/eventual-consistency
+[concept eventual consistency]: /riak/kv/2.0.2/learn/concepts/eventual-consistency
 [convergent replicated data types]: http://hal.upmc.fr/docs/00/55/55/88/PDF/techreport.pdf
 [Datomic]: http://www.datomic.com/overview.html
 [dev data types]: /riak/kv/2.0.2/developing/data-types

@@ -18,16 +18,16 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/learn/glossary"
 [basho bench GH]: http://github.com/basho/basho_bench/
 [cluster ops add remove node]: /riak/kv/2.0.2/using/cluster-operations/adding-removing-nodes
 [cluster ops strong consistency]: /riak/kv/2.0.2/using/cluster-operations/strong-consistency
-[concept buckets]: /riak/kv/2.0.2/concepts/buckets
+[concept buckets]: /riak/kv/2.0.2/learn/concepts/buckets
 [concept causal context vc]: /riak/kv/2.0.2/concepts/causal-context/#vector-clocks
 [concept clusters]: /riak/kv/2.0.2/learn/concepts/clusters
-[concept crdts]: /riak/kv/2.0.2/concepts/crdts
+[concept crdts]: /riak/kv/2.0.2/learn/concepts/crdts
 [concept eventual consistency]: /riak/kv/2.0.2/learn/concepts/eventual-consistency
-[concept keys objects]: /riak/kv/2.0.2/concepts/keys-and-objects
-[concept replication]: /riak/kv/2.0.2/concepts/replication
+[concept keys objects]: /riak/kv/2.0.2/learn/concepts/keys-and-objects
+[concept replication]: /riak/kv/2.0.2/learn/concepts/replication
 [concept strong consistency]: /riak/kv/2.0.2/concepts/strong-consistency
 [dev kv model]: /riak/kv/2.0.2/developing/key-value-modeling
-[concept replication aae]: /riak/kv/2.0.2/concepts/replication/#active-anti-entropy
+[concept replication aae]: /riak/kv/2.0.2/learn/concepts/replication/#active-anti-entropy
 [dev api http]: /riak/kv/2.0.2/developing/api/http
 [dev data model]: /riak/kv/2.0.2/developing/data-modeling
 [dev data types]: /riak/kv/2.0.2/developing/data-types
@@ -37,7 +37,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/learn/glossary"
 [learn dynamo]: /riak/kv/2.0.2/learn/dynamo
 [plan cluster capacity]: /riak/kv/2.0.2/setup/planning/cluster-capacity
 [repair recover failure recovery]: /riak/kv/2.0.2/using/repair-recovery/failure-recovery
-[repair recover repairs]: /riak/kv/2.0.2/repair-recovery/repairs
+[repair recover repairs]: /riak/kv/2.0.2/using/repair-recovery/repairs
 [Riak Core]: https://github.com/basho/riak_core
 [Riak KV]: https://github.com/basho/riak_kv
 [Riak Pipe]: https://github.com/basho/riak_pipe
