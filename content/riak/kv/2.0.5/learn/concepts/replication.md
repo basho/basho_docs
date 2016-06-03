@@ -20,10 +20,10 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/learn/concepts/replicatio
 
 
 [cluster ops v3 mdc]: /riak/kv/2.0.5/using/cluster-operations/v3-multi-datacenter
-[concept aae]: /riak/kv/2.0.5/concepts/active-anti-entropy
-[concept causal context vc]: /riak/kv/2.0.5/concepts/causal-context/#vector-clocks
-[concept clusters]: /riak/kv/2.0.5/concepts/clusters
-[concept vnodes]: /riak/kv/2.0.5/concepts/vnodes
+[concept aae]: /riak/kv/2.0.5/learn/concepts/active-anti-entropy
+[concept causal context vc]: /riak/kv/2.0.5/learn/concepts/causal-context/#vector-clocks
+[concept clusters]: /riak/kv/2.0.5/learn/concepts/clusters
+[concept vnodes]: /riak/kv/2.0.5/learn/concepts/vnodes
 [glossary node]: /riak/kv/2.0.5/learn/glossary/#node
 [glossary ring]: /riak/kv/2.0.5/learn/glossary/#ring
 [usage replication]: /riak/kv/2.0.5/developing/usage/replication

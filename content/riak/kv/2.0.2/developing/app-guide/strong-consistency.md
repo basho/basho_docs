@@ -27,7 +27,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/developing/app-guide/stro
 [config strong consistency#fault]: /riak/kv/2.0.2/configuring/strong-consistency/#fault-tolerance
 [concept causal context]: /riak/kv/2.0.2/learn/concepts/causal-context
 [concept causal context#vector]: /riak/kv/2.0.2/learn/concepts/causal-context/#vector-clocks
-[concept version vector]: /riak/kv/2.0.2/learn/concepts/dotted-version-vectors
+[concept version vector]: /riak/kv/2.0.2/learn/concepts/causal-context/#dotted-version-vectors
 [usage conflict resolution]: /riak/kv/2.0.2/developing/usage/conflict-resolution
 [usage update objects]: /riak/kv/2.0.2/developing/usage/updating-objects
 [use ref strong consistency#vs]: /riak/2.0.2/using/reference/strong-consistency/#strong-vs.-eventual-consistency

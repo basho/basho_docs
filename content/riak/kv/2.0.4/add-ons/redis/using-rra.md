@@ -16,8 +16,8 @@ aliases:
 canonical_link: "https://docs.basho.com/riak/kv/latest/add-ons/redis/using-rra"
 ---
 
-[addon redis develop]: .developing-rra/
-[addon redis setup]: .set-up-rra/
+[addon redis develop]: ../developing-rra/
+[addon redis setup]: ../set-up-rra/
 [dev api http]: /riak/kv/2.0.4/developing/api/http/
 [ee]: http://basho.com/contact/
 

@@ -139,7 +139,7 @@ quorum is maintained**. A fuller discussion can be found in the
 documentation.
 
 A second trade-off regards performance. Riak's implementation of strong
-consistency involves a complex [consensus subsystem](/riak/kv/2.0.2/learn/concepts/strong-consistency/#implementation-details) that typically requires more communication between Riak nodes than eventually consistent operations,
+consistency involves a complex [consensus subsystem](/riak/kv/2.0.2/using/reference/strong-consistency/#implementation-details) that typically requires more communication between Riak nodes than eventually consistent operations,
 which can entail a performance hit of varying proportions, depending on
 a variety of factors.
 

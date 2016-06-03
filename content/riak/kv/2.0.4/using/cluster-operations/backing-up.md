@@ -290,4 +290,4 @@ have the correct names.
 
 ## Restoring a Cluster
 
-Restoring a cluster from backups is documented [on its own page](/riak/kv/2.0.4/repair-recovery/failure-recovery/#cluster-recovery-from-backups).
+Restoring a cluster from backups is documented [on its own page](/riak/kv/2.0.4/using/repair-recovery/failure-recovery/#cluster-recovery-from-backups).

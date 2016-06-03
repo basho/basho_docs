@@ -27,13 +27,13 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/using/admin/riak-admin"
 [usage commit hooks]: /riak/kv/2.1.1/developing/usage/commit-hooks
 [config reference#ring]: /riak/kv/2.1.1/configuring/reference/#ring
 [cluster ops inspect node]: /riak/kv/2.1.1/using/cluster-operations/inspecting-node
-[use ref monitoring]: /riak/kv/2.1.1/using/reference/monitoring
+[use ref monitoring]: /riak/kv/2.1.1/using/reference/statistics-monitoring
 [downgrade]: /riak/kv/2.1.1/setup/upgrading/downgrade
 [security index]: /riak/kv/2.1.1/using/security/
 [security managing]: /riak/kv/2.1.1/using/security/managing-sources
 [cluster ops bucket types]: /riak/kv/2.1.1/using/cluster-operations/bucket-types
-[cluster ops 2i]: /riak/kv/2.1.1/using/cluster-operations/secondary-indexes
-[repair recover index]: /riak/kv/2.1.1/repair-recovery
+[cluster ops 2i]: /riak/kv/2.1.1/using/reference/secondary-indexes
+[repair recover index]: /riak/kv/2.1.1/using/repair-recovery
 [cluster ops strong consistency]: /riak/kv/2.1.1/using/cluster-operations/strong-consistency
 [cluster ops handoff]: /riak/kv/2.1.1/using/cluster-operations/handoff
 [use admin riak-admin#stats]: /riak/kv/2.1.1/using/admin/riak-admin/#stats

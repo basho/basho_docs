@@ -22,7 +22,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/learn/concepts"
 [concept eventual consistency]: /riak/kv/2.1.3/learn/concepts/eventual-consistency
 [concept keys objects]: /riak/kv/2.1.3/learn/concepts/keys-and-objects
 [concept replication]: /riak/kv/2.1.3/learn/concepts/replication
-[concept strong consistency]: /riak/kv/2.1.3/learn/concepts/strong-consistency
+[concept strong consistency]: /riak/kv/2.1.3/using/reference/strong-consistency
 [concept vnodes]: /riak/kv/2.1.3/learn/concepts/vnodes
 [config index]: /riak/kv/2.1.3/configuring
 [plan index]: /riak/kv/2.1.3/setup/planning
@@ -33,4 +33,13 @@ Riak KV has many great features, functions, and guiding principles that inform h
 
 Learn more about:
 
-* [Active Anti-Entropy (AAE)][concept aae]* [Buckets][concept buckets]* [Capability Negotiation][concept cap neg]* [Causal Context][concept causal context]* [Clusters][concept clusters]* [Convergent Replicated Data Types (CRDTs)][concept crdts]* [Eventual Consistency][concept eventual consistency]* [Keys and Objects][concept keys objects]* [Replication][concept replication]* [Virtual Nodes (vnodes)][concept vnodes]
+* [Active Anti-Entropy (AAE)][concept aae]
+* [Buckets][concept buckets]
+* [Capability Negotiation][concept cap neg]
+* [Causal Context][concept causal context]
+* [Clusters][concept clusters]
+* [Convergent Replicated Data Types (CRDTs)][concept crdts]
+* [Eventual Consistency][concept eventual consistency]
+* [Keys and Objects][concept keys objects]
+* [Replication][concept replication]
+* [Virtual Nodes (vnodes)][concept vnodes]

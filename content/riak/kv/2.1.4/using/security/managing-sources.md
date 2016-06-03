@@ -167,7 +167,7 @@ openssl req -new ... '/CN=riak-node-1'
 ```
 
 Once certificates have been properly generated and configured on all of
-the nodes in your Riak cluster, you need to perform a [rolling restart](/riak/kv/2.1.4/repair-recovery/rolling-restart/). Once that process is complete, you can use the client
+the nodes in your Riak cluster, you need to perform a [rolling restart](/riak/kv/2.1.4/using/repair-recovery/rolling-restart/). Once that process is complete, you can use the client
 certificate that you generated for the user `riakuser`.
 
 How to use Riak clients in conjunction with OpenSSL and other

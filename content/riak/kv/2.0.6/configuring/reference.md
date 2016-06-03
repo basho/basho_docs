@@ -24,7 +24,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/configuring/reference"
 [use admin riak cli]: ../../using/admin/riak-cli
 [use admin riak-admin]: ../../using/admin/riak-admin
 [glossary aae]: ../../learn/glossary/#active-anti-entropy-aae
-[use ref search 2i]: ../../using/reference/search-secondary-indexes
+[use ref search 2i]: ../../using/reference/secondary-indexes
 [cluster ops bucket types]: ../../using/cluster-operations/bucket-types
 [usage conflict resolution]: ../../developing/usage/conflict-resolution
 [concept causal context]: ../../learn/concepts/causal-context

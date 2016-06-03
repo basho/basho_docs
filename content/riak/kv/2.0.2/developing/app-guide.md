@@ -25,7 +25,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/developing/app-guide"
 [dev data types#counters]: /riak/kv/2.0.2/developing/data-types/#counters
 [dev data types#sets]: /riak/kv/2.0.2/developing/data-types/#sets
 [dev data types#maps]: /riak/kv/2.0.2/developing/data-types/#maps
-[usage create objects]: /riak/kv/2.0.2/developing/usage/create-objects
+[usage create objects]: /riak/kv/2.0.2/developing/usage/creating-objects
 [usage search]: /riak/kv/2.0.2/developing/usage/search
 [use ref search]: /riak/kv/2.0.2/using/reference/search
 [usage 2i]: /riak/kv/2.0.2/developing/usage/secondary-indexes
@@ -45,7 +45,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/developing/app-guide"
 [obj model nodejs]: /riak/kv/2.0.2/developing/getting-started/nodejs/object-modeling
 [obj model erlang]: /riak/kv/2.0.2/developing/getting-started/erlang/object-modeling
 [obj model golang]: /riak/kv/2.0.2/developing/getting-started/golang/object-modeling
-[concept strong consistency]: /riak/kv/2.0.2/learn/concepts/strong-consistency
+[concept strong consistency]: /riak/kv/2.0.2/using/reference/strong-consistency
 [use ref strong consistency]: /riak/2.0.2/using/reference/strong-consistency
 [cluster ops strong consistency]: /riak/kv/2.0.2/using/cluster-operations/strong-consistency
 [config strong consistency]: /riak/kv/2.0.2/configuring/strong-consistency

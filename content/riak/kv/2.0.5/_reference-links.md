@@ -95,7 +95,7 @@
 
 [use ref custom code]: /riak/kv/2.0.5/using/reference/custom-code
 [use ref handoff]: /riak/kv/2.0.5/using/reference/handoff
-[use ref monitoring]: /riak/kv/2.0.5/using/reference/monitoring
+[use ref monitoring]: /riak/kv/2.0.5/using/reference/statistics-monitoring
 [use ref search]: /riak/kv/2.0.5/using/reference/search
 [use ref 2i]: /riak/kv/2.0.5/using/reference/secondary-indexes
 [use ref snmp]: /riak/kv/2.0.5/using/reference/snmp
@@ -124,16 +124,16 @@
 [cluster ops log]: /riak/kv/2.0.5/using/cluster-operations/logging
 [cluster ops obj del]: /riak/kv/2.0.5/using/reference/object-deletion
 [cluster ops backup]: /riak/kv/2.0.5/using/cluster-operations/backing-up
-[cluster ops mdc]: /riak/kv/2.0.5/using/cluster-operations/multi-datacenter
+[cluster ops mdc]: /riak/kv/2.0.5/using/cluster-operations/v3-multi-datacenter
 [cluster ops strong consistency]: /riak/kv/2.0.5/using/cluster-operations/strong-consistency
-[cluster ops 2i]: /riak/kv/2.0.5/using/cluster-operations/secondary-indexes
+[cluster ops 2i]: /riak/kv/2.0.5/using/reference/secondary-indexes
 [cluster ops v3 mdc]: /riak/kv/2.0.5/using/cluster-operations/v3-multi-datacenter
 [cluster ops v2 mdc]: /riak/kv/2.0.5/using/cluster-operations/v2-multi-datacenter
 
 ### Repair/Recover
 
-[repair recover index]: /riak/kv/2.0.5/repair-recovery
-[repair recover index]: /riak/kv/2.0.5/repair-recovery/failure-recovery/
+[repair recover index]: /riak/kv/2.0.5/using/repair-recovery
+[repair recover index]: /riak/kv/2.0.5/using/repair-recovery/failure-recovery/
 
 ### Security
 
@@ -148,7 +148,7 @@
 [perf open files]: /riak/kv/2.0.5/using/performance/open-files-limit/
 [perf erlang]: /riak/kv/2.0.5/using/performance/erlang
 [perf aws]: /riak/kv/2.0.5/using/performance/amazon-web-services
-[perf latency checklist]: /riak/kv/2.0.5/using/performance/latency-reduction-checklist
+[perf latency checklist]: /riak/kv/2.0.5/using/performance/latency-reduction
 
 ### Troubleshooting
 
@@ -190,7 +190,7 @@
 [usage commit hooks]: /riak/kv/2.0.5/developing/usage/commit-hooks
 [usage conflict resolution]: /riak/kv/2.0.5/developing/usage/conflict-resolution
 [usage content types]: /riak/kv/2.0.5/developing/usage/content-types
-[usage create objects]: /riak/kv/2.0.5/developing/usage/create-objects
+[usage create objects]: /riak/kv/2.0.5/developing/usage/creating-objects
 [usage custom extractors]: /riak/kv/2.0.5/developing/usage/custom-extractors
 [usage delete objects]: /riak/kv/2.0.5/developing/usage/deleting-objects
 [usage mapreduce]: /riak/kv/2.0.5/developing/usage/mapreduce
@@ -234,7 +234,7 @@
 [concept eventual consistency]: /riak/kv/2.0.5/learn/concepts/eventual-consistency
 [concept keys objects]: /riak/kv/2.0.5/learn/concepts/keys-and-objects
 [concept replication]: /riak/kv/2.0.5/learn/concepts/replication
-[concept strong consistency]: /riak/kv/2.0.5/learn/concepts/strong-consistency
+[concept strong consistency]: /riak/kv/2.0.5/using/reference/strong-consistency
 [concept vnodes]: /riak/kv/2.0.5/learn/concepts/vnodes
 
 

@@ -14,7 +14,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/configuring/strong-consis
 ---
 
 [apps strong consistency]: /riak/kv/2.1.3/developing/app-guide/strong-consistency
-[concept strong consistency]: /riak/kv/2.1.3/learn/concepts/strong-consistency
+[concept strong consistency]: /riak/kv/2.1.3/using/reference/strong-consistency
 [cluster ops add remove node]: /riak/kv/2.1.3/using/cluster-operations/adding-removing-nodes
 [config reference#strong-cons]: /riak/kv/2.1.3/configuring/reference/#strong-consistency
 [use admin riak cli]: /riak/kv/2.1.3/using/admin/riak-cli
@@ -32,7 +32,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/configuring/strong-consis
 [concept causal context]: /riak/kv/2.1.3/learn/concepts/causal-context
 [dev data types]: /riak/kv/2.1.3/developing/data-types
 [glossary aae]: /riak/kv/2.1.3/learn/glossary/#active-anti-entropy-aae
-[cluster ops 2i]: /riak/kv/2.1.3/using/cluster-operations/secondary-indexes
+[cluster ops 2i]: /riak/kv/2.1.3/using/reference/secondary-indexes
 [usage commit hooks]: /riak/kv/2.1.3/developing/usage/commit-hooks
 [cluster ops obj del]: /riak/kv/2.1.3/using/reference/object-deletion
 [dev client libraries]: /riak/kv/2.1.3/developing/client-libraries

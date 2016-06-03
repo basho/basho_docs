@@ -19,10 +19,10 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/learn/concepts/eventual-c
 ---
 
 
-[concept buckets]: /riak/kv/2.1.1/concepts/buckets
-[concept causal context vc]: /riak/kv/2.1.1/concepts/causal-context/#vector-clocks
-[concept clusters]: /riak/kv/2.1.1/concepts/clusters
-[concept replication]: /riak/kv/2.1.1/concepts/replication
+[concept buckets]: /riak/kv/2.1.1/learn/concepts/buckets
+[concept causal context vc]: /riak/kv/2.1.1/learn/concepts/causal-context/#vector-clocks
+[concept clusters]: /riak/kv/2.1.1/learn/concepts/clusters
+[concept replication]: /riak/kv/2.1.1/learn/concepts/replication
 [glossary node]: /riak/kv/2.1.1/learn/glossary/#node
 [glossary read rep]: /riak/kv/2.1.1/learn/glossary/#read-repair
 [usage bucket types]: /riak/kv/2.1.1/developing/usage/bucket-types

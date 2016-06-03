@@ -17,10 +17,10 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/learn/concepts/crdts"
 ---
 
 
-[concept causal context dvv]: /riak/kv/2.0.0/concepts/causal-context/#dotted-version-vectors
-[concept causal context sib]: /riak/kv/2.0.0/concepts/causal-context/#siblings
-[concept causal context vc]: /riak/kv/2.0.0/concepts/causal-context/#vector-clocks
-[concept eventual consistency]: /riak/kv/2.0.0/concepts/eventual-consistency
+[concept causal context dvv]: /riak/kv/2.0.0/learn/concepts/causal-context/#dotted-version-vectors
+[concept causal context sib]: /riak/kv/2.0.0/learn/concepts/causal-context/#siblings
+[concept causal context vc]: /riak/kv/2.0.0/learn/concepts/causal-context/#vector-clocks
+[concept eventual consistency]: /riak/kv/2.0.0/learn/concepts/eventual-consistency
 [concept strong consistency]: /riak/kv/2.0.0/concepts/strong-consistency
 [dev data types]: /riak/kv/2.0.0/developing/data-types
 [glossary node]: /riak/kv/2.0.0/learn/glossary/#node

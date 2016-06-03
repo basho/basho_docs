@@ -19,9 +19,9 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/learn/concepts/clusters"
 ---
 
 
-[concept buckets]: /riak/kv/2.0.6/concepts/buckets
-[concept keys objects]: /riak/kv/2.0.6/concepts/keys-and-objects
-[concept replication]: /riak/kv/2.0.6/concepts/replication
+[concept buckets]: /riak/kv/2.0.6/learn/concepts/buckets
+[concept keys objects]: /riak/kv/2.0.6/learn/concepts/keys-and-objects
+[concept replication]: /riak/kv/2.0.6/learn/concepts/replication
 [glossary node]: /riak/kv/2.0.6/learn/glossary/#node
 [glossary vnode]: /riak/kv/2.0.6/learn/glossary/#vnode
 [learn dynamo]: /riak/kv/2.0.6/learn/dynamo

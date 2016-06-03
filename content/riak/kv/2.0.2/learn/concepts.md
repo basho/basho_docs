@@ -22,7 +22,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/learn/concepts"
 [concept eventual consistency]: /riak/kv/2.0.2/learn/concepts/eventual-consistency
 [concept keys objects]: /riak/kv/2.0.2/learn/concepts/keys-and-objects
 [concept replication]: /riak/kv/2.0.2/learn/concepts/replication
-[concept strong consistency]: /riak/kv/2.0.2/learn/concepts/strong-consistency
+[concept strong consistency]: /riak/kv/2.0.2/using/reference/strong-consistency
 [concept vnodes]: /riak/kv/2.0.2/learn/concepts/vnodes
 [config index]: /riak/kv/2.0.2/configuring
 [plan index]: /riak/kv/2.0.2/setup/planning
