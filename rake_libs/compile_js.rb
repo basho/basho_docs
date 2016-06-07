@@ -41,6 +41,6 @@ def compile_js(debug: false)
 
   for src, dst in src_dst_list
     File.open(dst, 'w') { |file| file.write env[src].to_s }
-    log_js_write(dst)
+    log_write(dst)
   end
 end

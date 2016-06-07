@@ -56,7 +56,7 @@ namespace :clean do
   task :js do
     js_file_list = Dir["#{$js_dest}/**/**"]
     js_file_list.each do |f|
-      log_dir_deletion(f)
+      log_deletion(f)
       FileUtils.rm(f)
     end
   end
@@ -64,13 +64,13 @@ namespace :clean do
   task :css do
     css_file_list = Dir["#{$css_dest}/**/**"]
     css_file_list.each do |f|
-      log_dir_deletion(f)
+      log_deletion(f)
       FileUtils.rm(f)
     end
   end
   desc "Clean Hugo-generated content"
   task :hugo do
-    log_dir_deletion($hugo_dest)
+    log_deletion($hugo_dest)
     FileUtils.rm_rf($hugo_dest)
   end
 end
@@ -155,19 +155,17 @@ task :generate_downloads_metadata do generate_downloads_metadata(); end
 ######################################################################
 ### Helper/Compilation functions
 
-# Helper function that will print "    deleting #{dir_name}" to the console, and
-# color the "deleting" text red.
-def log_dir_deletion(dir_name)
+# Prints "    deleting #{target}" to the console, and color "deleting" red.
+def log_deletion(target)
   red = "\033[31m"
   nc  = "\033[0m" # no color
-  print "    #{red}deleting#{nc} #{dir_name}\n"
+  print "    #{red}deleting#{nc} #{target}\n"
 end
 
-# Helper function that will print "    write #{file_name}" to the console, and
-# color the "write" text green. This is to match the Compass log output on file
-# writes.
-def log_js_write(file_name)
+# Print "    write #{target}" to the console, and color "write" green. This is
+# designed to match the Compass log output on file writes.
+def log_write(target)
   green = "\033[32m"
   nc    = "\033[0m" # no color
-  print "    #{green}write#{nc} #{file_name}\n"
+  print "    #{green}write#{nc} #{target}\n"
 end
