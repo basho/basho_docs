@@ -31,9 +31,9 @@ directory "#{$cache_dir}"
 ######################################################################
 ### Rake Namespace and Task definitions
 
-Rake::TaskManager.record_task_metadata = true
 ##########
 # Default
+Rake::TaskManager.record_task_metadata = true
 task :default do
   puts("Basho Documentation Generate System Usage:")
   puts("")
@@ -45,27 +45,28 @@ end;
 
 ########
 # Clean
-desc      "Clean previous builds"
+#TODO<drew.pirrone.brusse@gmail>: These `rm -rf`s are maybe a bit much? Should
+# we be more precise with what we delete (and, if so, how)?
+desc      "Clean dynamically generated content (does not clean Hugo content)"
 task      :clean => ['clean:js', 'clean:css']
 namespace :clean do
-  #TODO<drew.pirrone.brusse@gmail>: These `rm -rf`s are maybe a bit much? Should
-  # we be more precise with what we delete (and, if so, how)?
+  desc "Clean dynamically generated JS"
   task :js do
-    # Ignoring files from standalone/, as they're from the Middleman content
-    js_file_list = Dir["#{$js_dest}/**/**"].reject { |f| f =~ /standalone/ }
+    js_file_list = Dir["#{$js_dest}/**/**"]
     js_file_list.each do |f|
       log_dir_deletion(f)
       FileUtils.rm(f)
     end
   end
+  desc "Clean dynamically generated CSS"
   task :css do
-    # Ignoring files from standalone/, as they're from the Middleman content
-    css_file_list = Dir["#{$css_dest}/**/**"].reject { |f| f =~ /standalone/ }
+    css_file_list = Dir["#{$css_dest}/**/**"]
     css_file_list.each do |f|
       log_dir_deletion(f)
       FileUtils.rm(f)
     end
   end
+  desc "Clean Hugo-generated content"
   task :hugo do
     log_dir_deletion($hugo_dest)
     FileUtils.rm_rf($hugo_dest)
@@ -75,53 +76,55 @@ end
 
 ########
 # Build
-desc      "Compile Compressed JS, Compile Compressed CSS, Build Hugo"
+desc      "Compile compressed JS and compressed CSS"
 task      :build => ['clean', 'build:js', 'build:css']
 namespace :build do
-  task :js => "#{$js_dest}" do compile_js(debug: false); end
-  task :css => "#{$css_dest}" do compile_css(debug: false); end
-
-  desc "Build all statically-generated Hugo content"
-  task :hugo => ['clean:hugo'] do sh "hugo -d #{$hugo_dest}"; end
-
-  desc "Shorthand for `rake build; rake watch:hugo` (Note: exits w/ an error)"
-  task :watch => ['build:js', 'build:css', 'watch:hugo']
+  task :js  => ["#{$js_dest}", 'clean:js']   do compile_js(debug: false); end
+  task :css => ["#{$css_dest}", 'clean:css'] do compile_css(debug: false); end
 
   ################
   # Build : Debug
-  desc      "Compile Human-Readable JS, Compile Human-Readable CSS, Build Hugo"
-  task      :debug => ['build:debug:js', 'build:debug:css', 'build:hugo']
+  desc      "Compile human-readable JS and compile human-readable CSS"
+  task      :debug => ['clean', 'build:debug:js', 'build:debug:css']
   namespace :debug do
-    desc "Compile Human-Readable JS"
-    task :js => "#{$js_dest}" do compile_js(debug: true); end
+    desc "Compile human-readable JS"
+    task :js  => ["#{$js_dest}", 'clean:js']   do compile_js(debug: true); end
 
-    desc "Compile Human-Readable CSS"
-    task :css => "#{$css_dest}" do compile_css(debug: true); end
+    desc "Compile human-readable CSS"
+    task :css => ["#{$css_dest}", 'clean:css'] do compile_css(debug: true); end
   end
 end
 
 
 ########
 # Watch
-desc      "Run Guard on JS and CSS"
+desc      "Rebuild compressed JS and CSS content on file saves"
 task      :watch do sh 'bundle exec guard -g css js'; end
 namespace :watch do
 
   task :js  do sh 'bundle exec guard -g js'; end
   task :css do sh 'bundle exec guard -g css'; end
 
-  #TODO<drew.pirrone.brusse@gmail>: Add in some way to specify ip/port.
-  desc "Run Hugo Server"
-  task :hugo do sh "hugo server --ignoreCache=true"; end
-
   ################
   # Watch : Debug
-  desc      "Run Guard on JS and CSS in Debug Mode"
+  desc      "Rebuild human-readable JS and CSS content on file saves"
   task      :debug => ['clean'] do sh 'bundle exec guard -g debug_js debug_css'; end
   namespace :debug do
     task :js  do sh 'bundle exec guard -g debug_js'; end
     task :css do sh 'bundle exec guard -g debug_css'; end
   end
+end
+
+
+#######
+# Hugo
+desc      "Generate the static site into #{$hugo_dest}"
+task      :hugo => ['clean:hugo'] do sh "hugo -d #{$hugo_dest}"; end
+namespace :hugo do
+
+  #TODO<drew.pirrone.brusse@gmail>: Add in some way to specify ip/port.
+  desc "Run Hugo Server"
+  task :server do sh "hugo server"; end
 end
 
 
@@ -133,7 +136,7 @@ task      :deploy => [
                       'deploy:fetch_archived_content',
                       'build:js',
                       'build:css',
-                      'build:hugo'
+                      'hugo'
                      ] do do_deploy(); end
 namespace :deploy do
   task :immediately_and_unsafely do do_deploy(); end
