@@ -1,5 +1,5 @@
-#########################
-# Download Info Generator
+##################################
+# Downloads Package List Generator
 #
 # The idea behind this file is to provide a one-stop-shop for updating the
 # dynamically-retrieved package URIs, and for correctly exposing that data in a
@@ -95,7 +95,7 @@ PROJECTS_TO_TRACK = {
 #####
 # Rake Task Call
 ################
-def generate_download_yaml()
+def generate_downloads_metadata()
   # The Hash we'll eventually write.
   download_info_hash = {}
 
@@ -220,5 +220,5 @@ end
 
 # If this file is being run directly, go ahead and generate the download data.
 if __FILE__ == $0
-  generate_download_yaml()
+  generate_downloads_metadata()
 end

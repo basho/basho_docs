@@ -10,8 +10,8 @@
 #TODO<drew.pirrone.brusse@gmail>: Make sure the above description is correct and
 # complete.
 
-require './libs/basho_rake_deploy'
-require './libs/basho_downloads_gen'
+require_relative 'rake_libs/s3_deploy'
+require_relative 'rake_libs/downloads_metadata_generator'
 
 $css_source = "./dynamic/css"
 $css_dest   = "./static/css"
@@ -147,7 +147,7 @@ end
 #   This task should be run every time a new package is placed onto the
 #   downloads server, and the updated file(s) should be tracked in Git.
 desc "Generate package URI information"
-task :gen_download_info do generate_download_yaml(); end
+task :generate_downloads_metadata do generate_downloads_metadata(); end
 
 
 ######################################################################
