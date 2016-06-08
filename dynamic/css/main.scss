@@ -1,1 +1,29 @@
-// main.sccss
+@charset 'UTF-8';
+
+// 1. Configuration and helpers
+@import
+  'abstracts/functions',
+  'abstracts/mixins';
+
+// 2. Vendors
+// @import
+//   '';
+
+// 3. Base stuff
+@import
+  'base/fonts',
+  'base/typography',
+  'base/helpers',
+  'base/base';
+
+// 4. Layout-related sections
+// @import
+//   '';
+
+// 5. Components
+// @import
+//   '';
+
+// 6. Page-specific styles
+// @import
+//   '';
