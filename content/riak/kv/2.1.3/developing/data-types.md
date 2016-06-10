@@ -31,7 +31,7 @@ data types: flags, registers, [counters](#counters),
 Of those five types, counters, sets, and maps can be used as
 bucket-level data types, i.e. types that you can interact with directly.
 Flags and registers, however, must be embedded in maps (more on that
-[below](/riak/kv/2.1.3/developing/data-types/#maps).
+[below](/riak/kv/2.1.3/developing/data-types/maps).
 
 <div class="note">
 <div class="title">Note on counters in earlier versions of Riak</div>
