@@ -256,6 +256,28 @@ if (!$response->isSuccess()) {
 }
 ```
 
+```golang
+row := make([]TsCell, 7)
+
+row[0] = NewStringTsCell("South Atlantic")
+row[1] = NewStringTsCell("South Carolina")
+row[2] = NewTimestampTsCell(tsTimestamp - 3600)
+row[3] = NewStringTsCell("windy")
+row[4] = NewDoubleTsCell(19.8)
+row[5] = NewSint64TsCell(10)
+row[6] = NewBooleanTsCell(true)
+
+cmd, err := riak.NewTsStoreRowsCommandBuilder()
+    .WithTable("GeoCheckin").WithRows([][]TsCell{row})
+    .Build()
+
+if err != nil {
+    return err
+}
+
+err = cluster.Execute(cmd)
+```
+
 >**Note on validation**:
 >
 >Riak TS validates all rows on the server side before writing occurs, checking the number of row elements and types. If any of the rows fails validation then none of the rows will be written.  An error message will be returned with the index numbers of the invalid rows in the batch, the first item in the batch being index one.
@@ -420,6 +442,23 @@ $response = (new Command\Builder\TimeSeries\DeleteRow($riak))
     ->execute();
 ```
 
+```golang
+key := make([]riak.TsCell, 3)
+
+key[0] = NewStringTsCell("South Atlantic")
+key[1] = NewStringTsCell("South Carolina")
+key[2] = NewTimestampTsCell(1420113600)
+
+cmd, err := riak.NewTsDeleteRowCommandBuilder()
+    .WithTable("GeoCheckin").WithKey(key)
+    .Build()
+
+if err != nil {
+    return err
+}
+
+err = cluster.Execute(cmd)
+```
 
 ## Next Steps
 
