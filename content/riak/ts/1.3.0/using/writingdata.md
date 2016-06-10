@@ -257,15 +257,13 @@ if (!$response->isSuccess()) {
 ```
 
 ```golang
-row := make([]TsCell, 7)
+row := make([]TsCell, 5)
 
 row[0] = NewStringTsCell("South Atlantic")
 row[1] = NewStringTsCell("South Carolina")
-row[2] = NewTimestampTsCell(tsTimestamp - 3600)
-row[3] = NewStringTsCell("windy")
-row[4] = NewDoubleTsCell(19.8)
-row[5] = NewSint64TsCell(10)
-row[6] = NewBooleanTsCell(true)
+row[2] = NewTimestampTsCell(1420113600)
+row[3] = NewStringTsCell("hot")
+row[4] = NewDoubleTsCell(23.5)
 
 cmd, err := riak.NewTsStoreRowsCommandBuilder()
     .WithTable("GeoCheckin").WithRows([][]TsCell{row})
