@@ -80,4 +80,4 @@ Returns a `TsQueryResponse` containing a `[]TsColumnDescription` describing the 
 
 #### TsListKeysCommand
 
-Returns a `TsListKeysResponse` containing a `[]string` with each element representing a Primary Key for a row.
+Returns a `TsListKeysResponse` containing a `[][]TsCell` with each outer slice element representing a Primary Key for a row.
