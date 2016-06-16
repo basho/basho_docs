@@ -181,6 +181,17 @@ $response = (new Command\Builder\TimeSeries\Query($riak))
     ->execute();
 ```
 
+```golang
+cmd, err := riak.NewTsQueryCommandBuilder()
+    .WithQuery("select weather, temperature from GeoCheckin where region = 'South Atlantic' and state = 'state1' and time > 1234560 and time < 1234569")
+    .Build()
+
+if err != nil {
+    return err
+}
+
+err = cluster.Execute(cmd)
+```
 
 ### Extended Query
 
@@ -261,6 +272,18 @@ $response = (new Command\Builder\TimeSeries\Query($riak))
     ->withQuery("select weather, temperature from GeoCheckin where region = 'South Atlantic' and state = 'state1' and time > 1234560 and time < 1234569 and temperature > 27.0")
     ->build()
     ->execute();
+```
+
+```golang
+cmd, err := riak.NewTsQueryCommandBuilder()
+    .WithQuery("select weather, temperature from GeoCheckin where region = 'South Atlantic' and state = 'state1' and time > 1234560 and time < 1234569 and temperature > 27.0")
+    .Build()
+
+if err != nil {
+    return err
+}
+
+err = cluster.Execute(cmd)
 ```
 
 You can also use `or` when querying against column values, such as `temperature` in our example. Note that the parentheses are required:
@@ -474,6 +497,17 @@ $response = (new Command\Builder\TimeSeries\Query($riak))
     ->execute();
 ```
 
+```golang
+cmd, err := riak.NewTsQueryCommandBuilder()
+    .WithQuery("select * from GeoCheckin where region = 'South Atlantic' and state = 'South Carolina' and (time > 1234560 and time < 1234569)")
+    .Build()
+
+if err != nil {
+    return err
+}
+
+err = cluster.Execute(cmd)
+```
 
 ### Query a table definition
 
@@ -578,4 +612,22 @@ $response = (new Command\Builder\TimeSeries\FetchRow($riak))
     ->inTable('GeoCheckins')
     ->build()
     ->execute();
+```
+
+```golang
+key := make([]riak.TsCell, 3)
+
+key[0] = NewStringTsCell("South Atlantic")
+key[1] = NewStringTsCell("South Carolina")
+key[2] = NewTimestampTsCell(1420113600)
+
+cmd, err := riak.NewTsFetchRowCommandBuilder()
+    .WithTable("GeoCheckin").WithKey(key)
+    .Build()
+
+if err != nil {
+    return err
+}
+
+err = cluster.Execute(cmd)
 ```
