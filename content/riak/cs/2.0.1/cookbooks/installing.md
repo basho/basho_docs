@@ -321,7 +321,7 @@ sudo bash -c "echo deb http://apt.basho.com $(lsb_release -sc) main > /etc/apt/s
 sudo apt-get update
 ```
 
-Now, install Riak CS:
+Now, install the `stanchion` package:
 
 ```bash
 sudo apt-get install stanchion
