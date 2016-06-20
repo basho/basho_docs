@@ -17,6 +17,9 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/developing/app-guide/writ
 ---
 
 [glossary vnode]: /riak/kv/2.1.4/learn/glossary/#vnode
+[bucket type]: /riak/kv/2.1.4/developing/usage/bucket-types
+[Riak data types]: /riak/kv/2.1.4/developing/data-types
+[strong consistency]: /riak/kv/2.1.4/developing/app-guide/strong-consistency
 
 Riak 2.1.0 introduces the concept of write-once buckets, buckets whose entries
 are intended to be written exactly once and never updated or overwritten.
@@ -25,9 +28,16 @@ otherwise result in a read on the coordinating vnode before the write. Avoiding
 coordinated PUTs results in higher throughput and lower PUT latency, though at
 the cost of different semantics in the degenerate case of sibling resolution.
 
+{{% note %}}
+Write-once buckets do not support Riak commit hooks.  Because Riak objects are 
+inserted into the realtime queue using a postcommit hook, realtime replication 
+is unavailable for write-once buckets.  Fullsync replication will, however, 
+replicate the data.
+{{% /note %}}
+
 ## Configuration
 
-When the new `write_once` [bucket type](/riak/kv/2.1.4/developing/usage/bucket-types) parameter is set to
+When the new `write_once` [bucket type][bucket type] parameter is set to
 `true`, buckets of type will treat all key/value entries as semantically "write
 once;" once written, entries should not be modified or overwritten by the user.
 
@@ -35,10 +45,11 @@ The `write_once` property is a boolean property applied to a bucket type and may
 only be set at bucket creation time. Once a bucket type has been set with this
 property and activated, the `write_once` property may not be modified.
 
-The `write_once` property is incompatible with [Riak data types](/riak/kv/2.1.4/developing/data-types/) and [strong consistency](/riak/kv/2.1.4/developing/app-guide/strong-consistency/),
-This means that if you attempt to create a bucket type with the `write_once`
-property set to `true`, any attempt to set the `datatype` parameter or to set
-the `consistent` parameter to `true` will fail.
+The `write_once` property is incompatible with [Riak data types][Riak data types] 
+and [strong consistency][strong consistency], This means that if you attempt to 
+create a bucket type with the `write_once` property set to `true`, any attempt to 
+set the `datatype` parameter or to set the `consistent` parameter to `true` will 
+fail.
 
 The `write_once` property may not be set on the default bucket type, and may not
 be set on individual buckets. If you set the `lww` or `allow_mult` parameters on
@@ -76,8 +87,8 @@ nodes.
 ## Runtime
 
 The write-once path circumvents the normal coordinated PUT code path, and
-instead sends write requests directly to all [vnodes][glossary vnode] (or vnode proxies) in
-the effective preference list for the write operation.
+instead sends write requests directly to all [vnodes][glossary vnode] (or vnode 
+proxies) in the effective preference list for the write operation.
 
 In place of the `put_fsm` used in the normal path, we introduce a collection of
 new intermediate worker processes (implementing `gen_server` behavior). The role
@@ -124,8 +135,7 @@ At the time of writing, the only backend that supports asynchronous writes is
 LevelDB. Riak will automatically fall back to synchronous writes with all other
 backends.
 
-<div class="note">
-<div class="title">Note on the `multi` backend</div>
+{{% note title="Note on the `multi` backend" %}}
 The [Multi](/riak/kv/2.1.4/setup/planning/backend/multi) backend does not support asynchronous writes. Therefore, if
 LevelDB is used with the Multi backend, it will be used in synchronous mode.
-</div>
+{{% /note %}}
