@@ -58,6 +58,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/developing/app-guide"
 [getting started]: /riak/kv/2.1.3/developing/getting-started
 [usage index]: /riak/kv/2.1.3/developing/usage
 [glossary]: /riak/kv/2.1.3/learn/glossary
+[write-once]: /riak/kv/2.1.3/developing/app-guide/write-once
 
 So you've decided to build an application using Riak as a data store. We
 think that this is a wise choice for a broad variety of use cases. But
@@ -242,6 +243,10 @@ Types and Search is coming soon.
   application needs to have access to all sibling values, then Riak Data
   Types are not a good choice because they by definition do not produce
   siblings.
+* **When you want to take advantage of [write-once buckets][write-once]**
+  --- If your application writes immutable data then it can benefit
+  from using write-once buckets.  This feature, however, is incompatible
+  with Riak Data Types.
 * **When your data just doesn't fit** --- While the five existing Data
   Types allow for a great deal of flexibility and a wide range of use
   cases, they don't cover all use cases. If you have data that requires
