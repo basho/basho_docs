@@ -174,9 +174,3 @@ either fullsync or realtime replication, both clusters must have the
 same [ring size][concept clusters]; if you are using fullsync
 replication, every bucket's `n_val` must be the same in both the
 source and sink cluster.
-
-
-<script type="text/javascript">
-document.write(unescape("%3Cscript src='//munchkin.marketo.net/munchkin.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script>Munchkin.init('721-DGT-611');</script>
