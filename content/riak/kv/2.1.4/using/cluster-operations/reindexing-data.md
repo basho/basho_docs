@@ -1,39 +1,17 @@
 ---
-title: "Updating Search Schemas & Reindexing Data"
+title: "Reindexing Data"
 description: ""
 project: "riak_kv"
 project_version: "2.1.4"
 menu:
   riak_kv-2.1.4:
-    name: "Updating Search Schemas & Reindexing Data"
-    identifier: "cluster_operations_update_search_schemas"
-    weight: 117
+    name: "Reindexing Data"
+    identifier: "cluster_operations_reindex_data"
+    weight: 118
     parent: "managing_cluster_operations"
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/cluster-operations/update-search-schema-reindex-data"
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/cluster-operations/reindexing-data"
 ---
-
-The following page provides instruction on updating [search schemas](../../../developing/usage/search-schemas), as well as reindexing existing data.
-
-## Update the Search Schema
-
-Update the schema file, which is typically found here `$RIAK_HOST/search/index/famous`.
-
-For example, the following creates or updates an index called `famous` that uses the default schema:
-
-```bash
-curl -XPUT $RIAK_HOST/search/index/famous \ -H 'Content-Type: application/json' \ -d '{"schema":"_yz_default"}'
-```
-
-Then update the new schema within Riak KV by either:
-
-* Performing a [rolling restart](../../repair-recovery/rolling-restart) to trigger a Solr reload of the schema.
-* Or starting a `riak attach` session running:
-  `yz_index:reload(<<"index_name">>).`
-
-> **Note:**
->
-> Please note the `riak attach` method used above is a blocking, cluster-wide call but it will trigger a live reload of the Solr schema. New data will now contain the updated fields but existing data will not have their indexes updated.
 
 ## Reindex Existing Data
 
