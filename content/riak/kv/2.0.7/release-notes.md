@@ -15,7 +15,7 @@ aliases:
 canonical_link: "https://docs.basho.com/riak/kv/latest/release-notes"
 ---
 
-Released June 30th, 2015.
+Released June 27th, 2015.
 
 This is a bugfix release addressing minor issues and making some improvements for speed and performance.
 
