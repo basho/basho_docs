@@ -78,7 +78,7 @@ message was sent to the endpoint. This bug also caused mochiweb to return an err
 
 * Bitcask has been upgraded to version 1.7.2p3
 * Cuttlefish has been upgraded to version 2.0.2p2
-* eLevelDB has been upgraded to version 2.0.21
-* LevelDB has been upgraded to version 2.0.21
+* eLevelDB has been upgraded to version 2.0.22
+* LevelDB has been upgraded to version 2.0.22
 * node_package has been upgraded to version 3.0.1
 * OTP has been upgraded to version R16B02_basho10
