@@ -20,7 +20,6 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/developing/app-guide/writ
 [bucket type]: /riak/kv/2.1.1/developing/usage/bucket-types
 [Riak data types]: /riak/kv/2.1.1/developing/data-types
 [strong consistency]: /riak/kv/2.1.1/developing/app-guide/strong-consistency
-[Multi]: /riak/kv/2.1.1/setup/planning/backend/multi
 
 Riak 2.1.0 introduces the concept of write-once buckets, buckets whose entries
 are intended to be written exactly once and never updated or overwritten.
@@ -137,6 +136,6 @@ LevelDB. Riak will automatically fall back to synchronous writes with all other
 backends.
 
 {{% note title="Note on the `multi` backend" %}}
-The [Multi][Multi] backend does not support asynchronous writes. Therefore, if
+The [Multi](/riak/kv/2.1.1/setup/planning/backend/multi) backend does not support asynchronous writes. Therefore, if
 LevelDB is used with the Multi backend, it will be used in synchronous mode.
-{{% /note }}
+{{% /note %}}
