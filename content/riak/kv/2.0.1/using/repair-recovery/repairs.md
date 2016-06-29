@@ -177,13 +177,6 @@ While corruption on one vnode is not uncommon, corruption in several vnodes very
 
 ## Healing Corrupted LevelDBs
 
-{{#1.3.0-}}
-<div class="note">
-<div class="title">Warning</div>
-There is a known issue in Riak 1.2.x where running a LevelDB repair will bring down a machine and affect the whole cluster as a result.  Please contact Basho support before running a LevelDB repair on any Riak 1.2.x nodes.
-</div>
-{{/1.3.0-}}
-
 The first step in properly addressing this problem is to stop the node.
 
 ```bash
