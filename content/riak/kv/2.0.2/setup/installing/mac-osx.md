@@ -44,8 +44,8 @@ appropriate platform:
 ### 64-bit
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/osx/10.8/riak-{{VERSION}}-OSX-x86_64.tar.gz
-tar xzvf riak-{{VERSION}}-osx-x86_64.tar.gz
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.2/osx/10.8/riak-2.0.2-OSX-x86_64.tar.gz
+tar xzvf riak-2.0.2-osx-x86_64.tar.gz
 ```
 
 After the release is untarred, you will be able to `cd` into the `riak`
@@ -67,7 +67,7 @@ Installing Riak 2.0 with [Homebrew](http://brew.sh/) is easy:
 brew install --devrel riak
 ```
 
-By default, this will place a `{{VERSION}}` folder in
+By default, this will place a `2.0.2` folder in
 `/usr/local/Cellar/riak`.
 
 Be aware that you will most likely see the following message after
@@ -99,24 +99,22 @@ Riak will not compile with Clang. Please make sure that your default
 C/C++ compiler is [GCC](https://gcc.gnu.org/).
 </div>
 
-Riak requires [Erlang](http://www.erlang.org/)
-{{#2.0.0-}}R15B01{{/2.0.0-}}{{#2.0.0+}}R16B02+{{/2.0.0+}}.
+Riak requires [Erlang](http://www.erlang.org/) R16B02+.
 
 If you do not have Erlang already installed, see [Installing Erlang][install source erlang].
 
 Next, download and unpack the source distribution.
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/riak-{{VERSION}}.tar.gz
-tar zxvf riak-{{VERSION}}.tar.gz
-cd riak-{{VERSION}}
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.2/riak-2.0.2.tar.gz
+tar zxvf riak-2.0.2.tar.gz
+cd riak-2.0.2
 make rel
 ```
 
 If you receive errors when building about "incompatible architecture,"
 please verify that you built Erlang with the same architecture as your
-system (Snow Leopard and higher: 64bit{{#1.4.0-}}, everything else:
-32bit{{/1.4.0-}}).
+system (Snow Leopard and higher: 64bit).
 
 ## Next Steps
 

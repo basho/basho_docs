@@ -750,29 +750,6 @@ communicate to Riak over an API using protocol buffers. This is a typical remote
 call - depending on system requirements, the `timeout` could be configured
 to avoid unnecessary timeouts.
 
-{{#1.5.3-}}
-
-In Riak CS 1.5.2 or before, configurations should be in the `riakc`
-section of `app.config`:
-
-```appconfig
-{riakc, [
-   {timeout, 5000},
-   {mapred_timeout, 1200000}
-   ]},
-```
-
-This example changes the default `timeout` of each primitive put and get
-call to Riak from the default 60 seconds to 5 seconds, which will improve latency at the possible cost of more frequent timeout errors. It
-also changes the `mapred_timeout` of the storage calculation call timeout on
-each bucket from the default 60 seconds to 20 minutes, which increases the 
-duration of storage calculation proportionally to the number
-of keys in a bucket.
-
-{{/1.5.3-}}
-
-{{#1.5.3+}}
-
 In Riak 1.5.3 or later, configurations under `riakc` section are unavailable. Timeouts are configurable depending on each
 access case. This enables fine grained tuning or ad-hoc reaction in
 production environment issues. These items are only configurable in
@@ -810,9 +787,6 @@ are milliseconds.
 
 </tbody>
 </table>
-
-{{/1.5.3+}}
-
 
 ## Webmachine
 
