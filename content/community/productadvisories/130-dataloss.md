@@ -4,7 +4,7 @@ description: ""
 menu:
   community:
     name: "Data Loss TS 1.3.0"
-    identifier: "dataloss"
+    identifier: "tsdataloss"
     weight: 100
     parent: "productadvisories"
 toc: true
