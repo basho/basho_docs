@@ -301,7 +301,7 @@ public class BlogPost {
             .update("keywords", keywordsUpdate)
             .update("date", dateUpdate)
             .update("published", publishedUpdate);
-        UpdateMap storeBlogPost = new UpdateMap.Builder(location)
+        UpdateMap storeBlogPost = new UpdateMap.Builder(location, mapUpdate)
             .build();
         client.execute(storeBlogPost);
     }
