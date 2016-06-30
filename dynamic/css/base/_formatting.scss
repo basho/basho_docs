@@ -1,0 +1,141 @@
+/**
+ * Formatting-Specific classes
+ * ===========================
+ * The classes defined below directly affect the flow of the HTML documents.
+ * Basic styles and class-specific styles should not alter the `display`,
+ * `float`, or `clear` properties. If an element needs to have those properties
+ * changed, one of the below classes should be applied alongside any other
+ * custom styles.
+ *
+ * We're not including classes designed to hide or partially hide elements here
+ * because Bootstrap provides those for us,
+ *     .invisible       -- `display: hidden`
+ *     .hidden-print    -- `display: none` in print media
+ *     .hidden-*-up     -- `display: none` when screen is equal/larger than *
+ *     .hidden-*-down   -- `display: none` when screen is equal/larger than *
+ *     .visible-print-* -- `display: *` in print media, otherwise `none`
+ *
+ * NB. All of the above styles are (correctly) modified with `!important`. This
+ * is because those styles (as with the below) are preemptive. The idea being
+ * that we _do not_ use these styles to override CSS defined elsewhere. Applying
+ * one of these classes to an HTML element is a statement of intent that _must_
+ * be honored.
+ *TODO: Work out how we might re-apply !important to the below. The issue that
+ *      lead me (drew.pirrone.brusse@gmaiil.com) to remove the !important
+ *      qualifiers was the interaction between my .inline-block and Bootstrap's
+ *      hidden-md-down. The former was consistently overriding the later.
+ */
+
+.inline {
+  display: inline;
+}
+
+.block {
+  display: block;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+
+.table {
+  display: table;
+}
+
+.inline-table {
+  display: inline-table;
+}
+
+.table-row {
+  display: table-row;
+}
+
+.table-cell {
+  display: table-cell;
+}
+
+
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
+
+
+.clear {
+  clear: both;
+}
+
+.clear-left {
+  clear: left;
+}
+
+.clear-right {
+  clear: right;
+}
+
+
+/**
+ * Responsive Formatting Classes
+ * -----------------------------
+ * The below classes are 'dynamically' generated using Sass loops, based on our
+ * $grid-breakpoints map. The code is largely based on Based on Bootstrap's
+ * `pull-${breakpoint}-(left|right)` code.
+ */
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  .inline-only-#{$breakpoint} {
+    display: none;
+  }
+  .block-only-#{$breakpoint} {
+    display: none;
+  }
+  .inline-block-only-#{$breakpoint} {
+    display: none;
+  }
+
+  @include media-breakpoint-only($breakpoint) {
+    .inline-only-#{$breakpoint} {
+      display: inline;
+    }
+    .block-only-#{$breakpoint} {
+      display: block;
+    }
+    .inline-block-only-#{$breakpoint} {
+      display: inline-block;
+    }
+  }
+}
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include wide-from($breakpoint) {
+    .float-left-#{$breakpoint}-up {
+      float: left;
+    }
+    .float-right-#{$breakpoint}-up {
+      float: right;
+    }
+    .float-none-#{$breakpoint}-up {
+      float: none;
+    }
+  }
+}
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include narrow-from($breakpoint) {
+    .float-left-#{$breakpoint}-down {
+      float: left;
+    }
+    .float-right-#{$breakpoint}-down {
+      float: right;
+    }
+    .float-none-#{$breakpoint}-down {
+      float: none;
+    }
+  }
+}
