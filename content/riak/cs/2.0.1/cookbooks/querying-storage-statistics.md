@@ -67,18 +67,9 @@ Sample responses (reformatted for easy reading):
 
 To request that storage results be included, pass the query parameter `b` to the resource (any true-ish value will work, including just the bare `b`, `t`, `true`, `1`, `y`, and `yes`):
 
-{{#1.3.0-}}
-
-```curl
-curl http://localhost:8080/usage/8NK4FH2SGKJJM8JIP2GU?b
-```
-{{/1.3.0-}}
-{{#1.3.0+}}
-
 ```curl
 curl http://localhost:8080/riak-cs/usage/8NK4FH2SGKJJM8JIP2GU?b
 ```
-{{/1.3.0+}}
 
 Sample responses (reformatted for easy reading):
 

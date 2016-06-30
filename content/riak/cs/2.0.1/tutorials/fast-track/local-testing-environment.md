@@ -250,14 +250,14 @@ all interfaces.
 Change the following lines in `/etc/stanchion/stanchion.conf`
 
 ```stanchionconf
-stanchion_host = 127.0.0.1:8085
+listener = 127.0.0.1:8085
 riak_host = 127.0.0.1:8087
 ```
 
 to
 
 ```stanchionconf
-stanchion_host = 10.0.2.10:8085
+listener = 10.0.2.10:8085
 riak_host = 10.0.2.10:8087
 ```
 
