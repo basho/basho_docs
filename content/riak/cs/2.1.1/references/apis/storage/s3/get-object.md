@@ -26,10 +26,6 @@ Date: date
 Authorization: signature_value
 ```
 
-{{#1.3.0-}}
-Note: While Range queries are planned for a future release, using `Range:bytes=byte_range`, this feature is not currently implemented.
-{{/1.3.0-}}
-
 ## Examples
 
 ### Sample Request

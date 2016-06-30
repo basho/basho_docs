@@ -87,11 +87,6 @@ domain name that uniquely identifies a single network device, if the CNs of
 the local and peer certificates are the same, the nodes will *NOT* be allowed
 to connect.
 
-{{#2.1.0+}}An exception is made when the CN begins with `*`, on the assumption
-that a pool of nodes might all legitimately use a certificate with a CN
-like `*.dc5.example.com`. In this specific case, peers with matching CNs are
-allowed to connect, so long as an explicit or implicit ACL allows it.{{/2.1.0+}}
-
 This evaluation supercedes ACL checks, so it cannot be overridden with any
 setting of the `peer_common_name_acl` property.
 </div>

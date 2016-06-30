@@ -36,8 +36,6 @@ Below is an example usage:
 riak-repl add-listener riak@10.0.1.156 10.0.1.156 9010
 ```
 
-{{#1.2.1+}}
-
 ## add-nat-listener
 
 Adds a NAT-aware listener (primary) to the given node, IP address, port,
@@ -53,7 +51,6 @@ Below is an example usage:
 ```bash
 riak-repl add-nat-listener riak@10.0.1.156 10.0.1.156 9010 50.16.238.123 9010
 ```
-{{/1.2.1+}}
 
 ## del-listener
 

@@ -31,18 +31,16 @@ GET /buckets/mybucket/index/myindex_bin/value
 GET /buckets/mybucket/index/myindex_bin/start/end
 ```
 
-{{#1.4.0+}}
 #### Range query with terms
+
 To see the index values matched by the range, use `return_terms=true`.
 
 ```
 GET /buckets/mybucket/index/myindex_bin/start/end?return_terms=true
 ```
-{{/1.4.0+}}
 
-
-{{#1.4.0+}}
 ### Pagination
+
 Add the parameter `max_results` for pagination. This will limit the results and provide for the next request a `continuation` value.
 
 ```
@@ -50,16 +48,11 @@ GET /buckets/mybucket/index/myindex_bin/start/end?return_terms=true&max_results=
 GET /buckets/mybucket/index/myindex_bin/start/end?return_terms=true&max_results=500&continuation=g2gCbQAAAAdyaXBqYWtlbQAAABIzNDkyMjA2ODcwNTcxMjk0NzM=
 ```
 
-{{/1.4.0+}}
-
-
-{{#1.4.0+}}
 ### Streaming
+
 ```
 GET /buckets/mybucket/index/myindex_bin/start/end?stream=true
 ```
-
-{{/1.4.0+}}
 
 ## Response
 

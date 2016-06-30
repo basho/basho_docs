@@ -97,22 +97,6 @@ in the `active` or `writing` state are eligible to be cleaned up. In
 this case, there is no concern about reaping the object version that is
 currently being written to become the next `active` version.
 
-{{#1.5.0-}}
-
-Once the states of the eligible manifests have been updated to
-`pending_delete`, the manifest information for any `pending_delete`
-manifest versions are collected into a CRDT set and the set is written
-as a value to the `riak-cs-gc` bucket keyed by a time value
-representing the current epoch time plus the leeway interval, i.e.
-the `gc.leeway_period` configuration option. If that write is
-successful then the state for each manifest in the set is updated to
-`scheduled_delete`. This indicates that the blocks of the object have
-been scheduled for deletion by the garbage collection daemon and
-avoids other manifest resolution processes for the object from
-scheduling unnecessary deletions.
-{{/1.5.0-}}
-{{#1.5.0+}}
-
 Once the states of the eligible manifests have been updated to
 `pending_delete` the manifest information for any `pending_delete`
 manifest versions are collected into a CRDT set and the set is written
@@ -134,7 +118,6 @@ this is that the `gc.leeway_period` interval may be changed for objects
 that have already been deleted or overwritten and allows system
 operators to potentially reap objects sooner than originally specified
 `gc.leeway_period` interval if it is necessary.
-{{/1.5.0+}}
 
 Once the manifest enters the `scheduled_delete` state it remains as a
 tombstone for a minimum of `gc.leeway_period`.
