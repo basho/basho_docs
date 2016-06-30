@@ -60,6 +60,17 @@
 }
 
 
+/// Set position: relative, and vertically aligns content within the parent.
+/// @author Sebastian Ekström
+/// @link http://zerosixthree.se/vertical-align-anything-with-just-3-lines-of-css/
+///TODO: Determine the requirements for this. Parent must be [inline-]block?
+@mixin pos-relative-vertical-align {
+  position:  relative;
+  top:       50%;
+  transform: translateY(-50%);
+}
+
+
 /// Given a property and px value(s), outputs rem value and px fallbacks
 /// @author Ray Brown (edited by Drew Pirrone-Brusse)
 /// @link https://github.com/bitmanic/rem/blob/master/stylesheets/_rem.scss
