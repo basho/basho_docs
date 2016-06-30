@@ -209,7 +209,7 @@ curl -XPUT $RIAK_HOST/search/index/blog_posts \
 ## How Collections will Work
 
 Collections are not a concept that is native to Riak but we can easily
-mimic collections by thinking of a bucket type as a collection. When we
+mimic collections by thing of a bucket type as a collection. When we
 associate a bucket type with a Riak Search index, all of the objects
 stored in any bucket of that bucket type will be queryable on the basis
 of that one index. For this tutorial, we'll create a bucket type called
@@ -218,7 +218,7 @@ of that one index. For this tutorial, we'll create a bucket type called
 as a queryable collection, but we will not do that in this tutorial.
 
 The advantage of the bucket-type-based approach is that we could store
-blog posts from different blogs in different buckets and query them
+blog posts from different blogs in different blog posts and query them
 all at once as part of the same index. It depends on the use case at
 hand. In this tutorial, we'll only be storing posts from one blog, which
 is called "Cat Pics Quarterly" and provides in-depth theoretical

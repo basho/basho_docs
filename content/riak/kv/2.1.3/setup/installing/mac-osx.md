@@ -97,7 +97,8 @@ Riak will not compile with Clang. Please make sure that your default
 C/C++ compiler is [GCC](https://gcc.gnu.org/).
 </div>
 
-Riak requires [Erlang](http://www.erlang.org/) R16B02+.
+Riak requires [Erlang](http://www.erlang.org/)
+{{#2.0.0-}}R15B01{{/2.0.0-}}{{#2.0.0+}}R16B02+{{/2.0.0+}}.
 
 If you do not have Erlang already installed, see [Installing Erlang][install source erlang].
 
@@ -112,7 +113,8 @@ make rel
 
 If you receive errors when building about "incompatible architecture,"
 please verify that you built Erlang with the same architecture as your
-system (Snow Leopard and higher: 64bit).
+system (Snow Leopard and higher: 64bit{{#1.4.0-}}, everything else:
+32bit{{/1.4.0-}}).
 
 ## Next Steps
 
