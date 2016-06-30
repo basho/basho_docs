@@ -5,7 +5,7 @@ menu:
   community:
     name: "LeveDB Segfault"
     identifier: "leveldbsegv"
-    weight: 100
+    weight: 120
     parent: "productadvisories"
 toc: true
 aliases:
