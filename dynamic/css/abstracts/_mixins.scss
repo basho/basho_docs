@@ -98,3 +98,15 @@
     #{$property}: $rem-values;
   }
 }
+
+
+// base = top or bottom
+// point = bottom or top
+// size = size of the base
+//TODO: Audit this mixin & write a SassDoc for it.
+@mixin arrowVertical($base, $point,  $size, $color) {
+  width            : 0;
+  border           : #{$size} solid transparent;
+  border-#{$base}  : #{$size} solid #{$color};
+  border-#{$point} : none;
+}
