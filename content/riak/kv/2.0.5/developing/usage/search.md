@@ -47,14 +47,13 @@ index named `famous` with the default schema.
 
 Both schema and index creation will be covered immediately below.
 
-<div class="note">
-<div class="title">Note on index names</div>
+{{% note title="Note on index names" %}}
 Note that index names may only be
 [ASCII](http://en.wikipedia.org/wiki/ASCII) values from 32-127 (spaces,
 standard punctuation, digits, and word characters). This may change in
 the future to allow full [Unicode](http://en.wikipedia.org/wiki/Unicode)
 support.
-</div>
+{{% /note %}}
 
 All `curl` examples in this document assume that you have set an
 environment variable named `RIAK_HOST`, which points to a Riak base URL,
