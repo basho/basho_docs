@@ -67,6 +67,10 @@ Retrieve TS value by key.
 ```javascript
 var Riak = require('basho-riak-client');
 
+//may pass client an array of host:port's
+//['192.168.1.1:8087','192.168.1.2:8087']
+var client = new Riak.Client(['127.0.0.1:8087']);
+
 var key = [ 'South Carolina', 'South Carolina', now ];
 
 var cb = function (err, rslt) {
@@ -98,6 +102,10 @@ Stores time series data in the Riak cluster.
 
 ```javascript
 var Riak = require('basho-riak-client');
+
+//may pass client an array of host:port's
+//['192.168.1.1:8087','192.168.1.2:8087']
+var client = new Riak.Client(['127.0.0.1:8087']);
 
 var now = new Date();
 
@@ -148,6 +156,10 @@ Delete TS value by key.
 ```javascript
 var Riak = require('basho-riak-client');
 
+//may pass client an array of host:port's
+//['192.168.1.1:8087','192.168.1.2:8087']
+var client = new Riak.Client(['127.0.0.1:8087']);
+
 var key = [ 'South Carolina', 'South Carolina', now ];
 
 var cb = function (err, rslt) {
@@ -179,6 +191,10 @@ Queries time series data in the Riak cluster.
 
 ```javascript
 var Riak = require('basho-riak-client');
+
+//may pass client an array of host:port's
+//['192.168.1.1:8087','192.168.1.2:8087']
+var client = new Riak.Client(['127.0.0.1:8087']);
 
 var cb = function (err, rslt) {
     // NB: rslt will be an object with two properties:
@@ -213,6 +229,10 @@ Lists all keys in a TS table via a stream.
 ```javascript
 var Riak = require('basho-riak-client');
 
+//may pass client an array of host:port's
+//['192.168.1.1:8087','192.168.1.2:8087']
+var client = new Riak.Client(['127.0.0.1:8087']);
+
 var allKeys = [];
 var callback = function(err, resp) {
     Array.prototype.push.apply(allKeys, resp.keys);
@@ -228,7 +248,7 @@ var cmd = new Riak.Commands.TS.ListKeys.Builder()
     .withCallback(callback)
     .build();
 
-cluster.execute(cmd);
+client.execute(cmd);
 ```
 
 |Builder Method | Type    | Description                                       |
