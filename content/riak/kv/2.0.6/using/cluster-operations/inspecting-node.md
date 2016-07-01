@@ -153,11 +153,11 @@ FSM Siblings are inextricably linked. These are one-minute stats.
 
 Stat                          | Description
 ------------------------------|---------------------------------------------------
-`node_get_fsm_objsize_mean`   | Mean object size encountered by this node within the last minute
-`node_get_fsm_objsize_median` | Median object size encountered by this node within the last minute
-`node_get_fsm_objsize_95`     | 95th percentile object size encountered by this node within the last minute
-`node_get_fsm_objsize_99`     | 99th percentile object size encountered by this node within the last minute
-`node_get_fsm_objsize_100`    | 100th percentile object size encountered by this node within the last minute
+`node_get_fsm_objsize_mean`   | Mean object size (bytes) encountered by this node within the last minute
+`node_get_fsm_objsize_median` | Median object size (bytes) encountered by this node within the last minute
+`node_get_fsm_objsize_95`     | 95th percentile object size (bytes) encountered by this node within the last minute
+`node_get_fsm_objsize_99`     | 99th percentile object size (bytes) encountered by this node within the last minute
+`node_get_fsm_objsize_100`    | 100th percentile object size (bytes) encountered by this node within the last minute
 
 ### Total Stats
 
@@ -365,7 +365,7 @@ available in the Riaknostic Github repository.
 
 ## Strong Consistency Stats
 
-Riak tabulates a variety of stats related to Riak's optional [strong consistency](/riak/2.1.3/using/reference/strong-consistency) feature. The table below lists those stats.
+Riak tabulates a variety of stats related to Riak's optional [strong consistency](../../reference/strong-consistency) feature. The table below lists those stats.
 
 ### GET-related stats
 
@@ -373,11 +373,11 @@ Stat | Description
 :----|:-----------
 `consistent_gets` | Number of strongly consistent GETs coordinated by this node in the last minute
 `consistent_gets_total` | Total number of strongly consistent GETs coordinated by this node
-`consistent_get_objsize_mean` | Mean object size for strongly consistent GETs on this node in the last minute
-`consistent_get_objsize_median` | Median object size for strongly consistent GETs on this node in the last minute
-`consistent_get_objsize_95` | 95th-percentile object size for strongly consistent GETs on this node in the last minute
-`consistent_get_objsize_99` | 99th-percentile object size for strongly consistent GETs on this node in the last minute
-`consistent_get_objsize_100` | 100th-percentile object size for strongly consistent GETs on this node in the last minute
+`consistent_get_objsize_mean` | Mean object size (bytes) for strongly consistent GETs on this node in the last minute
+`consistent_get_objsize_median` | Median object size (bytes) for strongly consistent GETs on this node in the last minute
+`consistent_get_objsize_95` | 95th-percentile object size (bytes) for strongly consistent GETs on this node in the last minute
+`consistent_get_objsize_99` | 99th-percentile object size (bytes) for strongly consistent GETs on this node in the last minute
+`consistent_get_objsize_100` | 100th-percentile object size (bytes) for strongly consistent GETs on this node in the last minute
 `consistent_get_time_mean` | Mean time between reception of client GETs to strongly consistent keys and subsequent response
 `consistent_get_time_median` | Median time between reception of client GETs to strongly consistent keys and subsequent response
 `consistent_get_time_95` | 95th-percentile time between reception of client GETs to strongly consistent keys and subsequent response
@@ -390,11 +390,11 @@ Stat | Description
 :----|:-----------
 `consistent_puts` | Number of strongly consistent PUTs coordinated by this node in the last minute
 `consistent_puts_total` | Total number of strongly consistent PUTs coordinated by this node
-`consistent_put_objsize_mean` | Mean object size for strongly consistent PUTs on this node in the last minute
-`consistent_put_objsize_median` | Median object size for strongly consistent PUTs on this node in the last minute
-`consistent_put_objsize_95` | 95th-percentile object size for strongly consistent PUTs on this node in the last minute
-`consistent_put_objsize_99` | 99th-percentile object size for strongly consistent PUTs on this node in the last minute
-`consistent_put_objsize_100` | 100th-percentile object size for strongly consistent PUTs on this node in the last minute
+`consistent_put_objsize_mean` | Mean object size (bytes) for strongly consistent PUTs on this node in the last minute
+`consistent_put_objsize_median` | Median object size (bytes) for strongly consistent PUTs on this node in the last minute
+`consistent_put_objsize_95` | 95th-percentile object size (bytes) for strongly consistent PUTs on this node in the last minute
+`consistent_put_objsize_99` | 99th-percentile object size (bytes) for strongly consistent PUTs on this node in the last minute
+`consistent_put_objsize_100` | 100th-percentile object size (bytes) for strongly consistent PUTs on this node in the last minute
 `consistent_put_time_mean` | Mean time between reception of client PUTs to strongly consistent keys and subsequent response
 `consistent_put_time_median` | Median time between reception of client PUTs to strongly consistent keys and subsequent response
 `consistent_put_time_95` | 95th-percentile time between reception of client PUTs to strongly consistent keys and subsequent response
@@ -500,6 +500,6 @@ you, but here's how to set them:
 
 ## Related Resources
 
-* [The riak-admin configuration management tool](/riak/kv/2.0.6/using/admin/riak-admin/)
+* [The riak-admin configuration management tool](../../admin/riak-admin/)
 * [Riaknostic](http://riaknostic.basho.com/)
-* [HTTP API Status](/riak/kv/2.0.6/developing/api/http/status/)
+* [HTTP API Status](../../../developing/api/http/status/)
