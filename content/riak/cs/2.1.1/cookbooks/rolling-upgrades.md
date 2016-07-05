@@ -23,18 +23,20 @@ Be sure to check the Riak CS [Version Compatibility](/riak/cs/2.1.1/cookbooks/ve
 As Riak CS 2.0.0 only works with Riak 2.0.5, the underlying Riak installation
 *must* be upgraded to Riak 2.0.5.
 
-<div class="note"><div class="title">Note on upgrading from Riak CS < 1.5.4</div>
+{{% note title="Note on upgrading from Riak CS &lt; 1.5.4" %}}
 <a href="https://github.com/basho/riak_cs/blob/release/1.5/RELEASE-NOTES.md#notes-on-upgrading">
 Some key objects changed names</a> after the upgrade. Applications may need to
-change their behaviour due to this bugfix.</div>
+change their behaviour due to this bugfix.{{% /note %}}
 
-<div class="note"><div class="title">Note on upgrading from Riak CS < 1.5.1</div>
+
+{{% note title="Note on upgrading from Riak CS &lt; 1.5.1" %}}
 <a href="https://github.com/basho/riak_cs/blob/release/1.5/RELEASE-NOTES.md#notes-on-upgrading-1">
 Bucket number limitation per user</a> have been introduced in 1.5.1. Users who
 have more than 100 buckets cannot create any bucket after the upgrade unless
-the limit is extended in the system configuration.</div>
+the limit is extended in the system configuration.{{% /note %}}
 
-<div class="note"><div class="title">Note on upgrading From Riak CS 1.4.x</div>
+
+{{% note title="Note on upgrading From Riak CS 1.4.x" %}}
 An operational procedure
 <a href="https://github.com/basho/riak_cs/blob/release/1.5/RELEASE-NOTES.md#incomplete-multipart-uploads">
 to clean up incomplete multipart under deleted buckets</a> is needed. Otherwise
@@ -46,7 +48,8 @@ upgrade, because timestamp management of garbage collection has changed since
 the 1.5.0 release. Consult the
  <a href="https://github.com/basho/riak_cs/blob/release/1.5/RELEASE-NOTES.md#leeway-seconds-and-disk-space">
 Leeway seconds and disk space</a> section of the 1.5 release notes
-for a more detailed description.</div>
+for a more detailed description.{{% /note %}}
+
 
 1. Stop Riak, Riak CS, and Stanchion:
 
@@ -117,53 +120,55 @@ for a more detailed description.</div>
     use `riak-cs.conf`, you should migrate all supported settings to the new
     format, and copy all others to the new `advanced.config` file.
 
-    <div class="note"><div class="title">Note on Legacy app.config usage</div>
-    **If you choose to use the legacy `app.config` files for Riak CS and/or
-    Stanchion, some parameters have changed names and must be updated**.
-
-    In particular, for the Riak CS `app.config`:  
-    \- `cs_ip` and `cs_port` have been combined into `listener`.  
-    \- `riak_ip` and `riak_pb_port` have been combined into `riak_host`.  
-    \- `stanchion_ip` and `stanchion_port` have been combined into
-    `stanchion_host`.  
-    \- `admin_ip` and `admin_port` have been combined into `admin_listener`.  
-    \- `webmachine_log_handler` has become `webmachine_access_log_handler`.  
-    \- `{max_open_files, 50}` has been deprecated and should be replaced with
+{{% note title="Note on Legacy app.config usage" %}}
+  **If you choose to use the legacy `app.config` files for Riak CS and/or
+  Stanchion, some parameters have changed names and must be updated**.
+  
+  In particular, for the Riak CS `app.config`:  
+  
+  - `cs_ip` and `cs_port` have been combined into `listener`.  
+  - `riak_ip` and `riak_pb_port` have been combined into `riak_host`.  
+  - `stanchion_ip` and `stanchion_port` have been combined into
+  `stanchion_host`.  
+  - `admin_ip` and `admin_port` have been combined into `admin_listener`.  
+  - `webmachine_log_handler` has become `webmachine_access_log_handler`.  
+  - `{max_open_files, 50}` has been deprecated and should be replaced with
     `{total_leveldb_mem_percent, 30}`.  
+  
+  For the Stanchion `app.config`:  
 
-    For the Stanchion `app.config`:  
-    \- `stanchion_ip` and `stanchion_port` have been combined into `listener`.  
-    \- `riak_ip` and `riak_port` have been combined into `riak_host`.  
+  - `stanchion_ip` and `stanchion_port` have been combined into `listener`.  
+  - `riak_ip` and `riak_port` have been combined into `riak_host`.  
+  
+  Each of the above pairs follows a similar form. For example, if your legacy
+  `app.config` configuration was previously:
+  
+  ```
+  {riak_cs, [`
+      {cs_ip, "127.0.0.1"},
+      {cs_port, 8080 },
+      . . .
+  ]},
+  ```
+  
+  It should now read:
+  
+  ```
+  {riak_cs, [
+      {listener, {"127.0.0.1", 8080}},
+      . . .
+  ]},
+  ```
+  
+and so on. More details can be found at [configuring Riak CS](/riak/cs/2.1.  1/cookbooks/configuration/riak-cs).
+{{% /note %}}
 
-    Each of the above pairs follows a similar form. For example, if your legacy
-    `app.config` configuration was previously:
-
-    ```
-    {riak_cs, [
-        {cs_ip, "127.0.0.1"},
-        {cs_port, 8080 },
-        . . .
-    ]},
-    ```
-
-    It should now read:
-
-    ```
-    {riak_cs, [
-        {listener, {"127.0.0.1", 8080}},
-        . . .
-    ]},
-    ```
-
-    and so on. More details can be found at [configuring Riak CS](/riak/cs/2.1.1/cookbooks/configuration/riak-cs).
-    </div>
-
-    <div class="note"><div class="title">Note on Memory Sizing</div>
-    Some changes have been made to both Riak and Riak CS that may warrant
-    some performance tuning. Please consult the
-    <a href="https://github.com/basho/riak_cs/blob/develop/RELEASE-NOTES.md#redesign-of-memory-sizing">
-    Release Notes</a> for more details.
-    </div>
+{{% note title="Note on Memory Sizing" %}}
+Some changes have been made to both Riak and Riak CS that may warrant
+some performance tuning. Please consult the
+<a href="https://github.com/basho/riak_cs/blob/develop/RELEASE-NOTES.md#redesign-of-memory-sizing">
+Release Notes</a> for more details.
+{{% /note %}}
 
 7. Riak has also moved to the new configuration format, using a file called
    `riak.conf`. Remember to migrate all existing Riak configurations during
