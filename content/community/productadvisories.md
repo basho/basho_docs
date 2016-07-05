@@ -21,6 +21,8 @@ canonical_link: "https://docs.basho.com/community/productadvisories/"
 
 This page contains product advisories that are periodically issued for Basho products.
 
+
+* [Default Configuration For Handoff May Cause Data Loss in TS](/community/productadvisories/130-dataloss/)
 * [LevelDB SEGV in Riak KV 2.1.3](/community/productadvisories/leveldbsegfault/)
 * [Possibility of Code Injection on Riak Init File](/community/productadvisories/codeinjectioninitfiles/)
 * [Socket reuse issue with Riak Golang client 1.5.1](/community/productadvisories/golang151socket/)
