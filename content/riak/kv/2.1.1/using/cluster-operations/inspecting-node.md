@@ -153,11 +153,11 @@ FSM Siblings are inextricably linked. These are one-minute stats.
 
 Stat                          | Description
 ------------------------------|---------------------------------------------------
-`node_get_fsm_objsize_mean`   | Mean object size encountered by this node within the last minute
-`node_get_fsm_objsize_median` | Median object size encountered by this node within the last minute
-`node_get_fsm_objsize_95`     | 95th percentile object size encountered by this node within the last minute
-`node_get_fsm_objsize_99`     | 99th percentile object size encountered by this node within the last minute
-`node_get_fsm_objsize_100`    | 100th percentile object size encountered by this node within the last minute
+`node_get_fsm_objsize_mean`   | Mean object size (bytes) encountered by this node within the last minute
+`node_get_fsm_objsize_median` | Median object size (bytes) encountered by this node within the last minute
+`node_get_fsm_objsize_95`     | 95th percentile object size (bytes) encountered by this node within the last minute
+`node_get_fsm_objsize_99`     | 99th percentile object size (bytes) encountered by this node within the last minute
+`node_get_fsm_objsize_100`    | 100th percentile object size (bytes) encountered by this node within the last minute
 
 ### Total Stats
 
@@ -345,17 +345,14 @@ Note that under ideal operation and with the exception of
 
 ## Riaknostic
 
-[Riaknostic](http://riaknostic.basho.com/) is a small suite of
+Riaknostic is a small suite of
 diagnostic checks that can be run against a Riak node to discover common
 problems. It often offers recommendations about how to resolve those
 problems as well. These checks are derived from the experience of the
 Basho Client Services Team as well as numerous public discussions on the
 mailing list, `#riak` IRC channel, and other online media.
 
-Getting started with Riaknostic is easy, and instructions for
-installation and use are provided on the [Riaknostic
-website](http://riaknostic.basho.com/). Once downloaded and installed,
-Riaknostic adds a `diag` subcommand to the `riak-admin`
+Getting started with Riaknostic is easy. Riaknostic adds a `diag` subcommand to the `riak-admin`
 command.
 
 Riaknostic is installed with Riak by default and exposed through the
@@ -365,7 +362,7 @@ available in the Riaknostic Github repository.
 
 ## Strong Consistency Stats
 
-Riak tabulates a variety of stats related to Riak's optional [strong consistency](/riak/2.1.3/using/reference/strong-consistency) feature. The table below lists those stats.
+Riak tabulates a variety of stats related to Riak's optional [strong consistency](../../reference/strong-consistency) feature. The table below lists those stats.
 
 ### GET-related stats
 
@@ -373,11 +370,11 @@ Stat | Description
 :----|:-----------
 `consistent_gets` | Number of strongly consistent GETs coordinated by this node in the last minute
 `consistent_gets_total` | Total number of strongly consistent GETs coordinated by this node
-`consistent_get_objsize_mean` | Mean object size for strongly consistent GETs on this node in the last minute
-`consistent_get_objsize_median` | Median object size for strongly consistent GETs on this node in the last minute
-`consistent_get_objsize_95` | 95th-percentile object size for strongly consistent GETs on this node in the last minute
-`consistent_get_objsize_99` | 99th-percentile object size for strongly consistent GETs on this node in the last minute
-`consistent_get_objsize_100` | 100th-percentile object size for strongly consistent GETs on this node in the last minute
+`consistent_get_objsize_mean` | Mean object size (bytes) for strongly consistent GETs on this node in the last minute
+`consistent_get_objsize_median` | Median object size (bytes) for strongly consistent GETs on this node in the last minute
+`consistent_get_objsize_95` | 95th-percentile object size (bytes) for strongly consistent GETs on this node in the last minute
+`consistent_get_objsize_99` | 99th-percentile object size (bytes) for strongly consistent GETs on this node in the last minute
+`consistent_get_objsize_100` | 100th-percentile object size (bytes) for strongly consistent GETs on this node in the last minute
 `consistent_get_time_mean` | Mean time between reception of client GETs to strongly consistent keys and subsequent response
 `consistent_get_time_median` | Median time between reception of client GETs to strongly consistent keys and subsequent response
 `consistent_get_time_95` | 95th-percentile time between reception of client GETs to strongly consistent keys and subsequent response
@@ -390,11 +387,11 @@ Stat | Description
 :----|:-----------
 `consistent_puts` | Number of strongly consistent PUTs coordinated by this node in the last minute
 `consistent_puts_total` | Total number of strongly consistent PUTs coordinated by this node
-`consistent_put_objsize_mean` | Mean object size for strongly consistent PUTs on this node in the last minute
-`consistent_put_objsize_median` | Median object size for strongly consistent PUTs on this node in the last minute
-`consistent_put_objsize_95` | 95th-percentile object size for strongly consistent PUTs on this node in the last minute
-`consistent_put_objsize_99` | 99th-percentile object size for strongly consistent PUTs on this node in the last minute
-`consistent_put_objsize_100` | 100th-percentile object size for strongly consistent PUTs on this node in the last minute
+`consistent_put_objsize_mean` | Mean object size (bytes) for strongly consistent PUTs on this node in the last minute
+`consistent_put_objsize_median` | Median object size (bytes) for strongly consistent PUTs on this node in the last minute
+`consistent_put_objsize_95` | 95th-percentile object size (bytes) for strongly consistent PUTs on this node in the last minute
+`consistent_put_objsize_99` | 99th-percentile object size (bytes) for strongly consistent PUTs on this node in the last minute
+`consistent_put_objsize_100` | 100th-percentile object size (bytes) for strongly consistent PUTs on this node in the last minute
 `consistent_put_time_mean` | Mean time between reception of client PUTs to strongly consistent keys and subsequent response
 `consistent_put_time_median` | Median time between reception of client PUTs to strongly consistent keys and subsequent response
 `consistent_put_time_95` | 95th-percentile time between reception of client PUTs to strongly consistent keys and subsequent response
@@ -471,12 +468,6 @@ without specifying a diagnostic check.
 
 #### Contributing
 
-Do you have an idea that would help us improve Riaknostic? If so, fork
-the [GitHub repository](https://github.com/basho/riaknostic) and send us
-a pull request with your changes. The code is documented with
-[edoc](http://riaknostic.basho.com/edoc/index.html), so give the API
-Docs a read before you contribute.
-
 If you want to run the Riaknostic script while developing and you don't
 have it hooked up to your local Riak installation, you can invoke it
 directly like so:
@@ -500,6 +491,5 @@ you, but here's how to set them:
 
 ## Related Resources
 
-* [The riak-admin configuration management tool](/riak/kv/2.1.1/using/admin/riak-admin/)
-* [Riaknostic](http://riaknostic.basho.com/)
-* [HTTP API Status](/riak/kv/2.1.1/developing/api/http/status/)
+* [The riak-admin configuration management tool](../../admin/riak-admin/)
+* [HTTP API Status](../../../developing/api/http/status/)
