@@ -1177,9 +1177,33 @@ riak_kv:
           file_size: 18169764
           chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.7/rhel/5/riak-2.0.7-1.src.rpm.sha
     - version: '6'
-      architectures: []
+      architectures:
+      - arch: source
+        file_info:
+          file_name: riak-2.0.7-1.el6.src.rpm
+          file_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.7/rhel/6/riak-2.0.7-1.el6.src.rpm
+          file_size: 18168761
+          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.7/rhel/6/riak-2.0.7-1.el6.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-2.0.7-1.el6.x86_64.rpm
+          file_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.7/rhel/6/riak-2.0.7-1.el6.x86_64.rpm
+          file_size: 61818076
+          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.7/rhel/6/riak-2.0.7-1.el6.x86_64.rpm.sha
     - version: '7'
-      architectures: []
+      architectures:
+      - arch: source
+        file_info:
+          file_name: riak-2.0.7-1.el7.centos.src.rpm
+          file_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.7/rhel/7/riak-2.0.7-1.el7.centos.src.rpm
+          file_size: 18107564
+          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.7/rhel/7/riak-2.0.7-1.el7.centos.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-2.0.7-1.el7.centos.x86_64.rpm
+          file_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.7/rhel/7/riak-2.0.7-1.el7.centos.x86_64.rpm
+          file_size: 61386544
+          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.7/rhel/7/riak-2.0.7-1.el7.centos.x86_64.rpm.sha
   - os: sles
     versions:
     - version: '11'
