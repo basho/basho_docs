@@ -65,7 +65,7 @@ We've also added AWS AMI support. You can find instructions for installing Riak 
     * The version that DDLs were compiled with will be stored in the dets table. [[PR #1377](https://github.com/basho/riak_kv/pull/1377)]
     * The DDL compiler's version is registered as a capability. [[PR #1377](https://github.com/basho/riak_kv/pull/1377)]
 * elevelDB has been updated to pull in levelDB version 2.0.15. [[eleveldb PR #184](https://github.com/basho/eleveldb/pull/184)]
-* node_package has been updated to version 3.0.0 to address a [security issue](http://docs.basho.com/community/product-advisories/codeinjectioninitfiles/) in which arbitrary root access was possible for a local user that had direct access to the Riak account. [[PR #820](https://github.com/basho/riak/pull/820)]
+* node_package has been updated to version 3.0.0 to address a [security issue](http://docs.basho.com/community/productadvisories/codeinjectioninitfiles/) in which arbitrary root access was possible for a local user that had direct access to the Riak account. [[PR #820](https://github.com/basho/riak/pull/820)]
 * module_info calls have been removed from riak_core_coverage_fsm:init() to speed up small queries. [[PR #829](https://github.com/basho/riak_core/pull/829)]
 
 
