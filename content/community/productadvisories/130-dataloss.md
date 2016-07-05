@@ -17,15 +17,17 @@ Date issued | June 30, 2016
 Product | Riak TS (Open Source)
 Affected versions | 1.3.0
 
+{{% note title="UPDATE" %}} Riak TS 1.3.1 has been released. Please download it [here](http://docs.basho.com/riak/ts/1.3.1/downloads/)
+{{% /note %}}
 
 ## Overview
 
-Default configuration for handoff may cause data loss in the OSS release of Riak TS 1.3.0. If you are using Riak TS Enterprise, you are not impacted by this bug but you **SHOULD** upgrade to Riak TS Enterprise 1.3.1 as soon as it is available for other handoff bug fixes.
+Default configuration for handoff may cause data loss in the OSS release of Riak TS 1.3.0. If you are using Riak TS Enterprise, you are not impacted by this bug but you **SHOULD** upgrade to [Riak TS Enterprise 1.3.1](http://docs.basho.com/riak/ts/1.3.1/downloads/) for other handoff bug fixes.
 
 
 ## Description
 
-In Riak TS 1.3.0, the default configuration for handoff.ip causes vnodes marked for transfer during handoff to be removed without transferring data to their new destination nodes. A mandatory change to configuration (in riak.conf) will resolve this issue. All open source users are impacted by this issue and we strongly recommend that all 1.3.0 users upgrade to 1.3.1 which will be released soon. 
+In Riak TS 1.3.0, the default configuration for handoff.ip causes vnodes marked for transfer during handoff to be removed without transferring data to their new destination nodes. A mandatory change to configuration (in riak.conf) will resolve this issue. All open source users are impacted by this issue and we strongly recommend that all 1.3.0 users [upgrade to 1.3.1](http://docs.basho.com/riak/ts/1.3.1/downloads/). 
 
 **NOTE:** This is known to occur for ownership handoff and fallback transfers (hinted handoffs).
 
