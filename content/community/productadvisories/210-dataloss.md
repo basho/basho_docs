@@ -1,6 +1,8 @@
 ---
 title: "Default Configuration For Handoff May Cause Data Loss"
 description: ""
+date: "2015-05-01"
+announcements: ["Product Advisories"]
 menu:
   community:
     name: "Data Loss KV 2.1.0"

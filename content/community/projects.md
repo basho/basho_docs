@@ -1,6 +1,7 @@
 ---
 title: "Community Projects"
 description: ""
+date: "2016-03-07"
 menu:
   community:
     name: "Community Projects"

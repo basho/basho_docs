@@ -1,6 +1,8 @@
 ---
 title: "Potential data loss on restart with LevelDB tiered storage"
 description: ""
+date: "2016-03-02"
+announcements: ["Product Advisories"]
 menu:
   community:
     name: "Potential Data Loss with LevelDB Tiered Storage"

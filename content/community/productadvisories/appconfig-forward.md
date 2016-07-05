@@ -1,7 +1,9 @@
 ---
 title: Forward Incompatibility of app.config
 project: riak
-version: 1.0.0+ 
+date: "2015-04-15"
+announcements: ["Product Advisories"]
+version: 1.0.0+
 versions: false
 document: reference
 ---

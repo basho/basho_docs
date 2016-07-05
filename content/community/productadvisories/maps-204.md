@@ -1,7 +1,8 @@
-
 ---
 title: "Map Data Type Disk Incompatibility"
 description: ""
+date: "2015-01-21"
+announcements: ["Product Advisories"]
 menu:
   community:
     name: "Map Data Type Disk Incompatibility"

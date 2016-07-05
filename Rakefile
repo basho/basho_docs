@@ -75,8 +75,10 @@ end
 
 ########
 # Build
-desc      "Compile Compressed JS, Compile Compressed CSS, Build Hugo"
+desc      "Compile & Compress JS, Compile & Compress CSS"
 task      :build => ['clean', 'build:js', 'build:css']
+desc      "Compile Markdown content to #{$hugo_dest}"
+task      :hugo  => ['clean:hugo', 'build:hugo']
 namespace :build do
   task :js => "#{$js_dest}" do compile_js(debug: false); end
   task :css => "#{$css_dest}" do compile_css(debug: false); end
