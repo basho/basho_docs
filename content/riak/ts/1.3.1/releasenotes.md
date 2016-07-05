@@ -16,13 +16,13 @@ canonical_link: "docs.basho.com/riak/ts/latest/releasenotes"
 ---
 
 
-Released June , 2016.
+Released July 5, 2016.
 
-This is a bugfix release addressing the [Data Loss](http://docs.basho.com/community/productadvisories/130-dataloss/) bug in Riak TS 1.3.1. 
+This is a bugfix release addressing the [Data Loss](http://docs.basho.com/community/productadvisories/130-dataloss/) bug in Riak TS 1.3.0. 
 
 ## Product Advisory
 
-The default configuration for handoff.ip caused vnodes marked for transfer during handoff to be removed without transferring data to their new destination nodes. A mandatory change to configuration (riak.conf) mitigates this issue for OSS TS 1.3.1 users. While not all users were impacted by this issue, we recommend that all 1.3.1 users upgrade to 1.3.1.
+The default configuration for handoff.ip caused vnodes marked for transfer during handoff to be removed without transferring data to their new destination nodes. A mandatory change to configuration (riak.conf) mitigates this issue for OSS TS 1.3.0 users. While not all users were impacted by this issue, we recommend that all 1.3.0 users upgrade to 1.3.1.
 
 Please see the [product advisory](http://docs.basho.com/community/productadvisories/130-dataloss/) for more information.
 
@@ -33,18 +33,18 @@ Please see the [product advisory](http://docs.basho.com/community/productadvisor
 * [[PR #1431](https://github.com/basho/riak_kv/pull/1431)] Backport a fix (https://github.com/basho/riak_kv/pull/1427) to correctly convert LK to PK for coverage plan calculation.
 * [[PR #1432](https://github.com/basho/riak_kv/pull/1432)] Recognize TS data on receipt of handoff and prevent the double-encoding of TS keys.
 
-## Riak TS 1.3.1 Release Notes
+## Riak TS 1.3.0 Release Notes
 
 Released May 4, 2016.
 
-Riak TS 1.3.1 is [open source](https://github.com/basho/riak/tree/riak_ts-1.3.1)! In addition to becoming OSS, version 1.3.1 introduces a broad range of new functionality including: an HTTP API, additional SQL commands, and relaxed key restrictions. It also includes Multi-Datacenter (MDC) replication for our Enterprise users.
+Riak TS 1.3.0 is [open source](https://github.com/basho/riak/tree/riak_ts-1.3.0)! In addition to becoming OSS, version 1.3.0 introduces a broad range of new functionality including: an HTTP API, additional SQL commands, and relaxed key restrictions. It also includes Multi-Datacenter (MDC) replication for our Enterprise users.
 
-We've also added AWS AMI support. You can find instructions for installing Riak TS on AWS [here](http://docs.basho.com/riak/ts/1.3.1/installing/aws/).
+We've also added AWS AMI support. You can find instructions for installing Riak TS on AWS [here](http://docs.basho.com/riak/ts/1.3.0/installing/aws/).
 
 
 ### New Features
 
-* Riak TS is now open source. You can find the source code [here](https://github.com/basho/riak/tree/riak_ts-1.3.1)! 
+* Riak TS is now open source. You can find the source code [here](https://github.com/basho/riak/tree/riak_ts-1.3.0)! 
     * [[PR #815](https://github.com/basho/riak/pull/815)]
     * [[riak_ql PR #100](https://github.com/basho/riak_ql/pull/100)]
 * The HTTP API is a development tool added for development and debugging purposes. It is ideal for quick prototyping efforts, and provides API calls for accessing Riak TS data over HTTP.
@@ -61,7 +61,7 @@ We've also added AWS AMI support. You can find instructions for installing Riak 
 * The relaxed key restrictions mean the family and series keys are no longer required, which makes TS table schemas more flexible, and makes customizing the data you store and how you store even easier. 
     * [[PR #1357](https://github.com/basho/riak_kv/pull/1357)]
     * [[riak_ql PR #108](https://github.com/basho/riak_ql/pull/108)]
-* TS now supports MDC replication on TS tables. At this time, MDC support in TS does not include AAE fullsync. To use MDC, you will need to create your TS tables in your clusters and then [configure](http://http://docs.basho.com/riak/ts/1.3.1/using/mdc/) MDC. 
+* TS now supports MDC replication on TS tables. At this time, MDC support in TS does not include AAE fullsync. To use MDC, you will need to create your TS tables in your clusters and then [configure](http://http://docs.basho.com/riak/ts/1.3.0/using/mdc/) MDC. 
     * [[riak_repl PR #738](https://github.com/basho/riak_repl/pull/738)]
     * [[PR #1381](https://github.com/basho/riak_kv/pull/1381)]
 * Riak TS now offers integration with PHP and .NET clients.
@@ -76,7 +76,7 @@ We've also added AWS AMI support. You can find instructions for installing Riak 
 
 ### Changes
 
-*  AWS AMI is now available. You can find instructions for installing Riak TS on AWS [here](http://docs.basho.com/riak/ts/1.3.1/installing/aws/). [[PR #89](https://github.com/basho/aws-ansible/pull/89)]
+*  AWS AMI is now available. You can find instructions for installing Riak TS on AWS [here](http://docs.basho.com/riak/ts/1.3.0/installing/aws/). [[PR #89](https://github.com/basho/aws-ansible/pull/89)]
 * riak shell has had several changes:  the `command` record (which includes result) has been added, optional debugging has been added to exceptions, and SQL commands are allowed to span multiple lines. [[PR #23](https://github.com/basho/riak_shell/pull/23)]
 * Several changes have been made to facilitate rolling upgrades/downgrades in future releases:
     * The DDL compiler has been updated to facilitate rolling upgrade/downgrade functionality in future releases. [[riak_ql PR #115](https://github.com/basho/riak_ql/pull/115)]
