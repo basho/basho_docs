@@ -239,7 +239,7 @@ A:
   }
   ```
 
-  There is also a reduce function for counting inputs (available in the `master` branch of the github repo, to be released in the next version of Riak). This function can be used to count keys in a bucket without reading objects from disk:
+  There is also a reduce function for counting inputs. This function can be used to count keys in a bucket without reading objects from disk:
 
   ```json
   {
