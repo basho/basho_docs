@@ -546,7 +546,6 @@ resolved_sibling = obj.siblings[3]
 # Then replace the siblings data structure with the single sibling we want to keep
 obj.siblings = [resolved_sibling]
 obj.store()
-obj.reload()
 ```
 
 ```csharp
