@@ -540,11 +540,12 @@ obj.store
 bucket = client.bucket_type('siblings_allowed').bucket('nickolodeon')
 obj = bucket.get('best_character')
 
-# Then we modify the object's value
-new_obj.data = 'Stimpy'
+# Then pick one of the siblings
+resolved_sibling = obj.siblings[3]
 
-# Then we store the object, which has the vector clock already attached
-new_obj.store(vclock=vclock)
+# Then replace the siblings data structure with the single sibling we want to keep
+obj.siblings = [resolved_sibling]
+obj.store()
 ```
 
 ```csharp
