@@ -12,7 +12,7 @@ project_version: "1.3.0"
 toc: true
 aliases:
     - /riakts/1.3.0/installing/rhel-centos/
-canonical_link: "docs.basho.com/riak/ts/latest/installing/rhel-centos"
+canonical_link: "https://docs.basho.com/riak/ts/latest/installing/rhel-centos"
 ---
 
 [download]: ../../downloads/

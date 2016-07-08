@@ -12,7 +12,7 @@ project_version: "1.3.0"
 toc: true
 aliases:
     - /riakts/1.3.0/using/querying/
-canonical_link: "docs.basho.com/riak/ts/latest/using/querying"
+canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying"
 ---
 
 

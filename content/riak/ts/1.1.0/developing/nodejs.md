@@ -12,7 +12,7 @@ project_version: "1.1.0"
 toc: true
 aliases:
     - /riakts/1.1.0/developing/nodejs/
-canonical_link: "https://docs.basho.com/riak/ts/latest/developing/nodejs"
+canonical_link: "https://https://docs.basho.com/riak/ts/latest/developing/nodejs"
 ---
 
 

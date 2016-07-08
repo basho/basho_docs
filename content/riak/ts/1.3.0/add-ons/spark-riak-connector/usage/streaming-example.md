@@ -11,7 +11,7 @@ menu:
     weight: 108
     parent: "spark_riak_usage"
 toc: true
-canonical_link: "docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage/streaming-example"
+canonical_link: "https://docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage/streaming-example"
 ---
 
 > **Note:**
