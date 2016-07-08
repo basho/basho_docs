@@ -12,7 +12,7 @@ project_version: "1.3.0"
 toc: true
 aliases:
     - /riakts/1.3.0/developing/php/
-canonical_link: "docs.basho.com/riak/ts/latest/developing/php"
+canonical_link: "https://docs.basho.com/riak/ts/latest/developing/php"
 ---
 
 

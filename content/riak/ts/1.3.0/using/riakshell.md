@@ -12,7 +12,7 @@ project_version: "1.3.0"
 toc: true
 aliases:
     - /riakts/1.3.0/using/riakshell/
-canonical_link: "docs.basho.com/riak/ts/latest/using/riakshell"
+canonical_link: "https://docs.basho.com/riak/ts/latest/using/riakshell"
 ---
 
 [nodename]: /riak/kv/2.1.4/using/cluster-operations/changing-cluster-info/

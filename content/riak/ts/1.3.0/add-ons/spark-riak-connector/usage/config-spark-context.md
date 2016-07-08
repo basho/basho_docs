@@ -11,7 +11,7 @@ menu:
     weight: 101
     parent: "spark_riak_usage"
 toc: true
-canonical_link: "docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage/config-spark-context"
+canonical_link: "https://docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage/config-spark-context"
 ---
 
 The following `import` statements should be included at the top of your Spark application to enable the connector:
