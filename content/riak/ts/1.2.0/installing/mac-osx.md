@@ -12,7 +12,7 @@ project_version: "1.2.0"
 toc: true
 aliases:
     - /riakts/1.2.0/installing/mac-osx/
-canonical_link: "https://https://docs.basho.com/riak/ts/latest/installing/mac-osx"
+canonical_link: "https://docs.basho.com/riak/ts/latest/installing/mac-osx"
 ---
 
 [concept aae]: /riak/kv/2.1.3/learn/concepts/active-anti-entropy

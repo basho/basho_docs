@@ -12,7 +12,7 @@ project_version: "1.2.0"
 toc: true
 aliases:
     - /riakts/1.2.0/using/arithmetic-operations/
-canonical_link: "https://https://docs.basho.com/riak/ts/latest/using/arithmetic-operations"
+canonical_link: "https://docs.basho.com/riak/ts/latest/using/arithmetic-operations"
 ---
 
 Riak TS supports arithmetic operations in the `SELECT` list.

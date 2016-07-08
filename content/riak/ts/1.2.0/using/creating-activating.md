@@ -12,7 +12,7 @@ project_version: "1.2.0"
 toc: true
 aliases:
     - /riakts/1.2.0/using/creating-activating/
-canonical_link: "https://https://docs.basho.com/riak/ts/latest/using/creating-activating"
+canonical_link: "https://docs.basho.com/riak/ts/latest/using/creating-activating"
 ---
 
 [erlang]: ../../developing/erlang#query2

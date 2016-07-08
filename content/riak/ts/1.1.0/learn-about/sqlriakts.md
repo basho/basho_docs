@@ -12,7 +12,7 @@ project_version: "1.1.0"
 toc: true
 aliases:
     - /riakts/1.1.0/learn-about/bestpractices/
-canonical_link: "https://https://docs.basho.com/riak/ts/latest/learn-about/sqlriakts"
+canonical_link: "https://docs.basho.com/riak/ts/latest/learn-about/sqlriakts"
 ---
 
 Riak TS tables were designed around SQL tables. This page will go through some SQL basics and more in depth information about how SQL is used within Riak TS.  

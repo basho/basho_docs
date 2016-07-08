@@ -12,7 +12,7 @@ project_version: "1.0.0"
 toc: true
 aliases:
     - /riakts/1.0.0/installing/rhel-centos/
-canonical_link: "https://https://docs.basho.com/riak/ts/latest/installing/rhel-centos"
+canonical_link: "https://docs.basho.com/riak/ts/latest/installing/rhel-centos"
 ---
 
 [concept aae]: /riak/kv/2.1.3/learn/concepts/active-anti-entropy
