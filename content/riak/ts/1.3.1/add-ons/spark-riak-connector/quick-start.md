@@ -11,7 +11,7 @@ menu:
     weight: 101
     parent: "addons_spark_riak"
 toc: true
-canonical_link: "docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/quick-start"
+canonical_link: "https://docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/quick-start"
 ---
 
 This guide will run you through a quick example that uses the Spark-Riak connector to read and write data using Java, Scala, and Python. We will assume you are running this guide on Mac OSX. 

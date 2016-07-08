@@ -11,7 +11,7 @@ menu:
     weight: 103
     parent: "spark_riak_usage"
 toc: true
-canonical_link: "docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage/writing-data"
+canonical_link: "https://docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage/writing-data"
 ---
 
 ## Writing Data To TS Table

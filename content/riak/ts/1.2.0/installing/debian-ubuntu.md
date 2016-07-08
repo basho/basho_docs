@@ -12,7 +12,7 @@ project_version: "1.2.0"
 toc: true
 aliases:
     - /riakts/1.2.0/installing/debian-ubuntu/
-canonical_link: "https://docs.basho.com/riak/ts/latest/installing/debian-ubuntu"
+canonical_link: "https://https://docs.basho.com/riak/ts/latest/installing/debian-ubuntu"
 ---
 
 

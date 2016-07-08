@@ -12,7 +12,7 @@ project_version: "1.0.0"
 toc: true
 aliases:
     - /riakts/1.0.0/using/configuring/
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/configuring"
+canonical_link: "https://https://docs.basho.com/riak/ts/latest/using/configuring"
 ---
 
 

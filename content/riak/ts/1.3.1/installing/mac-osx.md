@@ -12,7 +12,7 @@ project_version: "1.3.1"
 toc: true
 aliases:
     - /riakts/1.3.1/installing/mac-osx/
-canonical_link: "docs.basho.com/riak/ts/latest/installing/mac-osx"
+canonical_link: "https://docs.basho.com/riak/ts/latest/installing/mac-osx"
 ---
 
 

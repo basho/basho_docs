@@ -10,7 +10,7 @@ menu:
     weight: 102
     parent: "addons_spark_riak"
 toc: true
-canonical_link: "docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/getting"
+canonical_link: "https://docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/getting"
 ---
 
 > **Note:**
