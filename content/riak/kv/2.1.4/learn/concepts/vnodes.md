@@ -23,7 +23,6 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/learn/concepts/vnodes"
 [concept strong consistency]: /riak/kv/2.1.4/concepts/strong-consistency
 [glossary node]: /riak/kv/2.1.4/learn/glossary/#node
 [glossary ring]: /riak/kv/2.1.4/learn/glossary/#ring
-[perf strong consistency]: /riak/kv/2.1.4/using/performance/strong-consistency
 [plan backend]: /riak/kv/2.1.4/setup/planning/backend
 [plan cluster capacity]: /riak/kv/2.1.4/setup/planning/cluster-capacity
 [use admin riak cli]: /riak/kv/2.1.4/using/admin/riak-cli
@@ -88,7 +87,7 @@ You can think of vnodes as managers, responsible for handling incoming
 requests from other nodes/vnodes, storing objects in the appropriate
 storage backend, fetching objects from backends, interpreting [causal
 context][concept causal context] metadata for objects, acting as [strong consistency
-ensembles][perf strong consistency] and much
+ensembles][concept strong consistency] and much
 more.  At the system level, vnodes are Erlang processes build on top of
 the [`gen_fsm`](http://www.erlang.org/doc/design_principles/fsm.html)
 abstraction in Erlang, i.e. you can think of vnodes as **finite state

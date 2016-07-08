@@ -160,7 +160,7 @@ restarting Riak Enterprise.
 
 Field | Description
 :-----|:-----------
-`client_stats` | See <a href="ops/mdc/v3/operations/#client-statistics">Client Statistics</a>
+`client_stats` | See <a href="http://docs.basho.com/riak/kv/2.1.4/using/reference/multi-datacenter/statistics/#client-statistics">Client Statistics</a>
 `client_bytes_recv` | The total number of bytes the client has received since the server has been started
 `client_bytes_sent` | The total number of bytes sent to all connected sites
 `client_connect_errors` | The number of TCP/IP connection errors
