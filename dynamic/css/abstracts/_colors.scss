@@ -1,0 +1,65 @@
+////
+/// Basic Color Pallet
+/// ==================
+/// We should do our best to name all colors used here before referencing them
+/// in SCSS code elsewhere. These colors were distilled from the basho.com color
+/// pallet and the older Middleman documentation website.
+///
+/// I would like to make it very clear that the final say of colors used is
+/// currently being made by someone who considers himself an engineer first, and
+/// a designer third (if I'm being generous). Recommendations for
+/// improvement welcome!
+///
+/// NB. We use Sass comments rather than the C-style block comments that persist
+///     through the SCSS -> CSS compilation because this file **should not**
+///     generate any CSS of its own. Any C-style comments would result in
+///     dangling comment blocks in the compiled CSS.
+///
+///TODO: Some colors below may not be in active use --- specifically,
+/// $orange-light and $orange-lightest. Unused colors should be culled once the
+/// CSS rework has been completed.
+////
+
+$orange-red      : #a92a0e;
+$orange-darker   : #e67716;
+$orange-dark     : #dc7d00; // Primary Brand
+$orange          : #fa9e25;
+$orange-light    : #fcc16f;
+$orange-lighter  : #fecb82;
+$orange-lightest : #ffd190;
+
+$cyan-dark       : #6b8997; // Secondary Brand
+$cyan            : #79afb7;
+$cyan-light      : #bcd6d0;
+
+$green-dark      : #5a7772;
+$green           : #70928c;
+$green-light     : #88b3a8;
+
+$blue-dark       : #2984a9;
+$blue            : #8cbbe2;
+$blue-light      : #c3e3fd;
+
+// These grays (and yes; gray, not grey. I'm American, so that's how I'll spell
+// it) were generated using `~rgb(n-3%, n%, n+3%)` where `n` is the given
+// number `gray-n`. $gray-38 was taken from the standard Riak logo and is
+// `rgb(38%,38%,40%)`, while the others were pushed more towards a clean,
+// softened blue-gray.
+$gray-15 : #1f262e;
+$gray-30 : #454d54;
+$gray-35 : #525961;
+$gray-38 : #616166; // Primary Gray (e.g. icon color)
+$gray-40 : #5e666e;
+$gray-60 : #9199a1;
+$gray-75 : #b8bfc7;
+$gray-85 : #d1d9e0;
+$gray-95 : #ebf2fa;
+
+
+$black        : #000000;
+$gray-darker  : $gray-15;
+$gray-dark    : $gray-30;
+$gray         : $gray-38;
+$gray-light   : $gray-60;
+$gray-lighter : $gray-85;
+$white        : #ffffff;
