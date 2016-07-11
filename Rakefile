@@ -92,13 +92,14 @@ namespace :build do
   ################
   # Build : Debug
   desc      "Compile human-readable JS and compile human-readable CSS"
-  task      :debug => ['clean', 'build:debug:js', 'build:debug:css']
+  task      :debug => ["#{$js_dest}", "#{$css_dest}",
+                       'build:debug:js', 'build:debug:css']
   namespace :debug do
     desc "Compile human-readable JS"
-    task :js  => ["#{$js_dest}", 'clean:js']   do compile_js(debug: true); end
+    task :js  => ["#{$js_dest}"]  do compile_js(debug: true); end
 
     desc "Compile human-readable CSS"
-    task :css => ["#{$css_dest}", 'clean:css'] do compile_css(debug: true); end
+    task :css => ["#{$css_dest}"] do compile_css(debug: true); end
   end
 end
 
