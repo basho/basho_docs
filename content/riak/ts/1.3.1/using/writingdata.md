@@ -160,8 +160,8 @@ var rows = new Row[]
 
 var columns = new Column[]
 {
-    new Column("region",     ColumnType.Varchar),
-    new Column("state",        ColumnType.Varchar),
+    new Column("region",      ColumnType.Varchar),
+    new Column("state",       ColumnType.Varchar),
     new Column("time",        ColumnType.Timestamp),
     new Column("weather",     ColumnType.Varchar),
     new Column("temperature", ColumnType.Double)

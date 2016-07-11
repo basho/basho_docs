@@ -27,7 +27,7 @@ The `RiakClient.Commands.TS` namespace covers the public API for Riak TS in the 
 
 ## Data Types
 
- * `Cell` - Holds a single piece of data. 
+ * `Cell` - Holds a single piece of data.
  * `Row` - Holds a collection of Cells.
  * `Column` - A metadata description of a column definition in a Riak TS table.
 
@@ -46,7 +46,7 @@ Use the `Cell` implementation that takes a generic type to define the data type.
 * `byte[]` - will be interpreted as UTF-8 encoded string data.
 * All integer types. Will be returned as `long` values.
 * `DateTime` - stored as UTC timestamp with millisecond resolution. Will be returned as UTC `DateTime` value.
-* `bool` - a true/false value. 
+* `bool` - a true/false value.
 
 
 ##### Constructors
@@ -65,7 +65,7 @@ Cell constructors accept a value matching the generic type of the class:
 
 #### `Row`
 
-A row contains a collection of cells. 
+A row contains a collection of cells.
 
 >**Note:** Rows are immutable once created.
 
@@ -90,10 +90,9 @@ public enum ColumnType
 }
 ```
 
-
 ## Command Classes Index
 
-All command classes have a static inner `Builder` class to create and build each command. 
+All command classes have a static inner `Builder` class to create and build each command.
 
 * `Delete` - Deletes a single row by it's key values.
 * `Get` - Gets a single row by it's key values.
@@ -106,7 +105,7 @@ All command classes have a static inner `Builder` class to create and build each
 
 ### Command Class Details
 
-Each command is created through a static `Builder` subclass. This pattern ensures the commands are created as correctly as possible. To create the command from the builder, call the `.Build()` method. 
+Each command is created through a static `Builder` subclass. This pattern ensures the commands are created as correctly as possible. To create the command from the builder, call the `.Build()` method.
 
 To execute any command, you must have an instance of a `RiakClient` object. You then pass the command object as a parameter into the `Execute()` or `ExecuteAsync()` methods.
 
@@ -133,7 +132,7 @@ There is also an instance method to specify a command timeout in milliseconds:
  * `Response`
 
 
-#### `Get` 
+#### `Get`
 
 Gets a single row by its key values.
 
@@ -152,7 +151,7 @@ There is also an instance method to specify a command timeout in milliseconds:
 
 ##### Return Value
 
-* `GetResponse` - 1 row if a match was found; 0 rows if no match was found. 
+* `GetResponse` - 1 row if a match was found; 0 rows if no match was found.
 
 
 #### `ListKeys`
@@ -183,3 +182,38 @@ There is also an instance method to specify a command timeout in milliseconds:
 #### `Query`
 
 Allows you to query a Riak TS table with the given query string.
+
+```csharp
+var qfmt = "SELECT * FROM GeoCheckin WHERE time > {0} and time < {1} and region = 'Pacific' and state = 'Washington'";
+var q = string.Format(
+    qfmt,
+    DateTimeUtil.ToUnixTimeMillis(TenMinsAgo),
+    DateTimeUtil.ToUnixTimeMillis(Now));
+
+var cmd = new Query.Builder()
+    .WithTable("GeoCheckin")
+    .WithQuery(q)
+    .Build();
+
+RiakResult rslt = client.Execute(cmd);
+```
+
+You can also create tables via the Query command.
+
+```csharp
+string tableName = "GeoCheckin";
+string sqlFmt = string.Format(
+    @"CREATE TABLE {0} (region varchar not null,
+                        state varchar not null,
+                        time timestamp not null,
+                        weather varchar not null,
+                        temperature double,
+    PRIMARY KEY((region, state, quantum(time, 15, m)), region, state, time))", tableName);
+
+var cmd = new Query.Builder()
+    .WithTable(tableName)
+    .WithQuery(sqlFmt)
+    .Build();
+
+RiakResult rslt = client.Execute(cmd);
+```
