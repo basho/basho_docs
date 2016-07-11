@@ -23,7 +23,7 @@ Maps are the most versatile of the Riak data types because all other data types 
 
 Using counters, sets, and maps within maps are similar to working with those types at the bucket level.
 
-## Setup a Bucket Type
+## Set Up a Bucket Type
 
 > If you've already created and activated a bucket type with the `datatype` parameter set to `map`, skip to the [next section](#client-setup).
 

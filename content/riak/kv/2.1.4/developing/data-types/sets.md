@@ -26,7 +26,7 @@ the values in a set are unique.
 
 For example, if you attempt to add the element `shovel` to a set that already contains `shovel`, the operation will be ignored by Riak KV.
 
-## Setup a Bucket Type
+## Set Up a Bucket Type
 
 > If you've already created and activated a bucket type with `set` as the `datatype` parameter, skip to the [next section](#client-setup).
 

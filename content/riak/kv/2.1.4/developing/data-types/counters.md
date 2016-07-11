@@ -23,7 +23,7 @@ Counters are a bucket-level Riak data type that can be used by themselves, assoc
 
 The examples in this section will show you how to use counters on their own.
 
-## Setup a Bucket Type
+## Set Up a Bucket Type
 
 > If you've already created and activated a bucket type with the `datatype` parameter set to `counter`, skip to the [next section](#client-setup).
 
@@ -64,7 +64,7 @@ After creating and activating our new `counters` bucket type, we can setup our c
 
 ## Client Setup
 
-First, we need to direct our client to the bucket-type/bucket/key
+First, we need to direct our client to the bucket type/bucket/key
 location that contains our counter.
 
 For this example we'll use the `counters` bucket type created and activated above and a bucket called `counters`:
