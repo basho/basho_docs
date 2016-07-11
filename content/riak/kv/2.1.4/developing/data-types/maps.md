@@ -42,7 +42,7 @@ riak-admin bucket-type status maps
 This returns a list of bucket properties and their values
 in the form of `property: value`.
 
-If our `counters` bucket type has been set properly we should see the following pair in our console output:
+If our `map` bucket type has been set properly we should see the following pair in our console output:
 
 ```bash
 datatype: map
@@ -205,7 +205,7 @@ Registers are essentially named binaries (like strings). Any binary
 value can act as the value of a register. Like flags, registers cannot
 be used on their own and must be embedded in Riak maps.
 
-## Registers Within Maps
+### Registers Within Maps
 
 Continuing with our previous `customers` example, let's store some information in our map.
 
@@ -340,7 +340,7 @@ Flags cannot be used on their own, i.e. a flag cannot be stored in a bucket/key 
 
 To disable an existing flag, you have to read it or provide [a context](../#data-types-and-context).
 
-## Flags Within Maps
+### Flags Within Maps
 
 Now let's say that we add an Enterprise plan to our pricing model. We'll
 create an `enterprise_customer` flag to track whether Ahmed has signed
