@@ -23,7 +23,7 @@ Maps are the most versatile of the Riak data types because all other data types 
 
 Using counters, sets, and maps within maps are similar to working with those types at the bucket level.
 
-## Bucket Type Setup
+## Setup a Bucket Type
 
 > If you've already created and activated a bucket type with the `datatype` parameter set to `map`, skip to the [next section](#client-setup).
 
@@ -60,7 +60,7 @@ We can check if activation has been successful by using the same `bucket-type st
 riak-admin bucket-type status maps
 ```
 
-Once we have confirmed the bucket type is properly configured, we can activate the bucket type to be used in Riak KV:
+After creating and activating our new `maps` bucket type, we can setup our client to start using the bucket type as detailed in the next section.
 
 ## Client Setup
 

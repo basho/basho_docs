@@ -19,19 +19,18 @@ aliases:
 canonical_link: "https://docs.basho.com/riak/kv/latest/developing/data-types/sets"
 ---
 
-Sets are a bucket-level Riak data type that can be used by
-themselves; associated with a bucket/key pair, or [within a map](../../maps#sets-within-maps).
+Sets are a bucket-level Riak data type that can be used by themselves, associated with a bucket/key pair, or used [within a map](../../maps#sets-within-maps).
 
 Sets are collections of unique binary values (such as strings). All of
 the values in a set are unique.
 
-For example, if you attempt to add the element `shovel` to a set that already contains `shovel`, the operation will be ignored by Riak.
+For example, if you attempt to add the element `shovel` to a set that already contains `shovel`, the operation will be ignored by Riak KV.
 
-## Bucket-Type Setup
+## Setup a Bucket Type
 
-> If you've already created and activated a bucket-type with `set` as the `datatype` parameter, skip to the [next section](#client-setup).
+> If you've already created and activated a bucket type with `set` as the `datatype` parameter, skip to the [next section](#client-setup).
 
-Start by creating a bucket-type with the `datatype` parameter `set`:
+Start by creating a bucket type with the `datatype` parameter `set`:
 
 ```bash
 riak-admin bucket-type create sets '{"props":{"datatype":"set"}}'
@@ -46,7 +45,7 @@ riak-admin bucket-type status sets
 This returns a list of bucket properties and their values
 in the form of `property: value`.
 
-If our `sets` bucket-type has been set properly we should see the following pair in our console output:
+If our `sets` bucket type has been set properly we should see the following pair in our console output:
 
 ```
 datatype: set
@@ -64,13 +63,13 @@ We can check if activation has been successful by using the same `bucket-type st
 riak-admin bucket-type status sets
 ```
 
-Once we have confirmed the bucket type is properly configured, we can activate the bucket type to be used in Riak KV:
+After creating and activating our new `sets` bucket type, we can setup our client to start using the bucket type as detailed in the next section.
 
 ## Client Setup
 
-Using sets involves setting up a bucket/key pair to house a set and running set-specific operations on that pair.
+Using sets involves creating a bucket/key pair to house a set and running set-specific operations on that pair.
 
-Here is the general syntax for setting up a bucket type/bucket/key
+Here is the general syntax for creating a bucket type/bucket/key
 combination to handle a set:
 
 ```java
@@ -161,7 +160,7 @@ curl http://localhost:8098/types/<bucket_type>/buckets/<bucket>/datatypes/<key>
 ## Create a Set
 
 For the following example, we will use a set to store a list of cities that we
-want to visit. Let's create a Riak set stored in the key `cities` in the bucket `travel` using the `sets` bucket-type created previously:
+want to visit. Let's create a Riak set stored in the key `cities` in the bucket `travel` using the `sets` bucket type created previously:
 
 ```java
 // In the Java client, you specify the location of Data Types
@@ -415,7 +414,7 @@ we need to remove it from the list.
 
 Note that removing an element from a set is trickier than adding elements. In
 order to remove an item (or multiple items), we need to first fetch the
-set, which provides our client access to the set's [causal context](/riak/kv/2.1.4/learn/concepts/causal-context).
+set, which provides our client access to the set's [causal context](../../../learn/concepts/causal-context).
 
 Once we've fetched the set, we can remove the element `Montreal` and
 store the set:

@@ -31,7 +31,7 @@ Riak KV has Riak-specific data types based on [convergent replicated data types 
 - [Sets](./sets)
 - [Maps](./maps)
 
-Counters, sets, and maps can be used as bucket-level data types or types that you can interact with directly. Flags and registers must be [embedded in maps](./maps).
+Counters, sets, and maps can be used as bucket-level data types or types that you interact with directly. Flags and registers must be [embedded in maps](./maps).
 
 For more information on how CRDTs work in Riak KV see [Concepts: Data Types][concept crdt].
 
@@ -93,19 +93,7 @@ riak-admin bucket-type activate maps
 To check whether activation has been successful, simply use the same
 `bucket-type status` command shown above.
 
-The next section provides links to [using Riak data types](#usage-examples) in the context of an application.
-
-## Usage Examples
-
-- [Flags](./maps#flags)
-- [Registers](./maps#registers)
-- [Counters](./counters)
-- [Sets](./sets)
-- [Maps](./maps)
-
-The pages listed above detail using Riak data types at the application level using Basho's [officially supported Riak KV clients](../../client-libraries). For more on getting started with client libraries check out the [Developing with Riak KV: Getting Started](../../getting-started) section.
-
-All the examples use the bucket type names from above (`counters`, `sets`, and `maps`). You're free to substitute your own bucket type names if you wish.
+See the [Usage Examples](#usage-examples) section for further information on using Riak data types in the context of an application.
 
 ## Required Bucket Properties
 
@@ -116,21 +104,11 @@ In order for Riak data types to work the bucket should have the following bucket
 
 These settings are set by default and should not be changed.
 
-## Data Types and Search
-
-Riak data types can be searched like any other object, but with the
-added benefit that your data type is indexed as a different type by Solr,
-the search platform behind Riak Search.
-
-In our Search documentation we offer a [full tutorial](../../usage/searching-data-types) as well as a variety of [examples](../../usage/search/#data-types-and-search-examples), including code
-samples from each of our official client libraries.
-
 ## Data Types and Context
 
-When performing normal key/value updates in Riak KV, we recommend using
-[causal context](/riak/kv/2.1.4/learn/concepts/causal-context). This enables Riak KV to make decisions about which object values should be considered more causally recent than others in cases of conflict.
+Data type context is similar to [causal context](../../../learn/concepts/causal-context): it tells Riak KV which version of the data type a client is attempting to modify. Context is required by Riak KV when making decisions about convergence.
 
-Data type contexts are similar to [causal context](/riak/kv/2.1.4/learn/concepts/causal-context) in that they are opaque (not readable by humans). They also perform a similar function to that of causal context: informing Riak KV which version of the data type a client is attempting to modify. This information is required by Riak KV when making decisions about convergence.
+If no context is given when attempting a remove or remove-like operation, the operation may fail (removing a field that is not present) or succeed and remove more than intended (removing updates unseen by the client).
 
 > **Note**
 >
@@ -218,7 +196,7 @@ for you. The one exception amongst the official clients is the Java
 client. We'll explain how to use data type contexts with the Java client
 directly below.
 
-#### Context with the Java and PHP Clients
+### Context with the Java and PHP Clients
 
 With the Java and PHP clients, you'll need to manually fetch and return data type contexts for the following operations:
 
@@ -265,3 +243,24 @@ $updateSet = (new \Basho\Riak\Command\Builder\UpdateSet($riak))
     ->build()
     ->execute();
 ```
+
+## Usage Examples
+
+- [Flags](./maps#flags)
+- [Registers](./maps#registers)
+- [Counters](./counters)
+- [Sets](./sets)
+- [Maps](./maps)
+
+The pages listed above detail using Riak data types at the application level using Basho's [officially supported Riak KV clients](../../client-libraries). For more on getting started with client libraries check out the [Developing with Riak KV: Getting Started](../../getting-started) section.
+
+All the examples use the bucket type names from above (`counters`, `sets`, and `maps`). You're free to substitute your own bucket type names if you wish.
+
+## Data Types and Search
+
+Riak data types can be searched like any other object, but with the
+added benefit that your data type is indexed as a different type by Solr,
+the search platform behind Riak Search.
+
+In our Search documentation we offer a [full tutorial](../../usage/searching-data-types) as well as a variety of [examples](../../usage/search/#data-types-and-search-examples), including code
+samples from each of our official client libraries.
