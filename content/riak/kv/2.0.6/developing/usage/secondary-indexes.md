@@ -1985,7 +1985,7 @@ curl -XPOST localhost:8098/mapred\
 {
   "inputs": {
     "bucket": "people",
-    "index": "$bucket",
+    "index": "\$bucket",
     "key":"people"
   },
   "query": [
