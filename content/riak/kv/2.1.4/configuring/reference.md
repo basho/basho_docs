@@ -18,9 +18,13 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/configuring/reference"
 
 [concept clusters]: ../../learn/concepts/clusters
 [plan backend bitcask]: ../../setup/planning/backend/bitcask
+[config backend bitcask]: ../../setup/planning/backend/bitcask/configuring-bitcask
 [plan backend leveldb]: ../../setup/planning/backend/leveldb
+[config backend leveldb]: ../../setup/planning/backend/leveldb/configuring-eleveldb
 [plan backend memory]: ../../setup/planning/backend/memory
+[config backend memory]: ../../setup/planning/backend/memory/#configuring-the-memory-backend
 [plan backend multi]: ../../setup/planning/backend/multi
+[config backend multi]: ../../setup/planning/backend/multi/#configuring-multiple-backends-1
 [use admin riak cli]: ../../using/admin/riak-cli
 [use admin riak-admin]: ../../using/admin/riak-admin
 [glossary aae]: ../../learn/glossary/#active-anti-entropy-aae
@@ -142,10 +146,10 @@ the cluster). Must be a power of 2. The minimum is 8 and the maximum is
 
 Riak enables you to choose from the following storage backends:
 
-* [Bitcask][plan backend bitcask] --- [configuration](#bitcask)
-* [LevelDB][plan backend leveldb] --- [configuration](#leveldb)
-* [Memory][plan backend memory] --- [configuration](#memory-backend)
-* [Multi][plan backend multi] --- [configuration](#multi-backend)
+* [Bitcask][plan backend bitcask] --- [configuration][config backend bitcask]
+* [LevelDB][plan backend leveldb] --- [configuration][config backend leveldb]
+* [Memory][plan backend memory] --- [configuration][config backend memory]
+* [Multi][plan backend multi] --- [configuration][config backend multi]
 
 <table class="riak-conf">
 <thead>
