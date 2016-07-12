@@ -81,7 +81,7 @@ riak-repl add-nat-listener riak@10.0.1.156 10.0.1.156 9010 50.16.238.123 9010
 ```
 location that contains our map.
 
-The syntax for creating a Riak map is analogous to the
+The syntax for creating a map is analogous to the
 syntax for creating other data types:
 
 ```java
