@@ -58,7 +58,10 @@
 [upgrade version]: /riak/kv/2.1.4/setup/upgrading/version
 [upgrade cluster]: /riak/kv/2.1.4/setup/upgrading/cluster
 [upgrade mdc]: /riak/kv/2.1.4/setup/upgrading/multi-datacenter
-[upgrade downgrade]: /riak/kv/2.1.4/setup/upgrading/downgrade
+
+##downgrade
+
+[downgrade]: /riak/kv/2.1.4/setup/downgrade
 
 
 ## Configuring
