@@ -24,9 +24,9 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/developing/app-guide"
 [dev data model#user]: /riak/kv/2.1.3/developing/data-modeling/#user-data
 [dev kv model]: /riak/kv/2.1.3/developing/key-value-modeling
 [dev data types]: /riak/kv/2.1.3/developing/data-types
-[dev data types#counters]: /riak/kv/2.1.3/developing/data-types/#counters
-[dev data types#sets]: /riak/kv/2.1.3/developing/data-types/#sets
-[dev data types#maps]: /riak/kv/2.1.3/developing/data-types/#maps
+[dev data types#counters]: /riak/kv/2.1.3/developing/data-types/counters
+[dev data types#sets]: /riak/kv/2.1.3/developing/data-types/sets
+[dev data types#maps]: /riak/kv/2.1.3/developing/data-types/maps
 [usage create objects]: /riak/kv/2.1.3/developing/usage/creating-objects
 [usage search]: /riak/kv/2.1.3/developing/usage/search
 [use ref search]: /riak/kv/2.1.3/using/reference/search

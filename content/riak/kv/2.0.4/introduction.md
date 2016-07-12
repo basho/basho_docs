@@ -75,9 +75,9 @@ Riak 2.0 offers a new approach to this problem for a wide range of use
 cases in the form of [Riak Data Types](/riak/kv/2.0.4/developing/data-types). Instead of
 forcing the application to resolve conflicts, Riak offers five Data
 Types that can reduce some of the complexities of developing using
-Riak: [flags](/riak/kv/2.0.4/developing/data-types/#flags), [registers](/riak/kv/2.0.4/developing/data-types/#registers),
-[counters](/riak/kv/2.0.4/developing/data-types/#counters), [sets](/riak/kv/2.0.4/developing/data-types/#sets), and
-[maps](/riak/kv/2.0.4/developing/data-types/#maps).
+Riak: [flags](/riak/kv/2.0.4/developing/data-types/maps#flags), [registers](/riak/kv/2.0.4/developing/data-types/maps#registers),
+[counters](/riak/kv/2.0.4/developing/data-types/counters), [sets](/riak/kv/2.0.4/developing/data-types/sets), and
+[maps](/riak/kv/2.0.4/developing/data-types/maps).
 
 #### Relevant Docs
 

@@ -261,7 +261,7 @@ always carry potential drawbacks of this sort.
 An important thing to always bear in mind when working with conflict
 resolution is that Riak offers a variety of [Data Types](/riak/kv/2.0.5/developing/data-types/) that have
 specific conflict resolution mechanics built in. If you have data that
-can be modeled as a [counter](/riak/kv/2.0.5/developing/data-types/#counters), [set](/riak/kv/2.0.5/developing/data-types/#sets), or [map](/riak/kv/2.0.5/developing/data-types/#maps), then you should seriously
+can be modeled as a [counter](/riak/kv/2.0.5/developing/data-types/counters), [set](/riak/kv/2.0.5/developing/data-types/sets), or [map](/riak/kv/2.0.5/developing/data-types/maps), then you should seriously
 consider using those Data Types instead of creating your own
 application-side resolution logic.
 
@@ -270,4 +270,4 @@ set, in particular the `friends` list associated with each `User`
 object. The merge operation that we built to handle conflict resolution
 is analogous to the resolution logic that is built into Riak sets. For
 more information on how you could potentially replace the client-side
-resolution that we implemented above, see our [tutorial on Riak sets](/riak/kv/2.0.5/developing/data-types/#sets).
+resolution that we implemented above, see our [tutorial on Riak sets](/riak/kv/2.0.5/developing/data-types/sets).

@@ -19,14 +19,14 @@ Although Riak wasn't explicitly created as a document store, two
 features recently added to Riak---[Riak Search](/riak/kv/2.0.2/developing/usage/search/) and [Riak Data Types](/riak/kv/2.0.2/developing/data-types/)---make it possible to use Riak as a
 highly scalable document store with rich querying capabilities. In this
 tutorial, we'll build a basic implementation of a document store using
-[Riak maps](/riak/kv/2.0.2/developing/data-types/#maps).
+[Riak maps](/riak/kv/2.0.2/developing/data-types/maps).
 
 ## Basic Approach
 
 Riak Search enables you to implement a document store in Riak in a
 variety of ways. You could, for example, store and query JSON objects or
 XML and then retrieve them later via Solr queries. In this tutorial,
-however, we will store data in [Riak maps](/riak/kv/2.0.2/developing/data-types/#maps),
+however, we will store data in [Riak maps](/riak/kv/2.0.2/developing/data-types/maps),
 index that data using Riak Search, and then run Solr queries against
 those stored objects.
 
