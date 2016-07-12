@@ -112,7 +112,7 @@ If no context is given when attempting a remove or remove-like operation, the op
 
 > **Note**
 >
-> Counters do not use context: Riak KV will return an empty value.
+> The counter data type does not use context; Riak KV will return an empty value when the context is requested from a counter.
 
 In the example below we'll fetch the context [from a user data map created for Ahmed](./maps#create-a-map):
 

@@ -33,6 +33,10 @@ Start by creating a bucket type with the `datatype` parameter set to `counter`:
 riak-admin bucket-type create counters '{"props":{"datatype":"counter"}}'
 ```
 
+> **Note**
+>
+> The `counters` bucket type name provided above is an example and is not required to be `counters`. You are free to name bucket types whatever you like, with the exception of `default`.
+
 After creating a bucket with a Riak data type, confirm the bucket property configuration associated with that type is correct:
 
 ```bash
