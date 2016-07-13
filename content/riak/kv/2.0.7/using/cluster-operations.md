@@ -21,7 +21,6 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/using/cluster-operations"
 [ops log]: ./logging
 [ops backup]: ./backing-up
 [ops handoff]: ./handoff
-[ops obj del]: ./object-deletion
 [ops strong consistency]: ./strong-consistency
 [ops v3 mdc]: ./v3-multi-datacenter
 [ops v2 mdc]: ./v2-multi-datacenter
@@ -83,13 +82,6 @@ Covers backing up Riak KV data.
 Information on using the `riak-admin handoff` interface to enable and disable handoff.
 
 [Learn More >>][ops handoff]
-
-
-#### [Object Deletion][ops obj del]
-
-Describes possible settings for `delete_mode`.
-
-[Learn More >>][ops obj del]
 
 
 #### [Monitoring Strong Consistency][ops strong consistency]

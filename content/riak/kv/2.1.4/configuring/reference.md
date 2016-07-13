@@ -196,7 +196,7 @@ executables are stored.</td>
 <tr>
 <td><code>platform_data_dir</code></td>
 <td>The directory in which Riak stores its storage backend data, as well
-as <a href="../../learn/concepts/clusters">ring state</a> data, <a href="../../learn/glossary/#active-anti-entropy-aae">active anti-entropy</a> data, and cluster metadata.</td>
+as <a href="http://docs.basho.com/riak/kv/2.1.4/learn/glossary/#active-anti-entropy-aae">active anti-entropy</a> data, and cluster metadata.</td>
 <td><code>./data</code></td>
 </tr>
 
@@ -1724,7 +1724,7 @@ abandons the leader (in milliseconds). This must be set greater than the
 <tr>
 <td><code>alive_tokens</code></td>
 <td>Determines the number of ticks the leader will wait to hear from its
-associated <a href="../../learn/glossary/#vnode">vnode</a> before assuming that the vnode
+associated <a href="http://docs.basho.com/riak/kv/2.1.4/learn/glossary/#vnode">vnode</a> before assuming that the vnode
 is unhealthy and stepping down as leader. If the vnode does not respond
 to the leader before <code>ensemble_tick</code> *
 <code>alive_tokens</code> milliseconds have elapsed, the leader will
@@ -1873,8 +1873,8 @@ package) and in R14B04 via a custom repository and branch.</td>
 <tr>
 <td><code>vnode_management_timer</code></td>
 <td>Sets the frequency with which <a
-href="theory/concepts/glossary#vnode">vnodes</a> attempt to trigger <a
-href="theory/concepts/glossary#hinted-handoff">handoff</a> between
+href="http://docs.basho.com/riak/kv/2.1.4/learn/glossary/#vnode">vnodes</a> attempt to trigger <a
+href="http://docs.basho.com/riak/kv/2.1.4/learn/glossary/#hinted-handoff">handoff</a> between
 this node and other nodes in the cluster.</td>
 <td><code>10s</code> (10 seconds)</td>
 </tr>
