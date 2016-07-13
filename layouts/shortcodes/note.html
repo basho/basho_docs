@@ -1,6 +1,6 @@
 <div class="note">
   {{ if .Get "title" }}
-    <div class="title">{{ with .Get "title" }}{{.}}{{ end }}</div>
+    <div class="title">{{ with .Get "title" }}{{ markdownify . }}{{ end }}</div>
   {{ end }}
   {{ .Inner }}
 </div>
