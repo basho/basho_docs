@@ -406,7 +406,7 @@ one with a smaller window.
 
 ## Statistics
 
-The Cuttlefish batching subsystem maintains a set of statistics that provide visibility into the run-time characteristics of the components that make up the system. These statistics are accessible via the standard Riak KV stats interfaces and can be monitored through standard enterprise management tools.
+The Riak Search batching subsystem provides statistics on run-time characteristics of search system components. These statistics are accessible via the standard Riak KV stats interfaces and can be monitored through standard enterprise management tools.
 
 
 * `search_index_throughput_(count|one)` - The total count of objects that have been indexed, per Riak node, and the count of objects that have been indexed within the metric measurement window.
