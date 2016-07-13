@@ -17,6 +17,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/using/reference/search"
 ---
 
 [concept clusters]: /riak/kv/2.0.7/learn/concepts/clusters
+[configuring search]: /riak/kv/2.0.7/configuring/search
 
 > **Note on Search 2.0 vs. Legacy Search**
 >
@@ -402,3 +403,46 @@ ownership change this could mean a delay between cluster state and the
 cached plan. This is, however, a good trade-off given the performance
 benefits, especially since even without caching there is a race, albeit
 one with a smaller window.
+
+## Statistics
+
+The Riak Search batching subsystem provides statistics on run-time characteristics of search system components. These statistics are accessible via the standard Riak KV stats interfaces and can be monitored through standard enterprise management tools.
+
+
+* `search_index_throughput_(count|one)` - The total count of objects that have been indexed, per Riak node, and the count of objects that have been indexed within the metric measurement window.
+
+* `search_index_latency_(min|mean|max|median|95|99|999)` - The minimum, mean, maximum, median, 95th percentile, 99th percentile, and 99.9th percentile measurements of indexing latency, as measured from the time it takes to send a batch to Solr to the time the response is received from Solr, divided by the batch size.
+
+* `search_queue_batch_latency_(min|mean|max|median|95|99|999)` - The minimum, mean, maximum, median, 95th percentile, 99th percentile, and 99.9th percentile measurements of batch latency, as measured from the time it takes to send a batch to Solr to the time the response is received from Solr.
+
+* `search_queue_batch_throughput_(count|one)` - The total number of batches delivered into Solr, per Riak node, and the number of batches that have been indexed within the metric measurement window.
+
+* `search_queue_batchsize_(min|mean|max|median)` - The minimum, mean, maximum, and median measurements of the batch size across all indices and Solrq worker processes.
+
+* `search_queue_hwm_purged_(count|one)` - The total number of purged objects, and the number of purged objects within the metric measurement window.
+
+* `search_queue_capacity` - The capacity of the existing queues, expressed as a integral percentage value between 0 and 100. This measurement is based on the ratio of equeued objects and the configured high water mark.
+
+* `search_queue_drain_(count|one)` - The total number of drain operations, and the number of drain operations within the metric measurement window.
+
+* `search_queue_drain_fail_(count|one)` - The total number of drain failures, and the number of drain failures within the metric measurement window.
+
+* `search_queue_drain_timeout_(count|one)` - The total number of drain timeouts, and the number of drain timeouts within the metric measurement window.
+
+* `search_queue_drain_latency_(min|mean|max|median|95|99|999)` - The minimum, mean, maximum, median, 95th percentile, 99th percentile, and 99.9th percentile measurements of drain latency, as measured from the time it takes to initiate a drain to the time the drain is completed.
+
+* `search_detected_repairs_count` - The total number of AAE repairs that have been detected when comparing YZ and Riak/KV AAE trees. Note that this statistic is a measurement of the differences found in the AAE trees; there may be some latency between the time the trees are compared and the time that the repair is written to Solr. 
+
+* `search_blockedvnode_(count|one)` - The total count of vnodes that have been blocked, per Riak node, and the count of blocked vnodes within the metric measurement window. Vnodes are blocked when a Solrq worker exceeds its high water mark, as defined by the [`search.queue.high_watermark`][configuring search] configuration setting.
+
+* `search_index_fail_(count|one)` - The total count of failed attempts to index, per Riak node, and the count of index failures within the metric measurement window.
+
+* `search_query_throughput_(count|one)` - The total count of queries, per Riak node, and the count of queries within the metric measurement window.
+
+* `search_query_latency_(min|mean|max|median|95|99|999)` - The minimum, mean, maximum, median, 95th percentile, 99th percentile, and 99.9th percentile measurements of querying latency, as measured from the time it takes to send a request to Solr to the time the response is received from Solr.
+
+* `search_query_fail_(count|one)` - The total count of failed queries, per Riak node, and the count of query failures within the metric measurement window.
+
+While most of the default values are sufficient, you may have to
+increase [`search.solr.start_timeout`][configuring search] as more data is indexed, which may
+cause Solr to require more time to start.
