@@ -413,8 +413,6 @@ The Cuttlefish batching subsystem maintains a set of statistics that provide vis
 
 * `search_index_latency_(min|mean|max|median|95|99|999)` - The minimum, mean, maximum, median, 95th percentile, 99th percentile, and 99.9th percentile measurements of indexing latency, as measured from the time it takes to send a batch to Solr to the time the response is received from Solr, divided by the batch size.
 
-* `search_index_batchsize_(min|mean|max|median)` - The minimum, mean, maximum, and  median measurements of the batch size across all indices and Solrq worker processes.
-
 * `search_queue_batch_latency_(min|mean|max|median|95|99|999)` - The minimum, mean, maximum, median, 95th percentile, 99th percentile, and 99.9th percentile measurements of batch latency, as measured from the time it takes to send a batch to Solr to the time the response is received from Solr.
 
 * `search_queue_batch_throughput_(count|one)` - The total number of batches delivered into Solr, per Riak node, and the number of batches that have been indexed within the metric measurement window.
