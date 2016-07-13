@@ -20,7 +20,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage/replicat
 [concept eventual consistency]: /riak/kv/2.0.7/learn/concepts/eventual-consistency
 [plan backend leveldb]: /riak/kv/2.0.7/setup/planning/backend/leveldb
 [plan backend bitcask]: /riak/kv/2.0.7/setup/planning/backend/bitcask
-[use ref strong consistency]: /riak/2.1.3/using/reference/strong-consistency
+[use ref strong consistency]: /riak/kv/2.0.7/using/reference/strong-consistency
 [concept clusters]: /riak/kv/2.0.7/learn/concepts/clusters
 
 Riak was built to act as a multi-node [cluster][concept clusters].  It

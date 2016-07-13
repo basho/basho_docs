@@ -88,7 +88,7 @@ One reason we recommend using bucket types for Riak 2.0
 and later is because many newer Riak features were built with
 bucket types as a precondition:
 
-* [Strong consistency](/riak/2.1.4/using/reference/strong-consistency) --- Using Riak's strong consistency subsystem
+* [Strong consistency](/riak/kv/2.1.4/using/reference/strong-consistency) --- Using Riak's strong consistency subsystem
   requires you to set the `consistent` parameter on a bucket type to
   `true`
 * [Riak Data Types](/riak/kv/2.1.4/developing/data-types) --- In order to use Riak Data

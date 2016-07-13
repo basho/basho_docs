@@ -17,7 +17,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/using/reference/secondary
 ---
 
 [usage bucket types]: /riak/kv/2.1.4/developing/usage/bucket-types
-[use ref strong consistency]: /riak/2.1.4/using/reference/strong-consistency
+[use ref strong consistency]: /riak/kv/2.1.4/using/reference/strong-consistency
 
 > **Note: Riak Search preferred for querying**
 >

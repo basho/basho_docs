@@ -103,7 +103,7 @@
 [use ref search]: /riak/kv/2.1.4/using/reference/search
 [use ref 2i]: /riak/kv/2.1.4/using/reference/secondary-indexes
 [use ref snmp]: /riak/kv/2.1.4/using/reference/snmp
-[use ref strong consistency]: /riak/2.1.4/using/reference/strong-consistency
+[use ref strong consistency]: /riak/kv/2.1.4/using/reference/strong-consistency
 [use ref jmx]: /riak/kv/2.1.4/using/reference/jmx
 [use ref obj del]: /riak/kv/2.1.4/using/reference/object-deletion/
 [use ref v3 mdc]: /riak/kv/2.1.4/using/reference/v3-multi-datacenter

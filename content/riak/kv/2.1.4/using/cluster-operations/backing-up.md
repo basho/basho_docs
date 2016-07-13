@@ -20,7 +20,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/using/cluster-operations/
 [config reference]: /riak/kv/2.1.4/configuring/reference
 [plan backend leveldb]: /riak/kv/2.1.4/setup/planning/backend/leveldb
 [plan backend bitcask]: /riak/kv/2.1.4/setup/planning/backend/bitcask
-[use ref strong consistency]: /riak/2.1.4/using/reference/strong-consistency
+[use ref strong consistency]: /riak/kv/2.1.4/using/reference/strong-consistency
 
 Riak KV is a [clustered][concept clusters] system built to survive a wide range of
 failure scenarios, including the loss of nodes due to network or
