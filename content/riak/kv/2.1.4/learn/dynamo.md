@@ -782,18 +782,15 @@ then reconciled and the reconciled version superseding the current versions is w
 
 ### 4.6 Handling Failures: Hinted Handoff
 
-# [[Hinted handoff|Riak Glossary#Hinted-Handoff]] is built into Riak Core, and implemented by
-# Riak KV.
-
 If Dynamo used a traditional quorum approach it would be unavailable during server failures and network 
 partitions, and would have reduced durability even under the simplest of failure conditions. To remedy 
 this it does not enforce strict quorum membership and instead it uses a “sloppy quorum”; all read and write 
 operations are performed on the first N healthy nodes from the preference list, which may not always be 
 the first N nodes encountered while walking the consistent hashing ring.
 
-
-# You can glimpse at Riak's preference list (or *preflist*) calculation in the
-# [[Replication]] walkthrough.
+>[Hinted handoff](/riak/kv/2.1.4/learn/glossary/#hinted-handoff) is built into Riak Core, and implemented by Riak KV.
+>
+>You can glimpse at Riak's preference list (or *preflist*) calculation in the [Replication](/riak/kv/2.1.4/developing/usage/replication/) walkthrough.
 
 Consider the example of Dynamo configuration given in <a href="#figure-2">Figure 2</a> with N=3. In this example, if node 
 A is temporarily down or unreachable during a write operation then a replica that would normally 
@@ -804,9 +801,6 @@ will keep them in a separate local database that is scanned periodically. Upon d
 recovered, D will attempt to deliver the replica to A. Once the transfer succeeds, D may delete the 
 object from its local store without decreasing the total number of replicas in the system.
 
-# As mentioned previously, Riak does not require that a write be durable, only that a vnode responds
-# in the affirmative. If you require a durable write in the way mentioned here, use DW.
-
 Using hinted handoff, Dynamo ensures that the read and write operations are not failed due to temporary 
 node or network failures. Applications that need the highest level of availability can set W to 1, 
 which ensures that a write is accepted as long as a single node in the system has durably written 
@@ -814,8 +808,7 @@ the key it to its local store. Thus, the write request is only rejected if all n
 are unavailable. However, in practice, most Amazon services in production set a higher W to meet 
 the desired level of durability. A more detailed discussion of configuring N, R and W follows in section 6.
 
-# [[Multi Datacenter Replication|Multi Data Center Replication: Architecture]] is implemented
-# in the commercial extension to Riak, called [Riak Enterprise Edition](http://basho.com/riak-enterprise/).
+>As mentioned previously, Riak does not require that a write be durable, only that a vnode responds in the affirmative. If you require a durable write in the way mentioned here, use DW.
 
 It is imperative that a highly available storage system be capable of handling the failure of an 
 entire data center(s). Data center failures happen due to power outages, cooling failures, network 
@@ -825,18 +818,18 @@ nodes are spread across multiple data centers. These datacenters are connected t
 network links. This scheme of replicating across multiple datacenters allows us to handle entire data 
 center failures without a data outage.
 
-# Read repair, mentioned above, is the simplest form of anti-entropy. But it is passive, not active
-# as this section describes.
+>[Multi Datacenter Replication](/riak/kv/2.1.4/using/reference/v3-multi-datacenter/architecture/) is implemented in the commercial extension to Riak, called [Riak Enterprise Edition](http://basho.com/products/riak-kv/).
 
-<h2>4.7 Handling permanent failures: Replica synchronization</h2>
+
+
+### 4.7 Handling permanent failures: Replica synchronization
 
 Hinted handoff works best if the system membership churn is low and node failures are transient. 
 There are scenarios under which hinted replicas become unavailable before they can be returned to 
 the original replica node. To handle this and other threats to durability, Dynamo implements an 
 anti-entropy (replica synchronization) protocol to keep the replicas synchronized.
 
-# Riak has implemented a Merkel-Tree based Active Anti-Entropy (*AAE*) as of version 1.3.
-# Older versions provide only read repair.
+>Read repair, mentioned above, is the simplest form of anti-entropy. But it is passive, not active as this section describes.
 
 To detect the inconsistencies between replicas faster and to minimize the amount of transferred data, 
 Dynamo uses Merkle trees [13]. A Merkle tree is a hash tree where leaves are hashes of the values of 
@@ -851,7 +844,8 @@ the process continues until it reaches the leaves of the trees, at which point t
 the keys that are “out of sync”. Merkle trees minimize the amount of data that needs to be transferred 
 for synchronization and reduce the number of disk reads performed during the anti-entropy process.
 
-<!-- Does the Riak AAE follow the 6.2 refined partitioning scheme? -->
+>Riak implements a Merkel-Tree based Active Anti-Entropy (*AAE*).
+
 Dynamo uses Merkle trees for anti-entropy as follows: Each node maintains a separate Merkle tree 
 for each key range (the set of keys covered by a virtual node) it hosts. This allows nodes to compare 
 whether the keys within a key range are up-to-date. In this scheme, two nodes exchange the root of 
@@ -861,17 +855,14 @@ the appropriate synchronization action. The disadvantage with this scheme is tha
 change when a node joins or leaves the system thereby requiring the tree(s) to be recalculated. 
 This issue is addressed, however, by the refined partitioning scheme described in Section 6.2.
 
-# This section is well expressed in [[Adding and Removing Nodes]] and [[Failure Scenarios|Eventual-Consistency#Failure-Scenarios]].
-<h2>4.8 Membership and Failure Detection</h2>
 
-# Riak operators can trigger node management via the
-# [[riak-admin command-line tool|riak-admin Command Line]].
-<h3>4.8.1 Ring Membership</h3>
+### 4.8 Membership and Failure Detection
 
-# Nodes are manually added using the `riak-admin cluster join`.
-# 
-# When a node permanently departs, rebalancing is triggered using the `riak-admin cluster leave`
-# command.
+>This section is well expressed in [Adding and Removing Nodes](/riak/kv/2.1.4/using/cluster-operations/adding-removing-nodes/) and [Failure Scenarios](/riak/kv/2.1.4/learn/concepts/eventual-consistency/).
+
+#### 4.8.1 Ring Membership
+
+>Riak operators can trigger node management via the [riak-admin command-line tool](/riak/kv/2.1.4/using/admin/riak-admin/).
 
 In Amazon’s environment node outages (due to failures and maintenance tasks) are often transient but may 
 last for extended intervals. A node outage rarely signifies a permanent departure and therefore should 
@@ -883,15 +874,16 @@ issue a membership change to join a node to a ring or remove a node from a ring.
 the request writes the membership change and its time of issue to persistent store. The membership 
 changes form a history because nodes can be removed and added back multiple times.
 
-# Riak's ring state holds membership information, and is propgated via [[gossiping|Riak Glossary#Gossiping]],
-# including random reconciliation, defaulting to once a minute.
+>Nodes are manually added using the `riak-admin cluster join`.
+>
+>When a node permanently departs, rebalancing is triggered using the `riak-admin cluster leave` command.
 
 A gossip-based protocol 
 propagates membership changes and maintains an eventually consistent view of membership. Each node 
 contacts a peer chosen at random every second and the two nodes efficiently reconcile their persisted 
 membership change histories.
 
-# These *tokens* are *vnodes* (virtual nodes) in Riak.
+>Riak's ring state holds membership information, and is propgated via [gossiping](/riak/kv/2.1.4/learn/glossary/#gossiping), including random reconciliation, defaulting to once a minute.
 
 When a node starts for the first time, it chooses its set of tokens (virtual nodes in the consistent 
 hash space) and maps nodes to their respective token sets. The mapping is persisted on disk and initially 
@@ -901,13 +893,10 @@ partitioning and placement information also propagates via the gossip-based prot
 node is aware of the token ranges handled by its peers. This allows each node to forward a key’s read/write 
 operations to the right set of nodes directly.
 
-# To rectify these sorts of logical partitions, multiple Riak cluster changes (since 1.2.0) are
-# configured as one batch. Any changes must first be viewed `riak-admin cluster plan`,
-# then the changes are committed with `riak-admin cluster commit`. The new ring state is gossiped.
-# 
-# * [[The Node Join Process|Adding and Removing Nodes#The-Node-Join-Process]]
+>These tokens are vnodes (virtual nodes) in Riak.
 
-<h3>4.8.2 External Discovery</h3>
+
+#### 4.8.2 External Discovery
 
 The mechanism described above could temporarily result in a logically partitioned Dynamo ring. For 
 example, the administrator could contact node A to join A to the ring, then contact node B to join 
@@ -918,10 +907,12 @@ nodes. Because all nodes eventually reconcile their membership with a seed, logi
 highly unlikely. Seeds can be obtained either from static configuration or from a configuration 
 service. Typically seeds are fully functional nodes in the Dynamo ring.
 
-# Riak follows the same mechanism, by manually triggering permanent ring state changes, and gossiping
-# the new state.
+>To rectify these sorts of logical partitions, multiple Riak cluster changes are configured as one batch. Any changes must first be viewed `riak-admin cluster plan`, then the changes are committed with `riak-admin cluster commit`. The new ring state is gossiped.
+>
+> See [*The Node Join Process*](/riak/kv/2.1.4/using/cluster-operations/adding-removing-nodes/#joining-nodes-to-form-a-cluster) for more.
 
-<h3>4.8.3 Failure Detection</h3>
+
+#### 4.8.3 Failure Detection
 
 Failure detection in Dynamo is used to avoid attempts to communicate with unreachable peers during 
 get() and put() operations and when transferring partitions and hinted replicas. For the purpose of 
@@ -943,10 +934,10 @@ obviates the need for a global view of failure state. This is because nodes are 
 node additions and removals by the explicit node join and leave methods and temporary node failures are 
 detected by the individual nodes when they fail to communicate with others (while forwarding requests).
 
-# Riak does not randomly assign vnodes, but rather, iterates through the list of partitions, assigning
-# them to nodes in a round-robin style.
+> Riak follows the same mechanism, by manually triggering permanent ring state changes, and gossiping the new state.
 
-<h2>4.9 Adding/Removing Storage Nodes</h2>
+
+### 4.9 Adding/Removing Storage Nodes
 
 When a new node (say X) is added into the system, it gets assigned a number of tokens that are randomly 
 scattered on the ring. For every key range that is assigned to node X, there may be a number of nodes 
@@ -959,31 +950,20 @@ to store the keys in these respective ranges. Therefore, nodes B, C, and D will 
 from X transfer the appropriate set of keys. When a node is removed from the system, the reallocation of 
 keys happens in a reverse process.
 
+>Riak does not randomly assign vnodes, but rather, iterates through the list of partitions, assigning them to nodes in a round-robin style.
+
 Operational experience has shown that this approach distributes the load of key distribution uniformly 
 across the storage nodes, which is important to meet the latency requirements and to ensure fast 
 bootstrapping. Finally, by adding a confirmation round between the source and the destination, it 
 is made sure that the destination node does not receive any duplicate transfers for a given key range.
 
-# Riak is implemented in Erlang. Request coordination and membership behavior is defined by the
-# [Riak Core](http://github.com/basho/riak_core) project. These behaviors are implemented by
-# the [Riak KV](http://github.com/basho/riak_kv) project.
 
-<h1>5.Implementation</h1>
+## 5.Implementation
 
 In Dynamo, each storage node has three main software components: request coordination, membership and 
 failure detection, and a local persistence engine. All these components are implemented in Java.
 
-# Riak ships with various [[backend options|Choosing a Backend]]. [[Bitcask]] is the default, but [[LevelDB]]
-# and Main [[Memory]] are also used heavily in production (in that order). You can also
-# use more than one backend in production via the [[Multi]] backend configuration.
-# 
-# Bitcask is a fast and reliable choice, but does have some limitations at very large scales.
-# For larger clusters, you may want to choose LevelDB (which also supports [[secondary indexes|Using Secondary Indexes]]).
-# The Memory backend is an excellent choice when speed is important and durability is not. It also
-# has TTL support.
-#
-# We suggest looking into the [[Choosing a Backend]] document for more details on choosing
-# one particular backend over another.
+>Riak is implemented in Erlang. Request coordination and membership behavior is defined by the [Riak Core](http://github.com/basho/riak_core) project. These behaviors are implemented by the [Riak KV](http://github.com/basho/riak_kv) project.
 
 Dynamo’s local persistence component allows for different storage engines to be plugged in. 
 Engines that are in use are Berkeley Database (BDB) Transactional Data Store, BDB Java Edition, 
@@ -994,7 +974,10 @@ whereas MySQL can handle objects of larger sizes. Applications choose Dynamo’s
 engine based on their object size distribution. The majority of Dynamo’s production instances use 
 BDB Transactional Data Store.
 
-# Request coordination in Riak uses Erlang message passing, but follows a similar state machine.
+>Riak ships with various [backend options](/riak/kv/2.1.4/setup/planning/backend/). [Bitcask](/riak/kv/2.1.4/setup/planning/backend/bitcask/) is the default, but [LevelDB](/riak/kv/2.1.4/setup/planning/backend/leveldb/)and Main [Memory](/riak/kv/2.1.4/setup/planning/backend/memory/) are also used heavily in production (in that order). You can also use more than one backend in production via the [[Multi]] backend configuration.
+> 
+>Bitcask is a fast and reliable choice, but does have some limitations at very large scales. For larger clusters, you may want to choose LevelDB (which also supports [secondary indexes](/riak/kv/2.1.4/developing/usage/secondary-indexes/)). The Memory backend is an excellent choice when speed is important and durability is not. It also has TTL support.
+
 The request coordination component is built on top of an event-driven messaging substrate where the 
 message processing pipeline is split into multiple stages similar to the SEDA architecture [24]. All 
 communications are implemented using Java NIO channels. The coordinator executes the read and write 
@@ -1011,13 +994,15 @@ request, (iv) otherwise gather all the data versions and determine the ones to b
 that contains the vector clock that subsumes all the remaining versions. For the sake of brevity the 
 failure handling and retry states are left out.
 
-# Riak implements [[Read Repair|Replication#Read-Repair]]. 
+>Request coordination in Riak uses Erlang message passing, but follows a similar state machine. 
 
 After the read response has been returned to the caller the state machine waits for a small period of 
 time to receive any outstanding responses. If stale versions were returned in any of the responses, 
 the coordinator updates those nodes with the latest version. This process is called read repair because 
 it repairs replicas that have missed a recent update at an opportunistic time and relieves the anti-entropy 
 protocol from having to do it.
+
+>Riak implements [Read Repair|](/riak/kv/2.1.4/learn/concepts/replication/#read-repair).
 
 As noted earlier, write requests are coordinated by one of the top N nodes in the preference list. 
 Although it is desirable always to have the first node among the top N to coordinate the writes thereby 
@@ -1030,40 +1015,34 @@ request. This optimization enables us to pick the node that has the data that wa
 read operation thereby increasing the chances of getting “read-your-writes” consistency. It also reduces 
 variability in the performance of the request handling which improves the performance at the 99.9 percentile.
 
-# Much of this section relates to benchmarks run against Dynamo. You can run [[Basho Bench]]
-# against your own Riak cluster to discover your own optimal values.
 
-<h1>6. Experiences & Lessons Learned</h1>
+## 6. Experiences & Lessons Learned
+
+>Much of this section relates to benchmarks run against Dynamo. You can run [Basho Bench](/riak/kv/2.1.4/using/performance/benchmarking/) against your own Riak cluster to discover your own optimal values.
 
 Dynamo is used by several services with different configurations. These instances differ by their 
 version reconciliation logic, and read/write quorum characteristics. The following are the main 
 patterns in which Dynamo is used:
 
-# Riak currently supports simple conflict resolution by way of read-repair,
-# remanding more complex reconciliation to the client. There are several tools to help simplify 
-# this task, such as [Statebox](https://github.com/mochi/statebox_riak).
-#
-# The Riak team is in the process of adding support for a simply reconciliation strategy,
-# called CRDTs (Commutative Replicated Data Types) for reconciling common data types like
-# sets and counters.
-
-Business logic specific reconciliation: This is a popular use case for Dynamo. Each data object is 
+* Business logic specific reconciliation: This is a popular use case for Dynamo. Each data object is 
 replicated across multiple nodes. In case of divergent versions, the client application performs its 
 own reconciliation logic. The shopping cart service discussed earlier is a prime example of this 
 category. Its business logic reconciles objects by merging different versions of a customer’s 
 shopping cart.
 
-# Riak also supports this for high-performance cases where accuracy is less important than speed. 
+>Riak currently supports simple conflict resolution by way of read-repair, remanding more complex reconciliation to the client. There are several tools to help simplify this task, such as [Statebox](https://github.com/mochi/statebox_riak).
+>
+>The Riak team is in the process of adding support for a simply reconciliation strategy, called CRDTs (Commutative Replicated Data Types) for reconciling common data types like sets and counters. 
 
-Timestamp based reconciliation: This case differs from the previous one only in the reconciliation 
+* Timestamp based reconciliation: This case differs from the previous one only in the reconciliation 
 mechanism. In case of divergent versions, Dynamo performs simple timestamp based reconciliation 
 logic of “last write wins”; i.e., the object with the largest physical timestamp value is chosen 
 as the correct version. The service that maintains customer’s session information is a good example 
 of a service that uses this mode.
 
-# Riak can be used in this manner.
+>Riak also supports this for high-performance cases where accuracy is less important than speed.
 
-High performance read engine: While Dynamo is built to be an “always writeable” data store, a few 
+* High performance read engine: While Dynamo is built to be an “always writeable” data store, a few 
 services are tuning its quorum characteristics and using it as a high performance read engine. 
 Typically, these services have a high read request rate and only a small number of updates. 
 In this configuration, typically R is set to be 1 and W to be N. For these services, Dynamo 
@@ -1071,6 +1050,8 @@ provides the ability to partition and replicate their data across multiple nodes
 incremental scalability. Some of these instances function as the authoritative persistence cache 
 for data stored in more heavy weight backing stores. Services that maintain product catalog and 
 promotional items fit in this category.
+
+>Riak can be used in this manner.
 
 The main advantage of Dynamo is that its client applications can tune the values of N, R and W to 
 achieve their desired levels of performance, availability and durability. For instance, the value 
@@ -1089,8 +1070,6 @@ necessarily true here. For instance, the vulnerability window for durability can
 increasing W. This may increase the probability of rejecting requests (thereby decreasing 
 availability) because more storage hosts need to be alive to process a write request.
 
-# Ditto for Riak.
-
 The common (N,R,W) configuration used by several instances of Dynamo is (3,2,2). These values are 
 chosen to meet the necessary levels of performance, durability, consistency, and availability SLAs.
 
@@ -1102,7 +1081,9 @@ response R (or W) nodes need to respond to the coordinator. Clearly, the network
 datacenters affect the response time and the nodes (and their datacenter locations) are chosen such 
 that the applications target SLAs are met.
 
-<h2>6.1 Balancing Performance and Durability</h2>
+>Ditto for Riak.
+
+### 6.1 Balancing Performance and Durability
 
 While Dynamo’s principle design goal is to build a highly available data store, performance is an 
 equally important criterion in Amazon’s platform. As noted earlier, to provide a consistent customer 
@@ -1123,15 +1104,14 @@ Also, the 99.9th percentile latencies are around 200 ms and are an order of magn
 the averages. This is because the 99.9th percentile latencies are affected by several factors such 
 as variability in request load, object sizes, and locality patterns.
 
-<figure id="figure-4">
+**<figure id="figure-4">
 <img src="/images/dynamo/figure4.png">
 <figcaption>Figure 4: Average and 99.9 percentiles of latencies for read and write requests during our peak 
 request season of December 2006. The intervals between consecutive ticks in the x-axis correspond 
 to 12 hours. Latencies follow a diurnal pattern similar to the request rate and 99.9 percentile 
 latencies are an order of magnitude higher than averages.</figcaption>
-</figure>
+</figure>**
 
-# This is more similar to Riak's W value, since only DW requires a durable write to respond as a success.
 While this level of performance is acceptable for a number of services, a few customer-facing 
 services required higher levels of performance. For these services, Dynamo provides the ability 
 to trade-off durability guarantees for performance. In the optimization each storage node maintains 
@@ -1139,7 +1119,8 @@ an object buffer in its main memory. Each write operation is stored in the buffe
 written to storage by a writer thread. In this scheme, read operations first check if the requested key 
 is present in the buffer. If so, the object is read from the buffer instead of the storage engine.
 
-# Setting DW=1 will replicate this behavior.
+>This is more similar to Riak's W value, since only DW requires a durable write to respond as a success.
+
 This optimization has resulted in lowering the 99.9th percentile latency by a factor of 5 during 
 peak traffic even for a very small buffer of a thousand objects (see <a href="#figure-5">Figure 5</a>). Also, as seen in 
 the figure, write buffering smoothes out higher percentile latencies. Obviously, this scheme trades
@@ -1149,16 +1130,16 @@ coordinator choose one out of the N replicas to perform a “durable write”. S
 only for W responses, the performance of the write operation is not affected by the performance of the 
 durable write operation performed by a single replica.
 
-<figure id="figure-5">
+**<figure id="figure-5">
 <img src="/images/dynamo/figure5.png">
 <figcaption>Figure 5: Comparison of performance of 99.9th percentile latencies for buffered vs. non-buffered writes 
 over a period of 24 hours. The intervals between consecutive ticks in the x-axis correspond to one hour.</figcaption>
-</figure>
+</figure>**
 
-<h2>6.2 Ensuring Uniform Load distribution</h2>
+> Setting DW=1 will replicate this behavior.
 
-# Riak follows a SHA1 based consistent hashing for
-# [[partitioning|Replication#Understanding-replication-by-example]].
+
+### 6.2 Ensuring Uniform Load distribution
 
 Dynamo uses consistent hashing to partition its key space across its replicas and to ensure uniform 
 load distribution. A uniform key distribution can help us achieve uniform load distribution assuming 
@@ -1167,6 +1148,8 @@ where there is a significant skew in the access distribution there are enough ke
 of the distribution so that the load of handling popular keys can be spread across the nodes uniformly 
 through partitioning. This section discusses the load imbalance seen in Dynamo and the impact of 
 different partitioning strategies on load distribution.
+
+>Riak follows a SHA1 based consistent hashing for [partitioning](/riak/kv/2.1.4/learn/concepts/replication/#understanding-replication-by-example).
 
 To study the load imbalance and its correlation with request load, the total number of requests 
 received by each node was measured for a period of 24 hours - broken down into intervals of 30 
@@ -1181,18 +1164,16 @@ loads, a large number of popular keys are accessed and due to uniform distributi
 evenly distributed. However, during low loads (where load is 1/8th of the measured peak load), fewer 
 popular keys are accessed, resulting in a higher load imbalance.
 
-<figure id="figure-6">
+**<figure id="figure-6">
 <img src="/images/dynamo/figure6.png">
 <figcaption>Figure 6: Fraction of nodes that are out-of-balance (i.e., nodes whose request load is above a 
 certain threshold from the average system load) and their corresponding request load. The interval 
 between ticks in x-axis corresponds to a time period of 30 minutes.</figcaption>
-</figure>
+</figure>**
 
 <i>This section discusses how Dynamo’s partitioning scheme has evolved over time 
 and its implications on load distribution.</i>
 
-# Riak uses equal sized partitions with a round-robin distribution--not a variably-sized
-# partitions that are randomly distributed.
 <strong>Strategy 1:</strong> T random tokens per node and partition by token value: This was the initial strategy 
 deployed in production (and described in Section 4.2). In this scheme, each node is assigned T 
 tokens (chosen uniformly at random from the hash space). The tokens of all nodes are ordered 
@@ -1202,6 +1183,8 @@ lowest value in the hash space. Because the tokens are chosen randomly, the rang
 As nodes join and leave the system, the token set changes and consequently the ranges change. 
 Note that the space needed to maintain the membership at each node increases linearly with the 
 number of nodes in the system.
+
+>Riak uses equal sized partitions with a round-robin distribution--not a variably-sized partitions that are randomly distributed.
 
 While using this strategy, the following problems were encountered. First, when a new node joins 
 the system, it needs to “steal” its key ranges from other nodes. However, the nodes handing the 
@@ -1224,8 +1207,6 @@ the system in order to handle an increase in request load. However, in this scen
 possible to add nodes without affecting data partitioning. Ideally, it is desirable to use 
 independent schemes for partitioning and placement. To this end, following strategies were evaluated:
 
-# As before mentioned, Riak uses equal sized partitions, but not random distribution.
-
 <strong>Strategy 2:</strong> T random tokens per node and equal sized partitions: In this strategy, the hash space 
 is divided into Q equally sized partitions/ranges and each node is assigned T random tokens. Q is 
 usually set such that Q >> N and Q >> S*T, where S is the number of nodes in the system. In this 
@@ -1237,24 +1218,26 @@ while walking the ring from the end of the partition that contains key k1. The p
 this strategy are: (i) decoupling of partitioning and partition placement, and (ii) enabling the 
 possibility of changing the placement scheme at runtime.
 
-<figure id="figure-7">
+>As before mentioned, Riak uses equal sized partitions, but not random distribution.
+
+**<figure id="figure-7">
 <img src="/images/dynamo/figure7-small.png">
 <figcaption>Figure 7: Partitioning and placement of keys in the three strategies. A, B, and C depict the three 
 unique nodes that form the preference list for the key k1 on the consistent hashing ring (N=3). The 
 shaded area indicates the key range for which nodes A, B, and C form the preference list. Dark arrows 
 indicate the token locations for various nodes.</figcaption>
-</figure>
+</figure>**
 
-# Riak most closely follows strategy 3.
-# 
-# * [[The Node Join Process|Adding and Removing Nodes#The-Node-Join-Process]]
-# * [[Replacing a Node]]
 <strong>Strategy 3:</strong> Q/S tokens per node, equal-sized partitions: Similar to strategy 2, this strategy 
 divides the hash space into Q equally sized partitions and the placement of partition is decoupled 
 from the partitioning scheme. Moreover, each node is assigned Q/S tokens where S is the number of 
 nodes in the system. When a node leaves the system, its tokens are randomly distributed to the remaining 
 nodes such that these properties are preserved. Similarly, when a node joins the system it "steals" 
 tokens from nodes in the system in a way that preserves these properties.
+
+>Riak most closely follows strategy 3.
+> 
+> See [The Node Join Process](/riak/kv/2.1.4/using/cluster-operations/adding-removing-nodes/#joining-nodes-to-form-a-cluster) and [Replacing a Node](/riak/kv/2.1.4/using/cluster-operations/replacing-node/)
 
 The efficiency of these three strategies is evaluated for a system with S=30 and N=3. However, 
 comparing these different strategies in a fair manner is hard as different strategies have different 
@@ -1291,24 +1274,22 @@ requires retrieving the keys from individual nodes separately and is usually ine
 slow. The disadvantage of strategy 3 is that changing the node membership requires coordination 
 in order to preserve the properties required of the assignment.
 
-<figure id="figure-8">
+**<figure id="figure-8">
 <img src="/images/dynamo/figure8.png">
 <figcaption>Figure 8: Comparison of the load distribution efficiency of different strategies for system with 30 
 nodes and N=3 with equal amount of metadata maintained at each node. The values of the system size 
 and number of replicas are based on the typical configuration deployed for majority of our services.</figcaption>
-</figure>
+</figure>**
 
-<h2>6.3 Divergent Versions: When and How Many?</h2>
-
-# This first statement should be read carefully. It's probably more correct to say that Dynamo
-# (and Riak) provides no consistency guarantees, and allows users to trade availability for
-# durability/latency.
+### 6.3 Divergent Versions: When and How Many?
 
 As noted earlier, Dynamo is designed to tradeoff consistency for availability. To understand the 
 precise impact of different failures on consistency, detailed data is required on multiple factors: 
 outage length, type of failure, component reliability, workload etc. Presenting these numbers in 
 detail is outside of the scope of this paper. However, this section discusses a good summary metric: 
 the number of divergent versions seen by the application in a live production environment.
+
+>This first statement should be read carefully. It's probably more correct to say that Dynamo (and Riak) provides no consistency guarantees, and allows users to trade availability for durability/latency.
 
 Divergent versions of a data item arise in two scenarios. The first is when the system is facing 
 failure scenarios such as node failures, data center failures, and network partitions. The second is 
@@ -1329,12 +1310,7 @@ failures but due to the increase in number of concurrent writers. The increase i
 of concurrent writes is usually triggered by busy robots (automated client programs) and 
 rarely by humans. This issue is not discussed in detail due to the sensitive nature of the story.
 
-<h2>6.4 Client-driven or Server-driven Coordination</h2>
-
-# In Riak, a server-side load-balancer is an optional configuration. You generally use
-# either virtual IPs or reverse-proxies.
-# 
-# * [[Load Balancing|Planning for a Riak System#Network-Configuration-Load-Balancing]]
+### 6.4 Client-driven or Server-driven Coordination
 
 As mentioned in Section 5, Dynamo has a request coordination component that uses a state 
 machine to handle incoming requests. Client requests are uniformly assigned to nodes in the 
@@ -1345,18 +1321,10 @@ of creating a new version stamp that causally subsumes the version that has been
 the write request. Note that if Dynamo’s versioning scheme is based on physical timestamps, 
 any node can coordinate a write request.
 
-# Many [[client libraries]] provide built-in node request coordination.
-# 
-# For example, using the Ruby driver, you could specify three nodes like this:
-# 
-#     client = Riak::Client.new(nodes: [
-#       {host: '10.0.0.1'},
-#       {host: '10.0.0.2'},
-#       {host: '10.0.0.3'}
-#     ])
-#
-# Note that the Riak clients do not coordinate with Riak's preference list, but
-# simply round-robin requests, letting the Riak cluster handle routing.
+>In Riak, a server-side load-balancer is an optional configuration. You generally use either virtual IPs or reverse-proxies.
+>
+> See [Load Balancing](/riak/kv/2.1.4/configuring/load-balancing-proxy/) for more information.
+
 
 An alternative approach to request coordination is to move the state machine to the 
 client nodes. In this scheme client applications use a library to perform request 
@@ -1367,6 +1335,18 @@ can be coordinated at the client node thereby avoiding the extra network hop tha
 incurred if the request were assigned to a random Dynamo node by the load balancer. 
 Writes will either be forwarded to a node in the key’s preference list or can be coordinated 
 locally if Dynamo is using timestamps based versioning.
+
+>Many [client libraries](/riak/kv/2.1.4/developing/client-libraries/) provide built-in node request coordination.
+>
+>For example, using the Ruby driver, you could specify three nodes like this:
+>
+>     client = Riak::Client.new(nodes: [
+>       {host: '10.0.0.1'},
+>       {host: '10.0.0.2'},
+>       {host: '10.0.0.3'}
+>     ])
+>
+> Note that the Riak clients do not coordinate with Riak's preference list, but simply round-robin requests, letting the Riak cluster handle routing.
 
 An important advantage of the client-driven coordination approach is that a load balancer is no 
 longer required to uniformly distribute client load. Fair load distribution is implicitly 
@@ -1416,10 +1396,7 @@ response time, the gain in response time is higher for the 99.9th percentile tha
 </tr>
 </table>
 
-<h2>6.5 Balancing background vs. foreground tasks</h2>
-
-# Riak does this, too. For example, hinted handoff runs in the background at a low level, so as
-# not to overwhelm a cluster when nodes are added/removed.
+### 6.5 Balancing background vs. foreground tasks
 
 Each node performs different kinds of background tasks for replica synchronization and data handoff 
 (either due to hinting or adding/removing nodes) in addition to its normal foreground put/get 
@@ -1432,6 +1409,8 @@ resource (e.g. database), shared across all background tasks. A feedback mechani
 monitored performance of the foreground tasks is employed to change the number of slices that are 
 available to the background tasks.
 
+>Riak does this, too. For example, hinted handoff runs in the background at a low level, so as not to overwhelm a cluster when nodes are added/removed.
+
 The admission controller constantly monitors the behavior of resource accesses while executing a 
 "foreground" put/get operation. Monitored aspects include latencies for disk operations, failed database 
 accesses due to lock-contention and transaction timeouts, and request queue wait times. This information 
@@ -1443,7 +1422,7 @@ Subsequently, it decides on how many time slices will be available to background
 the feedback loop to limit the intrusiveness of the background activities. Note that a similar problem 
 of managing background tasks has been studied in [4].
 
-<h2>6.6 Discussion</h2>
+### 6.6 Discussion
 
 This section summarizes some of the experiences gained during the process of implementation and 
 maintenance of Dynamo. Many Amazon internal services have used Dynamo for the past two years and 
@@ -1451,8 +1430,6 @@ it has provided significant levels of availability to its applications. In parti
 have received successful responses (without timing out) for 99.9995% of its requests and no data loss 
 event has occurred to date.
 
-# This is equally true for Riak. As mentioned above, consider running [[Basho Bench]] to help
-# discover your optimal setup. Nothing will give you better numbers than real experimentation.
 Moreover, the primary advantage of Dynamo is that it provides the necessary knobs using the three 
 parameters of (N,R,W) to tune their instance based on their needs.. Unlike popular commercial data 
 stores, Dynamo exposes data consistency and reconciliation logic issues to the developers. At the 
@@ -1469,10 +1446,12 @@ overhead in maintaining the routing table increases with the system size. This l
 overcome by introducing hierarchical extensions to Dynamo. Also, note that this problem is actively 
 addressed by O(1) DHT systems(e.g., [14]).
 
-<h1>7. Conclusions</h1>
+>This is equally true for Riak. As mentioned above, consider running [Basho Bench](/riak/kv/2.1.4/using/performance/benchmarking/) to help discover your optimal setup. Nothing will give you better numbers than real experimentation.
 
-# This paper was an overview of Riak from a Dynamo point-of-view. To get a better sense of the
-# Riak ecosystem, read our ever-expanding [documentation](http://docs.basho.com).
+## 7. Conclusions
+
+>This paper was an overview of Riak from a Dynamo point-of-view. To get a better sense of the Riak ecosystem, read our ever-expanding [documentation](http://docs.basho.com).
+
 This paper described Dynamo, a highly available and scalable data store, used for storing state 
 of a number of core services of Amazon.com’s e-commerce platform. Dynamo has provided the desired 
 levels of availability and performance and has been successful in handling server failures, data 
@@ -1481,7 +1460,6 @@ to scale up and down based on their current request load. Dynamo allows service 
 their storage system to meet their desired performance, durability and consistency SLAs by allowing 
 them to tune the parameters N, R, and W.
 
-# Ditto for Riak, although we're way older than a year at this point!
 The production use of Dynamo for the past year demonstrates that decentralized techniques can be combined 
 to provide a single highly-available system. Its success in one of the most challenging application 
 environments shows that an eventual-consistent storage system can be a building block for highly-available 
