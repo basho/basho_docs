@@ -777,18 +777,20 @@ before returning the result to the client. If the coordinator ends up gathering 
 the data, it returns all the versions it deems to be causally unrelated. The divergent versions are 
 then reconciled and the reconciled version superseding the current versions is written back.
 
-># Same for Riak. Reconciling divergent versions in Riak is called [[Read Repair|Replication#Read-Repair]].
+>Same for Riak. Reconciling divergent versions in Riak is called [Read Repair](/riak/kv/2.1.4/learn/concepts/replication/#read-repair).
+
+
+### 4.6 Handling Failures: Hinted Handoff
 
 # [[Hinted handoff|Riak Glossary#Hinted-Handoff]] is built into Riak Core, and implemented by
 # Riak KV.
-
-<h2>4.6 Handling Failures: Hinted Handoff</h2>
 
 If Dynamo used a traditional quorum approach it would be unavailable during server failures and network 
 partitions, and would have reduced durability even under the simplest of failure conditions. To remedy 
 this it does not enforce strict quorum membership and instead it uses a “sloppy quorum”; all read and write 
 operations are performed on the first N healthy nodes from the preference list, which may not always be 
 the first N nodes encountered while walking the consistent hashing ring.
+
 
 # You can glimpse at Riak's preference list (or *preflist*) calculation in the
 # [[Replication]] walkthrough.
