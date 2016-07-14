@@ -39,5 +39,8 @@ A [rolling restart](../../repair-recovery/rolling-restart) will trigger a Solr r
 >
 > Please note the `riak attach` method below is a blocking, cluster-wide call but it will trigger a live reload of the Solr schema. New data will now contain the updated fields but existing data will not have their indexes updated.
 
-* Or starting a `riak attach` session running:
-  `yz_index:reload(<<"index_name">>).`
+You can also use `riak attach` to trigger a reload of the Solr schema. To do this, start a `riak attach` session then run:
+
+```erlang
+yz_index:reload(<<"index_name">>).
+```
