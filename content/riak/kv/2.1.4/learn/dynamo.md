@@ -11,8 +11,9 @@ menu:
     parent: "learn"
 toc: false
 aliases:
-  - /riak/2.1.4/theory/dynamo/
-  - /riak/kv/2.1.4/theory/dynamo/
+  - /riak/2.1.4/theory/dynamo
+  - /riak/kv/2.1.4/theory/dynamo
+  - /riak/latest/theory/dynamo
 canonical_link: "https://docs.basho.com/riak/kv/latest/learn/dynamo"
 ---
 
