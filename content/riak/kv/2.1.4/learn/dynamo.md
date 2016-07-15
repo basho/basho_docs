@@ -371,7 +371,7 @@ hosts at once.
 
 ## 3. Related Work
 
->This section is not strictly necessary to read for an understanding of how a Dynamo distributed database functions, especially Riak. It's still an excellent study of other distributed systems, in some cases ones that helped inspire Dynamo. When you have a moment, we highly recommend you read this section.
+>This section is not strictly necessary to read for an understanding of how a Dynamo distributed database functions, especially Riak. It's still an excellent study of other distributed systems, in some cases ones that helped inspire Dynamo. When you have time, we highly recommend you read this section.
 
 
 ### 3.1 Peer to Peer Systems
