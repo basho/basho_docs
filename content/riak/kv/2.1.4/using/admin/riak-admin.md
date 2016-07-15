@@ -28,7 +28,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/using/admin/riak-admin"
 [config reference#ring]: /riak/kv/2.1.4/configuring/reference/#ring
 [cluster ops inspect node]: /riak/kv/2.1.4/using/cluster-operations/inspecting-node
 [use ref monitoring]: /riak/kv/2.1.4/using/reference/statistics-monitoring
-[downgrade]: /riak/kv/2.1.4/setup/upgrading/downgrade
+[downgrade]: /riak/kv/2.1.4/setup/downgrade
 [security index]: /riak/kv/2.1.4/using/security/
 [security managing]: /riak/kv/2.1.4/using/security/managing-sources
 [cluster ops bucket types]: /riak/kv/2.1.4/using/cluster-operations/bucket-types

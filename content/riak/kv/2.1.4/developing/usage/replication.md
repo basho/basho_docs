@@ -20,7 +20,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage/replicat
 [concept eventual consistency]: /riak/kv/2.1.4/learn/concepts/eventual-consistency
 [plan backend leveldb]: /riak/kv/2.1.4/setup/planning/backend/leveldb
 [plan backend bitcask]: /riak/kv/2.1.4/setup/planning/backend/bitcask
-[use ref strong consistency]: /riak/2.1.4/using/reference/strong-consistency
+[use ref strong consistency]: /riak/kv/2.1.4/using/reference/strong-consistency
 [concept clusters]: /riak/kv/2.1.4/learn/concepts/clusters
 
 Riak was built to act as a multi-node [cluster][concept clusters].  It
@@ -49,12 +49,12 @@ replication levels to match your application and business needs.
 <div class="note">
 <div class="title">Note on strong consistency</div>
 An option introduced in Riak version 2.0 is to use Riak as a
-<a href="/riak/kv/2.1.4/using/reference/strong-consistency/">strongly consistent</a>
+<a href="http://docs.basho.com/riak/kv/2.1.4/using/reference/strong-consistency/">strongly consistent</a>
 system for data in specified buckets. Using Riak in this way is
 fundamentally different from adjusting replication properties and
 fine-tuning the availability/consistency trade-off, as it sacrifices
 <em>all</em> availability guarantees when necessary. Therefore, you
-should consult the <a href="/riak/kv/2.1.4/developing/app-guide/strong-consistency">Using
+should consult the <a href="http://docs.basho.com/riak/kv/2.1.4/developing/app-guide/strong-consistency/">Using
 Strong Consistency</a> documentation, as this option will not be covered
 in this tutorial.
 </div>
@@ -97,8 +97,8 @@ Parameter | Common name | Default value | Description
 `n_val` | N | `3` | Replication factor, i.e. the number of nodes in the cluster on which an object is to be stored
 `r` | R | `quorum` | The number of servers that must respond to a read request
 `w` | W | `quorum` | Number of servers that must respond to a write request
-`pr` | PR | `0` | The number of primary <a href="theory/concepts/vnodes">vnodes</a> that must respond to a read request
-`pw` | PW | `0` | The number of primary <a href="theory/concepts/vnodes">vnodes</a> that must respond to a write request
+`pr` | PR | `0` | The number of primary <a href="http://docs.basho.com/riak/kv/2.1.4/learn/concepts/vnodes/">vnodes</a> that must respond to a read request
+`pw` | PW | `0` | The number of primary <a href="http://docs.basho.com/riak/kv/2.1.4/learn/concepts/vnodes/">vnodes</a> that must respond to a write request
 `dw` | DW | `quorum` | The number of servers that must report that a write has been successfully written to disk
 `rw` | RW | `quorum` | If R and W are undefined, this parameter will substitute for both R and W during object deletes. It is extremely unlikely that you will need to adjust this parameter.
 `notfound_ok` | | `true` | This parameter determines how Riak responds if a read fails on a node. Setting to `true` (the default) is the equivalent to setting R to 1: if the first node to respond doesn't have a copy of the object, Riak will immediately return a `not found` error. If set to `false`, Riak will continue to look for the object on the number of nodes specified by N (aka `n_val`).

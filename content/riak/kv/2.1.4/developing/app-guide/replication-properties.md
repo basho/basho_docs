@@ -18,7 +18,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/developing/app-guide/repl
 
 [usage bucket types]: /riak/kv/2.1.4/developing/usage/bucket-types
 [concept eventual consistency]: /riak/kv/2.1.4/learn/concepts/eventual-consistency
-[use ref strong consistency]: /riak/2.1.4/using/reference/strong-consistency
+[use ref strong consistency]: /riak/kv/2.1.4/using/reference/strong-consistency
 [concept clusters]: /riak/kv/2.1.4/learn/concepts/clusters
 
 Riak was built to act as a multi-node [cluster][concept clusters].  It
@@ -89,8 +89,8 @@ Parameter | Common name | Default value | Description
 `n_val` | N | `3` | Replication factor, i.e. the number of nodes in the cluster on which an object is to be stored
 `r` | R | `quorum` | The number of servers that must respond to a read request
 `w` | W | `quorum` | Number of servers that must respond to a write request
-`pr` | PR | `0` | The number of primary <a href="theory/concepts/vnodes">vnodes</a> that must respond to a read request
-`pw` | PW | `0` | The number of primary <a href="theory/concepts/vnodes">vnodes</a> that must respond to a write request
+`pr` | PR | `0` | The number of primary <a href="http://docs.basho.com/riak/kv/2.1.4/learn/concepts/vnodes/">vnodes</a> that must respond to a read request
+`pw` | PW | `0` | The number of primary <a href="http://docs.basho.com/riak/kv/2.1.4/learn/concepts/vnodes/">vnodes</a> that must respond to a write request
 `dw` | DW | `quorum` | The number of servers that must report that a write has been successfully written to disk
 `rw` | RW | `quorum` | If R and W are undefined, this parameter will substitute for both R and W during object deletes. It is extremely unlikely that you will need to adjust this parameter.
 `notfound_ok` | | `true` | This parameter determines how Riak responds if a read fails on a node. Setting to `true` (the default) is the equivalent to setting R to 1: if the first node to respond doesn't have a copy of the object, Riak will immediately return a `not found` error. If set to `false`, Riak will continue to look for the object on the number of nodes specified by N (aka `n_val`).
@@ -555,8 +555,8 @@ vnodes responsible for an object.
 Scenario | What happens in Riak
 :--------|:--------------------
 All 3 vnodes agree on the value | Once the first 2 vnodes return the value, that value is returned to the client
-2 of 3 vnodes agree on the value, and those 2 are the first to reach the coordinating node | The value is returned to the client. Read repair will deal with the conflict per the later scenarios, which means that a future read may return a different value or <a href="theory/concepts/context#siblings">siblings</a>
-2 conflicting values reach the coordinating node and <a href="theory/concepts/context#vector-clocks">vector clocks</a> allow for resolution | The vector clocks are used to resolve the conflict and return a single value, which is propagated via read repair to the relevant vnodes
+2 of 3 vnodes agree on the value, and those 2 are the first to reach the coordinating node | The value is returned to the client. Read repair will deal with the conflict per the later scenarios, which means that a future read may return a different value or <a href="http://docs.basho.com/riak/kv/2.1.4/learn/concepts/causal-context/#siblings">siblings</a>
+2 conflicting values reach the coordinating node and <a href="http://docs.basho.com/riak/kv/2.1.4/learn/concepts/causal-context/#vector-clocks">vector clocks</a> allow for resolution | The vector clocks are used to resolve the conflict and return a single value, which is propagated via read repair to the relevant vnodes
 2 conflicting values reach the coordinating node, vector clocks indicate a fork in the object history, and `allow_mult` is set to `false` | The object with the most recent timestamp is returned and propagated via read repair to the relevant vnodes
 2 siblings or conflicting values reach the coordinating node, vector clocks indicate a fork in the object history, and `allow_mult` is set to `true` | All keys are returned as siblings, optionally with associated values (depending on how the request is made)
 

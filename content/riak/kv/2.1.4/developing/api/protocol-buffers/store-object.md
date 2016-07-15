@@ -59,7 +59,7 @@ Parameter | Description
 <div class="title">Note on defaults and special values</div>
 All of the optional parameters below have default values determined on a
 per-bucket basis. Please refer to the documentation on <a
-href="dev/references/protocol-buffers/set-bucket-props">setting bucket
+href="http://docs.basho.com/riak/kv/2.1.4/developing/api/protocol-buffers/set-bucket-props/">setting bucket
 properties</a> for more information.
 
 Furthermore, you can assign an integer value to the `w`, `dw`, `pr`, and
@@ -71,7 +71,7 @@ a special value denoting `one` (`4294967295-1`), `quorum`
 Parameter | Description
 :---------|:-----------
 `key` | The key to create/update. If not specified, Riak will generate a random key and return that key as part of the response to that request. 
-`vclock` | Opaque vector clock provided by an earlier <code><a href="theory/concepts/context">RpbGetResp</a></code> message. Omit if this is a new key or if you deliberately want to create a sibling.
+`vclock` | Opaque vector clock provided by an earlier `RpbGetResp` message. Omit if this is a new key or if you deliberately want to create a sibling.
 `w` | Write quorum, i.e. how many replicas to write to before returning a successful response
 `dw` | Durable write quorum, i.e. how many replicas to commit to durable storage before returning a successful response
 `return_body` | Whether to return the contents of the now-stored object. Defaults to `false`.

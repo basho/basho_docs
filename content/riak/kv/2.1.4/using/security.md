@@ -16,11 +16,20 @@ aliases:
 canonical_link: "https://docs.basho.com/riak/kv/latest/using/security"
 ---
 
+[config reference search]: /riak/kv/2.1.4/configuring/reference/#search
+[config search enabling]: /riak/kv/2.1.4/configuring/search/#enabling-riak-search
+[config v3 ssl]: /riak/kv/2.1.4/configuring/v3-multi-datacenter/ssl
+[JMX]: http://www.oracle.com/technetwork/java/javase/tech/javamanagement-140525.html
+[security basics]: /riak/kv/2.1.4/using/security/basics
+[security managing]: /riak/kv/2.1.4/using/security/managing-sources/
+[Solr]: http://lucene.apache.org/solr/
+[usage search]: /riak/kv/2.1.4/developing/usage/search
+
 > **Internal security**
 >
 > This document covers network-level security. For documentation on the
 authentication and authorization features introduced in Riak 2.0, see
-[Authentication and Authorization](/riak/kv/2.1.4/using/security/basics) and [Managing Security Sources](/riak/kv/2.1.4/using/security/managing-sources/)
+[Authentication and Authorization][security basics] and [Managing Security Sources][security managing]
 
 This article discusses standard configurations and port settings to use
 when providing network security for a Riak Cluster. There are two
@@ -95,18 +104,12 @@ cluster on the following TCP ports:
 
 Protocol | Port
 :--------|:----
-<a href="dev/references/http">HTTP</a> | TCP port 8098
-<a href="dev/references/protocol-buffers">Protocol Buffers</a> | TCP port 8087
+<a href="http://docs.basho.com/riak/kv/2.1.4/developing/api/http/">HTTP</a> | TCP port 8098
+<a href="http://docs.basho.com/riak/kv/2.1.4/developing/api/protocol-buffers/">Protocol Buffers</a> | TCP port 8087
 
 ### Riak Search Ports
 
-Riak's [search](/riak/kv/2.1.4/developing/usage/search/) feature relies on [Apache
-Solr](http://lucene.apache.org/solr/), which runs on each Riak node if
-security has been [enabled](/riak/kv/2.1.4/configuring/search/#enabling-riak-search). When Riak's Search subsystem starts up,
-[JMX](http://www.oracle.com/technetwork/java/javase/tech/javamanagement-140525.html)
-opens a well-known port as well as some ephemeral ports. The well-known
-port is determined by the value of the `search.solr.jmx_port` in each
-node's [Search configuration](/riak/kv/2.1.4/configuring/reference/#search). The default is 8985.
+Riak's [search][usage search] feature relies on [Apache Solr][Solr], which runs on each Riak node if security has been [enabled][config search enabling]. When Riak's Search subsystem starts up, [JMX][JMX] opens a well-known port as well as some ephemeral ports. The well-known port is determined by the value of the `search.solr.jmx_port` in each node's [Search configuration][config reference search]. The default is 8985.
 
 In addition to JMX ports, Solr also binds to a well-known port of its
 own, as determined by each node's `search.solr.port` setting, which is
@@ -199,13 +202,13 @@ HtU5clY0rP8W/Nr7tC+ZGH2bjT1bmN1E9IM4wjBdyWGTosvY6ciIxuY5p5Iy/UhB
 ### Authentication and Authorization
 
 For instructions on how to apply permissions and to require client
-authentication, please see our documentation on [Riak Security](/riak/kv/2.1.4/using/security/basics).
+authentication, please see our documentation on [Riak Security][security basics].
 
 ### Network Configurations
 
 Being a distributed database means that much of Riak's security springs
 from how you configure your network. We have a few recommendations for
-[Security and Firewalls](/riak/kv/2.1.4/using/security/basics).
+[Security and Firewalls][security basics].
 
 ### Client Auth
 
@@ -219,5 +222,5 @@ For those versions of Riak that support Multi Data Center (MDC)
 Replication, you can configure Riak 1.2+ to communicate over SSL, to
 seamlessly encrypt the message traffic.
 
-See also: [Multi Data Center Replication: SSL](/riak/kv/2.1.4/configuring/v3-multi-datacenter/ssl) in the Enterprise
+See also: [Multi Data Center Replication: SSL][config v3 ssl] in the Enterprise
 Documentation.

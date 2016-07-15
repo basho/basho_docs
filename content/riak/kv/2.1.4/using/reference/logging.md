@@ -17,12 +17,18 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/using/reference/logging"
 ---
 
 [cluster ops log]: /riak/kv/2.1.4/using/cluster-operations/logging
+[config reference lager]: /riak/kv/2.1.4/configuring/reference/#lager
+[Erlang]: http://www.erlang.org
+[facility level]: http://en.wikipedia.org/wiki/Syslog#Facility_levels
+[install source index]: /riak/kv/2.1.4/setup/installing/source
+[lager]: https://github.com/basho/lager
+[SASL]: http://www.erlang.org/doc/man/sasl_app.html
+[use admin riak cli attach direct]: /riak/kv/2.1.4/using/admin/riak-cli/#attach-direct
 
 Logging in Riak KV is handled by a Basho-produced logging framework for
-[Erlang](http://www.erlang.org) called
-[lager](https://github.com/basho/lager).
+[Erlang][Erlang] called [lager][lager].
 
-lager provides a number of configuration options that you can use to fine-tune your Riak cluster's logging output. A compact listing of parameters can be found in our [configuration files](/riak/kv/2.1.4/configuring/reference/#lager) documentation. A more thorough explanation of these options can be found in this document.
+lager provides a number of configuration options that you can use to fine-tune your Riak cluster's logging output. A compact listing of parameters can be found in our [configuration files][config reference lager] documentation. A more thorough explanation of these options can be found in this document.
 
 ## Log Directory
 
@@ -46,8 +52,8 @@ File | Significance
 :----|:------------
 `console.log` | Console log output
 `crash.log` | Crash logs
-`erlang.log` | Logs emitted by the <a href="ops/tuning/erlang">Erlang VM</a> on which Riak runs.
-`error.log` | <a href="ops/running/recovery/errors">Common errors</a> emitted by Riak.
+`erlang.log` | Logs emitted by the <a href="http://docs.basho.com/riak/kv/2.1.4/using/performance/erlang/">Erlang VM</a> on which Riak runs.
+`error.log` | <a href="http://docs.basho.com/riak/kv/2.1.4/using/repair-recovery/errors/">Common errors</a> emitted by Riak.
 `run_erl.log` | The log file for an Erlang process called `run_erl`. This file can typically be ignored.
 
 ## Log Syntax
@@ -110,7 +116,7 @@ writing to `erlang.log.2`, then `erlang.log.3`, and so on. When
 
 ## SASL
 
-[SASL](http://www.erlang.org/doc/man/sasl_app.html) (System Architecture
+[SASL][SASL] (System Architecture
 Support Libraries) is Erlang's built-in error logger. You can enable it
 and disable it using the `sasl` parameter (which can be set to `on` or
 `off`). It is disabled by default. The following would enable it:
@@ -229,7 +235,7 @@ which are listed in the table below. The default is `info`.
 * `warning`
 
 In addition to a log level, you must also select a [facility
-level](http://en.wikipedia.org/wiki/Syslog#Facility_levels) for syslog
+level][facility level] for syslog
 messages amongst the available levels, which are listed in the table
 below. The default is `daemon`.
 
@@ -260,11 +266,11 @@ or to neither. This is determined by the value that you give to the
 * `file` --- Console logs will be emitted to a file. This is Riak's
     default behavior. The location of that file is determined by the
     `log.console.file` parameter. The default location is
-    `./log/console.log` on an installation from [source](/riak/kv/2.1.4/setup/installing/source), but will differ on platform-specific installation,
+    `./log/console.log` on an installation from [source][install source index], but will differ on platform-specific installation,
     e.g.  `/var/log/riak` on Ubuntu, Debian, CentOS, and RHEL or
     `/opt/riak/log` on Solaris-based platforms.
 * `console` --- Console logs will be emitted to standard output, which
-    can be viewed by running the [`riak attach-direct`](/riak/kv/2.1.4/using/admin/riak-cli/#attach-direct) command
+    can be viewed by running the [`riak attach-direct`][use admin riak cli attach direct] command
 * `both` --- Console logs will be emitted both to a file and to standard
     output
 * `off` --- Console log messages will be disabled

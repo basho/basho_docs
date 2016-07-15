@@ -18,7 +18,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage/secondar
 
 [plan backend leveldb]: /riak/kv/2.0.7/setup/planning/backend/leveldb
 [plan backend memory]: /riak/kv/2.0.7/setup/planning/backend/memory
-[use ref strong consistency]: /riak/2.1.3/using/reference/strong-consistency
+[use ref strong consistency]: /riak/kv/2.0.7/using/reference/strong-consistency
 
 > **Note: Riak Search preferred for querying**
 >
