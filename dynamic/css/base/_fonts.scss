@@ -20,8 +20,12 @@
 /*TODO: Come up with some decent serif fallbacks. */
 
 /* Convenience Classes that actual Font Styles */
-%sans { @extend %OpenSans; }
-%serif { @extend %GandhiSerif; }
+%sans        { @extend %OpenSans; }
+%sans-bold   { @extend %OpenSans-Bold; }
+%sans-italic { @extend %OpenSans-Italic; }
+%serif        { @extend %GandhiSerif; }
+%serif-bold   { @extend %GandhiSerif-Bold; }
+%serif-italic { @extend %GandhiSerif-Italic; }
 
 
 %GandhiSerif {
