@@ -22,8 +22,8 @@ You can install Riak CS on a single node (for development purposes) or
 using an automated deployment tool. Any Riak CS installation involves
 three components, all of which must be installed separately:
 
-* [Riak](http://docs.basho.com/riak/2.0.5/) --- The distributed
-  database on top of which Riak CS is built
+* [Riak KV](/riak/2.1.4/) --- The distributed database on top of which Riak CS 
+is built
 * Riak CS itself
 * [Stanchion](/riak/cs/2.1.0/theory/stanchion) --- An application used to manage [globally unique entities](/riak/cs/2.1.0/theory/stanchion/#globally-unique-entities) such as users and buckets.
 
@@ -31,58 +31,31 @@ three components, all of which must be installed separately:
 
 ## Version Compatibility
 
-The following combinations of Riak CS, Riak, and Stanchion are known to
-function well in production environments. Riak CS 2.0.0 requires
-Riak 2.0.5 or above
-
-Riak CS | Riak  | Stanchion
-:-------|:------|:---------
-1.2.2   | 1.2.1 | 1.2.2
-1.2.2   | 1.3.0 | 1.2.2
-1.3.0   | 1.2.1 | 1.2.2
-1.3.0   | 1.3.0 | 1.3.0
-1.4.0   | 1.4.0 | 1.4.0
-1.4.0   | 1.4.1 | 1.4.0
-1.4.5   | 1.4.8 | 1.4.3
-1.5.0   | 1.4.10 | 1.5.0
-1.5.1   | 1.4.10 | 1.5.0
-1.5.2   | 1.4.10 | 1.5.0
-1.5.3   | 1.4.12 | 1.5.0
-1.5.4   | 1.4.12 | 1.5.0
-2.0.0   | 2.0.5  | 2.0.0
-2.1.0   | 2.1.0  | 2.1.0
-
-We strongly recommend using one of the version combinations listed above
+We strongly recommend using one of the documented [version combinations](/riak/cs/2.1.0/cookbooks/version-compatibility/) 
 when installing and running Riak CS.
 
-## Installing Riak
+## Installing Riak KV
 
-Before installing Riak CS, Riak itself must be installed on each node in
-your cluster. The first step in installing Riak is to make sure that you
-have Erlang installed. Instructions for all supported operating systems
-can be found in [Installing Erlang](/riak/kv/2.1.3/setup/installing/source/erlang).
+Before installing Riak CS, Riak KV must be installed on each node in
+your cluster. You can install Riak KV either as part of an OS-specific package
+or from source.
 
-Once Erlang has been installed on a node, you can install Riak either as
-part of an OS-specific package or from source.
-
-  * [Debian and Ubuntu](/riak/kv/2.1.3/setup/installing/debian-ubuntu)
-  * [RHEL and CentOS](/riak/kv/2.1.3/setup/installing/rhel-centos)
-  * [Mac OS X](/riak/kv/2.1.3/setup/installing/mac-osx)
-  * [FreeBSD](/riak/kv/2.1.3/setup/installing/freebsd)
-  * [SUSE](/riak/kv/2.1.3/setup/installing/suse)
-  * [From Source](/riak/kv/2.1.3/setup/installing/source)
+  * [Debian and Ubuntu](/riak/kv/2.1.4/setup/installing/debian-ubuntu)
+  * [RHEL and CentOS](/riak/kv/2.1.4/setup/installing/rhel-centos)
+  * [Mac OS X](/riak/kv/2.1.4/setup/installing/mac-osx)
+  * [FreeBSD](/riak/kv/2.1.4/setup/installing/freebsd)
+  * [SUSE](/riak/kv/2.1.4/setup/installing/suse)
+  * [From Source](/riak/kv/2.1.4/setup/installing/source)
 
 Riak is also officially supported on the following public cloud
 infrastructures:
 
-  * [Windows Azure](/riak/kv/2.1.3/setup/installing/windows-azure)
-  * [AWS Marketplace](/riak/kv/2.1.3/setup/installing/amazon-web-services)
+  * [Windows Azure](/riak/kv/2.1.4/setup/installing/windows-azure)
+  * [AWS Marketplace](/riak/kv/2.1.4/setup/installing/amazon-web-services)
 
 Remember that you must repeat this installation process on each node in
-your cluster. For future reference, you should make note of the
-installation directory that you have used. On Debian, Ubuntu, RHEL, and
-CentOS, for example, Riak is installed in `rel/riak` by default, whereas
-Mac OS X does not have a default install directory.
+your cluster. For future reference, you should make note of the Riak KV
+installation directory.
 
 If you want to fully configure Riak KV prior to installing Riak CS, see our
 documentation on [configuring Riak KV for CS](/riak/cs/2.1.0/cookbooks/configuration/riak-for-cs/).
@@ -90,7 +63,7 @@ documentation on [configuring Riak KV for CS](/riak/cs/2.1.0/cookbooks/configura
 ## Installing Riak CS on a Node
 
 Riak CS and Stanchion packages are available on the [Download Riak CS](/riak/cs/2.1.0/downloads/)
-page. Similarly, Riak packages are available on the [Download Riak KV](/riak/kv/2.1.3/downloads/) page.
+page. Similarly, Riak packages are available on the [Download Riak KV](/riak/kv/2.1.4/downloads/) page.
 
 After downloading Riak CS, Stanchion, and Riak, install them using your
 operating system's package management commands.
