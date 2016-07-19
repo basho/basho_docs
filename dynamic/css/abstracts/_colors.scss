@@ -20,25 +20,28 @@
 /// CSS rework has been completed.
 ////
 
-$orange-red      : #a92a0e;
-$orange-darker   : #e67716;
-$orange-dark     : #dc7d00; // Primary Brand
-$orange          : #fa9e25;
-$orange-light    : #fcc16f;
-$orange-lighter  : #fecb82;
-$orange-lightest : #ffd190;
+$orange-text       : #dc7d00; // Primary Brand Text  -- text on orange BGs
+$orange-text-light : #e67716; // Lighter Brand Text  -- text on white  BGs
+$orange-red        : #a92a0e; // Highlight Text
 
-$cyan-dark       : #6b8997; // Secondary Brand
-$cyan            : #79afb7;
-$cyan-light      : #bcd6d0;
+$orange-dark       : #e78505;
+$orange            : #fa9e25; // Primary Brand Color -- text on dark BGs
+$orange-light      : #fcc16f;
+$orange-lighter    : #fecb82; // Basho.com primary BG color
+$orange-lightest   : #ffd190;
 
-$green-dark      : #5a7772;
-$green           : #70928c;
-$green-light     : #88b3a8;
+$cyan-darker       : #4b616b;
+$cyan-dark         : #6b8997; // Secondary Brand Color
+$cyan              : #79afb7;
+$cyan-light        : #bcd6d0;
 
-$blue-dark       : #2984a9;
-$blue            : #8cbbe2;
-$blue-light      : #c3e3fd;
+$green-dark        : #5a7772;
+$green             : #70928c;
+$green-light       : #88b3a8;
+
+$blue-dark         : #2984a9;
+$blue              : #8cbbe2;
+$blue-light        : #c3e3fd;
 
 // These grays (and yes; gray, not grey. I'm American, so that's how I'll spell
 // it) were generated using `~rgb(n-3%, n%, n+3%)` where `n` is the given
