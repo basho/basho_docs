@@ -83,7 +83,7 @@ put(Pid::pid(),
         ok | {error, Reason::term()}
 ```
 
-Make data records and insert them individually into a Riak TS table using client PID. Each record is a list of values of appropriate types for the complete set of table columns in the order in which they appear in table's DDL. Successful PUTs will return 'ok', while unsuccessful PUTs return an `{error, Reason}` tuple.
+Make data records and insert them individually into a Riak TS table using client PID. Each record is a tuple of values of appropriate types for the complete set of table columns in the order in which they appear in table's DDL. Successful PUTs will return 'ok', while unsuccessful PUTs return an `{error, Reason}` tuple.
 
 >**Note:** Type validation is done on the first record only. If any subsequent record contains fewer or more elements than there are columns, or some element fails to convert to the appropriate type, the rest of the records will not get inserted.
 
