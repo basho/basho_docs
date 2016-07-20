@@ -22,14 +22,3 @@ Disallow: /riak/1.4.6/
 Disallow: /riak/1.4.7/
 Disallow: /riak/1.4.8/
 Disallow: /riak/1.4.9/
-Disallow: /riak/2.0.0/
-Disallow: /riak/2.0.1/
-Disallow: /riak/2.0.2/
-Disallow: /riak/2.0.3/
-Disallow: /riak/2.0.4/
-Disallow: /riak/2.0.5/
-Disallow: /riak/2.0.6/
-Disallow: /riak/2.1.1/
-Disallow: /riak/2.1.3/
-Disallow: /riak/2.1.4/
-Disallow: /java/
