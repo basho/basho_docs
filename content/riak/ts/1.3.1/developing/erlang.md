@@ -19,6 +19,10 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/developing/erlang"
 You can develop applications and tools using Riak TS with the Riak Erlang client.
 This document covers the Erlang API for Riak TS.
 
+Language | Source | Documentation | Download
+:--------|:-------|:--------------|:--------
+Erlang | [riak-erlang-client (riakc)](https://github.com/basho/riak-erlang-client) | [edoc](http://basho.github.com/riak-erlang-client/) | [GitHub](https://github.com/basho/riak-erlang-client)
+
 
 ## Data Types
 

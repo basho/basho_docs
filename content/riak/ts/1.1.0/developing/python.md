@@ -25,6 +25,10 @@ To use Riak TS with the Python client, we've added 5 new operations to the `riak
 
 The Riak TS API is only available through Protocol Buffers and not HTTP, so please set up your Python client accordingly.
 
+Language | Source | Documentation | Download
+:--------|:-------|:--------------|:--------
+Python | [riak-python-client](https://github.com/basho/riak-python-client) | [sphinx](http://basho.github.com/riak-python-client) | [PyPI](http://pypi.python.org/pypi?:action=display&name=riak#downloads)
+
 
 ## Prerequisites
 

@@ -24,6 +24,10 @@ This document covers the .NET API for Riak TS.
 
 The `RiakClient.Commands.TS` namespace covers the public API for Riak TS in the .NET client.
 
+Language | Source | Documentation | Download
+:--------|:-------|:--------------|:--------
+C# | [riak-dotnet-client](https://github.com/basho/riak-dotnet-client) | [api docs](http://basho.github.io/riak-dotnet-client-api/), [wiki](https://github.com/basho/riak-dotnet-client/wiki) | [NuGet package](http://www.nuget.org/List/Packages/RiakClient), [GitHub Releases](https://github.com/basho/riak-dotnet-client/releases)
+
 
 ## Data Types
 

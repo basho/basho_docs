@@ -25,6 +25,10 @@ This document covers the Node.js API for Riak TS.
 To use Riak TS with Node.js, we've added several new commands in
 the `Riak.Commands.TS` namespace.
 
+Language | Source | Documentation | Download
+:--------|:-------|:--------------|:--------
+Node.js | [riak-nodejs-client](https://github.com/basho/riak-nodejs-client) | [api docs](http://basho.github.com/riak-nodejs-client/), [wiki](https://github.com/basho/riak-nodejs-client/wiki) | [NPM](https://www.npmjs.com/package/basho-riak-client), [GitHub Releases](https://github.com/basho/riak-nodejs-client/releases)
+
 
 ## TS Commands
 

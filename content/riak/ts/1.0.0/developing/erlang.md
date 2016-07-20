@@ -18,6 +18,10 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/developing/erlang"
 
 You can develop with Riak TS through the Erlang client. This document covers the Erlang protobuf requests to Riak TS.
 
+Language | Source | Documentation | Download
+:--------|:-------|:--------------|:--------
+Erlang | [riak-erlang-client (riakc)](https://github.com/basho/riak-erlang-client) | [edoc](http://basho.github.com/riak-erlang-client/) | [GitHub](https://github.com/basho/riak-erlang-client)
+
 
 ## Data Types
 
