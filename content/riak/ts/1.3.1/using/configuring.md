@@ -27,7 +27,7 @@ Benchmarking of your use cases and traffic load is recommended when changing the
 
 ### Timeout
 
-Use `timeseries_query_timeout_ms` to configure the timeout (in milliseconds) for queries, after which a timeout error is returned.
+Use `timeseries_query_timeout_ms` to configure the timeout (in milliseconds) for queries, after which a timeout error is returned. The default is 10000.
 
 ```riak.conf
 timeseries_query_timeout_ms = 10000
@@ -36,22 +36,23 @@ timeseries_query_timeout_ms = 10000
 
 ### Maximum quanta
 
-Use `timeseries_query_max_quanta_span` to configure the maximum number of quanta that a query can span
+Use `timeseries_query_max_quanta_span` to configure the maximum number of quanta that a query can span. The default is 5.
 
 ```
-timeseries_query_max_quanta_span = 3
+timeseries_query_max_quanta_span = 5
 ```
 
-For example, if you set `QUANTUM(time, 15, 'm')` in your TS table, setting `timeseries_query_max_quanta_span` to '5' would allow a query to return results within a time span of 75 minutes. If a query has a larger time span, the error `too_many_subqueries` will show and the query will not run.
+You should set this parameter to be one more than your desired timespan, else a fraction of your queries will fall outside your `timeseries_query_max_quanta_span` window. In general, your timespan won't be an integer multiple of the quantum, so if your maximum size query is dtmax, and your quantum size is Q, then we recommend: 
+max_quanta = ceil(dtmax / Q + 1.0). 
 
-This option is intended to prevent excessively long-running queries that could affect the performance of the cluster.
+If a query has a larger time span than your specified maximum, the error `too_many_subqueries` will show and the query will not run. This option is intended to prevent excessively long-running queries that could affect the performance of the cluster.
 
 The maximum allowable value is 256.
 
 
 ### Maximum queries
 
-Use `timeseries_max_concurrent_queries` to set the maximum number of queries that can run concurrently per node. The total number of queries that can be run on a cluster is the number of nodes multiplied by the `timeseries_max_concurrent_queries` value. This constraint is to prevent an unbounded number of queries overloading the cluster.
+Use `timeseries_max_concurrent_queries` to set the maximum number of queries that can run concurrently per node. The default is 3. The total number of queries that can be run on a cluster is the number of nodes multiplied by the `timeseries_max_concurrent_queries` value. This constraint is to prevent an unbounded number of queries overloading the cluster.
 
 ```
 timeseries_max_concurrent_queries = 3
