@@ -42,7 +42,7 @@ backend that uses very few file handles, it's possible to run out. See
 To install Riak TS on your Mac, [download] the package and then run:
 
 ```bash
-tar zxvf riak-ts-1.3.0-OSX-x86_64.tar
+tar zxvf riak-ts-1.3.0-OSX-x86_64.tar.gz
 cd riak-ts-1.3.0
 ```
 
