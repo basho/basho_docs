@@ -25,18 +25,18 @@ There are many ways to interact with and use Riak TS. This page will give recomm
 
 ## TS Table Schema
 
-One of the first things you will encounter in setting up Riak TS is defining a TS table's schema.  You use Data Definition Language (DDL), specifically the `CREATE TABLE` statement, to create a new table. When you create a TS Table, the data structure provided in the `CREATE TABLE` statement is compiled and passed around the Riak TS cluster.
+One of the first things you will encounter in setting up Riak TS is defining a TS table's schema.  You use the Data Definition Language (DDL), specifically the `CREATE TABLE` statement, to create a new table. When you create a TS Table, the data structure provided in the `CREATE TABLE` statement is compiled and passed around the Riak TS cluster.
 
-The design of your TS table schema is really important because:
+The design of your TS table schema is important because:
 
 1. The values you choose for the [partition key][table arch] will impact the speed of your query returns.
 2. Once activated, the TS table schema cannot be changed.
 
-To help speed the performance of Riak TS and avoid destroying and recreating tables to change their definitions, think about the most common queries you will be executing and what tools you will be using to process the data. The answers to those will determine what values you use in the [primary key][table arch].
+To help improve the performance of Riak TS and avoid destroying and recreating tables to change their definitions, think about the most common queries you will be executing and what tools you will be using to process the data. The answers to those questions will determine what values you use in the [primary key][table arch].
 
-For instance, let’s say we have a time series database storing information about air quality for a given location. The data coming in from sensors in given locations includes: geohash for location, timestamp, levels of CO2, smog particles in the air, temperature, and humidity.
+For instance, let's say we have a time series database storing information about air quality for a given location. The data coming in from sensors in given locations includes: geohash for location, timestamp, levels of CO2, smog particles in the air, temperature, and humidity.
 
-The most common queries we’ll have will be to determine, for a given location and timeframe, the spikes in O2 for a given temperature. Since our use case requires fast reads, we’ll choose to correlate data with Spark. In that case, we’ll choose to use geohash location and timestamp for the first and second fields in the partition key, since queries are faster on partition key. And we’ll put CO2, smog, temperature, and humidity data as [secondary fields][table arch].
+The most common queries we'll have will be to determine, for a given location and timeframe, the spikes in O2 for a given temperature. Since our use case requires fast reads, we'll choose to correlate data with Spark. In that case, we'll choose to use geohash location and timestamp for the first and second fields in the partition key, since queries are faster on partition key. And we'll put CO2, smog, temperature, and humidity data as [secondary fields][table arch].
 
 
 ## Quantum

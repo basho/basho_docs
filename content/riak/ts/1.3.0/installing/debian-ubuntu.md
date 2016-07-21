@@ -24,9 +24,9 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/installing/debian-ubuntu"
 Riak TS can be installed on Debian or Ubuntu-based systems using a binary
 package available [here][download].
 
->**Important**
->
->Debian is only supported for developing with Riak TS and NOT for general operations.
+{{% note %}}
+Debian is only supported for developing with Riak TS and NOT for general operations.
+{{% /note %}}.
 
 
 ## Dependencies

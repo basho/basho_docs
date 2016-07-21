@@ -1,4 +1,4 @@
----
+'---
 title: "Riak TS Best Practices"
 description: "Riak TS Best Practices"
 menu:
@@ -34,9 +34,9 @@ The design of your TS table schema is really important because:
 
 To help speed the performance of Riak TS and avoid destroying and recreating tables to change their definitions, think about the most common queries you will be executing and what tools you will be using to process the data. The answers to those will determine what values you use in the [primary key][table arch].
 
-For instance, let’s say we have a time series database storing information about air quality for a given location. The data coming in from sensors in given locations includes: geohash for location, timestamp, levels of CO2, smog particles in the air, temperature, and humidity.
+For instance, let's say we have a time series database storing information about air quality for a given location. The data coming in from sensors in given locations includes: geohash for location, timestamp, levels of CO2, smog particles in the air, temperature, and humidity.
 
-The most common queries we’ll have will be to determine, for a given location and timeframe, the spikes in O2 for a given temperature. Since our use case requires fast reads, we’ll choose to correlate data with Spark. In that case, we’ll choose to use geohash location and timestamp for the first and second fields in the partition key, since queries are faster on partition key. And we’ll put CO2, smog, temperature, and humidity data as [secondary fields][table arch].
+The most common queries we'll have will be to determine, for a given location and timeframe, the spikes in O2 for a given temperature. Since our use case requires fast reads, we'll choose to correlate data with Spark. In that case, we'll choose to use geohash location and timestamp for the first and second fields in the partition key, since queries are faster on partition key. And we'll put CO2, smog, temperature, and humidity data as [secondary fields][table arch].
 
 
 ## Quantum
