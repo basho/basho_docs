@@ -40,11 +40,11 @@ PRIMARY KEY  ((a, QUANTUM(b, 1, 's'))<-Partition Key, a,b,c)<-Local Key)
 
 ### Partition Key
 
-All queries must cover the partition key.
+All queries must cover the partition key fields and must use greater than and less than (>, >=, <, <=).
 
-The query must use greater than and less than (>, >=, <, <=).
+All unquantized fields in your partition key must be included in the query as exact matches.
 
-The timestamp in the partition key is an integer (in milliseconds) that must be compared either as a fully-enclosed range or as an exact match.
+Any quantized field in your partition key must be included in the query as either an exact match or a bounded range.
 
 * Valid: `time > 1449864277000 and time < 1449864290000`
 * Invalid: `time > 1449864277000`
@@ -53,7 +53,9 @@ The timestamp in the partition key is an integer (in milliseconds) that must be 
 
 ### Local Key
 
-Column names that are in the local key but not in the partition key are not required for the query.
+For any field in the local key that is not in the partition key, your
+query can include any operator supported for that field's type and
+bounded ranges are not required.
 
 ```
 PRIMARY KEY ((a,b),a,b,c)
