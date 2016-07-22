@@ -1,58 +1,59 @@
 ###########################
 # Deploy rules and helpers
 
+$archive_name = "archived_docs.basho.com.tar.bz2"
+
 def do_fetch_archived_content()
   # Fetch and extract the archived content that we want to survive from the
   # Middleman website.
   puts("Verifying archived content...")
   # Verify that the tar.bz2 is present.
-  if (not File.file?(File.join(Dir.pwd, "archived_docs.basho.com.tar.bz2")))
+  if (not File.file?(File.join(Dir.pwd, "#{$archive_name}")))
     if (`which wget`.empty?)
       # If we don't have wget. Error out.
-      Kernel.abort("ERROR: archived_docs.basho.com.tar.bz2 was not found, "\
-                   "and this system doesn't have access to `wget`.\n"\
+      Kernel.abort("ERROR: #{$archive_name} was not found, and this system "\
+                   "does not have access to `wget`.\n"\
                    "       Please either install `wget` and re-run this "\
                    "deploy, or manually download the file from the below "\
                    "address and place it into this directory.\n"\
-                   "    http://s3.amazonaws.com/downloads.basho.com/documentation_content/archived_docs.basho.com.tar.bz2")
+                   "    http://s3.amazonaws.com/downloads.basho.com/documentation_content/#{$archive_name}")
     else
       # We have wget, but not the file. Fetch it.
-      puts("  Using wget to fetch archived_docs.basho.com.tar.bz2 "\
+      puts("  Using wget to fetch #{$archive_name} "\
            "(this may take some time)...")
-      successful = system('wget http://s3.amazonaws.com/downloads.basho.com/documentation_content/archived_docs.basho.com.tar.bz2')
+      successful = system("wget http://s3.amazonaws.com/downloads.basho.com/documentation_content/#{$archive_name}")
+
       if (not successful)
-        Kernel.abort("ERROR: Failed to get archived_docs.basho.com.tar.bz2\n"\
+        Kernel.abort("ERROR: Failed to get #{$archive_name}\n"\
                      "       Please download the file from the below "\
                      "address and copy it into this directory.\n"\
-                     "    http://s3.amazonaws.com/downloads.basho.com/documentation_content/archived_docs.basho.com.tar.bz2")
+                     "    http://s3.amazonaws.com/downloads.basho.com/documentation_content/#{$archive_name}")
       end
     end
   end
 
   # Verify the file is correct via an md5sum, unless NO_CHECK has been set
   if (ENV['NO_CHECK'] == "True")
-    puts("  Skipping archived_docs.basho.com.tar.bz2 sha1 check. Good luck.")
+    puts("  Skipping #{$archive_name} sha1 check. Good luck.")
   else
     if (`which md5sum`.empty?)
       # We don't have md5sum, and we want to perform a check. Error out.
       Kernel.abort("ERROR: This system does not have `md5sum`, so the "\
-                   "contents of archived_docs.basho.com.tar.bz2 cannot be "\
-                   "verified.\n"\
+                   "contents of #{$archive_name} cannot be verified.\n"\
                    "       Please install the md5sum tool (possibly named "\
                    "md5sha1sum).\n"\
                    "       You may also re-run this script after running "\
                    "`export NO_CHECK=\"True\"`, but it is **highly "\
                    "recommended** that you install `md5sum` instead.")
     end
-    web_md5 = Net::HTTP.get('s3.amazonaws.com', '/downloads.basho.com/documentation_content/archived_docs.basho.com.tar.bz2.md5').split(" ")[0]
-    loc_md5 = `md5sum archived_docs.basho.com.tar.bz2`.split(" ")[0]
+    web_md5 = Net::HTTP.get("s3.amazonaws.com", "/downloads.basho.com/documentation_content/#{$archive_name}.md5").split(" ")[0]
+    loc_md5 = `md5sum #{$archive_name}`.split(" ")[0]
     if (web_md5 != loc_md5)
-      Kernel.abort("ERROR: Fetch archived_docs.basho.com.tar.bz2 does not "\
-                   "match the expected md5sum.\n"\
-                   "       Please remove the current "\
-                   "archived_docs.basho.com.tar.bz2, reset the contents of "\
-                   "the static/ directory (`git clean -xdf static; git "\
-                   "checkout -f static`), and re-run this script.")
+      Kernel.abort("ERROR: Fetched #{$archive_name} does not match the "\
+                   "expected md5sum.\n"\
+                   "       Please remove the current #{$archive_name}, reset "\
+                   "the contents of the static/ directory (`git clean -xdf "\
+                   "static; git checkout -f static`), and re-run this script.")
     end
   end
 
@@ -71,13 +72,11 @@ def do_fetch_archived_content()
     (not File.exist?("static/shared"))           )
 
   if (should_extract)
-    puts("Extracting archived_docs.basho.com.tar.bz2 (this may take a lot "\
-         "of time)...")
-    successful = system('tar -xjf archived_docs.basho.com.tar.bz2 -C static')
+    puts("Extracting #{$archive_name} (this may take a lot of time)...")
+    successful = system("tar -xjf #{$archive_name} -C static")
 
     if (not successful)
-      Kernel.abort("ERROR: archived_docs.basho.com.tar.bz2 failed to "\
-                   "extract.\n"\
+      Kernel.abort("ERROR: #{$archive_name} failed to extract.\n"\
                    "       I... actually don't know why. Not sure how to "\
                    "extract error messages from this system call.")
     end
