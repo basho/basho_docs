@@ -270,8 +270,29 @@ def do_deploy()
         body: File.open(obj_path),
         acl: "public-read"
       }
-      #TODO: Add additional file_ext -> ContentType detection.
-      object_descriptor[:content_type] = "text/html" if object_ext == ".html"
+      case object_ext
+        when ".html"; object_descriptor[:content_type] = "text/html"
+        when ".txt";  object_descriptor[:content_type] = "text/plain"
+        when ".css";  object_descriptor[:content_type] = "text/css"
+        when ".js";   object_descriptor[:content_type] = "application/javascript"
+        when ".xml";  object_descriptor[:content_type] = "application/xml"
+
+        when ".eot";  object_descriptor[:content_type] = "font/eot"
+        when ".ttf";  object_descriptor[:content_type] = "font/ttf"
+        when ".svg";  object_descriptor[:content_type] = "image/svg+xml"
+        when ".woff"; object_descriptor[:content_type] = "application/font-woff"
+
+        when ".gif";  object_descriptor[:content_type] = "image/gif"
+        when ".jpg";  object_descriptor[:content_type] = "image/jpeg"
+        when ".jpeg"; object_descriptor[:content_type] = "image/jpeg"
+        when ".png";  object_descriptor[:content_type] = "image/png"
+        when ".ico";  object_descriptor[:content_type] = "image/x-icon"
+        when ".pdf";  object_descriptor[:content_type] = "application/pdf"
+
+        # when ".eps";     object_descriptor[:content_type] = ""
+        # when ".graffle"; object_descriptor[:content_type] = ""
+        # when ".logo";    object_descriptor[:content_type] = ""
+      end
       #TODO: Error checking.
       aws_bucket.put_object(object_descriptor)
       progress.inc
