@@ -61,7 +61,7 @@ We've also added AWS AMI support. You can find instructions for installing Riak 
 * The relaxed key restrictions mean the family and series keys are no longer required, which makes TS table schemas more flexible, and makes customizing the data you store and how you store even easier. 
     * [[PR #1357](https://github.com/basho/riak_kv/pull/1357)]
     * [[riak_ql PR #108](https://github.com/basho/riak_ql/pull/108)]
-* TS now supports MDC replication on TS tables. At this time, MDC support in TS does not include AAE fullsync. To use MDC, you will need to create your TS tables in your clusters and then [configure](http://http://docs.basho.com/riak/ts/1.3.0/using/mdc/) MDC. 
+* TS now supports MDC replication on TS tables. At this time, MDC support in TS does not include AAE fullsync. To use MDC, you will need to create your TS tables in your clusters and then [configure](http://docs.basho.com/riak/ts/1.3.1/using/mdc) MDC. 
     * [[riak_repl PR #738](https://github.com/basho/riak_repl/pull/738)]
     * [[PR #1381](https://github.com/basho/riak_kv/pull/1381)]
 * Riak TS now offers integration with PHP and .NET clients.
@@ -84,7 +84,7 @@ We've also added AWS AMI support. You can find instructions for installing Riak 
     * The version that DDLs were compiled with will be stored in the dets table. [[PR #1377](https://github.com/basho/riak_kv/pull/1377)]
     * The DDL compiler's version is registered as a capability. [[PR #1377](https://github.com/basho/riak_kv/pull/1377)]
 * elevelDB has been updated to pull in levelDB version 2.0.15. [[eleveldb PR #184](https://github.com/basho/eleveldb/pull/184)]
-* node_package has been updated to version 3.0.0 to address a [security issue](http://docs.basho.com/community/product-advisories/codeinjectioninitfiles/) in which arbitrary root access was possible for a local user that had direct access to the Riak account. [[PR #820](https://github.com/basho/riak/pull/820)]
+* node_package has been updated to version 3.0.0 to address a [security issue](http://docs.basho.com/community/productadvisories/codeinjectioninitfiles/) in which arbitrary root access was possible for a local user that had direct access to the Riak account. [[PR #820](https://github.com/basho/riak/pull/820)]
 * module_info calls have been removed from riak_core_coverage_fsm:init() to speed up small queries. [[PR #829](https://github.com/basho/riak_core/pull/829)]
 
 
