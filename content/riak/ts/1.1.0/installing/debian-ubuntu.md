@@ -25,6 +25,10 @@ package available through ZenDesk.
 
 Check your email for the link to the download in ZenDesk.
 
+{{% note %}}
+Debian is only supported for developing with Riak TS and NOT for general operations.
+{{% /note %}}
+
 
 ## Dependencies
 

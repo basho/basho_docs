@@ -23,9 +23,9 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/installing/mac-osx"
 Riak TS can be installed on Mac OS X systems using a binary
 package available [here][download].
 
->**Important**
->
->Mac OS X is only supported for developing with Riak TS and NOT for general operations.
+{{% note %}}
+Mac OS X is only supported for developing with Riak TS and NOT for general operations.
+{{% /note %}}
 
 
 ## Dependencies
@@ -42,7 +42,7 @@ backend that uses very few file handles, it's possible to run out. See
 To install Riak TS on your Mac, [download] the package and then run:
 
 ```bash
-tar zxvf riak-ts-1.3.1-OSX-x86_64.tar
+tar zxvf riak-ts-1.3.1-OSX-x86_64.tar.gz
 cd riak-ts-1.3.1
 ```
 

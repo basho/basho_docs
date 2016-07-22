@@ -1,4 +1,4 @@
----
+'---
 title: "Riak TS Best Practices"
 description: "Riak TS Best Practices"
 menu:
@@ -23,16 +23,16 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/learn-about/bestpractices
 There are many ways to interact with and use Riak TS. This page will give recommendations for structuring your storage region (DDL) and choosing your quanta.
 
 
-## DDL Definition
+## TS Table Schema
 
-One of the first things you will encounter setting up Riak TS is defining storage regions, also known as Data Definition Language (DDL). Creating a table will specify the DDL and compile it, which will create a Riak [bucket][glossary bucket]. The bucket information is passed around the ring.
+One of the first things you will encounter in setting up Riak TS is defining a TS table's schema.  You use Data Definition Language (DDL), specifically the `CREATE TABLE` statement, to create a new table. When you create a TS Table, the data structure provided in the `CREATE TABLE` statement is compiled and passed around the Riak TS cluster.
 
-There are two reasons that how you set up your DDL is really important:
+The design of your TS table schema is really important because:
 
-1. The values you choose for the [partition key][table arch] will impact the speed of your query returns. 
-2. Once activated, the bucket definition cannot be changed, so the DDL cannot be changed either.
+1. The values you choose for the [partition key][table arch] will impact the speed of your query returns.
+2. Once activated, the TS table schema cannot be changed.
 
-To help speed the performance of Riak TS and avoid recreating DDL definitions, think about the most common queries you will be executing and what tools you will be using to process the data. The answers to those will determine what values you use in the primary key.
+To help speed the performance of Riak TS and avoid destroying and recreating tables to change their definitions, think about the most common queries you will be executing and what tools you will be using to process the data. The answers to those will determine what values you use in the [primary key][table arch].
 
 For instance, let's say we have a time series database storing information about air quality for a given location. The data coming in from sensors in given locations includes: geohash for location, timestamp, levels of CO2, smog particles in the air, temperature, and humidity.
 

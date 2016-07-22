@@ -200,7 +200,7 @@ The following operators are supported for each data type:
 
 #### Quanta query range
 
-A query covering more than a certain number of quanta (5 by default) will generate too many sub-queries and the query system will refuse to run it. Assuming a default quanta of 15 minutes, the maximum query time range is 75 minutes.
+A query covering more than a certain number of quanta (5 by default) will generate the error `too_many_subqueries` and the query system will refuse to run it. Assuming a default quanta of 15 minutes, the maximum query time range is 75 minutes.
 
 In the below example we set a quanta of 15s:
 
@@ -218,7 +218,7 @@ CREATE TABLE GeoCheckin
 
 The maximum time range we can query is 60s, anything beyond will fail.
 
-See the Data Modeling section in [Advanced Planning][advancedplanning] for more information.
+See the Data Modeling section in [Table Architecture][table arch] for more information.
 
 #### Leap seconds and quantum boundaries
 

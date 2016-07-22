@@ -27,6 +27,10 @@ There are two packages that cover the public API for TS in the Java client:
 1. The `com.basho.riak.client.api.commands.timeseries` package contains executable commands, and 
 2. the `com.basho.riak.client.core.query.timeseries` package contains the common data types.
 
+Language | Source | Documentation | Download
+:--------|:-------|:--------------|:--------
+Java | [riak-java-client](https://github.com/basho/riak-java-client) | [javadoc](http://basho.github.com/riak-java-client), [wiki](https://github.com/basho/riak-java-client/wiki) | [Maven Central](http://search.maven.org/?#search%7Cgav%7C1%7Cg%3A%22com.basho.riak%22%20AND%20a%3A%22riak-client%22) |
+
 
 ## Data Types
 

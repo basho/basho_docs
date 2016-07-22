@@ -24,6 +24,10 @@ Riak Ruby client versions 2.3.0+ have new objects in the
 `Riak::TimeSeries` module, including the necessary operations and data types
 to make sense of these operations.
 
+Language | Source | Documentation | Download
+:--------|:-------|:--------------|:--------
+Ruby | [riak-ruby-client](https://github.com/basho/riak-ruby-client) | [GitHub Pages](http://basho.github.io/riak-ruby-client/) | [RubyGems](https://rubygems.org/gems/riak-client)
+
 ## Data Types
 
 * `Scalar` - Not strictly a class itself, contains the basic Ruby core/stdlib: `String`, `Fixnum`, `Bignum`, `Float`, and `Time` instances that represent a

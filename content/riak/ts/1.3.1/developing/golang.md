@@ -30,6 +30,11 @@ TS support within the Go client is implemented through the following 4 command b
 * TsQueryCommandBuilder which is assembled via NewTsQueryCommandBuilder
 * TsListKeysCommandBuilder which is assembled via NewTsListKeysCommandBuilder
 
+Language | Source | Documentation | 
+:--------|:-------|:--------------|
+Go | [riak-go-client](https://github.com/basho/riak-go-client) | [GoDoc](https://godoc.org/github.com/basho/riak-go-client) |
+
+
 ## Data Types
 
 * `TsColumnDescription` - Holds the data that describes a column

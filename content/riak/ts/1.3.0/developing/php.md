@@ -30,6 +30,10 @@ TS support within the PHP client is implemented through the following 5 command 
 * Basho\Riak\Command\Builder\TimeSeries\Query
 * Basho\Riak\Command\Builder\TimeSeries\DescribeTable
 
+Language | Source | Documentation |
+:--------|:-------|:--------------|
+PHP | [riak-php-client](https://github.com/basho/riak-php-client) | [apigen](http://basho.github.io/riak-php-client)
+
 
 ## Data Types
 
