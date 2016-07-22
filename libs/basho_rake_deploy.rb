@@ -445,7 +445,8 @@ def do_deploy()
   aws_bucket.put_object({
     acl: "public-read-write",
     key: "last_deployed_time.txt",
-    body: "#{Time.new.utc} -- #{`git rev-parse HEAD`[0..6]}"
+    body: "#{Time.new.utc} -- #{`git rev-parse HEAD`[0..6]}",
+    content_type: "text/plain"
   })
 
 
