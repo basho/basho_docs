@@ -43,6 +43,21 @@ $versionColor-1-0-x      : #99afac;
 $lightVersionColor-1-0-x : lighten($versionColor-1-0-x, 5%);
 $versionColorInactive    : #ddd;
 
+/* Similar to the above, but updated to be version-agnostic */
+$version-color-1        : #ea7107;
+$version-color-1-light  : lighten($version-color-1, 5%);
+$version-color-2        : #f99d33;
+$version-color-2-light  : lighten($version-color-2, 5%);
+$version-color-3        : #5e8782;
+$version-color-3-light  : lighten($version-color-3, 5%);
+$version-color-4        : #79aeb6;
+$version-color-4-light  : lighten($version-color-4, 5%);
+$version-color-5        : #6c8997;
+$version-color-5-light  : lighten($version-color-5, 5%);
+$version-color-6        : #99afac;
+$version-color-6-light  : lighten($version-color-6, 5%);
+$version-color-inactive : #ddd;
+
 /* == Dimensions ================================= */
 $mobilePageGutter : 0.6em;
 
