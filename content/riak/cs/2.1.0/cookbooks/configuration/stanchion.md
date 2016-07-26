@@ -5,7 +5,7 @@ menu:
   riak_cs-2.1.0:
     name: "Configuring Stanchion"
     identifier: "config_stanchion"
-    weight: 101
+    weight: 102
     parent: "config"
 project: "riak_cs"
 project_version: "2.1.0"

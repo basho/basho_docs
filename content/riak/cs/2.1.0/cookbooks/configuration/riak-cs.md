@@ -5,7 +5,7 @@ menu:
   riak_cs-2.1.0:
     name: "Configuring Riak CS"
     identifier: "config_riak_cs"
-    weight: 102
+    weight: 101
     parent: "config"
 project: "riak_cs"
 project_version: "2.1.0"
