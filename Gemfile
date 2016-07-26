@@ -8,7 +8,7 @@ gem "sprockets", "~>3.5"
 gem "coffee-script", "~>2.4.1"
 gem "uglifier", "~>2.7.2"
 
-gem "aws-sdk", "~> 2.2.11"
+gem "aws-sdk", "~> 2.4"
 gem "aws-s3", "~> 0.6.3"
 gem "simple-cloudfront-invalidator", "~>1.1.0"
 gem "progressbar", "~> 0.21.0"
