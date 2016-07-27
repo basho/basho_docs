@@ -45,18 +45,18 @@ $versionColorInactive    : #ddd;
 
 /* Similar to the above, but updated to be version-agnostic */
 $version-color-1        : #ea7107;
-$version-color-1-light  : lighten($version-color-1, 5%);
+$version-color-1-light  : #f98b2b; //lighten($version-color-1, 10%);
 $version-color-2        : #f99d33;
-$version-color-2-light  : lighten($version-color-2, 5%);
+$version-color-2-light  : #fab565; //lighten($version-color-2, 10%);
 $version-color-3        : #5e8782;
-$version-color-3-light  : lighten($version-color-3, 5%);
+$version-color-3-light  : #77a19c; //lighten($version-color-3, 10%);
 $version-color-4        : #79aeb6;
-$version-color-4-light  : lighten($version-color-4, 5%);
+$version-color-4-light  : #9ac2c8; //lighten($version-color-4, 10%);
 $version-color-5        : #6c8997;
-$version-color-5-light  : lighten($version-color-5, 5%);
+$version-color-5-light  : #8aa1ac; //lighten($version-color-5, 10%);
 $version-color-6        : #99afac;
-$version-color-6-light  : lighten($version-color-6, 5%);
-$version-color-inactive : #ddd;
+$version-color-6-light  : #b6c5c3; //lighten($version-color-6, 10%);
+$version-color-inactive : $lightGrey;
 
 /* == Dimensions ================================= */
 $mobilePageGutter : 0.6em;

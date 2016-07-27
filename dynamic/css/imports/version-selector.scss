@@ -218,3 +218,12 @@
     background: $version-color-6-light;
   }
 }
+
+/* Cheating a bit here by bumping the specificity of this rule to ensure the
+ * inactive color trumps other specifiers.
+ *TODO: Figure out if the specificity bump is necessary. We may be able to
+ *      generate the list s.t. elements are either `--[1-6]` or `--disabled`.
+ */
+.version-selector__list .version-selector__list-element--disabled {
+  background: $version-color-inactive;
+}
