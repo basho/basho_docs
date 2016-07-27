@@ -5,7 +5,7 @@ menu:
   riak_cs-2.0.1:
     name: "Configuring Riak CS"
     identifier: "config_riak_cs"
-    weight: 102
+    weight: 101
     parent: "config"
 project: "riak_cs"
 project_version: "2.0.1"
@@ -158,20 +158,20 @@ username you want to use for the admin account. The following is an
 ```curl
 curl -H 'Content-Type: application/json' \
   -XPOST http://<host>:<port>/riak-cs/user \
-  --data '{"email":"foobar@example.com", "name":"admin_user"}'
+  --data '{"email":"admin@example.com", "name":"admin"}'
 ```
 
 The JSON response will look something like this:
 
 ```json
 {
-  "Email": "foobar@example.com",
-  "DisplayName": "adminuser",
-  "KeyId": "324ABC0713CD0B420EFC086821BFAE7ED81442C",
-  "KeySecret": "5BE84D7EEA1AEEAACF070A1982DDA74DA0AA5DA7",
-  "Name": "admin_user",
-  "Id":"8d6f05190095117120d4449484f5d87691aa03801cc4914411ab432e6ee0fd6b",
-  "Buckets": []
+  "display_name" : "admin",
+  "email" : "admin@example.com",
+  "id" : "8d6f05190095117120d4449484f5d87691aa03801cc4914411ab432e6ee0fd6b",
+  "key_id" : "OUCXMB6I3HOZ6D0GWO2D",
+  "key_secret" : "a58Mqd3qN-SqCoFIta58Mqd3qN7umE2hnunGag==",
+  "name" : "admin_example",
+  "status" : "enabled"
 }
 ```
 
@@ -185,15 +185,15 @@ directory. Paste the `key_id` string between the quotes for the `admin.key`.
 Paste the `key_secret` string into the `admin.secret` variable, as shown here:
 
 ```riakcsconf
-admin.key = 324ABC0713CD0B420EFC086821BFAE7ED81442C
-admin.secret = 5BE84D7EEA1AEEAACF070A1982DDA74DA0AA5DA7
+admin.key = OUCXMB6I3HOZ6D0GWO2D
+admin.secret = a58Mqd3qN-SqCoFIta58Mqd3qN7umE2hnunGag==
 ```
 
 ```advancedconfig
 {riak_cs, [
            %% Admin user credentials
-           {admin_key, "324ABC0713CD0B420EFC086821BFAE7ED81442C"},
-           {admin_secret, "5BE84D7EEA1AEEAACF070A1982DDA74DA0AA5DA7"},
+           {admin_key, "OUCXMB6I3HOZ6D0GWO2D"},
+           {admin_secret, "a58Mqd3qN-SqCoFIta58Mqd3qN7umE2hnunGag=="},
            %% Other configs
           ]}
 ```
