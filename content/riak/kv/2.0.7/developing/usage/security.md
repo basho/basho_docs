@@ -34,7 +34,7 @@ The following four authentication mechanisms, aka [security sources](/riak/kv/2.
   requires that clients
 * [Pluggable authentication module (PAM)](/riak/kv/2.0.7/using/security/managing-sources/#pam-based-authentication)-based authentication requires
   clients to authenticate using the PAM service specified using the
-  `[riak-admin security](/riak/kv/2.0.7/using/security/managing-sources/#managing-sources)`
+  [`riak-admin security`](/riak/kv/2.0.7/using/security/managing-sources/#managing-sources)
   command line interface
 
 Riak's approach to security is highly flexible. If you choose to use

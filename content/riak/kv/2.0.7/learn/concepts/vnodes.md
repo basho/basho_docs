@@ -20,7 +20,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/learn/concepts/vnodes"
 [concept causal context]: /riak/kv/2.0.7/learn/concepts/causal-context
 [concept clusters ring]: /riak/kv/2.0.7/learn/concepts/clusters/#the-ring
 [concept replication]: /riak/kv/2.0.7/learn/concepts/replication
-[concept strong consistency]: /riak/kv/2.0.7/concepts/strong-consistency
+[concept strong consistency]: /riak/kv/2.0.7/learn/concepts/strong-consistency
 [glossary node]: /riak/kv/2.0.7/learn/glossary/#node
 [glossary ring]: /riak/kv/2.0.7/learn/glossary/#ring
 [plan backend]: /riak/kv/2.0.7/setup/planning/backend
