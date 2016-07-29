@@ -362,7 +362,7 @@ obj = bucket.get('banana', deletedvclock: true)
 In this section, we'll provide an update example for Basho's official Ruby,
 Python, .NET, Node.js, Erlang and Go clients. Because updates with the official
 Java client functions somewhat differently, those examples can be found in the
-[section below](Java-Client-Example).
+[section below](#java-client-example).
 
 For our example, imagine that you are storing information about NFL head
 coaches in the bucket `coaches`, which will bear the bucket type

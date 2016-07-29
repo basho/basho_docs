@@ -178,7 +178,7 @@ guides may be of help:
 
 * [Open files limit](../open-files-limit)
 * General [System performance tuning](../)
-* [AWS performance tuning](amazon-web-services) if you're running Riak on [Amazon Web Services](http://aws.amazon.com/)
+* [AWS performance tuning](../amazon-web-services) if you're running Riak on [Amazon Web Services](http://aws.amazon.com/)
 
 ## I/O and Network Bottlenecks
 
