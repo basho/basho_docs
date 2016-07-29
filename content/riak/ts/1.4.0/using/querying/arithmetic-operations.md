@@ -10,9 +10,15 @@ menu:
 project: "riak_ts"
 project_version: "1.4.0"
 toc: true
+canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/arithmetic-operations"
+version_history:
+  present_from: "1.4.0+"
+  moved:
+    - ["1.1.0+", "using/arithmetic-operations"]
 aliases:
+    - /riak/ts/1.4.0/using/arithmetic-operations
     - /riakts/1.4.0/using/arithmetic-operations
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/arithmetic-operations"
+    - /riakts/1.4.0/using/querying/arithmetic-operations
 ---
 
 
