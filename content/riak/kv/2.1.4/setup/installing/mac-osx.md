@@ -88,8 +88,7 @@ the Riak installation directory via environment variables.
 
 ## Installing From Source
 
-You must have Xcode tools installed from [Apple's Developer
-website](http://developer.apple.com/).
+You must have Xcode tools installed from [Apple's Developer website](https://developer.apple.com/).
 
 <div class="note">
 <div class="title">Note on Clang</div>

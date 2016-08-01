@@ -106,9 +106,6 @@ message RpbCommitHook {
 }
 ```
 
-<div class="note">
-<div class="title">Note on <tt>RpbReplMode</tt></div>
-The <code>RpbReplMode</code> is of use only to users of Riak CS's <a
-href="http://docs.basho.com/riakcs/latest/cookbooks/MDC-Overview/">Multi-Datacenter
-Replication capabilities</a>.
-</div>
+{{% note title="Note on `RpbReplMode`" %}}
+The `RpbReplMode` is of use only to users of Riak CS's [Multi-Datacenter Replication capabilities](http://docs.basho.com/riakcs/latest/cookbooks/mdc-overview/)
+{{% /note %}}

@@ -534,7 +534,7 @@ set replication properties this way. For more detailed information,
 refer to the section on [development usage with Riak KV](/riak/kv/2.0.2/developing/usage)
 or to client-specific documentation:
 
-* [Ruby](https://github.com/basho/riak-ruby-client/blob/master/README.markdown)
+* [Ruby](https://github.com/basho/riak-ruby-client/blob/master/README.md)
 * [Java](http://basho.github.io/riak-java-client/2.0.0/)
 * [Python](http://basho.github.io/riak-python-client/)
 * [Erlang](http://basho.github.io/riak-erlang-client/)

@@ -18,7 +18,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage/conflict
 [usage bucket types]: /riak/kv/2.0.2/developing/usage/bucket-types
 [use ref strong consistency]: /riak/2.0.2/using/reference/strong-consistency
 
-One of Riak's [central goals](/riak/kv/learn/why-riak-kv) is high availability. It was built as a [clustered](/riak/kv/2.0.2/learn/concepts/clusters) system in which any [node](/riak/kv/2.0.2/learn/glossary/#node) is capable of receiving requests without requiring that
+One of Riak's [central goals](../../../learn/why-riak-kv) is high availability. It was built as a [clustered](/riak/kv/2.0.2/learn/concepts/clusters) system in which any [node](/riak/kv/2.0.2/learn/glossary/#node) is capable of receiving requests without requiring that
 every node participate in each request.
 
 If you are using Riak in an [eventually consistent](/riak/kv/2.0.2/learn/concepts/eventual-consistency) way, conflicts between object values on different nodes is

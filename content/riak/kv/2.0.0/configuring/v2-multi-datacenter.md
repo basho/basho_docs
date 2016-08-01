@@ -91,8 +91,8 @@ Setting | Options | Default | Description
 `keyfile` | `path` (string) | `undefined` | Fully qualified path to an SSL `.pem` key file
 `cacertdir` | `path` (string) | `undefined` | The `cacertdir` is a fully-qualified directory containing all the CA certificates needed to verify the CA chain back to the root
 `certfile` | `path` (string) | `undefined` | Fully qualified path to a `.pem` cert file
-`ssl_depth` | `depth` (integer) | `1` | Set the depth to check for SSL CA certs. See [1](/ops/mdc/v2/configuration/#f1).
-`peer_common_name_acl` | `cert` (string) | `"*"` | Verify an SSL peer’s certificate common name. You can provide an ACL as a list of common name *patterns*, and you can wildcard the leftmost part of any of the patterns, so `*.basho.com` would match `site3.basho.com` but not `foo.bar.basho.com` or `basho.com`. See [4](/ops/mdc/v2/configuration/#f4).
+`ssl_depth` | `depth` (integer) | `1` | Set the depth to check for SSL CA certs. See [1](#f1).
+`peer_common_name_acl` | `cert` (string) | `"*"` | Verify an SSL peer’s certificate common name. You can provide an ACL as a list of common name *patterns*, and you can wildcard the leftmost part of any of the patterns, so `*.basho.com` would match `site3.basho.com` but not `foo.bar.basho.com` or `basho.com`. See [4](#f4).
 
 ## Queue, Object, and Batch Settings
 
@@ -124,10 +124,10 @@ Setting | Options | Default | Description
 
 Setting | Options | Default | Description
 :-------|:--------|:--------|:-----------
-`max_get_workers` | `max` (integer) | `100` | The maximum number of get workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See [2](/ops/mdc/v2/configuration/#f2).
-`max_put_workers` | `max` (integer) | `100` | The maximum number of put workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See [3](/ops/mdc/v2/configuration/#f3).
-`min_get_workers` | `min` (integer) | `5` | The minimum number of get workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See [2](/ops/mdc/v2/configuration/#f2).
-`min_put_workers` | `min` (integer) | `5` | The minimum number of put workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See [3](/ops/mdc/v2/configuration/#f3).
+`max_get_workers` | `max` (integer) | `100` | The maximum number of get workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See [2](#f2).
+`max_put_workers` | `max` (integer) | `100` | The maximum number of put workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See [3](#f3).
+`min_get_workers` | `min` (integer) | `5` | The minimum number of get workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See [2](#f2).
+`min_put_workers` | `min` (integer) | `5` | The minimum number of put workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See [3](#f3).
 
 
 1. <a name="f1"></a>SSL depth is the maximum number of non-self-issued
