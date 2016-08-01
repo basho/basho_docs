@@ -81,13 +81,13 @@ To install Riak CS on OS X, first download the appropriate package from
 the [downloads](/riak/cs/2.0.0/downloads) page:
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/riak-cs/1.5/{{VERSION}}/osx/10.8/riak-cs-{{VERSION}}-OSX-x86_64.tar.gz
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak-cs/1.5/2.0.0/osx/10.8/riak-cs-2.0.0-OSX-x86_64.tar.gz
 ```
 
 Then, unpack the downloaded tarball:
 
 ```bash
-tar -xvzf riak-cs-{{VERSION}}-OSX-x86_64.tar.gz
+tar -xvzf riak-cs-2.0.0-OSX-x86_64.tar.gz
 ```
 
 At this point, you can move on to [configuring Riak CS](/riak/cs/2.0.0/cookbooks/configuration/riak-cs/).
@@ -101,11 +101,11 @@ can be found in packagecloud's [installation docs](https://packagecloud.io/basho
 
 Platform-specific pages are linked below:
 
-* [Lucid](https://packagecloud.io/basho/riak-cs/riak-cs_{{VERSION}}-1_amd64.deb?distro=lucid)
-* [Precise](https://packagecloud.io/basho/riak-cs/riak-cs_{{VERSION}}-1_amd64.deb?distro=precise)
-* [Squeeze](https://packagecloud.io/basho/riak-cs/riak-cs_{{VERSION}}-1_amd64.deb?distro=squeeze)
-* [Trusty](https://packagecloud.io/basho/riak-cs/riak-cs_{{VERSION}}-1_amd64.deb?distro=trusty)
-* [Wheezy](https://packagecloud.io/basho/riak-cs/riak-cs_{{VERSION}}-1_amd64.deb?distro=wheezy)
+* [Lucid](https://packagecloud.io/basho/riak-cs/riak-cs_2.0.0-1_amd64.deb?distro=lucid)
+* [Precise](https://packagecloud.io/basho/riak-cs/riak-cs_2.0.0-1_amd64.deb?distro=precise)
+* [Squeeze](https://packagecloud.io/basho/riak-cs/riak-cs_2.0.0-1_amd64.deb?distro=squeeze)
+* [Trusty](https://packagecloud.io/basho/riak-cs/riak-cs_2.0.0-1_amd64.deb?distro=trusty)
+* [Wheezy](https://packagecloud.io/basho/riak-cs/riak-cs_2.0.0-1_amd64.deb?distro=wheezy)
 
 #### Advanced apt Installation
 
@@ -180,10 +180,10 @@ docs](https://packagecloud.io/basho/riak-cs/install).
 
 Platform-specific pages are linked below:
 
-* [el5](https://packagecloud.io/basho/riak-cs/riak-cs-{{VERSION}}-1.x86_64.rpm?distro=5)
-* [el6](https://packagecloud.io/basho/riak-cs/packages/el/6/riak-cs-{{VERSION}}-1.el6.x86_64.rpm)
-<!-- * [el7](https://packagecloud.io/basho/riak-cs/riak-cs-{{VERSION}}-1.x86_64.rpm?distro=7) -->
-* [Fedora 19](https://packagecloud.io/basho/riak-cs/riak-cs-{{VERSION}}-1.fc19.x86_64.rpm?distro=19)
+* [el5](https://packagecloud.io/basho/riak-cs/riak-cs-2.0.0-1.x86_64.rpm?distro=5)
+* [el6](https://packagecloud.io/basho/riak-cs/packages/el/6/riak-cs-2.0.0-1.el6.x86_64.rpm)
+<!-- * [el7](https://packagecloud.io/basho/riak-cs/riak-cs-2.0.0-1.x86_64.rpm?distro=7) -->
+* [Fedora 19](https://packagecloud.io/basho/riak-cs/riak-cs-2.0.0-1.fc19.x86_64.rpm?distro=19)
 
 #### Advanced rpm Installation
 
