@@ -61,9 +61,9 @@ or cloned source.
 Download the Riak source package from the [Download Center][downloads] and build:
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/riak-{{VERSION}}.tar.gz
-tar zxvf riak-{{VERSION}}.tar.gz
-cd riak-{{VERSION}}
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.5/riak-2.0.5.tar.gz
+tar zxvf riak-2.0.5.tar.gz
+cd riak-2.0.5
 make locked-deps
 make rel
 ```

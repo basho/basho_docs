@@ -42,10 +42,10 @@ The Riak binary package also depends on a packaged version of OpenSSL. Prior to 
 ### Installation
 
 You can install the Riak binary package on FreeBSD remotely using the
-`pkg_add` remote option. For this example, we're installing `riak-{{VERSION}}-FreeBSD-amd64.tbz`.
+`pkg_add` remote option. For this example, we're installing `riak-2.1.1-FreeBSD-amd64.tbz`.
 
 ```bash
-sudo pkg_add -r http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/freebsd/9/riak-{{VERSION}}-FreeBSD-amd64.tbz
+sudo pkg_add -r http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.1/freebsd/9/riak-2.1.1-FreeBSD-amd64.tbz
 ```
 
 When Riak is installed, a message is displayed with information about the installation and available documentation.
@@ -73,7 +73,7 @@ Man pages are available for riak(1) and riak-admin(1)
 If instead of this message, you receive an error during installation regarding OpenSSL, similar to this one:
 
 ```
-Package dependency openssl-1.0.0_7 for /tmp/riak-{{VERSION}}-FreeBSD-amd64.tbz not found!
+Package dependency openssl-1.0.0_7 for /tmp/riak-2.1.1-FreeBSD-amd64.tbz not found!
 ```
 
 Be sure that you've installed the required OpenSSL version from packages or the ports collection as described in the **Prerequisites and Dependencies** section.
