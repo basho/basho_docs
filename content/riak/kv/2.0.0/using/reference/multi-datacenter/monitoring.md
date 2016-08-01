@@ -13,6 +13,7 @@ toc: true
 aliases:
   - /riak/2.0.0/ops/mdc/monitoring
   - /riak/kv/2.0.0/ops/mdc/monitoring
+canonical_link: "https://docs.basho.com/riak/kv/latest/using/reference/multi-datacenter/monitoring"
 ---
 
 Monitoring Riak's realtime replication allows you to identify trends and
@@ -137,9 +138,6 @@ be answered:
   within a defined SLA?
 * How long is it taking for objects to be replicated from the source
   cluster to the sink cluster?
-
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/reference/multi-datacenter/monitoring"
----
 
 #### Is a backed-up realtime replication queue still replicating objects within a defined SLA?
 

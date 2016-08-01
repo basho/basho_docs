@@ -75,8 +75,7 @@ You can watch all the Basho-curated videos [here](http://basho.com/resources/vid
 
 ### Other Social 
 
-We are easy to find on social media sites. Like us on [Facebook](http://www.facebook.com/pages/Riak/143599935667217), chat on the [Riak
-LinkedIn Group](http://www.linkedin.com/groups?mostPopular=&gid=2913983) and follow us on [Twitter](http://twitter.com/basho). We have a growing following [on Reddit as well](http://www.reddit.com/r/Riak/).
+We are easy to find on social media sites. Like us on [Facebook](http://www.facebook.com/pages/Riak/143599935667217), chat on the [Riak LinkedIn Group](https://www.linkedin.com/groups/2913983) and follow us on [Twitter](http://twitter.com/basho). We have a growing following [on Reddit as well](http://www.reddit.com/r/Riak/).
 
 ## Programs 
 Our platforms are complemented by the amazing efforts of the Basho team and the greater contributor community. Here are a few you don't want to miss.

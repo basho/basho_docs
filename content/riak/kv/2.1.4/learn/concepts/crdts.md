@@ -21,7 +21,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/learn/concepts/crdts"
 [concept causal context sib]: /riak/kv/2.1.4/learn/concepts/causal-context/#siblings
 [concept causal context vc]: /riak/kv/2.1.4/learn/concepts/causal-context/#vector-clocks
 [concept eventual consistency]: /riak/kv/2.1.4/learn/concepts/eventual-consistency
-[concept strong consistency]: /riak/kv/2.1.4/concepts/strong-consistency
+[concept strong consistency]: /riak/kv/2.1.4/learn/concepts/strong-consistency
 [dev data types]: /riak/kv/2.1.4/developing/data-types
 [glossary node]: /riak/kv/2.1.4/learn/glossary/#node
 [glossary vnode]: /riak/kv/2.1.4/learn/glossary/#vnode

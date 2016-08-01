@@ -18,9 +18,9 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/configuring/reference"
 
 [concept clusters]: ../../learn/concepts/clusters
 [plan backend bitcask]: ../../setup/planning/backend/bitcask
-[config backend bitcask]: ../../setup/planning/backend/bitcask/configuring-bitcask
+[config backend bitcask]: ../../setup/planning/backend/bitcask/#configuring-bitcask
 [plan backend leveldb]: ../../setup/planning/backend/leveldb
-[config backend leveldb]: ../../setup/planning/backend/leveldb/configuring-eleveldb
+[config backend leveldb]: ../../setup/planning/backend/leveldb/#configuring-eleveldb
 [plan backend memory]: ../../setup/planning/backend/memory
 [config backend memory]: ../../setup/planning/backend/memory/#configuring-the-memory-backend
 [plan backend multi]: ../../setup/planning/backend/multi
