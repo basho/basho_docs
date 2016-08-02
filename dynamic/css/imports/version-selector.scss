@@ -121,7 +121,7 @@
     display: block;  /* 2 */
     height : 100%;   /* 2 */
     width  : 100%;   /* 2 */
-    padding: 5px 0; /* 3 */
+    padding: 5px 0 6px; /* 3 */
   }
 }
 
@@ -217,6 +217,12 @@
   &.version-selector__list-element--current {
     background: $version-color-6-light;
   }
+}
+
+/* The currently selected version should not link anywhere. */
+.version-selector__list-element--current a {
+  pointer-events: none;
+  cursor: default;
 }
 
 /* Cheating a bit here by bumping the specificity of this rule to ensure the
