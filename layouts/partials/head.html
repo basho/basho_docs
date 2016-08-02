@@ -2,9 +2,23 @@
   <meta charset="utf-8">
   <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
   <meta name="viewport" content="width=device-width">
+
   <meta name="project" content="{{ .Params.project }}">
   <meta name="version" content="{{ .Params.project_version }}">
-  <meta name="base-url" content="/{{ .Scratch.Get "site_relative_url" }}">
+
+  <!-- TODO: Adding these leading slashes is... pretty dumb. IMO. We should
+             really clean this up. -->
+  <meta name="site_relative_url" content='/{{ .Scratch.Get "site_relative_url" }}'>      <!-- ex; /riak/kv/2.1.4/installing/ -->
+  <meta name="version_url" content='/{{ .Scratch.Get "version_url" }}'>                  <!-- ex; /riak/kv/2.1.4 -->
+  <meta name="project_relative_url" content='{{ .Scratch.Get "project_relative_url" }}'> <!-- ex; installing/ -->
+
+{{ if .Params.version_history.in }}
+  <meta name="version_history_in" content="{{ .Params.version_history.in }}">
+{{ end }}
+{{ if .Params.version_history.locations }}
+  <meta name="version_history_locations" content="{{ .Params.version_history.locations | jsonify }}">
+{{ end }}
+
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
   <link rel="canonical" href="{{ .Params.canonical_link }}" />
 

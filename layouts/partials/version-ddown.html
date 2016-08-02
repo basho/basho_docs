@@ -43,7 +43,7 @@
       {{ $is_dev     := (eq $version ($.Scratch.Get "latest_version")) }}
       {{ $is_lts     := (eq $version ($.Scratch.Get "lts_version")) }}
       {{ $is_current := (eq $version ($.Scratch.Get "version")) }}
-      {{ $target_url := (printf "/%s/%s/%s" ($.Scratch.Get "project_path") ($version) ($.Scratch.Get "relative_url")) }}
+      {{ $target_url := (printf "/%s/%s/%s" ($.Scratch.Get "project_path") ($version) ($.Scratch.Get "project_relative_url")) }}
       -->
       <!--TODO: We are misusing the "current" class and using it here to
               (poorly) distinguish the DEV and LTS elements. We should probably
