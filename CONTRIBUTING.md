@@ -45,7 +45,7 @@ menu:                                          # 5
 toc: true                                      # 6     -- Optional
 commercial_offering: false                     # 7     -- Optional
 version_history:                               # 8     -- Optional
-  present_from: "1.3.0+"                       # 8.i   -- Optional
+  in: "1.3.0-2.99.99"                          # 8.i   -- Optional
   locations:                                   # 8.ii  -- Optional
     - ["<1.5.0",      "using/. . ."]           #       -- Optional
     - ["1.5.2-1.9.9", "using/. . ."]           #       -- Optional
@@ -137,31 +137,37 @@ canonical_link: "https://docs.basho.com/. . ." # 10    -- Conditional
     pages that do not exist, or do not exist in the same location, in every
     version of a given project.
 
-    1.  If a new page is added and will not be back-ported to older versions of
-        the project, the `version_history` map should include the `present_from`
-        element with a Version Range as its value.
+    1.  The `version_history.in` Version Range should be included for pages that
+        do not exist in every version.
 
-        (For more information regarding Version Ranges, please see the
-        `ParseRange` function in js/tools/sem_ver.coffee.)
+        For pages that were added after the first published version of a
+        project, a range similar to `>=1.2.0` or `1.2.0+` could be used. For
+        pages that were removed at a certain version, a range similar to
+        `<3.0.0` or `2.99.99-` (note that the `-` is inclusive, and equivalent
+        to `<=`) could be used. An explicit range can be used for pages that
+        were added late, and then removed, ex;
 
-        > For example, the page Riak TS page `using/riakshell` was added in
-        > verion 1.2.0. The `version_history` map for all versions of this page
-        > from 1.2.0 onward -- even versions of the page that have been moved on
-        > disk between versions -- should look like,
-        >
-        > ```
-        > version_history
-        >   present_from: "1.2.0+"
-        > ```
+        ```
+        version_history:
+          in: "1.2.0-2.99.99"
+        ```
 
-    2.  If a page is moved on disk between versions, the `version_history` map
-        should include the `locations` element.
+        > For more information regarding Version Ranges, please see the
+        > `ParseRange` function in js/tools/sem_ver.coffee.
 
-        The `locations` element should be a list of tuples (list with length 2,
-        really). Each tuple should include first a Version Range and then the
-        path to the page for the given Range. It will be assumed that any valid
-        versions the `locations` list does not cover will follow the same path
-        as the page being rendered.
+    2.  If a page is moved on disk between versions, the
+        `version_history.locations` element should be used.
+
+        The `locations` element should be a list of tuples (list with length
+        2), each tuple being made up of a Version Range followed by the project
+        /version-relative path to the page for the given Range. It will be
+        assumed that any valid versions the `locations` list does not cover will
+        follow the same path as the page being rendered.
+
+        **PLEASE BE AWARE; the first range that matches the given version will
+        be used, and all following locations will not be checked.** If the first
+        version listed masks all others (ex; `<=99.99.99`), its path will be the
+        only path used.
 
         (For more information regarding Version Ranges, please see the
         `ParseRange` function in js/tools/sem_ver.coffee.)
