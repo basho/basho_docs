@@ -15,6 +15,7 @@
 //FIXME: This file contains font-faces that should possibly live in font.scss,
 //       And it DOES NOT include all of the style required for the version bar.
 @import "version-bar.scss";
+@import "version-selector.scss"; // A newer version of the above.
 @import "downloads.scss";
 @import "riak-index.scss";
 @import "navigation-sidebar.scss";
