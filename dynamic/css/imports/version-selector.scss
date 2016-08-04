@@ -41,6 +41,13 @@
 }
 
 /**
+ * Version Selector Badge
+ */
+.version-selector__badge {
+  cursor : pointer;
+}
+
+/**
  * Version Selector Badge; Button Element
  */
 .version-selector__btn {
@@ -51,7 +58,6 @@
   margin-bottom : 3px;
   background    : $versionColor-1-4-x;
   text-align    : center;
-  cursor        : pointer;
   color         : white;
   font-size     : 0.75rem;
   font-family   : 'OpenSansBold', verdana, sans-serif;
@@ -219,8 +225,9 @@
   }
 }
 
-/* The currently selected version should not link anywhere. */
-.version-selector__list-element--current a {
+/* The current version and all disabled versions should not link out. */
+.version-selector__list-element--current  a,
+.version-selector__list-element--disabled a {
   pointer-events: none;
   cursor: default;
 }
