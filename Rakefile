@@ -14,6 +14,7 @@ require_relative 'rake_libs/compile_js'
 require_relative 'rake_libs/compile_css'
 require_relative 'rake_libs/s3_deploy'
 require_relative 'rake_libs/downloads_metadata_generator'
+require_relative 'rake_libs/projects_metadata_generator'
 
 $css_source = "./dynamic/css"
 $css_dest   = "./static/css"
@@ -145,11 +146,26 @@ namespace :deploy do
   task :fetch_archived_content do do_fetch_archived_content(); end
 end
 
-# Generate download.yaml metadata.
-#   This task should be run every time a new package is placed onto the
-#   downloads server, and the updated file(s) should be tracked in Git.
-desc "Generate package URI information"
-task :generate_downloads_metadata do generate_downloads_metadata(); end
+
+#####################
+# Metadata Generation
+#
+# These tasks should be run in response to a new version of any project being
+# made available. When a new package is uploaded to our downloads host, we will
+# need to run `rake metadata:generate_downloads`. When a new version or project
+# is added to config.yaml, run `rake metadata:generate_projects`.
+task      :generate_metadata
+namespace :metadata do
+  desc "Update all generative metadata files"
+  task :all => ['metadata:generate_downloads', 'metadata:generate_projects']
+
+  desc "Generate package URI information"
+  task :generate_downloads do generate_downloads_metadata(); end
+
+  desc "Generate JavaScript-readable project descriptions"
+  task :generate_projects do generate_projects_metadata(); end
+end
+
 
 
 ######################################################################

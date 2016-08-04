@@ -275,6 +275,7 @@ def do_deploy()
         when ".css";  object_descriptor[:content_type] = "text/css"
         when ".js";   object_descriptor[:content_type] = "application/javascript"
         when ".xml";  object_descriptor[:content_type] = "application/xml"
+        when ".json";  object_descriptor[:content_type] = "application/json"
 
         when ".eot";  object_descriptor[:content_type] = "font/eot"
         when ".ttf";  object_descriptor[:content_type] = "font/ttf"

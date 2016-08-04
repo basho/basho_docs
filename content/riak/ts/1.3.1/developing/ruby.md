@@ -10,6 +10,8 @@ menu:
 project: "riak_ts"
 project_version: "1.3.1"
 toc: true
+version_history:
+  in: "1.1.0+"
 aliases:
     - /riakts/1.3.1/developing/ruby/
 canonical_link: "https://docs.basho.com/riak/ts/latest/developing/ruby"

@@ -198,8 +198,8 @@ def generate_downloads_metadata()
     f.write(download_info_hash.to_yaml)
   end
 
-  puts ""
   puts "Download data generation complete!"
+  puts ""
 end
 
 

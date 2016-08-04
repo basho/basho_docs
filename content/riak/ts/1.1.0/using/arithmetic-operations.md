@@ -10,6 +10,8 @@ menu:
 project: "riak_ts"
 project_version: "1.1.0"
 toc: true
+version_history:
+  in: "1.1.0+"
 aliases:
     - /riakts/1.1.0/using/arithmetic-operations/
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/arithmetic-operations"

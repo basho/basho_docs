@@ -1,4 +1,5 @@
 //= require_tree ./libs
+//= require_tree ./tools
 //= require_tree ./docs
 
 // The above requires are used by Sprocket to programatically import all .js and

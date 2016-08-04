@@ -19,7 +19,8 @@
 {{ $releases           := $project_decription.releases }}
 {{ $archived_url       := $project_decription.archived_url }}
 {{ $site_relative_url := (replace .Permalink .Site.BaseURL "") }}
-{{ $relative_url      := (replace $site_relative_url (printf "%s/%s/" (index $project_decription "path") $version) "") }}
+{{ $version_url       := (printf "%s/%s" $project_path $version) }}
+{{ $project_relative_url := (replace $site_relative_url (printf "%s/" $version_url) "") }}
 {{ $is_latest := (eq $version $latest_version) }}
 {{ $is_lts    := (eq $version $lts_version) }}
 
@@ -30,7 +31,8 @@
 {{ .Scratch.Add "project_path"       $project_path }}
 {{ .Scratch.Add "releases"           $releases }}
 {{ .Scratch.Add "site_relative_url"  $site_relative_url }}
-{{ .Scratch.Add "relative_url"       $relative_url }}
+{{ .Scratch.Add "version_url"        $version_url }}
+{{ .Scratch.Add "project_relative_url" $project_relative_url }}
 {{ .Scratch.Add "archived_url"       $archived_url }}
 {{ .Scratch.Add "is_latest"          $is_latest }}
 {{ .Scratch.Add "is_lts"             $is_lts }}
