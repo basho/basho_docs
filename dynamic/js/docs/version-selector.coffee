@@ -14,7 +14,7 @@ to our server and dynamically generate the version lists at load-time.
 
 Interaction is a simple mater of expanding (or simply showing) the list when the
 .version-selector div is clicked, and collapsing it (or hiding it) when anything
-else is clocked on.
+else is clicked on.
 ###
 
 #TODO: strict mode enables a pretty large number of runtime checks. We probably
