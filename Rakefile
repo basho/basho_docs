@@ -148,7 +148,7 @@ end
 
 
 #####################
-# Metadata Genreation
+# Metadata Generation
 #
 # These tasks should be run in response to a new version of any project being
 # made available. When a new package is uploaded to our downloads host, we will
