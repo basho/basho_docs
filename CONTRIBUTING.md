@@ -12,16 +12,17 @@ function of front matter elements.
 There are future plans to build a front-matter-linter that would be included in
 the `rake hugo` task so we can nip certain issues in the bud. We don't have that
 yet, though, and we're not sure when that might happen. For now, please be
-careful when writing new pages or modifying existing ones.
+careful when writing new pages or modifying the front matter/location of
+existing ones.
 
 
 #### Primary Content Pages
 
 This is the default layout for pages. Anything that is not the splash page
 (which already uses a special layout), a downloads page (which requires an
-expanded set of configurations, see below), or a page in the community section
-(which requires a reduced set of these configurations, see below), you're
-probably writing a primary content page.
+expanded set of configurations; see below), or a page in the community section
+(which requires a reduced set of these configurations; see below), is probably
+a primary content page.
 
 <!-- TODO: Link to a description of the directory layout, which should talk
            about how Hugo layouts are selected. -->
@@ -104,13 +105,19 @@ canonical_link: "https://docs.basho.com/. . ." # 10    -- Conditional
         project can include the `using` identifier -- as each version builds its
         own menu -- but each menu **must not** include duplicate entries.
 
-        Errors will be thrown at Hugo build time.
+        If duplicate entries are present in a menu, errors will be thrown at
+        Hugo build time.
 
     4.  The ordering weight of the page, relative to pages sharing a `parent`.
 
         Order is ascending, which means the lowest (lightest) weight will be at
         the top, and the highest (heaviest) will sink to the bottom. In case of
         ties, alphabetical sorting of page `identifier` is used.
+
+        **Note**: Reordering of pages should only happen when new pages are
+        added to a given section. If you feel the ordering of a section could be
+        improved, please reach out to the Docs team by opening an issue (not a
+        PR, please) in this repository.
 
     5.  The `identifier` of the the parent the page (if one exits).
 
@@ -125,11 +132,11 @@ canonical_link: "https://docs.basho.com/. . ." # 10    -- Conditional
 
         <!-- TODO: Build and link to a reference page that shows off all icons -->
 
-6.  Whether or not to a Table of Contents should be rendered.
+6.  Whether or not a Table of Contents should be rendered.
 
     Defaults to `true`.
 
-7.  Whether or not to the 'Enterprise Only Content' flag should be rendered.
+7.  Whether or not the 'Enterprise Only Content' flag should be rendered.
 
     Defaults to `false`.
 
@@ -297,8 +304,10 @@ canonical_link: "https://docs.basho.com/. . ." # 2 -- OPTIONAL
 ---
 ```
 
-1.  The menu name **must be** `community`. All over caveats -- notably those
-    the exclusive inclusion of `parent` _or_ `pre-icon` -- apply.
+1.  The `menu` map of a Community page should be treated similarly to the `menu`
+    of a primary content page, save for menu name. Because there is no
+    `project_version` in the Community front matter, the name of the menu **must
+    be** `community`.
 
 2.  Default canonical links for Community pages are slightly different from and
     simpler than primary content pages; `community/${project_relative_url}`.
