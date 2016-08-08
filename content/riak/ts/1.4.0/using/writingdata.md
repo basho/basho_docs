@@ -22,7 +22,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/writingdata"
 [config reference]: /riak/kv/2.1.4/configuring/reference/#the-advanced-config-file
 [MDC]: /riak/ts/1.4.0/using/mdc
 [riakshell]: ../riakshell
-
+[iso8601]: ../timerepresentations/
 
 Now that you've [planned][planning] and [activated][activating] your Riak TS table, you are ready to write data to it.
 
@@ -357,6 +357,16 @@ or
 ```sql
 INSERT INTO GeoCheckin VALUES ('South Atlantic','South Carolina',1420113700000,'rain',37.8);
 ```
+
+As of Riak TS 1.4.0, it is possible to use ISO 8601-compliant
+date/time strings in `insert` statements instead of integer
+timestamps:
+
+```sql
+INSERT INTO GeoCheckin VALUES ('South Atlantic','South Carolina','2015-01-01 12:01:40Z','rain',37.8);
+```
+
+See [our documentation on ISO 8601 support][iso8601] for more details.
 
 As with standard SQL, if all of the field names are not provided before the `VALUES` keyword, the other fields are assumed to be null.
 
