@@ -179,8 +179,13 @@ $ ->
   )
 
   # When child elements of the list are clicked, nothing should occur. Just
-  # consume the event.
-  version_list.on('click', '.version-selector__list-element', () -> false )
+  # return `true` to allow the event to bubble up.
+  version_list.on('click', '.version-selector__list-element', () -> true )
+
+  # When the current or a disabled list element is clicked nothing should
+  # happen, so return `false` to consume the event.
+  version_list.on('click', '.version-selector__list-element--disabled', () -> false )
+  version_list.on('click', '.version-selector__list-element--current',  () -> false )
 
   # When anything else in the document is clicked, we should hide the list.
   $(document).on('click',
