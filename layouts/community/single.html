@@ -29,7 +29,6 @@
 # because variables set in the scope of an `if` won't be set globally.
 {{ $toc                 := .Scratch.Get "toc"}}
 {{ $commercial_offering := .Scratch.Get "commercial_offering"}}
-{{ $has_supertext := isset .Params "title_supertext" }}
 -->
 
 {{ partial "head.html" . }}
@@ -50,7 +49,7 @@
     <article class="mainarticle">
 
       <header>
-        {{ if $has_supertext }}<h1 class="title_supertext">{{ .Params.title_supertext }}</h1>{{ end }}
+        {{ if .Params.title_supertext }}<h1 class="title_supertext">{{ .Params.title_supertext }}</h1>{{ end }}
         <h1>{{ .Title }}</h1>
       </header>
 
