@@ -17,7 +17,7 @@
   <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
   <meta name="viewport" content="width=device-width">
 
-  <title>{{ .Title }}</title>
+  <title>{{ if .Params.title_supertext }}{{ .Params.title_supertext }} {{ end }}{{ .Title }}</title>
 
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 

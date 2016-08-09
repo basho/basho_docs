@@ -54,7 +54,7 @@ params:
   # 2. The `path` is the on-disk relative path from the content root. In Hugo,
   #    the content root is '/content/', on S3 the root is simply '/'.
   #    If the project was moved from the Middleman site to Hugo, the
-  #    `arichved_path` is the on-disk relative path of the previous directory.
+  #    `archived_path` is the on-disk relative path of the previous directory.
   #    TODO: `archived_path` should probably be optional. I don't believe it
   #           currently is.
   # 3. The `releases` list-of-lists is organized oldest to newest, grouped by
