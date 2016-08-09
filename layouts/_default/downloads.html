@@ -18,6 +18,15 @@
 {{ $project_path := .Scratch.Get "project_path" }}
 {{ $is_latest    := .Scratch.Get "is_latest" }}
 {{ $is_lts       := .Scratch.Get "is_lts" }}
+{{ $display_toc  := .Scratch.Get "display_toc" }}
+
+{{/* Downloads pages should only include a canonical link if one is explicitly
+   * set in the front matter. If this is no the case -- if .Params.canonica_link
+   * is not set -- override the common_variables.html default canonical link.
+   */}}
+{{ if not .Params.canonical_link      }}
+  {{ .Scratch.Set "canonical_link" "" }}
+{{ end                                }}
 -->
 
 {{ partial "head.html" . }}
@@ -41,7 +50,7 @@
 
       <header><h1>{{.Title}}</h1></header>
 
-      {{ if .Params.toc }}
+      {{ if $display_toc }}
         <nav id="toc">
           <h2 class="title">Contents</h2>
           <div id="toc-wrapper">
@@ -84,7 +93,7 @@
           </tbody></table>
           {{ if (and ($project_map.install_instructions_set) (index (index $.Site.Data.os_meta $os_map.os) "installing_instructions_page")) }}
             {{ $installing_page := (index (index $.Site.Data.os_meta $os_map.os) "installing_instructions_page") }}
-            {{ $installing_uri  := printf "/%s/%s/%s/%s" $project_path $version $project_map.install_instructions_set $installing_page }}
+            {{ $installing_uri  := printf "%s/%s/%s/%s" $project_path $version $project_map.install_instructions_set $installing_page }}
             <p class="install_instruction">Here are further instructions for <a href="{{$installing_uri}}">installing {{$target_title}} on this system</a>.</p>
           {{ end }}
         {{end}}
@@ -104,7 +113,7 @@
           </tbody></table>
           {{ if $project_map.install_instructions_set }}
             {{ $installing_page := (index (index $.Site.Data.os_meta "source") "installing_instructions_page") }}
-            {{ $installing_uri  := printf "/%s/%s/%s/%s" $project_path $version $project_map.install_instructions_set $installing_page }}
+            {{ $installing_uri  := printf "%s/%s/%s/%s" $project_path $version $project_map.install_instructions_set $installing_page }}
             <p class="install_instruction">Here are further instructions for <a href="{{$installing_uri}}">installing {{$target_title}} from source</a>.</p>
           {{ end }}
         {{ end }}

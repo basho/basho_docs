@@ -15,10 +15,9 @@
 
 {{ $project             := .Scratch.Get "project"             }}
 {{ $version             := .Scratch.Get "version"             }}
-{{ $project_path        := .Scratch.Get "project_path"        }}
 {{ $is_latest           := .Scratch.Get "is_latest"           }}
 {{ $is_lts              := .Scratch.Get "is_lts"              }}
-{{ $toc                 := .Scratch.Get "toc"                 }}
+{{ $display_toc         := .Scratch.Get "display_toc"         }}
 {{ $commercial_offering := .Scratch.Get "commercial_offering" }}
 -->
 
@@ -53,7 +52,7 @@
       </div>
       {{ end }}
 
-      {{ if $toc }}
+      {{ if $display_toc }}
       <nav id="toc">
         <h2 class="title">Contents</h2>
         <div id="toc-wrapper">

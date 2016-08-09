@@ -66,7 +66,7 @@ generateVersionLists = () ->
 
       project_data = data[project]
 
-      project_path = project_data.path            # ex; riak/kv
+      project_path = project_data.path            # ex; /riak/kv
       latest_rel   = project_data.latest          # ex; 2.1.4
       lts_version  = project_data.lts             # ex; 2.0.7
       archived_url = project_data['archived_url'] # undefined, or a complete URL
@@ -127,7 +127,7 @@ generateVersionLists = () ->
                 relative_url = url
                 break
 
-            anchor = "/"+project_path+"/"+release_version+"/"+relative_url
+            anchor = project_path+"/"+release_version+"/"+relative_url
             anchor_tag = '<a href="'+anchor+'">'
 
           # Build the full list element and add it to the
