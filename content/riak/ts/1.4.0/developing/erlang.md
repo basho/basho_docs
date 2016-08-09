@@ -94,11 +94,29 @@ Insert rows into a Riak TS table using client PID. Rows are represented as a lis
 ```
 query(Pid::pid(),
       Query::string()) ->
-        {ColumnNames::[binary()], Rows::[tuple()]} | {error, Reason::term()}
+        {ok, {ColumnNames::[binary()], Rows::[tuple()]}} | {error, Reason::term()}
 ```
 
-Execute a `SELECT ...` query with the client. The result returned is either a tuple containing a list of columns as binaries in the first element and a list of records, each represented as a list of values, in the second element, or an `{error, Reason}` tuple.
+See `query/4`.
 
+#### `query/4`
+
+```
+query(Pid::pid(),
+      Query::string()|binary(),
+      Interpolations::[{binary(), binary()}],
+      Cover::term()) ->
+        {ok, {ColumnNames::[binary()], Rows::[tuple()]}} | {error, term()}.
+```
+
+Execute a `SELECT ...` query with the client. The result returned is either an `ok` tuple with a nested tuple containing a list of columns as binaries in the first element and a list of records, each represented as a list of values, in the second element, or an `{error, Reason}` tuple.
+
+`Interpolations` is currently ignored; eventually it will support
+parameter binding. Send an empty list if you use `query/4`.
+
+`Cover` is `undefined` by default. Otherwise, it is an opaque binary
+extracted from the return value to `get_coverage/3` (or
+`replace_coverage/4`/`replace_coverage/5`).
 
 #### `stream_list_keys/3`
 
@@ -110,3 +128,52 @@ stream_list_keys(pid(), table_name(), proplists:proplist()) ->
 Streaming list keys in a Riak TS table using client Pid. The parameter option is a proplist that can include a value for 'timeout'. A successful request returns `{ok, ReqId}`, while an unsuccessful request returns `{error, Reason}`.
 
 >**Warning:** Listing keys is a very expensive operation for a Riak TS cluster.
+
+#### `get_coverage/3`
+
+```
+get_coverage(pid(), table_name(), QueryText::iolist()) ->
+   {ok, Entries::[term()]} | {error, term()}.
+```
+
+Request a list of coverage plan components. Each element in the
+returned list will include an IP address and port number to connect
+to, a human-readable description of the item, and an opaque binary.
+
+Each element correponds to one partition and quantum range in the
+database, so an invocation of `query/4` with the opaque binary will
+return only those values which fall within that single quantum.
+
+This allows for queries to be executed in parallel, and allows allows
+for the quantum limit to be effectively bypassed.
+
+#### `replace_coverage/4`
+
+```
+replace_coverage(Pid::pid(),
+                 Table::table_name(),
+                 QueryText::iolist(),
+                 Cover::binary()) ->
+  {ok, Entries::[term()]} | {error, term()}.
+```
+
+See `replace_coverage/5`.
+
+#### `replace_coverage/5`
+
+```
+replace_coverage(Pid::pid(),
+                 Table::table_name(),
+                 QueryText::iolist(),
+                 Cover::binary(),
+                 OtherCover::[binary()]) ->
+  {ok, Entries::[term()]} | {error, term()}.
+```
+
+Request a replacement coverage plan component by providing an opaque
+coverage binary which the client has been unable to use because the
+server is not responding (or is responding with an error).
+
+The `OtherCover` argument, a list of additional binaries which have
+proven problematic, is useful to Riak to avoid providing a client with
+a connection to a server to which it currently cannot connect.
