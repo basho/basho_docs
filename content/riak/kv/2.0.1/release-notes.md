@@ -12,7 +12,6 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.1/community/release-notes
-canonical_link: "https://docs.basho.com/riak/kv/latest/release-notes"
 ---
 
 ## Client certificate authentication

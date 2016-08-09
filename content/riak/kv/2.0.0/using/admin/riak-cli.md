@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.0/ops/running/tools/riak
   - /riak/kv/2.0.0/ops/running/tools/riak
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/admin/riak-cli"
 ---
 
 ## riak

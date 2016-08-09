@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.1/dev/references/http/mapreduce
   - /riak/kv/2.1.1/dev/references/http/mapreduce
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/http/mapreduce"
 ---
 
 [MapReduce](/riak/kv/2.1.1/developing/usage/mapreduce) is a generic way to query Riak by specifying inputs and constructing a set of map, reduce, and link phases through which data will flow.

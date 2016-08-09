@@ -14,7 +14,6 @@ toc: true
 commercial_offering: true
 aliases:
   - /riak/2.0.2/ops/mdc/v3/configuration
-canonical_link: "https://docs.basho.com/riak/kv/latest/configuring/v3-multi-datacenter"
 ---
 
 [config reference#advanced]: /riak/kv/2.0.2/configuring/reference/#advanced-configuration

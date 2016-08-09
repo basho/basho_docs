@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.6/dev/taste-of-riak/golang
   - /riak/kv/2.0.6/dev/taste-of-riak/golang
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/golang"
 ---
 
 If you haven't set up a Riak Node and started it, please visit [Running A Cluster](/riak/kv/2.0.6/using/running-a-cluster) first and ensure you have

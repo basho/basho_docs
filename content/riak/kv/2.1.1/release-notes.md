@@ -12,7 +12,6 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.1/community/release-notes
-canonical_link: "https://docs.basho.com/riak/kv/latest/release-notes"
 ---
 
 *NOTE: Riak 2.1.1 has replaced Riak 2.1.0*

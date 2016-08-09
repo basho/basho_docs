@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.2/theory/concepts/Clusters
   - /riak/2.0.2/theory/concepts/clusters
-canonical_link: "https://docs.basho.com/riak/kv/latest/learn/concepts/clusters"
 ---
 
 

@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.7/ops/running/logging
   - /riak/kv/2.0.7/ops/running/logging
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/reference/logging"
 ---
 
 [cluster ops log]: /riak/kv/2.0.7/using/cluster-operations/logging

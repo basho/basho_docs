@@ -12,7 +12,6 @@ menu:
 toc: true
 aliases:
   - /dataplatform/1.0.0/using-dataplatform/dataplatform-commands/
-canonical_link: "https://docs.basho.com/dataplatform/latest/using/commands/"
 ---
 
 [bdp configure]: /dataplatform/1.0.0/configuring/setup-a-cluster/

@@ -16,7 +16,6 @@ aliases:
   - /riak/kv/2.1.1/ops/building/installing/Installing-on-Solaris
   - /riak/2.1.1/installing/solaris/
   - /riak/kv/2.1.1/installing/solaris/
-canonical_link: "https://docs.basho.com/riak/kv/latest/setup/installing/solaris"
 ---
 
 

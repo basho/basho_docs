@@ -14,7 +14,6 @@ toc: true
 aliases:
   - /riak/2.0.2/dev/taste-of-riak/object-modeling-nodejs
   - /riak/kv/2.0.2/dev/taste-of-riak/object-modeling-nodejs
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/nodejs/object-modeling"
 ---
 
 To get started, let's create the models that we'll be using.

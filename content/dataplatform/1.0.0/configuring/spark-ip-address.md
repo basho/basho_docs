@@ -12,7 +12,6 @@ menu:
 toc: true
 aliases:
   - /dataplatform/1.0.0/using-dataplatform/configuration/advanced/set-spark-ip-address/
-canonical_link: "https://docs.basho.com/dataplatform/latest/configuring/spark-ip-address/"
 ---
 
 To bind Spark Master to a specific host you can manually set the Spark Master IP Address with:

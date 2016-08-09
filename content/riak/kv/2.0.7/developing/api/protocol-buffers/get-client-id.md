@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.7/dev/references/protocol-buffers/get-client-id
   - /riak/kv/2.0.7/dev/references/protocol-buffers/get-client-id
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/get-client-id"
 ---
 
 <div class="note">

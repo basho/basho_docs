@@ -12,7 +12,6 @@ menu:
 aliases:
   - /riak/2.1.4/community/release-notes
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/release-notes"
 ---
 
 # Riak KV 2.1.4 Release Notes

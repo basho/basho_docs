@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.0/dev/using/data-modeling
   - /riak/kv/2.0.0/dev/using/data-modeling
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/data-modeling"
 ---
 
 [plan backend bitcask]: /riak/kv/2.0.0/setup/planning/backend/bitcask

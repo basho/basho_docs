@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.7/dev/advanced/strong-consistency
   - /riak/kv/2.0.7/dev/advanced/strong-consistency
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/app-guide/strong-consistency"
 ---
 
 [use ref strong consistency]: /riak/kv/2.0.7/using/reference/strong-consistency

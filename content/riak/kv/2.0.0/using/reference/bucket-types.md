@@ -10,7 +10,6 @@ menu:
     weight: 102
     parent: "managing_ref"
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/reference/bucket-types"
 ---
 
 Bucket types allow groups of buckets to share configuration details and

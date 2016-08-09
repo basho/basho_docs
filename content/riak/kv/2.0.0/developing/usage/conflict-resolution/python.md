@@ -14,7 +14,6 @@ toc: true
 aliases:
   - /riak/2.0.0/dev/using/conflict-resolution/python
   - /riak/kv/2.0.0/dev/using/conflict-resolution/python
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage/conflict-resolution/python"
 ---
 
 For reasons explained in the [Introduction to conflict resolution](/riak/kv/2.0.0/developing/usage/conflict-resolution), we strongly recommend adopting a

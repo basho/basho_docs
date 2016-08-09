@@ -10,7 +10,6 @@ menu:
     weight: 107
     parent: "developing"
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api"
 ---
 
 [dev api http]: ./http

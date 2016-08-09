@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.3/dev/references/http/fetch-search-schema
   - /riak/kv/2.1.3/dev/references/http/fetch-search-schema
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/http/fetch-search-schema"
 ---
 
 Retrieves a Riak KV [search schema](/riak/kv/2.1.3/developing/usage/search-schemas).

@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.4/theory/concepts/
   - /riak/kv/2.1.4/theory/concepts/
-canonical_link: "https://docs.basho.com/riak/kv/latest/learn/concepts"
 ---
 
 [concept aae]: /riak/kv/2.1.4/learn/concepts/active-anti-entropy

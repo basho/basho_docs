@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.1/ops/tuning/erlang
   - /riak/kv/2.1.1/ops/tuning/erlang
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/performance/erlang"
 ---
 
 Riak was written almost exclusively in [Erlang](http://www.erlang.org)

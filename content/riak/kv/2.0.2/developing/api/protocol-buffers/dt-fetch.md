@@ -12,7 +12,6 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/dev/references/protocol-buffers/dt-fetch
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/dt-fetch"
 ---
 
 The equivalent of [`RpbGetReq`](/riak/kv/2.0.2/developing/api/protocol-buffers/fetch-object) for [Riak Data Types](/riak/kv/2.0.2/developing/data-types). This request results in a `DtFetchResp`

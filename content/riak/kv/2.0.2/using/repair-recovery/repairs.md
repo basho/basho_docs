@@ -15,7 +15,6 @@ aliases:
   - /riak/2.0.2/ops/running/recovery/failed-node
   - /riak/2.0.2/ops/running/recovery/repairing-leveldb
   - /riak/2.0.2/ops/running/recovery/repairing-partitions
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/repair-recovery/repairs"
 ---
 
 ## Repairing Secondary Indexes

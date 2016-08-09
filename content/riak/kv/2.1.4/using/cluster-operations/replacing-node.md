@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.4/ops/running/nodes/replacing
   - /riak/kv/2.1.4/ops/running/nodes/replacing
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/cluster-operations/replacing-node"
 ---
 
 At some point, for various reasons, you might need to replace a node in

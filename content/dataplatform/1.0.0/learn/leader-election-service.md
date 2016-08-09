@@ -12,7 +12,6 @@ menu:
 toc: true
 aliases:
   - /dataplatform/1.0.0/learn-about-dataplatform/leader-election-service/
-canonical_link: "https://docs.basho.com/dataplatform/latest/learn/leader-election-service/"
 ---
 
 [ee]: http://info.basho.com/Wiki_Riak_Enterprise_Request.html

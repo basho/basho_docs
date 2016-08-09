@@ -16,7 +16,6 @@ aliases:
   - /riak/kv/2.0.4/ops/building/installing/Installing-on-Mac-OS-X
   - /riak/2.0.4/installing/mac-osx/
   - /riak/kv/2.0.4/installing/mac-osx/
-canonical_link: "https://docs.basho.com/riak/kv/latest/setup/installing/mac-osx"
 ---
 
 

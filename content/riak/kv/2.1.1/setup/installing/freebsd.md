@@ -16,7 +16,6 @@ aliases:
   - /riak/kv/2.1.1/ops/building/installing/Installing-on-FreeBSD
   - /riak/2.1.1/installing/freebsd/
   - /riak/kv/2.1.1/installing/freebsd/
-canonical_link: "https://docs.basho.com/riak/kv/latest/setup/installing/freebsd"
 ---
 
 

@@ -11,7 +11,6 @@ project_version: "2.0.7"
 #    weight: 106
 #    parent: "planning"
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/setup/planning/future"
 ---
 
 **TODO: Add content**

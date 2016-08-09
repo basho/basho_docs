@@ -15,7 +15,6 @@ commercial_offering: true
 aliases:
   - /riak/2.0.1/ops/mdc/v3/cascading-writes
   - /riak/kv/2.0.1/ops/mdc/v3/cascading-writes
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/reference/v3-multi-datacenter/cascading-writes"
 ---
 
 ## Introduction

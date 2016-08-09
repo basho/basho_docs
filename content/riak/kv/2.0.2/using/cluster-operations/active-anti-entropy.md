@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/kv/2.0.2/ops/advanced/aae/
   - /riak/2.0.2/ops/advanced/aae/
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/cluster-operations/active-anti-entropy"
 ---
 
 Riak's [active anti-entropy](../../../learn/concepts/active-anti-entropy/) \(AAE) subsystem is a set of background processes that repair object inconsistencies stemming from missing or divergent object values across nodes. Riak operators can turn AAE on and off and configure and monitor its functioning.

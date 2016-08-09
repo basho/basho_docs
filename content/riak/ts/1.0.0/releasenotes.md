@@ -12,7 +12,6 @@ project_version: "1.0.0"
 toc: true
 aliases:
     - /riakts/1.0.0/releasenotes/
-canonical_link: "https://docs.basho.com/riak/ts/latest/releasenotes"
 ---
 
 

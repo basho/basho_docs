@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.6/dev/references/protocol-buffers/yz-index-put
   - /riak/kv/2.0.6/dev/references/protocol-buffers/yz-index-put
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/yz-index-put"
 ---
 
 Create a new index or modify an existing index.

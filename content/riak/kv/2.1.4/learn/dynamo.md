@@ -14,7 +14,6 @@ aliases:
   - /riak/2.1.4/theory/dynamo
   - /riak/kv/2.1.4/theory/dynamo
   - /riak/latest/theory/dynamo
-canonical_link: "https://docs.basho.com/riak/kv/latest/learn/dynamo"
 ---
 
 *Dynamo: Amazon's Highly Available Key-value Store* is reprinted here in its entirety, images and all. 

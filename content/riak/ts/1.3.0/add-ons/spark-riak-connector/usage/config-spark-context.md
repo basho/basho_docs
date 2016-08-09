@@ -13,7 +13,6 @@ menu:
 toc: true
 version_history:
   in: "1.3.0+"
-canonical_link: "https://docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage/config-spark-context"
 ---
 
 The following `import` statements should be included at the top of your Spark application to enable the connector:

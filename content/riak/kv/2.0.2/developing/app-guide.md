@@ -12,7 +12,6 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/dev/using/application-guide/
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/app-guide"
 ---
 
 [usage conflict resolution]: /riak/kv/2.0.2/developing/usage/conflict-resolution

@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.1/ops/advanced/security
   - /riak/kv/2.1.1/ops/advanced/security
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/security"
 ---
 
 > **Internal security**

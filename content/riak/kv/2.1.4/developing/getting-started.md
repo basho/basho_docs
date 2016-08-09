@@ -14,7 +14,6 @@ toc: true
 aliases:
   - /riak/2.1.4/dev/taste-of-riak/
   - /riak/kv/2.1.4/dev/taste-of-riak/
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started"
 ---
 
 [install index]: /riak/kv/2.1.4/setup/installing

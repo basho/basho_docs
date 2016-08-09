@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.6/theory/concepts/keys-and-values
   - /riak/kv/2.0.6/theory/concepts/keys-and-values
-canonical_link: "https://docs.basho.com/riak/kv/latest/learn/concepts/keys-and-objects"
 ---
 
 [concept buckets]: /riak/kv/2.0.6/learn/concepts/buckets

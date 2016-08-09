@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.1/ops/advanced/runtime
   - /riak/kv/2.0.1/ops/advanced/runtime
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/reference/runtime-interaction"
 ---
 
 [config reference]: /riak/kv/2.0.1/configuring/reference
