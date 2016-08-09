@@ -10,7 +10,6 @@ menu:
     weight: 101
     parent: "index"
 toc: true
-canonical_link: "https://docs.basho.com/dataplatform/latest/installing/"
 ---
 
 [bdp compatibility]: /dataplatform/1.0.0/#supported-operating-systems

@@ -13,7 +13,6 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/dev/using/conflict-resolution/java
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage/conflict-resolution/java"
 ---
 
 For reasons explained in the [Introduction to conflict resolution](/riak/kv/2.0.2/developing/usage/conflict-resolution), we strongly recommend adopting a

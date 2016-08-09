@@ -16,7 +16,6 @@ aliases:
   - /riak/kv/2.0.5/ops/building/installing/Installing-on-SUSE
   - /riak/2.0.5/installing/suse/
   - /riak/kv/2.0.5/installing/suse/
-canonical_link: "https://docs.basho.com/riak/kv/latest/setup/installing/suse"
 ---
 
 [install verify]: /riak/kv/2.0.5/setup/installing/verify

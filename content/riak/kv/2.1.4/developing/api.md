@@ -14,7 +14,6 @@ toc: true
 aliases:
   - /riak/2.1.4/dev/references/apis
   - /riak/kv/2.1.4/dev/references/apis
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api"
 ---
 
 [dev api http]: ./http

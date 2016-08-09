@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.1/ops/running/recovery/failed-node
   - /riak/kv/2.1.1/ops/running/recovery/failed-node
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/repair-recovery/failed-node"
 ---
 
 ## General Recovery Notes

@@ -12,7 +12,6 @@ menu:
 toc: true
 aliases:
   - /dataplatform/1.0.0/using-dataplatform/using-dataplatform/
-canonical_link: "https://docs.basho.com/dataplatform/latest/using/"
 ---
 
 [bdp install]: /dataplatform/1.0.0/installing/

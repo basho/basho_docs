@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.2/theory/concepts/Replication
   - /riak/2.0.2/theory/concepts/replication
-canonical_link: "https://docs.basho.com/riak/kv/latest/learn/concepts/replication"
 ---
 
 

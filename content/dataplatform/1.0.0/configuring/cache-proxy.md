@@ -12,7 +12,6 @@ menu:
 toc: true
 aliases:
   - /dataplatform/1.0.0/using-dataplatform/configuration/getting-started-with-cache-proxy/
-canonical_link: "https://docs.basho.com/dataplatform/latest/configuring/cache-proxy/"
 ---
 
 [bdp install]: /dataplatform/1.0.0/installing/

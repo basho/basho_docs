@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.3/theory/concepts/crdts
   - /riak/kv/2.1.3/theory/concepts/crdts
-canonical_link: "https://docs.basho.com/riak/kv/latest/learn/concepts/crdts"
 ---
 
 

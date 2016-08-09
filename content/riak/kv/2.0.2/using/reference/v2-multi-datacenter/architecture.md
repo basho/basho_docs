@@ -12,7 +12,6 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/ops/mdc/v2/architecture
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/reference/v2-multi-datacenter/architecture"
 ---
 
 This document provides a basic overview of the architecture undergirding

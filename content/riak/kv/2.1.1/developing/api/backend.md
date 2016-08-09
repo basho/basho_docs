@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.1/dev/references/backend-api
   - /riak/kv/2.1.1/dev/references/backend-api
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/backend"
 ---
 
 [plan backend]: /riak/kv/2.1.1/setup/planning/backend

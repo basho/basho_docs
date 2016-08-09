@@ -10,7 +10,6 @@ menu:
     weight: 100
     parent: "developing_usage"
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage/creating-objects"
 ---
 
 [usage content types]: /riak/kv/2.0.0/developing/usage/content-types

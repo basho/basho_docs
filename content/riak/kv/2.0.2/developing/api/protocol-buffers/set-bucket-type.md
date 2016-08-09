@@ -12,7 +12,6 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/dev/references/protocol-buffers/set-bucket-type
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/set-bucket-type"
 ---
 
 Assigns a set of [bucket properties](/riak/kv/2.0.2/developing/api/protocol-buffers/set-bucket-props) to a

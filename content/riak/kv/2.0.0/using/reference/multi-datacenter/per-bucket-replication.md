@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.0/ops/mdc/per-bucket
   - /riak/kv/2.0.0/ops/mdc/per-bucket
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/reference/multi-datacenter/per-bucket-replication"
 ---
 
 To enable or disable replication per bucket, you can use the `repl`

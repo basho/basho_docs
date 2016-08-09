@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.4/dev/references/protocol-buffers/set-bucket-props
   - /riak/kv/2.1.4/dev/references/protocol-buffers/set-bucket-props
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/set-bucket-props"
 ---
 
 Sets the properties for a bucket.

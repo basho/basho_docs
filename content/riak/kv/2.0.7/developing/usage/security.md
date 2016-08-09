@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.7/dev/advanced/client-security
   - /riak/kv/2.0.7/dev/advanced/client-security
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage/security"
 ---
 
 Versions of Riak 2.0 and later come equipped with a [security subsystem](/riak/kv/2.0.7/using/security/basics) that enables you to choose

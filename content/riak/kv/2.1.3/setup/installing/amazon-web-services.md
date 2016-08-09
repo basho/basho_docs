@@ -16,7 +16,6 @@ aliases:
   - /riak/kv/2.1.3/ops/building/installing/Installing-on-AWS-Marketplace
   - /riak/2.1.3/installing/amazon-web-services/
   - /riak/kv/2.1.3/installing/amazon-web-services/
-canonical_link: "https://docs.basho.com/riak/kv/latest/setup/installing/amazon-web-services"
 ---
 
 ## Launching Riak VMs via the AWS Marketplace

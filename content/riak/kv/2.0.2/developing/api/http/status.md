@@ -12,7 +12,6 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/dev/references/http/status
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/http/status"
 ---
 
 Reports about the performance and configuration of the Riak node to which it was requested. You must have the `{riak_kv_stat,true}` configuration setting in app.config for this endpoint to be active.

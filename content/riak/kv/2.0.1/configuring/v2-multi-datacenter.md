@@ -15,7 +15,6 @@ commercial_offering: true
 aliases:
   - /riak/2.0.1/ops/mdc/v2/configuration
   - /riak/kv/2.0.1/ops/mdc/v2/configuration
-canonical_link: "https://docs.basho.com/riak/kv/latest/configuring/v2-multi-datacenter"
 ---
 
 [config v2 ssl]: /riak/kv/2.0.1/configuring/v2-multi-datacenter/ssl

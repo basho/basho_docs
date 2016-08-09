@@ -12,7 +12,6 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/dev/references/protocol-buffers/yz-index-get
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/yz-index-get"
 ---
 
 Retrieve a search index from Riak Search.

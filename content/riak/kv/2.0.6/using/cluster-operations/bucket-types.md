@@ -10,7 +10,6 @@ menu:
     weight: 104
     parent: "managing_cluster_operations"
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/cluster-operations/bucket-types"
 ---
 
 Buckets are essentially a flat namespace in Riak. They allow the same

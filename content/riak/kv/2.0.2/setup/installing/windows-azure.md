@@ -16,7 +16,6 @@ aliases:
   - /riak/kv/2.0.2/ops/building/installing/Installing-on-Windows-Azure
   - /riak/2.0.2/installing/windows-azure/
   - /riak/kv/2.0.2/installing/windows-azure/
-canonical_link: "https://docs.basho.com/riak/kv/latest/setup/installing/windows-azure"
 ---
 
 ## Creating CentOS VMs

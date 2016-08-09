@@ -12,7 +12,6 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/dev/references/http/get-bucket-props
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/http/get-bucket-props"
 ---
 
 Reads the bucket properties.

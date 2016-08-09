@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.7/dev/references/protocol-buffers/reset-bucket-props
   - /riak/kv/2.0.7/dev/references/protocol-buffers/reset-bucket-props
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/reset-bucket-props"
 ---
 
 Request to reset the properties of a given bucket or bucket type.

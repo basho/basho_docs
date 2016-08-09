@@ -10,7 +10,6 @@ menu:
     weight: 208
     parent: "managing"
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/reference"
 ---
 
 [ref log]: ./logging

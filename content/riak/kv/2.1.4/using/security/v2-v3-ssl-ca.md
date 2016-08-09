@@ -11,7 +11,6 @@ project_version: "2.1.4"
 #    weight: 103
 #    parent: "managing_security"
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/security/v2-v3-ssl-ca"
 ---
 
 ## Hanc capellae

@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/kv/2.0.7/ops/tuning/linux/
   - /riak/2.0.7/ops/tuning/linux/
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/performance"
 ---
 
 Many Unix-like operating systems and distributions are tuned for desktop

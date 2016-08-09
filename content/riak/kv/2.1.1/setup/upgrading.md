@@ -10,7 +10,6 @@ menu:
     weight: 102
     parent: "setup_index"
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/setup/upgrading"
 ---
 
 [upgrade checklist]: ./checklist

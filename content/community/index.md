@@ -28,7 +28,6 @@ aliases:
   - /riak/kv/2.0.2/community
   - /riak/kv/2.0.1/community
   - /riak/kv/2.0.0/community
-canonical_link: "https://docs.basho.com/community/"
 ---
 
 [community projects]: /community/projects

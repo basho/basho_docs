@@ -14,7 +14,6 @@ toc: true
 aliases:
   - /riak/2.0.1/dev/using/conflict-resolution/nodejs
   - /riak/kv/2.0.1/dev/using/conflict-resolution/nodejs
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage/conflict-resolution/nodejs"
 ---
 
 For reasons explained in the [Introduction to conflict resolution](/riak/kv/2.0.1/developing/usage/conflict-resolution), we strongly recommend adopting a conflict resolution strategy that

@@ -12,7 +12,6 @@ menu:
 toc: true
 aliases:
   - /dataplatform/1.0.0/learn-about-dataplatform/spark-cluster-manager-features/
-canonical_link: "https://docs.basho.com/dataplatform/latest/learn/spark-cluster-manager/"
 ---
 
 [bdp leader election]: /dataplatform/1.0.0/learn/leader-election-service/

@@ -11,7 +11,6 @@ project_version: "2.1.3"
 #    weight: 104
 #    parent: "developing_app_guide"
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/app-guide/reference"
 ---
 
 **TODO: Add content**

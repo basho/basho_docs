@@ -15,7 +15,6 @@ aliases:
   - /riak/kv/2.1.1/theory/concepts/Clusters
   - /riak/2.1.1/theory/concepts/clusters
   - /riak/kv/2.1.1/theory/concepts/clusters
-canonical_link: "https://docs.basho.com/riak/kv/latest/learn/concepts/clusters"
 ---
 
 

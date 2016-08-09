@@ -12,7 +12,6 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.3/community/release-notes
-canonical_link: "https://docs.basho.com/riak/kv/latest/release-notes"
 ---
 
 **2.1.3 - Released December 9, 2015**

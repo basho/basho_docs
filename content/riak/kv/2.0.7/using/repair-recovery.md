@@ -10,7 +10,6 @@ menu:
     weight: 204
     parent: "managing"
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/repair-recovery"
 ---
 
 [repair recover fail]: ./failure-recovery/

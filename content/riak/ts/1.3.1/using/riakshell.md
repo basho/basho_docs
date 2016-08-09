@@ -14,7 +14,6 @@ version_history:
   in: "1.2.0+"
 aliases:
     - /riakts/1.3.1/using/riakshell/
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/riakshell"
 ---
 
 [nodename]: /riak/kv/2.1.4/using/cluster-operations/changing-cluster-info/

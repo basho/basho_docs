@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.3/dev/advanced/write-once
   - /riak/kv/2.1.3/dev/advanced/write-once
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/app-guide/write-once"
 ---
 
 [glossary vnode]: /riak/kv/2.1.3/learn/glossary/#vnode

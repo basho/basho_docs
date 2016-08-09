@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.4/ops/building/planning/cluster
   - /riak/kv/2.0.4/ops/building/planning/cluster
-canonical_link: "https://docs.basho.com/riak/kv/latest/setup/planning/cluster-capacity"
 ---
 
 [plan backend leveldb]: /riak/kv/2.0.4/setup/planning/backend/leveldb

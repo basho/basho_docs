@@ -14,7 +14,6 @@ toc: true
 commercial_offering: true
 aliases:
   - /riak/2.0.2/ops/mdc/v3/aae
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/reference/v3-multi-datacenter/aae"
 ---
 
 [glossary aae]: /riak/kv/2.0.2/learn/glossary/#active-anti-entropy-aae

@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.0/dev/using/libraries
   - /riak/kv/2.0.0/dev/using/libraries
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/client-libraries"
 ---
 
 ## Basho-Supported Libraries

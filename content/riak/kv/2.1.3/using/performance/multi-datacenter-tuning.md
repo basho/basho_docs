@@ -12,7 +12,6 @@ menu:
     parent: "managing_performance"
 toc: true
 commercial_offering: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/performance/multi-datacenter-tuning"
 ---
 
 [perf index]: /riak/kv/2.1.3/using/performance

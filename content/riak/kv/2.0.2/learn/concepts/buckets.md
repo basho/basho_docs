@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.2/theory/concepts/Buckets
   - /riak/2.0.2/theory/concepts/buckets
-canonical_link: "https://docs.basho.com/riak/kv/latest/learn/concepts/buckets"
 ---
 
 [apps cluster metadata]: /riak/kv/2.0.2/developing/app-guide/cluster-metadata

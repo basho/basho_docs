@@ -13,7 +13,6 @@ menu:
 toc: true
 version_history:
   in: "1.3.0+"
-canonical_link: "https://docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage"
 ---
 
 This section will walk you through setting up your application for development with the Spark-Riak connector.

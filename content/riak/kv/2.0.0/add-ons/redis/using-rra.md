@@ -13,7 +13,6 @@ toc: true
 commercial_offering: true
 aliases:
   - /riak/kv/2.0.0/add-ons/redis/get-started-with-rra
-canonical_link: "https://docs.basho.com/riak/kv/latest/add-ons/redis/using-rra"
 ---
 
 [addon redis develop]: ../developing-rra/

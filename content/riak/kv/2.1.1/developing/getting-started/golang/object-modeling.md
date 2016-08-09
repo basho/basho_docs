@@ -14,7 +14,6 @@ toc: true
 aliases:
   - /riak/2.1.1/dev/taste-of-riak/object-modeling-golang
   - /riak/kv/2.1.1/dev/taste-of-riak/object-modeling-golang
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/golang/object-modeling"
 ---
 
 {{% note title="Code Download" %}}

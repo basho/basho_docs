@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.4/ops/running/recovery/errors
   - /riak/kv/2.1.4/ops/running/recovery/errors
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/repair-recovery/errors"
 ---
 
 [config reference]: /riak/kv/2.1.4/configuring/reference

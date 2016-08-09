@@ -14,7 +14,6 @@ toc: true
 aliases:
   - /riak/2.0.6/dev/advanced/client-security/java
   - /riak/kv/2.0.6/dev/advanced/client-security/java
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage/security/java"
 ---
 
 This tutorial shows you how to set up a Riak Java client to authenticate

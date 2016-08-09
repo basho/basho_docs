@@ -10,7 +10,6 @@ menu:
     weight: 110
     pre: icon-install
 toc: false
-canonical_link: "https://docs.basho.com/riak/kv/latest/setup"
 ---
 
 [plan index]: ../setup/planning
