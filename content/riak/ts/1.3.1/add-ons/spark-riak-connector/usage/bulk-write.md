@@ -13,7 +13,6 @@ menu:
 toc: true
 version_history:
   in: "1.3.0+"
-canonical_link: "https://docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage/bulk-write"
 ---
 
 To write into a Riak TS table, the Spark-Riak Connector splits the initial set of rows into smaller bulks and processes them in parallel. Bulk size can be configured using `spark.riakts.write.bulk-size` property. The default number is `100`.

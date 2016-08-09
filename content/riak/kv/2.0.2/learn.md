@@ -10,7 +10,6 @@ menu:
     weight: 400
     pre: icon-beaker
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/learn"
 ---
 
 [learn why riak]: ./why-riak-kv/

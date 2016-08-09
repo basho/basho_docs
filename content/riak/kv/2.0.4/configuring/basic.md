@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.4/ops/building/configuration/
   - /riak/kv/2.0.4/ops/building/configuration/
-canonical_link: "https://docs.basho.com/riak/kv/latest/configuring/basic"
 ---
 
 [config reference]: /riak/kv/2.0.4/configuring/reference

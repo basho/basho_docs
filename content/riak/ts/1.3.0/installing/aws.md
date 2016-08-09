@@ -15,7 +15,6 @@ version_history:
 aliases:
     - /riakts/1.3.0/installing/aws
     - /riak/ts/1.3.0/installing/aws-marketplace/
-canonical_link: "https://docs.basho.com/riak/ts/latest/installing/rhel-centos"
 ---
 
 

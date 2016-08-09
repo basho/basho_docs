@@ -15,7 +15,6 @@ aliases:
   - /riak/kv/2.1.1/ops/building/installing/erlang
   - /riak/2.1.1/installing/source/erlang/
   - /riak/kv/2.1.1/installing/source/erlang/
-canonical_link: "https://docs.basho.com/riak/kv/latest/setup/installing/source/erlang"
 ---
 
 [install index]: /riak/kv/2.1.1/setup/installing

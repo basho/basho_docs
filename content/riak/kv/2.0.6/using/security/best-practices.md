@@ -11,7 +11,6 @@ menu:
     weight: 102
     parent: "managing_security"
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/security/best-practices"
 ---
 
 ## Hanc capellae

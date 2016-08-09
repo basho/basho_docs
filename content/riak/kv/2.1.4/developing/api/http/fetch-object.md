@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.4/dev/references/http/fetch-object
   - /riak/kv/2.1.4/dev/references/http/fetch-object
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/http/fetch-object"
 ---
 
 Reads an object from the specified bucket/key.

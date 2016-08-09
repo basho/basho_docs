@@ -10,7 +10,6 @@ menu:
     weight: 207
     parent: "managing"
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/troubleshooting"
 ---
 
 [http 204]: ./http-204

@@ -10,7 +10,6 @@ menu:
     weight: 103
     parent: "learn"
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/learn/glossary"
 ---
 
 

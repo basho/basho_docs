@@ -12,7 +12,6 @@ menu:
 toc: true
 aliases:
   - /riak/2.1.4/ops/running/cluster-admin
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/admin"
 ---
 
 [use admin commands]: ./commands/

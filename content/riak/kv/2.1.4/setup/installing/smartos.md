@@ -16,7 +16,6 @@ aliases:
   - /riak/kv/2.1.4/ops/building/installing/Installing-on-SmartOS
   - /riak/2.1.4/installing/smartos/
   - /riak/kv/2.1.4/installing/smartos/
-canonical_link: "https://docs.basho.com/riak/kv/latest/setup/installing/smartos"
 ---
 
 [install verify]: /riak/kv/2.1.4/setup/installing/verify

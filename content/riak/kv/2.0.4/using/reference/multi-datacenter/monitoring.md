@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.4/ops/mdc/monitoring
   - /riak/kv/2.0.4/ops/mdc/monitoring
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/reference/multi-datacenter/monitoring"
 ---
 
 Monitoring Riak's realtime replication allows you to identify trends and

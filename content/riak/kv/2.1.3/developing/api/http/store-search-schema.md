@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.3/dev/references/http/store-search-schema
   - /riak/kv/2.1.3/dev/references/http/store-search-schema
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/http/store-search-schema"
 ---
 
 Creates a new Riak [Search schema](/riak/kv/2.1.3/developing/usage/search-schemas).

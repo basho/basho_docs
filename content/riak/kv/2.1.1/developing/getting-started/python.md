@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.1/dev/taste-of-riak/python
   - /riak/kv/2.1.1/dev/taste-of-riak/python
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/python"
 ---
 
 

@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.3/dev/using/updates
   - /riak/kv/2.1.3/dev/using/updates
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage/updating-objects"
 ---
 
 [glossary vnode]: /riak/kv/2.1.3/learn/glossary/#vnode

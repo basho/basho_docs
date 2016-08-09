@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.4/ops/advanced/security
   - /riak/kv/2.1.4/ops/advanced/security
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/security"
 ---
 
 [config reference search]: /riak/kv/2.1.4/configuring/reference/#search

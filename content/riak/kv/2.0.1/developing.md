@@ -10,7 +10,6 @@ menu:
     weight: 300
     pre: icon-lambda
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing"
 ---
 
 [getting started]: ../developing/getting-started

@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.1/theory/concepts/vnodes
   - /riak/kv/2.1.1/theory/concepts/vnodes
-canonical_link: "https://docs.basho.com/riak/kv/latest/learn/concepts/vnodes"
 ---
 
 

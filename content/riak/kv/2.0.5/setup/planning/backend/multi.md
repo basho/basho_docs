@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.5/ops/advanced/backends/multi/
   - /riak/kv/2.0.5/ops/advanced/backends/multi/
-canonical_link: "https://docs.basho.com/riak/kv/latest/setup/planning/backend/multi"
 ---
 
 [concept buckets]: /riak/kv/2.0.5/learn/concepts/buckets

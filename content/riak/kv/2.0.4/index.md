@@ -12,7 +12,6 @@ menu:
 toc: false
 aliases:
   - /riak/2.0.4/
-canonical_link: "https://docs.basho.com/riak/kv/latest/index"
 ---
 
 [aboutenterprise]: http://basho.com/contact/

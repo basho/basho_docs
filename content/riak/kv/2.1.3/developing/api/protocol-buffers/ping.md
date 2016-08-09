@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.3/dev/references/protocol-buffers/ping
   - /riak/kv/2.1.3/dev/references/protocol-buffers/ping
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/ping"
 ---
 
 Check if the server is alive

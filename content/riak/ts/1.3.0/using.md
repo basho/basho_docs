@@ -12,7 +12,6 @@ project_version: "1.3.0"
 toc: true
 aliases:
     - /riakts/1.3.0/using/
-canonical_link: "https://docs.basho.com/riak/ts/latest/using"
 ---
 
 

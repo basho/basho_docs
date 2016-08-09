@@ -15,7 +15,6 @@ aliases:
   - /riak/2.1.4/theory/concepts/replication
   - /riak/kv/2.1.4/theory/concepts/Replication
   - /riak/kv/2.1.4/theory/concepts/replication
-canonical_link: "https://docs.basho.com/riak/kv/latest/learn/concepts/replication"
 ---
 
 

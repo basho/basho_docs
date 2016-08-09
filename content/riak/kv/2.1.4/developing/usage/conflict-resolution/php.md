@@ -14,7 +14,6 @@ toc: true
 aliases:
   - /riak/2.1.4/dev/using/conflict-resolution/php
   - /riak/kv/2.1.4/dev/using/conflict-resolution/php
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage/conflict-resolution/php"
 ---
 
 For reasons explained in the [Introduction to conflict resolution](/riak/kv/2.1.4/developing/usage/conflict-resolution), we strongly recommend adopting a

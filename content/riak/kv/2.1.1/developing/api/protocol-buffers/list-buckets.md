@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.1/dev/references/protocol-buffers/list-buckets
   - /riak/kv/2.1.1/dev/references/protocol-buffers/list-buckets
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/list-buckets"
 ---
 
 List all of the bucket names available.

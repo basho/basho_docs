@@ -11,7 +11,6 @@ project_version: "2.0.0"
 #    weight: 112
 #    parent: "managing_cluster_operations"
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/cluster-operations/backend"
 ---
 
 **TODO: Add content**

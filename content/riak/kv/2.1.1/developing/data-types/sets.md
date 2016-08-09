@@ -16,7 +16,6 @@ aliases:
   - /riak/kv/2.1.1/dev/using/data-types/sets
   - /riak/2.1.1/dev/data-modeling/data-types/sets
   - /riak/kv/2.1.1/dev/data-modeling/data-types/sets
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/data-types/sets"
 ---
 
 Sets are a bucket-level Riak data type that can be used by themselves, associated with a bucket/key pair, or used [within a map](../maps#sets-within-maps).

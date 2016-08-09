@@ -12,7 +12,6 @@ menu:
 toc: true
 aliases:
   - /dataplatform/1.0.0/learn-about-dataplatform/service-manager-features/
-canonical_link: "https://docs.basho.com/dataplatform/latest/learn/service-manager/"
 ---
 
 [bdp cli]: /dataplatform/1.0.0/using/commands/

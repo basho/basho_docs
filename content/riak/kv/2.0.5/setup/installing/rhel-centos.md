@@ -16,7 +16,6 @@ aliases:
   - /riak/kv/2.0.5/ops/building/installing/Installing-on-RHEL-and-CentOS
   - /riak/2.0.5/installing/rhel-centos/
   - /riak/kv/2.0.5/installing/rhel-centos/
-canonical_link: "https://docs.basho.com/riak/kv/latest/setup/installing/rhel-centos"
 ---
 
 

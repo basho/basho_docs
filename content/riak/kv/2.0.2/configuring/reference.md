@@ -12,7 +12,6 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/ops/advanced/configs/configuration-files/
-canonical_link: "https://docs.basho.com/riak/kv/latest/configuring/reference"
 ---
 
 [concept clusters]: ../../learn/concepts/clusters

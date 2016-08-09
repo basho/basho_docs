@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.7/dev/references/http/fetch-search-index
   - /riak/kv/2.0.7/dev/references/http/fetch-search-index
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/http/fetch-search-index"
 ---
 
 Retrieves information about a Riak Search [index](/riak/kv/2.0.7/developing/usage/search/#simple-setup).

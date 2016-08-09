@@ -10,7 +10,6 @@ menu:
     weight: 102
     parent: "managing_cluster_operations"
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/cluster-operations/replacing-node"
 ---
 
 At some point, for various reasons, you might need to replace a node in

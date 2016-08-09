@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.4/dev/references/protocol-buffers/fetch-object
   - /riak/kv/2.1.4/dev/references/protocol-buffers/fetch-object
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/fetch-object"
 ---
 
 Fetch an object from the specified bucket type/bucket/key location

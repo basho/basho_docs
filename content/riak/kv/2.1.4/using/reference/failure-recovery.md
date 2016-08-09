@@ -11,5 +11,4 @@ project_version: "2.1.4"
 #    weight: 105
 #    parent: "managing_ref"
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/reference/failure-recovery"
 ---

@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.4/dev/using/search
   - /riak/kv/2.1.4/dev/using/search
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage/search"
 ---
 
 [usage search schema]: /riak/kv/2.1.4/developing/usage/search-schemas
