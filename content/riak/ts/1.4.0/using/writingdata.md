@@ -23,6 +23,8 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/writingdata"
 [MDC]: /riak/ts/1.4.0/using/mdc
 [riakshell]: ../riakshell
 [iso8601]: ../timerepresentations/
+[ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
+[iso8601 accuracy]: ../../../timerepresentations#reduced-accuracy
 
 Now that you've [planned][planning] and [activated][activating] your Riak TS table, you are ready to write data to it.
 
@@ -358,21 +360,24 @@ or
 INSERT INTO GeoCheckin VALUES ('South Atlantic','South Carolina',1420113700000,'rain',37.8);
 ```
 
-As of Riak TS 1.4.0, it is possible to use ISO 8601-compliant
-date/time strings in `insert` statements instead of integer
-timestamps:
-
-```sql
-INSERT INTO GeoCheckin VALUES ('South Atlantic','South Carolina','2015-01-01 12:01:40Z','rain',37.8);
-```
-
-See [our documentation on ISO 8601 support][iso8601] for more details.
-
 As with standard SQL, if all of the field names are not provided before the `VALUES` keyword, the other fields are assumed to be null.
 
 The fields can be in any order, but the field name and the values must match up. Without the `VALUES` keyword, all fields must be present in the same order as the schema definition.
 
 The data types are validated on the server just like the client PUT commands above.
+
+
+### ISO 8601
+
+It is possible to use [ISO 8601]-compliant date/time strings in INSERT statements instead of integer timestamps:
+`
+```sql
+INSERT INTO GeoCheckin VALUES ('South Atlantic','South Carolina','2015-01-01 12:01:40Z','rain',37.8);
+```
+
+You must include apostrophes around the ISO 8601 value. You cannot use [reduced accuracy time representations][iso8601 accuracy]. In other words, you must specify your time down to the second (or use fractional times).
+
+See [our documentation on ISO 8601 support][iso8601] for more details on how to use ISO 8601.
 
 
 ## Deleting Data
