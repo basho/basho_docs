@@ -5,12 +5,12 @@ menu:
   riak_ts-1.4.0:
     name: "Arithmetic Operations"
     identifier: "arithmetic_operations_riakts"
-    weight: 308
-    parent: "using"
+    weight: 300
+    parent: "SELECT"
 project: "riak_ts"
 project_version: "1.4.0"
 toc: true
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/arithmetic-operations"
+canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/select/arithmetic-operations"
 version_history:
   present_from: "1.4.0+"
   moved:
@@ -18,7 +18,7 @@ version_history:
 aliases:
     - /riak/ts/1.4.0/using/arithmetic-operations
     - /riakts/1.4.0/using/arithmetic-operations
-    - /riakts/1.4.0/using/querying/arithmetic-operations
+    - /riakts/1.4.0/using/querying/select/arithmetic-operations
 ---
 
 
