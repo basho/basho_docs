@@ -18,7 +18,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/select"
 [guidelines]: riak/ts/1.4.0/using/querying/guidelines
 [iso8601]: ../../../timerepresentations/
 
-You can use the SELECT statement in Riak TS to query your TS dataset. This document will show you how to run various queries using SELECT. See the [guidelines] for more information on limitations and rules for queries in TS.
+You can use the SELECT statement in Riak TS to query your TS dataset. This document will show you how to run various queries using `SELECT`. See the [guidelines] for more information on limitations and rules for queries in TS.
 
 For all of the examples on this page, we are using our standard example GeoCheckin table:
 
