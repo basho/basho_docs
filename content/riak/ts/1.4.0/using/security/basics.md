@@ -20,13 +20,6 @@ through the command line. This allows an administrator to change
 security settings for the whole cluster quickly without needing to
 change settings on a node-by-node basis.
 
-{{% note %}}
-Currently, Riak TS security commands can be run only through
-the command line, using the `riak-admin security` command. In future
-versions of Riak TS, administrators may have the option of issuing
-those commands through the Protocol Buffers interface.
-{{% /note %}}
-
 ## Enabling Security
 
 > **Warning: Enable security with caution**
@@ -43,10 +36,8 @@ riak-admin security enable
 ```
 
 All users, groups, authentication sources, and permissions can be
-configured while security is disabled, allowing you to create a
-security configuration of any level of complexity without prematurely
-impacting the service. Keep this in mind when you are
-[managing users](../user-management) and [managing sources](../sources-management).
+configured while security is disabled. This lets you create a
+security configuration without prematurely impacting the service. Keep this in mind when you are [managing users](../user-management) and [managing sources](../sources-management).
 
 ## Disabling Security
 
@@ -68,10 +59,7 @@ To check whether security is currently enabled for the cluster, use the
 riak-admin security status
 ```
 
-This command will usually return `Enabled` or `Disabled`, but if
-security is enabled on a mixed-mode cluster (running a combination of
-Riak 2.0 and older versions) it will indicate that security is enabled
-but not yet available.
+This command will usually return `Enabled` or `Disabled`.
 
 ## Managing Users and Security Sources
 
