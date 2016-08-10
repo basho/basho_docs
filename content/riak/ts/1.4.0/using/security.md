@@ -15,11 +15,8 @@ aliases:
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/security/"
 ---
 
-[config reference search]: /riak/kv/2.1.4/configuring/reference/#search
-[config search enabling]: /riak/kv/2.1.4/configuring/search/#enabling-riak-search
 [JMX]: http://www.oracle.com/technetwork/java/javase/tech/javamanagement-140525.html
 [Solr]: http://lucene.apache.org/solr/
-[usage search]: /riak/kv/2.1.4/developing/usage/search
 
 As of Riak TS 1.4, security is supported for the Protocol Buffers Client (PBC) interface (like in [Riak KV](/riak/kv/)).
 
@@ -97,14 +94,6 @@ cluster on the following TCP ports:
 Protocol | Port
 :--------|:----
 <a href="http://docs.basho.com/riak/kv/2.1.4/developing/api/protocol-buffers/">Protocol Buffers</a> | TCP port 8087
-
-### Riak Search Ports
-
-Riak's [search][usage search] feature relies on [Apache Solr][Solr], which runs on each Riak node if security has been [enabled][config search enabling]. When Riak's Search subsystem starts up, [JMX][JMX] opens a well-known port as well as some ephemeral ports. The well-known port is determined by the value of the `search.solr.jmx_port` in each node's [Search configuration][config reference search]. The default is 8985.
-
-In addition to JMX ports, Solr also binds to a well-known port of its
-own, as determined by each node's `search.solr.port` setting, which is
-also located in each node's Search configuration. The default is 8093.
 
 ## Best Practices
 

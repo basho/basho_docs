@@ -16,9 +16,7 @@ aliases:
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/security/sources-management/"
 ---
 
-While [user management](../user-management) enables you to control _authorization_ with regard to users, security **sources** provide you with an interface for managing means of _authentication_. If you create users and grant them access to some or all of Riak TS's functionality as described in the [User Management](../user-management) section, you will then need to define security sources required for authentication.
-
-An more in-depth tutorial can be found in [Managing Security Sources](/riak/kv/2.1.4/using/security/managing-sources/).
+While [user management](../user-management) enables you to control _authorization_ with regard to users, security **sources** provide an interface for managing means of _authentication_. If you create users and grant them access to some or all of Riak TS's functionality as described in the [User Management](../user-management) section, you will need to define security sources required for authentication.
 
 ## Add Source
 
@@ -110,7 +108,7 @@ riak-admin security del-source riakuser 127.0.0.1/32 password
 
 This section provides only a very brief overview of the syntax for
 working with sources. For more information on using the `trust`,
-`password`, `pam`, and `certificate` sources, please see our [Managing Security Sources](/riak/kv/2.1.4/using/security/managing-sources/) document.
+`password`, `pam`, and `certificate` sources, see the [authentication sources](#authentication-sources) section of this page.
 
 ## Security Ciphers
 
@@ -178,23 +176,15 @@ documentation](https://wiki.mozilla.org/Security/Server_Side_TLS).
 
 ### Client vs. Server Cipher Order
 
-By default, Riak prefers the cipher order that you set on the server,
-i.e. the [`honor_cipher_order`](/riak/kv/2.1.4/configuring/reference/#security) setting is set to `on`. If you prefer, however, that clients' preferred cipher
+By default, Riak TS prefers the cipher order setting, `honor_cipher_order`, to be set to `on`. If you prefer, however, that clients' preferred cipher
 order dictate which cipher is chosen, set `honor_cipher_order` to `off`.
-
-> **Note on Erlang versions**
->
-> Riak's default cipher order behavior has the potential to crash Erlang
-VMs that do not support it. Erlang VMs that are known to support it
-include Basho's patched version of Erlang R16. Instructions on
-installing it can be found in [Installing Erlang](/riak/kv/2.1.4/setup/installing/source/erlang). This issue should
-not affect Erlang 17.0 and later.
 
 ## Enabling SSL
 
 In order to use any authentication or authorization features, you must
-enable SSL for Riak. **SSL is disabled by default**, but you will need
-to enable it prior to enabling security. If you are using [Protocol Buffers](/riak/kv/2.1.4/developing/api/protocol-buffers/) as a transport protocol for Riak (which we strongly recommend), enabling SSL on a given node requires only that you specify a [host and port](/riak/kv/2.1.4/configuring/reference/#client-interfaces) for the node
+enable SSL for Riak TS.
+
+**SSL is disabled by default**, but you will need to enable it prior to enabling security. If you are using [Protocol Buffers](/riak/kv/2.1.4/developing/api/protocol-buffers/) as a transport protocol for Riak (which we strongly recommend), enabling SSL on a given node requires only that you specify a [host and port](/riak/kv/2.1.4/configuring/reference/#client-interfaces) for the node
 as well as a [certification configuration](#certificate-configuration).
 
 If, however, you are using the [HTTP API](/riak/kv/2.1.4/developing/api/http) for Riak and would like to
@@ -237,9 +227,9 @@ Three things to note:
 
 ## Certificate Configuration
 
-If you are using any of the available [security sources](/riak/kv/2.1.4/using/security/managing-sources/), including [trust-based authentication](/riak/kv/2.1.4/using/security/managing-sources/#trust-based-authentication), you will need to do so
+If you are using any of the available [security sources](#authentication-sources), including [trust-based authentication](#trust-based-authentication), you will need to do so
 over a secure SSL connection. In order to establish a secure connection,
-you will need to ensure that each Riak node's [configuration files](/riak/kv/2.1.4/configuring/reference/#security) point to the proper paths for your
+you will need to ensure that each Riak TS node's [configuration files](/riak/kv/2.1.4/configuring/reference/#security) point to the proper paths for your
 generated certs. By default, Riak assumes that all certs are stored in
 each node's `/etc` directory.
 
@@ -299,9 +289,9 @@ In order to provide safeguards against
 [cross-site-scripting](http://en.wikipedia.org/wiki/Cross-site_scripting)
 (XSS) and
 [request-forgery](http://en.wikipedia.org/wiki/Cross-site_request_forgery)
-attacks, Riak TS performs [secure referer checks](http://en.wikipedia.org/wiki/HTTP_referer) by default. Those checks make it impossible to serve data directly from Riak. To disable those checks, set the `secure_referer_check` parameter to `off`.
+attacks, Riak TS performs [secure referer checks](http://en.wikipedia.org/wiki/HTTP_referer) by default. Those checks make it impossible to serve data directly from Riak TS. To disable those checks, set the `secure_referer_check` parameter to `off`.
 
-If you are using [certificate-based authentication](/riak/kv/2.1.4/using/security/managing-sources/#certificate-based-authentication), Riak TS will check the certificate revocation list (CRL) of connecting clients' certificate by default. To disable this behavior, set the `check_crl` parameter to
+If you are using [certificate-based authentication](#certificate-based-authentication), Riak TS will check the certificate revocation list (CRL) of connecting clients' certificate by default. To disable this behavior, set the `check_crl` parameter to
 `off`.
 
 ## Authentication Sources
@@ -317,7 +307,7 @@ These sources correspond to `trust`, `password`, `pam`, and `certificate`,
 respectively, in the `riak-admin security` interface.
 
 The examples below will assume that the network in question is
-`127.0.0.1/32` and that a Riak user named `riakuser` has been
+`127.0.0.1/32` and that a Riak TS user named `riakuser` has been
 [created](../user-management/#add-user) and that
 security has been [enabled](../basics/#enabling-security).
 
@@ -411,11 +401,6 @@ specified client---or clients---interacting with Riak bear certificates
 signed by the same [Root Certificate
 Authority](http://en.wikipedia.org/wiki/Root_certificate).
 
-> **Note**
->
-> At this time, client certificates are not supported in Riak's HTTP
-interface, and can be used only through the [protocol buffers interface](/riak/kv/2.1.4/developing/api/protocol-buffers/).
-
 Let's specify that our user `riakuser` is going to be authenticated
 using a certificate on `localhost`:
 
@@ -456,11 +441,9 @@ mind, as in this OpenSSL example:
 openssl req -new ... '/CN=riak-node-1'
 ```
 
-Once certificates have been properly generated and configured on all of
-the nodes in your Riak cluster, you need to perform a [rolling restart](/riak/kv/2.1.4/using/repair-recovery/rolling-restart/). Once that process is complete, you can use the client
-certificate that you generated for the user `riakuser`.
+Once certificates have been generated and configured on all  the nodes in your Riak TS cluster, you need to perform a [rolling restart](/riak/kv/2.1.4/using/repair-recovery/rolling-restart/). Once that process is complete, you can use the client certificate that you generated for the user `riakuser`.
 
-How to use Riak clients in conjunction with OpenSSL and other
+How to use Riak TS clients in conjunction with OpenSSL and other
 certificates varies from client library to client library. We strongly
 recommend checking the documentation of your client library for further
 information.

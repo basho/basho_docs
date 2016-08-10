@@ -17,10 +17,6 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/security/checklist/
 
 Before turning on Riak TS security there are key steps all applications need to take. Missing one of these steps may break your application, so make sure you have done each of the following **before** enabling security:
 
-1. Ensure the original Riak Search (version 1) and link
-   walking are not required. Enabling security will break this
-   functionality. If you wish to use security and Search together, you
-   will need to use the [new Search feature](/riak/kv/2.1.4/developing/usage/search/).
 1. Because Riak TS security requires a secure SSL connection, you will need
    to generate appropriate SSL certs, [enable SSL](../sources-management/#enabling-ssl) and establish a [certification configuration](../sources-management/#certificate-configuration) on each node. **If you
    enable security without having established a functioning SSL
