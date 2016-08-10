@@ -187,25 +187,6 @@ enable SSL for Riak TS.
 **SSL is disabled by default**, but you will need to enable it prior to enabling security. If you are using [Protocol Buffers](/riak/kv/2.1.4/developing/api/protocol-buffers/) as a transport protocol for Riak (which we strongly recommend), enabling SSL on a given node requires only that you specify a [host and port](/riak/kv/2.1.4/configuring/reference/#client-interfaces) for the node
 as well as a [certification configuration](#certificate-configuration).
 
-If, however, you are using the [HTTP API](/riak/kv/2.1.4/developing/api/http) for Riak and would like to
-configure HTTPS, you will need to not only establish a [certificate configuration](#certificate-configuration) but also specify an HTTPS host
-and port. The following configuration would establish port 8088 on
-`localhost` as the HTTPS port:
-
-```riakconf
-listener.https.$name = 127.0.0.1:8088
-
-# By default, "internal" is used as the "name" setting
-```
-
-```appconfig
-{riak_core, [
-             %% Other configs
-             {https, [{"127.0.0.1", 8088}]},
-             %% Other configs
-            ]}
-```
-
 ## TLS Settings
 
 When using Riak security, you can choose which versions of SSL/TLS are
