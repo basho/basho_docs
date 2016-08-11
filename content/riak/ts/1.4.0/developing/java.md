@@ -243,9 +243,16 @@ Allows you to query a Riak TS table with the given query string.
 
 ##### Builder
 
-The builder only takes the query text:
+The base builder only takes the query text:
 
  * `public Builder(String queryText)`
+
+There is a new constructor that lets you include a coverage plan with your query.
+
+* `public Builder(String queryText, byte[] coverageContext)`
+
+Including a coverage plan allows for the query to only be executed on the coverageContext's associated vNode, but allows timeseries queries to be executed in parallel, and also allows for the quantum limit to be effectively bypassed.
+Please see [CoveragePlan()](#coverageplan) on how to obtain a coverageContext.
 
 ##### Return Value
 
@@ -270,3 +277,23 @@ The builder constructor takes the table name:
 ##### Return Value
 
 * `void`
+
+
+#### `CoveragePlan`
+
+Request a collection of coverage plan components. Each element in the returned collection will include an IP address and port number to connect to, a human-readable description of the item, and an "coverageContext" opaque binary.
+
+Each element correponds to one partition and quantum range in the database, so an invocation of [Query()](#query) with the coverageContext opaque binary will return only those values which fall within that single quantum. 
+
+This allows for queries to be executed in parallel, and allows allows for the quantum limit to be effectively bypassed.
+**Note** - Coverage plans, entries, and contexts should only be used for one query or batch of related queries, as any change to the cluster environment may invalidate them. 
+
+##### Builder
+
+The builder only takes the table name and the query text:
+
+ * `public Builder(String tableName, String queryText)`
+
+ ##### Return Value
+
+ * `CoveragePlanResult` - contains a collection of `CoverageEntry`, each of which contains connection information, a description, and a coverageContext.
