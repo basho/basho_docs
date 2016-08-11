@@ -33,6 +33,10 @@ To enable global object expiry, add the `leveldb.expiration` setting to your `ri
 leveldb.expiration = on
 ```
 
+{{% note %}}
+Turning on global object expiration will not retroactively expire previous data. Only data created while expiration is on will be scheduled for expiration.
+{{% /note %}}
+
 ## Setting Retention Time
 
 The `retention_time` setting is used to specify the time until objects expire.
@@ -64,8 +68,8 @@ leveldb.expiration.retention_time = 8d9h
 
 Global expiration supports two modes:
 
-- `whole_file` - whole SST file is deleted when all its objects are expired
-- `normal` - individual objects are removed as part of usual compaction process
+- `whole_file` - the whole sorted string table (`.sst`) file is deleted when all of its objects are expired.
+- `normal` - individual objects are removed as part of the usual compaction process.
 
 We recommend using `whole_file` with time series data that has a similar lifespan, as it will be much more efficient. 
 
