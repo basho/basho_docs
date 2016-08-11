@@ -16,6 +16,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/explain"
 ---
 
 [creating-activating]: riak/ts/1.4.0/using/creating-activating
+[develop]: riak/ts/1.4.0/developing
 [planning]: riak/ts/1.4.0/using/planning
 [riak shell]: riak/ts/1.4.0/using/riakshell
 
@@ -75,4 +76,4 @@ riak-shell>EXPLAIN SELECT * FROM GeoCheckin WHERE myfamily = 'family1' AND myser
 
 Note that riak shell fits output into the current window so the results might be truncated.
 
-## EXPLAIN in TS Clients
+Using `EXPLAIN` in the [TS-supported clients][develop] works exactly as described above and returns the same results.
