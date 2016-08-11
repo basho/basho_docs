@@ -1,24 +1,34 @@
 ---
 title_supertext: "Security"
-title: "Enabling"
+title: "Enable & Disable"
 description: "Enabling, disabling, and checking security in Riak TS."
 menu:
   riak_ts-1.4.0:
-    name: "Security: Enabling"
-    identifier: "security_enabling"
+    name: "Security: Enable & Disable"
+    identifier: "security_enable_disable"
     weight: 110
     parent: "security"
 project: "riak_ts"
 project_version: "1.4.0"
 toc: true
 aliases:
-    - /riakts/1.4.0/using/security/enabling
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/security/enabling/"
+    - /riakts/1.4.0/using/security/enable-disable
+canonical_link: "https://docs.basho.com/riak/ts/latest/using/security/enable-disable/"
 ---
 
 Riak TS security may be [checked](#checking-security-status), [enabled](#enabling-security), or [disabled](#disabling-security) through the command line, allowing an administrator to change security settings for the whole cluster without needing to go node-by-node.
 
-## Activating Security
+## Enabling SSL
+
+SSL is disabled by default. In order to use any authentication or authorization features, you must enable SSL for Riak TS.
+
+Enabling SSL on a given node requires you to specify a host and port for the node:
+
+```riak.conf
+listener.protobuf.$name = {"127.0.0.1",8087}
+```
+
+## Enabling Security
 
 {{% note title="Warning: Enable security with caution" %}}
 Enabling security will change the way your client libraries and

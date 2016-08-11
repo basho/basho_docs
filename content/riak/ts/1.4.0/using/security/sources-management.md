@@ -16,7 +16,19 @@ aliases:
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/security/sources-management/"
 ---
 
-While [user management](../user-management) enables you to control user authorization, _security sources_ provide an interface for managing means of authentication. If you create users and grant them access to some or all of Riak TS's functionality as described in the [User Management](../user-management) section, you will need to define security sources required for authentication.
+[cidr]: http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing
+[pbkdf2]: http://en.wikipedia.org/wiki/PBKDF2
+[security users]: ../user-management
+[security enabling]: ../enable-disable/#enabling-security
+[security add user]: ../user-management/#add-user
+[root cert]: http://en.wikipedia.org/wiki/Root_certificate
+[rolling restart]: /riak/kv/2.1.4/using/repair-recovery/rolling-restart/
+[config ref security]: /riak/kv/2.1.4/configuring/reference/#security
+[xss]: http://en.wikipedia.org/wiki/Cross-site_scripting
+[request forgery]: http://en.wikipedia.org/wiki/Cross-site_request_forgery
+[http referer]: http://en.wikipedia.org/wiki/HTTP_referer
+
+While [user management][security users] enables you to control user authorization, _security sources_ provide an interface for managing means of authentication. If you create users and grant them access to some or all of Riak TS's functionality as described in the [User Management][security users] section, you will need to define security sources required for authentication.
 
 ## Available Sources
 
@@ -24,8 +36,8 @@ There are four available authentication sources in Riak TS Security:
 
 Source   | Description
 :--------|:-----------
-[trusted networks](#trust-based-authentication) (`trust`) | Always authenticates successfully if access has been granted to a user or all users on the specified [CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) range
-[password](#password-based-authentication) (`password`) | Check the user's password against the [PBKFD2](http://en.wikipedia.org/wiki/PBKDF2)-hashed password stored in Riak
+[trusted networks](#trust-based-authentication) (`trust`) | Always authenticate successfully if access has been granted to a user or all users on the specified [CIDR][cidr] range
+[password](#password-based-authentication) (`password`) | Check the user's password against the [PBKFD2][pbkdf2]-hashed password stored in Riak TS
 [pluggable authentication modules (PAM)](#pam-based-authentication) (`pam`)  | Authenticate against the given pluggable authentication module (PAM) service
 [certificates](#certificate-based-authentication) (`certificate`) | Authenticate using a client certificate
 
@@ -43,13 +55,12 @@ riak-admin security add-source all|<users> <CIDR> <source> [<option>=<value>[...
 Using `all` indicates that the authentication source can be added to
 all users. A source can be added to a specific user, for example `add-source superuser`, or to a list of users separated by commas, for example `add-source jane,bill,admin`.
 
-The examples in the following sections will assume that the network in question is `127.0.0.1/32` and that a Riak TS user named `riakuser` has been [created](../user-management/#add-user) and that security has been [enabled](../enabling/#activating-security).
+The examples in the following sections will assume that the network in question is `127.0.0.1/32` and that a Riak TS user named `riakuser` has been [created][security add user] and that security has been [enabled][security enabling].
 
 ### Trust-based Authentication
 
 This form of authentication (`trust`) enables you to specify trusted
-[CIDRs](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
-from which all clients will be authenticated by default.
+[CIDRs][cidr] from which all clients will be authenticated by default.
 
 Let's say that we want to give all users trusted access to securables
 (without a password) when requests come from `localhost`:
@@ -76,7 +87,7 @@ example:
 riak-admin security add-source riakuser 127.0.0.1/32 trust
 ```
 
-Now, `riakuser` can interact with Riak without providing credentials.
+Now, `riakuser` can interact with Riak TS without providing credentials.
 Running the `riak-admin security print-sources` command would print:
 
 ```
@@ -147,7 +158,7 @@ access to Riak TS. We can check this by using the `riak-admin security print-sou
 
 This form of authentication (`certificate`) requires that Riak TS and a
 specified client (or clients) interacting with Riak TS have certificates
-signed by the same [Root Certificate Authority](http://en.wikipedia.org/wiki/Root_certificate).
+signed by the same [Root Certificate Authority][root cert].
 
 Let's specify that our user `riakuser` is going to be authenticated
 using a certificate on `localhost`:
@@ -188,7 +199,7 @@ You can find the node's name in `riak.conf` under the parameter `nodename`. And 
 openssl req -new ... '/CN=riakts-node-1'
 ```
 
-Once certificates have been generated and configured on all the nodes in your Riak TS cluster, you need to perform a [rolling restart](/riak/kv/2.1.4/using/repair-recovery/rolling-restart/). Once that process is complete, you can use the client certificate that you generated for the user `riakuser`.
+Once certificates have been generated and configured on all the nodes in your Riak TS cluster, you need to perform a [rolling restart][rolling restart]. Once that process is complete, you can use the client certificate that you generated for the user `riakuser`.
 
 How to use Riak TS clients in conjunction with OpenSSL and other
 certificates varies from client library to client library. We strongly
@@ -337,8 +348,7 @@ order dictate which cipher is chosen, set `honor_cipher_order` to `off`.
 
 ## Enabling SSL
 
-In order to use any authentication or authorization features, you must
-enable SSL for Riak TS. **SSL is disabled by default**, but you will need to enable it prior to enabling security.
+SSL is disabled by default. In order to use any authentication or authorization features, you must enable SSL for Riak TS.
 
 Enabling SSL on a given node requires you to specify a host and port for the node:
 
@@ -352,7 +362,7 @@ As well as specify a [certification configuration](#certificate-configuration).
 
 When using Riak TS security, you can choose which versions of SSL/TLS are
 allowed. By default, only TLS 1.2 is allowed, but this version can be
-disabled and others enabled by setting the following [configurable parameters](/riak/kv/2.1.4/configuring/reference/#security) to `on` or `off`:
+disabled and others enabled by setting the following [configurable parameters][config ref security] to `on` or `off`:
 
 * `tls_protocols.tlsv1`
 * `tls_protocols.tlsv1.1`
@@ -364,7 +374,7 @@ Three things to note:
 * Among the four available options, only TLS version 1.2 is enabled by
   default
 * You can enable more than one protocol at a time
-* We strongly recommend that you do _not_ use SSL version 3 unless
+* We strongly recommend that you do NOT use SSL version 3 unless
   absolutely necessary
 
 ## Certificate Configuration
@@ -405,31 +415,11 @@ can change the location of the `/etc` directory by modifying the
   </tbody>
 </table>
 
-If you are using the older, `app.config`-based configuration system,
-these paths can be set in the `ssl` subsection of the `riak_core`
-section. The corresponding parameters are shown in the example below:
-
-```appconfig
-{riak_core, [
-    %% Other configs
-
-    {ssl, [
-           {certfile, "./etc/cert.pem"},
-           {keyfile, "./etc/key.pem"},
-           {cacertfile, "./etc/cacertfile.pem"}
-          ]},
-
-    %% Other configs
-]}
-```
-
 ## Referer Checks and Certificate Revocation Lists
 
 In order to provide safeguards against
-[cross-site-scripting](http://en.wikipedia.org/wiki/Cross-site_scripting)
-(XSS) and
-[request-forgery](http://en.wikipedia.org/wiki/Cross-site_request_forgery)
-attacks, Riak TS performs [secure referer checks](http://en.wikipedia.org/wiki/HTTP_referer) by default. Those checks make it impossible to serve data directly from Riak TS. To disable those checks, set the `secure_referer_check` parameter to `off`.
+[cross-site-scripting][xss] (XSS) and [request-forgery][request forgery]
+attacks, Riak TS performs [secure referer checks][http referer] by default. Those checks make it impossible to serve data directly from Riak TS. To disable those checks, set the `secure_referer_check` parameter to `off`.
 
 If you are using [certificate-based authentication](#certificate-based-authentication), Riak TS will check the certificate revocation list (CRL) of connecting clients' certificate by default. To disable this behavior, set the `check_crl` parameter to
 `off`.
@@ -443,8 +433,7 @@ single user, multiple users, or all users (`all`). If specific users and
 happens if one source is applied to `all` and a different source is
 applied to a specific user?
 
-The short answer is that the more specifically assigned source---i.e. to
-the user---will be consider a user's security source. We'll illustrate
+The more-specifically assigned source (i.e. the source applied to the user) will be considered a user's security source. We'll illustrate
 that with the following example, in which the `certificate` source is
 assigned to `all`, but the `password` source is assigned to `riakuser`:
 

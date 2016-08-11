@@ -16,7 +16,7 @@ aliases:
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/security/user-management/"
 ---
 
-Riak TS security lets you to control _authorization_ by creating, modifying, and deleting user characteristics and granting users selective access to Riak TS functionality. Users can be assigned one or more of the following characteristics:
+Riak TS security lets you to control authorization by creating, modifying, and deleting user characteristics and granting users selective access to Riak TS functionality. Users can be assigned one or more of the following characteristics:
 
 * `username`
 * `groups`
@@ -24,10 +24,10 @@ Riak TS security lets you to control _authorization_ by creating, modifying, and
 
 You may also assign users characteristics beyond those listed
 above, such as listing email addresses or other information, but those
-values will carry no special significance for Riak.
+values will carry no special significance for Riak TS.
 
 {{% note %}}
-The `username` is the one user characteristic that cannot be changed once a user has been created.
+The `username` cannot be changed once a user has been created.
 {{% /note %}}
 
 ## Retrieve a Current User or Group List
@@ -71,10 +71,9 @@ If the user `riakuser` were assigned to the group `dev` and a `name` of
 ```
 
 If you'd like to see which permissions have been assigned to
-`riakuser`, you would need to use the `print-grants` command, detailed
-below.
+`riakuser`, you would need to use the `print-grants` command (see next section).
 
-The `security print-user` or `security-print-group` (singular) commands
+The `security print-user` or `security print-group` commands
 can be used with a name as argument to see the same information as
 above, except for only that user or group.
 
@@ -146,12 +145,11 @@ command:
 riak-admin security add-user riakuser
 ```
 
-Using the command this way creates the user `riakuser` without _any_
+Using the command this way creates the user `riakuser` without any
 characteristics beyond a username, which is the only attribute that you
 must assign upon user creation.
 
-Alternatively, a password (or other attributes) can be assigned to the
-user upon creation. Here, we'll assign a password:
+You may also assign a password or other attributes to the user upon creation. Here, we'll assign a password:
 
 ```bash
 riak-admin security add-user riakuser password=Test1234
@@ -162,7 +160,7 @@ riak-admin security add-user riakuser password=Test1234
 While passwords and other characteristics can be set upon user creation,
 it often makes sense to change user characteristics after the user has
 already been created. Let's say that the user `riakuser` was created
-without a password (or created _with_ a password that we'd like to
+without a password (or created with a password that we'd like to
 change). The `alter-user` command can be used to modify our `riakuser`
 user:
 
@@ -190,7 +188,7 @@ Now, the `print-users` command should return this:
 ```
 
 {{% note %}}
-Usernames _cannot_ be changed using the `alter-user` command.
+Usernames CANNOT be changed using the `alter-user` command.
 If you attempt to do so by running `alter-user riakuser
 username=other-name`, for example, this will add the
 `{"username","other-name"}` tuple to `riakuser`'s options.
@@ -215,7 +213,7 @@ riak-admin alter-user jane_goodall groups=admin,archoverlord
 There is no way to incrementally add groups; even if `jane_goodall` was
 already an `admin`, it is necessary to list it again when adding the
 `archoverlord` group. Thus, to remove a group from a user, use
-`alter-user` and list all *other* groups.
+`alter-user` and list all other groups.
 
 If the user should be removed from all groups, use `groups=` with no
 list:
@@ -292,7 +290,7 @@ If the same name is used for both a user and a group, the `grant`
 command will ask for the name to be prefixed with `user/` or `group/`
 to disambiguate.
 
-## Time Series Permissions
+## Riak TS Permissions
 
 Permissions that can be granted for basic time series access
 functionality:
@@ -317,7 +315,7 @@ never in production. Access to this functionality should be granted very
 carefully.
 {{% /note %}}
 
-If you'd like to create, for example, a `client` account that is
+For example, if you'd like to create a `client` account that is
 allowed only to run `GET` and `PUT` requests on all tables:
 
 ```bash

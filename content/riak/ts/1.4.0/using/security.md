@@ -16,6 +16,11 @@ aliases:
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/security/"
 ---
 
+[security checklist]: ./checklist
+[security enable disable]: ./enable-disable
+[security users]: ./user-management
+[security sources]: ./sources-management
+[security notify]: ./notify-basho
 [JMX]: http://www.oracle.com/technetwork/java/javase/tech/javamanagement-140525.html
 [Solr]: http://lucene.apache.org/solr/
 
@@ -87,20 +92,20 @@ Protocol | Port
 
 ### Security Checklist
 
-Before enabling security on your Riak TS cluster be sure to check out the [Security Checklist](./checklist).
+Before enabling security on your Riak TS cluster be sure to check out the [Security Checklist][security checklist].
 
 ### Enabling, Disabling, and Checking Security
 
-For a brief tutorial on how to enable, disable, or check the security status of a cluster, visit the [Security: Enabling](./enabling) page.
+For a brief tutorial on how to enable, disable, or check the security status of a cluster, visit the [Security: Enable & Disable][security enable disable] page.
 
 ### Managing User Authentication and Permissions
 
-For instructions on how to apply permissions and require client authentication in Riak TS, please see our [Security: User Management](./user-management)documentation.
+For instructions on how to apply permissions and require client authentication in Riak TS, please see our [Security: User Management][security users] documentation.
 
 ### Managing Security Sources
 
-For more on creating and managing security sources for authentication in Riak TS, check out [Security: Sources Management](./sources-management).
+For more on creating and managing security sources for authentication in Riak TS, check out [Security: Sources Management][security sources].
 
 ### Notifying Basho
 
-If you discover a potential security issue with Riak TS or want to know more about Basho's approach to security, visit the [Security: Notifying Basho](./notify-basho) page.
+If you discover a potential security issue with Riak TS or want to know more about Basho's approach to security, visit the [Security: Notifying Basho][security notify] page.
