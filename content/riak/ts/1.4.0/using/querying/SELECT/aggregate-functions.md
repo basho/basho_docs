@@ -5,14 +5,20 @@ menu:
   riak_ts-1.4.0:
     name: "Aggregate Functions"
     identifier: "aggregate_functions_riakts"
-    weight: 307
-    parent: "using"
+    weight: 305
+    parent: "SELECT"
 project: "riak_ts"
 project_version: "1.4.0"
 toc: true
+canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/select/aggregate-functions"
+version_history:
+  present_from: "1.4.0+"
+  moved:
+    - ["1.1.0+", "using/aggregate-functions"]
 aliases:
     - /riakts/1.4.0/using/aggregate-functions/
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/aggregate-functions"
+    - /riak/ts/1.4.0/using/aggregate-functions/
+    - /riakts/1.4.0/using/querying/select/aggregate-functions/
 ---
 
 

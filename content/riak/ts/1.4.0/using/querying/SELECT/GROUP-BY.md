@@ -11,11 +11,11 @@ project: "riak_ts"
 project_version: "1.4.0"
 toc: true
 aliases:
-    - /riakts/1.4.0/using/querying/select/group_by
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/select/group_by"
+    - /riakts/1.4.0/using/querying/select/group-by
+canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/select/group-by"
 ---
 
-[aggregate]: ../../../aggregate-functions
+[aggregate function]: ../aggregate-functions
 [guidelines]: riak/ts/1.4.0/using/querying/guidelines
 
 The GROUP BY statement is used with `SELECT` to pick out and condense rows sharing the same value and return a single row. `GROUP BY` is useful for aggregating an attribute of a device over a time period; for instance, you could use it to pull average values for every 30 minute period over the last 24 hours.
@@ -25,11 +25,16 @@ This document will show you how to run various queries using `GROUP BY`. See the
  
 ## GROUP BY Basics
 
-`GROUP BY` returns a single row for each unique combination of values for columns specified in the GROUP BY statement. 
+`GROUP BY` returns a single row for each unique combination of values for columns specified in the GROUP BY statement. There is no guaranteed order for the returned rows. 
 
 The SELECT statement must contain only the columns specified in `GROUP BY`. Columns not used as groups can appear as function parameters.
 
-The [aggregate] function may be used with the GROUP BY statement. If used, `SELECT` may contain the columns specified in either `GROUP BY` or the [aggregate] function.
+The [aggregate function] may be used with the GROUP BY statement. If used, `SELECT` may contain the columns specified in either `GROUP BY` or the [aggregate function].
+
+{{% note title="WARNING" %}}
+Before you run `GROUP BY` you must ensure the node issuing the query has adequate memory to receive the response. If the returning rows do not fit into the memory of the requesting node, the node is likely to fail. 
+{{% /note %}}
+
 
 ## GROUP BY Examples 
 
@@ -87,24 +92,31 @@ WHERE completed > 1 AND completed < 1000 AND name = 'wheels' AND project = 'Mars
 GROUP BY project, name, completed
 ```
 
-### 
+### Using combination aggregate functions
 
-/* Columns do not have to be specified, any combination aggregate functions
-   can be used */
+If you use a combination [aggregate function] (`COUNT()`, `SUM()`, `MEAN()`, `AVG()`, `STDDEV()`, `STDDEV_SAMP()`, and `STDDEV_POP()`) with the SELECT statement, you can specify the column in the aggregate function alone, or in both the `SELECT` and the aggregate function.
+
+This is allowed because the values returned can be grouped into one value: the result of the COUNT function.
+
+The query below returns one column per unique project, name combination and counts how many rows have the same name.
+
+```sql
 SELECT COUNT(name)
 FROM tasks
 WHERE completed > 1 AND completed < 1000 AND name = 'wheels' AND project = 'Mars Rover'
 GROUP BY project, name
+```
 
-###
+The query below returns one column per unique project and counts how many rows have the same timestamp.
 
-/* The column "completed" is not in the group clause but can be used
-   as a function argument */
+```sql
 SELECT project, COUNT(completed)
 FROM tasks
 WHERE completed > 1 AND completed < 1000 AND name = 'wheels' AND project = 'Mars Rover'
 GROUP BY project
+```
 
+### 
 
 /* the grouping column doesn't have to be in the key */
 SELECT AVG(duration)
@@ -112,41 +124,3 @@ FROM tasks
 WHERE completed > 1 AND completed < 1000 AND name = 'wheels' AND project = 'Mars Rover'
 GROUP BY subtask
 ```
-
-
-There is no guaranteed order for rows returned by `GROUP BY`, `ORDER BY` provides this.
-
-The `SELECT` statement must contain only the columns specified in the `GROUP BY` and [aggregate] functions. 
-
-### Technical Documentation
-
-`GROUP BY` can be described as a dictionary of aggregates. When no `GROUP BY` is specified but an aggregate function is, only one row is returned. For example:
-
-```sql
-SELECT COUNT(project)
-FROM table1
-WHERE completed > 1 AND completed < 1000 AND name = 'datacentre' AND project = 'Mars Rover'
-GROUP BY project
-```
-
-When a `GROUP BY` is specified, one aggregate is returned per group. Internally the coordinator maintains a dictionary, the key is the group by values and the value is the aggregate.
-
-
-
-The `GROUP BY` key is a list of cell values, Given the the row and query, for the `tasks` table.
-
-|   name  | project | completed |
-|---------|---------|-----------|
-| groupby | TS      |      5000 |
-
-```sql
-SELECT name, project
-FROM tasks
-GROUP BY name, project
-```
-
-The `GROUP BY` key for the row would be `[<<"groupby">>, <<"TS">>]`.
-
-### Overload Protection
-
-There is no special overload protection for queries using GROUP BY. It is not possible to put them into temporary tables because the accumulated groups all need to be in memory to be group on when processing new rows.
