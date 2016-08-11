@@ -27,7 +27,7 @@ This document will show you how to run various queries using `GROUP BY`. See the
 
 `GROUP BY` returns a single row for each unique combination of values for columns specified in the GROUP BY statement. There is no guaranteed order for the returned rows. 
 
-The SELECT statement must contain only the columns specified in `GROUP BY`. Columns not used as groups can appear as function parameters.
+The SELECT statement must contain only the columns specified in `GROUP BY`. Columns not used as groups can appear as function parameters. The GROUP BY statement works on all rows, not just the values in the partition key, so all columns are available.
 
 The [aggregate function] may be used with the GROUP BY statement. If used, `SELECT` may contain the columns specified in either `GROUP BY` or the [aggregate function].
 
@@ -116,9 +116,34 @@ WHERE completed > 1 AND completed < 1000 AND name = 'wheels' AND project = 'Mars
 GROUP BY project
 ```
 
-### 
+### GROUP BY columns not in the partition key
 
-/* the grouping column doesn't have to be in the key */
+Since the GROUP BY statement works on all rows, all columns are available, which means that using `GROUP BY` on the partition key values is not very useful because the partition key limits the result set.
+
+If we create the following table:
+
+```sql
+CREATE TABLE tasks (
+userid VARCHAR,
+visits SINT64,
+a_time TIMESTAMP, PRIMARY KEY(userid, a_time);
+```
+
+And and try to run the GROUP BY statement including `userid` in the SELECT statement:
+
+```sql
+SELECT userid, SUM(visits)
+WHERE userid = 'roddy' AND a_time > 1 AND a_time < 1
+GROUP BY userid
+```
+
+The result set would only have the group 'roddy' because it is required by the WHERE clause.
+
+If, however, we combine two column names from the partition key in the group using `SUM` without specifying `userid`, `GROUP BY` will return multiple result rows for the `userid` 'roddy' with one column per visit.
+
+Let's try it with the general example table above. The query below returns one column per unique subtask's average duration.
+
+```sql
 SELECT AVG(duration)
 FROM tasks
 WHERE completed > 1 AND completed < 1000 AND name = 'wheels' AND project = 'Mars Rover'
