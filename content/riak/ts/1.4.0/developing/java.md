@@ -247,11 +247,11 @@ The base builder only takes the query text:
 
  * `public Builder(String queryText)`
 
-There is a new constructor that lets you include a coverage plan with your query.
+There is also a special constructor that lets you include a coverage plan's context with your query.
 
 * `public Builder(String queryText, byte[] coverageContext)`
 
-Including a coverage plan allows for the query to only be executed on the coverageContext's associated vNode, but allows timeseries queries to be executed in parallel, and also allows for the quantum limit to be effectively bypassed.
+Including a coverageContext allows for the query to only be executed on the plan's associated vNode, but allows timeseries queries to be executed in parallel, and also allows for the quantum limit to be effectively bypassed.
 Please see [CoveragePlan()](#coverageplan) on how to obtain a coverageContext.
 
 ##### Return Value
