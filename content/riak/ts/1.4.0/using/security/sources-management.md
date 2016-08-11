@@ -16,7 +16,7 @@ aliases:
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/security/sources-management/"
 ---
 
-While [user management](../user-management) enables you to control _authorization_ with regard to users, _security sources_ provide an interface for managing means of authentication. If you create users and grant them access to some or all of Riak TS's functionality as described in the [User Management](../user-management) section, you will need to define security sources required for authentication.
+While [user management](../user-management) enables you to control user authorization, _security sources_ provide an interface for managing means of authentication. If you create users and grant them access to some or all of Riak TS's functionality as described in the [User Management](../user-management) section, you will need to define security sources required for authentication.
 
 ## Available Sources
 
