@@ -18,12 +18,12 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/global-object-expir
 By default, LevelDB keeps all of your data. But Riak TS allows you to configure global object expiration (`expiry`) or [time to live (TTL)](https://en.wikipedia.org/wiki/Time_to_live) for your data. 
 
 {{% note %}}
-Currently only global expiration is supported in Riak TS. We plan to add table-level expiration in future versions.
+Currently only global expiration is supported in Riak TS.
 {{% /note %}}
 
-Using expiry lets you expire older objects to reclaim the space used or purge data with a limited time value. **This feature is disabled by default**.
+Expiration is disabled by default, but enabling it lets you expire older objects to reclaim the space used or purge data with a limited time value.
 
-## Enable and Configure Expiry
+## Enabling Expiry
 
 To enable global object expiry, add the `leveldb.expiration` setting to your `riak.conf` file:
 
@@ -31,17 +31,10 @@ To enable global object expiry, add the `leveldb.expiration` setting to your `ri
 leveldb.expiration = on
 ```
 
-For `app.config`-based configuration, add the `expiry_enabled` setting:
+## Setting Retention Time
 
-```app.config
-{leveldb, [
-  ...,
-  {expiry_enabled, true},
-  …,
-  ]}
-```
-
-You can configure global object expiry using the `leveldb.expiration.retention_time` to specify a duration using a combination of an integer and a shortcut for the supported units:
+The `retention_time` setting is used to specify the time until objects expire.
+Durations are set using a combination of an integer and a shortcut for the supported units:
 
 - Milliseconds - `ms`
 - Seconds - `s`
@@ -51,16 +44,30 @@ You can configure global object expiry using the `leveldb.expiration.retention_t
 - Weeks - `w`
 - Fortnight - `f`
 
-Setting objects to expire after 5 hours would look like `leveldb.expiration.retention_time = 5h`. You can also combine durations, for example: `8d9h`.
+The following example configures objects to expire after 5 hours:
 
-After setting the retention time for your objects, you should choose an expiration mode. Global expiration supports two modes:
+```riak.conf
+leveldb.expiration = on
+leveldb.expiration.retention_time = 5h
+```
+
+You can also combine durations. For example, let's say you wanted objects to expire after 8 days and 9 hours:
+
+```riak.conf
+leveldb.expiration = on
+leveldb.expiration.retention_time = 8d9h
+```
+
+## Expiry Modes
+
+Global expiration supports two modes:
 
 - `whole_file` - whole SST file is deleted when all its objects are expired
 - `normal` - individual objects are removed as part of usual compaction process
 
 We recommend using `whole_file` with time series data that has a similar lifespan, as it will be much more efficient. 
 
-The following examples configure objects to expire after 1 day:
+The following example configure objects to expire after 1 day:
 
 ```riak.conf
 leveldb.expiration = on
@@ -68,30 +75,12 @@ leveldb.expiration.retention_time = 1d
 leveldb.expiration.mode = whole_file
 ```
 
-```app.config
-{leveldb, [
-  ...,
-  {expiry_enabled, true},
-  {expiry_minutes, 1440}, %% Sets the duration to 1 day
-  {whole_file_expiry, true}
-  ]}
-```
-
 ## Disable Expiry
 
-To disable global object expiration, set `leveldb.expiration` to `off` in your `riak.conf` file. For `app.config`-based configuration, set `expiry_enabled` to `false`. If expiration is disabled, the other 2 settings are ignored. For example:
+To disable global object expiration, set `leveldb.expiration` to `off` in your `riak.conf` file. If expiration is disabled, the other 2 settings are ignored. For example:
 
 ```riak.conf
 leveldb.expiration = off
 leveldb.expiration.retention_time = 1d
 leveldb.expiration.mode = whole_file
-```
-
-```app.config
-{leveldb, [
-  ...
-  {expiry_enabled, false},
-  {expiry_minutes, 1440},
-  {whole_file_expiry, true}
-}].
 ```
