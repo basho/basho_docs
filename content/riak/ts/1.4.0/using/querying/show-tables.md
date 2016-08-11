@@ -40,7 +40,7 @@ Returns:
 +------------+
 ```
 
-You can use SHOW TABLES in [riak shell]:
+You can use `SHOW TABLES` in [riak shell]:
 
 ```
 riak-shell>show tables;
@@ -54,4 +54,15 @@ riak-shell>show tables;
 +------------+
 ```
 
-Using TS's supported clients, a successful `SHOW TABLE` will **DO A THING ALEX MOORE IS GOING TO TELL ME ABOUT**
+Using TS's supported clients, a successful `SHOW TABLE` will return a regular successful query result:
+
+```
++------------+
+|   Table    |
++------------+
+| RandomTable|
+| GeoCheckin |
+|AnotherTable|
+| FinalTable |
++------------+
+```
