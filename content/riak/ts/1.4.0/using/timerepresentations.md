@@ -32,7 +32,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/timerepresentations
 For querying and adding data, however, we support [ISO 8601] string representations. This document will  
 
 {{% note title="NOTE" %}}
-We recommend against using this feature in production. Production applications should use the TS-supported client libraries to pass timestamps as integers, as this will ensure better performance and correctness.
+We do NOT recommend using this feature in production. Production applications should use the TS-supported client libraries to pass timestamps as integers, as this will ensure better performance and correctness.
 {{% /note %}}
 
 ## ISO 8601 Guidelines
@@ -121,7 +121,7 @@ You can schedule a cron job to adjust the time zone, but be aware that different
 transitions differently.
 
 {{% note title="REMINDER" %}}
-We recommend against using ISO 8601 strings in production. Production applications should use the TS-supported client libraries to pass timestamps as integers, as this will ensure better performance and correctness.
+We do NOT recommend using ISO 8601 strings in production. Production applications should use the TS-supported client libraries to pass timestamps as integers, as this will ensure better performance and correctness.
 {{% /note %}}
 
 For more information on time zones, see [Learn About Timestamps][learn timestamps timezone].
