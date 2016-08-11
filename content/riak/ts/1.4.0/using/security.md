@@ -1,5 +1,6 @@
 ---
-title: "Security Overview"
+title_supertext: "Security"
+title: "Overview"
 description: "Overview of security in Riak TS."
 menu:
   riak_ts-1.4.0:
@@ -18,9 +19,9 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/security/"
 [JMX]: http://www.oracle.com/technetwork/java/javase/tech/javamanagement-140525.html
 [Solr]: http://lucene.apache.org/solr/
 
-As of Riak TS 1.4, security is supported for the Protocol Buffers Client (PBC) interface (like in [Riak KV](/riak/kv/)).
+In Riak TS, security is supported for the Protocol Buffers Client (PBC) interface (like in Riak KV).
 
-The following is an overview of standard configurations and port settings to use for network security in a Riak TS Cluster. For more on enabling security and managing users & security sources see the [best practices](#best-practices) section below.
+The following is an overview of standard configurations and port settings to use for network security in a Riak TS Cluster. This document also contains a list of links to more information on [best practices](#best-practices) for enabling security features, managing users, and managing security sources.
 
 ## Access Control
 
@@ -30,11 +31,7 @@ There are two classes of access control for Riak TS:
 * Clients making use of the Riak TS cluster
 
 The settings for both access groups are located in your cluster's
-configuration settings.
-
-For `riak.conf`-based configuration, you can set a host and port for each node in that node's `riak.conf` file with the `listener.protobuf` setting.
-
-If you are using the `app.config`-based configuration system, adjust the settings of `pb`.
+configuration settings. You can set a host and port for each node in that node's `riak.conf` file with the `listener.protobuf` setting.
 
 Make note of these configurations and set up your firewall to allow
 incoming TCP access to those ports or IP address/port combinations.
@@ -45,7 +42,7 @@ Those are for communication between Riak TS nodes only.
 
 Riak TS uses the Erlang distribution mechanism for most inter-node
 communication. Riak TS identifies other machines in the ring using Erlang
-identifiers (`<hostname or IP>`, e.g. `riak@10.9.8.7`). Erlang resolves
+identifiers (`»hostname or IP«`, e.g. `riak@10.9.8.7`). Erlang resolves
 these node identifiers to a TCP port on a given machine via the Erlang
 Port Mapper daemon (epmd) running on each cluster node.
 
@@ -54,26 +51,17 @@ interface. For inter-node communication, Erlang uses an unpredictable
 port by default; it binds to port 0, which means the first available
 port.
 
-For ease of firewall configuration, Riak can be configured
+For ease of firewall configuration, Riak TS can be configured
 to instruct the Erlang interpreter to use a limited range
 of ports. For example, to restrict the range of ports that Erlang will
 use for inter-Erlang node communication to 6000-7999, add the following
-lines to the configuration file on each Riak node:
+lines to the configuration file on each Riak TS node:
 
-```riakconf
+```riak.conf
 erlang.distribution.port_range.minimum = 6000
 erlang.distribution.port_range.maximum = 7999
 ```
 
-```appconfig
-{ kernel, [
-            {inet_dist_listen_min, 6000},
-            {inet_dist_listen_max, 7999}
-          ]},
-```
-
-The above lines should be added into the top level list in app.config,
-at the same level as all the other applications (e.g. `riak_core`).
 Then configure your firewall to allow incoming access to TCP ports 6000
 through 7999 from whichever network(s) contain your Riak TS nodes.
 
@@ -103,7 +91,7 @@ Before enabling security on your Riak TS cluster be sure to check out the [Secur
 
 ### Enabling, Disabling, and Checking Security
 
-For a brief tutorial on how to enable, disable, or check the security status of a cluster, visit the [Riak TS: Security Basics](./basics) page.
+For a brief tutorial on how to enable, disable, or check the security status of a cluster, visit the [Security: Enabling](./enabling) page.
 
 ### Managing User Authentication and Permissions
 

@@ -16,7 +16,7 @@ aliases:
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/security/sources-management/"
 ---
 
-While [user management](../user-management) enables you to control _authorization_ with regard to users, security **sources** provide an interface for managing means of _authentication_. If you create users and grant them access to some or all of Riak TS's functionality as described in the [User Management](../user-management) section, you will need to define security sources required for authentication.
+While [user management](../user-management) enables you to control _authorization_ with regard to users, _security sources_ provide an interface for managing means of authentication. If you create users and grant them access to some or all of Riak TS's functionality as described in the [User Management](../user-management) section, you will need to define security sources required for authentication.
 
 ## Available Sources
 
@@ -43,7 +43,7 @@ riak-admin security add-source all|<users> <CIDR> <source> [<option>=<value>[...
 Using `all` indicates that the authentication source can be added to
 all users. A source can be added to a specific user, for example `add-source superuser`, or to a list of users separated by commas, for example `add-source jane,bill,admin`.
 
-The examples in the following sections will assume that the network in question is `127.0.0.1/32` and that a Riak TS user named `riakuser` has been [created](../user-management/#add-user) and that security has been [enabled](../basics/#enabling-security).
+The examples in the following sections will assume that the network in question is `127.0.0.1/32` and that a Riak TS user named `riakuser` has been [created](../user-management/#add-user) and that security has been [enabled](../enabling/#activating-security).
 
 ### Trust-based Authentication
 

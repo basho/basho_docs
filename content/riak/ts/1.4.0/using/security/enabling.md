@@ -1,33 +1,31 @@
 ---
-title: "Security Basics"
+title_supertext: "Security"
+title: "Enabling"
 description: "Enabling, disabling, and checking security in Riak TS."
 menu:
   riak_ts-1.4.0:
-    name: "Security Basics"
-    identifier: "security_basics"
+    name: "Security: Enabling"
+    identifier: "security_enabling"
     weight: 110
     parent: "security"
 project: "riak_ts"
 project_version: "1.4.0"
 toc: true
 aliases:
-    - /riakts/1.4.0/using/security/basics
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/security/basics/"
+    - /riakts/1.4.0/using/security/enabling
+canonical_link: "https://docs.basho.com/riak/ts/latest/using/security/enabling/"
 ---
 
-Riak TS security may be [checked](#checking-security-status), [enabled](#enabling-security), or [disabled](#disabling-security) by an administrator
-through the command line. This allows an administrator to change
-security settings for the whole cluster quickly without needing to
-change settings on a node-by-node basis.
+Riak TS security may be [checked](#checking-security-status), [enabled](#enabling-security), or [disabled](#disabling-security) through the command line, allowing an administrator to change security settings for the whole cluster without needing to go node-by-node.
 
-## Enabling Security
+## Activating Security
 
-> **Warning: Enable security with caution**
->
-> Enabling security will change the way your client libraries and
+{{% note title="Warning: Enable security with caution" %}}
+Enabling security will change the way your client libraries and
 your applications interact with Riak TS.
->
-> Once security is enabled, all client connections must be encrypted and all permissions will be denied by default. Do not enable this in production until you have worked through the [security checklist](../checklist) and tested everything in a non-production environment.
+
+Once security is enabled, all client connections must be encrypted and all permissions will be denied by default. Do not enable this in production until you have worked through the [security checklist](../checklist) and tested everything in a non-production environment.
+{{% /note %}}
 
 Riak TS security is disabled by default. To enable it:
 
@@ -59,9 +57,9 @@ To check whether security is currently enabled for the cluster, use the
 riak-admin security status
 ```
 
-This command will usually return `Enabled` or `Disabled`.
+This command will return `Enabled` or `Disabled`.
 
-## Managing Users and Security Sources
+## Next Steps
 
 For further guides on security in Riak TS, check out:
 

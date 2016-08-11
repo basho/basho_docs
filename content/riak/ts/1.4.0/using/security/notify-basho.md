@@ -16,19 +16,12 @@ aliases:
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/security/notify-basho/"
 ---
 
-Data security is an important and sensitive issue to many of our users.
-A real-world approach to security allows us to balance appropriate
-levels of security and related overhead while creating a fast, scalable,
-and operationally straightforward database.
+Data security is an important and sensitive issue. A real-world approach to security allows us to balance appropriate levels of security and related overhead while creating a fast, scalable, and operationally straightforward database.
 
 ## Continuous Improvement
 
 Though we make every effort to thwart security vulnerabilities whenever
-possible (including through independent reviews), no system is
-completely secure. We will never claim that Riak is 100% secure (and you
-should seriously doubt anyone who claims their solution is). What we can
-promise is that we openly accept all vulnerabilities from the community.
-When appropriate, we'll publish and make every attempt to quickly
+possible, no system is completely secure. We will never claim that Riak is 100% secure (and you should seriously doubt anyone who claims their solution is). What we can promise is that we openly accept all vulnerabilities from the community. When appropriate, we'll publish and make every attempt to quickly
 address these concerns.
 
 ## Balance
@@ -48,8 +41,7 @@ application or a service layer.
 If you discover a potential security issue, please email us at
 **security@basho.com**, and allow us 48 hours to reply.
 
-We prefer to be contacted first, rather than searching for blog posts
-over the Internet. This allows us to open a dialogue with the security
+We appreciate the effort of the community working with us to create the most secure solution we can. This allows us to open a dialogue with the security
 community on how best to handle a possible exploit without putting any
 users at risk.
 

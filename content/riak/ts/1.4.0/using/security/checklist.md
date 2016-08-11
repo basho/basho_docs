@@ -1,5 +1,6 @@
 ---
-title: "Security Checklist"
+title_supertext: "Security"
+title: "Checklist"
 description: "Overview of security in Riak TS."
 menu:
   riak_ts-1.4.0:
@@ -15,7 +16,7 @@ aliases:
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/security/checklist/"
 ---
 
-Before turning on Riak TS security there are key steps all applications need to take. Missing one of these steps may break your application, so make sure you have done each of the following **before** enabling security:
+Before turning on Riak TS security there are key steps all applications need to take. Missing one of these steps may break your application, so make sure you have done each of the following BEFORE enabling security:
 
 1. Because Riak TS security requires a secure SSL connection, you will need
    to generate appropriate SSL certs, [enable SSL](../sources-management/#enabling-ssl) and establish a [certification configuration](../sources-management/#certificate-configuration) on each node. **If you
@@ -33,10 +34,8 @@ Before turning on Riak TS security there are key steps all applications need to 
     * It must pass authentication information with each request
     * It must support encrypted [Protocol Buffers](/riak/kv/2.1.4/developing/api/protocol-buffers/)
       traffic
-    * Code that uses Riak's deprecated Link Walking feature **will
-      not work** with security enabled
-1. If you have applications that rely on an already existing Riak
+1. If you have applications that rely on an already existing Riak TS
    cluster, make sure that those applications are prepared to gracefully
    transition into using Riak security once security is enabled.
 
-After all of the above steps have been performed and your security setup has been properly checked, visit the [Riak TS Security Basics](../basics) page for instructions on enabling security.
+After all of the above steps have been performed and your security setup has been properly checked, visit the [Riak TS Security: Enabling](../enabling) page for instructions on enabling security.
