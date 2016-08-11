@@ -26,6 +26,10 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/security/"
 
 In Riak TS, security is supported for the Protocol Buffers Client (PBC) interface (like in Riak KV).
 
+{{% note %}}
+Security is not currently supported through the HTTP interface in Riak TS
+{{% /note %}}
+
 The following is an overview of standard configurations and port settings to use for network security in a Riak TS Cluster. This document also contains a list of links to more information on [best practices](#best-practices) for enabling security features, managing users, and managing security sources.
 
 ## Access Control
