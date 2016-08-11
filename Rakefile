@@ -55,7 +55,9 @@ task      :clean => ['clean:js', 'clean:css']
 namespace :clean do
   desc "Clean dynamically generated JS"
   task :js do
-    js_file_list = Dir["#{$js_dest}/**/**"]
+    # The standalone/ directory may exist if we've extracted archived content
+    # (see deploy:fetch_archived_content). We don't want to remove those files.
+    js_file_list = Dir["#{$js_dest}/**/*"].reject {|f| /standalone/.match(f) }
     js_file_list.each do |f|
       log_deletion(f)
       FileUtils.rm(f)
@@ -63,7 +65,9 @@ namespace :clean do
   end
   desc "Clean dynamically generated CSS"
   task :css do
-    css_file_list = Dir["#{$css_dest}/**/**"]
+    # The standalone/ directory may exist if we've extracted archived content
+    # (see deploy:fetch_archived_content). We don't want to remove those files.
+    css_file_list = Dir["#{$css_dest}/**/*"].reject {|f| /standalone/.match(f) }
     css_file_list.each do |f|
       log_deletion(f)
       FileUtils.rm(f)
