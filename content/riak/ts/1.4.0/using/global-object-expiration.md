@@ -15,7 +15,9 @@ aliases:
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/global-object-expiration"
 ---
 
-By default, LevelDB keeps all of your data. But Riak TS allows you to configure global object expiration (`expiry`) or [time to live (TTL)](https://en.wikipedia.org/wiki/Time_to_live) for your data. 
+[ttl]: https://en.wikipedia.org/wiki/Time_to_live
+
+By default, LevelDB keeps all of your data. But Riak TS allows you to configure global object expiration (`expiry`) or [time to live (TTL)][ttl] for your data. 
 
 {{% note %}}
 Currently only global expiration is supported in Riak TS.
