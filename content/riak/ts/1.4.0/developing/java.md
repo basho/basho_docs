@@ -182,7 +182,7 @@ Throwable error = queryFuture.cause();
 
 #### `Delete`
 
-Deletes a single row by it's key values.
+Deletes a single row by its key values.
 
 ##### Builder
 
@@ -201,7 +201,7 @@ There is also an instance method to specify a command timeout in milliseconds:
 
 #### `Fetch`
 
-Fetches a single row by it's key values.
+Fetches a single row by its key values.
 
 ##### Builder
 
@@ -243,16 +243,18 @@ Allows you to query a Riak TS table with the given query string.
 
 ##### Builder
 
-The base builder only takes the query text:
+The builder only takes the query text:
 
  * `public Builder(String queryText)`
 
-There is also a special constructor that lets you include a coverage plan's context with your query.
+There is also a special constructor that lets you include a coverage plan's context with your query:
 
 * `public Builder(String queryText, byte[] coverageContext)`
+* `public Builder withCoverageContext(byte[] coverageContext)`
 
-Including a coverageContext allows for the query to only be executed on the plan's associated vNode, but allows timeseries queries to be executed in parallel, and also allows for the quantum limit to be effectively bypassed.
-Please see [CoveragePlan()](#coverageplan) on how to obtain a coverageContext.
+Including a `coverageContext` allows for the query to be executed only on the plan's associated vNode and return the only primary written data; while allowing TS queries to be executed in parallel and the quantum limit to be effectively bypassed.
+
+Please see [CoveragePlan()](#coverageplan) on how to obtain a `coverageContext`.
 
 ##### Return Value
 
@@ -281,12 +283,15 @@ The builder constructor takes the table name:
 
 #### `CoveragePlan`
 
-Request a collection of coverage plan components. Each element in the returned collection will include an IP address and port number to connect to, a human-readable description of the item, and an "coverageContext" opaque binary.
+Request a collection of coverage entries. Each element in the returned collection will include an IP address and port number to connect to, a human-readable description of the item, and a "coverageContext" opaque binary.
 
-Each element correponds to one partition and quantum range in the database, so an invocation of [Query()](#query) with the coverageContext opaque binary will return only those values which fall within that single quantum. 
+Each element corresponds to one partition and quantum range in the database, so an invocation of [`Query()`](#query) with the `coverageContext` opaque binary will return only those values which fall within that single quantum for a particular vnode. 
 
-This allows for queries to be executed in parallel, and allows allows for the quantum limit to be effectively bypassed.
-**Note** - Coverage plans, entries, and contexts should only be used for one query or batch of related queries, as any change to the cluster environment may invalidate them. 
+This allows for queries to be executed in parallel, and allows for the quantum limit to be effectively bypassed.
+
+{{% note %}}
+Coverage plans, entries, and contexts should only be used for one query or batch of related queries, as any change to the cluster environment may invalidate them.
+{{% /note %}}
 
 ##### Builder
 
@@ -294,6 +299,6 @@ The builder only takes the table name and the query text:
 
  * `public Builder(String tableName, String queryText)`
 
- ##### Return Value
+##### Return Value
 
- * `CoveragePlanResult` - contains a collection of `CoverageEntry`, each of which contains connection information, a description, and a coverageContext.
+ * `CoveragePlanResult` - contains a collection of `CoverageEntry`, each of which contains connection information, a description, and a `coverageContext`.
