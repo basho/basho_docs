@@ -40,7 +40,7 @@ CREATE TABLE GeoCheckin
 )
 ```
 
-{% note title="SQL Injection" %}
+{{% note title="SQL Injection" %}}
 
 When querying with user-supplied data, it is essential that you protect against SQL injection. Please verify the user-supplied data before constructing queries.
 
