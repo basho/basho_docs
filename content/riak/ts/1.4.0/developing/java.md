@@ -252,7 +252,7 @@ There is also a special constructor that lets you include a coverage plan's cont
 * `public Builder(String queryText, byte[] coverageContext)`
 * `public Builder withCoverageContext(byte[] coverageContext)`
 
-Including a `coverageContext` allows for the query to be executed only on the plan's associated vNode and return the only primary written data; while allowing TS queries to be executed in parallel and the quantum limit to be effectively bypassed.
+Including a `coverageContext` allows for the query to be executed only on the plan's associated vNode and only return the primary written data; while allowing TS queries to be executed in parallel and the quantum limit to be effectively bypassed.
 
 Please see [CoveragePlan()](#coverageplan) on how to obtain a `coverageContext`.
 
