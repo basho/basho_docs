@@ -6,7 +6,7 @@ $archive_name = "archived_docs.basho.com.tar.bz2"
 def do_fetch_archived_content()
   # Fetch and extract the archived content that we want to survive from the
   # Middleman website.
-  puts("Verifying archived content...")
+  puts("Verifying the archived tarball is present and correct...")
   # Verify that the tar.bz2 is present.
   if (not File.file?(File.join(Dir.pwd, "#{$archive_name}")))
     if (`which wget`.empty?)
@@ -57,31 +57,41 @@ def do_fetch_archived_content()
     end
   end
 
-  puts("Verifying archived content extraction...")
-  puts("    Please note, this only checks for directories.\n"\
-       "    If something went wrong with a previous extraction or if any "\
-       "of the extracted files were modified, please run \`git clean "\
-       "-xdf static/\` and re-run this deploy script.")
-  #TODO: Consider if this is a good idea or not. I'm leaning towards not.
-  should_extract = (
-    (not File.exist?("static/css/standalone")) ||
-    (not File.exist?("static/js/standalone"))  ||
-    (not File.exist?("static/riak"))           ||
-    (not File.exist?("static/riakcs"))         ||
-    (not File.exist?("static/riakee"))         ||
-    (not File.exist?("static/shared"))           )
-
-  if (should_extract)
+  puts("Verifying archived content extraction by checking direcotry tree...")
+  all_dirs_present = ( (File.exist?("static/css/standalone")) &&
+                       (File.exist?("static/js/standalone"))  &&
+                       (File.exist?("static/riak/1.4.12"))    &&
+                       (File.exist?("static/riakcs/1.5.4"))   &&
+                       (File.exist?("static/riakee"))         &&
+                       (File.exist?("static/shared"))           )
+  any_dirs_present = ( (File.exist?("static/css/standalone")) ||
+                       (File.exist?("static/js/standalone"))  ||
+                       (File.exist?("static/riak/1.4.12"))    ||
+                       (File.exist?("static/riakcs/1.5.4"))   ||
+                       (File.exist?("static/riakee"))         ||
+                       (File.exist?("static/shared"))           )
+  if (not all_dirs_present and any_dirs_present)
+    Kernel.abort("ERRPR: The static/ directory is verifiably corrupt.\n"\
+                 "       Please run \`git clean -xdf static/\` to clear out "\
+                 "the malformed files, and re-run this deploy script.")
+  elsif (not any_dirs_present)
     puts("Extracting #{$archive_name} (this may take a lot of time)...")
     successful = system("tar -xjf #{$archive_name} -C static")
-
     if (not successful)
       Kernel.abort("ERROR: #{$archive_name} failed to extract.\n"\
-                   "       I... actually don't know why. Not sure how to "\
-                   "extract error messages from this system call.")
+                   "       The failure message should have been printed to "\
+                   "stdout and be visible above.")
     end
+  else
+    puts("    Archived content directory tree verified.\n"\
+         "    NOTE: File integrity is NOT checked here.\n"\
+         "          As such, it is advisable to periodically clean out the "\
+         "static/ directory that this archive is extracted into.\n"\
+         "          To do so, please run \`git clean -xdf static/\`, and "\
+         "re-run this deploy script.")
   end
 end
+
 
 # Once the Hugo site has been fully and correctly generated, we can upload the
 # updated and new -- and delete the no longer generated -- files to/from our S3

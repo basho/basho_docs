@@ -55,7 +55,9 @@ task      :clean => ['clean:js', 'clean:css']
 namespace :clean do
   desc "Clean dynamically generated JS"
   task :js do
-    js_file_list = Dir["#{$js_dest}/**/**"]
+    # The standalone/ directory may exist if we've extracted archived content
+    # (see deploy:fetch_archived_content). We don't want to remove those files.
+    js_file_list = Dir["#{$js_dest}/**/*"].reject {|f| /standalone/.match(f) }
     js_file_list.each do |f|
       log_deletion(f)
       FileUtils.rm(f)
@@ -63,7 +65,9 @@ namespace :clean do
   end
   desc "Clean dynamically generated CSS"
   task :css do
-    css_file_list = Dir["#{$css_dest}/**/**"]
+    # The standalone/ directory may exist if we've extracted archived content
+    # (see deploy:fetch_archived_content). We don't want to remove those files.
+    css_file_list = Dir["#{$css_dest}/**/*"].reject {|f| /standalone/.match(f) }
     css_file_list.each do |f|
       log_deletion(f)
       FileUtils.rm(f)
@@ -88,13 +92,14 @@ namespace :build do
   ################
   # Build : Debug
   desc      "Compile human-readable JS and compile human-readable CSS"
-  task      :debug => ['clean', 'build:debug:js', 'build:debug:css']
+  task      :debug => ["#{$js_dest}", "#{$css_dest}",
+                       'build:debug:js', 'build:debug:css']
   namespace :debug do
     desc "Compile human-readable JS"
-    task :js  => ["#{$js_dest}", 'clean:js']   do compile_js(debug: true); end
+    task :js  => ["#{$js_dest}"]  do compile_js(debug: true); end
 
     desc "Compile human-readable CSS"
-    task :css => ["#{$css_dest}", 'clean:css'] do compile_css(debug: true); end
+    task :css => ["#{$css_dest}"] do compile_css(debug: true); end
   end
 end
 
