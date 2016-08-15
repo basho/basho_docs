@@ -10,16 +10,20 @@ menu:
 project: "riak_ts"
 project_version: "1.4.0"
 toc: true
-canonical_link: "https://docs.basho.com/riak/ts/latest/installing/source/"
+aliases:
+    - /riakts/1.4.0/installing/source/
+    - /riakts/1.4.0/setup/installing/source/
+    - /riak/ts/1.4.0/installing/source/
+canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/source/"
 ---
 
 
-[download]: ../../downloads/
+[download]: /riak/ts/1.4.0/downloads/
 [Erlang]: http://www.erlang.org/
 [GCC]: https://gcc.gnu.org/
 [Git]: https://git-scm.com/
-[install erlang]: ../source/erlang
-[planning]: ../../using/planning/
+[install erlang]: /riak/ts/1.4.0/setup/installing/source/erlang
+[planning]: /riak/ts/1.4.0/using/planning/
 [Riak TS GitHub respository]: https://github.com/basho/riak/tree/riak_ts-1.4.0
 
 

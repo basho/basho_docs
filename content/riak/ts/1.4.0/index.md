@@ -17,7 +17,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest"
 
 
 [download]: downloads/
-[installing]: installing/
+[installing]: setup/installing/
 [learnabout]: learn-about/
 
 

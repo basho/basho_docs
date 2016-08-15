@@ -20,7 +20,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/planning"
 [table arch]: ../../learn-about/tablearchitecture/
 [bestpractices]: ../../learn-about/bestpractices/
 [epoch]: https://en.wikipedia.org/wiki/Unix_time
-[installing]: ../../installing/
+[installing]: ../../setup/installing/
 [sql]: ../../learn-about/sqlriakts/
 
 

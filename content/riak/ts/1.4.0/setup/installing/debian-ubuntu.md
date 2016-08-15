@@ -12,12 +12,14 @@ project_version: "1.4.0"
 toc: true
 aliases:
     - /riakts/1.4.0/installing/debian-ubuntu/
-canonical_link: "https://docs.basho.com/riak/ts/latest/installing/debian-ubuntu"
+    - /riakts/1.4.0/setup/installing/debian-ubuntu/
+    - /riak/ts/1.4.0/installing/debian-ubuntu/
+canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/debian-ubuntu/"
 ---
 
-[download]: ../../downloads/
+[download]: /riak/ts/1.4.0/downloads/
 [openfileslimit]: /riak/kv/2.1.4/using/performance/open-files-limit
-[planning]: ../../using/planning
+[planning]: /riak/ts/1.4.0/using/planning
 [security basics]: /riak/kv/2.1.4/using/security/basics
 
 

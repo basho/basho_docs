@@ -10,7 +10,11 @@ menu:
 project: "riak_ts"
 project_version: "1.4.0"
 toc: true
-canonical_link: "https://docs.basho.com/riak/ts/latest/installing/source/erlang"
+aliases:
+    - /riakts/1.4.0/installing/source/erlang/
+    - /riakts/1.4.0/setup/installing/source/erlang/
+    - /riak/ts/1.4.0/installing/source/erlang/
+canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/source/erlang/"
 ---
 
 
@@ -26,7 +30,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/installing/source/erlang"
 [make]: http://www.gnu.org/software/make/
 [ncurses]: http://www.gnu.org/software/ncurses/
 [OpenSSL]: https://www.openssl.org/
-[source]: ../../source
+[source]: /riak/ts/1.4.0/setup/installing/source/
 [XCode Developer Tools]: http://developer.apple.com/
 
 

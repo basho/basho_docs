@@ -12,12 +12,14 @@ project_version: "1.4.0"
 toc: true
 aliases:
     - /riakts/1.4.0/installing/rhel-centos/
-canonical_link: "https://docs.basho.com/riak/ts/latest/installing/rhel-centos"
+    - /riakts/1.4.0/setup/installing/rhel-centos/
+    - /riak/ts/1.4.0/installing/rhel-centos/
+canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/rhel-centos/"
 ---
 
-[download]: ../../downloads/
+[download]: /riak/ts/1.4.0/downloads/
 [openfileslimit]: /riak/kv/2.1.4/using/performance/open-files-limit
-[planning]: ../../using/planning/
+[planning]: /riak/ts/1.4.0/using/planning/
 
 
 Riak TS can be installed on CentOS-based systems using a binary

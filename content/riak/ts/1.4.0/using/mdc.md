@@ -19,7 +19,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/mdc"
 [activating]: /riak/ts/1.4.0/using/creating-activating
 [cluster ops v3 mdc]: /riak/kv/2.1.4/using/cluster-operations/v3-multi-datacenter
 [ee]: http://basho.com/contact/
-[install]: /riak/ts/1.4.0/installing
+[install]: /riak/ts/1.4.0/setup/installing
 
 
 Multi-Datacenter (MDC) replication makes it possible to replicate time series data between Riak clusters. This document will walk through how to configure MDC to work with Riak TS.

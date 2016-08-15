@@ -11,8 +11,9 @@ project: "riak_ts"
 project_version: "1.4.0"
 toc: true
 aliases:
-    - /riakts/1.4.0/upgrade
-canonical_link: "https://docs.basho.com/riak/ts/latest/upgrade"
+    - /riakts/1.4.0/setup/upgrade/
+    - /riakts/1.4.0/upgrade/
+canonical_link: "https://docs.basho.com/riak/ts/latest/setup/upgrade/"
 ---
 
 [use admin riak control]: /riak/kv/2.1.4/using/admin/riak-control

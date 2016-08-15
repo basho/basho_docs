@@ -21,7 +21,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using"
 [arithmetic]: arithmetic-operations/
 [configuring]: configuring/
 [download]: /riak/ts/1.4.0/downloads/
-[installing]: ../installing/
+[installing]: ../setup/installing/
 [mdc]: mdc/
 [planning]: planning/
 [querying]: querying/

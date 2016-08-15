@@ -11,14 +11,15 @@ project: "riak_ts"
 project_version: "1.4.0"
 toc: true
 aliases:
-    - /riakts/1.4.0/installing/aws
-    - /riak/ts/1.4.0/installing/aws-marketplace/
-canonical_link: "https://docs.basho.com/riak/ts/latest/installing/rhel-centos"
+    - /riakts/1.4.0/installing/aws/
+    - /riakts/1.4.0/setup/installing/aws/
+    - /riak/ts/1.4.0/installing/aws/
+canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/aws/"
 ---
 
 
 [AWS]: http://aws.amazon.com
-[download]: ../../downloads/
+[download]: /riak/ts/1.4.0/downloads/
 [ec2 guide]: http://docs.amazonwebservices.com/AWSEC2/latest/UserGuide/AccessingInstances.html
 [security basics]: /riak/kv/2.1.4/using/security/basics
 
