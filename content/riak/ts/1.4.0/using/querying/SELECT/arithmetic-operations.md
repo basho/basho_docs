@@ -6,7 +6,7 @@ menu:
     name: "Arithmetic Operations"
     identifier: "arithmetic_operations_riakts"
     weight: 300
-    parent: "SELECT"
+    parent: "select_riakts"
 project: "riak_ts"
 project_version: "1.4.0"
 toc: true

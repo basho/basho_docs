@@ -6,7 +6,7 @@ menu:
     name: "SELECT"
     identifier: "select_riakts"
     weight: 100
-    parent: "querying"
+    parent: "querying_data_riakts"
 project: "riak_ts"
 project_version: "1.4.0"
 toc: true
@@ -15,10 +15,20 @@ aliases:
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/select"
 ---
 
+
+[aggregate functions]: aggregate-functions/
+[arithmetic operations]: arithmetic-operations/
+[GROUP BY]: group-by/
 [guidelines]: riak/ts/1.4.0/using/querying/guidelines
 [iso8601]: ../../../timerepresentations/
 
-You can use the SELECT statement in Riak TS to query your TS dataset. This document will show you how to run various queries using SELECT. See the [guidelines] for more information on limitations and rules for queries in TS.
+You can use the SELECT statement in Riak TS to query your TS dataset. This document will show you how to run various queries using `SELECT`. 
+
+* See the [guidelines] for more information on limitations and rules for queries in TS.
+* See [aggregate functions] to learn how turn a set of rows in your Riak TS table into a value.
+* See [arithmetic operations] to see a list of operations available with `SELECT`.
+* See [GROUP BY] to learn how to condense rows sharing the same value.
+
 
 For all of the examples on this page, we are using our standard example GeoCheckin table:
 

@@ -6,7 +6,7 @@ menu:
     name: "Aggregate Functions"
     identifier: "aggregate_functions_riakts"
     weight: 305
-    parent: "SELECT"
+    parent: "select_riakts"
 project: "riak_ts"
 project_version: "1.4.0"
 toc: true

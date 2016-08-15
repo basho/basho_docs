@@ -6,7 +6,7 @@ menu:
     name: "GROUP BY"
     identifier: "group_by_riakts"
     weight: 100
-    parent: "SELECT"
+    parent: "select_riakts"
 project: "riak_ts"
 project_version: "1.4.0"
 toc: true

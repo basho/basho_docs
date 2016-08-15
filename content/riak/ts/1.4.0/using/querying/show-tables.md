@@ -6,7 +6,7 @@ menu:
     name: "SHOW TABLES"
     identifier: "show_tables_riakts"
     weight: 300
-    parent: "querying"
+    parent: "querying_data_riakts"
 project: "riak_ts"
 project_version: "1.4.0"
 toc: true

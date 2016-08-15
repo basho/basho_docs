@@ -6,7 +6,7 @@ menu:
     name: "Querying Guidelines"
     identifier: "querying_guidelines_riakts"
     weight: 500
-    parent: "querying"
+    parent: "querying_data_riakts"
 project: "riak_ts"
 project_version: "1.4.0"
 toc: true
