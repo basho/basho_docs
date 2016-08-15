@@ -11,11 +11,11 @@ project: "riak_ts"
 project_version: "1.4.0"
 toc: false
 layout: downloads
-listed_projects:
-    - project: "riak_ts"
-      version: "1.4.0"
-      title: "Riak TS"
-      install_instructions_set: "installing"
+#listed_projects:
+#    - project: "riak_ts"
+#      version: "1.4.0"
+#      title: "Riak TS"
+#      install_instructions_set: "installing"
 aliases:
     - /riakts/1.4.0/downloads/
 canonical_link: "https://docs.basho.com/riak/ts/latest/downloads"
