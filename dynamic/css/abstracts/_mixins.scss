@@ -34,3 +34,28 @@
   }
 }
 
+
+/// Aliases for Bootstrap's `media-breakpoint-up`; makes the @content apply to
+/// the given breakpoint and wider.
+/// @author Drew Pirrone-Brusse
+/// @alias media-breakpoint-up
+/// @param {String} $name - Breakpoint name; 'sm', 'md', 'lg', or 'xl'
+/// @param {Map} $breakpoint [$grid-breakpoints] - Map of (name: min-width)
+@mixin wide-from($name, $breakpoints: $grid-breakpoints) {
+  @include media-breakpoint-up($name, $breakpoints) {
+    @content;
+  }
+}
+
+/// Aliases for Bootstrap's `media-breakpoint-down`; makes the @content apply to
+/// the given breakpoint and narrower.
+/// @author Drew Pirrone-Brusse
+/// @alias media-breakpoint-down
+/// @param {String} $name - Breakpoint name; 'sm', 'md', 'lg', or 'xl'
+/// @param {Map} $breakpoint [$grid-breakpoints] - Map of (name: min-width)
+@mixin narrow-from($name, $breakpoints: $grid-breakpoints) {
+  @include media-breakpoint-down($name, $breakpoints) {
+    @content;
+  }
+}
+
