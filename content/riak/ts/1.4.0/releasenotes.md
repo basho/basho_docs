@@ -51,7 +51,7 @@ Riak TS 1.4.0 delivers a broad range of new functionality and improvements, incl
 
 ## Additions
 
-* New configuration settings for Riak TS have been added to riak.conf. You can read more about TS's configuration options [here](/riak/ts/1.4.0/using/configuring/). Additionally, the old configuration settings have been exposed and are being deprecated.
+* New configuration settings for Riak TS have been added to `riak.conf`. You can read more about TS's configuration options [here](/riak/ts/1.4.0/using/configuring/). Additionally, the old configuration settings have been exposed and are being deprecated.
     >If you were using the old configuration settings, please update riak.conf to use the new settings. The older settings are scheduled to be deprecated.  
 
 
