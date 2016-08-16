@@ -23,16 +23,16 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/timerepresentations
 [MDC]: /riak/ts/1.4.0/using/mdc
 [riak shell]: ../riakshell
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
-[learn timestamps accuracy]: riak/ts/1.4.0/learn-about/timestamps#reduced-accuracy
-[learn timestamps timezone]: riak/ts/1.4.0/learn-about/timestamps#time-zone-faqs
+[learn timestamps]: ../../learn-about/timestamps
+[learn timestamps epoch]: ../../learn-about/timestamps#unix-epoch-time
+[learn timestamps accuracy]: ../../learn-about/timestamps#reduced-accuracy
+[learn timestamps timezone]: ../../learn-about/timestamps#time-zone-faqs
 [Daylight Saving Time]: https://en.wikipedia.org/wiki/Daylight_saving_time
 
-
-
-For querying and adding data, however, we support [ISO 8601] string representations. This document will  
+Timestamps are stored in Riak TS as [epoch milliseconds][learn timestamps epoch], but it also supports [ISO 8601] string representations. This document will present the basics, but we highly recommend reading [Learn About Timestamps][learn timestamps] for the nitty gritty. This is a **time** series database, after all.
 
 {{% note title="NOTE" %}}
-We do NOT recommend using this feature in production. Production applications should use the TS-supported client libraries to pass timestamps as integers, as this will ensure better performance and correctness.
+ISO 8601 support is useful for casual interactions via `riak-shell`, but we do **not** recommend using ISO 8601 in production applications. Instead, use the TS-supported client libraries to pass timestamps as integers for better performance and correctness.
 {{% /note %}}
 
 ## ISO 8601 Guidelines
@@ -48,7 +48,7 @@ and write. Some examples, all of which represent the same timestamp
 * `20160801T193551+05:30`
 
 When using ISO 8601 strings for INSERT or SELECT statements, be sure
-to use apostrophes around the string.
+to use single quotes around the string.
 
 ### Reduced Accuracy
 
@@ -63,8 +63,8 @@ millisecond UTC time that corresponds to the start of the time period
 in question. `2016-08` will map to midnight on August 1st 2016, for
 example.
 
-See [Learn About Timestamps][learn timestamps accuracy] for an explanation of how reduced
-accuracy impacts queries.
+See [Learn About Timestamps][learn timestamps accuracy] for the implications of using reduced
+accuracy in queries.
 
 ### Fractional Times
 
@@ -73,21 +73,6 @@ accuracy in Riak TS timestamps.
 
 The string `2016-08-01 14:05:51.425Z` would be converted to the Riak
 TS millisecond timestamp `1470060351425`.
-
-Fractional times are not considered reduced accuracy, so selecting for
-timestamps greater than `2016-08-03 15:00` will give different
-results than `2016-08-01 15.0` (or `2016-08-01 15:00:00`).
-
-### Unsupported Formats
-
-ISO 8601 includes three notable syntaxes which are not yet supported
-in Riak TS:
-
-* expanded representation (years outside the range
-0000-9999), 
-* time intervals (a range of times), and 
-* week dates (a week or day expressed as a number of weeks into the year).
-
 
 ## Time Zones
 
@@ -112,16 +97,12 @@ In the absence of such a configuration, the default time zone will be GMT.
 
 ### IMPORTANT: Daylight Saving Time
 
-There is a flaw with the default time zone. Defining a
+There is a caveat when setting the default time zone. Defining a
 default time zone as a GMT offset means that when [Daylight Saving Time] begins or ends,
 the default time zone must be reconfigured for times to be translated
 correctly.
 
 You can schedule a cron job to adjust the time zone, but be aware that different implementations of cron handle DST
 transitions differently.
-
-{{% note title="REMINDER" %}}
-We do NOT recommend using ISO 8601 strings in production. Production applications should use the TS-supported client libraries to pass timestamps as integers, as this will ensure better performance and correctness.
-{{% /note %}}
 
 For more information on time zones, see [Learn About Timestamps][learn timestamps timezone].

@@ -19,15 +19,15 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/learn-about/timestamps"
 [table arch partition]: ../tablearchitecture#partition-key
 [UNIX time]: https://en.wikipedia.org/wiki/Unix_time
 
-Timestamps in Riak TS are set in the [partition key][table arch partition] using the quantum function. Riak TS uses timestamps to group data by 15 minute clumps, or 10 second clumps, or 60 day clumps, et cetera depending on how quickly your time series data come in and how you need to analyze them.
- 
+Timestamps in Riak TS are a critical data type, nearly always a part of [partition key][table arch partition]. They are often leveraged with the quantum function to group data by 15 minute clumps, or 10 second clumps, or 60 day clumps, et cetera depending on how quickly your time series data come in and how you need to analyze them.
+
 ## Structure of Timestamps
 
 ### Unix Epoch Time
 
 Timestamps in Riak TS are stored as positive integers representing the
 number of UTC milliseconds since January 1st, 1970 (UNIX epoch
-time). 
+time).
 
 As an example: midnight GMT, August 1st 2016, would exist in
 the database as the integer `1470009600000`.
@@ -36,13 +36,16 @@ You can read more about UNIX epoch time [here][UNIX time].
 
 ### ISO 8601
 
-For INSERT and SELECT statements, Riak TS supports [ISO 8601] strings.
+For INSERT and SELECT statements, Riak TS supports [ISO 8601] strings which are converted to UTC milliseconds.
 
 {{% note title="NOTE" %}}
-We recommend against using this feature in production. Production applications should use the TS-supported client libraries to pass timestamps as integers, as this will ensure better performance and correctness.
+ISO 8601 support is useful for casual interactions via `riak-shell`, but we do **not** recommend using ISO 8601 in production applications. Instead, use the TS-supported client libraries to pass timestamps as integers for better performance and correctness.
 {{% /note %}}
 
 #### Reduced Accuracy
+
+Strings that do not include seconds are referred to by the standard as
+*reduced accuracy* representations.
 
 Ambiguity can arise with reduced accuracy representations. What,
 precisely, do the comparisons `time > '2015'` or `time <= '2003-05-01T05:10'`
@@ -73,6 +76,10 @@ Thus, querying for timestamp values greater than `'1970-12-18 21:00'`
 will ignore any values which fall between 9pm and 9:01pm, while using
 a fully-specified string `'1970-12-18 21:00:00'` will include them.
 
+Fractional times are not considered reduced accuracy, so selecting for
+timestamps greater than `2016-08-03 15:00` will give different
+results than `2016-08-01 15.0` (or `2016-08-01 15:00:00`).
+
 #### Time Zone FAQs
 
 > Why can't Riak TS default to the operating system's time zone
@@ -100,3 +107,13 @@ Aha! This is a feature we *can* safely offer, and will, just not yet.
 > Why does `riak-shell` display the results from `select` in GMT?
 
 Riak TS does not yet expose the default time zone to clients.
+
+#### Unsupported Formats
+
+ISO 8601 includes three notable syntaxes which are not yet supported
+in Riak TS:
+
+* expanded representation (years outside the range
+0000-9999),
+* time intervals (a range of times), and
+* week dates (a week or day expressed as a number of weeks into the year).
