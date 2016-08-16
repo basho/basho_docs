@@ -59,7 +59,7 @@ The query below returns one column per unique project and counts how many rows h
 SELECT project, COUNT(name)
 FROM tasks
 WHERE completed > 1 AND completed < 1000 AND name = 'wheels' AND project = 'Mars Rover'
-GROUP BY project
+GROUP BY project;
 ```
 
 ### More than one group
@@ -72,7 +72,7 @@ The query below returns one column per unique project, name combination, and cou
 SELECT project, COUNT(name)
 FROM tasks
 WHERE completed > 1 AND completed < 1000 AND name = 'wheels' AND project = 'Mars Rover'
-GROUP BY project, name
+GROUP BY project, name;
 ```
 
 ### Timestamps in a group
@@ -89,7 +89,7 @@ The query below returns one column per unique project, name, timestamp combinati
 SELECT project, name, completed
 FROM tasks
 WHERE completed > 1 AND completed < 1000 AND name = 'wheels' AND project = 'Mars Rover'
-GROUP BY project, name, completed
+GROUP BY project, name, completed;
 ```
 
 ### Using combination aggregate functions
@@ -104,7 +104,7 @@ The query below returns one column per unique project, name combination and coun
 SELECT COUNT(name)
 FROM tasks
 WHERE completed > 1 AND completed < 1000 AND name = 'wheels' AND project = 'Mars Rover'
-GROUP BY project, name
+GROUP BY project, name;
 ```
 
 The query below returns one column per unique project and counts how many rows have the same timestamp.
@@ -113,7 +113,7 @@ The query below returns one column per unique project and counts how many rows h
 SELECT project, COUNT(completed)
 FROM tasks
 WHERE completed > 1 AND completed < 1000 AND name = 'wheels' AND project = 'Mars Rover'
-GROUP BY project
+GROUP BY project;
 ```
 
 ### GROUP BY columns not in the partition key
@@ -123,29 +123,21 @@ Since the GROUP BY statement works on all rows, all columns are available, which
 If we create the following table:
 
 ```sql
-CREATE TABLE tasks (
-userid VARCHAR,
-visits SINT64,
-a_time TIMESTAMP, PRIMARY KEY(userid, a_time);
+CREATE TABLE tasks2 (
+userid VARCHAR NOT NULL, 
+visits SINT64, 
+a_time TIMESTAMP NOT NULL, PRIMARY KEY(userid, a_time));
 ```
 
 And and try to run the GROUP BY statement including `userid` in the SELECT statement:
 
 ```sql
-SELECT userid, SUM(visits)
-WHERE userid = 'roddy' AND a_time > 1 AND a_time < 1
-GROUP BY userid
+SELECT userid, SUM(visits) 
+FROM tasks2 
+WHERE userid = 'roddy' AND a_time = 2 
+GROUP BY userid;
 ```
 
 The result set would only have the group 'roddy' because it is required by the WHERE clause.
 
 If, however, we combine two column names from the partition key in the group using `SUM` without specifying `userid`, `GROUP BY` will return multiple result rows for the `userid` 'roddy' with one column per visit.
-
-Let's try it with the general example table above. The query below returns one column per unique subtask's average duration.
-
-```sql
-SELECT AVG(duration)
-FROM tasks
-WHERE completed > 1 AND completed < 1000 AND name = 'wheels' AND project = 'Mars Rover'
-GROUP BY subtask
-```
