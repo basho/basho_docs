@@ -601,7 +601,7 @@ client.execute(cmd);
 ```
 
 ```erlang
-riakc_ts:get(Pid, <<"GeoCheckin">>, [<<"South Atlantic">>, <<"South Carolina">>, 1420113600000]).
+riakc_ts:get(Pid, <<"GeoCheckin">>, [<<"South Atlantic">>, <<"South Carolina">>, 1420113600000], []).
 ```
 
 ```php

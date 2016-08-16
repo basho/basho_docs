@@ -344,7 +344,7 @@ A successful DESCRIBE statement execution will return a language-specific repres
 You may find the need to fetch a single key from Riak TS, below you will find an example of how to do that in each of our official clients that support Riak TS.
 
 ```erlang
-riakc_ts:get(Pid, <<"GeoCheckins">>, [<<"family1">>, <<"series1">>, 1420113600000]).
+riakc_ts:get(Pid, <<"GeoCheckin">>, [<<"South Atlantic">>, <<"South Carolina">>, 1420113600000], []).
 ```
 
 ```java
