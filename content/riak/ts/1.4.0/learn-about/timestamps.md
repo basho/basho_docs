@@ -39,7 +39,7 @@ You can read more about UNIX epoch time [here][UNIX time].
 For INSERT and SELECT statements, Riak TS supports [ISO 8601] strings which are converted to UTC milliseconds.
 
 {{% note title="NOTE" %}}
-ISO 8601 support is useful for casual interactions via `riak-shell`, but we do **not** recommend using ISO 8601 in production applications. Instead, use the TS-supported client libraries to pass timestamps as integers for better performance and correctness.
+ISO 8601 support is useful for casual interactions via `riak-shell`, but we do NOT recommend using ISO 8601 in production applications. Instead, use the TS-supported client libraries to pass timestamps as integers for better performance and correctness.
 {{% /note %}}
 
 #### Reduced Accuracy

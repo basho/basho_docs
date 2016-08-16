@@ -32,7 +32,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/timerepresentations
 Timestamps are stored in Riak TS as [epoch milliseconds][learn timestamps epoch], but it also supports [ISO 8601] string representations. This document will present the basics, but we highly recommend reading [Learn About Timestamps][learn timestamps] for the nitty gritty. This is a **time** series database, after all.
 
 {{% note title="NOTE" %}}
-ISO 8601 support is useful for casual interactions via `riak-shell`, but we do **not** recommend using ISO 8601 in production applications. Instead, use the TS-supported client libraries to pass timestamps as integers for better performance and correctness.
+ISO 8601 support is useful for casual interactions via `riak-shell`, but we do NOT recommend using ISO 8601 in production applications. Instead, use the TS-supported client libraries to pass timestamps as integers for better performance and correctness.
 {{% /note %}}
 
 ## ISO 8601 Guidelines
