@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "EXPLAIN in Riak TS"
 description: "Using the EXPLAIN statement in Riak TS"
 menu:
