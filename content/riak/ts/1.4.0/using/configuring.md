@@ -19,10 +19,10 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/configuring"
 [glossary quanta]: ../../learn/glossary/quanta
 
 
-Riak TS exposes a few configuration settings in riak.conf. This document will walk you through the TS configurations. 
+Riak TS exposes a few configuration settings in `riak.conf`. This document will walk you through the TS configurations. 
 
 {{% note title="Deprecation Warning" %}}
-The Riak TS configuration settings in riak.conf have changed. The old settings will be deprecated. Please update your riak.conf with the new settings.
+The Riak TS configuration settings in `riak.conf` have changed. The old settings will be deprecated. Please update your `riak.conf` with the new settings.
 {{% /note %}}
 
 
