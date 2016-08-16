@@ -15,7 +15,7 @@ aliases:
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/describe"
 ---
 
-[riak shell]: riak/ts/1.4.0/using/riakshell
+[riak shell]: /riak/ts/1.4.0/using/riakshell
 
 You can use the DESCRIBE statement to obtain the definition of your Riak TS table. This document will show you how to execute `DESCRIBE` in TS.
 

@@ -15,7 +15,7 @@ aliases:
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/show-tables"
 ---
 
-[riak shell]: riak/ts/1.4.0/using/riakshell
+[riak shell]: /riak/ts/1.4.0/using/riakshell
 
 You can use the SHOW TABLES statement to enumerate the Riak TS tables you have set up. This document will show you how to execute `SHOW TABLES` in TS.
 

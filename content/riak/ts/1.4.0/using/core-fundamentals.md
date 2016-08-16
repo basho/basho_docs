@@ -16,7 +16,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/core-fundamentals"
 ---
 
 
-[Riak KV]: riak/kv/2.1.4/
+[Riak KV]: /riak/kv/2.1.4/
 
 Riak TS shares the same core codebase as [Riak KV], which allows you to operate a TS cluster much the same as you would operate a KV cluster. Below are some links to help you get started.
 

@@ -22,7 +22,7 @@ aliases:
 ---
 
 
-[querying select]: riak/ts/1.4.0/using/querying/#select-query
+[querying select]: /riak/ts/1.4.0/using/querying/#select-query
 
 
 Riak TS supports arithmetic operations in the `SELECT` statement.
