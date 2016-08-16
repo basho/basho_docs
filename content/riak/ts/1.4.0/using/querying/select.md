@@ -21,9 +21,9 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/select"
 [GROUP BY]: group-by/
 [guidelines]: /riak/ts/1.4.0/using/querying/guidelines
 [iso8601]: ../../../timerepresentations/
-[iso8601 accuracy]: ../../../timerepresentations#reduced-accuracy
+[iso8601 accuracy]: /riak/ts/1.4.0/using/timerepresentations/#reduced-accuracy
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
-[learn timestamps accuracy]: /riak/ts/1.4.0/learn-about/timestamps#reduced-accuracy
+[learn timestamps accuracy]: /riak/ts/1.4.0/learn-about/timestamps/#reduced-accuracy
 
 You can use the SELECT statement in Riak TS to query your TS dataset. This document will show you how to run various queries using `SELECT`. 
 
