@@ -21,6 +21,9 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/select"
 [GROUP BY]: group-by/
 [guidelines]: riak/ts/1.4.0/using/querying/guidelines
 [iso8601]: ../../../timerepresentations/
+[iso8601 accuracy]: ../../../timerepresentations#reduced-accuracy
+[ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
+[learn timestamps accuracy]: riak/ts/1.4.0/learn-about/timestamps#reduced-accuracy
 
 You can use the SELECT statement in Riak TS to query your TS dataset. This document will show you how to run various queries using `SELECT`. 
 
@@ -47,7 +50,7 @@ CREATE TABLE GeoCheckin
 )
 ```
 
-{{% note title="SQL Injection" %}}	
+{{% note title="SQL Injection" %}}
 
 When querying with user-supplied data, it is essential that you protect against SQL injection. Please verify the user-supplied data before constructing queries.
 
@@ -249,10 +252,29 @@ You cannot use `or` between two complete clauses, since keys cannot be specified
 
 ## ISO 8601
 
-It is possible to use ISO 8601-compliant date/time strings in SELECT statements instead of integer timestamps:
+It is possible to use [ISO 8601]-compliant date/time strings in SELECT statements instead of integer timestamps:
 
 ```
 time > '2015-12-11 20:04:37' and time < '2015-12-11 20:04:50'
 ```
 
-See [our documentation on ISO 8601 support][iso8601] for more details.
+You cannot use [reduced accuracy time representations][iso8601 accuracy]. Instead, you must specify your time down to the second (or use fractional
+times).
+
+ISO 8601 time strings are converted to a millisecond timestamp, which the query then uses.
+
+
+```sql
+select weather, temperature from GeoCheckin where time > '2009-11-01 03:15:00+07' and time < '2009-11-01 03:45:00+07' and region = 'South Atlantic' and state = 'South Carolina'
+```
+
+The timestamps used inside Riak TS for those comparisons will be
+1257020100000 and 1257021900000.
+
+The same query, expressed with fractional time:
+
+```
+select weather, temperature from GeoCheckin where time > '2009-11-01 03.25+07' and time < '2009-11-01 03.75+07' and region = 'South Atlantic' and state = 'South Carolina'
+```
+
+See [our documentation on ISO 8601 support][iso8601] for more details on how to use ISO 8601.
