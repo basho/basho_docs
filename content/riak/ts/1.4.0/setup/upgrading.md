@@ -16,6 +16,7 @@ aliases:
 canonical_link: "https://docs.basho.com/riak/ts/latest/setup/upgrade/"
 ---
 
+[contact]: http://basho.com/contact/
 [use admin riak control]: /riak/kv/2.1.4/using/admin/riak-control
 [use admin commands]: /riak/kv/2.1.4/using/admin/commands
 [use admin riak-admin]: /riak/kv/2.1.4/using/admin/riak-admin
@@ -28,13 +29,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/setup/upgrade/"
 
 >**Note on upgrading Riak TS from older versions**
 >
->Riak TS upgrades are tested and supported for two feature release versions.
-For example, upgrades from 1.3.x to 1.4.x are tested and supported,
-while upgrades from 1.1.x to 1.4.x are not. When upgrading to a new
-version of Riak TS that is more than two feature releases ahead, we
-recommend first upgrading to an intermediate version. For example, in an
-upgrade from 1.1.x to 1.4.x, we recommend upgrading from 1.1.x to 1.3.x
-before upgrading to 1.4.x.
+>Upgrading Riak TS is only supported for Riak TS 1.3.1 to 1.4.0. For assistance upgrading from earlier versions to 1.4.0 [contact Client Services][contact].
 >
 >If you run [Riak Control][use admin riak control], you should disable it during the rolling upgrade process.
 
@@ -65,7 +60,7 @@ sudo tar -czf riak_backup.tar.gz /var/lib/riak /etc/riak
 3\. Upgrade Riak TS:
 
 ```bash
-sudo dpkg -i <riakts_package_name>.deb
+sudo dpkg -i »riakts_package_name«.deb
 ```
 
 
@@ -86,10 +81,10 @@ riak version
 6\. Wait for the `riak_ts` service to start
 
 ```bash
-riak-admin wait-for-service riak_ts <target_node>
+riak-admin wait-for-service riak_ts »target node«
 ```
 
-* `<target_node>` is the node which you have just upgraded (e.g.
+* `»target node«` is the node which you have just upgraded (e.g.
 `riak@192.168.1.11`)
 
 7\. Wait for any hinted handoff transfers to complete
@@ -124,7 +119,7 @@ sudo tar -czf riak_backup.tar.gz /var/lib/riak /etc/riak
 3\. Upgrade Riak TS
 
 ```bash
-sudo rpm -Uvh <riak_package_name>.rpm
+sudo rpm -Uvh »riakts_package_name«.rpm
 ```
 
 4\. Restart Riak TS
@@ -143,10 +138,10 @@ riak version
 6\. Wait for the `riak_ts` service to start
 
 ```bash
-riak-admin wait-for-service riak_ts <target_node>
+riak-admin wait-for-service riak_ts »target node«
 ```
 
-* `<target_node>` is the node which you have just upgraded (e.g.
+* `»target node«` is the node which you have just upgraded (e.g.
 riak@192.168.1.11)
 
 7\. Wait for any hinted handoff transfers to complete
@@ -168,18 +163,18 @@ If you would like to upgrade an existing Riak TS cluster to a [commercially supp
 directories.
 2. Shut down the node you are going to upgrade.
 3. Uninstall your Riak TS package.
-4. Install the `riak_ee` package.
+4. Install the `riak-ts-ee` package.
 5. A standard package uninstall should not have removed your data
    directories. If it did, move your backup to where the data directory
    should be.
 6. Copy any customizations from your backed-up `vm.args` to the
-   `riak_ee` installed `vm.args` file, these files may be identical.
-7. The `riak.conf` file from `riak_ee` will be significantly different from your backed-up file. While it will contain all of the same sections as your original, it will have many new ones. Copy the customizations from your original `riak.conf` file into the appropriate sections in the new one. Ensure that the following sections are present in `riak.conf`:
+   `riak-ts-ee` installed `vm.args` file, these files may be identical.
+7. The `riak.conf` file from `riak-ts-ee` will be significantly different from your backed-up file. While it will contain all of the same sections as your original, it will have many new ones. Copy the customizations from your original `riak.conf` file into the appropriate sections in the new one. Ensure that the following sections are present in `riak.conf`:
   * `riak_core` --- the `cluster_mgr` setting must be present. See [MDC v3 Configuration][config v3 mdc] for more information.
   * `riak_repl` --- See [MDC v3 Configuration][config v3 mdc] for more information.
   * `riak_jmx` --- See [JMX Monitoring][jmx monitor] for more information.
   * `snmp` --- See [SNMP][snmp] for more information.
-8. Start Riak KV on the upgraded node.
+8. Start Riak TS on the upgraded node.
 
 ## Basho Patches
 
