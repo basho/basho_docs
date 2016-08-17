@@ -18,6 +18,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/riakshell"
 [nodename]: /riak/kv/2.1.4/using/cluster-operations/changing-cluster-info/
 [creating]: /riak/ts/1.4.0/using/creating-activating
 [writing]: /riak/ts/1.4.0/using/writingdata
+[riak shell README]: https://github.com/basho/riak_shell/edit/develop/README.md
 
 
 You can use riak shell within Riak TS to run SQL and logging commands from one place.
@@ -25,7 +26,7 @@ You can use riak shell within Riak TS to run SQL and logging commands from one p
 
 ## Capabilities
 
-While riak shell is in the early stages of development, the following are well-supported: 
+The following are supported in riak shell: 
 
 * logging
 * log replay
@@ -48,9 +49,13 @@ The shell is also trivially extendable for developer use.
 
 To get started using riak shell:
 
-1\. Locate your riak_shell.config configuration file. It will be in the `/etc/riak` directory with the other Riak TS configuration files. On Mac OS X, the configuration files are in the `riak-ts-1.4.0/etc` directory.
+1\.	Upon installing Riak TS from a package (.deb or .rpm), your riak shell should be configured to attach to your local node. You can verify this by running:
 
-2\. Open the configuration file, riak_shell.config, and add your nodename and IP address to `nodes`:
+```
+> sudo riak-shell
+```
+
+1a\. You can attach to any node in your cluster from riak shell. To do this, locate your riak_shell.config file. It will be in the `/etc/riak` directory with the other Riak TS configuration files. On Mac OS X, the configuration files are in the `riak-ts-1.4.0/etc` directory. Open riak_shell.config, and add the nodename and IP addresses you wish to connect to to nodes:
 
 ```
 [
@@ -66,22 +71,29 @@ To get started using riak shell:
 ].
 ```
 
-3\. If you change the IP address in any of the configuration files, you will need to perform the steps in the [Rename Single Node Clusters][nodename] before proceeding.
-
-4\. Navigate back to your Riak TS directory, and open riak shell:
+2\. Open riak shell (if you have updated riak_shell.config, you will need to navigate back to your Riak TS directory):
 
 ```bash
-./riak-shell
+riak-shell
 ```
 
-You can verify your connection by running `show_connection`. You should see a reply like this one:
+You can verify your connection by running `show_connection`:
+
+```
+riak-shell>show_connection;
+```
+
+You should see a reply like this one:
 
 ```
 riak_shell is connected to: 'dev1@127.0.0.1' on port 8087
 ```
 
-
 ## Basic Commands
+
+{{% note %}}
+You must always conclude riak shell commands with `;` or your command will not work. Every example in this document ends a command with `;`.
+{{% /note %}}
 
 ### Connecting and reconnecting
 
@@ -171,21 +183,21 @@ riak-shell>describe GeoCheckin;
 You can also select specific data points from your table:
 
 ```
-riak-shell>select time, weather, temperature from GeoCheckin where region='South Atlantic' and state='South Carolina' and time > 0 and time < 1000;
-+----+----------------+---------------------------+
-|time|    weather     |        temperature        |
-+----+----------------+---------------------------+
-| 1  |    z«êPò¹    |4.19111744258298777600e+18 |
-| 2  |  ^OOgz^Blu7)  |6.07861409217513676800e+18 |
-| 3  |      ÔÖã       |6.84034338181623808000e+17 |
-| 4  |       ^G        |-5.55785206740398080000e+16|
-| 5  |   ¸LËäà«d    |-3.62555783091625574400e+18|
-| 6  |    ^AE^S¥­     |1.11236574770119680000e+18 |
-| 7  |    ïö?ï^Fv     |5.51455556936744140800e+18 |
-| 8  | ^FtFVÅë=+#^Y5  |2.44525777392835584000e+17 |
-| 9  |ðÁÖ·©Ü^GV^^^DkU|6.90864738609726668800e+18 |
-| 10 | QÝZa^QËfQ  |5.08590022245487001600e+18 |
-+----+----------------+---------------------------+
+riak-shell(28)>SELECT time, weather, temperature FROM GeoCheckin WHERE myfamily='family1' AND myseries='series1' AND time > 0 AND time < 1000;
++------------------------+-------+--------------------------+
+|          time          |weather|       temperature        |
++------------------------+-------+--------------------------+
+|1970-01-01T00:00:00.001Z| snow  |2.51999999999999992895e+01|
+|1970-01-01T00:00:00.002Z| rain  |2.45000000000000000000e+01|
+|1970-01-01T00:00:00.003Z| rain  |2.30000000000000000000e+01|
+|1970-01-01T00:00:00.004Z| sunny |2.86000000000000014211e+01|
+|1970-01-01T00:00:00.005Z| sunny |2.46999999999999992895e+01|
+|1970-01-01T00:00:00.006Z|cloudy |3.27890000000000014779e+01|
+|1970-01-01T00:00:00.007Z|cloudy |2.78999999999999985789e+01|
+|1970-01-01T00:00:00.008Z|  fog  |3.48999999999999985789e+01|
+|1970-01-01T00:00:00.009Z|  fog  |2.86999999999999992895e+01|
+|1970-01-01T00:00:00.01Z | hail  |3.81000000000000014211e+01|
++------------------------+-------+--------------------------+
 ```
 
 You can add data via a simple SQL `INSERT` statement, too:
@@ -337,70 +349,4 @@ You can run a riak shell regression log for batch/scripting:
 
 ## Extending Riak Shell
 
-riak shell uses a magic architecture with convention.
-
-Riak modules with names like `mymodule_EXT.erl` are considered to be riak shell extension modules.
-
-All exported functions with an arity >= 1 are automatically exposed in riak shell mode, with some exceptions.
-
-Exported functions with the following names will be silently ignored:
-
-* `module_info/0`
-* `module_info/1`
-* `help/1`
-* `'riak-admin'/N`
-
-Functions that share a name with the first keyword of supported SQL statements will likewise be ignored:
-
-* `create/N`
-* `describe/N`
-* `select/N`
-
-As additional SQL statements are supported, adding them to the macro `IMPLEMENTED_SQL_STATEMENTS` in `riakshell.hrl` will automatically make them available to riak shell and exclude them from extensions.
-
-To add a function which appears to the user like:
-
-```
-riak-shell> frobulator bish bash bosh;
-```
-
-You implement a function with the following signature:
-
-```
-frobulator(#state{} = State, _Arg1, _Arg2, N) when is_integer(N) ->
-    Result = "some string that is the result of the fn",
-    {Result, State};
-frobulator(S, _Arg1, Arg2, N) ->
-    ErrMsg = io_lib:format("The third parameter '~p' should be an integer",
-        [N]),
-   {ErrMsg, S#state{cmd_error = true}}.
-```
-
-Your function may modify the state record if appropriate. All the shell functions are implemented as extensions.
-
-This example shows you how to handle errors - return an error message and a state record with the `cmd_error` flag set to 'true'.
-
-To be a good citizen you should add a clause to the help function like:
-
-```
--help(frobulator) ->
-    "This is how you use my function";
-```
-
-If you have a function with the same name that appears in two EXT modules riak shell will not start. It will not check if the arities match. You may have the same function with different arities in the same module - but there is only one help call.
-
-As a convenience, there is a module called `debug_EXT.erl`. This module implements a function which reloads and reregisters all extensions `riak-shell>load`, and can hot-load changes into the shell (it won't work on first-creation of a new EXT module, only on reloading). The only EXT that debug doesn't load is `debug_EXT`, so please do not add functions to it.
-
-riak shell suppresses error messages that would otherwise be written to the console. For instance, if the remote Riak node goes down the protocol buffer connection is torn down. This makes debugging painful. You can stop this behavior by starting riak shell in debug mode. You can do this by starting it from the shell with the `-d` flag:
-
-```
-cd ~/riakshell/bin
-./riak-shell -d
-```
-
-
-### Architecture Notes
-
-This shell has a simpler architecture than conventional Erlang/LFE/Elixir REPLS.
-
-Although there are no `-spec()` annotations this is actually an example of spec-first development.
+See the [riak shell README] for information on extending or developing on riak shell.
