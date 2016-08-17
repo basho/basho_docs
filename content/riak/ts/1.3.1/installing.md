@@ -34,8 +34,8 @@ Riak TS is a distributed NoSQL key/value store optimized for fast reads and writ
 Choose your OS and follow the instructions:
 
 * [CentOS/RHEL 6 & 7][Centos]
-* [Debian 7][Debian]
-* [OS X 10.8+][OSX]
+* [Debian 7 & 8][Debian]
+* [OS X 10.10 & 10.11][OSX]
 * [Ubuntu 12.04 & 14.04][Ubuntu]
 
 Riak TS is also available on [AWS Marketplace][AWS].
