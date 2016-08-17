@@ -52,6 +52,10 @@ CREATE TABLE GeoCheckin
 
 While the keywords appear in all uppercase letters here, they can be specified using lowercase or uppercase letters as they are not case sensitive.
 
+{{% note title="Table Limitations" %}}
+You cannot create a table with more than 511 total [column definitions](#column-definitions) and [column names](#primary-key). If you try to create a table with more than 511 columns, you will receive an error.
+{{% /note %}}
+
 
 #### Column Definitions
 
