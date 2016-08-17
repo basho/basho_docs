@@ -131,7 +131,7 @@ Connection Prompt turned off
 
 ### History and repeating past commands
 
-You can see the log of your activity in riak shell by running `>show_history;`
+You can see the log of your activity in riak shell by running `show_history`
 
 ```
 riak-shell>show_history;
