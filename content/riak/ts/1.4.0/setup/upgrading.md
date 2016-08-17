@@ -5,15 +5,15 @@ menu:
   riak_ts-1.4.0:
     name: "Upgrade"
     identifier: "upgrade"
-    weight: 102
-    parent: "introduction"
+    weight: 200
+    parent: "setup"
 project: "riak_ts"
 project_version: "1.4.0"
 toc: true
 aliases:
-    - /riakts/1.4.0/setup/upgrade/
-    - /riakts/1.4.0/upgrade/
-canonical_link: "https://docs.basho.com/riak/ts/latest/setup/upgrade/"
+    - /riakts/1.4.0/setup/upgrading/
+    - /riakts/1.4.0/upgrading/
+canonical_link: "https://docs.basho.com/riak/ts/latest/setup/upgrading/"
 ---
 
 [contact]: http://basho.com/contact/
@@ -49,13 +49,11 @@ installed with the Debian/Ubuntu packages provided by Basho.
 riak stop
 ```
 
-
 2\. Back up the Riak TS node's `/etc` and `/data` directories:
 
 ```bash
 sudo tar -czf riak_backup.tar.gz /var/lib/riak /etc/riak
 ```
-
 
 3\. Upgrade Riak TS:
 
@@ -63,13 +61,11 @@ sudo tar -czf riak_backup.tar.gz /var/lib/riak /etc/riak
 sudo dpkg -i »riakts_package_name«.deb
 ```
 
-
 4\. Restart Riak TS:
 
 ```bash
 riak start
 ```
-
 
 5\. Verify Riak TS is running the new version:
 
@@ -77,8 +73,7 @@ riak start
 riak version
 ```
 
-
-6\. Wait for the `riak_ts` service to start
+6\. Wait for the `riak_ts` service to start:
 
 ```bash
 riak-admin wait-for-service riak_ts »target node«
@@ -87,7 +82,7 @@ riak-admin wait-for-service riak_ts »target node«
 * `»target node«` is the node which you have just upgraded (e.g.
 `riak@192.168.1.11`)
 
-7\. Wait for any hinted handoff transfers to complete
+7\. Wait for any hinted handoff transfers to complete:
 
 ```bash
 riak-admin transfers
@@ -96,7 +91,7 @@ riak-admin transfers
 * While the node was offline, other nodes may have accepted writes on its
 behalf. This data is transferred to the node when it becomes available.
 
-8\. Repeat the process for the remaining nodes in the cluster
+8\. Repeat the process for the remaining nodes in the cluster.
 
 
 ## RHEL/CentOS
@@ -116,13 +111,13 @@ riak stop
 sudo tar -czf riak_backup.tar.gz /var/lib/riak /etc/riak
 ```
 
-3\. Upgrade Riak TS
+3\. Upgrade Riak TS:
 
 ```bash
 sudo rpm -Uvh »riakts_package_name«.rpm
 ```
 
-4\. Restart Riak TS
+4\. Restart Riak TS:
 
 ```bash
 riak start
@@ -134,8 +129,7 @@ riak start
 riak version
 ```
 
-
-6\. Wait for the `riak_ts` service to start
+6\. Wait for the `riak_ts` service to start:
 
 ```bash
 riak-admin wait-for-service riak_ts »target node«
@@ -144,7 +138,7 @@ riak-admin wait-for-service riak_ts »target node«
 * `»target node«` is the node which you have just upgraded (e.g.
 riak@192.168.1.11)
 
-7\. Wait for any hinted handoff transfers to complete
+7\. Wait for any hinted handoff transfers to complete:
 
 ```bash
 riak-admin transfers
@@ -153,7 +147,7 @@ riak-admin transfers
 * While the node was offline, other nodes may have accepted writes on its
 behalf. This data is transferred to the node when it becomes available.
 
-8\. Repeat the process for the remaining nodes in the cluster
+8\. Repeat the process for the remaining nodes in the cluster.
 
 ## Rolling Upgrade to Enterprise
 
