@@ -65,6 +65,7 @@ Cell constructors accept a value matching the generic type of the class:
  * `var c = new Cell<bool>(false)`
  * `var c = new Cell<DateTime>(DateTime.Now)` - will be converted to UTC for you
  * `var c = new Cell()` - represents a `null` value
+ * `var c = Cell.Null` - also represents a `null` value
 
 
 #### `Row`

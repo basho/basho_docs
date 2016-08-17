@@ -79,14 +79,15 @@ Retrieve TS value by key.
 #### Put
 
 Stores time series data in the Riak TS cluster.
+To insert a `null` cell value, use a `None` when building the row(s) for the TsObject. 
 
 `ts_put(tsobj)`
 
 >**Note:** This request is automatically retried 3 times if it fails due to network error.
 
-|Parameter| Parameter Type       | Description                      |
-|---------|----------------------|----------------------------------|
-|`tsobj`  | class `RiakTsObject` | The TS object to store. |
+|Parameter| Parameter Type                             | Description                      |
+|---------|--------------------------------------------|----------------------------------|
+|`tsobj`  | class `TsObject <riak.ts_object.TsObject>` | The TS object to store. |
 
 **Return Type**: boolean
 
@@ -127,13 +128,13 @@ Queries time series data in the Riak cluster.
 
 Lists all keys in a Riak TS table via a stream. This is a
 generator method which should be iterated over. The caller should explicitly close the returned iterator, either using :func:`contextlib.closing` or calling `close()`
-explicitly. Consuming the entire iterator will also close the stream. If it does not, the associated connection might not be returned to the pool. 
+explicitly. Consuming the entire iterator will also close the stream. If it does not, the associated connection might not be returned to the pool.
 
 `riak.client.RiakClient:ts_stream_keys(table, timeout=None)`
 
 Example:
 
-```python 
+```python
 from contextlib import closing
 # Using contextlib.closing
 with closing(client.ts_stream_keys(mytable)) as keys:

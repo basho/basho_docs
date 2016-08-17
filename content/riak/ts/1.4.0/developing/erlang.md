@@ -86,6 +86,8 @@ put(Pid::pid(),
 
 Insert rows into a Riak TS table using client PID. Rows are represented as a list of tuples, where each row is a tuple of values of appropriate types for the complete set of table columns in the order in which they appear in table's DDL. Successful PUTs will return 'ok', while unsuccessful PUTs return an `{error, Reason}` tuple.
 
+To insert a `null` cell value, use an empty list (`[]`) when building the Data list.
+
 >**Note:** Type validation is done on the first row only. If any subsequent row contains fewer or more elements than there are columns, or some element fails to convert to the appropriate type, the rest of the rows will not get inserted.
 
 

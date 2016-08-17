@@ -277,7 +277,7 @@ $response = (new Command\Builder\TimeSeries\StoreRows($riak))
             (new Cell("state"))->setValue("South Carolina"),
             (new Cell("time"))->setTimestampValue(1420117200),
             (new Cell("weather"))->setValue("warm"),
-            (new Cell("temperature"))->setValue(20.5),
+            (new Cell("temperature")), # null value
         ],
     ])
     ->build()

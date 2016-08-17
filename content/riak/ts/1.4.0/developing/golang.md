@@ -30,7 +30,7 @@ TS support within the Go client is implemented through the following 4 command b
 * TsQueryCommandBuilder which is assembled via NewTsQueryCommandBuilder
 * TsListKeysCommandBuilder which is assembled via NewTsListKeysCommandBuilder
 
-Language | Source | Documentation | 
+Language | Source | Documentation |
 :--------|:-------|:--------------|
 Go | [riak-go-client](https://github.com/basho/riak-go-client) | [GoDoc](https://godoc.org/github.com/basho/riak-go-client) |
 
@@ -59,8 +59,16 @@ A cell contains a piece of data for a row in a Riak TS table and can hold 5 diff
 
 ##### Constructors
 
-A cell is constructed by using one of the cell factory methods for the various data types, e.g. `cell := NewStringTsCell("South Atlantic")`.
+A cell is constructed by using one of the cell factory methods for the various data types.
 
+ * `cell := NewStringTsCell("South Atlantic")`
+ * `cell := NewSint64TsCell(42816067)`
+ * `cell := NewDoubleTsCell(49.0)`
+ * `cell := NewBooleanTsCell(true)`
+ * `cell := NewTimestampTsCell(time.Now())` - from a time.Time object, will be converted to UTC for you
+ * `cell := NewTimestampTsCellFromInt64(1443806900000)` - from a unix timestamp
+ * `cell := nil` - represents a `null` value
+ 
 ##### Instance Methods
 
 Cells have `struct` getters to retrieve the cell value and the value's data type.

@@ -71,6 +71,8 @@ There is also a special static helper for creating cells with raw timestamps.
 
  * `public static Cell newTimestamp(long value)`
 
+ To create a null cell, use a literal `null` instead.
+
 ##### Instance Methods
 
 Each data type has the following methods: `has_X` and `get_X`.
@@ -285,7 +287,7 @@ The builder constructor takes the table name:
 
 Request a collection of coverage entries. Each element in the returned collection will include an IP address and port number to connect to, a human-readable description of the item, and a "coverageContext" opaque binary.
 
-Each element corresponds to one partition and quantum range in the database, so an invocation of [`Query()`](#query) with the `coverageContext` opaque binary will return only those values which fall within that single quantum for a particular vnode. 
+Each element corresponds to one partition and quantum range in the database, so an invocation of [`Query()`](#query) with the `coverageContext` opaque binary will return only those values which fall within that single quantum for a particular vnode.
 
 This allows for queries to be executed in parallel, and allows for the quantum limit to be effectively bypassed.
 
