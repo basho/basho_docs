@@ -49,13 +49,13 @@ The shell is also trivially extendable for developer use.
 
 To get started using riak shell:
 
-1\.	Upon installing Riak TS from a package (.deb or .rpm), your riak shell should be configured to attach to your local node. You can verify this by running:
+1\. Upon installing Riak TS from a package (.deb or .rpm), your riak shell should be configured to attach to your local node. You can verify this by running:
 
 ```
 > sudo riak-shell
 ```
 
-1a\. You can attach to any node in your cluster from riak shell. To do this, locate your riak_shell.config file. It will be in the `/etc/riak` directory with the other Riak TS configuration files. On Mac OS X, the configuration files are in the `riak-ts-1.4.0/etc` directory. Open riak_shell.config, and add the nodename and IP addresses you wish to connect to to nodes:
+1a\. You can attach to any node in your cluster from riak shell. To do this, locate your riak_shell.config file. On most systems, it will be in the `/etc/riak` directory with the other Riak TS configuration files. On Mac OS X, the configuration files are in the `~/riak-ts-1.4.0/etc` directory. Open riak_shell.config, and add the nodename and IP addresses you wish to connect to to nodes:
 
 ```
 [
