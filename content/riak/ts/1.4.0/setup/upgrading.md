@@ -129,6 +129,7 @@ riak start
 riak version
 ```
 
+
 6\. Wait for the `riak_ts` service to start:
 
 ```bash
