@@ -46,7 +46,10 @@ Riak TS 1.4.0 delivers a broad range of new functionality and improvements, incl
     * [[riak_ql PR #133](https://github.com/basho/riak_ql/pull/133)]
     * [[PR #1448](https://github.com/basho/riak_kv/pull/1448)]
     * [[riak_shell PR #44](https://github.com/basho/riak_shell/pull/44)]
-* Riak TS 1.4.0 supports rolling upgrades from 1.3.1 and downgrades to 1.3.1. You can read about how to perform an upgrade or downgrade [here]([LINK])
+* Riak TS 1.4.0 supports rolling upgrades from 1.3.1 and downgrades to 1.3.1. You can read about how to perform an upgrade or downgrade [here]([LINK]).
+{{% note title="Note on Downgrading" %}}
+If you freshly installed TS 1.4.0 and did NOT upgrade from 1.3.1, and then you choose to downgrade to 1.3.1, you will need to change your `riak.conf` to preserve your configuration settings. Read more about that process [here](LINK).
+{{% /note %}}
 
 
 ## Additions
