@@ -152,9 +152,9 @@ requests also support the following parameters:
 
 Parameter | Default | Description
 :---------|:--------|:-----------
-`w` | `2` | How many replicas to write to before returning a successful response
+`w` | `quorum` | How many replicas to write to before returning a successful response
 `pw` | `0` | How many primary vnodes must respond for a write to be deemed successful
-`dw` | `0` | How many replicas to commit to durable storage before returning a successful response
+`dw` | `quorum` | How many replicas to commit to durable storage before returning a successful response
 `returnbody` | `false` | Whether to return the contents of the stored object
 
 Here is an example of storing an object (another brief text snippet)
