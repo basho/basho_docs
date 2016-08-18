@@ -49,13 +49,23 @@ cd riak-ts-1.4.0
 ```
 
 
-## Activate Riak TS node
+## Start your Riak TS node
 
 Once you've installed Riak TS, start it on your node:
 
 ```bash
 riak start
 ```
+
+## Verify Riak TS is running
+
+You can verify that Riak TS is started and ready to use by pinging it.
+
+```bash
+riak ping
+```
+
+If Riak TS has started, you will receive a `pong` response. If it has not started, you will receive an error. 
 
 
 ## Next Steps

@@ -72,15 +72,6 @@ sudo rpm -Uvh riak-ts-1.4.0-1.el7.centos.x86_64.rpm
 ```
 
 
-## Activate Riak TS node
-
-Once you've installed Riak TS, start it on your node:
-
-```bash
-riak start
-```
-
-
 ## Verify your installation
 
 You can verify that Riak TS is successfully installed by running: 
@@ -96,6 +87,26 @@ rpm -q riak-ts
 ```
 
 If Riak TS has been installed successfully `riak-ts` is returned.
+
+
+## Start your Riak TS node
+
+Once you've installed Riak TS, start it on your node:
+
+```bash
+riak start
+```
+
+
+## Verify Riak TS is running
+
+You can verify that Riak TS is started and ready to use by pinging it.
+
+```bash
+riak ping
+```
+
+If Riak TS has started, you will receive a `pong` response. If it has not started, you will receive an error. 
 
 
 ## Next Steps
