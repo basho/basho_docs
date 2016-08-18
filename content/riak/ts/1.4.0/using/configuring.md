@@ -45,6 +45,11 @@ riak_kv.query.timeseries.timeout = 10000
 
 ### Maximum quanta
 
+{{% note %}}
+Before you change this setting, we recommend you take a moment to determine whether requantizing your data would be a better option. If your data is not optimally quantized, upping the maximum quanta setting may make your queries less efficient. You can read more about best practices for quantizing your data [here](/riak/ts/1.4.0/learn-about/bestpractices/#quantum).
+{{% /note %}}
+
+
 Use `riak_kv.query.timeseries.max_quanta_span` to configure the maximum number of quanta that a query can span. The default is 5.
 
 ```riak.conf
