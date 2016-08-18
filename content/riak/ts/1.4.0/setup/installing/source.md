@@ -86,14 +86,41 @@ make rel
 You can verify that Riak TS was successfully installed by running riak shell:
 
 ```bash
-./riak-shell
+sudo riak-shell
 ```
 
-Verify your connection by running `show_connection`. You should see a reply like this one:
+Verify your connection by running `show_connection`:
+
+```
+riak-shell>show_connection;
+```
+
+You should see a reply like this one:
 
 ```
 riak_shell is connected to: 'dev1@127.0.0.1' on port 8087
 ```
+
+Make sure to exit riak shell when you are done by running `q;`.
+
+
+## Start your Riak TS node
+
+Once you've successfully installed Riak TS, start it on your node:
+
+```bash
+riak start
+```
+
+## Verify Riak TS is running
+
+You can verify that Riak TS is started and ready to use by pinging it.
+
+```bash
+riak ping
+```
+
+If Riak TS has started, you will receive a `pong` response. If it has not started, you will receive an error. 
 
 
 ## Next Steps
