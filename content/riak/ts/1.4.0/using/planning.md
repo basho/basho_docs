@@ -38,14 +38,15 @@ In order to create a working Riak TS table, you'll need to plan your table out. 
 ```sql
 CREATE TABLE GeoCheckin
 (
+   id           SINT64    NOT NULL,
+   time         TIMESTAMP NOT NULL,
    region       VARCHAR   NOT NULL,
    state        VARCHAR   NOT NULL,
-   time         TIMESTAMP NOT NULL,
    weather      VARCHAR   NOT NULL,
    temperature  DOUBLE,
    PRIMARY KEY (
-     (region, state, QUANTUM(time, 15, 'm')),
-      region, state, time
+     (id, QUANTUM(time, 15, 'm')),
+      id, time
    )
 )
 ```
@@ -75,14 +76,15 @@ The column definitions for the keys can be specified in any order in the `CREATE
 ```sql
 CREATE TABLE GeoCheckin
 (
+   id           SINT64    NOT NULL,
    region       VARCHAR   NOT NULL,
    state        VARCHAR   NOT NULL,
    time         TIMESTAMP NOT NULL,
    weather      VARCHAR   NOT NULL,
    temperature  DOUBLE,
    PRIMARY KEY (
-     (region, state, QUANTUM(time, 15, 'm')),
-      region, state, time
+     (id, QUANTUM(time, 15, 'm')),
+      id, time
    )
 )
 ```
@@ -92,13 +94,14 @@ CREATE TABLE GeoCheckin
 CREATE TABLE GeoCheckin
 (
    time         TIMESTAMP NOT NULL,
+   id           SINT64    NOT NULL,
    state        VARCHAR   NOT NULL,
    weather      VARCHAR   NOT NULL,
    region       VARCHAR   NOT NULL,
    temperature  DOUBLE,
    PRIMARY KEY (
-     (region, state, QUANTUM(time, 15, 'm')),
-      region, state, time
+     (id, QUANTUM(time, 15, 'm')),
+      id, time
    )
 )
 ```
@@ -119,14 +122,15 @@ The `PRIMARY KEY` describes both the partition key and local key. The partition 
 ```sql
 CREATE TABLE GeoCheckin
 (
+   id           SINT64    NOT NULL,
    region       VARCHAR   NOT NULL,
    state        VARCHAR   NOT NULL,
    time         TIMESTAMP NOT NULL,
    weather      VARCHAR   NOT NULL,
    temperature  DOUBLE,
    PRIMARY KEY (
-     (region, state, QUANTUM(time, 15, 'm')),  <-- PARTITION KEY
-      region, state, time                      <-- LOCAL KEY
+     (id, QUANTUM(time, 15, 'm')),  <-- PARTITION KEY
+      id, time                      <-- LOCAL KEY
    )
 )
 ```
@@ -137,14 +141,15 @@ The field definitions for the `PRIMARY KEY` can be specified in any order in the
 ```sql
 CREATE TABLE GeoCheckin
 (
+   id           SINT64    NOT NULL,
    region       VARCHAR   NOT NULL,
    state        VARCHAR   NOT NULL,
    time         TIMESTAMP NOT NULL,
    weather      VARCHAR   NOT NULL,
    temperature  DOUBLE,
    PRIMARY KEY (
-     (region, state,
-      region, state, time
+     (id, time,
+      id, time, state
    )
 )
 ```
@@ -153,14 +158,15 @@ CREATE TABLE GeoCheckin
 ```sql
 CREATE TABLE GeoCheckin
 (
+   id           SINT64    NOT NULL,
    region       VARCHAR   NOT NULL,
    state        VARCHAR   NOT NULL,
    time         TIMESTAMP NOT NULL,
    weather      VARCHAR   NOT NULL,
    temperature  DOUBLE,
    PRIMARY KEY (
-     (state, region,
-      state, region, time
+     (id, time,
+      id, time, region
    )
 )
 ```
@@ -173,7 +179,7 @@ The partition key is the first element of the primary key, and is defined as a l
 You may specify a quantum, which is used to colocate data on one of the partition key's timestamp fields:
 
 ```sql
-PRIMARY KEY  ((region, state, QUANTUM(time, 1, 's')), ...)
+PRIMARY KEY  ((id, QUANTUM(time, 1, 's')), ...)
 ```
 
 Only one quantum function may be specified and it must be the last element of the partition key.
@@ -198,8 +204,8 @@ The local key may also contain additional column names so long as they come afte
 
 ```sql
    PRIMARY KEY (
-     (region, state, QUANTUM(time, 15, 'm')),
-      region, state, time, weather, temperature
+     (id, QUANTUM(time, 15, 'm')),
+      id, time, weather, temperature
    )
 ```
 

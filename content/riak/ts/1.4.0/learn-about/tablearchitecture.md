@@ -58,14 +58,15 @@ Riak TS tables have a one-to-one mapping with Riak KV bucket types.
 ```sql
 CREATE TABLE GeoCheckin
 (
-   region      VARCHAR   NOT NULL,                   -
+   id          SINT64    NOT NULL,                   -
+   region      VARCHAR   NOT NULL,                    |
    state       VARCHAR   NOT NULL,                    |
    time        TIMESTAMP NOT NULL,                    |  --> Column Definitions
    weather     VARCHAR   NOT NULL,                    |
    temperature DOUBLE,                               _
    PRIMARY KEY (
-     (region, state, QUANTUM(time, 15, 'm')),        <-- Partition Key
-     region, state, time                             <-- Local Key
+     (id, QUANTUM(time, 15, 'm')),        <-- Partition Key
+     id, time                             <-- Local Key
    )
 )
 ```
@@ -89,14 +90,15 @@ The column definitions for the keys can be specified in any order in the `CREATE
 ```sql
 CREATE TABLE GeoCheckin
 (
+   id           SINT64    NOT NULL,
    region       VARCHAR   NOT NULL,
    state        VARCHAR   NOT NULL,
    time         TIMESTAMP NOT NULL,
    weather      VARCHAR   NOT NULL,
    temperature  DOUBLE,
    PRIMARY KEY (
-     (region, state, QUANTUM(time, 15, 'm')),
-      region, state, time
+     (id, QUANTUM(time, 15, 'm')),
+      id, time
    )
 )
 ```
@@ -105,14 +107,15 @@ CREATE TABLE GeoCheckin
 ```sql
 CREATE TABLE GeoCheckin
 (
+   id           SINT64    NOT NULL,
    time         TIMESTAMP NOT NULL,
    state        VARCHAR   NOT NULL,
    weather      VARCHAR   NOT NULL,
    region       VARCHAR   NOT NULL,
    temperature  DOUBLE,
    PRIMARY KEY (
-     (region, state, QUANTUM(time, 15, 'm')),
-      region, state, time
+     (id, QUANTUM(time, 15, 'm')),
+      id, time
    )
 )
 ```
@@ -139,7 +142,7 @@ The partition key is the first element of the primary key, and is defined as a l
 If you choose to include a quantum, it will be used to colocate data on one of the partition key's timestamp fields:
 
 ```sql
-PRIMARY KEY  ((region, state, QUANTUM(time, 1, 's')), ...)
+PRIMARY KEY  ((id, QUANTUM(time, 1, 's')), ...)
 ```
 
 Only one quantum function may be specified and it must be the last element of the partition key.
@@ -164,7 +167,7 @@ The second key (local key) MUST have the same fields in the same order as the pa
 It can also have additional fields AFTER the fields in the partition key.
 
 ```sql
-((region, state, QUANTUM(time, 15, 'm')), region, state, time, weather)
+((id, QUANTUM(time, 15, 'm')), id, time, state, weather)
 ```
 
 Note that weather is in the local key but not in the partition key.  Fields in the partition key must be covered by a queries where clause, additional fields in the local key do **not** have to be covered.
@@ -213,16 +216,15 @@ The two `key_v1` entries correspond to the partion key and the local key. The fi
 ```sh
 {key_v1,[
    {hash_fn_v1,riak_ql_quanta,quantum,
-               {param_v1,[<<"region">>]},                 <- Partition Key Part 1
-               {param_v1,[<<"state">>]},                  <- Partition Key Part 2
-               [{param_v1,[<<"time">>]},15,m],timestamp}  <- Partition Key Part 3
+               {param_v1,[<<"id">>]},                     <- Partition Key Part 1
+               [{param_v1,[<<"time">>]},15,m],timestamp}  <- Partition Key Part 2
 
 ]},
 {key_v1,[
-   {param_v1,[<<"region">>]},     <- Local Key part 1
-   {param_v1,[<<"state">>]},      <- Local Key part 2
-   {param_v1,[<<"time">>]}        <- Local Key part 3
-   {param_v1,[<<"temperature">>]} <- Local Key part 4
+   {param_v1,[<<"id">>]},        <- Local Key part 1
+   {param_v1,[<<"time">>]},      <- Local Key part 2
+   {param_v1,[<<"state">>]}      <- Local Key part 3
+   {param_v1,[<<"weather">>]}    <- Local Key part 4
 ]}
 ```
 
@@ -232,14 +234,15 @@ The two `key_v1` entries correspond to the partion key and the local key. The fi
 ```sql
 CREATE TABLE GeoCheckin
 (
-   region      VARCHAR   NOT NULL,                -
+   id           SINT64    NOT NULL,               -
+   region      VARCHAR   NOT NULL,                 |
    state       VARCHAR   NOT NULL,                 |
    time        TIMESTAMP NOT NULL,                 |--> Column Definitions
    weather     VARCHAR   NOT NULL,                 |
    temperature DOUBLE,                            _
    PRIMARY KEY (
-     (region, state, QUANTUM(time, 15, 'm')),     <-- Partition key
-     region, state, time                          <-- Local key
+     (id, QUANTUM(time, 15, 'm')),     <-- Partition key
+     id, time                          <-- Local key
    )
 )
 ```

@@ -38,14 +38,15 @@ Throughout this document, we will again be using the example table:
 ```sql
 CREATE TABLE GeoCheckin
 (
+   id           SINT64    NOT NULL,
    region       VARCHAR   NOT NULL,
    state        VARCHAR   NOT NULL,
    time         TIMESTAMP NOT NULL,
    weather      VARCHAR NOT NULL,
    temperature  DOUBLE,
    PRIMARY KEY (
-     (region, state, QUANTUM(time, 15, 'm')),
-     region, state, time
+     (id, QUANTUM(time, 15, 'm')),
+      id, time
    )
 )
 ```
@@ -104,7 +105,7 @@ The result of the `DESCRIBE table` command is library-dependent:
 You can use riak shell to create a table by running:
 
 ```
-riak-shell>CREATE TABLE GeoCheckin (region VARCHAR NOT NULL, state VARCHAR NOT NULL, time  TIMESTAMP NOT NULL, weather  VARCHAR NOT NULL, temperature DOUBLE, PRIMARY KEY ((region, state, QUANTUM(time, 15, 'm')), region, state, time));
+riak-shell>CREATE TABLE GeoCheckin (id SING64 NOT NULL, region VARCHAR NOT NULL, state VARCHAR NOT NULL, time  TIMESTAMP NOT NULL, weather  VARCHAR NOT NULL, temperature DOUBLE, PRIMARY KEY ((id, QUANTUM(time, 15, 'm')), id, time));
 ```
 
 Please take care with the following:
@@ -125,7 +126,7 @@ sudo su riak
 This will put you in a shell as the riak user. Then run:
 
 ```sh
-riak-admin bucket-type create GeoCheckin '{"props":{"table_def": "CREATE TABLE GeoCheckin (region VARCHAR NOT NULL, state VARCHAR NOT NULL, time TIMESTAMP NOT NULL, weather VARCHAR NOT NULL, temperature DOUBLE, PRIMARY KEY ((region, state, QUANTUM(time, 15, 'm')), region, state, time))"}}'
+riak-admin bucket-type create GeoCheckin '{"props":{"table_def": "CREATE TABLE GeoCheckin (id, SING64 NOT NULL, region VARCHAR NOT NULL, state VARCHAR NOT NULL, time TIMESTAMP NOT NULL, weather VARCHAR NOT NULL, temperature DOUBLE, PRIMARY KEY ((id, QUANTUM(time, 15, 'm')), id, time))"}}'
 ```
 
 Please take care with the following:
