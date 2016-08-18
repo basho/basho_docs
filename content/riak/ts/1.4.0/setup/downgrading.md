@@ -23,18 +23,6 @@ Downgrades of Riak TS are tested and supported for two feature release
 versions, with the general procedure similar to a
 [rolling upgrade][ts upgrade].
 
-## Change riak.conf For Downgrade
-
-If you freshly installed Riak TS 1.4.0 and did NOT upgrade from 1.3.1, and then choose to downgrade to 1.3.1, you will need to change your riak.conf to preserve your configuration settings. Three TS-specific configuration parameters have been changed when defining riak.conf:
-
-1.4.0 Name | 1.3.1 Name
-:----------|:-------------|
-`riak_kv.query.timeseries.timeout`|`timeseries_query_timeout_ms`
-`riak_kv.query.timeseries.max_quanta_span`|`timeseries_query_max_quanta_span`
-`riak_kv.query.timeseries.max_concurrent_queries`|`timeseries_max_concurrent_queries`
-
-So, for example, the `riak_kv.query.timeseries.timeout` parameter would be changed to `timeseries_query_timeout_ms`.
-
 ## Debian/Ubuntu
 
 The following example demonstrates downgrading a Riak TS node that has been
@@ -127,6 +115,18 @@ riak@192.168.1.11)
 
 7\. Repeat the process for the remaining nodes in the cluster.
 
+## Change riak.conf For Downgrade
+
+If you freshly installed Riak TS 1.4.0 and did NOT upgrade from 1.3.1, and then choose to downgrade to 1.3.1, you will need to change your riak.conf to preserve your configuration settings. Three TS-specific configuration parameters have been changed when defining riak.conf:
+
+1.4.0 Name | 1.3.1 Name
+:----------|:-------------|
+`riak_kv.query.timeseries.timeout`|`timeseries_query_timeout_ms`
+`riak_kv.query.timeseries.max_quanta_span`|`timeseries_query_max_quanta_span`
+`riak_kv.query.timeseries.max_concurrent_queries`|`timeseries_max_concurrent_queries`
+
+So, for example, the `riak_kv.query.timeseries.timeout` parameter would be changed to `timeseries_query_timeout_ms`.
+
 ## Basho Patches
 
 After downgrading, you should ensure that any custom patches contained in
@@ -140,19 +140,3 @@ each supported operating system:
 
 - CentOS & RHEL Linux: `/usr/lib64/riak/lib/basho-patches`
 - Debian & Ubuntu Linux: `usr/lib/riak/lib/basho-patches`
-
-## Riaknostic
-
-It is a good idea to also verify some basic configuration and general
-health of the Riak TS node after downgrading by using Riak TS' built-in
-diagnostic utility Riaknostic.
-
-Ensure that Riak TS is running on the node, and issue the following
-command:
-
-```bash
-riak-admin diag
-```
-
-Make the recommended changes from the command output to ensure optimal
-node operation.

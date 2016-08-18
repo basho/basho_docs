@@ -184,19 +184,3 @@ each supported operating system:
 
 - CentOS & RHEL Linux: `/usr/lib64/riak/lib/basho-patches`
 - Debian & Ubuntu Linux: `usr/lib/riak/lib/basho-patches`
-
-## Riaknostic
-
-It is a good idea to also verify some basic configuration and general
-health of the Riak TS node after upgrading by using Riak TS' built-in
-diagnostic utility Riaknostic.
-
-Ensure that Riak TS is running on the node, and issue the following
-command:
-
-```bash
-riak-admin diag
-```
-
-Make the recommended changes from the command output to ensure optimal
-node operation.
