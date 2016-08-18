@@ -324,26 +324,26 @@ There are 4 different configurations, two of which trigger batch mode.
 
 By default riak shell swallows error messages, this makes it hard to develop new extensions. You can run it in debug mode as shown below:
 
-``` 
-./riak-shell -d
+```bash
+riak-shell -d
 ```
 
 You can pass in a different config file than `../etc/riak/riak_shell.config`:
 
-```
-./riak-shell -c ../path/to/my.config
+```bash
+riak-shell -c ../path/to/my.config
 ```
 
 You can run a riak shell replay log for batch/scripting:
 
-```
-./riak-shell -f ../path/to/my.log
+```bash
+riak-shell -f ../path/to/my.log
 ```
 
 You can run a riak shell regression log for batch/scripting:
 
-```
-./riak-shell -r ../path/to/my.log
+```bash
+riak-shell -r ../path/to/my.log
 ```
 
 
