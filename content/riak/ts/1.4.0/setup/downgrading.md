@@ -1,6 +1,6 @@
 ---
 title: "Downgrading Riak TS"
-description: "Downgrading from Riak TS 1.4.1 to 1.3.1"
+description: "Downgrading from Riak TS 1.4.0 to 1.3.1"
 menu:
   riak_ts-1.4.0:
     name: "Downgrade"
