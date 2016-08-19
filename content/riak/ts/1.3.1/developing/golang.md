@@ -19,10 +19,12 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/developing/golang"
 You can develop applications and tools using Riak TS with the Riak Go client.
 This document covers the Go API for Riak TS.
 
+You will need to use [version 1.7.0 or later](https://github.com/basho/riak-go-client/releases/latest)
+of the Go client to use the TimeSeries API.
 
 ## Overview
 
-TS support within the Go client is implemented through the following 4 command builders, each with a factory:
+TS support within the Go client is implemented through the following 5 command builders, each with a factory:
 
 * TsStoreRowsCommandBuilder which is assembled via NewTsStoreRowsCommandBuilder
 * TsFetchRowCommandBuilder which is assembled via NewTsFetchRowCommandBuilder
@@ -30,7 +32,7 @@ TS support within the Go client is implemented through the following 4 command b
 * TsQueryCommandBuilder which is assembled via NewTsQueryCommandBuilder
 * TsListKeysCommandBuilder which is assembled via NewTsListKeysCommandBuilder
 
-Language | Source | Documentation | 
+Language | Source | Documentation |
 :--------|:-------|:--------------|
 Go | [riak-go-client](https://github.com/basho/riak-go-client) | [GoDoc](https://godoc.org/github.com/basho/riak-go-client) |
 

@@ -19,10 +19,12 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/developing/golang"
 You can develop applications and tools using Riak TS with the Riak Go client.
 This document covers the Go API for Riak TS.
 
+You will need to use [version 1.7.0 or later](https://github.com/basho/riak-go-client/releases/latest)
+of the Go client to use the TimeSeries API.
 
 ## Overview
 
-TS support within the Go client is implemented through the following 4 command builders, each with a factory:
+TS support within the Go client is implemented through the following 5 command builders, each with a factory:
 
 * TsStoreRowsCommandBuilder which is assembled via NewTsStoreRowsCommandBuilder
 * TsFetchRowCommandBuilder which is assembled via NewTsFetchRowCommandBuilder
@@ -68,7 +70,7 @@ A cell is constructed by using one of the cell factory methods for the various d
  * `cell := NewTimestampTsCell(time.Now())` - from a time.Time object, will be converted to UTC for you
  * `cell := NewTimestampTsCellFromInt64(1443806900000)` - from a unix timestamp
  * `cell := nil` - represents a `null` value
- 
+
 ##### Instance Methods
 
 Cells have `struct` getters to retrieve the cell value and the value's data type.
