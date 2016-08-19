@@ -21,7 +21,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/aws/"
 [AWS]: http://aws.amazon.com
 [download]: /riak/ts/1.4.0/downloads/
 [ec2 guide]: http://docs.amazonwebservices.com/AWSEC2/latest/UserGuide/AccessingInstances.html
-[security basics]: /riak/kv/2.1.4/using/security/basics
+[security basics]: /riak/ts/1.4.0/using/security/
 
 
 Riak TS can be installed on AWS virtual machines (VMs) using a binary
@@ -65,7 +65,7 @@ Once the virtual machine is created, you should verify that your selected EC2 se
 
     ![EC2 Security Group Settings](/images/aws-marketplace-security-group.png)
 
-We also recommend that you read more about [Security and Firewalls][security basics]. 
+We also recommend that you read more about [Security in TS][security basics]. 
 
 
 ## Create a Riak Cluster on AWS
