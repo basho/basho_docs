@@ -63,7 +63,7 @@ public class RiakTSInsert {
     throws UnknownHostException, ExecutionException, InterruptedException
   {
     // Riak Client with supplied IP and Port
-    RiakClient client = RiakClient.newClient(10017, "myriakdb.host");
+    RiakClient client = RiakClient.newClient(8087, "myriakdb.host");
     List<Row> rows = Arrays.asList(
       new Row(
         new Cell("South Atlantic"),
@@ -89,7 +89,7 @@ public class RiakTSInsert {
 ```
 
 ```ruby
-client = Riak::Client.new 'myriakdb.host', pb_port: 10017
+client = Riak::Client.new 'myriakdb.host', pb_port: 8087
 submission = Riak::TimeSeries::Submission.new client, "GeoCheckin"
 submission.measurements = [["South Atlantic", "South Carolina", 1234567, "hot", 23.5], ["Mid-Atlantic", "New York", 1234567, "windy", 19.8]]
 submission.write!
@@ -118,46 +118,26 @@ print "Store result:", ts_obj.store()
 ```csharp
 var cells0 = new Cell[]
 {
-    new Cell<string>("Pacific"),
-    new Cell<string>("Washington"),
-    new Cell<DateTime>(TwentyMinsAgo),
-    new Cell<string>("hurricane"),
-    new Cell<double>(82.3)
+    new Cell<string>("South Atlantic"),
+    new Cell<string>("South Carolina"),
+    new Cell<DateTime>(1234567),
+    new Cell<string>("hot"),
+    new Cell<double>(23.5)
 };
 
 var cells1 = new Cell[]
 {
-    new Cell<string>("Pacific"),
-    new Cell<string>("Washington"),
-    new Cell<DateTime>(FifteenMinsAgo),
-    new Cell<string>("rain"),
-    new Cell<double>(79.0)
-};
-
-var cells2 = new Cell[]
-{
-    new Cell<string>("Pacific"),
-    new Cell<string>("Washington"),
-    new Cell<DateTime>(FiveMinsAgo),
-    new Cell<string>("wind"),
-    Cell.Null
-};
-
-var cells3 = new Cell[]
-{
-    new Cell<string>("Pacific"),
-    new Cell<string>("Washington"),
-    new Cell<DateTime>(Now),
-    new Cell<string>("snow"),
-    new Cell<double>(20.1)
+    new Cell<string>("Mid-Atlantic"),
+    new Cell<string>("New York"),
+    new Cell<DateTime>(1234567),
+    new Cell<string>("windy"),
+    new Cell<double>(19.8)
 };
 
 var rows = new Row[]
 {
     new Row(cells0),
-    new Row(cells1),
-    new Row(cells2),
-    new Row(cells3)
+    new Row(cells1)
 };
 
 var columns = new Column[]
@@ -193,10 +173,8 @@ var columns = [
 ];
 
 var rows = [
-    [ 'Pacific', 'Washington', twentyMinsAgo, 'hurricane', 82.3 ],
-    [ 'Pacific', 'Washington', fifteenMinsAgo, 'rain', 79.0 ],
-    [ 'Pacific', 'Washington', fiveMinsAgo, 'wind', null ],
-    [ 'Pacific', 'Washington', now, 'snow', 20.1 ]
+    [ 'South Atlantic', 'South Carolina', 1234567, 'hot', 23.5 ],
+    [ 'Mid-Atlantic', 'New York', 1234567, 'windy', 19.8 ]
 ];
 
 var cb = function (err, response) {
@@ -217,12 +195,8 @@ client.execute(store);
 
 ```erlang
 %% TS 1.3 or newer. Records are represented as tuples.
-{ok, Pid} = riakc_pb_socket:start_link("myriakdb.host", 10017).
+{ok, Pid} = riakc_pb_socket:start_link("myriakdb.host", 8087).
 riakc_ts:put(Pid, "GeoCheckin", [{<<"South Atlantic">>, <<"South Carolina">>, 1234567, <<"hot">>, 23.5}, {<<"Mid-Atlantic">>, <<"New York">>, 1234567, <<"windy">>, 19.8}]).
-
-%% TS 1.2 or earlier. Records are represented as lists.
-{ok, Pid} = riakc_pb_socket:start_link("myriakdb.host", 10017).
-riakc_ts:put(Pid, "GeoCheckin", [[<<"South Atlantic">>, <<"South Carolina">>, 1234567, <<"hot">>, 23.5], [<<"Mid-Atlantic">>, <<"New York">>, 1234567, <<"windy">>, 19.8]]).
 ```
 
 ```php
@@ -234,7 +208,7 @@ use Basho\Riak\Command;
 use Basho\Riak\Node;
 
 $node = (new Node\Builder)
-    ->atHost('riak-test')
+    ->atHost('myriakdb.host')
     ->onPort(8087)
     ->build();
 
@@ -245,7 +219,7 @@ $response = (new Command\Builder\TimeSeries\StoreRows($riak))
     ->withRow([
         (new Cell("region"))->setValue("South Atlantic"),
         (new Cell("state"))->setValue("South Carolina"),
-        (new Cell("time"))->setTimestampValue(1420113600),
+        (new Cell("time"))->setTimestampValue(1234567),
         (new Cell("weather"))->setValue("hot"),
         (new Cell("temperature"))->setValue(23.5),
     ])
@@ -307,7 +281,7 @@ Failure responses:
 In the event that your write fails, you should check the error message to see which rows failed validation. For example:
 
 ```java
-RiakClient client = RiakClient.newClient(10017, "myriakdb.host");
+RiakClient client = RiakClient.newClient(8087, "myriakdb.host");
 List<Row> someRows = Arrays.asList(
         // Good Row
         new Row(new Cell("East North Central"), new Cell("Ohio"), Cell.newTimestamp(1234567), new Cell("cloudy"), new Cell(79.0)),
@@ -407,8 +381,8 @@ client.ts_delete('GeoCheckin', ['South Atlantic', 'South Carolina', datetime.dat
 ```csharp
 var keyCells = new Cell[]
 {
-    new Cell<string>("Pacific"),
-    new Cell<string>("Washington"),
+    new Cell<string>("South Atlantic"),
+    new Cell<string>("South Carolina"),
     new Cell<DateTime>(FifteenMinsAgo)
 };
 var keyToDelete = new Row(keyCells);
