@@ -16,7 +16,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/releasenotes"
 ---
 
 
-Released August 18, 2016.
+Released August 23, 2016.
 
 Riak TS 1.4.0 delivers a broad range of new functionality and improvements, including: 
 
@@ -24,48 +24,49 @@ Riak TS 1.4.0 delivers a broad range of new functionality and improvements, incl
 * Simplified time/date parsing and ISO 8601 support
 * Rolling Upgrade/Downgrade support 
 * Global data expiry (per cluster)
-* New SQL statement:`SHOW TABLES`, and  
-* Enhanced `DESCRIBE`.
+* New SHOW TABLES SQL statement 
+* Enhanced `DESCRIBE`
 
 
 ## New Features
 
-* The GROUP BY statement allows you to pick out and condense rows sharing the same value into a single row. You can read more about `GROUP BY` [here](/riak/ts/1.4.0/using/querying/select/GROUP-BY/).
+* The GROUP BY statement allows you to pick out and condense rows sharing the same value into a single row. You can read more about `GROUP BY` [here](/riak/ts/1.4.0/using/querying/select/group-by/).
     * [[PR #1445](https://github.com/basho/riak_kv/pull/1445)]
     * [[riak_core PR #848](https://github.com/basho/riak_core/pull/848)]
     * [[riak_ql PR #132](https://github.com/basho/riak_ql/pull/132)]
-* [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) strings are now supported as timestamps for SELECT and INSERT statements in Riak TS. You can find out more about timestamps and ISO 8601 [here](riak/ts/1.4.0/using/timerepresentations/).
+* [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) strings are now supported as timestamps for SELECT and INSERT statements in Riak TS. You can find out more about timestamps and ISO 8601 [here](/riak/ts/1.4.0/using/timerepresentations/).
     * [[PR #1444](https://github.com/basho/riak_kv/pull/1444)]
     * [[riak_core PR #847](https://github.com/basho/riak_core/pull/847)]
     * [[riak PR #862](https://github.com/basho/riak/pull/862)]
     * [[riak_ee PR #403](https://github.com/basho/riak_ee/pull/403)]
     * [[riak_shell PR #43](https://github.com/basho/riak_shell/pull/43)]
-* You can now configure global object expiry (a.k.a. time to live - TTL) for your Riak TS data. Read more about data expiry [here](riak/ts/1.4.0/using/global-object-expiration/).
+* You can now configure global object expiry (a.k.a. time to live - TTL) for your Riak TS data. Read more about data expiry [here](/riak/ts/1.4.0/using/global-object-expiration/).
     * [[eleveldb PR #210](https://github.com/basho/eleveldb/pull/210)]
-* `SHOW TABLES`, which lists all the TS tables you've created, is now available. 
+* `SHOW TABLES`, which lists all the TS tables you've created, is now available. You can read more about the SHOW TABLES statement [here](/riak/ts/1.4.0/using/querying/show-tables/).
     * [[riak_ql PR #133](https://github.com/basho/riak_ql/pull/133)]
     * [[PR #1448](https://github.com/basho/riak_kv/pull/1448)]
     * [[riak_shell PR #44](https://github.com/basho/riak_shell/pull/44)]
 * Riak TS 1.4.0 supports rolling upgrades from 1.3.1 and downgrades to 1.3.1. You can read about how to perform an upgrade or downgrade [here](/riak/ts/1.4.0/setup/).
 {{% note title="Note on Downgrading" %}}
-If you freshly installed TS 1.4.0 and did NOT upgrade from 1.3.1, and then you choose to downgrade to 1.3.1, you will need to change your `riak.conf` to preserve your configuration settings. Read more about that process [here](/riak/ts/1.4.0/setup/downgrading).
+If you freshly installed TS 1.4.0 and did NOT upgrade from 1.3.1, and then you choose to downgrade to 1.3.1, you will need to change your riak.conf to preserve your configuration settings. Read more about that process [here](/riak/ts/1.4.0/setup/downgrading).
 {{% /note %}}
 
 
 ## Additions
 
-* New configuration settings for Riak TS have been added to `riak.conf`. You can read more about TS's configuration options [here](/riak/ts/1.4.0/using/configuring/). Additionally, the old configuration settings have been exposed and are being deprecated.
+* New configuration settings for Riak TS have been added to riak.conf. You can read more about TS's configuration options [here](/riak/ts/1.4.0/using/configuring/). Additionally, the old configuration settings have been exposed and are being deprecated.
+    
     >If you were using the old configuration settings, please update riak.conf to use the new settings. The older settings are scheduled to be deprecated.  
 
 
-##Changes
+## Changes
 
-* Riak TS now has some TS-specific security settings. You can read more about security topics in Riak TS [here](riak/ts/1.4.0/using/security/). [[PR #1452](https://github.com/basho/riak_kv/pull/1452)]
+* Riak TS now has some TS-specific security settings. You can read more about security topics in Riak TS [here](/riak/ts/1.4.0/using/security/). [[PR #1452](https://github.com/basho/riak_kv/pull/1452)]
 * The DESCRIBE statement now returns additional information about the interval and unit of time in your TS table. [[PR #1438](https://github.com/basho/riak_kv/pull/1438)]
 * LevelDB now uses LZ4 as an internal compression mechanism. This change should provide a performance boost for LevelDB. [[PR #208](https://github.com/basho/eleveldb/pull/208)]
 
 
-##Bugfixes
+## Bugfixes
 
 * [[PR #1428](https://github.com/basho/riak_kv/pull/1428)] The security permissions for Riak TS's protocol buffer API have been fixed to return in the correct format of a string rather than an atom.
 * [[riak_ql PR#126](https://github.com/basho/riak_ql/pull/126)] `INSERT` now accepts booleans as a valid data type.
