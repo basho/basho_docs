@@ -87,7 +87,7 @@ Please note the following when using the `WITH` clause:
 
 ### Verification via Client Library
 
-You can verify that your table was properly created by executing the `DESCRIBE table` statement via the query function of your client library, or by using the [`riak-admin bucket-type status` command](#verify-creation-and-activation).
+You can verify that your table was properly created by executing the DESCRIBE table statement via the query function of your client library, or by using the [`riak-admin bucket-type status` command](#verify-creation-and-activation).
 
 The result of the `DESCRIBE table` command is library-dependent:
 

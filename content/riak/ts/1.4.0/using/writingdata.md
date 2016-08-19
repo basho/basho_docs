@@ -24,7 +24,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/writingdata"
 [riakshell]: ../riakshell
 [iso8601]: ../timerepresentations/
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
-[iso8601 accuracy]: ../../../timerepresentations#reduced-accuracy
+[iso8601 accuracy]: ../timerepresentations/#reduced-accuracy
 
 Now that you've [planned][planning] and [activated][activating] your Riak TS table, you are ready to write data to it.
 
