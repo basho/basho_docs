@@ -92,6 +92,7 @@ Riak TS is compatible with the following:
 ## Known Issues
 
 * Single row fetches performed over the TTB interface may occasionally return a 'timeout(1010)' error. This issue is due to the eventually consistent nature of Riak, and will resolve itself with subsequent fetches and queries.
+* The list_keys API may be unreliable in clusters containing TS 1.3.1 and TS 1.4 nodes.
 * AAE must be turned off.
 * Riak Search, and subsequently Solr, is not supported for TS tables.
 * HTTP API security is not supported. Security checks are included in the code path, but the permissions are not registered with riak_core, so enabling security in HTTP means disabling any TS functionality. See the code [here](https://github.com/basho/riak_kv/blob/riak_ts-develop/src/riak_kv_app.erl#L214-L215).
