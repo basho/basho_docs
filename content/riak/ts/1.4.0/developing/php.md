@@ -70,12 +70,12 @@ Cells have object getters to retrieve the column name, the cell value and the da
 A row contains an array of cells.
 
 
-### `\Basho\Riak\Command\TimeSeries\Response`
+### `Response`
 
 The object returned by all non-query commands (`Store`, `Fetch`, `Delete`). `Fetch` command will have values populated in instance method `getRow()`.
 
 
-### `\Basho\Riak\Command\TimeSeries\Query\Response`
+### `Query Response`
 
 The query response is the result set from a `query` command. The response object will have the first row available within `getResult()` and all results within `getResults()`.
 
