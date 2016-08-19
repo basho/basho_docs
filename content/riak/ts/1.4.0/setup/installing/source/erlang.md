@@ -31,7 +31,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/source/e
 [ncurses]: http://www.gnu.org/software/ncurses/
 [OpenSSL]: https://www.openssl.org/
 [source]: /riak/ts/1.4.0/setup/installing/source/
-[XCode Developer Tools]: http://developer.apple.com/
+[XCode Developer Tools]: https://developer.apple.com/xcode/downloads/
 
 
 >**NOTE:** Pre-packaged versions of Riak TS include an Erlang installation. 
