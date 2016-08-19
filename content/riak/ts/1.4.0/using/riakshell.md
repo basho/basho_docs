@@ -18,7 +18,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/riakshell"
 [nodename]: /riak/kv/2.1.4/using/cluster-operations/changing-cluster-info/
 [creating]: /riak/ts/1.4.0/using/creating-activating
 [writing]: /riak/ts/1.4.0/using/writingdata
-[riak shell README]: https://github.com/basho/riak_shell/edit/develop/README.md
+[riak shell README]: https://github.com/basho/riak_shell/blob/develop/README.md
 
 
 You can use riak shell within Riak TS to run SQL and logging commands from one place.

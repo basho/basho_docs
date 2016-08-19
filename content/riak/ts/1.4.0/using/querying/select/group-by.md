@@ -94,7 +94,7 @@ GROUP BY project, name, completed;
 
 ### Using combination aggregate functions
 
-If you use a combination [aggregate function] (`COUNT()`, `SUM()`, `MEAN()`, `AVG()`, `STDDEV()`, `STDDEV_SAMP()`, and `STDDEV_POP()`) with the SELECT statement, you can specify the column in the aggregate function alone, or in both the `SELECT` and the aggregate function.
+If you use a combination [aggregate function][aggregate function] (`COUNT()`, `SUM()`, `MEAN()`, `AVG()`, `STDDEV()`, `STDDEV_SAMP()`, and `STDDEV_POP()`) with the SELECT statement, you can specify the column in the aggregate function alone, or in both the `SELECT` and the aggregate function.
 
 This is allowed because the values returned can be grouped into one value: the result of the COUNT function.
 

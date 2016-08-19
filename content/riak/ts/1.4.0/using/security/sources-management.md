@@ -379,7 +379,7 @@ Three things to note:
 
 ## Certificate Configuration
 
-If you are using any of the available [security sources](#authentication-sources), including [trust-based authentication](#trust-based-authentication), you will need to do so
+If you are using any of the available [security sources](#available-sources), including [trust-based authentication](#trust-based-authentication), you will need to do so
 over a secure SSL connection.
 
 In order to establish a secure connection, ensure that each Riak TS node's configuration files point to the proper paths for your generated certs. By default, Riak TS assumes that all certs are stored in each node's `/etc` directory.

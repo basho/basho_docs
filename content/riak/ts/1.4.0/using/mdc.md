@@ -28,9 +28,9 @@ Multi-Datacenter (MDC) replication makes it possible to replicate time series da
 ## Prerequisites
 
 * You must be an Enterprise customer. To contact Basho for information on becoming an Enterprise customer, go [here][ee].
-* You must have Riak TS 1.3 or later [installed][install] on two distinct clusters.
+* You must have Riak TS 1.3.1 or later [installed][install] on two distinct clusters.
 
->**Warning:** Do not attempt to replicate TS data to a Riak cluster on Riak KV or any version of Riak TS prior to 1.4.0.
+>**Warning:** Do not attempt to replicate TS data to a Riak cluster on Riak KV or any version of Riak TS prior to 1.3.1.
 
 * You must be using Multi-Datacenter v3 (v2 is incompatible with Riak TS).
 * We do not yet support AAE-based fullsync with Riak TS.

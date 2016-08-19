@@ -16,7 +16,7 @@ aliases:
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/guidelines"
 ---
 
-[table arch]: ../../../learn-about/tablearchitecture
+[table arch]: ../../../learn-about/tablearchitecture/#data-modeling
 [activating]: ../../creating-activating/
 [writing]: ../../writingdata/
 [planning]: ../../planning#column-definitions
