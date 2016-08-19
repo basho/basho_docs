@@ -19,6 +19,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/planning"
 [activating]: ../creating-activating/
 [table arch]: ../../learn-about/tablearchitecture/
 [bestpractices]: ../../learn-about/bestpractices/
+[describe]: ../querying/describe/
 [epoch]: https://en.wikipedia.org/wiki/Unix_time
 [installing]: ../../setup/installing/
 [sql]: ../../learn-about/sqlriakts/
@@ -31,9 +32,9 @@ This page provides a basic overview of what you'll need and some guidelines/limi
 Riak TS tables are closely tied to SQL tables. If you are unfamiliar with SQL or would like to know more about how Riak TS integrates SQL, check out [SQL for Riak TS][sql].
 
 
-## Anatomy of a Schema
+## TS Table Schema
 
-In order to create a working Riak TS table, you'll need to plan your table out. Once created, your table cannot be changed. Here is an example Riak TS `CREATE TABLE` statement (broken across many lines for clarity):
+In order to create a working Riak TS table, you'll need to plan your table out. Once created, your table cannot be changed. Here is an example Riak TS CREATE TABLE statement (broken across many lines for clarity):
 
 ```sql
 CREATE TABLE GeoCheckin
@@ -51,16 +52,24 @@ CREATE TABLE GeoCheckin
 )
 ```
 
-While the keywords appear in all uppercase letters here, they can be specified using lowercase or uppercase letters as they are not case sensitive.
+A TS table is made up of:
+
+* a table name, GeoCheckin in this example,
+* [column definitions](#column-definitions), the first 5 lines after the table name in this example, and
+* [the primary key](#primary-key), which is everything following `PRIMARY KEY` in this example.
+
+The column definitions will determine the columns of your TS table, while the primary key determines where data is stored in your TS cluster.
+
+Keywords are case sensitive, so be sure to capitalize appropriately.
 
 {{% note title="Table Limitations" %}}
-You cannot create a table with more than 511 total [column definitions](#column-definitions) and [column names](#primary-key). If you try to create a table with more than 511 columns, you will receive an error.
+You cannot create a table with more than 511 total columns. If you try to create a table with more than 511 columns, you will receive an error.
 {{% /note %}}
 
 
-#### Column Definitions
+### Column Definitions
 
-Column definitions are the lines preceding the `PRIMARY KEY` in the example. Column definitions define the structure of the data. They are comprised of three parts: a column name, a data type, and (optionally) an inline constraint. 
+Column definitions define the structure of the data and are comprised of three parts: a column name, a data type, and (optionally) an inline constraint. 
 
 ```sql
 column_name data_type [NOT NULL],
@@ -68,7 +77,7 @@ column_name data_type [NOT NULL],
 
 Column names (`region`, `state`, etc) must be ASCII strings, in addition to having the correct case. If column names need to contain spaces or punctuation they can be double quoted.
 
-Any column names specified as part of the primary key must be defined as `NOT NULL`.
+Any column names specified as part of the [primary key](#primary-key) must be defined as `NOT NULL`.
 
 The column definitions for the keys can be specified in any order in the `CREATE TABLE` statement. For instance both are correct:
 
@@ -117,13 +126,12 @@ The data types in column definitions are limited. Valid types are:
 
 ### Primary Key
 
-The `PRIMARY KEY` describes both the partition key and local key. The partition key is a prefix of the local key, consisting of one or more column names. The local key must begin with the same column names as the partition key, but may also contain additional column names.
+The `PRIMARY KEY` describes both the partition key and local key. The partition key is a prefix of the local key, consisting of one or more column names in parentheses. The local key must begin with the same column names as the partition key, but may also contain additional column names.
 
 ```sql
 CREATE TABLE GeoCheckin
 (
    id           SINT64    NOT NULL,
-   region       VARCHAR   NOT NULL,
    state        VARCHAR   NOT NULL,
    time         TIMESTAMP NOT NULL,
    weather      VARCHAR   NOT NULL,
@@ -148,8 +156,8 @@ CREATE TABLE GeoCheckin
    weather      VARCHAR   NOT NULL,
    temperature  DOUBLE,
    PRIMARY KEY (
-     (id, time,
-      id, time, state
+     (id, state, time,
+      id, state, time
    )
 )
 ```
@@ -165,8 +173,8 @@ CREATE TABLE GeoCheckin
    weather      VARCHAR   NOT NULL,
    temperature  DOUBLE,
    PRIMARY KEY (
-     (id, time,
-      id, time, region
+     (state, id, time,
+      state, id, time, region
    )
 )
 ```
@@ -174,7 +182,7 @@ CREATE TABLE GeoCheckin
 
 #### Partition Key
 
-The partition key is the first element of the primary key, and is defined as a list of  column names in parentheses. The partition key must have at least one column name.
+The partition key is the first element of the primary key, and must have at least one column name.
 
 You may specify a quantum, which is used to colocate data on one of the partition key's timestamp fields:
 
@@ -182,7 +190,7 @@ You may specify a quantum, which is used to colocate data on one of the partitio
 PRIMARY KEY  ((id, QUANTUM(time, 1, 's')), ...)
 ```
 
-Only one quantum function may be specified and it must be the last element of the partition key.
+If you choose to specify a quantum, you may specify only one and it must be the last element of the partition key.
 
 The quantum function takes 3 parameters:
 
@@ -194,7 +202,8 @@ The quantum function takes 3 parameters:
   * `'m'` - minutes
   * `'s'` - seconds
 
-A general guideline to get you started if you are not sure how best to structure your partition key is to first choose a column name that represents a class or type of data, and then choose a  second column name represents is a more specific instance(s) of the class/type.
+A general guideline is to first choose a column name that represents a class or type of data, and then choose a second column name that is a more specific instance(s) of the class/type.
+
 
 #### Local Key
 
@@ -212,19 +221,21 @@ The local key may also contain additional column names so long as they come afte
 
 ## Schema Discovery
 
-After creating a table, its schema can be discovered with the `DESCRIBE` statement:
+After creating a table, its schema can be discovered with the [DESCRIBE statement][describe]:
 
 ```sql
 DESCRIBE GeoCheckin
 ```
 
-The `DESCRIBE` statement will return the following:
+`DESCRIBE` will return the following:
 
 * **Column**, column name;
 * **Type**, data type;
 * **Is Null**, _true_ if the field is optional, _false_ otherwise;
 * **Primary Key**, position of this field in the primary key, or blank if it does not appear in the key;
 * **Local Key**, position of this field in the local key, or blank if it does not appear in the key.
+
+You can learn more about `DESCRIBE` [here][describe].
 
 
 ## More information
