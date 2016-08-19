@@ -17,8 +17,8 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using"
 
 
 [activating]: creating-activating/
-[aggregate]: aggregate-functions/
-[arithmetic]: arithmetic-operations/
+[aggregate]: querying/select/aggregate-functions/
+[arithmetic]: querying/select/arithmetic-operations/
 [configuring]: configuring/
 [download]: /riak/ts/1.4.0/downloads/
 [installing]: ../setup/installing/
@@ -37,4 +37,4 @@ Now that you've [downloaded][download] and [installed][installing] Riak TS, ther
 
 Check out [riak shell][riakshell] for a handy tool for using TS.
  
-Then check out how to [query][querying] your data,[customize your Riak TS configuration][configuring], analyze your data with [aggregate functions][aggregate], or apply some [arithmetic operations][arithmetic].
+Then check out how to [query][querying] your data, [customize your Riak TS configuration][configuring], analyze your data with [aggregate functions][aggregate], or apply some [arithmetic operations][arithmetic].
