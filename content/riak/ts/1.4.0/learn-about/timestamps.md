@@ -4,7 +4,7 @@ title: "Timestamps"
 description: "Timestamps in Riak TS"
 menu:
   riak_ts-1.4.0:
-    name: "Learn About Timestamps"
+    name: "Timestamps"
     identifier: "timestamps_in_riakts"
     weight: 600
     parent: "about"
@@ -17,10 +17,10 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/learn-about/timestamps"
 ---
 
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
-[table arch partition]: ../tablearchitecture#partition-key
+[planning partition]: ../../using/planning#partition-key
 [UNIX time]: https://en.wikipedia.org/wiki/Unix_time
 
-Timestamps in Riak TS are a critical data type, nearly always a part of [partition key][table arch partition]. They are often leveraged with the quantum function to group data by 15 minute clumps, or 10 second clumps, or 60 day clumps, et cetera depending on how quickly your time series data come in and how you need to analyze them.
+Timestamps in Riak TS are a critical data type, nearly always a part of [partition key][planning partition]. They are often leveraged with the quantum function to group data by 15 minute clumps, or 10 second clumps, or 60 day clumps, et cetera depending on how quickly your time series data come in and how you need to analyze them.
 
 ## Structure of Timestamps
 
@@ -40,7 +40,7 @@ You can read more about UNIX epoch time [here][UNIX time].
 For INSERT and SELECT statements, Riak TS supports [ISO 8601] strings which are converted to UTC milliseconds.
 
 {{% note title="NOTE" %}}
-ISO 8601 support is useful for casual interactions via `riak-shell`, but we do NOT recommend using ISO 8601 in production applications. Instead, use the TS-supported client libraries to pass timestamps as integers for better performance and correctness.
+ISO 8601 support is useful for casual interactions via riak shell, but we do NOT recommend using ISO 8601 in production applications. Instead, use the TS-supported client libraries to pass timestamps as integers for better performance and correctness.
 {{% /note %}}
 
 #### Reduced Accuracy
