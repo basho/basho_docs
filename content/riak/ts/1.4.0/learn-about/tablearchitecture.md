@@ -1,4 +1,5 @@
 ---
+title_supertext: "Learn About"
 title: "Architecture of Riak TS Tables"
 description: "TS Tables Architecture"
 menu:

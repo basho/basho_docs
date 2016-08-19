@@ -1,4 +1,5 @@
 ---
+title_supertext: "Learn About"
 title: "Riak TS Best Practices"
 description: "Riak TS Best Practices"
 menu:

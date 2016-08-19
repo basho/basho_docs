@@ -1,4 +1,5 @@
 ---
+title_supertext: "Learn About"
 title: "SQL for Riak TS"
 description: "SQL for Riak TS"
 menu:

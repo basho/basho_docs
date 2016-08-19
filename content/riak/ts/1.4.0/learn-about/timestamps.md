@@ -1,5 +1,6 @@
 ---
-title: "Learn About Timestamps"
+title_supertext: "Learn About"
+title: "Timestamps"
 description: "Timestamps in Riak TS"
 menu:
   riak_ts-1.4.0:
