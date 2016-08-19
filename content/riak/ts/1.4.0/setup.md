@@ -1,5 +1,5 @@
 ---
-title: "Setup Riak TS"
+title: "Riak TS Setup"
 description: "Information on installing and upgrading Riak TS."
 menu:
   riak_ts-1.4.0:
