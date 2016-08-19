@@ -20,7 +20,7 @@ You can develop applications and tools using Riak TS with the Riak Go client.
 This document covers the Go API for Riak TS.
 
 You will need to use [version 1.7.0 or later](https://github.com/basho/riak-go-client/releases/latest)
-of the Go client to use the TimeSeries API.
+of the Go client to use the TS API.
 
 ## Overview
 
