@@ -20,7 +20,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/debian-u
 [download]: /riak/ts/1.4.0/downloads/
 [openfileslimit]: /riak/kv/2.1.4/using/performance/open-files-limit
 [planning]: /riak/ts/1.4.0/using/planning
-[security basics]: /riak/kv/2.1.4/using/security/basics
+[security basics pam]: /riak/ts/1.4.0/using/security/sources-management/#pam-based-authentication
 
 
 Riak TS can be installed on Debian or Ubuntu-based systems using a binary
@@ -42,7 +42,7 @@ backend that uses very few file handles, it's possible to run out. See
 
 ### PAM Library Requirement for Ubuntu
 
-You must have the `libpam0g-dev` package used for [Pluggable Authentication Module (PAM)][security basics] authentication in order to install Riak TS.
+You must have the `libpam0g-dev` package used for [Pluggable Authentication Module (PAM)][security basics pam] authentication in order to install Riak TS.
 
 To install this dependency:
 
