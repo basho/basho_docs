@@ -19,7 +19,7 @@
  */
 /*TODO: Come up with some decent serif fallbacks. */
 
-/* Convenience Classes that actual Font Styles */
+/* Convenience Classes */
 %sans        { @extend %OpenSans; }
 %sans-bold   { @extend %OpenSans-Bold; }
 %sans-italic { @extend %OpenSans-Italic; }
@@ -28,6 +28,7 @@
 %serif-italic { @extend %GandhiSerif-Italic; }
 
 
+/* Descriptive Font Classes */
 %GandhiSerif {
   font-family: "GandhiSerif", serif;
   font-weight: 400;
