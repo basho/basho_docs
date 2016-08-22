@@ -1,0 +1,128 @@
+/**
+ * Basic Layouts
+ * =============
+ * This file may be a temporary. The intent is to keep it as minimal as possible
+ * while still communicating the essentials of the wireframe layout of a primary
+ * content page. Individual block layouts should be separated out into their own
+ * layout/*.scss files if they're too large to quickly parse here. When that
+ * should start happening is... yet to be determined. For now the rule of thumb
+ * is that this file should only contain positional and sizing styles for top-
+ * level block elements.
+ */
+
+// Styling Toggles
+// ===============
+// Toggle these to see what major changes in style will look like.
+// Gonna make life kinda hard until we come to consensus, but that's half the
+// point of this experiment. gl hf.
+
+// Whether or not the content navigation sidebar should be the full height of
+// the page. If so, the banner's width will be reduced by the width of the
+// content nav. If not, the content nav's height will be reduced by the height
+// of the banner.
+$content-nav-is-full-height : true;
+
+
+// Styling Variables
+// =================
+// SCSS variables used to determine the size of shared measurements.
+
+// The banner is necessarily a reactive element, as should be the buffer between
+// the bottom of the banner and the top of the primary content.
+$banner-height-sm-down : 3.5rem;
+$banner-buffer-sm-down : 0.5rem;
+$banner-height-md-up   : 4.0rem;
+$banner-buffer-md-up   : 0.5rem;
+
+// Total padding at the top of the <article> (and above <h#> elements) to keep
+// the .banner element from hiding text underneath it.
+$article-padding-top-sm-down : $banner-height-sm-down + $banner-buffer-sm-down;
+$article-padding-top-md-up   : $banner-height-md-up   + $banner-buffer-md-up;
+
+
+$content-nav-width : 14rem;
+
+
+
+/**
+ * Content Navigation
+ * POSITION & SIZE ONLY -- See _content-nav.scss for presentation.
+ * 1. This should be set in the markup, but is important to know.
+ */
+.content-nav {
+  // @extend .hidden-sm-down; /* 1 */
+  position: fixed;
+
+  @if $content-nav-is-full-height == true { top : 0;                    }
+  @else                                   { top : $banner-height-md-up; }
+  left : 0;
+
+  width  : $content-nav-width;
+  height : 100%;
+}
+
+
+
+/**
+ * Banner
+ * POSITION & SIZE ONLY -- See _banner.scss for presentation.
+ * 1. Fill the width of the body. This will hopefully be the width of the
+ *    screen, but the body content might push past that, and widen this as well.
+ */
+.banner {
+  position : fixed;
+  top      : 0;
+  left     : 0; /* 1 */
+  right    : 0; /* 1 */
+  height   : $banner-height-sm-down;
+
+  @include wide-from(md) {
+    @if $content-nav-is-full-height == true { left : $content-nav-width; }
+    @else                                   { left : 0;                  }
+    height : $banner-height-md-up;
+  }
+}
+
+
+
+/**
+ * Main Article
+ *
+ * 1. Top padding is set s.t. the Banner element doesn't hide text.
+ * 2. The Content Navigation is hidden until 'md' width, so we only have to set
+ *    the left margin at that point.
+ * 3. To properly pad <h#> elements when navigated to via id, we set both a
+ *    positive padding and a negative margin, maintaining their vertical
+ *    position while still affecting the height of the page on navigation.
+ */
+.main-article {
+  padding : $article-padding-top-sm-down 0.5rem 0 0.5rem;    /* 1 */
+
+  @include wide-from(md) {
+    padding     : $article-padding-top-md-up 1rem 0 0.5rem;  /* 1 */
+    margin-left : $content-nav-width;                        /* 2 */
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  //TODO: Consider making this a mixin
+  margin-top    : -$article-padding-top-sm-down; /*    3 */
+  padding-top   :  $article-padding-top-sm-down; /* 1, 3 */
+
+  @include wide-from(md) {
+    margin-top  : -$article-padding-top-md-up; /*    3 */
+    padding-top :  $article-padding-top-md-up; /* 1, 3 */
+  }
+}
+
+
+
+/**
+ * Content Footer
+ * POSITION & SIZE ONLY -- See _content-info-footer.scss for presentation.
+ */
+.content-info {
+  @include wide-from(md) {
+    margin-left : $content-nav-width;
+  }
+}
