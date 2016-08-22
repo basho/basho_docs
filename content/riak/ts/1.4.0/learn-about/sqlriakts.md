@@ -78,7 +78,7 @@ WHERE
   metric_name='core_temp' AND
   time < 1446762821844 AND
   time > 1446760421844 AND
-  metric_value > 50;
+  metric_value > 50.0;
 ```
 
 And we send the query to Riak TS. Once the query is sent to Riak TS the following happens:
