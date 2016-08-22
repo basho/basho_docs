@@ -1,0 +1,36 @@
+/**
+ * Content Info Footer
+ * PRESENTATION ONLY -- See _wireframe.scss for position and size.
+ */
+.content-info {
+  padding    : 1rem .25rem 0rem .25rem;
+  margin-top : 2rem;
+
+  font-size   : 80%;
+  line-height : 1.2;
+  text-align  : center;
+  color       : $gray-light;
+
+  //TODO: This border bar probs shouldn't be full width?
+  border-top : 1px solid $gray-lighter;
+
+
+  @include wide-from(md) {
+    padding    : 2rem 1rem 1rem 1rem;
+    margin-top : 0;
+
+    text-align : left
+  }
+
+  a {
+    color : $gray;
+    &:hover { color : $cyan-dark; }
+    &:focus { color : $cyan;      }
+  }
+}
+
+.content-info__wrapper {
+  @include wide-from(md) {
+    text-align : center;
+  }
+}
