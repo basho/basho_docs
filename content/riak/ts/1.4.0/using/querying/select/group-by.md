@@ -132,9 +132,9 @@ a_time TIMESTAMP NOT NULL, PRIMARY KEY(userid, a_time));
 And and try to run the GROUP BY statement including `userid` in the SELECT statement:
 
 ```sql
-SELECT userid, SUM(visits) 
-FROM tasks2 
-WHERE userid = 'roddy' AND a_time = 2 
+SELECT userid, SUM(visits)
+FROM tasks2
+WHERE userid = 'roddy' AND a_time > 1 AND a_time < 10000
 GROUP BY userid;
 ```
 
