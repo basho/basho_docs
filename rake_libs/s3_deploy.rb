@@ -362,8 +362,11 @@ def do_deploy()
   # routing rule per project.
   routing_rules = []
   config_file['params']['project_descriptions'].each do |project, description|
-    path          = description['path']
-    archived_path = description['archived_path']
+    # These paths come with leading `/`s (which is correct), but the routing rules
+    # assume a relative path (which is also correct). To account for this, we
+    # strip the leading slashes here.
+    path          = description['path'][1..-1]
+    archived_path = description['archived_path'][1..-1]
     ver           = description['latest']
     routing_rules.push(
       {
@@ -396,7 +399,7 @@ def do_deploy()
   end
   #TODO: We need to implement some way of adding arbitrary routing rules. Maybe
   # add a section in config.yaml that's just a JSON string that we parse?
-  riak_path = config_file['params']['project_descriptions']['riak_kv']['path']
+  riak_path = config_file['params']['project_descriptions']['riak_kv']['path'][1..-1]
   riak_ver  = config_file['params']['project_descriptions']['riak_kv']['latest']
   routing_rules.push(
     {
