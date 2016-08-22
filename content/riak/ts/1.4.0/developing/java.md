@@ -205,6 +205,10 @@ There is also an instance method to specify a command timeout in milliseconds:
 
 Fetches a single row by its key values.
 
+{{% note title="Known Issue" %}}
+Single row fetches performed with Java over the TTB interface may occasionally return a 'timeout(1010)' error. This issue is due to the eventually consistent nature of Riak, and will resolve itself with subsequent fetches and queries.
+{{% /note %}}
+
 ##### Builder
 
 The builder for `Fetch` takes the table name and a list of cells that identify the primary key. The order of the cells must match the order of the values in the primary key.
