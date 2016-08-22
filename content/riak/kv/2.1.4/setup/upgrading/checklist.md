@@ -1,4 +1,5 @@
 ---
+title_supertext: "Upgrading Riak KV"
 title: "Production Checklist"
 description: ""
 project: "riak_kv"
