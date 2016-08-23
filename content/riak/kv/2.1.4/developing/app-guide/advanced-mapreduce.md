@@ -729,6 +729,7 @@ to `mapred_stream` with a `Pid` that will receive the streaming results.
 
 For examples, see [MapReduce pbstream.erl](/data/MapReduceExamples/pbstream.erl)
 
+
 ## Troubleshooting MapReduce, illustrated
 
 The most important advice: when developing Erlang MapReduce against
