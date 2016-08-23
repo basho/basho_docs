@@ -729,8 +729,7 @@ to `mapred_stream` with a `Pid` that will receive the streaming results.
 
 For examples, see:
 
-1. [MapReduce localstream.erl](/data/MapReduce-localstream.erl){{1.3.0-}}
-2. [MapReduce pbstream.erl](/data/MapReduce-pbstream.erl)
+* [MapReduce pbstream.erl](/data/MapReduce-pbstream.erl)
 
 ## Troubleshooting MapReduce, illustrated
 
