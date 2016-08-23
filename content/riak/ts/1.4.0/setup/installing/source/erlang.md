@@ -34,13 +34,15 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/source/e
 [XCode Developer Tools]: https://developer.apple.com/xcode/downloads/
 
 
->**NOTE:** Pre-packaged versions of Riak TS include an Erlang installation. 
+{{% note %}}
+Pre-packaged versions of Riak TS include an Erlang installation.
+{{% /note %}} 
 
 If you are building Riak TS from [source], you will need to install [Basho's patched version of Erlang][basho erlang]. If you do not use this version of Erlang, you will not be able to use Riak TS's security features.
 
-> **Note on Official Support**
->
-> Only packaged Riak TS installs are officially supported.
+{{% note title="Note on Official Support" %}}
+Only packaged Riak TS installs are officially supported.
+{{% /note %}}
 
 
 ## Prerequisites
@@ -142,12 +144,12 @@ sudo apt-get install build-essential autoconf libncurses5-dev openssl libssl-dev
 
 If you're using a graphical environment and want to use Erlang's GUI utilities, you will need to install additional dependencies.
 
-> **Note on build output**
->
->These packages are not required for operation of a Riak node.
+{{% note title="Note on build output" %}}
+These packages are not required for operation of a Riak node.
 Notes in the build output about missing support for wxWidgets can be
 safely ignored when installing Riak in a typical non-graphical server
 environment.
+{{% /note %}}
 
 To install packages for graphics support use the following `apt-get` command:
 

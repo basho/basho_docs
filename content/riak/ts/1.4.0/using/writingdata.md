@@ -25,6 +25,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/writingdata"
 [iso8601]: ../timerepresentations/
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
 [iso8601 accuracy]: ../timerepresentations/#reduced-accuracy
+[Enterprise]: http://basho.com/products/riak-ts/
 
 Now that you've [planned][planning] and [activated][activating] your Riak TS table, you are ready to write data to it.
 
@@ -252,9 +253,9 @@ if err != nil {
 err = cluster.Execute(cmd)
 ```
 
->**Note on validation**:
->
->Riak TS validates all rows on the server side before writing occurs, checking the number of row elements and types. If any of the rows fails validation then none of the rows will be written.  An error message will be returned with the index numbers of the invalid rows in the batch, the first item in the batch being index one.
+{{% note title="Note on validation" %}}
+Riak TS validates all rows on the server side before writing occurs, checking the number of row elements and types. If any of the rows fails validation then none of the rows will be written.  An error message will be returned with the index numbers of the invalid rows in the batch, the first item in the batch being index one.
+{{% /note %}}
 
 Depending on your client, you will receive different messages indicating whether or not your write was successful.
 
@@ -306,12 +307,12 @@ You could also try the original write again. Failures may be transitory when ser
 
 * Batches should not be too large. Our testing revealed 100 rows per write as a sweet spot, but you should expect different results depending on your hardware and schema.
 * Writes will assume that fields are in the same order as they've been declared in the table.
-* Timestamps should be in Unix epoch/UTC milliseconds.
+* Timestamps should be in Unix epoch/UTC milliseconds or [ISO 8601 format](#iso-8601).
 
 
 ### Tuning Batches
 
-Batches of data from a single write are packaged for delivery to each destination server as a performance optimization. For Enterprise customers using [MDC], those batches are sent to the remote cluster via realtime sync.
+Batches of data from a single write are packaged for delivery to each destination server as a performance optimization. For [Enterprise] customers using [MDC], those batches are sent to the remote cluster via realtime sync.
 
 It is possible to specify an approximate largest-batch size for tuning purposes. By default, batches have a soft cap size of 1MB of data, which we've found to be a reasonable size to avoid network congestion.
 
@@ -320,7 +321,7 @@ If you want to adjust that value, the configuration parameter `timeseries_max_ba
 
 ## Adding Data via SQL
 
-This can be done either through the [query interface][querying] or via [riak shell][riakshell]. Basic SQL `INSERT` functionality is available, but more complicated things such as `INSERT...SELECT` or subqueries are not.
+You can add data via SQL statements either through the [query interface][querying] or via [riak shell][riakshell]. Basic SQL `INSERT` functionality is available, but more complicated things such as `INSERT...SELECT` or subqueries are not.
 
 Here are a couple examples of adding rows from SQL:
 
@@ -349,7 +350,7 @@ It is possible to use [ISO 8601]-compliant date/time strings in INSERT statement
 INSERT INTO GeoCheckin VALUES ('South Atlantic','South Carolina','2015-01-01 12:01:40Z','rain',37.8);
 ```
 
-You must include apostrophes around the ISO 8601 value. You cannot use [reduced accuracy time representations][iso8601 accuracy]. In other words, you must specify your time down to the second (or use fractional times).
+You must include single quotes around the ISO 8601 value. You cannot use [reduced accuracy time representations][iso8601 accuracy]. In other words, you must specify your time down to the second (or use fractional times).
 
 See [our documentation on ISO 8601 support][iso8601] for more details on how to use ISO 8601.
 

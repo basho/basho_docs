@@ -115,7 +115,7 @@ The columns definitions are each:
 {riak_field_v1,<<"COLUMN_NAME">>,COLUMN_INDEX,COLUMN_TYPE,NULLABLE}
 ```
 
-The two `key_v1` entries correspond to the partion key and the local key. The first key contains the column names used for the partition key, which defines how the data set is chunked and where the chunk data is co-located, and the second key contains the local key which uniquely identifies the data within a chunk. These two sets of column names will mostly be the same, but the partition key will have an additional quantum definition for the timestamp and the local key may have additional column names:
+The two `key_v1` entries correspond to the partition key and the local key. The first key contains the column names used for the partition key, which defines how the data set is chunked and where the chunk data is co-located, and the second key contains the local key which uniquely identifies the data within a chunk. These two sets of column names will mostly be the same, but the partition key will have an additional quantum definition for the timestamp and the local key may have additional column names:
 
 ```sh
 {key_v1,[
@@ -162,8 +162,3 @@ Choosing a quanta size involves tradeoffs. Small quanta are best for writes whil
 It is difficult to make any recommendations on quanta size, because the size of your quanta is heavily dependent on both the kind of data you are gathering and what you need to do with it.
 
 Also see [Riak TS Best Practices][bestpractices] for more guidance on choosing an appropriate quantum size.
-
-
-## Editing Your Table
-
-Once created, you cannot edit your Riak TS table. If you discover something wrong with the setup of your Riak TS table, you will need to create it again. You will also need to decide whether to scrap the data in the existing table or move it from the old table to the new one.

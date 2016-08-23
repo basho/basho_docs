@@ -40,7 +40,7 @@ temperature | double    | true    | <null>        | <null>    |          |
 ```
 
 
-You can use DESCRIBE in [riak shell]:
+You can use `DESCRIBE` in [riak shell]:
 
 ```
 riak-shell>describe GeoCheckin;
@@ -58,8 +58,8 @@ riak-shell>describe GeoCheckin;
 
 Using TS's supported clients, a successful `DESCRIBE` will return a language-specific representation of the table.
 
-* **Java** - Use a `Query` command to execute a `DESCRIBE` statement.
-* **Ruby** - Use the `Riak::TimeSeries::Query` object to execute the `DESCRIBE` statement. The returned results will have a collection of rows as well as a `columns` property corresponding to the above table.
-* **Python** - either the `ts_query` or `ts_describe` methods of the client object can be used to executed a `DESCRIBE` statement. In both cases, the response object will have `columns` and `rows` properties corresponding to the above table.
-* **C#** - Use a `Query` command to execute a `DESCRIBE` statement.
-* **Node.js** - you may use the `TS.Query` command to execute a `DESCRIBE` statement, or use the purpose-built `TS.Describe` command. In both cases, the response object will have `columns` and `rows` properties corresponding to the above table.
+* **Java** - Use a `Query` command to execute a DESCRIBE statement.
+* **Ruby** - Use the `Riak::TimeSeries::Query` object to execute the DESCRIBE statement. The returned results will have a collection of rows as well as a `columns` property corresponding to the above table.
+* **Python** - either the `ts_query` or `ts_describe` methods of the client object can be used to executed a DESCRIBE statement. In both cases, the response object will have `columns` and `rows` properties corresponding to the above table.
+* **C#** - Use a `Query` command to execute a DESCRIBE statement.
+* **Node.js** - you may use the `TS.Query` command to execute a DESCRIBE statement, or use the purpose-built `TS.Describe` command. In both cases, the response object will have `columns` and `rows` properties corresponding to the above table.

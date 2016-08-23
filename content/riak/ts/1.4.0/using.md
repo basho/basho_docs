@@ -35,6 +35,6 @@ Now that you've [downloaded][download] and [installed][installing] Riak TS, ther
 2. [Create and activate][activating] your Riak TS table. (You'll need `sudo` and `su` access for this step.) Then, if you are an Enterprise user, [set up Multi-Datacenter replication][mdc].
 3. [Write data][writing] to your table.
 
-Check out [riak shell][riakshell] for a handy tool for using TS.
+Check out [riak shell][riakshell], a handy tool for using TS.
  
 Then check out how to [query][querying] your data, [customize your Riak TS configuration][configuring], analyze your data with [aggregate functions][aggregate], or apply some [arithmetic operations][arithmetic].

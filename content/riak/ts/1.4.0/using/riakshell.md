@@ -99,9 +99,9 @@ You must always conclude riak shell commands with `;` or your command will not w
 
 You can connect riak shell to multiple nodes.
 
->**Warning**
->
->You cannot run more than one shell per machine. If you try to connect two shells to a single machine, you will receive an error message.
+{{% note title="Warning" %}}
+You cannot run more than one shell per machine. If you try to connect two shells to a single machine, you will receive an error message.
+{{% /note %}}
 
 To connect to a specific node, run: `connect '»nodename«'`
 
@@ -200,7 +200,7 @@ riak-shell(28)>SELECT time, weather, temperature FROM GeoCheckin WHERE myfamily=
 +------------------------+-------+--------------------------+
 ```
 
-You can add data via a simple SQL `INSERT` statement, too:
+You can add data via a simple SQL INSERT statement, too:
 
 ```sql
 riak-shell>INSERT INTO GeoCheckin (region, state, time, weather, temperature) VALUES ('South Atlantic','South Carolina',1420113600000,'snow',25.2);
@@ -208,7 +208,9 @@ riak-shell>INSERT INTO GeoCheckin (region, state, time, weather, temperature) VA
 
 See [Writing Data][writing] for more details.
 
->**Note:** SQL commands in riak shell may span multiple lines.
+{{% note %}}
+SQL commands in riak shell may span multiple lines.
+{{% /note %}}
 
 
 ### Logging
@@ -229,7 +231,7 @@ riak-shell>log off;
 Logging turned off.
 ```
 
-Logging is off by default. The above command will allow you to turn logging on or off for the duration of your time using riak shell. To change the default state, you must edit the `riak_shell.config` [configuration file](#configuration).
+Logging is off by default. The above command will allow you to turn logging on or off for the duration of your time using riak shell. To change the default state, you must edit the riak_shell.config [configuration file](#configuration).
 
 You can check whether logging is currently on or off by running `show_log_status`:
 
@@ -241,7 +243,9 @@ Logfile : "/users/myusername/riakts/riak-ts-1.4.0/bin/../log/riak_shell/riak_she
 Current Date: "2016_02_02-00:26:19"
 ```
 
->**Note:** If you have temporarily turned logging on/off, the output of `show_log_status` may differ from the output of `show_config`.
+{{% note %}}
+If you have temporarily turned logging on/off, the output of `show_log_status` may differ from the output of `show_config`.
+{{% /note %}}
 
 If you would like your logfile to have a timestamp, run `date_log`.
 
@@ -310,12 +314,12 @@ You can configure riak shell from the riak_shell.config file. You can find the f
 
 The following things can be configured:
 
-* logging (on | off) - Defaults to 'off'; determines whether or not to enable logging.
-* date_log (on | off) - Defaults to 'off'; determines whether or not to add timestamp information to the logs.
-* logfile ("../some/dir/mylogfile.log") - Defaults to '../log/riak_shell.log'; sets the name and location of the logfile.
-* cookie - No default; any atom representing the Erlang cookie that riak shell uses to connect to Riak.
-* show_connection_status (true | false) - Defaults to 'false'; sets whether to show the green tick or red cross in the command line.
-* nodes ([nodenames]) - No defaults; a list of nodes to try and connect to on startup or 'reconnect;'.
+* `logging` (on | off) - Defaults to 'off'; determines whether or not to enable logging.
+* `date_log` (on | off) - Defaults to 'off'; determines whether or not to add timestamp information to the logs.
+* `logfile` ("../some/dir/mylogfile.log") - Defaults to '../log/riak_shell.log'; sets the name and location of the logfile.
+* `cookie` - No default; any atom representing the Erlang cookie that riak shell uses to connect to Riak.
+* `show_connection_status` (true | false) - Defaults to 'false'; sets whether to show the green tick or red cross in the command line.
+* `nodes` ([nodenames]) - No defaults; a list of nodes to try and connect to on startup or 'reconnect;'.
 
 
 ## Command Line Flags

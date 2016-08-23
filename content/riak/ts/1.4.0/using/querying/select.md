@@ -59,7 +59,7 @@ When querying with user-supplied data, it is essential that you protect against 
 
 ## Querying Columns
 
-All queries using SELECT must include a 'where' clause with all components.
+All queries using `SELECT` must include a 'where' clause with all components.
 
 You can select particular columns from the data to query:
 

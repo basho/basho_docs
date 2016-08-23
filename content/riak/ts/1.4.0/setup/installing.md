@@ -45,6 +45,6 @@ Riak TS is also available on [AWS Marketplace][AWS].
 
 If your OS is not in this list, you can also install [from source][source].
 
->**Upgrade Note:** 
->
->Riak TS is a complete, standalone product. Upgrading from Riak KV to Riak TS is not supported.
+{{% note title="Upgrade Note" %}}
+Riak TS is a complete, standalone product. Upgrading from Riak KV to Riak TS is not supported.
+{{% /note %}}

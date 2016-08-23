@@ -35,7 +35,7 @@ You can also take a look at the [guidelines] to get an idea of the rules and bes
 
 
 {{% note title="WARNING" %}}
-When querying, you must ensure the node issuing the query has adequate memory to receive the response. Queries will return rows based on the time span (quanta) specified, if the returning rows do not fit into the memory of the requesting node, the node is likely to fail. 
+When querying, you must ensure the node issuing the query has adequate memory to receive the response. Queries will return rows based on the timespan (quanta) specified, if the returning rows do not fit into the memory of the requesting node, the node is likely to fail. 
 
 Any given query consists of subqueries. If a single subquery loads a result that does not fit into memory, an out of memory error will occur on the subquery node and the requesting node will return a timeout error as it waits for the subquery to return.
 {{% /note %}}

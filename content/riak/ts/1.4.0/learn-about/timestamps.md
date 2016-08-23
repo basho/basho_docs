@@ -20,7 +20,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/learn-about/timestamps"
 [planning partition]: ../../using/planning#partition-key
 [UNIX time]: https://en.wikipedia.org/wiki/Unix_time
 
-Timestamps in Riak TS are a critical data type, nearly always a part of [partition key][planning partition]. They are often leveraged with the quantum function to group data by 15 minute clumps, or 10 second clumps, or 60 day clumps, et cetera depending on how quickly your time series data come in and how you need to analyze them.
+Timestamps in Riak TS are a critical data type, nearly always a part of [partition key][planning partition]. They are often leveraged with the quantum function to group data by 15 minute clumps, or 10 second clumps, or 60 day clumps, et cetera, depending on how quickly your time series data come in and how you need to analyze them.
 
 ## Structure of Timestamps
 
@@ -39,17 +39,15 @@ You can read more about UNIX epoch time [here][UNIX time].
 
 For INSERT and SELECT statements, Riak TS supports [ISO 8601] strings which are converted to UTC milliseconds.
 
-{{% note title="NOTE" %}}
+{{% note title="A Note on ISO 8601 Support" %}}
 ISO 8601 support is useful for casual interactions via riak shell, but we do NOT recommend using ISO 8601 in production applications. Instead, use the TS-supported client libraries to pass timestamps as integers for better performance and correctness.
 {{% /note %}}
 
 #### Reduced Accuracy
 
-Strings that do not include seconds are referred to by the standard as
-*reduced accuracy* representations.
+Strings that do not include seconds are referred to as *reduced accuracy* representations.
 
-Ambiguity can arise with reduced accuracy representations. What,
-precisely, do the comparisons `time > '2015'` or `time <= '2003-05-01T05:10'`
+Ambiguity can arise with reduced accuracy representations. For instance, what do the comparisons `time > '2015'` or `time <= '2003-05-01T05:10'`
 mean when translated to epoch time value as stored in Riak TS?
 
 To resolve those ambiguities, Riak TS expands the reduced accuracy
@@ -64,12 +62,12 @@ database.
 For querying data, there are two important exceptions to the simple
 expand and convert sequence above.
 
-Strictly greater than and greater-than/equal-to queries involve
+1\. Strictly greater than (>) and greater-than/equal-to (>=) queries involve
 incrementing the original reduced accuracy representation before
 expansion.
 
-So, `time > '2015'` becomes, in effect, `time >= '2016-01-01
-00:00:00'`.
+So, `time > '2015'` becomes in effect, `time >= '2016-01-01
+00:00:00'`, and 
 
 `time <= '2003-05-01T05:10'` becomes `time < '2003-05-01T05:11:00'`.
 
@@ -77,7 +75,7 @@ Thus, querying for timestamp values greater than `'1970-12-18 21:00'`
 will ignore any values which fall between 9pm and 9:01pm, while using
 a fully-specified string `'1970-12-18 21:00:00'` will include them.
 
-Fractional times are not considered reduced accuracy, so selecting for
+2\. Fractional times are not considered reduced accuracy, so selecting for
 timestamps greater than `2016-08-03 15:00` will give different
 results than `2016-08-01 15.0` (or `2016-08-01 15:00:00`).
 
@@ -103,7 +101,7 @@ text to timestamp.
 
 > Can I set a different time zone for different tables?
 
-Aha! This is a feature we *can* safely offer, and will, just not yet.
+Not yet.
 
 > Why does `riak-shell` display the results from `select` in GMT?
 

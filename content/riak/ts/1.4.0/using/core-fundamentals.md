@@ -27,7 +27,7 @@ Riak TS shares the same core codebase as [Riak KV], which allows you to operate 
 
 <a href="http://docs.basho.com/riak/kv/2.1.4/configuring/managing/" target="_blank">Managing Configuration</a> will show you how to retrieve your configuration, check your settings, and debug your configuration.
 
-<a href="http://docs.basho.com/riak/kv/2.1.4/configuring/reference/" target="_blank">Configuration Reference</a> provides you with everything you will ever need to know about configuring Riak core.
+<a href="http://docs.basho.com/riak/kv/2.1.4/configuring/reference/" target="_blank">Configuration Reference</a> provides you with everything you need to know about configuring Riak core.
 
 <a href="http://docs.basho.com/riak/kv/2.1.4/configuring/load-balancing-proxy/" target="_blank">Load Balancing</a> will walk you through configuring a load balancer with your Riak cluster.
 
@@ -48,7 +48,7 @@ Riak TS shares the same core codebase as [Riak KV], which allows you to operate 
 
 <a href="http://docs.basho.com/riak/kv/2.1.4/using/cluster-operations/logging/" target="_blank">Logging</a> will provide you the steps for enabling and disabling debug logging.
 
-<a href="http://docs.basho.com/riak/kv/2.1.4/using/cluster-operations/backing-up/" target="_blank">Backing Up</a> is, as you might have guessed, a how-to guide for backing up your data.
+<a href="http://docs.basho.com/riak/kv/2.1.4/using/cluster-operations/backing-up/" target="_blank">Backing Up</a> is a how-to guide for backing up your data.
 
 <a href="http://docs.basho.com/riak/kv/2.1.4/using/cluster-operations/handoff/" target="_blank">Handoff</a> will tell you everything you need to know to enable and disable handoff.
 
@@ -59,4 +59,4 @@ Riak TS shares the same core codebase as [Riak KV], which allows you to operate 
 
 <a href="http://docs.basho.com/riak/kv/2.1.4/using/performance/" target="_blank">Performance</a> will give you all the information you need to tune your cluster configurations to optimize performance.
 
-<a href="http://docs.basho.com/riak/kv/2.1.4/using/reference/" target="_blank">Reference</a> will provide you with handy explanations of various core functions, such as logging, handoff, and monitoring.
+<a href="http://docs.basho.com/riak/kv/2.1.4/using/reference/" target="_blank">Reference</a> will provide you with explanations of various core functions, such as logging, handoff, and monitoring.

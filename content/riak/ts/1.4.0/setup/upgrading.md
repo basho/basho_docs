@@ -27,11 +27,11 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/setup/upgrading/"
 [jmx monitor]: /riak/kv/2.1.4/using/reference/jmx
 [snmp]: /riak/kv/2.1.4/using/reference/snmp
 
->**Note on upgrading Riak TS from older versions**
->
->Upgrading Riak TS is only supported for Riak TS 1.3.1 to 1.4.0. For assistance upgrading from earlier versions to 1.4.0 [contact Client Services][contact].
->
->If you run [Riak Control][use admin riak control], you should disable it during the rolling upgrade process.
+{{% note title="Note on upgrading Riak TS from older versions" %}}
+Upgrading Riak TS is only supported for Riak TS 1.3.1 to 1.4.0. For assistance upgrading from earlier versions to 1.4.0 [contact Client Services][contact].
+
+If you run [Riak Control][use admin riak control], you should disable it during the rolling upgrade process.
+{{% /note %}}
 
 Riak TS nodes negotiate with each other to determine supported
 operating modes. This allows clusters containing mixed-versions of Riak TS
@@ -154,7 +154,7 @@ behalf. This data is transferred to the node when it becomes available.
 
 If you would like to upgrade an existing Riak TS cluster to a [commercially supported Riak TS Enterprise][riak ts enterprise] cluster with multi-datacenter replication, undertake the following steps:
 
-1. Back up your `etc` (`riak.conf` and `vm.args`) and `data`
+1. Back up your `/etc` (riak.conf and vm.args) and `/data`
 directories.
 2. Shut down the node you are going to upgrade.
 3. Uninstall your Riak TS package.
@@ -162,9 +162,9 @@ directories.
 5. A standard package uninstall should not have removed your data
    directories. If it did, move your backup to where the data directory
    should be.
-6. Copy any customizations from your backed-up `vm.args` to the
-   `riak-ts-ee` installed `vm.args` file, these files may be identical.
-7. The `riak.conf` file from `riak-ts-ee` will be significantly different from your backed-up file. While it will contain all of the same sections as your original, it will have many new ones. Copy the customizations from your original `riak.conf` file into the appropriate sections in the new one. Ensure that the following sections are present in `riak.conf`:
+6. Copy any customizations from your backed-up vm.args file to the
+   `riak-ts-ee` installed vm.args file, these files may be identical.
+7. The riak.conf file from `riak-ts-ee` will be significantly different from your backed-up file. While it will contain all of the same sections as your original, it will have many new ones. Copy the customizations from your original riak.conf file into the appropriate sections in the new one. Ensure that the following sections are present in riak.conf:
   * `riak_core` --- the `cluster_mgr` setting must be present. See [MDC v3 Configuration][config v3 mdc] for more information.
   * `riak_repl` --- See [MDC v3 Configuration][config v3 mdc] for more information.
   * `riak_jmx` --- See [JMX Monitoring][jmx monitor] for more information.
@@ -183,4 +183,4 @@ The following lists locations of the `basho-patches` directory for
 each supported operating system:
 
 - CentOS & RHEL Linux: `/usr/lib64/riak/lib/basho-patches`
-- Debian & Ubuntu Linux: `usr/lib/riak/lib/basho-patches`
+- Debian & Ubuntu Linux: `/usr/lib/riak/lib/basho-patches`

@@ -25,10 +25,10 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/rhel-cen
 Riak TS can be installed on CentOS-based systems using a binary
 package available [here][download].
 
->**Note on SELinux**
->
->CentOS enables SELinux by default, so you may need to disable SELinux if
+{{% note title="Note on SELinux" %}}
+CentOS enables SELinux by default, so you may need to disable SELinux if
 you encounter errors.
+{{% /note %}}
 
 
 ## Dependencies

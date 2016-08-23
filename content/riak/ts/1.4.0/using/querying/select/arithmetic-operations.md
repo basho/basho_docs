@@ -25,12 +25,14 @@ aliases:
 [querying select]: /riak/ts/1.4.0/using/querying/#select-query
 
 
-Riak TS supports arithmetic operations in the `SELECT` statement.
+Riak TS supports arithmetic operations in the SELECT statement.
 
 Arithmetic operations default to 64-bit integer math unless mixed with a
 `double`, at which point they become floating-point.
 
->**Important:** Proper spacing around arithmetic operators is required.
+{{% note title="Important" %}}
+Proper spacing around arithmetic operators is required.
+{{% /note %}}
 
 The examples on this page will assume you are using the following table schema:
 

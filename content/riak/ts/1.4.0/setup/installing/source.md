@@ -24,7 +24,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/source/"
 [Git]: https://git-scm.com/
 [install erlang]: /riak/ts/1.4.0/setup/installing/source/erlang
 [planning]: /riak/ts/1.4.0/using/planning/
-[Riak TS GitHub respository]: https://github.com/basho/riak/tree/riak_ts-1.4.0
+[Riak TS GitHub repository]: https://github.com/basho/riak/tree/riak_ts-1.4.0
 
 
 If there isn't a package for your OS or you are interested in contributing back to the project, you can install Riak TS from source!

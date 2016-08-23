@@ -5,7 +5,7 @@ menu:
   riak_ts-1.4.0:
     name: "Plan Your Table"
     identifier: "planning_riakts_table"
-    weight: 301
+    weight: 300
     parent: "using"
 project: "riak_ts"
 project_version: "1.4.0"
@@ -27,9 +27,9 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/planning"
 
 Now that you've [installed][installing] Riak TS, you're almost ready to create a TS table. Before you can create your table, you'll need to plan it out.
 
-This page provides a basic overview of what you'll need and some guidelines/limitations. For a deeper dive into planning and designing Riak TS tables, check out [Table Architecture][table arch].
+This page provides a basic overview of what you'll need and some guidelines/limitations. For more information about what the components of a Riak TS table do, check out [Table Architecture][table arch].
 
-Riak TS tables are closely tied to SQL tables. If you are unfamiliar with SQL or would like to know more about how Riak TS integrates SQL, check out [SQL for Riak TS][sql].
+Riak TS tables are closely tied to SQL tables. If would like to know more about how Riak TS integrates SQL, check out [SQL for Riak TS][sql].
 
 
 ## TS Table Schema
@@ -55,7 +55,7 @@ CREATE TABLE GeoCheckin
 A TS table is made up of:
 
 * a table name, GeoCheckin in this example,
-* [column definitions](#column-definitions), the first 5 lines after the table name in this example, and
+* [column definitions](#column-definitions), the first 6 lines after the table name in this example, and
 * [the primary key](#primary-key), which is everything following `PRIMARY KEY` in this example.
 
 The column definitions will determine the columns of your TS table, while the primary key determines where data is stored in your TS cluster.
@@ -79,7 +79,7 @@ Column names (`region`, `state`, etc) must be ASCII strings, in addition to havi
 
 Any column names specified as part of the [primary key](#primary-key) must be defined as `NOT NULL`.
 
-The column definitions for the keys can be specified in any order in the `CREATE TABLE` statement. For instance both are correct:
+The column definitions for the keys can be specified in any order in the CREATE TABLE statement. For instance both are correct:
 
 **A.**
 ```sql
@@ -118,9 +118,9 @@ CREATE TABLE GeoCheckin
 The data types in column definitions are limited. Valid types are:
 
 * `VARCHAR` - Any string content is valid, including Unicode. Can only be compared using strict equality, and will not be typecast (e.g., to an integer) for comparison purposes. Use single quotes to delimit varchar strings.
-* `BOOLEAN` - `true` or `false` (any case)
-* `TIMESTAMP` - Timestamps are integer values expressing [UNIX epoch time in UTC][epoch] in milliseconds. Zero is not a valid timestamp.
-* `SINT64` - Signed 64-bit integer
+* `BOOLEAN` - `true` or `false` (any case).
+* `TIMESTAMP` - Integer values expressing [UNIX epoch time in UTC][epoch] in milliseconds. Zero is not a valid timestamp.
+* `SINT64` - Signed 64-bit integer.
 * `DOUBLE` - This type does not comply with its IEEE specification: `NaN` (not a number) and `INF` (infinity) cannot be used.
 
 
@@ -143,7 +143,7 @@ CREATE TABLE GeoCheckin
 )
 ```
 
-The field definitions for the `PRIMARY KEY` can be specified in any order in the `CREATE TABLE` statement. For instance both are correct:
+The field definitions for the `PRIMARY KEY` can be specified in any order in the CREATE TABLE statement. For instance both are correct:
 
 **A.**
 ```sql
@@ -184,6 +184,8 @@ CREATE TABLE GeoCheckin
 
 The partition key is the first element of the primary key, and must have at least one column name.
 
+A general guideline is to first choose a column name that represents a class or type of data, and then choose a second column name that is a more specific instance(s) of the class/type.
+
 You may specify a quantum, which is used to colocate data on one of the partition key's timestamp fields:
 
 ```sql
@@ -195,14 +197,12 @@ If you choose to specify a quantum, you may specify only one and it must be the 
 The quantum function takes 3 parameters:
 
 * the name of a field in the table definition of type `TIMESTAMP`
-* a quantity as a positive integer, greater than zero.
+* a quantity as a positive integer, greater than zero
 * a unit of time:
   * `'d'` - days
   * `'h'` - hours
   * `'m'` - minutes
   * `'s'` - seconds
-
-A general guideline is to first choose a column name that represents a class or type of data, and then choose a second column name that is a more specific instance(s) of the class/type.
 
 
 #### Local Key
@@ -219,30 +219,13 @@ The local key may also contain additional column names so long as they come afte
 ```
 
 
-## Schema Discovery
-
-After creating a table, its schema can be discovered with the [DESCRIBE statement][describe]:
-
-```sql
-DESCRIBE GeoCheckin
-```
-
-`DESCRIBE` will return the following:
-
-* **Column**, column name;
-* **Type**, data type;
-* **Is Null**, _true_ if the field is optional, _false_ otherwise;
-* **Primary Key**, position of this field in the primary key, or blank if it does not appear in the key;
-* **Local Key**, position of this field in the local key, or blank if it does not appear in the key.
-
-You can learn more about `DESCRIBE` [here][describe].
-
-
 ## More information
+
+After creating a table, its schema can be discovered with the [DESCRIBE statement][describe].
 
 Still unsure how best to structure your Riak TS table? Check out our [best practice recommendations][bestpractices].
 
-Confused about column definition, primary key, etc? Check out [Table Architecture][table arch] for an in-depth explanation of TS tables.
+Confused about what column definitions, primary key, etc. do? Check out [Table Architecture][table arch] for an in-depth explanation of TS tables.
 
 
 ## Next Steps

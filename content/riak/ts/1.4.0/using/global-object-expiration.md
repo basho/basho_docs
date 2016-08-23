@@ -27,7 +27,7 @@ Expiration is disabled by default, but enabling it lets you expire older objects
 
 ## Enabling Expiry
 
-To enable global object expiry, add the `leveldb.expiration` setting to your `riak.conf` file:
+To enable global object expiry, add the `leveldb.expiration` setting to your riak.conf file:
 
 ```riak.conf
 leveldb.expiration = on
@@ -83,7 +83,7 @@ leveldb.expiration.mode = whole_file
 
 ## Disable Expiry
 
-To disable global object expiration, set `leveldb.expiration` to `off` in your `riak.conf` file. If expiration is disabled, the other 2 settings are ignored. For example:
+To disable global object expiration, set `leveldb.expiration` to `off` in your riak.conf file. If expiration is disabled, the other 2 settings are ignored. For example:
 
 ```riak.conf
 leveldb.expiration = off

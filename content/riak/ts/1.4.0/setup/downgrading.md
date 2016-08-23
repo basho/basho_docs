@@ -139,4 +139,4 @@ The following lists locations of the `basho-patches` directory for
 each supported operating system:
 
 - CentOS & RHEL Linux: `/usr/lib64/riak/lib/basho-patches`
-- Debian & Ubuntu Linux: `usr/lib/riak/lib/basho-patches`
+- Debian & Ubuntu Linux: `/usr/lib/riak/lib/basho-patches`

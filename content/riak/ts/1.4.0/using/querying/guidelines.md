@@ -45,7 +45,7 @@ PRIMARY KEY  ((a, QUANTUM(b, 1, 's'))<-Partition Key, a,b,c)<-Local Key)
 ### Partition Key
 
 ```
-PRIMARY KEY  ((a,<-Unquantized QUANTUM(b, 1, 's')<-Quantized)<-Partition Key...
+PRIMARY KEY  ((a,<-Unquantized QUANTUM(b, 1, 's')<-Quantized)...
 ```
 
 All queries must cover the partition key fields and must use greater than and less than (>, >=, <, <=).
@@ -58,8 +58,8 @@ Any quantized field in your partition key must be included in the query as eithe
 * Invalid: `time > 1449864277000`
 * Invalid: `time > 1449864277000 or time < 1449864290000`
 
-{{% note title="A Note About SELECT" %}}
-It is possible to use ISO 8601-compliant date/time strings rather than integer timestamps in SELECT statements. Please see [SELECT] for an example or [Time Representations][iso8601] for more information.s
+{{% note title="A Note About `SELECT`" %}}
+It is possible to use ISO 8601-compliant date/time strings rather than integer timestamps in SELECT statements. Please see [SELECT](/riak/ts/1.4.0/using/querying/SELECT#iso_8601) for an example or [Time Representations][/riak/ts/1.4.0/using/timerepresentations/] for more information.
 {{% /note %}}
 
 

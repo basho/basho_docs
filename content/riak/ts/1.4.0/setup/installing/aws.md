@@ -74,8 +74,9 @@ You will need need to launch at least 3 instances to form a Riak cluster.  When 
 
 You can find more information on connecting to an instance on the official [Amazon EC2 instance guide][ec2 guide].
 
->Note: The following clustering setup will not be resilient to instance restarts unless deployed in Amazon VPC.
-
+{{% note %}}
+The following clustering setup will not be resilient to instance restarts unless deployed in Amazon VPC.
+{{% /note %}}
 
 1. On the first node, obtain the internal IP address:
 

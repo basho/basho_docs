@@ -19,16 +19,17 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/mdc"
 [activating]: /riak/ts/1.4.0/using/creating-activating
 [cluster ops v3 mdc]: /riak/kv/2.1.4/using/cluster-operations/v3-multi-datacenter
 [ee]: http://basho.com/contact/
+[Enterprise]: http://basho.com/products/riak-ts/
 [install]: /riak/ts/1.4.0/setup/installing
 
 
-Multi-Datacenter (MDC) replication makes it possible to replicate time series data between Riak clusters. This document will walk through how to configure MDC to work with Riak TS.
+Multi-Datacenter (MDC) replication makes it possible to replicate your time series data between Riak clusters. This document will walk through how to configure MDC to work with Riak TS.
 
 
 ## Prerequisites
 
-* You must be an Enterprise customer. To contact Basho for information on becoming an Enterprise customer, go [here][ee].
-* You must have Riak TS 1.3.1 or later [installed][install] on two distinct clusters.
+* You must be an [Enterprise] customer. To contact Basho for information on becoming an Enterprise customer, go [here][ee].
+* You must have Riak TS [installed][install] on two distinct clusters.
 
 >**Warning:** Do not attempt to replicate TS data to a Riak cluster on Riak KV or any version of Riak TS prior to 1.3.1.
 
@@ -41,8 +42,7 @@ Multi-Datacenter (MDC) replication makes it possible to replicate time series da
 
 Please see our documentation on basic [configuration for MDC][cluster ops v3 mdc].
 
-Unlike fullsync, realtime replication can be globally disabled for
-time series data without impacting the synchronization of Riak KV data.
+Unlike fullsync, realtime replication can be globally disabled for TS data without impacting the synchronization of Riak KV data.
 
 Realtime replication for TS data can be disabled in the `riak_repl`
 section of your advanced.config file by adding the following setting:
@@ -51,7 +51,9 @@ section of your advanced.config file by adding the following setting:
     {ts_realtime, false}
 ```
 
->**Note:** If `{ts_realtime, false}` is not the last entry in your `riak_repl` configuration block, be sure to add a comma at the end of the line.
+{{% note %}}
+If `{ts_realtime, false}` is not the last entry in your `riak_repl` configuration block, be sure to add a comma at the end of the line.
+{{% /note %}}
 
 See [below](#turn-off-replication-per-table) for more granular controls.
 
