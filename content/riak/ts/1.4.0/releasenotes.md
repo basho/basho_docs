@@ -16,7 +16,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/releasenotes"
 ---
 
 
-Released August 23, 2016.
+Released August 24, 2016.
 
 Riak TS 1.4.0 delivers a broad range of new functionality and improvements, including: 
 
