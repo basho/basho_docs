@@ -110,3 +110,23 @@
   border-#{$base}  : #{$size} solid #{$color};
   border-#{$point} : none;
 }
+
+
+/// Apply border radius to all corners
+/// @author Eric Redmond
+/// @author Drew Pirrone-Brusse
+/// @param {Number} radius [.5rem] - Radius of the corner to apply
+@mixin rounded-corners($radius: .5rem) {
+  border-radius: $radius;
+}
+
+
+/// Apply border radius to specific corner
+/// @author Eric Redmond
+/// @author Drew Pirrone-Brusse
+/// @param {String} vert           - `top` or `bottom`
+/// @param {String} horiz          - `left` or `right`
+/// @param {Number} radius [.5rem] - Radius of the corner to apply
+@mixin rounded-corner($vert, $horiz, $radius: .5rem) {
+  border-#{$vert}-#{$horiz}-radius : $radius;
+}
