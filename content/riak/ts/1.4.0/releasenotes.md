@@ -92,7 +92,6 @@ Riak TS is compatible with the following:
 
 ## Known Issues
 
-* Single row fetches performed with Java over the TTB interface may occasionally return a 'timeout(1010)' error. This issue is due to the eventually consistent nature of Riak, and will resolve itself with subsequent fetches and queries.
 * The list_keys API may be unreliable in clusters containing a mix of TS 1.3.1 and TS 1.4 nodes.
 * AAE must be turned off.
 * Riak Search, and subsequently Solr, is not supported for TS.
