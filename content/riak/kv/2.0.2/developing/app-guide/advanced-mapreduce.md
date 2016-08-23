@@ -726,10 +726,7 @@ You can use streaming with Erlang via the Riak local client or the
 Erlang Protocol Buffers API.  In either case, you will provide the call
 to `mapred_stream` with a `Pid` that will receive the streaming results.
 
-For examples, see:
-
-1. [MapReduce localstream.erl](/data/MapReduce-localstream.erl){{1.3.0-}}
-2. [MapReduce pbstream.erl](/data/MapReduce-pbstream.erl)
+For examples, see [MapReduce pbstream.erl](/data/MapReduceExamples/pbstream.erl)
 
 ## Troubleshooting MapReduce, illustrated
 
