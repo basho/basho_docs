@@ -76,7 +76,7 @@ def do_fetch_archived_content()
                        (File.exist?("static/shared"))           )
   if (not all_dirs_present and any_dirs_present)
     Kernel.abort("ERRPR: The static/ directory is verifiably corrupt.\n"\
-                 "       Please:\n"
+                 "       Please:\n"\
                  "         * reset the contents of the static/ directory "\
                  "(`git clean -xdf static; git checkout -f static`)\n"\
                  "         * re-run this script.")
