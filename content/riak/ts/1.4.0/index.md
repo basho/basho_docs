@@ -1,0 +1,78 @@
+---
+title: "Riak TS"
+description: "Riak TS"
+menu:
+  riak_ts-1.4.0:
+    name: "Riak TS"
+    identifier: "introduction"
+    weight: 100
+    pre: icon-riak
+project: "riak_ts"
+project_version: "1.4.0"
+toc: true
+aliases:
+    - /riakts/1.4.0/
+canonical_link: "https://docs.basho.com/riak/ts/latest"
+---
+
+
+[download]: downloads/
+[installing]: setup/installing/
+[learnabout]: learn-about/
+[querying]: using/querying/
+[supported clients]: developing/
+
+
+Riak TS is a distributed NoSQL key/value store optimized for time series data. With TS, you can associate a number of data points with a specific point in time. TS uses discrete slices of time to co-locate data. For example, humidity and temperature readings from a meter reported during the same slice of time will be stored together on disk.
+
+Riak TS uses tables defined according to a schema for each coherent group of
+data. This allows for both flexibility, in terms of collecting many different
+sets of data, and enough structure to make the experience of working with the collected data better.
+
+Suppose you have a number of meters (for humidity and temperature) spread across
+the US. It would make sense to group your data by the state and meter number. You could even store data along multiple dimensions to ease querying.
+
+Assuming we have a number of meters measuring humidity, temperature, and the general weather conditions, our table might look like:
+
+```sql
+CREATE TABLE BashoWeather
+(
+   region      VARCHAR   NOT NULL,
+   state       VARCHAR   NOT NULL,
+   meter_no    VARCHAR   NOT NULL,
+   time        TIMESTAMP NOT NULL,
+   weather     VARCHAR   NOT NULL,
+   temperature DOUBLE,
+   humidity    DOUBLE,
+   PRIMARY KEY (
+     (region, state, QUANTUM(time, 15, 'm')),
+     region, state, time
+   )
+)
+```
+
+Using this table we can map region, state and time (in 15 minute chunks) to weather condition, temperature, and humidity readings.
+
+
+## Supported Operating Systems
+
+* CentOS 6
+* CentOS 7
+* RHEL 6
+* RHEL 7
+* Ubuntu 12.04
+* Ubuntu 14.04
+* Debian 7 & 8 (development only)
+* OS X 10.10 & 10.11 (development only)
+
+{{% note %}}
+LevelDB is the only supported backend.
+{{% /note %}}
+
+## Get Started
+
+Get started with Riak TS by [downloading][download] the TS package, then check out how to [install][installing] it.
+
+Once you're up and running, check out our docs on [querying] or our [supported clients].
+
+If you want to learn more about how Riak TS was designed and how it is structured, checkout our [Learn About Riak TS][learnabout] section.

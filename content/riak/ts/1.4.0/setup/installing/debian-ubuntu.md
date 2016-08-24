@@ -2,22 +2,25 @@
 title: "Installing on Debian and Ubuntu"
 description: "Installing on Debian and Ubuntu"
 menu:
-  riak_ts-1.3.1:
+  riak_ts-1.4.0:
     name: "Debian and Ubuntu"
     identifier: "installing_on_debian_ubuntu"
     weight: 201
     parent: "installing"
 project: "riak_ts"
-project_version: "1.3.1"
+project_version: "1.4.0"
 toc: true
 aliases:
-    - /riakts/1.3.1/installing/debian-ubuntu/
+    - /riakts/1.4.0/installing/debian-ubuntu/
+    - /riakts/1.4.0/setup/installing/debian-ubuntu/
+    - /riak/ts/1.4.0/installing/debian-ubuntu/
+canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/debian-ubuntu/"
 ---
 
-[download]: ../../downloads/
+[download]: /riak/ts/1.4.0/downloads/
 [openfileslimit]: /riak/kv/2.1.4/using/performance/open-files-limit
-[planning]: ../../using/planning
-[security basics]: /riak/kv/2.1.4/using/security/basics
+[planning]: /riak/ts/1.4.0/using/planning
+[security basics pam]: /riak/ts/1.4.0/using/security/sources-management/#pam-based-authentication
 
 
 Riak TS can be installed on Debian or Ubuntu-based systems using a binary
@@ -39,7 +42,7 @@ backend that uses very few file handles, it's possible to run out. See
 
 ### PAM Library Requirement for Ubuntu
 
-You must have the `libpam0g-dev` package used for [Pluggable Authentication Module (PAM)][security basics] authentication in order to install Riak TS.
+You must have the `libpam0g-dev` package used for [Pluggable Authentication Module (PAM)][security basics pam] authentication in order to install Riak TS.
 
 To install this dependency:
 
@@ -57,15 +60,6 @@ sudo dpkg -i riak-ts_1.4.0-1_amd64.deb
 ```
 
 
-## Activate Riak TS node
-
-Once you've installed Riak TS, start it on your node:
-
-```bash
-riak start
-```
-
-
 ## Verify your installation
 
 You can verify that Riak TS is successfully installed by running: 
@@ -75,6 +69,25 @@ dpkg -l | grep riak
 ```
 
 If Riak TS has been installed successfully `riak-ts` is returned.
+
+
+## Start your Riak TS node
+
+Once you've installed Riak TS, start it on your node:
+
+```bash
+riak start
+```
+
+## Verify Riak TS is running
+
+You can verify that Riak TS is started and ready to use by pinging it.
+
+```bash
+riak ping
+```
+
+If Riak TS has started, you will receive a `pong` response. If it has not started, you will receive an error. 
 
 
 ## Next Steps
