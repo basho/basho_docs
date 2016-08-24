@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/ops/tuning/open-files-limit/
+  - /riak/kv/2.0.2/ops/tuning/open-files-limit/
 canonical_link: "https://docs.basho.com/riak/kv/latest/using/performance/open-files-limit"
 ---
 
@@ -53,7 +54,7 @@ Most operating systems can change the open-files limit using the `ulimit
 -n` command. Example:
 
 ```bash
-ulimit -n 65536
+ulimit -n 200000
 ```
 
 However, this only changes the limit for the **current shell session**.
@@ -67,7 +68,7 @@ controlled by `sysctl`.
 
 ```bash
 sysctl fs.file-max
-fs.file-max = 50384
+fs.file-max = 200000
 ```
 
 As seen above, it is generally set high enough for Riak. If you have
@@ -81,7 +82,7 @@ desired hard and soft limits:
 
 ```config
 riak soft nofile 4096
-riak hard nofile 65536
+riak hard nofile 200000
 ```
 
 On Ubuntu, if you’re always relying on the init scripts to start Riak,
@@ -89,7 +90,7 @@ you can create the file `/etc/default/riak` and specify a manual limit
 like so:
 
 ```bash
-ulimit -n 65536
+ulimit -n 200000
 ```
 
 This file is automatically sourced from the init script, and the Riak
@@ -156,8 +157,8 @@ the new limits are set with the following command:
 1. Edit `/etc/security/limits.conf` and append the following lines to
 the file:
 
-    <div><pre><code>&ast;              soft     nofile          65536
-    &ast;              hard     nofile          65536
+    <div><pre><code>&ast;              soft     nofile          200000
+    &ast;              hard     nofile          200000
     </code></pre></div>
 
 2. Save and close the file.
@@ -183,7 +184,7 @@ increase the per-process limit on Solaris, add the following line to
 `/etc/system`:
 
 ```config
-set rlim_fd_max=65536
+set rlim_fd_max=200000
 ```
 
 [Reference](http://blogs.oracle.com/elving/entry/too_many_open_files)
@@ -217,8 +218,8 @@ contains the following XML configuration:
           <string>launchctl</string>
           <string>limit</string>
           <string>maxfiles</string>
-          <string>65536</string>
-          <string>65536</string>
+          <string>200000</string>
+          <string>200000</string>
         </array>
       <key>RunAtLoad</key>
         <true/>
@@ -228,7 +229,7 @@ contains the following XML configuration:
   </plist>
 ```
 
-This will set the open files limit to 65536. The second plist
+This will set the open files limit to 200000. The second plist
 configuration file should be stored in
 `/Library/LaunchDaemons/limit.maxproc.plist` with the following
 contents:
@@ -268,14 +269,14 @@ setting the at the session level as well by appending the following
 lines to your `bashrc`, `bashprofile`, or analogous file:
 
 ```bash
-ulimit -n 65536
+ulimit -n 200000
 ulimit -u 2048
 ```
 
 Like the plist files, your `bashrc` or similar file should have
 `-rw-r--r--` permissions. At this point, you can restart your computer
 and enter `ulimit -n` into your terminal. If your system is configured
-correctly, you should see that `maxfiles` has been set to 65536.
+correctly, you should see that `maxfiles` has been set to 200000.
 
 ### Adjusting Open File Limits in Older Versions of OS X
 
