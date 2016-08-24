@@ -56,7 +56,7 @@ sudo apt-get install libpam0g-dev
 Once you have [downloaded][download] the package, execute the following command to install Riak TS:
 
 ```bash
-sudo dpkg -i riak-ts_1.3.1-1_amd64.deb
+sudo dpkg -i riak-ts_1.4.0-1_amd64.deb
 ```
 
 
