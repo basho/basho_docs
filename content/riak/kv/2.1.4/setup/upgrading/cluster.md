@@ -261,9 +261,9 @@ reformat the indexes using the [`riak-admin reformat-indexes`][use admin riak-ad
 If you would like to upgrade an existing Riak KV cluster to a commercially
 supported [Riak KV Enterprise][riak enterprise] cluster with [multi-datacenter replication][cluster ops mdc], undertake the following steps:
 
-1. Back up your `etc` (`app.config` and `vm.args`) and `data`
+1. Shut down the node you are going to upgrade.
+2. Back up your `etc` (`app.config` and `vm.args`) and `data`
 directories.
-2. Shut down the node you are going to upgrade.
 3. Uninstall your Riak KV package.
 4. Install the `riak_ee` package.
 5. A standard package uninstall should not have removed your data
