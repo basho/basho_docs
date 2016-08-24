@@ -16,7 +16,6 @@ aliases:
   - /riak/kv/2.0.1/ops/building/Installing-Riak-from-Source
   - /riak/2.0.1/installing/source/
   - /riak/kv/2.0.1/installing/source/
-canonical_link: "https://docs.basho.com/riak/kv/latest/setup/installing/source"
 ---
 
 
@@ -61,9 +60,9 @@ or cloned source.
 Download the Riak source package from the [Download Center][downloads] and build:
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/riak-{{VERSION}}.tar.gz
-tar zxvf riak-{{VERSION}}.tar.gz
-cd riak-{{VERSION}}
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.1/riak-2.0.1.tar.gz
+tar zxvf riak-2.0.1.tar.gz
+cd riak-2.0.1
 make locked-deps
 make rel
 ```

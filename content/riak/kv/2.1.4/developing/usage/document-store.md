@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.4/dev/search/document-store
   - /riak/kv/2.1.4/dev/search/document-store
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage/document-store"
 ---
 
 Although Riak wasn't explicitly created as a document store, two

@@ -10,7 +10,6 @@ menu:
     weight: 101
     parent: "developing_usage"
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage/reading-objects"
 ---
 
 [glossary vnode]: /riak/kv/2.0.5/learn/glossary/#vnode
@@ -92,9 +91,9 @@ curl http://localhost:8098/types/animals/buckets/dogs/keys/rufus
 
 Parameter | Default | Description
 :---------|:--------|:-----------
-`r` | `2` | How many replicas need to agree when retrieving an existing object before the write
+`r` | `quorum` | How many replicas need to agree when retrieving an existing object before the write
 `pr` | `0` | How many [vnodes][glossary vnode] must respond for a read to be deemed successful
-`notfound_ok` | If set to `true`, if the first vnode to respond doesn't have a copy of the object, Riak will deem the failure authoritative and immediately return a `notfound` error to the client
+`notfound_ok` | `true` | If set to `true`, if the first vnode to respond doesn't have a copy of the object, Riak will deem the failure authoritative and immediately return a `notfound` error to the client
 
 Riak also accepts many query parameters, including `r` for setting the
 R-value for GET requests (R values describe how many replicas need to

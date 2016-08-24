@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.4/dev/advanced/search-schema
   - /riak/kv/2.1.4/dev/advanced/search-schema
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage/search-schemas"
 ---
 
 [concept clusters]: /riak/kv/2.1.4/learn/concepts/clusters

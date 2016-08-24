@@ -12,7 +12,6 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.7/upgrade-v20/
-canonical_link: "https://docs.basho.com/riak/kv/latest/setup/upgrading/version"
 ---
 
 When upgrading to Riak 2.0 from an earlier version, we strongly
@@ -87,7 +86,7 @@ One reason we recommend using bucket types for Riak 2.0
 and later is because many newer Riak features were built with
 bucket types as a precondition:
 
-* [Strong consistency](/riak/kv./2.0.7/using/reference/strong-consistency) --- Using Riak's strong consistency subsystem
+* [Strong consistency](/riak/kv/2.0.7/using/reference/strong-consistency) --- Using Riak's strong consistency subsystem
   requires you to set the `consistent` parameter on a bucket type to
   `true`
 * [Riak Data Types](/riak/kv/2.0.7/developing/data-types) --- In order to use Riak Data

@@ -29,8 +29,8 @@ directories %w(dynamic data) \
 
 group :js do
   guard 'rake', :task => 'build:js' do
-    watch(%r{^dynamic/js/.*$})
-    watch(%r{^data/versions.yml})
+    watch(%r{^dynamic/js/.*\.js$})
+    watch(%r{^dynamic/js/.*\.coffee$})
   end
 end
 
@@ -44,8 +44,8 @@ end
 
 group :debug_js do
   guard 'rake', :task => 'build:debug:js' do
-    watch(%r{^dynamic/js/.*$})
-    watch(%r{^data/versions.yml})
+    watch(%r{^dynamic/js/.*\.js$})
+    watch(%r{^dynamic/js/.*\.coffee$})
   end
 end
 

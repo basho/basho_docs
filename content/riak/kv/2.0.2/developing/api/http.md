@@ -12,7 +12,6 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/dev/references/http
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/http"
 ---
 
 Riak has a rich, full-featured HTTP 1.1 API. This is an overview of the

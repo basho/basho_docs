@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.4/ops/building/planning/backends/
   - /riak/kv/2.1.4/ops/building/planning/backends/
-canonical_link: "https://docs.basho.com/riak/kv/latest/setup/planning/backend"
 ---
 
 [plan backend bitcask]: /riak/kv/2.1.4/setup/planning/backend/bitcask

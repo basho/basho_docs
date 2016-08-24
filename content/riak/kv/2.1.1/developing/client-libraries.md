@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.1/dev/using/libraries
   - /riak/kv/2.1.1/dev/using/libraries
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/client-libraries"
 ---
 
 ## Basho-Supported Libraries
@@ -80,7 +79,7 @@ level of maturity and activity.
   to the Riak Protocol Buffers API
 * [sumo](https://github.com/reiddraper/sumo) --- A Protocol
   Buffer-specific client for Riak with KV, 2i, and MapReduce support
-* [kria](|https://github.com/bluemont/kria) --- Riak 2.0 Asynchronous
+* [kria](https://github.com/bluemont/kria) --- Riak 2.0 Asynchronous
   (NIO.2) Clojure client. Callback driven, low level, Protocol Buffer
   API, Java 7.
 

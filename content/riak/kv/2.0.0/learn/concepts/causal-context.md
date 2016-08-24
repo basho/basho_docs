@@ -15,7 +15,6 @@ aliases:
   - /riak/kv/2.0.0/theory/concepts/Vector-Clocks/
   - /riak/2.0.0/theory/concepts/context
   - /riak/kv/2.0.0/theory/concepts/context
-canonical_link: "https://docs.basho.com/riak/kv/latest/learn/concepts/causal-context"
 ---
 
 

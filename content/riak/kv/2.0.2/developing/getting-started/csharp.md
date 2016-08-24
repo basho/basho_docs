@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.2/dev/taste-of-riak/csharp
   - /riak/kv/2.0.2/dev/taste-of-riak/csharp
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/csharp"
 ---
 
 

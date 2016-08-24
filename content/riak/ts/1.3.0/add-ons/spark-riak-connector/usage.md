@@ -11,7 +11,8 @@ menu:
     weight: 104
     parent: "addons_spark_riak"
 toc: true
-canonical_link: "https://docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage"
+version_history:
+  in: "1.3.0+"
 ---
 
 This section will walk you through setting up your application for development with the Spark-Riak connector.

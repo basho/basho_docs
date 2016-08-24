@@ -12,7 +12,6 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/dev/references/protocol-buffers/dt-counter-store
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/dt-counter-store"
 ---
 
 An operation to update a [counter](/riak/kv/2.0.2/developing/data-types).

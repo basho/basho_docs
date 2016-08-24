@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.1/ops/tuning/latency-reduction
   - /riak/kv/2.0.1/ops/tuning/latency-reduction
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/performance/latency-reduction"
 ---
 
 Although latency is unavoidable in distributed systems like Riak, there
@@ -178,7 +177,7 @@ guides may be of help:
 
 * [Open files limit](../open-files-limit)
 * General [System performance tuning](../)
-* [AWS performance tuning](amazon-web-services) if you're running Riak on [Amazon Web Services](http://aws.amazon.com/)
+* [AWS performance tuning](../amazon-web-services) if you're running Riak on [Amazon Web Services](http://aws.amazon.com/)
 
 ## I/O and Network Bottlenecks
 

@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.3/ops/building/basic-cluster-setup
   - /riak/kv/2.1.3/ops/building/basic-cluster-setup
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/running-a-cluster"
 ---
 
 Configuring a Riak cluster involves instructing each node to listen on a
@@ -86,8 +85,7 @@ listener.protobuf.internal = 192.168.1.10:8087
 {"192.168.1.10", 8087 },
 ```
 
-<div class="note">
-<div class="title">Note on upgrading to 2.0</div>
+{{% note title="Note on upgrading to 2.0" %}}
 If you are upgrading to Riak version 2.0 or later from an pre-2.0
 release, you can use either your old `app.config`/ `vm.args`
 configuration files or the newer `riak.conf` if you wish. If you have
@@ -97,10 +95,8 @@ Below, examples will be provided for both the old and new configuration
 systems. Bear in mind that you need to use either the older or the newer
 but never both simultaneously.
 
-More on configuring Riak can be found in the <a
-href="latest/ops/advanced/configs/configuration-files">Configuration
-Files</a> documentation.
-</div>
+More on configuring Riak can be found in the [Configuration documentation](../../configuring/reference).
+{{% /note %}}
 
 If you're using the HTTP interface, you will need to alter your
 configuration in an analogous way:

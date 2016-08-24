@@ -138,9 +138,6 @@ be answered:
 * How long is it taking for objects to be replicated from the source
   cluster to the sink cluster?
 
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/reference/multi-datacenter/monitoring"
----
-
 #### Is a backed-up realtime replication queue still replicating objects within a defined SLA?
 
 Building on the final step of the general process, we can determine if

@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.4/dev/references/http/list-keys
   - /riak/kv/2.0.4/dev/references/http/list-keys
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/http/list-keys"
 ---
 
 Lists keys in a bucket.

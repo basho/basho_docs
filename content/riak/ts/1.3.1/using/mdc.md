@@ -10,9 +10,10 @@ menu:
 project: "riak_ts"
 project_version: "1.3.1"
 toc: true
+version_history:
+  in: "1.3.0+"
 aliases:
     - /riakts/1.3.1/using/mdc
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/mdc"
 ---
 
 

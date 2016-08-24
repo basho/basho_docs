@@ -14,7 +14,6 @@ toc: true
 aliases:
   - /riak/2.1.4/dev/taste-of-riak/querying-java
   - /riak/kv/2.1.4/dev/taste-of-riak/querying-java
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/java/querying"
 ---
 
 ## Java Version Setup

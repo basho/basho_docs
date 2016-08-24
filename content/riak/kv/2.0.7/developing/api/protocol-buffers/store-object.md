@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.7/dev/references/protocol-buffers/store-object
   - /riak/kv/2.0.7/dev/references/protocol-buffers/store-object
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/store-object"
 ---
 
 Stores an object under the specified location, as determined by the
@@ -55,23 +54,20 @@ Parameter | Description
 
 #### Optional Parameters
 
-<div class="note">
-<div class="title">Note on defaults and special values</div>
+{{% note title="Note on defaults and special values" %}}
 All of the optional parameters below have default values determined on a
-per-bucket basis. Please refer to the documentation on <a
-href="dev/references/protocol-buffers/set-bucket-props">setting bucket
-properties</a> for more information.
+per-bucket basis. Please refer to the documentation on [setting bucket properties](../set-bucket-props) for more information.
 
 Furthermore, you can assign an integer value to the `w`, `dw`, `pr`, and
 `pw`, provided that that integer value is less than or equal to N, _or_
 a special value denoting `one` (`4294967295-1`), `quorum`
 (`4294967295-2`), `all` (`4294967295-3`), or `default` (`4294967295-4`).
-</div>
+{{% /note %}}
 
 Parameter | Description
 :---------|:-----------
 `key` | The key to create/update. If not specified, Riak will generate a random key and return that key as part of the response to that request. 
-`vclock` | Opaque vector clock provided by an earlier <code><a href="theory/concepts/context">RpbGetResp</a></code> message. Omit if this is a new key or if you deliberately want to create a sibling.
+`vclock` | Opaque vector clock provided by an earlier <code><a href="../../../../learn/concepts/causal-context">RpbGetResp</a></code> message. Omit if this is a new key or if you deliberately want to create a sibling.
 `w` | Write quorum, i.e. how many replicas to write to before returning a successful response
 `dw` | Durable write quorum, i.e. how many replicas to commit to durable storage before returning a successful response
 `return_body` | Whether to return the contents of the now-stored object. Defaults to `false`.

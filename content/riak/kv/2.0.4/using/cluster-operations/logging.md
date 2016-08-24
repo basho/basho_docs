@@ -10,7 +10,6 @@ menu:
     weight: 105
     parent: "managing_cluster_operations"
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/cluster-operations/logging"
 ---
 
 If you'd like to enable debug logging on the current node, i.e. set the

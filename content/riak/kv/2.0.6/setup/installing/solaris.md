@@ -16,7 +16,6 @@ aliases:
   - /riak/kv/2.0.6/ops/building/installing/Installing-on-Solaris
   - /riak/2.0.6/installing/solaris/
   - /riak/kv/2.0.6/installing/solaris/
-canonical_link: "https://docs.basho.com/riak/kv/latest/setup/installing/solaris"
 ---
 
 
@@ -55,14 +54,14 @@ Note that you must restart to have the above settings take effect.
 Download your version of the Riak binary package for Solaris 10:
 
 ```bash
-curl -o /tmp/BASHOriak-{{VERSION}}-Solaris10-i386.pkg.gz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/solaris/10/BASHOriak-{{VERSION}}-Solaris10-x86_64.pkg.gz
+curl -o /tmp/BASHOriak-2.0.6-Solaris10-i386.pkg.gz http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.6/solaris/10/BASHOriak-2.0.6-Solaris10-x86_64.pkg.gz
 ```
 
 Next, install the package:
 
 ```bash
-gunzip /tmp/BASHOriak-{{VERSION}}-Solaris10-i386.pkg.gz
-pkgadd /tmp/BASHOriak-{{VERSION}}-Solaris10-i386.pkg
+gunzip /tmp/BASHOriak-2.0.6-Solaris10-i386.pkg.gz
+pkgadd /tmp/BASHOriak-2.0.6-Solaris10-i386.pkg
 ```
 
 After installing the package, be sure to include `/opt/riak/bin` in the

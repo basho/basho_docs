@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.7/ops/running/nodes/renaming
   - /riak/kv/2.0.7/ops/running/nodes/renaming
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/cluster-operations/changing-cluster-info"
 ---
 
 [config reference]: /riak/kv/2.0.7/configuring/reference

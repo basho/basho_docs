@@ -5,31 +5,29 @@
 {{ `<!--[if IE 8]><html class="no-js lt-ie9" lang="en"></html><![endif]-->` | safeHTML }}
 {{ `<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->` | safeHTML }}
 
-<!-- Page-wide Variables
-     -------------------
-  These would normally be set in common_variables.html, but that file make
-  assumptions about front matter and file paths that aren't true for pages in
-  the Community section.
+<!-- Site-wide Variables for Community Pages
+     =======================================
+  This would usually be where we include the "common_variables.html" partial,
+  but that file makes numerous assumptions about front matter and file paths
+  that aren't true for pages in the Community section, so we duplicate some
+  effort here and only define the variables we're interested in.
 
-# TOC should default to `true`
-{{ if isset .Params "toc" }}
-  {{ .Scratch.Add "toc" .Params.toc }}
-{{ else }}
-  {{ .Scratch.Add "toc" true }}
-{{ end }}
+{{ $display_toc         := (index .Params "toc")                 | default true  }}
+{{ $commercial_offering := (index .Params "commercial_offering") | default false }}
 
-# Commercial Offering should default to false
-{{ if isset .Params "commercial_offering" }}
-  {{ .Scratch.Add "commercial_offering" .Params.commercial_offering }}
-{{ else }}
-  {{ .Scratch.Add "commercial_offering" false }}
-{{ end }}
+{{/* Note that we're using `(replace str sub_str "")` to remove `sub_str`
+   * from `str` in the below calls. */}}
+{{ $site_relative_url    := (printf "/%s" (replace .Permalink .Site.BaseURL "")) }} {{/* ex; /community/projects/ */}}
+{{ $project_relative_url := (replace $site_relative_url "/community/" "")        }} {{/* ex; project/             */}}
 
-# We have to use the Scratch to store a calculated value, then retrieve here
-# because variables set in the scope of an `if` won't be set globally.
-{{ $toc                 := .Scratch.Get "toc"}}
-{{ $commercial_offering := .Scratch.Get "commercial_offering"}}
-{{ $has_supertext := isset .Params "title_supertext" }}
+{{ $canonical_link       := (index .Params "canonical_link")      | default .Permalink }}
+
+
+{{ .Scratch.Add "display_toc"          $display_toc          }}
+{{ .Scratch.Add "commercial_offering"  $commercial_offering  }}
+{{ .Scratch.Add "site_relative_url"    $site_relative_url    }}
+{{ .Scratch.Add "project_relative_url" $project_relative_url }}
+{{ .Scratch.Add "canonical_link"       $canonical_link       }}
 -->
 
 {{ partial "head.html" . }}
@@ -50,7 +48,7 @@
     <article class="mainarticle">
 
       <header>
-        {{ if $has_supertext }}<h1 class="title_supertext">{{ .Params.title_supertext }}</h1>{{ end }}
+        {{ if .Params.title_supertext }}<h1 class="title_supertext">{{ .Params.title_supertext }}</h1>{{ end }}
         <h1>{{ .Title }}</h1>
       </header>
 
@@ -60,7 +58,7 @@
       </div>
       {{ end }}
 
-      {{ if $toc }}
+      {{ if $display_toc }}
       <nav id="toc">
         <h2 class="title">Contents</h2>
         <div id="toc-wrapper">

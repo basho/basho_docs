@@ -12,7 +12,6 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/dev/references/protocol-buffers/get-bucket-type
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/get-bucket-type"
 ---
 
 Gets the bucket properties associated with a [bucket type](/riak/kv/2.0.2/using/cluster-operations/bucket-types).

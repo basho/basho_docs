@@ -10,7 +10,6 @@ menu:
     weight: 102
     parent: "setup_index"
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/setup/upgrading"
 ---
 
 [upgrade checklist]: ./checklist
@@ -39,11 +38,7 @@ General guide on rolling upgrades / updating to a new version of Riak KV.
 
 [Learn More >>][upgrade cluster]
 
-### [Upgrading Multi-Datacenter][upgrade mdc]
 
-Updating to a new version of Riak KV with Multi-Datacenter.
-
-[Learn More >>][upgrade mdc]
 
 ### [Upgrading Search from 1.x to 2.x][upgrade search]
 

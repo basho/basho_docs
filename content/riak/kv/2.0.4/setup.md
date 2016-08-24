@@ -10,13 +10,12 @@ menu:
     weight: 110
     pre: icon-install
 toc: false
-canonical_link: "https://docs.basho.com/riak/kv/latest/setup"
 ---
 
 [plan index]: ../setup/planning
 [install index]: ../setup/installing
 [upgrade index]: ../setup/upgrading
-[downgrade]: ../setup/upgrading/downgrade
+[downgrade]: ../setup/downgrade
 
 ## In This Section
 

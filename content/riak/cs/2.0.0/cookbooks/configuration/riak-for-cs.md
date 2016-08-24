@@ -78,7 +78,7 @@ to use the custom backend provided by Riak CS. We need to use either the
     ]},
 {riak_kv, [
     %% Other configs
-    {add_paths, ["/usr/lib/riak-cs/lib/riak_cs-{{VERSION}}/ebin"]},
+    {add_paths, ["/usr/lib/riak-cs/lib/riak_cs-2.0.0/ebin"]},
     {storage_backend, riak_cs_kv_multi_backend},
     {multi_backend_prefix_list, [{<<"0b:">>, be_blocks}]},
     {multi_backend_default, be_default},
@@ -100,7 +100,7 @@ to use the custom backend provided by Riak CS. We need to use either the
     ]},
 {riak_kv, [
     %% Other configs
-    {add_paths, ["/usr/lib/riak-cs/lib/riak_cs-{{VERSION}}/ebin"]},
+    {add_paths, ["/usr/lib/riak-cs/lib/riak_cs-2.0.0/ebin"]},
     {storage_backend, riak_cs_kv_multi_backend},
     {multi_backend_prefix_list, [{<<"0b:">>, be_blocks}]},
     {multi_backend_default, be_default},

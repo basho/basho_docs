@@ -6,7 +6,7 @@ $archive_name = "archived_docs.basho.com.tar.bz2"
 def do_fetch_archived_content()
   # Fetch and extract the archived content that we want to survive from the
   # Middleman website.
-  puts("Verifying archived content...")
+  puts("Verifying the archived tarball is present and correct...")
   # Verify that the tar.bz2 is present.
   if (not File.file?(File.join(Dir.pwd, "#{$archive_name}")))
     if (`which wget`.empty?)
@@ -57,31 +57,41 @@ def do_fetch_archived_content()
     end
   end
 
-  puts("Verifying archived content extraction...")
-  puts("    Please note, this only checks for directories.\n"\
-       "    If something went wrong with a previous extraction or if any "\
-       "of the extracted files were modified, please run \`git clean "\
-       "-xdf static/\` and re-run this deploy script.")
-  #TODO: Consider if this is a good idea or not. I'm leaning towards not.
-  should_extract = (
-    (not File.exist?("static/css/standalone")) ||
-    (not File.exist?("static/js/standalone"))  ||
-    (not File.exist?("static/riak"))           ||
-    (not File.exist?("static/riakcs"))         ||
-    (not File.exist?("static/riakee"))         ||
-    (not File.exist?("static/shared"))           )
-
-  if (should_extract)
+  puts("Verifying archived content extraction by checking direcotry tree...")
+  all_dirs_present = ( (File.exist?("static/css/standalone")) &&
+                       (File.exist?("static/js/standalone"))  &&
+                       (File.exist?("static/riak/1.4.12"))    &&
+                       (File.exist?("static/riakcs/1.5.4"))   &&
+                       (File.exist?("static/riakee"))         &&
+                       (File.exist?("static/shared"))           )
+  any_dirs_present = ( (File.exist?("static/css/standalone")) ||
+                       (File.exist?("static/js/standalone"))  ||
+                       (File.exist?("static/riak/1.4.12"))    ||
+                       (File.exist?("static/riakcs/1.5.4"))   ||
+                       (File.exist?("static/riakee"))         ||
+                       (File.exist?("static/shared"))           )
+  if (not all_dirs_present and any_dirs_present)
+    Kernel.abort("ERRPR: The static/ directory is verifiably corrupt.\n"\
+                 "       Please run \`git clean -xdf static/\` to clear out "\
+                 "the malformed files, and re-run this deploy script.")
+  elsif (not any_dirs_present)
     puts("Extracting #{$archive_name} (this may take a lot of time)...")
     successful = system("tar -xjf #{$archive_name} -C static")
-
     if (not successful)
       Kernel.abort("ERROR: #{$archive_name} failed to extract.\n"\
-                   "       I... actually don't know why. Not sure how to "\
-                   "extract error messages from this system call.")
+                   "       The failure message should have been printed to "\
+                   "stdout and be visible above.")
     end
+  else
+    puts("    Archived content directory tree verified.\n"\
+         "    NOTE: File integrity is NOT checked here.\n"\
+         "          As such, it is advisable to periodically clean out the "\
+         "static/ directory that this archive is extracted into.\n"\
+         "          To do so, please run \`git clean -xdf static/\`, and "\
+         "re-run this deploy script.")
   end
 end
+
 
 # Once the Hugo site has been fully and correctly generated, we can upload the
 # updated and new -- and delete the no longer generated -- files to/from our S3
@@ -275,6 +285,7 @@ def do_deploy()
         when ".css";  object_descriptor[:content_type] = "text/css"
         when ".js";   object_descriptor[:content_type] = "application/javascript"
         when ".xml";  object_descriptor[:content_type] = "application/xml"
+        when ".json";  object_descriptor[:content_type] = "application/json"
 
         when ".eot";  object_descriptor[:content_type] = "font/eot"
         when ".ttf";  object_descriptor[:content_type] = "font/ttf"
@@ -351,8 +362,11 @@ def do_deploy()
   # routing rule per project.
   routing_rules = []
   config_file['params']['project_descriptions'].each do |project, description|
-    path          = description['path']
-    archived_path = description['archived_path']
+    # These paths come with leading `/`s (which is correct), but the routing rules
+    # assume a relative path (which is also correct). To account for this, we
+    # strip the leading slashes here.
+    path          = description['path'][1..-1]
+    archived_path = description['archived_path'][1..-1]
     ver           = description['latest']
     routing_rules.push(
       {
@@ -385,7 +399,7 @@ def do_deploy()
   end
   #TODO: We need to implement some way of adding arbitrary routing rules. Maybe
   # add a section in config.yaml that's just a JSON string that we parse?
-  riak_path = config_file['params']['project_descriptions']['riak_kv']['path']
+  riak_path = config_file['params']['project_descriptions']['riak_kv']['path'][1..-1]
   riak_ver  = config_file['params']['project_descriptions']['riak_kv']['latest']
   routing_rules.push(
     {

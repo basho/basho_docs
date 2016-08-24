@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.4/ops/building/planning/system-planning
   - /riak/kv/2.0.4/ops/building/planning/system-planning
-canonical_link: "https://docs.basho.com/riak/kv/latest/setup/planning/start"
 ---
 
 [plan backend]: /riak/kv/2.0.4/setup/planning/backend

@@ -12,7 +12,6 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/dev/advanced/mapreduce/
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/app-guide/advanced-mapreduce"
 ---
 
 [usage 2i]: /riak/kv/2.0.2/developing/usage/secondary-indexes
@@ -517,11 +516,8 @@ atom `_`, which matches any tag. `Keep` has the same meaning as in map
 and reduce phases.
 
 
-<div class="info">
-There is a small group of prebuilt Erlang MapReduce functions available
-with Riak. Check them out [on
-GitHub](https://github.com/basho/riak_kv/blob/master/src/riak_kv_mapreduce.erl).
-</div>
+> There is a small group of prebuilt Erlang MapReduce functions available
+with Riak. Check them out [on GitHub](https://github.com/basho/riak_kv/blob/master/src/riak_kv_mapreduce.erl).
 
 ## Bigger Data Examples
 
@@ -730,10 +726,7 @@ You can use streaming with Erlang via the Riak local client or the
 Erlang Protocol Buffers API.  In either case, you will provide the call
 to `mapred_stream` with a `Pid` that will receive the streaming results.
 
-For examples, see:
-
-1. [MapReduce localstream.erl](/data/MapReduce-localstream.erl){{1.3.0-}}
-2. [MapReduce pbstream.erl](/data/MapReduce-pbstream.erl)
+For examples, see [MapReduce pbstream.erl](/data/MapReduceExamples/pbstream.erl)
 
 ## Troubleshooting MapReduce, illustrated
 

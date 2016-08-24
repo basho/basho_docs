@@ -10,7 +10,8 @@ menu:
     weight: 450
     pre: icon-tools
 toc: true
-canonical_link: "https://docs.basho.com/riak/ts/latest/add-ons"
+version_history:
+  in: "1.3.0+"
 ---
 
 Here at Basho, we've developed integrations between Riak TS and other best-of-breed components in your application stack. Each integration, called an add-on, is explained in this section, from installation to feature-set.

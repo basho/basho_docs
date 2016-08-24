@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.4/dev/references/protocol-buffers/secondary-indexes
   - /riak/kv/2.1.4/dev/references/protocol-buffers/secondary-indexes
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/secondary-indexes"
 ---
 
 Request a set of keys that match a secondary index query.
@@ -40,6 +39,8 @@ message RpbIndexReq {
     optional bytes type = 12;
     optional bytes term_regex = 13;
     optional bool pagination_sort = 14;
+    optional bytes cover_context = 15;
+    optional bool return_body = 16;
 }
 ```
 
@@ -65,6 +66,8 @@ Parameter | Description
 `type` | The bucket type of the bucket that is being queried. If not set, the bucket type `default` will be used. Learn more about [using bucket types](/riak/kv/2.1.4/developing/usage/bucket-types).
 `term_regex` | If set to a regular expression (as a binary), a term filter will be applied to the index query
 `pagination_sort` | If set to `true`, paginated results will be sorted, first by index value, then by key
+`cover_context` | Opaque binary used to target a vnode. Requested via [a coverage query][../coverage-queries/]
+`return_body` | Return values with keys. Only worked when using the system indexes `$bucket` or `$key`
 
 ## Response
 

@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.3/dev/references/protocol-buffers/delete-object
   - /riak/kv/2.1.3/dev/references/protocol-buffers/delete-object
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/delete-object"
 ---
 
 Delete an object in the specified [bucket type](/riak/kv/2.1.3/using/cluster-operations/bucket-types)/bucket/key location.
@@ -47,22 +46,15 @@ Parameter | Description |
 
 #### Optional Parameters
 
-<div class="note">
-<div class="title">Note on defaults and special values</div>
+{{% note title="Note on defaults and special values" %}}
 All of the optional parameters below have default values determined on a
-per-bucket basis. Please refer to the documentation on <a
-href="dev/references/protocol-buffers/set-bucket-props">setting bucket
-properties</a> for more information.
+per-bucket basis. Please refer to the documentation on [setting bucket properties](../set-bucket-props) for more information.
 
-Furthermore, you can assign an integer value to the <code>rw</code>,
-<code>r</code>, <code>w</code>, <code>pr</code>, <code>pw</code>, and
-<code>dw</code>, provided that that integer value is less than or equal
-to N, <em>or</em> a special value denoting <code>one</code>
-(<code>4294967295-1</code>), <code>quorum</code>
-(<code>4294967295-2</code>), <code>all</code>
-(<code>4294967295-3</code>), or <code>default</code>
-(<code>4294967295-4</code>).
-</div>
+Furthermore, you can assign an integer value to the `w`, `dw`, `pr`, and
+`pw`, provided that that integer value is less than or equal to N, _or_
+a special value denoting `one` (`4294967295-1`), `quorum`
+(`4294967295-2`), `all` (`4294967295-3`), or `default` (`4294967295-4`).
+{{% /note %}}
 
 Parameter | Description |
 :---------|:------------|

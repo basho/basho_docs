@@ -13,13 +13,12 @@ toc: true
 aliases:
   - /riak/2.0.6/dev/using/conflict-resolution
   - /riak/kv/2.0.6/dev/using/conflict-resolution
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage/conflict-resolution"
 ---
 
 [usage bucket types]: /riak/kv/2.0.6/developing/usage/bucket-types
 [use ref strong consistency]: /riak/2.1.3/using/reference/strong-consistency
 
-One of Riak's [central goals](/riak/kv/learn/why-riak-kv) is high availability. It was built as a [clustered](/riak/kv/2.0.6/learn/concepts/clusters) system in which any [node](/riak/kv/2.0.6/learn/glossary/#node) is capable of receiving requests without requiring that
+One of Riak's [central goals](../../../learn/why-riak-kv) is high availability. It was built as a [clustered](/riak/kv/2.0.6/learn/concepts/clusters) system in which any [node](/riak/kv/2.0.6/learn/glossary/#node) is capable of receiving requests without requiring that
 every node participate in each request.
 
 If you are using Riak in an [eventually consistent](/riak/kv/2.0.6/learn/concepts/eventual-consistency) way, conflicts between object values on different nodes is

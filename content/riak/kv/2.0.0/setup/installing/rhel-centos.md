@@ -16,7 +16,6 @@ aliases:
   - /riak/kv/2.0.0/ops/building/installing/Installing-on-RHEL-and-CentOS
   - /riak/2.0.0/installing/rhel-centos/
   - /riak/kv/2.0.0/installing/rhel-centos/
-canonical_link: "https://docs.basho.com/riak/kv/latest/setup/installing/rhel-centos"
 ---
 
 
@@ -46,10 +45,10 @@ docs](https://packagecloud.io/basho/riak/install).
 
 Platform-specific pages are linked below:
 
-* [el5](https://packagecloud.io/basho/riak/packages/el/5/riak-{{VERSION}}-1.x86_64.rpm)
-* [el6](https://packagecloud.io/basho/riak/packages/el/6/riak-{{VERSION}}-1.el6.x86_64.rpm)
-* [el7](https://packagecloud.io/basho/riak/packages/el/7/riak-{{VERSION}}-1.el7.centos.x86_64.rpm)
-* [Fedora 19](https://packagecloud.io/basho/riak/packages/fedora/19/riak-{{VERSION}}-1.fc19.x86_64.rpm)
+* [el5](https://packagecloud.io/basho/riak/packages/el/5/riak-2.0.0-1.x86_64.rpm)
+* [el6](https://packagecloud.io/basho/riak/packages/el/6/riak-2.0.0-1.el6.x86_64.rpm)
+* [el7](https://packagecloud.io/basho/riak/packages/el/7/riak-2.0.0-1.el7.centos.x86_64.rpm)
+* [Fedora 19](https://packagecloud.io/basho/riak/packages/fedora/19/riak-2.0.0-1.fc19.x86_64.rpm)
 
 Our documentation also includes instructions regarding signing keys and
 sources lists, which can be found in the section immediately below.
@@ -119,8 +118,8 @@ sudo yum install riak
 Or you can install the `.rpm` package manually:
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/rhel/5/riak-{{VERSION}}-1.el5.x86_64.rpm
-sudo rpm -Uvh riak-{{VERSION}}-1.el5.x86_64.rpm
+wget http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0/rhel/5/riak-2.0.0-1.el5.x86_64.rpm
+sudo rpm -Uvh riak-2.0.0-1.el5.x86_64.rpm
 ```
 
 ### For Centos 6 / RHEL 6
@@ -135,8 +134,8 @@ sudo yum install riak
 Or you can install the `.rpm` package manually:
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/rhel/6/riak-{{VERSION}}-1.el6.x86_64.rpm
-sudo rpm -Uvh riak-{{VERSION}}-1.el6.x86_64.rpm
+wget http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0/rhel/6/riak-2.0.0-1.el6.x86_64.rpm
+sudo rpm -Uvh riak-2.0.0-1.el6.x86_64.rpm
 ```
 
 ## Installing From Source
@@ -161,9 +160,9 @@ sudo yum install gcc gcc-c++ glibc-devel make git pam-devel
 Now we can download and install Riak:
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/riak-{{VERSION}}.tar.gz
-tar zxvf riak-{{VERSION}}.tar.gz
-cd riak-{{VERSION}}
+wget http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0/riak-2.0.0.tar.gz
+tar zxvf riak-2.0.0.tar.gz
+cd riak-2.0.0
 make rel
 ```
 

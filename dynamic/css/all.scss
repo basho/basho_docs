@@ -12,9 +12,7 @@
 @import "core.scss";            // The majority of our styles
                                 //TODO: Break apart core.scss into focused units
 //TODO: Review and refine the below
-//FIXME: This file contains font-faces that should possibly live in font.scss,
-//       And it DOES NOT include all of the style required for the version bar.
-@import "version-bar.scss";
+@import "version-selector.scss";
 @import "downloads.scss";
 @import "riak-index.scss";
 @import "navigation-sidebar.scss";

@@ -15,7 +15,6 @@ commercial_offering: true
 aliases:
   - /riak/2.0.7/ops/mdc/v3/ssl
   - /riak/kv/2.0.7/ops/mdc/v3/ssl
-canonical_link: "https://docs.basho.com/riak/kv/latest/configuring/v3-multi-datacenter/ssl"
 ---
 
 [config reference#advanced.config]: /riak/kv/2.0.7/configuring/reference/#the-advanced-config-file

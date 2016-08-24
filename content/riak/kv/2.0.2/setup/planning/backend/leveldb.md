@@ -12,7 +12,6 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/ops/advanced/backends/leveldb/
-canonical_link: "https://docs.basho.com/riak/kv/latest/setup/planning/backend/leveldb"
 ---
 
 [upgrade 2.0#upgrading-leveldB]: /

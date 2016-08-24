@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.3/ops/running/handoff/
   - /riak/kv/2.1.3/ops/running/handoff/
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/reference/handoff"
 ---
 
 [cluster ops handoff]: /riak/kv/2.1.3/using/cluster-operations/handoff

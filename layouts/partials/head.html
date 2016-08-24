@@ -1,17 +1,46 @@
+<!-- Variables
+     =========
+  The root layout should include the "common_variables.html" partial before
+  anything else. That file defines useful variables and adds them to the global
+  .Scratch dictionary, which can then be used to pull only the variables we need
+  into any given partial at any given scoping level.
+
+{{ $project              := .Scratch.Get "project"              }}
+{{ $version              := .Scratch.Get "version"              }}
+{{ $site_relative_url    := .Scratch.Get "site_relative_url"    }}
+{{ $version_path         := .Scratch.Get "version_path"         }}
+{{ $project_relative_url := .Scratch.Get "project_relative_url" }}
+{{ $canonical_link       := .Scratch.Get "canonical_link"       }}
+-->
 <head class="tutorials">
   <meta charset="utf-8">
   <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
   <meta name="viewport" content="width=device-width">
-  <meta name="project" content="{{ .Params.project }}">
-  <meta name="version" content="{{ .Params.project_version }}">
-  <meta name="base-url" content="/{{ .Scratch.Get "site_relative_url" }}">
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-  <link rel="canonical" href="{{ .Params.canonical_link }}" />
 
-  <title>{{ .Title }}</title>
+  <title>{{ if .Params.title_supertext }}{{ .Params.title_supertext }} {{ end }}{{ .Title }}</title>
+
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 
   <link href="/css/all.css" media="screen" rel="stylesheet" type="text/css">
   <link href="/css/print.css" media="print" rel="stylesheet" type="text/css">
+
+{{- if $canonical_link }}
+  <link rel="canonical" href="{{ $canonical_link }}" />{{end}}
+
+{{- if $project }}
+  <meta name="project" content="{{ $project }}">{{end}}
+{{- if $version }}
+  <meta name="version" content="{{ $version }}">{{end}}
+
+  <meta name="site_relative_url"    content='{{ $site_relative_url }}'>
+{{- if $version_path }}
+  <meta name="version_url"          content='{{ $version_path }}'>{{end}}
+  <meta name="project_relative_url" content='{{ $project_relative_url }}'>
+
+{{- if .Params.version_history.in }}
+  <meta name="version_history_in" content="{{ .Params.version_history.in }}">{{end}}
+{{- if .Params.version_history.locations }}
+  <meta name="version_history_locations" content="{{ .Params.version_history.locations | jsonify }}">{{end}}
 
   <!--
     Iff JavaScript is enabled, we want to hide all pre>code blocks so we can
