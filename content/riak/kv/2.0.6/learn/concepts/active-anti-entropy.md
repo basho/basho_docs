@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.6/theory/concepts/aae
   - /riak/kv/2.0.6/theory/concepts/aae
-canonical_link: "https://docs.basho.com/riak/kv/latest/learn/concepts/active-anti-entropy"
 ---
 
 [cluster ops v3 mdc]: /riak/kv/2.0.6/using/cluster-operations/v3-multi-datacenter

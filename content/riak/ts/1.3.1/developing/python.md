@@ -12,7 +12,6 @@ project_version: "1.3.1"
 toc: true
 aliases:
     - /riakts/1.3.1/developing/python/
-canonical_link: "https://docs.basho.com/riak/ts/latest/developing/python"
 ---
 
 
@@ -24,6 +23,10 @@ You can develop applications and tools using Riak TS with the Riak Python client
 To use Riak TS with the Python client, we've added 5 new operations to the `riak.client.RiakClient` object.
 
 The Riak TS API is only available through Protocol Buffers and not HTTP, so please set up your Python client accordingly.
+
+Language | Source | Documentation | Download
+:--------|:-------|:--------------|:--------
+Python | [riak-python-client](https://github.com/basho/riak-python-client) | [sphinx](http://basho.github.com/riak-python-client) | [PyPI](http://pypi.python.org/pypi?:action=display&name=riak#downloads)
 
 
 ## Prerequisites

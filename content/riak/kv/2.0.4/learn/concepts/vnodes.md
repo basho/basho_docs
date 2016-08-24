@@ -13,14 +13,13 @@ toc: true
 aliases:
   - /riak/2.0.4/theory/concepts/vnodes
   - /riak/kv/2.0.4/theory/concepts/vnodes
-canonical_link: "https://docs.basho.com/riak/kv/latest/learn/concepts/vnodes"
 ---
 
 
 [concept causal context]: /riak/kv/2.0.4/learn/concepts/causal-context
 [concept clusters ring]: /riak/kv/2.0.4/learn/concepts/clusters/#the-ring
 [concept replication]: /riak/kv/2.0.4/learn/concepts/replication
-[concept strong consistency]: /riak/kv/2.0.4/concepts/strong-consistency
+[concept strong consistency]: /riak/kv/2.0.4/learn/concepts/strong-consistency
 [glossary node]: /riak/kv/2.0.4/learn/glossary/#node
 [glossary ring]: /riak/kv/2.0.4/learn/glossary/#ring
 [perf strong consistency]: /riak/kv/2.0.4/using/performance/strong-consistency

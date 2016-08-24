@@ -12,7 +12,6 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/dev/advanced/replication-properties
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage/replication"
 ---
 
 [usage bucket types]: /riak/kv/2.0.2/developing/usage/bucket-types
@@ -542,7 +541,7 @@ set replication properties this way. For more detailed information,
 refer to the tutorial on [basic key/value operations in Riak KV](/riak/kv/2.0.2/developing/getting-started)
 or to client-specific documentation:
 
-* [Ruby](https://github.com/basho/riak-ruby-client/blob/master/README.markdown)
+* [Ruby](https://github.com/basho/riak-ruby-client/blob/master/README.md)
 * [Java](http://basho.github.io/riak-java-client/2.0.0/)
 * [Python](http://basho.github.io/riak-python-client/)
 * [Erlang](http://basho.github.io/riak-erlang-client/)

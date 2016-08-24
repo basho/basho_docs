@@ -16,7 +16,6 @@ aliases:
   - /riak/kv/2.1.4/ops/building/installing/Installing-on-Mac-OS-X
   - /riak/2.1.4/installing/mac-osx/
   - /riak/kv/2.1.4/installing/mac-osx/
-canonical_link: "https://docs.basho.com/riak/kv/latest/setup/installing/mac-osx"
 ---
 
 [perf open files]: /riak/kv/2.1.4/using/performance/open-files-limit
@@ -88,8 +87,7 @@ the Riak installation directory via environment variables.
 
 ## Installing From Source
 
-You must have Xcode tools installed from [Apple's Developer
-website](http://developer.apple.com/).
+You must have Xcode tools installed from [Apple's Developer website](https://developer.apple.com/).
 
 <div class="note">
 <div class="title">Note on Clang</div>

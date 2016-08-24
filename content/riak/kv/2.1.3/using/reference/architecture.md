@@ -11,7 +11,6 @@ project_version: "2.1.3"
 #    weight: 116
 #    parent: "managing_ref"
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/reference/architecture"
 ---
 
 <!-- TODO: Content -->

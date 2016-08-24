@@ -15,7 +15,6 @@ aliases:
   - /riak/kv/2.1.4/ops/building/installing/erlang
   - /riak/2.1.4/installing/source/erlang/
   - /riak/kv/2.1.4/installing/source/erlang/
-canonical_link: "https://docs.basho.com/riak/kv/latest/setup/installing/source/erlang"
 ---
 
 [install index]: /riak/kv/2.1.4/setup/installing
@@ -318,7 +317,7 @@ erl
 
 ## Installing on Debian/Ubuntu
 
-First make sure you have installed the necessary dependencies found in [Debian/Ubuntu Prerequisites](Debian-Ubuntu-Prerequisites).
+First make sure you have installed the necessary dependencies found in [Debian/Ubuntu Prerequisites](#debian-ubuntu-prerequisites).
 
 Next download [Basho's patched version of Erlang](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho8.tar.gz).
 

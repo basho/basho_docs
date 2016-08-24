@@ -1,88 +1,97 @@
 ###########################
 # Deploy rules and helpers
 
+$archive_name = "archived_docs.basho.com.tar.bz2"
+
 def do_fetch_archived_content()
   # Fetch and extract the archived content that we want to survive from the
   # Middleman website.
-  puts("Verifying archived content...")
+  puts("Verifying the archived tarball is present and correct...")
   # Verify that the tar.bz2 is present.
-  if (not File.file?(File.join(Dir.pwd, "archived_docs.basho.com.tar.bz2")))
+  if (not File.file?(File.join(Dir.pwd, "#{$archive_name}")))
     if (`which wget`.empty?)
       # If we don't have wget. Error out.
-      Kernel.abort("ERROR: archived_docs.basho.com.tar.bz2 was not found, "\
-                   "and this system doesn't have access to `wget`.\n"\
+      Kernel.abort("ERROR: #{$archive_name} was not found, and this system "\
+                   "does not have access to `wget`.\n"\
                    "       Please either install `wget` and re-run this "\
                    "deploy, or manually download the file from the below "\
                    "address and place it into this directory.\n"\
-                   "    http://s3.amazonaws.com/downloads.basho.com/documentation_content/archived_docs.basho.com.tar.bz2")
+                   "    http://s3.amazonaws.com/downloads.basho.com/documentation_content/#{$archive_name}")
     else
       # We have wget, but not the file. Fetch it.
-      puts("  Using wget to fetch archived_docs.basho.com.tar.bz2 "\
+      puts("  Using wget to fetch #{$archive_name} "\
            "(this may take some time)...")
-      successful = system('wget http://s3.amazonaws.com/downloads.basho.com/documentation_content/archived_docs.basho.com.tar.bz2')
+      successful = system("wget http://s3.amazonaws.com/downloads.basho.com/documentation_content/#{$archive_name}")
+
       if (not successful)
-        Kernel.abort("ERROR: Failed to get archived_docs.basho.com.tar.bz2\n"\
+        Kernel.abort("ERROR: Failed to get #{$archive_name}\n"\
                      "       Please download the file from the below "\
                      "address and copy it into this directory.\n"\
-                     "    http://s3.amazonaws.com/downloads.basho.com/documentation_content/archived_docs.basho.com.tar.bz2")
+                     "    http://s3.amazonaws.com/downloads.basho.com/documentation_content/#{$archive_name}")
       end
     end
   end
 
   # Verify the file is correct via an md5sum, unless NO_CHECK has been set
   if (ENV['NO_CHECK'] == "True")
-    puts("  Skipping archived_docs.basho.com.tar.bz2 sha1 check. Good luck.")
+    puts("  Skipping #{$archive_name} sha1 check. Good luck.")
   else
     if (`which md5sum`.empty?)
       # We don't have md5sum, and we want to perform a check. Error out.
       Kernel.abort("ERROR: This system does not have `md5sum`, so the "\
-                   "contents of archived_docs.basho.com.tar.bz2 cannot be "\
-                   "verified.\n"\
+                   "contents of #{$archive_name} cannot be verified.\n"\
                    "       Please install the md5sum tool (possibly named "\
                    "md5sha1sum).\n"\
                    "       You may also re-run this script after running "\
                    "`export NO_CHECK=\"True\"`, but it is **highly "\
                    "recommended** that you install `md5sum` instead.")
     end
-    web_md5 = Net::HTTP.get('s3.amazonaws.com', '/downloads.basho.com/documentation_content/archived_docs.basho.com.tar.bz2.md5').split(" ")[0]
-    loc_md5 = `md5sum archived_docs.basho.com.tar.bz2`.split(" ")[0]
+    web_md5 = Net::HTTP.get("s3.amazonaws.com", "/downloads.basho.com/documentation_content/#{$archive_name}.md5").split(" ")[0]
+    loc_md5 = `md5sum #{$archive_name}`.split(" ")[0]
     if (web_md5 != loc_md5)
-      Kernel.abort("ERROR: Fetch archived_docs.basho.com.tar.bz2 does not "\
-                   "match the expected md5sum.\n"\
-                   "       Please remove the current "\
-                   "archived_docs.basho.com.tar.bz2, reset the contents of "\
-                   "the static/ directory (`git clean -xdf static; git "\
-                   "checkout -f static`), and re-run this script.")
+      Kernel.abort("ERROR: Fetched #{$archive_name} does not match the "\
+                   "expected md5sum.\n"\
+                   "       Please remove the current #{$archive_name}, reset "\
+                   "the contents of the static/ directory (`git clean -xdf "\
+                   "static; git checkout -f static`), and re-run this script.")
     end
   end
 
-  puts("Verifying archived content extraction...")
-  puts("    Please note, this only checks for directories.\n"\
-       "    If something went wrong with a previous extraction or if any "\
-       "of the extracted files were modified, please run \`git clean "\
-       "-xdf static/\` and re-run this deploy script.")
-  #TODO: Consider if this is a good idea or not. I'm leaning towards not.
-  should_extract = (
-    (not File.exist?("static/css/standalone")) ||
-    (not File.exist?("static/js/standalone"))  ||
-    (not File.exist?("static/riak"))           ||
-    (not File.exist?("static/riakcs"))         ||
-    (not File.exist?("static/riakee"))         ||
-    (not File.exist?("static/shared"))           )
-
-  if (should_extract)
-    puts("Extracting archived_docs.basho.com.tar.bz2 (this may take a lot "\
-         "of time)...")
-    successful = system('tar -xjf archived_docs.basho.com.tar.bz2 -C static')
-
+  puts("Verifying archived content extraction by checking direcotry tree...")
+  all_dirs_present = ( (File.exist?("static/css/standalone")) &&
+                       (File.exist?("static/js/standalone"))  &&
+                       (File.exist?("static/riak/1.4.12"))    &&
+                       (File.exist?("static/riakcs/1.5.4"))   &&
+                       (File.exist?("static/riakee"))         &&
+                       (File.exist?("static/shared"))           )
+  any_dirs_present = ( (File.exist?("static/css/standalone")) ||
+                       (File.exist?("static/js/standalone"))  ||
+                       (File.exist?("static/riak/1.4.12"))    ||
+                       (File.exist?("static/riakcs/1.5.4"))   ||
+                       (File.exist?("static/riakee"))         ||
+                       (File.exist?("static/shared"))           )
+  if (not all_dirs_present and any_dirs_present)
+    Kernel.abort("ERRPR: The static/ directory is verifiably corrupt.\n"\
+                 "       Please run \`git clean -xdf static/\` to clear out "\
+                 "the malformed files, and re-run this deploy script.")
+  elsif (not any_dirs_present)
+    puts("Extracting #{$archive_name} (this may take a lot of time)...")
+    successful = system("tar -xjf #{$archive_name} -C static")
     if (not successful)
-      Kernel.abort("ERROR: archived_docs.basho.com.tar.bz2 failed to "\
-                   "extract.\n"\
-                   "       I... actually don't know why. Not sure how to "\
-                   "extract error messages from this system call.")
+      Kernel.abort("ERROR: #{$archive_name} failed to extract.\n"\
+                   "       The failure message should have been printed to "\
+                   "stdout and be visible above.")
     end
+  else
+    puts("    Archived content directory tree verified.\n"\
+         "    NOTE: File integrity is NOT checked here.\n"\
+         "          As such, it is advisable to periodically clean out the "\
+         "static/ directory that this archive is extracted into.\n"\
+         "          To do so, please run \`git clean -xdf static/\`, and "\
+         "re-run this deploy script.")
   end
 end
+
 
 # Once the Hugo site has been fully and correctly generated, we can upload the
 # updated and new -- and delete the no longer generated -- files to/from our S3
@@ -270,8 +279,30 @@ def do_deploy()
         body: File.open(obj_path),
         acl: "public-read"
       }
-      #TODO: Add additional file_ext -> ContentType detection.
-      object_descriptor[:content_type] = "text/html" if object_ext == ".html"
+      case object_ext
+        when ".html"; object_descriptor[:content_type] = "text/html"
+        when ".txt";  object_descriptor[:content_type] = "text/plain"
+        when ".css";  object_descriptor[:content_type] = "text/css"
+        when ".js";   object_descriptor[:content_type] = "application/javascript"
+        when ".xml";  object_descriptor[:content_type] = "application/xml"
+        when ".json";  object_descriptor[:content_type] = "application/json"
+
+        when ".eot";  object_descriptor[:content_type] = "font/eot"
+        when ".ttf";  object_descriptor[:content_type] = "font/ttf"
+        when ".svg";  object_descriptor[:content_type] = "image/svg+xml"
+        when ".woff"; object_descriptor[:content_type] = "application/font-woff"
+
+        when ".gif";  object_descriptor[:content_type] = "image/gif"
+        when ".jpg";  object_descriptor[:content_type] = "image/jpeg"
+        when ".jpeg"; object_descriptor[:content_type] = "image/jpeg"
+        when ".png";  object_descriptor[:content_type] = "image/png"
+        when ".ico";  object_descriptor[:content_type] = "image/x-icon"
+        when ".pdf";  object_descriptor[:content_type] = "application/pdf"
+
+        # when ".eps";     object_descriptor[:content_type] = ""
+        # when ".graffle"; object_descriptor[:content_type] = ""
+        # when ".logo";    object_descriptor[:content_type] = ""
+      end
       #TODO: Error checking.
       aws_bucket.put_object(object_descriptor)
       progress.inc
@@ -331,8 +362,11 @@ def do_deploy()
   # routing rule per project.
   routing_rules = []
   config_file['params']['project_descriptions'].each do |project, description|
-    path          = description['path']
-    archived_path = description['archived_path']
+    # These paths come with leading `/`s (which is correct), but the routing rules
+    # assume a relative path (which is also correct). To account for this, we
+    # strip the leading slashes here.
+    path          = description['path'][1..-1]
+    archived_path = description['archived_path'][1..-1]
     ver           = description['latest']
     routing_rules.push(
       {
@@ -365,7 +399,7 @@ def do_deploy()
   end
   #TODO: We need to implement some way of adding arbitrary routing rules. Maybe
   # add a section in config.yaml that's just a JSON string that we parse?
-  riak_path = config_file['params']['project_descriptions']['riak_kv']['path']
+  riak_path = config_file['params']['project_descriptions']['riak_kv']['path'][1..-1]
   riak_ver  = config_file['params']['project_descriptions']['riak_kv']['latest']
   routing_rules.push(
     {
@@ -424,7 +458,8 @@ def do_deploy()
   aws_bucket.put_object({
     acl: "public-read-write",
     key: "last_deployed_time.txt",
-    body: "#{Time.new.utc} -- #{`git rev-parse HEAD`[0..6]}"
+    body: "#{Time.new.utc} -- #{`git rev-parse HEAD`[0..6]}",
+    content_type: "text/plain"
   })
 
 

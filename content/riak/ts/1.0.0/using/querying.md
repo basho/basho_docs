@@ -12,7 +12,6 @@ project_version: "1.0.0"
 toc: true
 aliases:
     - /riakts/1.0.0/using/querying/
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying"
 ---
 
 
@@ -250,7 +249,7 @@ The following operators are supported for each data type:
 
 #### Quanta query range
 
-A query covering more than a certain number of quanta (5 by default) will generate too many sub-queries and the query system will refuse to run it. Assuming a default quanta of 15 minutes, the maximum query time range is 75 minutes. 
+A query covering more than a certain number of quanta (5 by default) will generate the error `too_many_subqueries` and the query system will refuse to run it. Assuming a default quanta of 15 minutes, the maximum query time range is 75 minutes. 
 
 In the below example we set a quanta of 15s:
 

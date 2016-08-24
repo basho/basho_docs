@@ -10,9 +10,10 @@ menu:
 project: "riak_ts"
 project_version: "1.3.1"
 toc: true
+version_history:
+  in: "1.3.0+"
 aliases:
     - /riakts/1.3.1/developing/csharp/
-canonical_link: "https://docs.basho.com/riak/ts/latest/developing/csharp"
 ---
 
 
@@ -23,6 +24,10 @@ This document covers the .NET API for Riak TS.
 ## Overview
 
 The `RiakClient.Commands.TS` namespace covers the public API for Riak TS in the .NET client.
+
+Language | Source | Documentation | Download
+:--------|:-------|:--------------|:--------
+C# | [riak-dotnet-client](https://github.com/basho/riak-dotnet-client) | [api docs](http://basho.github.io/riak-dotnet-client-api/), [wiki](https://github.com/basho/riak-dotnet-client/wiki) | [NuGet package](http://www.nuget.org/List/Packages/RiakClient), [GitHub Releases](https://github.com/basho/riak-dotnet-client/releases)
 
 
 ## Data Types

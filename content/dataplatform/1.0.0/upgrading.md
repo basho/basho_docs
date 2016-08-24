@@ -10,7 +10,6 @@ menu:
     weight: 102
     parent: "index"
 toc: true
-canonical_link: "https://docs.basho.com/dataplatform/latest/upgrading/"
 ---
 
 > **NOTE:**

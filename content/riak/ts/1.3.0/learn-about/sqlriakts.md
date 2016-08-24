@@ -12,7 +12,6 @@ project_version: "1.3.0"
 toc: true
 aliases:
     - /riakts/1.3.0/learn-about/sqlriakts
-canonical_link: "https://docs.basho.com/riak/ts/latest/learn-about/sqlriakts"
 ---
 
 
@@ -92,4 +91,3 @@ And we send the query to Riak TS. Once the query is sent to Riak TS the followin
 7. Each partition loops over its data, matching rows against the filter.
 8. The partitions then send their matched rows back to the planner.
 9. The planner then collects the matched rows and returns them to you.
-1.3.0

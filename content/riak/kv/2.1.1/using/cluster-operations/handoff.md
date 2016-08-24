@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.1/ops/running/handoff
   - /riak/kv/2.1.1/ops/running/handoff
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/cluster-operations/handoff"
 ---
 
 Riak KV provides a command-line interface for enabling and disabling handoff on the fly, without needing to set your configuration and restart the node. To
@@ -90,7 +89,7 @@ Header | Description
 `Total` | Total number of active transfers throughout the entire cluster
 `Ownership` | Total number of ownership exchanges
 `Resize` | Total handoffs related to ring resizing operations (This should always be 0, as the Resize Ring feature has been deprecated)
-`Hinted` | Total number of <a href="ops/running/handoff#types-of-handoff">hinted handoffs</a>
+`Hinted` | Total number of [hinted handoffs](../../reference/handoff#types-of-handoff)
 `Repair` | Total repair-related handoffs. More information can be found [here](https://github.com/basho/riak_core/commit/036e409eb83903315dd43a37c7a93c9256863807).
 
 ### details

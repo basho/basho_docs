@@ -10,7 +10,6 @@ menu:
     weight: 201
     pre: icon-database
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/using"
 ---
 
 [use running cluster]: ../using/running-a-cluster

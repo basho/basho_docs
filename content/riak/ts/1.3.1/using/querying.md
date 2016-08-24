@@ -12,7 +12,6 @@ project_version: "1.3.1"
 toc: true
 aliases:
     - /riakts/1.3.1/using/querying/
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying"
 ---
 
 
@@ -40,11 +39,11 @@ PRIMARY KEY  ((a, QUANTUM(b, 1, 's'))<-Partition Key, a,b,c)<-Local Key)
 
 ### Partition Key
 
-All queries must cover the partition key.
+All queries must cover the partition key fields and must use greater than and less than (>, >=, <, <=).
 
-The query must use greater than and less than (>, >=, <, <=).
+All unquantized fields in your partition key must be included in the query as exact matches.
 
-The timestamp in the partition key is an integer (in milliseconds) that must be compared either as a fully-enclosed range or as an exact match.
+Any quantized field in your partition key must be included in the query as either an exact match or a bounded range.
 
 * Valid: `time > 1449864277000 and time < 1449864290000`
 * Invalid: `time > 1449864277000`
@@ -53,7 +52,9 @@ The timestamp in the partition key is an integer (in milliseconds) that must be 
 
 ### Local Key
 
-Column names that are in the local key but not in the partition key are not required for the query.
+For any field in the local key that is not in the partition key, your
+query can include any operator supported for that field's type and
+bounded ranges are not required.
 
 ```
 PRIMARY KEY ((a,b),a,b,c)
@@ -329,7 +330,7 @@ The following operators are supported for each data type:
 
 #### Quanta query range
 
-A query covering more than a certain number of quanta (5 by default) will generate too many sub-queries and the query system will refuse to run it. Assuming a default quantum of 15 minutes, the maximum query time range is 75 minutes.
+A query covering more than a certain number of quanta (5 by default) will generate the error `too_many_subqueries` and the query system will refuse to run it. Assuming a default quantum of 15 minutes, the maximum query time range is 75 minutes.
 
 In the below example we set a quantum of 15s:
 

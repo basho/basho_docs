@@ -11,7 +11,8 @@ menu:
     weight: 106
     parent: "spark_riak_usage"
 toc: true
-canonical_link: "https://docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage/range-query-partition"
+version_history:
+  in: "1.3.0+"
 ---
 
 Riak TS range queries are limited to a maximum of 5 quanta (see [Querying Data in Riak TS](http://docs.basho.com/riakts/latest/using/querying/)). To work around this limitation or simply achieve higher read performance, large ranges can be split into smaller sub-ranges at partitioning time.

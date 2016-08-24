@@ -1,51 +1,56 @@
-<!-- Note on Design:
-     --------------
-  All Hugo Template blocks are going to be wrapped in these multi-line HTML
-  comments so the compiled source might be a bit prettier to look at; if
-  unwrapped, every Go call will get its own newline, and add an incredible
-  amount of padding to the source.
--->
-<!-- Site-wide Variables.
-     -------------------
-  The interesting ones are getting stored in `.Scratch` so they're accessible in
-  other scopes (e.g. partials).
+<!-- Site-wide Variables for Primary Content Pages
+     =============================================
+  Because of the way Go templates (and therefor Hugo) deal with scope, we're
+  going to extract and/or define a number of common variables here and save them
+  in the global `.Scratch` dictionary. This will allow us to extract common
+  variables across partial templates from a single canonical source.
 
-{{ $project := .Params.project }}
-{{ $version := .Params.project_version }}
+  Note that the below definitions make assumptions about the Front Matter
+  provided by the markdown content being rendered, and specifically that the
+  page being rendered is a primary content page. Please see the CONTRIBUTING.md
+  document for details on the Front Matter required for a well-formed page.
+
+
+{{ $project        := .Params.project         }} {{/* ex; riak_kv */}}
+{{ $version        := .Params.project_version }} {{/* ex; 2.1.4   */}}
+
+{{ $display_toc         := (index .Params "toc")                 | default true  }}
+{{ $commercial_offering := (index .Params "commercial_offering") | default false }}
+{{ $canonical_link      := (index .Params "canonical_link")      | default (replace .Permalink $version "latest") }}
+
+
 {{ $project_decription := (index .Site.Params.project_descriptions $project) }}
-{{ $latest_version     := $project_decription.latest }}
-{{ $lts_version        := $project_decription.lts }}
-{{ $project_path       := $project_decription.path }}
-{{ $releases           := $project_decription.releases }}
-{{ $archived_url       := $project_decription.archived_url }}
-{{ $site_relative_url := (replace .Permalink .Site.BaseURL "") }}
-{{ $relative_url      := (replace $site_relative_url (printf "%s/%s/" (index $project_decription "path") $version) "") }}
-{{ $is_latest := (eq $version $latest_version) }}
-{{ $is_lts    := (eq $version $lts_version) }}
 
-{{ .Scratch.Add "project"            $project }}
-{{ .Scratch.Add "version"            $version }}
-{{ .Scratch.Add "latest_version"     $latest_version  }}
-{{ .Scratch.Add "lts_version"        $lts_version  }}
-{{ .Scratch.Add "project_path"       $project_path }}
-{{ .Scratch.Add "releases"           $releases }}
-{{ .Scratch.Add "site_relative_url"  $site_relative_url }}
-{{ .Scratch.Add "relative_url"       $relative_url }}
-{{ .Scratch.Add "archived_url"       $archived_url }}
-{{ .Scratch.Add "is_latest"          $is_latest }}
-{{ .Scratch.Add "is_lts"             $is_lts }}
+{{ $latest_version     := $project_decription.latest              }} {{/* ex; 2.1.4          */}}
+{{ $is_latest          := (eq $version $latest_version)           }} {{/* ex; true           */}}
+{{ $lts_version        := $project_decription.lts                 }} {{/* ex; 2.0.6          */}}
+{{ $is_lts             := (eq $version $lts_version)              }} {{/* ex; false          */}}
+{{ $project_path       := $project_decription.path                }} {{/* ex; /riak/kv       */}}
+{{ $version_path       := (printf "%s/%s" $project_path $version) }} {{/* ex; /riak/kv/2.1.4 */}}
+{{ $releases           := $project_decription.releases            }} {{/* ex; [[2.0.0, 2.0.1, ...], [2.1.0, 2.1.2, ...]] */}}
+{{ $archived_url       := $project_decription.archived_url        }} {{/* ex; http://docs.basho.com/riak/1.4.12/         */}}
 
-# TOC should default to `true`
-{{ if isset .Params "toc" }}
-  {{ .Scratch.Add "toc" .Params.toc }}
-{{ else }}
-  {{ .Scratch.Add "toc" true }}
-{{ end }}
+{{/* Note that we're using `(replace str sub_str "")` to remove `sub_str`
+   * from `str` in the below calls. */}}
+{{ $site_relative_url    := (printf "/%s" (replace .Permalink .Site.BaseURL ""))         }} {{/* ex; /riak/kv/2.1.4/introduction/ */}}
+{{ $project_relative_url := (replace $site_relative_url (printf "%s/" $version_path) "") }} {{/* ex; introduction/                */}}
 
-# Commercial Offering should default to false
-{{ if isset .Params "commercial_offering" }}
-  {{ .Scratch.Add "commercial_offering" .Params.commercial_offering }}
-{{ else }}
-  {{ .Scratch.Add "commercial_offering" false }}
-{{ end }}
+
+
+{{ .Scratch.Add "project"              $project              }}
+{{ .Scratch.Add "version"              $version              }}
+{{ .Scratch.Add "display_toc"          $display_toc          }}
+{{ .Scratch.Add "commercial_offering"  $commercial_offering  }}
+{{ .Scratch.Add "canonical_link"       $canonical_link       }}
+{{ .Scratch.Add "latest_version"       $latest_version       }}
+{{ .Scratch.Add "is_latest"            $is_latest            }}
+{{ .Scratch.Add "lts_version"          $lts_version          }}
+{{ .Scratch.Add "is_lts"               $is_lts               }}
+{{ .Scratch.Add "project_path"         $project_path         }}
+{{ .Scratch.Add "version_path"         $version_path         }}
+{{ .Scratch.Add "releases"             $releases             }}
+{{ .Scratch.Add "archived_url"         $archived_url         }}
+{{ .Scratch.Add "site_relative_url"    $site_relative_url    }}
+{{ .Scratch.Add "project_relative_url" $project_relative_url }}
+
 -->

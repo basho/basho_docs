@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.1/dev/taste-of-riak/ruby
   - /riak/kv/2.1.1/dev/taste-of-riak/ruby
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/ruby"
 ---
 
 

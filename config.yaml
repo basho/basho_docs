@@ -25,50 +25,81 @@ publishdir: "public"
 params:
   # Project Descriptions
   # ====================
-  # The below `project_descriptions` map should contain elements in the form,
+  # These description elements lay out the what and where of projects, detailing
+  # the name of the project, the version history (as far as the contemporary
+  # docs are concerned), and the past and present location of the given project.
   #
-  #     <<project_name>>:  // Project name, corresponds to `project:` content frontmater
-  #       path: "<<path>>" // Path to the project's version directories
-  #       releases:        // List (release series) of lists (versions in that series).
-  #         - ["<<version>>", "<<version>>", ...],
-  #         - ["<<version>>", "<<version>>", ...],
-  #       latest:       "<<version>>" // Current development version
-  #       lts:          "<<version>>" // *Optional*: Current LTS version
-  #       archived_url: "<<URI>>"     // *Optional*: URL directing to un-maintained content
+  # These structures are somewhat frustrating, as we want to expose them to both
+  # the Hugo generation logic, and live pages at load-time. This entails
+  # duplicating the information both here (or in the data/ directory) for Hugo,
+  # and somewhere in static/ to be read by the live pages. Assuming we don't
+  # want to repeat ourselves and manually edit multiple files when updating this
+  # information -- which we don't -- this will require us to use the below data
+  # as a Source of Truth, and copy it out of this file.  
+  # The way we do that is with `rake generate_versions_metadata`.
+  #
+  # The map should contain elements in the form,
+  #
+  #    <project_name>:                          /* 1 */
+  #      path: "<path>"                         /* 2 */
+  #      archived_path: "<path>"
+  #      releases:                              /* 3 */
+  #        - ["<version>", "<version>", ...]
+  #        - ["<version>", "<version>", ...]
+  #      latest:        "<version>"             /* 4 */
+  #      lts:           "<version>"
+  #      archived_url:  "<URI>"                 /* 5 */
+  #
+  # 1. The project name must match some contents' `project:` front matter
+  # 2. The `path` is the on-disk relative path from the content root. In Hugo,
+  #    the content root is '/content/', on S3 the root is simply '/'.
+  #    If the project was moved from the Middleman site to Hugo, the
+  #    `archived_path` is the on-disk relative path of the previous directory.
+  #    TODO: `archived_path` should probably be optional. I don't believe it
+  #           currently is.
+  # 3. The `releases` list-of-lists is organized oldest to newest, grouped by
+  #    release set (ex. the 2.0.* series is one list, followed b the 2.1.*
+  #    series).
+  # 4. `latest` and `lts` versions are the current head-of-development and long-
+  #    term-support releases respectively. `lts` is optional.
+  #    TODO: These should probably be release sets, not a specific version.
+  # 5. If the project was moved from the Middleman site to Hugo, the
+  #    `archived_url` is the URL to the newest deprecated page.
+  #    This option is optional.
   project_descriptions:
     riak_kv:
-      path: "riak/kv"
+      path: "/riak/kv"
+      archived_path: "/riak"
       releases:
         - ["2.0.0", "2.0.1", "2.0.2", "2.0.4", "2.0.5", "2.0.6", "2.0.7"]
         - ["2.1.1", "2.1.3", "2.1.4"]
       latest: "2.1.4"
       lts: "2.0.7"
       archived_url: "http://docs.basho.com/riak/1.4.12/"
-      archived_path: "riak"
     riak_cs:
-      path: "riak/cs"
+      path: "/riak/cs"
+      archived_path: "/riakcs"
       releases:
         - ["2.0.0", "2.0.1"]
         - ["2.1.0", "2.1.1"]
       latest: "2.1.1"
       lts: "2.0.1"
       archived_url: "http://docs.basho.com/riakcs/1.5.4/"
-      archived_path: "riakcs"
     riak_ts:
-      path: "riak/ts"
+      path: "/riak/ts"
+      archived_path: "/riakts"
       latest: "1.3.1"
       releases:
         - ["1.0.0"]
         - ["1.1.0"]
         - ["1.2.0"]
         - ["1.3.0", "1.3.1"]
-      archived_path: "riakts"
     dataplatform:
-      path: "dataplatform"
+      path: "/dataplatform"
+      archived_path: "/dataplatform"
       latest: "1.0.0"
       releases:
         - ["1.0.0"]
-      archived_path: "dataplatform"
 ---
 
 

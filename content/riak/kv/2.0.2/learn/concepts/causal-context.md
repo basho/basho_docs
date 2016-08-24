@@ -12,7 +12,6 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/theory/concepts/context
-canonical_link: "https://docs.basho.com/riak/kv/latest/learn/concepts/causal-context"
 ---
 
 

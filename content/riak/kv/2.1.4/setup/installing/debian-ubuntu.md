@@ -16,7 +16,6 @@ aliases:
   - /riak/kv/2.1.4/ops/building/installing/Installing-on-Debian-and-Ubuntu
   - /riak/2.1.4/installing/debian-ubuntu/
   - /riak/kv/2.1.4/installing/debian-ubuntu/
-canonical_link: "https://docs.basho.com/riak/kv/latest/setup/installing/debian-ubuntu"
 ---
 
 [install source index]: /riak/kv/2.1.4/setup/installing/source/
@@ -42,7 +41,7 @@ installation, Chef, and Puppet can be found in packagecloud's
 Platform-specific pages are linked below:
 
 * [Lucid](https://packagecloud.io/basho/riak/packages/ubuntu/lucid/riak_2.1.4-1_amd64.deb)
-* [Precise](https://packagecloud.io/basho/riak/packages/ubuntu/precise/riak_2.1.4-1_amd64.deb)
+* [Precise](https://packagecloud.io/basho/riak/packages/ubuntu/precise/riak_2.1.4-2_amd64.deb)
 * [Squeeze](https://packagecloud.io/basho/riak/packages/debian/squeeze/riak_2.1.4-1_amd64.deb)
 * [Trusty](https://packagecloud.io/basho/riak/packages/ubuntu/trusty/riak_2.1.4-1_amd64.deb)
 * [Wheezy](https://packagecloud.io/basho/riak/packages/debian/wheezy/riak_2.1.4-1_amd64.deb)

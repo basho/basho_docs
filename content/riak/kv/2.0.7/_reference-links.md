@@ -58,7 +58,7 @@
 [upgrade version]: /riak/kv/2.0.7/setup/upgrading/version
 [upgrade cluster]: /riak/kv/2.0.7/setup/upgrading/cluster
 [upgrade mdc]: /riak/kv/2.0.7/setup/upgrading/multi-datacenter
-[upgrade downgrade]: /riak/kv/2.0.7/setup/upgrading/downgrade
+[upgrade downgrade]: /riak/kv/2.0.7/setup/downgrade
 
 
 ## Configuring
@@ -99,7 +99,7 @@
 [use ref search]: /riak/kv/2.0.7/using/reference/search
 [use ref 2i]: /riak/kv/2.0.7/using/reference/secondary-indexes
 [use ref snmp]: /riak/kv/2.0.7/using/reference/snmp
-[use ref strong consistency]: /riak/2.1.3/using/reference/strong-consistency
+[use ref strong consistency]: /riak/kv/2.0.7/using/reference/strong-consistency
 [use ref jmx]: /riak/kv/2.0.7/using/reference/jmx
 [use ref obj del]: /riak/kv/2.0.7/using/reference/object-deletion/
 [use ref v3 mdc]: /riak/kv/2.0.7/using/reference/v3-multi-datacenter

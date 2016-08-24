@@ -14,7 +14,6 @@ aliases:
   - /riak/kv/2.1.4/theory/comparisons/mongodb/
   - /riak/kv/2.1.4/theory/comparisons/
   - /riak/kv/2.1.4/keywords/mongodb/
-canonical_link: "https://docs.basho.com/riak/kv/latest/learn"
 ---
 
 [learn why riak]: ./why-riak-kv/

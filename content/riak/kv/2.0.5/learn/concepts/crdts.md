@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.5/theory/concepts/crdts
   - /riak/kv/2.0.5/theory/concepts/crdts
-canonical_link: "https://docs.basho.com/riak/kv/latest/learn/concepts/crdts"
 ---
 
 
@@ -21,7 +20,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/learn/concepts/crdts"
 [concept causal context sib]: /riak/kv/2.0.5/learn/concepts/causal-context/#siblings
 [concept causal context vc]: /riak/kv/2.0.5/learn/concepts/causal-context/#vector-clocks
 [concept eventual consistency]: /riak/kv/2.0.5/learn/concepts/eventual-consistency
-[concept strong consistency]: /riak/kv/2.0.5/concepts/strong-consistency
+[concept strong consistency]: /riak/kv/2.0.5/learn/concepts/strong-consistency
 [dev data types]: /riak/kv/2.0.5/developing/data-types
 [glossary node]: /riak/kv/2.0.5/learn/glossary/#node
 [glossary vnode]: /riak/kv/2.0.5/learn/glossary/#vnode

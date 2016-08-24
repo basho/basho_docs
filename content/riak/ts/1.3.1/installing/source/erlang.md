@@ -10,7 +10,8 @@ menu:
 project: "riak_ts"
 project_version: "1.3.1"
 toc: true
-canonical_link: "https://docs.basho.com/riak/ts/latest/installing/source/erlang"
+version_history:
+  in: "1.3.0+"
 ---
 
 

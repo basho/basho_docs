@@ -4,7 +4,6 @@ description: ""
 project: "riak_kv"
 project_version: "2.1.1"
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/code-blocks-test"
 ---
 
 ## All Languages

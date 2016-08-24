@@ -12,7 +12,6 @@ project_version: "1.1.0"
 toc: true
 aliases:
     - /riakts/1.1.0/installing/debian-ubuntu/
-canonical_link: "https://docs.basho.com/riak/ts/latest/installing/debian-ubuntu"
 ---
 
 [concept aae]: /riak/kv/2.1.3/learn/concepts/active-anti-entropy
@@ -24,6 +23,10 @@ Riak TS can be installed on Debian or Ubuntu-based systems using a binary
 package available through ZenDesk.
 
 Check your email for the link to the download in ZenDesk.
+
+{{% note %}}
+Debian is only supported for developing with Riak TS and NOT for general operations.
+{{% /note %}}
 
 
 ## Dependencies

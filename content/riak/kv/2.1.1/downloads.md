@@ -19,5 +19,4 @@ listed_projects:
 aliases:
   - /riak/2.1.1/downloads
   - /riak/kv/2.1.1/downloads
-canonical_link: "https://docs.basho.com/riak/kv/latest/downloads"
 ---

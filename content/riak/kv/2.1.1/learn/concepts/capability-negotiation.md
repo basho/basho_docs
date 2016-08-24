@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.1/theory/concepts/capability-negotiation
   - /riak/kv/2.1.1/theory/concepts/capability-negotiation
-canonical_link: "https://docs.basho.com/riak/kv/latest/learn/concepts/capability-negotiation"
 ---
 
 

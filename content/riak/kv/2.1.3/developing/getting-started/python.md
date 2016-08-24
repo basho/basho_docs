@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.3/dev/taste-of-riak/python
   - /riak/kv/2.1.3/dev/taste-of-riak/python
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/python"
 ---
 
 If you haven't set up a Riak Node and started it, please visit [Running A Cluster](/riak/kv/2.1.3/using/running-a-cluster) first.

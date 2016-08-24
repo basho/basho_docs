@@ -12,7 +12,6 @@ project_version: "1.3.0"
 toc: true
 aliases:
     - /riakts/1.3.0/using/creating-activating/
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/creating-activating"
 ---
 
 
@@ -29,7 +28,8 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/creating-activating
 
 Once you have [planned out your table][planning] you can create it by:
 
-* Executing a `CREATE TABLE` query using any Riak client, or
+* Executing a `CREATE TABLE` statement using any Riak client, 
+* Using riak shell, or
 * Running the `riak-admin` command (as root, using `su` or `sudo`).
 
 Throughout this document, we will again be using the example table:
@@ -50,7 +50,7 @@ CREATE TABLE GeoCheckin
 ```
 
 
-## `CREATE TABLE` Query in Client Library
+## `CREATE TABLE` in Client Library
 
 Using one of the Riak client libraries, execute the `CREATE TABLE` statement via that library's query functionality. This will create and activate the table in one step. The result of the operation is library-dependent:
 
@@ -85,7 +85,7 @@ Please note the following when using the `WITH` clause:
 
 ### Verification via Client Library
 
-You can verify that your table was properly created by executing the `DESCRIBE table` query via the query function of your client library, or by using the [`riak-admin bucket-type status` command](#verify-creation-and-activation).
+You can verify that your table was properly created by executing the `DESCRIBE table` statement via the query function of your client library, or by using the [`riak-admin bucket-type status` command](#verify-creation-and-activation).
 
 The result of the `DESCRIBE table` command is library-dependent:
 
@@ -97,6 +97,19 @@ The result of the `DESCRIBE table` command is library-dependent:
 * [Erlang][erlang]: the returned term will consist of two lists corresponding to the table's DDL.
 * [PHP][php]: the response object will contain an array of rows, each one representing a column definition for the table's DDL
 
+
+## Create a table with riak shell
+
+You can use riak shell to create a table by running:
+
+```
+riak-shell>CREATE TABLE GeoCheckin (region VARCHAR NOT NULL, state VARCHAR NOT NULL, time  TIMESTAMP NOT NULL, weather  VARCHAR NOT NULL, temperature DOUBLE, PRIMARY KEY ((region, state, QUANTUM(time, 15, 'm')), region, state, time));
+```
+
+Please take care with the following:
+
+* The syntax is sensitive to whitespace and quoting.
+* The table and column names are currently constrained to ASCII.
 
 ## `riak-admin`
 

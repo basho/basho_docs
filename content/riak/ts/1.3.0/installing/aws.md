@@ -10,10 +10,11 @@ menu:
 project: "riak_ts"
 project_version: "1.3.0"
 toc: true
+version_history:
+  in: "1.3.0+"
 aliases:
     - /riakts/1.3.0/installing/aws
     - /riak/ts/1.3.0/installing/aws-marketplace/
-canonical_link: "https://docs.basho.com/riak/ts/latest/installing/rhel-centos"
 ---
 
 

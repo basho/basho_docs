@@ -374,15 +374,20 @@ div[role="main"] {
 
     // Rule for appending the arrow image to links that send users off site.
     &[href^="http://"], &[href^="https://"] {
-      @include size(10px, 10px);
-      background    : inline-image('layout/external.png') no-repeat right;
-      padding-right : 12px;
+      &::after {
+        content: "";
+        @include size(10px, 10px);
+        background    : inline-image('layout/external.png') no-repeat right;
+        padding-right : 12px;
+      }
     }
     // Rule for appending the pdf symbol to links that send users to a pdf.
     &[href$=".pdf"], &[href$=".PDF"] {
-      @include size(14px, 16px);
-      background    : inline-image("layout/pdf.png") no-repeat right;
-      padding-right : 16px;
+      &::after {
+        @include size(14px, 16px);
+        background    : inline-image("layout/pdf.png") no-repeat right;
+        padding-right : 16px;
+      }
     }
   }
 

@@ -11,7 +11,6 @@ menu:
     weight: 101
     parent: "developing"
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/usage"
 ---
 
 ## In This Section

@@ -12,7 +12,6 @@ project_version: "1.3.1"
 toc: true
 aliases:
     - /riakts/1.3.1/learn-about/advancedplanning/
-canonical_link: "https://docs.basho.com/riak/ts/latest/learn-about/tablearchitecture"
 ---
 
 

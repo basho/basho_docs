@@ -10,7 +10,6 @@ menu:
     weight: 110
     parent: "managing_cluster_operations"
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/cluster-operations/strong-consistency"
 ---
 
 <div class="note">

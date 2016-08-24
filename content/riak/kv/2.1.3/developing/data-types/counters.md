@@ -16,10 +16,9 @@ aliases:
   - /riak/kv/2.1.3/dev/using/data-types/counters
   - /riak/2.1.3/dev/data-modeling/data-types/counters
   - /riak/kv/2.1.3/dev/data-modeling/data-types/counters
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/data-types/counters"
 ---
 
-Counters are a bucket-level Riak data type that can be used by themselves, associated with a bucket/key pair, or used [within a map](../../maps#counters-within-maps). A counter's value can only be a positive integer, negative integer, or zero.
+Counters are a bucket-level Riak data type that can be used by themselves, associated with a bucket/key pair, or used [within a map](../maps#counters-within-maps). A counter's value can only be a positive integer, negative integer, or zero.
 
 The examples in this section will show you how to use counters on their own.
 

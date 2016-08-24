@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.1.4/theory/concepts/glossary
   - /riak/kv/2.1.4/theory/concepts/glossary
-canonical_link: "https://docs.basho.com/riak/kv/latest/learn/glossary"
 ---
 
 
@@ -28,7 +27,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/learn/glossary"
 [concept eventual consistency]: /riak/kv/2.1.4/learn/concepts/eventual-consistency
 [concept keys objects]: /riak/kv/2.1.4/learn/concepts/keys-and-objects
 [concept replication]: /riak/kv/2.1.4/learn/concepts/replication
-[concept strong consistency]: /riak/kv/2.1.4/concepts/strong-consistency
+[concept strong consistency]: /riak/kv/2.1.4/learn/concepts/strong-consistency
 [dev kv model]: /riak/kv/2.1.4/developing/key-value-modeling
 [concept replication aae]: /riak/kv/2.1.4/learn/concepts/replication/#active-anti-entropy
 [dev api http]: /riak/kv/2.1.4/developing/api/http

@@ -12,7 +12,6 @@ project_version: "1.0.0"
 toc: true
 aliases:
     - /riakts/1.0.0/developing/python/
-canonical_link: "https://docs.basho.com/riak/ts/latest/developing/python"
 ---
 
 
@@ -22,6 +21,11 @@ You can develop with Riak TS through the Python client. This document covers the
 To use Time Series with the Python client, we've added 5 new operations to the `riak.client.RiakClient` object.
 
 The Time Series API is only available through Protocol Buffers and not HTTP, so please set up your Python client accordingly.
+
+Language | Source | Documentation | Download
+:--------|:-------|:--------------|:--------
+Python | [riak-python-client](https://github.com/basho/riak-python-client) | [sphinx](http://basho.github.com/riak-python-client) | [PyPI](http://pypi.python.org/pypi?:action=display&name=riak#downloads)
+
 
 ## RiakClient TS Operations
 

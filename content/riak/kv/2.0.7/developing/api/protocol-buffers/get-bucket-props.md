@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.7/dev/references/protocol-buffers/get-bucket-props
   - /riak/kv/2.0.7/dev/references/protocol-buffers/get-bucket-props
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/get-bucket-props"
 ---
 
 Fetch a bucket's properties.
@@ -106,9 +105,6 @@ message RpbCommitHook {
 }
 ```
 
-<div class="note">
-<div class="title">Note on <tt>RpbReplMode</tt></div>
-The <code>RpbReplMode</code> is of use only to users of Riak CS's <a
-href="http://docs.basho.com/riakcs/latest/cookbooks/MDC-Overview/">Multi-Datacenter
-Replication capabilities</a>.
-</div>
+{{% note title="Note on `RpbReplMode`" %}}
+The `RpbReplMode` is of use only to users of Riak CS's [Multi-Datacenter Replication capabilities](http://docs.basho.com/riakcs/latest/cookbooks/mdc-overview/)
+{{% /note %}}

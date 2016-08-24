@@ -10,7 +10,6 @@ menu:
     weight: 400
     pre: icon-tools
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/add-ons"
 ---
 
 

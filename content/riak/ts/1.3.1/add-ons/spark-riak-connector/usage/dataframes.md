@@ -11,7 +11,8 @@ menu:
     weight: 104
     parent: "spark_riak_usage"
 toc: true
-canonical_link: "https://docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage/dataframes"
+version_history:
+  in: "1.3.0+"
 ---
 
 ## Spark Dataframes With TS Table

@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.7/ops/running/logging
   - /riak/kv/2.0.7/ops/running/logging
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/reference/logging"
 ---
 
 [cluster ops log]: /riak/kv/2.0.7/using/cluster-operations/logging
@@ -46,8 +45,8 @@ File | Significance
 :----|:------------
 `console.log` | Console log output
 `crash.log` | Crash logs
-`erlang.log` | Logs emitted by the <a href="ops/tuning/erlang">Erlang VM</a> on which Riak runs.
-`error.log` | <a href="ops/running/recovery/errors">Common errors</a> emitted by Riak.
+`erlang.log` | Logs emitted by the [Erlang VM](../../performance/erlang) on which Riak runs.
+`error.log` | [Common errors](../../repair-recover/errors) emitted by Riak.
 `run_erl.log` | The log file for an Erlang process called `run_erl`. This file can typically be ignored.
 
 ## Log Syntax

@@ -8,7 +8,6 @@ menu:
     weight: 500
     parent: "community_overview"
 toc: true
-canonical_link: "https://docs.basho.com/community/reporting-bugs/"
 ---
 
 Bugs happen. The Basho Dev Team does all that it can to ensure our users

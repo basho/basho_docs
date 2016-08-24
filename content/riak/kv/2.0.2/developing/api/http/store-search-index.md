@@ -12,7 +12,6 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/dev/references/http/store-search-index
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/http/store-search-index"
 ---
 
 Creates a new Riak Search [index](/riak/kv/2.0.2/developing/usage/search/#simple-setup).

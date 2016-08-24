@@ -11,7 +11,6 @@ menu:
     weight: 100
     parent: "getting_started_ruby"
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/getting-started/ruby/crud-operations"
 ---
 
 ## Creating Objects In Riak

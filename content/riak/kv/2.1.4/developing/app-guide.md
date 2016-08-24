@@ -14,7 +14,6 @@ toc: true
 aliases:
   - /riak/2.1.4/dev/using/application-guide/
   - /riak/kv/2.1.4/dev/using/application-guide/
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/app-guide"
 ---
 
 [usage conflict resolution]: /riak/kv/2.1.4/developing/usage/conflict-resolution
@@ -48,7 +47,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/developing/app-guide"
 [obj model erlang]: /riak/kv/2.1.4/developing/getting-started/erlang/object-modeling
 [obj model golang]: /riak/kv/2.1.4/developing/getting-started/golang/object-modeling
 [concept strong consistency]: /riak/kv/2.1.4/using/reference/strong-consistency
-[use ref strong consistency]: /riak/2.1.4/using/reference/strong-consistency
+[use ref strong consistency]: /riak/kv/2.1.4/using/reference/strong-consistency
 [cluster ops strong consistency]: /riak/kv/2.1.4/using/cluster-operations/strong-consistency
 [config strong consistency]: /riak/kv/2.1.4/configuring/strong-consistency
 [apps strong consistency]: /riak/kv/2.1.4/developing/app-guide/strong-consistency

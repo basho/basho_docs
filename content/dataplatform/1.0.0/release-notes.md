@@ -10,7 +10,6 @@ menu:
     weight: 103
     parent: "index"
 toc: true
-canonical_link: "https://docs.basho.com/dataplatform/latest/release-notes/"
 ---
 
 [bdp downloads]: /dataplatform/1.0.0/downloads/

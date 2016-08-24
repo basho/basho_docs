@@ -12,7 +12,6 @@ project_version: "1.0.0"
 toc: true
 aliases:
     - /riakts/1.0.0/installing/mac-osx/
-canonical_link: "https://docs.basho.com/riak/ts/latest/installing/mac-osx"
 ---
 
 [concept aae]: /riak/kv/2.1.3/learn/concepts/active-anti-entropy
@@ -23,9 +22,9 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/installing/mac-osx"
 Riak TS can be installed on Mac OS X systems using a binary
 package available through ZenDesk.
 
->**Important**
->
->Mac OS X is only supported for developing with Riak TS and NOT for general operations.
+{{% note %}}
+Mac OS X is only supported for developing with Riak TS and NOT for general operations.
+{{% /note %}}
 
 Check your email for the link to the download in ZenDesk.
 

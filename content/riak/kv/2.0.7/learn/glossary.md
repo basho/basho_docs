@@ -10,7 +10,6 @@ menu:
     weight: 103
     parent: "learn"
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/learn/glossary"
 ---
 
 
@@ -25,7 +24,7 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/learn/glossary"
 [concept eventual consistency]: /riak/kv/2.0.7/learn/concepts/eventual-consistency
 [concept keys objects]: /riak/kv/2.0.7/learn/concepts/keys-and-objects
 [concept replication]: /riak/kv/2.0.7/learn/concepts/replication
-[concept strong consistency]: /riak/kv/2.0.7/concepts/strong-consistency
+[concept strong consistency]: /riak/kv/2.0.7/learn/concepts/strong-consistency
 [dev kv model]: /riak/kv/2.0.7/developing/key-value-modeling
 [concept replication aae]: /riak/kv/2.0.7/learn/concepts/replication/#active-anti-entropy
 [dev api http]: /riak/kv/2.0.7/developing/api/http

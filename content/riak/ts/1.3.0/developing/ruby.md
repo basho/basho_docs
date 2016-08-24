@@ -10,9 +10,10 @@ menu:
 project: "riak_ts"
 project_version: "1.3.0"
 toc: true
+version_history:
+  in: "1.1.0+"
 aliases:
     - /riakts/1.3.0/developing/ruby/
-canonical_link: "https://docs.basho.com/riak/ts/latest/developing/ruby"
 ---
 
 You can develop applications and tools using Riak TS with the Riak Ruby client.
@@ -23,6 +24,10 @@ This document covers the Ruby API for Riak TS.
 Riak Ruby client versions 2.3.0+ have new objects in the
 `Riak::TimeSeries` module, including the necessary operations and data types
 to make sense of these operations.
+
+Language | Source | Documentation | Download
+:--------|:-------|:--------------|:--------
+Ruby | [riak-ruby-client](https://github.com/basho/riak-ruby-client) | [GitHub Pages](http://basho.github.io/riak-ruby-client/) | [RubyGems](https://rubygems.org/gems/riak-client)
 
 ## Data Types
 

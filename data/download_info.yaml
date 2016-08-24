@@ -3936,24 +3936,6 @@ riak_ts:
           file_href: http://s3.amazonaws.com/downloads.basho.com/riak_ts/1.3/1.3.1/debian/7/riak-ts_1.3.1-1_amd64.deb
           file_size: 65112256
           chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak_ts/1.3/1.3.1/debian/7/riak-ts_1.3.1-1_amd64.deb.sha
-  - os: freebsd
-    versions:
-    - version: '10'
-      architectures:
-      - arch: txz
-        file_info:
-          file_name: riak-ts-1.3.1.txz
-          file_href: http://s3.amazonaws.com/downloads.basho.com/riak_ts/1.3/1.3.1/freebsd/10/riak-ts-1.3.1.txz
-          file_size: 64357004
-          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak_ts/1.3/1.3.1/freebsd/10/riak-ts-1.3.1.txz.sha
-    - version: '9.2'
-      architectures:
-      - arch: amd64
-        file_info:
-          file_name: riak-ts-1.3.1-FreeBSD-amd64.tbz
-          file_href: http://s3.amazonaws.com/downloads.basho.com/riak_ts/1.3/1.3.1/freebsd/9.2/riak-ts-1.3.1-FreeBSD-amd64.tbz
-          file_size: 77046694
-          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak_ts/1.3/1.3.1/freebsd/9.2/riak-ts-1.3.1-FreeBSD-amd64.tbz.sha
   - os: osx
     versions:
     - version: '10.8'
@@ -4008,40 +3990,6 @@ riak_ts:
           file_href: http://s3.amazonaws.com/downloads.basho.com/riak_ts/1.3/1.3.1/rhel/7/riak-ts-1.3.1-1.el7.centos.x86_64.rpm
           file_size: 64751956
           chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak_ts/1.3/1.3.1/rhel/7/riak-ts-1.3.1-1.el7.centos.x86_64.rpm.sha
-  - os: sles
-    versions:
-    - version: '11'
-      architectures:
-      - arch: x86_64
-        file_info:
-          file_name: riak-ts-1.3.1-1.SLES11.x86_64.rpm
-          file_href: http://s3.amazonaws.com/downloads.basho.com/riak_ts/1.3/1.3.1/sles/11/riak-ts-1.3.1-1.SLES11.x86_64.rpm
-          file_size: 69552096
-          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak_ts/1.3/1.3.1/sles/11/riak-ts-1.3.1-1.SLES11.x86_64.rpm.sha
-      - arch: source
-        file_info:
-          file_name: riak-ts-1.3.1-1.src.rpm
-          file_href: http://s3.amazonaws.com/downloads.basho.com/riak_ts/1.3/1.3.1/sles/11/riak-ts-1.3.1-1.src.rpm
-          file_size: 20307790
-          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak_ts/1.3/1.3.1/sles/11/riak-ts-1.3.1-1.src.rpm.sha
-  - os: smartos
-    versions:
-    - version: '1.8'
-      architectures:
-      - arch: x86_64
-        file_info:
-          file_name: riak_ts-1.3.1-SmartOS-x86_64.tgz
-          file_href: http://s3.amazonaws.com/downloads.basho.com/riak_ts/1.3/1.3.1/smartos/1.8/riak_ts-1.3.1-SmartOS-x86_64.tgz
-          file_size: 82294478
-          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak_ts/1.3/1.3.1/smartos/1.8/riak_ts-1.3.1-SmartOS-x86_64.tgz.sha
-    - version: '13.1'
-      architectures:
-      - arch: x86_64
-        file_info:
-          file_name: riak_ts-1.3.1-SmartOS-x86_64.tgz
-          file_href: http://s3.amazonaws.com/downloads.basho.com/riak_ts/1.3/1.3.1/smartos/13.1/riak_ts-1.3.1-SmartOS-x86_64.tgz
-          file_size: 82249679
-          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak_ts/1.3/1.3.1/smartos/13.1/riak_ts-1.3.1-SmartOS-x86_64.tgz.sha
   - os: ubuntu
     versions:
     - version: lucid

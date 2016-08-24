@@ -10,13 +10,12 @@ menu:
     weight: 201
     pre: icon-database
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/using"
 ---
 
 [use running cluster]: ../using/running-a-cluster
 [use admin index]: ../using/admin/
 [cluster ops index]: ../using/cluster-operations
-[repair recover index]: ../repair-recovery
+[repair recover index]: ../using/repair-recovery
 [security index]: ../using/security
 [perf index]: ../using/performance
 [troubleshoot index]: ../using/troubleshooting

@@ -12,12 +12,15 @@ project_version: "1.3.1"
 toc: true
 aliases:
     - /riakts/1.3.1/developing/erlang/
-canonical_link: "https://docs.basho.com/riak/ts/latest/developing/erlang"
 ---
 
 
 You can develop applications and tools using Riak TS with the Riak Erlang client.
 This document covers the Erlang API for Riak TS.
+
+Language | Source | Documentation | Download
+:--------|:-------|:--------------|:--------
+Erlang | [riak-erlang-client (riakc)](https://github.com/basho/riak-erlang-client) | [edoc](http://basho.github.com/riak-erlang-client/) | [GitHub](https://github.com/basho/riak-erlang-client)
 
 
 ## Data Types
@@ -76,11 +79,11 @@ Get a row by primary key. Specify the primary key by using a list of terms that 
 ```
 put(Pid::pid(),
     Table::[table_name()](#type-table_name),
-    Data::[[[ts_value()](#type-ts_value)]]) ->
+    Data::[{[ts_value()](#type-ts_value)}]) ->
         ok | {error, Reason::term()}
 ```
 
-Make data rows and insert them individually into a Riak TS table using client PID. Each record is a list of values of appropriate types for the complete set of table columns in the order in which they appear in table's DDL. Successful PUTs will return 'ok', while unsuccessful PUTs return an `{error, Reason}` tuple.
+Insert rows into a Riak TS table using client PID. Rows are represented as a list of tuples, where each row is a tuple of values of appropriate types for the complete set of table columns in the order in which they appear in table's DDL. Successful PUTs will return 'ok', while unsuccessful PUTs return an `{error, Reason}` tuple.
 
 >**Note:** Type validation is done on the first row only. If any subsequent row contains fewer or more elements than there are columns, or some element fails to convert to the appropriate type, the rest of the rows will not get inserted.
 

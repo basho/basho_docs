@@ -13,14 +13,12 @@
 
 {{ partial "common_variables.html" . }}
 
-{{ $project             := .Scratch.Get "project" }}
-{{ $version             := .Scratch.Get "version" }}
-{{ $project_path        := .Scratch.Get "project_path" }}
-{{ $is_latest           := .Scratch.Get "is_latest" }}
-{{ $is_lts              := .Scratch.Get "is_lts" }}
-{{ $toc                 := .Scratch.Get "toc"}}
-{{ $commercial_offering := .Scratch.Get "commercial_offering"}}
-{{ $has_supertext := isset .Params "title_supertext" }}
+{{ $project             := .Scratch.Get "project"             }}
+{{ $version             := .Scratch.Get "version"             }}
+{{ $is_latest           := .Scratch.Get "is_latest"           }}
+{{ $is_lts              := .Scratch.Get "is_lts"              }}
+{{ $display_toc         := .Scratch.Get "display_toc"         }}
+{{ $commercial_offering := .Scratch.Get "commercial_offering" }}
 -->
 
 {{ partial "head.html" . }}
@@ -29,7 +27,7 @@
 
   {{ partial "google_tag_manager.html" . }}
 
-  {{ $menu_title := (printf "%s-%s" .Params.project .Params.project_version) }}
+  {{ $menu_title := (printf "%s-%s" $project $version) }}
   {{ partial "navigation_sidebar.html" (dict "context" . "menu_title" $menu_title) }}
 
   <!--TODO: Should this be moved to align with/be part of scripts.html? -->
@@ -41,10 +39,10 @@
 
     <article class="mainarticle">
 
-      {{ partial "version-ddown.html" . }}
+      {{ partial "version_selector.html" . }}
 
       <header>
-        {{ if $has_supertext }}<h1 class="title_supertext">{{ .Params.title_supertext }}</h1>{{ end }}
+        {{ if .Params.title_supertext }}<h1 class="title_supertext">{{ .Params.title_supertext }}</h1>{{ end }}
         <h1>{{ .Title }}</h1>
       </header>
 
@@ -54,7 +52,7 @@
       </div>
       {{ end }}
 
-      {{ if $toc }}
+      {{ if $display_toc }}
       <nav id="toc">
         <h2 class="title">Contents</h2>
         <div id="toc-wrapper">

@@ -16,7 +16,6 @@ aliases:
   - /riak/kv/2.0.7/dev/using/data-types
   - /riak/2.0.7/dev/data-modeling/data-types
   - /riak/kv/2.0.7/dev/data-modeling/data-types
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/data-types"
 ---
 
 [wiki crdt]: https://en.wikipedia.org/wiki/Conflict-free_replicated_data_type#Others
@@ -106,7 +105,7 @@ These settings are set by default and should not be changed.
 
 ## Data Types and Context
 
-Data type context is similar to [causal context](../../../learn/concepts/causal-context): it tells Riak KV which version of the data type a client is attempting to modify. Context is required by Riak KV when making decisions about convergence.
+Data type context is similar to [causal context](../../learn/concepts/causal-context): it tells Riak KV which version of the data type a client is attempting to modify. Context is required by Riak KV when making decisions about convergence.
 
 If no context is given when attempting a remove or remove-like operation, the operation may fail (removing a field that is not present) or succeed and remove more than intended (removing updates unseen by the client).
 
@@ -252,7 +251,7 @@ $updateSet = (new \Basho\Riak\Command\Builder\UpdateSet($riak))
 - [Sets](./sets)
 - [Maps](./maps)
 
-The pages listed above detail using Riak data types at the application level using Basho's [officially supported Riak KV clients](../../client-libraries). For more on getting started with client libraries check out the [Developing with Riak KV: Getting Started](../../getting-started) section.
+The pages listed above detail using Riak data types at the application level using Basho's [officially supported Riak KV clients](../client-libraries). For more on getting started with client libraries check out the [Developing with Riak KV: Getting Started](../getting-started) section.
 
 All the examples use the bucket type names from above (`counters`, `sets`, and `maps`). You're free to substitute your own bucket type names if you wish.
 
@@ -262,5 +261,5 @@ Riak data types can be searched like any other object, but with the
 added benefit that your data type is indexed as a different type by Solr,
 the search platform behind Riak Search.
 
-In our Search documentation we offer a [full tutorial](../../usage/searching-data-types) as well as a variety of [examples](../../usage/search/#data-types-and-search-examples), including code
+In our Search documentation we offer a [full tutorial](../usage/searching-data-types) as well as a variety of [examples](../usage/search/#data-types-and-search-examples), including code
 samples from each of our official client libraries.

@@ -11,7 +11,8 @@ menu:
     weight: 103
     parent: "addons_spark_riak"
 toc: true
-canonical_link: "https://docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/building-testing"
+version_history:
+  in: "1.3.0+"
 ---
 
 If you want to download the source code of the Spark-Riak connector, build it, and install the results in your local repo, this is the document for you! Keep reading for instructions on downloading, building, and installing the connector.

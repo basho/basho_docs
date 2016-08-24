@@ -11,7 +11,6 @@ project_version: "2.1.3"
 #    weight: 103
 #    parent: "upgrading"
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/setup/upgrading/multi-datacenter"
 ---
 
 ## TODO

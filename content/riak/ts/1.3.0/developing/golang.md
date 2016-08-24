@@ -10,9 +10,10 @@ menu:
 project: "riak_ts"
 project_version: "1.3.0"
 toc: true
+version_history:
+  in: "1.3.0+"
 aliases:
     - /riakts/1.3.0/developing/golang/
-canonical_link: "https://docs.basho.com/riak/ts/latest/developing/golang"
 ---
 
 
@@ -29,6 +30,11 @@ TS support within the Go client is implemented through the following 4 command b
 * TsDeleteRowCommandBuilder which is assembled via NewTsDeleteRowCommandBuilder
 * TsQueryCommandBuilder which is assembled via NewTsQueryCommandBuilder
 * TsListKeysCommandBuilder which is assembled via NewTsListKeysCommandBuilder
+
+Language | Source | Documentation | 
+:--------|:-------|:--------------|
+Go | [riak-go-client](https://github.com/basho/riak-go-client) | [GoDoc](https://godoc.org/github.com/basho/riak-go-client) |
+
 
 ## Data Types
 

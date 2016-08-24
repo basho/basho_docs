@@ -12,7 +12,6 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.0/community/release-notes
-canonical_link: "https://docs.basho.com/riak/kv/latest/release-notes"
 ---
 
 ## Major Features / Additions to 2.0

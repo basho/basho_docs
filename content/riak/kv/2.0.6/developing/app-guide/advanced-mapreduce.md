@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.6/dev/advanced/mapreduce/
   - /riak/kv/2.0.6/dev/advanced/mapreduce/
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/app-guide/advanced-mapreduce"
 ---
 
 [usage 2i]: /riak/kv/2.0.6/developing/usage/secondary-indexes
@@ -518,11 +517,8 @@ atom `_`, which matches any tag. `Keep` has the same meaning as in map
 and reduce phases.
 
 
-<div class="info">
-There is a small group of prebuilt Erlang MapReduce functions available
-with Riak. Check them out [on
-GitHub](https://github.com/basho/riak_kv/blob/master/src/riak_kv_mapreduce.erl).
-</div>
+> There is a small group of prebuilt Erlang MapReduce functions available
+with Riak. Check them out [on GitHub](https://github.com/basho/riak_kv/blob/master/src/riak_kv_mapreduce.erl).
 
 ## Bigger Data Examples
 

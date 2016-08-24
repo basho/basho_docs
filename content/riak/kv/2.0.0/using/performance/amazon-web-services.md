@@ -13,7 +13,6 @@ toc: true
 aliases:
   - /riak/2.0.0/ops/tuning/aws
   - /riak/kv/2.0.0/ops/tuning/aws
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/performance/amazon-web-services"
 ---
 
 This guide introduces best practices for tuning Riak cluster performance

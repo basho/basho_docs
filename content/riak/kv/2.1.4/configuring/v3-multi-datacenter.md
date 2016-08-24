@@ -15,7 +15,6 @@ commercial_offering: true
 aliases:
   - /riak/2.1.4/ops/mdc/v3/configuration
   - /riak/kv/2.1.4/ops/mdc/v3/configuration
-canonical_link: "https://docs.basho.com/riak/kv/latest/configuring/v3-multi-datacenter"
 ---
 
 [config reference#advanced]: /riak/kv/2.1.4/configuring/reference/#advanced-configuration
@@ -94,8 +93,8 @@ Setting | Options | Default | Description
 +`rtq_overload_recover` | `length` (integer) | `1000` | The length to which the Erlang message queue of the realtime queue module, in an overload mode, must shrink before new objects are replicated again.
 `rtq_max_bytes` | `bytes` (integer) | `104857600` | The maximum size to which the realtime replication queue can grow before new objects are dropped. Defaults to 100MB. Dropped objects will need to be replicated with a fullsync.
 `proxy_get` | `enabled`, `disabled` | `disabled` | Enable Riak CS `proxy_get` and block filter.
-`rt_heartbeat_interval` | `seconds` (integer) | `15` | A full explanation can be found [below](/ops/mdc/v3/configuration/#heartbeat-settings).
-`rt_heartbeat_timeout` | `seconds` (integer) | `15` | A full explanation can be found [below](/ops/mdc/v3/configuration/#heartbeat-settings).
+`rt_heartbeat_interval` | `seconds` (integer) | `15` | A full explanation can be found [below](#heartbeat-settings).
+`rt_heartbeat_timeout` | `seconds` (integer) | `15` | A full explanation can be found [below](#heartbeat-settings).
 
 
 ## riak_core Settings
@@ -105,9 +104,9 @@ Setting | Options | Default | Description
 `keyfile` | `path` (string) | `undefined` | Fully qualified path to an ssl `.pem` key file
 `cacertdir` | `path` (string) | `undefined` | The `cacertdir` is a fully-qualified directory containing all the CA certificates needed to verify the CA chain back to the root
 `certfile` | `path` (string) | `undefined` | Fully qualified path to a `.pem` cert file
-`ssl_depth` | `depth` (integer) | `1` | Set the depth to check for SSL CA certs. See [1](/ops/mdc/v3/configuration/#f1).
+`ssl_depth` | `depth` (integer) | `1` | Set the depth to check for SSL CA certs. See [1](#f1).
 `ssl_enabled` | `true`, `false` | `false` | Enable SSL communications
-`peer_common_name_acl` | `cert` (string) | `"*"` | Verify an SSL peer’s certificate common name. You can provide an ACL as a list of common name *patterns*, and you can wildcard the leftmost part of any of the patterns, so `*.basho.com` would match `site3.basho.com` but not `foo.bar.basho.com` or `basho.com`. See [2](/ops/mdc/v3/configuration/#f2).
+`peer_common_name_acl` | `cert` (string) | `"*"` | Verify an SSL peer’s certificate common name. You can provide an ACL as a list of common name *patterns*, and you can wildcard the leftmost part of any of the patterns, so `*.basho.com` would match `site3.basho.com` but not `foo.bar.basho.com` or `basho.com`. See [2](#f2).
 
 
 ## Heartbeat Settings

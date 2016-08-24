@@ -13,14 +13,13 @@ toc: true
 aliases:
   - /riak/2.0.0/ops/advanced/configs/configuration-files/
   - /riak/kv/2.0.0/ops/advanced/configs/configuration-files/
-canonical_link: "https://docs.basho.com/riak/kv/latest/configuring/reference"
 ---
 
 [concept clusters]: ../../learn/concepts/clusters
 [plan backend bitcask]: ../../setup/planning/backend/bitcask
-[config backend bitcask]: ../../setup/planning/backend/bitcask/configuring-bitcask
+[config backend bitcask]: ../../setup/planning/backend/bitcask/#configuring-bitcask
 [plan backend leveldb]: ../../setup/planning/backend/leveldb
-[config backend leveldb]: ../../setup/planning/backend/leveldb/configuring-eleveldb
+[config backend leveldb]: ../../setup/planning/backend/leveldb/#configuring-eleveldb
 [plan backend memory]: ../../setup/planning/backend/memory
 [config backend memory]: ../../setup/planning/backend/memory/#configuring-the-memory-backend
 [plan backend multi]: ../../setup/planning/backend/multi
@@ -486,7 +485,7 @@ to be deemed successful.</td>
 conflicts. The default is <code>2</code> in Riak 2.0 for typed buckets
 and <code>1</code> for non-typed buckets. This setting reduces sibling
 creation through additional metadata on each sibling (also known as <a
-href="theory/concepts/context#dotted-version-vectors">Dotted
+href="../../learn/concepts/causal-context#dotted-version-vectors">Dotted
 Version Vectors</a>). Setting this to <code>1</code> is the default for
 Riak 1.4 and earlier, and may duplicate siblings that originated in the
 same write.</td>
@@ -2094,8 +2093,8 @@ There are three non-`riak_repl` settings available in
 <td><code>riak_kv</code></td>
 <td>If you are <a href="../../using/reference/custom-code">installing
 custom code</a> for Riak, e.g. for the purpose of running <a
-href="dev/using/mapreduce">MapReduce</a> jobs or <a
-href="dev/using/commit-hooks">commit hooks</a>, this setting specifies
+href="../../developing/usage/mapreduce">MapReduce</a> jobs or <a
+href="../../developing/usage/commit-hooks">commit hooks</a>, this setting specifies
 the paths to any compiled <code>.beam</code> files that you wish to use.
 This is expressed as a list of absolute paths on the node's filesystem,
 e.g. <code>[ "/tmp", "/other" ]</code>.</td>
