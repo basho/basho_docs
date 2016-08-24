@@ -26,11 +26,13 @@ of the Go client to use the TS API.
 
 TS support within the Go client is implemented through the following 5 command builders, each with a factory:
 
-* TsStoreRowsCommandBuilder which is assembled via NewTsStoreRowsCommandBuilder
-* TsFetchRowCommandBuilder which is assembled via NewTsFetchRowCommandBuilder
-* TsDeleteRowCommandBuilder which is assembled via NewTsDeleteRowCommandBuilder
-* TsQueryCommandBuilder which is assembled via NewTsQueryCommandBuilder
-* TsListKeysCommandBuilder which is assembled via NewTsListKeysCommandBuilder
+Command    | Builder                                                                                                  |
+:----------|:---------------------------------------------------------------------------------------------------------|
+Store      | [TsStoreRowsCommandBuilder](https://godoc.org/github.com/basho/riak-go-client#TsStoreRowsCommandBuilder) |
+Fetch Row  | [TsFetchRowCommandBuilder](https://godoc.org/github.com/basho/riak-go-client#TsFetchRowCommandBuilder)   |
+Delete Row | [TsDeleteRowCommandBuilder](https://godoc.org/github.com/basho/riak-go-client#TsDeleteRowCommandBuilder) |
+Query      | [TsQueryCommandBuilder](https://godoc.org/github.com/basho/riak-go-client#TsQueryCommandBuilder)         |
+List Keys  | [TsListKeysCommandBuilder](https://godoc.org/github.com/basho/riak-go-client#TsListKeysCommandBuilder)   |
 
 Language | Source | Documentation
 :--------|:-------|:-------------
