@@ -2,6 +2,7 @@
 # Deploy rules and helpers
 
 $archive_name = "archived_docs.basho.com.tar.bz2"
+$archive_url  = "http://s3.amazonaws.com/downloads.basho.com/documentation_content/#{$archive_name}"
 
 def do_fetch_archived_content()
   # Fetch and extract the archived content that we want to survive from the
@@ -13,21 +14,22 @@ def do_fetch_archived_content()
       # If we don't have wget. Error out.
       Kernel.abort("ERROR: #{$archive_name} was not found, and this system "\
                    "does not have access to `wget`.\n"\
-                   "       Please either install `wget` and re-run this "\
-                   "deploy, or manually download the file from the below "\
-                   "address and place it into this directory.\n"\
-                   "    http://s3.amazonaws.com/downloads.basho.com/documentation_content/#{$archive_name}")
+                   "       Please either;\n"\
+                   "         * install `wget` and re-run this deploy, or\n"\
+                   "         * manually download the file from the below URL "\
+                   "and place it into this directory.\n"\
+                   "           #{$archive_url}")
     else
       # We have wget, but not the file. Fetch it.
       puts("  Using wget to fetch #{$archive_name} "\
            "(this may take some time)...")
-      successful = system("wget http://s3.amazonaws.com/downloads.basho.com/documentation_content/#{$archive_name}")
+      successful = system("wget #{$archive_url}")
 
       if (not successful)
         Kernel.abort("ERROR: Failed to get #{$archive_name}\n"\
-                     "       Please download the file from the below "\
-                     "address and copy it into this directory.\n"\
-                     "    http://s3.amazonaws.com/downloads.basho.com/documentation_content/#{$archive_name}")
+                     "       Please download the file from the below URL "\
+                     "and copy it into this directory.\n"\
+                     "       #{$archive_url}")
       end
     end
   end
@@ -51,9 +53,11 @@ def do_fetch_archived_content()
     if (web_md5 != loc_md5)
       Kernel.abort("ERROR: Fetched #{$archive_name} does not match the "\
                    "expected md5sum.\n"\
-                   "       Please remove the current #{$archive_name}, reset "\
-                   "the contents of the static/ directory (`git clean -xdf "\
-                   "static; git checkout -f static`), and re-run this script.")
+                   "       Please:\n"\
+                   "         * remove (`rm`) the current #{$archive_name}\n"\
+                   "         * reset the contents of the static/ directory "\
+                   "(`git clean -xdf static; git checkout -f static`)\n"\
+                   "         * re-run this script.")
     end
   end
 
@@ -72,8 +76,10 @@ def do_fetch_archived_content()
                        (File.exist?("static/shared"))           )
   if (not all_dirs_present and any_dirs_present)
     Kernel.abort("ERRPR: The static/ directory is verifiably corrupt.\n"\
-                 "       Please run \`git clean -xdf static/\` to clear out "\
-                 "the malformed files, and re-run this deploy script.")
+                 "       Please:\n"
+                 "         * reset the contents of the static/ directory "\
+                 "(`git clean -xdf static; git checkout -f static`)\n"\
+                 "         * re-run this script.")
   elsif (not any_dirs_present)
     puts("Extracting #{$archive_name} (this may take a lot of time)...")
     successful = system("tar -xjf #{$archive_name} -C static")
