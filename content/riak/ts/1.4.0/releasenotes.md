@@ -86,7 +86,7 @@ Riak TS is compatible with the following:
 * Ubuntu 14.04 LTS
 * Debian 7 (development only)
 * Debian 8 (development only)
-* OS X 10.8 (development only)
+* OS X 10.8+ (development only)
 * AWS Marketplace
 
 ## Known Issues
