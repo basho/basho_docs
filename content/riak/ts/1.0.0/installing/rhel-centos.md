@@ -10,6 +10,10 @@ menu:
 project: "riak_ts"
 project_version: "1.0.0"
 toc: true
+version_history:
+  locations:
+    - ["1.0.0-1.3.1", "installing/rhel-centos"]
+    - ["1.4.0+",      "setup/installing/rhel-centos"]
 aliases:
     - /riakts/1.0.0/installing/rhel-centos/
 ---

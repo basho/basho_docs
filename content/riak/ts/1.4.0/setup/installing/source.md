@@ -10,6 +10,10 @@ menu:
 project: "riak_ts"
 project_version: "1.4.0"
 toc: true
+version_history:
+  locations:
+    - ["1.0.0-1.3.1", "installing/source"]
+    - ["1.4.0+",      "setup/installing/source"]
 aliases:
     - /riakts/1.4.0/installing/source/
     - /riakts/1.4.0/setup/installing/source/

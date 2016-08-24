@@ -9,9 +9,11 @@ menu:
     parent: "installing"
 project: "riak_ts"
 project_version: "1.3.1"
-toc: true
 version_history:
-  in: "1.3.0+"
+  locations:
+    - ["1.3.0-1.3.1", "installing/source"]
+    - ["1.4.0+",      "setup/installing/source"]
+toc: true
 ---
 
 
