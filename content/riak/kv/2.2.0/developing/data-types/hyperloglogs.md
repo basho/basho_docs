@@ -1,0 +1,181 @@
+---
+title_supertext: "Developing with Riak KV"
+title: "Data Types: HyperLogLogs"
+description: ""
+project: "riak_kv"
+project_version: "2.2.o"
+menu:
+  riak_kv-2.2.0:
+    name: "HyperLogLogs"
+    identifier: "data_types_hyperloglogs"
+    weight: 100
+    parent: "developing_data_types"
+toc: true
+aliases:
+  - /riak/2.2.0/dev/using/data-types/hyperloglogs
+  - /riak/kv/2.2.0/dev/using/data-types/hyperloglogs
+  - /riak/2.2.0/dev/data-modeling/data-types/hyperloglogs
+  - /riak/kv/2.2.0/dev/data-modeling/data-types/hyperloglogs
+---
+
+The examples in this section will show you how to use hyperloglogs on their own.
+
+## Set Up a Bucket Type
+
+> If you've already created and activated a bucket type with the `datatype` parameter set to `hyperloglog`, skip to the [next section](#client-setup).
+
+Start by creating a bucket type with the `datatype` parameter set to `hyperloglog`:
+
+```bash
+riak_admin bucket-type create hlls '{"props":{"datatype":"hll"}}'
+```
+
+> **Note**
+>
+> The `hlls` bucket type name provided above is an example and is not required to be `hlls`. You are free to name bucket types whatever you like, with the exception of `default`.
+
+After creating a bucket with a Riak data type, confirm the bucket property configuration associated with that type is correct:
+
+```bash
+riak-admin bucket-type status hlls
+```
+
+This returns a list of bucket properties and their values
+in the form of `property: value`.
+
+If our `hlls` bucket type has been set properly we should see the following pair in our console output:
+
+```bash
+datatype: hll
+```
+
+Once we have confirmed the bucket type is properly configured, we can activate the bucket type to be used in Riak KV:
+
+```bash
+riak-admin bucket-type activate hlls
+```
+
+We can check if activation has been successful by using the same `bucket-type status` command shown above:
+
+```bash
+riak-admin bucket-type status hlls
+```
+
+After creating and activating our new `hlls` bucket type, we can setup our client to start using the bucket type as detailed in the next section.
+
+## Client Setup
+
+First, we need to direct our client to the bucket type/bucket/key
+location that contains our counter.
+
+For this example we'll use the `hlls` bucket type created and activated above and a bucket called `hlls`:
+
+```erlang
+%% Buckets are simply named binaries in the Erlang client. See the
+%% examples below for more information
+```
+
+```curl
+curl http://localhost:8098/types/<bucket_type>/buckets/<bucket>/datatypes/<key>
+
+# Note that this differs from the URL structure for non-Data-Type
+# requests, which end in /keys/<key>
+```
+
+## Create a HyperLogLog DataType
+
+To create a hyperloglog data structure, you need to specify a bucket/key pair to
+hold that hyperloglog. Here is the general syntax for doing so:
+
+```erlang
+HLL = riakc_hll:new().
+
+%% Hyperloglogs in the Erlang client are opaque data structures that
+%% collect operations as you mutate them. We will associate the data
+%% structure with a bucket type, bucket, and key later on.
+```
+
+```curl
+# You cannot create an empty hyperloglog data structure through the HTTP
+# interface.
+# Hyperloglogs can only be created when an element is added to them, as in the
+# examples below.
+```
+
+Upon creation, our hyperloglog data structure is empty:
+
+```erlang
+HLL.
+
+%% which will return:
+%% {hll,0,[]}
+```
+
+```curl
+curl http://localhost:8098/types/hlls/buckets/hello/datatypes/darkness
+
+# Response
+{"type":"hll","error":"notfound"}
+```
+
+## Add elements to a HyperLogLog DataType
+
+```erlang
+HLL1 = riakc_hll:add_element(<<"Jokes">>, HLL),
+RepeatHLL1 = riakc_hll:add_element(<<"Jokes">>, HLL),
+HLL2 = riakc_hll:add_elements([<<"Are">>, <<"Better">>, <<"Explained">>], HLL1),
+
+HLL2.
+
+%% which will return:
+%% {hll,0,[<<"Are">>,<<"Better">>,<<"Explained">>, <<"Jokes">>]}
+```
+
+```curl
+curl -XPOST http://localhost:8098/types/hlls/buckets/hello/datatypes/darkness \
+  -H "Content-Type: application/json" \
+  -d '{"add_all":["my", "old", "friend"]}'
+```
+
+However, when using a non-HTTP client, the approximate cardinality/value of our
+data structure will be 0, locally, until its pushed to the server and then
+[fetched](#retrieve-a-hyperloglog-datatype) from the server.
+
+```erlang
+riakc_hll:value(HLL2) == 0.
+
+%% which will return:
+%% true
+
+Port = 8087,
+{ok, Pid} = riakc_pb_socket:start_link("127.0.0.1", Port),
+Key = <<"Holy Diver">>,
+BucketType = <<"hlls">>,
+Bucket = {BucketType, <<"rainbow in the dark">>},
+
+ok = riakc_pb_socket:update_type(Pid, Bucket, Key, riakc_hll:to_op(HLL2)).
+ok = riakc_pb_socket:update_type(Pid, Bucket, Key, riakc_hll:to_op(RepeatHLL1)).
+```
+
+## Retrieve a HyperLogLog DataType
+
+Now, we can check the approximate count-of, aka the cardinality of the elements
+added to, our hyperloglog data structure:
+
+```erlang
+{ok, HLL3} = riakc_pb_socket:fetch_type(Pid, Bucket, Key),
+riakc_hll:value(HLL3) == 4.
+
+%% which would return:
+%% true
+
+%% We added <<"Jokes">> twice, but, remember, the algorithm only counts the
+%% unique elements we've added to the data structure.
+```
+
+```curl
+curl http://localhost:8098/types/hlls/buckets/hello/datatypes/darkness
+
+# Response
+{"type":"hll","value":"3"}
+```
