@@ -18,8 +18,6 @@ aliases:
 canonical_link: "https://docs.basho.com/riak/ts/latest/setup/upgrading/"
 ---
 
-[contact]: http://basho.com/contact/
-[use admin riak control]: /riak/kv/2.1.4/using/admin/riak-control
 [use admin commands]: /riak/kv/2.1.4/using/admin/commands
 [use admin riak-admin]: /riak/kv/2.1.4/using/admin/riak-admin
 [usage secondary-indexes]: /riak/kv/2.1.4/developing/usage/secondary-indexes
@@ -30,6 +28,9 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/setup/upgrading/"
 [snmp]: /riak/kv/2.1.4/using/reference/snmp
 
 {{% note title="Note on upgrading Riak TS from older versions" %}}
+[contact]: http://basho.com/contact/
+[use admin riak control]: /riak/kv/2.1.4/using/admin/riak-control
+
 Upgrading Riak TS is only supported for Riak TS 1.3.1 to 1.4.0. For assistance upgrading from earlier versions to 1.4.0 [contact Client Services][contact].
 
 If you run [Riak Control][use admin riak control], you should disable it during the rolling upgrade process.
