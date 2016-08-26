@@ -105,26 +105,26 @@ def generate_downloads_metadata()
 
     # For every project, pull the list of major version numbers (e.g. '2.0',
     # '2.1', etc.), and filter it based on that project's `min_maj_ver`.
-    riak_major_versions = fetch_index_json("#{s3_root}")
-                           .select { |k,v| v["type"] == "dir" }
-                           .select { |k,v| k != "CURRENT" }
-                           .select { |k,v| k =~ /^\d+\.\d+$/ }
-                           .select { |k,v| k.to_f >= project_meta["min_maj_ver"] }
-                           .keys()
-    riak_major_versions.each do |riak_major_version|
+    major_versions = fetch_index_json("#{s3_root}")
+                       .select { |k,v| v["type"] == "dir" }
+                       .select { |k,v| k != "CURRENT" }
+                       .select { |k,v| k =~ /^\d+\.\d+$/ }
+                       .select { |k,v| k.to_f >= project_meta["min_maj_ver"] }
+                       .keys()
+    major_versions.each do |major_version|
       # For every major version, pull the list of full version numbers.
-      riak_versions = fetch_index_json("#{s3_root}/#{riak_major_version}")
-                        .select { |k,v| v["type"] == "dir" }
-                        .select { |k,v| k != "CURRENT" }
-                        .select { |k,v| k =~ /^\d+\.\d+\.\d+$/ }
-                        .keys()
-      riak_versions.each do |riak_version|
-        version_hash["#{riak_version}"] = os_list = []
+      versions = fetch_index_json("#{s3_root}/#{major_version}")
+                   .select { |k,v| v["type"] == "dir" }
+                   .select { |k,v| k != "CURRENT" }
+                   .select { |k,v| k =~ /^\d+\.\d+\.\d+$/ }
+                   .keys()
+      versions.each do |version|
+        version_hash["#{version}"] = os_list = []
         # Every full version directory will contain one directory per operating
         # system, and a source tarball. We want to first record information
         # regarding the source archive, then continue to iterate through the
         # operating systems.
-        version_index_json = fetch_index_json("#{s3_root}/#{riak_major_version}/#{riak_version}")
+        version_index_json = fetch_index_json("#{s3_root}/#{major_version}/#{version}")
 
         # Grab the source file list, and add it to download_info_hash (by way of
         # appending the source to the the os_list).
@@ -146,7 +146,7 @@ def generate_downloads_metadata()
           os_version_list = []
           os_list.push({"os"=>os, "versions"=>os_version_list})
 
-          os_versions = fetch_index_json("#{s3_root}/#{riak_major_version}/#{riak_version}/#{os}")
+          os_versions = fetch_index_json("#{s3_root}/#{major_version}/#{version}/#{os}")
                           .select { |k,v| v["type"] == "dir" }
                           .select { |k,v| k != "CURRENT" }
                           .keys()
@@ -154,7 +154,7 @@ def generate_downloads_metadata()
             arch_list = []
             os_version_list.push({"version"=>os_version, "architectures"=>arch_list})
 
-            package_maps = fetch_index_json("#{s3_root}/#{riak_major_version}/#{riak_version}/#{os}/#{os_version}")
+            package_maps = fetch_index_json("#{s3_root}/#{major_version}/#{version}/#{os}/#{os_version}")
                              .select { |k,v| v["type"] == "file" }
             # Filter out .sha files, and add each package to download_info_hash
             # (by way of appending the source to the the arch_list).
@@ -170,7 +170,7 @@ def generate_downloads_metadata()
 
               # attempt to extract the architecture from `k` (the file name)
               # (default to 'unknown')
-              package_arch = 'unknown'
+              package_arch   = 'unknown'
               if    k =~ /amd64/
                 package_arch = 'amd64'
               elsif k =~ /x86_64/

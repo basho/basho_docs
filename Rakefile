@@ -3,12 +3,18 @@
 # This Rakefile is to be invoked with the `rake` Ruby Gem. It's best if the that
 # Gem is installed using Bundler and the included Gemfile.
 #
-# This file will act as the canonical builder for the JavaScript/CoffeeScript
-# and CSS/SCSS 'dynamic' files, which are compiled into static/js/ and
-# static/css/ respectively.
-
-#TODO<drew.pirrone.brusse@gmail>: Make sure the above description is correct and
-# complete.
+# This file will act as the canonical builder for all common build operations;
+#   * Compiling SCSS into CSS
+#   * Compiling CoffeeScript into JavaScript
+#   * Aggregating project description and download package metadata
+#   * Deploying the static site to S3
+#
+# Additionally, this file can be used by developers to
+#   * Watch changes in the dynamic/ directory and automatically recompile CSS/JS
+#   * Watch changes in the content/ directory and automatically rebuild the site
+#
+# Running `rake` or `rake -T` will output a list of useful commands and
+# descriptions thereof.
 
 require_relative 'rake_libs/compile_js'
 require_relative 'rake_libs/compile_css'
@@ -28,7 +34,36 @@ directory "#{$js_dest}"
 directory "#{$css_dest}"
 directory "#{$cache_dir}"
 
-#TODO<drew.pirrone.brusse@gmail>: Check to make sure Hugo's version is >= 0.15
+
+######################################################################
+### Version Checks
+
+min_hugo_version = "0.16"
+min_ruby_version = "2.2.5"
+
+# Check if Ruby is up to date
+if Gem::Version.new(min_ruby_version) > Gem::Version.new(RUBY_VERSION)
+  Kernel.abort("ERROR: An old version of Ruby (#{RUBY_VERSION}) is in use.\n"\
+               "       Please upgrade this tool to at least version "\
+               "#{min_ruby_version}.\n")
+end
+
+
+# Check if Hugo is installed, and confirm it's up to date.
+if (`which hugo`.empty?)
+  Kernel.abort("ERROR: No version of Hugo is installed.\n"\
+               "       Please install the latest version of Hugo -- gohugo.io/")
+end
+
+# This regex looks for e.g. "v0.16" -- matching only the "0.16" -- and then we
+# extract the first string from the returned MatchData with the `[0]`
+hugo_version  = /(?<=v)\d+\.\d+/.match(`hugo version`)[0]
+
+if Gem::Version.new(min_hugo_version) > Gem::Version.new(hugo_version)
+  Kernel.abort("ERROR: An old version of Hugo (#{hugo_version}) is in use.\n"\
+               "       Please upgrade this tool to at least version "\
+               "#{min_hugo_version}.\n")
+end
 
 
 ######################################################################
