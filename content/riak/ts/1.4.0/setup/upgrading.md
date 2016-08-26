@@ -66,6 +66,10 @@ sudo dpkg -i »riakts_package_name«.deb
 
 4\. Restart Riak TS:
 
+{{% note %}}
+Before restarting Riak TS, check your 'riak.conf' file and verify that your settings are configured as expected.
+{{% /note %}}
+
 ```bash
 riak start
 ```
@@ -76,7 +80,7 @@ riak start
 riak version
 ```
 
-6\. Wait for the `riak_ts` service to start:
+6\. Wait for the `riak_kv` service to start:
 
 ```bash
 riak-admin wait-for-service riak_kv »target node«
@@ -122,6 +126,10 @@ sudo rpm -Uvh »riakts_package_name«.rpm
 
 4\. Restart Riak TS:
 
+{{% note %}}
+Before restarting Riak TS, check your 'riak.conf' file and verify that your settings are configured as expected.
+{{% /note %}}
+
 ```bash
 riak start
 ```
@@ -132,8 +140,7 @@ riak start
 riak version
 ```
 
-
-6\. Wait for the `riak_ts` service to start:
+6\. Wait for the `riak_kv` service to start:
 
 ```bash
 riak-admin wait-for-service riak_kv »target node«
