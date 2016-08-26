@@ -79,7 +79,7 @@ riak version
 6\. Wait for the `riak_ts` service to start:
 
 ```bash
-riak-admin wait-for-service riak_ts »target node«
+riak-admin wait-for-service riak_kv »target node«
 ```
 
 * `»target node«` is the node which you have just upgraded (e.g.
@@ -136,7 +136,7 @@ riak version
 6\. Wait for the `riak_ts` service to start:
 
 ```bash
-riak-admin wait-for-service riak_ts »target node«
+riak-admin wait-for-service riak_kv »target node«
 ```
 
 * `»target node«` is the node which you have just upgraded (e.g.
