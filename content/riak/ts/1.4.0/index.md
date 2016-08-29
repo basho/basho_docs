@@ -63,7 +63,7 @@ Using this table we can map region, state and time (in 15 minute chunks) to weat
 * Ubuntu 12.04
 * Ubuntu 14.04
 * Debian 7 & 8 (development only)
-* OS X 10.10 & 10.11 (development only)
+* OS X 10.8+ (development only)
 
 {{% note %}}
 LevelDB is the only supported backend.
