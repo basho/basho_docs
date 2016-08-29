@@ -34,7 +34,29 @@ Benchmarking of your use cases and traffic load is recommended when changing the
 
 ### Timeout
 
-Use `riak_kv.query.timeseries.timeout` to configure the timeout (in seconds) for queries, after which a timeout error is returned. The default is '10s'.
+Use `riak_kv.query.timeseries.timeout` to configure the timeout for queries, after which a timeout error is returned. The default is '10s'.
+
+```riak.conf
+riak_kv.query.timeseries.timeout = 10s
+```
+
+The supported units for a duration are:
+
+- Milliseconds - `ms`
+- Seconds - `s`
+- Minutes - `m`
+- Hours - `h`
+- Days - `d`
+- Weeks - `w`
+- Fortnight - `f`
+
+You can also combine units. For example, setting timeout to 3 minutes and 14 seconds:
+
+```riak.conf
+riak_kv.query.timeseries.timeout = 3m14s
+```
+
+If no unit is added, `riak_kv.query.timeseries.timeout` will be read in milliseconds:
 
 ```riak.conf
 riak_kv.query.timeseries.timeout = 10000
