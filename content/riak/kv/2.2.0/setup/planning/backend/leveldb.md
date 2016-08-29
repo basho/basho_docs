@@ -72,11 +72,14 @@ A number of changes have been introduced in the LevelDB backend in Riak
    respectively. We'd like to thank Google and the authors of LevelDB at
    Google for choosing a completely FLOSS license so that everyone can
    benefit from this innovative storage engine.
-2. **Data compression** --- LevelDB uses Google
-   [Snappy](https://code.google.com/p/snappy/) data compression by
-   default. This means more CPU usage but less disk space. The
-   compression efficiency is especially good for text data, including
-   raw text, Base64, JSON, etc.
+2. **Data compression** --- LevelDB provides two compression algorithms
+   to reduce storage size and increase efficient use of storage bandwidth:
+      * Google's [Snappy](https://code.google.com/p/snappy/) data compression
+      * [LZ4](https://en.wikipedia.org/wiki/LZ4_(compression_algorithm)) data
+        compression
+
+    Enabling compression means more CPU usage but less disk space. Compression
+    is especially good for text data, including raw text, Base64, JSON, etc.
 
 ## Weaknesses
 
