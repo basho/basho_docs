@@ -4024,14 +4024,6 @@ riak_ts:
       file_size: 21185823
   - os: debian
     versions:
-    - version: '6'
-      architectures:
-      - arch: amd64
-        file_info:
-          file_name: riak-ts_1.4.0-1_amd64.deb
-          file_href: http://s3.amazonaws.com/downloads.basho.com/riak_ts/1.4/1.4.0/debian/6/riak-ts_1.4.0-1_amd64.deb
-          file_size: 65046940
-          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak_ts/1.4/1.4.0/debian/6/riak-ts_1.4.0-1_amd64.deb.sha
     - version: '7'
       architectures:
       - arch: amd64
@@ -4060,20 +4052,6 @@ riak_ts:
           chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak_ts/1.4/1.4.0/osx/10.8/riak-ts-1.4.0-OSX-x86_64.tar.gz.sha
   - os: rhel
     versions:
-    - version: '5'
-      architectures:
-      - arch: x86_64
-        file_info:
-          file_name: riak-ts-1.4.0-1.el5.x86_64.rpm
-          file_href: http://s3.amazonaws.com/downloads.basho.com/riak_ts/1.4/1.4.0/rhel/5/riak-ts-1.4.0-1.el5.x86_64.rpm
-          file_size: 67048875
-          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak_ts/1.4/1.4.0/rhel/5/riak-ts-1.4.0-1.el5.x86_64.rpm.sha
-      - arch: source
-        file_info:
-          file_name: riak-ts-1.4.0-1.src.rpm
-          file_href: http://s3.amazonaws.com/downloads.basho.com/riak_ts/1.4/1.4.0/rhel/5/riak-ts-1.4.0-1.src.rpm
-          file_size: 21196980
-          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak_ts/1.4/1.4.0/rhel/5/riak-ts-1.4.0-1.src.rpm.sha
     - version: '6'
       architectures:
       - arch: source
