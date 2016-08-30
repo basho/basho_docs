@@ -3,7 +3,7 @@ title_supertext: "Developing with Riak KV"
 title: "Data Types: HyperLogLogs"
 description: ""
 project: "riak_kv"
-project_version: "2.2.o"
+project_version: "2.2.0"
 menu:
   riak_kv-2.2.0:
     name: "HyperLogLogs"
