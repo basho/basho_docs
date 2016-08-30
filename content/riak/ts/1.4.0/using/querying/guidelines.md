@@ -59,7 +59,7 @@ Any quantized field in your partition key must be included in the query as eithe
 * Invalid: `time > 1449864277000 or time < 1449864290000`
 
 {{% note title="A Note About `SELECT`" %}}
-It is possible to use ISO 8601-compliant date/time strings rather than integer timestamps in SELECT statements. Please see [SELECT](/riak/ts/1.4.0/using/querying/select/#iso-8601merepresentations/) for an example or [Time Representations](/riak/ts/1.4.0/using/timerepresentations/) for more information.
+It is possible to use ISO 8601-compliant date/time strings rather than integer timestamps in SELECT statements. Please see [SELECT](/riak/ts/1.4.0/using/querying/select/#iso-8601) for an example or [Time Representations](/riak/ts/1.4.0/using/timerepresentations/) for more information.
 {{% /note %}}
 
 
