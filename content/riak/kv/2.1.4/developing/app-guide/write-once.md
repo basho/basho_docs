@@ -20,12 +20,7 @@ aliases:
 [Riak data types]: /riak/kv/2.1.4/developing/data-types
 [strong consistency]: /riak/kv/2.1.4/developing/app-guide/strong-consistency
 
-Riak 2.1.0 introduces the concept of write-once buckets, buckets whose entries
-are intended to be written exactly once and never updated or overwritten.
-Buckets of this type circumvent the normal "coordinated PUT" path, which would
-otherwise result in a read on the coordinating vnode before the write. Avoiding
-coordinated PUTs results in higher throughput and lower PUT latency, though at
-the cost of different semantics in the degenerate case of sibling resolution.
+Write-once buckets are buckets whose entries are intended to be written exactly once and never updated or overwritten. Buckets of this type circumvent the normal "coordinated PUT" path, which would otherwise result in a read on the coordinating vnode before the write. Avoiding coordinated PUTs results in higher throughput and lower PUT latency, though at the cost of different semantics in the degenerate case of sibling resolution.
 
 {{% note %}}
 Write-once buckets do not support Riak commit hooks.  Because Riak objects are
