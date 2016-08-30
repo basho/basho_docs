@@ -99,16 +99,34 @@
   }
 }
 
-
-// base = top or bottom
-// point = bottom or top
-// size = size of the base
-//TODO: Audit this mixin & write a SassDoc for it.
-@mixin arrowVertical($base, $point,  $size, $color) {
+/// Renders as an arrow of the given size; points either up or down.
+/// @author Barrett Cox
+/// @author Drew Pirrone-Brusse
+/// @param {String} base  - `top` or `bottom`
+/// @param {String} point - `bottom` or `top`
+/// @param {Number} size  - Size of the base of the arrow
+/// @param {Color}  color - Color of the arrow.
+@mixin vertical-arrow($base, $point, $size, $color) {
   width            : 0;
   border           : #{$size} solid transparent;
   border-#{$base}  : #{$size} solid #{$color};
   border-#{$point} : none;
+}
+
+/// Named pass-through to vertical-arrow, pointing up.
+/// @author Drew Pirrone-Brusse
+/// @param {Number} size  - Size of the base of the arrow
+/// @param {Color}  color - Color of the arrow.
+@mixin upward-arrow($size, $color) {
+  @include vertical-arrow(bottom, top, $size, $color)
+}
+
+/// Named pass-through to vertical-arrow, pointing down.
+/// @author Drew Pirrone-Brusse
+/// @param {Number} size  - Size of the base of the arrow
+/// @param {Color}  color - Color of the arrow.
+@mixin downward-arrow($size, $color) {
+  @include vertical-arrow(top, bottom, $size, $color)
 }
 
 
