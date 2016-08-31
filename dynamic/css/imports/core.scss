@@ -318,6 +318,11 @@ div[role="main"] {
     padding-top : 109px;
     margin-top  : -64px;
 
+    // Fix an issue where h# elements cover preceeding text, and prevent
+    // interaction (selection, scrolling, etc.) with those elements
+    position: relative;
+    z-index: -1;
+
     // Reduce the padding on the ToC
     // TODO: Should probably find a better place for this
     &.title {
@@ -336,6 +341,11 @@ div[role="main"] {
     padding-top : 113px;
     margin-top  : -89px;
 
+    // Fix an issue where h# elements cover preceeding text, and prevent
+    // interaction (selection, scrolling, etc.) with those elements
+    position: relative;
+    z-index: -1;
+
     a {
       color : $headerColor;
     }
@@ -347,6 +357,11 @@ div[role="main"] {
     padding-top : 121px;
     margin-top  : -104px;
 
+    // Fix an issue where h# elements cover preceeding text, and prevent
+    // interaction (selection, scrolling, etc.) with those elements
+    position: relative;
+    z-index: -1;
+
     a {
       color : $headerColor;
     }
@@ -356,12 +371,22 @@ div[role="main"] {
     // To reduce the appearance of excess whitespace before headings.
     padding-top : 129px;
     margin-top  : -129px;
+
+    // Fix an issue where h# elements cover preceeding text, and prevent
+    // interaction (selection, scrolling, etc.) with those elements
+    position: relative;
+    z-index: -1;
   }
 
   h6 {
     // To reduce the appearance of excess whitespace before headings.
     padding-top : 131px;
     margin-top  : -131px;
+
+    // Fix an issue where h# elements cover preceeding text, and prevent
+    // interaction (selection, scrolling, etc.) with those elements
+    position: relative;
+    z-index: -1;
   }
 
   a {
