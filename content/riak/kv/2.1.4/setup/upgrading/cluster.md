@@ -36,7 +36,7 @@ recommend first upgrading to an intermediate version. For example, in an
 upgrade from 1.1.x to 1.4.x, we recommend upgrading from 1.1.x to 1.3.x
 before upgrading to 1.4.x.
 
-If you run [Riak Control][use admin riak control], you should disable it during the rolling upgrade process.
+If you run [Riak Control](/riak/kv/2.1.4/using/admin/riak-control), you should disable it during the rolling upgrade process.
 {{% /note %}}
 
 Riak KV nodes negotiate with each other to determine supported
@@ -84,10 +84,10 @@ riak version
 6\. Wait for the `riak_kv` service to start:
 
 ```bash
-riak-admin wait-for-service riak_kv >>target_node<<
+riak-admin wait-for-service riak_kv »target_node«
 ```
 
-* `>>target_node<<` is the node which you have just upgraded (e.g.
+* `»target_node«` is the node which you have just upgraded (e.g.
 `riak@192.168.1.11`)
 
 7\. Wait for any hinted handoff transfers to complete:
@@ -100,12 +100,6 @@ riak-admin transfers
 behalf. This data is transferred to the node when it becomes available.
 
 8\. Repeat the process for the remaining nodes in the cluster.
-
-{{% note title="Note for secondary index (2i) users" %}}
-If you use Riak KV's [secondary indexes][usage secondary-indexes] and are
-upgrading from a version prior to Riak KV version 1.3.1, you need to
-reformat the indexes using the [`riak-admin reformat-indexes`][use admin riak-admin] command. More details about reformatting indexes are available in the [release notes][release notes].
-{{% /note %}}
 
 
 ## RHEL/CentOS
@@ -147,10 +141,10 @@ riak version
 6\. Wait for the `riak_kv` service to start:
 
 ```bash
-riak-admin wait-for-service riak_kv >>target_node<<
+riak-admin wait-for-service riak_kv »target_node«
 ```
 
-* `>>target_node<<` is the node which you have just upgraded (e.g.
+* `»target_node«` is the node which you have just upgraded (e.g.
 riak@192.168.1.11)
 
 7\. Wait for any hinted handoff transfers to complete:
@@ -164,11 +158,6 @@ behalf. This data is transferred to the node when it becomes available.
 
 8\. Repeat the process for the remaining nodes in the cluster.
 
-{{% note title="Note for secondary index (2i) users" %}}
-If you use Riak KV's [secondary indexes][usage secondary-indexes] and are
-upgrading from a version prior to Riak KV version 1.3.1, you need to
-reformat the indexes using the [`riak-admin reformat-indexes`][use admin riak-admin] command. More details about reformatting indexes are available in the [release notes][release notes].
-{{% /note %}}
 
 ## Solaris/OpenSolaris
 
@@ -233,10 +222,10 @@ riak version
 6\. Wait for the `riak_kv` service to start:
 
 ```bash
-riak-admin wait-for-service riak_kv >>target_node<<
+riak-admin wait-for-service riak_kv »target_node«
 ```
 
-`>>target_node<<` is the node which you have just upgraded (e.g.
+`»target_node«` is the node which you have just upgraded (e.g.
 `riak@192.168.1.11`)
 
 7\. Wait for any hinted handoff transfers to complete:
@@ -250,11 +239,6 @@ behalf. This data is transferred to the node when it becomes available.
 
 8\. Repeat the process for the remaining nodes in the cluster.
 
-{{% note title="Note for secondary index (2i) users" %}}
-If you use Riak KV's [secondary indexes][usage secondary-indexes] and are
-upgrading from a version prior to Riak KV version 1.3.1, you need to
-reformat the indexes using the [`riak-admin reformat-indexes`][use admin riak-admin] command. More details about reformatting indexes are available in the [release notes][release notes].
-{{% /note %}}
 
 ## Rolling Upgrade to Enterprise
 
@@ -262,7 +246,7 @@ If you would like to upgrade an existing Riak KV cluster to a commercially
 supported [Riak KV Enterprise][riak enterprise] cluster with [multi-datacenter replication][cluster ops mdc], undertake the following steps:
 
 1. Shut down the node you are going to upgrade.
-2. Back up your `etc` (`app.config` and `vm.args`) and `data`
+2. Back up your `etc` (app.config and vm.args) and `data`
 directories.
 3. Uninstall your Riak KV package.
 4. Install the `riak_ee` package.
