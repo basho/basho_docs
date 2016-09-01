@@ -1,4 +1,5 @@
 ---
+title_supertext: "Upgrading Riak KV"
 title: "Production Checklist"
 description: ""
 project: "riak_kv"
@@ -12,6 +13,7 @@ menu:
 toc: true
 aliases:
   - /riak/2.0.2/ops/upgrading/production-checklist/
+  - /riak/kv/2.0.2/ops/upgrading/production-checklist/
 ---
 
 [perf open files]: /riak/kv/2.0.2/using/performance/open-files-limit
@@ -34,9 +36,9 @@ aliases:
 [use admin riak-admin]: /riak/kv/2.0.2/using/admin/riak-admin
 [SANs]: http://en.wikipedia.org/wiki/Storage_area_network
 
-Deploying Riak KV to a realtime production environment from a development or testing environment can be a complex process. While the specifics of that process will always depend on your environment and practices, there are some basics for you to consider and a few questions that you will want to ask while making this transition.
+Deploying Riak KV to a production environment from a development or testing environment can be a complex process. While the specific process will depend on your environment and practices, there are some basics for you to consider and a few questions you will want to ask while making this transition.
 
-We've compiled these considerations and questions into separate categories for you to look over.
+We have compiled these considerations and questions into separate categories for you to look over.
 
 ## System
 

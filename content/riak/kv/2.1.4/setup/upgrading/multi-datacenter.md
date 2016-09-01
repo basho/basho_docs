@@ -12,7 +12,3 @@ project_version: "2.1.4"
 #    parent: "upgrading"
 toc: true
 ---
-
-## TODO
-
-How to update to a new version with multi-datacenter.
