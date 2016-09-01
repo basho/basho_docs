@@ -20,7 +20,7 @@ aliases:
 [use admin commands]: /riak/kv/2.0.2/using/admin/commands
 [use admin riak-admin]: /riak/kv/2.0.2/using/admin/riak-admin
 [usage secondary-indexes]: /riak/kv/2.0.2/developing/usage/secondary-indexes
-[release notes]: https://github.com/basho/riak/blob/master/RELEASE-NOTES.md
+[release notes]: /riak/kv/2.0.2/release-notes/
 [riak enterprise]: http://basho.com/products/riak-kv/
 [cluster ops mdc]: /riak/kv/2.0.2/using/cluster-operations/v3-multi-datacenter
 [config v3 mdc]: /riak/kv/2.0.2/configuring/v3-multi-datacenter
@@ -104,7 +104,7 @@ behalf. This data is transferred to the node when it becomes available.
 {{% note title="Note for secondary index (2i) users" %}}
 If you use Riak KV's [secondary indexes](/riak/kv/2.0.2/developing/usage/secondary-indexes) and are
 upgrading from a version prior to Riak KV version 1.3.1, you need to
-reformat the indexes using the [`riak-admin reformat-indexes`](/riak/kv/2.0.2/using/admin/riak-admin) command. More details about reformatting indexes are available in the [release notes](https://github.com/basho/riak/blob/master/RELEASE-NOTES.md).
+reformat the indexes using the [`riak-admin reformat-indexes`](/riak/kv/2.0.2/using/admin/riak-admin) command. More details about reformatting indexes are available in the [release notes](/riak/kv/2.0.2/release-notes/).
 {{% /note %}}
 
 ## RHEL/CentOS
@@ -166,7 +166,7 @@ behalf. This data is transferred to the node when it becomes available.
 {{% note title="Note for secondary index (2i) users" %}}
 If you use Riak KV's [secondary indexes](/riak/kv/2.0.2/developing/usage/secondary-indexes) and are
 upgrading from a version prior to Riak KV version 1.3.1, you need to
-reformat the indexes using the [`riak-admin reformat-indexes`](/riak/kv/2.0.2/using/admin/riak-admin) command. More details about reformatting indexes are available in the [release notes](https://github.com/basho/riak/blob/master/RELEASE-NOTES.md).
+reformat the indexes using the [`riak-admin reformat-indexes`](/riak/kv/2.0.2/using/admin/riak-admin) command. More details about reformatting indexes are available in the [release notes](/riak/kv/2.0.2/release-notes/).
 {{% /note %}}
 
 ## Solaris/OpenSolaris
@@ -252,7 +252,7 @@ behalf. This data is transferred to the node when it becomes available.
 {{% note title="Note for secondary index (2i) users" %}}
 If you use Riak KV's [secondary indexes](/riak/kv/2.0.2/developing/usage/secondary-indexes) and are
 upgrading from a version prior to Riak KV version 1.3.1, you need to
-reformat the indexes using the [`riak-admin reformat-indexes`](/riak/kv/2.0.2/using/admin/riak-admin) command. More details about reformatting indexes are available in the [release notes](https://github.com/basho/riak/blob/master/RELEASE-NOTES.md).
+reformat the indexes using the [`riak-admin reformat-indexes`](/riak/kv/2.0.2/using/admin/riak-admin) command. More details about reformatting indexes are available in the [release notes](/riak/kv/2.0.2/release-notes/).
 {{% /note %}}
 
 ## Rolling Upgrade to Enterprise
