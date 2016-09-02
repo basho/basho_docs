@@ -75,6 +75,16 @@ For this example we'll use the `hlls` bucket type created and activated above an
 %% examples below for more information
 ```
 
+```java
+// In the Java client, a bucket/bucket type combination is specified
+// using a Namespace object. To specify bucket, bucket type, and key,
+// use a Location object that incorporates the Namespace object, as is
+// done below.
+
+Location hllLocation =
+  new Location(new Namespace("<bucket_type>", "<bucket>"), "<key>");
+```
+
 ```curl
 curl http://localhost:8098/types/<bucket_type>/buckets/<bucket>/datatypes/<key>
 
@@ -95,6 +105,17 @@ HLL = riakc_hll:new().
 %% structure with a bucket type, bucket, and key later on.
 ```
 
+```java
+// In the Java client, you specify the location of Data Types
+// before you perform operations on them:
+
+Location hllLocation =
+  new Location(new Namespace("hlls", "hello"), "darkness");
+
+// In the Java client, there is no intermediate "empty" hyperloglog data type.
+// Hyperloglogs can be created when an element is added to them, as in the examples below.
+```
+
 ```curl
 # You cannot create an empty hyperloglog data structure through the HTTP
 # interface.
@@ -109,6 +130,14 @@ HLL.
 
 %% which will return:
 %% {hll,0,[]}
+```
+
+```java
+FetchHll fetch = new FetchHll.Builder(hllLocation)
+    .build();
+FetchHll.Response response = client.execute(fetch);
+RiakHll hll = response.getDatatype();
+boolean isEmpty = hll.getCardinality() == 0;
 ```
 
 ```curl
@@ -129,6 +158,16 @@ HLL2.
 
 %% which will return:
 %% {hll,0,[<<"Are">>,<<"Better">>,<<"Explained">>, <<"Jokes">>]}
+```
+
+```java
+HllUpdate hllUpdate = new HllUpdate()
+                        .add("Jokes")
+                        .add("Are")
+                        .addAll(Arrays.asList("Better", "Explained", "Jokes"));
+
+hllUpdate.getElementAdds();
+// Returns the set of ["Jokes", "Are", "Better", "Explained"]                     
 ```
 
 ```curl
@@ -157,6 +196,14 @@ ok = riakc_pb_socket:update_type(Pid, Bucket, Key, riakc_hll:to_op(HLL2)).
 ok = riakc_pb_socket:update_type(Pid, Bucket, Key, riakc_hll:to_op(RepeatHLL1)).
 ```
 
+```java
+// Using hllUpdate and hllLocation from above examples
+
+UpdateHll update = new UpdateHll.Builder(hllLocation, hllUpdate)
+        .build();
+client.execute(update);
+```
+
 ## Retrieve a HyperLogLog DataType
 
 Now, we can check the approximate count-of, aka the cardinality of the elements
@@ -171,6 +218,16 @@ riakc_hll:value(HLL3) == 4.
 
 %% We added <<"Jokes">> twice, but, remember, the algorithm only counts the
 %% unique elements we've added to the data structure.
+```
+
+```java
+FetchHll hllFetchCmd = new FetchHll.Builder(location).build();
+FetchHll.Response fetchHllResponse = client.execute(hllFetchCmd);
+fetchHllResponse.getDatatype().getCardinality();
+// Which returns 4
+
+// We added "Jokes" twice, but, remember, the algorithm only counts the
+// unique elements we've added to the data structure.
 ```
 
 ```curl
