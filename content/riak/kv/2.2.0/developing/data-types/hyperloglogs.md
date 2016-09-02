@@ -135,8 +135,7 @@ HLL.
 ```java
 FetchHll fetch = new FetchHll.Builder(hllLocation)
     .build();
-FetchHll.Response response = client.execute(fetch);
-RiakHll hll = response.getDatatype();
+RiakHll hll = client.execute(fetch);
 boolean isEmpty = hll.getCardinality() == 0;
 ```
 
@@ -222,8 +221,8 @@ riakc_hll:value(HLL3) == 4.
 
 ```java
 FetchHll hllFetchCmd = new FetchHll.Builder(location).build();
-FetchHll.Response fetchHllResponse = client.execute(hllFetchCmd);
-fetchHllResponse.getDatatype().getCardinality();
+RiakHll hll = client.execute(hllFetchCmd);
+hll.getCardinality();
 // Which returns 4
 
 // We added "Jokes" twice, but, remember, the algorithm only counts the
