@@ -22,11 +22,15 @@
 // 4. Layout-related sections
 @import
   'layout/wireframe',
+  'layout/banner',
   'layout/content-info';
 
 // 5. Components
-// @import
-//   '';
+@import
+  'components/docs-logo.scss',
+  'components/downloads-btn.scss',
+  'components/menu-bars.scss',
+  'components/version-selector';
 
 // 6. Page-specific styles
 // @import
