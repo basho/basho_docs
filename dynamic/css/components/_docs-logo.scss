@@ -1,0 +1,24 @@
+/**
+ * Basho Docs Branding Image Wrapper
+ * Indended to be applied to a `display: block` element, be it <div> or
+ * <a class="block">.
+ */
+.docs-logo {
+  cursor : pointer;
+
+  @include when-inside('.banner') {
+    @include pos-relative-vertical-align;
+  }
+}
+
+/**
+ * Basho Docs Branding Image
+ * Intended to be applied to an <img> tag using basho_docs_logo.png as src.
+ * Native size is 312px x 69px
+ */
+.docs-logo__image {
+  @include when-inside('.banner') {
+    width  : p2r(150px);
+    height : p2r(33px);
+  }
+}

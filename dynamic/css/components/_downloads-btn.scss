@@ -1,0 +1,29 @@
+/**
+ * Direct link to Downloads. Shaped like a button.
+ * 1. Set line-height to 1 so the size of the button is determined by
+ *    font-size + padding.
+ */
+.downloads-btn {
+  @include rounded-corners(0.3rem);
+  line-height      : 1;              /* 1 */
+  padding          : 0.625rem 1rem;
+  background-color : $orange;
+
+  @extend %sans-bold;
+  color  : $white;
+
+  cursor : pointer;
+
+  @include on-event {
+    color           : $white;
+    text-decoration : none;
+  }
+
+  @include when-inside('.banner') {
+    @include pos-relative-vertical-align;
+  }
+
+  .docs-icon--download-alt {
+    padding-right : 0.75rem;
+  }
+}

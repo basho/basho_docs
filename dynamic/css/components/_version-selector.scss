@@ -1,0 +1,74 @@
+/**
+ * Version Selector Drop-down Menu; Root Element
+ * 1. Width is set to be just about wide enough for 5 digits; e.g. 2.10.14
+ */
+.version-selector {
+  @include when-inside('.banner') {
+    @include pos-relative-vertical-align;
+    width : 3.5rem; /* 1 */
+  }
+}
+
+
+/**
+ * Version Selector Badge; Title
+ * 1. Setting line-height to 1 lets us exactly control the offset of the version
+ * title and the down/up-arrow from the button.
+ * 2. Poor-man's kerning. The `V` of VERSIONS looked like it was extending past
+ *    the left edge of the button. Not actually the case, but it looks better now.
+ */
+.version-selector__title {
+  @extend         %sans;
+  font-size      : 0.5rem;
+  letter-spacing : p2r(2px);
+  text-transform : uppercase;
+  text-align     : center;
+
+  line-height    : 1;         /* 1 */
+
+  padding-left   : p2r(1px);  /* 2 */
+}
+
+/**
+ * Version Selector Badge
+ *TODO: quick description of why this is necessary? (which... I forget...)
+ */
+.version-selector__badge {
+  cursor : pointer;
+}
+
+/**
+ * Version Selector Drop-down Menu; Button Element
+ * 1. X-padding will likely be ignored in favor of the total width, so these
+ *    should be considered a mins.
+ * 2. Clear the default Button styles to flatten the element.
+ */
+.version-selector__btn {
+  @include rounded-corners(0.25rem);
+  width            : 100%;
+  padding          : 0.2rem 0.5rem;     /* 1 */
+  background-color : $orange;
+
+  @extend    %sans-bold;
+  font-size : 0.75rem;
+  color     : $white;
+
+  margin-top    : 0.3rem;
+  margin-bottom : 0.2rem;
+
+  border : none;                        /* 2 */
+  @include on-event { outline: none; }  /* 2 */
+}
+
+
+/**
+ * Version Selector Badge; Downward Arrow
+ * An example of the vertical-arrow mixin; downward-facing orange arrow used to
+ * indicate a drop-down menu.
+ *TODO: Change to an upward arrow when the list of versions is visible?
+ */
+.version-selector__arrow {
+  @include downward-arrow(p2r(6px), $orange);
+  position : relative;
+  margin   : 0 auto 0.25rem auto;
+}

@@ -1,0 +1,43 @@
+/**
+ * Banner
+ * PRESENTATION ONLY -- See _wireframe.scss for position and size.
+ * 1. Because we're using boder-box sizing, and all elements are floating and
+ *    vertically aligned, setting a padding-top has the effect of pushing all
+ *    contained elements down by that amount, and a padding-bottom will
+ *    similarly push content up.
+ */
+.banner {
+  padding : 0 1rem 0 1.25rem; /* 1 */
+
+  // Linear gradient to get that fading/glass effect. Leave it commented out
+  // until we start polishing the style of the site at large.
+  // background: linear-gradient(to top, rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 80%);
+  // This is for IE6-9. Not sure if we want to bother w/ it.
+  // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#CCffffff', GradientType=0 );
+
+  //TOOD: Make this better. Separate element, maybe? Box-shadow?
+  border-bottom : 1px solid $gray-lighter;
+
+  @include wide-from(md) {
+    padding : .5rem .75rem .25rem .75rem; /* 1 */
+  }
+}
+
+
+/**
+ * Banner Element Wrappers
+ * Each Banner element will be wrapped in a floating div
+ */
+.banner__element-wrapper,
+.banner__element-wrapper--menu-bars,
+.banner__element-wrapper--version-selector,
+.banner__element-wrapper--docs-logo,
+.banner__element-wrapper--downloads-btn, {
+  height : 100%;
+}
+
+.banner__element-wrapper--version-selector {
+  @include wide-from(md) {
+    margin-right : 2rem;
+  }
+}
