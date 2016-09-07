@@ -87,7 +87,19 @@ Location hllLocation =
 
 ```go
 // Buckets and bucket types are simply strings in the Go client.
-// See the examples below for more information.
+
+// See the examples below for more information, or the full example at
+// https://github.com/basho/riak-go-client/blob/master/examples/dev/using/data-types/hyperloglog.go
+
+// We will need the follow imports to run the examples:
+import (
+	"fmt"
+	"os"
+	"time"
+
+	riak "github.com/basho/riak-go-client"
+	"errors"
+)
 ```
 
 ```curl
@@ -151,31 +163,28 @@ boolean isEmpty = hll.getCardinality() == 0;
 ```
 
 ```go
-bucketType = "hlls"
-bucket = "hello"
-key = "darkness"
-var resp *FetchHllResponse
+var resp *riak.FetchHllResponse
 
-builder := NewFetchHllCommandBuilder()
-cmd, err = builder.WithBucketType(bucketType).
-  WithBucket(bucket).
-  WithKey(key).
+builder := riak.NewFetchHllCommandBuilder()
+cmd, err := builder.WithBucketType("hlls").
+  WithBucket("hello").
+  WithKey("darkness").
   Build()
 if err != nil {
-  t.Fatal(err.Error())
+  return err
 }
 if err = cluster.Execute(cmd); err != nil {
-  t.Fatal(err.Error())
+  return err
 }
-if fc, ok := cmd.(*FetchHllCommand); ok {
+if fc, ok := cmd.(*riak.FetchHllCommand); ok {
   if fc.Response == nil {
-    t.Fatal("expected non-nil Response")
+    return errors.New("expected non-nil Response")
   }
   resp = fc.Response
 }
 
-isEmpty := resp.Cardinality == 0
-
+fmt.Println("Hyperloglog cardinality: ", resp.Cardinality)
+return nil
 ```
 
 ```curl
@@ -209,15 +218,7 @@ hllUpdate.getElementAdds();
 ```
 
 ```go
-adds := [][]byte{
-  []byte("Jokes"),
-  []byte("Are"),
-  []byte("Better"),
-  []byte("Explained"),
-  []byte("Jokes")
-}
-
-// We will add these values in the next example
+// We will add values in the next example
 ```
 
 ```curl
@@ -255,21 +256,25 @@ client.execute(update);
 ```
 
 ```go
-var err error
-var cmd Command
+adds := [][]byte{
+  []byte("Jokes"),
+  []byte("Are"),
+  []byte("Better"),
+  []byte("Explained"),
+  []byte("Jokes"),
+}
 
-builder := NewUpdateHllCommandBuilder()
-cmd, err = b1.WithBucketType(bucketType).
-  WithBucket(bucketName).
-  WithKey(key).
+builder := riak.NewUpdateHllCommandBuilder()
+cmd, err := builder.WithBucketType("hlls").
+  WithBucket("hello").
+  WithKey("darkness").
   WithAdditions(adds...).
   Build()
 if err != nil {
-  t.Fatal(err.Error())
+  return err
 }
-if err = cluster.Execute(cmd); err != nil {
-  t.Fatal(err.Error())
-}
+
+return cluster.Execute(cmd)
 ```
 
 ## Retrieve a HyperLogLog DataType
@@ -299,31 +304,30 @@ hll.getCardinality();
 ```
 
 ```go
-var err  Error
-var cmd  Command
-var resp *FetchHllResponse
+var resp *riak.FetchHllResponse
 
-builder := NewFetchHllCommandBuilder()
-cmd, err = builder.WithBucketType(bucketType).
-  WithBucket(bucket).
-  WithKey(key).
+builder := riak.NewFetchHllCommandBuilder()
+cmd, err := builder.WithBucketType("hlls").
+  WithBucket("hello").
+  WithKey("darkness").
   Build()
 if err != nil {
-  t.Fatal(err.Error())
+  return err
 }
 if err = cluster.Execute(cmd); err != nil {
-  t.Fatal(err.Error())
+  return err
 }
-if fc, ok := cmd.(*FetchHllCommand); ok {
+if fc, ok := cmd.(*riak.FetchHllCommand); ok {
   if fc.Response == nil {
-    t.Fatal("expected non-nil Response")
+    return errors.New("expected non-nil Response")
   }
   resp = fc.Response
 }
-resp.Cardinality // Returns 4
 
 // We added "Jokes" twice, but, remember, the algorithm only counts the
 // unique elements we've added to the data structure.
+fmt.Println("Hyperloglog cardinality: ", resp.Cardinality)
+return nil
 ```
 
 ```curl
