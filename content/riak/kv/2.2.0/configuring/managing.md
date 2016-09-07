@@ -7,7 +7,7 @@ menu:
   riak_kv-2.2.0:
     name: "Managing Configuration"
     identifier: "configuring_managing"
-    weight: 103
+    weight: 130
     parent: "configuring"
 toc: true
 ---

@@ -7,7 +7,7 @@ menu:
   riak_kv-2.2.0:
     name: "Configuration Reference"
     identifier: "configuring_reference"
-    weight: 104
+    weight: 140
     parent: "configuring"
 toc: true
 aliases:

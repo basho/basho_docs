@@ -7,7 +7,7 @@ menu:
   riak_kv-2.2.0:
     name: "Implementing Strong Consistency"
     identifier: "configuring_strong_consistency"
-    weight: 105
+    weight: 190
     parent: "configuring"
 toc: true
 ---

@@ -7,7 +7,7 @@ menu:
   riak_kv-2.2.0:
     name: "Search Settings"
     identifier: "configuring_search"
-    weight: 108
+    weight: 160
     parent: "configuring"
 toc: true
 aliases:
