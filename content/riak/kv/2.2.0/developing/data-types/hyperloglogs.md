@@ -194,6 +194,7 @@ if fc, ok := cmd.(*riak.FetchHllCommand); ok {
 }
 
 fmt.Println("Hyperloglog cardinality: ", resp.Cardinality)
+fmt.Println("Hyperloglog isNotFound: ", resp.IsNotFound)
 return nil
 ```
 
