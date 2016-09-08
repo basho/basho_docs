@@ -66,3 +66,21 @@ $gray         : $gray-38;
 $gray-light   : $gray-60;
 $gray-lighter : $gray-85;
 $white        : #ffffff;
+
+
+
+// Version Selector Color Pallet
+// =============================
+$version-color-1        : $orange;
+$version-color-1-light  : lighten($version-color-1, 10%);
+$version-color-2        : $orange-dark;
+$version-color-2-light  : lighten($version-color-2, 10%);
+$version-color-3        : $green;
+$version-color-3-light  : lighten($version-color-3, 10%);
+$version-color-4        : $cyan;
+$version-color-4-light  : lighten($version-color-4, 10%);
+$version-color-5        : $cyan-dark;
+$version-color-5-light  : lighten($version-color-5, 10%);
+$version-color-6        : $green-dark;
+$version-color-6-light  : lighten($version-color-6, 10%);
+$version-color-inactive : $gray-light;
