@@ -18,8 +18,6 @@ aliases:
   - /riak/kv/2.2.0/installing/debian-ubuntu/
 ---
 
-
-
 [install source index]: /riak/kv/2.2.0/setup/installing/source/
 [security index]: /riak/kv/2.2.0/using/security/
 [install source erlang]: /riak/kv/2.2.0/setup/installing/source/erlang
@@ -28,19 +26,16 @@ aliases:
 Riak KV can be installed on Debian or Ubuntu-based systems using a binary
 package or by compiling from source code.
 
-The following steps have been tested to work with Riak KV on
-Debian versions 6.05 and 7.6 and Ubuntu version 14.04.
+The following steps have been tested to work with Riak KV on:
+
+- Debian 6.05
+- Debian 7.6
+- Debian 8
+- Ubuntu 14.04
 
 ## Installing with apt
 
-For versions of Riak prior to 2.0, Basho used a self-hosted
-[apt](http://en.wikipedia.org/wiki/Advanced_Packaging_Tool) repository
-for Debian and Ubuntu packages. For versions 2.0 and later, Basho has
-moved those packages to the
-[packagecloud.io](https://packagecloud.io/basho/riak?filter=debs)
-hosting service. Instructions for installing via shell scripts, manual
-installation, Chef, and Puppet can be found in packagecloud's
-[installation docs](https://packagecloud.io/basho/riak/install).
+Basho has Riak KV packages on move the [packagecloud.io](https://packagecloud.io/basho/riak?filter=debs) hosting service. Instructions for installing via shell scripts, manual installation, Chef, and Puppet can be found in packagecloud's [installation docs](https://packagecloud.io/basho/riak/install).
 
 Platform-specific pages are linked below:
 
