@@ -33,6 +33,8 @@
 /**
  * Version Selector Badge
  *TODO: quick description of why this is necessary? (which... I forget...)
+ *TODO: This should probably only be a pointer when JS is enabled, and there's a
+ *      (possibly-loaded) list to display on a click.
  */
 .version-selector__badge {
   cursor : pointer;
