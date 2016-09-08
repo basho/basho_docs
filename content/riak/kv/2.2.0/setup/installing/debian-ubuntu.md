@@ -35,7 +35,7 @@ The following steps have been tested to work with Riak KV on:
 
 ## Installing with apt
 
-Basho has Riak KV packages on move the [packagecloud.io](https://packagecloud.io/basho/riak?filter=debs) hosting service. Instructions for installing via shell scripts, manual installation, Chef, and Puppet can be found in packagecloud's [installation docs](https://packagecloud.io/basho/riak/install).
+Basho has Riak KV packages on the [packagecloud.io](https://packagecloud.io/basho/riak?filter=debs) hosting service. Instructions for installing via shell scripts, manual installation, Chef, and Puppet can be found in packagecloud's [installation docs](https://packagecloud.io/basho/riak/install).
 
 Platform-specific pages are linked below:
 
