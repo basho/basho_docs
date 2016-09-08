@@ -44,8 +44,6 @@ Riak KV is a distributed NoSQL database designed to deliver maximum data availab
 - Red Hat Enterprise Linux 5
 - Red Hat Enterprise Linux 6
 - Red Hat Enterprise Linux 7
-- Smart OS 1.8
-- Smart OS 13.1
 - Solaris 10
 - SUSE Linux Enterprise Server 11
 - Ubuntu 12.04.5
