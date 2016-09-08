@@ -102,6 +102,11 @@ import (
 )
 ```
 
+```javascript
+// In the Node.js client, buckets are just string parameters to operations.
+// See the examples below for more information.
+```
+
 ```curl
 curl http://localhost:8098/types/<bucket_type>/buckets/<bucket>/datatypes/<key>
 
@@ -136,6 +141,11 @@ Location hllLocation =
 
 ```go
 // In the Go client, there is no intermediate "empty" hyperloglog data type.
+// Hyperloglogs can be created when an element is added to them, as in the examples below.
+```
+
+```javascript
+// In the Node.js client, there is no intermediate "empty" hyperloglog data type.
 // Hyperloglogs can be created when an element is added to them, as in the examples below.
 ```
 
@@ -187,6 +197,25 @@ fmt.Println("Hyperloglog cardinality: ", resp.Cardinality)
 return nil
 ```
 
+```javascript
+var options = {
+    bucketType: 'hlls',
+    bucket: 'hello',
+    key: 'darkness'
+};
+
+client.fetchHll(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+
+    if (rslt.notFound) {
+        logger.info("Not Found");
+    }
+});
+// Prints "Not Found" to logger.info.
+```
+
 ```curl
 curl http://localhost:8098/types/hlls/buckets/hello/datatypes/darkness
 
@@ -218,6 +247,10 @@ hllUpdate.getElementAdds();
 ```
 
 ```go
+// We will add values in the next example
+```
+
+```javascript
 // We will add values in the next example
 ```
 
@@ -277,6 +310,21 @@ if err != nil {
 return cluster.Execute(cmd)
 ```
 
+```javascript
+var options = {
+    bucketType: 'hlls',
+    bucket: 'hello',
+    key: 'darkness',
+    additions: ['Jokes', 'Are', 'Better', 'Explained', 'Jokes'],
+};
+
+client.updateHll(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+});
+```
+
 ## Retrieve a HyperLogLog DataType
 
 Now, we can check the approximate count-of, aka the cardinality of the elements
@@ -328,6 +376,28 @@ if fc, ok := cmd.(*riak.FetchHllCommand); ok {
 // unique elements we've added to the data structure.
 fmt.Println("Hyperloglog cardinality: ", resp.Cardinality)
 return nil
+```
+
+```javascript
+var options = {
+    bucketType: 'hlls',
+    bucket: 'hello',
+    key: 'darkness'
+};
+
+client.fetchHll(options, function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+
+    if (rslt.notFound) {
+        logger.info("Not Found");
+    }
+    logger.info("Hyperloglog cardinality is: " + rslt.cardinality);
+});
+// Prints "Hyperloglog cardinality is: 4"
+// We added "Jokes" twice, but, remember, the algorithm only counts the
+// unique elements we've added to the data structure.
 ```
 
 ```curl
