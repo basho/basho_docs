@@ -85,6 +85,17 @@ Location hllLocation =
   new Location(new Namespace("<bucket_type>", "<bucket>"), "<key>");
 ```
 
+```python
+bucket_type = client.bucket_type('hlls')
+bucket = bucket_type.bucket('my_hlls')
+hll = bucket.new(key)
+
+# or
+
+from riak.datatypes import Hll
+hll = Hll(bucket, key)
+```
+
 ```go
 // Buckets and bucket types are simply strings in the Go client.
 
@@ -139,6 +150,17 @@ Location hllLocation =
 // Hyperloglogs can be created when an element is added to them, as in the examples below.
 ```
 
+```python
+bucket_type = client.bucket_type('hlls')
+bucket = bucket_type.bucket('my_hlls')
+hll = bucket.new(key)
+
+# or
+
+from riak.datatypes import Hll
+hll = Hll(bucket, key)
+```
+
 ```go
 // In the Go client, there is no intermediate "empty" hyperloglog data type.
 // Hyperloglogs can be created when an element is added to them, as in the examples below.
@@ -170,6 +192,10 @@ FetchHll fetch = new FetchHll.Builder(hllLocation)
     .build();
 RiakHll hll = client.execute(fetch);
 boolean isEmpty = hll.getCardinality() == 0;
+```
+
+```python
+is_empty = hll.value == 0
 ```
 
 ```go
@@ -247,6 +273,19 @@ hllUpdate.getElementAdds();
 // Returns the set of ["Jokes", "Are", "Better", "Explained"]                     
 ```
 
+```python
+bucket_type = client.bucket_type('hlls')
+bucket = bucket_type.bucket('my_hlls')
+myhll = datatypes.Hll(bucket, 'hll_one')
+myhll.add('Jokes')
+myhll.add('Are')
+myhll.add('Better')
+myhll.add('Explained')
+myhll.add('Jokes')
+myhll.store()
+# myhll.value == 4
+```
+
 ```go
 // We will add values in the next example
 ```
@@ -287,6 +326,19 @@ ok = riakc_pb_socket:update_type(Pid, Bucket, Key, riakc_hll:to_op(RepeatHLL1)).
 UpdateHll update = new UpdateHll.Builder(hllLocation, hllUpdate)
         .build();
 client.execute(update);
+```
+
+```python
+bucket_type = client.bucket_type('hlls')
+bucket = bucket_type.bucket('my_hlls')
+myhll = datatypes.Hll(bucket, 'hll_one')
+myhll.add('Jokes')
+myhll.add('Are')
+myhll.add('Better')
+myhll.add('Explained')
+myhll.add('Jokes')
+myhll.store()
+# myhll.value == 4
 ```
 
 ```go
@@ -350,6 +402,13 @@ hll.getCardinality();
 
 // We added "Jokes" twice, but, remember, the algorithm only counts the
 // unique elements we've added to the data structure.
+```
+
+```python
+bucket_type = client.bucket_type('hlls')
+bucket = bucket_type.bucket('my_hlls')
+myhll = bucket.get('hll_one')
+# myhll.value == 4
 ```
 
 ```go

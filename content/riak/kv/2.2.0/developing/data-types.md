@@ -32,7 +32,7 @@ Riak KV has Riak-specific data types based on [convergent replicated data types 
 
 Riak KV also has 1 context-free data type, that has similar usage but does not require contexts.
 
-- [Hyperloglogs](./hyperloglogs) (abbreviated `hll` in many places)
+- [HyperLogLogs](./hyperloglogs) (abbreviated `hll` in many places)
 
 
 Counters, sets, maps, and hyperloglogs can be used as bucket-level data types or types that you interact with directly. Flags and registers must be [embedded in maps](./maps).
