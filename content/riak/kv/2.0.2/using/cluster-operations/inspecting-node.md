@@ -362,6 +362,11 @@ Riaknostic is installed with Riak by default and exposed through the
 developed by Basho Technologies and Riak community members. The code is
 available in the Riaknostic Github repository.
 
+{{% note title="Warning about `riak-admin diag` usage" %}}
+The `riak-admin diag` command should only be used after a new installation
+or configuration change. It should not be used as part of regular monitoring. Each time the command is run additional atoms are added to the VM's atom table, which can eventually cause the node to crash.
+{{% /note %}}
+
 ## Strong Consistency Stats
 
 Riak tabulates a variety of stats related to Riak's optional [strong consistency](../../reference/strong-consistency) feature. The table below lists those stats.
