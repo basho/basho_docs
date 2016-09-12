@@ -17,7 +17,7 @@ aliases:
 [cluster ops v3 mdc]: /riak/kv/2.0.2/using/cluster-operations/v3-multi-datacenter
 [concept clusters]: /riak/kv/2.0.2/learn/concepts/clusters
 [concept eventual consistency]: /riak/kv/2.0.2/learn/concepts/eventual-consistency
-[config v3 mdc]: /riak/kv/2.0.2/configuring/v3-multi-datacenter
+[config aae]: /riak/kv/2.1.4/configuring/reference/#active-anti-entropy
 [glossary read rep]: /riak/kv/2.0.2/learn/glossary/#read-repair
 [glossary vnode]: /riak/kv/2.0.2/learn/glossary/#vnode
 [Merkle tree]: http://en.wikipedia.org/wiki/Merkle_tree
@@ -102,4 +102,4 @@ regenerates all hash trees from on-disk key/value data, which enables
 Riak to detect silent data corruption to on-disk data arising from disk
 failure, faulty hardware, and other sources. The default time period for
 this regeneration is one week, but this can be adjusted in each node's
-[configuration file][config v3 mdc].
+[configuration file][config aae].
