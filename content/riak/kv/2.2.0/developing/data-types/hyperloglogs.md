@@ -113,6 +113,11 @@ import (
 )
 ```
 
+```c#
+// In the C# client, buckets are just string parameters to operations.
+// See the examples below for more information.
+```
+
 ```javascript
 // In the Node.js client, buckets are just string parameters to operations.
 // See the examples below for more information.
@@ -163,6 +168,11 @@ hll = Hll(bucket, key)
 
 ```go
 // In the Go client, there is no intermediate "empty" hyperloglog data type.
+// Hyperloglogs can be created when an element is added to them, as in the examples below.
+```
+
+```c#
+// In the C# client, there is no intermediate "empty" hyperloglog data type.
 // Hyperloglogs can be created when an element is added to them, as in the examples below.
 ```
 
@@ -243,6 +253,22 @@ client.fetchHll(options, function (err, rslt) {
 // Prints "Not Found" to logger.info.
 ```
 
+```c#
+ var fetch = new FetchHll.Builder()
+                    .WithBucketType("hlls")
+                    .WithBucket("hello")
+                    .WithKey("darkness")
+                    .Build();
+
+RiakResult rslt = client.Execute(fetch);
+HllResponse response = fetch.Response;
+if (response.NotFound)
+{
+    Console.WriteLine("Not Found");
+}
+// Prints "Not Found" to the console.
+```
+
 ```curl
 curl http://localhost:8098/types/hlls/buckets/hello/datatypes/darkness
 
@@ -287,6 +313,10 @@ myhll.store()
 ```
 
 ```go
+// We will add values in the next example
+```
+
+```c#
 // We will add values in the next example
 ```
 
@@ -378,6 +408,19 @@ client.updateHll(options, function (err, rslt) {
 });
 ```
 
+```c#
+var adds = new HashSet<string> { "Jokes", "Are", "Better", "Explained", "Jokes" };
+
+var update = new UpdateHll.Builder(adds)
+    .WithBucketType("hlls")
+    .WithBucket("hello")
+    .WithKey("darkness")
+    .WithReturnBody(true)
+    .Build();
+
+RiakResult rslt = client.Execute(update);
+```
+
 ## Retrieve a HyperLogLog DataType
 
 Now, we can check the approximate count-of, aka the cardinality of the elements
@@ -455,6 +498,31 @@ client.fetchHll(options, function (err, rslt) {
     }
     logger.info("Hyperloglog cardinality is: " + rslt.cardinality);
 });
+// Prints "Hyperloglog cardinality is: 4"
+// We added "Jokes" twice, but, remember, the algorithm only counts the
+// unique elements we've added to the data structure.
+```
+
+```c#
+var fetch = new FetchHll.Builder()
+                    .WithBucketType("hlls")
+                    .WithBucket("hello")
+                    .WithKey("darkness")
+                    .Build();
+
+RiakResult rslt = client.Execute(fetch);
+Assert.IsTrue(rslt.IsSuccess, rslt.ErrorMessage);
+
+HllResponse response = fetch.Response;
+if (response.NotFound)
+{
+    Console.WriteLine("Not Found");
+}
+else
+{
+    Console.WriteLine("Hyperloglog cardinality is: " + response.Cardinality);  
+}
+
 // Prints "Hyperloglog cardinality is: 4"
 // We added "Jokes" twice, but, remember, the algorithm only counts the
 // unique elements we've added to the data structure.
