@@ -342,29 +342,14 @@ Note that under ideal operation and with the exception of
 `riak_search_vnodes_running` these statistics should contain low values
 (e.g., 0-10). Presence of higher values could be indicative of an issue.
 
-## Riaknostic
+## `riak-debug`
 
-[Riaknostic](http://riaknostic.basho.com/) is a small suite of
-diagnostic checks that can be run against a Riak node to discover common
-problems. It often offers recommendations about how to resolve those
-problems as well. These checks are derived from the experience of the
-Basho Client Services Team as well as numerous public discussions on the
-mailing list, `#riak` IRC channel, and other online media.
+The `riak-debug` command is used to identify and diagnose common problems with your Riak KV nodes.
 
-Getting started with Riaknostic is easy, and instructions for
-installation and use are provided on the [Riaknostic
-website](http://riaknostic.basho.com/). Once downloaded and installed,
-Riaknostic adds a `diag` subcommand to the `riak-admin`
-command.
+`riak-debug` also runs `riak-admin diag`, which runs a small suite of diagnostic checks against a Riak KV node to discover common problems. It often offers recommendations about how to resolve those problems as well. 
 
-Riaknostic is installed with Riak by default and exposed through the
-`riak-admin diag` command interface. It is an open source project
-developed by Basho Technologies and Riak community members. The code is
-available in the Riaknostic Github repository.
-
-{{% note title="Warning about `riak-admin diag` usage" %}}
-The `riak-admin diag` command should only be used after a new installation
-or configuration change. It should not be used as part of regular monitoring. Each time the command is run additional atoms are added to the VM's atom table, which can eventually cause the node to crash.
+{{% note title="Warning about `riak-debug` and `riak-admin diag` usage" %}}
+The `riak-debug` and `riak-admin diag` commands should only be used after a new installation or configuration change. It should not be used as part of regular monitoring. Overuse of `riak-debug` or `riak-admin diag` can eventually cause the node to crash.
 {{% /note %}}
 
 ## Strong Consistency Stats
