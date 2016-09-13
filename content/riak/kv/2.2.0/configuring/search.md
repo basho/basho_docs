@@ -69,31 +69,176 @@ search = on
 ```
 
 
-## Riak Config Settings
+## Search Config Settings
 
 Setting `search` to `on` is required, but other search settings are
-optional. A list of these parameters can also be found in our
+optional. A handy reference list of these parameters can be found in our
 [configuration files][config reference#search] documentation.
 
-Field | Default | Valid values | Description
-:-----|:--------|:-------------|:-----------
-`search` | `off` | `on` or `off` | Enable or disable Search
-`search.anti_entropy.data_dir` | `./data/yz_anti_entropy` | Directory | The directory in which Riak Search stores files related to [active anti-entropy][glossary aae]
-`search.root_dir` | `./data/yz` | Directory | The root directory in which index data and configuration is stored
-`search.solr.start_timeout` | `30s` | Integer with time units (eg. 2m) | How long Riak will wait for Solr to start (attempts twice before shutdown). Values lower than 1s will be rounded up to 1s.
-`search.solr.port` | `8093` | Integer | The port number to which Solr binds (note: binds on every interface)
-`search.solr.jmx_port` | `8985` | Integer | The port number to which Solr JMX (note: binds on every interface)
-`search.solr.jvm_options` | `-d64 -Xms1g -Xmx1g -XX:+UseStringCache -XX:+UseCompressedOops` | Java command-line arguments | The options to pass to the Solr JVM. Non-standard options, e.g. `-XX`, may not be portable across JVM implementations.
-`search.queue.batch.minimum` | `1` | Integer | The minimum batch size, in number of Riak objects. Any batches that are smaller than this amount will not be immediately flushed to Solr, but are guaranteed to be flushed within the `search.queue.batch.flush_interval`.
-`search.queue.batch.maximum`| `100` | Integer | The maximim batch size, in number of Riak objects. Any batches that are larger than this amount will be split, where the first `search.queue.batch.maximum` objects will be flushed to Solr and the remaining objects enqueued for that index will be retained until the next batch is delivered. This parameter ensures that at most `search.queue.batch.maximum` objects will be delivered into Solr in any given request.
-`search.queue.batch.flush_interval` | `1000` | `ms`, `s`, `m`, `h` | The maximum delay between notification to flush batches to Solr. This setting is used to increase or decrease the frequency of batch delivery into Solr, specifically for relatively low-volume input into Riak. This setting ensures that data will be delivered into Solr in accordance with the `search.queue.batch.minimum` and `search.queue.batch.maximum` settings within the specified interval. Batches that are smaller than `search.queue.batch.minimum` will be delivered to Solr within this interval. This setting will generally have no effect on heavily loaded systems. You may use any time unit; the default is in milliseconds.
-`search.queue.high_watermark` | `10000` | Integer | The queue high water mark. If the total number of queued messages in a Solrq worker instance exceed this limit, then the calling vnode will be blocked until the total number falls below this limit. This parameter exercises flow control between Riak and the Riak Search batching subsystem, if writes into Solr start to fall behind.
-`search.queue.worker_count` | `10` | Integer | The number of Solr queue workers to instantiate. Solr queue workers are responsible for enqueing objects for insertion or update into Solr. Increasing the number of Solrq workers distributes the queuing of objects and can lead to greater throughput under high load, potentially at the expense of smaller batch sizes.
-`search.queue.helper_count` | `10` | Integer | The number of Solr queue helpers to instantiate. Solr queue helpers are responsible for delivering batches of data into Solr. Increasing the number of Solrq helpers will increase concurrent writes into Solr.
-`search.index.error_threshold.failure_count` | `3` | Integer | The number of failures encountered while updating a search index within `search.queue.error_threshold.failure_interval` before Riak will skip updates to that index.
-`search.index.error_threshold.failure_interval` | `5000` | Milliseconds | The window of time during which `search.queue.error_threshold.failure_count` failures will cause Riak to skip updates to a search index. If `search.queue.error_threshold.failure_count` errors have occurred within this interval on a given search index, then Riak will skip updates to that index until the `search.queue.error_threshold.reset_interval` has passed.
-`search.index.error_threshold.reset_interval` | `30000` | Milliseconds | The amount of time it takes for updates to a given search index to resume/refresh once Riak has started skipping update operations.
-`search.queue.high_watermark.purge_strategy` | `purge_one` | `purge_one`, `purge_index`, `purge_all`, or `off` | The strategy for how we handle purging when we hit the `search.queue.high_watermark`. The options: <br> * `purge_one` removes the oldest item on the queue from an erroring (references to fuses blown in the code) index in order to get below the `search.queue.high_watermark`,</br> <br> * `purge_index` removes all items associated with one random erroring (references to fuses blown in the code) index in order to get below the `search.queue.high_watermark`,</br> <br> * `purge_all` removes all items associated with all erroring (references to fuses blown in the code) indices in order to get below the `search.queue.high_watermark`, and</br> <br> *`off` disables purging.</br>
+### `search`
+
+Enable or disable search; defaults to `off`. 
+
+Valid values:  `on` or `off`
+
+### `search.anti_entropy.data_dir`
+
+The directory in which Riak Search stores files related to [active anti-entropy][glossary aae]; defaults to `./data/yz_anti_entropy`.
+
+Valid values: a directory
+
+### `search.anti_entropy.throttle.$tier.delay`
+
+Set the throttling tiers delay for [active anti-entropy][glossary aae]; no default.
+
+Each tier is a [minimum Solrq queue size](#search-anti-entropy-throttle-$tier-solrq-queue-length) and a time-delay that the throttle should observe at that size and above. 
+
+For example:
+
+```
+search.anti_entropy.throttle.tier1.solrq_queue_length = 0
+search.anti_entropy.throttle.tier1.delay = 0ms
+search.anti_entropy.throttle.tier2.solrq_queue_length = 40
+search.anti_entropy.throttle.tier2.delay = 5ms
+```
+will introduce a 5 millisecond sleep for any queues of length 40 or higher. If configured, there must be a tier which includes a mailbox size of 0. Both [`.solrq_queue_length`](#search-anti-entropy-throttle-$tier-solrq-queue-length) and `.delay` must be set for each tier. There is no limit to the number of tiers that may be specified.
+
+See search.anti_entropy.throttle
+
+Valid values: Non-negative integer
+
+### `search.anti_entropy.throttle.$tier.solrq_queue_length`
+
+Set the throttling tiers for [active anti-entropy][glossary aae]; no default.
+
+Each tier is a minimum Solrq queue size and a [time-delay](#search-anti-entropy-throttle-$tier-delay) that the throttle
+should observe at that size and above. 
+
+For example:
+
+```
+search.anti_entropy.throttle.tier1.solrq_queue_length = 0
+search.anti_entropy.throttle.tier1.delay = 0ms
+search.anti_entropy.throttle.tier2.solrq_queue_length = 40
+search.anti_entropy.throttle.tier2.delay = 5ms
+```
+will introduce a 5 millisecond sleep for any queues of length 40 or higher. If configured, there must be a tier which includes a mailbox size of 0. Both `.solrq_queue_length` and [`.delay`](#search-anti-entropy-throttle-$tier-delay) must be set for each tier. There is no limit to the number of tiers that may be specified.
+
+See search.anti_entropy.throttle
+
+Valid values: Non-negative integer
+
+### `search.dist_query`
+
+Enable this node in distributed query plans; defaults to `on`.  
+
+If enabled, this node will participate in distributed Solr queries.  If disabled, the node will be excluded from Riak Search cover plans, and will therefore never be consulted in a distributed query.  Note that this node may still be used to execute a query.  Use this flag if you have a long running administrative operation (e.g. reindexing) which requires that the node be removed from query plans, and which would otherwise result in inconsistent search results.
+
+Valid values: `on` or `off`
+
+### `search.index.error_threshold.failure_count`
+
+The number of failures encountered while updating a search index within [`search.queue.error_threshold.failure_interval`](#search-queue-error-threshold-failure-interval) before Riak KV will skip updates to that index; defaults to `3`.
+
+Valid values: Integer
+
+### `search.index.error_threshold.failure_interval`
+
+The window of time during which `search.queue.error_threshold.failure_count` failures will cause Riak KV to skip updates to a search index; defaults to `5000`. 
+
+If [`search.queue.error_threshold.failure_count`](#search-queue-error-threshold-failure-count) errors have occurred within this interval on a given search index, then Riak will skip updates to that index until the [`search.queue.error_threshold.reset_interval`](search-queue-error-threshold-reset-interval) has passed.
+
+Valid values: Milliseconds
+
+### `search.index.error_threshold.reset_interval`
+
+The amount of time it takes for updates to a given search index to resume/refresh once Riak KV has started skipping update operations; defaults to `30000`.
+
+Valid values: Milliseconds
+
+### `search.queue.batch.flush_interval`
+
+The maximum delay between notification to flush batches to Solr; defaults to `1000` (milliseconds).
+
+This setting is used to increase or decrease the frequency of batch delivery into Solr, specifically for relatively low-volume input into Riak KV. This setting ensures that data will be delivered into Solr in accordance with the `search.queue.batch.minimum` and `search.queue.batch.maximum` settings within the specified interval. Batches that are smaller than `search.queue.batch.minimum` will be delivered to Solr within this interval. This setting will generally have no effect on heavily loaded systems. You may use any time unit; the default is in milliseconds.
+
+Valid values: `ms`, `s`, `m`, or `h`
+
+### `search.queue.batch.maximum`
+
+The maximum batch size, in number of Riak objects; defaults to `500`.
+
+Any batches that are larger than this amount will be split, where the first `search.queue.batch.maximum` objects will be flushed to Solr and the remaining objects enqueued for that index will be retained until the next batch is delivered. This parameter ensures that at most `search.queue.batch.maximum` objects will be delivered into Solr in any given request.
+
+Valid values: Integer
+
+### `search.queue.batch.minimum`
+
+The minimum batch size, in number of Riak objects; defaults to `10`.
+
+Any batches that are smaller than this amount will not be immediately flushed to Solr, but are guaranteed to be flushed within the `search.queue.batch.flush_interval`.
+
+Valid valus: Integer
+
+### `search.queue.high_watermark`
+
+The queue high water mark; defaults to `1000`. 
+
+If the total number of queued messages in a Solrq worker instance exceed this limit, then the calling vnode will be blocked until the total number falls below this limit. This parameter exercises flow control between Riak KV and the Riak Search batching subsystem, if writes into Solr start to fall behind.
+
+Valid values: Integer
+
+### `search.queue.high_watermark.purge_strategy`
+
+The strategy for how purging is handled when the `search.queue.high_watermark` is hit; defaults to `purge_one`.
+
+Valid values:  `purge_one`, `purge_index`, `purge_all`, or `off`
+
+* `purge_one` removes the oldest item on the queue from an erroring (references to fuses blown in the code) index in order to get below the [`search.queue.high_watermark`](#search-queue-high-watermark) 
+* `purge_index` removes all items associated with one random erroring (references to fuses blown in the code) index in order to get below the [`search.queue.high_watermark`](#search-queue-high-watermark)`
+* `purge_all` removes all items associated with all erroring (references to fuses blown in the code) indices in order to get below the [`search.queue.high_watermark`](#search-queue-high-watermark)
+* `off` disables purging
+
+### `search.root_dir`
+
+The root directory in which index data and configuration is stored; defaults to `./data/yz`.
+
+Valid values: a directory
+
+### `search.solr.jvm_options`
+
+The options to pass to the Solr JVM; defaults to `-d64 -Xms1g -Xmx1g -XX:+UseStringCache -XX:+UseCompressedOops`.
+
+Non-standard options (e.g. `-XX`) may not be portable across JVM implementations.
+
+Valid values: Java command-line arguments
+
+### `search.solr.jmx_port`
+
+The port number to which Solr JMX (note: binds on every interface); defaults to `8985`.
+
+Valid values: Integer
+
+### `search.solr.port`
+
+The port number to which Solr binds (note: binds on every interface); defaults to `8093`.
+
+Valid values: Integer
+
+### `search.solr.start_timeout`
+
+How long Riak KV will wait for Solr to start (attempts twice before shutdown); defaults to `30s`. 
+
+Values lower than 1s will be rounded up to 1s. 
+
+Valid values: Integer with time units (e.g. 2m)
+
+### `yokozuna.aae_throttle_enabled`
+
+Whether the throttle for Yokozuna active anti-entropy is enabled; defaults to `on`.
+
+Valid values: `on` or `off`
+
 
 
 ## More on Solr
