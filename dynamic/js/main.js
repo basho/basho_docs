@@ -40,4 +40,5 @@
  */
 
 //= require ./basho/anchorify-headings.js
+//= require ./basho/toc-generator.js
 //= require ./basho/version-selector.js

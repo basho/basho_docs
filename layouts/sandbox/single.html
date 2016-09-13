@@ -193,7 +193,13 @@
 {{- /* ======================================================================================== */}}
 {{- /* END {{ partial "banner.html" $HugoNode }}                                                */}}
 {{- /* ======================================================================================== */}}
+<!-- Variable Definitions
+     ====================
+{{ $HugoNode := . }}
 
+{{ $title_supertext := .Scratch.Get "title_supertext"      }}
+{{ $display_toc     := $HugoNode.Scratch.Get "display_toc" }}
+-->
 
   <article class="main-article" style="background-color:rgba(0, 0, 127, 0.5)">
 
@@ -207,6 +213,10 @@
 {{- end }}
         {{ $title }}
       </h1>
+
+{{- if $display_toc }}
+      <nav class="table-of-contents"></nav>
+{{- end            }}
 
     </header>
 
