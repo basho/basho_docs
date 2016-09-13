@@ -318,27 +318,27 @@ Now, the `print-users` command should return this:
 ```
 
 **Note**: Usernames _cannot_ be changed using the `alter-user` command.
-If you attempt to do so by running `alter-user riakuser
-username=other-name`, for example, this will add the
+For example, running `riak-admin security alter-user riakuser
+username=other-name`, will instead add the
 `{"username","other-name"}` tuple to `riakuser`'s options.
 
 ### Managing Groups for a User
 
-If we have a user `jane_goodall` and we'd like to assign her to the
+If we have a user `riakuser` and we'd like to assign her to the
 `admin` group, we assign the value `admin` to the option `groups`:
 
 ```bash
-riak-admin security alter-user jane_goodall groups=admin
+riak-admin security alter-user riakuser groups=admin
 ```
 
-If we'd like to make the user `jane_goodall` both an `admin` and an
+If we'd like to make the user `riakuser` both an `admin` and an
 `archoverlord`:
 
 ```bash
-riak-admin alter-user jane_goodall groups=admin,archoverlord
+riak-admin security alter-user riakuser groups=admin,archoverlord
 ```
 
-There is no way to incrementally add groups; even if `jane_goodall` was
+There is no way to incrementally add groups; even if `riakuser` was
 already an `admin`, it is necessary to list it again when adding the
 `archoverlord` group. Thus, to remove a group from a user, use
 `alter-user` and list all *other* groups.
@@ -347,7 +347,7 @@ If the user should be removed from all groups, use `groups=` with no
 list:
 
 ```bash
-riak-admin alter-user jane_goodall groups=
+riak-admin security alter-user riakuser groups=
 ```
 
 ### Managing Groups for Groups
