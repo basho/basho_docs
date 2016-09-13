@@ -87,13 +87,9 @@ $content-nav-width : 14rem;
 
 /**
  * Main Article
- *
  * 1. Top padding is set s.t. the Banner element doesn't hide text.
  * 2. The Content Navigation is hidden until 'md' width, so we only have to set
  *    the left margin at that point.
- * 3. To properly pad <h#> elements when navigated to via id, we set both a
- *    positive padding and a negative margin, maintaining their vertical
- *    position while still affecting the height of the page on navigation.
  */
 .main-article {
   padding : $article-padding-top-sm-down 0.5rem 0 0.5rem;    /* 1 */
@@ -102,16 +98,36 @@ $content-nav-width : 14rem;
     padding     : $article-padding-top-md-up 1rem 0 0.5rem;  /* 1 */
     margin-left : $content-nav-width;                        /* 2 */
   }
-}
 
-h1, h2, h3, h4, h5, h6 {
-  //TODO: Consider making this a mixin
-  margin-top    : -$article-padding-top-sm-down; /*    3 */
-  padding-top   :  $article-padding-top-sm-down; /* 1, 3 */
+/**
+ * Headings within the Main Article
+ * 1. We use a ::before pseudo element to insert an invisible block inside <h#>
+ *    elements that will act as padding to prevent the banner from hiding text
+ *    when we link to a given heading.
+ * 2. Don't render any contents, but do render the block.
+ * 3. I would have like to fill the contents with a description of this trick
+ *    (and explicitly set the height to 0 to prevent that description from
+ *    changing the height of the pseudo element), but I'm worried screen readers
+ *    would pick up that text, which would be completely useless to them.
+ * 4. By setting the margin-top to be the negative of the padding-top, we will
+ *    add height to the parent element without moving it relative to its
+ *    original position. This is what acts as the effective padding.
+ */
+  h1, h2, h3, h4, h5, h6 {
+    &:before {             /* 1 */
+      display    : block;  /* 1 */
+      visibility : hidden; /* 2 */
+      content    : " ";    /* 3 */
+      height     : 0;      /* 3 */
 
-  @include wide-from(md) {
-    margin-top  : -$article-padding-top-md-up; /*    3 */
-    padding-top :  $article-padding-top-md-up; /* 1, 3 */
+      margin-top    : -$article-padding-top-sm-down; /* 4 */
+      padding-top   :  $article-padding-top-sm-down; /* 4 */
+
+      @include wide-from(md) {
+        margin-top  : -$article-padding-top-md-up;   /* 4 */
+        padding-top :  $article-padding-top-md-up;   /* 4 */
+      }
+    }
   }
 }
 
