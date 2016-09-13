@@ -44,7 +44,7 @@ We'll be walking through:
 
 1. [Prequisites][#prerequisites]
 2. [Enable Riak Search][#enabling-riak-search]
-3. [Riak.conf Configuration Settings][#riak-config-settings]
+3. [Search Configuration Settings][#search-config-settings]
 4. [Additional Solr Information][#more-on-solr]
 
 
@@ -71,9 +71,7 @@ search = on
 
 ## Search Config Settings
 
-Setting `search` to `on` is required, but other search settings are
-optional. A handy reference list of these parameters can be found in our
-[configuration files][config reference#search] documentation.
+You will find all the Riak Search configuration settings in riak.conf. Setting `search` to `on` is required, but other search settings are optional. A handy reference list of these parameters can be found in our [configuration files][config reference#search] documentation.
 
 ### `search`
 
@@ -86,6 +84,12 @@ Valid values:  `on` or `off`
 The directory in which Riak Search stores files related to [active anti-entropy][glossary aae]; defaults to `./data/yz_anti_entropy`.
 
 Valid values: a directory
+
+### `search.anti_entropy.throttle`
+
+Whether the throttle for Yokozuna active anti-entropy is enabled; defaults to `on`.
+
+Valid values: `on` or `off`
 
 ### `search.anti_entropy.throttle.$tier.delay`
 
@@ -101,9 +105,7 @@ search.anti_entropy.throttle.tier1.delay = 0ms
 search.anti_entropy.throttle.tier2.solrq_queue_length = 40
 search.anti_entropy.throttle.tier2.delay = 5ms
 ```
-will introduce a 5 millisecond sleep for any queues of length 40 or higher. If configured, there must be a tier which includes a mailbox size of 0. Both [`.solrq_queue_length`](#search-anti-entropy-throttle-$tier-solrq-queue-length) and `.delay` must be set for each tier. There is no limit to the number of tiers that may be specified.
-
-See search.anti_entropy.throttle
+will introduce a 5 millisecond sleep for any queues of length 40 or higher. If configured, there must be a tier which includes a mailbox size of 0. Both [`.solrq_queue_length`](#search-anti-entropy-throttle-$tier-solrq-queue-length) and `.delay` must be set for each tier. There is no limit to the number of tiers that may be specified. See [`search.anti_entropy.throttle`](#search-anti-entropy-throttle).
 
 Valid values: Non-negative integer
 
@@ -122,9 +124,7 @@ search.anti_entropy.throttle.tier1.delay = 0ms
 search.anti_entropy.throttle.tier2.solrq_queue_length = 40
 search.anti_entropy.throttle.tier2.delay = 5ms
 ```
-will introduce a 5 millisecond sleep for any queues of length 40 or higher. If configured, there must be a tier which includes a mailbox size of 0. Both `.solrq_queue_length` and [`.delay`](#search-anti-entropy-throttle-$tier-delay) must be set for each tier. There is no limit to the number of tiers that may be specified.
-
-See search.anti_entropy.throttle
+will introduce a 5 millisecond sleep for any queues of length 40 or higher. If configured, there must be a tier which includes a mailbox size of 0. Both `.solrq_queue_length` and [`.delay`](#search-anti-entropy-throttle-$tier-delay) must be set for each tier. There is no limit to the number of tiers that may be specified. See [`search.anti_entropy.throttle`](#search-anti-entropy-throttle).
 
 Valid values: Non-negative integer
 
@@ -195,7 +195,7 @@ The strategy for how purging is handled when the `search.queue.high_watermark` i
 Valid values:  `purge_one`, `purge_index`, `purge_all`, or `off`
 
 * `purge_one` removes the oldest item on the queue from an erroring (references to fuses blown in the code) index in order to get below the [`search.queue.high_watermark`](#search-queue-high-watermark) 
-* `purge_index` removes all items associated with one random erroring (references to fuses blown in the code) index in order to get below the [`search.queue.high_watermark`](#search-queue-high-watermark)`
+* `purge_index` removes all items associated with one random erroring (references to fuses blown in the code) index in order to get below the [`search.queue.high_watermark`](#search-queue-high-watermark)
 * `purge_all` removes all items associated with all erroring (references to fuses blown in the code) indices in order to get below the [`search.queue.high_watermark`](#search-queue-high-watermark)
 * `off` disables purging
 
@@ -232,13 +232,6 @@ How long Riak KV will wait for Solr to start (attempts twice before shutdown); d
 Values lower than 1s will be rounded up to 1s. 
 
 Valid values: Integer with time units (e.g. 2m)
-
-### `yokozuna.aae_throttle_enabled`
-
-Whether the throttle for Yokozuna active anti-entropy is enabled; defaults to `on`.
-
-Valid values: `on` or `off`
-
 
 
 ## More on Solr
