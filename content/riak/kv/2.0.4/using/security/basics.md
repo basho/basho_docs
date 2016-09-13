@@ -356,7 +356,7 @@ riak-admin security alter-user riakuser groups=
 Groups can be added to other groups for cascading permissions.
 
 ```bash
-riak-admin alter-group admin groups=dev
+riak-admin security alter-group admin groups=dev
 ```
 
 ### Deleting a User or Group
