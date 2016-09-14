@@ -1,3 +1,178 @@
-// -----------------------------------------------------------------------------
-// This file contains very basic styles.
-// -----------------------------------------------------------------------------
+/**
+ * Basic Styling Rules
+ * ===================
+ * Basic styling and resets (beyond reboot.scss and normalize.scss) will be
+ * defined below. Generally, these style will not apply to a specific class or
+ * component; rather these are the foundational styles applied directly to
+ * elements that other components will build off of.
+ * It's important to note that this file will sometimes break the rule of not
+ * defining `display :` styles in CSS. Because these styles may act as site-wide
+ * resets, we will occasionally change the core behavior of an element (e.g.
+ * <pre><code> blocks).
+ *
+ *TODO: Consider moving blockquotes, blocknotes, code blocks, etc. into
+ *      individual components.
+ */
+
+
+body {
+  @extend %serif;
+}
+
+main {
+  font-size : 110%;
+}
+
+
+::selection {
+  color      : $white;
+  background : $orange-lighter;
+}
+
+
+a {
+  color  : $orange-text-light;
+  cursor : pointer;
+
+  &:hover {
+    color           : $orange;
+    text-decoration : none;
+  }
+  &:focus {
+    color           : $cyan-dark;
+    text-decoration : none;
+  }
+}
+
+
+
+// Titles and Headings
+h1.front-matter__title {
+  @extend %sans-light;
+  color         : $gray;
+  line-height   : 1.2;
+  font-size     : 3rem;
+  margin-top    : 0;
+  margin-bottom : 3rem;
+
+  .front-matter__title--supertext {
+    font-size : 70%;
+  }
+}
+
+h2 { @extend %sans-light;
+     color         : $gray;
+     line-height   : 1.2;
+     font-size     : 2.30rem;
+     margin-top    : 3.00rem;
+     margin-bottom : 1.00rem; }
+h3 { @extend %sans;
+     color         : $gray;
+     line-height   : 1.2;
+     font-size     : 1.70rem;
+     margin-top    : 1.75rem;
+     margin-bottom : 0.50rem; }
+h4 { @extend %sans;
+     color         : $gray;
+     line-height   : 1.2;
+     font-size     : 1.50rem;
+     margin-top    : 1.25rem;
+     margin-bottom : 0.50rem; }
+h5 { @extend %sans;
+     color         : $gray;
+     line-height   : 1.2;
+     font-size     : 1.30rem;
+     margin-top    : 0.00rem;
+     margin-bottom : 0.50rem; }
+h6 { @extend %sans;
+     color         : $gray;
+     line-height   : 1.2;
+     font-size     : 1.25rem;
+     margin-top    : 0.00rem;
+     margin-bottom : 0.50rem; }
+
+h1, h2, h3, h4, h5, h6 {
+  a {
+    color : $gray;
+    &:hover { color : $orange;    }
+    &:focus { color : $cyan-dark; }
+  }
+}
+
+
+// Emphasis
+b,
+strong {
+  font-size : 103%;
+}
+
+
+// Inline code
+code {
+  font-family : monospace, sans;
+  color       : $default-font-color;
+  background  : $gray-90;
+  @include rounded-corners(.25rem);
+}
+
+
+// Horizontal Rules
+hr {
+  border-top : 1px dashed $gray-lighter;
+}
+
+
+// Blockquotes
+blockquote {
+  margin-left   : 1rem;
+  border-left   : 0.25rem solid $gray-75;
+  padding-left  : 1rem;
+  margin-top    : 1.5rem;
+  margin-right  : 1rem;
+}
+
+
+// Basic Code Blocks
+pre code {
+  display    : block;
+  overflow-x : auto;
+  background : $gray-warm;
+  @include     rounded-corners(0.3rem);
+  border     : 1px solid $gray-75;
+  padding    : 0.5rem;
+}
+
+
+// Block Note (shortcode)
+.blocknote {
+  background : $cyan-lightest;
+  @include     rounded-corners();
+  border     : 1px solid $cyan-light;
+  padding    : 1rem 1rem 1rem 1rem;
+  margin     : 1.5rem 3rem 1.5rem 0.5rem;
+
+  .blocknote__title {
+    @extend %sans;
+    font-size : 110%;
+    padding-bottom : 0.25rem;
+  }
+}
+
+
+// Lists
+// NB. These tag lists are designed to override those in reboot.scss
+ol,
+ul,
+dt {
+  margin-bottom : 1rem;
+  padding-left  : 2.5rem;
+}
+
+ol ol,
+ul ul,
+ol ul,
+ul ol {
+  margin-top    : 1rem;
+  margin-bottom : 1rem;
+  padding-left  : 2.5rem;
+}
