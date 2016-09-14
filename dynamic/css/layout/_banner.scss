@@ -11,9 +11,9 @@
 
   // Linear gradient to get that fading/glass effect. Leave it commented out
   // until we start polishing the style of the site at large.
-  // background: linear-gradient(to top, rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 80%);
+  background: linear-gradient(to top, rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 80%);
   // This is for IE6-9. Not sure if we want to bother w/ it.
-  // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#CCffffff', GradientType=0 );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#CCffffff', GradientType=0 );
 
   //TOOD: Make this better. Separate element, maybe? Box-shadow?
   border-bottom : 1px solid $gray-lighter;
