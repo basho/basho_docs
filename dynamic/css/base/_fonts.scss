@@ -51,18 +51,6 @@
 }
 
 
-%Titillium {
-  font-family : "Titillium", serif;
-  font-weight : 250;
-  font-style  : normal;
-}
-%Titillium-Bold {
-  font-family : "Titillium", serif;
-  font-weight : 800;
-  font-style  : normal;
-}
-
-
 %OpenSans {
   font-family : "OpenSans", verdana, arial, sans-serif;
   font-weight : 400;
@@ -144,33 +132,6 @@
         url("../fonts/gandhiserif-bolditalic-webfont-ttf.ttf") format("truetype"),
         url("../fonts/gandhiserif-bolditalic-webfont-woff.woff") format("woff"),
         url("../fonts/gandhiserif-bolditalic-webfont-svg.svg#GandhiSerifBoldItalic") format("svg");
-  text-rendering : optimizeLegibility;
-}
-
-
-
-/** Titillium Text */
-@font-face {
-  font-family : "Titillium"; /* Regular */
-  font-weight : 250;
-  font-style  : normal;
-  src : url("../fonts/titilliumtext25l004-webfont-eot.eot");
-  src : url("../fonts/titilliumtext25l004-webfont-eot.eot?#iefix") format("embedded-opentype"),
-        url("../fonts/titilliumtext25l004-webfont-ttf.ttf") format("truetype"),
-        url("../fonts/titilliumtext25l004-webfont-woff.woff") format("woff"),
-        url("../fonts/titilliumtext25l004-webfont-svg.svg#Titillium") format("svg");
-  text-rendering : optimizeLegibility;
-}
-
-@font-face {
-  font-family : "Titillium"; /* Bold */
-  font-weight : 800;
-  font-style  : normal;
-  src : url("../fonts/titilliumtext25l001-webfont-eot.eot");
-  src : url("../fonts/titilliumtext25l001-webfont-eot.eot?#iefix") format("embedded-opentype"),
-        url("../fonts/titilliumtext25l001-webfont-ttf.ttf") format("truetype"),
-        url("../fonts/titilliumtext25l001-webfont-woff.woff") format("woff"),
-        url("../fonts/titilliumtext25l001-webfont-svg.svg#TitilliumBold") format("svg");
   text-rendering : optimizeLegibility;
 }
 
