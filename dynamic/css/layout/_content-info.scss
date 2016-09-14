@@ -22,6 +22,10 @@
     text-align : left
   }
 
+  @include wide-from(lg) {
+    text-align : center;
+  }
+
   a {
     color : $gray;
     &:hover { color : $cyan-dark; }
