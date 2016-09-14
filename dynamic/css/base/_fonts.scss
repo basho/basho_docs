@@ -22,6 +22,7 @@
 /* Convenience Classes */
 %sans        { @extend %OpenSans; }
 %sans-bold   { @extend %OpenSans-Bold; }
+%sans-light  { @extend %OpenSans-Light; }
 %sans-italic { @extend %OpenSans-Italic; }
 %serif        { @extend %GandhiSerif; }
 %serif-bold   { @extend %GandhiSerif-Bold; }
