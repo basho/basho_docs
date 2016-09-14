@@ -115,6 +115,7 @@ $content-nav-width : 14rem;
  *    original position. This is what acts as the effective padding.
  * 5. Don't include the spacer pseudo-element on "special" titles;
  *     * Front Matter <h1> title
+ *     * Table of Contents title
  */
   h1, h2, h3, h4, h5, h6 {
     &:before {             /* 1 */
@@ -131,7 +132,8 @@ $content-nav-width : 14rem;
         padding-top :  $article-padding-top-md-up;   /* 4 */
       }
     }
-    &.front-matter__title:before {              /* 5 */
+    &.front-matter__title:before,
+    &.table-of-contents__title:before {              /* 5 */
       display : none;
     }
   }
