@@ -47,19 +47,14 @@ a {
 
 
 // Titles and Headings
-h1.front-matter__title {
-  @extend %sans-light;
-  color         : $gray;
-  line-height   : 1.2;
-  font-size     : 3rem;
-  margin-top    : 0;
-  margin-bottom : 3rem;
-
-  .front-matter__title--supertext {
-    font-size : 70%;
-  }
-}
-
+// 1. These styles are intentionally terrible. They're here to keep us honest
+//    and not use <h1> elements unless we're overriding the defaults.
+h1 { @extend %sans-light;
+     color         : red;       /* 1 */
+     line-height   : initial;   /* 1 */
+     font-size     : initial;   /* 1 */
+     margin-top    : initial;   /* 1 */
+     margin-bottom : initial; } /* 1 */
 h2 { @extend %sans-light;
      color         : $gray;
      line-height   : 1.2;

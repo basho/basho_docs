@@ -1,0 +1,46 @@
+/**
+ * Per-Page Front Matter wrapper.
+ * This box will contain the <h1> title, (optionally) the Table of Contents,
+ * (optionally) the Enterprise Only banner. Anything else? Publication
+ * information? A list of contributors?
+ */
+.front-matter {
+  @include wide-from(xs) {
+    margin-bottom : 3rem;
+  }
+
+  @include wide-from(md) {
+    margin-bottom : 4rem;
+  }
+}
+
+
+/**
+ * <h1> Page Title.
+ * This should be the only (or one of the very few) <h1> elements on any given
+ * page. It completely overrides the <h1> styles defined in _base.scss.
+ * 1. Be a little more sparing with screen real estate on mobile platforms, and
+ *    give a bit more breathing room to tablets and monitors.
+ *    NB. These `margin-bottom`s will be collapsed into the `margin-bottom` of
+ *        the parent .front-matter div when the ToC and EE-only flag are not
+ *        present. This is exactly what we want.
+ */
+.front-matter__title {
+  @extend %sans-light;
+  color         : $gray;
+  line-height   : 1.2;
+  font-size     : 3rem;
+  margin-top    : 0;
+
+  @include wide-from(xs) {
+    margin-bottom : 2rem;   /* 1 */
+  }
+  @include wide-from(md) {
+    margin-bottom : 3rem;   /* 1 */
+  }
+
+
+  .front-matter__title--supertext {
+    font-size : 70%;
+  }
+}
