@@ -27,9 +27,10 @@
   }
 
   a {
-    color : $gray;
-    &:hover { color : $cyan-dark; }
-    &:focus { color : $cyan;      }
+    color : $gray-light;
+    text-decoration: underline;
+    &:hover { color : $cyan;      }
+    &:focus { color : $cyan-dark; }
   }
 }
 
