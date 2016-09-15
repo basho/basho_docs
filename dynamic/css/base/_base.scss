@@ -119,6 +119,7 @@ hr {
 
 // Blockquotes
 blockquote {
+  font-size     : 90%;
   margin-left   : 1rem;
   border-left   : 0.25rem solid $gray-75;
   padding-left  : 1rem;
@@ -127,19 +128,9 @@ blockquote {
 }
 
 
-// Basic Code Blocks
-pre code {
-  display    : block;
-  overflow-x : auto;
-  background : $gray-warm;
-  @include     rounded-corners(0.3rem);
-  border     : 1px solid $gray-75;
-  padding    : 0.5rem;
-}
-
-
 // Block Note (shortcode)
 .blocknote {
+  font-size  : 90%;
   background : $cyan-lightest;
   @include     rounded-corners();
   border     : 1px solid $cyan-light;
@@ -151,6 +142,17 @@ pre code {
     font-size : 110%;
     padding-bottom : 0.25rem;
   }
+}
+
+
+// Basic Code Blocks
+pre code {
+  display    : block;
+  overflow-x : auto;
+  background : $gray-warm-light;
+  @include     rounded-corners(0.3rem);
+  border     : 1px solid $gray-75;
+  padding    : 0.5rem;
 }
 
 
