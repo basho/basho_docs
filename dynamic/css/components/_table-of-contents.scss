@@ -1,0 +1,54 @@
+/**
+ * Root Table of Contents element
+ * NB. This `margin-bottom` will be collapsed into the `margin-bottom` of the
+ *     parent .front-matter div when the EE-only flag is not present. This is
+ *     exactly what we want.
+ */
+.table-of-contents {
+  margin-bottom : 3rem;
+}
+
+/**
+ * Table of Contents "Content" Title
+ * 1. Zero the top margin s.t. margins for this component only need to be set on
+ *    the root .table-of-contents <nav>.
+ */
+.table-of-contents__title {
+  margin-top    : 0;       /* 1 */
+  margin-bottom : 0.5rem;
+}
+
+/**
+ * Wrapper Around the ToC <ol>
+ * We set the `column-count` on a wrapper around the <ol> so that we don't need
+ * to think about the visability of list items (numbers in this case) in the
+ * second or thrid columns.
+ */
+.table-of-contents__wrapper--multi {
+  @include wide-from(sm) {
+    column-count : 2;
+  }
+
+  @include wide-from(xl) {
+    column-count : 3;
+  }
+}
+
+/**
+ * <ol> List of Items.
+ * 1. Zero the bottom margin s.t. margins for this component only need to be set
+ *    on the root .table-of-contents <nav>.
+ */
+.table-of-contents__items {
+  margin-bottom : 0; /* 1 */
+}
+
+/**
+ * Individual <li> Item
+ * 1. Increase the font size and spacing between items to make mobile
+ *    interaction a bit easier, and tablet/monitor presentation a bit nicer.
+ */
+.table-of-contents__item {
+  font-size   : 110%;    /* 1 */
+  padding-top : .25rem;  /* 1 */
+}
