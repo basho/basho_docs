@@ -15,6 +15,10 @@
  */
 
 
+
+/**
+ * Basic font wrangling
+ */
 body {
   @extend %serif;
 }
@@ -23,13 +27,33 @@ main {
   font-size : 110%;
 }
 
+/* Emphasized text */
+b,
+strong {
+  font-size : 103%;
+}
 
+/* In-line code */
+code {
+  font-family : monospace, sans;
+  color       : $default-font-color;
+  background  : $gray-90;
+  @include rounded-corners(.25rem);
+}
+
+
+/**
+ * Color selection regions
+ */
 ::selection {
   color      : $white;
   background : $orange-lighter;
 }
 
 
+/**
+ * Color anchors
+ */
 a {
   color  : $orange-text-light;
   cursor : pointer;
@@ -45,10 +69,13 @@ a {
 }
 
 
-
-// Titles and Headings
-// 1. These styles are intentionally terrible. They're here to keep us honest
-//    and not use <h1> elements unless we're overriding the defaults.
+/**
+ * Titles and Headings
+ * 1. These styles are intentionally terrible. They're here to keep us honest
+ *    and not use <h1> elements unless we're overriding the defaults.
+ * 2. Keep anchor :hover and :focus behavior the same, but don't change the
+ *    color of the heading text
+ */
 h1 { @extend %sans-light;
      color         : red;       /* 1 */
      line-height   : initial;   /* 1 */
@@ -88,36 +115,22 @@ h6 { @extend %sans;
 
 h1, h2, h3, h4, h5, h6 {
   a {
-    color : $gray;
-    &:hover { color : $orange;    }
-    &:focus { color : $cyan-dark; }
+    color : $gray;  /* 2 */
   }
 }
 
 
-// Emphasis
-b,
-strong {
-  font-size : 103%;
-}
-
-
-// Inline code
-code {
-  font-family : monospace, sans;
-  color       : $default-font-color;
-  background  : $gray-90;
-  @include rounded-corners(.25rem);
-}
-
-
-// Horizontal Rules
+/**
+ * Horizontal Rules
+ */
 hr {
   border-top : 1px dashed $gray-lighter;
 }
 
 
-// Blockquotes
+/**
+ * Block Quotes
+ */
 blockquote {
   font-size     : 90%;
   margin-left   : 1rem;
@@ -128,7 +141,9 @@ blockquote {
 }
 
 
-// Block Note (shortcode)
+/**
+ * Block Notes (shortcode)
+ */
 .blocknote {
   font-size  : 90%;
   background : $cyan-lightest;
@@ -145,7 +160,9 @@ blockquote {
 }
 
 
-// Basic Code Blocks
+/**
+ * Basic Code Blocks
+ */
 pre code {
   display    : block;
   overflow-x : auto;
@@ -156,8 +173,10 @@ pre code {
 }
 
 
-// Lists
-// NB. These tag lists are designed to override those in reboot.scss
+/**
+ * Lists
+ * NB. These tag lists are designed to override those in reboot.scss
+ */
 ol,
 ul,
 dt {
