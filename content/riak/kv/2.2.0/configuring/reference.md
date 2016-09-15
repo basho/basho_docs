@@ -249,8 +249,8 @@ anti_entropy.data_dir = $(platform_data_dir)/anti_entropy
 
 Configuration parameters for [Riak KV Search][use ref search 2i]. For a more detailed description of these parameters, check out [Search Settings].
 
-Field | Default | Valid values | Description
-:-----|:--------|:-------------|:-----------
+Field | Default | Valid values |
+:-----|:--------|:-------------|
 `search` | `off` |  `on` or `off`
 `search.anti_entropy.data_dir` | `./data/yz_anti_entropy` | Directory
 `search.anti_entropy.throttle.$tier.delay` | No default | Non-negative integer
