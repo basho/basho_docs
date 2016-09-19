@@ -242,24 +242,24 @@
   line-height    : 1;
 }
 
-.docs-icon--lambda        { @extend %docs-icon; &:before { content: "\e005"; } }
-.docs-icon--lambda-bold   { @extend %docs-icon; &:before { content: "\e00b"; } }
-.docs-icon--beaker        { @extend %docs-icon; &:before { content: "\f0c3"; } }
-.docs-icon--cog           { @extend %docs-icon; &:before { content: "\f013"; } }
-.docs-icon--github-alt    { @extend %docs-icon; &:before { content: "\e004"; } }
-.docs-icon--comments      { @extend %docs-icon; &:before { content: "\e000"; } }
-.docs-icon--bolt          { @extend %docs-icon; &:before { content: "\f0e7"; } }
-.docs-icon--question-sign { @extend %docs-icon; &:before { content: "\f059"; } }
-.docs-icon--tools         { @extend %docs-icon; &:before { content: "\e001"; } }
-.docs-icon--search        { @extend %docs-icon; &:before { content: "\f002"; } }
-.docs-icon--download-alt  { @extend %docs-icon; &:before { content: "\f019"; } }
-.docs-icon--github        { @extend %docs-icon; &:before { content: "\e009"; } }
-.docs-icon--reorder       { @extend %docs-icon; &:before { content: "\f0c9"; } }
-.docs-icon--more          { @extend %docs-icon; &:before { content: "\e002"; } }
-.docs-icon--riak          { @extend %docs-icon; &:before { content: "\e003"; } }
-.docs-icon--database      { @extend %docs-icon; &:before { content: "\e006"; } }
-.docs-icon--install       { @extend %docs-icon; &:before { content: "\e007"; } }
-.docs-icon--cloud         { @extend %docs-icon; &:before { content: "\e008"; } }
-.docs-icon--configure     { @extend %docs-icon; &:before { content: "\e00a"; } }
-.docs-icon--references    { @extend %docs-icon; &:before { content: "\f02d"; } }
-.docs-icon--time          { @extend %docs-icon; &:before { content: "\f017"; } }
+.docs-icon--lambda        { &:before { @extend %docs-icon; content: "\e005"; } }
+.docs-icon--lambda-bold   { &:before { @extend %docs-icon; content: "\e00b"; } }
+.docs-icon--beaker        { &:before { @extend %docs-icon; content: "\f0c3"; } }
+.docs-icon--cog           { &:before { @extend %docs-icon; content: "\f013"; } }
+.docs-icon--github-alt    { &:before { @extend %docs-icon; content: "\e004"; } }
+.docs-icon--comments      { &:before { @extend %docs-icon; content: "\e000"; } }
+.docs-icon--bolt          { &:before { @extend %docs-icon; content: "\f0e7"; } }
+.docs-icon--question-sign { &:before { @extend %docs-icon; content: "\f059"; } }
+.docs-icon--tools         { &:before { @extend %docs-icon; content: "\e001"; } }
+.docs-icon--search        { &:before { @extend %docs-icon; content: "\f002"; } }
+.docs-icon--download-alt  { &:before { @extend %docs-icon; content: "\f019"; } }
+.docs-icon--github        { &:before { @extend %docs-icon; content: "\e009"; } }
+.docs-icon--reorder       { &:before { @extend %docs-icon; content: "\f0c9"; } }
+.docs-icon--more          { &:before { @extend %docs-icon; content: "\e002"; } }
+.docs-icon--riak          { &:before { @extend %docs-icon; content: "\e003"; } }
+.docs-icon--database      { &:before { @extend %docs-icon; content: "\e006"; } }
+.docs-icon--install       { &:before { @extend %docs-icon; content: "\e007"; } }
+.docs-icon--cloud         { &:before { @extend %docs-icon; content: "\e008"; } }
+.docs-icon--configure     { &:before { @extend %docs-icon; content: "\e00a"; } }
+.docs-icon--references    { &:before { @extend %docs-icon; content: "\f02d"; } }
+.docs-icon--time          { &:before { @extend %docs-icon; content: "\f017"; } }
