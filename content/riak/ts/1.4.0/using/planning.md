@@ -40,6 +40,7 @@ In order to create a working Riak TS table, you'll need to plan your table out. 
 CREATE TABLE GeoCheckin
 (
    id           SINT64    NOT NULL,
+   region       VARCHAR   NOT NULL,
    time         TIMESTAMP NOT NULL,
    region       VARCHAR   NOT NULL,
    state        VARCHAR   NOT NULL,
