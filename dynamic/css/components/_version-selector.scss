@@ -68,7 +68,7 @@
  *TODO: Change to an upward arrow when the list of versions is visible?
  */
 .version-selector__arrow {
-  @include downward-arrow(p2r(6px), $orange);
+  @include downward-arrow(p2r(12px), $orange);
   position : relative;
   margin   : 0 auto 0.25rem auto;
 }
