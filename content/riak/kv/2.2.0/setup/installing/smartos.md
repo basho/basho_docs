@@ -18,9 +18,11 @@ aliases:
   - /riak/kv/2.2.0/installing/smartos/
 ---
 
-
-
 [install verify]: /riak/kv/2.2.0/setup/installing/verify
+
+{{% note title="SmartOS End of Life (EOL) for Riak KV 2.2.0" %}}
+SmartOS is no longer supported in Riak KV 2.2.0+. If you are interested in using Riak KV on SmartOS, you can still [build from source](../source).
+{{% /note %}}
 
 The following steps have been tested to work with Riak version 1.2 on SmartOS version **joyent_20120614T184600Z**. They demonstrate installation of a Riak node on SmartOS as the root user.
 

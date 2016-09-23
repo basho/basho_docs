@@ -32,6 +32,25 @@ Riak KV is a distributed NoSQL database designed to deliver maximum data availab
 
 [Riak KV Enterprise][aboutenterprise] includes multi-datacenter cluster replication, which ensures low-latency and robust business continuity.
 
+## Supported Operating Systems
+
+- Amazon Linux 2015.03 (AWS)
+- CentOS 5
+- CentOS 6
+- CentOS 7
+- Debian 6.0 ("Squeeze")
+- Debian 7.0 ("Wheezy")
+- Debian 8.0 ("Jessie")
+- Red Hat Enterprise Linux 5
+- Red Hat Enterprise Linux 6
+- Red Hat Enterprise Linux 7
+- Solaris 10
+- SUSE Linux Enterprise Server 11
+- Ubuntu 12.04.5
+- Ubuntu 14.04.3
+- Ubuntu 16.04
+- Mac OSX 10.8+ (development only)
+
 ## Getting Started
 
 Are you brand new to Riak KV? Start by [downloading][downloads] Riak KV, and then follow the below pages to get started:
