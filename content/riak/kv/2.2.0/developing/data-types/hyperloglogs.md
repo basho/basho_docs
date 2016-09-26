@@ -113,7 +113,7 @@ import (
 )
 ```
 
-```c#
+```csharp
 // In the C# client, buckets are just string parameters to operations.
 // See the examples below for more information.
 ```
@@ -121,6 +121,12 @@ import (
 ```javascript
 // In the Node.js client, buckets are just string parameters to operations.
 // See the examples below for more information.
+```
+
+```php
+$command = (new Command\Builder\FetchHll($riak_client))
+    ->buildLocation('<key>', '<bucket>', 'hlls')
+    ->build();
 ```
 
 ```curl
@@ -171,7 +177,7 @@ hll = Hll(bucket, key)
 // Hyperloglogs can be created when an element is added to them, as in the examples below.
 ```
 
-```c#
+```csharp
 // In the C# client, there is no intermediate "empty" hyperloglog data type.
 // Hyperloglogs can be created when an element is added to them, as in the examples below.
 ```
@@ -179,6 +185,20 @@ hll = Hll(bucket, key)
 ```javascript
 // In the Node.js client, there is no intermediate "empty" hyperloglog data type.
 // Hyperloglogs can be created when an element is added to them, as in the examples below.
+```
+
+```php
+// Note that "hlls" is just an example HLL bucket type name used
+// in these examples
+
+$command = (new Command\Builder\UpdateHll($riak_client))
+    ->add('gosabres poked you.')
+    ->add('phprocks viewed your profile.')
+    ->add('phprocks started following you.')
+    ->buildBucket('<bucket>', 'hlls')
+    ->build();
+
+$response = $command->execute();
 ```
 
 ```curl
@@ -253,7 +273,7 @@ client.fetchHll(options, function (err, rslt) {
 // Prints "Not Found" to logger.info.
 ```
 
-```c#
+```csharp
  var fetch = new FetchHll.Builder()
                     .WithBucketType("hlls")
                     .WithBucket("hello")
@@ -267,6 +287,16 @@ if (response.NotFound)
     Console.WriteLine("Not Found");
 }
 // Prints "Not Found" to the console.
+```
+
+```php
+$command = (new Command\Builder\FetchHll($riak_client))
+    ->buildLocation('darkness', 'hello', 'hlls')
+    ->build();
+
+$response = $command->execute();
+
+$response->getCode() == '404';
 ```
 
 ```curl
@@ -316,12 +346,25 @@ myhll.store()
 // We will add values in the next example
 ```
 
-```c#
+```csharp
 // We will add values in the next example
 ```
 
 ```javascript
 // We will add values in the next example
+```
+
+```php
+$command = (new Command\Builder\UpdateHll($riak_client))
+    ->add('Jokes')
+    ->add('Are')
+    ->add('Better')
+    ->add('Explained')
+    ->add('Jokes')
+    ->buildBucket('my_hlls', 'hlls')
+    ->build();
+
+$response = $command->execute();
 ```
 
 ```curl
@@ -408,7 +451,7 @@ client.updateHll(options, function (err, rslt) {
 });
 ```
 
-```c#
+```csharp
 var adds = new HashSet<string> { "Jokes", "Are", "Better", "Explained", "Jokes" };
 
 var update = new UpdateHll.Builder(adds)
@@ -419,6 +462,19 @@ var update = new UpdateHll.Builder(adds)
     .Build();
 
 RiakResult rslt = client.Execute(update);
+```
+
+```php
+$command = (new Command\Builder\UpdateHll($riak_client))
+    ->add('Jokes')
+    ->add('Are')
+    ->add('Better')
+    ->add('Explained')
+    ->add('Jokes')
+    ->buildLocation('darkness', 'hello', 'hlls')
+    ->build();
+
+$response = $command->execute();
 ```
 
 ## Retrieve a HyperLogLog DataType
@@ -503,7 +559,7 @@ client.fetchHll(options, function (err, rslt) {
 // unique elements we've added to the data structure.
 ```
 
-```c#
+```csharp
 var fetch = new FetchHll.Builder()
                     .WithBucketType("hlls")
                     .WithBucket("hello")
@@ -528,9 +584,24 @@ else
 // unique elements we've added to the data structure.
 ```
 
+```php
+$command = (new Command\Builder\FetchHll($riak_client))
+    ->buildLocation('darkness', 'hello', 'hlls')
+    ->build();
+
+$result = $command->execute();
+
+// Note: as though we are in a PHP unit test
+$this->assertTrue(is_int($response->getHll()->getData()));
+$this->assertEquals(4, $response->getHll()->getData());
+
+// We added "Jokes" twice, but, remember, the algorithm only counts the
+// unique elements we've added to the data structure.
+```
+
 ```curl
 curl http://localhost:8098/types/hlls/buckets/hello/datatypes/darkness
 
 # Response
-{"type":"hll","value":"3"}
+{"type":"hll","value":"4"}
 ```
