@@ -42,7 +42,7 @@ menu:                                          # 5
     identifier: "identifier"                   # 5.iii
     weight: 309                                # 5.iv
     parent: "parent_identifier"                # 5.v   -- Conditional
-    pre-icon: font-icon                        # 5.vi  -- Conditional
+    pre: font-icon                             # 5.vi  -- Conditional
 toc: true                                      # 6     -- Optional
 commercial_offering: false                     # 7     -- Optional
 version_history:                               # 8     -- Optional
@@ -122,7 +122,7 @@ canonical_link: "https://docs.basho.com/. . ." # 10    -- Conditional
     5.  The `identifier` of the the parent the page (if one exits).
 
         If the page is a top-level element, the `parent` field should be
-        excluded, and a `pre-icon` should be defined instead.
+        excluded, and a `pre` should be defined instead.
 
     6.  The name of the font-icon that should be rendered as part of the menu
         item's title
@@ -295,7 +295,7 @@ menu:
     identifier: "identifier"
     weight: 309
     parent: "parent_identifier"
-    pre-icon: font-icon
+    pre: font-icon
 toc: true
 commercial_offering: false
 aliases:
