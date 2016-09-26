@@ -36,6 +36,7 @@ aliases:
 [cluster ops strong consistency]: ../../using/cluster-operations/strong-consistency
 [glossary vnode]: ../../learn/glossary/#vnode
 [cluster ops handoff]: ../../using/cluster-operations/handoff
+[Search Settings]: ../search#search-config-settings
 
 Riak has a `riak.conf` configuration file located in `/etc` if you are
 using a source install or in `/etc/riak` or `/usr/local/etc` if you used
@@ -246,75 +247,31 @@ anti_entropy.data_dir = $(platform_data_dir)/anti_entropy
 
 ## Search
 
-Configuration parameters for [Riak KV Search][use ref search 2i].
+Configuration parameters for [Riak KV Search][use ref search 2i]. For a more detailed description of these parameters, check out [Search Settings].
 
-<table class="riak-conf">
-<thead>
-<tr>
-<th>Config</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
+Field | Default | Valid values |
+:-----|:--------|:-------------|
+`search` | `off` |  `on` or `off`
+`search.anti_entropy.data_dir` | `./data/yz_anti_entropy` | Directory
+`search.anti_entropy.throttle.$tier.delay` | No default | Non-negative integer
+`search.anti_entropy.throttle.$tier.solrq_queue_length` | No default | Non-negative integer
+`search.dist_query` | `on` | `on` or `off`
+`search.index.error_threshold.failure_count` | `3` | Integer
+`search.index.error_threshold.failure_interval` | `5000` | Milliseconds
+`search.index.error_threshold.reset_interval` | `30000` | Milliseconds
+`search.queue.batch.flush_interval` | `1000` | `ms`, `s`, `m`, `h`
+`search.queue.batch.maximum`| `100` | Integer
+`search.queue.batch.minimum` | `1` | Integer
+`search.queue.high_watermark` | `10000` | Integer
+`search.queue.high_watermark.purge_strategy` | `purge_one` | `purge_one`, `purge_index`, `purge_all`, or `off`
+`search.root_dir` | `./data/yz` | Directory
+`search.solr.jvm_options` | `-d64 -Xms1g -Xmx1g -XX:+UseStringCache -XX:+UseCompressedOops` | Java command-line arguments
+`search.solr.jmx_port` | `8985` | Integer
+`search.solr.jmx_port` | `8985` | Integer
+`search.solr.port` | `8093` | Integer
+`search.solr.start_timeout` | `30s` | Integer with time units (eg. 2m)
+`yokozuna.aae_throttle_enabled` | `on` | `on` or `off` 
 
-<tr>
-<td><code>search</code></td>
-<td>To enable Search, set this to <code>on</code>.</td>
-<td><code>off</code></td>
-</tr>
-
-<tr>
-<td><code>search.anti_entropy.data_dir</code></td>
-<td>The directory in which Search's Active Anti-Entropy data files are
-stored</td>
-<td><code>./data/yz_anti_entropy</code></td>
-</tr>
-
-<tr>
-<td><code>search.root_dir</code></td>
-<td>The root directory for Riak Search, under which index data and
-configuration is stored.</td>
-<td><code>./data/yz</code></td>
-</tr>
-
-<tr>
-<td><code>search.solr.jmx_port</code></td>
-<td>The port to which Solr JMX binds.
-<br /><br />
-<strong>Note</strong>: Binds on every interface.</td>
-<td><code>8985</code></td>
-</tr>
-
-<tr>
-<td><code>search.solr.jvm_options</code></td>
-<td>The options to pass to the Solr JVM. Non-standard options, i.e.
-<code>-XX</code>, may not be portable across JVM implementations.
-Example: <code>XX:+UseCompressedStrings</code></td>
-<td><code>-d64 -Xms1g -Xmx1g -XX:+UseStringCache
--XX:+UseCompressedOops</code></td>
-</tr>
-
-<tr>
-<td><code>search.solr.port</code></td>
-<td>The port to which Solr binds.
-<br /><br />
-<strong>Note</strong>: Binds on every interface.</td>
-<td><code>8093</code></td>
-</tr>
-
-<tr>
-<td><code>search.solr.start_timeout</code></td>
-<td>How long Riak will wait for Solr to start. The start sequence will
-be tried twice. If both attempts time out, the Riak node will be shut
-down. This may need to be increased as more data is indexed and Solr
-takes longer to start. Values lower than <code>1s</code> will be rounded
-up to the minimum <code>1s</code>.</td>
-<td><code>30s</code></td>
-</tr>
-
-</tbody>
-</table>
 
 ## Riak Control
 
