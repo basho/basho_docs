@@ -129,6 +129,10 @@ $command = (new Command\Builder\FetchHll($riak_client))
     ->build();
 ```
 
+```ruby
+bucket = client.bucket_type('hlls').bucket('my_hlls')
+```
+
 ```curl
 curl http://localhost:8098/types/<bucket_type>/buckets/<bucket>/datatypes/<key>
 
@@ -199,6 +203,11 @@ $command = (new Command\Builder\UpdateHll($riak_client))
     ->build();
 
 $response = $command->execute();
+```
+
+```ruby
+key = "darkness"
+hll = Riak::Crdt::HyperLogLog.new(bucket, key)
 ```
 
 ```curl
@@ -299,6 +308,11 @@ $response = $command->execute();
 $response->getCode() == '404';
 ```
 
+```ruby
+puts hll.cardinality
+# Prints "0"
+```
+
 ```curl
 curl http://localhost:8098/types/hlls/buckets/hello/datatypes/darkness
 
@@ -365,6 +379,9 @@ $command = (new Command\Builder\UpdateHll($riak_client))
     ->build();
 
 $response = $command->execute();
+```
+
+```ruby
 ```
 
 ```curl
@@ -475,6 +492,16 @@ $command = (new Command\Builder\UpdateHll($riak_client))
     ->build();
 
 $response = $command->execute();
+```
+
+```ruby
+hll.add('Jokes')
+hll.batch do |s|
+  s.add 'Are'
+  s.add 'Better'
+  s.add 'Explained'
+  s.add 'Jokes'
+end
 ```
 
 ## Retrieve a HyperLogLog DataType
@@ -597,6 +624,11 @@ $this->assertEquals(4, $response->getHll()->getData());
 
 // We added "Jokes" twice, but, remember, the algorithm only counts the
 // unique elements we've added to the data structure.
+```
+
+```ruby
+puts hll.cardinality
+# Prints "4"
 ```
 
 ```curl
