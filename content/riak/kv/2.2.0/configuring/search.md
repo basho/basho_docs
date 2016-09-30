@@ -38,14 +38,14 @@ If you are looking developer-focused docs, we recommend the following:
 * [Custom Search Extractors][usage custom extractors]
 * [Riak KV Data Types and Search][usage search data types]
 
-##Overview
+## Overview
 
 We'll be walking through:
 
-1. [Prequisites][#prerequisites]
-2. [Enable Riak Search][#enabling-riak-search]
-3. [Search Configuration Settings][#search-config-settings]
-4. [Additional Solr Information][#more-on-solr]
+1. [Prequisites](#prerequisites)
+2. [Enable Riak Search](#enabling-riak-search)
+3. [Search Configuration Settings](#search-config-settings)
+4. [Additional Solr Information](#more-on-solr)
 
 
 ## Prerequisites 
