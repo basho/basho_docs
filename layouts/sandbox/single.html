@@ -201,70 +201,76 @@
 {{ $display_toc     := $HugoNode.Scratch.Get "display_toc" }}
 -->
 
-  <article class="main-article" style="background-color:rgba(0, 0, 127, 0.5)">
+  <div class="content-well">
 
 
 
-    <header class="front-matter">
+    <article class="main-article">
 
-      <h1 class="front-matter__title">
+
+
+      <header class="front-matter">
+
+        <h1 class="front-matter__title">
 {{- if $title_supertext }}
-        <span class="front-matter__title--supertext">{{ $title_supertext }}</span><br>
+          <span class="front-matter__title--supertext">{{ $title_supertext }}</span><br>
 {{- end }}
-        {{ $title }}
-      </h1>
+          {{ $title }}
+        </h1>
 
 {{- if $display_toc }}
-      <nav class="table-of-contents"></nav>
+        <nav class="table-of-contents"></nav>
 {{- end            }}
 
-    </header>
+      </header>
 
 
 
-    <main>
-      {{ $HugoNode.Content }}
-    </main>
+      <main>
+        {{ $HugoNode.Content }}
+      </main>
 
 
 
-  </article>
+    </article>
 
 
 
-{{- /* ======================================================================================== */}}
-{{- /* {{ partial "footer.html" $HugoNode }}                                                    */}}
-{{- /* ======================================================================================== */}}
+  {{- /* ====================================================================================== */}}
+  {{- /* {{ partial "footer.html" $HugoNode }}                                                  */}}
+  {{- /* ====================================================================================== */}}
 
-  <footer class="content-info">
-    <div class="inline-block   content-info__wrapper">
+    <footer class="content-info">
+      <div class="inline-block   content-info__wrapper">
 
-      <p>
-        <a href="http://basho.com/">Basho.com</a>
-        &nbsp;&nbsp;-&nbsp;&nbsp;
-        <a href="http://docs.basho.com/">Docs Home</a>
-        &nbsp;&nbsp;-&nbsp;&nbsp;
-        <a href="http://basho.com/contact/">Contact Basho</a>
-      </p>
+        <p>
+          <a href="http://basho.com/">Basho.com</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          <a href="http://docs.basho.com/">Docs Home</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          <a href="http://basho.com/contact/">Contact Basho</a>
+        </p>
 
-      <p>
-        This work is licensed under a
-        <br class="[bs] hidden-md-up">
-        <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">
-          Creative Commons Attribution 4.0 International Public License
-        </a>
-      </p>
+        <p>
+          This work is licensed under a
+          <br class="[bs] hidden-md-up">
+          <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">
+            Creative Commons Attribution 4.0 International Public License
+          </a>
+        </p>
 
-      <p>
-        © 2011-{{.Now.Year}}&nbsp;<a href="http://www.basho.com">Basho Technologies, Inc.</a>
-      </p>
+        <p>
+          © 2011-{{.Now.Year}}&nbsp;<a href="http://www.basho.com">Basho Technologies, Inc.</a>
+        </p>
 
-    </div>
-  </footer>
+      </div>
+    </footer>
 
-{{- /* ======================================================================================== */}}
-{{- /* END {{ partial "footer.html" $HugoNode }}                                                */}}
-{{- /* ======================================================================================== */}}
+  {{- /* ====================================================================================== */}}
+  {{- /* END {{ partial "footer.html" $HugoNode }}                                              */}}
+  {{- /* ====================================================================================== */}}
+
+  </div>
 
 
 
