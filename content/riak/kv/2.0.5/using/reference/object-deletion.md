@@ -76,7 +76,7 @@ There are three possible settings:
   wait 3 seconds
 
 In general, we recommend setting the `delete_mode` parameter to `keep`
-if you plan to delete and recreate objects under the same key. This protects against failure scenario edge cases in which a deleted object may be resurrected.
+if you plan to delete and recreate objects under the same key. This protects against failure scenario cases in which a deleted object may be resurrected.
 
 Setting `delete_mode` to `immediate` can be useful in situations in
 which an aggressive space reclamation process is necessary, such as
@@ -84,7 +84,7 @@ when running [MapReduce jobs][developing mapreduce], but we do not recommend
 this in general.
 
 Setting `delete_mode` to a longer time duration than the default can be
-useful in certain edge cases involving [Multi-Datacenter Replication][cluster mdc], e.g. when
+useful in certain cases involving [Multi-Datacenter Replication][cluster mdc], e.g. when
 network connectivity is an issue.
 
 ## Deletion from Backends
