@@ -91,7 +91,7 @@ sudo tar -czf riak_backup.tar.gz /var/lib/riak /etc/riak
 3\. Downgrade Riak TS:
 
 ```bash
-sudo rpm -Uvh »riakts_package_name«.rpm
+sudo rpm -Uvh --oldpackage »riakts_package_name«.rpm
 ```
 
 4\. Restart Riak TS:
