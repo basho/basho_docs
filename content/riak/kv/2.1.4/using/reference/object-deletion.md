@@ -92,7 +92,7 @@ When attempting to reclaim disk space, deleting data may seem like the obvious f
 
 In the case of Bitcask, a new entry is written in the log with either the Riak tombstone or, after reaping, a Bitcask tombstone. The in-memory key-pointer is then updated to point to this new value.
 
-In LevelDB, a new entry is written higher up in the levels, thus automatically obscuring the earlier data. Again, this is either the Riak tombstone or, after reaping, a LevelDB tombstone.
+In LevelDB, a newly written value obscures the earlier value. Again, this is either the Riak tombstone or, after reaping, a LevelDB tombstone.
 
 Some time later, the backends will perform their regular garbage collection procedures. For Bitcask this is [merging][bitcask merging], for LevelDB it is [compaction][leveldb compaction]. At this time, stale entries containing the original objects will be purged from disk, along with any Bitcask or LevelDB tombstones. Riak tombstones will *not* be purged, because the backends treat them like regular objects.
 
