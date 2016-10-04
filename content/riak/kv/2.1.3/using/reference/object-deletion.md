@@ -54,7 +54,7 @@ To get around this problem, Riak uses *Tombstones*.
 
 ## Tombstones
 
-Riak addresses the problem of deletion in distributed systems by changing the deleted object into a so-called **tombstone** rather than just removing it.
+Riak addresses the problem of deletion in distributed systems by replacing the deleted object with a special object called a **tombstone** rather than just removing it.
 
 This allows Riak to understand the difference between an object that has been deleted, and one that was never written in the first place. A tombstone specifically has `X-Riak-Deleted` = `true` in the metadata and a value of `<<>>` (the Erlang empty binary) in its contents, whereas an unwritten object has *no entry at all*.
 
