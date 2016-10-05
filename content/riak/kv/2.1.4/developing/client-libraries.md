@@ -242,6 +242,9 @@ level of maturity and activity.
 
 #### Python
 
+* [Aioriak](https://github.com/rambler-digital-solutions/aioriak) 
+  --- Asyncio PBC Riak 2.0+ client library. (Based on official Basho 
+  python client)
 * [Riakasaurus](https://github.com/calston/riakasaurus) --- A Riak
   client library for Twisted (based on txriak)
 * [RiakKit](http://shuhaowu.com/riakkit) --- A small Python ORM that
