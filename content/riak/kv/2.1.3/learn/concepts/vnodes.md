@@ -131,11 +131,13 @@ vnodes responsible for the same partition.
 ## Vnode Status
 
 You can check the current status of all vnodes in your cluster using the
-[`riak-admin vnode-status`][use admin riak cli]
-command. When you run that command, you will see a series of reports on
-each of the vnodes active on the local node. The output of this command
-consists of a series of reports on each active vnode. The report for a
-specific vnode should look something like this:
+[`riak-admin vnode-status`][use admin riak cli] command.
+
+{{% note title="Frequent use of `riak-admin vnode-status`" %}}
+The `riak-admin vnode-status` command should not be used more frequently than every 5 minutes. Running it more often will result in handoffs being stalled.
+{{% /note %}}
+
+The output of `riak-admin vnode-status` is a series of reports on each active vnode running on the local node. A report for a specific vnode should look like the following:
 
 ```
 VNode: 1278813932664540053428224228626747642198940975104

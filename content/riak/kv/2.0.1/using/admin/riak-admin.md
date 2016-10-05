@@ -355,6 +355,10 @@ Outputs the status of all vnodes the are running on the local node.
 riak-admin vnode-status
 ```
 
+{{% note title="Frequent use of `riak-admin vnode-status`" %}}
+The `riak-admin vnode-status` command should not be used more frequently than every 5 minutes. Running it more often will result in handoffs being stalled.
+{{% /note %}}
+
 ## aae-status
 
 This command provides insight into operation of Riak's Active
