@@ -10,6 +10,10 @@ menu:
     weight: 107
     parent: "managing_ref"
 toc: true
+commercial_offering: true
+aliases:
+  - /riak/2.0.0/ops/running/monitoring/snmp
+  - /riak/kv/2.0.0/ops/running/monitoring/snmp
 ---
 
 Riak Enterprise provides a built-in SNMP server that allows an external system, such as Hyperic, to query the Riak node for statistics such as the average get and put times as well as the number of puts and gets. This document only covers SNMP v2c support at this time.
