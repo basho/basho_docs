@@ -37,14 +37,15 @@ Riak TS allows you to write multiple rows of data at a time. To demonstrate, we'
 ```sql
 CREATE TABLE GeoCheckin
 (
+   id           SINT64    NOT NULL,
    region       VARCHAR   NOT NULL,
    state        VARCHAR   NOT NULL,
    time         TIMESTAMP NOT NULL,
    weather      VARCHAR NOT NULL,
    temperature  DOUBLE,
    PRIMARY KEY (
-     (region, state, QUANTUM(time, 15, 'm')),
-     region, state, time
+     (id, QUANTUM(time, 15, 'm')),
+      id, time
    )
 )
 ```
@@ -67,16 +68,18 @@ public class RiakTSInsert {
     RiakClient client = RiakClient.newClient(8087, "myriakdb.host");
     List<Row> rows = Arrays.asList(
       new Row(
+      	new Cell(1),
         new Cell("South Atlantic"),
-        new Cell("South Carolina"),
-        Cell.newTimestamp(1234567),
+        new Cell("Florida"),
+        Cell.newTimestamp(1451606401),
         new Cell("hot"),
         new Cell(23.5)
       ),
       new Row(
-        new Cell("Mid-Atlantic"),
-        new Cell("New York"),
-        Cell.newTimestamp(1234567),
+      	new Cell(2),
+        new Cell("East North Central"),
+        new Cell("Illinois"),
+        Cell.newTimestamp(1451606402),
         new Cell("windy"),
         new Cell(19.8)
       )
@@ -90,9 +93,13 @@ public class RiakTSInsert {
 ```
 
 ```ruby
-client = Riak::Client.new 'myriakdb.host', pb_port: 8087
+require 'riak'
+
+client = Riak::Client.new(:nodes => [
+  {:host => 'myriakdb.host', :pb_port => 8087},
+])
 submission = Riak::TimeSeries::Submission.new client, "GeoCheckin"
-submission.measurements = [["South Atlantic", "South Carolina", 1234567, "hot", 23.5], ["Mid-Atlantic", "New York", 1234567, "windy", 19.8]]
+submission.measurements = [[1, "South Atlantic", "Florida", 1451606401, "hot", 23.5], [2, "East North Central", "Illinois", 1451606402, "windy", 19.8]]
 submission.write!
 ```
 
@@ -103,14 +110,10 @@ from riak.client import RiakClient
 # NB: modify 'host' and 'pb_port' to match your installation
 client = RiakClient(host='myriakdb.host', pb_port=8087)
 
-fiveMins = datetime.timedelta(0, 300)
-ts0 = datetime.datetime(2015, 1, 1, 12, 0, 0)
-ts1 = ts0 + fiveMins
-
 table = client.table('GeoCheckin')
 rows = [
-    ['South Atlantic', 'South Carolina', ts0, 'hot', 23.5],
-    ['Mid-Atlantic', 'New York', ts1, 'windy', 19.8]
+    [1, 'South Atlantic', 'Florida', 1451606401, 'hot', 23.5],
+    [2, 'East North Central', 'Illinois', 1451606402, 'windy', 19.8]
 ]
 ts_obj = table.new(rows)
 print "Store result:", ts_obj.store()
@@ -162,10 +165,11 @@ RiakResult rslt = client.Execute(cmd);
 ```javascript
 var Riak = require('basho-riak-client');
 
-var hosts = [ 'riak-1:8087', 'riak-2:8087' ];
+var hosts = [ 'myriakdb.host:8087' ];
 var client = new Riak.Client(hosts);
 
-var columns = [
+var columns = [ 
+    { name: 'id',     type: Riak.Commands.TS.ColumnType.Int64 },
     { name: 'region',     type: Riak.Commands.TS.ColumnType.Varchar },
     { name: 'state',        type: Riak.Commands.TS.ColumnType.Varchar },
     { name: 'time',        type: Riak.Commands.TS.ColumnType.Timestamp },
@@ -174,8 +178,8 @@ var columns = [
 ];
 
 var rows = [
-    [ 'South Atlantic', 'South Carolina', 1234567, 'hot', 23.5 ],
-    [ 'Mid-Atlantic', 'New York', 1234567, 'windy', 19.8 ]
+    [ 1, 'South Atlantic', 'Florida', 1451606401, 'hot', 23.5 ],
+    [ 2, 'East North Central', 'Illinois', 1451606402, 'windy', 19.8 ]
 ];
 
 var cb = function (err, response) {
@@ -195,9 +199,9 @@ client.execute(store);
 ```
 
 ```erlang
-%% TS 1.3 or newer. Records are represented as tuples.
-{ok, Pid} = riakc_pb_socket:start_link("myriakdb.host", 8087).
-riakc_ts:put(Pid, "GeoCheckin", [{<<"South Atlantic">>, <<"South Carolina">>, 1234567, <<"hot">>, 23.5}, {<<"Mid-Atlantic">>, <<"New York">>, 1234567, <<"windy">>, 19.8}]).
+%% TS 1.3 or newer. Records are represented as tuples. 
+{ok, Pid} = riakc_pb_socket:start_link("localhost", 8087).
+riakc_ts:put(Pid, "GeoCheckin", [{1, <<"South Atlantic">>, <<"Florida">>, 1451606401, <<"hot">>, 23.5}, {2, <<"East North Central">>, <<"Illinois">>, 1451606402, <<"windy">>, 19.8}]).
 ```
 
 ```php
