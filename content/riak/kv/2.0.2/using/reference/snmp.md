@@ -9,7 +9,8 @@ menu:
     identifier: "managing_ref_snmp"
     weight: 107
     parent: "managing_ref"
-toc: truecommercial_offering: true
+toc: true
+commercial_offering: true
 aliases:
   - /riak/2.0.2/ops/running/monitoring/snmp
   - /riak/kv/2.0.2/ops/running/monitoring/snmp
