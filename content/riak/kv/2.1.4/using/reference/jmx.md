@@ -10,6 +10,7 @@ menu:
     weight: 108
     parent: "managing_ref"
 toc: true
+commercial_offering: true
 aliases:
   - /riak/2.1.4/ops/running/monitoring/jmx
   - /riak/kv/2.1.4/ops/running/monitoring/jmx
