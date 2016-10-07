@@ -289,9 +289,9 @@ In the event that your write fails, you should check the error message to see wh
 RiakClient client = RiakClient.newClient(8087, "myriakdb.host");
 List<Row> someRows = Arrays.asList(
         // Good Row
-        new Row(new Cell("East North Central"), new Cell("Ohio"), Cell.newTimestamp(1234567), new Cell("cloudy"), new Cell(79.0)),
+        new Row(new Cell(1), new Cell("South Atlantic"), new Cell("Florida"), Cell.newTimestamp(1451606401), new Cell("hot"), new Cell(23.5)),
         // Bad Rows
-        new Row(new Cell("East North Central"), Cell.newTimestamp(fiveMinsAgo)), // too short
+        new Row(new Cell("South Atlantic"), Cell.newTimestamp(fiveMinsAgo)), // too short
         new Row() // no data
         );
 
