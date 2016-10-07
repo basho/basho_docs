@@ -330,13 +330,13 @@ You can add data via SQL statements either through the [query interface][queryin
 Here are a couple examples of adding rows from SQL:
 
 ```sql
-INSERT INTO GeoCheckin (region, state, time, weather, temperature) VALUES ('South Atlantic','South Carolina',1420113600000,'snow',25.2);
+INSERT INTO GeoCheckin (id, region, state, time, weather, temperature) VALUES (1, 'South Atlantic', 'Florida', 1451606401, 'hot', 23.5);
 ```
 
 or
 
 ```sql
-INSERT INTO GeoCheckin VALUES ('South Atlantic','South Carolina',1420113700000,'rain',37.8);
+INSERT INTO GeoCheckin VALUES (1, 'South Atlantic', 'Florida', 1451606401, 'hot', 23.5);
 ```
 
 As with standard SQL, if all of the field names are not provided before the `VALUES` keyword, the other fields are assumed to be null.
