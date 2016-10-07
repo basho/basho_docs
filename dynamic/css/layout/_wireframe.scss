@@ -47,18 +47,36 @@ $content-nav-width : 14rem;
 /**
  * Content Navigation
  * POSITION & SIZE ONLY -- See _content-nav.scss for presentation.
- * 1. This should be set in the markup, but is important to know.
+ * NB. This element is expected to be .hidden-sm-down, but when JS is
+ *     enabled, we will remove (or override?) that attribute to make it visible
+ *     at all breakpoints.
+ * 1. When we're in a smaller width, we want the content nav to start hidden,
+ *    and reactively animate to fill the screen when we want it to be displayed.
+ * 2. When we're in a wider width, we want the content nav to always be fixed to
+ *    the left side of the screen.
  */
 .content-nav {
-  // @extend .hidden-sm-down; /* 1 */
-  position: fixed;
+  position : fixed;                       /* 1, 2 */
+  //TODO: turn all z-indexes into variables set at the top of the file.
+  z-index  : 300;
 
-  @if $content-nav-is-full-height == true { top : 0;                    }
-  @else                                   { top : $banner-height-md-up; }
-  left : 0;
+  height   : 100%;
+  width    : 100%;
 
-  width  : $content-nav-width;
-  height : 100%;
+  left       : -100%;                     /* 1 */
+  transition : left 200ms ease-out 50ms;  /* 1 */
+
+  @include narrow-from(sm) {
+    &.content-nav--fullscreen {
+      left  : 0;                          /* 1 */
+    }
+  }
+
+  @include wide-from(md) {
+    top     : if($content-nav-is-full-height, 0, $banner-height-md-up);
+    left    : 0;                          /* 2 */
+    width   : $content-nav-width;
+  }
 }
 
 
