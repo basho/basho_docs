@@ -59,6 +59,18 @@
   }
 }
 
+/// Aliases for Bootstrap's `media-breakpoint-only`; makes the @content apply to
+/// the given breakpoint.
+/// @author Drew Pirrone-Brusse
+/// @alias media-breakpoint-only
+/// @param {String} $name - Breakpoint name; 'xs', 'sm', 'md', 'lg', or 'xl'
+/// @param {Map} $breakpoint [$grid-breakpoints] - Map of (name: min-width)
+@mixin width-exactly($name, $breakpoints: $grid-breakpoints) {
+  @include media-breakpoint-only($name, $breakpoints) {
+    @content;
+  }
+}
+
 
 /// Set position: relative, and vertically aligns content within the parent.
 /// @author Sebastian Ekström
