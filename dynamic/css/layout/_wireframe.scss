@@ -22,6 +22,10 @@
 // of the banner.
 $content-nav-is-full-height : true;
 
+// Whether the Content Navigation menu uses the same banner as the default site
+// when the Content Nav is visible on small screens, or if a second banner is
+// included in the menu.
+$content-nav-shares-banner : false;
 
 // Styling Variables
 // =================
@@ -54,28 +58,31 @@ $content-nav-width : 14rem;
  *    and reactively animate to fill the screen when we want it to be displayed.
  * 2. When we're in a wider width, we want the content nav to always be fixed to
  *    the left side of the screen.
+ * 3. Setting a `top: n` and a `bottom: 0` let's us get around the rough edges
+ *    of `height: 100%`. Should also work if we're not using `border-box` sizes.
  */
 .content-nav {
   position : fixed;                       /* 1, 2 */
   //TODO: turn all z-indexes into variables set at the top of the file.
   z-index  : 300;
 
-  height   : 100%;
-  width    : 100%;
+  width  : 100%;
+  top    : if($content-nav-shares-banner, $banner-height-sm-down, 0);  /* 3 */
+  bottom : 0;                                                          /* 3 */
 
   left       : -100%;                     /* 1 */
   transition : left 200ms ease-out 50ms;  /* 1 */
 
   @include narrow-from(sm) {
     &.content-nav--fullscreen {
-      left  : 0;                          /* 1 */
+      left : 0;                          /* 1 */
     }
   }
 
   @include wide-from(md) {
-    top     : if($content-nav-is-full-height, 0, $banner-height-md-up);
-    left    : 0;                          /* 2 */
-    width   : $content-nav-width;
+    top   : if($content-nav-is-full-height, 0, $banner-height-md-up);  /* 3 */
+    left  : 0;                          /* 2 */
+    width : $content-nav-width;
   }
 }
 
