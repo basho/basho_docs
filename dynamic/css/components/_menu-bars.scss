@@ -1,0 +1,41 @@
+/**
+ * Helper class to quickly build a triple-bar menu item. Built using `em`s to
+ * allow for easy re-sizing.
+ * All credit goes to https://css-tricks.com/three-line-menu-navicon/
+ *
+ * 1. Total calculated width and height of the object. Allows us to
+ *    perform `onclick` actions, apply backgrounds, etc..
+ *    TODO: Extend this by parameterizing padding. Doing so will let us
+ *          correctly borders & other styles.
+ * 2. Height of a single bar. `background` will be applied inside it, and the
+ *    two `box-shadow`s will inherit it.
+ *
+ *TODO: Consider moving this into a mixin.
+ *TODO: Consider using an icon-font or svg instead of CSS. (rounded edges for great justice?)
+ *TODO: Figure out if the width/height should be REMs or EMs.
+ */
+$bar-width  : 0.8em;
+$bar-height : 0.125em;
+.menu-bars {
+  width  : $bar-width;       /* 1 */
+  height : $bar-height * 5;  /* 1 */
+
+  &:before {
+    content : "";
+
+    width  : inherit; //TODO: Test vs. padding-left on all browsers.
+    height : $bar-height;    /* 2 */
+
+    position : absolute;
+
+    background : $gray;
+    box-shadow :
+      0 ($bar-height * 2) 0 0 $gray,
+      0 ($bar-height * 4) 0 0 $gray;
+  }
+
+  @include when-inside('.banner') {
+    @include pos-relative-vertical-align;
+    font-size : 2em;
+  }
+}
