@@ -1,0 +1,144 @@
+/**
+ * Basic Layouts
+ * =============
+ * This file may be a temporary. The intent is to keep it as minimal as possible
+ * while still communicating the essentials of the wireframe layout of a primary
+ * content page. Individual block layouts should be separated out into their own
+ * layout/*.scss files if they're too large to quickly parse here. When that
+ * should start happening is... yet to be determined. For now the rule of thumb
+ * is that this file should only contain positional and sizing styles for top-
+ * level block elements.
+ */
+
+// Styling Toggles
+// ===============
+// Toggle these to see what major changes in style will look like.
+// Gonna make life kinda hard until we come to consensus, but that's half the
+// point of this experiment. gl hf.
+
+// Whether or not the content navigation sidebar should be the full height of
+// the page. If so, the banner's width will be reduced by the width of the
+// content nav. If not, the content nav's height will be reduced by the height
+// of the banner.
+$content-nav-is-full-height : true;
+
+
+// Styling Variables
+// =================
+// SCSS variables used to determine the size of shared measurements.
+
+// The banner is necessarily a reactive element, as should be the buffer between
+// the bottom of the banner and the top of the primary content.
+$banner-height-sm-down : 3.5rem;
+$banner-buffer-sm-down : 0.5rem;
+$banner-height-md-up   : 4.0rem;
+$banner-buffer-md-up   : 0.5rem;
+
+// Total padding at the top of the <article> (and above <h#> elements) to keep
+// the .banner element from hiding text underneath it.
+$article-padding-top-sm-down : $banner-height-sm-down + $banner-buffer-sm-down;
+$article-padding-top-md-up   : $banner-height-md-up   + $banner-buffer-md-up;
+
+
+$content-nav-width : 14rem;
+
+
+
+/**
+ * Content Navigation
+ * POSITION & SIZE ONLY -- See _content-nav.scss for presentation.
+ * 1. This should be set in the markup, but is important to know.
+ */
+.content-nav {
+  // @extend .hidden-sm-down; /* 1 */
+  position: fixed;
+
+  @if $content-nav-is-full-height == true { top : 0;                    }
+  @else                                   { top : $banner-height-md-up; }
+  left : 0;
+
+  width  : $content-nav-width;
+  height : 100%;
+}
+
+
+
+/**
+ * Banner
+ * POSITION & SIZE ONLY -- See _banner.scss for presentation.
+ * 1. Fill the width of the body. This will hopefully be the width of the
+ *    screen, but the body content might push past that, and widen this as well.
+ */
+.banner {
+  position : fixed;
+  top      : 0;
+  left     : 0; /* 1 */
+  right    : 0; /* 1 */
+  height   : $banner-height-sm-down;
+
+  @include wide-from(md) {
+    @if $content-nav-is-full-height == true { left : $content-nav-width; }
+    @else                                   { left : 0;                  }
+    height : $banner-height-md-up;
+  }
+}
+
+
+
+/**
+ * Main Article
+ * 1. Top padding is set s.t. the Banner element doesn't hide text.
+ * 2. The Content Navigation is hidden until 'md' width, so we only have to set
+ *    the left margin at that point.
+ */
+.main-article {
+  padding : $article-padding-top-sm-down 0.5rem 0 0.5rem;    /* 1 */
+
+  @include wide-from(md) {
+    padding     : $article-padding-top-md-up 1rem 0 0.5rem;  /* 1 */
+    margin-left : $content-nav-width;                        /* 2 */
+  }
+
+/**
+ * Headings within the Main Article
+ * 1. We use a ::before pseudo element to insert an invisible block inside <h#>
+ *    elements that will act as padding to prevent the banner from hiding text
+ *    when we link to a given heading.
+ * 2. Don't render any contents, but do render the block.
+ * 3. I would have like to fill the contents with a description of this trick
+ *    (and explicitly set the height to 0 to prevent that description from
+ *    changing the height of the pseudo element), but I'm worried screen readers
+ *    would pick up that text, which would be completely useless to them.
+ * 4. By setting the margin-top to be the negative of the padding-top, we will
+ *    add height to the parent element without moving it relative to its
+ *    original position. This is what acts as the effective padding.
+ */
+  h1, h2, h3, h4, h5, h6 {
+    &:before {             /* 1 */
+      display    : block;  /* 1 */
+      visibility : hidden; /* 2 */
+      content    : " ";    /* 3 */
+      height     : 0;      /* 3 */
+
+      margin-top    : -$article-padding-top-sm-down; /* 4 */
+      padding-top   :  $article-padding-top-sm-down; /* 4 */
+
+      @include wide-from(md) {
+        margin-top  : -$article-padding-top-md-up;   /* 4 */
+        padding-top :  $article-padding-top-md-up;   /* 4 */
+      }
+    }
+  }
+}
+
+
+
+/**
+ * Content Footer
+ * POSITION & SIZE ONLY -- See _content-info-footer.scss for presentation.
+ */
+.content-info {
+  @include wide-from(md) {
+    margin-left : $content-nav-width;
+  }
+}

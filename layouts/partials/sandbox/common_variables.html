@@ -1,0 +1,72 @@
+<!-- Site-wide Variables for Primary Content Pages
+     =============================================
+  Because of the way Go templates (and therefor Hugo) deal with scope, we're
+  going to extract and/or define a number of common variables here and save them
+  in the global `.Scratch` dictionary. This will allow us to extract common
+  variables across partial templates from a single canonical source.
+
+  Note that the below definitions make assumptions about the Front Matter
+  provided by the markdown content being rendered, and specifically that the
+  page being rendered is a primary content page. Please see the CONTRIBUTING.md
+  document for details on the Front Matter required for a well-formed page.
+
+  Notes:
+    * We use `(replace <str> <sub_str> "")` to remove `sub_str` from `str`
+    * .Permalink    == e.g. https://docs.basho.com/riak/kv/2.1.4/introduction/
+    * .Site.BaseURL == e.g. https://docs.basho.com/
+
+
+{{ $title_supertext           := .Params.title_supertext           }} {{/* ex; Small Title Text     */}}
+{{ $title                     := .Title                            }} {{/* ex; Primary Title Text   */}}
+{{ $description               := .Params.description               }} {{/* ex; Rich-preview summary */}}
+{{ $project                   := .Params.project                   }} {{/* ex; riak_kv              */}}
+{{ $version                   := .Params.project_version           }} {{/* ex; 2.1.4                */}}
+{{ $version_history_in        := .Params.version_history.in        }} {{/* See CONTRIBUTING.md      */}}
+{{ $version_history_locations := .Params.version_history.locations }} {{/* See CONTRIBUTING.md      */}}
+
+{{ $display_toc               := (index .Params "toc")                 | default true                                   }}
+{{ $commercial_offering       := (index .Params "commercial_offering") | default false                                  }}
+{{ $canonical_link            := (index .Params "canonical_link")      | default (replace .Permalink $version "latest") }}
+
+
+{{ $project_decription := (index .Site.Params.project_descriptions $project) }}
+
+{{ $project_path       := $project_decription.path                }} {{/* ex; /riak/kv                                   */}}
+{{ $version_path       := (printf "%s/%s" $project_path $version) }} {{/* ex; /riak/kv/2.1.4                             */}}
+{{ $releases           := $project_decription.releases            }} {{/* ex; [[2.0.0, 2.0.1, ...], [2.1.0, 2.1.2, ...]] */}}
+{{ $latest_version     := $project_decription.latest              }} {{/* ex; 2.1.4                                      */}}
+{{ $is_latest          := (eq $version $latest_version)           }} {{/* ex; true                                       */}}
+{{ $lts_version        := $project_decription.lts                 }} {{/* ex; 2.0.6                                      */}}
+{{ $is_lts             := (eq $version $lts_version)              }} {{/* ex; false                                      */}}
+{{ $archived_url       := $project_decription.archived_url        }} {{/* ex; http://docs.basho.com/riak/1.4.12/         */}}
+{{ $archived_path      := $project_decription.archived_path       }} {{/* ex; riak                                       */}}
+
+
+{{ $site_relative_url    := (printf "/%s" (replace .Permalink .Site.BaseURL ""))         }} {{/* ex; /riak/kv/2.1.4/introduction/ */}}
+{{ $project_relative_url := (replace $site_relative_url (printf "%s/" $version_path) "") }} {{/* ex; introduction/                */}}
+
+
+
+{{ .Scratch.Add "title_supertext"           $title_supertext           }}
+{{ .Scratch.Add "title"                     $title                     }}
+{{ .Scratch.Add "description"               $description               }}
+{{ .Scratch.Add "project"                   $project                   }}
+{{ .Scratch.Add "version"                   $version                   }}
+{{ .Scratch.Add "version_history_in"        $version_history_in        }}
+{{ .Scratch.Add "version_history_locations" $version_history_locations }}
+{{ .Scratch.Add "display_toc"               $display_toc               }}
+{{ .Scratch.Add "commercial_offering"       $commercial_offering       }}
+{{ .Scratch.Add "canonical_link"            $canonical_link            }}
+{{ .Scratch.Add "project_path"              $project_path              }}
+{{ .Scratch.Add "version_path"              $version_path              }}
+{{ .Scratch.Add "releases"                  $releases                  }}
+{{ .Scratch.Add "latest_version"            $latest_version            }}
+{{ .Scratch.Add "is_latest"                 $is_latest                 }}
+{{ .Scratch.Add "lts_version"               $lts_version               }}
+{{ .Scratch.Add "is_lts"                    $is_lts                    }}
+{{ .Scratch.Add "archived_url"              $archived_url              }}
+{{ .Scratch.Add "archived_path"             $archived_path             }}
+{{ .Scratch.Add "site_relative_url"         $site_relative_url         }}
+{{ .Scratch.Add "project_relative_url"      $project_relative_url      }}
+
+-->
