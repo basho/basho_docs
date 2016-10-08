@@ -70,8 +70,8 @@ $content-nav-width : 14rem;
   top    : if($content-nav-shares-banner, $banner-height-sm-down, 0);  /* 3 */
   bottom : 0;                                                          /* 3 */
 
-  left       : -100%;                     /* 1 */
-  transition : left 200ms ease-out 50ms;  /* 1 */
+  left       : -100%;                        /* 1 */
+  transition : left 200ms ease-in-out 50ms;  /* 1 */
 
   @include narrow-from(sm) {
     &.content-nav--fullscreen {

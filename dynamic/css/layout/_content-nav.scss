@@ -18,9 +18,29 @@ $fixed-bottom-height : 5rem;
 /**
  * Content Navigation root element
  * PRESENTATION ONLY -- See _wireframe.scss for position and size.
+ * 1. Full-sized fonts for interactive sizes.
+ * 2. Reduced-sized fonts when sharing real estate on small-ish screens
+ * 3. Closer to full-sized fonts when displaying on large screens.
  */
 .content-nav {
+  @extend %sans;
   background : $gray-warm-light;
+
+  @include width-exactly('xs') { font-size : 100%; } /* 1 */
+  @include width-exactly('sm') { font-size : 100%; } /* 1 */
+  @include width-exactly('md') { font-size :  85%; } /* 2 */
+  @include width-exactly('lg') { font-size :  90%; } /* 3 */
+  @include width-exactly('xl') { font-size :  90%; } /* 3 */
+
+  color : $gray-50;
+
+  a {
+    color : $gray-50;
+
+    @include on-event {
+      color : $gray-15;
+    }
+  }
 }
 
 

@@ -7,7 +7,6 @@
  *    want the top level items (those without a parents) visually separated.
  */
 .content-menu {
-  @extend %sans;
   margin-bottom : 0;     /* 1 */
   padding-left  : 0;     /* 1 */
   list-style    : none;  /* 1 */
@@ -24,8 +23,9 @@
 /**
  * Content Menu Item
  * These can be top level items, or sub-items.
- * 1. Apply this border here s.t. wrapped menu items get a border the full
- *    height of the title.
+ * 1. Apply a border-right to child anchor elements who are siblings of
+ *    .content-menu__menu-toggle s.t. menu items with wrapped text get a border
+ *    the full height of the title.
  */
 .content-menu__item {
   padding-top    : 0.5rem;
@@ -33,23 +33,64 @@
 
   background : $gray-90;
 
-  //TODO: Another expensive selector. Again, not really worth its own class.
+  //TODO: Another expensive selector. Is it worth a class of its own?
   > a {
-    border-right : 1px solid $gray-lighter;  /* 1 */
+    padding-right : 0.5rem;
+  }
+
+  > .content-menu__menu-toggle + a {
+    border-right  : 1px solid $gray-lighter;  /* 1 */
+  }
+}
+
+/**
+ * Currently selected Content Menu Items
+ * Largely just overrides styles set in .content-menu__item and .content-nav
+ */
+.content-menu__item--selected {
+  background : $cyan;
+  color      : $gray-warm;
+
+  > a {
+    cursor : default;
+    color  : $gray-warm;
+
+    @include on-event {
+      color : $gray-warm;
+    }
+  }
+
+  > .content-menu__menu-toggle + a {
+    border-right-color : $gray-warm;
   }
 }
 
 /**
  * Container for a docs-icon iconograph.
+ * 1. Padding to the left of the iconograph.
+ * 2. Padding between the iconograph and the '|'
+ * 3. Padding the the right of the '|'
+ * 4. Normalize widths of the iconographs.
  */
 .content-menu__icon-container {
-  width      : 2rem;
   text-align : right;
+
+  margin-left  : 1rem;    /* 1 */
+  margin-right : 0.25rem; /* 3 */
+
+  &:before {
+    display       : inline-block;
+    width         : 1.25rem; /* 4 */
+    padding-right : 0.5rem;  /* 2 */
+  }
 }
 
 /**
  * Chevron toggle for showing the possibility of opening / closing a menu.
  * 1. We need to put something in the :after element for the chevron to render.
+ * 2. These `when-inside` mixins are designed to only override the color. There
+ *    may be a cleaner way of doing that, but I figure re-creating the chevron
+ *    is plenty descriptive.
  */
 .content-menu__menu-toggle {
   width      : 2.2rem;
@@ -59,9 +100,17 @@
     display : inline-block;
     content : "";            /* 1 */
     @include downward-arrow(p2r(10px), $gray-light);
+
+    @include when-inside('.content-menu__item--selected') {   /* 2 */
+      @include downward-arrow(p2r(10px), $gray-warm);
+    }
   }
 
   &.content-menu__menu-toggle--open:after {
     @include leftward-arrow(p2r(10px), $gray-light);
+
+    @include when-inside('.content-menu__item--selected') {   /* 2 */
+      @include leftward-arrow(p2r(10px), $gray-warm);
+    }
   }
 }
