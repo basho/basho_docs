@@ -1,3 +1,265 @@
-// -----------------------------------------------------------------------------
-// This file contains all @font-face declarations, if any.
-// -----------------------------------------------------------------------------
+/**
+ * Fonts and Icon Fonts
+ * ====================
+ * We're going to use style linking for font-faces, as per
+ * https://www.smashingmagazine.com/2013/02/setting-weights-and-styles-at-font-face-declaration/#style-linking
+ * It may eventually be necessary to switch to using unique family names as per
+ * https://www.smashingmagazine.com/2013/02/setting-weights-and-styles-at-font-face-declaration/#unique-font-family-names-matching-weights-and-styles
+ */
+
+
+
+/**
+ * Font Styles
+ * -----------
+ * The intention here is to @extend these classes wherever fonts should be
+ * specified. The font families (defined below) leverage style linking, so
+ * _emphasiszing_ or **strengthening** text should already be handled correctly,
+ * and the -Bold / -Italic modifiers should not be widely necessary.
+ */
+/*TODO: Come up with some decent serif fallbacks. */
+
+/* Convenience Classes */
+%sans        { @extend %OpenSans; }
+%sans-bold   { @extend %OpenSans-Bold; }
+%sans-light  { @extend %OpenSans-Light; }
+%sans-italic { @extend %OpenSans-Italic; }
+%serif        { @extend %GandhiSerif; }
+%serif-bold   { @extend %GandhiSerif-Bold; }
+%serif-italic { @extend %GandhiSerif-Italic; }
+
+
+/* Descriptive Font Classes */
+%GandhiSerif {
+  font-family : "GandhiSerif", serif;
+  font-weight : 400;
+  font-style  : normal;
+}
+%GandhiSerif-Bold {
+  font-family : "GandhiSerif", serif;
+  font-weight : 700;
+  font-style  : normal;
+}
+%GandhiSerif-Italic {
+  font-family : "GandhiSerif", serif;
+  font-weight : 400;
+  font-style  : italic;
+}
+%GandhiSerif-BoldItalic {
+  font-family : "GandhiSerif", serif;
+  font-weight : 700;
+  font-style  : italic;
+}
+
+
+%OpenSans {
+  font-family : "OpenSans", verdana, arial, sans-serif;
+  font-weight : 400;
+  font-style  : normal;
+}
+%OpenSans-Light {
+  font-family : "OpenSans", verdana, arial, sans-serif;
+  font-weight : 300;
+  font-style  : normal;
+}
+%OpenSans-Bold {
+  font-family : "OpenSans", verdana, arial, sans-serif;
+  font-weight : 700;
+  font-style  : normal;
+}
+%OpenSans-Italic {
+  font-family : "OpenSans", verdana, arial, sans-serif;
+  font-weight : 400;
+  font-style  : italic;
+}
+%OpenSans-BoldItalic {
+  font-family : "OpenSans", verdana, arial, sans-serif;
+  font-weight : 700;
+  font-style  : italic;
+}
+
+
+
+/**
+ * Font-Face Declarations
+ * ----------------------
+ */
+/*TODO: This looks like a lot of boilerplate to me. We can probably make a mixin
+ *      out of the meat of these definitions and clean everything up? */
+
+/** Gandhi Serif */
+@font-face {
+  font-family : "GandhiSerif"; /* Regular */
+  font-weight : 400;
+  font-style  : normal;
+  src : url("../fonts/gandhiserif-regular-webfont-eot.eot");
+  src : url("../fonts/gandhiserif-regular-webfont-eot.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/gandhiserif-regular-webfont-ttf.ttf") format("truetype"),
+        url("../fonts/gandhiserif-regular-webfont-woff.woff") format("woff"),
+        url("../fonts/gandhiserif-regular-webfont-svg.svg#GandhiSerifRegular") format("svg");
+  text-rendering : optimizeLegibility;
+}
+
+@font-face {
+  font-family : "GandhiSerif"; /* Bold */
+  font-weight : 700;
+  font-style  : normal;
+  src : url("../fonts/gandhiserif-bold-webfont-eot.eot");
+  src : url("../fonts/gandhiserif-bold-webfont-eot.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/gandhiserif-bold-webfont-ttf.ttf") format("truetype"),
+        url("../fonts/gandhiserif-bold-webfont-woff.woff") format("woff"),
+        url("../fonts/gandhiserif-bold-webfont-svg.svg#GandhiSerifBold") format("svg");
+  text-rendering : optimizeLegibility;
+}
+
+@font-face {
+  font-family : "GandhiSerif"; /* Italic */
+  font-weight : 400;
+  font-style  : italic;
+  src : url("../fonts/gandhiserif-italic-webfont-eot.eot");
+  src : url("../fonts/gandhiserif-italic-webfont-eot.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/gandhiserif-italic-webfont-ttf.ttf") format("truetype"),
+        url("../fonts/gandhiserif-italic-webfont-woff.woff") format("woff"),
+        url("../fonts/gandhiserif-italic-webfont-svg.svg#GandhiSerifItalic") format("svg");
+  text-rendering : optimizeLegibility;
+}
+
+@font-face {
+  font-family : "GandhiSerif"; /* BoldItalic */
+  font-weight : 700;
+  font-style  : italic;
+  src : url("../fonts/gandhiserif-bolditalic-webfont-eot.eot");
+  src : url("../fonts/gandhiserif-bolditalic-webfont-eot.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/gandhiserif-bolditalic-webfont-ttf.ttf") format("truetype"),
+        url("../fonts/gandhiserif-bolditalic-webfont-woff.woff") format("woff"),
+        url("../fonts/gandhiserif-bolditalic-webfont-svg.svg#GandhiSerifBoldItalic") format("svg");
+  text-rendering : optimizeLegibility;
+}
+
+
+
+/** Open Sans */
+@font-face {
+  font-family : "OpenSans"; /* Regular */
+  font-weight : 400;
+  font-style  : normal;
+  src : url("../fonts/opensans-regular-webfont-eot.eot");
+  src : url("../fonts/opensans-regular-webfont-eot.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/opensans-regular-webfont-ttf.ttf") format("truetype"),
+        url("../fonts/opensans-regular-webfont-woff.woff") format("woff"),
+        url("../fonts/opensans-regular-webfont-svg.svg#OpenSansRegular") format("svg");
+  text-rendering : optimizeLegibility;
+}
+
+@font-face {
+  font-family : "OpenSans"; /* Light */
+  font-weight : 300;
+  font-style  : normal;
+  src : url("../fonts/opensans-light-webfont-eot.eot");
+  src : url("../fonts/opensans-light-webfont-eot.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/opensans-light-webfont-ttf.ttf") format("truetype"),
+        url("../fonts/opensans-light-webfont-woff.woff") format("woff"),
+        url("../fonts/opensans-light-webfont-svg.svg#OpenSansLight") format("svg");
+  text-rendering : optimizeLegibility;
+}
+
+@font-face {
+  font-family : "OpenSans"; /* Bold */
+  font-weight : 700;
+  font-style  : normal;
+  src : url("../fonts/opensans-bold-webfont-eot.eot");
+  src : url("../fonts/opensans-bold-webfont-eot.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/opensans-bold-webfont-ttf.ttf") format("truetype"),
+        url("../fonts/opensans-bold-webfont-woff.woff") format("woff"),
+        url("../fonts/opensans-bold-webfont-svg.svg#OpenSansBold") format("svg");
+  text-rendering : optimizeLegibility;
+}
+
+@font-face {
+  font-family : "OpenSans"; /* Italic */
+  font-weight : 400;
+  font-style  : italic;
+  src : url("../fonts/opensans-italic-webfont-eot.eot");
+  src : url("../fonts/opensans-italic-webfont-eot.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/opensans-italic-webfont-ttf.ttf") format("truetype"),
+        url("../fonts/opensans-italic-webfont-woff.woff") format("woff"),
+        url("../fonts/opensans-italic-webfont-svg.svg#OpenSansItalic") format("svg");
+  text-rendering : optimizeLegibility;
+}
+
+@font-face {
+  font-family : "OpenSans"; /* BoldItalic */
+  font-weight : 700;
+  font-style  : italic;
+  src : url("../fonts/opensans-bolditalic-webfont.eot");
+  src : url("../fonts/opensans-bolditalic-webfont.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/opensans-bolditalic-webfont.ttf") format("truetype"),
+        url("../fonts/opensans-bolditalic-webfont.woff") format("woff"),
+        url("../fonts/opensans-bolditalic-webfont.svg#OpenSansBoldItalic") format("svg");
+  text-rendering : optimizeLegibility;
+}
+
+
+
+
+
+/**
+ * Font Icons
+ * =============================================================================
+ * Custom build web icon font for use around the site. Most commonly used in the
+ * Content Navigation top-level items.
+ */
+
+/*TODO: Build a reference page that shows and names all of the icons so we can
+ *      stop guessing at what they look like.
+/*TODO: In the previous iteration of these classes, there were rules that would
+ *      allow us to use a `data-icon` attribute to set the icon (ex.
+ *      `<span data-icon="lambda" />`). The below was built assuming that
+ *      wouldn't be the usual way injecting these icons. Maybe that shouldn't be
+ *      the case?
+ */
+
+/** Docs Icon */
+@font-face {
+  font-family : "DocsFontIcons";
+  font-weight : normal;
+  font-style  : normal;
+  src :url("../fonts/docsfonticons-webfont-eot.eot");
+  src :url("../fonts/docsfonticons-webfont-eot.eot?#iefix") format("embedded-opentype"),
+       url("../fonts/docsfonticons-webfont-ttf.ttf") format("truetype"),
+       url("../fonts/docsfonticons-webfont-woff.woff") format("woff"),
+       url("../fonts/docsfonticons-webfont-svg.svg#DocsFontIcons") format("svg");
+  text-rendering : optimizeLegibility;
+}
+
+%docs-icon {
+  font-family    : 'DocsFontIcons';
+  font-style     : normal;
+  font-weight    : normal;
+  font-variant   : normal;
+  speak          : none;
+  text-transform : none;
+  line-height    : 1;
+}
+
+.docs-icon--lambda        { &:before { @extend %docs-icon; content: "\e005"; } }
+.docs-icon--lambda-bold   { &:before { @extend %docs-icon; content: "\e00b"; } }
+.docs-icon--beaker        { &:before { @extend %docs-icon; content: "\f0c3"; } }
+.docs-icon--cog           { &:before { @extend %docs-icon; content: "\f013"; } }
+.docs-icon--github-alt    { &:before { @extend %docs-icon; content: "\e004"; } }
+.docs-icon--comments      { &:before { @extend %docs-icon; content: "\e000"; } }
+.docs-icon--bolt          { &:before { @extend %docs-icon; content: "\f0e7"; } }
+.docs-icon--question-sign { &:before { @extend %docs-icon; content: "\f059"; } }
+.docs-icon--tools         { &:before { @extend %docs-icon; content: "\e001"; } }
+.docs-icon--search        { &:before { @extend %docs-icon; content: "\f002"; } }
+.docs-icon--download-alt  { &:before { @extend %docs-icon; content: "\f019"; } }
+.docs-icon--github        { &:before { @extend %docs-icon; content: "\e009"; } }
+.docs-icon--reorder       { &:before { @extend %docs-icon; content: "\f0c9"; } }
+.docs-icon--more          { &:before { @extend %docs-icon; content: "\e002"; } }
+.docs-icon--riak          { &:before { @extend %docs-icon; content: "\e003"; } }
+.docs-icon--database      { &:before { @extend %docs-icon; content: "\e006"; } }
+.docs-icon--install       { &:before { @extend %docs-icon; content: "\e007"; } }
+.docs-icon--cloud         { &:before { @extend %docs-icon; content: "\e008"; } }
+.docs-icon--configure     { &:before { @extend %docs-icon; content: "\e00a"; } }
+.docs-icon--references    { &:before { @extend %docs-icon; content: "\f02d"; } }
+.docs-icon--time          { &:before { @extend %docs-icon; content: "\f017"; } }
