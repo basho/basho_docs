@@ -1,0 +1,60 @@
+<!-- Navigation Sidebar Sub Menus
+     ============================
+  This partial should be invoked with a dict containing the below members,
+    "node"         :: The Hugo node that started the sub-menu recursion.
+    "top_menu"     :: The immediate Hugo Menu that needs to be rendered.
+    "menu_title"   :: The name of the root Hugo Menu that's being rendered.
+    "menu_depth"   :: The current recursion depth (should be incremented by one
+                      whenever this partial is called into).
+    "menu_is_open" :: Whether the menu should start open (if the item that it is
+                      associated with is selected or a parent of the selected).
+
+{{ $HugoNode     := .node       }}
+{{ $top_menu     := .top_menu   }}
+{{ $menu_title   := .menu_title }}
+{{ $menu_depth   := .menu_depth }}
+{{ $menu_is_open := .menu_is_open }}
+-->
+
+<ul class="content-menu
+           content-menu--depth-{{$menu_depth}}
+           {{if $menu_is_open}}content-menu--open{{end}}">
+
+{{- range $menu := $top_menu.Children }}
+
+<!-- Range-Specific Variable Definitions
+     ===================================
+{{ $menu_is_selected       := ($HugoNode.IsMenuCurrent  $menu_title $menu)   }} {{/* If the current menu is selected */}}
+{{ $menu_contains_selected := ($HugoNode.HasMenuCurrent $menu_title $menu)   }} {{/* If a child of the current menu is selected */}}
+{{ $menu_is_open           := (or $menu_is_selected $menu_contains_selected) }}
+{{ $menu_has_children      := $menu.HasChildren                              }}
+{{ $menu_name              := $menu.Name                                     }}
+{{ $menu_url               := $menu.URL                                      }}
+-->
+
+  <li>
+    <div class="content-menu__item {{if $menu_is_selected }} content-menu__item--selected {{end}}">
+
+  {{- if $menu_has_children }}
+      <span class="block float-right   content-menu__menu-toggle
+                {{if $menu_is_open}} content-menu__menu-toggle--open {{end}}">
+      </span>
+  {{- end }}
+
+      <a class="block overflow" href="{{$menu_url}}">
+        {{$menu_name}}
+      </a>
+
+    </div>
+
+  {{- if $menu_has_children }}
+    {{ $next_depth := (add 1 $menu_depth)                       }}
+    {{ $dict := (dict   "node" $HugoNode   "top_menu" $menu   "menu_title" $menu_title   "menu_depth" $next_depth   "menu_is_open" $menu_is_open) }}
+    {{ partial "sandbox/content_navigation_submenu.html" $dict }}
+  {{- end }}
+
+  </li>
+
+{{- end }}
+
+</ul>

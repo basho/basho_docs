@@ -34,6 +34,8 @@ $fixed-bottom-height : 5rem;
 
   color : $gray-50;
 
+  //TODO: consider (strongly) moving these colors into _content-menu.scss,
+  //      specifically the .content-menu--item?
   a {
     color : $gray-50;
 
