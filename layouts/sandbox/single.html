@@ -226,33 +226,43 @@
       <div class="content-nav__menu-container">
 
         <ul class="content-menu
-                   content-menu--depth-0">
-{{ range $menu_item := $menu_list }}
+                   content-menu--depth-0
+                   content-menu--open">
+{{- range $menu := $menu_list }}
 <!-- Range-Specific Variable Definitions
      ===================================
-{{ $menu_is_selected       := ($HugoNode.IsMenuCurrent  $menu_title $menu_item) }}
-{{ $menu_contains_selected := ($HugoNode.HasMenuCurrent $menu_title $menu_item) }}
-{{ $menu_is_open           := (or $menu_is_selected $menu_contains_selected)    }}
-{{ $menu_has_children      := $menu_item.HasChildren                            }}
-{{ $menu_pre_icon          := $menu_item.Pre                                    }} {{/* ex; lambda */}}
-{{ $menu_name              := $menu_item.Name                                   }}
-{{ $menu_url               := $menu_item.URL                                    }}
+{{ $menu_is_selected       := ($HugoNode.IsMenuCurrent  $menu_title $menu)   }} {{/* If the current menu is selected */}}
+{{ $menu_contains_selected := ($HugoNode.HasMenuCurrent $menu_title $menu)   }} {{/* If a child of the current menu is selected */}}
+{{ $menu_is_open           := (or $menu_is_selected $menu_contains_selected) }}
+{{ $menu_has_children      := $menu.HasChildren                              }}
+{{ $menu_pre_icon          := $menu.Pre                                      }} {{/* ex; lambda */}}
+{{ $menu_name              := $menu.Name                                     }}
+{{ $menu_url               := $menu.URL                                      }}
 -->
           <li>
-            <div class="content-menu__item">
+            <div class="content-menu__item {{if $menu_is_selected }} content-menu__item--selected {{end}}">
 
               <span class="block float-left   content-menu__icon-container   docs-icon--{{$menu_pre_icon}}">|</span>
 
-              <span class="block float-right   content-menu__menu-toggle"></span>
+  {{- if $menu_has_children }}
+              <span class="block float-right   content-menu__menu-toggle
+                        {{if $menu_is_open}} content-menu__menu-toggle--open {{end}}">
+              </span>
+  {{- end }}
 
-              <a class="block overflow">
-                {{$menu_name}}
+              <a class="block overflow" href="{{$menu_url}}">
+                <strong>{{$menu_name}}</strong>
               </a>
 
             </div>
 
+  {{- if $menu_has_children }}
+            {{ $dict := (dict   "node" $HugoNode   "top_menu" $menu   "menu_title" $menu_title   "menu_depth" 1   "menu_is_open" $menu_is_open) }}
+            {{ partial "sandbox/content_navigation_submenu.html" $dict }}
+  {{- end }}
+
           </li>
-{{ end }}
+{{- end }}
 
         </ul>
 

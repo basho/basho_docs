@@ -5,17 +5,34 @@
  * 1. Override the default <ul> styles.
  * 2. Only add a border to the bottom of the first level of list items. We only
  *    want the top level items (those without a parents) visually separated.
+ * 3. Menus are closed and invisible by default. Only show them once they've
+ *    been "opened".
+ * 4. Progressively increase the left margin on menu text.
  */
 .content-menu {
-  margin-bottom : 0;     /* 1 */
-  padding-left  : 0;     /* 1 */
-  list-style    : none;  /* 1 */
+  display : none;       /* 3 */
+  margin       : 0;     /* 1 */
+  padding-left : 0;     /* 1 */
+  list-style   : none;  /* 1 */
 
-  //TODO: Using <li> as the key selector might be expensive. But giving these
-  //      list items a class just for a border bottoms sounds like a huge waste.
-  > li {
+
+  &.content-menu--open {
+    display : block;    /* 3 */
+  }
+
+
+  //TODO: Bunch'a expensive selectors incoming. I'm not sure it's worth building
+  //      classes for all of these, and they're pretty descriptive as is, so....
+  //      Sorry?
+  &.content-menu--depth-0 > li {
     border-bottom : 1px solid $gray-lighter;  /* 2 */
   }
+
+  .content-menu--depth-1 a { padding-left : 1.125rem;  /* 4 */ }
+  .content-menu--depth-2 a { padding-left : 1.625rem;  /* 4 */ }
+  .content-menu--depth-3 a { padding-left : 2.125rem;  /* 4 */ }
+  .content-menu--depth-4 a { padding-left : 2.625rem;  /* 4 */ }
+  .content-menu--depth-5 a { padding-left : 3.125rem;  /* 4 */ }
 }
 
 
