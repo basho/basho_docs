@@ -28,11 +28,19 @@
     border-bottom : 1px solid $gray-lighter;  /* 2 */
   }
 
-  .content-menu--depth-1 a { padding-left : 1.125rem;  /* 4 */ }
-  .content-menu--depth-2 a { padding-left : 1.625rem;  /* 4 */ }
-  .content-menu--depth-3 a { padding-left : 2.125rem;  /* 4 */ }
-  .content-menu--depth-4 a { padding-left : 2.625rem;  /* 4 */ }
-  .content-menu--depth-5 a { padding-left : 3.125rem;  /* 4 */ }
+  .content-menu--depth-1 a { padding-left : 1.75rem;  /* 4 */ }
+  .content-menu--depth-2 a { padding-left : 2.50rem;  /* 4 */ }
+  .content-menu--depth-3 a { padding-left : 3.25rem;  /* 4 */ }
+  .content-menu--depth-4 a { padding-left : 4.00rem;  /* 4 */ }
+  .content-menu--depth-5 a { padding-left : 4.75rem;  /* 4 */ }
+
+  @include when-inside('md') {
+    .content-menu--depth-1 a { padding-left : 1.125rem;  /* 4 */ }
+    .content-menu--depth-2 a { padding-left : 1.625rem;  /* 4 */ }
+    .content-menu--depth-3 a { padding-left : 2.125rem;  /* 4 */ }
+    .content-menu--depth-4 a { padding-left : 2.625rem;  /* 4 */ }
+    .content-menu--depth-5 a { padding-left : 3.125rem;  /* 4 */ }
+  }
 }
 
 
@@ -105,12 +113,11 @@
 /**
  * Chevron toggle for showing the possibility of opening / closing a menu.
  * 1. We need to put something in the :after element for the chevron to render.
- * 2. These `when-inside` mixins are designed to only override the color. There
- *    may be a cleaner way of doing that, but I figure re-creating the chevron
- *    is plenty descriptive.
+ *TODO: This... is... not a well formed clause. There has to be some way to
+ *      clean it up, and make the rules easier to follow...
  */
 .content-menu__menu-toggle {
-  width      : 2.2rem;
+  width      : 3.5rem;
   text-align : center;
 
   cursor : pointer;
@@ -119,19 +126,46 @@
     transition : border-color 500ms ease;
 
     display : inline-block;
-    content : "";            /* 1 */
-    @include downward-arrow(p2r(10px), $gray-light, $gray-15);
+    content : "";  /* 1 */
 
-    @include when-inside('.content-menu__item--selected') {   /* 2 */
-      @include downward-arrow(p2r(10px), $gray-warm, $gray-15);
-    }
+    @include downward-arrow(p2r(14px), $gray-light, $gray-15);
   }
 
   &.content-menu__menu-toggle--open:after {
-    @include upward-arrow(p2r(10px), $gray-light, $gray-15);
+    @include upward-arrow(p2r(14px), $gray-light, $gray-15);
+  }
 
-    @include when-inside('.content-menu__item--selected') {   /* 2 */
-      @include upward-arrow(p2r(10px), $gray-warm, $gray-15);
+  /* Size overrides when displaying wide. */
+  @include wide-from('md') {
+    width : 2.2rem;
+
+    &:after {
+      @include downward-arrow(p2r(10px), $gray-light, $gray-15);
+    }
+    &.content-menu__menu-toggle--open:after {
+      @include upward-arrow(p2r(10px), $gray-light, $gray-15);
+    }
+  }
+
+
+
+  /* Color overrides when the item is selected */
+  @include when-inside('.content-menu__item--selected') {
+    &:after {
+      @include downward-arrow(p2r(14px), $gray-warm, $gray-15);
+    }
+    &.content-menu__menu-toggle--open:after {
+      @include upward-arrow(p2r(14px), $gray-warm, $gray-15);
+    }
+
+    /* Size overrides when displaying wide. */
+    @include wide-from('md') {
+      &:after {
+        @include downward-arrow(p2r(10px), $gray-warm, $gray-15);
+      }
+      &.content-menu__menu-toggle--open:after {
+        @include upward-arrow(p2r(10px), $gray-warm, $gray-15);
+      }
     }
   }
 }
