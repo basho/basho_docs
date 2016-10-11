@@ -114,26 +114,33 @@
 /// Renders as an arrow of the given size; points either up or down.
 /// Note that the border sizes are divided by 2 s.t. the final size of the
 /// arrow's base will be the size given.
+/// We give the border-{$point} a color (transparent by default) to allow for
+/// transitions on border-color to soften the animation some.
+/// NOTE: `transition: border-color` only really works with opposing arrows;
+///       upward transition to downward, left transitioning to right. Otherwise
+///       the transition flashes through a box-ish pattern.
 /// @author Barrett Cox
 /// @author Drew Pirrone-Brusse
 /// @param {String} base  - `top` or `bottom`
 /// @param {String} point - `bottom` or `top`
 /// @param {Number} size  - Size of the base of the arrow
 /// @param {Color}  color - Color of the arrow
-@mixin border-arrow($base, $point, $size, $color) {
+/// @param {Color}  flash [transparent] - Color of the arrow for transitions
+@mixin border-arrow($base, $point, $size, $color, $flash: transparent) {
   width            : #{$size};
   height           : #{$size};
   border           : #{$size/2} solid transparent;
-  border-#{$base}  : #{$size/2} solid #{$color};
-  border-#{$point} : none;
+  border-#{$base}  : #{$size/2} solid $color;
+  border-#{$point} : 0          none  $flash;
 }
 
 /// Named pass-through to border-arrow, pointing up.
 /// @author Drew Pirrone-Brusse
 /// @param {Number} size  - Size of the base of the arrow
 /// @param {Color}  color - Color of the arrow
-@mixin upward-arrow($size, $color) {
-  @include border-arrow(bottom, top, $size, $color);
+/// @param {Color}  flash [transparent] - Color of the arrow for transitions
+@mixin upward-arrow($size, $color, $flash: transparent) {
+  @include border-arrow(bottom, top, $size, $color, $flash);
   transform: translateY(-25%);
 }
 
@@ -141,8 +148,9 @@
 /// @author Drew Pirrone-Brusse
 /// @param {Number} size  - Size of the base of the arrow
 /// @param {Color}  color - Color of the arrow
-@mixin downward-arrow($size, $color) {
-  @include border-arrow(top, bottom, $size, $color);
+/// @param {Color}  flash [transparent] - Color of the arrow for transitions
+@mixin downward-arrow($size, $color, $flash: transparent) {
+  @include border-arrow(top, bottom, $size, $color, $flash);
   transform: translateY(25%);
 }
 
@@ -151,8 +159,9 @@
 /// @author Drew Pirrone-Brusse
 /// @param {Number} size  - Size of the base of the arrow
 /// @param {Color}  color - Color of the arrow
-@mixin leftward-arrow($size, $color) {
-  @include border-arrow(right, left, $size, $color);
+/// @param {Color}  flash [transparent] - Color of the arrow for transitions
+@mixin leftward-arrow($size, $color, $flash: transparent) {
+  @include border-arrow(right, left, $size, $color, $flash);
   transform: translateX(-25%);
 }
 
@@ -161,8 +170,9 @@
 /// @author Drew Pirrone-Brusse
 /// @param {Number} size  - Size of the base of the arrow
 /// @param {Color}  color - Color of the arrow
-@mixin rightward-arrow($size, $color) {
-  @include border-arrow(left, right, $size, $color);
+/// @param {Color}  flash [transparent] - Color of the arrow for transitions
+@mixin rightward-arrow($size, $color, $flash: transparent) {
+  @include border-arrow(left, right, $size, $color, $flash);
   transform: translateX(25%);
 }
 

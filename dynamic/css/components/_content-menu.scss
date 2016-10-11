@@ -116,20 +116,22 @@
   cursor : pointer;
 
   &:after {
+    transition : border-color 500ms ease;
+
     display : inline-block;
     content : "";            /* 1 */
-    @include downward-arrow(p2r(10px), $gray-light);
+    @include downward-arrow(p2r(10px), $gray-light, $gray-15);
 
     @include when-inside('.content-menu__item--selected') {   /* 2 */
-      @include downward-arrow(p2r(10px), $gray-warm);
+      @include downward-arrow(p2r(10px), $gray-warm, $gray-15);
     }
   }
 
   &.content-menu__menu-toggle--open:after {
-    @include leftward-arrow(p2r(10px), $gray-light);
+    @include upward-arrow(p2r(10px), $gray-light, $gray-15);
 
     @include when-inside('.content-menu__item--selected') {   /* 2 */
-      @include leftward-arrow(p2r(10px), $gray-warm);
+      @include upward-arrow(p2r(10px), $gray-warm, $gray-15);
     }
   }
 }
