@@ -36,19 +36,19 @@
 $hl_base03  : none;
 $hl_base02  : none;
 $hl_base01  : none;             // Optional Emphasis
-$hl_base00  : #657b83;          // Primary Content   / Code
+$hl_base00  : $gray-30;         // Primary Content   / Code
 $hl_base0   : none;
-$hl_base1   : #93a1a1;          // Secondary Content / Comments
-$hl_base2   : #eee8d5;          // Background Highlights
-$hl_base3   : #fdf6e3;          // Background
-$hl_yellow  : #b58900;
-$hl_orange  : #cb4b16;
-$hl_red     : #dc322f;
+$hl_base1   : $gray-60;         // Secondary Content / Comments
+$hl_base2   : $gray-warm;       // Background Highlights
+$hl_base3   : $gray-warm-light; // Background
+$hl_yellow  : $green-dark;
+$hl_orange  : $orange;
+$hl_red     : $orange-red;
 $hl_magenta : none;
 $hl_violet  : none;
-$hl_blue    : #268bd2;
-$hl_cyan    : #2aa198;
-$hl_green   : #859900;
+$hl_blue    : $cyan;
+$hl_cyan    : $orange-text;
+$hl_green   : $cyan-dark;
 
 
 .hljs {
@@ -59,6 +59,7 @@ $hl_green   : #859900;
 .hljs-comment,
 .hljs-quote {
   color: $hl_base1;
+  font-style: italic;
 }
 
 /* Solarized Green */
@@ -66,11 +67,13 @@ $hl_green   : #859900;
 .hljs-selector-tag,
 .hljs-addition {
   color: $hl_green;
+  font-weight: bold;
 }
 
 /* Solarized Cyan */
 .hljs-number,
 .hljs-string,
+.hljs-params,
 .hljs-meta .hljs-meta-string,
 .hljs-literal,
 .hljs-doctag,
