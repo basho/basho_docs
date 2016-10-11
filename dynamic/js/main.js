@@ -22,7 +22,7 @@
 //= require ./vendor/jquery-2.2.4.js
 //= require ./vendor/tether-1.1.0.js
 //= require ./vendor/bootstrap-v4.0.0-alpha.2-18ee98b.js
-//= require ./vendor/highlight-9.3.0.pack.js
+//= require ./vendor/highlight-9.7.0.pack.js
 
 
 
