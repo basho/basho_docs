@@ -26,6 +26,21 @@
 
 
 
+/* Vendor Library Configuration and Initialization
+ * -----------------------------------------------
+ * Some vendor code requires some configuration and execution. This seems as
+ * good a place as any to perform those configurations and execute.
+ */
+
+/* Highlight.js
+ * Configure HLJS to perform no auto-detection (only fenced codeblocks with
+ * explicitly-set languages will be highlighted) and queue it's OnLoad feature.
+ */
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+
+
+
 /* Basho Code Tools & Library Code
  * -------------------------------
  * Included one at a time to ensure all requirements are met
