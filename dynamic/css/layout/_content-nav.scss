@@ -28,7 +28,7 @@ $fixed-bottom-height : 5rem;
 
   @include width-exactly('xs') { font-size : 100%; } /* 1 */
   @include width-exactly('sm') { font-size : 100%; } /* 1 */
-  @include width-exactly('md') { font-size :  85%; } /* 2 */
+  @include width-exactly('md') { font-size :  80%; } /* 2 */
   @include width-exactly('lg') { font-size :  90%; } /* 3 */
   @include width-exactly('xl') { font-size :  90%; } /* 3 */
 
