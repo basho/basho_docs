@@ -117,7 +117,7 @@ impacting the service. This should be borne in mind when you are
 
 ### Disabling Security
 
-If you disable security, this means that you have disable all of the
+If you disable security, this means that you have disabled all of the
 various permissions checks that take place when executing operations
 against Riak. Users, groups, and other security attributes remain
 available for configuration while security is disabled, and will be
