@@ -66,7 +66,7 @@ of the following **before** enabling security:
       traffic
     * If using HTTPS, the proper port (presumably 443) is open from
       client to server
-    * Code that uses Riak's deprecated [[Link Walking]] feature **will
+    * Code that uses Riak's deprecated Link Walking feature **will
       not work** with security enabled
 1. If you have applications that rely on an already existing Riak
    cluster, make sure that those applications are prepared to gracefully
