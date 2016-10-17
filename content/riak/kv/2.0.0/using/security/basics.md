@@ -53,7 +53,7 @@ of the following **before** enabling security:
    enable security without having established a functioning SSL
    connection, all requests to Riak will fail**.
 1. Define [users](#user-management)
-   and, optionally, groups
+   and, optionally, [groups](#add-group)
 1. Define an [authentication source](#managing-sources) for each user
 1. Grant the necessary [permissions](#managing-permissions) to each user (and/or group)
 1. Check any Erlang MapReduce code for invocations of Riak modules other
