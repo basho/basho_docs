@@ -49,7 +49,7 @@ of the following **before** enabling security:
    functionality. If you wish to use security and Search together, you
    will need to use the [new Search feature](/riak/kv/2.0.6/developing/usage/search/).
 1. Because Riak security requires a secure SSL connection, you will need
-   to generate appropriate SSL certs, [enable SSL](#enabling-ssl) and establish a [certification configuration](#certificate-configuration) on each node. **If you
+   to generate appropriate SSL certs, [enable SSL](#enabling-ssl) and establish a [certificate configuration](#certificate-configuration) on each node. **If you
    enable security without having established a functioning SSL
    connection, all requests to Riak will fail**.
 1. Define [users](#user-management)
