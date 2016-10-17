@@ -31,6 +31,7 @@
  * Included one at a time to ensure all requirements are met
  */
 
+//= require ./basho/tools/language-extensions.coffee
 //= require ./basho/tools/sem-ver.js
 
 
