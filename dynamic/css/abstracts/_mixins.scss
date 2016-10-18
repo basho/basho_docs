@@ -126,12 +126,16 @@
 /// @param {Number} size  - Size of the base of the arrow
 /// @param {Color}  color - Color of the arrow
 /// @param {Color}  flash [transparent] - Color of the arrow for transitions
-@mixin border-arrow($base, $point, $size, $color, $flash: transparent) {
+/// @param {Number} translateX [0%]    - % of arrow size to translate along X
+/// @param {Number} translateY [0%]    - % of arrow size to translate along Y
+@mixin border-arrow($base, $point, $size, $color, $flash: transparent,
+                    $translateX: 0%, $translateY: 0%) {
   width            : #{$size};
   height           : #{$size};
   border           : #{$size/2} solid transparent;
   border-#{$base}  : #{$size/2} solid $color;
   border-#{$point} : 0          none  $flash;
+  transform        : translate($translateX, $translateY);
 }
 
 /// Named pass-through to border-arrow, pointing up.
@@ -139,9 +143,12 @@
 /// @param {Number} size  - Size of the base of the arrow
 /// @param {Color}  color - Color of the arrow
 /// @param {Color}  flash [transparent] - Color of the arrow for transitions
-@mixin upward-arrow($size, $color, $flash: transparent) {
-  @include border-arrow(bottom, top, $size, $color, $flash);
-  transform: translateY(-25%);
+/// @param {Number} translateX [0%]    - % of arrow size to translate along X
+/// @param {Number} translateY [-25%]  - % of arrow size to translate along Y
+@mixin upward-arrow($size, $color, $flash: transparent,
+                    $translateX: 0%, $translateY: -25%) {
+  @include border-arrow(bottom, top, $size, $color, $flash,
+                        $translateX, $translateY);
 }
 
 /// Named pass-through to border-arrow, pointing down.
@@ -149,9 +156,12 @@
 /// @param {Number} size  - Size of the base of the arrow
 /// @param {Color}  color - Color of the arrow
 /// @param {Color}  flash [transparent] - Color of the arrow for transitions
-@mixin downward-arrow($size, $color, $flash: transparent) {
-  @include border-arrow(top, bottom, $size, $color, $flash);
-  transform: translateY(25%);
+/// @param {Number} translateX [0%]    - % of arrow size to translate along X
+/// @param {Number} translateY [25%]   - % of arrow size to translate along Y
+@mixin downward-arrow($size, $color, $flash: transparent,
+                      $translateX: 0%, $translateY: 25%) {
+  @include border-arrow(top, bottom, $size, $color, $flash,
+                        $translateX, $translateY);
 }
 
 
@@ -160,9 +170,12 @@
 /// @param {Number} size  - Size of the base of the arrow
 /// @param {Color}  color - Color of the arrow
 /// @param {Color}  flash [transparent] - Color of the arrow for transitions
-@mixin leftward-arrow($size, $color, $flash: transparent) {
-  @include border-arrow(right, left, $size, $color, $flash);
-  transform: translateX(-25%);
+/// @param {Number} translateX [-25%]  - % of arrow size to translate along X
+/// @param {Number} translateY [0%]    - % of arrow size to translate along Y
+@mixin leftward-arrow($size, $color, $flash: transparent,
+                      $translateX: -25%, $translateY: 0%) {
+  @include border-arrow(right, left, $size, $color, $flash,
+                        $translateX, $translateY);
 }
 
 
@@ -171,9 +184,12 @@
 /// @param {Number} size  - Size of the base of the arrow
 /// @param {Color}  color - Color of the arrow
 /// @param {Color}  flash [transparent] - Color of the arrow for transitions
-@mixin rightward-arrow($size, $color, $flash: transparent) {
-  @include border-arrow(left, right, $size, $color, $flash);
-  transform: translateX(25%);
+/// @param {Number} translateX [25%]   - % of arrow size to translate along X
+/// @param {Number} translateY [0%]    - % of arrow size to translate along Y
+@mixin rightward-arrow($size, $color, $flash: transparent,
+                       $translateX: 25%, $translateY: 0%) {
+  @include border-arrow(left, right, $size, $color, $flash,
+                        $translateX, $translateY);
 }
 
 /// Apply border radius to all corners
