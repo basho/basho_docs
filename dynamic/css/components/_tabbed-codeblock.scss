@@ -1,0 +1,118 @@
+
+/**
+ * Wrapper around the Tab Set.
+ * Required to properly position the Edge Faders.
+ * 1. Relative positioning to give something for children to absolutely position
+ *    against and scale height to. Note that the height will be determined by
+ *    the dynamic height of the .tabbed-codeblock__tab-set element.
+ *TODO: Play around how this interacts with headers and the like. Make sure the
+ *      relative positioning doesn't mess with the z-indexing.
+ */
+.tabbed-codeblock__tab-set-wrapper {
+  position : relative; /* 1 */
+}
+
+
+
+/**
+ * Edge Faders used to soften the tabs scrolling.
+ * 1. Width of the fading effect for the tab set. This is used by the
+ *    .tabbed-codeblock__tab-set element as well.
+ * 2. The edge-fade arrows are positioned at `top: 50%`, and a translateY(-50%)
+ *    is added to the arrow to get them properly aligned vertically.
+ * 3. On a hover, change the color of the arrow. This could more concisely be
+ *    achieved with a `border-right-color` for the left arrow and a
+ *    `border-left-color` for the right arrow (that relation is correct; the
+ *    border opposite of the arrow's direction controls color) but I figure
+ *    rebuilding the arrow is more clear.
+ */
+$edge_fade_width : 2rem;   /* 1 */
+
+.tabbed-codeblock__edge-fader--left,
+.tabbed-codeblock__edge-fader--right {
+  width    : $edge_fade_width;
+  height   : 100%;
+  position : absolute;
+}
+
+.tabbed-codeblock__edge-fader--left {
+  left       : 0;
+  background : linear-gradient(to left,  rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 80%);
+  filter     : progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ccffffff', GradientType=1 );
+
+  .tabbed-codeblock__edge-fader__arrow {
+    position : absolute;
+    left     : 0;
+    top      : 50%;                                                     /* 2 */
+    @include leftward-arrow(1rem, $orange-lighter, $translateY: -50%);  /* 2 */
+    cursor   : pointer;
+
+    transition : border-color 500ms ease 20ms;
+
+    @include on-event {
+      @include leftward-arrow(1rem, $orange, $translateY: -50%);        /* 3 */
+    }
+  }
+}
+
+.tabbed-codeblock__edge-fader--right {
+  right      : 0;
+  background : linear-gradient(to right, rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 80%);
+  filter     : progid:DXImageTransform.Microsoft.gradient( startColorstr='#ccffffff', endColorstr='#ffffff', GradientType=1 );
+
+  .tabbed-codeblock__edge-fader__arrow {
+    position : absolute;
+    right    : 0;
+    top      : 50%;                                                      /* 2 */
+    @include rightward-arrow(1rem, $orange-lighter, $translateY: -50%);  /* 2 */
+    cursor   : pointer;
+
+    transition : border-color 500ms ease 20ms;
+
+    @include on-event {
+      @include rightward-arrow(1rem, $orange, $translateY: -50%);        /* 3 */
+    }
+  }
+}
+
+
+
+/**
+ * Tab Set; built with a <ul> and <li> tabs.
+ * 1. Set the whitespace to prevent any wrapping, allowing us to build a
+ *    horizontal scroll.
+ * 2. Left and right padding has to be set based on the width of the faders, as
+ *    background colors are superseded by the linear gradient.
+ */
+.tabbed-codeblock__tab-set {
+  white-space : nowrap;               /* 1 */
+  list-style  : none;
+  padding     : 0  $edge_fade_width;  /* 2 */
+  margin      : 0  0  0.5rem 0;
+
+  .tabbed-codeblock__tab {
+    a {
+      @extend %sans;
+      text-transform : uppercase;
+      font-size      : 90%;
+      color          : $orange;
+      @include rounded-corners(0.25rem);
+      padding  : 0.5rem 0.75rem;
+
+      transition : background-color 200ms ease 50ms,
+                   color            200ms ease 50ms;
+
+      @include on-event {
+        background : $gray-warm-light;
+      }
+    }
+  }
+
+  .tabbed-codeblock__tab--active {
+    a {
+      color      : $gray;
+      cursor     : default;
+      background : $gray-warm-light;
+    }
+  }
+}

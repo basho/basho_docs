@@ -45,6 +45,7 @@
 
 //= require ./basho/content-nav.js
 //= require ./basho/version-selector.js
+//= require ./basho/tabbed-codeblock.js
 
 
 
