@@ -124,7 +124,14 @@ $ ->
           # wrapped by start-/end-of-line, or whitespace
           language = pre.children('code')
                         .attr('class')
-                        .match(/(?:^|\s)language-(.+?)(?:\s|$)/)[1]
+                        .match(/(?:^|\s)(language-.+?)(?:\s|$)/)[1]
+
+          # We rely on the language string being able to be used as an `id`, and
+          # '.'s will break that CSS selector. So, just pull 'em out.
+          if language.indexOf('.')
+            pre.children('code').removeClass(language)
+            language = language.replace(/\./g, '')
+            pre.children('code').addClass(language)
 
           # Unique ID for the block. ex; "tabbed-codeblock__ruby004"
           segment_id = "tabbed-codeblock__" + language + padNumber(index,3)
