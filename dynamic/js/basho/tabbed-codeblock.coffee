@@ -23,8 +23,16 @@ We aim to build that into,
       <div class="float-left    tabbed-codeblock__edge-fader--left "><span class="inline-block   tabbed-codeblock__edge-fader__arrow"></span></div>
       <div class="float-right   tabbed-codeblock__edge-fader--right"><span class="inline-block   tabbed-codeblock__edge-fader__arrow"></span></div>
       <ul class="overflow-x   tabbed-codeblock__tab-set">
-        <li class="inline-block   tabbed-codeblock__tab tabbed-codeblock__tab--active"><a class="block" href="#codeblock__java000">java</a></li>
-        <li class="inline-block   tabbed-codeblock__tab"><a class="block" href="#codeblock__python000">python</a></li>
+        <li class="inline-block   tabbed-codeblock__tab tabbed-codeblock__tab--active">
+          <a class="block" href="#codeblock__java000"   data-language="language-python">
+            Java
+          </a>
+        </li>
+        <li class="inline-block   tabbed-codeblock__tab">
+          <a class="block" href="#codeblock__python000" data-language="language-java">
+            Python
+          </a>
+        </li>
       </ul>
     </div>
     <div class="tabbed-codeblock__code-segments">
@@ -127,12 +135,13 @@ $ ->
           # Build a tab <li> in the form,
           #
           #   <li class="inline-block   tabbed-codeblock__tab">
-          #     <a class="block" href="#codeblock__java004">
-          #       java
+          #     <a class="block" href="#codeblock__java004" data-language="language-java">
+          #       Java
           #     </a>
           #   </li>
           tab_set.append('<li class="inline-block   tabbed-codeblock__tab">' +
-                           '<a class="block" href="#' + segment_id + '">' +
+                           '<a class="block" href="#' + segment_id + '" ' +
+                              'data-language="' + language + '">' +
                              language +
                            '</a>' +
                          '</li>')
