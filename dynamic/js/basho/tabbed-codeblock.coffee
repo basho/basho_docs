@@ -53,6 +53,32 @@ We aim to build that into,
 
 
 
+language_transforms =
+  'language-advancedconfig' : { display_name : 'advanced.config', highlight_as : 'language-erlang' }
+  'language-appconfig'      : { display_name : 'app.config',      highlight_as : 'language-erlang' }
+  'language-riakconf'       : { display_name : 'riak.conf',       highlight_as : 'language-matlab' }
+  'language-riakcsconf'     : { display_name : 'riak-cs.conf',    highlight_as : 'language-matlab' }
+  'language-stanchionconf'  : { display_name : 'stanchion.conf',  highlight_as : 'language-matlab' }
+  'language-vmargs'         : { display_name : 'vm.args',         highlight_as : 'language-ini'    }
+  'language-bash'           : { display_name : 'Shell',           highlight_as : '' }
+  'language-curl'           : { display_name : 'CURL',            highlight_as : 'language-bash'   }
+  'language-csharp'         : { display_name : 'C#',              highlight_as : '' }
+  'language-erlang'         : { display_name : 'Erlang',          highlight_as : '' }
+  'language-golang'         : { display_name : 'Go',              highlight_as : '' }
+  'language-java'           : { display_name : 'Java',            highlight_as : '' }
+  'language-javascript'     : { display_name : 'JS',              highlight_as : '' }
+  'language-coffeescript'   : { display_name : 'Coffee',          highlight_as : '' }
+  'language-json'           : { display_name : 'JSON',            highlight_as : '' }
+  'language-php'            : { display_name : 'PHP',             highlight_as : '' }
+  'language-protobuf'       : { display_name : 'Protobuf',        highlight_as : '' }
+  'language-python'         : { display_name : 'Python',          highlight_as : '' }
+  'language-ruby'           : { display_name : 'Ruby',            highlight_as : '' }
+  'language-scala'          : { display_name : 'Scala',           highlight_as : '' }
+  'language-sql'            : { display_name : 'SQL',             highlight_as : '' }
+  'language-xml'            : { display_name : 'XML',             highlight_as : '' }
+
+
+
 ## JQuery .ready() Execution
 ## =========================
 $ ->
@@ -139,6 +165,11 @@ $ ->
           pre.addClass('tabbed-codeblock__segment')
           pre.attr('id', segment_id)
 
+          # Fetch the presentation name. If one has not been explicitly defined,
+          # strip the `language-` from the class name and use what's left.
+          display_name = language_transforms[language]?.display_name
+          display_name = language.replace(/language-/, '') unless display_name
+
           # Build a tab <li> in the form,
           #
           #   <li class="inline-block   tabbed-codeblock__tab">
@@ -149,7 +180,7 @@ $ ->
           tab_set.append('<li class="inline-block   tabbed-codeblock__tab">' +
                            '<a class="block" href="#' + segment_id + '" ' +
                               'data-language="' + language + '">' +
-                             language +
+                             display_name +
                            '</a>' +
                          '</li>')
       )
