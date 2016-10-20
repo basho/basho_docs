@@ -199,4 +199,60 @@ $ ->
       return
   )
 
+
+
+  ## Initialize Interactive Elements
+  ## ===============================
+
+  # Cache the lookup of all tabbed codeblocks.
+  tabbed_codeblocks = $('.tabbed-codeblock')
+
+  ## On Click Trigger for Tabs
+  $('.tabbed-codeblock__tab').on('click.codeblock_tab', 'a',
+    (event) ->
+      event.preventDefault()
+
+      event_anchor = $(this)
+      language = event_anchor.data('language')
+
+      # Early out if we're in the active tab.
+      return if event_anchor.parent().hasClass('tabbed-codeblock__tab--active')
+
+      # Capture the active element's top offset relative to the viewport. We'll
+      # use this later to set the `$(window).scrollTop` s.t. the touched element
+      # won't change Y position relative to the viewport.
+      #NB. This isn't a JQuery call; it's a straight-up DOM lookup.
+      top_offset = this.getBoundingClientRect().top
+
+      # Iterate over all tabbed codeblocks, and manipulate the which tabs and
+      # segments are active.
+      for element in tabbed_codeblocks
+        codeblock = $(element)
+
+        # Lookup only the anchors whose `data-language` match the event_anchor.
+        # Early-out if the codeblock doesn't contain any matching elements.
+        anchor = codeblock.find('[data-language="' + language + '"]')
+        continue if not anchor.length
+
+        # Swap which tab is active.
+        codeblock.find('.tabbed-codeblock__tab--active')
+                 .removeClass('tabbed-codeblock__tab--active')
+        anchor.parent()
+              .addClass('tabbed-codeblock__tab--active')
+
+        # Swap which segment is active.
+        codeblock.find('.tabbed-codeblock__segment--active')
+                 .removeClass('tabbed-codeblock__segment--active')
+                 .hide()
+        codeblock.find(anchor.attr('href'))
+                 .addClass('tabbed-codeblock__segment--active')
+                 .fadeIn()
+
+        # Re-set the window's `scrollTop` w/o an animation to make it look like
+        # the viewport hasn't moved in relation to the codeblock.
+        $(window).scrollTop(event_anchor.offset().top - top_offset)
+
+      return
+  )
+
   return
