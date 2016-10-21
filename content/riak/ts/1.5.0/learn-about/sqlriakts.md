@@ -3,16 +3,16 @@ title_supertext: "Learn About"
 title: "SQL for Riak TS"
 description: "SQL for Riak TS"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "SQL for Riak TS"
     identifier: "riakts_sql"
     weight: 502
     parent: "about"
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 aliases:
-    - /riakts/1.4.0/learn-about/sqlriakts
+    - /riakts/1.5.0/learn-about/sqlriakts
 canonical_link: "https://docs.basho.com/riak/ts/latest/learn-about/sqlriakts"
 ---
 

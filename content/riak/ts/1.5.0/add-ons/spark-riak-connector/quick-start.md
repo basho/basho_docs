@@ -3,9 +3,9 @@ title_supertext: "Spark-Riak Connector Add-on (Riak TS)"
 title: "Quick Start Guide"
 description: ""
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "Quick Start Guide"
     identifier: "spark_riak_quick_start"
     weight: 101

@@ -2,16 +2,16 @@
 title: "Writing Data to Riak TS"
 description: "Writing Data to Riak TS"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "Write Data"
     identifier: "writing_data_riakts"
     weight: 303
     parent: "using"
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 aliases:
-    - /riakts/1.4.0/using/writingdata/
+    - /riakts/1.5.0/using/writingdata/
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/writingdata"
 ---
 
@@ -20,7 +20,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/writingdata"
 [planning]: ../planning/
 [querying]: ../querying/
 [config reference]: /riak/kv/2.1.4/configuring/reference/#the-advanced-config-file
-[MDC]: /riak/ts/1.4.0/using/mdc
+[MDC]: /riak/ts/1.5.0/using/mdc
 [riakshell]: ../riakshell
 [iso8601]: ../timerepresentations/
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601

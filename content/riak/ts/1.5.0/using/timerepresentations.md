@@ -2,16 +2,16 @@
 title: "Time Representations in Riak TS"
 description: "Time Representations in Riak TS"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "Time Representations"
     identifier: "time_representations_riakts"
     weight: 301
     parent: "using"
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 aliases:
-    - /riakts/1.4.0/using/timerepresentations/
+    - /riakts/1.5.0/using/timerepresentations/
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/timerepresentations"
 ---
 
@@ -20,7 +20,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/timerepresentations
 [planning]: ../planning/
 [querying]: ../querying/
 [config reference]: /riak/kv/2.1.4/configuring/reference/#the-advanced-config-file
-[MDC]: /riak/ts/1.4.0/using/mdc
+[MDC]: /riak/ts/1.5.0/using/mdc
 [riak shell]: ../riakshell
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
 [learn timestamps]: ../../learn-about/timestamps

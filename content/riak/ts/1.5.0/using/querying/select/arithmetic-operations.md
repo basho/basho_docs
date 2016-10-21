@@ -2,13 +2,13 @@
 title: "Riak TS Arithmetic Operations"
 description: "Riak TS Arithmetic Operations"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "Arithmetic Operations"
     identifier: "arithmetic_operations_riakts"
     weight: 300
     parent: "select_riakts"
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/select/arithmetic-operations"
 version_history:
@@ -16,13 +16,13 @@ version_history:
   moved:
     - ["1.1.0+", "using/arithmetic-operations"]
 aliases:
-    - /riak/ts/1.4.0/using/arithmetic-operations
-    - /riakts/1.4.0/using/arithmetic-operations
-    - /riakts/1.4.0/using/querying/select/arithmetic-operations
+    - /riak/ts/1.5.0/using/arithmetic-operations
+    - /riakts/1.5.0/using/arithmetic-operations
+    - /riakts/1.5.0/using/querying/select/arithmetic-operations
 ---
 
 
-[querying select]: /riak/ts/1.4.0/using/querying/#select-query
+[querying select]: /riak/ts/1.5.0/using/querying/#select-query
 
 
 Riak TS supports arithmetic operations in the SELECT statement.

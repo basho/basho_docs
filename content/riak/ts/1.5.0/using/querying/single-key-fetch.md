@@ -2,16 +2,16 @@
 title: "Single Key Fetch in Riak TS"
 description: "Using a single key fetch command in Riak TS"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "Single Key Fetch"
     identifier: "singlekey_riakts"
     weight: 600
     parent: "querying_data_riakts"
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 aliases:
-    - /riakts/1.4.0/using/querying/single-key-fetch
+    - /riakts/1.5.0/using/querying/single-key-fetch
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/single-key-fetch"
 ---
 

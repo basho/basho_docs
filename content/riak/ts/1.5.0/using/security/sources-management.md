@@ -3,16 +3,16 @@ title_supertext: "Security"
 title: "Sources Management"
 description: "Managing sources and means of authentication in Riak TS."
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "Sources Management"
     identifier: "security_sources_management"
     weight: 130
     parent: "security"
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 aliases:
-    - /riakts/1.4.0/using/security/sources-management
+    - /riakts/1.5.0/using/security/sources-management
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/security/sources-management/"
 ---
 

@@ -2,13 +2,13 @@
 title: "Riak TS Aggregate Functions"
 description: "Riak TS Aggregate Functions"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "Aggregate Functions"
     identifier: "aggregate_functions_riakts"
     weight: 305
     parent: "select_riakts"
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/select/aggregate-functions"
 version_history:
@@ -16,9 +16,9 @@ version_history:
   moved:
     - ["1.1.0+", "using/aggregate-functions"]
 aliases:
-    - /riakts/1.4.0/using/aggregate-functions/
-    - /riak/ts/1.4.0/using/aggregate-functions/
-    - /riakts/1.4.0/using/querying/select/aggregate-functions/
+    - /riakts/1.5.0/using/aggregate-functions/
+    - /riak/ts/1.5.0/using/aggregate-functions/
+    - /riakts/1.5.0/using/querying/select/aggregate-functions/
 ---
 
 

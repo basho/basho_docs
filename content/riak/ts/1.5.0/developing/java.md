@@ -2,16 +2,16 @@
 title: "Java Client API"
 description: "Java Client API"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "Java"
     identifier: "ts_java_api"
     weight: 401
     parent: "develop"
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 aliases:
-    - /riakts/1.4.0/developing/java/
+    - /riakts/1.5.0/developing/java/
 canonical_link: "https://docs.basho.com/riak/ts/latest/developing/java"
 ---
 

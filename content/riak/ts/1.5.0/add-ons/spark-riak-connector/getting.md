@@ -2,9 +2,9 @@
 title: "Getting the Spark-Riak Connector Add-on (Riak TS)"
 description: ""
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "Get Spark-Riak Connector"
     identifier: "spark_riak_get"
     weight: 102

@@ -3,16 +3,16 @@ title_supertext: "Learn About"
 title: "Timestamps"
 description: "Timestamps in Riak TS"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "Timestamps"
     identifier: "timestamps_in_riakts"
     weight: 600
     parent: "about"
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 aliases:
-    - /riakts/1.4.0/learn-about/timestamps/
+    - /riakts/1.5.0/learn-about/timestamps/
 canonical_link: "https://docs.basho.com/riak/ts/latest/learn-about/timestamps"
 ---
 

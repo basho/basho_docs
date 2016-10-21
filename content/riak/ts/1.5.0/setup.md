@@ -2,24 +2,24 @@
 title: "Riak TS Setup"
 description: "Information on installing and upgrading Riak TS."
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "Setup"
     identifier: "setup"
     weight: 200
     pre: icon-install
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 version_history:
-  in: "1.4.0+"
+  in: "1.5.0+"
 aliases:
-    - /riakts/1.4.0/setup/
+    - /riakts/1.5.0/setup/
 canonical_link: "https://docs.basho.com/riak/ts/latest/setup/"
 ---
 
-[install]: /riak/ts/1.4.0/setup/installing
-[upgrade]: /riak/ts/1.4.0/setup/upgrading
-[downgrade]: /riak/ts/1.4.0/setup/downgrading
+[install]: /riak/ts/1.5.0/setup/installing
+[upgrade]: /riak/ts/1.5.0/setup/upgrading
+[downgrade]: /riak/ts/1.5.0/setup/downgrading
 
 ## In This Section
 

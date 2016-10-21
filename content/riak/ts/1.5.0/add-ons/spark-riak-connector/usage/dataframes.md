@@ -3,9 +3,9 @@ title_supertext: "Spark-Riak Connector Add-on (Riak TS)"
 title: "Working With Spark Dataframes"
 description: ""
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "Working With Spark Dataframes"
     identifier: "spark_riak_usage_dataframes"
     weight: 104

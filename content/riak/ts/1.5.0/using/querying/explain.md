@@ -3,23 +3,23 @@ draft: true
 title: "EXPLAIN in Riak TS"
 description: "Using the EXPLAIN statement in Riak TS"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "EXPLAIN"
     identifier: "explain_riakts"
     weight: 400
     parent: "querying_data_riakts"
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 aliases:
-    - /riakts/1.4.0/using/querying/explain
+    - /riakts/1.5.0/using/querying/explain
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/explain"
 ---
 
-[creating-activating]: /riak/ts/1.4.0/using/creating-activating
-[develop]: /riak/ts/1.4.0/developing
-[planning]: /riak/ts/1.4.0/using/planning
-[riak shell]: /riak/ts/1.4.0/using/riakshell
+[creating-activating]: /riak/ts/1.5.0/using/creating-activating
+[develop]: /riak/ts/1.5.0/developing
+[planning]: /riak/ts/1.5.0/using/planning
+[riak shell]: /riak/ts/1.5.0/using/riakshell
 
 You can use the EXPLAIN statement to better understand how a query you would like to run will be executed. This document will show you how to use `EXPLAIN` in Riak TS.
 

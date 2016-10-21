@@ -2,16 +2,16 @@
 title: "PHP Client API"
 description: "PHP Client API"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "PHP"
     identifier: "ts_php_api"
     weight: 401
     parent: "develop"
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 aliases:
-    - /riakts/1.4.0/developing/php/
+    - /riakts/1.5.0/developing/php/
 canonical_link: "https://docs.basho.com/riak/ts/latest/developing/php"
 ---
 

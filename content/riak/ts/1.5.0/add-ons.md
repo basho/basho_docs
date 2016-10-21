@@ -2,9 +2,9 @@
 title: "Add-ons"
 description: "Add-on technology for Riak TS"
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "Add-ons"
     identifier: "addons"
     weight: 450

@@ -2,16 +2,16 @@
 title: "Planning Your Riak TS Table"
 description: "Planning Your Riak TS Table"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "Plan Your Table"
     identifier: "planning_riakts_table"
     weight: 300
     parent: "using"
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 aliases:
-    - /riakts/1.4.0/using/planning/
+    - /riakts/1.5.0/using/planning/
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/planning"
 ---
 

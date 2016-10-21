@@ -2,29 +2,29 @@
 title: "Installing on Mac OS X"
 description: "Installing on Mac OS X"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "Mac OS X"
     identifier: "installing_on_mac_os_x"
     weight: 202
     parent: "installing"
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 version_history:
   locations:
     - ["1.0.0-1.3.1", "installing/mac-osx"]
     - ["1.4.0+",      "setup/installing/mac-osx"]
 aliases:
-    - /riakts/1.4.0/installing/mac-osx/
-    - /riakts/1.4.0/setup/installing/mac-osx/
-    - /riak/ts/1.4.0/installing/mac-osx/
+    - /riakts/1.5.0/installing/mac-osx/
+    - /riakts/1.5.0/setup/installing/mac-osx/
+    - /riak/ts/1.5.0/installing/mac-osx/
 canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/mac-osx/"
 ---
 
 
-[download]: /riak/ts/1.4.0/downloads/
+[download]: /riak/ts/1.5.0/downloads/
 [openfileslimit]: /riak/kv/2.1.4/using/performance/open-files-limit
-[planning]: /riak/ts/1.4.0/using/planning
+[planning]: /riak/ts/1.5.0/using/planning
 
 Riak TS can be installed on Mac OS X systems using a binary
 package available [here][download].
@@ -48,8 +48,8 @@ backend that uses very few file handles, it's possible to run out. See
 To install Riak TS on your Mac, [download] the package and then run:
 
 ```bash
-tar zxvf riak-ts-1.4.0-OSX-x86_64.tar.gz
-cd riak-ts-1.4.0
+tar zxvf riak-ts-1.5.0-OSX-x86_64.tar.gz
+cd riak-ts-1.5.0
 ```
 
 

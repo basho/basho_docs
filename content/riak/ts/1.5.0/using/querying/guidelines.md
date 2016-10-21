@@ -2,17 +2,17 @@
 title: "Guidelines for Querying in Riak TS"
 description: "Limitations and rules for querying in Riak TS"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "Querying Guidelines"
     identifier: "querying_guidelines_riakts"
     weight: 500
     parent: "querying_data_riakts"
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 aliases:
-    - /riakts/1.4.0/using/querying/basic-querying
-    - /riakts/1.4.0/using/querying/guidelines
+    - /riakts/1.5.0/using/querying/basic-querying
+    - /riakts/1.5.0/using/querying/guidelines
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/guidelines"
 ---
 
@@ -21,7 +21,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/guidelines
 [writing]: ../../writingdata/
 [planning]: ../../planning#column-definitions
 [iso8601]: ../../../timerepresentations/
-[SELECT]: /riak/ts/1.4.0/using/querying/SELECT#iso_8601
+[SELECT]: /riak/ts/1.5.0/using/querying/SELECT#iso_8601
 
 
 Riak TS supports several kinds of queries of your TS data. To create the most successful queries possible, there are some guidelines and limitations you should know. 
@@ -59,7 +59,7 @@ Any quantized field in your partition key must be included in the query as eithe
 * Invalid: `time > 1449864277000 or time < 1449864290000`
 
 {{% note title="A Note About `SELECT`" %}}
-It is possible to use ISO 8601-compliant date/time strings rather than integer timestamps in SELECT statements. Please see [SELECT](/riak/ts/1.4.0/using/querying/select/#iso-8601) for an example or [Time Representations](/riak/ts/1.4.0/using/timerepresentations/) for more information.
+It is possible to use ISO 8601-compliant date/time strings rather than integer timestamps in SELECT statements. Please see [SELECT](/riak/ts/1.5.0/using/querying/select/#iso-8601) for an example or [Time Representations](/riak/ts/1.5.0/using/timerepresentations/) for more information.
 {{% /note %}}
 
 

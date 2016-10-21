@@ -2,33 +2,33 @@
 title: "Installing from Source"
 description: "Install TS from Source"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "Source"
     identifier: "installing_from_source"
     weight: 300
     parent: "installing"
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 version_history:
   locations:
     - ["1.0.0-1.3.1", "installing/source"]
     - ["1.4.0+",      "setup/installing/source"]
 aliases:
-    - /riakts/1.4.0/installing/source/
-    - /riakts/1.4.0/setup/installing/source/
-    - /riak/ts/1.4.0/installing/source/
+    - /riakts/1.5.0/installing/source/
+    - /riakts/1.5.0/setup/installing/source/
+    - /riak/ts/1.5.0/installing/source/
 canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/source/"
 ---
 
 
-[download]: /riak/ts/1.4.0/downloads/
+[download]: /riak/ts/1.5.0/downloads/
 [Erlang]: http://www.erlang.org/
 [GCC]: https://gcc.gnu.org/
 [Git]: https://git-scm.com/
-[install erlang]: /riak/ts/1.4.0/setup/installing/source/erlang
-[planning]: /riak/ts/1.4.0/using/planning/
-[Riak TS GitHub repository]: https://github.com/basho/riak/tree/riak_ts-1.4.0
+[install erlang]: /riak/ts/1.5.0/setup/installing/source/erlang
+[planning]: /riak/ts/1.5.0/using/planning/
+[Riak TS GitHub repository]: https://github.com/basho/riak/tree/riak_ts-1.5.0
 
 
 If there isn't a package for your OS or you are interested in contributing back to the project, you can install Riak TS from source!
@@ -65,9 +65,9 @@ Riak TS in `»Unpacked or Cloned Source«/rel/riak`.
 Download the Riak TS source package from [Downloads][download] and build:
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/riak/ts/1.3/1.4.0/riak_ts-1.4.0.tar.gz
-tar zxvf riak_ts-1.4.0.tar.gz
-cd riak_ts-1.4.0
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/ts/1.3/1.5.0/riak_ts-1.5.0.tar.gz
+tar zxvf riak_ts-1.5.0.tar.gz
+cd riak_ts-1.5.0
 make locked-deps
 make rel
 ```
@@ -78,8 +78,8 @@ make rel
 To clone and build Riak TS from source, clone the repository using [Git] and build:
 
 ```bash
-git clone --branch riak_ts-1.4.0 https://github.com/basho/riak.git
-cd riak_ts-1.4.0
+git clone --branch riak_ts-1.5.0 https://github.com/basho/riak.git
+cd riak_ts-1.5.0
 make locked-deps
 make rel
 ```

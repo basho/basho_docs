@@ -3,16 +3,16 @@ title_supertext: "Security"
 title: "Notifying Basho"
 description: "Contacting Basho about security issues."
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "Notifying Basho"
     identifier: "security_notify_basho"
     weight: 140
     parent: "security"
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 aliases:
-    - /riakts/1.4.0/using/security/notify-basho
+    - /riakts/1.5.0/using/security/notify-basho
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/security/notify-basho/"
 ---
 

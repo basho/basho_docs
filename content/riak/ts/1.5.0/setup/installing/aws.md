@@ -2,30 +2,30 @@
 title: "Installing on AWS Marketplace"
 description: "Installing on AWS Marketplace"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "AWS Marketplace"
     identifier: "installing_on_aws"
     weight: 250
     parent: "installing"
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 version_history:
   locations:
     - ["1.0.0-1.3.1", "installing/aws"]
     - ["1.4.0+",      "setup/installing/aws"]
 aliases:
-    - /riakts/1.4.0/installing/aws/
-    - /riakts/1.4.0/setup/installing/aws/
-    - /riak/ts/1.4.0/installing/aws/
+    - /riakts/1.5.0/installing/aws/
+    - /riakts/1.5.0/setup/installing/aws/
+    - /riak/ts/1.5.0/installing/aws/
 canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/aws/"
 ---
 
 
 [AWS]: http://aws.amazon.com
-[download]: /riak/ts/1.4.0/downloads/
+[download]: /riak/ts/1.5.0/downloads/
 [ec2 guide]: http://docs.amazonwebservices.com/AWSEC2/latest/UserGuide/AccessingInstances.html
-[security basics]: /riak/ts/1.4.0/using/security/
+[security basics]: /riak/ts/1.5.0/using/security/
 
 
 Riak TS can be installed on AWS virtual machines (VMs) using a binary

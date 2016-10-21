@@ -1,23 +1,23 @@
 ---
-title: "Download for Riak TS 1.4.0"
+title: "Download for Riak TS 1.5.0"
 description: "Download some stuff!"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "Download Riak TS"
     identifier: "download_riak_ts"
     weight: 101
     pre: icon-download-alt
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: false
 layout: downloads
 listed_projects:
     - project: "riak_ts"
-      version: "1.4.0"
+      version: "1.5.0"
       title: "Riak TS"
       install_instructions_set: "installing"
 aliases:
-    - /riakts/1.4.0/downloads/
+    - /riakts/1.5.0/downloads/
 canonical_link: "https://docs.basho.com/riak/ts/latest/downloads"
 ---
 

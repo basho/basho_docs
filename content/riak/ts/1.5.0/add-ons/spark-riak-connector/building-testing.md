@@ -3,9 +3,9 @@ title_supertext: "Spark-Riak Connector Add-on (Riak TS)"
 title: "Building and Testing"
 description: ""
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "Building & Testing"
     identifier: "spark_riak_build_test"
     weight: 103

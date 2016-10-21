@@ -2,28 +2,28 @@
 title: "Installing on CentOS/RHEL"
 description: "Installing on CentOS/RHEL"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "CentOS/RHEL"
     identifier: "installing_on_centos_rhel"
     weight: 203
     parent: "installing"
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 version_history:
   locations:
     - ["1.0.0-1.3.1", "installing/rhel-centos"]
     - ["1.4.0+",      "setup/installing/rhel-centos"]
 aliases:
-    - /riakts/1.4.0/installing/rhel-centos/
-    - /riakts/1.4.0/setup/installing/rhel-centos/
-    - /riak/ts/1.4.0/installing/rhel-centos/
+    - /riakts/1.5.0/installing/rhel-centos/
+    - /riakts/1.5.0/setup/installing/rhel-centos/
+    - /riak/ts/1.5.0/installing/rhel-centos/
 canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/rhel-centos/"
 ---
 
-[download]: /riak/ts/1.4.0/downloads/
+[download]: /riak/ts/1.5.0/downloads/
 [openfileslimit]: /riak/kv/2.1.4/using/performance/open-files-limit
-[planning]: /riak/ts/1.4.0/using/planning/
+[planning]: /riak/ts/1.5.0/using/planning/
 
 
 Riak TS can be installed on CentOS-based systems using a binary
@@ -51,13 +51,13 @@ backend that uses very few file handles, it's possible to run out. See
 Once you've [downloaded][download] the package, you can install the package using `yum` or `rpm`:
 
 ```bash
-sudo yum install riak-ts-1.4.0-1.el6.x86_64.rpm
+sudo yum install riak-ts-1.5.0-1.el6.x86_64.rpm
 ```
 
 or
 
 ```bash
-sudo rpm -Uvh riak-ts-1.4.0-1.el6.x86_64.rpm
+sudo rpm -Uvh riak-ts-1.5.0-1.el6.x86_64.rpm
 ```
 
 
@@ -66,13 +66,13 @@ sudo rpm -Uvh riak-ts-1.4.0-1.el6.x86_64.rpm
 Once you've [downloaded][download] the package, you can install the package using `yum` or `rpm`:
 
 ```bash
-sudo yum install riak-ts-1.4.0-1.el7.centos.x86_64.rpm
+sudo yum install riak-ts-1.5.0-1.el7.centos.x86_64.rpm
 ```
 
 or
 
 ```bash
-sudo rpm -Uvh riak-ts-1.4.0-1.el7.centos.x86_64.rpm
+sudo rpm -Uvh riak-ts-1.5.0-1.el7.centos.x86_64.rpm
 ```
 
 

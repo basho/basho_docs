@@ -3,16 +3,16 @@ title_supertext: "Learn About"
 title: "Riak TS Best Practices"
 description: "Riak TS Best Practices"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "Best Practices"
     identifier: "riakts_best_practices"
     weight: 501
     parent: "about"
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 aliases:
-    - /riakts/1.4.0/learn-about/bestpractices/
+    - /riakts/1.5.0/learn-about/bestpractices/
 canonical_link: "https://docs.basho.com/riak/ts/latest/learn-about/bestpractices"
 ---
 

@@ -3,16 +3,16 @@ title_supertext: "Learn About"
 title: "Architecture of Riak TS Tables"
 description: "TS Tables Architecture"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "Table Architecture "
     identifier: "advanced_planning_riakts_tables"
     weight: 503
     parent: "about"
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 aliases:
-    - /riakts/1.4.0/learn-about/advancedplanning/
+    - /riakts/1.5.0/learn-about/advancedplanning/
 canonical_link: "https://docs.basho.com/riak/ts/latest/learn-about/tablearchitecture"
 ---
 

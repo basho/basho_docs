@@ -3,16 +3,16 @@ title_supertext: "Security"
 title: "Enable & Disable"
 description: "Enabling, disabling, and checking security in Riak TS."
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "Security: Enable & Disable"
     identifier: "security_enable_disable"
     weight: 110
     parent: "security"
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 aliases:
-    - /riakts/1.4.0/using/security/enable-disable
+    - /riakts/1.5.0/using/security/enable-disable
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/security/enable-disable/"
 ---
 

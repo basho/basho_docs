@@ -2,16 +2,16 @@
 title: "Node.js Client API"
 description: "Node.js Client API"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "Node.js"
     identifier: "ts_node.js_api"
     weight: 401
     parent: "develop"
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 aliases:
-    - /riakts/1.4.0/developing/nodejs/
+    - /riakts/1.5.0/developing/nodejs/
 canonical_link: "https://docs.basho.com/riak/ts/latest/developing/nodejs"
 ---
 

@@ -2,20 +2,20 @@
 title: "DESCRIBE in Riak TS"
 description: "Using the DESCRIBE statement in Riak TS"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "DESCRIBE"
     identifier: "describe_riakts"
     weight: 200
     parent: "querying_data_riakts"
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 aliases:
-    - /riakts/1.4.0/using/querying/describe
+    - /riakts/1.5.0/using/querying/describe
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/describe"
 ---
 
-[riak shell]: /riak/ts/1.4.0/using/riakshell
+[riak shell]: /riak/ts/1.5.0/using/riakshell
 
 You can use the DESCRIBE statement to obtain the definition of your Riak TS table. This document will show you how to execute `DESCRIBE` in TS.
 

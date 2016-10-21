@@ -2,16 +2,16 @@
 title: "Using Riak TS"
 description: "Using Riak TS"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "Use"
     identifier: "using"
     weight: 300
     pre: icon-database
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 aliases:
-    - /riakts/1.4.0/using/
+    - /riakts/1.5.0/using/
 canonical_link: "https://docs.basho.com/riak/ts/latest/using"
 ---
 
@@ -20,7 +20,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using"
 [aggregate]: querying/select/aggregate-functions/
 [arithmetic]: querying/select/arithmetic-operations/
 [configuring]: configuring/
-[download]: /riak/ts/1.4.0/downloads/
+[download]: /riak/ts/1.5.0/downloads/
 [installing]: ../setup/installing/
 [mdc]: mdc/
 [planning]: planning/

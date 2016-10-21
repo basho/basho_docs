@@ -2,22 +2,22 @@
 title: "Installing Erlang"
 description: "Install Erlang TS"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "Erlang"
     identifier: "installing_erlang"
     weight: 100
     parent: "installing_from_source"
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 version_history:
   locations:
     - ["1.0.0-1.3.1", "installing/source/erlang"]
     - ["1.4.0+",      "setup/installing/source/erlang"]
 aliases:
-    - /riakts/1.4.0/installing/source/erlang/
-    - /riakts/1.4.0/setup/installing/source/erlang/
-    - /riak/ts/1.4.0/installing/source/erlang/
+    - /riakts/1.5.0/installing/source/erlang/
+    - /riakts/1.5.0/setup/installing/source/erlang/
+    - /riak/ts/1.5.0/installing/source/erlang/
 canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/source/erlang/"
 ---
 
@@ -34,7 +34,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/source/e
 [make]: http://www.gnu.org/software/make/
 [ncurses]: http://www.gnu.org/software/ncurses/
 [OpenSSL]: https://www.openssl.org/
-[source]: /riak/ts/1.4.0/setup/installing/source/
+[source]: /riak/ts/1.5.0/setup/installing/source/
 [XCode Developer Tools]: https://developer.apple.com/xcode/downloads/
 
 

@@ -2,30 +2,30 @@
 title: "Developing with Riak TS"
 description: "Developing with Riak TS"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "Develop"
     identifier: "develop"
     weight: 400
     pre: icon-lambda
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 aliases:
-    - /riakts/1.4.0/developing/developing/
+    - /riakts/1.5.0/developing/developing/
 canonical_link: "https://docs.basho.com/riak/ts/latest/developing"
 ---
 
 
-[erlang]: /riak/ts/1.4.0/developing/erlang
-[go]: /riak/ts/1.4.0/developing/golang
-[http]: /riak/ts/1.4.0/developing/http
-[java]: /riak/ts/1.4.0/developing/java
-[ruby]: /riak/ts/1.4.0/developing/ruby
-[python]: /riak/ts/1.4.0/developing/python
-[csharp]: /riak/ts/1.4.0/developing/csharp
-[nodejs]: /riak/ts/1.4.0/developing/nodejs
-[erlang]: /riak/ts/1.4.0/developing/erlang
-[php]: /riak/ts/1.4.0/developing/php
+[erlang]: /riak/ts/1.5.0/developing/erlang
+[go]: /riak/ts/1.5.0/developing/golang
+[http]: /riak/ts/1.5.0/developing/http
+[java]: /riak/ts/1.5.0/developing/java
+[ruby]: /riak/ts/1.5.0/developing/ruby
+[python]: /riak/ts/1.5.0/developing/python
+[csharp]: /riak/ts/1.5.0/developing/csharp
+[nodejs]: /riak/ts/1.5.0/developing/nodejs
+[erlang]: /riak/ts/1.5.0/developing/erlang
+[php]: /riak/ts/1.5.0/developing/php
 
 
 You can access Riak TS data over HTTP through the [API][http].

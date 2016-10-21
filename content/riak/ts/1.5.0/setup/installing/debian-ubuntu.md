@@ -2,29 +2,29 @@
 title: "Installing on Debian and Ubuntu"
 description: "Installing on Debian and Ubuntu"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "Debian and Ubuntu"
     identifier: "installing_on_debian_ubuntu"
     weight: 201
     parent: "installing"
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 version_history:
   locations:
     - ["1.0.0-1.3.1", "installing/debian-ubuntu"]
     - ["1.4.0+",      "setup/installing/debian-ubuntu"]
 aliases:
-    - /riakts/1.4.0/installing/debian-ubuntu/
-    - /riakts/1.4.0/setup/installing/debian-ubuntu/
-    - /riak/ts/1.4.0/installing/debian-ubuntu/
+    - /riakts/1.5.0/installing/debian-ubuntu/
+    - /riakts/1.5.0/setup/installing/debian-ubuntu/
+    - /riak/ts/1.5.0/installing/debian-ubuntu/
 canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/debian-ubuntu/"
 ---
 
-[download]: /riak/ts/1.4.0/downloads/
+[download]: /riak/ts/1.5.0/downloads/
 [openfileslimit]: /riak/kv/2.1.4/using/performance/open-files-limit
-[planning]: /riak/ts/1.4.0/using/planning
-[security basics pam]: /riak/ts/1.4.0/using/security/sources-management/#pam-based-authentication
+[planning]: /riak/ts/1.5.0/using/planning
+[security basics pam]: /riak/ts/1.5.0/using/security/sources-management/#pam-based-authentication
 
 
 Riak TS can be installed on Debian or Ubuntu-based systems using a binary
@@ -60,7 +60,7 @@ sudo apt-get install libpam0g-dev
 Once you have [downloaded][download] the package, execute the following command to install Riak TS:
 
 ```bash
-sudo dpkg -i riak-ts_1.4.0-1_amd64.deb
+sudo dpkg -i riak-ts_1.5.0-1_amd64.deb
 ```
 
 

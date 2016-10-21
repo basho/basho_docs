@@ -2,23 +2,23 @@
 title: "Installing Riak TS"
 description: "Installing Riak TS"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "Install"
     identifier: "installing"
     weight: 100
     pre: icon-install
     parent: "setup"
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 version_history:
   locations:
     - ["1.0.0-1.3.1", "installing"]
     - ["1.4.0+",      "setup/installing"]
 aliases:
-    - /riakts/1.4.0/installing/installing/
-    - /riakts/1.4.0/setup/installing/
-    - /riak/ts/1.4.0/installing/
+    - /riakts/1.5.0/installing/installing/
+    - /riakts/1.5.0/setup/installing/
+    - /riak/ts/1.5.0/installing/
 canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/"
 ---
 
@@ -27,7 +27,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/"
 [concept aae]: /riak/kv/2.1.3/learn/concepts/active-anti-entropy
 [Centos]: rhel-centos/
 [Debian]: debian-ubuntu/
-[download]: /riak/ts/1.4.0/downloads/
+[download]: /riak/ts/1.5.0/downloads/
 [OSX]: mac-osx/
 [source]: source/
 [Ubuntu]: debian-ubuntu/

@@ -2,9 +2,9 @@
 title: "Spark-Riak Connector Add-on (Riak TS)"
 description: "Spark-Riak Connector Add-on for Riak TS"
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "Spark-Riak Connector"
     identifier: "addons_spark_riak"
     weight: 101

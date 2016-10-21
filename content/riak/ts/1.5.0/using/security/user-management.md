@@ -3,16 +3,16 @@ title_supertext: "Security"
 title: "User Management"
 description: "Manage user authorization and access to Riak TS."
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "User Management"
     identifier: "security_user_management"
     weight: 120
     parent: "security"
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 aliases:
-    - /riakts/1.4.0/using/security/user-management
+    - /riakts/1.5.0/using/security/user-management
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/security/user-management/"
 ---
 

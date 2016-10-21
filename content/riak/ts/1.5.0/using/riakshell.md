@@ -2,22 +2,22 @@
 title: "Using riak shell"
 description: "Using riak shell"
 menu:
-  riak_ts-1.4.0:
+  riak_ts-1.5.0:
     name: "riak shell"
     identifier: "riak_shell"
     weight: 309
     parent: "using"
 project: "riak_ts"
-project_version: "1.4.0"
+project_version: "1.5.0"
 toc: true
 aliases:
-    - /riakts/1.4.0/using/riakshell/
+    - /riakts/1.5.0/using/riakshell/
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/riakshell"
 ---
 
 [nodename]: /riak/kv/2.1.4/using/cluster-operations/changing-cluster-info/
-[creating]: /riak/ts/1.4.0/using/creating-activating
-[writing]: /riak/ts/1.4.0/using/writingdata
+[creating]: /riak/ts/1.5.0/using/creating-activating
+[writing]: /riak/ts/1.5.0/using/writingdata
 [riak shell README]: https://github.com/basho/riak_shell/blob/develop/README.md
 
 
@@ -55,7 +55,7 @@ To get started using riak shell:
 > sudo riak-shell
 ```
 
-1a\. You can attach to any node in your cluster from riak shell. To do this, locate your riak_shell.config file. On most systems, it will be in the `/etc/riak` directory with the other Riak TS configuration files. On Mac OS X, the configuration files are in the `~/riak-ts-1.4.0/etc` directory. Open riak_shell.config, and add the nodename and IP addresses you wish to connect to to nodes:
+1a\. You can attach to any node in your cluster from riak shell. To do this, locate your riak_shell.config file. On most systems, it will be in the `/etc/riak` directory with the other Riak TS configuration files. On Mac OS X, the configuration files are in the `~/riak-ts-1.5.0/etc` directory. Open riak_shell.config, and add the nodename and IP addresses you wish to connect to to nodes:
 
 ```
 [
@@ -239,7 +239,7 @@ You can check whether logging is currently on or off by running `show_log_status
 riak-shell>show_log_status;
 Logging : on
 Date Log : off
-Logfile : "/users/myusername/riakts/riak-ts-1.4.0/bin/../log/riak_shell/riak_shell"
+Logfile : "/users/myusername/riakts/riak-ts-1.5.0/bin/../log/riak_shell/riak_shell"
 Current Date: "2016_02_02-00:26:19"
 ```
 
