@@ -76,6 +76,16 @@ $edge_fade_width : 2rem; /* 1 */
  *    `border-left-color` for the right arrow (that relation is correct; the
  *    border opposite of the arrow's direction controls color) but I figure
  *    rebuilding the arrow is more clear.
+ * 4. When the tab is scrolled to one extent or the other, mark the given arrow
+ *    as inactive by disabling the `cursor : pointer`, and by changing the color
+ *    to something inactive.
+ *    Again, could more concisely be achieved with a `border-*-color`, but I
+ *    value clarity over brevity.
+ * 5. When the entire tab is visible, make the arrows invisible by setting the
+ *    background color to `transparent`. This allows us to use CSS transitions
+ *    to achieve a fade-out.
+ *    Again, could more concisely be achieved with a `border-*-color`, but I
+ *    value clarity over brevity.
  *TODO: These names are getting out of hand. Can we better them up?
  */
 .code-block__edge-fader--left,
@@ -104,7 +114,13 @@ $edge_fade_width : 2rem; /* 1 */
     }
 
     &.code-block__edge-fader__arrow--inactive {
-      @include leftward-arrow(1rem, $cyan-lightest, $translateY: -50%);
+      @include leftward-arrow(1rem, $cyan-lightest, $translateY: -50%); /* 4 */
+      cursor : default;
+    }
+
+    &.code-block__edge-fader__arrow--invisible  {
+      @include leftward-arrow(1rem, transparent, $translateY: -50%);    /* 5 */
+      cursor : default;
     }
   }
 }
@@ -125,6 +141,16 @@ $edge_fade_width : 2rem; /* 1 */
 
     @include on-event {
       @include rightward-arrow(1rem, $orange, $translateY: -50%);        /* 3 */
+    }
+
+    &.code-block__edge-fader__arrow--inactive {
+      @include rightward-arrow(1rem, $cyan-lightest, $translateY: -50%); /* 4 */
+      cursor : default;
+    }
+
+    &.code-block__edge-fader__arrow--invisible  {
+      @include rightward-arrow(1rem, transparent, $translateY: -50%);    /* 5 */
+      cursor : default;
     }
   }
 }
