@@ -112,6 +112,61 @@ get_code_language = (code) ->
 
 
 
+# ```verifyArrowState``` :: (Num, $('.code-block__tab-set-wrapper')) -> None
+# Introspect in to a .code-block__tab-set-wrapper to,
+# 1. Determine if scroll arrows should be present (if there are tabs obscured on
+#    one or both sides).
+# 2. Add the arrows if they should be added.
+# 3. Remove the arrows if they need to be removed.
+# The index is accepted to make it easier to pass this function into a JQuery
+# .each() execution. It is otherwise unused.
+verifyArrowState = (_index, tab_set_wrapper) ->
+  # Get all the lookups out of the way.
+  tab_set_wrapper = $(tab_set_wrapper)
+  left_edge_fader  = tab_set_wrapper.children('.code-block__edge-fader--left')
+  right_edge_fader = tab_set_wrapper.children('.code-block__edge-fader--right')
+  left_arrow       = left_edge_fader.children('.code-block__edge-fader__arrow')
+  right_arrow      = right_edge_fader.children('.code-block__edge-fader__arrow')
+  tab_set   = tab_set_wrapper.children('.code-block__tab-set')
+  first_tab = tab_set.children().first()
+  last_tab  = tab_set.children().last()
+
+  left_ext  = tab_set.offset().left + left_edge_fader.width()
+  right_ext = tab_set.offset().left + left_edge_fader.width() + tab_set.width()
+
+  # The `+ 3` and `- 3` here are to add a little bit of padding to trigger the
+  # `--inactive` state. Without those, floating point drift would make hitting
+  # the extents hard-to-impossible.
+  left_is_scrollable  = (first_tab.offset().left + 3) <
+                        left_ext
+  right_is_scrollable = (last_tab.offset().left + last_tab.width() - 3) >
+                        right_ext
+
+  should_display_arrows = left_is_scrollable or right_is_scrollable
+
+  # Branch based on whether we should or should not be displaying arrows.
+  # If we should be displaying them, either add them (if the don't exist) or
+  # remove the `--disabled` modifier. If we should not be showing them, ensure
+  # the `--disabled` modifier is present.
+  if should_display_arrows
+    left_arrow.removeClass('code-block__edge-fader__arrow--invisible')
+    right_arrow.removeClass('code-block__edge-fader__arrow--invisible')
+  else
+    left_arrow.addClass('code-block__edge-fader__arrow--invisible')
+    right_arrow.addClass('code-block__edge-fader__arrow--invisible')
+
+  if left_is_scrollable
+    left_arrow.removeClass('code-block__edge-fader__arrow--inactive')
+  else
+    left_arrow.addClass('code-block__edge-fader__arrow--inactive')
+
+  if right_is_scrollable
+    right_arrow.removeClass('code-block__edge-fader__arrow--inactive')
+  else
+    right_arrow.addClass('code-block__edge-fader__arrow--inactive')
+
+
+
 ## Immediate DOM Manipulations
 ## ===========================
 
@@ -203,7 +258,7 @@ $('.code-block--tabbed').each(
     #      conditional. If the width of the tab set requires scrolling, then we
     #      should include the arrows. Otherwise, we should leave them off.
     tab_set_wrapper = $('<div class="code-block__tab-set-wrapper">' +
-        '<div class="float-left    code-block__edge-fader--left "><span class="inline-block   code-block__edge-fader__arrow code-block__edge-fader__arrow--inactive"></span></div>' +
+        '<div class="float-left    code-block__edge-fader--left "><span class="inline-block   code-block__edge-fader__arrow"></span></div>' +
         '<div class="float-right   code-block__edge-fader--right"><span class="inline-block   code-block__edge-fader__arrow"></span></div>' +
       '</div>')
     tab_set = $('<ul class="overflow-x   code-block__tab-set">')
@@ -262,6 +317,9 @@ $('.code-block--tabbed').each(
     # At this point, the tabs wrapper is fully built, and just needs to be
     # prepended as the first child of the current .code-block--tabbed.
     code_block.prepend(tab_set_wrapper)
+
+    # Do the thing with the arrows in the edge faders
+    verifyArrowState(code_block_index, tab_set_wrapper)
 )
 
 
@@ -271,16 +329,72 @@ $ ->
 
   ## Wire up interactions
 
+  # Cache the lookup of all Tabbed Code Blocks.
+  tabbed_code_blocks = $('.code-block--tabbed')
+
+  # Cache the lookup of all .code-block__tab-set-wrapper elements
+  tab_set_wrappers = tabbed_code_blocks.children('.code-block__tab-set-wrapper')
+
+
+  # Tab Set Resize
+  # --------------
+  # When the window is resized (desktops changing size, mobile devices rotating)
+  # there's a good chance Code Block tabs will become obscured, or be revealed.
+  # On these resize event, re-do the arrow show/hide calculations.
+
+  $(window).on('resize.code-block-resize',
+    throttle(
+      (event) -> ( tab_set_wrappers.each(verifyArrowState) ),
+      250
+    )
+  )
+
+
+  # Arrow Interactions
+  # ------------------
+  # When an arrow is pressed, scroll the Tab Set by 3/4 of the current width of
+  # the Tab Set Wrapper.
+  $('.code-block__edge-fader__arrow').on('click.code-block-arrow'
+    (event) -> (
+      arrow           = $(this)
+      tab_set_wrapper = arrow.closest('.code-block__tab-set-wrapper')
+      tab_set         = tab_set_wrapper.children('.code-block__tab-set')
+
+      # Calculate the scroll distance and direction; if we're in a `--left`
+      # edge fader, we should be scrolling left a negative amount.
+      target  = tab_set_wrapper.width() * 0.75;
+      target *= -1   if arrow.parent().hasClass('code-block__edge-fader--left')
+      target += tab_set.scrollLeft()
+
+      $(tab_set).animate({scrollLeft: target}, 200);
+    )
+  )
+
+
+  # Tab Scrolling
+  # -------------
+  # When we scroll the Tab Set we will want to enable / disable the scroll
+  # arrows to suggest when a user has hit the last tab.
+
+  #TODO: we're being super lazy about this right now, and just reusing the
+  #      `verifyArrowState` logic. We should build a stripped-down version of
+  #      that function and be more efficient with these calculations.
+  $('.code-block__tab-set').on('scroll.code-block-tab-set',
+    throttle(
+      (event) -> ( verifyArrowState(0, $(this).parent()) ),
+      250
+    )
+  )
+
+
+
   # Tab Selection
   # -------------
   # When a Tab is clicked, we want all Code Blocks that contain a matching entry
   # to hide their current code, and reveal the selected language.
 
-  # Cache the lookup of all Tabbed Code Blocks.
-  tabbed_code_blocks = $('.code-block--tabbed')
-
   ## On Click Trigger for Tabs
-  $('.code-block__tab').on('click.codeblock_tab', 'a',
+  $('.code-block__tab').on('click.code-block-tab', 'a',
     (event) ->
       event.preventDefault()
 
