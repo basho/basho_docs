@@ -278,3 +278,33 @@ select weather, temperature from GeoCheckin where time > '2009-11-01 03.25+07' a
 ```
 
 See [our documentation on ISO 8601 support][iso8601] for more details on how to use ISO 8601.
+
+## IS [NOT] NULL
+For queries which operate on ranges which contain columns that are nullable, the
+WHERE clause may contain NULL condition predicates.
+
+```sql
+_expression_ IS NULL
+_expression_ IS NOT NULL
+NOT _expression_ IS NULL -- equivalent to: _expression_ IS NOT NULL
+NOT _expression_ IS NOT NULL -- equivalent to: _expression_ IS NULL
+```
+
+For exaple, the following query extracts the key column values for all records
+within the time range, which do not have a value set for the temperature column:
+
+```sql
+SELECT region, state, time
+FROM GeoCheckin
+WHERE time > 1234560 AND time < 1234569
+      AND region = 'Sout Atlantic' AND state = 'South Carolina'
+      AND temperature IS NULL
+```
+
+IS NOT NULL is often used to operate on records which are fully populated to the
+point that an application requires. Within this context, the above query to
+locate records which do not satisfy such a requirement can be utilized to
+investigate and subsequently reconcile records which are partially populated.
+
+Another common use of NULL condition predicates is determining the relative
+cardinality of the subset not containing a value for the _column_.

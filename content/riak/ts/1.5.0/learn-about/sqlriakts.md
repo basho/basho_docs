@@ -29,6 +29,7 @@ Riak TS supports a subset of Structured Query Language (SQL): `SELECT` statement
 
 The subset of SQL used by Riak TS supports several kinds of literals: 
 
+* NULL
 * numbers 
 * single-quoted strings
 * time
