@@ -190,9 +190,27 @@ $('pre > code').each(
         language = language.replace(/\./g, '')
         code.addClass(language)
 
-      #TODO: Stop using `hljf.highlightBlock` and manually call `hljs.highlight`
-      #      so we can manually specify a language.
-      hljs.highlightBlock(pre[0]);
+      # Trick Highlight.js to style using the language we want.
+      # 1. If the specified language does not have an entry in
+      #    `language_transforms`, don't highlight.
+      # 2. If the specified language has a `language_transforms` entry that
+      #    includes a `highlight_as` field, temporarily set the code's class to
+      #    `highligh_as` s.t. Highlight.JS styles the correct language.
+      # 3. If the specified language has an entry that doesn't includes an empty
+      #    `highlight_as` field, proceed as normal.
+      if language of language_transforms                                # 1
+        highlight_as = language_transforms[language]?.highlight_as
+
+        if highlight_as                                                 # 2
+          code.removeClass(language)
+          code.addClass(highlight_as)
+
+        hljs.highlightBlock(code[0]);
+
+        if highlight_as                                                 # 2
+          code.removeClass(highlight_as)
+          code.addClass(language)
+
 
     # Conditionally apply tabs or a title to the Code Block.
     # 1. If this <pre> is already a child of a .code-block__code-set,
