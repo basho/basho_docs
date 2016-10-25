@@ -7,7 +7,7 @@ menu:
   riak_kv-2.2.0:
     name: "MapReduce Settings"
     identifier: "configuring_mapreduce"
-    weight: 107
+    weight: 170
     parent: "configuring"
 toc: true
 aliases:

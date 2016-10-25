@@ -7,7 +7,7 @@ menu:
   riak_kv-2.2.0:
     name: "Backend Configuration"
     identifier: "configuring_backend"
-    weight: 102
+    weight: 110
     parent: "configuring"
 toc: true
 ---

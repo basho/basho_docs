@@ -7,7 +7,7 @@ menu:
   riak_kv-2.2.0:
     name: "Load Balancing & Proxy"
     identifier: "configuring_load_balance"
-    weight: 106
+    weight: 150
     parent: "configuring"
 toc: true
 aliases:
