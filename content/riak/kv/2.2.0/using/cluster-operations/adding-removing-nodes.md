@@ -180,3 +180,16 @@ As with `riak-admin cluster leave`, the plan to have a node leave the
 cluster must be first reviewed with `riak-admin cluster plan` and
 committed with `riak-admin cluster commit` before any changes will
 actually take place.
+
+
+## Pausing a `join` or `leave`
+
+{{% note title="Warning" %}}
+Pausing may impact cluster health and is not recommended for more than a short period of time.
+{{% /note %}}
+
+To pause during `riak-admin cluster join` or `riak-admin cluster leave`, set the node's transfer-limit to 0:
+
+```bash
+riak-admin transfer-limit <node> 0
+```
