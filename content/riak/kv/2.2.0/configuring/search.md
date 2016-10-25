@@ -1,11 +1,11 @@
 ---
-title: "Search Settings"
+title: "Riak Search Settings"
 description: ""
 project: "riak_kv"
 project_version: "2.2.0"
 menu:
   riak_kv-2.2.0:
-    name: "Search Settings"
+    name: "Riak Search Settings"
     identifier: "configuring_search"
     weight: 108
     parent: "configuring"
@@ -19,19 +19,19 @@ aliases:
 [usage search schema]: /riak/kv/2.2.0/developing/usage/search-schemas
 [usage search data types]: /riak/kv/2.2.0/developing/usage/searching-data-types
 [usage custom extractors]: /riak/kv/2.2.0/developing/usage/custom-extractors
+[cluster-ops aae throttle]: /riak/kv/2.2.0/using/cluster-operations/active-anti-entropy/#throttling
 [config reference]: /riak/kv/2.2.0/configuring/reference
 [config reference#search]: /riak/kv/2.2.0/configuring/reference/#search
 [glossary aae]: /riak/kv/2.2.0/learn/glossary/#active-anti-entropy-aae
 [security index]: /riak/kv/2.2.0/using/security/
 
 
-This document covers how to use the Riak Search (with
-[Solr](http://lucene.apache.org/solr/) integration) subsystem from an
-operational perspective. 
+This page covers how to use Riak Search (with
+[Solr](http://lucene.apache.org/solr/) integration). 
 
-For a simple reference of the available configs & their defaults, go [here][config reference#search].
+For a simple reference of the available configs and their defaults, see the [configuration reference][config reference#search].
 
-If you are looking developer-focused docs, we recommend the following:
+If you are looking to develop on or with Riak Search, take a look at:
 
 * [Using Search][usage search]
 * [Search Schema][usage search schema]
@@ -47,14 +47,13 @@ We'll be walking through:
 3. [Search Configuration Settings](#search-config-settings)
 4. [Additional Solr Information](#more-on-solr)
 
-
 ## Prerequisites 
 
 Because Solr is a Java application, you will need to install **Java 1.6
 or later** on every node. We recommend installing Oracle's [JDK
 7u25](http://www.oracle.com/technetwork/java/javase/7u25-relnotes-1955741.html).
 Installation packages can be found on the [Java SE 7 Downloads
-page](http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html#jre-7u25-oth-JPR)
+page](http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html#jre-7u25-oth-JPR),
 and instructions on the [documentation
 page](http://www.oracle.com/technetwork/java/javase/documentation/index.html).
 
@@ -90,6 +89,8 @@ Valid values: a directory
 Whether the throttle for Yokozuna active anti-entropy is enabled; defaults to `on`.
 
 Valid values: `on` or `off`
+
+You can read more about throttling [here][cluster-ops aae throttle].
 
 ### `search.anti_entropy.throttle.$tier.delay`
 

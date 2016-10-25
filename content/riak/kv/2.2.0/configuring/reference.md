@@ -1212,14 +1212,14 @@ debugging information will be output.</td>
 </tr>
 
 <tr>
-<td><code>anti_entropy.throttle</code></td>
+<td><code>search.anti_entropy.throttle</code></td>
 <td>Whether the distributed throttle for Active Anti-Entropy is
 enabled.</td>
 <td><code>on</code></td>
 </tr>
 
 <tr>
-<td><code>anti_entropy.throttle.$tier.mailbox_size</code></td>
+<td><code>search.anti_entropy.throttle.$tier.solrq_queue_length</code></td>
 <td>Sets the throttling tiers for Active Anti-Entropy. Each tier is a
 minimum vnode mailbox size and a time-delay that the throttle should
 observe at that size and above. For example,
@@ -1234,7 +1234,7 @@ each tier.</td>
 </tr>
 
 <tr>
-<td><code>anti_entropy.throttle.$tier.delay</code></td>
+<td><code>search.anti_entropy.throttle.$tier.delay</code></td>
 <td>See the description for
 <code>anti_entropy.throttle.$tier.mailbox_size</code> above.</td>
 <td></td>
