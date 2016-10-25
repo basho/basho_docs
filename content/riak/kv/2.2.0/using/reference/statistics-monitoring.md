@@ -143,6 +143,19 @@ Metric | Also | Notes
 ```node_get_fsm_rejected``` | | Number of GET FSMs actively being rejected by Sidejob's overload protection
 ```node_put_fsm_rejected``` | | Number of PUT FSMs actively being rejected by Sidejob's overload protection
 
+### General Riak Search Load/Health Metrics
+
+These various stats give a picture of the general level of activity or
+load on the Riak node at any given moment.
+
+Metric | Description
+:------|:------------
+`search_index_bad_entry_count` | Number of writes to Solr that have resulted in an error due to the format of the data (e.g., non-unicode data) since the last restart of Riak.
+`search_index_bad_entry_one	` | Number of writes to Solr that have resulted in an error due to the format of the data (e.g., non-unicode data) in the past minute.
+`search_index_extract_fail_count` | Number of failures that have occurred extracting data into a format suitable to insert into Solr (e.g., badly formatted JSON) since the last start of Riak.
+`search_index_extract_fail_one` | Number of failures that have occurred extracting data into a format suitable to insert into Solr (e.g., badly formatted JSON) in the past minute.
+
+
 ## Command-line Interface
 
 The [`riak-admin`](/riak/kv/2.2.0/using/admin/riak-admin/) tool provides two

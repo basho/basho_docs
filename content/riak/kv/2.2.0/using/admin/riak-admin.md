@@ -37,12 +37,11 @@ aliases:
 [cluster ops handoff]: /riak/kv/2.2.0/using/cluster-operations/handoff
 [use admin riak-admin#stats]: /riak/kv/2.2.0/using/admin/riak-admin/#stats
 
-## riak-admin
+## `riak-admin`
 
-This script performs operations unrelated to node liveness, including
+The riak-admin command performs operations unrelated to node liveness, including:
 node membership, backup, and basic status reporting. The node must be
-running for most of these commands to work. Running the `riak-admin`
-command by itself will output a list of available commands:
+running for most of these commands to work. Running `riak-admin` by itself will output a list of available commands:
 
 ```
 Usage: riak-admin { cluster | join | leave | backup | restore | test |
@@ -677,12 +676,18 @@ parameters on the fly, without needing to stop and restart the node.
 riak-admin set <variable>=<value>
 ```
 
-At the moment, the `set` command can only be used for the following
-parameters, all three of which are related to Riak's [handoff][cluster ops handoff] subsystem:
+The set command can only be used for the following
+parameters:
 
 * `transfer_limit`
 * `handoff.outbound`
 * `handoff.inbound`
+* `search.dist_query=off` will disable distributed query for the node
+* `search.dist_query=on` will enable distributed query for the node
+* `search.dist_query` will get the status of distributed query for the node
+
+The `search.dist_query` commands above are non-persistent. Any settings you have defined in your riak.conf configuration file will be used when Riak KV is restarted.
+
 
 ## show
 
