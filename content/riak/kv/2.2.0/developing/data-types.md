@@ -30,7 +30,12 @@ Riak KV has Riak-specific data types based on [convergent replicated data types 
 - [Sets](./sets)
 - [Maps](./maps)
 
-Counters, sets, and maps can be used as bucket-level data types or types that you interact with directly. Flags and registers must be [embedded in maps](./maps).
+Riak KV also has 1 context-free data type, that has similar usage but does not require contexts.
+
+- [HyperLogLogs](./hyperloglogs) (abbreviated `hll` in many places)
+
+
+Counters, sets, maps, and hyperloglogs can be used as bucket-level data types or types that you interact with directly. Flags and registers must be [embedded in maps](./maps).
 
 For more information on how CRDTs work in Riak KV see [Concepts: Data Types][concept crdt].
 
@@ -44,20 +49,21 @@ The following section explains how to set up a bucket that uses Riak data types.
 
 ### Creating a Bucket with a Riak Data Type
 
-First create a [bucket type][ops bucket type] that sets the `datatype` bucket parameter to either `counter`, `map`, or `set`.
+First create a [bucket type][ops bucket type] that sets the `datatype` bucket parameter to either `counter`, `map`, `set`, or `hll`.
 
-The following would create a separate bucket type for each of the three
+The following would create a separate bucket type for each of the four
 bucket-level data types:
 
 ```bash
 riak-admin bucket-type create maps '{"props":{"datatype":"map"}}'
 riak-admin bucket-type create sets '{"props":{"datatype":"set"}}'
 riak-admin bucket-type create counters '{"props":{"datatype":"counter"}}'
+riak-admin bucket-type create hlls  '{"props":{"datatype":"hll"}}'
 ```
 
 > **Note**
 >
-> The names `maps`, `sets`, and `counters` are not reserved
+> The names `maps`, `sets`, `counters`, and `hlls` are not reserved
 terms. You are free to name bucket types whatever you like, with
 the exception of `default`.
 
@@ -250,6 +256,7 @@ $updateSet = (new \Basho\Riak\Command\Builder\UpdateSet($riak))
 - [Counters](./counters)
 - [Sets](./sets)
 - [Maps](./maps)
+- [Hyperloglogs](./hyperloglogs)
 
 The pages listed above detail using Riak data types at the application level using Basho's [officially supported Riak KV clients](../client-libraries). For more on getting started with client libraries check out the [Developing with Riak KV: Getting Started](../getting-started) section.
 
