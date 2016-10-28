@@ -56,12 +56,35 @@ blog series [part 4][config-behaviors] .
 
 ### Bucket Type Setup
 
+#### Create a Bucket Type
+
+If your application organizes data does not include bucket-type and instead only
+uses bucket to organize its keyspace, the `default` bucket-type can be used by
+omitting the bucket-type portion of the colon-delimited hierarchical namespaced
+key. Otherwise said, `test:food` is equivalent to `default:test:food` where
+the bucket-type is `default`, the bucket is `test`, and the key is `food`.
+For examples here, we will use `rra:test:food` to clearly use a bucket-type.
+
+If your application organizes data including a bucket-type, ensure that that
+bucket-type is created in Riak without specifying the data type, so effectively
+an opaque value, ie a `string`. The following command provides an example of
+creating the bucket-type `rra`:
+
+```sh
+if ! riak-admin bucket-type status rra >/dev/null 2>&1; then
+    riak-admin bucket-type create rra '{"props":{}}'
+    riak-admin bucket-type activate rra
+fi
+```
+
+#### Set Bucket Props
+
 The following is an example, using Riak KV's default HTTP port, of setting `allow_mult` to 'true' and `last_write_wins` to 'false':
 
 ```sh
 curl -XPUT -H 'Content-Type: application/json' \
          -d '{"props": {"allow_mult": true, "last_write_wins": false}}' \
-         'http://127.0.0.1:8098/buckets/test/props'
+         'http://127.0.0.1:8098/types/rra/buckets/test/props'
 ```
 
 For additional configuration options see [bucket properties][dev api http].
@@ -99,14 +122,14 @@ To request a value at a bucket/key in Riak KV, issue the following:
 
 ```erlang
 {ok, RedisClientPid} = eredis:start_link("127.0.0.1", 22122).
-{ok, Value} = eredis:q(RedisClientPid, ["GET", "test:food"]).
+{ok, Value} = eredis:q(RedisClientPid, ["GET", "rra:test:food"]).
 ```
 
 ```javascript
 var redis = require("redis"),
-    client = redis.createClient();
+    client = redis.createClient(22122, "127.0.0.1");
 
-client.get("test:food", redis.print);
+client.get("rra:test:food", redis.print);
 ```
 
 ```python
@@ -114,15 +137,15 @@ import redis
 
 r = redis.StrictRedis(host="127.0.0.1", port=22122)
 
-r.get("test:food")
+r.get("rra:test:food")
 ```
 
 ```ruby
 require "redis"
 
-redis = Redis.new
+redis = Redis.new(host: "127.0.0.1", port: 22122)
 
-redis.get("test:food")
+redis.get("rra:test:food")
 ```
 
 ```scala
@@ -131,7 +154,7 @@ import com.lambdaworks.redis._
 var client = RedisClient.create("redis://127.0.0.1:22122")
 var connection = client.connect()
 
-var value = connection.get("test:food")
+var value = connection.get("rra:test:food")
 ```
 
 ### Get Configuration Parameters
@@ -139,6 +162,8 @@ var value = connection.get("test:food")
 >**Note:** The cache proxy service read option (related to replication factor and
 consistency concern) may optionally be set within the nutcracker.conf. This will  result in an override of the setting value at the bucket-level in Riak KV.
 
+The following configuration parameters apply to `GET` and may be set within the
+RRA configuration file `/etc/cache_proxy/cache_proxy_22122.yml`:
 
 |Parameter       |Description      |Default|
 |----------------|-----------------|-------|
@@ -169,14 +194,14 @@ To set a value at a bucket/key in Riak KV, issue the following:
 
 ```erlang
 {ok, RedisClientPid} = eredis:start_link("127.0.0.1", 22122).
-{ok, KeysAffected} = eredis:q(RedisClientPid, ["SET", "test:food", "apple"]).
+{ok, KeysAffected} = eredis:q(RedisClientPid, ["SET", "rra:test:food", "apple"]).
 ```
 
 ```javascript
 var redis = require("redis"),
-    client = redis.createClient();
+    client = redis.createClient(22122, "127.0.0.1");
 
-client.set("test:food", "apple", redis.print);
+client.set("rra:test:food", "apple", redis.print);
 ```
 
 ```python
@@ -184,15 +209,15 @@ import redis
 
 r = redis.StrictRedis(host="127.0.0.1", port=22122)
 
-r.set("test:food", "apple")
+r.set("rra:test:food", "apple")
 ```
 
 ```ruby
 require "redis"
 
-redis = Redis.new
+redis = Redis.new(host: "127.0.0.1", port: 22122)
 
-redis.set("test:food', 'apple")
+redis.set("rra:test:food', 'apple")
 ```
 
 ```scala
@@ -201,7 +226,7 @@ import com.lambdaworks.redis._
 var client = RedisClient.create("redis://127.0.0.1:22122")
 var connection = client.connect()
 
-connection.set("test:food", "apple")
+connection.set("rra:test:food", "apple")
 ```
 
 ### Set Configuration Parameters
@@ -210,6 +235,8 @@ connection.set("test:food", "apple")
 consistency concern) may optionally be set within the nutcracker.conf, resulting
 in an override of the setting value at the bucket-level in Riak KV.
 
+The following configuration parameters apply to `SET` and may be set within the
+RRA configuration file `/etc/cache_proxy/cache_proxy_22122.yml`:
 
 |Parameter       |Description      |Default|
 |----------------|-----------------|-------|
@@ -249,14 +276,14 @@ To delete a value at a bucket/key in Riak KV, issue the following:
 
 ```erlang
 {ok, RedisClientPid} = eredis:start_link("127.0.0.1", 22122).
-{ok, KeysAffected} = eredis:q(RedisClientPid, ["DEL", "test:food"]).
+{ok, KeysAffected} = eredis:q(RedisClientPid, ["DEL", "rra:test:food"]).
 ```
 
 ```javascript
 var redis = require("redis"),
-    client = redis.createClient();
+    client = redis.createClient(22122, "127.0.0.1");
 
-client.del("test:food", redis.print);
+client.del("rra:test:food", redis.print);
 ```
 
 ```python
@@ -264,15 +291,15 @@ import redis
 
 r = redis.StrictRedis(host="127.0.0.1", port=22122)
 
-r.del("test:food")
+r.del("rra:test:food")
 ```
 
 ```ruby
 require "redis"
 
-redis = Redis.new
+redis = Redis.new(host: "127.0.0.1", port: 22122)
 
-redis.del("test:food")
+redis.del("rra:test:food")
 ```
 
 ```scala
@@ -281,10 +308,13 @@ import com.lambdaworks.redis._
 var client = RedisClient.create("redis://127.0.0.1:22122")
 var connection = client.connect()
 
-connection.del("test:food")
+connection.del("rra:test:food")
 ```
 
 ### Delete Configuration Parameters
+
+The following configuration parameters apply to `DEL` and may be set within the
+RRA configuration file `/etc/cache_proxy/cache_proxy_22122.yml`:
 
 |Parameter       |Description      |Default|
 |----------------|-----------------|-------|

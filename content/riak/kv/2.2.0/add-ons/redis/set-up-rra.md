@@ -61,7 +61,7 @@ sudo sysctl fs.file-max fs.file-max=65536
 sudo sysctl -p
 ```
 
-To change the per-user file limit, you need to edit /etc/security/limits.conf.
+To change the per-user file limit, you need to edit `/etc/security/limits.conf`.
 
 #### CentOS
 
@@ -213,7 +213,7 @@ file is provided in the install, and it contains all relevant configuration elem
   redis: true
   server_retry_timeout: 2000
   server_failure_limit: 1
-  server_ttl: 15s
+  server_ttl: 1h
   servers:
     - 127.0.0.1:6379:1
   backend_type: riak
