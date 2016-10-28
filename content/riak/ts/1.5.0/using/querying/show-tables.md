@@ -30,39 +30,42 @@ SHOW TABLES
 Returns:
 
 ```sql
-+------------+
-|   Table    |
-+------------+
-| RandomTable|
-| GeoCheckin |
-|AnotherTable|
-| FinalTable |
-+------------+
++---------------+------------+
+|   Table       |   Status   |
++---------------+------------|
+| RandomTable   |   Active   |
+| GeoCheckin    |   Active   |
+| UpcomingTable | Not Active |
+|AnotherTable   |   Active   |
+| FinalTable    |   Active   |
++---------------+------------+
 ```
 
 You can use `SHOW TABLES` in [riak shell]:
 
 ```
 riak-shell>show tables;
-+------------+
-|   Table    |
-+------------+
-| RandomTable|
-| GeoCheckin |
-|AnotherTable|
-| FinalTable |
-+------------+
++---------------+------------+
+|   Table       |   Status   |
++---------------+------------|
+| RandomTable   |   Active   |
+| GeoCheckin    |   Active   |
+| UpcomingTable | Not Active |
+|AnotherTable   |   Active   |
+| FinalTable    |   Active   |
++---------------+------------+
 ```
 
 Using TS's supported clients, a successful `SHOW TABLE` will return a regular successful query result:
 
 ```
-+------------+
-|   Table    |
-+------------+
-| RandomTable|
-| GeoCheckin |
-|AnotherTable|
-| FinalTable |
-+------------+
++---------------+------------+
+|   Table       |   Status   |
++---------------+------------|
+| RandomTable   |   Active   |
+| GeoCheckin    |   Active   |
+| UpcomingTable | Not Active |
+|AnotherTable   |   Active   |
+| FinalTable    |   Active   |
++---------------+------------+
 ```
