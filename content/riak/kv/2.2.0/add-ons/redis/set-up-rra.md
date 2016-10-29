@@ -38,6 +38,86 @@ runnable example of an installation, see [ansible cache proxy][lab ansible].
 The remainder of this setup guide lists the commands required to install and
 configure RRA manually.
 
+## Deployment Models
+### Local Cache Deployment
+
+In a local cache deployment, the RRA and Redis are deployed to the application
+server.
+
+Advantages:
+
+* Cache hits are extremely fast
+
+Disadvantages:
+
+* Cache writes on one application server are observed on other application
+  servers, so cache hit rates are likely lower unless some form of consistent
+  routing to the application server exists within the solution.
+* Redis competing for RAM with the application service may be problematic
+
+### Colocated Cache Deployment
+
+In a colocated cache deployment, the RRA may be deployed either to the
+application server (suggested) or to the Riak servers and Redis is deployed to
+the Riak servers.
+
+In the case of deploying the RRA to the application servers, the RRA features
+of reducing connections from the relatively high number of application service
+instances to the fewer Redis (cache) and Riak (persistent) data service
+instances allows for the greatest scale at the expense of the deployment cost
+of pushing a service and its configuration.
+
+In the case of deploying the RRA to the colocated Redis and Riak data servers,
+the maximum scale for the solution is contrained by the number of network
+connections from the application services while deployment costs remain a matter
+of pushing a service and its configuration. In either case, deployment should
+be automated, so are not multiplied by the number of servers.
+
+Advantages:
+
+* Increases the cache hit rate as a cache write from one application server
+  will lead to a cache hit by all other application servers.
+
+Disadvantages:
+
+* Typically increased distance between the application service and Redis and
+  Riak services, so increased latency compared to local.
+* Redis competing for RAM with Riak will likely be problematic. Redis should
+  be configured to ensure `maxmemory` and `maxmemory-policy` constrain Redis
+  to ensure Riak is allotted sufficient RAM to serve the more important
+  persistent data storage and retrieval services. See http://redis.io/topics/config
+* This model may seem to provide data locality, but in the case of faults in
+  either Redis or Riak services, the fault tolerance mechanisms of RRA and
+  Riak will not match exactly as communicating the necessary information to
+  support such a lock-step fault tolerance would lead to greater mean latencies
+  and Riak provides superior 99th percentile latency performance in the face
+  of faults.
+
+### Distributed Cache Deployment
+
+In a distributed cache deployment, the RRA is deployed to the application server
+and Redis is deployed to standalone servers, separate from Riak.
+
+Advantages:
+
+* Increases the cache hit rate as a cache write from one application server
+  will lead to a cache hit by all other application servers.
+* Keeps RRA near the application, reducing network connections.
+* Moves Redis to distinct servers, allowing the cache more RAM and not
+  constraining the RAM of either application or persistent data services.
+
+Disadvantages:
+
+* Typically increased distance between the application service and Redis and
+  Riak services, so increased latency compared to local.
+
+### Suggestion
+
+To be clear, in case the relative advantages, disadvantages, and explanation text
+is not, for the typical solution that calls for caching to reduce latency and/or
+to reduce read pressure from the persistent data service, the Distributed Cache
+Deployment is the suggested deployment model.
+
 ## Installing
 
 1. On all Redis and Riak Redis Add-on hosts, change the [open-files limit][perf open files].

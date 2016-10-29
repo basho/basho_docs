@@ -58,12 +58,13 @@ blog series [part 4][config-behaviors] .
 
 #### Create a Bucket Type
 
-If your application organizes data does not include bucket-type and instead only
-uses bucket to organize its keyspace, the `default` bucket-type can be used by
-omitting the bucket-type portion of the colon-delimited hierarchical namespaced
-key. Otherwise said, `test:food` is equivalent to `default:test:food` where
-the bucket-type is `default`, the bucket is `test`, and the key is `food`.
-For examples here, we will use `rra:test:food` to clearly use a bucket-type.
+If your application organizes data in a way that does not include bucket-type
+and instead only uses bucket to organize its keyspace, the `default` bucket-type
+can be used by omitting the bucket-type portion of the colon-delimited
+hierarchical namespaced key. Otherwise said, `test:food` is equivalent to
+`default:test:food` where the bucket-type is `default`, the bucket is `test`,
+and the key is `food`. For examples here, we will use `rra:test:food` to clearly
+use a bucket-type.
 
 If your application organizes data including a bucket-type, ensure that that
 bucket-type is created in Riak without specifying the data type, so effectively
