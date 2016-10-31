@@ -53,7 +53,7 @@
   {{- if $menu_has_children }}
     {{ $next_depth := (add 1 $menu_depth)                       }}
     {{ $dict := (dict   "node" $HugoNode   "top_menu" $menu   "menu_title" $menu_title   "menu_depth" $next_depth   "menu_is_open" $menu_is_open) }}
-    {{ partial "sandbox/content_navigation_submenu.html" $dict }}
+    {{ partial "content_navigation_submenu.html" $dict }}
   {{- end }}
 
   </li>
