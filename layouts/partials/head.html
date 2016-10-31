@@ -1,0 +1,44 @@
+<!-- Variable Definitions
+     ====================
+{{ $HugoNode := . }}
+
+
+{{ $title_supertext           := $HugoNode.Scratch.Get "title_supertext"           }}
+{{ $title                     := $HugoNode.Scratch.Get "title"                     }}
+{{ $canonical_link            := $HugoNode.Scratch.Get "canonical_link"            }}
+{{ $project                   := $HugoNode.Scratch.Get "project"                   }}
+{{ $version                   := $HugoNode.Scratch.Get "version"                   }}
+{{ $project_relative_path     := $HugoNode.Scratch.Get "project_relative_path"     }}
+{{ $version_history_in        := $HugoNode.Scratch.Get "version_history_in"        }}
+{{ $version_history_locations := $HugoNode.Scratch.Get "version_history_locations" }}
+-->
+<head class="no-js" lang="en">
+
+  <meta charset="utf-8">
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+  <title>{{ if $title_supertext }}{{ $title_supertext }} {{ end }}{{ $title }}</title>
+
+  <link href="/css/main.css" media="screen" rel="stylesheet" type="text/css">
+
+{{- if $canonical_link }}
+  <link rel="canonical" href="{{ $canonical_link }}" />{{end}}
+
+{{- safeHTML `
+  <!-- The below meta tags are included to allow JS code to use variables
+       defined in Hugo---our static site generator. -->` }}
+{{- if $project }}
+  <meta name="project" content="{{ $project }}">{{end}}
+{{- if $version }}
+  <meta name="version" content="{{ $version }}">{{end}}
+{{- if $project_relative_path }}
+  <meta name="project_relative_path" content="{{ $project_relative_path }}">{{end}}
+
+{{- if $version_history_in }}
+  <meta name="version_history_in"        content="{{ $version_history_in }}">{{end}}
+{{- if $version_history_locations }}
+  <meta name="version_history_locations" content="{{ $version_history_locations | jsonify }}">{{end}}
+
+</head>
