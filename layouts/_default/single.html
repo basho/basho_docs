@@ -56,58 +56,7 @@
 {{ $is_lts    := $HugoNode.Scratch.Get "is_lts"    }}
 -->
 
-{{- /* ======================================================================================== */}}
-{{- /* {{ partial "head.html" $HugoNode }}                                                      */}}
-{{- /* ======================================================================================== */}}
-
-<!-- Variable Definitions
-     ====================
-{{ $HugoNode := . }}
-
-
-{{ $title_supertext      := .Scratch.Get "title_supertext"      }}
-{{ $title                := .Scratch.Get "title"                }}
-{{ $canonical_link       := .Scratch.Get "canonical_link"       }}
-{{ $project              := .Scratch.Get "project"              }}
-{{ $version              := .Scratch.Get "version"              }}
-{{ $site_relative_url    := .Scratch.Get "site_relative_url"    }}
-{{ $version_path         := .Scratch.Get "version_path"         }}
-{{ $project_relative_url := .Scratch.Get "project_relative_url" }}
--->
-<head class="no-js" lang="en">
-  <meta charset="utf-8">
-  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
-  <meta name="viewport" content="width=device-width">
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-
-  <title>{{ if $title_supertext }}{{ $title_supertext }} {{ end }}{{ $title }}</title>
-
-  <link href="/css/main.css" media="screen" rel="stylesheet" type="text/css">
-
-{{- if $canonical_link }}
-  <link rel="canonical" href="{{ $canonical_link }}" />{{end}}
-
-{{- safeHTML `
-  <!-- The below meta tags are designed to allow JS code to use variables
-       defined in Hugo---our static site generator. -->` }}
-{{- if $project }}
-  <meta name="project" content="{{ $project }}">{{end}}
-{{- if $version }}
-  <meta name="version" content="{{ $version }}">{{end}}
-  <meta name="site_relative_url"    content='{{ $site_relative_url }}'>
-{{- if $version_path }}
-  <meta name="version_url"          content='{{ $version_path }}'>{{end}}
-  <meta name="project_relative_url" content='{{ $project_relative_url }}'>
-
-{{- if .Params.version_history.in }}
-  <meta name="version_history_in" content="{{ .Params.version_history.in }}">{{end}}
-{{- if .Params.version_history.locations }}
-  <meta name="version_history_locations" content="{{ .Params.version_history.locations | jsonify }}">{{end}}
-</head>
-
-{{- /* ======================================================================================== */}}
-{{- /* END {{ partial "head.html" $HugoNode }}                                                  */}}
-{{- /* ======================================================================================== */}}
+{{ partial "head.html" $HugoNode }}
 
 
 
@@ -293,8 +242,9 @@
      ====================
 {{ $HugoNode := . }}
 
-{{ $title_supertext := .Scratch.Get "title_supertext"      }}
-{{ $display_toc     := $HugoNode.Scratch.Get "display_toc" }}
+{{ $title_supertext := $HugoNode.Scratch.Get "title_supertext" }}
+{{ $display_toc     := $HugoNode.Scratch.Get "display_toc"     }}
+{{ $title           := $HugoNode.Scratch.Get "title"           }}
 -->
 
   <div class="content-well">

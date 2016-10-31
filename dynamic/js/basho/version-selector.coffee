@@ -44,9 +44,9 @@ contentOfMeta = (name) ->
 #      enabled, and stay orange if we're never going to fetch the JSON...
 generateVersionLists = () ->
   # Pull project/pathing information from the meta tags set up by Hugo
-  project              =  contentOfMeta("project")              # ex; riak_kv
-  current_version      =  contentOfMeta("version")              # ex; 2.1.4
-  project_relative_url =  contentOfMeta("project_relative_url") # ex; installing/
+  project               =  contentOfMeta("project")              # ex; riak_kv
+  current_version       =  contentOfMeta("version")              # ex; 2.1.4
+  project_relative_path =  contentOfMeta("project_relative_path") # ex; installing/
 
   # The version_history <meta> tags will only exist if the front matter of the
   # given content .md page contains them, so these may be `undefined`.
@@ -126,13 +126,13 @@ generateVersionLists = () ->
             # release_version to a different project/version-relative url.
             # If none of the ranges match (or if there are no ranges), default
             # to the current page's project/version-relative url.
-            relative_url = project_relative_url
+            relative_path = project_relative_path
             for [range, url] in versions_locations
               if SemVer.isInRange(release_sem_ver, range)
-                relative_url = url
+                relative_path = url
                 break
 
-            anchor = project_path+"/"+release_version+"/"+relative_url
+            anchor = project_path+"/"+release_version+"/"+relative_path
             anchor_tag = '<a href="'+anchor+'">'
 
           # Build the full list element and add it to the
