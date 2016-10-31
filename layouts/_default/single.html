@@ -1,77 +1,386 @@
 <!DOCTYPE html>
-{{/*TODO(Drew): Find out if we need to do this IE-safety shit anymore. */}}
-{{ `<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"></html><![endif]-->` | safeHTML }}
-{{ `<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"></html><![endif]-->` | safeHTML }}
-{{ `<!--[if IE 8]><html class="no-js lt-ie9" lang="en"></html><![endif]-->` | safeHTML }}
-{{ `<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->` | safeHTML }}
 
-<!-- Site-wide and Page-wide Variables
-     ---------------------------------
-  We pull in "common_variables.html" to define a whole bunch of common variables
-  in the `.Scratch` object, and selectively extract the ones we want to use
-  below.
+<!-- A Note on Template Design
+     =========================
+  Each block of grouped Go calls that can be wrapped should be wrapped in these
+  multi-line HTML comments so the compiled source might be a bit prettier to
+  look at; if unwrapped, every unmodified Go call will get its own newline, and
+  add an incredible amount of padding to the source.
+  All Go calls that can't be wrapped and are given their own line should be
+  invoked with the `{ { -` (without the spaces; Hugo would have interpreted that
+  as an unclosed action w/o them there.) syntax to remove the newline
+  immediately before the action is invoked.
+-->
+
+<!-- A Note on Class Naming Conventions
+     ==================================
+
+  Our classes are going to be pretty verbose. We're basing names off of the
+  Block__Element--Modifier[1] convention, which well let us focus heavily on
+  precise description (at the cost of brevity). This should lead to some
+  additional self-documentation in the HTML, and will definitely allow for more
+  descriptive SCSS. Bootstrap classes will be tacked on after our classes, where
+  necessary, and should be denoted with a leading `[bs]` class. It's a vain hope
+  of mine to eventually remove the Bootstrap library as a requisite for building
+  this site, and knowing beforehand where BS classes are used will help with
+  that immensely.
+
+  We've also moved a great deal of formatting information into the HTML, in the
+  form of float, clear, and display classes. SCSS should note when floating is
+  assumed, but modifications to the `float:` or `display:` properties should be
+  made as class additions in the HTML, and not as part of a named class.
+
+  [1]: http://getbem.com/
+-->
+
+<!-- Variable Definitions
+     ====================
+  We start this template with the "common_variables.html" partial that will
+  extract useful variables from content front matter, project descriptions, and
+  additional data files, and expose them through the global .Scratch object. For
+  each Template / Partial / Range entered, we can then selectively extract
+  specific variables from .Scratch that are useful in that context.
+
+  For every new partial, we define a $HugoNode local variable that will be the
+  top-level global context (the Hugo Node Object) s.t. we always have a
+  consistent method of querying the Hugo Node object that will not change in
+  Partials or Ranges.
 
 {{ partial "common_variables.html" . }}
 
-{{ $project             := .Scratch.Get "project"             }}
-{{ $version             := .Scratch.Get "version"             }}
-{{ $is_latest           := .Scratch.Get "is_latest"           }}
-{{ $is_lts              := .Scratch.Get "is_lts"              }}
-{{ $display_toc         := .Scratch.Get "display_toc"         }}
-{{ $commercial_offering := .Scratch.Get "commercial_offering" }}
+{{ $HugoNode := . }}
+
+{{ $project   := $HugoNode.Scratch.Get "project"   }}
+{{ $version   := $HugoNode.Scratch.Get "version"   }}
+{{ $is_latest := $HugoNode.Scratch.Get "is_latest" }}
+{{ $is_lts    := $HugoNode.Scratch.Get "is_lts"    }}
 -->
 
-{{ partial "head.html" . }}
+{{- /* ======================================================================================== */}}
+{{- /* {{ partial "head.html" $HugoNode }}                                                      */}}
+{{- /* ======================================================================================== */}}
+
+<!-- Variable Definitions
+     ====================
+{{ $HugoNode := . }}
+
+
+{{ $title_supertext      := .Scratch.Get "title_supertext"      }}
+{{ $title                := .Scratch.Get "title"                }}
+{{ $canonical_link       := .Scratch.Get "canonical_link"       }}
+{{ $project              := .Scratch.Get "project"              }}
+{{ $version              := .Scratch.Get "version"              }}
+{{ $site_relative_url    := .Scratch.Get "site_relative_url"    }}
+{{ $version_path         := .Scratch.Get "version_path"         }}
+{{ $project_relative_url := .Scratch.Get "project_relative_url" }}
+-->
+<head class="no-js" lang="en">
+  <meta charset="utf-8">
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+  <title>{{ if $title_supertext }}{{ $title_supertext }} {{ end }}{{ $title }}</title>
+
+  <link href="/css/main.css" media="screen" rel="stylesheet" type="text/css">
+
+{{- if $canonical_link }}
+  <link rel="canonical" href="{{ $canonical_link }}" />{{end}}
+
+{{- safeHTML `
+  <!-- The below meta tags are designed to allow JS code to use variables
+       defined in Hugo---our static site generator. -->` }}
+{{- if $project }}
+  <meta name="project" content="{{ $project }}">{{end}}
+{{- if $version }}
+  <meta name="version" content="{{ $version }}">{{end}}
+  <meta name="site_relative_url"    content='{{ $site_relative_url }}'>
+{{- if $version_path }}
+  <meta name="version_url"          content='{{ $version_path }}'>{{end}}
+  <meta name="project_relative_url" content='{{ $project_relative_url }}'>
+
+{{- if .Params.version_history.in }}
+  <meta name="version_history_in" content="{{ .Params.version_history.in }}">{{end}}
+{{- if .Params.version_history.locations }}
+  <meta name="version_history_locations" content="{{ .Params.version_history.locations | jsonify }}">{{end}}
+</head>
+
+{{- /* ======================================================================================== */}}
+{{- /* END {{ partial "head.html" $HugoNode }}                                                  */}}
+{{- /* ======================================================================================== */}}
+
+
 
 <body class="{{$project}} {{$version}} {{if $is_latest}}latest{{end}} {{if $is_lts}}lts{{end}}">
 
-  {{ partial "google_tag_manager.html" . }}
+{{- /* ======================================================================================== */}}
+{{- /* {{ partial "google_tag_manager.html" $HugoNode }}                                        */}}
+{{- /* ======================================================================================== */}}
 
-  {{ $menu_title := (printf "%s-%s" $project $version) }}
-  {{ partial "navigation_sidebar.html" (dict "context" . "menu_title" $menu_title) }}
 
-  <!--TODO: Should this be moved to align with/be part of scripts.html? -->
-  {{ partial "search.html" . }}
 
-  <div role="main">
+{{- /* ======================================================================================== */}}
+{{- /* {{ partial "banner.html" $HugoNode }}                                                    */}}
+{{- /* ======================================================================================== */}}
+  <!-- Variable Definitions
+       ====================
+  {{ $HugoNode := . }}
 
-    {{ partial "header.html" . }}
+  {{ $project_path := $HugoNode.Scratch.Get "project_path" }}
+  {{ $version      := $HugoNode.Scratch.Get "version"      }}
+  -->
+  <header class="banner">
 
-    <article class="mainarticle">
+    <span class="inline-block float-right   banner__element-wrapper--menu-bars   [bs] hidden-md-up">
+      <div class="menu-bars   js_toggle-content-nav"></div>
+    </span>
 
-      {{ partial "version_selector.html" . }}
 
-      <header>
-        {{ if .Params.title_supertext }}<h1 class="title_supertext">{{ .Params.title_supertext }}</h1>{{ end }}
-        <h1>{{ .Title }}</h1>
+
+    <span class="inline-block float-left   banner__element-wrapper--version-selector   [bs] hidden-sm-down">
+
+      <!--  TODO: This block element (+ children) and the associated JavaScript
+                  assume that there will be exactly one of these elements.
+                  Consider using IDs here -- rather than classes -- to
+                  communicated uniqueness? -->
+      <div class="version-selector">
+
+        <div class="version-selector__badge">
+          <header class="version-selector__title">VERSIONS</header>
+          <button class="version-selector__btn" type="button">{{$version}}</button>
+          <div    class="version-selector__arrow"></div>
+        </div>
+
+        <ol class="hidden   version-selector__list"></ol>
+
+      </div>
+
+    </span>
+
+
+
+    <span class="inline-block float-left   banner__element-wrapper--docs-logo">
+      <a href="/index.html" class="block   docs-logo"><img class="docs-logo__image" src="/images/layout/basho_docs_logo.png"></a>
+    </span>
+
+
+
+  {{ if $project_path }}
+    <!-- TODO: Figure out how to hide this when on md/lg tablets/phones. -->
+    <span class="inline-block float-right   banner__element-wrapper--downloads-btn   [bs] hidden-sm-down">
+      <a href="{{$project_path}}/{{$version}}/downloads/" class="block   downloads-btn">
+        <span class="docs-icon--download-alt"></span>Downloads
+      </a>
+    </span>
+  {{ end              }}
+
+  </header>
+
+{{- /* ======================================================================================== */}}
+{{- /* END {{ partial "banner.html" $HugoNode }}                                                */}}
+{{- /* ======================================================================================== */}}
+
+
+
+{{- /* ======================================================================================== */}}
+{{- /* {{ partial "content_navigation.html" $HugoNode }}                                        */}}
+{{- /* ======================================================================================== */}}
+<!-- Variable Definitions
+     ====================
+{{ $HugoNode := . }}
+
+{{ $project      := $HugoNode.Scratch.Get "project"      }}
+{{ $version      := $HugoNode.Scratch.Get "version"      }}
+{{ $version_path := $HugoNode.Scratch.Get "version_path" }}   {{/* ex; /riak/kv/2.1.4          */}}
+{{ $is_latest    := $HugoNode.Scratch.Get "is_latest"    }}
+{{ $is_lts       := $HugoNode.Scratch.Get "is_lts"       }}
+
+{{ $menu_title := (printf "%s-%s" $project $version)       }} {{/* ex; riak_kv-2.1.4           */}}
+{{ $menu_list  := (index $HugoNode.Site.Menus $menu_title) }} {{/* GoLang List of Menu Objects */}}
+-->
+
+  <nav class="overflow-y   content-nav   [bs] hidden-sm-down">
+
+
+
+    <div class="content-nav__banner   [bs] hidden-md-up">
+
+      <span class="inline-block float-right   content-nav__banner-element-wrapper">
+        <div class="menu-bars   js_toggle-content-nav"></div>
+      </span>
+
+      <span class="block">This is the sm-only banner. Interactive elements for the win.</span>
+
+    </div>
+
+
+
+    <div class="content-nav__top">
+
+      <span class="block" style="text-align:center; line-height:56px; border-bottom: 1px solid rgb(212,217,222);">
+        This is the fixed top.
+      </span>
+
+
+
+      <div class="content-nav__menu-container">
+
+        <ul class="content-menu
+                   content-menu--depth-0
+                   content-menu--open">
+{{- range $menu := $menu_list }}
+<!-- Range-Specific Variable Definitions
+     ===================================
+{{ $menu_is_selected       := ($HugoNode.IsMenuCurrent  $menu_title $menu)   }} {{/* If the current menu is selected */}}
+{{ $menu_contains_selected := ($HugoNode.HasMenuCurrent $menu_title $menu)   }} {{/* If a child of the current menu is selected */}}
+{{ $menu_is_open           := (or $menu_is_selected $menu_contains_selected) }}
+{{ $menu_has_children      := $menu.HasChildren                              }}
+{{ $menu_pre_icon          := $menu.Pre                                      }} {{/* ex; lambda */}}
+{{ $menu_name              := $menu.Name                                     }}
+{{ $menu_url               := $menu.URL                                      }}
+-->
+          <li>
+            <div class="content-menu__item {{if $menu_is_selected }} content-menu__item--selected {{end}}">
+
+              <span class="block float-left   content-menu__icon-container   docs-icon--{{$menu_pre_icon}}">|</span>
+
+  {{- if $menu_has_children }}
+              <span class="block float-right   content-menu__menu-toggle
+                        {{if $menu_is_open}} content-menu__menu-toggle--open {{end}}">
+              </span>
+  {{- end }}
+
+              <a class="block overflow" href="{{$menu_url}}">
+                <strong>{{$menu_name}}</strong>
+              </a>
+
+            </div>
+
+  {{- if $menu_has_children }}
+            {{ $dict := (dict   "node" $HugoNode   "top_menu" $menu   "menu_title" $menu_title   "menu_depth" 1   "menu_is_open" $menu_is_open) }}
+            {{ partial "content_navigation_submenu.html" $dict }}
+  {{- end }}
+
+          </li>
+{{- end }}
+
+        </ul>
+
+      </div>
+
+    </div>
+
+
+    <div class="content-nav__fixed-bottom" style="text-align:center; line-height:56px; border-top: 1px solid rgb(212,217,222);">
+
+      <span class="block">
+        This is the fixed bottom
+      </span>
+
+    </div>
+
+
+
+  </nav>
+
+{{- /* ======================================================================================== */}}
+{{- /* END {{ partial "content_navigation.html" $HugoNode }}                                    */}}
+{{- /* ======================================================================================== */}}
+
+
+
+<!-- Variable Definitions
+     ====================
+{{ $HugoNode := . }}
+
+{{ $title_supertext := .Scratch.Get "title_supertext"      }}
+{{ $display_toc     := $HugoNode.Scratch.Get "display_toc" }}
+-->
+
+  <div class="content-well">
+
+
+
+    <article class="main-article">
+
+
+
+      <header class="front-matter">
+
+        <h1 class="front-matter__title">
+{{- if $title_supertext }}
+          <span class="front-matter__title--supertext">{{ $title_supertext }}</span><br>
+{{- end }}
+          {{ $title }}
+        </h1>
+
+{{- if $display_toc }}
+        <nav class="table-of-contents"></nav>
+{{- end            }}
+
       </header>
 
-      {{ if $commercial_offering }}
-      <div class="enterprise">
-        This document applies only to Riak Enterprise, Basho's <a href="http://info.basho.com/Wiki_Riak_Enterprise_Request.html">commercial offering</a>.
-      </div>
-      {{ end }}
 
-      {{ if $display_toc }}
-      <nav id="toc">
-        <h2 class="title">Contents</h2>
-        <div id="toc-wrapper">
-          <ol id="toc-items"></ol>
-        </div>
-      </nav>
-      {{ end }}
 
-      {{ .Content }}
+      <main>
 
-      <div class="clear"></div>
+        {{ $HugoNode.Content }}
+
+      </main>
+
+
 
     </article>
 
-    {{ partial "footer.html" . }}
+
+
+  {{- /* ====================================================================================== */}}
+  {{- /* {{ partial "footer.html" $HugoNode }}                                                  */}}
+  {{- /* ====================================================================================== */}}
+
+    <footer class="content-info">
+      <div class="inline-block   content-info__wrapper">
+
+        <p>
+          <a href="http://basho.com/">Basho.com</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          <a href="http://docs.basho.com/">Docs Home</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          <a href="http://basho.com/contact/">Contact Basho</a>
+        </p>
+
+        <p>
+          This work is licensed under a
+          <br class="[bs] hidden-md-up">
+          <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">
+            Creative Commons Attribution 4.0 International Public License
+          </a>
+        </p>
+
+        <p>
+          © 2011-{{.Now.Year}}&nbsp;<a href="http://www.basho.com">Basho Technologies, Inc.</a>
+        </p>
+
+      </div>
+    </footer>
+
+  {{- /* ====================================================================================== */}}
+  {{- /* END {{ partial "footer.html" $HugoNode }}                                              */}}
+  {{- /* ====================================================================================== */}}
 
   </div>
 
-  {{ partial "scripts.html" . }}
+
+
+{{- /* ======================================================================================== */}}
+{{- /* {{ partial "scripts.html" $HugoNode }}                                                   */}}
+{{- /* ======================================================================================== */}}
+  <script src="/js/main.js" type="text/javascript"></script>
+{{- /* ======================================================================================== */}}
+{{- /* END {{ partial "scripts.html" $HugoNode }}                                               */}}
+{{- /* ======================================================================================== */}}
+
+
 
 </body>
 </html>
