@@ -78,50 +78,21 @@
 
 
 
-<!-- Variable Definitions
-     ====================
-{{ $HugoNode := . }}
-
-{{ $title_supertext := $HugoNode.Scratch.Get "title_supertext" }}
-{{ $display_toc     := $HugoNode.Scratch.Get "display_toc"     }}
-{{ $title           := $HugoNode.Scratch.Get "title"           }}
--->
-
   <div class="content-well">
-
 
 
     <article class="main-article">
 
 
-
-      <header class="front-matter">
-
-        <h1 class="front-matter__title">
-{{- if $title_supertext }}
-          <span class="front-matter__title--supertext">{{ $title_supertext }}</span><br>
-{{- end }}
-          {{ $title }}
-        </h1>
-
-{{- if $display_toc }}
-        <nav class="table-of-contents"></nav>
-{{- end            }}
-
-      </header>
-
+      {{ partial "article_front_matter.html" $HugoNode }}
 
 
       <main>
-
         {{ $HugoNode.Content }}
-
       </main>
 
 
-
     </article>
-
 
 
   {{- /* ====================================================================================== */}}
