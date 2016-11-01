@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<!-- Variable Definitions
+     ====================
+  See _default/single.html for a general discussion on format and variables.
+
+  This template is specifically for the Community section. Community pages
+  require significantly less front matter than project pages, to the point that
+  we don't need to include the common_variables.html partial. Save the lack of
+  dynamism, these pages will look very similar to more general project pages.
+
+
+{{ $HugoNode := . }}
+-->
+
+
+
+{{ partial "head.html" $HugoNode }}
+
+
+
+<body class="community">
+
+
+  <!-- NOTE: We're going to leave this commented out until we're ready to deploy
+       to the production S3 server. -->
+  {{/* partial "google_tag_manager.html" $HugoNode */}}
+
+
+  {{ partial "banner.html" $HugoNode }}
+
+
+  {{ $dict := (dict   "node" $HugoNode   "menu_title" "community" ) }}
+  {{ partial "content_navigation.html" $dict }}
+
+
+
+  <div class="content-well">
+
+
+    <article class="main-article">
+
+
+      {{ partial "article_front_matter.html" $HugoNode }}
+
+
+      <main>
+        {{ $HugoNode.Content }}
+      </main>
+
+
+    </article>
+
+
+    {{ partial "footer.html" $HugoNode }}
+
+
+  </div>
+
+
+  <script src="/js/main.js" type="text/javascript"></script>
+
+</body>
+</html>
