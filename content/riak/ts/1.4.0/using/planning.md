@@ -41,9 +41,8 @@ CREATE TABLE GeoCheckin
 (
    id           SINT64    NOT NULL,
    region       VARCHAR   NOT NULL,
-   time         TIMESTAMP NOT NULL,
-   region       VARCHAR   NOT NULL,
    state        VARCHAR   NOT NULL,
+   time         TIMESTAMP NOT NULL,
    weather      VARCHAR   NOT NULL,
    temperature  DOUBLE,
    PRIMARY KEY (
@@ -133,6 +132,7 @@ The `PRIMARY KEY` describes both the partition key and local key. The partition 
 CREATE TABLE GeoCheckin
 (
    id           SINT64    NOT NULL,
+   region       VARCHAR   NOT NULL,
    state        VARCHAR   NOT NULL,
    time         TIMESTAMP NOT NULL,
    weather      VARCHAR   NOT NULL,
