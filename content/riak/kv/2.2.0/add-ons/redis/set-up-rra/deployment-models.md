@@ -75,7 +75,7 @@ Connections:
 * Redis: The connection between the RRA Service instance and Redis Service
   instance is local.
 * Riak: The connections between RRA to Riak Nodes is distributed and bounded to
-  equal the number of Riak nodes.
+  equal the number of Riak nodes _squared_.
 
 Advantages:
 
@@ -129,10 +129,10 @@ Disadvantages:
 * Typically increased distance between the application service and Redis and
   Riak services, so increased latency compared to local.
 
-### Suggestion
+### Recommendation
 
-To be clear, in case the relative advantages, disadvantages, and explanation text
-is not, for the typical solution that calls for caching to reduce latency and/or
-to reduce read pressure from the persistent data service, the Distributed Cache
-Deployment is the suggested deployment model.
-
+The relative advantages and disadvantages of the Distributed Cache Deployment,
+most notably the increased cache hit rate and reduced connection overhead,
+should make it the standout choice for applications requiring the scale and
+operational simplicity of Riak. For this reason, we recommend the Distributed
+Cache Deployment.
