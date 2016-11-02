@@ -27,7 +27,7 @@ For example:
 DESCRIBE GeoCheckin
 ```
 
-Returns: 
+Returns:
 
 ```
 Column      | Type      | Is Null | Partition Key | Local Key | Interval | Unit
@@ -47,8 +47,8 @@ riak-shell>describe GeoCheckin;
 +-----------+---------+-------+-----------+---------+--------+----+
 |  Column   |  Type   |Is Null|Primary Key|Local Key|Interval|Unit|
 +-----------+---------+-------+-----------+---------+--------+----+
-| myfamily  | varchar | false |     1     |    1    |        |    |
-| myseries  | varchar | false |     2     |    2    |        |    |
+|  region   | varchar | false |     1     |    1    |        |    |
+|   state   | varchar | false |     2     |    2    |        |    |
 |   time    |timestamp| false |     3     |    3    |   15   | m  |
 |  weather  | varchar | false |           |         |        |    |
 |temperature| double  | true  |           |         |        |    |

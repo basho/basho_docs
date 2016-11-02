@@ -39,16 +39,15 @@ In order to create a working Riak TS table, you'll need to plan your table out. 
 ```sql
 CREATE TABLE GeoCheckin
 (
-   id           SINT64    NOT NULL,
-   region       VARCHAR   NOT NULL,
-   state        VARCHAR   NOT NULL,
-   time         TIMESTAMP NOT NULL,
-   weather      VARCHAR   NOT NULL,
-   temperature  DOUBLE,
-   PRIMARY KEY (
-     (id, QUANTUM(time, 15, 'm')),
-      id, time
-   )
+  region       VARCHAR   NOT NULL,
+  state        VARCHAR   NOT NULL,
+  time         TIMESTAMP NOT NULL,
+  weather      VARCHAR   NOT NULL,
+  temperature  DOUBLE,
+  PRIMARY KEY (
+    (region, state, QUANTUM(time, 15, 'm')),
+    region, state, time
+  )
 )
 ```
 
@@ -69,7 +68,7 @@ You cannot create a table with more than 511 total columns. If you try to create
 
 ### Column Definitions
 
-Column definitions define the structure of the data and are comprised of three parts: a column name, a data type, and (optionally) an inline constraint. 
+Column definitions define the structure of the data and are comprised of three parts: a column name, a data type, and (optionally) an inline constraint.
 
 ```sql
 column_name data_type [NOT NULL],
@@ -84,17 +83,17 @@ The column definitions for the keys can be specified in any order in the CREATE 
 **A.**
 ```sql
 CREATE TABLE GeoCheckin
+CREATE TABLE GeoCheckin
 (
-   id           SINT64    NOT NULL,
-   region       VARCHAR   NOT NULL,
-   state        VARCHAR   NOT NULL,
-   time         TIMESTAMP NOT NULL,
-   weather      VARCHAR   NOT NULL,
-   temperature  DOUBLE,
-   PRIMARY KEY (
-     (id, QUANTUM(time, 15, 'm')),
-      id, time
-   )
+  region       VARCHAR   NOT NULL,
+  state        VARCHAR   NOT NULL,
+  time         TIMESTAMP NOT NULL,
+  weather      VARCHAR   NOT NULL,
+  temperature  DOUBLE,
+  PRIMARY KEY (
+    (region, state, QUANTUM(time, 15, 'm')),
+    region, state, time
+  )
 )
 ```
 
@@ -103,14 +102,13 @@ CREATE TABLE GeoCheckin
 CREATE TABLE GeoCheckin
 (
    time         TIMESTAMP NOT NULL,
-   id           SINT64    NOT NULL,
    state        VARCHAR   NOT NULL,
    weather      VARCHAR   NOT NULL,
    region       VARCHAR   NOT NULL,
    temperature  DOUBLE,
    PRIMARY KEY (
-     (id, QUANTUM(time, 15, 'm')),
-      id, time
+     (region, state, QUANTUM(time, 15, 'm')),
+     region, state, time
    )
 )
 ```
@@ -131,15 +129,14 @@ The `PRIMARY KEY` describes both the partition key and local key. The partition 
 ```sql
 CREATE TABLE GeoCheckin
 (
-   id           SINT64    NOT NULL,
    region       VARCHAR   NOT NULL,
    state        VARCHAR   NOT NULL,
    time         TIMESTAMP NOT NULL,
    weather      VARCHAR   NOT NULL,
    temperature  DOUBLE,
    PRIMARY KEY (
-     (id, QUANTUM(time, 15, 'm')),  <-- PARTITION KEY
-      id, time                      <-- LOCAL KEY
+     (region, state, QUANTUM(time, 15, 'm')),  <-- PARTITION KEY
+     region, state, time                       <-- LOCAL KEY
    )
 )
 ```
@@ -150,15 +147,14 @@ The field definitions for the `PRIMARY KEY` can be specified in any order in the
 ```sql
 CREATE TABLE GeoCheckin
 (
-   id           SINT64    NOT NULL,
    region       VARCHAR   NOT NULL,
    state        VARCHAR   NOT NULL,
    time         TIMESTAMP NOT NULL,
    weather      VARCHAR   NOT NULL,
    temperature  DOUBLE,
    PRIMARY KEY (
-     (id, state, time,
-      id, state, time
+     (region, state, QUANTUM(time, 15, 'm')),
+      region, state, time
    )
 )
 ```
@@ -167,15 +163,14 @@ CREATE TABLE GeoCheckin
 ```sql
 CREATE TABLE GeoCheckin
 (
-   id           SINT64    NOT NULL,
    region       VARCHAR   NOT NULL,
    state        VARCHAR   NOT NULL,
    time         TIMESTAMP NOT NULL,
    weather      VARCHAR   NOT NULL,
    temperature  DOUBLE,
    PRIMARY KEY (
-     (state, id, time,
-      state, id, time, region
+     (state, region, QUANTUM(time, 15, 'm')),
+      state, region, time, region
    )
 )
 ```
@@ -190,7 +185,7 @@ A general guideline is to first choose a column name that represents a class or 
 You may specify a quantum, which is used to colocate data on one of the partition key's timestamp fields:
 
 ```sql
-PRIMARY KEY  ((id, QUANTUM(time, 1, 's')), ...)
+PRIMARY KEY  ((region, state, QUANTUM(time, 1, 's')), ...)
 ```
 
 If you choose to specify a quantum, you may specify only one and it must be the last element of the partition key.
@@ -214,11 +209,42 @@ The local key may also contain additional column names so long as they come afte
 
 ```sql
    PRIMARY KEY (
-     (id, QUANTUM(time, 15, 'm')),
-      id, time, weather, temperature
+     (region, state, QUANTUM(time, 15, 'm')),
+      region, state, time, weather, temperature
    )
 ```
 
+{{% note title="On Local Key Uniqueness" %}}
+
+The Local Key in a Riak TS row is what makes that row's key/address unique from other rows.
+In the examples on this page and others we've used a composite key of
+`region, state, time` because it can model different devices and groupings.  
+If you have another identifier such as an Integer (such as a device ID) that you can guarantee to be unique when combined with a timestamp, then you can have a shorter key definition.
+
+The table definition for such a schema would be as follows:
+
+```sql
+CREATE TABLE GeoCheckin
+(
+   id           SINT64    NOT NULL,
+   region       VARCHAR   NOT NULL,
+   state        VARCHAR   NOT NULL,
+   time         TIMESTAMP NOT NULL,
+   weather      VARCHAR   NOT NULL,
+   temperature  DOUBLE,
+   PRIMARY KEY (
+     (id, QUANTUM(time, 15, 'm')),  <-- PARTITION KEY
+      id, time                      <-- LOCAL KEY
+   )
+)
+```
+
+The omission of `region` and `state` from the key definition makes it shorter, and will also make any SQL queries shorter because we'll only need a minimum of id/time in our queries `WHERE` clauses.  
+
+The downside to this schema is that you'll likely need to do one query per device, instead of being able to group multiple devices together based on their other defining characteristics such as region & state.
+
+Please take care in defining how you address your unique data, as it will affect how you will query it in the future.
+{{% /note %}}
 
 ## More information
 

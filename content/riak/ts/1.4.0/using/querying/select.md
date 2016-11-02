@@ -25,7 +25,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/select"
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
 [learn timestamps accuracy]: /riak/ts/1.4.0/learn-about/timestamps/#reduced-accuracy
 
-You can use the SELECT statement in Riak TS to query your TS dataset. This document will show you how to run various queries using `SELECT`. 
+You can use the SELECT statement in Riak TS to query your TS dataset. This document will show you how to run various queries using `SELECT`.
 
 * See the [guidelines] for more information on limitations and rules for queries in TS.
 * See [aggregate functions] to learn how turn a set of rows in your Riak TS table into a value.
