@@ -192,3 +192,36 @@ ul ol {
   margin-bottom : 1rem;
   padding-left  : 2.5rem;
 }
+
+
+
+/**
+ * Tables
+ * 1. Tightly packed, inline code was looking pretty awful with the background
+ *    color and left/right padding that didn't apply to wrapped lines. To
+ *    rectify this, we remove the background color, strip all padding, but
+ *    increase the size of the text a bit to make it stand out against the serif
+ *    prose surrounding it.
+ */
+table {
+  margin-top    : 1rem;
+  margin-bottom : 1rem;
+
+  code {
+    background : transparent;  /* 1 */
+    padding    : 0;            /* 1 */
+    font-size  : 95%;          /* 1 */
+  }
+}
+
+thead {
+  border-bottom : 1px solid $gray-15;
+}
+
+th {
+  padding : 0.25rem 0.5rem;
+}
+
+td {
+  padding : 0.5rem;
+}
