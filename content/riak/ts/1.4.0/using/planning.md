@@ -214,7 +214,7 @@ The local key may also contain additional column names so long as they come afte
    )
 ```
 
-{{% note title="On Local Key Uniqueness" %}}
+{{% note title="On Key Uniqueness" %}}
 
 The Local Key in a Riak TS row is what makes that row's key/address unique from other rows.
 In the examples on this page and others we've used a composite key of
@@ -239,7 +239,7 @@ CREATE TABLE GeoCheckin
 )
 ```
 
-The omission of `region` and `state` from the key definition makes it shorter, and will also make any SQL queries shorter because we'll only need a minimum of id/time in our queries `WHERE` clauses.  
+The omission of `region` and `state` from the key definition makes it shorter, and will also make any SQL queries shorter because we'll only need a minimum of id/time in our queries `WHERE` clauses (see [Table Architecture](../../learn-about/tablearchitecture/) and [Querying Guidelines](../querying/guidelines/) for all the specifics about how different partition + local key layouts change the way you query data).  
 
 The downside to this schema is that you'll likely need to do one query per device, instead of being able to group multiple devices together based on their other defining characteristics such as region & state.
 
