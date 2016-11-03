@@ -340,12 +340,13 @@ assertTrue(cells.get(0) != null);
 assertTrue(cells.get(0).hasVarcharValue());
 assertTrue(cells.get(0).getVarcharAsUTF8String().equals("South Atlantic"));
 
-assertTrue(cells.get(1) == null); // Null cells are represented as literal nulls in the row.
+assertTrue(cells.get(1) == null); // Null cells are represented as literal nulls in the row object's cell iterator.
 ```
 
 ```ruby
 Riak::Timeseries::Query.new(client, "SELECT region, temperature FROM GeoCheckin WHERE time > 1234560 AND time < 1234569 AND region = 'South Atlantic' AND state = 'South Carolina' AND temperature IS NULL").issue!
 
+#=> [["South Atlantic", nil], ["South Atlantic", nil]]
 ```
 
 ```python
@@ -358,6 +359,8 @@ AND temperature IS NULL
 query = fmt.format(t1=tenMinsAgoMsec, t2=nowMsec)
 ts_obj = client.ts_query('GeoCheckin', query)
 
+print ts_obj.rows
+# [["South Atlantic", None], ["South Atlantic", None]]
 ```
 
 ```csharp
@@ -375,12 +378,21 @@ var cmd = new Query.Builder()
     .Build();
 
 RiakResult rslt = client.Execute(cmd);
+
+QueryResponse response = cmd.Response;
+Row firstRow = response.Value.First();
+Assert.AreEqual("South Atlantic", firstRow.Cells.ElementAt(0).Value);
+Assert.IsNull(firstRow.Cells.ElementAt(1).Value);
 ```
 
 ```javascript
 var callback = function(err, resp) {
     // resp.rows and resp.columns
     // have data
+    // each row is an array of cells or null values.
+    var firstRow = result.rows[0];
+    firstRow[0]; // Returns "South Atlantic"
+    firstRow[1]; // Returns null
 };
 // NB: t1/t2 are integers representing unix timestamps with
 // millisecond resolution
@@ -397,6 +409,9 @@ cluster.execute(q);
 
 ```erlang
 riakc_ts:query(Pid, "SELECT region, temperature FROM GeoCheckin WHERE time > 1234560 AND time < 1234569 AND region = 'South Atlantic' AND state = 'South Carolina' AND temperature IS NULL").
+%% Returns
+%% {ok,{[<<"region">>,<<"temperature">>],
+%%     [{<<"South Atlantic">>,[]},{<<"South Atlantic">>,[]}]}}
 ```
 
 ```php
@@ -404,6 +419,8 @@ $response = (new Command\Builder\TimeSeries\Query($riak))
     ->withQuery("SELECT region, temperature FROM GeoCheckin WHERE time > 1234560 AND time < 1234569 AND region = 'South Atlantic' AND state = 'South Carolina' AND temperature IS NULL")
     ->build()
     ->execute();
+$response->getResults()[0][0]->getValue(); // returns "South Atlantic"
+$response->getResults()[0][1]->getValue(); // returns null
 ```
 
 ```golang
@@ -415,5 +432,14 @@ if err != nil {
     return err
 }
 
-err = cluster.Execute(cmd)
+err = cluster.Execute(cmd);
+
+if err != nil {
+    return err
+}
+
+scmd, ok := cmd.(*TsQueryCommand);
+
+scmd.Response.Rows[0][0].GetStringValue() // returns "South Atlantic"
+scmd.Response.Rows[0][1] // returns nil
 ```
