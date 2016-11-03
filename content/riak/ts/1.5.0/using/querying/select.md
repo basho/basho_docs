@@ -412,6 +412,8 @@ riakc_ts:query(Pid, "SELECT region, temperature FROM GeoCheckin WHERE time > 123
 %% Returns
 %% {ok,{[<<"region">>,<<"temperature">>],
 %%     [{<<"South Atlantic">>,[]},{<<"South Atlantic">>,[]}]}}
+%%
+%% In the Erlang client, null cells are represented as empty lists ([])
 ```
 
 ```php
