@@ -22,7 +22,7 @@
 //= require ./vendor/jquery-2.2.4.js
 //= require ./vendor/tether-1.1.0.js
 //= require ./vendor/bootstrap-v4.0.0-alpha.2-18ee98b.js
-//= require ./vendor/highlight-9.3.0.pack.js
+//= require ./vendor/highlight-9.7.0.pack.js
 
 
 
@@ -44,3 +44,18 @@
 
 //= require ./basho/content-nav.js
 //= require ./basho/version-selector.js
+
+
+
+/* Vendor Library Configuration and Initialization
+ * -----------------------------------------------
+ * Some vendor code requires some configuration and execution. This seems as
+ * good a place as any to perform those configurations and execute.
+ */
+
+/* Highlight.js
+ * Configure HLJS to perform no auto-detection (only fenced codeblocks with
+ * explicitly-set languages will be highlighted) and queue it's OnLoad feature.
+ */
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
