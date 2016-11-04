@@ -1,0 +1,134 @@
+/**
+ * Content Navigation
+ * ==================
+ * The Content Navigation element is a pretty complex piece of this site, so
+ * this file may grow pretty large.
+ * Note that this file relies on the `$content-nav-shares-banner` toggles set in
+ * _wireframe.scss, as well as `$banner-height-sm-down` and
+ * `$banner-height-md-up`.
+ */
+
+// Because of the way we're locking the .content-nav__fixed-bottom element to
+// the bottom of the screen, we need a concrete size for that element that will
+// be used in numerous classes.
+$fixed-bottom-height : 5rem;
+
+
+
+/**
+ * Content Navigation root element
+ * PRESENTATION ONLY -- See _wireframe.scss for position and size.
+ * 1. Full-sized fonts for interactive sizes.
+ * 2. Reduced-sized fonts when sharing real estate on small-ish screens
+ * 3. Closer to full-sized fonts when displaying on large screens.
+ */
+.content-nav {
+  @extend %sans;
+  background : $gray-warm-light;
+
+  @include width-exactly('xs') { font-size : 100%; } /* 1 */
+  @include width-exactly('sm') { font-size : 100%; } /* 1 */
+  @include width-exactly('md') { font-size :  80%; } /* 2 */
+  @include width-exactly('lg') { font-size :  90%; } /* 3 */
+  @include width-exactly('xl') { font-size :  90%; } /* 3 */
+
+  color : $gray-50;
+
+  //TODO: consider (strongly) moving these colors into _content-menu.scss,
+  //      specifically the .content-menu--item?
+  a {
+    color : $gray-50;
+
+    @include on-event {
+      color : $gray-15;
+    }
+  }
+}
+
+
+
+// If we're sharing the primary content's banner, just set `display: none` on
+// this thing and go home. Otherwise, read the comment and do the things.
+@if($content-nav-shares-banner) {
+.content-nav__banner {
+  display : none !important;
+}
+} @else { //@if($content-nav-shares-banner)
+/**
+ * Content Navigation Fixed Banner (optional).
+ * This element behaves almost identically to the primary .banner element. It
+ * uses fixed positioning, so the position of other elements will have to be
+ * adjusted to account for it.
+ * 1. We have to set any z-index, or else ::after elements won't respect the
+ *    background gradient.
+ * 2. This is a `.hidden-md-up` element, so we don't need to worry about
+ *    overriding the width later, but we do need to explicitly set it to 100% of
+ *    its parent (the .content-nav) or else it won't hide correctly (width will
+ *    be double the patent when `left: -100%`).
+ */
+.content-nav__banner {
+  position : fixed;
+  z-index  : 1;     /* 1 */
+  width    : 100%;  /* 2 */
+
+  background: linear-gradient(to top, rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 80%);
+  // This is for IE6-9. Not sure if we want to bother w/ it.
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#CCffffff', GradientType=0 );
+
+  height        : $banner-height-sm-down;
+  padding-left  : 1.25rem;
+  padding-right : 1rem;
+
+  border-bottom : 1px solid $gray-lighter;
+}
+
+/**
+ * Wrapper class for elements placed in the content nav banner.
+ */
+.content-nav__banner-element-wrapper {
+  height : 100%;
+}
+} //@if($content-nav-shares-banner)
+
+
+
+/**
+ * Upper portion of the Content Nav that is dynamically flowed. (Flown?)
+ * 1. `min-height : 100%` is set s.t. this element will always flow to _at
+ *    least_ the bottom of the window. The positioning of the fixed-bottom
+ *    element relies on this, and we want to allow this element to expand as far
+ *    down as will be necessary to display all sub-menu items.
+ * 2. We need to set a padding-bottom equal to the height of the fixed bottom
+ *    element s.t. the negative margin of that element won't result in any menu
+ *    items being obscured. Margin collapse means no over-scrolling on that. Yey
+ * 3. Similarly, we need to apply a top-padding to prevent the banner from
+ *    obscuring the first few menu items.
+ */
+.content-nav__top {
+  min-height     : 100%;                  /* 1 */
+  padding-bottom : $fixed-bottom-height;  /* 2 */
+
+  padding-top    : if($content-nav-shares-banner, 0, $banner-height-sm-down); /* 3 */
+
+  @include wide-from(md) {
+    padding-top  : 0;
+  }
+}
+
+
+
+/**
+ * Lowest portion of the Content Nav, always fixed to the bottom of the menu.
+ * 1. The top margin is set to negative height **plus 1px** s.t. the
+ *    `border-bottom` of the last menu item is consumed by the top pixel of the
+ *    fixed bottom (which we're assuming will be a border).
+ * 2. This item's height has to be explicitly set for the above reason(s). See
+ *    the note on the .content-nav__top element for a better description.
+ */
+.content-nav__fixed-bottom {
+  margin-top : -1 * ($fixed-bottom-height + p2r(1px));  /* 1 */
+  height     : $fixed-bottom-height;                    /* 2 */
+
+  padding-left  : 1.25rem;
+  padding-right : 1rem;
+}

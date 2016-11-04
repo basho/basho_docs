@@ -120,20 +120,6 @@
 
 
 {{- /* ======================================================================================== */}}
-{{- /* {{ partial "content_navigation.html" $HugoNode }}                                        */}}
-{{- /* ======================================================================================== */}}
-
-  <nav class="content-nav   [bs] hidden-sm-down">
-    This is the sidenav.
-  </nav>
-
-{{- /* ======================================================================================== */}}
-{{- /* END {{ partial "content_navigation.html" $HugoNode }}                                    */}}
-{{- /* ======================================================================================== */}}
-
-
-
-{{- /* ======================================================================================== */}}
 {{- /* {{ partial "banner.html" $HugoNode }}                                                    */}}
 {{- /* ======================================================================================== */}}
   <!-- Variable Definitions
@@ -145,8 +131,8 @@
   -->
   <header class="banner">
 
-    <span class="inline-block float-left   banner__element-wrapper--menu-bars   [bs] hidden-md-up">
-      <div class="menu-bars"></div>
+    <span class="inline-block float-right   banner__element-wrapper--menu-bars   [bs] hidden-md-up">
+      <div class="menu-bars   js_toggle-content-nav"></div>
     </span>
 
 
@@ -173,7 +159,7 @@
 
 
 
-    <span class="inline-block float-right-sm-down float-left-md-up   banner__element-wrapper--docs-logo">
+    <span class="inline-block float-left   banner__element-wrapper--docs-logo">
       <a href="/index.html" class="block   docs-logo"><img class="docs-logo__image" src="/images/layout/basho_docs_logo.png"></a>
     </span>
 
@@ -193,6 +179,116 @@
 {{- /* ======================================================================================== */}}
 {{- /* END {{ partial "banner.html" $HugoNode }}                                                */}}
 {{- /* ======================================================================================== */}}
+
+
+
+{{- /* ======================================================================================== */}}
+{{- /* {{ partial "content_navigation.html" $HugoNode }}                                        */}}
+{{- /* ======================================================================================== */}}
+<!-- Variable Definitions
+     ====================
+{{ $HugoNode := . }}
+
+{{ $project      := $HugoNode.Scratch.Get "project"      }}
+{{ $version      := $HugoNode.Scratch.Get "version"      }}
+{{ $version_path := $HugoNode.Scratch.Get "version_path" }}   {{/* ex; /riak/kv/2.1.4          */}}
+{{ $is_latest    := $HugoNode.Scratch.Get "is_latest"    }}
+{{ $is_lts       := $HugoNode.Scratch.Get "is_lts"       }}
+
+{{ $menu_title := (printf "%s-%s" $project $version)       }} {{/* ex; riak_kv-2.1.4           */}}
+{{ $menu_list  := (index $HugoNode.Site.Menus $menu_title) }} {{/* GoLang List of Menu Objects */}}
+-->
+
+  <nav class="overflow-y   content-nav   [bs] hidden-sm-down">
+
+
+
+    <div class="content-nav__banner   [bs] hidden-md-up">
+
+      <span class="inline-block float-right   content-nav__banner-element-wrapper">
+        <div class="menu-bars   js_toggle-content-nav"></div>
+      </span>
+
+      <span class="block">This is the sm-only banner. Interactive elements for the win.</span>
+
+    </div>
+
+
+
+    <div class="content-nav__top">
+
+      <span class="block" style="text-align:center; line-height:56px; border-bottom: 1px solid rgb(212,217,222);">
+        This is the fixed top.
+      </span>
+
+
+
+      <div class="content-nav__menu-container">
+
+        <ul class="content-menu
+                   content-menu--depth-0
+                   content-menu--open">
+{{- range $menu := $menu_list }}
+<!-- Range-Specific Variable Definitions
+     ===================================
+{{ $menu_is_selected       := ($HugoNode.IsMenuCurrent  $menu_title $menu)   }} {{/* If the current menu is selected */}}
+{{ $menu_contains_selected := ($HugoNode.HasMenuCurrent $menu_title $menu)   }} {{/* If a child of the current menu is selected */}}
+{{ $menu_is_open           := (or $menu_is_selected $menu_contains_selected) }}
+{{ $menu_has_children      := $menu.HasChildren                              }}
+{{ $menu_pre_icon          := $menu.Pre                                      }} {{/* ex; lambda */}}
+{{ $menu_name              := $menu.Name                                     }}
+{{ $menu_url               := $menu.URL                                      }}
+-->
+          <li>
+            <div class="content-menu__item {{if $menu_is_selected }} content-menu__item--selected {{end}}">
+
+              <span class="block float-left   content-menu__icon-container   docs-icon--{{$menu_pre_icon}}">|</span>
+
+  {{- if $menu_has_children }}
+              <span class="block float-right   content-menu__menu-toggle
+                        {{if $menu_is_open}} content-menu__menu-toggle--open {{end}}">
+              </span>
+  {{- end }}
+
+              <a class="block overflow" href="{{$menu_url}}">
+                <strong>{{$menu_name}}</strong>
+              </a>
+
+            </div>
+
+  {{- if $menu_has_children }}
+            {{ $dict := (dict   "node" $HugoNode   "top_menu" $menu   "menu_title" $menu_title   "menu_depth" 1   "menu_is_open" $menu_is_open) }}
+            {{ partial "sandbox/content_navigation_submenu.html" $dict }}
+  {{- end }}
+
+          </li>
+{{- end }}
+
+        </ul>
+
+      </div>
+
+    </div>
+
+
+    <div class="content-nav__fixed-bottom" style="text-align:center; line-height:56px; border-top: 1px solid rgb(212,217,222);">
+
+      <span class="block">
+        This is the fixed bottom
+      </span>
+
+    </div>
+
+
+
+  </nav>
+
+{{- /* ======================================================================================== */}}
+{{- /* END {{ partial "content_navigation.html" $HugoNode }}                                    */}}
+{{- /* ======================================================================================== */}}
+
+
+
 <!-- Variable Definitions
      ====================
 {{ $HugoNode := . }}
@@ -201,70 +297,76 @@
 {{ $display_toc     := $HugoNode.Scratch.Get "display_toc" }}
 -->
 
-  <article class="main-article" style="background-color:rgba(0, 0, 127, 0.5)">
+  <div class="content-well">
 
 
 
-    <header class="front-matter">
+    <article class="main-article">
 
-      <h1 class="front-matter__title">
+
+
+      <header class="front-matter">
+
+        <h1 class="front-matter__title">
 {{- if $title_supertext }}
-        <span class="front-matter__title--supertext">{{ $title_supertext }}</span><br>
+          <span class="front-matter__title--supertext">{{ $title_supertext }}</span><br>
 {{- end }}
-        {{ $title }}
-      </h1>
+          {{ $title }}
+        </h1>
 
 {{- if $display_toc }}
-      <nav class="table-of-contents"></nav>
+        <nav class="table-of-contents"></nav>
 {{- end            }}
 
-    </header>
+      </header>
 
 
 
-    <main>
-      {{ $HugoNode.Content }}
-    </main>
+      <main>
+        {{ $HugoNode.Content }}
+      </main>
 
 
 
-  </article>
+    </article>
 
 
 
-{{- /* ======================================================================================== */}}
-{{- /* {{ partial "footer.html" $HugoNode }}                                                    */}}
-{{- /* ======================================================================================== */}}
+  {{- /* ====================================================================================== */}}
+  {{- /* {{ partial "footer.html" $HugoNode }}                                                  */}}
+  {{- /* ====================================================================================== */}}
 
-  <footer class="content-info">
-    <div class="inline-block   content-info__wrapper">
+    <footer class="content-info">
+      <div class="inline-block   content-info__wrapper">
 
-      <p>
-        <a href="http://basho.com/">Basho.com</a>
-        &nbsp;&nbsp;-&nbsp;&nbsp;
-        <a href="http://docs.basho.com/">Docs Home</a>
-        &nbsp;&nbsp;-&nbsp;&nbsp;
-        <a href="http://basho.com/contact/">Contact Basho</a>
-      </p>
+        <p>
+          <a href="http://basho.com/">Basho.com</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          <a href="http://docs.basho.com/">Docs Home</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          <a href="http://basho.com/contact/">Contact Basho</a>
+        </p>
 
-      <p>
-        This work is licensed under a
-        <br class="[bs] hidden-md-up">
-        <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">
-          Creative Commons Attribution 4.0 International Public License
-        </a>
-      </p>
+        <p>
+          This work is licensed under a
+          <br class="[bs] hidden-md-up">
+          <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">
+            Creative Commons Attribution 4.0 International Public License
+          </a>
+        </p>
 
-      <p>
-        © 2011-{{.Now.Year}}&nbsp;<a href="http://www.basho.com">Basho Technologies, Inc.</a>
-      </p>
+        <p>
+          © 2011-{{.Now.Year}}&nbsp;<a href="http://www.basho.com">Basho Technologies, Inc.</a>
+        </p>
 
-    </div>
-  </footer>
+      </div>
+    </footer>
 
-{{- /* ======================================================================================== */}}
-{{- /* END {{ partial "footer.html" $HugoNode }}                                                */}}
-{{- /* ======================================================================================== */}}
+  {{- /* ====================================================================================== */}}
+  {{- /* END {{ partial "footer.html" $HugoNode }}                                              */}}
+  {{- /* ====================================================================================== */}}
+
+  </div>
 
 
 

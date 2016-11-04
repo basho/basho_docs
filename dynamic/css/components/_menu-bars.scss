@@ -20,6 +20,8 @@ $bar-height : 0.125em;
   width  : $bar-width;       /* 1 */
   height : $bar-height * 5;  /* 1 */
 
+  cursor : pointer;
+
   &:before {
     content : "";
 
@@ -36,6 +38,11 @@ $bar-height : 0.125em;
 
   @include when-inside('.banner') {
     @include pos-relative-vertical-align;
-    font-size : 2em;
+    font-size : 2.5em;
+  }
+
+  @include when-inside('.content-nav') {
+    @include pos-relative-vertical-align;
+    font-size : 2.5em;
   }
 }

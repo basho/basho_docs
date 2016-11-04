@@ -22,6 +22,10 @@
 // of the banner.
 $content-nav-is-full-height : true;
 
+// Whether the Content Navigation menu uses the same banner as the default site
+// when the Content Nav is visible on small screens, or if a second banner is
+// included in the menu.
+$content-nav-shares-banner : false;
 
 // Styling Variables
 // =================
@@ -40,25 +44,50 @@ $article-padding-top-sm-down : $banner-height-sm-down + $banner-buffer-sm-down;
 $article-padding-top-md-up   : $banner-height-md-up   + $banner-buffer-md-up;
 
 
-$content-nav-width : 14rem;
+$content-nav-width-md    : 14rem;
+$content-nav-width-lg-up : 15rem;
 
 
 
 /**
  * Content Navigation
  * POSITION & SIZE ONLY -- See _content-nav.scss for presentation.
- * 1. This should be set in the markup, but is important to know.
+ * NB. This element is expected to be .hidden-sm-down, but when JS is
+ *     enabled, we will remove (or override?) that attribute to make it visible
+ *     at all breakpoints.
+ * 1. When we're in a smaller width, we want the content nav to start hidden,
+ *    and reactively animate to fill the screen when we want it to be displayed.
+ * 2. When we're in a wider width, we want the content nav to always be fixed to
+ *    the left side of the screen.
+ * 3. Setting a `top: n` and a `bottom: 0` let's us get around the rough edges
+ *    of `height: 100%`. Should also work if we're not using `border-box` sizes.
  */
 .content-nav {
-  // @extend .hidden-sm-down; /* 1 */
-  position: fixed;
+  position : fixed;                          /* 1, 2 */
+  //TODO: turn all z-indexes into variables set at the top of the file.
+  z-index  : 300;
 
-  @if $content-nav-is-full-height == true { top : 0;                    }
-  @else                                   { top : $banner-height-md-up; }
-  left : 0;
+  width  : 100%;
+  top    : if($content-nav-shares-banner, $banner-height-sm-down, 0);  /* 3 */
+  bottom : 0;                                                          /* 3 */
 
-  width  : $content-nav-width;
-  height : 100%;
+  left       : -100%;                        /* 1 */
+  transition : left 200ms ease-in-out 50ms;  /* 1 */
+
+  @include narrow-from(sm) {
+    &.content-nav--fullscreen {
+      left : 0;                              /* 1 */
+    }
+  }
+
+  @include wide-from(md) {
+    top   : if($content-nav-is-full-height, 0, $banner-height-md-up);  /* 3 */
+    left  : 0;                               /* 2 */
+    width : $content-nav-width-md;
+  }
+  @include wide-from(lg) {
+    width : $content-nav-width-lg-up;
+  }
 }
 
 
@@ -78,9 +107,48 @@ $content-nav-width : 14rem;
   height   : $banner-height-sm-down;
 
   @include wide-from(md) {
-    @if $content-nav-is-full-height == true { left : $content-nav-width; }
-    @else                                   { left : 0;                  }
+    @if $content-nav-is-full-height == true { left : $content-nav-width-md;    }
+    @else                                   { left : 0;                        }
     height : $banner-height-md-up;
+  }
+  @include wide-from(lg) {
+    @if $content-nav-is-full-height == true { left : $content-nav-width-lg-up; }
+    @else                                   { left : 0;                        }
+  }
+}
+
+
+
+/**
+ * Content Well
+ * This isn't strictly a visible component; it wraps the main article and
+ * content-info footer s.t. transformations can be made that will affect those
+ * elements similarly.
+ * 1. Margins would be more descriptive for these spacings, but we don't want to
+ *    modify the size of this element so, in keeping with `border-box`, we'll
+ *    using paddings.
+ * 2. Top padding is set s.t. the Banner element doesn't hide text.
+ * 3. The Content Navigation is hidden until 'md' width, so we only have to set
+ *    the left margin at that point.
+ */
+.content-well {
+  width : 100%;
+
+  padding-top : $article-padding-top-sm-down;   /* 1, 2 */
+
+  @include wide-from(md) {
+    padding-top  : $article-padding-top-md-up;  /* 1, 2 */
+    padding-left : $content-nav-width-md;       /* 1, 3 */
+  }
+  @include wide-from(lg) {
+    padding-left : $content-nav-width-lg-up;    /* 1, 3 */
+  }
+
+  &.content-well--immobile {
+    @include narrow-from(sm) {
+      position : fixed;
+      overflow : hidden;
+    }
   }
 }
 
@@ -88,16 +156,12 @@ $content-nav-width : 14rem;
 
 /**
  * Main Article
- * 1. Top padding is set s.t. the Banner element doesn't hide text.
- * 2. The Content Navigation is hidden until 'md' width, so we only have to set
- *    the left margin at that point.
  */
 .main-article {
-  padding : $article-padding-top-sm-down 0.5rem 0 0.5rem;    /* 1 */
+  padding : 0  0.5rem 0  0.5rem;
 
   @include wide-from(md) {
-    padding     : $article-padding-top-md-up 1rem 0 0.5rem;  /* 1 */
-    margin-left : $content-nav-width;                        /* 2 */
+    padding : 0  1rem 0  0.5rem;
   }
 
 /**
@@ -146,7 +210,4 @@ $content-nav-width : 14rem;
  * POSITION & SIZE ONLY -- See _content-info-footer.scss for presentation.
  */
 .content-info {
-  @include wide-from(md) {
-    margin-left : $content-nav-width;
-  }
 }

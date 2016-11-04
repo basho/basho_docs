@@ -58,6 +58,8 @@ a {
   color  : $orange-text-light;
   cursor : pointer;
 
+  transition : color 200ms ease-in 50ms;
+
   &:hover {
     color           : $orange;
     text-decoration : none;

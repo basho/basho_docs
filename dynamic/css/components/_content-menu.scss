@@ -1,0 +1,171 @@
+/**
+ * Content Menu
+ * This is assumed to be an unordered list-of-lists that will contain the
+ * Hugo-generated menu for the given project.
+ * 1. Override the default <ul> styles.
+ * 2. Only add a border to the bottom of the first level of list items. We only
+ *    want the top level items (those without a parents) visually separated.
+ * 3. Menus are closed and invisible by default. Only show them once they've
+ *    been "opened".
+ * 4. Progressively increase the left margin on menu text.
+ */
+.content-menu {
+  display : none;       /* 3 */
+  margin       : 0;     /* 1 */
+  padding-left : 0;     /* 1 */
+  list-style   : none;  /* 1 */
+
+
+  &.content-menu--open {
+    display : block;    /* 3 */
+  }
+
+
+  //TODO: Bunch'a expensive selectors incoming. I'm not sure it's worth building
+  //      classes for all of these, and they're pretty descriptive as is, so....
+  //      Sorry?
+  &.content-menu--depth-0 > li {
+    border-bottom : 1px solid $gray-lighter;  /* 2 */
+  }
+
+  .content-menu--depth-1 a { padding-left : 1.75rem;  /* 4 */ }
+  .content-menu--depth-2 a { padding-left : 2.50rem;  /* 4 */ }
+  .content-menu--depth-3 a { padding-left : 3.25rem;  /* 4 */ }
+  .content-menu--depth-4 a { padding-left : 4.00rem;  /* 4 */ }
+  .content-menu--depth-5 a { padding-left : 4.75rem;  /* 4 */ }
+
+  @include when-inside('md') {
+    .content-menu--depth-1 a { padding-left : 1.125rem;  /* 4 */ }
+    .content-menu--depth-2 a { padding-left : 1.625rem;  /* 4 */ }
+    .content-menu--depth-3 a { padding-left : 2.125rem;  /* 4 */ }
+    .content-menu--depth-4 a { padding-left : 2.625rem;  /* 4 */ }
+    .content-menu--depth-5 a { padding-left : 3.125rem;  /* 4 */ }
+  }
+}
+
+
+
+/**
+ * Content Menu Item
+ * These can be top level items, or sub-items.
+ * 1. Apply a border-right to child anchor elements who are siblings of
+ *    .content-menu__menu-toggle s.t. menu items with wrapped text get a border
+ *    the full height of the title.
+ */
+.content-menu__item {
+  padding-top    : 0.5rem;
+  padding-bottom : 0.5rem;
+
+  background : $gray-90;
+
+  //TODO: Another expensive selector. Is it worth a class of its own?
+  > a {
+    padding-right : 0.5rem;
+  }
+
+  > .content-menu__menu-toggle + a {
+    border-right  : 1px solid $gray-lighter;  /* 1 */
+  }
+}
+
+/**
+ * Currently selected Content Menu Items
+ * Largely just overrides styles set in .content-menu__item and .content-nav
+ */
+.content-menu__item--selected {
+  background : $cyan;
+  color      : $gray-warm;
+
+  > a {
+    cursor : default;
+    color  : $gray-warm;
+
+    @include on-event {
+      color : $gray-warm;
+    }
+  }
+
+  > .content-menu__menu-toggle + a {
+    border-right-color : $gray-warm;
+  }
+}
+
+/**
+ * Container for a docs-icon iconograph.
+ * 1. Padding to the left of the iconograph.
+ * 2. Padding between the iconograph and the '|'
+ * 3. Padding the the right of the '|'
+ * 4. Normalize widths of the iconographs.
+ */
+.content-menu__icon-container {
+  text-align : right;
+
+  margin-left  : 1rem;    /* 1 */
+  margin-right : 0.25rem; /* 3 */
+
+  &:before {
+    display       : inline-block;
+    width         : 1.25rem; /* 4 */
+    padding-right : 0.5rem;  /* 2 */
+  }
+}
+
+/**
+ * Chevron toggle for showing the possibility of opening / closing a menu.
+ * 1. We need to put something in the :after element for the chevron to render.
+ *TODO: This... is... not a well formed clause. There has to be some way to
+ *      clean it up, and make the rules easier to follow...
+ */
+.content-menu__menu-toggle {
+  width      : 3.5rem;
+  text-align : center;
+
+  cursor : pointer;
+
+  &:after {
+    transition : border-color 500ms ease;
+
+    display : inline-block;
+    content : "";  /* 1 */
+
+    @include downward-arrow(p2r(14px), $gray-light, $gray-15);
+  }
+
+  &.content-menu__menu-toggle--open:after {
+    @include upward-arrow(p2r(14px), $gray-light, $gray-15);
+  }
+
+  /* Size overrides when displaying wide. */
+  @include wide-from('md') {
+    width : 2.2rem;
+
+    &:after {
+      @include downward-arrow(p2r(10px), $gray-light, $gray-15);
+    }
+    &.content-menu__menu-toggle--open:after {
+      @include upward-arrow(p2r(10px), $gray-light, $gray-15);
+    }
+  }
+
+
+
+  /* Color overrides when the item is selected */
+  @include when-inside('.content-menu__item--selected') {
+    &:after {
+      @include downward-arrow(p2r(14px), $gray-warm, $gray-15);
+    }
+    &.content-menu__menu-toggle--open:after {
+      @include upward-arrow(p2r(14px), $gray-warm, $gray-15);
+    }
+
+    /* Size overrides when displaying wide. */
+    @include wide-from('md') {
+      &:after {
+        @include downward-arrow(p2r(10px), $gray-warm, $gray-15);
+      }
+      &.content-menu__menu-toggle--open:after {
+        @include upward-arrow(p2r(10px), $gray-warm, $gray-15);
+      }
+    }
+  }
+}
