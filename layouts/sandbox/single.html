@@ -123,7 +123,7 @@
 {{- /* {{ partial "content_navigation.html" $HugoNode }}                                        */}}
 {{- /* ======================================================================================== */}}
 
-  <nav class="content-nav   [bs] hidden-sm-down" style="background-color:rgba(127, 0, 0, 0.5)">
+  <nav class="content-nav   [bs] hidden-sm-down">
     This is the sidenav.
   </nav>
 
@@ -201,12 +201,12 @@
 
     <header class="front-matter">
 
-      <div>
+      <h1 class="front-matter__title">
 {{- if $title_supertext }}
-        <h1 class="front-matter__title front-matter__title--supertext">{{ $title_supertext }}</h1>
+        <span class="front-matter__title--supertext">{{ $title_supertext }}</span><br>
 {{- end }}
-        <h1 class="front-matter__title">{{ $title }}</h1>
-      </div>
+        {{ $title }}
+      </h1>
 
     </header>
 

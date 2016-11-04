@@ -113,6 +113,8 @@ $content-nav-width : 14rem;
  * 4. By setting the margin-top to be the negative of the padding-top, we will
  *    add height to the parent element without moving it relative to its
  *    original position. This is what acts as the effective padding.
+ * 5. Don't include the spacer pseudo-element on "special" titles;
+ *     * Front Matter <h1> title
  */
   h1, h2, h3, h4, h5, h6 {
     &:before {             /* 1 */
@@ -128,6 +130,9 @@ $content-nav-width : 14rem;
         margin-top  : -$article-padding-top-md-up;   /* 4 */
         padding-top :  $article-padding-top-md-up;   /* 4 */
       }
+    }
+    &.front-matter__title:before {              /* 5 */
+      display : none;
     }
   }
 }

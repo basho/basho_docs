@@ -1,3 +1,227 @@
-// -----------------------------------------------------------------------------
-// This file contains very basic styles.
-// -----------------------------------------------------------------------------
+/**
+ * Basic Styling Rules
+ * ===================
+ * Basic styling and resets (beyond reboot.scss and normalize.scss) will be
+ * defined below. Generally, these style will not apply to a specific class or
+ * component; rather these are the foundational styles applied directly to
+ * elements that other components will build off of.
+ * It's important to note that this file will sometimes break the rule of not
+ * defining `display :` styles in CSS. Because these styles may act as site-wide
+ * resets, we will occasionally change the core behavior of an element (e.g.
+ * <pre><code> blocks).
+ *
+ *TODO: Consider moving blockquotes, blocknotes, code blocks, etc. into
+ *      individual components.
+ */
+
+
+
+/**
+ * Basic font wrangling
+ */
+body {
+  @extend %serif;
+}
+
+main {
+  font-size : 110%;
+}
+
+/* Emphasized text */
+b,
+strong {
+  font-size : 103%;
+}
+
+/* In-line code */
+code {
+  font-family : monospace, sans;
+  color       : $default-font-color;
+  background  : $gray-90;
+  @include rounded-corners(.25rem);
+}
+
+
+/**
+ * Color selection regions
+ */
+::selection {
+  color      : $white;
+  background : $orange-lighter;
+}
+
+
+/**
+ * Color anchors
+ */
+a {
+  color  : $orange-text-light;
+  cursor : pointer;
+
+  &:hover {
+    color           : $orange;
+    text-decoration : none;
+  }
+  &:focus {
+    color           : $cyan-dark;
+    text-decoration : none;
+  }
+}
+
+
+/**
+ * Titles and Headings
+ * 1. These styles are intentionally terrible. They're here to keep us honest
+ *    and not use <h1> elements unless we're overriding the defaults.
+ * 2. Keep anchor :hover and :focus behavior the same, but don't change the
+ *    color of the heading text
+ */
+h1 { @extend %sans-light;
+     color         : red;       /* 1 */
+     line-height   : initial;   /* 1 */
+     font-size     : initial;   /* 1 */
+     margin-top    : initial;   /* 1 */
+     margin-bottom : initial; } /* 1 */
+h2 { @extend %sans-light;
+     color         : $gray;
+     line-height   : 1.2;
+     font-size     : 2.30rem;
+     margin-top    : 3.00rem;
+     margin-bottom : 1.00rem; }
+h3 { @extend %sans;
+     color         : $gray;
+     line-height   : 1.2;
+     font-size     : 1.70rem;
+     margin-top    : 1.75rem;
+     margin-bottom : 0.50rem; }
+h4 { @extend %sans;
+     color         : $gray;
+     line-height   : 1.2;
+     font-size     : 1.50rem;
+     margin-top    : 1.25rem;
+     margin-bottom : 0.50rem; }
+h5 { @extend %sans;
+     color         : $gray;
+     line-height   : 1.2;
+     font-size     : 1.30rem;
+     margin-top    : 0.00rem;
+     margin-bottom : 0.50rem; }
+h6 { @extend %sans;
+     color         : $gray;
+     line-height   : 1.2;
+     font-size     : 1.25rem;
+     margin-top    : 0.00rem;
+     margin-bottom : 0.50rem; }
+
+h1, h2, h3, h4, h5, h6 {
+  a {
+    color : $gray;  /* 2 */
+  }
+}
+
+
+/**
+ * Horizontal Rules
+ */
+hr {
+  border-top : 1px dashed $gray-lighter;
+}
+
+
+/**
+ * Block Quotes
+ */
+blockquote {
+  font-size     : 90%;
+  margin-left   : 1rem;
+  border-left   : 0.25rem solid $gray-75;
+  padding-left  : 1rem;
+  margin-top    : 1.5rem;
+  margin-right  : 1rem;
+}
+
+
+/**
+ * Block Notes (shortcode)
+ */
+.blocknote {
+  font-size  : 90%;
+  background : $cyan-lightest;
+  @include     rounded-corners();
+  border     : 1px solid $cyan-light;
+  padding    : 1rem 1rem 1rem 1rem;
+  margin     : 1.5rem 3rem 1.5rem 0.5rem;
+
+  .blocknote__title {
+    @extend %sans;
+    font-size : 110%;
+    padding-bottom : 0.25rem;
+  }
+}
+
+
+/**
+ * Basic Code Blocks
+ */
+pre code {
+  display    : block;
+  overflow-x : auto;
+  background : $gray-warm-light;
+  @include     rounded-corners(0.3rem);
+  border     : 1px solid $gray-75;
+  padding    : 0.5rem;
+}
+
+
+/**
+ * Lists
+ * NB. These tag lists are designed to override those in reboot.scss
+ */
+ol,
+ul,
+dt {
+  margin-bottom : 1rem;
+  padding-left  : 2.5rem;
+}
+
+ol ol,
+ul ul,
+ol ul,
+ul ol {
+  margin-top    : 1rem;
+  margin-bottom : 1rem;
+  padding-left  : 2.5rem;
+}
+
+
+
+/**
+ * Tables
+ * 1. Tightly packed, inline code was looking pretty awful with the background
+ *    color and left/right padding that didn't apply to wrapped lines. To
+ *    rectify this, we remove the background color, strip all padding, but
+ *    increase the size of the text a bit to make it stand out against the serif
+ *    prose surrounding it.
+ */
+table {
+  margin-top    : 1rem;
+  margin-bottom : 1rem;
+
+  code {
+    background : transparent;  /* 1 */
+    padding    : 0;            /* 1 */
+    font-size  : 95%;          /* 1 */
+  }
+}
+
+thead {
+  border-bottom : 1px solid $gray-15;
+}
+
+th {
+  padding : 0.25rem 0.5rem;
+}
+
+td {
+  padding : 0.5rem;
+}

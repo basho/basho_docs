@@ -34,6 +34,7 @@ $cyan-darker       : #4b616b;
 $cyan-dark         : #6b8997; // Secondary Brand Color
 $cyan              : #79afb7;
 $cyan-light        : #bcd6d0;
+$cyan-lightest     : #e1eef4;
 
 $green-dark        : #5a7772;
 $green             : #70928c;
@@ -44,28 +45,33 @@ $blue              : #8cbbe2;
 $blue-light        : #c3e3fd;
 
 // These grays (and yes; gray, not grey. I'm American, so that's how I'll spell
-// it) were generated using `~rgb(n-3%, n%, n+3%)` where `n` is the given
-// number `gray-n`. $gray-38 was taken from the standard Riak logo and is
-// `rgb(38%,38%,40%)`, while the others were pushed more towards a clean,
-// softened blue-gray.
-$gray-15 : #1f262e;
-$gray-30 : #454d54;
-$gray-35 : #525961;
-$gray-38 : #616166; // Primary Gray (e.g. icon color)
-$gray-40 : #5e666e;
-$gray-60 : #9199a1;
-$gray-75 : #b8bfc7;
-$gray-85 : #d1d9e0;
-$gray-95 : #ebf2fa;
+// it) were generated using ~`sass-eval rgb(n-3%, n%, n+3%)` where `n` is the
+// given n in `gray-n`.
+// $gray-38 was taken from the standard Riak logo and is `rgb(38%,38%,40%)`,
+// while the others were pushed more towards a clean, softened blue-gray.
+$gray-15 : #1f262e; // rgb(12%,15%,18%)
+$gray-30 : #454d54; // rgb(27%,30%,33%)
+$gray-35 : #525961; // rgb(32%,35%,38%)
+$gray-38 : #616166; // rgb(38%,38%,40%) --- Primary Gray (e.g. icon color)
+$gray-40 : #5e666e; // rgb(37%,40%,43%)
+$gray-60 : #9199a1; // rgb(57%,60%,63%)
+$gray-75 : #b8bfc7; // rgb(72%,75%,78%)
+$gray-85 : #d4d9de; // rgb(83%,85%,87%)
+$gray-90 : #e3e6e8; // rgb(89%,90%,91%) --- Inline-Code background
+$gray-95 : #f0f2f5; // rgb(94%,95%,96%)
 
 
-$black        : #000000;
-$gray-darker  : $gray-15;
-$gray-dark    : $gray-30;
-$gray         : $gray-38;
-$gray-light   : $gray-60;
-$gray-lighter : $gray-85;
-$white        : #ffffff;
+$black           : #000000;
+$gray-darker     : $gray-15;
+$gray-dark       : $gray-30;
+$gray            : $gray-38;
+$gray-light      : $gray-60;
+$gray-lighter    : $gray-85;
+$gray-warm       : #ebebeb;   // rgb(92%,92%,92%)
+$gray-warm-light : #f7f7f7;   // rgb(97%,97%,97%)
+$white           : #ffffff;
+
+$default-font-color : #454d54; // Taken from reboot.scss
 
 
 
