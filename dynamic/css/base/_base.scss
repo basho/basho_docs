@@ -164,15 +164,22 @@ blockquote {
 
 /**
  * Basic Code Blocks
+ * 1. When there are multiple <pre> blocks one after another, we only want to
+ *    disply the first. The others will be exposed through tab interactions.
  */
 pre code {
   display    : block;
   overflow-x : auto;
-  background : $gray-warm-light;
   @include     rounded-corners(0.3rem);
+  background : $gray-warm-light;
   border     : 1px solid $gray-75;
   padding    : 0.5rem;
 }
+
+pre + pre {
+  display    : none; /* 1 */
+}
+
 
 
 /**
