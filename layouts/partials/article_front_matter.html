@@ -1,0 +1,29 @@
+<!-- Variable Definitions
+     ====================
+{{ $HugoNode := . }}
+
+{{ $title_supertext := $HugoNode.Scratch.Get "title_supertext" }}
+{{ $title           := $HugoNode.Scratch.Get "title"           }}
+{{ $display_toc     := $HugoNode.Scratch.Get "display_toc"     }}
+-->
+
+<header class="front-matter">
+
+
+  <h1 class="front-matter__title">
+
+{{- if $title_supertext }}
+    <span class="front-matter__title--supertext">{{ $title_supertext }}</span><br>
+{{- end }}
+
+    {{ $title }}
+
+  </h1>
+
+
+{{- if $display_toc }}
+  <nav class="table-of-contents"></nav>
+{{- end             }}
+
+
+</header>

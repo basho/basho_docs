@@ -9,19 +9,25 @@
     "menu_is_open" :: Whether the menu should start open (if the item that it is
                       associated with is selected or a parent of the selected).
 
-{{ $HugoNode     := .node       }}
-{{ $top_menu     := .top_menu   }}
-{{ $menu_title   := .menu_title }}
-{{ $menu_depth   := .menu_depth }}
+{{ $HugoNode     := .node         }}
+{{ $top_menu     := .top_menu     }}
+{{ $menu_title   := .menu_title   }}
+{{ $menu_depth   := .menu_depth   }}
 {{ $menu_is_open := .menu_is_open }}
+
+{{ $next_depth   := (add 1 $menu_depth) }}
 -->
 
 {{/* NOTE: We need to set an explicit `style="display: *"` here or else JQuery's
-           `.slideUp()` and `.slideDown()` won't work. */}}
+           `.slideUp()` won't animate the first time an open menu closes.
+           Can't say I understand why it's only significant for sub-menus...
+   */}}
 <ul class="content-menu
            content-menu--depth-{{$menu_depth}}
            {{if $menu_is_open}}content-menu--open{{end}}"
     style="display: {{if $menu_is_open}}block{{else}}none{{end}}">
+
+
 
 {{- range $menu := $top_menu.Children }}
 
@@ -36,11 +42,12 @@
 -->
 
   <li>
+
     <div class="content-menu__item {{if $menu_is_selected }} content-menu__item--selected {{end}}">
 
   {{- if $menu_has_children }}
       <span class="block float-right   content-menu__menu-toggle
-                {{if $menu_is_open}} content-menu__menu-toggle--open {{end}}">
+                  {{if $menu_is_open}} content-menu__menu-toggle--open {{end}}">
       </span>
   {{- end }}
 
@@ -51,13 +58,14 @@
     </div>
 
   {{- if $menu_has_children }}
-    {{ $next_depth := (add 1 $menu_depth)                       }}
     {{ $dict := (dict   "node" $HugoNode   "top_menu" $menu   "menu_title" $menu_title   "menu_depth" $next_depth   "menu_is_open" $menu_is_open) }}
-    {{ partial "sandbox/content_navigation_submenu.html" $dict }}
+    {{ partial "content_navigation_submenu.html" $dict }}
   {{- end }}
 
   </li>
 
 {{- end }}
+
+
 
 </ul>
