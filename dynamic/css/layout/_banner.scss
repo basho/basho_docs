@@ -29,7 +29,36 @@
  * Each Banner element will be wrapped in a floating div
  */
 .banner__element-wrapper,
+.banner__element-wrapper--docs-logo,
 .banner__element-wrapper--menu-bars,
-.banner__element-wrapper--docs-logo, {
+.banner__element-wrapper--navigation, {
   height : 100%;
+}
+
+
+/**
+ * Banner Navigation Elements
+ */
+.banner__element-wrapper--navigation {
+
+  @extend %sans;
+  padding-left : 0.5rem;
+
+  a {
+    color : $gray-light;
+    &:hover { color : $cyan;      }
+    &:focus { color : $cyan-dark; }
+  }
+
+  ul {
+    position  : relative;
+    top       : 60%;
+    transform : translateY(-50%);
+    margin    : 0;
+    padding   : 0  0.5rem;
+  }
+
+  li {
+    padding   : 0  0.5rem;
+  }
 }
