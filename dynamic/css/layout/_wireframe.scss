@@ -16,12 +16,6 @@
 // Gonna make life kinda hard until we come to consensus, but that's half the
 // point of this experiment. gl hf.
 
-// Whether or not the content navigation sidebar should be the full height of
-// the page. If so, the banner's width will be reduced by the width of the
-// content nav. If not, the content nav's height will be reduced by the height
-// of the banner.
-$content-nav-is-full-height : true;
-
 // Whether the Content Navigation menu uses the same banner as the default site
 // when the Content Nav is visible on small screens, or if a second banner is
 // included in the menu.
@@ -81,7 +75,7 @@ $content-nav-width-lg-up : 15rem;
   }
 
   @include wide-from(md) {
-    top   : if($content-nav-is-full-height, 0, $banner-height-md-up);  /* 3 */
+    top   : $banner-height-md-up;            /* 3 */
     left  : 0;                               /* 2 */
     width : $content-nav-width-md;
   }
@@ -107,13 +101,11 @@ $content-nav-width-lg-up : 15rem;
   height   : $banner-height-sm-down;
 
   @include wide-from(md) {
-    @if $content-nav-is-full-height == true { left : $content-nav-width-md;    }
-    @else                                   { left : 0;                        }
+    left   : 0;
     height : $banner-height-md-up;
   }
   @include wide-from(lg) {
-    @if $content-nav-is-full-height == true { left : $content-nav-width-lg-up; }
-    @else                                   { left : 0;                        }
+    left   : 0;
   }
 }
 
