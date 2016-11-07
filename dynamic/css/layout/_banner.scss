@@ -30,14 +30,6 @@
  */
 .banner__element-wrapper,
 .banner__element-wrapper--menu-bars,
-.banner__element-wrapper--version-selector,
-.banner__element-wrapper--docs-logo,
-.banner__element-wrapper--downloads-btn, {
+.banner__element-wrapper--docs-logo, {
   height : 100%;
-}
-
-.banner__element-wrapper--version-selector {
-  @include wide-from(md) {
-    margin-right : 2rem;
-  }
 }
