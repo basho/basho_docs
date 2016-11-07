@@ -15,38 +15,9 @@
 
 
 
-  <span class="inline-block float-left   banner__element-wrapper--version-selector   [bs] hidden-sm-down">
-
-    <!-- TODO: Make this a partial? Might be included in to places -->
-    <div class="version-selector">
-
-      <div class="version-selector__badge">
-        <header class="version-selector__title">VERSIONS</header>
-        <button class="version-selector__btn" type="button">{{$version}}</button>
-        <div    class="version-selector__arrow"></div>
-      </div>
-
-      <ol class="hidden   version-selector__list"></ol>
-
-    </div>
-
-  </span>
-
-
-
   <span class="inline-block float-left   banner__element-wrapper--docs-logo">
     <a href="/index.html" class="block   docs-logo"><img class="docs-logo__image" src="/images/layout/basho_docs_logo.png"></a>
   </span>
-
-
-
-{{ if $project_path }}
-  <span class="inline-block float-right   banner__element-wrapper--downloads-btn   [bs] hidden-sm-down">
-    <a href="{{$project_path}}/{{$version}}/downloads/" class="block   downloads-btn">
-      <span class="docs-icon--download-alt"></span>Downloads
-    </a>
-  </span>
-{{ end              }}
 
 
 
