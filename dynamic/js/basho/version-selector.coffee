@@ -17,6 +17,12 @@ Interaction is a simple mater of expanding (or simply showing) the list when the
 else is clicked on.
 ###
 
+# Now that we've definitely gotten rid of the old version-selector HTML
+# structure, put this code into hybernation until we're ready to start
+# rebuilding the lists
+
+###
+
 #TODO: strict mode enables a pretty large number of runtime checks. We probably
 #      want to turn it off when we deploy to prod.
 #      Perhaps we can figure out some way to enable it when building debug?
@@ -199,3 +205,5 @@ $ ->
         version_list.hide()
         version_badge.removeClass(".version-selector__badge--selected")
   )
+
+###
