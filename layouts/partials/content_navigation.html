@@ -8,6 +8,9 @@
 {{ $HugoNode   := .node       }}
 {{ $menu_title := .menu_title }}
 {{ $menu_list  := (index $HugoNode.Site.Menus $menu_title) }} {{/* GoLang List of Menu Objects */}}
+
+{{ $project := $HugoNode.Scratch.Get "project" }}
+{{ $version := $HugoNode.Scratch.Get "version" }}
 -->
 
 <nav class="overflow-y   content-nav">
@@ -37,6 +40,24 @@
       </span>
 
     </form>
+
+
+
+    <div class="clearfix   selectors">
+
+      <div class="inline-block float-left    selector selector--project">
+        <header class="selector__title">Projects</header>
+        <button class="selector__btn" type="button">{{ $project | title }}</button>
+        <div    class="selector__arrow"></div>
+      </div>
+
+      <div class="inline-block float-right   selector selector--version">
+        <header class="selector__title">Versions</header>
+        <button class="selector__btn" type="button">{{$version}}</button>
+        <div    class="selector__arrow"></div>
+      </div>
+
+    </div>
 
 
 

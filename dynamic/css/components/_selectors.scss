@@ -1,0 +1,258 @@
+/**
+ * Wrapper around the Project and Version selectors.
+ */
+.selectors {
+  margin : 0.7rem 0.25rem 0.5rem 2rem;
+
+  @include wide-from('md') {
+    margin-left  : 0.25rem;
+    margin-right : 0.25rem;
+  }
+}
+
+
+
+/**
+ * Selector; General Styles
+ * 1. Only give right-margins to selectors with younger siblings
+ */
+.selector {
+
+  &.selector--project {
+    min-width : 7rem;
+  }
+
+  &.selector--version {
+    min-width : 4.5rem;
+  }
+}
+
+/**
+ * Selector; Title
+ * 1. Setting line-height to 1 lets us exactly control the offsets and sizing.
+ * 2. Poor-man's kerning. The `V` of VERSIONS looked like it was extending past
+ *    the left edge of the button. Not actually the case, but it looks better now.
+ */
+.selector__title {
+  @extend         %sans;
+  font-size      : 60%;
+  letter-spacing : p2r(2px);
+  text-transform : uppercase;
+  text-align     : left;
+
+  line-height    : 1;         /* 1 */
+  margin-bottom  : 0.3rem;
+
+  padding-left   : p2r(1px);  /* 2 */
+}
+
+/**
+ * Selector; Button
+ * 1. Clear the default Button styles to flatten the element.
+ * 2. Setting line-height to 1 lets us exactly control the offsets and size of
+ *    the button element.
+ * 3. X-padding will likely be ignored in favor of the total width, so these
+ *    should be considered a mins.
+ */
+.selector__btn {
+  @include rounded-corners(0.25rem);
+  width            : 100%;
+  line-height      : 1;                 /* 2 */
+  padding          : 0.5rem 0.9rem;     /* 3 */
+  background-color : $orange;
+
+  @extend    %sans-bold;
+  font-size : 120%;
+  color     : $gray-95;
+
+  border : none;                        /* 1 */
+  @include on-event { outline: none; }  /* 1 */
+
+  @include when-inside('.js') {
+    cursor : pointer;
+  }
+}
+
+/**
+ * Selector; Downward Arrow
+ * An example of the vertical-arrow mixin; downward-facing orange arrow used to
+ * indicate a drop-down menu.
+ */
+.selector__arrow {
+  @include downward-arrow(p2r(10px), $orange);
+  position : relative;
+  margin   : 0 0.2rem 0 auto;
+
+  &.selector__arrow--open {
+    @include upward-arrow(p2r(10px), $orange);
+  }
+}
+
+
+
+
+// The below is a bunch of (temporarily?) dead CSS that should be useful when
+// reviving the version and project lists.
+
+// /**
+//  * Selector Drop-Down Menu; Block-Level List
+//  * 1. This is interacting with the parent's `position: relative`, meaning that
+//  *    the list will be positioned within the containing
+//  *    `<div class="version-selector">`.
+//  */
+// .version-selector__list {
+//   @extend           %sans;
+//   position         : absolute; /* 1 */
+//   width            : 100%;
+//   margin           : 0;
+//   padding          : 0;
+//   list-style       : none;
+//   list-style-image : none;
+// }
+//
+//
+// /**
+//  * Selector Drop-Down Menu; List Elements
+//  * 1. Not actually a desired style. This will (hopefully) motivate us to clean
+//  *    up any background styles that aren't overridden in the below Per-Version
+//  *    Background Colors section.
+//  * 2. We want the anchor to take up the entire space its parent element will
+//  *    provide, and this is one way of getting that to happen.
+//  * 3. This padding would normally live on the element rather than the child
+//  *    anchor, but if it's set on the element the anchor's height won't include
+//  *    it. So we set the padding on the anchor.
+//  */
+// .version-selector__list-element {
+//   background  : rgba(255,0,0,0.7); /* 1 */
+//   border-top  : 1px solid white;
+//   font-size   : 0.75rem;
+//   text-align  : center;
+//   color       : white;
+//   // line-height : 1.2;
+//
+//   a {
+//     color   : white;
+//     cursor  : pointer;
+//     display : block;  /* 2 */
+//     height  : 100%;   /* 2 */
+//     width   : 100%;   /* 2 */
+//     padding-top: .25rem;
+//     padding-bottom: .25rem;
+//     // padding : p2r(5px) 0 p2r(6px) 0; /* 3 */
+//     // padding : 0.3rem 0 0.375 0; /* 3 */
+//   }
+// }
+//
+// /**
+//  * Selector Drop-Down Menu; Per-Section Topmost Element
+//  */
+// .version-selector__list-element--top {
+//   @include rounded-corner(top, left, 0.25rem);
+//   @include rounded-corner(top, right, 0.25rem);
+//   border-top : none;
+// }
+//
+// /**
+//  * Selector Drop-Down Menu; Per-Section Bottommost Element
+//  */
+// .version-selector__list-element--bottom {
+//   @include rounded-corner(bottom, left, 0.25rem);
+//   @include rounded-corner(bottom, right, 0.25rem);
+//   margin-bottom : 0.25rem;
+// }
+//
+// /**
+//  * Selector Drop-Down Menu; LTS tag modifier
+//  * Heightens the given element, and adds the "LTS" text above it.
+//  * 1. "\A" adds whitespace that _may be_ treated as a newline.
+//  * 2. `pre` forces this text to act like a <pre>, and respect '\A' newlines.
+//  * 3. I hate the kerning of this font all of a sudden... The periods and letter-
+//  *    spacing are the best I can do to make it not look off.
+//  * 4. FIXME: The LTS text is not included as part of the anchor, so it's not
+//  *           selectable. We should play with this and see about getting it to
+//  *           work as expected
+//  *           Move the LTS text into the Hugo template?
+//  *           negative margin, positive padding?
+//  */
+// .version-selector__list-element--lts {
+//   padding-top: .15rem;
+//   a { padding-top: 0; }
+//
+//   &::before {
+//     @extend         %sans-bold;
+//     line-height    : 1;
+//     content        : "L.T.S\A"; /* 1, 3, 4 */
+//     white-space    : pre;       /* 2 */
+//     letter-spacing : p2r(1px);  /* 3 */
+//     font-size      : 0.625rem;
+//   }
+// }
+//
+//
+//
+// /**
+//  * Selector Drop-Down Menu; Per-Version Background Colors
+//  */
+// .version-selector__list-element--1 {
+//   background : $version-color-1;
+//   &:hover,
+//   &.version-selector__list-element--current {
+//     background : $version-color-1-light;
+//   }
+// }
+//
+// .version-selector__list-element--2 {
+//   background : $version-color-2;
+//   &:hover,
+//   &.version-selector__list-element--current {
+//     background : $version-color-2-light;
+//   }
+// }
+//
+// .version-selector__list-element--3 {
+//   background : $version-color-3;
+//   &:hover,
+//   &.version-selector__list-element--current {
+//     background : $version-color-3-light;
+//   }
+// }
+//
+// .version-selector__list-element--4 {
+//   background : $version-color-4;
+//   &:hover,
+//   &.version-selector__list-element--current {
+//     background : $version-color-4-light;
+//   }
+// }
+//
+// .version-selector__list-element--5 {
+//   background : $version-color-5;
+//   &:hover,
+//   &.version-selector__list-element--current {
+//     background : $version-color-5-light;
+//   }
+// }
+//
+// .version-selector__list-element--6 {
+//   background : $version-color-6;
+//   &:hover,
+//   &.version-selector__list-element--current {
+//     background : $version-color-6-light;
+//   }
+// }
+//
+// /* The current version and all disabled versions should not link out. */
+// .version-selector__list-element--current  a,
+// .version-selector__list-element--disabled a {
+//   pointer-events : none;
+//   cursor         : default;
+// }
+//
+// /* Cheating a bit here by bumping the specificity of this rule to ensure the
+//  * inactive color trumps other specifiers.
+//  *TODO: Figure out if the specificity bump is necessary. We may be able to
+//  *      generate the list s.t. elements are either `--[1-6]` or `--disabled`.
+//  */
+// .version-selector__list .version-selector__list-element--disabled {
+//   background : $version-color-inactive;
+// }
