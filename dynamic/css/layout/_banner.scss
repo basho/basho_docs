@@ -15,8 +15,7 @@
   // This is for IE6-9. Not sure if we want to bother w/ it.
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#CCffffff', GradientType=0 );
 
-  //TOOD: Make this better. Separate element, maybe? Box-shadow?
-  border-bottom : 1px solid $gray-85;
+  box-shadow : 0  0  4rem -1rem $shadow-color;
 
   @include wide-from(md) {
     padding : .5rem .75rem .25rem .75rem; /* 1 */

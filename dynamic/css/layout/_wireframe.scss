@@ -16,10 +16,6 @@
 // Gonna make life kinda hard until we come to consensus, but that's half the
 // point of this experiment. gl hf.
 
-// Whether the Content Navigation menu uses the same banner as the default site
-// when the Content Nav is visible on small screens, or if a second banner is
-// included in the menu.
-$content-nav-shares-banner : false;
 
 // Styling Variables
 // =================
@@ -38,8 +34,16 @@ $article-padding-top-sm-down : $banner-height-sm-down + $banner-buffer-sm-down;
 $article-padding-top-md-up   : $banner-height-md-up   + $banner-buffer-md-up;
 
 
+// Width of the Content Navigation sidebar.
+// No need to set a width for sm-down b/c the nav will take up the whole window.
 $content-nav-width-md    : 14rem;
 $content-nav-width-lg-up : 15rem;
+
+
+
+// Z-Indexes of layered elements
+$banner-z-index      : 200;
+$content-nav-z-index : 100;
 
 
 
@@ -55,17 +59,18 @@ $content-nav-width-lg-up : 15rem;
  *    the left side of the screen.
  * 3. Setting a `top: n` and a `bottom: 0` let's us get around the rough edges
  *    of `height: 100%`. Should also work if we're not using `border-box` sizes.
+ * 4. We start the content nav more than 100% of its width to the left so that
+ *    we hide the box-shadow of its children.
  */
 .content-nav {
   position : fixed;                          /* 1, 2 */
-  //TODO: turn all z-indexes into variables set at the top of the file.
-  z-index  : 300;
+  z-index  : $content-nav-z-index;
 
   width  : 100%;
-  top    : if($content-nav-shares-banner, $banner-height-sm-down, 0);  /* 3 */
-  bottom : 0;                                                          /* 3 */
+  top    : $banner-height-sm-down;           /* 3 */
+  bottom : 0;                                /* 3 */
 
-  left       : -100%;                        /* 1 */
+  left       : -200%;                        /* 1, 4 */
   transition : left 200ms ease-in-out 50ms;  /* 1 */
 
   @include narrow-from(sm) {
@@ -94,7 +99,7 @@ $content-nav-width-lg-up : 15rem;
  */
 .banner {
   position : fixed;
-  z-index  : 100;
+  z-index  : $banner-z-index;
   top      : 0;
   left     : 0; /* 1 */
   right    : 0; /* 1 */
