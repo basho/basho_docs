@@ -65,6 +65,12 @@
   //TODO: Another expensive selector. Is it worth a class of its own?
   > a {
     padding-right : 0.5rem;
+
+    color : $gray-50;
+
+    @include on-event {
+      color : $gray-15;
+    }
   }
 
   > .content-menu__menu-toggle + a {

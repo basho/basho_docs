@@ -13,24 +13,16 @@
 {{ $version := $HugoNode.Scratch.Get "version" }}
 -->
 
-<nav class="overflow-y   content-nav">
+{{/* This check is required to correctly know the hight of the top element. */}}
+{{ if ( and $project $version ) }}
+<nav class="content-nav content-nav--top-size-full">
+{{ else }}
+<nav class="content-nav content-nav--top-size-half">
+{{ end }}
 
 
 
-  <div class="content-nav__banner   [bs] hidden-md-up">
-
-    <span class="inline-block float-right   content-nav__banner-element-wrapper">
-      <div class="menu-bars   js_toggle-content-nav"></div>
-    </span>
-
-    <span class="block">This is the sm-only banner. Interactive elements for the win.</span>
-
-  </div>
-
-
-
-  <div class="content-nav__top">
-
+  <div class="content-nav__fixed-top">
     <form class="search">
 
       <span class="block float-left   search__icon-container   docs-icon--search">|</span>
@@ -41,8 +33,7 @@
 
     </form>
 
-
-
+{{ if ( and $project $version ) }}
     <div class="clearfix   selectors">
 
       <div class="inline-block float-left    selector selector--project">
@@ -58,14 +49,22 @@
       </div>
 
     </div>
+{{ end }}
+
+  </div>
 
 
 
-    <div class="content-nav__menu-container">
+  <!-- This shadow box exists s.t. the scroll bar for the dynamic primary
+       content isn't offset by the size of the box-shadow applied. -->
+  <div class="content-nav__shadow-box">
+    <div class="overflow-y   content-nav__primary">
 
-      <ul class="content-menu
-                 content-menu--depth-0
-                 content-menu--open">
+      <div class="content-nav__menu-container">
+
+        <ul class="content-menu
+                   content-menu--depth-0
+                   content-menu--open">
 
 {{- range $menu := $menu_list }}
 
@@ -79,46 +78,48 @@
 {{ $menu_name              := $menu.Name                                       }} {{/* Provided by Hugo         */}}
 {{ $menu_url               := $menu.URL                                        }} {{/* Provided by Hugo         */}}
 -->
-        <li>
+          <li>
 
-          <div class="content-menu__item {{if $menu_is_selected }} content-menu__item--selected {{end}}">
+            <div class="content-menu__item {{if $menu_is_selected }} content-menu__item--selected {{end}}">
 
-            <span class="block float-left   content-menu__icon-container   docs-icon--{{$menu_pre_icon}}">|</span>
+              <span class="block float-left   content-menu__icon-container   docs-icon--{{$menu_pre_icon}}">|</span>
 
   {{- if $menu_has_children }}
-            <span class="block float-right   content-menu__menu-toggle
-                        {{if $menu_is_open}} content-menu__menu-toggle--open {{end}}">
-            </span>
+              <span class="block float-right   content-menu__menu-toggle
+                          {{if $menu_is_open}} content-menu__menu-toggle--open {{end}}">
+              </span>
   {{- end }}
 
-            <a class="block overflow" {{if not $menu_is_selected}} href="{{$menu_url}}" {{end}}>
-              <strong>{{$menu_name}}</strong>
-            </a>
+              <a class="block overflow" {{if not $menu_is_selected}} href="{{$menu_url}}" {{end}}>
+                <strong>{{$menu_name}}</strong>
+              </a>
 
-          </div>
+            </div>
 
   {{- if $menu_has_children }}
           {{ $dict := (dict   "node" $HugoNode   "top_menu" $menu   "menu_title" $menu_title   "menu_depth" 1   "menu_is_open" $menu_is_open) }}
           {{ partial "content_navigation_submenu.html" $dict }}
   {{- end }}
 
-        </li>
+          </li>
 
 {{- end }}
 
-      </ul>
+        </ul>
+
+      </div>
+
+
+
+      <div class="content-nav__fixed-bottom">
+
+        <span class="block" style="text-align:center;">
+          This is the fixed bottom
+        </span>
+
+      </div>
 
     </div>
-
-  </div>
-
-
-  <div class="content-nav__fixed-bottom" style="text-align:center; line-height:56px; border-top: 1px solid rgb(212,217,222);">
-
-    <span class="block">
-      This is the fixed bottom
-    </span>
-
   </div>
 
 
