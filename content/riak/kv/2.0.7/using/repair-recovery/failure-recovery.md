@@ -129,8 +129,8 @@ involves:
 5. Restore the backup data to each node's data root (e.g, `/var/lib/riak`).
 6. If you are restoring in an environment where the new nodes will have new
    network addresses (such as on AWS) or you will otherwise need to give the
-   nodes new names, you need to execute `riak-admin replace` to change the network name for every node in the cluster from each node.
-7. After renaming the nodes with `riak-admin replace` if necessary, you should
+   nodes new names, you need to execute `riak-admin cluster replace` to change the network name for every node in the cluster from each node.
+7. After renaming the nodes with `riak-admin cluster replace` if necessary, you should
    check the `vm.args` configuration file to ensure that each node has the
    updated name.
 8. Make sure the [firewall settings](/riak/kv/2.0.7/using/security/) for the new
