@@ -1,10 +1,10 @@
 ---
 title: "Setting Up Riak Redis Add-on"
 description: ""
-project: "riak_kv"
-project_version: "2.1.4"
+project: "riak_ts"
+project_version: "1.4.0"
 menu:
-  riak_kv-2.1.4:
+  riak_ts-1.4.0:
     name: "Set Up Redis Add-on"
     identifier: "add-ons_redis_setup"
     weight: 201
@@ -16,19 +16,19 @@ commercial_offering: true
 [addon redis develop]: ../developing-rra/
 [addon redis use]: ../using-rra
 [ee]: http://basho.com/contact/
-[install index]: /riak/kv/2.1.4/setup/installing
-[perf open files]: /riak/kv/2.1.4/using/performance/open-files-limit/#changing-the-limit
+[install index]: /riak/ts/1.4.0/setup/installing
+[perf open files]: /riak/ts/1.4.0/setup/installing/rhel-centos/#ulimit
 [lab ansible]: https://github.com/paegun/ansible-cache-proxy
 
 This page will walk you through the process of installing Riak Redis Add-on (RRA) and configuring it to run in your environment. Check the [prerequisites](#prerequisites) before you get started to make sure you have everything you need in order to successfully install and use RRA.
 
 ## Prerequisites
 
-Before you begin installing Riak Redis Add-on (RRA), you will need to ensure that you have root or sudo access on the nodes where you plan to install RRA. You will also need to have Riak KV already [installed][install index].
+Before you begin installing Riak Redis Add-on (RRA), you will need to ensure that you have root or sudo access on the nodes where you plan to install RRA. You will also need to have Riak TS already [installed][install index].
 
 While this page assumes that Redis is not already installed, existing installations of Redis are supported. If you have an existing Redis installation, look for the *skip ahead* instructions as you go.
 
-This page assumes that Redis is (or will be) installed on separate hosts from Riak KV. You will need the list of Riak KV and Redis host:port combinations. RRA communicates with Riak KV via the protobuf port, and the host:port values are used
+This page assumes that Redis is (or will be) installed on separate hosts from Riak TS. You will need the list of Riak TS and Redis host:port combinations. RRA communicates with Riak TS via the protobuf port, and the host:port values are used
 to configure the cache proxy.
 
 ## In the Lab
@@ -46,10 +46,10 @@ configure RRA manually.
 
 ### Change the open-files limit
 
-As with Riak KV, both the total open-files limit and the per-user open-files limit
+As with Riak TS, both the total open-files limit and the per-user open-files limit
 must be high enough to allow Redis and Riak Redis Add-on (RRA) to function.
 
-For a complete guide on changing limit in Riak KV, see
+For a complete guide on changing limit in Riak TS, see
 [Changing the limit][perf open files].
 
 #### Linux
@@ -66,7 +66,7 @@ To change the per-user file limit, you need to edit `/etc/security/limits.conf`.
 #### CentOS
 
 On CentOS systems, set a proper limit for the user you're usually logging in with
-to do any kind of work on the machine, including managing Riak KV, Redis, or RRA services. On CentOS, `sudo` properly inherits the values from the
+to do any kind of work on the machine, including managing Riak TS, Redis, or RRA services. On CentOS, `sudo` properly inherits the values from the
 executing user.
 
 #### Ubuntu
@@ -230,8 +230,8 @@ with the most likely units being `s` for seconds or `ms` for milliseconds.
 
 Set the list of Redis servers by listing the servers, separated by `-`, under the `servers` configuration value in the format `»host«:»port«:»weight«` (weight is optional).
 
-Set the list of Riak KV servers by listing the servers, separated by `-`, under the `backends` configuration value in the format `»host«:»port«:»weight«`
-(weight is optional). You will want to make sure to list the Riak KV protobuf (pb) port here.
+Set the list of Riak TS servers by listing the servers, separated by `-`, under the `backends` configuration value in the format `»host«:»port«:»weight«`
+(weight is optional). You will want to make sure to list the Riak TS protobuf (pb) port here.
 
 ### Verify your configuration
 

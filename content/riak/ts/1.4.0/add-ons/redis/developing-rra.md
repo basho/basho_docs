@@ -1,10 +1,10 @@
 ---
 title: "Developing with Riak Redis Add-on"
 description: ""
-project: "riak_kv"
-project_version: "2.1.4"
+project: "riak_ts"
+project_version: "1.4.0"
 menu:
-  riak_kv-2.1.4:
+  riak_ts-1.4.0:
     name: "Develop with Redis Add-on"
     identifier: "add-ons_redis_develop"
     weight: 403
@@ -14,21 +14,21 @@ commercial_offering: true
 ---
 
 [redis-clients]: http://redis.io/clients
-[usage bucket types]: /riak/kv/2.1.4/developing/usage/bucket-types/
-[dev api http]: /riak/kv/2.1.4/developing/api/http
+[usage bucket types]: /riak/kv/2.2.0/developing/usage/bucket-types/
+[dev api http]: /riak/kv/2.2.0/developing/api/http
 [config-behaviors]: http://basho.com/posts/technical/riaks-config-behaviors-part-4/
-[apps replication properties]: /riak/kv/2.1.4/developing/app-guide/replication-properties
-[usage commit hooks]: /riak/kv/2.1.4/developing/usage/commit-hooks/
-[concept causal context]: /riak/kv/2.1.4/learn/concepts/causal-context
+[apps replication properties]: /riak/kv/2.2.0/developing/app-guide/replication-properties
+[usage commit hooks]: /riak/kv/2.2.0/developing/usage/commit-hooks/
+[concept causal context]: /riak/kv/2.2.0/learn/concepts/causal-context
 [ee]: http://basho.com/contact/
 
 This page will walk you through setting up your environment for development with Riak Redis Add-on (RRA), as well as present examples and configuration parameters for basic development operations.
 
 ## Overview
 
-Riak Redis Add-on (RRA) packages a cache proxy service. The cache proxy service provides accessibility to Riak KV, as a persistent data store, with Redis, as a cache through the various Redis client libraries and command-line interface tool `redis-cli`.
+Riak Redis Add-on (RRA) packages a cache proxy service. The cache proxy service provides accessibility to Riak TS, as a persistent data store, with Redis, as a cache through the various Redis client libraries and command-line interface tool `redis-cli`.
 
-As with Riak KV, the cache proxy service almost always performs best and most
+As with Riak TS, the cache proxy service almost always performs best and most
 predictably when you use the basic CRUD operations -- Create, Read, Update,
 Delete -- that you'd find in any key/value store. Learning these operations
 is a great place to start when beginning to develop applications that use
@@ -45,13 +45,13 @@ in:
 * Scala (lettuce) 
 * Java, see the Scala examples. The code intentionally uses as few Scala tricks as possible to focus on the use of the Redis client.
 
-## Riak KV Setup
+## Riak TS Setup
 
-While you can use Riak Redis Add-on with Riak KV configured so either `last_write_wins` is set to 'true' or `allow_mult` is set to 'true', we recommend using the  `allow_mult` setting in order to provide client sibling resolution in the event of a network partition. The examples and instructions on this page will assume `allow_mult` is set to 'true'.
+While you can use Riak Redis Add-on with Riak TS configured so either `last_write_wins` is set to 'true' or `allow_mult` is set to 'true', we recommend using the  `allow_mult` setting in order to provide client sibling resolution in the event of a network partition. The examples and instructions on this page will assume `allow_mult` is set to 'true'.
 
 The cache proxy service is tested under both configurations. However, due to lack of support via the Redis protocol for returning multiple values for a single `GET`, effectively `last_write_wins` semantics apply.
 
-For a deeper explanation of Riak KV's configurable behaviors, see John Daily's
+For a deeper explanation of Riak TS's configurable behaviors, see John Daily's
 blog series [part 4][config-behaviors] .
 
 ### Bucket Type Setup
@@ -80,7 +80,7 @@ fi
 
 #### Set Bucket Props
 
-The following is an example, using Riak KV's default HTTP port, of setting `allow_mult` to 'true' and `last_write_wins` to 'false':
+The following is an example, using Riak TS's default HTTP port, of setting `allow_mult` to 'true' and `last_write_wins` to 'false':
 
 ```sh
 curl -XPUT -H 'Content-Type: application/json' \
@@ -92,15 +92,15 @@ For additional configuration options see [bucket properties][dev api http].
 
 ## Object/Key Operations
 
-Riak KV organizes data into buckets, keys, and values, with
-[bucket types][usage bucket types] acting as an additional namespace in Riak KV
-versions 2.0 and greater. Values, which we'll refer to as objects, are identifiable by a unique key, and each key/value pair is stored in a bucket. 
+Riak TS organizes data into buckets, keys, and values, with
+[bucket types][usage bucket types] acting as an additional namespace in Riak TS 
+versions 1.0 and greater. Values, which we'll refer to as objects, are identifiable by a unique key, and each key/value pair is stored in a bucket. 
 
 Objects accessed via the cache proxy service in Riak Redis Add-on are restricted to plaintext format. This plaintext format may be a simple string, JSON, XML, or other plaintext representations that can be parsed in the client application (e.g. YAML).
 
-While buckets are a flat namespace in Riak KV and you can name them
+While buckets are a flat namespace in Riak TS and you can name them
 whatever you'd like (`bucket` or `a90bf521c` or `___`), within the cache proxy
-service, Redis bucket_type:bucket:key is mapped to Riak KV
+service, Redis bucket_type:bucket:key is mapped to Riak TS
 bucket_type/bucket/key, so bucket type and bucket names should not contain
 colon (`:`). When not specified, bucket type defaults to "default".
 
@@ -108,7 +108,7 @@ Outside of the above restriction, bucket names have no intrinsic significance be
 
 The same goes for naming keys: many objects can have the same key as long as they're in different buckets. There is no restriction on key containing colon (`:`), and this practice of representing a nested namespace is common in applications using Redis.
 
-Riak KV [bucket types][usage bucket types] enable you to provide common
+Riak TS [bucket types][usage bucket types] enable you to provide common
 configurations for buckets (as many buckets as you wish). This means you can
 easily enable buckets to share common configurations, i.e. identical
 [replication properties][apps replication properties] or
@@ -117,9 +117,9 @@ easily enable buckets to share common configurations, i.e. identical
 
 ## Reading Objects
 
-Reads via the cache proxy service are analogous to a Redis `GET`, with the added benefit of reading-through to Riak KV which results in greater resilience through node outages and network partitions.
+Reads via the cache proxy service are analogous to a Redis `GET`, with the added benefit of reading-through to Riak TS which results in greater resilience through node outages and network partitions.
 
-To request a value at a bucket/key in Riak KV, issue the following:
+To request a value at a bucket/key in Riak TS, issue the following:
 
 ```erlang
 {ok, RedisClientPid} = eredis:start_link("127.0.0.1", 22122).
@@ -161,7 +161,7 @@ var value = connection.get("rra:test:food")
 ### Get Configuration Parameters
 
 >**Note:** The cache proxy service read option (related to replication factor and
-consistency concern) may optionally be set within the nutcracker.conf. This will  result in an override of the setting value at the bucket-level in Riak KV.
+consistency concern) may optionally be set within the nutcracker.conf. This will  result in an override of the setting value at the bucket-level in Riak TS.
 
 The following configuration parameters apply to `GET` and may be set within the
 RRA configuration file `/etc/cache_proxy/cache_proxy_22122.yml`:
@@ -187,11 +187,11 @@ last-write-wins configuration for access through the cache proxy service.
 ## Writing Objects
 
 Writes via the cache proxy service are analogous to a Redis `SET`, with the added
-benefit of writing to Riak KV followed by a `PEXPIRE` to Redis, invalidating
+benefit of writing to Riak TS followed by a `PEXPIRE` to Redis, invalidating
 cache. As with HTTP PUT, `SET` semantically covers both create and update
 operations.
 
-To set a value at a bucket/key in Riak KV, issue the following:
+To set a value at a bucket/key in Riak TS, issue the following:
 
 ```erlang
 {ok, RedisClientPid} = eredis:start_link("127.0.0.1", 22122).
@@ -234,7 +234,7 @@ connection.set("rra:test:food", "apple")
 
 >**Note:** The cache proxy service write option (related to replication factor and
 consistency concern) may optionally be set within the nutcracker.conf, resulting
-in an override of the setting value at the bucket-level in Riak KV.
+in an override of the setting value at the bucket-level in Riak TS.
 
 The following configuration parameters apply to `SET` and may be set within the
 RRA configuration file `/etc/cache_proxy/cache_proxy_22122.yml`:
@@ -249,12 +249,12 @@ RRA configuration file `/etc/cache_proxy/cache_proxy_22122.yml`:
 
 ### Sibling Explosion
 
-As noted in the section "Sibling Resolution" above, Riak KV provides for a line of
+As noted in the section "Sibling Resolution" above, Riak TS provides for a line of
 descendency (known as the [causal context][[concept causal context]]) for a value stored at a key. Clients
 performing write operations provide this causal context by setting the vector
 clock (VClock) that they last read.
 
-If a client does not provide the causal context, Riak KV makes no assumptions and treats the write as a new causal context, semantically equivalent to a
+If a client does not provide the causal context, Riak TS makes no assumptions and treats the write as a new causal context, semantically equivalent to a
 create. In the case that a value is already stored at the key, this would lead
 to a sibling.
 
@@ -270,10 +270,10 @@ to merge these lines of descent into a coherent causal context.
 ## Deleting Objects
 
 Deletes via the cache proxy service are analogous to a Redis `DEL`, with the added
-benefit of writing to Riak KV followed by a `PEXPIRE` to Redis, invalidating
+benefit of writing to Riak TS followed by a `PEXPIRE` to Redis, invalidating
 cache.
 
-To delete a value at a bucket/key in Riak KV, issue the following:
+To delete a value at a bucket/key in Riak TS, issue the following:
 
 ```erlang
 {ok, RedisClientPid} = eredis:start_link("127.0.0.1", 22122).

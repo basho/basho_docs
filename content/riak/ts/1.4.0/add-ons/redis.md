@@ -1,10 +1,10 @@
 ---
 title: "Riak Redis Add-on"
 description: "Redis Add-on for Riak KV"
-project: "riak_kv"
-project_version: "2.2.0"
+project: "riak_ts"
+project_version: "1.4.0"
 menu:
-  riak_kv-2.2.0:
+  riak_ts-1.4.0:
     name: "Redis Add-on"
     identifier: "add-ons_redis"
     weight: 101
@@ -21,11 +21,11 @@ commercial_offering: true
 [ee]: http://basho.com/contact/
 
 
-Riak Redis Add-on (RRA) is a distributed cache service that joins the power of Redis caching with the eventual consistency guarantees of Riak KV. 
+Riak Redis Add-on (RRA) is a distributed cache service that joins the power of Redis caching with the eventual consistency guarantees of Riak TS. 
 
-RRA enables you to reduce latency for Riak KV reads through the use of a distributed cache layer. This type of caching is most effective for keys that are immutable or have an infrequent change rate.
+RRA enables you to reduce latency for Riak TS reads through the use of a distributed cache layer. This type of caching is most effective for keys that are immutable or have an infrequent change rate.
 
-Whether you are looking to build out a session, shopping cart, advertisement or other dynamically-rendered copy, RRA helps reduce read pressure on your persistent store (Riak KV).
+Whether you are looking to build out a session, shopping cart, advertisement or other dynamically-rendered copy, RRA helps reduce read pressure on your persistent store (Riak TS).
 
 ## Compatibility
 
