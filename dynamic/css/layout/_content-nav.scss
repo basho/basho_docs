@@ -21,6 +21,10 @@ $fixed-bottom-height : 5rem;
  * 1. Full-sized fonts for interactive sizes.
  * 2. Reduced-sized fonts when sharing real estate on small-ish screens
  * 3. Closer to full-sized fonts when displaying on large screens.
+ * 4. When JS is disabled, we will never be able to reach the Content Nav, so
+ *    completely prevent rendering.
+ *    TODO: Make sure screen readers don't pick up the visually hidden nav when
+ *    js is enabled and it's in the unopened state.
  */
 .content-nav {
   @extend %sans;
@@ -42,6 +46,10 @@ $fixed-bottom-height : 5rem;
     @include on-event {
       color : $gray-15;
     }
+  }
+
+  @include when-inside('.no-js') {
+    display : none !important;                       /* 4 */
   }
 }
 
