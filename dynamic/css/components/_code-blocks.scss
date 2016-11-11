@@ -43,13 +43,15 @@ $edge_fade_width : 2rem; /* 1 */
       font-size      : 90%;
       color          : $orange;
       @include rounded-corners(0.25rem);
-      padding  : 0.5rem 0.75rem;
+      padding      : 0.5rem 0.5rem;
+      margin-right : 0.25rem;
 
       transition : background-color 200ms ease 50ms,
                    color            200ms ease 50ms;
 
       @include on-event {
         background : $gray-warm-light;
+        color      : $gray-light;
       }
     }
   }
