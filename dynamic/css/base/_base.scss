@@ -65,7 +65,51 @@ a {
     color : $orange-text-light;
     text-decoration : underline;
   }
+
+
+  /**
+   * Append a box-arrow image to links that send users off-site
+   * 1. We currently don't have a way to programmatically add inline-images as
+   *    CSS background rules, so... for now, do it manually.
+   * 2. Width is actually 2px wider than the .png image. This is to give some
+   *    space between the text and the appended image.
+   * 3. Poor-man's kerning. The space between the icon and the next word was a
+   *    hair too too much, and that one px pull helps w/ that.
+   */
+  &[href^="http://"],
+  &[href^="https://"] {
+    &::after {
+      content      : "";
+      display      : inline-block;
+      text-align   : left;
+      width        : p2r(12px);  /* 2 */
+      height       : p2r(10px);
+      margin-right : p2r(-1px);  /* 3 */
+      // background : inline-image('layout/external.png') no-repeat right;  /* 1 */
+      background   : url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAUklEQVR42m3O0QkAMQgD0JvWNZzDndwpRz5SepcIQWof6APgk+5GiKOZwa8EHTMGqwp3ONzdDFUXYufbYES6WVCfHB7EuW5mF7R1goqgVYQhBl+awCunCZHg2gAAAABJRU5ErkJggg==') no-repeat right;
+    }
+  }
+  /**
+   * Append a pdf image to links that send users to a pdf.
+   * 1. We currently don't have a way to programmatically add inline-images as
+   *    CSS background rules, so... for now, do it manually.
+   * 2. Width is actually 2px wider than the .png image. This is to give some
+   *    space between the text and the appended image.
+   */
+  &[href$=".pdf"],
+  &[href$=".PDF"] {
+    &::after {
+      content       : "";
+      display       : inline-block;
+      width         : p2r(16px);  /* 2 */
+      height        : p2r(16px);
+      // background    : inline-image("layout/pdf.png") no-repeat right;    /* 1 */
+      background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAQCAYAAAAmlE46AAAEJGlDQ1BJQ0MgUHJvZmlsZQAAOBGFVd9v21QUPolvUqQWPyBYR4eKxa9VU1u5GxqtxgZJk6XtShal6dgqJOQ6N4mpGwfb6baqT3uBNwb8AUDZAw9IPCENBmJ72fbAtElThyqqSUh76MQPISbtBVXhu3ZiJ1PEXPX6yznfOec7517bRD1fabWaGVWIlquunc8klZOnFpSeTYrSs9RLA9Sr6U4tkcvNEi7BFffO6+EdigjL7ZHu/k72I796i9zRiSJPwG4VHX0Z+AxRzNRrtksUvwf7+Gm3BtzzHPDTNgQCqwKXfZwSeNHHJz1OIT8JjtAq6xWtCLwGPLzYZi+3YV8DGMiT4VVuG7oiZpGzrZJhcs/hL49xtzH/Dy6bdfTsXYNY+5yluWO4D4neK/ZUvok/17X0HPBLsF+vuUlhfwX4j/rSfAJ4H1H0qZJ9dN7nR19frRTeBt4Fe9FwpwtN+2p1MXscGLHR9SXrmMgjONd1ZxKzpBeA71b4tNhj6JGoyFNp4GHgwUp9qplfmnFW5oTdy7NamcwCI49kv6fN5IAHgD+0rbyoBc3SOjczohbyS1drbq6pQdqumllRC/0ymTtej8gpbbuVwpQfyw66dqEZyxZKxtHpJn+tZnpnEdrYBbueF9qQn93S7HQGGHnYP7w6L+YGHNtd1FJitqPAR+hERCNOFi1i1alKO6RQnjKUxL1GNjwlMsiEhcPLYTEiT9ISbN15OY/jx4SMshe9LaJRpTvHr3C/ybFYP1PZAfwfYrPsMBtnE6SwN9ib7AhLwTrBDgUKcm06FSrTfSj187xPdVQWOk5Q8vxAfSiIUc7Z7xr6zY/+hpqwSyv0I0/QMTRb7RMgBxNodTfSPqdraz/sDjzKBrv4zu2+a2t0/HHzjd2Lbcc2sG7GtsL42K+xLfxtUgI7YHqKlqHK8HbCCXgjHT1cAdMlDetv4FnQ2lLasaOl6vmB0CMmwT/IPszSueHQqv6i/qluqF+oF9TfO2qEGTumJH0qfSv9KH0nfS/9TIp0Wboi/SRdlb6RLgU5u++9nyXYe69fYRPdil1o1WufNSdTTsp75BfllPy8/LI8G7AUuV8ek6fkvfDsCfbNDP0dvRh0CrNqTbV7LfEEGDQPJQadBtfGVMWEq3QWWdufk6ZSNsjG2PQjp3ZcnOWWing6noonSInvi0/Ex+IzAreevPhe+CawpgP1/pMTMDo64G0sTCXIM+KdOnFWRfQKdJvQzV1+Bt8OokmrdtY2yhVX2a+qrykJfMq4Ml3VR4cVzTQVz+UoNne4vcKLoyS+gyKO6EHe+75Fdt0Mbe5bRIf/wjvrVmhbqBN97RD1vxrahvBOfOYzoosH9bq94uejSOQGkVM6sN/7HelL4t10t9F4gPdVzydEOx83Gv+uNxo7XyL/FtFl8z9ZAHF4bBsrEwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAlVJREFUKBWNUUtrE1EU/uaRkIehWAilWtJUBdPiLi7EjUJdxIWLbnSThX9A/BGCVGs24k4qNNSdaDa6kqJ14cKQohAtahJJwce0eZFkkjuv6zk36kYEL5yZO3fO9zjfhfy/5f1qu0pvUJma63qyXq+h027DMAzYoxGEEOj1evB9X9VgMJDD4VDL5/NIJpPLALbAh++rVekIIR3H+auIRIk1Go2gUCjIZrPJ3yd1QkPXdfhBAAIrNWKHbduqeM8OqFnLZDIolUpotVq7CshgTdPgep6yxnuNyEaVHRzcvQfxw0IqnUYul0MikQA5g8lz8FwBK9KBxiw0K8ZjiO1tOLUGrEoFsWgEU5Ho5D+1/FFkoAqD3i5Zc0jRXszA+/gJAZELIg0CXzljbp2bKSB1wHsmcKnJpdjDqRT0E8chj85C0MxBIHkmxk0UJTUzgIuDUHsikaEwhg+LsB9swOt2MfZc9Dpd9V+nGFSiDGBFJnG5+n045TKmVm8hRA7kkxI0chYQWND8pk++OXperMRADkejhGWtDufCMvSFBXhXLuPL/U3MTifQrn6AqRD0oHtSQNowA4TrwrEs6Ku34dsjmNeuI76UgfF8C7FwGCYDTFIImaYC8v2pa3n0GOE3O9AvXcT4/DmI6cNIzs3hGxGeWVmZAJt7e8hms5gnS/16HdaNm/CquzhSXIdMz8MhxVg8ptI/2N+HQSJmNBpVB3fW1uAfiuPsq9cwyu/w+fQpfC1uwOp0oJH1306SMzOIRCJqNnJLiy6JV+vpM/n22KL8/uKl+v7X4yd/uu5KwdHdQAAAAABJRU5ErkJggg==') no-repeat right;
+    }
+  }
 }
+
+
 
 
 /**
