@@ -45,6 +45,7 @@
 
   a {
     color : $orange-dark;
+    text-decoration : none;
 
     @include on-event {
       color : $orange;

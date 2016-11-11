@@ -42,9 +42,11 @@ $fixed-bottom-height : 5rem;
   //      specifically the .content-menu--item?
   a {
     color : $gray-50;
+    text-decoration : none;
 
     @include on-event {
       color : $gray-15;
+      text-decoration : none;
     }
   }
 

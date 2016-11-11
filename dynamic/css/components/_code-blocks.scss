@@ -39,9 +39,10 @@ $edge_fade_width : 2rem; /* 1 */
   .code-block__tab {
     a {
       @extend %sans;
-      text-transform : uppercase;
-      font-size      : 90%;
-      color          : $orange;
+      text-transform  : uppercase;
+      font-size       : 90%;
+      color           : $orange;
+      text-decoration : none;
       @include rounded-corners(0.25rem);
       padding      : 0.5rem 0.5rem;
       margin-right : 0.25rem;
@@ -52,6 +53,7 @@ $edge_fade_width : 2rem; /* 1 */
       @include on-event {
         background : $gray-warm-light;
         color      : $gray-light;
+        text-decoration : none;
       }
     }
   }
