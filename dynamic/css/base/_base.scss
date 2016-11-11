@@ -135,7 +135,7 @@ hr {
  */
 blockquote {
   font-size     : 90%;
-  margin-left   : 1rem;
+  margin-left   : 2rem;
   border-left   : 0.25rem solid $gray-75;
   padding-left  : 1rem;
   margin-top    : 1.5rem;
@@ -152,7 +152,7 @@ blockquote {
   @include     rounded-corners();
   border     : 1px solid $cyan-light;
   padding    : 1rem 1rem 1rem 1rem;
-  margin     : 1.5rem 3rem 1.5rem 0.5rem;
+  margin     : 1.5rem 3rem 1.5rem 1.5rem;
 
   .blocknote__title {
     @extend %sans;
