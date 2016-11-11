@@ -41,6 +41,15 @@
  */
 .table-of-contents__items {
   margin-bottom : 0; /* 1 */
+  @extend %sans;
+
+  a {
+    color : $orange-dark;
+
+    @include on-event {
+      color : $orange;
+    }
+  }
 }
 
 /**
