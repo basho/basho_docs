@@ -55,16 +55,21 @@
 
 
 
-  <!-- This shadow box exists s.t. the scroll bar for the dynamic primary
-       content isn't offset by the size of the box-shadow applied. -->
-  <div class="content-nav__shadow-box">
-    <div class="overflow-y   content-nav__primary">
+  <!-- These three divs serve to build a single element. The __sizing-box relies
+       on border-box sizing to correctly define the space available to the
+       __primary element. The __shadow-box provides a box-shadow without
+       affecting any child elements or browser elements (I'm looking at you
+       scrollbars). The __primary element is what's actually significant here.
+  -->
+  <div class="             content-nav__primary__sizing-box">
+  <div class="             content-nav__primary__shadow-box">
+  <div class="overflow-y   content-nav__primary">
 
-      <div class="content-nav__menu-container">
+    <div class="content-nav__menu-container">
 
-        <ul class="content-menu
-                   content-menu--depth-0
-                   content-menu--open">
+      <ul class="content-menu
+                 content-menu--depth-0
+                 content-menu--open">
 
 {{- range $menu := $menu_list }}
 
@@ -78,48 +83,49 @@
 {{ $menu_name              := $menu.Name                                       }} {{/* Provided by Hugo         */}}
 {{ $menu_url               := $menu.URL                                        }} {{/* Provided by Hugo         */}}
 -->
-          <li>
+        <li>
 
-            <div class="content-menu__item {{if $menu_is_selected }} content-menu__item--selected {{end}}">
+          <div class="content-menu__item {{if $menu_is_selected }} content-menu__item--selected {{end}}">
 
-              <span class="block float-left   content-menu__icon-container   docs-icon--{{$menu_pre_icon}}">|</span>
+            <span class="block float-left   content-menu__icon-container   docs-icon--{{$menu_pre_icon}}">|</span>
 
   {{- if $menu_has_children }}
-              <span class="block float-right   content-menu__menu-toggle
-                          {{if $menu_is_open}} content-menu__menu-toggle--open {{end}}">
-              </span>
+            <span class="block float-right   content-menu__menu-toggle
+                        {{if $menu_is_open}} content-menu__menu-toggle--open {{end}}">
+            </span>
   {{- end }}
 
-              <a class="block overflow" {{if not $menu_is_selected}} href="{{$menu_url}}" {{end}}>
-                <strong>{{$menu_name}}</strong>
-              </a>
+            <a class="block overflow" {{if not $menu_is_selected}} href="{{$menu_url}}" {{end}}>
+              <strong>{{$menu_name}}</strong>
+            </a>
 
-            </div>
+          </div>
 
   {{- if $menu_has_children }}
           {{ $dict := (dict   "node" $HugoNode   "top_menu" $menu   "menu_title" $menu_title   "menu_depth" 1   "menu_is_open" $menu_is_open) }}
           {{ partial "content_navigation_submenu.html" $dict }}
   {{- end }}
 
-          </li>
+        </li>
 
 {{- end }}
 
-        </ul>
-
-      </div>
-
-
-
-      <div class="content-nav__fixed-bottom">
-
-        <span class="block" style="text-align:center;">
-          This is the fixed bottom
-        </span>
-
-      </div>
+      </ul>
 
     </div>
+
+
+
+    <div class="content-nav__fixed-bottom">
+
+      <span class="block" style="text-align:center;">
+        This is the fixed bottom
+      </span>
+
+    </div>
+
+  </div>
+  </div>
   </div>
 
 
