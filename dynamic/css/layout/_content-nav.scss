@@ -16,7 +16,7 @@
 //TODO: This sizing looks like ass on sm-down screens. Gotta fix that.
 $fixed-top-height-full : 7.5rem; // w/  project and version selectors.
 $fixed-top-height-half : 4.0rem; // w/o project and version selectors.
-$fixed-top-padding     : 0.5rem; // Padding to make the box-shadow look okay.
+$fixed-top-padding     : 1.0rem; // Space between the __fixed_top and __primary.
 
 $fixed-bottom-height : 5rem;
 
@@ -35,8 +35,7 @@ $fixed-bottom-height : 5rem;
  */
 .content-nav {
   @extend %sans;
-  background : $white;
-  color      : $gray-50;
+  color   : $gray-50;
 
   @include width-exactly('xs') { font-size : 100%; } /* 1 */
   @include width-exactly('sm') { font-size : 100%; } /* 1 */
@@ -56,18 +55,25 @@ $fixed-bottom-height : 5rem;
  * 1. The height of this element will depend on which elements are present.
  */
 .content-nav__fixed-top {
-  position    : fixed;
-  width       : inherit;
-  padding-top : $fixed-top-padding;
+  position : fixed;
+  width    : inherit;
+  padding  : 0.5rem 0.5rem 0  0.5rem;
 
   background : $gray-warm-97;
-  box-shadow : 0.125rem 0 2rem -0.25rem $shadow-hard-color;
+  box-shadow : 0.125rem 0 2rem -0.25rem $shadow-color;
 
   @include when-inside('.content-nav--top-size-full') {
-    height    : $fixed-top-height-full;  /* 1 */
+    height   : $fixed-top-height-full;  /* 1 */
   }
   @include when-inside('.content-nav--top-size-half') {
-    height    : $fixed-top-height-half;  /* 1 */
+    height   : $fixed-top-height-half;  /* 1 */
+  }
+
+  @include wide-from('md') {
+    width : $content-nav-width-md - 0.25rem;
+  }
+  @include wide-from('lg') {
+    width : $content-nav-width-lg-up - 0.25rem;
   }
 }
 
@@ -75,12 +81,15 @@ $fixed-bottom-height : 5rem;
 
 /**
  * Primary (dynamically sized) Content Navigation element
- * The __shadow-box element needs to wrap the __primary element s.t. the
- * scrollbar (which reacts primarily to the size of __menu-container) is locked
- * inside the __primary, rather offset to the limits of the box-shadow applied
- * to __shadow-box.
- * 1. Height of the __primary is determined entirely by the height of the
- *    __shadow-box
+ * This "element" is made up of three divs, each with a different purpose;
+ *   - The __sizing-box plays tricks with border-box sizing to determine the
+ *     size of the __primary content element, described below.
+ *   - The __shadow-box exactly wraps the __primary element s.t. the scrollbar
+ *     (which reacts primarily to the size of __menu-container) is locked inside
+ *     the __primary, rather offset to the extents of the box-shadow.
+ *   - The __primary element is what will contain meaningful children
+ * 1. Height of the __shadow-box and __primary are determined entirely by the
+ *    height of the __sizing-box.
  * 2. Use relative positioning s.t. offsets (in this case `top`) are relative to
  *    the top/left of the parent .content-nav element.
  * 3. `height` is being set to 100% because we need to fill all available space
@@ -94,11 +103,9 @@ $fixed-bottom-height : 5rem;
  * 4. The height of the __fixed-top will vary based on what's include in it, but
  *    that information should be recorded in --modifiers added to .content-nav.
  */
-.content-nav__shadow-box {
+.content-nav__primary__sizing-box {
   position : relative;  /* 2 */
   height   : 100%;      /* 3 */
-
-  box-shadow : 0.25rem 0.25rem 4rem -0.5rem $shadow-hard-color;
 
   @include when-inside('.content-nav--top-size-full') {
     top            : $fixed-top-height-full + $fixed-top-padding;  /* 3, 4 */
@@ -109,8 +116,13 @@ $fixed-bottom-height : 5rem;
     padding-bottom : $fixed-top-height-half + $fixed-top-padding;  /* 3, 4 */
   }
 }
+.content-nav__primary__shadow-box {
+  box-shadow : 0.25rem 0.25rem 4rem -0.5rem $shadow-color;
+  height     : 100%;    /* 1 */
+}
 .content-nav__primary {
-  height : 100%;        /* 1 */
+  background : $gray-warm-97;
+  height     : 100%;    /* 1 */
 }
 
 

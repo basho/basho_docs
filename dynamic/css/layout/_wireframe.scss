@@ -39,6 +39,11 @@ $article-padding-top-md-up   : $banner-height-md-up   + $banner-buffer-md-up;
 $content-nav-width-md    : 14rem;
 $content-nav-width-lg-up : 15rem;
 
+// Padding on either side of the content nav when it's not full-screen'd.
+$content-nav-padding-left   : 1.0rem;
+$content-nav-padding-right  : 1.5rem;
+$content-nav-padding-bottom : 2.0rem;
+
 
 
 // Z-Indexes of layered elements
@@ -57,7 +62,7 @@ $content-nav-z-index : 100;
  *    and reactively animate to fill the screen when we want it to be displayed.
  * 2. When we're in a wider width, we want the content nav to always be fixed to
  *    the left side of the screen.
- * 3. Setting a `top: n` and a `bottom: 0` let's us get around the rough edges
+ * 3. Setting a `top: X` and a `bottom: Y` let's us get around the rough edges
  *    of `height: 100%`. Should also work if we're not using `border-box` sizes.
  * 4. We start the content nav more than 100% of its width to the left so that
  *    we hide the box-shadow of its children.
@@ -80,12 +85,13 @@ $content-nav-z-index : 100;
   }
 
   @include wide-from(md) {
-    top   : $banner-height-md-up;            /* 3 */
-    left  : 0;                               /* 2 */
-    width : $content-nav-width-md;
+    top    : $banner-height-md-up;           /* 3 */
+    bottom : $content-nav-padding-bottom;    /* 3 */
+    left   : $content-nav-padding-left;      /* 2 */
+    width  : $content-nav-width-md;
   }
   @include wide-from(lg) {
-    width : $content-nav-width-lg-up;
+    width  : $content-nav-width-lg-up;
   }
 }
 
@@ -135,10 +141,14 @@ $content-nav-z-index : 100;
 
   @include wide-from(md) {
     padding-top  : $article-padding-top-md-up;  /* 1, 2 */
-    padding-left : $content-nav-width-md;       /* 1, 3 */
+    padding-left : ($content-nav-width-md
+                    + $content-nav-padding-left
+                    + $content-nav-padding-right);  /* 1, 3 */
   }
   @include wide-from(lg) {
-    padding-left : $content-nav-width-lg-up;    /* 1, 3 */
+    padding-left : ($content-nav-width-lg-up
+                    + $content-nav-padding-left
+                    + $content-nav-padding-right);  /* 1, 3 */
   }
 
   &.content-well--immobile {
