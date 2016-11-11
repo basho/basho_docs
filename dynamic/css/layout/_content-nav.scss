@@ -14,9 +14,13 @@
 // .content-nav__fixed-bottom elements to the content-nav, we need pre-defined
 // concrete sizes for both of them that can be used in numerous classes.
 //TODO: This sizing looks like ass on sm-down screens. Gotta fix that.
-$fixed-top-height-full : 7.5rem; // w/  project and version selectors.
-$fixed-top-height-half : 4.0rem; // w/o project and version selectors.
-$fixed-top-padding     : 1.0rem; // Space between the __fixed_top and __primary.
+$fixed-top-height-full-sm-down : 8.0rem; // w/  project and version selectors.
+$fixed-top-height-half-sm-down : 4.0rem; // w/o project and version selectors.
+$fixed-top-padding-sm-down     : 0.5rem; // Space between the __fixed_top and __primary.
+
+$fixed-top-height-full-md-up   : 7.5rem; // w/  project and version selectors.
+$fixed-top-height-half-md-up   : 4.0rem; // w/o project and version selectors.
+$fixed-top-padding-md-up       : 1.0rem; // Space between the __fixed_top and __primary.
 
 $fixed-bottom-height : 5rem;
 
@@ -55,23 +59,35 @@ $fixed-bottom-height : 5rem;
  * 1. The height of this element will depend on which elements are present.
  */
 .content-nav__fixed-top {
-  position : fixed;
-  width    : inherit;
-  padding  : 0.5rem 0.5rem 0  0.5rem;
+  position    : fixed;
+  width       : inherit;
+  padding-top : 0.5rem;
 
   background : $gray-warm-97;
-  box-shadow : 0.125rem 0 2rem -0.25rem $shadow-color;
+  box-shadow : 0.125rem 0 2rem -0.25rem $shadow-hard-color;
 
   @include when-inside('.content-nav--top-size-full') {
-    height   : $fixed-top-height-full;  /* 1 */
+    height : $fixed-top-height-full-sm-down;  /* 1 */
   }
   @include when-inside('.content-nav--top-size-half') {
-    height   : $fixed-top-height-half;  /* 1 */
+    height : $fixed-top-height-half-sm-down;  /* 1 */
   }
 
   @include wide-from('md') {
     width : $content-nav-width-md - 0.25rem;
+    padding-left  : 0.5rem;
+    padding-right : 0.5rem;
+
+    box-shadow : 0.125rem 0 2rem -0.25rem $shadow-color;
+
+    @include when-inside('.content-nav--top-size-full') {
+      height : $fixed-top-height-full-md-up;  /* 1 */
+    }
+    @include when-inside('.content-nav--top-size-half') {
+      height : $fixed-top-height-half-md-up;  /* 1 */
+    }
   }
+
   @include wide-from('lg') {
     width : $content-nav-width-lg-up - 0.25rem;
   }
@@ -108,17 +124,32 @@ $fixed-bottom-height : 5rem;
   height   : 100%;      /* 3 */
 
   @include when-inside('.content-nav--top-size-full') {
-    top            : $fixed-top-height-full + $fixed-top-padding;  /* 3, 4 */
-    padding-bottom : $fixed-top-height-full + $fixed-top-padding;  /* 3, 4 */
+    top            : $fixed-top-height-full-sm-down + $fixed-top-padding-sm-down;  /* 3, 4 */
+    padding-bottom : $fixed-top-height-full-sm-down + $fixed-top-padding-sm-down;  /* 3, 4 */
   }
   @include when-inside('.content-nav--top-size-half') {
-    top            : $fixed-top-height-half + $fixed-top-padding;  /* 3, 4 */
-    padding-bottom : $fixed-top-height-half + $fixed-top-padding;  /* 3, 4 */
+    top            : $fixed-top-height-half-sm-down + $fixed-top-padding-sm-down;  /* 3, 4 */
+    padding-bottom : $fixed-top-height-half-sm-down + $fixed-top-padding-sm-down;  /* 3, 4 */
+  }
+
+  @include wide-from('md') {
+    @include when-inside('.content-nav--top-size-full') {
+      top            : $fixed-top-height-full-md-up + $fixed-top-padding-md-up;  /* 3, 4 */
+      padding-bottom : $fixed-top-height-full-md-up + $fixed-top-padding-md-up;  /* 3, 4 */
+    }
+    @include when-inside('.content-nav--top-size-half') {
+      top            : $fixed-top-height-half-md-up + $fixed-top-padding-md-up;  /* 3, 4 */
+      padding-bottom : $fixed-top-height-half-md-up + $fixed-top-padding-md-up;  /* 3, 4 */
+    }
   }
 }
 .content-nav__primary__shadow-box {
-  box-shadow : 0.25rem 0.25rem 4rem -0.5rem $shadow-color;
+  box-shadow : 0.25rem 0.25rem 4rem -0.5rem $shadow-hard-color;
   height     : 100%;    /* 1 */
+
+  @include wide-from('md') {
+    box-shadow : 0.25rem 0.25rem 4rem -0.5rem $shadow-color;
+  }
 }
 .content-nav__primary {
   background : $gray-warm-97;
