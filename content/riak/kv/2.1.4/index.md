@@ -51,3 +51,7 @@ Are you brand new to Riak KV? Start by [downloading][downloads] Riak KV, and the
 3. [Developing with Riak KV: Searching][usage search]
 4. [Developing with Riak KV: Getting Started][getting started]
 5. [Developing with Riak KV: Client Libraries][dev client libraries]
+
+## Academy Training
+
+[Basho's Academy](https://academy.basho.com) courses offers hands-on experience with Riak KV. Sign up for a [free account](https://academy.basho.com/users/sign_up) to get started.
