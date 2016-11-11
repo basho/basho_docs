@@ -19,14 +19,6 @@ $ ->
   content_nav_toggles = $('.js_toggle-content-nav')
   menu_items          = $('.content-menu__item')
 
-  # The .content-nav is a `.hidden-sm-down` div which sets `display : none
-  # !important`, so we need to remove that class to be able to show the nav at
-  # all. Its styling will put it off-screen to the left, so it will still be
-  # visually hidden.
-  #TODO: Make sure screen readers don't pick up the visually hidden nav in the
-  #      unopened state.
-  side_nav.removeClass('hidden-sm-down')
-
 
   ## Wire up interactions
 
