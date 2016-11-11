@@ -2102,3 +2102,23 @@ hot spots.</td>
 
 </tbody>
 </table>
+
+## Cluster Jobs
+
+{{% note title="Warning" %}}
+Before changing `cluster.job` settings in a production environment, test your application to ensure it does not have any hidden dependencies on them.
+{{% /note %}}
+
+The `cluster.job` settings control whether classes of jobs are enabled or disabled through the HTTP(S) and Protobuf interfaces. All jobs are enabled by default.
+
+Field | Default | Valid values |
+:-----|:--------|:-------------|
+`cluster.job.riak_kv.list_buckets`|`on`|`on` or `off`
+`cluster.job.riak_kv.stream_list_buckets`|`on`|`on` or `off`
+`cluster.job.riak_kv.list_keys`|`on`|`on` or `off`
+`cluster.job.riak_kv.stream_list_keys`|`on`|`on` or `off`
+`cluster.job.riak_kv.map_reduce`|`on`|`on` or `off`
+`cluster.job.riak_kv.map_reduce_js`|`on`|`on` or `off`
+`cluster.job.riak_kv.secondary_index`|`on`|`on` or `off`
+`cluster.job.riak_search.query`|`on`|`on` or `off`
+`cluster.job.yokozuna.query`|`on`|`on` or `off`
