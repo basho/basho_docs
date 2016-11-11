@@ -38,6 +38,7 @@
 
 /**
  * Banner Navigation Elements
+ * 1. Don't append any external link icons to banner links.
  */
 .banner__element-wrapper--navigation {
 
@@ -50,6 +51,17 @@
     @include on-event {
       color           : $cyan;
       text-decoration : none;
+
+    }
+
+    &[href^="http://"],
+    &[href^="https://"],
+    &[href$=".pdf"],
+    &[href$=".PDF"] {
+      &::after {
+        content    : none; /* 1 */
+        background : none; /* 1 */
+      }
     }
   }
 
