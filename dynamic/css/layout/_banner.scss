@@ -45,9 +45,12 @@
   padding-left : 0.5rem;
 
   a {
-    color : $gray-light;
-    &:hover { color : $cyan;      }
-    &:focus { color : $cyan-dark; }
+    color           : $gray-light;
+    text-decoration : none;
+    @include on-event {
+      color           : $cyan;
+      text-decoration : none;
+    }
   }
 
   ul {

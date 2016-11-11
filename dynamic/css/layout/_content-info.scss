@@ -28,9 +28,9 @@
 
   a {
     color : $gray-light;
-    text-decoration: underline;
-    &:hover { color : $cyan;      }
-    &:focus { color : $cyan-dark; }
+    @include on-event {
+      color : $cyan;
+    }
   }
 }
 
