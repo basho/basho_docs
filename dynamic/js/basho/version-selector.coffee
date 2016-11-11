@@ -71,7 +71,7 @@ generateVersionLists = () ->
 
   # Fetch the Project Descriptions from the server, and do all the heavy lifting
   # inside the `success` callback.
-  $.getJSON('/data/project_descriptions.json',
+  if project then $.getJSON('/data/project_descriptions.json',
     (data) ->
       version_selector_list_html = "" # Aggregator for the resulting HTML.
 
