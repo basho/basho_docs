@@ -91,3 +91,25 @@ $container-max-widths: (
 
 $grid-columns:      12;
 $grid-gutter-width: 30px;
+
+
+// Colors
+//
+// I don't like the idea of fragmenting semantic colors on Bootstrap's setup vs
+// our own. Override all of their important colors with something stupid, to
+// ensure we reassign all colors in our own CSS.
+
+$gray-dark:                 red;
+$gray:                      red;
+$gray-light:                red;
+$gray-lighter:              red;
+$gray-lightest:             red;
+
+$brand-primary:             red;
+$brand-success:             red;
+$brand-info:                red;
+$brand-warning:             red;
+$brand-danger:              red;
+$brand-inverse:             red;
+
+$body-color:                red;

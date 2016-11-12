@@ -30,10 +30,10 @@ $bar-height : 0.125em;
 
     position : absolute;
 
-    background : $gray;
+    background : $gray-38;
     box-shadow :
-      0 ($bar-height * 2) 0 0 $gray,
-      0 ($bar-height * 4) 0 0 $gray;
+      0 ($bar-height * 2) 0 0 $gray-38,
+      0 ($bar-height * 4) 0 0 $gray-38;
   }
 
   @include when-inside('.banner') {

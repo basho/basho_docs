@@ -25,7 +25,7 @@
   //      classes for all of these, and they're pretty descriptive as is, so....
   //      Sorry?
   &.content-menu--depth-0 > li {
-    border-bottom : 1px solid $gray-lighter;  /* 2 */
+    border-bottom : 1px solid $gray-85;  /* 2 */
   }
 
   .content-menu--depth-1 a { padding-left : 1.75rem;  /* 4 */ }
@@ -56,7 +56,7 @@
   padding-top    : 0.5rem;
   padding-bottom : 0.5rem;
 
-  background : $gray-90;
+  background : $gray-warm-92;
 
   //TODO: Another expensive selector. Is it worth a class of its own?
   > a {
@@ -64,7 +64,7 @@
   }
 
   > .content-menu__menu-toggle + a {
-    border-right  : 1px solid $gray-lighter;  /* 1 */
+    border-right  : 1px solid $gray-85;  /* 1 */
   }
 }
 
@@ -74,19 +74,19 @@
  */
 .content-menu__item--selected {
   background : $cyan;
-  color      : $gray-warm;
+  color      : $gray-warm-92;
 
   > a {
     cursor : default;
-    color  : $gray-warm;
+    color  : $gray-warm-92;
 
     @include on-event {
-      color : $gray-warm;
+      color : $gray-warm-92;
     }
   }
 
   > .content-menu__menu-toggle + a {
-    border-right-color : $gray-warm;
+    border-right-color : $gray-warm-92;
   }
 }
 
@@ -128,11 +128,11 @@
     display : inline-block;
     content : "";  /* 1 */
 
-    @include downward-arrow(p2r(14px), $gray-light, $gray-15);
+    @include downward-arrow(p2r(14px), $gray-60, $gray-15);
   }
 
   &.content-menu__menu-toggle--open:after {
-    @include upward-arrow(p2r(14px), $gray-light, $gray-15);
+    @include upward-arrow(p2r(14px), $gray-60, $gray-15);
   }
 
   /* Size overrides when displaying wide. */
@@ -140,10 +140,10 @@
     width : 2.2rem;
 
     &:after {
-      @include downward-arrow(p2r(10px), $gray-light, $gray-15);
+      @include downward-arrow(p2r(10px), $gray-60, $gray-15);
     }
     &.content-menu__menu-toggle--open:after {
-      @include upward-arrow(p2r(10px), $gray-light, $gray-15);
+      @include upward-arrow(p2r(10px), $gray-60, $gray-15);
     }
   }
 
@@ -152,19 +152,19 @@
   /* Color overrides when the item is selected */
   @include when-inside('.content-menu__item--selected') {
     &:after {
-      @include downward-arrow(p2r(14px), $gray-warm, $gray-15);
+      @include downward-arrow(p2r(14px), $gray-warm-92, $gray-15);
     }
     &.content-menu__menu-toggle--open:after {
-      @include upward-arrow(p2r(14px), $gray-warm, $gray-15);
+      @include upward-arrow(p2r(14px), $gray-warm-92, $gray-15);
     }
 
     /* Size overrides when displaying wide. */
     @include wide-from('md') {
       &:after {
-        @include downward-arrow(p2r(10px), $gray-warm, $gray-15);
+        @include downward-arrow(p2r(10px), $gray-warm-92, $gray-15);
       }
       &.content-menu__menu-toggle--open:after {
-        @include upward-arrow(p2r(10px), $gray-warm, $gray-15);
+        @include upward-arrow(p2r(10px), $gray-warm-92, $gray-15);
       }
     }
   }

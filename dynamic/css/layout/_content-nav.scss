@@ -28,7 +28,7 @@ $fixed-bottom-height : 5rem;
  */
 .content-nav {
   @extend %sans;
-  background : $gray-warm-light;
+  background : $gray-warm-97;
 
   @include width-exactly('xs') { font-size : 100%; } /* 1 */
   @include width-exactly('sm') { font-size : 100%; } /* 1 */
@@ -89,7 +89,7 @@ $fixed-bottom-height : 5rem;
   padding-left  : 1.25rem;
   padding-right : 1rem;
 
-  border-bottom : 1px solid $gray-lighter;
+  border-bottom : 1px solid $gray-85;
 }
 
 /**

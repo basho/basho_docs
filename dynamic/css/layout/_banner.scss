@@ -16,7 +16,7 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#CCffffff', GradientType=0 );
 
   //TOOD: Make this better. Separate element, maybe? Box-shadow?
-  border-bottom : 1px solid $gray-lighter;
+  border-bottom : 1px solid $gray-85;
 
   @include wide-from(md) {
     padding : .5rem .75rem .25rem .75rem; /* 1 */
@@ -46,7 +46,7 @@
   padding-left : 0.5rem;
 
   a {
-    color           : $gray-light;
+    color           : $gray-60;
     text-decoration : none;
     @include on-event {
       color           : $cyan;
