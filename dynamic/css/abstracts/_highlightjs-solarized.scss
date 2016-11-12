@@ -33,19 +33,19 @@
 // NB. We prefix these colors with `hl_` to ensure they don't conflict with any
 //     other colors defined elsewhere (like those defined in _colors.scss).
 
-$hl_base03  : none;
-$hl_base02  : none;
-$hl_base01  : none;             // Optional Emphasis
-$hl_base00  : $gray-30;         // Primary Content   / Code
-$hl_base0   : none;
-$hl_base1   : $gray-60;         // Secondary Content / Comments
-$hl_base2   : $gray-warm;       // Background Highlights
-$hl_base3   : $gray-warm-light; // Background
+$hl_base03  :  none;
+$hl_base02  :  none;
+$hl_base01  :  none;          // Optional Emphasis
+$hl_base00  : $gray-30;       // Primary Content   / Code
+$hl_base0   :  none;
+$hl_base1   : $gray-60;       // Secondary Content / Comments
+$hl_base2   : $gray-warm-92;  // Background Highlights
+$hl_base3   : $gray-warm-97;  // Background
 $hl_yellow  : $green-dark;
 $hl_orange  : $orange;
 $hl_red     : $orange-red;
-$hl_magenta : none;
-$hl_violet  : none;
+$hl_magenta :  none;
+$hl_violet  :  none;
 $hl_blue    : $cyan;
 $hl_cyan    : $orange-text;
 $hl_green   : $cyan-dark;

@@ -51,8 +51,8 @@ $edge_fade_width : 2rem; /* 1 */
                    color            200ms ease 50ms;
 
       @include on-event {
-        background : $gray-warm-light;
-        color      : $gray-light;
+        background : $gray-warm-97;
+        color      : $gray-60;
         text-decoration : none;
       }
     }
@@ -60,9 +60,9 @@ $edge_fade_width : 2rem; /* 1 */
 
   .code-block__tab--active {
     a {
-      color      : $gray;
+      color      : $gray-38;
       cursor     : default;
-      background : $gray-warm-light;
+      background : $gray-warm-97;
     }
   }
 }
@@ -171,9 +171,9 @@ $edge_fade_width : 2rem; /* 1 */
   @extend %sans;
   text-transform : uppercase;
   font-size      : 90%;
-  color          : $gray;
+  color          : $gray-38;
   @include rounded-corners(0.25rem);
   padding    : 0.5rem 0.75rem;
   margin     : 0  0  0.25rem 0.75rem;
-  background : $gray-warm-light;
+  background : $gray-warm-97;
 }
