@@ -7,14 +7,18 @@
  *    want the top level items (those without a parents) visually separated.
  * 3. Menus are closed and invisible by default. Only show them once they've
  *    been "opened".
+ *    NB. These settings are somewhat overridden by `style="display: *`
+ *    attributes set on the .content-menu HTML elements. JQuery's .slideUp()
+ *    and .slideDown() functions manipulate the element's `style` attribute --
+ *    rather than the calculated style -- and so we need to give that attribute
+ *    a starting point for JQuery to transition from.
  * 4. Progressively increase the left margin on menu text.
  */
 .content-menu {
-  display : none;       /* 3 */
+  display      : none;  /* 3 */
   margin       : 0;     /* 1 */
   padding-left : 0;     /* 1 */
   list-style   : none;  /* 1 */
-
 
   &.content-menu--open {
     display : block;    /* 3 */
