@@ -3,48 +3,66 @@
  * This is assumed to be an unordered list-of-lists that will contain the
  * Hugo-generated menu for the given project.
  * 1. Override the default <ul> styles.
- * 2. Only add a border to the bottom of the first level of list items. We only
- *    want the top level items (those without a parents) visually separated.
+ * 2. Only add a shadow to the top of the first level of list items. We only
+ *    want to visually separate the items without a parent.
  * 3. Menus are closed and invisible by default. Only show them once they've
  *    been "opened".
- *    NB. These settings are somewhat overridden by `style="display: *`
- *    attributes set on the .content-menu HTML elements. JQuery's .slideUp()
- *    and .slideDown() functions manipulate the element's `style` attribute --
- *    rather than the calculated style -- and so we need to give that attribute
- *    a starting point for JQuery to transition from.
- * 4. Progressively increase the left margin on menu text.
+ *    NB. These settings are made redundant by `style="display: *` attributes
+ *    set on the .content-menu HTML elements. JQuery's .slideUp() and
+ *    .slideDown() functions manipulate the element's `style` attribute --
+ *    rather than the calculated CSS -- and so we need to give that attribute a
+ *    starting point for JQuery to transition from, and we need to rely on it
+ *    being changed -- rather than the calculated CSS.
+ * 4. This covers an edge case without impacting in the menu's positioning or
+ *    size. When the first element of a list that is being closed is the
+ *    selected item, the box-shadow from the selected item (which flows over the
+ *    top of the <ul>) will be immediately hidden unless we have a large enough
+ *    padding-top. This 0.3rem padding will be animated away during the
+ *    `slideUp()` call, and which will give the box-shadow time to fade, rather
+ *    than disappearing in a single frame.
  */
 .content-menu {
-  display      : none;  /* 3 */
-  margin       : 0;     /* 1 */
-  padding-left : 0;     /* 1 */
-  list-style   : none;  /* 1 */
+  display      : none;     /* 3 */
+  margin       : 0;        /* 1 */
+  padding-left : 0;        /* 1 */
+  list-style   : none;     /* 1 */
+
+  margin-top   : -0.3rem;  /* 4 */
+  padding-top  :  0.3rem;  /* 4 */
 
   &.content-menu--open {
-    display : block;    /* 3 */
+    display : block;       /* 3 */
   }
 
-
-  //TODO: Bunch'a expensive selectors incoming. I'm not sure it's worth building
-  //      classes for all of these, and they're pretty descriptive as is, so....
-  //      Sorry?
-  &.content-menu--depth-0 > li {
-    border-bottom : 1px solid $gray-85;  /* 2 */
+  &.content-menu--depth-0 > li {  /* 2 */
+    box-shadow : 0  -0.2rem 0.7rem -0.2rem $shadow-light-color;
   }
+}
 
-  .content-menu--depth-1 a { padding-left : 1.75rem;  /* 4 */ }
-  .content-menu--depth-2 a { padding-left : 2.50rem;  /* 4 */ }
-  .content-menu--depth-3 a { padding-left : 3.25rem;  /* 4 */ }
-  .content-menu--depth-4 a { padding-left : 4.00rem;  /* 4 */ }
-  .content-menu--depth-5 a { padding-left : 4.75rem;  /* 4 */ }
 
-  @include when-inside('md') {
-    .content-menu--depth-1 a { padding-left : 1.125rem;  /* 4 */ }
-    .content-menu--depth-2 a { padding-left : 1.625rem;  /* 4 */ }
-    .content-menu--depth-3 a { padding-left : 2.125rem;  /* 4 */ }
-    .content-menu--depth-4 a { padding-left : 2.625rem;  /* 4 */ }
-    .content-menu--depth-5 a { padding-left : 3.125rem;  /* 4 */ }
-  }
+
+/**
+ * Menu Item Insets
+ * Menu items will be shifted farther and farther to the right the deeper in the
+ * menu structure they live. Depending on whether we're displaying a full screen
+ * menu, the insets will start smaller and scale differently.
+ * If the menu item is currently selected, the inset will be slightly adjusted
+ * to make the item appear offset and physically above the other items.
+ * NB. For --depth-0 menus, the on-selected inset is reduced by changing the
+ * margin-left of the __icon-container, and will be applied below.
+ */
+.content-menu__link--depth-1   { padding-left : 1.75rem;   @include wide-from('md') { padding-left : 1.125rem; } }
+.content-menu__link--depth-2   { padding-left : 2.50rem;   @include wide-from('md') { padding-left : 1.625rem; } }
+.content-menu__link--depth-3   { padding-left : 3.25rem;   @include wide-from('md') { padding-left : 2.125rem; } }
+.content-menu__link--depth-4   { padding-left : 4.00rem;   @include wide-from('md') { padding-left : 2.625rem; } }
+.content-menu__link--depth-5   { padding-left : 4.75rem;   @include wide-from('md') { padding-left : 3.125rem; } }
+
+.content-menu__item--selected {
+  .content-menu__link--depth-1 { padding-left : 1.75rem-0.4rem;   @include wide-from('md') { padding-left : 1.125rem-0.2rem; } }
+  .content-menu__link--depth-2 { padding-left : 2.50rem-0.4rem;   @include wide-from('md') { padding-left : 1.625rem-0.2rem; } }
+  .content-menu__link--depth-3 { padding-left : 3.25rem-0.4rem;   @include wide-from('md') { padding-left : 2.125rem-0.2rem; } }
+  .content-menu__link--depth-4 { padding-left : 4.00rem-0.4rem;   @include wide-from('md') { padding-left : 2.625rem-0.2rem; } }
+  .content-menu__link--depth-5 { padding-left : 4.75rem-0.4rem;   @include wide-from('md') { padding-left : 3.125rem-0.2rem; } }
 }
 
 
@@ -55,18 +73,26 @@
  * 1. Apply a border-right to child anchor elements who are siblings of
  *    .content-menu__menu-toggle s.t. menu items with wrapped text get a border
  *    the full height of the title.
+ * 2. The color of text is going to be largely defined by setting `color` on
+ *    encapsulating <div>, and allowing <a>s to `inherit` the given color. This
+ *    is because of a quirk of reboot.css that I couldn't find a truly clean way
+ *    of resolving.
+ * 3. Asymmetric margins on either side of the __item to give it an physically-
+ *    overlaid feel when applying an on-selected background color and shadow.
  */
 .content-menu__item {
   padding-top    : 0.5rem;
-  padding-bottom : 0.5rem;
+  padding-bottom : 0.75rem;
+  margin-left    : 0.6rem;      /* 3 */
+  margin-right   : 0.4rem;      /* 3 */
 
-  background : $gray-warm-92;
+  color          : $gray-50;    /* 2 */
 
-  //TODO: Another expensive selector. Is it worth a class of its own?
-  > a {
-    padding-right : 0.5rem;
+  a {
+    padding-right   : 0.5rem;
 
-    color : $gray-50;
+    color           : inherit;  /* 2 */
+    text-decoration : none;
 
     @include on-event {
       color : $gray-15;
@@ -74,34 +100,44 @@
   }
 
   > .content-menu__menu-toggle + a {
-    border-right  : 1px solid $gray-85;  /* 1 */
+    border-right : 1px solid $gray-90;  /* 1 */
+  }
+
+  @include wide-from('md') {
+    margin-left  : 0.5rem;    /* 3 */
+    margin-right : 0.2rem;    /* 3 */
   }
 }
 
 /**
  * Currently selected Content Menu Items
- * Largely just overrides styles set in .content-menu__item and .content-nav
+ * Largely just overrides styles set in .content-menu__item and .content-nav.
+ * 1. Drop the bottom of the selected item an nearly-imperceptible amount to
+ *    avoid crowding the proceeding element with the newly added box-shadow.
+ * 2. Stop any kind of :hover color change by resetting the <a> color to
+ *    whatever is `inherit`ed.
  */
 .content-menu__item--selected {
   background : $cyan;
-  color      : $gray-warm-92;
+  color      : $gray-95;
+
+  box-shadow : 0  0  1rem -0.2rem $shadow-mid-color;
+  margin-bottom : 0.2rem;  /* 1 */
 
   > a {
-    color  : $gray-warm-92;
-
     @include on-event {
-      color : $gray-warm-92;
+      color : inherit;
     }
   }
 
   > .content-menu__menu-toggle + a {
-    border-right-color : $gray-warm-92;
+    border-right-color : $gray-95;
   }
 }
 
 /**
  * Container for a docs-icon iconograph.
- * 1. Padding to the left of the iconograph.
+ * 1. Padding to the left of the iconograph. (Reduced for the --selected item.)
  * 2. Padding between the iconograph and the '|'
  * 3. Padding the the right of the '|'
  * 4. Normalize widths of the iconographs.
@@ -117,63 +153,95 @@
     width         : 1.25rem; /* 4 */
     padding-right : 0.5rem;  /* 2 */
   }
+
+  @include when-inside('.content-menu__item--selected') {
+    margin-left : 0.7rem; /* 1 */
+  }
 }
 
 /**
  * Chevron toggle for showing the possibility of opening / closing a menu.
- * 1. We need to put something in the :after element for the chevron to render.
- *TODO: This... is... not a well formed clause. There has to be some way to
- *      clean it up, and make the rules easier to follow...
+ * 1. Target width for sm-down screens is 3.5rem. Cut that down by 1/2 of the
+ *    margins applied to .content-menu__item (0.6rem + 0.4rem), and apply a
+ *    padding-left equal to the margin-right to center the chevron.
+ *    Simple, right?
+ * 2. Target width for md-up screens is 2.2rem. Cut that down by 1/2 of the
+ *    margins applied to .content-menu__item (0.5rem + 0.2rem), and apply a
+ *    padding-left equal to the margin-right to center the chevron.
+ *    Still simple, yeah?
+ * 3. When inside a selected element, we want to shift the chevron and vertical
+ *    border to the left some. Accomplish this by increasing the width and
+ *    decreasing the padding-left by the same amount.
  */
 .content-menu__menu-toggle {
-  width      : 3.5rem;
-  text-align : center;
+  width        : 3.0rem;               /* 1 */
+  padding-left : 0.4rem;               /* 1 */
+  text-align   : center;
 
-  cursor : pointer;
+  cursor       : pointer;
 
+  @include when-inside('.content-menu__item--selected') {
+    width        : 3.0rem+0.4rem;      /* 3 */
+    padding-left : 0.4rem-0.4rem;      /* 3 */
+  }
+
+  @include wide-from('md') {
+    width        : 1.85rem;            /* 2 */
+    padding-left : 0.20rem;            /* 2 */
+
+    @include when-inside('.content-menu__item--selected') {
+      width        : 1.85rem+0.20rem;  /* 3 */
+      padding-left : 0.20rem-0.20rem;  /* 3 */
+    }
+  }
+
+
+  /* Rules for adding and manipulating the chevron.
+   * 1. We need any `content` in the :after element for the chevron to render.
+   * 2. When part of a selected item, shift the color.
+   * 3. When the menu is open, point the chevron upward.
+   *    NB. Because of the way this selector has to be constructed, we can't use
+   *    a when-inside clause. We have to construct it by wrapping the --open
+   *    modifier between the current selector (&) and the :after pseudo-element.
+   * 4. When rendering at a wider width, decrease the size of the arrows.
+   */
   &:after {
-    transition : border-color 500ms ease;
-
     display : inline-block;
     content : "";  /* 1 */
 
-    @include downward-arrow(p2r(14px), $gray-60, $gray-15);
+    transition : border-color 500ms ease;
+
+
+    @include downward-arrow(p2r(14px), $gray-60, $gray-15);      /* baseline */
+
+    @include when-inside('.content-menu__item--selected') {
+      @include downward-arrow(p2r(14px), $gray-95, $gray-15);    /* 2 */
+    }
   }
 
   &.content-menu__menu-toggle--open:after {
-    @include upward-arrow(p2r(14px), $gray-60, $gray-15);
+    @include upward-arrow(p2r(14px), $gray-60, $gray-15);        /* 3 */
+
+    @include when-inside('.content-menu__item--selected') {
+      @include upward-arrow(p2r(14px), $gray-95, $gray-15);      /* 2, 3 */
+    }
   }
 
-  /* Size overrides when displaying wide. */
+
   @include wide-from('md') {
-    width : 2.2rem;
-
     &:after {
-      @include downward-arrow(p2r(10px), $gray-60, $gray-15);
-    }
-    &.content-menu__menu-toggle--open:after {
-      @include upward-arrow(p2r(10px), $gray-60, $gray-15);
-    }
-  }
+      @include downward-arrow(p2r(10px), $gray-60, $gray-15);    /* 4 */
 
-
-
-  /* Color overrides when the item is selected */
-  @include when-inside('.content-menu__item--selected') {
-    &:after {
-      @include downward-arrow(p2r(14px), $gray-warm-92, $gray-15);
-    }
-    &.content-menu__menu-toggle--open:after {
-      @include upward-arrow(p2r(14px), $gray-warm-92, $gray-15);
-    }
-
-    /* Size overrides when displaying wide. */
-    @include wide-from('md') {
-      &:after {
-        @include downward-arrow(p2r(10px), $gray-warm-92, $gray-15);
+      @include when-inside('.content-menu__item--selected') {
+        @include downward-arrow(p2r(10px), $gray-95, $gray-15);  /* 4, 2 */
       }
-      &.content-menu__menu-toggle--open:after {
-        @include upward-arrow(p2r(10px), $gray-warm-92, $gray-15);
+    }
+
+    &.content-menu__menu-toggle--open:after {
+      @include upward-arrow(p2r(10px), $gray-60, $gray-15);      /* 4, 3 */
+
+      @include when-inside('.content-menu__item--selected') {
+        @include upward-arrow(p2r(10px), $gray-95, $gray-15);    /* 4, 2, 3 */
       }
     }
   }
