@@ -66,6 +66,24 @@
 }
 
 
+/**
+ * Download entry
+ * We want the download menu entry to be visually distinct from other entries,
+ * but behave the same as the rest of the nav. To do this we give the <li>
+ * (rather than the __item) a different background and :hover color without
+ * changing how it interacts with the rest of the rules in this file.
+ */
+.content-menu__download-entry {
+  background : $orange-lightest;
+
+  transition : background 500ms ease;
+
+  @include on-event {
+    background : $orange-light;
+  }
+}
+
+
 
 /* This padding-top value is shared among a number of elements, all of which
  * need to be pushed to the same vertical height. A similar padding-bottom

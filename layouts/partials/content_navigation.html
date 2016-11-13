@@ -75,15 +75,16 @@
 
 <!-- Range-Specific Variable Definitions
      ===================================
-{{ $menu_is_selected       := ($HugoNode.IsMenuCurrent  $menu_title $menu)     }} {{/* If the current menu is selected            */}}
-{{ $menu_contains_selected := ($HugoNode.HasMenuCurrent $menu_title $menu)     }} {{/* If a child of the current menu is selected */}}
-{{ $menu_is_open           := (or  $menu_is_selected  $menu_contains_selected) }}
-{{ $menu_pre_icon          := $menu.Pre                                        }} {{/* User defined. ex; lambda */}}
-{{ $menu_has_children      := $menu.HasChildren                                }} {{/* Provided by Hugo         */}}
-{{ $menu_name              := $menu.Name                                       }} {{/* Provided by Hugo         */}}
-{{ $menu_url               := $menu.URL                                        }} {{/* Provided by Hugo         */}}
+{{ $menu_is_selected       := ($HugoNode.IsMenuCurrent  $menu_title $menu)     }} {{/* If the current menu is selected               */}}
+{{ $menu_contains_selected := ($HugoNode.HasMenuCurrent $menu_title $menu)     }} {{/* If a child of the current menu is selected    */}}
+{{ $menu_is_open           := (or  $menu_is_selected  $menu_contains_selected) }} {{/* If the menu should start open, for any reason */}}
+{{ $menu_pre_icon          := $menu.Pre                                        }} {{/* User defined. ex; lambda                      */}}
+{{ $menu_has_children      := $menu.HasChildren                                }} {{/* Provided by Hugo                              */}}
+{{ $menu_name              := $menu.Name                                       }} {{/* Provided by Hugo                              */}}
+{{ $menu_url               := $menu.URL                                        }} {{/* Provided by Hugo                              */}}
+{{ $item_is_download_link  := ( findRE "downloads/$" $menu_url )               }} {{/* A bool-ish list; empty is treated as false-y  */}}
 -->
-        <li>
+        <li {{if $item_is_download_link }}class="content-menu__download-entry"{{end}}>
 
           <div class="content-menu__item {{if $menu_is_selected }} content-menu__item--selected {{end}}">
 
