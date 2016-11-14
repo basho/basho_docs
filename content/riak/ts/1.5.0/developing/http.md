@@ -46,6 +46,19 @@ CREATE TABLE GeoCheckin
 |query  | /ts/v1/query --data "»Query«"  | POST | execute a query |
 |list_keys | /ts/v1/tables/GeoCheckin/list_keys  | GET | streaming list keys     |
 
+{{% note title="REST purity" %}}
+The `query` Call type supports SQL queries, so REST purists may think that the
+HTTP verb should be `GET` when the SQL command is a `SELECT` targeting a single
+record, `DELETE` when the SQL command is a `DELETE` targeting a single record,
+`POST` when the SQL command is an `INSERT`, `PUT` when the SQL command is an
+`UPDATE` targeting a single record. However, such purity attempts are stretched
+to the breaking point for a SQL command of `SELECT`, `UPDATE`, or `DELETE`
+targeting multiple records. As SQL is generally oriented at set-based operations
+and REST is oriented towards single-document operations, using `POST` to process
+set-based operation should be apparently pure. This distinction should help the
+developer in reasoning about Riak TS usage over HTTP, including how to properly
+cache results, a primary reason for REST purity.
+{{% /note %}}
 
 ## Percent-encoding
 
