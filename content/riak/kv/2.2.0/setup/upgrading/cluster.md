@@ -29,7 +29,7 @@ aliases:
 
 ## Overview
 
-Riak KV nodes negotiate with each other to determine supported operating modes. This allows clusters containing mixed-versions of Riak KV to properly interoperate without special configuration, and simplifies rolling upgrades.
+Riak KV nodes negotiate with each other to determine supported operating modes. This allows clusters containing mixed-versions of Riak KV to interoperate without special configuration, and simplifies rolling upgrades.
 
 ### General Process
 
