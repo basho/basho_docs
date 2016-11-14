@@ -46,11 +46,16 @@ You can upgrade one node or your whole cluster to Riak KV 2.2.0 by following the
 For every node in the cluster:
 
 1.  Stop Riak KV.
-2.  Back up Riak's `/etc` and `/data` directories.
-3.  Upgrade Riak KV.
-4.  Start Riak KV.
-5.  Verify Riak KV is running the upgraded version.
-6.  Wait for the `riak_kv` service to start.
+1.  Back up the Riak /etc, /data, and /basho-patches directories.
+1.  Remove your /basho-patches directory.
+1.  Upgrade Riak KV.
+    * If you are upgrading from OSS to EE, uninstall your OSS KV package before upgrading.
+1. (Optional) If you would like to potentially downgrade at some point, update your advanced.config file to opt-out of the AAE updates.
+1.  If you're upgrading from OSS to EE, apply your customized settings to vm.args and app.config
+1.  Start Riak KV.
+1.  Verify Riak KV is running the upgraded version.
+1.  Wait for the `riak_kv` service to start.
+1.  Wait for any hinted handoffs to complete.
 
 Before starting the rolling upgrade process on your cluster, check out the [Upgrading Riak KV: Production Checklist][production checklist], which covers details and questions to consider before upgrading.
 
@@ -60,17 +65,22 @@ Before starting the rolling upgrade process on your cluster, check out the [Upgr
 [Riak KV 2.2][release notes] introduces on-disk data file format changes that can impact the upgrade/downgrade process:
 
 * Changes to active anti-entropy related to inconsistent hashing.
-* Upgrading to Solr 4.10.4 for Riak Search.
+* Upgrading to Solr 4.10.4 for Riak search.
+
+{{% note %}}
+You must have Java version 7 or higher in order to upgrade to Riak KV 2.2.0.
+{{% /note %}}
+
 
 ### Components That Complicate Downgrades
 
 | Feature | automatic | required | upgrade only | Notes |
 |:---|:---:|:---:|:---:|:--- |
-|Migration to Solr 4.10.4 |✔ | ✔| | Applies to all clusters using Riak Search.
-| Active Anti-Entropy file format changes | ✔ |  | | Can be opted out using a capability.
-| LZ4 Compression in LevelDB | | | ✔ |
-| Global Expiration in LevelDB | | | ✔ |
-| HyperLogLog Data Type | | |✔| On downgrade data written in HLL format is unreadable.|
+|Migration to Solr 4.10.4 |✔ | ✔| | Applies to all clusters using Riak search.
+| Active anti-entropy file format changes | ✔ |  | | Can opt-out using a capability.
+| LZ4 compression in LevelDB | | | ✔ |
+| Global expiration in LevelDB | | | ✔ |
+| HyperLogLog data type | | |✔| On downgrade data written in HLL format is unreadable.|
  
 
 ### When Downgrading is No Longer an Option
@@ -118,11 +128,11 @@ If you are upgrading from Riak KV OSS to Riak KV EE, you must uninstall your Ria
 {{% /note %}}
 
 ```RHEL/CentOS
-sudo dpkg -i »riak_package_name«.deb
+sudo rpm -Uvh »riak_package_name«.rpm
 ```
 
 ```Ubuntu
-sudo rpm -Uvh »riak_package_name«.rpm
+sudo dpkg -i »riak_package_name«.deb
 ```
 
 5\. (**Optional**) If you would like to keep your AAE trees in a format that will facilitate downgrading, the capability override should be in the `riak_kv` proplist of the advanced.config file:
@@ -146,6 +156,10 @@ sudo rpm -Uvh »riak_package_name«.rpm
   * `snmp` --- See [SNMP][snmp] for more information.
 
 6\. Restart Riak KV:
+
+{{% note %}}
+You must have [Java version 7 or higher](http://www.oracle.com/technetwork/java/javase/downloads/index.html) in order to upgrade to Riak KV 2.2.0. If you do not have it installed, please install it now.
+{{% /note %}}
 
 ```bash
 riak start
