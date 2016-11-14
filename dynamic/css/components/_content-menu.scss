@@ -67,12 +67,22 @@
 
 
 
+/* This padding-top value is shared among a number of elements, all of which
+ * need to be pushed to the same vertical height. A similar padding-bottom
+ * variable is NOT USED because setting a uniform padding-bottom across the menu
+ * item text, icon container, and menu toggle breaks the menu expanding /
+ * collapsing animations.
+ * I do not know why....
+ */
+$menu-item-padding-top : 0.60rem;
+
 /**
  * Content Menu Item
  * These can be top level items, or sub-items.
- * 1. Apply a border-right to child anchor elements who are siblings of
+ * 1. Apply a border-right to anchor child-elements who are siblings of
  *    .content-menu__menu-toggle s.t. menu items with wrapped text get a border
- *    the full height of the title.
+ *    the full height of the title, but those borders are only applied when a
+ *    menu toggle exists to visually separate.
  * 2. The color of text is going to be largely defined by setting `color` on
  *    encapsulating <div>, and allowing <a>s to `inherit` the given color. This
  *    is because of a quirk of reboot.css that I couldn't find a truly clean way
@@ -81,31 +91,35 @@
  *    overlaid feel when applying an on-selected background color and shadow.
  */
 .content-menu__item {
-  padding-top    : 0.60rem;
-  padding-bottom : 0.65rem;
-  margin-left    : 0.6rem;      /* 3 */
-  margin-right   : 0.4rem;      /* 3 */
+  margin-left    : 0.6rem;  /* 3 */
+  margin-right   : 0.4rem;  /* 3 */
+
+  @include wide-from('md') {
+    margin-left  : 0.5rem;  /* 3 */
+    margin-right : 0.2rem;  /* 3 */
+  }
+
 
   color          : $gray-50;    /* 2 */
 
   @include on-event {
-    color        : $gray-30;
+    color        : $gray-30;    /* 2 */
   }
 
+
   a {
-    padding-right   : 0.5rem;
+    padding-top    : $menu-item-padding-top;
+    padding-bottom : 0.65rem;
 
     color           : inherit;  /* 2 */
     text-decoration : none;
   }
 
-  > .content-menu__menu-toggle + a {
-    border-right : 1px solid $gray-90;  /* 1 */
-  }
 
-  @include wide-from('md') {
-    margin-left  : 0.5rem;    /* 3 */
-    margin-right : 0.2rem;    /* 3 */
+  > .content-menu__menu-toggle + a > .content-menu__item__right-border {
+    width         : 100%;
+    padding-right : 0.5rem;
+    border-right  : 1px solid $gray-90;  /* 1 */
   }
 }
 
@@ -147,6 +161,9 @@
   margin-left  : 1rem;    /* 1 */
   margin-right : 0.25rem; /* 3 */
 
+  padding-top    : $menu-item-padding-top;
+  padding-bottom : 0.2rem;
+
   color         : inherit;  /* 5 */
   transition    : color 500ms ease;
 
@@ -179,6 +196,9 @@
   width        : 3.0rem;               /* 1 */
   padding-left : 0.4rem;               /* 1 */
   text-align   : center;
+
+  padding-top    : $menu-item-padding-top;
+  padding-bottom : 0.2rem;
 
   cursor       : pointer;
 
