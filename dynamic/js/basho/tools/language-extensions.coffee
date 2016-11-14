@@ -12,7 +12,7 @@ Like it says on the tin, the below extend (hopefully in a small way) JS
 
 
 
-# ```padNumber :: (Num, Num, ?Char) -> Str```
+## padNumber :: (Num, Num, ?Char) -> Str
 # Convert any number to a string of at least length `len`, conditionally
 # prefixed with `char` characters.
 # This function was heavily inspired by
@@ -27,6 +27,26 @@ window.padNumber = (number, len, char = '0') ->
   zeroString = '-' + zeroString                           if ( number < 0  )
 
   return (zeroString + n)
+
+
+
+## rem :: (?Num) -> Num
+# Return the current rem size in pixels, or the length of `n` rems in pixels.
+#TODO: I should probably not be using JQuery here.
+window.rem = (n = 1) ->
+  n * parseInt($('html').css('font-size'))
+
+## <Number>.rem :: () -> Num
+# Convert Number rems into pixels.
+Number::rem = () ->
+  this * parseInt($('html').css('font-size'))
+
+
+
+## <String>.toInt :: () -> Num
+# Pass the given string through parseInt().
+String::toInt = () ->
+  parseInt(this)
 
 
 
