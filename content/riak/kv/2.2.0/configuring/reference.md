@@ -2113,12 +2113,12 @@ The `cluster.job` settings control whether classes of jobs are enabled or disabl
 
 Field | Default | Valid values |
 :-----|:--------|:-------------|
-`cluster.job.riak_kv.list_buckets`|`on`|`on` or `off`
-`cluster.job.riak_kv.stream_list_buckets`|`on`|`on` or `off`
-`cluster.job.riak_kv.list_keys`|`on`|`on` or `off`
-`cluster.job.riak_kv.stream_list_keys`|`on`|`on` or `off`
-`cluster.job.riak_kv.map_reduce`|`on`|`on` or `off`
-`cluster.job.riak_kv.map_reduce_js`|`on`|`on` or `off`
-`cluster.job.riak_kv.secondary_index`|`on`|`on` or `off`
-`cluster.job.riak_search.query`|`on`|`on` or `off`
-`cluster.job.yokozuna.query`|`on`|`on` or `off`
+`cluster.job.riak_kv.list_buckets`|`enabled`|`enabled` or `disabled`
+`cluster.job.riak_kv.stream_list_buckets`|`enabled`|`enabled` or `disabled`
+`cluster.job.riak_kv.list_keys`|`enabled`|`enabled` or `disabled`
+`cluster.job.riak_kv.stream_list_keys`|`enabled`|`enabled` or `disabled`
+`cluster.job.riak_kv.map_reduce`|`enabled`|`enabled` or `disabled`
+`cluster.job.riak_kv.map_reduce_js`|`enabled`|`enabled` or `disabled`
+`cluster.job.riak_kv.secondary_index`|`enabled`|`enabled` or `disabled`
+`cluster.job.riak_search.query`|`enabled`|`enabled` or `disabled`
+`cluster.job.yokozuna.query`|`enabled`|`enabled` or `disabled`
