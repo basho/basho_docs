@@ -81,22 +81,22 @@
  *    overlaid feel when applying an on-selected background color and shadow.
  */
 .content-menu__item {
-  padding-top    : 0.5rem;
-  padding-bottom : 0.75rem;
+  padding-top    : 0.60rem;
+  padding-bottom : 0.65rem;
   margin-left    : 0.6rem;      /* 3 */
   margin-right   : 0.4rem;      /* 3 */
 
   color          : $gray-50;    /* 2 */
+
+  @include on-event {
+    color        : $gray-30;
+  }
 
   a {
     padding-right   : 0.5rem;
 
     color           : inherit;  /* 2 */
     text-decoration : none;
-
-    @include on-event {
-      color : $gray-15;
-    }
   }
 
   > .content-menu__menu-toggle + a {
@@ -121,14 +121,12 @@
   background : $cyan;
   color      : $gray-95;
 
+  @include on-event {
+    color    : $gray-95;
+  }
+
   box-shadow : 0  0  1rem -0.2rem $shadow-mid-color;
   margin-bottom : 0.2rem;  /* 1 */
-
-  > a {
-    @include on-event {
-      color : inherit;
-    }
-  }
 
   > .content-menu__menu-toggle + a {
     border-right-color : $gray-95;
@@ -141,12 +139,16 @@
  * 2. Padding between the iconograph and the '|'
  * 3. Padding the the right of the '|'
  * 4. Normalize widths of the iconographs.
+ * 5. Inherit the color of the __item s.t. this element transitions on hover.
  */
 .content-menu__icon-container {
   text-align : right;
 
   margin-left  : 1rem;    /* 1 */
   margin-right : 0.25rem; /* 3 */
+
+  color         : inherit;  /* 5 */
+  transition    : color 500ms ease;
 
   &:before {
     display       : inline-block;
