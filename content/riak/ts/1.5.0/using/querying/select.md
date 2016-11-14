@@ -25,7 +25,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/select"
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
 [learn timestamps accuracy]: /riak/ts/1.5.0/learn-about/timestamps/#reduced-accuracy
 
-You can use the SELECT statement in Riak TS to query your TS dataset. This document will show you how to run various queries using `SELECT`. 
+You can use the SELECT statement in Riak TS to query your TS dataset. This document will show you how to run various queries using `SELECT`.
 
 * See the [guidelines] for more information on limitations and rules for queries in TS.
 * See [aggregate functions] to learn how turn a set of rows in your Riak TS table into a value.
@@ -41,7 +41,7 @@ CREATE TABLE GeoCheckin
    region       VARCHAR   NOT NULL,
    state        VARCHAR   NOT NULL,
    time         TIMESTAMP NOT NULL,
-   weather      VARCHAR NOT NULL,
+   weather      VARCHAR   NOT NULL,
    temperature  DOUBLE,
    PRIMARY KEY (
      (region, state, QUANTUM(time, 15, 'm')),
@@ -278,3 +278,170 @@ select weather, temperature from GeoCheckin where time > '2009-11-01 03.25+07' a
 ```
 
 See [our documentation on ISO 8601 support][iso8601] for more details on how to use ISO 8601.
+
+## IS [NOT] NULL
+For queries which operate on ranges which contain columns that are nullable, the
+WHERE clause may contain NULL condition predicates.
+
+```sql
+_expression_ IS NULL
+_expression_ IS NOT NULL
+NOT _expression_ IS NULL -- equivalent to: _expression_ IS NOT NULL
+NOT _expression_ IS NOT NULL -- equivalent to: _expression_ IS NULL
+```
+
+For example, the following query extracts the key column values for all records
+within the time range, which do not have a value set for the temperature column:
+
+```sql
+SELECT region, state, time
+FROM GeoCheckin
+WHERE time > 1234560 AND time < 1234569
+      AND region = 'South Atlantic' AND state = 'South Carolina'
+      AND temperature IS NULL
+```
+
+IS NOT NULL is often used to operate on records which are fully populated to the
+point that an application requires. Within this context, the above query to
+locate records which do not satisfy such a requirement can be utilized to
+investigate and subsequently reconcile records which are partially populated.
+
+Another common use of NULL condition predicates is determining the relative
+cardinality of the subset not containing a value for the _column_.
+
+## Client NULL Results
+
+In this example, we will show how NULL cell results are returned through each
+client with the following query:
+
+```sql
+SELECT region, temperature
+FROM GeoCheckin
+WHERE time > 1234560 AND time < 1234569
+      AND region = 'South Atlantic' AND state = 'South Carolina'
+      AND temperature IS NULL
+```
+
+```java
+String queryText =
+    "SELECT region, temperature FROM GeoCheckin" +
+    "WHERE time > 1234560 AND time < 1234569" +
+    "AND region = 'South Atlantic' AND state = 'South Carolina'" +
+    "AND temperature IS NULL";
+
+Query query = new Query.Builder(queryText).build();
+QueryResult queryResult = client.execute(query);
+Row firstRow = queryResult.getRowsCopy().get(0);
+List<Cell> cells = firstRow.getCellsCopy();
+
+assertTrue(cells.size() == 2);
+
+assertTrue(cells.get(0) != null);
+assertTrue(cells.get(0).hasVarcharValue());
+assertTrue(cells.get(0).getVarcharAsUTF8String().equals("South Atlantic"));
+
+assertTrue(cells.get(1) == null); // Null cells are represented as literal nulls in the row object's cell iterator.
+```
+
+```ruby
+Riak::Timeseries::Query.new(client, "SELECT region, temperature FROM GeoCheckin WHERE time > 1234560 AND time < 1234569 AND region = 'South Atlantic' AND state = 'South Carolina' AND temperature IS NULL").issue!
+
+#=> [["South Atlantic", nil], ["South Atlantic", nil]]
+```
+
+```python
+fmt = """
+SELECT region, temperature FROM GeoCheckin
+WHERE time > {t1} AND time < {t2}
+AND region = 'South Atlantic' AND state = 'South Carolina'
+AND temperature IS NULL
+"""
+query = fmt.format(t1=tenMinsAgoMsec, t2=nowMsec)
+ts_obj = client.ts_query('GeoCheckin', query)
+
+print ts_obj.rows
+# [["South Atlantic", None], ["South Atlantic", None]]
+```
+
+```csharp
+var now = DateTime.UtcNow;
+var tenMinsAgo = now.AddMinutes(-10);
+var qfmt = "SELECT region, temperature FROM GeoCheckin WHERE time > 1234560 AND time < 1234569 AND region = 'South Atlantic' AND state = 'South Carolina' AND temperature IS NULL";
+var q = string.Format(
+    qfmt,
+    DateTimeUtil.ToUnixTimeMillis(tenMinsAgo),
+    DateTimeUtil.ToUnixTimeMillis(now));
+
+var cmd = new Query.Builder()
+    .WithTable("GeoCheckin")
+    .WithQuery(q)
+    .Build();
+
+RiakResult rslt = client.Execute(cmd);
+
+QueryResponse response = cmd.Response;
+Row firstRow = response.Value.First();
+Assert.AreEqual("South Atlantic", firstRow.Cells.ElementAt(0).Value);
+Assert.IsNull(firstRow.Cells.ElementAt(1).Value);
+```
+
+```javascript
+var callback = function(err, resp) {
+    // resp.rows and resp.columns
+    // have data
+    // each row is an array of cells or null values.
+    var firstRow = result.rows[0];
+    firstRow[0]; // Returns "South Atlantic"
+    firstRow[1]; // Returns null
+};
+// NB: t1/t2 are integers representing unix timestamps with
+// millisecond resolution
+var queryText = "SELECT region, temperature FROM GeoCheckin " +
+                "WHERE time > " + t1 + " AND time < " + t2 +
+                " AND region = 'South Atlantic' AND state = 'South Carolina' " +
+                " AND temperature IS NULL";
+var q = new Riak.Commands.TS.Query.Builder()
+    .withQuery(queryText)
+    .withCallback(callback)
+    .build();
+cluster.execute(q);
+```
+
+```erlang
+riakc_ts:query(Pid, "SELECT region, temperature FROM GeoCheckin WHERE time > 1234560 AND time < 1234569 AND region = 'South Atlantic' AND state = 'South Carolina' AND temperature IS NULL").
+%% Returns
+%% {ok,{[<<"region">>,<<"temperature">>],
+%%     [{<<"South Atlantic">>,[]},{<<"South Atlantic">>,[]}]}}
+%%
+%% In the Erlang client, null cells are represented as empty lists ([])
+```
+
+```php
+$response = (new Command\Builder\TimeSeries\Query($riak))
+    ->withQuery("SELECT region, temperature FROM GeoCheckin WHERE time > 1234560 AND time < 1234569 AND region = 'South Atlantic' AND state = 'South Carolina' AND temperature IS NULL")
+    ->build()
+    ->execute();
+$response->getResults()[0][0]->getValue(); // returns "South Atlantic"
+$response->getResults()[0][1]->getValue(); // returns null
+```
+
+```golang
+cmd, err := riak.NewTsQueryCommandBuilder()
+    .WithQuery("SELECT region, temperature FROM GeoCheckin WHERE time > 1234560 AND time < 1234569 AND region = 'South Atlantic' AND state = 'South Carolina' AND temperature IS NULL")
+    .Build()
+
+if err != nil {
+    return err
+}
+
+err = cluster.Execute(cmd);
+
+if err != nil {
+    return err
+}
+
+scmd, ok := cmd.(*TsQueryCommand);
+
+scmd.Response.Rows[0][0].GetStringValue() // returns "South Atlantic"
+scmd.Response.Rows[0][1] // returns nil
+```
