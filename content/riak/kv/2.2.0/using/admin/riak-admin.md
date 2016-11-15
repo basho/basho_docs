@@ -661,7 +661,7 @@ consensus group in your cluster:
 riak-admin ensemble-status <group id>
 ```
 
-Complete documentation of this command can be found in [Managing Strong][cluster ops strong consistency].
+Complete documentation of this command can be found in [Managing Strong Consistency][cluster ops strong consistency].
 
 ## handoff
 
@@ -716,7 +716,6 @@ riak-admin describe nodename
 That will produce the following output:
 
 ```
-Number of partitions in the cluster (only valid when first
-creating the cluster). Must be a power of 2, minimum 8 and maximum
-1024.
+nodename:
+  Name of the Erlang node
 ```
