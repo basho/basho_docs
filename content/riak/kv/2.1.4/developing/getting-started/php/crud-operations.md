@@ -89,7 +89,7 @@ In either case, we'll get a [Response](http://basho.github.io/riak-php-client/cl
 While some data may be static, other forms of data may need to be updated.  This is also easy to accomplish.  Let’s update the value of myValue in the 3rd example to 42.
 
 ```php
-$object3 = $response3->getObject();
+$$object3 = $response3->getObject();
 $data3 = $object3->getData();
 
 $data3['myValue'] = 42;

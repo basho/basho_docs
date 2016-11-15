@@ -25,7 +25,7 @@ where «command» is one of the following:
     { help | start | stop | restart | ping | console | attach
       attach-direct | ertspath | chkconfig | escript | version | getpid
       top [-interval N] [-sort { reductions | memory | msg_q }] [-lines N] } |
-      config { effective | describe VARIABLE }
+      config { generate | effective | describe VARIABLE } [-l debug]
 ```
 
 ## help
