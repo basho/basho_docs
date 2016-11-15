@@ -715,7 +715,6 @@ riak-admin describe nodename
 That will produce the following output:
 
 ```
-Number of partitions in the cluster (only valid when first
-creating the cluster). Must be a power of 2, minimum 8 and maximum
-1024.
+nodename:
+  Name of the Erlang node
 ```
