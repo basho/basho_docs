@@ -90,7 +90,7 @@ interface if you intend on using it (which we recommend). Change the
 following line:
 
 ```riakconf
-listener.protobuf.internal = 0.0.0.0":8087
+listener.protobuf.internal = 0.0.0.0:8087
 ```
 
 ```appconfig
