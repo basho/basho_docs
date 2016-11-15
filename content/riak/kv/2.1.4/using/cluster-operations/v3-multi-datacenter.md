@@ -390,3 +390,33 @@ To check the current replication modes:
     ```
     Current replication modes: [mode_repl12,mode_repl13]
     ```
+
+
+## Configurations and Metadata in Replication
+
+Fullsync and Realtime replication replicates data from source clusters to sink clusters,
+but some configurations and metadata (such as search indices and bucket properties) will
+not be replicated.
+
+Non-replication of certain configurations and metadata supports
+heterogenous cluster configurations in Replication, but there operational things you can
+do when you want homogeneous cluster configurations.
+
+### Search Indices in Replication
+
+Any search index that is created on a source cluster will _not_ be
+created on sink clusters as part of replication.
+
+If you want search indices on a source cluster to be present on the
+sink clusters, you should update this data for each
+cluster at the same time you would change the source cluster.
+
+### Buckets and Bucket Types in Replication
+
+Buckets and Bucket Type properties on the source cluster
+will _not_ be replicated from source clusters to sink clusters.
+
+If you want the properties for Buckets or Bucket Types
+present on the source cluster to be propagated to sink clusters
+you should update this data for each cluster at the same
+time you would change the source cluster.
