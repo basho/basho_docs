@@ -31,15 +31,16 @@
 
 {{ $project_description := (index .Site.Params.project_descriptions $project) }}
 
-{{ $project_path       := $project_description.path               }} {{/* ex; /riak/kv                                   */}}
-{{ $version_path       := (printf "%s/%s" $project_path $version) }} {{/* ex; /riak/kv/2.1.4                             */}}
-{{ $releases           := $project_description.releases           }} {{/* ex; [[2.0.0, 2.0.1, ...], [2.1.0, 2.1.2, ...]] */}}
-{{ $latest_version     := $project_description.latest             }} {{/* ex; 2.1.4                                      */}}
-{{ $is_latest          := (eq $version $latest_version)           }} {{/* ex; true                                       */}}
-{{ $lts_version        := $project_description.lts                }} {{/* ex; 2.0.6                                      */}}
-{{ $is_lts             := (eq $version $lts_version)              }} {{/* ex; false                                      */}}
-{{ $archived_url       := $project_description.archived_url       }} {{/* ex; http://docs.basho.com/riak/1.4.12/         */}}
-{{ $archived_path      := $project_description.archived_path      }} {{/* ex; riak                                       */}}
+{{ $project_name   := $project_description.project_name       }} {{/* ex; "Riak KV"                                  */}}
+{{ $project_path   := $project_description.path               }} {{/* ex; /riak/kv                                   */}}
+{{ $version_path   := (printf "%s/%s" $project_path $version) }} {{/* ex; /riak/kv/2.1.4                             */}}
+{{ $releases       := $project_description.releases           }} {{/* ex; [[2.0.0, 2.0.1, ...], [2.1.0, 2.1.2, ...]] */}}
+{{ $latest_version := $project_description.latest             }} {{/* ex; 2.1.4                                      */}}
+{{ $is_latest      := (eq $version $latest_version)           }} {{/* ex; true                                       */}}
+{{ $lts_version    := $project_description.lts                }} {{/* ex; 2.0.6                                      */}}
+{{ $is_lts         := (eq $version $lts_version)              }} {{/* ex; false                                      */}}
+{{ $archived_url   := $project_description.archived_url       }} {{/* ex; http://docs.basho.com/riak/1.4.12/         */}}
+{{ $archived_path  := $project_description.archived_path      }} {{/* ex; riak                                       */}}
 
 
 {{ $site_relative_path    := (printf "/%s" (replace .Permalink .Site.BaseURL ""))          }} {{/* ex; /riak/kv/2.1.4/introduction/ */}}
@@ -57,6 +58,7 @@
 {{ .Scratch.Add "display_toc"               $display_toc               }}
 {{ .Scratch.Add "commercial_offering"       $commercial_offering       }}
 {{ .Scratch.Add "canonical_link"            $canonical_link            }}
+{{ .Scratch.Add "project_name"              $project_name              }}
 {{ .Scratch.Add "project_path"              $project_path              }}
 {{ .Scratch.Add "version_path"              $version_path              }}
 {{ .Scratch.Add "releases"                  $releases                  }}

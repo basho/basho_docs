@@ -42,6 +42,7 @@ def generate_projects_metadata()
   config_file['params']['project_descriptions'].each do |project, description|
     version_sets_hash[project.to_sym] = project_hash = {}
 
+    project_hash[:project_name]  = description["project_name"]
     project_hash[:path]          = description["path"]
     project_hash[:archived_path] = description["archived_path"]
     project_hash[:releases]      = description["releases"]
