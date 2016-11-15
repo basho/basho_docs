@@ -133,7 +133,20 @@ Valid values: Non-negative integer
 
 Enable this node in distributed query plans; defaults to `on`.  
 
-If enabled, this node will participate in distributed Solr queries.  If disabled, the node will be excluded from Riak Search cover plans, and will therefore never be consulted in a distributed query.  Note that this node may still be used to execute a query.  Use this flag if you have a long running administrative operation (e.g. reindexing) which requires that the node be removed from query plans, and which would otherwise result in inconsistent search results.
+If enabled, this node will participate in distributed Solr queries.  If disabled, the node will be excluded from Riak search cover plans, and will therefore never be consulted in a distributed query.  Note that this node may still be used to execute a query.  Use this flag if you have a long running administrative operation (e.g. reindexing) which requires that the node be removed from query plans, and which would otherwise result in inconsistent search results.
+
+This setting can also be changed via `riak-admin` by issuing one of the following commands:
+
+```
+riak-admin set search.dist_query=off
+```
+ or 
+
+``` 
+riak-admin set search.dist_query=on
+```
+
+Setting this value in riak.conf is useful when you are restarting a node which was removed from search queries with the `riak-admin` feature. Setting `search.dis_query` in riak.conf will prevent the node from being included in search queries until it is fully spun up.
 
 Valid values: `on` or `off`
 
@@ -193,11 +206,10 @@ Valid values: Integer
 
 The strategy for how purging is handled when the `search.queue.high_watermark` is hit; defaults to `purge_one`.
 
-Valid values:  `purge_one`, `purge_index`, `purge_all`, or `off`
+Valid values:  `purge_one`, `purge_index`, or `off`
 
 * `purge_one` removes the oldest item on the queue from an erroring (references to fuses blown in the code) index in order to get below the [`search.queue.high_watermark`](#search-queue-high-watermark) 
 * `purge_index` removes all items associated with one random erroring (references to fuses blown in the code) index in order to get below the [`search.queue.high_watermark`](#search-queue-high-watermark)
-* `purge_all` removes all items associated with all erroring (references to fuses blown in the code) indices in order to get below the [`search.queue.high_watermark`](#search-queue-high-watermark)
 * `off` disables purging
 
 ### `search.root_dir`
