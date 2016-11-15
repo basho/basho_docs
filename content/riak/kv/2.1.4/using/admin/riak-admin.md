@@ -666,7 +666,7 @@ consensus group in your cluster:
 riak-admin ensemble-status <group id>
 ```
 
-Complete documentation of this command can be found in [Managing Strong][cluster ops strong consistency].
+Complete documentation of this command can be found in [Managing Strong Consistency][cluster ops strong consistency].
 
 ## handoff
 
