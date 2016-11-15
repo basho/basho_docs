@@ -15,6 +15,11 @@ aliases:
   - /riak/kv/2.2.0/ops/mdc/v2/scheduling-fullsync
 ---
 
+{{% note title="Deprecation Warning" %}}
+v2 Multi-Datacenter Replication is deprecated and will be removed in a future version. Please use [v3](/riak/kv/2.2.0/using/reference/v3-multi-datacenter/scheduling-fullsync/) instead.
+{{% /note %}}
+
+
 ## Scheduling Fullsync Operation
 
 With the `pause` and `resume` commands it is possible to limit the

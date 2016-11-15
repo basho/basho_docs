@@ -17,6 +17,10 @@ aliases:
   - /riak/kv/2.2.0/ops/mdc/v2/ssl
 ---
 
+{{% note title="Deprecation Warning" %}}
+v2 Multi-Datacenter Replication is deprecated and will be removed in a future version. Please use [v3](/riak/kv/2.2.0/configuring/v3-multi-datacenter/ssl/) instead.
+{{% /note %}}
+
 ## Features
 
 Riak REPL SSL support consists of the following items:

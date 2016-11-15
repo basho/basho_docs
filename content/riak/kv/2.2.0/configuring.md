@@ -80,9 +80,3 @@ A guide on configuring Riak Enterprise's V3 Multi-Datacenter Replication
 
 [Learn More >>][config v3 mdc]
 
-#### [V2 Multi-Datacenter][config v2 mdc]
-
-A guide on configuring Riak Enterprise's V2 Multi-Datacenter Replication
-
-[Learn More >>][config v2 mdc]
-
