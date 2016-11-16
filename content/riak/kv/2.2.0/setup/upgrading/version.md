@@ -37,8 +37,8 @@ aliases:
 
 You can upgrade one node or your whole cluster to Riak KV 2.2.0 by following the instructions below.
 
-{{%% note title="Tip" %%}} KV nodes negotiate with each other to determine supported operating modes. This allows clusters containing mixed-versions of Riak KV to interoperate without special configuration, and simplifies rolling upgrades.
-{{%% /note %}}
+{{% note title="Tip" %}} KV nodes negotiate with each other to determine supported operating modes. This allows clusters containing mixed-versions of Riak KV to interoperate without special configuration, and simplifies rolling upgrades.
+{{% /note %}}
 
 
 ### General Process
@@ -68,13 +68,13 @@ Before starting the rolling upgrade process on your cluster, check out the [Upgr
 * Upgrading to Solr 4.10.4 for Riak search.
 
 {{% note %}}
-You must have Java version 7 or higher in order to upgrade to Riak KV 2.2.0.
+You must have [Java version 7 or higher](http://www.oracle.com/technetwork/java/javase/downloads/index.html) in order to upgrade to Riak KV 2.2.0.
 {{% /note %}}
 
 
 ### Components That Complicate Downgrades
 
-| Feature | automatic | required | upgrade only | Notes |
+| Feature | Automatic | Required | Upgrade Only | Notes |
 |:---|:---:|:---:|:---:|:--- |
 |Migration to Solr 4.10.4 |✔ | ✔| | Applies to all clusters using Riak search.
 | Active anti-entropy file format changes | ✔ |  | | Can opt-out using a capability.
@@ -127,6 +127,8 @@ sudo rm -rf /usr/lib/riak/lib/basho-patches*
 If you are upgrading from Riak KV OSS to Riak KV EE, you must uninstall your Riak KV package right now, before you can install the EE version.
 {{% /note %}}
 
+
+
 ```RHEL/CentOS
 sudo rpm -Uvh »riak_package_name«.rpm
 ```
@@ -160,6 +162,8 @@ sudo dpkg -i »riak_package_name«.deb
 {{% note %}}
 You must have [Java version 7 or higher](http://www.oracle.com/technetwork/java/javase/downloads/index.html) in order to upgrade to Riak KV 2.2.0. If you do not have it installed, please install it now.
 {{% /note %}}
+
+
 
 ```bash
 riak start
