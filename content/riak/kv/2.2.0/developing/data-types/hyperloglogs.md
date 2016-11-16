@@ -141,7 +141,7 @@ curl http://localhost:8098/types/<bucket_type>/buckets/<bucket>/datatypes/<key>
 ```
 
 
-## Create a HyperLogLog DataType
+## Create a HyperLogLog data type
 
 To create a hyperloglog data structure, you need to specify a bucket/key pair to
 hold that hyperloglog. Here is the general syntax for doing so:
@@ -320,7 +320,7 @@ curl http://localhost:8098/types/hlls/buckets/hello/datatypes/darkness
 {"type":"hll","error":"notfound"}
 ```
 
-## Add elements to a HyperLogLog DataType
+## Add elements to a HyperLogLog data type
 
 ```erlang
 HLL1 = riakc_hll:add_element(<<"Jokes">>, HLL),
@@ -504,10 +504,10 @@ hll.batch do |s|
 end
 ```
 
-## Retrieve a HyperLogLog DataType
+## Retrieve a HyperLogLog data type
 
-Now, we can check the approximate count-of, aka the cardinality of the elements
-added to, our hyperloglog data structure:
+Now, we can check the approximate count-of (a.k.a. the cardinality of the elements
+added to) our hyperloglog data structure:
 
 ```erlang
 {ok, HLL3} = riakc_pb_socket:fetch_type(Pid, Bucket, Key),

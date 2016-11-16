@@ -19,6 +19,10 @@ aliases:
 
 [config v2 ssl]: /riak/kv/2.2.0/configuring/v2-multi-datacenter/ssl
 
+{{% note title="Deprecation Warning" %}}
+v2 Multi-Datacenter Replication is deprecated and will be removed in a future version. Please use [v3](/riak/kv/2.2.0/configuring/v3-multi-datacenter/) instead.
+{{% /note %}}
+
 Riak Enterprise's Multi-Datacenter Replication capabilities offer a
 variety of configurable parameters.
 

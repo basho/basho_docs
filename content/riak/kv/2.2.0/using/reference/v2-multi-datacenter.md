@@ -15,6 +15,11 @@ toc: true
 [v2 mdc arch]: ./architecture
 [v2 mdc fullsync]: ./scheduling-fullsync
 
+{{% note title="Deprecation Warning" %}}
+v2 Multi-Datacenter Replication is deprecated and will be removed in a future version. Please use [v3](/riak/kv/2.2.0/using/reference/v3-multi-datacenter/) instead.
+{{% /note %}}
+
+
 ## In This Section
 
 #### [V2 Multi-Datacenter Replication Reference: Architecture][v2 mdc arch]

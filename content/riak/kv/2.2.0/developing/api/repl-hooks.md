@@ -17,6 +17,11 @@ aliases:
   - /riak/kv/2.2.0/ops/mdc/v2/hooks
 ---
 
+{{% note title="Deprecation Warning" %}}
+v2 Multi-Datacenter Replication is deprecated and will be removed in a future version. Please use [v3](/riak/kv/2.2.0/developing/app-guide/replication-properties/) instead.
+{{% /note %}}
+
+
 This document is a guide to developing extensions for Riak Enterprise's
 Multi-Datacenter Replication feature.
 

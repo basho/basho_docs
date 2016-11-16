@@ -15,6 +15,10 @@ aliases:
   - /riak/kv/2.2.0/dev/references/http/link-walking
 ---
 
+{{% note title="Deprecation Warning" %}}
+This feature is deprecated and will be removed in a future version.
+{{% /note %}}
+
 Link walking (traversal) finds and returns objects by following links attached
 to them, starting from the object specified by the bucket and key portion.  It
 is a special case of [MapReduce](/riak/kv/2.2.0/developing/usage/mapreduce), and can be expressed more verbosely as such.

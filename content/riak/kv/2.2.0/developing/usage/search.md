@@ -19,9 +19,9 @@ aliases:
 
 ## Setup
 
-Riak Search 2.0 is an integration of Solr (for indexing and querying)
+Riak search 2.0 is an integration of Solr (for indexing and querying)
 and Riak (for storage and distribution). There are a few points of
-interest that a user of Riak Search will have to keep in mind in order
+interest that a user of Riak search will have to keep in mind in order
 to properly store and later query for values.
 
 1. **Schemas** explain to Solr how to index fields

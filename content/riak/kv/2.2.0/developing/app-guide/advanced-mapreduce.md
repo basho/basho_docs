@@ -41,8 +41,11 @@ by Riak to aggregate results as background batch processes.
 In Riak, MapReduce is one of the primary methods for
 non-primary-key-based querying in Riak, alongside
 [secondary indexes][usage 2i].  Riak allows you to
-run MapReduce jobs using Erlang or JavaScript, but JavaScript support
-is deprecated as of Riak 2.0, so this document covers Erlang exclusively.
+run MapReduce jobs using Erlang or JavaScript.
+
+{{% note title="Deprecation Warning" %}}
+Javascript MapReduce is deprecated and will be removed in a future version.
+{{% /note %}}
 
 
 ### Why Do We Use MapReduce for Querying Riak?

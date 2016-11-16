@@ -18,16 +18,16 @@ aliases:
 [concept clusters]: /riak/kv/2.2.0/learn/concepts/clusters
 [configuring search]: /riak/kv/2.2.0/configuring/search
 
-> **Note on Search 2.0 vs. Legacy Search**
+> **Note on search 2.0 vs. legacy search**
 >
-> This document refers to the new Riak Search 2.0 with
+> This document refers to Riak search 2.0 with
 [Solr](http://lucene.apache.org/solr/) integration (codenamed
-Yokozuna). For information about the deprecated Riak Search, visit [the old Using Riak Search docs](http://docs.basho.com/riak/1.4.10/dev/using/search/).
+Yokozuna). For information about the deprecated Riak search, visit [the old Using Riak search docs](http://docs.basho.com/riak/1.4.10/dev/using/search/).
 
-The project that implements Riak Search is codenamed Yokozuna. This is a
+The project that implements Riak search is codenamed Yokozuna. This is a
 more detailed overview of the concepts and reasons behind the design of
 Yokozuna, for those interested. If you're simply looking to use Riak
-Search, you should check out the [Using Search](/riak/kv/2.2.0/developing/usage/search) document.
+search, you should check out the [Using Search](/riak/kv/2.2.0/developing/usage/search) document.
 
 ![Yokozuna](/images/yokozuna.png)
 

@@ -17,6 +17,10 @@ aliases:
   - /riak/kv/2.2.0/ops/mdc/v2/quick-start
 ---
 
+{{% note title="Deprecation Warning" %}}
+v2 Multi-Datacenter Replication is deprecated and will be removed in a future version. Please use [v3](/riak/kv/2.2.0/configuring/v3-multi-datacenter/quick-start/) instead.
+{{% /note %}}
+
 The Riak Multi-Datacenter Replication Quick Start will walk you through
 the process of configuring Riak's version 2 Replication to perform
 replication between two sample Riak clusters in separate networks. This

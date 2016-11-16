@@ -263,7 +263,7 @@ Field | Default | Valid values |
 `search.queue.batch.maximum`| `100` | Integer
 `search.queue.batch.minimum` | `1` | Integer
 `search.queue.high_watermark` | `10000` | Integer
-`search.queue.high_watermark.purge_strategy` | `purge_one` | `purge_one`, `purge_index`, `purge_all`, or `off`
+`search.queue.high_watermark.purge_strategy` | `purge_one` | `purge_one`, `purge_index`, or `off`
 `search.root_dir` | `./data/yz` | Directory
 `search.solr.jvm_options` | `-d64 -Xms1g -Xmx1g -XX:+UseStringCache -XX:+UseCompressedOops` | Java command-line arguments
 `search.solr.jmx_port` | `8985` | Integer
@@ -2103,13 +2103,13 @@ hot spots.</td>
 </tbody>
 </table>
 
-## Cluster Jobs
+## Cluster Job Controls
 
 {{% note title="Warning" %}}
-Before changing `cluster.job` settings in a production environment, test your application to ensure it does not have any hidden dependencies on them.
+Before changing `cluster.job` controls in a production environment, test your application to ensure it does not have any hidden dependencies on them.
 {{% /note %}}
 
-The `cluster.job` settings control whether classes of jobs are enabled or disabled through the HTTP(S) and Protobuf interfaces. All jobs are enabled by default.
+The `cluster.job` switches control whether classes of jobs are enabled or disabled through the HTTP(S) and Protobuf interfaces. All jobs are enabled by default.
 
 Field | Default | Valid values |
 :-----|:--------|:-------------|

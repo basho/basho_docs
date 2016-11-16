@@ -128,10 +128,3 @@ Overview of Riak Enterprise's Multi-Datacenter system.
 Details Riak Enterprise's V3 Multi-Datacenter system.
 
 [Learn More >>][ref v3 mdc]
-
-
-#### [V2 Multi-Datacenter Replication Reference][ref v2 mdc]
-
-Details Riak Enterprise's V2 Multi-Datacenter system.
-
-[Learn More >>][ref v2 mdc]
