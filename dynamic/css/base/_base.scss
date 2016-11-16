@@ -40,6 +40,18 @@ code {
   color       : $font-color;
   background  : $gray-90;
   @include rounded-corners(.25rem);
+
+  @include when-inside('a') {
+    transition : color 100ms ease-in 50ms;
+
+    color : $blue-dark;
+    text-decoration : underline;
+
+    @include on-event {
+      color : $orange-text-light;
+      text-decoration : underline;
+    }
+  }
 }
 
 
