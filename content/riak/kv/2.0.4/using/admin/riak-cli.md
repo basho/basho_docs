@@ -25,7 +25,7 @@ where «command» is one of the following:
     { help | start | stop | restart | ping | console | attach
       attach-direct | ertspath | chkconfig | escript | version | getpid
       top [-interval N] [-sort { reductions | memory | msg_q }] [-lines N] } |
-      config { effective | describe VARIABLE }
+      config { generate | effective | describe VARIABLE } [-l debug]
 ```
 
 ## help
@@ -163,7 +163,8 @@ riak config { effective | describe VARIABLE }
     Specifies the storage engine used for Riak's key-value data
     and secondary indexes (if supported).
 
-    Datatype     : [{enum,[bitcask,leveldb,memory,multi]}]
+    Valid Values: 
+      - one of: bitcask, leveldb, memory, multi, prefix_multi
     Default Value: bitcask
     Set Value    : leveldb
     app.config   : riak_kv.storage_backend
