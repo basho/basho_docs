@@ -49,11 +49,11 @@ of the following **before** enabling security:
    functionality. If you wish to use security and Search together, you
    will need to use the [new Search feature](/riak/kv/2.0.6/developing/usage/search/).
 1. Because Riak security requires a secure SSL connection, you will need
-   to generate appropriate SSL certs, [enable SSL](#enabling-ssl) and establish a [certification configuration](#certificate-configuration) on each node. **If you
+   to generate appropriate SSL certs, [enable SSL](#enabling-ssl) and establish a [certificate configuration](#certificate-configuration) on each node. **If you
    enable security without having established a functioning SSL
    connection, all requests to Riak will fail**.
 1. Define [users](#user-management)
-   and, optionally, groups
+   and, optionally, [groups](#add-group)
 1. Define an [authentication source](#managing-sources) for each user
 1. Grant the necessary [permissions](#managing-permissions) to each user (and/or group)
 1. Check any Erlang MapReduce code for invocations of Riak modules other
@@ -66,7 +66,7 @@ of the following **before** enabling security:
       traffic
     * If using HTTPS, the proper port (presumably 443) is open from
       client to server
-    * Code that uses Riak's deprecated [[Link Walking]] feature **will
+    * Code that uses Riak's deprecated Link Walking feature **will
       not work** with security enabled
 1. If you have applications that rely on an already existing Riak
    cluster, make sure that those applications are prepared to gracefully
@@ -117,7 +117,7 @@ impacting the service. This should be borne in mind when you are
 
 ### Disabling Security
 
-If you disable security, this means that you have disable all of the
+If you disable security, this means that you have disabled all of the
 various permissions checks that take place when executing operations
 against Riak. Users, groups, and other security attributes remain
 available for configuration while security is disabled, and will be
