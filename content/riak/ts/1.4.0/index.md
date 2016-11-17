@@ -79,4 +79,4 @@ If you want to learn more about how Riak TS was designed and how it is structure
 
 ## Academy Training
 
-[Basho's Academy](https://academy.basho.com) courses offers hands-on experience with Riak TS, from installing Riak TS to using the Spark-Riak Connector. Sign up for a [free account](https://academy.basho.com/users/sign_up) to get started.
+[Basho's Academy](https://academy.basho.com) courses offer hands-on experience with Riak TS, from installing Riak TS to using the Spark-Riak Connector. Sign up for a [free account](https://academy.basho.com/users/sign_up) to get started.
