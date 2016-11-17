@@ -113,7 +113,9 @@ timeouts simply because many other requests are being serviced as well. Adding
 nodes to the cluster can reduce MapReduce failure in the long term by
 spreading load and increasing available CPU and IOPS.
 
+
 ## Cluster Recovery From Backups
+<<<<<<< HEAD
 The general procedure for recovering a cluster from catastrophic failure
 involves:
 
@@ -146,6 +148,10 @@ involves:
    returns expected output.
 11. Start each of the remaining nodes, verifying the details in the same
     manner as the first node.
+
+
+See [Changing Cluster Information](/riak/kv/2.1.4/using/cluster-operations/changing-cluster-info/#clusters-from-backups) for instructions on cluster recovery.
+
 
 <div class="info">
 <div class="title">Tip</div> If you are a licensed Riak Enterprise or CS customer and require assistance or further advice with a cluster recovery, please file a ticket with the <a href="https://help.basho.com">Basho Helpdesk</a>.
