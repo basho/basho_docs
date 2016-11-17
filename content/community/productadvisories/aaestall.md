@@ -22,6 +22,10 @@ Affected versions | Riak KV 2.0.0+, Riak KV 2.1.0+
 
 There exists a highly unlikely condition where Riak KV’s active anti-entropy feature can either stall or cause a segmentation fault crash.
 
+{{% note title="Riak KV Enterprise Edition" %}}
+If you are using Riak KV Enterprise Edition, please see the Product Advisory in the Basho Support Portal for your patches and instructions.
+{{% /note %}}
+
 
 ## Description
 
@@ -63,12 +67,6 @@ Do not apply the eleveldb.so patch to Riak TS, it will prevent it functioning co
 
 
 #### OS specific package links:
-
-
-{{% note title="Riak KV Enterprise Edition" %}}
-If you are using Riak KV Enterprise Edition, please see the Product Advisory in the Basho Support Portal for your patches and instructions.
-{{% /note %}}
-
 
 * [Debian 6](https://s3.amazonaws.com/downloads.basho.com/patches/eleveldb/2.0.32/eleveldb_2.0.32_debian6.tar.gz)
 * [Debian 7](https://s3.amazonaws.com/downloads.basho.com/patches/eleveldb/2.0.32/eleveldb_2.0.32_debian7.tar.gz)
