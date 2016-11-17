@@ -18,7 +18,7 @@ aliases:
 ---
 
 
-Released November 16, 2016.
+Released November 17, 2016.
 
 
 This is a backwards-incompatible release that includes several improvements and features alongside many bugfixes. While most backwards-incompatible features and improvements are opt-in, active anti-entropy (AAE) improvements and Solr upgrades are not. You may opt-out of AAE improvements (see the [Upgrading](#upgrading) note below), but you cannot opt-out of the Solr upgrades (see the [Downgrading](#downgrading) note below).
