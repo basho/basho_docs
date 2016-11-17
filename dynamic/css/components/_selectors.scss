@@ -1,8 +1,8 @@
 /**
- * Wrapper around the Project and Version selectors.
+ * Wrapper around the Selectors.
  */
 .selectors {
-  margin : 0.7rem 0.25rem 0.5rem 2rem;
+  margin : 0.75rem 2rem 0.25rem 2rem;
 
   @include wide-from('md') {
     margin-left  : 0.25rem;
@@ -11,21 +11,6 @@
 }
 
 
-
-/**
- * Selector; General Styles
- * 1. Only give right-margins to selectors with younger siblings
- */
-.selector {
-
-  &.selector--project {
-    min-width : 6rem;
-  }
-
-  &.selector--version {
-    min-width : 4.5rem;
-  }
-}
 
 /**
  * Selector; Title
