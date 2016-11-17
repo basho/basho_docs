@@ -54,4 +54,4 @@ Are you brand new to Riak KV? Start by [downloading][downloads] Riak KV, and the
 
 ## Academy Training
 
-[Basho's Academy](https://academy.basho.com) courses offers hands-on experience with Riak KV. Sign up for a [free account](https://academy.basho.com/users/sign_up) to get started.
+[Basho's Academy](https://academy.basho.com) courses offer hands-on experience with Riak KV. Sign up for a [free account](https://academy.basho.com/users/sign_up) to get started.
