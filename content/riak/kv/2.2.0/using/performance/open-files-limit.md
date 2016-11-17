@@ -113,66 +113,69 @@ For example, follow these steps to enable PAM user limits and set the
 soft and hard values *for all users of the system* to allow for up to
 *65536* open files.
 
-1.  Edit `/etc/pam.d/common-session` and append the following line:
+1\.  Edit `/etc/pam.d/common-session` and append the following line:
 
-    ```config
+```config
 session    required   pam_limits.so
 ```
 
-2. Save and close the file.  If `/etc/pam.d/common-session-noninteractive` exists, append the same line as above.
+2\. Save and close the file.  If `/etc/pam.d/common-session-noninteractive` exists, append the same line as above.
 
-3. Edit `/etc/security/limits.conf` and append the following lines to the
+3\. Edit `/etc/security/limits.conf` and append the following lines to the
 file:
 
-    <div><pre><code>&ast;              soft     nofile          65536
-    &ast;              hard     nofile          65536
-    </code></pre></div>
+```bash
+soft     nofile          65536
+hard     nofile          65536
+```
 
-4. Save and close the file.
+4\. Save and close the file.
 
-5. (optional) If you will be accessing the Riak nodes via secure shell
+5\. (**Optional**) If you will be accessing the Riak nodes via secure shell
 (ssh), you should also edit `/etc/ssh/sshd_config` and uncomment the
 following line:
 
-    ```config
-    #UseLogin no
-    ```
+```config
+#UseLogin no
+```
 
-    and set its value to `yes` as shown here:
+and set its value to `yes` as shown here:
 
-    ```config
-    UseLogin yes
-    ```
+```config
+UseLogin yes
+```
 
-6. Restart the machine so that the limits to take effect and verify that
+6\. Restart the machine so that the limits to take effect and verify that
 the new limits are set with the following command:
 
-    ```bash
-    ulimit -a
-    ```
+```bash
+ulimit -a
+```
 
 ### Enable PAM-Based Limits for CentOS and Red Hat
 
-1. Edit `/etc/security/limits.conf` and append the following lines to
+1\. Edit `/etc/security/limits.conf` and append the following lines to
 the file:
 
     <div><pre><code>&ast;              soft     nofile          200000
     &ast;              hard     nofile          200000
     </code></pre></div>
 
-2. Save and close the file.
+2\. Save and close the file.
 
-3. Restart the machine so that the limits to take effect and verify that
+3\. Restart the machine so that the limits to take effect and verify that
 the new limits are set with the following command:
 
-    ```bash
-    ulimit -a
-    ```
+```bash
+ulimit -a
+```
 
-> **Note**: In the above examples, the
+{{% note %}}
+In the above examples, the
 open files limit is raised for all users of the system. If you prefer,
 the limit can be specified for the riak user only by substituting the
-two asterisks (`*`) in the examples with <tt>riak</tt>.
+two asterisks (`*`) in the examples with `riak<`.
+{{% /note %}}
 
 
 ## Solaris
