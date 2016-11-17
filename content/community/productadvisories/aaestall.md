@@ -3,7 +3,7 @@ title: "Active Anti-Entropy: Slight chance that AAE could stall itself or crash 
 description: ""
 menu:
   community:
-    name: "AAE: Stall or Crash"
+    name: "AAE: Slight Chance for Stall or Crash"
     identifier: "aaestall"
     weight: 050
     parent: "productadvisories"
@@ -92,51 +92,52 @@ Do not apply the eleveldb.so patch to Riak TS, it will prevent it functioning co
 To install this patch, on each node in the cluster you must:
 
 
-* Determine your eleveldb directory<a name="determining"></a>.  
-    * Find the Riak `lib` directory
+1. Determine your eleveldb directory<a name="determining"></a>.  
+    1. Find the Riak `lib` directory
         * RHEL/Centos/Fedora/SLES: `/usr/lib64/riak/lib/`
         * Ubuntu/Debian: `/usr/lib/riak/lib/`
         * FreeBSD: `/usr/local/lib/riak/lib/`
         * SmartOS: `/opt/local/lib/riak/lib/`
         * Solaris: `/opt/riak/lib/`
-    * Consult the directory listing for a directory beginning with `eleveldb`, for example: `eleveldb-2.0.17-0-g973fc92` on Riak KV 2.1.4 or `eleveldb-2.0.22-0-g185e296` on Riak KV 2.0.7
-    * Make a note of this directory name for the following steps.
+    1. Consult the directory listing for a directory beginning with `eleveldb`, for example: `eleveldb-2.0.17-0-g973fc92` on Riak KV 2.1.4 or `eleveldb-2.0.22-0-g185e296` on Riak KV 2.0.7
+    1. Make a note of this directory name for the following steps.
 
 
-* Stop the node by running `riak stop`.
-* Change to the priv subdirectory of [your eleveldb directory](#determining).
-* Rename the original eleveldb.so file to eleveldb.so.orig.
-* Copy the provided eleveldb.so to the directory and verify correct permissions.
-* If possible, verify that the md5sum of the eleveldb.so located in the eleveldb priv directory is correct.
-* Change into the ebin subdirectory of [your eleveldb directory](#determining).
-* Rename the original eleveldb.beam file to eleveldb.beam.orig.
-* Copy the provided eleveldb.beam to the directory and verify correct permissions.
-* If possible, verify that the md5sum of the eleveldb.beam located in the eleveldb ebin directory is correct.
-* Start the node by running `riak start`.
+1. Stop the node by running `riak stop`.
+1. Change to the priv subdirectory of [your eleveldb directory](#determining).
+1. Rename the original eleveldb.so file to eleveldb.so.orig.
+1. Copy the provided eleveldb.so to the directory and verify correct permissions.
+1. If possible, verify that the md5sum of the eleveldb.so located in the eleveldb priv directory is correct.
+1. Change into the ebin subdirectory of [your eleveldb directory](#determining).
+1. Rename the original eleveldb.beam file to eleveldb.beam.orig.
+1. Copy the provided eleveldb.beam to the directory and verify correct permissions.
+1. If possible, verify that the md5sum of the eleveldb.beam located in the eleveldb ebin directory is correct.
+1. Start the node by running `riak start`.
 
 
 ### To back out of this patch, on each node in the cluster you must:
-* Determine your eleveldb directory<a name="determining2"></a>.  
-    * Change to the Riak lib directory
+
+1. Determine your eleveldb directory<a name="determining2"></a>.  
+    1. Change to the Riak lib directory
         * RHEL/Centos/Fedora/SLES: `/usr/lib64/riak/lib/`
         * Ubuntu/Debian: `/usr/lib/riak/lib/`
         * FreeBSD: `/usr/local/lib/riak/lib/`
         * SmartOS: `/opt/local/lib/riak/lib/`
         * Solaris: `/opt/riak/lib/`
-    * Consult the directory listing for a directory beginning with `eleveldb`, for example: `eleveldb-2.0.17-0-g973fc92` on Riak KV 2.1.4 or `eleveldb-2.0.22-0-g185e296` on Riak KV 2.0.7
-    * Make a note of this directory name for the following steps.
+    1. Consult the directory listing for a directory beginning with `eleveldb`, for example: `eleveldb-2.0.17-0-g973fc92` on Riak KV 2.1.4 or `eleveldb-2.0.22-0-g185e296` on Riak KV 2.0.7
+    1. Make a note of this directory name for the following steps.
 
 
-* Stop the node by running `riak stop`.
-* Change to the priv subdirectory of [your eleveldb directory](#determining).
-* Verify that you have an eleveldb.so.orig file present in this directory.
-* Remove the patched eleveldb.so file.
-* Rename `eleveldb.so.orig` to `eleveldb.so`.
-* Change into the ebin subdirectory of [your eleveldb directory](#determining).
-* Verify that you have an eleveldb.beam.orig file present in this directory.
-* Remove the patched `eleveldb.beam` file.
-* Rename `eleveldb.beam.orig` to `eleveldb.beam`.
-* Start the node by running `riak start`.
+1. Stop the node by running `riak stop`.
+1. Change to the priv subdirectory of [your eleveldb directory](#determining).
+1. Verify that you have an eleveldb.so.orig file present in this directory.
+1. Remove the patched eleveldb.so file.
+1. Rename `eleveldb.so.orig` to `eleveldb.so`.
+1. Change into the ebin subdirectory of [your eleveldb directory](#determining).
+1. Verify that you have an eleveldb.beam.orig file present in this directory.
+1. Remove the patched `eleveldb.beam` file.
+1. Rename `eleveldb.beam.orig` to `eleveldb.beam`.
+1. Start the node by running `riak start`.
 
 
 ## Verifying the Patch Installation
