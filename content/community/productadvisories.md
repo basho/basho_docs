@@ -20,7 +20,7 @@ aliases:
 
 This page contains product advisories that are periodically issued for Basho products.
 
-
+* [Slight chance that AAE could stall itself or crash a Riak node](/community/productadvisories/aaestall/)
 * [Default Configuration For Handoff May Cause Data Loss in TS](/community/productadvisories/130-dataloss/)
 * [LevelDB SEGV in Riak KV 2.1.3](/community/productadvisories/leveldbsegfault/)
 * [Possibility of Code Injection on Riak Init File](/community/productadvisories/codeinjectioninitfiles/)
@@ -30,6 +30,7 @@ This page contains product advisories that are periodically issued for Basho pro
 * [Default Configuration For Handoff May Cause Data Loss](/community/productadvisories/210-dataloss/)
 * [SSL 3.0 Vulnerability and POODLE Attack](/community/productadvisories/sslpoodle/)
 * [Map Data Type Disk Incompatibility](/community/productadvisories/maps-204/)
+
 
 ## Questions
 
