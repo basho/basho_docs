@@ -14,7 +14,7 @@
 -->
 
 {{/* This check is required to correctly know the hight of the top element. */}}
-{{ if ( and $project $version ) }}
+{{ if $version }}
 <nav class="content-nav content-nav--top-size-full">
 {{ else }}
 <nav class="content-nav content-nav--top-size-half">
@@ -33,22 +33,18 @@
 
     </form>
 
-{{ if ( and $project $version ) }}
+{{ if $version }}
     <div class="clearfix   selectors">
 
-      <div class="inline-block float-left    selector selector--project">
-        <header class="selector__title">Projects</header>
-        <button class="selector__btn" type="button">{{ $project | title }}</button>
-        <div    class="selector__arrow"></div>
-      </div>
-
-      <div class="inline-block float-right   selector selector--version">
+      <div class="inline-block float-left   selector selector--version">
         <header class="selector__title">Versions</header>
         <button class="selector__btn" type="button">{{$version}}</button>
         <div    class="selector__arrow"></div>
       </div>
 
     </div>
+
+    <ul class="selector-list selector-list--versions selector-list--hidden"></ul>
 {{ end }}
 
   </div>
