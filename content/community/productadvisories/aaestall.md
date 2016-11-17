@@ -65,8 +65,8 @@ Do not apply the eleveldb.so patch to Riak TS, it will prevent it functioning co
 #### OS specific package links:
 
 
-{{% note %}}
-**Note**: If you are using Riak KV Enterprise Edition, please see the Product Advisory in the Basho Support Portal.
+{{% note title="Riak KV Enterprise Edition" %}}
+If you are using Riak KV Enterprise Edition, please see the Product Advisory in the Basho Support Portal for your patches and instructions.
 {{% /note %}}
 
 
