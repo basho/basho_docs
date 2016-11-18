@@ -63,6 +63,10 @@ $edge_fade_width : 2rem; /* 1 */
       color      : $gray-38;
       cursor     : default;
       background : $gray-warm-97;
+
+      @include on-event {
+        color : $gray-38;
+      }
     }
   }
 }
