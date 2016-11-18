@@ -79,6 +79,13 @@ a {
     text-decoration : underline;
   }
 
+  /* Disable cursor :hover on anchors w/o an 'href' attr. */
+  &:not([href]) {
+    @include on-event {
+      cursor : default;
+    }
+  }
+
 
   /**
    * Append a box-arrow image to links that send users off-site
@@ -102,6 +109,7 @@ a {
       background   : url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAUklEQVR42m3O0QkAMQgD0JvWNZzDndwpRz5SepcIQWof6APgk+5GiKOZwa8EHTMGqwp3ONzdDFUXYufbYES6WVCfHB7EuW5mF7R1goqgVYQhBl+awCunCZHg2gAAAABJRU5ErkJggg==') no-repeat right;
     }
   }
+
   /**
    * Append a pdf image to links that send users to a pdf.
    * 1. We currently don't have a way to programmatically add inline-images as

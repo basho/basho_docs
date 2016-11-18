@@ -81,7 +81,6 @@
   color      : $gray-warm-92;
 
   > a {
-    cursor : default;
     color  : $gray-warm-92;
 
     @include on-event {
