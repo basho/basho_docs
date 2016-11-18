@@ -212,6 +212,16 @@ See [Writing Data][writing] for more details.
 SQL commands in riak shell may span multiple lines.
 {{% /note %}}
 
+#### Comments
+
+Riak shell understands (and thus ignores) SQL comments. Both simple
+comments (single line comments prefaced with `--`) and bracketed
+comments (single- or multi-line comments using `/*` and `*/`) are
+supported.
+
+Introduced with TS 1.5.0, there is a compatibility bug with the SQL
+specification: nested bracketed comments are not properly supported,
+so the comment will terminate at the first `*/` sequence.
 
 ### Logging
 
