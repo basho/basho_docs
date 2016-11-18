@@ -1,27 +1,28 @@
 ###
-Version Selector Generation and Interaction
-===========================================
+Selector Generation and Interaction
+===================================
 Requires sem-ver.coffee
 
 This file defines a series of calls and callbacks that apply to the generation
-of and interaction with the .version-selector element.
+of and interaction with the .selector and related elements.
 
-The root-level .version-selector div will be generated as part of the Hugo
-compilation, but the version list will not. We don't want every generated HTML
-file within a project/version to be modified every time a new version of that
-project is released, so we've chosen to upload the version information as a JSON
-to our server and dynamically generate the version lists at load-time.
+Currently we're only implementing a .selector--version and
+.selector-list--versions, but this logic will be written in a more general form
+to allow us to expand on the component in the future, if need be.
 
-Interaction is a simple mater of expanding (or simply showing) the list when the
-.version-selector div is clicked, and collapsing it (or hiding it) when anything
-else is clicked on.
+The root-level .selector and .selector-list elements will be included in the
+Hugo compilation, but the lists displayed will not. We don't want every
+generated HTML file within a project/version to be modified every time a new
+version of that project is released, so we've chosen to upload the version
+information as a JSON to our server and dynamically generate the version lists
+at load-time.
+
+Interaction is a mater of expanding the lists when the .selector__btn is
+clicked, and collapsing it when anything else is clicked on. This will also
+require modifying the height of the __fixed-top and __primary .content-nav
+element to make room for the list.
 ###
 
-# Now that we've definitely gotten rid of the old version-selector HTML
-# structure, put this code into hybernation until we're ready to start
-# rebuilding the lists
-
-###
 
 #TODO: strict mode enables a pretty large number of runtime checks. We probably
 #      want to turn it off when we deploy to prod.
@@ -41,24 +42,24 @@ contentOfMeta = (name) ->
 # Build the Version Selector list dynamically, using fetched JSON and metadata
 # exposed by Hugo through <meta> tags.
 # There's no need to fetch the JSON or build this DOM element before the site is
-# rendered and interactable, so we're going to wrap the manipulation inside the
-# `.getJSON` callback _that's inside_ a `.ready()` callback. Double indirection,
-# baby.
+# rendered and interactable, so we're going to wrap the DOM manipulation inside
+# the `$.getJSON` callback _that's inside_ a `$.ready()` callback.
+# Double indirection, baby.
 #TODO: Consider mark the version-selector as inactive until the list is built.
 #      This assumes it will take a substantial amount of time (1s or so) for the
 #      element to be created. It should probably also only go invalid when JS is
 #      enabled, and stay orange if we're never going to fetch the JSON...
 generateVersionLists = () ->
   # Pull project/pathing information from the meta tags set up by Hugo
-  project               =  contentOfMeta("project")              # ex; riak_kv
-  current_version       =  contentOfMeta("version")              # ex; 2.1.4
+  project               =  contentOfMeta("project")               # ex; riak_kv
+  current_version       =  contentOfMeta("version")               # ex; 2.1.4
   project_relative_path =  contentOfMeta("project_relative_path") # ex; installing/
 
   # The version_history <meta> tags will only exist if the front matter of the
   # given content .md page contains them, so these may be `undefined`.
-  meta_version_hisotry_in = contentOfMeta("version_history_in")
-  version_range = undefined
+  meta_version_hisotry_in        = contentOfMeta("version_history_in")
   meta_version_history_locations = contentOfMeta("version_history_locations")
+  version_range      = undefined
   versions_locations = []
 
   if meta_version_hisotry_in
@@ -73,8 +74,6 @@ generateVersionLists = () ->
   # inside the `success` callback.
   if project then $.getJSON('/data/project_descriptions.json',
     (data) ->
-      version_selector_list_html = "" # Aggregator for the resulting HTML.
-
       project_data = data[project]
 
       project_path = project_data.path            # ex; /riak/kv
@@ -82,12 +81,18 @@ generateVersionLists = () ->
       lts_version  = project_data.lts             # ex; 2.0.7
       archived_url = project_data['archived_url'] # undefined, or a complete URL
 
+      version_selector_list_html = "" # Aggregator for the resulting HTML. To be
+                                      # added into a <ul class="selector-list>.
+
+      # Loop over each release set.
       for release_set, set_index in project_data.releases.reverse()
+        version_selector_list_html += '<li><ul class="selector-list__series">\n'
+
         # List depth is used for setting color. Our CSS only has colors from 1
         # to 6, so cap anything deeper.
         list_depth = Math.min(6, (set_index+1))
 
-        # We're want to act on the last element of the release set in the below
+        # We are wont to act on the last element of the release set in the below
         # loop. I can't think of a better way to do that this.
         last_index = release_set.length - 1
 
@@ -99,37 +104,35 @@ generateVersionLists = () ->
                              SemVer.isInRange(release_sem_ver, version_range)
 
           # Start aggregating class modifiers that will be `.join("\n")`d
-          # together once all modifier have been added.
-          class_list = ["version-selector__list-element"]
+          # together to form the -list__element's complete class once all
+          # modifiers have been added.
+          class_list = ["selector-list__element"]
 
           if in_version_range
-            class_list.push("version-selector__list-element--"+list_depth)
+            class_list.push("selector-list__element--"+list_depth)
           else
-            class_list.push("version-selector__list-element--disabled")
+            class_list.push("selector-list__element--disabled")
 
+          # NB. A single element can open and close a series
           if index == 0
-            class_list.push("version-selector__list-element--top")
-
+            class_list.push("selector-list__element--opening")
           if index == last_index
-            class_list.push("version-selector__list-element--bottom")
+            class_list.push("selector-list__element--closing")
 
           if release_version == lts_version
-            class_list.push("version-selector__list-element--lts")
+            class_list.push("selector-list__element--lts")
 
           if release_version == current_version
-            class_list.push("version-selector__list-element--current")
+            class_list.push("selector-list__element--current")
 
-          # The class list is complete.
           # Build out the list contents and anchor based on metadata available.
 
           # If the list element is --disabled or --current it should not include
           # an active link, so skip giving them an href.
-          anchor_tag = ""
-          if (not in_version_range) or (release_version == current_version)
-            anchor_tag = '<a>'
-          else
-            # Give the versions_locations overrides a change to direct this
-            # release_version to a different project/version-relative url.
+          anchor_tag = "<a>"
+          if in_version_range and (release_version != current_version)
+            # Otherwise, give the versions_locations overrides a change to
+            # direct this release_version to a different version-relative url.
             # If none of the ranges match (or if there are no ranges), default
             # to the current page's project/version-relative url.
             relative_path = project_relative_path
@@ -137,12 +140,10 @@ generateVersionLists = () ->
               if SemVer.isInRange(release_sem_ver, range)
                 relative_path = url
                 break
-
             anchor = project_path+"/"+release_version+"/"+relative_path
             anchor_tag = '<a href="'+anchor+'">'
 
-          # Build the full list element and add it to the
-          # `version_selector_list_html` aggregator.
+          # Build the full list element and add it to the html aggregator.
           #TODO: Consider importing a sprintf library.
           #      Because JS doesn't ship w/ that functionality? For... reasons?
           version_selector_list_html +=
@@ -150,18 +151,25 @@ generateVersionLists = () ->
                 anchor_tag+release_version+'</a>'+
               '</li>\n'
 
-      # If this project has the optional `archived_url`, add a special "set"
-      # with only a link out to the archived content.
+        # Close out the release set.
+        version_selector_list_html += '</ul></li>'
+
+
+      # After all listed versions have been added, check if this project has the
+      # optional `archived_url`, and conditionally add a special "set" with only
+      # a link out to the archived content.
       if archived_url
-        class_list = ["version-selector__list-element",
-                      "version-selector__list-element--6",
-                      "version-selector__list-element--top",
-                      "version-selector__list-element--bottom"]
+        class_list = ["selector-list__element",
+                      "selector-list__element--archived",
+                      "selector-list__element--opening",
+                      "selector-list__element--closing"]
+        version_selector_list_html += '<li>\n<ul class="selector-list__series">\n'
         version_selector_list_html +=
           '<li class="'+class_list.join("\n")+'"><a href="'+archived_url+'">older</a></li>\n'
+        version_selector_list_html += '</ul>\n</li>'
 
       # What we've all been waiting for; make the DOM modification.
-      $(".version-selector__list").html(version_selector_list_html)
+      $(".selector-list--versions").html(version_selector_list_html)
     )
 
 
@@ -171,6 +179,9 @@ generateVersionLists = () ->
 $ ->
   # Build the version list
   generateVersionLists();
+
+# Temporarily comment out all interaction logic.
+###
 
   # Wire up interactions
   version_badge = $('.version-selector__badge')
