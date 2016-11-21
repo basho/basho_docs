@@ -20,6 +20,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying"
 [guidelines]: guidelines/
 [planning]: ../planning/
 [SELECT]: select/
+[SHOW CREATE TABLE]: show-create-table/
 [SHOW TABLES]: show-tables/
 [writing]: ../writingdata/
 
@@ -29,7 +30,8 @@ Riak TS offers you several ways to define, manipulate, and query the data within
 
 * Use [SELECT] to run various queries on your TS dataset. 
 * Use [DESCRIBE] to see a full definition of your TS table.
-* Use [SHOW TABLES] to list all the TS tables you have. 
+* Use [SHOW TABLES] to list all the TS tables you have.
+* Use [SHOW CREATE TABLE] to generate the SQL required to recreate a TS table.
 
 You can also take a look at the [guidelines] to get an idea of the rules and best practices for running queries. 
 
