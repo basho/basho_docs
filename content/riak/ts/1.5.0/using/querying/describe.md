@@ -30,13 +30,13 @@ DESCRIBE GeoCheckin
 Returns: 
 
 ```
-Column      | Type      | Is Null | Partition Key | Local Key | Interval | Unit
--------------------------------------------------------------------------------
-region      | varchar   | false   | 1             | 1         |          |
-state       | varchar   | false   | 2             | 2         |          |
-time        | timestamp | false   | 3             | 3         | 15       | m
-weather     | varchar   | false   | <null>        | <null>    |          |
-temperature | double    | true    | <null>        | <null>    |          |
+Column      | Type      | Nullable | Partition Key | Local Key | Interval | Unit | Sort Order
+---------------------------------------------------------------------------------|-----------
+region      | varchar   | false    | 1             | 1         |          |      |
+state       | varchar   | false    | 2             | 2         |          |      |
+time        | timestamp | false    | 3             | 3         | 15       | m    |
+weather     | varchar   | false    | <null>        | <null>    |          |      |
+temperature | double    | true     | <null>        | <null>    |          |      |
 ```
 
 
@@ -44,15 +44,15 @@ You can use `DESCRIBE` in [riak shell]:
 
 ```
 riak-shell>describe GeoCheckin;
-+-----------+---------+-------+-----------+---------+--------+----+
-|  Column   |  Type   |Is Null|Primary Key|Local Key|Interval|Unit|
-+-----------+---------+-------+-----------+---------+--------+----+
-| myfamily  | varchar | false |     1     |    1    |        |    |
-| myseries  | varchar | false |     2     |    2    |        |    |
-|   time    |timestamp| false |     3     |    3    |   15   | m  |
-|  weather  | varchar | false |           |         |        |    |
-|temperature| double  | true  |           |         |        |    |
-+-----------+---------+-------+-----------+---------+--------+----+
++-----------+---------+--------+-------------+---------+--------+----+----------+
+|  Column   |  Type   |Nullable|Partition Key|Local Key|Interval|Unit|Sort Order|
++-----------+---------+--------+-------------+---------+--------+----+----------+
+| myfamily  | varchar | false  |     1       |    1    |        |    |          |
+| myseries  | varchar | false  |     2       |    2    |        |    |          |
+|   time    |timestamp| false  |     3       |    3    |   15   | m  |          |
+|  weather  | varchar | false  |             |         |        |    |          |
+|temperature| double  | true   |             |         |        |    |          |
++-----------+---------+--------+-------------+---------+--------+----+----------+
 ```
 
 
