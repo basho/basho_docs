@@ -163,7 +163,7 @@ Once both riak-admin aae-status and riak-admin search aae-status show values in 
 11\. If you chose not to increase the AAE concurrency via configuration and want to start Yokozuna without restarting the node, run `riak attach` and enter the following snippet:
 
 ```erlang
-riak_core_node_watcher:service_up(yokozuna, self()).
+riak_core_node_watcher:service_up(yokozuna,whereis(yz_solr_proc)).
 ```
     
 12\. Exit the attach session by pressing **Ctrl-G** then **q**.
