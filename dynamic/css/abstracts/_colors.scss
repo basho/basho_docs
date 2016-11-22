@@ -87,6 +87,7 @@ $gray-85      : #d4d9de; // rgb(83%,85%,87%)
 $gray-90      : #e3e6e8; // rgb(89%,90%,91%)
 $gray-95      : #f0f2f5; // rgb(94%,95%,96%)
 $gray-warm-92 : #ebebeb; // rgb(92%,92%,92%)
+$gray-warm-95 : #f2f2f2; // rgb(95%,95%,95%)
 $gray-warm-97 : #f7f7f7; // rgb(97%,97%,97%)
 $white        : #ffffff;
 
@@ -110,14 +111,15 @@ $shadow-hard-color  : rgba(0,0,0,0.8); // More intense shadow color, for heavier
 // -----------------------------
 $version-color-1        : $orange;
 $version-color-1-light  : lighten($version-color-1, 10%);
-$version-color-2        : $orange-dark;
+$version-color-2        : $cyan;
 $version-color-2-light  : lighten($version-color-2, 10%);
-$version-color-3        : $green;
+$version-color-3        : $green-light;
 $version-color-3-light  : lighten($version-color-3, 10%);
-$version-color-4        : $cyan;
+$version-color-4        : $green;
 $version-color-4-light  : lighten($version-color-4, 10%);
 $version-color-5        : $cyan-dark;
 $version-color-5-light  : lighten($version-color-5, 10%);
-$version-color-6        : $green-dark;
+$version-color-6        : $cyan-darker;
 $version-color-6-light  : lighten($version-color-6, 10%);
-$version-color-inactive : $gray-60;
+$version-color-inactive      : $gray-warm-95;
+$version-color-inactive-dark : $gray-85;
