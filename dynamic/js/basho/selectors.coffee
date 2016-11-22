@@ -7,10 +7,10 @@ This file defines a series of calls and callbacks that apply to the generation
 of and interaction with the .selector and related elements.
 
 Currently we're only implementing a .selector--version and
-.selector-list--versions, but this logic will be written in a more general form
+.selector-pane--versions, but this logic will be written in a more general form
 to allow us to expand on the component in the future, if need be.
 
-The root-level .selector and .selector-list elements will be included in the
+The root-level .selector and .selector-pane elements will be included in the
 Hugo compilation, but the lists displayed will not. We don't want every
 generated HTML file within a project/version to be modified every time a new
 version of that project is released, so we've chosen to upload the version
@@ -81,12 +81,15 @@ generateVersionLists = () ->
       lts_version  = project_data.lts             # ex; 2.0.7
       archived_url = project_data['archived_url'] # undefined, or a complete URL
 
-      version_selector_list_html = "" # Aggregator for the resulting HTML. To be
-                                      # added into a <ul class="selector-list>.
+      # Aggregator for the resulting HTML. To be added into the
+      # div.selector-pane--versions
+      version_selector_list_html = ''
 
       # Loop over each release set.
       for release_set, set_index in project_data.releases.reverse()
-        version_selector_list_html += '<li><ul class="selector-list__series">\n'
+        # Open a new release list.
+        version_selector_list_html += '<div class="inline-block overflow-y   selector-list__scroll-box">'
+        version_selector_list_html += '<ul class="selector-list">'
 
         # List depth is used for setting color. Our CSS only has colors from 1
         # to 6, so cap anything deeper.
@@ -113,7 +116,7 @@ generateVersionLists = () ->
           else
             class_list.push("selector-list__element--disabled")
 
-          # NB. A single element can open and close a series
+          # NB. A single element can open and close a list.
           if index == 0
             class_list.push("selector-list__element--opening")
           if index == last_index
@@ -129,19 +132,19 @@ generateVersionLists = () ->
 
           # If the list element is --disabled or --current it should not include
           # an active link, so skip giving them an href.
-          anchor_tag = "<a>"
+          anchor_tag = '<a class="block">'
+          # Otherwise, give the versions_locations overrides a change to direct
+          # this release_version to a different version-relative url.
+          # If none of the ranges match (or if there are no ranges), default to
+          # the current page's project/version-relative url.
           if in_version_range and (release_version != current_version)
-            # Otherwise, give the versions_locations overrides a change to
-            # direct this release_version to a different version-relative url.
-            # If none of the ranges match (or if there are no ranges), default
-            # to the current page's project/version-relative url.
             relative_path = project_relative_path
             for [range, url] in versions_locations
               if SemVer.isInRange(release_sem_ver, range)
                 relative_path = url
                 break
             anchor = project_path+"/"+release_version+"/"+relative_path
-            anchor_tag = '<a href="'+anchor+'">'
+            anchor_tag = '<a class="block" href="'+anchor+'">'
 
           # Build the full list element and add it to the html aggregator.
           #TODO: Consider importing a sprintf library.
@@ -152,7 +155,12 @@ generateVersionLists = () ->
               '</li>\n'
 
         # Close out the release set.
-        version_selector_list_html += '</ul></li>'
+        # NB. Because we have to use inline-blocks for each list, whitespace
+        #     in between them (newlines, tabs, spaces) will translate into a
+        #     space character rendered between each list. This is **super
+        #     annoying** for a lot of reasons. To prevent that whitespace from
+        #     being added we must not add newlines after the /ul.selector-list.
+        version_selector_list_html += '</ul></div>'
 
 
       # After all listed versions have been added, check if this project has the
@@ -163,13 +171,14 @@ generateVersionLists = () ->
                       "selector-list__element--archived",
                       "selector-list__element--opening",
                       "selector-list__element--closing"]
-        version_selector_list_html += '<li>\n<ul class="selector-list__series">\n'
+        version_selector_list_html += '<div class="inline-block overflow-y   selector-list__scroll-box">'
+        version_selector_list_html += '<ul class="selector-list">\n'
         version_selector_list_html +=
-          '<li class="'+class_list.join("\n")+'"><a href="'+archived_url+'">older</a></li>\n'
-        version_selector_list_html += '</ul>\n</li>'
+          '<li class="'+class_list.join("\n")+'"><a class="block" href="'+archived_url+'">older</a></li>\n'
+        version_selector_list_html += '</ul></div>'
 
       # What we've all been waiting for; make the DOM modification.
-      $(".selector-list--versions").html(version_selector_list_html)
+      $(".selector-pane--versions").html(version_selector_list_html)
     )
 
 
