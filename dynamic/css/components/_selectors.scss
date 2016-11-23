@@ -64,13 +64,16 @@
  * indicate a drop-down menu.
  */
 .selector__arrow {
-  @include downward-arrow(p2r(10px), $orange);
   position : relative;
   margin   : 0 0.2rem 0 auto;
 
-  &.selector__arrow--open {
-    @include upward-arrow(p2r(10px), $orange);
-  }
+  transition : border-color 500ms ease;
+
+  @include downward-arrow(p2r(10px), $orange, $cyan-dark);
+
+  @include when-inside('.selector--open') {
+    @include upward-arrow(p2r(10px), $orange, $cyan-dark);
+   }
 }
 
 
@@ -103,7 +106,12 @@
 .selector-pane__sizing-box {
   position : relative;      /* 1 */
 
-  height   : 12rem;
+  height     : $selector-pane-height-sm-down;
+  transition : height 500ms ease;
+
+  @include wide-from('md') {
+    height   : $selector-pane-height-md-up;
+  }
 
   &.selector-pane__sizing-box--hidden {
     height : 0;

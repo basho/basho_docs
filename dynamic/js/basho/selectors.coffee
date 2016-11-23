@@ -186,44 +186,40 @@ generateVersionLists = () ->
 ## JQuery .ready() Execution
 ## =========================
 $ ->
-  # Build the version list
+  ## Build the version list
   generateVersionLists();
 
-# Temporarily comment out all interaction logic.
-###
 
-  # Wire up interactions
-  version_badge = $('.version-selector__badge')
-  version_list  = $('.version-selector__list')
+  ## Wire up interactions
 
-  # When the badge is clicked, the list should toggle between shown and hidden.
-  version_badge.on('click',
-    () ->
-      if 0 < version_badge.attr('class').search(".version-selector__badge--selected")
-        version_list.hide()
-        version_badge.removeClass(".version-selector__badge--selected")
-      else
-        version_list.show()
-        version_badge.addClass(".version-selector__badge--selected")
-      # Consume the event to prevent propagation.
+  # Save shared lookups s.t. we don't have to constantly query the DOM.
+  $content_nav      = $('.content-nav')
+  $selector_version = $('.selector--version')
+  $selector_version_pane_primary = $('.selector-pane--versions')
+  $selector_version_pane_sizing  = $selector_version_pane_primary.parent()
+
+  # When the selector's button is clicked, toggle the .content-nav, the
+  # .selector-pane, and the selector itself.
+  $selector_version.on('click.toggle_selector', '.selector__btn',
+    (event) ->
+      $content_nav.toggleClass('content-nav--selector-pane-open--1')
+      $selector_version_pane_sizing.toggleClass('selector-pane__sizing-box--hidden')
+      $(this).parent().toggleClass('selector--open')
       false
   )
 
-  # When child elements of the list are clicked, nothing should occur. Just
-  # return `true` to allow the event to bubble up.
-  version_list.on('click', '.version-selector__list-element', () -> true )
+  # The idea behind this callback is to keep the pane open whenever interaction
+  # occurs inside the pane (that doesn't result in navigation). This is too
+  # broad and naive to accomplish that, though.
+  # $selector_version_pane_primary.on('click.selector_pane_ignore',
+  #   () ->
+  #     false;
+  # )
 
-  # When the current or a disabled list element is clicked nothing should
-  # happen, so return `false` to consume the event.
-  version_list.on('click', '.version-selector__list-element--disabled', () -> false )
-  version_list.on('click', '.version-selector__list-element--current',  () -> false )
-
-  # When anything else in the document is clicked, we should hide the list.
-  $(document).on('click',
+  # Whenever interaction occurs outside of a .selector-pane, close all panes.
+  $(document).on('click.selector_close',
     () ->
-      if 0 < version_badge.attr('class').search(".version-selector__badge--selected")
-        version_list.hide()
-        version_badge.removeClass(".version-selector__badge--selected")
+      $('.selector-pane__sizing-box').addClass('selector-pane__sizing-box--hidden')
+      $content_nav.removeClass('content-nav--selector-pane-open--1')
+      $('.selector--open').removeClass('selector--open')
   )
-
-###
