@@ -103,6 +103,15 @@
 .selector-pane__sizing-box {
   position : relative;      /* 1 */
 
+  height   : 12rem;
+
+  &.selector-pane__sizing-box--hidden {
+    height : 0;
+  }
+  &.selector-pane__sizing-box--display-none {
+    display : none;
+  }
+
   &:after {
     box-shadow : inset 0  0  1rem -0.2rem $shadow-mid-color;
 
