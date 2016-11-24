@@ -47,7 +47,8 @@ Method | URL | Doc
 ## Riak-Data-Type-related Operations
 
 For documentation on the HTTP API for [Riak Data Types](/riak/kv/2.2.0/learn/concepts/crdts),
-see the `curl` examples in [Using Data Types](/riak/kv/2.2.0/developing/data-types).
+see the `curl` examples in [Using Data Types](/riak/kv/2.2.0/developing/data-types)
+and subpages e.g. [sets](/riak/kv/2.2.0/developing/data-types/sets).
 
 ## Query-related Operations
 
