@@ -2,7 +2,7 @@
  * Wrapper around the Selectors.
  */
 .selectors {
-  margin : 0.75rem 2rem 0  2rem;
+  margin : 0.75rem 2rem 0.15rem 2rem;
 
   @include wide-from('md') {
     margin-left  : 0.25rem;
@@ -106,15 +106,19 @@
 .selector-pane__sizing-box {
   position : relative;      /* 1 */
 
-  height     : $selector-pane-height-sm-down;
-  transition : height 500ms ease;
+  height        : $selector-pane-height-sm-down;
+  margin-bottom : $selector-pane-margin-sm-down;
+  transition    : height        500ms ease,
+                  margin-bottom 500ms ease;
 
   @include wide-from('md') {
-    height   : $selector-pane-height-md-up;
+    height        : $selector-pane-height-md-up;
+    margin-bottom : $selector-pane-margin-md-up;
   }
 
   &.selector-pane__sizing-box--hidden {
-    height : 0;
+    height        : 0;
+    margin-bottom : 0;
   }
   &.selector-pane__sizing-box--display-none {
     display : none;
