@@ -13,9 +13,13 @@
   <h1 class="front-matter__title">
 
 {{- if $title_supertext }}
-    <span class="front-matter__title--supertext">{{ $title_supertext }}</span><br>
+    <span class="front-matter__title--supertext">{{ $title_supertext }}</span>
 {{- end }}
 
+    <!-- This <br> is not conditional on the presence of super text s.t. the
+         padding between the bottom of the banner and top of the main title
+         remains consistent. -->
+    <br>
     {{ $title }}
 
   </h1>

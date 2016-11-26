@@ -21,6 +21,7 @@
  */
 body {
   @extend %serif;
+  color : $font-color;
 }
 
 main {
@@ -36,9 +37,21 @@ strong {
 /* In-line code */
 code {
   font-family : monospace, sans;
-  color       : $default-font-color;
+  color       : $font-color;
   background  : $gray-90;
   @include rounded-corners(.25rem);
+
+  @include when-inside('a') {
+    transition : color 100ms ease-in 50ms;
+
+    color : $blue-dark;
+    text-decoration : underline;
+
+    @include on-event {
+      color : $orange-text-light;
+      text-decoration : underline;
+    }
+  }
 }
 
 
@@ -55,28 +68,77 @@ code {
  * Color anchors
  */
 a {
-  color  : $orange-text-light;
+  color : $blue-dark;
+  text-decoration : underline;
   cursor : pointer;
 
-  transition : color 200ms ease-in 50ms;
+  transition : color 100ms ease-in 50ms;
 
-  &:hover {
-    color           : $orange;
-    text-decoration : none;
+  @include on-event {
+    color : $orange-text-light;
+    text-decoration : underline;
   }
-  &:focus {
-    color           : $cyan-dark;
-    text-decoration : none;
+
+  /* Disable cursor :hover on anchors w/o an 'href' attr. */
+  &:not([href]) {
+    @include on-event {
+      cursor : default;
+    }
+  }
+
+
+  /**
+   * Append a box-arrow image to links that send users off-site
+   * 1. We currently don't have a way to programmatically add inline-images as
+   *    CSS background rules, so... for now, do it manually.
+   * 2. Width is actually 2px wider than the .png image. This is to give some
+   *    space between the text and the appended image.
+   * 3. Poor-man's kerning. The space between the icon and the next word was a
+   *    hair too too much, and that one px pull helps w/ that.
+   */
+  &[href^="http://"],
+  &[href^="https://"] {
+    &::after {
+      content      : "";
+      display      : inline-block;
+      text-align   : left;
+      width        : p2r(12px);  /* 2 */
+      height       : p2r(10px);
+      margin-right : p2r(-1px);  /* 3 */
+      // background : inline-image('layout/external.png') no-repeat right;  /* 1 */
+      background   : url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAUklEQVR42m3O0QkAMQgD0JvWNZzDndwpRz5SepcIQWof6APgk+5GiKOZwa8EHTMGqwp3ONzdDFUXYufbYES6WVCfHB7EuW5mF7R1goqgVYQhBl+awCunCZHg2gAAAABJRU5ErkJggg==') no-repeat right;
+    }
+  }
+
+  /**
+   * Append a pdf image to links that send users to a pdf.
+   * 1. We currently don't have a way to programmatically add inline-images as
+   *    CSS background rules, so... for now, do it manually.
+   * 2. Width is actually 2px wider than the .png image. This is to give some
+   *    space between the text and the appended image.
+   */
+  &[href$=".pdf"],
+  &[href$=".PDF"] {
+    &::after {
+      content       : "";
+      display       : inline-block;
+      width         : p2r(16px);  /* 2 */
+      height        : p2r(16px);
+      // background    : inline-image("layout/pdf.png") no-repeat right;    /* 1 */
+      background: url('data:image/png;base64,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') no-repeat right;
+    }
   }
 }
+
+
 
 
 /**
  * Titles and Headings
  * 1. These styles are intentionally terrible. They're here to keep us honest
  *    and not use <h1> elements unless we're overriding the defaults.
- * 2. Keep anchor :hover and :focus behavior the same, but don't change the
- *    color of the heading text
+ * 2. Keep anchor :hover and :focus behavior the same as base <a>s, but leave
+ *    the neutral color of the heading text the same as non-link headings.
  */
 h1 { @extend %sans-light;
      color         : red;       /* 1 */
@@ -85,31 +147,31 @@ h1 { @extend %sans-light;
      margin-top    : initial;   /* 1 */
      margin-bottom : initial; } /* 1 */
 h2 { @extend %sans-light;
-     color         : $gray;
+     color         : $gray-38;
      line-height   : 1.2;
      font-size     : 2.30rem;
      margin-top    : 3.00rem;
      margin-bottom : 1.00rem; }
 h3 { @extend %sans;
-     color         : $gray;
+     color         : $gray-38;
      line-height   : 1.2;
      font-size     : 1.70rem;
      margin-top    : 1.75rem;
      margin-bottom : 0.50rem; }
 h4 { @extend %sans;
-     color         : $gray;
+     color         : $gray-38;
      line-height   : 1.2;
      font-size     : 1.50rem;
      margin-top    : 1.25rem;
      margin-bottom : 0.50rem; }
 h5 { @extend %sans;
-     color         : $gray;
+     color         : $gray-38;
      line-height   : 1.2;
      font-size     : 1.30rem;
      margin-top    : 0.00rem;
      margin-bottom : 0.50rem; }
 h6 { @extend %sans;
-     color         : $gray;
+     color         : $gray-38;
      line-height   : 1.2;
      font-size     : 1.25rem;
      margin-top    : 0.00rem;
@@ -117,7 +179,12 @@ h6 { @extend %sans;
 
 h1, h2, h3, h4, h5, h6 {
   a {
-    color : $gray;  /* 2 */
+    color : $gray-38;  /* 2 */
+    text-decoration : none;
+
+    @include on-event {
+      text-decoration : none;
+    }
   }
 }
 
@@ -126,7 +193,7 @@ h1, h2, h3, h4, h5, h6 {
  * Horizontal Rules
  */
 hr {
-  border-top : 1px dashed $gray-lighter;
+  border-top : 1px dashed $gray-85;
 }
 
 
@@ -135,7 +202,7 @@ hr {
  */
 blockquote {
   font-size     : 90%;
-  margin-left   : 1rem;
+  margin-left   : 2rem;
   border-left   : 0.25rem solid $gray-75;
   padding-left  : 1rem;
   margin-top    : 1.5rem;
@@ -152,7 +219,7 @@ blockquote {
   @include     rounded-corners();
   border     : 1px solid $cyan-light;
   padding    : 1rem 1rem 1rem 1rem;
-  margin     : 1.5rem 3rem 1.5rem 0.5rem;
+  margin     : 1.5rem 3rem 1.5rem 1.5rem;
 
   .blocknote__title {
     @extend %sans;
@@ -171,9 +238,10 @@ pre code {
   display    : block;
   overflow-x : auto;
   @include     rounded-corners(0.3rem);
-  background : $gray-warm-light;
+  color      : $gray-30;
+  background : $gray-warm-97;
   border     : 1px solid $gray-75;
-  padding    : 0.5rem;
+  padding    : 0.5rem 1rem;
 }
 
 pre + pre {

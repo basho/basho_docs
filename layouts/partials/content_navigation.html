@@ -10,7 +10,7 @@
 {{ $menu_list  := (index $HugoNode.Site.Menus $menu_title) }} {{/* GoLang List of Menu Objects */}}
 -->
 
-<nav class="overflow-y   content-nav   [bs] hidden-sm-down">
+<nav class="overflow-y   content-nav">
 
 
 
@@ -64,7 +64,7 @@
             </span>
   {{- end }}
 
-            <a class="block overflow" href="{{$menu_url}}">
+            <a class="block overflow" {{if not $menu_is_selected}} href="{{$menu_url}}" {{end}}>
               <strong>{{$menu_name}}</strong>
             </a>
 
