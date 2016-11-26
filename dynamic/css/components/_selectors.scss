@@ -48,7 +48,7 @@
 
   @extend    %sans-bold;
   font-size : 120%;
-  color     : $gray-95;
+  color     : $version-selector-text;
 
   border : none;                        /* 1 */
   @include on-event { outline: none; }  /* 1 */
@@ -137,7 +137,7 @@
   height : 100%;
 
   background : $gray-warm-97;
-  color      : $gray-95;
+  color      : $version-selector-text;
   font-size  : 110%;
   padding-left  : 0.75rem;  /* 2 */
   padding-right : 0.75rem;  /* 2 */
@@ -202,7 +202,7 @@
  */
 .selector-list__element {
   background  : rgba(255,0,0,0.7); /* 1 */
-  color       : $gray-95;
+  color       : $version-selector-text;
   text-align  : center;
 
   border-top : p2r(1px) solid $gray-85;
@@ -273,17 +273,17 @@
  * Selector list Elements -- Archived and Disabled Colors
  */
 .selector-list__element--archived {
-  color      : $white;
+  color      : $version-selector-text-dark;
   background : $version-color-inactive;
   @include on-event {
-    color      : $gray-95;
+    color      : $version-selector-text;
     background : $version-color-inactive-dark;
   }
 }
 .selector-list__element--disabled {
-  background   : $version-color-inactive;
-  border-color : lighten($version-color-inactive, 10%);
-  color        : $white;
+  background : $version-color-inactive;
+  border-top : p2r(1px) solid lighten($gray-85, 12%);
+  color      : $version-selector-text-dark;
 }
 
 /**
