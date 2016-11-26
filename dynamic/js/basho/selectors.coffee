@@ -208,17 +208,10 @@ $ ->
       false
   )
 
-  # The idea behind this callback is to keep the pane open whenever interaction
-  # occurs inside the pane (that doesn't result in navigation). This is too
-  # broad and naive to accomplish that, though.
-  # $selector_version_pane_primary.on('click.selector_pane_ignore',
-  #   () ->
-  #     false;
-  # )
-
   # Whenever interaction occurs outside of a .selector-pane, close all panes.
   $(document).on('click.selector_close',
-    () ->
+    (event) ->
+      return unless $(event.target).closest('.selector-pane__primary').length == 0
       $('.selector-pane__sizing-box').addClass('selector-pane__sizing-box--hidden')
       $content_nav.removeClass('content-nav--selector-pane-open--1')
       $('.selector--open').removeClass('selector--open')
