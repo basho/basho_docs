@@ -39,10 +39,9 @@ aliases:
 
 
 Because Riak is an [eventually consistent][concept eventual consistency],
-[clustered][concept clusters], [conflicts][usage conflict resolution] between
+[clustered][concept clusters] database, [conflicts][usage conflict resolution] between
 object replicas stored on different nodes are inevitable, particularly
-in cases when multiple connecting clients update an object at the same
-time.
+when multiple clients update an object simultaneously.
 
 ## The Problem of Conflicting Values
 
@@ -54,21 +53,19 @@ What happens if Marie has two browser windows open and changes her phone
 number to 555-1337 in one window and saves it, and then also changes it
 to 555-1212 in another window and saves it?
 
-This means that two different values are written to Riak. So what
-happens at that point? There are essentially three possible outcomes:
+This means that two different values are sent into Riak. So what
+happens at that point? There are several possible outcomes:
 
-1. The two different values end up being stored in Riak, but Riak is
-able to discern that one object is more causally recent than the other
-(in this case 555-1212) and chooses that value as the "correct"/most
-recent value.
-2. The two different values end up being stored in Riak, but the two
-operations happen at roughly the same time, i.e. two **concurrent
+1. Riak is able to discern that one object is more causally recent than the other (in this case 555-1212) and chooses to store that value as the "correct" value.
+2. The two operations hit the database at roughly the same time, i.e. two **concurrent
 updates** have been completed, and Riak is unable to determine which
-value "wins." In this scenario, one of two things can happen:
+value "wins." In this scenario, one of three things can happen:
 
-    a. Riak creates sibling values, aka **siblings**, for the object
-
-    b. Riak chooses a single value for you on the basis of timestamps
+    a. The object is a CRDT, so Riak is able to resolve conflicting values by type-specific rules
+    
+    b. Riak creates sibling values, aka **siblings**, for the object
+        
+    c. Riak resolves the values on the basis of timestamps
 
 In the case of outcome 1 above, Riak uses **causal context** metadata to
 make that decision. This metadata is attached to every object in Riak.
@@ -76,14 +73,11 @@ Causal context comes in two forms in Riak: **vector clocks** and
 **dotted version vectors**. More information in both can be found in the
 sections below.
 
-In the case of outcome 2, the choice between **a** and **b** is yours to
-to make. If you set the `allow_mult` parameter to `true` for a bucket,
-[using bucket types](/riak/kv/2.2.0/developing/usage/bucket-types), all writes to that bucket will create siblings
-in the case of concurrent writes (and occasionally under other
+In the case of outcome 2, the choice between **a**, **b** and **c** is determined by settings. If you set the `allow_mult` parameter to `true` for a [bucket type](/riak/kv/2.2.0/developing/usage/bucket-types), all non-CRDT writes to that bucket type will create siblings in the case of concurrent writes (and occasionally under other
 scenarios, e.g. healed network partitions).
 
 If, however, `allow_mult` is set to `false`, then Riak will not generate
-siblings, instead relying on internal mechanisms to decide which value
+siblings, instead relying on simple timestamp resolution to decide which value
 "wins." In general, we recommend _always_ setting `allow_mult` to
 `true`. A more complete discussion can be found in our documentation on
 [conflict resolution][usage conflict resolution].
@@ -135,6 +129,16 @@ trouble, there are times when they can't, i.e. when it's unclear which
 value of an object is most current. When that happens, Riak, if
 configured to do so, will create **siblings**.
 
+## More Information on Vector Clocks
+
+Additional information on vector clocks:
+
+* [Conflict Resolution][usage conflict resolution] in Riak KV
+* [Vector Clocks on Wikipedia]
+* [Why Vector Clocks are Easy]
+* [Why Vector Clocks are Hard]
+* The vector clocks used in Riak are based on the [work of Leslie Lamport].
+
 ## Siblings
 
 It is possible, though not recommendable, to [configure Riak][usage conflict resolution] to ensure that only one copy of an object ever exists in a
@@ -156,16 +160,6 @@ replicas will be stored in the location where the application is
 looking. This means that the application will need to develop a
 strategy for [conflict resolution][usage conflict resolution], i.e. the application will need to
 decide which value is more correct depending on the use case.
-
-## More Information on Vector Clocks
-
-Additional information on vector clocks:
-
-* [Conflict Resolution][usage conflict resolution] in Riak KV
-* [Vector Clocks on Wikipedia]
-* [Why Vector Clocks are Easy]
-* [Why Vector Clocks are Hard]
-* The vector clocks used in Riak are based on the [work of Leslie Lamport].
 
 ## Dotted Version Vectors
 

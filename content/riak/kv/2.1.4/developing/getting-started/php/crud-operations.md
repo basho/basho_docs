@@ -75,9 +75,9 @@ $response3 = (new Command\Builder\FetchObject($riak))
                 ->build()
                 ->execute();
 
-assert($val1 == $response1->getObject()->getData());
-assert($val2 == $response2->getObject()->getData());
-assert($val3 == $response3->getObject()->getData());
+print_r($response1->getObject()->getData());
+print_r($response2->getObject()->getData());
+print_r($response3->getObject()->getData());
 ```
 
 That was easy.  We create a [Fetch Command](http://basho.github.io/riak-php-client/class-Basho.Riak.Command.Object.Fetch.html) from a [FetchObject Builder](http://basho.github.io/riak-php-client/class-Basho.Riak.Command.Builder.FetchObject.html). 

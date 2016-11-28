@@ -453,7 +453,7 @@ When configuring buckets [using bucket types][cluster ops bucket types], the tab
 <br /><br />
 <strong>Note</strong>: See <a href="../../developing/usage/conflict-resolution">
 Conflict Resolution</a> for a discussion of siblings.</td>
-<td><code>true</code></td>
+<td><code>false</code></td>
 </tr>
 
 <tr>
