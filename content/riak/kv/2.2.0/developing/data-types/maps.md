@@ -436,13 +436,19 @@ Map4 = riakc_map:update({<<"enterprise_customer">>, flag},
 ```
 
 ```curl
+curl http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info
+
+# Response
+{"type":"map","value":{"first_name_register":"Ahmed","phone_number_register":"5551234567"},"context":"g2wAAAABaAJtAAAADCMJ/vn2jOEXAAAAAWEBag=="}
+
 curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -H "Content-Type: application/json" \
   -d '
   {
     "update": {
       "enterprise_customer_flag": "disable"
-    }
+    },
+    "context" : "g2wAAAABaAJtAAAADCMJ/vn2jOEXAAAAAWEBag=="
   }'
 ```
 
@@ -909,6 +915,11 @@ Map8 = riakc_map:update({<<"interests">>, set},
 ```
 
 ```curl
+curl http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info
+
+# Response
+{"type":"map","value":{"enterprise_customer_flag":false,"first_name_register":"Ahmed","interests_set":["motorcycles","opera","robots"],"page_visits_counter":1,"phone_number_register":"5551234567"},"context":"g2wAAAABaAJtAAAADCMJ/vn2jOEXAAAAAWEEag=="}
+
 curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -H "Content-Type: application/json" \
   -d '
@@ -918,7 +929,8 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
         "remove": "opera",
         "add": "indie pop"
       }
-    }
+    },
+    "context" : "g2wAAAABaAJtAAAADCMJ/vn2jOEXAAAAAWEEag=="
   }
   '
 ```
@@ -1220,6 +1232,11 @@ Map15 = riakc_map:update({<<"annika_info">>, map},
 ```
 
 ```curl
+curl http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info
+
+# Response
+{"type":"map","value":{"annika_info_map":{"first_name_register":"Annika","last_name_register":"Weiss","phone_number_register":"5559876543"},"enterprise_customer_flag":false,"first_name_register":"Ahmed","interests_set":["indie pop","motorcycles","robots"],"page_visits_counter":1,"phone_number_register":"5551234567"},"context":"g2wAAAABaAJtAAAADCMJ/vn2jOEXAAAAAWEGag=="}
+
 curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -H "Content-Type: application/json" \
   -d '
@@ -1228,7 +1245,8 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
       "annika_info_map": {
         "remove": "phone_number_register"
       }
-    }
+    },
+    "context" : "g2wAAAABaAJtAAAADCMJ/vn2jOEXAAAAAWEGag=="
   }
   '
 ```
@@ -1357,6 +1375,11 @@ Map18 = riakc_map:update(
 ```
 
 ```curl
+curl http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info
+
+# Response
+{"type":"map","value":{"annika_info_map":{"first_name_register":"Annika","last_name_register":"Weiss"},"enterprise_customer_flag":false,"first_name_register":"Ahmed","interests_set":["indie pop","motorcycles","robots"],"page_visits_counter":1,"phone_number_register":"5551234567"},"context":"g2wAAAABaAJtAAAADCMJ/vn2jOEXAAAAAWEHag=="}
+
 curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -H "Content-Type: application/json" \
   -d '
@@ -1369,7 +1392,8 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
           "free_plan_flag": "enable"
         }
       }
-    }
+    },
+    "context" : "g2wAAAABaAJtAAAADCMJ/vn2jOEXAAAAAWEHag=="
   }
   '
 ```
@@ -1719,17 +1743,25 @@ Map21 = riakc_map:update(
 ```
 
 ```curl
+curl http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info
+
+# Response
+{"type":"map","value":{"annika_info_map":{"enterprise_plan_flag":false,"family_plan_flag":false,"first_name_register":"Annika","free_plan_flag":true,"interests_set":["tango dancing"],"last_name_register":"Weiss","widget_purchases_counter":1},"enterprise_customer_flag":false,"first_name_register":"Ahmed","interests_set":["indie pop","motorcycles","robots"],"page_visits_counter":1,"phone_number_register":"5551234567"},"context":"g2wAAAABaAJtAAAADCMJ/vn2jOEXAAAAAWEKag=="}
+
 curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -H "Content-Type: application/json" \
   -d '
   {
     "update": {
       "annika_info_map": {
-        "interests_set": {
-          "remove": "tango dancing"
+        "update": {
+          "interests_set": {
+            "remove": "tango dancing"
+          }
         }
       }
-    }
+    },
+    "context" : "g2wAAAABaAJtAAAADCMJ/vn2jOEXAAAAAWEKag=="
   }
   '
 ```
