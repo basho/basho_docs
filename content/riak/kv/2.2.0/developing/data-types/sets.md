@@ -317,7 +317,7 @@ riakc_set:size(CitiesSet) == 0.
 curl http://localhost:8098/types/sets/buckets/travel/datatypes/cities
 
 # Response
-not found
+{"type":"set","error":"notfound"}
 ```
 
 ## Add to a Set
@@ -531,9 +531,14 @@ CitiesSet5 = riakc_set:add_element(<<"Ottawa">>, CitiesSet4).
 ```
 
 ```curl
+curl http://localhost:8098/types/sets/buckets/travel/datatypes/cities
+
+# Response
+{"type":"set","value":["Montreal","Toronto"],"context":"g2wAAAABaAJtAAAADCMJ/vn7tg36AAAAAWECag=="}
+
 curl -XPOST http://localhost:8098/types/sets/buckets/travel/datatypes/cities \
   -H "Content-Type: application/json" \
-  -d '{"remove": "Montreal","add_all":["Hamilton", "Ottawa"]}'
+  -d '{"remove": "Montreal","add_all":["Hamilton", "Ottawa"],"context":"g2wAAAABaAJtAAAADCMJ/vn7tg36AAAAAWECag=="}'
 ```
 
 ## Retrieve a Set
@@ -640,8 +645,7 @@ riakc_set:value(CitiesSet5).
 curl http://localhost:8098/types/sets/buckets/travel/datatypes/cities
 
 # Response
-
-{"type":"set","value":["Hamilton", "Ottawa", "Toronto"],"context":"SwGDUAAAAER4ActgymFgYGDMYMoFUhxHgzZyBzMfsU9kykISZg/JL8rPK8lHEkKoZMzKAgDwJA+e"}
+{"type":"set","value":["Hamilton","Ottawa","Toronto"],"context":"g2wAAAABaAJtAAAADCMJ/vn7tg36AAAAAWEEag=="}
 
 # You can also fetch the value of the set without the context included:
 curl http://localhost:8098/types/sets/buckets/travel/datatypes/cities?include_context=false
