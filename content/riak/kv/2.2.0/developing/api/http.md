@@ -46,9 +46,18 @@ Method | URL | Doc
 
 ## Riak-Data-Type-related Operations
 
+Method | URL
+:------|:----
+`GET` | `/types/<type>/buckets/<bucket>/datatypes/<key>`
+`POST` | `/types/<type>/buckets/<bucket>/datatypes`
+`POST` | `/types/<type>/buckets/<bucket>/datatypes/<key>`
+
 For documentation on the HTTP API for [Riak Data Types](/riak/kv/2.2.0/learn/concepts/crdts),
 see the `curl` examples in [Using Data Types](/riak/kv/2.2.0/developing/data-types/#usage-examples)
 and subpages e.g. [sets](/riak/kv/2.2.0/developing/data-types/sets).
+
+Advanced users may consult the technical documentation inside the Riak
+KV internal module `riak_kv_wm_crdt`.
 
 ## Query-related Operations
 
