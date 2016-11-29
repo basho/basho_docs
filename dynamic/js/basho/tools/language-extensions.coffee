@@ -30,6 +30,22 @@ window.padNumber = (number, len, char = '0') ->
 
 
 
+## $.maxScrollLeft :: () -> Num
+# Get the maximum value of .scrollLeft() for the given JQuery object.
+#FIXME: These have not been tested for cross-browser compatibility.
+$.fn.extend({
+    maxScrollLeft: () -> this[0].scrollWidth - this[0].clientWidth
+  })
+
+## $.maxScrollTop :: () -> Num
+# Get the maximum value of .scrollTop() for the given JQuery object.
+#FIXME: These have not been tested for cross-browser compatibility.
+$.fn.extend({
+    maxScrollTop: () -> this[0].scrollHeight - this.outerHeight()
+  })
+
+
+
 # This Throttle function was taken from the underscore 1.8.3 code. It was
 # modified to use `Date.now()` rather than `_.now()`, but is otherwise as
 # written by the Underscore team.
