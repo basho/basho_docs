@@ -196,7 +196,7 @@ $ ->
   $content_nav      = $('.content-nav')
   $selector_version = $('.selector--version')
   $selector_version_pane_primary = $('.selector-pane--versions')
-  $selector_version_pane_sizing  = $selector_version_pane_primary.parent()
+  $selector_version_pane_sizing  = $selector_version_pane_primary.parent().parent()
 
   # When the selector's button is clicked, toggle the .content-nav, the
   # .selector-pane, and the selector itself.
