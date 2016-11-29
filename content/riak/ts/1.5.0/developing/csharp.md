@@ -202,23 +202,3 @@ var cmd = new Query.Builder()
 
 RiakResult rslt = client.Execute(cmd);
 ```
-
-You can also create tables via the Query command.
-
-```csharp
-string tableName = "GeoCheckin";
-string sqlFmt = string.Format(
-    @"CREATE TABLE {0} (region varchar not null,
-                        state varchar not null,
-                        time timestamp not null,
-                        weather varchar not null,
-                        temperature double,
-    PRIMARY KEY((region, state, quantum(time, 15, m)), region, state, time))", tableName);
-
-var cmd = new Query.Builder()
-    .WithTable(tableName)
-    .WithQuery(sqlFmt)
-    .Build();
-
-RiakResult rslt = client.Execute(cmd);
-```

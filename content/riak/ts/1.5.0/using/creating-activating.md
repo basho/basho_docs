@@ -55,7 +55,163 @@ CREATE TABLE GeoCheckin
 
 ## `CREATE TABLE` in Client Library
 
-Using one of the Riak TS client libraries, execute the CREATE TABLE statement via that library's query functionality. This will create and activate the table in one step. The result of the operation is library-dependent:
+Using one of the Riak TS client libraries, execute the CREATE TABLE statement via that library's query functionality. This will create and activate the table in one step. 
+
+```csharp
+string tableName = "GeoCheckin";
+string sqlFmt = string.Format(
+    @"CREATE TABLE {0} (region varchar not null,
+                        state varchar not null,
+                        time timestamp not null,
+                        weather varchar not null,
+                        temperature double,
+    PRIMARY KEY((region, state, quantum(time, 15, m)), region, state, time))", tableName);
+
+var cmd = new Query.Builder()
+    .WithTable(tableName)
+    .WithQuery(sqlFmt)
+    .Build();
+
+RiakResult rslt = client.Execute(cmd);
+```
+
+```erlang
+Sql = <<"CREATE TABLE GeoCheckin...">>,
+Result = riakc_ts:query(Pid, Sql).
+```
+
+```golang
+const tsTableDefinition = `
+	CREATE TABLE %s (
+		region varchar not null,
+		state varchar not null,
+		time timestamp not null,
+		weather varchar not null,
+		temperature double,
+		uv_index sint64,
+		observed boolean not null,
+		PRIMARY KEY((region, state, quantum(time, 15, 'm')), region, state, time)
+	)`
+```
+
+```http
+$ curl -XPOST http://127.0.0.1:8098/ts/v1/query --data "CREATE TABLE GeoCheckin (state VARCHAR NOT NULL, city VARCHAR NOT NULL, time TIMESTAMP NOT NULL, weather VARCHAR NOT NULL, temperature DOUBLE, PRIMARY KEY ((state, city, QUANTUM(time, 15, 'm')), state, city, time))"
+
+{"success":true}
+```
+
+```java
+RiakClient client = RiakClient.newClient(10017, "myriakdb.host");
+
+String queryText = "select weather, temperature from GeoCheckin " +
+                   "where time > 1234560 and time < 1234569 and " +
+                   "region = 'South Atlantic' and state = 'South Carolina'";
+
+Query query = new Query.Builder(queryText).build();
+
+// With the synchronous execute, any errors encountered will be thrown.
+QueryResult queryResult = client.execute(query);
+
+// With the executeAsync method, any errors will be stored for review.
+final RiakFuture<QueryResult, String> queryFuture = client.executeAsync(storeCmd);
+bool success = queryFuture.isSuccess();
+QueryResult result = queryFuture.get();
+Throwable error = queryFuture.cause();
+```
+
+```nodejs
+var Riak = require('basho-riak-client');
+
+//may pass client an array of host:port's
+//['192.168.1.1:8087','192.168.1.2:8087']
+var client = new Riak.Client(['127.0.0.1:8087']);
+
+var key = [ 'South Carolina', 'South Carolina', now ];
+
+var cb = function (err, rslt) {
+    // NB: rslt will be an object with two properties:
+    // 'columns' - table columns
+    // 'rows' - row matching the Get request
+};
+
+var cmd = new Riak.Commands.TS.Get.Builder()
+    .withTable('GeoCheckin')
+    .withKey(key)
+    .withCallback(cb)
+    .build();
+
+client.execute(cmd);
+```
+
+```PHP
+require __DIR__ . '/../vendor/autoload.php';
+
+use Basho\Riak;
+use Basho\Riak\Command;
+use Basho\Riak\Node;
+
+$node = (new Node\Builder)
+    ->atHost('riak-test')
+    ->onPort(8087)
+    ->build();
+
+$riak = new Riak([$node], [], new Riak\Api\Pb());
+
+
+# create table
+$table_definition = "
+    CREATE TABLE %s (
+        region varchar not null,
+        state varchar not null,
+        time timestamp not null,
+        weather varchar not null,
+        temperature double,
+        PRIMARY KEY((region, state, quantum(time, 15, 'm')), region, state, time)
+    )";
+
+$command = (new Command\Builder\TimeSeries\Query($riak))
+    ->withQuery(sprintf($table_definition, "GeoCheckins"))
+    ->build();
+
+if (!$response->isSuccess()) {
+    echo $response->getMessage();
+    exit;
+}
+```
+
+```python
+def test_query_that_creates_table_using_interpolation(self):
+        table = self.randname()
+        query = """CREATE TABLE test-{table} (
+            geohash varchar not null,
+            user varchar not null,
+            time timestamp not null,
+            weather varchar not null,
+            temperature double,
+            PRIMARY KEY((geohash, user, quantum(time, 15, m)),
+                geohash, user, time))
+```
+
+```ruby
+  let(:create_table) do
+    <<-SQL
+CREATE TABLE timeseries-#{random_key} (
+    geohash varchar not null,
+    user varchar not null,
+    time timestamp not null,
+    weather varchar not null,
+    temperature double,
+    PRIMARY KEY(
+        (geohash, user, quantum(time, 15, m)),
+        geohash, user, time
+    )
+)
+SQL
+  end
+```
+
+
+The result of the operation is library-dependent:
 
 * [Java][java]: the `QueryResult` object will be returned without any data for rows or columns.
 * [Ruby][ruby]: no exception thrown and result collection is empty.
