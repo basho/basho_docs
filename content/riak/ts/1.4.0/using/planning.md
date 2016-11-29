@@ -219,7 +219,7 @@ The local key may also contain additional column names so long as they come afte
 The Local Key in a Riak TS row is what makes that row's key/address unique from other rows.
 In the examples on this page and others we've used a composite key of
 `region, state, time` because it can model different devices and groupings.  
-If you have another identifier such as an Integer (such as a device ID) that you can guarantee to be unique when combined with a timestamp, then you can have a shorter key definition.
+If you have another integer identifier, such as a device ID, you can guarantee to be unique when combined with a timestamp, then you can have a shorter key definition.
 
 The table definition for such a schema would be as follows:
 
