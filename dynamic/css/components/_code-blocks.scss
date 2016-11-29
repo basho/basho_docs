@@ -4,7 +4,7 @@
  *    applies the linear gradient, but it also has to be used for the padding of
  *    the tab wrapper to ensure the tabs aren't immediately covered.
  */
-$edge_fade_width : 2rem; /* 1 */
+$edge_fader_width : 2rem; /* 1 */
 
 
 
@@ -19,6 +19,12 @@ $edge_fade_width : 2rem; /* 1 */
  */
 .code-block__tab-set-wrapper {
   position : relative; /* 1 */
+
+  .edge-fader {
+    font-size : 1rem;
+    width     : $edge_fader_width;
+    height    : 100%;
+  }
 }
 
 
@@ -31,9 +37,9 @@ $edge_fade_width : 2rem; /* 1 */
  *    background colors are superseded by the linear gradient.
  */
 .code-block__tab-set {
-  white-space : nowrap;               /* 1 */
+  white-space : nowrap;                /* 1 */
   list-style  : none;
-  padding     : 0  $edge_fade_width;  /* 2 */
+  padding     : 0  $edge_fader_width;  /* 2 */
   margin      : 0  0  0.5rem 0;
 
   .code-block__tab {
@@ -67,98 +73,6 @@ $edge_fade_width : 2rem; /* 1 */
       @include on-event {
         color : $gray-38;
       }
-    }
-  }
-}
-
-
-
-/**
- * Edge Faders used to soften the tabs scrolling.
- * 1. Width of the fading effect for the tab set. This is used by the
- *    .code-block__tab-set element as well.
- * 2. The edge-fade arrows are positioned at `top: 50%`, and a translateY(-50%)
- *    is added to the arrow to get them properly aligned vertically.
- * 3. On a hover, change the color of the arrow. This could more concisely be
- *    achieved with a `border-right-color` for the left arrow and a
- *    `border-left-color` for the right arrow (that relation is correct; the
- *    border opposite of the arrow's direction controls color) but I figure
- *    rebuilding the arrow is more clear.
- * 4. When the tab is scrolled to one extent or the other, mark the given arrow
- *    as inactive by disabling the `cursor : pointer`, and by changing the color
- *    to something inactive.
- *    Again, could more concisely be achieved with a `border-*-color`, but I
- *    value clarity over brevity.
- * 5. When the entire tab is visible, make the arrows invisible by setting the
- *    background color to `transparent`. This allows us to use CSS transitions
- *    to achieve a fade-out.
- *    Again, could more concisely be achieved with a `border-*-color`, but I
- *    value clarity over brevity.
- *TODO: These names are getting out of hand. Can we better them up?
- */
-.code-block__edge-fader--left,
-.code-block__edge-fader--right {
-  width    : $edge_fade_width;  /* 1 */
-  height   : 100%;
-  position : absolute;
-}
-
-.code-block__edge-fader--left {
-  left       : 0;
-  background : linear-gradient(to left,  rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 80%);
-  filter     : progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ccffffff', GradientType=1 );
-
-  .code-block__edge-fader__arrow {
-    position : absolute;
-    left     : 0;
-    top      : 50%;                                                     /* 2 */
-    @include leftward-arrow(1rem, $orange-lighter, $translateY: -50%);  /* 2 */
-    cursor   : pointer;
-
-    transition : border-color 500ms ease 20ms;
-
-    @include on-event {
-      @include leftward-arrow(1rem, $orange, $translateY: -50%);        /* 3 */
-    }
-
-    &.code-block__edge-fader__arrow--inactive {
-      @include leftward-arrow(1rem, $cyan-lightest, $translateY: -50%); /* 4 */
-      cursor : default;
-    }
-
-    &.code-block__edge-fader__arrow--invisible  {
-      @include leftward-arrow(1rem, transparent, $translateY: -50%);    /* 5 */
-      cursor : default;
-    }
-  }
-}
-
-.code-block__edge-fader--right {
-  right      : 0;
-  background : linear-gradient(to right, rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 80%);
-  filter     : progid:DXImageTransform.Microsoft.gradient( startColorstr='#ccffffff', endColorstr='#ffffff', GradientType=1 );
-
-  .code-block__edge-fader__arrow {
-    position : absolute;
-    right    : 0;
-    top      : 50%;                                                      /* 2 */
-    @include rightward-arrow(1rem, $orange-lighter, $translateY: -50%);  /* 2 */
-    cursor   : pointer;
-
-    transition : border-color 500ms ease 20ms;
-
-    @include on-event {
-      @include rightward-arrow(1rem, $orange, $translateY: -50%);        /* 3 */
-    }
-
-    &.code-block__edge-fader__arrow--inactive {
-      @include rightward-arrow(1rem, $cyan-lightest, $translateY: -50%); /* 4 */
-      cursor : default;
-    }
-
-    &.code-block__edge-fader__arrow--invisible  {
-      @include rightward-arrow(1rem, transparent, $translateY: -50%);    /* 5 */
-      cursor : default;
     }
   }
 }
