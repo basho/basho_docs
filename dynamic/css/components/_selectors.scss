@@ -2,7 +2,7 @@
  * Wrapper around the Selectors.
  */
 .selectors {
-  margin : 0.75rem 2rem 0.15rem 2rem;
+  margin : 0.75rem 2rem 0.25rem 2rem;
 
   @include wide-from('md') {
     margin-left  : 0.25rem;
@@ -113,6 +113,8 @@
 
   @include wide-from('md') {
     height        : $selector-pane-height-md-up;
+    margin-left   : 0.5rem;
+    margin-right  : 0.5rem;
     margin-bottom : $selector-pane-margin-md-up;
   }
 
@@ -123,28 +125,19 @@
   &.selector-pane__sizing-box--display-none {
     display : none;
   }
-
-  &:after {
-    box-shadow : inset 0  0  1rem -0.2rem $shadow-mid-color;
-
-    pointer-events : none;  /* 4, FIXME */
-
-    position : absolute;    /* 1 */
-    top    : 0;
-    left   : 0;
-    height : 100%;
-    width  : 100%;
-    content : "";
-  }
+}
+.selector-pane__shadow-box {
+  height : 100%;
+  box-shadow : 0  -0.1rem 0.75rem -0.1rem $shadow-color;
 }
 .selector-pane__primary {
   height : 100%;
 
-  background : $gray-warm-97;
+  background : $gray-warm-92;
   color      : $version-selector-text;
-  font-size  : 110%;
-  padding-left  : 0.75rem;  /* 2 */
-  padding-right : 0.75rem;  /* 2 */
+  font-size  : 105%;
+  padding-left  : 0.5rem;  /* 2 */
+  padding-right : 0.5rem;  /* 2 */
 
   white-space : nowrap;
 
@@ -175,12 +168,12 @@
  */
 .selector-list__scroll-box {
   height : 100%;                  /* 1 */
-  padding     : 0.75rem 0.75rem;  /* 2, 3 */
-  margin-left : -0.75rem;         /* 3 */
+  padding     : 0.5rem 0.5rem;    /* 2, 3 */
+  margin-left : -0.5rem;          /* 3 */
 
   @include when-inside('.selector-pane__primary') {
     &:last-of-type {
-      margin-right : -0.75rem;    /* 3 */
+      margin-right : -0.5rem;    /* 3 */
     }
   }
 }
@@ -215,7 +208,7 @@
 
   a {
     @extend %sans-bold;
-    width   : 4rem;            /* 2 */
+    width   : 3.5rem;          /* 2 */
     padding : 0.6rem 0.6rem;   /* 2 */
     color           : inherit; /* 4 */
     text-decoration : none;
