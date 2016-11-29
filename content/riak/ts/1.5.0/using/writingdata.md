@@ -200,7 +200,7 @@ client.execute(store);
 
 ```erlang
 %% TS 1.3 or newer. Records are represented as tuples. 
-{ok, Pid} = riakc_pb_socket:start_link("localhost", 8087).
+{ok, Pid} = riakc_pb_socket:start_link("myriakdb.host", 8087).
 riakc_ts:put(Pid, "GeoCheckin", [{1, <<"South Atlantic">>, <<"Florida">>, 1451606401, <<"hot">>, 23.5}, {2, <<"East North Central">>, <<"Illinois">>, 1451606402, <<"windy">>, 19.8}]).
 ```
 
@@ -289,9 +289,9 @@ In the event that your write fails, you should check the error message to see wh
 RiakClient client = RiakClient.newClient(8087, "myriakdb.host");
 List<Row> someRows = Arrays.asList(
         // Good Row
-        new Row(new Cell("East North Central"), new Cell("Ohio"), Cell.newTimestamp(1234567), new Cell("cloudy"), new Cell(79.0)),
+        new Row(new Cell(1), new Cell("South Atlantic"), new Cell("Florida"), Cell.newTimestamp(1451606401), new Cell("hot"), new Cell(23.5)),
         // Bad Rows
-        new Row(new Cell("East North Central"), Cell.newTimestamp(fiveMinsAgo)), // too short
+        new Row(new Cell("South Atlantic"), Cell.newTimestamp(fiveMinsAgo)), // too short
         new Row() // no data
         );
 
@@ -330,13 +330,13 @@ You can add data via SQL statements either through the [query interface][queryin
 Here are a couple examples of adding rows from SQL:
 
 ```sql
-INSERT INTO GeoCheckin (region, state, time, weather, temperature) VALUES ('South Atlantic','South Carolina',1420113600000,'snow',25.2);
+INSERT INTO GeoCheckin (id, region, state, time, weather, temperature) VALUES (1, 'South Atlantic', 'Florida', 1451606401, 'hot', 23.5);
 ```
 
 or
 
 ```sql
-INSERT INTO GeoCheckin VALUES ('South Atlantic','South Carolina',1420113700000,'rain',37.8);
+INSERT INTO GeoCheckin VALUES (1, 'South Atlantic', 'Florida', 1451606401, 'hot', 23.5);
 ```
 
 As with standard SQL, if all of the field names are not provided before the `VALUES` keyword, the other fields are assumed to be null.
