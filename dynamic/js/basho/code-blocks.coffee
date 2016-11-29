@@ -1,10 +1,11 @@
 ###
 Code Blocks; Tabs and Titles, Generation and Interaction
 ========================================================
+** This file relies on edge-fader.coffee
 
-When a <pre><code> block is created using a fenced code block that's been given
-an explicit language we will want to pass it though Highlight.js to give us
-something to colorize.
+When a <pre><code> block is created using a fenced code block that has been
+given an explicit language, we will want to pass it though Highlight.js to give
+us something to colorize.
 
 
 When such a code block appears on its own, we will want to prepend a title to
@@ -44,9 +45,9 @@ We aim to build that into,
 
   <div class="code-block--tabbed">
     <div class="code-block__tab-set-wrapper">
-      <div class="float-left    code-block__edge-fader--left "><span class="inline-block   code-block__edge-fader__arrow"></span></div>
-      <div class="float-right   code-block__edge-fader--right"><span class="inline-block   code-block__edge-fader__arrow"></span></div>
-      <ul class="overflow-x   code-block__tab-set">
+      <div class="edge-fader edge-fader--left "><span class="inline-block   edge-fader__arrow"></span></div>
+      <div class="edge-fader edge-fader--right"><span class="inline-block   edge-fader__arrow"></span></div>
+      <ul class="overflow-x   code-block__tab-set   js_edge-fader--target">
         <li class="inline-block   code-block__tab code-block__tab--active">
           <a class="block" href="#code-block__language-java000" data-language="language-java">
             Java
@@ -68,6 +69,9 @@ We aim to build that into,
       </code></pre>
     </div>
   </div>
+
+As can be seen, the .code-block--tabbed elements rely on and extend the
+functionality of Edge Faders.
 ###
 
 #TODO: strict mode enables a pretty large number of runtime checks. We probably
@@ -106,63 +110,10 @@ language_transforms =
 ##       Where    Element instanceof $
 # Capture the language of a `<code class="language-*">` element. If no match is
 # found (or if no class exists on the element), `undefined` will be returned.
-getLanguage = (element) ->
+getLanguage = ($element) ->
   # Note that we use non-capturing groups to verify the language is wrapped by
   # whitespace / line terminators, and return only the first match found.
-  element.attr('class')?.match(/(?:^|\s)(language-.+?)(?:\s|$)/)?[1]
-
-
-
-## verifyArrowState :: (Element) -> None```
-##            Where    Element instanceof $
-##                     Element.hasClass('.code-block__tab-set-wrapper')
-# Introspect in to a .code-block__tab-set-wrapper to,
-# 1. Determine if scroll arrows should be present (if there are Tabs obscured on
-#    one or both sides by the page width).
-# 2. Make arrows visible if there are hidden Tabs.
-# 3. Make arrows invisible if all Tabs are displayed.
-verifyArrowState = (tab_set_wrapper) ->
-  # Get all the lookups out of the way.
-  left_edge_fader  = tab_set_wrapper.children('.code-block__edge-fader--left')
-  right_edge_fader = tab_set_wrapper.children('.code-block__edge-fader--right')
-  left_arrow       = left_edge_fader.children('.code-block__edge-fader__arrow')
-  right_arrow      = right_edge_fader.children('.code-block__edge-fader__arrow')
-  tab_set          = tab_set_wrapper.children('.code-block__tab-set')
-  first_tab        = tab_set.children().first()
-  last_tab         = tab_set.children().last()
-
-  # Calculate the left and right extents of the visible Tab Set
-  left_ext  = tab_set.offset().left + left_edge_fader.width()
-  right_ext = tab_set.offset().left + left_edge_fader.width() + tab_set.width()
-
-  # Determine if either side should be scrollable.
-  # The `+ 3` and `- 3` here are to add a little bit of padding to trigger the
-  # `--inactive` state. Without those, floating point drift would make hitting
-  # the extents hard-to-impossible.
-  left_is_scrollable  = (first_tab.offset().left + 3) <
-                        left_ext
-  right_is_scrollable = (last_tab.offset().left + last_tab.width() - 3) >
-                        right_ext
-
-  should_display_arrows = left_is_scrollable or right_is_scrollable
-
-  # Branch based on whether we should or should not be displaying arrows.
-  if should_display_arrows
-    left_arrow.removeClass('code-block__edge-fader__arrow--invisible')
-    right_arrow.removeClass('code-block__edge-fader__arrow--invisible')
-  else
-    left_arrow.addClass('code-block__edge-fader__arrow--invisible')
-    right_arrow.addClass('code-block__edge-fader__arrow--invisible')
-
-  if left_is_scrollable
-    left_arrow.removeClass('code-block__edge-fader__arrow--inactive')
-  else
-    left_arrow.addClass('code-block__edge-fader__arrow--inactive')
-
-  if right_is_scrollable
-    right_arrow.removeClass('code-block__edge-fader__arrow--inactive')
-  else
-    right_arrow.addClass('code-block__edge-fader__arrow--inactive')
+  $element.attr('class')?.match(/(?:^|\s)(language-.+?)(?:\s|$)/)?[1]
 
 
 
@@ -174,10 +125,10 @@ verifyArrowState = (tab_set_wrapper) ->
 # block in any modifier classes required.
 $('pre > code').each(
   (index) ->
-    code = $(this)
-    pre  = code.parent()
+    $code = $(this)
+    $pre  = $code.parent()
 
-    language = getLanguage(code)
+    language = getLanguage($code)
 
     # If we found a language, process the string, then pass the block to hljs.
     if language
@@ -186,15 +137,15 @@ $('pre > code').each(
       # selector) and in part because we just don't want to worry about '.'s.
       # Strip them and modify `language` and the class as necessary.
       if language.indexOf('.') != -1
-        code.removeClass(language)
+        $code.removeClass(language)
         language = language.replace(/\./g, '')
-        code.addClass(language)
+        $code.addClass(language)
 
       # Trick Highlight.js to style using the language we want.
       # 1. If the specified language does not have an entry in the
       #    `language_transforms` object, don't highlight.
       # 2. If the specified language has a `language_transforms` entry that
-      #    includes a `highlight_as` field, temporarily set the code's language
+      #    includes a `highlight_as` field, temporarily set $code's language
       #    class to `highligh_as` s.t. Highlight.js styles the correct language.
       # 3. If the specified language has a `language_transforms` entry that
       #    doesn't include a non-empty `highlight_as` field, just highlight.
@@ -202,14 +153,14 @@ $('pre > code').each(
         highlight_as = language_transforms[language]?.highlight_as
 
         if highlight_as                                                 # 2
-          code.removeClass(language)
-          code.addClass(highlight_as)
+          $code.removeClass(language)
+          $code.addClass(highlight_as)
 
-        hljs.highlightBlock(code[0]);                                   # 2, 3
+        hljs.highlightBlock($code[0]);                                  # 2, 3
 
         if highlight_as                                                 # 2
-          code.removeClass(highlight_as)
-          code.addClass(language)
+          $code.removeClass(highlight_as)
+          $code.addClass(language)
 
 
     # Conditionally mark the Code Block for extension with tabs or a title.
@@ -219,16 +170,16 @@ $('pre > code').each(
     #    a 'language-*' class, it should be given a title.
     # 3. If this <pre> has one or more immediate siblings that are also <pre>
     #    elements, we should wrap all of them in Tabbed Code Block.
-    return if pre.parent().hasClass('code-block__code-set')             # 1
+    return if $pre.parent().hasClass('code-block__code-set')             # 1
 
-    siblings = pre.nextUntil(':not(pre)')
+    $siblings = $pre.nextUntil(':not(pre)')
 
-    if language and siblings.length == 0                                # 2
-      pre.wrap('<div class="code-block--titled">')
+    if language and $siblings.length == 0                                # 2
+      $pre.wrap('<div class="code-block--titled">')
 
     # No `language` check here to more gracefully handle malformed tabbed sets.
-    if siblings.length                                                  # 3
-      pre.add(siblings).wrapAll(
+    if $siblings.length                                                  # 3
+      $pre.add($siblings).wrapAll(
         '<div class="code-block--tabbed"><div class="code-block__code-set">'
       )
 )
@@ -240,12 +191,12 @@ $('pre > code').each(
 # .code-block--titled, and a 'language-*' class must be present on the <code>.
 $('.code-block--titled').each(
   (index) ->
-    code_block = $(this)
-    pre        = code_block.children('pre')
-    code       = pre.children('code')
-    language   = getLanguage(code)
+    $code_block = $(this)
+    $pre        = $code_block.children('pre')
+    $code       = $pre.children('code')
+    language    = getLanguage($code)
 
-    pre.addClass("code-block__code")
+    $pre.addClass("code-block__code")
 
     # Fetch or build the presentation name. If one has not been explicitly
     # defined in the `language_transforms` object, strip 'language-' from the
@@ -253,8 +204,9 @@ $('.code-block--titled').each(
     display_name = language_transforms[language]?.display_name
     display_name = language.replace(/language-/, '') unless display_name
 
-    $('<span class="inline-block   code-block__title">' + display_name +
-      '</span>').prependTo(code_block)
+    $('<span class="inline-block   code-block__title">' +
+      display_name +
+      '</span>').prependTo($code_block)
 )
 
 
@@ -265,45 +217,47 @@ $('.code-block--titled').each(
 # a 'language-*' class.
 $('.code-block--tabbed').each(
   (code_block_index) ->
-    tabbed_code_block = $(this)
-    code_block_set    = tabbed_code_block.children('.code-block__code-set')
+    $tabbed_code_block = $(this)
+    $code_set          = $tabbed_code_block.children('.code-block__code-set')
 
     # Begin building the Tab Set Wrapper <div> that will encapsulate the list of
-    # tabs, as well as the edge-fader overlays.
+    # tabs, as well as the Edge Fader overlays.
     # The Tab Set <ul> will be modified after creation, having a new tab added
     # per <pre><code> element, and so will be built separately and appended as
     # the last element of the wrapper.
     # After the tabs have all been created, we'll check if we should make the
-    # edge-fader's arrows visible to signal / drive scrolling.
-    arrow_str = '<span class="inline-block   code-block__edge-fader__arrow code-block__edge-fader__arrow--invisible"></span>'
-    tab_set_wrapper = $('<div class="code-block__tab-set-wrapper">' +
-        '<div class="float-left    code-block__edge-fader--left ">' + arrow_str + '</div>' +
-        '<div class="float-right   code-block__edge-fader--right">' + arrow_str + '</div>' +
+    # Edge Fader's arrows visible to signal / drive scrolling using the exposed
+    # `EdgeFader.showOrHideArrows()` defined in edge-fader.coffee.
+    arrow_str = '<span class="inline-block   edge-fader__arrow edge-fader__arrow--invisible"></span>'
+    $tab_set_wrapper = $('<div class="code-block__tab-set-wrapper">' +
+        '<div class="edge-fader edge-fader--left ">' + arrow_str + '</div>' +
+        '<div class="edge-fader edge-fader--right">' + arrow_str + '</div>' +
       '</div>')
-    tab_set = $('<ul class="overflow-x   code-block__tab-set">')
-    tab_set.appendTo(tab_set_wrapper)
+    $tab_set = $('<ul class="overflow-x   code-block__tab-set  js_edge-fader--target">')
+    $tab_set.appendTo($tab_set_wrapper)
 
     # Iterate over each <pre> element that is a child of this Code Block's set
     # of <pre><code> elements, modify the id of the <pre>, and add a
     # corresponding Tab <li> to the Tab Set.
-    code_block_set.children('pre').each(
+    $code_set.children('pre').each(
       (code_index) ->
-        pre  = $(this)
-        code = pre.children()
+        $pre  = $(this)
+        $code = $pre.children()
 
         # The `language` extracted from the <code class=*> will hopefully not be
         # `undefined`, but we can't guarantee that it will have a valid value.
-        language = getLanguage(code)
+        language = getLanguage($code)
 
-        # Fetch or build the presentation name. If one has not been explicitly
-        # defined, strip the 'language-' from the class name and use what's
-        # left. If there is no language name, default to something ugly that we
-        # will hopefully notice and fix.
+        # Fetch (or build) the presentation name.
+        # If one has not been explicitly defined, strip the 'language-' from the
+        # class name and use what's left.
+        # If there is no language class, default to something ugly that we will
+        # hopefully notice and fix.
         display_name = language_transforms[language]?.display_name
         display_name = language?.replace(/language-/, '') unless display_name
         display_name = "////" + padNumber(code_index, 2)  unless display_name
 
-        # Conditionally setup a unnamed language string to be used for
+        # Conditionally setup an unnamed language string to be used for
         # identifiers. We would prefer this to simply be `language`, but if that
         # string is undefined, use the index of the code element within the
         # block to generate something.
@@ -315,102 +269,40 @@ $('.code-block--tabbed').each(
         code_id = "code-block__" + data_lang + padNumber(code_index, 3)
 
         # Modify the class/ID of the <pre> element.
-        pre.addClass('code-block__code')
-        pre.attr('id', code_id)
+        $pre.addClass('code-block__code')
+        $pre.attr('id', code_id)
 
         # Build and append a Tab <li> to the Tab Set.
-        tab_set.append('<li class="inline-block   code-block__tab">'  +
-                         '<a class="block" '                          +
-                              'href="#' + code_id + '" '              +
-                              'data-language="' + data_lang + '">'    +
-                            display_name                              +
-                         '</a>'                                       +
-                       '</li>')
+        $tab_set.append('<li class="inline-block   code-block__tab">'  +
+                          '<a class="block" '                          +
+                               'href="#' + code_id + '" '              +
+                               'data-language="' + data_lang + '">'    +
+                             display_name                              +
+                          '</a>'                                       +
+                        '</li>')
     )
 
     # Pick out the first Tab and first Code element and mark them as active.
     #TODO: This logic is absolutely terrible. Make it better. Somehow. Please?
-    tab_set.find('.code-block__tab').first()
-           .addClass('code-block__tab--active')
-    tabbed_code_block.find('.code-block__code').first()
-                     .addClass('code-block__code--active')
+    $tab_set.find('.code-block__tab').first()
+            .addClass('code-block__tab--active')
+    $tabbed_code_block.find('.code-block__code').first()
+                      .addClass('code-block__code--active')
 
     # At this point, the Tab Wrapper is fully built, and just needs to be
     # prepended as the first child of the current .code-block--tabbed.
-    tabbed_code_block.prepend(tab_set_wrapper)
+    $tabbed_code_block.prepend($tab_set_wrapper)
 
-    # Do the thing with the arrows in the edge faders
-    verifyArrowState(tab_set_wrapper)
+    # Allow the Edge Faders to decide if they should be visible / active.
+    EdgeFader.showOrHideArrows($tab_set)
 )
 
 
 ## JQuery .ready() Execution
 ## =========================
 $ ->
-
-  ## Wire up interactions
-
   # Cache the lookups
-  tabbed_code_blocks = $('.code-block--tabbed')
-  tab_set_wrappers   = tabbed_code_blocks.children('.code-block__tab-set-wrapper')
-
-
-  # Tab Set Resize
-  # --------------
-  # When the window is resized (desktops changing size, mobile devices rotating)
-  # there's a good chance Code Blocks' Tabs will become obscured or be revealed.
-  # On these resize event, re-do the arrow show/hide calculations.
-  # Throttle the event to tripping 4 times a second so we don't overload.
-  $(window).on('resize.code-block-resize',
-    throttle(
-      (event) -> (
-        tab_set_wrappers.each( () -> verifyArrowState( $(this) ) )
-      ),
-      250
-    )
-  )
-
-
-  # Arrow Interactions
-  # ------------------
-  # When an arrow is clicked (or tapped), scroll the Tab Set by 3/4 of the
-  # current width of the Tab Set Wrapper.
-  #TODO: 3/4 is an arbitrary and untested distance. Is it sufficient?
-  $('.code-block__edge-fader__arrow').on('click.code-block-arrow'
-    (event) -> (
-      arrow           = $(this)
-      tab_set_wrapper = arrow.closest('.code-block__tab-set-wrapper')
-      tab_set         = tab_set_wrapper.children('.code-block__tab-set')
-
-      # Calculate the scroll difference and resulting target position.
-      # NB. If we're in a `--left` edge fader, we should be scrolling left a
-      # negative amount.
-      target = tab_set_wrapper.width() * 0.75;
-      target *= -1  if arrow.parent().hasClass('code-block__edge-fader--left')
-      target += tab_set.scrollLeft()
-
-      $(tab_set).animate({scrollLeft: target}, 200);
-    )
-  )
-
-
-  # Tab Scrolling
-  # -------------
-  # When we scroll the Tab Set we will want to enable / disable the scroll
-  # arrows to suggest when a user has hit the last tab.
-  #TODO: we're being super lazy about this right now, and just reusing the
-  #      `verifyArrowState` logic. We should build a stripped-down version of
-  #      that function and be more efficient with these calculations.
-  $('.code-block__tab-set').on('scroll.code-block-tab-set',
-    throttle(
-      (event) -> (
-        verifyArrowState( $(this).parent() )
-      ),
-      250
-    )
-  )
-
-
+  $tabbed_code_blocks = $('.code-block--tabbed')
 
   # Tab Selection
   # -------------
@@ -421,45 +313,45 @@ $ ->
     (event) ->
       event.preventDefault()
 
-      event_anchor = $(this)
-      language     = event_anchor.data('language')
+      $event_anchor = $(this)
+      language      = $event_anchor.data('language')
 
       # Early out if we're in the active Tab.
-      return if event_anchor.parent().hasClass('code-block__tab--active')
+      return if $event_anchor.parent().hasClass('code-block__tab--active')
 
-      # Capture the active element's top offset relative to the viewport. We'll
-      # use this later to set the `$(window).scrollTop` s.t. the touched element
-      # won't change Y position relative to the viewport after the page re-flow.
-      # NB. This isn't a JQuery call; it's a straight-up DOM lookup.
+      # Capture the active element's top offset relative to the viewport.
+      # We'll use this later to set the `$(window).scrollTop` s.t. the touched
+      # element won't change Y position relative to the viewport after the page
+      # re-flows in reaction to .code-block--tabbed height changes.
       top_offset = this.getBoundingClientRect().top
 
       # Iterate over all Tabbed Code Blocks, and manipulate which Tabs and
       # Code elements are `--active`.
-      for element in tabbed_code_blocks
-        code_block = $(element)
+      for element in $tabbed_code_blocks
+        $code_block = $(element)
 
-        # Lookup only the anchors whose `data-language` match the event_anchor.
+        # Lookup only the anchors whose `data-language` match the $event_anchor.
         # Early-out if the Code Block doesn't contain any matching elements.
-        anchor = code_block.find('[data-language="' + language + '"]')
-        continue if anchor.length == 0
+        $anchor = $code_block.find('[data-language="' + language + '"]')
+        continue if $anchor.length == 0
 
         # Swap which Tab is active.
-        code_block.find('.code-block__tab--active')
-                  .removeClass('code-block__tab--active')
-        anchor.parent()
-              .addClass('code-block__tab--active')
+        $code_block.find('.code-block__tab--active')
+                   .removeClass('code-block__tab--active')
+        $anchor.parent()
+               .addClass('code-block__tab--active')
 
         # Swap which Code element is active.
-        code_block.find('.code-block__code--active')
+        $code_block.find('.code-block__code--active')
                   .removeClass('code-block__code--active')
                   .hide()
-        code_block.find(anchor.attr('href'))
+        $code_block.find($anchor.attr('href'))
                   .addClass('code-block__code--active')
                   .fadeIn()
 
       # Re-set the window's `scrollTop` w/o an animation to make it look like
       # the viewport hasn't moved in relation to the Code Block.
-      $(window).scrollTop(event_anchor.offset().top - top_offset)
+      $(window).scrollTop($event_anchor.offset().top - top_offset)
 
       return
   )
