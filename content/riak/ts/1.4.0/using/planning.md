@@ -39,16 +39,15 @@ In order to create a working Riak TS table, you'll need to plan your table out. 
 ```sql
 CREATE TABLE GeoCheckin
 (
-   id           SINT64    NOT NULL,
-   time         TIMESTAMP NOT NULL,
-   region       VARCHAR   NOT NULL,
-   state        VARCHAR   NOT NULL,
-   weather      VARCHAR   NOT NULL,
-   temperature  DOUBLE,
-   PRIMARY KEY (
-     (id, QUANTUM(time, 15, 'm')),
-      id, time
-   )
+  region       VARCHAR   NOT NULL,
+  state        VARCHAR   NOT NULL,
+  time         TIMESTAMP NOT NULL,
+  weather      VARCHAR   NOT NULL,
+  temperature  DOUBLE,
+  PRIMARY KEY (
+    (region, state, QUANTUM(time, 15, 'm')),
+    region, state, time
+  )
 )
 ```
 
@@ -69,7 +68,7 @@ You cannot create a table with more than 511 total columns. If you try to create
 
 ### Column Definitions
 
-Column definitions define the structure of the data and are comprised of three parts: a column name, a data type, and (optionally) an inline constraint. 
+Column definitions define the structure of the data and are comprised of three parts: a column name, a data type, and (optionally) an inline constraint.
 
 ```sql
 column_name data_type [NOT NULL],
@@ -85,16 +84,15 @@ The column definitions for the keys can be specified in any order in the CREATE 
 ```sql
 CREATE TABLE GeoCheckin
 (
-   id           SINT64    NOT NULL,
-   region       VARCHAR   NOT NULL,
-   state        VARCHAR   NOT NULL,
-   time         TIMESTAMP NOT NULL,
-   weather      VARCHAR   NOT NULL,
-   temperature  DOUBLE,
-   PRIMARY KEY (
-     (id, QUANTUM(time, 15, 'm')),
-      id, time
-   )
+  region       VARCHAR   NOT NULL,
+  state        VARCHAR   NOT NULL,
+  time         TIMESTAMP NOT NULL,
+  weather      VARCHAR   NOT NULL,
+  temperature  DOUBLE,
+  PRIMARY KEY (
+    (region, state, QUANTUM(time, 15, 'm')),
+    region, state, time
+  )
 )
 ```
 
@@ -103,7 +101,6 @@ CREATE TABLE GeoCheckin
 CREATE TABLE GeoCheckin
 (
    time         TIMESTAMP NOT NULL,
-   id           SINT64    NOT NULL,
    state        VARCHAR   NOT NULL,
    weather      VARCHAR   NOT NULL,
    region       VARCHAR   NOT NULL,
@@ -173,8 +170,8 @@ CREATE TABLE GeoCheckin
    weather      VARCHAR   NOT NULL,
    temperature  DOUBLE,
    PRIMARY KEY (
-     (state, id, time,
-      state, id, time, region
+     (state, region, time,
+      state, region, time, weather
    )
 )
 ```
