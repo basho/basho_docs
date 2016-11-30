@@ -1,6 +1,6 @@
 ---
 title: "LIMIT in Riak TS"
-description: "Using the LIMIT clause in Riak TS."
+description: "Using the LIMIT statement in Riak TS."
 menu:
   riak_ts-1.5.0:
     name: "LIMIT"
@@ -12,20 +12,20 @@ project_version: "1.5.0"
 toc: true
 version_history:
   in: "1.5.0+"
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/limit/order-by"
+canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/limit/"
 ---
 
 [select]: /riak/ts/1.5.0/using/querying/select
 [query guidelines]: /riak/ts/1.5.0/using/querying/guidelines/
 
-The LIMIT clause is used with [`SELECT`][select] to return a limited number of results.
+The LIMIT statement is used with [`SELECT`][select] to return a limited number of results.
 
 This document shows how to run various queries using `LIMIT`. See the [guidelines][query guidelines] for more information on limitations and rules for queries in Riak TS.
 
 
 ## Overview
 
-The LIMIT clause returns a limited number of results from a SELECT statement.
+The LIMIT statement returns a limited number of results from a SELECT statement.
 
 `LIMIT` has the following syntax:
 
@@ -33,15 +33,7 @@ The LIMIT clause returns a limited number of results from a SELECT statement.
 LIMIT «number_rows» [ OFFSET «offset_rows» ]
 ```
 
-### Options
-
-The following can be appended to `LIMIT`:
-
-#### `OFFSET`
-
-Skip a specified number of results first and then return remaining results.
-
-[Example](#offset-results)
+The OFFSET modifier can be used with `LIMIT` to skip a specified number of results and return the remaining results ([example below](#offset-results)).
 
 
 {{% note title="WARNING" %}}
