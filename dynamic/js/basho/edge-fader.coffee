@@ -46,28 +46,50 @@ EdgeFader = window.EdgeFader = {}
 EdgeFader.VerifyArrowState = ($target) ->
   max_left     = $target.maxScrollLeft()
   current_left = $target.scrollLeft()
+  max_top      = $target.maxScrollTop()
+  current_top  = $target.scrollTop()
 
   # Early out in case arrows are not (or, at least, should not be) shown.
-  return if max_left == 0
+  return if (max_left == 0 and max_top == 0)
 
   $wrapper = $target.parent()
-  $left_arrow  = $wrapper.children('.edge-fader--left').children('.edge-fader__arrow')
-  $right_arrow = $wrapper.children('.edge-fader--right').children('.edge-fader__arrow')
+  #NB. Any or all of the bellow _arrow selectors may come back empty. The calls
+  # that use them are (or, at least, should be) built s.t. an empty list won't
+  # cause JQuery to error.
+  $left_arrow   = $wrapper.children('.edge-fader--left').children('.edge-fader__arrow')
+  $right_arrow  = $wrapper.children('.edge-fader--right').children('.edge-fader__arrow')
+  $top_arrow    = $wrapper.children('.edge-fader--top').children('.edge-fader__arrow')
+  $bottom_arrow = $wrapper.children('.edge-fader--bottom').children('.edge-fader__arrow')
 
-  # If current_left > 0, we are able to scroll left.
-  # If current_left < max_left, we are able to scroll right.
-  # The `+ 3` and `- 3` here are to add a little bit of padding to trigger the
+  # Check for arrow visibility (`max_* > 0`) and activity/inactivity.
+  # The `+ 3`s and `- 3`s here are to add a little bit of padding to trigger the
   # `--inactive` state "early". Without those, floating point drift would make
   # hitting the extents hard-to-impossible.
-  if current_left > 0 + 3
-    $left_arrow.removeClass('edge-fader__arrow--inactive')
-  else
-    $left_arrow.addClass('edge-fader__arrow--inactive')
+  if max_left > 0 +3
+    # If current_left > 0, we are able to scroll left.
+    # If current_left < max_left, we are able to scroll right.
+    if current_left > 0 + 3
+      $left_arrow.removeClass('edge-fader__arrow--inactive')
+    else
+      $left_arrow.addClass('edge-fader__arrow--inactive')
 
-  if current_left < max_left - 3
-    $right_arrow.removeClass('edge-fader__arrow--inactive')
-  else
-    $right_arrow.addClass('edge-fader__arrow--inactive')
+    if current_left < max_left - 3
+      $right_arrow.removeClass('edge-fader__arrow--inactive')
+    else
+      $right_arrow.addClass('edge-fader__arrow--inactive')
+
+  if max_top > 0 +3
+    # If current_top > 0, we are able to scroll up.
+    # If current_top < max_top, we are able to scroll down.
+    if current_top > 0 + 3
+      $top_arrow.removeClass('edge-fader__arrow--inactive')
+    else
+      $top_arrow.addClass('edge-fader__arrow--inactive')
+
+    if current_top < max_top - 3
+      $bottom_arrow.removeClass('edge-fader__arrow--inactive')
+    else
+      $bottom_arrow.addClass('edge-fader__arrow--inactive')
 
   return
 
@@ -77,22 +99,35 @@ EdgeFader.VerifyArrowState = ($target) ->
 ##                     Element.parent().children().hasClass('edge-fader')
 EdgeFader.showOrHideArrows = ($target) ->
   $wrapper = $target.parent()
-  $left_arrow  = $wrapper.children('.edge-fader--left').children('.edge-fader__arrow')
-  $right_arrow = $wrapper.children('.edge-fader--right').children('.edge-fader__arrow')
+  $left_arrow   = $wrapper.children('.edge-fader--left').children('.edge-fader__arrow')
+  $right_arrow  = $wrapper.children('.edge-fader--right').children('.edge-fader__arrow')
+  $top_arrow    = $wrapper.children('.edge-fader--top').children('.edge-fader__arrow')
+  $bottom_arrow = $wrapper.children('.edge-fader--bottom').children('.edge-fader__arrow')
 
-  # If max_left is > 0, we _may_ be able to scroll. If it is < 0, we _will not_
-  # be able to scroll. Show or hide arrows accordingly.
+  # If max_left is > 0, we _may_ be able to scroll horizontally. If it is < 0,
+  # we _will not_ be able to scroll horizontally.
+  # Show or hide arrows accordingly.
   max_left = $target.maxScrollLeft()
+  max_top  = $target.maxScrollTop()
 
   if max_left > 0
     $left_arrow.removeClass('edge-fader__arrow--invisible')
     $right_arrow.removeClass('edge-fader__arrow--invisible')
-    # If we've gone from invisible to visible, we need to verify which arrow(s)
-    # are currently scrollable.
-    EdgeFader.VerifyArrowState($target)
   else
     $left_arrow.addClass('edge-fader__arrow--invisible')
     $right_arrow.addClass('edge-fader__arrow--invisible')
+
+  if max_top > 0
+    $top_arrow.removeClass('edge-fader__arrow--invisible')
+    $bottom_arrow.removeClass('edge-fader__arrow--invisible')
+  else
+    $top_arrow.addClass('edge-fader__arrow--invisible')
+    $bottom_arrow.addClass('edge-fader__arrow--invisible')
+
+  if max_left > 0 or max_top > 0
+    # If we've gone from invisible to visible, we need to verify which arrow(s)
+    # are currently scrollable.
+    EdgeFader.VerifyArrowState($target)
 
   return
 
@@ -141,18 +176,24 @@ $ ->
   $('.edge-fader__arrow').on('click.edge-fader-arrow'
     (event) -> (
       $arrow   = $(this)
-      $wrapper = $arrow.parent().parent()
+      $fader   = $arrow.parent()
+      $wrapper = $fader.parent()
       $target  = $wrapper.children('.js_edge-fader--target')
 
-      # Calculate the scroll difference and resulting target position.
-      # NB. If we're in a `--left` edge fader, we should be scrolling left a
-      # negative amount.
-      pos = $wrapper.width() * 0.75;
-      pos *= -1  if $arrow.parent().hasClass('edge-fader--left')
-      pos += $target.scrollLeft()
-
-      #NB. This will -- as intended -- trigger `scroll.edge-fader-target`.
-      $target.animate({scrollLeft: pos}, 200);
+      #NB. The $target.animate will trigger `scroll.edge-fader-target`. This is
+      #    intended, and required to update the arrow active/inactive states.
+      if      $fader.hasClass('edge-fader--left')
+        new_pos = (-1 * $wrapper.width() * 0.75) + $target.scrollLeft()
+        $target.animate({scrollLeft: new_pos}, 200);
+      else if $fader.hasClass('edge-fader--right')
+        new_pos = ( 1 * $wrapper.width() * 0.75) + $target.scrollLeft()
+        $target.animate({scrollLeft: new_pos}, 200);
+      else if $fader.hasClass('edge-fader--top')
+        new_pos = (-1 * $wrapper.height() * 0.75) + $target.scrollTop()
+        $target.animate({scrollTop: new_pos}, 200);
+      else if $fader.hasClass('edge-fader--bottom')
+        new_pos = ( 1 * $wrapper.height() * 0.75) + $target.scrollTop()
+        $target.animate({scrollTop: new_pos}, 200);
 
       return
     )
