@@ -1,6 +1,6 @@
 ---
 title: "ORDER BY in Riak TS"
-description: "Using the ORDER BY clause in Riak TS."
+description: "Using the ORDER BY statement in Riak TS."
 menu:
   riak_ts-1.5.0:
     name: "ORDER BY"
@@ -18,14 +18,14 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/select/ord
 [select]: /riak/ts/1.5.0/using/querying/select
 [query guidelines]: /riak/ts/1.5.0/using/querying/guidelines/
 
-The ORDER BY clause is used with [`SELECT`][select] to sort results by one or more columns in ascending or descending order. `ORDER BY` is useful for operations such as returning the most recent results in a set.
+The ORDER BY statement is used with [`SELECT`][select] to sort results by one or more columns in ascending or descending order. `ORDER BY` is useful for operations such as returning the most recent results in a set.
 
 This document shows how to run various queries using `GROUP BY`. See the [guidelines][query guidelines] for more information on limitations and rules for queries in Riak TS.
 
 
 ## Overview
 
-The ORDER BY clause sorts results according to the specified column(s) and any optional keywords or clauses used.
+The ORDER BY statement sorts results according to the specified column(s) and any optional keywords or clauses used.
 
 `ORDER BY` has the following syntax:
 
