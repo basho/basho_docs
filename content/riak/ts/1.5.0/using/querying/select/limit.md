@@ -43,10 +43,10 @@ Before you run `SELECT` you must ensure the node issuing the query has adequate 
 
 ## Examples
 
-The following table defines a schema for «TODO_DATA_MODEL»
+The following table defines a schema for sensor data.
 
 ```sql
-CREATE TABLE «TODO_DATA_MODEL»
+CREATE TABLE SensorData
 (
    id     SINT64    NOT NULL,
    time   TIMESTAMP NOT NULL,
@@ -60,18 +60,18 @@ CREATE TABLE «TODO_DATA_MODEL»
 
 ### Basic
 
-Return only five results between «TODO_TIME» and «TODO_TIME»:
+Return only five results between the given times:
 
 ```sql
-SELECT id, time, value FROM «TODO_DATA_MODEL» WHERE id = 2 AND time > «TODO_TIME» AND time < «TODO_TIME» LIMIT 5;
+SELECT id, time, value FROM SensorData WHERE id = 2 AND time > '2016-11-28 06:00:00' AND time < '2016-11-28 06:10:10' LIMIT 5;
 ```
 
 ### Sort and Limit
 
-Sort results between «TODO_TIME» and «TODO_TIME» by time in ascending order and only return 5 results:
+Sort results between given times by time in ascending order and only return 5 results:
 
 ```sql
-SELECT id, time, value FROM «TODO_DATA_MODEL» WHERE id = 2 AND time > «TODO_TIME» AND time < «TODO_TIME» ORDER BY time ASC LIMIT 5;
+SELECT id, time, value FROM SensorData WHERE id = 2 AND time > '2016-11-28 06:00:00' AND time < '2016-11-28 06:10:10' ORDER BY time ASC LIMIT 5;
 ```
 
 ### Offset Results
@@ -79,5 +79,5 @@ SELECT id, time, value FROM «TODO_DATA_MODEL» WHERE id = 2 AND time > «TODO_T
 Skip the first two results of the query, return five:
 
 ```sql
-SELECT id, time, value FROM «TODO_DATA_MODEL» WHERE id = 2 AND time > «TODO_TIME» AND time < «TODO_TIME» LIMIT 5 OFFSET 2;
+SELECT id, time, value FROM SensorData WHERE id = 2 AND time > '2016-11-28 06:00:00' AND time < '2016-11-28 06:10:10' LIMIT 5 OFFSET 2;
 ```
