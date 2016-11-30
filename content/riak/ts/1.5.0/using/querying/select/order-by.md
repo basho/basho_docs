@@ -87,10 +87,10 @@ Before you run `SELECT` you must ensure the node issuing the query has adequate 
 
 ## Examples
 
-The following table defines a schema for «TODO_DATA_MODEL»
+The following table defines a schema for sensor data.
 
 ```sql
-CREATE TABLE «TODO_DATA_MODEL»
+CREATE TABLE SensorData
 (
    id     SINT64    NOT NULL,
    time   TIMESTAMP NOT NULL,
@@ -104,24 +104,24 @@ CREATE TABLE «TODO_DATA_MODEL»
 
 ### Ascending
 
-Sort results between «TODO_TIME» and «TODO_TIME» by time in ascending order:
+Sort results between given times, by time, in ascending order:
 
 ```sql
-SELECT id, time, value FROM «TODO_DATA_MODEL» WHERE id = 2 AND time > «TODO_TIME» AND time < «TODO_TIME» ORDER BY time ASC;
+SELECT id, time, value FROM SensorData WHERE id = 2 AND time > '2016-11-28 06:00:00' AND time < '2016-11-28 06:10:10' ORDER BY time ASC;
 ```
 
 Alternatively, because `ORDER BY` sorts in ascending by default:
 
 ```sql
-SELECT id, time, value FROM «TODO_DATA_MODEL» WHERE id = 2 AND time > «TODO_TIME» AND time < «TODO_TIME» ORDER BY time;
+SELECT id, time, value FROM SensorData WHERE id = 2 AND time > '2016-11-28 06:00:00' AND time < '2016-11-28 06:10:10' ORDER BY time;
 ```
 
 ### Descending
 
-Sort results between «TODO_TIME» and «TODO_TIME» by time in descending order:
+Sort results between given times, by time, in descending order:
 
 ```sql
-SELECT id, time, value FROM «TODO_DATA_MODEL» WHERE id = 2 AND time > «TODO_TIME» AND time < «TODO_TIME» ORDER BY time DESC;
+SELECT id, time, value FROM SensorData WHERE id = 2 AND time > '2016-11-28 06:00:00' AND time < '2016-11-28 06:10:10' ORDER BY time DESC;
 ```
 
 ### Multiple Columns
@@ -129,7 +129,7 @@ SELECT id, time, value FROM «TODO_DATA_MODEL» WHERE id = 2 AND time > «TODO_T
 Sort results by multiple columns:
 
 ```sql
-SELECT id, time, value FROM «TODO_DATA_MODEL» WHERE id = 2 AND time > «TODO_TIME» AND time < «TODO_TIME» ORDER BY value DESC, time ASC LIMIT 5;
+SELECT id, time, value FROM SensorData WHERE id = 2 AND time > '2016-11-28 06:00:00' AND time < '2016-11-28 06:10:10' ORDER BY value DESC, time ASC LIMIT 5;
 ```
 
 ### Null Values First
@@ -137,7 +137,7 @@ SELECT id, time, value FROM «TODO_DATA_MODEL» WHERE id = 2 AND time > «TODO_T
 Sort results and return null values first:
 
 ```sql
-SELECT id, time, value FROM «TODO_DATA_MODEL» WHERE id = 2 AND time > «TODO_TIME» AND time < «TODO_TIME» ORDER BY time ASC NULLS FIRST;
+SELECT id, time, value FROM SensorData WHERE id = 2 AND time > '2016-11-28 06:00:00' AND time < '2016-11-28 06:10:10' ORDER BY time ASC NULLS FIRST;
 ```
 
 ### Null Values Last
@@ -145,15 +145,15 @@ SELECT id, time, value FROM «TODO_DATA_MODEL» WHERE id = 2 AND time > «TODO_T
 Sort results and return null values last:
 
 ```sql
-SELECT id, time, value FROM «TODO_DATA_MODEL» WHERE id = 2 AND time > «TODO_TIME» AND time < «TODO_TIME» ORDER BY time ASC NULLS LAST;
+SELECT id, time, value FROM SensorData WHERE id = 2 AND time > '2016-11-28 06:00:00' AND time < '2016-11-28 06:10:10' ORDER BY time ASC NULLS LAST;
 ```
 
 ### Limit Results
 
-Sort results between «TODO_TIME» and «TODO_TIME» by time in ascending order and only return 5 results:
+Sort results between given times, by time, in ascending order and only return 5 results:
 
 ```sql
-SELECT id, time, value FROM «TODO_DATA_MODEL» WHERE id = 2 AND time > «TODO_TIME» AND time < «TODO_TIME» ORDER BY time ASC LIMIT 5;
+SELECT id, time, value FROM SensorData WHERE id = 2 AND time > '2016-11-28 06:00:00' AND time < '2016-11-28 06:10:10' ORDER BY time ASC LIMIT 5;
 ```
 
 ### Offset Results
@@ -161,4 +161,4 @@ SELECT id, time, value FROM «TODO_DATA_MODEL» WHERE id = 2 AND time > «TODO_T
 Skip first 2 results and return the results after:
 
 ```sql
-SELECT id, time, value FROM «TODO_DATA_MODEL» WHERE id = 2 AND time > «TODO_TIME» AND time < «TODO_TIME» ORDER BY time ASC LIMIT 5 OFFSET 2;
+SELECT id, time, value FROM SensorData WHERE id = 2 AND time > '2016-11-28 06:00:00' AND time < '2016-11-28 06:10:10' ORDER BY time ASC LIMIT 5 OFFSET 2;
