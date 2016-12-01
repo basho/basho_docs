@@ -1,9 +1,9 @@
 ---
-title: "Creating and Activating Your Riak TS Table"
+title: "Creating Your Riak TS Table"
 description: "Creating and Activating Your Riak TS Table"
 menu:
   riak_ts-1.5.0:
-    name: "Create and Activate Your Table"
+    name: "Create Your Table"
     identifier: "creating_activating_riakts"
     weight: 302
     parent: "using"
