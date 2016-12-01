@@ -242,7 +242,7 @@ Please note the following when using `WITH`:
 * Values from the WITH clause will override those specified outside the query statement.
 
 
-### Verification via Client Library
+### Verification
 
 You can verify that your table was properly created by executing the [DESCRIBE statement][describe] via the query function of your client library, or by using the [`riak-admin bucket-type status` command](#verify-creation-and-activation).
 
