@@ -26,6 +26,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/creating-activating
 [ruby]: ../../developing/ruby#sql-queries
 [planning]: ../planning/
 [writing]: ../writingdata/
+[Riak bucket properties]: /riak/kv/2.2.0/configuring/reference/#default-bucket-properties
 
 
 Once you have [planned out your table][planning] you can create it by:
@@ -233,12 +234,11 @@ CREATE TABLE (...) WITH (
     custom_prop = 42.24)
 ```
 
+Any property with any string or numeric value can be associated with a table, including but not limited to standard [Riak bucket properties]. 
+
 Please note the following when using `WITH`:
 
-* The property values can be of numeric or string types (parseable as
-  `sint64`, `double` or `varchar`, correspondingly). String values
-  should be quoted with a `'`; literal single quote characters
-  appearing in the string should be doubled (and not escaped with a `\`).
+* The property values can be of numeric or string types (parseable as `sint64`, `double` or `varchar`, correspondingly). String values should be quoted with a `'`; literal single quote characters appearing in the string should be doubled (and not escaped with a `\`).
 * Values from the WITH clause will override those specified outside the query statement.
 
 
