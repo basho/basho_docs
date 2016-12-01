@@ -126,6 +126,7 @@ The following operators are supported for each data type:
 |           |=  |!= |>  |<  |<= |>=|
 |-----------|---|---|---|---|---|---|
 | varchar   | X | X |   |   |   |   |
+| blob      | X | X |   |   |   |   |
 | boolean   | X | X |   |   |   |   |
 | sint64    | X | X | X | X | X | X |
 | double    | X | X | X | X | X | X |

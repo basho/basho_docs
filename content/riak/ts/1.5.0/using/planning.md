@@ -114,12 +114,12 @@ CREATE TABLE GeoCheckin
 
 The data types in column definitions are limited. Valid types are:
 
-* `VARCHAR` - Any string content is valid, including Unicode. Can only be compared using strict equality, and will not be typecast (e.g., to an integer) for comparison purposes. Use single quotes to delimit varchar strings.
+* `VARCHAR` - Any [Latin 1](https://en.wikipedia.org/wiki/ISO/IEC_8859-1) string content is valid. Can only be compared using strict equality, and will not be typecast (e.g., to an integer) for comparison purposes. Use single quotes to delimit varchar strings.
 * `BOOLEAN` - `true` or `false` (any case).
 * `TIMESTAMP` - Integer values expressing [UNIX epoch time in UTC][epoch] in milliseconds. Zero is not a valid timestamp.
 * `SINT64` - Signed 64-bit integer.
 * `DOUBLE` - This type does not comply with its IEEE specification: `NaN` (not a number) and `INF` (infinity) cannot be used.
-
+* `BLOB` - A new type as of TS 1.5.0 for binary objects. Behaves like a `VARCHAR` but is displayed as a hex value (and can be input as hex) via `riak-shell`.
 
 ### Primary Key
 

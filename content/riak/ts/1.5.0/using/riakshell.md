@@ -162,51 +162,44 @@ riak-shell is connected to: 'dev2@127.0.0.1' on port 8097
 You can use riak shell to [create a table][creating]:
 
 ```
-riak-shell>CREATE TABLE GeoCheckin (region VARCHAR NOT NULL, state VARCHAR NOT NULL, time  TIMESTAMP NOT NULL, weather  VARCHAR NOT NULL, temperature DOUBLE, PRIMARY KEY ((region, state, QUANTUM(time, 15, 'm')), region, state, time));
+riak-shell>CREATE TABLE GeoCheckin (state VARCHAR NOT NULL, time TIMESTAMP NOT NULL, weather  VARCHAR NOT NULL, temperature DOUBLE, rawdata BLOB, PRIMARY KEY ((state, QUANTUM(time, 15, 'm')), state, time));
 ```
 
 Then, you can see the table in riak shell:
 
 ```
 riak-shell>describe GeoCheckin;
-+-----------+---------+-------+-----------+---------+
-|  Column   |  Type   |Is Null|Primary Key|Local Key|
-+-----------+---------+-------+-----------+---------+
-| region    | varchar | false |     1     |    1    |
-| state     | varchar | false |     2     |    2    |
-|   time    |timestamp| false |     3     |    3    |
-|  weather  | varchar | false |           |         |
-|temperature| double  | true  |           |         |
-+-----------+---------+-------+-----------+---------+
++-----------+---------+--------+-------------+---------+--------+----+----------+
+|  Column   |  Type   |Nullable|Partition Key|Local Key|Interval|Unit|Sort Order|
++-----------+---------+--------+-------------+---------+--------+----+----------+
+|   state   | varchar | false  |      1      |    1    |        |    |          |
+|   time    |timestamp| false  |      2      |    2    |   15   | m  |          |
+|  weather  | varchar | false  |             |         |        |    |          |
+|temperature| double  |  true  |             |         |        |    |          |
+|  rawdata  |  blob   |  true  |             |         |        |    |          |
++-----------+---------+--------+-------------+---------+--------+----+----------+
 ```
 
-You can also select specific data points from your table:
+You can insert data:
 
 ```
-riak-shell(28)>SELECT time, weather, temperature FROM GeoCheckin WHERE myfamily='family1' AND myseries='series1' AND time > 0 AND time < 1000;
-+------------------------+-------+--------------------------+
-|          time          |weather|       temperature        |
-+------------------------+-------+--------------------------+
-|1970-01-01T00:00:00.001Z| snow  |2.51999999999999992895e+01|
-|1970-01-01T00:00:00.002Z| rain  |2.45000000000000000000e+01|
-|1970-01-01T00:00:00.003Z| rain  |2.30000000000000000000e+01|
-|1970-01-01T00:00:00.004Z| sunny |2.86000000000000014211e+01|
-|1970-01-01T00:00:00.005Z| sunny |2.46999999999999992895e+01|
-|1970-01-01T00:00:00.006Z|cloudy |3.27890000000000014779e+01|
-|1970-01-01T00:00:00.007Z|cloudy |2.78999999999999985789e+01|
-|1970-01-01T00:00:00.008Z|  fog  |3.48999999999999985789e+01|
-|1970-01-01T00:00:00.009Z|  fog  |2.86999999999999992895e+01|
-|1970-01-01T00:00:00.01Z | hail  |3.81000000000000014211e+01|
-+------------------------+-------+--------------------------+
-```
-
-You can add data via a simple SQL INSERT statement, too:
-
-```sql
-riak-shell>INSERT INTO GeoCheckin (region, state, time, weather, temperature) VALUES ('South Atlantic','South Carolina',1420113600000,'snow',25.2);
+riak-shell>INSERT INTO GeoCheckin VALUES ('SC', '2017-01-01T15:00:00', 'sunny', 43.2, 0x3af6240c1000035dbc), ('SC', '2017-01-01T16:00:00', 'cloudy', 41.5, 0x3af557bc4000042dbc), ('SC', '2017-01-01T17:00:00', 'windy', 33.0, 0x3af002ee10000a2dbc);
 ```
 
 See [Writing Data][writing] for more details.
+
+You can select specific columns:
+
+```
+riak-shell(4)>SELECT time, weather, temperature, rawdata from GeoCheckin WHERE state = 'SC' and time >= '2017-01-01' and time < '2017-01-02';
++--------------------+-------+-----------+--------------------+
+|        time        |weather|temperature|      rawdata       |
++--------------------+-------+-----------+--------------------+
+|2017-01-01T15:00:00Z| sunny |   43.2    |0x3af6240c1000035dbc|
+|2017-01-01T16:00:00Z|cloudy |   41.5    |0x3af557bc4000042dbc|
+|2017-01-01T17:00:00Z| windy |   33.0    |0x3af002ee10000a2dbc|
++--------------------+-------+-----------+--------------------+
+```
 
 {{% note %}}
 SQL commands in riak shell may span multiple lines.
@@ -249,40 +242,32 @@ If you have temporarily turned logging on/off, the output of `show_log_status` m
 
 If you would like your logfile to have a timestamp, run `date_log`.
 
-You can replay the current logfile regardless of whether logging is turned on. To replay your logfile, run `replay_log`.  
+You can replay the current logfile regardless of whether logging is turned on. To replay your logfile, run `replay_log`.
 
 ```
 riak-shell>replay_log;
 
 Replaying "mylogfile.log"
 replay (1)> describe GeoCheckin;
++-----------+---------+--------+-------------+---------+--------+----+----------+
+|  Column   |  Type   |Nullable|Partition Key|Local Key|Interval|Unit|Sort Order|
++-----------+---------+--------+-------------+---------+--------+----+----------+
+|   state   | varchar | false  |      1      |    1    |        |    |          |
+|   time    |timestamp| false  |      2      |    2    |   15   | m  |          |
+|  weather  | varchar | false  |             |         |        |    |          |
+|temperature| double  |  true  |             |         |        |    |          |
+|  rawdata  |  blob   |  true  |             |         |        |    |          |
++-----------+---------+--------+-------------+---------+--------+----+----------+
 
-+-----------+---------+-------+-----------+---------+
-|  Column   |  Type   |Is Null|Primary Key|Local Key|
-+-----------+---------+-------+-----------+---------+
-| region    | varchar | false |     1     |    1    |
-| state     | varchar | false |     2     |    2    |
-|   time    |timestamp| false |     3     |    3    |
-|  weather  | varchar | false |           |         |
-|temperature| double  | true  |           |         |
-+-----------+---------+-------+-----------+---------+
 
-replay (2)> select time, weather, temperature from GeoCheckin where region='South Atlantic' and state='South Carolina' and time > 0 and time < 1000;
-
-+------------------------+-------+--------------------------+
-|          time          |weather|       temperature        |
-+------------------------+-------+--------------------------+
-|1970-01-01T00:00:00.001Z| snow  |2.51999999999999992895e+01|
-|1970-01-01T00:00:00.002Z| rain  |2.45000000000000000000e+01|
-|1970-01-01T00:00:00.003Z| rain  |2.30000000000000000000e+01|
-|1970-01-01T00:00:00.004Z| sunny |2.86000000000000014211e+01|
-|1970-01-01T00:00:00.005Z| sunny |2.46999999999999992895e+01|
-|1970-01-01T00:00:00.006Z|cloudy |3.27890000000000014779e+01|
-|1970-01-01T00:00:00.007Z|cloudy |2.78999999999999985789e+01|
-|1970-01-01T00:00:00.008Z|  fog  |3.48999999999999985789e+01|
-|1970-01-01T00:00:00.009Z|  fog  |2.86999999999999992895e+01|
-|1970-01-01T00:00:00.01Z | hail  |3.81000000000000014211e+01|
-+------------------------+-------+--------------------------+
+replay (2)> SELECT time, weather, temperature, rawdata from GeoCheckin WHERE state = 'SC' and time >= '2017-01-01' and time < '2017-01-02';
++--------------------+-------+-----------+--------------------+
+|        time        |weather|temperature|      rawdata       |
++--------------------+-------+-----------+--------------------+
+|2017-01-01T15:00:00Z| sunny |   43.2    |0x3af6240c1000035dbc|
+|2017-01-01T16:00:00Z|cloudy |   41.5    |0x3af557bc4000042dbc|
+|2017-01-01T17:00:00Z| windy |   33.0    |0x3af002ee10000a2dbc|
++--------------------+-------+-----------+--------------------+
 ```
 
 To play a specific logfile, run `replay_log »filename.log«`.
