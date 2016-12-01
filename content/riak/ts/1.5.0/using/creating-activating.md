@@ -223,7 +223,7 @@ The result of the operation is library-dependent:
 * [PHP][php]: the response object has a boolean `isSuccess()` instance method.
 
 
-### Using the WITH clause
+### Using `WITH`
 
 Your data definition language (DDL) may have an optional WITH clause, where any table properties can be specified:
 
@@ -248,7 +248,7 @@ You can verify that your table was properly created by executing the [DESCRIBE s
 
 
 
-## Create a table with riak shell
+## `CREATE TABLE` in riak shell
 
 You can use riak shell to create a table by running:
 
@@ -261,7 +261,7 @@ Please take care with the following:
 * The syntax is sensitive to whitespace and quoting.
 * The table and column names are currently constrained to ASCII.
 
-## `riak-admin`
+## `CREATE TABLE` using `riak-admin`
 
 To create the example table, first run:
 
