@@ -5,7 +5,7 @@ menu:
   riak_ts-1.5.0:
     name: "SHOW CREATE TABLE"
     identifier: "show_create_table_riakts"
-    weight: 200
+    weight: 310
     parent: "querying_data_riakts"
 project: "riak_ts"
 project_version: "1.5.0"
