@@ -281,7 +281,7 @@ sudo su riak
 
 This will put you in a shell as the riak user. Then run:
 
-```sh
+```bash
 riak-admin bucket-type create GeoCheckin '{"props":{"table_def": "CREATE TABLE GeoCheckin (id SINT64 NOT NULL, region VARCHAR NOT NULL, state VARCHAR NOT NULL, time TIMESTAMP NOT NULL, weather VARCHAR NOT NULL, temperature DOUBLE, PRIMARY KEY ((id, QUANTUM(time, 15, 'm')), id, time))"}}'
 ```
 
@@ -301,13 +301,13 @@ Also note that if you discover something wrong with the setup of your data defin
 
 You activate your table as follows:
 
-```sh
+```bash
 riak-admin bucket-type activate »TABLE NAME«
 ```
 
 For the example `GeoCheckin` table:
 
-```sh
+```bash
 riak-admin bucket-type activate GeoCheckin
 ```
 
@@ -316,7 +316,7 @@ riak-admin bucket-type activate GeoCheckin
 
 You can verify that your table was properly created by looking at the `ddl` section of the `riak-admin bucket-type status` response. For example:
 
-```sh
+```bash
 $ riak-admin bucket-type status GeoCheckin
 GeoCheckin is active
 ...
