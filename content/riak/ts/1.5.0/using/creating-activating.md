@@ -269,6 +269,8 @@ You can verify that your table was properly created by executing the [DESCRIBE s
 
 ## `CREATE TABLE` using `riak-admin`
 
+> We recommend creating a table using [riak shell](#create-table-in-riak-shell) or one of our supported [client libraries](#create-table-in-client-library).
+
 To create the example table, first run:
 
 (**Note: Mac OS X users can skip this step**)
