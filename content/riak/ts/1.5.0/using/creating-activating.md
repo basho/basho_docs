@@ -261,6 +261,12 @@ Please take care with the following:
 * The syntax is sensitive to whitespace and quoting.
 * The table and column names are currently constrained to ASCII.
 
+
+### Verification
+
+You can verify that your table was properly created by executing the [DESCRIBE statement][describe] in riak shell.
+
+
 ## `CREATE TABLE` using `riak-admin`
 
 To create the example table, first run:
