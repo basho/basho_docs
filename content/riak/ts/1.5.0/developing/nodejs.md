@@ -85,7 +85,7 @@ var cb = function (err, rslt) {
 };
 
 var cmd = new Riak.Commands.TS.Get.Builder()
-    .withTable('TimeSeriesData')
+    .withTable('GeoCheckin')
     .withKey(key)
     .withCallback(cb)
     .build();

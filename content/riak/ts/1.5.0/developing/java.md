@@ -162,24 +162,6 @@ Each command is created through a static `Builder` subclass. This pattern ensure
 
 To execute any command, you must have an instance of a `RiakClient` object. You then pass the command object as a parameter into the `execute()` or `executeAsync()` methods.
 
-```java
-RiakClient client = RiakClient.newClient(10017, "myriakdb.host");
-
-String queryText = "select weather, temperature from GeoCheckin " +
-                   "where time > 1234560 and time < 1234569 and " +
-                   "region = 'South Atlantic' and state = 'South Carolina'";
-
-Query query = new Query.Builder(queryText).build();
-
-// With the synchronous execute, any errors encountered will be thrown.
-QueryResult queryResult = client.execute(query);
-
-// With the executeAsync method, any errors will be stored for review.
-final RiakFuture<QueryResult, String> queryFuture = client.executeAsync(storeCmd);
-bool success = queryFuture.isSuccess();
-QueryResult result = queryFuture.get();
-Throwable error = queryFuture.cause();
-```
 
 
 #### `Delete`

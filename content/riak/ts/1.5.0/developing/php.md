@@ -98,41 +98,6 @@ Each command is created through a `Builder` class. This pattern ensures the comm
 
 To execute any command, you must have an instance of a `\Basho\Riak` object. You then pass the Riak object as a parameter into the constructor of the command builder.
 
-```PHP
-require __DIR__ . '/../vendor/autoload.php';
-
-use Basho\Riak;
-use Basho\Riak\Command;
-use Basho\Riak\Node;
-
-$node = (new Node\Builder)
-    ->atHost('riak-test')
-    ->onPort(8087)
-    ->build();
-
-$riak = new Riak([$node], [], new Riak\Api\Pb());
-
-
-# create table
-$table_definition = "
-    CREATE TABLE %s (
-        region varchar not null,
-        state varchar not null,
-        time timestamp not null,
-        weather varchar not null,
-        temperature double,
-        PRIMARY KEY((region, state, quantum(time, 15, 'm')), region, state, time)
-    )";
-
-$command = (new Command\Builder\TimeSeries\Query($riak))
-    ->withQuery(sprintf($table_definition, "GeoCheckins"))
-    ->build();
-
-if (!$response->isSuccess()) {
-    echo $response->getMessage();
-    exit;
-}
-```
 
 
 #### `Delete`

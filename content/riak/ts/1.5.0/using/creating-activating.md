@@ -1,9 +1,9 @@
 ---
-title: "Creating and Activating Your Riak TS Table"
+title: "Creating Your Riak TS Table"
 description: "Creating and Activating Your Riak TS Table"
 menu:
   riak_ts-1.5.0:
-    name: "Create and Activate Your Table"
+    name: "Create Your Table"
     identifier: "creating_activating_riakts"
     weight: 302
     parent: "using"
@@ -26,6 +26,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/creating-activating
 [ruby]: ../../developing/ruby#sql-queries
 [planning]: ../planning/
 [writing]: ../writingdata/
+[Riak bucket properties]: /riak/kv/2.2.0/configuring/reference/#default-bucket-properties
 
 
 Once you have [planned out your table][planning] you can create it by:
@@ -55,7 +56,163 @@ CREATE TABLE GeoCheckin
 
 ## `CREATE TABLE` in Client Library
 
-Using one of the Riak TS client libraries, execute the CREATE TABLE statement via that library's query functionality. This will create and activate the table in one step. The result of the operation is library-dependent:
+Using one of the Riak TS client libraries, execute the CREATE TABLE statement via that library's query functionality. This will create and activate the table in one step. 
+
+```csharp
+string tableName = "GeoCheckin";
+string sqlFmt = string.Format(
+    @"CREATE TABLE {0} (region varchar not null,
+                        state varchar not null,
+                        time timestamp not null,
+                        weather varchar not null,
+                        temperature double,
+    PRIMARY KEY((region, state, quantum(time, 15, m)), region, state, time))", tableName);
+
+var cmd = new Query.Builder()
+    .WithTable(tableName)
+    .WithQuery(sqlFmt)
+    .Build();
+
+RiakResult rslt = client.Execute(cmd);
+```
+
+```erlang
+Sql = <<"CREATE TABLE GeoCheckin...">>,
+Result = riakc_ts:query(Pid, Sql).
+```
+
+```golang
+const tsTableDefinition = `
+	CREATE TABLE %s (
+		region varchar not null,
+		state varchar not null,
+		time timestamp not null,
+		weather varchar not null,
+		temperature double,
+		uv_index sint64,
+		observed boolean not null,
+		PRIMARY KEY((region, state, quantum(time, 15, 'm')), region, state, time)
+	)`
+```
+
+```http
+$ curl -XPOST http://127.0.0.1:8098/ts/v1/query --data "CREATE TABLE GeoCheckin (state VARCHAR NOT NULL, city VARCHAR NOT NULL, time TIMESTAMP NOT NULL, weather VARCHAR NOT NULL, temperature DOUBLE, PRIMARY KEY ((state, city, QUANTUM(time, 15, 'm')), state, city, time))"
+
+{"success":true}
+```
+
+```java
+RiakClient client = RiakClient.newClient(10017, "myriakdb.host");
+
+String queryText = "select weather, temperature from GeoCheckin " +
+                   "where time > 1234560 and time < 1234569 and " +
+                   "region = 'South Atlantic' and state = 'South Carolina'";
+
+Query query = new Query.Builder(queryText).build();
+
+// With the synchronous execute, any errors encountered will be thrown.
+QueryResult queryResult = client.execute(query);
+
+// With the executeAsync method, any errors will be stored for review.
+final RiakFuture<QueryResult, String> queryFuture = client.executeAsync(storeCmd);
+bool success = queryFuture.isSuccess();
+QueryResult result = queryFuture.get();
+Throwable error = queryFuture.cause();
+```
+
+```nodejs
+var Riak = require('basho-riak-client');
+
+//may pass client an array of host:port's
+//['192.168.1.1:8087','192.168.1.2:8087']
+var client = new Riak.Client(['127.0.0.1:8087']);
+
+var key = [ 'South Carolina', 'South Carolina', now ];
+
+var cb = function (err, rslt) {
+    // NB: rslt will be an object with two properties:
+    // 'columns' - table columns
+    // 'rows' - row matching the Get request
+};
+
+var cmd = new Riak.Commands.TS.Get.Builder()
+    .withTable('GeoCheckin')
+    .withKey(key)
+    .withCallback(cb)
+    .build();
+
+client.execute(cmd);
+```
+
+```PHP
+require __DIR__ . '/../vendor/autoload.php';
+
+use Basho\Riak;
+use Basho\Riak\Command;
+use Basho\Riak\Node;
+
+$node = (new Node\Builder)
+    ->atHost('riak-test')
+    ->onPort(8087)
+    ->build();
+
+$riak = new Riak([$node], [], new Riak\Api\Pb());
+
+
+# create table
+$table_definition = "
+    CREATE TABLE %s (
+        region varchar not null,
+        state varchar not null,
+        time timestamp not null,
+        weather varchar not null,
+        temperature double,
+        PRIMARY KEY((region, state, quantum(time, 15, 'm')), region, state, time)
+    )";
+
+$command = (new Command\Builder\TimeSeries\Query($riak))
+    ->withQuery(sprintf($table_definition, "GeoCheckins"))
+    ->build();
+
+if (!$response->isSuccess()) {
+    echo $response->getMessage();
+    exit;
+}
+```
+
+```python
+def test_query_that_creates_table_using_interpolation(self):
+        table = self.randname()
+        query = """CREATE TABLE test-{table} (
+            geohash varchar not null,
+            user varchar not null,
+            time timestamp not null,
+            weather varchar not null,
+            temperature double,
+            PRIMARY KEY((geohash, user, quantum(time, 15, m)),
+                geohash, user, time))
+```
+
+```ruby
+  let(:create_table) do
+    <<-SQL
+CREATE TABLE timeseries-#{random_key} (
+    geohash varchar not null,
+    user varchar not null,
+    time timestamp not null,
+    weather varchar not null,
+    temperature double,
+    PRIMARY KEY(
+        (geohash, user, quantum(time, 15, m)),
+        geohash, user, time
+    )
+)
+SQL
+  end
+```
+
+
+The result of the operation is library-dependent:
 
 * [Java][java]: the `QueryResult` object will be returned without any data for rows or columns.
 * [Ruby][ruby]: no exception thrown and result collection is empty.
@@ -66,7 +223,7 @@ Using one of the Riak TS client libraries, execute the CREATE TABLE statement vi
 * [PHP][php]: the response object has a boolean `isSuccess()` instance method.
 
 
-### Using the WITH clause
+### Using `WITH`
 
 Your data definition language (DDL) may have an optional WITH clause, where any table properties can be specified:
 
@@ -77,22 +234,21 @@ CREATE TABLE (...) WITH (
     custom_prop = 42.24)
 ```
 
+Any property with any string or numeric value can be associated with a table, including but not limited to standard [Riak bucket properties]. 
+
 Please note the following when using `WITH`:
 
-* The property values can be of numeric or string types (parseable as
-  `sint64`, `double` or `varchar`, correspondingly). String values
-  should be quoted with a `'`; literal single quote characters
-  appearing in the string should be doubled (and not escaped with a `\`).
+* The property values can be of numeric or string types (parseable as `sint64`, `double` or `varchar`, correspondingly). String values should be quoted with a `'`; literal single quote characters appearing in the string should be doubled (and not escaped with a `\`).
 * Values from the WITH clause will override those specified outside the query statement.
 
 
-### Verification via Client Library
+### Verification
 
 You can verify that your table was properly created by executing the [DESCRIBE statement][describe] via the query function of your client library, or by using the [`riak-admin bucket-type status` command](#verify-creation-and-activation).
 
 
 
-## Create a table with riak shell
+## `CREATE TABLE` in riak shell
 
 You can use riak shell to create a table by running:
 
@@ -105,7 +261,15 @@ Please take care with the following:
 * The syntax is sensitive to whitespace and quoting.
 * The table and column names are currently constrained to ASCII.
 
-## `riak-admin`
+
+### Verification
+
+You can verify that your table was properly created by executing the [DESCRIBE statement][describe] in riak shell.
+
+
+## `CREATE TABLE` using `riak-admin`
+
+> We recommend creating a table using [riak shell](#create-table-in-riak-shell) or one of our supported [client libraries](#create-table-in-client-library).
 
 To create the example table, first run:
 
@@ -117,7 +281,7 @@ sudo su riak
 
 This will put you in a shell as the riak user. Then run:
 
-```sh
+```bash
 riak-admin bucket-type create GeoCheckin '{"props":{"table_def": "CREATE TABLE GeoCheckin (id SINT64 NOT NULL, region VARCHAR NOT NULL, state VARCHAR NOT NULL, time TIMESTAMP NOT NULL, weather VARCHAR NOT NULL, temperature DOUBLE, PRIMARY KEY ((id, QUANTUM(time, 15, 'm')), id, time))"}}'
 ```
 
@@ -137,13 +301,13 @@ Also note that if you discover something wrong with the setup of your data defin
 
 You activate your table as follows:
 
-```sh
+```bash
 riak-admin bucket-type activate »TABLE NAME«
 ```
 
 For the example `GeoCheckin` table:
 
-```sh
+```bash
 riak-admin bucket-type activate GeoCheckin
 ```
 
@@ -152,7 +316,7 @@ riak-admin bucket-type activate GeoCheckin
 
 You can verify that your table was properly created by looking at the `ddl` section of the `riak-admin bucket-type status` response. For example:
 
-```sh
+```bash
 $ riak-admin bucket-type status GeoCheckin
 GeoCheckin is active
 ...

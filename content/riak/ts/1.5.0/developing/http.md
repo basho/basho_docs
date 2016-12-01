@@ -93,31 +93,6 @@ Error conditions will be returned by a JSON structure containing an internal err
 
 ## Examples
 
-In this section, the example Riak TS calls use the HTTP API and access the following table:
-
-```
-CREATE TABLE GeoCheckin
-(
-   state       VARCHAR   NOT NULL,
-   city        VARCHAR   NOT NULL,
-   time        TIMESTAMP NOT NULL,
-   weather     VARCHAR   NOT NULL,
-   temperature DOUBLE,
-   PRIMARY KEY (
-     (state, city, QUANTUM(time, 15, 'm')),
-      state, city, time
-   )
-)
-```
-
-A `query` call can be used to run a `CREATE TABLE` statement to create the GeoCheckin table:
-
-```
-$ curl -XPOST http://127.0.0.1:8098/ts/v1/query --data "CREATE TABLE GeoCheckin (state VARCHAR NOT NULL, city VARCHAR NOT NULL, time TIMESTAMP NOT NULL, weather VARCHAR NOT NULL, temperature DOUBLE, PRIMARY KEY ((state, city, QUANTUM(time, 15, 'm')), state, city, time))"
-
-{"success":true}
-```
-
 Let's write the following rows to the table:
 
 ```
