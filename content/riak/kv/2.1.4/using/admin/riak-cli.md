@@ -15,6 +15,11 @@ aliases:
   - /riak/kv/2.1.4/ops/running/tools/riak
 ---
 
+[configuration file]: /riak/kv/2.1.4/configuring/reference/
+[escript]: http://www.erlang.org/doc/man/escript.html
+[`riak-admin`]: /riak/kv/2.1.4/using/admin/riak-admin/#top
+[configuration]: /riak/kv/2.1.4/configuring/reference/
+
 ## riak
 
 This is the primary script for controlling the processes associated with a Riak node. Running the `riak` command by itself will output a listing of available commands:
@@ -69,7 +74,7 @@ riak ping
 
 Starts the Riak node in the foreground, giving access to the Erlang shell and
 runtime messages. Prints `Node is already running - use 'riak attach' instead`
-when the node is running in the background. You can exit the shell by pressing **Ctrl-G q**.
+when the node is running in the background. You can exit the shell by pressing **Ctrl-C** twice.
 
 ```bash
 riak console
@@ -85,7 +90,7 @@ riak attach
 
 ## attach-direct
 
-Attaches to the console of a Riak running in the background using a directly-connected first-in-first-out (FIFO), providing access to the Erlang shell and runtime messages. Prints `Node is not running!` when the node cannot be reached. You can exit the shell by pressing **Ctrl-G q**.
+Attaches to the console of a Riak running in the background using a directly-connected first-in-first-out (FIFO), providing access to the Erlang shell and runtime messages. Prints `Node is not running!` when the node cannot be reached. You can exit the shell by pressing **Ctrl-D**.
 
 ```bash
 riak attach-direct
@@ -101,7 +106,7 @@ riak ertspath
 
 ## chkconfig
 
-Checks whether the [configuration file](/riak/kv/2.1.4/configuring/reference/) is valid. If so, `config is OK` will be included in the output.
+Checks whether the [configuration file][configuration file] is valid. If so, `config is OK` will be included in the output.
 
 ```bash
 riak chkconfig
@@ -109,7 +114,7 @@ riak chkconfig
 
 ## escript
 
-Provides a means of calling [escript](http://www.erlang.org/doc/man/escript.html) scripts using the Riak Erlang runtime environment:
+Provides a means of calling [escript][escript] scripts using the Riak Erlang runtime environment:
 
 ```bash
 riak escript <filename>
@@ -139,21 +144,43 @@ The `riak top` command is the direct equivalent of `riak-admin top`:
 riak top [-interval N] [-sort { reductions | memory | msg_q }] [-lines N] }
 ```
 
-More detailed information can be found in the [`riak-admin`](/riak/kv/2.1.4/using/admin/riak-admin/#top) documentation.
+More detailed information can be found in the [`riak-admin`][`riak-admin`] documentation.
 
 ## config
 
-Provides information about the current [configuration](/riak/kv/2.1.4/configuring/reference/) of a Riak node, i.e. the parameters and values in the node's `riak.conf` or `app.config` (depending on which configuration system is being used).
+Provides information about the current [configuration][configuration] of a Riak node, i.e. the parameters and values in the node's riak.conf configuration.
 
 ```bash
-riak config { effective | describe VARIABLE }
+riak config { generate | effective | describe VARIABLE } [-l debug]
 ```
+
+* `generate` will cause the configuration files to be re-processed.  This behavior happens automatically at node startup; however `riak config generate` can be used to test for configuration errors that would prevent the node from starting after modifying the riak.conf or advanced.config files.
+    The output of a successful run will show the paths to the newly generated configuration files.  These configuration files will contain a timestamp to indicate when they were generated.  For example:
+
+    ```
+     -config /var/lib/riak/generated.configs/app.2016.12.02.17.47.32.config -args_file /var/lib/riak/generated.configs/vm.2016.12.02.17.47.32.args -vm_args /var/lib/riak/generated.configs/vm.2016.12.02.17.47.32.args  
+    ```
+
+    If you are using the legacy configuration file format (app.config/vm.args), you will receive the following message:
+
+    ```
+    -config /etc/riak/app.config -args_file /etc/riak/vm.args -vm_args /etc/riak/vm.args  
+    ```
 
 * `effective` prints the effective configuration in the following syntax:
     
     ```
     parameter1 = value1
     parameter2 = value2
+    ```
+
+    If you are using the legacy configuration file format (app.config/vm.args), you will receive the following error:
+
+    ```
+    Disabling cuttlefish, legacy configuration files found:
+      /etc/riak/app.config
+      /etc/riak/vm.args
+    Effective config is only visible for cuttlefish conf files. 
     ```
 
 * `describe VARIABLE` prints the setting specified by `VARIABLE`, along with documentation and other useful information, such as the affected location in the configuration file, the data type of the value, the default value, and the effective value. For example, running `riak config describe storage_backend` will return the following:
@@ -163,9 +190,11 @@ riak config { effective | describe VARIABLE }
     Specifies the storage engine used for Riak's key-value data
     and secondary indexes (if supported).
 
-    Valid Values: 
-     - one of: bitcask, leveldb, memory, multi, prefix_multi
-    Default Value: bitcask
-    Set Value    : leveldb
-    app.config   : riak_kv.storage_backend
+       Valid Values: 
+         - one of: bitcask, leveldb, memory, multi, prefix_multi
+       Default Value : bitcask
+       Set Value     : bitcask
+       Internal key  : riak_kv.storage_backend 
     ```
+
+Adding the `-l debug` flag to any `riak config` command will produce additional debugging information that can be used in advanced troubleshooting of "cuttlefish", Riak's configuration subsystem.
