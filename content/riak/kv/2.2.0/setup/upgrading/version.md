@@ -74,7 +74,7 @@ You must have [Java version 7 or higher](http://www.oracle.com/technetwork/java/
 
 ### Components That Complicate Downgrades
 
-We do our best to make all features that change data formats on disk opt-in; however, some features may be introduced that we either believe are so important that we automatically opt-in users on upgrade or there is no way to provide direct backward compatibility. Downgrading environments with these features can requiring more effort or might not be possible.
+We do our best to make all features that change data formats on disk opt-in; however, some features may be introduced that we either believe are so important that we automatically opt-in users on upgrade or there is no way to provide direct backward compatibility. Downgrading environments with these features can require more effort or might not be possible.
 
 * **Automatic** features alter the data format on disk, but are considered important enough for users to be automatically opted-in.
 * **Required** features must be accepted as a part of the upgrade.  Internal Solr version upgrades that change the data format on disk are an example of a required feature upgrade.
