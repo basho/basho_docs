@@ -15,6 +15,11 @@ aliases:
   - /riak/kv/2.1.3/ops/running/tools/riak
 ---
 
+[configuration file]: /riak/kv/2.1.3/configuring/reference/
+[escript]: http://www.erlang.org/doc/man/escript.html
+[`riak-admin`]: /riak/kv/2.1.3/using/admin/riak-admin/#top
+[configuration]: /riak/kv/2.1.3/configuring/reference/
+
 ## riak
 
 This is the primary script for controlling the processes associated with a Riak node. Running the `riak` command by itself will output a listing of available commands:
@@ -69,7 +74,7 @@ riak ping
 
 Starts the Riak node in the foreground, giving access to the Erlang shell and
 runtime messages. Prints `Node is already running - use 'riak attach' instead`
-when the node is running in the background. You can exit the shell by pressing **Ctrl-G q**.
+when the node is running in the background. You can exit the shell by pressing **Ctrl-C** twice.
 
 ```bash
 riak console
@@ -85,7 +90,7 @@ riak attach
 
 ## attach-direct
 
-Attaches to the console of a Riak running in the background using a directly-connected first-in-first-out (FIFO), providing access to the Erlang shell and runtime messages. Prints `Node is not running!` when the node cannot be reached. You can exit the shell by pressing **Ctrl-G q**.
+Attaches to the console of a Riak running in the background using a directly-connected first-in-first-out (FIFO), providing access to the Erlang shell and runtime messages. Prints `Node is not running!` when the node cannot be reached. You can exit the shell by pressing **Ctrl-D**.
 
 ```bash
 riak attach-direct
@@ -101,7 +106,7 @@ riak ertspath
 
 ## chkconfig
 
-Checks whether the [configuration file](/riak/kv/2.1.3/configuring/reference/) is valid. If so, `config is OK` will be included in the output.
+Checks whether the [configuration file][configuration file] is valid. If so, `config is OK` will be included in the output.
 
 ```bash
 riak chkconfig
@@ -109,7 +114,7 @@ riak chkconfig
 
 ## escript
 
-Provides a means of calling [escript](http://www.erlang.org/doc/man/escript.html) scripts using the Riak Erlang runtime environment:
+Provides a means of calling [escript][escript] scripts using the Riak Erlang runtime environment:
 
 ```bash
 riak escript <filename>
@@ -139,11 +144,11 @@ The `riak top` command is the direct equivalent of `riak-admin top`:
 riak top [-interval N] [-sort { reductions | memory | msg_q }] [-lines N] }
 ```
 
-More detailed information can be found in the [`riak-admin`](/riak/kv/2.1.3/using/admin/riak-admin/#top) documentation.
+More detailed information can be found in the [`riak-admin`][`riak-admin`] documentation.
 
 ## config
 
-Provides information about the current [configuration](/riak/kv/2.1.3/configuring/reference/) of a Riak node, i.e. the parameters and values in the node's `riak.conf` or `app.config` (depending on which configuration system is being used).
+Provides information about the current [configuration][configuration] of a Riak node, i.e. the parameters and values in the node's riak.conf configuration.
 
 ```bash
 riak config { generate | effective | describe VARIABLE } [-l debug]
