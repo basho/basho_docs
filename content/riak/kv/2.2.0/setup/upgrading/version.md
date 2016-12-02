@@ -74,7 +74,13 @@ You must have [Java version 7 or higher](http://www.oracle.com/technetwork/java/
 
 ### Components That Complicate Downgrades
 
-| Feature | Automatic | Required | Upgrade Only | Notes |
+We do our best to make all features that change data formats on disk opt-in; however, some features may be introduced that we either believe are so important that we automatically opt-in users on upgrade or there is no way to provide direct backward compatibility. Downgrading environments with these features can require more effort or might not be possible.
+
+* **Automatic** features alter the data format on disk, but are considered important enough for users to be automatically opted-in.
+* **Required** features must be accepted as a part of the upgrade.  Internal Solr version upgrades that change the data format on disk are an example of a required feature upgrade.
+* **One Way** features, when enabled, will make a clean downgrade of a cluster impossible.
+
+| Feature | Automatic | Required | One Way | Notes |
 |:---|:---:|:---:|:---:|:--- |
 |Migration to Solr 4.10.4 |✔ | ✔| | Applies to all clusters using Riak search.
 | Active anti-entropy file format changes | ✔ |  | | Can opt-out using a capability.
