@@ -21,6 +21,16 @@ aliases:
   - /riak/kv/2.2.0/ops/running/recovery/repairing-partitions
 ---
 
+## Repairing Search Indexes
+
+Riak search indexes are repaired whenever objects are corrected by [read repair](/riak/kv/2.2.0/learn/glossary/#read-repair).
+
+[Active Anti-Entropy (AAE)](/riak/kv/2.2.0/learn/glossary/#active-anti-entropy-aae) is provided for Riak Search.
+
+Riak KV's [configuration for AAE](/riak/kv/2.2.0/using/cluster-operations/active-anti-entropy/) will be used for Riak Search AAE by default.
+
+Riak Search can be provided its own AAE settings in the [search config settings](/riak/kv/2.2.0/configuring/search/#search-config-settings).
+
 ## Repairing Secondary Indexes
 
 The `riak-admin repair-2i` command can be used to repair any stale or missing secondary indexes.  This command scans and repairs any mismatches between the secondary index data used for querying and the secondary index data stored in the Riak objects. It can be run on all partitions of a node or on a subset of them.  We recommend scheduling these repairs outside of peak load time.
@@ -54,14 +64,6 @@ In the event the secondary index repair operation needs to be halted, all repair
 ```bash
 riak-admin repair-2i kill
 ```
-
-## Repairing Search Indexes
-
-Riak Search indexes are repaired as a side effect of [read repair](/riak/kv/2.2.0/learn/glossary/#read-repair).
-
-[AAE](/riak/kv/2.2.0/learn/glossary/#active-anti-entropy-aae) is provided for Riak Search and by default the [Riak KV configuration for AAE](/riak/kv/2.2.0/using/cluster-operations/active-anti-entropy/) will be used for Riak Search AAE.
-
-Riak Search can be provided its own AAE settings in the [search config settings](/riak/kv/2.2.0/configuring/search/#search-config-settings).
 
 ## Repairing LevelDB
 
