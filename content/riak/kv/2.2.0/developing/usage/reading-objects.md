@@ -27,7 +27,7 @@ GET /types/<type>/buckets/<bucket>/keys/<key>
 ```
 
 Here is an example of a read performed on the key `rufus` in the bucket
-`dogs`, which bears the [bucket type](/riak/kv/2.2.0/developing/usage/bucket-types) `animals`:
+`dogs`, which bears the bucket type `animals`. Please note that for this example to work, you must have first created the bucket-type `animals` as per the instructions on the [bucket type](/riak/kv/2.2.0/using/cluster-operations/bucket-types) page.
 
 ```java
 // In the Java client, it is best to specify a bucket type/bucket/key
@@ -204,10 +204,9 @@ a great deal, so make sure to check the documentation for your specific
 client.
 </div>
 
-## No Object Stored
+## Not Found
 
-At the moment, there's no object stored in the location where we just
-attempted a read, which means that we'll get the following response:
+If there's no object stored in the location where you attempt a read, you'll get the following response:
 
 ```java
 java.lang.NullPointerException
