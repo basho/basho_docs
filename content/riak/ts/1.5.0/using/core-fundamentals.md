@@ -18,8 +18,30 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/core-fundamentals"
 
 [Riak KV]: /riak/kv/2.1.4/
 
-Riak TS shares the same core codebase as [Riak KV], which allows you to operate a TS cluster much the same as you would operate a KV cluster. Below are some links to help you get started.
+Riak TS shares the same core codebase as [Riak KV], which allows you to operate a TS cluster much the same as you would operate a KV cluster.
 
+This page will outline [key differences](#differences) between Riak KV and Riak TS, as well as provide [links](#links) to help you get started learning to operate a Riak TS cluster.
+
+## Differences
+
+Though they share a codebase, Riak TS differs from Riak KV in a few ways:
+
+* In Riak TS, LevelDB is the default and only compatible backend.
+* Riak TS EE only supports MDC v3.
+* AAE is off by default in Riak TS and is not supported within Riak TS, except in a [global setting](LINK TO GLOBAL EXPIRY)
+* Riak search 2.0 is not supported in Riak TS.
+* Riak TS does not support HTTP API security.
+* Pre-commit hooks are not supported in Riak TS.
+* Riak TS does not support the use of post-commit hooks.
+* CRDTs cannot be used in Riak TS.
+* Riak TS does not support secondary indexes or MapReduce.
+* In Riak TS, `SELECT` does not invoke read-repair, but single key `GET` does.
+* There are currently no metrics in Riak TS to support statistics and monitoring.
+
+
+## Links
+
+Below, you will find links to Riak KV documents that are applicable and helpful for running a Riak TS cluster.
 
 ### Configuration
 
@@ -59,4 +81,4 @@ Riak TS shares the same core codebase as [Riak KV], which allows you to operate 
 
 <a href="http://docs.basho.com/riak/kv/2.1.4/using/performance/" target="_blank">Performance</a> will give you all the information you need to tune your cluster configurations to optimize performance.
 
-<a href="http://docs.basho.com/riak/kv/2.1.4/using/reference/" target="_blank">Reference</a> will provide you with explanations of various core functions, such as logging, handoff, and monitoring.
+<a href="http://docs.basho.com/riak/kv/2.1.4/using/reference/" target="_blank">Reference</a> will provide you with explanations of various core functions, such as logging and handoff.
