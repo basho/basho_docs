@@ -24,19 +24,36 @@ This page will outline [key differences](#differences) between Riak KV and Riak 
 
 ## Differences
 
-Though they share a codebase, Riak TS differs from Riak KV in a few ways:
+Though they share a codebase, Riak TS differs from Riak KV in a few ways. Here's a handy table tracking Riak KV features in Riak TS:
 
-* In Riak TS, LevelDB is the default and only compatible backend.
-* Riak TS EE only supports MDC v3.
-* AAE is off by default in Riak TS and is not supported within Riak TS, except in a [global setting](LINK TO GLOBAL EXPIRY)
-* Riak search 2.0 is not supported in Riak TS.
+| Feature            | Riak KV | Riak TS |
+| :----------------- |:--------| :-------|
+| active anti-entropy| Yes     | No      |
+| global expiry      | Yes     | Yes     |
+| Bitcask            | Default | No      |
+| LevelDB            | Yes     | Default |
+| memory (backend)   | Yes     | No      |
+| multi backend      | Yes     | No      |
+| MDC                | Yes     | v3 only |
+| Riak SQL           | No      | Yes     |
+| Riak explorer      | Yes     | No      |
+| Riak security      | Yes     | No      |
+| riak shell         | No      | Yes     |
+| statistics         | Yes     | No      |
+| Riak search        | Yes     | No      |
+| MapReduce          | Yes     | No      |
+| distributed data types| Yes  | No      |
+| pre/post commit hooks| Yes   | No      |
+| secondary indexes  | Yes     | No      |
+
+There are some additional points it is important to note:
+
+* In Riak TS, LevelDB is the only compatible backend.
+* AAE is off by default in Riak TS.
 * Riak TS does not support HTTP API security.
-* Pre-commit hooks are not supported in Riak TS.
-* Riak TS does not support the use of post-commit hooks.
 * CRDTs cannot be used in Riak TS.
-* Riak TS does not support secondary indexes or MapReduce.
 * In Riak TS, `SELECT` does not invoke read-repair, but single key `GET` does.
-* There are currently no metrics in Riak TS to support statistics and monitoring.
+* There are currently no metrics in Riak TS to support statistics and monitoring. **?????TODO**
 
 
 ## Links
