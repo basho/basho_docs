@@ -47,7 +47,7 @@ Here is the relevant Erlang code:
 ```erlang
 %% Riak Enterprise MDC replication hook sample
  
--module(riak_repl_hook_sample).
+-module(riak_replication_hook_sample).
 -export([register/0]).
 -export([recv/1, send/2, send_realtime/2]).
  
