@@ -6,9 +6,9 @@ project_version: "1.4.0"
 menu:
   riak_ts-1.4.0:
     name: "Set Up Redis Add-on"
-    identifier: "add-ons_redis_setup"
+    identifier: "addons_redis_setup"
     weight: 201
-    parent: "add-ons_redis"
+    parent: "addons_redis"
 toc: true
 commercial_offering: true
 ---

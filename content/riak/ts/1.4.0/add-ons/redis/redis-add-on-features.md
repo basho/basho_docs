@@ -6,9 +6,9 @@ project_version: "1.4.0"
 menu:
   riak_ts-1.4.0:
     name: "Redis Add-on Features"
-    identifier: "add-ons_redis_features"
+    identifier: "addons_redis_features"
     weight: 504
-    parent: "add-ons_redis"
+    parent: "addons_redis"
 toc: true
 commercial_offering: true
 ---

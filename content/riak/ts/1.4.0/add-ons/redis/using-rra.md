@@ -5,10 +5,10 @@ project: "riak_ts"
 project_version: "1.4.0"
 menu:
   riak_ts-1.4.0:
-    name: "Using Redis Addon"
-    identifier: "add-ons_redis_getstarted"
+    name: "Using Redis Add-on"
+    identifier: "addons_redis_getstarted"
     weight: 302
-    parent: "add-ons_redis"
+    parent: "addons_redis"
 toc: true
 commercial_offering: true
 aliases:
