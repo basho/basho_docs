@@ -5,8 +5,8 @@
  *    of the Edge Faders based on the situation.
  *    The font-size of the Edge Faders will be used to size the child --arrow
  *    elements, and should also be set by the parent (wrapper).
- * 2. The edge-fade arrows are positioned at `top: 50%`, and a translateY(-50%)
- *    is added to the arrow to get them properly aligned vertically.
+ * 2. The horizontal edge-fade arrows are positioned at `top: 50%`, and a
+ *    translateY(-50%) is added to the arrow to get them properly aligned.
  * 3. On a hover, change the color of the arrow. This could more concisely be
  *    achieved with a `border-right-color` for the left arrow and a
  *    `border-left-color` for the right arrow (that relation is correct; the
@@ -89,6 +89,7 @@
       cursor : default;
     }
   }
+}
 
 .edge-fader--top {
   top        : 0;
@@ -98,23 +99,23 @@
   .edge-fader__arrow {
     position : absolute;
     top      : 0;
-    left     : 50%;                                                    /* 2 */
-    @include upward-arrow(1em, $orange-lighter, $translateY: -50%);    /* 2 */
+    left     : 50%;
+    @include upward-arrow(1em, $orange-lighter);
     cursor   : pointer;
 
     transition : border-color 500ms ease 20ms;
 
     @include on-event {
-      @include upward-arrow(1em, $orange, $translateY: -50%);          /* 3 */
+      @include upward-arrow(1em, $orange);                              /* 3 */
     }
 
     &.edge-fader__arrow--inactive {
-      @include upward-arrow(1em, $cyan-lightest, $translateY: -50%);   /* 4 */
+      @include upward-arrow(1em, $cyan-lightest);                       /* 4 */
       cursor : default;
     }
 
     &.edge-fader__arrow--invisible  {
-      @include upward-arrow(1em, transparent, $translateY: -50%);      /* 5 */
+      @include upward-arrow(1em, transparent);                          /* 5 */
       cursor : default;
     }
   }
@@ -128,28 +129,24 @@
   .edge-fader__arrow {
     position : absolute;
     bottom   : 0;
-    left     : 50%;                                                    /* 2 */
-    @include downward-arrow(1em, $orange-lighter, $translateY: -50%);  /* 2 */
+    left     : 50%;
+    @include downward-arrow(1em, $orange-lighter);
     cursor   : pointer;
 
     transition : border-color 500ms ease 20ms;
 
     @include on-event {
-      @include downward-arrow(1em, $orange, $translateY: -50%);        /* 3 */
+      @include downward-arrow(1em, $orange);                            /* 3 */
     }
 
     &.edge-fader__arrow--inactive {
-      @include downward-arrow(1em, $cyan-lightest, $translateY: -50%); /* 4 */
+      @include downward-arrow(1em, $cyan-lightest);                     /* 4 */
       cursor : default;
     }
 
     &.edge-fader__arrow--invisible  {
-      @include downward-arrow(1em, transparent, $translateY: -50%);    /* 5 */
+      @include downward-arrow(1em, transparent);                        /* 5 */
       cursor : default;
     }
   }
 }
-}
-
-
-
