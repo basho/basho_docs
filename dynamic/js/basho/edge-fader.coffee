@@ -39,11 +39,11 @@ object that exposes functions useful to other objects that wrap Edge Faders.
 
 EdgeFader = window.EdgeFader = {}
 
-## VerifyArrowState :: (Element) -> None
+## verifyArrowState :: (Element) -> None
 ##            Where    Element instanceof $
 ##                     Element.hasClass('.js_edge-fader--target')
 ##                     Element.parent().children().hasClass('edge-fader')
-EdgeFader.VerifyArrowState = ($target) ->
+EdgeFader.verifyArrowState = ($target) ->
   max_left     = $target.maxScrollLeft()
   current_left = $target.scrollLeft()
   max_top      = $target.maxScrollTop()
@@ -127,7 +127,7 @@ EdgeFader.showOrHideArrows = ($target) ->
   if max_left > 0 or max_top > 0
     # If we've gone from invisible to visible, we need to verify which arrow(s)
     # are currently scrollable.
-    EdgeFader.VerifyArrowState($target)
+    EdgeFader.verifyArrowState($target)
 
   return
 
@@ -143,7 +143,7 @@ $ ->
   $('.edge-fader').parent().children('.js_edge-fader--target').on(
     'scroll.edge-fader-target',
     throttle(
-      (event) -> ( EdgeFader.VerifyArrowState($(this)) ),
+      (event) -> ( EdgeFader.verifyArrowState($(this)) ),
       250
     )
   )
