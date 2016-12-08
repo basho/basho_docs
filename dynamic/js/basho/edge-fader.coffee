@@ -131,6 +131,39 @@ EdgeFader.showOrHideArrows = ($target) ->
 
   return
 
+## showArrows :: (Element) -> None
+##      Where    Element instanceof $
+##               Element.hasClass('.js_edge-fader--target')
+##               Element.parent().children().hasClass('edge-fader')
+EdgeFader.showArrows = ($target) ->
+  $wrapper = $target.parent()
+  $left_arrow   = $wrapper.children('.edge-fader--left').children('.edge-fader__arrow')
+  $right_arrow  = $wrapper.children('.edge-fader--right').children('.edge-fader__arrow')
+  $top_arrow    = $wrapper.children('.edge-fader--top').children('.edge-fader__arrow')
+  $bottom_arrow = $wrapper.children('.edge-fader--bottom').children('.edge-fader__arrow')
+
+  $left_arrow.removeClass('edge-fader__arrow--invisible')
+  $right_arrow.removeClass('edge-fader__arrow--invisible')
+  $top_arrow.removeClass('edge-fader__arrow--invisible')
+  $bottom_arrow.removeClass('edge-fader__arrow--invisible')
+
+## hideArrows :: (Element) -> None
+##      Where    Element instanceof $
+##               Element.hasClass('.js_edge-fader--target')
+##               Element.parent().children().hasClass('edge-fader')
+EdgeFader.hideArrows = ($target) ->
+  $wrapper = $target.parent()
+  $left_arrow   = $wrapper.children('.edge-fader--left').children('.edge-fader__arrow')
+  $right_arrow  = $wrapper.children('.edge-fader--right').children('.edge-fader__arrow')
+  $top_arrow    = $wrapper.children('.edge-fader--top').children('.edge-fader__arrow')
+  $bottom_arrow = $wrapper.children('.edge-fader--bottom').children('.edge-fader__arrow')
+
+  $left_arrow.addClass('edge-fader__arrow--invisible')
+  $right_arrow.addClass('edge-fader__arrow--invisible')
+  $top_arrow.addClass('edge-fader__arrow--invisible')
+  $bottom_arrow.addClass('edge-fader__arrow--invisible')
+
+
 ## JQuery .ready() Execution
 ## =========================
 $ ->
