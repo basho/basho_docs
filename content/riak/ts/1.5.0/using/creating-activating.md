@@ -144,7 +144,7 @@ var cmd = new Riak.Commands.TS.Get.Builder()
 client.execute(cmd);
 ```
 
-```PHP
+```php
 require __DIR__ . '/../vendor/autoload.php';
 
 use Basho\Riak;
