@@ -100,22 +100,22 @@
     position : absolute;
     top      : 0;
     left     : 50%;
-    @include upward-arrow(1em, $orange-lighter);
+    @include upward-arrow(1em, $orange-lighter, $translateX: -50%);
     cursor   : pointer;
 
     transition : border-color 500ms ease 20ms;
 
     @include on-event {
-      @include upward-arrow(1em, $orange);                              /* 3 */
+      @include upward-arrow(1em, $orange, $translateX: -50%);                              /* 3 */
     }
 
     &.edge-fader__arrow--inactive {
-      @include upward-arrow(1em, $cyan-lightest);                       /* 4 */
+      @include upward-arrow(1em, $cyan-lightest, $translateX: -50%);                       /* 4 */
       cursor : default;
     }
 
     &.edge-fader__arrow--invisible  {
-      @include upward-arrow(1em, transparent);                          /* 5 */
+      @include upward-arrow(1em, transparent, $translateX: -50%);                          /* 5 */
       cursor : default;
     }
   }
@@ -130,22 +130,22 @@
     position : absolute;
     bottom   : 0;
     left     : 50%;
-    @include downward-arrow(1em, $orange-lighter);
+    @include downward-arrow(1em, $orange-lighter, $translateX: -50%);
     cursor   : pointer;
 
     transition : border-color 500ms ease 20ms;
 
     @include on-event {
-      @include downward-arrow(1em, $orange);                            /* 3 */
+      @include downward-arrow(1em, $orange, $translateX: -50%);                            /* 3 */
     }
 
     &.edge-fader__arrow--inactive {
-      @include downward-arrow(1em, $cyan-lightest);                     /* 4 */
+      @include downward-arrow(1em, $cyan-lightest, $translateX: -50%);                     /* 4 */
       cursor : default;
     }
 
     &.edge-fader__arrow--invisible  {
-      @include downward-arrow(1em, transparent);                        /* 5 */
+      @include downward-arrow(1em, transparent, $translateX: -50%);                        /* 5 */
       cursor : default;
     }
   }
