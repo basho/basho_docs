@@ -24,7 +24,7 @@ This page will outline [key differences](#differences) between Riak KV and Riak 
 
 ## Differences
 
-Though they share a codebase, Riak TS differs from Riak KV in a few ways. Here's a handy table tracking Riak KV features in Riak TS:
+Though they share a codebase, Riak TS differs from Riak KV in a few ways. Here's a handy table tracking features in Riak KV compared to Riak TS:
 
 | Feature            | Riak KV | Riak TS |
 | :----------------- |:--------| :-------|
@@ -53,7 +53,6 @@ There are some additional points it is important to note:
 * Riak TS does not support HTTP API security.
 * CRDTs cannot be used in Riak TS.
 * In Riak TS, `SELECT` does not invoke read-repair, but single key `GET` does.
-* There are currently no metrics in Riak TS to support statistics and monitoring. **?????TODO**
 
 
 ## Links
