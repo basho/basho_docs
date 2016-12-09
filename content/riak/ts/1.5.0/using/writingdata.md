@@ -452,7 +452,7 @@ if err != nil {
 err = cluster.Execute(cmd)
 ```
 
-You can also delete date one key at a time in SQL.
+You can also delete data one key at a time in SQL.
 
 ```sql
 DELETE FROM GeoCheckin WHERE id ='myid' AND time = '2016-08-01 14:05:51.425Z';
