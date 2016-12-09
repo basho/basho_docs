@@ -159,7 +159,7 @@ riak-shell is connected to: 'dev2@127.0.0.1' on port 8097
 
 ### SQL
 
-`riak-shell` now has SQL help built in. To get a list of all support SQL statement use the `help sql;` command:
+`riak-shell` now has SQL help built in. To get a list of all supported SQL statement use the `help sql;` command:
 ```
 riak-shell>help sql;
 The following SQL help commands are supported:
