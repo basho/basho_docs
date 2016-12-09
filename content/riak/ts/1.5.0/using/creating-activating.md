@@ -242,6 +242,21 @@ Please note the following when using `WITH`:
 * Values from the WITH clause will override those specified outside the query statement.
 
 
+#### Time Series-Specific Bucket Properties
+
+There are a few default bucket property differences between Riak KV and Riak TS.  These differences are centered around improving performance.
+Explanations of these values can be found at [Riak bucket properties].
+
+**Property** | **KV** | **TS**
+:------:|:----:|:---:
+`allow_mult` | `true` | `false`
+`dvv_enabled` | `true` | `false`
+`dw` | `quorum` | `one`
+`last_write_wins` | `false` | `true`
+`r` | `quorum` | `one`
+`rw` | `quorum` | `one`
+
+
 ### Verification
 
 You can verify that your table was properly created by executing the [DESCRIBE statement][describe] via the query function of your client library, or by using the [`riak-admin bucket-type status` command](#verify-creation-and-activation).
