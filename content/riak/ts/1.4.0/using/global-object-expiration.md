@@ -10,6 +10,10 @@ menu:
 project: "riak_ts"
 project_version: "1.4.0"
 toc: true
+version_history:
+  locations:
+    - [">=1.5.0", "configuring/global-object-expiration"]
+    - ["<=1.4.0",  "using/global-object-expiration"]
 aliases:
     - /riakts/1.4.0/using/global-object-expiration/
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/global-object-expiration"
