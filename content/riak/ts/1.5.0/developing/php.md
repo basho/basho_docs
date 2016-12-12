@@ -22,17 +22,17 @@ This document covers the PHP API for Riak TS.
 
 ## Overview
 
-TS support within the PHP client is implemented through the following 5 command builders:
-
-* Basho\Riak\Command\Builder\TimeSeries\StoreRows
-* Basho\Riak\Command\Builder\TimeSeries\FetchRow
-* Basho\Riak\Command\Builder\TimeSeries\DeleteRow
-* Basho\Riak\Command\Builder\TimeSeries\Query
-* Basho\Riak\Command\Builder\TimeSeries\DescribeTable
-
 Language | Source | Documentation |
 :--------|:-------|:--------------|
 PHP | [riak-php-client](https://github.com/basho/riak-php-client) | [apigen](http://basho.github.io/riak-php-client)
+
+TS support within the PHP client is implemented through the following command builders, all beginning Basho\Riak\Command\Builder\TimeSeries:
+
+* StoreRows
+* FetchRow
+* DeleteRow
+* Query
+* DescribeTable
 
 
 ## Data Types
