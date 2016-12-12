@@ -25,16 +25,21 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/planning"
 [sql]: ../../learn-about/sqlriakts/
 
 
-Now that you've [installed][installing] Riak TS, you're almost ready to create a TS table. Before you can create your table, you'll need to plan it out.
+You've [installed][installing] Riak TS, and you're ready to create a table. 
 
-This page provides a basic overview of what you'll need and some guidelines/limitations. For more information about what the components of a Riak TS table do, check out [Table Architecture][table arch].
+* If you're just looking to test out Riak TS, you can jump ahead to [Create a Table][activating], and test out our sample table. 
+* If you're looking to set up your production environment, keep reading for guidelines on how best to structure your table.
+* If you're looking for more information about what the components of a Riak TS table do, check out [Table Architecture][table arch].
+* Riak TS tables are closely tied to SQL tables. If would like to know more about how Riak TS integrates SQL, check out [SQL for Riak TS][sql].
 
-Riak TS tables are closely tied to SQL tables. If would like to know more about how Riak TS integrates SQL, check out [SQL for Riak TS][sql].
+{{% note title="Important" %}}
+The structure of your TS table will have a major impact on your Riak TS performance. Once created, your table cannot be changed. Please read through these sections carefully to determine the best options for your use-case.
+{{% /note %}}
 
 
 ## TS Table Schema
 
-In order to create a working Riak TS table, you'll need to plan your table out. Once created, your table cannot be changed. Here is an example Riak TS CREATE TABLE statement (broken across many lines for clarity):
+Here is an example Riak TS CREATE TABLE statement, broken across many lines for clarity. (Remember, once created, your table cannot be changed):
 
 ```sql
 CREATE TABLE GeoCheckin
@@ -66,7 +71,7 @@ You cannot create a table with more than 511 total columns. If you try to create
 {{% /note %}}
 
 
-### Column Definitions
+## Column Definitions
 
 Column definitions define the structure of the data and are comprised of three parts: a column name, a data type, and (optionally) an inline constraint.
 
@@ -121,7 +126,7 @@ The data types in column definitions are limited. Valid types are:
 * `DOUBLE` - This type does not comply with its IEEE specification: `NaN` (not a number) and `INF` (infinity) cannot be used.
 * `BLOB` - A new type as of TS 1.5.0 for binary objects. Behaves like a `VARCHAR` but is displayed as a hex value (and can be input as hex) via `riak-shell`.
 
-### Primary Key
+## Primary Key
 
 The `PRIMARY KEY` describes both the partition key and local key. The partition key is a prefix of the local key, consisting of one or more column names in parentheses. The local key must begin with the same column names as the partition key, but may also contain additional column names.
 
@@ -175,13 +180,13 @@ CREATE TABLE GeoCheckin
 ```
 
 
-#### Partition Key
+### Partition Key
 
 The partition key is the first element of the primary key, and must have at least one column name.
 
 A general guideline is to first choose a column name that represents a class or type of data, and then choose a second column name that is a more specific instance(s) of the class/type.
 
-You may specify a quantum, which is used to colocate data on one of the partition key's timestamp fields:
+You may specify a [quantum](#quantum), which is used to colocate data on one of the partition key's timestamp fields:
 
 ```sql
 PRIMARY KEY  ((region, state, QUANTUM(time, 1, 's')), ...)
@@ -199,8 +204,10 @@ The quantum function takes 3 parameters:
   * `'m'` - minutes
   * `'s'` - seconds
 
+If you choose to specify a quantum, the quantum you pick will greatly impact your query performance. Read more about [quanta](#quantum) below.
 
-#### Local Key
+
+### Local Key
 
 The local key comes after the partition key. It must first contain the same column names in the same order as the partition key. This ensures that the same column names determining your data's partition also dictate the sorting of the data within that partition.
 
@@ -246,9 +253,36 @@ Please take care in defining how you address your unique data, as it will affect
 {{% /note %}}
 
 
+## Quantum
+
+The quantum is part of the [partition key](#partition-key) in the [primary key](#primary-key), as discussed above.
+
+```sql
+   PRIMARY KEY (
+     (region, QUANTUM(time, 15, 'm')),
+      region, time, weather, temperature
+   )
+```
+
+Quanta give you the ability to control how your data are stored around your cluster, which impacts query performance. Iterating over a large number of keys localized on a small number of nodes can be significantly faster than iterating over a small number of keys on a large number of nodes. The option that is best for you will depend on how you expect to be querying your data.
+
+### How small should my quantum be?
+
+We suggest that your minimum quantum size should be set by the typical individual query length. For the best performance, the typical query should span as few quanta as possible.  
+
+For example, if your typical query is an hour’s worth of data, then your quantum should be large enough that most of your queries will only hit a single node, meaning a quantum between 1 and 2 hours.
+
+
+### How large should my quantum be? 
+
+We suggest that your maximum quantum size should be chosen to minimize the number of concurrent queries hitting the same node. For the best performance, your quantum should be bounded by the total time spanned by your instantaneous volume of concurrent queries.  
+
+For example, if you are typically issuing thousands of concurrent queries for different hours of the same week's worth of data, then you want your quantum to be significantly less than a week, or all your queries will end up hitting the same node and will execute serially, rather than benefit from parallelization in a distributed ring.
+
+
 ## More information
 
-After creating a table, its schema can be discovered with the [DESCRIBE statement][describe].
+After [creating a table][activating], its schema can be discovered with the [DESCRIBE statement][describe].
 
 Still unsure how best to structure your Riak TS table? Check out our [best practice recommendations][bestpractices].
 
@@ -257,4 +291,4 @@ Confused about what column definitions, primary key, etc. do? Check out [Table A
 
 ## Next Steps
 
-Now that you know how your Riak TS table will be structured, you can move on to [creating and activating your table][activating].
+Now that you know how your Riak TS table will be structured, you can move on to [creating your table][activating].
