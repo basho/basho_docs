@@ -245,6 +245,17 @@ riak-shell(4)>SELECT time, weather, temperature, rawdata from GeoCheckin WHERE s
 SQL commands in riak shell may span multiple lines.
 {{% /note %}}
 
+#### Comments
+
+Riak shell understands (and thus ignores) SQL comments. Both simple
+comments (single line comments prefaced with `--`) and bracketed
+comments (single- or multi-line comments using `/*` and `*/`) are
+supported.
+
+As of TS 1.5.0 (the first release to support comments), there is a
+compatibility bug with the SQL specification: nested bracketed
+comments are not properly supported, so the comment will terminate at
+the first `*/` sequence.
 
 ### Logging
 
