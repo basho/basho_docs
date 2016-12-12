@@ -24,7 +24,7 @@ osx:
   image_src: "/images/shared/operating_system_branding/mac.png"
   installing_instructions_page: "mac-osx/"
 rhel:
-  title: "Red Hat Enterprise Linux"
+  title: "RHEL & CentOS"
   image_src: "/images/shared/operating_system_branding/redhat.png"
   installing_instructions_page: "rhel-centos/"
 sles:
