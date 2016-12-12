@@ -247,15 +247,15 @@ Please take care in defining how you address your unique data, as it will affect
 
 ## Sort With Local Keys
 
-A table's local key determines how it is stored and ordered on disk. Adding the `ASC` or `DESC` keywords to the local key lets you control the sort order of records on disk and avoid sorting using [`ORDER BY`][order by] or at the application level.
+A table's local key determines how it is stored and ordered on disk. Adding the `ASC` or `DESC` keywords to the local key lets you control the sort order of records on disk, and avoid sorting using [`ORDER BY`][order by] or at the application level.
 
-Ordering rows using `ASC` or `DESC` on the local key may improve latency and reduce workload on the cluster than using `ORDER BY` because no sorting is required when the query is executed.
+Ordering rows using `ASC` or `DESC` on the local key reduces workload on the cluster because no sorting is required when a query is executed. This may make using `ASC` or `DESC` on the local key a better choice than using `ORDER BY`. 
 
 The `ASC` or `DESC` keywords must be applied to the local key, not the partition key. The keywords can only be applied to `SINT64`, `TIMESTAMP` and `VARCHAR` columns.
 
 ### Ascending Local Key Example
 
-For example with the following table and data:
+For example, with the following table and data:
 
 ```sql
 CREATE TABLE ascending_table (
@@ -291,7 +291,7 @@ The results are returned oldest first because the keys are ordered in ascending 
 
 ### Descending Local Key Example
 
-If we're building an application that shows events such as orders or tweets we probably want to show the latest results first.
+If we're building an application that shows events, such as orders or tweets, we probably want to show the latest results first.
 
 For example:
 
