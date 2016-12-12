@@ -28,7 +28,7 @@ rhel:
   image_src: "/images/shared/operating_system_branding/redhat.png"
   installing_instructions_page: "rhel-centos/"
 sles:
-  title: "SUSE Linux Enterprise Server"
+  title: "SuSE Linux Enterprise Server"
   image_src: "/images/shared/operating_system_branding/suse.png"
   installing_instructions_page: "suse/"
 smartos:
