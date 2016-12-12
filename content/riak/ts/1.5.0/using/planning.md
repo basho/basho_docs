@@ -214,7 +214,7 @@ The local key may also contain additional column names so long as they come afte
    )
 ```
 
-### On Key Uniqueness
+## On Key Uniqueness
 
 The local key in a TS row is what makes that row's key/address unique from other rows.
 In the examples on this page and others we've used a composite key of
@@ -245,7 +245,7 @@ The downside to this schema is that you'll likely need to do one query per devic
 
 Please take care in defining how you address your unique data, as it will affect how you will query it in the future.
 
-### Sort With Local Keys
+## Sort With Local Keys
 
 A table's local key determines how it is stored and ordered on disk. Adding the `ASC` or `DESC` keywords to the local key lets you control the sort order of records on disk and avoid sorting using [`ORDER BY`][order by] or at the application level.
 
@@ -253,7 +253,7 @@ Ordering rows using `ASC` or `DESC` on the local key may improve latency and red
 
 The `ASC` or `DESC` keywords must be applied to the local key, not the partition key. The keywords can only be applied to `SINT64`, `TIMESTAMP` and `VARCHAR` columns.
 
-#### Ascending Local Key Example
+### Ascending Local Key Example
 
 For example with the following table and data:
 
@@ -289,7 +289,7 @@ SELECT * FROM ascending_table WHERE a = 1 AND b >= 1 AND b <= 5;
 
 The results are returned oldest first because the keys are ordered in ascending timestamp value.
 
-#### Descending Local Key Example
+### Descending Local Key Example
 
 If we're building an application that shows events such as orders or tweets we probably want to show the latest results first.
 
