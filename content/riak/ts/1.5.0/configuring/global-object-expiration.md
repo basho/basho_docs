@@ -3,7 +3,7 @@ title: "Configure Global Object Expiration"
 description: "Enabling and configuring global object expiration for Riak TS."
 menu:
   riak_ts-1.5.0:
-    name: "Configure Global Object Expiration"
+    name: "Global Object Expiration"
     identifier: "config_expiry"
     weight: 320
     parent: "configure"
