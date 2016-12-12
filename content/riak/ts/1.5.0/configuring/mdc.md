@@ -6,7 +6,7 @@ menu:
     name: "Multi-Datacenter Replication"
     identifier: "configure_mdc"
     weight: 306
-    parent: "using"
+    parent: "configure"
 project: "riak_ts"
 project_version: "1.5.0"
 toc: true
