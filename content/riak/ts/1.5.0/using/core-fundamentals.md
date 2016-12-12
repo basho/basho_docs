@@ -36,7 +36,6 @@ Though they share a codebase, Riak TS differs from Riak KV in a few ways. Here's
 | multi backend      | Yes     | No      |
 | MDC                | Yes     | v3 only |
 | Riak SQL           | No      | Yes     |
-| Riak explorer      | Yes     | No\*    |
 | Riak security      | Yes     | No      |
 | riak shell         | No      | Yes     |
 | statistics         | Yes     | No      |
