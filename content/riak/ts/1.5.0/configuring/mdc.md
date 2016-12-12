@@ -3,16 +3,21 @@ title: "Configure Multi-Datacenter Replication for Riak TS"
 description: "Configure Multi-Datacenter Replication for Riak TS"
 menu:
   riak_ts-1.5.0:
-    name: "MDC"
+    name: "Multi-Datacenter Replication"
     identifier: "configure_mdc"
     weight: 306
     parent: "using"
 project: "riak_ts"
 project_version: "1.5.0"
 toc: true
+version_history:
+  in: "1.3.0+"
+  locations:
+    - [">=1.5.0", "configuring/mdc"]
+    - ["<=1.4.0",  "using/mdc"]
 aliases:
-    - /riakts/1.5.0/using/mdc
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/mdc"
+    - /riakts/1.5.0/configuring/mdc
+canonical_link: "https://docs.basho.com/riak/ts/latest/configuring/mdc"
 ---
 
 
