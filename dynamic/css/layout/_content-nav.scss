@@ -56,6 +56,9 @@ $fixed-bottom-height : 5rem;
 
 /**
  * Fixed element locked to the top of the Content Navigation.
+ * 1. Any positive z-index will set this element above the .content-nav__primary
+ *    box-shadow, and prevent a muddling of the bottom of this element.
+ *    Only set it for md+ layouts.
  */
 .content-nav__fixed-top {
   position    : fixed;
@@ -75,6 +78,7 @@ $fixed-bottom-height : 5rem;
   }
 
   @include wide-from('md') {
+    z-index     : 1;        /* 1 */
     width : $content-nav-width-md - 0.25rem;
     padding-left  : 0.5rem;
     padding-right : 0.5rem;
