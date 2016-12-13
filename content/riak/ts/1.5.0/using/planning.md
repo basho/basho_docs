@@ -338,7 +338,7 @@ Choosing the right quantum for your Riak TS table is incredibly important, as it
 nodes, or
 2. If you care most about [throughput](#throughput), then localize
 your data so that typical queries are confined to single nodes, or
-3. If you can't predict your usage or you have a mixed-use case, optimize for [latency](#latency)because the fractional latency gains of less data localization are much higher than the throughput losses.
+3. If you can't predict your usage or you have a mixed-use case, optimize for [latency](#latency) because the fractional latency gains of less data localization are much higher than the throughput losses.
 4. Finally,  if you simply don't know what you prefer, there's more information in the section below to help you decide. 
 
 ### Your quanta use-case
