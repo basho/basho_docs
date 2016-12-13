@@ -255,6 +255,17 @@ Please take care in defining how you address your unique data, as it will affect
 
 ## Quantum
 
+Choosing the right quantum for your Riak TS table is incredibly important, as it can optimize or diminish your query performance. The short guide is: 
+
+1. If you care most about individual query [latency](#latency), then spread your data around the cluster so a typical query spans all
+nodes, or
+2. If you care most about [throughput](#throughput), then localize
+your data so that typical queries are confined to single nodes, or
+3. If you can't predict your usage or you have a mixed-use case, optimize for [latency](#latency)because the fractional latency gains of less data localization are much higher than the throughput losses.
+4. Finally,  if you simply don't know what you prefer, there's more information in the section below to help you decide. 
+
+### Your quanta use-case
+
 The quantum is part of the [partition key](#partition-key) which is in the [primary key](#primary-key), as discussed above.
 
 ```sql
@@ -264,32 +275,30 @@ The quantum is part of the [partition key](#partition-key) which is in the [prim
    )
 ```
 
-Quanta give you the ability to control how your data are stored around your cluster, which impacts query performance. Iterating over a large number of keys localized on a small number of nodes can be significantly faster than iterating over a small number of keys on a large number of nodes. The option that is best for you will depend on how you expect to be querying your data, and whether you care more about [throughput](#throughput) or [latency](#latency).
+Quanta give you the ability to control how data are stored around your
+cluster, which impacts query performance. Determining the quantum that
+is best for you depends on how you expect to query your data and
+whether you care more about latency or throughput.
 
-If you have a cluster that isn't busy, a large query run on a single node will take longer to complete than the same query split into subqueries across multiple nodes. But if you were to add up the iteration times of those subqueries, you would find that the total is larger than your single-node iteration time.  
+If you have a cluster that isn't busy, a large query run on a single
+node will take longer to complete than the same query split into
+subqueries across multiple nodes. So if running individual queries as
+fast as possible is what you care most about (latency), you want a
+smaller quantum that will spread a your data more evenly around the
+cluster.
 
-Multi-node queries take more added-up time overall because there’s extra overhead in setting up the sub-query iterations. When you run a whole query on a single node, you incur that overhead only once.  
+However, if you added up the iteration times of those subqueries, you would find that the total is larger than your single-node
+iteration time.  Multi-node queries take more added-up time overall
+because there's extra overhead in setting up the subquery
+iterations. When you run a whole query on a single node, you incur
+that overhead only once.
 
-This means that if you have a busy cluster, 5 large queries run against one cluster each (spanning 5 quanta) will complete quicker than 5 large queries broken into subqueries (spanning a quanta each) and run across all the nodes in your cluster.
-
-1) if you know you care most about query throughput, then do as recommended above (ie, localize your data as much as possible), 2) if you know you care most about individual query latency, then do the opposite, and 3) if you don’t really know, then do as in 2), because the fractional latency gains of less data localization are much higher than the throughput losses.
-
-### Throughput
-
-If you need to optimize your Riak TS performance to handle many queries (throughput) more than you need those queries to be run quickly (latency), then you will want your data to be more localized.
-
-#### How small should my quantum be?  
-
-To optimize for throughput, we suggest that your minimum quantum size be set by the typical individual query length. For the best performance, the typical query should span as few quanta as possible.  
-
-For example, if your typical query is an hour’s worth of data, then your quantum should be large enough that most of your queries will only hit a single node, meaning a quantum between 1 and 2 hours. 
-
-
-#### How large should my quantum be? 
-
-For the best throughput, we suggest that your maximum quantum size be chosen to minimize the number of concurrent queries hitting the same node. For the best performance, your quantum should be bounded by the total time spanned by your instantaneous volume of concurrent queries.  
-
-For example, if you are typically issuing thousands of concurrent queries for different hours of the same week's worth of data, then you want your quantum to be significantly less than a week, or all your queries will end up hitting the same node and will execute serially, rather than benefit from parallelization in a distributed ring.
+This means that if you have a busy cluster, 5 large queries run
+against one node each will complete more quickly than those same
+5 queries split into subqueries that run across all the nodes in your
+cluster.  If executing as many queries as possible in the shortest
+time is what you care most about (throughput), you want a large enough
+quantum that the data for a typical query are localized to one node.
 
 
 ### Latency
@@ -304,26 +313,44 @@ To optimize query latency, your quantum should be small enough that your normal-
 If you're up for a little math, you can use the following formula to identify the optimal quantum:
 
 ```
-Q = t/(N*n)
+Q ~ t/N 
 ```
 
-`t` is the time spanned by your typical query, `N` is the number of nodes in your cluster, and `n` is the number of subqueries each node can execute simultaneously.
+`t` is the time spanned by your typical query, `N` is the number of nodes in your cluster, and `Q` is your quantum.
 
 For example, if you have a 5-node cluster and your typical query is for 40 hours of data, your quantum should be no larger than 8 hours: 
 
 ```
-8 = 40/(5*n)
+8 = 40/5
 ```
 
-If your quantum is larger than 8 hours, subqueries will execute on fewer than 5 nodes.  
+If your quantum is larger than 8 hours, subqueries will execute on fewer than all 5 nodes.
 
-As another example, if you have a 5-node cluster, your typical query is for 40 hours of data, and  you know that each of your nodes can process 4 subqueries simultaneously, then a quantum of 2 hours would further minimize your query latency. 
+You might be able to push your quantum a bit smaller, since each node in turn has some parallel processing capacity. Take care not to make it too small, or you'll start to lose performance
 
-```
-2 = 40/(5*4)
-```
+As another example, in your 5-node cluster with a typical query for 40 hours of data, you could make your quantum 2 hours which would further minimize your query latency.
 
-A 1-hour quantum would be too small, because it would cause you to have 8 subqueries per node. These 8 subqueries would not execute in parallel; instead, they would effectively execute as two sets of 4 subqueries, one after the other, which is less efficient than a single set of 4 subqueries that are twice as long.
+However, a 1-hour quantum would be too small, because it would cause you to have 8 subqueries per node. These 8 subqueries would not execute in parallel; instead, they would effectively execute as two sets of 4 subqueries, one after the other, which is less efficient than a single set of 4 subqueries that are twice as long.
+
+
+### Throughput
+
+If you need to optimize your Riak TS performance to handle many queries (throughput) more than you need those queries to be run quickly (latency), then you will want your data to be more localized.
+
+#### How small should my quantum be?  
+
+To optimize for throughput, we suggest that your minimum quantum size be several times longer than your regular, individual query length. For the best performance, the typical query should span as few quanta as possible.  
+
+For example, if your typical query is an hour’s worth of data, then your quantum should be large enough that most (but not all) of your queries will only hit a single node. This would mean a quantum between 5 and 10 hours, which would result in 80% to 90% of your queries hitting a single node.
+
+Take care not to let 100% of your queries hit a single node, however, or you risk crashing the node.
+
+
+#### How large should my quantum be? 
+
+For the best throughput, we suggest that your maximum quantum size be chosen to minimize the number of concurrent queries hitting the same node. For the best performance, your quantum should be bounded by the total time spanned by your instantaneous volume of concurrent queries.  
+
+For example, if you are typically issuing thousands of concurrent queries for different hours of the same week's worth of data, then you want your quantum to be significantly less than a week, or all your queries will end up hitting the same node and will execute serially, rather than benefit from parallelization in a distributed ring.
 
 
 ## More information
