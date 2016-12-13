@@ -4,11 +4,11 @@ Selector Generation and Interaction
 Requires sem-ver.coffee
 
 This file defines a series of calls and callbacks that apply to the generation
-of and interaction with the .selector and related elements.
+of and interaction with .selector(s), .selector-pane(s) and related elements.
 
 Currently we're only implementing a .selector--version and
-.selector-pane--versions, but this logic will be written in a more general form
-to allow us to expand on the component in the future, if need be.
+.selector-pane--versions, but this logic should be written in a more general
+form to allow us to expand on the components in the future, if need be.
 
 The root-level .selector and .selector-pane elements will be included in the
 Hugo compilation, but the lists displayed will not. We don't want every
@@ -17,10 +17,8 @@ version of that project is released, so we've chosen to upload the version
 information as a JSON to our server and dynamically generate the version lists
 at load-time.
 
-Interaction is a mater of expanding the lists when the .selector__btn is
-clicked, and collapsing it when anything else is clicked on. This will also
-require modifying the height of the __fixed-top and __primary .content-nav
-element to make room for the list.
+Interaction is a mater of expanding the pane when the .selector__btn is clicked
+(or touched), and collapsing it when anything else is clicked on.
 ###
 
 
@@ -30,7 +28,7 @@ element to make room for the list.
 'use strict'
 
 
-# ```contentOfMeta :: (Str) -> Str or Undefined```
+## contentOfMeta :: (Str) -> Str or Undefined
 # Fetch the content of a <meta> tag of the given name. If no tag of the given
 # name exists, `undefined` is returned.
 #TODO: Probably good to move this to a general utilities file
@@ -38,19 +36,19 @@ contentOfMeta = (name) ->
   return $('meta[name='+name+']').attr('content')
 
 
-# ```generateVersionLists :: () ->```
+## generateVersionLists :: () -> None
 # Build the Version Selector list dynamically, using fetched JSON and metadata
 # exposed by Hugo through <meta> tags.
 # There's no need to fetch the JSON or build this DOM element before the site is
 # rendered and interactable, so we're going to wrap the DOM manipulation inside
 # the `$.getJSON` callback _that's inside_ a `$.ready()` callback.
 # Double indirection, baby.
-#TODO: Consider mark the version-selector as inactive until the list is built.
+#TODO: Consider marking the selectors as inactive until the list is built.
 #      This assumes it will take a substantial amount of time (1s or so) for the
 #      element to be created. It should probably also only go invalid when JS is
 #      enabled, and stay orange if we're never going to fetch the JSON...
 generateVersionLists = () ->
-  # Pull project/pathing information from the meta tags set up by Hugo
+  # Pull project/pathing information from the meta tags set up by Hugo.
   project               =  contentOfMeta("project")               # ex; riak_kv
   current_version       =  contentOfMeta("version")               # ex; 2.1.4
   project_relative_path =  contentOfMeta("project_relative_path") # ex; installing/
@@ -87,57 +85,72 @@ generateVersionLists = () ->
 
       # Loop over each release set.
       for release_set, set_index in project_data.releases.reverse()
+
         # Open a new release list.
-        version_selector_list_html += '<div class="inline-block overflow-y   selector-list__scroll-box">'
+        # NB. Because we have to use inline-blocks for each list, whitespace
+        #     in between them (newlines, tabs, spaces) will translate into a
+        #     space character rendered between each list. This is **super
+        #     annoying** for a lot of reasons. To prevent that whitespace from
+        #     being added we must avoid adding whitespace between pretty much
+        #     every element.
+        version_selector_list_html += '<div class="inline-block   selector-list__sizing-box">'
+
+        arrow_str = '<span class="inline-block   edge-fader__arrow edge-fader__arrow--invisible"></span>'
+        version_selector_list_html += '<div class="edge-fader edge-fader--top ">' + arrow_str + '</div>'
+        version_selector_list_html += '<div class="edge-fader edge-fader--bottom ">' + arrow_str + '</div>'
+
+        version_selector_list_html += '<div class="overflow-y   selector-list__scroll-box  js_edge-fader--target">'
+
         version_selector_list_html += '<ul class="selector-list">'
 
         # List depth is used for setting color. Our CSS only has colors from 1
         # to 6, so cap anything deeper.
         list_depth = Math.min(6, (set_index+1))
 
-        # We are wont to act on the last element of the release set in the below
-        # loop. I can't think of a better way to do that this.
-        last_index = release_set.length - 1
-
         for release_version, index in release_set.reverse()
-          release_sem_ver = SemVer.parse(release_version)
-
-          # Record if this release_version is within the version_range
+          release_sem_ver  = SemVer.parse(release_version)
           in_version_range = not version_range or
                              SemVer.isInRange(release_sem_ver, version_range)
 
           # Start aggregating class modifiers that will be `.join("\n")`d
-          # together to form the -list__element's complete class once all
-          # modifiers have been added.
+          # together to form the .selector-list__element's complete class once
+          # all modifiers have been added.
           class_list = ["selector-list__element"]
 
+          # If this page didn't exist for the given version of the project, set
+          # it's "depth" to `disabled`, rather than a numerical depth.
           if in_version_range
             class_list.push("selector-list__element--"+list_depth)
           else
             class_list.push("selector-list__element--disabled")
 
+          # If a this is the first version in a set, mark it as `open`. If it is
+          # the last, mark it as `closing`.
           # NB. A single element can open and close a list.
           if index == 0
             class_list.push("selector-list__element--opening")
-          if index == last_index
+          if index == (release_set.length - 1)
             class_list.push("selector-list__element--closing")
 
+          #TODO: We're not acting on these tags, yet. They should also probably
+          #      apply to a version set, rather than a specific version.
           if release_version == lts_version
             class_list.push("selector-list__element--lts")
 
+          #TODO: We're not acting on these tags, yet. They should also probably
+          #      apply to a version set, rather than a specific version.
           if release_version == current_version
             class_list.push("selector-list__element--current")
 
-          # Build out the list contents and anchor based on metadata available.
-
+          # Build out the list element's anchor based on metadata available.
           # If the list element is --disabled or --current it should not include
           # an active link, so skip giving them an href.
           anchor_tag = '<a class="block">'
-          # Otherwise, give the versions_locations overrides a change to direct
+          # Otherwise, give the versions_locations overrides a chance to direct
           # this release_version to a different version-relative url.
-          # If none of the ranges match (or if there are no ranges), default to
-          # the current page's project/version-relative url.
           if in_version_range and (release_version != current_version)
+            # If none of the ranges match (or if there are no ranges), default
+            # to the current page's project/version-relative url.
             relative_path = project_relative_path
             for [range, url] in versions_locations
               if SemVer.isInRange(release_sem_ver, range)
@@ -149,19 +162,15 @@ generateVersionLists = () ->
           # Build the full list element and add it to the html aggregator.
           #TODO: Consider importing a sprintf library.
           #      Because JS doesn't ship w/ that functionality? For... reasons?
+          #NB. See above note re: whitespace.
           version_selector_list_html +=
               '<li class="'+class_list.join("\n")+'">'+
                 anchor_tag+release_version+'</a>'+
-              '</li>\n'
+              '</li>'
 
         # Close out the release set.
-        # NB. Because we have to use inline-blocks for each list, whitespace
-        #     in between them (newlines, tabs, spaces) will translate into a
-        #     space character rendered between each list. This is **super
-        #     annoying** for a lot of reasons. To prevent that whitespace from
-        #     being added we must not add newlines after the /ul.selector-list.
-        version_selector_list_html += '</ul></div>'
-
+        #NB. See above note re: whitespace.
+        version_selector_list_html += '</ul></div></div>'
 
       # After all listed versions have been added, check if this project has the
       # optional `archived_url`, and conditionally add a special "set" with only
@@ -171,14 +180,38 @@ generateVersionLists = () ->
                       "selector-list__element--archived",
                       "selector-list__element--opening",
                       "selector-list__element--closing"]
-        version_selector_list_html += '<div class="inline-block overflow-y   selector-list__scroll-box">'
+
+        # We can skip the Edge Fader here, b/c we know there's only ever going
+        # to be one "Older" element.
+        #NB. See above note re: whitespace.
+        version_selector_list_html += '<div class="inline-block   selector-list__sizing-box">'
+        version_selector_list_html += '<div class="overflow-y   selector-list__scroll-box">'
+
         version_selector_list_html += '<ul class="selector-list">\n'
         version_selector_list_html +=
-          '<li class="'+class_list.join("\n")+'"><a class="block" href="'+archived_url+'">older</a></li>\n'
-        version_selector_list_html += '</ul></div>'
+          '<li class="'+class_list.join("\n")+'"><a class="block" href="'+archived_url+'">older</a></li>'
+        version_selector_list_html += '</ul></div></div>'
+
 
       # What we've all been waiting for; make the DOM modification.
-      $(".selector-pane--versions").html(version_selector_list_html)
+      $('.selector-pane--versions').html(version_selector_list_html)
+
+      ## HACK:
+      #  Because these dynamic elements were added after the JQuery.ready()
+      #  clause that defied 'scroll' and 'click' event listeners on all other
+      #  Edge Faders, we need to re-do that effort for the new elements.
+
+      $('.selector-pane--versions').find('.js_edge-fader--target').on(
+        'scroll.selector-fader-target',
+        throttle(
+          (event) -> ( EdgeFader.verifyArrowState($(this)) ),
+          250
+        )
+      )
+
+      $('.edge-fader__arrow').on('click.selector-fader-arrow',
+        EdgeFader.onClickCallback
+      )
     )
 
 
@@ -193,26 +226,84 @@ $ ->
   ## Wire up interactions
 
   # Save shared lookups s.t. we don't have to constantly query the DOM.
-  $content_nav      = $('.content-nav')
-  $selector_version = $('.selector--version')
-  $selector_version_pane_primary = $('.selector-pane--versions')
-  $selector_version_pane_sizing  = $selector_version_pane_primary.parent().parent()
+  $content_nav          = $('.content-nav')
+  $content_nav__primary = $('.content-nav__primary')
+  $version_selector     = $('.selector--version')
+  $version_pane         = $('.selector-pane--versions')
+  $version_pane__sizing = $version_pane.parent().parent()
 
-  # When the selector's button is clicked, toggle the .content-nav, the
-  # .selector-pane, and the selector itself.
-  $selector_version.on('click.toggle_selector', '.selector__btn',
+  # When we open the .selector-pane--versions we're going to want to give each
+  # .selector-list inside it a chance to show its Edge Fader arrows. We don't
+  # want this to happen until the version pane is fully open (500ms), and we
+  # don't want someone mashing the Version Selector button to see a bunch of
+  # weird artifacts from this logic being run mid-transition. The answer;
+  # a debounced function that wraps the .selector-list show-or-hide logic, and
+  # only runs it when the .selector-pane--versions is not a child of a --hidden
+  # pane. Simple, right?
+  debouced_show_or_hide_selector_list_arrows = debounce(
+    () -> (
+      if $version_pane.closest('.selector-pane__sizing-box--hidden').length == 0
+        $version_pane.find('.selector-list__scroll-box').each(
+          (index) -> EdgeFader.showOrHideArrows($(this))
+        )
+    ),
+    500)
+
+  # When the selector button is clicked, toggle the button's open/closed state,
+  # and manually set the box's hight / max-height of the .selector-pane based on
+  # the current state of the pane's contents, and the .content-nav__primary.
+  $version_selector.on('click.toggle_selector', '.selector__btn',
     (event) ->
-      $content_nav.toggleClass('content-nav--selector-pane-open--1')
-      $selector_version_pane_sizing.toggleClass('selector-pane__sizing-box--hidden')
-      $(this).parent().toggleClass('selector--open')
-      false
+      $selector = $(this).parent()
+      $selector.toggleClass('selector--open')
+      $version_pane__sizing.toggleClass('selector-pane__sizing-box--hidden')
+
+      if $selector.hasClass('selector--open')
+        # The height of the .version-pane should be the height of the tallest
+        # list, plus a couple rem for padding.
+        #TODO: Consider memoizing this result **but only after** the lists have
+        #      been built and added to the DOM.
+        tallest_list = Math.max.apply(
+          Math,
+          $version_pane.find('.selector-list').map(() -> $(this).outerHeight())
+        )
+
+        $version_pane__sizing.css('height', tallest_list + (2).rem())
+        $version_pane__sizing.css('max-height', $content_nav__primary.outerHeight())
+
+        # If the selector has just opened, we may immediately test the
+        # .selector-pane--versions for horizontal scrollablity. We need to wait
+        # the 500ms for the pane to scale to its full height before we test each
+        # .selector-list__scroll-box inside the page for vertical scrollablitly.
+        EdgeFader.showOrHideArrows($version_pane)
+        debouced_show_or_hide_selector_list_arrows()
+      else
+        $version_pane__sizing.css('height', '')
+        $version_pane__sizing.css('max-height', '')
+
+        EdgeFader.hideArrows($version_pane)
+        $version_pane.find('.selector-list__scroll-box').each(
+          (index) -> EdgeFader.hideArrows($(this))
+        )
   )
 
-  # Whenever interaction occurs outside of a .selector-pane, close all panes.
+  # Whenever interaction occurs outside of a .selector-pane, close all panes,
+  # and hide all Edge Faders.
   $(document).on('click.selector_close',
     (event) ->
-      return unless $(event.target).closest('.selector-pane__primary').length == 0
-      $('.selector-pane__sizing-box').addClass('selector-pane__sizing-box--hidden')
-      $content_nav.removeClass('content-nav--selector-pane-open--1')
+      # Early outs for actions inside the .selector-pane, or repeated clicks of
+      # the .selector_btn.
+      return if $(event.target).closest('.selector-pane__sizing-box').length > 0
+      return if $(event.target).hasClass('selector__btn')
+
       $('.selector--open').removeClass('selector--open')
+      $version_pane__sizing.addClass('selector-pane__sizing-box--hidden')
+
+      $version_pane__sizing.css('height', '')
+      $version_pane__sizing.css('max-height', '')
+
+      EdgeFader.hideArrows($version_pane)
+      $version_pane.find('.selector-list__scroll-box').each(
+        (index) -> EdgeFader.hideArrows($(this))
+      )
   )

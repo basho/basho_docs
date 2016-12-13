@@ -43,17 +43,28 @@
       </div>
 
     </div>
-
-    <!-- <div class="selector-list selector-list--versions" style="height: 7rem;"></div> -->
-    <div class="             selector-pane__sizing-box selector-pane__sizing-box--hidden">
-    <div class="             selector-pane__shadow-box">
-    <div class="overflow-x   selector-pane__primary selector-pane--versions">
-    </div>
-    </div>
-    </div>
 {{ end }}
 
   </div>
+
+
+
+{{ if $version }}
+  <div class="             selector-pane__sizing-box selector-pane__sizing-box--hidden">
+  <div class="             selector-pane__shadow-box">
+    <!-- Edge Faders -- added under the __shadow-box .s.t the __primary is a sibling of the faders. -->
+    <div class="edge-fader edge-fader--left">
+      <span class="inline-block   edge-fader__arrow edge-fader__arrow--invisible"></span>
+    </div>
+    <div class="edge-fader edge-fader--right">
+      <span class="inline-block   edge-fader__arrow edge-fader__arrow--invisible"></span>
+    </div>
+    <div class="overflow-x   selector-pane__primary selector-pane--versions  js_edge-fader--target">
+      <!-- Version Lists will be populated at runtime. -->
+    </div>
+  </div>
+  </div>
+{{ end }}
 
 
 
