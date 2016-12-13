@@ -7,7 +7,9 @@
   cursor : pointer;
 
   @include when-inside('.banner') {
-    @include pos-relative-vertical-align;
+    position:  relative;
+    top:       50%;
+    transform: translateY(-50%);
   }
 }
 
