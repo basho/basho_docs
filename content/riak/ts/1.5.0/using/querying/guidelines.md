@@ -140,6 +140,11 @@ The following operators are supported for each data type:
 * Riak Search will not work with Riak TS.
 * Queries are limited by the number of quanta they can span when specifying the time limits.
 
+#### Blob data in queries and primary keys
+
+Blob data should be queried using integers in base 16 (hex) notation, preceded by `0x`.
+
+However, we do not recommend using blob columns in primary keys yet, due to limitations in the Riak TS 1.5 `list_keys` API.
 
 #### Quanta query range
 
