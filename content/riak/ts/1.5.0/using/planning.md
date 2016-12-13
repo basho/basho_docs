@@ -255,7 +255,7 @@ Please take care in defining how you address your unique data, as it will affect
 
 ## Quantum
 
-The quantum is part of the [partition key](#partition-key) in the [primary key](#primary-key), as discussed above.
+The quantum is part of the [partition key](#partition-key) which is in the [primary key](#primary-key), as discussed above.
 
 ```sql
    PRIMARY KEY (
@@ -264,20 +264,66 @@ The quantum is part of the [partition key](#partition-key) in the [primary key](
    )
 ```
 
-Quanta give you the ability to control how your data are stored around your cluster, which impacts query performance. Iterating over a large number of keys localized on a small number of nodes can be significantly faster than iterating over a small number of keys on a large number of nodes. The option that is best for you will depend on how you expect to be querying your data.
+Quanta give you the ability to control how your data are stored around your cluster, which impacts query performance. Iterating over a large number of keys localized on a small number of nodes can be significantly faster than iterating over a small number of keys on a large number of nodes. The option that is best for you will depend on how you expect to be querying your data, and whether you care more about [throughput](#throughput) or [latency](#latency).
 
-### How small should my quantum be?
+If you have a cluster that isn't busy, a large query run on a single node will take longer to complete than the same query split into subqueries across multiple nodes. But if you were to add up the iteration times of those subqueries, you would find that the total is larger than your single-node iteration time.  
 
-We suggest that your minimum quantum size should be set by the typical individual query length. For the best performance, the typical query should span as few quanta as possible.  
+Multi-node queries take more added-up time overall because there’s extra overhead in setting up the sub-query iterations. When you run a whole query on a single node, you incur that overhead only once.  
 
-For example, if your typical query is an hour’s worth of data, then your quantum should be large enough that most of your queries will only hit a single node, meaning a quantum between 1 and 2 hours.
+This means that if you have a busy cluster, 5 large queries run against one cluster each (spanning 5 quanta) will complete quicker than 5 large queries broken into subqueries (spanning a quanta each) and run across all the nodes in your cluster.
+
+1) if you know you care most about query throughput, then do as recommended above (ie, localize your data as much as possible), 2) if you know you care most about individual query latency, then do the opposite, and 3) if you don’t really know, then do as in 2), because the fractional latency gains of less data localization are much higher than the throughput losses.
+
+### Throughput
+
+If you need to optimize your Riak TS performance to handle many queries (throughput) more than you need those queries to be run quickly (latency), then you will want your data to be more localized.
+
+#### How small should my quantum be?  
+
+To optimize for throughput, we suggest that your minimum quantum size be set by the typical individual query length. For the best performance, the typical query should span as few quanta as possible.  
+
+For example, if your typical query is an hour’s worth of data, then your quantum should be large enough that most of your queries will only hit a single node, meaning a quantum between 1 and 2 hours. 
 
 
-### How large should my quantum be? 
+#### How large should my quantum be? 
 
-We suggest that your maximum quantum size should be chosen to minimize the number of concurrent queries hitting the same node. For the best performance, your quantum should be bounded by the total time spanned by your instantaneous volume of concurrent queries.  
+For the best throughput, we suggest that your maximum quantum size be chosen to minimize the number of concurrent queries hitting the same node. For the best performance, your quantum should be bounded by the total time spanned by your instantaneous volume of concurrent queries.  
 
 For example, if you are typically issuing thousands of concurrent queries for different hours of the same week's worth of data, then you want your quantum to be significantly less than a week, or all your queries will end up hitting the same node and will execute serially, rather than benefit from parallelization in a distributed ring.
+
+
+### Latency
+
+If you need to optimize your Riak TS performance to ensure that individual queries are run quickly (latency), rather than for many queries to be handled at once (throughput), then you will need to take advantage of the parallel resources in your cluster by splitting queries across multiple nodes.
+
+
+#### The best quantum for latency
+
+To optimize query latency, your quantum should be small enough that your normal-sized query is spread across all nodes. If your quantum is too small it can result in so many subqueries being generated per-node that the parallel-processing capacity of your nodes is overwhelmed.
+
+If you're up for a little math, you can use the following formula to identify the optimal quantum:
+
+```
+Q = t/(N*n)
+```
+
+`t` is the time spanned by your typical query, `N` is the number of nodes in your cluster, and `n` is the number of subqueries each node can execute simultaneously.
+
+For example, if you have a 5-node cluster and your typical query is for 40 hours of data, your quantum should be no larger than 8 hours: 
+
+```
+8 = 40/(5*n)
+```
+
+If your quantum is larger than 8 hours, subqueries will execute on fewer than 5 nodes.  
+
+As another example, if you have a 5-node cluster, your typical query is for 40 hours of data, and  you know that each of your nodes can process 4 subqueries simultaneously, then a quantum of 2 hours would further minimize your query latency. 
+
+```
+2 = 40/(5*4)
+```
+
+A 1-hour quantum would be too small, because it would cause you to have 8 subqueries per node. These 8 subqueries would not execute in parallel; instead, they would effectively execute as two sets of 4 subqueries, one after the other, which is less efficient than a single set of 4 subqueries that are twice as long.
 
 
 ## More information
