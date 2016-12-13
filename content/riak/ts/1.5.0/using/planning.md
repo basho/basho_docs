@@ -23,6 +23,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/planning"
 [epoch]: https://en.wikipedia.org/wiki/Unix_time
 [installing]: ../../setup/installing/
 [sql]: ../../learn-about/sqlriakts/
+[order by]: /riak/ts/1.5.0/using/querying/select/order-by
 
 
 Now that you've [installed][installing] Riak TS, you're almost ready to create a TS table. Before you can create your table, you'll need to plan it out.
@@ -66,7 +67,7 @@ You cannot create a table with more than 511 total columns. If you try to create
 {{% /note %}}
 
 
-### Column Definitions
+## Column Definitions
 
 Column definitions define the structure of the data and are comprised of three parts: a column name, a data type, and (optionally) an inline constraint.
 
@@ -121,7 +122,7 @@ The data types in column definitions are limited. Valid types are:
 * `DOUBLE` - This type does not comply with its IEEE specification: `NaN` (not a number) and `INF` (infinity) cannot be used.
 * `BLOB` - A new type as of TS 1.5.0 for binary objects. Behaves like a `VARCHAR` but is displayed as a hex value (and can be input as hex) via `riak-shell`. *Not yet recommended for use in primary keys.*
 
-### Primary Key
+## Primary Key
 
 The `PRIMARY KEY` describes both the partition key and local key. The partition key is a prefix of the local key, consisting of one or more column names in parentheses. The local key must begin with the same column names as the partition key, but may also contain additional column names.
 
@@ -175,7 +176,7 @@ CREATE TABLE GeoCheckin
 ```
 
 
-#### Partition Key
+### Partition Key
 
 The partition key is the first element of the primary key, and must have at least one column name.
 
@@ -200,7 +201,7 @@ The quantum function takes 3 parameters:
   * `'s'` - seconds
 
 
-#### Local Key
+### Local Key
 
 The local key comes after the partition key. It must first contain the same column names in the same order as the partition key. This ensures that the same column names determining your data's partition also dictate the sorting of the data within that partition.
 
@@ -213,7 +214,7 @@ The local key may also contain additional column names so long as they come afte
    )
 ```
 
-{{% note title="On Key Uniqueness" %}}
+## On Key Uniqueness
 
 The local key in a TS row is what makes that row's key/address unique from other rows.
 In the examples on this page and others we've used a composite key of
@@ -243,7 +244,83 @@ The omission of `region` and `state` from the key definition makes it shorter, a
 The downside to this schema is that you'll likely need to do one query per device, instead of being able to group multiple devices together based on their other defining characteristics such as region & state.
 
 Please take care in defining how you address your unique data, as it will affect how you will query it in the future.
-{{% /note %}}
+
+## Sort With Local Keys
+
+A table's local key determines how it is stored and ordered on disk. Adding the `ASC` or `DESC` keywords to the local key lets you control the sort order of records on disk, and avoid sorting using [`ORDER BY`][order by] or at the application level.
+
+Ordering rows using `ASC` or `DESC` on the local key reduces workload on the cluster because no sorting is required when a query is executed. This may make using `ASC` or `DESC` on the local key a better choice than using `ORDER BY`. 
+
+The `ASC` or `DESC` keywords must be applied to the local key, not the partition key. The keywords can only be applied to `SINT64`, `TIMESTAMP` and `VARCHAR` columns.
+
+### Ascending Local Key Example
+
+For example, with the following table and data:
+
+```sql
+CREATE TABLE ascending_table (
+a SINT64 NOT NULL,
+b TIMESTAMP NOT NULL,
+PRIMARY KEY ((a, quantum(b, 1, 'm')), a, b));
+
+INSERT INTO ascending_table VALUES (1,1);
+INSERT INTO ascending_table VALUES (1,2);
+INSERT INTO ascending_table VALUES (1,3);
+INSERT INTO ascending_table VALUES (1,4);
+INSERT INTO ascending_table VALUES (1,5);
+```
+
+Then query:
+
+
+```sql
+SELECT * FROM ascending_table WHERE a = 1 AND b >= 1 AND b <= 5;
+
++-+------------------------+
+|a|           b            |
++-+------------------------+
+|1|1970-01-01T00:00:00.001Z|
+|1|1970-01-01T00:00:00.002Z|
+|1|1970-01-01T00:00:00.003Z|
+|1|1970-01-01T00:00:00.004Z|
+|1|1970-01-01T00:00:00.005Z|
++-+------------------------+
+```
+
+The results are returned oldest first because the keys are ordered in ascending timestamp value.
+
+### Descending Local Key Example
+
+If we're building an application that shows events, such as orders or tweets, we probably want to show the latest results first.
+
+For example:
+
+```sql
+CREATE TABLE descending_table (
+a SINT64 NOT NULL,
+b TIMESTAMP NOT NULL,
+PRIMARY KEY ((a, quantum(b, 1, 'm')), a, b DESC));
+
+INSERT INTO descending_table VALUES (1,1);
+INSERT INTO descending_table VALUES (1,2);
+INSERT INTO descending_table VALUES (1,3);
+INSERT INTO descending_table VALUES (1,4);
+INSERT INTO descending_table VALUES (1,5);
+
+SELECT * FROM descending_table WHERE a = 1 AND b >= 1 AND b <= 5;
+
++-+------------------------+
+|a|           b            |
++-+------------------------+
+|1|1970-01-01T00:00:00.005Z|
+|1|1970-01-01T00:00:00.004Z|
+|1|1970-01-01T00:00:00.003Z|
+|1|1970-01-01T00:00:00.002Z|
+|1|1970-01-01T00:00:00.001Z|
++-+------------------------+
+```
+
+In the new `descending_table`, the `DESC` keyword has been added to `b` in the local key. When the table is queried, the results are returned in descending timestamp order, starting with the greatest timestamp.
 
 
 ## More information

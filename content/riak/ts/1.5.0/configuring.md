@@ -1,18 +1,22 @@
 ---
-title: "Configure Riak TS"
-description: "Configure Riak TS"
+title: "Configuring Riak TS"
+description: "Configuring Riak TS"
 menu:
   riak_ts-1.5.0:
     name: "Configure"
-    identifier: "configure_riakts"
-    weight: 305
-    parent: "using"
+    identifier: "configure"
+    weight: 250
+    pre: icon-cog
 project: "riak_ts"
 project_version: "1.5.0"
 toc: true
+version_history:
+  locations:
+    - [">=1.5.0", "configuring"]
+    - ["<=1.4.0",  "using/configuring"]
 aliases:
-    - /riakts/1.5.0/using/configuring/
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/configuring"
+    - /riakts/1.5.0/configuring/
+canonical_link: "https://docs.basho.com/riak/ts/latest/configuring"
 ---
 
 
@@ -111,4 +115,3 @@ object.size.maximum = 500K
 ```
 
 Further documentation about these settings can be found at [Riak object settings].
-

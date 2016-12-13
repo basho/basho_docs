@@ -3,16 +3,21 @@ title: "Configure Global Object Expiration"
 description: "Enabling and configuring global object expiration for Riak TS."
 menu:
   riak_ts-1.5.0:
-    name: "Configure Global Object Expiration"
+    name: "Global Object Expiration"
     identifier: "config_expiry"
     weight: 320
-    parent: "using"
+    parent: "configure"
 project: "riak_ts"
 project_version: "1.5.0"
 toc: true
+version_history:
+  in: "1.4.0+"
+  locations:
+    - [">=1.5.0", "configuring/global-object-expiration"]
+    - ["<=1.4.0",  "using/global-object-expiration"]
 aliases:
-    - /riakts/1.5.0/using/global-object-expiration/
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/global-object-expiration"
+    - /riakts/1.5.0/configuring/global-object-expiration/
+canonical_link: "https://docs.basho.com/riak/ts/latest/configuring/global-object-expiration"
 ---
 
 [ttl]: https://en.wikipedia.org/wiki/Time_to_live
