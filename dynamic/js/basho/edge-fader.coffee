@@ -163,10 +163,40 @@ EdgeFader.hideArrows = ($target) ->
   $top_arrow.addClass('edge-fader__arrow--invisible')
   $bottom_arrow.addClass('edge-fader__arrow--invisible')
 
+## Obj.onClickCallback :: (Event) -> None
+##               Where    Obj.hasClass('edge-fader__arrow')
+# We're defining and exposing this method s.t. dynamically-created Edge Fader
+# can (re)set their on('click') logic.
+EdgeFader.onClickCallback = (event) ->
+  $arrow   = $(this)
+  $fader   = $arrow.parent()
+  $wrapper = $fader.parent()
+  $target  = $wrapper.children('.js_edge-fader--target')
+
+  #NB. The $target.animate will trigger `scroll.edge-fader-target`. This is
+  #    intended, and required to update the arrow active/inactive states.
+  if      $fader.hasClass('edge-fader--left')
+    new_pos = (-1 * $wrapper.width() * 0.75) + $target.scrollLeft()
+    $target.animate({scrollLeft: new_pos}, 200);
+  else if $fader.hasClass('edge-fader--right')
+    new_pos = ( 1 * $wrapper.width() * 0.75) + $target.scrollLeft()
+    $target.animate({scrollLeft: new_pos}, 200);
+  else if $fader.hasClass('edge-fader--top')
+    new_pos = (-1 * $wrapper.height() * 0.75) + $target.scrollTop()
+    $target.animate({scrollTop: new_pos}, 200);
+  else if $fader.hasClass('edge-fader--bottom')
+    new_pos = ( 1 * $wrapper.height() * 0.75) + $target.scrollTop()
+    $target.animate({scrollTop: new_pos}, 200);
+
+  return
 
 ## JQuery .ready() Execution
 ## =========================
 $ ->
+
+  #NB. The selectors.coffee script dynamically generates a few Edge Faders, and
+  #    so has to duplicate the below event watchers. If the below code changes,
+  #    please be sure to also modify the last few calls in generateVersionLists.
 
   # Target Scrolling
   # ----------------
@@ -198,37 +228,11 @@ $ ->
     )
   )
 
-
-
   # Arrow Interactions
   # ------------------
-  # When an arrow is clicked (or tapped), scroll the target element by 3/4 of
-  # its current width.
-  #TODO: 3/4 is an arbitrary and untested distance. Is it sufficient? Correct?
-  $('.edge-fader__arrow').on('click.edge-fader-arrow'
-    (event) -> (
-      $arrow   = $(this)
-      $fader   = $arrow.parent()
-      $wrapper = $fader.parent()
-      $target  = $wrapper.children('.js_edge-fader--target')
-
-      #NB. The $target.animate will trigger `scroll.edge-fader-target`. This is
-      #    intended, and required to update the arrow active/inactive states.
-      if      $fader.hasClass('edge-fader--left')
-        new_pos = (-1 * $wrapper.width() * 0.75) + $target.scrollLeft()
-        $target.animate({scrollLeft: new_pos}, 200);
-      else if $fader.hasClass('edge-fader--right')
-        new_pos = ( 1 * $wrapper.width() * 0.75) + $target.scrollLeft()
-        $target.animate({scrollLeft: new_pos}, 200);
-      else if $fader.hasClass('edge-fader--top')
-        new_pos = (-1 * $wrapper.height() * 0.75) + $target.scrollTop()
-        $target.animate({scrollTop: new_pos}, 200);
-      else if $fader.hasClass('edge-fader--bottom')
-        new_pos = ( 1 * $wrapper.height() * 0.75) + $target.scrollTop()
-        $target.animate({scrollTop: new_pos}, 200);
-
-      return
-    )
+  # When an arrow is clicked (or tapped), scroll the target element.
+  $('.edge-fader__arrow').on('click.edge-fader-arrow',
+    EdgeFader.onClickCallback
   )
 
   return
