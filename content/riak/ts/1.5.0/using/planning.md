@@ -23,6 +23,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/planning"
 [epoch]: https://en.wikipedia.org/wiki/Unix_time
 [installing]: ../../setup/installing/
 [sql]: ../../learn-about/sqlriakts/
+[order by]: /riak/ts/1.5.0/using/querying/select/order-by
 
 
 You've [installed][installing] Riak TS, and you're ready to create a table. 
@@ -220,7 +221,7 @@ The local key may also contain additional column names so long as they come afte
    )
 ```
 
-{{% note title="On Key Uniqueness" %}}
+## On Key Uniqueness
 
 The local key in a TS row is what makes that row's key/address unique from other rows.
 In the examples on this page and others we've used a composite key of
@@ -250,7 +251,83 @@ The omission of `region` and `state` from the key definition makes it shorter, a
 The downside to this schema is that you'll likely need to do one query per device, instead of being able to group multiple devices together based on their other defining characteristics such as region & state.
 
 Please take care in defining how you address your unique data, as it will affect how you will query it in the future.
-{{% /note %}}
+
+## Sort With Local Keys
+
+A table's local key determines how it is stored and ordered on disk. Adding the `ASC` or `DESC` keywords to the local key lets you control the sort order of records on disk, and avoid sorting using [`ORDER BY`][order by] or at the application level.
+
+Ordering rows using `ASC` or `DESC` on the local key reduces workload on the cluster because no sorting is required when a query is executed. This may make using `ASC` or `DESC` on the local key a better choice than using `ORDER BY`. 
+
+The `ASC` or `DESC` keywords must be applied to the local key, not the partition key. The keywords can only be applied to `SINT64`, `TIMESTAMP` and `VARCHAR` columns.
+
+### Ascending Local Key Example
+
+For example, with the following table and data:
+
+```sql
+CREATE TABLE ascending_table (
+a SINT64 NOT NULL,
+b TIMESTAMP NOT NULL,
+PRIMARY KEY ((a, quantum(b, 1, 'm')), a, b));
+
+INSERT INTO ascending_table VALUES (1,1);
+INSERT INTO ascending_table VALUES (1,2);
+INSERT INTO ascending_table VALUES (1,3);
+INSERT INTO ascending_table VALUES (1,4);
+INSERT INTO ascending_table VALUES (1,5);
+```
+
+Then query:
+
+
+```sql
+SELECT * FROM ascending_table WHERE a = 1 AND b >= 1 AND b <= 5;
+
++-+------------------------+
+|a|           b            |
++-+------------------------+
+|1|1970-01-01T00:00:00.001Z|
+|1|1970-01-01T00:00:00.002Z|
+|1|1970-01-01T00:00:00.003Z|
+|1|1970-01-01T00:00:00.004Z|
+|1|1970-01-01T00:00:00.005Z|
++-+------------------------+
+```
+
+The results are returned oldest first because the keys are ordered in ascending timestamp value.
+
+### Descending Local Key Example
+
+If we're building an application that shows events, such as orders or tweets, we probably want to show the latest results first.
+
+For example:
+
+```sql
+CREATE TABLE descending_table (
+a SINT64 NOT NULL,
+b TIMESTAMP NOT NULL,
+PRIMARY KEY ((a, quantum(b, 1, 'm')), a, b DESC));
+
+INSERT INTO descending_table VALUES (1,1);
+INSERT INTO descending_table VALUES (1,2);
+INSERT INTO descending_table VALUES (1,3);
+INSERT INTO descending_table VALUES (1,4);
+INSERT INTO descending_table VALUES (1,5);
+
+SELECT * FROM descending_table WHERE a = 1 AND b >= 1 AND b <= 5;
+
++-+------------------------+
+|a|           b            |
++-+------------------------+
+|1|1970-01-01T00:00:00.005Z|
+|1|1970-01-01T00:00:00.004Z|
+|1|1970-01-01T00:00:00.003Z|
+|1|1970-01-01T00:00:00.002Z|
+|1|1970-01-01T00:00:00.001Z|
++-+------------------------+
+```
+
+In the new `descending_table`, the `DESC` keyword has been added to `b` in the local key. When the table is queried, the results are returned in descending timestamp order, starting with the greatest timestamp.
 
 
 ## Quantum

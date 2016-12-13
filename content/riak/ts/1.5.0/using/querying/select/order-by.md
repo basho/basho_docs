@@ -137,7 +137,7 @@ SELECT id, time, value FROM SensorData WHERE id = 2 AND time > '2016-11-28 06:00
 Sort results and return null values first:
 
 ```sql
-SELECT id, time, value FROM SensorData WHERE id = 2 AND time > '2016-11-28 06:00:00' AND time < '2016-11-28 06:10:10' ORDER BY time ASC NULLS FIRST;
+SELECT id, time, value FROM SensorData WHERE id = 2 AND time > '2016-11-28 06:00:00' AND time < '2016-11-28 06:10:10' ORDER BY time DESC, id ASC, value NULLS FIRST;
 ```
 
 ### Null Values Last
@@ -145,7 +145,7 @@ SELECT id, time, value FROM SensorData WHERE id = 2 AND time > '2016-11-28 06:00
 Sort results and return null values last:
 
 ```sql
-SELECT id, time, value FROM SensorData WHERE id = 2 AND time > '2016-11-28 06:00:00' AND time < '2016-11-28 06:10:10' ORDER BY time ASC NULLS LAST;
+SELECT id, time, value FROM SensorData WHERE id = 2 AND time > '2016-11-28 06:00:00' AND time < '2016-11-28 06:10:10' ORDER BY time DESC, id ASC, value NULLS LAST;
 ```
 
 ### Limit Results
