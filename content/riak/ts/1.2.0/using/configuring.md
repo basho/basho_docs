@@ -10,6 +10,10 @@ menu:
 project: "riak_ts"
 project_version: "1.2.0"
 toc: true
+version_history:
+  locations:
+    - [">=1.5.0", "configuring"]
+    - ["<=1.4.0",  "using/configuring"]
 aliases:
     - /riakts/1.2.0/using/configuring/
 ---
