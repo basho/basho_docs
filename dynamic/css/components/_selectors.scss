@@ -128,7 +128,7 @@
 }
 .selector-pane__shadow-box {
   height     : 100%;
-  box-shadow : -0.25rem 0.25rem 2rem -0.25rem $shadow-color;
+  box-shadow : -0.25rem -0.25rem 2rem -0.25rem $shadow-color;
 }
 .selector-pane__primary {
   height : 100%;
@@ -189,7 +189,7 @@
   padding    : 0;     /* 4 */
   list-style : none;  /* 4 */
 
-  box-shadow : -0.125rem 0.125rem 1rem -0.2rem $shadow-color;
+  box-shadow : -0.125rem -0.125rem 1rem -0.2rem $shadow-color;
 }
 
 
