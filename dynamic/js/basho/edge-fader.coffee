@@ -173,8 +173,7 @@ $ ->
   # When we scroll the Edge Fader's Target, we will want to enable / disable the
   # scroll arrows to suggest when a user has hit the last tab.
   # Throttle the event to 4 times a second so we don't overload anything.
-  $('.edge-fader').parent().children('.js_edge-fader--target').on(
-    'scroll.edge-fader-target',
+  $('.js_edge-fader--target').on('scroll.edge-fader-target',
     throttle(
       (event) -> ( EdgeFader.verifyArrowState($(this)) ),
       250
