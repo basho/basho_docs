@@ -1,0 +1,152 @@
+/**
+ * Edge Faders; used to soften (and show the possibility of) scrolling.
+ * 1. These are intentionally wrong defaults.
+ *    The height and width of Edge Faders should be set by the parent (wrapper)
+ *    of the Edge Faders based on the situation.
+ *    The font-size of the Edge Faders will be used to size the child --arrow
+ *    elements, and should also be set by the parent (wrapper).
+ * 2. The horizontal edge-fade arrows are positioned at `top: 50%`, and a
+ *    translateY(-50%) is added to the arrow to get them properly aligned.
+ * 3. On a hover, change the color of the arrow. This could more concisely be
+ *    achieved with a `border-right-color` for the left arrow and a
+ *    `border-left-color` for the right arrow (that relation is correct; the
+ *    border opposite of the arrow's direction controls color) but I figure
+ *    rebuilding the arrow is more clear.
+ * 4. When the tab is scrolled to one extent or the other, mark the given arrow
+ *    as inactive by disabling the `cursor : pointer`, and by changing the color
+ *    to something inactive.
+ *    Again, could more concisely be achieved with a `border-*-color`, but I
+ *    value clarity over brevity.
+ * 5. When the entire tab is visible, make the arrows invisible by setting the
+ *    background color to `transparent`. This allows us to use CSS transitions
+ *    to achieve a fade-out.
+ *    Again, could more concisely be achieved with a `border-*-color`, but I
+ *    value clarity over brevity.
+ *TODO: These names are getting out of hand. Can we better them up?
+ */
+.edge-fader {
+  width     : 0%;                                                      /* 1 */
+  height    : 0%;                                                      /* 1 */
+  font-size : 1rem;                                                    /* 1 */
+  position  : absolute;
+}
+
+.edge-fader--left {
+  left       : 0;
+  background : linear-gradient(to left,  rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 80%);
+  filter     : progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ccffffff', GradientType=1 );
+
+  .edge-fader__arrow {
+    position : absolute;
+    left     : 0;
+    top      : 50%;                                                    /* 2 */
+    @include leftward-arrow(1em, $orange-lighter, $translateY: -50%);  /* 2 */
+    cursor   : pointer;
+
+    transition : border-color 500ms ease 20ms;
+
+    @include on-event {
+      @include leftward-arrow(1em, $orange, $translateY: -50%);        /* 3 */
+    }
+
+    &.edge-fader__arrow--inactive {
+      @include leftward-arrow(1em, $cyan-lightest, $translateY: -50%); /* 4 */
+      cursor : default;
+    }
+
+    &.edge-fader__arrow--invisible  {
+      @include leftward-arrow(1em, transparent, $translateY: -50%);    /* 5 */
+      cursor : default;
+    }
+  }
+}
+
+.edge-fader--right {
+  right      : 0;
+  background : linear-gradient(to right, rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 80%);
+  filter     : progid:DXImageTransform.Microsoft.gradient( startColorstr='#ccffffff', endColorstr='#ffffff', GradientType=1 );
+
+  .edge-fader__arrow {
+    position : absolute;
+    right    : 0;
+    top      : 50%;                                                     /* 2 */
+    @include rightward-arrow(1em, $orange-lighter, $translateY: -50%);  /* 2 */
+    cursor   : pointer;
+
+    transition : border-color 500ms ease 20ms;
+
+    @include on-event {
+      @include rightward-arrow(1em, $orange, $translateY: -50%);        /* 3 */
+    }
+
+    &.edge-fader__arrow--inactive {
+      @include rightward-arrow(1em, $cyan-lightest, $translateY: -50%); /* 4 */
+      cursor : default;
+    }
+
+    &.edge-fader__arrow--invisible  {
+      @include rightward-arrow(1em, transparent, $translateY: -50%);    /* 5 */
+      cursor : default;
+    }
+  }
+}
+
+.edge-fader--top {
+  top        : 0;
+  background : linear-gradient(to top,  rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 80%);
+  filter     : progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ccffffff', GradientType=0 );
+
+  .edge-fader__arrow {
+    position : absolute;
+    top      : 0;
+    left     : 50%;
+    @include upward-arrow(1em, $orange-lighter, $translateX: -50%);
+    cursor   : pointer;
+
+    transition : border-color 500ms ease 20ms;
+
+    @include on-event {
+      @include upward-arrow(1em, $orange, $translateX: -50%);                              /* 3 */
+    }
+
+    &.edge-fader__arrow--inactive {
+      @include upward-arrow(1em, $cyan-lightest, $translateX: -50%);                       /* 4 */
+      cursor : default;
+    }
+
+    &.edge-fader__arrow--invisible  {
+      @include upward-arrow(1em, transparent, $translateX: -50%);                          /* 5 */
+      cursor : default;
+    }
+  }
+}
+
+.edge-fader--bottom {
+  bottom     : 0;
+  background : linear-gradient(to bottom,  rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 80%);
+  filter     : progid:DXImageTransform.Microsoft.gradient( startColorstr='#ccffffff', endColorstr='#ffffff', GradientType=0 );
+
+  .edge-fader__arrow {
+    position : absolute;
+    bottom   : 0;
+    left     : 50%;
+    @include downward-arrow(1em, $orange-lighter, $translateX: -50%);
+    cursor   : pointer;
+
+    transition : border-color 500ms ease 20ms;
+
+    @include on-event {
+      @include downward-arrow(1em, $orange, $translateX: -50%);                            /* 3 */
+    }
+
+    &.edge-fader__arrow--inactive {
+      @include downward-arrow(1em, $cyan-lightest, $translateX: -50%);                     /* 4 */
+      cursor : default;
+    }
+
+    &.edge-fader__arrow--invisible  {
+      @include downward-arrow(1em, transparent, $translateX: -50%);                        /* 5 */
+      cursor : default;
+    }
+  }
+}
