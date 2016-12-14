@@ -64,6 +64,35 @@ cache results, a primary reason for REST purity.
 
 All keys need to be implemented in the query string using percent-encoding (or URL encoding), which can be seen in the examples above for the `get` and `delete` operations. Failing to do so will result in a `400 - Bad Request` response. Percent-encoding variants where a space character is replaced with a `+` will work as expected, but it is recommended that modern variants are used where spaces are encoded as `%20`.
 
+## Blob data
+
+Riak TS 1.5 introduces raw binary data via the `blob` data type. Although such data will be stored in binary inside Riak TS, JSON does not support raw binary data, so the data must be encoded before being sent to, or retrieved from, the server.
+
+The encoding mechanism for binary data in the HTTP API depends on the interface being used.
+
+Note: we do not currently recommend using `blob` columns in the primary key because not all Riak TS APIs deal gracefully with them.
+
+### JSON and base64
+
+Most binary data will be written to from Riak TS using [base64](https://en.wikipedia.org/wiki/Base64) encoding inside JSON. This includes data uploaded via `put` and keys specified as parameters to `put`, `get`, and `delete`.
+
+Blob data inside JSON retrieved from Riak TS will also be base64-encoded, including URLs returned from `list_keys`.
+
+### Hex encoding
+
+Any SQL queries executed via `query` that include comparisons against a `blob` column (currently, the only comparisons supported are equal to or not equal to) must encode the compared data in hex notation.
+
+This notation is an integer value in base 16 preceded by `0x`. The ASCII string "hello" would look like `0x68656c6c6f` (or `0x68656C6C6F`). The value is an integer and thus is **not** escaped using apostrophes as a string value would be.
+
+An example SQL query against a table with a `blob` column named `acceleration_stats`:
+
+```
+SELECT * FROM devices WHERE name = 'ACME anvil' and acceleration_stats = 0x001a5942 and time > 0 and time < 1000
+```
+
+The results from the query are in JSON and thus will be encoded as `base64`, not hex.
+
+
 ## Keys and Values
 
 | Call      | Method | Type  |

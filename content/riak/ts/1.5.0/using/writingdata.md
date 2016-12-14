@@ -19,6 +19,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/writingdata"
 [activating]: ../creating-activating/
 [planning]: ../planning/
 [querying]: ../querying/
+[http]: ../developing/http
 [config reference]: /riak/kv/2.1.4/configuring/reference/#the-advanced-config-file
 [MDC]: /riak/ts/1.5.0/using/mdc
 [riakshell]: ../riakshell
@@ -357,6 +358,13 @@ INSERT INTO GeoCheckin VALUES ('South Atlantic','South Carolina','2015-01-01 12:
 You must include single quotes around the ISO 8601 value. You cannot use [reduced accuracy time representations][iso8601 accuracy]. In other words, you must specify your time down to the second (or use fractional times).
 
 See [our documentation on ISO 8601 support][iso8601] for more details on how to use ISO 8601.
+
+### Blob data
+
+When using SQL INSERT to add binary data to blob columns, use base 16 (hex) notation.
+
+If using the HTTP API, see the (API docs)[http] for information on encoding binary data to use with JSON or SQL data upload.
+
 
 ## Next Steps
 
