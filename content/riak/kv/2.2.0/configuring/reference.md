@@ -451,7 +451,7 @@ same write.</td>
 
 <tr>
 <td><code>buckets.default.n_val</code></td>
-<td>The number of replicas stored.
+<td>The number of replicas stored in **non-typed** buckets. For typed buckets, the default is 3 unless changed explicitly for that bucket type.
 <br /><br />
 <strong>Note</strong>: See
 <a href="../../developing/app-guide/replication-properties">Replication Properties</a>
