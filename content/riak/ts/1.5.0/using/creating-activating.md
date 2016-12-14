@@ -240,6 +240,7 @@ Please note the following when using `WITH`:
 
 * The property values can be of numeric or string types (parseable as `sint64`, `double` or `varchar`, correspondingly). String values should be quoted with a `'`; literal single quote characters appearing in the string should be doubled (and not escaped with a `\`).
 * Values from the WITH clause will override those specified outside the query statement.
+* The default `n_val` (the number of distinct copies of each record kept in your cluster for safety and availability) is 3. This default cannot be changed; instead, each time a table is created the WITH clause can be used to configure that table's `n_val`.
 
 
 #### Time Series-Specific Bucket Properties
