@@ -405,7 +405,7 @@ If your quantum is larger than 8 hours, subqueries will execute on fewer than al
 
 You might be able to push your quantum a bit smaller, since each node in turn has some parallel processing capacity. Take care not to make it too small, or you'll start to lose performance
 
-As another example, in your 5-node cluster with a typical query for 40 hours of data, you could make your quantum 2 hours which would further minimize your query latency.
+For instance, in your 5-node cluster, with a typical query for 40 hours of data, and assuming 4 subqueries per node, you could make your quantum 2 hours which would further minimize your query latency.
 
 However, a 1-hour quantum would be too small, because it would cause you to have 8 subqueries per node. These 8 subqueries would not execute in parallel; instead, they would effectively execute as two sets of 4 subqueries, one after the other, which is less efficient than a single set of 4 subqueries that are twice as long.
 
