@@ -352,7 +352,7 @@ The quantum is part of the [partition key](#partition-key) which is in the [prim
    )
 ```
 
-Quanta give you the ability to control how data are stored around your
+Quanta give you the ability to control how data is stored around your
 cluster, which impacts query performance. Determining the quantum that
 is best for you depends on how you expect to query your data and
 whether you care more about latency or throughput.
