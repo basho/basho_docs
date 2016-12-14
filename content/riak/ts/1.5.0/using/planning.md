@@ -361,7 +361,7 @@ If you have a cluster that isn't busy, a large query run on a single
 node will take longer to complete than the same query split into
 subqueries across multiple nodes. So if running individual queries as
 fast as possible is what you care most about (latency), you want a
-smaller quantum that will spread a your data more evenly around the
+smaller quantum that will spread your data more evenly around the
 cluster.
 
 However, if you added up the iteration times of those subqueries, you would find that the total is larger than your single-node
