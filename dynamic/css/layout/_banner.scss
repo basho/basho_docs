@@ -142,7 +142,7 @@
   }
   span:last-of-type {        /* 6 */
     padding-left  : 1rem;
-    padding-right : 2rem;
+    padding-right : 3rem;
   }
 
   a {
@@ -172,7 +172,7 @@
   width : 100%;            /* 1 */
 
   font-size : 110%;
-  color : $gray-50;
+  color : $gray-60;
 
                              padding-left : p2r(76px);    /* 2 */
   @include wide-from('lg') { padding-left : p2r(92px); }  /* 2 */
