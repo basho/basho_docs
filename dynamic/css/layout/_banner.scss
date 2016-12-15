@@ -1,78 +1,190 @@
 /**
  * Banner
  * PRESENTATION ONLY -- See _wireframe.scss for position and size.
- * 1. Because we're using boder-box sizing, and all elements are floating and
- *    vertically aligned, setting a padding-top has the effect of pushing all
- *    contained elements down by that amount, and a padding-bottom will
- *    similarly push content up.
  */
 .banner {
-  padding : 0 1rem 0 1.25rem; /* 1 */
+  padding : 0 1rem 0 1.25rem;
 
-  // Linear gradient to get that fading/glass effect. Leave it commented out
-  // until we start polishing the style of the site at large.
-  background: linear-gradient(to top, rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 80%);
-  // This is for IE6-9. Not sure if we want to bother w/ it.
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#CCffffff', GradientType=0 );
-
+  background : $white;
   box-shadow : 0  0  4rem -1rem $shadow-color;
 
   @include wide-from(md) {
-    padding : .5rem .75rem .25rem .75rem; /* 1 */
+    padding : 0  0  0  ($content-nav-padding-left + 0.5rem);
   }
 }
 
 
+
 /**
- * Banner Element Wrappers
- * Each Banner element will be wrapped in a floating div
+ * Basho Docs Logo
+ * Assumed to wrap a <img src="/images/layout/basho_docs_logo.png"> element.
+ * 1. The native size of this image is 312px x 69px. Scale it to ~48% for the
+ *    sm-down layouts, and ~55% for the md-up.
+ * 2. For sm-down layouts, center this element in the banner.
+ * 3. For md-up leave it lower than center to better match the baseline of the
+ *    Intra-Site navigation elements.
  */
-.banner__element-wrapper,
-.banner__element-wrapper--docs-logo,
-.banner__element-wrapper--menu-bars,
-.banner__element-wrapper--navigation, {
-  height : 100%;
+.banner__docs-logo {
+  position  : relative;           /* 2 */
+  top       : 50%;                /* 2 */
+  transform : translateY(-50%);   /* 2 */
+
+  .docs-logo__image {
+    width  : p2r(150px);          /* 1 */
+    height : p2r(33px);           /* 1 */
+  }
+
+  @include wide-from('md') {
+    transform: translateY(-32%);  /* 3 */
+
+    .docs-logo__image {
+      width  : p2r(172px);        /* 1 */
+      height : p2r(38px);         /* 1 */
+    }
+  }
 }
 
 
-/**
- * Banner Navigation Elements
- * 1. Don't append any external link icons to banner links.
- */
-.banner__element-wrapper--navigation {
 
+/**
+ * Menu Bars
+ * Assumed to wrap the triple-horizontal-bar, .js_toggle-content-nav element.
+ * See _menu-bars.scss for styling and content-nav.coffee for interaction.
+ * 1. Center this element in the middle of the banner, matching the logo above.
+ */
+.banner__menu-bars {
+  height   : 100%;
+
+  .menu-bars {
+    font-size : 2.5rem;
+
+    position  : relative;         /* 1 */
+    top       : 50%;              /* 1 */
+    transform : translateY(-50%); /* 1 */
+  }
+}
+
+
+
+/**
+ * Navigation Pane
+ * 1. Clear default link styles, include the external-link icons.
+ * 2. Allow children of this element to set the color of anchors based on their
+ *    own color. (on-event highlights will have to be set per-class.)
+ */
+.banner__navigation-pane {
   @extend %sans;
-  padding-left : 0.5rem;
+  height : 100%;
 
   a {
-    color           : $gray-60;
-    text-decoration : none;
-    @include on-event {
-      color           : $cyan;
-      text-decoration : none;
-
-    }
+    color : inherit;         /* 1, 2 */
+    text-decoration : none;  /* 1 */
 
     &[href^="http://"],
     &[href^="https://"],
     &[href$=".pdf"],
     &[href$=".PDF"] {
       &::after {
-        content    : none; /* 1 */
-        background : none; /* 1 */
+        content    : none;   /* 1 */
+        background : none;   /* 1 */
       }
     }
   }
+}
 
-  ul {
-    position  : relative;
-    top       : 60%;
-    transform : translateY(-50%);
-    margin    : 0;
-    padding   : 0  0.5rem;
+
+
+/**
+ * Intra-Brand Navigation Elements
+ * 1. The __width-wrapper must be set to 100% of the __navigation-pane's width
+ *    to match the __intra-site element, ensuring neither are ever side-by-side.
+ *    NB. The __navigation-pane is assumed to be an overflow element, causing it
+ *        to take up all of the banner not consumed by float'd siblings.
+ * 2. We need to define a hight so the __cap can guarantee it takes up the
+ *    correct amount of space. Current height is perfect for a 1rem font-size.
+ * 3. This margin-bottom could just as easily be a padding-top on the
+ *    __intra-site element; it's just giving some whitespace in between the
+ *    __intra-brand and __intra-site links.
+ * 4. This whole elements creates a triangle of the non-transparent border color
+ *    that's been set.
+ *    It's pretty weird how it works. Weirder still that it works.
+ *    Trust the weird CSS.
+ * 5. The border-bottom-width needs to be the same as the parent's height (but
+ *    we can't use `%`s). If the __width-wrapper height ever changes, so too
+ *    must the __cap's border-bottom-width.
+ * 6. Add padding to the spans to provide some breathing room. The first is also
+ *    given a padding-left to push out the __cap. The last is assumed to be the
+ *    "Contact Basho" entry, and so is further offset from the rest, and given
+ *    extra space away from the right side of the window.
+ */
+.banner__intra-brand__width-wrapper {
+  width  : 100%;            /* 1 */
+  height : 1.5rem;          /* 2 */
+  margin-bottom : 0.75rem;  /* 3 */
+}
+.banner__intra-brand__cap {        /* 4 */
+  border-style        : solid;
+  border-color        : transparent $gray-38 transparent transparent;
+  border-top-width    : 0px;
+  border-right-width  : 1.125rem;
+  border-bottom-width : 1.5rem;    /* 5 */
+  border-left-width   : 0px;
+}
+.banner__intra-brand {
+  background : $gray-38;
+  color      : $gray-90;
+
+  span {                     /* 6 */
+    padding-right : 1.5rem;
+  }
+  span:first-of-type {       /* 6 */
+    padding-left  : 1.5rem;
+  }
+  span:last-of-type {        /* 6 */
+    padding-left  : 1rem;
+    padding-right : 2rem;
   }
 
-  li {
-    padding   : 0  0.5rem;
+  a {
+    @include on-event {
+      color : $cyan-light;
+    }
+  }
+}
+
+
+
+/**
+ * Intra-Site navigation elements.
+ * 1. This element must be set to 100% of the __navigation-pane's width to match
+ *    the __intra-brand__width-wrapper, ensuring neither are ever side-by-side.
+ *    NB. The __navigation-pane is assumed to be an overflow element, causing it
+ *        to take up all of the banner not consumed by float'd siblings.
+ * 2. Push all children past the right side of the content-nav.
+ * 3. Add padding to the spans to provide some breathing room. The first is
+ * assumed to be the "Community" entry, and so pushes the other elements farther
+ * out to highlight. The last doesn't need a padding-right, so scrap that.
+ */
+.banner__intra-site {
+  width : 100%;           /* 1 */
+  padding-left : 4.5rem;  /* 2 */
+
+  font-size : 110%;
+  color : $gray-50;
+
+  span {                   /* 3 */
+    padding-right : 1rem;
+  }
+  span:first-of-type {     /* 3 */
+    padding-right : 2rem;
+  }
+  span:last-of-type {      /* 3 */
+    padding-right : 0;
+  }
+
+  a {
+    @include on-event {
+      color : $cyan;
+    }
   }
 }
