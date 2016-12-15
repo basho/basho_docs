@@ -80,6 +80,10 @@
     color : inherit;         /* 1, 2 */
     text-decoration : none;  /* 1 */
 
+    @include on-event {
+      text-decoration : underline;
+    }
+
     &[href^="http://"],
     &[href^="https://"],
     &[href$=".pdf"],
@@ -179,7 +183,7 @@
   @include wide-from('lg') { padding-left : p2r(92px); }  /* 2 */
 
   span {                   /* 3 */
-    padding-right : 1rem;
+    padding-right : 1.25rem;
   }
   span:last-of-type {      /* 3 */
     padding-left  : 1rem;
