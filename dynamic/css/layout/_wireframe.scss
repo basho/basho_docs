@@ -176,62 +176,56 @@ $main-z-index        : 100;
   main {
     position  : relative;      /* 1 */
     z-index   : $main-z-index; /* 1 */
-  }
 
-/**
- * Headings within the Main Article
- * POSITION & SIZE ONLY -- See _base.scss for presentation.
- * 1. We use a ::before pseudo element to insert an invisible block inside <h#>
- *    elements that will act as padding to prevent the banner from hiding text
- *    when we link to a given heading.
- *    To ensure we don't prevent interactions with statically positioned
- *    elements above a given heading, we must give all headings relative
- *    positioning and a negative z-index. We give each heading level a
- *    sequentially lower z-index s.t. higher heading levels (<h3>) aren't
- *    covered by proceeding lower levels (<h4>).
- *    NB. This does mean that two <h3>s, one immediately after the other _will
- *    still hit a z-conflict_, and the first will be (partially) obscured by
- *    the second.
- * 2. Don't render any contents, but do render the block.
- * 3. I would have like to fill the contents with a description of this trick
- *    (and explicitly set the height to 0 to prevent that description from
- *    changing the height of the pseudo element), but I'm worried screen readers
- *    would pick up that text, which would be completely useless to them.
- * 4. By setting the margin-top to be the negative of the padding-top, we will
- *    add height to the parent element without moving it relative to its
- *    original position. This is what acts as the effective padding.
- * 5. Don't include the spacer pseudo-element on "special" titles;
- *     * Front Matter <h1> title
- *     * Table of Contents title
- */
-  h1, h2, h3, h4, h5, h6 {
-    position : relative;   /* 1 */
+    /**
+     * Headings within the Main Article
+     * POSITION & SIZE ONLY -- See _base.scss for presentation.
+     * 1. We use a ::before pseudo element to insert an invisible block inside
+     *    <h#> elements that will act as padding to prevent the banner from
+     *    hiding text when we link to a given heading.
+     *    To ensure we don't prevent interactions with statically positioned
+     *    elements above a given heading, we must give all headings relative
+     *    positioning and a negative z-index. We give each heading level a
+     *    sequentially lower z-index s.t. higher heading levels (<h3>) aren't
+     *    covered by proceeding lower levels (<h4>).
+     *    NB. This does mean that two <h3>s, one immediately after the other
+     *        _will still hit a z-conflict_, and the first will be (partially)
+     *        obscured by the second.
+     * 2. Don't render any contents, but do render the block.
+     * 3. I would have like to fill the contents with a description of this
+     *    trick (and explicitly set the height to 0 to prevent that description
+     *    from changing the height of the pseudo element), but I'm worried
+     *    screen readers would pick up that text, which would be completely
+     *    useless to them.
+     * 4. By setting the margin-top to be the negative of the padding-top, we
+     *    will add height to the parent element without moving it relative to
+     *    its original position. This is what acts as the effective padding.
+     */
+    h1, h2, h3, h4, h5, h6 {
+      position : relative;   /* 1 */
 
-    &:before {             /* 1 */
-      display    : block;
-      visibility : hidden; /* 2 */
-      content    : " ";    /* 3 */
-      height     : 0;      /* 3 */
+      &:before {             /* 1 */
+        display    : block;
+        visibility : hidden; /* 2 */
+        content    : " ";    /* 3 */
+        height     : 0;      /* 3 */
 
-      margin-top    : -$article-padding-top-sm-down; /* 4 */
-      padding-top   :  $article-padding-top-sm-down; /* 4 */
+        margin-top    : -$article-padding-top-sm-down; /* 4 */
+        padding-top   :  $article-padding-top-sm-down; /* 4 */
 
-      @include wide-from(md) {
-        margin-top  : -$article-padding-top-md-up;   /* 4 */
-        padding-top :  $article-padding-top-md-up;   /* 4 */
+        @include wide-from(md) {
+          margin-top  : -$article-padding-top-md-up;   /* 4 */
+          padding-top :  $article-padding-top-md-up;   /* 4 */
+        }
       }
     }
-    &.front-matter__title:before,
-    &.table-of-contents__title:before {              /* 5 */
-      display : none;
-    }
+    h1 { z-index : -1; }     /* 1 */
+    h2 { z-index : -2; }     /* 1 */
+    h3 { z-index : -3; }     /* 1 */
+    h4 { z-index : -4; }     /* 1 */
+    h5 { z-index : -5; }     /* 1 */
+    h6 { z-index : -6; }     /* 1 */
   }
-  h1 { z-index : -1; }     /* 1 */
-  h2 { z-index : -2; }     /* 1 */
-  h3 { z-index : -3; }     /* 1 */
-  h4 { z-index : -4; }     /* 1 */
-  h5 { z-index : -5; }     /* 1 */
-  h6 { z-index : -6; }     /* 1 */
 }
 
 
