@@ -36,25 +36,15 @@ Though they share a codebase, Riak TS differs from Riak KV in a few ways. Here's
 | multi backend      | Yes     | No      |
 | MDC                | Yes     | v3 only |
 | Riak SQL           | No      | Yes     |
-| Riak security      | Yes     | No      |
+| Riak security      | Yes     | Yes     |
 | riak shell         | No      | Yes     |
-| statistics         | Yes     | No      |
-| Riak search 2.0    | Yes     | No\*    |
-| MapReduce          | Yes     | No\*    |
-| distributed data types| Yes  | No\*    |
-| pre-commit hooks   | Yes     | No\*    |
-| post-commit hooks  | Yes     | No      |
-| secondary indexes  | Yes     | No\*    |
 
 There are some additional points it is important to note:
 
 * In Riak TS, LevelDB is the only compatible backend.
 * AAE is off by default and not supported in Riak TS.
-* Riak TS does not support HTTP API security.
-* CRDTs cannot be used in Riak TS\*.
 * In Riak TS, `SELECT` does not invoke read-repair, but single key `GET` does.
 
->\* This feature is not available in a Riak TS table. However, Riak TS allows you to create KV buckets/bucket types, and in that scenario this feature may work with the KV bucket/bucket type. **IMPORTANT:** No formal testing has been completed to verify the correctness or impact of running mixed KV/TS workloads. We cannot offer guidance on best practices at this time. 
 
 ## Links
 
