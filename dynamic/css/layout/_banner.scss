@@ -177,6 +177,7 @@
   width : 100%;            /* 1 */
 
   font-size : 110%;
+  letter-spacing : 1px;
   color : $gray-60;
 
                              padding-left : p2r(76px);    /* 2 */
@@ -192,7 +193,7 @@
 
   a {
     @include on-event {
-      color : $cyan;
+      color : $gray-30;
     }
   }
 }
