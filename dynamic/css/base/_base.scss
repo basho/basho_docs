@@ -75,7 +75,7 @@ a {
   transition : color 100ms ease-in 50ms;
 
   @include on-event {
-    color : $orange-text-light;
+    color : $cyan;
     text-decoration : underline;
   }
 
@@ -137,8 +137,6 @@ a {
  * Titles and Headings
  * 1. These styles are intentionally terrible. They're here to keep us honest
  *    and not use <h1> elements unless we're overriding the defaults.
- * 2. Keep anchor :hover and :focus behavior the same as base <a>s, but leave
- *    the neutral color of the heading text the same as non-link headings.
  */
 h1 { @extend %sans-light;
      color         : red;       /* 1 */
@@ -179,11 +177,11 @@ h6 { @extend %sans;
 
 h1, h2, h3, h4, h5, h6 {
   a {
-    color : $gray-38;  /* 2 */
+    color : $gray-38;
     text-decoration : none;
 
     @include on-event {
-      text-decoration : none;
+      color : $cyan-dark;
     }
   }
 }

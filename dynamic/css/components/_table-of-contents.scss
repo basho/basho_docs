@@ -44,11 +44,12 @@
   @extend %sans;
 
   a {
-    color : $orange-dark;
+    color : $cyan-dark;
     text-decoration : none;
 
     @include on-event {
-      color : $orange;
+      color : $cyan-dark;
+      text-decoration : underline;
     }
   }
 }
