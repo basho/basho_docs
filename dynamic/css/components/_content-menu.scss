@@ -57,13 +57,6 @@
 .content-menu__link--depth-4   { padding-left : 4.00rem;   @include wide-from('md') { padding-left : 2.625rem; } }
 .content-menu__link--depth-5   { padding-left : 4.75rem;   @include wide-from('md') { padding-left : 3.125rem; } }
 
-.content-menu__item--selected {
-  .content-menu__link--depth-1 { padding-left : 1.75rem-0.4rem;   @include wide-from('md') { padding-left : 1.125rem-0.2rem; } }
-  .content-menu__link--depth-2 { padding-left : 2.50rem-0.4rem;   @include wide-from('md') { padding-left : 1.625rem-0.2rem; } }
-  .content-menu__link--depth-3 { padding-left : 3.25rem-0.4rem;   @include wide-from('md') { padding-left : 2.125rem-0.2rem; } }
-  .content-menu__link--depth-4 { padding-left : 4.00rem-0.4rem;   @include wide-from('md') { padding-left : 2.625rem-0.2rem; } }
-  .content-menu__link--depth-5 { padding-left : 4.75rem-0.4rem;   @include wide-from('md') { padding-left : 3.125rem-0.2rem; } }
-}
 
 
 /**
@@ -105,18 +98,10 @@ $menu-item-padding-top : 0.60rem;
  *    encapsulating <div>, and allowing <a>s to `inherit` the given color. This
  *    is because of a quirk of reboot.css that I couldn't find a truly clean way
  *    of resolving.
- * 3. Asymmetric margins on either side of the __item to give it an physically-
- *    overlaid feel when applying an on-selected background color and shadow.
  */
 .content-menu__item {
-  margin-left    : 0.6rem;  /* 3 */
-  margin-right   : 0.4rem;  /* 3 */
-
-  @include wide-from('md') {
-    margin-left  : 0.5rem;  /* 3 */
-    margin-right : 0.2rem;  /* 3 */
-  }
-
+  margin-left  : 0;
+  margin-right : 0;
 
   color          : $gray-50;    /* 2 */
 
@@ -143,11 +128,6 @@ $menu-item-padding-top : 0.60rem;
 
 /**
  * Currently selected Content Menu Items
- * Largely just overrides styles set in .content-menu__item and .content-nav.
- * 1. Drop the bottom of the selected item an nearly-imperceptible amount to
- *    avoid crowding the proceeding element with the newly added box-shadow.
- * 2. Stop any kind of :hover color change by resetting the <a> color to
- *    whatever is `inherit`ed.
  */
 .content-menu__item--selected {
   background : $cyan;
@@ -158,7 +138,6 @@ $menu-item-padding-top : 0.60rem;
   }
 
   box-shadow : 0  0  1rem -0.2rem $shadow-mid-color;
-  margin-bottom : 0.2rem;  /* 1 */
 
   > .content-menu__menu-toggle + a {
     border-right-color : $gray-95;
@@ -167,7 +146,7 @@ $menu-item-padding-top : 0.60rem;
 
 /**
  * Container for a docs-icon iconograph.
- * 1. Padding to the left of the iconograph. (Reduced for the --selected item.)
+ * 1. Padding to the left of the iconograph.
  * 2. Padding between the iconograph and the '|'
  * 3. Padding the the right of the '|'
  * 4. Normalize widths of the iconographs.
@@ -190,10 +169,6 @@ $menu-item-padding-top : 0.60rem;
     width         : 1.25rem; /* 4 */
     padding-right : 0.5rem;  /* 2 */
   }
-
-  @include when-inside('.content-menu__item--selected') {
-    margin-left : 0.7rem; /* 1 */
-  }
 }
 
 /**
@@ -206,9 +181,6 @@ $menu-item-padding-top : 0.60rem;
  *    margins applied to .content-menu__item (0.5rem + 0.2rem), and apply a
  *    padding-left equal to the margin-right to center the chevron.
  *    Still simple, yeah?
- * 3. When inside a selected element, we want to shift the chevron and vertical
- *    border to the left some. Accomplish this by increasing the width and
- *    decreasing the padding-left by the same amount.
  */
 .content-menu__menu-toggle {
   width        : 3.0rem;               /* 1 */
@@ -220,19 +192,9 @@ $menu-item-padding-top : 0.60rem;
 
   cursor       : pointer;
 
-  @include when-inside('.content-menu__item--selected') {
-    width        : 3.0rem+0.4rem;      /* 3 */
-    padding-left : 0.4rem-0.4rem;      /* 3 */
-  }
-
   @include wide-from('md') {
     width        : 1.85rem;            /* 2 */
     padding-left : 0.20rem;            /* 2 */
-
-    @include when-inside('.content-menu__item--selected') {
-      width        : 1.85rem+0.20rem;  /* 3 */
-      padding-left : 0.20rem-0.20rem;  /* 3 */
-    }
   }
 
 
