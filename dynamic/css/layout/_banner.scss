@@ -164,9 +164,10 @@
  *    FIXME: These values are hard-coded to push the "Community" entry s.t. it
  *           matches the content well. If we want this, come up with a better
  *           way of getting the __intra-site there. If not, get rid of this.
- * 3. Add padding to the spans to provide some breathing room. The first is
- * assumed to be the "Community" entry, and so pushes the other elements farther
- * out to highlight. The last doesn't need a padding-right, so scrap that.
+ * 3. Add padding to the spans to provide some breathing room. The last is
+ *    assumed to be the "Community" entry, so give it a padding-left to push it
+ *    farther away from the other entries. It doesn't need a padding-right
+ *    either, so scrap that.
  */
 .banner__intra-site {
   width : 100%;            /* 1 */
@@ -180,10 +181,8 @@
   span {                   /* 3 */
     padding-right : 1rem;
   }
-  span:first-of-type {     /* 3 */
-    padding-right : 2rem;
-  }
   span:last-of-type {      /* 3 */
+    padding-left  : 1rem;
     padding-right : 0;
   }
 
