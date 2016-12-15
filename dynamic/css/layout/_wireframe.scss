@@ -47,8 +47,9 @@ $content-nav-padding-bottom : 2.0rem;
 
 
 // Z-Indexes of layered elements
-$banner-z-index      : 200;
-$content-nav-z-index : 100;
+$banner-z-index      : 400;
+$content-nav-z-index : 200;
+$main-z-index        : 100;
 
 
 
@@ -166,11 +167,31 @@ $content-nav-z-index : 100;
 .main-article {
   padding : 0  0.5rem 0  0.5rem;
 
+  /**
+   * Main Content Well
+   * 1. Because some elements inside this <main> are given relative positioning
+   *    and a negative z-index, we need to give the <main> relative positioning
+   *    and a positive z-index to keep it's children above the <html>'s level.
+   */
+  main {
+    position  : relative;      /* 1 */
+    z-index   : $main-z-index; /* 1 */
+  }
+
 /**
  * Headings within the Main Article
+ * POSITION & SIZE ONLY -- See _base.scss for presentation.
  * 1. We use a ::before pseudo element to insert an invisible block inside <h#>
  *    elements that will act as padding to prevent the banner from hiding text
  *    when we link to a given heading.
+ *    To ensure we don't prevent interactions with statically positioned
+ *    elements above a given heading, we must give all headings relative
+ *    positioning and a negative z-index. We give each heading level a
+ *    sequentially lower z-index s.t. higher heading levels (<h3>) aren't
+ *    covered by proceeding lower levels (<h4>).
+ *    NB. This does mean that two <h3>s, one immediately after the other _will
+ *    still hit a z-conflict_, and the first will be (partially) obscured by
+ *    the second.
  * 2. Don't render any contents, but do render the block.
  * 3. I would have like to fill the contents with a description of this trick
  *    (and explicitly set the height to 0 to prevent that description from
@@ -184,8 +205,10 @@ $content-nav-z-index : 100;
  *     * Table of Contents title
  */
   h1, h2, h3, h4, h5, h6 {
+    position : relative;   /* 1 */
+
     &:before {             /* 1 */
-      display    : block;  /* 1 */
+      display    : block;
       visibility : hidden; /* 2 */
       content    : " ";    /* 3 */
       height     : 0;      /* 3 */
@@ -203,6 +226,12 @@ $content-nav-z-index : 100;
       display : none;
     }
   }
+  h1 { z-index : -1; }     /* 1 */
+  h2 { z-index : -2; }     /* 1 */
+  h3 { z-index : -3; }     /* 1 */
+  h4 { z-index : -4; }     /* 1 */
+  h5 { z-index : -5; }     /* 1 */
+  h6 { z-index : -6; }     /* 1 */
 }
 
 
