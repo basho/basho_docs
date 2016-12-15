@@ -42,7 +42,7 @@ Though they share a codebase, Riak TS differs from Riak KV in a few ways. Here's
 There are some additional points it is important to note:
 
 * In Riak TS, LevelDB is the only compatible backend.
-* AAE is off by default and not supported in Riak TS.
+* AAE is off by default and not currently supported in Riak TS.
 * In Riak TS, `SELECT` does not invoke read-repair, but single key `GET` does.
 
 
