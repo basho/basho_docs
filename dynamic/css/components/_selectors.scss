@@ -40,18 +40,27 @@
  *    should be considered a mins.
  */
 .selector__btn {
+  border : none;                        /* 1 */
+
   @include rounded-corners(0.25rem);
   width            : 100%;
   line-height      : 1;                 /* 2 */
   padding          : 0.5rem 0.9rem;     /* 3 */
-  background-color : $orange;
 
   @extend    %sans-bold;
-  font-size : 120%;
-  color     : $version-selector-text;
+  font-size  : 120%;
+  color      : $gray-50;
+  background : $orange-lightest;
 
-  border : none;                        /* 1 */
-  @include on-event { outline: none; }  /* 1 */
+
+  transition : color      500ms ease,
+               background 500ms ease;
+
+  @include on-event {
+    outline : none;                     /* 1 */
+    color      : $gray-40;
+    background : $orange-light;
+  }
 
   @include when-inside('.js') {
     cursor : pointer;
@@ -69,10 +78,10 @@
 
   transition : border-color 500ms ease;
 
-  @include downward-arrow(p2r(12px), $orange, $cyan-dark);
+  @include downward-arrow(p2r(12px), $orange-lightest, $cyan-dark);
 
   @include when-inside('.selector--open') {
-    @include upward-arrow(p2r(12px), $orange, $cyan-dark);
+    @include upward-arrow(p2r(12px), $orange-lightest, $cyan-dark);
    }
 }
 
