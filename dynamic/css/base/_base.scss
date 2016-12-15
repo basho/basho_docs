@@ -34,23 +34,21 @@ strong {
   font-size : 103%;
 }
 
-/* In-line code */
+/**
+ * In-line code
+ * 1. These are duplicates of the below <a> styles. They need to be duplicated
+ *    here to ensure in-line code doesn't behave strangely.
+ */
 code {
   font-family : monospace, sans;
   color       : $font-color;
   background  : $gray-90;
   @include rounded-corners(.25rem);
 
-  @include when-inside('a') {
-    transition : color 100ms ease-in 50ms;
-
-    color : $blue-dark;
-    text-decoration : underline;
-
-    @include on-event {
-      color : $orange-text-light;
-      text-decoration : underline;
-    }
+  @include when-inside('a') {          /* 1 */
+    transition : color 150ms ease-in;
+    color      : $blue-dark;
+    @include on-event { color : $orange-dark; }
   }
 }
 
@@ -66,16 +64,19 @@ code {
 
 /**
  * Color anchors
+ * NB. The colors and transition rules need to be duplicated in the above
+ *     in-line code style. :hover styles behave very strangely if the styles
+ *     aren't properly duplicated.
  */
 a {
   color : $blue-dark;
   text-decoration : underline;
   cursor : pointer;
 
-  transition : color 100ms ease-in 50ms;
+  transition : color 150ms ease-in;
 
   @include on-event {
-    color : $cyan;
+    color : $orange-dark;
     text-decoration : underline;
   }
 
@@ -182,7 +183,7 @@ h1, h2, h3, h4, h5, h6 {
     text-decoration : none;
 
     @include on-event {
-      color : $cyan-dark;
+      color : $orange-dark;
     }
   }
 }
