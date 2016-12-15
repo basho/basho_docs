@@ -293,8 +293,8 @@ $ ->
     (event) ->
       # Early outs for actions inside the .selector-pane, or repeated clicks of
       # the .selector_btn.
-      return if $(event.target).closest('.selector-pane__sizing-box').length > 0
-      return if $(event.target).hasClass('selector__btn')
+      return true if $(event.target).closest('.selector-pane__sizing-box').length > 0
+      return true if $(event.target).hasClass('selector__btn')
 
       $('.selector--open').removeClass('selector--open')
       $version_pane__sizing.addClass('selector-pane__sizing-box--hidden')
