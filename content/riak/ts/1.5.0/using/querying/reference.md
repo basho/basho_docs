@@ -10,6 +10,8 @@ menu:
 project: "riak_ts"
 project_version: "1.5.0"
 toc: true
+version_history:
+  in: "1.5.0+"
 aliases:
     - /riakts/1.5.0/using/querying/reference
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/reference"
@@ -28,7 +30,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/reference"
 [arithmetic]: /riak/ts/1.5.0/using/querying/select/arithmetic-operations/
 [aggregate]: /riak/ts/1.5.0/using/querying/select/aggregate-functions/
 
-This document lists in brief each SQL statement available in Riak TS.
+This document lists each SQL statement available in Riak TS.
 
 ## DESCRIBE
 
