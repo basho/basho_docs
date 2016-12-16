@@ -20,7 +20,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/select/ord
 
 The ORDER BY statement is used with [`SELECT`][select] to sort results by one or more columns in ascending or descending order. `ORDER BY` is useful for operations such as returning the most recent results in a set.
 
-This document shows how to run various queries using `GROUP BY`. See the [guidelines][query guidelines] for more information on limitations and rules for queries in Riak TS.
+This document shows how to run various queries using `ORDER BY`. See the [guidelines][query guidelines] for more information on limitations and rules for queries in Riak TS.
 
 
 ## Overview
