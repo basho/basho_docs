@@ -1,9 +1,9 @@
 ---
-title: "RiakSQL Reference"
+title: "SQL Reference"
 description: "Available SQL statements in Riak TS"
 menu:
   riak_ts-1.5.0:
-    name: "RiakSQL Reference"
+    name: "SQL Reference"
     identifier: "query_ref"
     weight: 90
     parent: "querying_data_riakts"
@@ -25,12 +25,10 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/reference"
 [order by]: /riak/ts/1.5.0/using/querying/select/order-by/
 [limit]: /riak/ts/1.5.0/using/querying/select/limit/
 [offset]: /riak/ts/1.5.0/using/querying/select/
+[arithmetic]: /riak/ts/1.5.0/using/querying/select/arithmetic-operations/
 [aggregate]: /riak/ts/1.5.0/using/querying/select/aggregate-functions/
 
-# SQL Reference
-
-This document lists in brief each rSQL statement, clauses, and modifiers.
-
+This document lists in brief each SQL statement available in Riak TS.
 
 ## DESCRIBE
 
@@ -100,7 +98,7 @@ See the [SHOW TABLES in Riak TS][show tables] page for more information and usag
 
 ## CREATE TABLE
 
-The CREATE TABLE statement «TODO_DESCRIPTION».
+The CREATE TABLE statement creates a table for storing records.
 
 `CREATE TABLE` has the following syntax:
 
@@ -144,7 +142,7 @@ See the [GROUP BY in Riak TS][group by] page for more information and usage exam
 
 ## ORDER BY
 
-The ORDER BY clause is used with `SELECT` «TODO_DESCRIPTION».
+The ORDER BY clause is used with `SELECT` to sort results by one or more columns in ascending or descending order.
 
 `ORDER BY` has the following syntax:
 
@@ -152,23 +150,35 @@ The ORDER BY clause is used with `SELECT` «TODO_DESCRIPTION».
 ORDER BY «column_name» [ ASC | DESC ] [ NULLS { FIRST | LAST } ] [, ...]
 ```
 
+For example:
+
+```sql
+SELECT «column_name» FROM «table_name» WHERE «column_name» = «value» ORDER BY «column_name»;
+```
+
 See the [ORDER BY in Riak TS][order by] page for more information and usage examples.
 
 ## LIMIT
 
-The LIMIT clause is used with `SELECT` «TODO_DESCRIPTION».
+The LIMIT clause is used with `SELECT` to return a limited number of results.
 
 `LIMIT` has the following syntax:
 
 ```sql
-LIMIT «integer»
+LIMIT «number_rows» [ OFFSET «offset_rows» ]
+```
+
+For example:
+
+```sql
+SELECT «column_name» FROM «table_name» WHERE «column_name» = «value» LIMIT 5;
 ```
 
 See the [LIMIT in Riak TS][limit] page for more information and usage examples.
 
 ## OFFSET
 
-The OFFSET clause is used with `SELECT` «TODO_DESCRIPTION».
+The OFFSET clause is used with `SELECT` to skip a specified number of results then return remaining results.
 
 `OFFSET` has the following syntax:
 
@@ -176,27 +186,37 @@ The OFFSET clause is used with `SELECT` «TODO_DESCRIPTION».
 OFFSET «integer»
 ```
 
+For example:
+
+```sql
+SELECT «column_name» FROM «table_name» WHERE «column_name» = «value» LIMIT 5 OFFSET 2;
+```
+
 See the [OFFSET in Riak TS][offset] page for more information and usage examples.
 
 ## NULLS FIRST
 
-The NULLS FIRST modifier is used with
+The NULLS FIRST modifier is used with `SELECT` and `ORDER BY` to sort null values before all non-null values.
 
 ```sql
+SELECT «column_name» FROM «table_name» WHERE «column_name» = «value» ORDER BY «column_name» DESC, «column_name» NULLS FIRST;
 ```
 
 ## NULLS LAST
 
-The NULLS LAST modifier is used with
+The NULLS LAST modifier is used with `SELECT` and `ORDER BY` to sort null values after all non-null values.
 
 ```sql
+SELECT «column_name» FROM «table_name» WHERE «column_name» = «value» ORDER BY «column_name» DESC, «column_name» NULLS LAST;
 ```
 
 ## Arithmetic Operations
 
+Riak TS supports arithmetic operations in SELECT statements; such as addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`). See the [Riak TS Arithmetic Operations][arithmetic] page for more information and usgae examples.
+
 ## Aggregate Functions
 
-Riak TS also supports aggregate functions:
+Riak TS also supports aggregate functions in SELECT statements:
 
 - `COUNT` - Returns the number of entries that match a specified criteria.
 - `SUM` - Returns the sum of entries that match a specified criteria.
