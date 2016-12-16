@@ -78,6 +78,20 @@
 
 
 
+/**
+ * Blank Entry
+ * The last element of the Content Menu is going to be an empty, almost
+ * height-less element that will act as a blank card to interact w/ the last
+ * populated menu entry.
+ */
+.content-menu__blank-entry {
+  margin-top    :  0.25rem;
+  height        :  1rem;
+  margin-bottom : -1rem
+}
+
+
+
 /* This padding-top value is shared among a number of elements, all of which
  * need to be pushed to the same vertical height. A similar padding-bottom
  * variable is NOT USED because setting a uniform padding-bottom across the menu
