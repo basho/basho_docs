@@ -40,34 +40,42 @@ params:
   #
   # The map should contain elements in the form,
   #
-  #    <project_name>:                          /* 1 */
-  #      path: "<path>"                         /* 2 */
+  #    <project_desc>:                          /* 1 */
+  #      project_name: "<Title Name>"           /* 2 */
+  #      path: "<path>"                         /* 3 */
   #      archived_path: "<path>"
-  #      releases:                              /* 3 */
+  #      releases:                              /* 4 */
   #        - ["<version>", "<version>", ...]
   #        - ["<version>", "<version>", ...]
-  #      latest:        "<version>"             /* 4 */
+  #      latest:        "<version>"             /* 5 */
   #      lts:           "<version>"
-  #      archived_url:  "<URI>"                 /* 5 */
+  #      archived_url:  "<URI>"                 /* 6 */
   #
-  # 1. The project name must match some contents' `project:` front matter
-  # 2. The `path` is the on-disk relative path from the content root. In Hugo,
+  # 1. The project descriptor must match some contents' `project:` front matter.
+  #    This should be all lowercase with underscores for spaces---code, really.
+  # 2. A reader-friendly project name. Spaces and caps are welcome. ex; if the
+  #    `project_desc` is `riak_kv`, the `project_name` should be `"Riak KV"`.  
+  #    NB. Currently the areas that this title is used are spatially small. As
+  #    such the titles should be kept below ~12 characters. "DataPlatform" is
+  #    the text these elements were sized with.
+  # 3. The `path` is the on-disk relative path from the content root. In Hugo,
   #    the content root is '/content/', on S3 the root is simply '/'.
   #    If the project was moved from the Middleman site to Hugo, the
   #    `archived_path` is the on-disk relative path of the previous directory.
   #    TODO: `archived_path` should probably be optional. I don't believe it
   #           currently is.
-  # 3. The `releases` list-of-lists is organized oldest to newest, grouped by
+  # 4. The `releases` list-of-lists is organized oldest to newest, grouped by
   #    release set (ex. the 2.0.* series is one list, followed b the 2.1.*
   #    series).
-  # 4. `latest` and `lts` versions are the current head-of-development and long-
+  # 5. `latest` and `lts` versions are the current head-of-development and long-
   #    term-support releases respectively. `lts` is optional.
   #    TODO: These should probably be release sets, not a specific version.
-  # 5. If the project was moved from the Middleman site to Hugo, the
+  # 6. If the project was moved from the Middleman site to Hugo, the
   #    `archived_url` is the URL to the newest deprecated page.
   #    This option is optional.
   project_descriptions:
     riak_kv:
+      project_name: "Riak KV"
       path: "/riak/kv"
       archived_path: "/riak"
       releases:
@@ -77,6 +85,7 @@ params:
       lts: "2.0.7"
       archived_url: "http://docs.basho.com/riak/1.4.12/"
     riak_cs:
+      project_name: "Riak CS"
       path: "/riak/cs"
       archived_path: "/riakcs"
       releases:
@@ -86,6 +95,7 @@ params:
       lts: "2.0.1"
       archived_url: "http://docs.basho.com/riakcs/1.5.4/"
     riak_ts:
+      project_name: "Riak TS"
       path: "/riak/ts"
       archived_path: "/riakts"
       latest: "1.4.0"
@@ -97,6 +107,7 @@ params:
         - ["1.4.0"]
       archived_path: "riakts"
     dataplatform:
+      project_name: "DataPlatform"
       path: "/dataplatform"
       archived_path: "/dataplatform"
       latest: "1.0.0"

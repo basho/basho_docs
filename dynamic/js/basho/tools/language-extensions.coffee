@@ -12,7 +12,7 @@ Like it says on the tin, the below extend (hopefully in a small way) JS
 
 
 
-# ```padNumber :: (Num, Num, ?Char) -> Str```
+## padNumber :: (Num, Num, ?Char) -> Str
 # Convert any number to a string of at least length `len`, conditionally
 # prefixed with `char` characters.
 # This function was heavily inspired by
@@ -27,6 +27,26 @@ window.padNumber = (number, len, char = '0') ->
   zeroString = '-' + zeroString                           if ( number < 0  )
 
   return (zeroString + n)
+
+
+
+## rem :: (?Num) -> Num
+# Return the current rem size in pixels, or the length of `n` rems in pixels.
+#TODO: I should probably not be using JQuery here.
+window.rem = (n = 1) ->
+  n * parseInt($('html').css('font-size'))
+
+## <Number>.rem :: () -> Num
+# Convert Number rems into pixels.
+Number::rem = () ->
+  this * parseInt($('html').css('font-size'))
+
+
+
+## <String>.toInt :: () -> Num
+# Pass the given string through parseInt().
+String::toInt = () ->
+  parseInt(this)
 
 
 
@@ -46,9 +66,23 @@ $.fn.extend({
 
 
 
-# This Throttle function was taken from the underscore 1.8.3 code. It was
-# modified to use `Date.now()` rather than `_.now()`, but is otherwise as
-# written by the Underscore team.
+# This function was taken from the Underscore.js 1.8.3 library.
+# https://github.com/jashkenas/underscore/blob/1.8.3/underscore.js#L763-L770
+#
+# Delays a function for the given number of milliseconds, and then calls
+# it with the arguments supplied.
+window.delay = `function(func, wait) {
+  var args = Array.prototype.slice.call(arguments, 2);
+  return setTimeout(function(){
+    return func.apply(null, args);
+  }, wait);
+};`
+
+
+
+# This function was taken from the Underscore.js 1.8.3 library. It was modified
+# to use `Date.now()` rather than `_.now()`, but is otherwise as  written by the
+# Underscore team.
 # https://github.com/jashkenas/underscore/blob/1.8.3/underscore.js#L776-L811
 #
 # Returns a function, that, when invoked, will only be triggered at most once
@@ -84,6 +118,49 @@ window.throttle = `function(func, wait, options) {
     } else if (!timeout && options.trailing !== false) {
       timeout = setTimeout(later, remaining);
     }
+    return result;
+  };
+};`
+
+
+
+# This function was taken from the Underscore.js 1.8.3 library. It was modified
+# to use `Date.now()` rather than `_.now()`, but is otherwise as  written by the
+# Underscore team.
+# https://github.com/jashkenas/underscore/blob/1.8.3/underscore.js#L813-L847
+#
+# Returns a function, that, as long as it continues to be invoked, will not
+# be triggered. The function will be called after it stops being called for
+# N milliseconds. If `immediate` is passed, trigger the function on the
+# leading edge, instead of the trailing.
+window.debounce = `function(func, wait, immediate) {
+  var timeout, args, context, timestamp, result;
+
+  var later = function() {
+    var last = Date.now() - timestamp;
+
+    if (last < wait && last >= 0) {
+      timeout = setTimeout(later, wait - last);
+    } else {
+      timeout = null;
+      if (!immediate) {
+        result = func.apply(context, args);
+        if (!timeout) context = args = null;
+      }
+    }
+  };
+
+  return function() {
+    context = this;
+    args = arguments;
+    timestamp = Date.now();
+    var callNow = immediate && !timeout;
+    if (!timeout) timeout = setTimeout(later, wait);
+    if (callNow) {
+      result = func.apply(context, args);
+      context = args = null;
+    }
+
     return result;
   };
 };`

@@ -1,0 +1,414 @@
+/**
+ * Wrapper around the Selectors.
+ */
+.selectors {
+  margin : 0.75rem 2rem 0.25rem 2rem;
+
+  @include wide-from('md') {
+    margin-left  : 0.25rem;
+    margin-right : 0.25rem;
+  }
+}
+
+
+
+/**
+ * Selector; Title
+ * 1. Setting line-height to 1 lets us exactly control the offsets and sizing.
+ * 2. Poor-man's kerning. The `V` of VERSIONS looked like it was extending past
+ *    the left edge of the button. Not actually the case, but it looks better now.
+ */
+.selector__title {
+  @extend         %sans;
+  font-size      : 60%;
+  letter-spacing : p2r(2px);
+  text-transform : uppercase;
+  text-align     : left;
+
+  line-height    : 1;         /* 1 */
+  margin-bottom  : 0.3rem;
+
+  padding-left   : p2r(1px);  /* 2 */
+}
+
+/**
+ * Selector; Button
+ * 1. Clear the default Button styles to flatten the element.
+ * 2. Setting line-height to 1 lets us exactly control the offsets and size of
+ *    the button element.
+ * 3. X-padding will likely be ignored in favor of the total width, so these
+ *    should be considered a mins.
+ */
+.selector__btn {
+  border : none;                        /* 1 */
+
+  @include rounded-corners(0.25rem);
+  width            : 100%;
+  line-height      : 1;                 /* 2 */
+  padding          : 0.5rem 0.9rem;     /* 3 */
+
+  @extend    %sans-bold;
+  font-size  : 120%;
+  color      : $gray-50;
+  background : $orange-lightest;
+
+
+  transition : color      500ms ease,
+               background 500ms ease;
+
+  @include on-event {
+    outline : none;                     /* 1 */
+    color      : $gray-40;
+    background : $orange-light;
+  }
+
+  @include when-inside('.js') {
+    cursor : pointer;
+  }
+}
+
+/**
+ * Selector; Downward Arrow
+ * An example of the vertical-arrow mixin; downward-facing orange arrow used to
+ * indicate a drop-down menu.
+ */
+.selector__arrow {
+  position : relative;
+  margin   : 0 0.2rem 0 auto;
+
+  transition : border-color 500ms ease;
+
+  @include downward-arrow(p2r(12px), $orange-lightest, $cyan-dark);
+
+  @include when-inside('.selector--open') {
+    @include upward-arrow(p2r(12px), $orange-lightest, $cyan-dark);
+   }
+}
+
+
+
+/**
+ * Selector Pane sizing, shadow, and primary elements
+ * 1. PLACEHOLDER -- This will be overridden in JS to accommodate the tallest
+ *    inner element, plus padding.
+ * 2. PLACEHOLDER -- This will be overridden in JS to ensure the sizing box
+ *    never grows past the bottom of the window.
+ * 3. In sm-down displays, the width of the parent .content-nav will be the full
+ *    width of the screen, so we can set `width: 100%` to ensure pane never
+ *    grows past the right of the window.
+ * 4. In md-up displays, there is nothing keeping the pane from growing wider
+ *    than the window. If we ever display so many releases that the pane gets to
+ *    that point, we'll need to add something to trigger horizontal scrolling.
+ * 5. Apply a padding-left and padding-right to the selector-pane s.t.
+ *    horizontal scrolling doesn't prematurely lose .sector-lists, and add a
+ *    padding-top and padding-bottom to .selector-lists s.t. vertical scrolling
+ *    doesn't prematurely lose .selector-list__elements.
+ * 6. Set whitespace to nowrap s.t. newlines are not allowed to be injected in
+ *    between .inline-block child elements.
+ * 7. I'm not sure why, but whenever this element has children there's about
+ *    4px of vertical scrolling (maybe I missed some whitespace somewhere?),
+ *    even when the children are locked in at `height: 100%`. Explicitly setting
+ *    vertical overflow to `hidden` is the forcible workaround, and prevents the
+ *    vertical scrollbar from appearing.
+ */
+.selector-pane__sizing-box {
+  position   : absolute;
+  top        : $fixed-top-height-full-sm-down + ($fixed-top-padding-sm-down / 2);
+
+  height     : 0;                                     /* 1 */
+  max-height : 0;                                     /* 2 */
+
+  width      : 100%;                                  /* 3 */
+
+  z-index    : 100;
+
+  transition : height     500ms ease,
+               max-height 500ms ease;
+
+  @include wide-from('md') {
+    left  : 0.25rem;
+    top   : $fixed-top-height-full-md-up - 0.35rem;
+    width : auto;                                     /* 4 */
+  }
+  @include wide-from('lg') {
+    left  : 0.45rem;
+    top   : $fixed-top-height-full-md-up;
+  }
+}
+.selector-pane__shadow-box {
+  height     : 100%;
+  box-shadow : -0.25rem -0.25rem 2rem -0.25rem $shadow-color;
+}
+.selector-pane__primary {
+  height : 100%;
+
+  background : $gray-warm-92;
+  color      : $version-selector-text;
+  font-size  : 105%;
+
+  padding-left  : 1rem;                               /* 5 */
+  padding-right : 1rem;                               /* 5 */
+
+  white-space : nowrap;                               /* 6 */
+
+  overflow-y  : hidden;                               /* 7 */
+}
+
+
+
+
+/**
+ * Selector List
+ * We wrap each .selector-list inside a __sizing-box s.t. top and bottom Edge
+ * Faders can be rendered safely.
+ * We wrap each .selector-list inside a __scroll-box s.t. the whitespace between
+ * lists isn't wasted, and the scroll-bars use that space to full (or, at least,
+ * any) effect.
+ * 1. Set height of the __scroll-box to 100% (to the height of the
+ *    .selector-pane minus padding) to ensure all lists are aligned to the top
+ *    of the parent, and to allow vertical scrolling per list. This also allows
+ *    the actual lists to be as tall as their children require -- good for later
+ *    introspection in JS.
+ * 2. Apply a padding-left and padding-right to the .selector-pane s.t.
+ *    horizontal scrolling doesn't prematurely lose .sector-lists, and add a
+ *    padding-top and padding-bottom to .selector-lists s.t. vertical scrolling
+ *    doesn't prematurely lose .selector-list__elements.
+ * 3. Add both padding-left and padding-right to ensure that the box-shadows of
+ *    child elements (the .selector-lists) have room to render correctly. Give a
+ *    negative margin-left to prevent the padding from affecting the positioning
+ *    of the series elements. Provide a negative margin-right on the last series
+ *    in the pane to avoid over-scrolling in the .selector-pane.
+ * 4. Clear default list styles.
+ */
+.selector-list__sizing-box {
+  position : relative;
+  height : 100%;
+}
+.selector-list__scroll-box {
+  height      : 100%;                       /* 1 */
+  padding     : 1rem 0.75rem 1rem 0.75rem;  /* 2, 3 */
+  margin-left : -0.75rem;                   /* 3 */
+
+  @include when-inside('.selector-list__sizing-box:last-of-type') {
+    margin-right : -0.75rem;                /* 3 */
+  }
+}
+.selector-list {
+  margin     : 0;     /* 4 */
+  padding    : 0;     /* 4 */
+  list-style : none;  /* 4 */
+
+  box-shadow : -0.125rem -0.125rem 1rem -0.2rem $shadow-color;
+}
+
+
+
+/**
+ * Selector list Elements
+ * 1. Not actually a desired style. This will (hopefully) motivate us to clean
+ *    up any background styles that aren't overridden in the below Per-Version
+ *    Background Colors section.
+ * 2. Width is locked (mostly; some elements will be > 3.5rem), so the
+ *    padding-left and padding-right value are more of a fall-back.
+ */
+.selector-list__element {
+  background  : rgba(255,0,0,0.7);       /* 1 */
+  color       : $version-selector-text;
+  text-align  : center;
+
+  border-top : p2r(1px) solid $gray-85;
+
+  transition  : background 400ms ease;
+
+  a {
+    @extend %sans-bold;
+    min-width : 3.5rem;                  /* 2 */
+    padding   : 0.6rem 0.6rem;           /* 2 */
+    color           : inherit;
+    text-decoration : none;
+  }
+}
+
+/**
+ * Selector list Elements -- Top- and Bottom-most Elements
+ */
+.selector-list__element--opening {
+  @include rounded-corner(top, left, 0.15rem);
+  @include rounded-corner(top, right, 0.15rem);
+  border-top : none;
+}
+.selector-list__element--closing {
+  @include rounded-corner(bottom, left, 0.15rem);
+  @include rounded-corner(bottom, right, 0.15rem);
+}
+
+/**
+ * Selector list Elements -- Per-Version Background Colors
+ */
+.selector-list__element--1 {          background : $version-color-1;
+  &.selector-list__element--current { background : $version-color-1-light; }
+  @include on-event                 { background : $version-color-1-light; }
+}
+.selector-list__element--2 {          background : $version-color-2;
+  &.selector-list__element--current { background : $version-color-2-light; }
+  @include on-event                 { background : $version-color-2-light; }
+}
+.selector-list__element--3 {          background : $version-color-3;
+  &.selector-list__element--current { background : $version-color-3-light; }
+  @include on-event                 { background : $version-color-3-light; }
+}
+.selector-list__element--4 {          background : $version-color-4;
+  &.selector-list__element--current { background : $version-color-4-light; }
+  @include on-event                 { background : $version-color-4-light; }
+}
+.selector-list__element--5 {          background : $version-color-5;
+  &.selector-list__element--current { background : $version-color-5-light; }
+  @include on-event                 { background : $version-color-5-light; }
+}
+.selector-list__element--6 {          background : $version-color-6;
+  &.selector-list__element--current { background : $version-color-6-light; }
+  @include on-event                 { background : $version-color-6-light; }
+}
+
+/**
+ * Selector list Elements -- Archived and Disabled Colors
+ */
+.selector-list__element--archived {
+  color      : $version-selector-text-dark;
+  background : $version-color-inactive;
+  @include on-event {
+    color      : $version-selector-text;
+    background : $version-color-inactive-dark;
+  }
+}
+.selector-list__element--disabled {
+  background : $version-color-inactive;
+  border-top : p2r(1px) solid lighten($gray-85, 12%);
+  color      : $version-selector-text-dark;
+}
+
+/**
+ * Selector list Elements -- Current and Disabled Anchor Behavior
+ */
+.selector-list__element--current  a,
+.selector-list__element--disabled a {
+  pointer-events : none;    /* FIXME: Not IE9 compliant. */
+  cursor         : default;
+}
+
+
+
+/**
+ * Edge Fader Style Overrides
+ * ==========================
+ */
+
+/**
+ * Left and Right Edge Faders
+ * Children of the .selector-pane__shadow-box element
+ * 1. Edge Faders use ems -- local font size -- to determine the size of the
+ *    arrows. We want these to be on the small size, so set font-size on the
+ *    Edge Fader accordingly.
+ * 2. Use max-height to guarantee that the edge faders never have a positive
+ *    height when the parent .selector-pane elements are --hidden (set to
+ *    height: 0).
+ * 3. Set top and a translateY to guarantee the Edge Faders are correctly
+ *    vertically mid-aligned.
+ * 4. Bump the z-index s.t. .selector-lists don't cover the arrows.
+ * 5. Override Edge Fader background gradient / filter colors.
+ * 6. Set the --inactive arrows to be transparent, rather than the 'disabled'
+ *    cyan-lightest that does not play nicely with the $gray-warm-92 background.
+ */
+.selector-pane__shadow-box {
+  .edge-fader--left {
+    font-size : 0.8rem;                                               /* 1 */
+
+    width       : 0.75rem;
+    margin-left : 0.1rem;
+    height      : 1.25rem;
+    max-height  : 100%;                                               /* 2 */
+
+    top       : 50%;                                                  /* 3 */
+    transform : translateY(-50%);                                     /* 3 */
+
+    z-index : 1;                                                      /* 4 */
+
+    background : transparent;                                         /* 5 */
+    filter     : none;                                                /* 5 */
+
+    .edge-fader__arrow--inactive {
+      @include leftward-arrow(1em, transparent, $translateY: -50%);   /* 6 */
+    }
+  }
+  .edge-fader--right {
+    font-size : 0.8rem;                                               /* 1 */
+
+    width        : 0.75rem;
+    margin-right : 0.1rem;
+    height       : 1.25rem;
+    max-height   : 100%;                                              /* 2 */
+
+    top       : 50%;                                                  /* 3 */
+    transform : translateY(-50%);                                     /* 3 */
+
+    z-index : 1;                                                      /* 4 */
+
+    background : transparent;                                         /* 5 */
+    filter     : none;                                                /* 5 */
+
+    .edge-fader__arrow--inactive {
+      @include rightward-arrow(1em, transparent, $translateY: -50%);  /* 6 */
+    }
+  }
+}
+
+/**
+ * Top and Bottom Edge Faders
+ * Children of the .selector-list__sizing-box elements
+ * 1. Edge Faders use ems -- local font size -- to determine the size of the
+ *    arrows. We want these to be on the small size, so set font-size on the
+ *    Edge Fader accordingly.
+ * 2. These elements aren't centered; rather they're both locked to the top of
+ *    the list, and next to one another. The bottom arrow is the one that will
+ *    be visible first, so set its top and left to 0. The top arrow should be to
+ *    the right of the bottom, so set it's top to 0 and left positive.
+ * 3. Override Edge Fader background gradient / filter colors.
+ * 4. Set the --inactive arrows to be transparent, rather than the 'disabled'
+ *    cyan-lightest that does not play nicely with the $gray-warm-92 background.
+ */
+.selector-list__sizing-box {
+  .edge-fader--top {
+    font-size : 0.8rem;                                              /* 1 */
+    top       : 0;                                                   /* 2 */
+    left      : 0.8rem;                                              /* 2 */
+
+    width      : 1.25rem;
+    height     : 0.75rem;
+    margin-top : 0.1rem;
+    max-height : 100%;
+
+    background : transparent;                                        /* 3 */
+    filter     : none;                                               /* 3 */
+
+    .edge-fader__arrow--inactive {
+      @include upward-arrow(1em, transparent, $translateX: -50%);    /* 4 */
+    }
+  }
+  .edge-fader--bottom {
+    font-size : 0.8rem;                                              /* 1 */
+    top       : 0;                                                   /* 2 */
+    left      : 0;                                                   /* 2 */
+
+    width      : 1.25rem;
+    height     : 0.75rem;
+    margin-top : 0.1rem;
+    max-height : 100%;
+
+    background : transparent;                                        /* 3 */
+    filter     : none;                                               /* 3 */
+
+    .edge-fader__arrow--inactive {
+      @include downward-arrow(1em, transparent, $translateX: -50%);  /* 4 */
+    }
+  }
+}
