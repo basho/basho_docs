@@ -156,7 +156,7 @@ object.size.maximum = 500K
 
 Root path for leveldb instances backing node-local query buffers.
 
-For queries with an `ORDER BY` clause and/or `LIMIT` or `OFFSET` keywords, a separate, slower, code path will be used, whereby data collected from vnodes will be stored in a temporary *query buffers*. Each query buffer is a disk-backed leveldb table, created as a subdirectory under ` which will be deleted after the query is served.
+For queries with an `ORDER BY` clause and/or `LIMIT` or `OFFSET` keywords, a separate, slower, code path will be used, whereby data collected from vnodes will be stored in a temporary *query buffers*. Each query buffer is a disk-backed leveldb table, created as a subdirectory under `riak_kv.query.timeseries.qbuf_root_path` which will be deleted after the query is served.
 
 {{% note %}}
 1. Placing it on a fast media, such as a dedicated SSD or a RAM-based disk such as `/tmp`, is recommended.
