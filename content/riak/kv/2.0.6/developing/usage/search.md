@@ -30,9 +30,12 @@ to properly store and later query for values.
    (this also includes bucket type-index association)
 
 {{% note %}}
-Riak search requires active anti-entropy (AAE) to be enabled in your
-cluster.  AAE helps to ensure that the data is consistent between the
-Riak backends and the Solr indexes.  More information is in the 
+Riak search uses active anti-entropy (AAE) to ensure that the data is 
+consistent between the Riak backends and the Solr indexes.  When using 
+Riak search, you should not disable AAE without understanding the risks 
+of divergence between the data in the Riak backends and the Solr indexes 
+and how that can impact your application. More information about how 
+Riak search uses AAE is in the 
 [Riak search reference](../../../using/reference/search/#active-anti-entropy-aae).
 {{% /note %}}
 
