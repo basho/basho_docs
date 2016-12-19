@@ -15,7 +15,7 @@ aliases:
   - /riak/kv/2.0.5/dev/references/http/store-search-index
 ---
 
-Creates a new Riak Search [index](/riak/kv/2.0.5/developing/usage/search/#simple-setup).
+Creates a new Riak search [index](/riak/kv/2.0.5/developing/usage/search/#simple-setup).
 
 ## Request
 

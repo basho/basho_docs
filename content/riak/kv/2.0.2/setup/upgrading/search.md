@@ -16,7 +16,7 @@ version_history:
 
 If you're using Search in a version of Riak prior to 2.0 (1.3.0 to
 1.4.x), you should follow these steps to migrate your search indexes
-from the legacy `merge_index` to the new Solr-backed ([Yokozuna](../../../using/reference/search) indexes. The legacy version of Riak Search is now deprecated
+from the legacy `merge_index` to the new Solr-backed ([Yokozuna](../../../using/reference/search) indexes. The legacy version of Riak search is now deprecated
 and does not support most new 2.0 features, i.e. no [Riak Data Types](../../../developing/data-types), [bucket types](../../../using/reference/bucket-types), [strong consistency](../../../using/reference/strong-consistency), or [security](../../../using/security/)), so we highly recommend that you migrate.
 
 And please note that the legacy `merge_index`-based search (aka legacy
@@ -32,7 +32,7 @@ these steps at a time when your cluster is relatively light on traffic,
 i.e. _not_ the week before Christmas.
 
 The main goal of a live migration is to stand up indexes in the new Riak
-Search that parallel the existing ones in legacy. New writes add entries
+search that parallel the existing ones in legacy. New writes add entries
 to both indexes while AAE adds entries in the new indexes for existing
 data.
 
@@ -72,7 +72,7 @@ algorithm is bad at getting rid of large index files.
 ## Steps to Upgrading
 
 1.  First, you'll perform a normal [rolling upgrade](../cluster).
-    As you upgrade, enable `yokozuna` (the new Riak Search library) on
+    As you upgrade, enable `yokozuna` (the new Riak search library) on
     each node. If you're still using `app.config` it's called `yokozuna`.
     If you've chosen to upgrade to the new `riak.conf` config option, it's
     called `search`.
@@ -220,7 +220,7 @@ have occurred on every node.
     node you know that AAE has brought all new indexes up to date.
 
 7. Next, call the following command that will give HTTP and PB query
-control to the new Riak Search.
+control to the new Riak search.
 
     ```curl
     riak-admin search switch-to-new-search
@@ -244,7 +244,7 @@ buckets. This deactivates legacy Search.
       -d '{"props":{"search": false}}'
     ```
 
-9. Disable the Riak Search process on each node by setting `riak_search`
+9. Disable the Riak search process on each node by setting `riak_search`
 `enabled` to `false`.
 
     ```appconfig

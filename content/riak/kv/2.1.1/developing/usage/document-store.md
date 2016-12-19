@@ -16,18 +16,18 @@ aliases:
 ---
 
 Although Riak wasn't explicitly created as a document store, two
-features recently added to Riak---[Riak Search](/riak/kv/2.1.1/developing/usage/search/) and [Riak Data Types](/riak/kv/2.1.1/developing/data-types/)---make it possible to use Riak as a
+features recently added to Riak---[Riak search](/riak/kv/2.1.1/developing/usage/search/) and [Riak Data Types](/riak/kv/2.1.1/developing/data-types/)---make it possible to use Riak as a
 highly scalable document store with rich querying capabilities. In this
 tutorial, we'll build a basic implementation of a document store using
 [Riak maps](/riak/kv/2.1.1/developing/data-types/maps).
 
 ## Basic Approach
 
-Riak Search enables you to implement a document store in Riak in a
+Riak search enables you to implement a document store in Riak in a
 variety of ways. You could, for example, store and query JSON objects or
 XML and then retrieve them later via Solr queries. In this tutorial,
 however, we will store data in [Riak maps](/riak/kv/2.1.1/developing/data-types/maps),
-index that data using Riak Search, and then run Solr queries against
+index that data using Riak search, and then run Solr queries against
 those stored objects.
 
 You can think of these Search indexes as **collections**. Each indexed
@@ -65,7 +65,7 @@ Date posted | Register | Datetime
 Whether the post is currently in draft form | Flag | Boolean
 
 Before we start actually creating and storing blog posts, let's set up
-Riak Search with an appropriate index and schema.
+Riak search with an appropriate index and schema.
 
 ## Creating a Schema and Index
 
@@ -209,7 +209,7 @@ curl -XPUT $RIAK_HOST/search/index/blog_posts \
 
 Collections are not a concept that is native to Riak but we can easily
 mimic collections by thinking of a bucket type as a collection. When we
-associate a bucket type with a Riak Search index, all of the objects
+associate a bucket type with a Riak search index, all of the objects
 stored in any bucket of that bucket type will be queryable on the basis
 of that one index. For this tutorial, we'll create a bucket type called
 `cms` and think of that as a collection. We could also restrict our

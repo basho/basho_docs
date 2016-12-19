@@ -19,21 +19,21 @@ aliases:
 
 > **Note on Search 2.0 vs. Legacy Search**
 >
-> This document refers to the new Riak Search 2.0 with
+> This document refers to the new Riak search 2.0 with
 [Solr](http://lucene.apache.org/solr/) integration (codenamed
-Yokozuna). For information about the deprecated Riak Search, visit [the old Using Riak Search docs](http://docs.basho.com/riak/1.4.10/dev/using/search/).
+Yokozuna). For information about the deprecated Riak search, visit [the old Using Riak search docs](http://docs.basho.com/riak/1.4.10/dev/using/search/).
 
-Riak Search is built for ease of use, allowing you to write values into
-Riak and query for values using Solr. Riak Search does a lot of work
+Riak search is built for ease of use, allowing you to write values into
+Riak and query for values using Solr. Riak search does a lot of work
 under the hood to convert your values---plain text, JSON, XML, [Riak Data Types](/riak/kv/2.0.7/developing/data-types/), and [more](/riak/kv/2.0.7/developing/usage/custom-extractors)---into something that can be indexed and searched later.
 Nonetheless, you must still instruct Riak/Solr how to index a value. Are
 you providing and array of strings? An integer? A date? Is your text in
-English or Russian? You can provide such instructions to Riak Search by
+English or Russian? You can provide such instructions to Riak search by
 defining a Solr **schema**.
 
 ## The Default Schema
 
-Riak Search comes bundled with a default schema named `_yz_default`. The
+Riak search comes bundled with a default schema named `_yz_default`. The
 default schema covers a wide range of possible field types. You can find
 the default schema [on GitHub](https://raw.github.com/basho/yokozuna/develop/priv/default_schema.xml).
 While using the default schema provides an easy path to starting
@@ -47,7 +47,7 @@ amounts of disk space, so pay special attention to those indexes.
 We'll show you how you can create custom schemas by way of example.
 Let's say that you have already created a schema named `cartoons` in a
 file named `cartoons.xml`. This would register the custom schema in Riak
-Search:
+search:
 
 ```java
 import org.apache.commons.io.FileUtils;
@@ -123,11 +123,11 @@ curl -XPUT http://localhost:8098/search/schema/cartoons \
 
 The first step in creating a custom schema is to define exactly what
 fields you must index. Part of that step is understanding how Riak
-Search extractors function.
+search extractors function.
 
 ### Extractors
 
-In Riak Search, extractors are modules responsible for pulling out a
+In Riak search, extractors are modules responsible for pulling out a
 list of fields and values from a Riak object. How this is achieved
 depends on the object's content type, but the two common cases are JSON
 and XML, which operate similarly. Our examples here will use JSON.
@@ -175,21 +175,21 @@ Solr schemas can be very complex, containing many types and analyzers.
 Refer to the [Solr 4.7 reference
 guide](http://archive.apache.org/dist/lucene/solr/ref-guide/apache-solr-ref-guide-4.7.pdf)
 for a complete list. You should be aware, however, that there are a few
-fields that are required by Riak Search in order to properly distribute
+fields that are required by Riak search in order to properly distribute
 an object across a [cluster][concept clusters]. These fields are all prefixed
 with `_yz`, which stands for
 [Yokozuna](https://github.com/basho/yokozuna), the original code name
-for Riak Search.
+for Riak search.
 
 Below is a bare minimum skeleton Solr Schema. It won't do much for you
-other than allow Riak Search to properly manage your stored objects.
+other than allow Riak search to properly manage your stored objects.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <schema name="schedule" version="1.5">
  <fields>
 
-   <!-- All of these fields are required by Riak Search -->
+   <!-- All of these fields are required by Riak search -->
    <field name="_yz_id"   type="_yz_str" indexed="true" stored="true"  multiValued="false" required="true"/>
    <field name="_yz_ed"   type="_yz_str" indexed="true" stored="false" multiValued="false"/>
    <field name="_yz_pn"   type="_yz_str" indexed="true" stored="false" multiValued="false"/>
@@ -210,14 +210,14 @@ other than allow Riak Search to properly manage your stored objects.
 </schema>
 ```
 
-If you're missing any of the above fields, Riak Search will reject your
+If you're missing any of the above fields, Riak search will reject your
 custom schema. The value for `<uniqueKey>` _must_ be `_yz_id`.
 
 In the table below, you'll find a description of the various required
 fields. You'll rarely need to use any fields other than `_yz_rt` (bucket
 type), `_yz_rb` (bucket) and `_yz_rk` (Riak key). On occasion, `_yz_err`
 can be helpful if you suspect that your extractors are failing.
-Malformed JSON or XML will cause Riak Search to index a key and set
+Malformed JSON or XML will cause Riak search to index a key and set
 `_yz_err` to 1, allowing you to reindex with proper values later.
 
 Field   | Name | Description
@@ -262,7 +262,7 @@ field, you also must set `multiValued` to `true`.
    <dynamicField name="*_es" type="text_es" indexed="true" stored="true" multiValued="true" />
    <dynamicField name="*_fr" type="text_fr" indexed="true" stored="true" multiValued="true" />
 
-   <!-- All of these fields are required by Riak Search -->
+   <!-- All of these fields are required by Riak search -->
    <field name="_yz_id"   type="_yz_str" indexed="true" stored="true"  multiValued="false" required="true"/>
    <field name="_yz_ed"   type="_yz_str" indexed="true" stored="false" multiValued="false"/>
    <field name="_yz_pn"   type="_yz_str" indexed="true" stored="false" multiValued="false"/>

@@ -1343,7 +1343,7 @@ Configurable parameters for intra-cluster, i.e. inter-node, [handoff][cluster op
 <tr>
 <td><code>handoff.max_rejects</code></td>
 <td>The maximum number of times that a secondary system within Riak,
-such as <a href="../../developing/usage/search">Riak Search</a>, can block <a href="../../using/cluster-operations/handoff">handoff</a>
+such as <a href="../../developing/usage/search">Riak search</a>, can block <a href="../../using/cluster-operations/handoff">handoff</a>
 of primary key/value data. The approximate maximum duration that a vnode
 can be blocked can be determined by multiplying this setting by
 <code>vnode_management_timer</code>. If you want to prevent handoff from
@@ -1587,7 +1587,7 @@ if the JMX server crashes.</td>
 
 > **Please Note:**
 >
-> Riak KV's strong consistency is an experimental feature and may be removed from the product in the future. Strong consistency is not commercially supported or production-ready. Strong consistency is incompatible with Multi-Datacenter Replication, Riak Search, Bitcask Expiration, LevelDB Secondary Indexes, Riak Data Types and Commit Hooks. We do not recommend its usage in any production environment.
+> Riak KV's strong consistency is an experimental feature and may be removed from the product in the future. Strong consistency is not commercially supported or production-ready. Strong consistency is incompatible with Multi-Datacenter Replication, Riak search, Bitcask Expiration, LevelDB Secondary Indexes, Riak Data Types and Commit Hooks. We do not recommend its usage in any production environment.
 
 Riak's strong consistency feature has a variety of tunable parameters
 that allow you to enable and disable strong consistency, modify the
@@ -2010,7 +2010,7 @@ only in Riak Enterprise 2.0 and later.</td>
 
 #### Upgrading Riak Search with `advanced.config`
 
-If you are upgrading to Riak 2.x and wish to upgrade to the new [Riak Search][use ref search]\(codename Yokozuna), you will need to enable
+If you are upgrading to Riak 2.x and wish to upgrade to the new [Riak search][use ref search]\(codename Yokozuna), you will need to enable
 legacy Search while the upgrade is underway. You can add the following
 snippet to your `advanced.config` configuration to do so:
 

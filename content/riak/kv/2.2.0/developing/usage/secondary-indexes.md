@@ -19,12 +19,12 @@ aliases:
 [plan backend memory]: /riak/kv/2.2.0/setup/planning/backend/memory
 [use ref strong consistency]: /riak/kv/2.2.0/using/reference/strong-consistency
 
-> **Note: Riak Search preferred for querying**
+> **Note: Riak search preferred for querying**
 >
 > If you're interested in non-primary-key-based querying in Riak, i.e. if
 you're looking to go beyond straightforward K/V operations, we now
-recommend [Riak Search](/riak/kv/2.2.0/developing/usage/search/) rather than secondary indexes for
-a variety of reasons. Most importantly, Riak Search has a far more
+recommend [Riak search](/riak/kv/2.2.0/developing/usage/search/) rather than secondary indexes for
+a variety of reasons. Most importantly, Riak search has a far more
 capacious querying API and can be used with all of Riak's storage
 backends.
 
@@ -37,7 +37,7 @@ Secondary indexes can be either a binary or string, such as
 `sensor_1_data` or `admin_user` or `click_event`, or an integer, such as
 `99` or `141121`.
 
-[Riak Search](/riak/kv/2.2.0/developing/usage/search/) serves analogous purposes but is quite
+[Riak search](/riak/kv/2.2.0/developing/usage/search/) serves analogous purposes but is quite
 different because it parses key/value data itself and builds indexes on
 the basis of Solr schemas.
 
@@ -75,7 +75,7 @@ you to discover them later. Indexing enables you to tag those objects
 and find all objects with the same tag in a specified bucket later on.
 
 2i is thus recommended when your use case requires an easy-to-use search
-mechanism that does not require a schema (as does [Riak Search](/riak/kv/2.2.0/using/reference/search/#schemas)) and a basic query interface, i.e. an interface that
+mechanism that does not require a schema (as does [Riak search](/riak/kv/2.2.0/using/reference/search/#schemas)) and a basic query interface, i.e. an interface that
 enables an application to tell Riak things like "fetch all objects
 tagged with the string `Milwaukee_Bucks`" or "fetch all objects tagged
 with numbers between 1500 and 1509."
@@ -89,7 +89,7 @@ piggybacks off of read-repair.
 * If your ring size exceeds 512 partitions, 2i can cause performance
   issues in large clusters.
 * When you need more than the exact match and range searches that 2i
-  supports. If that's the case, we recommend checking out [Riak Search](/riak/kv/2.2.0/developing/usage/search/).
+  supports. If that's the case, we recommend checking out [Riak search](/riak/kv/2.2.0/developing/usage/search/).
 * When you want to use composite queries. A query like
   `last_name=zezeski AND state=MD` would have to be split into two
   queries and the results merged (or it would need to involve

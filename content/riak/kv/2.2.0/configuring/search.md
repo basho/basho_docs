@@ -26,12 +26,12 @@ aliases:
 [security index]: /riak/kv/2.2.0/using/security/
 
 
-This page covers how to use Riak Search (with
+This page covers how to use Riak search (with
 [Solr](http://lucene.apache.org/solr/) integration). 
 
 For a simple reference of the available configs and their defaults, see the [configuration reference][config reference#search].
 
-If you are looking to develop on or with Riak Search, take a look at:
+If you are looking to develop on or with Riak search, take a look at:
 
 * [Using Search][usage search]
 * [Search Schema][usage search schema]
@@ -43,7 +43,7 @@ If you are looking to develop on or with Riak Search, take a look at:
 We'll be walking through:
 
 1. [Prequisites](#prerequisites)
-2. [Enable Riak Search](#enabling-riak-search)
+2. [Enable Riak search](#enabling-riak-search)
 3. [Search Configuration Settings](#search-config-settings)
 4. [Additional Solr Information](#more-on-solr)
 
@@ -60,7 +60,7 @@ page](http://www.oracle.com/technetwork/java/javase/documentation/index.html).
 
 ## Enabling Riak Search
 
-Riak Search is not enabled by default, so you must enable it in every
+Riak search is not enabled by default, so you must enable it in every
 node's [configuration file][config reference] as follows:
 
 ```riak.conf
@@ -70,7 +70,7 @@ search = on
 
 ## Search Config Settings
 
-You will find all the Riak Search configuration settings in riak.conf. Setting `search` to `on` is required, but other search settings are optional. A handy reference list of these parameters can be found in our [configuration files][config reference#search] documentation.
+You will find all the Riak search configuration settings in riak.conf. Setting `search` to `on` is required, but other search settings are optional. A handy reference list of these parameters can be found in our [configuration files][config reference#search] documentation.
 
 ### `search`
 
@@ -80,7 +80,7 @@ Valid values:  `on` or `off`
 
 ### `search.anti_entropy.data_dir`
 
-The directory in which Riak Search stores files related to [active anti-entropy][glossary aae]; defaults to `./data/yz_anti_entropy`.
+The directory in which Riak search stores files related to [active anti-entropy][glossary aae]; defaults to `./data/yz_anti_entropy`.
 
 Valid values: a directory
 
@@ -198,7 +198,7 @@ Valid valus: Integer
 
 The queue high water mark; defaults to `1000`. 
 
-If the total number of queued messages in a Solrq worker instance exceed this limit, then the calling vnode will be blocked until the total number falls below this limit. This parameter exercises flow control between Riak KV and the Riak Search batching subsystem, if writes into Solr start to fall behind.
+If the total number of queued messages in a Solrq worker instance exceed this limit, then the calling vnode will be blocked until the total number falls below this limit. This parameter exercises flow control between Riak KV and the Riak search batching subsystem, if writes into Solr start to fall behind.
 
 Valid values: Integer
 
@@ -250,7 +250,7 @@ Valid values: Integer with time units (e.g. 2m)
 ## More on Solr
 ### Solr JVM and Ports
 
-Riak Search runs one Solr process per node to manage its indexing and
+Riak search runs one Solr process per node to manage its indexing and
 search functionality. While the underlying project manages
 index distribution, node coverage for queries, active anti-entropy
 (AAE), and JVM process management, you should provide plenty of RAM and diskspace for running both Riak and the JVM running Solr. We recommend a minimum of 6GB of RAM per node.

@@ -44,7 +44,7 @@ curl -XPUT http://localhost:8098/search/schema/my_custom_schema \
 
 * `400 Bad Request` --- The schema cannot be created because there is
     something wrong with the schema itself, e.g. an XML formatting error
-    that makes Riak Search unable to parse the schema
+    that makes Riak search unable to parse the schema
 * `409 Conflict` --- The schema cannot be created because there is
     already a schema with that name
 * `503 Service Unavailable` --- The request timed out internally

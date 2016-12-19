@@ -25,7 +25,7 @@ aliases:
 [security index]: /riak/kv/2.0.7/using/security/
 
 
-This document covers how to use the Riak Search (with
+This document covers how to use the Riak search (with
 [Solr](http://lucene.apache.org/solr/) integration) subsystem from an
 operational perspective. 
 
@@ -43,7 +43,7 @@ If you are looking developer-focused docs, we recommend the following:
 We'll be walking through:
 
 1. [Prequisites][#prerequisites]
-2. [Enable Riak Search][#enabling-riak-search]
+2. [Enable Riak search][#enabling-riak-search]
 3. [Riak.conf Configuration Settings][#riak-config-settings]
 4. [Additional Solr Information][#more-on-solr]
 
@@ -61,7 +61,7 @@ page](http://www.oracle.com/technetwork/java/javase/documentation/index.html).
 
 ## Enabling Riak Search
 
-Riak Search is not enabled by default, so you must enable it in every
+Riak search is not enabled by default, so you must enable it in every
 node's [configuration file][config reference] as follows:
 
 ```riak.conf
@@ -78,7 +78,7 @@ optional. A list of these parameters can also be found in our
 Field | Default | Valid values | Description
 :-----|:--------|:-------------|:-----------
 `search` | `off` | `on` or `off` | Enable or disable Search
-`search.anti_entropy.data_dir` | `./data/yz_anti_entropy` | Directory | The directory in which Riak Search stores files related to [active anti-entropy][glossary aae]
+`search.anti_entropy.data_dir` | `./data/yz_anti_entropy` | Directory | The directory in which Riak search stores files related to [active anti-entropy][glossary aae]
 `search.root_dir` | `./data/yz` | Directory | The root directory in which index data and configuration is stored
 `search.solr.start_timeout` | `30s` | Integer with time units (eg. 2m) | How long Riak will wait for Solr to start (attempts twice before shutdown). Values lower than 1s will be rounded up to 1s.
 `search.solr.port` | `8093` | Integer | The port number to which Solr binds (note: binds on every interface)
@@ -87,7 +87,7 @@ Field | Default | Valid values | Description
 `search.queue.batch.minimum` | `1` | Integer | The minimum batch size, in number of Riak objects. Any batches that are smaller than this amount will not be immediately flushed to Solr, but are guaranteed to be flushed within the `search.queue.batch.flush_interval`.
 `search.queue.batch.maximum`| `100` | Integer | The maximim batch size, in number of Riak objects. Any batches that are larger than this amount will be split, where the first `search.queue.batch.maximum` objects will be flushed to Solr and the remaining objects enqueued for that index will be retained until the next batch is delivered. This parameter ensures that at most `search.queue.batch.maximum` objects will be delivered into Solr in any given request.
 `search.queue.batch.flush_interval` | `1000` | `ms`, `s`, `m`, `h` | The maximum delay between notification to flush batches to Solr. This setting is used to increase or decrease the frequency of batch delivery into Solr, specifically for relatively low-volume input into Riak. This setting ensures that data will be delivered into Solr in accordance with the `search.queue.batch.minimum` and `search.queue.batch.maximum` settings within the specified interval. Batches that are smaller than `search.queue.batch.minimum` will be delivered to Solr within this interval. This setting will generally have no effect on heavily loaded systems. You may use any time unit; the default is in milliseconds.
-`search.queue.high_watermark` | `10000` | Integer | The queue high water mark. If the total number of queued messages in a Solrq worker instance exceed this limit, then the calling vnode will be blocked until the total number falls below this limit. This parameter exercises flow control between Riak and the Riak Search batching subsystem, if writes into Solr start to fall behind.
+`search.queue.high_watermark` | `10000` | Integer | The queue high water mark. If the total number of queued messages in a Solrq worker instance exceed this limit, then the calling vnode will be blocked until the total number falls below this limit. This parameter exercises flow control between Riak and the Riak search batching subsystem, if writes into Solr start to fall behind.
 `search.queue.worker_count` | `10` | Integer | The number of Solr queue workers to instantiate. Solr queue workers are responsible for enqueing objects for insertion or update into Solr. Increasing the number of Solrq workers distributes the queuing of objects and can lead to greater throughput under high load, potentially at the expense of smaller batch sizes.
 `search.queue.helper_count` | `10` | Integer | The number of Solr queue helpers to instantiate. Solr queue helpers are responsible for delivering batches of data into Solr. Increasing the number of Solrq helpers will increase concurrent writes into Solr.
 `search.index.error_threshold.failure_count` | `3` | Integer | The number of failures encountered while updating a search index within `search.queue.error_threshold.failure_interval` before Riak will skip updates to that index.
@@ -99,7 +99,7 @@ Field | Default | Valid values | Description
 ## More on Solr
 ### Solr JVM and Ports
 
-Riak Search runs one Solr process per node to manage its indexing and
+Riak search runs one Solr process per node to manage its indexing and
 search functionality. While the underlying project manages
 index distribution, node coverage for queries, active anti-entropy
 (AAE), and JVM process management, you should provide plenty of RAM and diskspace for running both Riak and the JVM running Solr. We recommend a minimum of 6GB of RAM per node.

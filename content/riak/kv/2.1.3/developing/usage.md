@@ -108,7 +108,7 @@ Tutorial on using Riak KV as a document store.
 
 #### [Custom Extractors](./custom-extractors)
 
-Details on creating and registering custom extractors with Riak Search.
+Details on creating and registering custom extractors with Riak search.
 
 [Learn More >>](./custom-extractors)
 

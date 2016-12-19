@@ -63,7 +63,7 @@ Riak TS is compatible with the following operating systems:
 ## Known Issues
 
 * AAE must be turned off.
-* Riak Search is not supported.
+* Riak search is not supported.
 * Multi-Datacenter Replication is not supported.
 * When deleting, a PUT occurs to write the tombstone, then a GET reaps the tombstone. Since PUT and GET are asynchronous, it is possible for the GET to occur before the PUT resulting in the data not actually being deleted.  If this occurs, issue the DELETE again.
 * It is possible to write incorrect data (data that does not match the schema) into rows other than the first row. For instance, it is possible to input an integer for 'double'. In these cases, the write will succeed but any READ or query that includes the incorrect row will fail.

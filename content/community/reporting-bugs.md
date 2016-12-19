@@ -34,7 +34,7 @@ filing, please attempt do the following:
     * [Riak issues](https://github.com/basho/riak/issues)
     * [Riak Core issues](https://github.com/basho/riak_core/issues)
     * [Riak KV issues](https://github.com/basho/riak_kv/issues)
-    * [Riak Search issues](https://github.com/basho/riak_search/issues)
+    * [Riak search issues](https://github.com/basho/riak_search/issues)
     * [Bitcask issues](https://github.com/basho/bitcask/issues)
     * [eLevelDB issues](https://github.com/basho/eleveldb/issues)
 * Search the [Riak Mailing List Archives](http://riak.markmail.org/) for

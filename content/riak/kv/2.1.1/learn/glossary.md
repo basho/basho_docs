@@ -275,7 +275,7 @@ best described as "UNIX pipes for Riak."
 
 ## Riak Search
 
-Riak Search is a distributed, scalable, failure-tolerant, realtime,
+Riak search is a distributed, scalable, failure-tolerant, realtime,
 full-text search engine integrating [Apache
 Solr](https://lucene.apache.org/solr/) with Riak KV.
 

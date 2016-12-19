@@ -56,5 +56,5 @@ Riak TS is compatible with the following operating systems:
 * Negation of an aggregate function returns an error. You can use negation by structuring any aggregate you'd like to negate as follows: `-1*COUNT(...)`.
 * Rolling upgrades are not supported.
 * AAE must be turned off.
-* Riak Search is not supported.
+* Riak search is not supported.
 * Multi-Datacenter Replication is not supported.

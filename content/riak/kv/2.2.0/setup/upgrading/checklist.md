@@ -88,7 +88,7 @@ We've compiled these considerations and questions into separate categories for y
     place if `allow_mult` is set to `true`?
   - Have you carefully weighed the [consistency trade-offs][concept eventual consistency] that must be made if `allow_mult` is set to `false`?
   - Are all of your [apps replication properties][apps replication properties] configured correctly and uniformly across the cluster?
-  - If you are using [Riak Search][usage search], is it enabled on all
+  - If you are using [Riak search][usage search], is it enabled on all
     nodes? If you are not, has it been disabled on all nodes?
   - If you are using [strong consistency][concept strong consistency] for some or all of your
     data:

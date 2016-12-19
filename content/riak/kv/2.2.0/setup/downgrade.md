@@ -31,7 +31,7 @@ For every node in the cluster:
 1. Stop Riak KV.
 2. Back up Riak's `etc` and `data` directories.
 3. Downgrade the Riak KV.
-4. Remove Riak Search index and temporary data.
+4. Remove Riak search index and temporary data.
 5. Reconfigure Solr cores.
 6. Start Riak KV and disable Riak search.
 7. Monitor the reindex of the data.
@@ -47,7 +47,7 @@ For every node in the cluster:
 
 | Feature | automatic | required | Notes |
 |:---|:---:|:---:|:---|
-|Migration to Solr 4.10.4 |✔ | ✔| Applies to all clusters using Riak Search.
+|Migration to Solr 4.10.4 |✔ | ✔| Applies to all clusters using Riak search.
 | Active Anti-Entropy file format changes | ✔ |  | Can be opted out using a [capability](#aae_tree_capability)
 
  
@@ -65,7 +65,7 @@ While the cluster contains mixed version members, if you have not set the cluste
 This is benign and similar to the `not_built` and `already_locked` errors which can be seen during normal AAE operation. These events will stop once the downgrade is complete.
 {{% /note %}}
 
-### Stop Riak KV and remove Riak search index & temporary data
+### Stop Riak KV and remove Riak Search index & temporary data
 
 1\. Stop Riak KV:
 
@@ -133,7 +133,7 @@ riak-admin wait-for-service yokozuna
   
 8\. Run `riak attach`.
 
-  1. Run the following snippet to prevent this node from participating in distributed Riak Search queries:
+  1. Run the following snippet to prevent this node from participating in distributed Riak search queries:
 
     ```
     riak_core_node_watcher:service_down(yokozuna).

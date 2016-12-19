@@ -14,8 +14,8 @@ aliases:
   - /riak/2.0.2/dev/search/custom-extractors
 ---
 
-Solr, and by extension Riak Search, has default extractors for a wide
-variety of data types, including JSON, XML, and plaintext. Riak Search
+Solr, and by extension Riak search, has default extractors for a wide
+variety of data types, including JSON, XML, and plaintext. Riak search
 ships with the following extractors:
 
 Content Type | Erlang Module
@@ -29,7 +29,7 @@ No specified type | `yz_noop_extractor`
 There are also built-in extractors for [Riak Data Types](/riak/kv/2.0.2/developing/usage/searching-data-types).
 
 If you're working with a data format that does not have a default Solr
-extractor, you can create your own and register it with Riak Search.
+extractor, you can create your own and register it with Riak search.
 We'll show you how to do so by way of example.
 
 ## The Extractor Interface
@@ -194,7 +194,7 @@ extractor has been successfully registered.
 
 ## Verifying Our Custom Extractor
 
-Now that Riak Search knows how to decode and extract HTTP header packet
+Now that Riak search knows how to decode and extract HTTP header packet
 data, let's store some in Riak and then query it. We'll put the example
 packet data from above in a `google_packet.bin` file. Then, we'll `PUT`
 that binary to Riak's `/search/extract` endpoint:

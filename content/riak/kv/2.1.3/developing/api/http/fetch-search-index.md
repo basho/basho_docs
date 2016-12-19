@@ -15,7 +15,7 @@ aliases:
   - /riak/kv/2.1.3/dev/references/http/fetch-search-index
 ---
 
-Retrieves information about a Riak Search [index](/riak/kv/2.1.3/developing/usage/search/#simple-setup).
+Retrieves information about a Riak search [index](/riak/kv/2.1.3/developing/usage/search/#simple-setup).
 
 ## Request
 

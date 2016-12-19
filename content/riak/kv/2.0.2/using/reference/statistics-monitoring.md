@@ -133,7 +133,7 @@ Metric | Also | Notes
 :------|:-----|:------------------
 ```node_get_fsm_siblings_mean``` | ```_median```, ```_95```, ```_99```, ```_100``` | Number of siblings encountered during all GET operations by this node within the last minute. Watch for abnormally high sibling counts, especially max ones.
 ```node_get_fsm_objsize_mean``` | ```_median```, ```_95```, ```_99```, ```_100``` | Object size encountered by this node within the last minute. Abnormally large objects (especially paired with high sibling counts) can indicate sibling explosion.
-```riak_search_vnodeq_mean``` | ```_median```, ```_95```, ```_99```, ```_100``` | Number of unprocessed messages in the vnode message queues of the Riak Search subsystem on this node in the last minute. The queues give you an idea of how backed up Solr is getting.
+```riak_search_vnodeq_mean``` | ```_median```, ```_95```, ```_99```, ```_100``` | Number of unprocessed messages in the vnode message queues of the Riak search subsystem on this node in the last minute. The queues give you an idea of how backed up Solr is getting.
 ```search_index_fail_one``` | | Number of "Failed to index document" errors Search encountered for the last minute
 ```pbc_active``` | | Number of currently active protocol buffer connections
 ```pbc_connects``` | | Number of new protocol buffer connections established during the last minute

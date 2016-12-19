@@ -154,7 +154,7 @@ document.
 
 ### Search 2 (Yokozuna)
 
-The brand new and completely re-architected Riak Search, codenamed
+The brand new and completely re-architected Riak search, codenamed
 Yokozuna, [kept its own release
 notes](https://github.com/basho/yokozuna/blob/develop/docs/RELEASE_NOTES.md)
 while it was being developed. Please read there for the most relevant
@@ -311,8 +311,8 @@ be found in the **Termination Notices** section below.
 * JavaScript MapReduce is deprecated; we have expanded our
   [Erlang MapReduce](http://docs.basho.com/riak/2.0.0/dev/advanced/mapreduce/)
   documentation to assist with the transition.
-* Riak Search 1.0 is being phased out in favor of the new Solr-based
-  [Riak Search 2.0](http://docs.basho.com/riak/2.0.0/dev/advanced/search/).
+* Riak search 1.0 is being phased out in favor of the new Solr-based
+  [Riak search 2.0](http://docs.basho.com/riak/2.0.0/dev/advanced/search/).
   Version 1.0 will not work if security is enabled.
 * v2 replication (a component of Riak Enterprise) has been superseded
   by v3 and will be removed in the future.
@@ -394,7 +394,7 @@ list below.
 * [**riak_auth_mods** -  Security authentication modules for Riak](https://github.com/basho/riak_auth_mods)
 * [**riak_dt** -  Convergent replicated datatypes (CRDTs) in Erlang](https://github.com/basho/riak_dt)
 * [**riak_ensemble** -  Multi-Paxos framework in Erlang](https://github.com/basho/riak_ensemble)
-* [**Yokozuna** -  Riak Search 2, Riak + Solr](https://github.com/basho/yokozuna)
+* [**Yokozuna** -  Riak search 2, Riak + Solr](https://github.com/basho/yokozuna)
 
 #### Merged PRs
 
@@ -1063,7 +1063,7 @@ list below.
 * riak_search/154: [Fix search tests](https://github.com/basho/riak_search/pull/154)
 * riak_search/156: [Don't start riak_search is security is enabled](https://github.com/basho/riak_search/pull/156)
 * riak_search/158: [Allow search to start if security is enabled, just disable its APIs](https://github.com/basho/riak_search/pull/158)
-* riak_search/160: [Add deprecation notice on Riak Search startup](https://github.com/basho/riak_search/pull/160)
+* riak_search/160: [Add deprecation notice on Riak search startup](https://github.com/basho/riak_search/pull/160)
 * riak_snmp/10: [fix unit tests for Erlang R16B01](https://github.com/basho/riak_snmp/pull/10)
 * riak_snmp/11: [look for mib_dir in riak_snmp not riak](https://github.com/basho/riak_snmp/pull/11)
 * riak_snmp/12: [fix "make clean" and .gitignore](https://github.com/basho/riak_snmp/pull/12)

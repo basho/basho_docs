@@ -44,7 +44,7 @@ AAE trees are versioned, so if you choose to enable the 2.2.0 AAE improvements, 
 
 
 ## Downgrading
-### Riak search users
+### Riak Search users
 
 
 The upgrade to Solr 4.10.4 causes new data written to the cluster to be written in a format that is incompatible with earlier versions of Solr (and, therefore, earlier versions of Riak KV). The [Upgrade](/riak/kv/2.2.0/setup/upgrading/version/) and [Downgrade](/riak/kv/2.2.0/setup/downgrade/) documentation describes the steps you will need to take to reindex your data in a rolling fashion. Be aware this can make downgrades take a very long time, but will minimize exposure of the downgrading nodes to applications that utilize the Riak search feature.

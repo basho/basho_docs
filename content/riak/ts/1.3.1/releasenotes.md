@@ -111,6 +111,6 @@ Riak TS is compatible with the following:
 ### Known Issues
 
 * AAE must be turned off.
-* Riak Search is not supported for TS data.
+* Riak search is not supported for TS data.
 * HTTP API security is not supported. Security checks are included in the code path, but the permissions are not registered with riak_core, so enabling security means disabling any TS functionality. [[code](https://github.com/basho/riak_kv/blob/riak_ts-develop/src/riak_kv_app.erl#L214-L215)]
 * Quanta with a '0' or negative integers are not supported and will cause errors.

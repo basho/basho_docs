@@ -116,6 +116,6 @@ Riak TS is compatible with the following operating systems:
 ## Known Issues
 
 * AAE must be turned off.
-* Riak Search is not supported.
+* Riak search is not supported.
 * Multi-Datacenter Replication is not supported.
 * Arithmetic operations and aggregates cannot currently be combined.

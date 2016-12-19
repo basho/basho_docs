@@ -44,7 +44,7 @@ when turning on Riak security. Missing one of these steps will almost
 certainly break your application, so make sure that you have done each
 of the following **before** enabling security:
 
-1. Make certain that the original Riak Search (version 1) and link
+1. Make certain that the original Riak search (version 1) and link
    walking are not required. Enabling security will break this
    functionality. If you wish to use security and Search together, you
    will need to use the [new Search feature](/riak/kv/2.0.4/developing/usage/search/).
@@ -487,11 +487,11 @@ Permission | Operation
 ### Search Query Permission (Riak Search version 1)
 
 Security is incompatible with the original (and now deprecated) Riak
-Search. Riak Search version 1 will stop working if security is enabled.
+search. Riak search version 1 will stop working if security is enabled.
 
 ### Search Query Permissions (Riak Search version 2, aka Yokozuna)
 
-If you are using the new Riak Search, i.e. the Solr-compatible search
+If you are using the new Riak search, i.e. the Solr-compatible search
 capabilities included with Riak versions 2.0 and greater, the following
 search-related permissions can be granted/revoked:
 
@@ -508,8 +508,8 @@ disabled, you will get the following error:
 >
 > `{error,{unknown_permission,"search.query"}}`
 >
-> More information on Riak Search and how to enable it can be found in the
-[Riak Search Settings](/riak/kv/2.0.4/configuring/search/) document.
+> More information on Riak search and how to enable it can be found in the
+[Riak search Settings](/riak/kv/2.0.4/configuring/search/) document.
 
 #### Usage Examples
 

@@ -15,7 +15,7 @@ aliases:
   - /riak/kv/2.0.7/dev/references/http/delete-search-index
 ---
 
-Deletes a Riak Search index.
+Deletes a Riak search index.
 
 ## Request
 

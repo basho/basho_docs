@@ -36,7 +36,7 @@ was built with those features in mind. There are official
 
 While we strongly recommend using the newest versions of these clients,
 older versions will still work with Riak 2.0, with the drawback that
-those older clients will not able to take advantage of [new features](/riak/kv/2.0.7/introduction) like [data types](/riak/kv/2.0.7/developing/data-types) or the new [Riak Search](/riak/kv/2.0.7/using/reference/search).
+those older clients will not able to take advantage of [new features](/riak/kv/2.0.7/introduction) like [data types](/riak/kv/2.0.7/developing/data-types) or the new [Riak search](/riak/kv/2.0.7/using/reference/search).
 
 ## Bucket Types
 
@@ -140,7 +140,7 @@ If you decide to upgrade to version 2.0, you can still downgrade your
 cluster to an earlier version of Riak if you wish, _unless_ you perform
 one of the following actions in your cluster:
 
-* Index data to be used in conjunction with the new [Riak Search](/riak/kv/2.0.7/using/reference/search).
+* Index data to be used in conjunction with the new [Riak search](/riak/kv/2.0.7/using/reference/search).
 * Create _and_ activate one or more [bucket types](/riak/kv/2.0.7/using/reference/bucket-types/). By extension, you will not be able to downgrade your cluster if you have used the following features, both of which rely on bucket types:
     - [Strong consistency](/riak/kv/2.0.7/using/reference/strong-consistency)
     - [Riak Data Types](/riak/kv/2.0.7/developing/data-types)
@@ -208,7 +208,7 @@ default to a value of `15`, which can cause problems in some clusters.
 
 ## Upgrading Search
 
-Information on upgrading Riak Search to 2.0 can be found in our
+Information on upgrading Riak search to 2.0 can be found in our
 [Search upgrade guide](/riak/kv/2.0.7/setup/upgrading/search).
 
 ## Migrating from Short Names

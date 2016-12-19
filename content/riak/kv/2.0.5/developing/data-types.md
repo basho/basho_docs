@@ -259,7 +259,7 @@ All the examples use the bucket type names from above (`counters`, `sets`, and `
 
 Riak data types can be searched like any other object, but with the
 added benefit that your data type is indexed as a different type by Solr,
-the search platform behind Riak Search.
+the search platform behind Riak search.
 
 In our Search documentation we offer a [full tutorial](../usage/searching-data-types) as well as a variety of [examples](../usage/search/#data-types-and-search-examples), including code
 samples from each of our official client libraries.

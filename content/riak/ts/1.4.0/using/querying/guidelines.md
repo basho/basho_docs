@@ -136,7 +136,7 @@ The following operators are supported for each data type:
 
 * Column to column comparisons are not currently supported.
 * Secondary indexing (2i) will not work with Riak TS.
-* Riak Search will not work with Riak TS.
+* Riak search will not work with Riak TS.
 * Queries are limited by the number of quanta they can span when specifying the time limits.
 
 

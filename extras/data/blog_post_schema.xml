@@ -9,7 +9,7 @@
     <field name="date_register"    type="datetime" indexed="true" stored="true" />
     <field name="published_flag"   type="boolean"  indexed="true" stored="true" />
 
-    <!-- The default fields, all of which are required for Riak Search -->
+    <!-- The default fields, all of which are required for Riak search -->
     <field name="_yz_id"   type="_yz_str" indexed="true" stored="true"  multiValued="false" required="true"/>
     <field name="_yz_ed"   type="_yz_str" indexed="true" stored="false" multiValued="false"/>
     <field name="_yz_pn"   type="_yz_str" indexed="true" stored="false" multiValued="false"/>

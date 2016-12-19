@@ -26,9 +26,9 @@ aliases:
 
 > **Note on Search 2.0 vs. Legacy Search**
 >
-> This document refers to the new Riak Search 2.0 with
+> This document refers to the new Riak search 2.0 with
 [Solr](http://lucene.apache.org/solr/) integration (codenamed
-Yokozuna). For information about the deprecated Riak Search, visit [the old Riak Search Settings](http://docs.basho.com/riak/1.4.8/ops/advanced/configs/search/).
+Yokozuna). For information about the deprecated Riak search, visit [the old Riak search Settings](http://docs.basho.com/riak/1.4.8/ops/advanced/configs/search/).
 
 This document covers Riak's Search subsystem from an
 operational perspective. If you are looking for more developer-focused
@@ -41,7 +41,7 @@ docs, we recommend the following:
 
 ## Enabling Riak Search
 
-Although Riak Search is integrated into Riak and requires no special
+Although Riak search is integrated into Riak and requires no special
 installation, it is not enabled by default.  You must enable it in every
 node's [configuration files][config reference] as follows:
 
@@ -68,7 +68,7 @@ optional. A list of these parameters can also be found in our
 Field | Default | Valid values | Description
 :-----|:--------|:-------------|:-----------
 `search` | `off` | `on` or `off` | Enable or disable Search
-`search.anti_entropy.data_dir` | `./data/yz_anti_entropy` | Directory | The directory in which Riak Search stores files related to [active anti-entropy][glossary aae]
+`search.anti_entropy.data_dir` | `./data/yz_anti_entropy` | Directory | The directory in which Riak search stores files related to [active anti-entropy][glossary aae]
 `search.root_dir` | `./data/yz` | Directory | The root directory in which index data and configuration is stored
 `search.solr.start_timeout` | `30s` | Integer with time units (eg. 2m) | How long Riak will wait for Solr to start (attempts twice before shutdown). Values lower than 1s will be rounded up to 1s.
 `search.solr.port` | `8093` | Integer | The port number to which Solr binds (note: binds on every interface)
@@ -81,7 +81,7 @@ cause Solr to require more time to start.
 
 ## Solr JVM and Ports
 
-Riak Search runs one Solr process per node to manage its indexing and
+Riak search runs one Solr process per node to manage its indexing and
 search functionality. While the underlying project, Yokozuna, manages
 index distribution, node coverage for queries, active anti-entropy
 (AAE), and JVM process management, you should provide plenty of RAM and diskspace for running both Riak and the JVM running Solr. We recommend a minimum of 6GB of RAM per node.

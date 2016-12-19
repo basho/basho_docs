@@ -18,14 +18,14 @@ aliases:
 
 > **Note on Search 2.0 vs. Legacy Search**
 >
-> This document refers to the new Riak Search 2.0 with
+> This document refers to the new Riak search 2.0 with
 [Solr](http://lucene.apache.org/solr/) integration (codenamed
-Yokozuna). For information about the deprecated Riak Search, visit [the old Using Riak Search docs](http://docs.basho.com/riak/1.4.10/dev/using/search/).
+Yokozuna). For information about the deprecated Riak search, visit [the old Using Riak search docs](http://docs.basho.com/riak/1.4.10/dev/using/search/).
 
-The project that implements Riak Search is codenamed Yokozuna. This is a
+The project that implements Riak search is codenamed Yokozuna. This is a
 more detailed overview of the concepts and reasons behind the design of
 Yokozuna, for those interested. If you're simply looking to use Riak
-Search, you should check out the [Using Search](/riak/kv/2.0.2/developing/usage/search) document.
+search, you should check out the [Using Search](/riak/kv/2.0.2/developing/usage/search) document.
 
 ![Yokozuna](/images/yokozuna.png)
 
@@ -34,30 +34,30 @@ Search, you should check out the [Using Search](/riak/kv/2.0.2/developing/usage/
 In Erlang OTP, an "application" is a group of modules and Erlang
 processes which together perform a specific task. The word application
 is confusing because most people think of an application as an entire
-program such as Emacs or Photoshop. But Riak Search is just a sub-system
+program such as Emacs or Photoshop. But Riak search is just a sub-system
 in Riak itself. Erlang applications are often stand-alone, but Riak
-Search is more like an appendage of Riak. It requires other subsystems
+search is more like an appendage of Riak. It requires other subsystems
 like Riak Core and KV, but also extends their functionality by providing
 search capabilities for KV data.
 
-The purpose of Riak Search is to bring more sophisticated and robust
+The purpose of Riak search is to bring more sophisticated and robust
 query and search support to Riak. Many people consider Lucene and
 programs built on top of it, such as Solr, as the standard for
 open-source search. There are many successful applications built on
 Lucene/Solr, and it sets the standard for the feature set that
 developers and users expect.  Meanwhile, Riak has a great story as a
-highly-available, distributed key/value store. Riak Search takes
+highly-available, distributed key/value store. Riak search takes
 advantage of the fact that Riak already knows how to do the distributed
 bits, combining its feature set with that of Solr, taking advantage of
 the strengths of each.
 
-Riak Search is a mediator between Riak and Solr. There is nothing
+Riak search is a mediator between Riak and Solr. There is nothing
 stopping a user from deploying these two programs separately, but this
 would leave the user responsible for the glue between them. That glue
 can be tricky to write. It requires dealing with monitoring, querying,
 indexing, and dissemination of information.
 
-Unlike Solr by itself, Riak Search knows how to do all of the following:
+Unlike Solr by itself, Riak search knows how to do all of the following:
 
 * Listen for changes in key/value (KV) data and to make the appropriate
   changes to indexes that live in Solr. It also knows how to take a user
@@ -74,13 +74,13 @@ system (OS) process running a JVM which hosts Solr on the Jetty
 application server. This OS process is a child of the Erlang OS process
 running Riak.
 
-Riak Search has a `gen_server` process which monitors the JVM OS
+Riak search has a `gen_server` process which monitors the JVM OS
 process. The code for this server is in `yz_solr_proc`. When the JVM
 process crashes, this server crashes, causing its supervisor to restart
 it.
 
 If there is more than 1 restart in 45 seconds, the entire Riak node will
-be shut down. If Riak Search is enabled and Solr cannot function for
+be shut down. If Riak search is enabled and Solr cannot function for
 some reason, the Riak node needs to go down so that the user will notice
 and take corrective action.
 
@@ -90,7 +90,7 @@ This double monitoring along with the crash semantics means that neither
 process may exist without the other. They are either both up or both
 down.
 
-All other communication between Riak Search and Solr is performed via
+All other communication between Riak search and Solr is performed via
 HTTP, including querying, indexing, and administration commands.  The
 ibrowse Erlang HTTP client is used to manage these communications as
 both it and the Jetty container hosting Solr pool HTTP connections,
@@ -104,11 +104,11 @@ contains index entries for objects. Each such index maintains its own
 set of files on disk---a critical difference from Riak KV, in which a
 bucket is a purely logical entity and not physically disjoint at all. A
 Solr index requires significantly less disk space than the corresponding
-legacy Riak Search index, depending on the Solr schema used.
+legacy Riak search index, depending on the Solr schema used.
 
 Indexes may be associated with zero or more buckets. At creation time,
 however, each index has no associated buckets---unlike the legacy Riak
-Search, indexes in the new Riak Search do not implicitly create bucket
+search, indexes in the new Riak search do not implicitly create bucket
 associations, meaning that this must be done as a separate configuration
 step.
 
@@ -140,7 +140,7 @@ flat collection of field-value pairs. "Flat" here means that a field's
 value cannot be a nested structure of field-value pairs; the values are
 treated as-is (non-composite is another way to say it).
 
-Because of this mismatch between KV and Solr, Riak Search must act as a
+Because of this mismatch between KV and Solr, Riak search must act as a
 mediator between the two, meaning it must have a way to inspect a KV
 object and create a structure which Solr can ingest for indexing. In
 Solr this structure is called a **document**. This task of creating a

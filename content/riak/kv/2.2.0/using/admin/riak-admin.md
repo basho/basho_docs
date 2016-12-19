@@ -585,7 +585,7 @@ riak-admin repair-2i kill
 ## search
 
 The search command provides sub-commands for various administrative
-work related to the new Riak Search.
+work related to the new Riak search.
 
 ```bash
 riak-admin search <command>
@@ -634,7 +634,7 @@ riak-admin search switch-to-new-search
 ```
 
 Switch handling of the HTTP `/solr/<index>/select` resource and
-protocol buffer query messages from legacy Riak Search to new Search
+protocol buffer query messages from legacy Riak search to new Search
 (Yokozuna).
 
 ## services

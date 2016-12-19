@@ -21,10 +21,10 @@ aliases:
 
 [usage search]: /riak/kv/2.1.3/developing/usage/search
 
-If you are using [Riak Search 2.0][usage search], codename Yokozuna,
+If you are using [Riak search 2.0][usage search], codename Yokozuna,
 you will need to install **Java 1.6 or later** to run [Apache
 Solr](https://lucene.apache.org/solr/), the search platform that powers
-Riak Search.
+Riak search.
 
 We recommend using Oracle's [JDK
 7u25](http://www.oracle.com/technetwork/java/javase/7u25-relnotes-1955741.html).
@@ -35,7 +35,7 @@ page](http://www.oracle.com/technetwork/java/javase/documentation/index.html).
 
 ## Installing Solr on OS X
 
-If you're using Riak Search on Mac OS X, you may see the following
+If you're using Riak search on Mac OS X, you may see the following
 error:
 
 ```java

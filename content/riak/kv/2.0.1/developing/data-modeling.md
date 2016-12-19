@@ -140,7 +140,7 @@ For storing log data from different systems, you could use unique
 buckets for each system (e.g. `system1_log_data`, `system2_log_data`,
 etc.) and write associated logs to the corresponding buckets. To
 analyze that data, you could use Riak's MapReduce system for aggregation
-tasks, such as summing the counts of records for a date or Riak Search
+tasks, such as summing the counts of records for a date or Riak search
 for a more robust, text-based queries.
 
 ### Log Data Complex Case
@@ -224,7 +224,7 @@ For simple retrieval of a specific account, a user ID (plus perhaps a
 secondary index on a username or email) is enough. If you foresee the
 need to make queries on additional user attributes (e.g. creation time,
 user type, or region), plan ahead and either set up additional secondary
-indexes or consider using [Riak Search](/riak/kv/2.0.1/developing/usage/search/) to index the JSON
+indexes or consider using [Riak search](/riak/kv/2.0.1/developing/usage/search/) to index the JSON
 contents of the user account.
 
 ### User Accounts Community Examples
@@ -310,7 +310,7 @@ In Riak, you can store content of any kind, from HTML files to plain
 text to JSON or XML or another document type entirely. Keep in mind that
 data in Riak is opaque, with the exception of [Riak Data Types](/riak/kv/2.0.1/developing/data-types),
 and so Riak won't "know" about the object unless it is indexed
-[using Riak Search](/riak/kv/2.0.1/developing/usage/search/) or [using secondary indexes](/riak/kv/2.0.1/developing/usage/secondary-indexes/).
+[using Riak search](/riak/kv/2.0.1/developing/usage/search/) or [using secondary indexes](/riak/kv/2.0.1/developing/usage/secondary-indexes/).
 
 ### Articles et al Complex Case
 
@@ -329,7 +329,7 @@ with comments would require your application to call from the posts
 and comments buckets to assemble the view.
 
 Other possible cases may involve performing operations on content beyond
-key/value pairs. [Riak Search](/riak/kv/2.0.1/developing/usage/search/) is recommended for use cases
+key/value pairs. [Riak search](/riak/kv/2.0.1/developing/usage/search/) is recommended for use cases
 involving full-text search. For lighter-weight querying,
 [using secondary indexes](/riak/kv/2.0.1/developing/usage/secondary-indexes/) \(2i) enables you to add metadata to objects to
 either query for exact matches or to perform range queries. 2i also

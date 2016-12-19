@@ -15,7 +15,7 @@ aliases:
   - /riak/kv/2.1.3/dev/references/protocol-buffers/yz-index-get
 ---
 
-Retrieve a search index from Riak Search.
+Retrieve a search index from Riak search.
 
 ## Request
 

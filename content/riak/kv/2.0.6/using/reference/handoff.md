@@ -121,7 +121,7 @@ handoff.use_background_manager = on
 
 ### Maximum Rejects
 
-If you're using Riak features such as [Riak Search](/riak/kv/2.0.6/developing/usage/search/),
+If you're using Riak features such as [Riak search](/riak/kv/2.0.6/developing/usage/search/),
 those subsystems can block handoff of primary key/value data, i.e. data
 that you interact with via normal reads and writes.
 

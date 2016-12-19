@@ -30,10 +30,10 @@ that all of the new features listed below are optional:
 * **Riak Data Types** --- Riak's new CRDT-based [Data Types](/riak/kv/2.1.1/developing/data-types) can
   simplify modeling data in Riak, but are only used in buckets
   explicitly configured to use them.
-* **Strong Consistency, Riak Security, and the New Riak Search** ---
+* **Strong Consistency, Riak Security, and the New Riak search** ---
   These are subsystems in Riak that must be explicitly turned on to
   work. If not turned on, they will have no impact on performance.
-  Furthermore, the older Riak Search will continue to be included with
+  Furthermore, the older Riak search will continue to be included with
   Riak.
 * **Security** --- [Authentication and authorization](/riak/kv/2.1.1/using/security/basics) can be enabled
   or disabled at any time.
@@ -98,21 +98,21 @@ Brown](https://github.com/russelldb).
 
 ## Riak Search 2.0 (codename: Yokozuna)
 
-Riak Search 2.0 is a complete, top-to-bottom replacement for Riak
-Search, integrating Riak with [Apache Solr](https://lucene.apache.org/solr/)'s full-text search capabilities and supporting Solr's client query APIs.
+Riak search 2.0 is a complete, top-to-bottom replacement for Riak
+search, integrating Riak with [Apache Solr](https://lucene.apache.org/solr/)'s full-text search capabilities and supporting Solr's client query APIs.
 
 #### Relevant Docs
 
 * [Using Search](/riak/kv/2.1.1/developing/usage/search) provides an overview of how to use the new
-  Riak Search.
+  Riak search.
 * [Search Schema](/riak/kv/2.1.1/developing/usage/search-schemas) shows you how to create and manage custom search
   schemas.
 * [Search Details](/riak/kv/2.1.1/using/reference/search) provides an in-depth look at the design
-  considerations that went into the new Riak Search.
+  considerations that went into the new Riak search.
 
 #### Video
 
-[Riak Search 2.0](https://www.youtube.com/watch?v=-c1eynVLNMo) by Basho
+[Riak search 2.0](https://www.youtube.com/watch?v=-c1eynVLNMo) by Basho
 engineer and documentarian [Eric Redmond](https://github.com/coderoshi).
 
 ## Strong Consistency
@@ -145,7 +145,7 @@ check out [part 2](https://www.youtube.com/watch?v=gXJxbhca5Xg).
 Riak 2.0 enables you to manage:
 
 * **Authorization** to perform specific tasks, from GETs and PUTs to
-running MapReduce jobs to administering Riak Search.
+running MapReduce jobs to administering Riak search.
 
 * **Authentication** of Riak clients seeking access to Riak.
 
@@ -317,7 +317,7 @@ another. Incompatibilities are marked with a
   </tbody>
 </table>
 
-**&dagger;** &nbsp;&nbsp;&nbsp; The data indexed by Riak Search can be
+**&dagger;** &nbsp;&nbsp;&nbsp; The data indexed by Riak search can be
 stored in a strongly consistent fashion, but indexes themselves are
 eventually consistent<br />
 **&Dagger;** &nbsp;&nbsp;&nbsp; If secondary indexes are attached to an

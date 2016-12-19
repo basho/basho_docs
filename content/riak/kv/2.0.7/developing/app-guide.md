@@ -147,22 +147,22 @@ well as relevant links to Basho documentation.
 
 ## Search
 
-Riak Search provides you with [Apache
+Riak search provides you with [Apache
 Solr](http://lucene.apache.org/solr/)-powered full-text indexing and
 querying on top of the scalability, fault tolerance, and operational
-simplicity of Riak. Our motto for Riak Search: **Write it like Riak.
+simplicity of Riak. Our motto for Riak search: **Write it like Riak.
 Query it like Solr**. That is, you can store objects in Riak [like normal][usage create objects] and run full-text queries on those objects later on
 using the Solr API.
 
-* [Using Search][usage search] --- Getting started with Riak Search
+* [Using Search][usage search] --- Getting started with Riak search
 * [Search Details][use ref search] --- A detailed overview of the concepts and design
-  consideration behind Riak Search
+  consideration behind Riak search
 * [Search Schema][usage search schema] --- How to create custom schemas for extracting data
-  from Riak Search
+  from Riak search
 
 ### When to Use Search
 
-* **When you need a rich querying API** --- Riak Search gives you access
+* **When you need a rich querying API** --- Riak search gives you access
   to the entirety of [Solr](http://lucene.apache.org/solr/)'s extremely
   broad API, which enables you to query on the basis of wildcards,
   strings, booleans, geolocation, ranges, language-specific fulltext,
@@ -214,7 +214,7 @@ own.
 
 > **Note**:
 >
-> Riak Data Types can be used in conjunction with Riak Search,
+> Riak Data Types can be used in conjunction with Riak search,
 meaning that the data stored in counters, sets, and maps can be indexed
 and searched just like any other data in Riak. Documentation on Data
 Types and Search is coming soon.
@@ -278,13 +278,13 @@ or you can write and run your own MapReduce jobs in
 ### When Not to Use MapReduce
 
 * **When another Riak feature will do** --- Before even considering
-  using MapReduce, you should thoroughly investigate [Riak Search][usage search] or [secondary indexes][usage 2i] as possible
+  using MapReduce, you should thoroughly investigate [Riak search][usage search] or [secondary indexes][usage 2i] as possible
   solutions to your needs.
 
 In general, you should not think of MapReduce as, for example, Hadoop
 within Riak. While it can be useful for certain types of
 non-primary-key-based queries, it is neither a "Big Data" processing
-tool nor an indexing mechanism nor a replacement for [Riak Search][usage search]. If you do need a tool like Hadoop or Apache Spark, you should
+tool nor an indexing mechanism nor a replacement for [Riak search][usage search]. If you do need a tool like Hadoop or Apache Spark, you should
 consider using Riak in conjunction with a more suitable data processing
 tool.
 
@@ -295,7 +295,7 @@ following problem: how do I know which keys I should look for? Secondary
 indexes (2i) provide a solution to this problem, enabling you to tag
 objects with either binary or integer metadata and then query Riak for
 all of the keys that share specific tags. 2i is especially useful if
-you're storing binary data that is opaque to features like [Riak Search][usage search].
+you're storing binary data that is opaque to features like [Riak search][usage search].
 
 * [Using Secondary Indexes][usage 2i] --- A general guide to using 2i, along
   with code samples and information on 2i features like pagination,
@@ -323,7 +323,7 @@ you're storing binary data that is opaque to features like [Riak Search][usage s
 One thing to always bear in mind is that Riak enables you to mix and
 match a wide variety of approaches in a single cluster. You can use
 basic CRUD operations for some of your data, index some of your data to
-be queried by Riak Search, use Riak Data Types for another subset, etc.
+be queried by Riak search, use Riak Data Types for another subset, etc.
 You are always free to use a wide array of Riak features---or you can
 use none at all and stick to key/value operations.
 

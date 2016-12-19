@@ -751,7 +751,7 @@ bitcask.expiry.grace_time = 1h
 
 #### Automatic expiration and Riak Search
 
-If you are using [Riak Search][usage search] in conjunction with
+If you are using [Riak search][usage search] in conjunction with
 Bitcask, please be aware that automatic expiry does not apply to [Search Indexes](../../../../developing/usage/search). If objects are indexed using Search,
 those objects can be expired by Bitcask yet still registered in Search
 indexes, which means that Search queries may return keys that no longer

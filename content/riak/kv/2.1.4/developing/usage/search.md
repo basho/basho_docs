@@ -19,9 +19,9 @@ aliases:
 
 ## Setup
 
-Riak Search 2.0 is an integration of Solr (for indexing and querying)
+Riak search 2.0 is an integration of Solr (for indexing and querying)
 and Riak (for storage and distribution). There are a few points of
-interest that a user of Riak Search will have to keep in mind in order
+interest that a user of Riak search will have to keep in mind in order
 to properly store and later query for values.
 
 1. **Schemas** explain to Solr how to index fields
@@ -29,7 +29,7 @@ to properly store and later query for values.
 3. **Bucket-index association** signals to Riak *when* to index values
    (this also includes bucket type-index association)
 
-Riak Search must first be configured with a Solr schema so that Solr
+Riak search must first be configured with a Solr schema so that Solr
 knows how to index value fields. If you don't define one, you're
 provided with a default schema named `_yz_default`, which can be found
 [on
@@ -38,7 +38,7 @@ GitHub](https://raw.githubusercontent.com/basho/yokozuna/develop/priv/default_sc
 The examples in this document will presume the default. You can read
 more about creating custom schemas in [Search Schema][usage search schema], which you'll likely want to use in a production environment.
 
-Next, you must create a named Solr index through Riak Search. This index
+Next, you must create a named Solr index through Riak search. This index
 represents a collection of similar data that you connect with to perform
 queries. When creating an index, you can optionally provide a schema. If
 you do not, the default schema will be used. Here we'll `curl` create an
@@ -246,7 +246,7 @@ More information can be found in the [Solr
 documentation](http://wiki.apache.org/solr/SolrPerformanceFactors).
 
 With a Solr schema, index, and association in place (and possibly a
-security setup as well), we're ready to start using Riak Search. First,
+security setup as well), we're ready to start using Riak search. First,
 populate the `cat` bucket with values, in this case information about
 four cats: Liono, Cheetara, Snarf, and Panthro.
 
@@ -495,12 +495,12 @@ curl -XPUT $RIAK_HOST/types/animals/buckets/cats/keys/panthro \
 ```
 
 If you've used Riak before, you may have noticed that this is no
-different from storing values without Riak Search. That's because we
-designed Riak Search with the following design goal in mind:
+different from storing values without Riak search. That's because we
+designed Riak search with the following design goal in mind:
 
 #### Write it like Riak, query it like Solr
 
-But how does Riak Search know how to index values, given that you can
+But how does Riak search know how to index values, given that you can
 store opaque values in Riak? For that, we employ extractors.
 
 ## Extractors
@@ -510,7 +510,7 @@ content type and convert it into a list of fields that can be indexed by
 Solr. This is done transparently and automatically as part of the
 indexing process. You can even create your own [custom extractors](/riak/kv/2.1.4/developing/usage/custom-extractors).
 
-Our current example uses the JSON extractor, but Riak Search also
+Our current example uses the JSON extractor, but Riak search also
 extracts indexable fields from the following content types:
 
 * JSON (`application/json`)
@@ -560,7 +560,7 @@ one of the default types. A full tutorial can be found in [Custom Search Extract
 
 ### Automatic Fields
 
-When a Riak object is indexed, Riak Search automatically inserts a few
+When a Riak object is indexed, Riak search automatically inserts a few
 extra fields as well. These are necessary for a variety of technical
 reasons, and for the most part you don't need to think about them.
 However, there are a few fields which you may find useful:
@@ -1248,7 +1248,7 @@ curl "$RIAK_HOST/search/query/famous?wt=json&q=*:*&start=$START&rows=$ROWS_PER_P
 
 ### Pagination Warning
 
-Distributed pagination in Riak Search cannot be used reliably when
+Distributed pagination in Riak search cannot be used reliably when
 sorting on fields that can have different values per replica of the same
 object, namely `score` and `_yz_id`. In the case of sorting by these
 fields, you may receive redundant objects. In the case of `score`, the
@@ -1272,14 +1272,14 @@ fix this shortcoming in a future version of Riak.
 
 ### MapReduce
 
-Riak Search allows for piping search results as inputs for
+Riak search allows for piping search results as inputs for
 [MapReduce](/riak/kv/2.1.4/developing/usage/mapreduce/) jobs. This is a useful cross-section for
 performing post-calculations of results or aggregations of ad-hoc
-queries. The Riak Search MapReduce integration works similarly to
+queries. The Riak search MapReduce integration works similarly to
 regular MapReduce, with the notable exception that your input is not a
 bucket, but rather index and query arguments to the `yokozuna` module
 and `mapred_search` function (an Erlang `module:function` pair that adds
-the Riak Search hook to MapReduce).
+the Riak search hook to MapReduce).
 
 ```json
 {

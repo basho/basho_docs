@@ -35,4 +35,4 @@ GET /search/schema/<schema_name>
 ## Response
 
 If the schema is found, Riak will return the contents of the schema as
-XML (all Riak Search schemas are XML).
+XML (all Riak search schemas are XML).

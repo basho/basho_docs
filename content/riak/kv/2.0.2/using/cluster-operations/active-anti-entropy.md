@@ -262,9 +262,9 @@ AAE-related background tasks, analogous to [open files limit](../../performance/
 ## AAE and Riak Search
 
 Riak's AAE subsystem works to repair object inconsistencies both with
-for normal key/value objects as well as data related to [Riak Search](../../../developing/usage/search). In particular, AAE acts on indexes stored in
+for normal key/value objects as well as data related to [Riak search](../../../developing/usage/search). In particular, AAE acts on indexes stored in
 [Solr](http://lucene.apache.org/solr/), the search platform that drives
-Riak Search. Implementation details for AAE and Search can be found in
+Riak search. Implementation details for AAE and Search can be found in
 the [Search Details](../../reference/search/#active-anti-entropy-aae)
 documentation.
 

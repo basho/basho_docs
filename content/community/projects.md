@@ -66,7 +66,7 @@ Here are the **most active** contributions from the community.
 * [Nagios Plugin](https://github.com/basho-labs/riak_nagios) maintained by the Basho community
 * [Advanced Nagios Plugins Collection](https://github.com/harisekhon/nagios-plugins) contains many additional Nagios plugins for monitoring Riak
 * [New Relic Plugin](https://github.com/basho/riak_newrelic) serves node statistics of a Riak Node to the New Relic APM System
-* [Yokozuna Monitor](https://github.com/basho-labs/ruby-yz-monitor) is a ruby application to monitor your Riak Search activity.
+* [Yokozuna Monitor](https://github.com/basho-labs/ruby-yz-monitor) is a ruby application to monitor your Riak search activity.
 * [riak-statsd in golang](https://github.com/jjmalina/riak-statsd) which monitors Riak KV and pushes to statsd
 * [Gmond Python Modules for Riak](https://github.com/ganglia/gmond_python_modules) is a Ganglia Module for connecting to Riak KV
 * [Riak Key List Utility](https://github.com/basho-labs/riak-key-list-util) is a console utility script for per-vnode key counting, siblings logging and more
@@ -125,14 +125,14 @@ Some projects have lost its maintainer with time. Here are all projects that hav
 * [Sample HA Proxy Configuration for Protocol Buffers Interface](http://lists.basho.com/pipermail/riak-users_lists.basho.com/2011-May/004388.html) (courtesy of Bob Feldbauer)
 * [Storing Apache Logs in Riak via Fluentd](http://docs.fluentd.org/articles/apache-to-riak)
 * [yakriak](http://github.com/seancribbs/yakriak) --- Riak-powered Ajax-polling chatroom
-* [riaktant](https://github.com/basho/riaktant) --- A full-blown NodejS app that stores and makes syslog messages searchable in Riak Search
+* [riaktant](https://github.com/basho/riaktant) --- A full-blown NodejS app that stores and makes syslog messages searchable in Riak search
 * [selusuh](https://github.com/OJ/selusuh) --- Riak application that presents JSON slide decks (thanks, [OJ](http://twitter.com/thecolonial)!)
 * [Rekon](https://github.com/adamhunter/rekon) --- A Riak data browser, built as a totally self-contained Riak application
 * [Slideblast](https://github.com/rustyio/SlideBlast) --- Share and control slide presentation for the web
 * [riak_php_app](http://github.com/schofield/riak_php_app) --- A small PHP app that shows some basic usage of the Riak PHP library
 * [riak-url-shortener](http://github.com/seancribbs/riak-url-shortener) --- A small Ruby app (with Sinatra) that creates short URLs and stores them in Riak
 * [wriaki](https://github.com/basho-labs/wriaki) --- A wiki app backed by Riak
-* [riagi](https://github.com/basho-labs/riagi) --- A simple imgur.com clone built using Riak, Django, and Riak Search
+* [riagi](https://github.com/basho-labs/riagi) --- A simple imgur.com clone built using Riak, Django, and Riak search
 * [riak-session-manager](https://github.com/jbrisbin/riak-session-manager) --- A Riak-backed Tomcat Session Manager
 * [riak_id](https://github.com/seancribbs/riak_id) --- A clone of Twitter's Snowflake, built on riak_core
 * [riak_zab](https://github.com/jtuple/riak_zab) --- An implementation of the Zookeeper protocol on top of Riak Core
