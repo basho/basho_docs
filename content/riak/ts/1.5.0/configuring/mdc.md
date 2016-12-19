@@ -10,6 +10,7 @@ menu:
 project: "riak_ts"
 project_version: "1.5.0"
 toc: true
+commercial_offering: true
 version_history:
   in: "1.3.0+"
   locations:
