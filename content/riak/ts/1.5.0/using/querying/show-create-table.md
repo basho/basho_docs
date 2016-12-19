@@ -29,8 +29,7 @@ SHOW CREATE TABLE ExampleTable
 
 Returns: 
 
-```
-SQL
+```sql
 -------------------------------------------------------------------------------
 CREATE TABLE ExampleTable (
 somechars VARCHAR NOT NULL,

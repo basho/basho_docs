@@ -122,12 +122,6 @@ Delete a single record by key with the DELETE statement:
 DELETE FROM GeoCheckin WHERE id ='myid' AND time = '2016-08-01 14:05:51.425Z';
 ```
 
-Delete multiple records using a time range:
-
-```sql
-DELETE FROM GeoCheckin WHERE id ='myid' AND time >= '2016-08-01 14:05:51.425Z' AND time < '2016-08-01 14:10:51.425Z';
-```
-
 See the [`DELETE` in Riak TS][delete] page for more information on the DELETE statement.
 
 ## With Global Expiry
