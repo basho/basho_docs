@@ -85,7 +85,7 @@ riak_kv.query.timeseries.max_concurrent_queries = 3
 
 Use `riak_kv.query.maximum_query_queue_length` to set the query queue length.
 
-Increase the queue length to avoid refusing to accept queries, at the expense of higher latencies.
+Increase the queue length to avoid refusing queries, at the expense of higher latencies.
 
 ```riak.conf
 riak_kv.query.timeseries.maximum_query_queue_length = 15
@@ -95,7 +95,7 @@ riak_kv.query.timeseries.maximum_query_queue_length = 15
 ### Maximum quanta
 
 {{% note %}}
-In Riak TS 1.4, `riak_kv.query.timeseries.max_quanta_span` was intended to protect the user from SELECTing excessive amounts of data, with a default set to a low value (5) and a note recommending to consider [requantizing the data](/riak/ts/1.5.0/learn-about/bestpractices/#quantum). Since version 1.5, we use a running estimation of projected query size to determine whether the query results can be safely returned to the client (see `max_returned_data_size` below).  The `max_quanta_span` parameter has been kept but is no longer the limiting factor.
+`riak_kv.query.timeseries.max_quanta_span` was intended to protect from SELECTing excessive amounts of data, with a default set to a low value (5). Now, we use a running estimation of projected query size to determine whether the query results can be safely returned to the client (see `max_returned_data_size` below).  The `max_quanta_span` parameter has been kept but is no longer the limiting factor.
 {{% /note %}}
 
 Use `riak_kv.query.timeseries.max_quanta_span` to configure the maximum number of quanta that a query can span. The default is 5000.
