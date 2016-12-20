@@ -105,7 +105,7 @@ You should see a reply like this one:
 riak_shell is connected to: 'dev1@127.0.0.1' on port 8087
 ```
 
-Make sure to exit `riak-shell` when you are done by running `q;`.
+Make sure to exit the riak shell when you are done by running `q;`.
 
 
 ## Start your Riak TS node
