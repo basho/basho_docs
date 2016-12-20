@@ -115,16 +115,16 @@ The following clustering setup will not be resilient to instance restarts unless
 You now have a Riak cluster running on AWS.
 
 
-## Configure riak shell
+## Configure the riak shell
 
-In order to function, riak shell must know about each node in the cluster.
+In order to function, the riak shell must know about each node in the cluster.
 
 1. On each node, obtain the internal IP addresses:
     ```bash
     curl http://169.254.169.254/latest/meta-data/local-ipv4
     ```
 
-2. On each node in the cluster, edit `/etc/riak/riak_shell.config`, adding the IPs of each node. You should end up with a config that is similar to:
+2. On each node in the cluster, edit /etc/riak/riak_shell.config, adding the IPs of each node. You should end up with a config that is similar to:
    ```
     %%% -*- erlang -*-
     [
@@ -146,12 +146,13 @@ In order to function, riak shell must know about each node in the cluster.
     sudo riak-shell
     ```
 
-    You should see a riak shell prompt:    
+    You should see a `riak-shell` prompt:    
     ```bash
     [ec2-user ~]$ sudo riak-shell 
     Erlang R16B02_basho10 (erts-5.10.3) [source] [64-bit] [smp:2:2] [async-threads:10] [hipe] [kernel-poll:false] [frame-pointer]
     
-    version "riak_shell 0.9/sql 1.3", use 'quit;' or 'q;' to exit or 'help;' for helpConnected...
+    version "riak_shell 1.5/sql compiler 320523031941664944417524937300681317050", use 'quit;' or 'q;' to exit or 'help;' for help
+    Connected...
     riak-shell(1)>
     ```
 
@@ -164,4 +165,4 @@ In order to function, riak shell must know about each node in the cluster.
     riak-shell(2)>
     ```
 
-riak shell is now configured and ready for use.
+The riak shell is now configured and ready for use.

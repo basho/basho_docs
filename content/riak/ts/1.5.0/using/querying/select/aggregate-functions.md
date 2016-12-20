@@ -30,13 +30,13 @@ You can turn a set of rows in your Riak TS table into a value with the aggregate
 
 ## Aggregate Functions
 
-* `COUNT()` - Returns the number of entries that match a specified criteria.
-* `SUM()` - Returns the sum of entries that match a specified criteria.
-* `MEAN()` & `AVG()` - Returns the average of entries that match a specified criteria.
-* `MIN()` - Returns the smallest value of entries that match a specified criteria.
-* `MAX()` - Returns the largest value of entries that match a specified criteria.
-* `STDDEV()`/`STDDEV_SAMP()` - Returns the statistical standard deviation of all entries that match a specified criteria using Sample Standard Deviation.
-* `STDDEV_POP()` - Returns the statistical standard deviation of all entries that match a specified criteria using Population Standard Deviation.
+* `COUNT()` - Returns the number of entries that match specified criteria.
+* `SUM()` - Returns the sum of entries that match specified criteria.
+* `MEAN()` & `AVG()` - Returns the average of entries that match specified criteria.
+* `MIN()` - Returns the smallest value of entries that match specified criteria.
+* `MAX()` - Returns the largest value of entries that match specified criteria.
+* `STDDEV()`/`STDDEV_SAMP()` - Returns the statistical standard deviation of all entries that match specified criteria using Sample Standard Deviation.
+* `STDDEV_POP()` - Returns the statistical standard deviation of all entries that match specified criteria using Population Standard Deviation.
 
 {{% note title="A Note On Negation" %}}
 You cannot negate an aggregate function. If you attempt something like: `select -count(temperature)`, you will receive an error. Instead, you can achieve negation with `-1*`; for instance: `-1*COUNT(...)`.

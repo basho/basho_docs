@@ -10,6 +10,8 @@ menu:
 project: "riak_ts"
 project_version: "1.5.0"
 toc: true
+version_history:
+  in: "1.5.0+"
 aliases:
     - /riakts/1.5.0/using/querying/show-create-table
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/show-create-table"
@@ -29,8 +31,7 @@ SHOW CREATE TABLE ExampleTable
 
 Returns: 
 
-```
-SQL
+```sql
 -------------------------------------------------------------------------------
 CREATE TABLE ExampleTable (
 somechars VARCHAR NOT NULL,

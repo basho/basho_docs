@@ -48,7 +48,7 @@ CREATE TABLE BashoWeather
      (region, state, QUANTUM(time, 15, 'm')),
      region, state, time
    )
-)
+);
 ```
 
 Using this table we can map region, state and time (in 15 minute chunks) to weather condition, temperature, and humidity readings.

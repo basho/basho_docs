@@ -6,9 +6,9 @@ project_version: "1.5.0"
 menu:
   riak_ts-1.5.0:
     name: "Redis Add-on Deployment Models"
-    identifier: "add-ons_redis_deployment"
+    identifier: "addons_redis_deployment"
     weight: 201
-    parent: "add-ons_redis_setup"
+    parent: "addons_redis_setup"
 toc: true
 commercial_offering: true
 ---

@@ -20,8 +20,11 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/select/ord
 
 The ORDER BY statement is used with [`SELECT`][select] to sort results by one or more columns in ascending or descending order. `ORDER BY` is useful for operations such as returning the most recent results in a set.
 
-This document shows how to run various queries using `GROUP BY`. See the [guidelines][query guidelines] for more information on limitations and rules for queries in Riak TS.
+This document shows how to run various queries using `ORDER BY`. See the [guidelines][query guidelines] for more information on limitations and rules for queries in Riak TS.
 
+{{% note title="Warning" %}}
+The initial implementation of `ORDER BY` in SELECT queries uses on-disk query buffer. It adds some overhead which increases the query latency, sometimes significantly.
+{{% /note %}}
 
 ## Overview
 
@@ -137,7 +140,7 @@ SELECT id, time, value FROM SensorData WHERE id = 2 AND time > '2016-11-28 06:00
 Sort results and return null values first:
 
 ```sql
-SELECT id, time, value FROM SensorData WHERE id = 2 AND time > '2016-11-28 06:00:00' AND time < '2016-11-28 06:10:10' ORDER BY time ASC NULLS FIRST;
+SELECT id, time, value FROM SensorData WHERE id = 2 AND time > '2016-11-28 06:00:00' AND time < '2016-11-28 06:10:10' ORDER BY time DESC, id ASC, value NULLS FIRST;
 ```
 
 ### Null Values Last
@@ -145,7 +148,7 @@ SELECT id, time, value FROM SensorData WHERE id = 2 AND time > '2016-11-28 06:00
 Sort results and return null values last:
 
 ```sql
-SELECT id, time, value FROM SensorData WHERE id = 2 AND time > '2016-11-28 06:00:00' AND time < '2016-11-28 06:10:10' ORDER BY time ASC NULLS LAST;
+SELECT id, time, value FROM SensorData WHERE id = 2 AND time > '2016-11-28 06:00:00' AND time < '2016-11-28 06:10:10' ORDER BY time DESC, id ASC, value NULLS LAST;
 ```
 
 ### Limit Results

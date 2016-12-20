@@ -6,9 +6,9 @@ project_version: "1.5.0"
 menu:
   riak_ts-1.5.0:
     name: "Develop with Redis Add-on"
-    identifier: "add-ons_redis_develop"
+    identifier: "addons_redis_develop"
     weight: 403
-    parent: "add-ons_redis"
+    parent: "addons_redis"
 toc: true
 commercial_offering: true
 ---

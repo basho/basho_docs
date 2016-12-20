@@ -171,7 +171,7 @@ The builder takes the table name to list keys from:
 
  * `WithTable(string table)`
 
-You may also specify a callback that will be called everytime data is available from the streaming operation. If no callback is specified rows will be buffered completely in memory until the operation completes:
+You may also specify a callback that will be called every time data is available from the streaming operation. If no callback is specified rows will be buffered completely in memory until the operation completes:
 
  * `WithCallback(Action<ListKeysResponse> callback)`
 

@@ -15,7 +15,7 @@ aliases:
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/riakshell"
 ---
 
-[nodename]: /riak/kv/2.1.4/using/cluster-operations/changing-cluster-info/
+[nodename]: /riak/kv/2.2.0/using/cluster-operations/changing-cluster-info/
 [creating]: /riak/ts/1.5.0/using/creating-activating
 [writing]: /riak/ts/1.5.0/using/writingdata
 [riak shell README]: https://github.com/basho/riak_shell/blob/develop/README.md
@@ -159,6 +159,46 @@ riak-shell is connected to: 'dev2@127.0.0.1' on port 8097
 
 ### SQL
 
+`riak-shell` now has SQL help built in. To get a list of all supported SQL statement use the `help sql;` command:
+```
+riak-shell>help sql;
+The following SQL help commands are supported:
+CREATE   - using CREATE TABLE statements
+DELETE   - deleting data with DELETE FROM
+DESCRIBE - examining table structures
+EXPLAIN  - understanding SELECT query execution paths
+INSERT   - inserting data with INSERT INTO statements
+SELECT   - querying data
+SHOW     - listing tables
+
+SELECT can be used with ORDER BY, GROUP BY and LIMIT clauses. It supports arithmetic on column values and has a variety of aggregation functions: COUNT, SUM, MEAN, AVG, MAX, MIN, STDDEV, STDDEV_SAMP and STDDEV_POP
+
+To get more help type `help SQL SELECT` (replacing SELECT with another statement as appropriate)
+```
+
+You can get more details on each type of statement by appending the statement name to the help command `help sql insert;`:
+```
+riak-shell>help sql insert;
+You can use the INSERT INTO statement to insert data into a Time Series table.
+There are two formats that the INSERT INTO statement can use.
+
+(this example uses the table definition from 'help SQL CREATE')
+
+An example of the first format is shown below:
+
+(1)>INSERT INTO mytable VALUES ('keyvalue', '2016-11-30 19:30:00', 123, 12.3, false);
+Using this format you have to provide values for all columns - including those that can contain nulls.
+
+An example of the second format is shown below:
+
+(2)>INSERT INTO mytable (keyfield, timefield, otherfield1, otherfield2) VALUES ('keyvalue', '2016-11-30 19:30:00', 123, 12.3);
+In both of these formats multiple rows of data can be specified
+
+(3)>INSERT INTO mytable VALUES ('keyvalue', '2016-11-30 19:30:00', 123, 12.3, false), ('newvalue', '2016-11-30 19:31:04' 456, 45.6, true);
+For more details please go to http://docs.basho.com/riak/ts
+```
+
+
 You can use riak shell to [create a table][creating]:
 
 ```
@@ -205,6 +245,17 @@ riak-shell(4)>SELECT time, weather, temperature, rawdata from GeoCheckin WHERE s
 SQL commands in riak shell may span multiple lines.
 {{% /note %}}
 
+#### Comments
+
+Riak shell understands (and thus ignores) SQL comments. Both simple
+comments (single line comments prefaced with `--`) and bracketed
+comments (single- or multi-line comments using `/*` and `*/`) are
+supported.
+
+As of TS 1.5.0 (the first release to support comments), there is a
+compatibility bug with the SQL specification: nested bracketed
+comments are not properly supported, so the comment will terminate at
+the first `*/` sequence.
 
 ### Logging
 

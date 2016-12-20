@@ -19,8 +19,9 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/writingdata"
 [activating]: ../creating-activating/
 [planning]: ../planning/
 [querying]: ../querying/
-[config reference]: /riak/kv/2.1.4/configuring/reference/#the-advanced-config-file
-[MDC]: /riak/ts/1.5.0/using/mdc
+[http]: /riak/ts/1.5.0/developing/http/
+[config reference]: /riak/kv/2.2.0/configuring/reference/#the-advanced-config-file
+[MDC]: /riak/ts/1.5.0/configuring/mdc
 [riakshell]: ../riakshell
 [iso8601]: ../timerepresentations/
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
@@ -358,99 +359,12 @@ You must include single quotes around the ISO 8601 value. You cannot use [reduce
 
 See [our documentation on ISO 8601 support][iso8601] for more details on how to use ISO 8601.
 
+### Blob data
 
-## Deleting Data
+When using SQL INSERT to add binary data to blob columns, use base 16 (hex) notation.
 
-Below are examples of how to delete data by key in each of our Riak TS-supported clients:
+If using the HTTP API, see the (API docs)[http] for information on encoding binary data to use with JSON or SQL data upload.
 
-
-```java
-final List<Cell> keyCells = Arrays.asList(
-  new Cell("South Atlantic"), new Cell("South Carolina"), Cell.newTimestamp(1420113600000));
-
-Delete delete = new Delete.Builder("GeoCheckins", keyCells).build();
-
-client.execute(delete);
-```
-
-```ruby
-delete_operation = Riak::TimeSeries::Deletion.new client, 'GeoCheckins'
-delete_operation.key = ['South Atlantic', 'South Carolina', 1420113600000]
-delete_operation.delete!
-```
-
-```python
-client.ts_delete('GeoCheckin', ['South Atlantic', 'South Carolina', datetime.datetime(2015, 1, 1, 12, 0, 0)])
-```
-
-```csharp
-var keyCells = new Cell[]
-{
-    new Cell<string>("South Atlantic"),
-    new Cell<string>("South Carolina"),
-    new Cell<DateTime>(FifteenMinsAgo)
-};
-var keyToDelete = new Row(keyCells);
-
-var delete = new Delete.Builder()
-        .WithTable(Table)
-        .WithKey(keyToDelete)
-        .Build();
-RiakResult rslt = client.Execute(delete);
-// rslt.IsSuccess will be true
-```
-
-```javascript
-var key = [ 'South Atlantic', 'South Carolina', 1420113600000 ];
-
-var cb = function (err, response) {
-    // NB: response will be true on success
-};
-
-var cmd = new Riak.Commands.TS.Delete.Builder()
-    .withTable('GeoCheckins')
-    .withKey(key)
-    .withCallback(cb)
-    .build();
-
-client.execute(cmd);
-```
-
-```erlang
-riakc_ts:delete(Pid, <<"GeoCheckins">>, [<<"South Atlantic">>, <<"South Carolina">>, 1420113600000]).
-```
-
-```php
-$key = [
-    (new Cell("region"))->setValue("South Atlantic"),
-    (new Cell("state"))->setValue("South Carolina"),
-    (new Cell("time"))->setTimestampValue(1420113600),
-];
-
-$response = (new Command\Builder\TimeSeries\DeleteRow($riak))
-    ->atKey($key)
-    ->inTable('GeoCheckins')
-    ->build()
-    ->execute();
-```
-
-```golang
-key := make([]riak.TsCell, 3)
-
-key[0] = NewStringTsCell("South Atlantic")
-key[1] = NewStringTsCell("South Carolina")
-key[2] = NewTimestampTsCell(1420113600)
-
-cmd, err := riak.NewTsDeleteRowCommandBuilder()
-    .WithTable("GeoCheckin").WithKey(key)
-    .Build()
-
-if err != nil {
-    return err
-}
-
-err = cluster.Execute(cmd)
-```
 
 ## Next Steps
 

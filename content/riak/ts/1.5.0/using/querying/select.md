@@ -244,8 +244,8 @@ err = cluster.Execute(cmd)
 
 You can also use `or` when querying against column values, such as `temperature` in our example. Note that the parentheses are required:
 
-```
-select weather, temperature from GeoCheckin where time > 1234560 and time < 1234569 and region = 'South Atlantic' and state = 'South Carolina' and (temperature > 27.0 or temperature < 0.0)
+```sql
+SELECT weather, temperature FROM GeoCheckin WHERE time > 1234560 AND time < 1234569 AND region = 'South Atlantic' AND state = 'South Carolina' AND (temperature > 27.0 OR temperature < 0.0)
 ```
 
 You cannot use `or` between two complete clauses, since keys cannot be specified twice.
@@ -265,7 +265,7 @@ ISO 8601 time strings are converted to a millisecond timestamp, which the query 
 
 
 ```sql
-select weather, temperature from GeoCheckin where time > '2009-11-01 03:15:00+07' and time < '2009-11-01 03:45:00+07' and region = 'South Atlantic' and state = 'South Carolina'
+SELECT weather, temperature FROM GeoCheckin WHERE time > '2009-11-01 03:15:00+07' AND time < '2009-11-01 03:45:00+07' AND region = 'South Atlantic' AND state = 'South Carolina'
 ```
 
 The timestamps used inside Riak TS for those comparisons will be
@@ -273,13 +273,14 @@ The timestamps used inside Riak TS for those comparisons will be
 
 The same query, expressed with fractional time:
 
-```
-select weather, temperature from GeoCheckin where time > '2009-11-01 03.25+07' and time < '2009-11-01 03.75+07' and region = 'South Atlantic' and state = 'South Carolina'
+```sql
+SELECT weather, temperature FROM GeoCheckin WHERE time > '2009-11-01 03.25+07' AND time < '2009-11-01 03.75+07' AND region = 'South Atlantic' AND state = 'South Carolina'
 ```
 
 See [our documentation on ISO 8601 support][iso8601] for more details on how to use ISO 8601.
 
 ## IS [NOT] NULL
+
 For queries which operate on ranges which contain columns that are nullable, the
 WHERE clause may contain NULL condition predicates.
 
