@@ -87,7 +87,7 @@ riak_kv.query.timeseries.max_concurrent_queries = 3
 
 ### Maximum query queue length
 
-`riak_kv.query.maximum_query_queue_length`: the query queue length.
+`riak_kv.query.maximum_query_queue_length`: the query queue length. Default is 15.
 
 Increase the queue length to avoid refusing queries, at the expense of higher latencies.
 
