@@ -71,6 +71,10 @@ cluster. MDC will not create new tables for you, and will compare the
 data definition language (DDL) on each cluster to make certain they are
 equivalent before synchronization occurs.
 
+{{% note title="Tip" %}}
+[`SHOW CREATE TABLE`](/riak/ts/1.5.0/using/querying/show-create-table/) makes this much easier.
+{{% /note }}
+
 
 #### Turn off replication per-table
 
