@@ -32,7 +32,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/creating-activating
 Once you have [planned out your table][planning] you can create it by:
 
 * Executing a CREATE TABLE statement using any Riak TS client, 
-* Using riak shell, or
+* Using `riak-shell`, or
 * Running the `riak-admin` command (as root, using `su` or `sudo`).
 
 Throughout this document, we will again be using the example table:
@@ -50,7 +50,7 @@ CREATE TABLE GeoCheckin
      (id, QUANTUM(time, 15, 'm')),
       id, time
    )
-)
+);
 ```
 
 
@@ -264,9 +264,9 @@ You can verify that your table was properly created by executing the [DESCRIBE s
 
 
 
-## `CREATE TABLE` in riak shell
+## `CREATE TABLE` in riak-shell
 
-You can use riak shell to create a table by running:
+You can use `riak-shell` to create a table by running:
 
 ```
 riak-shell>CREATE TABLE GeoCheckin (id SINT64 NOT NULL, region VARCHAR NOT NULL, state VARCHAR NOT NULL, time  TIMESTAMP NOT NULL, weather  VARCHAR NOT NULL, temperature DOUBLE, PRIMARY KEY ((id, QUANTUM(time, 15, 'm')), id, time));
@@ -280,12 +280,12 @@ Please take care with the following:
 
 ### Verification
 
-You can verify that your table was properly created by executing the [DESCRIBE statement][describe] in riak shell.
+You can verify that your table was properly created by executing the [DESCRIBE statement][describe] in `riak-shell`.
 
 
 ## `CREATE TABLE` using `riak-admin`
 
-> We recommend creating a table using [riak shell](#create-table-in-riak-shell) or one of our supported [client libraries](#create-table-in-client-library).
+> We recommend creating a table using [riak-shell](#create-table-in-riak-shell) or one of our supported [client libraries](#create-table-in-client-library).
 
 To create the example table, first run:
 
