@@ -20,9 +20,9 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/configuring"
 ---
 
 
-[riakconf]: /riak_ts/1.5.0/configuring/riakconf
-[mdc]: /riak_ts/1.5.0/configuring/mdc
-[global expiry]: /riak_ts/1.5.0/configuring/global-object-expiration
+[riakconf]: /riak/ts/1.5.0/configuring/riakconf/
+[mdc]: /riak/ts/1.5.0/configuring/mdc/
+[global expiry]: /riak/ts/1.5.0/configuring/global-object-expiration/
 [kv config]: /riak/kv/2.2.0/configuring/reference
 [WITH]: /riak/ts/1.5.0/using/creating-activating/#using-the-with-clause
 
