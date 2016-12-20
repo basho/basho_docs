@@ -22,6 +22,9 @@ The ORDER BY statement is used with [`SELECT`][select] to sort results by one or
 
 This document shows how to run various queries using `ORDER BY`. See the [guidelines][query guidelines] for more information on limitations and rules for queries in Riak TS.
 
+{{% note title="Warning" %}}
+The initial implementation of `ORDER BY` in SELECT queries uses on-disk query buffer. It adds some overhead which increases the query latency, sometimes significantly.
+{{% /note %}}
 
 ## Overview
 

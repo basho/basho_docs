@@ -15,7 +15,7 @@ aliases:
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/riakshell"
 ---
 
-[nodename]: /riak/kv/2.1.4/using/cluster-operations/changing-cluster-info/
+[nodename]: /riak/kv/2.2.0/using/cluster-operations/changing-cluster-info/
 [creating]: /riak/ts/1.5.0/using/creating-activating
 [writing]: /riak/ts/1.5.0/using/writingdata
 [riak shell README]: https://github.com/basho/riak_shell/blob/develop/README.md

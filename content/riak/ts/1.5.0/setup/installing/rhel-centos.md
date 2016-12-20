@@ -22,7 +22,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/rhel-cen
 ---
 
 [download]: /riak/ts/1.5.0/downloads/
-[openfileslimit]: /riak/kv/2.1.4/using/performance/open-files-limit
+[openfileslimit]: /riak/kv/2.2.0/using/performance/open-files-limit
 [planning]: /riak/ts/1.5.0/using/planning/
 
 

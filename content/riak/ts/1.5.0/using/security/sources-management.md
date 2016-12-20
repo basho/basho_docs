@@ -22,8 +22,8 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/security/sources-ma
 [security enabling]: ../enable-disable/#enabling-security
 [security add user]: ../user-management/#add-user
 [root cert]: http://en.wikipedia.org/wiki/Root_certificate
-[rolling restart]: /riak/kv/2.1.4/using/repair-recovery/rolling-restart/
-[config ref security]: /riak/kv/2.1.4/configuring/reference/#security
+[rolling restart]: /riak/kv/2.2.0/using/repair-recovery/rolling-restart/
+[config ref security]: /riak/kv/2.2.0/configuring/reference/#security
 [xss]: http://en.wikipedia.org/wiki/Cross-site_scripting
 [request forgery]: http://en.wikipedia.org/wiki/Cross-site_request_forgery
 [http referer]: http://en.wikipedia.org/wiki/HTTP_referer

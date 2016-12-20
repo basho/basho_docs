@@ -40,7 +40,7 @@ RRA is supported on the following platforms:
 
 RRA is compatible with the following services:
 
-* Riak KV Enterprise (2.1.4+)
+* Riak KV Enterprise (2.2.0+)
 * Riak TS Enterprise (1.4.0+)
 * Redis 2.x and 3.x (in 3.x, not supporting Redis Cluster)
   * Redis Cluster and RRA's consistent hash are at odds, which surface as errors

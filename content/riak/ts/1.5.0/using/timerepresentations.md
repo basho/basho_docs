@@ -19,7 +19,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/timerepresentations
 [activating]: ../creating-activating/
 [planning]: ../planning/
 [querying]: ../querying/
-[config reference]: /riak/kv/2.1.4/configuring/reference/#the-advanced-config-file
+[config reference]: /riak/kv/2.2.0/configuring/reference/#the-advanced-config-file
 [MDC]: /riak/ts/1.5.0/using/mdc
 [riak shell]: ../riakshell
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601

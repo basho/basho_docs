@@ -24,7 +24,9 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/configuring/riakconf"
 [Riak object settings]: /riak/kv/2.2.0/configuring/reference/#object-settings
 
 
-Riak TS exposes a few configuration settings in riak.conf. This document will walk you through the TS configurations. 
+Riak TS exposes a few configuration settings in riak.conf. This document will walk you through the TS configurations.
+
+You can locate your riak.conf in  /etc/riak or /usr/local/etc if you installed using one of our packages, or in /etc if you installed from source.
 
 {{% note title="Deprecation Warning" %}}
 The Riak TS configuration settings in riak.conf have changed. The old settings will be deprecated. Please update your riak.conf with the new settings.
@@ -85,7 +87,7 @@ riak_kv.query.timeseries.max_concurrent_queries = 3
 
 ### Maximum query queue length
 
-`riak_kv.query.maximum_query_queue_length`: the query queue length.
+`riak_kv.query.maximum_query_queue_length`: the query queue length. Default is 15.
 
 Increase the queue length to avoid refusing queries, at the expense of higher latencies.
 
@@ -173,5 +175,14 @@ For queries with an `ORDER BY` clause and/or `LIMIT` or `OFFSET` keywords, a sep
 riak_kv.query.timeseries.qbuf_root_path = "$(platform_data_dir)/query_buffers"
 ```
 
-
 Further documentation about these settings can be found at [Riak object settings].
+
+
+### Settings to be ignored
+
+The following settings show up in riak.conf but should not be changed:
+
+* `riak_kv.query.timeseries.qbuf_soft_watermark`
+* `riak_kv.query.timeseries.qbuf_hard_watermark`
+* `riak_kv.query.timeseries.qbuf_expire_ms`
+* `riak_kv.query.timeseries.qbuf_incomplete_release_ms`

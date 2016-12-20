@@ -23,7 +23,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/configuring/mdc"
 
 
 [activating]: /riak/ts/1.5.0/using/creating-activating
-[cluster ops v3 mdc]: /riak/kv/2.1.4/using/cluster-operations/v3-multi-datacenter
+[cluster ops v3 mdc]: /riak/kv/2.2.0/using/cluster-operations/v3-multi-datacenter
 [ee]: http://basho.com/contact/
 [Enterprise]: http://basho.com/products/riak-ts/
 [install]: /riak/ts/1.5.0/setup/installing
@@ -70,6 +70,10 @@ Each TS table to be replicated must be [defined][activating] on each
 cluster. MDC will not create new tables for you, and will compare the
 data definition language (DDL) on each cluster to make certain they are
 equivalent before synchronization occurs.
+
+{{% note title="Tip" %}}
+[`SHOW CREATE TABLE`](/riak/ts/1.5.0/using/querying/show-create-table/) makes this much easier.
+{{% /note }}
 
 
 #### Turn off replication per-table
