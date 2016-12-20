@@ -25,6 +25,8 @@ aliases:
 [glossary aae]: /riak/kv/2.2.0/learn/glossary/#active-anti-entropy-aae
 [security index]: /riak/kv/2.2.0/using/security/
 
+[java se downloads]: http://www.oracle.com/technetwork/java/javase/downloads
+[java se docs]: http://www.oracle.com/technetwork/java/javase/documentation
 
 This page covers how to use Riak Search (with
 [Solr](http://lucene.apache.org/solr/) integration). 
@@ -49,13 +51,9 @@ We'll be walking through:
 
 ## Prerequisites 
 
-Because Solr is a Java application, you will need to install **Java 1.6
-or later** on every node. We recommend installing Oracle's [JDK
-7u25](http://www.oracle.com/technetwork/java/javase/7u25-relnotes-1955741.html).
-Installation packages can be found on the [Java SE 7 Downloads
-page](http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html#jre-7u25-oth-JPR),
-and instructions on the [documentation
-page](http://www.oracle.com/technetwork/java/javase/documentation/index.html).
+Because Solr is a Java application, you will need to install **Java 7
+or later** on every node. Installation packages can be found on the [Java SE Downloads
+page][java se downloads] and instructions in the [Java SE documentation site][java se docs].
 
 
 ## Enabling Riak Search
@@ -96,7 +94,7 @@ You can read more about throttling [here][cluster-ops aae throttle].
 
 Set the throttling tiers delay for [active anti-entropy][glossary aae]; no default.
 
-Each tier is a [minimum Solrq queue size](#search-anti-entropy-throttle-$tier-solrq-queue-length) and a time-delay that the throttle should observe at that size and above. 
+Each tier is a [minimum Solrq queue size](#search-anti-entropy-throttle-tier-solrq-queue-length) and a time-delay that the throttle should observe at that size and above. 
 
 For example:
 
@@ -106,7 +104,7 @@ search.anti_entropy.throttle.tier1.delay = 0ms
 search.anti_entropy.throttle.tier2.solrq_queue_length = 40
 search.anti_entropy.throttle.tier2.delay = 5ms
 ```
-will introduce a 5 millisecond sleep for any queues of length 40 or higher. If configured, there must be a tier which includes a mailbox size of 0. Both [`.solrq_queue_length`](#search-anti-entropy-throttle-$tier-solrq-queue-length) and `.delay` must be set for each tier. There is no limit to the number of tiers that may be specified. See [`search.anti_entropy.throttle`](#search-anti-entropy-throttle).
+will introduce a 5 millisecond sleep for any queues of length 40 or higher. If configured, there must be a tier which includes a mailbox size of 0. Both [`.solrq_queue_length`](#search-anti-entropy-throttle-tier-solrq-queue-length) and `.delay` must be set for each tier. There is no limit to the number of tiers that may be specified. See [`search.anti_entropy.throttle`](#search-anti-entropy-throttle).
 
 Valid values: Non-negative integer
 
@@ -114,7 +112,7 @@ Valid values: Non-negative integer
 
 Set the throttling tiers for [active anti-entropy][glossary aae]; no default.
 
-Each tier is a minimum Solrq queue size and a [time-delay](#search-anti-entropy-throttle-$tier-delay) that the throttle
+Each tier is a minimum Solrq queue size and a [time-delay](#search-anti-entropy-throttle-tier-delay) that the throttle
 should observe at that size and above. 
 
 For example:
@@ -125,7 +123,7 @@ search.anti_entropy.throttle.tier1.delay = 0ms
 search.anti_entropy.throttle.tier2.solrq_queue_length = 40
 search.anti_entropy.throttle.tier2.delay = 5ms
 ```
-will introduce a 5 millisecond sleep for any queues of length 40 or higher. If configured, there must be a tier which includes a mailbox size of 0. Both `.solrq_queue_length` and [`.delay`](#search-anti-entropy-throttle-$tier-delay) must be set for each tier. There is no limit to the number of tiers that may be specified. See [`search.anti_entropy.throttle`](#search-anti-entropy-throttle).
+will introduce a 5 millisecond sleep for any queues of length 40 or higher. If configured, there must be a tier which includes a mailbox size of 0. Both `.solrq_queue_length` and [`.delay`](#search-anti-entropy-throttle-tier-delay) must be set for each tier. There is no limit to the number of tiers that may be specified. See [`search.anti_entropy.throttle`](#search-anti-entropy-throttle).
 
 Valid values: Non-negative integer
 
@@ -228,7 +226,7 @@ Valid values: Java command-line arguments
 
 ### `search.solr.jmx_port`
 
-The port number to which Solr JMX (note: binds on every interface); defaults to `8985`.
+The port number to which Solr JMX binds (note: binds on every interface); defaults to `8985`.
 
 Valid values: Integer
 
