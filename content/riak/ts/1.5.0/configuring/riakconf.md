@@ -24,7 +24,9 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/configuring/riakconf"
 [Riak object settings]: /riak/kv/2.2.0/configuring/reference/#object-settings
 
 
-Riak TS exposes a few configuration settings in riak.conf. This document will walk you through the TS configurations. 
+Riak TS exposes a few configuration settings in riak.conf. This document will walk you through the TS configurations.
+
+You can locate your riak.conf in  /etc/riak or /usr/local/etc if you installed using one of our packages, or in /etc if you installed from source.
 
 {{% note title="Deprecation Warning" %}}
 The Riak TS configuration settings in riak.conf have changed. The old settings will be deprecated. Please update your riak.conf with the new settings.
