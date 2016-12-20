@@ -20,7 +20,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/writingdata"
 [planning]: ../planning/
 [querying]: ../querying/
 [http]: ../developing/http
-[config reference]: /riak/kv/2.1.4/configuring/reference/#the-advanced-config-file
+[config reference]: /riak/kv/2.2.0/configuring/reference/#the-advanced-config-file
 [MDC]: /riak/ts/1.5.0/using/mdc
 [riakshell]: ../riakshell
 [iso8601]: ../timerepresentations/
