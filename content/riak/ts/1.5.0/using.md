@@ -19,10 +19,10 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using"
 [activating]: creating-activating/
 [aggregate]: querying/select/aggregate-functions/
 [arithmetic]: querying/select/arithmetic-operations/
-[configuring]: configuring/
+[configuring]: /riak/ts/1.5.0/configuring/
 [download]: /riak/ts/1.5.0/downloads/
 [installing]: ../setup/installing/
-[mdc]: mdc/
+[mdc]: /riak/ts/1.5.0/configuring/mdc/
 [planning]: planning/
 [querying]: querying/
 [riakshell]: riakshell/
