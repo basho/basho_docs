@@ -73,7 +73,7 @@ equivalent before synchronization occurs.
 
 {{% note title="Tip" %}}
 [`SHOW CREATE TABLE`](/riak/ts/1.5.0/using/querying/show-create-table/) makes this much easier.
-{{% /note }}
+{{% /note %}}
 
 
 #### Turn off replication per-table
