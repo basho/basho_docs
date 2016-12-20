@@ -24,7 +24,7 @@ This page will outline [key differences](#differences) between Riak KV and Riak 
 
 ## Differences
 
-Though they share a codebase, Riak TS differs from Riak KV in a few ways. Here's a handy table tracking Riak KV features in Riak TS:
+Though they share a codebase, Riak TS differs from Riak KV in a few ways. Here's a handy table tracking features in Riak KV compared to Riak TS:
 
 | Feature            | Riak KV | Riak TS |
 | :----------------- |:--------| :-------|
@@ -36,24 +36,15 @@ Though they share a codebase, Riak TS differs from Riak KV in a few ways. Here's
 | multi backend      | Yes     | No      |
 | MDC                | Yes     | v3 only |
 | Riak SQL           | No      | Yes     |
-| Riak explorer      | Yes     | No      |
-| Riak security      | Yes     | No      |
+| Riak security      | Yes     | Yes     |
 | riak shell         | No      | Yes     |
-| statistics         | Yes     | No      |
 | Riak search        | Yes     | No      |
-| MapReduce          | Yes     | No      |
-| distributed data types| Yes  | No      |
-| pre/post commit hooks| Yes   | No      |
-| secondary indexes  | Yes     | No      |
 
 There are some additional points it is important to note:
 
 * In Riak TS, LevelDB is the only compatible backend.
-* AAE is off by default in Riak TS.
-* Riak TS does not support HTTP API security.
-* CRDTs cannot be used in Riak TS.
+* AAE is off by default and not currently supported in Riak TS.
 * In Riak TS, `SELECT` does not invoke read-repair, but single key `GET` does.
-* There are currently no metrics in Riak TS to support statistics and monitoring. **?????TODO**
 
 
 ## Links
@@ -99,5 +90,3 @@ Below, you will find links to Riak KV documents that are applicable and helpful 
 <a href="http://docs.basho.com/riak/kv/2.2.0/using/performance/" target="_blank">Performance</a> will give you all the information you need to tune your cluster configurations to optimize performance.
 
 <a href="http://docs.basho.com/riak/kv/2.2.0/using/reference/" target="_blank">Reference</a> will provide you with explanations of various core functions, such as logging and handoff.
-
-
