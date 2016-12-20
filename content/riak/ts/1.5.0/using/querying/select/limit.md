@@ -22,6 +22,10 @@ The LIMIT statement is used with [`SELECT`][select] to return a limited number o
 
 This document shows how to run various queries using `LIMIT`. See the [guidelines][query guidelines] for more information on limitations and rules for queries in Riak TS.
 
+{{% note title="Warning" %}}
+The initial implementation of `LIMIT` in SELECT queries uses on-disk query buffer. It adds some overhead which increases the query latency, sometimes significantly.
+{{% /note %}}
+
 
 ## Overview
 
