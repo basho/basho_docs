@@ -18,8 +18,38 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/core-fundamentals"
 
 [Riak KV]: /riak/kv/2.2.0/
 
-Riak TS shares the same core codebase as [Riak KV], which allows you to operate a TS cluster much the same as you would operate a KV cluster. Below are some links to help you get started.
+Riak TS shares the same core codebase as [Riak KV], which allows you to operate a TS cluster much the same as you would operate a KV cluster.
 
+This page will outline [key differences](#differences) between Riak KV and Riak TS, as well as provide [links](#links) to help you get started learning to operate a Riak TS cluster.
+
+## Differences
+
+Though they share a codebase, Riak TS differs from Riak KV in a few ways. Here's a handy table tracking features in Riak KV compared to Riak TS:
+
+| Feature            | Riak KV | Riak TS |
+| :----------------- |:--------| :-------|
+| active anti-entropy| Yes     | No      |
+| global expiry      | Yes     | Yes     |
+| Bitcask            | Default | No      |
+| LevelDB            | Yes     | Default |
+| memory (backend)   | Yes     | No      |
+| multi backend      | Yes     | No      |
+| MDC                | Yes     | v3 only |
+| Riak SQL           | No      | Yes     |
+| Riak security      | Yes     | Yes     |
+| riak shell         | No      | Yes     |
+| Riak search        | Yes     | No      |
+
+There are some additional points it is important to note:
+
+* In Riak TS, LevelDB is the only compatible backend.
+* AAE is off by default and not currently supported in Riak TS.
+* In Riak TS, `SELECT` does not invoke read-repair, but single key `GET` does.
+
+
+## Links
+
+Below, you will find links to Riak KV documents that are applicable and helpful for running a Riak TS cluster.
 
 ### Configuration
 
@@ -59,4 +89,4 @@ Riak TS shares the same core codebase as [Riak KV], which allows you to operate 
 
 <a href="http://docs.basho.com/riak/kv/2.2.0/using/performance/" target="_blank">Performance</a> will give you all the information you need to tune your cluster configurations to optimize performance.
 
-<a href="http://docs.basho.com/riak/kv/2.2.0/using/reference/" target="_blank">Reference</a> will provide you with explanations of various core functions, such as logging, handoff, and monitoring.
+<a href="http://docs.basho.com/riak/kv/2.2.0/using/reference/" target="_blank">Reference</a> will provide you with explanations of various core functions, such as logging and handoff.
