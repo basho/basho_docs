@@ -175,5 +175,14 @@ For queries with an `ORDER BY` clause and/or `LIMIT` or `OFFSET` keywords, a sep
 riak_kv.query.timeseries.qbuf_root_path = "$(platform_data_dir)/query_buffers"
 ```
 
-
 Further documentation about these settings can be found at [Riak object settings].
+
+
+### Settings to be ignored
+
+The following settings show up in riak.conf but should not be changed:
+
+* `riak_kv.query.timeseries.qbuf_soft_watermark`
+* `riak_kv.query.timeseries.qbuf_hard_watermark`
+* `riak_kv.query.timeseries.qbuf_expire_ms`
+* `riak_kv.query.timeseries.qbuf_incomplete_release_ms`
