@@ -54,7 +54,7 @@ CREATE TABLE GeoCheckin
     (region, state, QUANTUM(time, 15, 'm')),
     region, state, time
   )
-)
+);
 ```
 
 A TS table is made up of:
@@ -99,7 +99,7 @@ CREATE TABLE GeoCheckin
     (region, state, QUANTUM(time, 15, 'm')),
     region, state, time
   )
-)
+);
 ```
 
 **B.**
@@ -115,7 +115,7 @@ CREATE TABLE GeoCheckin
      (region, state, QUANTUM(time, 15, 'm')),
      region, state, time
   )
-)
+);
 ```
 
 The data types in column definitions are limited. Valid types are:
@@ -143,7 +143,7 @@ CREATE TABLE GeoCheckin
      (region, state, QUANTUM(time, 15, 'm')),  <-- PARTITION KEY
       region, state, time                      <-- LOCAL KEY
    )
-)
+);
 ```
 
 The field definitions for the `PRIMARY KEY` can be specified in any order in the CREATE TABLE statement. For instance both are correct:
@@ -161,7 +161,7 @@ CREATE TABLE GeoCheckin
      (region, state, time,
       region, state, time
    )
-)
+);
 ```
 
 **B.**
