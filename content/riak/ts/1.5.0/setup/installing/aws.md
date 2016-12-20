@@ -115,16 +115,16 @@ The following clustering setup will not be resilient to instance restarts unless
 You now have a Riak cluster running on AWS.
 
 
-## Configure riak-shell
+## Configure the riak shell
 
-In order to function, `riak-shell` must know about each node in the cluster.
+In order to function, the riak shell must know about each node in the cluster.
 
 1. On each node, obtain the internal IP addresses:
     ```bash
     curl http://169.254.169.254/latest/meta-data/local-ipv4
     ```
 
-2. On each node in the cluster, edit `/etc/riak/riak_shell.config`, adding the IPs of each node. You should end up with a config that is similar to:
+2. On each node in the cluster, edit /etc/riak/riak_shell.config, adding the IPs of each node. You should end up with a config that is similar to:
    ```
     %%% -*- erlang -*-
     [
@@ -165,4 +165,4 @@ In order to function, `riak-shell` must know about each node in the cluster.
     riak-shell(2)>
     ```
 
-`riak-shell` is now configured and ready for use.
+The riak shell is now configured and ready for use.
