@@ -10,6 +10,8 @@ menu:
     weight: 102
     parent: "developing_app_guide"
 toc: true
+version_history:
+  in: "2.1.0+"
 aliases:
   - /riak/2.1.4/dev/advanced/write-once
   - /riak/kv/2.1.4/dev/advanced/write-once

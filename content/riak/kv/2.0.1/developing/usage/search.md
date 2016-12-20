@@ -29,6 +29,16 @@ to properly store and later query for values.
 3. **Bucket-index association** signals to Riak *when* to index values
    (this also includes bucket type-index association)
 
+{{% note %}}
+Riak search uses active anti-entropy (AAE) to ensure that the data is 
+consistent between the Riak backends and the Solr indexes.  When using 
+Riak search, you should not disable AAE without understanding the risks 
+of divergence between the data in the Riak backends and the Solr indexes 
+and how that can impact your application. More information about how 
+Riak search uses AAE is in the 
+[Riak search reference](../../../using/reference/search/#active-anti-entropy-aae).
+{{% /note %}}
+
 Riak Search must first be configured with a Solr schema so that Solr
 knows how to index value fields. If you don't define one, you're
 provided with a default schema named `_yz_default`, which can be found

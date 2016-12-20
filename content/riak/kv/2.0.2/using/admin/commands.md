@@ -185,7 +185,7 @@ Reassigns all [data partitions][concept clusters] owned by one node to
 another node _without_ first handing off data.
 
 ```bash
-riak-admin force-replace <node_being_replaced> <replacement_node>
+riak-admin cluster force-replace <node_being_replaced> <replacement_node>
 ```
 
 Once the data partitions have been reassigned, the node that is being

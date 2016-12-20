@@ -33,19 +33,9 @@ availability by distributing data across multiple servers. As long as
 your Riak client can reach *one* Riak server, it should be able to write
 data.
 
-While Riak is typically known as an eventually consistent system,
-beginning with version 2.0 it can be used either as an eventually _or_
-strongly consistent system, and these two approaches can be mixed and
-matched in a single cluster.
-
-When Riak is used as an **eventually consistent** system, the data that
+Riak is used as an **eventually consistent** system in that the data
 you want to read should remain available in most failure scenarios,
 although it may not be the most up-to-date version of that data.
-
-When Riak is used as a **strongly** consistent system, on the other
-hand, reads will return the most up-to-date version of data, with the
-drawback that some nodes will be temporarily unavailable to receive
-writes in certain rare situations.
 
 ### Basho's goals for Riak
 
@@ -68,8 +58,7 @@ possible.
 Riak's focus on availability makes it a good fit whenever downtime is
 unacceptable. No one can promise 100% uptime, but Riak is designed to
 survive network partitions and hardware failures that would
-significantly disrupt most databases. An exception to Riak's high
-availability approach is the optional [strong consistency][cluster ops strong consistency] feature, which can be applied on a selective basis.
+significantly disrupt most databases.
 
 A less-heralded feature of Riak is its predictable latency. Because its
 fundamental operations---read, write, and delete---do not involve

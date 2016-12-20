@@ -75,9 +75,9 @@ $response3 = (new Command\Builder\FetchObject($riak))
                 ->build()
                 ->execute();
 
-assert($val1 == $response1->getObject()->getData());
-assert($val2 == $response2->getObject()->getData());
-assert($val3 == $response3->getObject()->getData());
+print_r($response1->getObject()->getData());
+print_r($response2->getObject()->getData());
+print_r($response3->getObject()->getData());
 ```
 
 That was easy.  We create a [Fetch Command](http://basho.github.io/riak-php-client/class-Basho.Riak.Command.Object.Fetch.html) from a [FetchObject Builder](http://basho.github.io/riak-php-client/class-Basho.Riak.Command.Builder.FetchObject.html). 
@@ -89,7 +89,7 @@ In either case, we'll get a [Response](http://basho.github.io/riak-php-client/cl
 While some data may be static, other forms of data may need to be updated.  This is also easy to accomplish.  Let’s update the value of myValue in the 3rd example to 42.
 
 ```php
-object3 = $response3->getObject();
+$object3 = $response3->getObject();
 $data3 = $object3->getData();
 
 $data3['myValue'] = 42;

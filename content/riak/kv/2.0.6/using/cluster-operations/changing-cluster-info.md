@@ -90,7 +90,7 @@ interface if you intend on using it (which we recommend). Change the
 following line:
 
 ```riakconf
-listener.protobuf.internal = 0.0.0.0":8087
+listener.protobuf.internal = 0.0.0.0:8087
 ```
 
 ```appconfig
@@ -303,7 +303,7 @@ Reconfigure `node1.localdomain` to listen on the new private IP address *192.168
 11. Clean up by deleting the renamed `ring` directory once all previous steps have been successfully completed.
 
 <div class="note"><div class="title">Note</div>
-When using the `riak-admin force-replace` command, you will always get a warning message like: `WARNING: All of 'riak@10.1.42.11' replicas will be lost`. Since we didn't delete any data files and we are replacing the node with itself under a new name, we will not lose any replicas.
+When using the `riak-admin cluster force-replace` command, you will always get a warning message like: `WARNING: All of 'riak@10.1.42.11' replicas will be lost`. Since we didn't delete any data files and we are replacing the node with itself under a new name, we will not lose any replicas.
 </div>
 
 <a id="repeat"></a>

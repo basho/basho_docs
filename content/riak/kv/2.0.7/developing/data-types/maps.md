@@ -67,22 +67,7 @@ After creating and activating our new `maps` bucket type, we can setup our clien
 
 ## Client Setup
 
-First, we need to direct our client to the bucket type/bucket/key
-
-Adds a NAT-aware listener (primary) to the given node, IP address, port,
-NAT IP, and NAT port. If a non-NAT listener already exists with the same
-internal IP and port, it is "upgraded” to a NAT Listener.
-
-```bash
-riak-repl add-nat-listener <nodename> <internal_ip> <internal_port> <nat_ip> <nat_port>
-```
-
-Below is an example usage:
-
-```bash
-riak-repl add-nat-listener riak@10.0.1.156 10.0.1.156 9010 50.16.238.123 9010
-```
-location that contains our map.
+First, we need to direct our client to the bucket type/bucket/key location that contains our map.
 
 The syntax for creating a map is analogous to the
 syntax for creating other data types:

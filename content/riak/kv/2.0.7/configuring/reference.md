@@ -453,7 +453,7 @@ When configuring buckets [using bucket types][cluster ops bucket types], the tab
 <br /><br />
 <strong>Note</strong>: See <a href="../../developing/usage/conflict-resolution">
 Conflict Resolution</a> for a discussion of siblings.</td>
-<td><code>true</code></td>
+<td><code>false</code></td>
 </tr>
 
 <tr>
@@ -494,7 +494,7 @@ same write.</td>
 
 <tr>
 <td><code>buckets.default.n_val</code></td>
-<td>The number of replicas stored.
+<td>The number of replicas stored in **non-typed** buckets. For typed buckets, the default is 3 unless changed explicitly for that bucket type.
 <br /><br />
 <strong>Note</strong>: See
 <a href="../../developing/app-guide/replication-properties">Replication Properties</a>
