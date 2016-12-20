@@ -38,6 +38,7 @@ Though they share a codebase, Riak TS differs from Riak KV in a few ways. Here's
 | Riak SQL           | No      | Yes     |
 | Riak security      | Yes     | Yes     |
 | riak shell         | No      | Yes     |
+| Riak search        | Yes     | No      |
 
 There are some additional points it is important to note:
 
