@@ -169,8 +169,8 @@ CREATE TABLE GeoCheckin
    weather      VARCHAR   NOT NULL,
    temperature  DOUBLE,
    PRIMARY KEY (
-     (state, region, QUANTUM(time, 15, 'm')),
-      state, region, time, region
+     (state, region, time,
+      state, region, time, weather
    )
 )
 ```
