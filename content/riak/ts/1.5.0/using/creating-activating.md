@@ -264,9 +264,9 @@ You can verify that your table was properly created by executing the [DESCRIBE s
 
 
 
-## `CREATE TABLE` in riak-shell
+## `CREATE TABLE` in the riak shell
 
-You can use `riak-shell` to create a table by running:
+You can use the riak shell to create a table by running:
 
 ```
 riak-shell>CREATE TABLE GeoCheckin (id SINT64 NOT NULL, region VARCHAR NOT NULL, state VARCHAR NOT NULL, time  TIMESTAMP NOT NULL, weather  VARCHAR NOT NULL, temperature DOUBLE, PRIMARY KEY ((id, QUANTUM(time, 15, 'm')), id, time));
@@ -280,7 +280,7 @@ Please take care with the following:
 
 ### Verification
 
-You can verify that your table was properly created by executing the [DESCRIBE statement][describe] in `riak-shell`.
+You can verify that your table was properly created by executing the [DESCRIBE statement][describe] in the riak shell.
 
 
 ## `CREATE TABLE` using `riak-admin`
