@@ -18,7 +18,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/learn-about/tablearchitec
 
 
 [activating verify]: ../../using/creating-activating/#verify-creation-and-activation
-[configuring]: ../../using/configuring/
+[configuring]: ../../configuring/
 [planning]: ../../using/planning
 [sql]: ../sqlriakts/
 [bestpractices]: ../bestpractices/

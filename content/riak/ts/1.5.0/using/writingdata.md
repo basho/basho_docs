@@ -19,9 +19,9 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/writingdata"
 [activating]: ../creating-activating/
 [planning]: ../planning/
 [querying]: ../querying/
-[http]: ../developing/http
+[http]: /riak/ts/1.5.0/developing/http/
 [config reference]: /riak/kv/2.2.0/configuring/reference/#the-advanced-config-file
-[MDC]: /riak/ts/1.5.0/using/mdc
+[MDC]: /riak/ts/1.5.0/configuring/mdc
 [riakshell]: ../riakshell
 [iso8601]: ../timerepresentations/
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
