@@ -25,11 +25,11 @@ aliases:
 
 Riak search indexes are repaired whenever objects are corrected by [read repair](/riak/kv/2.2.0/learn/glossary/#read-repair).
 
-[Active Anti-Entropy (AAE)](/riak/kv/2.2.0/learn/glossary/#active-anti-entropy-aae) is provided for Riak Search.
+[Active anti-entropy (AAE)](/riak/kv/2.2.0/learn/glossary/#active-anti-entropy-aae) is provided for Riak search.
 
-Riak KV's [configuration for AAE](/riak/kv/2.2.0/using/cluster-operations/active-anti-entropy/) will be used for Riak Search AAE by default.
+Riak KV's [configuration for AAE](/riak/kv/2.2.0/using/cluster-operations/active-anti-entropy/) will be used for Riak search's AAE hashtrees by default.
 
-Riak Search can be provided its own AAE settings in the [search config settings](/riak/kv/2.2.0/configuring/search/#search-config-settings).
+Riak search can be provided its own AAE settings in the [search config settings](/riak/kv/2.2.0/configuring/search/#search-config-settings).
 
 ## Repairing Secondary Indexes
 
