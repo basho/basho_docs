@@ -23,11 +23,7 @@ PUT /types/<type>/buckets/<bucket>/keys/<key>
 # If you're using HTTP to interact with Riak, you can also use POST
 ```
 
-In the example above, our read was unsuccessful because our Riak cluster
-is currently empty. Let's change that by storing an object containing
-information about a dog named Rufus. We'll store that object in the
-location described above, i.e. in the key `rufus` in the bucket `dogs`,
-which bears the `animals` [bucket type](/riak/kv/2.2.0/developing/usage/bucket-types).
+As an example, let's store an object containing information about a dog named Rufus. We'll store that object in the key `rufus` in the bucket `dogs`, which bears the `animals` [bucket type](/riak/kv/2.2.0/using/cluster-operations/bucket-types).
 
 The object we're storing will be very simple, just a basic text snippet
 of something that Rufus might say. Let's build the object and then store
@@ -122,8 +118,7 @@ rsp := svc.Response
 Notice that we specified both a value for the object, i.e. `WOOF!`, and
 a content type, `text/plain`. See [content types][usage content types] for more information.
 
-Now, run the same read operation in [Reading Objects](/riak/kv/2.2.0/developing/usage/reading-objects). If the write operation was successful, you should be able to successfully read the object. Your Riak cluster is no
-longer empty!
+Now, you run the same read operation as in [Reading Objects](/riak/kv/2.2.0/developing/usage/reading-objects). If the write operation was successful, you should be able to successfully read the object. Please note that the operation will fail if you don't first create the bucket-type `animals` as per the page on [bucket types](/riak/kv/2.2.0/using/cluster-operations/bucket-types).
 
 ### Store an Object
 
@@ -147,8 +142,7 @@ been removed from them. If you don't specify a bucket's type, the type
 
 #### Write Parameters
 
-Similar to how read requests support the `r` query parameter, write
-requests also support the following parameters:
+Write requests support the following parameters:
 
 Parameter | Default | Description
 :---------|:--------|:-----------
@@ -265,11 +259,7 @@ curl -XPUT \
   http://localhost:8098/types/cars/buckets/dodge/keys/viper?w=3
 ```
 
-Normal HTTP status codes (responses will vary for client libraries):
-
-* `200 OK`
-* `204 No Content`
-* `300 Multiple Choices`
+Again, the above will only work if the `cars` bucket type has been created and activated.
 
 #### Return Body
 
@@ -278,7 +268,13 @@ from a read request may be present. Like a `GET` request, `300 Multiple
 Choices` may be returned if siblings existed or were created as part of
 the operation, and the response can be dealt with similarly.
 
-Let's give it a shot, using the same object from above:
+Normal HTTP status codes (responses will vary for client libraries):
+
+* `200 OK`
+* `204 No Content`
+* `300 Multiple Choices`
+
+For example, using the same object from above:
 
 ```java
 Location viperKey = new Location(new Namespace("cars", "dodge"), "viper");
