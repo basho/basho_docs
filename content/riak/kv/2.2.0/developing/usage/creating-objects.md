@@ -118,7 +118,7 @@ rsp := svc.Response
 Notice that we specified both a value for the object, i.e. `WOOF!`, and
 a content type, `text/plain`. See [content types][usage content types] for more information.
 
-Now, you run the same read operation as in [Reading Objects](/riak/kv/2.2.0/developing/usage/reading-objects). If the write operation was successful, you should be able to successfully read the object. Please note that the operation will fail if you don't first create the bucket-type "animals" as per the page on [bucket types](/riak/kv/2.2.0/using/cluster-operations/bucket-types).
+Now, you run the same read operation as in [Reading Objects](/riak/kv/2.2.0/developing/usage/reading-objects). If the write operation was successful, you should be able to successfully read the object. Please note that the operation will fail if you don't first create the bucket-type `animals` as per the page on [bucket types](/riak/kv/2.2.0/using/cluster-operations/bucket-types).
 
 ### Store an Object
 
