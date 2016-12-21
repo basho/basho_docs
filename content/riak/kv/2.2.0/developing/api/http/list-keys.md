@@ -27,7 +27,7 @@ This operation requires traversing all keys stored in the cluster and should not
 ## Request
 
 ```bash
-# Using the "default" bucket type
+# Using the default bucket type
 GET /buckets/bucket/keys?keys=true    # List all keys
 GET /buckets/bucket/keys?keys=stream  # Stream keys to the client
 
