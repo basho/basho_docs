@@ -148,9 +148,9 @@ However, we do not recommend using blob columns in primary keys yet, due to limi
 
 #### Quanta query range
 
-A query covering more than a certain number of quanta (5 by default) will generate the error `too_many_subqueries` and the query system will refuse to run it. Assuming a default quantum of 15 minutes, the maximum query time range is 75 minutes.
+A query covering more than than the configured quanta span (1000 in Riak TS 1.5 due to a bug, see [SELECT](riak/ts/1.5.0/configuring/riakconf/) for more information) will generate an error like `Error (1025): Query spans too many quanta (1577160, max 1000)` and the query system will refuse to run it. 
 
-In the below example we set a quantum of 15s:
+In the example DDL below we set a quantum of 1 minute in the primary key:
 
 ```sql
 CREATE TABLE GeoCheckin
@@ -160,10 +160,10 @@ CREATE TABLE GeoCheckin
   time TIMESTAMP NOT NULL,
   weather VARCHAR NOT NULL,
   temperature VARCHAR,
-    PRIMARY KEY((location, user, QUANTUM(time, 15, 's')),
+    PRIMARY KEY((location, user, QUANTUM(time, 1, 'm')),
                 location, user, time))
 ```
 
-The maximum time range we can query is 60s, anything beyond will fail.
+The maximum time range we can query is 1000 minutes, anything beyond will fail.
 
 See the Data Modeling section in [Table Architecture][table arch] for more information.
