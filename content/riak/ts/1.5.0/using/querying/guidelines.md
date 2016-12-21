@@ -52,7 +52,7 @@ All queries must cover the partition key fields and must use greater than and le
 
 All unquantized fields in your partition key must be included in the query as exact matches.
 
-Any quantized field in your partition key must be included in the query as either an exact match or a bounded range.
+Any quantized field in your partition key must be included in the query as a bounded range.
 
 * Valid: `time > 1449864277000 and time < 1449864290000`
 * Invalid: `time > 1449864277000`
