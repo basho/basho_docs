@@ -1,4 +1,4 @@
-`---
+---
 title: "Basic Riak KV Configuration"
 description: ""
 project: "riak_kv"
