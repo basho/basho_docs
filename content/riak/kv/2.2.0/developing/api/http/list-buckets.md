@@ -25,7 +25,7 @@ in the cluster and should not be used in production.
 ## Request
 
 ```bash
-# Using the "default" bucket type
+# Using the default bucket type
 GET /buckets?buckets=true
 
 # Using a non-default bucket type
