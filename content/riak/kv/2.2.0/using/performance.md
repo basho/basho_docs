@@ -65,9 +65,9 @@ transparent_hugepage=never
 
 For the change to become effective, a server reboot is required.
 
-<div class="note">
-<div class="title">Note on Kernel Tuning Tools</div>
-Some Kernel tuning tools such as ktune specify that THP should be enabled. This can cause THP to seem to be enabled even though `transparent_hugepage=never` has already been added to `grub.conf` and the system rebooted. Should this occur, please refer to the documentation for the Kernel tuning tool you are using as to how to disable THP.</div>
+{{% note title="Note on Kernel Tuning Tools" %}}
+Some Kernel tuning tools such as ktune specify that THP should be enabled. This can cause THP to seem to be enabled even though `transparent_hugepage=never` has already been added to `grub.conf` and the system rebooted. Should this occur, please refer to the documentation for the Kernel tuning tool you are using as to how to disable THP.
+{{% /note %}}
 
 ### Mounts
 
