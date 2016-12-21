@@ -165,3 +165,4 @@ Skip first 2 results and return the results after:
 
 ```sql
 SELECT id, time, value FROM SensorData WHERE id = 2 AND time > '2016-11-28 06:00:00' AND time < '2016-11-28 06:10:10' ORDER BY time ASC LIMIT 5 OFFSET 2;
+```
