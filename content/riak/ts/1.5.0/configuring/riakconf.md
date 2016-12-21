@@ -102,7 +102,7 @@ riak_kv.query.timeseries.maximum_query_queue_length = 15
 
 {{% note title="Bug" %}}
 Due to a bug, the `max_quanta_span` is capped at 1000, though the default will show in riak.conf as 5000.
-{{% /note }}
+{{% /note %}}
 
 ```riak.conf
 riak_kv.query.timeseries.max_quanta_span = 5000
