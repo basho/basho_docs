@@ -108,7 +108,7 @@ Riak TS has significantly improved performance, thanks to streamlining of the on
 * Write-once conflict resolution has been changed to be more predictable. It is now based on timestamp rather than SHA-1 hash on value part. [[PR 1512](https://github.com/basho/riak_kv/pull/1512)]
 * LevelDB has been updated to version 2.0.33 [[eleveldb PR 231](https://github.com/basho/eleveldb/pull/231)]
 * LZ4 is now the default compression for LevelDB. [[leveldb PR 164](https://github.com/basho/leveldb/pull/164) & [eleveldb PR 208](https://github.com/basho/eleveldb/pull/208)]
-* Updated the default value for `riak_kv.query.timeseries.max_quanta_span`. See the [TS configuration docs](/riak/ts/1.5.0/configuring/riakconf) for details. [[PR 1505](https://github.com/basho/riak_kv/pull/1505)]
+* Updated the default value for `riak_kv.query.timeseries.max_quanta_span`. See the [TS configuration docs](/riak/ts/1.5.0/configuring/riakconf) for details. **Note:** due to a bug in the code, the `max_quanta_span` is capped at 1000. [[PR 1505](https://github.com/basho/riak_kv/pull/1505)]
 * The default value for `OFFSET` is `[ ]`. [[PR 1546](https://github.com/basho/riak_kv/pull/1546)]
 
 
@@ -146,5 +146,6 @@ Riak TS is compatible with the following:
 
 * AAE must remain turned off.
 * You cannot use Bitcask with Riak TS tables.
+* `riak_kv.query.timeseries.max_quanta_span` is capped at 1000 due to a bug.
 
 You can see a table of KV and TS features [here](/riak/ts/1.5.0/using/core-fundamentals/).
