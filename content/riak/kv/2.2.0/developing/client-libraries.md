@@ -131,6 +131,7 @@ level of maturity and activity.
   client inspired by the Ruby riak-client from Basho and riakpbc from mrb
 * [riakpbc](https://github.com/mrb/riakpbc) --- A Riak Protocol Buffer
   client in Go
+* [goriak](https://github.com/zegl/goriak) --- Go language driver for Riak KV
 
 #### Grails
 
