@@ -213,7 +213,7 @@ curl -XPUT $RIAK_HOST/search/index/famous \
 
 ## Associating an Index
 
-The last setup item that you need to perform is to associate your Solr index
+The last set-up item that you need to perform is to associate your Solr index
 with either a [bucket type][bucket types] or a custom bucket. You
 only need do this once per bucket type, and all buckets within that type
 will use the same Solr index. For example, to associate a bucket type
@@ -225,10 +225,10 @@ should be used. More on bucket types in the section directly below.
 
 ### Associating via Bucket Type
 
-In Riak versions 2.0 and later, Basho suggests that you use [bucket
+We suggest that you use [bucket
 types][bucket types] to namespace and configure all buckets you
 use. Bucket types have a lower overhead within the cluster than the
-default bucket namespace but require an additional setup step on the
+default bucket namespace but require an additional set-up step on the
 command line.
 
 When creating a new bucket type, you can create a bucket type without
