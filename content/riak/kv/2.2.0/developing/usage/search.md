@@ -265,7 +265,7 @@ If you ever need to turn off indexing for a bucket, set the
 
 Although we recommend that you use all new buckets under a bucket type,
 if you have existing data with a type-free bucket (i.e. under the
-`default` bucket type) you can set the `search_index` property for a
+default bucket type) you can set the `search_index` property for a
 specific bucket.
 
 ```java
