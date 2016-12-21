@@ -53,6 +53,22 @@ it runs out of memory. This will leave a crash dump file, named
 `erl_crash.dump`, in the `/var/log/riak` directory which can be used to
 determine the cause of the memory usage.
 
+### Transparent Huge Pages (THP)
+
+Owing to the way that THP handles memory usage, disproportionately large amounts of memory can become held up in any large database application. We recommend disabling THP at boot time. Unfortunately this operation is rather OS specific. As many of our customers are running Red Hat 6, we have included instructions on how to do so underneath. If you are using a different operating system, please refer to documentation for your OS.
+
+In Red Hat 6, you can disable THP by editing `grub.conf` and adding the following line:
+
+```
+transparent_hugepage=never
+```
+
+For the change to become effective, a server reboot is required.
+
+{{% note title="Note on Kernel Tuning Tools" %}}
+Some Kernel tuning tools such as ktune specify that THP should be enabled. This can cause THP to seem to be enabled even though `transparent_hugepage=never` has already been added to `grub.conf` and the system rebooted. Should this occur, please refer to the documentation for the Kernel tuning tool you are using as to how to disable THP.
+{{% /note %}}
+
 ### Mounts
 
 Riak makes heavy use of disk I/O for its storage operations. It is
