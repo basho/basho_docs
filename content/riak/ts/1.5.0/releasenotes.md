@@ -17,7 +17,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/releasenotes"
 
 Released December 20, 2016.
 
-Riak TS 1.5.0 expands its SQL implementation. It includes additional SELECT query clauses: `ORDER BY` and `LIMIT`. It also includes `DELETE` for a single record. TS 1.5 also includes `ASC` and `DESC` keywords in table schema definition, and better usage of the `NULL` keyword in `WHERE` clause conditions and INSERT statements. 
+Riak TS 1.5.0 expands its SQL implementation. It includes additional SELECT query clauses: `ORDER BY` and `LIMIT`. It also includes `DELETE` for a single record. TS 1.5 also includes `ASC` and `DESC` keywords in table schema definition, and better usage of the `NULL` keyword in `WHERE` clause conditions and INSERT statements.
 
 TS 1.5.0 adds `SHOW CREATE TABLE` to review the SQL statement used to create the table. This statement is useful for re-creating your table from a testing to a deployment cluster, or to another data-center.
 
@@ -40,17 +40,17 @@ Riak TS has significantly improved performance, thanks to streamlining of the on
     * [[riak_test PR 1200](https://github.com/basho/riak_test/pull/1200)]
     * [[riak_test PR 1081](https://github.com/basho/riak_test/pull/1081)]
     * [[riak_test PR 1201](https://github.com/basho/riak_test/pull/1201 )]
-* The ORDER BY statement has been added to `SELECT`, allowing you to sort the results of your query in various ways, including: ascending or descending order, or nulls first or last. You can learn about `ORDER BY` [here](riak/ts/1.5.0/using/querying/select/order-by).
+* The ORDER BY statement has been added to `SELECT`, allowing you to sort the results of your query in various ways, including: ascending or descending order, or nulls first or last. You can learn about `ORDER BY` [here](/riak/ts/1.5.0/using/querying/select/order-by).
     * [[PR 1479](https://github.com/basho/riak_kv/pull/1479)]
     * [[riak erlang client PR 321](https://github.com/basho/riak-erlang-client/pull/321)]
     * [[riak_pb PR 208](https://github.com/basho/riak_pb/pull/208)]
     * [[riak_test PR 1152](https://github.com/basho/riak_test/pull/1152)]
-*  `LIMIT` allows you to specify that you only want a specific number of records from your query, and it can be expanded by `OFFSET`. You can read about how to use the LIMIT statement [here](riak/ts/1.5.0/using/querying/select/limit).
+*  `LIMIT` allows you to specify that you only want a specific number of records from your query, and it can be expanded by `OFFSET`. You can read about how to use the LIMIT statement [here](/riak/ts/1.5.0/using/querying/select/limit).
     * [[PR 1479](https://github.com/basho/riak_kv/pull/1479)]
     * [[riak erlang client PR 321](https://github.com/basho/riak-erlang-client/pull/321)]
     * [[riak_pb PR 208](https://github.com/basho/riak_pb/pull/208)]
     * [[riak_test PR 1152](https://github.com/basho/riak_test/pull/1152)]
-* You can now use `DELETE` from riak shell to remove a record from your TS table. Learn all about `DELETE` [here](riak/ts/1.5.0/using/querying/delete).
+* You can now use `DELETE` from riak shell to remove a record from your TS table. Learn all about `DELETE` [here](/riak/ts/1.5.0/using/querying/delete).
     * [[PR 1552](https://github.com/basho/riak_kv/pull/1552)]
     * [[riak_ql PR 145](https://github.com/basho/riak_ql/pull/145)]
     * [[riak_shell PR 23](https://github.com/basho/riak_shell/pull/23)]
@@ -91,7 +91,7 @@ Riak TS has significantly improved performance, thanks to streamlining of the on
 ## Additions
 
 * The timestamp type is now able to be used as an argument in aggregate functions. [[riak_ql PR 146](https://github.com/basho/riak_ql/pull/146) & [riak_ql PR 147](https://github.com/basho/riak_ql/pull/147)]
-* You can now see the Status field of your TS table when you use `SHOW TABLES`. [[PR 1514](https://github.com/basho/riak_kv/pull/1514 ) and 
+* You can now see the Status field of your TS table when you use `SHOW TABLES`. [[PR 1514](https://github.com/basho/riak_kv/pull/1514 ) and
 [PR 1176](https://github.com/basho/riak_test/pull/1176 )]
 * Introduced the following new parameters in riak.conf. See the [TS configuration docs](/riak/ts/1.5.0/configuring/riakconf) for details. [[PR 1505](https://github.com/basho/riak_kv/pull/1505)]
     * riak_kv.query.timeseries.max_returned_data_size
@@ -118,8 +118,8 @@ Riak TS has significantly improved performance, thanks to streamlining of the on
 * [[riak_shell Issue 33](https://github.com/basho/riak_shell/issues/33)/[riak_shell PR 59](https://github.com/basho/riak_shell/pull/59)] When unknown crashes occurred server-side, riak shell would get the report and crash itsef. Now, riak shell does not crash upon receiving unknown server-side crashes, and instead prompts you to report the bug to Basho.
 * [[riak_shell PR 68](https://github.com/basho/riak_shell/pull/68), [riak_shell PR 70](https://github.com/basho/riak_shell/pull/70), & [PR 1239](https://github.com/basho/riak_test/pull/1239 )] Unicode in SQL could crash riak shell.
 * [[riak_ql PR 148](https://github.com/basho/riak_ql/pull/148)] It was possible to create a Riak TS table without a local key. Doing so would result in the local key becoming an exact copy of the partition key, meaning the quantum would be listed in-full rather than in a plain field name. This caused many breaks and bugs. The local key is now required, and a table creation will be unsuccessful without it.
-* [[PR 1479](https://github.com/basho/riak_kv/pull/1479)] The length of the queue was supposed to be configurable, but was being overridden by supervisor. The queue is now actually configurable. 
-* [[PR 1478](https://github.com/basho/riak_kv/pull/1478)] A rare error in the EXPLAIN statement was caused by a function_clause error in `riak_pb_ts_codec:encode_field_type/1` due to a typo in the code. The typo has been fixed. 
+* [[PR 1479](https://github.com/basho/riak_kv/pull/1479)] The length of the queue was supposed to be configurable, but was being overridden by supervisor. The queue is now actually configurable.
+* [[PR 1478](https://github.com/basho/riak_kv/pull/1478)] A rare error in the EXPLAIN statement was caused by a function_clause error in `riak_pb_ts_codec:encode_field_type/1` due to a typo in the code. The typo has been fixed.
 * [[Issue 1472](https://github.com/basho/riak_kv/issues/1472)/[PR 1474](https://github.com/basho/riak_kv/pull/1474)] The error message has been improved when selecting an empty time range.
 * [[PR 1516](https://github.com/basho/riak_kv/pull/1516)] The equality operator was not working correctly with timestamp. The timestamp can now be queried using equality operators.
 * [[PR 1545](https://github.com/basho/riak_kv/pull/1545 ) & [riak_test PR 1208](https://github.com/basho/riak_test/pull/1208)] Attempting to insert data into a non-existant table would cause crash.
@@ -135,7 +135,7 @@ Riak TS is compatible with the following:
 * RHEL/CentOS 6
 * RHEL/CentOS 7
 * Ubuntu 14.04 (Trusty) LTS
-* Ubuntu 16.04 (Xenial) LTS* 
+* Ubuntu 16.04 (Xenial) LTS*
 * Debian 7 "Wheezy"(development only)
 * Debian 8 "Jessie"
 * OS X 10.11+ (development only)
