@@ -23,11 +23,11 @@ aliases:
 [concept aae]: /riak/kv/2.1.4/learn/concepts/active-anti-entropy/
 [aae read repair]: /riak/kv/2.1.4/learn/concepts/active-anti-entropy/#read-repair-vs-active-anti-entropy
 
-Riak KV is a [clustered][concept clusters] system built to survive a wide range of failure scenarios including the loss of nodes due to network or hardware failure. Although this is one of Riak KV's core strengths, it cannot withstand all failure scenarios.
+Riak KV is a [clustered][concept clusters] system built to survive a wide range of failure scenarios, including the loss of nodes due to network or hardware failure. Although this is one of Riak KV's core strengths, it cannot withstand all failure scenarios.
 
-Backing up data; duplicating the database on a different long-term storage system, is a common approach to mitigating potential failure scenarios.
+Backing up data (duplicating the database on a different long-term storage system) is a common approach to mitigating potential failure scenarios.
 
-The following document covers how to perform backups of Riak KV data.
+This page covers how to perform backups of Riak KV data.
 
 ## Overview
 
@@ -37,9 +37,9 @@ Choosing your Riak KV backup strategy will depend on your already-established ba
 
 The basic process for getting a backup of Riak KV from a node is as follows:
 
-1. Stop the node with `riak stop`.
+1. Stop Riak KV with `riak stop`.
 2. Backup the appropriate data, ring, and configuration directories.
-3. Start the node.
+3. Start Riak KV.
 
 Downtime of a node can be significantly reduced by using an OS feature or filesystem that supports snapshotting.
 
@@ -52,14 +52,6 @@ Data could exist on some nodes and not others at the exact time a backup is made
 ## OS-Specific Directory Locations
 
 The default Riak KV data, ring, and configuration directories for each of the supported operating systems is as follows:
-
-{{% note title="Note on upgrading" %}}
-If you are upgrading to Riak KV version 2.0 or later from a pre-2.0 release, you can use either your old `app.config` configuration file or the newer `riak.conf` if you wish.
-
-If you have installed Riak 2.0 directly, you should use only `riak.conf`.
-
-More on configuring Riak KV can be found in the [configuration reference](/riak/kv/2.1.4/configuring/reference).
-{{% /note %}}
 
 #### Debian and Ubuntu
 
@@ -136,10 +128,6 @@ Cluster Metadata | `/opt/riak/cluster_meta`
 Search | `/opt/riak/yz`
 Strong consistency | `/opt/riak/data/ensembles`
 
-{{% note title="Note on strong consistency directories" %}}
-The listings above show directories for data related to Riak's [strong consistency][use ref strong consistency] feature. This feature is purely optional, so `/ensembles` directories will not exist in your installation if this feature is not being used. For more information, see [Using Strong Consistency](/riak/kv/2.1.4/developing/app-guide/strong-consistency) and [Managing Strong Consistency](/riak/kv/2.1.4/using/cluster-operations/strong-consistency).
-{{% /note %}}
-
 ## Performing Backups
 
 {{% note title="Deprecation notice" %}}
@@ -147,15 +135,15 @@ In previous versions of Riak KV, there was a [`riak-admin backup`](/riak/kv/2.1.
 backups. This functionality is now deprecated. We strongly recommend using the backup procedure documented below instead.
 {{% /note %}}
 
-Backups can be accomplished through a variety of common methods. Standard utilities such `cp`, `rsync`, and `tar` can be used as well as any backup system already in place in your environment.
+Backups can be accomplished through a variety of common methods. Standard utilities such `cp`, `rsync`, and `tar` can be used, as well as any backup system already in place in your environment.
 
-A simple shell command such as the following examples is sufficient for creating a backup of your Bitcask or LevelDB data, ring, and Riak KV configuration directories for a binary package-based Riak KV Linux
+A simple shell command, like those in the following examples, are sufficient for creating a backup of your Bitcask or LevelDB data, ring, and Riak KV configuration directories for a binary package-based Riak KV Linux
 installation.
 
 The following examples use `tar`:
 
 {{% note %}}
-Backups must be performed on a stopped node to prevent data loss.
+Backups must be performed on while Riak KV is stopped to prevent data loss.
 {{% /note %}}
 
 ### Bitcask
