@@ -336,18 +336,20 @@ You can verify that your table was properly created by looking at the `ddl` sect
 $ riak-admin bucket-type status GeoCheckin
 GeoCheckin is active
 ...
-ddl: {ddl_v1,<<"GeoCheckin">>,
+ddl: {ddl_v2,<<"GeoCheckin">>,
              [{riak_field_v1,<<"id">>,1,sint64,false},
               {riak_field_v1,<<"region">>,2,varchar,false},
               {riak_field_v1,<<"state">>,3,varchar,false},
               {riak_field_v1,<<"time">>,4,timestamp,false},
               {riak_field_v1,<<"weather">>,5,varchar,false},
               {riak_field_v1,<<"temperature">>,6,double,true}],
-             {key_v1,[{param_v1,[<<"id">>]},
+             {key_v1,[{param_v2,[<<"id">>],undefined},
                       {hash_fn_v1,riak_ql_quanta,quantum,
-                                  [{param_v1,[<<"time">>]},15,m],
+                                  [{param_v2,[<<"time">>],undefined},15,m],
                                   timestamp}]},
-             {key_v1,[{param_v1,[<<"id">>]},{param_v1,[<<"time">>]}]}}
+             {key_v1,[{param_v2,[<<"id">>],undefined},
+                      {param_v2,[<<"time">>],undefined}]},
+             v1}
 ```
 
 
