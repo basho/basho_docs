@@ -148,7 +148,7 @@ However, we do not recommend using blob columns in primary keys yet, due to limi
 
 #### Quanta query range
 
-A query covering more than than the configured quanta span (1000 in Riak TS 1.5 due to a bug, see [SELECT](riak/ts/1.5.0/configuring/riakconf/) for more information) will generate an error like `Error (1025): Query spans too many quanta (1577160, max 1000)` and the query system will refuse to run it. 
+A query covering more than than the configured quanta span (1000 in Riak TS 1.5 due to a bug, see [Configuring](riak/ts/1.5.0/configuring/riakconf/) for more information) will generate an error like `Error (1025): Query spans too many quanta (1577160, max 1000)` and the query system will refuse to run it. 
 
 In the example DDL below we set a quantum of 1 minute in the primary key:
 
