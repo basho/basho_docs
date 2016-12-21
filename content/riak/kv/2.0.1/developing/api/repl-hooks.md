@@ -16,6 +16,7 @@ aliases:
   - /riak/2.0.1/ops/mdc/v2/hooks
   - /riak/kv/2.0.1/ops/mdc/v2/hooks
 ---
+[object]: https://github.com/basho/riak_kv/blob/master/src/riak_object.erl 
 
 This document is a guide to developing extensions for Riak Enterprise's
 Multi-Datacenter Replication feature.
@@ -36,6 +37,48 @@ with the name of your custom module:
 riak_core:register([{repl_helper, MyMod}]).
 ```
 
+## Replication Hook API
+
+A replication hook must implement the following functions:
+
+### send_realtime/2
+
+```erlang
+(riak_object, RiakClient) -> ok | cancel | [riak_object]
+```
+
+This hook controls whether an [object][object]
+replicated in realtime should be sent. To send this object, return `ok`;
+to prevent the object from being sent, return `cancel`. You can also
+return a list of Riak objects to be replicated immediately *before* the
+current object. This is useful when you have an object that refers to
+other objects, e.g. a chunked file, and want to ensure that all of the
+dependency objects are replicated before the dependent object.
+   
+### send/2
+
+```erlang
+(riak_object, RiakClient) -> ok | cancel | [riak_object]
+```
+
+This hook is used in fullsync replication. To send this
+[object][object],
+return `ok`; to prevent the object from being sent, return `cancel`. You
+can also return a list of Riak objects to be replicated immediately
+*before* the current object. This is useful for when you have an object
+that refers to other objects, e.g. a chunked file, and want ensure that
+all the  dependency objects are replicated before the dependent object.
+
+### recv/1
+
+```erlang
+(riak_object) -> ok | cancel
+```
+
+When an [object][object]
+is received by the client site, this hook is run. You can use it to
+update metadata or to deny the object.
+
 ## Implementing a Sample Replication Hook
 
 The following is a simple replication hook that will log when an object
@@ -47,7 +90,7 @@ Here is the relevant Erlang code:
 ```erlang
 %% Riak Enterprise MDC replication hook sample
  
--module(riak_repl_hook_sample).
+-module(riak_replication_hook_sample).
 -export([register/0]).
 -export([recv/1, send/2, send_realtime/2]).
  
@@ -95,25 +138,25 @@ Save the above code as `riak_replication_hook_sample.erl`.
 
 To install the sample hook, compile `riak_replication_hook_sample.erl`.
 
-<div class="note">
-<div class="title">Note on the Erlang compiler</div>
-You must use the Erlang compiler
-<a href="http://erlang.org/doc/man/erlc.html"><code>erlc</code></a>
+{{% note title="Note on the Erlang compiler" %}}
+
+[erlc]: http://erlang.org/doc/man/erlc.html
+You must use the Erlang compiler [`erlc`][erlc]
 associated with the Riak installation or the version of Erlang used when
 compiling Riak from source. For packaged Riak installations, you can
-consult <strong>Table 1</strong> (below) for the default location of
-Riak’s <code>erlc</code> for each supported platform. If you compiled
-from source, use the <code>erlc</code> from the Erlang version you used
+consult **Table 1** (below) for the default location of
+Riak’s `erlc` for each supported platform. If you compiled
+from source, use the `erlc` from the Erlang version you used
 to compile Riak.
-</div>
+{{% /note %}}
 
 Distribution | Path
 :------------|:----
-CentOS & RHEL Linux | `/usr/lib64/riak/erts-5.9.1/bin/erlc` |
-Debian & Ubuntu Linux | `/usr/lib/riak/erts-5.9.1/bin/erlc` |
-FreeBSD | `/usr/local/lib/riak/erts-5.9.1/bin/erlc` |
-SmartOS | `/opt/local/lib/riak/erts-5.9.1/bin/erlc`
-Solaris 10 | `/opt/riak/lib/erts-5.9.1/bin/erlc`
+CentOS & RHEL Linux | `/usr/lib64/riak/erts-5.10.3/bin/erlc` |
+Debian & Ubuntu Linux | `/usr/lib/riak/erts-5.10.3/bin/erlc` |
+FreeBSD | `/usr/local/lib/riak/erts-5.10.3/bin/erlc` |
+SmartOS | `/opt/local/lib/riak/erts-5.10.3/bin/erlc`
+Solaris 10 | `/opt/riak/lib/erts-5.10.3/bin/erlc`
 
 **Table 1**: Erlang compiler executable location for packaged Riak
 installations on supported platforms
@@ -122,7 +165,7 @@ Once you have determined the location of the Erlang compiler, e.g. on
 Ubuntu, compiling is as simple as:
 
 ```bash
-/usr/lib/riak/erts-5.9.1/bin/erlc riak_replication_hook_sample.erl
+/usr/lib/riak/erts-5.10.3/bin/erlc riak_replication_hook_sample.erl
 ```
 
 This will create a `riak_replication_hook_sample.beam` file in the same
@@ -144,47 +187,6 @@ Finally, add a `-run` argument to your `vm.args` file to register the
 hook:
 
 ```bash
--run riak_repl_hook_sample register
+-run riak_replication_hook_sample register
 ```
 
-## Replication Hook API
-
-A replication hook must implement the following functions:
-
-### send_realtime/2
-
-```erlang
-(riak_object, RiakClient) -> ok | cancel | [riak_object]
-```
-
-This hook controls whether an [object](https://github.com/basho/riak_kv/blob/master/src/riak_object.erl)
-replicated in realtime should be sent. To send this object, return `ok`;
-to prevent the object from being sent, return `cancel`. You can also
-return a list of Riak objects to be replicated immediately *before* the
-current object. This is useful when you have an object that refers to
-other objects, e.g. a chunked file, and want to ensure that all of the
-dependency objects are replicated before the dependent object.
-   
-### send/2
-
-```erlang
-(riak_object, RiakClient) -> ok | cancel | [riak_object]
-```
-
-This hook is used in fullsync replication. To send this
-[object](https://github.com/basho/riak_kv/blob/master/src/riak_object.erl),
-return `ok`; to prevent the object from being sent, return `cancel`. You
-can also return a list of Riak objects to be replicated immediately
-*before* the current object. This is useful for when you have an object
-that refers to other objects, e.g. a chunked file, and want ensure that
-all the  dependency objects are replicated before the dependent object.
-
-### recv/1
-
-```erlang
-(riak_object) -> ok | cancel
-```
-
-When an [object](https://github.com/basho/riak_kv/blob/master/src/riak_object.erl)
-is received by the client site, this hook is run. You can use it to
-update metadata or to deny the object.
