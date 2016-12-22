@@ -181,6 +181,9 @@
  *    Edge Faders that manipulate the __scroll-box, and in part to allow for
  *    z-indexes to be set by the generateVersionLists() function that generates
  *    the Selector Lists.
+ *    VENDOR FIX(Safari): Setting child height to 100% doesn't take care of the
+ *    desired align-top on Safari. Setting vertical-align  with the 100% height
+ *    does, though.
  * 2. Set height of the __scroll-box to 100% (to the height of the
  *    .selector-pane minus padding) to ensure all lists are aligned to the top
  *    of the parent, and to allow vertical scrolling per list. This also allows
@@ -199,6 +202,8 @@
 .selector-list__sizing-box {
   position : relative;       /* 1 */
   height : 100%;
+
+  vertical-align  : bottom;  /* 1 */
 
   padding-left    : 0.75rem;
 
@@ -234,11 +239,17 @@
  *    Background Colors section.
  * 2. Width is locked (mostly; some elements will be > 3.5rem), so the
  *    padding-left and padding-right value are more of a fall-back.
+ *    VENDOR FIX(Safari): We set the min-width on the __element and the padding
+ *    on the anchor s.t. Safari (and other browsers that render scrollbars
+ *    inside the scrolling div) won't shrink either when scrollbars are rendered
+ *    for the selector-list.
  */
 .selector-list__element {
   background  : rgba(255,0,0,0.7);       /* 1 */
   color       : $version-selector-text;
   text-align  : center;
+
+  min-width : 3.5rem;                    /* 2 */
 
   border-top : p2r(1px) solid $gray-85;
 
@@ -246,7 +257,6 @@
 
   a {
     @extend %sans-bold;
-    min-width : 3.5rem;                  /* 2 */
     padding   : 0.6rem 0.6rem;           /* 2 */
     color           : inherit;
     text-decoration : none;
