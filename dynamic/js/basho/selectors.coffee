@@ -93,7 +93,11 @@ generateVersionLists = () ->
         #     annoying** for a lot of reasons. To prevent that whitespace from
         #     being added we must avoid adding whitespace between pretty much
         #     every element.
-        version_selector_list_html += '<div class="inline-block   selector-list__sizing-box">'
+        # NB. We're setting a descending z-index per selector-list__sizing-box
+        #     to ensure scrollbars are always intractable. Without this explicit
+        #     z-index, the scrollbar of a __sizing-box may be partially covered
+        #     by the padding of a selector-list immediately to its right.
+        version_selector_list_html += '<div class="inline-block   selector-list__sizing-box" style="z-index:'+(100-set_index)+';">'
 
         arrow_str = '<span class="inline-block   edge-fader__arrow edge-fader__arrow--invisible"></span>'
         version_selector_list_html += '<div class="edge-fader edge-fader--top ">' + arrow_str + '</div>'
@@ -196,6 +200,25 @@ generateVersionLists = () ->
       # What we've all been waiting for; make the DOM modification.
       $('.selector-pane--versions').html(version_selector_list_html)
 
+
+      # With the lists added to the DOM, we can capture the height of the
+      # tallest one, and set the height of the selector-pane's __shadow-box
+      # and __sizing-box.
+      # NB. This calculation needs to be redone every time breakpoints (sm to
+      # md, md to lg) are hit, but we're going to cheat and add it into a
+      # general window.on(resize) call.
+      $version_pane         = $('.selector-pane--versions')
+      $version_pane__shadow = $version_pane.parent()
+      $version_pane__sizing = $version_pane__shadow.parent()
+
+      tallest_list = Math.max.apply(
+          Math,
+          $version_pane.find('.selector-list').map(() -> $(this).outerHeight())
+        )
+      $version_pane__shadow.css('height', tallest_list + (2).rem())
+      $version_pane__sizing.css('height', tallest_list + (2).rem())
+
+
       ## HACK:
       #  Because these dynamic elements were added after the JQuery.ready()
       #  clause that defied 'scroll' and 'click' event listeners on all other
@@ -212,7 +235,8 @@ generateVersionLists = () ->
       $('.edge-fader__arrow').on('click.selector-fader-arrow',
         EdgeFader.onClickCallback
       )
-    )
+
+    ) # *end getJSON callback*
 
 
 
@@ -230,16 +254,18 @@ $ ->
   $content_nav__primary = $('.content-nav__primary')
   $version_selector     = $('.selector--version')
   $version_pane         = $('.selector-pane--versions')
-  $version_pane__sizing = $version_pane.parent().parent()
+  $version_pane__shadow = $version_pane.parent()
+  $version_pane__sizing = $version_pane__shadow.parent()
 
   # When we open the .selector-pane--versions we're going to want to give each
   # .selector-list inside it a chance to show its Edge Fader arrows. We don't
   # want this to happen until the version pane is fully open (500ms), and we
   # don't want someone mashing the Version Selector button to see a bunch of
-  # weird artifacts from this logic being run mid-transition. The answer;
-  # a debounced function that wraps the .selector-list show-or-hide logic, and
-  # only runs it when the .selector-pane--versions is not a child of a --hidden
-  # pane. Simple, right?
+  # weird artifacts from this logic being run mid-transition.
+  # The answer; a debounced function that wraps the .selector-list show-or-hide
+  # logic, and only runs it when the .selector-pane--versions is not a child of
+  # a --hidden pane.
+  # Simple, right?
   debouced_show_or_hide_selector_list_arrows = debounce(
     () -> (
       if $version_pane.closest('.selector-pane__sizing-box--hidden').length == 0
@@ -259,17 +285,11 @@ $ ->
       $version_pane__sizing.toggleClass('selector-pane__sizing-box--hidden')
 
       if $selector.hasClass('selector--open')
-        # The height of the .version-pane should be the height of the tallest
-        # list, plus a couple rem for padding.
-        #TODO: Consider memoizing this result **but only after** the lists have
-        #      been built and added to the DOM.
-        tallest_list = Math.max.apply(
-          Math,
-          $version_pane.find('.selector-list').map(() -> $(this).outerHeight())
-        )
-
-        $version_pane__sizing.css('height', tallest_list + (2).rem())
-        $version_pane__sizing.css('max-height', $content_nav__primary.outerHeight())
+        # Set the max-height on the __shadow-box and __sizing-box, with the
+        # intent of leaving it on the __shadow-box, and resetting it to 0 on the
+        # __sizing-box when the pane is closed.
+        $version_pane__shadow.css('max-height', $content_nav__primary.outerHeight() + (0.25).rem())
+        $version_pane__sizing.css('max-height', $content_nav__primary.outerHeight() + (0.25).rem())
 
         # If the selector has just opened, we may immediately test the
         # .selector-pane--versions for horizontal scrollablity. We need to wait
@@ -278,13 +298,48 @@ $ ->
         EdgeFader.showOrHideArrows($version_pane)
         debouced_show_or_hide_selector_list_arrows()
       else
-        $version_pane__sizing.css('height', '')
         $version_pane__sizing.css('max-height', '')
 
         EdgeFader.hideArrows($version_pane)
         $version_pane.find('.selector-list__scroll-box').each(
           (index) -> EdgeFader.hideArrows($(this))
         )
+  )
+
+  # On window resizes, recalculate the height of the version pane's
+  # __shadow-box and __sizing-box and, of the selector--version is open,
+  # recalculate max-height values as well.
+  # This is pretty much a copy / paste from the last few lines of
+  # generateVersionLists() and from the above click.toggle_selector logic, so if
+  # these bits of code don't line up, please be concerned.
+  $(window).on('resize.toggled_selector_reize',
+    debounce(
+      (event) -> (
+        tallest_list = Math.max.apply(
+            Math,
+            $version_pane.find('.selector-list').map(() -> $(this).outerHeight())
+          )
+        $version_pane__shadow.css('height', tallest_list + (2).rem())
+        $version_pane__sizing.css('height', tallest_list + (2).rem())
+
+        if $version_selector.hasClass('selector--open')
+          # Set the max-height on the __shadow-box and __sizing-box, with the
+          # intent of leaving it on the __shadow-box, and resetting it to 0 on the
+          # __sizing-box when the pane is closed.
+          $version_pane__shadow.css('max-height', $content_nav__primary.outerHeight() + (0.25).rem())
+          $version_pane__sizing.css('max-height', $content_nav__primary.outerHeight() + (0.25).rem())
+
+          # If the selector has just opened, we may immediately test the
+          # .selector-pane--versions for horizontal scrollablity. We need to wait
+          # the 500ms for the pane to scale to its full height before we test each
+          # .selector-list__scroll-box inside the page for vertical scrollablitly.
+          EdgeFader.showOrHideArrows($version_pane)
+          debouced_show_or_hide_selector_list_arrows()
+
+        true
+      ),
+      250
+    )
   )
 
   # Whenever interaction occurs outside of a .selector-pane, close all panes,
@@ -299,7 +354,6 @@ $ ->
       $('.selector--open').removeClass('selector--open')
       $version_pane__sizing.addClass('selector-pane__sizing-box--hidden')
 
-      $version_pane__sizing.css('height', '')
       $version_pane__sizing.css('max-height', '')
 
       EdgeFader.hideArrows($version_pane)

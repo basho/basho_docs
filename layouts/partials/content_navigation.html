@@ -50,16 +50,28 @@
 
 
 {{ if $version }}
-  <div class="             selector-pane__sizing-box selector-pane__sizing-box--hidden">
-  <div class="             selector-pane__shadow-box">
-    <!-- Edge Faders -- added under the __shadow-box .s.t the __primary is a sibling of the faders. -->
+  <!-- These three divs serve to build a single element. The __sizing-box relies
+       on border-box sizing to correctly define the space available to the
+       __primary element and will have its height/max-height manipulated by JS
+       to simulate opening / closing a scroll. The __shadow-box provides a
+       box-shadow without affecting any child elements or browser elements (I'm
+       looking at you, scrollbars) and will have a static height/max-height set
+       so its children can rely on a fixed height (looking at you again,
+       scrollbars). The __primary element is what will have children.
+  -->
+  <div class="overflow-y-hidden   selector-pane__sizing-box selector-pane__sizing-box--hidden">
+  <div class="                    selector-pane__shadow-box">
+
+    <!-- Edge Faders -- added under the __shadow-box .s.t the __primary is a
+         sibling of the faders. -->
     <div class="edge-fader edge-fader--left">
       <span class="inline-block   edge-fader__arrow edge-fader__arrow--invisible"></span>
     </div>
     <div class="edge-fader edge-fader--right">
       <span class="inline-block   edge-fader__arrow edge-fader__arrow--invisible"></span>
     </div>
-    <div class="overflow-x   selector-pane__primary selector-pane--versions  js_edge-fader--target">
+
+    <div class="overflow-x        selector-pane__primary selector-pane--versions  js_edge-fader--target">
       <!-- Version Lists will be populated at runtime. -->
     </div>
   </div>
