@@ -40,8 +40,9 @@ $content-nav-width-md    : 14rem;
 $content-nav-width-lg-up : 15rem;
 
 // Padding on either side of the content nav when it's not full-screen'd.
+// NB. This doesn't count padding added to the main-article.
 $content-nav-padding-left   : 1.0rem;
-$content-nav-padding-right  : 1.5rem;
+$content-nav-padding-right  : 2.5rem;
 $content-nav-padding-bottom : 2.0rem;
 
 
@@ -163,9 +164,12 @@ $main-z-index        : 100;
 
 /**
  * Main Article
+ * 1. We apply some padding to the .main-article as well as the .content-well
+ *    b/c the content well doesn't apply its padding in sm-down views. Padding
+ *    on the .main-article will.
  */
 .main-article {
-  padding : 0  0.5rem 0  0.5rem;
+  padding : 0  0.5rem 0  0.5rem; /* 1 */
 
   /**
    * Main Content Well

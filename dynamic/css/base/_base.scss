@@ -28,12 +28,6 @@ main {
   font-size : 110%;
 }
 
-/* Emphasized text */
-b,
-strong {
-  font-size : 103%;
-}
-
 /**
  * In-line code
  * 1. These are duplicates of the below <a> styles. They need to be duplicated
@@ -57,7 +51,6 @@ code {
  * Color selection regions
  */
 ::selection {
-  color      : $white;
   background : $orange-lighter;
 }
 
@@ -219,12 +212,16 @@ blockquote {
   @include     rounded-corners();
   border     : 1px solid $cyan-light;
   padding    : 1rem 1rem 1rem 1rem;
-  margin     : 1.5rem 3rem 1.5rem 1.5rem;
+  margin     : 1.5rem;
 
   .blocknote__title {
     @extend %sans;
     font-size : 110%;
     padding-bottom : 0.25rem;
+  }
+
+  @include wide-from('md') {
+    margin-right : 1rem;
   }
 }
 
