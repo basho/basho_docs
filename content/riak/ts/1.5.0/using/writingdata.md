@@ -331,7 +331,7 @@ You can add data via SQL statements either through the [query interface][queryin
 {{% note title="INSERT limitations" %}}
 Writing data via an SQL INSERT statement (as demonstrated below) has been found to be 3x slower than using one of our supported clients or the riak shell to insert data under a normal workload (10 bytes per column, up to ~ 50 columns). In these cases, we strongly recommend that you only `INSERT` small data updates and do not use it in a production environment.
 
-Larger workloads should only use riak shell or a supported client to insert data. 
+Larger workloads should only use a supported client to insert data. 
 {{% /note %}}
 
 Here are a couple examples of adding rows from SQL:
