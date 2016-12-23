@@ -26,6 +26,7 @@ body {
 
 main {
   font-size : 110%;
+  @include width-exactly('md') { font-size : 100%; }
 }
 
 /**
@@ -229,7 +230,7 @@ blockquote {
 /**
  * Basic Code Blocks
  * 1. When there are multiple <pre> blocks one after another, we only want to
- *    disply the first. The others will be exposed through tab interactions.
+ *    display the first. The others will be exposed through tab interactions.
  */
 pre code {
   display    : block;

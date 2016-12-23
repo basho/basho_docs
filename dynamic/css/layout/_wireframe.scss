@@ -36,14 +36,15 @@ $article-padding-top-md-up   : $banner-height-md-up   + $banner-buffer-md-up;
 
 // Width of the Content Navigation sidebar.
 // No need to set a width for sm-down b/c the nav will take up the whole window.
-$content-nav-width-md    : 14rem;
+$content-nav-width-md    : 12rem;
 $content-nav-width-lg-up : 15rem;
 
 // Padding on either side of the content nav when it's not full-screen'd.
 // NB. This doesn't count padding added to the main-article.
-$content-nav-padding-left   : 1.0rem;
-$content-nav-padding-right  : 2.5rem;
-$content-nav-padding-bottom : 2.0rem;
+$content-nav-padding-left         : 1.0rem;
+$content-nav-padding-right-md     : 1.0rem;
+$content-nav-padding-right-lg-up  : 2.0rem;
+$content-nav-padding-bottom       : 2.0rem;
 
 
 
@@ -142,13 +143,13 @@ $main-z-index        : 100;
     padding-top   : $article-padding-top-md-up;      /* 1, 2 */
     padding-left  : ($content-nav-width-md
                      + $content-nav-padding-left
-                     + $content-nav-padding-right);  /* 1, 3 */
+                     + $content-nav-padding-right-md);     /* 1, 3 */
     padding-right : 0.5rem;
   }
   @include wide-from(lg) {
     padding-left  : ($content-nav-width-lg-up
                      + $content-nav-padding-left
-                     + $content-nav-padding-right);  /* 1, 3 */
+                     + $content-nav-padding-right-lg-up);  /* 1, 3 */
     padding-right : 0.5rem;
   }
 
