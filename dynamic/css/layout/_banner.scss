@@ -123,20 +123,23 @@
  */
 .banner__intra-brand__width-wrapper {
   width  : 100%;            /* 1 */
-  height : 1.5rem;          /* 2 */
-  margin-bottom : 0.75rem;  /* 3 */
+  height : 2.0rem;          /* 2 */
+  margin-bottom : 0.25rem;  /* 3 */
 }
 .banner__intra-brand__cap {        /* 4 */
   border-style        : solid;
   border-color        : transparent $gray-38 transparent transparent;
   border-top-width    : 0px;
-  border-right-width  : 1.125rem;
-  border-bottom-width : 1.5rem;    /* 5 */
+  border-right-width  : 1.5rem;
+  border-bottom-width : 2.0rem;    /* 5 */
   border-left-width   : 0px;
 }
 .banner__intra-brand {
   background : $gray-38;
   color      : $gray-90;
+
+  height : 2.0rem;
+  padding-top : 0.25rem;
 
   span {                     /* 6 */
     padding-right : 1.5rem;
