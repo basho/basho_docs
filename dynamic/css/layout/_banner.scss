@@ -19,10 +19,11 @@
  * Basho Docs Logo
  * Assumed to wrap a <img src="/images/layout/basho_docs_logo.png"> element.
  * 1. The native size of this image is 312px x 69px. Scale it to ~48% for the
- *    sm-down layouts, and ~55% for the md-up.
+ *    sm-down layouts, and ~52% for the md-up.
  * 2. For sm-down layouts, center this element in the banner.
- * 3. For md-up leave it lower than center to better match the baseline of the
- *    Intra-Site navigation elements.
+ * 3. For md-up, revert the positioning to static upper-left, and apply a
+ *    padding to manually push the image text onto the same baseline as the
+ *    intra-site test.
  */
 .banner__docs-logo {
   position  : relative;           /* 2 */
@@ -35,11 +36,14 @@
   }
 
   @include wide-from('md') {
-    transform: translateY(-32%);  /* 3 */
+    position  : static;           /* 3 */
+    top       : initial;          /* 3 */
+    transform : none;             /* 3 */
+    padding-top : 1.7rem;         /* 3 */
 
     .docs-logo__image {
-      width  : p2r(172px);        /* 1 */
-      height : p2r(38px);         /* 1 */
+      width  : p2r(163px);        /* 1 */
+      height : p2r(36px);         /* 1 */
     }
   }
 }
@@ -124,7 +128,7 @@
 .banner__intra-brand__width-wrapper {
   width  : 100%;            /* 1 */
   height : 2.0rem;          /* 2 */
-  margin-bottom : 0.25rem;  /* 3 */
+  margin-bottom : 0.4rem;   /* 3 */
 }
 .banner__intra-brand__cap {        /* 4 */
   border-style        : solid;
