@@ -22,7 +22,10 @@ $fixed-top-height-full-md-up   : 7.5rem; // w/  project and version selectors.
 $fixed-top-height-half-md-up   : 4.0rem; // w/o project and version selectors.
 $fixed-top-padding-md-up       : 1.0rem; // Space between the __fixed_top and __primary.
 
-$fixed-bottom-height : 5rem;
+//FIXME: This is currently to what I saw when inspecting the built
+//       __fixed-bottom element in Chrome's dev tools. We should come up with a
+//       way of dynamically sizing this, probably.
+$fixed-bottom-height : 7.875rem;
 
 
 
@@ -172,10 +175,10 @@ $fixed-bottom-height : 5rem;
  *    least_ the bottom of the window. The positioning of the fixed-bottom
  *    element relies on this, and we want to allow this element to expand as far
  *    down as will be necessary to display all .content-menu items.
- * 2. We need to set a padding-bottom equal to the height of the fixed bottom
+ * 2. We need to set a padding-bottom equal to the height of the __fixed-bottom
  *    element s.t. the negative margin of that element (set to -1 * its height)
  *    won't result in any menu items being obscured. Margin collapse means no
- *    over-scrolling on that. Yeeey.
+ *    over-scrolling on that.
  */
 .content-nav__menu-container {
   min-height     : 100%;                  /* 1 */
@@ -187,13 +190,15 @@ $fixed-bottom-height : 5rem;
 /**
  * Lowest portion of the Content Nav, always fixed to the bottom of the window
  * or the bottom of the menu (whichever is farther down).
- * 1. The top margin is set to negative height **plus 1px** s.t. the
- *    `border-bottom` of the last item in the __menu-container is consumed by
- *    the top pixel of the fixed bottom (which we're assuming will be a border).
+ * 1. Set a negative margin-top equal to the padding-bottom set on the
+ *    .content-nav (assumed to be the height of the __fixed-bottom).
+ *    Height will be dynamic.
  */
 .content-nav__fixed-bottom {
-  margin-top : -1 * ($fixed-bottom-height + p2r(1px));  /* 1 */
-  height     : $fixed-bottom-height;
+  margin-top  : -1 * $fixed-bottom-height;  /* 1 */
 
-  border-top : 1px solid $gray-85;
+  font-size   : 90%;
+  line-height : 1.1rem;
+
+  background  : $gray-60;
 }

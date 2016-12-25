@@ -9,8 +9,9 @@
 {{ $menu_title := .menu_title }}
 {{ $menu_list  := (index $HugoNode.Site.Menus $menu_title) }} {{/* GoLang List of Menu Objects */}}
 
-{{ $project := $HugoNode.Scratch.Get "project" }}
-{{ $version := $HugoNode.Scratch.Get "version" }}
+{{ $project            := $HugoNode.Scratch.Get "project"            }}
+{{ $version            := $HugoNode.Scratch.Get "version"            }}
+{{ $site_relative_path := $HugoNode.Scratch.Get "site_relative_path" }}
 -->
 
 {{/* This check is required to correctly know the hight of the top element. */}}
@@ -146,9 +147,54 @@
 
     <div class="content-nav__fixed-bottom">
 
-      <span class="block" style="text-align:center;">
-        This is the fixed bottom
-      </span>
+      <ul class="content-menu">
+
+        <li>
+          <div class="content-menu__item">
+
+            <span class="block float-left   content-menu__icon-container   docs-icon--comments">|</span>
+
+            <a class="block overflow" href="/community">
+              <span class="block   content-menu__item__right-border">
+                <sub>Want some extra help?</sub><br>
+                <strong>Ask our Community</strong>
+              </span>
+            </a>
+
+          </div>
+        </li>
+
+        <li>
+          <div class="content-menu__item">
+
+            <span class="block float-left   content-menu__icon-container   docs-icon--question-sign">|</span>
+
+            <a class="block overflow" href="http://basho.com/contact">
+              <span class="block   content-menu__item__right-border">
+                <sub>Need to chat?</sub><br>
+                <strong>Contact us directly</strong>
+              </span>
+            </a>
+
+          </div>
+        </li>
+
+        <li>
+          <div class="content-menu__item">
+
+            <span class="block float-left   content-menu__icon-container   docs-icon--github-alt">|</span>
+
+            <a class="block overflow" href="https://github.com/basho/basho_docs/edit/master/content{{$site_relative_path}}.md">
+              <span class="block   content-menu__item__right-border">
+                <sub>Noticed a typo?</sub><br>
+                <strong>Edit this page on GitHub</strong>
+              </span>
+            </a>
+
+          </div>
+        </li>
+
+      </ul>
 
     </div>
 

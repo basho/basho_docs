@@ -112,6 +112,11 @@ $menu-item-padding-top : 0.60rem;
  *    encapsulating <div>, and allowing <a>s to `inherit` the given color. This
  *    is because of a quirk of reboot.css that I couldn't find a truly clean way
  *    of resolving.
+ *    TODO: Past-Drew, next time you hit one of these quirks, write down what
+ *    the quirk did and how this work around avoids it. You don't remember what
+ *    the root cause was anymore, nor if this fix is still necessary. Best;
+ *    Future-Drew.
+ * 3. Clear the external link icons, as we link out to GitHub (and maybe more?)
  */
 .content-menu__item {
   margin-left  : 0;
@@ -130,6 +135,16 @@ $menu-item-padding-top : 0.60rem;
 
     color           : inherit;  /* 2 */
     text-decoration : none;
+
+    &[href^="http://"],
+    &[href^="https://"],
+    &[href$=".pdf"],
+    &[href$=".PDF"] {
+      &::after {
+        content    : none;   /* 3 */
+        background : none;   /* 3 */
+      }
+    }
   }
 
 
@@ -260,5 +275,50 @@ $menu-item-padding-top : 0.60rem;
         @include upward-arrow(p2r(10px), $gray-95, $gray-15);    /* 4, 2, 3 */
       }
     }
+  }
+}
+
+
+/**
+ * Fixed-Bottom Menu Overrides
+ * 1. The Content Menu in the __fixed-bottom portion of the content nav has no
+ *    expandable elements, so always display the menu, and get rid of the
+ *    box-shadow work-around.
+ * 2. The menu-item's box shadows will not have a distinct shape, but they
+ *    should be darken to make them stand out against the __fixed-bottom's
+ *    darker background.
+ * 3. Each __fixed-bottom content-menu__item is assumed to have a line of
+ *    <sub>script text, a <br>, and then a line of <strong> text. Set the
+ *    __item's padding-top to 0 to make the spacing work with the upper <sub>.
+ * 4. The __fixed-bottom has a reduced font-size, so reduce the space between
+ *    the icons and the left side of the menu to accommodate.
+ */
+.content-nav__fixed-bottom {
+
+  .content-menu {
+    display      : block;  /* 1 */
+    padding-top  : 0;      /* 1 */
+    margin-top   : 0;      /* 1 */
+
+    > li {
+      box-shadow : 0  -0.2rem 0.7rem -0.2rem $shadow-color;  /* 2 */
+    }
+  }
+
+  .content-menu__item {
+    color : $gray-90;
+
+    @include on-event {
+      color : $gray-95;
+    }
+
+    a {
+      padding-top    : 0;       /* 3 */
+      padding-bottom : 0.5rem;
+    }
+  }
+
+  .content-menu__icon-container {
+    margin-left : 0.5rem;       /* 4 */
   }
 }
