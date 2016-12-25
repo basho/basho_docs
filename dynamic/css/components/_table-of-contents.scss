@@ -40,11 +40,14 @@
  *    on the root .table-of-contents <nav>.
  */
 .table-of-contents__items {
-  margin-bottom : 0; /* 1 */
-  @extend %sans;
+  @extend   %sans;
+  color   : $gray-60;
+
+  margin-bottom : 0;  /* 1 */
 
   a {
-    color : $gray-60;
+    color           : lighten(saturate($blue-dark, 15), 20);
+    text-decoration : none;
     @include on-event { color : $orange-dark; }
   }
 }
@@ -52,9 +55,11 @@
 /**
  * Individual <li> Item
  * 1. Increase the font size and spacing between items to make mobile
- *    interaction a bit easier, and tablet/monitor presentation a bit nicer.
+ *    interaction a bit easier, and monitor presentation a bit nicer. For
+ *    tablets, aim for the middle-ground.
  */
 .table-of-contents__item {
-  font-size   : 110%;    /* 1 */
+  font-size   : 110%;                                /* 1 */
+  @include width-exactly('md') { font-size : 100%; } /* 1 */
   padding-top : .25rem;  /* 1 */
 }
