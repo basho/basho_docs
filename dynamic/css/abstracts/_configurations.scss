@@ -7,12 +7,17 @@
 
 // Breakpoints
 // ===========
-
 // We're building this as a mobile-first page, so the below breakpoints will
 // primarily be used for `min-width` queries; screens smaller than
 // `sm-screen-min` (aka 'xs') will be our default. These sizes will be mapped
 // into Bootstrap's `$grid-breakpoints` global scaling map, and so we can use
 // any of their responsive mixins/classes.
+// NB. The alpha version of Bootstrap that was taken for use in this site
+// initially used px breakpoints. This doesn't behave well when users change
+// their browsers' font size. As such I've switched to rem-based media queries
+// which will make wider what 'md' is when a larger font is used. This also
+// relies on no px-based font-size being set on the root <html> element, so the
+// below is something of a lie.
 //
 // Examples:
 //  To apply styles when a screen at least 'md' in width,
@@ -24,12 +29,11 @@
 //  To hide an element on 'lg' or larger,
 //      <div class="hidden-lg-up"></div>
 
-//TODO: Consider moving to `rem`s, rather than `px`s.
-$xs-screen-min:  320px; // 20rem
-$sm-screen-min:  480px; // 30rem
-$md-screen-min:  768px; // 48rem
-$lg-screen-min:  992px; // 62rem
-$xl-screen-min: 1280px; // 80rem
+$xs-screen-min: 20rem;  //  320px
+$sm-screen-min: 30rem;  //  480px
+$md-screen-min: 48rem;  //  768px
+$lg-screen-min: 62rem;  //  992px
+$xl-screen-min: 80rem;  // 1280px
 
 
 
@@ -56,6 +60,7 @@ $enable-hover-media-query:  false;
 $enable-grid-classes:       true;
 $enable-print-styles:       false;
 
+/* This is a lie. The root font-size is whatever users set it to. */
 $font-size-root: 16px;
 
 

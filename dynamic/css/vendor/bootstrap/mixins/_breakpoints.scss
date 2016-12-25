@@ -35,7 +35,9 @@
 //    767px
 @function breakpoint-max($name, $breakpoints: $grid-breakpoints) {
   $next: breakpoint-next($name, $breakpoints);
-  @return if($next, breakpoint-min($next, $breakpoints) - 1px, null);
+  //NB. This was changed by Basho to allow for rem-based media queries. As long
+  //    as font-sizes remain below 50pts, I believe this should be fine.
+  @return if($next, breakpoint-min($next, $breakpoints) -  0.01rem, null);
 }
 
 // Media of at least the minimum breakpoint width. No query for the smallest breakpoint.

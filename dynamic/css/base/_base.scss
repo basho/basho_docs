@@ -19,6 +19,13 @@
 /**
  * Basic font wrangling
  */
+
+/* NB. This overrides styles set in reboot.scss (setting a px-based root
+ *     font-size) and allows us to properly use rem-based media queries. */
+html {
+  font-size : initial;
+}
+
 body {
   @extend %serif;
   color : $font-color;
