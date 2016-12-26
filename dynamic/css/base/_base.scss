@@ -246,6 +246,7 @@ pre code {
   display    : block;
   overflow-x : auto;
   @include     rounded-corners(0.3rem);
+  font-size  : 90%;
   color      : $gray-30;
   background : $gray-warm-97;
   border     : 1px solid $gray-75;
