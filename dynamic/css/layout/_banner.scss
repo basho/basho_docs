@@ -15,6 +15,17 @@
 
 
 
+/*
+ * The below rely on $banner-height-md-up from _wireframe.scss
+ * Remeber; we use border-box sizing, so child height == height - padding.
+ */
+$intra-brand-height       : 2.0rem;
+$intra-brand-padding      : 0.4rem;
+$intra-brand-height_total : $intra-brand-height + $intra-brand-padding;
+$intra-site-height        : $banner-height-md-up - $intra-brand-height_total;
+
+
+
 /**
  * Basho Docs Logo
  * Assumed to wrap a <img src="/images/layout/basho_docs_logo.png"> element.
@@ -73,20 +84,15 @@
 /**
  * Navigation Pane
  * 1. Clear default link styles, include the external-link icons.
- * 2. Allow children of this element to set the color of anchors based on their
- *    own color. (on-event highlights will have to be set per-class.)
  */
 .banner__navigation-pane {
-  @extend %sans;
+  @extend         %sans;
+  text-transform : uppercase;
+
   height : 100%;
 
   a {
-    color : inherit;         /* 1, 2 */
     text-decoration : none;  /* 1 */
-
-    @include on-event {
-      text-decoration : underline;
-    }
 
     &[href^="http://"],
     &[href^="https://"],
@@ -104,61 +110,68 @@
 
 /**
  * Intra-Brand Navigation Elements
- * 1. The __width-wrapper must be set to 100% of the __navigation-pane's width
- *    to match the __intra-site element, ensuring neither are ever side-by-side.
+ * 1. The __width-wrapper is be set to 100% of the __navigation-pane's width to
+ *    match the __intra-site's wrapper, ensuring neither are ever side-by-side.
  *    NB. The __navigation-pane is assumed to be an overflow element, causing it
- *        to take up all of the banner not consumed by float'd siblings.
- * 2. We need to define a hight so the __cap can guarantee it takes up the
- *    correct amount of space. Current height is perfect for a 1rem font-size.
- * 3. This margin-bottom could just as easily be a padding-top on the
- *    __intra-site element; it's just giving some whitespace in between the
+ *        to take up all of the banner not consumed by float'd siblings (ex; the
+ *        docs logo image).
+ * 2. This margin-bottom could just as easily be a padding-top on the
+ *    __intra-site element; it's just giving some whitespace between the
  *    __intra-brand and __intra-site links.
- * 4. This whole elements creates a triangle of the non-transparent border color
- *    that's been set.
+ * 3. We need a explicit hight so we can guarantee the __intra-brand cap
+ *    element (see below) will takes up the correct amount of space. Current
+ *    height is correct for a 1rem font-size.
+ * 4. The intent of this "cap element" is to give the __intra-brand background
+ *    the appearance of having a diagonal cap on the left edge. The element
+ *    actually creates triangular border section in the lower-left half of the
+ *    element. The border color for that portion is set to the background color
+ *    of the .banner.
  *    It's pretty weird how it works. Weirder still that it works.
  *    Trust the weird CSS.
- * 5. The border-bottom-width needs to be the same as the parent's height (but
- *    we can't use `%`s). If the __width-wrapper height ever changes, so too
- *    must the __cap's border-bottom-width.
- * 6. Add padding to the spans to provide some breathing room. The first is also
- *    given a padding-left to push out the __cap. The last is assumed to be the
- *    "Contact Basho" entry, and so is further offset from the rest, and given
- *    extra space away from the right side of the window.
+ * 5. These anchors are wrapped in a <div class="float-right">. To get the
+ *    anchors to take up the correct amount of vertical space we either we need
+ *    to set an explicit height on the anchors, or `height: 100%` on both the
+ *    div, and the anchors.
  */
 .banner__intra-brand__width-wrapper {
-  width  : 100%;            /* 1 */
-  height : 2.0rem;          /* 2 */
-  margin-bottom : 0.4rem;   /* 3 */
-}
-.banner__intra-brand__cap {        /* 4 */
-  border-style        : solid;
-  border-color        : transparent $gray-38 transparent transparent;
-  border-top-width    : 0px;
-  border-right-width  : 1.5rem;
-  border-bottom-width : 2.0rem;    /* 5 */
-  border-left-width   : 0px;
+  width         : 100%;                   /* 1 */
+  margin-bottom : $intra-brand-padding;   /* 2 */
 }
 .banner__intra-brand {
-  background : $gray-38;
-  color      : $gray-90;
+  background : $gray-60;
 
-  height : 2.0rem;
-  padding-top : 0.25rem;
+  min-width  : 75%;
+  height     : $intra-brand-height;       /* 3 */
 
-  span {                     /* 6 */
-    padding-right : 1.5rem;
-  }
-  span:first-of-type {       /* 6 */
-    padding-left  : 1.5rem;
-  }
-  span:last-of-type {        /* 6 */
-    padding-left  : 1rem;
-    padding-right : 3rem;
+  &::before {                             /* 4 */
+    display : inline-block;
+    content : "";
+    border  : 0px solid transparent;
+    border-bottom-width : $intra-brand-height;           /* 2 */
+    border-right-width  : ($intra-brand-height * 0.75);
+    border-bottom-color : $white;
   }
 
-  a {
+
+  .banner__brand-link {
+    font-size : 90%;
+    color     : $gray-90;
+
+    height : $intra-brand-height;  /* 5 */
+
+    padding-top    : 0.35rem;
+    padding-right  : 1rem;
+    padding-left   : 1rem;
+
+    &:first-of-type {
+      margin-left  : 3rem;
+    }
+    &:last-of-type {
+      margin-right : 1.25rem;
+    }
+
     @include on-event {
-      color : $cyan-light;
+      color   : $cyan-light;
     }
   }
 }
@@ -167,40 +180,45 @@
 
 /**
  * Intra-Site navigation elements.
- * 1. This element must be set to 100% of the __navigation-pane's width to match
- *    the __intra-brand__width-wrapper, ensuring neither are ever side-by-side.
+ * 1. The __width-wrapper is be set to 100% of the __navigation-pane's width to
+ *    match the __intra-brand's wrapper, ensuring neither are ever side-by-side.
  *    NB. The __navigation-pane is assumed to be an overflow element, causing it
- *        to take up all of the banner not consumed by float'd siblings.
- * 2. Give the icon some space or whatever.
- *    FIXME: These values are hard-coded to push the "Riak KV" entry s.t. it
- *           matches the content well. If we want this, come up with a better
- *           way of getting the __intra-site there. If not, get rid of this.
- * 3. Add padding to the spans to provide some breathing room. The last is
- *    assumed to be the "Community" entry, so give it a padding-left to push it
- *    farther away from the other entries. It doesn't need a padding-right
- *    either, so scrap that.
+ *        to take up all of the banner not consumed by float'd siblings (ex; the
+ *        docs logo image).
+ * 2. FIXME: This kind of in-class color definition is not a good thing. This
+ *           should be clearly defined somewhere elsewhere.
  */
-.banner__intra-site {
+.banner__intra-site__width-wrapper {
   width : 100%;            /* 1 */
+}
+.banner__intra-site {
+    height : $intra-site-height;
 
-  font-size : 110%;
-  letter-spacing : 1px;
-  color : $gray-60;
+  .banner__brand-link {
+    font-size : 110%;
+    color     : $orange-dark;
 
-                             padding-left : 5.75rem;    /* 2 */
-  @include wide-from('lg') { padding-left : 6.75rem; }  /* 2 */
+    height : 100%;
 
-  span {                   /* 3 */
-    padding-right : 1.25rem;
-  }
-  span:last-of-type {      /* 3 */
-    padding-left  : 1rem;
-    padding-right : 0;
-  }
+    padding-left   : 1.25rem;
+    padding-right  : 1.25rem;
+    margin-right   : 0.5rem;
 
-  a {
+    &:last-of-type {
+      margin-right : 1rem;
+    }
+
+    transition : color      200ms ease-in,
+                 background 200ms ease-in;
+
     @include on-event {
-      color : $gray-30;
+      color      : $cyan-dark;
+      background : darken($gray-warm-97, 2); /* 2 */
+    }
+
+    &.banner__brand-link--current {
+      color      : $gray-38;
+      background : $gray-warm-97;
     }
   }
 }
