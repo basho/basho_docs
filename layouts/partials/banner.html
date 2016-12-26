@@ -3,7 +3,11 @@
 {{ $HugoNode := . }}
 
 {{ $project_path := $HugoNode.Scratch.Get "project_path" }}
+{{ $project      := $HugoNode.Scratch.Get "project"      }}
 {{ $version      := $HugoNode.Scratch.Get "version"      }}
+{{ $in_riak_kv   := (eq $project "riak_kv")              }}
+{{ $in_riak_ts   := (eq $project "riak_ts")              }}
+{{ $in_riak_cs   := (eq $project "riak_cs")              }}
 -->
 <header class="banner">
 
@@ -40,27 +44,28 @@
       the list of links.
       Simple, right?
     -->
-    <div class="float-left     banner__intra-brand__width-wrapper">
-    <div class="float-right    banner__intra-brand__float-wrapper">
-      <div class="float-left   banner__intra-brand__cap"></div>
-      <div class="float-left   banner__intra-brand">
-        <!-- Comment out the newlines s.t. whitespace isn't rendered in between inline-block elements. -->
-        <span class="inline-block"><a href="http://basho.com/">Home</a></span><!--
-     --><span class="inline-block"><a href="https://academy.basho.com">Academy</a></span><!--
-     --><span class="inline-block"><a href="http://basho.com/contact">Contact Basho</a></span><!--
+    <div class="float-left    banner__intra-brand__width-wrapper">
+    <div class="float-right   banner__intra-brand">
+      <div class="float-right">
+        <!-- Comment out the newlines s.t. whitespace isn't rendered in-between inline-block elements. -->
+        <a class="inline-block   banner__brand-link" href="http://basho.com/">Basho</a><!--
+     --><a class="inline-block   banner__brand-link" href="https://academy.basho.com">Academy</a><!--
+     --><a class="inline-block   banner__brand-link" href="/community">Community</a><!--
+     --><a class="inline-block   banner__brand-link" href="http://basho.com/contact">Contact</a><!--
    --></div>
     </div>
     </div>
 
 
     <!-- Intra-Site Elements -->
-    <div class="banner__intra-site float-left">
-      <!-- Comment out the newlines s.t. whitespace isn't rendered in between inline-block elements. -->
-      <span class="inline-block"><a href="/riak/kv/latest/">Riak KV</a></span><!--
-   --><span class="inline-block"><a href="/riak/ts/latest/">Riak TS</a></span><!--
-   --><span class="inline-block"><a href="/riak/cs/latest/">Riak CS</a></span><!--
-   --><span class="inline-block"><a href="/community">Community</a></span><!--
+    <div class="float-left    banner__intra-site__width-wrapper">
+    <div class="float-right   banner__intra-site">
+      <!-- Comment out the newlines s.t. whitespace isn't rendered in-between inline-block elements. -->
+      <a class="inline-block   banner__brand-link {{ if $in_riak_kv }}banner__brand-link--current"{{ else }}" href="/riak/kv/latest/"{{ end }}>Riak KV</a><!--
+   --><a class="inline-block   banner__brand-link {{ if $in_riak_ts }}banner__brand-link--current"{{ else }}" href="/riak/ts/latest/"{{ end }}>Riak TS</a><!--
+   --><a class="inline-block   banner__brand-link {{ if $in_riak_cs }}banner__brand-link--current"{{ else }}" href="/riak/cs/latest/"{{ end }}>Riak CS</a><!--
  --></div>
+    </div>
 
   </div>
 
