@@ -7,6 +7,16 @@
  * https://www.smashingmagazine.com/2013/02/setting-weights-and-styles-at-font-face-declaration/#unique-font-family-names-matching-weights-and-styles
  */
 
+/**
+ * Imported Font Styles
+ * --------------------
+ * 1. Taken from basho.com, only used in the banner element to keep the sites
+ *    visually similar.
+ * TODO: Consider downloading all of these into static/ and manually defining
+ *       these families s.t. we can more precisely control what we send to users
+ */
+@import url(http://fonts.googleapis.com/css?family=Oswald:400,300);  /* 1 */
+
 
 
 /**
@@ -27,6 +37,7 @@
 %serif        { @extend %GandhiSerif; }
 %serif-bold   { @extend %GandhiSerif-Bold; }
 %serif-italic { @extend %GandhiSerif-Italic; }
+%oswald { font-family : "Oswald", arial, sans-serif; }
 
 
 /* Descriptive Font Classes */
