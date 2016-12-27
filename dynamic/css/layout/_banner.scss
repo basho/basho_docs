@@ -5,8 +5,8 @@
 .banner {
   padding : 0 1rem 0 1.25rem;
 
-  background : $white;
-  box-shadow : 0  0  4rem -1rem $shadow-color;
+  background : $gray-warm-93;
+  box-shadow : 0  0  1.5rem 0  $shadow-mid-color;
 
   @include wide-from(md) {
     padding : 0  0  0  ($content-nav-padding-left + 0.5rem);
@@ -138,7 +138,7 @@ $intra-site-height        : $banner-height-md-up - $intra-brand-height_total;
   margin-bottom : $intra-brand-padding;   /* 2 */
 }
 .banner__intra-brand {
-  background : $gray-60;
+  background : $gray-38;
 
   min-width  : 75%;
   height     : $intra-brand-height;       /* 3 */
@@ -149,7 +149,7 @@ $intra-site-height        : $banner-height-md-up - $intra-brand-height_total;
     border  : 0px solid transparent;
     border-bottom-width : $intra-brand-height;           /* 2 */
     border-right-width  : ($intra-brand-height * 0.75);
-    border-bottom-color : $white;
+    border-bottom-color : $gray-warm-93;
   }
 
 
@@ -185,8 +185,6 @@ $intra-site-height        : $banner-height-md-up - $intra-brand-height_total;
  *    NB. The __navigation-pane is assumed to be an overflow element, causing it
  *        to take up all of the banner not consumed by float'd siblings (ex; the
  *        docs logo image).
- * 2. FIXME: This kind of in-class color definition is not a good thing. This
- *           should be clearly defined somewhere elsewhere.
  */
 .banner__intra-site__width-wrapper {
   width : 100%;            /* 1 */
@@ -212,13 +210,13 @@ $intra-site-height        : $banner-height-md-up - $intra-brand-height_total;
                  background 200ms ease-in;
 
     @include on-event {
-      color      : $cyan-dark;
-      background : darken($gray-warm-97, 2); /* 2 */
+      color      : $gray-38;
+      background : $gray-warm-88;
     }
 
     &.banner__brand-link--current {
       color      : $gray-38;
-      background : $gray-warm-97;
+      background : $gray-warm-88;
     }
   }
 }
