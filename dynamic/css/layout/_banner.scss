@@ -5,10 +5,11 @@
 .banner {
   padding : 0 1rem 0 1.25rem;
 
-  background : $gray-warm-93;
+  background : $gray-warm-97;
   box-shadow : 0  0  1.5rem 0  $shadow-mid-color;
 
   @include wide-from(md) {
+    background : $gray-warm-93;
     padding : 0  0  0  ($content-nav-padding-left + 0.5rem);
   }
 }
@@ -86,7 +87,7 @@ $intra-site-height        : $banner-height-md-up - $intra-brand-height_total;
  * 1. Clear default link styles, include the external-link icons.
  */
 .banner__navigation-pane {
-  @extend         %sans;
+  @extend         %oswald;
   text-transform : uppercase;
 
   height : 100%;
