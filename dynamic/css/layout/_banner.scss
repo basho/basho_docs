@@ -168,7 +168,7 @@
  *    NB. The __navigation-pane is assumed to be an overflow element, causing it
  *        to take up all of the banner not consumed by float'd siblings.
  * 2. Give the icon some space or whatever.
- *    FIXME: These values are hard-coded to push the "Community" entry s.t. it
+ *    FIXME: These values are hard-coded to push the "Riak KV" entry s.t. it
  *           matches the content well. If we want this, come up with a better
  *           way of getting the __intra-site there. If not, get rid of this.
  * 3. Add padding to the spans to provide some breathing room. The last is
@@ -183,8 +183,8 @@
   letter-spacing : 1px;
   color : $gray-60;
 
-                             padding-left : p2r(76px);    /* 2 */
-  @include wide-from('lg') { padding-left : p2r(92px); }  /* 2 */
+                             padding-left : 5.75rem;    /* 2 */
+  @include wide-from('lg') { padding-left : 6.75rem; }  /* 2 */
 
   span {                   /* 3 */
     padding-right : 1.25rem;
