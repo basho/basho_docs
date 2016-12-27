@@ -70,7 +70,7 @@ generateVersionLists = () ->
 
   # Fetch the Project Descriptions from the server, and do all the heavy lifting
   # inside the `success` callback.
-  if project then $.getJSON('/data/project_descriptions.json',
+  if project and project != "community" then $.getJSON('/data/project_descriptions.json',
     (data) ->
       project_data = data[project]
 

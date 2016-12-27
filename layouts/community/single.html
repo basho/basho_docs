@@ -4,11 +4,52 @@
      ====================
   See _default/single.html for a general discussion on format and variables.
 
-  This template is specifically for the Community section. Community pages
-  require significantly less front matter than project pages, to the point that
-  we don't need to include the common_variables.html partial. Save the lack of
-  dynamism, these pages will look very similar to more general project pages.
+  This template is specifically for pages in the Community, which require
+  significantly less front matter than project pages, to the point that we don't
+  need to include the common_variables.html partial. Save the lack of dynamism,
+  these pages will look very similar to more general project pages, and some of
+  the variables defined in common_variables.html are required. The below
+  definitions follow the same form as those laid out in common_variableshtml,
+  there are just significantly fewer.
 
+
+{{ $title_supertext           := .Params.title_supertext }} {{/* ex; Small Title Text     */}}
+{{ $title                     := .Title                  }} {{/* ex; Primary Title Text   */}}
+{{ $description               := .Params.description     }} {{/* ex; Rich-preview summary */}}
+
+{{ $display_toc               := (index .Params "toc")                 | default true       }}
+{{ $commercial_offering       := (index .Params "commercial_offering") | default false      }}
+{{ $canonical_link            := (index .Params "canonical_link")      | default .Permalink }}
+
+{{ $site_relative_path    := (printf "/%s" (replace .Permalink .Site.BaseURL "")) }} {{/* ex; /community/introduction/ */}}
+{{ $project_relative_path := (replace $site_relative_path "/community/" "")       }} {{/* ex; introduction/            */}}
+
+
+{{ .Scratch.Add "title_supertext"           $title_supertext       }}
+{{ .Scratch.Add "title"                     $title                 }}
+{{ .Scratch.Add "description"               $description           }}
+{{ .Scratch.Add "project"                   "community"            }}
+{{ .Scratch.Add "display_toc"               $display_toc           }}
+{{ .Scratch.Add "commercial_offering"       $commercial_offering   }}
+{{ .Scratch.Add "canonical_link"            $canonical_link        }}
+{{ .Scratch.Add "site_relative_path"        $site_relative_path    }}
+{{ .Scratch.Add "project_relative_path"     $project_relative_path }}
+
+
+For the 'Edit on GitHub' link in the content nav we either need to direct users
+to the $site_relative_path minus the trailing '/', or to the $site_relative_path
+plus 'index'. If there is no $project_relative_path (ex; we're on
+/community/2.1.4/) we know we need to point to 'index'.
+NB. For the sake of making the printf more clear, we're stripping both the
+    leading and trailing '/' from the $site_relative_path.
+
+{{ if $project_relative_path }}
+  {{ $gh_edit_path := (printf  "https://github.com/basho/basho_docs/edit/master/content/%s.md"       (substr $site_relative_path 1 -1)) }}
+  {{ .Scratch.Add "gh_edit_path"  $gh_edit_path }}
+{{ else }}
+  {{ $gh_edit_path := (printf  "https://github.com/basho/basho_docs/edit/master/content/%s/index.md" (substr $site_relative_path 1 -1)) }}
+  {{ .Scratch.Add "gh_edit_path"  $gh_edit_path }}
+{{ end }}
 
 {{ $HugoNode := . }}
 -->
