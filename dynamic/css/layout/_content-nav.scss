@@ -14,13 +14,28 @@
 // .content-nav__fixed-bottom elements to the content-nav, we need pre-defined
 // concrete sizes for both of them that can be used in numerous classes.
 //TODO: This sizing looks like ass on sm-down screens. Gotta fix that.
-$fixed-top-height-full-sm-down : 8.0rem; // w/  project and version selectors.
-$fixed-top-height-half-sm-down : 4.0rem; // w/o project and version selectors.
-$fixed-top-padding-sm-down     : 0.5rem; // Space between the __fixed_top and __primary.
+$fixed-top-height-full-sm-down    : 7.5rem; // w/  project and version selectors.
+$fixed-top-height-half-sm-down    : 3.5rem; // w/o project and version selectors.
+$fixed-top-padding-top-sm-down    : 0.5rem; // Space between the content-nav and __fixed-top content.
+$fixed-top-padding-bottom-sm-down : 0.5rem; // Space between the __fixed_top and __primary.
+$fixed-top-height-full-sm-down-total : $fixed-top-height-full-sm-down + $fixed-top-padding-top-sm-down;
+$fixed-top-height-half-sm-down-total : $fixed-top-height-half-sm-down + $fixed-top-padding-top-sm-down;
 
-$fixed-top-height-full-md-up   : 7.5rem; // w/  project and version selectors.
-$fixed-top-height-half-md-up   : 4.0rem; // w/o project and version selectors.
-$fixed-top-padding-md-up       : 1.0rem; // Space between the __fixed_top and __primary.
+
+$fixed-top-height-full-md      : 7.0rem; // w/  project and version selectors.
+$fixed-top-height-half-md      : 3.5rem; // w/o project and version selectors.
+$fixed-top-padding-top-md      : 1.0rem; // Space between the content-nav and __fixed-top content.
+$fixed-top-padding-bottom-md   : 1.0rem; // Space between the __fixed_top and __primary.
+$fixed-top-height-full-md-total : $fixed-top-height-full-md + $fixed-top-padding-top-md;
+$fixed-top-height-half-md-total : $fixed-top-height-half-md + $fixed-top-padding-top-md;
+
+
+$fixed-top-height-full-lg-up      : 7.25rem; // w/  project and version selectors.
+$fixed-top-height-half-lg-up      : 3.5rem; // w/o project and version selectors.
+$fixed-top-padding-top-lg-up      : 1.0rem; // Space between the content-nav and __fixed-top content.
+$fixed-top-padding-bottom-lg-up   : 1.0rem; // Space between the __fixed_top and __primary.
+$fixed-top-height-full-lg-up-total : $fixed-top-height-full-lg-up + $fixed-top-padding-top-lg-up;
+$fixed-top-height-half-lg-up-total : $fixed-top-height-half-lg-up + $fixed-top-padding-top-lg-up;
 
 //FIXME: This is currently to what I saw when inspecting the built
 //       __fixed-bottom element in Chrome's dev tools. We should come up with a
@@ -66,7 +81,7 @@ $fixed-bottom-height : 7.875rem;
 .content-nav__fixed-top {
   position    : fixed;
   width       : inherit;
-  padding-top : 0.5rem;
+  padding-top : $fixed-top-padding-top-sm-down;
 
   background : $gray-warm-97;
   box-shadow : -0.125rem -0.125rem 2rem -0.25rem $shadow-hard-color;
@@ -74,30 +89,40 @@ $fixed-bottom-height : 7.875rem;
   transition : height 500ms ease;
 
   @include when-inside('.content-nav--top-size-full') {
-    height : $fixed-top-height-full-sm-down;
+    height : $fixed-top-height-full-sm-down-total;
   }
   @include when-inside('.content-nav--top-size-half') {
-    height : $fixed-top-height-half-sm-down;
+    height : $fixed-top-height-half-sm-down-total;
   }
 
   @include wide-from('md') {
-    z-index     : 1;        /* 1 */
+    z-index : 1;        /* 1 */
     width : $content-nav-width-md - 0.25rem;
     padding-left  : 0.5rem;
     padding-right : 0.5rem;
+    padding-top   : $fixed-top-padding-top-md;
 
     box-shadow : -0.125rem -0.125rem 2rem -0.25rem $shadow-color;
 
     @include when-inside('.content-nav--top-size-full') {
-      height : $fixed-top-height-full-md-up;
+      height : $fixed-top-height-full-md-total;
     }
     @include when-inside('.content-nav--top-size-half') {
-      height : $fixed-top-height-half-md-up;
+      height : $fixed-top-height-half-md-total;
     }
   }
 
   @include wide-from('lg') {
     width : $content-nav-width-lg-up - 0.25rem;
+    padding-top : $fixed-top-padding-top-lg-up;
+
+    @include when-inside('.content-nav--top-size-full') {
+      height : $fixed-top-height-full-lg-up-total;
+    }
+    @include when-inside('.content-nav--top-size-half') {
+      height : $fixed-top-height-half-lg-up-total;
+    }
+
   }
 }
 
@@ -135,22 +160,33 @@ $fixed-bottom-height : 7.875rem;
                padding-bottom 500ms ease;
 
   @include when-inside('.content-nav--top-size-full') {
-    top            : $fixed-top-height-full-sm-down + $fixed-top-padding-sm-down;  /* 3, 4 */
-    padding-bottom : $fixed-top-height-full-sm-down + $fixed-top-padding-sm-down;  /* 3, 4 */
+    top            : $fixed-top-height-full-sm-down-total + $fixed-top-padding-bottom-sm-down;  /* 3, 4 */
+    padding-bottom : $fixed-top-height-full-sm-down-total + $fixed-top-padding-bottom-sm-down;  /* 3, 4 */
   }
   @include when-inside('.content-nav--top-size-half') {
-    top            : $fixed-top-height-half-sm-down + $fixed-top-padding-sm-down;  /* 3, 4 */
-    padding-bottom : $fixed-top-height-half-sm-down + $fixed-top-padding-sm-down;  /* 3, 4 */
+    top            : $fixed-top-height-half-sm-down-total + $fixed-top-padding-bottom-sm-down;  /* 3, 4 */
+    padding-bottom : $fixed-top-height-half-sm-down-total + $fixed-top-padding-bottom-sm-down;  /* 3, 4 */
   }
 
   @include wide-from('md') {
     @include when-inside('.content-nav--top-size-full') {
-      top            : $fixed-top-height-full-md-up + $fixed-top-padding-md-up;  /* 3, 4 */
-      padding-bottom : $fixed-top-height-full-md-up + $fixed-top-padding-md-up;  /* 3, 4 */
+      top            : $fixed-top-height-full-md-total + $fixed-top-padding-bottom-md;  /* 3, 4 */
+      padding-bottom : $fixed-top-height-full-md-total + $fixed-top-padding-bottom-md;  /* 3, 4 */
     }
     @include when-inside('.content-nav--top-size-half') {
-      top            : $fixed-top-height-half-md-up + $fixed-top-padding-md-up;  /* 3, 4 */
-      padding-bottom : $fixed-top-height-half-md-up + $fixed-top-padding-md-up;  /* 3, 4 */
+      top            : $fixed-top-height-half-md-total + $fixed-top-padding-bottom-md;  /* 3, 4 */
+      padding-bottom : $fixed-top-height-half-md-total + $fixed-top-padding-bottom-md;  /* 3, 4 */
+    }
+  }
+
+  @include wide-from('lg') {
+    @include when-inside('.content-nav--top-size-full') {
+      top            : $fixed-top-height-full-lg-up-total + $fixed-top-padding-bottom-lg-up;  /* 3, 4 */
+      padding-bottom : $fixed-top-height-full-lg-up-total + $fixed-top-padding-bottom-lg-up;  /* 3, 4 */
+    }
+    @include when-inside('.content-nav--top-size-half') {
+      top            : $fixed-top-height-half-lg-up-total + $fixed-top-padding-bottom-lg-up;  /* 3, 4 */
+      padding-bottom : $fixed-top-height-half-lg-up-total + $fixed-top-padding-bottom-lg-up;  /* 3, 4 */
     }
   }
 }
