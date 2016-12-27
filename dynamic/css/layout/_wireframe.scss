@@ -25,7 +25,7 @@
 // the bottom of the banner and the top of the primary content.
 $banner-height-sm-down : 3.5rem;
 $banner-buffer-sm-down : 0.5rem;
-$banner-height-md-up   : 4.0rem;
+$banner-height-md-up   : 4.5rem;
 $banner-buffer-md-up   : 0.5rem;
 
 // Total padding at the top of the <article> (and above <h#> elements) to keep
@@ -114,9 +114,6 @@ $content-nav-z-index : 100;
   @include wide-from(md) {
     left   : 0;
     height : $banner-height-md-up;
-  }
-  @include wide-from(lg) {
-    left   : 0;
   }
 }
 

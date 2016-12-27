@@ -1,78 +1,228 @@
 /**
  * Banner
  * PRESENTATION ONLY -- See _wireframe.scss for position and size.
- * 1. Because we're using boder-box sizing, and all elements are floating and
- *    vertically aligned, setting a padding-top has the effect of pushing all
- *    contained elements down by that amount, and a padding-bottom will
- *    similarly push content up.
  */
 .banner {
-  padding : 0 1rem 0 1.25rem; /* 1 */
+  padding : 0 1rem 0 1.25rem;
 
-  // Linear gradient to get that fading/glass effect. Leave it commented out
-  // until we start polishing the style of the site at large.
-  background: linear-gradient(to top, rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 80%);
-  // This is for IE6-9. Not sure if we want to bother w/ it.
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#CCffffff', GradientType=0 );
-
-  box-shadow : 0  0  4rem -1rem $shadow-color;
+  background : $gray-warm-97;
+  box-shadow : 0  0  1.5rem 0  $shadow-mid-color;
 
   @include wide-from(md) {
-    padding : .5rem .75rem .25rem .75rem; /* 1 */
+    background : $gray-warm-93;
+    padding : 0  0  0  ($content-nav-padding-left + 0.5rem);
   }
 }
 
 
-/**
- * Banner Element Wrappers
- * Each Banner element will be wrapped in a floating div
+
+/*
+ * The below rely on $banner-height-md-up from _wireframe.scss
+ * Remeber; we use border-box sizing, so child height == height - padding.
  */
-.banner__element-wrapper,
-.banner__element-wrapper--docs-logo,
-.banner__element-wrapper--menu-bars,
-.banner__element-wrapper--navigation, {
-  height : 100%;
+$intra-brand-height       : 2.0rem;
+$intra-brand-padding      : 0.4rem;
+$intra-brand-height_total : $intra-brand-height + $intra-brand-padding;
+$intra-site-height        : $banner-height-md-up - $intra-brand-height_total;
+
+
+
+/**
+ * Basho Docs Logo
+ * Assumed to wrap a <img src="/images/layout/basho_docs_logo.png"> element.
+ * 1. The native size of this image is 312px x 69px. Scale it to ~48% for the
+ *    sm-down layouts, and ~52% for the md-up.
+ * 2. For sm-down layouts, center this element in the banner.
+ * 3. For md-up, revert the positioning to static upper-left, and apply a
+ *    padding to manually push the image text onto the same baseline as the
+ *    intra-site test.
+ */
+.banner__docs-logo {
+  position  : relative;           /* 2 */
+  top       : 50%;                /* 2 */
+  transform : translateY(-50%);   /* 2 */
+
+  .docs-logo__image {
+    width  : p2r(150px);          /* 1 */
+    height : p2r(33px);           /* 1 */
+  }
+
+  @include wide-from('md') {
+    position  : static;           /* 3 */
+    top       : initial;          /* 3 */
+    transform : none;             /* 3 */
+    padding-top : 1.7rem;         /* 3 */
+
+    .docs-logo__image {
+      width  : p2r(163px);        /* 1 */
+      height : p2r(36px);         /* 1 */
+    }
+  }
 }
 
 
-/**
- * Banner Navigation Elements
- * 1. Don't append any external link icons to banner links.
- */
-.banner__element-wrapper--navigation {
 
-  @extend %sans;
-  padding-left : 0.5rem;
+/**
+ * Menu Bars
+ * Assumed to wrap the triple-horizontal-bar, .js_toggle-content-nav element.
+ * See _menu-bars.scss for styling and content-nav.coffee for interaction.
+ * 1. Center this element in the middle of the banner, matching the logo above.
+ */
+.banner__menu-bars {
+  height   : 100%;
+
+  .menu-bars {
+    font-size : 2.5rem;
+
+    position  : relative;         /* 1 */
+    top       : 50%;              /* 1 */
+    transform : translateY(-50%); /* 1 */
+  }
+}
+
+
+
+/**
+ * Navigation Pane
+ * 1. Clear default link styles, include the external-link icons.
+ */
+.banner__navigation-pane {
+  @extend         %oswald;
+  text-transform : uppercase;
+
+  height : 100%;
 
   a {
-    color           : $gray-60;
-    text-decoration : none;
-    @include on-event {
-      color           : $cyan;
-      text-decoration : none;
-
-    }
+    text-decoration : none;  /* 1 */
 
     &[href^="http://"],
     &[href^="https://"],
     &[href$=".pdf"],
     &[href$=".PDF"] {
       &::after {
-        content    : none; /* 1 */
-        background : none; /* 1 */
+        content    : none;   /* 1 */
+        background : none;   /* 1 */
       }
     }
   }
+}
 
-  ul {
-    position  : relative;
-    top       : 60%;
-    transform : translateY(-50%);
-    margin    : 0;
-    padding   : 0  0.5rem;
+
+
+/**
+ * Intra-Brand Navigation Elements
+ * 1. The __width-wrapper is be set to 100% of the __navigation-pane's width to
+ *    match the __intra-site's wrapper, ensuring neither are ever side-by-side.
+ *    NB. The __navigation-pane is assumed to be an overflow element, causing it
+ *        to take up all of the banner not consumed by float'd siblings (ex; the
+ *        docs logo image).
+ * 2. This margin-bottom could just as easily be a padding-top on the
+ *    __intra-site element; it's just giving some whitespace between the
+ *    __intra-brand and __intra-site links.
+ * 3. We need a explicit hight so we can guarantee the __intra-brand cap
+ *    element (see below) will takes up the correct amount of space. Current
+ *    height is correct for a 1rem font-size.
+ * 4. The intent of this "cap element" is to give the __intra-brand background
+ *    the appearance of having a diagonal cap on the left edge. The element
+ *    actually creates triangular border section in the lower-left half of the
+ *    element. The border color for that portion is set to the background color
+ *    of the .banner.
+ *    It's pretty weird how it works. Weirder still that it works.
+ *    Trust the weird CSS.
+ * 5. These anchors are wrapped in a <div class="float-right">. To get the
+ *    anchors to take up the correct amount of vertical space we either we need
+ *    to set an explicit height on the anchors, or `height: 100%` on both the
+ *    div, and the anchors.
+ * 6. TODO: Consider inline'ing this image. More precisely, consider finding a
+ *          way to programmatically inline this image. It's about 12K, so it'll
+ *          add a bit of text to this file.
+ * 7. Fallback background color.
+ */
+.banner__intra-brand__width-wrapper {
+  width         : 100%;                   /* 1 */
+  margin-bottom : $intra-brand-padding;   /* 2 */
+}
+.banner__intra-brand {
+  background : $gray-38;                                                   /* 7 */
+  background : url('/images/layout/banner-intra-brand-noise.png') repeat;  /* 6 */
+
+  min-width  : 75%;
+  height     : $intra-brand-height;       /* 3 */
+
+  &::before {                             /* 4 */
+    display : inline-block;
+    content : "";
+    border  : 0px solid transparent;
+    border-bottom-width : $intra-brand-height;           /* 2 */
+    border-right-width  : ($intra-brand-height * 0.75);
+    border-bottom-color : $gray-warm-93;
   }
 
-  li {
-    padding   : 0  0.5rem;
+
+  .banner__brand-link {
+    font-size : 90%;
+    color     : $gray-90;
+
+    height : $intra-brand-height;  /* 5 */
+
+    padding-top    : 0.35rem;
+    padding-right  : 1rem;
+    padding-left   : 1rem;
+
+    &:first-of-type {
+      margin-left  : 3rem;
+    }
+    &:last-of-type {
+      margin-right : 1.25rem;
+    }
+
+    @include on-event {
+      color   : $cyan-light;
+    }
+  }
+}
+
+
+
+/**
+ * Intra-Site navigation elements.
+ * 1. The __width-wrapper is be set to 100% of the __navigation-pane's width to
+ *    match the __intra-brand's wrapper, ensuring neither are ever side-by-side.
+ *    NB. The __navigation-pane is assumed to be an overflow element, causing it
+ *        to take up all of the banner not consumed by float'd siblings (ex; the
+ *        docs logo image).
+ */
+.banner__intra-site__width-wrapper {
+  width : 100%;            /* 1 */
+}
+.banner__intra-site {
+    height : $intra-site-height;
+
+  .banner__brand-link {
+    font-size : 110%;
+    color     : $orange-red;
+
+    height : 100%;
+
+    padding-left   : 1.25rem;
+    padding-right  : 1.25rem;
+    margin-right   : 0.5rem;
+
+    &:last-of-type {
+      margin-right : 1rem;
+    }
+
+    transition : color      200ms ease-in,
+                 background 200ms ease-in;
+
+    @include on-event {
+      color      : $gray-38;
+      background : $gray-warm-88;
+    }
+
+    &.banner__brand-link--current {
+      color      : $gray-38;
+      background : $gray-warm-88;
+    }
   }
 }

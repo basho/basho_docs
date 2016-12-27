@@ -35,14 +35,4 @@ $bar-height : 0.125em;
       0 ($bar-height * 2) 0 0 $gray-38,
       0 ($bar-height * 4) 0 0 $gray-38;
   }
-
-  @include when-inside('.banner') {
-    @include pos-relative-vertical-align;
-    font-size : 2.5em;
-  }
-
-  @include when-inside('.content-nav') {
-    @include pos-relative-vertical-align;
-    font-size : 2.5em;
-  }
 }
