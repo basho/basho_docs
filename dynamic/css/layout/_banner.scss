@@ -133,13 +133,18 @@ $intra-site-height        : $banner-height-md-up - $intra-brand-height_total;
  *    anchors to take up the correct amount of vertical space we either we need
  *    to set an explicit height on the anchors, or `height: 100%` on both the
  *    div, and the anchors.
+ * 6. TODO: Consider inline'ing this image. More precisely, consider finding a
+ *          way to programmatically inline this image. It's about 12K, so it'll
+ *          add a bit of text to this file.
+ * 7. Fallback background color.
  */
 .banner__intra-brand__width-wrapper {
   width         : 100%;                   /* 1 */
   margin-bottom : $intra-brand-padding;   /* 2 */
 }
 .banner__intra-brand {
-  background : $gray-38;
+  background : $gray-38;                                                   /* 7 */
+  background : url('/images/layout/banner-intra-brand-noise.png') repeat;  /* 6 */
 
   min-width  : 75%;
   height     : $intra-brand-height;       /* 3 */
@@ -195,7 +200,7 @@ $intra-site-height        : $banner-height-md-up - $intra-brand-height_total;
 
   .banner__brand-link {
     font-size : 110%;
-    color     : $orange-dark;
+    color     : $orange-red;
 
     height : 100%;
 
