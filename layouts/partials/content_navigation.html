@@ -9,9 +9,9 @@
 {{ $menu_title := .menu_title }}
 {{ $menu_list  := (index $HugoNode.Site.Menus $menu_title) }} {{/* GoLang List of Menu Objects */}}
 
-{{ $project            := $HugoNode.Scratch.Get "project"            }}
-{{ $version            := $HugoNode.Scratch.Get "version"            }}
-{{ $site_relative_path := $HugoNode.Scratch.Get "site_relative_path" }}
+{{ $project      := $HugoNode.Scratch.Get "project"      }}
+{{ $version      := $HugoNode.Scratch.Get "version"      }}
+{{ $gh_edit_path := $HugoNode.Scratch.Get "gh_edit_path" }}
 -->
 
 {{/* This check is required to correctly know the hight of the top element. */}}
@@ -184,7 +184,7 @@
 
             <span class="block float-left   content-menu__icon-container   docs-icon--github-alt">|</span>
 
-            <a class="block overflow" href="https://github.com/basho/basho_docs/edit/master/content{{$site_relative_path}}.md">
+            <a class="block overflow" href="{{ $gh_edit_path }}">
               <span class="block   content-menu__item__right-border">
                 <sub>Noticed a typo?</sub><br>
                 <strong>Correct it in GitHub</strong>
