@@ -35,3 +35,8 @@ message RpbYokozunaSchema {
 ```
 
 This message *must* include both the schema `name` and its Solr [search schema](/riak/kv/2.2.0/developing/usage/search-schemas) `content` as XML.
+
+## Response
+
+Returns a [RpbPutResp](/riak/kv/2.2.0/developing/api/protocol-buffers/#message-codes) code with no data on success.
+
