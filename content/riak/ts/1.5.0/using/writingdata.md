@@ -367,9 +367,17 @@ See [our documentation on ISO 8601 support][iso8601] for more details on how to 
 
 ### Blob data
 
-When using SQL INSERT to add binary data to blob columns, use base 16 (hex) notation.
+If using a client library (or the underlying protocol buffers API), simply write binary data into blob columns.
 
-If using the HTTP API, see the (API docs)[http] for information on encoding binary data to use with JSON or SQL data upload.
+Other interfaces, such as SQL and HTTP, do not allow raw binary data to be written as such.
+
+When using SQL INSERT to add binary data to blob columns, use base 16 (hex) notation. An example using `riak-shell`:
+
+```
+riak-shell>INSERT INTO GeoCheckin VALUES ('SC', '2017-01-01T15:00:00', 'sunny', 43.2, 0x3af6240c1000035dbc), ('SC', '2017-01-01T16:00:00', 'cloudy', 41.5, 0x3af557bc4000042dbc), ('SC', '2017-01-01T17:00:00', 'windy', 33.0, 0x3af002ee10000a2dbc);
+```
+
+If using the HTTP API, see the [API docs][http] for information on encoding binary data to use with JSON or SQL data upload.
 
 
 ## Next Steps
