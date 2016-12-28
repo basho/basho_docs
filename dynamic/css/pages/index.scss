@@ -1,0 +1,212 @@
+/**
+ * The Index Splashpage
+ * Be a bit ugly here and wrap all other elements inside the '.index' rule to
+ * ensure no other pages are styled using these classes.
+ */
+.index {
+
+
+
+  /**
+   * Welcome To Basho wrapper and Bootstrap `jumbtron`
+   * 1. As this is the first element after the banner, apply padding s.t. child
+   *    elements are not covered by the banner.
+   * 2. Set margin-bottom to 0 on this element, so the next block element will
+   *    start immediately after the banner. This will let us throw a box shadow
+   *    upward onto the bottom of the jumbotron.
+   * 3. Style the <h1> very similarly to the .front-matter__title <h1>.
+   */
+  .welcome-content {
+    padding-top   : $banner-height-sm-down;  /* 1 */
+
+    @include wide-from(md) {
+      padding-top : $banner-height-md-up;    /* 1 */
+    }
+  }
+  .welcome {
+    background : $orange-light;
+
+    @extend %sans;
+    color       : $gray-38;
+    font-size   : 1.7rem;
+    line-height : 1;
+    text-align  : center;
+
+    margin-bottom : 0;             /* 2 */
+
+    h1 {                           /* 3 */
+      color          : $gray-38;
+      text-transform : uppercase;
+      font-size      : 2.5rem;
+
+      margin-bottom  : 1rem;
+
+      @include wide-from('lg') {
+        font-size : 3rem;
+      }
+    }
+  }
+
+
+
+  /**
+   * Primary Product Content wrapper and Bootstrap `container`
+   * Wraps the Product Card set and the Community callout.
+   * 1. Currently this is throwing a shadow upward onto the jumbotron and
+   *    downward onto the footer. This is
+   */
+  .product-content {
+    box-shadow : 0  0  1.5rem 0  $shadow-color;  /* 1 */
+  }
+
+
+
+  /**
+   * Product card wrapper and Bootstrap `row`.
+   */
+  .product-picker {
+    padding-top   : 2rem;
+
+    @include wide-from('lg') {
+      max-width : 71rem;
+    }
+  }
+
+  /**
+   * Product Card (anchor) and Bootstrap column wrapper
+   * 1. The .product__card and all contained elements should react to mouse
+   *    hover events, so the .product__title and .product__description classes
+   *    will be defined under the __card, even though they typically wouldn't.
+   */
+  .product__wrapper {
+    padding-bottom : 1rem;
+    padding-left   : 1rem;
+    padding-right  : 1rem;
+  }
+  .product__card {                                                     /* 1 */
+    @include rounded-corners;
+    padding    : 1.5rem 1rem;
+
+    @extend %sans;
+    color           : $font-color;
+    line-height     : 1.3;
+    font-size       : 1.2rem;
+    text-align      : center;
+    text-decoration : none;
+    text-transform  : uppercase;
+
+    background : $gray-warm-93;
+
+    transition : color      200ms ease-in,
+                 background 200ms ease-in;
+
+    /**
+     * Product Title -- Including the Riak Logo, the primary title (ex; 'riak')
+     * and the title highlight (ex; 'TS').
+     * 1. Child elements of the title (including the actual text of the title)
+     *    should be scaled based on this font-size. As such, they should use
+     *    `em`s for their sizing, and the element should be scaled using the
+     *    __title's `font-size`.
+     * 2. Set transitions on both the title text and the highlight text s.t. the
+     *    parent's :hover modifications fall through.
+     * 3. HACK: The x-height of the Muli typeface is ~70.5% of the cap-height,
+     *    so we're setting the size of the hightlight title text to that
+     *    approximate x-height
+     */
+    .product__title {
+      font-size     : 3.75rem;   /* 1 */
+      font-weight   : 700;
+      line-height   : 1;
+      margin-bottom : 1.25rem;
+
+      /* Riak Logo icon */
+      .product__logo {
+        height        : 0.60em;  /* 1 */
+        width         : 0.60em;  /* 1 */
+        margin-bottom : 0.10em;  /* 1 */
+      }
+
+      /* Primary Title text */
+      @extend         %muli;
+      color          : $gray-38;
+      text-transform : lowercase;
+
+      transition : color 200ms ease-in;    /* 2 */
+
+      /* Title Highlight text */
+      .product__title-highlight {
+        color           : $orange-dark;
+        text-transform  : uppercase;
+        font-size       : 70.5%;           /* 3 */
+        font-weight     : 400;
+
+        transition : color 200ms ease-in;  /* 2 */
+      }
+    }
+
+    /**
+     * Product Description
+     * 1. When the __card elements are stacked vertically (on sm-down displays)
+     *    allow the hight to be dynamically set. When they're in a row, set the
+     *    height to be exactly three lines tall (3em * line-height).
+     */
+    .product__description {
+      @include wide-from('md') {
+        min-height : (3em * 1.3);  /* 1 */
+      }
+    }
+
+    /**
+     * Product Title :hover modifications.
+     */
+    @include on-event {
+      text-decoration : none;
+
+      color      : $gray-95;
+      background : $cyan-dark;
+    }
+  }
+
+
+
+  /**
+   * Community callout wrapper and Bootstrap `row`
+   */
+  .community-callout {
+    padding-bottom : 2rem;
+
+    @include wide-from('lg') {
+      max-width : 71rem;
+    }
+  }
+
+  /**
+   * Community callout card (anchor) and Bootstrap column wrapper
+   * This element is very similar to the above .product__card.
+   */
+  .community__wrapper {
+    padding-top   : 1rem;
+    padding-left  : 1rem;
+    padding-right : 1rem;
+  }
+  .community__card {
+    @include     rounded-corners();
+    padding    : 1rem;
+    background : $cyan-lightest;
+
+    @extend %sans;
+    color           : $font-color;
+    line-height     : 1.3;
+    font-size       : 1.0rem;
+    text-align      : center;
+    text-decoration : none;
+
+    transition : color      200ms ease-in,
+                 background 200ms ease-in;
+
+    @include on-event {
+      background: $cyan;
+    }
+  }
+
+} // END .index

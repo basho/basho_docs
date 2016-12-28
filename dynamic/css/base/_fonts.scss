@@ -12,10 +12,13 @@
  * --------------------
  * 1. Taken from basho.com, only used in the banner element to keep the sites
  *    visually similar.
+ * 2. Muli font, looks very similar to Century Gothic which is used as the
+ *    primary Riak logotype font.
  * TODO: Consider downloading all of these into static/ and manually defining
  *       these families s.t. we can more precisely control what we send to users
  */
 @import url(http://fonts.googleapis.com/css?family=Oswald:400,300);  /* 1 */
+@import url(http://fonts.googleapis.com/css?family=Muli:400,700);    /* 2 */
 
 
 
@@ -37,7 +40,9 @@
 %serif        { @extend %GandhiSerif; }
 %serif-bold   { @extend %GandhiSerif-Bold; }
 %serif-italic { @extend %GandhiSerif-Italic; }
-%oswald { font-family : "Oswald", arial, sans-serif; }
+
+%oswald { font-family : "Oswald", sans-serif; }
+%muli   { font-family : "Muli", sans-serif; }
 
 
 /* Descriptive Font Classes */

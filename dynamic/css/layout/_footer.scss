@@ -27,6 +27,11 @@
       color : $cyan;
     }
   }
+
+
+  @include when-inside('.index') {
+    margin-top : 0;
+  }
 }
 
 .footer__wrapper {
