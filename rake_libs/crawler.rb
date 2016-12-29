@@ -2,6 +2,7 @@ require "mechanize"
 require "open-uri"
 require "find"
 require "pp"
+require "progressbar"
 require "yaml"
 
 class Crawler
@@ -76,9 +77,12 @@ class Crawler
     queue.each do |url|
       page = get_page(url)
       links = get_links(page)
-      links.delete_if { |link| @agent.visited?(link[:resolved_url]) }
       puts "#{page.uri}"
       links.each do |link|
+        # To avoid HTTP 429 code
+        if !link[:resolved_url].to_s.include?(@base_url)
+          sleep 1
+        end
         begin
           response = check_page(link[:resolved_url])
         rescue Mechanize::ResponseCodeError => error

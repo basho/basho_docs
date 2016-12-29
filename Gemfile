@@ -12,6 +12,7 @@ gem "aws-sdk", "~> 2.4.3"
 gem "aws-s3", "~> 0.6.3"
 gem "simple-cloudfront-invalidator", "~>1.1.0"
 gem "progressbar", "~> 0.21.0"
+gem "mechanize"
 
 # gem "github-markdown", "~>"
 # gem "coderay", "~>"
