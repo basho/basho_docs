@@ -51,14 +51,13 @@ Parameter | Description
 > All of the optional parameters below have default values determined on a
 per-bucket basis. Please refer to the documentation on [setting bucket properties](/riak/kv/2.0.4/developing/api/protocol-buffers/set-bucket-props) for more information.
 
-Furthermore, you can assign an integer value to the <code>r</code> and
-<code>pr</code>, provided that that integer value is less than or equal
-to N, <em>or</em> a special value denoting <code>one</code>
-(<code>4294967295-1</code>), <code>quorum</code>
-(<code>4294967295-2</code>), <code>all</code>
-(<code>4294967295-3</code>), or <code>default</code>
-(<code>4294967295-4</code>).
-</div>
+Furthermore, you can assign an integer value to the `r` and
+`pr`, provided that that integer value is less than or equal
+to N, _or_ a special value denoting `one`
+(`4294967295-1`), `quorum`
+(`4294967295-2`), `all`
+(`4294967295-3`), or `default`
+(`4294967295-4`).
 
 Parameter | Description
 :---------|:-----------
