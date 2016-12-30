@@ -20,7 +20,7 @@ aliases:
 [install index]: /riak/kv/2.2.0/setup/installing
 [security basics]: /riak/kv/2.2.0/using/security/basics
 
-Pre-packaged versions of Riak include an Erlang installation. If you are building Riak from source, you will need to install [Basho's patched version of Erlang](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho8.tar.gz). **If you do not use this version of Erlang, you will not be able to use Riak's [security features][security basics].**
+Pre-packaged versions of Riak include an Erlang installation. If you are building Riak from source, you will need to install [Basho's patched version of Erlang](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho10.tar.gz). **If you do not use this version of Erlang, you will not be able to use Riak's [security features][security basics].**
 
 > **Note on Official Support**
 >
@@ -284,7 +284,7 @@ Erlang [from Github](https://github.com/basho/otp) using the following
 command:
 
 ```bash
-./kerl build git git://github.com/basho/otp.git OTP_R16B02_basho8 R16B02-basho8
+./kerl build git git://github.com/basho/otp.git OTP_R16B02_basho10 R16B02-basho10
 ```
 
 This builds the Erlang distribution and performs all of the steps
@@ -293,12 +293,12 @@ required to manually install Erlang for you.
 After Erlang is successfully built, you can install the build as follows:
 
 ```bash
-./kerl install R16B02-basho8 ~/erlang/R16B02-basho8
-. ~/erlang/R16B02-basho8/activate
+./kerl install R16B02-basho10 ~/erlang/R16B02-basho10
+. ~/erlang/R16B02-basho10/activate
 ```
 
 The last line activates the Erlang build that was just installed into
-`~/erlang/R16B02-basho8`.
+`~/erlang/R16B02-basho10`.
 
 > See the kerl [README](https://github.com/yrashk/kerl) for more details on the available commands.
 
@@ -319,24 +319,24 @@ erl
 
 First make sure you have installed the necessary dependencies found in [Debian/Ubuntu Prerequisites](#debian-ubuntu-prerequisites).
 
-Next download [Basho's patched version of Erlang](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho8.tar.gz).
+Next download [Basho's patched version of Erlang](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho10.tar.gz).
 
 Using `wget`:
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho8.tar.gz
+wget http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho10.tar.gz
 ```
 
 Then unpack the download with:
 
 ```bash
-tar zxvf otp_src_R16B02-basho8.tar.gz
+tar zxvf otp_src_R16B02-basho10.tar.gz
 ```
 
 Next `cd` into the unpacked directory, build and install Erlang with:
 
 ```bash
-cd OTP_R16B02_basho8
+cd OTP_R16B02_basho10
 ./otp_build autoconf
 ./configure && make && sudo make install
 ```
@@ -357,22 +357,22 @@ erl
 
 First make sure you installed the necessary dependencies in [FreeBSD/Solaris Prerequisites](#freebsd-solaris-prerequisites).
 
-Next download [Basho's patched version of Erlang](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho8.tar.gz):
+Next download [Basho's patched version of Erlang](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho10.tar.gz):
 
 ```bash
-ftp http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho8.tar.gz
+ftp http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho10.tar.gz
 ```
 
 Then unpack the download with:
 
 ```bash
-tar zxvf otp_src_R16B02-basho8.tar.gz
+tar zxvf otp_src_R16B02-basho10.tar.gz
 ```
 
 Next `cd` into the unpacked directory, build and install Erlang with:
 
 ```bash
-cd OTP_R16B02_basho8
+cd OTP_R16B02_basho10
 ./otp_build autoconf
 ./configure && gmake && sudo gmake install
 ```
@@ -402,16 +402,16 @@ You can install Erlang in several ways on OS X:
 
 ## Installing on Mac OS X from Source
 
-Next download [Basho's patched version of Erlang](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho8.tar.gz):
+Next download [Basho's patched version of Erlang](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho10.tar.gz):
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho8.tar.gz
+curl -O http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho10.tar.gz
 ```
 
 Then unpack the download with:
 
 ```bash
-tar zxvf otp_src_R16B02-basho8.tar.gz
+tar zxvf otp_src_R16B02-basho10.tar.gz
 ```
 
 Follow the steps below to configure Erlang for your operating system.
@@ -458,7 +458,7 @@ If you're on a non-Intel processor or older version of OS X:
 After you've configured your system `cd` into the unpacked directory, build and install Erlang with:
 
 ```bash
-cd OTP_R16B02_basho8
+cd OTP_R16B02_basho10
 ./otp_build autoconf
 ./configure && make && sudo make install
 ```
@@ -522,19 +522,19 @@ First make sure you have installed the necessary dependencies and prerequisites 
 Using `wget`:
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho8.tar.gz
+wget http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho10.tar.gz
 ```
 
 Then unpack the download with:
 
 ```bash
-tar zxvf otp_src_R16B02-basho8.tar.gz
+tar zxvf otp_src_R16B02-basho10.tar.gz
 ```
 
 Next `cd` into the unpacked directory, build and install Erlang with:
 
 ```bash
-cd OTP_R16B02_basho8
+cd OTP_R16B02_basho10
 ./otp_build autoconf
 ./configure && make && sudo make install
 ```
