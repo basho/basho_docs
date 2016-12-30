@@ -26,3 +26,8 @@ message RpbYokozunaIndexDeleteReq {
     required bytes name  =  1;
 }
 ```
+
+## Response
+
+Returns a [RpbDelResp](/riak/kv/2.2.0/developing/api/protocol-buffers/#message-codes) code with no data on success.
+
