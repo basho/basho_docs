@@ -84,11 +84,11 @@ These properties provide you with the following basic options:
 
 ### Timestamp-based Resolution
 
-If the `[allow_mult](#siblings)` parameter is set to
+If the [`allow_mult`](#siblings) parameter is set to
 `false`, Riak resolves all object replica conflicts internally and does
 not return siblings to the client. How Riak resolves those conflicts
 depends on the value that you set for a different bucket property,
-`[last_write_wins](/riak/kv/2.2.0/learn/concepts/buckets)`. If `last_write_wins` is set to `false`,
+[`last_write_wins`](/riak/kv/2.2.0/learn/concepts/buckets). If `last_write_wins` is set to `false`,
 Riak will resolve all conflicts on the basis of
 [timestamps](http://en.wikipedia.org/wiki/Timestamp), which are
 attached to all Riak objects as metadata.
