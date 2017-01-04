@@ -59,7 +59,7 @@ Once we've read the object back in from Riak, we can update the object
 and store it back as we did before with the `StoreValue` object:
 
 ```java
-fetchedObject.setValue(BinaryValue.create("You can be my wingman any time.\n"));
+fetchedObject.setValue(BinaryValue.create("You can be my wingman any time."));
 StoreValue updateOp = new StoreValue.Builder(fetchedObject)
         .withLocation(quoteObjectLocation)
         .build();
@@ -170,9 +170,10 @@ Then using the `BookUpdate` class with our `mobyDick` object:
 
 ```java
 mobyDick.copiesOwned = 5;
-UpdateBook updatedBook = new BookUpdate(mobyDick);
+BookUpdate updatedBook = new BookUpdate(mobyDick);
 
-UpdateValue updateValue = new UpdateValue.Builder(mobyDickLocation).withUpdate(updatedBook).build();
+UpdateValue updateValue = new UpdateValue.Builder(mobyDickLocation)
+    .withUpdate(updatedBook).build();
 UpdateValue.Response response = client.execute(updateValue);
 ```
 
