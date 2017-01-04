@@ -9,9 +9,9 @@
 {{ $menu_title := .menu_title }}
 {{ $menu_list  := (index $HugoNode.Site.Menus $menu_title) }} {{/* GoLang List of Menu Objects */}}
 
-{{ $project      := $HugoNode.Scratch.Get "project"      }}
-{{ $version      := $HugoNode.Scratch.Get "version"      }}
-{{ $gh_edit_path := $HugoNode.Scratch.Get "gh_edit_path" }}
+{{ $version           := $HugoNode.Scratch.Get "version"           }}
+{{ $project_name_html := $HugoNode.Scratch.Get "project_name_html" }}
+{{ $gh_edit_path      := $HugoNode.Scratch.Get "gh_edit_path"      }}
 -->
 
 {{/* This check is required to correctly know the hight of the top element. */}}
@@ -35,9 +35,16 @@
     </form>
 
 {{ if $version }}
-    <div class="clearfix   selectors">
+    <div class="clearfix   version-picker">
 
-      <div class="inline-block float-left   selector selector--version">
+  {{ if $project_name_html }}
+      <a class="inline-block float-left    product__title" href="/"><!--
+     --><img class="product__logo" src="/images/index/riak-logo.png"><!--
+     -->{{ $project_name_html | safeHTML }}
+      </a>
+  {{ end }}
+
+      <div class="inline-block float-right   selector selector--version">
         <header class="selector__title">Versions</header>
         <button class="selector__btn" type="button">{{$version}}</button>
         <div    class="selector__arrow"></div>
@@ -48,17 +55,15 @@
 
   </div>
 
-
-
 {{ if $version }}
-  <!-- These three divs serve to build a single element. The __sizing-box relies
-       on border-box sizing to correctly define the space available to the
-       __primary element and will have its height/max-height manipulated by JS
-       to simulate opening / closing a scroll. The __shadow-box provides a
-       box-shadow without affecting any child elements or browser elements (I'm
-       looking at you, scrollbars) and will have a static height/max-height set
-       so its children can rely on a fixed height (looking at you again,
-       scrollbars). The __primary element is what will have children.
+  <!-- These three divs -- the __sizing-box, the __shadow-box, and the __primary
+       -- serve to build a single element. The __sizing-box relies on border-box
+       sizing to correctly define the space available to the __primary element
+       and will have its height/max-height manipulated by JS to simulate opening
+       / closing a scroll. The __shadow-box provides a box-shadow without
+       affecting any child elements or scrollbars and will have a static
+       height/max-height set so its children can rely on a fixed height. The
+       __primary element is what will have children.
   -->
   <div class="overflow-y-hidden   selector-pane__sizing-box selector-pane__sizing-box--hidden">
   <div class="                    selector-pane__shadow-box">

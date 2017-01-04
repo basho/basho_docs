@@ -22,7 +22,7 @@ $fixed-top-height-full-sm-down-total : $fixed-top-height-full-sm-down + $fixed-t
 $fixed-top-height-half-sm-down-total : $fixed-top-height-half-sm-down + $fixed-top-padding-top-sm-down;
 
 
-$fixed-top-height-full-md      : 7.0rem; // w/  project and version selectors.
+$fixed-top-height-full-md      : 6.5rem; // w/  project and version selectors.
 $fixed-top-height-half-md      : 3.5rem; // w/o project and version selectors.
 $fixed-top-padding-top-md      : 1.0rem; // Space between the content-nav and __fixed-top content.
 $fixed-top-padding-bottom-md   : 1.0rem; // Space between the __fixed_top and __primary.
@@ -30,7 +30,7 @@ $fixed-top-height-full-md-total : $fixed-top-height-full-md + $fixed-top-padding
 $fixed-top-height-half-md-total : $fixed-top-height-half-md + $fixed-top-padding-top-md;
 
 
-$fixed-top-height-full-lg-up      : 7.25rem; // w/  project and version selectors.
+$fixed-top-height-full-lg-up      : 6.75rem; // w/  project and version selectors.
 $fixed-top-height-half-lg-up      : 3.5rem; // w/o project and version selectors.
 $fixed-top-padding-top-lg-up      : 1.0rem; // Space between the content-nav and __fixed-top content.
 $fixed-top-padding-bottom-lg-up   : 1.0rem; // Space between the __fixed_top and __primary.
@@ -122,8 +122,89 @@ $fixed-bottom-height : 7.875rem;
     @include when-inside('.content-nav--top-size-half') {
       height : $fixed-top-height-half-lg-up-total;
     }
-
   }
+
+}
+
+
+
+/**
+ * Wrapper around the Product Title and Version Selector.
+ */
+.version-picker {
+  margin : 0.5rem 0.75rem 0.5rem 0.75rem;
+
+  @include wide-from('md') {
+    margin-left  : 0.25rem;
+    margin-right : 0.25rem;
+  }
+
+  /**
+   * Product Title -- Including the Riak Logo, the primary title (ex; 'riak')
+   * and the title highlight (ex; 'TS').
+   * 1. Child elements of the title (including the actual text of the title)
+   *    should be scaled based on this font-size. As such, child elements should
+   *    use `em`s for their sizing so the whole component should be scaled using
+   *    the __title's `font-size`.  
+   *    This element should also scale based on it's parent's font-size, so we
+   *    use an em for the root font-size.
+   * 2. HACK: Use a specific margin-top (changing based on display / font-size)
+   *    to get us close to the baseline of the text in the selector button.
+   * 3. HACK: The x-height of the Muli typeface is ~70.5% of the cap-height,
+   *    so we're setting the size of the hightlight title text to that
+   *    approximate x-height
+   */
+  .product__title {
+    font-size     : 2.20em;    /* 1 */
+    font-weight   : 700;
+    line-height   : 1;
+
+    margin-top    : 0.3em;    /* 2 */
+
+    @include wide-from('md') {
+      margin-top   : 0.35em;  /* 2 */
+    }
+
+    @include wide-from('lg') {
+      font-size    : 2.40em;
+      margin-top   : 0.25em;  /* 2 */
+    }
+
+
+    /* Riak Logo icon */
+    .product__logo {
+      height        : 0.60em;
+      width         : 0.60em;
+      margin-bottom : 0.10em;
+    }
+
+    /* Primary Title text */
+    @extend          %muli;
+    color           : $gray-50;
+    text-transform  : lowercase;
+    text-decoration : none;
+
+    transition : color 500ms ease;
+
+    /* Title Highlight text */
+    .product__title-highlight {
+      color           : $orange;
+      text-transform  : uppercase;
+      font-size       : 70.5%;           /* 3 */
+      font-weight     : 400;
+
+      transition : color 500ms ease;
+    }
+
+    @include on-event {
+      color : $gray-40;
+
+      .product__title-highlight {
+        color : $orange-dark;
+      }
+    }
+  }
+
 }
 
 

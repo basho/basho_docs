@@ -288,8 +288,8 @@ $ ->
         # Set the max-height on the __shadow-box and __sizing-box, with the
         # intent of leaving it on the __shadow-box, and resetting it to 0 on the
         # __sizing-box when the pane is closed.
-        $version_pane__shadow.css('max-height', $content_nav__primary.outerHeight() + (0.25).rem())
-        $version_pane__sizing.css('max-height', $content_nav__primary.outerHeight() + (0.25).rem())
+        $version_pane__shadow.css('max-height', $content_nav__primary.outerHeight() + (0.75).rem())
+        $version_pane__sizing.css('max-height', $content_nav__primary.outerHeight() + (0.75).rem())
 
         # If the selector has just opened, we may immediately test the
         # .selector-pane--versions for horizontal scrollablity. We need to wait
@@ -326,8 +326,8 @@ $ ->
           # Set the max-height on the __shadow-box and __sizing-box, with the
           # intent of leaving it on the __shadow-box, and resetting it to 0 on the
           # __sizing-box when the pane is closed.
-          $version_pane__shadow.css('max-height', $content_nav__primary.outerHeight() + (0.25).rem())
-          $version_pane__sizing.css('max-height', $content_nav__primary.outerHeight() + (0.25).rem())
+          $version_pane__shadow.css('max-height', $content_nav__primary.outerHeight() + (0.75).rem())
+          $version_pane__sizing.css('max-height', $content_nav__primary.outerHeight() + (0.75).rem())
 
           # If the selector has just opened, we may immediately test the
           # .selector-pane--versions for horizontal scrollablity. We need to wait
