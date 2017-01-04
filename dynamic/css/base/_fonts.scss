@@ -17,8 +17,9 @@
  * TODO: Consider downloading all of these into static/ and manually defining
  *       these families s.t. we can more precisely control what we send to users
  */
-@import url(http://fonts.googleapis.com/css?family=Oswald:400,300);  /* 1 */
-@import url(http://fonts.googleapis.com/css?family=Muli:400,700);    /* 2 */
+@import url('https://fonts.googleapis.com/css?family=Oswald:400,300');          /* 1 */
+@import url('https://fonts.googleapis.com/css?family=Muli:400,700');            /* 2 */
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700'); /* 3 */
 
 
 
@@ -41,8 +42,9 @@
 %serif-bold   { @extend %GandhiSerif-Bold; }
 %serif-italic { @extend %GandhiSerif-Italic; }
 
-%oswald { font-family : "Oswald", sans-serif; }
-%muli   { font-family : "Muli", sans-serif; }
+%monospace { font-family : "Source Code Pro", monospace; }
+%muli      { font-family : "Muli", sans-serif;           }
+%oswald    { font-family : "Oswald", sans-serif;         }
 
 
 /* Descriptive Font Classes */

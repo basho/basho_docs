@@ -42,7 +42,7 @@ main {
  *    here to ensure in-line code doesn't behave strangely.
  */
 code {
-  font-family : monospace, sans;
+  @extend      %monospace;
   color       : $font-color;
   background  : $gray-90;
   @include rounded-corners(.25rem);
