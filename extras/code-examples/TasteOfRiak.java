@@ -2,6 +2,7 @@ import com.basho.riak.client.api.RiakClient;
 import com.basho.riak.client.api.commands.kv.DeleteValue;
 import com.basho.riak.client.api.commands.kv.FetchValue;
 import com.basho.riak.client.api.commands.kv.StoreValue;
+import com.basho.riak.client.api.commands.kv.UpdateValue;
 import com.basho.riak.client.core.RiakCluster;
 import com.basho.riak.client.core.RiakNode;
 import com.basho.riak.client.core.query.Location;
@@ -19,6 +20,30 @@ public class TasteOfRiak {
         public String body;
         public String isbn;
         public Integer copiesOwned;
+    }
+
+    // This will allow us to update the book object handling the
+    // entire fetch/modify/update cycle.
+    public static class BookUpdate extends UpdateValue.Update<Book> {
+        private final Book update;
+        public BookUpdate(Book update){
+            this.update = update;
+        }
+
+        @Override
+        public Book apply(Book t) {
+            if(t == null) {
+                t = new Book();
+            }
+
+            t.author = update.author;
+            t.body = update.body;
+            t.copiesOwned = update.copiesOwned;
+            t.isbn = update.isbn;
+            t.title = update.title;
+
+            return t;
+        }
     }
 
     // This will create a client object that we can use to interact with Riak
@@ -84,6 +109,14 @@ public class TasteOfRiak {
             assert(fetchedObject.getValue().equals(quoteObject.getValue()));
             System.out.println("Success! The object we created and the object we fetched have the same value");
 
+            // Now update the fetched object
+            fetchedObject.setValue(BinaryValue.create("You can be my wingman any time."));
+            StoreValue updateOp = new StoreValue.Builder(fetchedObject)
+                    .withLocation(quoteObjectLocation)
+                    .build();
+            StoreValue.Response updateOpResp = client.execute(updateOp);
+            updateOpResp = client.execute(updateOp);
+
             // And we'll delete the object
             DeleteValue deleteOp = new DeleteValue.Builder(quoteObjectLocation)
                     .build();
@@ -119,6 +152,14 @@ public class TasteOfRiak {
             assert(mobyDick.title.equals(fetchedBook.title));
             assert(mobyDick.author.equals(fetchedBook.author));
             // And so on...
+
+            // Now to update the book with additional copies
+            mobyDick.copiesOwned = 5;
+            BookUpdate updatedBook = new BookUpdate(mobyDick);
+            UpdateValue updateValue = new UpdateValue.Builder(mobyDickLocation)
+                    .withUpdate(updatedBook).build();
+            UpdateValue.Response response = client.execute(updateValue);
+
             System.out.println("Success! All of our tests check out");
 
             // Now that we're all finished, we should shut our cluster object down
