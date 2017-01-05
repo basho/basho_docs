@@ -2,11 +2,13 @@
  * Banner
  * PRESENTATION ONLY -- See _wireframe.scss for position and size.
  */
+//TODO: This element is the only one that uses `$gray-warm-93`, `$gray-warm-88`,
+//      and `$orange-red`. Consider how to homogenize this w/ the others.
 .banner {
   padding : 0 1rem 0 1.25rem;
 
-  background : $gray-warm-97;
-  box-shadow : 0  0  1.5rem 0  $shadow-mid-color;
+  background : $light-background-warm;
+  box-shadow : 0  0  1.5rem 0  $shadow-color-dark;
 
   @include wide-from(md) {
     background : $gray-warm-93;
@@ -143,7 +145,7 @@ $intra-site-height        : $banner-height-md-up - $intra-brand-height_total;
   margin-bottom : $intra-brand-padding;   /* 2 */
 }
 .banner__intra-brand {
-  background : $gray-38;                                                   /* 7 */
+  background : $brand-gray;                                                /* 7 */
   background : url('/images/layout/banner-intra-brand-noise.png') repeat;  /* 6 */
 
   min-width  : 75%;
@@ -161,7 +163,7 @@ $intra-site-height        : $banner-height-md-up - $intra-brand-height_total;
 
   .banner__brand-link {
     font-size : 90%;
-    color     : $gray-90;
+    color     : $inverted-font-soft;
 
     height : $intra-brand-height;  /* 5 */
 
@@ -177,7 +179,7 @@ $intra-site-height        : $banner-height-md-up - $intra-brand-height_total;
     }
 
     @include on-event {
-      color   : $cyan-light;
+      color : $cyan-light;
     }
   }
 }
@@ -216,12 +218,12 @@ $intra-site-height        : $banner-height-md-up - $intra-brand-height_total;
                  background 200ms ease-in;
 
     @include on-event {
-      color      : $gray-38;
+      color      : $brand-gray;
       background : $gray-warm-88;
     }
 
     &.banner__brand-link--current {
-      color      : $gray-38;
+      color      : $brand-gray;
       background : $gray-warm-88;
     }
   }

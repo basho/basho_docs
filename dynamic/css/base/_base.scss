@@ -28,7 +28,7 @@ html {
 
 body {
   @extend %serif;
-  color : $font-color;
+  color : $primary-font;
 }
 
 main {
@@ -43,14 +43,16 @@ main {
  */
 code {
   @extend      %monospace;
-  color       : $font-color;
-  background  : $gray-90;
+  color       : $primary-font;
+  background  : $light-background-cool;
   @include rounded-corners(.25rem);
 
   @include when-inside('a') {          /* 1 */
     transition : color 150ms ease-in;
-    color      : $blue-dark;
-    @include on-event { color : $orange-dark; }
+    color      : $link-font;
+    @include on-event {
+      color : $link-font-em;
+    }
   }
 }
 
@@ -70,14 +72,14 @@ code {
  *     aren't properly duplicated.
  */
 a {
-  color : $blue-dark;
+  color : $link-font;
   text-decoration : underline;
   cursor : pointer;
 
   transition : color 150ms ease-in;
 
   @include on-event {
-    color : $orange-dark;
+    color : $link-font-em;
     text-decoration : underline;
   }
 
@@ -150,31 +152,31 @@ h1 { @extend %sans-light;
      margin-top    : initial;   /* 1 */
      margin-bottom : initial; } /* 1 */
 h2 { @extend %sans-light;
-     color         : $gray-38;
+     color         : $brand-gray;
      line-height   : 1.2;
      font-size     : 2.30rem;
      margin-top    : 3.00rem;
      margin-bottom : 1.00rem; }
 h3 { @extend %sans;
-     color         : $gray-38;
+     color         : $brand-gray;
      line-height   : 1.2;
      font-size     : 1.70rem;
      margin-top    : 1.75rem;
      margin-bottom : 0.50rem; }
 h4 { @extend %sans;
-     color         : $gray-38;
+     color         : $brand-gray;
      line-height   : 1.2;
      font-size     : 1.50rem;
      margin-top    : 1.25rem;
      margin-bottom : 0.50rem; }
 h5 { @extend %sans;
-     color         : $gray-38;
+     color         : $brand-gray;
      line-height   : 1.2;
      font-size     : 1.30rem;
      margin-top    : 0.00rem;
      margin-bottom : 0.50rem; }
 h6 { @extend %sans;
-     color         : $gray-38;
+     color         : $brand-gray;
      line-height   : 1.2;
      font-size     : 1.25rem;
      margin-top    : 0.00rem;
@@ -182,11 +184,11 @@ h6 { @extend %sans;
 
 h1, h2, h3, h4, h5, h6 {
   a {
-    color : $gray-38;
+    color : $brand-gray;
     text-decoration : none;
 
     @include on-event {
-      color : $orange-dark;
+      color : $brand-primary-dark;
       text-decoration : none;
     }
   }
@@ -247,8 +249,8 @@ pre code {
   overflow-x : auto;
   @include     rounded-corners(0.3rem);
   font-size  : 90%;
-  color      : $gray-30;
-  background : $gray-warm-97;
+  color      : $primary-font;
+  background : $light-background-warm;
   border     : 1px solid $gray-75;
   padding    : 0.5rem 1rem;
 }
@@ -299,7 +301,7 @@ table {
 }
 
 thead {
-  border-bottom : 1px solid $gray-15;
+  border-bottom : 1px solid $primary-font;
 }
 
 th {

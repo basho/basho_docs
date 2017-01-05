@@ -2,11 +2,11 @@
 
 // 1. Configuration and helpers
 @import
-  'abstracts/colors',
   'abstracts/configurations',
   'abstracts/functions',
-  'abstracts/highlightjs-solarized',
-  'abstracts/mixins';
+  'abstracts/mixins',
+  'abstracts/colors',
+  'abstracts/highlightjs-solarized';
 
 // 2. Vendors
 @import

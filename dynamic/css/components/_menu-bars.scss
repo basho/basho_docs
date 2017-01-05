@@ -30,9 +30,9 @@ $bar-height : 0.125em;
 
     position : absolute;
 
-    background : $gray-38;
+    background : $brand-gray;
     box-shadow :
-      0 ($bar-height * 2) 0 0 $gray-38,
-      0 ($bar-height * 4) 0 0 $gray-38;
+      0 ($bar-height * 2) 0 0 $brand-gray,
+      0 ($bar-height * 4) 0 0 $brand-gray;
   }
 }

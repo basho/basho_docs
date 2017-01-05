@@ -9,7 +9,7 @@
   font-size   : 80%;
   line-height : 1.2;
   text-align  : center;
-  color       : $gray-60;
+  color       : $lighter-font;
 
   border-top : 1px solid $gray-85;
 
@@ -22,7 +22,7 @@
   }
 
   a {
-    color : $gray-60;
+    color : $lighter-font;
     @include on-event {
       color : $cyan;
     }

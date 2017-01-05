@@ -36,15 +36,17 @@
 
 /**
  * <ol> List of Items.
- * 1. Zero the bottom margin s.t. margins for this component only need to be set
+ * 1. Lighten the color of the ordered list numbers.
+ * 2. Zero the bottom margin s.t. margins for this component only need to be set
  *    on the root .table-of-contents <nav>.
  */
 .table-of-contents__items {
   @extend   %sans;
-  color   : $gray-60;
+  color   : $lighter-font;  /* 1 */
 
-  margin-bottom : 0;  /* 1 */
+  margin-bottom : 0;        /* 2 */
 
+  //TODO: Figure out colors for this element.
   a {
     color           : lighten(saturate($blue-dark, 15), 20);
     text-decoration : none;

@@ -6,8 +6,8 @@
  */
 .search {
   @include    rounded-corners(0.25rem);
-  background : $gray-60;
-  color      : $gray-95;
+  background : $dark-background;
+  color      : $inverted-font;
 
   padding : 0.25rem 0.25rem 0.25rem 0;  /* 1 */
   margin  : 0.25rem;
@@ -61,12 +61,15 @@
   @include    rounded-corners(0.25rem);
   padding    : 0.25rem 0  0.25rem 0.25rem;  /* 3, 4 */
 
+  transition : background 200ms ease-in,
+               color      200ms ease-in;
+
   &:focus {
-    background : $gray-40;
-    color      : $gray-95;
+    background : $darker-background;
+    color      : $inverted-font;
   }
 
   &::placeholder {
-    color : $gray-85;
+    color : $inverted-font-softer;
   }
 }

@@ -57,7 +57,7 @@ $fixed-bottom-height : 7.875rem;
  */
 .content-nav {
   @extend %sans;
-  color   : $gray-50;
+  color   : $light-font;
 
   @include width-exactly('xs') { font-size : 100%; } /* 1 */
   @include width-exactly('sm') { font-size : 100%; } /* 1 */
@@ -84,7 +84,7 @@ $fixed-bottom-height : 7.875rem;
   padding-top : $fixed-top-padding-top-sm-down;
 
   background : $gray-warm-97;
-  box-shadow : -0.125rem -0.125rem 2rem -0.25rem $shadow-hard-color;
+  box-shadow : -0.125rem -0.125rem 2rem -0.25rem $shadow-color-darker;
 
   transition : height 500ms ease;
 
@@ -102,7 +102,7 @@ $fixed-bottom-height : 7.875rem;
     padding-right : 0.5rem;
     padding-top   : $fixed-top-padding-top-md;
 
-    box-shadow : -0.125rem -0.125rem 2rem -0.25rem $shadow-color;
+    box-shadow : -0.125rem -0.125rem 2rem -0.25rem $shadow-color-mid;
 
     @include when-inside('.content-nav--top-size-full') {
       height : $fixed-top-height-full-md-total;
@@ -180,7 +180,7 @@ $fixed-bottom-height : 7.875rem;
 
     /* Primary Title text */
     @extend          %muli;
-    color           : $gray-50;
+    color           : $light-font;
     text-transform  : lowercase;
     text-decoration : none;
 
@@ -188,7 +188,7 @@ $fixed-bottom-height : 7.875rem;
 
     /* Title Highlight text */
     .product__title-highlight {
-      color           : $orange;
+      color           : $brand-primary-light;
       text-transform  : uppercase;
       font-size       : 70.5%;           /* 3 */
       font-weight     : 400;
@@ -197,10 +197,10 @@ $fixed-bottom-height : 7.875rem;
     }
 
     @include on-event {
-      color : $gray-40;
+      color : $brand-gray;
 
       .product__title-highlight {
-        color : $orange-dark;
+        color : $brand-primary;
       }
     }
   }
@@ -272,15 +272,15 @@ $fixed-bottom-height : 7.875rem;
   }
 }
 .content-nav__primary__shadow-box {
-  box-shadow : -0.25rem -0.25rem 4rem -0.5rem $shadow-hard-color;
+  box-shadow : -0.25rem -0.25rem 4rem -0.5rem $shadow-color-darker;
   height     : 100%;    /* 1 */
 
   @include wide-from('md') {
-    box-shadow : -0.25rem -0.25rem 4rem -0.5rem $shadow-color;
+    box-shadow : -0.25rem -0.25rem 4rem -0.5rem $shadow-color-mid;
   }
 }
 .content-nav__primary {
-  background : $gray-warm-97;
+  background : $light-background-warm;
   height     : 100%;    /* 1 */
 }
 
@@ -317,5 +317,5 @@ $fixed-bottom-height : 7.875rem;
   font-size   : 90%;
   line-height : 1.1rem;
 
-  background  : $gray-60;
+  background  : $dark-background;
 }

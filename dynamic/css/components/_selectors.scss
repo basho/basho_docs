@@ -36,16 +36,16 @@
 
   @extend    %sans-bold;
   font-size  : 120%;
-  color      : $gray-50;
-  background : $orange-lightest;
+  color      : $light-font;
+  background : $brand-primary-lightest;
 
 
   transition : color      500ms ease,
                background 500ms ease;
 
   @include on-event {
-    color      : $gray-40;
-    background : $orange-light;
+    color      : $light-font-em;
+    background : $brand-primary-light;
   }
 
   @include when-inside('.js') {
@@ -64,10 +64,10 @@
 
   transition : border-color 500ms ease;
 
-  @include downward-arrow(0.75em, $orange-lightest, $cyan-dark);
+  @include downward-arrow(0.75em, $brand-primary-lightest, $brand-secondary);
 
   @include when-inside('.selector--open') {
-    @include upward-arrow(0.75em, $orange-lightest, $cyan-dark);
+    @include upward-arrow(0.75em, $brand-primary-lightest, $brand-secondary);
    }
 }
 
@@ -136,11 +136,12 @@
   transition : height     500ms ease,
                max-height 500ms ease;
 
-  box-shadow : -0.25rem -0.25rem 2rem -0.25rem $shadow-color;
+  box-shadow : -0.25rem -0.25rem 2rem -0.25rem $shadow-color-mid;
 }
 .selector-pane__primary {
   height : 100%;
 
+  //TODO: This is the only use of gray-warm-92. Consider something different.
   background : $gray-warm-92;
   color      : $version-selector-text;
   font-size  : 105%;
@@ -213,7 +214,7 @@
   padding    : 0;     /* 5 */
   list-style : none;  /* 5 */
 
-  box-shadow : -0.125rem -0.125rem 1rem -0.2rem $shadow-color;
+  box-shadow : -0.125rem -0.125rem 1rem -0.2rem $shadow-color-mid;
 }
 
 

@@ -35,7 +35,7 @@
   }
 
   &.content-menu--depth-0 > li {  /* 2 */
-    box-shadow : 0  -0.2rem 0.7rem -0.2rem $shadow-light-color;
+    box-shadow : 0  -0.2rem 0.7rem -0.2rem $shadow-color-light;
   }
 }
 
@@ -67,12 +67,12 @@
  * changing how it interacts with the rest of the rules in this file.
  */
 .content-menu__download-entry {
-  background : $orange-lightest;
+  background : $brand-primary-lightest;
 
   transition : background 500ms ease;
 
   @include on-event {
-    background : $orange-light;
+    background : $brand-primary-light;
   }
 }
 
@@ -122,10 +122,10 @@ $menu-item-padding-top : 0.60rem;
   margin-left  : 0;
   margin-right : 0;
 
-  color          : $gray-50;    /* 2 */
+  color   : $light-font;     /* 2 */
 
   @include on-event {
-    color        : $gray-30;    /* 2 */
+    color : $light-font-em;  /* 2 */
   }
 
 
@@ -133,7 +133,7 @@ $menu-item-padding-top : 0.60rem;
     padding-top    : $menu-item-padding-top;
     padding-bottom : 0.65rem;
 
-    color           : inherit;  /* 2 */
+    color           : inherit;            /* 2 */
     text-decoration : none;
 
     &[href^="http://"],
@@ -157,19 +157,20 @@ $menu-item-padding-top : 0.60rem;
 
 /**
  * Currently selected Content Menu Items
+ * 1. Override :hover on selected items.
  */
 .content-menu__item--selected {
-  background : $cyan;
-  color      : $gray-95;
+  background : $brand-secondary-light;
+  color      : $inverted-font;
 
   @include on-event {
-    color    : $gray-95;
+    color    : $inverted-font;  /* 1 */
   }
 
-  box-shadow : 0  0  1rem -0.2rem $shadow-mid-color;
+  box-shadow : 0  0  1rem -0.2rem $shadow-color-dark;
 
   > .content-menu__menu-toggle + a {
-    border-right-color : $gray-95;
+    border-right-color : $inverted-font;
   }
 }
 
@@ -236,6 +237,7 @@ $menu-item-padding-top : 0.60rem;
    *    modifier between the current selector (&) and the :after pseudo-element.
    * 4. When rendering at a wider width, decrease the size of the arrows.
    */
+  //TODO: Work out colors here.
   &:after {
     display : inline-block;
     content : "";  /* 1 */
@@ -301,15 +303,15 @@ $menu-item-padding-top : 0.60rem;
     margin-top   : 0;      /* 1 */
 
     > li {
-      box-shadow : 0  -0.2rem 0.7rem -0.2rem $shadow-color;  /* 2 */
+      box-shadow : 0  -0.2rem 0.7rem -0.2rem $shadow-color-mid;  /* 2 */
     }
   }
 
   .content-menu__item {
-    color : $gray-90;
+    color : $inverted-font-soft;
 
     @include on-event {
-      color : $gray-95;
+      color : $inverted-font;
     }
 
     a {

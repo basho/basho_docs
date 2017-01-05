@@ -23,6 +23,8 @@
  *    Again, could more concisely be achieved with a `border-*-color`, but I
  *    value clarity over brevity.
  *TODO: These names are getting out of hand. Can we better them up?
+ *TODO: These colors are currently descriptive (`$orange`) rather than semantic
+ *      (`$brand-primary`). This should probably change?
  */
 .edge-fader {
   width     : 0%;                                                      /* 1 */

@@ -24,10 +24,10 @@
     }
   }
   .welcome {
-    background : $orange-light;
+    background  : $brand-primary-light;
 
     @extend %sans;
-    color       : $gray-38;
+    color       : $brand-gray;
     font-size   : 1.7rem;
     line-height : 1;
     text-align  : center;
@@ -35,7 +35,7 @@
     margin-bottom : 0;             /* 2 */
 
     h1 {                           /* 3 */
-      color          : $gray-38;
+      color          : $brand-gray;
       text-transform : uppercase;
       font-size      : 2.5rem;
 
@@ -56,7 +56,7 @@
    *    downward onto the footer. This is
    */
   .product-content {
-    box-shadow : 0  0  1.5rem 0  $shadow-color;  /* 1 */
+    box-shadow : 0  0  1.5rem 0  $shadow-color-mid;  /* 1 */
   }
 
 
@@ -88,7 +88,7 @@
     padding    : 1.5rem 1rem;
 
     @extend %sans;
-    color           : $font-color;
+    color           : $primary-font;
     line-height     : 1.3;
     font-size       : 1.2rem;
     text-align      : center;
@@ -128,14 +128,14 @@
 
       /* Primary Title text */
       @extend         %muli;
-      color          : $gray-38;
+      color          : $brand-gray;
       text-transform : lowercase;
 
       transition : color 200ms ease-in;    /* 2 */
 
       /* Title Highlight text */
       .product__title-highlight {
-        color           : $orange-dark;
+        color           : $brand-primary;
         text-transform  : uppercase;
         font-size       : 70.5%;           /* 3 */
         font-weight     : 400;
@@ -162,8 +162,8 @@
     @include on-event {
       text-decoration : none;
 
-      color      : $gray-95;
-      background : $cyan-dark;
+      color      : $inverted-font;
+      background : $brand-secondary;
     }
   }
 
@@ -184,6 +184,7 @@
    * Community callout card (anchor) and Bootstrap column wrapper
    * This element is very similar to the above .product__card.
    */
+   //TODO: Figure out colors for this element.
   .community__wrapper {
     padding-top   : 1rem;
     padding-left  : 1rem;
@@ -195,7 +196,7 @@
     background : $cyan-lightest;
 
     @extend %sans;
-    color           : $font-color;
+    color           : $primary-font;
     line-height     : 1.3;
     font-size       : 1.0rem;
     text-align      : center;
