@@ -20,44 +20,44 @@
  * that we _do not_ use these styles to override CSS defined elsewhere. Applying
  * one of these classes to an HTML element is a statement of intent that _must_
  * be honored.
- *TODO: Work out how we might re-apply !important to the below. The issue that
- *      lead me (drew.pirrone.brusse@gmaiil.com) to remove the !important
- *      qualifiers was the interaction between my .inline-block and Bootstrap's
- *      hidden-md-down. The former was consistently overriding the later.
+ *     This does mean mixing these classes can have some strange effects. For
+ * example, combining .inline-block and .hidden-md-down yield competing
+ * `display: * !important;` clauses. If such a case is necessary, custom classes
+ * (ex; .inline-only-lg, or a theoretical .inline-md-up) should be created.
  */
 
 .inline {
-  display: inline;
+  display: inline !important;
 }
 
 .block {
-  display: block;
+  display: block !important;
 }
 
 .inline-block {
-  display: inline-block;
+  display: inline-block !important;
 }
 
 
 .table {
-  display: table;
+  display: table !important;
 }
 
 .inline-table {
-  display: inline-table;
+  display: inline-table !important;
 }
 
 .table-row {
-  display: table-row;
+  display: table-row !important;
 }
 
 .table-cell {
-  display: table-cell;
+  display: table-cell !important;
 }
 
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 
@@ -148,24 +148,24 @@
 
 @each $breakpoint in map-keys($grid-breakpoints) {
   .inline-only-#{$breakpoint} {
-    display: none;
+    display: none !important;
   }
   .block-only-#{$breakpoint} {
-    display: none;
+    display: none !important;
   }
   .inline-block-only-#{$breakpoint} {
-    display: none;
+    display: none !important;
   }
 
   @include media-breakpoint-only($breakpoint) {
     .inline-only-#{$breakpoint} {
-      display: inline;
+      display: inline !important;
     }
     .block-only-#{$breakpoint} {
-      display: block;
+      display: block !important;
     }
     .inline-block-only-#{$breakpoint} {
-      display: inline-block;
+      display: inline-block !important;
     }
   }
 }
