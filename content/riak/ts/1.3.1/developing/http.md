@@ -41,7 +41,7 @@ CREATE TABLE GeoCheckin
 
 | Call  | Request URL         | Type | Description  |
 |:------|---------------------|:--------------:|--------------|
-|put    | /ts/v1/tables/GeoCheckin/keys '[»Row(s)«]' | PUT | put a single or a batch of rows |
+|put    | /ts/v1/tables/GeoCheckin/keys '[»Row(s)«]' | POST | put a single or a batch of rows |
 |get    | /ts/v1/tables/GeoCheckin/keys/region/North%20West/state/WA/time/14201136 | GET | single-key get of a value |
 |delete | /ts/v1/tables/GeoCheckin/keys/region/North%20West/state/WA/time/14201136 | DELETE | single-key delete         |
 |query  | /ts/v1/query --data "»Query«"  | POST | execute a query |
@@ -56,7 +56,7 @@ All keys need to be implemented in the query string using percent-encoding (or U
 
 | Call      | Method | Type  |
 |-----------|--------|-------|
-| put       | PUT    | Write |
+| put       | POST    | Write |
 | get       | GET    | Read  |
 | delete    | DELETE | Write |
 | query     | POST   | Query |
