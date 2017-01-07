@@ -213,14 +213,16 @@
  *      the case?
  */
 
-/** Docs Icon */
+/**
+ * Docs Icon Font
+ */
 @font-face {
   font-family : "DocsFontIcons";
   font-weight : normal;
   font-style  : normal;
   src : local("DocsFontIcons Regular"),
         local("DocsFontIcons"),
-         url("../fonts/docsfonticons.woff") format("woff");
+        url("../fonts/docsfonticons.woff") format("woff");
 }
 
 %docs-icon {
