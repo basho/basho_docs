@@ -18,12 +18,11 @@
 
 /**
  * Basic font wrangling
+ * 1. This overrides styles set in reboot.scss (setting a px-based root
+ *    font-size) and allows us to properly use rem-based media queries.
  */
-
-/* NB. This overrides styles set in reboot.scss (setting a px-based root
- *     font-size) and allows us to properly use rem-based media queries. */
 html {
-  font-size : initial;
+  font-size : initial;  /* 1 */
 }
 
 body {
@@ -36,8 +35,10 @@ main {
   @include width-exactly('md') { font-size : 100%; }
 }
 
+
+
 /**
- * In-line code
+ * Inline code
  * NB. <a><code> combinations are handled under <a> below to allow for cleaner
  * :hover behavior.
  */
@@ -49,6 +50,7 @@ code {
 
   transition : color 150ms ease-in;
 }
+
 
 
 /**
@@ -87,7 +89,6 @@ a {
       color : $link-font-em;
     }
   }
-
 
   /**
    * Append a box-arrow image to links that send users off-site
@@ -235,6 +236,7 @@ blockquote {
     margin-right : 1rem;
   }
 }
+
 
 
 /**
