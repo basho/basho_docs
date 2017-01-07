@@ -14,7 +14,7 @@ element, extracts that heading's pre-generated id, and wraps the heading's
 ## ===========================
 #NB. This portion of code modifies all heading elements (<h1>-<h6>) that are
 #    children of <main>.
-#    THIS CODE MUST BE LOADED _AFTER_ THE CLOSING </main> TAG.
+# THIS CODE MUST BE LOADED _AFTER_ THE CLOSING </main> TAG.
 $("main").each ->
   main = $(this)
   headings = main.find('h1')
@@ -23,14 +23,10 @@ $("main").each ->
     .add(main.find('h4'))
     .add(main.find('h5'))
     .add(main.find('h6'))
-  #TODO: Figure out if there are headings we don't want to act as links (e.g.
-  #      Table-of-Contents? Top-level titles?) and filter them out of the
-  #      `headings` list. NB. This only grabs headers out of the <main> element,
-  #      so most of those are probably already out.
 
   headings.each ->
     that     = $(this) # Memoize the lookup.
     id       = that.attr('id')
     contents = that.html()
-    anchor   = "<a href=\"\##{id}\">#{contents}</a>"
+    anchor   = "<a class=\"anchor-icon\" href=\"\##{id}\">#{contents}</a>"
     that.html(anchor)

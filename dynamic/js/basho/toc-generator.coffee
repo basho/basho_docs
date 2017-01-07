@@ -35,10 +35,10 @@ toc_wrapper.addClass("table-of-contents__wrapper--multi") if h2s.length >= 6
 h2s.each ->
   # Because this is being run after anchors have been applied to all
   # header elements on the page, the `$(this).html()` will include the
-  # correct anchor.
+  # correct anchor after stripping the .anchor-icon class from each link
   toc_items.append($("<li/>", {
         class : "table-of-contents__item",
-        html  : $(this).html()
+        html  : $(this).html().replace(/anchor-icon/, "")
       }))
 
 toc_title.appendTo(toc)
