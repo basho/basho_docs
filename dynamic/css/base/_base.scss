@@ -143,52 +143,62 @@ a {
  * PRESENTATION ONLY -- See _wireframe.scss for additional structure.
  * 1. These styles are intentionally terrible. They're here to keep us honest
  *    and not use <h1> elements unless we're overriding the defaults.
+ * 2. Set margin-bottom to 0 and use padding-bottom as the spacer s.t. the
+ *    :hover mechanics for closely packed heading elements plays a little bit
+ *    nicer with the banner padding.
+ * 3. Override the inline code styling to keep the color consistent.
  */
 h1 { @extend %sans-light;
-     color         : red;       /* 1 */
-     line-height   : initial;   /* 1 */
-     font-size     : initial;   /* 1 */
-     margin-top    : initial;   /* 1 */
-     margin-bottom : initial; } /* 1 */
+     color          : red;          /* 1 */
+     line-height    : initial;      /* 1 */
+     font-size      : initial;      /* 1 */
+     margin-top     : initial;      /* 1 */
+     margin-bottom  : initial; }    /* 1 */
 h2 { @extend %sans-light;
-     color         : $brand-gray;
-     line-height   : 1.2;
-     font-size     : 2.30rem;
-     margin-top    : 3.00rem;
-     margin-bottom : 1.00rem; }
+     color          : $brand-gray;
+     line-height    : 1.2;
+     font-size      : 2.30rem;
+     margin-top     : 3.00rem;
+     padding-bottom : 1.00rem; }    /* 2 */
 h3 { @extend %sans;
-     color         : $brand-gray;
-     line-height   : 1.2;
-     font-size     : 1.70rem;
-     margin-top    : 1.75rem;
-     margin-bottom : 0.50rem; }
+     color          : $brand-gray;
+     line-height    : 1.2;
+     font-size      : 1.70rem;
+     margin-top     : 1.75rem;
+     padding-bottom : 0.50rem; }    /* 2 */
 h4 { @extend %sans;
-     color         : $brand-gray;
-     line-height   : 1.2;
-     font-size     : 1.50rem;
-     margin-top    : 1.25rem;
-     margin-bottom : 0.50rem; }
+     color          : $brand-gray;
+     line-height    : 1.2;
+     font-size      : 1.50rem;
+     margin-top     : 1.25rem;
+     padding-bottom : 0.50rem; }    /* 2 */
 h5 { @extend %sans;
-     color         : $brand-gray;
-     line-height   : 1.2;
-     font-size     : 1.30rem;
-     margin-top    : 0.00rem;
-     margin-bottom : 0.50rem; }
+     color          : $brand-gray;
+     line-height    : 1.2;
+     font-size      : 1.30rem;
+     margin-top     : 0.00rem;
+     padding-bottom : 0.50rem; }    /* 2 */
 h6 { @extend %sans;
-     color         : $brand-gray;
-     line-height   : 1.2;
-     font-size     : 1.25rem;
-     margin-top    : 0.00rem;
-     margin-bottom : 0.50rem; }
+     color          : $brand-gray;
+     line-height    : 1.2;
+     font-size      : 1.25rem;
+     margin-top     : 0.00rem;
+     padding-bottom : 0.50rem; }    /* 2 */
 
 h1, h2, h3, h4, h5, h6 {
+  margin-bottom : 0;                /* 2 */
+
   a {
     color : $brand-gray;
     text-decoration : none;
 
+    code   { color : $brand-gray; }  /* 3 */
+
     @include on-event {
-      color : $brand-primary-dark;
+      color : $brand-gray;
       text-decoration : none;
+
+      code { color : $brand-gray; }  /* 3 */
     }
   }
 }
