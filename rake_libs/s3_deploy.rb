@@ -159,6 +159,8 @@ def do_deploy()
   # Generate a list of every file in $hugo_dest, and `map` them into the form,
   #   [["«file_name»", "«md5sum»"], ... ]
   puts("  Aggregating Local Hash List...")
+  # TODO: It would be nice to background this operations, and spin-lock on a
+  #       progress bar with `total: nil` until the call returns.
   local_file_list = Dir["./**/*"]
     .select { |f| File.file?(f) }
     .sort_by { |f| f }
@@ -178,6 +180,8 @@ def do_deploy()
   # Fetch all objects from the remote, and `map` them into the form,
   #   [["«file_name»", "«md5sum»"], ... ]
   puts("  Fetching Remote Object List (this may take up to ~30 seconds)...")
+  # TODO: It would be nice to background this operations, and spin-lock on a
+  #       progress bar with `total: nil` until the call returns.
   aws_file_list = aws_bucket
     .objects()
     .sort_by { |objs| objs.key }
@@ -198,7 +202,9 @@ def do_deploy()
   aws_i = 0
   lcl_len = local_file_list.length
   aws_len = aws_file_list.length
-  progress = ProgressBar.new("   Hash check", lcl_len)
+  progress = ProgressBar.create(:title      => "   Hash check",
+                                :total      => lcl_len,
+                                :autofinish => false)
   while true
     # Check if we've reached the end of either list and should break
     break if (lcl_i == lcl_len || aws_i == aws_len)
@@ -213,13 +219,13 @@ def do_deploy()
         updated_list.push(lcl_file_name)
       end
       # In either case, increment both index variables
-      lcl_i += 1; progress.inc
+      lcl_i += 1; progress.increment
       aws_i += 1
     when -1 # Local file name sorts first...
       # The local file doesn't exist on AWS. Add it to the new list.
       new_list.push(lcl_file_name)
       # And only increment the local index variable.
-      lcl_i += 1; progress.inc
+      lcl_i += 1; progress.increment
     when  1 # AWS object name sorts first...
       # The AWS object doesn't (or no longer) exist in the locally built
       # artifacts. Schedule it for deletion.
@@ -233,7 +239,7 @@ def do_deploy()
   # to the new list.
   while (lcl_i < lcl_len)
     new_list.push(local_file_list[lcl_i][0])
-    lcl_i += 1; progress.inc
+    lcl_i += 1; progress.increment
   end
 
   # If we're not at the end of the aws object list, we need to add those file to
@@ -277,7 +283,8 @@ def do_deploy()
   # in the delete list.
   if (upload_list.length > 0)
     puts("  Uploading files...")
-    progress = ProgressBar.new("   Uploads", upload_list.length)
+    progress = ProgressBar.create(:title => "   Uploads",
+                                  :total => upload_list.length)
     upload_list.each { |obj_path|
       object_ext = File.extname(obj_path)
       object_descriptor = {
@@ -291,7 +298,7 @@ def do_deploy()
         when ".css";  object_descriptor[:content_type] = "text/css"
         when ".js";   object_descriptor[:content_type] = "application/javascript"
         when ".xml";  object_descriptor[:content_type] = "application/xml"
-        when ".json";  object_descriptor[:content_type] = "application/json"
+        when ".json"; object_descriptor[:content_type] = "application/json"
 
         when ".eot";  object_descriptor[:content_type] = "font/eot"
         when ".ttf";  object_descriptor[:content_type] = "font/ttf"
@@ -311,8 +318,11 @@ def do_deploy()
       end
       #TODO: Error checking.
       aws_bucket.put_object(object_descriptor)
-      progress.inc
+      #TODO: Check  to make sure this increments correctly.
+      progress.increment
     }
+    # This should be superfluous, but it's here to ensure the next `puts` don't
+    # overwrite a failed progressbar.
     progress.finish
   else
     puts("  No files to upload...")
