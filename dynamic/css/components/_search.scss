@@ -2,7 +2,7 @@
  * Site-Wide Search Form
  * 1. No padding-left; taken care of by the child .search__icon-container's
  *    padding-left.
- *TODO: Kinda silly look at the moment. Try to clean it up in a later pass.
+ *TODO: Kinda silly looking at the moment. Try to clean it up in a later pass.
  */
 .search {
   @include    rounded-corners(0.25rem);

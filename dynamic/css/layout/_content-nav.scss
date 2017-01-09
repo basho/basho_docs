@@ -13,7 +13,6 @@
 // Because of the way we're locking the .content-nav__fixed-top and
 // .content-nav__fixed-bottom elements to the content-nav, we need pre-defined
 // concrete sizes for both of them that can be used in numerous classes.
-//TODO: This sizing looks like ass on sm-down screens. Gotta fix that.
 $fixed-top-height-full-sm-down    : 7.5rem; // w/  project and version selectors.
 $fixed-top-height-half-sm-down    : 3.5rem; // w/o project and version selectors.
 $fixed-top-padding-top-sm-down    : 0.5rem; // Space between the content-nav and __fixed-top content.
