@@ -46,11 +46,10 @@
 
   margin-bottom : 0;        /* 2 */
 
-  //TODO: Figure out colors for this element.
   a {
-    color           : lighten(saturate($blue-dark, 15), 20);
+    color           : $brand-gray;
     text-decoration : none;
-    @include on-event { color : $orange-dark; }
+    @include on-event { color : $brand-primary-dark; }
   }
 }
 

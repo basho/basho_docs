@@ -236,8 +236,10 @@ $menu-item-padding-top : 0.60rem;
    *    a when-inside clause. We have to construct it by wrapping the --open
    *    modifier between the current selector (&) and the :after pseudo-element.
    * 4. When rendering at a wider width, decrease the size of the arrows.
+   * NB. The primary colors in use below want to be softer than $light-font, and
+   *     flash darker than light-font-em. I'm not sure there's value in giving
+   *     such colors names, so we're going to stick with descriptive colors.
    */
-  //TODO: Work out colors here.
   &:after {
     display : inline-block;
     content : "";  /* 1 */

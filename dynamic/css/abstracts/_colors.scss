@@ -20,10 +20,6 @@
 /// a designer third (if I'm being generous). I am happy to field any and all
 /// recommendations for improvement.
 ///
-///TODO: Transition from using descriptive colors in CSS, to using semantic
-///      colors. Full disclosure, using descriptive colors makes it _way_ easier
-///      to iterate so I'm probably not going to make that change until
-///      final draft of the layout has been +1'd by the team.
 ///TODO: Once the redesign is complete, we should move back through the color
 ///      palette and ensure that all colors that have been defined are used (or
 ///      will likely be used soon). I have no interest in maintaining a color
@@ -44,7 +40,8 @@ $orange-text       : #dc7d00; // basho.com     -- Orange text on orange BGs
 $orange-text-light : #e67716; // basho.com     -- Orange text on white  BGs
 $orange-red        : #ee6201; // basho.com     -- emphasized text
 
-$orange-dark       : #e57825; // Brand Orange
+$orange-darker     : #e57825; // Brand Orange  -- Brand color for structural elements
+$orange-dark       : #e78505; //               -- middle-ground appropriate for text
 $orange            : #f99d53; // Brand Orange  -- Primary Brand Color
 $orange-light      : #fcc074; // Brand Orange
 $orange-lighter    : #feca87; // basho.com     -- Primary background color (roughly)
@@ -136,7 +133,6 @@ $darker-background     : $gray-40;
 $primary-font         : $gray-30;
 $inverted-font        : $gray-95;
 $inverted-font-soft   : $gray-90;
-$inverted-font-softer : $gray-85;
 $light-font           : $gray-50;
 $light-font-em        : $gray-30;
 $lighter-font         : $gray-60;
