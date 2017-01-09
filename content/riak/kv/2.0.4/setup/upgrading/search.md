@@ -10,6 +10,8 @@ menu:
     weight: 104
     parent: "upgrading"
 toc: true
+version_history:
+  in: "2.0.0-2.1.999"
 ---
 
 If you're using Search in a version of Riak prior to 2.0 (1.3.0 to

@@ -12,6 +12,9 @@ project_version: "1.3.1"
 toc: true
 version_history:
   in: "1.3.0+"
+  locations:
+    - [">=1.5.0", "configuring/mdc"]
+    - ["<=1.4.0",  "using/mdc"]  
 aliases:
     - /riakts/1.3.1/using/mdc
 ---

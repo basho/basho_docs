@@ -18,7 +18,7 @@ aliases:
 [config reference]: /riak/kv/2.1.4/configuring/reference/
 [dev api pbc]: /riak/kv/2.1.4/developing/api/protocol-buffers/
 [FQDNs]: http://en.wikipedia.org/wiki/Fully_qualified_domain_name
-[use admin riak-admin replace]: /riak/kv/2.1.4/using/admin/riak-admin/#cluster-replace
+[use admin riak-admin cluster replace]: /riak/kv/2.1.4/using/admin/riak-admin/#cluster-replace
 [use admin riak-admin force replace]: /riak/kv/2.1.4/using/admin/riak-admin/#cluster-force-replace
 
 Configuring a Riak cluster involves instructing each node to listen on a
@@ -52,7 +52,7 @@ options:
 `ring` directory. This will require rejoining all nodes into a
 cluster again.
 >
-> *Rename the node using the [`riak-admin cluster replace`][use admin riak-admin replace] command. This will not work if you have previously only started Riak with a single node.
+> *Rename the node using the [`riak-admin cluster replace`][use admin riak-admin cluster replace] command. This will not work if you have previously only started Riak with a single node.
 
 ## Configure the First Node
 

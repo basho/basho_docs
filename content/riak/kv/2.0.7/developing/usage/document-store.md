@@ -208,7 +208,7 @@ curl -XPUT $RIAK_HOST/search/index/blog_posts \
 ## How Collections will Work
 
 Collections are not a concept that is native to Riak but we can easily
-mimic collections by thing of a bucket type as a collection. When we
+mimic collections by thinking of a bucket type as a collection. When we
 associate a bucket type with a Riak Search index, all of the objects
 stored in any bucket of that bucket type will be queryable on the basis
 of that one index. For this tutorial, we'll create a bucket type called

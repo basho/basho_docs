@@ -34,6 +34,7 @@ aliases:
 [perf open files]: /riak/kv/2.0.7/using/performance/open-files-limit
 [perf index]: /riak/kv/2.0.7/using/performance
 [perf aws]: /riak/kv/2.0.7/using/performance/amazon-web-services
+[Cluster Capacity Planning]: /riak/kv/2.0.7/setup/planning/cluster-capacity/#ring-size-number-of-partitions
 
 This document covers the parameters that are commonly adjusted when
 setting up a new cluster. We recommend that you also review the detailed
@@ -97,7 +98,7 @@ be negatively impacted by the excessive number of concurrent databases
 running on each server; if the ring size is too small, the servers' other
 resources (primarily CPU and RAM) will go underutilized.
 
-See [Planning for a Riak System][plan start] and [Scaling and Operating Riak Best Practices][plan best practices] for more details on choosing a ring size.
+See [Cluster Capacity Planning] for more details on choosing a ring size.
 
 The steps involved in changing the ring size depend on whether the
 servers (nodes) in the cluster have already been joined together.

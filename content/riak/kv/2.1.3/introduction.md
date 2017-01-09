@@ -10,6 +10,8 @@ menu:
     weight: 100
     parent: index
 toc: true
+version_history:
+  in: "2.0.0-2.1.999"
 aliases:
   - /riak/kv/2.1.3/intro-v20
   - /riak/2.1.3/intro-v20

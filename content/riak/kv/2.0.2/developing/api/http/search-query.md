@@ -60,10 +60,9 @@ has no documents associated with it:
     "start": 0
   },
   "responseHeader": {
+    "status": 0,
     "QTime": 10,
-    "params": { /* internal info from the query */ },
-    "wt": "json"
-  },
-  "status": 0
+    "params": { /* internal info from the query */ }
+  }
 }
 ```

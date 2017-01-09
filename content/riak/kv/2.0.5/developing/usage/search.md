@@ -15,7 +15,8 @@ aliases:
   - /riak/kv/2.0.5/dev/using/search
 ---
 
-[usage search schema]: /riak/kv/2.0.5/developing/usage/search-schemas
+[usage search schema]: ../search-schemas/
+[bucket types]: ../bucket-types/
 
 ## Setup
 
@@ -28,6 +29,16 @@ to properly store and later query for values.
 2. **Indexes** are named Solr indexes against which you will query
 3. **Bucket-index association** signals to Riak *when* to index values
    (this also includes bucket type-index association)
+
+{{% note %}}
+Riak search uses active anti-entropy (AAE) to ensure that the data is 
+consistent between the Riak backends and the Solr indexes.  When using 
+Riak search, you should not disable AAE without understanding the risks 
+of divergence between the data in the Riak backends and the Solr indexes 
+and how that can impact your application. More information about how 
+Riak search uses AAE is in the 
+[Riak search reference](../../../using/reference/search/#active-anti-entropy-aae).
+{{% /note %}}
 
 Riak Search must first be configured with a Solr schema so that Solr
 knows how to index value fields. If you don't define one, you're
@@ -200,8 +211,10 @@ curl -XPUT $RIAK_HOST/search/index/famous \
      -d '{"schema":"_yz_default"}'
 ```
 
-The last setup item that you need to perform is to associate either a
-bucket or a [bucket type](/riak/kv/2.0.5/developing/usage/bucket-types) with a Solr index. You
+## Associating an Index
+
+The last set-up item that you need to perform is to associate your Solr index
+with either a [bucket type][bucket types] or a custom bucket. You
 only need do this once per bucket type, and all buckets within that type
 will use the same Solr index. For example, to associate a bucket type
 named `animals` with the `famous` index, you can set the bucket type
@@ -209,6 +222,126 @@ property `search_index` to `animals`. If a Solr index is to be used by
 only *one* Riak bucket, you can set the `search_index` property on that
 bucket. If more than one bucket is to share a Solr index, a bucket type
 should be used. More on bucket types in the section directly below.
+
+### Associating via Bucket Type
+
+We suggest that you use [bucket
+types][bucket types] to namespace and configure all buckets you
+use. Bucket types have a lower overhead within the cluster than the
+default bucket namespace but require an additional set-up step on the
+command line.
+
+When creating a new bucket type, you can create a bucket type without
+any properties and set individual buckets to be indexed. The step below
+creates and activates the bucket type:
+
+```bash
+riak-admin bucket-type create animals '{"props":{}}'
+riak-admin bucket-type activate animals
+```
+
+And this step applies the index to the `cats` bucket, which bears the
+`animals` bucket type we just created and activated:
+
+```curl
+curl -XPUT $RIAK_HOST/types/animals/buckets/cats/props \
+     -H 'Content-Type: application/json' \
+     -d '{"props":{"search_index":"famous"}}'
+```
+
+Another possibility is to set the `search_index` as a default property
+of the bucket type. This means _any_ bucket under that type will
+inherit that setting and have its values indexed.
+
+```bash
+riak-admin bucket-type create animals '{"props":{"search_index":"famous"}}'
+riak-admin bucket-type activate animals
+```
+
+If you ever need to turn off indexing for a bucket, set the
+`search_index` property to the `_dont_index_` sentinel value.
+
+### Associating an Index via Custom Bucket Properties
+
+Although we recommend that you use all new buckets under a bucket type,
+if you have existing data with a type-free bucket (i.e. under the
+default bucket type) you can set the `search_index` property for a
+specific bucket.
+
+```java
+Namespace catsBucket = new Namespace("cats");
+StoreBucketPropsOperation storePropsOp = new StoreBucketPropsOperation.Builder(catsBucket)
+        .withSearchIndex("famous")
+        .build();
+client.execute(storePropsOp);
+```
+
+```ruby
+bucket = client.bucket('cats')
+bucket.properties = {'search_index' => 'famous'}
+```
+
+```php
+(new \Basho\Riak\Command\Builder\Search\AssociateIndex($riak))
+    ->withName('famous')
+    ->buildBucket('cats')
+    ->build()
+    ->execute();
+```
+
+```python
+bucket = client.bucket('cats')
+bucket.set_properties({'search_index': 'famous'})
+```
+
+```csharp
+var properties = new RiakBucketProperties();
+properties.SetSearchIndex("famous");
+var rslt = client.SetBucketProperties("cats", properties);
+```
+
+```javascript
+var bucketProps_cb = function (err, rslt) {
+    if (err) {
+        throw new Error(err);
+    }
+    // success
+};
+
+var store = new Riak.Commands.KV.StoreBucketProps.Builder()
+    .withBucket("cats")
+    .withSearchIndex("famous")
+    .withCallback(bucketProps_cb)
+    .build();
+
+client.execute(store);
+```
+
+```erlang
+riakc_pb_socket:set_search_index(Pid, <<"cats">>, <<"famous">>).
+```
+
+```golang
+cmd, err := riak.NewStoreBucketPropsCommandBuilder().
+    WithBucketType("animals").
+    WithBucket("cats").
+    WithSearchIndex("famous").
+    Build()
+if err != nil {
+    return err
+}
+
+err = cluster.Execute(cmd)
+```
+
+```curl
+curl -XPUT $RIAK_HOST/buckets/cats/props \
+     -H'content-type:application/json' \
+     -d'{"props":{"search_index":"famous"}}'
+```
+
+Once you have created the index association, any new data will be indexed on 
+ingest according to your schema.
 
 ## Riak Search Security Setup
 

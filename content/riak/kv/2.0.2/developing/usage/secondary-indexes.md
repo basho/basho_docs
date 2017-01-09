@@ -1872,9 +1872,29 @@ The result:
 It is also possible to stream results:
 
 ```java
-/*
-  It is not currently possible to stream results using the Java client
-*/
+// Available in Riak Java Client 2.1.0 and later
+int pollTimeoutMS = 200;
+Namespace ns = new Namespace("indexes", "tweets");
+String indexName = "hashtags";
+
+BinIndexQuery indexQuery =
+    new BinIndexQuery.Builder(ns, indexName, "ri", "ru").build();
+
+final RiakFuture<BinIndexQuery.StreamingResponse, BinIndexQuery> streamingFuture =
+    client.executeAsyncStreaming(indexQuery, pollTimeoutMS);
+
+// For streaming commands, the future's value will be available before
+// the future is complete, so you may begin to pull results from the
+// provided iterator as soon as possible.
+final BinIndexQuery.StreamingResponse streamingResponse = streamingFuture.get();
+
+for (BinIndexQuery.Response.Entry e : streamingResponse)
+{
+    // Do something with key...
+}
+
+streamingFuture.await();
+Assert.assertTrue(streamingFuture.isDone());
 ```
 
 ```ruby

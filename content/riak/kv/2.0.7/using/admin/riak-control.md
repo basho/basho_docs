@@ -122,7 +122,7 @@ HTTP basic auth) for users of the web interface. It is disabled by
 default. To enable authentication:
 
 ```riakconf
-riak_control.auth.mode = on
+riak_control.auth.mode = userlist
 ```
 
 ```appconfig
