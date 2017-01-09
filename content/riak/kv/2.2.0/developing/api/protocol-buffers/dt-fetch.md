@@ -51,14 +51,13 @@ Parameter | Description
 > All of the optional parameters below have default values determined on a
 per-bucket basis. Please refer to the documentation on [setting bucket properties](/riak/kv/2.2.0/developing/api/protocol-buffers/set-bucket-props) for more information.
 
-Furthermore, you can assign an integer value to the <code>r</code> and
-<code>pr</code>, provided that that integer value is less than or equal
-to N, <em>or</em> a special value denoting <code>one</code>
-(<code>4294967295-1</code>), <code>quorum</code>
-(<code>4294967295-2</code>), <code>all</code>
-(<code>4294967295-3</code>), or <code>default</code>
-(<code>4294967295-4</code>).
-</div>
+Furthermore, you can assign an integer value to the `r` and
+`pr`, provided that that integer value is less than or equal
+to N, _or_ a special value denoting `one`
+(`4294967295-1`), `quorum`
+(`4294967295-2`), `all`
+(`4294967295-3`), or `default`
+(`4294967295-4`).
 
 Parameter | Description
 :---------|:-----------
@@ -69,7 +68,7 @@ Parameter | Description
 `timeout` | The timeout duration, in milliseconds, after which Riak will return an error message
 `sloppy_quorum` | If this parameter is set to `true`, the next available node in the ring will accept requests if any primary node is unavailable
 `n_val` | The number of nodes to which the delete request will be sent
-`include_context` | If `return_body` is set to `true`, the Data Type's opaque "context" will be returned to the client when the `DtUpdateResp` is sent to the client.
+`include_context` | If this parameter is set to `true`, the Data Type's opaque "context" will be returned to the client
 
 ## Response
 

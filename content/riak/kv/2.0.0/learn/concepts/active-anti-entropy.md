@@ -16,6 +16,7 @@ aliases:
 ---
 
 [cluster ops v3 mdc]: /riak/kv/2.0.0/using/cluster-operations/v3-multi-datacenter
+[cluster ops aae]: /riak/kv/2.0.0/using/cluster-operations/active-anti-entropy
 [concept clusters]: /riak/kv/2.0.0/learn/concepts/clusters
 [concept eventual consistency]: /riak/kv/2.0.0/learn/concepts/eventual-consistency
 [config aae]: /riak/kv/2.1.4/configuring/reference/#active-anti-entropy
@@ -67,8 +68,8 @@ called "cold data" that may not be read for long periods of time, even
 months or years, and is thus not reachable by read repair.
 
 Although AAE is enabled by default, it can be turned off if necessary.
-See our documentation on [managing active anti-entropy][cluster ops v3 mdc]
-information on how to enable and disable AAE, as well as on configuring
+See our documentation on [managing active anti-entropy][cluster ops aae]
+for information on how to enable and disable AAE, as well as on configuring
 and monitoring AAE.
 
 ## Active Anti-Entropy and Hash Tree Exchange
