@@ -76,8 +76,8 @@ generateVersionLists = () ->
 
       project_path = project_data.path            # ex; /riak/kv
       latest_rel   = project_data.latest          # ex; 2.1.4
-      lts_version  = project_data.lts             # ex; 2.0.7
-      archived_url = project_data['archived_url'] # undefined, or a complete URL
+      lts_series   = project_data['lts']          # ex; 2.0 -or- undefined
+      archived_url = project_data['archived_url'] # ex; http://.. -or- undefined
 
       # Aggregator for the resulting HTML. To be added into the
       # div.selector-pane--versions
@@ -111,6 +111,20 @@ generateVersionLists = () ->
         # to 6, so cap anything deeper.
         list_depth = Math.min(6, (set_index+1))
 
+        # If the release set we're building is the LTS series (if the beginning
+        # of `release_version` string matches the `lts_series` string), add an
+        # LTS tag to the top of the list.
+        # NB. There may be no LTS series set on a give product.
+        if lts_series and release_set[0].match("^"+lts_series)
+          class_list = ["selector-list__element",
+                        "selector-list__element--"+list_depth,
+                        "selector-list__element--lts-flag"]
+          version_selector_list_html +=
+              '<li class="'+class_list.join("\n")+'">'+
+                '<a class="block">LTS</a>'+
+              '</li>'
+
+        # Add a tag for every version in the series.
         for release_version, index in release_set.reverse()
           release_sem_ver  = SemVer.parse(release_version)
           in_version_range = not version_range or

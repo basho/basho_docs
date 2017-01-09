@@ -269,29 +269,47 @@
 /**
  * Selector list Elements -- Per-Version Background Colors
  */
-.selector-list__element--1 {          background : $version-color-1;
-  &.selector-list__element--current { background : $version-color-1-light; }
-  @include on-event                 { background : $version-color-1-light; }
+.selector-list__element--1 {           background : $version-color-1;
+  &.selector-list__element--current  { background : $version-color-1-light; }
+  @include on-event                  { background : $version-color-1-light; }
+  &.selector-list__element--lts-flag {
+    @include on-event {                background : $version-color-1; }
+  }
 }
-.selector-list__element--2 {          background : $version-color-2;
-  &.selector-list__element--current { background : $version-color-2-light; }
-  @include on-event                 { background : $version-color-2-light; }
+.selector-list__element--2 {           background : $version-color-2;
+  &.selector-list__element--current  { background : $version-color-2-light; }
+  @include on-event                  { background : $version-color-2-light; }
+  &.selector-list__element--lts-flag {
+    @include on-event {                background : $version-color-2; }
+  }
 }
-.selector-list__element--3 {          background : $version-color-3;
-  &.selector-list__element--current { background : $version-color-3-light; }
-  @include on-event                 { background : $version-color-3-light; }
+.selector-list__element--3 {           background : $version-color-3;
+  &.selector-list__element--current  { background : $version-color-3-light; }
+  @include on-event                  { background : $version-color-3-light; }
+  &.selector-list__element--lts-flag {
+    @include on-event {                background : $version-color-3; }
+  }
 }
-.selector-list__element--4 {          background : $version-color-4;
-  &.selector-list__element--current { background : $version-color-4-light; }
-  @include on-event                 { background : $version-color-4-light; }
+.selector-list__element--4 {           background : $version-color-4;
+  &.selector-list__element--current  { background : $version-color-4-light; }
+  @include on-event                  { background : $version-color-4-light; }
+  &.selector-list__element--lts-flag {
+    @include on-event {                background : $version-color-4; }
+  }
 }
-.selector-list__element--5 {          background : $version-color-5;
-  &.selector-list__element--current { background : $version-color-5-light; }
-  @include on-event                 { background : $version-color-5-light; }
+.selector-list__element--5 {           background : $version-color-5;
+  &.selector-list__element--current  { background : $version-color-5-light; }
+  @include on-event                  { background : $version-color-5-light; }
+  &.selector-list__element--lts-flag {
+    @include on-event {                background : $version-color-5; }
+  }
 }
-.selector-list__element--6 {          background : $version-color-6;
-  &.selector-list__element--current { background : $version-color-6-light; }
-  @include on-event                 { background : $version-color-6-light; }
+.selector-list__element--6 {           background : $version-color-6;
+  &.selector-list__element--current  { background : $version-color-6-light; }
+  @include on-event                  { background : $version-color-6-light; }
+  &.selector-list__element--lts-flag {
+    @include on-event {                background : $version-color-6; }
+  }
 }
 
 /**
@@ -318,6 +336,22 @@
 .selector-list__element--disabled a {
   pointer-events : none;    /* FIXME: Not IE9 compliant. */
   cursor         : default;
+}
+
+/**
+ * Selector List Elements -- LTS Flags
+ */
+.selector-list__element--lts-flag {
+  color : $white;
+
+  @include on-event { background : inherit; }
+
+  a {
+    padding-top    : 0.4rem;
+    padding-bottom : 0.2rem;
+    letter-spacing : p2r(3px);
+    font-size      : 80%;
+  }
 }
 
 
