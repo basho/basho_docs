@@ -2,7 +2,6 @@
      ====================
 {{ $HugoNode := . }}
 
-{{ $project_path := $HugoNode.Scratch.Get "project_path" }}
 {{ $project      := $HugoNode.Scratch.Get "project"      }}
 {{ $version      := $HugoNode.Scratch.Get "version"      }}
 {{ $in_riak_kv   := (eq $project "riak_kv")              }}
@@ -57,6 +56,12 @@
     </div>
 
 
+{{/* Don't display the intra-site navigation if we're on the splash page; it
+     already is an intra-site navigation page, so the banner becomes redundant.
+     NB. The splash page is the only page w/o a $project current (it's
+     explicitly set to "community" in that section). If that changes, this check
+     will have to become more precise. */}}
+{{ if $project }}
     <!-- Intra-Site Elements -->
     <div class="float-left    banner__intra-site__width-wrapper">
     <div class="float-right   banner__intra-site">
@@ -66,6 +71,7 @@
    --><a class="inline-block   banner__brand-link {{ if $in_riak_cs }}banner__brand-link--current"{{ else }}" href="/riak/cs/latest/"{{ end }}>Riak CS</a><!--
  --></div>
     </div>
+{{ end }}
 
   </div>
 
