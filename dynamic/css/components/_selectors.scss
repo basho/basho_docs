@@ -248,19 +248,22 @@
     color           : inherit;
     text-decoration : none;
   }
-}
 
-/**
- * Selector list Elements -- Top- and Bottom-most Elements
- */
-.selector-list__element--opening {
-  @include rounded-corner(top, left, 0.15rem);
-  @include rounded-corner(top, right, 0.15rem);
-  border-top : none;
-}
-.selector-list__element--closing {
-  @include rounded-corner(bottom, left, 0.15rem);
-  @include rounded-corner(bottom, right, 0.15rem);
+  /** Selector list Elements -- Top-most and Bottom-most Elements */
+  &:first-of-type {
+    @include rounded-corner(top, left, 0.15rem);
+    @include rounded-corner(top, right, 0.15rem);
+    border-top : none;
+  }
+  &:last-of-type {
+    @include rounded-corner(bottom, left, 0.15rem);
+    @include rounded-corner(bottom, right, 0.15rem);
+  }
+  /** Selector list Elements -- Single-Element Lists */
+  &:only-of-type {
+    @include rounded-corners(0.15rem);
+    border-top : none;
+  }
 }
 
 /**

@@ -128,19 +128,6 @@ generateVersionLists = () ->
           else
             class_list.push("selector-list__element--disabled")
 
-          # If a this is the first version in a set, mark it as `open`. If it is
-          # the last, mark it as `closing`.
-          # NB. A single element can open and close a list.
-          if index == 0
-            class_list.push("selector-list__element--opening")
-          if index == (release_set.length - 1)
-            class_list.push("selector-list__element--closing")
-
-          #TODO: We're not acting on these tags, yet. They should also probably
-          #      apply to a version set, rather than a specific version.
-          if release_version == lts_version
-            class_list.push("selector-list__element--lts")
-
           #TODO: We're not acting on these tags, yet. They should also probably
           #      apply to a version set, rather than a specific version.
           if release_version == current_version
@@ -181,9 +168,7 @@ generateVersionLists = () ->
       # a link out to the archived content.
       if archived_url
         class_list = ["selector-list__element",
-                      "selector-list__element--archived",
-                      "selector-list__element--opening",
-                      "selector-list__element--closing"]
+                      "selector-list__element--archived"]
 
         # We can skip the Edge Fader here, b/c we know there's only ever going
         # to be one "Older" element.
