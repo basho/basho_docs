@@ -19,7 +19,9 @@
  *    top of the <ul>) will be immediately hidden unless we have a large enough
  *    padding-top. This 0.3rem padding will be animated away during the
  *    `slideUp()` call, and which will give the box-shadow time to fade, rather
- *    than disappearing in a single frame.
+ *    than disappearing in a single frame.  
+ *    NB. This is unecessary for the top-level menu item, and will actually
+ *    shift the entire __menu-continer upward by the margin-top.
  */
 .content-menu {
   display      : none;     /* 3 */
@@ -29,6 +31,11 @@
 
   margin-top   : -0.3rem;  /* 4 */
   padding-top  :  0.3rem;  /* 4 */
+
+  &.content-menu--depth-0 {
+    margin-top  : 0;       /* 4 */
+    padding-top : 0;       /* 4 */
+  }
 
   &.content-menu--open {
     display : block;       /* 3 */
