@@ -46,6 +46,10 @@ $content-nav-padding-right-md     : 1.0rem;
 $content-nav-padding-right-lg-up  : 2.0rem;
 $content-nav-padding-bottom       : 2.0rem;
 
+// Content Well fixed-widths
+$content-well-width-lg : 64.5rem;
+$content-well-width-xl : 78.0rem;
+
 
 
 // Z-Indexes of layered elements
@@ -154,8 +158,11 @@ $main-z-index        : 100;
     padding-right : 0.5rem;
     margin-right : auto;
   }
+  @include wide-from('lg') {
+    max-width : $content-well-width-lg;
+  }
   @include wide-from('xl') {
-    max-width : 78rem
+    max-width : $content-well-width-xl;
   }
 
   &.content-well--immobile {
