@@ -84,18 +84,19 @@
     padding-right  : 1rem;
   }
   .product__card {                                                     /* 1 */
-    @include rounded-corners;
+    @include rounded-corners(0.3rem);
     padding    : 1.5rem 1rem;
 
     @extend %sans;
-    color           : $primary-font;
+    color           : $brand-gray;
     line-height     : 1.3;
     font-size       : 1.2rem;
     text-align      : center;
     text-decoration : none;
     text-transform  : uppercase;
 
-    background : $gray-warm-93;
+    background : $light-background-cool;
+    box-shadow : 0  -0.25rem 4rem -0.5rem $shadow-color-light;
 
     transition : color      200ms ease-in,
                  background 200ms ease-in;
@@ -151,7 +152,7 @@
      *    height to be exactly three lines tall (3em * line-height).
      */
     .product__description {
-      @include wide-from('md') {
+      @include wide-from('lg') {
         min-height : (3em * 1.3);  /* 1 */
       }
     }
@@ -190,9 +191,11 @@
     padding-right : 1rem;
   }
   .community__card {
-    @include     rounded-corners();
+    @include     rounded-corners(0.3rem);
     padding    : 1rem;
+
     background : $cyan-lightest;
+    box-shadow : 0  -0.25rem 4rem -0.5rem $shadow-color-light;
 
     @extend %sans;
     color           : $primary-font;
