@@ -26,7 +26,7 @@ The following steps have been tested to work with Riak version 1.3.1 on Solaris 
 
 ## Open Files Limit
 
-Before proceeding with installation, you should ensure that the system's open files limit is at least **4096** by verifying the current value of `nofiles(descriptors)`. Check the current value with the `ulimit` command:
+Before proceeding with installation, you should ensure that the system's open files limit is at least 65536 by verifying the current value of `nofiles(descriptors)`. Check the current value with the `ulimit` command:
 
 ```bash
 ulimit -a
