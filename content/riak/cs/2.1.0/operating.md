@@ -6,7 +6,7 @@ menu:
     name: "Operating"
     identifier: "ops"
     weight: 300
-    pre: icon-database
+    pre: database
 project: "riak_cs"
 project_version: "2.1.0"
 ---

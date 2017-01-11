@@ -6,7 +6,7 @@ menu:
     name: "Download Riak TS"
     identifier: "download_riak_ts"
     weight: 101
-    pre: icon-download-alt
+    pre: download-alt
 project: "riak_ts"
 project_version: "1.3.0"
 toc: false

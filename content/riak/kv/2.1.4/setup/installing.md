@@ -9,7 +9,7 @@ menu:
     identifier: "installing"
     weight: 101
     parent: "setup_index"
-    pre: icon-cog
+    pre: cog
 toc: true
 aliases:
   - /riak/2.1.4/ops/building/installing
