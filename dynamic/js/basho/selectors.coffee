@@ -49,9 +49,10 @@ contentOfMeta = (name) ->
 #      enabled, and stay orange if we're never going to fetch the JSON...
 generateVersionLists = () ->
   # Pull project/pathing information from the meta tags set up by Hugo.
-  project               =  contentOfMeta("project")               # ex; riak_kv
-  current_version       =  contentOfMeta("version")               # ex; 2.1.4
-  project_relative_path =  contentOfMeta("project_relative_path") # ex; installing/
+  project               = contentOfMeta("project")               # ex; riak_kv
+  current_version       = contentOfMeta("version")               # ex; 2.1.4
+  project_relative_path = contentOfMeta("project_relative_path") # ex; installing/ -or- undefined
+  project_relative_path = "" unless project_relative_path        # ex; installing/ -or- ""
 
   # The version_history <meta> tags will only exist if the front matter of the
   # given content .md page contains them, so these may be `undefined`.
