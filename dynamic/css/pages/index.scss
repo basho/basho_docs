@@ -122,9 +122,29 @@
 
       /* Riak Logo icon */
       .product__logo {
-        height        : 0.60em;  /* 1 */
-        width         : 0.60em;  /* 1 */
-        margin-bottom : 0.10em;  /* 1 */
+        vertical-align : middle;
+        height         : 0.60em;  /* 1 */
+        width          : 0.60em;  /* 1 */
+        margin-bottom  : 0.10em;  /* 1 */
+        .logo {
+          height : 100%;
+          width  : 100%;
+        }
+      }
+      .product__logo--invertible {
+        position : relative;
+
+        .logo {
+          position   : absolute;
+          left       : 0;
+          transition : opacity 200ms ease-in;
+        }
+        .logo--primary {
+          opacity    : 1;
+        }
+        .logo--inverted {
+          opacity    : 0;
+        }
       }
 
       /* Primary Title text */
@@ -165,6 +185,19 @@
 
       color      : $inverted-font;
       background : $brand-secondary;
+
+      /* Riak Logo icon */
+      .product__title {
+        .product__logo--invertible {
+          .logo--primary {
+            opacity : 0;
+          }
+          .logo--inverted {
+            opacity : 1;
+          }
+        }
+        color : $inverted-font;
+      }
     }
   }
 
