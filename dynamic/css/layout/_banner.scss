@@ -25,6 +25,9 @@ $intra-brand-height_total : $intra-brand-height + $intra-brand-padding-top;
 // Intra-Site navigation elements
 $intra-site-height : $banner-height-md-up - $intra-brand-height_total;
 
+$banner-background-primary   : $gray-warm-93;
+$banner-background-secondary : $gray-45;
+
 
 
 /**
@@ -37,7 +40,7 @@ $intra-site-height : $banner-height-md-up - $intra-brand-height_total;
   box-shadow : 0  0  1.5rem 0  $shadow-color-dark;
 
   @include wide-from(md) {
-    background : $gray-warm-93;
+    background : $banner-background-primary;
     padding : 0  0  0  $banner-padding-left-md-up;
   }
 }
@@ -134,24 +137,30 @@ $intra-site-height : $banner-height-md-up - $intra-brand-height_total;
  * 2. This margin-bottom could just as easily be a padding-top on the
  *    __intra-site element; it's just giving some whitespace between the
  *    __intra-brand and __intra-site links.
- * 3. We need a explicit hight so we can guarantee the __intra-brand cap
+ * 3. Set a max-width on the __width-wrapper (on lg and xl, when there's a
+ *    fixed-width set on the content well) to prevent text from flowing too far
+ *    to the right.
+ * 4. We need a explicit hight so we can guarantee the __intra-brand cap
  *    element (see below) will takes up the correct amount of space. Current
  *    height is correct for a 1rem font-size.
- * 4. The intent of this "cap element" is to give the __intra-brand background
- *    the appearance of having a diagonal cap on the left edge. The element
- *    actually creates triangular border section in the lower-left half of the
- *    element. The border color for that portion is set to the background color
- *    of the .banner.
- *    It's pretty weird how it works. Weirder still that it works.
- *    Trust the weird CSS.
  * 5. These anchors are wrapped in a <div class="float-right">. To get the
  *    anchors to take up the correct amount of vertical space we either we need
  *    to set an explicit height on the anchors, or `height: 100%` on both the
  *    div, and the anchors.
- * 6. TODO: Consider inline'ing this image. More precisely, consider finding a
- *          way to programmatically inline this image. It's about 12K, so it'll
- *          add a bit of text to this file.
- * 7. Fallback background color.
+ * 6. The intent of this overflow element is to extend the color of the Intra-
+ *    Brand element past the fixed width of the content well. To accomplish
+ *    this, we set a max-width on the __width-wrapper, set it to
+ *    `position: relative` and drop this impossibly wide element ::after the
+ *    __width-wrapper. This should lock the text of the .banner__intra-brand
+ *    element at the width of the __width-wrapper, but allow the color to go on
+ *    to infinity and beyond.
+ * 7. The intent of this "cap element" is to give the __intra-brand background
+ *    the appearance of having a diagonal cap on the left edge. The element
+ *    actually creates triangular border section in the lower-left half of the
+ *    element. The border color for that portion is set to the background color
+ *    of the .banner.  
+ *    It's pretty weird how it works. Weirder still that it works.
+ *    Trust the weird CSS.
  */
 .banner__intra-brand__width-wrapper {
   position : relative;
@@ -162,43 +171,46 @@ $intra-site-height : $banner-height-md-up - $intra-brand-height_total;
 
   @include wide-from('lg') {
     padding-left : 11rem;
-    max-width : $navigation-pane-width-lg;
+    max-width : $navigation-pane-width-lg;  /* 3 */
   }
 
   @include wide-from('xl') {
     padding-left : 16rem;
-    max-width : $navigation-pane-width-xl;
+    max-width : $navigation-pane-width-xl;  /* 3 */
   }
 
   @include when-inside('.index') {
     max-width : none;
   }
 
-  &::after {
+  /* Overflow fill */
+  &::after {                                /* 6 */
     display    : block;
     content    : "";
+
     position   : absolute;
     left       : 100%;
+
     height     : $intra-brand-height;
     width      : 2000rem;
-    background : $brand-gray;                                                /* 7 */
-    background : url('/images/layout/banner-intra-brand-noise.png') repeat;  /* 6 */
+
+    background : $banner-background-secondary;
   }
 }
 .banner__intra-brand {
-  background : $brand-gray;                                                /* 7 */
-  background : url('/images/layout/banner-intra-brand-noise.png') repeat;  /* 6 */
+  background : $banner-background-secondary;
 
   width  : 100%;
-  height : $intra-brand-height;             /* 3 */
+  height : $intra-brand-height;                           /* 4 */
 
-  &::before {                                   /* 4 */
+  /* Angled cap element */
+  &::before {                                             /* 7 */
     display : inline-block;
     content : "";
     border  : 0px solid transparent;
-    border-bottom-width : $intra-brand-height;  /* 2 */
+    border-bottom-width : $intra-brand-height;            /* 4 */
     border-right-width  : ($intra-brand-height * 0.75);
-    border-bottom-color : $gray-warm-93;
+    border-bottom-color : $banner-background-primary;
   }
 
 
@@ -234,35 +246,30 @@ $intra-site-height : $banner-height-md-up - $intra-brand-height_total;
  *    NB. The __navigation-pane is assumed to be an overflow element, causing it
  *        to take up all of the banner not consumed by float'd siblings (ex; the
  *        docs logo image).
+ * 2. Set a max-width on the __width-wrapper (on lg and xl, when there's a
+ *    fixed-width set on the content well) to prevent text from flowing too far
+ *    to the right.  
+ *    NB. We don't need to include an ::after element similar to the above
+ *    .banner__intra-brand__width-wrapper::after because there is no color to
+ *    extend; we just want to lock text to a width
  */
 .banner__intra-site__width-wrapper {
-  position : relative;
-
-  width : 100%;            /* 1 */
+  width : 100%;                             /* 1 */
 
   @include wide-from('lg') {
-    max-width : $navigation-pane-width-lg;
+    max-width : $navigation-pane-width-lg;  /* 2 */
   }
 
   @include wide-from('xl') {
-    max-width : $navigation-pane-width-xl;
-  }
-
-    &::after {
-    display    : block;
-    content    : "";
-    position   : absolute;
-    left       : 100%;
-    height     : $intra-brand-height;
-    width      : 2000rem;
+    max-width : $navigation-pane-width-xl;  /* 2 */
   }
 }
 .banner__intra-site {
-    height : $intra-site-height;
+  height : $intra-site-height;
 
   .banner__brand-link {
     font-size : 110%;
-    color     : $orange-red;
+    color     : $brand-primary-dark;
 
     height : 100%;
 
