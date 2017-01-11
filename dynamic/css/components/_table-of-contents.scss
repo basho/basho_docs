@@ -48,7 +48,6 @@
 
   a {
     color           : $brand-gray;
-    text-decoration : none;
     @include on-event { color : $brand-primary-dark; }
   }
 }
