@@ -24,9 +24,13 @@
     }
   }
   .welcome {
-    background  : $brand-primary-light;
+    background-color : $brand-primary-light;
+    background : url('/images/index/home-banner.jpg') no-repeat bottom / cover;
 
-    @extend %sans;
+    padding-top    : 3rem;
+    padding-bottom : 5rem;
+
+    @extend %serif;
     color       : $brand-gray;
     font-size   : 1.7rem;
     line-height : 1;
@@ -35,6 +39,8 @@
     margin-bottom : 0;             /* 2 */
 
     h1 {                           /* 3 */
+      @extend %oswald;
+      letter-spacing : -1px;
       color          : $brand-gray;
       text-transform : uppercase;
       font-size      : 2.5rem;
@@ -95,7 +101,7 @@
     text-decoration : none;
     text-transform  : uppercase;
 
-    background : $light-background-cool;
+    background : $gray-warm-95;
     box-shadow : 0  -0.25rem 4rem -0.5rem $shadow-color-light;
 
     transition : color      200ms ease-in,
