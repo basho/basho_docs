@@ -39,7 +39,7 @@ $fixed-top-height-half-lg-up-total : $fixed-top-height-half-lg-up + $fixed-top-p
 //FIXME: This is currently to what I saw when inspecting the built
 //       __fixed-bottom element in Chrome's dev tools. We should come up with a
 //       way of dynamically sizing this, probably.
-$fixed-bottom-height : 7.875rem;
+$fixed-bottom-height : p2r(129px);
 
 
 
@@ -311,6 +311,7 @@ $fixed-bottom-height : 7.875rem;
  *    Height will be dynamic.
  */
 .content-nav__fixed-bottom {
+  height      : $fixed-bottom-height;
   margin-top  : -1 * $fixed-bottom-height;  /* 1 */
 
   font-size   : 90%;
