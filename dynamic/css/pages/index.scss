@@ -224,23 +224,30 @@
   /**
    * Highlights Container
    * 1. Clear Bootstrap containter width restrictions; we want this element to
-   *    take up the entire width of the viewport.
+   *    take up the entire width of the viewport.  
+   *    NB. We need these rules to be additive s.t. they "fall off" when we
+   *    don't want them, and the Bootstrap defaults take back over. As such, we
+   *    need to use `narrow-from`.
    * 2. Clear the external link icons as we link off site.
    * 3. Set a fall-back image on the __container for lg-up viewports. This will
    *    result in the offset-per-level boxes based on the height of the __left
    *    and __right highlights.
    */
-  .highlight__container {
-    padding       : 0;     /* 1 */
-    margin        : 0;     /* 1 */
-    max-width     : none;  /* 1 */
-    .row { margin : 0; }   /* 1 */
-
-    width : 100%;
-
+  .highlight__wrapper{
+    box-shadow : 0  -0.15rem 3rem -0.5rem $shadow-color-mid;
     font-size : 1.2rem;
 
-    box-shadow : 0  -0.15rem 3rem -0.5rem $shadow-color-mid;
+    @include wide-from('lg') {
+      background : url(/images/index/highlights-bg-split.jpg) left/cover;
+    }
+  }
+  .highlight__container {
+    @include narrow-from('md') {  /* 1 */
+      padding       : 0;          /* 1 */
+      margin        : 0;          /* 1 */
+      max-width     : none;       /* 1 */
+      .row { margin : 0; }        /* 1 */
+    }
 
     .highlight__title {
       @extend         %oswald;
@@ -248,7 +255,6 @@
       font-size      : 1.8rem;
       text-align     : left;
 
-      padding-left   : 0.5rem;
       padding-bottom : 0.25rem;
 
       @include when-inside('.highlight__left') {
@@ -272,9 +278,14 @@
 
     .highlight__left {
       padding : 3rem 1rem 2rem 1rem;
+
       @include wide-from('lg') {
-        padding-top    : 1rem;
-        padding-bottom : 6rem;
+        padding-top : 2rem;
+        height      : 16rem;
+      }
+
+      @include wide-from('xl') {
+        padding-top : 3rem;
       }
 
       color : $inverted-font-soft;
@@ -290,7 +301,16 @@
 
     .highlight__right {
       padding : 2rem 1rem 2rem 1rem;
-      @include wide-from('lg') { padding-top : 1rem; }
+
+      @include wide-from('lg') {
+        padding-top  : 2rem;
+        padding-left : 3rem;
+        height       : 16rem;
+      }
+
+      @include wide-from('xl') {
+        padding-top : 3rem;
+      }
 
       background-color : $light-background-warm;
       background : url(/images/index/highlights-bg-light.jpg) repeat;
@@ -299,11 +319,6 @@
         color                     : $brand-secondary;
         @include on-event { color : $brand-primary; }
       }
-    }
-
-    @include wide-from('lg') {
-      background-color : $cyan-darker;
-      background : url(/images/index/highlights-bg-split.jpg) left/cover;  /* 3 */
     }
   }
 
