@@ -71,10 +71,13 @@
    * Product card wrapper and Bootstrap `row`.
    */
   .product-picker {
-    padding-top   : 2rem;
+    padding-top    : 3rem;
+    padding-bottom : 5rem;
 
     @include wide-from('lg') {
       max-width : 71rem;
+      padding-top    : 5rem;
+      padding-bottom : 6rem;
     }
   }
 
@@ -83,11 +86,18 @@
    * 1. The .product__card and all contained elements should react to mouse
    *    hover events, so the .product__title and .product__description classes
    *    will be defined under the __card, even though they typically wouldn't.
+   * 2. HACK: This is approximately the color of the highlights-bg-light.jpg
+   *    image used for the .highlight__right element. Using the color of that
+   *    image for these cards makes the page look substantially more coherent.
    */
   .product__wrapper {
-    padding-bottom : 1rem;
+    padding-bottom : 2rem;
     padding-left   : 1rem;
     padding-right  : 1rem;
+
+    &:last-of-type {
+      padding-bottom : 0;
+    }
   }
   .product__card {                                                     /* 1 */
     @include rounded-corners(0.3rem);
@@ -101,7 +111,9 @@
     text-decoration : none;
     text-transform  : uppercase;
 
-    background : $gray-warm-95;
+    background : #f5f3f5; /* 2 */
+    border : 1px solid $gray-warm-92;
+
     box-shadow : 0  -0.25rem 4rem -0.5rem $shadow-color-light;
 
     transition : color      200ms ease-in,
@@ -210,44 +222,88 @@
 
 
   /**
-   * Community callout wrapper and Bootstrap `row`
+   * Highlights Container
+   * 1. Clear Bootstrap containter width restrictions; we want this element to
+   *    take up the entire width of the viewport.
+   * 2. Clear the external link icons as we link off site.
+   * 3. Set a fall-back image on the __container for lg-up viewports. This will
+   *    result in the offset-per-level boxes based on the height of the __left
+   *    and __right highlights.
    */
-  .community-callout {
-    padding-bottom : 2rem;
+  .highlight__container {
+    padding       : 0;     /* 1 */
+    margin        : 0;     /* 1 */
+    max-width     : none;  /* 1 */
+    .row { margin : 0; }   /* 1 */
+
+    width : 100%;
+
+    font-size : 1.2rem;
+
+    box-shadow : 0  -0.15rem 3rem -0.5rem $shadow-color-mid;
+
+    .highlight__title {
+      @extend         %oswald;
+      letter-spacing : -1px;
+      font-size      : 1.8rem;
+      text-align     : left;
+
+      padding-left   : 0.5rem;
+      padding-bottom : 0.25rem;
+
+      @include when-inside('.highlight__left') {
+        padding-bottom : 0.5rem;
+      }
+    }
+
+    .highlight__link {
+      text-align : center;
+
+      &[href^="http://"],
+      &[href^="https://"],
+      &[href$=".pdf"],
+      &[href$=".PDF"] {
+        &::after {
+          content    : none;   /* 2 */
+          background : none;   /* 2 */
+        }
+      }
+    }
+
+    .highlight__left {
+      padding : 3rem 1rem 2rem 1rem;
+      @include wide-from('lg') {
+        padding-top    : 1rem;
+        padding-bottom : 6rem;
+      }
+
+      color : $inverted-font-soft;
+
+      background-color : $cyan-darker;
+      background : url(/images/index/highlights-bg-dark.jpg);
+
+      .highlight__link {
+        color                     : $brand-secondary-light;
+        @include on-event { color : $brand-primary-light; }
+      }
+    }
+
+    .highlight__right {
+      padding : 2rem 1rem 2rem 1rem;
+      @include wide-from('lg') { padding-top : 1rem; }
+
+      background-color : $light-background-warm;
+      background : url(/images/index/highlights-bg-light.jpg) repeat;
+
+      .highlight__link {
+        color                     : $brand-secondary;
+        @include on-event { color : $brand-primary; }
+      }
+    }
 
     @include wide-from('lg') {
-      max-width : 71rem;
-    }
-  }
-
-  /**
-   * Community callout card (anchor) and Bootstrap column wrapper
-   * This element is very similar to the above .product__card.
-   */
-  .community__wrapper {
-    padding-top   : 1rem;
-    padding-left  : 1rem;
-    padding-right : 1rem;
-  }
-  .community__card {
-    @include     rounded-corners(0.3rem);
-    padding    : 1rem;
-
-    background : $cyan-lightest;
-    box-shadow : 0  -0.25rem 4rem -0.5rem $shadow-color-light;
-
-    @extend %sans;
-    color           : $primary-font;
-    line-height     : 1.3;
-    font-size       : 1.0rem;
-    text-align      : center;
-    text-decoration : none;
-
-    transition : color      200ms ease-in,
-                 background 200ms ease-in;
-
-    @include on-event {
-      background: $cyan;
+      background-color : $cyan-darker;
+      background : url(/images/index/highlights-bg-split.jpg) left/cover;  /* 3 */
     }
   }
 
