@@ -1,0 +1,20 @@
+dist: trusty
+sudo: true
+language: ruby
+rvm:
+- 2.2
+before_install:
+- gem update --system
+- gem --version
+- gem update bundler
+- wget https://github.com/spf13/hugo/releases/download/v0.18.1/hugo_0.18.1-64bit.deb
+  && sudo dpkg -i hugo_0.18.1-64bit.deb
+- hugo version
+bundler_args: "--without=guard"
+script:
+- rake build:debug
+- rake hugo
+notifications:
+  email: docs@basho.com
+  slack:
+    secure: HMViegDOqwngf2GuDA8FwCqx/2uxwJq4nPi4hDOAGPGup4DYWw/rmWWOXtBOKNuqWkRyasQ3t6Lwz3t40PnClLGq8lb12H9GDOvWFZyT6U1nIPOue0uwQJdkopJBiEKrFhPqIuao5kt5EYUw7BuxSre7QIG9gPGzztvXIpIO+oY=
