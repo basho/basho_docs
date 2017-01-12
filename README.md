@@ -66,14 +66,11 @@ for our scripting and styling needs, and we convert those files to `.js` and
 
 To convert the Coffee and Sass into `.js` and `.css` files, you'll need to:
 
-1. **Install [RVM][rvm]** or equivalent.
+1. **Install [RVM][rvm]** or equivalent.  
     You might need to restart your shell to get the `rvm` command to be recognized.
-
-1. **Install Ruby version 2.2.3.** Use the following command: `rvm install ruby-2.2.3`
-    or the current version specified in the .ruby-version and Gemfile files.
-    If it doesn't match, please [open a new issue][new issue] and let us know
-    this README isn't up to date!
-
+1. **Install Ruby.**  
+    Use the following command: ``rvm install `cat .ruby-version` `` or manually
+    install the current version specified in our .ruby-version and Gemfile files.
 1. **Install [Bundler]** with `gem install bundler`.
 1. **Install the rest of the dependencies** with `bundle install`.
 1. **Use [Rake] to do everything else**, like rebuild a copy of everything that
