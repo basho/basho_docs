@@ -47,6 +47,7 @@ code {
   color       : $primary-font;
   background  : $light-background-cool;
   @include rounded-corners(.25rem);
+  padding     : 0.1rem 0.25rem;
 
   transition : color 150ms ease-in;
 }
