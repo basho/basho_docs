@@ -12,7 +12,7 @@
   be prepared for some _very_ strange formatting.
 
 
-{{ partial "common_variables.html" . }}
+{{ partial "common-variables.html" . }}
 
 {{ $HugoNode := . }}
 
@@ -43,14 +43,14 @@
 
   <!-- NOTE: We're going to leave this commented out until we're ready to deploy
        to the production S3 server. -->
-  {{/* partial "google_tag_manager.html" $HugoNode */}}
+  {{/* partial "google-tag-manager.html" $HugoNode */}}
 
 
   {{ partial "banner.html" $HugoNode }}
 
 
   {{ $dict := (dict   "node" $HugoNode   "menu_title" $menu_title ) }}
-  {{ partial "content_navigation.html" $dict }}
+  {{ partial "content-navigation.html" $dict }}
 
 
   <div class="content-well">
@@ -59,7 +59,7 @@
     <article class="main-article">
 
 
-      {{ partial "article_front_matter.html" $HugoNode }}
+      {{ partial "article-front-matter.html" $HugoNode }}
 
 
 

@@ -307,12 +307,6 @@ canonical_link: "https://docs.basho.com/. . ." # 2 -- OPTIONAL
     simpler than primary content pages; `community/${project_relative_path}`.
     Again, this element is entirely optional.
 
-    **FIXME**: Actually, this is (also) a lie. We're currently using the same
-               old head.html partial to generate community pages &lt;head> tags.
-               We should build a new layout/partials/community/head.html (and
-               maybe a layout/partials/community/common_variables.html?) to
-               handle the stated differences.
-
 
 ## Problematic Markdown (and Workarounds)
 

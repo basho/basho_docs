@@ -135,7 +135,7 @@
 
   {{- if $menu_has_children }}
           {{ $dict := (dict   "node" $HugoNode   "top_menu" $menu   "menu_title" $menu_title   "menu_depth" 1   "menu_is_open" $menu_is_open) }}
-          {{ partial "content_navigation_submenu.html" $dict }}
+          {{ partial "content-navigation-submenu.html" $dict }}
   {{- end }}
 
         </li>

@@ -6,10 +6,10 @@
 
   This template is specifically for pages in the Community, which require
   significantly less front matter than project pages, to the point that we don't
-  need to include the common_variables.html partial. Save the lack of dynamism,
+  need to include the common-variables.html partial. Save the lack of dynamism,
   these pages will look very similar to more general project pages, and some of
-  the variables defined in common_variables.html are required. The below
-  definitions follow the same form as those laid out in common_variableshtml,
+  the variables defined in common-variables.html are required. The below
+  definitions follow the same form as those laid out in common-variables.html,
   there are just significantly fewer.
 
 
@@ -67,14 +67,14 @@ NB. For the sake of making the printf more clear, we're stripping both the
 
   <!-- NOTE: We're going to leave this commented out until we're ready to deploy
        to the production S3 server. -->
-  {{/* partial "google_tag_manager.html" $HugoNode */}}
+  {{/* partial "google-tag-manager.html" $HugoNode */}}
 
 
   {{ partial "banner.html" $HugoNode }}
 
 
   {{ $dict := (dict   "node" $HugoNode   "menu_title" "community" ) }}
-  {{ partial "content_navigation.html" $dict }}
+  {{ partial "content-navigation.html" $dict }}
 
 
 
@@ -84,7 +84,7 @@ NB. For the sake of making the printf more clear, we're stripping both the
     <article class="main-article">
 
 
-      {{ partial "article_front_matter.html" $HugoNode }}
+      {{ partial "article-front-matter.html" $HugoNode }}
 
 
       <main>

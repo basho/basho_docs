@@ -35,7 +35,7 @@
 
 <!-- Variable Definitions
      ====================
-  We start this template with the "common_variables.html" partial that will
+  We start this template with the "common-variables.html" partial that will
   extract useful variables from content front matter, project descriptions, and
   additional data files, and expose them through the global .Scratch object. For
   each Template / Partial / Range entered, we can then selectively extract
@@ -46,7 +46,7 @@
   consistent method of querying the Hugo Node object that will not change in
   Partials or Ranges.
 
-{{ partial "common_variables.html" . }}
+{{ partial "common-variables.html" . }}
 
 {{ $HugoNode := . }}
 
@@ -71,14 +71,14 @@
 
   <!-- NOTE: We're going to leave this commented out until we're ready to deploy
        to the production S3 server. -->
-  {{/* partial "google_tag_manager.html" $HugoNode */}}
+  {{/* partial "google-tag-manager.html" $HugoNode */}}
 
 
   {{ partial "banner.html" $HugoNode }}
 
 
   {{ $dict := (dict   "node" $HugoNode   "menu_title" $menu_title ) }}
-  {{ partial "content_navigation.html" $dict }}
+  {{ partial "content-navigation.html" $dict }}
 
 
 
@@ -88,7 +88,7 @@
     <article class="main-article">
 
 
-      {{ partial "article_front_matter.html" $HugoNode }}
+      {{ partial "article-front-matter.html" $HugoNode }}
 
 
       <main>
