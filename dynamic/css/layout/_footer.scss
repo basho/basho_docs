@@ -3,9 +3,7 @@
  * PRESENTATION ONLY -- See _wireframe.scss for position and size.
  */
 .footer {
-  position : relative;
-
-  padding    : 2rem .25rem 0rem .25rem;
+  padding    : 1rem .25rem 0rem .25rem;
   margin-top : 2rem;
 
   font-size   : 80%;
@@ -20,9 +18,6 @@
     padding    : 2rem 1rem 1rem 1rem;
     margin-top : 0;
   }
-  @include wide-from('lg') {
-    text-align : left;
-  }
 
   a {
     color : $lighter-font;
@@ -33,7 +28,9 @@
 
 
   @include when-inside('.index') {
-    margin-top : 0;
+    position : relative;
+    padding-top : 2rem;
+    margin-top  : 0;
 
     @include wide-from('lg') {
       text-align : center;
