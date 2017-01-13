@@ -48,6 +48,10 @@ Sort results in ascending order. This is the default if no order is specified.
 
 `NULLS LAST` is the default when `ASC` is specified or implied.
 
+{{% note title="Relationship of ASC/DESC qualifiers in `ORDER BY` vs DDL" %}}
+A DESC qualifier (express or implied) used in the DDL has no effect on the sorting order applied during `ORDER BY`. That is, given a DDL where column X appears in the primary key definition with a DESC qualifier, a `SELECT .. ORDER BY _X_` (where `ASC` is implied) will still have X ASC-ordered.
+ {{% /note %}}
+ 
 [Example](#ascending)
 
 #### `DESC`
