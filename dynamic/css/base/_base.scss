@@ -230,6 +230,8 @@ blockquote {
 
 /**
  * Block Notes (shortcode)
+ * 1. Normalize the bottom negative space for blocknotes; w/o this, plain text
+ *    makes the note block significantly taller than desired.
  */
 .blocknote {
   font-size  : 90%;
@@ -238,6 +240,10 @@ blockquote {
   border     : 1px solid $cyan-light;
   padding    : 1rem 1rem 1rem 1rem;
   margin     : 1.5rem;
+
+  p:last-of-type {
+    margin-bottom : 0;  /* 1 */
+  }
 
   .blocknote__title {
     @extend %sans;
