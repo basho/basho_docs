@@ -2,43 +2,43 @@
 
 // 1. Configuration and helpers
 @import
+  'abstracts/colors',
   'abstracts/configurations',
   'abstracts/functions',
-  'abstracts/mixins',
-  'abstracts/colors',
-  'abstracts/highlightjs-solarized';
+  'abstracts/mixins';
 
 // 2. Vendors
 @import
   'vendor/bootstrap';
 
 // 3. Base stuff
+// NB. Order is largely insignificant, but _base.scss should be imported last
 @import
   'base/fonts',
-  'base/typography',
   'base/formatting',
-  'base/helpers',
+  'base/highlightjs-solarized',
   'base/base';
 
 // 4. Layout-related sections
+// NB. Order is largely insignificant, but _wirefame.scss must be imported first
 @import
   'layout/wireframe',
   'layout/banner',
-  'layout/footer',
-  'layout/content-nav';
+  'layout/content-nav',
+  'layout/footer';
 
 // 5. Components
 @import
   'components/anchor-icon',
-  'components/search',
-  'components/edge-fader',
-  'components/content-menu',
-  'components/front-matter.scss',
-  'components/menu-bars.scss',
   'components/code-blocks',
-  'components/table-of-contents',
+  'components/content-menu',
+  'components/edge-fader',
+  'components/front-matter',
+  'components/menu-bars',
+  'components/search',
   'components/selectors',
-  'components/social-button';
+  'components/social-button',
+  'components/table-of-contents';
 
 // 6. Page-specific styles
 @import
