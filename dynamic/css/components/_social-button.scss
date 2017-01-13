@@ -1,0 +1,74 @@
+/**
+ * Social Media Buttons
+ *
+ * FIXME: These all currently use px for sizing, the images and moving the
+ *        background-position to the correct sprite. We need to figure out some
+ *        way of switching this element over to ems.
+ */
+.social-button {
+  position : relative;
+
+  height : 42px;
+  width  : 42px;
+  margin-right : 8px;
+
+  &:last-of-type {
+    margin-right : 0;
+  }
+
+  .social-button__primary {
+    position : absolute;
+    left     : 0;
+
+    height : 42px;
+    width  : 42px;
+
+    background-image  : url('/images/social_media/social-sprite.png');
+    background-repeat : no-repeat;
+    background-position-y : 0;
+
+    opacity : 1;
+    transition : opacity 200ms ease-in;
+  }
+
+  .social-button__inverted {
+    position : absolute;
+    left     : 0;
+
+    height : 42px;
+    width  : 42px;
+
+    background-image  : url('/images/social_media/social-sprite.png');
+    background-repeat : no-repeat;
+    background-position-y : -42px;
+
+    opacity : 0;
+    transition : opacity 200ms ease-in;
+  }
+
+  @include on-event {
+    .social-button__primary  { opacity : 0; }
+    .social-button__inverted { opacity : 1; }
+  }
+}
+
+.social-button--facebook {
+  .social-button__primary  { background-position-x   :  0;     }
+  .social-button__inverted { background-position-x   :  0;     }
+}
+.social-button--twitter {
+  .social-button__primary  { background-position-x   : -50px;  }
+  .social-button__inverted { background-position-x   : -50px;  }
+}
+.social-button--youtube {
+  .social-button__primary  { background-position-x   : -100px; }
+  .social-button__inverted { background-position-x   : -100px; }
+}
+.social-button--linkedin {
+  .social-button__primary  { background-position-x   : -150px; }
+  .social-button__inverted { background-position-x   : -150px; }
+}
+.social-button--github {
+  .social-button__primary  { background-position-x   : -200px; }
+  .social-button__inverted { background-position-x   : -200px; }
+}

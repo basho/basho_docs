@@ -3,7 +3,9 @@
  * PRESENTATION ONLY -- See _wireframe.scss for position and size.
  */
 .footer {
-  padding    : 1rem .25rem 0rem .25rem;
+  position : relative;
+
+  padding    : 2rem .25rem 0rem .25rem;
   margin-top : 2rem;
 
   font-size   : 80%;
@@ -14,11 +16,12 @@
   border-top : 1px solid $gray-85;
 
 
-  @include wide-from(md) {
+  @include wide-from('md') {
     padding    : 2rem 1rem 1rem 1rem;
     margin-top : 0;
-
-    text-align : center;
+  }
+  @include wide-from('lg') {
+    text-align : left;
   }
 
   a {
@@ -31,11 +34,31 @@
 
   @include when-inside('.index') {
     margin-top : 0;
+
+    @include wide-from('lg') {
+      text-align : center;
+    }
   }
 }
 
-.footer__wrapper {
+.footer__attributions {
   @include wide-from(md) {
     text-align : center;
+  }
+}
+
+.footer__social {
+  margin : 0  0.5rem 1.5rem 0.5rem;
+
+  @include wide-from('md') {
+    margin-bottom : 0;
+  }
+
+  @include wide-from('lg') {
+    position : absolute;
+    right    : 0;
+    top      : 0;
+    margin-top   : 2.2rem;
+    margin-right : 2.0rem;
   }
 }
