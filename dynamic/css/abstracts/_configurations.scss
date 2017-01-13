@@ -83,10 +83,10 @@ $grid-breakpoints: (
 // Define the maximum width of `.container` for different screen sizes.
 
 $container-max-widths: (
-  sm: 512px, // 32rem
-  md: 720px, // 45rem
-  lg: 940px, // 58.75rem
-  xl: 1140px // 71.25rem
+  sm: 32rem,    // 512px
+  md: 45rem,    // 720px
+  lg: 58.75rem, // 940px
+  xl: 71.25rem, // 1140px
 );
 
 
@@ -101,20 +101,21 @@ $grid-gutter-width: 30px;
 // Colors
 //
 // I don't like the idea of fragmenting semantic colors on Bootstrap's setup vs
-// our own. Override all of their important colors with something stupid, to
+// our own. Override all of their default colors with something stupid to
 // ensure we reassign all colors in our own CSS.
+// Make the below default too so we can override them wherever we want.
 
-$gray-dark:                 red;
-$gray:                      red;
-$gray-light:                red;
-$gray-lighter:              red;
-$gray-lightest:             red;
+$gray-dark:                 red !default;
+$gray:                      red !default;
+$gray-light:                red !default;
+$gray-lighter:              red !default;
+$gray-lightest:             red !default;
 
-$brand-primary:             red;
-$brand-success:             red;
-$brand-info:                red;
-$brand-warning:             red;
-$brand-danger:              red;
-$brand-inverse:             red;
+$brand-primary:             red !default;
+$brand-success:             red !default;
+$brand-info:                red !default;
+$brand-warning:             red !default;
+$brand-danger:              red !default;
+$brand-inverse:             red !default;
 
-$body-color:                red;
+$body-color:                red !default;
