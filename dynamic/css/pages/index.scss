@@ -227,10 +227,6 @@
    *    NB. We need these rules to be additive s.t. they "fall off" when we
    *    don't want them, and the Bootstrap defaults take back over. As such, we
    *    need to use `narrow-from`.
-   * 2. Clear the external link icons as we link off site.
-   * 3. Set a fall-back image on the __container for lg-up viewports. This will
-   *    result in the offset-per-level boxes based on the height of the __left
-   *    and __right highlights.
    */
   .highlight__wrapper{
     box-shadow : 0  -0.15rem 3rem -0.5rem $shadow-color-mid;
@@ -263,16 +259,6 @@
 
     .highlight__link {
       text-align : center;
-
-      &[href^="http://"],
-      &[href^="https://"],
-      &[href$=".pdf"],
-      &[href$=".PDF"] {
-        &::after {
-          content    : none;   /* 2 */
-          background : none;   /* 2 */
-        }
-      }
     }
 
     .highlight__left {

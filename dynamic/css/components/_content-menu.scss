@@ -123,7 +123,6 @@ $menu-item-padding-top : 0.60rem;
  *    the quirk did and how this work around avoids it. You don't remember what
  *    the root cause was anymore, nor if this fix is still necessary. Best;
  *    Future-Drew.
- * 3. Clear the external link icons, as we link out to GitHub (and maybe more?)
  */
 .content-menu__item {
   margin-left  : 0;
@@ -142,16 +141,6 @@ $menu-item-padding-top : 0.60rem;
 
     color           : inherit;            /* 2 */
     text-decoration : none;
-
-    &[href^="http://"],
-    &[href^="https://"],
-    &[href$=".pdf"],
-    &[href$=".PDF"] {
-      &::after {
-        content    : none;   /* 3 */
-        background : none;   /* 3 */
-      }
-    }
   }
 
 

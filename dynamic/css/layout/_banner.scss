@@ -102,7 +102,7 @@ $banner-background-secondary : $gray-45;
 
 /**
  * Navigation Pane
- * 1. Clear default link styles, include the external-link icons.
+ * 1. Clear default link styles.
  */
 .banner__navigation-pane {
   @extend         %oswald;
@@ -112,16 +112,6 @@ $banner-background-secondary : $gray-45;
 
   a {
     text-decoration : none;  /* 1 */
-
-    &[href^="http://"],
-    &[href^="https://"],
-    &[href$=".pdf"],
-    &[href$=".PDF"] {
-      &::after {
-        content    : none;   /* 1 */
-        background : none;   /* 1 */
-      }
-    }
   }
 }
 
