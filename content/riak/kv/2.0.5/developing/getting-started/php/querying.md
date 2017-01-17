@@ -94,7 +94,7 @@ class Item
 
 class OrderSummary
 {
-    public function __construct() 
+    public function __construct()
     {
         $this->summaries = array();
     }
@@ -104,7 +104,7 @@ class OrderSummary
 
 class OrderSummaryItem
 {
-    public function __construct(Order $order) 
+    public function __construct(Order $order)
     {
         $this->orderId = $order->orderId;
         $this->total = $order->total;
@@ -141,8 +141,8 @@ $order1->items = [
         15.99
     ),
     new Item(
-        'PEG10BBF2PP', 
-        'eTablet Pro; 24GB; Grey', 
+        'PEG10BBF2PP',
+        'eTablet Pro; 24GB; Grey',
         399.99
     )
 ];
@@ -231,7 +231,7 @@ $storeSummary = (new Command\Builder\StoreObject($riak))
 $storeSummary->execute();
 ```
 
- While individual `Customer` and `Order` objects don't change much (or shouldn't change), the `Order Summaries` object will likely change often.  It will do double duty by acting as an index for all a customer's orders, and also holding some relevant data such as the order total, etc.  If we showed this information in our application often, it's only one extra request to get all the info. 
+ While individual `Customer` and `Order` objects don't change much (or shouldn't change), the `Order Summaries` object will likely change often.  It will do double duty by acting as an index for all a customer's orders, and also holding some relevant data such as the order total, etc.  If we showed this information in our application often, it's only one extra request to get all the info.
 
 ```php
 // Fetching related data by shared key
@@ -297,6 +297,12 @@ While this pattern is very easy and extremely fast with respect to queries and c
 
 ## Secondary Indexes
 
+{{% note %}}
+Secondary indexes in Riak KV require a sorted backend: [Memory](/riak/kv/2.0.5/setup/planning/backend/memory) or [LevelDB](/riak/kv/2.0.5/setup/planning/backend/leveldb). [Bitcask](/riak/kv/2.0.5/setup/planning/backend/bitcask) does not support secondary indexes.
+
+See [Using Secondary Indexes (2i)](/riak/kv/2.0.5/developing/usage/secondary-indexes) for more information on developing with secondary indexes.
+{{% /note %}}
+
 If you're coming from a SQL world, Secondary Indexes (2i) are a lot like SQL indexes.  They are a way to quickly lookup objects based on a secondary key, without scanning through the whole dataset.  This makes it very easy to find groups of related data by values, or even ranges of values.  To properly show this off, we will now add some more data to our application, and add some secondary index entries at the same time.
 
 ```php
@@ -323,7 +329,7 @@ unset($key);
 
 ```
 
-As you may have noticed, ordinary Key/Value data is opaque to 2i, so we have to add entries to the indexes at the application level. 
+As you may have noticed, ordinary Key/Value data is opaque to 2i, so we have to add entries to the indexes at the application level.
 Now let's find all of Jane Appleseed's processed orders, we'll lookup the orders by searching the `saleperson_id_int` index for Jane's id of `9000`.
 
 ```php
@@ -354,7 +360,7 @@ Jane processed orders 1 and 3.  We used an "integer" index to reference Jane's i
 Now, let's say that the VP of Sales wants to know how many orders came in during October 2013.  In this case, we can exploit 2i's range queries.  Let's search the `order_date_bin` index for entries between `20131001` and `20131031`.  
 
 ```php
-// Query for orders where the OrderDate bin index is 
+// Query for orders where the OrderDate bin index is
 // between 2013-10-01 and 2013-10-31
 $fetchOctoberOrders = (new Command\Builder\QueryIndex($riak))
                         ->inBucket($ordersBucket)
@@ -392,7 +398,7 @@ Boom, easy-peasy.  We used 2i's range feature to search for a range of values, a
 
 So to recap:
 
-* You can use Secondary Indexes to quickly lookup an object based on a secondary id other than the object's key. 
+* You can use Secondary Indexes to quickly lookup an object based on a secondary id other than the object's key.
 * Indexes can have either Integer or Binary(String) keys
 * You can search for specific values, or a range of values
 * Riak will return a list of keys (and terms if needed) that match the index query

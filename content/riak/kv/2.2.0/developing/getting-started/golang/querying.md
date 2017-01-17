@@ -18,7 +18,7 @@ aliases:
 
 ## Go Version Setup
 
-For the Go version, please download the source from GitHub by either [cloning](https://github.com/basho/taste-of-riak) the source code repository or downloading the [current zip of the master branch](https://github.com/basho/taste-of-riak/archive/master.zip). Ensure that the source is located in your `GOPATH`. The code for this chapter is in `go/ch02/ch02.go`. You may import this code into your favorite editor, or just run it from the command line using the `Makefile` if you are running on a *nix OS.
+For the Go version, please download the source from GitHub by either [cloning](https://github.com/basho/taste-of-riak) the source code repository or downloading the [current zip of the master branch](https://github.com/basho/taste-of-riak/archive/master.zip). Ensure that the source is located in your `GOPATH`. The code for this chapter is in `go/ch02/ch02.go`. You may import this code into your favorite editor, or just run it from the command line using the `Makefile` if you are running on a *nix* OS.
 
 >A Quick Note on Querying and Schemas:
 >
@@ -340,7 +340,7 @@ func createOrderSummary(customerId string, orders []*Order) *OrderSummary {
 }
 ```
 
-While individual `Customer` and `Order` objects don't change much (or shouldn't change), the `Order Summaries` object will likely change often. It will do double duty by acting as an index for all a customer's orders and also holding some relevant data, such as the order total, etc. If we showed this information in our application often, it's only one extra request to get all the info. 
+While individual `Customer` and `Order` objects don't change much (or shouldn't change), the `Order Summaries` object will likely change often. It will do double duty by acting as an index for all a customer's orders and also holding some relevant data, such as the order total, etc. If we showed this information in our application often, it's only one extra request to get all the info.
 
 ```golang
 util.Log.Println("Fetching related data by shared key")
@@ -414,6 +414,12 @@ While this pattern is very easy and extremely fast with respect to queries and c
 
 
 ### Secondary Indexes
+
+{{% note %}}
+Secondary indexes in Riak KV require a sorted backend: [Memory](/riak/kv/2.2.0/setup/planning/backend/memory) or [LevelDB](/riak/kv/2.2.0/setup/planning/backend/leveldb). [Bitcask](/riak/kv/2.2.0/setup/planning/backend/bitcask) does not support secondary indexes.
+
+See [Using Secondary Indexes (2i)](/riak/kv/2.2.0/developing/usage/secondary-indexes) for more information on developing with secondary indexes.
+{{% /note %}}
 
 If you're coming from a SQL world, Secondary Indexes (2i) are a lot like SQL indexes. They are a way to quickly look up objects based on a secondary key, without scanning through the whole dataset. This makes it very easy to find groups of related data by values or ranges of values. To properly show this off, we will add some more data to our application, and add some secondary index entries at the same time:
 
@@ -496,7 +502,7 @@ wg.Wait()
 close(doneChan)
 ```
 
-As you may have noticed, ordinary key/value data is opaque to 2i, so we have to add entries to the indexes at the application level. 
+As you may have noticed, ordinary key/value data is opaque to 2i, so we have to add entries to the indexes at the application level.
 
 Now let's find all of Jane Appleseed's processed orders. We'll lookup the orders by searching the `saleperson_id_int` index for Jane's id of `9000`:
 
@@ -564,7 +570,7 @@ Easy!  We used 2i's range feature to search for a range of values, and demonstra
 
 So to recap:
 
-* You can use Secondary Indexes to quickly lookup an object based on a secondary id other than the object's key. 
+* You can use Secondary Indexes to quickly lookup an object based on a secondary id other than the object's key.
 * Indexes can have either Integer or Binary(String) keys.
 * You can search for specific values or a range of values.
 * Riak will return a list of keys that match the index query.

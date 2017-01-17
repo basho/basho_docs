@@ -25,7 +25,7 @@ branch](https://github.com/basho/taste-of-riak/archive/master.zip).
 The code for this chapter is in `/java/Ch02-Schemas-and-Indexes`. You
 may import this code into your favorite editor, or just run it from the
 command line using the commands in `BuildAndRun.sh` if you are running
-on a *nix OS.
+on a *nix* OS.
 
 ## A Quick Note on Querying and Schemas
 
@@ -192,6 +192,12 @@ queries and complexity, it's up to the application to know about these
 intrinsic relationships.
 
 ## Secondary Indexes
+
+{{% note %}}
+Secondary indexes in Riak KV require a sorted backend: [Memory](/riak/kv/2.0.2/setup/planning/backend/memory) or [LevelDB](/riak/kv/2.0.2/setup/planning/backend/leveldb). [Bitcask](/riak/kv/2.0.2/setup/planning/backend/bitcask) does not support secondary indexes.
+
+See [Using Secondary Indexes (2i)](/riak/kv/2.0.2/developing/usage/secondary-indexes) for more information on developing with secondary indexes.
+{{% /note %}}
 
 If you're coming from an SQL world, Secondary Indexes (2i) are a lot
 like SQL indexes. They are a way to quickly look up objects based on a
