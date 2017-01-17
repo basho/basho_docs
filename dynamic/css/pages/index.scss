@@ -28,7 +28,7 @@
     background : url('/images/index/home-banner.jpg') no-repeat bottom / cover;
 
     padding-top    : 3rem;
-    padding-bottom : 5rem;
+    padding-bottom : 3rem;
 
     @extend %serif;
     color       : $brand-gray;
@@ -37,6 +37,10 @@
     text-align  : center;
 
     margin-bottom : 0;             /* 2 */
+
+    @include wide-from('md') {
+      padding-bottom : 5rem;
+    }
 
     h1 {                           /* 3 */
       @extend %oswald;
@@ -63,6 +67,19 @@
    */
   .product-content {
     box-shadow : 0  0  1.5rem 0  $shadow-color-mid;  /* 1 */
+
+    .product-callout {
+      text-align : center;
+      color      : $light-font;
+      font-size  : 1.2rem;
+
+      padding-top   : 1rem;
+      margin-bottom : 0;
+
+      @include wide-from('md') {
+        font-size  : 1.5rem;
+      }
+    }
   }
 
 
@@ -71,7 +88,7 @@
    * Product card wrapper and Bootstrap `row`.
    */
   .product-picker {
-    padding-top    : 3rem;
+    padding-top    : 2rem;
     padding-bottom : 5rem;
 
     @include wide-from('lg') {
