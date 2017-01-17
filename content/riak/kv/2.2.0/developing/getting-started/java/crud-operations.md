@@ -71,6 +71,24 @@ Riak, see [Updating Objects](/riak/kv/2.2.0/developing/usage/updating-objects/)
 and [Conflict Resolution](/riak/kv/2.2.0/developing/usage/conflict-resolution/)
 documentation.
 
+## Updating Objects
+
+Once we've read the object back in from Riak, we can update the object
+and store it back as we did before with the `StoreValue` object:
+
+```java
+fetchedObject.setValue(BinaryValue.create("You can be my wingman any time."));
+StoreValue updateOp = new StoreValue.Builder(fetchedObject)
+        .withLocation(quoteObjectLocation)
+        .build();
+StoreValue.Response updateOpResp = client.execute(updateOp);
+```
+
+For more in depth information on updating objects and sibling resolution in
+Riak, see [Updating Objects](/riak/kv/2.2.0/developing/usage/updating-objects/)
+and [Conflict Resolution](/riak/kv/2.2.0/developing/usage/conflict-resolution/)
+documentation.
+
 ## Deleting Objects
 
 Now that we've stored and then fetched the object, we can delete it by
