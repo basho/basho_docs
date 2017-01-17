@@ -244,6 +244,7 @@
    *    NB. We need these rules to be additive s.t. they "fall off" when we
    *    don't want them, and the Bootstrap defaults take back over. As such, we
    *    need to use `narrow-from`.
+   * 2. 1.5 == font-size, 1.2 == line height, 3 == three lines of text.
    */
   .highlight__wrapper{
     box-shadow : 0  -0.15rem 3rem -0.5rem $shadow-color-mid;
@@ -274,32 +275,54 @@
       }
     }
 
-    .highlight__link {
+    .highlight__link-wrapper {
       text-align : center;
     }
+
+    .highlight__link {
+      @include rounded-corners(0.15rem);
+      padding     : 0.8rem 2.5rem;
+
+      @extend          %oswald;
+      font-size       : 85%;
+      text-decoration : none;
+      text-transform  : uppercase;
+      word-spacing    : -1px;
+
+      transition : color      500ms ease,
+                   background 500ms ease;
+    }
+
 
     .highlight__left {
       padding : 3rem 1rem 2rem 1rem;
 
       @include wide-from('lg') {
         padding-top : 2rem;
-        height      : 16rem;
+        min-height  : 16rem;
+
+        p { min-height : 3rem * (1.5*1.2); } /* 2 */
       }
 
       @include wide-from('xl') {
         padding-top : 3rem;
       }
 
-      color : $inverted-font-soft;
+      color : $light-background-warm;
 
       background-color : $cyan-darker;
       background : url(/images/index/highlights-bg-dark.jpg);
 
       .highlight__link {
-        color                     : $brand-secondary-light;
-        @include on-event { color : $brand-primary-light; }
+        color        : $light-background-warm;
+        background   : $orange;
+        @include on-event {
+          color      : $light-background-warm;
+          background : $orange-dark;
+        }
       }
     }
+
 
     .highlight__right {
       padding : 2rem 1rem 2rem 1rem;
@@ -307,19 +330,27 @@
       @include wide-from('lg') {
         padding-top  : 2rem;
         padding-left : 3rem;
-        height       : 16rem;
+        min-height   : 16rem;
+
+        p { min-height : 3rem * (1.5*1.2); } /* 2 */
       }
 
       @include wide-from('xl') {
         padding-top : 3rem;
       }
 
+      color : $cyan-darker;
+
       background-color : $light-background-warm;
       background : url(/images/index/highlights-bg-light.jpg) repeat;
 
       .highlight__link {
-        color                     : $brand-secondary;
-        @include on-event { color : $brand-primary; }
+        color        : $cyan-darker;
+        background   : $orange-lightest;
+        @include on-event {
+          color      : $cyan-darker;
+          background : $orange-light;
+        }
       }
     }
   }
