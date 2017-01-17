@@ -165,7 +165,7 @@ $banner-background-secondary : $gray-45;
   }
 
   @include wide-from('xl') {
-    padding-left : 16rem;
+    padding-left : 13.5rem;
     max-width : $navigation-pane-width-xl;  /* 3 */
   }
 

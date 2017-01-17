@@ -41,14 +41,21 @@ $content-nav-width-lg-up : 15rem;
 
 // Padding on either side of the content nav when it's not full-screen'd.
 // NB. This doesn't count padding added to the main-article.
-$content-nav-padding-left         : 1.0rem;
-$content-nav-padding-right-md     : 1.0rem;
-$content-nav-padding-right-lg-up  : 2.0rem;
-$content-nav-padding-bottom       : 2.0rem;
+$content-nav-padding-left     : 1.0rem;
+$content-nav-padding-right-md : 2.0rem;
+$content-nav-padding-right-lg : 3.0rem;
+$content-nav-padding-right-xl : 4.5rem;
+$content-nav-padding-bottom   : 2.0rem;
 
-// Content Well fixed-widths
-$content-well-width-lg : 64.5rem;
-$content-well-width-xl : 78.0rem;
+// Main-Article fixed-widths
+$main-article-width-md : 46.5rem;
+$main-article-width-lg : 46.5rem;
+$main-article-width-xl : 57.5rem;
+
+// Aggregate Content-Well fixed-width
+$content-well-width-md : $content-nav-padding-left + $content-nav-width-md    + $content-nav-padding-right-md + $main-article-width-md;
+$content-well-width-lg : $content-nav-padding-left + $content-nav-width-lg-up + $content-nav-padding-right-lg + $main-article-width-lg;
+$content-well-width-xl : $content-nav-padding-left + $content-nav-width-lg-up + $content-nav-padding-right-xl + $main-article-width-xl;
 
 
 
@@ -142,27 +149,28 @@ $main-z-index        : 100;
 .content-well {
   width : 100%;
 
-  padding-top : $banner-height-sm-down;                    /* 1, 2 */
+  padding-top : $banner-height-sm-down;                 /* 1, 2 */
 
-  @include wide-from(md) {
-    padding-top   : $banner-height-md-up;                  /* 1, 2 */
+  @include wide-from('md') {
+    padding-top   : $banner-height-md-up;               /* 1, 2 */
+    padding-right : 0.5rem;
+    margin-right  : auto;
     padding-left  : ($content-nav-width-md
                      + $content-nav-padding-left
-                     + $content-nav-padding-right-md);     /* 1, 3 */
-    padding-right : 0.5rem;
-  }
-  @include wide-from(lg) {
-    padding-left  : ($content-nav-width-lg-up
-                     + $content-nav-padding-left
-                     + $content-nav-padding-right-lg-up);  /* 1, 3 */
-    padding-right : 0.5rem;
-    margin-right : auto;
+                     + $content-nav-padding-right-md);  /* 1, 3 */
+    max-width     : $content-well-width-md;
   }
   @include wide-from('lg') {
-    max-width : $content-well-width-lg;
+    padding-left : ($content-nav-width-lg-up
+                    + $content-nav-padding-left
+                    + $content-nav-padding-right-lg);   /* 1, 3 */
+    max-width    : $content-well-width-lg;
   }
   @include wide-from('xl') {
-    max-width : $content-well-width-xl;
+    padding-left : ($content-nav-width-lg-up
+                    + $content-nav-padding-left
+                    + $content-nav-padding-right-xl);   /* 1, 3 */
+    max-width    : $content-well-width-xl;
   }
 
   &.content-well--immobile {

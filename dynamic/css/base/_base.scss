@@ -32,7 +32,6 @@ body {
 
 main {
   font-size : 110%;
-  @include width-exactly('md') { font-size : 100%; }
 }
 
 
