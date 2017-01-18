@@ -31,7 +31,7 @@ project's dependencies. Here is a Maven example:
   <dependency>
     <groupId>com.basho.riak</groupId>
     <artifactId>riak-client</artifactId>
-    <version>2.0.0</version>
+    <version>2.1.1</version>
   </dependency
 </dependencies>
 ```
