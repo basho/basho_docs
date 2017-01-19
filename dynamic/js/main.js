@@ -43,7 +43,7 @@
 //= require ./basho/anchorify-headings.js
 //= require ./basho/toc-generator.js
 
-//= require ./basho/content-nav.js
+//= require ./basho/content-navigation.js
 //= require ./basho/selectors.js
 //= require ./basho/edge-fader.js
 //= require ./basho/code-blocks.js
