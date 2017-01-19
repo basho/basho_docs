@@ -3,36 +3,6 @@
 /// ===============================
 ////
 
-/// Native `url(..)` function wrapper
-/// @author Hugo Giraudel
-/// @param {String} $type - asset type folder (e.g. `fonts/`)
-/// @param {String} $path - asset path
-/// @param {String} $base [$base-url] - base URL for the asset
-/// @return {Url}
-@function asset($type, $path, $base: $base-url) {
-  @return url($base + $type + $path);
-}
-
-/// Returns URL to an image based on its path
-/// @author Hugo Giraudel
-/// @param {String} $path - image path
-/// @param {String} $base [$base-url] - base URL
-/// @return {Url}
-/// @require $base-url
-@function image($path, $base: $base-url) {
-  @return asset($base, 'images/', $path);
-}
-
-/// Returns URL to a font based on its path
-/// @author Hugo Giraudel
-/// @param {String} $path - font path
-/// @param {String} $base [$base-url] - base URL
-/// @return {Url}
-/// @require $base-url
-@function font($path, $base: $base-url) {
-  @return asset($base, 'fonts/', $path);
-}
-
 
 /// Converts a px value to rem (base on the default font size of 16px)
 /// @author Drew Pirrone-Brusse

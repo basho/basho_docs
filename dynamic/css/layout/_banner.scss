@@ -7,7 +7,7 @@
 // Padding for the top-level element
 $banner-padding-left-md-up : ($content-nav-padding-left + 0.5rem);
 
-// Basho Docs Logo -- Assumed to wrap /images/layout/basho_docs_logo.png
+// Basho Docs Logo -- Assumed to wrap /images/branding/basho_docs_logo.png
 // The native size of this image is 312px x 69px. Scale it to ~48% for the
 // sm-down layouts, and ~52% for the md-up.
 $banner-logo-width-sm-down : p2r(150px);
@@ -49,7 +49,7 @@ $banner-background-secondary : $gray-45;
 
 /**
  * Basho Docs Logo
- * Assumed to wrap a <img src="/images/layout/basho_docs_logo.png"> element.
+ * Assumed to wrap a <img src="/images/branding/basho_docs_logo.png"> element.
  * 1. For sm-down layouts, center this element in the banner.
  * 2. For md-up, revert the positioning to static upper-left, and apply a
  *    padding to manually push the image text to just below the intra-brand
