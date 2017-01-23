@@ -33,7 +33,8 @@ Riak TS 1.6.0 does some things.
 
 ## Changes
 
-* Description. [[PR #](LINK)]
+* We have unified both the way `CREATE TABLE` is serviced and the way we ensure the table is query-ready. [[PR 1577](https://github.com/basho/riak_kv/pull/1577)]
+* Query filters are now used in start/end key. With this change, filters on the local key are put into the start/end keys to reduce the range that eLevelDB has to cover. [[PR 1594](https://github.com/basho/riak_kv/pull/1594)]
 
 
 ## Bugfixes
@@ -41,6 +42,7 @@ Riak TS 1.6.0 does some things.
 * [[PR 1581](https://github.com/basho/riak_kv/pull/1581 )] A WHERE clause filtered on the quantum column, that used the = operator, would sometimes return a `Neither upper or lower time bounds were specified in the query` error.
 * [[PR 1583](https://github.com/basho/riak_kv/pull/1583 )] The configuration property name for the maximum number of quanta allowed in a query was initially using the incorrect key and overriding configured values.
 * [[PR 1590](https://github.com/basho/riak_kv/pull/1590 )] Fix for queries not returning results for tables using `DESC` on the local key, which could occur under some table schemas.
+* 
 
 
 ## Compatibility
