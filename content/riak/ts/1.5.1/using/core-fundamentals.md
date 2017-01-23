@@ -26,19 +26,26 @@ This page will outline [key differences](#differences) between Riak KV and Riak 
 
 Though they share a codebase, Riak TS differs from Riak KV in a few ways. Here's a handy table tracking features in Riak KV compared to Riak TS:
 
-| Feature            | Riak KV | Riak TS |
-| :----------------- |:--------| :-------|
-| active anti-entropy| Yes     | No      |
-| global expiry      | Yes     | Yes     |
-| Bitcask            | Default | No      |
-| LevelDB            | Yes     | Default |
-| memory (backend)   | Yes     | No      |
-| multi backend      | Yes     | No      |
-| MDC                | Yes     | v3 only |
-| Riak SQL           | No      | Yes     |
-| Riak security      | Yes     | Yes     |
-| riak shell         | No      | Yes     |
-| Riak search        | Yes     | No      |
+| Feature                  | Riak KV | Riak TS         |
+| :------------------------|:--------| :---------------|
+| active anti-entropy      | Yes     | No              |
+| data types (CRDTs)       | Yes     | KV buckets only |
+| global expiry            | Yes     | Yes             |
+| Bitcask (backend)        | Default | No              |
+| LevelDB (backend)        | Yes     | Default         |
+| memory (backend)         | Yes     | No              |
+| multi backend            | Yes     | No              |
+| KV single-key operations | Yes     | KV buckets only |
+| Map Reduce               | Yes     | KV buckets only |
+| MDC                      | Yes     | v3 only         |
+| Post-commit hooks        | Yes     | Yes             |
+| Pre-commit hooks         | Yes     | KV buckets only |
+| Riak SQL                 | No      | Yes             |
+| Riak security            | Yes     | Yes             |
+| riak shell               | No      | Yes             |
+| Riak search              | Yes     | No              |
+| Secondary Indexes        | Yes     | KV buckets only |
+| Statistics               | Yes     | Yes             |
 
 There are some additional points it is important to note:
 
