@@ -38,8 +38,6 @@ Though they share a codebase, Riak TS differs from Riak KV in a few ways. Here's
 | KV single-key operations | Yes     | KV buckets only |
 | Map Reduce               | Yes     | KV buckets only |
 | MDC                      | Yes     | v3 only         |
-| Post-commit hooks        | Yes     | Yes             |
-| Pre-commit hooks         | Yes     | KV buckets only |
 | Riak SQL                 | No      | Yes             |
 | Riak security            | Yes     | Yes             |
 | riak shell               | No      | Yes             |
