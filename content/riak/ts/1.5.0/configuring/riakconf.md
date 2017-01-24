@@ -37,11 +37,11 @@ The Riak TS configuration settings in riak.conf have changed. The old settings w
 
 Make certain the configuration file on each node gets the same parameters to avoid inconsistent behavior.
 
-Benchmarking of your use cases and traffic load is recommended when changing these parameters. Settings which are too permissive can result in a slow database under heavy load.
+Benchmarking of your use cases and traffic load is recommended when changing these parameters. Settings that are too permissive can result in a slow database under heavy load.
 
 ### Query timeout
 
-`riak_kv.query.timeseries.timeout`: the timeout for queries, after which a timeout error is returned. Default is '10s'.
+`riak_kv.query.timeseries.timeout`: the timeout for queries, after which a timeout error is returned. Default is 10s.
 
 ```riak.conf
 riak_kv.query.timeseries.timeout = 10s
@@ -109,7 +109,7 @@ riak_kv.query.timeseries.max_quanta_span = 5000
 ```
 
 {{% note %}}
-`riak_kv.query.timeseries.max_quanta_span` was intended to protect from SELECTing excessive amounts of data, with a default set to a low value (5). Now, we use a running estimation of projected query size to determine whether the query results can be safely returned to the client (see `max_returned_data_size` below).  The `max_quanta_span` parameter has been kept but is no longer the limiting factor.
+`riak_kv.query.timeseries.max_quanta_span` was originally designed to protect against data overload in queries. We have switched to a running estimation of projected query size to determine whether the query results can be safely returned to the client (see [`max_returned_data_size`](#maximum-returned-data-size) below).  The `max_quanta_span` still determines how many quanta a query can span, but is no longer the limiting factor in how much data a query may return.
 {{% /note %}}
 
 *This setting was formerly `timeseries_query_max_quanta_span`, please update accordingly.*
@@ -117,7 +117,7 @@ riak_kv.query.timeseries.max_quanta_span = 5000
 
 ### Maximum returned data size
 
-`riak_kv.query.timeseries.max_returned_data_size`: Largest estimated size, in bytes, of the data a query can return to the client. Default value is 10000000 (10 million).
+`riak_kv.query.timeseries.max_returned_data_size`: largest estimated size, in bytes, of the data a query can return to the client. Default value is 10000000 (10 million). If a query will exceed this value, the query will be cancelled.
 
 When a query is broken down into per-quantum subqueries, all subqueries are queued for execution. Starting from the arrival of the second result set, we estimate the projected query result size as:
 
@@ -133,9 +133,9 @@ riak_kv.query.timeseries.max_returned_data_size = 10*1000*1000
 
 ### Maximum subqueries
 
-`riak_kv.query.timeseries.max_running_fsms`: throttle the number of simultaneously running FSMs (i.e., processes collecting data for a single subquery). Default is 20.
+`riak_kv.query.timeseries.max_running_fsms`: throttle the number of simultaneously running FSMs (i.e. processes collecting data for a single subquery). Default is 20.
 
-This number times the max size of data chunks determines the maximum volume of data the coordinator will have to deal with at any given time.
+`max_running_fsms * maximum size of data chunks` will determine the maximum volume of data the coordinator will have to deal with at any given time.
 
 Increasing this parameter allows for faster execution of queries over many small quanta. Conversely, if your quanta are large, it may be advisable to limit the number of concurrent FSMs even further, depending on the expected size of data per quantum.
 
@@ -152,7 +152,7 @@ riak_kv.query.timeseries.max_running_fsms = 20
 
 `riak_kv.object.size.warning_threshold`, `riak_kv.object.size.maximum`: object size limits. Defaults are 50K and 500K, respectively.
 
-Note that Time Series default configuration now has smaller object sizes in order to improve performance.
+Note that Riak TS default configuration now has smaller object sizes in order to improve performance.
 
 ```riak.conf
 riak_kv.object.size.warning_threshold = 50K
@@ -162,12 +162,12 @@ riak_kv.object.size.maximum = 500K
 
 ### Query buffers root path
 
-`riak_kv.query.timeseries.qbuf_root_path`: Root path for leveldb instances backing node-local query buffers. Default is "$(platform_data_dir)/query_buffers".
+`riak_kv.query.timeseries.qbuf_root_path`: Root path for LevelDB instances backing node-local query buffers. Default is "$(platform_data_dir)/query_buffers".
 
-For queries with an `ORDER BY` clause and/or `LIMIT` or `OFFSET` keywords, a separate, slower, code path will be used, whereby data collected from vnodes will be stored in a temporary *query buffers*. Each query buffer is a disk-backed leveldb table, created as a subdirectory under `timeseries.qbuf_root_path` which will be deleted after the query is served.
+For queries with an ORDER BY clause and/or LIMIT or OFFSET keywords, a separate, slower code path will be used whereby data collected from vnodes will be stored in temporary *query buffers*. Each query buffer is a disk-backed LevelDB table, created as a subdirectory under `timeseries.qbuf_root_path`, which will be deleted after the query is served.
 
 {{% note %}}
-1. Placing it on a fast media, such as a dedicated SSD or a RAM-based disk such as `/tmp`, is recommended.
+1. Placing the root path on a fast media, such as a dedicated SSD or a RAM-based disk such as `/tmp`, is recommended.
 
 2. The contents of this directory will be deleted at node startup and shutdown. If you choose to specify a path outside of `$(platform_data_dir)`, make sure no other process reads or writes to it.
 {{% /note %}}
