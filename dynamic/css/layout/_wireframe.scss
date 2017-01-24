@@ -1,0 +1,258 @@
+/**
+ * Basic Layouts
+ * =============
+ * This file may be a temporary. The intent is to keep it as minimal as possible
+ * while still communicating the essentials of the wireframe layout of a primary
+ * content page. Individual block layouts should be separated out into their own
+ * layout/*.scss files if they're too large to quickly parse here. When that
+ * should start happening is... yet to be determined. For now the rule of thumb
+ * is that this file should only contain positional and sizing styles for top-
+ * level block elements.
+ */
+
+// Styling Toggles
+// ===============
+// Toggle these to see what major changes in style will look like.
+// Gonna make life kinda hard until we come to consensus, but that's half the
+// point of this experiment. gl hf.
+
+
+// Styling Variables
+// =================
+// SCSS variables used to determine the size of shared measurements.
+
+// The banner is necessarily a reactive element, as should be the buffer between
+// the bottom of the banner and the top of the primary content.
+$banner-height-sm-down : 3.5rem;
+$banner-buffer-sm-down : 0.5rem;
+$banner-height-md-up   : 4.5rem;
+$banner-buffer-md-up   : 0.5rem;
+
+// Total padding at the top of the <article> and above <h#> elements that will
+// keep the .banner element from hiding text underneath it.
+$banner-padding-total-sm-down : $banner-height-sm-down + $banner-buffer-sm-down;
+$banner-padding-total-md-up   : $banner-height-md-up   + $banner-buffer-md-up;
+
+
+// Width of the Content Navigation sidebar.
+// No need to set a width for sm-down b/c the nav will take up the whole window.
+$content-nav-width-md    : 13rem;
+$content-nav-width-lg-up : 15rem;
+
+// Padding on either side of the content nav when it's not full-screen'd.
+// NB. This doesn't count padding added to the main-article.
+$content-nav-padding-left     : 1.0rem;
+$content-nav-padding-right-md : 2.0rem;
+$content-nav-padding-right-lg : 3.0rem;
+$content-nav-padding-right-xl : 4.5rem;
+$content-nav-padding-bottom   : 2.0rem;
+
+// Main-Article fixed-widths
+$main-article-width-md : 46.5rem;
+$main-article-width-lg : 46.5rem;
+$main-article-width-xl : 57.5rem;
+
+// Aggregate Content-Well fixed-width
+$content-well-width-md : $content-nav-padding-left + $content-nav-width-md    + $content-nav-padding-right-md + $main-article-width-md;
+$content-well-width-lg : $content-nav-padding-left + $content-nav-width-lg-up + $content-nav-padding-right-lg + $main-article-width-lg;
+$content-well-width-xl : $content-nav-padding-left + $content-nav-width-lg-up + $content-nav-padding-right-xl + $main-article-width-xl;
+
+
+
+// Z-Indexes of layered elements
+$banner-z-index      : 400;
+$content-nav-z-index : 200;
+$main-z-index        : 100;
+
+
+
+/**
+ * Content Navigation
+ * POSITION & SIZE ONLY -- See _content-nav.scss for presentation.
+ * NB. This element is expected to be .hidden-sm-down, but when JS is
+ *     enabled, we will remove (or override?) that attribute to make it visible
+ *     at all breakpoints.
+ * 1. When we're in a smaller width, we want the content nav to start hidden,
+ *    and reactively animate to fill the screen when we want it to be displayed.
+ * 2. When we're in a wider width, we want the content nav to always be fixed to
+ *    the left side of the screen.
+ * 3. Setting a `top: X` and a `bottom: Y` let's us get around the rough edges
+ *    of `height: 100%`. Should also work if we're not using `border-box` sizes.
+ * 4. We start the content nav more than 100% of its width to the left so that
+ *    we hide the box-shadow of its children.
+ */
+.content-nav {
+  position : fixed;                          /* 1, 2 */
+  z-index  : $content-nav-z-index;
+
+  width  : 100%;
+  top    : $banner-height-sm-down;           /* 3 */
+  bottom : 0;                                /* 3 */
+
+  left       : -200%;                        /* 1, 4 */
+  transition : left 200ms ease-in-out 50ms;  /* 1 */
+
+  @include narrow-from(sm) {
+    &.content-nav--fullscreen {
+      left : 0;                              /* 1 */
+    }
+  }
+
+  @include wide-from(md) {
+    top    : $banner-height-md-up;           /* 3 */
+    bottom : $content-nav-padding-bottom;    /* 3 */
+    left   : $content-nav-padding-left;      /* 2 */
+    width  : $content-nav-width-md;
+  }
+  @include wide-from(lg) {
+    width  : $content-nav-width-lg-up;
+  }
+}
+
+
+
+/**
+ * Banner
+ * POSITION & SIZE ONLY -- See _banner.scss for presentation.
+ * 1. Fill the width of the body. This will hopefully be the width of the
+ *    screen, but the body content might push past that, and widen this as well.
+ */
+.banner {
+  position : fixed;
+  z-index  : $banner-z-index;
+  top      : 0;
+  left     : 0; /* 1 */
+  right    : 0; /* 1 */
+  height   : $banner-height-sm-down;
+
+  @include wide-from(md) {
+    left   : 0;
+    height : $banner-height-md-up;
+  }
+}
+
+
+
+/**
+ * Content Well
+ * This isn't strictly a visible component; it wraps the main article and
+ * content-info footer s.t. transformations can be made that will affect those
+ * elements similarly.
+ * 1. Margins would be more descriptive for these spacings, but we don't want to
+ *    modify the size of this element so, in keeping with `box-sizing:
+ *    border-box`, we'll using paddings.
+ * 2. Top padding is set to the height of the banner s.t. content-well begins
+ *    exactly at the bottom of the banner.
+ * 3. The Content Navigation is hidden until 'md' width, so we only have to set
+ *    the left margin at that point.
+ */
+.content-well {
+  width : 100%;
+
+  padding-top : $banner-height-sm-down;                 /* 1, 2 */
+
+  @include wide-from('md') {
+    padding-top   : $banner-height-md-up;               /* 1, 2 */
+    padding-right : 0.5rem;
+    margin-right  : auto;
+    padding-left  : ($content-nav-width-md
+                     + $content-nav-padding-left
+                     + $content-nav-padding-right-md);  /* 1, 3 */
+    max-width     : $content-well-width-md;
+  }
+  @include wide-from('lg') {
+    padding-left : ($content-nav-width-lg-up
+                    + $content-nav-padding-left
+                    + $content-nav-padding-right-lg);   /* 1, 3 */
+    max-width    : $content-well-width-lg;
+  }
+  @include wide-from('xl') {
+    padding-left : ($content-nav-width-lg-up
+                    + $content-nav-padding-left
+                    + $content-nav-padding-right-xl);   /* 1, 3 */
+    max-width    : $content-well-width-xl;
+  }
+
+  &.content-well--immobile {
+    @include narrow-from(sm) {
+      position : fixed;
+      overflow : hidden;
+    }
+  }
+}
+
+
+
+/**
+ * Main Article
+ * 1. We apply some padding to the .main-article as well as the .content-well
+ *    b/c the content well doesn't apply its padding in sm-down views. Padding
+ *    on the .main-article will.
+ */
+.main-article {
+  padding : $banner-buffer-sm-down 0.5rem 0  0.5rem; /* 1 */
+
+  @include wide-from('md') {
+    padding-top : $banner-buffer-md-up;
+  }
+
+  /**
+   * Main Content Well
+   * 1. Because some elements inside this <main> are given relative positioning
+   *    and a negative z-index, we need to give the <main> relative positioning
+   *    and a positive z-index to keep it's children above the <html>'s level.
+   */
+  main {
+    position  : relative;      /* 1 */
+    z-index   : $main-z-index; /* 1 */
+
+    /**
+     * Headings within the Main Article
+     * POSITION & SIZE ONLY -- See _base.scss for presentation.
+     * 1. We use a ::before pseudo element to insert an invisible block inside
+     *    <h#> elements that will act as padding to prevent the banner from
+     *    hiding text when we link to a given heading.
+     *    To ensure we don't prevent interactions with statically positioned
+     *    elements above a given heading, we must give all headings relative
+     *    positioning and a negative z-index. We give each heading level a
+     *    sequentially lower z-index s.t. higher heading levels (<h3>) aren't
+     *    covered by proceeding lower levels (<h4>).
+     *    NB. This does mean that two <h3>s, one immediately after the other
+     *        _will still hit a z-conflict_, and the first will be (partially)
+     *        obscured by the second.
+     * 2. Don't render any contents, but do render the block.
+     * 3. I would have like to fill the contents with a description of this
+     *    trick (and explicitly set the height to 0 to prevent that description
+     *    from changing the height of the pseudo element), but I'm worried
+     *    screen readers would pick up that text, which would be completely
+     *    useless to them.
+     * 4. By setting the margin-top to be the negative of the padding-top, we
+     *    will add height to the parent element without moving it relative to
+     *    its original position. This is what acts as the effective padding.
+     */
+    h1, h2, h3, h4, h5, h6 {
+      position : relative;   /* 1 */
+
+      &:before {             /* 1 */
+        display    : block;
+        visibility : hidden; /* 2 */
+        content    : " ";    /* 3 */
+        height     : 0;      /* 3 */
+
+        margin-top    : -$banner-padding-total-sm-down; /* 4 */
+        padding-top   :  $banner-padding-total-sm-down; /* 4 */
+
+        @include wide-from(md) {
+          margin-top  : -$banner-padding-total-md-up;   /* 4 */
+          padding-top :  $banner-padding-total-md-up;   /* 4 */
+        }
+      }
+    }
+    h1 { z-index : -1; }     /* 1 */
+    h2 { z-index : -2; }     /* 1 */
+    h3 { z-index : -3; }     /* 1 */
+    h4 { z-index : -4; }     /* 1 */
+    h5 { z-index : -5; }     /* 1 */
+    h6 { z-index : -6; }     /* 1 */
+  }
+}
