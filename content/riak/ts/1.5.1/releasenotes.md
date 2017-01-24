@@ -18,7 +18,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/releasenotes"
 
 Released January 24, 2017.
 
-Riak TS 1.5.1 is a bug fix release of TS 1.5.0. You can read the full release notes for 1.5.0 [below](#ts-150).
+Riak TS 1.5.1 is a bug fix release of TS 1.5.0. You can read the full release notes for 1.5.0 [below](#ts-1-5-0).
 
 
 ## Changes
