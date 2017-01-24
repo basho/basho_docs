@@ -211,9 +211,10 @@ from how you configure your network. We have a few recommendations for
 
 ### Client Auth
 
-Many of the Riak drivers support HTTP basic auth, though this is not a
-role-based security solution. You might instead wish to connect over
-HTTPS or through a VPN.
+All of the Riak client libraries support encrypted TCP communication
+as well as authentication and authorization. For instructions on how
+to apply permissions and to require client authentication, please see
+our documentation on [Riak Security] [Riak Security][security basics].
 
 ### Multi-Datacenter Replication
 

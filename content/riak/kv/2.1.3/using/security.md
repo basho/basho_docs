@@ -198,19 +198,20 @@ HtU5clY0rP8W/Nr7tC+ZGH2bjT1bmN1E9IM4wjBdyWGTosvY6ciIxuY5p5Iy/UhB
 ### Authentication and Authorization
 
 For instructions on how to apply permissions and to require client
-authentication, please see our documentation on [Riak Security](/riak/kv/2.1.3/using/security/basics).
+authentication, please see our documentation on [Riak Security][security basics].
 
 ### Network Configurations
 
 Being a distributed database means that much of Riak's security springs
 from how you configure your network. We have a few recommendations for
-[Security and Firewalls](/riak/kv/2.1.3/using/security/basics).
+[Security and Firewalls][security basics].
 
 ### Client Auth
 
-Many of the Riak drivers support HTTP basic auth, though this is not a
-role-based security solution. You might instead wish to connect over
-HTTPS or through a VPN.
+All of the Riak client libraries support encrypted TCP communication
+as well as authentication and authorization. For instructions on how
+to apply permissions and to require client authentication, please see
+our documentation on [Riak Security][security basics].
 
 ### Multi-Datacenter Replication
 
