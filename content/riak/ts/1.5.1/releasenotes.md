@@ -30,7 +30,7 @@ Riak TS 1.5.1 is a bug fix release of TS 1.5.0. You can read the full release no
 ## Bugfixes
 
 * [[PR 1581](https://github.com/basho/riak_kv/pull/1581 )] A WHERE clause filtered on the quantum column, that used the = operator, would sometimes return a `Neither upper or lower time bounds were specified in the query` error.
-* [[PR 1583](https://github.com/basho/riak_kv/pull/1583 )] The configuration property name for the maximum number of quanta allowed in a query was initially using the incorrect key and overriding configured values.
+* [[PR 1583](https://github.com/basho/riak_kv/pull/1583 )] The configuration property name for the maximum number of quanta allowed in a query was initially using the incorrect key and overriding configured values. This removes the 1000 cap on quanta size.
 * [[PR 1590](https://github.com/basho/riak_kv/pull/1590 )] Fix for queries not returning results for tables using `DESC` on the local key, which could occur under some table schemas.
 
 
