@@ -98,7 +98,11 @@ riak_kv.query.timeseries.maximum_query_queue_length = 15
 
 ### Maximum quanta
 
-`riak_kv.query.timeseries.max_quanta_span`: the maximum number of quanta that a query can span. Default is 5000, maximum 10000.
+`riak_kv.query.timeseries.max_quanta_span`: the maximum number of quanta that a query can span. Default is 5000 (see bug note below).
+
+{{% note title="Bug" %}}
+Due to a bug, the `max_quanta_span` is capped at 1000, though the default will show in riak.conf as 5000.
+{{% /note %}}
 
 ```riak.conf
 riak_kv.query.timeseries.max_quanta_span = 5000
