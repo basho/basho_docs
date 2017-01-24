@@ -1,0 +1,170 @@
+////
+/// Basic Color Pallet
+/// ==================
+/// These colors were distilled from the Basho Branding Guidelines
+/// (http://basho.com/branding/), the .eps Basho Brand Asset files
+/// (http://basho.com/design-assets-hub/), the basho.com color pallet, and the
+/// older Middleman documentation website.
+///
+/// This file is split into two parts. The first is the primary, descriptive
+/// definition of the color palette for this site; defining common colors by
+/// name, rather than by use. The second is file more semantically-focused;
+/// colors are defined based on what they should be used for, rather than by
+/// what they are. Colors in the section should be renames of descriptive
+/// colors, or as modifications of descriptive colors (lighten(), darken(),
+/// saturate(), etc.).
+///
+///
+/// I would like to make it very clear that the final say of colors used is
+/// currently being made by someone who considers himself an engineer first, and
+/// a designer third (if I'm being generous). I am happy to field any and all
+/// recommendations for improvement.
+///
+///TODO: Once the redesign is complete, we should move back through the color
+///      palette and ensure that all colors that have been defined are used (or
+///      will likely be used soon). I have no interest in maintaining a color
+///      set that isn't in use, and therefore drifts away form the used colors.
+///
+///
+/// NB. We use Sass comments rather than the C-style block comments here because
+///     the later persist through the SCSS -> CSS compilation phase. This file
+///     **should not** generate any CSS of its own. Any C-style comments would
+///     result in dangling comment blocks in the compiled CSS.
+////
+
+
+// Descriptive Colors
+// ==================
+
+$orange-text       : #dc7d00; // basho.com     -- Orange text on orange BGs
+$orange-text-light : #e67716; // basho.com     -- Orange text on white  BGs
+$orange-red        : #ee6201; // basho.com     -- emphasized text
+
+$orange-darker     : #e57825; // Brand Orange  -- Brand color for structural elements
+$orange-dark       : #e78505; //               -- middle-ground appropriate for text
+$orange            : #f99d53; // Brand Orange  -- Primary Brand Color
+$orange-light      : #fcc074; // Brand Orange
+$orange-lighter    : #feca87; // basho.com     -- Primary background color (roughly)
+$orange-lightest   : #ffd195;
+
+$cyan-darker       : #3b4a5d; // Brand Cyan
+$cyan-dark         : #6c8997; // Brand Cyan    -- Secondary Brand Color
+$cyan              : #79aeb6; // Brand Cyan
+$cyan-light        : #bcd6d0;
+$cyan-lightest     : #e1eef4;
+
+$green-darker      : #304a48; // Brand Green
+$green-dark        : #597471; // basho.com     -- Green text on white BG
+$green             : #6f8a86; // Brand Green
+$green-light       : #88b3a8;
+$green-lighter     : #a7c7bf; // Brand Green
+
+$blue-dark         : #337ab7; // academy.basho -- Primary link color
+$blue              : #8cbbe2;
+$blue-light        : #c3e3fd;
+
+
+// Grays (so many grays)
+// ---------------------
+// The shades of gray that Basho uses (and yes; gray, not grey. I'm American, so
+// that's how I'll spell it) are slightly blue shifted. This site uses a lot of
+// different grays, so the below set was generated using roughly `sass-eval
+// rgb(n-3%, n%, n+3%)` where `n` is the given `gray-n`. As we move towards
+// white, the drift will shrink to +/-2, then eventually +/-1.
+//
+// The gray-warm shades have no drift, which will -- in relation to the brand
+// grays -- red-shift (warm) them.
+//
+// $gray-39 is a special case that was taken directly from the brand asset
+// files, and can be generated using `rgb(39%,39.5%,40.5%)`. It will remain as
+// the primary brand gray, and should be used for structural and branding
+// elements (menu bars, major headings, etc.). The rest of the site will remain
+// pushed towards the softened blue-grays below.
+$black        : #000000;
+$gray-15      : #1f262e; // rgb(12%,15%,18%)
+$gray-30      : #454d54; // rgb(27%,30%,33%)       -- Primary font color
+$gray-35      : #525961; // rgb(32%,35%,38%)
+$gray-39      : #636567; // rgb(39%,39.5%,40.5%)   -- Asset primary background
+$gray-40      : #5e666e; // rgb(37%,40%,43%)
+$gray-45      : #6b737a; // rgb(42%,45%,48%)
+$gray-50      : #788087; // rgb(47%,50%,53%)
+$gray-60      : #9199a1; // rgb(57%,60%,63%)
+$gray-75      : #b8bfc7; // rgb(72%,75%,78%)
+$gray-80      : #c7ccd1; // rgb(78%,80%,82%)
+$gray-85      : #d4d9de; // rgb(83%,85%,87%)
+$gray-90      : #e3e6e8; // rgb(89%,90%,91%)
+$gray-95      : #f0f2f5; // rgb(94%,95%,96%)
+$gray-warm-51 : #838383; // rgb(51.5%,51.5%,51.5%) -- Asset inverted background
+$gray-warm-88 : #e0e0e3; // rgb(88%,88%,89%)
+$gray-warm-92 : #ebebeb; // rgb(92%,92%,92%)
+$gray-warm-93 : #ededf0; // rgb(93%,93%,94%)       -- basho.com banner color (not actually warm)
+$gray-warm-95 : #f2f2f2; // rgb(95%,95%,95%)
+$gray-warm-97 : #f7f7f7; // rgb(97%,97%,97%)
+$white        : #ffffff;
+
+
+
+// Semantic Colors
+// ===============
+
+// Brand Colors
+// ------------
+$brand-primary-dark     : $orange-dark;
+$brand-primary          : $orange;
+$brand-primary-light    : $orange-light;
+$brand-primary-lightest : $orange-lightest;
+
+$brand-secondary-dark   : $cyan-darker;
+$brand-secondary        : $cyan-dark;
+$brand-secondary-light  : $cyan;
+
+$brand-gray             : $gray-39;
+
+
+// Background Colors
+// -----------------
+$light-background-warm : $gray-warm-97;
+$light-background-cool : $gray-90;
+$dark-background       : $gray-60;
+$darker-background     : $gray-39;
+
+
+// Font Colors
+// -----------
+$primary-font         : $gray-30;
+$inverted-font        : $gray-95;
+$inverted-font-soft   : $gray-90;
+$light-font           : $gray-50;
+$light-font-em        : $gray-30;
+$lighter-font         : $gray-60;
+$link-font            : $blue-dark;
+$link-font-em         : $orange-dark;
+
+
+// Box Shadow Colors
+// -----------------
+$shadow-color-light  : rgba(0,0,0,0.1); // Less intense shadow color, for lighter elements
+$shadow-color-mid    : rgba(0,0,0,0.2); // Default shadow color for box-shadows
+$shadow-color-dark   : rgba(0,0,0,0.4); // Moderately intense shadow color
+$shadow-color-darker : rgba(0,0,0,0.8); // More intense shadow color, for heavier elements
+
+
+// Selector Color Pallet
+// -----------------------------
+$version-selector-text      : $gray-95;
+$version-selector-text-dark : $gray-85;
+
+$version-color-1             : $orange;
+$version-color-1-light       : lighten($version-color-1, 10%);
+$version-color-2             : $cyan;
+$version-color-2-light       : lighten($version-color-2, 10%);
+$version-color-3             : $green-light;
+$version-color-3-light       : lighten($version-color-3, 10%);
+$version-color-4             : $green;
+$version-color-4-light       : lighten($version-color-4, 10%);
+$version-color-5             : $cyan-dark;
+$version-color-5-light       : lighten($version-color-5, 10%);
+$version-color-6             : $cyan-darker;
+$version-color-6-light       : lighten($version-color-6, 10%);
+$version-color-inactive      : $gray-95; // Pairs w/ $version-selector-text-dark
+$version-color-inactive-dark : $gray-85; // Pairs w/ $version-selector-text

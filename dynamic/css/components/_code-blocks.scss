@@ -1,0 +1,98 @@
+/**
+ * Code Blocks, Title, Tabs, and Everything Else
+ * 1. The edge fade width is primarily the width of the overlain <div> that
+ *    applies the linear gradient, but it also has to be used for the padding of
+ *    the tab wrapper to ensure the tabs aren't immediately covered.
+ */
+$edge_fader_width : 2rem; /* 1 */
+
+
+
+/**
+ * Wrapper around the Tab Set.
+ * Required to properly position the Edge Faders.
+ * 1. Relative positioning to give something for children to absolutely position
+ *    against and scale height to. Note that the height will be determined by
+ *    the dynamic height of the .code-block__tab-set element.
+ *TODO: Play around how this interacts with headers and the like. Make sure the
+ *      relative positioning doesn't mess with the z-indexing.
+ */
+.code-block__tab-set-wrapper {
+  position : relative; /* 1 */
+
+  .edge-fader {
+    font-size : 1rem;
+    width     : $edge_fader_width;
+    height    : 100%;
+  }
+}
+
+
+
+/**
+ * Tab Set; built with a <ul> and <li> tabs.
+ * 1. Set the whitespace to prevent any wrapping, allowing us to build a
+ *    horizontal scroll.
+ * 2. Left and right padding has to be set based on the width of the faders, as
+ *    background colors are superseded by the linear gradient.
+ * 3. Disable :hover color for the active tab.
+ */
+.code-block__tab-set {
+  white-space : nowrap;                /* 1 */
+  list-style  : none;
+  padding     : 0  $edge_fader_width;  /* 2 */
+  margin      : 0  0  0.5rem 0;
+
+  .code-block__tab {
+    a {
+      @extend %sans;
+      text-transform  : uppercase;
+      font-size       : 90%;
+      color           : $brand-primary;
+      text-decoration : none;
+      @include rounded-corners(0.25rem);
+      padding      : 0.5rem 0.5rem;
+      margin-right : 0.25rem;
+
+      transition : background-color 200ms ease 50ms,
+                   color            200ms ease 50ms;
+
+      @include on-event {
+        background : $light-background-warm;
+        color      : $brand-secondary;
+        text-decoration : none;
+      }
+    }
+  }
+
+  .code-block__tab--active {
+    a {
+      color      : $brand-gray;
+      cursor     : default;
+      background : $light-background-warm;
+
+      @include on-event {
+        color : $brand-gray;  /* 3 */
+      }
+    }
+  }
+}
+
+
+
+/**
+ * Titled Code Block
+ * This element will be nearly identical to the .code-block__tab--active
+ * element. The Title element will not (and should not) include an <a> tag nor a
+ * non-active mode, so is somewhat simplified.
+ */
+.code-block__title {
+  @extend %sans;
+  text-transform : uppercase;
+  font-size      : 90%;
+  color          : $brand-gray;
+  @include rounded-corners(0.25rem);
+  padding    : 0.5rem 0.75rem;
+  margin     : 0  0  0.25rem 0.75rem;
+  background : $light-background-warm;
+}
