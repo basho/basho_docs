@@ -23,7 +23,7 @@ Riak TS 1.5.1 is a bug fix release of TS 1.5.0. You can read the full release no
 
 ## Changes
 
-* We have unified both the way `CREATE TABLE` is serviced and the way we ensure the table is query-ready. [[PR 1577](https://github.com/basho/riak_kv/pull/1577)]
+* `CREATE TABLE` now waits for cluster metadata to propagate to all nodes before activating the table, which makes it ready for queries once the command is completed. [[PR 1577](https://github.com/basho/riak_kv/pull/1577)]
 * Query filters are now used in start/end key. With this change, filters on the local key are put into the start/end keys to reduce the range that eLevelDB has to cover. [[PR 1594](https://github.com/basho/riak_kv/pull/1594)]
 
 
