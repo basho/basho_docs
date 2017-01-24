@@ -8,7 +8,7 @@ menu:
     name: "Add-ons"
     identifier: "addons"
     weight: 450
-    pre: icon-tools
+    pre: tools
 toc: true
 canonical_link: "https://docs.basho.com/riak/ts/latest/add-ons"
 ---

@@ -6,7 +6,7 @@ menu:
     name: "Theory & Concepts"
     identifier: "theory"
     weight: 400
-    pre: icon-beaker
+    pre: beaker
 project: "riak_cs"
 project_version: "2.0.1"
 ---

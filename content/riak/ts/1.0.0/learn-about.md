@@ -6,7 +6,7 @@ menu:
     name: "Learn"
     identifier: "about"
     weight: 500
-    pre: icon-beaker
+    pre: beaker
 project: "riak_ts"
 project_version: "1.0.0"
 toc: true
