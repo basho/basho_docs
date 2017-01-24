@@ -17,6 +17,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/limit/"
 
 [select]: /riak/ts/1.5.1/using/querying/select
 [query guidelines]: /riak/ts/1.5.1/using/querying/guidelines/
+[configuring]: /riak/ts/1.5.1/configuring/riakconf/#maximum-returned-data-size
 
 The LIMIT statement is used with [`SELECT`][select] to return a limited number of results.
 
@@ -38,6 +39,8 @@ LIMIT «number_rows» [ OFFSET «offset_rows» ]
 ```
 
 The OFFSET modifier can be used with `LIMIT` to skip a specified number of results and return the remaining results ([example below](#offset-results)).
+
+Note that when using `LIMIT`, the `max_returned_data_size` is calculated differently. You can read more about how it is calculated [here][configuring].
 
 
 {{% note title="WARNING" %}}

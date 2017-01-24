@@ -155,7 +155,7 @@ The column names in the partition key are used to determine which vnodes handle 
 
 If both column names represent the same class or type of data for large numbers of writes, and the quanta that is specified has a large duration, only n_val vnodes will process the incoming writes. In these instances, Riak will not be able to parallelize the workload across CPUs.
 
-All keys and values are written contiguously on disk. For each co-located block of data a sub-query is created. Currently there is a default maximum of 5 sub-queries per single query to prevent overload; see [Configure Riak TS][configuring] for details on changing that value.
+All keys and values are written contiguously on disk. For each co-located block of data a sub-query is created. Currently there is a default maximum of 20 sub-queries per single query to prevent overload; see [Configure Riak TS][configuring] for details on changing that value.
 
 Choosing a quanta size involves tradeoffs. Small quanta are best for writes while large quanta are best for queries. You should choose your quanta according to your data needs.
 
