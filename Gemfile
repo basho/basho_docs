@@ -7,6 +7,7 @@ gem "compass", "~>1.0.3"
 gem "sprockets", "~>3.7"
 gem "coffee-script", "~>2.4.1"
 gem "uglifier", "~>3.0.0"
+gem "therubyracer"
 
 gem "aws-sdk", "~> 2.4.3"
 gem "aws-s3", "~> 0.6.3"

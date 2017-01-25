@@ -150,7 +150,7 @@ os = order_summary_bucket.new(str(order_summary['customer_id']),
 os.store()
 ```
 
- While individual `Customer` and `Order` objects don't change much (or shouldn't change), the `Order Summaries` object will likely change often.  It will do double duty by acting as an index for all customer orders, and also holding some relevant data such as the order total, etc.  If we showed this information in our application often, it's only one extra request to get all the info. 
+ While individual `Customer` and `Order` objects don't change much (or shouldn't change), the `Order Summaries` object will likely change often.  It will do double duty by acting as an index for all customer orders, and also holding some relevant data such as the order total, etc.  If we showed this information in our application often, it's only one extra request to get all the info.
 
 ```python
 customer = customer_bucket.get('1').data
@@ -162,15 +162,15 @@ Which returns our amalgamated objects:
 
 ```python
 {
-  u'city': u'Columbus', u'name': u'John Smith', u'zip': u'43210', 
-  u'created_date': u'2013-10-01 14:30:26', 
-  'order_summary': { 
+  u'city': u'Columbus', u'name': u'John Smith', u'zip': u'43210',
+  u'created_date': u'2013-10-01 14:30:26',
+  'order_summary': {
     u'customer_id': 1, u'summaries': [
-      {u'order_id': 1, u'order_date': u'2013-10-01 14:42:26', u'total': 415.98}, 
-      {u'order_id': 2, u'order_date': u'2013-10-15 16:43:16', u'total': 359.99}, 
+      {u'order_id': 1, u'order_date': u'2013-10-01 14:42:26', u'total': 415.98},
+      {u'order_id': 2, u'order_date': u'2013-10-15 16:43:16', u'total': 359.99},
       {u'order_id': 3, u'order_date': u'2013-11-03 17:45:28', u'total': 74.98}
-    ]}, 
-  u'phone': u'+1-614-555-5555', u'state': u'Ohio', u'address': u'123 Main Street', 
+    ]},
+  u'phone': u'+1-614-555-5555', u'state': u'Ohio', u'address': u'123 Main Street',
   u'customer_id': 1
 }
 ```
@@ -179,6 +179,12 @@ While this pattern is very easy and extremely fast with respect to queries and c
 
 
 ### Secondary Indexes
+
+{{% note %}}
+Secondary indexes in Riak KV require a sorted backend: [Memory](/riak/kv/2.0.1/setup/planning/backend/memory) or [LevelDB](/riak/kv/2.0.1/setup/planning/backend/leveldb). [Bitcask](/riak/kv/2.0.1/setup/planning/backend/bitcask) does not support secondary indexes.
+
+See [Using Secondary Indexes (2i)](/riak/kv/2.0.1/developing/usage/secondary-indexes) for more information on developing with secondary indexes.
+{{% /note %}}
 
 If you're coming from a SQL world, Secondary Indexes (2i) are a lot like SQL indexes.  They are a way to quickly lookup objects based on a secondary key, without scanning through the whole dataset.  This makes it very easy to find groups of related data by values, or even ranges of values.  To properly show this off, we will now add some more data to our application, and add some secondary index entries at the same time.
 
@@ -191,7 +197,7 @@ for i in range(1, 4):
     order.store()
 ```
 
-As you may have noticed, ordinary Key/Value data is opaque to 2i, so we have to add entries to the indexes at the application level. 
+As you may have noticed, ordinary Key/Value data is opaque to 2i, so we have to add entries to the indexes at the application level.
 Now let's find all of Jane Appleseed's processed orders, we'll lookup the orders by searching the `saleperson_id_int` index for Jane's id of `9000`.
 
 ```python
@@ -224,7 +230,7 @@ Boom, easy-peasy.  We used 2i's range feature to search for a range of values, a
 
 So to recap:
 
-* You can use Secondary Indexes to quickly lookup an object based on a secondary id other than the object's key. 
+* You can use Secondary Indexes to quickly lookup an object based on a secondary id other than the object's key.
 * Indexes can have either Integer or Binary(String) keys
 * You can search for specific values, or a range of values
 * Riak will return a list of keys that match the index query

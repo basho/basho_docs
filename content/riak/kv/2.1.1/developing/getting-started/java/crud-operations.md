@@ -30,7 +30,7 @@ StoreValue storeOp = new StoreValue.Builder(quoteObject)
         .build();
 ```
 
-In line 76 we use our `client` object to execute the storage operation:
+We then use our `client` object to execute the storage operation:
 
 ```java
 StoreValue.Response response = client.execute(storeOp);
@@ -52,6 +52,24 @@ assert(fetchedObject.getValue.equals(quoteObject.getValue()));
 If the values are equal, as they should be, the Java client will say
 `Success!  The object we created and the object we fetched have the same
 value`. If not, then the client will throw an exception.
+
+## Updating Objects
+
+Once we've read the object back in from Riak, we can update the object
+and store it back as we did before with the `StoreValue` object:
+
+```java
+fetchedObject.setValue(BinaryValue.create("You can be my wingman any time."));
+StoreValue updateOp = new StoreValue.Builder(fetchedObject)
+        .withLocation(quoteObjectLocation)
+        .build();
+StoreValue.Response updateOpResp = client.execute(updateOp);
+```
+
+For more in depth information on updating objects and sibling resolution in
+Riak, see [Updating Objects](/riak/kv/2.1.1/developing/usage/updating-objects/)
+and [Conflict Resolution](/riak/kv/2.1.1/developing/usage/conflict-resolution/)
+documentation.
 
 ## Deleting Objects
 
@@ -117,3 +135,49 @@ If we fetch the object (using the same method we showed up above and in
   "copiesOwned": 3
 }
 ```
+
+Since we really like Moby Dick, let's buy a couple more copies
+and update the POJO.
+
+To update the POJO, we would use `UpdateValue` by
+extending a new `BookUpdate` class as follows:
+
+```java
+public static class BookUpdate extends UpdateValue.Update<Book> {
+    private final Book update;
+    public BookUpdate(Book update){
+        this.update = update;
+    }
+
+    @Override
+    public Book apply(Book t) {
+        if(t == null) {
+            t = new Book();
+        }
+
+        t.author = update.author;
+        t.body = update.body;
+        t.copiesOwned = update.copiesOwned;
+        t.isbn = update.isbn;
+        t.title = update.title;
+
+        return t;
+    }
+}
+```
+
+Then using the `BookUpdate` class with our `mobyDick` object:
+
+```java
+mobyDick.copiesOwned = 5;
+BookUpdate updatedBook = new BookUpdate(mobyDick);
+
+UpdateValue updateValue = new UpdateValue.Builder(mobyDickLocation)
+    .withUpdate(updatedBook).build();
+UpdateValue.Response response = client.execute(updateValue);
+```
+
+For more in depth information on updating objects and sibling resolution in
+Riak, see [Updating Objects](/riak/kv/2.1.1/developing/usage/updating-objects/)
+and [Conflict Resolution](/riak/kv/2.1.1/developing/usage/conflict-resolution/)
+documention.

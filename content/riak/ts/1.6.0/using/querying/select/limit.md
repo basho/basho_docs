@@ -17,13 +17,18 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/limit/"
 
 [select]: /riak/ts/1.6.0/using/querying/select
 [query guidelines]: /riak/ts/1.6.0/using/querying/guidelines/
+[configuring]: /riak/ts/1.6.0/configuring/riakconf/#maximum-returned-data-size
 
 The LIMIT statement is used with [`SELECT`][select] to return a limited number of results.
 
 This document shows how to run various queries using `LIMIT`. See the [guidelines][query guidelines] for more information on limitations and rules for queries in Riak TS.
 
-{{% note title="Warning" %}}
-The initial implementation of `LIMIT` in SELECT queries uses on-disk query buffer. It adds some overhead which increases the query latency, sometimes significantly.
+{{% note title="A Note on Latency" %}}
+`LIMIT` uses on-disk query buffer to prevent overload, which adds some overhead and increases the query latency.
+
+You may adjust various parameters in [riak.conf](/riak/ts/1.6.0/configuring/riakconf/) depending on how much memory your riak nodes will have, including `max_running_fsms`, `max_quanta_span`, `max_concurrent_queries`. It is also worth noting that `max_returned_data_size` is calculated differently for LIMIT statements; you can read more about that [here](/riak/ts/1.6.0/configuring/riakconf/#maximum-returned-data-size). All of these settings impact the maximum size of data you can retrieve at one time, and it is important to understand your environmental limitations or you run the risk of an out-of-memory condition.
+
+However, the most effective means of speeding up your `LIMIT` queries is to place the query buffer directory (`timeseries_query_buffers_root_path`) on fast storage or in memory-backed /tmp directory.
 {{% /note %}}
 
 
@@ -38,7 +43,6 @@ LIMIT «number_rows» [ OFFSET «offset_rows» ]
 ```
 
 The OFFSET modifier can be used with `LIMIT` to skip a specified number of results and return the remaining results ([example below](#offset-results)).
-
 
 {{% note title="WARNING" %}}
 Before you run `SELECT` you must ensure the node issuing the query has adequate memory to receive the response. If the returning rows do not fit into the memory of the requesting node, the node is likely to fail.

@@ -80,7 +80,7 @@ package, add lines for the `riak` user like so, substituting your
 desired hard and soft limits:
 
 ```config
-riak soft nofile 4096
+riak soft nofile 65536
 riak hard nofile 200000
 ```
 

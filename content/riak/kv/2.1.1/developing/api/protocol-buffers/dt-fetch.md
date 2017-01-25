@@ -68,7 +68,7 @@ Parameter | Description
 `timeout` | The timeout duration, in milliseconds, after which Riak will return an error message
 `sloppy_quorum` | If this parameter is set to `true`, the next available node in the ring will accept requests if any primary node is unavailable
 `n_val` | The number of nodes to which the delete request will be sent
-`include_context` | If `return_body` is set to `true`, the Data Type's opaque "context" will be returned to the client when the `DtUpdateResp` is sent to the client.
+`include_context` | If this parameter is set to `true`, the Data Type's opaque "context" will be returned to the client
 
 ## Response
 
@@ -124,4 +124,3 @@ message MapEntry {
     repeated MapEntry map_value      = 6;
 }
 ```
-
