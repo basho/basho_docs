@@ -108,7 +108,12 @@ Protocol | Port
 
 ### Riak Search Ports
 
-Riak's [search][usage search] feature relies on [Apache Solr][Solr], which runs on each Riak node if security has been [enabled][config search enabling]. When Riak's Search subsystem starts up, [JMX][JMX] opens a well-known port as well as some ephemeral ports. The well-known port is determined by the value of the `search.solr.jmx_port` in each node's [Search configuration][config reference search]. The default is 8985.
+Riak's [search][usage search] feature relies on [Apache Solr][Solr], which runs
+on each Riak node if security has been [enabled][config search enabling]. When
+Riak's Search subsystem starts up, [JMX][JMX] opens a well-known port as well
+as some ephemeral ports. The well-known port is determined by the value of the
+`search.solr.jmx_port` in each node's [Search configuration][config reference search].
+The default is 8985.
 
 In addition to JMX ports, Solr also binds to a well-known port of its
 own, as determined by each node's `search.solr.port` setting, which is
