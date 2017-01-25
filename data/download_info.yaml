@@ -4326,7 +4326,15 @@ riak_ts:
           file_size: 68688578
           chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak_ts/1.5/1.5.1/debian/wheezy/riak-ts_1.5.1-1_amd64.deb.sha
   - os: osx
-    versions: []
+    versions:
+    - version: '10.8'
+      architectures:
+      - arch: x86_64
+        file_info:
+          file_name: riak-ts-1.5.1-OSX-x86_64.tar.gz
+          file_href: http://s3.amazonaws.com/downloads.basho.com/riak_ts/1.5/1.5.1/osx/10.8/riak-ts-1.5.1-OSX-x86_64.tar.gz
+          file_size: 67176510
+          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak_ts/1.5/1.5.1/osx/10.8/riak-ts-1.5.1-OSX-x86_64.tar.gz.sha
   - os: rhel
     versions:
     - version: '6'
