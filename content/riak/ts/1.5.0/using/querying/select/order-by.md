@@ -17,14 +17,20 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/select/ord
 
 [select]: /riak/ts/1.5.0/using/querying/select
 [query guidelines]: /riak/ts/1.5.0/using/querying/guidelines/
+[configuring]: /riak/ts/1.5.0/configuring/riakconf/#maximum-returned-data-size
 
 The ORDER BY statement is used with [`SELECT`][select] to sort results by one or more columns in ascending or descending order. `ORDER BY` is useful for operations such as returning the most recent results in a set.
 
 This document shows how to run various queries using `ORDER BY`. See the [guidelines][query guidelines] for more information on limitations and rules for queries in Riak TS.
 
-{{% note title="Warning" %}}
-The initial implementation of `ORDER BY` in SELECT queries uses on-disk query buffer. It adds some overhead which increases the query latency, sometimes significantly.
+{{% note title="A Note on Latency" %}}
+`ORDER BY` uses on-disk query buffer to prevent overload, which adds some overhead and increases the query latency.
+
+You may adjust various parameters in [riak.conf][configuring] depending on how much memory your riak nodes will have, including `max_running_fsms`, `max_quanta_span`, `max_concurrent_queries`. It is also worth noting that `max_returned_data_size` is calculated differently for ORDER BY statements; you can read more about that [here][configuring]. All of these settings impact the maximum size of data you can retrieve at one time, and it is important to understand your environmental limitations or you run the risk of an out-of-memory condition.
+
+However, the most effective means of speeding up your `ORDER BY` queries is to place the query buffer directory (`timeseries_query_buffers_root_path`) on fast storage or in memory-backed /tmp directory.
 {{% /note %}}
+
 
 ## Overview
 
@@ -37,6 +43,8 @@ ORDER BY column_name [ ASC | DESC ] [ NULLS { FIRST | LAST } ] [, ...]
 ```
 
 During an `ORDER BY` sort if two rows are equal according to the leftmost column, they are compared according to the next column, and so on.
+
+Note that when using `LIMIT`, the `max_returned_data_size` is calculated differently. You can read more about how it is calculated [here][configuring].
 
 ### Options
 
