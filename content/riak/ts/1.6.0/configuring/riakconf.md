@@ -119,12 +119,22 @@ riak_kv.query.timeseries.max_quanta_span = 5000
 When a query is broken down into per-quantum subqueries, all subqueries are queued for execution. Starting from the arrival of the second result set, we estimate the projected query result size as:
 
 * `TotalQuerySize = AverageSubqueryResultSize * NumberOfSubqueries`, for regular queries without a LIMIT or ORDER BY clause;
-* `TotalQuerySize = AverageSubqueryResultSize * LimitValue`, for queries with a LIMIT or ORDER BY clause.
+* `TotalQuerySize = AverageRowResultSize * LimitValue`, for queries with a LIMIT or ORDER BY clause.
 
 If the total size is found to exceed `max_returned_data_size`, the query is cancelled, with an error code 1022 ("Projected result of a SELECT query is too big").
 
 ```riak.conf
 riak_kv.query.timeseries.max_returned_data_size = 10*1000*1000
+```
+
+### Maximum total size of query buffers held in memory
+
+`riak_kv.query.timeseries.qbuf_inmem_max`: Max heap size of the query buffer manager process before query buffers start to be written out to the leveldb backend.  Default value is "10MB".
+
+The query buffer manager tries to keep collected query results in memory for faster retrieval.  To avoid accumulating excessive amounts of data, this parameter sets the max process heap limit the query buffer manager can allocate before it dumps the entire query buffer with which the limit was hit, to the leveldb backend (and proceeds to add eventual chunks to it).
+
+```riak.conf
+riak_kv.query.timeseries.qbuf_inmem_max = "10MB"
 ```
 
 
