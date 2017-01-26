@@ -355,8 +355,21 @@ ddl: {ddl_v2,<<"GeoCheckin">>,
 
 ## Editing Your Table
 
-Once created, you cannot edit your Riak TS table. If you discover something wrong with the setup of your Riak TS table, you will need to create it again. You will also need to decide whether to scrap the data in the existing table or move it from the old table to the new one.
+Until your table is activated, you can change the schema by re-running the `CREATE TABLE` command.
 
+Once activated, however, you cannot change the schema your Riak TS table. If you discover something wrong with the setup of your Riak TS table, you will need to create it again. You will also need to decide whether to scrap the data in the existing table or move it from the old table to the new one.
+
+After (and only after) your table is activated, you can modify the table properties metadata defined using `WITH` (see **Using `WITH`** above) by use of the `ALTER TABLE` command.
+
+`ALTER TABLE` is currently limited to updating properties, so it cannot modify column definitions or other schema elements.
+
+For example, if you wished to sacrifice some performance for additional data durability, you could change the `w` property from its default of 2 to 3 (or higher, if you have an `n_val` larger than the default of 3):
+
+```
+riak-shell>ALTER TABLE GeoCheckin WITH (w=3);
+```
+
+Be certain you know the impact of changing table properties after data is already added to your system. For example, increasing the `n_val` on a table is problematic: as soon as you do, Riak will assume more copies of your existing data are present than is actually the case, and queries may not return all of your data.
 
 ## Next Steps
 
