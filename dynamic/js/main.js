@@ -41,7 +41,7 @@
  */
 
 //= require ./basho/anchorify-headings.js
-//= require ./basho/toc-generator.js
+//= require ./basho/table-of-contents.js
 
 //= require ./basho/content-navigation.js
 //= require ./basho/selectors.js

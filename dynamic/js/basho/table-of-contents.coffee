@@ -22,7 +22,7 @@ toc = $(".table-of-contents")
 return if not toc.length
 
 # Finda all h2 elements and early out if there are fewer than 3 of them.
-h2s = $('main').find('h2')
+h2s = $('main > h2')
 return if h2s.length < 3
 
 # Build DOM elements in JQuery, to be appended later.
@@ -33,13 +33,16 @@ toc_items   = $('<ol class ="table-of-contents__items"/>').appendTo(toc_wrapper)
 toc_wrapper.addClass("table-of-contents__wrapper--multi") if h2s.length >= 6
 
 h2s.each ->
-  # Because this is being run after anchors have been applied to all
-  # header elements on the page, the `$(this).html()` will include the
-  # correct anchor after stripping the .anchor-icon class from each link
+  $that = $(this) # Memoize.
+  # Note that we use the JQuery `text()` function. This will strip all other
+  # HTML elements (ephasis, italics, code --- most importantly, other anchors)
+  # from the text of the header before using it as a local link.
   toc_items.append($("<li/>", {
         class : "table-of-contents__item",
-        html  : $(this).html().replace(/anchor-icon/, "")
+        html  : "<a href=##{$that.attr('id')}>#{$that.text()}</a>"
       }))
 
+
+# Append the ToC elements to the .table-of-contents placeholder
 toc_title.appendTo(toc)
 toc_wrapper.appendTo(toc)
