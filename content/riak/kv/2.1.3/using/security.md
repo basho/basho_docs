@@ -15,11 +15,20 @@ aliases:
   - /riak/kv/2.1.3/ops/advanced/security
 ---
 
+[config reference search]: /riak/kv/2.1.4/configuring/reference/#search
+[config search enabling]: /riak/kv/2.1.4/configuring/search/#enabling-riak-search
+[config v3 ssl]: /riak/kv/2.1.4/configuring/v3-multi-datacenter/ssl
+[JMX]: http://www.oracle.com/technetwork/java/javase/tech/javamanagement-140525.html
+[security basics]: /riak/kv/2.1.4/using/security/basics
+[security managing]: /riak/kv/2.1.4/using/security/managing-sources/
+[Solr]: http://lucene.apache.org/solr/
+[usage search]: /riak/kv/2.1.4/developing/usage/search
+
 > **Internal security**
 >
 > This document covers network-level security. For documentation on the
 authentication and authorization features introduced in Riak 2.0, see
-[Authentication and Authorization](/riak/kv/2.1.3/using/security/basics) and [Managing Security Sources](/riak/kv/2.1.3/using/security/managing-sources/)
+[Authentication and Authorization][security basics] and [Managing Security Sources][security managing]
 
 This article discusses standard configurations and port settings to use
 when providing network security for a Riak Cluster. There are two
@@ -99,13 +108,12 @@ Protocol | Port
 
 ### Riak Search Ports
 
-Riak's [search](/riak/kv/2.1.3/developing/usage/search/) feature relies on [Apache
-Solr](http://lucene.apache.org/solr/), which runs on each Riak node if
-security has been [enabled](/riak/kv/2.1.3/configuring/search/#enabling-riak-search). When Riak's Search subsystem starts up,
-[JMX](http://www.oracle.com/technetwork/java/javase/tech/javamanagement-140525.html)
-opens a well-known port as well as some ephemeral ports. The well-known
-port is determined by the value of the `search.solr.jmx_port` in each
-node's [Search configuration](/riak/kv/2.1.3/configuring/reference/#search). The default is 8985.
+Riak's [search][usage search] feature relies on [Apache Solr][Solr], which runs
+on each Riak node if security has been [enabled][config search enabling]. When
+Riak's Search subsystem starts up, [JMX][JMX] opens a well-known port as well
+as some ephemeral ports. The well-known port is determined by the value of the
+`search.solr.jmx_port` in each node's [Search configuration][config reference search].
+The default is 8985.
 
 In addition to JMX ports, Solr also binds to a well-known port of its
 own, as determined by each node's `search.solr.port` setting, which is
@@ -158,59 +166,25 @@ over the Internet. This allows us to open a dialogue with the security
 community on how best to handle a possible exploit without putting any
 users at risk.
 
-For sensitive topics, you may send a secure message. The security team
-has the following GPG key:
-
-<pre><tt>-----BEGIN PGP PUBLIC KEY BLOCK-----
-Version: GnuPG v1.4.12 (Darwin)
-
-mQENBFAQM40BCADGjCmwn9Q9xpWfJ4HpKGwt5kGyf4Oq4PglC28MhtscT9cGwtJv
-gRK1ckzkwhCdw6uQKRN3o3iVFHFp+uD8G28zs1fGNfpUZls7WV29WyxfIgB3f01Q
-Ll6tiZ2fLG69lSlLTPn7JlzZz1sRVrAKdwUVEYRKCidF0bqaztBCkKbcNAmIvV1E
-TboEGMPLXqOnK2134NP+tp0B15oNwSQd9jmOrClvhCF5NR4ATQguS5ecp05/GldZ
-8vQQ1XOBc2uiuWpzvhD2CAXQ/Spxir8JjbqpzjPo6d4yte7pYvx6wfnJ9b2KC+sn
-AtdqqQslZ3saceXAFXFOIGk7NOq8LSattmRbABEBAAG0GkJhc2hvIDxzZWN1cml0
-eUBiYXNoby5jb20+iQE4BBMBAgAiBQJQEDONAhsDBgsJCAcDAgYVCAIJCgsEFgID
-AQIeAQIXgAAKCRDEq056TdGVhHl7B/9rXnzZOdC7M8NN+BAEO8kucw0dXGhgcahs
-zS81WDRpRJD1fi+QBinfohGg2phIq5TlrXNmduFwCpvyujNkeiCr+Nh00mp6SdU2
-m7XFzfPIz3ZWR0YNdvruaf0W5K6jAaHcJkkc3Xwpgk6rxTcNwWUqYRGD7zie4Iad
-At0WLJXMUvJH2XoMf8MGO5mHspkqC5M/HvNvH3ZG5CldIHPqgZdg4NXMcGtFAr8z
-72wFamick31oCpJyWq+AloOxh3mJpfhp94EBrc/lGbbOD/Sg4oyT+B/4Ee0zWqN5
-hDBefi3FCyjo2NuhM1YyRrrvWe7Kwaj8iuItYPIpEwGUqEJzZ7kYuQENBFAQM40B
-CAC4J0Pb1WXjGpsQnfOdzZUq57x63RaVA74IIuLSU7v//04wNgNGiLdMbz4isr6K
-5NfXTu0i+GqQdcj7UnajwxYCUEnXYpKQBLfT82tTgdw/DPXYgSnxIC02POrwCnhr
-wSDbUryuTdbZFS13HPrQPdOXZlmG8oHOgu04a9vPUlkshYmUZm+zRY2FIuW8fJ44
-ysJBm49hxkF9WuyGnNiU8UJEvw0sS63x4EUkYdJXLzzdC9T8/t8HGV3aKFEZ3km0
-GgYUlt04FdWtFjYcMQnrhJSf7atxwQLpfH78sFCyEH+PFIRfnkirVx9TbN0QSw/z
-VaRNxJQde2SHfEft66mf0RJ5ABEBAAGJAR8EGAECAAkFAlAQM40CGwwACgkQxKtO
-ek3RlYRPFwf+LiHlf9tCqRLwmI2X8bBmoQTV/Eb4pbPF/1WR6W/afAMp4ZiLpWtn
-XeZ9UNdnQDPJIMPhaWrPHB4oLCnDBm1m6wq6FVjHcDur+s7QtWnnTuaVKBDKY42T
-NkFj+WP3ZBsfDBtt49KRLm0bWqzkhK7IA+1DMKRmTUhf0tIeLb0um0hL+mXNucrE
-dMk+Fdh/54IfHMMw3GwtNd+ZMLf8cht+z3Z0Y0qONe0ClfkiligYItD+P5tufhew
-HtU5clY0rP8W/Nr7tC+ZGH2bjT1bmN1E9IM4wjBdyWGTosvY6ciIxuY5p5Iy/UhB
-7Xk9zl4ZkKcsVnuscYQPNE2jb393XAhFEg==
-=1KRp
------END PGP PUBLIC KEY BLOCK-----
-</tt></pre>
-
 ## Security Best Practices
 
 ### Authentication and Authorization
 
 For instructions on how to apply permissions and to require client
-authentication, please see our documentation on [Riak Security](/riak/kv/2.1.3/using/security/basics).
+authentication, please see our documentation on [Riak Security][security basics].
 
 ### Network Configurations
 
 Being a distributed database means that much of Riak's security springs
 from how you configure your network. We have a few recommendations for
-[Security and Firewalls](/riak/kv/2.1.3/using/security/basics).
+[Security and Firewalls][security basics].
 
 ### Client Auth
 
-Many of the Riak drivers support HTTP basic auth, though this is not a
-role-based security solution. You might instead wish to connect over
-HTTPS or through a VPN.
+All of the Riak client libraries support encrypted TCP communication
+as well as authentication and authorization. For instructions on how
+to apply permissions and to require client authentication, please see
+our documentation on [Riak Security][security basics].
 
 ### Multi-Datacenter Replication
 
@@ -218,5 +192,5 @@ For those versions of Riak that support Multi Data Center (MDC)
 Replication, you can configure Riak 1.2+ to communicate over SSL, to
 seamlessly encrypt the message traffic.
 
-See also: [Multi Data Center Replication: SSL](/riak/kv/2.1.3/configuring/v3-multi-datacenter/ssl) in the Enterprise
+See also: [Multi Data Center Replication: SSL][config v3 ssl] in the Enterprise
 Documentation.
