@@ -149,6 +149,9 @@ a {
  *    :hover mechanics for closely packed heading elements plays a little bit
  *    nicer with the banner padding.
  * 3. Override the inline code styling to keep the color consistent.
+ * 4. If header is a link to another page, it will be wrapped in the local-ID
+ *    anchor, and then the Markdown-rendered anchor. In this case, do change
+ *    text color to the emphasized link.
  */
 h1 { @extend %sans-light;
      color          : red;          /* 1 */
@@ -201,6 +204,12 @@ h1, h2, h3, h4, h5, h6 {
       text-decoration : none;
 
       code { color : $brand-gray; }  /* 3 */
+    }
+
+    a {                              /* 4 */
+      @include on-event {
+        color : $link-font-em;
+      }
     }
   }
 }

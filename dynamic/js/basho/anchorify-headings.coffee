@@ -28,5 +28,5 @@ $("main").each ->
     that     = $(this) # Memoize the lookup.
     id       = that.attr('id')
     contents = that.html()
-    anchor   = "<a class=\"anchor-icon\" href=\"\##{id}\">#{contents}</a>"
-    that.html(anchor)
+    anchor   = "<a class='anchor-icon' href='##{id}'></a>"
+    that.wrapInner(anchor)
