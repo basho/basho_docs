@@ -36,7 +36,7 @@ ahead of your requirements.
        <span class="error_span" id="n_total_keys_error"></span>
      </li>
      <li>
-       <label for="n_bucket_size">Average Bucket Size (Bytes):</label>
+       <label for="n_bucket_size">Average Size of Bucket Names (Bytes):</label>
        <input id="n_bucket_size"type="text" size="7" name="n_bucket_size" value="" class="calc_input">
        <span class="error_span"id="n_bucket_size_error"></span>
      </li>
@@ -75,14 +75,14 @@ into your RAM calculation:
 Variable | Description
 :--------|:-----------
 Static Bitcask per-key overhead | 44.5 bytes per key
-Estimated average bucket-plus-key length | The combined number of characters your bucket + keynames will require (on average). We'll assume 1 byte per character.
+Estimated average size of bucket names-plus-key length | The combined number of characters your bucket + keynames will require (on average). We'll assume 1 byte per character.
 Estimated total objects | The total number of key/value pairs your cluster will have when started
 Replication Value (`n_val`) | The number of times each key will be replicated when written to Riak (the default is 3)
 
 ## The actual equation
 
 Approximate RAM Needed for Bitcask = (static bitcask per key overhead +
-estimated average bucket+key length in bytes) * estimate total number of
+estimated average size of bucket names+key length in bytes) * estimate total number of
 keys * `n_val`
 
 Example:
