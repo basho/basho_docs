@@ -9,8 +9,8 @@
     margin-bottom : 3rem;
   }
 
-  @include wide-from(lg) {
-    margin-bottom : 4rem;
+  @include wide-from(md) {
+    margin-bottom : 5rem;
   }
 }
 
