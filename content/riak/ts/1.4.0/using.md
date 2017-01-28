@@ -6,7 +6,7 @@ menu:
     name: "Use"
     identifier: "using"
     weight: 300
-    pre: icon-database
+    pre: database
 project: "riak_ts"
 project_version: "1.4.0"
 toc: true

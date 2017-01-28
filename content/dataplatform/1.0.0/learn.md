@@ -8,7 +8,7 @@ menu:
     name: "Learn"
     identifier: "learn"
     weight: 105
-    pre: icon-beaker
+    pre: beaker
 toc: false
 aliases:
   - /dataplatform/1.0.0/learn-about-dataplatform/learn-about-dataplatform/
