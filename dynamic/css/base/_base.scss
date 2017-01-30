@@ -343,6 +343,17 @@ td {
 
 
 /**
+ * Images
+ */
+img {
+  @include when-inside('.main-article') {
+    max-width : 100%;
+  }
+}
+
+
+
+/**
  * Color selection regions
  */
 ::selection {
