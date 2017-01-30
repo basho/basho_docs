@@ -48,6 +48,8 @@
 //= require ./basho/edge-fader.js
 //= require ./basho/code-blocks.js
 
+//= require ./basho/bitcask-calculator.js
+
 
 
 /* Vendor Library Configuration and Initialization
