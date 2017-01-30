@@ -1,0 +1,25 @@
+/**
+ * Client Library Branding List
+ * This is assumed to be an in-Markdown HTML element for
+ * developing/getting-started.md.
+ */
+.client-library-logos {
+  list-style : none;
+}
+
+.client-library-logo {
+  @include rounded-corners(0.25rem);
+  margin : 0.5rem;
+  padding : 0.4rem;
+
+  box-shadow : 0  -0.25rem 2rem -0.5rem $shadow-color-mid;
+
+  background : $light-background-warm;
+
+  transition : background 300ms ease-in,
+               box-shadow 300ms ease-in;
+  @include on-event {
+    background : $light-background-cool;
+    box-shadow : 0  -0.25rem 2rem -0.5rem $shadow-color-dark;
+  }
+}
