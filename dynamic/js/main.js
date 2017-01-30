@@ -55,3 +55,22 @@
  * Some vendor code requires some configuration and execution. This seems as
  * good a place as any to perform those configurations and execute.
  */
+
+
+/** Attempted table-wrapping mitigation
+ *  -----------------------------------
+ * These two calls add non-rendered word-break opportunities after `.`s and
+ * before `/` (that aren't the first characters on a line.) to all <code> text
+ * that lives under <td> tags. The idea is to give tables full of paths and code
+ * segments a chance to wrap s.t. they don't massively over-extend beyond the
+ * edges of smaller screen widths.
+ * TODO: THIS IS NOT A FULL SOLUTION, but it might help during the first push.
+ */
+$('td code').each(
+    function() {
+        $(this).html($(this).html().replace(/([^^])\./g, '$1.<wbr>'))
+    });
+$('td code').each(
+    function() {
+        $(this).html($(this).html().replace(/([^^])\//g, '$1<wbr>/'))
+    });
