@@ -363,7 +363,7 @@ After (and only after) your table is activated, you can modify the table propert
 
 `ALTER TABLE` is currently limited to updating properties, so it cannot modify column definitions or other schema elements.
 
-For example, if you wished to sacrifice some performance for additional data durability, you could change the `w` property from its default of 2 to 3 (or higher, if you have an `n_val` larger than the default of 3):
+For example, if you wished to sacrifice some performance for additional data durability, you could change the `w` property from its default of `quorum` (typically 2) to 3:
 
 ```
 riak-shell>ALTER TABLE GeoCheckin WITH (w=3);
