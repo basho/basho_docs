@@ -116,12 +116,16 @@ riak_kv.query.timeseries.max_quanta_span = 5000
 
 `riak_kv.query.timeseries.max_returned_data_size`: largest estimated size, in bytes, of the data a query can return to the client. Default value is 10000000 (10 million). If a query will exceed this value, the query will be cancelled.
 
-When a query is broken down into per-quantum subqueries, all subqueries are queued for execution. Starting from the arrival of the second result set, we estimate the projected query result size as:
+When a query is broken down into per-quantum subqueries, all subqueries are queued for execution. On arrival of each subquery's data chunk, starting from chunk 2 but excluding the last, we compute the average chunk and row size and estimate the projected query result size as:
 
 * `TotalQuerySize = AverageSubqueryResultSize * NumberOfSubqueries`, for regular queries without a LIMIT or ORDER BY clause;
 * `TotalQuerySize = AverageRowResultSize * LimitValue`, for queries with a LIMIT or ORDER BY clause.
 
 If the total size is found to exceed `max_returned_data_size`, the query is cancelled, with an error code 1022 ("Projected result of a SELECT query is too big").
+
+{{% note %}}
+Queries with aggregating functions and without a GROUP BY clause will not have the running size checks performed on them (because such queries have a fixed number of rows in their result set).
+{{% /note %}}
 
 ```riak.conf
 riak_kv.query.timeseries.max_returned_data_size = 10*1000*1000
