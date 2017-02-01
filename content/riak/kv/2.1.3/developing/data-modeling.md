@@ -1,6 +1,6 @@
 ---
 layout: redirect
-target: "/riak/kv/2.1.3/learn/use-cases.md"
+target: "riak/kv/2.1.3/learn/use-cases/"
 ---
 
 This page exists solely to redirect from the generated URL to the above `target`
