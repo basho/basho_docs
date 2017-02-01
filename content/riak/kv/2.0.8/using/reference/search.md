@@ -442,6 +442,13 @@ The Riak Search batching subsystem provides statistics on run-time characteristi
 
 * `search_query_fail_(count|one)` - The total count of failed queries, per Riak node, and the count of query failures within the metric measurement window.
 
+* `search_index_bad_entry_count` - the number of writes to Solr that have resulted in an error due to the format of the data (e.g., non-unicode data) since the last restart of Riak.
+
+* `search_index_bad_entry_one` - the number of writes to Solr that have resulted in an error due to the format of the data (e.g., non-unicode data) within the past minute.
+
+* `search_index_extract_fail_count` - the number of failures that have occurred extracting data into a format suitable for Solr (e.g., badly formatted JSON) since the last start of Riak.
+
+* `search_index_extract_fail_one` - the number of failures that have occurred extracting data into a format suitable for Solr (e.g., badly formatted JSON) within the past minute.
+
 While most of the default values are sufficient, you may have to
-increase [`search.solr.start_timeout`][configuring search] as more data is indexed, which may
-cause Solr to require more time to start.
+increase [`search.solr.start_timeout`][configuring search] as more data is indexed, which may cause Solr to require more time to start.

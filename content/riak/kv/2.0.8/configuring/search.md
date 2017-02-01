@@ -82,50 +82,6 @@ The directory in which Riak Search stores files related to [active anti-entropy]
 
 Valid values: a directory
 
-### `search.anti_entropy.throttle`
-
-Whether the throttle for Yokozuna active anti-entropy is enabled; defaults to `on`.
-
-Valid values: `on` or `off`
-
-You can read more about throttling [here][cluster-ops aae throttle].
-
-### `search.anti_entropy.throttle.$tier.delay`
-
-Set the throttling tiers delay for [active anti-entropy][glossary aae]; no default.
-
-Each tier is a [minimum Solrq queue size](#search-anti-entropy-throttle-tier-solrq-queue-length) and a time-delay that the throttle should observe at that size and above. 
-
-For example:
-
-```
-search.anti_entropy.throttle.tier1.solrq_queue_length = 0
-search.anti_entropy.throttle.tier1.delay = 0ms
-search.anti_entropy.throttle.tier2.solrq_queue_length = 40
-search.anti_entropy.throttle.tier2.delay = 5ms
-```
-will introduce a 5 millisecond sleep for any queues of length 40 or higher. If configured, there must be a tier which includes a mailbox size of 0. Both [`.solrq_queue_length`](#search-anti-entropy-throttle-tier-solrq-queue-length) and `.delay` must be set for each tier. There is no limit to the number of tiers that may be specified. See [`search.anti_entropy.throttle`](#search-anti-entropy-throttle).
-
-Valid values: Non-negative integer
-
-### `search.anti_entropy.throttle.$tier.solrq_queue_length`
-
-Set the throttling tiers for [active anti-entropy][glossary aae]; no default.
-
-Each tier is a minimum Solrq queue size and a [time-delay](#search-anti-entropy-throttle-tier-delay) that the throttle
-should observe at that size and above. 
-
-For example:
-
-```
-search.anti_entropy.throttle.tier1.solrq_queue_length = 0
-search.anti_entropy.throttle.tier1.delay = 0ms
-search.anti_entropy.throttle.tier2.solrq_queue_length = 40
-search.anti_entropy.throttle.tier2.delay = 5ms
-```
-will introduce a 5 millisecond sleep for any queues of length 40 or higher. If configured, there must be a tier which includes a mailbox size of 0. Both `.solrq_queue_length` and [`.delay`](#search-anti-entropy-throttle-tier-delay) must be set for each tier. There is no limit to the number of tiers that may be specified. See [`search.anti_entropy.throttle`](#search-anti-entropy-throttle).
-
-Valid values: Non-negative integer
 
 ### `search.dist_query`
 
