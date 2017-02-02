@@ -75,9 +75,9 @@ LevelDB is the only supported backend.
 
 Get started with Riak TS by [downloading][download] the TS package, then check out how to [install][installing] it.
 
-Once you have setup your first node, you will want to proceed with setting up the rest of your cluster. If you're already familiar with Riak KV, you'll feel right at home. If you're new to Riak, refer to our [Cluster Operations][core-fundamentals#cluster-operations] documentation.
+Once you have setup your first node, you will want to proceed with setting up the rest of your cluster. If you're already familiar with Riak KV, you'll feel right at home. If you're new to Riak, refer to our [Cluster Operations][/riak/ts/1.5.1/using/core-fundamentals#cluster-operations] documentation.
 
-Once you're up and running, check out our docs on [querying] or our [supported clients].
+When you're up and running, check out our docs on [querying] or our [supported clients].
 
 If you want to learn more about how Riak TS was designed and how it is structured, checkout our [Learn About Riak TS][learnabout] section.
 
