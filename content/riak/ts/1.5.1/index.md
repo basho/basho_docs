@@ -21,6 +21,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest"
 [learnabout]: learn-about/
 [querying]: using/querying/
 [supported clients]: developing/
+[cluster ops]: using/core-fundamentals/#cluster-operations
 
 
 Riak TS is a distributed NoSQL key/value store optimized for time series data. With TS, you can associate a number of data points with a specific point in time. TS uses discrete slices of time to co-locate data. For example, humidity and temperature readings from a meter reported during the same slice of time will be stored together on disk.
@@ -75,7 +76,9 @@ LevelDB is the only supported backend.
 
 Get started with Riak TS by [downloading][download] the TS package, then check out how to [install][installing] it.
 
-Once you're up and running, check out our docs on [querying] or our [supported clients].
+Once you have setup your first node, you will want to proceed with setting up the rest of your cluster. If you're already familiar with Riak KV, you'll feel right at home. If you're new to Riak, refer to our [Cluster Operations][cluster ops] documentation.
+
+When you're up and running, check out our docs on [querying] or our [supported clients].
 
 If you want to learn more about how Riak TS was designed and how it is structured, checkout our [Learn About Riak TS][learnabout] section.
 
