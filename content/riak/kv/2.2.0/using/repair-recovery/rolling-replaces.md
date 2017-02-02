@@ -39,13 +39,13 @@ The following steps should be undertaken on each Riak KV node that you wish to r
 2\. Join the free node to your cluster:
 
 ```bash
-riak-admin cluster join «nodename_leaving_cluster»
+riak-admin cluster join «free_node»
 ```
 
 3\. Next, replace the free node with an existing node:
 
 ```bash
-riak-admin cluster replace «nodename_leaving_cluster» «nodename_joining_cluster»
+riak-admin cluster replace «free_node» «nodename»
 ```
 
 4\. Then review the cluster transition plan:
