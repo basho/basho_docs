@@ -21,6 +21,9 @@ aliases:
 [usage bucket types]: /riak/kv/2.2.0/developing/usage/bucket-types
 [glossary vnode]: /riak/kv/2.2.0/learn/glossary/#vnode
 [config reference]: /riak/kv/2.2.0/configuring/reference
+[google mr]: http://research.google.com/archive/mapreduce.html
+[mapping list]: http://hackage.haskell.org/package/base-4.7.0.0/docs/Prelude.html#v:map
+[function contrib]: https://github.com/basho/riak_function_contrib
 
 > **Use MapReduce sparingly**
 >
@@ -33,8 +36,8 @@ MapReduce operations in a controlled, rate-limited fashion and never for
 realtime querying purposes.
 
 MapReduce, the data processing paradigm popularized by
-[Google](http://research.google.com/archive/mapreduce.html), is provided
-by Riak to aggregate results as background batch processes.
+[Google][google mr], is provided by Riak to aggregate
+results as background batch processes.
 
 ## MapReduce
 
@@ -66,8 +69,7 @@ bring the data to the computation.
 
 "Map" and "Reduce" are phases in the query process. Map functions take
 one piece of data as input and produce zero or more results as output.
-If you're familiar with [mapping over a
-list](http://hackage.haskell.org/package/base-4.7.0.0/docs/Prelude.html#v:map)
+If you're familiar with [mapping over a list][mapping list]
 in functional programming languages, you're already familiar with the
 "Map" steps in a MapReduce query.
 
@@ -276,23 +278,24 @@ Those arguments are:
     in Erlang is defined and manipulated by the `riak_object` module.
     In Javascript, a Riak object looks like this:
 
-    ```
+    ```javascript
     {
-     "bucket":BucketAsString,
-     "key":KeyAsString,
-     "vclock":VclockAsString,
-     "values":[
-               {
-                "metadata":{
-                            "X-Riak-VTag":VtagAsString,
-                            "X-Riak-Last-Modified":LastModAsString,
-                            "Links":[...List of link objects],
-                            ...other metadata...
-                           },
-                "data":ObjectData
-               },
-               ...other metadata/data values (siblings)...
-              ]
+     "bucket_type" : BucketTypeAsString,
+     "bucket" : BucketAsString,
+     "key" : KeyAsString,
+     "vclock" : VclockAsString,
+     "values" : [
+            {
+                "metadata" : {
+                    "X-Riak-VTag":VtagAsString,
+                    "X-Riak-Last-Modified":LastModAsString,
+                    "Links":[...List of link objects],
+                    // ...other metadata...
+                },
+                "data" : ObjectData
+            },
+            // ...other metadata/data values (siblings)...
+        ]
     }
     ```
   2. *KeyData* : key data that was submitted with the inputs to the query or phase.
