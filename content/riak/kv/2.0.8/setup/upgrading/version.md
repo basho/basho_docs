@@ -62,14 +62,9 @@ Before starting the rolling upgrade process on your cluster, check out the [Upgr
 
 ## Data File Format Changes
 
-[Riak KV 2.2][release notes] introduces on-disk data file format changes that can impact the upgrade/downgrade process:
+[Riak KV 2.0.8][release notes] introduces on-disk data file format changes that can impact the upgrade/downgrade process:
 
 * Changes to active anti-entropy related to inconsistent hashing.
-* Upgrading to Solr 4.10.4 for Riak search.
-
-{{% note %}}
-You must have [Java version 7 or higher](http://www.oracle.com/technetwork/java/javase/downloads/index.html) in order to upgrade to Riak KV 2.0.8.
-{{% /note %}}
 
 
 ### Components That Complicate Downgrades
@@ -77,26 +72,12 @@ You must have [Java version 7 or higher](http://www.oracle.com/technetwork/java/
 We do our best to make all features that change data formats on disk opt-in; however, some features may be introduced that we either believe are so important that we automatically opt-in users on upgrade or there is no way to provide direct backward compatibility. Downgrading environments with these features can require more effort or might not be possible.
 
 * **Automatic** features alter the data format on disk, but are considered important enough for users to be automatically opted-in.
-* **Required** features must be accepted as a part of the upgrade.  Internal Solr version upgrades that change the data format on disk are an example of a required feature upgrade.
+* **Required** features must be accepted as a part of the upgrade. Internal Solr version upgrades that change the data format on disk are an example of a required feature upgrade.
 * **One Way** features, when enabled, will make a clean downgrade of a cluster impossible.
 
 | Feature | Automatic | Required | One Way | Notes |
 |:---|:---:|:---:|:---:|:--- |
-|Migration to Solr 4.10.4 |✔ | ✔| | Applies to all clusters using Riak search.
 | Active anti-entropy file format changes | ✔ |  | | Can opt-out using a capability.
-| LZ4 compression in LevelDB | | | ✔ |
-| Global expiration in LevelDB | | | ✔ |
-| HyperLogLog data type | | |✔| On downgrade data written in HLL format is unreadable.|
- 
-
-### When Downgrading is No Longer an Option
-
-If you decide to upgrade to version 2.2, you can still downgrade your cluster to an earlier version of Riak KV if you wish, unless you perform one of the following actions in your cluster:
-
-* Enable LZ4 Compression in LevelDB
-* Enable Global Expiration in LevelDB
-
-If you use other new features, such as the HyperLogLog data type, you can still downgrade your cluster, but you will no longer be able to use those features or access data in new formats after the downgrade.
 
 
 ## Upgrading process
@@ -165,11 +146,6 @@ sudo dpkg -i »riak_package_name«.deb
 
 6\. Restart Riak KV:
 
-{{% note %}}
-You must have [Java version 7 or higher](http://www.oracle.com/technetwork/java/javase/downloads/index.html) in order to upgrade to Riak KV 2.0.8. If you do not have it installed, please install it now.
-{{% /note %}}
-
-
 
 ```bash
 riak start
@@ -226,4 +202,4 @@ Ensure that Riak KV is running on the node, and issue the following command:
 riak-admin diag
 ```
 
-Make the recommended changes from the command output to ensure optimal node operation.
+Make the recommended changes from the command output to ensure optimal node operation.s
