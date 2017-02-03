@@ -15,6 +15,10 @@ canonical_link: "https://docs.basho.com/riak/kv/latest/configuring/global-object
 
 [ttl]: https://en.wikipedia.org/wiki/Time_to_live
 
+{{% note title="Global Expiry and Downgrading" %}}
+If you utilize global expiry, you **will not** be able to downgrade Riak KV. Please keep this in mind before choosing to enable global expiry.
+{{% /note %}}
+
 By default, LevelDB keeps all of your data. But Riak KV allows you to configure global object expiration (`expiry`) or [time to live (TTL)][ttl] for your data. 
 
 Expiration is disabled by default, but enabling it lets you expire older objects to reclaim the space used or purge data with a limited time value.

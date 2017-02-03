@@ -21,6 +21,10 @@ toc: true
 
 Configurable parameters for Riak's [LevelDB][plan backend leveldb] storage backend.
 
+{{% note title="LZ4 and Downgrading" %}}
+If you utilize LZ4 compression (see `leveldb.compression.algorithm` below), you **will not** be able to downgrade Riak KV. Please keep this in mind before choosing to use LZ4 compression.
+{{% /note %}}
+
 > **Note on upgrading to 2.0**
 >
 > If you are upgrading to Riak 2.0+ from a 1.x version, using LevelDB, and
