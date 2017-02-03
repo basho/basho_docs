@@ -20,9 +20,13 @@ aliases:
 [concept aae]: /riak/kv/2.0.8/learn/concepts/active-anti-entropy/
 [aae status]: /riak/kv/2.0.8/using/admin/riak-admin/#aae-status
 
-Downgrades of Riak KV are tested and supported for two feature release versions, with the general procedure being similar to that of a [rolling upgrade][rolling upgrade].
+Downgrades of Riak KV are tested and generally supported for two feature release versions (see warning below), with the general procedure being similar to that of a [rolling upgrade][rolling upgrade].
 
 Depending on the versions involved in the downgrade, there are additional steps to be performed before, during, and after the upgrade on on each node. These steps are related to changes or new features that are not present in the downgraded version.
+
+{{% note title="End Of Life Warning" %}}
+We test downgrading for two feature release versions. However, all versions below KV 2.0 are End Of Life (EOL) and unsupported. Please be aware of that if you choose to downgrade.
+{{% /note %}}
 
 ## Overview
 
