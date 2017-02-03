@@ -325,6 +325,10 @@ table {
     padding    : 0;            /* 1 */
     font-size  : 95%;          /* 1 */
   }
+
+  caption {
+    color : $primary-font;
+  }
 }
 
 thead {
