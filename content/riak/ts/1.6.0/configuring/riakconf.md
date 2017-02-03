@@ -135,7 +135,9 @@ riak_kv.query.timeseries.max_returned_data_size = 10*1000*1000
 
 `riak_kv.query.timeseries.qbuf_inmem_max`: Max heap size of the query buffer manager process before query buffers start to be written out to the leveldb backend.  Default value is "10MB".
 
-The query buffer manager tries to keep collected query results in memory for faster retrieval.  To avoid accumulating excessive amounts of data, this parameter sets the max process heap limit the query buffer manager can allocate before it dumps the entire query buffer with which the limit was hit, to the leveldb backend (and proceeds to add eventual chunks to it).
+For each `LIMIT` or `ORDER BY` timeseries query, a buffer is created to store results in memory for faster retrieval.  To avoid adding memory pressure to the system, this parameter limits the amount of heap that the query buffer manager on the coordinating node can allocate.
+
+Each time the limit is exceeded, the query buffer manager pushes a buffer from RAM to the leveldb backend for further write and read activity.
 
 ```riak.conf
 riak_kv.query.timeseries.qbuf_inmem_max = "10MB"
