@@ -35,9 +35,8 @@ For every node in the cluster:
 1. Stop Riak KV.
 2. Back up Riak's `etc` and `data` directories.
 3. Downgrade the Riak KV.
-6. Start Riak KV.
-7. Monitor the reindex of the data.
-8. Finalize process and restart Riak KV.
+4. Start Riak KV.
+5. Finalize process.
 
 ### Guidelines
 
@@ -62,7 +61,7 @@ While the cluster contains mixed version members, if you have not set the cluste
 This is benign and similar to the `not_built` and `already_locked` errors which can be seen during normal AAE operation. These events will stop once the downgrade is complete.
 {{% /note %}}
 
-### Stop Riak KV
+### Stop Riak KV, back up, & downgrade
 
 1\. Stop Riak KV:
 
@@ -85,6 +84,8 @@ sudo rpm -Uvh »riak_package_name«.rpm
 sudo dpkg -i »riak_package_name«.deb
 ```
 
+### Start the node & finalize process. 
+
 4\. Start Riak KV:
 
 ```bash
@@ -98,7 +99,7 @@ riak-admin transfers
 ```
 
 
-### Monitor the reindex of the data
+## Monitor the reindex of the data
 
 After your downgrade, you may want to monitor the build and exchange progress of the AAE trees using the `riak-admin aae-status` and `riak-admin search aae-status` commands.
 

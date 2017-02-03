@@ -15,175 +15,92 @@ aliases:
   - /riak/kv/2.1.3/ops/upgrading/rolling-downgrades/
 ---
 
-Downgrades of Riak are tested and supported for two feature release
-versions, with the general procedure being similar to that of a
-[rolling upgrade](/riak/kv/2.1.3/setup/upgrading/cluster).
+[rolling upgrade]: /riak/kv/2.1.3/setup/upgrading/cluster
+[config ref]: /riak/kv/2.1.3/configuring/reference
+[concept aae]: /riak/kv/2.1.3/learn/concepts/active-anti-entropy/
+[aae status]: /riak/kv/2.1.3/using/admin/riak-admin/#aae-status
 
-You should perform the following actions on each node:
 
-1.  Stop Riak
+Downgrades of Riak are tested and supported for two feature release versions, with the general procedure being similar to that of a [rolling upgrade].
+
+Depending on the versions involved in the downgrade, there are additional steps to be performed before, during, and after the upgrade on on each node. These steps are related to changes or new features that are not present in the downgraded version.
+
+{{% note title="End Of Life Warning" %}}
+We test and support downgrading for two feature release versions. However, two feature release versions below KV 2.1.3 is 1.4.12. KV 1.4.12 was declared End Of Life (EOL) and no longer supported in November 2015. Please be aware of that if you choose to downgrade.
+{{% /note %}}
+
+## Overview
+
+For every node in your Riak cluster:
+
+1.  Stop Riak KV.
 2.  Back up Riak's `etc` and `data` directories.
-3.  Downgrade Riak
-4.  Start Riak
-5.  Verify Riak is running the downgraded version.
-6.  Wait for the `riak_kv` service to start.
+3.  Downgrade Riak KV.
+4.  Start Riak KV.
+5.  Finalize the process.
 
-Depending on the versions involved in the downgrade, there are
-additional steps to be performed before, during, and after the upgrade
-on on each node.  These steps are related to changes or new features
-that are not present in the downgraded version.
 
-<div class="note">
-<div class="title">A Note About the Following Instructions</div>
-The below instructions describe the procedures required for a single
-feature release version downgrade. In a downgrade between two feature
-release versions, the steps for the in-between version must also be
-performed. For example, a downgrade from 1.4 to 1.2 requires that the
-downgrade steps for both 1.4 and 1.3 are performed.  </div>
+{{% note title="A Note About the Following Instructions" %}}
+The below instructions describe the procedures required for a single feature release version downgrade (for instance from 2.1.3 to 2.0.7). In a downgrade between two feature release versions (say 2.1.3 to 1.4.12), the steps for the in-between version must also be performed. For example, a downgrade from 2.1.3 to 1.4.12 requires that the downgrade steps for both 2.1.3 and 2.0.7 are performed.
+{{% /note %}}
+
 
 ## General Guidelines
 
-* Riak Control should be disabled throughout the rolling downgrade
-  process
-* [Configuration Files](/riak/kv/2.1.3/configuring/reference) must be replaced with those of the version
-  being downgraded to
-* [Active anti-entropy](/riak/kv/2.1.3/learn/concepts/active-anti-entropy/) should be disabled if downgrading to a version
-  below 1.3.
+* Riak control should be disabled throughout the rolling downgrade process
+* [Configuration Files][config ref] must be replaced with those of the version being downgraded to
 
-## Before Stopping a Node
 
-### Object Format
+## General Process
 
-If the new, more compact object format introduced in Riak 1.4 is in use,
-the objects will need to be downgraded on each node prior to starting
-the rolling downgrade. You can determine which object format is in use
-by checking the `object_format` parameter under the `riak_kv` section of
-the `app.config`. If not specified, this defaults to `v0` which is the
-old format.
+{{% note %}}
+While the cluster contains mixed version members, if you have not set the cluster to use the legacy AAE tree format, you will see the `bad_version` error emitted to the log any time nodes with differing versions attempt to exchange AAE data (including AAE fullsync).
 
-To downgrade the objects, run the below `riak-admin` command. This
-command must be run on each node.
+This is benign and similar to the `not_built` and `already_locked` errors which can be seen during normal AAE operation. These events will stop once the downgrade is complete.
+{{% /note %}}
+
+### Stop Riak KV, back up, & downgrade
+
+1\. Stop Riak KV:
 
 ```bash
-riak-admin downgrade-objects <kill-handoffs> [<concurrency>]
+riak stop
+```
+2\. Back up your Riak KV /etc and /data directories:
+    
+```bash
+sudo tar -czf riak_backup.tar.gz /var/lib/riak /etc/riak
+```
+    
+3\. Downgrade Riak KV:
+
+```RHEL/CentOS
+sudo rpm -Uvh »riak_package_name«.rpm
+```
+    
+```Ubuntu
+sudo dpkg -i »riak_package_name«.deb
 ```
 
-The `<kill-handoffs>` parameter is required and is set to either `true`
-or `false`. If `false`, any ongoing handoff will be waited on before
-performing the reformat. Otherwise, all in-flight handoff, inbound to
-the node or outbound from it, will be killed. During and after the
-reformat the transfer-limit will be set to 0.
+### Start the node & finalize process.
 
-The optional `<concurrency>` argument must be an integer greater than
-zero. It determines how many partitions are reformatted on the node
-concurrently. By default the concurrency is two. Additionally, in
-anticipation that the entire cluster will be downgraded
-downgrade-objects sets the preferred format to v0. downgrade-objects can
-be run multiple times in the case of error or if the node crashes.
-
-### Secondary Indexes
-
-If you are using Secondary Indexes and have reformatted them with the
-`riak-admin reformat-indexes` command introduced in 1.3, these indexes
-will need to be downgraded before the rolling downgrade begins.
-
-This can be done using the --downgrade flag with `riak-admin
-reformat-indexes` More information on the `riak-admin reformat-indexes`
-command, and downgrading indexes can be found in the
-[`riak-admin`](/riak/kv/2.1.3/using/admin/riak-admin/#reformat-indexes) documentation.
-
-## Before Starting a Node
-
-If LevelDB is in use and you are downgrading from 1.3, a change made to
-the LevelDB folder structure will need to be reverted. Prior to 1.3,
-each partition directory inside /var/lib/riak/leveldb contained the full
-set of .sst files that make up the LevelDB for that partition. Since
-1.3, the levels have been separated into folders titled `sst_\*` like
-below:
+4\. Start Riak KV:
 
 ```bash
-cd 1004782375664995756265033322492444576013453623296/
-ls -l
--rw-r--r-- 1 riak riak        0 Jan  7 17:40 000014.log
--rw-r--r-- 1 riak riak       16 Jan  7 17:40 CURRENT
--rw-r--r-- 1 riak riak        0 Jan  7 13:59 LOCK
--rw-r--r-- 1 riak riak     1241 Jan  7 17:40 LOG
--rw-r--r-- 1 riak riak     1240 Jan  7 16:48 LOG.old
--rw-r--r-- 1 riak riak 20971520 Jan  7 17:40 MANIFEST-000013
-drwxr-xr-x 2 riak riak     4096 Jan  7 14:25 sst_0
-drwxr-xr-x 2 riak riak     4096 Jan  7 13:59 sst_1
-drwxr-xr-x 2 riak riak     4096 Jan  7 13:59 sst_2
-drwxr-xr-x 2 riak riak     4096 Jan  7 13:59 sst_3
-drwxr-xr-x 2 riak riak     4096 Jan  7 13:59 sst_4
-drwxr-xr-x 2 riak riak     4096 Jan  7 13:59 sst_5
-drwxr-xr-x 2 riak riak     4096 Jan  7 13:59 sst_6
+riak start
 ```
 
-In a downgrade from 1.3, all .sst files in these folders will need to be
-moved from the `sst_\*` folders into the top level <PARTITION_ID>
-folder. A LevelDB repair will need to be run on each partition *before*
-starting the node. In the event a rolling downgrade needs to take place,
-the below escript, repair.erl can be used:
-
-```erlang
--module(repair).
--compile(export_all).
-
-main([Dir]) ->
-  Opts = [{max_open_files, 2000},
-            {use_bloomfilter, true},
-            {write_buffer_size, 45 * 1024 * 1024},
-            {compression,false}],
-
-  {Time,_} = timer:tc(eleveldb,repair,[Dir, Opts]),
-  io:format("Done took ~p seconds~n", [Time / 1000000]);
-
-main(_) ->
-  usage().
-
-usage() ->
-  io:format("usage: repair PATH_TO_PARTITION \n"),
-  halt(1).
-```
-
-This script, saved as repair.erl, can be called with:
+5\. Verify that transfers have completed:
 
 ```bash
-for partition in $(ls /var/lib/riak/leveldb); do sudo riak escript /tmp/repair.erl /var/lib/riak/leveldb/$partition; done
+riak-admin transfers
 ```
 
-## During the Rolling Downgrade
 
-There is a known handoff issue that may occur when performing a rolling
-downgrade from 1.4. This is a result of the handoff data encoding
-cababilities not being negotiated correctly between nodes of mixed
-versions during a rolling downgrade.
+### Monitor the reindex of the data
 
-If transfers are not progressing in the `riak-admin transfers` output,
-killing the Capability manager with the steps below on each node via
-`riak attach` may solve this issue if it occurs.
+After your downgrade, you may want to monitor the build and exchange progress of the AAE trees using the `riak-admin aae-status` and `riak-admin search aae-status` commands.
 
-Check the currently used encoding (returns either `encode_raw` or
-`encode_zlib`):
+The **All** column shows how long it has been since a partition exchanged with all of its sibling replicas.  Consult the [`riak-admin aae-status` documentation][aae status] for more information about the AAE status output. 
 
-```erlang
-riak_core_capability:get({riak_kv, handoff_data_encoding}).
-```
-
-Kill the capability manager:
-
-```erlang
-exit(whereis(riak_core_capability), kill).
-```
-
-Check the encoding used after the capability manager restarts:
-
-```erlang
-riak_core_capability:get({riak_kv, handoff_data_encoding}).
-```
-
-### After the Rolling Downgrade
-
-If Active Anti-Entropy was enabled, and the downgraded version is below
-1.3, the anti-entropy directory on each node can be deleted after the
-rolling downgrade is complete.
+Once both riak-admin aae-status and riak-admin search aae-status show values in the **All** column, the node will have successfully rebuilt all of the indexed data.

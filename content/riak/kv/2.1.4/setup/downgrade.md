@@ -37,8 +37,7 @@ For every node in your Riak cluster:
 2.  Back up Riak's `etc` and `data` directories.
 3.  Downgrade Riak KV.
 4.  Start Riak KV.
-5.  Verify Riak is running the downgraded version.
-6.  Wait for the `riak_kv` service to start.
+5.  Finalize the process.
 
 
 {{% note title="A Note About the Following Instructions" %}}
@@ -60,7 +59,7 @@ While the cluster contains mixed version members, if you have not set the cluste
 This is benign and similar to the `not_built` and `already_locked` errors which can be seen during normal AAE operation. These events will stop once the downgrade is complete.
 {{% /note %}}
 
-### Stop Riak KV
+### Stop Riak KV, back up, & downgrade
 
 1\. Stop Riak KV:
 
@@ -83,7 +82,7 @@ sudo rpm -Uvh »riak_package_name«.rpm
 sudo dpkg -i »riak_package_name«.deb
 ```
 
-### Start the node
+### Start the node & finalize process.
 
 4\. Start Riak KV:
 
