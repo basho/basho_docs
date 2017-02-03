@@ -20,9 +20,13 @@ aliases:
 [concept aae]: /riak/kv/2.0.8/learn/concepts/active-anti-entropy/
 [aae status]: /riak/kv/2.0.8/using/admin/riak-admin/#aae-status
 
-Downgrades of Riak KV are tested and supported for two feature release versions, with the general procedure being similar to that of a [rolling upgrade][rolling upgrade].
+Downgrades of Riak KV are tested and generally supported for two feature release versions (see warning below), with the general procedure being similar to that of a [rolling upgrade][rolling upgrade].
 
 Depending on the versions involved in the downgrade, there are additional steps to be performed before, during, and after the upgrade on on each node. These steps are related to changes or new features that are not present in the downgraded version.
+
+{{% note title="End Of Life Warning" %}}
+We test downgrading for two feature release versions. However, all versions below KV 2.0 are End Of Life (EOL) and unsupported. Please be aware of that if you choose to downgrade.
+{{% /note %}}
 
 ## Overview
 
@@ -31,9 +35,8 @@ For every node in the cluster:
 1. Stop Riak KV.
 2. Back up Riak's `etc` and `data` directories.
 3. Downgrade the Riak KV.
-6. Start Riak KV.
-7. Monitor the reindex of the data.
-8. Finalize process and restart Riak KV.
+4. Start Riak KV.
+5. Finalize process.
 
 ### Guidelines
 
@@ -58,7 +61,7 @@ While the cluster contains mixed version members, if you have not set the cluste
 This is benign and similar to the `not_built` and `already_locked` errors which can be seen during normal AAE operation. These events will stop once the downgrade is complete.
 {{% /note %}}
 
-### Stop Riak KV
+### Stop Riak KV, back up, & downgrade
 
 1\. Stop Riak KV:
 
@@ -81,6 +84,8 @@ sudo rpm -Uvh »riak_package_name«.rpm
 sudo dpkg -i »riak_package_name«.deb
 ```
 
+### Start the node & finalize process. 
+
 4\. Start Riak KV:
 
 ```bash
@@ -94,7 +99,7 @@ riak-admin transfers
 ```
 
 
-### Monitor the reindex of the data
+## Monitor the reindex of the data
 
 After your downgrade, you may want to monitor the build and exchange progress of the AAE trees using the `riak-admin aae-status` and `riak-admin search aae-status` commands.
 
