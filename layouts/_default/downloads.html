@@ -41,9 +41,7 @@
 <body class="{{$project}} {{$version}} {{if $is_latest}}latest{{end}} {{if $is_lts}}lts{{end}} downloads">
 
 
-  <!-- NOTE: We're going to leave this commented out until we're ready to deploy
-       to the production S3 server. -->
-  {{/* partial "google-tag-manager.html" $HugoNode */}}
+  {{ partial "google-tag-manager.html" $HugoNode }}
 
 
   {{ partial "banner.html" $HugoNode }}
