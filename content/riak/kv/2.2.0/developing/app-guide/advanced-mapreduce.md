@@ -24,6 +24,7 @@ aliases:
 [google mr]: http://research.google.com/archive/mapreduce.html
 [mapping list]: http://hackage.haskell.org/package/base-4.7.0.0/docs/Prelude.html#v:map
 [function contrib]: https://github.com/basho/riak_function_contrib
+[erlang client](https://github.com/basho/riak-erlang-client)
 
 > **Use MapReduce sparingly**
 >
@@ -49,7 +50,6 @@ run MapReduce jobs using Erlang or JavaScript.
 {{% note title="Deprecation Warning" %}}
 Javascript MapReduce is deprecated and will be removed in a future version.
 {{% /note %}}
-
 
 ### Why Do We Use MapReduce for Querying Riak?
 
@@ -112,7 +112,8 @@ using the client library from an Erlang shell.
 
 ### Security restrictions
 
-If Riak 2.0's security functionality is enabled, there are two restrictions on MapReduce that come into play:
+If Riak 2.0's security functionality is enabled, there are two
+restrictions on MapReduce that come into play:
 
 * The `riak_kv.mapreduce` permission must be granted to the user (or
   via the user's groups)
@@ -120,7 +121,6 @@ If Riak 2.0's security functionality is enabled, there are two restrictions on M
   distributed with Riak will **not** be accessible to custom MapReduce
   code unless made available via the `add_path` mechanism documented
   in [Installing Custom Code][use ref custom code].
-
 
 ## How Riak's MapReduce Queries Are Specified
 
@@ -244,11 +244,11 @@ erlc mr_example.erl
 
 Successful compilation will result in a new `.beam` file, `mr_example.beam`.
 
-Send this file to your operator, or read about [installing custom code][use ref custom code] on your Riak nodes. Once your file has been
-installed, all that remains is to try the custom function in a
-MapReduce query. For example, let's return keys contained within a
-bucket named `messages` (please pick a bucket which contains keys in
-your environment).
+Send this file to your operator, or read about [installing custom code][use ref custom code]
+on your Riak nodes. Once your file has been installed, all that
+remains is to try the custom function in a MapReduce query. For
+example, let's return keys contained within a bucket named `messages`
+(please pick a bucket which contains keys in your environment).
 
 ```curl
 curl -XPOST localhost:8098/mapred \
@@ -351,23 +351,22 @@ the following must produce the same result:
   F([F([a]),F([c]),F([b]),F([d])])
 ```
 
-
 #### Reduce function examples
 
 These reduce functions assume the values in the input are numbers and
 sum them:
 
 ```erlang
-fun(ValueList, _Arg) ->
-  [lists:foldl(fun erlang:'+'/2, 0, List)]
+fun(Values, _Arg) ->
+  [lists:foldl(fun erlang:'+'/2, 0, Values)]
 end.
 ```
 
 These reduce functions sort their inputs:
 
 ```erlang
-fun(ValueList, _Arg) ->
-  lists:sort(ValueList)
+fun(Values, _Arg) ->
+  lists:sort(Values)
 end.
 ```
 
@@ -380,20 +379,15 @@ Erlang client.
 > **Distributing Erlang MapReduce Code**
 >
 > Any modules and functions you use in your Erlang MapReduce calls must be
-available on all nodes in the cluster. You can add them in Erlang
-applications by specifying the `-pz` option in
-[vm.args][config reference] or by adding the path to the
-`add_paths` setting in your `app.config`
-configuration file.
+available on all nodes in the cluster. Please read about
+[installing custom code][use ref custom code].
 
 ### Erlang Example
 
 Before running some MapReduce queries, let's create some objects to
 run them on.  Unlike the first example when we compiled
 `mr_example.erl` and distributed it across the cluster, this time
-we'll use the
-[Erlang client library](https://github.com/basho/riak-erlang-client)
-and shell.
+we'll use the [Erlang client library][erlang client] and shell.
 
 ```erlang
 1> {ok, Client} = riakc_pb_socket:start("127.0.0.1", 8087).
