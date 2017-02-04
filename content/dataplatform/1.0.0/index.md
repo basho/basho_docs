@@ -8,7 +8,7 @@ menu:
     name: "Basho Data Platform"
     identifier: "index"
     weight: 100
-    pre: icon-riak
+    pre: riak
 toc: false
 ---
 

@@ -1,0 +1,358 @@
+/**
+ * The Index Splashpage
+ * Be a bit ugly here and wrap all other elements inside the '.index' rule to
+ * ensure no other pages are styled using these classes.
+ */
+.index {
+
+
+
+  /**
+   * Welcome To Basho wrapper and Bootstrap `jumbtron`
+   * 1. As this is the first element after the banner, apply padding s.t. child
+   *    elements are not covered by the banner.
+   * 2. Set margin-bottom to 0 on this element, so the next block element will
+   *    start immediately after the banner. This will let us throw a box shadow
+   *    upward onto the bottom of the jumbotron.
+   * 3. Style the <h1> very similarly to the .front-matter__title <h1>.
+   */
+  .welcome-content {
+    padding-top   : $banner-height-sm-down;  /* 1 */
+
+    @include wide-from(md) {
+      padding-top : $banner-height-md-up;    /* 1 */
+    }
+  }
+  .welcome {
+    background-color : $brand-primary-light;
+    background : url('/images/index/home-banner.jpg') no-repeat bottom / cover;
+
+    padding-top    : 3rem;
+    padding-bottom : 3rem;
+
+    @extend %serif;
+    color       : $brand-gray;
+    font-size   : 1.7rem;
+    line-height : 1;
+    text-align  : center;
+
+    margin-bottom : 0;             /* 2 */
+
+    @include wide-from('md') {
+      padding-bottom : 5rem;
+    }
+
+    h1 {                           /* 3 */
+      @extend %oswald;
+      letter-spacing : -1px;
+      color          : $brand-gray;
+      text-transform : uppercase;
+      font-size      : 2.5rem;
+
+      margin-bottom  : 1rem;
+
+      @include wide-from('lg') {
+        font-size : 3rem;
+      }
+    }
+  }
+
+
+
+  /**
+   * Primary Product Content wrapper and Bootstrap `container`
+   * Wraps the Product Card set and the Community callout.
+   * 1. Currently this is throwing a shadow upward onto the jumbotron and
+   *    downward onto the footer. This is
+   */
+  .product-content {
+    box-shadow : 0  0  1.5rem 0  $shadow-color-mid;  /* 1 */
+
+    .product-callout {
+      text-align : center;
+      color      : $light-font;
+      font-size  : 1.2rem;
+
+      padding-top   : 1rem;
+      margin-bottom : 0;
+
+      @include wide-from('md') {
+        font-size  : 1.5rem;
+      }
+    }
+  }
+
+
+
+  /**
+   * Product card wrapper and Bootstrap `row`.
+   */
+  .product-picker {
+    padding-top    : 2rem;
+    padding-bottom : 5rem;
+
+    @include wide-from('lg') {
+      max-width : 71rem;
+      padding-top    : 5rem;
+      padding-bottom : 6rem;
+    }
+  }
+
+  /**
+   * Product Card (anchor) and Bootstrap column wrapper
+   * 1. The .product__card and all contained elements should react to mouse
+   *    hover events, so the .product__title and .product__description classes
+   *    will be defined under the __card, even though they typically wouldn't.
+   * 2. HACK: This is approximately the color of the highlights-bg-light.jpg
+   *    image used for the .highlight__right element. Using the color of that
+   *    image for these cards makes the page look substantially more coherent.
+   */
+  .product__wrapper {
+    padding-bottom : 2rem;
+    padding-left   : 1rem;
+    padding-right  : 1rem;
+
+    &:last-of-type {
+      padding-bottom : 0;
+    }
+  }
+  .product__card {                                                     /* 1 */
+    @include rounded-corners(0.3rem);
+    padding    : 1.5rem 1rem;
+
+    @extend          %serif;
+    color           : $brand-gray;
+    line-height     : 1.3;
+    font-size       : 1.2rem;
+    text-align      : center;
+    text-decoration : none;
+
+    background : #f5f3f5; /* 2 */
+    border : 1px solid $gray-warm-92;
+
+    box-shadow : 0  -0.25rem 4rem -0.5rem $shadow-color-light;
+
+    transition : color      200ms ease-in,
+                 background 200ms ease-in;
+
+    /**
+     * Product Title -- Including the Riak Logo, the primary title (ex; 'riak')
+     * and the title highlight (ex; 'TS').
+     * 1. Child elements of the title (including the actual text of the title)
+     *    should be scaled based on this font-size. As such, they should use
+     *    `em`s for their sizing, and the element should be scaled using the
+     *    __title's `font-size`.
+     * 2. Set transitions on both the title text and the highlight text s.t. the
+     *    parent's :hover modifications fall through.
+     * 3. HACK: The x-height of the Muli typeface is ~70.5% of the cap-height,
+     *    so we're setting the size of the hightlight title text to that
+     *    approximate x-height
+     */
+    .product__title {
+      font-size     : 3.75rem;   /* 1 */
+      font-weight   : 700;
+      line-height   : 1;
+      margin-bottom : 1.25rem;
+
+      /* Riak Logo icon */
+      .product__logo {
+        vertical-align : middle;
+        height         : 0.60em;  /* 1 */
+        width          : 0.60em;  /* 1 */
+        margin-bottom  : 0.10em;  /* 1 */
+        .logo {
+          height : 100%;
+          width  : 100%;
+        }
+      }
+      .product__logo--invertible {
+        position : relative;
+
+        .logo {
+          position   : absolute;
+          left       : 0;
+          transition : opacity 200ms ease-in;
+        }
+        .logo--primary {
+          opacity    : 1;
+        }
+        .logo--inverted {
+          opacity    : 0;
+        }
+      }
+
+      /* Primary Title text */
+      @extend         %muli;
+      color          : $brand-gray;
+      text-transform : lowercase;
+
+      transition : color 200ms ease-in;    /* 2 */
+
+      /* Title Highlight text */
+      .product__title-highlight {
+        color           : $brand-primary;
+        text-transform  : uppercase;
+        font-size       : 70.5%;           /* 3 */
+        font-weight     : 400;
+
+        transition : color 200ms ease-in;  /* 2 */
+      }
+    }
+
+    /**
+     * Product Description
+     * 1. When the __card elements are stacked vertically (on sm-down displays)
+     *    allow the hight to be dynamically set. When they're in a row, set the
+     *    height to be exactly three lines tall (3em * line-height).
+     */
+    .product__description {
+      @include wide-from('lg') {
+        min-height : (3em * 1.3);  /* 1 */
+      }
+    }
+
+    /**
+     * Product Title :hover modifications.
+     */
+    @include on-event {
+      text-decoration : none;
+
+      color      : $inverted-font;
+      background : $brand-secondary;
+
+      /* Riak Logo icon */
+      .product__title {
+        .product__logo--invertible {
+          .logo--primary {
+            opacity : 0;
+          }
+          .logo--inverted {
+            opacity : 1;
+          }
+        }
+        color : $inverted-font;
+      }
+    }
+  }
+
+
+
+  /**
+   * Highlights Container
+   * 1. Clear Bootstrap containter width restrictions; we want this element to
+   *    take up the entire width of the viewport.  
+   *    NB. We need these rules to be additive s.t. they "fall off" when we
+   *    don't want them, and the Bootstrap defaults take back over. As such, we
+   *    need to use `narrow-from`.
+   * 2. 1.5 == font-size, 1.2 == line height, 3 == three lines of text.
+   */
+  .highlight__wrapper{
+    box-shadow : 0  -0.15rem 3rem -0.5rem $shadow-color-mid;
+    font-size : 1.2rem;
+
+    @include wide-from('lg') {
+      background : url('/images/index/highlights-bg-split.jpg') left/cover;
+    }
+  }
+  .highlight__container {
+    @include narrow-from('md') {  /* 1 */
+      padding       : 0;          /* 1 */
+      margin        : 0;          /* 1 */
+      max-width     : none;       /* 1 */
+      .row { margin : 0; }        /* 1 */
+    }
+
+    .highlight__title {
+      @extend         %oswald;
+      letter-spacing : -1px;
+      font-size      : 1.8rem;
+      text-align     : left;
+
+      padding-bottom : 0.25rem;
+
+      @include when-inside('.highlight__left') {
+        padding-bottom : 0.5rem;
+      }
+    }
+
+    .highlight__link-wrapper {
+      text-align : center;
+    }
+
+    .highlight__link {
+      @include rounded-corners(0.15rem);
+      padding     : 0.8rem 2.5rem;
+
+      @extend          %oswald;
+      font-size       : 85%;
+      text-decoration : none;
+      text-transform  : uppercase;
+      word-spacing    : -1px;
+
+      transition : color      500ms ease,
+                   background 500ms ease;
+    }
+
+
+    .highlight__left {
+      padding : 3rem 1rem 2rem 1rem;
+
+      @include wide-from('lg') {
+        padding-top : 2rem;
+        min-height  : 16rem;
+
+        p { min-height : 3rem * (1.5*1.2); } /* 2 */
+      }
+
+      @include wide-from('xl') {
+        padding-top : 3rem;
+      }
+
+      color : $light-background-warm;
+
+      background-color : $cyan-darker;
+      background : url('/images/index/highlights-bg-dark.jpg');
+
+      .highlight__link {
+        color        : $light-background-warm;
+        background   : $orange;
+        @include on-event {
+          color      : $light-background-warm;
+          background : $orange-dark;
+        }
+      }
+    }
+
+
+    .highlight__right {
+      padding : 2rem 1rem 2rem 1rem;
+
+      @include wide-from('lg') {
+        padding-top  : 2rem;
+        padding-left : 3rem;
+        min-height   : 16rem;
+
+        p { min-height : 3rem * (1.5*1.2); } /* 2 */
+      }
+
+      @include wide-from('xl') {
+        padding-top : 3rem;
+      }
+
+      color : $cyan-darker;
+
+      background-color : $light-background-warm;
+      background : url('/images/index/highlights-bg-light.jpg') repeat;
+
+      .highlight__link {
+        color        : $cyan-darker;
+        background   : $orange-lightest;
+        @include on-event {
+          color      : $cyan-darker;
+          background : $orange-light;
+        }
+      }
+    }
+  }
+
+} // END .index

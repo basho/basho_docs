@@ -40,34 +40,55 @@ params:
   #
   # The map should contain elements in the form,
   #
-  #    <project_name>:                          /* 1 */
-  #      path: "<path>"                         /* 2 */
-  #      archived_path: "<path>"
-  #      releases:                              /* 3 */
+  #    <project_desc>:                          /* 1 */
+  #      project_name: "<Title Name>"           /* 2 */
+  #      project_name_html: '<HTML>'            /* 2 */
+  #      path: "<path>"                         /* 3 */
+  #      archived_path: "<path>"                /* 3 */
+  #      releases:                              /* 4 */
   #        - ["<version>", "<version>", ...]
   #        - ["<version>", "<version>", ...]
-  #      latest:        "<version>"             /* 4 */
-  #      lts:           "<version>"
-  #      archived_url:  "<URI>"                 /* 5 */
+  #      latest:        "<version>"             /* 5 */
+  #      lts:           "<series>"              /* 6 */
+  #      archived_url:  "<URI>"                 /* 7 */
   #
-  # 1. The project name must match some contents' `project:` front matter
-  # 2. The `path` is the on-disk relative path from the content root. In Hugo,
-  #    the content root is '/content/', on S3 the root is simply '/'.
+  # 1. The project descriptor must match some contents' `project:` front matter.
+  #    This should be all lowercase with underscores for spaces---code, really.
+  # 2. A reader-friendly project name and an HTML-friendly project title.  
+  #    Spaces and caps are welcome in the name. ex; if the `project_desc` is
+  #    `riak_kv`, the `project_name` Could be `"Riak KV"`.  
+  #    The HTML is expected to be wrapped in a .product__title <div> with a logo
+  #    icon prepended, so only the name of the product itself should be
+  #    recorded. This is a very fragile element. See below for examples.  
+  #    `project_name` is required.`project_name_html` is optional.  
+  #    NB. Currently the areas that this title is used are spatially small. As
+  #    such the titles should be kept below ~12 characters. "DataPlatform" is
+  #    the text these elements were sized with.
+  # 3. The `path` is the on-disk relative path from the content root. In Hugo,
+  #    the content root is '/content/', on S3 the root is simply '/'.  
   #    If the project was moved from the Middleman site to Hugo, the
-  #    `archived_path` is the on-disk relative path of the previous directory.
+  #    `archived_path` is the on-disk relative path of the previous directory.  
+  #    `path` is required. `archived_path` is optional. (Or should be?)
   #    TODO: `archived_path` should probably be optional. I don't believe it
   #           currently is.
-  # 3. The `releases` list-of-lists is organized oldest to newest, grouped by
+  # 4. The `releases` list-of-lists is organized oldest to newest, grouped by
   #    release set (ex. the 2.0.* series is one list, followed b the 2.1.*
-  #    series).
-  # 4. `latest` and `lts` versions are the current head-of-development and long-
-  #    term-support releases respectively. `lts` is optional.
-  #    TODO: These should probably be release sets, not a specific version.
-  # 5. If the project was moved from the Middleman site to Hugo, the
-  #    `archived_url` is the URL to the newest deprecated page.
-  #    This option is optional.
+  #    series).  
+  #    `releases` is required. Every release must have at least one `version`.
+  # 5. `latest` is the current specific version that is currently att the head-
+  #    of-development.  
+  #    `latest` is required.
+  # 6. `lts` is the Release Series (ex; "1.4", or "2.0", ect. -- it is expected
+  #    to be the "X.Y" of a semantic "X.Y.Z" version string) that is currently
+  #    held as the Long Term Support series.  
+  #    `lts` is optional.
+  # 7. If the project was moved from the Middleman site to Hugo, the
+  #    `archived_url` is the URL to the newest of the deprecated pages.  
+  #    `archived_url` is optional.
   project_descriptions:
     riak_kv:
+      project_name: "Riak KV"
+      project_name_html: 'Riak<span class="product__title-highlight">KV</span>'
       path: "/riak/kv"
       archived_path: "/riak"
       releases:
@@ -75,18 +96,22 @@ params:
         - ["2.1.1", "2.1.3", "2.1.4"]
         - ["2.2.0"]
       latest: "2.2.0"
-      lts: "2.0.7"
+      lts: "2.0"
       archived_url: "http://docs.basho.com/riak/1.4.12/"
     riak_cs:
+      project_name: "Riak CS"
+      project_name_html: 'Riak<span class="product__title-highlight">CS</span>'
       path: "/riak/cs"
       archived_path: "/riakcs"
       releases:
         - ["2.0.0", "2.0.1"]
         - ["2.1.0", "2.1.1"]
       latest: "2.1.1"
-      lts: "2.0.1"
+      lts: "2.0"
       archived_url: "http://docs.basho.com/riakcs/1.5.4/"
     riak_ts:
+      project_name: "Riak TS"
+      project_name_html: 'Riak<span class="product__title-highlight">TS</span>'
       path: "/riak/ts"
       archived_path: "/riakts"
       releases:
@@ -98,6 +123,7 @@ params:
         - ["1.5.0", "1.5.1"]
       latest: "1.5.1"
     dataplatform:
+      project_name: "DataPlatform"
       path: "/dataplatform"
       archived_path: "/dataplatform"
       releases:

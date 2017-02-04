@@ -8,7 +8,7 @@ menu:
     name: "Using"
     identifier: "managing"
     weight: 201
-    pre: icon-database
+    pre: database
 toc: true
 ---
 

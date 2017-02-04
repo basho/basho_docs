@@ -8,7 +8,7 @@ menu:
     name: "Developing"
     identifier: "developing"
     weight: 300
-    pre: icon-lambda
+    pre: lambda
 toc: true
 ---
 

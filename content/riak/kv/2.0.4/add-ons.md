@@ -8,7 +8,7 @@ menu:
     name: "Add-ons"
     identifier: "add-ons"
     weight: 400
-    pre: icon-tools
+    pre: tools
 toc: true
 ---
 

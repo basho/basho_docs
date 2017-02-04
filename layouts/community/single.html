@@ -1,83 +1,105 @@
 <!DOCTYPE html>
-{{/*TODO(Drew): Find out if we need to do this IE-safety shit anymore. */}}
-{{ `<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"></html><![endif]-->` | safeHTML }}
-{{ `<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"></html><![endif]-->` | safeHTML }}
-{{ `<!--[if IE 8]><html class="no-js lt-ie9" lang="en"></html><![endif]-->` | safeHTML }}
-{{ `<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->` | safeHTML }}
 
-<!-- Site-wide Variables for Community Pages
-     =======================================
-  This would usually be where we include the "common_variables.html" partial,
-  but that file makes numerous assumptions about front matter and file paths
-  that aren't true for pages in the Community section, so we duplicate some
-  effort here and only define the variables we're interested in.
+<!-- Variable Definitions
+     ====================
+  See _default/single.html for a general discussion on format and variables.
 
-{{ $display_toc         := (index .Params "toc")                 | default true  }}
-{{ $commercial_offering := (index .Params "commercial_offering") | default false }}
-
-{{/* Note that we're using `(replace str sub_str "")` to remove `sub_str`
-   * from `str` in the below calls. */}}
-{{ $site_relative_url    := (printf "/%s" (replace .Permalink .Site.BaseURL "")) }} {{/* ex; /community/projects/ */}}
-{{ $project_relative_url := (replace $site_relative_url "/community/" "")        }} {{/* ex; project/             */}}
-
-{{ $canonical_link       := (index .Params "canonical_link")      | default .Permalink }}
+  This template is specifically for pages in the Community, which require
+  significantly less front matter than project pages, to the point that we don't
+  need to include the common-variables.html partial. Save the lack of dynamism,
+  these pages will look very similar to more general project pages, and some of
+  the variables defined in common-variables.html are required. The below
+  definitions follow the same form as those laid out in common-variables.html,
+  there are just significantly fewer.
 
 
-{{ .Scratch.Add "display_toc"          $display_toc          }}
-{{ .Scratch.Add "commercial_offering"  $commercial_offering  }}
-{{ .Scratch.Add "site_relative_url"    $site_relative_url    }}
-{{ .Scratch.Add "project_relative_url" $project_relative_url }}
-{{ .Scratch.Add "canonical_link"       $canonical_link       }}
+{{ $title_supertext           := .Params.title_supertext }} {{/* ex; Small Title Text     */}}
+{{ $title                     := .Title                  }} {{/* ex; Primary Title Text   */}}
+{{ $description               := .Params.description     }} {{/* ex; Rich-preview summary */}}
+
+{{ $display_toc               := (index .Params "toc")                 | default true       }}
+{{ $commercial_offering       := (index .Params "commercial_offering") | default false      }}
+{{ $canonical_link            := (index .Params "canonical_link")      | default .Permalink }}
+
+{{ $site_relative_path    := (printf "/%s" (replace .Permalink .Site.BaseURL "")) }} {{/* ex; /community/introduction/ */}}
+{{ $project_relative_path := (replace $site_relative_path "/community/" "")       }} {{/* ex; introduction/            */}}
+
+
+{{ .Scratch.Add "title_supertext"           $title_supertext       }}
+{{ .Scratch.Add "title"                     $title                 }}
+{{ .Scratch.Add "description"               $description           }}
+{{ .Scratch.Add "project"                   "community"            }}
+{{ .Scratch.Add "display_toc"               $display_toc           }}
+{{ .Scratch.Add "commercial_offering"       $commercial_offering   }}
+{{ .Scratch.Add "canonical_link"            $canonical_link        }}
+{{ .Scratch.Add "site_relative_path"        $site_relative_path    }}
+{{ .Scratch.Add "project_relative_path"     $project_relative_path }}
+
+
+For the 'Edit on GitHub' link in the content nav we either need to direct users
+to the $site_relative_path minus the trailing '/', or to the $site_relative_path
+plus 'index'. If there is no $project_relative_path (ex; we're on
+/community/2.1.4/) we know we need to point to 'index'.
+NB. For the sake of making the printf more clear, we're stripping both the
+    leading and trailing '/' from the $site_relative_path.
+
+{{ if $project_relative_path }}
+  {{ $gh_edit_path := (printf  "https://github.com/basho/basho_docs/edit/master/content/%s.md"       (substr $site_relative_path 1 -1)) }}
+  {{ .Scratch.Add "gh_edit_path"  $gh_edit_path }}
+{{ else }}
+  {{ $gh_edit_path := (printf  "https://github.com/basho/basho_docs/edit/master/content/%s/index.md" (substr $site_relative_path 1 -1)) }}
+  {{ .Scratch.Add "gh_edit_path"  $gh_edit_path }}
+{{ end }}
+
+{{ $HugoNode := . }}
 -->
 
-{{ partial "head.html" . }}
+<html class="no-js" lang="en">
+
+
+
+{{ partial "head.html" $HugoNode }}
+
+
 
 <body class="community">
 
-  {{ partial "google_tag_manager.html" . }}
 
-  {{ partial "navigation_sidebar.html" (dict "context" . "menu_title" "community") }}
+  {{ partial "google-tag-manager.html" $HugoNode }}
 
-  <!--TODO: Should this be moved to align with/be part of scripts.html? -->
-  {{ partial "search.html" . }}
 
-  <div role="main">
+  {{ partial "banner.html" $HugoNode }}
 
-    {{ partial "header.html" . }}
 
-    <article class="mainarticle">
+  {{ $dict := (dict   "node" $HugoNode   "menu_title" "community" ) }}
+  {{ partial "content-navigation.html" $dict }}
 
-      <header>
-        {{ if .Params.title_supertext }}<h1 class="title_supertext">{{ .Params.title_supertext }}</h1>{{ end }}
-        <h1>{{ .Title }}</h1>
-      </header>
 
-      {{ if $commercial_offering }}
-      <div class="enterprise">
-        This document applies only to Riak Enterprise, Basho's <a href="http://info.basho.com/Wiki_Riak_Enterprise_Request.html">commercial offering</a>.
-      </div>
-      {{ end }}
 
-      {{ if $display_toc }}
-      <nav id="toc">
-        <h2 class="title">Contents</h2>
-        <div id="toc-wrapper">
-          <ol id="toc-items"></ol>
-        </div>
-      </nav>
-      {{ end }}
+  <div class="content-well">
 
-      {{ .Content }}
 
-      <div class="clear"></div>
+    <article class="main-article">
+
+
+      {{ partial "article-front-matter.html" $HugoNode }}
+
+
+      <main>
+        {{ $HugoNode.Content }}
+      </main>
+
 
     </article>
 
-    {{ partial "footer.html" . }}
+
+    {{ partial "footer.html" $HugoNode }}
+
 
   </div>
 
-  {{ partial "scripts.html" . }}
+
+  <script src="/js/main.js" type="text/javascript"></script>
 
 </body>
 </html>

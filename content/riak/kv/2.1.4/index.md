@@ -8,7 +8,7 @@ menu:
     name: "Riak KV"
     identifier: "index"
     weight: 100
-    pre: icon-riak
+    pre: riak
 toc: false
 aliases:
   - /riak/2.1.4/

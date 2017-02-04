@@ -6,7 +6,7 @@ menu:
     name: "Download Riak KV"
     identifier: "download_riak_kv"
     weight: 101
-    pre: icon-download-alt
+    pre: download-alt
 project: "riak_kv"
 project_version: "2.0.5"
 toc: false
