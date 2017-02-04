@@ -24,12 +24,12 @@
 
 
   <div class="content-nav__fixed-top">
-    <form class="search">
+    <form id="searchbox_011972015458788978446:zgdcy4fa-o0" class="search" action="">
 
       <span class="block float-left   search__icon-container   docs-icon--search">|</span>
 
       <span class="block overflow">
-        <input class="search__input" id="primary-search" type="search" name="search" placeholder="Search">
+        <input class="search__input" id="main-search" type="search" name="q" placeholder="Search">
       </span>
 
     </form>
@@ -210,3 +210,5 @@
 
 
 </nav>
+
+{{ partial "google-search.html" . }}
