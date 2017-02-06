@@ -1,0 +1,17 @@
+/**
+ * An issue was observed in Safari where hovering over sub-headings -- which
+ * would case a doc icon's opacity to transition from 0 to 1 -- was causing all
+ * of the text in the main article to flicker. More specifically, it was losing,
+ * and then regaining a certain amount of clarity.
+ *
+ * It turns this was caused by Safari changing the entire element from a 2D
+ * object to a 3D object for the duration of the transition.
+ *
+ * This rule sets the entire element to a 3D object _at load time_ to prevent
+ * the change from occurring. How stupid is that?
+ *
+ * Fix found on http://stackoverflow.com/questions/30637358
+ */
+.main-article {
+  -webkit-transform: translate3d(0, 0, 0);
+}
