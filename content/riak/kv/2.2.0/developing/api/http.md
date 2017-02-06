@@ -40,8 +40,9 @@ Method | URL | Doc
 Method | URL | Doc
 :------|:----|:---
 `GET` | `/types/<type>/buckets/<bucket>/keys/<key>` | [HTTP Fetch Object](/riak/kv/2.2.0/developing/api/http/fetch-object)
-`POST` | `/types/<type>/buckets/<bucket>/keys/<key>` | [HTTP Store Object](/riak/kv/2.2.0/developing/api/http/store-object)
+`POST` | `/types/<type>/buckets/<bucket>/keys` | [HTTP Store Object](/riak/kv/2.2.0/developing/api/http/store-object)
 `PUT` | `/types/<type>/buckets/<bucket>/keys/<key>` | [HTTP Store Object](/riak/kv/2.2.0/developing/api/http/store-object)
+`POST` | `/types/<type>/buckets/<bucket>/keys/<key>` | [HTTP Store Object](/riak/kv/2.2.0/developing/api/http/store-object)
 `DELETE` | `/types/<type>/buckets/<bucket>/keys/<key>` | [HTTP Delete Object](/riak/kv/2.2.0/developing/api/http/delete-object)
 
 ## Riak-Data-Type-related Operations
