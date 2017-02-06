@@ -10,6 +10,8 @@
  * This rule sets the entire element to a 3D object _at load time_ to prevent
  * the change from occurring. How stupid is that?
  *
+ * The issue was last observed on Safari Version 10.0.3 (11602.4.8.0.1) running
+ * in OS X 10.11.6 (15G1217) on a MacBook Pro (Retina, 15-inch, Mid 2014)
  * Fix found on http://stackoverflow.com/questions/30637358
  */
 .main-article {
