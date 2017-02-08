@@ -1,0 +1,6 @@
+<div class="blocknote">
+  {{ if .Get "title" }}
+    <div class="blocknote__title">{{ with .Get "title" }}{{ markdownify . }}{{ end }}</div>
+  {{ end }}
+  {{ .Inner }}
+</div>

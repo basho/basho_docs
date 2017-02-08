@@ -1,0 +1,33 @@
+<!-- Variable Definitions
+     ====================
+{{ $HugoNode := . }}
+
+{{ $title_supertext := $HugoNode.Scratch.Get "title_supertext" }}
+{{ $title           := $HugoNode.Scratch.Get "title"           }}
+{{ $display_toc     := $HugoNode.Scratch.Get "display_toc"     }}
+-->
+
+<header class="front-matter">
+
+
+  <h1 class="front-matter__title">
+
+{{- if $title_supertext }}
+    <span class="front-matter__title--supertext">{{ $title_supertext }}</span>
+{{- end }}
+
+    <!-- This <br> is not conditional on the presence of super text s.t. the
+         padding between the bottom of the banner and top of the main title
+         remains consistent. -->
+    <br>
+    {{ $title }}
+
+  </h1>
+
+
+{{- if $display_toc }}
+  <nav class="table-of-contents"></nav>
+{{- end             }}
+
+
+</header>
