@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<!-- 404 Page
+     ========
+  This template follows the style of the _default/single.html layout, though
+  contains fewer of the dynamic elements found on the Primary Content pages.
+
+  Please see layouts/_default/single.html for a discussion on HTML style,
+  format, and page layout.
+
+{{ $project := "404" }}
+{{ $title   := "404 - File Not Found" }}
+
+
+{{ .Scratch.Add "project"  $project }}
+{{ .Scratch.Add "title"  $title }}
+
+
+
+{{ $HugoNode := . }}
+-->
+
+<html class="no-js" lang="en">
+
+
+
+{{ partial "head.html" $HugoNode }}
+
+
+
+<body class="ERROR404">
+
+
+  {{ partial "google-tag-manager.html" $HugoNode }}
+
+
+  {{ partial "banner.html" $HugoNode }}
+
+
+
+  <!-- Content Navigation stand-in
+    If content-navigation.html is ever modified, this section should be updated
+    to account for the changes. -->
+  <nav class="content-nav content-nav--top-size-half">
+
+    <div class="content-nav__fixed-top">
+      <form id="searchbox_011972015458788978446:zgdcy4fa-o0" class="search" action="">
+
+        <span class="block float-left   search__icon-container   docs-icon--search">|</span>
+
+        <span class="block overflow">
+          <input class="search__input" id="main-search" type="search" name="q" placeholder="Search">
+        </span>
+
+      </form>
+
+    </div>
+
+  </nav>
+
+
+
+  <div class="content-well">
+
+
+    <article class="main-article">
+
+
+      {{ partial "article-front-matter.html" $HugoNode }}
+
+      <p>Sorry, but the page you were trying to view could not be found.</p>
+
+      <br>
+
+      <p>You may want to check out:</p>
+
+      <br>
+
+      <p><a href="/community">Our Community Pages</a></p>
+      <p><a href="/riak/kv/latest">The Riak KV Docs</a></p>
+      <p><a href="/riak/ts/latest">The Riak TS Docs</a></p>
+      <p><a href="/riak/cs/latest">The Riak CS Docs</a></p>
+
+      <br>
+      <br>
+      <br>
+
+
+    </article>
+
+
+    {{ partial "footer.html" $HugoNode }}
+
+
+  </div>
+
+
+  <script src="/js/main.js" type="text/javascript"></script>
+
+</body>
+</html>

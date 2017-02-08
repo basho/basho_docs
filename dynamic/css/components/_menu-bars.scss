@@ -34,4 +34,8 @@ $bar-height : 0.125em;
       0 ($bar-height * 2) 0 0 $brand-gray,
       0 ($bar-height * 4) 0 0 $brand-gray;
   }
+
+  @include when-inside('.index') {
+    display : none;
+  }
 }

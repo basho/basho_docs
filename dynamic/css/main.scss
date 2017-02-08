@@ -45,3 +45,7 @@
   'pages/index',
   'pages/developing/getting-started',
   'pages/learning/use-cases';
+
+// 7. Styles so shameful they get their own directory
+@import
+  'shame/safari-text-flicker-fix';

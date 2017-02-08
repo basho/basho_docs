@@ -196,6 +196,12 @@ $main-z-index        : 100;
     padding-top : $banner-buffer-md-up;
   }
 
+  @include when-inside('.ERROR404') {
+    @include narrow-from('sm') {
+      text-align : center;
+    }
+  }
+
   /**
    * Main Content Well
    * 1. Because some elements inside this <main> are given relative positioning
