@@ -24,7 +24,7 @@ aliases:
 [google mr]: http://research.google.com/archive/mapreduce.html
 [mapping list]: http://hackage.haskell.org/package/base-4.7.0.0/docs/Prelude.html#v:map
 [function contrib]: https://github.com/basho/riak_function_contrib
-[erlang client](https://github.com/basho/riak-erlang-client)
+[erlang client]: https://github.com/basho/riak-erlang-client
 
 > **Use MapReduce sparingly**
 >
