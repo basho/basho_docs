@@ -501,7 +501,7 @@ difficult to diagnose without expecting the issue and knowing of
 When using the Erlang shell, anonymous MapReduce functions can be
 defined and sent to Riak KV instead of deploying them to all servers in
 advance, but condition #2 above still holds.
-{{% /note }}
+{{% /note %}}
 
 Link phases are expressed in the following form:
 
