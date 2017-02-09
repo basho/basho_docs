@@ -8,8 +8,6 @@ ruby "2.2.5"
 
 gem "sass", "~>3.4.22"
 gem "autoprefixer-rails", "~>6.3.6"
-gem "sass-css-importer", ">=1.0.0.beta.0"
-gem "compass", "~>1.0.3"
 gem "sprockets", "~>3.7"
 gem "coffee-script", "~>2.4.1"
 gem "uglifier", "~>3.0.0"
