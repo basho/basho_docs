@@ -280,9 +280,6 @@ Clears the currently staged cluster changes.
 riak-admin cluster clear
 ```
 
-**Note**: Running this command will also stop the current node in
-addition to clearing any staged changes.
-
 ## partitions
 
 Prints primary, secondary, and stopped partition indices and IDs either
