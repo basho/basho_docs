@@ -104,29 +104,56 @@ The first step in properly addressing this problem is to stop the node.
 riak stop
 ```
 
+If you are using LevelDB tiered storage, check your riak.conf file and make note of the following values:
+
+* leveldb.tiered (integer value)
+* leveldb.tiered.path.fast
+* leveldb.tiered.path.slow
+
 Repairing the corrupted LevelDB can be done through the [Erlang shell](http://learnyousomeerlang.com/starting-out). Do not start Riak at this point; use the shell only.
 
-You can fire up the shell by running the `erl` command. To ensure that you start up the shell using the same version of Erlang that's embedded with Riak, you should run the `erl` command as an absolute path. Here's an example:
+You can fire up the shell by running the `erl` command. To ensure that you start up the shell using the same version of Erlang that's embedded with Riak, you should run the `erl` command as an absolute path. You can use the `riak ertspath` command to output the path to Riak's internal Erlang runtime.  This can be used to start the Erlang shell in a single command like this:
 
 ```bash
-/opt/local/riak/erts-5.8.5/bin/erl
+`riak ertspath`/erl
 ```
 
 Once you're in the shell, run the following command:
 
 ```erlang
-[application:set_env(eleveldb, Var, Val) || {Var, Val} <- 
-    [{max_open_files, 2000}, 
-     {block_size, 1048576}, 
-     {cache_size, 20*1024*1024*1024}, 
-     {sync, false}, 
-     {data_root, ""}]].
+application:set_env(eleveldb, data_root, "").
 ```
+
+If you are using LevelDB's tiered storage feature, you will need to supply some additional info:
+
+```erlang
+Options = [
+  {tiered_slow_level, »leveldb.tiered value«},    
+  {tiered_fast_prefix, "»leveldb.tiered.path.fast value«"},
+  {tiered_slow_prefix, "»leveldb.tiered.path.slow value«"}
+].
+```
+
+If you are not, you will set Options equal to an empty list:
+
+```erlang
+Options = [].
+```
+
+
 
 For each corrupted LevelDB that you found using the `find` command (as demonstrated above), run the following `repair` command, substituting the path to your LevelDB vnodes and the appropriate vnode number:
 
 ```erlang
-eleveldb:repair("/path-to-vnode/<vnode_number>", []).
+DataRoot = "»path to your data root«".
+VNodeNumber = "»vnode id you want to repair«".
+RepairPath = DataRoot ++ "/" ++ VNodeNumber.
+eleveldb:repair(RepairPath, Options).
+```
+If you are comfortable reading Erlang, this can be reduced to a one-liner:
+
+```erlang
+eleveldb:repair("/»data root«/»vnode id«", Options).
 ```
 
 This process will likely take several minutes. When it has completed successfully, you can restart the node and continue as usual.
