@@ -29,6 +29,10 @@ Please let us know if you'd like to help out!
 
 1. Play by visiting <http://localhost:1313>.
 
+>**Heads-up**
+>
+> When running a local instance of the site, you can't navigate from the splash page (the first page when you navigate to localhost:1313) to the index page of KV, TS, or CS. You will need to manually enter the version in the address bar of your browser. So, for instance, http://localhost:1313/riak/kv/2.2.0/ rather than http://localhost:1313/riak/kv/latest/.
+
 [hugo]: http://gohugo.io/
 [installing hugo]: http://gohugo.io/overview/installing/
 [homebrew]: http://brew.sh/
