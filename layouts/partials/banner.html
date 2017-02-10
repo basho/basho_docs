@@ -1,0 +1,78 @@
+<!-- Variable Definitions
+     ====================
+{{ $HugoNode := . }}
+
+{{ $project      := $HugoNode.Scratch.Get "project"      }}
+{{ $version      := $HugoNode.Scratch.Get "version"      }}
+{{ $in_riak_kv   := (eq $project "riak_kv")              }}
+{{ $in_riak_ts   := (eq $project "riak_ts")              }}
+{{ $in_riak_cs   := (eq $project "riak_cs")              }}
+-->
+<header class="banner">
+
+
+
+  <!-- Menu bars for showing/hiding the content nav in sm-down layouts -->
+  <div class="float-right   banner__menu-bars   [bs] hidden-md-up">
+    <div class="menu-bars   js_toggle-content-nav"></div>
+  </div>
+
+
+
+  <!-- Docs logo -->
+  <div class="float-left   banner__docs-logo">
+    <a href="/index.html" class="block   docs-logo"><img class="docs-logo__image" src="/images/branding/basho_docs_logo.png"></a>
+  </div>
+
+
+
+  <!-- Inter-Site and Intra-Brand navigation elements -->
+  <div class="overflow-hidden   banner__navigation-pane   [bs] hidden-sm-down">
+
+
+    <!-- Intra-Brand elements
+         ====================
+      This (set of) element(s) will be positioned above the Intra-Site elements,
+      with the visible portions floated to the right side of the window.
+
+      The __width-wrapper is the sister of the Intra-Site div and ensures this
+      element is always above those links. The __float-wrapper derives its width
+      from its children, and is what floats everything visible to the right of
+      the page. The __cap provides the triangular cap on the left side of the
+      element, extending the dark background. The primary element actually wraps
+      the list of links.
+      Simple, right?
+    -->
+    <div class="float-left    banner__intra-brand__width-wrapper">
+    <div class="float-right   banner__intra-brand">
+      <div class="float-right">
+        <!-- Comment out the newlines s.t. whitespace isn't rendered in-between inline-block elements. -->
+        <a class="inline-block   banner__brand-link" href="http://basho.com/">Basho</a><!--
+     --><a class="inline-block   banner__brand-link" href="https://academy.basho.com">Academy</a><!--
+     --><a class="inline-block   banner__brand-link" href="/community">Community</a><!--
+     --><a class="inline-block   banner__brand-link" href="http://basho.com/contact">Contact</a><!--
+   --></div>
+    </div>
+    </div>
+
+
+{{/* Don't display the intra-site navigation if we're on the splash page; it
+     already is an intra-site navigation page, so the banner becomes redundant.
+     NB. The splash page is the only page w/o a $project current (it's
+     explicitly set to "community" in that section). If that changes, this check
+     will have to become more precise. */}}
+{{ if $project }}
+    <!-- Intra-Site Elements -->
+    <div class="float-left    banner__intra-site__width-wrapper">
+    <div class="float-right   banner__intra-site">
+      <!-- Comment out the newlines s.t. whitespace isn't rendered in-between inline-block elements. -->
+      <a class="inline-block   banner__brand-link {{ if $in_riak_kv }}banner__brand-link--current"{{ else }}" href="/riak/kv/latest/"{{ end }}>Riak KV</a><!--
+   --><a class="inline-block   banner__brand-link {{ if $in_riak_ts }}banner__brand-link--current"{{ else }}" href="/riak/ts/latest/"{{ end }}>Riak TS</a><!--
+   --><a class="inline-block   banner__brand-link {{ if $in_riak_cs }}banner__brand-link--current"{{ else }}" href="/riak/cs/latest/"{{ end }}>Riak CS</a><!--
+ --></div>
+    </div>
+{{ end }}
+
+  </div>
+
+</header>

@@ -6,7 +6,7 @@ menu:
     name: "Configure"
     identifier: "configure"
     weight: 250
-    pre: icon-cog
+    pre: cog
 project: "riak_ts"
 project_version: "1.5.1"
 toc: true

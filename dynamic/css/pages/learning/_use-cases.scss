@@ -1,0 +1,18 @@
+/**
+ * Styles to cap the size of images/links on the use-cases.md page.
+ */
+table.use-cases__image-links {
+  width : 100%;
+
+  td:first-child {
+    width : 30%;
+
+    img {
+      width : 100%;
+    }
+  }
+
+  td:last-child {
+    width : 70%;
+  }
+}

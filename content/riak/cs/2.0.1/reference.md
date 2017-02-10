@@ -6,7 +6,7 @@ menu:
     name: "Reference"
     identifier: "reference"
     weight: 500
-    pre: icon-references
+    pre: references
 project: "riak_cs"
 project_version: "2.0.1"
 ---

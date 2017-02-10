@@ -6,7 +6,7 @@ menu:
     name: "Develop"
     identifier: "develop"
     weight: 400
-    pre: icon-lambda
+    pre: lambda
 project: "riak_ts"
 project_version: "1.3.0"
 toc: true

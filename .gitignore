@@ -24,9 +24,8 @@ static/riak/**
 static/riakcs/**
 static/riakee/**
 static/shared/**
-static/css/main.css
 static/css/main.css.map
-static/js/main.js
 
 vendor/
 .bundle/
+
