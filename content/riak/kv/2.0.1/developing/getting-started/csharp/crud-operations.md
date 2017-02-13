@@ -138,6 +138,6 @@ else
 }
 ```
 
-Just like other operations, we check the results that have come back from Riak to make sure the object was successfully deleted. Of course, if you don't care about that, you can just ignore the result.
+Just like other operations, we check the results that have come back from Riak to make sure the object was successfully deleted.
 
 The Riak .NET Client has a lot of additional functionality that makes it easy to build rich, complex applications with Riak. Check out the [documentation](https://github.com/basho/riak-dotnet-client/wiki) to learn more about working with the Riak .NET Client and Riak.

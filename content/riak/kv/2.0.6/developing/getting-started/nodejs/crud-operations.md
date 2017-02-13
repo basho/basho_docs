@@ -125,8 +125,7 @@ client.deleteValue({ bucket: 'contributors', key: 'johndoe@gmail.com' }, functio
 ```
 
 Just like other operations, we check the results that have come back from Riak
-to make sure the object was successfully deleted. Of course, if you don't care
-about that, you can just ignore the result.
+to make sure the object was successfully deleted.
 
 The Riak Node.js Client has a lot of additional functionality that makes it easy
 to build rich, complex applications with Riak. Check out the
