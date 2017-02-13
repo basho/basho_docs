@@ -120,13 +120,13 @@ Choose your setup below:
 
 Follow the steps below to heal your corrupted LevelDB.
 
-/1. Stop the node:
+1\. Stop the node:
 
 ```bash
 riak stop
 ```
 
-/2. To repair the corrupted LevelDB through the [Erlang shell],  you will run the the `riak ertspath` command to output the path to Riak's internal Erlang runtime, and the `erl` command to start the Erlang shell. You can run them in a single command: 
+2\. To repair the corrupted LevelDB through the [Erlang shell],  you will run the the `riak ertspath` command to output the path to Riak's internal Erlang runtime, and the `erl` command to start the Erlang shell. You can run them in a single command: 
 
 ```bash
 `riak ertspath`/erl
@@ -136,18 +136,18 @@ riak stop
 Note, you must start up the Erlang shell using the same version of Erlang packaged with Riak. The above command will make sure you do so. If you choose not to use the above command please pay close attention to the version and location you use with the `erl` command.
 {{% /note %}}
 
-/3. Once in the shell, run the following command:
+3\. Once in the shell, run the following command:
 
 ```erlang
 application:set_env(eleveldb, data_root, "").
 ```
 
-/4. Then set `Options` equal to an empty list:
+4\. Then set `Options` equal to an empty list:
 
 ```erlang
 Options = [].
 ```
-/5. For each corrupted LevelDB that you found using the [`find` command above](#checking-for-compaction-errors), run the following `repair` command, substituting the path to your LevelDB vnodes and the appropriate vnode number:
+5\. For each corrupted LevelDB that you found using the [`find` command above](#checking-for-compaction-errors), run the following `repair` command, substituting the path to your LevelDB vnodes and the appropriate vnode number:
 
 ```erlang
 DataRoot = "»path to your data root«".
@@ -161,7 +161,7 @@ If you are comfortable reading Erlang, this can be reduced to a one-liner:
 eleveldb:repair("/»data root«/»vnode id«", Options).
 ```
 
-/6. This process may take several minutes. When it has completed successfully, you can restart the node and continue as usual.
+6\. This process may take several minutes. When it has completed successfully, you can restart the node and continue as usual.
 
 ```bash
 riak start
@@ -171,19 +171,19 @@ riak start
 
 Follow the steps below to heal your corrupted LevelDB.
 
-/1. Stop the node:
+1\. Stop the node:
 
 ```bash
 riak stop
 ```
 
-/2. Check your riak.conf file and make note of the following values:
+2\. Check your riak.conf file and make note of the following values:
 
 * leveldb.tiered (integer)
 * leveldb.tiered.path.fast
 * leveldb.tiered.path.slow
 
-/3. To repair the corrupted LevelDB through the [Erlang shell],  you will run the the `riak ertspath` command to output the path to Riak's internal Erlang runtime, and the `erl` command to start the Erlang shell. You can run them in a single command: 
+3\. To repair the corrupted LevelDB through the [Erlang shell],  you will run the the `riak ertspath` command to output the path to Riak's internal Erlang runtime, and the `erl` command to start the Erlang shell. You can run them in a single command: 
 
 ```bash
 `riak ertspath`/erl
@@ -193,13 +193,13 @@ riak stop
 Note, you must start up the Erlang shell using the same version of Erlang packaged with Riak. The above command will make sure you do so. If you choose not to use the above command please pay close attention to the version and location you use with the `erl` command.
 {{% /note %}}
 
-/4. Once in the shell, run the following command:
+4\. Once in the shell, run the following command:
 
 ```erlang
 application:set_env(eleveldb, data_root, "").
 ```
 
-/5. Then supply the information you noted in Step 2:
+5\. Then supply the information you noted in Step 2:
 
 ```erlang
 Options = [
@@ -209,7 +209,7 @@ Options = [
 ].
 ```
 
-/6. For each corrupted LevelDB that you found using the [`find` command above](#checking-for-compaction-errors), run the following `repair` command, substituting the path to your LevelDB vnodes and the appropriate vnode number:
+6\. For each corrupted LevelDB that you found using the [`find` command above](#checking-for-compaction-errors), run the following `repair` command, substituting the path to your LevelDB vnodes and the appropriate vnode number:
 
 ```erlang
 DataRoot = "»path to your data root«".
@@ -223,7 +223,7 @@ If you are comfortable reading Erlang, this can be reduced to a one-liner:
 eleveldb:repair("/»data root«/»vnode id«", Options).
 ```
 
-/7. This process may take several minutes. When it has completed successfully, you can restart the node and continue as usual.
+7\. This process may take several minutes. When it has completed successfully, you can restart the node and continue as usual.
 
 ```bash
 riak start
