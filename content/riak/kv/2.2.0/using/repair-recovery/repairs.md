@@ -21,15 +21,25 @@ aliases:
   - /riak/kv/2.2.0/ops/running/recovery/repairing-partitions
 ---
 
+[cluster ops aae]: /riak/kv/2.2.0/using/cluster-operations/active-anti-entropy/
+[config ref]: /riak/kv/2.2.0/configuring/reference/
+[Erlang shell]: http://learnyousomeerlang.com/starting-out
+[glossary AAE]: /riak/kv/2.2.0/learn/glossary/#active-anti-entropy-aae
+[glossary readrep]: /riak/kv/2.2.0/learn/glossary/#read-repair
+[search config]: /riak/kv/2.2.0/configuring/search/#search-config-settings
+[tiered storage]: /riak/kv/2.2.0/setup/planning/backend/leveldb/#tiered-storage
+
+
+
 ## Repairing Search Indexes
 
-Riak search indexes are repaired whenever objects are corrected by [read repair](/riak/kv/2.2.0/learn/glossary/#read-repair).
+Riak search indexes are repaired whenever objects are corrected by [read repair][glossary readrep].
 
-[Active anti-entropy (AAE)](/riak/kv/2.2.0/learn/glossary/#active-anti-entropy-aae) is provided for Riak search.
+[Active anti-entropy (AAE)][glossary AAE] is provided for Riak search.
 
-Riak KV's [configuration for AAE](/riak/kv/2.2.0/using/cluster-operations/active-anti-entropy/) will be used for Riak search's AAE hashtrees by default.
+Riak KV's [configuration for AAE][cluster ops aae] will be used for Riak search's AAE hashtrees by default.
 
-Riak search can be provided its own AAE settings in the [search config settings](/riak/kv/2.2.0/configuring/search/#search-config-settings).
+Riak search can be provided its own AAE settings in the [search config settings][search config].
 
 ## Repairing Secondary Indexes
 
@@ -71,7 +81,7 @@ In the event of major hardware or filesystem problems, LevelDB can become corrup
 
 ### Checking for Compaction Errors
 
-Any time there is a compaction error, it will be noted in the LevelDB logs. Those logs are located in a `LOG` file in each instance of LevelDB in a Riak node, specifically in `#(platform_data_dir)/leveldb/<vnode>/LOG`. The `platform_data_dir` can be specified in the [`riak.conf`](/riak/kv/2.2.0/configuring/reference/) configuration file. The default is `./data`.
+Any time there is a compaction error, it will be noted in the LevelDB logs. Those logs are located in a `LOG` file in each instance of LevelDB in a Riak node, specifically in `#(platform_data_dir)/leveldb/<vnode>/LOG`. The `platform_data_dir` can be specified in the [`riak.conf`][config ref] configuration file. The default is `./data`.
 
 Compaction error messages take the following form:
 
@@ -91,58 +101,53 @@ If there are compaction errors in any of your vnodes, those will be listed in th
 ./442446784738847563128068650529343492278651453440/LOG 
 ```
 
-<div class="note">
-<div class="title">Note</div>
+{{% note %}}
 While corruption on one vnode is not uncommon, corruption in several vnodes very likely means that there is a deeper problem that needs to be address, perhaps on the OS or hardware level.
-</div>
+{{% /note %}}
+
 
 ## Healing Corrupted LevelDBs
 
-The first step in properly addressing this problem is to stop the node.
+When you have discovered corruption in your LevelDB backend, the steps you take to resolve it will depend on whether you are using [tiered storage] or not.
+
+Choose your setup below: 
+
+1. [Just LevelDB](#leveldb)
+2. [LevelDB with tiered storage](#leveldb-with-tiered-storage)
+
+
+### LevelDB
+
+Follow the steps below to heal your corrupted LevelDB.
+
+1\. Stop the node:
 
 ```bash
 riak stop
 ```
 
-If you are using LevelDB tiered storage, check your riak.conf file and make note of the following values:
-
-* leveldb.tiered (integer value)
-* leveldb.tiered.path.fast
-* leveldb.tiered.path.slow
-
-Repairing the corrupted LevelDB can be done through the [Erlang shell](http://learnyousomeerlang.com/starting-out). Do not start Riak at this point; use the shell only.
-
-You can fire up the shell by running the `erl` command. To ensure that you start up the shell using the same version of Erlang that's embedded with Riak, you should run the `erl` command as an absolute path. You can use the `riak ertspath` command to output the path to Riak's internal Erlang runtime.  This can be used to start the Erlang shell in a single command like this:
+2\. To repair the corrupted LevelDB through the [Erlang shell],  you will run the the `riak ertspath` command to output the path to Riak's internal Erlang runtime, and the `erl` command to start the Erlang shell. You can run them in a single command: 
 
 ```bash
 `riak ertspath`/erl
 ```
 
-Once you're in the shell, run the following command:
+{{% note title="Erlang version" %}}
+Note, you must start up the Erlang shell using the same version of Erlang packaged with Riak. The above command will make sure you do so. If you choose not to use the above command please pay close attention to the version and location you use with the `erl` command.
+{{% /note %}}
+
+3\. Once in the shell, run the following command:
 
 ```erlang
 application:set_env(eleveldb, data_root, "").
 ```
 
-If you are using LevelDB's tiered storage feature, you will need to supply some additional info:
-
-```erlang
-Options = [
-  {tiered_slow_level, »leveldb.tiered value«},    
-  {tiered_fast_prefix, "»leveldb.tiered.path.fast value«"},
-  {tiered_slow_prefix, "»leveldb.tiered.path.slow value«"}
-].
-```
-
-If you are not, you will set Options equal to an empty list:
+4\. Then set `Options` equal to an empty list:
 
 ```erlang
 Options = [].
 ```
-
-
-
-For each corrupted LevelDB that you found using the `find` command (as demonstrated above), run the following `repair` command, substituting the path to your LevelDB vnodes and the appropriate vnode number:
+5\. For each corrupted LevelDB that you found using the [`find` command above](#checking-for-compaction-errors), run the following `repair` command, substituting the path to your LevelDB vnodes and the appropriate vnode number:
 
 ```erlang
 DataRoot = "»path to your data root«".
@@ -156,11 +161,74 @@ If you are comfortable reading Erlang, this can be reduced to a one-liner:
 eleveldb:repair("/»data root«/»vnode id«", Options).
 ```
 
-This process will likely take several minutes. When it has completed successfully, you can restart the node and continue as usual.
+6\. This process may take several minutes. When it has completed successfully, you can restart the node and continue as usual.
 
 ```bash
 riak start
 ```
+
+### LevelDB with Tiered Storage
+
+Follow the steps below to heal your corrupted LevelDB.
+
+1\. Stop the node:
+
+```bash
+riak stop
+```
+
+2\. Check your riak.conf file and make note of the following values:
+
+* leveldb.tiered (integer)
+* leveldb.tiered.path.fast
+* leveldb.tiered.path.slow
+
+3\. To repair the corrupted LevelDB through the [Erlang shell],  you will run the the `riak ertspath` command to output the path to Riak's internal Erlang runtime, and the `erl` command to start the Erlang shell. You can run them in a single command: 
+
+```bash
+`riak ertspath`/erl
+```
+
+{{% note title="Erlang version" %}}
+Note, you must start up the Erlang shell using the same version of Erlang packaged with Riak. The above command will make sure you do so. If you choose not to use the above command please pay close attention to the version and location you use with the `erl` command.
+{{% /note %}}
+
+4\. Once in the shell, run the following command:
+
+```erlang
+application:set_env(eleveldb, data_root, "").
+```
+
+5\. Then supply the information you noted in Step 2:
+
+```erlang
+Options = [
+  {tiered_slow_level, »leveldb.tiered value«},    
+  {tiered_fast_prefix, "»leveldb.tiered.path.fast value«"},
+  {tiered_slow_prefix, "»leveldb.tiered.path.slow value«"}
+].
+```
+
+6\. For each corrupted LevelDB that you found using the [`find` command above](#checking-for-compaction-errors), run the following `repair` command, substituting the path to your LevelDB vnodes and the appropriate vnode number:
+
+```erlang
+DataRoot = "»path to your data root«".
+VNodeNumber = "»vnode id you want to repair«".
+RepairPath = DataRoot ++ "/" ++ VNodeNumber.
+eleveldb:repair(RepairPath, Options).
+```
+If you are comfortable reading Erlang, this can be reduced to a one-liner:
+
+```erlang
+eleveldb:repair("/»data root«/»vnode id«", Options).
+```
+
+7\. This process may take several minutes. When it has completed successfully, you can restart the node and continue as usual.
+
+```bash
+riak start
+```
+
 
 ## Repairing Partitions
 
