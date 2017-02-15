@@ -58,13 +58,13 @@ ulimit -n 200000
 
 This file is automatically sourced from the initialization script, and the Riak KV process will inherit this setting. Since initialization scripts are always run as the root user, there’s no need to set limits in /etc/security/limits.conf.
 
-### Enable PAM-Based Limits for Debian & Ubuntu
+## Enable PAM-Based Limits for Debian & Ubuntu
 
 You can enable PAM-based user limits so that non-root users, such as the `riak` user, may specify a higher value for maximum open files.
 
 For example, follow these steps to enable PAM-based limits for all users to allow a maximum of 200000 open files.
 
-1\.  Edit /etc/pam.d/common-session and addd the following line:
+1\.  Edit /etc/pam.d/common-session and add the following line:
 
 ```/etc/pam.d/common-session
 session    required   pam_limits.so
@@ -100,7 +100,7 @@ ulimit -a
 ```
 
 {{% note %}}
-In the above examples, the open files limit is raised for all users of the system. The limit can be specified for the riak user only by substituting the
+In the above examples, the open files limit is raised for all users of the system. The limit can be specified for the `riak` user only by substituting the
 two asterisks (`*`) in the examples with `riak`.
 {{% /note %}}
 
@@ -129,7 +129,7 @@ ulimit -n 200000
 
 This file is automatically sourced from the initialization script, and the Riak KV process will inherit this setting. Since initialization scripts are always run as the root user, there’s no need to set limits in /etc/security/limits.conf.
 
-### Enable PAM-Based Limits for CentOS and Red Hat
+## Enable PAM-Based Limits for CentOS and Red Hat
 
 You can enable PAM-based user limits so that non-root users, such as the `riak` user, may specify a higher value for maximum open files.
 
@@ -160,7 +160,7 @@ ulimit -a
 ```
 
 {{% note %}}
-In the above examples, the open files limit is raised for all users of the system. The limit can be specified for the riak user only by substituting the
+In the above examples, the open files limit is raised for all users of the system. The limit can be specified for the `riak` user only by substituting the
 two asterisks (`*`) in the examples with `riak`.
 {{% /note %}}
 
@@ -261,7 +261,7 @@ Start by checking the current open file limit values with:
 launchctl limit maxfiles
 ```
 
-The response should looking something like this:
+The response should look something like this:
 
 ```bash
 maxfiles    10240          10240
@@ -277,7 +277,7 @@ To adjust the maximum open file limits in OS X 10.7 (Lion) up to but not includi
 limit maxfiles 65536 200000
 ```
 
-2\. Save the file, and restart the system for the new limits to take effect.
+2\. Save the file and restart the system for the new limits to take effect.
 
 3\. After restarting, verify the new limits by running:
 
