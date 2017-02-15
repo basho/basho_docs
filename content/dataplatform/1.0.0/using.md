@@ -8,7 +8,7 @@ menu:
     name: "Using"
     identifier: "using"
     weight: 104
-    pre: icon-database
+    pre: database
 toc: true
 aliases:
   - /dataplatform/1.0.0/using-dataplatform/using-dataplatform/

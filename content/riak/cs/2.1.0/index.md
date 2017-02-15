@@ -6,7 +6,7 @@ menu:
     name: "Riak CS"
     identifier: "index"
     weight: 100
-    pre: icon-bolt
+    pre: bolt
 project: "riak_cs"
 project_version: "2.1.0"
 aliases:

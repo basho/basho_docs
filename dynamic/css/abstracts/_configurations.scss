@@ -1,0 +1,121 @@
+////
+/// Site-Wide Variables and Configurations
+/// ======================================
+/// General-purpose variables and configuration sets should be defined below.
+/// Vendor configuration overrides will also be defined in this file.
+////
+
+// Breakpoints
+// ===========
+// We're building this as a mobile-first page, so the below breakpoints will
+// primarily be used for `min-width` queries; screens smaller than
+// `sm-screen-min` (aka 'xs') will be our default. These sizes will be mapped
+// into Bootstrap's `$grid-breakpoints` global scaling map, and so we can use
+// any of their responsive mixins/classes.
+// NB. The alpha version of Bootstrap that was taken for use in this site
+// initially used px breakpoints. This doesn't behave well when users change
+// their browsers' font size. As such I've switched to rem-based media queries
+// which will make wider what 'md' is when a larger font is used. This also
+// relies on no px-based font-size being set on the root <html> element, so the
+// below is something of a lie.
+//
+// Examples:
+//  To apply styles when a screen at least 'md' in width,
+//      @include wide-from(md) { ... }
+//  To apply styles when a screen at most 'lg' in width,
+//      @include narrow-from(lg) { ... }
+//  To hide an element on 'sm' or smaller,
+//      <div class="hidden-sm-down"></div>
+//  To hide an element on 'lg' or larger,
+//      <div class="hidden-lg-up"></div>
+
+$xs-screen-min: 20.0rem;  //  320px
+$sm-screen-min: 30.0rem;  //  480px
+$md-screen-min: 48.0rem;  //  768px
+$lg-screen-min: 66.5rem;  // 1064px
+$xl-screen-min: 86.0rem;  // 1376px
+
+
+
+// Vendor Configuration Overrides
+// ==============================
+// Any vendor variables that are designed to be overridden -- feature sets,
+// color schemes, configuration options. Anything set with `!default` -- should
+// be overridden here, in a well-named section.
+
+
+/// Bootstrap Features & Configurations
+/// ===================================
+
+// Options
+//
+// Quickly modify global styling by enabling or disabling optional features.
+
+$enable-flex:               false;
+$enable-rounded:            true;
+$enable-shadows:            true;
+$enable-gradients:          true;
+$enable-transitions:        true;
+$enable-hover-media-query:  false;
+$enable-grid-classes:       true;
+$enable-print-styles:       false;
+
+// This is a lie. The root font-size is whatever users set it to.
+$font-size-root: 16px;
+
+
+// Grid breakpoints
+//
+// Define the minimum dimensions at which your layout will change,
+// adapting to different screen sizes, for use in media queries.
+
+$grid-breakpoints: (
+  xs: $xs-screen-min,
+  sm: $sm-screen-min,
+  md: $md-screen-min,
+  lg: $lg-screen-min,
+  xl: $xl-screen-min,
+);
+
+
+// Grid containers
+//
+// Define the maximum width of `.container` for different screen sizes.
+
+$container-max-widths: (
+  sm: 32rem,    // 512px
+  md: 45rem,    // 720px
+  lg: 58.75rem, // 940px
+  xl: 71.25rem, // 1140px
+);
+
+
+// Grid columns
+//
+// Set the number of columns and specify the width of the gutters.
+
+$grid-columns:      12;
+$grid-gutter-width: 30px;
+
+
+// Colors
+//
+// I don't like the idea of fragmenting semantic colors on Bootstrap's setup vs
+// our own. Override all of their default colors with something stupid to
+// ensure we reassign all colors in our own CSS.
+// Make the below default too so we can override them wherever we want.
+
+$gray-dark:                 red !default;
+$gray:                      red !default;
+$gray-light:                red !default;
+$gray-lighter:              red !default;
+$gray-lightest:             red !default;
+
+$brand-primary:             red !default;
+$brand-success:             red !default;
+$brand-info:                red !default;
+$brand-warning:             red !default;
+$brand-danger:              red !default;
+$brand-inverse:             red !default;
+
+$body-color:                red !default;

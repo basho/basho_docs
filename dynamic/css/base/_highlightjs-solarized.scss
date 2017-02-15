@@ -1,0 +1,133 @@
+/**
+ * Initially copied from Highlight.js styles;
+ * https://github.com/isagalaev/highlight.js/blob/master/src/styles/solarized-light.css
+ * Original Style from ethanschoonover.com/solarized (c) Jeremy Hull <sourdrums@gmail.com>
+ *
+ * Below is the original color map for Solarized, with the Light theme
+ * notations added. We're going to replace the named colors with our own
+ * colors, but piggy-back off of the choices made wrt which elements share
+ * which colors.
+ *
+ *    SOLARIZED       HEX       L*A*B
+ *    =========       =======   ==========
+ *    base03          #002b36   15 -12 -12
+ *    base02          #073642   20 -12 -12
+ *    base01          #586e75   45 -07 -07  Optional Emphasis
+ *    base00          #657b83   50 -07 -07  Primary Content
+ *    base0           #839496   60 -06 -03
+ *    base1           #93a1a1   65 -05 -02  Secondary Content
+ *    base2           #eee8d5   92 -00  10  Background Highlights
+ *    base3           #fdf6e3   97  00  10  Background
+ *    yellow          #b58900   60  10  65
+ *    orange          #cb4b16   50  50  55
+ *    red             #dc322f   50  65  45
+ *    magenta         #d33682   50  65 -05
+ *    violet          #6c71c4   50  15 -45
+ *    blue            #268bd2   55 -10 -45
+ *    cyan            #2aa198   60 -35 -05
+ *    green           #859900   60 -20  65
+ */
+
+
+/**
+ * Define (and then override) Solarized color names.
+ * NB. We prefix these colors with `hl_` to ensure they don't conflict with any
+ *     other colors defined elsewhere (like those defined in _colors.scss).
+ */
+
+$hl_base03  :  none;
+$hl_base02  :  none;
+$hl_base01  :  none;          // Optional Emphasis
+$hl_base00  : $gray-30;       // Primary Content   / Code
+$hl_base0   :  none;
+$hl_base1   : $gray-60;       // Secondary Content / Comments
+$hl_base2   : $gray-warm-92;  // Background Highlights
+$hl_base3   : $gray-warm-97;  // Background
+$hl_yellow  : $green-dark;
+$hl_orange  : $orange;
+$hl_red     : $orange-red;
+$hl_magenta :  none;
+$hl_violet  :  none;
+$hl_blue    : $cyan;
+$hl_cyan    : $orange-text;
+$hl_green   : $cyan-dark;
+
+
+.hljs {
+  background: $hl_base3;
+  color: $hl_base00;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: $hl_base1;
+  font-style: italic;
+}
+
+/* Solarized Green */
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-addition {
+  color: $hl_green;
+  font-weight: bold;
+}
+
+/* Solarized Cyan */
+.hljs-number,
+.hljs-string,
+.hljs-params,
+.hljs-meta .hljs-meta-string,
+.hljs-literal,
+.hljs-doctag,
+.hljs-regexp {
+  color: $hl_cyan;
+}
+
+/* Solarized Blue */
+.hljs-title,
+.hljs-section,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class {
+  color: $hl_blue;
+}
+
+/* Solarized Yellow */
+.hljs-attribute,
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-class .hljs-title,
+.hljs-type {
+  color: $hl_yellow;
+}
+
+/* Solarized Orange */
+.hljs-symbol,
+.hljs-bullet,
+.hljs-subst,
+.hljs-meta,
+.hljs-meta .hljs-keyword,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-link {
+  color: $hl_orange;
+}
+
+/* Solarized Red */
+.hljs-built_in,
+.hljs-deletion {
+  color: $hl_red;
+}
+
+.hljs-formula {
+  background: $hl_base2;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}

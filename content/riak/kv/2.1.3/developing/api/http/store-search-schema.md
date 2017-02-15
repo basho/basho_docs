@@ -20,7 +20,7 @@ Creates a new Riak [Search schema](/riak/kv/2.1.3/developing/usage/search-schema
 ## Request
 
 ```
-PUT /search/index/<schema_name>
+PUT /search/schema/<schema_name>
 ```
 
 ## Required Form Data

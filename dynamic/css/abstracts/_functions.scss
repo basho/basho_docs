@@ -1,0 +1,28 @@
+////
+/// Application-Wide Sass Functions
+/// ===============================
+////
+
+
+/// Converts a px value to rem (base on the default font size of 16px)
+/// @author Drew Pirrone-Brusse
+/// @param {Px} $px - Pixel count to convert
+/// @return {Rem}
+@function px-to-rem($px) {
+  @return ($px / 16px) * 1rem;
+}
+
+/// @alias px-to-rem
+@function p2r($px) {
+  @return px-to-rem($px);
+}
+
+
+/// Strips the unit from $num, regardless of type
+/// @author Karl Merkli
+/// @link https://css-tricks.com/snippets/css/less-mixin-for-rem-font-sizing/
+/// @param {Number} $num
+/// @return {Number}
+@function strip-unit($num) {
+  @return $num / ($num * 0 + 1);
+}

@@ -6,7 +6,7 @@ menu:
     name: "Setup"
     identifier: "setup"
     weight: 200
-    pre: icon-install
+    pre: install
 project: "riak_ts"
 project_version: "1.4.0"
 toc: true
