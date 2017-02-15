@@ -175,7 +175,7 @@ set rlim_fd_max=200000
 
 [Reference][blog oracle]
 
-## Mac OSX El Capitan
+## Mac OS X El Capitan
 
 Start by checking the current open file limit values with:
 
@@ -183,7 +183,7 @@ Start by checking the current open file limit values with:
 launchctl limit maxfiles
 ```
 
-The response should looking something like this:
+The response should look something like this:
 
 ```bash
 maxfiles    65536          65536
@@ -209,7 +209,7 @@ kern.maxfilesperproc=200000
 4\. Restart your computer and enter `ulimit -n` into your terminal. If your system is configured correctly, you should see that `maxfiles` has been set to 200000.
 
 
-## Mac OSX Yosemite
+## Mac OS X Yosemite
 
 Start by checking the current open file limit values with:
 
@@ -217,7 +217,7 @@ Start by checking the current open file limit values with:
 launchctl limit maxfiles
 ```
 
-The response should looking something like this:
+The response should look something like this:
 
 ```bash
 maxfiles    65536          65536
@@ -253,7 +253,7 @@ The response output should look something like this:
 maxfiles    65536          200000
 ```
 
-## Mac OSX Older Versions
+## Mac OS X Older Versions
 
 Start by checking the current open file limit values with:
 
