@@ -212,18 +212,12 @@ canonical_link: "https://docs.basho.com/. . ." # 10    -- Conditional
 9.  The canonical URI for the page
 
     If this element is excluded, the canonical URI will default to
-    `${project_path}/latest/${project_relative_url}`. **If this is
+    `${project_path}/latest/${project_relative_path}`. **If this is
     not what the canonical link should be, this element is required**.
 
     This is especially important to look out for when moving pages between
     versions. **The most recent location of any given page should be its
     canonical link.**
-
-    **FIXME**: Actually, this is a lie. Our current head.html partial doesn't
-               include a default value for the canonical links. Changes should
-               be made to layout/partials/head.html (or maybe
-               layout/partials/common_variables.html?) to bring our behavior up
-               to scratch.
 
 10. "Redirects can be handled easily with aliases in Hugo."
 
@@ -310,14 +304,8 @@ canonical_link: "https://docs.basho.com/. . ." # 2 -- OPTIONAL
     be** `community`.
 
 2.  Default canonical links for Community pages are slightly different from and
-    simpler than primary content pages; `community/${project_relative_url}`.
+    simpler than primary content pages; `community/${project_relative_path}`.
     Again, this element is entirely optional.
-
-    **FIXME**: Actually, this is (also) a lie. We're currently using the same
-               old head.html partial to generate community pages &lt;head> tags.
-               We should build a new layout/partials/community/head.html (and
-               maybe a layout/partials/community/common_variables.html?) to
-               handle the stated differences.
 
 
 ## Problematic Markdown (and Workarounds)

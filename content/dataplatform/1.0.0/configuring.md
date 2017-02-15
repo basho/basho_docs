@@ -8,7 +8,7 @@ menu:
     name: "Configuring"
     identifier: "configuring"
     weight: 103
-    pre: icon-configure
+    pre: configure
 toc: true
 ---
 

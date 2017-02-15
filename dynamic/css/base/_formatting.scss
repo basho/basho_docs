@@ -1,0 +1,236 @@
+/**
+ * Formatting-Specific classes
+ * ===========================
+ * The classes defined below directly affect the flow of the HTML documents.
+ * Basic styles and class-specific styles should not alter the `display`,
+ * `float`, or `clear` properties. If an element needs to have those properties
+ * changed, one of the below classes should be applied alongside any other
+ * custom styles.
+ *
+ * We're not including classes designed to hide or partially hide elements here
+ * because Bootstrap provides those for us,
+ *     .invisible       -- `display: hidden`
+ *     .hidden-print    -- `display: none` in print media
+ *     .hidden-*-up     -- `display: none` when screen is equal/larger than *
+ *     .hidden-*-down   -- `display: none` when screen is equal/larger than *
+ *     .visible-print-* -- `display: *` in print media, otherwise `none`
+ *
+ * NB. All of the above styles are (correctly) modified with `!important`. This
+ * is because those styles (as with the below) are preemptive. The idea being
+ * that we _do not_ use these styles to override CSS defined elsewhere. Applying
+ * one of these classes to an HTML element is a statement of intent that _must_
+ * be honored.
+ *     This does mean mixing these classes can have some strange effects. For
+ * example, combining .inline-block and .hidden-md-down yield competing
+ * `display: * !important;` clauses. If such a case is necessary, custom classes
+ * (ex; .inline-only-lg, or a theoretical .inline-md-up) should be created.
+ */
+
+.inline {
+  display: inline !important;
+}
+
+.block {
+  display: block !important;
+}
+
+.inline-block {
+  display: inline-block !important;
+}
+
+
+.table {
+  display: table !important;
+}
+
+.inline-table {
+  display: inline-table !important;
+}
+
+.table-row {
+  display: table-row !important;
+}
+
+.table-cell {
+  display: table-cell !important;
+}
+
+
+.hidden {
+  display: none !important;
+}
+
+
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
+
+
+.clear {
+  clear: both;
+}
+
+.clear-left {
+  clear: left;
+}
+
+.clear-right {
+  clear: right;
+}
+
+
+
+.overflow {
+  overflow: auto;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.overflow-visible {
+  overflow: visible;
+}
+
+.overflow-scroll {
+  overflow: scroll;
+}
+
+
+.overflow-x {
+  overflow-x: auto;
+}
+
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
+
+.overflow-x-visible {
+  overflow-x: visible;
+}
+
+.overflow-x-scroll {
+  overflow-x: scroll;
+}
+
+
+.overflow-y {
+  overflow-y: auto;
+}
+
+.overflow-y-hidden {
+  overflow-y: hidden;
+}
+
+.overflow-y-visible {
+  overflow-y: visible;
+}
+
+.overflow-y-scroll {
+  overflow-y: scroll;
+}
+
+
+
+/**
+ * Responsive Formatting Classes
+ * -----------------------------
+ * The below classes are 'dynamically' generated using Sass loops, based on our
+ * $grid-breakpoints map. The code is largely based on Based on Bootstrap's
+ * `pull-${breakpoint}-(left|right)` code.
+ */
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  .inline-only-#{$breakpoint} {
+    display: none !important;
+  }
+  .block-only-#{$breakpoint} {
+    display: none !important;
+  }
+  .inline-block-only-#{$breakpoint} {
+    display: none !important;
+  }
+
+  @include media-breakpoint-only($breakpoint) {
+    .inline-only-#{$breakpoint} {
+      display: inline !important;
+    }
+    .block-only-#{$breakpoint} {
+      display: block !important;
+    }
+    .inline-block-only-#{$breakpoint} {
+      display: inline-block !important;
+    }
+  }
+}
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include wide-from($breakpoint) {
+    .float-left-#{$breakpoint}-up {
+      float: left;
+    }
+    .float-right-#{$breakpoint}-up {
+      float: right;
+    }
+    .float-none-#{$breakpoint}-up {
+      float: none;
+    }
+  }
+}
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include narrow-from($breakpoint) {
+    .float-left-#{$breakpoint}-down {
+      float: left;
+    }
+    .float-right-#{$breakpoint}-down {
+      float: right;
+    }
+    .float-none-#{$breakpoint}-down {
+      float: none;
+    }
+  }
+}
+
+
+
+/**
+ * Accessible-Aware Classes
+ * Pulled from the Sass 7-1 base/_helpers.scss file.
+ *
+ * TODO: Extend the below set, and start using them.
+ */
+
+/**
+ * Hide text while making it readable for screen readers
+ * 1. Needed in WebKit-based browsers because of an implementation bug;
+ *    See: https://code.google.com/p/chromium/issues/detail?id=457146
+ */
+.hide-text {
+  overflow: hidden;
+  padding: 0; /* 1 */
+  text-indent: 101%;
+  white-space: nowrap;
+}
+
+/**
+ * Hide element while making it readable for screen readers
+ * Shamelessly borrowed from HTML5Boilerplate:
+ * https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css#L119-L133
+ */
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}

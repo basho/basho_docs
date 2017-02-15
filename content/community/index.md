@@ -6,7 +6,7 @@ menu:
     name: "Community"
     identifier: "community_overview"
     weight: 600
-    pre: icon-comments
+    pre: comments
 aliases:
   - /riak/latest/community
   - /riak/2.1.4/community

@@ -8,7 +8,7 @@ menu:
     name: "Learning"
     identifier: "learn"
     weight: 400
-    pre: icon-beaker
+    pre: beaker
 toc: true
 ---
 

@@ -8,7 +8,7 @@ menu:
     name: "Add-ons"
     identifier: "addons"
     weight: 450
-    pre: icon-tools
+    pre: tools
 toc: true
 version_history:
   in: "1.3.0+"

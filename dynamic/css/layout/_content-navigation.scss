@@ -1,0 +1,321 @@
+/**
+ * Content Navigation
+ * ==================
+ * The Content Navigation element is a pretty complex piece of this site, so
+ * this file may grow pretty large.
+ * Note that this file relies on the below variables set in _wireframe.scss
+ *  - $banner-height-sm-down
+ *  - $banner-height-md-up
+ *  - $content-nav-width-md
+ *  - $content-nav-width-lg-up
+ */
+
+// Because of the way we're locking the .content-nav__fixed-top and
+// .content-nav__fixed-bottom elements to the content-nav, we need pre-defined
+// concrete sizes for both of them that can be used in numerous classes.
+$fixed-top-height-full-sm-down    : 7.5rem; // w/  project and version selectors.
+$fixed-top-height-half-sm-down    : 3.5rem; // w/o project and version selectors.
+$fixed-top-padding-top-sm-down    : 0.5rem; // Space between the content-nav and __fixed-top content.
+$fixed-top-padding-bottom-sm-down : 0.5rem; // Space between the __fixed_top and __primary.
+$fixed-top-height-full-sm-down-total : $fixed-top-height-full-sm-down + $fixed-top-padding-top-sm-down;
+$fixed-top-height-half-sm-down-total : $fixed-top-height-half-sm-down + $fixed-top-padding-top-sm-down;
+
+
+$fixed-top-height-full-md      : 6.5rem; // w/  project and version selectors.
+$fixed-top-height-half-md      : 3.5rem; // w/o project and version selectors.
+$fixed-top-padding-top-md      : 1.0rem; // Space between the content-nav and __fixed-top content.
+$fixed-top-padding-bottom-md   : 1.0rem; // Space between the __fixed_top and __primary.
+$fixed-top-height-full-md-total : $fixed-top-height-full-md + $fixed-top-padding-top-md;
+$fixed-top-height-half-md-total : $fixed-top-height-half-md + $fixed-top-padding-top-md;
+
+
+$fixed-top-height-full-lg-up      : 6.75rem; // w/  project and version selectors.
+$fixed-top-height-half-lg-up      : 3.5rem; // w/o project and version selectors.
+$fixed-top-padding-top-lg-up      : 1.0rem; // Space between the content-nav and __fixed-top content.
+$fixed-top-padding-bottom-lg-up   : 1.0rem; // Space between the __fixed_top and __primary.
+$fixed-top-height-full-lg-up-total : $fixed-top-height-full-lg-up + $fixed-top-padding-top-lg-up;
+$fixed-top-height-half-lg-up-total : $fixed-top-height-half-lg-up + $fixed-top-padding-top-lg-up;
+
+//FIXME: This is currently to what I saw when inspecting the built
+//       __fixed-bottom element in Chrome's dev tools. We should come up with a
+//       way of dynamically sizing this, probably.
+$fixed-bottom-height : p2r(129px);
+
+
+
+/**
+ * Content Navigation root element
+ * PRESENTATION ONLY -- See _wireframe.scss for position and size.
+ * 1. Full-sized fonts for interactive sizes.
+ * 2. Reduced-sized fonts when sharing real estate on small-ish screens
+ * 3. Closer to full-sized fonts when displaying on large screens.
+ * 4. When JS is disabled, we will never be able to reach the Content Nav, so
+ *    completely prevent rendering.
+ *    TODO: Make sure screen readers don't pick up the visually hidden nav when
+ *    js is enabled and it's in the unopened state.
+ */
+.content-nav {
+  @extend %sans;
+  color   : $light-font;
+
+  @include width-exactly('xs') { font-size : 100%; } /* 1 */
+  @include width-exactly('sm') { font-size : 100%; } /* 1 */
+  @include width-exactly('md') { font-size :  80%; } /* 2 */
+  @include width-exactly('lg') { font-size :  90%; } /* 3 */
+  @include width-exactly('xl') { font-size :  90%; } /* 3 */
+
+  @include when-inside('.no-js') {
+    display : none !important;                       /* 4 */
+  }
+}
+
+
+
+/**
+ * Fixed element locked to the top of the Content Navigation.
+ * 1. Any positive z-index will set this element above the .content-nav__primary
+ *    box-shadow, and prevent a muddling of the bottom of this element.
+ *    Only set it for md+ layouts.
+ */
+.content-nav__fixed-top {
+  position    : fixed;
+  width       : inherit;
+  padding-top : $fixed-top-padding-top-sm-down;
+
+  background : $gray-warm-97;
+  box-shadow : -0.125rem -0.125rem 2rem -0.25rem $shadow-color-darker;
+
+  transition : height 500ms ease;
+
+  @include when-inside('.content-nav--top-size-full') {
+    height : $fixed-top-height-full-sm-down-total;
+  }
+  @include when-inside('.content-nav--top-size-half') {
+    height : $fixed-top-height-half-sm-down-total;
+  }
+
+  @include wide-from('md') {
+    z-index : 1;        /* 1 */
+    width : $content-nav-width-md - 0.25rem;
+    padding-left  : 0.5rem;
+    padding-right : 0.5rem;
+    padding-top   : $fixed-top-padding-top-md;
+
+    box-shadow : -0.125rem -0.125rem 2rem -0.25rem $shadow-color-mid;
+
+    @include when-inside('.content-nav--top-size-full') {
+      height : $fixed-top-height-full-md-total;
+    }
+    @include when-inside('.content-nav--top-size-half') {
+      height : $fixed-top-height-half-md-total;
+    }
+  }
+
+  @include wide-from('lg') {
+    width : $content-nav-width-lg-up - 0.25rem;
+    padding-top : $fixed-top-padding-top-lg-up;
+
+    @include when-inside('.content-nav--top-size-full') {
+      height : $fixed-top-height-full-lg-up-total;
+    }
+    @include when-inside('.content-nav--top-size-half') {
+      height : $fixed-top-height-half-lg-up-total;
+    }
+  }
+
+}
+
+
+
+/**
+ * Wrapper around the Product Title and Version Selector.
+ */
+.version-picker {
+  margin : 0.5rem 0.75rem 0.5rem 0.75rem;
+
+  @include wide-from('md') {
+    margin-left  : 0.25rem;
+    margin-right : 0.25rem;
+  }
+
+  /**
+   * Product Title -- Including the Riak Logo, the primary title (ex; 'riak')
+   * and the title highlight (ex; 'TS').
+   * 1. Child elements of the title (including the actual text of the title)
+   *    should be scaled based on this font-size. As such, child elements should
+   *    use `em`s for their sizing so the whole component should be scaled using
+   *    the __title's `font-size`.  
+   *    This element should also scale based on it's parent's font-size, so we
+   *    use an em for the root font-size.
+   * 2. HACK: Use a specific margin-top (changing based on display / font-size)
+   *    to get us close to the baseline of the text in the selector button.
+   * 3. HACK: The x-height of the Muli typeface is ~70.5% of the cap-height,
+   *    so we're setting the size of the hightlight title text to that
+   *    approximate x-height
+   */
+  .product__title {
+    font-size     : 2.20em;    /* 1 */
+    font-weight   : 700;
+    line-height   : 1;
+
+    margin-top    : 0.3em;    /* 2 */
+
+    @include wide-from('md') {
+      margin-top   : 0.35em;  /* 2 */
+    }
+
+    @include wide-from('lg') {
+      font-size    : 2.40em;
+      margin-top   : 0.25em;  /* 2 */
+    }
+
+
+    /* Riak Logo icon */
+    .product__logo {
+      height        : 0.60em;
+      width         : 0.60em;
+      margin-bottom : 0.10em;
+    }
+
+    /* Primary Title text */
+    @extend          %muli;
+    color           : $light-font;
+    text-transform  : lowercase;
+    text-decoration : none;
+
+    transition : color 500ms ease;
+
+    /* Title Highlight text */
+    .product__title-highlight {
+      color           : $brand-primary-light;
+      text-transform  : uppercase;
+      font-size       : 70.5%;           /* 3 */
+      font-weight     : 400;
+
+      transition : color 500ms ease;
+    }
+
+    @include on-event {
+      color : $brand-gray;
+
+      .product__title-highlight {
+        color : $brand-primary;
+      }
+    }
+  }
+
+}
+
+
+
+/**
+ * Primary (dynamically sized) Content Navigation element
+ * This "element" is made up of three divs, each with a different purpose;
+ *   - The __sizing-box plays tricks with border-box sizing to determine the
+ *     size of the __primary content element, described below.
+ *   - The __shadow-box exactly wraps the __primary element s.t. the scrollbar
+ *     (which reacts primarily to the size of __menu-container) is locked inside
+ *     the __primary, rather offset to the extents of the box-shadow.
+ *   - The __primary element is what will contain meaningful children
+ * 1. Height of the __shadow-box and __primary are determined entirely by the
+ *    height of the __sizing-box.
+ * 2. Use relative positioning s.t. offsets (in this case `top`) are relative to
+ *    the top/left of the parent .content-nav element.
+ * 3. `height` is being set to 100% because we need to fill all available space
+ *    provided by the root element. This is complicated b/c we are going to be
+ *    setting `top` s.t. the __primary content is always rendered below the
+ *    __fixed-top. This means we will have to "consume" some vertical height
+ *    from the bottom of __primary s.t. child elements never be placed off the
+ *    bottom of the screen. Because we're using `border-box` sizing, we can
+ *    use `padding-bottom` to fill the off-screen space, setting it to the
+ *    same value we're setting `top` to.
+ * 4. The height of the __fixed-top will vary based on what's include in it, but
+ *    that information should be recorded in --modifiers added to .content-nav.
+ */
+.content-nav__primary__sizing-box {
+  position : relative;  /* 2 */
+  height   : 100%;      /* 3 */
+
+  transition : top            500ms ease,
+               padding-bottom 500ms ease;
+
+  @include when-inside('.content-nav--top-size-full') {
+    top            : $fixed-top-height-full-sm-down-total + $fixed-top-padding-bottom-sm-down;  /* 3, 4 */
+    padding-bottom : $fixed-top-height-full-sm-down-total + $fixed-top-padding-bottom-sm-down;  /* 3, 4 */
+  }
+  @include when-inside('.content-nav--top-size-half') {
+    top            : $fixed-top-height-half-sm-down-total + $fixed-top-padding-bottom-sm-down;  /* 3, 4 */
+    padding-bottom : $fixed-top-height-half-sm-down-total + $fixed-top-padding-bottom-sm-down;  /* 3, 4 */
+  }
+
+  @include wide-from('md') {
+    @include when-inside('.content-nav--top-size-full') {
+      top            : $fixed-top-height-full-md-total + $fixed-top-padding-bottom-md;  /* 3, 4 */
+      padding-bottom : $fixed-top-height-full-md-total + $fixed-top-padding-bottom-md;  /* 3, 4 */
+    }
+    @include when-inside('.content-nav--top-size-half') {
+      top            : $fixed-top-height-half-md-total + $fixed-top-padding-bottom-md;  /* 3, 4 */
+      padding-bottom : $fixed-top-height-half-md-total + $fixed-top-padding-bottom-md;  /* 3, 4 */
+    }
+  }
+
+  @include wide-from('lg') {
+    @include when-inside('.content-nav--top-size-full') {
+      top            : $fixed-top-height-full-lg-up-total + $fixed-top-padding-bottom-lg-up;  /* 3, 4 */
+      padding-bottom : $fixed-top-height-full-lg-up-total + $fixed-top-padding-bottom-lg-up;  /* 3, 4 */
+    }
+    @include when-inside('.content-nav--top-size-half') {
+      top            : $fixed-top-height-half-lg-up-total + $fixed-top-padding-bottom-lg-up;  /* 3, 4 */
+      padding-bottom : $fixed-top-height-half-lg-up-total + $fixed-top-padding-bottom-lg-up;  /* 3, 4 */
+    }
+  }
+}
+.content-nav__primary__shadow-box {
+  box-shadow : -0.25rem -0.25rem 4rem -0.5rem $shadow-color-darker;
+  height     : 100%;    /* 1 */
+
+  @include wide-from('md') {
+    box-shadow : -0.25rem -0.25rem 4rem -0.5rem $shadow-color-mid;
+  }
+}
+.content-nav__primary {
+  background : $light-background-warm;
+  height     : 100%;    /* 1 */
+}
+
+
+
+/**
+ * Container for the dynamic menu and the items fixed to the bottom of the menu.
+ * 1. We set `min-height` to 100% set s.t. this element will always flow to _at
+ *    least_ the bottom of the window. The positioning of the fixed-bottom
+ *    element relies on this, and we want to allow this element to expand as far
+ *    down as will be necessary to display all .content-menu items.
+ * 2. We need to set a padding-bottom equal to the height of the __fixed-bottom
+ *    element s.t. the negative margin of that element (set to -1 * its height)
+ *    won't result in any menu items being obscured. Margin collapse means no
+ *    over-scrolling on that.
+ */
+.content-nav__menu-container {
+  min-height     : 100%;                  /* 1 */
+  padding-bottom : $fixed-bottom-height;  /* 2 */
+}
+
+
+
+/**
+ * Lowest portion of the Content Nav, always fixed to the bottom of the window
+ * or the bottom of the menu (whichever is farther down).
+ * 1. Set a negative margin-top equal to the padding-bottom set on the
+ *    .content-nav (assumed to be the height of the __fixed-bottom).
+ *    Height will be dynamic.
+ */
+.content-nav__fixed-bottom {
+  height      : $fixed-bottom-height;
+  margin-top  : -1 * $fixed-bottom-height;  /* 1 */
+
+  font-size   : 90%;
+  line-height : 1.1rem;
+
+  background  : $dark-background;
+}
