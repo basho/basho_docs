@@ -98,6 +98,6 @@ A clause for `$gen_all_state_event` has been added to fix potential hang due to 
 * Bitcask has been upgraded to version 1.7.4
 * Cuttlefish has been upgraded to version 2.0.2p2
 * eLevelDB has been upgraded to version 2.0.23
-* LevelDB has been upgraded to version 2.0.22
+* LevelDB has been upgraded to version 2.0.33
 * node_package has been upgraded to version 4.0.0
 * OTP has been upgraded to version R16B02_basho10
