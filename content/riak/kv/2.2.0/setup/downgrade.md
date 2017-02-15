@@ -31,7 +31,7 @@ For every node in the cluster:
 1. Stop Riak KV.
 2. Back up Riak's `etc` and `data` directories.
 3. Downgrade the Riak KV.
-4. Remove Riak Search index and temporary data.
+4. Remove Riak search index and temporary data.
 5. Reconfigure Solr cores.
 6. Start Riak KV and disable Riak search.
 7. Monitor the reindex of the data.
@@ -50,7 +50,6 @@ For every node in the cluster:
 |Migration to Solr 4.10.4 |✔ | ✔| Applies to all clusters using Riak Search.
 | Active Anti-Entropy file format changes | ✔ |  | Can be opted out using a [capability](#aae_tree_capability)
 
- 
 
 ### When Downgrading is No Longer an Option
 

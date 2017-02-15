@@ -19,6 +19,10 @@ Downgrades of Riak are tested and supported for two feature release
 versions, with the general procedure being similar to that of a
 [rolling upgrade](/riak/kv/2.0.0/setup/upgrading/cluster).
 
+{{% note title="End Of Life Warning" %}}
+We test downgrading for two feature release versions. However, all versions below KV 2.0 are End Of Life (EOL) and unsupported. Please be aware of that if you choose to downgrade.
+{{% /note %}}
+
 You should perform the following actions on each node:
 
 1.  Stop Riak
