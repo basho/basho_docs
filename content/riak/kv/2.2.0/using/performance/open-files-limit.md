@@ -217,7 +217,7 @@ Start by checking the current open file limit values with:
 launchctl limit maxfiles
 ```
 
-The response should looking something like this:
+The response should look something like this:
 
 ```bash
 maxfiles    65536          65536
