@@ -1291,7 +1291,21 @@ riak_kv:
           file_size: 63937940
           chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.8/debian/wheezy/riak_2.0.8-1_amd64.deb.sha
   - os: fedora
-    versions: []
+    versions:
+    - version: '19'
+      architectures:
+      - arch: source
+        file_info:
+          file_name: riak-2.0.8-1.fc19.src.rpm
+          file_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.8/fedora/19/riak-2.0.8-1.fc19.src.rpm
+          file_size: 18212621
+          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.8/fedora/19/riak-2.0.8-1.fc19.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-2.0.8-1.fc19.x86_64.rpm
+          file_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.8/fedora/19/riak-2.0.8-1.fc19.x86_64.rpm
+          file_size: 59641640
+          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.8/fedora/19/riak-2.0.8-1.fc19.x86_64.rpm.sha
   - os: freebsd
     versions:
     - version: '10'
