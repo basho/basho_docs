@@ -185,7 +185,7 @@ This example forwards all GET requests to Riak nodes while rejecting all
 other HTTP operations.
 
 <div class="note">
-<div class="title">Nginx version notes</div
+<div class="title">Nginx version notes</div>
 This example configuration was verified on <strong>Nginx version
 1.2.3</strong>. Please be aware that earlier versions of Nginx did not
 support any HTTP 1.1 semantics for upstream communication to backends.
