@@ -16,9 +16,27 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/releasenotes"
 ---
 
 
+Released February 21, 2017.
+
+Riak TS 1.5.2 is a bug fix release of TS 1.5.1. You can read the full release notes for [1.5.1](#ts-1-5-1) and [1.5.0](#ts-1-5-0) below.
+
+
+## Bugfixes
+
+* [[Issue 1625](https://github.com/basho/riak_kv/issues/1625)/[PR 1626](https://github.com/basho/riak_kv/pull/1626)] LevelDB query files were being named by concatenating table fields, which could cause errors when the filename exceeded the limit permitted by the OS. `qry_buffers` now generates small file names for temporary tables to avoid file names being created by stringing field names together.
+* [[PR 1627](https://github.com/basho/riak_kv/pull/1627)] When no data was received in the first two query chunks the TotalQueryData / TotalQueryRows caused problems because it would divide by zero. It is now prevented from dividing by zero when there is no data in the first two query chunks.
+* [[PR 1609](https://github.com/basho/riak_kv/pull/1609)] A bug caused the projected query size of queries with a LIMIT clause to be incorrectly computed, because the `LIMIT` value was used as the number of chunks in the calculations rather than the number of rows. The `LIMIT` value is now used as the number of rows in the calculations. 
+* [[PR 1609](https://github.com/basho/riak_kv/pull/1609)] The logic of the maximum query data size check has been fixed. Previously, queries in which `LIMIT` was big but the `WHERE` range was small were cancelled.
+* [[PR 1622](https://github.com/basho/riak_kv/pull/1622)] The query size is now properly estimated for aggregate queries. Grouping queries will grow the result set to the number of unique values in the selection. In the extreme case of grouping by a column of all-unique values, its size will be the size of the entire selection.
+* [[PR 1618](https://github.com/basho/riak_kv/pull/1618)] The sorting order of NULLS has been corrected to conform to SQL Standard. This fix impacts the order logic of `ORDER BY` for columns with nulls.
+
+
+
+## TS 1.5.1
+
 Released January 24, 2017.
 
-Riak TS 1.5.2 is a bug fix release of TS 1.5.0. You can read the full release notes for 1.5.0 [below](#ts-1-5-0).
+Riak TS 1.5.1 is a bug fix release of TS 1.5.0. You can read the full release notes for 1.5.0 [below](#ts-1-5-0).
 
 
 ## Changes
