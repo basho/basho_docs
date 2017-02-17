@@ -147,21 +147,23 @@ application:set_env(eleveldb, data_root, "").
 ```erlang
 Options = [].
 ```
-5\. For each corrupted LevelDB that you found using the [`find` command above](#checking-for-compaction-errors), run the following `repair` command, substituting the path to your LevelDB vnodes and the appropriate vnode number:
+
+5\. Set some supportive variables for the repair process.  These will be custom to your environment and specific repair needs.
+VNodeList should be a list of each corrupted LevelDB that you found using the [`find` command above](#checking-for-compaction-errors).
 
 ```erlang
 DataRoot = "»path to your data root«".
-VNodeNumber = "»vnode id you want to repair«".
-RepairPath = DataRoot ++ "/" ++ VNodeNumber.
-eleveldb:repair(RepairPath, Options).
+VNodeList = ["»vnode id you want to repair«", ...].
 ```
-If you are comfortable reading Erlang, this can be reduced to a one-liner:
+
+6\. Run the following commands, which will parse the information you provided and run eleveldb:repair over all of the VNode IDs that you listed in VNodeList.
 
 ```erlang
-eleveldb:repair("/»data root«/»vnode id«", Options).
+RepairPath = fun(DataRoot, VNodeNumber) -> Path = lists:flatten(DataRoot ++ "/" ++ VNodeNumber), io:format("Repairing ~s.~n",[Path]), Path end.
+[eleveldb:repair(RepairPath(DataRoot, VNodeList), Options) || VNodeNumber <- VNodeList].
 ```
 
-6\. This process may take several minutes. When it has completed successfully, you can restart the node and continue as usual.
+7\. This process may take several minutes. When it has completed successfully, you can restart the node and continue as usual.
 
 ```bash
 riak start
@@ -209,21 +211,21 @@ Options = [
 ].
 ```
 
-6\. For each corrupted LevelDB that you found using the [`find` command above](#checking-for-compaction-errors), run the following `repair` command, substituting the path to your LevelDB vnodes and the appropriate vnode number:
+6\. Set some supportive variables for the repair process.  These will be custom to your environment and specific repair needs.
+VNodeList should be a list of each corrupted LevelDB partitions that you found using the [`find` command above](#checking-for-compaction-errors) provided in double quotes.
 
 ```erlang
 DataRoot = "»path to your data root«".
-VNodeNumber = "»vnode id you want to repair«".
-RepairPath = DataRoot ++ "/" ++ VNodeNumber.
-eleveldb:repair(RepairPath, Options).
+VNodeList = ["»vnode id you want to repair«", ...].
 ```
-If you are comfortable reading Erlang, this can be reduced to a one-liner:
+
+7\. Run the following commands, which will parse the information you provided and run eleveldb:repair over all of the VNode IDs that you listed in VNodeList.
 
 ```erlang
-eleveldb:repair("/»data root«/»vnode id«", Options).
+RepairPath = fun(DataRoot, VNodeNumber) -> Path = lists:flatten(DataRoot ++ "/" ++ VNodeNumber), io:format("Repairing ~s.~n",[Path]), Path end.
+[eleveldb:repair(RepairPath(DataRoot, VNodeList), Options) || VNodeNumber <- VNodeList].
 ```
-
-7\. This process may take several minutes. When it has completed successfully, you can restart the node and continue as usual.
+8\. This process may take several minutes. When it has completed successfully, you can restart the node and continue as usual.
 
 ```bash
 riak start
