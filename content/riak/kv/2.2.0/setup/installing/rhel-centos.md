@@ -160,7 +160,7 @@ sudo yum install gcc gcc-c++ glibc-devel make git pam-devel
 Now we can download and install Riak:
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.2.0/riak-2.2.0.tar.gz
+wget http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.0/riak-2.2.0.tar.gz
 tar zxvf riak-2.2.0.tar.gz
 cd riak-2.2.0
 make rel
