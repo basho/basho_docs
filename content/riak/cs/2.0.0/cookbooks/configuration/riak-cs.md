@@ -73,13 +73,12 @@ You will also need to set the host listener for Riak CS:
    port number does not conflict with the `riak_host` port number of the Riak
    node and the Riak CS node that are running on the same machine.
 
-<div class="note">
-<div class="title">Note on IP addresses</div>
-The IP address you enter here must match the IP address specified for
-the Protocol Buffers interface in the Riak <code>riak.conf</code> file
-unless Riak CS is running on a completely different network, in which
-case address translation is required.
-</div>
+{{% note title="Note on IP addresses" %}}
+The IP address you enter here must match the IP address specified for the
+Protocol Buffers interface in the Riak `riak.conf` file unless Riak CS is
+running on a completely different network, in which case address translation
+is required.
+{{% /note %}}
 
 After making any changes to the `riak-cs.conf` file in Riak CS,
 [restart](/riak/cs/2.0.0/cookbooks/command-line-tools/#riak-cs) the node if it is already running.
@@ -144,13 +143,12 @@ The admin user is authorized to perform actions such as creating users or
 obtaining billing statistics. An admin user account is no different from any
 other user account. **You must create an admin user to use Riak CS**.
 
-<div class="note">
-<div class="title">Note on anonymous user creation</div>
-Before creating an admin user, you must first set `anonymous_user_creation = on`
-in the Riak CS `riak-cs.conf` (or set `{anonymous_user_creation, true}` in the
-old-style `advanced.config`/`app.config`). You may disable this again once the
-admin user has been created.
-</div>
+{{% note title="Note on anonymous user creation" %}}
+Before creating an admin user, you must first set `anonymous_user_creation =
+on` in the Riak CS `riak-cs.conf` (or set `{anonymous_user_creation, true}` in
+the old-style `advanced.config`/`app.config`). You may disable this again once
+the admin user has been created.
+{{% /note %}}
 
 To create an account for the admin user, use an HTTP `POST` request with the
 username you want to use for the admin account. The following is an
@@ -413,11 +411,11 @@ settings are available through the `riak-cs.conf` configuration file.**
 * `gc_batch_size` --- This option represents the size used for paginating the
   results of the secondary index query. The default value is 1000.
 
-<div class="note"><div class="title">Deprecated Configurations</div>
+{{% note title="Deprecated Configurations" %}}
 While Riak CS 2.0.0 still allows the configuration of `gc_paginated_indexes`,
 it is strongly recommended that these settings not be used. This setting has
-been deprecated, and <em>will be removed</em> in the next major release.
-</div>
+been deprecated, and _will be removed_ in the next major release.
+{{% /note %}}
 
 ## Other Riak CS Settings
 

@@ -30,22 +30,19 @@ is a special case of [MapReduce](/riak/kv/2.0.8/developing/usage/mapreduce), and
 GET /buckets/bucket/keys/key/[bucket],[tag],[keep]
 ```
 
-<div class="info"><div class="title">Link filters</div>
-<p>A link filter within the request URL is made of three parts, separated by
-commas:</p>
+{{% note title="Link filters" %}}
+A link filter within the request URL is made of three parts, separated by
+commas:
 
-<ul>
-<li>Bucket - a bucket name to limit the links to</li>
-<li>Tag - a "riaktag" to limit the links to</li>
-<li>Keep - 0 or 1, whether to return results from this phase</li>
-</ul>
+* Bucket - a bucket name to limit the links to
+* Tag - a "riaktag" to limit the links to
+* Keep - 0 or 1, whether to return results from this phase
 
-<p>Any of the three parts may be replaced with <code>_</code> (underscore),
-signifying that any value is valid. Multiple phases of links can be followed by
-adding additional path segments to the URL, separating the link filters by
-slashes. The final phase in the link-walking query implicitly returns its
-results.</p>
-</div>
+Any of the three parts may be replaced with `_` (underscore), signifying that
+any value is valid. Multiple phases of links can be followed by adding
+additional path segments to the URL, separating the link filters by slashes.
+The final phase in the link-walking query implicitly returns its results.
+{{% /note %}}
 
 ## Response
 

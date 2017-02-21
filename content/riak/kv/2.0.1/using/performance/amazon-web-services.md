@@ -54,14 +54,13 @@ indexes are not needed for the application.
 In any case, proper benchmarking and tuning are needed to achieve the
 desired performance.
 
-<div class="info">
-<div class="title">Tip</div>
-Most successful AWS cluster deployments use more EC2 instances than they
-would the same number of physical nodes to compensate for the
-performance variability caused by shared, virtualized resources. Plan to
-have more EC2 instance based nodes than physical server nodes when
-estimating cluster size with respect to node count.
-</div>
+{{% note title="Tip" %}}
+Most successful AWS cluster deployments use more EC2 instances than they would
+the same number of physical nodes to compensate for the performance
+variability caused by shared, virtualized resources. Plan to have more EC2
+instance based nodes than physical server nodes when estimating cluster size
+with respect to node count.
+{{% /note %}}
 
 ## Operating System
 

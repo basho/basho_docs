@@ -28,13 +28,11 @@ Riak Enterprise. It will need to be manually enabled on new clusters.
 Cascading realtime requires the `{riak_repl, rtq_meta}` capability to
 function.
 
-<div class="note">
-<div class="title">Note on cascading tracking</div>
-Cascading tracking is a simple list of where an object has been written.
-This works well for most common configurations. Larger installations,
-however, may have writes cascade to clusters to which other clusters
-have already written.
-</div>
+{{% note title="Note on cascading tracking" %}}
+Cascading tracking is a simple list of where an object has been written. This
+works well for most common configurations. Larger installations, however, may
+have writes cascade to clusters to which other clusters have already written.
+{{% /note %}}
 
 
 ```

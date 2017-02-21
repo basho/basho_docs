@@ -15,12 +15,11 @@ aliases:
   - /riak/kv/2.1.4/dev/references/protocol-buffers/set-client-id
 ---
 
-<div class="note">
-<div class="title">Deprecation notice</div>
-The use of client IDs in conflict resolution is now deprecated in Riak.
-If you are building or maintaining a Riak client that is intended to be
-compatible with Riak 1.4 or later, you can safely ignore client IDs.
-</div>
+{{% note title="Deprecation notice" %}}
+The use of client IDs in conflict resolution is now deprecated in Riak. If you
+are building or maintaining a Riak client that is intended to be compatible
+with Riak 1.4 or later, you can safely ignore client IDs.
+{{% /note %}}
 
 Set the client ID for this connection. A library may want to set the
 client ID if it has a good way to uniquely identify actors across

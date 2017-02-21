@@ -137,13 +137,11 @@ Sink             Cluster Name         <Ctrl-Pid>      [Members]
 Cluster1          Cluster1            <0.4456.0>      ["10.60.67.149:9080"] (via 10.60.67.149:9080)
 ```
 
-<div class="note">
-<div class="title">Note on connections</div>
-At this point, if you do not have connections, replication will not
-work. Check your IP bindings by running <code>netstat -a</code> on all
-nodes. You should see <code>*:9080 LISTENING</code>. If not, you have
-configuration problems.
-</div>
+{{% note title="Note on connections" %}}
+At this point, if you do not have connections, replication will not work.
+Check your IP bindings by running `netstat -a` on all nodes. You should see
+`*:9080 LISTENING`. If not, you have configuration problems.
+{{% /note %}}
 
 ### Enable Realtime Replication
 

@@ -48,12 +48,11 @@ developing something that you wish to see added to this list, please
 fork the [Riak Docs repo on GitHub](https://github.com/basho/basho_docs)
 and send us a pull request.
 
-<div class="note">
-<div class="title">Note on community-produced libraries</div>
-All of these projects and libraries are at various stages of
-completeness and may not suit your application's needs based on their
-level of maturity and activity.
-</div>
+{{% note title="Note on community-produced libraries" %}}
+All of these projects and libraries are at various stages of completeness and
+may not suit your application's needs based on their level of maturity and
+activity.
+{{% /note %}}
 
 ### Client Libraries and Frameworks
 

@@ -17,7 +17,10 @@ aliases:
 [Transmit](https://www.panic.com/transmit/) is an S3-compatible client with a
 graphical user interface for Mac OS X. The following guide describes configuration of Transmit for use with Riak CS.
 
-<div class="info"><div class="title">Note</div>S3 support was added in Transmit version 4.4, so ensure that you're following along with a version that supports S3 before continuing.</div>
+{{% note title="Note" %}}
+S3 support was added in Transmit version 4.4, so ensure that you're following
+along with a version that supports S3 before continuing.
+{{% /note %}}
 
 ## Define a Connection
 

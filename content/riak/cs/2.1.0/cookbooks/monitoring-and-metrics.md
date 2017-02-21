@@ -225,10 +225,9 @@ dtrace -qn 'erlang*:::user_trace* /arg2 == 703/ {printf("pid %s: mod %s op %s: u
 dtrace -qn 'erlang*:::user_trace* /arg2 == 705/ {printf("pid %s: %s:%s\n", copyinstr(arg0), copyinstr(arg6), copyinstr(arg7));}'
 ```
 
-<div class="info">
-<div class="title">Note on DTrace Support</div>
-Work on packaging of Riak CS for SmartOS and other operating systems
-with DTrace support is ongoing with the goal of providing enhanced
-ability to diagnose low-level issues in instances of Riak CS running on
-such operating systems.
-</div>
+{{% note title="Note on DTrace Support" %}}
+Work on packaging of Riak CS for SmartOS and other operating systems with
+DTrace support is ongoing with the goal of providing enhanced ability to
+diagnose low-level issues in instances of Riak CS running on such operating
+systems.
+{{% /note %}}

@@ -25,13 +25,11 @@ in a [later section](#password-based-authentication). If you are using
 [certificate](/riak/kv/2.1.4/using/security/managing-sources/#certificate-based-authentication)-based authentication, follow
 the instructions in the [section below](#certificate-based-authentication).
 
-<div class="note">
-<div class="title">Note on certificate generation</div>
+{{% note title="Note on certificate generation" %}}
 This tutorial does not cover certificate generation. It assumes that all
-necessary certificates have already been created and are stored in a
-directory called `/ssl_dir`. This directory name is used only for
-example purposes.
-</div>
+necessary certificates have already been created and are stored in a directory
+called `/ssl_dir`. This directory name is used only for example purposes.
+{{% /note %}}
 
 ## OpenSSL Versions
 

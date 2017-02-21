@@ -26,13 +26,12 @@ changes.
 For performance and tuning recommendations specific to running Riak
 clusters on the Amazon Web Services EC2 environment, see [AWS Performance Tuning](/riak/kv/2.0.5/using/performance/amazon-web-services).
 
-<div class="note">
-<div class="title">Note on other operating systems</div>
+{{% note title="Note on other operating systems" %}}
 Unless otherwise specified, the tunings recommended below are for Linux
-distributions. Users implementing Riak on BSD and Solaris distributions
-can use these tuning recommendations to make analogous changes in those
-operating systems.
-</div>
+distributions. Users implementing Riak on BSD and Solaris distributions can
+use these tuning recommendations to make analogous changes in those operating
+systems.
+{{% /note %}}
 
 ## Storage and File System Tuning
 
@@ -171,12 +170,11 @@ net.ipv4.tcp_tw_reuse = 1
 net.ipv4.tcp_moderate_rcvbuf = 1
 ```
 
-<div class="note">
-<div class="title">Note on system default</div>
+{{% note title="Note on system default" %}}
 In general, these recommended values should be compared with the system
-defaults and only changed if benchmarks or other performance metrics
-indicate that networking is the bottleneck.
-</div>
+defaults and only changed if benchmarks or other performance metrics indicate
+that networking is the bottleneck.
+{{% /note %}}
 
 The following settings are optional, but may improve performance on a
 10Gb network:
@@ -211,11 +209,10 @@ ethtool -K eth0 tso off
 `ethtool` settings can be persisted across reboots by adding the above
 command to the `/etc/rc.local` script.
 
-<div class="info">
-<div class="title">Pro tip</div>
-Tuning these values will be required if they are changed, as they affect
-all network operations.
-</div>
+{{% note title="Pro tip" %}}
+Tuning these values will be required if they are changed, as they affect all
+network operations.
+{{% /note %}}
 
 ## Optional I/O Settings
 

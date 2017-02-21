@@ -40,13 +40,11 @@ Next, download
 [`TasteOfRiak.java`](https://github.com/basho/basho_docs/raw/master/extras/code-examples/TasteOfRiak.java)
 source code for this tutorial, and save it to your working directory.
 
-<div class="note">
-<div class="title">Configuring for a local cluster</div>
-The `TasteOfRiak.java` file that you downloaded is set up to communicate
-with a 1-node Riak cluster listening on `localhost` port 10017. We
-recommend modifying the connection info directly within the
-`setUpCluster()` method.
-</div>
+{{% note title="Configuring for a local cluster" %}}
+The `TasteOfRiak.java` file that you downloaded is set up to communicate with
+a 1-node Riak cluster listening on `localhost` port 10017. We recommend
+modifying the connection info directly within the `setUpCluster()` method.
+{{% /note %}}
 
 If you execute the `TasteOfRiak.java` file within your IDE, you should
 see the following:

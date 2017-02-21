@@ -80,9 +80,10 @@ user@machine2:~$ sudo data-platform-admin join »NODENAME, ie riak@IPADDRESS)«
 
 Once your BDP nodes are started and joined together, make sure [riak_ensemble][riak_ensemble] has started.
 
-<div class="note">
-Basho Data Platform will not function correctly if `riak_ensemble` is not running. 
-</div>
+{{% note %}}
+Basho Data Platform will not function correctly if `riak_ensemble` is not
+running.
+{{% /note %}}
 
 To check the status of `riak_ensemble`:
 
@@ -113,9 +114,12 @@ Before enabling the leader election service, you must have enabled `riak_ensembl
 2. Find the line `## listener.leader_latch.internal = 127.0.0.1:5323`.
 3. Uncomment the line and set to your node's IP and port. (**Note:** Any port will work as long as it matches what you set in the Spark master step below.)
 
-<div class="note">
-The leader election service provides no authentication mechanism. We strongly suggest that you use a network shielded from external connection attempts, otherwise you run the risk of an attacker performing a Denial of Service attack against your cluster.
-</div>
+{{% note %}}
+The leader election service provides no authentication mechanism. We strongly
+suggest that you use a network shielded from external connection attempts,
+otherwise you run the risk of an attacker performing a Denial of Service
+attack against your cluster.
+{{% /note %}}
 
 Add any additional interface/port pairs to listen on and change the '.internal' to whatever name helps you identify your interfaces. For instance:
 
@@ -125,16 +129,18 @@ listener.leader_latch.external = 10.10.1.2:15323
 listener.leader_latch.testing = 192.168.0.42:12345
 ```
 
-<div class="note">
-Changes to the `listener.leader_latch` setting will not have an impact on a live running node. You must restart the node for changes to take effect.
-</div>
+{{% note %}}
+Changes to the `listener.leader_latch` setting will not have an impact on a
+live running node. You must restart the node for changes to take effect.
+{{% /note %}}
 
 
 ### Set Up Spark Cluster Metadata
 
-<div class="note">
-Follow these steps ONLY if you are running a Spark cluster. Otherwise, skip to Add Services.
-</div>
+{{% note %}}
+Follow these steps ONLY if you are running a Spark cluster. Otherwise, skip to
+Add Services.
+{{% /note %}}
 
 If you are running a Spark cluster, you need to connect it with BDP.
 

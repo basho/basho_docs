@@ -253,10 +253,10 @@ curl -XPOST localhost:8098/mapred \
 
 The result should be a JSON map of bucket and key names expressed as key/value pairs.
 
-<div class="info">
-Be sure to install the MapReduce function as described above on all of
-the nodes in your cluster to ensure proper operation.
-</div>
+{{% note %}}
+Be sure to install the MapReduce function as described above on all of the
+nodes in your cluster to ensure proper operation.
+{{% /note %}}
 
 
 ## Phase functions
@@ -481,27 +481,25 @@ takes any of the following forms:
 * `{jsanon, {Bucket, Key}}` where the object at `{Bucket, Key}` contains
   the source for an anonymous Javascript function
 
-<div class="info">
-<div class="title">qfun Note</div>
-Using `qfun` in compiled applications can be a fragile
-operation. Please keep the following points in mind.
+{{% note title="qfun Note" %}}
+Using `qfun` in compiled applications can be a fragile operation. Please keep
+the following points in mind.
 
-1. The module in which the function is defined must be present and
-**exactly the same version** on both the client and Riak nodes.
+1. The module in which the function is defined must be present and **exactly
+   the same version** on both the client and Riak nodes.
 
-2. Any modules and functions used by this function (or any function in
-the resulting call stack) must also be present on the Riak nodes.
+2. Any modules and functions used by this function (or any function in the
+   resulting call stack) must also be present on the Riak nodes.
 
-Errors about failures to ensure both 1 and 2 are often surprising,
-usually seen as opaque **missing-function** or **function-clause**
-errors. Especially in the case of differing module versions, this can be
-difficult to diagnose without expecting the issue and knowing of
-`Module:info/0`.
+Errors about failures to ensure both 1 and 2 are often surprising, usually
+seen as opaque **missing-function** or **function-clause** errors. Especially
+in the case of differing module versions, this can be difficult to diagnose
+without expecting the issue and knowing of `Module:info/0`.
 
-When using the Erlang shell, anonymous MapReduce functions can be
-defined and sent to Riak instead of deploying them to all servers in
-advance, but condition #2 above still holds.
-</div>
+When using the Erlang shell, anonymous MapReduce functions can be defined and
+sent to Riak instead of deploying them to all servers in advance, but
+condition #2 above still holds.
+{{% /note %}}
 
 Link phases are expressed in the following form:
 

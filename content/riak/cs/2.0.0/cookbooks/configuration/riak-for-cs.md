@@ -155,12 +155,11 @@ buckets.default.allow_mult = true
 This will enable Riak to create [siblings](/riak/kv/2.1.3/learn/concepts/causal-context/#siblings), which is necessary for Riak CS to function. If you are connecting to Riak CS from a [client library](/riak/kv/2.1.3/developing/client-libraries), don't worry: you will not have to manage [conflict resolution](/riak/kv/2.1.3/developing/usage/conflict-resolution), as all Riak CS
 operations are strongly consistent by definition.
 
-<div class="note">
-<div class="title">Note on <code>allow_mult</code></div>
+{{% note title="Note on `allow_mult`" %}}
 Any Riak node that also supports Riak CS should have `allow_mult` set to
-`true` at all times. Riak CS will refuse to start if `allow_mult` is
-set to `false`.
-</div>
+`true` at all times. Riak CS will refuse to start if `allow_mult` is set to
+`false`.
+{{% /note %}}
 
 ## Specifying the Nodename and IP Address
 
@@ -248,12 +247,11 @@ the `pb` value in `advanced.config`/`app.config`) file must match the values for
 `riak_host` in the Riak CS `riak-cs.config` and Stanchion `stanchion.conf` (or
 `riak_host` the relative `advanced.config`/`app.config`) files.
 
-<div class="note">
-<div class="title">Note on port numbers</div>
-A different port number might be required if the port number conflicts
-with ports used by another application or if you use a load balancer or
-proxy server.
-</div>
+{{% note title="Note on port numbers" %}}
+A different port number might be required if the port number conflicts with
+ports used by another application or if you use a load balancer or proxy
+server.
+{{% /note %}}
 
 It is also recommended that users insure that the size of Riak's
 `protobuf.backlog` (or in the `advanced.config`/`app.config` files, the

@@ -25,16 +25,15 @@ If you are using Riak in an [eventually consistent](/riak/kv/2.0.1/learn/concept
 unavoidable. Often, Riak can resolve these conflicts on its own
 internally if you use causal context, i.e. [vector clocks](/riak/kv/2.0.1/learn/concepts/causal-context#vector-clocks) or [dotted version vectors](/riak/kv/2.0.1/learn/concepts/causal-context#dotted-version-vectors), when updating objects. Instructions on this can be found in the section [below](#siblings).
 
-<div class="note">
-<div class="title">Important note on terminology</div>
-In versions of Riak prior to 2.0, vector clocks were the only causal
-context mechanism available in Riak, which changed with the introduction
-of dotted version vectors in 2.0. Please note that you may frequent find
-terminology in client library APIs, internal Basho documentation, and
-more that uses the term "vector clock" interchangeably with causal
-context in general. Riak's HTTP API still uses a `X-Riak-Vclock` header,
-for example, even if you are using dotted version vectors.
-</div>
+{{% note title="Important note on terminology" %}}
+In versions of Riak prior to 2.0, vector clocks were the only causal context
+mechanism available in Riak, which changed with the introduction of dotted
+version vectors in 2.0. Please note that you may frequent find terminology in
+client library APIs, internal Basho documentation, and more that uses the term
+"vector clock" interchangeably with causal context in general. Riak's HTTP API
+still uses a `X-Riak-Vclock` header, for example, even if you are using dotted
+version vectors.
+{{% /note %}}
 
 But even when you use causal context, Riak cannot always decide which
 value is most causally recent, especially in cases involving concurrent
@@ -118,12 +117,10 @@ will be no concurrent updates. If you are storing immutable data in
 which each object is guaranteed to have its own key or engaging in
 operations related to bulk loading, you should consider LWW.
 
-<div class="note">
-<div class="title">Undefined behavior warning</div>
-Setting both <code>allow_mult</code> and <code>last_write_wins</code> to
-<code>true</code> necessarily leads to unpredictable behavior and should
-always be avoided.
-</div>
+{{% note title="Undefined behavior warning" %}}
+Setting both `allow_mult` and `last_write_wins` to `true` necessarily leads to
+unpredictable behavior and should always be avoided.
+{{% /note %}}
 
 ### Resolve Conflicts on the Application Side
 
@@ -602,13 +599,12 @@ X-Riak-Vclock: a85hYGBgzGDKBVIcR4M2cgczH7HPYEpkzGNlsP/VfYYvCwA=
 # accompany the write for Riak to be able to use the vector clock
 ```
 
-<div class="note">
-<div class="title">Concurrent conflict resolution</div>
+{{% note title="Concurrent conflict resolution" %}}
 It should be noted that it is possible to have two clients that are
 simultaneously engaging in conflict resolution. To avoid a pathological
-divergence, you should be sure to limit the number of reconciliations
-and fail once that limit has been exceeded.
-</div>
+divergence, you should be sure to limit the number of reconciliations and fail
+once that limit has been exceeded.
+{{% /note %}}
 
 ### Sibling Explosion
 
@@ -650,13 +646,10 @@ better performance. Some use cases where you might want to use
 `last_write_wins` include caching, session storage, and insert-only
 (no updates).
 
-<div class="note">
-<div class="title">Note on combining <code>allow_mult</code> and
-<code>last_write_wins</code></div>
-The combination of setting both the <code>allow_mult</code> and
-<code>last_write_wins</code> properties to <code>true</code> leads to
-undefined behavior and should not be used.
-</div>
+{{% note title="Note on combining `allow_mult` and `last_write_wins`" %}}
+The combination of setting both the `allow_mult` and `last_write_wins`
+properties to `true` leads to undefined behavior and should not be used.
+{{% /note %}}
 
 ## Vector Clock Pruning
 

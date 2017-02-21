@@ -15,16 +15,14 @@ aliases:
   - /riak/kv/2.1.4/dev/using/mapreduce
 ---
 
-<div class="note">
-<div class="title">Use MapReduce sparingly</div>
-In Riak, MapReduce is the primary method for non-primary-key-based
-querying. Although useful for a limited range of purposes, such as batch
-processing jobs, MapReduce operations can be very computationally
-expensive, sometimes to the extent that they can degrade performance in
-production clusters operating under load. Thus, we recommend running
-MapReduce operations in a controlled, rate-limited fashion and never for
-realtime querying purposes.
-</div>
+{{% note title="Use MapReduce sparingly" %}}
+In Riak, MapReduce is the primary method for non-primary-key-based querying.
+Although useful for a limited range of purposes, such as batch processing
+jobs, MapReduce operations can be very computationally expensive, sometimes to
+the extent that they can degrade performance in production clusters operating
+under load. Thus, we recommend running MapReduce operations in a controlled,
+rate-limited fashion and never for realtime querying purposes.
+{{% /note %}}
 
 MapReduce (M/R) is a technique for dividing data processing work across
 a distributed system. It takes advantage of the parallel processing

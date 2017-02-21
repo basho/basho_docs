@@ -23,10 +23,12 @@ To try this flavor of Riak, a working installation of the .NET Framework or Mono
 
 Install [the Riak .NET Client](https://github.com/basho/riak-dotnet-client/wiki/Installation) through [NuGet](http://nuget.org/packages/RiakClient) or the Visual Studio NuGet package manager.
 
-<div class="note">
-<div class="title">Configuring for a remote cluster</div>
-By default, the Riak .NET Client will add a section to your `app.config` file for a four node local cluster. If you are using a remote cluster, open up `app.config` and change the `hostAddress` values to point to nodes in your remote cluster.
-</div>
+{{% note title="Configuring for a remote cluster" %}}
+By default, the Riak .NET Client will add a section to your `app.config` file
+for a four node local cluster. If you are using a remote cluster, open up
+`app.config` and change the `hostAddress` values to point to nodes in your
+remote cluster.
+{{% /note %}}
 
 ### Connecting to Riak
 

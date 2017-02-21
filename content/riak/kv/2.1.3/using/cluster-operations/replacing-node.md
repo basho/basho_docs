@@ -86,12 +86,10 @@ with the [`riak-admin ringready`](/riak/kv/2.1.3/using/admin/riak-admin/#ringrea
 and [`riak-admin member-status`](/riak/kv/2.1.3/using/admin/riak-admin/#member-status)
 commands.
 
-<div class="info">
-<div class="title">Ring Settling</div>
-You'll need to make sure that no other ring changes occur between the
-time when you start the new node and the ring settles with the new IP
-info.
+{{% note title="Ring Settling" %}}
+You'll need to make sure that no other ring changes occur between the time
+when you start the new node and the ring settles with the new IP info.
 
-The ring is considered settled when the new node reports `true` when you
-run the `riak-admin ringready` command.
-</div>
+The ring is considered settled when the new node reports `true` when you run
+the `riak-admin ringready` command.
+{{% /note %}}

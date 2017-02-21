@@ -165,10 +165,11 @@ If there are compaction errors in any of your vnodes, those will be listed in th
 ./442446784738847563128068650529343492278651453440/LOG 
 ```
 
-<div class="note">
-<div class="title">Note</div>
-While corruption on one vnode is not uncommon, corruption in several vnodes very likely means that there is a deeper problem that needs to be address, perhaps on the OS or hardware level.
-</div>
+{{% note title="Note" %}}
+While corruption on one vnode is not uncommon, corruption in several vnodes
+very likely means that there is a deeper problem that needs to be address,
+perhaps on the OS or hardware level.
+{{% /note %}}
 
 ## Healing Corrupted LevelDBs
 

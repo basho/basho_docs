@@ -92,15 +92,13 @@ As with the throughput metrics, keeping an eye on average (and max)
 latency times will help detect usage patterns, and provide advanced
 warnings for potential problems.
 
-<div class="note">
-<div class="title">Note on FSM Time Stats</div>
-FSM Time Stats represent the amount of time in microseconds required
-to traverse the GET or PUT Finite State Machine code, offering a
-picture of general node health. From your application's perspective,
-FSM Time effectively represents experienced latency. Mean, Median, and
-95th-, 99th-, and 100th-percentile (Max) counters are displayed. These
-are one-minute stats.
-</div>
+{{% note title="Note on FSM Time Stats" %}}
+FSM Time Stats represent the amount of time in microseconds required to
+traverse the GET or PUT Finite State Machine code, offering a picture of
+general node health. From your application's perspective, FSM Time effectively
+represents experienced latency. Mean, Median, and 95th-, 99th-, and
+100th-percentile (Max) counters are displayed. These are one-minute stats.
+{{% /note %}}
 
 Metric | Also | Relevance | Latency (in microseconds)
 :------|:-----|:----------|:-------------------------
@@ -191,19 +189,21 @@ reported success with when used for monitoring the operational status of
 their Riak clusters. Community and open source projects are presented
 along with commercial and hosted services.
 
-<div class="note">
-<div class="title">Note on Riak 2.x Statistics Support</div>
-Many of the below tools were either created by third-parties or Basho engineers
-for general usage, and have been passed to the community for further updates. As
-such, many of the below only aggregate the statistics and messages that were
-output by Riak 1.4.x.</br>
+{{% note title="Note on Riak 2.x Statistics Support" %}}
+Many of the below tools were either created by third-parties or Basho
+engineers for general usage, and have been passed to the community for further
+updates. As such, many of the below only aggregate the statistics and messages
+that were output by Riak 1.4.x.
+
 Like all code under [Basho Labs](https://github.com/basho-labs/), the below
-tools are "best effort" and have no dedicated Basho support. We both appreciate
-and need your contribution to keep these tools stable and up to date. Please
-open up a GitHub issue on the repository if you'd like to be a maintainer.</br>
-Look for banners calling out the tools we've verified that support the latest Riak 2.x
-statistics!
-</div>
+tools are "best effort" and have no dedicated Basho support. We both
+appreciate and need your contribution to keep these tools stable and up to
+date. Please open up a GitHub issue on the repository if you'd like to be a
+maintainer.
+
+Look for banners calling out the tools we've verified that support the latest
+Riak 2.x statistics!
+{{% /note %}}
 
 ### Self-Hosted Monitoring Tools
 
@@ -250,9 +250,9 @@ the Riak HTTP [`/stats`](/riak/kv/2.0.6/developing/api/http/status) endpoint is 
 
 #### Nagios
 
-<div class="note">
-<strong>Tested and Verified Support for Riak 2.x.</strong>
-</div>
+{{% note %}}
+**Tested and Verified Support for Riak 2.x.**
+{{% /note %}}
 
 [Nagios](http://www.nagios.org) is a monitoring and alerting solution
 that can provide information on the status of Riak cluster nodes, in
@@ -286,9 +286,9 @@ module specifically designed to read Riak statistics.
 
 #### Zabbix
 
-<div class="note">
-<strong>Tested and Verified Support for Riak 2.x Stats.</strong>
-</div>
+{{% note %}}
+**Tested and Verified Support for Riak 2.x Stats.**
+{{% /note %}}
 
 [Zabbix](http://www.zabbix.com) is an open-source performance monitoring,
 alerting, and graphing solution that can provide information on the state of
@@ -312,9 +312,9 @@ capacity planning in a Riak cluster environment.
 
 #### New Relic
 
-<div class="note">
-<strong>Tested and Verified Support for Riak 2.x Stats.</strong>
-</div>
+{{% note %}}
+**Tested and Verified Support for Riak 2.x Stats.**
+{{% /note %}}
 
 [New Relic](http://newrelic.com) is a data analytics and visualization platform
 that can provide information on the current and past states of Riak nodes and

@@ -16,12 +16,10 @@ aliases:
 
 Lists keys in a bucket.
 
-<div class="note">
-<div class="title">Not for production use</div>
-
-This operation requires traversing all keys stored in the cluster and should not be used in production.
-
-</div>
+{{% note title="Not for production use" %}}
+This operation requires traversing all keys stored in the cluster and should
+not be used in production.
+{{% /note %}}
 
 ## Request
 

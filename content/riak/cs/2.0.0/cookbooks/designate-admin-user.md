@@ -13,9 +13,8 @@ editing and replacing the `admin_key` and `admin_secret` in `app.config`
 with the user's credentials. Once this is done, do not forget to update
 the same credentials in the Stanchion `app.config` as well.
 
-<div class="note">
-<div class="title">Note on the admin role</div>
-This is a powerful role and gives the designee administrative
-capabilities within the system. As such, caution should be used to
-protect the access credentials of the admin user.
-</div>
+{{% note title="Note on the admin role" %}}
+This is a powerful role and gives the designee administrative capabilities
+within the system. As such, caution should be used to protect the access
+credentials of the admin user.
+{{% /note %}}

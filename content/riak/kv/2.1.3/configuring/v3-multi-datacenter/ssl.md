@@ -54,12 +54,11 @@ the `riak-core` section of [`advanced.confg`][config reference#advanced.config]:
 The `cacertsdir` is a directory containing all the CA certificates
 needed to verify the CA chain back to the root.
 
-<div class="note">
-<div class="title">Note on configuration</div>
+{{% note title="Note on configuration" %}}
 In Version 3 replication, the SSL settings need to be placed in the
-<code>riak-core</code> section of <code>advanced.config</code> as opposed to
-the <code>riak-repl</code> section used by Version 2 replication.
-</div>
+`riak-core` section of `advanced.config` as opposed to the `riak-repl` section
+used by Version 2 replication.
+{{% /note %}}
 
 ## Verifying Peer Certificates
 
@@ -80,21 +79,20 @@ would be allowed to connect, but `corp.com` still would not.
 If no ACL (or only the special value `"*"`) is specified, no CN filtering
 is performed, except as described below.
 
-<div class="info">
-<div class="title">Identical Local and Peer Common Names</div>
+{{% note title="Identical Local and Peer Common Names" %}}
 As a special case supporting the view that a host's CN is a fully-qualified
 domain name that uniquely identifies a single network device, if the CNs of
 the local and peer certificates are the same, the nodes will *NOT* be allowed
 to connect.
 
-An exception is made when the CN begins with `*`, on the assumption
-that a pool of nodes might all legitimately use a certificate with a CN
-like `*.dc5.example.com`. In this specific case, peers with matching CNs are
+An exception is made when the CN begins with `*`, on the assumption that a
+pool of nodes might all legitimately use a certificate with a CN like
+`*.dc5.example.com`. In this specific case, peers with matching CNs are
 allowed to connect, so long as an explicit or implicit ACL allows it.
 
 This evaluation supercedes ACL checks, so it cannot be overridden with any
 setting of the `peer_common_name_acl` property.
-</div>
+{{% /note %}}
 
 ### Examples
 

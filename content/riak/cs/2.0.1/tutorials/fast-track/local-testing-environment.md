@@ -201,10 +201,10 @@ to use the custom backend provided by Riak CS. You'll have to use the old-style
 ].
 ```
 
-<div class="note"><div class="title">Note on OS-specific paths</div>
+{{% note title="Note on OS-specific paths" %}}
 The path for `add_paths` may be `/usr/lib/riak-cs` or `/usr/lib64/riak-cs`
 depending on your operating system.
-</div>
+{{% /note %}}
 
 Next, set your interface IP addresses in the `riak.conf` file. In a
 production environment, you'd likely have multiple NICs, but for this
@@ -393,9 +393,9 @@ You can use this same process to create additional Riak CS users. To
 make this user the admin user, we set these keys in the Riak CS
 `riak-cs.conf` and `stanchion.conf` files.
 
-<div class="note"><div class="title">Note on admin keys</div>
+{{% note title="Note on admin keys" %}}
 The same admin keys will need to be set on all nodes of the cluster.
-</div>
+{{% /note %}}
 
 Change the following lines in `/etc/riak-cs/riak-cs.conf` on all Riak CS
 machines:

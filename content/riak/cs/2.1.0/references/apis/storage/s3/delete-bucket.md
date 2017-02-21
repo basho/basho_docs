@@ -11,7 +11,9 @@ aliases:
 
 The `DELETE Bucket` operation deletes the bucket specified in the URI.
 
-<div class="note"><div class="title">Note</div>All objects in the bucket must be deleted before you can delete the bucket.</div>
+{{% note title="Note" %}}
+All objects in the bucket must be deleted before you can delete the bucket.
+{{% /note %}}
 
 ## Requests
 

@@ -10,7 +10,10 @@ aliases:
 
 Deletes a container.
 
-<div class="note"><div class="title">Note</div>All objects in the container must be deleted before you can delete the container.</div>
+{{% note title="Note" %}}
+All objects in the container must be deleted before you can delete the
+container.
+{{% /note %}}
 
 ## Requests
 

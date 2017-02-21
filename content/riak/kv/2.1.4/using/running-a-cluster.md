@@ -91,21 +91,20 @@ listener.protobuf.internal = 192.168.1.10:8087
 {"192.168.1.10", 8087 },
 ```
 
-<div class="note">
-<div class="title">Note on upgrading to 2.0</div>
-If you are upgrading to Riak version 2.0 or later from an pre-2.0
-release, you can use either your old `app.config`/ `vm.args`
-configuration files or the newer `riak.conf` if you wish. If you have
-installed Riak 2.0 directly, you should use only `riak.conf`.
+{{% note title="Note on upgrading to 2.0" %}}
+If you are upgrading to Riak version 2.0 or later from an pre-2.0 release, you
+can use either your old `app.config`/ `vm.args` configuration files or the
+newer `riak.conf` if you wish. If you have installed Riak 2.0 directly, you
+should use only `riak.conf`.
 
 Below, examples will be provided for both the old and new configuration
-systems. Bear in mind that you need to use either the older or the newer
-but never both simultaneously.
+systems. Bear in mind that you need to use either the older or the newer but
+never both simultaneously.
 
 More on configuring Riak can be found in the <a
 href="http://docs.basho.com/riak/kv/2.1.4/configuring/">Configuration
 Files</a> documentation.
-</div>
+{{% /note %}}
 
 If you're using the HTTP interface, you will need to alter your
 configuration in an analogous way:
@@ -180,14 +179,13 @@ the node's ring file.
 riak-admin cluster replace riak@127.0.0.1 riak@192.168.1.10
 ```
 
-<div class="note">
-<div class="title">Note on single nodes</div>
-If a node is started singly using default settings, as you might do when
-you are building your first test environment, you will need to remove
-the ring files from the data directory after you edit your configuration
-files. `riak-admin cluster replace` will not work since the node has not
-been joined to a cluster.
-</div>
+{{% note title="Note on single nodes" %}}
+If a node is started singly using default settings, as you might do when you
+are building your first test environment, you will need to remove the ring
+files from the data directory after you edit your configuration files.
+`riak-admin cluster replace` will not work since the node has not been joined
+to a cluster.
+{{% /note %}}
 
 As with all cluster changes, you need to view the planned changes by
 running `riak-admin cluster plan` and then running `riak-admin cluster

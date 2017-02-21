@@ -48,7 +48,10 @@ Authorization: signature_value
     <LocationConstraint>BucketRegion</LocationConstraint>
   </CreateBucketConfiguration>
 ```
-<div class="note"><div class="title">Note</div>This example includes some request headers. The Request Headers section contains the complete list of headers.</div>
+{{% note title="Note" %}}
+This example includes some request headers. The Request Headers section
+contains the complete list of headers.
+{{% /note %}}
 
 ### Request Parameters
 

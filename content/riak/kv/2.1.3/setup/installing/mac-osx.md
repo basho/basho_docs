@@ -50,13 +50,12 @@ directory and execute `bin/riak start` to start the Riak node.
 
 ## Homebrew
 
-<div class="note">
-<div class="title">Warning: Homebrew not always up to date</div>
-Homebrew's Riak recipe is community supported, and thus is not always up
-to date with the latest Riak package. Please ensure that the current
-recipe is using the latest supported code (and don't be afraid to update
-it if it's not).
-</div>
+{{% note title="Warning: Homebrew not always up to date" %}}
+Homebrew's Riak recipe is community supported, and thus is not always up to
+date with the latest Riak package. Please ensure that the current recipe is
+using the latest supported code (and don't be afraid to update it if it's
+not).
+{{% /note %}}
 
 Installing Riak 2.0 with [Homebrew](http://brew.sh/) is easy:
 
@@ -90,11 +89,10 @@ the Riak installation directory via environment variables.
 You must have Xcode tools installed from [Apple's Developer
 website](http://developer.apple.com/).
 
-<div class="note">
-<div class="title">Note on Clang</div>
-Riak will not compile with Clang. Please make sure that your default
-C/C++ compiler is [GCC](https://gcc.gnu.org/).
-</div>
+{{% note title="Note on Clang" %}}
+Riak will not compile with Clang. Please make sure that your default C/C++
+compiler is [GCC](https://gcc.gnu.org/).
+{{% /note %}}
 
 Riak requires [Erlang](http://www.erlang.org/) R16B02+.
 

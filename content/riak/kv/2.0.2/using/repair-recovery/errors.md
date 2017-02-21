@@ -134,11 +134,10 @@ Riak to explain the correct course of action. For example, the
 `map/reduce` `parse_input` phase will respond like this when it
 encounters an invalid input:
 
-<div class="note">
-<div class="title">Note on inputs</div>
-Inputs must be a binary bucket, a tuple of bucket and key-filters, a
-list of target tuples, a search index, or modfun tuple: `INPUT`.
-</div>
+{{% note title="Note on inputs" %}}
+Inputs must be a binary bucket, a tuple of bucket and key-filters, a list of
+target tuples, a search index, or modfun tuple: `INPUT`.
+{{% /note %}}
 
 For the remaining common error codes, they are often marked by Erlang
 atoms (and quite often wrapped within an `{error,{badmatch,{...` tuple,

@@ -44,16 +44,15 @@ Erlang parameter | Riak parameter
 [`-env ERL_MAX_ETS_TABLES`](http://learnyousomeerlang.com/ets) | `erlang.max_ets_tables`
 `-name` | `nodename`
 
-<div class="note">
-<div class="title">Note on upgrading to 2.0</div>
-In versions of Riak prior to 2.0, Erlang VM-related parameters were
-specified in a `vm.args` configuration file; in versions 2.0 and later,
-all Erlang-VM-specific parameters are set in the `riak.conf` file. If
-you're upgrading to 2.0 from an earlier version, you can still use your
-old `vm.args` if you wish.  Please note, however, that if you set one or
-more parameters in both `vm.args` and in `riak.conf`, the settings in
-`vm.args` will override those in `riak.conf`.
-</div>
+{{% note title="Note on upgrading to 2.0" %}}
+In versions of Riak prior to 2.0, Erlang VM-related parameters were specified
+in a `vm.args` configuration file; in versions 2.0 and later, all
+Erlang-VM-specific parameters are set in the `riak.conf` file. If you're
+upgrading to 2.0 from an earlier version, you can still use your old `vm.args`
+if you wish.  Please note, however, that if you set one or more parameters in
+both `vm.args` and in `riak.conf`, the settings in `vm.args` will override
+those in `riak.conf`.
+{{% /note %}}
 
 ## SMP
 

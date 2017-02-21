@@ -182,13 +182,11 @@ users and `<groupname>_Inbox_<date>` for groups, which will look like
 `joeuser_Sent_2014-03-06Z` or `marketing_group_Inbox_2014-03-05Z`,
 respectively.
 
-<div class="note">
-<div class="title">Note</div>
-Riak performs best with objects under 1-2 MB. Objects larger than that
-can hurt performance, especially if many siblings are being created. We
-will cover siblings, sibling resolution, and sibling explosions in the
-next chapter.
-</div>
+{{% note title="Note" %}}
+Riak performs best with objects under 1-2 MB. Objects larger than that can
+hurt performance, especially if many siblings are being created. We will cover
+siblings, sibling resolution, and sibling explosions in the next chapter.
+{{% /note %}}
 
 #### Keeping our story straight with repositories
 

@@ -84,11 +84,10 @@ Stops all applications and starts without restarting the Erlang VM.
 riak-cs reboot
 ```
 
-<div class="note">
-<div class="title">Deprecation notice</div>
-The <code>riak-cs reboot</code> command has been deprecated. We
-recommend using the <code>riak-cs restart</code> command instead.
-</div>
+{{% note title="Deprecation notice" %}}
+The `riak-cs reboot` command has been deprecated. We recommend using the
+`riak-cs restart` command instead.
+{{% /note %}}
 
 #### ping
 
@@ -524,12 +523,10 @@ Riak CS version 1.5 offers support for supercluster operations. The
 `supercluster` command interface enables you to interact with that system.
 More information can be found in [Riak CS Supercluster Support](/riak/cs/2.0.0/cookbooks/supercluster).
 
-<div class="note">
-<div class="title">Note: technical preview</div>
+{{% note title="Note: technical preview" %}}
 Riak CS supercluster support is available only as a technical preview for
-users of Riak CS installations with support for Multi-Datacenter
-Replication.
-</div>
+users of Riak CS installations with support for Multi-Datacenter Replication.
+{{% /note %}}
 
 #### list-members
 

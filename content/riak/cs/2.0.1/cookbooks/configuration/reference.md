@@ -92,23 +92,25 @@ Most of the settings you will need to manipulate have been ported into the newer
 such as setting up customized `lager` streams -- that will need to be configured
 in `advanced.config`.
 
-<div class="note"><div class="title">A Note About Time Values</div>
+{{% note title="A Note About Time Values" %}}
 In the `app.config` configuration files, time periods were generally written
 as either seconds or milliseconds, with no real indication of which was being
 used. With the update to `riak-cs.conf`, all values that describe a period of
-time are written as an integer and a character, describing the unit of time and
-the number of times that unit should be repeated for the period. For example
-`31d` represents 31 days, `6h` represents six hours, `6000ms` represents 6,000
-milliseconds.</br>
-The full list of valid time units are as follows:</br>
-`f` -- Fortnights</br>
-`w` -- Weeks</br>
-`d` -- Days</br>
-`h` -- Hours</br>
-`m` -- Minutes</br>
-`s` -- Seconds</br>
-`ms` -- Milliseconds</br>
-</div>
+time are written as an integer and a character, describing the unit of time
+and the number of times that unit should be repeated for the period. For
+example `31d` represents 31 days, `6h` represents six hours, `6000ms`
+represents 6,000 milliseconds.
+
+The full list of valid time units are as follows:
+
+`f` -- Fortnights
+`w` -- Weeks
+`d` -- Days
+`h` -- Hours
+`m` -- Minutes
+`s` -- Seconds
+`ms` -- Milliseconds
+{{% /note %}}
 
 The tables below will show settings for both `riak-cs.conf` and
 `advanced.config`/`app.config` where applicable, organized by functionality.

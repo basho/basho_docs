@@ -29,11 +29,10 @@ The examples below will assume that the network in question is
 [created](/riak/kv/2.0.4/using/security/basics/#user-management) and that
 security has been [enabled](/riak/kv/2.0.4/using/security/basics/#the-basics).
 
-<div class="note">
-<div class="title">Note on SSL connections</div>
-If you use <em>any</em> of the aforementioned security sources, even
-<code>trust</code>, you will need to do so via a secure SSL connection.
-</div>
+{{% note title="Note on SSL connections" %}}
+If you use _any_ of the aforementioned security sources, even `trust`, you
+will need to do so via a secure SSL connection.
+{{% /note %}}
 
 ## Trust-based Authentication
 

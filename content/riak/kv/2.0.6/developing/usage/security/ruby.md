@@ -25,13 +25,11 @@ can use the security setup described in the [Ruby Client Basics](#ruby-client-ba
 in a [later section](#password-based-authentication), while [certificate](/riak/kv/2.0.6/using/security/managing-sources/#certificate-based-authentication)-based authentication
 is covered [further down](#certificate-based-authentication).
 
-<div class="note">
-<div class="title">Note on certificate generation</div>
+{{% note title="Note on certificate generation" %}}
 This tutorial does not cover certificate generation. It assumes that all
-necessary certificates have already been created and are stored in a
-directory called `/ssl_dir`. This directory name is used only for
-example purposes.
-</div>
+necessary certificates have already been created and are stored in a directory
+called `/ssl_dir`. This directory name is used only for example purposes.
+{{% /note %}}
 
 ## Ruby Client Basics
 

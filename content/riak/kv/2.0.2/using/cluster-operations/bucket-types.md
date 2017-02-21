@@ -16,14 +16,13 @@ Buckets are essentially a flat namespace in Riak. They allow the same
 key name to exist in multiple buckets and enable you to apply
 configurations across keys.
 
-<div class="info">
-<div class="title">How Many Buckets Can I Have?</div>
-Buckets come with virtually no cost <em>except for when you modify the
-default bucket properties</em>. Modified bucket properties are gossiped
-around the cluster and therefore add to the amount of data sent around
-the network. In other words, buckets using the <tt>default</tt> bucket
-type are free. More on that in the next section.
-</div>
+{{% note title="How Many Buckets Can I Have?" %}}
+Buckets come with virtually no cost _except for when you modify the default
+bucket properties_. Modified bucket properties are gossiped around the cluster
+and therefore add to the amount of data sent around the network. In other
+words, buckets using the `default` bucket type are free. More on that in the
+next section.
+{{% /note %}}
 
 In Riak versions 2.0 and later, Basho suggests that you [use bucket types](/riak/kv/2.0.2/developing/usage/bucket-types) to namespace and configure all buckets you use. Bucket types have a lower overhead within the cluster than the
 default bucket namespace but require an additional setup step on the

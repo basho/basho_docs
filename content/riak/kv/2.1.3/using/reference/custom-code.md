@@ -31,13 +31,13 @@ name must have the same name the module. So if you are given a file named
 If you have been given Erlang code and are expected to compile it for
 your developers, keep the following notes in mind.
 
-<div class="info"><div class="title">Note on the Erlang Compiler</div> You
-must use the Erlang compiler (<tt>erlc</tt>) associated with the Riak
+{{% note title="Note on the Erlang Compiler" %}}
+You must use the Erlang compiler (`erlc`) associated with the Riak
 installation or the version of Erlang used when compiling Riak from source.
-For packaged Riak installations, you can consult Table 1 below for the
-default location of Riak's <tt>erlc</tt> for each supported platform.
-If you compiled from source, use the <tt>erlc</tt> from the Erlang version
-you used to compile Riak.</div>
+For packaged Riak installations, you can consult Table 1 below for the default
+location of Riak's `erlc` for each supported platform. If you compiled from
+source, use the `erlc` from the Erlang version you used to compile Riak.
+{{% /note %}}
 
 <table style="width: 100%; border-spacing: 0px;">
 <tbody>
@@ -88,8 +88,9 @@ and loaded. For our example, we'll use a temporary directory `/tmp/beams`,
 but you should choose a directory for production functions based on your
 own requirements such that they will be available where and when needed.
 
-<div class="info">Ensure that the directory chosen above can be read by
-the <tt>riak</tt> user.</div>
+{{% note %}}
+Ensure that the directory chosen above can be read by the `riak` user.
+{{% /note %}}
 
 Successful compilation will result in a new `.beam` file,
 `validate_json.beam`.
@@ -124,5 +125,7 @@ value store has fully initialized and become available for use.
 This is done with the `riak-admin wait-for-service` command as detailed
 in the [Commands documentation](/riak/kv/2.1.3/using/admin/riak-admin/#wait-for-service).
 
-<div class="note">It is important that you ensure riak_kv is
-active before restarting the next node.</div>
+{{% note %}}
+It is important that you ensure riak_kv is active before restarting the next
+node.
+{{% /note %}}

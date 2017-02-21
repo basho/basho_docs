@@ -16,14 +16,12 @@ Bucket types allow groups of buckets to share configuration details and
 for Riak users to manage bucket properties more efficiently than in the
 older configuration system based on [bucket properties](/riak/kv/2.0.2/developing/usage/bucket-types/#bucket-properties-and-operations).
 
-<div class="note">
-<div class="title">Important note on cluster downgrades</div>
-If you upgrade a Riak to version 2.0 or later, you can still downgrade
-the cluster to a pre-2.0 version <em>as long as you have not created and
-activated a bucket type in the cluster</em>. Once any bucket type has
-been created and activated, you can no longer downgrade the cluster to a
-pre-2.0 version.
-</div>
+{{% note title="Important note on cluster downgrades" %}}
+If you upgrade a Riak to version 2.0 or later, you can still downgrade the
+cluster to a pre-2.0 version _as long as you have not created and activated a
+bucket type in the cluster_. Once any bucket type has been created and
+activated, you can no longer downgrade the cluster to a pre-2.0 version.
+{{% /note %}}
 
 ## How Bucket Types Work
 
@@ -129,11 +127,11 @@ If creation is successful, you should see the following output:
 type_using_defaults created
 ```
 
-<div class="note">
+{{% note %}}
 The `create` command can be run multiple times prior to a bucket type being
 activated. Riak will persist only those properties contained in the final call
 of the command.
-</div>
+{{% /note %}}
 
 Creating bucket types that assign properties _always_ involves passing
 stringified JSON to the `create` command. One way to do that is to pass
@@ -243,11 +241,22 @@ of the type:
 riak-admin bucket-type update type_to_update '{"props":{ ... }}'
 ```
 
-> **Note**
->
-> Any bucket properties associated with a type can be modified after a bucket is created, with two important exceptions: `consistent` and `datatype`. If a bucket type entails strong consistency (requiring that `consistent` be set to `true`) or is set up as a `map`, `set`, or `counter`, then this will be true of the bucket type once and for all.
->
-> If you need to change one of these properties, it is recommended that you simply create and activate a new bucket type.
+{{% note title="Immutable Configurations" %}}
+Any bucket properties associated with a type can be modified after a bucket is
+created, with three important exceptions:
+
+* `consistent`
+* `datatype`
+* `write_once`
+
+If a bucket type entails strong consistency (requiring that `consistent` be
+set to `true`), is set up as a `map`, `set`, or `counter`, or is defined as a
+write-once  bucket (requiring `write_once` be set to `true`), then this will
+be true of the bucket types.
+
+If you need to change one of these properties, we recommend that you simply
+create and activate a new bucket type.
+{{% /note %}}
 
 ## Buckets as Namespaces
 
@@ -375,12 +384,11 @@ curl http://localhost:8098/types/type1/buckets/my_bucket/keys/my_key
 curl http://localhost:8098/types/type2/buckets/my_bucket/keys/my_key
 ```
 
-<div class="note">
-<div class="title">Note on object location</div>
-In Riak 2.x, <em>all requests</em> must be made to a location specified
-by a bucket type, bucket, and key rather than to a bucket/key pair, as
-in previous versions.
-</div>
+{{% note title="Note on object location" %}}
+In Riak 2.x, _all requests_ must be made to a location specified by a bucket
+type, bucket, and key rather than to a bucket/key pair, as in previous
+versions.
+{{% /note %}}
 
 If requests are made to a bucket/key pair without a specified bucket
 type, `default` will be used in place of a bucket type. The following
