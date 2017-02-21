@@ -188,7 +188,7 @@ powerful queries over the data stored in their key/value data.
 ## Node
 
 A node is analogous to a physical server. Nodes run a certain number of
-nodes, each of which claims a partition in the Riak Ring key space.
+vnodes, each of which claims a partition in the Riak Ring key space.
 
 * [Clusters][concept clusters]
 * [Adding and Removing Nodes][cluster ops add remove node]
