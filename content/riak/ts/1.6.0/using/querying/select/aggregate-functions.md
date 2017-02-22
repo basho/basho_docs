@@ -149,7 +149,7 @@ Returns `NULL` if no values were returned or all values were `NULL`.
 
 ### `PERCENTILE_DISC`, `PERCENTILE_CONT`
 
-Calculate a percentile, given as a value in the range [0..1], in a population of entries in the selection, with null values discarded.  The column argument must be of numeric type (`sint64`, `double` or `timestamp`).  Return type is the type of the column argument for `PERCENTILE_DISC`, and `double` for `PERCENTILE_CONT`.
+Calculate a percentile, given as a value in the range [0.0..1.0], in a population of entries in the selection, with null values discarded.  The column argument must be of numeric type (`sint64`, `double` or `timestamp`).  Return type is the type of the column argument for `PERCENTILE_DISC`, and `double` for `PERCENTILE_CONT`.
 
 The `_DISC`/`_CONT` variants differ in the discrete/continuous distribution model assumed for the population.  For the former, the value returned is the largest observation that is less than or equal to the percentile computed.  For the latter, the result is the linear interpolation between two observations surrounding the percentile.
 
