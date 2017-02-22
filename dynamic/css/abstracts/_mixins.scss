@@ -1,0 +1,200 @@
+////
+/// Application-Wide Sass Mixins
+/// ============================
+////
+
+/// Event wrapper
+/// @author Harry Roberts
+/// @link https://twitter.com/csswizardry/status/478938530342006784 Original tweet from Harry Roberts
+/// @param {Bool} $self [false] - Whether or not to include current selector
+@mixin on-event($self: false) {
+  @if $self {
+    &,
+    &:hover,
+    &:active,
+    &:focus {
+      @content;
+    }
+  } @else {
+    &:hover,
+    &:active,
+    &:focus {
+      @content;
+    }
+  }
+}
+
+
+/// Make a context based selector a little more friendly
+/// @author Hugo Giraudel
+/// @param {String} $context
+@mixin when-inside($context) {
+  #{$context} & {
+    @content;
+  }
+}
+
+
+/// Aliases for Bootstrap's `media-breakpoint-up`; makes the @content apply to
+/// the given breakpoint and wider.
+/// @author Drew Pirrone-Brusse
+/// @alias media-breakpoint-up
+/// @param {String} $name - Breakpoint name; 'sm', 'md', 'lg', or 'xl'
+/// @param {Map} $breakpoint [$grid-breakpoints] - Map of (name: min-width)
+@mixin wide-from($name, $breakpoints: $grid-breakpoints) {
+  @include media-breakpoint-up($name, $breakpoints) {
+    @content;
+  }
+}
+
+/// Aliases for Bootstrap's `media-breakpoint-down`; makes the @content apply to
+/// the given breakpoint and narrower.
+/// @author Drew Pirrone-Brusse
+/// @alias media-breakpoint-down
+/// @param {String} $name - Breakpoint name; 'sm', 'md', 'lg', or 'xl'
+/// @param {Map} $breakpoint [$grid-breakpoints] - Map of (name: min-width)
+@mixin narrow-from($name, $breakpoints: $grid-breakpoints) {
+  @include media-breakpoint-down($name, $breakpoints) {
+    @content;
+  }
+}
+
+/// Aliases for Bootstrap's `media-breakpoint-only`; makes the @content apply to
+/// the given breakpoint.
+/// @author Drew Pirrone-Brusse
+/// @alias media-breakpoint-only
+/// @param {String} $name - Breakpoint name; 'xs', 'sm', 'md', 'lg', or 'xl'
+/// @param {Map} $breakpoint [$grid-breakpoints] - Map of (name: min-width)
+@mixin width-exactly($name, $breakpoints: $grid-breakpoints) {
+  @include media-breakpoint-only($name, $breakpoints) {
+    @content;
+  }
+}
+
+/// Given a property and px value(s), outputs rem value and px fallbacks
+/// @author Ray Brown (edited by Drew Pirrone-Brusse)
+/// @link https://github.com/bitmanic/rem/blob/master/stylesheets/_rem.scss
+/// @requires {variable} $font-size-root - Set in _configurations.scss
+/// @param {String}      $property  - Property name
+/// @param {Number|List} $px-values - One or more px values
+@mixin rem($property, $px-values) {
+  // Convert the root size into rem
+  $baseline-rem: $font-size-root / 1rem * 1;
+  // Print px values first, so supported browsers can override w/ rem
+  #{$property}: $px-values;
+  // If there is only one (numeric) value, return the property/value line for it.
+  @if type-of($px-values) == "number" {
+    #{$property}: $px-values / $baseline-rem; }
+  @else {
+    // Create an empty list that we can dump values into
+    $rem-values: ();
+    @each $value in $px-values {
+      // If the value is zero or not a number, return it
+      @if $value == 0 or type-of( $value ) != "number" {
+        $rem-values: append($rem-values, $value); }
+      @else {
+        $rem-values: append($rem-values, $value / $baseline-rem); } }
+    // Return the property and its list of converted values
+    #{$property}: $rem-values;
+  }
+}
+
+/// Renders as an arrow of the given size; points either up or down.
+/// Note that the border sizes are divided by 2 s.t. the final size of the
+/// arrow's base will be the size given.
+/// We give the border-{$point} a color (transparent by default) to allow for
+/// transitions on border-color to soften the animation some.
+/// NOTE: `transition: border-color` only really works with opposing arrows;
+///       upward transition to downward, left transitioning to right. Otherwise
+///       the transition flashes through a box-ish pattern.
+/// @author Barrett Cox
+/// @author Drew Pirrone-Brusse
+/// @param {String} base  - `top` or `bottom`
+/// @param {String} point - `bottom` or `top`
+/// @param {Number} size  - Size of the base of the arrow
+/// @param {Color}  color - Color of the arrow
+/// @param {Color}  flash [transparent] - Color of the arrow for transitions
+/// @param {Number} translateX [0%]    - % of arrow size to translate along X
+/// @param {Number} translateY [0%]    - % of arrow size to translate along Y
+@mixin border-arrow($base, $point, $size, $color, $flash: transparent,
+                    $translateX: 0%, $translateY: 0%) {
+  width            : #{$size};
+  height           : #{$size};
+  border           : #{$size/2} solid transparent;
+  border-#{$base}  : #{$size/2} solid $color;
+  border-#{$point} : 0          none  $flash;
+  transform        : translate($translateX, $translateY);
+}
+
+/// Named pass-through to border-arrow, pointing up.
+/// @author Drew Pirrone-Brusse
+/// @param {Number} size  - Size of the base of the arrow
+/// @param {Color}  color - Color of the arrow
+/// @param {Color}  flash [transparent] - Color of the arrow for transitions
+/// @param {Number} translateX [0%]    - % of arrow size to translate along X
+/// @param {Number} translateY [-25%]  - % of arrow size to translate along Y
+@mixin upward-arrow($size, $color, $flash: transparent,
+                    $translateX: 0%, $translateY: -25%) {
+  @include border-arrow(bottom, top, $size, $color, $flash,
+                        $translateX, $translateY);
+}
+
+/// Named pass-through to border-arrow, pointing down.
+/// @author Drew Pirrone-Brusse
+/// @param {Number} size  - Size of the base of the arrow
+/// @param {Color}  color - Color of the arrow
+/// @param {Color}  flash [transparent] - Color of the arrow for transitions
+/// @param {Number} translateX [0%]    - % of arrow size to translate along X
+/// @param {Number} translateY [25%]   - % of arrow size to translate along Y
+@mixin downward-arrow($size, $color, $flash: transparent,
+                      $translateX: 0%, $translateY: 25%) {
+  @include border-arrow(top, bottom, $size, $color, $flash,
+                        $translateX, $translateY);
+}
+
+
+/// Named pass-through to border-arrow, pointing left.
+/// @author Drew Pirrone-Brusse
+/// @param {Number} size  - Size of the base of the arrow
+/// @param {Color}  color - Color of the arrow
+/// @param {Color}  flash [transparent] - Color of the arrow for transitions
+/// @param {Number} translateX [-25%]  - % of arrow size to translate along X
+/// @param {Number} translateY [0%]    - % of arrow size to translate along Y
+@mixin leftward-arrow($size, $color, $flash: transparent,
+                      $translateX: -25%, $translateY: 0%) {
+  @include border-arrow(right, left, $size, $color, $flash,
+                        $translateX, $translateY);
+}
+
+
+/// Named pass-through to border-arrow, pointing right.
+/// @author Drew Pirrone-Brusse
+/// @param {Number} size  - Size of the base of the arrow
+/// @param {Color}  color - Color of the arrow
+/// @param {Color}  flash [transparent] - Color of the arrow for transitions
+/// @param {Number} translateX [25%]   - % of arrow size to translate along X
+/// @param {Number} translateY [0%]    - % of arrow size to translate along Y
+@mixin rightward-arrow($size, $color, $flash: transparent,
+                       $translateX: 25%, $translateY: 0%) {
+  @include border-arrow(left, right, $size, $color, $flash,
+                        $translateX, $translateY);
+}
+
+/// Apply border radius to all corners
+/// @author Eric Redmond
+/// @author Drew Pirrone-Brusse
+/// @param {Number} radius [.5rem] - Radius of the corner to apply
+@mixin rounded-corners($radius: .5rem) {
+  border-radius: $radius;
+}
+
+
+/// Apply border radius to specific corner
+/// @author Eric Redmond
+/// @author Drew Pirrone-Brusse
+/// @param {String} vert           - `top` or `bottom`
+/// @param {String} horiz          - `left` or `right`
+/// @param {Number} radius [.5rem] - Radius of the corner to apply
+@mixin rounded-corner($vert, $horiz, $radius: .5rem) {
+  border-#{$vert}-#{$horiz}-radius : $radius;
+}

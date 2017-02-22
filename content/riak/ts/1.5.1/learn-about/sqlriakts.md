@@ -43,7 +43,7 @@ Let's say you want to store and graph usage metrics on a heterogeneous collectio
 
 Since we've decided to have our compound primary key cover time, hostname, and metric name, the only thing left to decide is the quantization.
 
-A query can span only a certain number of quanta (configurable at the system level, default maximum of 5) to limit the impact of aggressive querying on the database. This may lead developers to use a large quantum size, but that can lead to overloaded servers in the cluster, so benchmarking and careful tuning is recommended.
+A query can span only a certain number of quanta (configurable at the system level, default maximum of 5000) to limit the impact of aggressive querying on the database. This may lead developers to use a large quantum size, but that can lead to overloaded servers in the cluster, so benchmarking and careful tuning is recommended.
 
 You can’t use `OR` to select different non-quantized options on a field in the primary key. If you are selecting different options on a non-quantized primary key field, put them in multiple queries.
 

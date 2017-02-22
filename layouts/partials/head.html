@@ -1,57 +1,44 @@
-<!-- Variables
-     =========
-  The root layout should include the "common_variables.html" partial before
-  anything else. That file defines useful variables and adds them to the global
-  .Scratch dictionary, which can then be used to pull only the variables we need
-  into any given partial at any given scoping level.
+<!-- Variable Definitions
+     ====================
+{{ $HugoNode := . }}
 
-{{ $project              := .Scratch.Get "project"              }}
-{{ $version              := .Scratch.Get "version"              }}
-{{ $site_relative_url    := .Scratch.Get "site_relative_url"    }}
-{{ $version_path         := .Scratch.Get "version_path"         }}
-{{ $project_relative_url := .Scratch.Get "project_relative_url" }}
-{{ $canonical_link       := .Scratch.Get "canonical_link"       }}
+
+{{ $title_supertext           := $HugoNode.Scratch.Get "title_supertext"           }}
+{{ $title                     := $HugoNode.Scratch.Get "title"                     }}
+{{ $canonical_link            := $HugoNode.Scratch.Get "canonical_link"            }}
+{{ $project                   := $HugoNode.Scratch.Get "project"                   }}
+{{ $version                   := $HugoNode.Scratch.Get "version"                   }}
+{{ $project_relative_path     := $HugoNode.Scratch.Get "project_relative_path"     }}
+{{ $version_history_in        := $HugoNode.Scratch.Get "version_history_in"        }}
+{{ $version_history_locations := $HugoNode.Scratch.Get "version_history_locations" }}
 -->
-<head class="tutorials">
+<head>
+
   <meta charset="utf-8">
   <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
   <meta name="viewport" content="width=device-width">
+  <link rel="shortcut icon" href="/images/branding/favicon.ico" type="image/x-icon" />
 
-  <title>{{ if .Params.title_supertext }}{{ .Params.title_supertext }} {{ end }}{{ .Title }}</title>
+  <title>{{ if $title_supertext }}{{ $title_supertext }} {{ end }}{{ $title }}</title>
 
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-
-  <link href="/css/all.css" media="screen" rel="stylesheet" type="text/css">
-  <link href="/css/print.css" media="print" rel="stylesheet" type="text/css">
+  <link href="/css/main.css" media="screen" rel="stylesheet" type="text/css">
 
 {{- if $canonical_link }}
   <link rel="canonical" href="{{ $canonical_link }}" />{{end}}
 
+{{- safeHTML `
+  <!-- The below meta tags are included to allow JS code to use variables
+       defined in Hugo---our static site generator. -->` }}
 {{- if $project }}
   <meta name="project" content="{{ $project }}">{{end}}
 {{- if $version }}
   <meta name="version" content="{{ $version }}">{{end}}
+{{- if $project_relative_path }}
+  <meta name="project_relative_path" content="{{ $project_relative_path }}">{{end}}
 
-  <meta name="site_relative_url"    content='{{ $site_relative_url }}'>
-{{- if $version_path }}
-  <meta name="version_url"          content='{{ $version_path }}'>{{end}}
-  <meta name="project_relative_url" content='{{ $project_relative_url }}'>
+{{- if $version_history_in }}
+  <meta name="version_history_in"        content="{{ $version_history_in }}">{{end}}
+{{- if $version_history_locations }}
+  <meta name="version_history_locations" content="{{ $version_history_locations | jsonify }}">{{end}}
 
-{{- if .Params.version_history.in }}
-  <meta name="version_history_in" content="{{ .Params.version_history.in }}">{{end}}
-{{- if .Params.version_history.locations }}
-  <meta name="version_history_locations" content="{{ .Params.version_history.locations | jsonify }}">{{end}}
-
-  <!--
-    Iff JavaScript is enabled, we want to hide all pre>code blocks so we can
-    avoid the pre-to-post style bounce. We do this by hiding all pre elements
-    that follow a .js_enabled class, and apply that class to the HTML element
-    with some JavaScript.
-    We can't use the Modernizr .js class because we want this hidden before we
-    give modernizr a chance to load.
-  -->
-  <style type="text/css"> .js_enabled pre { visibility : hidden; } </style>
-  <script type="text/javascript">
-    document.documentElement.className = 'js_enabled';
-  </script>
 </head>

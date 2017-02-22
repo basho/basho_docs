@@ -1,115 +1,165 @@
 <!DOCTYPE html>
-{{ `<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"></html><![endif]-->` | safeHTML }}
-{{ `<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"></html><![endif]-->` | safeHTML }}
-{{ `<!--[if IE 8]><html class="no-js lt-ie9" lang="en"></html><![endif]-->` | safeHTML }}
-{{ `<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->` | safeHTML }}
+
+<!-- Index Splash Page
+     =================
+  This template follows the style of the _default/single.html layout, though
+  contains none of the dynamic elements found on the Primary Content pages.
+
+  Please see layouts/_default/single.html for a discussion on HTML style,
+  format, and page layout.
+-->
+
+<html class="no-js" lang="en">
+
+
 
 <head>
+
   <meta charset="utf-8">
   <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
   <meta name="viewport" content="width=device-width">
-  <meta name="base-url" content="/">
+  <link rel="shortcut icon" href="/images/branding/favicon.ico" type="image/x-icon" />
 
   <title>Basho Documentation</title>
 
-  <link href="/css/all.css" media="screen" rel="stylesheet" type="text/css">
-  <link href="/css/print.css" media="print" rel="stylesheet" type="text/css">
+  <link href="/css/main.css" media="screen" rel="stylesheet" type="text/css">
+
 </head>
 
-<body class="root">
-  {{ partial "google_tag_manager.html" . }}
 
-  <div class="no-nav" role="main">
-    {{/*TODO(Drew): We're skipping the "mastheader" here. Find out if we need it
-                    for some reason. */}}
-    <article class="mainarticle">
-      <div id="ricon-temp-banner">
-        <div class="temp-banner-text">
-          <!-- Add a message here -->
-        </div>
-      </div>
 
-      <h1 class="center-text"><span class="sans">Welcome to the Basho Docs</span></h1>
+<body class="index">
 
-      <h3 class="center-text">Choose a product below</h3>
 
-      <!-- Latest Project Versions --
-      {{ $riak_kv_latest := .Site.Params.project_descriptions.riak_kv.latest }}
-      {{ $riak_cs_latest := .Site.Params.project_descriptions.riak_cs.latest }}
-      {{ $riak_ts_latest := .Site.Params.project_descriptions.riak_ts.latest }}
-      {{ $dp_latest := .Site.Params.project_descriptions.dataplatform.latest }}
-      -->
-      <div id="select-project">
-        <!-- Riak KV Project -->
-        <div class="project">
-          <a href="/riak/kv/{{ $riak_kv_latest }}/">
-            <span class="riak_kv_image"></span>
-            <span class="small">Highly Available, Operationally<br>
-                                Simple, Distributed Database</span>
-          </a>
-        </div>
-        <!-- /Riak KV Project -->
+  <!-- NOTE: We're going to leave this commented out until we're ready to deploy
+       to the production S3 server. -->
+  {{/* partial "google-tag-manager.html" . */}}
 
-        <div class="separator">
-          <div class="vert-line"></div>
-        </div>
 
-        <!-- Riak TS Project -->
-        <div class="project">
-          <a href="/riak/ts/{{ $riak_ts_latest }}/">
-            <span class="riak_ts_image"></span>
-            <span class="small">Distributed NoSQL Database Optimized<br>for IoT/Time Series</span>
-          </a>
-        </div>
-        <!-- /Riak TS Project -->
 
-        <div class="separator">
-          <br>
-        </div>
+  {{ partial "banner.html" . }}
 
-        <!-- Riak CS Project -->
-        <div class="project" id="project_riakcs">
-          <a href="/riak/cs/{{ $riak_cs_latest }}/">
-            <span class="big">Riak&nbsp;<strong>Cloud Storage</strong></span>
-            <span class="small">Fault-Tolerant, S3-Compatible,<br>
-                                Distributed Storage</span>
-          </a>
-        </div>
-        <!-- /Riak CS Project -->
 
-        <div class="separator">
-          <div class="vert-line"></div>
-        </div>
+  <div class="welcome-content">
 
-        <!-- Data Platform Project -->
-        <div class="project" id="project_dataplatform">
-          <a href="/dataplatform/{{ $dp_latest }}/">
-            <span class="big">Basho&nbsp;<strong>Data Platform</strong></span>
-            <span class="small">Integrated deployment of<br>
-                                Big Data applications</span>
-          </a>
-        </div>
-        <!-- /Data Platform Project -->
+    <div class="welcome   [bs] jumbotron jumbotron-fluid">
 
-        <div class="separator">
-          <br>
-        </div>
-      </div>
+      <h1><strong>Welcome to the <br class="hidden-md-up"> Basho Docs</strong></h1>
 
-      <div class="clear"></div>
+    </div>
 
-      <div id="community-footer">
-        Get involved! Check out our updated <a href="/community/">community page</a>.
-      </div>
-
-      <div class="clear"></div>
-
-      {{ partial "footer.html" . }}
-
-    </article>
   </div>
 
-  <script src="/js/all.js" type="text/javascript"></script>
+
+
+  <div class="product-content">
+
+
+    <p class="product-callout">Please choose a product below</p>
+
+
+    <!-- NOTE: The CSS defined in _index.scss explicitly sets the height of the
+         .product__description text to three lines --- roughly eight words. -->
+
+    <div class="product-picker   [bs] container container-fluid">
+    <div class="[bs] row">
+
+       <div class="product__wrapper   [bs] col-lg-4">
+          <a class="block   product__card" href="/riak/kv/latest/">
+            <span class="inline-block   product__title"><!--
+           --><span class="inline-block   product__logo product__logo--invertible"><!--
+             --><img class="logo logo--primary"  src="/images/branding/riak-logo.png"><!--
+             --><img class="logo logo--inverted" src="/images/branding/riak-logo-inverted.png"><!--
+           --></span><!--
+           -->Riak<span class="product__title-highlight">KV</span><!--
+         --></span>
+            <div class="product__description">Highly available, operationally simple, distributed database</div>
+          </a>
+       </div>
+
+
+       <div class="product__wrapper   [bs] col-lg-4">
+          <a class="block   product__card" href="/riak/ts/latest/">
+            <span class="inline-block   product__title"><!--
+           --><span class="inline-block   product__logo product__logo--invertible"><!--
+             --><img class="logo logo--primary"  src="/images/branding/riak-logo.png"><!--
+             --><img class="logo logo--inverted" src="/images/branding/riak-logo-inverted.png"><!--
+           --></span><!--
+           -->Riak<span class="product__title-highlight">TS</span><!--
+         --></span>
+            <div class="product__description">Distributed NoSQL database optimized for IoT/Time Series</div>
+          </a>
+       </div>
+
+
+       <div class="product__wrapper   [bs] col-lg-4">
+          <a class="block   product__card" href="/riak/cs/latest/">
+            <span class="inline-block   product__title"><!--
+           --><span class="inline-block   product__logo product__logo--invertible"><!--
+             --><img class="logo logo--primary"  src="/images/branding/riak-logo.png"><!--
+             --><img class="logo logo--inverted" src="/images/branding/riak-logo-inverted.png"><!--
+           --></span><!--
+           -->Riak<span class="product__title-highlight">CS</span><!--
+         --></span>
+            <div class="product__description">Fault-tolerant, S3-compatible, distributed storage</div>
+          </a>
+       </div>
+
+    </div>
+    </div>
+
+    <div class="highlight__wrapper">
+    <div class="highlight__container   [bs] container container-fluid">
+    <div class="[b] row">
+
+      <!-- NB. These highlight__left and __right elements have a fixed height in
+           lg-up viewports, and can only fit ~200 characters. Keep these to a
+           tweet, and we'll be fine. -->
+      <div class="highlight__left  [bs] col-lg-7">
+
+        <div class="highlight__title">Keep up with our Community</div>
+
+        <p>
+          Want to keep up to date with the latest news or get involved with our
+          open source community?
+        </p>
+
+        <a class="inline-block   highlight__link" href="/community">
+          Learn More
+        </a>
+
+      </div>
+
+      <div class="highlight__right  [bs] col-lg-5">
+
+        <div class="highlight__title">Instructor-led Training</div>
+
+        <p>
+          Basho offers on-site training with skilled Professional
+          Services Engineers.
+        </p>
+
+        <a class="inline-block   highlight__link" href="http://basho.com/products/professional-services/on-site-training/">
+          Learn More
+        </a>
+
+      </div>
+
+    </div>
+    </div>
+    </div>
+
+
+
+  </div>
+
+
+
+  {{ partial "footer--index.html" . }}
+
+
+
+  <script src="/js/main.js" type="text/javascript"></script>
 
 </body>
 </html>

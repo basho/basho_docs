@@ -1,0 +1,287 @@
+/**
+ * Banner
+ * PRESENTATION ONLY -- See _wireframe.scss for position and size.
+ */
+
+
+// Padding for the top-level element
+$banner-padding-left-md-up : ($content-nav-padding-left + 0.5rem);
+
+// Basho Docs Logo -- Assumed to wrap /images/branding/basho_docs_logo.png
+// The native size of this image is 312px x 69px. Scale it to ~48% for the
+// sm-down layouts, and ~52% for the md-up.
+$banner-logo-width-sm-down : p2r(150px);
+$banner-logo-width-md-up   : p2r(163px);
+
+// Intra-Brand/-Site navigation pane
+$navigation-pane-width-lg : $content-well-width-lg - $banner-logo-width-md-up - $banner-padding-left-md-up;
+$navigation-pane-width-xl : $content-well-width-xl - $banner-logo-width-md-up - $banner-padding-left-md-up;
+
+// Intra-Brand navigation element
+$intra-brand-height       : 2.0rem;
+$intra-brand-padding-top  : 0.4rem;
+$intra-brand-height_total : $intra-brand-height + $intra-brand-padding-top;
+
+// Intra-Site navigation elements
+$intra-site-height : $banner-height-md-up - $intra-brand-height_total;
+
+$banner-background-primary   : $gray-warm-93;
+$banner-background-secondary : $gray-45;
+
+
+
+/**
+ * Top-level Banner Wrapper
+ */
+.banner {
+  padding : 0  1rem 0  1.25rem;
+
+  background : $light-background-warm;
+  box-shadow : 0  0  1.5rem 0  $shadow-color-dark;
+
+  @include wide-from(md) {
+    background : $banner-background-primary;
+    padding : 0  0  0  $banner-padding-left-md-up;
+  }
+}
+
+
+
+/**
+ * Basho Docs Logo
+ * Assumed to wrap a <img src="/images/branding/basho_docs_logo.png"> element.
+ * 1. For sm-down layouts, center this element in the banner.
+ * 2. For md-up, revert the positioning to static upper-left, and apply a
+ *    padding to manually push the image text to just below the intra-brand
+ *    navigation height.
+ */
+.banner__docs-logo {
+  position  : relative;           /* 1 */
+  top       : 50%;                /* 1 */
+  transform : translateY(-50%);   /* 1 */
+
+  .docs-logo__image {
+    width  : $banner-logo-width-sm-down;
+    height : auto;
+  }
+
+  @include wide-from('md') {
+    position  : static;           /* 2 */
+    top       : initial;          /* 2 */
+    transform : none;             /* 2 */
+    padding-top : 1.25rem;        /* 2 */
+
+    .docs-logo__image {
+      width  : $banner-logo-width-md-up;
+      height : auto;
+    }
+  }
+}
+
+
+
+/**
+ * Menu Bars
+ * Assumed to wrap the triple-horizontal-bar, .js_toggle-content-nav element.
+ * See _menu-bars.scss for styling and content-nav.coffee for interaction.
+ * 1. Center this element in the middle of the banner, matching the logo above.
+ */
+.banner__menu-bars {
+  height   : 100%;
+
+  .menu-bars {
+    font-size : 2.5rem;
+
+    position  : relative;         /* 1 */
+    top       : 50%;              /* 1 */
+    transform : translateY(-50%); /* 1 */
+  }
+}
+
+
+
+/**
+ * Navigation Pane
+ * 1. Clear default link styles.
+ */
+.banner__navigation-pane {
+  @extend         %oswald;
+  text-transform : uppercase;
+
+  height : 100%;
+
+  a {
+    text-decoration : none;  /* 1 */
+  }
+}
+
+
+
+/**
+ * Intra-Brand Navigation Elements
+ * 1. The __width-wrapper is be set to 100% of the __navigation-pane's width to
+ *    match the __intra-site's wrapper, ensuring neither are ever side-by-side.
+ *    NB. The __navigation-pane is assumed to be an overflow element, causing it
+ *        to take up all of the banner not consumed by float'd siblings (ex; the
+ *        docs logo image).
+ * 2. This margin-bottom could just as easily be a padding-top on the
+ *    __intra-site element; it's just giving some whitespace between the
+ *    __intra-brand and __intra-site links.
+ * 3. Set a max-width on the __width-wrapper (on lg and xl, when there's a
+ *    fixed-width set on the content well) to prevent text from flowing too far
+ *    to the right.
+ * 4. We need a explicit hight so we can guarantee the __intra-brand cap
+ *    element (see below) will takes up the correct amount of space. Current
+ *    height is correct for a 1rem font-size.
+ * 5. These anchors are wrapped in a <div class="float-right">. To get the
+ *    anchors to take up the correct amount of vertical space we either we need
+ *    to set an explicit height on the anchors, or `height: 100%` on both the
+ *    div, and the anchors.
+ * 6. The intent of this overflow element is to extend the color of the Intra-
+ *    Brand element past the fixed width of the content well. To accomplish
+ *    this, we set a max-width on the __width-wrapper, set it to
+ *    `position: relative` and drop this impossibly wide element ::after the
+ *    __width-wrapper. This should lock the text of the .banner__intra-brand
+ *    element at the width of the __width-wrapper, but allow the color to go on
+ *    to infinity and beyond.
+ * 7. The intent of this "cap element" is to give the __intra-brand background
+ *    the appearance of having a diagonal cap on the left edge. The element
+ *    actually creates triangular border section in the lower-left half of the
+ *    element. The border color for that portion is set to the background color
+ *    of the .banner.  
+ *    It's pretty weird how it works. Weirder still that it works.
+ *    Trust the weird CSS.
+ */
+.banner__intra-brand__width-wrapper {
+  position : relative;
+
+  width         : 100%;                         /* 1 */
+  margin-bottom : $intra-brand-padding-top;     /* 2 */
+  padding-left   : 7rem;
+
+  @include wide-from('lg') {
+    padding-left : 11rem;
+    max-width : $navigation-pane-width-lg;  /* 3 */
+  }
+
+  @include wide-from('xl') {
+    padding-left : 13.5rem;
+    max-width : $navigation-pane-width-xl;  /* 3 */
+  }
+
+  @include when-inside('.index') {
+    max-width : none;
+  }
+
+  /* Overflow fill */
+  &::after {                                /* 6 */
+    display    : block;
+    content    : "";
+
+    position   : absolute;
+    left       : 100%;
+
+    height     : $intra-brand-height;
+    width      : 2000rem;
+
+    background : $banner-background-secondary;
+  }
+}
+.banner__intra-brand {
+  background : $banner-background-secondary;
+
+  width  : 100%;
+  height : $intra-brand-height;                           /* 4 */
+
+  /* Angled cap element */
+  &::before {                                             /* 7 */
+    display : inline-block;
+    content : "";
+    border  : 0px solid transparent;
+    border-bottom-width : $intra-brand-height;            /* 4 */
+    border-right-width  : ($intra-brand-height * 0.75);
+    border-bottom-color : $banner-background-primary;
+  }
+
+
+  .banner__brand-link {
+    font-size : 90%;
+    color     : $inverted-font-soft;
+
+    height : $intra-brand-height;  /* 5 */
+
+    padding-top    : 0.35rem;
+    padding-right  : 1rem;
+    padding-left   : 1rem;
+
+    &:first-of-type {
+      margin-left  : 3rem;
+    }
+    &:last-of-type {
+      margin-right : 1.25rem;
+    }
+
+    @include on-event {
+      color : $cyan-light;
+    }
+  }
+}
+
+
+
+/**
+ * Intra-Site navigation elements.
+ * 1. The __width-wrapper is be set to 100% of the __navigation-pane's width to
+ *    match the __intra-brand's wrapper, ensuring neither are ever side-by-side.
+ *    NB. The __navigation-pane is assumed to be an overflow element, causing it
+ *        to take up all of the banner not consumed by float'd siblings (ex; the
+ *        docs logo image).
+ * 2. Set a max-width on the __width-wrapper (on lg and xl, when there's a
+ *    fixed-width set on the content well) to prevent text from flowing too far
+ *    to the right.  
+ *    NB. We don't need to include an ::after element similar to the above
+ *    .banner__intra-brand__width-wrapper::after because there is no color to
+ *    extend; we just want to lock text to a width
+ */
+.banner__intra-site__width-wrapper {
+  width : 100%;                             /* 1 */
+
+  @include wide-from('lg') {
+    max-width : $navigation-pane-width-lg;  /* 2 */
+  }
+
+  @include wide-from('xl') {
+    max-width : $navigation-pane-width-xl;  /* 2 */
+  }
+}
+.banner__intra-site {
+  height : $intra-site-height;
+
+  .banner__brand-link {
+    font-size : 110%;
+    color     : $brand-primary-dark;
+
+    height : 100%;
+
+    padding-left   : 1.25rem;
+    padding-right  : 1.25rem;
+    margin-right   : 0.5rem;
+
+    &:last-of-type {
+      margin-right : 1rem;
+    }
+
+    transition : color      200ms ease-in,
+                 background 200ms ease-in;
+
+    @include on-event {
+      color      : $brand-gray;
+      background : $gray-warm-88;
+    }
+
+    &.banner__brand-link--current {
+      color      : $brand-gray;
+      background : $gray-warm-88;
+    }
+  }
+}

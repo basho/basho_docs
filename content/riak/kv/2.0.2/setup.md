@@ -8,7 +8,7 @@ menu:
     name: "Setup"
     identifier: "setup_index"
     weight: 110
-    pre: icon-install
+    pre: install
 toc: false
 ---
 

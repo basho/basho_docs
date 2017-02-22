@@ -6,7 +6,7 @@ menu:
     name: "Riak TS"
     identifier: "introduction"
     weight: 100
-    pre: icon-riak
+    pre: riak
 project: "riak_ts"
 project_version: "1.2.0"
 toc: true

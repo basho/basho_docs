@@ -6,7 +6,7 @@ menu:
     name: "Install"
     identifier: "installing"
     weight: 100
-    pre: icon-install
+    pre: install
     parent: "setup"
 project: "riak_ts"
 project_version: "1.4.0"

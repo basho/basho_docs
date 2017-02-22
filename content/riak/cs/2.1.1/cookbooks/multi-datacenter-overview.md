@@ -6,7 +6,7 @@ menu:
     name: "Riak CS Enterprise"
     identifier: "mdc_overview"
     weight: 600
-    pre: icon-cloud
+    pre: cloud
 project: "riak_cs"
 project_version: "2.1.1"
 aliases:
