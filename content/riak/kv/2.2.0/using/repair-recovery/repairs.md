@@ -50,7 +50,7 @@ The `riak-admin repair-2i` command can be used to repair any stale or missing se
 The secondary indexes of a single partition can be repaired by executing:
 
 ```bash
-riak-admin repair-2i <Partition_ID>
+riak-admin repair-2i »Partition ID«
 ```
 
 The secondary indexes of every partition can be repaired by executing the same command, without a partition ID:
@@ -291,10 +291,10 @@ be repaired.
 2. Execute the repair for a single partition using the below command:
 
     ```erlang
-    riak_kv_vnode:repair(<Partition_ID>).
+    riak_kv_vnode:repair(»Partition ID«).
     ```
 
-    where `<Partition_ID>` is replaced by the ID of the partition to
+    where `»Partition_ID«` is replaced by the ID of the partition to
     repair. For example:
 
     ```erlang
