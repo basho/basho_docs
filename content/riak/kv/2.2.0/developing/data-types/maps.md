@@ -1228,7 +1228,7 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
   {
     "update": {
       "annika_info_map": {
-        "remove": "phone_number_register"
+        "remove": ["phone_number_register"]
       }
     },
     "context" : "g2wAAAABaAJtAAAADCMJ/vn2jOEXAAAAAWEGag=="
