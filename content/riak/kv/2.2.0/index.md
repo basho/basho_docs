@@ -16,7 +16,6 @@ aliases:
 
 [aboutenterprise]: http://basho.com/contact/
 [config index]: /riak/kv/2.2.0/configuring
-[dev index]: /riak/kv/2.2.0/developing
 [downloads]: /riak/kv/2.2.0/downloads/
 [install index]: /riak/kv/2.2.0/setup/installing/
 [plan index]: /riak/kv/2.2.0/setup/planning
