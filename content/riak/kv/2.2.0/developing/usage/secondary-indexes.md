@@ -250,7 +250,7 @@ if err := cluster.Execute(cmd); err != nil {
 ```
 
 ```curl
-curl -XPOST localhost:8098/types/indexes/buckets/users/keys/john_smith \
+curl -XPOST localhost:8098/types/default/buckets/users/keys/john_smith \
   -H 'x-riak-index-twitter_bin: jsmith123' \
   -H 'x-riak-index-email_bin: jsmith@basho.com' \
   -H 'Content-Type: application/json' \
@@ -1729,7 +1729,7 @@ func doPaginatedQuery(cluster *riak.Cluster, continuation []byte) error {
     return errors.New("[DevUsing2i] expected response but did not get one")
   }
 
-  rc := sciq.Response.Continuation 
+  rc := sciq.Response.Continuation
   if rc != nil && len(rc) > 0 {
     return doPaginatedQuery(cluster, sciq.Response.Continuation)
   }

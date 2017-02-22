@@ -249,7 +249,7 @@ if err := cluster.Execute(cmd); err != nil {
 ```
 
 ```curl
-curl -XPOST localhost:8098/types/indexes/buckets/users/keys/john_smith \
+curl -XPOST localhost:8098/types/default/buckets/users/keys/john_smith \
   -H 'x-riak-index-twitter_bin: jsmith123' \
   -H 'x-riak-index-email_bin: jsmith@basho.com' \
   -H 'Content-Type: application/json' \
