@@ -59,12 +59,10 @@ save an account. The following describes the process for doing so.
 * Enter the Riak CS public interface HTTP port into the **HTTP Port**
   field.
 
-<div class="note">
-<div class="title">Note on HTTPS</div>
-If you'll be using HTTPS, be sure to enter the correct public HTTPS port
-into the **HTTPS Port** field and click the **Connect
-using SSL/HTTS** check box.
-</div>
+{{% note title="Note on HTTPS" %}}
+If you'll be using HTTPS, be sure to enter the correct public HTTPS port into
+the **HTTPS Port** field and click the **Connect using SSL/HTTS** check box.
+{{% /note %}}
 
 * Click **OK** to save the account configuration.
 
@@ -163,12 +161,10 @@ save an account. The following describes the process for doing so.
 * Enter the Riak CS public interface HTTP port into the **HTTP Port**
   field.
 
-<div class="note">
-<div class="title">Note on HTTPS</div>
-If you'll be using HTTPS, be sure to enter the correct public HTTPS port
-into the **HTTPS Port** field and click the **Connect using SSL/HTTS**
-check box.
-</div>
+{{% note title="Note on HTTPS" %}}
+If you'll be using HTTPS, be sure to enter the correct public HTTPS port into
+the **HTTPS Port** field and click the **Connect using SSL/HTTS** check box.
+{{% /note %}}
 
 * Click **OK** to save the account configuration.
 
@@ -268,12 +264,10 @@ save an account. The following describes the process for doing so.
 * Enter the Riak CS public interface HTTP port into the **HTTP Port**
   field.
 
-<div class="note">
-<div class="title">Note on HTTPS</div>
-If you'll be using HTTPS, be sure to enter the correct public HTTPS port
-into the **HTTPS Port** field and click the **Connect using SSL/HTTS**
-check box.
-</div>
+{{% note title="Note on HTTPS" %}}
+If you'll be using HTTPS, be sure to enter the correct public HTTPS port into
+the **HTTPS Port** field and click the **Connect using SSL/HTTS** check box.
+{{% /note %}}
 
 * Click **OK** to save the account configuration.
 

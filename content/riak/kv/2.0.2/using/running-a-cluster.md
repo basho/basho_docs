@@ -170,14 +170,13 @@ the node's ring file.
 riak-admin cluster replace riak@127.0.0.1 riak@192.168.1.10
 ```
 
-<div class="note">
-<div class="title">Note on single nodes</div>
-If a node is started singly using default settings, as you might do when
-you are building your first test environment, you will need to remove
-the ring files from the data directory after you edit your configuration
-files. `riak-admin cluster replace` will not work since the node has not
-been joined to a cluster.
-</div>
+{{% note title="Note on single nodes" %}}
+If a node is started singly using default settings, as you might do when you
+are building your first test environment, you will need to remove the ring
+files from the data directory after you edit your configuration files.
+`riak-admin cluster replace` will not work since the node has not been joined
+to a cluster.
+{{% /note %}}
 
 As with all cluster changes, you need to view the planned changes by
 running `riak-admin cluster plan` and then running `riak-admin cluster

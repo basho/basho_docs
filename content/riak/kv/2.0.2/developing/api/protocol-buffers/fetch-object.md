@@ -136,14 +136,12 @@ of the following optional parameters:
 * `deleted` --- Whether the object has been deleted (i.e. whether a
   tombstone for the object has been found under the specified key)
 
-<div class="note">
-<div class="title">Note on missing keys</div>
-Remember: if a key is not stored in Riak, an <code>RpbGetResp</code>
-response without the <code>content</code> and <code>vclock</code> fields
-will be returned. This should be mapped to whatever convention the
-client language uses to return not found. The Erlang client, for
-example, returns the atom <code>{error, notfound}</code>.
-</div>
+{{% note title="Note on missing keys" %}}
+Remember: if a key is not stored in Riak, an `RpbGetResp` response without the
+`content` and `vclock` fields will be returned. This should be mapped to
+whatever convention the client language uses to return not found. The Erlang
+client, for example, returns the atom `{error, notfound}`.
+{{% /note %}}
 
 ## Example
 

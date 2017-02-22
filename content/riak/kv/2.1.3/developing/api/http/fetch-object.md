@@ -79,22 +79,23 @@ datetime format
 The body of the response will be the contents of the object except when siblings
 are present.
 
-<div class="note"><div class="title">Siblings</div>
-<p>When `allow_mult` is set to true in the bucket properties, concurrent updates
-are allowed to create "sibling" objects, meaning that the object has any number
-of different values that are related to one another by the vector clock.  This
-allows your application to use its own conflict resolution technique.</p>
+{{% note title="Siblings" %}}
+When `allow_mult` is set to true in the bucket properties, concurrent updates
+are allowed to create "sibling" objects, meaning that the object has any
+number of different values that are related to one another by the vector
+clock.  This allows your application to use its own conflict resolution
+technique.
 
-<p>An object with multiple sibling values will result in a `300 Multiple
-Choices` response.  If the `Accept` header prefers `multipart/mixed`, all
-siblings will be returned in a single request as sections of the
-`multipart/mixed` response body.  Otherwise, a list of "vtags" will be given in
-a simple text format. You can request individual siblings by adding the `vtag`
-query parameter. Scroll down to the 'manually requesting siblings' example below for more information.</p>
+An object with multiple sibling values will result in a `300 Multiple Choices`
+response.  If the `Accept` header prefers `multipart/mixed`, all siblings will
+be returned in a single request as sections of the `multipart/mixed` response
+body.  Otherwise, a list of "vtags" will be given in a simple text format. You
+can request individual siblings by adding the `vtag` query parameter. Scroll
+down to the 'manually requesting siblings' example below for more information.
 
-<p>To resolve the conflict, store the resolved version with the `X-Riak-Vclock`
-given in the response.</p>
-</div>
+To resolve the conflict, store the resolved version with the `X-Riak-Vclock`
+given in the response.
+{{% /note %}}
 
 ## Simple Example
 

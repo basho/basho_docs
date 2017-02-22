@@ -197,12 +197,10 @@ The most common error code:
 
 * `404 Not Found`
 
-<div class="note">
-<div class="title">Note</div>
-If you're using a Riak client instead of HTTP, these responses will vary
-a great deal, so make sure to check the documentation for your specific
-client.
-</div>
+{{% note title="Note" %}}
+If you're using a Riak client instead of HTTP, these responses will vary a
+great deal, so make sure to check the documentation for your specific client.
+{{% /note %}}
 
 ## No Object Stored
 

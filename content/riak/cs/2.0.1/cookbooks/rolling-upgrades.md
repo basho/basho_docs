@@ -23,30 +23,35 @@ Be sure to check the Riak CS [Version Compatibility](/riak/cs/2.0.1/cookbooks/ve
 As Riak CS 2.0.0 only works with Riak 2.0.5, the underlying Riak installation
 *must* be upgraded to Riak 2.0.5.
 
-<div class="note"><div class="title">Note on upgrading from Riak CS < 1.5.4</div>
+{{% note title="Note on upgrading from Riak CS < 1.5.4" %}}
 <a href="https://github.com/basho/riak_cs/blob/release/1.5/RELEASE-NOTES.md#notes-on-upgrading">
 Some key objects changed names</a> after the upgrade. Applications may need to
-change their behaviour due to this bugfix.</div>
+change their behaviour due to this bugfix.
+{{% /note %}}
 
-<div class="note"><div class="title">Note on upgrading from Riak CS < 1.5.1</div>
+{{% note title="Note on upgrading from Riak CS < 1.5.1" %}}
 <a href="https://github.com/basho/riak_cs/blob/release/1.5/RELEASE-NOTES.md#notes-on-upgrading-1">
 Bucket number limitation per user</a> have been introduced in 1.5.1. Users who
 have more than 100 buckets cannot create any bucket after the upgrade unless
-the limit is extended in the system configuration.</div>
+the limit is extended in the system configuration.
+{{% /note %}}
 
-<div class="note"><div class="title">Note on upgrading From Riak CS 1.4.x</div>
+{{% note title="Note on upgrading From Riak CS 1.4.x" %}}
 An operational procedure
 <a href="https://github.com/basho/riak_cs/blob/release/1.5/RELEASE-NOTES.md#incomplete-multipart-uploads">
-to clean up incomplete multipart under deleted buckets</a> is needed. Otherwise
-new buckets with names that used to exist in the past can't be created. The
-operation will fail with a `409 Conflict` error.<br/><br/>
+to clean up incomplete multipart under deleted buckets</a> is needed.
+Otherwise new buckets with names that used to exist in the past can't be
+created. The operation will fail with a `409 Conflict` error.
+
+
 
 Leeway seconds and disk space should also be carefully watched during the
 upgrade, because timestamp management of garbage collection has changed since
 the 1.5.0 release. Consult the
- <a href="https://github.com/basho/riak_cs/blob/release/1.5/RELEASE-NOTES.md#leeway-seconds-and-disk-space">
-Leeway seconds and disk space</a> section of the 1.5 release notes
-for a more detailed description.</div>
+<a href="https://github.com/basho/riak_cs/blob/release/1.5/RELEASE-NOTES.md#leeway-seconds-and-disk-space">
+Leeway seconds and disk space</a> section of the 1.5 release notes for a more
+detailed description.
+{{% /note %}}
 
 1. Stop Riak, Riak CS, and Stanchion:
 

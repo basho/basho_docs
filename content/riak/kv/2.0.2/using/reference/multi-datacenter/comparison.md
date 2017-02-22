@@ -17,13 +17,12 @@ aliases:
 This document is a systematic comparison of [Version 2](/riak/kv/2.0.2/using/reference/v2-multi-datacenter) and [Version 3](/riak/kv/2.0.2/using/reference/v3-multi-datacenter) of Riak Enterprise's Multi-Datacenter
 Replication capabilities.
 
-<div class="note">
-<div class="title">Important note on mixing versions</div>
+{{% note title="Important note on mixing versions" %}}
 If you are installing Riak Enterprise anew, you should use version 3
-replication. Under no circumstances should you mix version 2 and version
-3 replication. This comparison is meant only to list improvements
-introduced in version 3.
-</div>
+replication. Under no circumstances should you mix version 2 and version 3
+replication. This comparison is meant only to list improvements introduced in
+version 3.
+{{% /note %}}
 
 ## Version 2
 

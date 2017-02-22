@@ -18,10 +18,10 @@ PUT Object (Copy) offers the option to specify the permissions you want to grant
 * Specify a predefined ACL using the `x-amz-acl` request header. More information about predefined ACLs is available [here](http://docs.amazonwebservices.com/AmazonS3/latest/dev/ACLOverview.html#CannedACL).
 * Specify access permissions explicitly using the `x-amz-grant-read`, `x-amz-grant-write`, `x-amz-grant-read-acp`, `x-amz-grant-write-acp`, `x-amz-grant-full-control` headers, which map to the set of ACL permissions supported by Amazon S3.
 
-<div class="note">
-<div class="title">Note</div>
-You can use either a predefined ACL or specify access permissions explicitly, not both.
-</div>
+{{% note title="Note" %}}
+You can use either a predefined ACL or specify access permissions explicitly,
+not both.
+{{% /note %}}
 
 *Note*: You can configure an application to use the `100-continue` HTTP status code, which sends the Request Headers prior to sending the request body. Doing so prevents sending the message body when the message is rejected based on the headers, for example, due to authentication failure or redirect).
 

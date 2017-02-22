@@ -56,12 +56,11 @@ listener.https.<name> = 127.0.0.1:8096
 %%     the `riak_api` tuple's value list.
 ```
 
-<div class="note">
-<div class="title">Note on SSL</div>
-We strongly recommend that you enable SSL for Riak Control. It is
-disabled by default, and if you wish to enable it you must do so
-explicitly. More information can be found in the document below.
-</div>
+{{% note title="Note on SSL" %}}
+We strongly recommend that you enable SSL for Riak Control. It is disabled by
+default, and if you wish to enable it you must do so explicitly. More
+information can be found in the document below.
+{{% /note %}}
 
 ## Enabling and Disabling Riak Control
 
@@ -167,16 +166,15 @@ be because you are using self-signed certificates. If you have
 authentication enabled in your configuration, you will next be asked to
 authenticate. Enter an appropriate username and password now.
 
-<div class="note">
-<div class="title">Note on browser TLS</div>
-Your browser needs to be support TLS v1.2 to use Riak Control over
-HTTPS. A list of browsers that support TLS v1.2 can be found
+{{% note title="Note on browser TLS" %}}
+Your browser needs to be support TLS v1.2 to use Riak Control over HTTPS. A
+list of browsers that support TLS v1.2 can be found
 [here](https://en.wikipedia.org/wiki/Transport_Layer_Security#Web_browsers).
-TLS v1.2 may be disabled by default on your browser, for example if you
-are using Firefox versions earlier than 27, Safari versions earlier than
-7, Chrome versions earlier than 30, or Internet Explorer versions
-earlier than 11.  To enable it, follow browser-specific instructions.
-</div>
+TLS v1.2 may be disabled by default on your browser, for example if you are
+using Firefox versions earlier than 27, Safari versions earlier than 7, Chrome
+versions earlier than 30, or Internet Explorer versions earlier than 11.  To
+enable it, follow browser-specific instructions.
+{{% /note %}}
 
 ### Snapshot View
 

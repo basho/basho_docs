@@ -13,12 +13,11 @@ aliases:
   - /riakcs/2.0.0/cookbooks/supercluster/
 ---
 
-<div class="note">
-<div class="title">Technical Preview</div>
-Riak CS Supercluster is currently in technical preview mode and is
-available only to <a href="http://basho.com/riak-enterprise/">Riak
-Enterprise</a> customers. It is not yet suitable for production use.
-</div>
+{{% note title="Technical Preview" %}}
+Riak CS Supercluster is currently in technical preview mode and is available
+only to <a href="http://basho.com/riak-enterprise/">Riak Enterprise</a>
+customers. It is not yet suitable for production use.
+{{% /note %}}
 
 While [Riak CS Enterprise](http://basho.com/riak-enterprise) enables
 you to distribute Riak CS objects across multiple data centers in a

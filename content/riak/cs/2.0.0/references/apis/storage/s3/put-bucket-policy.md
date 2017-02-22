@@ -11,7 +11,10 @@ aliases:
 
 The `PUT Bucket policy` operation uses the `policy` subresource to add or replace the policy on an existing bucket. If the bucket already has a policy, the one in this request completely replaces it. To perform this operation, you must be the bucket owner.
 
-<div class="note"><div class="title">Note</div>Currently only the `aws:SourceIp` and `aws:SecureTransport` policy conditions are supported.</div>
+{{% note title="Note" %}}
+Currently only the `aws:SourceIp` and `aws:SecureTransport` policy conditions
+are supported.
+{{% /note %}}
 
 ## Requests
 

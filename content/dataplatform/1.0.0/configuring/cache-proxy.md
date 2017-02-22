@@ -57,9 +57,11 @@ If you skipped the configuration instructions or would otherwise like to set up 
 
 If you are curious about cache proxy's internal configuration or just want to look at your configuration to make sure it is correct or to see what hostname and port is being used, you can find it in `$BDP_PRIV/cache_proxy/config/cache_proxy_$CACHE_PROXY_PORT.yml`.
 
-<div class="note">
-This level of knowledge is not necessary for normal operation, but may come in handy when diagnosing and resolving issues, such as a firewall rule not allowing ingress to the cache proxy host on the configured port.
-</div>
+{{% note %}}
+This level of knowledge is not necessary for normal operation, but may come in
+handy when diagnosing and resolving issues, such as a firewall rule not
+allowing ingress to the cache proxy host on the configured port.
+{{% /note %}}
 
 
 Once you've opened the file, you might find the following settings helpful:

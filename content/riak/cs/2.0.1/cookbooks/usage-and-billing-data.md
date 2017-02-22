@@ -17,12 +17,11 @@ Like many other object storage systems, Riak CS gathers a variety of
 usage statistics and makes them available through its administrative
 API.
 
-<div class="note">
-<div class="title">Note on terminology</div>
-In this and other documents in the Riak CS documentation, the terms
-"storage" and "billing" are used interchangeably. The same goes for the
-terms "usage" and access.
-</div>
+{{% note title="Note on terminology" %}}
+In this and other documents in the Riak CS documentation, the terms "storage"
+and "billing" are used interchangeably. The same goes for the terms "usage"
+and access.
+{{% /note %}}
 
 ## Access Statistics
 
@@ -252,17 +251,15 @@ stats.storage.schedule.2 = 1800
 {storage_schedule, ["0600", "1800"]}
 ```
 
-<div class="note">
-<div class="title">Note on archive periods</div>
-When using multiple times in a storage schedule, they must be scheduled
-for different archive periods (see details for `storage_archive_period`
-in the **Archival** section below). Extra scheduled times in the same
-archive period are skipped. This is intended to allow more than one Riak
-CS node to calculate storage statistics concurrently, as they will take
-notice of users already calculated by other nodes and skip them (see
-details in the Manual Triggering section about overriding this
-behavior).
-</div>
+{{% note title="Note on archive periods" %}}
+When using multiple times in a storage schedule, they must be scheduled for
+different archive periods (see details for `storage_archive_period` in the
+**Archival** section below). Extra scheduled times in the same archive period
+are skipped. This is intended to allow more than one Riak CS node to calculate
+storage statistics concurrently, as they will take notice of users already
+calculated by other nodes and skip them (see details in the Manual Triggering
+section about overriding this behavior).
+{{% /note %}}
 
 By default, no schedule is specified, so the storage calculation is
 never done automatically.

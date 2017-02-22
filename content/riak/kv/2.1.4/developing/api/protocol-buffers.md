@@ -106,12 +106,11 @@ Code | Message |
 254 | `RpbAuthResp` |
 255 | `RpbStartTls` |
 
-<div class="info">
-<div class="title">Message Definitions</div>
-All Protocol Buffers messages are defined in the <code>riak.proto</code>
-and other <code>.proto</code> files in the <code>/src</code> directory
-of the <a href="https://github.com/basho/riak_pb">RiakPB</a> project.
-</div>
+{{% note title="Message Definitions" %}}
+All Protocol Buffers messages are defined in the `riak.proto` and other
+`.proto` files in the `/src` directory of the
+<a href="https://github.com/basho/riak_pb">RiakPB</a> project.
+{{% /note %}}
 
 ### Error Response
 

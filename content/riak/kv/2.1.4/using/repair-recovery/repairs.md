@@ -178,6 +178,7 @@ Follow the steps below to heal your corrupted LevelDB.
 riak stop
 ```
 
+
 2\. Check your riak.conf file and make note of the following values:
 
 * leveldb.tiered (integer)

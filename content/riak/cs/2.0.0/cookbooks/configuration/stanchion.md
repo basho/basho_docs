@@ -60,11 +60,11 @@ listener = 127.0.0.1:8080
             ]}
 ```
 
-<div class="note"><div class="title">Note on matching IP addresses</div>
+{{% note title="Note on matching IP addresses" %}}
 The IP address you enter here must match the IP address specified for the
-<code>stanchion_host</code> variable in the Riak <code>riak.conf</code> file and
-the Riak CS <code>riak-cs.conf</code> file.
-</div>
+`stanchion_host` variable in the Riak `riak.conf` file and the Riak CS
+`riak-cs.conf` file.
+{{% /note %}}
 
 If you want to use SSL, make sure the `ssl.certfile` and `ssl.keyfile` settings
 are not commented out, and have been set correctly.

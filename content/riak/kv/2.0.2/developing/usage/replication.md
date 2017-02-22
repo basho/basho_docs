@@ -44,18 +44,17 @@ is one of the features that differentiates Riak from other databases.
 At the bottom of the page, you'll find a [screencast](/riak/kv/2.0.2/developing/app-guide/replication-properties#screencast) that briefly explains how to adjust your
 replication levels to match your application and business needs.
 
-<div class="note">
-<div class="title">Note on strong consistency</div>
+{{% note title="Note on strong consistency" %}}
 An option introduced in Riak version 2.0 is to use Riak as a
-<a href="/riak/kv/2.0.2/using/reference/strong-consistency/">strongly consistent</a>
-system for data in specified buckets. Using Riak in this way is
-fundamentally different from adjusting replication properties and
-fine-tuning the availability/consistency trade-off, as it sacrifices
-<em>all</em> availability guarantees when necessary. Therefore, you
-should consult the <a href="/riak/kv/2.0.2/developing/app-guide/strong-consistency">Using
-Strong Consistency</a> documentation, as this option will not be covered
-in this tutorial.
-</div>
+<a href="/riak/kv/2.0.2/using/reference/strong-consistency/">strongly
+consistent</a> system for data in specified buckets. Using Riak in this way is
+fundamentally different from adjusting replication properties and fine-tuning
+the availability/consistency trade-off, as it sacrifices _all_ availability
+guarantees when necessary. Therefore, you should consult the
+<a href="/riak/kv/2.0.2/developing/app-guide/strong-consistency">Using Strong
+Consistency</a> documentation, as this option will not be covered in this
+tutorial.
+{{% /note %}}
 
 ## How Replication Properties Work
 
@@ -162,15 +161,13 @@ curl -XPUT http://localhost:8098/types/n_val_equals_2/buckets/test_bucket/keys/t
 Now, whenever we write to a bucket of this type, Riak will write a
 replica of the object to two different nodes.
 
-<div class="note">
-<div class="title">A Word on Setting the N Value</div>
-<code>n_val</code> must be greater than 0 and less than or equal to the
-number of actual nodes in your cluster to get all the benefits of
-replication. We advise against modifying the <code>n_val</code> of a
-bucket after its initial creation as this may result in failed reads
-because the new value may not be replicated to all the appropriate
-partitions.
-</div>
+{{% note title="A Word on Setting the N Value" %}}
+`n_val` must be greater than 0 and less than or equal to the number of actual
+nodes in your cluster to get all the benefits of replication. We advise
+against modifying the `n_val` of a bucket after its initial creation as this
+may result in failed reads because the new value may not be replicated to all
+the appropriate partitions.
+{{% /note %}}
 
 ## R Value and Read Failure Tolerance
 
@@ -338,15 +335,14 @@ more likely to receive the most up-to-date values, but at the cost of a
 higher probability that reads or writes will fail because primary vnodes
 are unavailable.
 
-<div class="note">
-<div class="title">Note on PW</div>
-If PW is set to a non-zero value, there is a higher risk (usually very
-small) that failure will be reported to the client upon write. But this
-does not necessarily mean that the write has failed completely. If there
-are reachable primary vnodes, those vnodes will still write the new data
-to Riak. When the failed vnode returns to service, it will receive the
-new copy of the data via either read repair or active anti-entropy.
-</div>
+{{% note title="Note on PW" %}}
+If PW is set to a non-zero value, there is a higher risk (usually very small)
+that failure will be reported to the client upon write. But this does not
+necessarily mean that the write has failed completely. If there are reachable
+primary vnodes, those vnodes will still write the new data to Riak. When the
+failed vnode returns to service, it will receive the new copy of the data via
+either read repair or active anti-entropy.
+{{% /note %}}
 
 ## Durable Writes with DW
 
@@ -363,14 +359,12 @@ documentation on [Bitcask][plan backend bitcask], [LevelDB][plan backend leveldb
 
 ## Delete Quorum with RW
 
-<div class="note">
-<div class="title">Deprecation notice</div>
-It is no longer necessary to specify an RW value when making delete
-requests. We explain its meaning here, however, because RW still shows
-up as a property of Riak buckets (as <code>rw</code>) for the sake of
-backwards compatibility. Feel free to skip this explanation unless you
-are curious about the meaning of RW.
-</div>
+{{% note title="Deprecation notice" %}}
+It is no longer necessary to specify an RW value when making delete requests.
+We explain its meaning here, however, because RW still shows up as a property
+of Riak buckets (as `rw`) for the sake of backwards compatibility. Feel free
+to skip this explanation unless you are curious about the meaning of RW.
+{{% /note %}}
 
 Deleting an object requires successfully reading an object and then
 writing a tombstone to the object's key that specifies that an object

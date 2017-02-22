@@ -302,9 +302,12 @@ Reconfigure `node1.localdomain` to listen on the new private IP address *192.168
 
 11. Clean up by deleting the renamed `ring` directory once all previous steps have been successfully completed.
 
-<div class="note"><div class="title">Note</div>
-When using the `riak-admin cluster force-replace` command, you will always get a warning message like: `WARNING: All of 'riak@10.1.42.11' replicas will be lost`. Since we didn't delete any data files and we are replacing the node with itself under a new name, we will not lose any replicas.
-</div>
+{{% note title="Note" %}}
+When using the `riak-admin cluster force-replace` command, you will always get
+a warning message like: `WARNING: All of 'riak@10.1.42.11' replicas will be
+lost`. Since we didn't delete any data files and we are replacing the node
+with itself under a new name, we will not lose any replicas.
+{{% /note %}}
 
 <a id="repeat"></a>
 #### Repeat previous steps on each node

@@ -26,10 +26,9 @@ may be uploaded in parallel. In Riak CS they are designed to both behave
 like Amazon S3 multipart uploads and to utilize the same user-facing
 API.
 
-<div class="note">
-<div class="title">Note on file size limit</div>
+{{% note title="Note on file size limit" %}}
 The size limit on individual parts of a multipart upload is 5 gigabytes.
-</div>
+{{% /note %}}
 
 There are three phases to a multipart upload: **initiation**, **parts
 upload**, and **completion**. Each phase is described in more detail

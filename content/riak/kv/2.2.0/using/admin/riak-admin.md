@@ -184,11 +184,10 @@ rename the nodes of a cluster. For more information, visit the
 riak-admin reip <old nodename> <new nodename>
 ```
 
-<div class="note">
-<div class="title">Note about reip prior to Riak 2.0</title></div>
-Several bugs have been fixed related to reip in Riak 2.0. We recommend
-against using reip prior to 2.0, if possible.
-</div>
+{{% note title="Note about reip prior to Riak 2.0" %}}
+Several bugs have been fixed related to reip in Riak 2.0. We recommend against
+using reip prior to 2.0, if possible.
+{{% /note %}}
 
 
 ## js-reload
@@ -384,12 +383,10 @@ entropy tree building, and key repairs which were triggered by AAE.
  * The *Max* column shows the maximum number of keys repaired during all
    key exchanges since the last node restart.
 
-<div class="note">
-<div class="title">Note in AAE status information</div>
-All AAE status information is in-memory and is reset across a node
-restart. Only tree build times are persistent (since trees themselves
-are persistent)
-</div>
+{{% note title="Note in AAE status information" %}}
+All AAE status information is in-memory and is reset across a node restart.
+Only tree build times are persistent (since trees themselves are persistent)
+{{% /note %}}
 
 More details on the `aae-status` command are available in the [Riak
 version 1.3 release notes](https://github.com/basho/riak/blob/1.3/RELEASE-NOTES.md#active-anti-entropy).
@@ -623,11 +620,10 @@ repaired for a given exchange round since the node has started.
 
 ### switch-to-new-search
 
-<div class="info">
-<div class="title">Only For Legacy Migration</div>
-This is only needed when migrating from legacy riak search to the new
-Search (Yokozuna).
-</div>
+{{% note title="Only For Legacy Migration" %}}
+This is only needed when migrating from legacy riak search to the new Search
+(Yokozuna).
+{{% /note %}}
 
 ```bash
 riak-admin search switch-to-new-search

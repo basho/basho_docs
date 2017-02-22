@@ -24,12 +24,11 @@ curl -X POST http://localhost:8080/riak-cs/user \
   --data '{"email":"foobar@example.com", "name":"foo bar"}' \
 ```
 
-<div class="note">
-<div class="title">Note on admin users</div>
-By default, only the admin user may create new user accounts. If you
-need to create a user account without authenticating yourself, you must
-set `{anonymous_user_creation, true}` in the Riak CS `app.config`.
-</div>
+{{% note title="Note on admin users" %}}
+By default, only the admin user may create new user accounts. If you need to
+create a user account without authenticating yourself, you must set
+`{anonymous_user_creation, true}` in the Riak CS `app.config`.
+{{% /note %}}
 
 The submitted user document may be either JSON or XML, but the type
 should match the value of the `Content-Type` header used. Here are some
@@ -187,13 +186,12 @@ The documents should resemble the following examples.
 </UserUpdate>
 ```
 
-<div class="note">
-<div class="title">Note on update fields</div>
-The `new_key_secret` field (or `NewKeySecret` in XML) may be combined
-with other user update fields in the same request.  Currently, the only
-other supported field is status, but more may be added in the future.
-Unsupported fields are ignored.
-</div>
+{{% note title="Note on update fields" %}}
+The `new_key_secret` field (or `NewKeySecret` in XML) may be combined with
+other user update fields in the same request.  Currently, the only other
+supported field is status, but more may be added in the future. Unsupported
+fields are ignored.
+{{% /note %}}
 
 ## Retrieving a List of All Users
 
@@ -204,12 +202,11 @@ is rejected and a `403 Forbidden` error is returned. This request does
 not properly work with s3cmd, but can be performed using a less dogmatic
 tool such as [s3-curl](http://aws.amazon.com/code/128).
 
-<div class="info">
-<div class="title">Note on hostname</div>
-You must modify the `@endpoints` variable in the `s3curl.pl` script to
-include your Riak CS hostname so that the following example will return
-the list of users.
-</div>
+{{% note title="Note on hostname" %}}
+You must modify the `@endpoints` variable in the `s3curl.pl` script to include
+your Riak CS hostname so that the following example will return the list of
+users.
+{{% /note %}}
 
 A sample URL for a user listing request looks like this:
 

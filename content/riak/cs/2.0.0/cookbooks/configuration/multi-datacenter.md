@@ -14,12 +14,10 @@ aliases:
   - /riak/cs/2.0.0/cookbooks/configuration/Configuring-MDC/
 ---
 
-<div class="note">
-<div class="title">Riak CS Enterprise requires a separate download</div>
-Please note that Riak CS Enterprise requires a download separate from
-the open-source Riak CS, which will not work in conjunction with Riak
-Enterprise.
-</div>
+{{% note title="Riak CS Enterprise requires a separate download" %}}
+Please note that Riak CS Enterprise requires a download separate from the
+open-source Riak CS, which will not work in conjunction with Riak Enterprise.
+{{% /note %}}
 
 Configuring Multi-Datacenter Replication in Riak CS requires the
 addition of a new group of settings to the `app.config` configuration

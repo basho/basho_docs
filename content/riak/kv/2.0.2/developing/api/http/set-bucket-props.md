@@ -49,14 +49,12 @@ the bucket
 
 Other properties do exist but are not commonly modified.
 
-<div class="note">
-<div class="title">Property types</div>
-<p>Make sure you use the proper types for attributes like <strong>n_val</strong>
-and <strong>allow_mult</strong>. If you use strings instead of integers and
-booleans respectively, you may see some odd errors in your logs, saying
-something like
-<code>"{badarith,[{riak_kv_util,normalize_rw_value,2},]}"</code>.</p>
-</div>
+{{% note title="Property types" %}}
+Make sure you use the proper types for attributes like **n_val** and
+**allow_mult**. If you use strings instead of integers and booleans
+respectively, you may see some odd errors in your logs, saying something like
+`"{badarith,[{riak_kv_util,normalize_rw_value,2},]}"`.
+{{% /note %}}
 
 ## Response
 

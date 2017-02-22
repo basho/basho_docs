@@ -26,12 +26,10 @@ synchronization.
 
 If you are interested, sign up for a [developer trial](http://info.basho.com/RiakCS1.1_DeveloperTrialRequest.html) of Riak CS Enterprise or [contact us](http://basho.com/contact/) for more information.
 
-<div class="note">
-<div class="title">Riak CS Enterprise requires a separate download</div>
-Please note that Riak CS Enterprise requires a download separate from
-the open-source Riak CS, which will not work in conjunction with Riak
-Enterprise.
-</div>
+{{% note title="Riak CS Enterprise requires a separate download" %}}
+Please note that Riak CS Enterprise requires a download separate from the
+open-source Riak CS, which will not work in conjunction with Riak Enterprise.
+{{% /note %}}
 
 ## Multi-Datacenter Replication
 

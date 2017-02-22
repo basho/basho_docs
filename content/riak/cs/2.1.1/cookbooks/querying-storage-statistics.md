@@ -17,12 +17,11 @@ Storage statistics are tracked on a per-user basis, as rollups for
 slices of time. Querying these statistics is done via the
 `/riak-cs/usage/$USER_KEY_ID` resource.
 
-<div class="note">
-<div class="title">Note on terminology</div>
-In this and other documents in the Riak CS documentation, the terms
-"storage" and "billing" are used interchangeably. The same goes for the
-terms "usage" and access.
-</div>
+{{% note title="Note on terminology" %}}
+In this and other documents in the Riak CS documentation, the terms "storage"
+and "billing" are used interchangeably. The same goes for the terms "usage"
+and access.
+{{% /note %}}
 
 
 > **Note**:
