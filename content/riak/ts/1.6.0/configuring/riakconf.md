@@ -72,9 +72,9 @@ riak_kv.query.timeseries.timeout = 10000
 *This setting was formerly `timeseries_query_timeout_ms`, please update accordingly.*
 
 
-### Maximum query queues
+### Maximum concurrent queries
 
-`riak_kv.query.timeseries.max_concurrent_queries`: the maximum number of query queues that can run concurrently per node (each queue serving one query). Default is 3.
+`riak_kv.query.timeseries.max_concurrent_queries`: the maximum number of queries that can run concurrently per node (each queue serving one query). Default is 3.
 
 The total number of queries that can be run on a cluster is the number of nodes multiplied by the `max_concurrent_queries` value. This constraint is to prevent an unbounded number of queries overloading the cluster.
 
