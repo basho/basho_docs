@@ -37,7 +37,7 @@ You can turn a set of rows in your Riak TS table into a value with the aggregate
 * `MAX` - Returns the largest value of entries that match specified criteria.
 * `STDDEV`/`STDDEV_SAMP` - Returns the statistical standard deviation of all entries that match specified criteria using Sample Standard Deviation.
 * `STDDEV_POP` - Returns the statistical standard deviation of all entries that match specified criteria using Population Standard Deviation.
-* `PERCENTILE_DISC`/`PERCENTILE_CONT` - Return a given percentile value in the observations represented by entries in the selection, assuming discrete/continuous distrinution model.
+* `PERCENTILE_DISC`/`PERCENTILE_CONT` - Return a given percentile value in the observations represented by entries in the selection, assuming discrete/continuous distribution model.
 * `MEDIAN` - equivalent to `PERCENTILE_DISC` called with 0.5 as a parameter.
 * `MODE` - Returns the mode of the population represented by entries in the selection.
 
@@ -163,7 +163,7 @@ Equivalent to `PERCENTILE_DISC(x, 0.5)`.
 
 ### MODE
 
-Calculate the mode (i.e., the value occurring with the highest frequency) of observations in the selection, with nulls discarded.  If there are more than one modes, the lowest one is returned.  The column argument must be of numeric type (`sint64`, `double` or `timestamp`).  Return type is the type of the column argument.
+Calculate the mode, the value occurring with the highest frequency, of observations in the selection, with nulls discarded.  If there are more than one modes, the lowest one is returned.  The column argument must be of numeric type (`sint64`, `double` or `timestamp`).  Return type is the type of the column argument.
 
 {{% note title="Notes on inverse distribution functions" %}}
 1. These functions cannot be used in conjunction with `ORDER BY` or `GROUP BY` clauses, or with any other column specifiers.
