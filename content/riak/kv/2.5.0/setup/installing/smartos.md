@@ -74,7 +74,7 @@ cat /opt/local/etc/pkgin/repositories.conf
 Download your version of the Riak binary package for SmartOS:
 
 ```bash
-curl -o /tmp/riak-2.5.0-SmartOS-x86_64.tgz http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.5.0/smartos/1.8/riak-2.5.0-SmartOS-x86_64.tgz
+curl -o /tmp/riak-2.5.0-SmartOS-x86_64.tgz http://s3.amazonaws.com/downloads.basho.com/riak/2.5/2.5.0/smartos/1.8/riak-2.5.0-SmartOS-x86_64.tgz
 ```
 
 Next, install the package:
