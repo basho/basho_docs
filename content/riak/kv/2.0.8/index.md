@@ -38,13 +38,11 @@ Riak KV is a distributed NoSQL database designed to deliver maximum data availab
 - CentOS 5
 - CentOS 6
 - CentOS 7
-- Debian 6.0 ("Squeeze")
 - Debian 7.0 ("Wheezy")
 - Debian 8.0 ("Jessie")
 - Red Hat Enterprise Linux 5
 - Red Hat Enterprise Linux 6
 - Red Hat Enterprise Linux 7
-- Solaris 10
 - SUSE Linux Enterprise Server 11
 - Ubuntu 12.04.5
 - Ubuntu 14.04.3
@@ -73,4 +71,4 @@ Are you brand new to Riak KV? Start by [downloading][downloads] Riak KV, and the
 
 ## Academy Training
 
-[Basho's Academy](https://academy.basho.com) courses offer hands-on experience with Riak KV. Sign up for a [free account](https://academy.basho.com/users/sign_up) to get started. 
+[Basho's Academy](https://academy.basho.com) courses offer hands-on experience with Riak KV. Sign up for a [free account](https://academy.basho.com/users/sign_up) to get started.
