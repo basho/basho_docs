@@ -182,21 +182,21 @@ for the target platform:
 #### Ubuntu Lucid Lynx (10.04)
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.2.0/ubuntu/lucid/riak_2.2.0-1_amd64.deb
+wget http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.0/ubuntu/lucid/riak_2.2.0-1_amd64.deb
 sudo dpkg -i riak_2.2.0-1_amd64.deb
 ```
 
 #### Ubuntu Natty Narwhal (11.04)
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.2.0/ubuntu/natty/riak_2.2.0-1_amd64.deb
+wget http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.0/ubuntu/natty/riak_2.2.0-1_amd64.deb
 sudo dpkg -i riak_2.2.0-1_amd64.deb
 ```
 
 #### Ubuntu Precise Pangolin (12.04)
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.2.0/ubuntu/precise/riak_2.2.0-1_amd64.deb
+wget http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.0/ubuntu/precise/riak_2.2.0-1_amd64.deb
 sudo dpkg -i riak_2.2.0-1_amd64.deb
 ```
 
@@ -212,7 +212,7 @@ Riak requires an [Erlang](http://www.erlang.org/) installation.
 Instructions can be found in [Installing Erlang][install source erlang].
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.2.0/riak-2.2.0.tar.gz
+wget http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.0/riak-2.2.0.tar.gz
 tar zxvf riak-2.2.0.tar.gz
 cd riak-2.2.0
 make rel
