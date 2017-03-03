@@ -118,7 +118,7 @@ sudo yum install riak
 Or you can install the `.rpm` package manually:
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.2.0/rhel/5/riak-2.2.0-1.el5.x86_64.rpm
+wget http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.0/rhel/5/riak-2.2.0-1.el5.x86_64.rpm
 sudo rpm -Uvh riak-2.2.0-1.el5.x86_64.rpm
 ```
 
@@ -134,7 +134,7 @@ sudo yum install riak
 Or you can install the `.rpm` package manually:
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.2.0/rhel/6/riak-2.2.0-1.el6.x86_64.rpm
+wget http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.0/rhel/6/riak-2.2.0-1.el6.x86_64.rpm
 sudo rpm -Uvh riak-2.2.0-1.el6.x86_64.rpm
 ```
 
