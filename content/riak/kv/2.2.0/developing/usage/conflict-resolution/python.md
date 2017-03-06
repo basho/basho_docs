@@ -137,8 +137,9 @@ obj = RiakObject(client, bucket, 'bashobunny')
 obj.resolver = longest_friends_list_resolver
 
 # Now, when the object is loaded from Riak, it will resolve to a single
-# value instead of multiple values:
+# value instead of multiple values when both commands are executed:
 obj.reload()
+obj.store()
 ```
 
 Alternatively, resolvers can be registered at the bucket level, so that
@@ -150,6 +151,7 @@ bucket.resolver = longest_friends_list_resolver
 
 obj = RiakObject(client, bucket, 'bashobunny')
 obj.reload()
+obj.store()
 
 # The resolver will also be applied if you perform operations using the
 # bucket object:
