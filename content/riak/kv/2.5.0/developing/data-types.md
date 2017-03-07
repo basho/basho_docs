@@ -256,6 +256,7 @@ $updateSet = (new \Basho\Riak\Command\Builder\UpdateSet($riak))
 - [Registers](./maps#registers)
 - [Counters](./counters)
 - [Sets](./sets)
+- [GSets](./gsets)
 - [Maps](./maps)
 - [Hyperloglogs](./hyperloglogs)
 
