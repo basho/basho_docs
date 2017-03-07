@@ -28,6 +28,7 @@ Riak KV has Riak-specific data types based on [convergent replicated data types 
 - [Registers](./maps#registers)
 - [Counters](./counters)
 - [Sets](./sets)
+- [GSets](./gsets)
 - [Maps](./maps)
 
 Riak KV also has 1 context-free data type, that has similar usage but does not require contexts.
