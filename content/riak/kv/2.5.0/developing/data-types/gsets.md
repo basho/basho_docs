@@ -3,7 +3,7 @@ title_supertext: "Developing with Riak KV"
 title: "Data Types: GSets"
 description: ""
 project: "riak_kv"
-project_version: "2.2.0"
+project_version: "2.5.0"
 menu:
   riak_kv-2.5.0:
     name: "GSets"
