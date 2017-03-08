@@ -1332,7 +1332,7 @@ riak_kv:
         file_info:
           file_name: riak-2.0.8-OSX-x86_64.tar.gz
           file_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.8/osx/10.8/riak-2.0.8-OSX-x86_64.tar.gz
-          file_size: 62396131
+          file_size: 63516129
           chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.8/osx/10.8/riak-2.0.8-OSX-x86_64.tar.gz.sha
   - os: rhel
     versions:
@@ -2297,6 +2297,122 @@ riak_kv:
           file_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.0/ubuntu/xenial/riak_2.2.0-1_amd64.deb
           file_size: 60694588
           chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.0/ubuntu/xenial/riak_2.2.0-1_amd64.deb.sha
+  2.2.1:
+  - os: source
+    file_info:
+      file_name: riak-2.2.1.tar.gz
+      file_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.1/riak-2.2.1.tar.gz
+      file_size: 21215456
+  - os: debian
+    versions:
+    - version: jessie
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak_2.2.1-1_amd64.deb
+          file_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.1/debian/jessie/riak_2.2.1-1_amd64.deb
+          file_size: 60631484
+          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.1/debian/jessie/riak_2.2.1-1_amd64.deb.sha
+    - version: wheezy
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak_2.2.1-1_amd64.deb
+          file_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.1/debian/wheezy/riak_2.2.1-1_amd64.deb
+          file_size: 67358984
+          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.1/debian/wheezy/riak_2.2.1-1_amd64.deb.sha
+  - os: freebsd
+    versions:
+    - version: '10'
+      architectures:
+      - arch: txz
+        file_info:
+          file_name: riak-2.2.1.txz
+          file_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.1/freebsd/10/riak-2.2.1.txz
+          file_size: 64340688
+          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.1/freebsd/10/riak-2.2.1.txz.sha
+  - os: osx
+    versions:
+    - version: '10.8'
+      architectures:
+      - arch: x86_64
+        file_info:
+          file_name: riak-2.2.1-OSX-x86_64.tar.gz
+          file_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.1/osx/10.8/riak-2.2.1-OSX-x86_64.tar.gz
+          file_size: 65855609
+          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.1/osx/10.8/riak-2.2.1-OSX-x86_64.tar.gz.sha
+  - os: rhel
+    versions:
+    - version: '6'
+      architectures:
+      - arch: source
+        file_info:
+          file_name: riak-2.2.1-1.el6.src.rpm
+          file_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.1/rhel/6/riak-2.2.1-1.el6.src.rpm
+          file_size: 21217076
+          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.1/rhel/6/riak-2.2.1-1.el6.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-2.2.1-1.el6.x86_64.rpm
+          file_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.1/rhel/6/riak-2.2.1-1.el6.x86_64.rpm
+          file_size: 65156852
+          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.1/rhel/6/riak-2.2.1-1.el6.x86_64.rpm.sha
+    - version: '7'
+      architectures:
+      - arch: source
+        file_info:
+          file_name: riak-2.2.1-1.el7.centos.src.rpm
+          file_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.1/rhel/7/riak-2.2.1-1.el7.centos.src.rpm
+          file_size: 21146771
+          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.1/rhel/7/riak-2.2.1-1.el7.centos.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-2.2.1-1.el7.centos.x86_64.rpm
+          file_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.1/rhel/7/riak-2.2.1-1.el7.centos.x86_64.rpm
+          file_size: 64698968
+          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.1/rhel/7/riak-2.2.1-1.el7.centos.x86_64.rpm.sha
+  - os: sles
+    versions:
+    - version: '11'
+      architectures:
+      - arch: x86_64
+        file_info:
+          file_name: riak-2.2.1-1.SLES11.x86_64.rpm
+          file_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.1/sles/11/riak-2.2.1-1.SLES11.x86_64.rpm
+          file_size: 68988567
+          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.1/sles/11/riak-2.2.1-1.SLES11.x86_64.rpm.sha
+      - arch: source
+        file_info:
+          file_name: riak-2.2.1-1.src.rpm
+          file_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.1/sles/11/riak-2.2.1-1.src.rpm
+          file_size: 21204202
+          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.1/sles/11/riak-2.2.1-1.src.rpm.sha
+  - os: ubuntu
+    versions:
+    - version: precise
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak_2.2.1-1_amd64.deb
+          file_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.1/ubuntu/precise/riak_2.2.1-1_amd64.deb
+          file_size: 67295178
+          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.1/ubuntu/precise/riak_2.2.1-1_amd64.deb.sha
+    - version: trusty
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak_2.2.1-1_amd64.deb
+          file_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.1/ubuntu/trusty/riak_2.2.1-1_amd64.deb
+          file_size: 60662210
+          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.1/ubuntu/trusty/riak_2.2.1-1_amd64.deb.sha
+    - version: xenial
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak_2.2.1-1_amd64.deb
+          file_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.1/ubuntu/xenial/riak_2.2.1-1_amd64.deb
+          file_size: 60707736
+          chksum_href: http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.1/ubuntu/xenial/riak_2.2.1-1_amd64.deb.sha
 riak_cs:
   2.0.0:
   - os: source
