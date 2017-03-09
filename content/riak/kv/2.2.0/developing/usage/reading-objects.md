@@ -105,7 +105,7 @@ Here is an example of attempting a read with `r` set to `3`:
 ```java
 // Using the "myKey" location specified above:
 FetchValue fetch = new FetchValue.Builder(myKey)
-        .withOption(FetchOption.R, new Quorum(3))
+        .withOption(FetchValue.Option.R, new Quorum(3))
         .build();
 FetchValue.Response response = client.execute(fetch);
 RiakObject obj = response.getValue(RiakObject.class);
