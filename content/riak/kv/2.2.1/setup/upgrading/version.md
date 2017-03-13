@@ -173,7 +173,7 @@ sudo dpkg -i »riak_package_name«.deb
      ]}
    ]}
    ```
-Once all of the clusters have been upgraded to version 2.2.0 or greater, this capability override can be removed.
+Once all of the clusters have been upgraded to version 2.2.0 or greater, this override should be removed.
 
 6\. Restart Riak KV:
 

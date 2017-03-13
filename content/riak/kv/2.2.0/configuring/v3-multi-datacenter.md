@@ -144,9 +144,9 @@ the connection really has been compromised.
 
 ## Default Bucket Properties
 
-Riak KV version 2.2.0 changed the values of the default bucket properties hash.  This will cause an issue replicating between Riak KV clusters with versions 2.2.0 and Riak KV clusters with versions less than 2.2.0.
+Riak KV version 2.2.0 changed the values of the default bucket properties hash.  This will cause an issue replicating between Riak KV clusters with versions 2.2.0 or greater and Riak KV clusters with versions less than 2.2.0.
 
-To replicate between Riak KV versions 2.2.0 and Riak KV clusters less than version 2.2.0, add the necessary override in the advanced.config file:
+To replicate between Riak KV versions 2.2.0 or greater and Riak KV clusters less than version 2.2.0, add the necessary override in the advanced.config file:
 
 ```advanced.config
 {riak_repl, [
@@ -156,4 +156,4 @@ To replicate between Riak KV versions 2.2.0 and Riak KV clusters less than versi
 ]}
 ```
 
-If all of the Replication clusters are running Riak KV 2.2.0 or greater, this override is no longer necessary and can be removed.
+If all of the Replication clusters are running Riak KV 2.2.0 or greater, this override is no longer necessary and should be removed.
