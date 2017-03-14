@@ -34,7 +34,7 @@ the following x86/x86_64 flavors of SuSE:
 ## Installing with rpm
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.0.8/sles/11/riak-2.0.8-1.SLES11.x86_64.rpm
+wget http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.8/sles/11/riak-2.0.8-1.SLES11.x86_64.rpm
 sudo rpm -Uvh riak-2.0.8-1.SLES11.x86_64.rpm
 ```
 
