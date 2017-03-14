@@ -18,18 +18,18 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/select/in/
 [select]: /riak/ts/1.6.0/using/querying/select/
 [query guidelines]: /riak/ts/1.6.0/using/querying/guidelines/
 
-The IN keyword is used with [`SELECT`][select] to return results where a specified column matches one or more given values.
+The IN clause is used with [`SELECT`][select] to return results where a specified column matches one or more given values.
 
 This document shows how to run various queries using `IN`. See the [guidelines][query guidelines] for more information on limitations and rules for queries in Riak TS.
 
 ## Overview
 
-The IN keyword returns results from a SELECT statement which match one or more literal values.
+The IN clause returns results from a SELECT statement that match one or more literal values.
 
 `IN` has the following syntax:
 
 ```sql
-SELECT * FROM «table_name» WHERE «column_name» IN («values»)
+SELECT * FROM »table_name« WHERE »column_name« IN (»values«)
 ```
 
 {{% note title="WARNING" %}}
