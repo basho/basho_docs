@@ -20,10 +20,13 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/select"
 [arithmetic operations]: arithmetic-operations/
 [GROUP BY]: group-by/
 [guidelines]: /riak/ts/1.6.0/using/querying/guidelines
+[IN]: in/
 [iso8601]: ../../timerepresentations/
 [iso8601 accuracy]: /riak/ts/1.6.0/using/timerepresentations/#reduced-accuracy
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
 [learn timestamps accuracy]: /riak/ts/1.6.0/learn-about/timestamps/#reduced-accuracy
+[LIMIT]: limit/
+[ORDER BY]: order-by/
 
 You can use the SELECT statement in Riak TS to query your TS dataset. This document will show you how to run various queries using `SELECT`.
 
@@ -31,6 +34,9 @@ You can use the SELECT statement in Riak TS to query your TS dataset. This docum
 * See [aggregate functions] to learn how turn a set of rows in your Riak TS table into a value.
 * See [arithmetic operations] to see a list of operations available with `SELECT`.
 * See [GROUP BY] to learn how to condense rows sharing the same value.
+* See [ORDER BY] to learn how to sort your results by one or more columns.
+* See [LIMIT] to learn how to limit your results.
+* See [IN] to learn how to return results for specific columns.
 
 
 For all of the examples on this page, we are using our standard example GeoCheckin table:
@@ -59,7 +65,7 @@ When querying with user-supplied data, it is essential that you protect against 
 
 ## Querying Columns
 
-All queries using `SELECT` must include a 'where' clause with all components.
+All queries using `SELECT` must include a WHERE clause with all components.
 
 You can select particular columns from the data to query:
 
@@ -281,8 +287,7 @@ See [our documentation on ISO 8601 support][iso8601] for more details on how to 
 
 ## IS [NOT] NULL
 
-For queries which operate on ranges which contain columns that are nullable, the
-WHERE clause may contain NULL condition predicates.
+For queries which operate on ranges which contain columns that are nullable, the WHERE clause may contain NULL condition predicates.
 
 ```sql
 _expression_ IS NULL
@@ -291,8 +296,7 @@ NOT _expression_ IS NULL -- equivalent to: _expression_ IS NOT NULL
 NOT _expression_ IS NOT NULL -- equivalent to: _expression_ IS NULL
 ```
 
-For example, the following query extracts the key column values for all records
-within the time range, which do not have a value set for the temperature column:
+For example, the following query extracts the key column values for all records within the time range, which do not have a value set for the temperature column:
 
 ```sql
 SELECT region, state, time
@@ -302,13 +306,11 @@ WHERE time > 1234560 AND time < 1234569
       AND temperature IS NULL
 ```
 
-IS NOT NULL is often used to operate on records which are fully populated to the
-point that an application requires. Within this context, the above query to
-locate records which do not satisfy such a requirement can be utilized to
-investigate and subsequently reconcile records which are partially populated.
+`IS NOT NULL` is often used to operate on records that are fully populated to the point that an application requires. Within this context, the above query to locate records that do not satisfy such a requirement can be utilized to
+investigate and subsequently reconcile records that are partially populated.
 
 Another common use of NULL condition predicates is determining the relative
-cardinality of the subset not containing a value for the _column_.
+cardinality of the subset not containing a value for the column.
 
 ## Client NULL Results
 

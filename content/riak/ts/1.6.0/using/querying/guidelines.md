@@ -66,7 +66,6 @@ It is possible to use ISO 8601-compliant date/time strings rather than integer t
 
 ### Local Key
 
-
 Any field in the local key but not in the partition key can be queried with any operator supported for that field's type. Bounded ranges are not required. Any filter is allowed, including `OR` and `!=`
 
 ```
@@ -145,7 +144,7 @@ The following operators are supported for each data type:
 
 Blob data should be queried using integers in base 16 (hex) notation, preceded by `0x` using riak shell or by providing any block of data (e.g. binary, text or JSON) through a Riak client library.
 
-However, we do not recommend using blob columns in primary keys yet, due to limitations in the Riak TS 1.5 `list_keys` API.
+However, we do not recommend using blob columns in primary keys yet, due to limitations in the `list_keys` API.
 
 
 ### Query parameters
