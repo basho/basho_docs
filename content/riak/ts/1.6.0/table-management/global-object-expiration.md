@@ -4,29 +4,28 @@ description: "Enabling and configuring global object expiration for Riak TS."
 menu:
   riak_ts-1.6.0:
     name: "Global Object Expiration"
-    identifier: "config_expiry"
-    weight: 320
-    parent: "configure"
+    identifier: "table_mng_global_expiry"
+    weight: 200
+    parent: "table_management"
 project: "riak_ts"
 project_version: "1.6.0"
 toc: true
 version_history:
   in: "1.4.0+"
   locations:
-    - [">=1.6.0", "configuring/global-object-expiration"]
+    - [">=1.6.0", "table-management/global-object-expiration"]
+    - ["<=1.5.1", "configuring/global-object-expiration"]
     - ["<=1.4.0",  "using/global-object-expiration"]
 aliases:
     - /riakts/1.6.0/configuring/global-object-expiration/
-canonical_link: "https://docs.basho.com/riak/ts/latest/configuring/global-object-expiration"
+    - /riakts/1.6.0/table-management/global-object-expiration/
+canonical_link: "https://docs.basho.com/riak/ts/latest/table-management/global-object-expiration"
 ---
 
 [ttl]: https://en.wikipedia.org/wiki/Time_to_live
+[table expiry]: /riak/ts/1.6.0/table-management/per-table-object-expiration
 
-By default, LevelDB keeps all of your data. But Riak TS allows you to configure global object expiration (`expiry`) or [time to live (TTL)][ttl] for your data. 
-
-{{% note %}}
-Currently only global expiration is supported in Riak TS.
-{{% /note %}}
+By default, LevelDB keeps all of your data. But Riak TS allows you to configure object expiration (`expiry`) or [time to live (TTL)][ttl] for your data on a global or [per table basis][table expiry].
 
 Expiration is disabled by default, but enabling it lets you expire older objects to reclaim the space used or purge data with a limited time value.
 
@@ -76,7 +75,7 @@ Global expiration supports two modes:
 - `whole_file` - the whole sorted string table (`.sst`) file is deleted when all of its objects are expired.
 - `normal` - individual objects are removed as part of the usual compaction process.
 
-We recommend using `whole_file` with time series data that has a similar lifespan, as it will be much more efficient. 
+We recommend using `whole_file` with time series data that has a similar lifespan, as it will be much more efficient.
 
 The following example configure objects to expire after 1 day:
 

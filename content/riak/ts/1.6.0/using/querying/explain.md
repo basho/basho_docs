@@ -15,7 +15,7 @@ aliases:
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/explain"
 ---
 
-[creating-activating]: /riak/ts/1.6.0/using/creating-activating
+[creating-activating]: /riak/ts/1.6.0/table-management/creating-activating
 [develop]: /riak/ts/1.6.0/developing
 [planning]: /riak/ts/1.6.0/using/planning
 [riak shell]: /riak/ts/1.6.0/using/riakshell
@@ -25,7 +25,7 @@ You can use an EXPLAIN statement to better understand how a query you would like
 
 ## EXPLAIN Guidelines
 
-`EXPLAIN` takes a SELECT statement as an argument and shows information about each subquery. The constraints placed upon the WHERE clause in the SELECT statement determine the subquery values. 
+`EXPLAIN` takes a SELECT statement as an argument and shows information about each subquery. The constraints placed upon the WHERE clause in the SELECT statement determine the subquery values.
 
 The details about each subquery include:
 

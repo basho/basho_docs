@@ -10,6 +10,11 @@ menu:
 project: "riak_ts"
 project_version: "1.4.0"
 toc: true
+version_history:
+  in: "1.0.0+"
+  locations:
+    - [">=1.6.0", "table-management/creating-activating"]
+    - ["<=1.5.1", "using/creating-activating"]
 aliases:
     - /riakts/1.4.0/using/creating-activating/
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/creating-activating"
@@ -30,7 +35,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/creating-activating
 
 Once you have [planned out your table][planning] you can create it by:
 
-* Executing a CREATE TABLE statement using any Riak TS client, 
+* Executing a CREATE TABLE statement using any Riak TS client,
 * Using riak shell, or
 * Running the `riak-admin` command (as root, using `su` or `sudo`).
 

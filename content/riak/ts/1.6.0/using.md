@@ -16,7 +16,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using"
 ---
 
 
-[activating]: creating-activating/
+[activating]: /riak/ts/1.6.0/table-management/creating-activating/
 [aggregate]: querying/select/aggregate-functions/
 [arithmetic]: querying/select/arithmetic-operations/
 [configuring]: /riak/ts/1.6.0/configuring/
@@ -36,5 +36,5 @@ Now that you've [downloaded][download] and [installed][installing] Riak TS, ther
 3. [Write data][writing] to your table.
 
 Check out [riak shell][riakshell], a handy tool for using TS.
- 
+
 Then check out how to [query][querying] your data, [customize your Riak TS configuration][configuring], analyze your data with [aggregate functions][aggregate], or apply some [arithmetic operations][arithmetic].

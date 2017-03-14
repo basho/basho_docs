@@ -4,34 +4,40 @@ description: "Creating and Activating Your Riak TS Table"
 menu:
   riak_ts-1.6.0:
     name: "Create Your Table"
-    identifier: "creating_activating_riakts"
-    weight: 302
-    parent: "using"
+    identifier: "table_management_activating_riakts"
+    weight: 100
+    parent: "table_management"
 project: "riak_ts"
 project_version: "1.6.0"
 toc: true
+version_history:
+  in: "1.0.0+"
+  locations:
+    - [">=1.6.0", "table-management/creating-activating"]
+    - ["<=1.5.1", "using/creating-activating"]
 aliases:
     - /riakts/1.6.0/using/creating-activating/
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/creating-activating"
+    - /riakts/1.6.0/table-management/creating-activating/
+canonical_link: "https://docs.basho.com/riak/ts/latest/table-management/creating-activating"
 ---
 
 
-[csharp]: ../../developing/csharp#query
-[describe]: ../querying/describe/
-[erlang]: ../../developing/erlang/#query-2
-[java]: ../../developing/java#query
-[nodejs]: ../../developing/nodejs/#query
-[php]: ../../developing/php#query
-[python]: ../../developing/python#query
-[ruby]: ../../developing/ruby#sql-queries
-[planning]: ../planning/
-[writing]: ../writingdata/
+[csharp]: /riak/ts/1.6.0/developing/csharp#query
+[describe]: /riak/ts/1.6.0/using/querying/describe/
+[erlang]: /riak/ts/1.6.0/developing/erlang/#query-2
+[java]: /riak/ts/1.6.0/developing/java#query
+[nodejs]: /riak/ts/1.6.0/developing/nodejs/#query
+[php]: /riak/ts/1.6.0/developing/php#query
+[python]: /riak/ts/1.6.0/developing/python#query
+[ruby]: /riak/ts/1.6.0/developing/ruby#sql-queries
+[planning]: /riak/ts/1.6.0/using/planning/
+[writing]: /riak/ts/1.6.0/using/writingdata/
 [Riak bucket properties]: /riak/kv/2.2.0/configuring/reference/#default-bucket-properties
 
 
 Once you have [planned out your table][planning] you can create it by:
 
-* Executing a CREATE TABLE statement using any Riak TS client, 
+* Executing a CREATE TABLE statement using any Riak TS client,
 * Using `riak-shell`, or
 * Running the `riak-admin` command (as root, using `su` or `sudo`).
 
@@ -56,7 +62,7 @@ CREATE TABLE GeoCheckin
 
 ## `CREATE TABLE` in Client Library
 
-Using one of the Riak TS client libraries, execute the CREATE TABLE statement via that library's query functionality. This will create and activate the table in one step. 
+Using one of the Riak TS client libraries, execute the CREATE TABLE statement via that library's query functionality. This will create and activate the table in one step.
 
 ```csharp
 string tableName = "GeoCheckin";
@@ -234,7 +240,7 @@ CREATE TABLE (...) WITH (
     custom_prop = 42.24)
 ```
 
-Any property with any string or numeric value can be associated with a table, including but not limited to standard [Riak bucket properties]. 
+Any property with any string or numeric value can be associated with a table, including but not limited to standard [Riak bucket properties].
 
 Please note the following when using `WITH`:
 

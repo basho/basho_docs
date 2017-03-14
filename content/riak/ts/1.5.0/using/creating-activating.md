@@ -10,6 +10,11 @@ menu:
 project: "riak_ts"
 project_version: "1.5.0"
 toc: true
+version_history:
+  in: "1.0.0+"
+  locations:
+    - [">=1.6.0", "table-management/creating-activating"]
+    - ["<=1.5.1", "using/creating-activating"]
 aliases:
     - /riakts/1.5.0/using/creating-activating/
 canonical_link: "https://docs.basho.com/riak/ts/latest/using/creating-activating"
@@ -31,7 +36,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/creating-activating
 
 Once you have [planned out your table][planning] you can create it by:
 
-* Executing a CREATE TABLE statement using any Riak TS client, 
+* Executing a CREATE TABLE statement using any Riak TS client,
 * Using `riak-shell`, or
 * Running the `riak-admin` command (as root, using `su` or `sudo`).
 
@@ -56,7 +61,7 @@ CREATE TABLE GeoCheckin
 
 ## `CREATE TABLE` in Client Library
 
-Using one of the Riak TS client libraries, execute the CREATE TABLE statement via that library's query functionality. This will create and activate the table in one step. 
+Using one of the Riak TS client libraries, execute the CREATE TABLE statement via that library's query functionality. This will create and activate the table in one step.
 
 ```csharp
 string tableName = "GeoCheckin";
@@ -234,7 +239,7 @@ CREATE TABLE (...) WITH (
     custom_prop = 42.24)
 ```
 
-Any property with any string or numeric value can be associated with a table, including but not limited to standard [Riak bucket properties]. 
+Any property with any string or numeric value can be associated with a table, including but not limited to standard [Riak bucket properties].
 
 Please note the following when using `WITH`:
 

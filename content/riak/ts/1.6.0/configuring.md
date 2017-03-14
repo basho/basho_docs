@@ -22,9 +22,9 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/configuring"
 
 [riakconf]: /riak/ts/1.6.0/configuring/riakconf/
 [mdc]: /riak/ts/1.6.0/configuring/mdc/
-[global expiry]: /riak/ts/1.6.0/configuring/global-object-expiration/
+[global expiry]: /riak/ts/1.6.0/table-management/global-object-expiration/
 [kv config]: /riak/kv/2.2.0/configuring/reference
-[WITH]: /riak/ts/1.6.0/using/creating-activating/#using-the-with-clause
+[WITH]: /riak/ts/1.6.0/table-management/creating-activating/#using-the-with-clause
 
 Riak TS mostly relies on Riak KV's [default configuration settings][kv config]. However, there are a few TS-specific configurations you should know about:
 
@@ -32,4 +32,3 @@ Riak TS mostly relies on Riak KV's [default configuration settings][kv config]. 
 * If you are using Riak TS Enterprise Edition, you can learn more about configuring multi-datacenter replication (MDC) [here][mdc].
 * You have the option of deleting data via global object expiration. For more information on how to configure global expiry, go [here][global expiry].
 * The default `n_val` (the number of distinct copies of each record kept in your cluster for safety and availability) is 3. You can only change this default per-table when you create a table using `WITH`. Read more about that [here][WITH].
-

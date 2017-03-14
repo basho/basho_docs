@@ -16,7 +16,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/timerepresentations
 ---
 
 
-[activating]: ../creating-activating/
+[activating]: /riak/ts/1.6.0/table-management/creating-activating/
 [planning]: ../planning/
 [querying]: ../querying/
 [config reference]: /riak/kv/2.2.0/configuring/reference/#the-advanced-config-file
