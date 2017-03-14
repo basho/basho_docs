@@ -12,7 +12,7 @@ project_version: "1.6.0"
 toc: true
 version_history:
   in: "1.6.0+"
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/limit/"
+canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/select/limit/"
 ---
 
 [select]: /riak/ts/1.6.0/using/querying/select
