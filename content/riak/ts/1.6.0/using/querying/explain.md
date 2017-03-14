@@ -20,7 +20,8 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/explain"
 [planning]: /riak/ts/1.6.0/using/planning
 [riak shell]: /riak/ts/1.6.0/using/riakshell
 
-You can use the EXPLAIN statement to better understand how a query you would like to run will be executed. This document will show you how to use `EXPLAIN` in Riak TS.
+You can use an EXPLAIN statement to better understand how a query you would like to run will be executed. This document will show you how to use `EXPLAIN` in Riak TS.
+
 
 ## EXPLAIN Guidelines
 
@@ -33,9 +34,10 @@ The details about each subquery include:
 * A flag indicating if that flag is inclusive (less than or greater than or equal),
 * The range scan end key,
 * Another inclusive flag for the end key, and
-* The value of the filter, i.e. constrained columns which are not a part of the partition key
+* The value of the filter, i.e. constrained columns which are not a part of the partition key.
 
 To use `EXPLAIN`, the table in question must first be [defined][planning] and [activated][creating-activating]. Only metadata about the desired query is returned.
+
 
 ## EXPLAIN Example
 
@@ -56,7 +58,7 @@ CREATE TABLE GeoCheckin
 )
 ```
 
-We can run `EXPLAIN` in riak shell as follows:
+We can run `EXPLAIN` in [riak shell] as follows:
 
 ```
 riak-shell>EXPLAIN SELECT * FROM GeoCheckin WHERE myfamily = 'family1' AND myseries = 'series1' AND time >= 2 AND time <= 7000000 AND weather='fair';

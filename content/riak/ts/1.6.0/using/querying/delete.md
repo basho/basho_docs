@@ -38,7 +38,7 @@ The DELETE statement removes whole records matching a WHERE clause and a given t
 DELETE FROM «table_name» WHERE column1 = value1 [AND column2 = value ...] AND { time = t | time op t1 AND time op t2 }, where op = { >, <, >=, <= }
 ```
 
-The WHERE clause in `DELETE` should include all columns comprising `PRIMARY KEY` in the table definition.
+The WHERE clause in `DELETE` should include all columns comprising the primary key in the table definition.
 
 Timestamp values can be provided as milliseconds or in [supported ISO 8601 formats][time rep]. `DELETE` acts as a single-key delete, like the [HTTP DELETE command][http delete].
 

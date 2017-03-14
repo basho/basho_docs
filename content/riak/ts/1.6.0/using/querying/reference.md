@@ -30,7 +30,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/reference"
 [arithmetic]: /riak/ts/1.6.0/using/querying/select/arithmetic-operations/
 [aggregate]: /riak/ts/1.6.0/using/querying/select/aggregate-functions/
 
-This document lists each SQL statement available in Riak TS.
+This document lists the SQL implementations available in Riak TS.
 
 ## DESCRIBE
 
@@ -126,7 +126,7 @@ See the [Creating and Activating Tables][create table] page for more information
 
 ## GROUP BY
 
-The GROUP BY statement is used with `SELECT` to pick out and condense rows sharing the same value, then return a single row.
+The GROUP BY clause is used with `SELECT` to pick out and condense rows sharing the same value, then return a single row.
 
 `GROUP BY` has the following syntax:
 
@@ -180,7 +180,7 @@ See the [LIMIT in Riak TS][limit] page for more information and usage examples.
 
 ## OFFSET
 
-The OFFSET clause is used with `SELECT` to skip a specified number of results then return remaining results.
+The OFFSET modifier is used with `SELECT` to skip a specified number of results then return remaining results.
 
 `OFFSET` has the following syntax:
 

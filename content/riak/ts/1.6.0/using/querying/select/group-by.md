@@ -18,18 +18,18 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/select/gro
 [aggregate function]: ../aggregate-functions
 [guidelines]: /riak/ts/1.6.0/using/querying/guidelines
 
-The GROUP BY statement is used with `SELECT` to pick out and condense rows sharing the same value and return a single row. `GROUP BY` is useful for aggregating an attribute of a device over a time period; for instance, you could use it to pull average values for every 30 minute period over the last 24 hours.
+The GROUP BY clause is used with `SELECT` to pick out and condense rows sharing the same value and return a single row. `GROUP BY` is useful for aggregating an attribute of a device over a time period; for instance, you could use it to pull average values for every 30 minute period over the last 24 hours.
 
 This document will show you how to run various queries using `GROUP BY`. See the [guidelines] for more information on limitations and rules for queries in TS.
 
  
 ## GROUP BY Basics
 
-`GROUP BY` returns a single row for each unique combination of values for columns specified in the GROUP BY statement. There is no guaranteed order for the returned rows. 
+`GROUP BY` returns a single row for each unique combination of values for columns specified in the GROUP BY clause. There is no guaranteed order for the returned rows. 
 
-The SELECT statement must contain only the columns specified in `GROUP BY`. Columns not used as groups can appear as function parameters. The GROUP BY statement works on all rows, not just the values in the partition key, so all columns are available.
+The SELECT statement must contain only the columns specified in `GROUP BY`. Columns not used as groups can appear as function parameters. The GROUP BY clause works on all rows, not just the values in the partition key, so all columns are available.
 
-The [aggregate function] may be used with the GROUP BY statement. If used, `SELECT` may contain the columns specified in either `GROUP BY` or the [aggregate function].
+[Aggregate functions][aggregate function] may be used with the GROUP BY clause. If used, `SELECT` may contain the columns specified in either `GROUP BY` or the [aggregate function].
 
 {{% note title="WARNING" %}}
 Before you run `GROUP BY` you must ensure the node issuing the query has adequate memory to receive the response. If the returning rows do not fit into the memory of the requesting node, the node is likely to fail. 
@@ -118,7 +118,7 @@ GROUP BY project;
 
 ### GROUP BY columns not in the partition key
 
-Since the GROUP BY statement works on all rows, all columns are available, which means that using `GROUP BY` on the partition key values is not very useful because the partition key limits the result set.
+Since the GROUP BY clause works on all rows, all columns are available, which means that using `GROUP BY` on the partition key values is not very useful because the partition key limits the result set.
 
 If we create the following table:
 
@@ -129,7 +129,7 @@ visits SINT64,
 a_time TIMESTAMP NOT NULL, PRIMARY KEY(userid, a_time));
 ```
 
-And and try to run the GROUP BY statement including `userid` in the SELECT statement:
+And try to run the GROUP BY clause including `userid` in the SELECT statement:
 
 ```sql
 SELECT userid, SUM(visits)
