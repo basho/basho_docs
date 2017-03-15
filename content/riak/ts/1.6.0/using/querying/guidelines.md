@@ -142,9 +142,9 @@ The following operators are supported for each data type:
 
 ### Blob data in queries and primary keys
 
-Blob data should be queried using integers in base 16 (hex) notation, preceded by `0x` using riak shell or by providing any block of data (e.g. binary, text or JSON) through a Riak client library.
+Blob data should be queried using integers in base 16 (hex) notation, preceded by `0x` using riak shell or by providing any block of data (e.g. binary, text or JSON) through a Riak client library. Blob data may only use strict equality (=, !=).
 
-However, we do not recommend using blob columns in primary keys yet, due to limitations in the `list_keys` API.
+We do not recommend using blob columns in primary keys, due to limitations in the `list_keys` API.
 
 
 ### Query parameters
