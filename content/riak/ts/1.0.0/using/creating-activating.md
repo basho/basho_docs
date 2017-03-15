@@ -10,6 +10,11 @@ menu:
 project: "riak_ts"
 project_version: "1.0.0"
 toc: true
+version_history:
+  in: "1.0.0+"
+  locations:
+    - [">=1.6.0", "table-management/creating-activating"]
+    - ["<=1.5.1", "using/creating-activating"]
 aliases:
     - /riakts/1.0.0/using/creating-activating/
 ---

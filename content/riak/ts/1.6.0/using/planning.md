@@ -16,7 +16,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/planning"
 ---
 
 
-[activating]: ../creating-activating/
+[activating]: /riak/ts/1.6.0/table-management/creating-activating/
 [table arch]: ../../learn-about/tablearchitecture/
 [bestpractices]: ../../learn-about/bestpractices/
 [describe]: ../querying/describe/
@@ -26,9 +26,9 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/planning"
 [order by]: /riak/ts/1.6.0/using/querying/select/order-by
 
 
-You've [installed][installing] Riak TS, and you're ready to create a table. 
+You've [installed][installing] Riak TS, and you're ready to create a table.
 
-* If you're just looking to test out Riak TS, you can jump ahead to [Create a Table][activating], and test out our sample table. 
+* If you're just looking to test out Riak TS, you can jump ahead to [Create a Table][activating], and test out our sample table.
 * If you're looking to set up your production environment, keep reading for guidelines on how best to structure your table.
 * If you're looking for more information about what the components of a Riak TS table do, check out [Table Architecture][table arch].
 * Riak TS tables are closely tied to SQL tables. If would like to know more about how Riak TS integrates SQL, check out [SQL for Riak TS][sql].
@@ -256,7 +256,7 @@ Please take care in defining how you address your unique data, as it will affect
 
 A table's local key determines how it is stored and ordered on disk. Adding the `ASC` or `DESC` keywords to the local key lets you control the sort order of records on disk, and avoid sorting using [`ORDER BY`][order by] or at the application level.
 
-Ordering rows using `ASC` or `DESC` on the local key reduces workload on the cluster because no sorting is required when a query is executed. This may make using `ASC` or `DESC` on the local key a better choice than using `ORDER BY`. 
+Ordering rows using `ASC` or `DESC` on the local key reduces workload on the cluster because no sorting is required when a query is executed. This may make using `ASC` or `DESC` on the local key a better choice than using `ORDER BY`.
 
 The `ASC` or `DESC` keywords must be applied to the local key, not the partition key. The keywords can only be applied to `SINT64`, `TIMESTAMP` and `VARCHAR` columns.
 
@@ -332,14 +332,14 @@ In the new `descending_table`, the `DESC` keyword has been added to `b` in the l
 
 ## Quantum
 
-Choosing the right quantum for your Riak TS table is incredibly important, as it can optimize or diminish your query performance. The short guide is: 
+Choosing the right quantum for your Riak TS table is incredibly important, as it can optimize or diminish your query performance. The short guide is:
 
 1. If you care most about individual query [latency](#latency), then spread your data around the cluster so a typical query spans all
 nodes, or
 2. If you care most about [throughput](#throughput), then localize
 your data so that typical queries are confined to single nodes, or
 3. If you can't predict your usage or you have a mixed-use case, optimize for [latency](#latency) because the fractional latency gains of less data localization are much higher than the throughput losses.
-4. Finally,  if you simply don't know what you prefer, there's more information in the section below to help you decide. 
+4. Finally,  if you simply don't know what you prefer, there's more information in the section below to help you decide.
 
 ### Your quanta use-case
 
@@ -390,12 +390,12 @@ To optimize query latency, your quantum should be small enough that your normal-
 If you're up for a little math, you can use the following formula to identify the optimal quantum:
 
 ```
-Q ~ t/N 
+Q ~ t/N
 ```
 
 `t` is the time spanned by your typical query, `N` is the number of nodes in your cluster, and `Q` is your quantum.
 
-For example, if you have a 5-node cluster and your typical query is for 40 hours of data, your quantum should be no larger than 8 hours: 
+For example, if you have a 5-node cluster and your typical query is for 40 hours of data, your quantum should be no larger than 8 hours:
 
 ```
 8 = 40/5
@@ -423,7 +423,7 @@ For example, if your typical query is an hour’s worth of data, then your quant
 Take care not to let 100% of your queries hit a single node, however, or you risk crashing the node.
 
 
-#### How large should my quantum be? 
+#### How large should my quantum be?
 
 For the best throughput, we suggest that your maximum quantum size be chosen to minimize the number of concurrent queries hitting the same node. For the best performance, your quantum should be bounded by the total time spanned by your instantaneous volume of concurrent queries.  
 

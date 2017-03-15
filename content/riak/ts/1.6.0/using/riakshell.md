@@ -16,7 +16,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/riakshell"
 ---
 
 [nodename]: /riak/kv/2.2.0/using/cluster-operations/changing-cluster-info/
-[creating]: /riak/ts/1.6.0/using/creating-activating
+[creating]: /riak/ts/1.6.0/table-management/creating-activating
 [writing]: /riak/ts/1.6.0/using/writingdata
 [riak shell README]: https://github.com/basho/riak_shell/blob/develop/README.md
 
@@ -26,7 +26,7 @@ You can use riak shell within Riak TS to run SQL and logging commands from one p
 
 ## Capabilities
 
-The following are supported in riak shell: 
+The following are supported in riak shell:
 
 * logging
 * log replay
@@ -346,7 +346,7 @@ You can get more specific help by calling `help` with the extension name and fun
 
 ## Configuration
 
-You can configure riak shell from the riak_shell.config file. You can find the file in your Riak TS directory. 
+You can configure riak shell from the riak_shell.config file. You can find the file in your Riak TS directory.
 
 The following things can be configured:
 

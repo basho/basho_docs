@@ -17,7 +17,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/guidelines
 ---
 
 [table arch]: ../../../learn-about/tablearchitecture/#data-modeling
-[activating]: ../../creating-activating/
+[activating]: /riak/ts/1.6.0/table-management/creating-activating/
 [writing]: ../../writingdata/
 [planning]: ../../planning#column-definitions
 [iso8601]: ../../../timerepresentations/
@@ -25,7 +25,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/guidelines
 [configuring]: ../../../configuring/riakconf/
 
 
-Riak TS supports several kinds of queries of your TS data. To create the most successful queries possible, there are some guidelines and limitations you should know. 
+Riak TS supports several kinds of queries of your TS data. To create the most successful queries possible, there are some guidelines and limitations you should know.
 
 This document will cover the basic rules of querying in Riak TS, general guidelines to help you create the best queries possible, and all current limitations impacting queries in TS.
 

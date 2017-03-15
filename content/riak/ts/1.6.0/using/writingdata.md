@@ -16,7 +16,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/writingdata"
 ---
 
 
-[activating]: ../creating-activating/
+[activating]: /riak/ts/1.6.0/table-management/creating-activating/
 [planning]: ../planning/
 [querying]: ../querying/
 [http]: /riak/ts/1.6.0/developing/http/
@@ -169,7 +169,7 @@ var Riak = require('basho-riak-client');
 var hosts = [ 'myriakdb.host:8087' ];
 var client = new Riak.Client(hosts);
 
-var columns = [ 
+var columns = [
     { name: 'id',     type: Riak.Commands.TS.ColumnType.Int64 },
     { name: 'region',     type: Riak.Commands.TS.ColumnType.Varchar },
     { name: 'state',        type: Riak.Commands.TS.ColumnType.Varchar },
@@ -200,7 +200,7 @@ client.execute(store);
 ```
 
 ```erlang
-%% TS 1.3 or newer. Records are represented as tuples. 
+%% TS 1.3 or newer. Records are represented as tuples.
 {ok, Pid} = riakc_pb_socket:start_link("myriakdb.host", 8087).
 riakc_ts:put(Pid, "GeoCheckin", [{1, <<"South Atlantic">>, <<"Florida">>, 1451606401, <<"hot">>, 23.5}, {2, <<"East North Central">>, <<"Illinois">>, 1451606402, <<"windy">>, 19.8}]).
 ```
@@ -331,7 +331,7 @@ You can add data via SQL statements either through the [query interface][queryin
 {{% note title="INSERT limitations" %}}
 Writing data via an SQL INSERT statement (as demonstrated below) has been found to be 3x slower than using one of our supported clients or the riak shell to insert data under a normal workload (10 bytes per column, up to ~ 50 columns). In these cases, we strongly recommend that you only `INSERT` small data updates and do not use it in a production environment.
 
-Larger workloads should only use a supported client to insert data. 
+Larger workloads should only use a supported client to insert data.
 {{% /note %}}
 
 Here are a couple examples of adding rows from SQL:
