@@ -17,15 +17,30 @@ aliases:
   - /riak/kv/2.0.9/introduction
 ---
 
+Released March 21, 2017.
 
-# Riak KV 2.0.9 Release Notes
+In KV 2.0.8 we [fixed](https://github.com/basho/node_package/pull/183) an  [issue](https://github.com/basho/riak/issues/509) with nodetool, allowing it to work with SSL options in vm.args. However, `exec` was, in specific cases, calling the new NODETOOL alias, and four riak-admin commands (`handoff`, `get`, `set`, and `describe`) were using `exec` to allow them to run properly on all of our supported operating systems, meaning running those commands caused the following error message:
+```
+[root@node1 ~]# riak-admin handoff
+/usr/sbin/riak-admin: line 1072: exec: NODETOOL: not found
+```
+This bugfix release resolves the issues with `exec` and `NODETOOL`, allowing `handoff`, `get`, `set`, and `describe` to function properly. We have located the broken QA test that misidentified these commands as working and have corrected it for future releases.
+
+
+## Bugs Fixed
+
+* [[riak PR 903](https://github.com/basho/riak/pull/903)] Remove `exec` from calls to NODETOOL alias entirely.
+
+
+
+## Riak KV 2.0.8 Release Notes
 
 Released February 15, 2017.
 
 This is an LTS (long term support) bugfix release that includes improvements to Solr integration and Riak search.
 
 
-## New Features
+### New Features
 
 * Improved Solr integration with Riak search. In KV 2.0.7, we introduced a new batching system for Riak search so indexing calls are no longer made synchronously when data is written to Riak. This allows Solr to process the data in larger chunks and Riak to move forward accepting new work at the vnode level without waiting for the call to Solr to happen. In 2.0.9, we've significantly improved that batching system (see below).
     * [[yokozuna PR 614](https://github.com/basho/yokozuna/pull/614)]
@@ -46,7 +61,7 @@ This is an LTS (long term support) bugfix release that includes improvements to 
     * [[yokozuna PR 704](https://github.com/basho/yokozuna/pull/704)]
 
 
-## Bugs Fixed
+### Bugs Fixed
 
 * LevelDB has been upgraded to version 2.0.33, which resolves the [AAE stall product advisory](http://docs.basho.com/community/productadvisories/aaestall/).
 * [[riak_kv PR 1527](https://github.com/basho/riak_kv/pull/1527)] A race condition was occurring where a `gen_fsm` timeout event was not reliably sent, even when the timeout was set to zero, and another message or event could preempt or unset the timeout. To fix this, a timeout event is manually sent using `gen_fsm:send_event`.
@@ -66,14 +81,14 @@ A clause for `$gen_all_state_event` has been added to fix potential hang due to 
 
 
 
-## Additions
+### Additions
 
 * The Debian packages have been updated to support Debian 8. And Ubuntu 16.0.4 (Xenial) is  now supported. [[node_package PR 204](https://github.com/basho/node_package/pull/204)]
 * While cleaning up yz_stats.erl, we discovered that the yz_stats_worker was no longer being used. Made yz_stats use a background process to update exometer stats similar to riak_kv_stat. [[yokozuna PR 646](https://github.com/basho/yokozuna/pull/646)]
 
 
 
-## Changes
+### Changes
 
 
 * The following changes have been backported to KV 2.0.9: When calling `clear_trees`, trees are not updated before being destroyed; error returns are handled in vnode fold request; and build throttle may now be changed while a build is ongoing. Detailed information for each change is below. [[riak_kv PR 1574](https://github.com/basho/riak_kv/pull/1574)]
@@ -94,7 +109,7 @@ A clause for `$gen_all_state_event` has been added to fix potential hang due to 
 * riak_kv has been changed such that updating an object also sends the old object being replaced. From that old object, we can extract any siblings and generate associated document ids to delete in Solr. [[riak_kv PR 1520](https://github.com/basho/riak_kv/pull/1520)]
 
 
-## Upgraded components
+### Upgraded components
 
 * Bitcask has been upgraded to version 1.7.4
 * Cuttlefish has been upgraded to version 2.0.2p2
