@@ -22,20 +22,32 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/table-management/per-tabl
 
 [ttl]: https://en.wikipedia.org/wiki/Time_to_live
 [global expiry]: /riak/ts/1.6.0/table-management/global-object-expiration/
+[expiry retention]: /riak/ts/1.6.0/table-management/global-object-expiration/#setting-retention-time
+[expiry modes]: /riak/ts/1.6.0/table-management/global-object-expiration/#expiry-modes
 [create table]: /riak/ts/1.6.0/table-management/creating-activating/
 [create table with]: /riak/ts/1.6.0/table-management/creating-activating/#using-with
 
-By default, LevelDB keeps all of your data. But Riak TS allows you to configure object expiration (`expiry`) or [time to live (TTL)][ttl] for your data on a [global][global expiry] or per table basis.
+By default, LevelDB keeps all of your data. But Riak TS allows you to configure object expiration (`expiry`) or [time to live (TTL)][ttl] for your data on a [global][global expiry] or a per table basis.
 
 Expiration is disabled by default, but enabling it lets you expire older objects to reclaim the space used or purge data with a limited time value.
 
 ## Enabling Expiry
 
-To enable object expiry for global or per table use, add the `leveldb.expiration` setting to your riak.conf file:
+Enabling object expiry on a per table basis is similar to [enabling expiry globally][global expiry]. The expiration setting, `leveldb.expiration`, must be enabled in your riak.conf file in order to use per table or global expiry features:
 
 ```riak.conf
 leveldb.expiration = on
 ```
+
+You also have the option of setting a [retention time][expiry retention] and an [expiry mode][expiry modes] in your riak.conf. For example:
+
+```riak.conf
+leveldb.expiration = on
+leveldb.expiration.retention_time = 5h
+leveldb.expiration.mode = whole_file
+```
+
+These settings will apply globally. So if you enable expiry on a table and the `default_time_to_live` or `expiration_mode` table properties are not set, the table will inherit the values set in riak.conf.
 
 {{% note %}}
 Turning on object expiration will not retroactively expire previous data. Only data created while expiration is on will be scheduled for expiration.
@@ -43,11 +55,11 @@ Turning on object expiration will not retroactively expire previous data. Only d
 
 ## Expiry Table Properties
 
-|Property Name|Values|
-|---|---|
-|expiration|`enabled` / `disabled`|
-|defaut_time_to_live|`unlimited` or a duration string|
-|expiration_mode|`use_global_config` / `per_item` / `whole_file`|
+|Property Name|Default|Values|
+|---|---|---|
+|expiration|`disabled|``enabled` / `disabled`|
+|defaut_time_to_live|`unlimited`|`unlimited` or a duration string|
+|expiration_mode|`whole_file`|`use_global_config` / `per_item` / `whole_file`|
 
 Each table can have one or more of the properties listed above. If any properties are omitted on the table, the property values in riak.conf will be used. If the properties are not set within riak.conf, the default values will be used.
 
