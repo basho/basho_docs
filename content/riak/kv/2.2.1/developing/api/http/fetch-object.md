@@ -20,6 +20,7 @@ Reads an object from the specified bucket/key.
 ## Request
 
 ```bash
+GET /types/type/buckets/bucket/keys/key
 GET /buckets/bucket/keys/key
 ```
 

@@ -20,6 +20,7 @@ Deletes an object from the specified bucket / key.
 ## Request
 
 ```
+DELETE /types/type/buckets/bucket/keys/key
 DELETE /buckets/bucket/keys/key
 ```
 
