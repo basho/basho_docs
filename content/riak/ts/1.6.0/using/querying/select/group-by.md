@@ -34,7 +34,7 @@ The SELECT statement must contain only the columns specified in `GROUP BY`. Colu
 Grouping by time is also possible using the time function with the GROUP BY clause. The time function has the following syntax:
 
 ```sql
-GROUP BY time(«column_name», «duration»)
+GROUP BY time(»column_name«, »duration«)
 ```
 
 {{% note title="WARNING" %}}
