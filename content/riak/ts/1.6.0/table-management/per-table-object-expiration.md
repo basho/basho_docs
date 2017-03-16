@@ -27,7 +27,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/table-management/per-tabl
 [create table]: /riak/ts/1.6.0/table-management/creating-activating/
 [create table with]: /riak/ts/1.6.0/table-management/creating-activating/#using-with
 
-By default, LevelDB keeps all of your data. But Riak TS allows you to configure object expiration (`expiry`) or [time to live (TTL)][ttl] for your data on a [global][global expiry] or a per table basis.
+By default, LevelDB keeps all of your data. But Riak TS allows you to configure object expiration (`expiry`) or [time to live (TTL)][ttl] for your data on a [global][global expiry] or, when using Basho's Enterprise Edition, a per table basis.
 
 Expiration is disabled by default, but enabling it lets you expire older objects to reclaim the space used or purge data with a limited time value.
 
@@ -49,16 +49,14 @@ leveldb.expiration.mode = whole_file
 
 These settings will apply globally. So if you enable expiry on a table and the `default_time_to_live` or `expiration_mode` table properties are not set, the table will inherit the values set in riak.conf.
 
-{{% note %}}
-Turning on object expiration will not retroactively expire previous data. Only data created while expiration is on will be scheduled for expiration.
-{{% /note %}}
+See [global expiry][global expiry] for a discussion of what happens to existing data when expiry is enabled.
 
 ## Expiry Table Properties
 
 |Property Name|Default|Values|
 |---|---|---|
 |expiration|`disabled|``enabled` / `disabled`|
-|defaut_time_to_live|`unlimited`|`unlimited` or a duration string|
+|default_time_to_live|`unlimited`|`unlimited` or a duration string|
 |expiration_mode|`whole_file`|`use_global_config` / `per_item` / `whole_file`|
 
 Each table can have one or more of the properties listed above. If any properties are omitted on the table, the property values in riak.conf will be used. If the properties are not set within riak.conf, the default values will be used.
@@ -82,7 +80,17 @@ CREATE TABLE GeoCheckin
     )
 ) WITH (
     expiration = enabled
-    default_time_to_live = 123.4m
+    default_time_to_live = 123m
+    expiration_mode = whole_file
+)
+```
+
+For existing tables, bucket properties can be modified with the `ALTER TABLE` command.
+
+```
+ALTER TABLE GeoCheckin WITH (
+    expiration = enabled
+    default_time_to_live = 123m
     expiration_mode = whole_file
 )
 ```
