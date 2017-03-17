@@ -24,6 +24,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/table-management/global-o
 
 [ttl]: https://en.wikipedia.org/wiki/Time_to_live
 [table expiry]: /riak/ts/1.6.0/table-management/per-table-object-expiration
+[read repair]: /riak/kv/2.2.1/learn/concepts/replication/#read-repair
 
 By default, LevelDB keeps all of your data. But Riak TS allows you to configure object expiration (`expiry`) or [time to live (TTL)][ttl] for your data on a global or [per table basis][table expiry].
 
@@ -37,9 +38,10 @@ To enable global object expiry, add the `leveldb.expiration` setting to your ria
 leveldb.expiration = on
 ```
 
-{{% note %}}
-Turning on global object expiration will not retroactively expire previous data. Only data created while expiration is on will be scheduled for expiration.
-{{% /note %}}
+Enabling expiry will instruct LevelDB to start tracking write times for data. New or updated data, along with recently-written data that has not yet been compacted, will be eligible for expiry. Older data will not expire until it is rewritten, due to data updates or internal [read repair].
+
+If expiration is enabled without configuring a retention time, LevelDB will track the age of data but will not expire it.
+
 
 ## Setting Retention Time
 
@@ -67,6 +69,8 @@ You can also combine durations. For example, let's say you wanted objects to exp
 leveldb.expiration = on
 leveldb.expiration.retention_time = 8d9h
 ```
+
+The minimum *effective* expiry period is 1 minute, and in fact data can remain for almost 2 minutes if written shortly after the "top" of the minute.
 
 ## Expiry Modes
 
