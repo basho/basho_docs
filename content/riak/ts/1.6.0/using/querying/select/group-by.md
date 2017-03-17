@@ -22,21 +22,27 @@ The GROUP BY clause is used with `SELECT` to pick out and condense rows sharing 
 
 This document will show you how to run various queries using `GROUP BY`. See the [guidelines] for more information on limitations and rules for queries in TS.
 
- 
+
 ## GROUP BY Basics
 
-`GROUP BY` returns a single row for each unique combination of values for columns specified in the GROUP BY clause. There is no guaranteed order for the returned rows. 
+`GROUP BY` returns a single row for each unique combination of values for columns specified in the GROUP BY clause. There is no guaranteed order for the returned rows.
 
 The SELECT statement must contain only the columns specified in `GROUP BY`. Columns not used as groups can appear as function parameters. The GROUP BY clause works on all rows, not just the values in the partition key, so all columns are available.
 
 [Aggregate functions][aggregate function] may be used with the GROUP BY clause. If used, `SELECT` may contain the columns specified in either `GROUP BY` or the [aggregate function].
 
+Grouping by time is also possible using the time function with the GROUP BY clause. The time function has the following syntax:
+
+```sql
+GROUP BY time(»column_name«, »duration«)
+```
+
 {{% note title="WARNING" %}}
-Before you run `GROUP BY` you must ensure the node issuing the query has adequate memory to receive the response. If the returning rows do not fit into the memory of the requesting node, the node is likely to fail. 
+Before you run `GROUP BY` you must ensure the node issuing the query has adequate memory to receive the response. If the returning rows do not fit into the memory of the requesting node, the node is likely to fail.
 {{% /note %}}
 
 
-## GROUP BY Examples 
+## GROUP BY Examples
 
 The following table defines a schema for tasks, including which project they are part of and when they were completed.
 
@@ -64,10 +70,10 @@ GROUP BY project;
 
 ### More than one group
 
-You can group as many columns as you choose, and the order of the grouping has no effect. 
+You can group as many columns as you choose, and the order of the grouping has no effect.
 
 The query below returns one column per unique project, name combination, and counts how many rows have the same project, name combination.
- 
+
 ```sql
 SELECT project, COUNT(name)
 FROM tasks
@@ -124,8 +130,8 @@ If we create the following table:
 
 ```sql
 CREATE TABLE tasks2 (
-userid VARCHAR NOT NULL, 
-visits SINT64, 
+userid VARCHAR NOT NULL,
+visits SINT64,
 a_time TIMESTAMP NOT NULL, PRIMARY KEY(userid, a_time));
 ```
 
@@ -141,3 +147,13 @@ GROUP BY userid;
 The result set would only have the group 'roddy' because it is required by the WHERE clause.
 
 If, however, we combine two column names from the partition key in the group using `SUM` without specifying `userid`, `GROUP BY` will return multiple result rows for the `userid` 'roddy' with one column per visit.
+
+### GROUP BY time
+
+The query below returns the number results completed each day:
+
+```sql
+SELECT COUNT(*)
+FROM tasks
+GROUP BY time(completed, 1d);
+```
