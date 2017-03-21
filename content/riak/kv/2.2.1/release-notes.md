@@ -37,6 +37,30 @@ This is a bugfix release built on Riak KV 2.2.0. It addresses an issue specific 
 * [[riak_kv PR 1527](https://github.com/basho/riak_kv/pull/1527)] A race condition was occurring where a `gen_fsm` timeout event was not reliably sent, even when the timeout was set to zero, and another message or event could preempt or unset the timeout. To fix this, a timeout event is manually sent using `gen_fsm:send_event`.
 
 
+## Known Issues
+
+### Replication Bucket Mismatch
+
+When using MDC replication between Riak KV clusters with versions less than 2.2.0, replication may fail due to the following error:
+
+```
+riak_repl2_rtsink_conn:handle_info:236 drops due to missing or mismatched type
+```
+
+Please edit __/etc/riak/advanced.config__ and add the following on all Riak KV 2.2.0+ clusters:
+
+```
+{riak_repl, [
+  {override_capability, [
+    {default_bucket_props_hash, [{use, [consistent, datatype, n_val, allow_mult, last_write_wins]}] }
+  ]}
+]}
+```
+
+Once all of the Riak KV clusters have been upgraded to version 2.2.0 or greater, the workaround can be removed.
+
+
+
 ## Other Changes
 
 * Debug logging for ring metadata merges and ring membership has been added. There have been a few issues where rapidly updating the ring results in suboptimal behavior, and it has been difficult to debug due to the lack of logging in the riak_core_ring module. This logging can be enabled as needed. [[riak_core PR 901](https://github.com/basho/riak_core/pull/901)]

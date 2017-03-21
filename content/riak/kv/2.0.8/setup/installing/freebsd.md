@@ -28,8 +28,6 @@ You can install Riak on FreeBSD for the AMD64 architecture with a binary package
 
 ## Installing From Binary Package
 
-> **Note:** The Riak 1.2 binary package is supported on FreeBSD version 9. Users have reported success building Riak from source on a number of FreeBSD versions, however.
-
 Installing Riak from a binary package is the simplest method with least required dependencies, and requires less time to complete than building from source.
 
 ### Prerequisites and Dependencies
@@ -40,11 +38,22 @@ The Riak binary package also depends on a packaged version of OpenSSL. Prior to 
 
 ### Installation
 
+#### FreeBSD 10
+
+You can install the Riak binary package on FreeBSD remotely using the `pgk`
+tool. For this example, we're installing `riak-2.0.8.txz`.
+
+```bash
+sudo pkg add http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.8/freebsd/10/riak-2.0.8.txz
+```
+
+#### FreeBSD 9.2
+
 You can install the Riak binary package on FreeBSD remotely using the
 `pkg_add` remote option. For this example, we're installing `riak-2.0.8-FreeBSD-amd64.tbz`.
 
 ```bash
-sudo pkg_add -r http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.8/freebsd/9/riak-2.0.8-FreeBSD-amd64.tbz
+sudo pkg_add -r http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.8/freebsd/9.2/riak-2.0.8-FreeBSD-amd64.tbz
 ```
 
 When Riak is installed, a message is displayed with information about the installation and available documentation.
