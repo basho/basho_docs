@@ -34,17 +34,14 @@ Riak KV is a distributed NoSQL database designed to deliver maximum data availab
 
 ## Supported Operating Systems
 
-- Amazon Linux 2015.03 (AWS)
-- CentOS 5
+- Amazon Linux 2016.09 (AWS)
 - CentOS 6
 - CentOS 7
 - Debian 7.0 ("Wheezy")
 - Debian 8.0 ("Jessie")
-- Red Hat Enterprise Linux 5
 - Red Hat Enterprise Linux 6
 - Red Hat Enterprise Linux 7
 - SUSE Linux Enterprise Server 11
-- Ubuntu 12.04.5
 - Ubuntu 14.04.3
 - Ubuntu 16.04
 - Mac OSX 10.8+ (development only)
