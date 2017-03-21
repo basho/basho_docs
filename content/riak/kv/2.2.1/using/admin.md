@@ -32,13 +32,13 @@ Explains usage of the `riak-admin cluster` interface, which enables you to perfo
 
 Details the `riak-admin` interface.
 
-[Learn More >>][use admin riak cli]
+[Learn More >>][use admin riak-admin]
 
 #### [riak Command Line Interface][use admin riak-admin]
 
 Covers the `riak` interface, which enables control of the processes associated with a Riak node.
 
-[Learn More >>][use admin riak-admin]
+[Learn More >>][use admin riak cli]
 
 #### [Riak Control][use admin riak control]
 
