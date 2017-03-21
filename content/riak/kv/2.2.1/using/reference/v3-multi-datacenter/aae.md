@@ -56,7 +56,7 @@ quickly. See [Configuration/AAE Tree Build Optimization](#aae-tree-build-optimiz
   source and sink clusters
 * AAE trees must have been built on both source and sink clusters. In
   the event that an AAE tree is not built on both the source and sink,
-  fullsync will default to the `keylisting` fullsync strategy for that
+  fullsync will default to the `keylist` fullsync strategy for that
   partition.
 
 ## Configuration

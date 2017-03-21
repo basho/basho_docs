@@ -52,6 +52,7 @@ For every node in the cluster:
     * If you are upgrading from OSS to EE, uninstall your OSS KV package before upgrading.
 1. (Optional) If you would like to potentially downgrade at some point, update your advanced.config file to opt-out of the AAE updates.
 1.  If you're upgrading from OSS to EE, apply your customized settings to vm.args and app.config
+1.  If you're using MDC replication to clusters with versions less than 2.2.0, update your advanced.config file to over-ride the default bucket properties for compatibility.
 1.  Start Riak KV.
 1.  Verify Riak KV is running the upgraded version.
 1.  Wait for the `riak_kv` service to start.
@@ -143,7 +144,7 @@ sudo rpm -Uvh »riak_package_name«.rpm
 sudo dpkg -i »riak_package_name«.deb
 ```
 
-5\. (**Optional**) If you would like to keep your AAE trees in a format that will facilitate downgrading, the capability override should be in the `riak_kv` proplist of the advanced.config file:
+5.a\. (**Optional**) If you would like to keep your AAE trees in a format that will facilitate downgrading, the capability override should be in the `riak_kv` proplist of the advanced.config file:
 
    ```advanced.config
    {riak_kv, [
@@ -153,7 +154,7 @@ sudo dpkg -i »riak_package_name«.deb
    ]}
    ```
    
-5.5\. (**EE Only**)If you are upgrading from Riak KV OSS to Riak KV EE, you must perform the following steps before moving on: 
+5.b\. (**EE Only**)If you are upgrading from Riak KV OSS to Riak KV EE, you must perform the following steps before moving on: 
 
 * A standard package uninstall should not have removed your data directories, but if it did, move your backup to where the data directory should be.
 * Then copy any customizations from your backed-up vm.args to the `riak_ee` installed vm.args file (these files may be identical).
@@ -162,6 +163,17 @@ sudo dpkg -i »riak_package_name«.deb
   * `riak_repl` --- See [MDC v3 Configuration][config v3 mdc] for more information.
   * `riak_jmx` --- See [JMX Monitoring][jmx monitor] for more information.
   * `snmp` --- See [SNMP][snmp] for more information.
+
+5.c\. (**EE Only with MDC**)If you need to replicate to clusters with versions less than 2.2.0, the capability override for bucket properties should be in the `riak_repl` proplist of the advanced.config file:
+
+   ```advanced.config
+   {riak_repl, [
+     {override_capability, [
+       {default_bucket_props_hash, [{use, [consistent, datatype, n_val, allow_mult, last_write_wins]}] }
+     ]}
+   ]}
+   ```
+Once all of the clusters have been upgraded to version 2.2.0 or greater, this override should be removed.
 
 6\. Restart Riak KV:
 

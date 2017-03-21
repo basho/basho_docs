@@ -139,3 +139,19 @@ the connection really has been compromised.
   allowed to connect.
   If no ACLs are configured, no checks on the common name are done, except
   as described for [Identical Local and Peer Common Names][config v3 ssl#verify-peer].
+
+## Default Bucket Properties
+
+Riak KV version 2.2.0 changed the values of the default bucket properties hash.  This will cause an issue replicating between Riak KV clusters with versions 2.2.0 or greater and Riak KV clusters with versions less than 2.2.0.
+
+To replicate between Riak KV versions 2.2.0 or greater and Riak KV clusters less than version 2.2.0, add the necessary override in the advanced.config file:
+
+```advanced.config
+{riak_repl, [
+    {override_capability, [
+        {default_bucket_props_hash, [{use, [consistent, datatype, n_val, allow_mult, last_write_wins]}] }
+    ]}
+]}
+```
+
+If all of the Replication clusters are running Riak KV 2.2.0 or greater, this override is no longer necessary and should be removed.
