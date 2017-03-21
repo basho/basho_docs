@@ -40,7 +40,7 @@ If you are using AAE fullsync and have a very tight downgrade window, consider d
 
 AAE trees are versioned, so if you choose to enable the 2.2.0 AAE improvements, the AAE trees will need to be destroyed on downgrade and fully repopulated from the object data. During any period in which the AAE trees are invalid, AAE fullsyncs will not work.
 
-
+If MDC clusters will be upgraded in stages, during the time that the cluster versions are mismatched with Riak KV versions 2.2.0 and Riak KV versions less than 2.2.0, replication will fail due to a known issue with Bucket Mismatch between the clusters documented [here](/riak/kv/2.2.0/release-notes/#replication-bucket-mismatch).
 
 
 ## Downgrading
@@ -144,6 +144,31 @@ The upgrade to Solr 4.10.4 causes new data written to the cluster to be written 
 * [[leveldb PR 197](https://github.com/basho/leveldb/pull/197)] MoveItems are eLevelDB's iterator objects and are reusable. MoveItems communicate the reuse desire to the hot threads logic via the resubmit() property. When resubmit() returns true, hot threads executes the same task again immediately. Prior to merging eLevelDB's hot threads with LevelDB's hot threads, only eLevelDB's code supported the resubmit() property. The support required an extra five lines of code within the thread loop routine. Unfortunately, leveldb had two thread loop routines. Only one of the two received the extra five lines during the merge. The additional five lines supporting the resubmit() property have been added to LevelDB's second thread loop.
 * [[yokozuna commit](https://github.com/basho/yokozuna/commit/0b4486e9331048e371ea01aeb554fb42c5228d2f)]When making requests to Solr, if requests timed-out between the caller and ibrowse, ibrowse might still send a response slightly after the timeout. The post-timeout response would cause `yz_solrq_proc` to crash due to improperly handling the late reply message. This fix prevents late replies from causing crashes.
 * [[yokozuna commit](https://github.com/basho/yokozuna/commit/f6e16f9cbf14b193ab447cfce0bb8d6971fb93a4)] When Riak search and active anti-entropy are both enabled, all keys written to Riak KV must be hashed and written to yokozuna hash trees, even if they are not written to Solr. This is done asynchronously, by passing the data along to the yokozuna batching infrastructure. Initially, the queues responsible for handling these non-indexed items were not included in the list of required queues, so they would be shut down by the synchronization mechanism that is designed to keep the queue processes running in sync with the partitions and indexes that are currently hosted by the node in question. Non-indexed queues are now included in the list of required queues so they stay active.
+
+
+
+## Known Issues
+
+### Replication Bucket Mismatch
+
+When using MDC replication between Riak KV clusters with versions less than 2.2.0, replication may fail due to the following error:
+
+```
+riak_repl2_rtsink_conn:handle_info:236 drops due to missing or mismatched type
+```
+
+Please edit __/etc/riak/advanced.config__ and add the following on all Riak KV 2.2.0+ clusters:
+
+```
+{riak_repl, [
+  {override_capability, [
+    {default_bucket_props_hash, [{use, [consistent, datatype, n_val, allow_mult, last_write_wins]}] }
+  ]}
+]}
+```
+
+Once all of the Riak KV clusters have been upgraded to version 2.2.0 or greater, the workaround can be removed.
+
 
 
 ## Upgraded components
