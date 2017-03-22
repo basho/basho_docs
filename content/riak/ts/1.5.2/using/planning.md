@@ -416,9 +416,7 @@ If you need to optimize your Riak TS performance to handle many queries (through
 
 To optimize for throughput, we suggest that your minimum quantum size be several times longer than your regular, individual query length. For the best performance, the typical query should span as few quanta as possible.  
 
-For example, if your typical query is an hour’s worth of data, then your quantum should be large enough that most (but not all) of your queries will only hit a single node. This would mean a quantum between 5 and 10 hours, which would result in 80% to 90% of your queries hitting a single node.
-
-Take care not to let 100% of your queries hit a single node, however, or you risk crashing the node.
+For example, if your typical query is for an hour's worth of data, then a quantum of 10 hours would result in fewer than 10% of your queries spanning multiple quanta.
 
 
 #### How large should my quantum be? 
