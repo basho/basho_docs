@@ -21,6 +21,7 @@ require_relative 'rake_libs/compile_css'
 require_relative 'rake_libs/s3_deploy'
 require_relative 'rake_libs/downloads_metadata_generator'
 require_relative 'rake_libs/projects_metadata_generator'
+require_relative 'rake_libs/crawler'
 
 $css_source = "./dynamic/css"
 $css_dest   = "./static/css"
@@ -184,6 +185,23 @@ task      :deploy => [
 namespace :deploy do
   task :immediately_and_unsafely do do_deploy(); end
   task :fetch_archived_content do do_fetch_archived_content(); end
+end
+
+
+##########
+# Check Links
+#
+# This task checks non-draft pages from a content directory for broken links.
+# If no directory is provided the task will check the entire `./content` folder.
+# Must also have active local hugo server running on http://localhost:1313/.
+# To run: `rake check_links["./content/riak/kv/"]`
+#TODO: Output results to file.
+#TODO: Add progress bar, remove output from command line.
+desc      "Check pages for broken links"
+task      :check_links, [:directory] do |t, args|
+  puts "Checking #{args[:directory]}..."
+  crawler = Crawler.new(args[:directory])
+  crawler.run
 end
 
 
