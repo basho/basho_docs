@@ -17,9 +17,6 @@ aliases:
   - /riak/kv/2.2.3/introduction
 ---
 
-
-# Riak KV 2.2.3 Release Notes
-
 Released April 3, 2017.
 
 In fixing a `riak` and `riak-admin` [issue](https://github.com/basho/node_package/pull/210), we inadvertently used a Bash-specific script variable (`$RANDOM`), causing the riak attach and riak top commands to fail on Ubuntu when /bin/sh is aliased to Dash.
