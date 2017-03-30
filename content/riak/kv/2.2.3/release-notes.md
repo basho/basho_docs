@@ -24,3 +24,7 @@ In fixing a `riak` and `riak-admin` [issue](https://github.com/basho/node_packag
 ## Bugs Fixed
 
 * [[riak PR 909](https://github.com/basho/riak/pull/909) & [node_package PR 217](https://github.com/basho/node_package/pull/217)] Replace `$RANDOM` with PID to support non-Bash.
+
+## Previous Release Notes
+
+Please see the KV 2.2.3 release notes [here](/riak/kv/2.2.3/release-notes/), and the KV 2.2.1 release notes [here](/riak/kv/2.2.1/release-notes/).
