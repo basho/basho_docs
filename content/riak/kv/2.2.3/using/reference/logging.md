@@ -228,7 +228,7 @@ which are listed in the table below. The default is `info`.
 * `warning`
 
 In addition to a log level, you must also select a [facility
-level](http://en.wikipedia.org/wiki/Syslog#Facility_levels) for syslog
+level](https://en.wikipedia.org/wiki/Syslog#Facility) for syslog
 messages amongst the available levels, which are listed in the table
 below. The default is `daemon`.
 
