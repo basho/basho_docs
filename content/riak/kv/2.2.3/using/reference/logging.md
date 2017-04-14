@@ -65,6 +65,21 @@ and the message `prefix` will often identify the Riak subsystem
 involved, e.g. `riak_ensemble_peer` or `alarm_handler` (amongst many
 other possibilities).
 
+{{% note title="Warning: Log messages may contain newline characters" %}}
+As of Riak KV 2.2.3 a few of the log messages may contain newline
+characters, preventing reliable identification of the end of each log
+when attempting log files ingestion by external tools.
+
+A known workaround is ingesting not the logs enabled by the
+`log.console` configurable parameter but rather the logs as enabled by
+the `log.syslog` configurable parameter and processed by syslog,
+e.g. exploiting the
+[`no-multi-line`](https://www.balabit.com/documents/syslog-ng-ose-3.5-guides/en/syslog-ng-ose-guide-admin/html-single/index.html)
+option (e.g. see [this StackExchange topic
+answer](https://unix.stackexchange.com/questions/317422/is-there-a-way-to-rewrite-parts-of-a-message-globally-instead-of-inserting-rewri/317474#317474))
+- or equivalent - of syslog implementations.
+{{% /note %}}
+
 The exception to this syntax is in crash logs (stored in `crash.log`
 files). For crash logs, the syntax tends to be along the following
 lines:
