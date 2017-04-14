@@ -21,7 +21,7 @@ Logging in Riak KV is handled by a Basho-produced logging framework for
 [Erlang](http://www.erlang.org) called
 [lager](https://github.com/basho/lager).
 
-lager provides a number of configuration options that you can use to fine-tune your Riak cluster's logging output. A compact listing of parameters can be found in our [configuration files](/riak/kv/2.2.3/configuring/reference/#lager) documentation. A more thorough explanation of these options can be found in this document.
+lager provides a number of configuration options that you can use to fine-tune your Riak cluster's logging output. A compact listing of parameters can be found in our [configuration files](/riak/kv/2.2.3/configuring/reference/#logging) documentation. A more thorough explanation of these options can be found in this document.
 
 ## Log Directory
 
