@@ -37,7 +37,7 @@ minimum of 5 transactions is required for statistics to be generated.
 
 We recommended checking stats every 90-120 seconds for best performance.
 
-Repeated runs of the `riak-admin status` command does not have a
+Repeated runs of the `riak-admin status` command should not have a
 negative performance impact as the statistics are cached internally in
 Riak.
 
