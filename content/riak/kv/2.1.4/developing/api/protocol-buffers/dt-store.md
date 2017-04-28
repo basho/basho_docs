@@ -85,8 +85,7 @@ Parameter | Description
 `w` | Write quorum, i.e. how many replicas to write to before returning a successful response
 `dw` | Durable write quorum, i.e. how many replicas to commit to durable storage before returning a successful response
 `pw` | Primary write quorum, i.e. how many primary nodes must be up when the write is attempted
-`return_body` | Whether to return the contents of the stored object.
-Defaults to `false`.
+`return_body` | Whether to return the contents of the stored object. Defaults to `false`.
 `timeout` | The timeout duration, in milliseconds, after which Riak will return an error message
 `sloppy_quorum` | If this parameter is set to `true`, the next available node in the ring will accept requests if any primary node is unavailable
 `n_val` | The number of nodes on which the value is to be stored
