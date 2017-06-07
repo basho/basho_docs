@@ -25,6 +25,8 @@ GET /search/query/<index_name>
 
 ## Optional Query Parameters
 
+Query parameters must be UTF-8 encoded.
+
 * `wt` --- The [response
     writer](https://cwiki.apache.org/confluence/display/solr/Response+Writers)
     to be used when returning the Search payload. The currently
