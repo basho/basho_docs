@@ -191,7 +191,7 @@ maxfiles    65536          65536
 
 The first column is the soft limit and the last column is the hard limit.
 
-To change the open files limits on Mac OS X El Capitan, perform the following steps:
+To change the open files limits on Mac OS X El Sierra, perform the following steps:
 
 1\. Add the following line to your .bash_profile or analogous file:
 
