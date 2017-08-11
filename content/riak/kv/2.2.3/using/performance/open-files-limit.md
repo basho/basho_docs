@@ -175,6 +175,80 @@ set rlim_fd_max=200000
 
 [Reference][blog oracle]
 
+## Mac OS X Sierra
+
+Start by checking the current open file limit values with:
+
+```bash
+launchctl limit maxfiles
+```
+
+The response should look something like this:
+
+```bash
+maxfiles    65536          65536
+```
+
+The first column is the soft limit and the last column is the hard limit.
+
+To change the open files limits on Mac OS X Sierra, perform the following steps:
+
+1\. Add the following line to your .bash_profile or analogous file:
+
+```bash
+ulimit -n 65536 200000
+```
+
+2\. Save and close the file. Next open /Library/LaunchDaemons/limit.maxfiles.plist (or create it if it doesn't already exist) and add the following settings:
+
+```/Library/LaunchDaemons/limit.maxfiles.plist
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"  
+        "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">  
+  <dict>
+    <key>Label</key>
+    <string>limit.maxfiles</string>
+    <key>ProgramArguments</key>
+    <array>
+      <string>launchctl</string>
+      <string>limit</string>
+      <string>maxfiles</string>
+      <string>65536</string>
+      <string>200000</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>ServiceIPC</key>
+    <false/>
+  </dict>
+</plist> 
+```
+
+3\. Change the owner the new file:
+
+```bash
+sudo chown root:wheel /Library/LaunchDaemons/limit.maxfiles.plist
+```
+
+4\. Load the new settings:
+
+```bash
+sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
+```
+
+Check that the settings have been applied:
+
+```bash
+launchctl limit maxfiles
+```
+
+The response should be:
+
+```bash
+maxfiles    65536          200000
+```
+
 ## Mac OS X El Capitan
 
 Start by checking the current open file limit values with:
