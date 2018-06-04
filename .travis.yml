@@ -2,7 +2,7 @@ dist: trusty
 sudo: true
 language: ruby
 rvm:
-- 2.2
+- 2.2.5
 before_install:
 - gem update --system
 - gem --version
