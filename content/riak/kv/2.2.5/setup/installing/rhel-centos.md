@@ -49,10 +49,10 @@ Platform-specific pages are linked below:
 * [el7](https://files.tiot.jp/riak/packages/el/7/riak-2.2.5-1.el7.centos.x86_64.rpm)
 * [Fedora 19](https://files.tiot.jp/riak/packages/fedora/19/riak-2.2.5-1.fc19.x86_64.rpm)
 
+<!---
 Our documentation also includes instructions regarding signing keys and
 sources lists, which can be found in the section immediately below.
 
-<!---
 ## Advanced rpm Installation
 
 For the simplest installation process on LTS (Long-Term Support)
