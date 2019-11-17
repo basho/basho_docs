@@ -130,8 +130,8 @@ sudo rm -rf /usr/lib/riak/lib/basho-patches*
 
 4\. Upgrade Riak KV:
 
-{{% note title="Upgrading to KV Enterprise Edition" %}}
-If you are upgrading from Riak KV OSS to Riak KV EE, you must uninstall your Riak KV package right now, before you can install the EE version.
+{{% note title="Upgrading from KV Enterprise Edition" %}}
+If you are upgrading from Riak KV EE to Riak KV OSS, you must uninstall your Riak KV package right now, before you can install the OSS version.
 {{% /note %}}
 
 
@@ -154,14 +154,13 @@ sudo dpkg -i »riak_package_name«.deb
    ]}
    ```
    
-5.b\. (**EE Only**)If you are upgrading from Riak KV OSS to Riak KV EE, you must perform the following steps before moving on: 
+5.b\. (**OSS Only**)If you are upgrading from Riak KV OSS =< 2.2.3, you must perform the following steps before moving on: 
 
 * A standard package uninstall should not have removed your data directories, but if it did, move your backup to where the data directory should be.
-* Then copy any customizations from your backed-up vm.args to the `riak_ee` installed vm.args file (these files may be identical).
-* The app.config file from `riak_ee` will be significantly different from your backed-up file. It will have many new sections along with the original ones. Copy the customizations from your original app.config file into the appropriate sections in the new one. Ensure that the following sections are present in app.config:
+* Then copy any customizations from your backed-up vm.args/advanced.config to the newly installed vm.args/advanced.config file (these files may be identical).
+* The riak.conf file from the newly installed version will be significantly different from your backed-up file. It will have many new sections along with the original ones. Copy the customizations from your original riak.conf file into the appropriate sections in the new one. Ensure that the following sections are present in riak.conf:
   * `riak_core` --- the `cluster_mgr` setting must be present. See [MDC v3 Configuration][config v3 mdc] for more information.
   * `riak_repl` --- See [MDC v3 Configuration][config v3 mdc] for more information.
-  * `riak_jmx` --- See [JMX Monitoring][jmx monitor] for more information.
   * `snmp` --- See [SNMP][snmp] for more information.
 
 5.c\. (**EE Only with MDC**)If you need to replicate to clusters with versions less than 2.2.0, the capability override for bucket properties should be in the `riak_repl` proplist of the advanced.config file:
@@ -174,6 +173,8 @@ sudo dpkg -i »riak_package_name«.deb
    ]}
    ```
 Once all of the clusters have been upgraded to version 2.2.0 or greater, this override should be removed.
+
+5.d\. (**EE Only**)JMX is no longer present in Riak KV. You must remove or comment out all references to it in your riak.conf/advanced.config files for Riak to start successfully post-upgrade.
 
 6\. Restart Riak KV:
 
