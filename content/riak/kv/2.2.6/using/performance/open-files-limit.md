@@ -175,6 +175,61 @@ set rlim_fd_max=200000
 
 [Reference][blog oracle]
 
+## macOS Sierra and High Sierra
+
+Start by checking the current open file limit values with:
+
+```bash
+launchctl limit maxfiles
+```
+
+The response should look something like this:
+
+```bash
+maxfiles    65536          65536
+```
+The first column is the soft limit and the last column is the hard limit.
+
+To change the open files limits on macOS Sierra or High Sierra, perform the following steps:
+
+1\. Add the following line to your .bash\_profile or analogous file:
+
+```bash
+ulimit -n 65536 200000
+```
+
+2\. Save and close the file. Next create the file /Library/LaunchDaemons/limit.maxfiles.plist (owned by `root` in the group `wheel` with the mode `0644`). In it place the following XML:
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+		"http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+
+<plist version="1.0">
+ <dict>
+	<key>Label</key>
+	<string>limit.maxfiles</string>
+	<key>ProgramArguments</key>
+	<array>
+	  <string>launchctl</string>
+	  <string>limit</string>
+	  <string>maxfiles</string>
+	  <string>65536</string>
+	  <string>200000</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>ServiceIPC</key>
+	<false/>
+ </dict>
+</plist>
+
+```
+
+3\. Save and close the file.
+
+4\. Restart your computer and enter `ulimit -n` into your terminal. If your system is configured correctly, you should see that `maxfiles` has been set to 200000.
+
 ## Mac OS X El Capitan
 
 Start by checking the current open file limit values with:

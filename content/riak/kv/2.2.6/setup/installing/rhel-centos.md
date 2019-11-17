@@ -26,7 +26,7 @@ aliases:
 
 Riak KV can be installed on CentOS- or Red-Hat-based systems using a binary
 package or by [compiling Riak from source code][install source index]. The following steps have been tested to work with Riak on
-CentOS/RHEL 5.10, 6.5, and 7.0.1406.
+CentOS/RHEL 6.9, and 7.5.1804.
 
 > **Note on SELinux**
 >
@@ -45,10 +45,8 @@ docs](https://packagecloud.io/basho/riak/install).
 
 Platform-specific pages are linked below:
 
-* [el5](https://packagecloud.io/basho/riak/packages/el/5/riak-2.2.6-1.x86_64.rpm)
-* [el6](https://packagecloud.io/basho/riak/packages/el/6/riak-2.2.6-1.el6.x86_64.rpm)
-* [el7](https://packagecloud.io/basho/riak/packages/el/7/riak-2.2.6-1.el7.centos.x86_64.rpm)
-* [Fedora 19](https://packagecloud.io/basho/riak/packages/fedora/19/riak-2.2.6-1.fc19.x86_64.rpm)
+* [el6](https://files.tiot.jp/riak/packages/el/6/riak-2.2.5-1.el6.x86_64.rpm)
+* [el7](https://files.tiot.jp/riak/packages/el/7/riak-2.2.5-1.el7.centos.x86_64.rpm)
 
 Our documentation also includes instructions regarding signing keys and
 sources lists, which can be found in the section immediately below.
@@ -89,7 +87,7 @@ should contents like the following:
 ```
 [basho_riak]
 name=basho_riak
-baseurl=https://packagecloud.io/basho/riak/el/5/$basesearch
+baseurl=https://packagecloud.io/basho/riak/el/6/$basesearch
 repo_gpgcheck=1
 gpgcheck=0
 enabled=1
@@ -106,20 +104,20 @@ list.
 If you wish to install the RHEL/CentOS packages by hand, follow these
 instructions.
 
-### For Centos 5 / RHEL 5
+### For Centos 7 / RHEL 7
 
-You can install CentOS 5/RHEL 5 using yum, which we recommend:
+You can install CentOS 7/RHEL 7 using yum, which we recommend:
 
 ```bash
-sudo yum install http://yum.basho.com/gpg/basho-release-5-1.noarch.rpm
-sudo yum install riak
+wget https://files.tiot.jp/riak/kv/2.2/2.2.6/rhel/7/riak-2.2.6-1.el7.x86_64.rpm
+sudo yum localinstall -y riak-2.2.6-1.el7.x86_64.rpm
 ```
 
 Or you can install the `.rpm` package manually:
 
 ```bash
-wget https://files.tiot.jp/riak/kv/2.2/2.2.6/rhel/5/riak-2.2.6-1.el5.x86_64.rpm
-sudo rpm -Uvh riak-2.2.6-1.el5.x86_64.rpm
+wget https://files.tiot.jp/riak/kv/2.2/2.2.6/rhel/7/riak-2.2.6-1.el7.x86_64.rpm
+sudo rpm -Uvh riak-2.2.6-1.el7.x86_64.rpm
 ```
 
 ### For Centos 6 / RHEL 6
@@ -127,8 +125,9 @@ sudo rpm -Uvh riak-2.2.6-1.el5.x86_64.rpm
 You can install using yum, which we recommend:
 
 ```bash
-sudo yum install http://yum.basho.com/gpg/basho-release-6-1.noarch.rpm
-sudo yum install riak
+wget https://files.tiot.jp/riak/kv/2.2/2.2.6/rhel/6/riak-2.2.6-1.el6.x86_64.rpm
+sudo yum localinstall -y riak-2.2.6-1.el6.x86_64.rpm
+
 ```
 
 Or you can install the `.rpm` package manually:
