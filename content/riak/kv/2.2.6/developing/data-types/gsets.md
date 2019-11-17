@@ -34,7 +34,7 @@ Unlike sets, elements can only be added and no element modification or deletion 
 
 > If you've already created and activated a bucket type with `gset` as the `datatype` parameter, skip to the [next section](#client-setup).
 
-Start by creating a bucket type with the `datatype` parameter `set`:
+Start by creating a bucket type with the `datatype` parameter `gset`:
 
 ```bash
 riak-admin bucket-type create gsets '{"props":{"datatype":"gset"}}'
@@ -125,17 +125,17 @@ set = Set(bucket, key)
 ```csharp
 // https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
 
-// As with counters, with the Riak .NET Client you interact with sets
+// As with counters, with the Riak .NET Client you interact with gsets
 // by building an Options object or using a Builder
-var builder = new FetchSet.Builder()
-    .WithBucketType("sets")
-    .WithBucket("travel")
-    .WithKey("cities");
+var builder = new FetchGSet.Builder()
+    .WithBucketType("gsets")
+    .WithBucket("account-12345678")
+    .WithKey("2019-11-17");
 
 // NB: builder.Options will only be set after Build() is called.
-FetchSet fetchSetCommand = builder.Build();
+FetchGSet fetchGSetCommand = builder.Build();
 
-FetchSetOptions options = new FetchSetOptions("sets", "travel", "cities");
+FetchGSetOptions options = new FetchGSetOptions("gsets", "account-12345678", "2019-11-17");
 
 // These two options objects are equal
 Assert.AreEqual(options, builder.Options);
@@ -214,12 +214,12 @@ cities_set = Set(travel, 'cities')
 ```csharp
 // https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
 
-// Now we'll create a Builder object for the set with which we want to
+// Now we'll create a Builder object for the gset with which we want to
 // interact:
-var builder = new FetchSet.Builder()
-    .WithBucketType("sets")
-    .WithBucket("travel")
-    .WithKey("cities");
+var builder = new FetchGSet.Builder()
+    .WithBucketType("gsets")
+    .WithBucket("account-12345678")
+    .WithKey("2019-11-17");
 ```
 
 ```javascript
@@ -281,14 +281,14 @@ len(cities_set) == 0
 ```csharp
 // https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
 
-var builder = new FetchSet.Builder()
-    .WithBucketType("sets")
-    .WithBucket("travel")
-    .WithKey("cities");
+var builder = new FetchGSet.Builder()
+    .WithBucketType("gsets")
+    .WithBucket("account-12345678")
+    .WithKey("2019-11-17");
 
-FetchSet fetchSetCommand = builder.Build();
-RiakResult rslt = client.Execute(fetchSetCommand);
-SetResponse response = fetchSetCommand.Response;
+FetchGSet fetchGSetCommand = builder.Build();
+RiakResult rslt = client.Execute(fetchGSetCommand);
+GSetResponse response = fetchGSetCommand.Response;
 // response.Value will be null
 ```
 
@@ -364,20 +364,19 @@ cities_set.add('Montreal')
 ```csharp
 // https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
 
-var adds = new[] { "Toronto", "Montreal" };
+var adds = new[] { "transaction a", "transaction b" };
 
-var builder = new UpdateSet.Builder()
-    .WithBucketType("sets")
-    .WithBucket("travel")
-    .WithKey("cities")
+var builder = new UpdateGSet.Builder()
+    .WithBucketType("gsets")
+    .WithBucket("account-12345678")
+    .WithKey("2019-11-17")
     .WithAdditions(adds);
 
-UpdateSet cmd = builder.Build();
+UpdateGSet cmd = builder.Build();
 RiakResult rslt = client.Execute(cmd);
-SetResponse response = cmd.Response;
-
-Assert.Contains("Toronto", response.AsStrings.ToArray());
-Assert.Contains("Montreal", response.AsStrings.ToArray());
+GSetResponse response = cmd.Response;
+Assert.Contains("transaction a", response.AsStrings.ToArray());
+Assert.Contains("transaction b", response.AsStrings.ToArray());
 ```
 
 ```javascript
@@ -469,15 +468,14 @@ cities_set.reload()
 ```csharp
 // https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
 
-foreach (var value in setResponse.AsStrings)
+foreach (var value in GSetResponse.AsStrings)
 {
-    Console.WriteLine("Cities Set Value: {0}", value);
+    Console.WriteLine("2019-11-17 Transactions: {0}", value);
 }
 
 // Output:
-// Cities Set Value: Hamilton
-// Cities Set Value: Ottawa
-// Cities Set Value: Toronto
+// 2019-11-17 Transactions: transaction a
+// 2019-11-17 Transactions: transaction b
 ```
 
 ```javascript
@@ -562,8 +560,8 @@ in_array('transaction a', $gset->getData()); # true
 
 using System.Linq;
 
-bool includesVancouver = response.AsStrings.Any(v => v == "Vancouver");
-bool includesOttawa = response.AsStrings.Any(v => v == "Ottawa");
+bool includesTransactionZ = response.AsStrings.Any(v => v == "transaction z");
+bool includesTransactionA = response.AsStrings.Any(v => v == "transaction a");
 ```
 
 ```javascript
@@ -615,7 +613,7 @@ len(cities_set)
 using System.Linq;
 
 // Note: this enumerates the IEnumerable
-setResponse.Values.Count();
+gsetResponse.Values.Count();
 ```
 
 ```javascript
