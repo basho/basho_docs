@@ -142,13 +142,13 @@ Assert.AreEqual(options, builder.Options);
 ```
 
 ```javascript
-// As with counters, with the Riak Node.js Client you interact with sets on the
-// basis of the set's location in Riak, as specified by an options object.
+// As with counters, with the Riak Node.js Client you interact with gsets on the
+// basis of the gset's location in Riak, as specified by an options object.
 // Below is an example:
 var options = {
-    bucketType: 'sets',
-    bucket: 'travel',
-    key: 'cities'
+    bucketType: 'gsets',
+    bucket: 'account-12345678',
+    key: '2019-11-17'
 };
 ```
 
@@ -223,12 +223,12 @@ var builder = new FetchGSet.Builder()
 ```
 
 ```javascript
-// Now we'll create a options object for the set with which we want to
+// Now we'll create a options object for the gset with which we want to
 // interact:
 var options = {
-    bucketType: 'sets',
-    bucket: 'travel',
-    key: 'cities'
+    bucketType: 'gsets',
+    bucket: 'account-12345678',
+    key: '2019-11-17'
 };
 ```
 
@@ -294,9 +294,9 @@ GSetResponse response = fetchGSetCommand.Response;
 
 ```javascript
 var options = {
-    bucketType: 'sets',
-    bucket: 'travel',
-    key: 'cities'
+    bucketType: 'gsets',
+    bucket: 'account-12345678',
+    key: '2019-11-17'
 };
 client.fetchSet(options, function (err, rslt) {
     if (err) {
@@ -304,7 +304,7 @@ client.fetchSet(options, function (err, rslt) {
     }
 
     if (rslt.notFound) {
-        logger.info("set 'cities' is not found!");
+        logger.info("gset '2019-11-17' is not found!");
     }
 });
 ```
@@ -381,15 +381,15 @@ Assert.Contains("transaction b", response.AsStrings.ToArray());
 
 ```javascript
 var options = {
-    bucketType: 'sets',
-    bucket: 'travel',
-    key: 'cities'
+    bucketType: 'gsets',
+    bucket: 'account-1234578',
+    key: '2019-11-17'
 };
-var cmd = new Riak.Commands.CRDT.UpdateSet.Builder()
+var cmd = new Riak.Commands.CRDT.UpdateGSet.Builder()
     .withBucketType(options.bucketType)
     .withBucket(options.bucket)
     .withKey(options.key)
-    .withAdditions(['Toronto', 'Montreal'])
+    .withAdditions(['transaction a', 'transaction b'])
     .withCallback(
         function (err, rslt) {
             if (err) {
@@ -480,21 +480,21 @@ foreach (var value in GSetResponse.AsStrings)
 
 ```javascript
 var options = {
-    bucketType: 'sets',
-    bucket: 'travel',
-    key: 'cities'
+    bucketType: 'gsets',
+    bucket: 'account-12345678',
+    key: '2019-11-17'
 };
 client.fetchSet(options, function(err, rslt) {
     if (err) {
         throw new Error(err);
     }
 
-    logger.info("cities set values: '%s'",
+    logger.info("2019-11-17 gset values: '%s'",
         rslt.values.join(', '));
 });
 
 // Output:
-// info: cities set values: 'Hamilton, Ottawa, Toronto'
+// info: 2019-11-17 gset values: 'transaction a, transaction b'
 ```
 
 ```erlang
@@ -567,9 +567,9 @@ bool includesTransactionA = response.AsStrings.Any(v => v == "transaction a");
 ```javascript
 // Use standard javascript array method indexOf()
 
-var cities_set = result.values;
-cities_set.indexOf('Vancouver'); // if present, index is >= 0
-cities_set.indexOf('Ottawa'); // if present, index is >= 0
+var 2019-11-17_gset = result.values;
+2019-11-17_gset.indexOf('transaction z'); // if present, index is >= 0
+2019-11-17_gset.indexOf('transaction a'); // if present, index is >= 0
 ```
 
 ```erlang
@@ -619,7 +619,7 @@ gsetResponse.Values.Count();
 ```javascript
 // Use standard javascript array property length
 
-var cities_set_size = result.values.length;
+var 2019-11-17_gset_size = result.values.length;
 ```
 
 ```erlang
