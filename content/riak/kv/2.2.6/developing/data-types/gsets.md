@@ -78,7 +78,7 @@ After creating and activating our new `gsets` bucket type, we can setup our clie
 Using sets involves creating a bucket/key pair to house a gset and running gset-specific operations on that pair.
 
 Here is the general syntax for creating a bucket type/bucket/key
-combination to handle a set:
+combination to handle a gset:
 
 ```java
 // In the Java client, a bucket/bucket type combination is specified
@@ -195,7 +195,7 @@ cities_set = Riak::Crdt::Set.new(travel, 'cities')
 ```
 
 ```php
-$location = new \Basho\Riak\Location('cities', 'travel', 'sets');
+$location = new \Basho\Riak\Location('2019-11-17', 'account-12345678', 'gsets');
 ```
 
 ```python
@@ -233,9 +233,9 @@ var options = {
 ```
 
 ```erlang
-CitiesSet = riakc_set:new().
+20191177Gset = riakc_gset:new().
 
-%% Sets in the Erlang client are opaque data structures that
+%% GSets in the Erlang client are opaque data structures that
 %% collect operations as you mutate them. We will associate the data
 %% structure with a bucket type, bucket, and key later on.
 ```
@@ -265,13 +265,13 @@ cities_set.empty?
 
 ```php
 # use $location from earlier
-$set = (new \Basho\Riak\Command\Builder\FetchSet($riak))
+$gset = (new \Basho\Riak\Command\Builder\FetchSet($riak))
     ->atLocation($location)
     ->build()
     ->execute()
     ->getSet();
 
-count($set->getData());
+count($gset->getData());
 ```
 
 ```python
@@ -310,11 +310,11 @@ client.fetchSet(options, function (err, rslt) {
 ```
 
 ```erlang
-riakc_set:size(CitiesSet) == 0.
+riakc_gset:size(20191117Gset) == 0.
 
 %% Query functions like size/1, is_element/2, and fold/3 operate over
 %% the immutable value fetched from the server. In the case of a new
-%% set that was not fetched, this is an empty collection, so the size
+%% gset that was not fetched, this is an empty collection, so the size
 %% is 0.
 ```
 
@@ -348,8 +348,8 @@ cities_set.add('Montreal')
 ```php
 # use $location from earlier
 $response = (new \Basho\Riak\Command\Builder\UpdateSet($riak))
-    ->add('Toronto')
-    ->add('Montreal')
+    ->add('transaction a')
+    ->add('transaction b')
     ->atLocation($location)
     ->withParameter('returnbody', 'true')
     ->build()
@@ -403,8 +403,8 @@ client.execute(cmd);
 ```
 
 ```erlang
-CitiesSet1 = riakc_set:add_element(<<"Toronto">>, CitiesSet),
-CitiesSet2 = riakc_set:add_element(<<"Montreal">>, CitiesSet1).
+20191117Gset1 = riakc_gset:add_element(<<"transaction a">>, 20191117Gset),
+20191117Gset2 = riakc_gset:add_element(<<"transaction b">>, 20191117Gset1).
 ```
 
 ```curl
@@ -441,13 +441,13 @@ cities_set.members
 
 ```php
 # use $location from earlier
-$set = (new \Basho\Riak\Command\Builder\FetchSet($riak))
+$gset = (new \Basho\Riak\Command\Builder\FetchSet($riak))
     ->atLocation($location)
     ->build()
     ->execute()
     ->getSet();
 
-var_dump($set->getData());
+var_dump($gset->getData());
 ```
 
 ```python
@@ -500,7 +500,7 @@ client.fetchSet(options, function(err, rslt) {
 ```
 
 ```erlang
-riakc_set:dirty_value(CitiesSet5).
+riakc_gset:dirty_value(20191117Gset3).
 
 %% The value fetched from Riak is always immutable, whereas the "dirty
 %% value" takes into account local modifications that have not been
@@ -508,13 +508,13 @@ riakc_set:dirty_value(CitiesSet5).
 %% [<<"Hamilton">>, <<"Ottawa">>, <<"Toronto">>], the call below would
 %% return []. These are essentially ordsets:
 
-riakc_set:value(CitiesSet5).
+riakc_gset:value(20191117Gset3).
 
 %% To fetch the value stored on the server, use the call below:
 
 {ok, SetX} = riakc_pb_socket:fetch_type(Pid,
-                                        {<<"sets">>,<<"travel">>},
-                                         <<"cities">>).
+                                        {<<"gsets">>,<<"account-12345678">>},
+                                         <<"20191117">>).
 ```
 
 ```curl
@@ -544,9 +544,9 @@ cities_set.include? 'Ottawa'
 ```
 
 ```php
-in_array('Vancouver', $set->getData()); # false
+in_array('transaction z', $gset->getData()); # false
 
-in_array('Ottawa', $set->getData()); # true
+in_array('transaction a', $gset->getData()); # true
 ```
 
 ```python
@@ -575,11 +575,11 @@ cities_set.indexOf('Ottawa'); // if present, index is >= 0
 ```
 
 ```erlang
-%% At this point, Set5 is the most "recent" set from the standpoint
+%% At this point, GSet3 is the most "recent" set from the standpoint
 %% of our application.
 
-riakc_set:is_element(<<"Vancouver">>, CitiesSet5).
-riakc_set:is_element(<<"Ottawa">>, CitiesSet5).
+riakc_gset:is_element(<<"transaction z">>, 20191117Gset3).
+riakc_gset:is_element(<<"transaction a">>, 20191117Gset3).
 ```
 
 ```curl
@@ -602,7 +602,7 @@ cities_set.members.length
 ```
 
 ```php
-count($set->getData());
+count($gset->getData());
 ```
 
 ```python
@@ -625,7 +625,7 @@ var cities_set_size = result.values.length;
 ```
 
 ```erlang
-riakc_set:size(CitiesSet5).
+riakc_gset:size(20191117Gset3).
 ```
 
 ```curl
