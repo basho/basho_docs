@@ -157,8 +157,8 @@ sudo dpkg -i »riak_package_name«.deb
 5.b\. (**OSS Only**)If you are upgrading from Riak KV OSS =< 2.2.3, you must perform the following steps before moving on: 
 
 * A standard package uninstall should not have removed your data directories, but if it did, move your backup to where the data directory should be.
-* Then copy any customizations from your backed-up vm.args/advanced.config to the newly installed vm.args/advanced.config file (these files may be identical).
-* The riak.conf file from the newly installed version will be significantly different from your backed-up file. It will have many new sections along with the original ones. Copy the customizations from your original riak.conf file into the appropriate sections in the new one. Ensure that the following sections are present in riak.conf:
+* Then copy any customizations from your backed-up vm.args/riak.conf to the newly installed vm.args/riak.conf file (these files may be identical).
+* The advanced.config file from the newly installed version will be significantly different from your backed-up file. It will have many new sections along with the original ones. Copy the customizations from your original advanced.config file into the appropriate sections in the new one. Ensure that the following sections are present in advanced.conf:
   * `riak_core` --- the `cluster_mgr` setting must be present. See [MDC v3 Configuration][config v3 mdc] for more information.
   * `riak_repl` --- See [MDC v3 Configuration][config v3 mdc] for more information.
   * `snmp` --- See [SNMP][snmp] for more information.
