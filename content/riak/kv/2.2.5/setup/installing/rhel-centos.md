@@ -108,14 +108,7 @@ instructions.
 
 ### For Centos 5 / RHEL 5
 
-You can install CentOS 5/RHEL 5 using yum, which we recommend:
-
-```bash
-sudo yum install http://yum.basho.com/gpg/basho-release-5-1.noarch.rpm
-sudo yum install riak
-```
-
-Or you can install the `.rpm` package manually:
+You can install the `.rpm` package manually:
 
 ```bash
 wget https://files.tiot.jp/riak/kv/2.2/2.2.5/rhel/5/riak-2.2.5-1.el5.x86_64.rpm
@@ -124,14 +117,7 @@ sudo rpm -Uvh riak-2.2.5-1.el5.x86_64.rpm
 
 ### For Centos 6 / RHEL 6
 
-You can install using yum, which we recommend:
-
-```bash
-sudo yum install http://yum.basho.com/gpg/basho-release-6-1.noarch.rpm
-sudo yum install riak
-```
-
-Or you can install the `.rpm` package manually:
+You can install the `.rpm` package manually:
 
 ```bash
 wget https://files.tiot.jp/riak/kv/2.2/2.2.5/rhel/6/riak-2.2.5-1.el6.x86_64.rpm
