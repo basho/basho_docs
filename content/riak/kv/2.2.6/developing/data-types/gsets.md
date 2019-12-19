@@ -28,7 +28,7 @@ Unlike sets, elements can only be added and no element modification or deletion 
 
 > **Known Issue**
 >
-> Unlike other data types, gsets require other data to be present in the cluster before they can be created. If you are unable to create a gset on a new cluster, please try [creating a set](../sets#set-up-a-bucket-type) first and then retrying with your gset.
+> Unlike other data types, gsets require other data to be present in the cluster before they can be created. If you are unable to create a gset on a new cluster, please try [creating a set](../sets#set-up-a-bucket-type) first and then retrying with your gset. Please see [issue #950](https://github.com/basho/riak_core/issues/950) for details.
 
 ## Set Up a Bucket Type
 
