@@ -49,9 +49,9 @@ For every node in the cluster:
 1.  Back up the Riak /etc, /data, and /basho-patches directories.
 1.  Remove your /basho-patches directory.
 1.  Upgrade Riak KV.
-    * If you are upgrading from OSS to EE, uninstall your OSS KV package before upgrading.
+    * If you are upgrading from EE to OSS, uninstall your EE KV package before upgrading.
 1. (Optional) If you would like to potentially downgrade at some point, update your advanced.config file to opt-out of the AAE updates.
-1.  If you're upgrading from OSS to EE, apply your customized settings to vm.args and app.config
+1.  If you're upgrading from EE to OSS, apply your customized settings to vm.args/riak.conf and app.config/advanced.config
 1.  If you're using MDC replication to clusters with versions less than 2.2.0, update your advanced.config file to over-ride the default bucket properties for compatibility.
 1.  Start Riak KV.
 1.  Verify Riak KV is running the upgraded version.
@@ -69,7 +69,7 @@ Before starting the rolling upgrade process on your cluster, check out the [Upgr
 * Upgrading to Solr 4.10.4 for Riak search.
 
 {{% note %}}
-You must have [Java version 7 or higher](http://www.oracle.com/technetwork/java/javase/downloads/index.html) in order to upgrade to Riak KV 2.2.6.
+You must have [Java version 7 or higher](http://www.oracle.com/technetwork/java/javase/downloads/index.html) in order to upgrade to Riak KV 2.2.6 only if you plan to use Riak search.
 {{% /note %}}
 
 
@@ -131,7 +131,7 @@ sudo rm -rf /usr/lib/riak/lib/basho-patches*
 4\. Upgrade Riak KV:
 
 {{% note title="Upgrading from KV Enterprise Edition" %}}
-If you are upgrading from Riak KV EE to Riak KV OSS, you must uninstall your Riak KV package right now, before you can install the OSS version.
+If you are upgrading from Riak KV EE to Riak KV OSS, you must uninstall your Riak KV EE package right now, before you can install the OSS version.
 {{% /note %}}
 
 
@@ -153,8 +153,14 @@ sudo dpkg -i »riak_package_name«.deb
      ]}
    ]}
    ```
-   
-5.b\. (**OSS Only**)If you are upgrading from Riak KV OSS =< 2.2.3, you must perform the following steps before moving on: 
+
+5.b\. (**Optional**) If you would like to keep your leveldb compression in a format that will facilitate downgrading, the capability override should be in riak.conf:
+
+   ```riak.conf
+   leveldb.compression.algorithm=snappy
+   ```
+
+5.c\. (**OSS Only**)If you are upgrading from Riak KV OSS =< 2.2.3, you must perform the following steps before moving on: 
 
 * A standard package uninstall should not have removed your data directories, but if it did, move your backup to where the data directory should be.
 * Then copy any customizations from your backed-up vm.args/riak.conf to the newly installed vm.args/riak.conf file (these files may be identical).
@@ -162,8 +168,9 @@ sudo dpkg -i »riak_package_name«.deb
   * `riak_core` --- the `cluster_mgr` setting must be present. See [MDC v3 Configuration][config v3 mdc] for more information.
   * `riak_repl` --- See [MDC v3 Configuration][config v3 mdc] for more information.
   * `snmp` --- See [SNMP][snmp] for more information.
+  * There is a sample configuration included at the end of the [Release Notes][release notes] for reference purposes.
 
-5.c\. (**EE Only with MDC**)If you need to replicate to clusters with versions less than 2.2.0, the capability override for bucket properties should be in the `riak_repl` proplist of the advanced.config file:
+5.d\. (**EE Only with MDC**)If you need to replicate to EE clusters with versions less than 2.2.0, the capability override for bucket properties should be in the `riak_repl` proplist of the advanced.config file:
 
    ```advanced.config
    {riak_repl, [
@@ -174,12 +181,12 @@ sudo dpkg -i »riak_package_name«.deb
    ```
 Once all of the clusters have been upgraded to version 2.2.0 or greater, this override should be removed.
 
-5.d\. (**EE Only**)JMX is no longer present in Riak KV. You must remove or comment out all references to it in your riak.conf/advanced.config files for Riak to start successfully post-upgrade.
+5.e\. (**EE Only**)JMX is no longer present in Riak KV. You must remove or comment out all references to it in your riak.conf/advanced.config files for Riak to start successfully post-upgrade.
 
 6\. Restart Riak KV:
 
 {{% note %}}
-You must have [Java version 7 or higher](http://www.oracle.com/technetwork/java/javase/downloads/index.html) in order to upgrade to Riak KV 2.2.6. If you do not have it installed, please install it now.
+You must have [Java version 7 or higher](http://www.oracle.com/technetwork/java/javase/downloads/index.html) in order to upgrade to Riak KV 2.2.6 if you wish to use Riak search. If you do not have it installed, please install it now.
 {{% /note %}}
 
 
