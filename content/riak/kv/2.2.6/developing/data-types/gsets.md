@@ -104,22 +104,12 @@ $location = new \Basho\Riak\Location('key', new \Basho\Riak\Bucket('bucket_name'
 ```
 
 ```python
-# Note: The Python standard library `collections` module has an abstract
-# base class called Set, which the Riak Client version subclasses as
-# `riak.datatypes.Set`. These classes are not directly interchangeable.
-# In addition to the base methods, `riak.datatypes.Set` also
-# implements the `add` and `discard` methods from
-# `collections.MutableSet`, but does not implement the rest of its
-# API. Be careful when importing, or simply use the instances returned
-# by `RiakBucket.get()` and `RiakBucket.new()` instead of directly
-# importing the class.
-
-set = bucket.new(key)
+gset = bucket.new('2019-11-17')
 
 # or
 
-from riak.datatypes import Set
-set = Set(bucket, key)
+from riak.datatypes import GSet
+gset = GSet('account-12345678', '2019-11-17')
 ```
 
 ```csharp
@@ -199,16 +189,16 @@ $location = new \Basho\Riak\Location('2019-11-17', 'account-12345678', 'gsets');
 ```
 
 ```python
-travel = client.bucket_type('sets').bucket('travel')
+bucket = client.bucket_type('gsets').bucket('account-12345678')
 
 # The client detects the bucket type's data type and automatically
 # returns the right data type for you, in this case a Riak set.
-cities_set = travel.new('cities')
+gset = bucket.new('2019-11-17')
 
 # You can also create a reference to a set explicitly:
-from riak.datatypes import Set
+from riak.datatypes import GSet
 
-cities_set = Set(travel, 'cities')
+gset = GSet('account-12345678', '2019-11-17')
 ```
 
 ```csharp
@@ -275,7 +265,7 @@ count($gset->getData());
 ```
 
 ```python
-len(cities_set) == 0
+len(gset) == 0
 ```
 
 ```csharp
@@ -357,8 +347,8 @@ $response = (new \Basho\Riak\Command\Builder\UpdateSet($riak))
 ```
 
 ```python
-cities_set.add('Toronto')
-cities_set.add('Montreal')
+gset.add('transaction a')
+gset.add('transaction b')
 ```
 
 ```csharp
@@ -450,7 +440,7 @@ var_dump($gset->getData());
 ```
 
 ```python
-cities_set.dirty_value
+gset.dirty_value
 
 # The value fetched from Riak is always immutable, whereas the "dirty
 # value" takes into account local modifications that have not been
@@ -458,11 +448,11 @@ cities_set.dirty_value
 # frozenset(['Toronto', 'Hamilton', 'Ottawa']), the call below would
 # return frozenset([]).
 
-cities_set.value
+gset.value
 
 # To fetch the value stored on the server, use the call below. Note
 # that this will clear any unsent additions or deletions.
-cities_set.reload()
+gset.reload()
 ```
 
 ```csharp
@@ -548,10 +538,10 @@ in_array('transaction a', $gset->getData()); # true
 ```
 
 ```python
-'Vancouver' in cities_set
+'transaction c' in gset
 # False
 
-'Ottawa' in cities_set
+'transaction a' in gset
 # True
 ```
 
@@ -604,7 +594,7 @@ count($gset->getData());
 ```
 
 ```python
-len(cities_set)
+len(gset)
 ```
 
 ```csharp
