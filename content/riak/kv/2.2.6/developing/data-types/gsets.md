@@ -445,13 +445,13 @@ gset.dirty_value
 # The value fetched from Riak is always immutable, whereas the "dirty
 # value" takes into account local modifications that have not been
 # sent to the server. For example, where the call above would return
-# frozenset(['Toronto', 'Hamilton', 'Ottawa']), the call below would
+# frozenset(['Transaction a', 'Transaction b']), the call below would
 # return frozenset([]).
 
 gset.value
 
 # To fetch the value stored on the server, use the call below. Note
-# that this will clear any unsent additions or deletions.
+# that this will clear any unsent additions.
 gset.reload()
 ```
 
