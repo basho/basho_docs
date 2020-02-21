@@ -44,7 +44,7 @@ Before installing Riak on CentOS 8/RHEL 8, we need to satisfy some Erlang depend
 from EPEL first by installing the EPEL repository:
 
 ```bash
-yum install -y epel-release
+sudo yum install -y epel-release
 ```
 
 Once the EPEL has been installed, you can install CentOS 8/RHEL 8 using yum, which we recommend:
