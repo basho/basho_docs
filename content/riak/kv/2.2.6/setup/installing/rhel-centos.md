@@ -58,7 +58,7 @@ Or you can install the `.rpm` package manually:
 
 ```bash
 wget https://files.tiot.jp/riak/kv/2.2/2.2.6/rhel/8/riak-2.2.6-1.el8.x86_64.rpm
-sudo rpm -Uvh riak-2.2.6-1.el7.x86_64.rpm
+sudo rpm -Uvh riak-2.2.6-1.el8.x86_64.rpm
 ```
 
 ### For Centos 7 / RHEL 7
