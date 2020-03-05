@@ -80,7 +80,7 @@ Next add the following contents to your `~/.kerlrc` file:
 
 ```shell
 KERL_CONFIGURE_OPTIONS="--disable-hipe --enable-smp-support --enable-threads
-                        --enable-kernel-poll --without-odbc --enable-darwin-64bit"
+                        --enable-kernel-poll --without-odbc"
 ```
 
 Then check for the presence of autoconf by running:

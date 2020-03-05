@@ -18,7 +18,12 @@ aliases:
   - /riak-docs/riak/kv/2.2.6/installing/amazon-web-services/
 ---
 
+
 ## Launching Riak VMs via the AWS Marketplace
+
+{{% note title="Note" %}}
+The AWS Marketplace does not always have the most recent versions of Riak available. To use the latest version of Riak, please refer to the [Installing from Package](#installing-from-package) section underneath.
+{{% /note %}}
 
 In order to launch a Riak virtual machine via the AWS Marketplace, you will first need to sign up for an [Amazon Web Services](http://aws.amazon.com) account.
 
@@ -67,6 +72,10 @@ The following clustering setup will _not_ be resilient to instance restarts
 unless deployed in Amazon VPC.
 {{% /note %}}
 
+{{% note title="Note on Package Based Installation"}}
+ If installing to AWS by package, further configuration to _riak.conf_ to set the node name and listening IP addresses is necessary for the below steps to function.
+{{% /note %}}
+
 1. On the first node, obtain the internal IP address:
 
     ```bash
@@ -98,3 +107,42 @@ unless deployed in Amazon VPC.
     ```
 
 You now have a Riak cluster running on AWS.
+
+
+## Installing From Package
+
+#### AWS (2)
+
+You can install on AWS 2 using yum, which we recommend:
+
+```bash
+wget https://files.tiot.jp/riak/kv/2.2/2.2.6/amazon/2/riak-2.2.6-1.amzn2x86_64.rpm
+sudo yum localinstall -y riak_2.2.6-1.amzn2x86_64.rpm
+```
+
+Or you can install the `.rpm` package manually:
+
+```bash
+wget https://files.tiot.jp/riak/kv/2.2/2.2.6/amazon/2/riak-2.2.6-1.amzn2x86_64.rpm
+sudo rpm -i riak_2.2.6-1.amzn2x86_64.rpm
+```
+
+
+#### AWS (2016.09)
+
+You can install on AWS 2 using yum, which we recommend:
+
+```bash
+wget https://files.tiot.jp/riak/kv/2.2/2.2.6/amazon/2016.09/riak-2.2.6-1.amzn1x86_64.rpm
+sudo yum localinstall -y riak_2.2.6-1.amzn1x86_64.rpm
+```
+
+Or you can install the `.rpm` package manually:
+
+```bash
+wget https://files.tiot.jp/riak/kv/2.2/2.2.6/amazon/2016.09/riak-2.2.6-1.amzn1x86_64.rpm
+sudo rpm -i riak_2.2.6-1.amzn1x86_64.rpm
+```
+## Next Steps
+
+Now that Riak is installed and you have set the [Security Group Settings](#security-group-settings), check out [Verifying a Riak Installation][install verify].

@@ -26,83 +26,40 @@ aliases:
 
 Riak KV can be installed on CentOS- or Red-Hat-based systems using a binary
 package or by [compiling Riak from source code][install source index]. The following steps have been tested to work with Riak on
-CentOS/RHEL 6.9, and 7.5.1804.
+CentOS/RHEL 6.9, 7.5.1804 and 8.1.1911 .
 
 > **Note on SELinux**
 >
 > CentOS enables SELinux by default, so you may need to disable SELinux if
 you encounter errors.
 
-## Installing with rpm
-
-For versions of Riak prior to 2.0, Basho used a self-hosted
-[rpm](http://www.rpm.org/) repository for CentOS and RHEL packages. For
-versions 2.0 and later, Basho has moved those packages to the
-[packagecloud.io](https://packagecloud.io/) hosting service.
-Instructions for installing via shell scripts, manual installation,
-Chef, and Puppet can be found in packagecloud's [installation
-docs](https://packagecloud.io/basho/riak/install).
-
-Platform-specific pages are linked below:
-
-* [el6](https://files.tiot.jp/riak/packages/el/6/riak-2.2.5-1.el6.x86_64.rpm)
-* [el7](https://files.tiot.jp/riak/packages/el/7/riak-2.2.5-1.el7.centos.x86_64.rpm)
-
-Our documentation also includes instructions regarding signing keys and
-sources lists, which can be found in the section immediately below.
-
-## Advanced rpm Installation
-
-For the simplest installation process on LTS (Long-Term Support)
-releases, use yum. First, you must install the `pygpgme` package, which
-enables yum to handle [GPG](https://www.gnupg.org/) signatures:
-
-```bash
-sudo yum install pygpgme
-```
-
-If you wish to install using a `.repo` file, packagecloud can generate
-one for you on the basis of a name that you specify, e.g. a hostname,
-and the desired operating system and distribution. The following example
-script would store your hostname in the variable `HOSTNAME`, send that
-information to packagecloud to generate a `.repo` file, and then store
-the return value in a file called `basho.repo`, which is stored in the
-`/etc/yum.repos.d` directory:
-
-```bash
-#!/bin/bash
-
-HOSTNAME=`hostname -f`
-FILENAME=/etc/yum.repos.d/basho.repo
-OS=el
-DIST=5
-PACKAGE_CLOUD_RIAK_DIR=https://packagecloud.io/install/repositories/basho/riak
-curl "${PACKAGE_CLOUD_RIAK_DIR}/config_file.repo?os=${OS}&dist=${DIST}&name=${HOSTNAME}" > $FILENAME
-```
-
-The `name` that you submit to packagecloud can be anything you like. The
-`HOSTNAME` used above was for example purposes. The resulting file
-should contents like the following:
-
-```
-[basho_riak]
-name=basho_riak
-baseurl=https://packagecloud.io/basho/riak/el/6/$basesearch
-repo_gpgcheck=1
-gpgcheck=0
-enabled=1
-gpgkey=https://packagecloud.io/gpg.key
-sslverify=1
-sslcacert=/etc/pki/tls/certs/ca-bundle.crt
-```
-
-With your `basho.repo` file population, you can update your rpm sources
-list.
-
 ## Installing From Package
 
 If you wish to install the RHEL/CentOS packages by hand, follow these
 instructions.
+
+### For Centos 8 / RHEL 8
+
+Before installing Riak on CentOS 8/RHEL 8, we need to satisfy some Erlang dependencies
+from EPEL first by installing the EPEL repository:
+
+```bash
+sudo yum install -y epel-release
+```
+
+Once the EPEL has been installed, you can install CentOS 8/RHEL 8 using yum, which we recommend:
+
+```bash
+wget https://files.tiot.jp/riak/kv/2.2/2.2.6/rhel/8/riak-2.2.6-1.el8.x86_64.rpm
+sudo yum localinstall -y riak-2.2.6-1.el8.x86_64.rpm
+```
+
+Or you can install the `.rpm` package manually:
+
+```bash
+wget https://files.tiot.jp/riak/kv/2.2/2.2.6/rhel/8/riak-2.2.6-1.el8.x86_64.rpm
+sudo rpm -Uvh riak-2.2.6-1.el8.x86_64.rpm
+```
 
 ### For Centos 7 / RHEL 7
 

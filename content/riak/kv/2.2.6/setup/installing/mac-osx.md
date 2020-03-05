@@ -24,9 +24,7 @@ aliases:
 [install source erlang]: {{<baseurl>}}riak/kv/2.2.6/setup/installing/source/erlang
 [install verify]: {{<baseurl>}}riak/kv/2.2.6/setup/installing/verify
 
-The following steps are known to work with Mac OS X 10.8, 10.9
-(Mavericks), and Yosemite. You can install from source or download a
-precompiled tarball.
+The following steps are known to work with Mac OS X 10.8 and higher. You can install from source or download a precompiled tarball.
 
 > **`ulimit` on OS X**
 >
@@ -43,7 +41,7 @@ appropriate platform:
 ### 64-bit
 
 ```bash
-curl -O https://files.tiot.jp/riak/kv/2.2/2.2.6/osx/10.8/riak-2.2.6-OSX-x86_64.tar.gz
+curl -O https://files.tiot.jp/riak/kv/2.2/2.2.6/osx/10.11/riak-2.2.6-OSX-x86_64.tar.gz
 tar xzvf riak-2.2.6-osx-x86_64.tar.gz
 ```
 
@@ -92,7 +90,7 @@ You must have Xcode tools installed from [Apple's Developer
 website](http://developer.apple.com/).
 
 {{% note title="Note on Clang" %}}
-Riak has had problems compiling with Clang in the past. As of Riak KV 
+Riak has had problems compiling with Clang in the past. As of Riak KV
 2.2.6 and Clang 902.0.39.1, Clang can build Riak.
 {{% /note %}}
 

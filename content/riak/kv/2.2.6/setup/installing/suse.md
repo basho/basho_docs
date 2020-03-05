@@ -20,6 +20,10 @@ aliases:
 
 [install verify]: {{<baseurl>}}riak/kv/2.2.6/setup/installing/verify
 
+{{% note title="SUSE End of Life (EOL) for Riak KV 2.2.3" %}}
+SUSE is no longer supported in Riak KV 2.2.6+. If you are interested in using Riak KV on SUSE, you can still [build from source](../source). The steps below have been left here for reference only and are no longer maintained.
+{{% /note %}}
+
 Riak KV can be installed on OpenSuse and SLES systems using a binary package. The following steps have been tested to work with Riak on
 the following x86/x86_64 flavors of SuSE:
 
@@ -34,8 +38,8 @@ the following x86/x86_64 flavors of SuSE:
 ## Installing with rpm
 
 ```bash
-wget https://files.tiot.jp/riak/kv/2.2/2.2.6/sles/11/riak-2.2.6-1.SLES11.x86_64.rpm
-sudo rpm -Uvh riak-2.2.6-1.SLES11.x86_64.rpm
+wget https://files.tiot.jp/riak/kv/2.2/2.2.3/sles/11/riak-2.2.3-1.SLES11.x86_64.rpm
+sudo rpm -Uvh riak-2.2.3-1.SLES11.x86_64.rpm
 ```
 
 ## Next Steps

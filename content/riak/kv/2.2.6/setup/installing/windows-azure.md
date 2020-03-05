@@ -20,6 +20,13 @@ aliases:
 
 ## Creating CentOS VMs
 
+{{% note title="Warning: Azure not always up to date" %}}
+Azure's available Riak VMs are community supported, and thus is not always up to
+date with the latest Riak package. Please ensure that the current VM is
+using the latest supported code (and don't be afraid to update it if it's
+not). Alternatively, you can follow the install instructions for [CentOS/RHEL](rhel-centos/) once you have created your Azure VM(s).
+{{% /note %}}
+
 You will need to sign up for the Windows Azure Virtual Machines preview feature in order to create a virtual machine. You can also sign up for a free trial account if you do not have a Windows Azure account.
 
 1. Navigate to [https://account.windowsazure.com](https://account.windowsazure.com/) and sign in with your Windows Azure account.
@@ -177,7 +184,7 @@ Execute on any one of the nodes:
 ```bash
 curl -s http://rekon.basho.com | sh
 ```
-    
+
 Visit DNS address listed on the dashboard, at the port we opened as an endpoint:
 
 ```
