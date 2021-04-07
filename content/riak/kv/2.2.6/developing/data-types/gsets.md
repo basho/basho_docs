@@ -165,7 +165,7 @@ Let's create a Riak gset stored in the key `2019-11-17` in the bucket `account-1
 // before you perform operations on them:
 
 Location citiesSet =
-  new Location(new Namespace("sets", "travel"), "cities");
+  new Location(new Namespace("gsets", "account-12345678"), "2019-11-17");
 ```
 
 ```ruby
@@ -322,7 +322,7 @@ But let's say that a pair of transactions occurred today. Let's add them to our 
 ```java
 // Using our "cities" Location from above:
 
-SetUpdate su = new SetUpdate()
+GSetUpdate su = new GSetUpdate()
         .add("Toronto")
         .add("Montreal");
 UpdateSet update = new UpdateSet.Builder(citiesSet, su)
@@ -519,8 +519,13 @@ Or we can see whether our gset includes a specific member:
 ```java
 // Using our "citiesSet" from above:
 
-System.out.println(citiesSet.contains(("Vancouver"));
-System.out.println(citiesSet.contains("Ottawa"));
+FetchSet fetch = new FetchSet.Builder(citiesSet)
+        .build();
+FetchSet.Response response = client.execute(fetch);
+Set<BinaryValue> binarySet = response.getDatatype().view();
+
+System.out.println(binarySet.contains(BinaryValue.createFromUtf8("Vancouver")));
+System.out.println(binarySet.contains(BinaryValue.createFromUtf8("Ottawa")));
 ```
 
 ```ruby
