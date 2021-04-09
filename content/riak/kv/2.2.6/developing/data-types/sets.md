@@ -661,8 +661,13 @@ Or we can see whether our set includes a specific member:
 ```java
 // Using our "citiesSet" from above:
 
-System.out.println(citiesSet.contains(("Vancouver"));
-System.out.println(citiesSet.contains("Ottawa"));
+FetchSet fetch = new FetchSet.Builder(citiesSet)
+        .build();
+FetchSet.Response response = client.execute(fetch);
+Set<BinaryValue> binarySet = response.getDatatype().view();
+
+System.out.println(binarySet.contains(BinaryValue.createFromUtf8("Vancouver")));
+System.out.println(binarySet.contains(BinaryValue.createFromUtf8("Ottawa")));
 ```
 
 ```ruby
