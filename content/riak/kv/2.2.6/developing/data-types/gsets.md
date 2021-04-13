@@ -158,19 +158,19 @@ curl http://localhost:8098/types/<bucket_type>/buckets/<bucket>/datatypes/<key>
 ## Create a GSet
 
 For the following example, we will use a set to store a list of transactions that occur for an account number on a specific date.
-Let's create a Riak gset stored in the key `cities` in the bucket `travel` using the `gsets` bucket type created previously:
+Let's create a Riak gset stored in the key `2019-11-17` in the bucket `account-12345678` using the `gsets` bucket type created previously:
 
 ```java
 // In the Java client, you specify the location of Data Types
 // before you perform operations on them:
 
 Location citiesSet =
-  new Location(new Namespace("gsets", "travel"), "cities");
+  new Location(new Namespace("gsets", "account-12345678"), "2019-11-17");
 ```
 
 ```ruby
-travel = client.bucket_type('sets').bucket('travel')
-cities_set = Riak::Crdt::Set.new(travel, 'cities')
+travel = client.bucket_type('sets').bucket('account-12345678')
+cities_set = Riak::Crdt::Set.new(travel, '2019-11-17')
 
 # Alternatively, the Ruby client enables you to set a bucket type as
 # being globally associated with a Riak data type. The following would
@@ -180,8 +180,8 @@ Riak::Crdt::DEFAULT_BUCKET_TYPES[:set] = 'sets'
 
 # This would enable us to create our set without specifying a bucket
 # type:
-travel = client.bucket('travel')
-cities_set = Riak::Crdt::Set.new(travel, 'cities')
+travel = client.bucket('account-12345678')
+cities_set = Riak::Crdt::Set.new(travel, '2019-11-17')
 ```
 
 ```php
