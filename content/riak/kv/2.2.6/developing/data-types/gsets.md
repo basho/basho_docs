@@ -6,7 +6,7 @@ project: "riak_kv"
 project_version: "2.2.6"
 menu:
   riak_kv-2.2.6:
-    name: "Sets"
+    name: "GSets"
     identifier: "data_types_gsets"
     weight: 101
     parent: "developing_data_types"
@@ -158,14 +158,14 @@ curl http://localhost:8098/types/<bucket_type>/buckets/<bucket>/datatypes/<key>
 ## Create a GSet
 
 For the following example, we will use a set to store a list of transactions that occur for an account number on a specific date.
-Let's create a Riak gset stored in the key `2019-11-17` in the bucket `account-12345678` using the `gsets` bucket type created previously:
+Let's create a Riak gset stored in the key `cities` in the bucket `travel` using the `gsets` bucket type created previously:
 
 ```java
 // In the Java client, you specify the location of Data Types
 // before you perform operations on them:
 
 Location citiesSet =
-  new Location(new Namespace("gsets", "account-12345678"), "2019-11-17");
+  new Location(new Namespace("gsets", "travel"), "cities");
 ```
 
 ```ruby
