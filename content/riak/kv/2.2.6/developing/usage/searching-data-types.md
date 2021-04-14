@@ -427,7 +427,7 @@ NumberFound = Results#search_results.num_found.
 ```
 
 ```curl
-curl "$RIAK_HOST/search/query/scores?wt=json&q=counter:[20 TO *]" | jsonpp
+curl "$RIAK_HOST/search/query/scores?wt=json&q=counter:[20 TO *]" | json_pp
 ```
 
 And there we are: only one of our two stored sets has a value over 20.
@@ -563,7 +563,7 @@ client.execute(searchCmd);
 ```
 
 ```curl
-curl "$RIAK_HOST/search/query/scores?wt=json&q=counter:[* TO 15]" | jsonpp
+curl "$RIAK_HOST/search/query/scores?wt=json&q=counter:[* TO 15]" | json_pp
 ```
 
 Or we can see how many counters have a value of 17 exactly:
@@ -609,7 +609,7 @@ client.execute(searchCmd);
 ```
 
 ```curl
-curl "$RIAK_HOST/search/query/scores?wt=json&q=counter:17" | jsonpp
+curl "$RIAK_HOST/search/query/scores?wt=json&q=counter:17" | json_pp
 ```
 
 ## Sets Example
@@ -888,7 +888,7 @@ client.execute(searchCmd);
 ```
 
 ```curl
-curl "$RIAK_HOST/search/query/hobbies?wt=json&q=set:football" | jsonpp
+curl "$RIAK_HOST/search/query/hobbies?wt=json&q=set:football" | json_pp
 ```
 
 Let's see how many sets contain the element `football`:
