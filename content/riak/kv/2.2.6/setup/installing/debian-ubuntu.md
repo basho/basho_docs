@@ -105,28 +105,28 @@ for the target platform:
 #### Ubuntu Bionic Beaver (18.04)
 
 ```bash
-wget https://files.tiot.jp/riak/kv/2.2/2.2.6/ubuntu/bionic/riak_2.2.6-1_amd64.deb
+wget https://files.tiot.jp/riak/kv/2.2/2.2.6/ubuntu/bionic64/riak_2.2.6-1_amd64.deb
 sudo dpkg -i riak_2.2.6-1_amd64.deb
 ```
 
 #### Ubuntu Xenial Xerus (16.04)
 
 ```bash
-wget https://files.tiot.jp/riak/kv/2.2/2.2.6/ubuntu/xenial/riak_2.2.6-1_amd64.deb
+wget https://files.tiot.jp/riak/kv/2.2/2.2.6/ubuntu/xenial64/riak_2.2.6-1_amd64.deb
 sudo dpkg -i riak_2.2.6-1_amd64.deb
 ```
 
 #### Ubuntu Trusty Tahr (14.04)
 
 ```bash
-wget https://files.tiot.jp/riak/kv/2.2/2.2.6/ubuntu/trusty/riak_2.2.6-1_amd64.deb
+wget https://files.tiot.jp/riak/kv/2.2/2.2.6/ubuntu/trusty64/riak_2.2.6-1_amd64.deb
 sudo dpkg -i riak_2.2.6-1_amd64.deb
 ```
 
 #### Ubuntu Precise Pangolin (12.04)
 
 ```bash
-wget https://files.tiot.jp/riak/kv/2.2/2.2.6/ubuntu/precise/riak_2.2.6-1_amd64.deb
+wget https://files.tiot.jp/riak/kv/2.2/2.2.6/ubuntu/precise64/riak_2.2.6-1_amd64.deb
 sudo dpkg -i riak_2.2.6-1_amd64.deb
 ```
 

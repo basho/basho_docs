@@ -167,7 +167,6 @@ sudo dpkg -i »riak_package_name«.deb
 * The advanced.config file from the newly installed version will be significantly different from your backed-up file. It will have many new sections along with the original ones. Copy the customizations from your original advanced.config file into the appropriate sections in the new one. Ensure that the following sections are present in advanced.conf:
   * `riak_core` --- the `cluster_mgr` setting must be present. See [MDC v3 Configuration][config v3 mdc] for more information.
   * `riak_repl` --- See [MDC v3 Configuration][config v3 mdc] for more information.
-  * `snmp` --- See [SNMP][snmp] for more information.
   * There is a sample configuration included at the end of the [Release Notes][release notes] for reference purposes.
 
 5.d\. (**EE Only with MDC**)If you need to replicate to EE clusters with versions less than 2.2.0, the capability override for bucket properties should be in the `riak_repl` proplist of the advanced.config file:
@@ -181,7 +180,7 @@ sudo dpkg -i »riak_package_name«.deb
    ```
 Once all of the clusters have been upgraded to version 2.2.0 or greater, this override should be removed.
 
-5.e\. (**EE Only**)JMX is no longer present in Riak KV. You must remove or comment out all references to it in your riak.conf/advanced.config files for Riak to start successfully post-upgrade.
+5.e\. (**EE Only**)JMX and SNMP are no longer present in Riak KV. You must remove or comment out all references to them in your riak.conf/advanced.config files for Riak to start successfully post-upgrade.
 
 6\. Restart Riak KV:
 
