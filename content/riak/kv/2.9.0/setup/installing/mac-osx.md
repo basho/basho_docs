@@ -57,7 +57,7 @@ using the latest supported code (and don't be afraid to update it if it's
 not).
 {{% /note %}}
 
-Installing Riak 2.0 with [Homebrew](http://brew.sh/) is easy:
+Installing Riak 2.9.0 with [Homebrew](http://brew.sh/) is easy:
 
 ```bash
 brew install --devrel riak

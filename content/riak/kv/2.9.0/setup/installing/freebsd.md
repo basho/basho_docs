@@ -37,7 +37,7 @@ Riak depends on `sudo` to be installed if the Riak command line tools are to be 
 ### Installation
 
 You can install the Riak binary package on FreeBSD remotely using the
-`pkg_add` remote option. For this example, we're installing `riak-2.9.0-FreeBSD-amd64.tbz`.
+`pkg_add` remote option. For this example, we're installing `riak-2.9.0.txz`.
 
 ### For FreeBSD 11.x
 
@@ -92,6 +92,7 @@ If you do not currently have the following software installed, please install it
 * OpenSSL (version 1.0.0_7)
 * Python
 * sudo
+* flex
 
 ### Installation
 First download the version you wish to install from the [downloads][downloads].
