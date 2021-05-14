@@ -17,7 +17,7 @@ aliases:
   - /riak-docs/riak/kv/2.2.6/introduction
 ---
 
-Released April 25, 2018.
+Released November 20th, 2019.
 
 > This release is dedicated to the memory of Andy Gross. Thank you and RIP.
 
@@ -118,9 +118,6 @@ Release 2.9 also brings three building blocks to enable current and future impro
   - It is expected that community interest and support in the [bitcask backend](https://github.com/basho/bitcask) within Riak will continue into Riak 3.0 and beyond, as bitcask still offers throughput advantages with some workloads, where there is no demand for secondary indexes.
 
   - Some [performance testing results and guidance for choosing a backend have been made available to assist with this decision](https://github.com/martinsumner/riak_testing_notes/blob/master/Release%202.9%20-%20Choosing%20a%20Backend.md).  The optimal decision though is driven by too many variables (e.g. object size, number of keys, distribution of requests to keys, mutability of objects, physical server configuration, feature requirements and levels of application concurrency) to make an optimal decision obvious in most uses cases - realistic use-case specific testing is always recommended.
-
-
-## Known Issues
 
 ##Transition Configuration Guidance
 
