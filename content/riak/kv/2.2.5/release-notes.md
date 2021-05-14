@@ -26,8 +26,8 @@ Released April 25, 2018.
 This is the first full community release of Riak, post-Basho's
 collapse into bankruptcy. A lot has happened, in particular [bet365](https://twitter.com/bet365Tech) bought Basho's
 assets and donated the code to the community. They kept the Basho
-website running, the documents site, the mailing list (after [TI Tokyo](https://www.tiot.jp/)
-had helpfully mirrored the docs in the interim), and have done a huge amount to
+website running, the documents site (after [TI Tokyo](https://www.tiot.jp/)
+had helpfully mirrored the docs in the interim), the mailing list, and have done a huge amount to
 provide continuity to the community.
 
 The development work on this release of Riak has received significant

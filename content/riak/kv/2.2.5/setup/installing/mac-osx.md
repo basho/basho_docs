@@ -92,8 +92,8 @@ You must have Xcode tools installed from [Apple's Developer
 website](http://developer.apple.com/).
 
 {{% note title="Note on Clang" %}}
-Riak will not compile with Clang. Please make sure that your default C/C++
-compiler is [GCC](https://gcc.gnu.org/).
+Riak has had problems compiling with Clang in the past. As of Riak KV 
+2.2.5 and Clang 902.0.39.1, Clang can build Riak.
 {{% /note %}}
 
 Riak requires [Erlang](http://www.erlang.org/) R16B02+.
