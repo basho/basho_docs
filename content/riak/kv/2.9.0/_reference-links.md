@@ -8,7 +8,7 @@
 [install index]: {{<baseurl>}}riak/kv/2.9.0/setup/installing
 [upgrade index]: {{<baseurl>}}riak/kv/2.9.0/upgrading
 [plan index]: {{<baseurl>}}riak/kv/2.9.0/planning
-[config index]: {{<baseurl>}}riak/2.1.3/using/configuring/
+[config index]: {{<baseurl>}}riak/2.9.0/using/configuring/
 [config reference]: {{<baseurl>}}riak/kv/2.9.0/configuring/reference/
 [manage index]: {{<baseurl>}}riak/kv/2.9.0/using/managing
 [performance index]: {{<baseurl>}}riak/kv/2.9.0/using/performance
@@ -40,6 +40,8 @@
 [install freebsd]: {{<baseurl>}}riak/kv/2.9.0/setup/installing/freebsd
 [install mac osx]: {{<baseurl>}}riak/kv/2.9.0/setup/installing/mac-osx
 [install rhel & centos]: {{<baseurl>}}riak/kv/2.9.0/setup/installing/rhel-centos
+[install smartos]: {{<baseurl>}}riak/kv/2.9.0/setup/installing/smartos
+[install solaris]: {{<baseurl>}}riak/kv/2.9.0/setup/installing/solaris
 [install suse]: {{<baseurl>}}riak/kv/2.9.0/setup/installing/suse
 [install windows azure]: {{<baseurl>}}riak/kv/2.9.0/setup/installing/windows-azure
 
