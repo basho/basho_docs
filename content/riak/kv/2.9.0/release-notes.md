@@ -11,13 +11,13 @@ menu:
     parent: index
 toc: false
 aliases:
-  - /riak-docs/riak/2.2.6/community/release-notes
-  - /riak-docs/riak/kv/2.2.6/intro-v20
-  - /riak-docs/riak/2.2.6/intro-v20
-  - /riak-docs/riak/kv/2.2.6/introduction
+  - /riak-docs/riak/2.9.0/community/release-notes
+  - /riak-docs/riak/kv/2.9.0/intro-v20
+  - /riak-docs/riak/2.9.0/intro-v20
+  - /riak-docs/riak/kv/2.9.0/introduction
 ---
 
-Released November 20th, 2019.
+Released April 25, 2018.
 
 > This release is dedicated to the memory of Andy Gross. Thank you and RIP.
 
@@ -46,7 +46,6 @@ Release 2.9 is intended to be a stepping stone towards migrating to Release 3.0,
 [Log of Changes](#change-log-for-this-release)
 
 [Previous Release Notes](#previous-release-notes)
-
 
 ## Improvements
 
@@ -165,7 +164,6 @@ If the highest score is increasing over time (and positive), then there is a bac
 - The riak_kv_leveled_backend will support v1 objects only, the riak_kv_vnode will never try to write an object as v0 into leveled.
 - It was discovered in handoff scenarios in a leveled backend, Riak consumed much more memory than expected. This was caused by "switched" Level 0 files in the Penciller. These files have a small memory footprint when garbage collected, but a large footprint uncollected - there is a legacy of all the data being on the LoopState in the starting state (but not the reader state). Each file process now does garbage_collect/1 on self at the point of the switch to free this memory immediately.
 - fixes some security issues within yokozuna, and completes a full run through of the yokozuna tests. It resolves an issue with HTTP security features crashing Riak which was introduced as part of the RC2 mochiweb uplift to fix the 2i index changes. It also transitions the eleveldb branch used to point back to the `basho` repository, with a fix that allows eleveldb to be deployed on recent OSX versions. An OSX-specific issue with `make test` failing on `eper` and `riak_ensemble` unit tests is also resolved.
-
 
 ## Previous Release Notes
 

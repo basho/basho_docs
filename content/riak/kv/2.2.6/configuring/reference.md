@@ -1847,6 +1847,14 @@ Enterprise Edition 1.3.2 - 2.2.3 and then from Riak KV 2.2.6 onwards.</td>
 </tr>
 
 <tr>
+<td><code>realtime_connection_rebalance_max_delay_secs</code></td>
+<td>Should a server on the source cluster be restarted, this is 
+the amount of time (in seconds), before the realtime connections are
+rebalanced by a change in the number of source nodes.</td>
+<td><code>300</code></td>
+</tr>
+
+<tr>
 <td><code>fullsync_use_background_manager</code></td>
 <td>By default, fullsync replication will attempt to coordinate with
 other Riak subsystems that may be contending for the same resources.

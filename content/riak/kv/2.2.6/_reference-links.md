@@ -1,5 +1,5 @@
 
-# Riak KV 2.1.3 Reference Links List
+# Riak KV 2.2.6 Reference Links List
 
 
 ## Common

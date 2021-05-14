@@ -20,8 +20,11 @@ commercial_offering: true
 [addon redis use]: ./get-started-with-rra/
 [ee]: https://www.tiot.jp/en/about-us/contact-us/
 
+{{% note title="Warning: No longer actively maintained" %}}
+Since moving to Open Source, the Riak Redis Add-on is no longer actively maintained. As basic functionality has not changed, we expect the add-on to continue working with newer versions without incident but cannot guarantee this. The text below is left from the last known good version.
+{{% /note %}}
 
-Riak Redis Add-on (RRA) is a distributed cache service that joins the power of Redis caching with the eventual consistency guarantees of Riak KV. 
+Riak Redis Add-on (RRA) is a distributed cache service that joins the power of Redis caching with the eventual consistency guarantees of Riak KV.
 
 RRA enables you to reduce latency for Riak KV reads through the use of a distributed cache layer. This type of caching is most effective for keys that are immutable or have an infrequent change rate.
 
@@ -53,4 +56,3 @@ RRA is compatible with the following services:
 * [Use RRA with various clients.][addon redis use]
 * [Develop with RRA.][addon redis develop]
 * [Learn about RRA's features.][addon redis features]
-

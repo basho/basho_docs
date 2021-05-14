@@ -29,7 +29,7 @@ aliases:
 
 Riak KV is a distributed NoSQL database designed to deliver maximum data availability by distributing data across multiple servers. As long as your Riak KV client can reach one Riak server, it should be able to write data.
 
-Riak KV 2.9.0 is the first Open Source only release that includes the features of the former [Riak KV Enterprise][aboutenterprise] product such as multi-datacenter cluster replication, which ensures low-latency and robust business continuity.
+Riak KV 2.9.0 is the first of the Riak KV 2.9.x family which has been designed specially as the upgrade path from Riak KV 2.2.x to Riak KV 3.0.x. As such the feature set of Riak KV 2.9.x will be the same as Riak KV 3.0.x with the main differences being the performance benefits KV 3.0.x enjoys from using more modern versions of Erlang and the minor change in KV 3.0.x command line based commands owing to the move to relx.
 
 ## Supported Operating Systems
 
@@ -37,19 +37,21 @@ Riak KV 2.9.0 is the first Open Source only release that includes the features o
 - Amazon Linux 2 (AWS)
 - CentOS 6
 - CentOS 7
+- CentOS 8
 - Debian 7.0 ("Wheezy")
 - Debian 8.0 ("Jessie")
 - Debian 9.0 ("Stretch")
 - Red Hat Enterprise Linux 6
 - Red Hat Enterprise Linux 7
+- Red Hat Enterprise Linux 8
+- Raspbian Buster
 - Ubuntu 12.04 ("Precise Pangolin")
 - Ubuntu 14.04 ("Trusty Tahr")
 - Ubuntu 16.04 ("Xenial Xerus")
-- Ubuntu 17.10 ("Artful Ardvark")
 - Ubuntu 18.04 ("Bionic Beaver")
 - FreeBSD 10.4
 - FreeBSD 11.1
-- Mac OSX 10.8+ (development only)
+- Mac OSX 10.11+ (development only)
 
 ## Getting Started
 
@@ -70,4 +72,3 @@ If you are looking to integrate Riak KV with your existing tools, check out the 
 3. [Developing with Riak KV: Searching][usage search]
 4. [Developing with Riak KV: Getting Started][getting started]
 5. [Developing with Riak KV: Client Libraries][dev client libraries]
-

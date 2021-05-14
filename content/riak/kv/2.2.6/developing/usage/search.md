@@ -832,7 +832,7 @@ if json, jerr := json.MarshalIndent(sc.Response.Docs, "", "  "); jerr != nil {
 ```
 
 ```curl
-curl "$RIAK_HOST/search/query/famous?wt=json&q=name_s:Lion*" | jsonpp
+curl "$RIAK_HOST/search/query/famous?wt=json&q=name_s:Lion*" | json_pp
 ```
 
 The response to a query will be an object containing details about the
@@ -1081,7 +1081,7 @@ if err := cluster.Execute(cmd); err != nil {
 ```
 
 ```curl
-curl "$RIAK_HOST/search/query/famous?wt=json&q=age_i:%5B30%20TO%20*%5D" | jsonpp
+curl "$RIAK_HOST/search/query/famous?wt=json&q=age_i:%5B30%20TO%20*%5D" | json_pp
 ```
 
 <!-- TODO: pubdate:[NOW-1YEAR/DAY TO NOW/DAY+1DAY] -->
@@ -1155,7 +1155,7 @@ if err := cluster.Execute(cmd); err != nil {
 ```
 
 ```curl
-curl "$RIAK_HOST/search/query/famous?wt=json&q=leader_b:true%20AND%20age_i:%5B25%20TO%20*%5D" | jsonpp
+curl "$RIAK_HOST/search/query/famous?wt=json&q=leader_b:true%20AND%20age_i:%5B25%20TO%20*%5D" | json_pp
 ```
 
 ### Deleting Indexes
@@ -1376,7 +1376,7 @@ PAGE=2
 START=$(($ROWS_PER_PAGE * ($PAGE-1)))
 
 curl
-curl "$RIAK_HOST/search/query/famous?wt=json&q=*:*&start=$START&rows=$ROWS_PER_PAGE" | jsonpp
+curl "$RIAK_HOST/search/query/famous?wt=json&q=*:*&start=$START&rows=$ROWS_PER_PAGE" | json_pp
 ```
 
 ### Pagination Warning

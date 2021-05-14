@@ -23,6 +23,7 @@
 [plan backend]: {{<baseurl>}}riak/kv/2.9.0/setup/planning/backend
 [plan backend bitcask]: {{<baseurl>}}riak/kv/2.9.0/setup/planning/backend/bitcask
 [plan backend leveldb]: {{<baseurl>}}riak/kv/2.9.0/setup/planning/backend/leveldb
+[plan backend leveled]: {{<baseurl>}}riak/kv/2.9.0/setup/planning/backend/leveled
 [plan backend memory]: {{<baseurl>}}riak/kv/2.9.0/setup/planning/backend/memory
 [plan backend multi]: {{<baseurl>}}riak/kv/2.9.0/setup/planning/backend/multi
 [plan cluster capacity]: {{<baseurl>}}riak/kv/2.9.0/setup/planning/cluster-capacity

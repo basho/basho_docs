@@ -260,7 +260,7 @@ field, you also must set `multiValued` to `true`.
    <field name="leader" type="boolean" indexed="true" stored="false" />
    <field name="aliases.name" type="string" indexed="true" stored="true" multiValued="true" />
    <dynamicField name="*_es" type="text_es" indexed="true" stored="true" multiValued="true" />
-   <dynamicField name="*_fr" type="text_fr" indexed="true" stored="true" multiValued="true" />
+   <dynamicField name="*_de" type="text_de" indexed="true" stored="true" multiValued="true" />
 
    <!-- All of these fields are required by Riak Search -->
    <field name="_yz_id"   type="_yz_str" indexed="true" stored="true"  multiValued="false" required="true"/>
@@ -363,6 +363,18 @@ date/time value, an exception similar to this will be logged to
         ...
         ...
 ```
+
+### Uploading
+
+Once you have decided on the format of your custom schema as an .xml file, it can be uploaded to Riak KV as follows:
+
+```curl
+curl -v -XPUT $RIAK_HOST/search/schema/thundercats \
+     -H 'Content-Type:application/xml' \
+     --data-binary @thundercats_schema.xml
+```
+
+
 
 ## Field Properties By Use Case
 

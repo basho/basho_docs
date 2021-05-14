@@ -90,7 +90,7 @@ More information can be found in [Erlang VM Tuning][perf erlang].
 
 The ring size, in Riak parlance, is the number of data partitions that
 comprise the cluster. This quantity impacts the scalability and
-performance of a cluster and, importantly, **it should established
+performance of a cluster and, importantly, **it should be established
 before the cluster starts receiving data**.
 
 If the ring size is too large for the number of servers, disk I/O will

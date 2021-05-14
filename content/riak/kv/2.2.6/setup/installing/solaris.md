@@ -22,6 +22,10 @@ aliases:
 
 [install verify]: {{<baseurl>}}riak/kv/2.2.6/setup/installing/verify
 
+{{% note title="Solaris End of Life (EOL) for Riak KV 2.2.0" %}}
+Solaris is no longer supported in Riak KV 2.2.1+. If you are interested in using Riak KV on Solaris, you can still [build from source](../source). The steps below have been left here for reference only and are no longer maintained.
+{{% /note %}}
+
 The following steps have been tested to work with Riak version 1.3.1 on Solaris 10 i386. They demonstrate installation of a Riak node on Solaris as the root user.
 
 > **Note:** Before installing Riak on Solaris, be sure that you've installed `sudo` as Riak's scripts require it for proper operation.
@@ -54,7 +58,7 @@ Note that you must restart to have the above settings take effect.
 Download your version of the Riak binary package for Solaris 10:
 
 ```bash
-curl -o /tmp/BASHOriak-2.2.6-Solaris10-i386.pkg.gz https://files.tiot.jp/riak/kv/2.2/2.2.6/solaris/10/BASHOriak-2.2.6-Solaris10-x86_64.pkg.gz
+curl -o /tmp/BASHOriak-2.2.6-Solaris10-i386.pkg.gz https://files.tiot.jp/riak/kv/2.2/2.2.0/solaris/10/BASHOriak-2.2.0-Solaris10-x86_64.pkg.gz
 ```
 
 Next, install the package:

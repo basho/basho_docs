@@ -6,7 +6,7 @@ project: "riak_kv"
 project_version: "2.2.6"
 menu:
   riak_kv-2.2.6:
-    name: "Sets"
+    name: "GSets"
     identifier: "data_types_gsets"
     weight: 101
     parent: "developing_data_types"
@@ -28,7 +28,7 @@ Unlike sets, elements can only be added and no element modification or deletion 
 
 > **Known Issue**
 >
-> Unlike other data types, gsets require other data to be present in the cluster before they can be created. If you are unable to create a gset on a new cluster, please try [creating a set](../sets#set-up-a-bucket-type) first and then retrying with your gset.
+> Unlike other data types, gsets require other data to be present in the cluster before they can be created. If you are unable to create a gset on a new cluster, please try [creating a set](../sets#set-up-a-bucket-type) first and then retrying with your gset. Please see [issue #950](https://github.com/basho/riak_core/issues/950) for details.
 
 ## Set Up a Bucket Type
 
@@ -158,14 +158,14 @@ curl http://localhost:8098/types/<bucket_type>/buckets/<bucket>/datatypes/<key>
 ## Create a GSet
 
 For the following example, we will use a set to store a list of transactions that occur for an account number on a specific date.
-Let's create a Riak gset stored in the key `2019-11-17` in the bucket `account-12345678` using the `gsets` bucket type created previously:
+Let's create a Riak gset stored in the key `cities` in the bucket `travel` using the `gsets` bucket type created previously:
 
 ```java
 // In the Java client, you specify the location of Data Types
 // before you perform operations on them:
 
 Location citiesSet =
-  new Location(new Namespace("sets", "travel"), "cities");
+  new Location(new Namespace("gsets", "travel"), "cities");
 ```
 
 ```ruby
@@ -322,7 +322,7 @@ But let's say that a pair of transactions occurred today. Let's add them to our 
 ```java
 // Using our "cities" Location from above:
 
-SetUpdate su = new SetUpdate()
+GSetUpdate su = new GSetUpdate()
         .add("Toronto")
         .add("Montreal");
 UpdateSet update = new UpdateSet.Builder(citiesSet, su)
@@ -519,8 +519,13 @@ Or we can see whether our gset includes a specific member:
 ```java
 // Using our "citiesSet" from above:
 
-System.out.println(citiesSet.contains(("Vancouver"));
-System.out.println(citiesSet.contains("Ottawa"));
+FetchSet fetch = new FetchSet.Builder(citiesSet)
+        .build();
+FetchSet.Response response = client.execute(fetch);
+Set<BinaryValue> binarySet = response.getDatatype().view();
+
+System.out.println(binarySet.contains(BinaryValue.createFromUtf8("Vancouver")));
+System.out.println(binarySet.contains(BinaryValue.createFromUtf8("Ottawa")));
 ```
 
 ```ruby

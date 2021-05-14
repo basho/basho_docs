@@ -28,23 +28,28 @@ You can install Riak on FreeBSD for the AMD64 architecture with a binary package
 
 ## Installing From Binary Package
 
-> **Note:** The Riak 1.2 binary package is supported on FreeBSD version 9. Users have reported success building Riak from source on a number of FreeBSD versions, however.
-
 Installing Riak from a binary package is the simplest method with least required dependencies, and requires less time to complete than building from source.
 
 ### Prerequisites and Dependencies
 
 Riak depends on `sudo` to be installed if the Riak command line tools are to be executed by users other than the *riak* user. Please ensure that `sudo` is installed via packages or the ports collection prior to installing the Riak package.
 
-The Riak binary package also depends on a packaged version of OpenSSL. Prior to installing Riak 1.2 on FreeBSD 9, you'll need to install `openssl-1.0.0_7` either from package or the ports collection.
-
 ### Installation
 
 You can install the Riak binary package on FreeBSD remotely using the
 `pkg_add` remote option. For this example, we're installing `riak-2.2.6-FreeBSD-amd64.tbz`.
 
+### For FreeBSD 11.x
+
 ```bash
-sudo pkg_add -r https://files.tiot.jp/riak/kv/2.2/2.2.6/freebsd/9/riak-2.2.6-FreeBSD-amd64.tbz
+sudo pkg_add -r https://files.tiot.jp/riak/kv/2.2/2.2.6/freebsd/11.1/riak-2.2.6.txz
+```
+
+
+### For FreeBSD 10.x
+
+```bash
+sudo pkg_add -r https://files.tiot.jp/riak/kv/2.2/2.2.6/freebsd/10.4/riak-2.2.6.txz
 ```
 
 When Riak is installed, a message is displayed with information about the installation and available documentation.
@@ -69,14 +74,6 @@ Add /usr/local/sbin to your path to run the riak and riak-admin scripts directly
 Man pages are available for riak(1) and riak-admin(1)
 ```
 
-If instead of this message, you receive an error during installation regarding OpenSSL, similar to this one:
-
-```
-Package dependency openssl-1.0.0_7 for /tmp/riak-2.2.6-FreeBSD-amd64.tbz not found!
-```
-
-Be sure that you've installed the required OpenSSL version from packages or the ports collection as described in the **Prerequisites and Dependencies** section.
-
 ## Installing From Source
 
 Installing Riak from source on FreeBSD is a straightforward process which requires installation of more dependencies (such as Erlang) prior to building, and requires more time than a binary package installation.
@@ -97,7 +94,7 @@ If you do not currently have the following software installed, please install it
 * sudo
 
 ### Installation
-First download the version you wish to install from [Basho downloads][downloads].
+First download the version you wish to install from the [downloads][downloads].
 
 Next, unpack and build a release from source:
 
