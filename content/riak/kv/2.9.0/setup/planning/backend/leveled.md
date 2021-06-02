@@ -5,8 +5,8 @@ project: "riak_kv"
 project_version: "2.9.0"
 menu:
   riak_kv-2.9.0:
-    name: "LevelD"
-    identifier: "planning_backend_leveld"
+    name: "LeveleD"
+    identifier: "planning_backend_leveled"
     weight: 101
     parent: "planning_choose_backend"
 toc: true
