@@ -20,6 +20,8 @@ aliases:
 [config backend bitcask]: ../../setup/planning/backend/bitcask/#configuring-bitcask
 [plan backend leveldb]: ../../setup/planning/backend/leveldb
 [config backend leveldb]: ../../setup/planning/backend/leveldb/#configuring-eleveldb
+[plan backend leveled]: ../../setup/planning/backend/leveled
+[config backend leveled]: ../../setup/planning/backend/bitcask/#configuring-leveled
 [plan backend memory]: ../../setup/planning/backend/memory
 [config backend memory]: ../../setup/planning/backend/memory/#configuring-the-memory-backend
 [plan backend multi]: ../../setup/planning/backend/multi
@@ -148,6 +150,7 @@ Riak enables you to choose from the following storage backends:
 
 * [Bitcask][plan backend bitcask] --- [configuration][config backend bitcask]
 * [LevelDB][plan backend leveldb] --- [configuration][config backend leveldb]
+* [Leveled][plan backend leveled] --- [configuration][config backend leveled]
 * [Memory][plan backend memory] --- [configuration][config backend memory]
 * [Multi][plan backend multi] --- [configuration][config backend multi]
 
@@ -166,7 +169,7 @@ Riak enables you to choose from the following storage backends:
 <td>Specifies the storage engine used for Riak's key-value data and
 secondary indexes (if supported).<br /><br />The available options are
 <code>bitcask</code> (the default), <code>leveldb</code>,
-<code>memory</code>, and <code>multi</code>.</td>
+<code>memory</code>, <code>leveled</code> and <code>multi</code>.</td>
 <td><code>bitcask</code></td>
 </tr>
 
