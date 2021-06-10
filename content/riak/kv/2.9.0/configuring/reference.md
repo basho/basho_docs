@@ -1329,6 +1329,49 @@ to <code>off</code> can cut down on system resource usage.
 </tbody>
 </table>
 
+## TicTac Active Anti-Entropy
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><code>tictacaae_active</code></td>
+<td>Changes TicTacAAE from Passive or Active. If you want to run TicTac AAE alongside legacy AAE, set both to Active. Can be <code>active</code> or <code>passive</code>
+</td>
+<td><code>passive</code></td>
+</tr>
+
+<tr>
+<td><code>tictacaae_dataroot</code></td>
+<td>Path under which aae datafiles will be stored </td>
+<td><code>(platform_data_dir)/tictac_aae</code></td>
+</tr>
+
+<tr>
+<td><code>tictacaae_parallelstore</code></td>
+<td>When running in parallel mode, which will be the default if the backend does not support native tictac aae (i.e. is not leveled), what type of parallel key store should be kept - leveled_ko (leveled and key-ordered), or leveled_so (leveled and segment ordered). When running in native mode, this setting is ignored. Acceptable values are <code>leveled_ko</code> or <code>leveled_so</code></td>
+<td><code>leveled_ko</code></td>
+</tr>
+
+<tr>
+<td><code>tictacaae_rebuildwait</code></td>
+<td>The minimum number of hours to wait between rebuilds.</td>
+<td><code>336</code></td>
+</tr>
+
+<tr>
+<td><code>tictacaae_rebuilddelay</code></td>
+<td>The number of seconds which represents the length of the period in which the next rebuild will be scheduled. So if all vnodes are scheduled to rebuild at the same time, they will actually rebuild randomly between 0 and this value (in seconds) after the rebuild time.</td>
+<td><code>345600</code></td>
+</tr>
+
 ## Intra-Cluster Handoff
 
 Configurable parameters for intra-cluster, i.e. inter-node, [handoff][cluster ops handoff].
