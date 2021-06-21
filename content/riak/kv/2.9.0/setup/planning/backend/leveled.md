@@ -1,11 +1,11 @@
 ---
-title: "LeveleD"
+title: "Leveled"
 description: ""
 project: "riak_kv"
 project_version: "2.9.0"
 menu:
   riak_kv-2.9.0:
-    name: "LeveleD"
+    name: "Leveled"
     identifier: "planning_backend_leveled"
     weight: 101
     parent: "planning_choose_backend"
