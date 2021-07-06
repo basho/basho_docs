@@ -119,7 +119,7 @@ Riak may not such be a good choice if you use it to store:
 
 * **Objects that exceed 1-2MB in size** --- If you will be
   storing a lot of objects over that size, we would recommend checking
-  out [Riak CS](https://docs.riak.com/riakcs/latest/) instead, as Riak
+  out [Riak CS](https://www.tiot.jp/riak-docs/riak/cs/latest/) instead, as Riak
   CS was built to solve this problem. Storing large objects in Riak will
   typically lead to substandard performance.
 * **Objects with complex interdependencies** --- If your data cannot be

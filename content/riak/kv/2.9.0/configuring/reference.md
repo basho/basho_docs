@@ -21,7 +21,7 @@ aliases:
 [plan backend leveldb]: ../../setup/planning/backend/leveldb
 [config backend leveldb]: ../../setup/planning/backend/leveldb/#configuring-eleveldb
 [plan backend leveled]: ../../setup/planning/backend/leveled
-[config backend leveled]: ../../setup/planning/backend/bitcask/#configuring-leveled
+[config backend leveled]: ../../setup/planning/backend/leveled/#configuring-leveled
 [plan backend memory]: ../../setup/planning/backend/memory
 [config backend memory]: ../../setup/planning/backend/memory/#configuring-the-memory-backend
 [plan backend multi]: ../../setup/planning/backend/multi
