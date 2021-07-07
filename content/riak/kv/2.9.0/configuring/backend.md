@@ -13,6 +13,7 @@ toc: true
 ---
 
 [plan backend leveldb]: {{<baseurl>}}riak/kv/2.9.0/setup/planning/backend/leveldb
+[plan backend leveled]: {{<baseurl>}}riak/kv/2.9.0/setup/planning/backend/leveled
 [plan backend bitcask]: {{<baseurl>}}riak/kv/2.9.0/setup/planning/backend/bitcask
 [plan backend memory]: {{<baseurl>}}riak/kv/2.9.0/setup/planning/backend/memory
 [plan backend multi]: {{<baseurl>}}riak/kv/2.9.0/setup/planning/backend/multi
@@ -231,6 +232,82 @@ feature.</td>
 
 </tbody>
 </table>
+
+## Leveled
+
+Configurable Parameters for Riak's [leveled][plan backend leveled] storage backend
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><code>leveled.data_root</code></td>
+<td>A path under which leveled data files will be stored.</td>
+<td><code>$(platform_data_dir)/leveled</code>
+</tr>
+
+<tr>
+<td><code>leveled.sync_strategy</code>
+<td>Strategy for flushing data to disk - Can be set to <code>riak_sync</code>, <code>sync</code> (if OTP > 16) or <code>none</code>. Use <code>none</code>, and the OS will flush when most efficient. Use <code>riak_sync</code> or <code>sync</code> to flush after every PUT (not recommended wihtout some hardware support e.g. flash drives and/or
+Flash-backed Write Caches)</td>
+<td><code>none</code></td>
+</tr>
+
+<tr>
+<td><code>leveled.compression_method</code></td>
+<td>Can be lz4 or native (which will use the Erlang native zlib compression) within term_to_binary</td>
+<td><code>native</code></td>
+</tr>
+
+<tr>
+<td><code>leveled.compression_point</code></td>
+<td>The point at which compression is applied to the Journal (the Ledger is always compressed).  Use on_receipt or on_compact.  on_compact is suitable
+when values are unlikely to yield much benefit from compression(compression is only attempted when compacting)</td>
+<td><code>on_receipt</code></td>
+</tr>
+
+<tr>
+<td><code>leveled.log_level</code></td>
+<td>Can be debug, info, warn, error or critical. Set the minimum log level to be used within leveled. Leveled will log many lines to allow for stats to be etracted by those using log indexers such as Splunk</td>
+<td><code>info</code></td>
+</tr>
+
+<tr>
+<td><code>leveled.journal_size</code></td>
+<td> The approximate size (in bytes) when a Journal file should be rolled. Normally keep this as around the size of o(100K) objects.</td>
+<td><code>1000000000</code></td>
+</tr>
+
+<tr>
+<td><code>leveled.compaction_runs_perday</code></td>
+<td>The number of journal compactions per vnode per day, The higher the value, the more compaction runs, and the sooner space is recovered. But each run has a cost.</td>
+<td><code>24</code></td>
+</tr>
+
+<tr>
+<td><code>leveled.compaction_low_hour</code></td>
+<td>The hour of the day in which journal compaction can start. Use Low hour of 0 and High hour of 23 to have no compaction window (i.e. always compactregardless of time of day)</td>
+<td><code>0</code></td>
+</tr>
+
+<tr>
+<td><code>leveled.compaction_top_hour</code></td>
+<td>The hour of the day, after which journal compaction should stop. If low hour > top hour then, compaction will work overnight between low hour and top hour (inclusive).  Timings rely on server's view of local time</td>
+<td><code>23</code></td>
+</tr>
+
+<tr>
+<td><code>leveled.max_run_length</code></td>
+<td>In a single compaction run, what is the maximum number of consecutive files which may be compacted.</td>
+<td><code>4 </code></td>
+</tr>
 
 ## Bitcask
 

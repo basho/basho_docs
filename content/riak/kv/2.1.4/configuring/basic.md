@@ -208,11 +208,11 @@ buckets.default.r = 3
 For more on bucket properties, we recommend reviewing our docs on
 [buckets][concept buckets], [bucket types][usage bucket types], [replication properties][apps replication properties], and [eventual consistency][concept eventual consistency], as well as Basho's five-part blog series, "Understanding Riak's Configurable Behaviors."
 
-* [Part 1](http://basho.com/understanding-riaks-configurable-behaviors-part-1/)
-* [Part 2](http://basho.com/riaks-config-behaviors-part-2/)
-* [Part 3](http://basho.com/riaks-config-behaviors-part-3/)
-* [Part 4](http://basho.com/riaks-config-behaviors-part-4/)
-* [Epilogue](http://basho.com/riaks-config-behaviors-epilogue/)
+* [Part 1](https://riak.com/understanding-riaks-configurable-behaviors-part-1/)
+* [Part 2](https://riak.com/riaks-config-behaviors-part-2/)
+* [Part 3](https://riak.com/riaks-config-behaviors-part-3/)
+* [Part 4](https://riak.com/riaks-config-behaviors-part-4/)
+* [Epilogue](https://riak.com/riaks-config-behaviors-epilogue/)
 
 If the default bucket properties are modified in your configuration
 files and the node is restarted, any existing buckets will **not** be

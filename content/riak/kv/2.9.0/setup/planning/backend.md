@@ -19,6 +19,7 @@ aliases:
 [plan backend leveldb]: {{<baseurl>}}riak/kv/2.9.0/setup/planning/backend/leveldb
 [plan backend memory]: {{<baseurl>}}riak/kv/2.9.0/setup/planning/backend/memory
 [plan backend multi]: {{<baseurl>}}riak/kv/2.9.0/setup/planning/backend/multi
+[plan backend leveled]: {{<baseurl>}}riak/kv/2.9.0/setup/planning/backend/leveled
 [dev api backend]: {{<baseurl>}}riak/kv/2.9.0/developing/api/backend
 
 Pluggable storage backends are a key feature of Riak KV. They enable you to
@@ -34,6 +35,7 @@ The following backends are supported:
 * [LevelDB][plan backend leveldb]
 * [Memory][plan backend memory]
 * [Multi][plan backend multi]
+* [Leveled][plan backend leveled]
 
 Riak KV supports the use of custom storage backends as well. See the
 storage [Backend API][dev api backend] for more details.

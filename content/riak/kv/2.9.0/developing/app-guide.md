@@ -38,6 +38,7 @@ aliases:
 [plan backend leveldb]: {{<baseurl>}}riak/kv/2.9.0/setup/planning/backend/leveldb
 [plan backend bitcask]: {{<baseurl>}}riak/kv/2.9.0/setup/planning/backend/bitcask
 [plan backend memory]: {{<baseurl>}}riak/kv/2.9.0/setup/planning/backend/memory
+[plan backend leveled]: {{<baseurl>}}riak/kv/2.9.0/setup/planning/backend/leveled
 [obj model java]: {{<baseurl>}}riak/kv/2.9.0/developing/getting-started/java/object-modeling
 [obj model ruby]: {{<baseurl>}}riak/kv/2.9.0/developing/getting-started/ruby/object-modeling
 [obj model python]: {{<baseurl>}}riak/kv/2.9.0/developing/getting-started/python/object-modeling
@@ -92,7 +93,7 @@ following:
 * **Small objects** --- Riak was not built as a store for large objects
   like video files or other
   [BLOB](http://en.wikipedia.org/wiki/Binary_large_object)s. We built
-  [Riak CS](http://basho.com/riak-cloud-storage/) for that. Riak is
+  [Riak CS](https://riak.com/riak-cloud-storage/) for that. Riak is
   great, however, for JSON, [log files][dev data model#log], [sensor data][dev data model#sensor], HTML files, and other objects that tend
   to run smaller than 1 MB.
 * **Independent objects** --- Objects that do not have interdependencies
@@ -118,7 +119,7 @@ Riak may not such be a good choice if you use it to store:
 
 * **Objects that exceed 1-2MB in size** --- If you will be
   storing a lot of objects over that size, we would recommend checking
-  out [Riak CS](http://docs.basho.com/riakcs/latest/) instead, as Riak
+  out [Riak CS](https://www.tiot.jp/riak-docs/riak/cs/latest/) instead, as Riak
   CS was built to solve this problem. Storing large objects in Riak will
   typically lead to substandard performance.
 * **Objects with complex interdependencies** --- If your data cannot be

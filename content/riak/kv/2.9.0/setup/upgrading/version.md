@@ -61,12 +61,14 @@ For every node in the cluster:
 Before starting the rolling upgrade process on your cluster, check out the [Upgrading Riak KV: Production Checklist][production checklist], which covers details and questions to consider before upgrading.
 
 
-## Data File Format Changes
+## Transitioning to Leveled backend
 
-[Riak KV 2.2][release notes] introduces on-disk data file format changes that can impact the upgrade/downgrade process:
 
-* Changes to active anti-entropy related to inconsistent hashing.
-* Upgrading to Solr 4.10.4 for Riak search.
+[Riak KV 2.9][release notes] introduced a new backend specifically for Riak, Leveled:
+
+The leveled backend is not compatible with other backends in terms of the serialised disk format. There is no in-place transition possible from bitcask/eleveldb/hanoidb to leveled. Transitioning requires a node replace operation. It is recommended to:
+* First transition to 2.9 with the current backend in-place, minimising the time spent running mis-matched versions in parallel;
+* Then as a second phase run a rolling series of node transfers to replace the nodes with the previous backend, with nodes with the leveled backend.
 
 {{% note %}}
 You must have [Java version 7 or higher](http://www.oracle.com/technetwork/java/javase/downloads/index.html) in order to upgrade to Riak KV 2.9.0 only if you plan to use Riak search.
@@ -92,12 +94,9 @@ We do our best to make all features that change data formats on disk opt-in; how
 
 ### When Downgrading is No Longer an Option
 
-If you decide to upgrade to version 2.2, you can still downgrade your cluster to an earlier version of Riak KV if you wish, unless you perform one of the following actions in your cluster:
+If you decide to upgrade to version 2.9, you can still downgrade your cluster to an earlier version of Riak KV if you wish, unless you transfer all of your nodes to the new Leveled backend.
 
-* Enable LZ4 Compression in LevelDB
-* Enable Global Expiration in LevelDB
-
-If you use other new features, such as the HyperLogLog data type, you can still downgrade your cluster, but you will no longer be able to use those features or access data in new formats after the downgrade.
+If you use other new features, you can still downgrade your cluster, but you will no longer be able to use those features after the downgrade.
 
 
 ## Upgrading process
