@@ -96,7 +96,7 @@ Location set =
 # the Riak client version as Riak::Crdt::Set
 
 bucket = client.bucket_type('bucket_type_name').bucket('bucket_name')
-set = Riak::Crdt::Set.new(bucket, key)
+set = Riak::Crdt::GrowOnlySet.new(bucket, key)
 ```
 
 ```php
@@ -170,7 +170,7 @@ Location citiesSet =
 
 ```ruby
 travel = client.bucket_type('sets').bucket('travel')
-cities_set = Riak::Crdt::Set.new(travel, 'cities')
+cities_set = Riak::Crdt::GrowOnlySet.new(travel, 'cities')
 
 # Alternatively, the Ruby client enables you to set a bucket type as
 # being globally associated with a Riak data type. The following would
@@ -181,7 +181,7 @@ Riak::Crdt::DEFAULT_BUCKET_TYPES[:set] = 'sets'
 # This would enable us to create our set without specifying a bucket
 # type:
 travel = client.bucket('travel')
-cities_set = Riak::Crdt::Set.new(travel, 'cities')
+cities_set = Riak::Crdt::GrowOnlySet.new(travel, 'cities')
 ```
 
 ```php
