@@ -214,9 +214,14 @@ X-Riak-Vclock: a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
 
 # When performing a write to the same key, that same header needs to
 # accompany the write for Riak to be able to use the context object
+
+curl -XPUT \
+  -H "X-Riak-Vclock: a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=" \
+  -d "Harlem Globetrotters" \
+  http://localhost:8098/types/sports/buckets/nba/keys/champion
 ```
 
-In the samples above, we didn't need to actually interact with the
+In the samples above, with the exception of curl, we didn't need to actually interact with the
 context object, as retaining and passing along the context object was
 accomplished automatically by the client. If, however, you do need
 access to an object's context, the clients enable you to fetch it from
@@ -292,6 +297,17 @@ fmt.Println(rsp.VClock)
 // Output:
 // X3hNXFq3ythUqvvrG9eJEGbUyLS
 ```
+
+```curl
+# When using curl, the context object is attached to the X-Riak-Vclock header
+
+curl -i http://localhost:8098/types/sports/buckets/nba/keys/champion
+
+# In the resulting output, the header will look something like this:
+
+X-Riak-Vclock: a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
+```
+
 
 ## The Object Update Cycle
 
@@ -466,6 +482,15 @@ if err := cluster.Execute(cmd); err != nil {
 fmt.Println("Stored Pete Carroll")
 ```
 
+```curl
+
+curl -XPUT \
+  -H "Content-Type: text/plain" \
+  -d "Pete Carroll" \
+  http://localhost:8098/types/siblings/buckets/coaches/keys/seahawks
+```
+
+
 Every once in a while, though, head coaches change in the NFL, which
 means that our data would need to be updated. Below is an example
 function for updating such objects:
@@ -612,10 +637,32 @@ func updateCoach(cluster *riak.Cluster, team, newCoach string) error {
 }
 ```
 
+```curl
+
+# When using curl, the context object is attached to the X-Riak-Vclock header
+
+curl -i http://localhost:8098/types/siblings/buckets/coaches/keys/packers
+
+# In the resulting output, the header will look something like this:
+
+X-Riak-Vclock: a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
+
+# When performing a write to the same key, that same header needs to
+# accompany the write for Riak to be able to use the context object
+
+curl -XPUT \
+  -H "Content-Type: text/plain" \
+  -H "X-Riak-Vclock: a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=" \
+  -d "Vince Lombardi" \
+  http://localhost:8098/types/siblings/buckets/coaches/keys/packers
+```
+
+
 In the example above, you can see the three steps in action: first, the
 object is read, which automatically fetches the object's causal context;
 then the object is modified, i.e. the object's value is set to the name
 of the new coach; and finally the object is written back to Riak.
+
 
 ## Object Update Anti-patterns
 
@@ -623,7 +670,9 @@ The most important thing to bear in mind when updating objects is this:
 you should always read an object prior to updating it _unless_ you are
 certain that no object is stored there. If you are storing [sensor data]({{<baseurl>}}riak/kv/2.2.6/developing/data-modeling/#sensor-data) in Riak and using timestamps as keys, for example, then you can be sure that keys are not repeated. In that case, making writes to Riak without first reading the object is fine. If
 you're not certain, however, then we recommend always reading the object
-first.
+first. Attempting to over-write a pre-existing key/value pair without a
+context included will usually result in sibling generation which you will
+then have to resolve separately.
 
 ## Java Client Example
 
