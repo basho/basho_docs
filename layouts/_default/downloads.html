@@ -102,7 +102,13 @@
 
             <tr class="downloads__version-title">
               <td colspan="3">
-                {{/*<h4/>*/}}{{ printf "#### %s %s" $os_title $version_map.version | markdownify }}
+                {{ if $os_data.versions }}
+                  {{ $version_raw        := (printf "%s" $version_map.version )           }}
+                  {{ $version_title        := (index $os_data.versions $version_raw ) | default $version_raw           }}
+                  {{/*<h4/>*/}}{{ printf "#### %s %s" $os_title $version_title | markdownify }}
+                {{ else }}
+                  {{/*<h4/>*/}}{{ printf "#### %s %s" $os_title $version_map.version | markdownify }}
+                {{ end }}
               </td>
             </tr>
 

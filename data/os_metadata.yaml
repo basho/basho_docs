@@ -55,6 +55,13 @@ ubuntu:
   title: "Ubuntu"
   image_src: "images/shared/operating_system_branding/ubuntu.png"
   installing_instructions_page: "debian-ubuntu/"
+  versions:
+    precise64: "Precise Pangolin (12.04)"
+    trusty64: "Trusty Tahr (14.04)"
+    xenial64: "Xenial Xerus (16.04)"
+    bionic64: "Bionic Beaver (18.04)"
+    focal64: "Focal Fossa (20.04)"
+    jammy64: "Jammy Jellyfish (22.04)"
 source:
   image_src: "images/shared/operating_system_branding/targz.png"
   installing_instructions_page: "source/"
