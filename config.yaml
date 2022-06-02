@@ -132,7 +132,7 @@ params:
         - ["1.4.0"]
         - ["1.5.0", "1.5.1", "1.5.2"]
       latest: "1.5.2"
-      lts: ["1.5"]      
+      lts: ["1.5"]
       archive_below: "1.3"
     dataplatform:
       project_name: "DataPlatform"
@@ -142,8 +142,8 @@ params:
         - ["1.0.0"]
       latest: "1.0.0"
 
-# The link to use for Contact Us in the menu and the banner
-contact_us_url: "https://www.tiot.jp/en/about-us/contact-us/"
+  # The link to use for Contact Us in the menu and the banner
+  contact_us_url: "https://www.tiot.jp/en/about-us/contact-us/"
 
 
 ---
