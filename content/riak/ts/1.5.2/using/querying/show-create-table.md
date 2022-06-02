@@ -13,11 +13,11 @@ toc: true
 version_history:
   in: "1.5.2+"
 aliases:
-    - /riakts/1.5.2/using/querying/show-create-table
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/show-create-table"
+  - /riakts/1.5.2/using/querying/show-create-table
+
 ---
 
-[riak shell]: /riak/ts/1.5.2/using/riakshell
+[riak shell]: {{<baseurl>}}riak/ts/1.5.2/using/riakshell
 
 You can use the SHOW CREATE TABLE statement to obtain the SQL used to create your Riak TS table. This document will show you how to execute `SHOW CREATE TABLE` in TS.
 

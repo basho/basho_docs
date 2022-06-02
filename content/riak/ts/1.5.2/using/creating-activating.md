@@ -11,8 +11,8 @@ project: "riak_ts"
 project_version: "1.5.2"
 toc: true
 aliases:
-    - /riakts/1.5.2/using/creating-activating/
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/creating-activating"
+  - /riakts/1.5.2/using/creating-activating/
+
 ---
 
 
@@ -26,7 +26,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/creating-activating
 [ruby]: ../../developing/ruby#sql-queries
 [planning]: ../planning/
 [writing]: ../writingdata/
-[Riak bucket properties]: /riak/kv/2.2.0/configuring/reference/#default-bucket-properties
+[Riak bucket properties]: {{<baseurl>}}riak/kv/2.2.0/configuring/reference/#default-bucket-properties
 
 
 Once you have [planned out your table][planning] you can create it by:
@@ -147,16 +147,16 @@ client.execute(cmd);
 ```php
 require __DIR__ . '/../vendor/autoload.php';
 
-use Basho\Riak;
-use Basho\Riak\Command;
-use Basho\Riak\Node;
+use Basho/Riak;
+use Basho/Riak/Command;
+use Basho/Riak/Node;
 
-$node = (new Node\Builder)
+$node = (new Node/Builder)
     ->atHost('riak-test')
     ->onPort(8087)
     ->build();
 
-$riak = new Riak([$node], [], new Riak\Api\Pb());
+$riak = new Riak([$node], [], new Riak/Api/Pb());
 
 
 # create table
@@ -170,7 +170,7 @@ $table_definition = "
         PRIMARY KEY((region, state, quantum(time, 15, 'm')), region, state, time)
     )";
 
-$command = (new Command\Builder\TimeSeries\Query($riak))
+$command = (new Command/Builder/TimeSeries/Query($riak))
     ->withQuery(sprintf($table_definition, "GeoCheckins"))
     ->build();
 
@@ -238,7 +238,7 @@ Any property with any string or numeric value can be associated with a table, in
 
 Please note the following when using `WITH`:
 
-* The property values can be of numeric or string types (parseable as `sint64`, `double` or `varchar`, correspondingly). String values should be quoted with a `'`; literal single quote characters appearing in the string should be doubled (and not escaped with a `\`).
+* The property values can be of numeric or string types (parseable as `sint64`, `double` or `varchar`, correspondingly). String values should be quoted with a `'`; literal single quote characters appearing in the string should be doubled (and not escaped with a `/`).
 * Values from the WITH clause will override those specified outside the query statement.
 * The default `n_val` (the number of distinct copies of each record kept in your cluster for safety and availability) is 3. This default cannot be changed; instead, each time a table is created the WITH clause can be used to configure that table's `n_val`.
 

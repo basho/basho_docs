@@ -11,21 +11,21 @@ project: "riak_ts"
 project_version: "1.5.2"
 toc: true
 aliases:
-    - /riakts/1.5.2/developing/developing/
-canonical_link: "https://docs.basho.com/riak/ts/latest/developing"
+  - /riakts/1.5.2/developing/developing/
+
 ---
 
 
-[erlang]: /riak/ts/1.5.2/developing/erlang
-[go]: /riak/ts/1.5.2/developing/golang
-[http]: /riak/ts/1.5.2/developing/http
-[java]: /riak/ts/1.5.2/developing/java
-[ruby]: /riak/ts/1.5.2/developing/ruby
-[python]: /riak/ts/1.5.2/developing/python
-[csharp]: /riak/ts/1.5.2/developing/csharp
-[nodejs]: /riak/ts/1.5.2/developing/nodejs
-[erlang]: /riak/ts/1.5.2/developing/erlang
-[php]: /riak/ts/1.5.2/developing/php
+[erlang]: {{<baseurl>}}riak/ts/1.5.2/developing/erlang
+[go]: {{<baseurl>}}riak/ts/1.5.2/developing/golang
+[http]: {{<baseurl>}}riak/ts/1.5.2/developing/http
+[java]: {{<baseurl>}}riak/ts/1.5.2/developing/java
+[ruby]: {{<baseurl>}}riak/ts/1.5.2/developing/ruby
+[python]: {{<baseurl>}}riak/ts/1.5.2/developing/python
+[csharp]: {{<baseurl>}}riak/ts/1.5.2/developing/csharp
+[nodejs]: {{<baseurl>}}riak/ts/1.5.2/developing/nodejs
+[erlang]: {{<baseurl>}}riak/ts/1.5.2/developing/erlang
+[php]: {{<baseurl>}}riak/ts/1.5.2/developing/php
 
 
 You can access Riak TS data over HTTP through the [API][http].

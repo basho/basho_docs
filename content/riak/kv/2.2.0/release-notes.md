@@ -35,19 +35,19 @@ New features in KV 2.2.0 include global object expiration and LZ4 compression fo
 ### Riak KV Enterprise Edition Only
 
 
-If you are using AAE fullsync and have a very tight downgrade window, consider disabling the AAE upgrade until you have fully accepted 2.2.0 and rolled it out to all participating clusters. You can read how to disable the upgraded AAE at [Step 5 here](/riak/kv/2.2.0/setup/upgrading/version/#upgrading-process). 
+If you are using AAE fullsync and have a very tight downgrade window, consider disabling the AAE upgrade until you have fully accepted 2.2.0 and rolled it out to all participating clusters. You can read how to disable the upgraded AAE at [Step 5 here]({{<baseurl>}}riak/kv/2.2.0/setup/upgrading/version/#upgrading-process). 
 
 
 AAE trees are versioned, so if you choose to enable the 2.2.0 AAE improvements, the AAE trees will need to be destroyed on downgrade and fully repopulated from the object data. During any period in which the AAE trees are invalid, AAE fullsyncs will not work.
 
-If MDC clusters will be upgraded in stages, during the time that the cluster versions are mismatched with Riak KV versions 2.2.0 and Riak KV versions less than 2.2.0, replication will fail due to a known issue with Bucket Mismatch between the clusters documented [here](/riak/kv/2.2.0/release-notes/#replication-bucket-mismatch).
+If MDC clusters will be upgraded in stages, during the time that the cluster versions are mismatched with Riak KV versions 2.2.0 and Riak KV versions less than 2.2.0, replication will fail due to a known issue with Bucket Mismatch between the clusters documented [here]({{<baseurl>}}riak/kv/2.2.0/release-notes/#replication-bucket-mismatch).
 
 
 ## Downgrading
 ### Riak search users
 
 
-The upgrade to Solr 4.10.4 causes new data written to the cluster to be written in a format that is incompatible with earlier versions of Solr (and, therefore, earlier versions of Riak KV). The [Upgrade](/riak/kv/2.2.0/setup/upgrading/version/) and [Downgrade](/riak/kv/2.2.0/setup/downgrade/) documentation describes the steps you will need to take to reindex your data in a rolling fashion. Be aware this can make downgrades take a very long time, but will minimize exposure of the downgrading nodes to applications that utilize the Riak search feature.
+The upgrade to Solr 4.10.4 causes new data written to the cluster to be written in a format that is incompatible with earlier versions of Solr (and, therefore, earlier versions of Riak KV). The [Upgrade]({{<baseurl>}}riak/kv/2.2.0/setup/upgrading/version/) and [Downgrade]({{<baseurl>}}riak/kv/2.2.0/setup/downgrade/) documentation describes the steps you will need to take to reindex your data in a rolling fashion. Be aware this can make downgrades take a very long time, but will minimize exposure of the downgrading nodes to applications that utilize the Riak search feature.
 
 
 
@@ -66,7 +66,7 @@ The upgrade to Solr 4.10.4 causes new data written to the cluster to be written 
     * `yz_solrq_drain_fsm` are now monitored from the queues being drained. Before, it was possible for a queue to get stuck in wait_for_drain_complete state if the drain fsm crashed before the drain complete messages were sent.
     * Logging has been added to clear and exchange trees for audit of administrative operations.
     * All above work captured in  [[yokozuna PR 700](https://github.com/basho/yokozuna/pull/700)].
-* Additional [Cuttlefish parameters](/riak/kv/2.2.0/configuring/reference/#search) have been added to support the Riak search batching updates. These configs will allow you to set batching parameters based on your needs and have, in certain cases, led to significantly higher write throughput to Solr.
+* Additional [Cuttlefish parameters]({{<baseurl>}}riak/kv/2.2.0/configuring/reference/#search) have been added to support the Riak search batching updates. These configs will allow you to set batching parameters based on your needs and have, in certain cases, led to significantly higher write throughput to Solr.
     * [[yokozuna PR 700](https://github.com/basho/yokozuna/pull/700)]
 * LevelDB global object expiration allows data to be automatically, efficiently deleted in LevelDB and brings LevelDB to feature parity with Bitcask.
     * [[eleveldb PR 211](https://github.com/basho/eleveldb/pull/211)]
@@ -74,14 +74,14 @@ The upgrade to Solr 4.10.4 causes new data written to the cluster to be written 
 * LevelDB now has LZ4 compression, which provides faster compression of data for enhanced cluster performance.
     * [[eleveldb PR 208](https://github.com/basho/eleveldb/pull/208)]
     * [[eleveldb PR 216](https://github.com/basho/eleveldb/pull/216)]
-* Cluster job controls allow you to set controls over commands that might have a performance impact on the Riak cluster, for example: list keys, list buckets, secondary index(2i) queries, and MapReduce. Denied operations will be logged to file. You can read more about these [here](/riak/kv/2.2.0/configuring/reference#cluster-job-controls).
+* Cluster job controls allow you to set controls over commands that might have a performance impact on the Riak cluster, for example: list keys, list buckets, secondary index(2i) queries, and MapReduce. Denied operations will be logged to file. You can read more about these [here]({{<baseurl>}}riak/kv/2.2.0/configuring/reference#cluster-job-controls).
     * [[riak PR 868](https://github.com/basho/riak/pull/868)]
     * [[riak_core PR 851](https://github.com/basho/riak_core/pull/851)]
     * [[riak_ee PR ](https://github.com/basho/riak_ee/pull/405)]
     * [[riak_kv PR 1459](https://github.com/basho/riak_kv/pull/1459)]
     * [[riak_search PR 184](https://github.com/basho/riak_search/pull/184)]
     * [[yokozuna PR 671](https://github.com/basho/yokozuna/pull/671)]
-* The [HyperLogLog (HLL) distributed data type](/riak/kv/2.2.0/learn/concepts/crdts/#hyperloglogs) provides high-performance, approximate count of unique objects in massive sets by estimating the unique elements in a large set or stream of data. HLL keeps items at a constant size using a hash-based algorithm, which keeps memory usage low. Normally, calculating the exact cardinality of a set requires an amount of memory proportional to the cardinality when counting these unique items. With HLLs, the trade off is less memory in exchange for approximated cardinality. More of HLL usage can be found [here](/riak/kv/2.2.0/developing/data-types/hyperloglogs/).
+* The [HyperLogLog (HLL) distributed data type]({{<baseurl>}}riak/kv/2.2.0/learn/concepts/crdts/#hyperloglogs) provides high-performance, approximate count of unique objects in massive sets by estimating the unique elements in a large set or stream of data. HLL keeps items at a constant size using a hash-based algorithm, which keeps memory usage low. Normally, calculating the exact cardinality of a set requires an amount of memory proportional to the cardinality when counting these unique items. With HLLs, the trade off is less memory in exchange for approximated cardinality. More of HLL usage can be found [here]({{<baseurl>}}riak/kv/2.2.0/developing/data-types/hyperloglogs/).
     * [[riak_kv PR 1435](https://github.com/basho/riak_kv/pull/1435)]
 * Active anti-entropy (AAE) improvements remedy an issue in prior versions of Riak KV where the hashing function used for AAE could trigger unneeded read-repairs. In 2.2, hashing is improved so that unnecessary read repairs are not triggered and AAE uses less resources. AAE also upgrades automatically. (You can configure AAE not to automatically upgrade, but we do not recommend this.)
     * [[yokozuna PR 662](https://github.com/basho/yokozuna/pull/662)]
@@ -128,8 +128,8 @@ The upgrade to Solr 4.10.4 causes new data written to the cluster to be written 
 ## Bugs Fixed
 
 * [[Issue 1178](https://github.com/basho/riak_kv/issues/1178)/[riak_kv PR 1420](https://github.com/basho/riak_kv/pull/1420)] riak_kv can no longer run with sidejob disabled. The removal of the non-sidejob code cuts down on risk and maintenance costs, and improves performance. Included in the code removal are `riak_kv_get_fsm` and `riak_kv_put_fsm` supervisors. The GET/PUT FSM start_link functions have been renamed to 'start', though the start_link function name is kept as an alias to avoid any potential problems during rolling upgrades. This resolves an issue where calls to `riak_kv_get_fsm_sup:start_get_fsm` leave defunct PIDs in the `riak_kv_get_fsm_sup`, which can cause extended shutdown times as the supervisor attempts to iterate through millions of dead PIDs.
-* A thorough review of file ownership across the Riak KV package was done and several files, including riak init, were changed to tighten the ownership to root:root instead of riak:riak to prevent a potential code injection across all supported operating systems. You can read more about this issue [here](http://docs.basho.com/community/productadvisories/codeinjectioninitfiles/). [[node_package PR 196](https://github.com/basho/node_package/pull/196)]
-* The AddDB() call now occurs after all object initialization is complete to eliminate a race condition that leads to segfault. You can read more about the issue [here](http://docs.basho.com/community/productadvisories/leveldbsegfault/).[[LevelDB PR 184](https://github.com/basho/leveldb/pull/184)]
+* A thorough review of file ownership across the Riak KV package was done and several files, including riak init, were changed to tighten the ownership to root:root instead of riak:riak to prevent a potential code injection across all supported operating systems. You can read more about this issue [here]({{<baseurl>}}community/productadvisories/codeinjectioninitfiles/). [[node_package PR 196](https://github.com/basho/node_package/pull/196)]
+* The AddDB() call now occurs after all object initialization is complete to eliminate a race condition that leads to segfault. You can read more about the issue [here]({{<baseurl>}}community/productadvisories/leveldbsegfault/).[[LevelDB PR 184](https://github.com/basho/leveldb/pull/184)]
 * [[Issue 1064](https://github.com/basho/riak_kv/issues/1064)/[riak_kv PR 1331](https://github.com/basho/riak_kv/pull/1331) & [riak_kv PR 963](https://github.com/basho/riak_kv/pull/963)] When using the `max_memory` setting in the memory backend, a list of timers is kept in ETS. In certain circumstances, these timer references were not deleted when the item had expired or when a new value was put to the table.The timer references are now appropriately deleted.
 * [[riak_kv PR 1282](https://github.com/basho/riak_kv/pull/1282)] Unregister per-vnode statistics when cleanly shutting down. However if the vnode crashes, the terminate callback will not be executed.
 * [[mochiweb PR 20](https://github.com/basho/mochiweb/pull/20)] In certain circumstances, mochiweb_http could receive an unexpected message and reply with a 400 response. When using keep-alive HTTP connections and a load balancer, it was possible for this same connection to later receive and transmit back to a client a delayed message rather than closing the connection properly. Mochiweb is now prevented from sending an erroneous 400 message.
@@ -188,10 +188,10 @@ Once all of the Riak KV clusters have been upgraded to version 2.2.0 or greater,
 ## Deprecation Notification
 
 
-* [Link Walking](/riak/kv/2.2.0/developing/api/http/link-walking/) is deprecated and will not work if security is enabled.
-* Key Filters are deprecated; we strongly discourage key listing in production due to the overhead involved, so it's better to maintain key indexes as values in Riak (see our [set data type](/riak/kv/2.2.0/developing/data-types/sets/) as a useful tool for such indexes).
-* JavaScript MapReduce is deprecated; we have expanded our [Erlang MapReduce](/riak/kv/2.2.0/developing/app-guide/advanced-mapreduce/#mapreduce) documentation to assist with the transition.
-* Riak search 1.0 is deprecated in favor of our Solr-based [Riak search 2.0](/riak/kv/2.2.0/developing/usage/search/). Version 1.0 will not work if security is enabled.
+* [Link Walking]({{<baseurl>}}riak/kv/2.2.0/developing/api/http/link-walking/) is deprecated and will not work if security is enabled.
+* Key Filters are deprecated; we strongly discourage key listing in production due to the overhead involved, so it's better to maintain key indexes as values in Riak (see our [set data type]({{<baseurl>}}riak/kv/2.2.0/developing/data-types/sets/) as a useful tool for such indexes).
+* JavaScript MapReduce is deprecated; we have expanded our [Erlang MapReduce]({{<baseurl>}}riak/kv/2.2.0/developing/app-guide/advanced-mapreduce/#mapreduce) documentation to assist with the transition.
+* Riak search 1.0 is deprecated in favor of our Solr-based [Riak search 2.0]({{<baseurl>}}riak/kv/2.2.0/developing/usage/search/). Version 1.0 will not work if security is enabled.
 * v2 replication (a component of Riak KV Enterprise) is superseded by v3 and will be removed in the future.
 * Legacy vnode routing (an early mechanism for managing requests between servers) is deprecated. If `vnode_routing` is set to `legacy` via Riak KV's capability system, it should be removed to prevent upgrade problems in the future.
-* Some users in the past have used Riak's internal API (e.g. `riak:local_client/1`); this API may change at any time, so we strongly recommend using our [Erlang client library](http://github.com/basho/riak-erlang-client/) (or [one of the other libraries](/riak/kv/2.2.0/developing/client-libraries/) we support) instead.
+* Some users in the past have used Riak's internal API (e.g. `riak:local_client/1`); this API may change at any time, so we strongly recommend using our [Erlang client library](http://github.com/basho/riak-erlang-client/) (or [one of the other libraries]({{<baseurl>}}riak/kv/2.2.0/developing/client-libraries/) we support) instead.

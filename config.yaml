@@ -1,8 +1,8 @@
 ---
 # General Hugo Configuration Options
 # ==================================
-title: "Basho Documentation"
-baseURL: "https://docs.basho.com/"
+title: "Riak Docs"
+baseURL: "https://docs.riak.com/"
 languageCode: "en-us"
 
 # Use YAML for front matter, rather than TOML
@@ -20,7 +20,7 @@ ignoreFiles: [
   ]
 
 # Default directory to build the completed site
-publishdir: "public"
+publishdir: "output"
 
 params:
   # Project Descriptions
@@ -49,8 +49,9 @@ params:
   #        - ["<version>", "<version>", ...]
   #        - ["<version>", "<version>", ...]
   #      latest:        "<version>"             /* 5 */
-  #      lts:           "<series>"              /* 6 */
-  #      archived_url:  "<URI>"                 /* 7 */
+  #      lts:           ["<series>","<series>"] /* 6 */
+  #      archived_below:  "<version>"           /* 7 */
+  #      archived_url:  "<URI>"                 /* 8 */
   #
   # 1. The project descriptor must match some contents' `project:` front matter.
   #    This should be all lowercase with underscores for spaces---code, really.
@@ -78,11 +79,14 @@ params:
   # 5. `latest` is the current specific version that is currently att the head-
   #    of-development.  
   #    `latest` is required.
-  # 6. `lts` is the Release Series (ex; "1.4", or "2.0", ect. -- it is expected
-  #    to be the "X.Y" of a semantic "X.Y.Z" version string) that is currently
-  #    held as the Long Term Support series.  
+  # 6. `lts` is the set of Release Series (ex; ["2.9"], or ["2.9","3.0"], ect.
+  #    -- it is expected to be the ["X.Y"] of a semantic "X.Y.Z" version string 
+  #    that is currently held as the Long Term Support series.  
   #    `lts` is optional.
-  # 7. If the project was moved from the Middleman site to Hugo, the
+  # 7. To make the versions menu smaller, set `archive_below` to a "X.Y" version
+  #    to place earlier versions under a collapsed "other" item.
+  #    `archive_below` is optional.
+  # 8. If the project was moved from the Middleman site to Hugo, the
   #    `archived_url` is the URL to the newest of the deprecated pages.  
   #    `archived_url` is optional.
   project_descriptions:
@@ -91,28 +95,34 @@ params:
       project_name_html: 'Riak<span class="product__title-highlight">KV</span>'
       path: "/riak/kv"
       archived_path: "/riak"
+      github_path: "https://github.com/TI-Tokyo/riak-docs-fork/tree/master/content/"
       releases:
         - ["2.0.0", "2.0.1", "2.0.2", "2.0.4", "2.0.5", "2.0.6", "2.0.7", "2.0.8", "2.0.9"]
         - ["2.1.1", "2.1.3", "2.1.4"]
-        - ["2.2.0", "2.2.1", "2.2.2", "2.2.3"]
-      latest: "2.2.3"
-      lts: "2.0"
-      archived_url: "http://docs.basho.com/riak/1.4.12/"
+        - ["2.2.0", "2.2.1", "2.2.2", "2.2.3", "2.2.6"]
+        - ["2.9.0p5", "2.9.1", "2.9.2", "2.9.4", "2.9.7", "2.9.8", "2.9.9", "2.9.10"]
+        - ["3.0.1", "3.0.2", "3.0.3", "3.0.4"]
+      latest: "3.0.4"
+      lts: ["2.9", "3.0"]
+      archive_below: "2.2"
+      #archived_url: "http://docs.riak.com/riak/1.4.12/"
     riak_cs:
       project_name: "Riak CS"
       project_name_html: 'Riak<span class="product__title-highlight">CS</span>'
       path: "/riak/cs"
       archived_path: "/riakcs"
+      github_path: "https://github.com/TI-Tokyo/riak-docs-fork/tree/master/content/"
       releases:
         - ["2.0.0", "2.0.1"]
-        - ["2.1.0", "2.1.1"]
-      latest: "2.1.1"
-      lts: "2.0"
-      archived_url: "http://docs.basho.com/riakcs/1.5.4/"
+        - ["2.1.0", "2.1.1", "2.1.2"]
+      latest: "2.1.2"
+      lts: ["2.1"]
+      #archived_url: "http://docs.riak.com/riakcs/1.5.4/"
     riak_ts:
       project_name: "Riak TS"
       project_name_html: 'Riak<span class="product__title-highlight">TS</span>'
       path: "/riak/ts"
+      github_path: "https://github.com/TI-Tokyo/riak-docs-fork/tree/master/content/"
       archived_path: "/riakts"
       releases:
         - ["1.0.0"]
@@ -122,6 +132,8 @@ params:
         - ["1.4.0"]
         - ["1.5.0", "1.5.1", "1.5.2"]
       latest: "1.5.2"
+      lts: ["1.5"]      
+      archive_below: "1.3"
     dataplatform:
       project_name: "DataPlatform"
       path: "/dataplatform"

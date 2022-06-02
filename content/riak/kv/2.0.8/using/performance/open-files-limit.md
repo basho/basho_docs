@@ -15,7 +15,7 @@ aliases:
   - /riak/kv/2.0.8/ops/tuning/open-files-limit/
 ---
 
-[plan backend]: /riak/kv/2.0.8/setup/planning/backend/
+[plan backend]: {{<baseurl>}}riak/kv/2.0.8/setup/planning/backend/
 [blog oracle]: http://blogs.oracle.com/elving/entry/too_many_open_files
 
 Riak KV can accumulate a large number of open file handles during operation. The creation of numerous data files is normal, and the [backend][plan backend] performs periodic merges of data file collections to avoid accumulating file handles.

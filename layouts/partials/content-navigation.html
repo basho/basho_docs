@@ -6,6 +6,7 @@
                     "community")
 
 {{ $HugoNode   := .node       }}
+{{ $BaseURL    := $HugoNode.Site.BaseURL    }}
 {{ $menu_title := .menu_title }}
 {{ $menu_list  := (index $HugoNode.Site.Menus $menu_title) }} {{/* GoLang List of Menu Objects */}}
 
@@ -38,8 +39,8 @@
     <div class="clearfix   version-picker">
 
   {{ if $project_name_html }}
-      <a class="inline-block float-left    product__title" href="/"><!--
-     --><img class="product__logo" src="/images/branding/riak-logo.png"><!--
+      <a class="inline-block float-left    product__title" href="{{ $BaseURL }}"><!--
+     --><img class="product__logo 2" src="{{ $BaseURL }}images/branding/riak-logo.png"><!--
      -->{{ $project_name_html | safeHTML }}
       </a>
   {{ end }}
@@ -159,7 +160,7 @@
 
             <span class="block float-left   content-menu__icon-container   docs-icon--comments">|</span>
 
-            <a class="block overflow" href="/community">
+            <a class="block overflow" href="{{ $BaseURL }}community">
               <span class="block   content-menu__item__right-border">
                 <sub>Want some extra help?</sub><br>
                 <strong>Ask our Community</strong>
@@ -174,7 +175,7 @@
 
             <span class="block float-left   content-menu__icon-container   docs-icon--question-sign">|</span>
 
-            <a class="block overflow" href="http://basho.com/contact">
+            <a class="block overflow" href="https://www.tiot.jp/en/about-us/contact-us/">
               <span class="block   content-menu__item__right-border">
                 <sub>Need to chat?</sub><br>
                 <strong>Contact us directly</strong>

@@ -15,10 +15,10 @@ aliases:
   - /riak/kv/2.1.4/ops/advanced/backends/memory/
 ---
 
-[config reference]: /riak/kv/2.1.4/configuring/reference
-[plan backend multi]: /riak/kv/2.1.4/setup/planning/backend/multi
-[glossary vnode]: /riak/kv/2.1.4/learn/glossary/#vnode
-[plan backend leveldb]: /riak/kv/2.1.4/setup/planning/backend/leveldb
+[config reference]: {{<baseurl>}}riak/kv/2.1.4/configuring/reference
+[plan backend multi]: {{<baseurl>}}riak/kv/2.1.4/setup/planning/backend/multi
+[glossary vnode]: {{<baseurl>}}riak/kv/2.1.4/learn/glossary/#vnode
+[plan backend leveldb]: {{<baseurl>}}riak/kv/2.1.4/setup/planning/backend/leveldb
 
 The Memory storage backend uses in-memory tables to store all data.
 This data is never persisted to disk or to any other storage mechanism.

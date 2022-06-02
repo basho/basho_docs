@@ -18,14 +18,13 @@ aliases:
     - /riakts/1.4.0/installing/aws/
     - /riakts/1.4.0/setup/installing/aws/
     - /riak/ts/1.4.0/installing/aws/
-canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/aws/"
 ---
 
 
 [AWS]: http://aws.amazon.com
-[download]: /riak/ts/1.4.0/downloads/
+[download]: {{<baseurl>}}riak/ts/1.4.0/downloads/
 [ec2 guide]: http://docs.amazonwebservices.com/AWSEC2/latest/UserGuide/AccessingInstances.html
-[security basics]: /riak/ts/1.4.0/using/security/
+[security basics]: {{<baseurl>}}riak/ts/1.4.0/using/security/
 
 
 Riak TS can be installed on AWS virtual machines (VMs) using a binary
@@ -42,7 +41,7 @@ Get started by launching a Riak TS virtual machine via the AWS Marketplace. (You
 
 3. Set your desired AWS region, EC2 instance type, firewall settings, and key pair.
 
-    ![AWS Marketplace Instance Settings](/images/aws-marketplace-settings.png)
+    ![AWS Marketplace Instance Settings]({{<baseurl>}}images/aws-marketplace-settings.png)
 
 4. Then click the **Accept Terms and Launch with 1-Click** button.
 
@@ -67,7 +66,7 @@ Once the virtual machine is created, you should verify that your selected EC2 se
 
 4. When complete, your security group should contain all of the rules listed below. If you are missing any rules, add them in the lower panel and then click the **Apply Rule Changes** button.
 
-    ![EC2 Security Group Settings](/images/aws-marketplace-security-group.png)
+    ![EC2 Security Group Settings]({{<baseurl>}}images/aws-marketplace-security-group.png)
 
 We also recommend that you read more about [Security in TS][security basics]. 
 

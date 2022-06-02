@@ -16,8 +16,8 @@ aliases:
 In a Riak CS storage system, three components work in conjunction with one another, which means that you must configure each component to work with the others:
 
 * Riak --- The database system that acts as the backend storage
-* Riak CS --- The cloud storage layer over Riak which exposes the storage and  billing APIs, storing files and metadata in Riak, and streaming them back to  users
-* Stanchion --- Manages requests involving globally unique system entities, such as  buckets and users sent to a Riak instance, for example, to create users or to create or delete buckets
+* Riak CS --- The cloud storage layer over Riak which exposes the storage and billing APIs, storing files and metadata in Riak, and streaming them back to users
+* Stanchion --- Manages requests involving globally unique system entities, such as buckets and users sent to a Riak instance, for example, to create users or to create or delete buckets
 
 In addition, you must also configure the S3 client you use to communicate with your Riak CS system.
 
@@ -27,7 +27,7 @@ If your system consists of several nodes, configuration primarily represents set
 
 ## Configuration of System Components
 
-* [Configuring Riak](/riak/cs/2.0.0/cookbooks/configuration/riak-for-cs)
-* [configuring Riak CS](/riak/cs/2.0.0/cookbooks/configuration/riak-cs)
-* [Configuring Stanchion](/riak/cs/2.0.0/cookbooks/configuration/stanchion)
-* [Configuring an S3 client](/riak/cs/2.0.0/cookbooks/configuration/s3-client)
+* [Configuring Riak]({{<baseurl>}}riak/cs/2.0.0/cookbooks/configuration/riak-for-cs)
+* [configuring Riak CS]({{<baseurl>}}riak/cs/2.0.0/cookbooks/configuration/riak-cs)
+* [Configuring Stanchion]({{<baseurl>}}riak/cs/2.0.0/cookbooks/configuration/stanchion)
+* [Configuring an S3 client]({{<baseurl>}}riak/cs/2.0.0/cookbooks/configuration/s3-client)

@@ -11,10 +11,8 @@ project: "riak_ts"
 project_version: "1.5.2"
 toc: true
 aliases:
-    - /riakts/1.5.2/
-canonical_link: "https://docs.basho.com/riak/ts/latest"
+  - /riakts/1.5.2/
 ---
-
 
 [download]: downloads/
 [installing]: setup/installing/

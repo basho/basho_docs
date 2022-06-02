@@ -18,7 +18,7 @@ aliases:
   - /riak/kv/2.0.9/installing/suse/
 ---
 
-[install verify]: /riak/kv/2.0.9/setup/installing/verify
+[install verify]: {{<baseurl>}}riak/kv/2.0.9/setup/installing/verify
 
 Riak KV can be installed on OpenSuse and SLES systems using a binary package. The following steps have been tested to work with Riak on
 the following x86/x86_64 flavors of SuSE:

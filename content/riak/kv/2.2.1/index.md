@@ -1,5 +1,5 @@
 ---
-title: "Riak KV"
+title: "Riak KV 2.2.1"
 description: ""
 project: "riak_kv"
 project_version: "2.2.1"
@@ -15,15 +15,15 @@ aliases:
 ---
 
 [aboutenterprise]: http://basho.com/contact/
-[config index]: /riak/kv/2.2.1/configuring
-[downloads]: /riak/kv/2.2.1/downloads/
-[install index]: /riak/kv/2.2.1/setup/installing/
-[plan index]: /riak/kv/2.2.1/setup/planning
-[perf open files]: /riak/kv/2.2.1/using/performance/open-files-limit
-[install debian & ubuntu]: /riak/kv/2.2.1/setup/installing/debian-ubuntu
-[usage search]: /riak/kv/2.2.1/developing/usage/search
-[getting started]: /riak/kv/2.2.1/developing/getting-started
-[dev client libraries]: /riak/kv/2.2.1/developing/client-libraries
+[config index]: {{<baseurl>}}riak/kv/2.2.1/configuring
+[downloads]: {{<baseurl>}}riak/kv/2.2.1/downloads/
+[install index]: {{<baseurl>}}riak/kv/2.2.1/setup/installing/
+[plan index]: {{<baseurl>}}riak/kv/2.2.1/setup/planning
+[perf open files]: {{<baseurl>}}riak/kv/2.2.1/using/performance/open-files-limit
+[install debian & ubuntu]: {{<baseurl>}}riak/kv/2.2.1/setup/installing/debian-ubuntu
+[usage search]: {{<baseurl>}}riak/kv/2.2.1/developing/usage/search
+[getting started]: {{<baseurl>}}riak/kv/2.2.1/developing/getting-started
+[dev client libraries]: {{<baseurl>}}riak/kv/2.2.1/developing/client-libraries
 
 
 
@@ -56,7 +56,7 @@ Are you brand new to Riak KV? Start by [downloading][downloads] Riak KV, and the
 3. [Configure Riak KV for your needs][config index]
 
 {{% note title="Developing with Riak KV" %}}
-If you are looking to integrate Riak KV with your existing tools, check out the [Developing with Riak KV](/riak/kv/2.2.1/developing) docs. They provide instructions and examples for languages such as: Java, Ruby, Python, Go, Haskell, NodeJS, Erlang, and more.
+If you are looking to integrate Riak KV with your existing tools, check out the [Developing with Riak KV]({{<baseurl>}}riak/kv/2.2.1/developing) docs. They provide instructions and examples for languages such as: Java, Ruby, Python, Go, Haskell, NodeJS, Erlang, and more.
 {{% /note %}}
 
 ## Popular Docs

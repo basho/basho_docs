@@ -3,39 +3,60 @@
 [middleman]: https://middlemanapp.com/
 [rvm]: https://rvm.io/
 
-# Basho's Documentation Generation
+# Riak's Documentation Generation
 
 This repository contains all the bits and pieces, large and small required to
 render and deploy Basho's documentation.
 
-### http://docs.basho.com/
+### https://docs.riak.com/
+
+This is updated for each new version of Riak once reviewed.
 
 This is a Work In Progress!
 Please let us know if you'd like to help out!
 
+### https://www.tiot.jp/riak-docs/
+
+This is updated for each new version of Riak as soon as written, and gets regular small updates.
+
+### https://www.tiot.jp/riak-docs-beta/
+
+This is updated for each new version of Riak as each doc section is updated, and often will be a WIP.
+
 ## Building The HTML Locally
 
-1. Install [Hugo][hugo] by checking out [Hugo's Installing][installing hugo] page.
+We moved to a Docker image to build the docs to avoid the issues with getting the various versions of things to work together.
+
+1. Install [Docker](https://docs.docker.com/engine/install/)
 
 1. Clone the repository with:
+
+    ```
+    git clone https://github.com/ti-tokyo/riak-docs-fork.git
+    cd riak-docs-fork
+    ```
+
+    Or:
 
     ```
     git clone https://github.com/basho/basho_docs.git
     cd basho_docs
     ```
+   
+1. Build the Docker image:
 
-1. Run Hugo with `hugo server` and wait a couple of seconds for the site to
-   build.
+    ```
+    ./docker/docker-build-image.titokyo.sh
+    ```
 
-1. Play by visiting <http://localhost:1313>.
+1. Run the docker image as a local server to test it all works:
 
->**Heads-up**
->
-> When running a local instance of the site, you can't navigate from the splash page (the first page when you navigate to localhost:1313) to the index page of KV, TS, or CS. You will need to manually enter the version in the address bar of your browser. So, for instance, http://localhost:1313/riak/kv/2.2.0/ rather than http://localhost:1313/riak/kv/latest/.
+    ```
+    docker-compose -f ./docker/docker-compose.localhost-preview.yaml up riakdocs
+    ```
 
-[hugo]: http://gohugo.io/
-[installing hugo]: http://gohugo.io/overview/installing/
-[homebrew]: http://brew.sh/
+1. Play by visiting <http://localhost:1314/riak-docs/>.
+
 
 ### No Really, _Go_ Play
 

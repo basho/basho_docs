@@ -15,10 +15,10 @@ version_history:
     - ["1.0.0-1.3.1", "installing/source/erlang"]
     - ["1.4.0+",      "setup/installing/source/erlang"]
 aliases:
-    - /riakts/1.5.2/installing/source/erlang/
-    - /riakts/1.5.2/setup/installing/source/erlang/
-    - /riak/ts/1.5.2/installing/source/erlang/
-canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/source/erlang/"
+  - /riakts/1.5.2/installing/source/erlang/
+  - /riakts/1.5.2/setup/installing/source/erlang/
+  - /riak/ts/1.5.2/installing/source/erlang/
+  - /riak/ts/latest/installing/source/erlang/
 ---
 
 
@@ -34,7 +34,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/source/e
 [make]: http://www.gnu.org/software/make/
 [ncurses]: http://www.gnu.org/software/ncurses/
 [OpenSSL]: https://www.openssl.org/
-[source]: /riak/ts/1.5.2/setup/installing/source/
+[source]: {{<baseurl>}}riak/ts/1.5.2/setup/installing/source/
 [XCode Developer Tools]: https://developer.apple.com/xcode/downloads/
 
 
@@ -349,15 +349,15 @@ If you're on Mavericks (OS X 10.9), Mountain Lion (OS X 10.8), or Lion
 Using LLVM:
 
 ```bash
-CFLAGS=-O0 ./configure --disable-hipe --enable-smp-support --enable-threads \
+CFLAGS=-O0 ./configure --disable-hipe --enable-smp-support --enable-threads /
 --enable-kernel-poll --enable-darwin-64bit
 ```
 
 Or if you prefer GCC:
 
 ```bash
-CC=gcc-4.2 CPPFLAGS='-DNDEBUG' MAKEFLAGS='-j 3' \
-./configure --disable-hipe --enable-smp-support --enable-threads \
+CC=gcc-4.2 CPPFLAGS='-DNDEBUG' MAKEFLAGS='-j 3' /
+./configure --disable-hipe --enable-smp-support --enable-threads /
 --enable-kernel-poll --enable-darwin-64bit
 ```
 
@@ -367,7 +367,7 @@ If you're on Snow Leopard (OS X 10.6) or Leopard (OS X 10.5) with an
 Intel processor:
 
 ```bash
-./configure --disable-hipe --enable-smp-support --enable-threads \
+./configure --disable-hipe --enable-smp-support --enable-threads /
 --enable-kernel-poll  --enable-darwin-64bit
 ```
 
@@ -376,7 +376,7 @@ Intel processor:
 If you're on a non-Intel processor or older version of OS X:
 
 ```bash
-./configure --disable-hipe --enable-smp-support --enable-threads \
+./configure --disable-hipe --enable-smp-support --enable-threads /
 --enable-kernel-poll
 ```
 

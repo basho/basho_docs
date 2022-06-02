@@ -11,7 +11,6 @@ menu:
     weight: 102
     parent: "spark_riak_usage"
 toc: true
-canonical_link: "https://docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage/reading-data"
 ---
 
 ## Reading Data From TS Table

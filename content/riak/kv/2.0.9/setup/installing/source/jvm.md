@@ -19,7 +19,7 @@ aliases:
   - /riak/kv/2.0.9/installing/source/jvm/
 ---
 
-[usage search]: /riak/kv/2.0.9/developing/usage/search
+[usage search]: {{<baseurl>}}riak/kv/2.0.9/developing/usage/search
 
 If you are using [Riak Search 2.0][usage search], codename Yokozuna,
 you will need to install **Java 1.6 or later** to run [Apache

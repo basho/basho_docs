@@ -11,7 +11,6 @@ menu:
     weight: 103
     parent: "addons_spark_riak"
 toc: true
-canonical_link: "https://docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/building-testing"
 ---
 
 If you want to download the source code of the Spark-Riak connector, build it, and install the results in your local repo, this is the document for you! Keep reading for instructions on downloading, building, and installing the connector.
@@ -26,7 +25,7 @@ In order to build the Spark-Riak connector, you'll need to have the following in
 * [Java OpenJDK 8](http://openjdk.java.net/install/)
 * [Maven 3](https://maven.apache.org/download.cgi)
 * [Spark 1.6](http://spark.apache.org/docs/latest/#downloading)
-* [Riak TS](http://docs.basho.com/riak/ts/latest/installing/)
+* [Riak TS]({{< baseurl >}}riak/ts/latest/installing/)
 
 
 ## Download

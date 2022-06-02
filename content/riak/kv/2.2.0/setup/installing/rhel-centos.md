@@ -20,9 +20,9 @@ aliases:
 
 
 
-[install source index]: /riak/kv/2.2.0/setup/installing/source
-[install source erlang]: /riak/kv/2.2.0/setup/installing/source/erlang
-[install verify]: /riak/kv/2.2.0/setup/installing/verify
+[install source index]: {{<baseurl>}}riak/kv/2.2.0/setup/installing/source
+[install source erlang]: {{<baseurl>}}riak/kv/2.2.0/setup/installing/source/erlang
+[install verify]: {{<baseurl>}}riak/kv/2.2.0/setup/installing/verify
 
 Riak KV can be installed on CentOS- or Red-Hat-based systems using a binary
 package or by [compiling Riak from source code][install source index]. The following steps have been tested to work with Riak on

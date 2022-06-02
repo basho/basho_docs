@@ -16,7 +16,7 @@ aliases:
 ---
 
 An operation to update a set, either on its own (at the bucket/key
-level) or [inside of a map](/riak/kv/2.0.6/developing/api/protocol-buffers/dt-map-store).
+level) or [inside of a map]({{<baseurl>}}riak/kv/2.0.6/developing/api/protocol-buffers/dt-map-store).
 
 ## Request
 

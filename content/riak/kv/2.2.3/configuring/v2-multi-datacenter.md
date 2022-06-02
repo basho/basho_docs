@@ -17,10 +17,10 @@ aliases:
   - /riak/kv/2.2.3/ops/mdc/v2/configuration
 ---
 
-[config v2 ssl]: /riak/kv/2.2.3/configuring/v2-multi-datacenter/ssl
+[config v2 ssl]: {{<baseurl>}}riak/kv/2.2.3/configuring/v2-multi-datacenter/ssl
 
 {{% note title="Deprecation Warning" %}}
-v2 Multi-Datacenter Replication is deprecated and will be removed in a future version. Please use [v3](/riak/kv/2.2.3/configuring/v3-multi-datacenter/) instead.
+v2 Multi-Datacenter Replication is deprecated and will be removed in a future version. Please use [v3]({{<baseurl>}}riak/kv/2.2.3/configuring/v3-multi-datacenter/) instead.
 {{% /note %}}
 
 Riak Enterprise's Multi-Datacenter Replication capabilities offer a

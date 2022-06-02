@@ -12,13 +12,15 @@ menu:
 toc: false
 aliases:
   - /dataplatform/1.0.0/learn-about-dataplatform/learn-about-dataplatform/
+  - /dataplatform/latest/learn/
 ---
 
-[using bdp index]: /dataplatform/1.0.0/using/
-[cache proxy features]: /dataplatform/1.0.0/learn/cache-proxy/
-[service manager features]: /dataplatform/1.0.0/learn/service-manager/
-[leader election features]: /dataplatform/1.0.0/learn/leader-election-service/
-[spark manager features]: /dataplatform/1.0.0/learn/spark-cluster-manager/
+
+[using bdp index]: {{<baseurl>}}dataplatform/1.0.0/using/
+[cache proxy features]: {{<baseurl>}}dataplatform/1.0.0/learn/cache-proxy/
+[service manager features]: {{<baseurl>}}dataplatform/1.0.0/learn/service-manager/
+[leader election features]: {{<baseurl>}}dataplatform/1.0.0/learn/leader-election-service/
+[spark manager features]: {{<baseurl>}}dataplatform/1.0.0/learn/spark-cluster-manager/
 
 ## In This Section
 

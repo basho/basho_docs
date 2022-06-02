@@ -28,7 +28,7 @@ and access.
 Access stats are tracked on a per-user basis, as rollups for slices of
 time. They are stored just like other Riak CS data, in the `cs.access`
 bucket in particular. For information about querying access statistics,
-please read [Querying Access Statistics](/riak/cs/2.1.1/cookbooks/querying-access-statistics).
+please read [Querying Access Statistics]({{<baseurl>}}riak/cs/2.1.1/cookbooks/querying-access-statistics).
 
 ## Overview
 
@@ -71,7 +71,7 @@ logger determines the operation type by comparing the method, resource
 module, and path to a known table. For example, it knows that a `GET` on
 the *key* module with the `acl` query parameter in the path is a
 `KeyReadACL` operation. A `PUT` to the same resource without the `acl`
-query parameter is a `KeyWrite` operation. See [Querying Access Statistics](/riak/cs/2.1.1/cookbooks/querying-access-statistics) for a list of all operation types.
+query parameter is a `KeyWrite` operation. See [Querying Access Statistics]({{<baseurl>}}riak/cs/2.1.1/cookbooks/querying-access-statistics) for a list of all operation types.
 
 ### Log Accumulation
 
@@ -181,7 +181,7 @@ slices of time. They are stored in the same Riak cluster as other Riak
 CS data, in the `cs.storage` bucket.
 
 For detailed information about querying storage statistics, please read
-[Querying Storage Statistics](/riak/cs/2.1.1/cookbooks/querying-storage-statistics).
+[Querying Storage Statistics]({{<baseurl>}}riak/cs/2.1.1/cookbooks/querying-storage-statistics).
 
 ### High Level
 
@@ -201,7 +201,7 @@ The storage calculation system uses MapReduce to sum the files in a
 bucket. This means you must tell all of your Riak nodes where to find
 Riak CS's compiled files before calculating storage.
 
-See [Configuring Riak for CS](/riak/cs/2.1.1/cookbooks/configuration/riak-for-cs) for directions on setting this up.
+See [Configuring Riak for CS]({{<baseurl>}}riak/cs/2.1.1/cookbooks/configuration/riak-for-cs) for directions on setting this up.
 
 ### Scheduling and Manual Triggering
 

@@ -14,12 +14,11 @@ version_history:
   in: "1.5.0+"
 aliases:
     - /riakts/1.5.0/setup/
-canonical_link: "https://docs.basho.com/riak/ts/latest/setup/"
 ---
 
-[install]: /riak/ts/1.5.0/setup/installing
-[upgrade]: /riak/ts/1.5.0/setup/upgrading
-[downgrade]: /riak/ts/1.5.0/setup/downgrading
+[install]: {{<baseurl>}}riak/ts/1.5.0/setup/installing
+[upgrade]: {{<baseurl>}}riak/ts/1.5.0/setup/upgrading
+[downgrade]: {{<baseurl>}}riak/ts/1.5.0/setup/downgrading
 
 ## In This Section
 

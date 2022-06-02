@@ -14,7 +14,7 @@ toc: true
 commercial_offering: true
 ---
 
-[perf index]: /riak/kv/2.0.2/using/performance
+[perf index]: {{<baseurl>}}riak/kv/2.0.2/using/performance
 
 Depending on the size of your objects and your replication latency
 needs, you may need to configure your kernel settings to optimize

@@ -15,18 +15,16 @@ aliases:
 ---
 
 [aboutenterprise]: http://basho.com/contact/
-[config index]: /riak/kv/2.1.3/configuring
-[dev index]: /riak/kv/2.1.3/developing
-[downloads]: /riak/kv/2.1.3/downloads/
-[install index]: /riak/kv/2.1.3/setup/installing/
-[plan index]: /riak/kv/2.1.3/setup/planning
-[perf open files]: /riak/kv/2.1.3/using/performance/open-files-limit
-[install debian & ubuntu]: /riak/kv/2.1.3/setup/installing/debian-ubuntu
-[usage search]: /riak/kv/2.1.3/developing/usage/search
-[getting started]: /riak/kv/2.1.3/developing/getting-started
-[dev client libraries]: /riak/kv/2.1.3/developing/client-libraries
-
-
+[config index]: {{<baseurl>}}riak/kv/2.1.3/configuring
+[dev index]: {{<baseurl>}}riak/kv/2.1.3/developing
+[downloads]: {{<baseurl>}}riak/kv/2.1.3/downloads/
+[install index]: {{<baseurl>}}riak/kv/2.1.3/setup/installing/
+[plan index]: {{<baseurl>}}riak/kv/2.1.3/setup/planning
+[perf open files]: {{<baseurl>}}riak/kv/2.1.3/using/performance/open-files-limit
+[install debian & ubuntu]: {{<baseurl>}}riak/kv/2.1.3/setup/installing/debian-ubuntu
+[usage search]: {{<baseurl>}}riak/kv/2.1.3/developing/usage/search
+[getting started]: {{<baseurl>}}riak/kv/2.1.3/developing/getting-started
+[dev client libraries]: {{<baseurl>}}riak/kv/2.1.3/developing/client-libraries
 
 Riak KV is a distributed NoSQL database designed to deliver maximum data availability by distributing data across multiple servers. As long as your Riak KV client can reach one Riak server, it should be able to write data.
 

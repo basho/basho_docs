@@ -47,16 +47,16 @@ Update Object Metadata | Coming Soon | Planned for future release |
 
 ## Storage Account Services
 
-* [List Containers](/riak/cs/2.1.0/references/apis/storage/openstack/list-containers) --- Lists the containers owned by an account
+* [List Containers]({{<baseurl>}}riak/cs/2.1.0/references/apis/storage/openstack/list-containers) --- Lists the containers owned by an account
 
 ## Storage Container Services
 
-* [List Objects](/riak/cs/2.1.0/references/apis/storage/openstack/list-objects) --- Lists the objects in a container
-* [Create Container](/riak/cs/2.1.0/references/apis/storage/openstack/create-container) --- Creates a new container
-* [Delete Container](/riak/cs/2.1.0/references/apis/storage/openstack/delete-container) --- Deletes a container
+* [List Objects]({{<baseurl>}}riak/cs/2.1.0/references/apis/storage/openstack/list-objects) --- Lists the objects in a container
+* [Create Container]({{<baseurl>}}riak/cs/2.1.0/references/apis/storage/openstack/create-container) --- Creates a new container
+* [Delete Container]({{<baseurl>}}riak/cs/2.1.0/references/apis/storage/openstack/delete-container) --- Deletes a container
 
 ## Storage Object Services
 
-* [Get Object](/riak/cs/2.1.0/references/apis/storage/openstack/get-object) --- Retrieves an object
-* [Create or Update Object](/riak/cs/2.1.0/references/apis/storage/openstack/create-object) --- Write an object in a container
-* [Delete Object](/riak/cs/2.1.0/references/apis/storage/openstack/delete-object) --- Delete an object from a container
+* [Get Object]({{<baseurl>}}riak/cs/2.1.0/references/apis/storage/openstack/get-object) --- Retrieves an object
+* [Create or Update Object]({{<baseurl>}}riak/cs/2.1.0/references/apis/storage/openstack/create-object) --- Write an object in a container
+* [Delete Object]({{<baseurl>}}riak/cs/2.1.0/references/apis/storage/openstack/delete-object) --- Delete an object from a container

@@ -20,10 +20,10 @@ aliases:
 
 
 
-[install source index]: /riak/kv/2.0.2/setup/installing/source/
-[security index]: /riak/kv/2.0.2/using/security/
-[install source erlang]: /riak/kv/2.0.2/setup/installing/source/erlang
-[install verify]: /riak/kv/2.0.2/setup/installing/verify
+[install source index]: {{<baseurl>}}riak/kv/2.0.2/setup/installing/source/
+[security index]: {{<baseurl>}}riak/kv/2.0.2/using/security/
+[install source erlang]: {{<baseurl>}}riak/kv/2.0.2/setup/installing/source/erlang
+[install verify]: {{<baseurl>}}riak/kv/2.0.2/setup/installing/verify
 
 > **Note: 2.0.2 not currently available**
 >

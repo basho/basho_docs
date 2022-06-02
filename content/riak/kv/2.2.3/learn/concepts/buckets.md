@@ -17,25 +17,25 @@ aliases:
   - /riak/kv/2.2.3/theory/concepts/buckets
 ---
 
-[apps cluster metadata]: /riak/kv/2.2.3/developing/app-guide/cluster-metadata
-[cluster ops bucket types]: /riak/kv/2.2.3/using/cluster-operations/bucket-types
-[cluster ops strong consistency]: /riak/kv/2.2.3/using/cluster-operations/strong-consistency
-[concept causal context]: /riak/kv/2.2.3/learn/concepts/causal-context
-[concept causal context sib]: /riak/kv/2.2.3/learn/concepts/causal-context/#siblings
-[concept replication]: /riak/kv/2.2.3/learn/concepts/replication
-[concept strong consistency]: /riak/kv/2.2.3/using/reference/strong-consistency
-[config basic]: /riak/kv/2.2.3/configuring/basic
-[dev api http]: /riak/kv/2.2.3/developing/api/http
-[dev data types]: /riak/kv/2.2.3/developing/data-types
-[glossary ring]: /riak/kv/2.2.3/learn/glossary/#ring
-[plan backend leveldb]: /riak/kv/2.2.3/setup/planning/backend/leveldb
-[plan backend bitcask]: /riak/kv/2.2.3/setup/planning/backend/bitcask
-[plan backend memory]: /riak/kv/2.2.3/setup/planning/backend/memory
-[plan backend multi]: /riak/kv/2.2.3/setup/planning/backend/multi
-[usage bucket types]: /riak/kv/2.2.3/developing/usage/bucket-types
-[usage commit hooks]: /riak/kv/2.2.3/developing/usage/commit-hooks
-[usage conflict resolution]: /riak/kv/2.2.3/developing/usage/conflict-resolution
-[usage replication]: /riak/kv/2.2.3/developing/usage/replication
+[apps cluster metadata]: {{<baseurl>}}riak/kv/2.2.3/developing/app-guide/cluster-metadata
+[cluster ops bucket types]: {{<baseurl>}}riak/kv/2.2.3/using/cluster-operations/bucket-types
+[cluster ops strong consistency]: {{<baseurl>}}riak/kv/2.2.3/using/cluster-operations/strong-consistency
+[concept causal context]: {{<baseurl>}}riak/kv/2.2.3/learn/concepts/causal-context
+[concept causal context sib]: {{<baseurl>}}riak/kv/2.2.3/learn/concepts/causal-context/#siblings
+[concept replication]: {{<baseurl>}}riak/kv/2.2.3/learn/concepts/replication
+[concept strong consistency]: {{<baseurl>}}riak/kv/2.2.3/using/reference/strong-consistency
+[config basic]: {{<baseurl>}}riak/kv/2.2.3/configuring/basic
+[dev api http]: {{<baseurl>}}riak/kv/2.2.3/developing/api/http
+[dev data types]: {{<baseurl>}}riak/kv/2.2.3/developing/data-types
+[glossary ring]: {{<baseurl>}}riak/kv/2.2.3/learn/glossary/#ring
+[plan backend leveldb]: {{<baseurl>}}riak/kv/2.2.3/setup/planning/backend/leveldb
+[plan backend bitcask]: {{<baseurl>}}riak/kv/2.2.3/setup/planning/backend/bitcask
+[plan backend memory]: {{<baseurl>}}riak/kv/2.2.3/setup/planning/backend/memory
+[plan backend multi]: {{<baseurl>}}riak/kv/2.2.3/setup/planning/backend/multi
+[usage bucket types]: {{<baseurl>}}riak/kv/2.2.3/developing/usage/bucket-types
+[usage commit hooks]: {{<baseurl>}}riak/kv/2.2.3/developing/usage/commit-hooks
+[usage conflict resolution]: {{<baseurl>}}riak/kv/2.2.3/developing/usage/conflict-resolution
+[usage replication]: {{<baseurl>}}riak/kv/2.2.3/developing/usage/replication
 
 
 Buckets are used to define a virtual keyspace for storing Riak objects.

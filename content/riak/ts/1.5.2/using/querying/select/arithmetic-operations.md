@@ -10,19 +10,18 @@ menu:
 project: "riak_ts"
 project_version: "1.5.2"
 toc: true
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/select/arithmetic-operations"
 version_history:
   present_from: "1.4.0+"
   moved:
     - ["1.1.0+", "using/arithmetic-operations"]
 aliases:
-    - /riak/ts/1.5.2/using/arithmetic-operations
-    - /riakts/1.5.2/using/arithmetic-operations
-    - /riakts/1.5.2/using/querying/select/arithmetic-operations
+  - /riak/ts/latest/using/arithmetic-operations
+  - /riak/ts/1.5.2/using/arithmetic-operations
+  - /riakts/1.5.2/using/arithmetic-operations
 ---
 
 
-[querying select]: /riak/ts/1.5.2/using/querying/#select-query
+[querying select]: {{<baseurl>}}riak/ts/1.5.2/using/querying/#select-query
 
 
 Riak TS supports arithmetic operations in the SELECT statement.
@@ -63,7 +62,7 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic
 
 Returns:
 
-| 555\<SINT64\> | 1.1\<DOUBLE\> | 10.0\<DOUBLE\> | 0.01123\<DOUBLE\> |
+| 555/<SINT64/> | 1.1/<DOUBLE/> | 10.0/<DOUBLE/> | 0.01123/<DOUBLE/> |
 |---------------|---------------|----------------|-----------------|
 | 555           | 1.1           | 10.0           | 0.01123         |
 
@@ -77,7 +76,7 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic
 
 Returns: 
 
-| temperature\<DOUBLE\> | (temperature\+1)\<DOUBLE\> | (temperature\-1)\<DOUBLE\> |
+| temperature/<DOUBLE/> | (temperature/+1)/<DOUBLE/> | (temperature/-1)/<DOUBLE/> |
 |-----------------------|----------------------------|-------------------------|
 | 27.1                  | 28.1                       | 26.1                    |
 
@@ -91,7 +90,7 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic
 
 Returns:
 
-| temperature\<DOUBLE\> | (temperature\*2)\<DOUBLE\> | (temperature/2)\<DOUBLE\> |
+| temperature/<DOUBLE/> | (temperature/*2)/<DOUBLE/> | (temperature/2)/<DOUBLE/> |
 |-----------------------|----------------------------|-------------------------|
 | 27.1                  | 54.2                       | 13.55                   |
 
@@ -105,7 +104,7 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic
 
 Returns:
 
-| temperature\<DOUBLE\> | -temperature\<DOUBLE\> |
+| temperature/<DOUBLE/> | -temperature/<DOUBLE/> |
 |-----------------------|----------------------|
 | 27.1                  | -27.1                |
 
@@ -119,7 +118,7 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND region = 'South Atlantic
 
 Returns:
 
-| (temperature+(2\*3))\<DOUBLE\> | ((temperature\+2)\*3)\<DOUBLE\> |
+| (temperature+(2/*3))/<DOUBLE/> | ((temperature/+2)/*3)/<DOUBLE/> |
 |--------------------------------|-----------------------------|
 | 33.1                           | 87.30000000000001           |
 

@@ -18,8 +18,8 @@ aliases:
 [activating]: ../creating-activating/
 [planning]: ../planning/
 [querying]: ../querying/
-[config reference]: /riak/kv/2.1.4/configuring/reference/#the-advanced-config-file
-[MDC]: /riak/ts/1.3.0/using/mdc
+[config reference]: {{<baseurl>}}riak/kv/2.1.4/configuring/reference/#the-advanced-config-file
+[MDC]: {{<baseurl>}}riak/ts/1.3.0/using/mdc
 [riakshell]: ../riakshell
 
 

@@ -12,15 +12,14 @@ project_version: "1.5.1"
 toc: true
 aliases:
     - /riakts/1.5.1/using/timerepresentations/
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/timerepresentations"
 ---
 
 
 [activating]: ../creating-activating/
 [planning]: ../planning/
 [querying]: ../querying/
-[config reference]: /riak/kv/2.2.0/configuring/reference/#the-advanced-config-file
-[MDC]: /riak/ts/1.5.1/using/mdc
+[config reference]: {{<baseurl>}}riak/kv/2.2.0/configuring/reference/#the-advanced-config-file
+[MDC]: {{<baseurl>}}riak/ts/1.5.1/using/mdc
 [riak shell]: ../riakshell
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
 [learn timestamps]: ../../learn-about/timestamps

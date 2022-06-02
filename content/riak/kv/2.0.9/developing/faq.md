@@ -16,19 +16,19 @@ aliases:
   - /riak/kv/2.0.9/community/faqs/developing
 ---
 
-[[Basho Bench]: /riak/kv/2.0.9/using/performance/benchmarking
-[Bitcask]: /riak/kv/2.0.9/setup/planning/backend/bitcask
-[Bucket Properties]: /riak/kv/2.0.9/developing/usage
+[[Basho Bench]: {{<baseurl>}}riak/kv/2.0.9/using/performance/benchmarking
+[Bitcask]: {{<baseurl>}}riak/kv/2.0.9/setup/planning/backend/bitcask
+[Bucket Properties]: {{<baseurl>}}riak/kv/2.0.9/developing/usage
 [built-in functions list]: https://github.com/basho/riak_kv/blob/master/priv/mapred_builtins.js
-[commit hooks]: /riak/kv/2.0.9/developing/usage/commit-hooks
-[Configuration Files]: /riak/kv/2.0.9/configuring/reference
+[commit hooks]: {{<baseurl>}}riak/kv/2.0.9/developing/usage/commit-hooks
+[Configuration Files]: {{<baseurl>}}riak/kv/2.0.9/configuring/reference
 [contrib.basho.com]: https://github.com/basho/riak_function_contrib
-[Erlang Riak Client]: /riak/kv/2.0.9/developing/client-libraries
-[MapReduce]: /riak/kv/2.0.9/developing/usage/mapreduce
-[Memory]: /riak/kv/2.0.9/setup/planning/backend/memory
-[Riak CS]: /riak/cs/2.1.1
-[System Planning]: /riak/kv/2.0.9/setup/planning/start/#network-configuration-load-balancing
-[vector clocks]: /riak/kv/2.0.9/learn/concepts/causal-context#vector-clocks
+[Erlang Riak Client]: {{<baseurl>}}riak/kv/2.0.9/developing/client-libraries
+[MapReduce]: {{<baseurl>}}riak/kv/2.0.9/developing/usage/mapreduce
+[Memory]: {{<baseurl>}}riak/kv/2.0.9/setup/planning/backend/memory
+[Riak CS]: {{<baseurl>}}riak/cs/2.1.1
+[System Planning]: {{<baseurl>}}riak/kv/2.0.9/setup/planning/start/#network-configuration-load-balancing
+[vector clocks]: {{<baseurl>}}riak/kv/2.0.9/learn/concepts/causal-context#vector-clocks
 
 
 ## General

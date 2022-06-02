@@ -18,10 +18,10 @@ aliases:
   - /riak/kv/2.0.8/installing/debian-ubuntu/
 ---
 
-[install source index]: /riak/kv/2.0.8/setup/installing/source/
-[security index]: /riak/kv/2.0.8/using/security/
-[install source erlang]: /riak/kv/2.0.8/setup/installing/source/erlang
-[install verify]: /riak/kv/2.0.8/setup/installing/verify
+[install source index]: {{<baseurl>}}riak/kv/2.0.8/setup/installing/source/
+[security index]: {{<baseurl>}}riak/kv/2.0.8/using/security/
+[install source erlang]: {{<baseurl>}}riak/kv/2.0.8/setup/installing/source/erlang
+[install verify]: {{<baseurl>}}riak/kv/2.0.8/setup/installing/verify
 
 Riak KV can be installed on Debian or Ubuntu-based systems using a binary
 package or by compiling from source code.

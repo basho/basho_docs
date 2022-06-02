@@ -13,9 +13,9 @@ toc: true
 commercial_offering: true
 ---
 
-[Local-deployment]: /images/redis/rra_deployment_local.png
-[Colocated-deployment]: /images/redis/rra_deployment_colocated.png
-[Distributed-deployment]: /images/redis/rra_deployment_distributed.png
+[Local-deployment]: {{<baseurl>}}images/redis/rra_deployment_local.png
+[Colocated-deployment]: {{<baseurl>}}images/redis/rra_deployment_colocated.png
+[Distributed-deployment]: {{<baseurl>}}images/redis/rra_deployment_distributed.png
 
 ## Deployment Models
 
@@ -24,7 +24,7 @@ commercial_offering: true
 In a local cache deployment, the RRA and Redis are deployed to the application
 server.
 
-![Local-deployment](/images/redis/rra_deployment_local.png)
+![Local-deployment]({{<baseurl>}}images/redis/rra_deployment_local.png)
 
 Connections:
 
@@ -65,7 +65,7 @@ connections from the application services while deployment costs remain a matter
 of pushing a service and its configuration. In either case, deployment should
 be automated, so are not multiplied by the number of servers.
 
-![Colocated-deployment](/images/redis/rra_deployment_colocated.png)
+![Colocated-deployment]({{<baseurl>}}images/redis/rra_deployment_colocated.png)
 
 Connections:
 
@@ -103,7 +103,7 @@ Disadvantages:
 In a distributed cache deployment, the RRA is deployed to the application server
 and Redis is deployed to standalone servers, separate from Riak cluster nodes.
 
-![Distributed-deployment](/images/redis/rra_deployment_distributed.png)
+![Distributed-deployment]({{<baseurl>}}images/redis/rra_deployment_distributed.png)
 
 Connections:
 

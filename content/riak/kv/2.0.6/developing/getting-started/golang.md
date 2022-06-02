@@ -15,7 +15,7 @@ aliases:
   - /riak/kv/2.0.6/dev/taste-of-riak/golang
 ---
 
-If you haven't set up a Riak Node and started it, please visit [Running A Cluster](/riak/kv/2.0.6/using/running-a-cluster) first and ensure you have
+If you haven't set up a Riak Node and started it, please visit [Running A Cluster]({{<baseurl>}}riak/kv/2.0.6/using/running-a-cluster) first and ensure you have
 [a working installation of Go](http://golang.org/doc/install).
 
 ## Client Setup
@@ -75,4 +75,4 @@ We are now ready to start interacting with Riak.
 
 ## Next Steps
 
-[CRUD Operations](/riak/kv/2.0.6/developing/getting-started/golang/crud-operations)
+[CRUD Operations]({{<baseurl>}}riak/kv/2.0.6/developing/getting-started/golang/crud-operations)

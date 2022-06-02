@@ -15,14 +15,14 @@ aliases:
   - /riak/kv/2.0.2/ops/advanced/security
 ---
 
-[config reference search]: /riak/kv/2.0.2/configuring/reference/#search
-[config search enabling]: /riak/kv/2.0.2/configuring/search/#enabling-riak-search
-[config v3 ssl]: /riak/kv/2.0.2/configuring/v3-multi-datacenter/ssl
+[config reference search]: {{<baseurl>}}riak/kv/2.0.2/configuring/reference/#search
+[config search enabling]: {{<baseurl>}}riak/kv/2.0.2/configuring/search/#enabling-riak-search
+[config v3 ssl]: {{<baseurl>}}riak/kv/2.0.2/configuring/v3-multi-datacenter/ssl
 [JMX]: http://www.oracle.com/technetwork/java/javase/tech/javamanagement-140525.html
-[security basics]: /riak/kv/2.0.2/using/security/basics
-[security managing]: /riak/kv/2.0.2/using/security/managing-sources/
+[security basics]: {{<baseurl>}}riak/kv/2.0.2/using/security/basics
+[security managing]: {{<baseurl>}}riak/kv/2.0.2/using/security/managing-sources/
 [Solr]: http://lucene.apache.org/solr/
-[usage search]: /riak/kv/2.0.2/developing/usage/search
+[usage search]: {{<baseurl>}}riak/kv/2.0.2/developing/usage/search
 
 > **Internal security**
 >

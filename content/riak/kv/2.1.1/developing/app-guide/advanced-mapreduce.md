@@ -15,12 +15,12 @@ aliases:
   - /riak/kv/2.1.1/dev/advanced/mapreduce/
 ---
 
-[usage 2i]: /riak/kv/2.1.1/developing/usage/secondary-indexes
-[apps replication properties]: /riak/kv/2.1.1/developing/app-guide/replication-properties
-[use ref custom code]: /riak/kv/2.1.1/using/reference/custom-code
-[usage bucket types]: /riak/kv/2.1.1/developing/usage/bucket-types
-[glossary vnode]: /riak/kv/2.1.1/learn/glossary/#vnode
-[config reference]: /riak/kv/2.1.1/configuring/reference
+[usage 2i]: {{<baseurl>}}riak/kv/2.1.1/developing/usage/secondary-indexes
+[apps replication properties]: {{<baseurl>}}riak/kv/2.1.1/developing/app-guide/replication-properties
+[use ref custom code]: {{<baseurl>}}riak/kv/2.1.1/using/reference/custom-code
+[usage bucket types]: {{<baseurl>}}riak/kv/2.1.1/developing/usage/bucket-types
+[glossary vnode]: {{<baseurl>}}riak/kv/2.1.1/learn/glossary/#vnode
+[config reference]: {{<baseurl>}}riak/kv/2.1.1/configuring/reference
 
 > **Use MapReduce sparingly**
 >
@@ -725,7 +725,7 @@ You can use streaming with Erlang via the Riak local client or the
 Erlang Protocol Buffers API.  In either case, you will provide the call
 to `mapred_stream` with a `Pid` that will receive the streaming results.
 
-For examples, see [MapReduce pbstream.erl](/data/MapReduceExamples/pbstream.erl)
+For examples, see [MapReduce pbstream.erl]({{<baseurl>}}data/MapReduceExamples/pbstream.erl)
 
 ## Troubleshooting MapReduce, illustrated
 

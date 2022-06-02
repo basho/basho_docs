@@ -11,18 +11,18 @@ project: "riak_ts"
 project_version: "1.5.2"
 toc: true
 aliases:
-    - /riakts/1.5.2/using/
-canonical_link: "https://docs.basho.com/riak/ts/latest/using"
+  - /riakts/1.5.2/using/
+
 ---
 
 
 [activating]: creating-activating/
 [aggregate]: querying/select/aggregate-functions/
 [arithmetic]: querying/select/arithmetic-operations/
-[configuring]: /riak/ts/1.5.2/configuring/
-[download]: /riak/ts/1.5.2/downloads/
+[configuring]: {{<baseurl>}}riak/ts/1.5.2/configuring/
+[download]: {{<baseurl>}}riak/ts/1.5.2/downloads/
 [installing]: ../setup/installing/
-[mdc]: /riak/ts/1.5.2/configuring/mdc/
+[mdc]: {{<baseurl>}}riak/ts/1.5.2/configuring/mdc/
 [planning]: planning/
 [querying]: querying/
 [riakshell]: riakshell/

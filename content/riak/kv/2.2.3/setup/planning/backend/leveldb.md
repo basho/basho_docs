@@ -15,11 +15,11 @@ aliases:
   - /riak/kv/2.2.3/ops/advanced/backends/leveldb/
 ---
 
-[upgrade 2.0#upgrading-leveldB]: /
-[glossary vnode]: /riak/kv/2.2.3/learn/glossary/#vnode
-[config reference]: /riak/kv/2.2.3/configuring/reference
-[perf index]: /riak/kv/2.2.3/using/performance
-[config reference#aae]: /riak/kv/2.2.3/configuring/reference/#active-anti-entropy
+[upgrade 2.0#upgrading-leveldB]: {{<baseurl>}}
+[glossary vnode]: {{<baseurl>}}riak/kv/2.2.3/learn/glossary/#vnode
+[config reference]: {{<baseurl>}}riak/kv/2.2.3/configuring/reference
+[perf index]: {{<baseurl>}}riak/kv/2.2.3/using/performance
+[config reference#aae]: {{<baseurl>}}riak/kv/2.2.3/configuring/reference/#active-anti-entropy
 
 > **Note on upgrading to 2.0**
 >

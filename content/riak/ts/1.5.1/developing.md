@@ -12,20 +12,19 @@ project_version: "1.5.1"
 toc: true
 aliases:
     - /riakts/1.5.1/developing/developing/
-canonical_link: "https://docs.basho.com/riak/ts/latest/developing"
 ---
 
 
-[erlang]: /riak/ts/1.5.1/developing/erlang
-[go]: /riak/ts/1.5.1/developing/golang
-[http]: /riak/ts/1.5.1/developing/http
-[java]: /riak/ts/1.5.1/developing/java
-[ruby]: /riak/ts/1.5.1/developing/ruby
-[python]: /riak/ts/1.5.1/developing/python
-[csharp]: /riak/ts/1.5.1/developing/csharp
-[nodejs]: /riak/ts/1.5.1/developing/nodejs
-[erlang]: /riak/ts/1.5.1/developing/erlang
-[php]: /riak/ts/1.5.1/developing/php
+[erlang]: {{<baseurl>}}riak/ts/1.5.1/developing/erlang
+[go]: {{<baseurl>}}riak/ts/1.5.1/developing/golang
+[http]: {{<baseurl>}}riak/ts/1.5.1/developing/http
+[java]: {{<baseurl>}}riak/ts/1.5.1/developing/java
+[ruby]: {{<baseurl>}}riak/ts/1.5.1/developing/ruby
+[python]: {{<baseurl>}}riak/ts/1.5.1/developing/python
+[csharp]: {{<baseurl>}}riak/ts/1.5.1/developing/csharp
+[nodejs]: {{<baseurl>}}riak/ts/1.5.1/developing/nodejs
+[erlang]: {{<baseurl>}}riak/ts/1.5.1/developing/erlang
+[php]: {{<baseurl>}}riak/ts/1.5.1/developing/php
 
 
 You can access Riak TS data over HTTP through the [API][http].

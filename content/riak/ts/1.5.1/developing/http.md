@@ -12,7 +12,6 @@ project_version: "1.5.1"
 toc: true
 aliases:
     - /riakts/1.5.1/developing/http/
-canonical_link: "https://docs.basho.com/riak/ts/latest/developing/http"
 ---
 
 

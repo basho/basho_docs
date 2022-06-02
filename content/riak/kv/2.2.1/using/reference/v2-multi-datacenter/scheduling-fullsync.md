@@ -16,7 +16,7 @@ aliases:
 ---
 
 {{% note title="Deprecation Warning" %}}
-v2 Multi-Datacenter Replication is deprecated and will be removed in a future version. Please use [v3](/riak/kv/2.2.1/using/reference/v3-multi-datacenter/scheduling-fullsync/) instead.
+v2 Multi-Datacenter Replication is deprecated and will be removed in a future version. Please use [v3]({{<baseurl>}}riak/kv/2.2.1/using/reference/v3-multi-datacenter/scheduling-fullsync/) instead.
 {{% /note %}}
 
 

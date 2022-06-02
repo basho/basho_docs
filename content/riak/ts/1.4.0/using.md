@@ -12,7 +12,6 @@ project_version: "1.4.0"
 toc: true
 aliases:
     - /riakts/1.4.0/using/
-canonical_link: "https://docs.basho.com/riak/ts/latest/using"
 ---
 
 
@@ -20,7 +19,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using"
 [aggregate]: querying/select/aggregate-functions/
 [arithmetic]: querying/select/arithmetic-operations/
 [configuring]: configuring/
-[download]: /riak/ts/1.4.0/downloads/
+[download]: {{<baseurl>}}riak/ts/1.4.0/downloads/
 [installing]: ../setup/installing/
 [mdc]: mdc/
 [planning]: planning/

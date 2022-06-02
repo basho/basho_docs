@@ -24,7 +24,7 @@ and access.
 {{% /note %}}
 
 For information about how access statistics are logged, please read
-[Usage and Billing Data](/riak/cs/2.1.0/cookbooks/usage-and-billing-data).
+[Usage and Billing Data]({{<baseurl>}}riak/cs/2.1.0/cookbooks/usage-and-billing-data).
 
 The following sections discuss accessing the access statistics using
 bare HTTP requests. Query parameters are used to specify the types and
@@ -81,7 +81,7 @@ HTTP/1.1 404 Object Not Found
 > **Authentication Required**
 >
 > Queries to the usage resources described here must be authenticated as
-described in the [Authentication documentation](/riak/cs/2.1.0/cookbooks/authentication). Keep this in mind when using `curl`. Authentication credentials for `s3cmd` or `s3-curl` can be specified in their respective configuration files.
+described in the [Authentication documentation]({{<baseurl>}}riak/cs/2.1.0/cookbooks/authentication). Keep this in mind when using `curl`. Authentication credentials for `s3cmd` or `s3-curl` can be specified in their respective configuration files.
 
 The usage HTTP resource provides both access and storage statistics.
 Since each of these queries can be taxing in its own right, they are
@@ -234,7 +234,7 @@ the amount of time that may be retrieved in any request is limited.
 
 The limit is configured by the `riak_cs` application environment
 variable `usage_request_limit`. The value is expressed as an integer
-number of archive intervals (see [Usage and Billing Data](/riak/cs/2.1.0/cookbooks/usage-and-billing-data) for a
+number of archive intervals (see [Usage and Billing Data]({{<baseurl>}}riak/cs/2.1.0/cookbooks/usage-and-billing-data) for a
 description of archive intervals).
 
 The default value is `744`, which is 31 days at the default archive

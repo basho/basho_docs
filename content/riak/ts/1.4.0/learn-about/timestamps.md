@@ -13,7 +13,6 @@ project_version: "1.4.0"
 toc: true
 aliases:
     - /riakts/1.4.0/learn-about/timestamps/
-canonical_link: "https://docs.basho.com/riak/ts/latest/learn-about/timestamps"
 ---
 
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601

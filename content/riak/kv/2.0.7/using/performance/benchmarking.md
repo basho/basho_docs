@@ -51,7 +51,7 @@ You can download the pre-built packages below, or build it from source.
 
 #### Prerequisites
 
-* Erlang must be installed. See [Installing Erlang](/riak/kv/2.0.7/setup/installing/source/erlang) for instructions
+* Erlang must be installed. See [Installing Erlang]({{<baseurl>}}riak/kv/2.0.7/setup/installing/source/erlang) for instructions
     and versioning requirements. Note: Unless you're an experienced
     Erlang developer, we recommend that you use Ubuntu 14.04 LTS (and
     not CentOS), when building ```basho_bench``` from source.  Later

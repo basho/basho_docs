@@ -13,11 +13,12 @@ toc: true
 commercial_offering: true
 aliases:
   - /riak/ts/1.5.2/add-ons/redis/get-started-with-rra
+
 ---
 
 [addon redis develop]: ../developing-rra/
 [addon redis setup]: ../set-up-rra/
-[dev api http]: /riak/kv/2.2.0/developing/api/http/
+[dev api http]: {{<baseurl>}}riak/kv/2.2.0/developing/api/http/
 [ee]: http://basho.com/contact/
 
 

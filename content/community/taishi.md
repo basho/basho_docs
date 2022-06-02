@@ -17,7 +17,7 @@ The team at Basho knows that our community is more than any one product or one p
 
 We call this group **Taishi**: Basho’s community recognition program.
 
-Members of Taishi will be based on past contribution, current commitment and upholding [our code of conduct](https://github.com/basho-labs/the-basho-community/blob/master/code-of-conduct.md) (which has a TL;DR of **be kind to each other**). We will thank people through membership, some fun giveaways, and exclusive opportunities. [Nominations](http://bit.ly/taishi-nomination) are throughout the year, with memberships occurring from [RICON to RICON](ricon.io).
+Members of Taishi will be based on past contribution, current commitment and upholding [our code of conduct](https://github.com/basho-labs/the-basho-community/blob/master/code-of-conduct.md) (which has a TL;DR of **be kind to each other**). We will thank people through membership, some fun giveaways, and exclusive opportunities. [Nominations](http://bit.ly/taishi-nomination) are throughout the year, with memberships occurring from [RICON to RICON](http://ricon.io/).
 
 Nominations are always welcome at http://bit.ly/taishi-nomination
 
@@ -75,7 +75,7 @@ Riak and the tools around it are open source. This public strategy, however, sha
 
 ## Is membership forever?
 
-Membership to Taishi is for a year, measured by our conference, [RICON](ricon.io). From RICON to RICON, members have all the exclusive access and privileges provided through the program.
+Membership to Taishi is for a year, measured by our conference, [RICON](http://ricon.io/). From RICON to RICON, members have all the exclusive access and privileges provided through the program.
 
 
 ## Are Basho employees eligible?

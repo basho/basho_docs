@@ -36,7 +36,7 @@ GitHub for bug reporting.
 
 In addition to the official clients, Basho provides some unofficial
 client libraries, listed below. There are also many client libraries and
-related [community projects](/community/projects/).
+related [community projects]({{<baseurl>}}community/projects/).
 
 
 ## Community Libraries

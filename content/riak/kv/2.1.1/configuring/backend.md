@@ -12,10 +12,10 @@ menu:
 toc: true
 ---
 
-[plan backend leveldb]: /riak/kv/2.1.1/setup/planning/backend/leveldb
-[plan backend bitcask]: /riak/kv/2.1.1/setup/planning/backend/bitcask
-[plan backend memory]: /riak/kv/2.1.1/setup/planning/backend/memory
-[plan backend multi]: /riak/kv/2.1.1/setup/planning/backend/multi
+[plan backend leveldb]: {{<baseurl>}}riak/kv/2.1.1/setup/planning/backend/leveldb
+[plan backend bitcask]: {{<baseurl>}}riak/kv/2.1.1/setup/planning/backend/bitcask
+[plan backend memory]: {{<baseurl>}}riak/kv/2.1.1/setup/planning/backend/memory
+[plan backend multi]: {{<baseurl>}}riak/kv/2.1.1/setup/planning/backend/multi
 
 ## LevelDB
 

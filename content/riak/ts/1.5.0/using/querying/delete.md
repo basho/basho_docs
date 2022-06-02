@@ -14,12 +14,11 @@ version_history:
   in: "1.5.0+"
 aliases:
     - /riakts/1.5.0/using/querying/delete
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/delete"
 ---
 
-[query guidelines]: /riak/ts/1.5.0/using/querying/guidelines/
-[time rep]: /riak/ts/1.5.0/using/timerepresentations/
-[http delete]: /riak/ts/1.4.0/using/writingdata/#deleting-data
+[query guidelines]: {{<baseurl>}}riak/ts/1.5.0/using/querying/guidelines/
+[time rep]: {{<baseurl>}}riak/ts/1.5.0/using/timerepresentations/
+[http delete]: {{<baseurl>}}riak/ts/1.4.0/using/writingdata/#deleting-data
 
 # DELETE
 

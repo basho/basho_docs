@@ -15,7 +15,7 @@ toc: true
 [repair recover fail]: ./failure-recovery/
 [repair recover errors]: ./errors/
 [repair recover repairs]: ./repairs/
-[repair recover restart]: ./rolling-restarts/
+[repair recover restart]: ./rolling-restart/
 
 ## In This Section
 

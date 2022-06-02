@@ -23,12 +23,12 @@ return if not toc.length
 
 # Finda all h2 elements and early out if there are fewer than 3 of them.
 h2s = $('main > h2')
-return if h2s.length < 3
+return if h2s.length < 2
 
 # Build DOM elements in JQuery, to be appended later.
 toc_title   = $('<h3 class="table-of-contents__title">Contents</h3>')
 toc_wrapper = $('<div class="table-of-contents__wrapper"/>')
-toc_items   = $('<ol class ="table-of-contents__items"/>').appendTo(toc_wrapper)
+toc_items   = $('<ol class="table-of-contents__items"/>').appendTo(toc_wrapper)
 
 toc_wrapper.addClass("table-of-contents__wrapper--multi") if h2s.length >= 6
 
@@ -39,7 +39,7 @@ h2s.each ->
   # from the text of the header before using it as a local link.
   toc_items.append($("<li/>", {
         class : "table-of-contents__item",
-        html  : "<a href=##{$that.attr('id')}>#{$that.text()}</a>"
+        html  : "<a href=#{window.location.href.split('#')[0]}##{$that.attr('id')}>#{$that.text()}</a>"
       }))
 
 

@@ -27,7 +27,7 @@ Content Type | Erlang Module
 `text/xml` | `yz_xml_extractor`
 No specified type | `yz_noop_extractor`
 
-There are also built-in extractors for [Riak Data Types](/riak/kv/2.1.4/developing/usage/searching-data-types).
+There are also built-in extractors for [Riak Data Types]({{<baseurl>}}riak/kv/2.1.4/developing/usage/searching-data-types).
 
 If you're working with a data format that does not have a default Solr
 extractor, you can create your own and register it with Riak Search.
@@ -145,7 +145,7 @@ erlc search_test_extractor.erl
 To instruct Riak where to find the resulting
 `search_test_extractor.beam` file, we'll need to add a line to an
 `advanced.config` file in the node's `/etc` directory (more information
-can be found in our documentation on [advanced](/riak/kv/2.1.4/configuring/reference/#advanced-configuration)). Here's an
+can be found in our documentation on [advanced]({{<baseurl>}}riak/kv/2.1.4/configuring/reference/#advanced-configuration)). Here's an
 example:
 
 ```advancedconfig
@@ -229,7 +229,7 @@ yz_extractor:run(<<"GET http://www.google.com HTTP/1.1\n">>, yz_httpheader_extra
 ## Indexing and Searching HTTP Header Packet Data
 
 Now that Solr knows how to extract HTTP header packet data, we need to
-create a schema that extends the [default schema](/riak/kv/2.1.4/developing/usage/search-schemas/#creating-a-custom-schema). The following fields should be added
+create a schema that extends the [default schema]({{<baseurl>}}riak/kv/2.1.4/developing/usage/search-schemas/#creating-a-custom-schema). The following fields should be added
 to `<fields>` in the schema, which we'll name `http_header_schema` and
 store in a `http_header_schema.xml` file:
 
@@ -316,7 +316,7 @@ curl -XPUT $RIAK_HOST/search/index/header_data \
      -d '{"schema":"http_header_schema"}'
 ```
 
-Now, we can create and activate a [bucket type](/riak/kv/2.1.4/developing/usage/bucket-types)
+Now, we can create and activate a [bucket type]({{<baseurl>}}riak/kv/2.1.4/developing/usage/bucket-types)
 for all of the HTTP header data that we plan to store. Any bucket that
 bears this type will be associated with our `header_data` search index.
 We'll call our bucket type `http_data_store`.

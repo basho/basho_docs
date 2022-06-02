@@ -15,7 +15,6 @@ version_history:
 aliases:
     - /riakts/1.5.1/setup/downgrading/
     - /riakts/1.5.1/downgrading/
-canonical_link: "https://docs.basho.com/riak/ts/latest/setup/downgrading/"
 ---
 
 ## Caution

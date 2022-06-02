@@ -255,7 +255,7 @@ The results for each stage of fullsync:
 
 ## Download
 
-Please see our [downloads](http://docs.basho.com/riak/latest/downloads/)
+Please see our [downloads]({{< baseurl >}}riak/kv/latest/downloads/)
 page.
 
 ## Feedback

@@ -15,7 +15,7 @@ aliases:
   - /riak/kv/2.1.4/dev/references/protocol-buffers/delete-object
 ---
 
-Delete an object in the specified [bucket type](/riak/kv/2.1.4/using/cluster-operations/bucket-types)/bucket/key location.
+Delete an object in the specified [bucket type]({{<baseurl>}}riak/kv/2.1.4/using/cluster-operations/bucket-types)/bucket/key location.
 
 ## Request
 
@@ -49,7 +49,7 @@ Parameter | Description |
 {{% note title="Note on defaults and special values" %}}
 All of the optional parameters below have default values determined on a
 per-bucket basis. Please refer to the documentation on <a
-href="http://docs.basho.com/riak/kv/2.1.4/developing/api/protocol-buffers/set-bucket-props/">setting
+href="{{< baseurl >}}riak/kv/2.1.4/developing/api/protocol-buffers/set-bucket-props/">setting
 bucket properties</a> for more information.
 
 Furthermore, you can assign an integer value to the `rw`, `r`, `w`, `pr`,

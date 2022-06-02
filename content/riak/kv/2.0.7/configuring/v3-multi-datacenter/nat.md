@@ -17,7 +17,7 @@ aliases:
   - /riak/kv/2.0.7/ops/mdc/v3/nat
 ---
 
-[config v3 ssl]: /riak/kv/2.0.7/configuring/v3-multi-datacenter/ssl
+[config v3 ssl]: {{<baseurl>}}riak/kv/2.0.7/configuring/v3-multi-datacenter/ssl
 
 Riak Enterprise Version 3 Replication supports replication of data on
 networks that use static NAT.

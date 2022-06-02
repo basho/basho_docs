@@ -17,8 +17,7 @@ listed_projects:
       title: "Riak TS"
       install_instructions_set: "installing"
 aliases:
-    - /riakts/1.5.2/downloads/
-canonical_link: "https://docs.basho.com/riak/ts/latest/downloads"
+  - /riakts/1.5.2/downloads/
 ---
 
 

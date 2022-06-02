@@ -10,10 +10,12 @@ menu:
     weight: 103
     parent: "index"
 toc: true
+aliases:
+  - /dataplatform/latest/release-notes/
 ---
 
-[bdp downloads]: /dataplatform/1.0.0/downloads/
-[bdp install]: /dataplatform/1.0.0/installing/
+[bdp downloads]: {{<baseurl>}}dataplatform/1.0.0/downloads/
+[bdp install]: {{<baseurl>}}dataplatform/1.0.0/installing/
 
 Released August 27, 2015.
 

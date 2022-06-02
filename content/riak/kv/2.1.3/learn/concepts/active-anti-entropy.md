@@ -15,15 +15,15 @@ aliases:
   - /riak/kv/2.1.3/theory/concepts/aae
 ---
 
-[cluster ops v3 mdc]: /riak/kv/2.1.3/using/cluster-operations/v3-multi-datacenter
-[cluster ops aae]: /riak/kv/2.1.3/using/cluster-operations/active-anti-entropy
-[concept clusters]: /riak/kv/2.1.3/learn/concepts/clusters
-[concept eventual consistency]: /riak/kv/2.1.3/learn/concepts/eventual-consistency
-[config aae]: /riak/kv/2.1.4/configuring/reference/#active-anti-entropy
-[glossary read rep]: /riak/kv/2.1.3/learn/glossary/#read-repair
-[glossary vnode]: /riak/kv/2.1.3/learn/glossary/#vnode
+[cluster ops v3 mdc]: {{<baseurl>}}riak/kv/2.1.3/using/cluster-operations/v3-multi-datacenter
+[cluster ops aae]: {{<baseurl>}}riak/kv/2.1.3/using/cluster-operations/active-anti-entropy
+[concept clusters]: {{<baseurl>}}riak/kv/2.1.3/learn/concepts/clusters
+[concept eventual consistency]: {{<baseurl>}}riak/kv/2.1.3/learn/concepts/eventual-consistency
+[config aae]: {{<baseurl>}}riak/kv/2.1.3/configuring/reference/#active-anti-entropy
+[glossary read rep]: {{<baseurl>}}riak/kv/2.1.3/learn/glossary/#read-repair
+[glossary vnode]: {{<baseurl>}}riak/kv/2.1.3/learn/glossary/#vnode
 [Merkle tree]: http://en.wikipedia.org/wiki/Merkle_tree
-[usage search]: /riak/kv/2.1.3/developing/usage/search
+[usage search]: {{<baseurl>}}riak/kv/2.1.3/developing/usage/search
 
 
 In a [clustered][concept clusters], [eventually consistent][concept eventual consistency] system like Riak, conflicts between object replicas stored

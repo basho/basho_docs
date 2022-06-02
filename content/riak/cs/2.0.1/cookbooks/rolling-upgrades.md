@@ -18,7 +18,7 @@ Each node in a Riak CS cluster contains settings that define its
 operating modes and API coverage. The following steps outline the
 process of upgrading Riak CS in a rolling fashion.
 
-Be sure to check the Riak CS [Version Compatibility](/riak/cs/2.0.1/cookbooks/version-compatibility) chart to ensure that your version of Riak, Riak CS, and Stanchion have been tested to work together.  As Basho supports upgrades from the previous two major versions, this document will cover upgrades from Riak CS 1.4.x and Riak CS 1.5.x.
+Be sure to check the Riak CS [Version Compatibility]({{<baseurl>}}riak/cs/2.0.1/cookbooks/version-compatibility) chart to ensure that your version of Riak, Riak CS, and Stanchion have been tested to work together.  As Basho supports upgrades from the previous two major versions, this document will cover upgrades from Riak CS 1.4.x and Riak CS 1.5.x.
 
 As Riak CS 2.0.0 only works with Riak 2.0.5, the underlying Riak installation
 *must* be upgraded to Riak 2.0.5.
@@ -80,9 +80,9 @@ detailed description.
     </div>
 
 4. Upgrade Riak, Riak CS, and Stanchion. See the <a
-    href="http://docs.basho.com/riakcs/latest/riakcs-downloads">Riak
+    href="{{< baseurl >}}riak/cs/latest/downloads">Riak
     CS Downloads</a> and <a
-    href="http://docs.basho.com/riak/latest/downloads">Riak Downloads</a>
+    href="{{< baseurl >}}riak/kv/latest/downloads">Riak Downloads</a>
     pages to find the appropriate packages.
 
     **Debian** / **Ubuntu**
@@ -160,7 +160,7 @@ detailed description.
     ]},
     ```
 
-    and so on. More details can be found at [configuring Riak CS](/riak/cs/2.0.1/cookbooks/configuration/riak-cs).
+    and so on. More details can be found at [configuring Riak CS]({{<baseurl>}}riak/cs/2.0.1/cookbooks/configuration/riak-cs).
     </div>
 
     <div class="note"><div class="title">Note on Memory Sizing</div>

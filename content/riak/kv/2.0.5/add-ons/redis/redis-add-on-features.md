@@ -14,10 +14,10 @@ commercial_offering: true
 ---
 
 [ee]: http://basho.com/contact/
-[GET-sequence]: /images/redis/GET_seq.msc.png
-[SET-sequence]: /images/redis/SET_seq.msc.png
-[DEL-sequence]: /images/redis/DEL_seq.msc.png
-[Object-lifetime]: /images/redis/Object_lifetime.msc.png
+[GET-sequence]: {{<baseurl>}}images/redis/GET_seq.msc.png
+[SET-sequence]: {{<baseurl>}}images/redis/SET_seq.msc.png
+[DEL-sequence]: {{<baseurl>}}images/redis/DEL_seq.msc.png
+[Object-lifetime]: {{<baseurl>}}images/redis/Object_lifetime.msc.png
 [redis docs]: http://redis.io/commands
 [twemproxy docs]: https://github.com/twitter/twemproxy/blob/master/notes/redis.md
 
@@ -69,7 +69,7 @@ Implementing caching strategies in the cache proxy service reduces the cost of i
 The read-through cache strategy of the GET command is represented by the
 following sequence diagram:
 
-![GET command sequence diagram](/images/redis/GET_seq.msc.png)
+![GET command sequence diagram]({{<baseurl>}}images/redis/GET_seq.msc.png)
 
 
 The `CACHE_TTL` configuration option establishes how long the cache takes to
@@ -96,12 +96,12 @@ expected to be followed by several accurate cache hits.
 The write-around cache strategy of the SET command is represented by the
 following sequence diagram:
 
-![SET command sequence diagram](/images/redis/SET_seq.msc.png)
+![SET command sequence diagram]({{<baseurl>}}images/redis/SET_seq.msc.png)
 
 The write-around cache strategy of the DEL command is represented by the
 following sequence diagram:
 
-![DEL command sequence diagram](/images/redis/DEL_seq.msc.png)
+![DEL command sequence diagram]({{<baseurl>}}images/redis/DEL_seq.msc.png)
 
 ## Commands
 
@@ -128,4 +128,4 @@ With the combination of read-through and write-around cache strategies, the
 full object lifetime for a key-value is represented by the following
 sequence diagram:
 
-![Object lifetime sequence diagram](/images/redis/Object_lifetime.msc.png)
+![Object lifetime sequence diagram]({{<baseurl>}}images/redis/Object_lifetime.msc.png)

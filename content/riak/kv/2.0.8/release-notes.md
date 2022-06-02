@@ -42,13 +42,13 @@ This is an LTS (long term support) bugfix release that includes improvements to 
     * Logging has been added to clear and exchange trees for audit of administrative operations.
     * All above work captured in [yokozuna PR 704](https://github.com/basho/yokozuna/pull/704).
 
-* Additional [Cuttlefish parameters](/riak/kv/2.0.8/configuring/reference/#search) have been added to support the Riak search batching updates. These configs will allow you to set batching parameters based on your needs and have, in certain cases, led to significantly higher write throughput to Solr.
+* Additional [Cuttlefish parameters]({{<baseurl>}}riak/kv/2.0.8/configuring/reference/#search) have been added to support the Riak search batching updates. These configs will allow you to set batching parameters based on your needs and have, in certain cases, led to significantly higher write throughput to Solr.
     * [[yokozuna PR 704](https://github.com/basho/yokozuna/pull/704)]
 
 
 ## Bugs Fixed
 
-* LevelDB has been upgraded to version 2.0.33, which resolves the [AAE stall product advisory](http://docs.basho.com/community/productadvisories/aaestall/).
+* LevelDB has been upgraded to version 2.0.33, which resolves the [AAE stall product advisory]({{<baseurl>}}community/productadvisories/aaestall/).
 * [[riak_kv PR 1527](https://github.com/basho/riak_kv/pull/1527)] A race condition was occurring where a `gen_fsm` timeout event was not reliably sent, even when the timeout was set to zero, and another message or event could preempt or unset the timeout. To fix this, a timeout event is manually sent using `gen_fsm:send_event`.
 * [[riak PR 886](https://github.com/basho/riak/pull/886), [riak_ee PR 412](https://github.com/basho/riak_ee/pull/412), and [node_package PR 210](https://github.com/basho/node_package/pull/210)] Atom usage in `riak` and `riak-admin` commands has been restricted to 1000. Previously, the OS PID was being used as a pseudo-random number generator, but the range was too large since each nodename used would generate an entry in the atom table. `riak-admin top` uses $$ to randomize the name used to connect to the local Riak node, and the large range of possible OS PIDs can result in atom table exhaustion on long running nodes/clusters. The nodename used by `riak top` has been changed to match `riak-admin top` convention, using `$RANDOM` with the range restricted to 1-1000.
 * [[riak_core Issue 855](https://github.com/basho/riak_core/issues/855)/[riak_core PR 886](https://github.com/basho/riak_core/pull/886)] If updates to the same key in the ring metadata occurred on different nodes during the same second, they were not reconciled. This could lead to nodes flip-flopping the value and many gossip messages causing extremely high message queues and heap usage by the gossip processes. Nodenames have been added to the `merge_meta` comparison to avoid this issue.

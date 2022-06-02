@@ -14,11 +14,10 @@ version_history:
   in: "1.5.0+"
 aliases:
     - /riakts/1.5.0/using/deleting-data/
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/deleting-data"
 ---
 
-[delete]: /riak/ts/1.5.0/using/querying/delete
-[expiry]: /riak/ts/1.5.0/configuring/global-object-expiration
+[delete]: {{<baseurl>}}riak/ts/1.5.0/using/querying/delete
+[expiry]: {{<baseurl>}}riak/ts/1.5.0/configuring/global-object-expiration
 
 Riak TS offers several ways to delete data: with clients, using the DELETE statement, and through global expiry. Global expiry is more efficient than other delete options but operates on all of your data. `DELETE` works per-row but takes more resources to run.
 

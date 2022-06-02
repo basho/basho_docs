@@ -17,8 +17,8 @@ aliases:
   - /riak/kv/2.0.1/ops/mdc/v3/configuration
 ---
 
-[config reference#advanced]: /riak/kv/2.0.1/configuring/reference/#advanced-configuration
-[config v3 ssl#verify-peer]: /riak/kv/2.0.1/configuring/v3-multi-datacenter/ssl/#verifying-peer-certificates
+[config reference#advanced]: {{<baseurl>}}riak/kv/2.0.1/configuring/reference/#advanced-configuration
+[config v3 ssl#verify-peer]: {{<baseurl>}}riak/kv/2.0.1/configuring/v3-multi-datacenter/ssl/#verifying-peer-certificates
 
 > **Note on the `cluster_mgr` setting**
 >

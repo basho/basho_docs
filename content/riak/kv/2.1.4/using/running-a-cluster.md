@@ -14,12 +14,12 @@ aliases:
   - /riak/2.1.4/ops/building/basic-cluster-setup
 ---
 
-[cluster ops add remove node]: /riak/kv/2.1.4/using/cluster-operations/adding-removing-nodes
-[config reference]: /riak/kv/2.1.4/configuring/reference/
-[dev api pbc]: /riak/kv/2.1.4/developing/api/protocol-buffers/
+[cluster ops add remove node]: {{<baseurl>}}riak/kv/2.1.4/using/cluster-operations/adding-removing-nodes
+[config reference]: {{<baseurl>}}riak/kv/2.1.4/configuring/reference/
+[dev api pbc]: {{<baseurl>}}riak/kv/2.1.4/developing/api/protocol-buffers/
 [FQDNs]: http://en.wikipedia.org/wiki/Fully_qualified_domain_name
-[use admin riak-admin cluster replace]: /riak/kv/2.1.4/using/admin/riak-admin/#cluster-replace
-[use admin riak-admin force replace]: /riak/kv/2.1.4/using/admin/riak-admin/#cluster-force-replace
+[use admin riak-admin cluster replace]: {{<baseurl>}}riak/kv/2.1.4/using/admin/riak-admin/#cluster-replace
+[use admin riak-admin force replace]: {{<baseurl>}}riak/kv/2.1.4/using/admin/riak-admin/#cluster-force-replace
 
 Configuring a Riak cluster involves instructing each node to listen on a
 non-local interface, i.e. not `127.0.0.1`, and then joining all of the
@@ -102,7 +102,7 @@ systems. Bear in mind that you need to use either the older or the newer but
 never both simultaneously.
 
 More on configuring Riak can be found in the <a
-href="http://docs.basho.com/riak/kv/2.1.4/configuring/">Configuration
+href="{{< baseurl >}}riak/kv/2.1.4/configuring/">Configuration
 Files</a> documentation.
 {{% /note %}}
 

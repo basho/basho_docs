@@ -10,7 +10,6 @@ menu:
 project: "riak_ts"
 project_version: "1.5.1"
 toc: true
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/select/arithmetic-operations"
 version_history:
   present_from: "1.4.0+"
   moved:
@@ -22,7 +21,7 @@ aliases:
 ---
 
 
-[querying select]: /riak/ts/1.5.1/using/querying/#select-query
+[querying select]: {{<baseurl>}}riak/ts/1.5.1/using/querying/#select-query
 
 
 Riak TS supports arithmetic operations in the SELECT statement.

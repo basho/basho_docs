@@ -16,7 +16,6 @@ version_history:
     - ["<=1.4.0",  "using/configuring"]
 aliases:
     - /riakts/1.4.0/using/configuring/
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/configuring"
 ---
 
 
@@ -72,7 +71,7 @@ riak_kv.query.timeseries.timeout = 10000
 ### Maximum quanta
 
 {{% note %}}
-Before you change this setting, we recommend you take a moment to determine whether requantizing your data would be a better option. If your data is not optimally quantized, upping the maximum quanta setting may make your queries less efficient. You can read more about best practices for quantizing your data [here](/riak/ts/1.4.0/learn-about/bestpractices/#quantum).
+Before you change this setting, we recommend you take a moment to determine whether requantizing your data would be a better option. If your data is not optimally quantized, upping the maximum quanta setting may make your queries less efficient. You can read more about best practices for quantizing your data [here]({{<baseurl>}}riak/ts/1.4.0/learn-about/bestpractices/#quantum).
 {{% /note %}}
 
 

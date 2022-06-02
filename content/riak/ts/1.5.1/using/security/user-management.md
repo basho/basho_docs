@@ -13,7 +13,6 @@ project_version: "1.5.1"
 toc: true
 aliases:
     - /riakts/1.5.1/using/security/user-management
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/security/user-management/"
 ---
 
 Riak TS security lets you to control authorization by creating, modifying, and deleting user characteristics and granting users selective access to Riak TS functionality. Users can be assigned one or more of the following characteristics:

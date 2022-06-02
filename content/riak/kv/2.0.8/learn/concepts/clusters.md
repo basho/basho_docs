@@ -18,15 +18,15 @@ aliases:
 ---
 
 
-[concept buckets]: /riak/kv/2.0.8/learn/concepts/buckets
-[concept keys objects]: /riak/kv/2.0.8/learn/concepts/keys-and-objects
-[concept replication]: /riak/kv/2.0.8/learn/concepts/replication
-[glossary node]: /riak/kv/2.0.8/learn/glossary/#node
-[glossary vnode]: /riak/kv/2.0.8/learn/glossary/#vnode
-[learn dynamo]: /riak/kv/2.0.8/learn/dynamo
-[usage bucket types]: /riak/kv/2.0.8/developing/usage/bucket-types
-[usage conflict resolution]: /riak/kv/2.0.8/developing/usage/conflict-resolution
-[usage replication]: /riak/kv/2.0.8/developing/usage/replication
+[concept buckets]: {{<baseurl>}}riak/kv/2.0.8/learn/concepts/buckets
+[concept keys objects]: {{<baseurl>}}riak/kv/2.0.8/learn/concepts/keys-and-objects
+[concept replication]: {{<baseurl>}}riak/kv/2.0.8/learn/concepts/replication
+[glossary node]: {{<baseurl>}}riak/kv/2.0.8/learn/glossary/#node
+[glossary vnode]: {{<baseurl>}}riak/kv/2.0.8/learn/glossary/#vnode
+[learn dynamo]: {{<baseurl>}}riak/kv/2.0.8/learn/dynamo
+[usage bucket types]: {{<baseurl>}}riak/kv/2.0.8/developing/usage/bucket-types
+[usage conflict resolution]: {{<baseurl>}}riak/kv/2.0.8/developing/usage/conflict-resolution
+[usage replication]: {{<baseurl>}}riak/kv/2.0.8/developing/usage/replication
 
 
 Riak's default mode of operation is to work as a cluster consisting of
@@ -63,7 +63,7 @@ _claims_ that partition).
 
 Below is a visual representation of a Riak ring:
 
-![A Riak Ring](/images/riak-ring.png)
+![A Riak Ring]({{<baseurl>}}images/riak-ring.png)
 
 The nodes of a Riak cluster each attempt to run a roughly equal number
 of vnodes at any given time. In the general case, this means that each
@@ -95,7 +95,7 @@ number of vnodes that must reply before a response is returned.
 
 Here is an illustration of this process:
 
-![A Riak Ring](/images/riak-data-distribution.png)
+![A Riak Ring]({{<baseurl>}}images/riak-data-distribution.png)
 
 When N is set to 3, the value `REM` is stored in the key `artist`. That
 key is assigned to 3 partitions out of 32 available partitions. When a

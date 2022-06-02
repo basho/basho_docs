@@ -16,9 +16,9 @@ aliases:
   - /riak/2.0.2/ops/mdc/v3/aae
 ---
 
-[glossary aae]: /riak/kv/2.0.2/learn/glossary/#active-anti-entropy-aae
-[config reference#advanced]: /riak/kv/2.0.2/configuring/reference/#advanced-configuration
-[concept clusters]: /riak/kv/2.0.2/learn/concepts/clusters
+[glossary aae]: {{<baseurl>}}riak/kv/2.0.2/learn/glossary/#active-anti-entropy-aae
+[config reference#advanced]: {{<baseurl>}}riak/kv/2.0.2/configuring/reference/#advanced-configuration
+[concept clusters]: {{<baseurl>}}riak/kv/2.0.2/learn/concepts/clusters
 
 > **Note: Technical preview**
 >

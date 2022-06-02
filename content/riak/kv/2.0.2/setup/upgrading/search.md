@@ -11,7 +11,7 @@ menu:
     parent: "upgrading"
 toc: true
 version_history:
-  in: "2.0.0-2.1.999"
+  in: "2.0.0-2.99.999"
 ---
 
 If you're using Search in a version of Riak prior to 2.0 (1.3.0 to
@@ -270,4 +270,4 @@ search property is set to false.
 
 11. Finally, delete the merge index directories to reclaim disk space.
 
-For any questions reach out to the [Riak community](/community). Preferably, ask your questions up front rather than during the middle of a migration.
+For any questions reach out to the [Riak community]({{<baseurl>}}community). Preferably, ask your questions up front rather than during the middle of a migration.

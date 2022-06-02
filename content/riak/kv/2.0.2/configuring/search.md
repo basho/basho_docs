@@ -14,20 +14,20 @@ aliases:
   - /riak/2.0.2/ops/advanced/configs/search/
 ---
 
-[usage search]: /riak/kv/2.0.2/developing/usage/search
-[usage search schema]: /riak/kv/2.0.2/developing/usage/search-schemas
-[usage search data types]: /riak/kv/2.0.2/developing/usage/searching-data-types
-[usage custom extractors]: /riak/kv/2.0.2/developing/usage/custom-extractors
-[config reference]: /riak/kv/2.0.2/configuring/reference
-[config reference#search]: /riak/kv/2.0.2/configuring/reference/#search
-[glossary aae]: /riak/kv/2.0.2/learn/glossary/#active-anti-entropy-aae
-[security index]: /riak/kv/2.0.2/using/security/
+[usage search]: {{<baseurl>}}riak/kv/2.0.2/developing/usage/search
+[usage search schema]: {{<baseurl>}}riak/kv/2.0.2/developing/usage/search-schemas
+[usage search data types]: {{<baseurl>}}riak/kv/2.0.2/developing/usage/searching-data-types
+[usage custom extractors]: {{<baseurl>}}riak/kv/2.0.2/developing/usage/custom-extractors
+[config reference]: {{<baseurl>}}riak/kv/2.0.2/configuring/reference
+[config reference#search]: {{<baseurl>}}riak/kv/2.0.2/configuring/reference/#search
+[glossary aae]: {{<baseurl>}}riak/kv/2.0.2/learn/glossary/#active-anti-entropy-aae
+[security index]: {{<baseurl>}}riak/kv/2.0.2/using/security/
 
 > **Note on Search 2.0 vs. Legacy Search**
 >
 > This document refers to the new Riak Search 2.0 with
 [Solr](http://lucene.apache.org/solr/) integration (codenamed
-Yokozuna). For information about the deprecated Riak Search, visit [the old Riak Search Settings](http://docs.basho.com/riak/1.4.8/ops/advanced/configs/search/).
+Yokozuna).
 
 This document covers Riak's Search subsystem from an
 operational perspective. If you are looking for more developer-focused

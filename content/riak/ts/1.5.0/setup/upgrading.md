@@ -15,17 +15,16 @@ version_history:
 aliases:
     - /riakts/1.5.0/setup/upgrading/
     - /riakts/1.5.0/upgrading/
-canonical_link: "https://docs.basho.com/riak/ts/latest/setup/upgrading/"
 ---
 
-[use admin commands]: /riak/kv/2.2.0/using/admin/commands
-[use admin riak-admin]: /riak/kv/2.2.0/using/admin/riak-admin
-[usage secondary-indexes]: /riak/kv/2.2.0/developing/usage/secondary-indexes
+[use admin commands]: {{<baseurl>}}riak/kv/2.2.0/using/admin/commands
+[use admin riak-admin]: {{<baseurl>}}riak/kv/2.2.0/using/admin/riak-admin
+[usage secondary-indexes]: {{<baseurl>}}riak/kv/2.2.0/developing/usage/secondary-indexes
 [riak ts enterprise]: http://basho.com/products/riak-ts/
-[cluster ops mdc]: /riak/kv/2.2.0/using/cluster-operations/v3-multi-datacenter
-[config v3 mdc]: /riak/kv/2.2.0/configuring/v3-multi-datacenter
-[jmx monitor]: /riak/kv/2.2.0/using/reference/jmx
-[snmp]: /riak/kv/2.2.0/using/reference/snmp
+[cluster ops mdc]: {{<baseurl>}}riak/kv/2.2.0/using/cluster-operations/v3-multi-datacenter
+[config v3 mdc]: {{<baseurl>}}riak/kv/2.2.0/configuring/v3-multi-datacenter
+[jmx monitor]: {{<baseurl>}}riak/kv/2.2.0/using/reference/jmx
+[snmp]: {{<baseurl>}}riak/kv/2.2.0/using/reference/snmp
 
 
 {{% note title="**CAUTION**" %}}

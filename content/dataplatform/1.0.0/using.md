@@ -12,12 +12,13 @@ menu:
 toc: true
 aliases:
   - /dataplatform/1.0.0/using-dataplatform/using-dataplatform/
+  - /dataplatform/latest/using/
 ---
 
-[bdp install]: /dataplatform/1.0.0/installing/
-[start services]: /dataplatform/1.0.0/using/start-services/
-[bdp cli]: /dataplatform/1.0.0/using/dataplatform-commands/
-[learn bdp index]: /dataplatform/1.0.0/learn/
+[bdp install]: {{<baseurl>}}dataplatform/1.0.0/installing/
+[start services]: {{<baseurl>}}dataplatform/1.0.0/using/start-services/
+[bdp cli]: {{<baseurl>}}dataplatform/1.0.0/using/dataplatform-commands/
+[learn bdp index]: {{<baseurl>}}dataplatform/1.0.0/learn/
 
 ## In This Section
 

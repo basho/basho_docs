@@ -11,8 +11,8 @@ project: "riak_ts"
 project_version: "1.5.2"
 toc: true
 aliases:
-    - /riakts/1.5.2/developing/ruby/
-canonical_link: "https://docs.basho.com/riak/ts/latest/developing/ruby"
+  - /riakts/1.5.2/developing/ruby/
+
 ---
 
 You can develop applications and tools using Riak TS with the Riak Ruby client.

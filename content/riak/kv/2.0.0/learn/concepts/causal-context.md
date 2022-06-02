@@ -18,18 +18,18 @@ aliases:
 ---
 
 
-[concept aae]: /riak/kv/2.0.0/learn/concepts/active-anti-entropy
-[concept clusters]: /riak/kv/2.0.0/learn/concepts/clusters
-[concept eventual consistency]: /riak/kv/2.0.0/learn/concepts/eventual-consistency
+[concept aae]: {{<baseurl>}}riak/kv/2.0.0/learn/concepts/active-anti-entropy
+[concept clusters]: {{<baseurl>}}riak/kv/2.0.0/learn/concepts/clusters
+[concept eventual consistency]: {{<baseurl>}}riak/kv/2.0.0/learn/concepts/eventual-consistency
 [CRM]: http://en.wikipedia.org/wiki/Customer_relationship_management
-[dev api http]: /riak/kv/2.0.0/developing/api/http
-[dev key value]: /riak/kv/2.0.0/developing/key-value-modeling
-[glossary read rep]: /riak/kv/2.0.0/learn/glossary/#read-repair
-[perf latency reduc]: /riak/kv/2.0.0/using/performance/latency-reduction
-[usage bucket types]: /riak/kv/2.0.0/developing/usage/bucket-types
-[usage conflict resolution]: /riak/kv/2.0.0/developing/usage/conflict-resolution
-[usage protocol buffers]: /riak/kv/2.0.0/developing/api/protocol-buffers
-[usage updating objects]: /riak/kv/2.0.0/developing/usage/updating-objects
+[dev api http]: {{<baseurl>}}riak/kv/2.0.0/developing/api/http
+[dev key value]: {{<baseurl>}}riak/kv/2.0.0/developing/key-value-modeling
+[glossary read rep]: {{<baseurl>}}riak/kv/2.0.0/learn/glossary/#read-repair
+[perf latency reduc]: {{<baseurl>}}riak/kv/2.0.0/using/performance/latency-reduction
+[usage bucket types]: {{<baseurl>}}riak/kv/2.0.0/developing/usage/bucket-types
+[usage conflict resolution]: {{<baseurl>}}riak/kv/2.0.0/developing/usage/conflict-resolution
+[usage protocol buffers]: {{<baseurl>}}riak/kv/2.0.0/developing/api/protocol-buffers
+[usage updating objects]: {{<baseurl>}}riak/kv/2.0.0/developing/usage/updating-objects
 [Vector Clocks on Wikipedia]: http://en.wikipedia.org/wiki/Vector_clock
 [Why Vector Clocks are Easy]: http://basho.com/posts/technical/why-vector-clocks-are-easy/
 [Why Vector Clocks are Hard]: http://basho.com/posts/technical/why-vector-clocks-are-hard/
@@ -80,7 +80,7 @@ sections below.
 
 In the case of outcome 2, the choice between **a** and **b** is yours to
 to make. If you set the `allow_mult` parameter to `true` for a bucket,
-[using bucket types](/riak/kv/2.0.0/developing/usage/bucket-types), all writes to that bucket will create siblings
+[using bucket types]({{<baseurl>}}riak/kv/2.0.0/developing/usage/bucket-types), all writes to that bucket will create siblings
 in the case of concurrent writes (and occasionally under other
 scenarios, e.g. healed network partitions).
 

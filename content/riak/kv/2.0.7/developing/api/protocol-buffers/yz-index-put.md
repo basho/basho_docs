@@ -37,8 +37,8 @@ message RpbYokozunaIndex {
 ```
 
 Each message specifying an index must include the index's name as a
-binary (as `name`). Optionally, you can specify a [`schema`](/riak/kv/2.0.7/developing/usage/search-schemas) name and/or an `n_val`, i.e. the number of nodes on which the index is stored (for GET requests) or on which you wish the index to be stored (for PUT requests). An index's `n_val` must match the associated bucket's `n_val`.
+binary (as `name`). Optionally, you can specify a [`schema`]({{<baseurl>}}riak/kv/2.0.7/developing/usage/search-schemas) name and/or an `n_val`, i.e. the number of nodes on which the index is stored (for GET requests) or on which you wish the index to be stored (for PUT requests). An index's `n_val` must match the associated bucket's `n_val`.
 
 ## Response
 
-Returns a [RpbPutResp](/riak/kv/2.7.0/developing/api/protocol-buffers/#message-codes) code with no data on success.
+Returns a [RpbPutResp]({{<baseurl>}}riak/kv/2.0.7/developing/api/protocol-buffers/#message-codes) code with no data on success.

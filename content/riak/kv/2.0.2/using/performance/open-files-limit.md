@@ -13,10 +13,9 @@ toc: true
 aliases:
   - /riak/2.0.2/ops/tuning/open-files-limit/
   - /riak/kv/2.0.2/ops/tuning/open-files-limit/
-canonical_link: "https://docs.basho.com/riak/kv/latest/using/performance/open-files-limit"
 ---
 
-[plan backend bitcask]: /riak/kv/2.0.2/setup/planning/backend/bitcask
+[plan backend bitcask]: {{<baseurl>}}riak/kv/2.0.2/setup/planning/backend/bitcask
 
 Riak can consume a large number of open file handles during normal
 operation. The [Bitcask][plan backend bitcask] backend in particular may accumulate a high

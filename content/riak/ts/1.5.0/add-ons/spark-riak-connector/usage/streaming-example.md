@@ -11,7 +11,6 @@ menu:
     weight: 108
     parent: "spark_riak_usage"
 toc: true
-canonical_link: "https://docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage/streaming-example"
 ---
 
 > **Note:**
@@ -28,7 +27,7 @@ path/to/kafka/bin/kafka-server-start.sh config/server.properties
 path/to/kafka/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic streaming
 ```
 
-We also assume Riak TS is installed and there is a Riak TS node running at `127.0.0.1:8087`. You can find instruction to do so [here](/riak/ts/1.2.0/installing/mac-osx/).
+We also assume Riak TS is installed and there is a Riak TS node running at `127.0.0.1:8087`. You can find instruction to do so [here]({{<baseurl>}}riak/ts/1.2.0/installing/mac-osx/).
 
 You will need to build the TS example as well. Please follow the instructions on [building the examples](https://github.com/basho/spark-riak-connector/tree/master/examples#building-and-running-examplesdemos).
 

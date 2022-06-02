@@ -12,12 +12,11 @@ project_version: "1.5.1"
 toc: true
 aliases:
     - /riakts/1.5.1/using/riakshell/
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/riakshell"
 ---
 
-[nodename]: /riak/kv/2.2.0/using/cluster-operations/changing-cluster-info/
-[creating]: /riak/ts/1.5.1/using/creating-activating
-[writing]: /riak/ts/1.5.1/using/writingdata
+[nodename]: {{<baseurl>}}riak/kv/2.2.0/using/cluster-operations/changing-cluster-info/
+[creating]: {{<baseurl>}}riak/ts/1.5.1/using/creating-activating
+[writing]: {{<baseurl>}}riak/ts/1.5.1/using/writingdata
 [riak shell README]: https://github.com/basho/riak_shell/blob/develop/README.md
 
 
@@ -195,7 +194,7 @@ An example of the second format is shown below:
 In both of these formats multiple rows of data can be specified
 
 (3)>INSERT INTO mytable VALUES ('keyvalue', '2016-11-30 19:30:00', 123, 12.3, false), ('newvalue', '2016-11-30 19:31:04' 456, 45.6, true);
-For more details please go to http://docs.basho.com/riak/ts
+For more details please go to /riak/ts
 ```
 
 

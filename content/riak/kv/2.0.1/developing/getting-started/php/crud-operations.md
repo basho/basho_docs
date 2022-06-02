@@ -179,4 +179,4 @@ Now that we’ve ruined the magic of object encoding, let’s clean up our mess:
 
 ## Next Steps
 
-More complex use cases can be composed from these initial create, read, update, and delete (CRUD) operations. [In the next chapter](/riak/kv/2.0.1/developing/getting-started/php/querying) we will look at how to store and query more complicated and interconnected data, such as documents. 
+More complex use cases can be composed from these initial create, read, update, and delete (CRUD) operations. [In the next chapter]({{<baseurl>}}riak/kv/2.0.1/developing/getting-started/php/querying) we will look at how to store and query more complicated and interconnected data, such as documents. 

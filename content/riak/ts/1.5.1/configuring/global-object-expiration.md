@@ -17,7 +17,6 @@ version_history:
     - ["<=1.4.0",  "using/global-object-expiration"]
 aliases:
     - /riakts/1.5.1/configuring/global-object-expiration/
-canonical_link: "https://docs.basho.com/riak/ts/latest/configuring/global-object-expiration"
 ---
 
 [ttl]: https://en.wikipedia.org/wiki/Time_to_live

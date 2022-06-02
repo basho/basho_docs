@@ -135,7 +135,7 @@ func (t *Timeline) GetId() string {
 }
 ````
 
-We'll be using the bucket `Users` to store our data. We won't be [using bucket types](/riak/kv/2.0.4/developing/usage/bucket-types) here, so we don't need to specify one.
+We'll be using the bucket `Users` to store our data. We won't be [using bucket types]({{<baseurl>}}riak/kv/2.0.4/developing/usage/bucket-types) here, so we don't need to specify one.
 
 To use these records to store data, we will first have to create a user
 record. Then, when a user creates a message, we will append that message

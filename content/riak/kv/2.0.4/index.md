@@ -15,16 +15,16 @@ aliases:
 ---
 
 [aboutenterprise]: http://basho.com/contact/
-[config index]: /riak/kv/2.0.4/configuring
-[dev index]: /riak/kv/2.0.4/developing
-[downloads]: /riak/kv/2.0.4/downloads/
-[install index]: /riak/kv/2.0.4/setup/installing/
-[plan index]: /riak/kv/2.0.4/setup/planning
-[perf open files]: /riak/kv/2.0.4/using/performance/open-files-limit
-[install debian & ubuntu]: /riak/kv/2.0.4/setup/installing/debian-ubuntu
-[usage search]: /riak/kv/2.0.4/developing/usage/search
-[getting started]: /riak/kv/2.0.4/developing/getting-started
-[dev client libraries]: /riak/kv/2.0.4/developing/client-libraries
+[config index]: {{<baseurl>}}riak/kv/2.0.4/configuring
+[dev index]: {{<baseurl>}}riak/kv/2.0.4/developing
+[downloads]: {{<baseurl>}}riak/kv/2.0.4/downloads/
+[install index]: {{<baseurl>}}riak/kv/2.0.4/setup/installing/
+[plan index]: {{<baseurl>}}riak/kv/2.0.4/setup/planning
+[perf open files]: {{<baseurl>}}riak/kv/2.0.4/using/performance/open-files-limit
+[install debian & ubuntu]: {{<baseurl>}}riak/kv/2.0.4/setup/installing/debian-ubuntu
+[usage search]: {{<baseurl>}}riak/kv/2.0.4/developing/usage/search
+[getting started]: {{<baseurl>}}riak/kv/2.0.4/developing/getting-started
+[dev client libraries]: {{<baseurl>}}riak/kv/2.0.4/developing/client-libraries
 
 
 

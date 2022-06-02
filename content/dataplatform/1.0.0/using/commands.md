@@ -12,12 +12,13 @@ menu:
 toc: true
 aliases:
   - /dataplatform/1.0.0/using-dataplatform/dataplatform-commands/
+  - /dataplatform/latest/using/commands/
 ---
 
-[bdp configure]: /dataplatform/1.0.0/configuring/setup-a-cluster/
-[bdp configure add services]: /dataplatform/1.0.0/configuring/setup-a-cluster/#add-services
-[bdp install]: /dataplatform/1.0.0/installing/
-[bdp reference]: /dataplatform/1.0.0/learn/service-manager/
+[bdp configure]: {{<baseurl>}}dataplatform/1.0.0/configuring/setup-a-cluster/
+[bdp configure add services]: {{<baseurl>}}dataplatform/1.0.0/configuring/setup-a-cluster/#add-services
+[bdp install]: {{<baseurl>}}dataplatform/1.0.0/installing/
+[bdp reference]: {{<baseurl>}}dataplatform/1.0.0/learn/service-manager/
 
 Basho Data Platform (BDP) comes with a command line tool (`data-platform-admin`) that allows you to perform various operations on your BDP cluster. The following reference outlines available commands and their uses.
 

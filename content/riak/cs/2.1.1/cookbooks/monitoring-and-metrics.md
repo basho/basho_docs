@@ -10,11 +10,11 @@ menu:
 project: "riak_cs"
 project_version: "2.1.1"
 aliases:
-  - /riakcs/2.1.1/cookbooks/Monitoring-and-Metrics/
+  - /riakcs/2.1.1/cookbooks/monitoring-and-metrics/
 ---
 
 [amazon]: http://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html
-[s3 api]: http://docs.basho.com/riakcs/latest/references/apis/storage/s3/
+[s3 api]: {{< baseurl >}}riak/cs/latest/references/apis/storage/s3/
 
 Riak S2 (CS) includes metrics and operational statistics to help you monitor your system in more detail and diagnose system issues more easily. There are three major categories of metrics:
 

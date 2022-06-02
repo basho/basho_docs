@@ -11,7 +11,8 @@ menu:
     weight: 101
     parent: "addons_spark_riak"
 toc: true
-canonical_link: "https://docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/quick-start"
+aliases:
+
 ---
 
 This guide will run you through a quick example that uses the Spark-Riak connector to read and write data using Java, Scala, and Python. We will assume you are running this guide on Mac OSX. 
@@ -19,8 +20,8 @@ This guide will run you through a quick example that uses the Spark-Riak connect
 ## Prerequisites
 
 - Update Homebrew with `brew update`.
-- Install Riak TS OSX build. Instruction can be found [here](http://docs.basho.com/riak/ts/1.2.0/installing/mac-osx/)
-- Set open file limits for Riak by following the guide [here](http://docs.basho.com/riak/latest/ops/tuning/open-files-limit/#Mac-OS-X).
+- Install Riak TS OSX build. Instruction can be found [here]({{< baseurl >}}riak/ts/1.2.0/installing/mac-osx/)
+- Set open file limits for Riak by following the guide [here]({{< baseurl >}}riak/kv/latest/ops/tuning/open-files-limit/#Mac-OS-X).
 - Install Spark with `brew install apache-spark`.
 - Download the Spark-Riak connector uber jar (containing all dependencies) from here: https://github.com/basho/spark-riak-connector/releases/latest.
 
@@ -38,8 +39,8 @@ In this quick start guide we will run you through an example usage of the Spark-
 Start Spark Scala REPL with: 
 
 ```
-path/to/spark-shell \
---conf spark.riak.connection.host=127.0.0.1:8087 \
+path/to/spark-shell /
+--conf spark.riak.connection.host=127.0.0.1:8087 /
 --driver-class-path /path/to/spark-riak-connector-»VERSION«-uber.jar
 ```
 
@@ -123,8 +124,8 @@ In this quick start guide we will run  through some examples usages of the Spark
 Start `pyspark` with: 
 
 ```
-/path/to/bin/pyspark \
---conf spark.riak.connection.host=127.0.0.1:8087 \
+/path/to/bin/pyspark /
+--conf spark.riak.connection.host=127.0.0.1:8087 /
 --driver-class-path /path/to/spark-riak-connector-{{version}}-uber.jar 
 ```
 
@@ -242,10 +243,10 @@ Write the DataFrame to the TS table:
 
 ```python
 
-df.write \
-    .format('org.apache.spark.sql.riak') \
-    .option('spark.riak.connection.host', hostAndPort) \
-    .mode('Append') \
+df.write /
+    .format('org.apache.spark.sql.riak') /
+    .option('spark.riak.connection.host', hostAndPort) /
+    .mode('Append') /
     .save(table_name) 
 ```
 
@@ -253,11 +254,11 @@ Let's check that the write was successful by reading the TS table into a new Dat
 
 ```python
 sqlContext = SQLContext(sc)
-df2 = sqlContext.read\
-    .format("org.apache.spark.sql.riak")\
-    .option("spark.riak.connection.host", hostAndPort)\
-    .option("spark.riakts.bindings.timestamp", "useLong")\
-    .load(table_name)\
+df2 = sqlContext.read/
+    .format("org.apache.spark.sql.riak")/
+    .option("spark.riak.connection.host", hostAndPort)/
+    .option("spark.riakts.bindings.timestamp", "useLong")/
+    .load(table_name)/
     .filter("""measurementDate > %(start_date)s
         AND measurementDate <  %(end_date)s
         AND site = '%(site)s'

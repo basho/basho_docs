@@ -19,9 +19,9 @@ aliases:
 ---
 
 [download]: ../../downloads/
-[openfileslimit]: /riak/kv/2.1.4/using/performance/open-files-limit
+[openfileslimit]: {{<baseurl>}}riak/kv/2.1.4/using/performance/open-files-limit
 [planning]: ../../using/planning
-[security basics]: /riak/kv/2.1.4/using/security/basics
+[security basics]: {{<baseurl>}}riak/kv/2.1.4/using/security/basics
 
 
 Riak TS can be installed on Debian or Ubuntu-based systems using a binary

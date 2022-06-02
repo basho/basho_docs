@@ -15,6 +15,7 @@ version_history:
 aliases:
   - /riak/kv/2.1.4/intro-v20
   - /riak/2.1.4/intro-v20
+  - /riak/kv/latest/introduction
 ---
 
 Riak version 2.0 includes deep changes and many new features affecting 
@@ -27,7 +28,7 @@ For more in-depth implementation details check out the
 If you're upgrading to Riak 2.0 from an earlier version, please be aware
 that all of the new features listed below are optional:
 
-* **Riak Data Types** --- Riak's new CRDT-based [Data Types](/riak/kv/2.1.4/developing/data-types) can
+* **Riak Data Types** --- Riak's new CRDT-based [Data Types]({{<baseurl>}}riak/kv/2.1.4/developing/data-types) can
   simplify modeling data in Riak, but are only used in buckets
   explicitly configured to use them.
 * **Strong Consistency, Riak Security, and the New Riak Search** ---
@@ -35,16 +36,16 @@ that all of the new features listed below are optional:
   work. If not turned on, they will have no impact on performance.
   Furthermore, the older Riak Search will continue to be included with
   Riak.
-* **Security** --- [Authentication and authorization](/riak/kv/2.1.4/using/security/basics) can be enabled
+* **Security** --- [Authentication and authorization]({{<baseurl>}}riak/kv/2.1.4/using/security/basics) can be enabled
   or disabled at any time.
-* **Configuration management** --- Riak's [configuration files](/riak/kv/2.1.4/configuring/reference/) have
+* **Configuration management** --- Riak's [configuration files]({{<baseurl>}}riak/kv/2.1.4/configuring/reference/) have
   been streamlined into a single file named `riak.conf`. If you are
   upgrading, however, your existing `app.config` and `vm.args` files
   will still be recognized in version 2.0.
-* **Bucket Types** --- While we strongly recommend [using bucket types](/riak/kv/2.1.4/using/reference/bucket-types) when creating new buckets, they are not required.
+* **Bucket Types** --- While we strongly recommend [using bucket types]({{<baseurl>}}riak/kv/2.1.4/using/reference/bucket-types) when creating new buckets, they are not required.
 * **Dotted Version Vectors (DVVs)** --- This alternative to traditional
-  [vector clocks](/riak/kv/2.1.4/learn/concepts/causal-context/#vector-clocks) is enabled by default
-  in all [bucket types](/riak/kv/2.1.4/using/reference/bucket-types), but DVVs can be disabled
+  [vector clocks]({{<baseurl>}}riak/kv/2.1.4/learn/concepts/causal-context/#vector-clocks) is enabled by default
+  in all [bucket types]({{<baseurl>}}riak/kv/2.1.4/using/reference/bucket-types), but DVVs can be disabled
   by setting the `dvv_enabled` property to `false` on any bucket type.
 
 In a nutshell, upgrading to 2.0 will change how you use Riak only if you
@@ -52,17 +53,17 @@ want it to. But even if you don't plan on using the new features, there
 are a number of improvements that make upgrading a good choice,
 including the following:
 
-* [Cluster metadata](/riak/kv/2.1.4/developing/app-guide/cluster-metadata) --- This is a subsystem of Riak added in 2.0 that
+* [Cluster metadata]({{<baseurl>}}riak/kv/2.1.4/developing/app-guide/cluster-metadata) --- This is a subsystem of Riak added in 2.0 that
   reduces the amount of inter-node gossip in Riak clusters, which can
   reduce network congestion.
-* [Active Anti-Entropy](/riak/kv/2.1.4/learn/glossary/#active-anti-entropy-aae) --- While Riak has had an Active Anti-Entropy
+* [Active Anti-Entropy]({{<baseurl>}}riak/kv/2.1.4/learn/glossary/#active-anti-entropy-aae) --- While Riak has had an Active Anti-Entropy
   (AAE) feature that is turned on by default since version 1.3, AAE
   performance has been improved in version 2.0.
 * [Bug patches](https://github.com/basho/riak/blob/2.0/RELEASE-NOTES.md)
   --- A variety of bugs present in earlier versions have been identified
   and patched.
 
-More on upgrading can be found in our [Riak 2.0 upgrade guide](/riak/kv/2.1.4/setup/upgrading/version).
+More on upgrading can be found in our [Riak 2.0 upgrade guide]({{<baseurl>}}riak/kv/2.1.4/setup/upgrading/version).
 
 ## Riak Data Types
 
@@ -73,20 +74,20 @@ application is responsible for resolving conflicts between replicas of
 objects stored in different Riak nodes.
 
 Riak 2.0 offers a new approach to this problem for a wide range of use
-cases in the form of [Riak Data Types](/riak/kv/2.1.4/developing/data-types). Instead of
+cases in the form of [Riak Data Types]({{<baseurl>}}riak/kv/2.1.4/developing/data-types). Instead of
 forcing the application to resolve conflicts, Riak offers five Data
 Types that can reduce some of the complexities of developing using
-Riak: [flags](/riak/kv/2.1.4/developing/data-types/maps#flags), [registers](/riak/kv/2.1.4/developing/data-types/maps#registers),
-[counters](/riak/kv/2.1.4/developing/data-types/counters), [sets](/riak/kv/2.1.4/developing/data-types/sets), and
-[maps](/riak/kv/2.1.4/developing/data-types/maps).
+Riak: [flags]({{<baseurl>}}riak/kv/2.1.4/developing/data-types/maps#flags), [registers]({{<baseurl>}}riak/kv/2.1.4/developing/data-types/maps#registers),
+[counters]({{<baseurl>}}riak/kv/2.1.4/developing/data-types/counters), [sets]({{<baseurl>}}riak/kv/2.1.4/developing/data-types/sets), and
+[maps]({{<baseurl>}}riak/kv/2.1.4/developing/data-types/maps).
 
 #### Relevant Docs
 
-* [Using Data Types](/riak/kv/2.1.4/developing/data-types) explains how to use Riak Data Types on the
+* [Using Data Types]({{<baseurl>}}riak/kv/2.1.4/developing/data-types) explains how to use Riak Data Types on the
   application side, with usage examples for all five Data Types in all
   of Basho's officially supported clients (Java, Ruby, Python, .NET and
   Erlang) and for Riak's HTTP interface.
-* [Data Types](/riak/kv/2.1.4/developing/data-types) explains some of the theoretical concerns that drive
+* [Data Types]({{<baseurl>}}riak/kv/2.1.4/developing/data-types) explains some of the theoretical concerns that drive
   Riak Data Types and shares details about how they are implemented
   in Riak.
 
@@ -103,11 +104,11 @@ Search, integrating Riak with [Apache Solr](https://lucene.apache.org/solr/)'s f
 
 #### Relevant Docs
 
-* [Using Search](/riak/kv/2.1.4/developing/usage/search) provides an overview of how to use the new
+* [Using Search]({{<baseurl>}}riak/kv/2.1.4/developing/usage/search) provides an overview of how to use the new
   Riak Search.
-* [Search Schema](/riak/kv/2.1.4/developing/usage/search-schemas) shows you how to create and manage custom search
+* [Search Schema]({{<baseurl>}}riak/kv/2.1.4/developing/usage/search-schemas) shows you how to create and manage custom search
   schemas.
-* [Search Details](/riak/kv/2.1.4/using/reference/search) provides an in-depth look at the design
+* [Search Details]({{<baseurl>}}riak/kv/2.1.4/using/reference/search) provides an in-depth look at the design
   considerations that went into the new Riak Search.
 
 #### Video
@@ -125,13 +126,13 @@ some (or perhaps all) of your data.
 
 #### Relevant Docs
 
-* [Using Strong Consistency](/riak/kv/2.1.4/using/cluster-operations/strong-consistency) shows you how to enable Riak's strong
+* [Using Strong Consistency]({{<baseurl>}}riak/kv/2.1.4/using/cluster-operations/strong-consistency) shows you how to enable Riak's strong
   consistency subsystem and to apply strong consistency guarantees to
   data stored in specified buckets.
-* [Strong Consistency](/riak/kv/2.1.4/using/reference/strong-consistency) provides a theoretical treatment of how a
-  strongly consistent system differs from an [eventually consistent](/riak/kv/2.1.4/learn/concepts/eventual-consistency) system, as well as details about how
+* [Strong Consistency]({{<baseurl>}}riak/kv/2.1.4/using/reference/strong-consistency) provides a theoretical treatment of how a
+  strongly consistent system differs from an [eventually consistent]({{<baseurl>}}riak/kv/2.1.4/learn/concepts/eventual-consistency) system, as well as details about how
   strong consistency is implemented in Riak.
-* [Managing Strong Consistency](/riak/kv/2.1.4/configuring/strong-consistency) is a guide to strong consistency for
+* [Managing Strong Consistency]({{<baseurl>}}riak/kv/2.1.4/configuring/strong-consistency) is a guide to strong consistency for
   Riak operators.
 
 #### Video
@@ -155,11 +156,11 @@ Riak itself and managed through a simple command-line interface.
 
 #### Relevant Docs
 
-* [Authentication and Authorization](/riak/kv/2.1.4/using/security/basics) explains how Riak Security can be
+* [Authentication and Authorization]({{<baseurl>}}riak/kv/2.1.4/using/security/basics) explains how Riak Security can be
   enabled and disabled, how users and groups are managed, how
   authorization to perform certain operations can be granted and
   revoked, how security ciphers can be chosen, and more.
-* [Managing Security Sources](/riak/kv/2.1.4/using/security/managing-sources/) is an in-depth tutorial on how to
+* [Managing Security Sources]({{<baseurl>}}riak/kv/2.1.4/using/security/managing-sources/) is an in-depth tutorial on how to
   implement Riak's four supported authentication sources: trusted
   networks, passwords, pluggable authentication modules, and
   certificates.
@@ -194,7 +195,7 @@ override any settings from the new system.
 
 #### Relevant Docs
 
-* [Configuration Files](/riak/kv/2.1.4/configuring/reference/) lists and describes all of the configurable
+* [Configuration Files]({{<baseurl>}}riak/kv/2.1.4/configuring/reference/) lists and describes all of the configurable
   parameters available in Riak 2.0, from configuring your chosen storage
   backend(s) to setting default bucket properties to controlling Riak's
   logging system and much more.
@@ -214,7 +215,7 @@ and keys.
 
 #### Relevant Docs
 
-* [Using Bucket Types](/riak/kv/2.1.4/using/reference/bucket-types) explains how to create, modify, and activate
+* [Using Bucket Types]({{<baseurl>}}riak/kv/2.1.4/using/reference/bucket-types) explains how to create, modify, and activate
   bucket types, as well as how the new system differs from the older,
   bucket properties-based system.
 
@@ -226,20 +227,20 @@ and [Jordan West](https://github.com/jrwest).
 
 ## Dotted Version Vectors
 
-In prior versions of Riak, [conflict resolution](/riak/kv/2.1.4/developing/usage/conflict-resolution) was managed using
-[vector clocks](/riak/kv/2.1.4/learn/concepts/causal-context/#vector-clocks), which track object update causality.
+In prior versions of Riak, [conflict resolution]({{<baseurl>}}riak/kv/2.1.4/developing/usage/conflict-resolution) was managed using
+[vector clocks]({{<baseurl>}}riak/kv/2.1.4/learn/concepts/causal-context/#vector-clocks), which track object update causality.
 
 Riak 2.0 has added support for dotted version vectors (DVVs).
 DVVs serve an analogous role to vector
-clocks but are more effective at containing [sibling explosion](/riak/kv/2.1.4/learn/concepts/causal-context/#sibling-explosion) and can reduce Riak cluster latency.
+clocks but are more effective at containing [sibling explosion]({{<baseurl>}}riak/kv/2.1.4/learn/concepts/causal-context/#sibling-explosion) and can reduce Riak cluster latency.
 
 #### Relevant Docs
 
-* [Dotted Version Vectors](/riak/kv/2.1.4/learn/concepts/causal-context/#dotted-version-vectors) explains some of the theoretical nuances behind the distinction between DVVs and vector clocks and offers instructions on implementing DVVs.
+* [Dotted Version Vectors]({{<baseurl>}}riak/kv/2.1.4/learn/concepts/causal-context/#dotted-version-vectors) explains some of the theoretical nuances behind the distinction between DVVs and vector clocks and offers instructions on implementing DVVs.
 
 ## New Client Libraries
 
-While Basho offered official [client libraries](/riak/kv/2.1.4/developing/client-libraries) for Java, Ruby,
+While Basho offered official [client libraries]({{<baseurl>}}riak/kv/2.1.4/developing/client-libraries) for Java, Ruby,
 Python, .NET and Erlang for versions of Riak prior to 2.0, all clients
 have undergone major changes in anticipation of the 2.0 release.
 

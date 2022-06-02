@@ -20,7 +20,7 @@ aliases:
 
 
 [download]: ../../downloads/
-[openfileslimit]: /riak/kv/2.1.4/using/performance/open-files-limit
+[openfileslimit]: {{<baseurl>}}riak/kv/2.1.4/using/performance/open-files-limit
 [planning]: ../../using/planning
 
 Riak TS can be installed on Mac OS X systems using a binary

@@ -14,10 +14,10 @@ aliases:
   - /riak/2.0.2/ops/building/planning/system-planning
 ---
 
-[plan backend]: /riak/kv/2.0.2/setup/planning/backend
-[plan cluster capacity]: /riak/kv/2.0.2/setup/planning/cluster-capacity
-[plan backend bitcask]: /riak/kv/2.0.2/setup/planning/backend/bitcask
-[plan bitcask capacity]: /riak/kv/2.0.2/setup/planning/bitcask-capacity-calc
+[plan backend]: {{<baseurl>}}riak/kv/2.0.2/setup/planning/backend
+[plan cluster capacity]: {{<baseurl>}}riak/kv/2.0.2/setup/planning/cluster-capacity
+[plan backend bitcask]: {{<baseurl>}}riak/kv/2.0.2/setup/planning/backend/bitcask
+[plan bitcask capacity]: {{<baseurl>}}riak/kv/2.0.2/setup/planning/bitcask-capacity-calc
 
 Here are some steps and recommendations designing and configuring your
 Riak cluster.

@@ -16,23 +16,23 @@ aliases:
 ---
 
 Although Riak wasn't explicitly created as a document store, two
-features recently added to Riak---[Riak Search](/riak/kv/2.2.2/developing/usage/search/) and [Riak Data Types](/riak/kv/2.2.2/developing/data-types/)---make it possible to use Riak as a
+features recently added to Riak---[Riak Search]({{<baseurl>}}riak/kv/2.2.2/developing/usage/search/) and [Riak Data Types]({{<baseurl>}}riak/kv/2.2.2/developing/data-types/)---make it possible to use Riak as a
 highly scalable document store with rich querying capabilities. In this
 tutorial, we'll build a basic implementation of a document store using
-[Riak maps](/riak/kv/2.2.2/developing/data-types/#maps).
+[Riak maps]({{<baseurl>}}riak/kv/2.2.2/developing/data-types/#maps).
 
 ## Basic Approach
 
 Riak Search enables you to implement a document store in Riak in a
 variety of ways. You could, for example, store and query JSON objects or
 XML and then retrieve them later via Solr queries. In this tutorial,
-however, we will store data in [Riak maps](/riak/kv/2.2.2/developing/data-types/#maps),
+however, we will store data in [Riak maps]({{<baseurl>}}riak/kv/2.2.2/developing/data-types/#maps),
 index that data using Riak Search, and then run Solr queries against
 those stored objects.
 
 You can think of these Search indexes as **collections**. Each indexed
 document will have an ID generated automatically by Search, and because
-we're not interested in running normal [key/value queries](/riak/kv/2.2.2/developing/key-value-modeling) on these objects, we'll allow Riak to assign [keys](/riak/kv/2.2.2/learn/concepts/keys-and-objects) automatically. This means that all we have to do is worry about the bucket type and/or bucket when storing objects.
+we're not interested in running normal [key/value queries]({{<baseurl>}}riak/kv/2.2.2/developing/key-value-modeling) on these objects, we'll allow Riak to assign [keys]({{<baseurl>}}riak/kv/2.2.2/learn/concepts/keys-and-objects) automatically. This means that all we have to do is worry about the bucket type and/or bucket when storing objects.
 
 ## Use Case
 
@@ -69,7 +69,7 @@ Riak Search with an appropriate index and schema.
 
 ## Creating a Schema and Index
 
-In the documentation on [search schemas](/riak/kv/2.2.2/developing/usage/search-schemas), you'll find a
+In the documentation on [search schemas]({{<baseurl>}}riak/kv/2.2.2/developing/usage/search-schemas), you'll find a
 baseline schema to be used for creating custom schemas. We'll use that
 baseline schema here and add the following fields to the `<fields>`
 list:
@@ -242,7 +242,7 @@ as part of our "collection."
 Now that we know how each element of a blog post can be translated into
 one of the Riak Data Types, we can create an interface in our
 application to serve as that translation layer. Using the method
-described in [Data Modeling with Riak Data Types](/riak/kv/2.2.2/developing/data-modeling), we can construct a
+described in [Data Modeling with Riak Data Types]({{<baseurl>}}riak/kv/2.2.2/developing/data-modeling), we can construct a
 class that looks like this:
 
 ```java

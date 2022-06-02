@@ -27,7 +27,7 @@ Optional query parameters (only valid for the old format):
 
 * `props` - whether to return the bucket properties (`true` is the default)
 * `keys` - whether to return the keys stored in the bucket. (`false` is the
-default). See also [HTTP List Keys](/riak/kv/2.0.7/developing/api/http/list-keys).
+default). See also [HTTP List Keys]({{<baseurl>}}riak/kv/2.0.7/developing/api/http/list-keys).
 
 ## Response
 
@@ -43,7 +43,7 @@ The JSON object in the response will contain up to two entries, `"props"` and
 `"keys"`, which are present or missing, according to the optional query
 parameters.  The default is for only `"props"` to be present.
 
-See [HTTP Set Bucket Properties](/riak/kv/2.0.7/developing/api/http/set-bucket-props) for more information about the available
+See [HTTP Set Bucket Properties]({{<baseurl>}}riak/kv/2.0.7/developing/api/http/set-bucket-props) for more information about the available
 bucket properties.
 
 ## Example

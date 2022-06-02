@@ -10,7 +10,6 @@ menu:
 project: "riak_kv"
 project_version: "2.2.1"
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/configuring/global-object-expiration"
 ---
 
 [ttl]: https://en.wikipedia.org/wiki/Time_to_live

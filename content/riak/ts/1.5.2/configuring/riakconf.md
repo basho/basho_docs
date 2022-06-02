@@ -15,13 +15,13 @@ version_history:
   locations:
     - [">=1.5.2", "using/configuring"]
 aliases:
-    - /riakts/1.5.2/configuring/riakconf
-canonical_link: "https://docs.basho.com/riak/ts/latest/configuring/riakconf"
+  - /riakts/1.5.2/configuring/riakconf
+
 ---
 
 
 [glossary quanta]: ../../learn/glossary/quanta
-[Riak object settings]: /riak/kv/2.2.0/configuring/reference/#object-settings
+[Riak object settings]: {{<baseurl>}}riak/kv/2.2.0/configuring/reference/#object-settings
 
 
 Riak TS exposes a few configuration settings in riak.conf. This document will walk you through the TS configurations.

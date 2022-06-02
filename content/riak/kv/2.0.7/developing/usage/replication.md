@@ -15,12 +15,12 @@ aliases:
   - /riak/kv/2.0.7/dev/advanced/replication-properties
 ---
 
-[usage bucket types]: /riak/kv/2.0.7/developing/usage/bucket-types
-[concept eventual consistency]: /riak/kv/2.0.7/learn/concepts/eventual-consistency
-[plan backend leveldb]: /riak/kv/2.0.7/setup/planning/backend/leveldb
-[plan backend bitcask]: /riak/kv/2.0.7/setup/planning/backend/bitcask
-[use ref strong consistency]: /riak/kv/2.0.7/using/reference/strong-consistency
-[concept clusters]: /riak/kv/2.0.7/learn/concepts/clusters
+[usage bucket types]: {{<baseurl>}}riak/kv/2.0.7/developing/usage/bucket-types
+[concept eventual consistency]: {{<baseurl>}}riak/kv/2.0.7/learn/concepts/eventual-consistency
+[plan backend leveldb]: {{<baseurl>}}riak/kv/2.0.7/setup/planning/backend/leveldb
+[plan backend bitcask]: {{<baseurl>}}riak/kv/2.0.7/setup/planning/backend/bitcask
+[use ref strong consistency]: {{<baseurl>}}riak/kv/2.0.7/using/reference/strong-consistency
+[concept clusters]: {{<baseurl>}}riak/kv/2.0.7/learn/concepts/clusters
 
 Riak was built to act as a multi-node [cluster][concept clusters].  It
 distributes data across multiple physical servers, which enables it to
@@ -42,17 +42,17 @@ manner, you can fine-tune that trade-off. The ability to make these
 kinds of fundamental choices has immense value for your applications and
 is one of the features that differentiates Riak from other databases.
 
-At the bottom of the page, you'll find a [screencast](/riak/kv/2.0.7/developing/app-guide/replication-properties#screencast) that briefly explains how to adjust your
+At the bottom of the page, you'll find a [screencast]({{<baseurl>}}riak/kv/2.0.7/developing/app-guide/replication-properties#screencast) that briefly explains how to adjust your
 replication levels to match your application and business needs.
 
 {{% note title="Note on strong consistency" %}}
 An option introduced in Riak version 2.0 is to use Riak as a
-<a href="http://docs.basho.com/riak/kv/2.0.7/using/reference/strong-consistency/">strongly
+<a href="{{< baseurl >}}riak/kv/2.0.7/using/reference/strong-consistency/">strongly
 consistent</a> system for data in specified buckets. Using Riak in this way is
 fundamentally different from adjusting replication properties and fine-tuning
 the availability/consistency trade-off, as it sacrifices _all_ availability
 guarantees when necessary. Therefore, you should consult the
-<a href="http://docs.basho.com/riak/kv/2.0.7/developing/app-guide/strong-consistency/">Using
+<a href="{{< baseurl >}}riak/kv/2.0.7/developing/app-guide/strong-consistency/">Using
 Strong Consistency</a> documentation, as this option will not be covered in
 this tutorial.
 {{% /note %}}
@@ -72,7 +72,7 @@ Riak is to specify those properties
 ### Replication Properties Through Bucket Types
 
 Let's say, for example, that you want to apply an `n_val` of 5, an `r`
-of 3, and a `w` of 3 to all of the data in some of the [buckets](/riak/kv/2.0.7/learn/concepts/buckets) that
+of 3, and a `w` of 3 to all of the data in some of the [buckets]({{<baseurl>}}riak/kv/2.0.7/learn/concepts/buckets) that
 you're using. In order to set those replication properties, you should
 create a bucket type that sets those properties. Below is an example:
 
@@ -96,8 +96,8 @@ Parameter | Common name | Default value | Description
 `n_val` | N | `3` | Replication factor, i.e. the number of nodes in the cluster on which an object is to be stored
 `r` | R | `quorum` | The number of servers that must respond to a read request
 `w` | W | `quorum` | Number of servers that must respond to a write request
-`pr` | PR | `0` | The number of primary <a href="http://docs.basho.com/riak/kv/2.0.7/learn/concepts/vnodes/">vnodes</a> that must respond to a read request
-`pw` | PW | `0` | The number of primary <a href="http://docs.basho.com/riak/kv/2.0.7/learn/concepts/vnodes/">vnodes</a> that must respond to a write request
+`pr` | PR | `0` | The number of primary <a href="{{< baseurl >}}riak/kv/2.0.7/learn/concepts/vnodes/">vnodes</a> that must respond to a read request
+`pw` | PW | `0` | The number of primary <a href="{{< baseurl >}}riak/kv/2.0.7/learn/concepts/vnodes/">vnodes</a> that must respond to a write request
 `dw` | DW | `quorum` | The number of servers that must report that a write has been successfully written to disk
 `rw` | RW | `quorum` | If R and W are undefined, this parameter will substitute for both R and W during object deletes. It is extremely unlikely that you will need to adjust this parameter.
 `notfound_ok` | | `true` | This parameter determines how Riak responds if a read fails on a node. Setting to `true` (the default) is the equivalent to setting R to 1: if the first node to respond doesn't have a copy of the object, Riak will immediately return a `not found` error. If set to `false`, Riak will continue to look for the object on the number of nodes specified by N (aka `n_val`).
@@ -106,7 +106,7 @@ Parameter | Common name | Default value | Description
 ## A Primer on N, R, and W
 
 The most important thing to note about Riak's replication controls is
-that they can be at the bucket level. You can use [bucket types](/riak/kv/2.0.7/developing/usage/bucket-types)
+that they can be at the bucket level. You can use [bucket types]({{<baseurl>}}riak/kv/2.0.7/developing/usage/bucket-types)
 to set up bucket `A` to use a particular set of replication properties
 and bucket `B` to use entirely different properties.
 
@@ -318,7 +318,7 @@ seeks to write the object to is unavailable.
 
 ## Primary Reads and Writes with PR and PW
 
-In Riak's replication model, there are N [vnodes](/riak/kv/2.0.7/learn/glossary/#vnode),
+In Riak's replication model, there are N [vnodes]({{<baseurl>}}riak/kv/2.0.7/learn/glossary/#vnode),
 called _primary vnodes_, that hold primary responsibility for any given
 key. Riak will attempt reads and writes to primary vnodes first, but in
 case of failure, those operations will go to failover nodes in order to
@@ -356,7 +356,7 @@ successful. The default value is `quorum` (more on symbolic names below).
 
 How quickly and robustly data is written to disk depends on the
 configuration of your backend or backends. For more details, see the
-documentation on [Bitcask][plan backend bitcask], [LevelDB][plan backend leveldb], and [multiple backends](/riak/kv/2.0.7/setup/planning/backend/multi).
+documentation on [Bitcask][plan backend bitcask], [LevelDB][plan backend leveldb], and [multiple backends]({{<baseurl>}}riak/kv/2.0.7/setup/planning/backend/multi).
 
 ## Delete Quorum with RW
 
@@ -531,9 +531,9 @@ curl -XPUT \
   http://localhost:8098/buckets/nba_stats/keys/michael_jordan?w=3&dw=2
 ```
 
-All of Basho's [official Riak clients](/riak/kv/2.0.7/developing/client-libraries) enable you to
+All of Basho's [official Riak clients]({{<baseurl>}}riak/kv/2.0.7/developing/client-libraries) enable you to
 set replication properties this way. For more detailed information,
-refer to the tutorial on [basic key/value operations in Riak KV](/riak/kv/2.0.7/developing/getting-started)
+refer to the tutorial on [basic key/value operations in Riak KV]({{<baseurl>}}riak/kv/2.0.7/developing/getting-started)
 or to client-specific documentation:
 
 * [Ruby](https://github.com/basho/riak-ruby-client/blob/master/README.md)
@@ -547,7 +547,7 @@ In case the above explanations were a bit too abstract for your tastes,
 the following table lays out a number of possible scenarios for reads
 and writes in Riak and how Riak is likely to respond. Some of these
 scenarios involve issues surrounding conflict resolution, vector clocks,
-and siblings, so we recommend reading the [Vector Clocks](/riak/kv/2.0.7/learn/concepts/causal-context#vector-clocks) documentation for more information.
+and siblings, so we recommend reading the [Vector Clocks]({{<baseurl>}}riak/kv/2.0.7/learn/concepts/causal-context#vector-clocks) documentation for more information.
 
 #### Read Scenarios
 
@@ -557,8 +557,8 @@ vnodes responsible for an object.
 Scenario | What happens in Riak
 :--------|:--------------------
 All 3 vnodes agree on the value | Once the first 2 vnodes return the value, that value is returned to the client
-2 of 3 vnodes agree on the value, and those 2 are the first to reach the coordinating node | The value is returned to the client. Read repair will deal with the conflict per the later scenarios, which means that a future read may return a different value or <a href="/riak/kv/2.0.7/learn/concepts/causal-context#siblings">siblings</a>
-2 conflicting values reach the coordinating node and <a href="/riak/kv/2.0.7/learn/concepts/causal-context#vector-clocks">vector clocks</a> allow for resolution | The vector clocks are used to resolve the conflict and return a single value, which is propagated via read repair to the relevant vnodes
+2 of 3 vnodes agree on the value, and those 2 are the first to reach the coordinating node | The value is returned to the client. Read repair will deal with the conflict per the later scenarios, which means that a future read may return a different value or <a href="{{< baseurl >}}riak/kv/2.0.7/learn/concepts/causal-context#siblings">siblings</a>
+2 conflicting values reach the coordinating node and <a href="{{< baseurl >}}riak/kv/2.0.7/learn/concepts/causal-context#vector-clocks">vector clocks</a> allow for resolution | The vector clocks are used to resolve the conflict and return a single value, which is propagated via read repair to the relevant vnodes
 2 conflicting values reach the coordinating node, vector clocks indicate a fork in the object history, and `allow_mult` is set to `false` | The object with the most recent timestamp is returned and propagated via read repair to the relevant vnodes
 2 siblings or conflicting values reach the coordinating node, vector clocks indicate a fork in the object history, and `allow_mult` is set to `true` | All keys are returned as siblings, optionally with associated values (depending on how the request is made)
 

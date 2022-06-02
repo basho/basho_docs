@@ -11,23 +11,23 @@ menu:
     parent: "upgrading"
 toc: true
 version_history:
-  in: "2.0.0-2.1.999"
+  in: "2.0.0-2.99.999"
 aliases:
   - /riak/2.0.2/ops/upgrading/rolling-upgrades/
   - /riak/kv/2.0.2/ops/upgrading/rolling-upgrades/
 ---
 
-[production checklist]: /riak/kv/2.0.2/setup/upgrading/checklist
-[use admin riak control]: /riak/kv/2.0.2/using/admin/riak-control
-[use admin commands]: /riak/kv/2.0.2/using/admin/commands
-[use admin riak-admin]: /riak/kv/2.0.2/using/admin/riak-admin
-[usage secondary-indexes]: /riak/kv/2.0.2/developing/usage/secondary-indexes
-[release notes]: /riak/kv/2.0.2/release-notes/
+[production checklist]: {{<baseurl>}}riak/kv/2.0.2/setup/upgrading/checklist
+[use admin riak control]: {{<baseurl>}}riak/kv/2.0.2/using/admin/riak-control
+[use admin commands]: {{<baseurl>}}riak/kv/2.0.2/using/admin/commands
+[use admin riak-admin]: {{<baseurl>}}riak/kv/2.0.2/using/admin/riak-admin
+[usage secondary-indexes]: {{<baseurl>}}riak/kv/2.0.2/developing/usage/secondary-indexes
+[release notes]: {{<baseurl>}}riak/kv/2.0.2/release-notes/
 [riak enterprise]: http://basho.com/products/riak-kv/
-[cluster ops mdc]: /riak/kv/2.0.2/using/cluster-operations/v3-multi-datacenter
-[config v3 mdc]: /riak/kv/2.0.2/configuring/v3-multi-datacenter
-[jmx monitor]: /riak/kv/2.0.2/using/reference/jmx
-[snmp]: /riak/kv/2.0.2/using/reference/snmp
+[cluster ops mdc]: {{<baseurl>}}riak/kv/2.0.2/using/cluster-operations/v3-multi-datacenter
+[config v3 mdc]: {{<baseurl>}}riak/kv/2.0.2/configuring/v3-multi-datacenter
+[jmx monitor]: {{<baseurl>}}riak/kv/2.0.2/using/reference/jmx
+[snmp]: {{<baseurl>}}riak/kv/2.0.2/using/reference/snmp
 
 {{% note title="Note on upgrading Riak KV from older versions" %}}
 Riak KV upgrades are tested and supported for two feature release versions.
@@ -38,7 +38,7 @@ recommend first upgrading to an intermediate version. For example, in an
 upgrade from 1.1.x to 1.4.x, we recommend upgrading from 1.1.x to 1.3.x
 before upgrading to 1.4.x.
 
-If you run [Riak Control](/riak/kv/2.0.2/using/admin/riak-control), you should disable it during the rolling upgrade process.
+If you run [Riak Control]({{<baseurl>}}riak/kv/2.0.2/using/admin/riak-control), you should disable it during the rolling upgrade process.
 {{% /note %}}
 
 Riak KV nodes negotiate with each other to determine supported
@@ -104,9 +104,9 @@ behalf. This data is transferred to the node when it becomes available.
 8\. Repeat the process for the remaining nodes in the cluster.
 
 {{% note title="Note for secondary index (2i) users" %}}
-If you use Riak KV's [secondary indexes](/riak/kv/2.0.2/developing/usage/secondary-indexes) and are
+If you use Riak KV's [secondary indexes]({{<baseurl>}}riak/kv/2.0.2/developing/usage/secondary-indexes) and are
 upgrading from a version prior to Riak KV version 1.3.1, you need to
-reformat the indexes using the [`riak-admin reformat-indexes`](/riak/kv/2.0.2/using/admin/riak-admin) command. More details about reformatting indexes are available in the [release notes](/riak/kv/2.0.2/release-notes/).
+reformat the indexes using the [`riak-admin reformat-indexes`]({{<baseurl>}}riak/kv/2.0.2/using/admin/riak-admin) command. More details about reformatting indexes are available in the [release notes]({{<baseurl>}}riak/kv/2.0.2/release-notes/).
 {{% /note %}}
 
 ## RHEL/CentOS
@@ -166,9 +166,9 @@ behalf. This data is transferred to the node when it becomes available.
 8\. Repeat the process for the remaining nodes in the cluster.
 
 {{% note title="Note for secondary index (2i) users" %}}
-If you use Riak KV's [secondary indexes](/riak/kv/2.0.2/developing/usage/secondary-indexes) and are
+If you use Riak KV's [secondary indexes]({{<baseurl>}}riak/kv/2.0.2/developing/usage/secondary-indexes) and are
 upgrading from a version prior to Riak KV version 1.3.1, you need to
-reformat the indexes using the [`riak-admin reformat-indexes`](/riak/kv/2.0.2/using/admin/riak-admin) command. More details about reformatting indexes are available in the [release notes](/riak/kv/2.0.2/release-notes/).
+reformat the indexes using the [`riak-admin reformat-indexes`]({{<baseurl>}}riak/kv/2.0.2/using/admin/riak-admin) command. More details about reformatting indexes are available in the [release notes]({{<baseurl>}}riak/kv/2.0.2/release-notes/).
 {{% /note %}}
 
 ## Solaris/OpenSolaris
@@ -252,9 +252,9 @@ behalf. This data is transferred to the node when it becomes available.
 8\. Repeat the process for the remaining nodes in the cluster.
 
 {{% note title="Note for secondary index (2i) users" %}}
-If you use Riak KV's [secondary indexes](/riak/kv/2.0.2/developing/usage/secondary-indexes) and are
+If you use Riak KV's [secondary indexes]({{<baseurl>}}riak/kv/2.0.2/developing/usage/secondary-indexes) and are
 upgrading from a version prior to Riak KV version 1.3.1, you need to
-reformat the indexes using the [`riak-admin reformat-indexes`](/riak/kv/2.0.2/using/admin/riak-admin) command. More details about reformatting indexes are available in the [release notes](/riak/kv/2.0.2/release-notes/).
+reformat the indexes using the [`riak-admin reformat-indexes`]({{<baseurl>}}riak/kv/2.0.2/using/admin/riak-admin) command. More details about reformatting indexes are available in the [release notes]({{<baseurl>}}riak/kv/2.0.2/release-notes/).
 {{% /note %}}
 
 ## Rolling Upgrade to Enterprise

@@ -14,7 +14,7 @@ aliases:
   - /riak/2.0.2/dev/references/protocol-buffers/get-bucket-type
 ---
 
-Gets the bucket properties associated with a [bucket type](/riak/kv/2.0.2/using/cluster-operations/bucket-types).
+Gets the bucket properties associated with a [bucket type]({{<baseurl>}}riak/kv/2.0.2/using/cluster-operations/bucket-types).
 
 ## Request
 
@@ -29,4 +29,4 @@ Only the name of the bucket type needs to be specified (under `name`).
 ## Response
 
 A bucket type's properties will be sent to the client as part of an
-[`RpbBucketProps`](/riak/kv/2.0.2/developing/api/protocol-buffers/get-bucket-props) message.
+[`RpbBucketProps`]({{<baseurl>}}riak/kv/2.0.2/developing/api/protocol-buffers/get-bucket-props) message.

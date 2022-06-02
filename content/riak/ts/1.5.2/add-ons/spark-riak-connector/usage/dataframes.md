@@ -11,7 +11,8 @@ menu:
     weight: 104
     parent: "spark_riak_usage"
 toc: true
-canonical_link: "https://docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage/dataframes"
+aliases:
+
 ---
 
 ## Spark Dataframes With TS Table
@@ -43,11 +44,11 @@ val df = sqlContext.read
 ```
 
 ```python
-df = sqlContext.read \
-  .option("spark.riak.connection.hosts","riak_host_ip:10017") \
-    .format("org.apache.spark.sql.riak") \
-    .load(ts_table_name) \
-  .select(“time”, “col1”, “col2”) \
+df = sqlContext.read /
+  .option("spark.riak.connection.hosts","riak_host_ip:10017") /
+    .format("org.apache.spark.sql.riak") /
+    .load(ts_table_name) /
+  .select(“time”, “col1”, “col2”) /
     .filter(s"time >= CAST($from AS TIMESTAMP) AND time <= CAST($to AS TIMESTAMP) AND  col1= $value1")
 ```
 
@@ -71,10 +72,10 @@ inputDF.write
 ```
 
 ```python
-inputDF.write \
-   .option("spark.riak.connection.hosts","riak_host_ip:10017") \
-   .format("org.apache.spark.sql.riak") \
-   .mode(SaveMode.Append) \
+inputDF.write /
+   .option("spark.riak.connection.hosts","riak_host_ip:10017") /
+   .format("org.apache.spark.sql.riak") /
+   .mode(SaveMode.Append) /
    .save(ts_table_name)
 ```
 

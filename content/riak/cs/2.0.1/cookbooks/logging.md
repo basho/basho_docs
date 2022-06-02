@@ -41,4 +41,4 @@ That section looks something like this:
 ```
 
 A full description of all available parameters can be found in the
-[configuration files](/riak/kv/2.1.3/configuring/reference) document for Riak.
+[configuration files]({{<baseurl>}}riak/kv/2.1.3/configuring/reference) document for Riak.

@@ -51,7 +51,7 @@ act as a load balancer to a Riak CS installation.
 > **Note on open files limits**
 >
 > The operating system's open files limits need to be greater than 256000
-for the example configuration that follows. Consult the [Open Files Limit](/riak/kv/2.1.3/using/performance/open-files-limit) documentation for details on configuring the value for different
+for the example configuration that follows. Consult the [Open Files Limit]({{<baseurl>}}riak/kv/2.1.3/using/performance/open-files-limit) documentation for details on configuring the value for different
 operating systems.
 
 ```config

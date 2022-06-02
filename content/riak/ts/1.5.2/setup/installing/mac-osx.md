@@ -15,16 +15,16 @@ version_history:
     - ["1.0.0-1.3.1", "installing/mac-osx"]
     - ["1.4.0+",      "setup/installing/mac-osx"]
 aliases:
-    - /riakts/1.5.2/installing/mac-osx/
-    - /riakts/1.5.2/setup/installing/mac-osx/
-    - /riak/ts/1.5.2/installing/mac-osx/
-canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/mac-osx/"
+  - /riakts/1.5.2/installing/mac-osx/
+  - /riakts/1.5.2/setup/installing/mac-osx/
+  - /riak/ts/1.5.2/installing/mac-osx/
+  - /riak/ts/latest/installing/mac-osx/
 ---
 
 
-[download]: /riak/ts/1.5.2/downloads/
-[openfileslimit]: /riak/kv/2.2.0/using/performance/open-files-limit
-[planning]: /riak/ts/1.5.2/using/planning
+[download]: {{<baseurl>}}riak/ts/1.5.2/downloads/
+[openfileslimit]: {{<baseurl>}}riak/kv/2.2.0/using/performance/open-files-limit
+[planning]: {{<baseurl>}}riak/ts/1.5.2/using/planning
 
 Riak TS can be installed on Mac OS X systems using a binary
 package available [here][download].

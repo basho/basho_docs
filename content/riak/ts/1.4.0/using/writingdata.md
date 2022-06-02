@@ -12,15 +12,14 @@ project_version: "1.4.0"
 toc: true
 aliases:
     - /riakts/1.4.0/using/writingdata/
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/writingdata"
 ---
 
 
 [activating]: ../creating-activating/
 [planning]: ../planning/
 [querying]: ../querying/
-[config reference]: /riak/kv/2.1.4/configuring/reference/#the-advanced-config-file
-[MDC]: /riak/ts/1.4.0/using/mdc
+[config reference]: {{<baseurl>}}riak/kv/2.1.4/configuring/reference/#the-advanced-config-file
+[MDC]: {{<baseurl>}}riak/ts/1.4.0/using/mdc
 [riakshell]: ../riakshell
 [iso8601]: ../timerepresentations/
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601

@@ -1876,8 +1876,8 @@ package) and in R14B04 via a custom repository and branch.</td>
 <tr>
 <td><code>vnode_management_timer</code></td>
 <td>Sets the frequency with which <a
-href="theory/concepts/glossary#vnode">vnodes</a> attempt to trigger <a
-href="theory/concepts/glossary#hinted-handoff">handoff</a> between
+href="../../learn/glossary/#vnode">vnodes</a> attempt to trigger <a
+href="../../learn/glossary/#hinted-handoff">handoff</a> between
 this node and other nodes in the cluster.</td>
 <td><code>10s</code> (10 seconds)</td>
 </tr>

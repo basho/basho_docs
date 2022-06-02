@@ -32,9 +32,9 @@ transferring a potentially huge dataset to a client algorithm.
 Developers can use MapReduce for things like filtering documents by
 tags, counting words in documents, and extracting links to related data.
 In Riak, MapReduce is one method for querying that is not strictly based
-on key querying, alongside [secondary indexes](/riak/kv/2.0.2/developing/usage/secondary-indexes/)
-and [Search](/riak/kv/2.0.2/developing/usage/search/). MapReduce jobs can be submitted through the
-[HTTP API](/riak/kv/2.0.2/developing/api/http) or the [Protocol Buffers API](/riak/kv/2.0.2/developing/api/protocol-buffers/), although we
+on key querying, alongside [secondary indexes]({{<baseurl>}}riak/kv/2.0.2/developing/usage/secondary-indexes/)
+and [Search]({{<baseurl>}}riak/kv/2.0.2/developing/usage/search/). MapReduce jobs can be submitted through the
+[HTTP API]({{<baseurl>}}riak/kv/2.0.2/developing/api/http) or the [Protocol Buffers API]({{<baseurl>}}riak/kv/2.0.2/developing/api/protocol-buffers/), although we
 strongly recommend using the Protocol Buffers API for performance
 reasons.
 
@@ -48,9 +48,9 @@ reasons.
 ## When to Use MapReduce
 
 * When you know the set of objects over which you want to MapReduce
-  (i.e. the locations of the objects, as specified by [bucket type](/riak/kv/2.0.2/developing/usage/bucket-types), bucket, and key)
+  (i.e. the locations of the objects, as specified by [bucket type]({{<baseurl>}}riak/kv/2.0.2/developing/usage/bucket-types), bucket, and key)
 * When you want to return actual objects or pieces of objects and not
-  just the keys. [Search](/riak/kv/2.0.2/developing/usage/search/) and [secondary indexes](/riak/kv/2.0.2/developing/usage/secondary-indexes) are other means of returning objects based on
+  just the keys. [Search]({{<baseurl>}}riak/kv/2.0.2/developing/usage/search/) and [secondary indexes]({{<baseurl>}}riak/kv/2.0.2/developing/usage/secondary-indexes) are other means of returning objects based on
   non-key-based queries, but they only return lists of keys and not
   whole objects.
 * When you need the utmost flexibility in querying your data. MapReduce
@@ -85,7 +85,7 @@ Riak MapReduce queries have two components:
 * A list of phases
 
 The elements of the input list are object locations as specified by
-[bucket type](/riak/kv/2.0.2/developing/usage/bucket-types), bucket, and key. The elements of the
+[bucket type]({{<baseurl>}}riak/kv/2.0.2/developing/usage/bucket-types), bucket, and key. The elements of the
 phases list are chunks of information related to a map, a reduce, or a
 link function.
 
@@ -95,7 +95,7 @@ node that the client contacts to make the request becomes the
 above, each job consists of a list of phases, where each phase is either
 a map or a reduce phase. The coordinating node uses the list of phases
 to route the object keys and the function that will operate over the
-objects stored in those keys and instruct the proper [vnode](/riak/kv/2.0.2/learn/glossary/#vnode) to
+objects stored in those keys and instruct the proper [vnode]({{<baseurl>}}riak/kv/2.0.2/learn/glossary/#vnode) to
 run that function over the right objects.
 
 After running the map function, the results are sent back to the
@@ -106,20 +106,20 @@ assuming that the next phase in the list is a reduce phase.
 The diagram below provides an illustration of how a coordinating vnode
 orchestrates a MapReduce job.
 
-![MapReduce Diagram](/images/MapReduce-diagram.png)
+![MapReduce Diagram]({{<baseurl>}}images/MapReduce-diagram.png)
 
 ## Example
 
 In this example, we'll create four objects with the text "caremad"
 repeated a varying number of times and store those objects in the bucket
-`training` (which does not bear a [bucket type](/riak/kv/2.0.2/developing/usage/bucket-types)).
+`training` (which does not bear a [bucket type]({{<baseurl>}}riak/kv/2.0.2/developing/usage/bucket-types)).
 An Erlang MapReduce function will be used to count the occurrences of
 the word "caremad."
 
 ### Data object input commands
 
 For the sake of simplicity, we'll use [curl](http://curl.haxx.se/)
-in conjunction with Riak's [HTTP API](/riak/kv/2.0.2/developing/api/http) to store the objects:
+in conjunction with Riak's [HTTP API]({{<baseurl>}}riak/kv/2.0.2/developing/api/http) to store the objects:
 
 ```curl
 curl -XPUT http://localhost:8098/buckets/training/keys/foo \
@@ -217,4 +217,4 @@ counting the number of instances of the word.
 ## Advanced MapReduce Queries
 
 For more detailed information on MapReduce queries in Riak, we recommend
-checking out our [Advanced MapReduce](/riak/kv/2.0.2/developing/app-guide/advanced-mapreduce) guide.
+checking out our [Advanced MapReduce]({{<baseurl>}}riak/kv/2.0.2/developing/app-guide/advanced-mapreduce) guide.

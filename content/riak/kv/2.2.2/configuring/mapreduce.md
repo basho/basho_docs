@@ -15,9 +15,9 @@ aliases:
   - /riak/kv/2.2.2/ops/advanced/configs/mapreduce/
 ---
 
-[usage mapreduce]: /riak/kv/2.2.2/developing/usage/mapreduce
-[config reference#appconfig]: /riak/kv/2.2.2/configuring/reference/#app-config
-[usage secondary-indexes]: /riak/kv/2.2.2/developing/usage/secondary-indexes
+[usage mapreduce]: {{<baseurl>}}riak/kv/2.2.2/developing/usage/mapreduce
+[config reference#appconfig]: {{<baseurl>}}riak/kv/2.2.2/configuring/reference/#app-config
+[usage secondary-indexes]: {{<baseurl>}}riak/kv/2.2.2/developing/usage/secondary-indexes
 
 ## Configuring MapReduce
 

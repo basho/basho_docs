@@ -12,11 +12,12 @@ menu:
 toc: true
 aliases:
   - /dataplatform/1.0.0/learn-about-dataplatform/cache-proxy-features/
+  - /dataplatform/latest/learn/cache-proxy/
 ---
 
 [ee]: http://info.basho.com/Wiki_Riak_Enterprise_Request.html
-[readthrough-strategy]: /images/readthrough-strategy.png
-[writethrough-sequence]: /images/writethrough-sequence.png
+[readthrough-strategy]: {{<baseurl>}}images/readthrough-strategy.png
+[writethrough-sequence]: {{<baseurl>}}images/writethrough-sequence.png
 
 >Cache proxy is available to [Enterprise users only][ee].
 

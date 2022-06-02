@@ -18,13 +18,12 @@ aliases:
     - /riakts/1.5.1/installing/debian-ubuntu/
     - /riakts/1.5.1/setup/installing/debian-ubuntu/
     - /riak/ts/1.5.1/installing/debian-ubuntu/
-canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/debian-ubuntu/"
 ---
 
-[download]: /riak/ts/1.5.1/downloads/
-[openfileslimit]: /riak/kv/2.2.0/using/performance/open-files-limit
-[planning]: /riak/ts/1.5.1/using/planning
-[security basics pam]: /riak/ts/1.5.1/using/security/sources-management/#pam-based-authentication
+[download]: {{<baseurl>}}riak/ts/1.5.1/downloads/
+[openfileslimit]: {{<baseurl>}}riak/kv/2.2.0/using/performance/open-files-limit
+[planning]: {{<baseurl>}}riak/ts/1.5.1/using/planning
+[security basics pam]: {{<baseurl>}}riak/ts/1.5.1/using/security/sources-management/#pam-based-authentication
 
 
 Riak TS can be installed on Debian or Ubuntu-based systems using a binary

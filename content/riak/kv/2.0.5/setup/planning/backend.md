@@ -15,11 +15,11 @@ aliases:
   - /riak/kv/2.0.5/ops/building/planning/backends/
 ---
 
-[plan backend bitcask]: /riak/kv/2.0.5/setup/planning/backend/bitcask
-[plan backend leveldb]: /riak/kv/2.0.5/setup/planning/backend/leveldb
-[plan backend memory]: /riak/kv/2.0.5/setup/planning/backend/memory
-[plan backend multi]: /riak/kv/2.0.5/setup/planning/backend/multi
-[dev api backend]: /riak/kv/2.0.5/developing/api/backend
+[plan backend bitcask]: {{<baseurl>}}riak/kv/2.0.5/setup/planning/backend/bitcask
+[plan backend leveldb]: {{<baseurl>}}riak/kv/2.0.5/setup/planning/backend/leveldb
+[plan backend memory]: {{<baseurl>}}riak/kv/2.0.5/setup/planning/backend/memory
+[plan backend multi]: {{<baseurl>}}riak/kv/2.0.5/setup/planning/backend/multi
+[dev api backend]: {{<baseurl>}}riak/kv/2.0.5/developing/api/backend
 
 Pluggable storage backends are a key feature of Riak KV. They enable you to
 choose a low-level storage engine that suits specific operational needs.

@@ -12,7 +12,6 @@ project_version: "1.5.0"
 toc: true
 aliases:
     - /riakts/1.5.0/using/creating-activating/
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/creating-activating"
 ---
 
 
@@ -26,7 +25,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/creating-activating
 [ruby]: ../../developing/ruby#sql-queries
 [planning]: ../planning/
 [writing]: ../writingdata/
-[Riak bucket properties]: /riak/kv/2.2.0/configuring/reference/#default-bucket-properties
+[Riak bucket properties]: {{<baseurl>}}riak/kv/2.2.0/configuring/reference/#default-bucket-properties
 
 
 Once you have [planned out your table][planning] you can create it by:

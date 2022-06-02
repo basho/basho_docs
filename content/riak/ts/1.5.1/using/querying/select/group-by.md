@@ -12,11 +12,10 @@ project_version: "1.5.1"
 toc: true
 aliases:
     - /riakts/1.5.1/using/querying/select/group-by
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/select/group-by"
 ---
 
 [aggregate function]: ../aggregate-functions
-[guidelines]: /riak/ts/1.5.1/using/querying/guidelines
+[guidelines]: {{<baseurl>}}riak/ts/1.5.1/using/querying/guidelines
 
 The GROUP BY statement is used with `SELECT` to pick out and condense rows sharing the same value and return a single row. `GROUP BY` is useful for aggregating an attribute of a device over a time period; for instance, you could use it to pull average values for every 30 minute period over the last 24 hours.
 

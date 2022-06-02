@@ -14,7 +14,7 @@ aliases:
   - /riak/2.0.2/dev/references/protocol-buffers/dt-counter-store
 ---
 
-An operation to update a [counter](/riak/kv/2.0.2/developing/data-types).
+An operation to update a [counter]({{<baseurl>}}riak/kv/2.0.2/developing/data-types).
 
 ## Request
 
@@ -27,4 +27,4 @@ message CounterOp {
 The `increment` value specifies how much the counter will be incremented
 or decremented, depending on whether the `increment` value is positive
 or negative. This operation can be used to update counters that are
-stored on their own in a key or [within a map](/riak/kv/2.0.2/developing/api/protocol-buffers/dt-map-store).
+stored on their own in a key or [within a map]({{<baseurl>}}riak/kv/2.0.2/developing/api/protocol-buffers/dt-map-store).

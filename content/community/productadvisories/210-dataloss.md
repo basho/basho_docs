@@ -65,7 +65,7 @@ Then configure handoff.ip in riak.conf to an external IP address or 0.0.0.0 on a
 
 Perform a rolling restart of Riak across your cluster to activate the new setting.
 
-After correcting the configuration and restarting the nodes, you should run Riak KV repair on each cluster member as documented at [http://docs.basho.com/riak/latest/ops/running/recovery/repairing-partitions/](http://docs.basho.com/riak/latest/ops/running/recovery/repairing-partitions/) to recreate any missing replicas from available replicas elsewhere in the cluster.  We recommend performing the Riak KV repair in a round-robin fashion on each node of your cluster (node0, node1, node2, etc). Repeat this round-robin repair “n_val - 1” times. For example: the default configuration for n_val is 3, which means you would run Riak KV repair twice across the entire cluster. 
+After correcting the configuration and restarting the nodes, you should run Riak KV repair on each cluster member as documented at [{{< baseurl >}}riak/latest/ops/running/recovery/repairing-partitions/]({{< baseurl >}}riak/latest/ops/running/recovery/repairing-partitions/) to recreate any missing replicas from available replicas elsewhere in the cluster.  We recommend performing the Riak KV repair in a round-robin fashion on each node of your cluster (node0, node1, node2, etc). Repeat this round-robin repair “n_val - 1” times. For example: the default configuration for n_val is 3, which means you would run Riak KV repair twice across the entire cluster. 
 
 > NOTE: It is important to ensure that you execute in a round-robin fashion: node0, node1, node2 and then repeat.
 A forthcoming 2.1.1 release will provide an updated default configuration.

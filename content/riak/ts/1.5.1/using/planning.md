@@ -12,7 +12,6 @@ project_version: "1.5.1"
 toc: true
 aliases:
     - /riakts/1.5.1/using/planning/
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/planning"
 ---
 
 
@@ -23,7 +22,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/planning"
 [epoch]: https://en.wikipedia.org/wiki/Unix_time
 [installing]: ../../setup/installing/
 [sql]: ../../learn-about/sqlriakts/
-[order by]: /riak/ts/1.5.1/using/querying/select/order-by
+[order by]: {{<baseurl>}}riak/ts/1.5.1/using/querying/select/order-by
 
 
 You've [installed][installing] Riak TS, and you're ready to create a table. 

@@ -16,15 +16,14 @@ version_history:
     - ["<=1.4.0",  "using/configuring"]
 aliases:
     - /riakts/1.5.1/configuring/
-canonical_link: "https://docs.basho.com/riak/ts/latest/configuring"
 ---
 
 
-[riakconf]: /riak/ts/1.5.1/configuring/riakconf/
-[mdc]: /riak/ts/1.5.1/configuring/mdc/
-[global expiry]: /riak/ts/1.5.1/configuring/global-object-expiration/
-[kv config]: /riak/kv/2.2.0/configuring/reference
-[WITH]: /riak/ts/1.5.1/using/creating-activating/#using-the-with-clause
+[riakconf]: {{<baseurl>}}riak/ts/1.5.1/configuring/riakconf/
+[mdc]: {{<baseurl>}}riak/ts/1.5.1/configuring/mdc/
+[global expiry]: {{<baseurl>}}riak/ts/1.5.1/configuring/global-object-expiration/
+[kv config]: {{<baseurl>}}riak/kv/2.2.0/configuring/reference
+[WITH]: {{<baseurl>}}riak/ts/1.5.1/using/creating-activating/#using-the-with-clause
 
 Riak TS mostly relies on Riak KV's [default configuration settings][kv config]. However, there are a few TS-specific configurations you should know about:
 

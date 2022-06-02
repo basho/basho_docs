@@ -19,7 +19,7 @@ aliases:
 
 Basho may change or supplement this Policy in its sole discretion.  Basho will exercise commercially reasonable efforts to notify then-current customers of any such changes provided that, in all cases, the revised Policy is effective upon posting. 
 
-## Definitions  
+## Definitions
 
 The following words and/or phrases having the meanings ascribed to them below: 
 
@@ -37,7 +37,7 @@ The following words and/or phrases having the meanings ascribed to them below:
 
 Basho’s Standard Support and Maintenance includes the resolution of defects via Patch Releases for a period of time starting at the initial release date of a Feature Release and ending with the next Feature Release.  During that time, Basho will release as many Patch Releases as it determines to be appropriate to support the Feature Release.  Once a new Feature Release has been made, no further Patch Releases will be made available for any prior Feature Release. 
 
-## Long Term Support Window 
+## Long Term Support Window
 
 Basho will promote at least one (1) Feature Release per calendar year to LTS status. From the date a Feature Release is promoted to LTS status, Basho will, in its discretion, provide defect resolution either via Patch Releases or Software Patches for the longer of : i)  2 years, or ii) until the next Feature Release is made available (if longer than 2 years).  After the LTS Window for a specific release has expired, no further Patch Releases or Software Patches will be made available for that Feature Release. 
 

@@ -15,19 +15,19 @@ version_history:
     - ["1.0.0-1.3.1", "installing/source"]
     - ["1.4.0+",      "setup/installing/source"]
 aliases:
-    - /riakts/1.5.2/installing/source/
-    - /riakts/1.5.2/setup/installing/source/
-    - /riak/ts/1.5.2/installing/source/
-canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/source/"
+  - /riakts/1.5.2/installing/source/
+  - /riakts/1.5.2/setup/installing/source/
+  - /riak/ts/1.5.2/installing/source/
+  - /riak/ts/latest/installing/source/
 ---
 
 
-[download]: /riak/ts/1.5.2/downloads/
+[download]: {{<baseurl>}}riak/ts/1.5.2/downloads/
 [Erlang]: http://www.erlang.org/
 [GCC]: https://gcc.gnu.org/
 [Git]: https://git-scm.com/
-[install erlang]: /riak/ts/1.5.2/setup/installing/source/erlang
-[planning]: /riak/ts/1.5.2/using/planning/
+[install erlang]: {{<baseurl>}}riak/ts/1.5.2/setup/installing/source/erlang
+[planning]: {{<baseurl>}}riak/ts/1.5.2/using/planning/
 [Riak TS GitHub repository]: https://github.com/basho/riak/tree/riak_ts-1.5.2
 
 

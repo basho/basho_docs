@@ -17,7 +17,7 @@ aliases:
   - /riak/kv/2.1.4/ops/mdc/v2/configuration
 ---
 
-[config v2 ssl]: /riak/kv/2.1.4/configuring/v2-multi-datacenter/ssl
+[config v2 ssl]: {{<baseurl>}}riak/kv/2.1.4/configuring/v2-multi-datacenter/ssl
 
 Riak Enterprise's Multi-Datacenter Replication capabilities offer a
 variety of configurable parameters.

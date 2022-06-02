@@ -18,8 +18,8 @@ This guide will run you through a quick example that uses the Spark-Riak connect
 ## Prerequisites
 
 - Update Homebrew with `brew update`.
-- Install Riak TS OSX build. Instruction can be found [here](http://docs.basho.com/riak/ts/1.2.0/installing/mac-osx/)
-- Set open file limits for Riak by following the guide [here](http://docs.basho.com/riak/latest/ops/tuning/open-files-limit/#Mac-OS-X).
+- Install Riak TS OSX build. Instruction can be found [here]({{< baseurl >}}riak/ts/1.2.0/installing/mac-osx/)
+- Set open file limits for Riak by following the guide [here]({{< baseurl >}}riak/kv/latest/ops/tuning/open-files-limit/#Mac-OS-X).
 - Install Spark with `brew install apache-spark`.
 - Download the Spark-Riak connector uber jar (containing all dependencies) from here: https://github.com/basho/spark-riak-connector/releases/latest.
 

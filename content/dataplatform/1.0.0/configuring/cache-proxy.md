@@ -12,11 +12,12 @@ menu:
 toc: true
 aliases:
   - /dataplatform/1.0.0/using-dataplatform/configuration/getting-started-with-cache-proxy/
+  - /dataplatform/latest/configuring/cache-proxy/
 ---
 
-[bdp install]: /dataplatform/1.0.0/installing/
-[bdp configure]: /dataplatform/1.0.0/configuring/setup-a-cluster/
-[bdp configure add services]: /dataplatform/1.0.0/configuring/setup-a-cluster/#add-services
+[bdp install]: {{<baseurl>}}dataplatform/1.0.0/installing/
+[bdp configure]: {{<baseurl>}}dataplatform/1.0.0/configuring/setup-a-cluster/
+[bdp configure add services]: {{<baseurl>}}dataplatform/1.0.0/configuring/setup-a-cluster/#add-services
 [ee]: http://info.basho.com/Wiki_Riak_Enterprise_Request.html
 
 

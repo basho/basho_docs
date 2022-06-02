@@ -19,7 +19,8 @@
 require_relative 'rake_libs/compile_js'
 require_relative 'rake_libs/compile_css'
 require_relative 'rake_libs/s3_deploy'
-require_relative 'rake_libs/downloads_metadata_generator'
+require_relative 'rake_libs/downloads_metadata_generator_sftp'
+#require_relative 'rake_libs/downloads_metadata_generator'
 require_relative 'rake_libs/projects_metadata_generator'
 
 $css_source = "./dynamic/css"
@@ -27,7 +28,7 @@ $css_dest   = "./static/css"
 $js_source  = "./dynamic/js"
 $js_dest    = "./static/js"
 $cache_dir  = "./dynamic/.cache"
-$hugo_dest  = "./public" # Should always be set to `publishdir` from config.yml
+$hugo_dest  = "./output" # Should always be set to `publishdir` from config.yml
 
 ### Rake directory definitions
 directory "#{$js_dest}"
@@ -47,7 +48,6 @@ if Gem::Version.new(min_ruby_version) > Gem::Version.new(RUBY_VERSION)
                "       Please upgrade this tool to at least version "\
                "#{min_ruby_version}.\n")
 end
-
 
 # Check if Hugo is installed, and confirm it's up to date.
 if (`which hugo`.empty?)
@@ -73,7 +73,7 @@ end
 # Default
 Rake::TaskManager.record_task_metadata = true
 task :default do
-  puts("Basho Documentation Generate System Usage:")
+  puts("Riak Documentation Generate System Usage:")
   puts("")
   Rake::application.options.show_tasks = :tasks  # this solves sidewaysmilk problem
   Rake::application.options.show_task_pattern = //
@@ -119,22 +119,23 @@ end
 ########
 # Build
 desc      "Compile compressed JS and compressed CSS"
-task      :build => ['clean', 'build:js', 'build:css']
+task      :build => ['clean', 'build:css', 'build:js']
 namespace :build do
-  task :js  => ["#{$js_dest}", 'clean:js']   do compile_js(debug: false); end
   task :css => ["#{$css_dest}", 'clean:css'] do compile_css(debug: false); end
+  task :js  => ["#{$js_dest}", 'clean:js']   do compile_js(debug: false); end
 
   ################
   # Build : Debug
   desc      "Compile human-readable JS and compile human-readable CSS"
-  task      :debug => ["#{$js_dest}", "#{$css_dest}",
-                       'build:debug:js', 'build:debug:css']
+  task      :debug => ["#{$css_dest}", "#{$js_dest}",
+                       'build:debug:css', 'build:debug:js']
   namespace :debug do
+    desc "Compile human-readable CSS"
+    task :css => ["#{$css_dest}"] do compile_css(debug: true); end
+
     desc "Compile human-readable JS"
     task :js  => ["#{$js_dest}"]  do compile_js(debug: true); end
 
-    desc "Compile human-readable CSS"
-    task :css => ["#{$css_dest}"] do compile_css(debug: true); end
   end
 end
 
@@ -200,7 +201,7 @@ namespace :metadata do
   task :all => ['metadata:generate_downloads', 'metadata:generate_projects']
 
   desc "Generate package URI information"
-  task :generate_downloads do generate_downloads_metadata(); end
+  task :generate_downloads do generate_downloads_metadata_sftp(); end
 
   desc "Generate JavaScript-readable project descriptions"
   task :generate_projects do generate_projects_metadata(); end

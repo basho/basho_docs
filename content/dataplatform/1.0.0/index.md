@@ -10,10 +10,12 @@ menu:
     weight: 100
     pre: riak
 toc: false
+aliases:
+  - /dataplatform/latest/
 ---
 
-[bdp install]: /dataplatform/1.0.0/installing/
-[bdp reference]: /dataplatform/1.0.0/learn/service-manager/
+[bdp install]: {{<baseurl>}}dataplatform/1.0.0/installing/
+[bdp reference]: {{<baseurl>}}dataplatform/1.0.0/learn/service-manager/
 [ee]: http://info.basho.com/Wiki_Riak_Enterprise_Request.html
 
 Basho Data Platform (BDP) builds on Riak KV (Riak) to support your data-centric services. Ensure your application is highly available and scalable by leveraging BDP features such as:

@@ -11,8 +11,8 @@ project: "riak_ts"
 project_version: "1.5.2"
 toc: true
 aliases:
-    - /riakts/1.5.2/using/querying/
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying"
+  - /riakts/1.5.2/using/querying/
+
 ---
 
 [activating]: ../creating-activating/

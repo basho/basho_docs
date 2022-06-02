@@ -25,9 +25,9 @@ Riak CS cluster at any time. Correspondingly, your Stanchion
 installation must be managed and configured separately. For more
 information, see the following documents:
 
-* [Configuring Stanchion](/riak/cs/2.1.1/cookbooks/configuration/stanchion)
-* [Installing Stanchion](/riak/cs/2.1.1/cookbooks/installing#installing-stanchion-on-a-node)
-* [The Stantion Command-line Interface](/riak/cs/2.1.1/cookbooks/command-line-tools#stanchion)
+* [Configuring Stanchion]({{<baseurl>}}riak/cs/2.1.1/cookbooks/configuration/stanchion)
+* [Installing Stanchion]({{<baseurl>}}riak/cs/2.1.1/cookbooks/installing#installing-stanchion-on-a-node)
+* [The Stantion Command-line Interface]({{<baseurl>}}riak/cs/2.1.1/cookbooks/command-line-tools#stanchion)
 
 For a more in-depth discussion of implementation details, see the
 project's
@@ -51,7 +51,7 @@ rejected.
 The uniqueness of these entities is enforced by serializing any creation
 or modification requests that involve them. This process is handled by
 Stanchion. What happens under the hood is essentially that Stanchion
-mandates that all [vnodes](/riak/kv/2.1.3/learn/glossary#vnode) in the underlying Riak cluster that are responsible for the user or bucket being created must be available at creation time.
+mandates that all [vnodes]({{<baseurl>}}riak/kv/2.1.3/learn/glossary#vnode) in the underlying Riak cluster that are responsible for the user or bucket being created must be available at creation time.
 
 One result of this enforcement is that user creation requests and bucket
 creation or modification, i.e. deletion, requests are not highly

@@ -16,24 +16,24 @@ aliases:
   - /riak/kv/2.0.1/ops/upgrading/production-checklist/
 ---
 
-[perf open files]: /riak/kv/2.0.1/using/performance/open-files-limit
-[perf index]: /riak/kv/2.0.1/using/performance
+[perf open files]: {{<baseurl>}}riak/kv/2.0.1/using/performance/open-files-limit
+[perf index]: {{<baseurl>}}riak/kv/2.0.1/using/performance
 [ntp]: http://www.ntp.org/
-[security basics]: /riak/kv/2.0.1/using/security/basics
-[cluster ops load balance]: /riak/kv/2.0.1/configuring/load-balancing-proxy
-[config reference]: /riak/kv/2.0.1/configuring/reference
-[config backend]: /riak/kv/2.0.1/configuring/backend
-[usage search]: /riak/kv/2.0.1/developing/usage/search
-[usage conflict resolution]: /riak/kv/2.0.1/developing/usage/conflict-resolution
-[concept eventual consistency]: /riak/kv/2.0.1/learn/concepts/eventual-consistency
-[apps replication properties]: /riak/kv/2.0.1/developing/app-guide/replication-properties
-[concept strong consistency]: /riak/kv/2.0.1/using/reference/strong-consistency
-[cluster ops bucket types]: /riak/kv/2.0.1/using/cluster-operations/bucket-types
-[use admin commands]: /riak/kv/2.0.1/using/admin/commands
-[use admin riak control]: /riak/kv/2.0.1/using/admin/riak-control
-[cluster ops inspect node]: /riak/kv/2.0.1/using/cluster-operations/inspecting-node
-[troubleshoot http]: /riak/kv/2.0.1/using/troubleshooting/http-204
-[use admin riak-admin]: /riak/kv/2.0.1/using/admin/riak-admin
+[security basics]: {{<baseurl>}}riak/kv/2.0.1/using/security/basics
+[cluster ops load balance]: {{<baseurl>}}riak/kv/2.0.1/configuring/load-balancing-proxy
+[config reference]: {{<baseurl>}}riak/kv/2.0.1/configuring/reference
+[config backend]: {{<baseurl>}}riak/kv/2.0.1/configuring/backend
+[usage search]: {{<baseurl>}}riak/kv/2.0.1/developing/usage/search
+[usage conflict resolution]: {{<baseurl>}}riak/kv/2.0.1/developing/usage/conflict-resolution
+[concept eventual consistency]: {{<baseurl>}}riak/kv/2.0.1/learn/concepts/eventual-consistency
+[apps replication properties]: {{<baseurl>}}riak/kv/2.0.1/developing/app-guide/replication-properties
+[concept strong consistency]: {{<baseurl>}}riak/kv/2.0.1/using/reference/strong-consistency
+[cluster ops bucket types]: {{<baseurl>}}riak/kv/2.0.1/using/cluster-operations/bucket-types
+[use admin commands]: {{<baseurl>}}riak/kv/2.0.1/using/admin/commands
+[use admin riak control]: {{<baseurl>}}riak/kv/2.0.1/using/admin/riak-control
+[cluster ops inspect node]: {{<baseurl>}}riak/kv/2.0.1/using/cluster-operations/inspecting-node
+[troubleshoot http]: {{<baseurl>}}riak/kv/2.0.1/using/troubleshooting/http-204
+[use admin riak-admin]: {{<baseurl>}}riak/kv/2.0.1/using/admin/riak-admin
 [SANs]: http://en.wikipedia.org/wiki/Storage_area_network
 
 Deploying Riak KV to a production environment from a development or testing environment can be a complex process. While the specific process will depend on your environment and practices, there are some basics for you to consider and a few questions you will want to ask while making this transition.

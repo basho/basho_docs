@@ -15,10 +15,9 @@ version_history:
 aliases:
     - /riakts/1.4.0/setup/downgrading/
     - /riakts/1.4.0/downgrading/
-canonical_link: "https://docs.basho.com/riak/ts/latest/setup/downgrading/"
 ---
 
-[ts upgrade]: /riak/ts/1.4.0/setup/upgrading
+[ts upgrade]: {{<baseurl>}}riak/ts/1.4.0/setup/upgrading
 [change riakconf]: #change-riak-conf-before-downgrade
 
 Downgrades of Riak TS are tested and supported for two feature release

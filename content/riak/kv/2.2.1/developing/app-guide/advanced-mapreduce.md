@@ -15,12 +15,12 @@ aliases:
   - /riak/kv/2.2.1/dev/advanced/mapreduce/
 ---
 
-[usage 2i]: /riak/kv/2.2.1/developing/usage/secondary-indexes
-[apps replication properties]: /riak/kv/2.2.1/developing/app-guide/replication-properties
-[use ref custom code]: /riak/kv/2.2.1/using/reference/custom-code
-[usage bucket types]: /riak/kv/2.2.1/developing/usage/bucket-types
-[glossary vnode]: /riak/kv/2.2.1/learn/glossary/#vnode
-[config reference]: /riak/kv/2.2.1/configuring/reference
+[usage 2i]: {{<baseurl>}}riak/kv/2.2.1/developing/usage/secondary-indexes
+[apps replication properties]: {{<baseurl>}}riak/kv/2.2.1/developing/app-guide/replication-properties
+[use ref custom code]: {{<baseurl>}}riak/kv/2.2.1/using/reference/custom-code
+[usage bucket types]: {{<baseurl>}}riak/kv/2.2.1/developing/usage/bucket-types
+[glossary vnode]: {{<baseurl>}}riak/kv/2.2.1/learn/glossary/#vnode
+[config reference]: {{<baseurl>}}riak/kv/2.2.1/configuring/reference
 [google mr]: http://research.google.com/archive/mapreduce.html
 [mapping list]: http://hackage.haskell.org/package/base-4.7.0.0/docs/Prelude.html#v:map
 [function contrib]: https://github.com/basho/riak_function_contrib
@@ -381,7 +381,7 @@ Erlang client.
 {{% note title="Distributing Erlang MapReduce Code" %}}
 Any modules and functions you use in your Erlang MapReduce calls must be
 available on all nodes in the cluster. Please read about
-[installing custom code](/riak/kv/2.2.1/using/reference/custom-code).
+[installing custom code]({{<baseurl>}}riak/kv/2.2.1/using/reference/custom-code).
 {{% /note %}}
 
 ### Erlang Example
@@ -728,7 +728,7 @@ You can use streaming with Erlang via the Riak KV local client or the
 Erlang Protocol Buffers API.  In either case, you will provide the call
 to `mapred_stream` with a `Pid` that will receive the streaming results.
 
-For examples, see [MapReduce pbstream.erl](/data/MapReduceExamples/pbstream.erl)
+For examples, see [MapReduce pbstream.erl]({{<baseurl>}}data/MapReduceExamples/pbstream.erl)
 
 
 ## Troubleshooting MapReduce, illustrated

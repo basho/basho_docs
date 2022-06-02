@@ -15,27 +15,27 @@ aliases:
   - /riak/kv/2.2.3/ops/running/tools/riak-admin
 ---
 
-[config reference]: /riak/kv/2.2.3/configuring/reference
-[use admin commands]: /riak/kv/2.2.3/using/admin/commands
-[use admin commands#join]: /riak/kv/2.2.3/using/admin/commands/#join
-[use admin commands#leave]: /riak/kv/2.2.3/using/admin/commands/#leave
-[cluster ops backup]: /riak/kv/2.2.3/using/cluster-operations/backing-up
-[config reference#node-metadata]: /riak/kv/2.2.3/configuring/reference/#node-metadata
-[cluster ops change info]: /riak/kv/2.2.3/using/cluster-operations/changing-cluster-info
-[usage mapreduce]: /riak/kv/2.2.3/developing/usage/mapreduce
-[usage commit hooks]: /riak/kv/2.2.3/developing/usage/commit-hooks
-[config reference#ring]: /riak/kv/2.2.3/configuring/reference/#ring
-[cluster ops inspect node]: /riak/kv/2.2.3/using/cluster-operations/inspecting-node
-[use ref monitoring]: /riak/kv/2.2.3/using/reference/statistics-monitoring
-[downgrade]: /riak/kv/2.2.3/setup/downgrade
-[security index]: /riak/kv/2.2.3/using/security/
-[security managing]: /riak/kv/2.2.3/using/security/managing-sources
-[cluster ops bucket types]: /riak/kv/2.2.3/using/cluster-operations/bucket-types
-[cluster ops 2i]: /riak/kv/2.2.3/using/reference/secondary-indexes
-[repair recover index]: /riak/kv/2.2.3/using/repair-recovery
-[cluster ops strong consistency]: /riak/kv/2.2.3/using/cluster-operations/strong-consistency
-[cluster ops handoff]: /riak/kv/2.2.3/using/cluster-operations/handoff
-[use admin riak-admin#stats]: /riak/kv/2.2.3/using/admin/riak-admin/#stats
+[config reference]: {{<baseurl>}}riak/kv/2.2.3/configuring/reference
+[use admin commands]: {{<baseurl>}}riak/kv/2.2.3/using/admin/commands
+[use admin commands#join]: {{<baseurl>}}riak/kv/2.2.3/using/admin/commands/#join
+[use admin commands#leave]: {{<baseurl>}}riak/kv/2.2.3/using/admin/commands/#leave
+[cluster ops backup]: {{<baseurl>}}riak/kv/2.2.3/using/cluster-operations/backing-up
+[config reference#node-metadata]: {{<baseurl>}}riak/kv/2.2.3/configuring/reference/#node-metadata
+[cluster ops change info]: {{<baseurl>}}riak/kv/2.2.3/using/cluster-operations/changing-cluster-info
+[usage mapreduce]: {{<baseurl>}}riak/kv/2.2.3/developing/usage/mapreduce
+[usage commit hooks]: {{<baseurl>}}riak/kv/2.2.3/developing/usage/commit-hooks
+[config reference#ring]: {{<baseurl>}}riak/kv/2.2.3/configuring/reference/#ring
+[cluster ops inspect node]: {{<baseurl>}}riak/kv/2.2.3/using/cluster-operations/inspecting-node
+[use ref monitoring]: {{<baseurl>}}riak/kv/2.2.3/using/reference/statistics-monitoring
+[downgrade]: {{<baseurl>}}riak/kv/2.2.3/setup/downgrade
+[security index]: {{<baseurl>}}riak/kv/2.2.3/using/security/
+[security managing]: {{<baseurl>}}riak/kv/2.2.3/using/security/managing-sources
+[cluster ops bucket types]: {{<baseurl>}}riak/kv/2.2.3/using/cluster-operations/bucket-types
+[cluster ops 2i]: {{<baseurl>}}riak/kv/2.2.3/using/reference/secondary-indexes
+[repair recover index]: {{<baseurl>}}riak/kv/2.2.3/using/repair-recovery
+[cluster ops strong consistency]: {{<baseurl>}}riak/kv/2.2.3/using/cluster-operations/strong-consistency
+[cluster ops handoff]: {{<baseurl>}}riak/kv/2.2.3/using/cluster-operations/handoff
+[use admin riak-admin#stats]: {{<baseurl>}}riak/kv/2.2.3/using/admin/riak-admin/#stats
 
 ## `riak-admin`
 

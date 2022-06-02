@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /dataplatform/1.0.0/using-dataplatform/using-sparkconnector/
+  - /dataplatform/latest/using/spark-riak-connector/
 ---
 
 This is a quick, practical guide on how to use the Spark Riak connector.

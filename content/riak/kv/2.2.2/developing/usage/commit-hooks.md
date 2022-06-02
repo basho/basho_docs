@@ -15,7 +15,7 @@ aliases:
   - /riak/kv/2.2.2/dev/using/commit-hooks
 ---
 
-[usage bucket types]: /riak/kv/2.2.2/developing/usage/bucket-types
+[usage bucket types]: {{<baseurl>}}riak/kv/2.2.2/developing/usage/bucket-types
 
 Pre- and post-commit hooks are functions that are invoked before or
 after an object has been written to Riak. To provide a few examples,
@@ -31,7 +31,7 @@ invoked can cause nasty feedback loops which will wedge the hook into an
 infinite cycle unless the hook functions are carefully written to detect
 and short-circuit such cycles.
 
-Pre- and post-commit hooks are applied at the [bucket](/riak/kv/2.2.2/learn/concepts/buckets) level,
+Pre- and post-commit hooks are applied at the [bucket]({{<baseurl>}}riak/kv/2.2.2/learn/concepts/buckets) level,
 [using bucket types][usage bucket types]. They are run once per successful response to the
 client.
 
@@ -40,7 +40,7 @@ functions.
 
 ## Setting Commit Hooks Using Bucket Types
 
-Because hooks are defined at the bucket level, you can create [bucket types](/riak/kv/2.2.2/developing/usage/bucket-types)
+Because hooks are defined at the bucket level, you can create [bucket types]({{<baseurl>}}riak/kv/2.2.2/developing/usage/bucket-types)
 that associate one or more hooks with any bucket that bears that type.
 Let's create a bucket type called `with_post_commit` that adds a
 post-commit hook to operations on any bucket that bears the
@@ -87,13 +87,13 @@ Riak object being modified. Remember that deletes are also considered
 "writes," and so pre-commit hooks will be fired when a delete occurs in
 the bucket as well. This means that hook functions will need to inspect
 the object for the `X-Riak-Deleted` metadata entry (more on this in our
-documentation on [object deletion](/riak/kv/2.2.2/using/reference/object-deletion)) to determine whether a delete is
+documentation on [object deletion]({{<baseurl>}}riak/kv/2.2.2/using/reference/object-deletion)) to determine whether a delete is
 occurring.
 
 Erlang pre-commit functions are allowed three possible return values:
 
 - A Riak object --- This can either be the same object passed to the function or an updated version of the object. This allows hooks to modify the object before they are written.
-- `fail` --- The atom `fail` will cause Riak to fail the write and send a 403 Forbidden error response (in the [HTTP API](/riak/kv/2.2.2/developing/api/http)) along with a generic error message about why the write was blocked.
+- `fail` --- The atom `fail` will cause Riak to fail the write and send a 403 Forbidden error response (in the [HTTP API]({{<baseurl>}}riak/kv/2.2.2/developing/api/http)) along with a generic error message about why the write was blocked.
 - `{fail, Reason}` --- The tuple `{fail, Reason}` will cause the same behavior as in the case above, but with the addition of `Reason` used as the error text.
 
 Errors that occur when processing Erlang pre-commit hooks will be

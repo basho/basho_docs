@@ -15,13 +15,13 @@ aliases:
   - /riak/kv/2.2.1/dev/using/mapreduce
 ---
 
-[usage 2i]: /riak/kv/2.2.1/developing/usage/secondary-indexes
-[usage search]: /riak/kv/2.2.1/developing/usage/search
-[usage types]: /riak/kv/2.2.1/developing/usage/bucket-types
-[api http]: /riak/kv/2.2.1/developing/api/http
-[api pb]: /riak/kv/2.2.1/developing/api/protocol-buffers
-[glossary vnode]: /riak/kv/2.2.1/learn/glossary/#vnode
-[guide mapreduce]: /riak/kv/2.2.1/developing/app-guide/advanced-mapreduce
+[usage 2i]: {{<baseurl>}}riak/kv/2.2.1/developing/usage/secondary-indexes
+[usage search]: {{<baseurl>}}riak/kv/2.2.1/developing/usage/search
+[usage types]: {{<baseurl>}}riak/kv/2.2.1/developing/usage/bucket-types
+[api http]: {{<baseurl>}}riak/kv/2.2.1/developing/api/http
+[api pb]: {{<baseurl>}}riak/kv/2.2.1/developing/api/protocol-buffers
+[glossary vnode]: {{<baseurl>}}riak/kv/2.2.1/learn/glossary/#vnode
+[guide mapreduce]: {{<baseurl>}}riak/kv/2.2.1/developing/app-guide/advanced-mapreduce
 
 {{% note title="Use MapReduce sparingly" %}}
 In Riak KV, MapReduce is the primary method for non-primary-key-based
@@ -116,7 +116,7 @@ assuming that the next phase in the list is a reduce phase.
 The diagram below provides an illustration of how a coordinating vnode
 orchestrates a MapReduce job.
 
-![MapReduce Diagram](/images/MapReduce-diagram.png)
+![MapReduce Diagram]({{<baseurl>}}images/MapReduce-diagram.png)
 
 ## Example
 

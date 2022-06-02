@@ -19,18 +19,18 @@ aliases:
 ---
 
 
-[production checklist]: /riak/kv/2.2.0/setup/upgrading/checklist
-[use admin riak control]: /riak/kv/2.2.0/using/admin/riak-control
-[use admin commands]: /riak/kv/2.2.0/using/admin/commands
-[use admin riak-admin]: /riak/kv/2.2.0/using/admin/riak-admin
-[usage secondary-indexes]: /riak/kv/2.2.0/developing/usage/secondary-indexes
-[release notes]: /riak/kv/2.2.0/release-notes
+[production checklist]: {{<baseurl>}}riak/kv/2.2.0/setup/upgrading/checklist
+[use admin riak control]: {{<baseurl>}}riak/kv/2.2.0/using/admin/riak-control
+[use admin commands]: {{<baseurl>}}riak/kv/2.2.0/using/admin/commands
+[use admin riak-admin]: {{<baseurl>}}riak/kv/2.2.0/using/admin/riak-admin
+[usage secondary-indexes]: {{<baseurl>}}riak/kv/2.2.0/developing/usage/secondary-indexes
+[release notes]: {{<baseurl>}}riak/kv/2.2.0/release-notes
 [riak enterprise]: http://basho.com/products/riak-kv/
-[cluster ops mdc]: /riak/kv/2.2.0/using/cluster-operations/v3-multi-datacenter
-[config v3 mdc]: /riak/kv/2.2.0/configuring/v3-multi-datacenter
-[jmx monitor]: /riak/kv/2.2.0/using/reference/jmx
-[snmp]: /riak/kv/2.2.0/using/reference/snmp
-[Release Notes]: /riak/kv/2.2.0/release-notes
+[cluster ops mdc]: {{<baseurl>}}riak/kv/2.2.0/using/cluster-operations/v3-multi-datacenter
+[config v3 mdc]: {{<baseurl>}}riak/kv/2.2.0/configuring/v3-multi-datacenter
+[jmx monitor]: {{<baseurl>}}riak/kv/2.2.0/using/reference/jmx
+[snmp]: {{<baseurl>}}riak/kv/2.2.0/using/reference/snmp
+[Release Notes]: {{<baseurl>}}riak/kv/2.2.0/release-notes
 
 
 ## Overview

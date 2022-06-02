@@ -15,7 +15,7 @@ aliases:
   - /riak/kv/2.1.3/dev/references/http/search-index-info
 ---
 
-Retrieves information about all currently available [Search indexes](/riak/kv/2.1.3/developing/usage/search) in JSON format.
+Retrieves information about all currently available [Search indexes]({{<baseurl>}}riak/kv/2.1.3/developing/usage/search) in JSON format.
 
 ## Request
 

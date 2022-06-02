@@ -17,8 +17,8 @@ aliases:
   - /riak/kv/2.1.1/installing/source/erlang/
 ---
 
-[install index]: /riak/kv/2.1.1/setup/installing
-[security basics]: /riak/kv/2.1.1/using/security/basics
+[install index]: {{<baseurl>}}riak/kv/2.1.1/setup/installing
+[security basics]: {{<baseurl>}}riak/kv/2.1.1/using/security/basics
 
 Pre-packaged versions of Riak include an Erlang installation. If you are building Riak from source, you will need to install [Basho's patched version of Erlang](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho8.tar.gz). **If you do not use this version of Erlang, you will not be able to use Riak's [security features][security basics].**
 

@@ -15,7 +15,7 @@ aliases:
 ---
 
 
-[glossary bucket]: http://docs.basho.com/riak/kv/2.1.4/learn/glossary/#bucket
+[glossary bucket]: {{< baseurl >}}riak/kv/2.1.4/learn/glossary/#bucket
 [table arch]: ../tablearchitecture/
 
 

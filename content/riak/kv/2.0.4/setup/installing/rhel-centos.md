@@ -20,9 +20,9 @@ aliases:
 
 
 
-[install source index]: /riak/kv/2.0.4/setup/installing/source
-[install source erlang]: /riak/kv/2.0.4/setup/installing/source/erlang
-[install verify]: /riak/kv/2.0.4/setup/installing/verify
+[install source index]: {{<baseurl>}}riak/kv/2.0.4/setup/installing/source
+[install source erlang]: {{<baseurl>}}riak/kv/2.0.4/setup/installing/source/erlang
+[install verify]: {{<baseurl>}}riak/kv/2.0.4/setup/installing/verify
 
 > **Note: 2.0.4 not currently available**
 >

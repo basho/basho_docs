@@ -14,7 +14,7 @@ aliases:
     - /riakts/1.2.0/
 ---
 
-[installing]: /riak/ts/1.2.0/installing/
+[installing]: {{<baseurl>}}riak/ts/1.2.0/installing/
 [learnabout]: learn-about/
 
 

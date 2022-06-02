@@ -15,10 +15,10 @@ aliases:
   - /riak/kv/2.1.4/ops/running/tools/riak
 ---
 
-[configuration file]: /riak/kv/2.1.4/configuring/reference/
+[configuration file]: {{<baseurl>}}riak/kv/2.1.4/configuring/reference/
 [escript]: http://www.erlang.org/doc/man/escript.html
-[`riak-admin`]: /riak/kv/2.1.4/using/admin/riak-admin/#top
-[configuration]: /riak/kv/2.1.4/configuring/reference/
+[`riak-admin`]: {{<baseurl>}}riak/kv/2.1.4/using/admin/riak-admin/#top
+[configuration]: {{<baseurl>}}riak/kv/2.1.4/configuring/reference/
 
 ## riak
 

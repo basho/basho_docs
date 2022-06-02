@@ -15,11 +15,11 @@ aliases:
   - /riak/kv/2.2.3/ops/running/cluster-admin
 ---
 
-[use admin riak-admin#cluster]: /riak/kv/2.2.3/using/admin/riak-admin/#cluster
-[concept clusters]: /riak/kv/2.2.3/learn/concepts/clusters
-[cluster ops add remove node]: /riak/kv/2.2.3/using/cluster-operations/adding-removing-nodes
-[use admin riak-admin#cluster-plan]: /riak/kv/2.2.3/using/admin/riak-admin/#cluster-plan
-[use admin riak-admin#cluster-commit]: /riak/kv/2.2.3/using/admin/riak-admin/#cluster-commit
+[use admin riak-admin#cluster]: {{<baseurl>}}riak/kv/2.2.3/using/admin/riak-admin/#cluster
+[concept clusters]: {{<baseurl>}}riak/kv/2.2.3/learn/concepts/clusters
+[cluster ops add remove node]: {{<baseurl>}}riak/kv/2.2.3/using/cluster-operations/adding-removing-nodes
+[use admin riak-admin#cluster-plan]: {{<baseurl>}}riak/kv/2.2.3/using/admin/riak-admin/#cluster-plan
+[use admin riak-admin#cluster-commit]: {{<baseurl>}}riak/kv/2.2.3/using/admin/riak-admin/#cluster-commit
 
 
 This document explains usage of the [`riak-admin cluster`][use admin riak-admin#cluster] interface, which enables you to perform a wide

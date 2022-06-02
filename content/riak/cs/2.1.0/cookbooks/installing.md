@@ -22,16 +22,16 @@ You can install Riak CS on a single node (for development purposes) or
 using an automated deployment tool. Any Riak CS installation involves
 three components, all of which must be installed separately:
 
-* [Riak KV](/riak/2.1.4/) --- The distributed database on top of which Riak CS 
+* [Riak KV]({{<baseurl>}}riak/kv/2.1.4/) --- The distributed database on top of which Riak CS 
 is built
 * Riak CS itself
-* [Stanchion](/riak/cs/2.1.0/theory/stanchion) --- An application used to manage [globally unique entities](/riak/cs/2.1.0/theory/stanchion/#globally-unique-entities) such as users and buckets.
+* [Stanchion]({{<baseurl>}}riak/cs/2.1.0/theory/stanchion) --- An application used to manage [globally unique entities]({{<baseurl>}}riak/cs/2.1.0/theory/stanchion/#globally-unique-entities) such as users and buckets.
 
 [Riak KV](#installing-riak) and [Riak CS](#installing-riak-cs-on-a-node) must be installed on each node in your cluster. [Stanchion](#installing-stanchion-on-a-node), however, needs to be installed on only one node.
 
 ## Version Compatibility
 
-We strongly recommend using one of the documented [version combinations](/riak/cs/2.1.0/cookbooks/version-compatibility/) 
+We strongly recommend using one of the documented [version combinations]({{<baseurl>}}riak/cs/2.1.0/cookbooks/version-compatibility/) 
 when installing and running Riak CS.
 
 ## Installing Riak KV
@@ -40,30 +40,30 @@ Before installing Riak CS, Riak KV must be installed on each node in
 your cluster. You can install Riak KV either as part of an OS-specific package
 or from source.
 
-  * [Debian and Ubuntu](/riak/kv/2.1.4/setup/installing/debian-ubuntu)
-  * [RHEL and CentOS](/riak/kv/2.1.4/setup/installing/rhel-centos)
-  * [Mac OS X](/riak/kv/2.1.4/setup/installing/mac-osx)
-  * [FreeBSD](/riak/kv/2.1.4/setup/installing/freebsd)
-  * [SUSE](/riak/kv/2.1.4/setup/installing/suse)
-  * [From Source](/riak/kv/2.1.4/setup/installing/source)
+  * [Debian and Ubuntu]({{<baseurl>}}riak/kv/2.1.4/setup/installing/debian-ubuntu)
+  * [RHEL and CentOS]({{<baseurl>}}riak/kv/2.1.4/setup/installing/rhel-centos)
+  * [Mac OS X]({{<baseurl>}}riak/kv/2.1.4/setup/installing/mac-osx)
+  * [FreeBSD]({{<baseurl>}}riak/kv/2.1.4/setup/installing/freebsd)
+  * [SUSE]({{<baseurl>}}riak/kv/2.1.4/setup/installing/suse)
+  * [From Source]({{<baseurl>}}riak/kv/2.1.4/setup/installing/source)
 
 Riak is also officially supported on the following public cloud
 infrastructures:
 
-  * [Windows Azure](/riak/kv/2.1.4/setup/installing/windows-azure)
-  * [AWS Marketplace](/riak/kv/2.1.4/setup/installing/amazon-web-services)
+  * [Windows Azure]({{<baseurl>}}riak/kv/2.1.4/setup/installing/windows-azure)
+  * [AWS Marketplace]({{<baseurl>}}riak/kv/2.1.4/setup/installing/amazon-web-services)
 
 Remember that you must repeat this installation process on each node in
 your cluster. For future reference, you should make note of the Riak KV
 installation directory.
 
 If you want to fully configure Riak KV prior to installing Riak CS, see our
-documentation on [configuring Riak KV for CS](/riak/cs/2.1.0/cookbooks/configuration/riak-for-cs/).
+documentation on [configuring Riak KV for CS]({{<baseurl>}}riak/cs/2.1.0/cookbooks/configuration/riak-for-cs/).
 
 ## Installing Riak CS on a Node
 
-Riak CS and Stanchion packages are available on the [Download Riak CS](/riak/cs/2.1.0/downloads/)
-page. Similarly, Riak packages are available on the [Download Riak KV](/riak/kv/2.1.4/downloads/) page.
+Riak CS and Stanchion packages are available on the [Download Riak CS]({{<baseurl>}}riak/cs/2.1.0/downloads/)
+page. Similarly, Riak packages are available on the [Download Riak KV]({{<baseurl>}}riak/kv/2.1.4/downloads/) page.
 
 After downloading Riak CS, Stanchion, and Riak, install them using your
 operating system's package management commands.
@@ -78,7 +78,7 @@ such as a dedicated device [HAProxy](http://haproxy.1wt.eu) or [Nginx](http://wi
 ### Installing Riak CS on Mac OS X
 
 To install Riak CS on OS X, first download the appropriate package from
-the [downloads](/riak/cs/2.1.0/downloads) page:
+the [downloads]({{<baseurl>}}riak/cs/2.1.0/downloads) page:
 
 ```bash
 curl -O http://s3.amazonaws.com/downloads.basho.com/riak-cs/1.5/2.1.0/osx/10.8/riak-cs-2.1.0-OSX-x86_64.tar.gz
@@ -90,7 +90,7 @@ Then, unpack the downloaded tarball:
 tar -xvzf riak-cs-2.1.0-OSX-x86_64.tar.gz
 ```
 
-At this point, you can move on to [configuring Riak CS](/riak/cs/2.1.0/cookbooks/configuration/riak-cs/).
+At this point, you can move on to [configuring Riak CS]({{<baseurl>}}riak/cs/2.1.0/cookbooks/configuration/riak-cs/).
 
 ### Installing Riak CS on Debian or Ubuntu
 
@@ -255,11 +255,11 @@ can achieve this by specifying a load balancer IP as the Stanchion IP
 in each Riak CS node's `riak-cs.conf`. This load balancer must be
 configured to send all requests to a single Stanchion node, failing over
 to a secondary Stanchion node if the primary is unavailable. More
-details can be found in [Specifying the Stanchion Node](/riak/cs/2.1.0/cookbooks/configuration/#specifying-the-stanchion-node).
+details can be found in [Specifying the Stanchion Node]({{<baseurl>}}riak/cs/2.1.0/cookbooks/configuration/#specifying-the-stanchion-node).
 
 ### Installing Stanchion on Mac OS X
 
-First, download the appropriate package from the [downloads](/riak/cs/2.1.0/downloads/#stanchion-1-4-3) page.
+First, download the appropriate package from the [downloads]({{<baseurl>}}riak/cs/2.1.0/downloads/#stanchion-1-4-3) page.
 
 ```bash
 curl -O http://s3.amazonaws.com/downloads.basho.com/stanchion/1.4/1.4.3/osx/10.8/stanchion-2.0.0-OSX-x86_64.tar.gz
@@ -271,7 +271,7 @@ Then, unpack the downloaded tarball:
 stanchion-2.0.0-OSX-x86_64.tar.gz
 ```
 
-At this point, you can move on to [configuring Riak CS](/riak/cs/2.1.0/cookbooks/configuration/riak-cs).
+At this point, you can move on to [configuring Riak CS]({{<baseurl>}}riak/cs/2.1.0/cookbooks/configuration/riak-cs).
 
 ### Installing Stanchion on Debian or Ubuntu
 
@@ -300,7 +300,7 @@ Now, install the `stanchion` package:
 sudo apt-get install stanchion
 ```
 
-At this point, you can move on to [configuring Riak CS](/riak/cs/2.1.0/cookbooks/configuration/riak-cs).
+At this point, you can move on to [configuring Riak CS]({{<baseurl>}}riak/cs/2.1.0/cookbooks/configuration/riak-cs).
 
 #### Installing the `.deb` Package Manually (not recommended)
 
@@ -311,7 +311,7 @@ sudo dpkg -i <stanchion-package.deb>
 Replace `<riak-cs-package.deb>` with the actual filename for the package
 you are installing.
 
-At this point, you can move on to [configuring Riak CS](/riak/cs/2.1.0/cookbooks/configuration/riak-cs).
+At this point, you can move on to [configuring Riak CS]({{<baseurl>}}riak/cs/2.1.0/cookbooks/configuration/riak-cs).
 
 ### Installing Stanchion on RHEL or CentOS
 
@@ -338,7 +338,7 @@ Once the `.rpm` package has been installed, install Stanchion:
 sudo yum install stanchion
 ```
 
-At this point, you can move on to [configuring Riak CS](/riak/cs/2.1.0/cookbooks/configuration/riak-cs).
+At this point, you can move on to [configuring Riak CS]({{<baseurl>}}riak/cs/2.1.0/cookbooks/configuration/riak-cs).
 
 #### Installing the `.rpm` Package Manually (not recommended)
 
@@ -349,7 +349,7 @@ sudo rpm -Uvh <stanchion-package.rpm>
 Replace `<stanchion-package.rpm>` with the actual filename for the
 package you are installing.
 
-At this point, you can move on to [configuring Riak CS](/riak/cs/2.1.0/cookbooks/configuration/riak-cs).
+At this point, you can move on to [configuring Riak CS]({{<baseurl>}}riak/cs/2.1.0/cookbooks/configuration/riak-cs).
 
 > **Note on SELinux**
 >
@@ -359,4 +359,4 @@ encounter errors during installation, try disabling SELinux.
 ## What's Next?
 
 Once you've completed installation of Riak CS and Riak, you're ready to
-learn more about [configuring Riak CS](/riak/cs/2.1.0/cookbooks/configuration/riak-cs).
+learn more about [configuring Riak CS]({{<baseurl>}}riak/cs/2.1.0/cookbooks/configuration/riak-cs).

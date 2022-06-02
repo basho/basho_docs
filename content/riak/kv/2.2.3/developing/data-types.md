@@ -43,9 +43,9 @@ For more information on how CRDTs work in Riak KV see [Concepts: Data Types][con
 
 The following section explains how to set up a bucket that uses Riak data types. To get started using Riak data types:
 
-1. [Create a bucket with the `datatype` parameter set](#creating-a-bucket-with-a-data-type).
+1. [Create a bucket with the `datatype` parameter set](#creating-a-bucket-with-a-riak-data-type).
 2. [Confirm the bucket was properly configured](#confirm-bucket-configuration).
-3. [Activate the bucket type](#activate-the-bucket-type).
+3. [Activate the bucket type](#activate-bucket-type).
 
 ### Creating a Bucket with a Riak Data Type
 
@@ -268,5 +268,5 @@ Riak data types can be searched like any other object, but with the
 added benefit that your data type is indexed as a different type by Solr,
 the search platform behind Riak Search.
 
-In our Search documentation we offer a [full tutorial](../usage/searching-data-types) as well as a variety of [examples](../usage/search/#data-types-and-search-examples), including code
+In our Search documentation we offer a [full tutorial](../usage/searching-data-types) as well as a variety of [examples](../usage/searching-data-types/), including code
 samples from each of our official client libraries.

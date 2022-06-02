@@ -39,7 +39,7 @@ concretely using the following example:
 * The object has been marked as deleted on nodes A and B, but it still
   lives on node C
 * A client attempts to read the object, Riak senses that there are
-  divergent replicas and initiates a repair process (either [read repair](../../../learn/concepts/active-anti-entropy/#read-repair) or [active anti-entropy](../../../learn/concepts/active-anti-entropy/),
+  divergent replicas and initiates a repair process (either [read repair](../../../learn/concepts/active-anti-entropy/#read-repair-vs-active-anti-entropy) or [active anti-entropy](../../../learn/concepts/active-anti-entropy/),
   depending on configuration)
 
 At this point, Riak needs to make a decision about what to do. Should

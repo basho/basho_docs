@@ -38,7 +38,7 @@ does not necessarily cause data loss, as other replicas of every key are
 available elsewhere in the cluster. Once the node is detected as down,
 other nodes in the cluster will take over its responsibilities
 temporarily and transmit the updated data to it when it eventually
-returns to service (also called [hinted handoff](/riak/kv/2.0.8/learn/glossary/#hinted-handoff)).
+returns to service (also called [hinted handoff]({{<baseurl>}}riak/kv/2.0.8/learn/glossary/#hinted-handoff)).
 
 More severe data loss scenarios usually relate to hardware failure.
 If data is lost, several options are available for restoring it.
@@ -92,7 +92,7 @@ too much data and growing the cluster may be necessary. Additional RAM
 may also improve latency because more of the active dataset will be
 cached by the operating system.
 
-Sometimes extreme latency spikes can be caused by [sibling explosion](/riak/kv/2.0.8/developing/usage/conflict-resolution#siblings). This condition occurs when the client application does not resolve conflicts properly or in a timely fashion. In that scenario, the size of the value on disk grows in proportion to
+Sometimes extreme latency spikes can be caused by [sibling explosion]({{<baseurl>}}riak/kv/2.0.8/developing/usage/conflict-resolution#siblings). This condition occurs when the client application does not resolve conflicts properly or in a timely fashion. In that scenario, the size of the value on disk grows in proportion to
 the number of siblings, causing longer disk service times and slower
 network responses.
 
@@ -116,7 +116,7 @@ spreading load and increasing available CPU and IOPS.
 
 ## Cluster Recovery From Backups
 
-See [Changing Cluster Information](/riak/kv/2.1.4/using/cluster-operations/changing-cluster-info/#clusters-from-backups) for instructions on cluster recovery.
+See [Changing Cluster Information]({{<baseurl>}}riak/kv/2.0.8/using/cluster-operations/changing-cluster-info/#clusters-from-backups) for instructions on cluster recovery.
 
 {{% note title="Tip" %}}
 If you are a licensed Riak Enterprise or CS customer and require assistance or

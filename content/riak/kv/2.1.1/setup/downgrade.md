@@ -15,10 +15,10 @@ aliases:
   - /riak/kv/2.1.1/ops/upgrading/rolling-downgrades/
 ---
 
-[rolling upgrade]: /riak/kv/2.1.1/setup/upgrading/cluster
-[config ref]: /riak/kv/2.1.1/configuring/reference
-[concept aae]: /riak/kv/2.1.1/learn/concepts/active-anti-entropy/
-[aae status]: /riak/kv/2.1.1/using/admin/riak-admin/#aae-status
+[rolling upgrade]: {{<baseurl>}}riak/kv/2.1.1/setup/upgrading/cluster
+[config ref]: {{<baseurl>}}riak/kv/2.1.1/configuring/reference
+[concept aae]: {{<baseurl>}}riak/kv/2.1.1/learn/concepts/active-anti-entropy/
+[aae status]: {{<baseurl>}}riak/kv/2.1.1/using/admin/riak-admin/#aae-status
 
 
 Downgrades of Riak are tested and supported for two feature release versions, with the general procedure being similar to that of a [rolling upgrade].

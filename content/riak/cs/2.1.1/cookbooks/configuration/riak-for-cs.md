@@ -21,21 +21,21 @@ reference document listing important configurable parameters.
 
 ## The Proper Backends for Riak CS
 
-The default backend used by Riak is the [Bitcask](/riak/kv/2.1.3/setup/planning/backend/bitcask) backend, but the
+The default backend used by Riak is the [Bitcask]({{<baseurl>}}riak/kv/2.1.3/setup/planning/backend/bitcask) backend, but the
 Riak CS package includes a special backend that should be used by the
 Riak cluster that is part of the Riak CS system. It is a custom version
-of the standard [Multi](/riak/kv/2.1.3/setup/planning/backend/multi) backend that ships with Riak.
+of the standard [Multi]({{<baseurl>}}riak/kv/2.1.3/setup/planning/backend/multi) backend that ships with Riak.
 
 Some of the Riak buckets used internally by Riak CS use secondary
-indexes, which currently requires the [LevelDB](/riak/kv/2.1.3/setup/planning/backend/leveldb) backend. Other parts
+indexes, which currently requires the [LevelDB]({{<baseurl>}}riak/kv/2.1.3/setup/planning/backend/leveldb) backend. Other parts
 of the Riak CS system can benefit from the use of the Bitcask backend.
-The use of the custom [Multi](/riak/kv/2.1.3/setup/planning/backend/multi) backend enables Riak CS to take
+The use of the custom [Multi]({{<baseurl>}}riak/kv/2.1.3/setup/planning/backend/multi) backend enables Riak CS to take
 advantage of the strengths of both of these backends to achieve the best
 blend of performance and features. The next section covers how to
 properly set up Riak to use this Multi backend.
 
 Additionally, the Riak CS storage calculation system uses Riak's
-[MapReduce](/riak/kv/2.1.3/developing/usage/mapreduce) to sum the files in a bucket. This means that you must tell all of your Riak nodes where to find Riak CS's compiled files before calculating storage.
+[MapReduce]({{<baseurl>}}riak/kv/2.1.3/developing/usage/mapreduce) to sum the files in a bucket. This means that you must tell all of your Riak nodes where to find Riak CS's compiled files before calculating storage.
 
 A few other settings must be modified to configure a Riak node as part
 of a Riak CS system, such as the node IP address and the IP address and
@@ -46,7 +46,7 @@ configure a Riak node to work as part of a Riak CS system.
 ## Setting up the Proper Riak Backend
 
 First, edit Riak's `riak.conf`, or the old-style `advanced.config` or
-`app.config` [configuration file](/riak/kv/2.1.3/configuring/reference). These files can be found in the `/etc/riak` or `/opt/riak/etc` directories. By default, Riak uses the [Bitcask](/riak/kv/2.1.3/setup/planning/backend/bitcask) backend. The first thing we need to do is to change that by removing
+`app.config` [configuration file]({{<baseurl>}}riak/kv/2.1.3/configuring/reference). These files can be found in the `/etc/riak` or `/opt/riak/etc` directories. By default, Riak uses the [Bitcask]({{<baseurl>}}riak/kv/2.1.3/setup/planning/backend/bitcask) backend. The first thing we need to do is to change that by removing
 the following line:
 
 ```riakconf
@@ -117,7 +117,7 @@ to use the custom backend provided by Riak CS. We need to use either the
 ```
 
 It's important to note that many of these values will depend on various
-directories specific to your [operating system](/riak/kv/2.1.3/setup/installing), so make sure to adjust them accordingly. The `add_paths`
+directories specific to your [operating system]({{<baseurl>}}riak/kv/2.1.3/setup/installing), so make sure to adjust them accordingly. The `add_paths`
 parameter, for example, assumes that Riak CS is installed in
 `/usr/lib/riak-cs`, while the `data_root` parameters assume that Riak is
 installed in `/var/lib/`.
@@ -152,7 +152,7 @@ buckets.default.allow_mult = true
 ]}
 ```
 
-This will enable Riak to create [siblings](/riak/kv/2.1.3/learn/concepts/causal-context/#siblings), which is necessary for Riak CS to function. If you are connecting to Riak CS from a [client library](/riak/kv/2.1.3/developing/client-libraries), don't worry: you will not have to manage [conflict resolution](/riak/kv/2.1.3/developing/usage/conflict-resolution), as all Riak CS
+This will enable Riak to create [siblings]({{<baseurl>}}riak/kv/2.1.3/learn/concepts/causal-context/#siblings), which is necessary for Riak CS to function. If you are connecting to Riak CS from a [client library]({{<baseurl>}}riak/kv/2.1.3/developing/client-libraries), don't worry: you will not have to manage [conflict resolution]({{<baseurl>}}riak/kv/2.1.3/developing/usage/conflict-resolution), as all Riak CS
 operations are strongly consistent by definition.
 
 {{% note title="Note on `allow_mult`" %}}
@@ -214,7 +214,7 @@ sure that you do not change the backend from `riak_cs_kv_multi_backend` to
 
 ## Setting Up Riak to Use Protocol Buffers
 
-The Riak [Protocol Buffers](/riak/kv/2.1.3/developing/api/protocol-buffers) settings reside in the Riak `riak.conf`,
+The Riak [Protocol Buffers]({{<baseurl>}}riak/kv/2.1.3/developing/api/protocol-buffers) settings reside in the Riak `riak.conf`,
 or in the `riak_api` section of the the old-style `advanced.config` or
 `app.config` files, which is located in the `/etc/riak/` folder. The default host
 is `127.0.0.1` and the default port is `8087`. You will need to change this if
@@ -343,4 +343,4 @@ javascript.hook_pool_size = 0
 ```
 
 
-[riak_conf_files]: http://docs.basho.com/riak/2.0.5/ops/advanced/configs/configuration-files/
+[riak_conf_files]: {{< baseurl >}}riak/kv/2.0.5/ops/advanced/configs/configuration-files/

@@ -12,12 +12,13 @@ menu:
 toc: true
 aliases:
   - /dataplatform/1.0.0/using-dataplatform/using-bdp/
+  - /dataplatform/latest/using/start-services/
 ---
 
-[bdp configure]: /dataplatform/1.0.0/configuring/setup-a-cluster/
-[bdp configure add services]: /dataplatform/1.0.0/configuring/setup-a-cluster/#add-services
-[bdp install]: /dataplatform/1.0.0/installing/
-[bdp reference]: /dataplatform/1.0.0/learn/service-manager/
+[bdp configure]: {{<baseurl>}}dataplatform/1.0.0/configuring/setup-a-cluster/
+[bdp configure add services]: {{<baseurl>}}dataplatform/1.0.0/configuring/setup-a-cluster/#add-services
+[bdp install]: {{<baseurl>}}dataplatform/1.0.0/installing/
+[bdp reference]: {{<baseurl>}}dataplatform/1.0.0/learn/service-manager/
 
 
 You've [installed][bdp install] Basho Data Platform (BDP), [configured][bdp configure] your cluster, and [added services][bdp configure add services] to your nodes. The setup of your BDP cluster is complete! Now you can begin using your BDP cluster. 

@@ -26,9 +26,9 @@ and access.
 
 > **Note**:
 > 
-> Storage statistics are not calculated by default. Please read [Usage and Billing Data](/riak/cs/2.1.0/cookbooks/usage-and-billing-data) for details about how to enable storage calculation archiving.
+> Storage statistics are not calculated by default. Please read [Usage and Billing Data]({{<baseurl>}}riak/cs/2.1.0/cookbooks/usage-and-billing-data) for details about how to enable storage calculation archiving.
 
-The basics of querying storage statistics, including the URL used and the parameters for specifying the time slice, are the same as they are for [Querying Access Statistics](/riak/cs/2.1.0/cookbooks/querying-access-statistics).
+The basics of querying storage statistics, including the URL used and the parameters for specifying the time slice, are the same as they are for [Querying Access Statistics]({{<baseurl>}}riak/cs/2.1.0/cookbooks/querying-access-statistics).
 
 Please refer to the descriptions there for more details.
 
@@ -39,7 +39,7 @@ been configured to something other than default CS port of `8080`.
 
 > **Authentication Required**
 >
-> Queries to the usage resources described here must be authenticated as described in the [Authentication documentation](/riak/cs/2.1.0/cookbooks/authentication). Keep this in mind when using `curl`. Authentication credentials for `s3cmd` or `s3-curl` can be specified in their respective configuration files.
+> Queries to the usage resources described here must be authenticated as described in the [Authentication documentation]({{<baseurl>}}riak/cs/2.1.0/cookbooks/authentication). Keep this in mind when using `curl`. Authentication credentials for `s3cmd` or `s3-curl` can be specified in their respective configuration files.
 
 The usage HTTP resource provides both access and storage statistics. Since each of these queries can be taxing in its own right, they are both omitted from the result by default:
 
@@ -97,7 +97,7 @@ There are no statistics included in this report because the default time span is
 
 ### S3 Object-style Access
 
-As described in [Querying Access Statistics](/riak/cs/2.1.0/cookbooks/querying-access-statistics), these statistics are also available as S3 objects. To add storage statistics to the result, add the character `b` to the `Options` portion of the object's path. For example, the following command would produce storage statistics in XML format:
+As described in [Querying Access Statistics]({{<baseurl>}}riak/cs/2.1.0/cookbooks/querying-access-statistics), these statistics are also available as S3 objects. To add storage statistics to the result, add the character `b` to the `Options` portion of the object's path. For example, the following command would produce storage statistics in XML format:
 
 ```bash
 s3cmd get s3://riak-cs/usage/8NK4FH2SGKJJM8JIP2GU/bx/20120315T140000Z/20120315T160000Z

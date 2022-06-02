@@ -19,7 +19,7 @@ aliases:
 ---
 
 [download]: ../../downloads/
-[openfileslimit]: /riak/kv/2.1.4/using/performance/open-files-limit
+[openfileslimit]: {{<baseurl>}}riak/kv/2.1.4/using/performance/open-files-limit
 [planning]: ../../using/planning/
 
 

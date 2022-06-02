@@ -12,7 +12,6 @@ project_version: "1.5.1"
 toc: true
 aliases:
     - /riakts/1.5.1/releasenotes
-canonical_link: "https://docs.basho.com/riak/ts/latest/releasenotes"
 ---
 
 
@@ -53,7 +52,7 @@ Riak TS has significantly improved performance, thanks to streamlining of the on
 
 ## New Features
 
-* `ASC` and `DESC` have been added to the CREATE TABLE statement. Adding the ASC/DESC keywords to your local key during `CREATE TABLE` means you can have your data pre-sorted in ascending or descending order as it's input into your TS table. You can read more about `ASC`/`DESC` in the local key [here](/riak/ts/1.5.1/using/planning).
+* `ASC` and `DESC` have been added to the CREATE TABLE statement. Adding the ASC/DESC keywords to your local key during `CREATE TABLE` means you can have your data pre-sorted in ascending or descending order as it's input into your TS table. You can read more about `ASC`/`DESC` in the local key [here]({{<baseurl>}}riak/ts/1.5.1/using/planning).
     * [[PR 1427](https://github.com/basho/riak_kv/pull/1427)]
     * [[PR 1500](https://github.com/basho/riak_kv/pull/1500)]
     * [[PR 1558](https://github.com/basho/riak_kv/pull/1558 )]
@@ -63,17 +62,17 @@ Riak TS has significantly improved performance, thanks to streamlining of the on
     * [[riak_test PR 1200](https://github.com/basho/riak_test/pull/1200)]
     * [[riak_test PR 1081](https://github.com/basho/riak_test/pull/1081)]
     * [[riak_test PR 1201](https://github.com/basho/riak_test/pull/1201 )]
-* The ORDER BY statement has been added to `SELECT`, allowing you to sort the results of your query in various ways, including: ascending or descending order, or nulls first or last. You can learn about `ORDER BY` [here](/riak/ts/1.5.1/using/querying/select/order-by).
+* The ORDER BY statement has been added to `SELECT`, allowing you to sort the results of your query in various ways, including: ascending or descending order, or nulls first or last. You can learn about `ORDER BY` [here]({{<baseurl>}}riak/ts/1.5.1/using/querying/select/order-by).
     * [[PR 1479](https://github.com/basho/riak_kv/pull/1479)]
     * [[riak erlang client PR 321](https://github.com/basho/riak-erlang-client/pull/321)]
     * [[riak_pb PR 208](https://github.com/basho/riak_pb/pull/208)]
     * [[riak_test PR 1152](https://github.com/basho/riak_test/pull/1152)]
-*  `LIMIT` allows you to specify that you only want a specific number of records from your query, and it can be expanded by `OFFSET`. You can read about how to use the LIMIT statement [here](/riak/ts/1.5.1/using/querying/select/limit).
+*  `LIMIT` allows you to specify that you only want a specific number of records from your query, and it can be expanded by `OFFSET`. You can read about how to use the LIMIT statement [here]({{<baseurl>}}riak/ts/1.5.1/using/querying/select/limit).
     * [[PR 1479](https://github.com/basho/riak_kv/pull/1479)]
     * [[riak erlang client PR 321](https://github.com/basho/riak-erlang-client/pull/321)]
     * [[riak_pb PR 208](https://github.com/basho/riak_pb/pull/208)]
     * [[riak_test PR 1152](https://github.com/basho/riak_test/pull/1152)]
-* You can now use `DELETE` from riak shell to remove a record from your TS table. Learn all about `DELETE` [here](/riak/ts/1.5.1/using/querying/delete).
+* You can now use `DELETE` from riak shell to remove a record from your TS table. Learn all about `DELETE` [here]({{<baseurl>}}riak/ts/1.5.1/using/querying/delete).
     * [[PR 1552](https://github.com/basho/riak_kv/pull/1552)]
     * [[riak_ql PR 145](https://github.com/basho/riak_ql/pull/145)]
     * [[riak_shell PR 23](https://github.com/basho/riak_shell/pull/23)]
@@ -85,14 +84,14 @@ Riak TS has significantly improved performance, thanks to streamlining of the on
     * [[riak_ql PR 144](https://github.com/basho/riak_ql/pull/144)]
     * [[riak_shell PR 56](https://github.com/basho/riak_shell/pull/56)]
     * [[riak_test PR 1169](https://github.com/basho/riak_test/pull/1169)]
-* You can now run `SHOW CREATE TABLE` to review SQL definition and replication properties of existing Riak TS tables. You can read more about the SHOW CREATE TABLE statement [here](/riak/ts/1.5.1/using/querying/show-create-table).
+* You can now run `SHOW CREATE TABLE` to review SQL definition and replication properties of existing Riak TS tables. You can read more about the SHOW CREATE TABLE statement [here]({{<baseurl>}}riak/ts/1.5.1/using/querying/show-create-table).
     * [[PR 1536](https://github.com/basho/riak_kv/pull/1536)
     * [[riak_ql 155](https://github.com/basho/riak_ql/pull/155)]
     * [[riak_ql 159](https://github.com/basho/riak_ql/pull/159 )]
     * [[riak_shell PR 62](https://github.com/basho/riak_shell/pull/62)]
     * [[riak_test PR 1193](https://github.com/basho/riak_test/pull/1193)]
     * [[riak_test PR 1211](https://github.com/basho/riak_test/pull/1211)]
-* A BLOB data type is now available. BLOB allows the storage of unstructured data, binary or opaque (JSON), in a Riak TS column. Learn about BLOB data type [here](/riak/ts/1.5.1/using/writingdata/#blob-data).
+* A BLOB data type is now available. BLOB allows the storage of unstructured data, binary or opaque (JSON), in a Riak TS column. Learn about BLOB data type [here]({{<baseurl>}}riak/ts/1.5.1/using/writingdata/#blob-data).
     * [[PR 1540](https://github.com/basho/riak_kv/pull/1540)]
     * [[riak_pb PR 211](https://github.com/basho/riak_pb/issues/211)]
     * [[riak_ql PR 156](https://github.com/basho/riak_ql/issues/156)]
@@ -116,7 +115,7 @@ Riak TS has significantly improved performance, thanks to streamlining of the on
 * The timestamp type is now able to be used as an argument in aggregate functions. [[riak_ql PR 146](https://github.com/basho/riak_ql/pull/146) & [riak_ql PR 147](https://github.com/basho/riak_ql/pull/147)]
 * You can now see the Status field of your TS table when you use `SHOW TABLES`. [[PR 1514](https://github.com/basho/riak_kv/pull/1514 ) and
 [PR 1176](https://github.com/basho/riak_test/pull/1176 )]
-* Introduced the following new parameters in riak.conf. See the [TS configuration docs](/riak/ts/1.5.1/configuring/riakconf) for details. [[PR 1505](https://github.com/basho/riak_kv/pull/1505)]
+* Introduced the following new parameters in riak.conf. See the [TS configuration docs]({{<baseurl>}}riak/ts/1.5.1/configuring/riakconf) for details. [[PR 1505](https://github.com/basho/riak_kv/pull/1505)]
     * riak_kv.query.timeseries.max_returned_data_size
     * riak_kv.query.timeseries.max_running_fsms
     * riak_kv.query.timeseries.qbuf_root_path
@@ -131,7 +130,7 @@ Riak TS has significantly improved performance, thanks to streamlining of the on
 * Write-once conflict resolution has been changed to be more predictable. It is now based on timestamp rather than SHA-1 hash on value part. [[PR 1512](https://github.com/basho/riak_kv/pull/1512)]
 * LevelDB has been updated to version 2.0.33 [[eleveldb PR 231](https://github.com/basho/eleveldb/pull/231)]
 * LZ4 is now the default compression for LevelDB. [[leveldb PR 164](https://github.com/basho/leveldb/pull/164) & [eleveldb PR 208](https://github.com/basho/eleveldb/pull/208)]
-* Updated the default value for `riak_kv.query.timeseries.max_quanta_span`. See the [TS configuration docs](/riak/ts/1.5.1/configuring/riakconf) for details. **Note:** due to a bug in the code, the `max_quanta_span` is capped at 1000. [[PR 1505](https://github.com/basho/riak_kv/pull/1505)]
+* Updated the default value for `riak_kv.query.timeseries.max_quanta_span`. See the [TS configuration docs]({{<baseurl>}}riak/ts/1.5.1/configuring/riakconf) for details. **Note:** due to a bug in the code, the `max_quanta_span` is capped at 1000. [[PR 1505](https://github.com/basho/riak_kv/pull/1505)]
 * The default value for `OFFSET` is `[ ]`. [[PR 1546](https://github.com/basho/riak_kv/pull/1546)]
 
 
@@ -171,4 +170,4 @@ Riak TS is compatible with the following:
 * You cannot use Bitcask with Riak TS tables.
 * `riak_kv.query.timeseries.max_quanta_span` is capped at 1000 due to a bug.
 
-You can see a table of KV and TS features [here](/riak/ts/1.5.1/using/core-fundamentals/).
+You can see a table of KV and TS features [here]({{<baseurl>}}riak/ts/1.5.1/using/core-fundamentals/).

@@ -15,14 +15,14 @@ aliases:
   - /riak/kv/2.0.7/ops/advanced/configs/search/
 ---
 
-[usage search]: /riak/kv/2.0.7/developing/usage/search
-[usage search schema]: /riak/kv/2.0.7/developing/usage/search-schemas
-[usage search data types]: /riak/kv/2.0.7/developing/usage/searching-data-types
-[usage custom extractors]: /riak/kv/2.0.7/developing/usage/custom-extractors
-[config reference]: /riak/kv/2.0.7/configuring/reference
-[config reference#search]: /riak/kv/2.0.7/configuring/reference/#search
-[glossary aae]: /riak/kv/2.0.7/learn/glossary/#active-anti-entropy-aae
-[security index]: /riak/kv/2.0.7/using/security/
+[usage search]: {{<baseurl>}}riak/kv/2.0.7/developing/usage/search
+[usage search schema]: {{<baseurl>}}riak/kv/2.0.7/developing/usage/search-schemas
+[usage search data types]: {{<baseurl>}}riak/kv/2.0.7/developing/usage/searching-data-types
+[usage custom extractors]: {{<baseurl>}}riak/kv/2.0.7/developing/usage/custom-extractors
+[config reference]: {{<baseurl>}}riak/kv/2.0.7/configuring/reference
+[config reference#search]: {{<baseurl>}}riak/kv/2.0.7/configuring/reference/#search
+[glossary aae]: {{<baseurl>}}riak/kv/2.0.7/learn/glossary/#active-anti-entropy-aae
+[security index]: {{<baseurl>}}riak/kv/2.0.7/using/security/
 
 
 This document covers how to use the Riak Search (with
@@ -38,7 +38,7 @@ If you are looking developer-focused docs, we recommend the following:
 * [Custom Search Extractors][usage custom extractors]
 * [Riak KV Data Types and Search][usage search data types]
 
-##Overview
+## Overview
 
 We'll be walking through:
 
@@ -90,8 +90,8 @@ Field | Default | Valid values | Description
 `search.queue.high_watermark` | `10000` | Integer | The queue high water mark. If the total number of queued messages in a Solrq worker instance exceed this limit, then the calling vnode will be blocked until the total number falls below this limit. This parameter exercises flow control between Riak and the Riak Search batching subsystem, if writes into Solr start to fall behind.
 `search.queue.worker_count` | `10` | Integer | The number of Solr queue workers to instantiate. Solr queue workers are responsible for enqueing objects for insertion or update into Solr. Increasing the number of Solrq workers distributes the queuing of objects and can lead to greater throughput under high load, potentially at the expense of smaller batch sizes.
 `search.queue.helper_count` | `10` | Integer | The number of Solr queue helpers to instantiate. Solr queue helpers are responsible for delivering batches of data into Solr. Increasing the number of Solrq helpers will increase concurrent writes into Solr.
-`search.index.error_threshold.failure_count` | `3` | Integer | The number of failures encountered while updating a search index within `search.queue.error_threshold.failure_interval` before Riak will skip updates to that index.
-`search.index.error_threshold.failure_interval` | `5000` | Milliseconds | The window of time during which `search.queue.error_threshold.failure_count` failures will cause Riak to skip updates to a search index. If `search.queue.error_threshold.failure_count` errors have occurred within this interval on a given search index, then Riak will skip updates to that index until the `search.queue.error_threshold.reset_interval` has passed.
+`search.index.error_threshold.failure_count` | `3` | Integer | The number of failures encountered while updating a search index within `search.index.error_threshold.failure_interval` before Riak will skip updates to that index.
+`search.index.error_threshold.failure_interval` | `5000` | Milliseconds | The window of time during which `search.index.error_threshold.failure_count` failures will cause Riak to skip updates to a search index. If `search.index.error_threshold.failure_count` errors have occurred within this interval on a given search index, then Riak will skip updates to that index until the `search.index.error_threshold.reset_interval` has passed.
 `search.index.error_threshold.reset_interval` | `30000` | Milliseconds | The amount of time it takes for updates to a given search index to resume/refresh once Riak has started skipping update operations.
 `search.queue.high_watermark.purge_strategy` | `purge_one` | `purge_one`, `purge_index`, `purge_all`, or `off` | The strategy for how we handle purging when we hit the `search.queue.high_watermark`. The options: <br> * `purge_one` removes the oldest item on the queue from an erroring (references to fuses blown in the code) index in order to get below the `search.queue.high_watermark`,</br> <br> * `purge_index` removes all items associated with one random erroring (references to fuses blown in the code) index in order to get below the `search.queue.high_watermark`,</br> <br> * `purge_all` removes all items associated with all erroring (references to fuses blown in the code) indices in order to get below the `search.queue.high_watermark`, and</br> <br> *`off` disables purging.</br>
 

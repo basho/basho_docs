@@ -18,7 +18,6 @@ listed_projects:
       install_instructions_set: "installing"
 aliases:
     - /riakts/1.5.0/downloads/
-canonical_link: "https://docs.basho.com/riak/ts/latest/downloads"
 ---
 
 

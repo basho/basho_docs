@@ -15,7 +15,7 @@ aliases:
   - /riak/kv/2.2.3/dev/references/protocol-buffers/yz-schema-get
 ---
 
-Fetch a [search schema](/riak/kv/2.2.3/developing/usage/search-schemas) from Riak Search.
+Fetch a [search schema]({{<baseurl>}}riak/kv/2.2.3/developing/usage/search-schemas) from Riak Search.
 
 ## Request
 

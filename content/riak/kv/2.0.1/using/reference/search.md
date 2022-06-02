@@ -15,20 +15,20 @@ aliases:
   - /riak/kv/2.0.1/dev/advanced/search
 ---
 
-[concept clusters]: /riak/kv/2.0.1/learn/concepts/clusters
+[concept clusters]: {{<baseurl>}}riak/kv/2.0.1/learn/concepts/clusters
 
 > **Note on Search 2.0 vs. Legacy Search**
 >
 > This document refers to the new Riak Search 2.0 with
 [Solr](http://lucene.apache.org/solr/) integration (codenamed
-Yokozuna). For information about the deprecated Riak Search, visit [the old Using Riak Search docs](http://docs.basho.com/riak/1.4.10/dev/using/search/).
+Yokozuna).
 
 The project that implements Riak Search is codenamed Yokozuna. This is a
 more detailed overview of the concepts and reasons behind the design of
 Yokozuna, for those interested. If you're simply looking to use Riak
-Search, you should check out the [Using Search](/riak/kv/2.0.1/developing/usage/search) document.
+Search, you should check out the [Using Search]({{<baseurl>}}riak/kv/2.0.1/developing/usage/search) document.
 
-![Yokozuna](/images/yokozuna.png)
+![Yokozuna]({{<baseurl>}}images/yokozuna.png)
 
 ## Riak Search is Erlang
 
@@ -126,7 +126,7 @@ but logically partition them in KV by using a date as the bucket name.
 A bucket _cannot_ be associated with many indexes---the `search_index`
 property must be a single name, not a list.
 
-See the [main Search documentation](/riak/kv/2.0.1/developing/usage/search/#simple-setup) for details on creating an index.
+See the [main Search documentation]({{<baseurl>}}riak/kv/2.0.1/developing/usage/search/#simple-setup) for details on creating an index.
 
 ## Extractors
 
@@ -288,7 +288,7 @@ The corresponding date type is declared under `<types>` like so.
 <fieldType name="date" class="solr.TrieDateField" precisionStep="0" positionIncrementGap="0"/>
 ```
 
-You can also find more information on to how customize your own [search schema](/riak/kv/2.0.1/developing/usage/search-schemas).
+You can also find more information on to how customize your own [search schema]({{<baseurl>}}riak/kv/2.0.1/developing/usage/search-schemas).
 
 Yokozuna comes bundled with a [default schema](https://github.com/basho/yokozuna/blob/develop/priv/default_schema.xml)
 called `_yz_default`. This is an extremely general schema which makes
@@ -298,7 +298,7 @@ indexed.
 
 ## Active Anti-Entropy (AAE)
 
-[Active Anti-Entropy](/riak/kv/2.0.1/learn/concepts/active-anti-entropy/) \(AAE) is the process of discovering and
+[Active Anti-Entropy]({{<baseurl>}}riak/kv/2.0.1/learn/concepts/active-anti-entropy/) \(AAE) is the process of discovering and
 correcting entropy (divergence) between the data stored in Riak's
 key-value backend and the indexes stored in Solr. The impetus for AAE is
 that failures come in all shapes and sizes---disk failure, dropped
@@ -353,7 +353,7 @@ _analysis_.
 Solr provides many different field types which analyze data in different
 ways, and custom analyzer chains may be built by stringing together XML
 in the schema file, allowing custom analysis for each field. For more
-information on analysis, see [Search Schema](/riak/kv/2.0.1/developing/usage/search-schemas).
+information on analysis, see [Search Schema]({{<baseurl>}}riak/kv/2.0.1/developing/usage/search-schemas).
 
 ## Tagging
 

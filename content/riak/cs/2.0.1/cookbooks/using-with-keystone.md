@@ -291,7 +291,7 @@ section of the Riak CS `advanced.config` or `app.config` files:
 
 ### Keystone Setup
 
-Follow the procedures documented in [Keystone Setup](/riak/cs/2.0.1/cookbooks/keystone-setup) to set up and run
+Follow the procedures documented in [Keystone Setup]({{<baseurl>}}riak/cs/2.0.1/cookbooks/keystone-setup) to set up and run
 Keystone.
 
 1. Create a tenant called `test`:

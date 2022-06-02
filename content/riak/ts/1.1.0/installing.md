@@ -18,7 +18,7 @@ aliases:
     - /riakts/1.1.0/installing/installing/
 ---
 
-[concept aae]: /riak/kv/2.1.3/learn/concepts/active-anti-entropy
+[concept aae]: {{<baseurl>}}riak/kv/2.1.3/learn/concepts/active-anti-entropy
 [Centos]: rhel-centos/
 [Debian]: debian-ubuntu/
 [OSX]: mac-osx/

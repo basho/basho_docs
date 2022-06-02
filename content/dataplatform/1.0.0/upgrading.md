@@ -10,6 +10,8 @@ menu:
     weight: 102
     parent: "index"
 toc: true
+aliases:
+  - /dataplatform/latest/upgrading/
 ---
 
 > **NOTE:**

@@ -12,13 +12,14 @@ menu:
 toc: true
 aliases:
   - /dataplatform/1.0.0/using-dataplatform/configuration/replace-spark-cluster-manager/
+  - /dataplatform/latest/configuring/replace-spark-cluster-manager/
 ---
 
-[bdp install]: /dataplatform/1.0.0/installing/
-[bdp configure]: /dataplatform/1.0.0/configuring/setup-a-cluster/
-[bdp configure spark master]: /dataplatform/1.0.0/configuring/setup-a-cluster/#set-up-spark-cluster-metadata
+[bdp install]: {{<baseurl>}}dataplatform/1.0.0/installing/
+[bdp configure]: {{<baseurl>}}dataplatform/1.0.0/configuring/setup-a-cluster/
+[bdp configure spark master]: {{<baseurl>}}dataplatform/1.0.0/configuring/setup-a-cluster/#set-up-spark-cluster-metadata
 [ee]: http://info.basho.com/Wiki_Riak_Enterprise_Request.html
-[riak data types]: /riak/kv/2.1.3/developing/data-types/
+[riak data types]: {{<baseurl>}}riak/kv/2.1.3/developing/data-types/
 
 
 > The Basho Data Platform cluster manager is available to [Enterprise users only][ee].
@@ -56,8 +57,8 @@ To replace your Spark Cluster Manager with the BDP cluster manager, you will do 
 
 
 ```bash
-sudo data-platform-admin add-service-config my-spark-master spark-master \
-LEAD_ELECT_SERVICE_HOSTS="»IP:PORTS from `listener.leader_latch.internal` in riak.conf«" \
+sudo data-platform-admin add-service-config my-spark-master spark-master /
+LEAD_ELECT_SERVICE_HOSTS="»IP:PORTS from `listener.leader_latch.internal` in riak.conf«" /
 RIAK_HOSTS="»IP:PORTS from `listener.protobuf.internal` in riak.conf«"
 ```
 

@@ -66,7 +66,7 @@ message MapUpdate {
 }
 ```
 
-The `MapField` parameter is explained above. The operations used to update fields depend on the Data Type in that field, i.e. `CounterOp` messages to update counters, `SetOp` messages to update sets, etc. Updating counters is covered in [PBC Data Type Counter Store](/riak/kv/2.0.9/developing/api/protocol-buffers/dt-counter-store) while updating sets is covered in [PBC Data Type Set Store](/riak/kv/2.0.9/developing/api/protocol-buffers/dt-set-store).
+The `MapField` parameter is explained above. The operations used to update fields depend on the Data Type in that field, i.e. `CounterOp` messages to update counters, `SetOp` messages to update sets, etc. Updating counters is covered in [PBC Data Type Counter Store]({{<baseurl>}}riak/kv/2.0.9/developing/api/protocol-buffers/dt-counter-store) while updating sets is covered in [PBC Data Type Set Store]({{<baseurl>}}riak/kv/2.0.9/developing/api/protocol-buffers/dt-set-store).
 
 If you are updating a flag, you do so by including a `FlagOp` message. As shown in the `MapUpdate` message above, this operation takes one of two values: `ENABLE` and `DISABLE` (`1` and `2`, respectively).
 

@@ -11,17 +11,17 @@ project: "riak_ts"
 project_version: "1.5.2"
 toc: true
 aliases:
-    - /riakts/1.5.2/using/writingdata/
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/writingdata"
+  - /riakts/1.5.2/using/writingdata/
+
 ---
 
 
 [activating]: ../creating-activating/
 [planning]: ../planning/
 [querying]: ../querying/
-[http]: /riak/ts/1.5.2/developing/http/
-[config reference]: /riak/kv/2.2.0/configuring/reference/#the-advanced-config-file
-[MDC]: /riak/ts/1.5.2/configuring/mdc
+[http]: {{<baseurl>}}riak/ts/1.5.2/developing/http/
+[config reference]: {{<baseurl>}}riak/kv/2.2.0/configuring/reference/#the-advanced-config-file
+[MDC]: {{<baseurl>}}riak/ts/1.5.2/configuring/mdc
 [riakshell]: ../riakshell
 [iso8601]: ../timerepresentations/
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
@@ -209,18 +209,18 @@ riakc_ts:put(Pid, "GeoCheckin", [{1, <<"South Atlantic">>, <<"Florida">>, 145160
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use Basho\Riak;
-use Basho\Riak\Command;
-use Basho\Riak\Node;
+use Basho/Riak;
+use Basho/Riak/Command;
+use Basho/Riak/Node;
 
-$node = (new Node\Builder)
+$node = (new Node/Builder)
     ->atHost('myriakdb.host')
     ->onPort(8087)
     ->build();
 
-$riak = new Riak([$node], [], new Riak\Api\Pb());
+$riak = new Riak([$node], [], new Riak/Api/Pb());
 
-$response = (new Command\Builder\TimeSeries\StoreRows($riak))
+$response = (new Command/Builder/TimeSeries/StoreRows($riak))
     ->inTable('GeoCheckins')
     ->withRow([
         (new Cell("region"))->setValue("South Atlantic"),

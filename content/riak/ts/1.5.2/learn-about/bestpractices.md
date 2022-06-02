@@ -12,12 +12,12 @@ project: "riak_ts"
 project_version: "1.5.2"
 toc: true
 aliases:
-    - /riakts/1.5.2/learn-about/bestpractices/
-canonical_link: "https://docs.basho.com/riak/ts/latest/learn-about/bestpractices"
+  - /riakts/1.5.2/learn-about/bestpractices/
+
 ---
 
 
-[glossary bucket]: http://docs.basho.com/riak/kv/2.2.0/learn/glossary/#bucket
+[glossary bucket]: {{< baseurl >}}riak/kv/2.2.0/learn/glossary/#bucket
 [planning column def]: ../../using/planning/#column-definitions
 [planning partition]: ../../using/planning/#partition-key
 [planning primary]: ../../using/planning/#primary-key

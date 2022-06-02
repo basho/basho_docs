@@ -1,0 +1,28 @@
+---
+version: "2.1"
+networks:
+  bridge:
+services:
+  riakdocs:
+    image: titokyo/riak_docs_generator
+    container_name: riakdocs
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Tokyo
+      - HUGO_WATCH=true
+      - HUGO_REFRESH_TIME=5
+      - RAKE_DEBUG=true
+      - RAKE_GEN_DOWNS=false
+      - RAKE_GEN_PROJECTS=true
+      - HUGO_BASEURL=http://localhost/riak-docs/
+      - HUGO_PORT=1314
+    ports:
+      - 1314:1314 # $HUGO_PORT
+    volumes:
+      - ..:/src
+      - ../output:/output
+    restart: unless-stopped
+    networks:
+      - bridge    
+

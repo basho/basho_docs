@@ -33,7 +33,7 @@ objects can impact latency in a cluster, even for requests that are
 unrelated to those objects.
 
 If your use case requires large objects, we recommend checking out
-[Riak CS](/riak/cs/latest/), which is intended as a storage system for large objects.
+[Riak CS]({{<baseurl>}}riak/cs/latest/), which is intended as a storage system for large objects.
 
 ### Mitigation
 

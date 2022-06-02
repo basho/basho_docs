@@ -16,7 +16,7 @@ aliases:
   - /riak/2.0.2/ops/mdc/v3/scheduling-fullsync
 ---
 
-[config reference#advanced]: /riak/kv/2.0.2/configuring/reference/#advanced-configuration
+[config reference#advanced]: {{<baseurl>}}riak/kv/2.0.2/configuring/reference/#advanced-configuration
 
 The `fullsync_interval` parameter can be configured in the `riak-repl`
 section of [`advanced.config`][config reference#advanced] with either:

@@ -12,7 +12,7 @@ menu:
 toc: true
 ---
 
-[downloads]: /riak/kv/2.0.5/downloads/
+[downloads]: {{<baseurl>}}riak/kv/2.0.5/downloads/
 
 We recommend deploying Riak KV on a mainstream Unix-like operating system.
 Mainstream distributions have larger support communities, making

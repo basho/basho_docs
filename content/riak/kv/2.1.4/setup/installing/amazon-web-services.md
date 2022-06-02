@@ -28,7 +28,7 @@ In order to launch a Riak virtual machine via the AWS Marketplace, you will firs
 
 3. Set your desired AWS region, EC2 instance type, firewall settings, and key pair
 
-    ![AWS Marketplace Instance Settings](/images/aws-marketplace-settings.png)
+    ![AWS Marketplace Instance Settings]({{<baseurl>}}images/aws-marketplace-settings.png)
 
 4. Click the **Accept Terms and Launch with 1-Click** button.
 
@@ -52,9 +52,9 @@ Once the virtual machine is created, you should verify that your selected EC2 se
 
 4. When complete, your security group should contain all of the rules listed below. If you are missing any rules, add them in the lower panel and then click the **Apply Rule Changes** button.
 
-    ![EC2 Security Group Settings](/images/aws-marketplace-security-group.png)
+    ![EC2 Security Group Settings]({{<baseurl>}}images/aws-marketplace-security-group.png)
 
-We also recommend that you read more about Riak's [Security and Firewalls](/riak/kv/2.1.4/using/security/).
+We also recommend that you read more about Riak's [Security and Firewalls]({{<baseurl>}}riak/kv/2.1.4/using/security/).
 
 ## Clustering Riak on AWS
 

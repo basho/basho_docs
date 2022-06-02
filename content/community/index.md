@@ -30,9 +30,9 @@ aliases:
   - /riak/kv/2.0.0/community
 ---
 
-[community projects]: /community/projects
-[reporting bugs]: /community/reporting-bugs
-[taishi]: /community/taishi
+[community projects]: {{<baseurl>}}community/projects
+[reporting bugs]: {{<baseurl>}}community/reporting-bugs
+[taishi]: {{<baseurl>}}community/taishi
 
 Our Community is an eclectic group of engineers, architects, academics and enthusiasts who care about solving the hardest problems of distributed systems with open source software. Riak, written in Erlang, tackles the continuing complexity of persisting unstructured data with an architecture uniquely designed to scale.
 
@@ -66,7 +66,7 @@ The [#riak IRC room on irc.freenode.net](http://irc.lc/freenode/riak) is a great
 ### The Basho Blog
 
 Members of the Basho team write frequently on [The Basho
-Blog](http://basho.com/blog/).
+Blog](https://riak.com/blog/).
 
 ### Videos
 

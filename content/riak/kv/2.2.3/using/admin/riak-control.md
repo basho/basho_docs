@@ -15,7 +15,7 @@ aliases:
   - /riak/kv/2.2.3/ops/advanced/riak-control
 ---
 
-[config reference]: /riak/kv/2.2.3/configuring/reference
+[config reference]: {{<baseurl>}}riak/kv/2.2.3/configuring/reference
 
 Riak Control is a web-based administrative console for inspecting and
 manipulating Riak clusters.
@@ -109,7 +109,7 @@ and configured SSL and HTTPS.
 ## Enabling SSL and HTTPS
 
 In order to use SSL in conjunction with Riak Control, SSL must be
-enabled on each Riak node. For more information, see our [security documentation](/riak/kv/2.2.3/using/security/basics#enabling-ssl). Once SSL is enabled, you can proceed to setting up [authentication](#authentication) for Riak Control.
+enabled on each Riak node. For more information, see our [security documentation]({{<baseurl>}}riak/kv/2.2.3/using/security/basics#enabling-ssl). Once SSL is enabled, you can proceed to setting up [authentication](#authentication) for Riak Control.
 
 Please note that Riak Control will not work if you have enabled
 authentication but SSL is not set up properly.
@@ -182,7 +182,7 @@ enable it, follow browser-specific instructions.
 When you first navigate to Riak Control, you will land on the Snapshot
 view:
 
-[ ![Snapshot View](/images/control_current_snapshot.png) ] (/images/control_current_snapshot.png)
+[ ![Snapshot View]({{<baseurl>}}images/control_current_snapshot.png) ] ({{<baseurl>}}images/control_current_snapshot.png)
 
 In this interface, the health of your cluster is made immediately
 obvious. In the event that something isn't quite right (or has the
@@ -204,29 +204,29 @@ as adding, removing, and marking nodes as down.
 
 Staged changes to the cluster:
 
-[ ![Cluster Management Staged](/images/control_cluster_management_staged.png) ] (/images/control_cluster_management_staged.png)
+[ ![Cluster Management Staged]({{<baseurl>}}images/control_cluster_management_staged.png) ] ({{<baseurl>}}images/control_cluster_management_staged.png)
 
 Changes committed; transfers active:
 
-[ ![Cluster Management Transfers](/images/control_cluster_management_transfers.png) ] (/images/control_cluster_management_transfers.png)
+[ ![Cluster Management Transfers]({{<baseurl>}}images/control_cluster_management_transfers.png) ] ({{<baseurl>}}images/control_cluster_management_transfers.png)
 
 Cluster stabilizes after changes:
 
-[ ![Cluster Management Stable](/images/control_cluster_management_stable.png) ] (/images/control_cluster_management_stable.png)
+[ ![Cluster Management Stable]({{<baseurl>}}images/control_cluster_management_stable.png) ] ({{<baseurl>}}images/control_cluster_management_stable.png)
 
 ### Node Management View
 
 The node management view allows you to operate against the individual
 nodes in the cluster.
 
-[ ![Node Management](/images/control_node_management.png) ] (/images/control_node_management.png)
+[ ![Node Management]({{<baseurl>}}images/control_node_management.png) ] ({{<baseurl>}}images/control_node_management.png)
 
 ### Ring View
 
 One level deeper than the cluster view is the ring view. This is where you can
-see the health of each [vnode](/riak/kv/2.2.3/learn/glossary/#vnode).
+see the health of each [vnode]({{<baseurl>}}riak/kv/2.2.3/learn/glossary/#vnode).
 
-[ ![Ring View](/images/control_current_ring.png) ] (/images/control_current_ring.png)
+[ ![Ring View]({{<baseurl>}}images/control_current_ring.png) ] ({{<baseurl>}}images/control_current_ring.png)
 
 Most of the time, your ring will be too large to effectively manage from
 the ring view. That said, with filters you can easily identify partition

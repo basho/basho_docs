@@ -15,7 +15,7 @@ aliases:
   - /riak/kv/2.0.0/ops/advanced/configs/load-balanacing-proxy/
 ---
 
-[perf open files]: /riak/kv/2.0.0/using/performance/open-files-limit
+[perf open files]: {{<baseurl>}}riak/kv/2.0.0/using/performance/open-files-limit
 
 The recommended best practice for operating Riak in production is to
 place Riak behind a load-balancing or proxy solution, either hardware-

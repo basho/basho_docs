@@ -67,8 +67,8 @@ StoreValue.Response updateOpResp = client.execute(updateOp);
 ```
 
 For more in depth information on updating objects and sibling resolution in
-Riak, see [Updating Objects](/riak/kv/2.0.9/developing/usage/updating-objects/)
-and [Conflict Resolution](/riak/kv/2.0.9/developing/usage/conflict-resolution/)
+Riak, see [Updating Objects]({{<baseurl>}}riak/kv/2.0.9/developing/usage/updating-objects/)
+and [Conflict Resolution]({{<baseurl>}}riak/kv/2.0.9/developing/usage/conflict-resolution/)
 documentation.
 
 ## Updating Objects
@@ -85,8 +85,8 @@ StoreValue.Response updateOpResp = client.execute(updateOp);
 ```
 
 For more in depth information on updating objects and sibling resolution in
-Riak, see [Updating Objects](/riak/kv/2.0.9/developing/usage/updating-objects/)
-and [Conflict Resolution](/riak/kv/2.0.9/developing/usage/conflict-resolution/)
+Riak, see [Updating Objects]({{<baseurl>}}riak/kv/2.0.9/developing/usage/updating-objects/)
+and [Conflict Resolution]({{<baseurl>}}riak/kv/2.0.9/developing/usage/conflict-resolution/)
 documentation.
 
 ## Deleting Objects
@@ -196,6 +196,6 @@ UpdateValue.Response response = client.execute(updateValue);
 ```
 
 For more in depth information on updating objects and sibling resolution in
-Riak, see [Updating Objects](/riak/kv/2.0.9/developing/usage/updating-objects/)
-and [Conflict Resolution](/riak/kv/2.0.9/developing/usage/conflict-resolution/)
+Riak, see [Updating Objects]({{<baseurl>}}riak/kv/2.0.9/developing/usage/updating-objects/)
+and [Conflict Resolution]({{<baseurl>}}riak/kv/2.0.9/developing/usage/conflict-resolution/)
 documention.

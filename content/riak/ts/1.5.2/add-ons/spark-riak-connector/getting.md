@@ -10,7 +10,8 @@ menu:
     weight: 102
     parent: "addons_spark_riak"
 toc: true
-canonical_link: "https://docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/getting"
+aliases:
+
 ---
 
 > **Note:**
@@ -62,16 +63,16 @@ You can download the Spark-Riak connector library by going to https://github.com
 You can also download and install the library in your home directory by running:
 
 ```bash
-curl https://bintray.com/artifact/download/basho/data-platform/com/basho/riak/spark-riak-connector/»VERSION«/spark-riak-connector-»VERSION«-uber.jar \
+curl https://bintray.com/artifact/download/basho/data-platform/com/basho/riak/spark-riak-connector/»VERSION«/spark-riak-connector-»VERSION«-uber.jar /
                     -o ~/spark-riak-connector-»VERSION«-uber.jar
 ```
 
 Once you've downloaded the connector, you can add it to the driver classpath when submitting your Python app to Spark, like this:
 
 ```bash
-/path/to/spark-submit \
-    --master "local[*]" \
-    --driver-class-path /path/to/spark-riak-connector-»VERSION«-uber.jar \
+/path/to/spark-submit /
+    --master "local[*]" /
+    --driver-class-path /path/to/spark-riak-connector-»VERSION«-uber.jar /
     /path/to/your-python-script.py
 ```
 
@@ -82,23 +83,23 @@ As an alternative, you can have Spark automatically download it when starting up
 For Scala, Python, & Java:
 
 ```
-$SPARK_HOME/bin/spark-submit \
---repositories https://dl.bintray.com/basho/data-platform \
+$SPARK_HOME/bin/spark-submit /
+--repositories https://dl.bintray.com/basho/data-platform /
 --packages com.basho.riak:spark-riak-connector:»VERSION«
 ```
 
 Alternative for Scala:
 
 ```
-$SPARK_HOME/bin/spark-shell \
---repositories https://dl.bintray.com/basho/data-platform \
+$SPARK_HOME/bin/spark-shell /
+--repositories https://dl.bintray.com/basho/data-platform /
 --packages com.basho.riak:spark-riak-connector:»VERSION«
 ```
 
 Alternative for Python:
 
 ```
-$SPARK_HOME/bin/pyspark \
---repositories https://dl.bintray.com/basho/data-platform \
+$SPARK_HOME/bin/pyspark /
+--repositories https://dl.bintray.com/basho/data-platform /
 --packages com.basho.riak:spark-riak-connector:»VERSION«
 ```

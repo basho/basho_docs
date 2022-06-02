@@ -1,0 +1,22 @@
+---
+version: "2.1"
+services:
+  riakdocs:
+    image: titokyo/riak_docs_generator
+    container_name: riakdocs
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Tokyo
+      - HUGO_WATCH=false
+      - HUGO_REFRESH_TIME=-1
+      - RAKE_DEBUG=false
+      - RAKE_GEN_DOWNS=false
+      - RAKE_GEN_PROJECTS=false
+      - HUGO_BASEURL=/riak-docs-beta/
+      - HUGO_PORT=80
+    volumes:
+      - ..:/src
+      - ../output:/output
+    restart: "no"
+

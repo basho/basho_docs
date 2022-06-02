@@ -111,4 +111,4 @@ http://bucket.data.basho.com/document?AWSAccessKeyId=8EE3UE-UMW1YTPMBC3EB&Expire
 ## Keystone Authentication
 
 More information on using Keystone for authentication with Riak CS can
-be found in [using Riak CS with Keystone](/riak/cs/2.1.1/cookbooks/using-with-keystone).
+be found in [using Riak CS with Keystone]({{<baseurl>}}riak/cs/2.1.1/cookbooks/using-with-keystone).

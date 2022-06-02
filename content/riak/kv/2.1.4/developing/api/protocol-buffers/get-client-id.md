@@ -24,7 +24,7 @@ with Riak 1.4 or later, you can safely ignore client IDs.
 Get the client id used for this connection. Client ids are used for
 conflict resolution and each unique actor in the system should be
 assigned one.  A client id is assigned randomly when the socket is
-connected and can be changed using [Set Client ID](/riak/kv/2.1.4/developing/api/protocol-buffers/set-client-id).
+connected and can be changed using [Set Client ID]({{<baseurl>}}riak/kv/2.1.4/developing/api/protocol-buffers/set-client-id).
 
 ## Request
 

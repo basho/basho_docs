@@ -17,11 +17,11 @@ aliases:
   - /riak/kv/2.2.1/ops/mdc/v3/operations
 ---
 
-[config v3 mdc]: /riak/kv/2.2.1/configuring/v3-multi-datacenter
-[config v3 nat]: /riak/kv/2.2.1/configuring/v3-multi-datacenter/nat
-[config v3 quickstart]: /riak/kv/2.2.1/configuring/v3-multi-datacenter/quick-start
-[config v3 ssl]: /riak/kv/2.2.1/configuring/v3-multi-datacenter/ssl
-[ref v3 stats]: /riak/kv/2.2.1/using/reference/multi-datacenter/statistics
+[config v3 mdc]: {{<baseurl>}}riak/kv/2.2.1/configuring/v3-multi-datacenter
+[config v3 nat]: {{<baseurl>}}riak/kv/2.2.1/configuring/v3-multi-datacenter/nat
+[config v3 quickstart]: {{<baseurl>}}riak/kv/2.2.1/configuring/v3-multi-datacenter/quick-start
+[config v3 ssl]: {{<baseurl>}}riak/kv/2.2.1/configuring/v3-multi-datacenter/ssl
+[ref v3 stats]: {{<baseurl>}}riak/kv/2.2.1/using/reference/multi-datacenter/statistics
 
 This document explains how to manage replication with the `riak-repl`
 command. Some of these commands can be set or behavior altered by

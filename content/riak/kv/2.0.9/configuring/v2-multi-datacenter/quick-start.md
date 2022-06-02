@@ -18,7 +18,7 @@ aliases:
 ---
 
 {{% note title="Deprecation Warning" %}}
-v2 Multi-Datacenter Replication is deprecated and will be removed in a future version. Please use [v3](/riak/kv/2.0.9/configuring/v3-multi-datacenter/quick-start/) instead.
+v2 Multi-Datacenter Replication is deprecated and will be removed in a future version. Please use [v3]({{<baseurl>}}riak/kv/2.0.9/configuring/v3-multi-datacenter/quick-start/) instead.
 {{% /note %}}
 
 The Riak Multi-Datacenter Replication Quick Start will walk you through

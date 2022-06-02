@@ -23,17 +23,17 @@ API is [Amazon S3 compatible](http://docs.aws.amazon.com/AmazonS3/latest/API/API
 and supports per-tenant reporting for use cases involving billing
 and metering.
 
-Riak CS is open source and [free for download](/riak/cs/2.0.1/downloads).
+Riak CS is open source and [free for download]({{<baseurl>}}riak/cs/2.0.1/downloads).
 
 ## Notable Riak CS Features
 
 ### Amazon S3-API Compatibility
 
-Riak CS has a built-in S3 interface with S3 Access Control List ([ACL](http://docs.aws.amazon.com/AmazonS3/latest/dev/ACLOverview.html)) support, which means that you can both use existing S3 tools and frameworks to manage your data and also import and extract data from Amazon directly. The HTTP REST API supports service, bucket, and object-level operations to easily store and retrieve data. There is also support for the [OpenStack Swift API](/riak/cs/2.0.1/references/appendices/comparisons/swift/)
+Riak CS has a built-in S3 interface with S3 Access Control List ([ACL](http://docs.aws.amazon.com/AmazonS3/latest/dev/ACLOverview.html)) support, which means that you can both use existing S3 tools and frameworks to manage your data and also import and extract data from Amazon directly. The HTTP REST API supports service, bucket, and object-level operations to easily store and retrieve data. There is also support for the [OpenStack Swift API]({{<baseurl>}}riak/cs/2.0.1/references/appendices/comparisons/swift/)
 
 ### Per-Tenant Visibility
 
-With the Riak CS [Reporting API](/riak/cs/2.0.1/cookbooks/monitoring-and-metrics), you can access per-tenant usage data and statistics over network I/O. This reporting functionality supports use cases including accounting,
+With the Riak CS [Reporting API]({{<baseurl>}}riak/cs/2.0.1/cookbooks/monitoring-and-metrics), you can access per-tenant usage data and statistics over network I/O. This reporting functionality supports use cases including accounting,
 subscription, chargebacks, plugins with billing systems, efficient multi-department utilization, and much more.
 
 ### Supports Large Objects of Arbitrary Content Type, Plus Metadata

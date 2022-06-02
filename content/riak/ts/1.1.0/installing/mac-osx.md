@@ -18,8 +18,8 @@ aliases:
     - /riakts/1.1.0/installing/mac-osx/
 ---
 
-[concept aae]: /riak/kv/2.1.3/learn/concepts/active-anti-entropy
-[perf open files]: /riak/kv/2.1.3/using/performance/open-files-limit
+[concept aae]: {{<baseurl>}}riak/kv/2.1.3/learn/concepts/active-anti-entropy
+[perf open files]: {{<baseurl>}}riak/kv/2.1.3/using/performance/open-files-limit
 [planning]: ../../using/planning
 
 Riak TS can be installed on Mac OS X systems using a binary

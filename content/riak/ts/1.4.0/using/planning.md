@@ -12,7 +12,6 @@ project_version: "1.4.0"
 toc: true
 aliases:
     - /riakts/1.4.0/using/planning/
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/planning"
 ---
 
 

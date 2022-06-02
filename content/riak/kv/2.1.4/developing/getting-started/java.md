@@ -15,7 +15,7 @@ aliases:
   - /riak/kv/2.1.4/dev/taste-of-riak/java
 ---
 
-If you haven't set up a Riak Node and started it, please visit [Running A Cluster](/riak/kv/2.1.4/using/running-a-cluster) first.
+If you haven't set up a Riak Node and started it, please visit [Running A Cluster]({{<baseurl>}}riak/kv/2.1.4/using/running-a-cluster) first.
 
 To try this flavor of Riak, a working installation of Java is required.
 
@@ -84,4 +84,4 @@ RiakClient client = new RiakClient(cluster);
 
 ## Next Steps
 
-[CRUD Operations](/riak/kv/2.1.4/developing/getting-started/java/crud-operations)
+[CRUD Operations]({{<baseurl>}}riak/kv/2.1.4/developing/getting-started/java/crud-operations)

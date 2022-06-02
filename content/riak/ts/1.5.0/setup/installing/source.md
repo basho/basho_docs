@@ -18,16 +18,15 @@ aliases:
     - /riakts/1.5.0/installing/source/
     - /riakts/1.5.0/setup/installing/source/
     - /riak/ts/1.5.0/installing/source/
-canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/source/"
 ---
 
 
-[download]: /riak/ts/1.5.0/downloads/
+[download]: {{<baseurl>}}riak/ts/1.5.0/downloads/
 [Erlang]: http://www.erlang.org/
 [GCC]: https://gcc.gnu.org/
 [Git]: https://git-scm.com/
-[install erlang]: /riak/ts/1.5.0/setup/installing/source/erlang
-[planning]: /riak/ts/1.5.0/using/planning/
+[install erlang]: {{<baseurl>}}riak/ts/1.5.0/setup/installing/source/erlang
+[planning]: {{<baseurl>}}riak/ts/1.5.0/using/planning/
 [Riak TS GitHub repository]: https://github.com/basho/riak/tree/riak_ts-1.5.0
 
 

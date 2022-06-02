@@ -7,42 +7,54 @@
 #       image_src:       <<file_path>>    // Absolute path to a .png image
 #       installing_path: <<relative_URI>> // (optional) Relative URI to install instructions
 #
+amazon:
+  title: "Amazon Linux"
+  image_src: "images/shared/operating_system_branding/amazon.png"
+#  installing_instructions_page: "amazon/"
 debian:
   title: "Debian"
-  image_src: "/images/shared/operating_system_branding/debian.png"
+  image_src: "images/shared/operating_system_branding/debian.png"
   installing_instructions_page: "debian-ubuntu/"
 fedora:
   title: "Fedora"
-  image_src: "/images/shared/operating_system_branding/fedora.png"
+  image_src: "images/shared/operating_system_branding/fedora.png"
   installing_instructions_page: "rhel-centos/"
 freebsd:
   title: "FreeBSD"
-  image_src: "/images/shared/operating_system_branding/freebsd.png"
+  image_src: "images/shared/operating_system_branding/freebsd.png"
   installing_instructions_page: "freebsd/"
 osx:
   title: "Mac OS X"
-  image_src: "/images/shared/operating_system_branding/mac.png"
+  image_src: "images/shared/operating_system_branding/mac.png"
   installing_instructions_page: "mac-osx/"
+raspbian:
+  title: "Raspbian"
+  image_src: "images/shared/operating_system_branding/raspbian.png"
+#  installing_instructions_page: "raspbian/"
 rhel:
   title: "RHEL & CentOS"
-  image_src: "/images/shared/operating_system_branding/redhat.png"
+  image_src: "images/shared/operating_system_branding/redhat.png"
   installing_instructions_page: "rhel-centos/"
+oracle:
+  title: "Oracle Linux"
+  image_src: "images/shared/operating_system_branding/oracle.png"
+  installing_instructions_page: "oracle/"
 sles:
   title: "SuSE Linux Enterprise Server"
-  image_src: "/images/shared/operating_system_branding/suse.png"
+  image_src: "images/shared/operating_system_branding/suse.png"
   installing_instructions_page: "suse/"
 smartos:
   title: "Smart OS"
-  image_src: "/images/shared/operating_system_branding/smartos.png"
+  image_src: "images/shared/operating_system_branding/smartos.png"
   installing_instructions_page: "smartos/"
 solaris:
   title: "Solaris"
-  image_src: "/images/shared/operating_system_branding/solaris.png"
+  image_src: "images/shared/operating_system_branding/solaris.png"
   installing_instructions_page: "solaris/"
 ubuntu:
   title: "Ubuntu"
-  image_src: "/images/shared/operating_system_branding/ubuntu.png"
+  image_src: "images/shared/operating_system_branding/ubuntu.png"
   installing_instructions_page: "debian-ubuntu/"
 source:
-  image_src: "/images/shared/operating_system_branding/targz.png"
+  image_src: "images/shared/operating_system_branding/targz.png"
   installing_instructions_page: "source/"

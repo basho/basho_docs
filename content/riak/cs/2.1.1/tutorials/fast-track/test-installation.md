@@ -141,6 +141,6 @@ bit of learning to be done, so make sure and check out the Reference
 section (click "Reference" on the nav on the left side of this page). A
 few items that may be of particular interest:
 
-* [Details about API operations](/riak/cs/2.1.1/references/apis/storage)
-* [Information about the Ruby Fog client](/riak/cs/2.1.1/cookbooks/fog)
-* [Release Notes](/riak/cs/2.1.1/cookbooks/release-notes)
+* [Details about API operations]({{<baseurl>}}riak/cs/2.1.1/references/apis/storage)
+* [Information about the Ruby Fog client]({{<baseurl>}}riak/cs/2.1.1/cookbooks/fog)
+* [Release Notes]({{<baseurl>}}riak/cs/2.1.1/cookbooks/release-notes)

@@ -11,14 +11,14 @@ project: "riak_ts"
 project_version: "1.5.2"
 toc: true
 aliases:
-    - /riakts/1.5.2/using/riakshell/
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/riakshell"
+  - /riakts/1.5.2/using/riakshell/
+
 ---
 
-[nodename]: /riak/kv/2.2.0/using/cluster-operations/changing-cluster-info/
-[creating]: /riak/ts/1.5.2/using/creating-activating
-[writing]: /riak/ts/1.5.2/using/writingdata
-[riak shell README]: https://github.com/basho/riak_shell/blob/develop/README.md
+[nodename]: {{<baseurl>}}riak/kv/2.2.0/using/cluster-operations/changing-cluster-info/
+[creating]: {{<baseurl>}}riak/ts/1.5.2/using/creating-activating
+[writing]: {{<baseurl>}}riak/ts/1.5.2/using/writingdata
+[riak shell README]: https://github.com/basho/riak_shell/blob/develop/README/
 
 
 You can use riak shell within Riak TS to run SQL and logging commands from one place.
@@ -49,13 +49,13 @@ The shell is also trivially extendable for developer use.
 
 To get started using riak shell:
 
-1\. Upon installing Riak TS from a package (.deb or .rpm), your riak shell should be configured to attach to your local node. You can verify this by running:
+1/. Upon installing Riak TS from a package (.deb or .rpm), your riak shell should be configured to attach to your local node. You can verify this by running:
 
 ```
 > sudo riak-shell
 ```
 
-1a\. You can attach to any node in your cluster from riak shell. To do this, locate your riak_shell.config file. On most systems, it will be in the `/etc/riak` directory with the other Riak TS configuration files. On Mac OS X, the configuration files are in the `~/riak-ts-1.5.2/etc` directory. Open riak_shell.config, and add the nodename and IP addresses you wish to connect to to nodes:
+1a/. You can attach to any node in your cluster from riak shell. To do this, locate your riak_shell.config file. On most systems, it will be in the `/etc/riak` directory with the other Riak TS configuration files. On Mac OS X, the configuration files are in the `~/riak-ts-1.5.2/etc` directory. Open riak_shell.config, and add the nodename and IP addresses you wish to connect to to nodes:
 
 ```
 [
@@ -71,7 +71,7 @@ To get started using riak shell:
 ].
 ```
 
-2\. Open riak shell (if you have updated riak_shell.config, you will need to navigate back to your Riak TS directory):
+2/. Open riak shell (if you have updated riak_shell.config, you will need to navigate back to your Riak TS directory):
 
 ```bash
 riak-shell
@@ -195,7 +195,7 @@ An example of the second format is shown below:
 In both of these formats multiple rows of data can be specified
 
 (3)>INSERT INTO mytable VALUES ('keyvalue', '2016-11-30 19:30:00', 123, 12.3, false), ('newvalue', '2016-11-30 19:31:04' 456, 45.6, true);
-For more details please go to http://docs.basho.com/riak/ts
+For more details please go to /riak/ts
 ```
 
 

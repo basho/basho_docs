@@ -13,7 +13,6 @@ toc: true
 aliases:
     - /riakts/1.5.1/using/querying/basic-querying
     - /riakts/1.5.1/using/querying/guidelines
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/guidelines"
 ---
 
 [table arch]: ../../../learn-about/tablearchitecture/#data-modeling
@@ -21,7 +20,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/guidelines
 [writing]: ../../writingdata/
 [planning]: ../../planning#column-definitions
 [iso8601]: ../../../timerepresentations/
-[SELECT]: /riak/ts/1.5.1/using/querying/SELECT#iso_8601
+[SELECT]: {{<baseurl>}}riak/ts/1.5.1/using/querying/SELECT#iso_8601
 [configuring]: ../../../configuring/riakconf/
 
 
@@ -60,7 +59,7 @@ Any quantized field in your partition key must be included in the query as a bou
 * Invalid: `time > 1449864277000 or time < 1449864290000`
 
 {{% note title="A Note About `SELECT`" %}}
-It is possible to use ISO 8601-compliant date/time strings rather than integer timestamps in SELECT statements. Please see [SELECT](/riak/ts/1.5.1/using/querying/select/#iso-8601) for an example or [Time Representations](/riak/ts/1.5.1/using/timerepresentations/) for more information.
+It is possible to use ISO 8601-compliant date/time strings rather than integer timestamps in SELECT statements. Please see [SELECT]({{<baseurl>}}riak/ts/1.5.1/using/querying/select/#iso-8601) for an example or [Time Representations]({{<baseurl>}}riak/ts/1.5.1/using/timerepresentations/) for more information.
 {{% /note %}}
 
 

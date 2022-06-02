@@ -10,12 +10,14 @@ menu:
     weight: 103
     pre: configure
 toc: true
+aliases:
+  - /dataplatform/latest/configuring/
 ---
 
-[learn bdp index]: /dataplatform/1.0.0/learn/
-[bdp config]: /dataplatform/1.0.0/configuring/setup-a-cluster/
-[bdp cluster manager]: /dataplatform/1.0.0/configuring/replace-spark-cluster-manager/
-[cache proxy config]: /dataplatform/1.0.0/configuring/cache-proxy/
+[learn bdp index]: {{<baseurl>}}dataplatform/1.0.0/learn/
+[bdp config]: {{<baseurl>}}dataplatform/1.0.0/configuring/setup-a-cluster/
+[bdp cluster manager]: {{<baseurl>}}dataplatform/1.0.0/configuring/replace-spark-cluster-manager/
+[cache proxy config]: {{<baseurl>}}dataplatform/1.0.0/configuring/cache-proxy/
 
 ## In This Section
 

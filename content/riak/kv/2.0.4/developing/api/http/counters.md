@@ -54,7 +54,7 @@ GET /buckets/BUCKET/counters/KEY
 
 ## Response
 
-The regular POST/PUT ([HTTP Store Object](/riak/kv/2.0.4/developing/api/http/store-object)) and GET ([HTTP Fetch Object](/riak/kv/2.0.4/developing/api/http/fetch-object)) responses apply here.
+The regular POST/PUT ([HTTP Store Object]({{<baseurl>}}riak/kv/2.0.4/developing/api/http/store-object)) and GET ([HTTP Fetch Object]({{<baseurl>}}riak/kv/2.0.4/developing/api/http/fetch-object)) responses apply here.
 
 Caveats: Counters have no support for Secondary Indexes (2i), Links or Custom HTTP Metadata.
 

@@ -15,7 +15,7 @@ toc: true
 [use running cluster]: ../using/running-a-cluster
 [use admin index]: ../using/admin/
 [cluster ops index]: ../using/cluster-operations
-[repair recover index]: ../repair-recovery
+[repair recover index]: ../using/repair-recovery
 [security index]: ../using/security
 [perf index]: ../using/performance
 [troubleshoot index]: ../using/troubleshooting

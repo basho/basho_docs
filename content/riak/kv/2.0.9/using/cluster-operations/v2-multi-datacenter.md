@@ -18,7 +18,7 @@ aliases:
 ---
 
 {{% note title="Deprecation Warning" %}}
-v2 Multi-Datacenter Replication is deprecated and will be removed in a future version. Please use [v3](/riak/kv/2.0.9/using/cluster-operations/v3-multi-datacenter/) instead.
+v2 Multi-Datacenter Replication is deprecated and will be removed in a future version. Please use [v3]({{<baseurl>}}riak/kv/2.0.9/using/cluster-operations/v3-multi-datacenter/) instead.
 {{% /note %}}
 
 Riak Enterprise's Multi-Datacenter Replication system is largely
@@ -163,7 +163,7 @@ restarting Riak Enterprise.
 
 Field | Description
 :-----|:-----------
-`client_stats` | See <a href="http://docs.basho.com/riak/kv/2.0.9/using/reference/multi-datacenter/statistics/#client-statistics">Client Statistics</a>
+`client_stats` | See <a href="{{< baseurl >}}riak/kv/2.0.9/using/reference/multi-datacenter/statistics/#client-statistics">Client Statistics</a>
 `client_bytes_recv` | The total number of bytes the client has received since the server has been started
 `client_bytes_sent` | The total number of bytes sent to all connected sites
 `client_connect_errors` | The number of TCP/IP connection errors
@@ -183,7 +183,7 @@ Field | Description
 `server_fullsyncs` | The number of fullsync operations that have occurred since the server was started
 `server_rx_kbps` | A snapshot of the server (listener) received kilobits/second taken once a minute. The past 8 snapshots are stored in this list. Newest snapshots appear on the left side of the list.
 `server_tx_kbps` | A snapshot of the server (listener) sent kilobits/second taken once a minute. The past 8 snapshots are stored in this list. Newest snapshots appear on the left side of the list.
-`server_stats` | See <a href="http://docs.basho.com/riak/kv/2.0.9/using/reference/multi-datacenter/statistics/#server-statistics">Server Statistics</a>
+`server_stats` | See <a href="{{< baseurl >}}riak/kv/2.0.9/using/reference/multi-datacenter/statistics/#server-statistics">Server Statistics</a>
 
 ### Elections and Objects
 
@@ -221,7 +221,7 @@ Field | Description
 ## Bounded Queue
 
 The bounded queue is responsible for holding objects that are waiting to
-participate in realtime replication. Please see the [Riak Enterprise MDC Replication Configuration](/riak/kv/2.0.9/configuring/v2-multi-datacenter/) guide for more information.
+participate in realtime replication. Please see the [Riak Enterprise MDC Replication Configuration]({{<baseurl>}}riak/kv/2.0.9/configuring/v2-multi-datacenter/) guide for more information.
 
 Field | Description
 ------|------------
@@ -242,7 +242,7 @@ Field | Description
 `site` | The connected site name configured with `riak-repl add-site`
 `strategy` | A replication strategy defines an implementation of the Riak Replication protocol. Valid values: `keylist` or `syncv1`.
 `fullsync_worker` | The Erlang process ID of the fullsync worker
-`bounded_queue` | See the <a href="http://docs.basho.com/riak/kv/2.0.9/using/cluster-operations/v2-multi-datacenter/#bounded-queue">Bounded Queue</a> section above
+`bounded_queue` | See the <a href="{{< baseurl >}}riak/kv/2.0.9/using/cluster-operations/v2-multi-datacenter/#bounded-queue">Bounded Queue</a> section above
 `state` | State shows what the current replication strategy is processing. The following definitions appear in the status output if the keylist strategy is being used. They can be used by Basho support to identify replication issues.<ul><li>`wait_for_partition`</li><li>`build_keylist`</li><li>`wait_keylist`</li><li>`diff_bloom`</li><li>`diff_keylist`</li></ul>s
 `message_queue_len` | The number of Erlang messages that are waiting to be processed by the server
 

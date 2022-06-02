@@ -13,9 +13,9 @@ toc: true
 version_history:
   in: "1.5.2+"
 aliases:
-    - /riakts/1.5.2/setup/downgrading/
-    - /riakts/1.5.2/downgrading/
-canonical_link: "https://docs.basho.com/riak/ts/latest/setup/downgrading/"
+  - /riakts/1.5.2/setup/downgrading/
+  - /riakts/1.5.2/downgrading/
+
 ---
 
 ## Caution

@@ -11,8 +11,8 @@ project: "riak_ts"
 project_version: "1.5.2"
 toc: true
 aliases:
-    - /riakts/1.5.2/developing/csharp/
-canonical_link: "https://docs.basho.com/riak/ts/latest/developing/csharp"
+  - /riakts/1.5.2/developing/csharp/
+
 ---
 
 

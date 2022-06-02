@@ -15,7 +15,7 @@ aliases:
   - /riak/kv/2.2.2/ops/running/recovery/errors
 ---
 
-[config reference]: /riak/kv/2.2.2/configuring/reference
+[config reference]: {{<baseurl>}}riak/kv/2.2.2/configuring/reference
 
 This is not a comprehensive listing of every error that Riak may
 encounter -- screws fall out all of the time, the world is an imperfect
@@ -120,8 +120,8 @@ generally due to network, permission, or configuration problems.
 Error | Description | Resolution
 :-----|:------------|:----------
 `{error,duplicate_name}` | You are trying to start a new Erlang node, but another node with the same name is already running | You might be attempting to start multiple nodes on the same machine with the same `vm.args` `-name` value; or if Riak is already running, check for `beam.smp`; or epmd thinks Riak is running, check/kill epmd
-`{error,econnrefused}` | Remote Erlang node connection refused | Ensure your cluster is up and nodes are able to communicate with each other. See <a href="http://docs.basho.com/riak/kv/2.2.2/using/repair-recovery/errors/#more">Step 1</a>.
-`{error,ehostunreach}` | Remote node cannot be connected to | Ensure that nodes are able to communicate with each other. See <a href="http://docs.basho.com/riak/kv/2.2.2/using/repair-recovery/errors/#more">Step 1</a>.
+`{error,econnrefused}` | Remote Erlang node connection refused | Ensure your cluster is up and nodes are able to communicate with each other. See <a href="{{< baseurl >}}riak/kv/2.2.2/using/repair-recovery/errors/#more">Step 1</a>.
+`{error,ehostunreach}` | Remote node cannot be connected to | Ensure that nodes are able to communicate with each other. See <a href="{{< baseurl >}}riak/kv/2.2.2/using/repair-recovery/errors/#more">Step 1</a>.
 `{error,eacces}` | Cannot write a given file | Ensure the Riak beam process has permission to write to all `*_dir` values in `app.config`, for example, `ring_state_dir`, `platform_data_dir`, and others
 `{error,enoent}` | Missing an expected file or directory | Ensure all `*_dir` values in `app.config` exist, for example, `ring_state_dir`, `platform_data_dir`, and others
 `{error,erofs}` | A file/directory is attempted to be written to a read-only filesystem | Only set Riak directories to read/write filesystems
@@ -186,7 +186,7 @@ Error | Message | Description | Resolution
  | `status_update for non-existing handoff <Target>` | Cannot get the status of a handoff `Target` module that doesn't exist | An expected message. Check the logs for other causes.
  | `SSL handoff config error: property <FailProp>: <BadMat>.` | The receiver may reject the senders attempt to start a handoff | Ensure your SSL settings and certificates are proper
  | `Failure processing SSL handoff config <Props>:<X>:<Y>` |  | Ensure your SSL settings and certificates are proper
- | `<Type> transfer of <Module> from <SrcNode> <SrcPartition> to <TargetNode> <TargetPartition> failed because of <Reason>` | Nodes cannot hand off data | Ensure that your cluster is up and nodes are able to communicate with each other. See <a href="http://docs.basho.com/riak/kv/2.2.2/using/repair-recovery/errors/#more"> Step 1</a>.
+ | `<Type> transfer of <Module> from <SrcNode> <SrcPartition> to <TargetNode> <TargetPartition> failed because of <Reason>` | Nodes cannot hand off data | Ensure that your cluster is up and nodes are able to communicate with each other. See <a href="{{< baseurl >}}riak/kv/2.2.2/using/repair-recovery/errors/#more"> Step 1</a>.
  | `Failed to start application: <App>` | Expected application cannot load | This relates to an Erlang application, and not necessarily the Riak application in general. The app may fail to load for many reasons, such as a missing native library. Read other log messages for clues
  | `Failed to read ring file: <Reason>` | Gives a reason why the ring file cannot be read on startup | The reason given explains the problem, such as `eacces` meaning the Erlang process does not have permission to read
  | `Failed to load ring file: <Reason>` | Gives a reason why the ring file cannot be loaded on startup | The reason given explains the problem, such as `enoent` meaning the expected file cannot be found
@@ -206,8 +206,8 @@ Error | Message | Description | Resolution
 :-----|:--------|:------------|:----------
 `all_nodes_down` |  | No nodes are available | Check `riak-admin member-status` and ensure that all expected nodes in the cluster are of `valid` Status
 `{bad_qterm, QueryTerm}` |  | Bad query when performing MapReduce | Fix your MapReduce query
-`{coord_handoff_failed, Reason}` | `Unable to forward put for <Key> to <CoordNode> - <Reason>` | Vnodes unable to communicate | Check that coordinating vnode is not down. Ensure your cluster is up and nodes are able to communicate with each other. See <a href="http://docs.basho.com/riak/kv/2.2.2/using/repair-recovery/errors/#more"> Step 1</a>.
-`{could_not_reach_node, Node}` |  | Erlang process was not reachable | Check network settings; ensure remote nodes are running and reachable; ensure all nodes have the same Erlang cookie setting `vm.args` `-setcookie`. See <a href="http://docs.basho.com/riak/kv/2.2.2/using/repair-recovery/errors/#more"> Step 1</a>.
+`{coord_handoff_failed, Reason}` | `Unable to forward put for <Key> to <CoordNode> - <Reason>` | Vnodes unable to communicate | Check that coordinating vnode is not down. Ensure your cluster is up and nodes are able to communicate with each other. See <a href="{{< baseurl >}}riak/kv/2.2.2/using/repair-recovery/errors/#more"> Step 1</a>.
+`{could_not_reach_node, Node}` |  | Erlang process was not reachable | Check network settings; ensure remote nodes are running and reachable; ensure all nodes have the same Erlang cookie setting `vm.args` `-setcookie`. See <a href="{{< baseurl >}}riak/kv/2.2.2/using/repair-recovery/errors/#more"> Step 1</a>.
 `{deleted, Vclock}` |  | The value was already deleted, includes the current vector clock | Riak will eventually clean up this tombstone
 `{dw_val_violation, DW}` |  | Same as `w_val_violation` but concerning durable writes | Set a valid DW value
 `{field_parsing_failed, {Field, Value}}` | `Could not parse field
@@ -237,7 +237,7 @@ Error | Message | Description | Resolution
 `receiver_down` |  | Remote process failed to acknowledge request | Can occur when listkeys is called
 `{rw_val_violation, RW}` |  | The given `RW` property was non-numeric and not a valid setting (`one`, `all`, `quorum`) | Set a valid `RW` value
 `{siblings_not_allowed, Object}` | `Siblings not allowed: <Object>` | The hook to index cannot abide siblings | Set the buckets `allow_mult` property to `false`
-`timeout`|  | The given action took too long to reply | Ensure your cluster is up and nodes are able to communicate with each other. See <a href="http://docs.basho.com/riak/kv/2.2.2/using/repair-recovery/errors/#more"> Step 1</a>. Or check you have a reasonable `ulimit` size. Note that listkeys commands can easily timeout and shouldn't be used in production.
+`timeout`|  | The given action took too long to reply | Ensure your cluster is up and nodes are able to communicate with each other. See <a href="{{< baseurl >}}riak/kv/2.2.2/using/repair-recovery/errors/#more"> Step 1</a>. Or check you have a reasonable `ulimit` size. Note that listkeys commands can easily timeout and shouldn't be used in production.
 `{too_few_arguments, Args}` |  | Index query requires at least one argument | Fix your query format
 `{too_many_arguments, Args}` |  | Index query is malformed with more than 1 (exact) or 2 (range) values | Fix your query format
 `too_many_fails` |  | Too many write failures to satisfy W or DW | Try writing again. Or ensure your nodes/network is healthy. Or set a lower W or DW value
@@ -321,12 +321,12 @@ gen_server riak_core_capability terminated with reason: no function clause match
 gen_server <`PID`> terminated with reason: no function clause matching riak_core_pb:encode(`Args`) line 40 | Ensure you do not have different settings on different nodes (for example, a ttl mem setting on one node's mem backend, and another without)
 monitor `busy_dist_port` `Pid` [...{almost_current_function,...] | This message means distributed Erlang buffers are filling up. Try setting zdbbl higher in `vm.args`, such as `+zdbbl 16384`. Or check that your network is not slow. Or ensure you are not slinging large values. If a high bandwidth network is congested, try setting RTO_min down to 0 msec (or 1msec).
 <`PID`>@riak_core_sysmon___handler:handle_event:89 Monitor got {suppressed,port_events,1} | Logged as info, you can add `+swt very_low` to your `vm.args`
-(in LevelDB LOG files) Compaction error | Turn off the node and run repair on the LevelDB partition. See <a href="http://docs.basho.com/riak/kv/2.2.2/using/repair-recovery/errors/#more">Step 2</a>.
+(in LevelDB LOG files) Compaction error | Turn off the node and run repair on the LevelDB partition. See <a href="{{< baseurl >}}riak/kv/2.2.2/using/repair-recovery/errors/#more">Step 2</a>.
 enif_send: env==NULL on non-SMP VM/usr/lib/riak/lib/os_mon-2.2.9/priv/bin/memsup: Erlang has closed. | Riak's Erlang VM is built with SMP support and if Riak is started on a non-SMP system, an error like this one is logged. This is commonly seen in virtualized environments configured for only one CPU core.
 exit with reason bad return value: {error,eaddrinuse} in context start_error | An error like this example can occur when another process is already bound to the same address as the process being started is attempting to bind to. Use operating system tools like `netstat`, `ps`, and `lsof` to determine the root cause for resolving this kind of errors; check for existence of stale  `beam.smp` processes.
 exited with reason: eaddrnotavail in gen_server:init_it/6 line 320 | An error like this example can result when Riak cannot bind to the addresses specified in the configuration. In this case, you should verify HTTP and Protocol Buffers addresses in `app.config` and ensure that the ports being used are not in the privileged (1-1024) range as the `riak` user will not have access to such ports.
 gen_server riak_core_capability terminated with reason: no function clause matching orddict:fetch('riak@192.168.2.2', []) line 72 | Error output like this example can indicate that a previously running Riak node with an original `-name` value in `vm.args` has been modified by simply changing the value in `vm.args` and not properly through `riak-admin cluster replace`.
-** Configuration error: [FRAMEWORK-MIB]: missing context.conf file => generating a default file | This error is commonly encountered when starting Riak Enterprise without prior [SNMP](/riak/kv/2.2.2/using/reference/snmp) configuration.
+** Configuration error: [FRAMEWORK-MIB]: missing context.conf file => generating a default file | This error is commonly encountered when starting Riak Enterprise without prior [SNMP]({{<baseurl>}}riak/kv/2.2.2/using/reference/snmp) configuration.
 RPC to 'node@example.com' failed: {'EXIT', {badarg, [{ets,lookup, [schema_table,<<"search-example">>], []} {riak_search_config,get_schema,1, [{file,"src/riak_search_config.erl"}, {line,69}]} ...| This error can be caused when attempting to use Riak Search without first enabling it in each node's `app.config`. See the [configuration files][config reference] documentation for more information on enabling Riak Search.
 
 

@@ -89,10 +89,10 @@ Once all of the Riak KV clusters have been upgraded to version 2.2.0 or greater,
 
 ## Deprecation Notification
 
-* [Link Walking](/riak/kv/2.2.1/developing/api/http/link-walking/) is deprecated and will not work if security is enabled.
-* Key Filters are deprecated; we strongly discourage key listing in production due to the overhead involved, so it's better to maintain key indexes as values in Riak (see our [set data type](/riak/kv/2.2.1/developing/data-types/sets/) as a useful tool for such indexes).
-* JavaScript MapReduce is deprecated; we have expanded our [Erlang MapReduce](/riak/kv/2.2.1/developing/app-guide/advanced-mapreduce/#mapreduce) documentation to assist with the transition.
-* Riak search 1.0 is deprecated in favor of our Solr-based [Riak search 2.0](/riak/kv/2.2.1/developing/usage/search/). Version 1.0 will not work if security is enabled.
+* [Link Walking]({{<baseurl>}}riak/kv/2.2.1/developing/api/http/link-walking/) is deprecated and will not work if security is enabled.
+* Key Filters are deprecated; we strongly discourage key listing in production due to the overhead involved, so it's better to maintain key indexes as values in Riak (see our [set data type]({{<baseurl>}}riak/kv/2.2.1/developing/data-types/sets/) as a useful tool for such indexes).
+* JavaScript MapReduce is deprecated; we have expanded our [Erlang MapReduce]({{<baseurl>}}riak/kv/2.2.1/developing/app-guide/advanced-mapreduce/#mapreduce) documentation to assist with the transition.
+* Riak search 1.0 is deprecated in favor of our Solr-based [Riak search 2.0]({{<baseurl>}}riak/kv/2.2.1/developing/usage/search/). Version 1.0 will not work if security is enabled.
 * v2 replication (a component of Riak KV Enterprise) is superseded by v3 and will be removed in the future.
 * Legacy vnode routing (an early mechanism for managing requests between servers) is deprecated. If `vnode_routing` is set to `legacy` via Riak KV's capability system, it should be removed to prevent upgrade problems in the future.
-* Some users in the past have used Riak's internal API (e.g. `riak:local_client/1`); this API may change at any time, so we strongly recommend using our [Erlang client library](http://github.com/basho/riak-erlang-client/) (or [one of the other libraries](/riak/kv/2.2.1/developing/client-libraries/) we support) instead.
+* Some users in the past have used Riak's internal API (e.g. `riak:local_client/1`); this API may change at any time, so we strongly recommend using our [Erlang client library](http://github.com/basho/riak-erlang-client/) (or [one of the other libraries]({{<baseurl>}}riak/kv/2.2.1/developing/client-libraries/) we support) instead.

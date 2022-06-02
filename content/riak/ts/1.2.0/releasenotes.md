@@ -24,7 +24,7 @@ Riak TS 1.2.0 introduces riak_shell, a shell that allows you to run SQL within R
 
 ## New Features
 
-* riak_shell is a configurable, extendable shell for Riak that allows you to run SQL commands and logging in a single shell within Riak TS. You can find more information about riak_shell [here](http://docs.basho.com/riakts/1.2.0/using/riakshell/).
+* riak_shell is a configurable, extendable shell for Riak that allows you to run SQL commands and logging in a single shell within Riak TS. You can find more information about riak_shell [here]({{< baseurl >}}riak/ts/1.2.0/using/riakshell/).
 
 
 ## Changes
@@ -52,7 +52,7 @@ Riak TS is compatible with the following operating systems:
 
 ## Known Issues
 
-* For security reasons, you should change the owner of the /etc/init.d/riak file to the root user after installation has completed. See our [product advisory](http://docs.basho.com/community/productadvisories/codeinjectioninitfiles/) for more information and further instruction.
+* For security reasons, you should change the owner of the /etc/init.d/riak file to the root user after installation has completed. See our [product advisory]({{<baseurl>}}community/productadvisories/codeinjectioninitfiles/) for more information and further instruction.
 * Negation of an aggregate function returns an error. You can use negation by structuring any aggregate you'd like to negate as follows: `-1*COUNT(...)`.
 * Rolling upgrades are not supported.
 * AAE must be turned off.

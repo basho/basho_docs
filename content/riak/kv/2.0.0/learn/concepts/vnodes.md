@@ -16,16 +16,16 @@ aliases:
 ---
 
 
-[concept causal context]: /riak/kv/2.0.0/learn/concepts/causal-context
-[concept clusters ring]: /riak/kv/2.0.0/learn/concepts/clusters/#the-ring
-[concept replication]: /riak/kv/2.0.0/learn/concepts/replication
-[concept strong consistency]: /riak/kv/2.0.0/learn/concepts/strong-consistency
-[glossary node]: /riak/kv/2.0.0/learn/glossary/#node
-[glossary ring]: /riak/kv/2.0.0/learn/glossary/#ring
-[perf strong consistency]: /riak/kv/2.0.0/using/performance/strong-consistency
-[plan backend]: /riak/kv/2.0.0/setup/planning/backend
-[plan cluster capacity]: /riak/kv/2.0.0/setup/planning/cluster-capacity
-[use admin riak cli]: /riak/kv/2.0.0/using/admin/riak-cli
+[concept causal context]: {{<baseurl>}}riak/kv/2.0.0/learn/concepts/causal-context
+[concept clusters ring]: {{<baseurl>}}riak/kv/2.0.0/learn/concepts/clusters/#the-ring
+[concept replication]: {{<baseurl>}}riak/kv/2.0.0/learn/concepts/replication
+[concept strong consistency]: {{<baseurl>}}riak/kv/2.0.0/learn/concepts/strong-consistency
+[glossary node]: {{<baseurl>}}riak/kv/2.0.0/learn/glossary/#node
+[glossary ring]: {{<baseurl>}}riak/kv/2.0.0/learn/glossary/#ring
+[perf strong consistency]: {{<baseurl>}}riak/kv/2.0.0/using/reference/strong-consistency
+[plan backend]: {{<baseurl>}}riak/kv/2.0.0/setup/planning/backend
+[plan cluster capacity]: {{<baseurl>}}riak/kv/2.0.0/setup/planning/cluster-capacity
+[use admin riak cli]: {{<baseurl>}}riak/kv/2.0.0/using/admin/riak-cli
 
 
 Virtual nodes, more commonly referred to as **vnodes**, are processes
@@ -81,7 +81,7 @@ of all such values. The illustration below provides a visual
 representation of the Riak ring:
 
 ![The Riak
-Ring](http://docs.basho.com/shared/2.0.0/images/riak-ring.png?1416296175)
+Ring]({{<baseurl>}}images/shared/riak-ring.png)
 
 You can think of vnodes as managers, responsible for handling incoming
 requests from other nodes/vnodes, storing objects in the appropriate
@@ -103,7 +103,7 @@ asynchronous tasks on behalf of the vnode.
 
 If you're navigating through the file system of a Riak node, you'll
 notice that each node's `/data` directory holds a variety of
-subdirectories. If you're using, say, [Bitcask](/riak/kv/2.0.0/setup/planning/backend/bitcask) as a backend, navigate
+subdirectories. If you're using, say, [Bitcask]({{<baseurl>}}riak/kv/2.0.0/setup/planning/backend/bitcask) as a backend, navigate
 into the `/bitcask` directory (you'll also see a `/ring` directory and
 several others). If you open up the `/bitcask` directory, you'll see a
 wide assortment of directories with numbers as names, e.g. `0` or

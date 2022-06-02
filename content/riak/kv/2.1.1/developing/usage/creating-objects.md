@@ -12,7 +12,7 @@ menu:
 toc: true
 ---
 
-[usage content types]: /riak/kv/2.1.1/developing/usage/content-types
+[usage content types]: {{<baseurl>}}riak/kv/2.1.1/developing/usage/content-types
 
 Writes in Riak KV (storing or modifying objects) are like HTTP `PUT`
 requests. Here is the basic form of writes:
@@ -27,7 +27,7 @@ In the example above, our read was unsuccessful because our Riak cluster
 is currently empty. Let's change that by storing an object containing
 information about a dog named Rufus. We'll store that object in the
 location described above, i.e. in the key `rufus` in the bucket `dogs`,
-which bears the `animals` [bucket type](/riak/kv/2.1.1/developing/usage/bucket-types).
+which bears the `animals` [bucket type]({{<baseurl>}}riak/kv/2.1.1/developing/usage/bucket-types).
 
 The object we're storing will be very simple, just a basic text snippet
 of something that Rufus might say. Let's build the object and then store
@@ -122,7 +122,7 @@ rsp := svc.Response
 Notice that we specified both a value for the object, i.e. `WOOF!`, and
 a content type, `text/plain`. See [content types][usage content types] for more information.
 
-Now, run the same read operation in [Reading Objects](/riak/kv/2.1.1/developing/usage/reading-objects). If the write operation was successful, you should be able to successfully read the object. Your Riak cluster is no
+Now, run the same read operation in [Reading Objects]({{<baseurl>}}riak/kv/2.1.1/developing/usage/reading-objects). If the write operation was successful, you should be able to successfully read the object. Your Riak cluster is no
 longer empty!
 
 ### Store an Object
@@ -143,7 +143,7 @@ PUT /types/TYPE/buckets/BUCKET/keys/KEY
 There is no need to intentionally create buckets in Riak. They pop into
 existence when keys are added to them, and disappear when all keys have
 been removed from them. If you don't specify a bucket's type, the type
-[`default`](/riak/kv/2.1.1/developing/usage/bucket-types) will be applied.
+[`default`]({{<baseurl>}}riak/kv/2.1.1/developing/usage/bucket-types) will be applied.
 
 #### Write Parameters
 

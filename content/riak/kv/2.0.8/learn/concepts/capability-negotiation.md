@@ -16,9 +16,9 @@ aliases:
 ---
 
 
-[glossary vnode]: /riak/kv/2.0.8/learn/glossary/#vnode
-[upgrade cluster]: /riak/kv/2.0.8/setup/upgrading/cluster
-[usage mapreduce]: /riak/kv/2.0.8/developing/usage/mapreduce
+[glossary vnode]: {{<baseurl>}}riak/kv/2.0.8/learn/glossary/#vnode
+[upgrade cluster]: {{<baseurl>}}riak/kv/2.0.8/setup/upgrading/cluster
+[usage mapreduce]: {{<baseurl>}}riak/kv/2.0.8/developing/usage/mapreduce
 
 
 In early versions of Riak KV, [rolling upgrades][upgrade cluster] from an older version to a newer involved (a) disabling all new features associated with the newer version, and then (b) re-enabling those features once all nodes in the cluster were upgraded.

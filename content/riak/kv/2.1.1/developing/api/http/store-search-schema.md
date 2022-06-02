@@ -15,7 +15,7 @@ aliases:
   - /riak/kv/2.1.1/dev/references/http/store-search-schema
 ---
 
-Creates a new Riak [Search schema](/riak/kv/2.1.1/developing/usage/search-schemas).
+Creates a new Riak [Search schema]({{<baseurl>}}riak/kv/2.1.1/developing/usage/search-schemas).
 
 ## Request
 
@@ -26,7 +26,7 @@ PUT /search/schema/<schema_name>
 ## Required Form Data
 
 In order to create a new Search schema, you must pass Riak a properly
-formed XML schema. More information can be found in the [Search Schema](/riak/kv/2.1.1/developing/usage/search-schemas) document. If you've created a schema and stored it in the filed
+formed XML schema. More information can be found in the [Search Schema]({{<baseurl>}}riak/kv/2.1.1/developing/usage/search-schemas) document. If you've created a schema and stored it in the filed
 `my_schema.xml` and would like to create a new schema called
 `my_custom_schema`, you would use the following HTTP request:
 

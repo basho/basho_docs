@@ -15,7 +15,7 @@ aliases:
   - /riak/2.0.2/dev/using/conflict-resolution/golang
 ---
 
-For reasons explained in the [Introduction to conflict resolution](/riak/kv/2.0.2/developing/usage/conflict-resolution), we strongly recommend adopting a conflict resolution strategy that
+For reasons explained in the [Introduction to conflict resolution]({{<baseurl>}}riak/kv/2.0.2/developing/usage/conflict-resolution), we strongly recommend adopting a conflict resolution strategy that
 requires applications to resolve siblings according to usecase-specific
 criteria. Here, we'll provide a brief guide to conflict resolution using the
 official [Riak Go client](https://github.com/basho/riak-go-client).

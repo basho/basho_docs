@@ -20,9 +20,9 @@ aliases:
 
 
 
-[install source erlang]: /riak/kv/2.0.8/setup/installing/source/erlang
-[downloads]: /riak/kv/2.0.8/downloads/
-[install verify]: /riak/kv/2.0.8/setup/installing/verify
+[install source erlang]: {{<baseurl>}}riak/kv/2.0.8/setup/installing/source/erlang
+[downloads]: {{<baseurl>}}riak/kv/2.0.8/downloads/
+[install verify]: {{<baseurl>}}riak/kv/2.0.8/setup/installing/verify
 
 You can install Riak on FreeBSD for the AMD64 architecture with a binary package or by building from source code.
 

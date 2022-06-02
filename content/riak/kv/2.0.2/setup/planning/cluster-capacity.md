@@ -14,13 +14,13 @@ aliases:
   - /riak/2.0.2/ops/building/planning/cluster
 ---
 
-[plan backend leveldb]: /riak/kv/2.0.2/setup/planning/backend/leveldb
-[plan bitcask capacity]: /riak/kv/2.0.2/setup/planning/bitcask-capacity-calc
-[plan index]: /riak/kv/2.0.2/setup/planning
-[concept replication]: /riak/kv/2.0.2/learn/concepts/replication
-[use admin riak-admin#cluster]: /riak/kv/2.0.2/using/admin/riak-admin/#cluster
-[config reference]: /riak/kv/2.0.2/configuring/reference
-[perf benchmark]: /riak/kv/2.0.2/using/performance/benchmarking
+[plan backend leveldb]: {{<baseurl>}}riak/kv/2.0.2/setup/planning/backend/leveldb
+[plan bitcask capacity]: {{<baseurl>}}riak/kv/2.0.2/setup/planning/bitcask-capacity-calc
+[plan index]: {{<baseurl>}}riak/kv/2.0.2/setup/planning
+[concept replication]: {{<baseurl>}}riak/kv/2.0.2/learn/concepts/replication
+[use admin riak-admin#cluster]: {{<baseurl>}}riak/kv/2.0.2/using/admin/riak-admin/#cluster
+[config reference]: {{<baseurl>}}riak/kv/2.0.2/configuring/reference
+[perf benchmark]: {{<baseurl>}}riak/kv/2.0.2/using/performance/benchmarking
 [LVM]: http://en.wikipedia.org/wiki/Logical_Volume_Manager_(Linux)
 
 

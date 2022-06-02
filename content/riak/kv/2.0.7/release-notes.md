@@ -23,8 +23,8 @@ This is an LTS feature release, including new updates to batching and Solr, Cutt
 
 This release includes fixes for two product advisories:
 
-*  [LevelDB Segfault advisory](http://docs.basho.com/community/productadvisories/leveldbsegfault/) - The AddDB() call now occurs after all object initialization is complete to eliminate a race condition that leads to segfault. [[LevelDB PR #184](https://github.com/basho/leveldb/pull/184)] 
-* [Code Injection on Riak Init File](http://docs.basho.com/community/productadvisories/codeinjectioninitfiles/) - A thorough review of file ownership across the Riak KV package was done and several files, including riak init, were changed to tighten the ownership to root:root instead of riak:riak to prevent a potential code injection across all supported operating systems. Additionally, node_package was bumped to version 3.0.1. [[node_package PR #196](https://github.com/basho/node_package/pull/196)]
+*  [LevelDB Segfault advisory]({{<baseurl>}}community/productadvisories/leveldbsegfault/) - The AddDB() call now occurs after all object initialization is complete to eliminate a race condition that leads to segfault. [[LevelDB PR #184](https://github.com/basho/leveldb/pull/184)] 
+* [Code Injection on Riak Init File]({{<baseurl>}}community/productadvisories/codeinjectioninitfiles/) - A thorough review of file ownership across the Riak KV package was done and several files, including riak init, were changed to tighten the ownership to root:root instead of riak:riak to prevent a potential code injection across all supported operating systems. Additionally, node_package was bumped to version 3.0.1. [[node_package PR #196](https://github.com/basho/node_package/pull/196)]
 
 
 
@@ -32,7 +32,7 @@ This release includes fixes for two product advisories:
 
 * We've introduced a new batching system for Riak Search so indexing calls are no longer made synchronously when data is written to Riak. This allows Solr to process the data in chunks and Riak to move forward accepting new work at the vnode level without waiting for the call to Solr to happen. Out-of-the-box performance should be similar to Riak 2.0.6 with Search enabled. However, additional configuration options (see "Cuttlefish configurations…" below) will allow you to set the batching parameters based on your needs and have, in certain cases, led to significantly higher write throughput to Solr.
   * [[PR #648](https://github.com/basho/yokozuna/pull/648)]
-* Cuttlefish configurations have been updated to support the Riak Search batching updates. These configs are tunable via the riak.conf file. (Note: Changes to this file require a restart of Riak). You can control the behavior of batching through various [new Cuttlefish parameters](http://docs.basho.com/riak/kv/2.1.4/configuring/reference/#search). These parameters guide Cuttlefish operation, Solr integration, and statistics on Riak performance.
+* Cuttlefish configurations have been updated to support the Riak Search batching updates. These configs are tunable via the riak.conf file. (Note: Changes to this file require a restart of Riak). You can control the behavior of batching through various [new Cuttlefish parameters]({{< baseurl >}}riak/kv/2.0.7/configuring/reference/#search). These parameters guide Cuttlefish operation, Solr integration, and statistics on Riak performance.
   * [[PR #614](https://github.com/basho/yokozuna/pull/614)]
 * Our Erlang/OTP has been updated to version R16B02_basho10 and included in this release. This update includes bugfixes and improvements for ERTS, as well as bugfixes for SSL.
   * You can read the complete release notes for Erlang/OTP [here](https://github.com/basho/otp/blob/basho-otp-16/BASHO-RELEASES.md).

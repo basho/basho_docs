@@ -16,14 +16,14 @@ aliases:
 ---
 
 
-[apps replication properties]: /riak/kv/2.2.2/developing/app-guide/replication-properties
-[Basho Bench]: /riak/kv/2.2.2/using/performance/benchmarking
-[cluster ops strong consistency]: /riak/kv/2.2.2/using/cluster-operations/strong-consistency
-[concept eventual consistency]: /riak/kv/2.2.2/learn/concepts/eventual-consistency
+[apps replication properties]: {{<baseurl>}}riak/kv/2.2.2/developing/app-guide/replication-properties
+[Basho Bench]: {{<baseurl>}}riak/kv/2.2.2/using/performance/benchmarking
+[cluster ops strong consistency]: {{<baseurl>}}riak/kv/2.2.2/using/cluster-operations/strong-consistency
+[concept eventual consistency]: {{<baseurl>}}riak/kv/2.2.2/learn/concepts/eventual-consistency
 [convergent replicated data types]: http://hal.upmc.fr/docs/00/55/55/88/PDF/techreport.pdf
 [Datomic]: http://www.datomic.com/overview.html
-[dev data types]: /riak/kv/2.2.2/developing/data-types
-[glossary read rep]: /riak/kv/2.2.2/learn/glossary/#read-repair
+[dev data types]: {{<baseurl>}}riak/kv/2.2.2/developing/data-types
+[glossary read rep]: {{<baseurl>}}riak/kv/2.2.2/learn/glossary/#read-repair
 
 
 ## What is Riak?

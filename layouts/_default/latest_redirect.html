@@ -1,0 +1,16 @@
+<!DOCTYPE html><!--
+{{ $project                   := .Params.project                                                      }} {{/* ex; riak_kv                                    */}}
+{{ $project_description       := (index .Site.Params.project_descriptions $project)                   }}
+{{ $latest_version            := $project_description.latest                                          }} {{/* ex; 3.0.4                                      */}}
+{{ $replace_text              := .Params.replace_text  | default "latest"                             }} {{/* ex; "latest"                                   */}}
+{{ $latest_text               := .Params.latest_text   | default "{latest}"                           }} {{/* ex; "kv/{latest}"                              */}}
+{{ $latest_text               := (printf "%s" (replace $latest_text "{latest}" $latest_version))      }} {{/* ex; "kv/3.0.4"                                 */}}
+{{ $target                    := (printf "%s" (replace .RelPermalink $replace_text $latest_text))     }} {{/* ex; /riak-docs/riak/kv/3.0.4/introduction/     */}}
+-->
+<html>
+  <head>
+    <link rel="canonical" href="{{ $target }}"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="refresh" content="0;url={{ $target }}" />
+  </head>
+</html>

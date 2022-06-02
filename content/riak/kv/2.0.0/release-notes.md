@@ -17,8 +17,8 @@ aliases:
 ## Major Features / Additions to 2.0
 
 A listing and explanation of new features in version 2.0, along with
-links to relevant documentation, can be found [in our official docs](http://docs.basho.com/riak/2.0.0/intro-v20/). You can find an
-[Upgrading to 2.0 Guide](http://docs.basho.com/riak/2.0.0/upgrade-v20/)
+links to relevant documentation, can be found [in our official docs]({{< baseurl >}}riak/kv/2.0.0/intro-v20/). You can find an
+[Upgrading to 2.0 Guide]({{< baseurl >}}riak/kv/2.0.0/upgrade-v20/)
 there as well. The material below should be read as a more technical
 supplement to that material.
 
@@ -45,7 +45,7 @@ perform these actions. However, the Bucket Properties HTTP API, Protocol
 Buffers messages, and supported clients have been updated to set and
 retrieve bucket properties for a bucket with a given bucket type.
 
-For more details on bucket types see our [official documentation](http://docs.basho.com/riak/2.0.0/dev/advanced/bucket-types/).
+For more details on bucket types see our [official documentation]({{< baseurl >}}riak/kv/2.0.0/dev/advanced/bucket-types/).
 
 ### Convergent Data Types
 
@@ -61,9 +61,9 @@ All data types must be stored in buckets bearing a bucket type that sets
 the `datatype` property to one of `counter`, `set`, or `map`.  Note that
 the bucket must have the `allow_mult` property set to `true`.  See
 documentation on [Riak Data
-Types](http://docs.basho.com/riak/2.0.0/dev/using/data-types/) and
+Types]({{< baseurl >}}riak/kv/2.0.0/dev/using/data-types/) and
 [bucket
-types](http://docs.basho.com/riak/2.0.0/dev/advanced/bucket-types/) for
+types]({{< baseurl >}}riak/kv/2.0.0/dev/advanced/bucket-types/) for
 more details.
 
 These Data Types are wrapped in a regular `riak_object`, so size
@@ -75,13 +75,13 @@ too. The following Data Types are currently available:
 Counters behave much like they do in version 1.4, except that you can
 use Riak's new bucket types feature to ensure no type conflicts.
 Documentation on counters can be found
-[here](http://docs.basho.com/riak/2.0.0/dev/using/data-types/#Counters).
+[here]({{< baseurl >}}riak/kv/2.0.0/developing/data-types/counters/).
 
 #### Sets
 
 Sets allow you to store multiple distinct opaque binary values against a
 key. See the
-[documentation](http://docs.basho.com/riak/2.0.0/dev/using/data-types/#Sets)
+[documentation]({{< baseurl >}}riak/kv/2.0.0/developing/data-types/sets/)
 for more details on usage and semantics.
 
 #### Maps
@@ -91,7 +91,7 @@ as a container for composing ad hoc data structures from multiple Data
 Types. Inside a map you may store sets, counters, flags (similar to
 booleans), registers (which store binaries according to a
 last-write-wins logic), and even other maps. Please see the
-[documentation](http://docs.basho.com/riak/2.0.0/dev/using/data-types/#Maps)
+[documentation]({{< baseurl >}}riak/kv/2.0.0/developing/data-types/maps/)
 for usage and semantics.
 
 #### API
@@ -120,7 +120,7 @@ The basic rule is "you cannot remove something you haven't seen", and
 the context tells Riak what you've actually seen. All of the official
 Basho clients, with the exception of the Java client, handle opaque
 contexts for you. Please see the
-[documentation](http://docs.basho.com/riak/2.0.0/dev/using/data-types/#Data-Types-and-Context)
+[documentation]({{< baseurl >}}riak/kv/2.0.0/dev/using/data-types/#Data-Types-and-Context)
 for more details.
 
 Please see **Known Issues** below for two known issues with Riak maps.
@@ -144,7 +144,7 @@ siblings will only grow to the number of **truly concurrent** writes,
 not in relation to the number of times the object has been written,
 merged, or replicated to other clusters. More information can be found
 in our [Dotted Version
-Vectors](http://docs.basho.com/riak/2.0.0/theory/concepts/dotted-version-vectors/)
+Vectors]({{< baseurl >}}riak/kv/2.0.0/theory/concepts/dotted-version-vectors/)
 document.
 
 ### riak_control
@@ -161,24 +161,24 @@ while it was being developed. Please read there for the most relevant
 information about Riak 2.0's new search. Additional official
 documentation can be found in the following three docs:
 
-* [Using Search](http://docs.basho.com/riak/2.0.0/dev/using/search/)
-* [Search Details](http://docs.basho.com/riak/2.0.0/dev/advanced/search/)
-* [Search Schema](http://docs.basho.com/riak/2.0.0/dev/advanced/search-schema/)
+* [Using Search]({{< baseurl >}}riak/kv/2.0.0/dev/using/search/)
+* [Search Details]({{< baseurl >}}riak/kv/2.0.0/dev/advanced/search/)
+* [Search Schema]({{< baseurl >}}riak/kv/2.0.0/dev/advanced/search-schema/)
 
 ### Strong Consistency
 
 Riak's new strong consistency feature is currently an open source only feature and is not yet commercially supported. Official documentation on this feature can be found in the following docs:
 
-* [Using Strong Consistency](http://docs.basho.com/riak/2.0.0/dev/advanced/strong-consistency/)
-* [Managing Strong Consistency](http://docs.basho.com/riak/2.0.0/ops/advanced/strong-consistency)
-* [Strong Consistency](http://docs.basho.com/riak/2.0.0/theory/concepts/strong-consistency/)
+* [Using Strong Consistency]({{< baseurl >}}riak/kv/2.0.0/dev/advanced/strong-consistency/)
+* [Managing Strong Consistency]({{< baseurl >}}riak/kv/2.0.0/ops/advanced/strong-consistency)
+* [Strong Consistency]({{< baseurl >}}riak/kv/2.0.0/theory/concepts/strong-consistency/)
 
 For more in-depth technical material, see our internal documentation
 [here](https://github.com/basho/riak_ensemble/blob/wip/riak-2.0-user-docs/riak_consistent_user_docs.md)
 and [here](https://github.com/basho/riak_ensemble/blob/wip/riak-2.0-user-docs/riak_consistent_user_docs.md).
 
 We also strongly advise you to see the list of [known
-issues](http://docs.basho.com/riak/2.0.0/ops/advanced/strong-consistency/#Known-Issues).
+issues]({{< baseurl >}}riak/kv/2.0.0/ops/advanced/strong-consistency/#Known-Issues).
 
 ### Security
 
@@ -190,7 +190,7 @@ although Riak still should not be exposed directly to any unsecured
 network.
 
 Basho's documentation website includes [extensive coverage of the new
-feature](http://docs.basho.com/riak/2.0.0/ops/running/authz/). Several
+feature]({{< baseurl >}}riak/kv/2.0.0/ops/running/authz/). Several
 important caveats when enabling security:
 
 * There is no support yet for auditing. This is on the roadmap for a
@@ -199,7 +199,7 @@ important caveats when enabling security:
   walking and Riak's original full-text search tool.
 * There are restrictions on Erlang modules exposed to MapReduce jobs
   when security is enabled. Those are documented
-  [here](http://docs.basho.com/riak/2.0.0/ops/running/authz/#Security-Checklist).
+  [here]({{< baseurl >}}riak/kv/2.0.0/ops/running/authz/#Security-Checklist).
 * Enabling security requires that applications be designed to transition
   gracefully based on the server response **or** applications will
   need to be halted before security is enabled and brought back online
@@ -241,7 +241,7 @@ going forward.
 ## Client libraries
 
 Most [Basho-supported client
-libraries](http://docs.basho.com/riak/latest/dev/using/libraries/) have
+libraries]({{< baseurl >}}riak/kv/latest/dev/using/libraries/) have
 been updated for 2.0:
 
 * [Java](https://github.com/basho/riak-java-client)
@@ -300,19 +300,19 @@ future version. **We do not recommend using these features in version
 few features that have already been removed in Riak 2.0. A listing can
 be found in the **Termination Notices** section below.
 
-* [Link Walking](http://docs.basho.com/riak/latest/dev/using/link-walking/)
+* [Link Walking]({{< baseurl >}}riak/kv/latest/dev/using/link-walking/)
   is deprecated and will not work if security is enabled.
-* [Key Filters](http://docs.basho.com/riak/latest/dev/using/keyfilters/)
+* [Key Filters]({{< baseurl >}}riak/kv/latest/dev/using/keyfilters/)
   are deprecated; we strongly discourage key listing in production due
   to the overhead involved, so it's better to maintain key indexes as
   values in Riak (see also our new
-  [set data type](http://docs.basho.com/riak/2.0.0/dev/using/data-types/#Sets)
+  [set data type]({{< baseurl >}}riak/kv/2.0.0/developing/data-types/sets/)
   as a useful tool for such indexes).
 * JavaScript MapReduce is deprecated; we have expanded our
-  [Erlang MapReduce](http://docs.basho.com/riak/2.0.0/dev/advanced/mapreduce/)
+  [Erlang MapReduce]({{< baseurl >}}riak/kv/2.0.0/dev/advanced/mapreduce/)
   documentation to assist with the transition.
 * Riak Search 1.0 is being phased out in favor of the new Solr-based
-  [Riak Search 2.0](http://docs.basho.com/riak/2.0.0/dev/advanced/search/).
+  [Riak Search 2.0]({{< baseurl >}}riak/kv/2.0.0/dev/advanced/search/).
   Version 1.0 will not work if security is enabled.
 * v2 replication (a component of Riak Enterprise) has been superseded
   by v3 and will be removed in the future.
@@ -327,21 +327,20 @@ be found in the **Termination Notices** section below.
   `riak:local_client/1`); this API may change at any time, so we
   strongly recommend using our [Erlang client
   library](http://github.com/basho/riak-erlang-client/) (or [one of the
-  other libraries](http://docs.basho.com/riak/latest/dev/using/libraries/)
+  other libraries]({{< baseurl >}}riak/kv/latest/dev/using/libraries/)
   we support) instead.
 
 ## Termination Notices
 
 * `riak-admin backup` has been disabled; see
-  [our documentation](http://docs.basho.com/riak/2.0.0/ops/running/backups/)
+  [our documentation]({{< baseurl >}}riak/kv/2.0.0/ops/running/backups/)
   for a detailed look at running backup and restore operations.
-* [Client ID-based vector clocks](http://docs.basho.com/riak/1.4.10/ops/advanced/configs/configuration-files/#-code-riak_kv-code-Settings)
-  have been removed; they were previously turned off by default in
-  favor of node-based vector clocks via the `vnode_vclocks`
-  configuration flag.
+* Client ID-based vector clocks have been removed; they were previously 
+  turned off by default in favor of node-based vector clocks via 
+  the `vnode_vclocks` configuration flag.
 * LevelDB configuration values `cache_size` and `max_open_files` have
   been disabled in favor of `leveldb.maximum_memory.percent`. See
-  [Configuring eLevelDB](http://docs.basho.com/riak/2.0.0/ops/advanced/backends/leveldb/#Configuring-eLevelDB)
+  [Configuring eLevelDB]({{< baseurl >}}riak/kv/2.0.0/ops/advanced/backends/leveldb/#Configuring-eLevelDB)
   in our documentation.
 
 ## Known Issues
@@ -352,14 +351,14 @@ Riak wiki page](https://github.com/basho/riak/wiki/2.0-known-issues).
 ## Upgrade Notes
 
 A full guide to upgrading to 2.0 can be found [in the official
-docs](http://docs.basho.com/riak/2.0.0/upgrade-v20/). The information
+docs]({{< baseurl >}}riak/kv/2.0.0/upgrade-v20/). The information
 below is supplementary.
 
 ### Downgrading After Install
 
 **Important note**: 2.0 introduces major new features which are
 incompatible with Riak 1.x. Those features depend on [bucket
-types](http://docs.basho.com/riak/2.0.0/dev/advanced/bucket-types/);
+types]({{< baseurl >}}riak/kv/2.0.0/dev/advanced/bucket-types/);
 once *any* bucket type has been created and activated, downgrades are no
 longer possible.
 
@@ -377,7 +376,7 @@ directory, but we recommend converting your customizations into the
 `riak.conf` and `advanced.config` files to make configuration easier for
 you moving forward. More information can be found in our [configuration
 files
-documentation](http://docs.basho.com/riak/2.0.0/ops/advanced/configs/configuration-files/).
+documentation]({{< baseurl >}}riak/kv/2.0.0/ops/advanced/configs/configuration-files/).
 
 ## Bugfixes / Changes since 1.4.x
 

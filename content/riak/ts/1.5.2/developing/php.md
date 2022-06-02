@@ -11,8 +11,8 @@ project: "riak_ts"
 project_version: "1.5.2"
 toc: true
 aliases:
-    - /riakts/1.5.2/developing/php/
-canonical_link: "https://docs.basho.com/riak/ts/latest/developing/php"
+  - /riakts/1.5.2/developing/php/
+
 ---
 
 
@@ -26,7 +26,7 @@ Language | Source | Documentation |
 :--------|:-------|:--------------|
 PHP | [riak-php-client](https://github.com/basho/riak-php-client) | [apigen](http://basho.github.io/riak-php-client)
 
-TS support within the PHP client is implemented through the following command builders, all beginning Basho\Riak\Command\Builder\TimeSeries:
+TS support within the PHP client is implemented through the following command builders, all beginning Basho/Riak/Command/Builder/TimeSeries:
 
 * StoreRows
 * FetchRow
@@ -96,7 +96,7 @@ All command classes have a `Builder` class to create and build each command.
 
 Each command is created through a `Builder` class. This pattern ensures the commands are created as correctly as possible. To create the command from the builder, call the `.build()` method.
 
-To execute any command, you must have an instance of a `\Basho\Riak` object. You then pass the Riak object as a parameter into the constructor of the command builder.
+To execute any command, you must have an instance of a `/Basho/Riak` object. You then pass the Riak object as a parameter into the constructor of the command builder.
 
 
 
@@ -106,7 +106,7 @@ Deletes a single row by it's key values.
 
 ```php
 # delete a row
-$response = (new Command\Builder\TimeSeries\DeleteRow($riak))
+$response = (new Command/Builder/TimeSeries/DeleteRow($riak))
     ->atKey([
         (new Cell("region"))->setValue("South Atlantic"),
         (new Cell("state"))->setValue("South Carolina"),
@@ -128,8 +128,8 @@ if (!$response->isSuccess()) {
 Fetches a single row by it's key values.
 
 ```php
-/** @var Command\TimeSeries\Response $response */
-$response = (new Command\Builder\TimeSeries\FetchRow($riak))
+/** @var Command/TimeSeries/Response $response */
+$response = (new Command/Builder/TimeSeries/FetchRow($riak))
     ->atKey([
         (new Cell("region"))->setValue("South Atlantic"),
         (new Cell("state"))->setValue("South Carolina"),
@@ -147,20 +147,20 @@ if (!$response->isSuccess()) {
 # output row data
 foreach ($response->getRow() as $index => $column) {
     switch ($column->getType()) {
-        case Riak\TimeSeries\Cell::INT_TYPE:
-            printf("Column %d: %s is an integer equal to %d\n", $index, $column->getName(), $column->getValue());
+        case Riak/TimeSeries/Cell::INT_TYPE:
+            printf("Column %d: %s is an integer equal to %d/n", $index, $column->getName(), $column->getValue());
             break;
-        case Riak\TimeSeries\Cell::DOUBLE_TYPE:
-            printf("Column %d: %s is a double equal to %d\n", $index, $column->getName(), $column->getValue());
+        case Riak/TimeSeries/Cell::DOUBLE_TYPE:
+            printf("Column %d: %s is a double equal to %d/n", $index, $column->getName(), $column->getValue());
             break;
-        case Riak\TimeSeries\Cell::BOOL_TYPE:
-            printf("Column %d: %s is a boolean equal to %s\n", $index, $column->getName(), $column->getValue());
+        case Riak/TimeSeries/Cell::BOOL_TYPE:
+            printf("Column %d: %s is a boolean equal to %s/n", $index, $column->getName(), $column->getValue());
             break;
-        case Riak\TimeSeries\Cell::TIMESTAMP_TYPE:
-            printf("Column %d: %s is a timestamp equal to %d\n", $index, $column->getName(), $column->getValue());
+        case Riak/TimeSeries/Cell::TIMESTAMP_TYPE:
+            printf("Column %d: %s is a timestamp equal to %d/n", $index, $column->getName(), $column->getValue());
             break;
         default:
-            printf("Column %d: %s is a string equal to %s\n", $index, $column->getName(), $column->getValue());
+            printf("Column %d: %s is a string equal to %s/n", $index, $column->getName(), $column->getValue());
             break;
     }
 }
@@ -172,7 +172,7 @@ foreach ($response->getRow() as $index => $column) {
 Allows you to query a Riak TS table with the given query string.
 
 ```php
-$response = (new Command\Builder\TimeSeries\Query($riak))
+$response = (new Command/Builder/TimeSeries/Query($riak))
     ->withQuery("select * from GeoCheckins where region = 'South Atlantic' and state = 'South Carolina' and (time > 1420113500 and time < 1420116000)")
     ->build()
     ->execute();
@@ -181,20 +181,20 @@ $response = (new Command\Builder\TimeSeries\Query($riak))
 foreach ($response->getResults() as $row_index => $row) {
     foreach ($row as $column_index => $column) {
         switch ($column->getType()) {
-            case Riak\TimeSeries\Cell::INT_TYPE:
-                printf("Column %d: %s is an integer equal to %d\n", $index, $column->getName(), $column->getValue());
+            case Riak/TimeSeries/Cell::INT_TYPE:
+                printf("Column %d: %s is an integer equal to %d/n", $index, $column->getName(), $column->getValue());
                 break;
-            case Riak\TimeSeries\Cell::DOUBLE_TYPE:
-                printf("Column %d: %s is a double equal to %d\n", $index, $column->getName(), $column->getValue());
+            case Riak/TimeSeries/Cell::DOUBLE_TYPE:
+                printf("Column %d: %s is a double equal to %d/n", $index, $column->getName(), $column->getValue());
                 break;
-            case Riak\TimeSeries\Cell::BOOL_TYPE:
-                printf("Column %d: %s is a boolean equal to %s\n", $index, $column->getName(), $column->getValue());
+            case Riak/TimeSeries/Cell::BOOL_TYPE:
+                printf("Column %d: %s is a boolean equal to %s/n", $index, $column->getName(), $column->getValue());
                 break;
-            case Riak\TimeSeries\Cell::TIMESTAMP_TYPE:
-                printf("Column %d: %s is a timestamp equal to %d\n", $index, $column->getName(), $column->getValue());
+            case Riak/TimeSeries/Cell::TIMESTAMP_TYPE:
+                printf("Column %d: %s is a timestamp equal to %d/n", $index, $column->getName(), $column->getValue());
                 break;
             default:
-                printf("Column %d: %s is a string equal to %s\n", $index, $column->getName(), $column->getValue());
+                printf("Column %d: %s is a string equal to %s/n", $index, $column->getName(), $column->getValue());
                 break;
         }
     }
@@ -208,7 +208,7 @@ Stores data in the Riak TS table.
 
 ```php
 # store a row
-$response = (new Command\Builder\TimeSeries\StoreRows($riak))
+$response = (new Command/Builder/TimeSeries/StoreRows($riak))
     ->inTable('GeoCheckins')
     ->withRow([
         (new Cell("region"))->setValue("South Atlantic"),
@@ -227,7 +227,7 @@ if (!$response->isSuccess()) {
 
 
 # store rows
-$response = (new Command\Builder\TimeSeries\StoreRows($riak))
+$response = (new Command/Builder/TimeSeries/StoreRows($riak))
     ->inTable('GeoCheckins')
     ->withRows([
         [

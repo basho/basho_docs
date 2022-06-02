@@ -21,7 +21,7 @@ aliases:
 [nodejs_wiki]: https://github.com/basho/riak-nodejs-client/wiki
 
 
-If you haven't set up a Riak Node and started it, please visit [Running A Cluster](/riak/kv/2.1.1/using/running-a-cluster) first.
+If you haven't set up a Riak Node and started it, please visit [Running A Cluster]({{<baseurl>}}riak/kv/2.1.1/using/running-a-cluster) first.
 
 To try this flavor of Riak, a working installation of Node.js 0.12 or later is
 required.
@@ -97,4 +97,4 @@ We are now ready to start interacting with Riak.
 
 ## Next Steps
 
-[CRUD Operations](/riak/kv/2.1.1/developing/getting-started/nodejs/crud-operations)
+[CRUD Operations]({{<baseurl>}}riak/kv/2.1.1/developing/getting-started/nodejs/crud-operations)

@@ -18,9 +18,9 @@ aliases:
     - /riakts/1.1.0/installing/debian-ubuntu/
 ---
 
-[concept aae]: /riak/kv/2.1.3/learn/concepts/active-anti-entropy
+[concept aae]: {{<baseurl>}}riak/kv/2.1.3/learn/concepts/active-anti-entropy
 [planning]: ../../using/planning
-[security basics]: /riak/kv/2.1.3/using/security/basics
+[security basics]: {{<baseurl>}}riak/kv/2.1.3/using/security/basics
 
 
 Riak TS can be installed on Debian or Ubuntu-based systems using a binary

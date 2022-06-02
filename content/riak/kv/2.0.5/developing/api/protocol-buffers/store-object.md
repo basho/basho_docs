@@ -16,11 +16,11 @@ aliases:
 ---
 
 Stores an object under the specified location, as determined by the
-intended [key](/riak/kv/2.0.5/learn/concepts/keys-and-objects), [bucket](/riak/kv/2.0.5/learn/concepts/buckets), and [bucket type](/riak/kv/2.0.5/developing/usage/bucket-types). A bucket must always be specified (via
+intended [key]({{<baseurl>}}riak/kv/2.0.5/learn/concepts/keys-and-objects), [bucket]({{<baseurl>}}riak/kv/2.0.5/learn/concepts/buckets), and [bucket type]({{<baseurl>}}riak/kv/2.0.5/developing/usage/bucket-types). A bucket must always be specified (via
 `bucket`), whereas key (`key`) and bucket type (`type`) are optional. If
 no key is specified, Riak will assign a random key to the object. If no
-[bucket type](/riak/kv/2.0.5/developing/usage/bucket-types) is assigned, Riak will assign
-`default`, which means that the [default bucket configuration](/riak/kv/2.0.5/configuring/reference/#default-bucket-properties) will be used.
+[bucket type]({{<baseurl>}}riak/kv/2.0.5/developing/usage/bucket-types) is assigned, Riak will assign
+`default`, which means that the [default bucket configuration]({{<baseurl>}}riak/kv/2.0.5/configuring/reference/#default-bucket-properties) will be used.
 
 #### Request
 
@@ -50,7 +50,7 @@ message RpbPutReq {
 Parameter | Description
 :---------|:-----------
 `bucket` | The name of the bucket, in bytes, in which the key/value is to reside
-`content` | The new or updated contented of the object. Uses the same `RpbContent` message returned as part of an `RpbGetResp` message, documented in [PBC Fetch Object](/riak/kv/2.0.5/developing/api/protocol-buffers/fetch-object)
+`content` | The new or updated contented of the object. Uses the same `RpbContent` message returned as part of an `RpbGetResp` message, documented in [PBC Fetch Object]({{<baseurl>}}riak/kv/2.0.5/developing/api/protocol-buffers/fetch-object)
 
 #### Optional Parameters
 
@@ -93,7 +93,7 @@ message RpbPutResp {
 
 If `return_body` is set to `true` on the PUT request, the `RpbPutResp`
 will contain the current object after the PUT completes, in `contents`,
-as well as the object's [causal context](/riak/kv/2.0.5/learn/concepts/causal-context), in the `vclock`
+as well as the object's [causal context]({{<baseurl>}}riak/kv/2.0.5/learn/concepts/causal-context), in the `vclock`
 field. The `key` will be sent only if the server generated a random key
 for the object.
 

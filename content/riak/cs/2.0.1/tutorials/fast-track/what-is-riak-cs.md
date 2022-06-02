@@ -35,11 +35,11 @@ automatically take over the responsibility of failed or
 non-communicative nodes, data remains available even in the event of
 node failure or network partition.
 
-When an object is uploaded via the [storage API](/riak/cs/2.0.1/references/apis/storage), Riak CS breaks the object into smaller chunks that are streamed,
+When an object is uploaded via the [storage API]({{<baseurl>}}riak/cs/2.0.1/references/apis/storage), Riak CS breaks the object into smaller chunks that are streamed,
 written, and replicated in Riak. Each chunk is associated with metadata
 for later retrieval. The diagram below provides a visualization.
 
-![Riak CS Chunking](/images/Riak-CS-Overview.png)
+![Riak CS Chunking]({{<baseurl>}}images/Riak-CS-Overview.png)
 
 ## Riak CS Enterprise
 

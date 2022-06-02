@@ -68,7 +68,7 @@ riak-admin handoff disable both --all
 ## Other Command-line Tools
 
 In addition to enabling and disabling handoff, the
-[`riak-admin`](/riak/kv/2.1.4/using/admin/riak-admin/) interface enables you to
+[`riak-admin`]({{<baseurl>}}riak/kv/2.1.4/using/admin/riak-admin/) interface enables you to
 retrieve a summary of handoff-related activity and other information.
 
 ### summary
@@ -89,7 +89,7 @@ Header | Description
 `Total` | Total number of active transfers throughout the entire cluster
 `Ownership` | Total number of ownership exchanges
 `Resize` | Total handoffs related to ring resizing operations (This should always be 0, as the Resize Ring feature has been deprecated)
-`Hinted` | Total number of <a href="http://docs.basho.com/riak/kv/2.1.4/using/reference/handoff/#types-of-handoff">hinted handoffs</a>
+`Hinted` | Total number of <a href="{{< baseurl >}}riak/kv/2.1.4/using/reference/handoff/#types-of-handoff">hinted handoffs</a>
 `Repair` | Total repair-related handoffs. More information can be found [here](https://github.com/basho/riak_core/commit/036e409eb83903315dd43a37c7a93c9256863807).
 
 ### details
@@ -105,7 +105,7 @@ ongoing transfers`. Otherwise, you will something like this:
 
 ### config
 
-This command displays the values for handoff-specific [configurable parameters](/riak/kv/2.1.4/configuring/reference/#intra-cluster-handoff) on each node in
+This command displays the values for handoff-specific [configurable parameters]({{<baseurl>}}riak/kv/2.1.4/configuring/reference/#intra-cluster-handoff) on each node in
 the cluster, including:
 
 * `transfer_limit`

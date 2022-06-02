@@ -26,7 +26,7 @@ message RpbGetBucketReq {
 }
 ```
 
-The bucket's name (`bucket`) must be specified. The [bucket type](/riak/kv/2.2.1/using/cluster-operations/bucket-types) parameter (`type`) is optional. If it is not specified,
+The bucket's name (`bucket`) must be specified. The [bucket type]({{<baseurl>}}riak/kv/2.2.1/using/cluster-operations/bucket-types) parameter (`type`) is optional. If it is not specified,
 the `default` bucket type will be used.
 
 ## Response
@@ -85,7 +85,7 @@ message RpbBucketProps {
 Each `RpbBucketProps` message returns all of the properties associated
 with a particular bucket. Default values for bucket properties, as well
 as descriptions of all of the above properties, can be found in the
-[configuration file](/riak/kv/2.2.1/configuring/reference/#default-bucket-properties) documentation.
+[configuration file]({{<baseurl>}}riak/kv/2.2.1/configuring/reference/#default-bucket-properties) documentation.
 
 It should be noted that the value of an `RpbBucketProps` message may
 include other message types, such as `RpbModFun` (specifying
@@ -106,5 +106,5 @@ message RpbCommitHook {
 ```
 
 {{% note title="Note on `RpbReplMode`" %}}
-The `RpbReplMode` is of use only to users of Riak CS's [Multi-Datacenter Replication capabilities](http://docs.basho.com/riak/cs/2.1.1/cookbooks/multi-datacenter-overview/)
+The `RpbReplMode` is of use only to users of Riak CS's [Multi-Datacenter Replication capabilities]({{< baseurl >}}riak/cs/2.1.1/cookbooks/multi-datacenter-overview/)
 {{% /note %}}

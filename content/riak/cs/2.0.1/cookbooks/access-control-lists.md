@@ -82,9 +82,9 @@ Riak CS permissions are split into two types: **bucket permissions** and
 
 ## Buckets
 
-Bucket names **must** be [globally unique](/riak/cs/2.0.1/theory/stanchion/#globally-unique-entities). To avoid conflicts, all
+Bucket names **must** be [globally unique]({{<baseurl>}}riak/cs/2.0.1/theory/stanchion/#globally-unique-entities). To avoid conflicts, all
 bucket creation requests are made to an application called
-[Stanchion](/riak/cs/2.0.1/cookbooks/configuration/stanchion). This means that all requests for modification of a bucket ACL should be serialized through Stanchion. While this may cause undesirable serialization of these requests, we
+[Stanchion]({{<baseurl>}}riak/cs/2.0.1/cookbooks/configuration/stanchion). This means that all requests for modification of a bucket ACL should be serialized through Stanchion. While this may cause undesirable serialization of these requests, we
 believe it is appropriate based on the following statement from this
 [documentation on bucket restrictions](http://docs.amazonwebservices.com/AmazonS3/latest/dev/BucketRestrictions.html) from Amazon regarding restrictions on bucket operations:
 
@@ -105,4 +105,4 @@ created granting the creator both ownership and full access control and
 denying access to all other parties.
 
 For information on specifying an ACL when making a `PUT` request, see
-[Riak CS PUT Object ACL](/riak/cs/2.0.1/references/apis/storage/s3/put-object-acl).
+[Riak CS PUT Object ACL]({{<baseurl>}}riak/cs/2.0.1/references/apis/storage/s3/put-object-acl).

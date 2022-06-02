@@ -18,18 +18,18 @@ aliases:
   - /riak/kv/2.0.5/installing/
 ---
 
-[install aws]: /riak/kv/2.0.5/setup/installing/amazon-web-services
-[install debian & ubuntu]: /riak/kv/2.0.5/setup/installing/debian-ubuntu
-[install freebsd]: /riak/kv/2.0.5/setup/installing/freebsd
-[install mac osx]: /riak/kv/2.0.5/setup/installing/mac-osx
-[install rhel & centos]: /riak/kv/2.0.5/setup/installing/rhel-centos
-[install smartos]: /riak/kv/2.0.5/setup/installing/smartos
-[install solaris]: /riak/kv/2.0.5/setup/installing/solaris
-[install suse]: /riak/kv/2.0.5/setup/installing/suse
-[install windows azure]: /riak/kv/2.0.5/setup/installing/windows-azure
-[install source index]: /riak/kv/2.0.5/setup/installing/source
-[community projects]: /community/projects
-[upgrade index]: /riak/kv/2.0.5/setup/upgrading
+[install aws]: {{<baseurl>}}riak/kv/2.0.5/setup/installing/amazon-web-services
+[install debian & ubuntu]: {{<baseurl>}}riak/kv/2.0.5/setup/installing/debian-ubuntu
+[install freebsd]: {{<baseurl>}}riak/kv/2.0.5/setup/installing/freebsd
+[install mac osx]: {{<baseurl>}}riak/kv/2.0.5/setup/installing/mac-osx
+[install rhel & centos]: {{<baseurl>}}riak/kv/2.0.5/setup/installing/rhel-centos
+[install smartos]: {{<baseurl>}}riak/kv/2.0.5/setup/installing/smartos
+[install solaris]: {{<baseurl>}}riak/kv/2.0.5/setup/installing/solaris
+[install suse]: {{<baseurl>}}riak/kv/2.0.5/setup/installing/suse
+[install windows azure]: {{<baseurl>}}riak/kv/2.0.5/setup/installing/windows-azure
+[install source index]: {{<baseurl>}}riak/kv/2.0.5/setup/installing/source
+[community projects]: {{<baseurl>}}community/projects
+[upgrade index]: {{<baseurl>}}riak/kv/2.0.5/setup/upgrading
 
 ## Supported Platforms
 

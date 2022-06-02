@@ -16,7 +16,7 @@ aliases:
   - /riak/2.1.4/ops/mdc/v3/ssl
 ---
 
-[config reference#advanced.config]: /riak/kv/2.1.4/configuring/reference/#the-advanced-config-file
+[config reference#advanced.config]: {{<baseurl>}}riak/kv/2.1.4/configuring/reference/#the-advanced-config-file
 
 ## Features
 

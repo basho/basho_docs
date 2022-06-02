@@ -16,7 +16,7 @@ aliases:
   - /riak/2.1.4/ops/mdc/v2/nat
 ---
 
-[config v2 ssl]: /riak/kv/2.1.4/configuring/v2-multi-datacenter/ssl
+[config v2 ssl]: {{<baseurl>}}riak/kv/2.1.4/configuring/v2-multi-datacenter/ssl
 
 Riak Enterprise supports replication of data on networks that use static
 NAT. This capability can be used for replicating data over the internet

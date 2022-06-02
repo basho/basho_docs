@@ -9,9 +9,9 @@ aliases:
 
 The following pages detail Riak CS's system features.
 
-* [Access Control Lists](/riak/cs/2.1.0/cookbooks/access-control-lists)
-* [Authentication](/riak/cs/2.1.0/cookbooks/authentication)
-* [Monitoring and Metrics](/riak/cs/2.1.0/cookbooks/monitoring-and-metrics)
-* [Querying Access Statistics](/riak/cs/2.1.0/cookbooks/querying-access-statistics)
-* [Querying Storage Statistics](/riak/cs/2.1.0/cookbooks/querying-storage-statistics)
-* [Usage and Billing Data](/riak/cs/2.1.0/cookbooks/usage-and-billing-data)
+* [Access Control Lists]({{<baseurl>}}riak/cs/2.1.0/cookbooks/access-control-lists)
+* [Authentication]({{<baseurl>}}riak/cs/2.1.0/cookbooks/authentication)
+* [Monitoring and Metrics]({{<baseurl>}}riak/cs/2.1.0/cookbooks/monitoring-and-metrics)
+* [Querying Access Statistics]({{<baseurl>}}riak/cs/2.1.0/cookbooks/querying-access-statistics)
+* [Querying Storage Statistics]({{<baseurl>}}riak/cs/2.1.0/cookbooks/querying-storage-statistics)
+* [Usage and Billing Data]({{<baseurl>}}riak/cs/2.1.0/cookbooks/usage-and-billing-data)

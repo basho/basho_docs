@@ -12,8 +12,8 @@ project: "riak_ts"
 project_version: "1.5.2"
 toc: true
 aliases:
-    - /riakts/1.5.2/using/security/
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/security/"
+  - /riakts/1.5.2/using/security/
+
 ---
 
 [security checklist]: ./checklist
@@ -90,7 +90,7 @@ cluster on the following TCP ports:
 
 Protocol | Port
 :--------|:----
-<a href="http://docs.basho.com/riak/kv/2.2.0/developing/api/protocol-buffers/">Protocol Buffers</a> | TCP port 8087
+<a href="{{< baseurl >}}riak/kv/2.2.0/developing/api/protocol-buffers/">Protocol Buffers</a> | TCP port 8087
 
 ## Best Practices
 

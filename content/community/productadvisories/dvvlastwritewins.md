@@ -75,7 +75,7 @@ If you see any output of the form: `!! Fixing <<"foo">>: - resetting dvv_enabled
 
 When AAE is enabled, the next AAE run will repair any keys with the issue. Also, once the bucket properties are fixed, issuing a GET (for example, your application reading the key) will result in both a successful read and will repair that particular object.
 
-If AAE is disabled in your cluster, infrequently accessed data affected by this issue will be in a damaged state until the next request. More information about AAE, and the risks associated with disabling it, is available at [https://docs.basho.com/riak/2.1.1/learn/concepts/active-anti-entropy/](/riak/kv/2.1.1/learn/concepts/active-anti-entropy/).
+If AAE is disabled in your cluster, infrequently accessed data affected by this issue will be in a damaged state until the next request. More information about AAE, and the risks associated with disabling it, is available at [{{< baseurl >}}riak/kv/2.1.1/learn/concepts/active-anti-entropy/]({{< baseurl >}}riak/kv/2.1.1/learn/concepts/active-anti-entropy/).
 
 In a future release we will ensure that dotted version vectors and `last_write_wins` cannot be enabled simultaneously.
 

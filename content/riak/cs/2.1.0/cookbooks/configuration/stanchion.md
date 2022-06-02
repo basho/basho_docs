@@ -86,7 +86,7 @@ ssl.keyfile = "./etc/key.pem"
 
 ## Specifying the Admin User
 
-The admin user is created during the [configuration of Riak CS](/riak/cs/2.1.0/cookbooks/configuration/riak-cs/#specifying-the-admin-user). 
+The admin user is created during the [configuration of Riak CS]({{<baseurl>}}riak/cs/2.1.0/cookbooks/configuration/riak-cs/#specifying-the-admin-user). 
 The same user credentials must be added to each Stanchion used in the cluster. 
 This is set in the `stanchion.conf` file, which is located in the 
 `/etc/stanchion` directory. Enter the same `admin.key` and `admin.secret` as 

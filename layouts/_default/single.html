@@ -50,10 +50,10 @@
 
 {{ $HugoNode := . }}
 
-{{ $project    := $HugoNode.Scratch.Get "project"    }}
-{{ $version    := $HugoNode.Scratch.Get "version"    }}
-{{ $is_latest  := $HugoNode.Scratch.Get "is_latest"  }}
-{{ $is_lts     := $HugoNode.Scratch.Get "is_lts"     }}
+{{ $project      := $HugoNode.Scratch.Get "project"       }}
+{{ $version      := $HugoNode.Scratch.Get "version"       }}
+{{ $is_latest    := $HugoNode.Scratch.Get "is_latest"     }}
+{{ $is_lts       := $HugoNode.Scratch.Get "is_lts"        }}
 
 {{ $menu_title := (printf "%s-%s" $project $version) }} {{/* ex; "riak_kv-2.1.4" */}}
 -->
@@ -103,7 +103,7 @@
   </div>
 
 
-  <script src="/js/main.js" type="text/javascript"></script>
+  <script src="{{ .Site.BaseURL }}js/main.js" type="text/javascript"></script>
 
 </body>
 </html>

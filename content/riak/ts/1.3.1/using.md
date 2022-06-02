@@ -19,7 +19,7 @@ aliases:
 [aggregate]: aggregate-functions/
 [arithmetic]: arithmetic-operations/
 [configuring]: configuring/
-[download]: /riak/ts/1.3.1/downloads/
+[download]: {{<baseurl>}}riak/ts/1.3.1/downloads/
 [installing]: ../installing/
 [mdc]: mdc/
 [planning]: planning/

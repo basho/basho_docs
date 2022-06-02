@@ -12,9 +12,9 @@ menu:
 toc: true
 ---
 
-[use admin riak cli]: /riak/kv/2.2.0/using/admin/riak-cli
-[use admin riak cli#chkconfig]: /riak/kv/2.2.0/using/admin/riak-cli/#chkconfig
-[config reference#search]: /riak/kv/2.2.0/configuring/reference/#search
+[use admin riak cli]: {{<baseurl>}}riak/kv/2.2.0/using/admin/riak-cli
+[use admin riak cli#chkconfig]: {{<baseurl>}}riak/kv/2.2.0/using/admin/riak-cli/#chkconfig
+[config reference#search]: {{<baseurl>}}riak/kv/2.2.0/configuring/reference/#search
 
 ## Retrieving a Configuration Listing
 

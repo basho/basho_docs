@@ -12,12 +12,11 @@ project_version: "1.4.0"
 toc: true
 aliases:
     - /riakts/1.4.0/using/riakshell/
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/riakshell"
 ---
 
-[nodename]: /riak/kv/2.1.4/using/cluster-operations/changing-cluster-info/
-[creating]: /riak/ts/1.4.0/using/creating-activating
-[writing]: /riak/ts/1.4.0/using/writingdata
+[nodename]: {{<baseurl>}}riak/kv/2.1.4/using/cluster-operations/changing-cluster-info/
+[creating]: {{<baseurl>}}riak/ts/1.4.0/using/creating-activating
+[writing]: {{<baseurl>}}riak/ts/1.4.0/using/writingdata
 [riak shell README]: https://github.com/basho/riak_shell/blob/develop/README.md
 
 

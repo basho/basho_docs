@@ -18,9 +18,9 @@ aliases:
   - /riak/kv/2.1.4/installing/mac-osx/
 ---
 
-[perf open files]: /riak/kv/2.1.4/using/performance/open-files-limit
-[install source erlang]: /riak/kv/2.1.4/setup/installing/source/erlang
-[install verify]: /riak/kv/2.1.4/setup/installing/verify
+[perf open files]: {{<baseurl>}}riak/kv/2.1.4/using/performance/open-files-limit
+[install source erlang]: {{<baseurl>}}riak/kv/2.1.4/setup/installing/source/erlang
+[install verify]: {{<baseurl>}}riak/kv/2.1.4/setup/installing/verify
 
 The following steps are known to work with Mac OS X 10.8, 10.9
 (Mavericks), and Yosemite. You can install from source or download a

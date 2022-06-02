@@ -27,7 +27,7 @@ Authorization: signatureValue
 
 ### Request Headers
 
-This implementation of the operation uses only response headers that are common to most responses. For more information, see [Common Riak CS Response Headers](/riak/cs/2.0.0/references/apis/storage/s3/common-response-headers).
+This implementation of the operation uses only response headers that are common to most responses. For more information, see [Common Riak CS Response Headers]({{<baseurl>}}riak/cs/2.0.0/references/apis/storage/s3/common-response-headers).
 
 ### Request Elements
 
@@ -37,7 +37,7 @@ This operation does not use request elements.
 
 ### Response Headers
 
-This implementation of the operation uses only response headers that are common to most responses. For more information, see [Common Riak CS Response Headers](/riak/cs/2.0.0/references/apis/storage/s3/common-response-headers).
+This implementation of the operation uses only response headers that are common to most responses. For more information, see [Common Riak CS Response Headers]({{<baseurl>}}riak/cs/2.0.0/references/apis/storage/s3/common-response-headers).
 
 ### Response Elements
 

@@ -17,7 +17,7 @@ aliases:
 
 [addon redis develop]: ../developing-rra/
 [addon redis setup]: ../set-up-rra/
-[dev api http]: /riak/kv/2.0.7/developing/api/http/
+[dev api http]: {{<baseurl>}}riak/kv/2.0.7/developing/api/http/
 [ee]: http://basho.com/contact/
 
 

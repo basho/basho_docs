@@ -14,7 +14,7 @@ aliases:
   - /riak/2.0.2/dev/references/http/fetch-search-schema
 ---
 
-Retrieves a Riak KV [search schema](/riak/kv/2.0.2/developing/usage/search-schemas).
+Retrieves a Riak KV [search schema]({{<baseurl>}}riak/kv/2.0.2/developing/usage/search-schemas).
 
 ## Request
 

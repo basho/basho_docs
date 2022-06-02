@@ -13,13 +13,12 @@ project_version: "1.4.0"
 toc: true
 aliases:
     - /riakts/1.4.0/using/querying/explain
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/explain"
 ---
 
-[creating-activating]: /riak/ts/1.4.0/using/creating-activating
-[develop]: /riak/ts/1.4.0/developing
-[planning]: /riak/ts/1.4.0/using/planning
-[riak shell]: /riak/ts/1.4.0/using/riakshell
+[creating-activating]: {{<baseurl>}}riak/ts/1.4.0/using/creating-activating
+[develop]: {{<baseurl>}}riak/ts/1.4.0/developing
+[planning]: {{<baseurl>}}riak/ts/1.4.0/using/planning
+[riak shell]: {{<baseurl>}}riak/ts/1.4.0/using/riakshell
 
 You can use the EXPLAIN statement to better understand how a query you would like to run will be executed. This document will show you how to use `EXPLAIN` in Riak TS.
 

@@ -12,11 +12,11 @@ menu:
 toc: true
 ---
 
-[glossary vnode]: /riak/kv/2.0.8/learn/glossary/#vnode
+[glossary vnode]: {{<baseurl>}}riak/kv/2.0.8/learn/glossary/#vnode
 
 You can think of reads in Riak as analogous to HTTP `GET` requests. You
 specify a bucket type, bucket, and key, and Riak either returns the
-object that's stored there---including its [siblings](/riak/kv/2.0.8/developing/usage/conflict-resolution/#siblings) \(more on that later)---or it returns `not found` (the
+object that's stored there---including its [siblings]({{<baseurl>}}riak/kv/2.0.8/developing/usage/conflict-resolution/#siblings) \(more on that later)---or it returns `not found` (the
 equivalent of an HTTP `404 Object Not Found`).
 
 Here is the basic command form for retrieving a specific key from a
@@ -27,7 +27,7 @@ GET /types/<type>/buckets/<bucket>/keys/<key>
 ```
 
 Here is an example of a read performed on the key `rufus` in the bucket
-`dogs`, which bears the bucket type `animals`. Please note that for this example to work, you must have first created the bucket-type `animals` as per the instructions on the [bucket type](/riak/kv/2.0.8/using/cluster-operations/bucket-types) page.
+`dogs`, which bears the bucket type `animals`. Please note that for this example to work, you must have first created the bucket-type `animals` as per the instructions on the [bucket type]({{<baseurl>}}riak/kv/2.0.8/using/cluster-operations/bucket-types) page.
 
 ```java
 // In the Java client, it is best to specify a bucket type/bucket/key

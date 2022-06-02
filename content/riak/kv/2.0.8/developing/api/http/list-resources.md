@@ -20,14 +20,14 @@ automatically recognize the location of the resources for specific operations.
 
 The standard resources are:
 
-* `riak_kv_wm_buckets` - [Bucket Operations](/riak/kv/2.0.8/developing/api/http/#bucket-operations)
-* `riak_kv_wm_index` - [HTTP Secondary Indexes](/riak/kv/2.0.8/developing/api/http/secondary-indexes)
-* `riak_kv_wm_link_walker` - [HTTP Link Walking](/riak/kv/2.0.8/developing/api/http/link-walking)
-* `riak_kv_wm_mapred` - [HTTP MapReduce](/riak/kv/2.0.8/developing/api/http/mapreduce)
-* `riak_kv_wm_object`- [Object/Key Operations](/riak/kv/2.0.8/developing/api/http/#object-key-operations)
-* `riak_kv_wm_ping` - [HTTP Ping](/riak/kv/2.0.8/developing/api/http/ping)
-* `riak_kv_wm_props` - [HTTP Set Bucket Properties](/riak/kv/2.0.8/developing/api/http/set-bucket-props)
-* `riak_kv_wm_stats` - [HTTP Status](/riak/kv/2.0.8/developing/api/http/status)
+* `riak_kv_wm_buckets` - [Bucket Operations]({{<baseurl>}}riak/kv/2.0.8/developing/api/http/#bucket-operations)
+* `riak_kv_wm_index` - [HTTP Secondary Indexes]({{<baseurl>}}riak/kv/2.0.8/developing/api/http/secondary-indexes)
+* `riak_kv_wm_link_walker` - [HTTP Link Walking]({{<baseurl>}}riak/kv/2.0.8/developing/api/http/link-walking)
+* `riak_kv_wm_mapred` - [HTTP MapReduce]({{<baseurl>}}riak/kv/2.0.8/developing/api/http/mapreduce)
+* `riak_kv_wm_object`- [Object/Key Operations]({{<baseurl>}}riak/kv/2.0.8/developing/api/http/#object-key-operations)
+* `riak_kv_wm_ping` - [HTTP Ping]({{<baseurl>}}riak/kv/2.0.8/developing/api/http/ping)
+* `riak_kv_wm_props` - [HTTP Set Bucket Properties]({{<baseurl>}}riak/kv/2.0.8/developing/api/http/set-bucket-props)
+* `riak_kv_wm_stats` - [HTTP Status]({{<baseurl>}}riak/kv/2.0.8/developing/api/http/status)
 
 ## Request
 

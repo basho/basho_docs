@@ -15,7 +15,7 @@ aliases:
   - /riak/kv/2.1.1/dev/references/protocol-buffers/delete-object
 ---
 
-Delete an object in the specified [bucket type](/riak/kv/2.1.1/using/cluster-operations/bucket-types)/bucket/key location.
+Delete an object in the specified [bucket type]({{<baseurl>}}riak/kv/2.1.1/using/cluster-operations/bucket-types)/bucket/key location.
 
 ## Request
 

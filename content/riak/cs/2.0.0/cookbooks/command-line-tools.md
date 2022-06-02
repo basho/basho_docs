@@ -206,7 +206,7 @@ More information about Erlang's etop tool can be found in the
 
 ## riak-cs-admin gc
 
-This command controls Riak CS's [garbage collection](/riak/cs/2.0.0/cookbooks/garbage-collection) system.
+This command controls Riak CS's [garbage collection]({{<baseurl>}}riak/cs/2.0.0/cookbooks/garbage-collection) system.
 
 ```bash
 riak-cs-admin gc <subcommand>
@@ -312,7 +312,7 @@ undergirding Riak CS.
 
 Temporarily changes the host and/or port used by Stanchion. This change
 is effective until the node is restarted, at which point Stanchion will
-begin listening on the host and port specified in your [configuration files](/riak/cs/2.0.0/cookbooks/configuration/reference).
+begin listening on the host and port specified in your [configuration files]({{<baseurl>}}riak/cs/2.0.0/cookbooks/configuration/reference).
 
 ```bash
 riak-cs-stanchion switch HOST PORT
@@ -521,7 +521,7 @@ documented [above](#riak-cs-admin-access).
 
 Riak CS version 1.5 offers support for supercluster operations. The
 `supercluster` command interface enables you to interact with that system.
-More information can be found in [Riak CS Supercluster Support](/riak/cs/2.0.0/cookbooks/supercluster).
+More information can be found in [Riak CS Supercluster Support]({{<baseurl>}}riak/cs/2.0.0/cookbooks/supercluster).
 
 {{% note title="Note: technical preview" %}}
 Riak CS supercluster support is available only as a technical preview for
@@ -635,7 +635,7 @@ Fetches all current weights from the master member.
 riak-cs-supercluster refresh
 ```
 
-When a member's weight is updated, that weight is stored in the [master member](/riak/cs/2.0.0/cookbooks/supercluster/#the-master-member) and cached in Riak CS. Riak CS fetches weights from the master member only periodically. The
+When a member's weight is updated, that weight is stored in the [master member]({{<baseurl>}}riak/cs/2.0.0/cookbooks/supercluster/#the-master-member) and cached in Riak CS. Riak CS fetches weights from the master member only periodically. The
 `refresh` command syncs the weights stored in the master member with the
 weights cached in Riak CS so that there is no discrepancy.
 

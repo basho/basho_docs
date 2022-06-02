@@ -11,8 +11,8 @@ project: "riak_ts"
 project_version: "1.5.2"
 toc: true
 aliases:
-    - /riakts/1.5.2/learn-about/learn-about/
-canonical_link: "https://docs.basho.com/riak/ts/latest/learn-about"
+  - /riakts/1.5.2/learn-about/learn-about/
+
 ---
 
 [table arch]: tablearchitecture/

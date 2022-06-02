@@ -16,9 +16,9 @@ aliases:
     - /riakts/1.3.1/using/riakshell/
 ---
 
-[nodename]: /riak/kv/2.1.4/using/cluster-operations/changing-cluster-info/
-[creating]: /riak/ts/1.3.1/using/creating-activating
-[writing]: /riak/ts/1.3.1/using/writingdata
+[nodename]: {{<baseurl>}}riak/kv/2.1.4/using/cluster-operations/changing-cluster-info/
+[creating]: {{<baseurl>}}riak/ts/1.3.1/using/creating-activating
+[writing]: {{<baseurl>}}riak/ts/1.3.1/using/writingdata
 
 
 You can use riak shell within Riak TS to run SQL and logging commands from one place.

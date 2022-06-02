@@ -11,19 +11,19 @@ project: "riak_ts"
 project_version: "1.5.2"
 toc: true
 aliases:
-    - /riakts/1.5.2/using/querying/select
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/select"
+  - /riakts/1.5.2/using/querying/select
+
 ---
 
 
 [aggregate functions]: aggregate-functions/
 [arithmetic operations]: arithmetic-operations/
 [GROUP BY]: group-by/
-[guidelines]: /riak/ts/1.5.2/using/querying/guidelines
+[guidelines]: {{<baseurl>}}riak/ts/1.5.2/using/querying/guidelines
 [iso8601]: ../../timerepresentations/
-[iso8601 accuracy]: /riak/ts/1.5.2/using/timerepresentations/#reduced-accuracy
+[iso8601 accuracy]: {{<baseurl>}}riak/ts/1.5.2/using/timerepresentations/#reduced-accuracy
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
-[learn timestamps accuracy]: /riak/ts/1.5.2/learn-about/timestamps/#reduced-accuracy
+[learn timestamps accuracy]: {{<baseurl>}}riak/ts/1.5.2/learn-about/timestamps/#reduced-accuracy
 
 You can use the SELECT statement in Riak TS to query your TS dataset. This document will show you how to run various queries using `SELECT`.
 
@@ -131,7 +131,7 @@ riakc_ts:query(Pid, "select weather, temperature from GeoCheckin where time > 12
 ```
 
 ```php
-$response = (new Command\Builder\TimeSeries\Query($riak))
+$response = (new Command/Builder/TimeSeries/Query($riak))
     ->withQuery("select weather, temperature from GeoCheckin where region = 'South Atlantic' and state = 'state1' and time > 1234560 and time < 1234569")
     ->build()
     ->execute();
@@ -224,7 +224,7 @@ riakc_ts:query(Pid, "select weather, temperature from GeoCheckin where time > 12
 ```
 
 ```php
-$response = (new Command\Builder\TimeSeries\Query($riak))
+$response = (new Command/Builder/TimeSeries/Query($riak))
     ->withQuery("select weather, temperature from GeoCheckin where region = 'South Atlantic' and state = 'state1' and time > 1234560 and time < 1234569 and temperature > 27.0")
     ->build()
     ->execute();
@@ -418,7 +418,7 @@ riakc_ts:query(Pid, "SELECT region, temperature FROM GeoCheckin WHERE time > 123
 ```
 
 ```php
-$response = (new Command\Builder\TimeSeries\Query($riak))
+$response = (new Command/Builder/TimeSeries/Query($riak))
     ->withQuery("SELECT region, temperature FROM GeoCheckin WHERE time > 1234560 AND time < 1234569 AND region = 'South Atlantic' AND state = 'South Carolina' AND temperature IS NULL")
     ->build()
     ->execute();

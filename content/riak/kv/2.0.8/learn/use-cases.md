@@ -16,19 +16,19 @@ aliases:
 ---
 
 
-[dev data model articles etc]: /riak/kv/2.0.8/developing/data-modeling/#articles-blog-posts-and-other-content
-[dev data model log data]: /riak/kv/2.0.8/developing/data-modeling/#log-data
-[dev data model sensor data]: /riak/kv/2.0.8/developing/data-modeling/#sensor-data
-[dev data model serve advertisements]: /riak/kv/2.0.8/developing/data-modeling/#serving-advertisements
-[dev data model sess storage]: /riak/kv/2.0.8/developing/data-modeling/#session-storage
-[dev data model user acct]: /riak/kv/2.0.8/developing/data-modeling/#user-accounts
-[dev data model user events]: /riak/kv/2.0.8/developing/data-modeling/#user-events-and-timelines
-[dev data model user settings]: /riak/kv/2.0.8/developing/data-modeling/#user-settings-and-preferences
-[dev data types]: /riak/kv/2.0.8/developing/data-types
-[plan backend bitcask]: /riak/kv/2.0.8/setup/planning/backend/bitcask
-[usage mapreduce]: /riak/kv/2.0.8/developing/usage/mapreduce
-[usage search]: /riak/kv/2.0.8/developing/usage/search
-[usage secondary-indexes]: /riak/kv/2.0.8/developing/usage/secondary-indexes
+[dev data model articles etc]: {{<baseurl>}}riak/kv/2.0.8/developing/data-modeling/#articles-blog-posts-and-other-content
+[dev data model log data]: {{<baseurl>}}riak/kv/2.0.8/developing/data-modeling/#log-data
+[dev data model sensor data]: {{<baseurl>}}riak/kv/2.0.8/developing/data-modeling/#sensor-data
+[dev data model serve advertisements]: {{<baseurl>}}riak/kv/2.0.8/developing/data-modeling/#serving-advertisements
+[dev data model sess storage]: {{<baseurl>}}riak/kv/2.0.8/developing/data-modeling/#session-storage
+[dev data model user acct]: {{<baseurl>}}riak/kv/2.0.8/developing/data-modeling/#user-accounts
+[dev data model user events]: {{<baseurl>}}riak/kv/2.0.8/developing/data-modeling/#user-events-and-timelines
+[dev data model user settings]: {{<baseurl>}}riak/kv/2.0.8/developing/data-modeling/#user-settings-and-preferences
+[dev data types]: {{<baseurl>}}riak/kv/2.0.8/developing/data-types
+[plan backend bitcask]: {{<baseurl>}}riak/kv/2.0.8/setup/planning/backend/bitcask
+[usage mapreduce]: {{<baseurl>}}riak/kv/2.0.8/developing/usage/mapreduce
+[usage search]: {{<baseurl>}}riak/kv/2.0.8/developing/usage/search
+[usage secondary-indexes]: {{<baseurl>}}riak/kv/2.0.8/developing/usage/secondary-indexes
 
 
 Riak is a flexible data storage technology capable of addressing
@@ -115,7 +115,7 @@ based on, for example, a campaign or company ID for easy retrieval.
 
 In the advertising industry, being able to serve ads quickly to many
 users and platforms is often the most important factor in selecting and
-tuning a database. Riak's tunable [apps replication properties](/riak/kv/2.0.8/developing/app-guide/replication-properties) can be set
+tuning a database. Riak's tunable [apps replication properties]({{<baseurl>}}riak/kv/2.0.8/developing/app-guide/replication-properties) can be set
 to favor fast read performance. By setting R to 1, only one of N
 replicas will need to be returned to complete a read operation, yielding
 lower read latency than an R value equal to the number of replicas
@@ -321,7 +321,7 @@ part of a URL string, etc.
 
 In Riak, you can store content of any kind, from HTML files to plain
 text to JSON or XML or another document type entirely. Keep in mind that
-data in Riak is opaque, with the exception of [Riak Data Types](/riak/kv/2.0.8/developing/data-types),
+data in Riak is opaque, with the exception of [Riak Data Types]({{<baseurl>}}riak/kv/2.0.8/developing/data-types),
 and so Riak won't "know" about the object unless it is indexed
 [using Riak Search][usage search] or [using secondary indexes][usage secondary-indexes].
 

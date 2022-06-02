@@ -15,8 +15,8 @@ aliases:
   - /riak/kv/2.2.0/ops/advanced/runtime
 ---
 
-[config reference]: /riak/kv/2.2.0/configuring/reference
-[concept clusters]: /riak/kv/2.2.0/learn/concepts/clusters
+[config reference]: {{<baseurl>}}riak/kv/2.2.0/configuring/reference
+[concept clusters]: {{<baseurl>}}riak/kv/2.2.0/learn/concepts/clusters
 
 Riak's [configuration files][config reference] provide a variety of parameters that
 enable you to fine-tune how Riak interacts with two important elements

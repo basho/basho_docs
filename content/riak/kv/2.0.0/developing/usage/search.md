@@ -68,7 +68,7 @@ support.
 All `curl` examples in this document assume that you have set an
 environment variable named `RIAK_HOST`, which points to a Riak base URL,
 such as `http://localhost:8098`. The appropriate value for `RIAK_HOST`
-will depend on your [configuration](/riak/kv/2.0.0/configuring/reference#client-interfaces).
+will depend on your [configuration]({{<baseurl>}}riak/kv/2.0.0/configuring/reference#client-interfaces).
 
 ## Creating an Index
 
@@ -144,7 +144,7 @@ curl -XPUT $RIAK_HOST/search/index/famous
 
 > **Getting started with Riak clients**
 >
-> If you are connecting to Riak using one of Basho's official [client libraries](/riak/kv/2.0.0/developing/client-libraries), you can find more information about getting started with your client in the [Developing with Riak KV: Getting Started](/riak/kv/2.0.0/developing/getting-started) section.
+> If you are connecting to Riak using one of Basho's official [client libraries]({{<baseurl>}}riak/kv/2.0.0/developing/client-libraries), you can find more information about getting started with your client in the [Developing with Riak KV: Getting Started]({{<baseurl>}}riak/kv/2.0.0/developing/getting-started) section.
 
 
 Note that the above command is exactly the same as the following, which
@@ -345,7 +345,7 @@ ingest according to your schema.
 
 ## Riak Search Security Setup
 
-[Security](/riak/kv/2.0.0/using/security/) is a new feature as of
+[Security]({{<baseurl>}}riak/kv/2.0.0/using/security/) is a new feature as of
 Riak 2.0 that lets an administrator limit access to certain resources.
 In the case of search, your options are to limit administration of
 schemas or indexes (the `search.admin` permission) to certain users, and
@@ -641,7 +641,7 @@ store opaque values in Riak? For that, we employ extractors.
 Extractors are modules in Riak that accept a Riak value with a certain
 content type and convert it into a list of fields that can be indexed by
 Solr. This is done transparently and automatically as part of the
-indexing process. You can even create your own [custom extractors](/riak/kv/2.0.0/developing/usage/custom-extractors).
+indexing process. You can even create your own [custom extractors]({{<baseurl>}}riak/kv/2.0.0/developing/usage/custom-extractors).
 
 Our current example uses the JSON extractor, but Riak Search also
 extracts indexable fields from the following content types:
@@ -649,13 +649,13 @@ extracts indexable fields from the following content types:
 * JSON (`application/json`)
 * XML (`application/xml`, `text/xml`)
 * Plain text (`text/plain`)
-* [Riak Data Types](/riak/kv/2.0.0/developing/data-types/)
+* [Riak Data Types]({{<baseurl>}}riak/kv/2.0.0/developing/data-types/)
   * counter (`application/riak_counter`)
   * map (`application/riak_map`)
   * set (`application/riak_set`)
 * noop (unknown content type)
 
-More on Riak Data Types can be found in [Riak Data Types and Search](/riak/kv/2.0.0/developing/usage/searching-data-types).
+More on Riak Data Types can be found in [Riak Data Types and Search]({{<baseurl>}}riak/kv/2.0.0/developing/usage/searching-data-types).
 
 In the examples we've seen, the JSON field `name_s` is translated to a
 Solr index document field insert. Solr will index any field that it
@@ -689,7 +689,7 @@ The above JSON will insert a list of three values into Solr to be
 indexed: `people_ss=Ryan`, `people_ss=Eric`, `people_ss=Brett`.
 
 You can also create your own custom extractors if your data doesn't fit
-one of the default types. A full tutorial can be found in [Custom Search Extractors](/riak/kv/2.0.0/developing/usage/custom-extractors).
+one of the default types. A full tutorial can be found in [Custom Search Extractors]({{<baseurl>}}riak/kv/2.0.0/developing/usage/custom-extractors).
 
 ### Automatic Fields
 
@@ -1406,7 +1406,7 @@ fix this shortcoming in a future version of Riak.
 ### MapReduce
 
 Riak Search allows for piping search results as inputs for
-[MapReduce](/riak/kv/2.0.0/developing/usage/mapreduce/) jobs. This is a useful cross-section for
+[MapReduce]({{<baseurl>}}riak/kv/2.0.0/developing/usage/mapreduce/) jobs. This is a useful cross-section for
 performing post-calculations of results or aggregations of ad-hoc
 queries. The Riak Search MapReduce integration works similarly to
 regular MapReduce, with the notable exception that your input is not a

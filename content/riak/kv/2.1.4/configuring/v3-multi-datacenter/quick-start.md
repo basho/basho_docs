@@ -16,9 +16,9 @@ aliases:
   - /riak/2.1.4/ops/mdc/v3/quick-start
 ---
 
-[perf index]: /riak/kv/2.1.4/using/performance
-[config v3 mdc]: /riak/kv/2.1.4/configuring/v3-multi-datacenter
-[cluster ops v3 mdc]: /riak/kv/2.1.4/using/cluster-operations/v3-multi-datacenter
+[perf index]: {{<baseurl>}}riak/kv/2.1.4/using/performance
+[config v3 mdc]: {{<baseurl>}}riak/kv/2.1.4/configuring/v3-multi-datacenter
+[cluster ops v3 mdc]: {{<baseurl>}}riak/kv/2.1.4/using/cluster-operations/v3-multi-datacenter
 
 This guide will walk you through the process of configuring Riak's v3
 Replication to perform replication between two sample Riak clusters on

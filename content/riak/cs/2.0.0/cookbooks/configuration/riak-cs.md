@@ -10,8 +10,8 @@ menu:
 project: "riak_cs"
 project_version: "2.0.0"
 aliases:
-  - /riakcs/2.0.0/cookbooks/configuration/Configuring-Riak-CS/
-  - /riak/cs/2.0.0/cookbooks/configuration/Configuring-Riak-CS/
+  - /riakcs/2.0.0/cookbooks/configuration/riak-cs/
+  - /riak/cs/2.0.0/cookbooks/configuration/riak-cs/
 ---
 
 For Riak CS to operate properly it must know how to connect to Riak.
@@ -51,9 +51,9 @@ files. If an `app.config` file is present, neither the `riak-cs.config` nor the
 to continue usage of the legacy `app.config` file, please note that some
 configuration options have changed names.  Most notably, the IP/Port format
 has changed in 2.0 for Stanchion, Riak, and Riak CS.  To view these changes, 
-please review the [Rolling Upgrades](/riak/cs/2.0.0/cookbooks/rolling-upgrades) Document. 
+please review the [Rolling Upgrades]({{<baseurl>}}riak/cs/2.0.0/cookbooks/rolling-upgrades) Document. 
 >
-> For a comprehensive listing of available parameters and a full list of `app.config` parameters, see the [Full Configuration Reference](/riak/cs/2.0.0/cookbooks/configuration/reference).
+> For a comprehensive listing of available parameters and a full list of `app.config` parameters, see the [Full Configuration Reference]({{<baseurl>}}riak/cs/2.0.0/cookbooks/configuration/reference).
 
 The sections below walk you through some of the main configuration categories
 that you will likely encounter while operating Riak CS.   
@@ -81,12 +81,12 @@ is required.
 {{% /note %}}
 
 After making any changes to the `riak-cs.conf` file in Riak CS,
-[restart](/riak/cs/2.0.0/cookbooks/command-line-tools/#riak-cs) the node if it is already running.
+[restart]({{<baseurl>}}riak/cs/2.0.0/cookbooks/command-line-tools/#riak-cs) the node if it is already running.
 
 ## Specifying the Stanchion Node
 
 If you're running a single Riak CS node, you don't have to change the
-[Stanchion](/riak/cs/2.0.0/cookbooks/configuration/stanchion) settings because Stanchion runs on the local host. If your Riak CS system has multiple nodes, however, you must specify the IP address and port for the Stanchion node and whether or not SSL is enabled.
+[Stanchion]({{<baseurl>}}riak/cs/2.0.0/cookbooks/configuration/stanchion) settings because Stanchion runs on the local host. If your Riak CS system has multiple nodes, however, you must specify the IP address and port for the Stanchion node and whether or not SSL is enabled.
 
 The Stanchion settings reside in the Riak CS `riak-cs.conf` file, which is
 located in the `/etc/riak-cs` directory of each Riak CS node.
@@ -264,7 +264,7 @@ particular use case.
 ### Tuning
 
 We strongly recommend that you take care when setting the value of the
-[`pb_backlog` setting](/riak/cs/2.0.0/cookbooks/configuration/riak-for-cs/#setting-up-riak-to-use-protocol-buffers) in Riak. When a Riak CS node is
+[`pb_backlog` setting]({{<baseurl>}}riak/cs/2.0.0/cookbooks/configuration/riak-for-cs/#setting-up-riak-to-use-protocol-buffers) in Riak. When a Riak CS node is
 started, each connection pool begins to establish connections to Riak. This can
 result in a [thundering herd problem](http://en.wikipedia.org/wiki/Thundering_herd_problem) in which connections in the pool believe they are connected to Riak, but in reality some of the connections have been reset. Due to TCP `RST` packet rate limiting (controlled by `net.inet.icmp.icmplim`) some of the connections may not receive notification until they are used to service a user's request. This manifests itself as an `{error, disconnected}` message in the Riak CS logs and an error returned to the user.
 
@@ -354,7 +354,7 @@ data.riakcs.net
 
 The following options are available to make adjustments to the Riak CS garbage
 collection system. More details about garbage collection in Riak CS are
-available in [Garbage Collection](/riak/cs/2.0.0/cookbooks/garbage-collection).
+available in [Garbage Collection]({{<baseurl>}}riak/cs/2.0.0/cookbooks/garbage-collection).
 
 * `gc.leeway_period` (`leeway_seconds` in `advanced.config` or `app.config`) ---
   The amount of time that must elapse before an object version that has been
@@ -420,4 +420,4 @@ been deprecated, and _will be removed_ in the next major release.
 ## Other Riak CS Settings
 
 For a complete listing of configurable parameters for Riak CS, see the
-[configuration reference](/riak/cs/2.0.0/cookbooks/configuration/reference) document.
+[configuration reference]({{<baseurl>}}riak/cs/2.0.0/cookbooks/configuration/reference) document.

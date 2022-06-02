@@ -49,20 +49,23 @@ contentOfMeta = (name) ->
 #      enabled, and stay orange if we're never going to fetch the JSON...
 generateVersionLists = () ->
   # Pull project/pathing information from the meta tags set up by Hugo.
-  project               = contentOfMeta("project")               # ex; riak_kv
-  current_version       = contentOfMeta("version")               # ex; 2.1.4
-  project_relative_path = contentOfMeta("project_relative_path") # ex; installing/ -or- undefined
-  project_relative_path = "" unless project_relative_path        # ex; installing/ -or- ""
+  project                   = contentOfMeta("project")                          # ex; riak_kv
+  current_version           = contentOfMeta("version")                          # ex; 2.1.4
+  project_relative_path     = contentOfMeta("project_relative_path")            # ex; installing/ -or- undefined
+  project_relative_path     = "" unless project_relative_path                   # ex; installing/ -or- ""
+  docs_root_url             = contentOfMeta("docs_root_url")                    # ex; http://docs.riak.com/ -or- undefined
+  docs_root_url             = "" unless docs_root_url                           # ex; http://docs.riak.com/ -or- ""
+  project_descriptions_path = docs_root_url + 'data/project_descriptions.json'  # ex; http://docs.riak.com/data/project_descriptions.json
 
   # The version_history <meta> tags will only exist if the front matter of the
   # given content .md page contains them, so these may be `undefined`.
-  meta_version_hisotry_in        = contentOfMeta("version_history_in")
+  meta_version_history_in        = contentOfMeta("version_history_in")
   meta_version_history_locations = contentOfMeta("version_history_locations")
   version_range      = undefined
   versions_locations = []
 
-  if meta_version_hisotry_in
-    version_range = SemVer.parseRange(meta_version_hisotry_in)
+  if meta_version_history_in
+    version_range = SemVer.parseRange(meta_version_history_in)
 
   if meta_version_history_locations
     locations_json = JSON.parse(meta_version_history_locations)
@@ -72,19 +75,20 @@ generateVersionLists = () ->
   # Fetch the Project Descriptions from the server, and do all the heavy lifting
   # inside the `success` callback.
   if project and project != "community" && project != "404"
-  then $.getJSON('/data/project_descriptions.json',
+  then $.getJSON(project_descriptions_path,
     (data) ->
       project_data = data[project]
 
-      project_path = project_data.path            # ex; /riak/kv
-      latest_rel   = project_data.latest          # ex; 2.1.4
-      lts_series   = project_data['lts']          # ex; 2.0 -or- undefined
-      archived_url = project_data['archived_url'] # ex; http://.. -or- undefined
+      project_path  = docs_root_url.replace(/\/+$/, '') + project_data.path # ex; http://docs.riak.com/riak/kv
+      latest_rel    = project_data.latest          # ex; 2.1.4
+      lts_series    = project_data['lts']          # ex; [2.9, 3.0] -or- undefined
+      archive_below = project_data['archive_below'] # ex; 2.2 -or- undefined
+      archived_url  = project_data['archived_url'] # ex; http://.. -or- undefined
 
       # Aggregator for the resulting HTML. To be added into the
       # div.selector-pane--versions
       version_selector_list_html = ''
-
+      has_archived = false
       # Loop over each release set.
       for release_set, set_index in project_data.releases.reverse()
 
@@ -99,7 +103,16 @@ generateVersionLists = () ->
         #     to ensure scrollbars are always intractable. Without this explicit
         #     z-index, the scrollbar of a __sizing-box may be partially covered
         #     by the padding of a selector-list immediately to its right.
-        version_selector_list_html += '<div class="inline-block   selector-list__sizing-box" style="z-index:'+(100-set_index)+';">'
+        archived_class = ''
+        # Make hidden if archive_below is set, the series is below that level, and the current_version is 
+        # more than the highest in the series (i.e. current_version = 2.0.9 should make all 2.0.x visible).
+        if archive_below and release_set[0] < archive_below and release_set[release_set.length-1] < current_version
+          archived_class = ' release-is-archived-and-hidden'
+          has_archived = true
+
+        version_selector_list_html += '<div class="inline-block   selector-list__sizing-box'
+        version_selector_list_html += archived_class
+        version_selector_list_html += '" style="z-index:'+(100-set_index)+';">'
 
         arrow_str = '<span class="inline-block   edge-fader__arrow edge-fader__arrow--invisible"></span>'
         version_selector_list_html += '<div class="edge-fader edge-fader--top ">' + arrow_str + '</div>'
@@ -117,7 +130,13 @@ generateVersionLists = () ->
         # of `release_version` string matches the `lts_series` string), add an
         # LTS tag to the top of the list.
         # NB. There may be no LTS series set on a give product.
-        if lts_series and release_set[0].match("^"+lts_series)
+        is_lts = false
+        if lts_series
+          for lts_name in lts_series
+            if release_set[0].match("^"+lts_name)
+              is_lts = true
+
+        if is_lts
           class_list = ["selector-list__element",
                         "selector-list__element--"+list_depth,
                         "selector-list__element--lts-flag"]
@@ -163,7 +182,11 @@ generateVersionLists = () ->
               if SemVer.isInRange(release_sem_ver, range)
                 relative_path = url
                 break
-            anchor = project_path+"/"+release_version+"/"+relative_path
+            # relative_path can start with a slash or not
+            # so we ensure it does
+            unless relative_path.startsWith("/") then relative_path = "/"+relative_path
+
+            anchor = project_path+"/"+release_version+relative_path
             anchor_tag = '<a class="block" href="'+anchor+'">'
 
           # Build the full list element and add it to the html aggregator.
@@ -197,10 +220,24 @@ generateVersionLists = () ->
           '<li class="'+class_list.join("\n")+'"><a class="block" href="'+archived_url+'">older</a></li>'
         version_selector_list_html += '</ul></div></div>'
 
+      if has_archived
+        class_list = ["selector-list__element",
+                      "selector-list__element--other"]
+
+        # We can skip the Edge Fader here, b/c we know there's only ever going
+        # to be one "Older" element.
+        #NB. See above note re: whitespace.
+        version_selector_list_html += '<div class="inline-block   selector-list__sizing-box    selector-other-releases">'
+        version_selector_list_html += '<div class="overflow-y   selector-list__scroll-box">'
+
+        version_selector_list_html += '<ul class="selector-list">\n'
+        version_selector_list_html +=
+          '<li class="'+class_list.join("\n")+'"><button class="other__btn" type="button">other</button></li>'
+
+        version_selector_list_html += '</ul></div></div>'
 
       # What we've all been waiting for; make the DOM modification.
       $('.selector-pane--versions').html(version_selector_list_html)
-
 
       # With the lists added to the DOM, we can capture the height of the
       # tallest one, and set the height of the selector-pane's __shadow-box
@@ -219,7 +256,6 @@ generateVersionLists = () ->
       $version_pane__shadow.css('height', tallest_list + (2).rem())
       $version_pane__sizing.css('height', tallest_list + (2).rem())
 
-
       ## HACK:
       #  Because these dynamic elements were added after the JQuery.ready()
       #  clause that defied 'scroll' and 'click' event listeners on all other
@@ -235,6 +271,16 @@ generateVersionLists = () ->
 
       $('.edge-fader__arrow').on('click.selector-fader-arrow',
         EdgeFader.onClickCallback
+      )
+
+      # When the other button is clicked, hide the button, show the hidden series and fix
+      # the height
+      # TODO: fix height
+      $('.selector-other-releases').on('click',
+        (event) ->
+          $('.release-is-archived-and-hidden').toggleClass('release-is-archived-and-hidden');
+          $('.selector-other-releases').toggleClass('release-is-archived-and-hidden');
+          window.dispatchEvent(new Event('resize'));
       )
 
     ) # *end getJSON callback*
