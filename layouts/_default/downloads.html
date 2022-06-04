@@ -27,6 +27,9 @@
 {{ $download_metadata := $HugoNode.Site.Data.download_info }}
 {{ $os_metadata       := $HugoNode.Site.Data.os_metadata   }}
 
+{{ $download_root     := $HugoNode.Scratch.Get "download_root" }}
+{{ $series            := $HugoNode.Scratch.Get "series" }}
+{{ $download_root_path := (print $download_root $series "/" $version) }}
 {{ $menu_title := (printf "%s-%s" $project $version) }} {{/* ex; "riak_kv-2.1.4" */}}
 -->
 
@@ -80,6 +83,10 @@
         {{/*<h2/>*/}} {{ (printf "## %s %s" $target_title $target_version) | markdownify }}
 
         <p>You should be able to find your operating system in the choices below.</p>
+        <!-- {{ if $download_root }} -->
+        <p>All files are available on our <a href="{{ $download_root_path }}">the file store</a>.</p>
+        <!-- {{ end }} -->
+
   <!-- Range Over OSs Per Project
   =============================== -->
   {{ range $os_map := (sort (where $target_download_metadata "os" "!=" "source") "os") }}

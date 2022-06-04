@@ -45,6 +45,7 @@ def generate_projects_metadata()
     project_hash[:project_name]  = description["project_name"]
     project_hash[:path]          = description["path"]
     project_hash[:github_path]   = description["github_path"]
+    project_hash[:download_root] = description["download_root"]
     project_hash[:archived_path] = description["archived_path"]
     project_hash[:releases]      = description["releases"]
     project_hash[:latest]        = description["latest"]

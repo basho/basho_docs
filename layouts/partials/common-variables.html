@@ -44,6 +44,7 @@
 {{ $is_lts            := (in $lts_versions $series)              }} {{/* ex; false                                                           */}}
 {{ $archived_url      := $project_description.archived_url       }} {{/* ex; {{ .Site.BaseURL }}riak/kv/2.9.0p5/                             */}}
 {{ $archived_path     := $project_description.archived_path      }} {{/* ex; riak                                                            */}}
+{{ $download_root     := $project_description.download_root      }} {{/* ex: https://files.tiot.jp/riak/kv/3.0/3.0.10/                       */}}
 
 {{ $github_path       := $project_description.github_path        | default "https://github.com/TI-Tokyo/riak-docs-fork/edit/master/content/"   }} {{/* ex; https://github.com/TI-Tokyo/riak-docs-fork/edit/master/content  */}}
 
@@ -76,6 +77,7 @@
 {{ .Scratch.Add "is_lts"                    $is_lts                    }}
 {{ .Scratch.Add "archived_url"              $archived_url              }}
 {{ .Scratch.Add "archived_path"             $archived_path             }}
+{{ .Scratch.Add "download_root"             $download_root             }}
 {{ .Scratch.Add "site_relative_path"        $site_relative_path        }}
 {{ .Scratch.Add "project_relative_path"     $project_relative_path     }}
 
