@@ -36,20 +36,19 @@ This release is tested with OTP 20, OTP 21 and OTP 22; but optimal performance i
 
 - Amazon Linux 2016.09 (AWS)
 - Amazon Linux 2 (AWS)
-- CentOS 6
 - CentOS 7
 - CentOS 8
-- Debian 7.0 ("Wheezy")
 - Debian 8.0 ("Jessie")
 - Debian 9.0 ("Stretch")
-- Red Hat Enterprise Linux 6
+- Debian 10.0 ("Buster")
+- Oracle Linux 8
 - Red Hat Enterprise Linux 7
 - Red Hat Enterprise Linux 8
 - Raspbian Buster
-- Ubuntu 12.04 ("Precise Pangolin")
 - Ubuntu 14.04 ("Trusty Tahr")
 - Ubuntu 16.04 ("Xenial Xerus")
 - Ubuntu 18.04 ("Bionic Beaver")
+- Ubuntu 20.04.4 ("Focal Fossa")
 - FreeBSD 10.4
 - FreeBSD 11.1
 - Mac OSX 10.11+ (development only)
