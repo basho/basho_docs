@@ -30,7 +30,7 @@ This release also extends a prototype API to support for the use of the nextgenr
 A new push function has been added to the api, this will push a list of object references to be queued for replication.
 ## Previous Release Notes
 
-Please see the KV 3.0.6 release notes [here]({{<baseurl>}}riak/kv/3.0.7/release-notes/).
+Please see the KV 3.0.6 release notes [here]({{<baseurl>}}riak/kv/3.0.6/release-notes/).
 
 
 
