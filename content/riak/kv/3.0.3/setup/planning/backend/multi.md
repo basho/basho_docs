@@ -21,7 +21,7 @@ aliases:
 [plan backend memory]: {{<baseurl>}}riak/kv/3.0.3/setup/planning/backend/memory
 [config reference]: {{<baseurl>}}riak/kv/3.0.3/configuring/reference
 [usage bucket types]: {{<baseurl>}}riak/kv/3.0.3/developing/usage/bucket-types
-[use admin riak-admin cli]: {{<baseurl>}}riak/kv/3.0.3/using/admin/riak-admin
+[use admin riak admin cli]: {{<baseurl>}}riak/kv/3.0.3/using/admin/riak admin
 
 Riak allows you to run multiple backends within a single Riak cluster.
 Selecting the Multi backend enables you to use different storage
@@ -60,22 +60,22 @@ involves three steps:
 3. Setting up your application to use that type
 
 Let's say that we've set up our cluster to use the Multi backend and we
-want to use [LevelDB][plan backend leveldb] and the [Memory][plan backend memory] backend for different sets of data. First, we need to create two bucket types, one which sets the `backend` bucket property to `leveldb` and the other which sets that property to `memory`. All bucket type-related activity is performed through the [`riak-admin`][use admin riak-admin cli] command interface.
+want to use [LevelDB][plan backend leveldb] and the [Memory][plan backend memory] backend for different sets of data. First, we need to create two bucket types, one which sets the `backend` bucket property to `leveldb` and the other which sets that property to `memory`. All bucket type-related activity is performed through the [`riak admin`][use admin riak admin cli] command interface.
 
 We'll call our bucket types `leveldb_backend` and `memory_backend`, but
 you can use whichever names you wish.
 
 ```bash
-riak-admin bucket-type create leveldb_backend '{"props":{"backend":"leveldb"}}'
-riak-admin bucket-type create memory_backend '{"props":{"backend":"memory"}}'
+riak admin bucket-type create leveldb_backend '{"props":{"backend":"leveldb"}}'
+riak admin bucket-type create memory_backend '{"props":{"backend":"memory"}}'
 ```
 
 Then, we must activate those bucket types so that they can be used in
 our cluster:
 
 ```bash
-riak-admin bucket-type activate leveldb_backend
-riak-admin bucket-type activate memory_backend
+riak admin bucket-type activate leveldb_backend
+riak admin bucket-type activate memory_backend
 ```
 
 Once those types have been activated, any objects stored in buckets

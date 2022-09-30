@@ -77,8 +77,8 @@ In this example, we'll set N to 2. First, we'll create the bucket type
 and call it `n_val_of_2` and then activate that type:
 
 ```bash
-riak-admin bucket-type create n_val_of_2 '{"props":{"n_val":2}}'
-riak-admin bucket-type activate n_val_of_2
+riak admin bucket-type create n_val_of_2 '{"props":{"n_val":2}}'
+riak admin bucket-type activate n_val_of_2
 ```
 
 Now, any bucket that bears the type `n_val_of_2` will propagate objects

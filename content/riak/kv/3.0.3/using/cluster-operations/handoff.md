@@ -19,7 +19,7 @@ Riak KV provides a command-line interface for enabling and disabling handoff on 
 enable handoff:
 
 ```bash
-riak-admin handoff enable <inbound|outbound|both> <nodename>
+riak admin handoff enable <inbound|outbound|both> <nodename>
 ```
 
 You must specify two things when enabling handoff:
@@ -34,16 +34,16 @@ You can select a direction by specifying `inbound`, `outbound`, or
 on the node `riak3@100.0.0.1`:
 
 ```bash
-riak-admin handoff enable outbound --node riak3@100.0.0.1
-riak-admin handoff enable outbound -n riak3@100.0.0.1
+riak admin handoff enable outbound --node riak3@100.0.0.1
+riak admin handoff enable outbound -n riak3@100.0.0.1
 ```
 
 These two equivalent commands would enable inbound handoff on the node
 `riak5@100.0.0.1`:
 
 ```bash
-riak-admin handoff enable inbound --node riak5@100.0.0.1
-riak-admin handoff enable inbound -n riak5@127.0.0.1
+riak admin handoff enable inbound --node riak5@100.0.0.1
+riak admin handoff enable inbound -n riak5@127.0.0.1
 ```
 
 Alternatively, you can enable handoff on all nodes at the same time
@@ -51,10 +51,10 @@ using either the `-a` or `--all` flag. This command would enable both
 inbound and outbound handoff on all nodes:
 
 ```bash
-riak-admin handoff enable both --all
+riak admin handoff enable both --all
 ```
 
-As for enabling handoff, the `riak-admin disable` command requires that
+As for enabling handoff, the `riak admin disable` command requires that
 you specify both both a node or nodes to be targeted by the command and
 whether you'd like to disable inbound handoff, outbound handoff, or
 both. The `disable` command works just like `enable`. This command
@@ -62,13 +62,13 @@ would disable all forms of handoff on all nodes, to give just one
 example:
 
 ```bash
-riak-admin handoff disable both --all
+riak admin handoff disable both --all
 ```
 
 ## Other Command-line Tools
 
 In addition to enabling and disabling handoff, the
-[`riak-admin`]({{<baseurl>}}riak/kv/3.0.3/using/admin/riak-admin/) interface enables you to
+[`riak admin`]({{<baseurl>}}riak/kv/3.0.3/using/admin/riak admin/) interface enables you to
 retrieve a summary of handoff-related activity and other information.
 
 ### summary
@@ -77,7 +77,7 @@ The `summary` command provides high-level information about active
 handoffs in a cluster.
 
 ```bash
-riak-admin handoff summary
+riak admin handoff summary
 ```
 
 This will return a table that will provide the following information
@@ -97,7 +97,7 @@ Header | Description
 This command provides information only about active transfers.
 
 ```bash
-riak-admin handoff details
+riak admin handoff details
 ```
 
 If no transfers are currently underway, this command will output `No

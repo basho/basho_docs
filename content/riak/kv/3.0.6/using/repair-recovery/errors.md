@@ -159,7 +159,7 @@ Error | Message | Description | Resolution
 `already_replacement` |  | This node is already in the replacements request list | You cannot replace the same node twice
 `{different_owners, N1, N2}` |  | Two nodes list different partition owners, meaning the ring is not ready | When the ring is ready, the status should be ok
 `different_ring_sizes` |  | The joining ring is a different size from the existing cluster ring | Don't join a node already joined to a cluster
-`insufficient_vnodes_available` |  | When creating a query coverage plan, not enough vnodes are available | Check the `riak-admin ring-status` and ensure all of your nodes are healthy and connected
+`insufficient_vnodes_available` |  | When creating a query coverage plan, not enough vnodes are available | Check the `riak admin ring-status` and ensure all of your nodes are healthy and connected
 `invalid_replacement` |  | A new node is currently joining from a previous operation, so a replacement request is invalid until it is no longer joining | Wait until the node is finished joining
 `invalid_ring_state_dir` | `Ring state directory <RingDir> does not exist, and could not be created: <Reason>` | The ring directory does not exist and no new dir can be created in expected location | Ensure that the Erlang proc can write to `ring_state_dir`or has permission to create that dir
 `is_claimant` |  | A node cannot be the claimant of its own remove request | Remove/replace nodes from another node
@@ -204,7 +204,7 @@ most of the error messages.
 
 Error | Message | Description | Resolution
 :-----|:--------|:------------|:----------
-`all_nodes_down` |  | No nodes are available | Check `riak-admin member-status` and ensure that all expected nodes in the cluster are of `valid` Status
+`all_nodes_down` |  | No nodes are available | Check `riak admin member-status` and ensure that all expected nodes in the cluster are of `valid` Status
 `{bad_qterm, QueryTerm}` |  | Bad query when performing MapReduce | Fix your MapReduce query
 `{coord_handoff_failed, Reason}` | `Unable to forward put for <Key> to <CoordNode> - <Reason>` | Vnodes unable to communicate | Check that coordinating vnode is not down. Ensure your cluster is up and nodes are able to communicate with each other. See <a href="{{< baseurl >}}riak/kv/3.0.6/using/repair-recovery/errors/#more"> Step 1</a>.
 `{could_not_reach_node, Node}` |  | Erlang process was not reachable | Check network settings; ensure remote nodes are running and reachable; ensure all nodes have the same Erlang cookie setting `vm.args` `-setcookie`. See <a href="{{< baseurl >}}riak/kv/3.0.6/using/repair-recovery/errors/#more"> Step 1</a>.
@@ -214,7 +214,7 @@ Error | Message | Description | Resolution
 <Field>, value <Value>.` | Could not parse an index field | Most commonly an `_int` field which cannot be parsed. For example a query like this is invalid: `/buckets/X/index/Y_int/BADVAL`, since BADVAL should instead be an integer
 `{hook_crashed, {Mod, Fun, Class, Exception}}` | `Problem invoking pre-commit hook` | Precommit process exited due to some failure | Fix the precommit function code, follow the message's exception and stacktrace to help debug
 `{indexes_not_supported, Mod}` |  | The chosen backend does not support indexes (only LevelDB currently supports secondary indexes) | Set your configuration to use the LevelDB backend
-`{insufficient_vnodes, NumVnodes, need, R}` |  | R was set greater than the total vnodes | Set a proper R value; or too many nodes are down; or too many nodes are unavailable due to crash or network partition. Ensure all nodes are available by running riak-admin ring-status.
+`{insufficient_vnodes, NumVnodes, need, R}` |  | R was set greater than the total vnodes | Set a proper R value; or too many nodes are down; or too many nodes are unavailable due to crash or network partition. Ensure all nodes are available by running riak admin ring-status.
 `{invalid_hook_def, HookDef}` | `Invalid post-commit hook definition <Def>` | No Erlang module and function or JavaScript function name | Define the hook with the correct settings
 `{invalid_inputdef, InputDef}` |  | Bad inputs definitions when running MapReduce | Fix inputs settings; set `mapred_system` from `legacy` to `pipe`
 `invalid_message` | | Unknown event sent to module | Ensure you're running similar versions of Riak across (and specifically poolboy) across all nodes
@@ -317,7 +317,7 @@ solutions.
 
  Message | Resolution
 :--------|:----------
-gen_server riak_core_capability terminated with reason: no function clause matching orddict:fetch('`Node`', []) | The Node has been changed, either through change of IP or `vm.args` `-name` without notifying the ring. Either use the `riak-admin cluster replace` command, or remove the corrupted ring files `rm -rf /var/lib/riak/ring/*` and rejoin to the cluster
+gen_server riak_core_capability terminated with reason: no function clause matching orddict:fetch('`Node`', []) | The Node has been changed, either through change of IP or `vm.args` `-name` without notifying the ring. Either use the `riak admin cluster replace` command, or remove the corrupted ring files `rm -rf /var/lib/riak/ring/*` and rejoin to the cluster
 gen_server <`PID`> terminated with reason: no function clause matching riak_core_pb:encode(`Args`) line 40 | Ensure you do not have different settings on different nodes (for example, a ttl mem setting on one node's mem backend, and another without)
 monitor `busy_dist_port` `Pid` [...{almost_current_function,...] | This message means distributed Erlang buffers are filling up. Try setting zdbbl higher in `vm.args`, such as `+zdbbl 16384`. Or check that your network is not slow. Or ensure you are not slinging large values. If a high bandwidth network is congested, try setting RTO_min down to 0 msec (or 1msec).
 <`PID`>@riak_core_sysmon___handler:handle_event:89 Monitor got {suppressed,port_events,1} | Logged as info, you can add `+swt very_low` to your `vm.args`
@@ -325,7 +325,7 @@ monitor `busy_dist_port` `Pid` [...{almost_current_function,...] | This message 
 enif_send: env==NULL on non-SMP VM/usr/lib/riak/lib/os_mon-2.2.9/priv/bin/memsup: Erlang has closed. | Riak's Erlang VM is built with SMP support and if Riak is started on a non-SMP system, an error like this one is logged. This is commonly seen in virtualized environments configured for only one CPU core.
 exit with reason bad return value: {error,eaddrinuse} in context start_error | An error like this example can occur when another process is already bound to the same address as the process being started is attempting to bind to. Use operating system tools like `netstat`, `ps`, and `lsof` to determine the root cause for resolving this kind of errors; check for existence of stale  `beam.smp` processes.
 exited with reason: eaddrnotavail in gen_server:init_it/6 line 320 | An error like this example can result when Riak cannot bind to the addresses specified in the configuration. In this case, you should verify HTTP and Protocol Buffers addresses in `app.config` and ensure that the ports being used are not in the privileged (1-1024) range as the `riak` user will not have access to such ports.
-gen_server riak_core_capability terminated with reason: no function clause matching orddict:fetch('riak@192.168.2.2', []) line 72 | Error output like this example can indicate that a previously running Riak node with an original `-name` value in `vm.args` has been modified by simply changing the value in `vm.args` and not properly through `riak-admin cluster replace`.
+gen_server riak_core_capability terminated with reason: no function clause matching orddict:fetch('riak@192.168.2.2', []) line 72 | Error output like this example can indicate that a previously running Riak node with an original `-name` value in `vm.args` has been modified by simply changing the value in `vm.args` and not properly through `riak admin cluster replace`.
 ** Configuration error: [FRAMEWORK-MIB]: missing context.conf file => generating a default file | This error is commonly encountered when starting Riak Enterprise without prior [SNMP]({{<baseurl>}}riak/kv/3.0.6/using/reference/snmp) configuration.
 RPC to 'node@example.com' failed: {'EXIT', {badarg, [{ets,lookup, [schema_table,<<"search-example">>], []} {riak_search_config,get_schema,1, [{file,"src/riak_search_config.erl"}, {line,69}]} ...| This error can be caused when attempting to use Riak Search without first enabling it in each node's `app.config`. See the [configuration files][config reference] documentation for more information on enabling Riak Search.
 
@@ -333,11 +333,11 @@ RPC to 'node@example.com' failed: {'EXIT', {badarg, [{ets,lookup, [schema_table,
 ### More
 
 1. <a name="f1"></a>Ensure node inter-communication
-  - Check `riak-admin member-status` and ensure the cluster is valid.
-  - Check `riak-admin ring-status` and ensure the ring and vnodes are communicating as expected.
+  - Check `riak admin member-status` and ensure the cluster is valid.
+  - Check `riak admin ring-status` and ensure the ring and vnodes are communicating as expected.
   - Ensure your machine does not have a firewall or other issue that prevents traffic to the remote node.
   - Your remote `vm.args` `-setcookie` must be the same value for every node in the cluster.
-  - The `vm.args` `-name` value must not change after joining the node (unless you use `riak-admin cluster replace`).
+  - The `vm.args` `-name` value must not change after joining the node (unless you use `riak admin cluster replace`).
 
 2. <a name="f2"></a>Run LevelDB compaction
   1. `find . -name "LOG" -exec grep -l 'Compaction error' {} \;` *(Finding one compaction error is interesting, more than one might be a strong indication of a hardware or OS bug)*

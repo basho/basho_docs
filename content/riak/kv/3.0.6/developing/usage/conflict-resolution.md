@@ -232,9 +232,9 @@ we'll create a bucket type called `siblings_allowed` with `allow_mult`
 set to `true`:
 
 ```bash
-riak-admin bucket-type create siblings_allowed '{"props":{"allow_mult":true}}'
-riak-admin bucket-type activate siblings_allowed
-riak-admin bucket-type status siblings_allowed
+riak admin bucket-type create siblings_allowed '{"props":{"allow_mult":true}}'
+riak admin bucket-type activate siblings_allowed
+riak admin bucket-type status siblings_allowed
 ```
 
 If the type has been activated, running the `status` command should

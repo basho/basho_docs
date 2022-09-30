@@ -23,12 +23,12 @@ Riak community.
 This guide provides starting points and details on some of the available
 tools for inspecting a Riak node.
 
-## riak-admin status
+## riak admin status
 
-`riak-admin status` is a subcommand of the `riak-admin` command that is
+`riak admin status` is a subcommand of the `riak admin` command that is
 included with every installation of Riak. The `status` subcommand
 provides data related to the current operating status for a node. The
-output of `riak-admin status` is categorized and detailed below.
+output of `riak admin status` is categorized and detailed below.
 
 Please note, for some counters, such as `node_get_fsm_objsize`, a
 minimum of 5 transactions is required for statistics to be generated.
@@ -37,7 +37,7 @@ minimum of 5 transactions is required for statistics to be generated.
 
 We recommended checking stats every 90-120 seconds for best performance.
 
-Repeated runs of the `riak-admin status` command should not have a
+Repeated runs of the `riak admin status` command should not have a
 negative performance impact as the statistics are cached internally in
 Riak.
 
@@ -188,7 +188,7 @@ Stat                                   | Description
 ### Timestamps
 
 Some of the Erlang applications that Riak is comprised of contribute
-statistics to `riak-admin status`.  The below timestamps record, in
+statistics to `riak admin status`.  The below timestamps record, in
 Epoch time, the last time statistics for that application were
 generated.
 
@@ -199,7 +199,7 @@ Stat                | Description
 
 ### Ring
 
-General ring information is reported in `riak-admin status`.
+General ring information is reported in `riak admin status`.
 
 Stat                 | Description
 ---------------------|---------------------------------------------------
@@ -287,7 +287,7 @@ Stat                            | Description
 ### Application and Subsystem Versions
 
 The specific version of each Erlang application and subsystem which
-makes up a Riak node is present in the `riak-admin status` output.  Each
+makes up a Riak node is present in the `riak admin status` output.  Each
 application is linked below next to it's version identifier.
 
 Stat                    | Description
@@ -344,10 +344,10 @@ Note that under ideal operation and with the exception of
 
 The `riak-debug` command is used to identify and diagnose common problems with your Riak KV nodes.
 
-`riak-debug` also runs `riak-admin diag`, which runs a small suite of diagnostic checks against a Riak KV node to discover common problems. It often offers recommendations about how to resolve those problems as well. 
+`riak-debug` also runs `riak admin diag`, which runs a small suite of diagnostic checks against a Riak KV node to discover common problems. It often offers recommendations about how to resolve those problems as well. 
 
-{{% note title="Warning about `riak-debug` and `riak-admin diag` usage" %}}
-The `riak-debug` and `riak-admin diag` commands should only be used after a new installation or configuration change. It should not be used as part of regular monitoring. Overuse of `riak-debug` or `riak-admin diag` can eventually cause the node to crash from atom table exhaustion.
+{{% note title="Warning about `riak-debug` and `riak admin diag` usage" %}}
+The `riak-debug` and `riak admin diag` commands should only be used after a new installation or configuration change. It should not be used as part of regular monitoring. Overuse of `riak-debug` or `riak admin diag` can eventually cause the node to crash from atom table exhaustion.
 {{% /note %}}
 
 ## Strong Consistency Stats
@@ -387,9 +387,9 @@ Stat | Description
 `consistent_put_time_95` | 95th-percentile time between reception of client PUTs to strongly consistent keys and subsequent response
 `consistent_put_time_99` | 99th-percentile time between reception of client PUTs to strongly consistent keys and subsequent response
 `consistent_put_time_100` | 100th-percentile time between reception of client PUTs to strongly consistent keys and subsequent response
-## riak-admin diag
+## riak admin diag
 
-Running `riak-admin diag` by itself will perform a check of all of the
+Running `riak admin diag` by itself will perform a check of all of the
 data partitions in your cluster. It will return a listing of partitions
 that have been checked, each of which looks something like this:
 
@@ -426,7 +426,7 @@ Attaching the `--help` flag will return a list of flags and commands
 that can be used with Riaknostic:
 
 ```
-Usage: riak-admin diag [-d <level>] [-l] [-h] [--export] [check_name ...]
+Usage: riak admin diag [-d <level>] [-l] [-h] [--export] [check_name ...]
 
 -h, --help            Display help/usage dialogue
 -d, --level           Minimum message severity level (default: notice)
@@ -435,7 +435,7 @@ Usage: riak-admin diag [-d <level>] [-l] [-h] [--export] [check_name ...]
 check_name            A specific check to run
 ```
 
-Running `riak-admin diag`  with the `--list` flag will return a list of
+Running `riak admin diag`  with the `--list` flag will return a list of
 available diagnostic checks. The following checks are available:
 
 Check | Description
@@ -453,7 +453,7 @@ The `--level` flag enables you to specify the log level and thus to
 filter messages based on type. You can pass in any of the message types
 listed above (`debug`, `info`, etc.).
 
-The `--level` flag can be used when running `riak-admin diag` with or
+The `--level` flag can be used when running `riak admin diag` with or
 without specifying a diagnostic check.
 
 #### Contributing
@@ -472,7 +472,7 @@ directly like so:
 ./riaknostic --etc ~/code/riak/rel/riak/etc --base ~/code/riak/rel/riak --user `whoami` [other options]
 ```
 
-Those extra options are usually assigned by the `riak-admin` script for
+Those extra options are usually assigned by the `riak admin` script for
 you, but here's how to set them:
 
 * `--etc` - The location of your Riak configuration directory (usually
@@ -480,14 +480,14 @@ you, but here's how to set them:
     directory of a source checkout of Riak.
 * `--base` - The "base" directory of Riak, usually the root of the
     generated directory or `/usr/lib/riak` on Linux. Scan the
-    `riak-admin` script for how the `RUNNER_BASE_DIR` variable is
+    `riak admin` script for how the `RUNNER_BASE_DIR` variable is
     assigned on your platform.
 * `--user` - The user/UID as which the Riak node runs. In a source
     checkout, it's the current user; on most systems, it's `riak`.
 
 ## Related Resources
 
-* [The riak-admin configuration management tool](../../admin/riak-admin/)
+* [The riak admin configuration management tool](../../admin/riak admin/)
 * [Riaknostic](http://riaknostic.basho.com/)
 * [HTTP API Status](../../../developing/api/http/status/)
 

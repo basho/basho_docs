@@ -38,7 +38,7 @@ If your use case requires large objects, we recommend checking out
 ### Mitigation
 
 The best way to find out if large objects are impacting latency is to
-monitor each node's object size stats. If you run [`riak-admin status`](../../admin/riak-admin/#status) or make an HTTP `GET` request
+monitor each node's object size stats. If you run [`riak admin status`](../../admin/riak admin/#status) or make an HTTP `GET` request
 to Riak's `/stats` endpoint, you will see the results for the following
 metrics related to object size, all of which are calculated only for
 `GET` operations (i.e. reads):
@@ -86,9 +86,9 @@ the conflict or until [active anti-entropy](../../../learn/glossary/#active-anti
 
 ### Mitigation
 
-The best way to monitor siblings is through the same [`riak-admin status`](../../admin/riak-admin/#status) interface used to monitor
+The best way to monitor siblings is through the same [`riak admin status`](../../admin/riak admin/#status) interface used to monitor
 object size (or via an HTTP `GET` request to `/stats`). In the output of
-`riak-admin status` in each node, you'll see the following
+`riak admin status` in each node, you'll see the following
 sibling-related statistics:
 
 Metric                         | Explanation

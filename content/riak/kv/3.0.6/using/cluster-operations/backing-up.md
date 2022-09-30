@@ -131,7 +131,7 @@ Strong consistency | `/opt/riak/data/ensembles`
 ## Performing Backups
 
 {{% note title="Deprecation notice" %}}
-In previous versions of Riak KV, there was a [`riak-admin backup`]({{<baseurl>}}riak/kv/3.0.6/using/admin/riak-admin/#backup) command commonly used for
+In previous versions of Riak KV, there was a [`riak admin backup`]({{<baseurl>}}riak/kv/3.0.6/using/admin/riak admin/#backup) command commonly used for
 backups. This functionality is now deprecated. We strongly recommend using the backup procedure documented below instead.
 {{% /note %}}
 
@@ -194,7 +194,7 @@ If you are replacing a node with a new node that has the same node name (typical
 2. Restore your old node's configuration files, data directory, and ring
    directory.
 3. Start the node and verify proper operation with `riak ping`,
-   `riak-admin status`, and other methods you use to check node health.
+   `riak admin status`, and other methods you use to check node health.
 
 If the node name of a restored node (`-name` argument in `vm.args` or
 `nodename` parameter in `riak.conf`) is different than the name of the
@@ -202,16 +202,16 @@ node that the restored backup was taken from, you will need to
 additionally:
 
 1. Mark the original instance down in the cluster using
-   [`riak-admin down <node>`]({{<baseurl>}}riak/kv/3.0.6/using/admin/riak-admin/#down)
+   [`riak admin down <node>`]({{<baseurl>}}riak/kv/3.0.6/using/admin/riak admin/#down)
 2. Join the restored node to the cluster using
-   [`riak-admin cluster join <node>`]({{<baseurl>}}riak/kv/3.0.6/using/admin/riak-admin/#cluster-join)
+   [`riak admin cluster join <node>`]({{<baseurl>}}riak/kv/3.0.6/using/admin/riak admin/#cluster-join)
 3. Replace the original instance with the renamed instance with
-   [`riak-admin cluster force-replace <node1> <node2>`]({{<baseurl>}}riak/kv/3.0.6/using/admin/riak-admin/#cluster-force-replace)
-4. Plan the changes to the cluster with `riak-admin cluster plan`
-5. Finally, commit the cluster changes with `riak-admin cluster commit`
+   [`riak admin cluster force-replace <node1> <node2>`]({{<baseurl>}}riak/kv/3.0.6/using/admin/riak admin/#cluster-force-replace)
+4. Plan the changes to the cluster with `riak admin cluster plan`
+5. Finally, commit the cluster changes with `riak admin cluster commit`
 
 {{% note %}}
-For more information on the `riak-admin cluster` commands, refer to our documentation on [cluster administration]({{<baseurl>}}riak/kv/3.0.6/using/admin/).
+For more information on the `riak admin cluster` commands, refer to our documentation on [cluster administration]({{<baseurl>}}riak/kv/3.0.6/using/admin/).
 {{% /note %}}
 
 For example, if there are five nodes in the cluster with the original node names `riak1.example.com` through `riak5.example.com` and you wish to restore `riak1.example.com` as `riak6.example.com`, you would execute the following commands on `riak6.example.com`.
@@ -219,32 +219,32 @@ For example, if there are five nodes in the cluster with the original node names
 1. Join to any existing cluster node.
 
     ```bash
-    riak-admin cluster join riak@riak2.example.com
+    riak admin cluster join riak@riak2.example.com
     ```
 
 2. Mark the old instance down.
 
     ```bash
-    riak-admin down riak@riak1.example.com
+    riak admin down riak@riak1.example.com
     ```
 
 3. Force-replace the original instance with the new one.
 
     ```bash
-    riak-admin cluster force-replace \
+    riak admin cluster force-replace \
         riak@riak1.example.com riak@riak6.example.com
     ```
 
 4. Display and review the cluster change plan.
 
     ```bash
-    riak-admin cluster plan
+    riak admin cluster plan
     ```
 
 5. Commit the changes to the cluster.
 
     ```bash
-    riak-admin cluster commit
+    riak admin cluster commit
     ```
 
 Your [configuration files][config reference] should also be changed to match the new name in addition to running the commands (the `-name` setting in `vm.args` in the older config system, and the `nodename` setting in `riak.conf` in the newer system).
@@ -253,14 +253,14 @@ If the IP address of any node has changed, verify that the changes are reflected
 
 A robust DNS configuration can simplify the restore process if the IP addresses of the nodes change, but the hostnames are used for the node names and the hostnames stay the same. Additionally, if the HTTP and Protocol Buffers interface settings are configured to bind to all IP interfaces (0.0.0.0), then no changes will need to be made to your configuration files.
 
-When performing restore operations involving `riak-admin cluster force-replace`, we recommend that you start only one node at a time and verify that each node that is started has the correct name for itself
+When performing restore operations involving `riak admin cluster force-replace`, we recommend that you start only one node at a time and verify that each node that is started has the correct name for itself
 and for any other nodes whose names have changed:
 
 1. Verify that the correct name is present your configuration file.
 2. Once the node is started, run `riak attach` to connect to the node. The prompt obtained should contain the correct node name.
     - (It may be necessary to enter an Erlang atom by       typing `x.` and pressing Enter)
 3. Disconnect from the attached session with **Ctrl-G + q**.
-4. Finally, run `riak-admin member_status` to list all of the nodes and verify that all nodes listed have the correct names.
+4. Finally, run `riak admin member_status` to list all of the nodes and verify that all nodes listed have the correct names.
 
 ## Restoring a Cluster
 

@@ -66,7 +66,7 @@ specified above to the `postcommit` property when we create our bucket
 type:
 
 ```bash
-riak-admin bucket-type create with_post_commit \
+riak admin bucket-type create with_post_commit \
   '{"props":{"postcommit":["my_post_commit_hook"]}'
 ```
 
@@ -74,7 +74,7 @@ Once our bucket type has been created, we must activate it so that it
 will be usable through our Riak cluster:
 
 ```bash
-riak-admin bucket-type activate with_post_commit
+riak admin bucket-type activate with_post_commit
 ```
 
 If the response is `with_post_commit has been activated`, then the

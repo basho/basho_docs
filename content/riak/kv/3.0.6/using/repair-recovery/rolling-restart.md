@@ -36,7 +36,7 @@ riak start
 4\. Verify that the `riak_kv` service is once again available on the target node
 
 ```bash
-riak-admin wait-for-service riak_kv <nodename>
+riak admin wait-for-service riak_kv <nodename>
 ```
 
 If this responds with `riak_kv is up`, then the service is available and you can move on to the next step. Otherwise, the console will periodically return `riak_kv is not up` until the service is available.
@@ -44,13 +44,13 @@ If this responds with `riak_kv is up`, then the service is available and you can
 5\. Verify that all in-progress handoffs have been completed
 
 ```bash
-riak-admin transfers
+riak admin transfers
 ```
 
-If this responds with `No transfers active`, then all handoffs are complete. You can either run this command periodically until no more transfers are active or run the following script, which will run the `riak-admin transfers` command every 5 seconds until the transfers are complete:
+If this responds with `No transfers active`, then all handoffs are complete. You can either run this command periodically until no more transfers are active or run the following script, which will run the `riak admin transfers` command every 5 seconds until the transfers are complete:
 
 ```bash
-while ! riak-admin transfers | grep -iqF 'No transfers active'
+while ! riak admin transfers | grep -iqF 'No transfers active'
 do
     echo 'Transfers in progress'
     sleep 5

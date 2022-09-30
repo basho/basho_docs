@@ -1,18 +1,18 @@
 ---
-title: "riak-admin Command Line Interface"
+title: "riak admin Command Line Interface"
 description: ""
 project: "riak_kv"
 project_version: 3.0.7
 menu:
   riak_kv-3.0.7:
-    name: "riak-admin CLI"
+    name: "riak admin CLI"
     identifier: "cluster_admin_cli"
     weight: 101
     parent: "managing_cluster_admin"
 toc: true
 aliases:
-  - /riak/3.0.7/ops/running/tools/riak-admin
-  - /riak/kv/3.0.7/ops/running/tools/riak-admin
+  - /riak/3.0.7/ops/running/tools/riak admin
+  - /riak/kv/3.0.7/ops/running/tools/riak admin
 ---
 
 [config reference]: {{<baseurl>}}riak/kv/3.0.7/configuring/reference
@@ -35,16 +35,16 @@ aliases:
 [repair recover index]: {{<baseurl>}}riak/kv/3.0.7/using/repair-recovery
 [cluster ops strong consistency]: {{<baseurl>}}riak/kv/3.0.7/using/cluster-operations/strong-consistency
 [cluster ops handoff]: {{<baseurl>}}riak/kv/3.0.7/using/cluster-operations/handoff
-[use admin riak-admin#stats]: {{<baseurl>}}riak/kv/3.0.7/using/admin/riak-admin/#stats
+[use admin riak admin#stats]: {{<baseurl>}}riak/kv/3.0.7/using/admin/riak admin/#stats
 
-## `riak-admin`
+## `riak admin`
 
-The riak-admin command performs operations unrelated to node liveness, including:
+The riak admin command performs operations unrelated to node liveness, including:
 node membership, backup, and basic status reporting. The node must be
-running for most of these commands to work. Running `riak-admin` by itself will output a list of available commands:
+running for most of these commands to work. Running `riak admin` by itself will output a list of available commands:
 
 ```
-Usage: riak-admin { cluster | join | leave | backup | restore | test |
+Usage: riak admin { cluster | join | leave | backup | restore | test |
                     reip | js-reload | erl-reload | wait-for-service |
                     ringready | transfers | force-remove | down |
                     cluster-info | member-status | ring-status | vnode-status |
@@ -82,30 +82,30 @@ existence.
 
 ## cluster
 
-Documentation for the `riak-admin cluster` command interface can be
+Documentation for the `riak admin cluster` command interface can be
 found in [Cluster Administration][use admin commands].
 
 ## join
 
 > **Deprecation Notice**
 >
->As of Riak version 1.2, the `riak-admin join` command has
-been deprecated in favor of the [`riak-admin cluster join`][use admin commands#join] command. However, this command can still be
+>As of Riak version 1.2, the `riak admin join` command has
+been deprecated in favor of the [`riak admin cluster join`][use admin commands#join] command. However, this command can still be
 used by providing a `-f` option (which forces the command).
 
 Joins the running node to another running node so that they participate
 in the same cluster. `<node>` is the other node to connect to.
 
 ```bash
-riak-admin join -f <node>
+riak admin join -f <node>
 ```
 
 ## leave
 
 > **Deprecation Notice**
 >
-> As of Riak version 1.2, the `riak-admin leave` command has
-been deprecated in favor of the new [`riak-admin cluster leave`][use admin commands#leave] command. However, this
+> As of Riak version 1.2, the `riak admin leave` command has
+been deprecated in favor of the new [`riak admin cluster leave`][use admin commands#leave] command. However, this
 command can still be used by providing a `-f` option (which
 forces the command).
 
@@ -114,20 +114,20 @@ this is run, the node in question will hand-off all its replicas to
 other nodes in the cluster before it completely exits.
 
 ```bash
-riak-admin leave -f
+riak admin leave -f
 ```
 
 ## backup
 
 > **Deprecation notice**
-The `riak-admin backup` command has been deprecated. We recommend using
+The `riak admin backup` command has been deprecated. We recommend using
 backend-specific backup procedures instead. Documentation can be found
 in [Backing up Riak KV][cluster ops backup].
 
 Backs up the data from the node or entire cluster into a file.
 
 ```bash
-riak-admin backup <node> <cookie> <filename> [node|all]
+riak admin backup <node> <cookie> <filename> [node|all]
 ```
 
 * `<node>` is the node from which to perform the backup.
@@ -141,15 +141,15 @@ riak-admin backup <node> <cookie> <filename> [node|all]
 
 > **Deprecation notice**
 >
-> The `riak-admin restore` command has been deprecated. It was originally
+> The `riak admin restore` command has been deprecated. It was originally
 intended to be used in conjunction with backups performed using the
-`riak-admin backup` command, which is also deprecated. We recommend
+`riak admin backup` command, which is also deprecated. We recommend
 using the backup and restore methods described in [Backing up Riak KV][cluster ops backup].
 
 Restores data to the node or cluster from a previous backup.
 
 ```bash
-riak-admin restore <node> <cookie> <filename>
+riak admin restore <node> <cookie> <filename>
 ```
 
 * `<node>` is the node which will perform the restore.
@@ -163,7 +163,7 @@ riak-admin restore <node> <cookie> <filename>
 Runs a test of a few standard Riak operations against the running node.
 
 ```bash
-riak-admin test
+riak admin test
 ```
 
 If the test is successful, you should see output like the following:
@@ -176,12 +176,12 @@ Successfully completed 1 read/write cycle to 'dev1@127.0.0.1'
 
 Renames a node. This process backs up and edits the Riak ring, and
 **must** be run while the node is stopped. Reip should only be run in
-cases where `riak-admin cluster force-replace` cannot be used to
+cases where `riak admin cluster force-replace` cannot be used to
 rename the nodes of a cluster. For more information, visit the
 [Changing Cluster Information][cluster ops change info] document.
 
 ```bash
-riak-admin reip <old nodename> <new nodename>
+riak admin reip <old nodename> <new nodename>
 ```
 
 {{% note title="Note about reip prior to Riak 2.0" %}}
@@ -199,7 +199,7 @@ functions.
 **Note**: This needs to be run on _all nodes_ in the cluster.
 
 ```bash
-riak-admin js-reload
+riak admin js-reload
 ```
 
 ## erl-reload
@@ -211,18 +211,18 @@ purposes.
 > **Note**: This needs to be run on _all nodes_ in the cluster.
 
 ```bash
-riak-admin erl-reload
+riak admin erl-reload
 ```
 
 ## wait-for-service
 
 Waits on a specific watchable service to be available (typically
 `riak_kv`). This is useful when (re-)starting a node while the cluster
-is under load. Use `riak-admin services` to see which services are
+is under load. Use `riak admin services` to see which services are
 available on a running node.
 
 ```bash
-riak-admin wait-for-service <service> <nodename>
+riak admin wait-for-service <service> <nodename>
 ```
 
 ## ringready
@@ -232,7 +232,7 @@ Prints `FALSE` if the nodes do not agree. This is useful after changing
 cluster membership to make sure that the ring state has settled.
 
 ```bash
-riak-admin ringready
+riak admin ringready
 ```
 
 ## transfers
@@ -242,7 +242,7 @@ This usually occurs when partition ownership has changed (after adding
 or removing a node) or after node recovery.
 
 ```bash
-riak-admin transfers
+riak admin transfers
 ```
 
 ## transfer-limit
@@ -256,7 +256,7 @@ Running this command with no arguments will display the current
 transfer-limit for each node in the cluster.
 
 ```bash
-riak-admin transfer-limit <node> <limit>
+riak admin transfer-limit <node> <limit>
 ```
 
 ## down
@@ -265,7 +265,7 @@ Marks a node as down so that ring transitions can be performed before
 the node is brought back online.
 
 ```bash
-riak-admin down <node>
+riak admin down <node>
 ```
 
 ## cluster-info
@@ -275,7 +275,7 @@ information from all nodes or a subset of nodes and output the data to a
 single text file.
 
 ```bash
-riak-admin cluster-info <output file> [<node list>]
+riak admin cluster-info <output file> [<node list>]
 ```
 
 The following information is collected:
@@ -312,19 +312,19 @@ The following information is collected:
 Output information from all nodes to `/tmp/cluster_info.txt`:
 
 ```bash
-riak-admin cluster_info /tmp/cluster_info.txt
+riak admin cluster_info /tmp/cluster_info.txt
 ```
 
 Output information from the current nodeL
 
 ```bash
-riak-admin cluster_info /tmp/cluster_info.txt local
+riak admin cluster_info /tmp/cluster_info.txt local
 ```
 
 Output information from a subset of nodes:
 
 ```bash
-riak-admin cluster_info /tmp/cluster_info.txt riak@192.168.1.10
+riak admin cluster_info /tmp/cluster_info.txt riak@192.168.1.10
 riak@192.168.1.11
 ```
 
@@ -333,7 +333,7 @@ riak@192.168.1.11
 Prints the current status of all cluster members.
 
 ```bash
-riak-admin member-status
+riak admin member-status
 ```
 
 ## ring-status
@@ -342,7 +342,7 @@ Outputs the current claimant, its status, ringready, pending ownership
 handoffs, and a list of unreachable nodes.
 
 ```bash
-riak-admin ring-status
+riak admin ring-status
 ```
 
 ## vnode-status
@@ -350,7 +350,7 @@ riak-admin ring-status
 Outputs the status of all vnodes the are running on the local node.
 
 ```bash
-riak-admin vnode-status
+riak admin vnode-status
 ```
 
 ## aae-status
@@ -359,7 +359,7 @@ This command provides insight into operation of Riak's Active
 Anti-Entropy (AAE) feature.
 
 ```bash
-riak-admin aae-status
+riak admin aae-status
 ```
 
 The output contains information on AAE key/value partition exchanges,
@@ -397,7 +397,7 @@ The `diag` command invokes the [Riaknostic](http://riaknostic.basho.com/)
 diagnostic system.
 
 ```bash
-riak-admin diag
+riak admin diag
 ```
 
 This command allows you to specify which diagnostic checks you would
@@ -411,7 +411,7 @@ Provides an interface for interacting with a variety of cluster-level
 metrics and information.
 
 ```bash
-riak-admin stat
+riak admin stat
 ```
 
 Full documentation of this command can be found in [Statistics and Monitoring][use ref monitoring].
@@ -423,7 +423,7 @@ health information, and version numbers. Further information about the
 output is available in the documentation on [inspecting a node][cluster ops inspect node].
 
 ```bash
-riak-admin status
+riak admin status
 ```
 
 ## reformat-indexes
@@ -433,7 +433,7 @@ versions of Riak prior to 1.3.1 so that range queries over the indexes
 will return correct results.
 
 ```
-riak-admin reformat-indexes [<concurrency>] [<batch size>] --downgrade
+riak admin reformat-indexes [<concurrency>] [<batch size>] --downgrade
 ```
 
 The `concurrency` option defaults to `2` and controls how many
@@ -461,14 +461,14 @@ processes inside of Riak are doing. Top reports process reductions (an
 indicator of CPU utilization), memory used, and message queue sizes.
 
 ```bash
-riak-admin top [-interval N] [-sort reductions|memory|msg_q] [-lines N]
+riak admin top [-interval N] [-sort reductions|memory|msg_q] [-lines N]
 ```
 
 Options:
 
 * `interval` specifies the number of seconds between each update of the
   top output and defaults to `5`
-* `sort` determines on which category `riak-admin top` sorts and
+* `sort` determines on which category `riak admin top` sorts and
   defaults to `reductions`
 * `lines` specifies the number of processes to display in the top output
   and defaults to `10`
@@ -482,7 +482,7 @@ This command is used when changing the format of Riak objects, usually
 as part of a version downgrade.
 
 ```bash
-riak-admin downgrade-objects <kill-handoffs> [<concurrency>]
+riak admin downgrade-objects <kill-handoffs> [<concurrency>]
 ```
 
 More detailed information can be found in [Rolling Downgrades][downgrade].
@@ -494,7 +494,7 @@ of authentication, assign and revoke permissions to/from users and
 groups, enable and disable Riak Security, and more.
 
 ```bash
-riak-admin security <command>
+riak admin security <command>
 ```
 
 More comprehensive information on user management and can be found in
@@ -509,7 +509,7 @@ types, provide the status of currently available bucket types, and
 activate created bucket types.
 
 ```bash
-riak-admin bucket-type <command>
+riak admin bucket-type <command>
 ```
 
 More on bucket types can be found in [Using Bucket Types][cluster ops bucket types].
@@ -524,7 +524,7 @@ To repair secondary indexes throughout the entire cluster, run the
 `repair-2i`command by itself, without a subcommand:
 
 ```bash
-riak-admin repair-2i
+riak admin repair-2i
 ```
 
 This will initiate the repair process. When you run this command, you
@@ -540,13 +540,13 @@ To repair secondary indexes in a specific partition, provide the ID of
 the partition along with the `repair-2i` command:
 
 ```bash
-riak-admin repair-2i 593735040165679310520246963290989976735222595584
+riak admin repair-2i 593735040165679310520246963290989976735222595584
 ```
 
 You can check on the status of the repair process at any time:
 
 ```bash
-riak-admin repair-2i status
+riak admin repair-2i status
 ```
 
 If the repair is already finished, the console will return `2i repair is
@@ -569,14 +569,14 @@ between 1 and 100 (with 100 being the fastest). This command would set
 the speed to 90:
 
 ```bash
-riak-admin repair-2i --speed 90
+riak admin repair-2i --speed 90
 ```
 
 The repair process can be stopped at any moment using the `kill`
 command:
 
 ```bash
-riak-admin repair-2i kill
+riak admin repair-2i kill
 ```
 
 ## search
@@ -585,13 +585,13 @@ The search command provides sub-commands for various administrative
 work related to the new Riak Search.
 
 ```bash
-riak-admin search <command>
+riak admin search <command>
 ```
 
 ### aae-status
 
 ```bash
-riak-admin search aae-status
+riak admin search aae-status
 ```
 
 Output active anti-entropy (AAE) statistics for search. There are
@@ -626,7 +626,7 @@ This is only needed when migrating from legacy riak search to the new Search
 {{% /note %}}
 
 ```bash
-riak-admin search switch-to-new-search
+riak admin search switch-to-new-search
 ```
 
 Switch handling of the HTTP `/solr/<index>/select` resource and
@@ -638,7 +638,7 @@ protocol buffer query messages from legacy Riak Search to new Search
 Lists available services on the node (e.g. `riak_kv`).
 
 ```bash
-riak-admin services
+riak admin services
 ```
 
 ## ensemble-status
@@ -647,14 +647,14 @@ This command is used to provide insight into the current status of the
 consensus subsystem undergirding Riak's [strong consistency][cluster ops strong consistency] feature.
 
 ```bash
-riak-admin ensemble-status
+riak admin ensemble-status
 ```
 
 This command can also be used to check on the status of a specific
 consensus group in your cluster:
 
 ```bash
-riak-admin ensemble-status <group id>
+riak admin ensemble-status <group id>
 ```
 
 Complete documentation of this command can be found in [Managing Strong Consistency][cluster ops strong consistency].
@@ -669,7 +669,7 @@ Enables you to change the value of one of Riak's configuration
 parameters on the fly, without needing to stop and restart the node.
 
 ```bash
-riak-admin set <variable>=<value>
+riak admin set <variable>=<value>
 ```
 
 The set command can only be used for the following
@@ -687,12 +687,12 @@ The `search.dist_query` commands above are non-persistent. Any settings you have
 
 ## show
 
-Whereas the [`riak-admin status`][use admin riak-admin#stats] command will display all currently available statistics for your Riak
+Whereas the [`riak admin status`][use admin riak admin#stats] command will display all currently available statistics for your Riak
 cluster, the `show` command enables you to view only some of those
 statistics.
 
 ```bash
-riak-admin show <variable>
+riak admin show <variable>
 ```
 
 ## describe
@@ -700,13 +700,13 @@ riak-admin show <variable>
 Provides a brief description of one of Riak's [configurable parameters][config reference].
 
 ```bash
-riak-admin describe <variable>
+riak admin describe <variable>
 ```
 
 If you want to know the meaning of the `nodename` parameter:
 
 ```bash
-riak-admin describe nodename
+riak admin describe nodename
 ```
 
 That will produce the following output:

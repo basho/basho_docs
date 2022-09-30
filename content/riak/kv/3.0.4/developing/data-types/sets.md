@@ -32,7 +32,7 @@ For example, if you attempt to add the element `shovel` to a set that already co
 Start by creating a bucket type with the `datatype` parameter `set`:
 
 ```bash
-riak-admin bucket-type create sets '{"props":{"datatype":"set"}}'
+riak admin bucket-type create sets '{"props":{"datatype":"set"}}'
 ```
 
 > **Note**
@@ -42,7 +42,7 @@ riak-admin bucket-type create sets '{"props":{"datatype":"set"}}'
 After creating a bucket with a Riak data type, confirm the bucket property configuration associated with that type is correct:
 
 ```bash
-riak-admin bucket-type status sets
+riak admin bucket-type status sets
 ```
 
 This returns a list of bucket properties and their values
@@ -57,13 +57,13 @@ datatype: set
 Once we have confirmed the bucket type is properly configured, we can activate the bucket type to be used in Riak KV:
 
 ```bash
-riak-admin bucket-type activate sets
+riak admin bucket-type activate sets
 ```
 
 We can check if activation has been successful by using the same `bucket-type status` command shown above:
 
 ```bash
-riak-admin bucket-type status sets
+riak admin bucket-type status sets
 ```
 
 After creating and activating our new `sets` bucket type, we can setup our client to start using the bucket type as detailed in the next section.

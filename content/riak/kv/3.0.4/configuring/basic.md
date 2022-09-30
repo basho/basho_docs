@@ -17,7 +17,7 @@ aliases:
 
 [config reference]: {{<baseurl>}}riak/kv/3.0.4/configuring/reference
 [use running cluster]: {{<baseurl>}}riak/kv/3.0.4/using/running-a-cluster
-[use admin riak-admin#member-status]: {{<baseurl>}}riak/kv/3.0.4/using/admin/riak-admin/#member-status
+[use admin riak admin#member-status]: {{<baseurl>}}riak/kv/3.0.4/using/admin/riak admin/#member-status
 [perf erlang]: {{<baseurl>}}riak/kv/3.0.4/using/performance/erlang
 [plan start]: {{<baseurl>}}riak/kv/3.0.4/setup/planning/start
 [plan best practices]: {{<baseurl>}}riak/kv/3.0.4/setup/planning/best-practices
@@ -61,7 +61,7 @@ We advise that you make as many of the changes below as practical
 _before_ joining the nodes together into a cluster. Once your
 configuration has been set on each node, follow the steps in [Basic Cluster Setup][use running cluster] to complete the clustering process.
 
-Use [`riak-admin member-status`][use admin riak-admin#member-status]
+Use [`riak admin member-status`][use admin riak admin#member-status]
 to determine whether any given node is a member of a cluster.
 
 ## Erlang VM Tunings
@@ -143,10 +143,10 @@ the location of this file)
 
 ### Verifying ring size
 
-You can use the `riak-admin` command can verify the ring size:
+You can use the `riak admin` command can verify the ring size:
 
 ```bash
-riak-admin status | grep ring
+riak admin status | grep ring
 ```
 
 Console output:

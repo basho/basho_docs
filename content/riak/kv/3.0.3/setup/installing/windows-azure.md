@@ -150,7 +150,7 @@ If you have already followed the instructions in the section "Configure Riak usi
 First, SSH into the second (and subsequent nodes) and execute:
 
 ```bash
-riak-admin cluster join riak@yourhostnamehere
+riak admin cluster join riak@yourhostnamehere
 ```
 
 (Where 'yourhostnamehere' is the short name of the **first node** in your cluster)
@@ -160,19 +160,19 @@ riak-admin cluster join riak@yourhostnamehere
 After all the nodes have have been joined to the first node via the previous command, connect to any of the nodes via SSH or PuTTY and execute the following:
 
 ```bash
-riak-admin cluster plan
+riak admin cluster plan
 ```
 
 Verify all the nodes are listed as expected.  If the cluster plan looks good:
 
 ```bash
-riak-admin cluster commit
+riak admin cluster commit
 ```
 
 To check the status of clustering use:
 
 ```bash
-riak-admin member-status
+riak admin member-status
 ```
 
 You now have a Riak cluster on Azure

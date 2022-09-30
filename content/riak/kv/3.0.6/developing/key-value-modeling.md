@@ -450,21 +450,21 @@ Here's an example of creating four bucket types that only extend Riak's
 defaults:
 
 ```bash
-riak-admin bucket-type create john
-riak-admin bucket-type create robert
-riak-admin bucket-type create jimmy
-riak-admin bucket-type create john-paul
+riak admin bucket-type create john
+riak admin bucket-type create robert
+riak admin bucket-type create jimmy
+riak admin bucket-type create john-paul
 ```
 
 Or you can create five different bucket types that all set `n_val` to 2
 but have different names:
 
 ```bash
-riak-admin bucket-type create earth '{"props":{"n_val":2}}'
-riak-admin bucket-type create fire '{"props":{"n_val":2}}'
-riak-admin bucket-type create wind '{"props":{"n_val":2}}'
-riak-admin bucket-type create water '{"props":{"n_val":2}}'
-riak-admin bucket-type create heart '{"props":{"n_val":2}}'
+riak admin bucket-type create earth '{"props":{"n_val":2}}'
+riak admin bucket-type create fire '{"props":{"n_val":2}}'
+riak admin bucket-type create wind '{"props":{"n_val":2}}'
+riak admin bucket-type create water '{"props":{"n_val":2}}'
+riak admin bucket-type create heart '{"props":{"n_val":2}}'
 ```
 
 ### Bucket Types Example

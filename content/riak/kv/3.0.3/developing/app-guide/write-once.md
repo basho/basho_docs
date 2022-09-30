@@ -56,13 +56,13 @@ The following example shows how to configure a bucket type with the
 `write_once` property:
 
 ```bash
-riak-admin bucket-type create my-bucket-type '{"props": {"write_once": true}}'
+riak admin bucket-type create my-bucket-type '{"props": {"write_once": true}}'
 # my-bucket-type created
 
-riak-admin bucket-type activate my-bucket-type
+riak admin bucket-type activate my-bucket-type
 # my-bucket-type has been activated
 
-riak-admin bucket-type status my-bucket-type
+riak admin bucket-type status my-bucket-type
 # my-bucket-type is active
 ...
 write_once: true

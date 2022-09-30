@@ -50,7 +50,7 @@ The JSON object in the response will contain up to two entries, `"props"` and
 parameters.  The default is for only `"props"` to be present.
 
 See [HTTP Set Bucket Properties]({{<baseurl>}}riak/kv/3.0.7/developing/api/http/set-bucket-props) for more information about the available
-bucket properties. See [Managing Bucket Types Through the Command Line]({{< baseurl >}}riak/kv/3.0.7/using/reference/bucket-types/#managing-bucket-types-through-the-command-line) for more details about reading bucket types using  the `riak-admin bucket-type` interface.
+bucket properties. See [Managing Bucket Types Through the Command Line]({{< baseurl >}}riak/kv/3.0.7/using/reference/bucket-types/#managing-bucket-types-through-the-command-line) for more details about reading bucket types using  the `riak admin bucket-type` interface.
 
 ## Example
 

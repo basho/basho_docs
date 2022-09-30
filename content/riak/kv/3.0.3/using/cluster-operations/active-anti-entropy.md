@@ -104,7 +104,7 @@ Riak's command-line interface includes a command that provides insight
 into AAE-related processes and performance:
 
 ```bash
-riak-admin aae-status
+riak admin aae-status
 ```
 
 When you run this command in a node, the output will look like this
@@ -153,7 +153,7 @@ Category | Measures | Description
   | `Mean` | The mean number of keys repaired during all key exchanges since the last node restart
   | `Max` | The maximum number of keys repaired during all key exchanges since the last node restart
 
-All AAE status information obtainable using the `riak-admin aae-status`
+All AAE status information obtainable using the `riak admin aae-status`
 command is stored in-memory and is reset when a node is restarted with
 the exception of hash tree build information, which is persisted on disk
 (because hash trees themselves are persisted on disk).
@@ -278,7 +278,7 @@ You can check on the status of Search-related AAE using the following
 command:
 
 ```bash
-riak-admin search aae-status
+riak admin search aae-status
 ```
 
 The output from that command can be interpreted just like the output

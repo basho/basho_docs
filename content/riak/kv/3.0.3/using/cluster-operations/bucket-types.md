@@ -36,8 +36,8 @@ any properties and set individual buckets to be indexed. The step below
 creates and activates the bucket type:
 
 ```bash
-riak-admin bucket-type create animals '{"props":{}}'
-riak-admin bucket-type activate animals
+riak admin bucket-type create animals '{"props":{}}'
+riak admin bucket-type activate animals
 ```
 
 And this step applies the index to the `cats` bucket, which bears the
@@ -54,8 +54,8 @@ of the bucket type. This means _any_ bucket under that type will
 inherit that setting and have its values indexed.
 
 ```bash
-riak-admin bucket-type create animals '{"props":{"search_index":"famous"}}'
-riak-admin bucket-type activate animals
+riak admin bucket-type create animals '{"props":{"search_index":"famous"}}'
+riak admin bucket-type activate animals
 ```
 
 

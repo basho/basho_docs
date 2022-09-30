@@ -73,9 +73,9 @@ an opaque value, ie a `string`. The following command provides an example of
 creating the bucket-type `rra`:
 
 ```sh
-if ! riak-admin bucket-type status rra >/dev/null 2>&1; then
-    riak-admin bucket-type create rra '{"props":{}}'
-    riak-admin bucket-type activate rra
+if ! riak admin bucket-type status rra >/dev/null 2>&1; then
+    riak admin bucket-type create rra '{"props":{}}'
+    riak admin bucket-type activate rra
 fi
 ```
 

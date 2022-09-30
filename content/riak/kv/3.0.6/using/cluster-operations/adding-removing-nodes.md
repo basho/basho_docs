@@ -55,7 +55,7 @@ for nodes that you want to add later.
 To join the node to an existing cluster, use the `cluster join` command:
 
 ```bash
-bin/riak-admin cluster join <node_in_cluster>
+bin/riak admin cluster join <node_in_cluster>
 ```
 
 The `<node_in_cluster>` in the example above can be _any_ node in the
@@ -64,9 +64,9 @@ nodes `A`, `B`, and `C`, any of the following commands would join the
 new node:
 
 ```bash
-bin/riak-admin cluster join A
-bin/riak-admin cluster join B
-bin/riak-admin cluster join C
+bin/riak admin cluster join A
+bin/riak admin cluster join B
+bin/riak admin cluster join C
 ```
 
 To give a more realistic example, let's say that you have an isolated
@@ -75,7 +75,7 @@ cluster that contains a node named `riak@192.168.2.2`. This command
 would stage a join to that cluster:
 
 ```bash
-bin/riak-admin cluster join riak@192.168.2.2
+bin/riak admin cluster join riak@192.168.2.2
 ```
 
 If the join request is successful, you should see the following:
@@ -93,10 +93,10 @@ The process of joining a cluster involves several steps, including
 staging the proposed cluster nodes, reviewing the cluster plan, and
 committing the changes.
 
-After staging each of the cluster nodes with `riak-admin cluster join`
+After staging each of the cluster nodes with `riak admin cluster join`
 commands, as in the section above, the next step in forming a cluster is
 to review the proposed plan of changes. This can be done with the
-`riak-admin cluster plan` command, which is shown in the example below.
+`riak admin cluster plan` command, which is shown in the example below.
 
 ```
 =============================== Staged Changes ================================
@@ -133,15 +133,15 @@ Transfers resulting from cluster changes: 51
   13 transfers from 'riak@192.168.2.2' to 'riak@192.168.2.6'
 ```
 
-If the plan is to your liking, submit the changes by running `riak-admin
+If the plan is to your liking, submit the changes by running `riak admin
 cluster commit`.
 
 {{% note title="Note on ring changes" %}}
 The algorithm that distributes partitions across the cluster during membership
 changes is non-deterministic. As a result, there is no optimal ring. In the
 event that a plan results in a slightly uneven distribution of partitions, the
-plan can be cleared. Clearing a cluster plan with `riak-admin cluster clear`
-and running `riak-admin cluster plan` again will produce a slightly different
+plan can be cleared. Clearing a cluster plan with `riak admin cluster clear`
+and running `riak admin cluster plan` again will produce a slightly different
 ring.
 {{% /note %}}
 
@@ -154,30 +154,30 @@ second is relevant for failure scenarios in which a node has crashed and
 is irrecoverable and thus must be removed from the cluster from another
 node.
 
-The command to remove a running node is `riak-admin cluster leave`. This
+The command to remove a running node is `riak admin cluster leave`. This
 command must be executed on the node that you intend to removed from the
 cluster.
 
-Similarly to joining a node, after executing `riak-admin cluster leave`
-the cluster plan must be reviewed with `riak-admin cluster plan` and
-the changes committed with `riak-admin cluster commit`.
+Similarly to joining a node, after executing `riak admin cluster leave`
+the cluster plan must be reviewed with `riak admin cluster plan` and
+the changes committed with `riak admin cluster commit`.
 
-The other command is `riak-admin cluster leave <node>`, where `<node>`
+The other command is `riak admin cluster leave <node>`, where `<node>`
 is the node name as specified in the node's configuration files:
 
 ```bash
-riak-admin cluster leave riak@192.168.2.1
+riak admin cluster leave riak@192.168.2.1
 ```
 
 This command can be run from any other node in the cluster.
 
 Under the hood, both commands do basically the same thing. Running
-`riak-admin cluster leave <node>` selects the current node for you
+`riak admin cluster leave <node>` selects the current node for you
 automatically.
 
-As with `riak-admin cluster leave`, the plan to have a node leave the
-cluster must be first reviewed with `riak-admin cluster plan` and
-committed with `riak-admin cluster commit` before any changes will
+As with `riak admin cluster leave`, the plan to have a node leave the
+cluster must be first reviewed with `riak admin cluster plan` and
+committed with `riak admin cluster commit` before any changes will
 actually take place.
 
 
@@ -187,10 +187,10 @@ actually take place.
 Pausing may impact cluster health and is not recommended for more than a short period of time.
 {{% /note %}}
 
-To pause during `riak-admin cluster join` or `riak-admin cluster leave`, set the node's transfer-limit to 0:
+To pause during `riak admin cluster join` or `riak admin cluster leave`, set the node's transfer-limit to 0:
 
 ```bash
-riak-admin transfer-limit <node> 0
+riak admin transfer-limit <node> 0
 ```
 
 

@@ -97,7 +97,7 @@ the number of siblings, causing longer disk service times and slower
 network responses.
 
 Sibling explosion can be detected by examining the `node_get_fsm_siblings`
-and `node_get_fsm_objsize` statistics from the `riak-admin status` command.
+and `node_get_fsm_objsize` statistics from the `riak admin status` command.
 To recover from sibling explosion, the application should be throttled and
 the resolution policy might need to be invoked manually on offending keys.
 

@@ -159,8 +159,8 @@ knowledge. We'll create and activate a [bucket type]({{<baseurl>}}riak/kv/3.0.4/
 `counters`, like so:
 
 ```bash
-riak-admin bucket-type create counters '{"props":{"datatype":"counter"}}'
-riak-admin bucket-type activate counters
+riak admin bucket-type create counters '{"props":{"datatype":"counter"}}'
+riak admin bucket-type activate counters
 ```
 
 Now, we'll create a search index called `scores` that uses the default
@@ -217,7 +217,7 @@ Now, we can modify our `counters` bucket type to associate that bucket
 type with our `scores` index:
 
 ```bash
-riak-admin bucket-type update counters '{"props":{"search_index":"scores"}}'
+riak admin bucket-type update counters '{"props":{"search_index":"scores"}}'
 ```
 
 At this point, all of the counters that we stored in any bucket with the
@@ -619,8 +619,8 @@ people in sets. We'll create and activate a [bucket type]({{<baseurl>}}riak/kv/3
 like so:
 
 ```bash
-riak-admin bucket-type create sets '{"props":{"datatype":"set"}}'
-riak-admin bucket-type activate sets
+riak admin bucket-type create sets '{"props":{"datatype":"set"}}'
+riak admin bucket-type activate sets
 ```
 
 Now, we'll create a Search index called `hobbies` that uses the default
@@ -677,7 +677,7 @@ Now, we can modify our `sets` bucket type to associate that bucket type
 with our `hobbies` index:
 
 ```bash
-riak-admin bucket-type update sets '{"props":{"search_index":"hobbies"}}'
+riak admin bucket-type update sets '{"props":{"search_index":"hobbies"}}'
 ```
 
 Now, all of the sets that we store in any bucket with the bucket type
@@ -1005,8 +1005,8 @@ First, let's create and activate a bucket type simply called `maps` that
 is set up to store Riak maps:
 
 ```bash
-riak-admin bucket-type create maps '{"props":{"datatype":"map"}}'
-riak-admin bucket-type activate maps
+riak admin bucket-type create maps '{"props":{"datatype":"map"}}'
+riak admin bucket-type activate maps
 ```
 
 Now, let's create a search index called `customers` using the default
@@ -1063,7 +1063,7 @@ With our index created, we can associate our new `customers` index with
 our `maps` bucket type:
 
 ```bash
-riak-admin bucket-type update maps '{"props":{"search_index":"customers"}}'
+riak admin bucket-type update maps '{"props":{"search_index":"customers"}}'
 ```
 
 Now we can create some maps along the lines suggested above:

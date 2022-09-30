@@ -43,20 +43,20 @@ Riak search can be provided its own AAE settings in the [search config settings]
 
 ## Repairing Secondary Indexes
 
-The `riak-admin repair-2i` command can be used to repair any stale or missing secondary indexes.  This command scans and repairs any mismatches between the secondary index data used for querying and the secondary index data stored in the Riak objects. It can be run on all partitions of a node or on a subset of them.  We recommend scheduling these repairs outside of peak load time.
+The `riak admin repair-2i` command can be used to repair any stale or missing secondary indexes.  This command scans and repairs any mismatches between the secondary index data used for querying and the secondary index data stored in the Riak objects. It can be run on all partitions of a node or on a subset of them.  We recommend scheduling these repairs outside of peak load time.
 
 ### Running a Repair
 
 The secondary indexes of a single partition can be repaired by executing:
 
 ```bash
-riak-admin repair-2i »Partition ID«
+riak admin repair-2i »Partition ID«
 ```
 
 The secondary indexes of every partition can be repaired by executing the same command, without a partition ID:
 
 ```bash
-riak-admin repair-2i
+riak admin repair-2i
 ```
 
 ### Monitoring a Repair
@@ -64,7 +64,7 @@ riak-admin repair-2i
 Repairs can be monitored using the below command:
 
 ```bash
-riak-admin repair-2i status
+riak admin repair-2i status
 ```
 
 ### Killing a Repair
@@ -72,7 +72,7 @@ riak-admin repair-2i status
 In the event the secondary index repair operation needs to be halted, all repairs can be killed with:
 
 ```bash
-riak-admin repair-2i kill
+riak admin repair-2i kill
 ```
 
 ## Repairing LevelDB
@@ -357,7 +357,7 @@ transfers.
 
 ### Monitoring Repairs
 
-The above repair commands can be monitored via the `riak-admin
+The above repair commands can be monitored via the `riak admin
 transfers` command.
 
 ### Killing a Repair

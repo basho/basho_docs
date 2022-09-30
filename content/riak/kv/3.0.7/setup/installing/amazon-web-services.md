@@ -85,25 +85,25 @@ unless deployed in Amazon VPC.
 2. For all other nodes, use the internal IP address of the first node:
 
     ```bash
-    sudo riak-admin cluster join riak@<ip.of.first.node>
+    sudo riak admin cluster join riak@<ip.of.first.node>
     ```
 
 3. After all of the nodes are joined, execute the following:
 
     ```bash
-    sudo riak-admin cluster plan
+    sudo riak admin cluster plan
     ```
 
     If this looks good:
 
     ```bash
-    sudo riak-admin cluster commit
+    sudo riak admin cluster commit
     ```
 
     To check the status of clustering use:
 
     ```bash
-    sudo riak-admin member_status
+    sudo riak admin member_status
     ```
 
 You now have a Riak cluster running on AWS.

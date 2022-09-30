@@ -22,7 +22,7 @@ This document provides more granular information on the four available
 authentication sources in Riak Security: trusted networks, password,
 pluggable authentication modules (PAM), and certificates. These sources
 correspond to `trust`, `password`, `pam`, and `certificate`,
-respectively, in the `riak-admin security` interface.
+respectively, in the `riak admin security` interface.
 
 The examples below will assume that the network in question is
 `127.0.0.1/32` and that a Riak user named `riakuser` has been
@@ -41,7 +41,7 @@ This form of authentication enables you to specify trusted
 from which all clients will be authenticated by default.
 
 ```bash
-riak-admin security add-source all 127.0.0.1/32 trust
+riak admin security add-source all 127.0.0.1/32 trust
 ```
 
 Here, we have specified that anyone connecting to Riak from the
@@ -60,7 +60,7 @@ You can also specify users as trusted users, as in the following
 example:
 
 ```bash
-riak-admin security add-source riakuser 127.0.0.1/32 trust
+riak admin security add-source riakuser 127.0.0.1/32 trust
 ```
 
 Now, `riakuser` can interact with Riak without providing credentials.
@@ -78,28 +78,28 @@ given a password. `riakuser` can be assigned a password upon creation,
 as in this example:
 
 ```bash
-riak-admin security add-user riakuser password=captheorem4life
+riak admin security add-user riakuser password=captheorem4life
 ```
 
 Or a password can be assigned to an already existing user by modifying
 that user's characteristics:
 
 ```bash
-riak-admin security alter-user riakuser password=captheorem4life
+riak admin security alter-user riakuser password=captheorem4life
 ```
 
 You can specify that _all_ users must authenticate themselves via
 password when connecting to Riak from `localhost`:
 
 ```bash
-riak-admin security add-source all 127.0.0.1/32 password
+riak admin security add-source all 127.0.0.1/32 password
 ```
 
 Or you can specify that any number of specific users must do so:
 
 ```bash
-riak-admin security add-source riakuser 127.0.0.1/32 password
-riak-admin security add-source otheruser 127.0.0.1/32 password
+riak admin security add-source riakuser 127.0.0.1/32 password
+riak admin security add-source otheruser 127.0.0.1/32 password
 
 # etc
 ```
@@ -128,7 +128,7 @@ Let's specify that our user `riakuser` is going to be authenticated
 using a certificate on `localhost`:
 
 ```bash
-riak-admin security add-source riakuser 127.0.0.1/32 certificate
+riak admin security add-source riakuser 127.0.0.1/32 certificate
 ```
 
 When the `certificate` source is used, `riakuser` must also be entered
@@ -187,7 +187,7 @@ we need to add a `pam` security source in Riak and specify the name of
 the service:
 
 ```bash
-riak-admin security add-source all 127.0.0.1/32 pam service=riak_pam
+riak admin security add-source all 127.0.0.1/32 pam service=riak_pam
 ```
 
 **Note**: If you do not specify a name for your PAM service, Riak will
@@ -196,7 +196,7 @@ use the default, which is `riak`.
 To verify that the source has been properly specified:
 
 ```bash
-riak-admin security print-sources
+riak admin security print-sources
 ```
 
 That command should output the following:
@@ -248,11 +248,11 @@ that with the following example, in which the `certificate` source is
 assigned to `all`, but the `password` source is assigned to `riakuser`:
 
 ```bash
-riak-admin security add-source all 127.0.0.1/32 certificate
-riak-admin security add-source riakuser 127.0.0.1/32 password
+riak admin security add-source all 127.0.0.1/32 certificate
+riak admin security add-source riakuser 127.0.0.1/32 password
 ```
 
-If we run `riak-admin security print-sources`, we'll get the following
+If we run `riak admin security print-sources`, we'll get the following
 output:
 
 ```

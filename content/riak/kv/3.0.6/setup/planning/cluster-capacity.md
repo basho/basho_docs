@@ -19,7 +19,7 @@ aliases:
 [plan bitcask capacity]: {{<baseurl>}}riak/kv/3.0.6/setup/planning/bitcask-capacity-calc
 [plan index]: {{<baseurl>}}riak/kv/3.0.6/setup/planning
 [concept replication]: {{<baseurl>}}riak/kv/3.0.6/learn/concepts/replication
-[use admin riak-admin#cluster]: {{<baseurl>}}riak/kv/3.0.6/using/admin/riak-admin/#cluster
+[use admin riak admin#cluster]: {{<baseurl>}}riak/kv/3.0.6/using/admin/riak admin/#cluster
 [config reference]: {{<baseurl>}}riak/kv/3.0.6/configuring/reference
 [perf benchmark]: {{<baseurl>}}riak/kv/3.0.6/using/performance/benchmarking
 [LVM]: http://en.wikipedia.org/wiki/Logical_Volume_Manager_(Linux)
@@ -135,7 +135,7 @@ Nodes](http://basho.com/posts/technical/Why-Your-Riak-Cluster-Should-Have-At-Lea
 Riak can be scaled in two ways: vertically, via improved hardware, and
 horizontally, by adding more nodes. Both ways can provide performance
 and capacity benefits, but should be used in different circumstances.
-The [riak-admin cluster command][use admin riak-admin#cluster] can
+The [riak admin cluster command][use admin riak admin#cluster] can
 assist scaling in both directions.
 
 #### Vertical Scaling
@@ -161,12 +161,12 @@ capacity.
 > **Note on horizontal scaling**
 >
 > When scaling horizontally, it's best to add all planned nodes at once
-with multiple `riak-admin cluster join` commands followed by
-a `riak-admin cluster plan` and `riak-admin cluster commit`. This will help reduce the amount of data transferred between nodes in the cluster.
+with multiple `riak admin cluster join` commands followed by
+a `riak admin cluster plan` and `riak admin cluster commit`. This will help reduce the amount of data transferred between nodes in the cluster.
 
 #### Reducing Horizontal Scale
 
-If a Riak cluster is over provisioned, or in response to seasonal usage decreases, the horizontal scale of a Riak cluster can be decreased using the `riak-admin cluster leave` command.
+If a Riak cluster is over provisioned, or in response to seasonal usage decreases, the horizontal scale of a Riak cluster can be decreased using the `riak admin cluster leave` command.
 
 ## Ring Size/Number of Partitions
 

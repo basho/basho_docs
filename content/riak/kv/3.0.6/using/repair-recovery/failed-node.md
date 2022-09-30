@@ -47,7 +47,7 @@ following steps:
 2. Mark the node down from another node in the cluster:
 
     ```bash
-    riak-admin down <previous_node_name>
+    riak admin down <previous_node_name>
     ```
 
 3. Update the node name in Riak's configuration files:
@@ -71,7 +71,7 @@ following steps:
 6. Ensure that the node comes up as a single instance:
 
     ```bash
-    riak-admin member-status
+    riak admin member-status
     ```
 
     The output should look something like this:
@@ -88,25 +88,25 @@ Valid:1 / Leaving:0 / Exiting:0 / Joining:0 / Down:0
 7. Join the node to the cluster:
 
     ```bash
-    riak-admin cluster join <node_name_of_a_member_of_the_cluster>
+    riak admin cluster join <node_name_of_a_member_of_the_cluster>
     ```
 
 8. Replace the old instance of the node with the new:
 
     ```bash
-    riak-admin cluster force-replace <previous_node_name> <new_node_name>
+    riak admin cluster force-replace <previous_node_name> <new_node_name>
     ```
 
 9. Review the changes:
 
     ```bash
-    riak-admin cluster plan
+    riak admin cluster plan
     ```
 
     Finally, commit those changes:
 
     ```bash
-    riak-admin cluster commit
+    riak admin cluster commit
     ```
 
 

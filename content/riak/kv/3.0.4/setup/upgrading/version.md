@@ -22,7 +22,7 @@ aliases:
 [production checklist]: {{<baseurl>}}riak/kv/3.0.4/setup/upgrading/checklist
 [use admin riak control]: {{<baseurl>}}riak/kv/3.0.4/using/admin/riak-control
 [use admin commands]: {{<baseurl>}}riak/kv/3.0.4/using/admin/commands
-[use admin riak-admin]: {{<baseurl>}}riak/kv/3.0.4/using/admin/riak-admin
+[use admin riak admin]: {{<baseurl>}}riak/kv/3.0.4/using/admin/riak admin
 [usage secondary-indexes]: {{<baseurl>}}riak/kv/3.0.4/developing/usage/secondary-indexes
 [release notes]: {{<baseurl>}}riak/kv/3.0.4/release-notes
 [riak enterprise]: http://basho.com/products/riak-kv/
@@ -202,7 +202,7 @@ riak version
 8\. Wait for the `riak_kv` service to start:
 
 ```bash
-riak-admin wait-for-service riak_kv »target_node«
+riak admin wait-for-service riak_kv »target_node«
 ```
 
 * `»target_node«` is the node which you have just upgraded (e.g.
@@ -211,7 +211,7 @@ riak@192.168.1.11)
 9\. Wait for any hinted handoff transfers to complete:
 
 ```bash
-riak-admin transfers
+riak admin transfers
 ```
 
 * While the node was offline, other nodes may have accepted writes on its behalf. This data is transferred to the node when it becomes available.
@@ -241,7 +241,7 @@ It is a good idea to also verify some basic configuration and general health of 
 Ensure that Riak KV is running on the node, and issue the following command:
 
 ```bash
-riak-admin diag
+riak admin diag
 ```
 
 Make the recommended changes from the command output to ensure optimal node operation.

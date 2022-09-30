@@ -18,7 +18,7 @@ aliases:
 [rolling upgrade]: {{<baseurl>}}riak/kv/3.0.4/setup/upgrading/cluster
 [config ref]: {{<baseurl>}}riak/kv/3.0.4/configuring/reference
 [concept aae]: {{<baseurl>}}riak/kv/3.0.4/learn/concepts/active-anti-entropy/
-[aae status]: {{<baseurl>}}riak/kv/3.0.4/using/admin/riak-admin/#aae-status
+[aae status]: {{<baseurl>}}riak/kv/3.0.4/using/admin/riak admin/#aae-status
 
 Downgrades of Riak KV are tested and supported for two feature release versions, with the general procedure being similar to that of a [rolling upgrade][rolling upgrade].
 
@@ -127,7 +127,7 @@ riak start
 7\. Wait for Riak search to start by running the following command:
 
 ```bash
-riak-admin wait-for-service yokozuna
+riak admin wait-for-service yokozuna
 ```
   
 8\. Run `riak attach`.
@@ -148,11 +148,11 @@ riak-admin wait-for-service yokozuna
   
 ### Monitor the reindex of the data
 
-9\. Monitor the build and exchange progress using the `riak-admin aae-status` and `riak-admin search aae-status` commands.
+9\. Monitor the build and exchange progress using the `riak admin aae-status` and `riak admin search aae-status` commands.
 
-The **All** column shows how long it has been since a partition exchanged with all of its sibling replicas.  Consult the [`riak-admin aae-status` documentation][aae status] for more information about the AAE status output. 
+The **All** column shows how long it has been since a partition exchanged with all of its sibling replicas.  Consult the [`riak admin aae-status` documentation][aae status] for more information about the AAE status output. 
 
-Once both riak-admin aae-status and riak-admin search aae-status show values in the **All** column, the node will have successfully rebuilt all of the indexed data.
+Once both riak admin aae-status and riak admin search aae-status show values in the **All** column, the node will have successfully rebuilt all of the indexed data.
 
 ### Finalize process and restart Yokozuna
  
@@ -170,7 +170,7 @@ riak_core_node_watcher:service_up(yokozuna,whereis(yz_solr_proc)).
 13\. Verify that transfers have completed:
 
 ```bash
-riak-admin transfers
+riak admin transfers
 ```
 
 

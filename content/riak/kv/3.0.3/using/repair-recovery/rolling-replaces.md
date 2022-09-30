@@ -28,43 +28,43 @@ The following steps should be undertaken on each Riak KV node that you wish to r
   b\. Or leave a node that is currently in the cluster:
 
   ```bash
-  riak-admin cluster leave »nodename«
+  riak admin cluster leave »nodename«
   ```
 
   After creating a node or leaving a node, wait for all transfers to complete:
 
   ```bash
-  riak-admin transfers
+  riak admin transfers
   ```
 
 2\. Join the free node to your cluster:
 
 ```bash
-riak-admin cluster join »free_node«
+riak admin cluster join »free_node«
 ```
 
 3\. Next, replace the free node with an existing node:
 
 ```bash
-riak-admin cluster replace »free_node« »nodename«
+riak admin cluster replace »free_node« »nodename«
 ```
 
 4\. Then review the cluster transition plan:
 
 ```bash
-riak-admin cluster plan
+riak admin cluster plan
 ```
 
 5\. And commit the changes:
 
 ```bash
-riak-admin cluster commit
+riak admin cluster commit
 ```
 
 6\. Wait for all transfers to complete:
 
 ```bash
-riak-admin transfers
+riak admin transfers
 ```
 
 7\. Repeat steps 2-6 above until each node has been replaced.

@@ -1134,9 +1134,9 @@ addressed, however, by the refined partitioning scheme described in Section 6.2.
 #### 4.8.1 Ring Membership
 
 > Riak KV operators can trigger node management via the
-> [riak-admin command-line tool].
+> [riak admin command-line tool].
 
-[riak-admin command-line tool]: {{<baseurl>}}riak/kv/3.0.3/using/admin/riak-admin/
+[riak admin command-line tool]: {{<baseurl>}}riak/kv/3.0.3/using/admin/riak admin/
 
 In Amazon’s environment node outages (due to failures and maintenance tasks) are
 often transient but may last for extended intervals. A node outage rarely
@@ -1151,10 +1151,10 @@ node that serves the request writes the membership change and its time of issue
 to persistent store. The membership changes form a history because nodes can be
 removed and added back multiple times.
 
-> Nodes are manually added using the `riak-admin cluster join`.
+> Nodes are manually added using the `riak admin cluster join`.
 >
 > When a node permanently departs, rebalancing is triggered using the
-> `riak-admin cluster leave` command.
+> `riak admin cluster leave` command.
 
 A gossip-based protocol propagates membership changes and maintains an
 eventually consistent view of membership. Each node contacts a peer chosen at
@@ -1193,8 +1193,8 @@ Seeds can be obtained either from static configuration or from a configuration
 service. Typically seeds are fully functional nodes in the Dynamo ring.
 
 > To rectify these sorts of logical partitions, multiple Riak cluster changes
-> are configured as one batch. Any changes must first be viewed `riak-admin
-> cluster plan`, then the changes are committed with `riak-admin cluster
+> are configured as one batch. Any changes must first be viewed `riak admin
+> cluster plan`, then the changes are committed with `riak admin cluster
 > commit`. The new ring state is gossiped.
 >
 > See _[The Node Join Process]_ for more.

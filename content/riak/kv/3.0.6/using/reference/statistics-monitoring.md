@@ -17,7 +17,7 @@ aliases:
 
 Riak provides data related to current operating status, which includes
 statistics in the form of counters and histograms. These statistics
-are made available through the HTTP API via the [`/stats`]({{<baseurl>}}riak/kv/3.0.6/developing/api/http/status) endpoint, or through the [`riak-admin`]({{<baseurl>}}riak/kv/3.0.6/using/admin/riak-admin/) interface, in particular the `stat` and `status` commands.
+are made available through the HTTP API via the [`/stats`]({{<baseurl>}}riak/kv/3.0.6/developing/api/http/status) endpoint, or through the [`riak admin`]({{<baseurl>}}riak/kv/3.0.6/using/admin/riak admin/) interface, in particular the `stat` and `status` commands.
 
 This page presents the most commonly monitored and gathered
 statistics, as well as numerous solutions for monitoring and gathering
@@ -156,17 +156,17 @@ Metric | Description
 
 ## Command-line Interface
 
-The [`riak-admin`]({{<baseurl>}}riak/kv/3.0.6/using/admin/riak-admin/) tool provides two
+The [`riak admin`]({{<baseurl>}}riak/kv/3.0.6/using/admin/riak admin/) tool provides two
 interfaces for retrieving statistics and other information: `status`
 and `stat`.
 
 ### status
 
-Running the `riak-admin status` command will return all of the
+Running the `riak admin status` command will return all of the
 currently available information from a running node.
 
 ```bash
-riak-admin status
+riak admin status
 ```
 
 This will return a list of over 300 key/value pairs, like this:
@@ -181,14 +181,14 @@ consistent_get_objsize_195 : 0
 ```
 
 A comprehensive list of available stats can be found in the
-[Inspecting a Node]({{<baseurl>}}riak/kv/3.0.6/using/cluster-operations/inspecting-node/#riak-admin-status) document.
+[Inspecting a Node]({{<baseurl>}}riak/kv/3.0.6/using/cluster-operations/inspecting-node/#riak admin-status) document.
 
 ### stat
 
-The `riak-admin stat` command is related to the `riak-admin status`
+The `riak admin stat` command is related to the `riak admin status`
 command but provides a more fine-grained interface for interacting with
 stats and information. Full documentation of this command can be found
-in the [Inspecting a Node]({{<baseurl>}}riak/kv/3.0.6/using/admin/riak-admin/#stat) document.
+in the [Inspecting a Node]({{<baseurl>}}riak/kv/3.0.6/using/admin/riak admin/#stat) document.
 
 ## Statistics and Monitoring Tools
 
@@ -229,7 +229,7 @@ derived from the experience of the Basho Client Services Team as well as
 numerous public discussions on the mailing list, IRC room, and other
 online media.
 
-Riaknostic integrates into the `riak-admin` command via a `diag`
+Riaknostic integrates into the `riak admin` command via a `diag`
 subcommand, and is a great first step in the process of diagnosing and
 troubleshooting issues on Riak nodes.
 

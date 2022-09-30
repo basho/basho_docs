@@ -29,7 +29,7 @@ The examples in this section will show you how to use counters on their own.
 Start by creating a bucket type with the `datatype` parameter set to `counter`:
 
 ```bash
-riak-admin bucket-type create counters '{"props":{"datatype":"counter"}}'
+riak admin bucket-type create counters '{"props":{"datatype":"counter"}}'
 ```
 
 > **Note**
@@ -39,7 +39,7 @@ riak-admin bucket-type create counters '{"props":{"datatype":"counter"}}'
 After creating a bucket with a Riak data type, confirm the bucket property configuration associated with that type is correct:
 
 ```bash
-riak-admin bucket-type status counters
+riak admin bucket-type status counters
 ```
 
 This returns a list of bucket properties and their values
@@ -54,13 +54,13 @@ datatype: counter
 Once we have confirmed the bucket type is properly configured, we can activate the bucket type to be used in Riak KV:
 
 ```bash
-riak-admin bucket-type activate counters
+riak admin bucket-type activate counters
 ```
 
 We can check if activation has been successful by using the same `bucket-type status` command shown above:
 
 ```bash
-riak-admin bucket-type status counters
+riak admin bucket-type status counters
 ```
 
 After creating and activating our new `counters` bucket type, we can setup our client to start using the bucket type as detailed in the next section.

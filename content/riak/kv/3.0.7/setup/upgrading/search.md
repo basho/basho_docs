@@ -163,7 +163,7 @@ indexes.
 have occurred on every node.
 
     ```bash
-    riak-admin search aae-status
+    riak admin search aae-status
     ```
 
     First, you must wait until all trees are rebuilt. This may take a
@@ -226,7 +226,7 @@ have occurred on every node.
 control to the new Riak Search.
 
     ```curl
-    riak-admin search switch-to-new-search
+    riak admin search switch-to-new-search
     ```
 
     <div class="note">

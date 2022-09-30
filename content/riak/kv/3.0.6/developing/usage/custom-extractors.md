@@ -322,8 +322,8 @@ bears this type will be associated with our `header_data` search index.
 We'll call our bucket type `http_data_store`.
 
 ```bash
-riak-admin bucket-type create http_data_store '{"props":{"search_index":"header_data"}}'
-riak-admin bucket-type activate http_data_store
+riak admin bucket-type create http_data_store '{"props":{"search_index":"header_data"}}'
+riak admin bucket-type activate http_data_store
 ```
 
 Let's use the same `google_packet.bin` file that we used previously and

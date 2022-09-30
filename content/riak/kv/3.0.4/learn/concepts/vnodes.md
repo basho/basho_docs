@@ -49,7 +49,7 @@ If the ring size of your cluster is 64 and you are running three nodes,
 two of your nodes will have 21 vnodes, while the third node holds 22
 vnodes.
 
-The output of the [`riak-admin member-status`][use admin riak cli]
+The output of the [`riak admin member-status`][use admin riak cli]
 command shows this:
 
 ```
@@ -130,7 +130,7 @@ vnodes responsible for the same partition.
 ## Vnode Status
 
 You can check the current status of all vnodes in your cluster using the
-[`riak-admin vnode-status`][use admin riak cli]
+[`riak admin vnode-status`][use admin riak cli]
 command. When you run that command, you will see a series of reports on
 each of the vnodes active on the local node. The output of this command
 consists of a series of reports on each active vnode. The report for a

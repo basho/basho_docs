@@ -17,7 +17,7 @@ aliases:
 
 [configuration file]: {{<baseurl>}}riak/kv/3.0.6/configuring/reference/
 [escript]: http://www.erlang.org/doc/man/escript.html
-[`riak-admin`]: {{<baseurl>}}riak/kv/3.0.6/using/admin/riak-admin/#top
+[`riak admin`]: {{<baseurl>}}riak/kv/3.0.6/using/admin/riak admin/#top
 [configuration]: {{<baseurl>}}riak/kv/3.0.6/configuring/reference/
 
 ## riak
@@ -138,13 +138,13 @@ riak getpid
 
 ## top
 
-The `riak top` command is the direct equivalent of `riak-admin top`:
+The `riak top` command is the direct equivalent of `riak admin top`:
 
 ```bash
 riak top [-interval N] [-sort { reductions | memory | msg_q }] [-lines N] }
 ```
 
-More detailed information can be found in the [`riak-admin`][`riak-admin`] documentation.
+More detailed information can be found in the [`riak admin`][`riak admin`] documentation.
 
 ## config
 

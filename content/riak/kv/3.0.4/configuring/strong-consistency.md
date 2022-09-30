@@ -22,8 +22,8 @@ toc: true
 [glossary vnode]: {{<baseurl>}}riak/kv/3.0.4/learn/glossary/#vnode
 [concept buckets]: {{<baseurl>}}riak/kv/3.0.4/learn/concepts/buckets
 [cluster ops bucket types]: {{<baseurl>}}riak/kv/3.0.4/using/cluster-operations/bucket-types
-[use admin riak-admin#ensemble]: {{<baseurl>}}riak/kv/3.0.4/using/admin/riak-admin/#ensemble-status
-[use admin riak-admin]: {{<baseurl>}}riak/kv/3.0.4/using/admin/riak-admin
+[use admin riak admin#ensemble]: {{<baseurl>}}riak/kv/3.0.4/using/admin/riak admin/#ensemble-status
+[use admin riak admin]: {{<baseurl>}}riak/kv/3.0.4/using/admin/riak admin
 [config reference#advanced]: {{<baseurl>}}riak/kv/3.0.4/configuring/reference/#advanced-configuration
 [plan cluster capacity]: {{<baseurl>}}riak/kv/3.0.4/setup/planning/cluster-capacity
 [cluster ops strong consistency]: {{<baseurl>}}riak/kv/3.0.4/using/cluster-operations/strong-consistency
@@ -99,7 +99,7 @@ than three nodes, strong consistency will be **enabled** but not yet
 state. Once at least three nodes with strong consistency enabled are
 detected in the cluster, the system will be activated and ready for use.
 You can check on the status of the strong consistency subsystem using
-the [`riak-admin ensemble-status`][use admin riak-admin#ensemble] command.
+the [`riak admin ensemble-status`][use admin riak admin#ensemble] command.
 
 ## Fault Tolerance
 
@@ -136,12 +136,12 @@ of N, i.e. `n_val`, for buckets
 can create and activate a bucket type with N set to 5 and strong
 consistency enabled---we'll call the bucket type
 `consistent_and_fault_tolerant`---using the following series of
-[commands][use admin riak-admin]:
+[commands][use admin riak admin]:
 
 ```bash
-riak-admin bucket-type create consistent_and_fault_tolerant \
+riak admin bucket-type create consistent_and_fault_tolerant \
   '{"props": {"consistent":true,"n_val":5}}'
-riak-admin bucket-type activate consistent_and_fault_tolerant
+riak admin bucket-type activate consistent_and_fault_tolerant
 ```
 
 If the `activate` command outputs `consistent_and_fault_tolerant has
@@ -244,7 +244,7 @@ unable to service strongly consistent operations. The best strategy is
 to reboot nodes one at a time and wait for each node to rejoin existing
 [ensembles][cluster ops strong consistency] before
 continuing to the next node. At any point in time, the state of
-currently existing ensembles can be checked using [`riak-admin ensemble-status`][admin riak-admin#ensemble].
+currently existing ensembles can be checked using [`riak admin ensemble-status`][admin riak admin#ensemble].
 
 ## Performance
 
@@ -263,9 +263,9 @@ can be found in [Adding and Removing Nodes][cluster ops add remove node].
 Your cluster's configuration can also affect strong consistency
 performance. See the section on [configuration][config reference#strong-cons] below.
 
-## riak-admin ensemble-status
+## riak admin ensemble-status
 
-The [`riak-admin`][use admin riak-admin] interface
+The [`riak admin`][use admin riak admin] interface
 used for general node/cluster management has an `ensemble-status`
 command that provides insight into the current status of the consensus
 subsystem undergirding strong consistency.
@@ -274,7 +274,7 @@ Running the command by itself will provide the current state of the
 subsystem:
 
 ```bash
-riak-admin ensemble-status
+riak admin ensemble-status
 ```
 
 If strong consistency is not currently enabled, you will see `Note: The
@@ -340,13 +340,13 @@ ensembles are displayed in the `Ensembles` section of the
 To inspect a specific ensemble, specify the ID:
 
 ```bash
-riak-admin ensemble-status <id>
+riak admin ensemble-status <id>
 ```
 
 The following would inspect ensemble 2:
 
 ```bash
-riak-admin ensemble-status 2
+riak admin ensemble-status 2
 ```
 
 Below is sample output for a single ensemble:

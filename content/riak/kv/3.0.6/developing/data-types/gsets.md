@@ -37,7 +37,7 @@ Unlike sets, elements can only be added and no element modification or deletion 
 Start by creating a bucket type with the `datatype` parameter `gset`:
 
 ```bash
-riak-admin bucket-type create gsets '{"props":{"datatype":"gset"}}'
+riak admin bucket-type create gsets '{"props":{"datatype":"gset"}}'
 ```
 
 > **Note**
@@ -47,7 +47,7 @@ riak-admin bucket-type create gsets '{"props":{"datatype":"gset"}}'
 After creating a bucket with a Riak data type, confirm the bucket property configuration associated with that type is correct:
 
 ```bash
-riak-admin bucket-type status gsets
+riak admin bucket-type status gsets
 ```
 
 This returns a list of bucket properties and their values
@@ -62,13 +62,13 @@ datatype: gset
 Once we have confirmed the bucket type is properly configured, we can activate the bucket type to be used in Riak KV:
 
 ```bash
-riak-admin bucket-type activate gsets
+riak admin bucket-type activate gsets
 ```
 
 We can check if activation has been successful by using the same `bucket-type status` command shown above:
 
 ```bash
-riak-admin bucket-type status gsets
+riak admin bucket-type status gsets
 ```
 
 After creating and activating our new `gsets` bucket type, we can setup our client to start using the bucket type as detailed in the next section.

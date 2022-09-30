@@ -86,13 +86,13 @@ You can read more about why in the [Open Files Limit][perf open files] documenta
 ## Does it work?
 
 One convenient means of testing the readiness of an individual Riak node and
-its ability to read and write data is with the `riak-admin test` command:
+its ability to read and write data is with the `riak admin test` command:
 
 ```bash
-riak-admin test
+riak admin test
 ```
 
-Successful output from `riak-admin test` looks like this:
+Successful output from `riak admin test` looks like this:
 
 ```text
 Attempting to restart script through sudo -H -u riak
@@ -150,7 +150,7 @@ utility [Riaknostic](http://riaknostic.basho.com/).
 To start up Riaknostic, ensure that Riak is running on the node and issue the following command:
 
 ```bash
-riak-admin diag
+riak admin diag
 ```
 
 More extensive documentation for Riaknostic can be found in the [Inspecting a Node][cluster ops inspect node] guide.

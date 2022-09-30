@@ -79,7 +79,7 @@ Covers backing up Riak KV data.
 
 #### [Enabling and Disabling Handoff][ops handoff]
 
-Information on using the `riak-admin handoff` interface to enable and disable handoff.
+Information on using the `riak admin handoff` interface to enable and disable handoff.
 
 [Learn More >>][ops handoff]
 

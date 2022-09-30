@@ -32,7 +32,7 @@ aliases:
 [use admin riak control]: {{<baseurl>}}riak/kv/3.0.7/using/admin/riak-control
 [cluster ops inspect node]: {{<baseurl>}}riak/kv/3.0.7/using/cluster-operations/inspecting-node
 [troubleshoot http]: {{<baseurl>}}riak/kv/3.0.7/using/troubleshooting/http-204
-[use admin riak-admin]: {{<baseurl>}}riak/kv/3.0.7/using/admin/riak-admin
+[use admin riak admin]: {{<baseurl>}}riak/kv/3.0.7/using/admin/riak admin
 [SANs]: http://en.wikipedia.org/wiki/Storage_area_network
 
 Deploying Riak KV to a realtime production environment from a development or testing environment can be a complex process. While the specifics of that process will always depend on your environment and practices, there are some basics for you to consider and a few questions that you will want to ask while making this transition.
@@ -108,21 +108,21 @@ We've compiled these considerations and questions into separate categories for y
     [SANs]), or do you have a plan in place for switching to that configuration later?
 * Are all Riak KV nodes up?
   - Run `riak ping` on all nodes. You should get `pong` as a response.
-  - Run `riak-admin wait-for-service riak_kv <node_name>@<IP>` on each
+  - Run `riak admin wait-for-service riak_kv <node_name>@<IP>` on each
     node. You should get `riak_kv is up` as a response.
 
     The `<node_name>@<IP>` string should come from your [configuration
     file(s)][configure reference].
 * Do all nodes agree on the ring state?
-  - Run `riak-admin ringready`. You should get `TRUE ALL nodes agree on
+  - Run `riak admin ringready`. You should get `TRUE ALL nodes agree on
     the ring [list_of_nodes]`.
-  - Run `riak-admin member-status`. All nodes should be valid (i.e.
+  - Run `riak admin member-status`. All nodes should be valid (i.e.
     listed as `Valid: 1`), and all nodes should appear in the list
-  - Run `riak-admin ring-status`. The ring should be ready (`Ring Ready:
+  - Run `riak admin ring-status`. The ring should be ready (`Ring Ready:
     true`), there should be no unreachable nodes (`All nodes are up and
     reachable`), and there should be no pending changes to the ring
     (`No pending changes`).
-  - Run `riak-admin transfers`. There should be no active transfers (`No
+  - Run `riak admin transfers`. There should be no active transfers (`No
     transfers active`).
 
 ## Operations
@@ -138,7 +138,7 @@ We've compiled these considerations and questions into separate categories for y
     + Disk space used/available
     + Disk input/output operations per second (IOPS)
   - Riak metrics (from the [`/stats`][troubleshoot http] HTTP endpoint or
-    using [`riak-admin`][use admin riak-admin])
+    using [`riak admin`][use admin riak admin])
     + Latencies: `GET` and `PUT` (mean/median/95th/99th/100th)
     + Vnode stats: `GET`s, `PUT`s, `GET` totals, `PUT` totals
     + Node stats: `GET`s, `PUT`s, `GET` totals, `PUT` totals
@@ -165,7 +165,7 @@ We've compiled these considerations and questions into separate categories for y
 ## Confirming Configuration with Riaknostic
 
 Recent versions of Riak KV ship with Riaknostic, a diagnostic utility that
-can be invoked by running `riak-admin diag <check>`, where `check` is
+can be invoked by running `riak admin diag <check>`, where `check` is
 one of the following:
 
 * `disk`
@@ -178,11 +178,11 @@ one of the following:
 * `search`
 * `sysctl`
 
-Running `riak-admin diag` with no additional arguments will run all
+Running `riak admin diag` with no additional arguments will run all
 checks and report the findings. This is a good way of verifying that
 you've gotten at least some of the configurations mentioned above
 correct, that all nodes in your cluster are up, and that nothing is
-grossly misconfigured. Any warnings produced by `riak-admin diag` should
+grossly misconfigured. Any warnings produced by `riak admin diag` should
 be addressed before going to production.
 
 ## Troubleshooting and Support

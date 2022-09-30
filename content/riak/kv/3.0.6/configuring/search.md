@@ -133,18 +133,18 @@ Enable this node in distributed query plans; defaults to `on`.
 
 If enabled, this node will participate in distributed Solr queries.  If disabled, the node will be excluded from Riak search cover plans, and will therefore never be consulted in a distributed query.  Note that this node may still be used to execute a query.  Use this flag if you have a long running administrative operation (e.g. reindexing) which requires that the node be removed from query plans, and which would otherwise result in inconsistent search results.
 
-This setting can also be changed via `riak-admin` by issuing one of the following commands:
+This setting can also be changed via `riak admin` by issuing one of the following commands:
 
 ```
-riak-admin set search.dist_query=off
+riak admin set search.dist_query=off
 ```
  or 
 
 ``` 
-riak-admin set search.dist_query=on
+riak admin set search.dist_query=on
 ```
 
-Setting this value in riak.conf is useful when you are restarting a node which was removed from search queries with the `riak-admin` feature. Setting `search.dis_query` in riak.conf will prevent the node from being included in search queries until it is fully spun up.
+Setting this value in riak.conf is useful when you are restarting a node which was removed from search queries with the `riak admin` feature. Setting `search.dis_query` in riak.conf will prevent the node from being included in search queries until it is fully spun up.
 
 Valid values: `on` or `off`
 

@@ -229,9 +229,9 @@ First, let's create our `cms` bucket type and associate it with the
 `blog_posts` index:
 
 ```bash
-riak-admin bucket-type create cms \
+riak admin bucket-type create cms \
   '{"props":{"datatype":"map","search_index":"blog_posts"}}'
-riak-admin bucket-type activate cms
+riak admin bucket-type activate cms
 ```
 
 Now, any object stored in any bucket of the type `cms` will be indexed

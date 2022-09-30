@@ -37,7 +37,7 @@ riak_admin bucket-type create hlls '{"props":{"datatype":"hll"}}'
 After creating a bucket with a Riak data type, confirm the bucket property configuration associated with that type is correct:
 
 ```bash
-riak-admin bucket-type status hlls
+riak admin bucket-type status hlls
 ```
 
 This returns a list of bucket properties and their values
@@ -52,13 +52,13 @@ datatype: hll
 Once we have confirmed the bucket type is properly configured, we can activate the bucket type to be used in Riak KV:
 
 ```bash
-riak-admin bucket-type activate hlls
+riak admin bucket-type activate hlls
 ```
 
 We can check if activation has been successful by using the same `bucket-type status` command shown above:
 
 ```bash
-riak-admin bucket-type status hlls
+riak admin bucket-type status hlls
 ```
 
 After creating and activating our new `hlls` bucket type, we can setup our client to start using the bucket type as detailed in the next section.

@@ -25,8 +25,8 @@ Riak).
 
 The commands below presume that you are running from a source install,
 but if you have installed Riak with a binary install, you can substitute
-the usage of `bin/riak` with `sudo /usr/sbin/riak` and `bin/riak-admin`
-with `sudo /usr/sbin/riak-admin`. The `riak` and `riak-admin` scripts
+the usage of `bin/riak` with `sudo /usr/sbin/riak` and `bin/riak admin`
+with `sudo /usr/sbin/riak admin`. The `riak` and `riak admin` scripts
 are located in the `/bin` directory of your installation.
 
 > **Note on changing the `name` value**
@@ -46,7 +46,7 @@ options:
 `ring` directory. This will require rejoining all nodes into a
 cluster again.
 >
-> *Rename the node using the [`riak-admin cluster replace`]({{<baseurl>}}riak/kv/3.0.3/using/admin/riak-admin/#cluster-replace) command. This will not work if you have previously only started Riak with a single node.
+> *Rename the node using the [`riak admin cluster replace`]({{<baseurl>}}riak/kv/3.0.3/using/admin/riak admin/#cluster-replace) command. This will not work if you have previously only started Riak with a single node.
 
 ## Configure the First Node
 
@@ -153,7 +153,7 @@ preferred.
 >
 > Once a node has been started, in order to change the name you must
 either remove ring files from the `/data/ring` directory or
-[`riak-admin cluster force-replace`]({{<baseurl>}}riak/kv/3.0.3/using/admin/riak-admin/#cluster-force-replace) the node.
+[`riak admin cluster force-replace`]({{<baseurl>}}riak/kv/3.0.3/using/admin/riak admin/#cluster-force-replace) the node.
 
 #### Start the node
 
@@ -164,23 +164,23 @@ riak start
 ```
 
 If the Riak node has been previously started, you must use the
-`riak-admin cluster replace` command to change the node name and update
+`riak admin cluster replace` command to change the node name and update
 the node's ring file.
 
 ```bash
-riak-admin cluster replace riak@127.0.0.1 riak@192.168.1.10
+riak admin cluster replace riak@127.0.0.1 riak@192.168.1.10
 ```
 
 {{% note title="Note on single nodes" %}}
 If a node is started singly using default settings, as you might do when you
 are building your first test environment, you will need to remove the ring
 files from the data directory after you edit your configuration files.
-`riak-admin cluster replace` will not work since the node has not been joined
+`riak admin cluster replace` will not work since the node has not been joined
 to a cluster.
 {{% /note %}}
 
 As with all cluster changes, you need to view the planned changes by
-running `riak-admin cluster plan` and then running `riak-admin cluster
+running `riak admin cluster plan` and then running `riak admin cluster
 commit` to finalize those changes.
 
 The node is now properly set up to join other nodes for cluster
@@ -190,13 +190,13 @@ participation. You can proceed to adding a second node to the cluster.
 
 Repeat the above steps for a second host on the same network, providing
 the second node with a host/port and node name. Once the second node has
-started, use `riak-admin cluster join` to join the second node to the
+started, use `riak admin cluster join` to join the second node to the
 first node, thereby creating an initial Riak cluster. Let's say that
 we've named our second node `riak@192.168.1.11`. From the new node's
 `/bin` directory:
 
 ```bash
-riak-admin cluster join riak@192.168.1.10
+riak admin cluster join riak@192.168.1.10
 ```
 
 Output from the above should resemble:
@@ -208,8 +208,8 @@ Success: staged join request for `riak@192.168.1.11` to `riak@192.168.1.10`
 Next, plan and commit the changes:
 
 ```bash
-riak-admin cluster plan
-riak-admin cluster commit
+riak admin cluster plan
+riak admin cluster commit
 ```
 
 After the last command, you should see:
@@ -223,10 +223,10 @@ cluster and has begun syncing with the first node. Riak provides several
 ways to determine the cluster's ring status. Here are two ways to
 examine your Riak cluster's ring:
 
-1. Using the `riak-admin` command:
+1. Using the `riak admin` command:
 
     ```bash
-    bin/riak-admin status | grep ring_members
+    bin/riak admin status | grep ring_members
     ```
 
     With output resembling the following:
@@ -320,10 +320,10 @@ changing path names and nodes as appropriate:
 Next, join the nodes into a cluster:
 
 ```bash
-./rel/riak2/bin/riak-admin cluster join riak1@127.0.0.1
-./rel/riak3/bin/riak-admin cluster join riak1@127.0.0.1
-./rel/riak2/bin/riak-admin cluster plan
-./rel/riak2/bin/riak-admin cluster commit
+./rel/riak2/bin/riak admin cluster join riak1@127.0.0.1
+./rel/riak3/bin/riak admin cluster join riak1@127.0.0.1
+./rel/riak2/bin/riak admin cluster plan
+./rel/riak2/bin/riak admin cluster commit
 ```
 
 ## Multiple Clusters on One Host

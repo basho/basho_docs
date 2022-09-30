@@ -79,7 +79,7 @@ system of bucket configuration, including the following:
   through client requests.
 * Whereas bucket properties can only be altered by clients interacting
   with Riak, bucket types are more of an operational concept. The
-  `riak-admin bucket-type` interface (discussed in depth below) enables
+  `riak admin bucket-type` interface (discussed in depth below) enables
   you to manage bucket configurations on the operations side, without
   recourse to Riak clients.
 
@@ -89,7 +89,7 @@ of Riak 2.0 and later.
 ## Managing Bucket Types Through the Command Line
 
 Bucket types are created, updated, activated, and more through the
-`riak-admin bucket-type` interface.
+`riak admin bucket-type` interface.
 
 Below is a full list of available sub-commands:
 
@@ -140,14 +140,14 @@ a JSON string directly. The following creates a bucket type
 `n_equals_1`, which sets `n_val` to 1:
 
 ```bash
-riak-admin bucket-type create n_equals_1 '{"props":{"n_val":1}}'
+riak admin bucket-type create n_equals_1 '{"props":{"n_val":1}}'
 ```
 
 If you wish, you can also pass in a JSON string through a file, such as
 a `.json` file:
 
 ```bash
-riak-admin bucket-type create from_json_file '`cat props.json`'
+riak admin bucket-type create from_json_file '`cat props.json`'
 ```
 
 Like all bucket types, this type needs to be activated to be usable
@@ -159,7 +159,7 @@ Activating a bucket type involves the `activate` command from the same
 `bucket-type` interface used before:
 
 ```bash
-riak-admin bucket-type activate my_bucket_type
+riak admin bucket-type activate my_bucket_type
 ```
 
 When activation has succeeded, you should see the following output:
@@ -170,7 +170,7 @@ my_bucket_type has been activated
 
 A bucket type can be activated only when the type has been propagated to
 all running nodes. You can check on the type's readiness by running
-`riak-admin bucket-type status <type_name>`. The first line of output
+`riak admin bucket-type status <type_name>`. The first line of output
 will indicate whether or not the type is ready.
 
 In a stable cluster, bucket types should propagate very quickly. If,
@@ -183,14 +183,14 @@ activated.
 You can list currently available bucket types using the `list` command:
 
 ```bash
-riak-admin bucket-type list
+riak admin bucket-type list
 ```
 
 This will return a simple list of types along with their current status
 (either `active` or `not active`). Here is an example console output:
 
 ```bash
-riak-admin bucket-type list
+riak admin bucket-type list
 ```
 
 An example response:
@@ -207,7 +207,7 @@ You can check on the status---i.e. the configuration details---of a
 bucket type using the `status <type>` command:
 
 ```bash
-riak-admin bucket-type status my_bucket_type
+riak admin bucket-type status my_bucket_type
 ```
 
 The console will output two things if the type exists:
@@ -239,7 +239,7 @@ type that you wish to modify and a JSON object containing the properties
 of the type:
 
 ```bash
-riak-admin bucket-type update type_to_update '{"props":{ ... }}'
+riak admin bucket-type update type_to_update '{"props":{ ... }}'
 ```
 
 {{% note title="Immutable Configurations" %}}
@@ -541,7 +541,7 @@ To give an example, let's have a look at the properties associated with
 the `default` bucket type:
 
 ```bash
-riak-admin bucket-type status default | grep allow_mult
+riak admin bucket-type status default | grep allow_mult
 ```
 
 The output:
@@ -554,7 +554,7 @@ Now, let's create a new bucket type called `n_val_of_2`, which sets the
 `n_val` to 2 but doesn't explicitly set `allow_mult`:
 
 ```bash
-riak-admin bucket-type create n_val_of_2 '{"props":{"n_val":2}}'
+riak admin bucket-type create n_val_of_2 '{"props":{"n_val":2}}'
 ```
 
 When specifying this bucket type's properties as above, the `allow_mult`
@@ -563,7 +563,7 @@ properties, we can see in the console output that `allow_mult` is set to
 `true`:
 
 ```bash
-riak-admin bucket-type status n_val_of_2 | grep allow_mult
+riak admin bucket-type status n_val_of_2 | grep allow_mult
 ```
 
 The output:
@@ -580,7 +580,7 @@ type, but it must be done explicitly. If we wanted to set
 would need to create or modify the already existing type as follows:
 
 ```bash
-riak-admin bucket-type update n_val_of_2 '{"props":{"allow_mult":false}}'
+riak admin bucket-type update n_val_of_2 '{"props":{"allow_mult":false}}'
 ```
 
 ## Bucket Type Example
@@ -604,7 +604,7 @@ hooks]({{<baseurl>}}riak/kv/3.0.4/developing/usage/commit-hooks/#Post-Commit-Hoo
 2. Passing that JSON to the `bucket-type create` command:
 
     ```bash
-    riak-admin bucket-type create user_account_bucket '{"props":{"precommit": ["syntax_check"], ... }}'
+    riak admin bucket-type create user_account_bucket '{"props":{"precommit": ["syntax_check"], ... }}'
     ```
 
     If creation is successful, the console will return
@@ -616,7 +616,7 @@ hooks]({{<baseurl>}}riak/kv/3.0.4/developing/usage/commit-hooks/#Post-Commit-Hoo
     ready to be activated by running:
 
     ```bash
-    riak-admin bucket-type status user_account_bucket
+    riak admin bucket-type status user_account_bucket
     ```
 
     If the first line reads `user_account_bucket has been created and
@@ -629,7 +629,7 @@ hooks]({{<baseurl>}}riak/kv/3.0.4/developing/usage/commit-hooks/#Post-Commit-Hoo
 4. Activating the new bucket type:
 
     ```bash
-    riak-admin bucket-type activate user_account_bucket
+    riak admin bucket-type activate user_account_bucket
     ```
 
     If activation is successful, the console will return

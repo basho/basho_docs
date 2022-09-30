@@ -77,8 +77,8 @@ you're using. In order to set those replication properties, you should
 create a bucket type that sets those properties. Below is an example:
 
 ```bash
-riak-admin bucket-type create custom_props '{"props":{"n_val":5,"r":3,"w":3}}'
-riak-admin bucket-type activate custom_props
+riak admin bucket-type create custom_props '{"props":{"n_val":5,"r":3,"w":3}}'
+riak admin bucket-type activate custom_props
 ```
 
 Now, any time you store an object in a bucket with the type
@@ -146,8 +146,8 @@ that type to 2. To do so, you must create and activate a bucket type
 that sets this property:
 
 ```bash
-riak-admin bucket-type create n_val_equals_2 '{"props":{"n_val":2}}'
-riak-admin bucket-type activate n_val_equals_2
+riak admin bucket-type create n_val_equals_2 '{"props":{"n_val":2}}'
+riak admin bucket-type activate n_val_equals_2
 ```
 
 Now, all buckets that bear the type `n_val_equals_2` will have `n_val`
@@ -188,8 +188,8 @@ As an example, let's create and activate a bucket type with `r` set to
 result from only one node.
 
 ```bash
-riak-admin bucket-type create r_equals_1 '{"props":{"r":1}}'
-riak-admin bucket-type activate r_equals_1
+riak admin bucket-type create r_equals_1 '{"props":{"r":1}}'
+riak admin bucket-type activate r_equals_1
 ```
 
 Here's an example read request using the `r_equals_1` bucket type:
@@ -254,8 +254,8 @@ As an example, let's create and activate a bucket type with `w` set to
 `3`:
 
 ```bash
-riak-admin bucket-type create w_equals_3 '{"props":{"w":3}}'
-riak-admin activate w_equals_3
+riak admin bucket-type create w_equals_3 '{"props":{"w":3}}'
+riak admin activate w_equals_3
 ```
 
 Now, we can attempt a write to a bucket bearing the type `w_equals_3`:

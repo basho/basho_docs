@@ -56,11 +56,11 @@ The following would create a separate bucket type for each of the four
 bucket-level data types:
 
 ```bash
-riak-admin bucket-type create maps '{"props":{"datatype":"map"}}'
-riak-admin bucket-type create sets '{"props":{"datatype":"set"}}'
-riak-admin bucket-type create counters '{"props":{"datatype":"counter"}}'
-riak-admin bucket-type create hlls  '{"props":{"datatype":"hll"}}'
-riak-admin bucket-type create gsets '{"props":{"datatype":"gset"}}'
+riak admin bucket-type create maps '{"props":{"datatype":"map"}}'
+riak admin bucket-type create sets '{"props":{"datatype":"set"}}'
+riak admin bucket-type create counters '{"props":{"datatype":"counter"}}'
+riak admin bucket-type create hlls  '{"props":{"datatype":"hll"}}'
+riak admin bucket-type create gsets '{"props":{"datatype":"gset"}}'
 ```
 
 > **Note**
@@ -73,10 +73,10 @@ the exception of `default`.
 
 Once you've created a bucket with a Riak data type, you can check
 to make sure that the bucket property configuration associated with that
-type is correct. This can be done through the `riak-admin` interface:
+type is correct. This can be done through the `riak admin` interface:
 
 ```bash
-riak-admin bucket-type status maps
+riak admin bucket-type status maps
 ```
 
 This will return a list of bucket properties and their associated values
@@ -94,7 +94,7 @@ to be usable in Riak. This can also be done using the `bucket-type`
 command interface:
 
 ```bash
-riak-admin bucket-type activate maps
+riak admin bucket-type activate maps
 ```
 
 To check whether activation has been successful, simply use the same

@@ -29,7 +29,7 @@ Using counters, sets, and maps within maps are similar to working with those typ
 Start by creating a bucket type with the `datatype` parameter set to `map`:
 
 ```bash
-riak-admin bucket-type create maps '{"props":{"datatype":"map"}}'
+riak admin bucket-type create maps '{"props":{"datatype":"map"}}'
 ```
 
 > **Note**
@@ -39,7 +39,7 @@ riak-admin bucket-type create maps '{"props":{"datatype":"map"}}'
 After creating a bucket with a Riak data type, confirm the bucket property configuration associated with that type is correct:
 
 ```bash
-riak-admin bucket-type status maps
+riak admin bucket-type status maps
 ```
 
 This returns a list of bucket properties and their values
@@ -54,13 +54,13 @@ datatype: map
 Once we have confirmed the bucket type is properly configured, we can activate the bucket type to be used in Riak KV:
 
 ```bash
-riak-admin bucket-type activate maps
+riak admin bucket-type activate maps
 ```
 
 We can check if activation has been successful by using the same `bucket-type status` command shown above:
 
 ```bash
-riak-admin bucket-type status maps
+riak admin bucket-type status maps
 ```
 
 After creating and activating our new `maps` bucket type, we can setup our client to start using the bucket type as detailed in the next section.

@@ -79,7 +79,7 @@ aliases:
 **A:**
   The Riak key/value store distributes values across all of the partitions in the ring. In order to minimize synchronization issues with secondary indexes, Riak stores index information in the same partition as the data values. 
 
-   When a node fails or is taken out of the cluster without using riak-admin leave, all of the data held by that node is lost to the cluster. This leaves N - 1 consistent replicas of the data. If `riak-admin force-remove` is used to remove the downed node, the remaining clusters will claim the partitions the failed node previously held. The data in the newly claimed vnodes will be made consistent one key at a time through the read-repair mechanism as each key is accessed, or through Active Anti-entropy (AAE) if enabled.
+   When a node fails or is taken out of the cluster without using riak admin leave, all of the data held by that node is lost to the cluster. This leaves N - 1 consistent replicas of the data. If `riak admin force-remove` is used to remove the downed node, the remaining clusters will claim the partitions the failed node previously held. The data in the newly claimed vnodes will be made consistent one key at a time through the read-repair mechanism as each key is accessed, or through Active Anti-entropy (AAE) if enabled.
 
   As a simplistic example, consider this hypothetical cluster:  
 
@@ -280,7 +280,7 @@ E: 4-9-14-12*
 
 
 **A:**
-  `riak-admin status` will return the following stats, which give the mean and median along with the 95th, 99th, and 100th percentile object size and sibling counts.
+  `riak admin status` will return the following stats, which give the mean and median along with the 95th, 99th, and 100th percentile object size and sibling counts.
 
   ```
   node_get_fsm_siblings_mean : 0

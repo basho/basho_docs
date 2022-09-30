@@ -236,8 +236,8 @@ any properties and set individual buckets to be indexed. The step below
 creates and activates the bucket type:
 
 ```bash
-riak-admin bucket-type create animals '{"props":{}}'
-riak-admin bucket-type activate animals
+riak admin bucket-type create animals '{"props":{}}'
+riak admin bucket-type activate animals
 ```
 
 And this step applies the index to the `cats` bucket, which bears the
@@ -254,8 +254,8 @@ of the bucket type. This means _any_ bucket under that type will
 inherit that setting and have its values indexed.
 
 ```bash
-riak-admin bucket-type create animals '{"props":{"search_index":"famous"}}'
-riak-admin bucket-type activate animals
+riak admin bucket-type create animals '{"props":{"search_index":"famous"}}'
+riak admin bucket-type activate animals
 ```
 
 If you ever need to turn off indexing for a bucket, set the
@@ -353,19 +353,19 @@ to limit querying (the `search.query` permission) to any index or to a
 specific index. The example below shows the various options.
 
 ```bash
-riak-admin security grant search.admin on schema to username
-riak-admin security grant search.admin on index to username
-riak-admin security grant search.query on index to username
-riak-admin security grant search.query on index famous to username
+riak admin security grant search.admin on schema to username
+riak admin security grant search.admin on index to username
+riak admin security grant search.query on index to username
+riak admin security grant search.query on index famous to username
 ```
 
 Those permissions can also be revoked:
 
 ```bash
-riak-admin security revoke search.admin on schema from username
-riak-admin security revoke search.admin on index from username
-riak-admin security revoke search.query on index from username
-riak-admin security revoke search.query on index famous from username
+riak admin security revoke search.admin on schema from username
+riak admin security revoke search.admin on index from username
+riak admin security revoke search.query on index from username
+riak admin security revoke search.query on index famous from username
 ```
 
 ## Indexing Values
