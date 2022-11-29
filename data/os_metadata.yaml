@@ -10,6 +10,9 @@
 amazon:
   title: "Amazon Linux"
   image_src: "images/shared/operating_system_branding/amazon.png"
+  versions:
+    "2": "2"
+    "2016.09": "1 (2016.09)"
 #  installing_instructions_page: "amazon/"
 debian:
   title: "Debian"
@@ -76,14 +79,20 @@ rhel:
   installing_instructions_page: "rhel-centos/"
   versions:
     "6-broken-builds-do-not-use": "6 (broken builds, do not use)"
+    "7": "7"
+    "8": "8"
 oracle:
   title: "Oracle Linux"
   image_src: "images/shared/operating_system_branding/oracle.png"
   installing_instructions_page: "oracle/"
+  versions:
+    "8": "8"
 sles:
   title: "SuSE Linux Enterprise Server"
   image_src: "images/shared/operating_system_branding/suse.png"
   installing_instructions_page: "suse/"
+  versions:
+    "15": "15"
 smartos:
   title: "Smart OS"
   image_src: "images/shared/operating_system_branding/smartos.png"
@@ -115,3 +124,7 @@ ubuntu:
 source:
   image_src: "images/shared/operating_system_branding/targz.png"
   installing_instructions_page: "source/"
+alpine:
+  title: "Alpine Linux"
+  image_src: "images/shared/operating_system_branding/alpine.png"
+#  installing_instructions_page: "source/"
