@@ -24,6 +24,8 @@ aliases:
 
 Riak TS is a distributed NoSQL key/value store optimized for time series data. With TS, you can associate a number of data points with a specific point in time. TS uses discrete slices of time to co-locate data. For example, humidity and temperature readings from a meter reported during the same slice of time will be stored together on disk.
 
+This release is uses OTP 22.
+
 Riak TS uses tables defined according to a schema for each coherent group of
 data. This allows for both flexibility, in terms of collecting many different
 sets of data, and enough structure to make the experience of working with the collected data better.
