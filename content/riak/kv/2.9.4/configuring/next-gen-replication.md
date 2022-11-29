@@ -10,16 +10,23 @@ menu:
     identifier: "nextgen_rep"
     weight: 200
     parent: "configuring"
+since: 2.9.1
 version_history:
   in: "2.9.1+"
 toc: true
-commercial_offering: true
+commercial_offering: false
 ---
+
+[configure tictacaae]: ./active-anti-entropy/tictac-aae
 
 The configuration for Next Gen Replication is kept in
  the `riak.conf` configuration file. 
 
-## Settings
+{{% note %}}
+Next Gen Replication relies on the TicTac AAE system, which needs to be enabled and configured. See the [TicTac AAE configuration][configure tictacaae] documentaion.
+{{% /note %}}
+
+## Validate Settings
 
 Once your configuration is set, you can verify its correctness by
 running the `riak` command-line tool:
@@ -59,3 +66,7 @@ Setting | Options | Default | Description
 `tictacaae_exchangetick` | `` | `240000` | Exchanges are prompted every exchange tick, on each vnode. By default there is a tick every 4 minutes. Exchanges will skip when previous exchanges have not completed, in order to prevent a backlog of fetch-clock scans developing.
 `tictacaae_rebuildtick` | `` | `3600000` | Rebuilds will be triggered depending on the riak_kv.tictacaae_rebuildwait, but they must also be prompted by a tick. The tick size can be modified at run-time by setting the environment variable via riak attach.
 `tictacaae_maxresults` | `` | `256` | The Merkle tree used has 4096 * 1024 leaves. When a large discrepancy is discovered, only part of the discrepancy will be resolved each exchange - active anti-entropy is intended to be a background process for repairing long-term loss of data, hinted handoff and read-repair are the short-term and immediate answers to entropy. How much of the tree is repaired each pass is defined by the tictacaae_maxresults.
+
+## See also
+
+As Next Gen Replication uses TicTac AAE, you should also check the [TicTac AAE settings][configure tictacaae]

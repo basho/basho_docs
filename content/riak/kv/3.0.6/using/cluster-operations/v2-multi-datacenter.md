@@ -8,7 +8,7 @@ menu:
   riak_kv-3.0.6:
     name: "V2 Multi-Datacenter"
     identifier: "cluster_operations_v2"
-    weight: 115
+    weight: 112
     parent: "managing_cluster_operations"
 toc: true
 commercial_offering: true

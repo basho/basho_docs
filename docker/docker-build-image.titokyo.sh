@@ -4,4 +4,4 @@ if test -f ./docker/Dockerfile; then
     cd ./docker
 fi
 
-docker build -t titokyo/riak_docs_generator --no-cache .
+sudo docker build -t titokyo/riak_docs_generator --no-cache .

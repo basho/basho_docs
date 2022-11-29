@@ -26,6 +26,8 @@ This release replaces the Riak KV 2.9.3 release, extending the issue resolution 
 
 This release has a key outstanding issue when Tictac AAE is used in parallel mode. On larger clusters, this has been seen to cause significant issues, and so this feature should not be used other than in native mode.
 
+TicTac AAE has some useful new functions. [Learn More >>](../using/cluster-operations/tictac-aae-fold).
+
 [Previous Release Notes](#previous-release-notes)
 
 ## Previous Release Notes

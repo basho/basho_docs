@@ -13,13 +13,17 @@ menu:
 version_history:
   in: "2.9.1+"
 toc: true
-commercial_offering: true
+commercial_offering: false
 ---
 
 The configuration for Next Gen Replication is kept in
  the `riak.conf` configuration file. 
 
-## Settings
+{{% note %}}
+Next Gen Replication relies on the TicTac AAE system, which needs to be enabled and configured. See the [TicTac AAE configuration][configure tictacaae] documentaion.
+{{% /note %}}
+
+## Validate Settings
 
 Once your configuration is set, you can verify its correctness by
 running the `riak` command-line tool:

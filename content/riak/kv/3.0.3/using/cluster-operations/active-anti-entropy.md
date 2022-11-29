@@ -1,13 +1,13 @@
 ---
-title: "Managing Active Anti-Entropy"
+title: "Legacy Active Anti-Entropy"
 description: ""
 project: "riak_kv"
 project_version: 3.0.3
 menu:
   riak_kv-3.0.3:
-    name: "Managing Active Anti-Entropy"
+    name: "Legacy AAE"
     identifier: "cluster_operations_aae"
-    weight: 111
+    weight: 110
     parent: "managing_cluster_operations"
 toc: true
 version_history:

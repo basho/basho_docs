@@ -21,6 +21,8 @@ aliases:
 [config load balance]: ../configuring/load-balancing-proxy
 [config mapreduce]: ../configuring/mapreduce
 [config search]: ../configuring/search
+[config next-gen-repl]: ../configuring/next-gen-replication
+[config aae]: ../configuring/active-anti-entropy
 [config v3 mdc]: ../configuring/v3-multi-datacenter
 [config v2 mdc]: ../configuring/v2-multi-datacenter
 
@@ -75,11 +77,29 @@ Information on configuring and using Riak KV Search from an operational perspect
 
 [Learn More >>][config search]
 
+#### [Next Gen Replication][config next-gen-repl]
+
+Information on configuring TicTac AAE's Next Gen Replication.
+
+[Learn More >>][config next-gen-repl]
+
+#### [Active-Anti-Entropy][config aae]
+
+Information on configuring Riak's two Active Anti-Entropy (AAE) systems.
+
+[Learn More >>][config aae]
+
 #### [V3 Multi-Datacenter][config v3 mdc]
 
 A guide on configuring Riak's V3 Multi-Datacenter Replication
 
 [Learn More >>][config v3 mdc]
+
+#### [V2 Multi-Datacenter][config v2 mdc]
+
+A guide on configuring Riak's older V2 Multi-Datacenter Replication
+
+[Learn More >>][config v2 mdc]
 
 
 

@@ -8,7 +8,7 @@ menu:
   riak_kv-2.9.4:
     name: "V3 Multi-Datacenter"
     identifier: "configuring_v3"
-    weight: 200
+    weight: 220
     parent: "configuring"
 toc: true
 commercial_offering: true

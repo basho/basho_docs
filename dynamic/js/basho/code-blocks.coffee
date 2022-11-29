@@ -104,6 +104,7 @@ language_transforms =
   'language-scala'          : { display_name : 'Scala',           highlight_as : '' }
   'language-sql'            : { display_name : 'SQL',             highlight_as : '' }
   'language-xml'            : { display_name : 'XML',             highlight_as : '' }
+  'language-riakattach'     : { display_name : 'riak&nbsp;attach',     highlight_as : 'language-erlang' }
 
 
 ## getLanguage :: (Element) -> Str or None

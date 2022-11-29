@@ -48,6 +48,7 @@
 
   a {
     color           : $brand-gray;
+    vertical-align  : top;
     @include on-event { color : $brand-primary-dark; }
   }
 }

@@ -1382,6 +1382,9 @@ to <code>off</code> can cut down on system resource usage.
 <td><code>345600</code></td>
 </tr>
 
+</tbody>
+</table>
+
 ## Intra-Cluster Handoff
 
 Configurable parameters for intra-cluster, i.e. inter-node, [handoff][cluster ops handoff].
