@@ -79,7 +79,3 @@ Once you have setup your first node, you will want to proceed with setting up th
 When you're up and running, check out our docs on [querying] or our [supported clients].
 
 If you want to learn more about how Riak TS was designed and how it is structured, checkout our [Learn About Riak TS][learnabout] section.
-
-## Academy Training
-
-[Basho's Academy](https://academy.basho.com) courses offer hands-on experience with Riak TS, from installing Riak TS to using the Spark-Riak Connector. Sign up for a [free account](https://academy.basho.com/users/sign_up) to get started.
