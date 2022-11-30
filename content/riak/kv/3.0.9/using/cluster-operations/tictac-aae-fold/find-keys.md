@@ -88,7 +88,7 @@ riak_client:aae_fold({
     find_keys, 
     {<<"animals">>,<<"dogs">>}, 
     {<<"A">>,<<"N">>},
-    {date,1640995200,1643673600},
+    {date,{{2022,1,1},{0,0,0}},{{2022,2,1},{0,0,0}}},
     {sibling_count, 5}
     }, Client).
 ```
@@ -148,7 +148,7 @@ riak_client:aae_fold({
     find_keys, 
     {<<"animals">>,<<"dogs">>}, 
     {<<"A">>,<<"N">>},
-    {date,1640995200,1643673600},
+    {date,{{2022,1,1},{0,0,0}},{{2022,2,1},{0,0,0}}},
     {object_size, 1000}
     }, Client).
 ```
