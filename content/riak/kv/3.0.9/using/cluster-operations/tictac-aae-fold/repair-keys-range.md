@@ -61,18 +61,22 @@ riak_client:aae_fold({
 ```
 Please see the list of [available filters](#available-filters) below.
 
+{{% note %}}
+For the function `repair_keys_range`, only non-negative interger of seconds since `1970-01-01 00:00:00` works for `modified_filter` in this version. This is fixed in a later version.
+{{% /note %}}
+
 For example, the following snippet will perform a read-repair on all Riak objects with the filters:
 
 - in the bucket "dogs" of bucket type "animals"
 - whose keys are between "A" and "N"
-- which were modified in January 2022
+- which were modified in 2022
 
 ```erlang
 riak_client:aae_fold({
     repair_keys_range, 
     {<<"animals">>,<<"dogs">>}, 
     {<<"A">>,<<"N">>},
-    {date,{{2022,1,1},{0,0,0}},{{2022,2,1},{0,0,0}}},
+    {date,1640995200,1672531200},
     all
     }, Client).
 ```
@@ -82,8 +86,16 @@ riak_client:aae_fold({
 The response will look something like this:
 
 ```erlang
-{ok}
+{ok,{[],0,all,128}}
 ```
+
+This indicates that:
+
+- `ok`: the read repair request finished successfully
+- `[]`: the remaining items, which should be an empty list
+- `0`: the number of keys repairs, in this case none
+- `all`: a constant
+- `128`: the size of each batch of read repairs, which is 128
 
 This indicates that the keys found meeting the filter parameters and were read-repaired.
 

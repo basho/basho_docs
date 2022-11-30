@@ -157,6 +157,10 @@ The values are passed in a tuple with 3 values:
 
 `date` is required. `From` and `To` are either a non-negative interger of seconds since `1970-01-01 00:00:00`, or two tuples containing dates in the format `{{Year,Month,Day},{Hour,Minute,Second}}`.
 
+{{% note %}}
+For the function `repair_keys_range`, only non-negative interger of seconds since `1970-01-01 00:00:00` works for now.
+{{% /note %}}
+
 For example, to get all keys modified between 1970-01-01 00:01:00 (`From` = `{1970,1,1},{0,1,0}` or `60`) and 1970-01-01 00:02:00 (`To` = `{1970,1,1},{0,2,0}` or `120`), one would use either of these:
 
 ```erlang
