@@ -44,7 +44,7 @@ Further significant improvements have been made to Tictac AAE full-sync, to grea
 
 ## Previous Release Notes
 
-Please see the KV 2.9.7 release notes [here]({{<baseurl>}}riak/kv/2.9.7/release-notes/).
+Please see the KV 3.0.1 release notes [here]({{<baseurl>}}riak/kv/3.0.1/release-notes/) and the KV 2.9.7 release notes [here]({{<baseurl>}}riak/kv/2.9.7/release-notes/).
 
 
 

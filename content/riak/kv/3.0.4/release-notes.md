@@ -24,9 +24,9 @@ Released April 2nd, 2021.
 
 There are two fixes provided in Release 3.0.4:
 
-An issue with leveled application dependencies has been resolved, and so lz4 can now again be used as the compression method.
+* An issue with leveled application dependencies has been resolved, and so lz4 can now again be used as the compression method.
 
-The riak clients are now compatible with systems that require semantic versioning.
+* The riak clients are now compatible with systems that require semantic versioning.
 
 This release is tested with OTP 20, OTP 21 and OTP 22; but optimal performance is likely to be achieved when using OTP 22.
 
