@@ -50,7 +50,7 @@ Run this using [`riak attach`][riak attach].
 
 The format for the function is:
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     repair_keys_range, 
     bucket_filter, 
@@ -71,7 +71,7 @@ For example, the following snippet will perform a read-repair on all Riak object
 - whose keys are between "A" and "N"
 - which were modified in 2022
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     repair_keys_range, 
     {<<"animals">>,<<"dogs">>}, 

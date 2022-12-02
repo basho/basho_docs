@@ -44,7 +44,7 @@ See the [TicTac AAE `aae_folds`][tictacaae folds-overview] documentation for con
 
 Run this using [`riak attach`][riak attach].
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     list_buckets,
     assumed_nval
@@ -56,7 +56,7 @@ There are no available filters for this method.
 
 This will list all buckets:
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     list_buckets,
     3

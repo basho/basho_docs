@@ -50,7 +50,7 @@ Run this using [`riak attach`][riak attach].
 
 This function has three available operational methods that are selected via the `method` value. The `local` method for reaping tombstones is detailed below. The general format for the function is:
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     reap_tombs, 
     bucket_filter, 
@@ -78,7 +78,7 @@ How to get the value for `Client` is detailed in [The Riak Client](../../tictac-
 
 Marks tombstones for reaping that meet the filter parameters. Returns the number of tombstones marked by calling this function.
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     reap_tombs, 
     bucket_filter, 
@@ -96,7 +96,7 @@ For example, the following snippet will mark for reaping all tombstones with the
 - whose keys are between "A" and "N"
 - which were modified in January 2022
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     reap_tombs, 
     {<<"animals">>,<<"dogs">>}, 

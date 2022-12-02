@@ -44,7 +44,7 @@ See the [TicTac AAE `aae_folds`][tictacaae folds-overview] documentation for con
 
 Run this using [`riak attach`][riak attach].
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     object_stats, 
     bucket_filter, 
@@ -61,7 +61,7 @@ For example, the following snippet will count all objects with the filters:
 - whose keys are between "A" and "N"
 - which were modified in January 2022
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     object_stats, 
     {<<"animals">>,<<"dogs">>}, 

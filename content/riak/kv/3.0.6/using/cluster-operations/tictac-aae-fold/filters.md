@@ -50,7 +50,7 @@ Use the name of the bucket as a binary. For example, to query bucket "cars", one
 
 This example will count the number of keys in the bucket "cars":
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     object_stats,
     <<"cars">>, 
@@ -73,7 +73,7 @@ Use the name of the bucket type and the bucket as a tuple pair of binaries. For 
 
 This example will count the number of keys in the bucket "dogs" of bucket type "animals":
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     object_stats,
     {<<"animals">>, <<"dogs">>}, 
@@ -102,7 +102,7 @@ Use the name of the key you want to start and end at as a tuple pair of binaries
 
 This example will count the number of keys in the bucket `cars` that start with `n`:
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     object_stats, 
     <<"cars">>, 
@@ -123,7 +123,7 @@ As the values used for key filters are binary strings, they are case sensitive. 
 
 To query all keys, just use `all` for the key range filter. This will count all keys in the bucket `cars`:
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     object_stats, 
     <<"cars">>, 
@@ -170,7 +170,7 @@ For example, to get all keys modified between 1970-01-01 00:01:00 (`From` = `{19
 
 This example returns all keys in the "cars" bucket that were modified after 12-noon on 2022-05-01 (`From` = 2022-05-01 12:00:00 and `To` = 2022-05-02 00:00:00):
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     object_stats, 
     <<"cars">>, 
@@ -212,7 +212,7 @@ riak_client:aae_fold({
 
 Or in one command to make it easily re-usable:
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     object_stats, 
     <<"cars">>, 

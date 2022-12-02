@@ -46,7 +46,7 @@ Run this using [`riak attach`][riak attach].
 
 This function will find all keys that meet the common filters as well as one of two function-specific filters (`function_filter`) that filter by minimum sibling count or by minimum object size (but not both at the same time).
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     find_keys, 
     bucket_filter, 
@@ -65,7 +65,7 @@ This filter will only cinlude keys that have more than the specified siblings.
 
 Note that a value of `5` will mean only objects with 6 or more siblings will be returned.
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     find_keys, 
     bucket_filter, 
@@ -83,7 +83,7 @@ For example, the following snippet will return all keys with the filters:
 - which were modified in January 2022
 - which have more than 5 siblings
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     find_keys, 
     {<<"animals">>,<<"dogs">>}, 
@@ -125,7 +125,7 @@ This filter will include keys that have an object size of more than the specifie
 
 Note that a value of `1000` will mean only objects with a size of 1001 bytes or more will be returned.
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     find_keys, 
     bucket_filter, 
@@ -143,7 +143,7 @@ For example, the following snippet will return all keys with the filters:
 - which were modified in January 2022
 - which are more than 1000 bytes in size
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     find_keys, 
     {<<"animals">>,<<"dogs">>}, 

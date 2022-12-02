@@ -51,7 +51,7 @@ Run this using [`riak attach`][riak attach].
 
 This function has three available operational methods that are selected via the `method` value. The `count` method for counting tombstones is detailed below. The general format for the function is:
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     reap_tombs, 
     bucket_filter, 
@@ -78,7 +78,7 @@ How to get the value for `Client` is detailed in [The Riak Client](../../tictac-
 
 Returns a count of tombstones that meet the filter parameters. Does NOT reap the tombstones.
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     reap_tombs, 
     bucket_filter, 
@@ -96,7 +96,7 @@ For example, the following snippet will count all tombstones with the filters:
 - whose keys are between "A" and "N"
 - which were modified in January 2022
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     reap_tombs, 
     {<<"animals">>,<<"dogs">>}, 

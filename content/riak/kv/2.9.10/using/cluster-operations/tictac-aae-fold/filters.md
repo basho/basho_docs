@@ -45,15 +45,15 @@ This will reduce the number of keys checked.
 Use the name of the bucket as a binary. For example, to query bucket "cars", one would use:
 
 ```erlang
-{<<"cars">>}
+<<"cars">>
 ```
 
 This example will count the number of keys in the bucket "cars":
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     object_stats,
-    {<<"cars">>}, 
+    <<"cars">>, 
     all, 
     all
     }, Client).
@@ -73,7 +73,7 @@ Use the name of the bucket type and the bucket as a tuple pair of binaries. For 
 
 This example will count the number of keys in the bucket "dogs" of bucket type "animals":
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     object_stats,
     {<<"animals">>, <<"dogs">>}, 
@@ -102,10 +102,10 @@ Use the name of the key you want to start and end at as a tuple pair of binaries
 
 This example will count the number of keys in the bucket `cars` that start with `n`:
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     object_stats, 
-    {<<"cars">>}, 
+    <<"cars">>, 
     {<<"n">>,<<"o">>}, 
     all
     }, Client).
@@ -124,10 +124,10 @@ As the values used for key filters are binary strings, they are case sensitive. 
 
 To query all keys, just use `all` for the key range filter. This will count all keys in the bucket `cars`:
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     object_stats, 
-    {<<"cars">>}, 
+    <<"cars">>, 
     all, 
     all
     }, Client).
@@ -165,10 +165,10 @@ For example, to get all keys modified between 1970-01-01 00:01:00 (`From` = 60) 
 
 This example returns all keys in the "cars" bucket that were modified between 1970-01-01 00:01:00 and 1970-01-01 00:02:00:
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     object_stats, 
-    {<<"cars">>}, 
+    <<"cars">>, 
     all, 
     {date,60,120}
     }, Client).
@@ -199,7 +199,7 @@ Modified_Filter_Value = Modified_Filter_Calculator(
 ),
 riak_client:aae_fold({
     object_stats, 
-    {<<"cars">>}, 
+    <<"cars">>, 
     all, 
     Modified_Filter_Value
     }, Client).
@@ -207,10 +207,10 @@ riak_client:aae_fold({
 
 Or in one command to make it easily re-usable:
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     object_stats, 
-    {<<"cars">>}, 
+    <<"cars">>, 
     all, 
     Modified_Filter_Calculator({{2022,1,1},{0,0,0}}, {{2022,2,1},{0,0,0}})
     }, Client).

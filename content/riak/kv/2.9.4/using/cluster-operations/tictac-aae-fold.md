@@ -79,7 +79,7 @@ Use [Riak attach][riak attach] to run these commands.
 
 The general format for calling `aae_fold` is:
 
-```erlang
+```riakattach
 riak_client:aae_fold(
     query, 
     Client).
@@ -89,7 +89,7 @@ riak_client:aae_fold(
 
 As an example, this will call `list_buckets`, which takes a single parameter:
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     list_buckets, 
     3
