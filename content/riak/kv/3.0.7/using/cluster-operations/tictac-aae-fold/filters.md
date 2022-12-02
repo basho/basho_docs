@@ -45,7 +45,7 @@ This will reduce the number of keys checked.
 Use the name of the bucket as a binary. For example, to query bucket "cars", one would use:
 
 ```erlang
-{<<"cars">>}
+<<"cars">>
 ```
 
 This example will count the number of keys in the bucket "cars":
@@ -53,7 +53,7 @@ This example will count the number of keys in the bucket "cars":
 ```erlang
 riak_client:aae_fold({
     object_stats,
-    {<<"cars">>}, 
+    <<"cars">>, 
     all, 
     all
     }, Client).
@@ -105,7 +105,7 @@ This example will count the number of keys in the bucket `cars` that start with 
 ```erlang
 riak_client:aae_fold({
     object_stats, 
-    {<<"cars">>}, 
+    <<"cars">>, 
     {<<"n">>,<<"o">>}, 
     all
     }, Client).
@@ -119,7 +119,6 @@ How to get the value for `Client` is detailed in [The Riak Client](../../tictac-
 As the values used for key filters are binary strings, they are case sensitive. So `a` and `A` are not the same.
 {{% /note %}}
 
-
 ### All keys
 
 To query all keys, just use `all` for the key range filter. This will count all keys in the bucket `cars`:
@@ -127,7 +126,7 @@ To query all keys, just use `all` for the key range filter. This will count all 
 ```erlang
 riak_client:aae_fold({
     object_stats, 
-    {<<"cars">>}, 
+    <<"cars">>, 
     all, 
     all
     }, Client).
@@ -147,7 +146,7 @@ Use `all` for this filter.
 
 This will not reduce the number of keys checked, but will reduce the number of keys returned.
 
-This filter is used when you need to locate keys modified in a certain time frame. 
+This filter is used when you need to locate keys modified in a certain time frame.
 
 The values are passed in a tuple with 3 values:
 
@@ -174,7 +173,7 @@ This example returns all keys in the "cars" bucket that were modified after 12-n
 ```erlang
 riak_client:aae_fold({
     object_stats, 
-    {<<"cars">>}, 
+    <<"cars">>, 
     all, 
     {date,{{2022,5,1},{12,0,0}},{{2022,5,2},{0,0,0}}}
     }, Client).
@@ -205,7 +204,7 @@ Modified_Filter_Value = Modified_Filter_Calculator(
 ),
 riak_client:aae_fold({
     object_stats, 
-    {<<"cars">>}, 
+    <<"cars">>, 
     all, 
     Modified_Filter_Value
     }, Client).
@@ -216,11 +215,12 @@ Or in one command to make it easily re-usable:
 ```erlang
 riak_client:aae_fold({
     object_stats, 
-    {<<"cars">>}, 
+    <<"cars">>, 
     all, 
     Modified_Filter_Calculator({{2022,1,1},{0,0,0}}, {{2022,2,1},{0,0,0}})
     }, Client).
 ```
+
 {{% /note %}}
 
 ## Filter by sibling count

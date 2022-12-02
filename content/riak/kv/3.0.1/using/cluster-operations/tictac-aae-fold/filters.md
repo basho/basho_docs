@@ -45,15 +45,15 @@ This will reduce the number of keys checked.
 Use the name of the bucket as a binary. For example, to query bucket "cars", one would use:
 
 ```erlang
-{<<"cars">>}
+<<"cars">>
 ```
 
 This example will count the number of keys in the bucket "cars":
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     object_stats,
-    {<<"cars">>}, 
+    <<"cars">>, 
     all, 
     all
     }, Client).
@@ -73,7 +73,7 @@ Use the name of the bucket type and the bucket as a tuple pair of binaries. For 
 
 This example will count the number of keys in the bucket "dogs" of bucket type "animals":
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     object_stats,
     {<<"animals">>, <<"dogs">>}, 
@@ -102,10 +102,10 @@ Use the name of the key you want to start and end at as a tuple pair of binaries
 
 This example will count the number of keys in the bucket `cars` that start with `n`:
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     object_stats, 
-    {<<"cars">>}, 
+    <<"cars">>, 
     {<<"n">>,<<"o">>}, 
     all
     }, Client).
@@ -119,15 +119,14 @@ How to get the value for `Client` is detailed in [The Riak Client](../../tictac-
 As the values used for key filters are binary strings, they are case sensitive. So `a` and `A` are not the same.
 {{% /note %}}
 
-
 ### All keys
 
 To query all keys, just use `all` for the key range filter. This will count all keys in the bucket `cars`:
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     object_stats, 
-    {<<"cars">>}, 
+    <<"cars">>, 
     all, 
     all
     }, Client).
@@ -147,7 +146,7 @@ Use `all` for this filter.
 
 This will not reduce the number of keys checked, but will reduce the number of keys returned.
 
-This filter is used when you need to locate keys modified in a certain time frame. 
+This filter is used when you need to locate keys modified in a certain time frame.
 
 The values are passed in a tuple with 3 values:
 
@@ -165,10 +164,10 @@ For example, to get all keys modified between 1970-01-01 00:01:00 (`From` = 60) 
 
 This example returns all keys in the "cars" bucket that were modified between 1970-01-01 00:01:00 and 1970-01-01 00:02:00:
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     object_stats, 
-    {<<"cars">>}, 
+    <<"cars">>, 
     all, 
     {date,60,120}
     }, Client).
@@ -192,14 +191,14 @@ end.
 
 This can then be used like so to get the filter value for the range of "2022-01-01 00:00:00" to "2022-02-01 00:00:00" (i.e. all of January 2022):
 
-```erlang
+```riakattach
 Modified_Filter_Value = Modified_Filter_Calculator(
   {{2022,1,1},{0,0,0}},
   {{2022,2,1},{0,0,0}}
 ),
 riak_client:aae_fold({
     object_stats, 
-    {<<"cars">>}, 
+    <<"cars">>, 
     all, 
     Modified_Filter_Value
     }, Client).
@@ -207,14 +206,15 @@ riak_client:aae_fold({
 
 Or in one command to make it easily re-usable:
 
-```erlang
+```riakattach
 riak_client:aae_fold({
     object_stats, 
-    {<<"cars">>}, 
+    <<"cars">>, 
     all, 
     Modified_Filter_Calculator({{2022,1,1},{0,0,0}}, {{2022,2,1},{0,0,0}})
     }, Client).
 ```
+
 {{% /note %}}
 
 ## Filter by sibling count
