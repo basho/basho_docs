@@ -8,7 +8,7 @@ menu:
   riak_kv-3.0.9:
     name: "Mac OS X"
     identifier: "installing_macosx"
-    weight: 303
+    weight: 305
     parent: "installing"
 toc: true
 aliases:

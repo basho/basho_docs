@@ -8,7 +8,7 @@ menu:
   riak_kv-3.0.9:
     name: "SmartOS"
     identifier: "installing_smartos"
-    weight: 305
+    weight: 307
     parent: "installing"
 toc: true
 aliases:
