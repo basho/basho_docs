@@ -1,4 +1,4 @@
-﻿---a
+﻿---
 title_supertext: "Installing on"
 title: "Alpine Linux"
 description: "installing Riak on Alpine Linux"
