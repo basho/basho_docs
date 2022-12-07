@@ -11,6 +11,9 @@ menu:
     weight: 301
     parent: "installing"
 toc: true
+since: 3.0.9
+version_history:
+  in: "3.0.9+"
 aliases:
   - /riak/3.0.10/ops/building/installing/installing-on-alpine-linux
   - /riak/kv/3.0.10/ops/building/installing/installing-on-alpine-linux

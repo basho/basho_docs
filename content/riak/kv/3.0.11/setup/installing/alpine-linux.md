@@ -10,6 +10,9 @@ menu:
     identifier: "installing_alpine_linux"
     weight: 301
     parent: "installing"
+since: 3.0.9
+version_history:
+  in: "3.0.9+"
 toc: true
 aliases:
   - /riak/3.0.10/ops/building/installing/installing-on-alpine-linux
