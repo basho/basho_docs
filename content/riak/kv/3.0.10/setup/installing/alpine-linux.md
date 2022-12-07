@@ -23,24 +23,27 @@ aliases:
 [install verify]: {{<baseurl>}}riak/kv/3.0.10/setup/installing/verify
 
 Riak KV can be installed on Alpine Linux using a binary
-package.
+package from the Riak repository.
+
 The following steps have been tested to work with Riak KV on:
 
-Alpine Linux 3.14
+* Alpine Linux 3.14
 
-### Riak 64-bit Installation
+## Riak 64-bit Installation
+
 To install Riak on Alpine Linux:
 
-1. Add `http://files.tiot.jp/alpine/v3.16/main` to /etc/apk/repositories and remove `/home/dev/packages/main` if it is present.
-2. run `wget http://files-source.tiot.jp/alpine/alpine@tiot.jp.rsa.pub`
-3. Run `apk update`
-4. Run `apk add riak` for the latest Riak KV version
+1. Add the Riak repository:
+   * Run `echo https://files.tiot.jp/alpine/v3.16/main >> /etc/apk/repositories`
+2. Remove the local dev repository if needed:
+   * Edit the file `/etc/apk/repositories` to remove `/home/dev/packages/main` if it is present.
+3. Download and install the Riak repository public key:
+   * Run `wget http://files.tiot.jp/alpine/alpine@tiot.jp.rsa.pub -O /etc/apk/keys/alpine@tiot.jp.rsa.pub`
+4. Update `apk`:
+   * Run `apk update`
+5. Install Riak:
+   * Run `apk add riak`
 
 ## Next Steps
 
 Now that Riak is installed, check out [Verifying a Riak Installation][install verify].
-
-
-
-
-
