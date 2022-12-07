@@ -3,9 +3,9 @@ title_supertext: "Installing on"
 title: "Alpine Linux"
 description: "installing Riak on Alpine Linux"
 project: "riak_kv"
-project_version: 3.0.10
+project_version: 3.0.11
 menu:
-  riak_kv-3.0.10:
+  riak_kv-3.0.11:
     name: "Alpine Linux"
     identifier: "installing_alpine_linux"
     weight: 301
