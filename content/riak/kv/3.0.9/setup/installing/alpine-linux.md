@@ -35,9 +35,9 @@ To install Riak on Alpine Linux:
 
 1. Add the Alpine Edge repository:
    * Run `echo https://dl-cdn.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories`
-3. Update `apk`:
+2. Update `apk`:
    * Run `apk update`
-4. Install Riak:
+3. Install Riak:
    * For the latest version, run `apk add riak`
    * For a specific version, run `apk add riak=3.0.9.0-r0`
 
