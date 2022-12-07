@@ -84,7 +84,14 @@
 
         <p>You should be able to find your operating system in the choices below.</p>
         <!-- {{ if $download_root }} -->
-        <p>All files are available on our <a href="{{ $download_root_path }}">the file store</a>.</p>
+          <!-- {{ if (or (and (ge $version "3.0.10") (lt $version "3.0.2")) (ge $version "3.1.0")) }} -->
+            {{ $alpine_uri := replace (printf "%s%s/%s/%s" $HugoNode.Site.BaseURL $version_path $install_instructions_set "alpine-linux/") "//" "/" }}
+            {{ $alpine_uri := replace $alpine_uri "http:/localhost" "http://localhost" }}
+            <p>All files (except Alpine Linux) are available on our <a href="{{ $download_root_path }}">the file store</a>.</p>
+            <p>Alpine Linux versions are installed via the <a href="{{ $alpine_uri }}">Alpine Linux Repo</a>.</p>
+          <!-- {{ else }} -->
+            <p>All files are available on our <a href="{{ $download_root_path }}">the file store</a>.</p>
+          <!-- {{ end }} -->
         <!-- {{ end }} -->
 
   <!-- Range Over OSs Per Project
