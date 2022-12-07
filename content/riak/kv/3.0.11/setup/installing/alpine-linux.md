@@ -35,14 +35,13 @@ To install Riak on Alpine Linux:
 
 1. Add the Riak repository:
    * Run `echo https://files.tiot.jp/alpine/v3.16/main >> /etc/apk/repositories`
-2. Remove the local dev repository if needed:
-   * Edit the file `/etc/apk/repositories` to remove `/home/dev/packages/main` if it is present.
-3. Download and install the Riak repository public key:
+2. Download and install the Riak repository public key:
    * Run `wget http://files.tiot.jp/alpine/alpine@tiot.jp.rsa.pub -O /etc/apk/keys/alpine@tiot.jp.rsa.pub`
-4. Update `apk`:
+3. Update `apk`:
    * Run `apk update`
-5. Install Riak:
-   * Run `apk add riak`
+4. Install Riak:
+   * For the latest version, run `apk add riak`
+   * For a specific version, run `apk add riak=3.0.11.0-r0`
 
 ## Next Steps
 
