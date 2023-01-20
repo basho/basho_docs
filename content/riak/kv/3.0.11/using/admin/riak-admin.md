@@ -184,11 +184,21 @@ rename the nodes of a cluster. For more information, visit the
 riak admin reip <old nodename> <new nodename>
 ```
 
+{{% note title="Note about reip in Riak KV 3.0.11" %}}
+Due to an issue with `riak admin reip` in 3.0.11, this command was temporarily replaced with `riak admin reip-manual`. See the `reip-manual` section for more information.
+{{% /note %}}
+
 {{% note title="Note about reip prior to Riak 2.0" %}}
 Several bugs have been fixed related to reip in Riak 2.0. We recommend against
 using reip prior to 2.0, if possible.
 {{% /note %}}
 
+## reip-manual
+
+As `riak admin reip` is not supported in KV 3.0.11, the `riak admin reip_manual` command is required instead. This command requires the exact path to the ring file and the clustername, such as the example below:
+`riak admin reip_manual $OLDNODE $NEWNODE /absolute_path_to/riak/data/ring cluster_name`
+
+The absolute path to the ring is defined in your `riak.conf` under `platform_data_dir`.
 
 ## js-reload
 
