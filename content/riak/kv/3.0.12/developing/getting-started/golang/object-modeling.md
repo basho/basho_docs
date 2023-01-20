@@ -3,17 +3,17 @@ title_supertext: "Getting Started:"
 title: "Object Modeling with Go"
 description: ""
 project: "riak_kv"
-project_version: "2.2.3"
+project_version: 3.0.12
 menu:
-  riak_kv-2.2.3:
+  riak_kv-3.0.12:
     name: "Object Modeling"
     identifier: "getting_started_go_object"
     weight: 102
     parent: "getting_started_go"
 toc: true
 aliases:
-  - /riak/2.2.3/dev/taste-of-riak/object-modeling-golang
-  - /riak/kv/2.2.3/dev/taste-of-riak/object-modeling-golang
+  - /riak/3.0.12/dev/taste-of-riak/object-modeling-golang
+  - /riak/kv/3.0.12/dev/taste-of-riak/object-modeling-golang
 ---
 
 {{% note title="Code Download" %}}
@@ -133,9 +133,9 @@ func (t *Timeline) AddMsg(msgKey string) {
 func (t *Timeline) GetId() string {
   return t.id
 }
-```
+````
 
-We'll be using the bucket `Users` to store our data. We won't be [using bucket types]({{<baseurl>}}riak/kv/2.2.3/developing/usage/bucket-types) here, so we don't need to specify one.
+We'll be using the bucket `Users` to store our data. We won't be [using bucket types]({{<baseurl>}}riak/kv/3.0.12/developing/usage/bucket-types) here, so we don't need to specify one.
 
 To use these records to store data, we will first have to create a user
 record. Then, when a user creates a message, we will append that message
@@ -544,5 +544,9 @@ So to recap, in this chapter we learned:
 
 * How to choose bucket names.
 * How to choose natural keys based on how we want to partition our data.
+
+
+
+
 
 
