@@ -33,7 +33,7 @@ Released April 25, 2018.
 
 ## Release Schedule
 
-April 2018 saw the release of [Riak KV 2.2.5](https://github.com/basho/riak/blob/riak-2.2.5/RELEASE-NOTES.md), the first [post-Basho](https://www.theregister.co.uk/2017/07/31/end_of_the_road_for_basho_as_court_puts_biz_into_receivership/) release of the Riak KV store.  This release was deliberately light on features, focusing on stability fixes that could be added with minimal disruption to the existing codebase and minimal risk to existing production workloads.  The release did though establish a smoother path to releasing future changes, by investing significant effort in improving the reliability and usability of the Riak test and release process.
+April 2018 saw the release of [Riak KV 2.2.6](https://github.com/basho/riak/blob/riak-2.2.6/RELEASE-NOTES.md), the first [post-Basho](https://www.theregister.co.uk/2017/07/31/end_of_the_road_for_basho_as_court_puts_biz_into_receivership/) release of the Riak KV store.  This release was deliberately light on features, focusing on stability fixes that could be added with minimal disruption to the existing codebase and minimal risk to existing production workloads.  The release did though establish a smoother path to releasing future changes, by investing significant effort in improving the reliability and usability of the Riak test and release process.
 
 There is now a plan for significant further improvements to Riak.  These improvements will be delivered in two release cycles - Release 2.9 and Release 3.0:
 
@@ -80,7 +80,7 @@ Release 2.9 also brings three building blocks to enable current and future impro
 
 ## Additions
 
-### TicTac Active Ant-Entropy
+### TicTac Active Anti-Entropy
 
 - [Tictac Active Anti-Entropy](https://github.com/martinsumner/kv_index_tictactree).
 
@@ -102,7 +102,7 @@ Release 2.9 also brings three building blocks to enable current and future impro
 
   - Future work on Tictac AAE is planned to handle issues arising from time-based deletion of objects.  Tictac AAE will not currently work efficiently if a significant portion of objects have automatic TTL-based expiry.
 
-### Leveld backend
+### Leveled backend
 
 - [Leveled backend](https://github.com/martinsumner/leveled).
 
