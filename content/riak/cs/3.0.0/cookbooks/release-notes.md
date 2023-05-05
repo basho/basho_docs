@@ -2,20 +2,20 @@
 title: "Riak CS Release Notes"
 description: ""
 menu:
-  riak_cs-2.1.2:
+  riak_cs-3.0.0:
     name: "Riak CS Release Notes"
     identifier: "reference_release_notes"
     weight: 102
     parent: "reference"
 project: "riak_cs"
-project_version: "2.1.2"
+project_version: "3.0.0"
 aliases:
-  - /riakcs/2.1.2/cookbooks/Riak-CS-Release-Notes/
-  - /riak/cs/2.1.2/cookbooks/Riak-CS-Release-Notes/
+  - /riakcs/3.0.0/cookbooks/Riak-CS-Release-Notes/
+  - /riak/cs/3.0.0/cookbooks/Riak-CS-Release-Notes/
   - /riak/cs/latest/cookbooks/release-notes/
 ---
 
-[riak_cs_multibag_support]: {{<baseurl>}}riak/cs/2.1.2/cookbooks/supercluster
+[riak_cs_multibag_support]: {{<baseurl>}}riak/cs/3.0.0/cookbooks/supercluster
 
 [riak_1.4_release_notes]: https://github.com/basho/riak/blob/1.4/RELEASE-NOTES.md
 [riak_2.0_release_notes]: https://github.com/basho/riak/blob/2.0/RELEASE-NOTES.md
@@ -40,7 +40,93 @@ aliases:
 [riak_cs_1.5_release_notes_leeway_and_disk]: https://github.com/basho/riak_cs/blob/release/1.5/RELEASE-NOTES.md#leeway-seconds-and-disk-space
 [riak_cs_2.0.0_release_notes]: https://github.com/basho/riak_cs/blob/develop/RELEASE-NOTES/
 
+[riak_cs_docker_bundle]: https://github.com/TI-Tokyo/riak_cs_service_bundle
 [ti_tokyo_github]: https://github.com/TI-Tokyo
+[riak_cs_3_codebeam_america_2021]: https://youtu.be/CmmeYza5HPg
+
+[riak_cs_3_object_versions]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/Versioning.html
+[riak_cs_3_getbucketversioning]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketVersioning.html
+[riak_cs_3_putbucketversioning]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketVersioning.html
+[riak_cs_3_listobjectversions]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListObjectVersions.html
+
+[riak_cs_3_docker_service]: https://github.com/TI-Tokyo/riak_cs_service_bundle
+[riak_cs_3_load_test]: https://github.com/TI-Tokyo/s3-benchmark
+
+# Riak CS 3.0.0 Release notes
+
+Released May 30, 2022.
+
+## General
+
+This release was originally envisaged as an uplift of 2.1.2 to OTP-22 and rebar3. There were no known critical bugs that needed fixing. We did, however, identifiy and implement a new S3 API call (ListObjectVersions and related), to give more substance to the major version bump.
+
+We also provide Dockerfiles, and a [Riak CS Docker Service Bundle][riak_cs_docker_bundle], as a convenient way to set up the full Riak CS suite locally.
+
+All principal repositories are in [TI Tokyo org on Github][ti_tokyo_github].
+
+This release was [presented][riak_cs_3_codebeam_america_2021] at Code BEAM America 2021.
+
+## New features
+
+* Support for [object versions][riak_cs_3_object_versions], including new S3 API calls:
+  * [GetBucketVersioning][riak_cs_3_getbucketversioning], [PutBucketVersioning][riak_cs_3_putbucketversioning] and [ListObjectVersions][riak_cs_3_listobjectversions].
+    * For buckets with versioning enabled, `GetObject` will return the specific version if it is given in the request, or the `null` version if it is not.
+    * As a Riak CS extension, rather than generating a random id for the new version, `PutObject` will read a `versionId` from header `x-rcs-versionid`, and use that instead.
+* Riak CS Suite as a [Docker service][riak_cs_3_docker_service], allowing the (prospective) users quickly to bring up a fully functional Riak CS cluster running locally, complete with Riak CS Control, and
+  * properly configured and set up with a new user, whose credentials will be shown;
+  * with riak data persisted;
+  * ready for a [load-test][riak_cs_3_load_test].
+* Packaging:
+  * New packages are provided for FreeBSD 13 and OSX 14 (in the latter case, the package is the result of `make rel` tarred; no special user is created).
+  * Packages have been verified for: o RPM-based: Centos 7 and 8, Amazon Linux 2, SLES 15, Oracle Linux 8; o DEB-based: Debian 8 and 11, Ubuntu Bionic and Xenial; o Other: FreeBSD 13, OSX 14; Alpine Linux 3.15.
+* A Dockerfile, bypassing cuttlefish mechanism to enable run-time configuration via environment variables.
+* `riak-cs-admin` now has a new option, `test`, which creates a bucket and performs a basic write-read-delete cycle in it (useful to test that the riak cluster is configured properly for use with Riak CS).
+
+## Changes
+
+### User-visible changes
+
+* S3 request signature v4 is now the default. The old (v2) signatures
+  continue to be supported.
+* A change of internal structures needed to support object versions,
+  meaning downgrade to 2.x is no longer possible (even if the objects
+  created with 3.0 have no versions). Upgrade from 2.x is possible.
+* The rpm and deb packages now rely on systemd (old-style SysV init
+  scripts are no longer included).
+
+### Other changes
+
+* Riak CS and Stanchion now require OTP-22 and rebar3.
+* Riak CS Test framework:
+  - The framework, along with a suite of tests (also the [multibag
+    additions](https://github.com/TI-Tokyo/riak_cs_multibag)), has been
+    upgraded to OTP-22/rebar3 and moved into a separate project,
+    [riak_cs_test](https://github.com/TI-Tokyo/riak_cs_test).
+  - A new battery of tests is written for `s3cmd` as a client.
+  - The Python client tests have been upgraded to boto3 and python-3.9.
+* A refactoring of code shared between Riak CS and stanchion resulted
+  in that code being collected into a separate dependency,
+  [rcs_common](https://github.com/TI-Tokyo/rcs_common).
+* [Riak CS Control](https://github.com/TI-Tokyo/riak_cs_control)
+  application has been upgraded to OTP-22/rebar3, too, however without
+  any new features.
+* All EQC tests have been converted to use PropEr (no shortcuts taken,
+  all coverage is preserved).
+
+## Upgrading
+
+Existing data in the riak cluster underlying a 2.x instance of Riak CS
+can be used with Riak CS 3.0 without any modification.
+
+*Note:* Once a new object is written into a database by Riak CS 3.0,
+that database cannot be used again with 2.x.
+
+## Compatibility
+
+Riak CS 3.0 has been tested with Riak versions 2.2.6, 2.9.8 through
+.10, and 3.0.7 and .9. It requires Stanchion 3.0.0 (2.x versions not
+supported due to changes in the manifest record).
+
 
 # Riak CS 2.1.2 Release Notes
 
