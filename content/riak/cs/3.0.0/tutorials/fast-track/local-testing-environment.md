@@ -31,7 +31,7 @@ and running Riak and Riak CS.
 ### Step 1: Raise your system's open file limits
 
 Riak can consume a large number of open file handles during normal
-operation. See the [Open Files Limit]({{<baseurl>}}riak/kv/2.1.3/using/performance/open-files-limit) document for more information on
+operation. See the [Open Files Limit]({{<baseurl>}}riak/kv/3.0.0/using/performance/open-files-limit) document for more information on
 how to increase your system's open files limit.
 
 If you are the root user, you can increase the system's open files limit
@@ -53,7 +53,7 @@ riak soft nofile 65536
 riak hard nofile 65536
 ```
 
-For Mac OS X, consult the [open files limit]({{<baseurl>}}riak/kv/2.1.3/using/performance/open-files-limit/#mac-os-x) documentation.
+For Mac OS X, consult the [open files limit]({{<baseurl>}}riak/kv/3.0.0/using/performance/open-files-limit/#mac-os-x) documentation.
 
 ### Step 2: Download and install packages
 
@@ -67,15 +67,8 @@ sudo apt-get install -y curl
 **Note**: If you're running Riak CS on a non-Debian/Ubuntu OS,
 substitute the appropriate CLI commands.
 
-If you are running Ubuntu 11.10 or later, you will also need the
-`libssl0.9.8` package. See [Installing on Debian and Ubuntu]({{<baseurl>}}riak/kv/2.1.3/setup/installing/debian-ubuntu) for more information.
-
-```bash
-sudo apt-get install -y libssl0.9.8
-```
-
 Now, grab the appropriate packages: Riak, Riak CS, and Stanchion. See
-[Download Riak]({{<baseurl>}}riak/kv/2.1.3/downloads/) and [Download Riak CS]({{<baseurl>}}riak/cs/3.0.0/downloads).
+[Download Riak]({{<baseurl>}}riak/kv/3.0.0/downloads/) and [Download Riak CS]({{<baseurl>}}riak/cs/3.0.0/downloads).
 You can skip Riak CS Control for now.
 
 Once you have the packages, install them per the instructions below.
@@ -88,14 +81,14 @@ installing Riak.
 **Do not attempt to configure or start Riak until step 3 in this
 document.**
 
-  * [Debian and Ubuntu]({{<baseurl>}}riak/kv/2.1.3/setup/installing/debian-ubuntu)
-  * [RHEL and CentOS]({{<baseurl>}}riak/kv/2.1.3/setup/installing/rhel-centos)
-  * [Mac OS X]({{<baseurl>}}riak/kv/2.1.3/setup/installing/mac-osx)
-  * [FreeBSD]({{<baseurl>}}riak/kv/2.1.3/setup/installing/freebsd)
-  * [SUSE]({{<baseurl>}}riak/kv/2.1.3/setup/installing/suse)
-  * [Windows Azure]({{<baseurl>}}riak/kv/2.1.3/setup/installing/windows-azure)
-  * [AWS Marketplace]({{<baseurl>}}riak/kv/2.1.3/setup/installing/amazon-web-services)
-  * [From Source]({{<baseurl>}}riak/kv/2.1.3/setup/installing/source)
+  * [Debian and Ubuntu]({{<baseurl>}}riak/kv/3.0.0/setup/installing/debian-ubuntu)
+  * [RHEL and CentOS]({{<baseurl>}}riak/kv/3.0.0/setup/installing/rhel-centos)
+  * [Mac OS X]({{<baseurl>}}riak/kv/3.0.0/setup/installing/mac-osx)
+  * [FreeBSD]({{<baseurl>}}riak/kv/3.0.0/setup/installing/freebsd)
+  * [SUSE]({{<baseurl>}}riak/kv/3.0.0/setup/installing/suse)
+  * [Windows Azure]({{<baseurl>}}riak/kv/3.0.0/setup/installing/windows-azure)
+  * [AWS Marketplace]({{<baseurl>}}riak/kv/3.0.0/setup/installing/amazon-web-services)
+  * [From Source]({{<baseurl>}}riak/kv/3.0.0/setup/installing/source)
 
 #### Next, install Riak CS
 
@@ -459,7 +452,7 @@ your first node with two exceptions:
 You will then need to verify the cluster plan with the `riak-admin
 cluster plan` command, and commit the cluster changes with `riak-admin
 cluster commit` to complete the join process. More information is
-available in the [Command Line Tools]({{<baseurl>}}riak/kv/2.1.3/using/admin/riak-admin/#cluster) documentation.
+available in the [Command Line Tools]({{<baseurl>}}riak/kv/3.0.0/using/admin/riak-admin/#cluster) documentation.
 
 > **Note**
 >

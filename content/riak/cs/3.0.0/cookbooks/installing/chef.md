@@ -38,16 +38,12 @@ The default settings will cause Riak and Riak CS to be installed and configured 
 
 ### Package Installation
 
-There are two options for installation: `package` and `enterprise_package`.
-`package` is the default--- it installs Riak CS open source---and is the recommended option for Red Hat- and Debian-based operating systems. For source installations of Riak, Erlang/OTP R15B01 and above is recommended.
+Install with `package`. This installs Riak CS and is the recommended install option for Red Hat- and Debian-based operating systems. For source installations of Riak, Erlang/OTP 22 and above is recommended.
 
 ### Enterprise Installation
 
-To install Riak CS Enterprise, populate `node['riak_cs']['package']['enterprise_key']` with a Basho-provided key for
-the release.
-
-Riak Enterprise installations managed through the cookbook must be installed
-via a package.
+In Riak CS 2.1.1 and earlier, there was a pay-to-use enterprise edition. However, from Riak CS 2.1.2 and higher, all the enterprise edition features were merged in to the free-to-use open source edition and 
+the pay-to-use enterprise edition was scrapped. This note is left here in case people come looking for the no-longer-existant enterprise edition.
 
 ### Basic Configuration
 

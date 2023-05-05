@@ -42,12 +42,11 @@ for later retrieval. The diagram below provides a visualization.
 
 ![Riak CS Chunking]({{<baseurl>}}images/Riak-CS-Overview.png)
 
-## Riak CS Enterprise
+## Multi-DataCenter Replication
 
-Riak CS Enterprise extends Riak CS with Multi-Datacenter Replication,
-monitoring, and 24×7 support. Customers use Multi-Datacenter Replication
-to serve global traffic, create availability zones, maintain active
-backups, or meet disaster recovery and regulatory requirements.
-Multi-Datacenter Replication can be used in two or more sites. Data can
-be replicated across data centers using realtime or fullsync
-replication. To try out Riak CS Enterprise, sign up for a [developer trial](http://info.basho.com/RiakCS1.1_DeveloperTrialRequest.html).
+Riak CS also features Multi-Datacenter Replication. Customers use 
+Multi-Datacenter Replication to serve global traffic, create 
+availability zones, maintain active backups, or meet disaster recovery
+ and regulatory requirements. Multi-Datacenter Replication can be used 
+in two or more sites. Data can be replicated across data centers using 
+realtime or fullsync replication. 

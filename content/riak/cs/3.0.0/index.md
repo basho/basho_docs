@@ -42,6 +42,6 @@ images, text, video, documents, database backups, or software binaries.
 Riak CS can store objects into the terabyte size range using multipart
 file uploads. Riak CS also supports standard Amazon [metadata headers](http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html).
 
-### Multi-Datacenter Replication (Enterprise Edition Only)
+### Multi-Datacenter Replication
 
-Riak CS [Enterprise](http://basho.com/riak-enterprise) Multi-Datacenter Replication for active backups, disaster recovery, and data locality. Provide low-latency storage wherever your users are and maintain availability even in the event of site failure.
+Riak CS Multi-Datacenter Replication for active backups, disaster recovery, and data locality. Provide low-latency storage wherever your users are and maintain availability even in the event of site failure.

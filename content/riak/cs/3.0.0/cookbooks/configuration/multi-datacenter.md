@@ -15,17 +15,13 @@ aliases:
   - /riak/cs/latest/cookbooks/configuration/multi-datacenter/
 ---
 
-{{% note title="Riak CS Enterprise requires a separate download" %}}
-Please note that Riak CS Enterprise requires a download separate from the
-open-source Riak CS, which will not work in conjunction with Riak Enterprise.
-{{% /note %}}
 
 Configuring Multi-Datacenter Replication in Riak CS requires the
-addition of a new group of settings to the `app.config` configuration
-file for all Riak CS and Riak Enterprise nodes that are part of the Riak
+addition of a new group of settings to the `app.config` or `advanced.config` configuration
+file for all Riak CS and Riak KV nodes that are part of the Riak
 CS cluster.
 
-## Riak Enterprise Configuration
+## Riak KV Configuration
 
 As of Riak release 1.4.0, there are two different MDC replication modes
 that Riak CS can use to request data from remote clusters. Please see
@@ -115,7 +111,7 @@ riak-admin wait-for-service riak_kv <nodename>
 ```
 
 Replace the `node` variable above with the nodename specified in the
-`vm.args` configuration file.
+`riak,conf` or older `vm.args` configuration file.
 </div>
 
 ## Stanchion Configuration
@@ -123,7 +119,7 @@ Replace the `node` variable above with the nodename specified in the
 Though there is no specific configuration for [Stanchion]({{<baseurl>}}riak/cs/3.0.0/theory/stanchion), note that
 Stanchion should be a single, globally unique process to which every
 Riak CS node sends requests, even if there are multiple replicated
-sites.  Unlike Riak and Riak CS, Stanchion should run on _only one node
+sites.  Unlike Riak KV and Riak CS, Stanchion should run on _only one node
 in a given cluster_, perhaps on its own, dedicated hardware if you wish.
 Stanchion runs on only one node because it manages strongly consistent
 updates to [globally unique entities]({{<baseurl>}}riak/cs/3.0.0/theory/stanchion/#globally-unique-entities) like users and buckets.

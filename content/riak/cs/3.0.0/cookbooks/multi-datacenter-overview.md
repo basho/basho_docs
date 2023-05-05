@@ -3,7 +3,7 @@ title: "Riak CS Multi-Datacenter Overview"
 description: ""
 menu:
   riak_cs-3.0.0:
-    name: "Riak CS Enterprise"
+    name: "Riak CS"
     identifier: "mdc_overview"
     weight: 600
     pre: cloud
@@ -16,29 +16,20 @@ aliases:
   - /riak/cs/latest/cookbooks/multi-datacenter-overview/
 ---
 
-## Riak CS Enterprise
-
-Riak CS Enterprise extends Riak CS with Multi-Datacenter Replication,
-monitoring, and 24×7 support. Customers may use Multi-Datacenter
-Replication to serve global traffic, create availability zones, maintain
-active backups, or meet disaster recovery and regulatory requirements.
-Multi-Datacenter Replication can be used in two or more sites, and data
-can be replicated across datacenters using realtime or fullsync
-synchronization.
-
-If you are interested, sign up for a [developer trial](http://info.basho.com/RiakCS1.1_DeveloperTrialRequest.html) of Riak CS Enterprise or [contact us](http://basho.com/contact/) for more information.
-
-{{% note title="Riak CS Enterprise requires a separate download" %}}
-Please note that Riak CS Enterprise requires a download separate from the
-open-source Riak CS, which will not work in conjunction with Riak Enterprise.
-{{% /note %}}
-
 ## Multi-Datacenter Replication
+
+Customers may use Multi-Datacenter Replication to serve global traffic, 
+create availability zones, maintain active backups, or meet disaster 
+recovery and regulatory requirements. Multi-Datacenter Replication can 
+be used in two or more sites, and data can be replicated across 
+datacenters using realtime and/or fullsync synchronization.
 
 Multi-Datacenter Replication in Riak CS provides two modes of object
 replication: **fullsync** and **realtime sync**. Data is streamed over a
 TCP connection and Multi-Datacenter Replication in Riak CS has support
-for SSL so that data can be securely replicated between sites.
+for SSL so that data can be securely replicated between sites. It is 
+also possible to stream the data unencrypted if required but it is generally
+recommended to do so over VPN if that is the case. 
 
 In Riak CS, large objects are broken into blocks and streamed to the
 underlying Riak cluster on write, where they are replicated for high
