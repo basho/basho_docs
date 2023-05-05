@@ -39,7 +39,7 @@ aliases:
 
 Since Riak KV 2.9.1, the new AAE system, [TicTac AAE][tictacaae system], has added several useful functions that make performing keylisting and tombstone management tasks quicker and more efficient by using TicTacAAE's Merkle trees instead of iterating over the keys in a bucket.
 
-These functions stablisied in Riak KV 2.9.4, and so are not recommended before that version.
+These functions stabilised in Riak KV 2.9.4, and so are not recommended before that version.
 
 ## Configuration settings in `riak.conf`
 

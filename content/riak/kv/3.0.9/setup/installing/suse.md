@@ -8,7 +8,7 @@ menu:
   riak_kv-3.0.9:
     name: "SUSE"
     identifier: "installing_suse"
-    weight: 307
+    weight: 309
     parent: "installing"
 toc: false
 aliases:

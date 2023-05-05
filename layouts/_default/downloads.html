@@ -84,7 +84,34 @@
 
         <p>You should be able to find your operating system in the choices below.</p>
         <!-- {{ if $download_root }} -->
-        <p>All files are available on our <a href="{{ $download_root_path }}">the file store</a>.</p>
+          <!-- {{ if (or (and (ge $version "3.0.10") (lt $version "3.0.2")) (ge $version "3.1.0")) }} -->
+            <p>All files (except Alpine Linux) are available on our <a href="{{ $download_root_path }}">the file store</a>.</p>
+
+            {{ $alpine_os_data         := (index $os_metadata "alpine")                                       }}
+            {{ $alpine_os_title        := (index $alpine_os_data "title")                                            }}
+            {{ $alpine_image_source    := print $HugoNode.Site.BaseURL (index $alpine_os_data "image_src")    }}
+            {{ $alpine_installing_page := (index $alpine_os_data "installing_instructions_page")              }} {{/* Optional */}}
+            {{ $alpine_installing_uri  := replace (printf "%s%s/%s/%s" $HugoNode.Site.BaseURL $version_path $install_instructions_set $alpine_installing_page) "//" "/" }}
+            {{ $alpine_installing_uri  := replace $alpine_installing_uri "http:/localhost" "http://localhost" }}
+                
+            {{/*<h3/>*/}} {{ (printf "### ![](%s) %s for %s{#%s}" $alpine_image_source $target_title $alpine_os_title (replace (lower $alpine_os_title) " " "-" )) | markdownify }}
+            <table class="downloads">
+              <tbody>
+                <tr class="downloads__version-title">
+                  <td colspan="3">
+                    {{/*<h4/>*/}}{{ printf "#### %s %s" $alpine_os_title "64-bit" | markdownify }}
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="5" class="downloads__install-instructions">
+                    Installing {{$target_title}} on {{ $alpine_os_title }} uses the <a href="{{$alpine_installing_uri}}">{{ $alpine_os_title }} Riak Repository</a>.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          <!-- {{ else }} -->
+            <p>All files are available on our <a href="{{ $download_root_path }}">the file store</a>.</p>
+          <!-- {{ end }} -->
         <!-- {{ end }} -->
 
   <!-- Range Over OSs Per Project

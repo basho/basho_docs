@@ -8,7 +8,7 @@ menu:
   riak_kv-3.0.9:
     name: "Debian & Ubuntu"
     identifier: "installing_debian_ubuntu"
-    weight: 302
+    weight: 303
     parent: "installing"
 toc: true
 aliases:

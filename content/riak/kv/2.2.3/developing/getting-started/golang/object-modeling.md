@@ -133,7 +133,7 @@ func (t *Timeline) AddMsg(msgKey string) {
 func (t *Timeline) GetId() string {
   return t.id
 }
-````
+```
 
 We'll be using the bucket `Users` to store our data. We won't be [using bucket types]({{<baseurl>}}riak/kv/2.2.3/developing/usage/bucket-types) here, so we don't need to specify one.
 

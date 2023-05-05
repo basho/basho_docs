@@ -127,4 +127,4 @@ source:
 alpine:
   title: "Alpine Linux"
   image_src: "images/shared/operating_system_branding/alpine.png"
-#  installing_instructions_page: "source/"
+  installing_instructions_page: "alpine-linux/"
