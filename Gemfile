@@ -19,12 +19,12 @@ gem "mini_racer" # included via the docker image
 #gem "simple-cloudfront-invalidator", "~>1.1.0"
 #gem "progressbar", "~> 1.8.0"
 
-gem "rake", "~>11.2.2"
-gem "guard", "~>2.14.0"
+gem "rake", "~>13.0.6"
+gem "guard", "~>2.18.0"
 gem "guard-rake", "~>1.0.0"
 
-gem "pry", "~>0.10.3"
-gem "pry-byebug", "~>3.4.0"
+gem "pry", "~>0.14.2"
+gem "pry-byebug", "~>3.10.1"
 
  # for the SFTP download metadata generator
 gem "net-sftp"

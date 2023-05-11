@@ -7079,6 +7079,757 @@ riak_kv:
           file_href: https://files.tiot.jp/riak/kv/3.0/3.0.11/ubuntu/xenial64/riak_3.0.11-OTP22.3_amd64.deb
           file_size: '37360994'
           chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.11/ubuntu/xenial64/riak_3.0.11-OTP22.3_amd64.deb.sha
+  3.0.12:
+  - os: amazon
+    versions:
+    - version: '2'
+      architectures:
+      - arch: source
+        file_info:
+          file_name: riak-3.0.12.OTP22.3-1.amzn2.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/amazon/2/riak-3.0.12.OTP22.3-1.amzn2.src.rpm
+          file_size: '1104998'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/amazon/2/riak-3.0.12.OTP22.3-1.amzn2.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-3.0.12.OTP22.3-1.amzn2.x86_64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/amazon/2/riak-3.0.12.OTP22.3-1.amzn2.x86_64.rpm
+          file_size: '41723704'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/amazon/2/riak-3.0.12.OTP22.3-1.amzn2.x86_64.rpm.sha
+  - os: debian
+    versions:
+    - version: '10'
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak-dbgsym_3.0.12-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/debian/10/riak-dbgsym_3.0.12-OTP22.3_amd64.deb
+          file_size: '18051872'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/debian/10/riak-dbgsym_3.0.12-OTP22.3_amd64.deb.sha
+      - arch: amd64
+        file_info:
+          file_name: riak_3.0.12-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/debian/10/riak_3.0.12-OTP22.3_amd64.deb
+          file_size: '37740204'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/debian/10/riak_3.0.12-OTP22.3_amd64.deb.sha
+    - version: '11'
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak-dbgsym_3.0.12-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/debian/11/riak-dbgsym_3.0.12-OTP22.3_amd64.deb
+          file_size: '17389668'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/debian/11/riak-dbgsym_3.0.12-OTP22.3_amd64.deb.sha
+      - arch: amd64
+        file_info:
+          file_name: riak_3.0.12-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/debian/11/riak_3.0.12-OTP22.3_amd64.deb
+          file_size: '37613172'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/debian/11/riak_3.0.12-OTP22.3_amd64.deb.sha
+    - version: '9'
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak-dbgsym_3.0.12-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/debian/9/riak-dbgsym_3.0.12-OTP22.3_amd64.deb
+          file_size: '13748000'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/debian/9/riak-dbgsym_3.0.12-OTP22.3_amd64.deb.sha
+      - arch: amd64
+        file_info:
+          file_name: riak_3.0.12-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/debian/9/riak_3.0.12-OTP22.3_amd64.deb
+          file_size: '36866438'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/debian/9/riak_3.0.12-OTP22.3_amd64.deb.sha
+  - os: oracle
+    versions:
+    - version: '8'
+      architectures:
+      - arch: source
+        file_info:
+          file_name: riak-3.0.12.OTP22.3-1.el8.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/oracle/8/riak-3.0.12.OTP22.3-1.el8.src.rpm
+          file_size: '1109376'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/oracle/8/riak-3.0.12.OTP22.3-1.el8.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-3.0.12.OTP22.3-1.el8.x86_64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/oracle/8/riak-3.0.12.OTP22.3-1.el8.x86_64.rpm
+          file_size: '36933904'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/oracle/8/riak-3.0.12.OTP22.3-1.el8.x86_64.rpm.sha
+  - os: raspbian
+    versions:
+    - version: bullseye
+      architectures:
+      - arch: arm64
+        file_info:
+          file_name: riak-dbgsym_3.0.12-OTP22.3_arm64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/raspbian/bullseye/riak-dbgsym_3.0.12-OTP22.3_arm64.deb
+          file_size: '17089188'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/raspbian/bullseye/riak-dbgsym_3.0.12-OTP22.3_arm64.deb.sha
+      - arch: arm64
+        file_info:
+          file_name: riak_3.0.12-OTP22.3_arm64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/raspbian/bullseye/riak_3.0.12-OTP22.3_arm64.deb
+          file_size: '37332620'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/raspbian/bullseye/riak_3.0.12-OTP22.3_arm64.deb.sha
+  - os: rhel
+    versions:
+    - version: '7'
+      architectures:
+      - arch: source
+        file_info:
+          file_name: riak-3.0.12.OTP22-1.el7.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/rhel/7/riak-3.0.12.OTP22-1.el7.src.rpm
+          file_size: '1104982'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/rhel/7/riak-3.0.12.OTP22-1.el7.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-3.0.12.OTP22-1.el7.x86_64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/rhel/7/riak-3.0.12.OTP22-1.el7.x86_64.rpm
+          file_size: '41245240'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/rhel/7/riak-3.0.12.OTP22-1.el7.x86_64.rpm.sha
+    - version: '8'
+      architectures:
+      - arch: source
+        file_info:
+          file_name: riak-3.0.12.OTP22.3-1.el8.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/rhel/8/riak-3.0.12.OTP22.3-1.el8.src.rpm
+          file_size: '1109357'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/rhel/8/riak-3.0.12.OTP22.3-1.el8.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-3.0.12.OTP22.3-1.el8.x86_64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/rhel/8/riak-3.0.12.OTP22.3-1.el8.x86_64.rpm
+          file_size: '36912752'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/rhel/8/riak-3.0.12.OTP22.3-1.el8.x86_64.rpm.sha
+  - os: ubuntu
+    versions:
+    - version: bionic64
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak_3.0.12-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/ubuntu/bionic64/riak_3.0.12-OTP22.3_amd64.deb
+          file_size: '37120732'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/ubuntu/bionic64/riak_3.0.12-OTP22.3_amd64.deb.sha
+    - version: focal64
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak_3.0.12-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/ubuntu/focal64/riak_3.0.12-OTP22.3_amd64.deb
+          file_size: '37782676'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/ubuntu/focal64/riak_3.0.12-OTP22.3_amd64.deb.sha
+    - version: jammy64
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak_3.0.12-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/ubuntu/jammy64/riak_3.0.12-OTP22.3_amd64.deb
+          file_size: '40124014'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.12/ubuntu/jammy64/riak_3.0.12-OTP22.3_amd64.deb.sha
+  3.0.13:
+  - os: amazon
+    versions:
+    - version: 2 (graviton 2)
+      architectures:
+      - arch: unknown
+        file_info:
+          file_name: riak-3.0.13.OTP22.3-1.amzn2.aarch64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/amazon/2 (graviton 2)/riak-3.0.13.OTP22.3-1.amzn2.aarch64.rpm
+          file_size: '41676772'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/amazon/2 (graviton
+            2)/riak-3.0.13.OTP22.3-1.amzn2.aarch64.rpm.sha
+      - arch: source
+        file_info:
+          file_name: riak-3.0.13.OTP22.3-1.amzn2.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/amazon/2 (graviton 2)/riak-3.0.13.OTP22.3-1.amzn2.src.rpm
+          file_size: '1106418'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/amazon/2 (graviton
+            2)/riak-3.0.13.OTP22.3-1.amzn2.src.rpm.sha
+    - version: 2 (graviton 3)
+      architectures:
+      - arch: unknown
+        file_info:
+          file_name: riak-3.0.13.OTP22-1.amzn2.aarch64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/amazon/2 (graviton 3)/riak-3.0.13.OTP22-1.amzn2.aarch64.rpm
+          file_size: '41736960'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/amazon/2 (graviton
+            3)/riak-3.0.13.OTP22-1.amzn2.aarch64.rpm.sha
+      - arch: source
+        file_info:
+          file_name: riak-3.0.13.OTP22-1.amzn2.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/amazon/2 (graviton 3)/riak-3.0.13.OTP22-1.amzn2.src.rpm
+          file_size: '1105957'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/amazon/2 (graviton
+            3)/riak-3.0.13.OTP22-1.amzn2.src.rpm.sha
+    - version: 2 (x86_64)
+      architectures:
+      - arch: source
+        file_info:
+          file_name: riak-3.0.13.OTP22.3-1.amzn2.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/amazon/2 (x86_64)/riak-3.0.13.OTP22.3-1.amzn2.src.rpm
+          file_size: '1106331'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/amazon/2 (x86_64)/riak-3.0.13.OTP22.3-1.amzn2.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-3.0.13.OTP22.3-1.amzn2.x86_64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/amazon/2 (x86_64)/riak-3.0.13.OTP22.3-1.amzn2.x86_64.rpm
+          file_size: '41739416'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/amazon/2 (x86_64)/riak-3.0.13.OTP22.3-1.amzn2.x86_64.rpm.sha
+  - os: debian
+    versions:
+    - version: '11'
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak-dbgsym_3.0.13-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/debian/11/riak-dbgsym_3.0.13-OTP22.3_amd64.deb
+          file_size: '17369008'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/debian/11/riak-dbgsym_3.0.13-OTP22.3_amd64.deb.sha
+      - arch: amd64
+        file_info:
+          file_name: riak_3.0.13-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/debian/11/riak_3.0.13-OTP22.3_amd64.deb
+          file_size: '37623784'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/debian/11/riak_3.0.13-OTP22.3_amd64.deb.sha
+    - version: '9'
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak-dbgsym_3.0.13-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/debian/9/riak-dbgsym_3.0.13-OTP22.3_amd64.deb
+          file_size: '13750196'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/debian/9/riak-dbgsym_3.0.13-OTP22.3_amd64.deb.sha
+      - arch: amd64
+        file_info:
+          file_name: riak_3.0.13-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/debian/9/riak_3.0.13-OTP22.3_amd64.deb
+          file_size: '36865196'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/debian/9/riak_3.0.13-OTP22.3_amd64.deb.sha
+  - os: freebsd
+    versions:
+    - version: '13.1'
+      architectures:
+      - arch: unknown
+        file_info:
+          file_name: riak-3.0.13-tiot-OTP22.pkg
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/freebsd/13.1/riak-3.0.13-tiot-OTP22.pkg
+          file_size: '27529020'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/freebsd/13.1/riak-3.0.13-tiot-OTP22.pkg.sha
+  - os: oracle
+    versions:
+    - version: '8'
+      architectures:
+      - arch: source
+        file_info:
+          file_name: riak-3.0.13.OTP22.3-1.el8.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/oracle/8/riak-3.0.13.OTP22.3-1.el8.src.rpm
+          file_size: '1110711'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/oracle/8/riak-3.0.13.OTP22.3-1.el8.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-3.0.13.OTP22.3-1.el8.x86_64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/oracle/8/riak-3.0.13.OTP22.3-1.el8.x86_64.rpm
+          file_size: '36947904'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/oracle/8/riak-3.0.13.OTP22.3-1.el8.x86_64.rpm.sha
+  - os: raspbian
+    versions:
+    - version: bullseye
+      architectures:
+      - arch: arm64
+        file_info:
+          file_name: riak-dbgsym_3.0.13-OTP22.3_arm64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/raspbian/bullseye/riak-dbgsym_3.0.13-OTP22.3_arm64.deb
+          file_size: '17090784'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/raspbian/bullseye/riak-dbgsym_3.0.13-OTP22.3_arm64.deb.sha
+      - arch: arm32
+        file_info:
+          file_name: riak-dbgsym_3.0.13-OTP22.3_armhf.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/raspbian/bullseye/riak-dbgsym_3.0.13-OTP22.3_armhf.deb
+          file_size: '16541324'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/raspbian/bullseye/riak-dbgsym_3.0.13-OTP22.3_armhf.deb.sha
+      - arch: arm64
+        file_info:
+          file_name: riak_3.0.13-OTP22.3_arm64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/raspbian/bullseye/riak_3.0.13-OTP22.3_arm64.deb
+          file_size: '37340672'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/raspbian/bullseye/riak_3.0.13-OTP22.3_arm64.deb.sha
+      - arch: arm32
+        file_info:
+          file_name: riak_3.0.13-OTP22.3_armhf.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/raspbian/bullseye/riak_3.0.13-OTP22.3_armhf.deb
+          file_size: '36947524'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/raspbian/bullseye/riak_3.0.13-OTP22.3_armhf.deb.sha
+  - os: rhel
+    versions:
+    - version: '7'
+      architectures:
+      - arch: source
+        file_info:
+          file_name: riak-3.0.13.OTP22.3-1.el7.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/rhel/7/riak-3.0.13.OTP22.3-1.el7.src.rpm
+          file_size: '1106333'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/rhel/7/riak-3.0.13.OTP22.3-1.el7.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-3.0.13.OTP22.3-1.el7.x86_64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/rhel/7/riak-3.0.13.OTP22.3-1.el7.x86_64.rpm
+          file_size: '41209076'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/rhel/7/riak-3.0.13.OTP22.3-1.el7.x86_64.rpm.sha
+    - version: '8'
+      architectures:
+      - arch: source
+        file_info:
+          file_name: riak-3.0.13.OTP22.3-1.el8.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/rhel/8/riak-3.0.13.OTP22.3-1.el8.src.rpm
+          file_size: '1110693'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/rhel/8/riak-3.0.13.OTP22.3-1.el8.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-3.0.13.OTP22.3-1.el8.x86_64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/rhel/8/riak-3.0.13.OTP22.3-1.el8.x86_64.rpm
+          file_size: '36925716'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/rhel/8/riak-3.0.13.OTP22.3-1.el8.x86_64.rpm.sha
+  - os: ubuntu
+    versions:
+    - version: bionic64
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak_3.0.13-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/ubuntu/bionic64/riak_3.0.13-OTP22.3_amd64.deb
+          file_size: '37132124'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/ubuntu/bionic64/riak_3.0.13-OTP22.3_amd64.deb.sha
+    - version: focal64
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak_3.0.13-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/ubuntu/focal64/riak_3.0.13-OTP22.3_amd64.deb
+          file_size: '37796468'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/ubuntu/focal64/riak_3.0.13-OTP22.3_amd64.deb.sha
+    - version: jammy64
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak_3.0.13-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/ubuntu/jammy64/riak_3.0.13-OTP22.3_amd64.deb
+          file_size: '40138174'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.13/ubuntu/jammy64/riak_3.0.13-OTP22.3_amd64.deb.sha
+  3.0.14:
+  - os: amazon
+    versions:
+    - version: 2 (graviton 2)
+      architectures:
+      - arch: unknown
+        file_info:
+          file_name: riak-3.0.14.OTP22.3-1.amzn2.aarch64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/amazon/2 (graviton 2)/riak-3.0.14.OTP22.3-1.amzn2.aarch64.rpm
+          file_size: '41678668'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/amazon/2 (graviton
+            2)/riak-3.0.14.OTP22.3-1.amzn2.aarch64.rpm.sha
+      - arch: source
+        file_info:
+          file_name: riak-3.0.14.OTP22.3-1.amzn2.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/amazon/2 (graviton 2)/riak-3.0.14.OTP22.3-1.amzn2.src.rpm
+          file_size: '1106248'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/amazon/2 (graviton
+            2)/riak-3.0.14.OTP22.3-1.amzn2.src.rpm.sha
+    - version: 2 (graviton 3)
+      architectures:
+      - arch: unknown
+        file_info:
+          file_name: riak-3.0.14.OTP22-1.amzn2.aarch64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/amazon/2 (graviton 3)/riak-3.0.14.OTP22-1.amzn2.aarch64.rpm
+          file_size: '41737424'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/amazon/2 (graviton
+            3)/riak-3.0.14.OTP22-1.amzn2.aarch64.rpm.sha
+      - arch: source
+        file_info:
+          file_name: riak-3.0.14.OTP22-1.amzn2.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/amazon/2 (graviton 3)/riak-3.0.14.OTP22-1.amzn2.src.rpm
+          file_size: '1106418'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/amazon/2 (graviton
+            3)/riak-3.0.14.OTP22-1.amzn2.src.rpm.sha
+    - version: 2 (x86_64)
+      architectures:
+      - arch: source
+        file_info:
+          file_name: riak-3.0.14.OTP22.3-1.amzn2.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/amazon/2 (x86_64)/riak-3.0.14.OTP22.3-1.amzn2.src.rpm
+          file_size: '1106163'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/amazon/2 (x86_64)/riak-3.0.14.OTP22.3-1.amzn2.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-3.0.14.OTP22.3-1.amzn2.x86_64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/amazon/2 (x86_64)/riak-3.0.14.OTP22.3-1.amzn2.x86_64.rpm
+          file_size: '41739356'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/amazon/2 (x86_64)/riak-3.0.14.OTP22.3-1.amzn2.x86_64.rpm.sha
+  - os: debian
+    versions:
+    - version: '10'
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak-dbgsym_3.0.14-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/debian/10/riak-dbgsym_3.0.14-OTP22.3_amd64.deb
+          file_size: '18074576'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/debian/10/riak-dbgsym_3.0.14-OTP22.3_amd64.deb.sha
+      - arch: amd64
+        file_info:
+          file_name: riak_3.0.14-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/debian/10/riak_3.0.14-OTP22.3_amd64.deb
+          file_size: '37744560'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/debian/10/riak_3.0.14-OTP22.3_amd64.deb.sha
+    - version: '11'
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak-dbgsym_3.0.14-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/debian/11/riak-dbgsym_3.0.14-OTP22.3_amd64.deb
+          file_size: '17390812'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/debian/11/riak-dbgsym_3.0.14-OTP22.3_amd64.deb.sha
+      - arch: amd64
+        file_info:
+          file_name: riak_3.0.14-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/debian/11/riak_3.0.14-OTP22.3_amd64.deb
+          file_size: '37621932'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/debian/11/riak_3.0.14-OTP22.3_amd64.deb.sha
+    - version: '9'
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak-dbgsym_3.0.14-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/debian/9/riak-dbgsym_3.0.14-OTP22.3_amd64.deb
+          file_size: '13749308'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/debian/9/riak-dbgsym_3.0.14-OTP22.3_amd64.deb.sha
+      - arch: amd64
+        file_info:
+          file_name: riak_3.0.14-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/debian/9/riak_3.0.14-OTP22.3_amd64.deb
+          file_size: '36871282'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/debian/9/riak_3.0.14-OTP22.3_amd64.deb.sha
+  - os: freebsd
+    versions:
+    - version: '13.1'
+      architectures:
+      - arch: unknown
+        file_info:
+          file_name: riak-3.0.14-tiot-OTP22.pkg
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/freebsd/13.1/riak-3.0.14-tiot-OTP22.pkg
+          file_size: '27532448'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/freebsd/13.1/riak-3.0.14-tiot-OTP22.pkg.sha
+  - os: oracle
+    versions:
+    - version: '8'
+      architectures:
+      - arch: source
+        file_info:
+          file_name: riak-3.0.14.OTP22.3-1.el8.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/oracle/8/riak-3.0.14.OTP22.3-1.el8.src.rpm
+          file_size: '1110546'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/oracle/8/riak-3.0.14.OTP22.3-1.el8.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-3.0.14.OTP22.3-1.el8.x86_64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/oracle/8/riak-3.0.14.OTP22.3-1.el8.x86_64.rpm
+          file_size: '36949172'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/oracle/8/riak-3.0.14.OTP22.3-1.el8.x86_64.rpm.sha
+  - os: raspbian
+    versions:
+    - version: bullseye
+      architectures:
+      - arch: arm64
+        file_info:
+          file_name: riak-dbgsym_3.0.14-OTP22.3_arm64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/raspbian/bullseye/riak-dbgsym_3.0.14-OTP22.3_arm64.deb
+          file_size: '17085176'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/raspbian/bullseye/riak-dbgsym_3.0.14-OTP22.3_arm64.deb.sha
+      - arch: arm32
+        file_info:
+          file_name: riak-dbgsym_3.0.14-OTP22.3_armhf.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/raspbian/bullseye/riak-dbgsym_3.0.14-OTP22.3_armhf.deb
+          file_size: '16538488'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/raspbian/bullseye/riak-dbgsym_3.0.14-OTP22.3_armhf.deb.sha
+      - arch: arm64
+        file_info:
+          file_name: riak_3.0.14-OTP22.3_arm64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/raspbian/bullseye/riak_3.0.14-OTP22.3_arm64.deb
+          file_size: '37333560'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/raspbian/bullseye/riak_3.0.14-OTP22.3_arm64.deb.sha
+      - arch: arm32
+        file_info:
+          file_name: riak_3.0.14-OTP22.3_armhf.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/raspbian/bullseye/riak_3.0.14-OTP22.3_armhf.deb
+          file_size: '36948592'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/raspbian/bullseye/riak_3.0.14-OTP22.3_armhf.deb.sha
+  - os: rhel
+    versions:
+    - version: '7'
+      architectures:
+      - arch: source
+        file_info:
+          file_name: riak-3.0.14.OTP22.3-1.el7.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/rhel/7/riak-3.0.14.OTP22.3-1.el7.src.rpm
+          file_size: '1106164'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/rhel/7/riak-3.0.14.OTP22.3-1.el7.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-3.0.14.OTP22.3-1.el7.x86_64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/rhel/7/riak-3.0.14.OTP22.3-1.el7.x86_64.rpm
+          file_size: '41211596'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/rhel/7/riak-3.0.14.OTP22.3-1.el7.x86_64.rpm.sha
+    - version: '8'
+      architectures:
+      - arch: source
+        file_info:
+          file_name: riak-3.0.14.OTP22.3-1.el8.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/rhel/8/riak-3.0.14.OTP22.3-1.el8.src.rpm
+          file_size: '1110525'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/rhel/8/riak-3.0.14.OTP22.3-1.el8.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-3.0.14.OTP22.3-1.el8.x86_64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/rhel/8/riak-3.0.14.OTP22.3-1.el8.x86_64.rpm
+          file_size: '36926924'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/rhel/8/riak-3.0.14.OTP22.3-1.el8.x86_64.rpm.sha
+  - os: ubuntu
+    versions:
+    - version: bionic64
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak_3.0.14-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/ubuntu/bionic64/riak_3.0.14-OTP22.3_amd64.deb
+          file_size: '37133476'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/ubuntu/bionic64/riak_3.0.14-OTP22.3_amd64.deb.sha
+    - version: focal64
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak_3.0.14-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/ubuntu/focal64/riak_3.0.14-OTP22.3_amd64.deb
+          file_size: '37789764'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/ubuntu/focal64/riak_3.0.14-OTP22.3_amd64.deb.sha
+    - version: jammy64
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak_3.0.14-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/ubuntu/jammy64/riak_3.0.14-OTP22.3_amd64.deb
+          file_size: '40139844'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.14/ubuntu/jammy64/riak_3.0.14-OTP22.3_amd64.deb.sha
+  3.0.15:
+  - os: amazon
+    versions:
+    - version: 2 (graviton 2)
+      architectures:
+      - arch: unknown
+        file_info:
+          file_name: riak-3.0.15.OTP22.3-1.amzn2.aarch64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/amazon/2 (graviton 2)/riak-3.0.15.OTP22.3-1.amzn2.aarch64.rpm
+          file_size: '41677384'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/amazon/2 (graviton
+            2)/riak-3.0.15.OTP22.3-1.amzn2.aarch64.rpm.sha
+      - arch: source
+        file_info:
+          file_name: riak-3.0.15.OTP22.3-1.amzn2.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/amazon/2 (graviton 2)/riak-3.0.15.OTP22.3-1.amzn2.src.rpm
+          file_size: '1106529'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/amazon/2 (graviton
+            2)/riak-3.0.15.OTP22.3-1.amzn2.src.rpm.sha
+    - version: 2 (graviton 3)
+      architectures:
+      - arch: unknown
+        file_info:
+          file_name: riak-3.0.15.OTP22-1.amzn2.aarch64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/amazon/2 (graviton 3)/riak-3.0.15.OTP22-1.amzn2.aarch64.rpm
+          file_size: '41738248'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/amazon/2 (graviton
+            3)/riak-3.0.15.OTP22-1.amzn2.aarch64.rpm.sha
+      - arch: source
+        file_info:
+          file_name: riak-3.0.15.OTP22-1.amzn2.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/amazon/2 (graviton 3)/riak-3.0.15.OTP22-1.amzn2.src.rpm
+          file_size: '1106408'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/amazon/2 (graviton
+            3)/riak-3.0.15.OTP22-1.amzn2.src.rpm.sha
+    - version: 2 (x86_64)
+      architectures:
+      - arch: source
+        file_info:
+          file_name: riak-3.0.15.OTP22.3-1.amzn2.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/amazon/2 (x86_64)/riak-3.0.15.OTP22.3-1.amzn2.src.rpm
+          file_size: '1106445'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/amazon/2 (x86_64)/riak-3.0.15.OTP22.3-1.amzn2.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-3.0.15.OTP22.3-1.amzn2.x86_64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/amazon/2 (x86_64)/riak-3.0.15.OTP22.3-1.amzn2.x86_64.rpm
+          file_size: '41740080'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/amazon/2 (x86_64)/riak-3.0.15.OTP22.3-1.amzn2.x86_64.rpm.sha
+  - os: debian
+    versions:
+    - version: '10'
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak-dbgsym_3.0.15-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/debian/10/riak-dbgsym_3.0.15-OTP22.3_amd64.deb
+          file_size: '18057704'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/debian/10/riak-dbgsym_3.0.15-OTP22.3_amd64.deb.sha
+      - arch: amd64
+        file_info:
+          file_name: riak_3.0.15-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/debian/10/riak_3.0.15-OTP22.3_amd64.deb
+          file_size: '37748328'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/debian/10/riak_3.0.15-OTP22.3_amd64.deb.sha
+    - version: '11'
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak-dbgsym_3.0.15-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/debian/11/riak-dbgsym_3.0.15-OTP22.3_amd64.deb
+          file_size: '17393080'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/debian/11/riak-dbgsym_3.0.15-OTP22.3_amd64.deb.sha
+      - arch: amd64
+        file_info:
+          file_name: riak_3.0.15-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/debian/11/riak_3.0.15-OTP22.3_amd64.deb
+          file_size: '37621408'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/debian/11/riak_3.0.15-OTP22.3_amd64.deb.sha
+    - version: '9'
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak-dbgsym_3.0.15-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/debian/9/riak-dbgsym_3.0.15-OTP22.3_amd64.deb
+          file_size: '13750210'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/debian/9/riak-dbgsym_3.0.15-OTP22.3_amd64.deb.sha
+      - arch: amd64
+        file_info:
+          file_name: riak_3.0.15-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/debian/9/riak_3.0.15-OTP22.3_amd64.deb
+          file_size: '36865212'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/debian/9/riak_3.0.15-OTP22.3_amd64.deb.sha
+  - os: freebsd
+    versions:
+    - version: '13.1'
+      architectures:
+      - arch: unknown
+        file_info:
+          file_name: riak-3.0.15-tiot-OTP22.pkg
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/freebsd/13.1/riak-3.0.15-tiot-OTP22.pkg
+          file_size: '27534648'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/freebsd/13.1/riak-3.0.15-tiot-OTP22.pkg.sha
+  - os: oracle
+    versions:
+    - version: '8'
+      architectures:
+      - arch: source
+        file_info:
+          file_name: riak-3.0.15.OTP22.3-1.el8.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/oracle/8/riak-3.0.15.OTP22.3-1.el8.src.rpm
+          file_size: '1110821'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/oracle/8/riak-3.0.15.OTP22.3-1.el8.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-3.0.15.OTP22.3-1.el8.x86_64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/oracle/8/riak-3.0.15.OTP22.3-1.el8.x86_64.rpm
+          file_size: '36949812'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/oracle/8/riak-3.0.15.OTP22.3-1.el8.x86_64.rpm.sha
+  - os: raspbian
+    versions:
+    - version: bullseye
+      architectures:
+      - arch: arm64
+        file_info:
+          file_name: riak-dbgsym_3.0.15-OTP22.3_arm64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/raspbian/bullseye/riak-dbgsym_3.0.15-OTP22.3_arm64.deb
+          file_size: '17086920'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/raspbian/bullseye/riak-dbgsym_3.0.15-OTP22.3_arm64.deb.sha
+      - arch: arm32
+        file_info:
+          file_name: riak-dbgsym_3.0.15-OTP22.3_armhf.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/raspbian/bullseye/riak-dbgsym_3.0.15-OTP22.3_armhf.deb
+          file_size: '16539100'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/raspbian/bullseye/riak-dbgsym_3.0.15-OTP22.3_armhf.deb.sha
+      - arch: arm64
+        file_info:
+          file_name: riak_3.0.15-OTP22.3_arm64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/raspbian/bullseye/riak_3.0.15-OTP22.3_arm64.deb
+          file_size: '37342652'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/raspbian/bullseye/riak_3.0.15-OTP22.3_arm64.deb.sha
+      - arch: arm32
+        file_info:
+          file_name: riak_3.0.15-OTP22.3_armhf.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/raspbian/bullseye/riak_3.0.15-OTP22.3_armhf.deb
+          file_size: '36947796'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/raspbian/bullseye/riak_3.0.15-OTP22.3_armhf.deb.sha
+  - os: rhel
+    versions:
+    - version: '7'
+      architectures:
+      - arch: source
+        file_info:
+          file_name: riak-3.0.15.OTP22.3-1.el7.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/rhel/7/riak-3.0.15.OTP22.3-1.el7.src.rpm
+          file_size: '1106445'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/rhel/7/riak-3.0.15.OTP22.3-1.el7.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-3.0.15.OTP22.3-1.el7.x86_64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/rhel/7/riak-3.0.15.OTP22.3-1.el7.x86_64.rpm
+          file_size: '41212612'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/rhel/7/riak-3.0.15.OTP22.3-1.el7.x86_64.rpm.sha
+    - version: '8'
+      architectures:
+      - arch: source
+        file_info:
+          file_name: riak-3.0.15.OTP22.3-1.el8.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/rhel/8/riak-3.0.15.OTP22.3-1.el8.src.rpm
+          file_size: '1110801'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/rhel/8/riak-3.0.15.OTP22.3-1.el8.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-3.0.15.OTP22.3-1.el8.x86_64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/rhel/8/riak-3.0.15.OTP22.3-1.el8.x86_64.rpm
+          file_size: '36927644'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/rhel/8/riak-3.0.15.OTP22.3-1.el8.x86_64.rpm.sha
+      - arch: unknown
+        file_info:
+          file_name: riakCRUDtest
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/rhel/8/riakCRUDtest
+          file_size: '1045'
+    - version: '9'
+      architectures: []
+  - os: ubuntu
+    versions:
+    - version: bionic64
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak_3.0.15-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/ubuntu/bionic64/riak_3.0.15-OTP22.3_amd64.deb
+          file_size: '37133224'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/ubuntu/bionic64/riak_3.0.15-OTP22.3_amd64.deb.sha
+    - version: focal64
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak_3.0.15-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/ubuntu/focal64/riak_3.0.15-OTP22.3_amd64.deb
+          file_size: '37783752'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/ubuntu/focal64/riak_3.0.15-OTP22.3_amd64.deb.sha
+    - version: jammy64
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak_3.0.15-OTP22.3_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/ubuntu/jammy64/riak_3.0.15-OTP22.3_amd64.deb
+          file_size: '40140834'
+          chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.15/ubuntu/jammy64/riak_3.0.15-OTP22.3_amd64.deb.sha
   3.0.2:
   - os: amazon
     versions:
@@ -10830,6 +11581,389 @@ riak_kv:
           file_href: https://files.tiot.jp/riak/kv/3.0/3.0.9/ubuntu/xenial64/riak_3.0.9-yokozuna-OTP22.3_amd64.deb
           file_size: '93046580'
           chksum_href: https://files.tiot.jp/riak/kv/3.0/3.0.9/ubuntu/xenial64/riak_3.0.9-yokozuna-OTP22.3_amd64.deb.sha
+  3.2.0:
+  - os: amazon
+    versions:
+    - version: '2'
+      architectures:
+      - arch: source
+        file_info:
+          file_name: riak-3.2.0.OTP22-1.amzn2.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/amazon/2/riak-3.2.0.OTP22-1.amzn2.src.rpm
+          file_size: '1232128'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/amazon/2/riak-3.2.0.OTP22-1.amzn2.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-3.2.0.OTP22-1.amzn2.x86_64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/amazon/2/riak-3.2.0.OTP22-1.amzn2.x86_64.rpm
+          file_size: '24331152'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/amazon/2/riak-3.2.0.OTP22-1.amzn2.x86_64.rpm.sha
+      - arch: source
+        file_info:
+          file_name: riak-3.2.0.OTP24-1.amzn2.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/amazon/2/riak-3.2.0.OTP24-1.amzn2.src.rpm
+          file_size: '1232056'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/amazon/2/riak-3.2.0.OTP24-1.amzn2.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-3.2.0.OTP24-1.amzn2.x86_64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/amazon/2/riak-3.2.0.OTP24-1.amzn2.x86_64.rpm
+          file_size: '29131236'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/amazon/2/riak-3.2.0.OTP24-1.amzn2.x86_64.rpm.sha
+      - arch: source
+        file_info:
+          file_name: riak-3.2.0.OTP25-1.amzn2.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/amazon/2/riak-3.2.0.OTP25-1.amzn2.src.rpm
+          file_size: '1232056'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/amazon/2/riak-3.2.0.OTP25-1.amzn2.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-3.2.0.OTP25-1.amzn2.x86_64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/amazon/2/riak-3.2.0.OTP25-1.amzn2.x86_64.rpm
+          file_size: '29488828'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/amazon/2/riak-3.2.0.OTP25-1.amzn2.x86_64.rpm.sha
+  - os: debian
+    versions:
+    - version: '10'
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak_3.2.0-OTP22_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/debian/10/riak_3.2.0-OTP22_amd64.deb
+          file_size: '21151496'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/debian/10/riak_3.2.0-OTP22_amd64.deb.sha
+      - arch: amd64
+        file_info:
+          file_name: riak_3.2.0-OTP24_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/debian/10/riak_3.2.0-OTP24_amd64.deb
+          file_size: '25887708'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/debian/10/riak_3.2.0-OTP24_amd64.deb.sha
+      - arch: amd64
+        file_info:
+          file_name: riak_3.2.0-OTP25_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/debian/10/riak_3.2.0-OTP25_amd64.deb
+          file_size: '26211992'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/debian/10/riak_3.2.0-OTP25_amd64.deb.sha
+    - version: '11'
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak_3.2.0-OTP22_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/debian/11/riak_3.2.0-OTP22_amd64.deb
+          file_size: '21148492'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/debian/11/riak_3.2.0-OTP22_amd64.deb.sha
+      - arch: amd64
+        file_info:
+          file_name: riak_3.2.0-OTP24_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/debian/11/riak_3.2.0-OTP24_amd64.deb
+          file_size: '25924576'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/debian/11/riak_3.2.0-OTP24_amd64.deb.sha
+      - arch: amd64
+        file_info:
+          file_name: riak_3.2.0-OTP25_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/debian/11/riak_3.2.0-OTP25_amd64.deb
+          file_size: '26249280'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/debian/11/riak_3.2.0-OTP25_amd64.deb.sha
+    - version: '9'
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak_3.2.0-OTP22_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/debian/9/riak_3.2.0-OTP22_amd64.deb
+          file_size: '21136742'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/debian/9/riak_3.2.0-OTP22_amd64.deb.sha
+      - arch: amd64
+        file_info:
+          file_name: riak_3.2.0-OTP24_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/debian/9/riak_3.2.0-OTP24_amd64.deb
+          file_size: '25732124'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/debian/9/riak_3.2.0-OTP24_amd64.deb.sha
+      - arch: amd64
+        file_info:
+          file_name: riak_3.2.0-OTP25_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/debian/9/riak_3.2.0-OTP25_amd64.deb
+          file_size: '26021988'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/debian/9/riak_3.2.0-OTP25_amd64.deb.sha
+  - os: freebsd
+    versions:
+    - version: '13.1'
+      architectures:
+      - arch: unknown
+        file_info:
+          file_name: riak-3.2.0-OTP22.pkg
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/freebsd/13.1/riak-3.2.0-OTP22.pkg
+          file_size: '26650396'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/freebsd/13.1/riak-3.2.0-OTP22.pkg.sha
+      - arch: unknown
+        file_info:
+          file_name: riak-3.2.0-OTP24.pkg
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/freebsd/13.1/riak-3.2.0-OTP24.pkg
+          file_size: '32918540'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/freebsd/13.1/riak-3.2.0-OTP24.pkg.sha
+      - arch: unknown
+        file_info:
+          file_name: riak-3.2.0-OTP25.pkg
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/freebsd/13.1/riak-3.2.0-OTP25.pkg
+          file_size: '33676256'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/freebsd/13.1/riak-3.2.0-OTP25.pkg.sha
+  - os: oracle
+    versions:
+    - version: '8'
+      architectures:
+      - arch: source
+        file_info:
+          file_name: riak-3.2.0.OTP22-1.el8.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/oracle/8/riak-3.2.0.OTP22-1.el8.src.rpm
+          file_size: '1236462'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/oracle/8/riak-3.2.0.OTP22-1.el8.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-3.2.0.OTP22-1.el8.x86_64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/oracle/8/riak-3.2.0.OTP22-1.el8.x86_64.rpm
+          file_size: '22348584'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/oracle/8/riak-3.2.0.OTP22-1.el8.x86_64.rpm.sha
+      - arch: source
+        file_info:
+          file_name: riak-3.2.0.OTP24-1.el8.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/oracle/8/riak-3.2.0.OTP24-1.el8.src.rpm
+          file_size: '1236394'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/oracle/8/riak-3.2.0.OTP24-1.el8.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-3.2.0.OTP24-1.el8.x86_64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/oracle/8/riak-3.2.0.OTP24-1.el8.x86_64.rpm
+          file_size: '27152072'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/oracle/8/riak-3.2.0.OTP24-1.el8.x86_64.rpm.sha
+      - arch: source
+        file_info:
+          file_name: riak-3.2.0.OTP25-1.el8.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/oracle/8/riak-3.2.0.OTP25-1.el8.src.rpm
+          file_size: '1236394'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/oracle/8/riak-3.2.0.OTP25-1.el8.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-3.2.0.OTP25-1.el8.x86_64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/oracle/8/riak-3.2.0.OTP25-1.el8.x86_64.rpm
+          file_size: '27496016'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/oracle/8/riak-3.2.0.OTP25-1.el8.x86_64.rpm.sha
+  - os: raspbian
+    versions:
+    - version: bullseye
+      architectures:
+      - arch: arm64
+        file_info:
+          file_name: riak-dbgsym_3.2.0-OTP22_arm64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/raspbian/bullseye/riak-dbgsym_3.2.0-OTP22_arm64.deb
+          file_size: '17075436'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/raspbian/bullseye/riak-dbgsym_3.2.0-OTP22_arm64.deb.sha
+      - arch: arm32
+        file_info:
+          file_name: riak-dbgsym_3.2.0-OTP22_armhf.deb
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/raspbian/bullseye/riak-dbgsym_3.2.0-OTP22_armhf.deb
+          file_size: '16524072'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/raspbian/bullseye/riak-dbgsym_3.2.0-OTP22_armhf.deb.sha
+      - arch: arm64
+        file_info:
+          file_name: riak-dbgsym_3.2.0-OTP24_arm64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/raspbian/bullseye/riak-dbgsym_3.2.0-OTP24_arm64.deb
+          file_size: '17704148'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/raspbian/bullseye/riak-dbgsym_3.2.0-OTP24_arm64.deb.sha
+      - arch: arm32
+        file_info:
+          file_name: riak-dbgsym_3.2.0-OTP24_armhf.deb
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/raspbian/bullseye/riak-dbgsym_3.2.0-OTP24_armhf.deb
+          file_size: '17250984'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/raspbian/bullseye/riak-dbgsym_3.2.0-OTP24_armhf.deb.sha
+      - arch: arm64
+        file_info:
+          file_name: riak-dbgsym_3.2.0-OTP25_arm64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/raspbian/bullseye/riak-dbgsym_3.2.0-OTP25_arm64.deb
+          file_size: '23553480'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/raspbian/bullseye/riak-dbgsym_3.2.0-OTP25_arm64.deb.sha
+      - arch: arm32
+        file_info:
+          file_name: riak-dbgsym_3.2.0-OTP25_armhf.deb
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/raspbian/bullseye/riak-dbgsym_3.2.0-OTP25_armhf.deb
+          file_size: '17329800'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/raspbian/bullseye/riak-dbgsym_3.2.0-OTP25_armhf.deb.sha
+      - arch: arm64
+        file_info:
+          file_name: riak_3.2.0-OTP22_arm64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/raspbian/bullseye/riak_3.2.0-OTP22_arm64.deb
+          file_size: '20980728'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/raspbian/bullseye/riak_3.2.0-OTP22_arm64.deb.sha
+      - arch: arm32
+        file_info:
+          file_name: riak_3.2.0-OTP22_armhf.deb
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/raspbian/bullseye/riak_3.2.0-OTP22_armhf.deb
+          file_size: '20725472'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/raspbian/bullseye/riak_3.2.0-OTP22_armhf.deb.sha
+      - arch: arm64
+        file_info:
+          file_name: riak_3.2.0-OTP24_arm64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/raspbian/bullseye/riak_3.2.0-OTP24_arm64.deb
+          file_size: '25488372'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/raspbian/bullseye/riak_3.2.0-OTP24_arm64.deb.sha
+      - arch: arm32
+        file_info:
+          file_name: riak_3.2.0-OTP24_armhf.deb
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/raspbian/bullseye/riak_3.2.0-OTP24_armhf.deb
+          file_size: '26190328'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/raspbian/bullseye/riak_3.2.0-OTP24_armhf.deb.sha
+      - arch: arm64
+        file_info:
+          file_name: riak_3.2.0-OTP25_arm64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/raspbian/bullseye/riak_3.2.0-OTP25_arm64.deb
+          file_size: '26003932'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/raspbian/bullseye/riak_3.2.0-OTP25_arm64.deb.sha
+      - arch: arm32
+        file_info:
+          file_name: riak_3.2.0-OTP25_armhf.deb
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/raspbian/bullseye/riak_3.2.0-OTP25_armhf.deb
+          file_size: '26531024'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/raspbian/bullseye/riak_3.2.0-OTP25_armhf.deb.sha
+  - os: rhel
+    versions:
+    - version: '7'
+      architectures:
+      - arch: source
+        file_info:
+          file_name: riak-3.2.0.OTP22-1.el7.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/rhel/7/riak-3.2.0.OTP22-1.el7.src.rpm
+          file_size: '1232104'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/rhel/7/riak-3.2.0.OTP22-1.el7.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-3.2.0.OTP22-1.el7.x86_64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/rhel/7/riak-3.2.0.OTP22-1.el7.x86_64.rpm
+          file_size: '24047476'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/rhel/7/riak-3.2.0.OTP22-1.el7.x86_64.rpm.sha
+      - arch: source
+        file_info:
+          file_name: riak-3.2.0.OTP24-1.el7.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/rhel/7/riak-3.2.0.OTP24-1.el7.src.rpm
+          file_size: '1232103'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/rhel/7/riak-3.2.0.OTP24-1.el7.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-3.2.0.OTP24-1.el7.x86_64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/rhel/7/riak-3.2.0.OTP24-1.el7.x86_64.rpm
+          file_size: '28682740'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/rhel/7/riak-3.2.0.OTP24-1.el7.x86_64.rpm.sha
+      - arch: source
+        file_info:
+          file_name: riak-3.2.0.OTP25-1.el7.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/rhel/7/riak-3.2.0.OTP25-1.el7.src.rpm
+          file_size: '1232103'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/rhel/7/riak-3.2.0.OTP25-1.el7.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-3.2.0.OTP25-1.el7.x86_64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/rhel/7/riak-3.2.0.OTP25-1.el7.x86_64.rpm
+          file_size: '29063752'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/rhel/7/riak-3.2.0.OTP25-1.el7.x86_64.rpm.sha
+    - version: '8'
+      architectures:
+      - arch: source
+        file_info:
+          file_name: riak-3.2.0.OTP22-1.el8.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/rhel/8/riak-3.2.0.OTP22-1.el8.src.rpm
+          file_size: '1236457'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/rhel/8/riak-3.2.0.OTP22-1.el8.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-3.2.0.OTP22-1.el8.x86_64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/rhel/8/riak-3.2.0.OTP22-1.el8.x86_64.rpm
+          file_size: '22328140'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/rhel/8/riak-3.2.0.OTP22-1.el8.x86_64.rpm.sha
+      - arch: source
+        file_info:
+          file_name: riak-3.2.0.OTP24-1.el8.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/rhel/8/riak-3.2.0.OTP24-1.el8.src.rpm
+          file_size: '1236390'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/rhel/8/riak-3.2.0.OTP24-1.el8.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-3.2.0.OTP24-1.el8.x86_64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/rhel/8/riak-3.2.0.OTP24-1.el8.x86_64.rpm
+          file_size: '27116108'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/rhel/8/riak-3.2.0.OTP24-1.el8.x86_64.rpm.sha
+      - arch: source
+        file_info:
+          file_name: riak-3.2.0.OTP25-1.el8.src.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/rhel/8/riak-3.2.0.OTP25-1.el8.src.rpm
+          file_size: '1236390'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/rhel/8/riak-3.2.0.OTP25-1.el8.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-3.2.0.OTP25-1.el8.x86_64.rpm
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/rhel/8/riak-3.2.0.OTP25-1.el8.x86_64.rpm
+          file_size: '27473376'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/rhel/8/riak-3.2.0.OTP25-1.el8.x86_64.rpm.sha
+    - version: '9'
+      architectures: []
+  - os: ubuntu
+    versions:
+    - version: bionic64
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak_3.2.0-OTP22_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/ubuntu/bionic64/riak_3.2.0-OTP22_amd64.deb
+          file_size: '21250436'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/ubuntu/bionic64/riak_3.2.0-OTP22_amd64.deb.sha
+      - arch: amd64
+        file_info:
+          file_name: riak_3.2.0-OTP24_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/ubuntu/bionic64/riak_3.2.0-OTP24_amd64.deb
+          file_size: '26014428'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/ubuntu/bionic64/riak_3.2.0-OTP24_amd64.deb.sha
+      - arch: amd64
+        file_info:
+          file_name: riak_3.2.0-OTP25_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/ubuntu/bionic64/riak_3.2.0-OTP25_amd64.deb
+          file_size: '26342580'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/ubuntu/bionic64/riak_3.2.0-OTP25_amd64.deb.sha
+    - version: focal64
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak_3.2.0-OTP22_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/ubuntu/focal64/riak_3.2.0-OTP22_amd64.deb
+          file_size: '21185392'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/ubuntu/focal64/riak_3.2.0-OTP22_amd64.deb.sha
+      - arch: amd64
+        file_info:
+          file_name: riak_3.2.0-OTP24_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/ubuntu/focal64/riak_3.2.0-OTP24_amd64.deb
+          file_size: '25967916'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/ubuntu/focal64/riak_3.2.0-OTP24_amd64.deb.sha
+      - arch: amd64
+        file_info:
+          file_name: riak_3.2.0-OTP25_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/ubuntu/focal64/riak_3.2.0-OTP25_amd64.deb
+          file_size: '26281620'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/ubuntu/focal64/riak_3.2.0-OTP25_amd64.deb.sha
+    - version: jammy64
+      architectures:
+      - arch: amd64
+        file_info:
+          file_name: riak_3.2.0-OTP22_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/ubuntu/jammy64/riak_3.2.0-OTP22_amd64.deb
+          file_size: '23035828'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/ubuntu/jammy64/riak_3.2.0-OTP22_amd64.deb.sha
+      - arch: amd64
+        file_info:
+          file_name: riak_3.2.0-OTP24_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/ubuntu/jammy64/riak_3.2.0-OTP24_amd64.deb
+          file_size: '26681100'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/ubuntu/jammy64/riak_3.2.0-OTP24_amd64.deb.sha
+      - arch: amd64
+        file_info:
+          file_name: riak_3.2.0-OTP25_amd64.deb
+          file_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/ubuntu/jammy64/riak_3.2.0-OTP25_amd64.deb
+          file_size: '27301544'
+          chksum_href: https://files.tiot.jp/riak/kv/3.2/3.2.0/ubuntu/jammy64/riak_3.2.0-OTP25_amd64.deb.sha
 riak_cs:
   2.0.0:
   - os: source
