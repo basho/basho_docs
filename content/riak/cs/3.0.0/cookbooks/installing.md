@@ -28,7 +28,7 @@ is built
 * Riak CS itself
 * [Stanchion]({{<baseurl>}}riak/cs/3.0.0/theory/stanchion) --- An application used to manage [globally unique entities]({{<baseurl>}}riak/cs/3.0.0/theory/stanchion/#globally-unique-entities) such as users and buckets.
 
-[Riak KV](#installing-riak) and [Riak CS](#installing-riak-cs-on-a-node) must be installed on each node in your cluster. [Stanchion](#installing-stanchion-on-a-node), however, needs to be installed on only one node.
+[Riak KV](#installing-riak-kv) and [Riak CS](#installing-riak-cs-on-a-node) must be installed on each node in your cluster. [Stanchion](#installing-stanchion-on-a-node), however, needs to be installed on only one node.
 
 ## Version Compatibility
 
