@@ -55,11 +55,14 @@ Riak version  | Stanchion version | Riak CS version
 1.4.12        | 1.5.0             | 1.5.4
 2.0.5         | 2.0.0             | 2.0.0
 2.0.5         | 2.0.0             | 2.0.1
-3.0.0         | 2.1.0             | 2.1.0
+2.1.4         | 2.1.1             | 2.1.1
+2.9.8         | 2.1.2             | 2.1.2
+3.0.9         | 3.0.0             | 3.0.0
 
 **Note**: While Riak CS versions 1.5.0 and later will work with Riak
 1.4.x, we highly recommend running CS with at least Riak 1.4.8,
-preferably 1.4.10.
+preferably 1.4.10. In the same way, Riak CS 2.1.2 will work with Riak
+ from KV 2.1.x through to KV 3.0.x.
 
 Basic functionality testing consists of account creation, object storage and
 retrieval, bucket listing operations, and Access Control List (ACL) enforcement
