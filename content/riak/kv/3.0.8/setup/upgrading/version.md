@@ -70,9 +70,6 @@ The leveled backend is not compatible with other backends in terms of the serial
 * First transition to 2.9 with the current backend in-place, minimising the time spent running mis-matched versions in parallel;
 * Then as a second phase run a rolling series of node transfers to replace the nodes with the previous backend, with nodes with the leveled backend.
 
-{{% note %}}
-You must have [Java version 7 or higher](http://www.oracle.com/technetwork/java/javase/downloads/index.html) in order to upgrade to Riak KV 3.0.8 only if you plan to use Riak search.
-{{% /note %}}
 
 
 ### Components That Complicate Downgrades
@@ -85,7 +82,6 @@ We do our best to make all features that change data formats on disk opt-in; how
 
 | Feature | Automatic | Required | One Way | Notes |
 |:---|:---:|:---:|:---:|:--- |
-|Migration to Solr 4.10.4 |✔ | ✔| | Applies to all clusters using Riak search.
 | Active anti-entropy file format changes | ✔ |  | | Can opt-out using a capability.
 | LZ4 compression in LevelDB | | | ✔ |
 | Global expiration in LevelDB | | | ✔ |

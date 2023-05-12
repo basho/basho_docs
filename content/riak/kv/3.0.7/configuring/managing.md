@@ -15,7 +15,6 @@ aliases:
 
 [use admin riak cli]: {{<baseurl>}}riak/kv/3.0.7/using/admin/riak-cli
 [use admin riak cli#chkconfig]: {{<baseurl>}}riak/kv/3.0.7/using/admin/riak-cli/#chkconfig
-[config reference#search]: {{<baseurl>}}riak/kv/3.0.7/configuring/reference/#search
 
 ## Retrieving a Configuration Listing
 
@@ -78,19 +77,10 @@ If your configuration files are syntactically sound, you should see the
 output `config is OK` followed by a listing of files that were checked.
 You can safely ignore this listing. If, however, something is
 syntactically awry, you'll see an error output that provides details
-about what is wrong. To give an example, the `search.solr.jmx_port`
-setting (in the [Search][config reference#search] section below)
-must be set as an integer. Imagine that we set it to something else:
-
-```riakconf
-search.solr.jmx_port = banana
-```
-
-If we run `riak chkconfig` now, we'll get an error:
+about what is wrong. 
 
 ```
 [error] Error generating configuration in phase transform_datatypes
-[error] Error transforming datatype for: search.solr.jmx_port
 [error] "banana" can't be converted to an integer
 ```
 

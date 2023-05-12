@@ -21,7 +21,6 @@ aliases:
 [ref monitoring]: ./statistics-monitoring
 [ref snmp]: ./snmp
 [ref jmx]: ./jmx
-[ref search]: ./search
 [ref 2i]: ./secondary-indexes
 [ref custom code]: ./custom-code
 [ref strong consistency]: ./strong-consistency
@@ -87,13 +86,6 @@ Cover's Riak Enterprise's deprecated SNMP server used allow an external system t
 Details Riak KV's deprecated JMX monitoring system.
 
 [Learn More >>][ref jmx]
-
-
-#### [Search Reference][ref search]
-
-Overview of search in Riak KV.
-
-[Learn More >>][ref search]
 
 
 #### [Secondary Indexes Reference][ref 2i]

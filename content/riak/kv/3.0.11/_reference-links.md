@@ -72,7 +72,6 @@
 [config strong consistency]: {{<baseurl>}}riak/kv/3.0.11/configuring/strong-consistency
 [config load balance]: {{<baseurl>}}riak/kv/3.0.11/configuring/load-balancing-proxy
 [config mapreduce]: {{<baseurl>}}riak/kv/3.0.11/configuring/mapreduce
-[config search]: {{<baseurl>}}riak/kv/3.0.11/configuring/search/
 
 [config v3 mdc]: {{<baseurl>}}riak/kv/3.0.11/configuring/v3-multi-datacenter
 [config v3 nat]: {{<baseurl>}}riak/kv/3.0.11/configuring/v3-multi-datacenter/nat
@@ -97,7 +96,6 @@
 [use ref custom code]: {{<baseurl>}}riak/kv/3.0.11/using/reference/custom-code
 [use ref handoff]: {{<baseurl>}}riak/kv/3.0.11/using/reference/handoff
 [use ref monitoring]: {{<baseurl>}}riak/kv/3.0.11/using/reference/statistics-monitoring
-[use ref search]: {{<baseurl>}}riak/kv/3.0.11/using/reference/search
 [use ref 2i]: {{<baseurl>}}riak/kv/3.0.11/using/reference/secondary-indexes
 [use ref snmp]: {{<baseurl>}}riak/kv/3.0.11/using/reference/snmp
 [use ref strong consistency]: {{<baseurl>}}riak/kv/3.0.11/using/reference/strong-consistency
@@ -195,9 +193,6 @@
 [usage custom extractors]: {{<baseurl>}}riak/kv/3.0.11/developing/usage/custom-extractors
 [usage delete objects]: {{<baseurl>}}riak/kv/3.0.11/developing/usage/deleting-objects
 [usage mapreduce]: {{<baseurl>}}riak/kv/3.0.11/developing/usage/mapreduce
-[usage search]: {{<baseurl>}}riak/kv/3.0.11/developing/usage/search
-[usage search schema]: {{<baseurl>}}riak/kv/3.0.11/developing/usage/search-schemas
-[usage search data types]: {{<baseurl>}}riak/kv/3.0.11/developing/usage/searching-data-types
 [usage 2i]: {{<baseurl>}}riak/kv/3.0.11/developing/usage/secondary-indexes
 [usage update objects]: {{<baseurl>}}riak/kv/3.0.11/developing/usage/updating-objects
 

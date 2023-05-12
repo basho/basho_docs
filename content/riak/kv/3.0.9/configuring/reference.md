@@ -38,7 +38,6 @@ aliases:
 [cluster ops strong consistency]: ../../using/cluster-operations/strong-consistency
 [glossary vnode]: ../../learn/glossary/#vnode
 [cluster ops handoff]: ../../using/cluster-operations/handoff
-[Search Settings]: ../search#search-config-settings
 
 Riak has a `riak.conf` configuration file located in `/etc` if you are
 using a source install or in `/etc/riak` or `/usr/local/etc` if you used
@@ -193,14 +192,6 @@ parameters below.
 <tbody>
 
 <tr>
-<td><code>platform_bin_dir</code></td>
-<td>The directory in which the <a href="../../using/admin/riak admin"><code>riak admin</code></a>,
-<code>riak-debug</code>, and now-deprecated <code>search-cmd</code>
-executables are stored.</td>
-<td><code>./bin</code></td>
-</tr>
-
-<tr>
 <td><code>platform_data_dir</code></td>
 <td>The directory in which Riak stores its storage backend data, as well
 as <a href="{{< baseurl >}}riak/kv/3.0.9/learn/glossary/#active-anti-entropy-aae">active anti-entropy</a> data, and cluster metadata.</td>
@@ -247,34 +238,6 @@ Or you can use the value of `platform_data_dir`:
 ```riakconf
 anti_entropy.data_dir = $(platform_data_dir)/anti_entropy
 ```
-
-## Search
-
-Configuration parameters for [Riak KV Search][use ref search 2i]. For a more detailed description of these parameters, check out [Search Settings].
-
-Field | Default | Valid values |
-:-----|:--------|:-------------|
-`search` | `off` |  `on` or `off`
-`search.anti_entropy.data_dir` | `./data/yz_anti_entropy` | Directory
-`search.anti_entropy.throttle.$tier.delay` | No default | Non-negative integer
-`search.anti_entropy.throttle.$tier.solrq_queue_length` | No default | Non-negative integer
-`search.dist_query` | `on` | `on` or `off`
-`search.index.error_threshold.failure_count` | `3` | Integer
-`search.index.error_threshold.failure_interval` | `5000` | Milliseconds
-`search.index.error_threshold.reset_interval` | `30000` | Milliseconds
-`search.queue.batch.flush_interval` | `1000` | `ms`, `s`, `m`, `h`
-`search.queue.batch.maximum`| `100` | Integer
-`search.queue.batch.minimum` | `1` | Integer
-`search.queue.high_watermark` | `10000` | Integer
-`search.queue.high_watermark.purge_strategy` | `purge_one` | `purge_one`, `purge_index`, or `off`
-`search.root_dir` | `./data/yz` | Directory
-`search.solr.jvm_options` | `-d64 -Xms1g -Xmx1g -XX:+UseStringCache -XX:+UseCompressedOops` | Java command-line arguments
-`search.solr.jmx_port` | `8985` | Integer
-`search.solr.jmx_port` | `8985` | Integer
-`search.solr.port` | `8093` | Integer
-`search.solr.start_timeout` | `30s` | Integer with time units (eg. 2m)
-`yokozuna.aae_throttle_enabled` | `on` | `on` or `off` 
-
 
 ## Riak Control
 
@@ -1215,35 +1178,6 @@ debugging information will be output.</td>
 </tr>
 
 <tr>
-<td><code>search.anti_entropy.throttle</code></td>
-<td>Whether the distributed throttle for Active Anti-Entropy is
-enabled.</td>
-<td><code>on</code></td>
-</tr>
-
-<tr>
-<td><code>search.anti_entropy.throttle.$tier.solrq_queue_length</code></td>
-<td>Sets the throttling tiers for Active Anti-Entropy. Each tier is a
-minimum vnode mailbox size and a time-delay that the throttle should
-observe at that size and above. For example,
-<cod>anti_entropy.throttle.tier1.mailbox_size = 0</code>,
-<code>anti_entropy.throttle.tier1.delay = 0ms</code>,
-<code>anti_entropy.throttle.tier2.mailbox_size = 40</code>,
-<code>anti_entropy.throttle.tier2.delay = 5ms</code>, etc. If
-configured, there must be a tier which includes a mailbox size of 0.
-Both <code>.mailbox_size</code> and <code>.delay</code> must be set for
-each tier.</td>
-<td></td>
-</tr>
-
-<tr>
-<td><code>search.anti_entropy.throttle.$tier.delay</code></td>
-<td>See the description for
-<code>anti_entropy.throttle.$tier.mailbox_size</code> above.</td>
-<td></td>
-</tr>
-
-<tr>
 <td><code>anti_entropy.bloomfilter</code></td>
 <td>Bloom filters are highly effective in shortcutting data queries
 that are destined to not find the requested key, though they tend to
@@ -1391,8 +1325,7 @@ Configurable parameters for intra-cluster, i.e. inter-node, [handoff][cluster op
 
 <tr>
 <td><code>handoff.max_rejects</code></td>
-<td>The maximum number of times that a secondary system within Riak,
-such as <a href="../../developing/usage/search">Riak Search</a>, can block <a href="../../using/cluster-operations/handoff">handoff</a>
+<td>The maximum number of times that a secondary system within Riak can block <a href="../../using/cluster-operations/handoff">handoff</a>
 of primary key/value data. The approximate maximum duration that a vnode
 can be blocked can be determined by multiplying this setting by
 <code>vnode_management_timer</code>. If you want to prevent handoff from
@@ -1925,26 +1858,6 @@ only in Riak KV Enterprise Edition 2.0 and later as well as Riak KV 2.2.6 onward
 </tbody>
 </table>
 
-#### Upgrading Riak Search with `advanced.config`
-
-If you are upgrading to Riak 2.x and wish to upgrade to the new [Riak Search][use ref search]\(codename Yokozuna), you will need to enable
-legacy Search while the upgrade is underway. You can add the following
-snippet to your `advanced.config` configuration to do so:
-
-```advancedconfig
-[
-    %% Other configs
-
-    {riak_search, [ {enabled, true} ]},
-    {merge_index, [
-        {data_root, "/var/lib/riak/merge_index"},
-        {buffer_rollover_size, 1048576},
-        {max_compact_segments, 20}
-    ]},
-
-    %% Other configs
-].
-```
 
 #### Other settings
 
@@ -2037,8 +1950,6 @@ Field | Default | Valid values |
 `cluster.job.riak_kv.map_reduce`|`enabled`|`enabled` or `disabled`
 `cluster.job.riak_kv.map_reduce_js`|`enabled`|`enabled` or `disabled`
 `cluster.job.riak_kv.secondary_index`|`enabled`|`enabled` or `disabled`
-`cluster.job.riak_search.query`|`enabled`|`enabled` or `disabled`
-`cluster.job.yokozuna.query`|`enabled`|`enabled` or `disabled`
 
 
 

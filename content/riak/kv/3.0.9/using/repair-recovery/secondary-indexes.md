@@ -49,10 +49,6 @@ riak admin repair-2i kill
 
 ----
 
-## Repairing Search Indexes
-
-Riak Search indexes currently have no form of anti-entropy (such as read-repair). Furthermore, for performance and load balancing reasons, Search reads from one random node. This means that when a replica loss has occurred, inconsistent results may be returned.
-
 ### Running a Repair
 
 If a replica loss has occurred, you need to run the repair command. This command repairs objects from a node's adjacent partitions on the ring, consequently fixing the search index.

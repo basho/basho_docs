@@ -22,7 +22,6 @@ aliases:
 [cluster ops load balance]: {{<baseurl>}}riak/kv/3.0.3/configuring/load-balancing-proxy
 [config reference]: {{<baseurl>}}riak/kv/3.0.3/configuring/reference
 [config backend]: {{<baseurl>}}riak/kv/3.0.3/configuring/backend
-[usage search]: {{<baseurl>}}riak/kv/3.0.3/developing/usage/search
 [usage conflict resolution]: {{<baseurl>}}riak/kv/3.0.3/developing/usage/conflict-resolution
 [concept eventual consistency]: {{<baseurl>}}riak/kv/3.0.3/learn/concepts/eventual-consistency
 [apps replication properties]: {{<baseurl>}}riak/kv/3.0.3/developing/app-guide/replication-properties
@@ -88,8 +87,6 @@ We've compiled these considerations and questions into separate categories for y
     place if `allow_mult` is set to `true`?
   - Have you carefully weighed the [consistency trade-offs][concept eventual consistency] that must be made if `allow_mult` is set to `false`?
   - Are all of your [apps replication properties][apps replication properties] configured correctly and uniformly across the cluster?
-  - If you are using [Riak Search][usage search], is it enabled on all
-    nodes? If you are not, has it been disabled on all nodes?
   - If you are using [strong consistency][concept strong consistency] for some or all of your
     data:
       * Does your cluster consist of at least three nodes? If it does
@@ -175,7 +172,6 @@ one of the following:
 * `ring_membership`
 * `ring_preflists`
 * `ring_size`
-* `search`
 * `sysctl`
 
 Running `riak admin diag` with no additional arguments will run all

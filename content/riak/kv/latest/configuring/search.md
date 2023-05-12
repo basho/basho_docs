@@ -2,7 +2,7 @@
 layout: latest_redirect
 project: riak_kv
 replace_text: latest
-latest_text: "{latest}"
+latest_text: "{2.9.7}"
 aliases:
   - "/riak/latest/configuring/search/"
   - "/riakkv/latest/configuring/search/"
