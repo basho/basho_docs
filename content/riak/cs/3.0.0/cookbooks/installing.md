@@ -266,7 +266,7 @@ configured to send all requests to a single Stanchion node, failing over
 to a secondary Stanchion node if the primary is unavailable. More
 details can be found in [Specifying the Stanchion Node]({{<baseurl>}}riak/cs/3.0.0/cookbooks/configuration/#specifying-the-stanchion-node).
 
-<!--### Installing Stanchion on Mac OS X
+### Installing Stanchion on Mac OS X
 
 First, download the appropriate package from the [downloads]({{<baseurl>}}riak/cs/3.0.0/downloads/#stanchion-1-4-3) page.
 
@@ -281,7 +281,7 @@ tar -xvf stanchion-3.0.0-OTP22.tar.gz
 ```
 
 At this point, you can move on to [configuring Riak CS]({{<baseurl>}}riak/cs/3.0.0/cookbooks/configuration/riak-cs).
--->
+
 ### Installing Stanchion on Debian or Ubuntu
 
 <!-- On Debian or Ubuntu, you can either use `apt` or install the `.deb`
