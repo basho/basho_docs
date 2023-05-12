@@ -70,7 +70,7 @@ aliases:
 
   A filter must be applied to all of the objects in the system in order to find those residing in a particular bucket. Buckets are intended for configuration purposes (e.g. replication properties) rather than for general queries.
 
-  To keep track of groups of objects there are several options with various trade-offs: secondary indexes or a list using links.
+  To keep track of groups of objects there are several options with various trade-offs: secondary indexes, search, or a list using links.
 
 
 **Q: Why do secondary indexes (2i) return inconsistent results after using `force-remove` to drop a node from the cluster?**

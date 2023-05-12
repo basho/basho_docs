@@ -81,7 +81,8 @@ in functional programming languages, you're already familiar with the
 MapReduce should generally be treated as a fallback rather than a
 standard part of an application. There are often ways to model data
 such that dynamic queries become single key retrievals, which are
-dramatically faster and more reliable in Riak KV, and tools such as 2i are simpler to use and may place less strain on a
+dramatically faster and more reliable in Riak KV, and tools such as Riak
+search and 2i are simpler to use and may place less strain on a
 cluster.
 
 ### R=1

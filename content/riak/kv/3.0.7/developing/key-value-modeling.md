@@ -16,7 +16,7 @@ aliases:
 ---
 
 While Riak enables you to take advantage of a wide variety of features
-that can be useful in application development, such as [secondary indexes (2i)]({{<baseurl>}}riak/kv/3.0.7/developing/usage/secondary-indexes/), and [Riak Data Types]({{<baseurl>}}riak/kv/3.0.7/developing/data-types/), Riak almost always performs best when you
+that can be useful in application development, such as [Search]({{<baseurl>}}riak/kv/3.0.7/developing/usage/search), [secondary indexes (2i)]({{<baseurl>}}riak/kv/3.0.7/developing/usage/secondary-indexes/), and [Riak Data Types]({{<baseurl>}}riak/kv/3.0.7/developing/data-types/), Riak almost always performs best when you
 build your application around basic CRUD operations (create, read,
 update, and delete) on objects, i.e. when you use Riak as a "pure"
 key/value store.

@@ -28,6 +28,7 @@ aliases:
 [plan backend bitcask]: {{<baseurl>}}riak/kv/3.0.8/setup/planning/backend/bitcask
 [replication properties]: {{<baseurl>}}riak/kv/3.0.8/developing/app-guide/replication-properties
 [usage mapreduce]: {{<baseurl>}}riak/kv/3.0.8/developing/usage/mapreduce
+[usage search]: {{<baseurl>}}riak/kv/3.0.8/developing/usage/search
 [usage secondary-indexes]: {{<baseurl>}}riak/kv/3.0.8/developing/usage/secondary-indexes
 
 Riak is a flexible data storage technology capable of addressing a wide variety
@@ -41,7 +42,7 @@ How you structure your application to run on Riak should take into account the
 unique needs of your use case, including access patterns such as read/write
 distribution, latency differences between various operations, use of Riak
 features including [Data Types][dev data types], [MapReduce][usage mapreduce],
-[secondary indexes (2i)][usage secondary-indexes], and
+[Search][usage search], [secondary indexes (2i)][usage secondary-indexes], and
 more. This guide is intended to be illustrative only.
 
 ## High Read/Write, Simple Applications
@@ -160,7 +161,7 @@ For storing log data from different systems, you could use unique buckets for
 each system (e.g. `system1_log_data`, `system2_log_data`, etc.) and write
 associated logs to the corresponding buckets. To analyze that data, you could
 use Riak's MapReduce system for aggregation tasks, such as summing the counts of
-records for a date for a more robust, text-based queries.
+records for a date or Riak Search for a more robust, text-based queries.
 
 ### Log Data Complex Case
 
@@ -242,7 +243,8 @@ use a UUID-type key for the user and store the user's username as a
 For simple retrieval of a specific account, a user ID (plus perhaps a secondary
 index on a username or email) is enough. If you foresee the need to make queries
 on additional user attributes (e.g. creation time, user type, or region), plan
-ahead and either set up additional secondary indexes.
+ahead and either set up additional secondary indexes or consider using
+[Riak Search][usage search] to index the JSON contents of the user account.
 
 ### User Accounts Community Examples
 
@@ -346,6 +348,7 @@ In Riak, you can store content of any kind, from HTML files to plain text to
 JSON or XML or another document type entirely. Keep in mind that data in Riak is
 opaque, with the exception of [Riak Data Types][dev data types], and so Riak
 won't "know" about the object unless it is indexed
+[using Riak Search][usage search] or
 [using secondary indexes][usage secondary-indexes].
 
 ### Articles et al Complex Case
@@ -364,7 +367,8 @@ its own ID. Loading the full view with comments would require your application
 to call from the posts and comments buckets to assemble the view.
 
 Other possible cases may involve performing operations on content beyond
-key/value pairs. For lighter-weight querying,
+key/value pairs. [Riak Search][usage search] is recommended for use cases
+involving full-text search. For lighter-weight querying,
 [using secondary indexes][usage secondary-indexes] \(2i) enables you to add
 metadata to objects to either query for exact matches or to perform range
 queries. 2i also enables you to tag posts with dates, timestamps, topic areas,

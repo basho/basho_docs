@@ -265,5 +265,15 @@ The pages listed above detail using Riak data types at the application level usi
 
 All the examples use the bucket type names from above (`counters`, `sets`, and `maps`). You're free to substitute your own bucket type names if you wish.
 
+## Data Types and Search
+
+Riak data types can be searched like any other object, but with the
+added benefit that your data type is indexed as a different type by Solr,
+the search platform behind Riak Search.
+
+In our Search documentation we offer a [full tutorial](../usage/searching-data-types) as well as a variety of [examples](../usage/searching-data-types/), including code
+samples from each of our official client libraries.
+
+
 
 

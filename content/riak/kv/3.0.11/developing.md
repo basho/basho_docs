@@ -32,7 +32,7 @@ Step-by-step guide for getting started developing with Riak KV.
 
 #### [Usage][usage index]
 
-A set of tutorials covering common development tasks such as performing CRUD operations and using bucket types.
+A set of tutorials covering common development tasks such as performing CRUD operations, working with search, and using bucket types.
 
 [Learn More >>][usage index]
 

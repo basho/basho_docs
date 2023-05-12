@@ -391,7 +391,10 @@ On the other hand, setting `notfound_ok` to `false` means that the
 responding vnode will wait for something other than a `not found` error
 before reporting a value to the client. If an object doesn't exist under
 a key, the coordinating vnode will wait for N vnodes to respond with
-`not found` before it reports `not found` to the client. 
+`not found` before it reports `not found` to the client. This setting
+makes Riak search more thoroughly for objects but at the cost of slower
+response times, a problem can be mitigated by setting `basic_quorum` to
+`true`, which is discussed in the next section.
 
 ## Early Failure Return with `basic_quorum`
 

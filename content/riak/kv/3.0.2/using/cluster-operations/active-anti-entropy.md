@@ -16,6 +16,8 @@ aliases:
   - /riak/kv/3.0.2/ops/advanced/aae/
   - /riak/3.0.2/ops/advanced/aae/
 ---
+[config search#throttledelay]: {{<baseurl>}}riak/kv/3.0.2/configuring/search/#search-anti-entropy-throttle-tier-delay
+[config search#throttle]: {{<baseurl>}}riak/kv/3.0.2/configuring/search/#search-anti-entropy-throttle
 
 Riak's [active anti-entropy](../../../learn/concepts/active-anti-entropy/) \(AAE) subsystem is a set of background processes that repair object inconsistencies stemming from missing or divergent object values across nodes. Riak operators can turn AAE on and off and configure and monitor its functioning.
 
@@ -169,6 +171,48 @@ By default, data related to AAE operations is stored in the
 `./data/anti_entropy` directory in each Riak node. This can be changed
 by setting the `anti_entropy.data_dir` parameter to a different value.
 
+### Throttling
+
+AAE has a built-in throttling mechanism that can insert delays between
+AAE repair operations when [vnode](../../../learn/concepts/vnodes) mailboxes reach the length
+specified by the [`search.anti_entropy.throttle.$tier.delay`][config search#throttledelay] parameter (more on
+that in the section below). Throttling can be switched on and off using
+the [`search.anti_entropy.throttle`][config search#throttle] parameter. The default is `on`.
+
+#### Throttling Tiers
+
+If you activate AAE throttling, you can use *tiered throttling* to
+establish a series of vnode mailbox-size thresholds past which a
+user-specified time delay should be observed. This enables you to
+establish, for example, that a delay of 10 milliseconds should be
+observed if the mailbox of any vnode reaches 50 messages.
+
+The general form for setting tiered throttling is as follows:
+
+```riakconf
+search.anti_entropy.throttle.$tier.delay
+search.anti_entropy.throttle.$tier.solrq_queue_length
+```
+
+In the above example, `$tier` should be replaced with the desired
+name for that tier (e.g. `tier1`, `large_mailbox_tier`, etc). If you
+choose to set throttling tiers, you will need to set the mailbox size
+for one of the tiers to 0. Both the `.solrq_queue_length` and `.delay`
+parameters must be set for each tier.
+
+Below is an example configuration for three tiers, with mailbox sizes of
+0, 50, and 100 and time delays of 5, 10, and 15 milliseconds,
+respectively:
+
+```riakconf
+search.anti_entropy.throttle.tier1.solrq_queue_length = 0
+search.anti_entropy.throttle.tier1.delay = 5ms
+search.anti_entropy.throttle.tier2.solrq_queue_length = 50
+search.anti_entropy.throttle.tier2.delay = 10ms
+search.anti_entropy.throttle.tier3.solrq_queue_length = 100
+search.anti_entropy.throttle.tier3.delay = 15ms
+```
+
 ### Bloom Filters
 
 Bloom filters are mechanisms used to prevent reads that are destined to
@@ -221,6 +265,24 @@ concurrently. The default is `2`.
 The `anti_entropy.max_open_files` parameter sets an open-files limit for
 AAE-related background tasks, analogous to [open files limit](../../performance/open-files-limit) settings used in operating systems. The default is `20`.
 
+## AAE and Riak Search
+
+Riak's AAE subsystem works to repair object inconsistencies both with
+for normal key/value objects as well as data related to [Riak Search](../../../developing/usage/search). In particular, AAE acts on indexes stored in
+[Solr](http://lucene.apache.org/solr/), the search platform that drives
+Riak Search. Implementation details for AAE and Search can be found in
+the [Search Details](../../reference/search/#active-anti-entropy-aae)
+documentation.
+
+You can check on the status of Search-related AAE using the following
+command:
+
+```bash
+riak-admin search aae-status
+```
+
+The output from that command can be interpreted just like the output
+discussed in the section on [monitoring](#monitoring-aae) above.
 
 
 

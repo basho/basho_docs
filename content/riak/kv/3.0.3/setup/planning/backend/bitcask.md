@@ -22,6 +22,7 @@ aliases:
 [glossary vnode]: {{<baseurl>}}riak/kv/3.0.3/learn/glossary/#vnode
 [learn clusters]: {{<baseurl>}}riak/kv/3.0.3/learn/concepts/clusters
 [plan backend multi]: {{<baseurl>}}riak/kv/3.0.3/setup/planning/backend/multi
+[usage search]: {{<baseurl>}}riak/kv/3.0.3/developing/usage/search
 
 [glossary aae]: {{<baseurl>}}riak/kv/3.0.3/learn/glossary/#active-anti-entropy-aae
 [perf open files]: {{<baseurl>}}riak/kv/3.0.3/using/performance/open-files-limit
@@ -747,6 +748,18 @@ bitcask.expiry.grace_time = 1h
     ...
     ]}
 ```
+
+#### Automatic expiration and Riak Search
+
+If you are using [Riak Search][usage search] in conjunction with
+Bitcask, please be aware that automatic expiry does not apply to [Search Indexes](../../../../developing/usage/search). If objects are indexed using Search,
+those objects can be expired by Bitcask yet still registered in Search
+indexes, which means that Search queries may return keys that no longer
+exist. Riak's [active anti-entropy (AAE)][glossary aae] subsystem will eventually
+catch this discrepancy, but this depends on AAE being enabled (which is
+the default) and could take some time. If search queries returning
+expired keys is a problem for your use case, then we would recommend not
+using automatic expiration.
 
 ## Tuning Bitcask
 

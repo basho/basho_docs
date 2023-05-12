@@ -137,7 +137,7 @@ encounters an invalid input:
 
 {{% note title="Note on inputs" %}}
 Inputs must be a binary bucket, a tuple of bucket and key-filters, a list of
-target tuples or modfun tuple: `INPUT`.
+target tuples, a search index, or modfun tuple: `INPUT`.
 {{% /note %}}
 
 For the remaining common error codes, they are often marked by Erlang
@@ -149,7 +149,8 @@ messages, if they exist.
 ### Riak Core
 
 Riak Core is the underlying implementation for KV. These are errors
-originating from that framework, and can appear whether you use KV or any Core implementation.
+originating from that framework, and can appear whether you use KV,
+Search, or any Core implementation.
 
 Error | Message | Description | Resolution
 :-----|:--------|:------------|:----------
@@ -291,7 +292,7 @@ should not run across these.
 Error | Message | Description | Resolution
 :-----|:--------|:------------|:----------
 `bad_mapper_props_no_keys` | | At least one property should be found by default. *Unused in Riak 1.3+* | Set mapper properties, or don't use it
-`bad_mapred_inputs` | | A bad value sent to MapReduce. *Unused in Riak 1.3+* | When using the Erlang client interface, ensure all MapReduce queries are correctly binary
+`bad_mapred_inputs` | | A bad value sent to MapReduce. *Unused in Riak 1.3+* | When using the Erlang client interface, ensure all MapReduce and search queries are correctly binary
 `bad_fetch` | | An expected local query was not retrievable.  *Unused in Riak 1.3+* | Placing javascript MapReduce query code as a riak value must first be stored before execution
 `{bad_filter, <Filter>}` | | An invalid keyfilter was used | Ensure your MapReduce keyfilter is correct
 `{dead_mapper, <Stacktrace>, <MapperData>}` | | Getting a reply from a mapper for a job that has already exited.  *Unused in Riak 1.3+* | Check for a stuck Erlang process, or if using legacy MR ensure `map_cache_size` is set (Both issues may require a node restart)
@@ -326,7 +327,7 @@ exit with reason bad return value: {error,eaddrinuse} in context start_error | A
 exited with reason: eaddrnotavail in gen_server:init_it/6 line 320 | An error like this example can result when Riak cannot bind to the addresses specified in the configuration. In this case, you should verify HTTP and Protocol Buffers addresses in `app.config` and ensure that the ports being used are not in the privileged (1-1024) range as the `riak` user will not have access to such ports.
 gen_server riak_core_capability terminated with reason: no function clause matching orddict:fetch('riak@192.168.2.2', []) line 72 | Error output like this example can indicate that a previously running Riak node with an original `-name` value in `vm.args` has been modified by simply changing the value in `vm.args` and not properly through `riak admin cluster replace`.
 ** Configuration error: [FRAMEWORK-MIB]: missing context.conf file => generating a default file | This error is commonly encountered when starting Riak Enterprise without prior [SNMP]({{<baseurl>}}riak/kv/3.0.4/using/reference/snmp) configuration.
-
+RPC to 'node@example.com' failed: {'EXIT', {badarg, [{ets,lookup, [schema_table,<<"search-example">>], []} {riak_search_config,get_schema,1, [{file,"src/riak_search_config.erl"}, {line,69}]} ...| This error can be caused when attempting to use Riak Search without first enabling it in each node's `app.config`. See the [configuration files][config reference] documentation for more information on enabling Riak Search.
 
 
 ### More

@@ -51,7 +51,7 @@ Usage: riak admin { cluster | join | leave | backup | restore | test |
                     aae-status | diag | stat | status | transfer-limit | reformat-indexes |
                     top [-interval N] [-sort reductions|memory|msg_q] [-lines N] |
                     downgrade-objects | security | bucket-type | repair-2i |
-                    services | ensemble-status | handoff | set |
+                    search | services | ensemble-status | handoff | set |
                     show | describe }
 ```
 
@@ -589,6 +589,59 @@ command:
 riak admin repair-2i kill
 ```
 
+## search
+
+The search command provides sub-commands for various administrative
+work related to the new Riak Search.
+
+```bash
+riak admin search <command>
+```
+
+### aae-status
+
+```bash
+riak admin search aae-status
+```
+
+Output active anti-entropy (AAE) statistics for search. There are
+three sections. Each section contains statistics for a specific aspect
+of AAE for every partition owned by the local node.
+
+The first section provides information on exchanges. Exchange is the
+process of comparing hash trees to determine divergences between KV
+data and search indexes. The `Index` column contains the partition
+number. The `Last (ago)` column is the amount of time that has passed
+since the last exchange. The `All (ago)` column is the amount of time
+that has passed since all preflists for that partition have been
+exchanged.
+
+The second section lists how much time has passed since the hashtree
+for that partition has been built from scratch. By default trees
+expire after 1 week and are rebuilt from scratch.
+
+The third section presents statistics on repair operations that have
+occurred. Repair is performed when AAE notices that the KV and search
+hashtree don't match for a particular key. The `Last` column is the
+number of keys repaired during the last exchange. The `Mean` column is
+the average number of keys repaired for all exchange rounds since the
+node has started. The `Max` column is the maximum number of keys
+repaired for a given exchange round since the node has started.
+
+### switch-to-new-search
+
+{{% note title="Only For Legacy Migration" %}}
+This is only needed when migrating from legacy riak search to the new Search
+(Yokozuna).
+{{% /note %}}
+
+```bash
+riak admin search switch-to-new-search
+```
+
+Switch handling of the HTTP `/solr/<index>/select` resource and
+protocol buffer query messages from legacy Riak Search to new Search
+(Yokozuna).
 
 ## services
 
@@ -635,6 +688,12 @@ parameters:
 * `transfer_limit`
 * `handoff.outbound`
 * `handoff.inbound`
+* `search.dist_query=off` will disable distributed query for the node
+* `search.dist_query=on` will enable distributed query for the node
+* `search.dist_query` will get the status of distributed query for the node
+
+The `search.dist_query` commands above are non-persistent. Any settings you have defined in your riak.conf configuration file will be used when Riak KV is restarted.
+
 
 ## show
 

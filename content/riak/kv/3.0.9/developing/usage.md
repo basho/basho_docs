@@ -50,6 +50,13 @@ Overview of content types and their usage.
 [Learn More >>](./content-types)
 
 
+#### [Using Search](./search)
+
+Tutorial on using search.
+
+[Learn More >>](./search)
+
+
 #### [Using MapReduce](./mapreduce)
 
 Guide to using MapReduce in applications.
@@ -76,6 +83,34 @@ Describes how to use bucket properties.
 Tutorial on pre-commit and post-commit hook functions.
 
 [Learn More >>](./commit-hooks)
+
+
+#### [Creating Search Schemas](./search-schemas)
+
+Step-by-step guide on creating and using custom search schemas.
+
+[Learn More >>](./search-schemas)
+
+
+#### [Searching with Data Types](./searching-data-types)
+
+Guide on using search with Data Types.
+
+[Learn More >>](./searching-data-types)
+
+
+#### [Implementing a Document Store](./document-store)
+
+Tutorial on using Riak KV as a document store.
+
+[Learn More >>](./document-store)
+
+
+#### [Custom Extractors](./custom-extractors)
+
+Details on creating and registering custom extractors with Riak Search.
+
+[Learn More >>](./custom-extractors)
 
 
 #### [Client-side Security](./security)

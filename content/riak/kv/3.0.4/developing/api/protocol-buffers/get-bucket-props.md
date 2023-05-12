@@ -74,6 +74,7 @@ message RpbBucketProps {
         TRUE = 3;
     }
     optional RpbReplMode repl = 24;
+    optional bytes search_index = 25;
     optional bytes datatype = 26;
     optional bool consistent = 27;
 }

@@ -50,6 +50,13 @@ Overview of content types and their usage.
 [Learn More >>](./content-types)
 
 
+#### [Using Search](./search)
+
+Tutorial on using search.
+
+[Learn More >>](./search)
+
+
 #### [Using MapReduce](./mapreduce)
 
 Guide to using MapReduce in applications.

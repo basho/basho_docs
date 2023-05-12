@@ -15,11 +15,14 @@ aliases:
   - /riak/kv/3.0.2/ops/advanced/security
 ---
 
+[config reference search]: {{<baseurl>}}riak/kv/3.0.2/configuring/reference/#search
+[config search enabling]: {{<baseurl>}}riak/kv/3.0.2/configuring/search/#enabling-riak-search
 [config v3 ssl]: {{<baseurl>}}riak/kv/3.0.2/configuring/v3-multi-datacenter/ssl
 [JMX]: http://www.oracle.com/technetwork/java/javase/tech/javamanagement-140525.html
 [security basics]: {{<baseurl>}}riak/kv/3.0.2/using/security/basics
 [security managing]: {{<baseurl>}}riak/kv/3.0.2/using/security/managing-sources/
 [Solr]: http://lucene.apache.org/solr/
+[usage search]: {{<baseurl>}}riak/kv/3.0.2/developing/usage/search
 
 > **Internal security**
 >
@@ -102,6 +105,19 @@ Protocol | Port
 :--------|:----
 <a href="../../developing/api/http">HTTP</a> | TCP port 8098
 <a href="../../developing/api/protocol-buffers">Protocol Buffers</a> | TCP port 8087
+
+### Riak Search Ports
+
+Riak's [search][usage search] feature relies on [Apache Solr][Solr], which runs
+on each Riak node if security has been [enabled][config search enabling]. When
+Riak's Search subsystem starts up, [JMX][JMX] opens a well-known port as well
+as some ephemeral ports. The well-known port is determined by the value of the
+`search.solr.jmx_port` in each node's [Search configuration][config reference search].
+The default is 8985.
+
+In addition to JMX ports, Solr also binds to a well-known port of its
+own, as determined by each node's `search.solr.port` setting, which is
+also located in each node's Search configuration. The default is 8093.
 
 # Riak Security Community
 

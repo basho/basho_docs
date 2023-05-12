@@ -21,6 +21,7 @@ aliases:
 [config strong consistency]: ../configuring/strong-consistency
 [config load balance]: ../configuring/load-balancing-proxy
 [config mapreduce]: ../configuring/mapreduce
+[config search]: ../configuring/search
 [config v3 mdc]: ../configuring/v3-multi-datacenter
 [config v2 mdc]: ../configuring/v2-multi-datacenter
 
@@ -68,6 +69,12 @@ A brief guide on commonly used load-balancing and proxy solutions.
 Tutorial on configuring and tuning MapReduce for a cluster.
 
 [Learn More >>][config mapreduce]
+
+#### [Search Settings][config search]
+
+Information on configuring and using Riak KV Search from an operational perspective.
+
+[Learn More >>][config search]
 
 #### [V3 Multi-Datacenter][config v3 mdc]
 

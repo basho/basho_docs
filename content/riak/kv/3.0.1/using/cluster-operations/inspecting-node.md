@@ -296,6 +296,7 @@ Stat                    | Description
 `erlydtl_version`       | [ErlyDTL](http://github.com/erlydtl/erlydtl)
 `riak_control_version`  | [Riak Control](http://github.com/basho/riak_control)
 `cluster_info_version`  | [Cluster Information](http://github.com/basho/cluster_info)
+`riak_search_version`   | [Riak Search](http://github.com/basho/riak_search)
 `merge_index_version`   | [Merge Index](http://github.com/basho/merge_index)
 `riak_kv_version`       | [Riak KV](http://github.com/basho/riak_kv)
 `sidejob_version`       | [Sidejob](http://github.com/basho/sidejob)
@@ -321,6 +322,20 @@ Stat                    | Description
 `syntax_tools_version`  | [Erlang Syntax Tools](http://www.erlang.org/doc/apps/syntax_tools/)
 `stdlib_version`        | [Standard Library](http://erlang.org/doc/apps/stdlib/)
 `kernel_version`        | [Kernel](http://erlang.org/doc/apps/kernel/)
+
+### Riak Search Statistics
+
+The following statistics related to Riak Search message queues are
+available.
+
+Stat                         | Description
+-----------------------------|---------------------------------------------------
+`riak_search_vnodeq_max`     | Maximum number of unprocessed messages all virtual node (vnode) message queues in the Riak Search subsystem have received on this node in the last minute
+`riak_search_vnodeq_mean`    | Mean number of unprocessed messages all vnode message queues in the Riak Search subsystem have received on this node in the last minute
+`riak_search_vnodeq_median`  | Median number of unprocessed messages all vnode message queues in the Riak Search subsystem have received on this node in the last minute
+`riak_search_vnodeq_min`     | Minimum number of unprocessed messages all vnode message queues in the Riak Search subsystem have received on this node in the last minute
+`riak_search_vnodeq_total`   | Total number of unprocessed messages all vnode message queues in the Riak Search subsystem have received on this node since it was started
+`riak_search_vnodes_running` | Total number of vnodes currently running in the Riak Search subsystem
 
 Note that under ideal operation and with the exception of
 `riak_search_vnodes_running` these statistics should contain low values
@@ -433,6 +448,7 @@ Check | Description
 `ring_membership` | Cluster membership validity
 `ring_preflists` | Check if the ring satisfies `n_val`
 `ring_size` | Check if the ring size valid
+`search` | Check whether Riak Search is enabled on all nodes
 
 The `--level` flag enables you to specify the log level and thus to
 filter messages based on type. You can pass in any of the message types

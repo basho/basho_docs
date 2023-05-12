@@ -22,6 +22,7 @@ aliases:
 [plan index]: {{<baseurl>}}riak/kv/3.0.9/setup/planning
 [perf open files]: {{<baseurl>}}riak/kv/3.0.9/using/performance/open-files-limit
 [install debian & ubuntu]: {{<baseurl>}}riak/kv/3.0.9/setup/installing/debian-ubuntu
+[usage search]: {{<baseurl>}}riak/kv/3.0.9/developing/usage/search
 [getting started]: {{<baseurl>}}riak/kv/3.0.9/developing/getting-started
 [dev client libraries]: {{<baseurl>}}riak/kv/3.0.9/developing/client-libraries
 
@@ -67,8 +68,9 @@ If you are looking to integrate Riak KV with your existing tools, check out the 
 
 1. [Open Files Limit][perf open files]
 2. [Installing on Debian-Ubuntu][install debian & ubuntu]
-3. [Developing with Riak KV: Getting Started][getting started]
-4. [Developing with Riak KV: Client Libraries][dev client libraries]
+3. [Developing with Riak KV: Searching][usage search]
+4. [Developing with Riak KV: Getting Started][getting started]
+5. [Developing with Riak KV: Client Libraries][dev client libraries]
 
 
 

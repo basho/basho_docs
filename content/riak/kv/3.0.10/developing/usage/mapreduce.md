@@ -16,6 +16,7 @@ aliases:
 ---
 
 [usage 2i]: {{<baseurl>}}riak/kv/3.0.10/developing/usage/secondary-indexes
+[usage search]: {{<baseurl>}}riak/kv/3.0.10/developing/usage/search
 [usage types]: {{<baseurl>}}riak/kv/3.0.10/developing/usage/bucket-types
 [api http]: {{<baseurl>}}riak/kv/3.0.10/developing/api/http
 [api pb]: {{<baseurl>}}riak/kv/3.0.10/developing/api/protocol-buffers
@@ -41,7 +42,8 @@ transferring a potentially huge dataset to a client algorithm.
 You can use MapReduce for things like: filtering documents by
 tags, counting words in documents, and extracting links to related data.
 In Riak KV, MapReduce is one method for querying that is not strictly based
-on key querying, alongside [secondary indexes][usage 2i]. MapReduce jobs can be submitted through the
+on key querying, alongside [secondary indexes][usage 2i]
+and [search][usage search]. MapReduce jobs can be submitted through the
 [HTTP API][api http] or the [Protocol Buffers API][api pb], although we
 strongly recommend using the Protocol Buffers API for performance
 reasons.
@@ -58,7 +60,7 @@ reasons.
 * When you know the set of objects over which you want to MapReduce
   (i.e. the locations of the objects, as specified by [bucket type][usage types], bucket, and key)
 * When you want to return actual objects or pieces of objects and not
-  just the keys. [Secondary indexes][usage 2i] is another means of returning objects based on
+  just the keys. [Search][usage search] and [secondary indexes][usage 2i] are other means of returning objects based on
   non-key-based queries, but they only return lists of keys and not
   whole objects.
 * When you need the utmost flexibility in querying your data. MapReduce

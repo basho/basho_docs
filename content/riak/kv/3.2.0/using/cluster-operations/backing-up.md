@@ -62,6 +62,7 @@ LevelDB | `/var/lib/riak/leveldb`
 Ring | `/var/lib/riak/ring`
 Configuration | `/etc/riak`
 Cluster Metadata | `/var/lib/riak/cluster_meta`
+Search | `/var/lib/riak/yz`
 Strong consistency | `/var/lib/riak/ensembles`
 
 #### Fedora and RHEL
@@ -73,6 +74,7 @@ LevelDB | `/var/lib/riak/leveldb`
 Ring | `/var/lib/riak/ring`
 Configuration | `/etc/riak`
 Cluster Metadata | `/var/lib/riak/cluster_meta`
+Search | `/var/lib/riak/yz`
 Strong consistency | `/var/lib/riak/ensembles`
 
 #### FreeBSD
@@ -84,6 +86,7 @@ LevelDB | `/var/db/riak/leveldb`
 Ring | `/var/db/riak/ring`
 Configuration | `/usr/local/etc/riak`
 Cluster Metadata | `/var/db/riak/cluster_meta`
+Search | `/var/db/riak/yz`
 Strong consistency | `/var/db/riak/ensembles`
 
 #### OS X
@@ -95,6 +98,7 @@ LevelDB | `./data/leveldb`
 Ring | `./data/riak/ring`
 Configuration | `./etc`
 Cluster Metadata | `./data/riak/cluster_meta`
+Search | `./data/riak/yz`
 Strong consistency | `./data/ensembles`
 
 **Note**: OS X paths are relative to the directory in which the package
@@ -109,6 +113,7 @@ LevelDB | `/var/db/riak/leveldb`
 Ring | `/var/db/riak/ring`
 Configuration | `/opt/local/etc/riak`
 Cluster Metadata | `/var/db/riak/cluster_meta`
+Search | `/var/db/riak/yz`
 Strong consistency | `/var/db/riak/ensembles`
 
 #### Solaris
@@ -120,6 +125,7 @@ LevelDB | `/opt/riak/data/leveldb`
 Ring | `/opt/riak/ring`
 Configuration | `/opt/riak/etc`
 Cluster Metadata | `/opt/riak/cluster_meta`
+Search | `/opt/riak/yz`
 Strong consistency | `/opt/riak/data/ensembles`
 
 ## Performing Backups
@@ -159,6 +165,13 @@ tar -czf /mnt/riak_backups/riak_data_`date +%Y%m%d_%H%M`.tar.gz \
 ```bash
 tar -czf /mnt/riak_backups/riak_data_`date +%Y%m%d_%H%M`.tar.gz \
   /var/lib/riak/cluster_meta
+```
+
+### Search / Solr Data
+
+```bash
+tar -czf /mnt/riak_backups/riak_data_`date +%Y%m%d_%H%M`.tar.gz \
+  /var/lib/riak/yz
 ```
 
 ### Strong Consistency Data

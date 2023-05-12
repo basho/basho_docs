@@ -53,6 +53,34 @@ debugging information will be output.</td>
 <td><code>active</code></td>
 </tr>
 
+<tr>
+<td><code>search.anti_entropy.throttle</code></td>
+<td>Whether the distributed throttle for Active Anti-Entropy is
+enabled.</td>
+<td><code>on</code></td>
+</tr>
+
+<tr>
+<td><code>search.anti_entropy.throttle.$tier.solrq_queue_length</code></td>
+<td>Sets the throttling tiers for Active Anti-Entropy. Each tier is a
+minimum vnode mailbox size and a time-delay that the throttle should
+observe at that size and above. For example,
+<cod>anti_entropy.throttle.tier1.mailbox_size = 0</code>,
+<code>anti_entropy.throttle.tier1.delay = 0ms</code>,
+<code>anti_entropy.throttle.tier2.mailbox_size = 40</code>,
+<code>anti_entropy.throttle.tier2.delay = 5ms</code>, etc. If
+configured, there must be a tier which includes a mailbox size of 0.
+Both <code>.mailbox_size</code> and <code>.delay</code> must be set for
+each tier.</td>
+<td></td>
+</tr>
+
+<tr>
+<td><code>search.anti_entropy.throttle.$tier.delay</code></td>
+<td>See the description for
+<code>anti_entropy.throttle.$tier.mailbox_size</code> above.</td>
+<td></td>
+</tr>
 
 <tr>
 <td><code>anti_entropy.bloomfilter</code></td>

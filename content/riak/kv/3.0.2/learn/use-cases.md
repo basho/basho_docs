@@ -28,6 +28,7 @@ aliases:
 [plan backend bitcask]: {{<baseurl>}}riak/kv/3.0.2/setup/planning/backend/bitcask
 [replication properties]: {{<baseurl>}}riak/kv/3.0.2/developing/app-guide/replication-properties
 [usage mapreduce]: {{<baseurl>}}riak/kv/3.0.2/developing/usage/mapreduce
+[usage search]: {{<baseurl>}}riak/kv/3.0.2/developing/usage/search
 [usage secondary-indexes]: {{<baseurl>}}riak/kv/3.0.2/developing/usage/secondary-indexes
 
 Riak is a flexible data storage technology capable of addressing a wide variety
@@ -41,7 +42,7 @@ How you structure your application to run on Riak should take into account the
 unique needs of your use case, including access patterns such as read/write
 distribution, latency differences between various operations, use of Riak
 features including [Data Types][dev data types], [MapReduce][usage mapreduce],
-[secondary indexes (2i)][usage secondary-indexes], and
+[Search][usage search], [secondary indexes (2i)][usage secondary-indexes], and
 more. This guide is intended to be illustrative only.
 
 ## High Read/Write, Simple Applications
@@ -160,7 +161,7 @@ For storing log data from different systems, you could use unique buckets for
 each system (e.g. `system1_log_data`, `system2_log_data`, etc.) and write
 associated logs to the corresponding buckets. To analyze that data, you could
 use Riak's MapReduce system for aggregation tasks, such as summing the counts of
-records for a date.
+records for a date or Riak Search for a more robust, text-based queries.
 
 ### Log Data Complex Case
 
