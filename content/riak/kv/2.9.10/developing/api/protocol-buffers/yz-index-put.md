@@ -10,6 +10,8 @@ menu:
     weight: 121
     parent: "apis_pbc"
 toc: true
+version_history:
+  in: "2.0.0-2.9.10"
 aliases:
   - /riak/2.9.10/dev/references/protocol-buffers/yz-index-put
   - /riak/kv/2.9.10/dev/references/protocol-buffers/yz-index-put

@@ -10,6 +10,8 @@ menu:
     weight: 109
     parent: "apis_pbc"
 toc: true
+version_history:
+  in: "2.0.0-2.9.10"
 aliases:
   - /riak/2.9.9/dev/references/protocol-buffers/search
   - /riak/kv/2.9.9/dev/references/protocol-buffers/search

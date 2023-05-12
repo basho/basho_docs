@@ -2,7 +2,7 @@
 layout: latest_redirect
 project: riak_kv
 replace_text: latest
-latest_text: "{2.9.7}"
+latest_text: "2.9.7"
 aliases:
   - "/riak/latest/developing/api/protocol-buffers/yz-index-delete/"
   - "/riakkv/latest/developing/api/protocol-buffers/yz-index-delete/"

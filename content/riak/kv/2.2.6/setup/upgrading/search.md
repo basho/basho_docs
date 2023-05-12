@@ -12,6 +12,8 @@ menu:
 toc: true
 version_history:
   in: "2.0.0-2.99.999"
+version_history:
+  in: "2.0.0-2.9.10"
 aliases:
   - /riak/2.2.6/ops/advanced/upgrading-search-2
   - /riak/kv/2.2.6/ops/advanced/upgrading-search-2

@@ -10,6 +10,8 @@ menu:
     weight: 111
     parent: "developing_usage"
 toc: true
+version_history:
+  in: "2.0.0-2.9.10"
 aliases:
   - /riak/2.9.9/dev/search/search-data-types
   - /riak/kv/2.9.9/dev/search/search-data-types

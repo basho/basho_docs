@@ -10,6 +10,8 @@ menu:
     weight: 123
     parent: "apis_pbc"
 toc: true
+version_history:
+  in: "2.0.0-2.9.10"
 aliases:
   - /riak/2.2.0/dev/references/protocol-buffers/yz-schema-get
   - /riak/kv/2.2.0/dev/references/protocol-buffers/yz-schema-get

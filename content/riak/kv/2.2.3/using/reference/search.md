@@ -10,6 +10,8 @@ menu:
     weight: 109
     parent: "managing_ref"
 toc: true
+version_history:
+  in: "2.0.0-2.9.10"
 aliases:
   - /riak/2.2.3/dev/advanced/search
   - /riak/kv/2.2.3/dev/advanced/search
