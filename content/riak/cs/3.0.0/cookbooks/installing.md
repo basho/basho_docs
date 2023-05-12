@@ -113,7 +113,7 @@ Platform-specific pages are linked below:
 #### dpkg Installation
 
 For the simplest installation process on LTS (Long-Term Support)
-releases, use `dpkg -i` after downloading the appropriate package for your OS.. 
+releases, use `dpkg -i` after downloading the appropriate package for your OS.
 
 Now install the `riak-cs` package:
 
