@@ -217,7 +217,7 @@ On FreeBSD and Alpine, Riak CS packages are hosted on
 Platform-specific pages are linked below:
 
 * [FreeBSD 13](https://files.tiot.jp/riak/cs/3.0/3.0.0/freebsd/13/riak-cs_3.0.0-OTP22.pkg)
-* [Alpine 3.14](https://files.tiot.jp/riak/cs/3.0/3.0.0/alpine/3.14/riak-cs_3.0.0-r0.apk)
+* [Alpine 3.14](https://files.tiot.jp/riak/cs/3.0/3.0.0/alpine/3.14/riak-cs-3.0.0-r0.apk)
 
 
 #### pkg Installation (FreeBSD)
