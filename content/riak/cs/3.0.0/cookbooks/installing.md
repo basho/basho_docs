@@ -268,7 +268,7 @@ details can be found in [Specifying the Stanchion Node]({{<baseurl>}}riak/cs/3.0
 
 ### Installing Stanchion on Mac OS X
 
-First, download the appropriate package from the [downloads]({{<baseurl>}}riak/cs/3.0.0/downloads/#stanchion-1-4-3) page.
+First, download the appropriate package from the [downloads]({{<baseurl>}}riak/cs/3.0.0/downloads/#stanchion-3-0-0) page.
 
 ```bash
 curl -O https://files.tiot.jp/riak/stanchion/3.0/3.0.0/ubuntu/focal64/riak-cs_3.0.0-OTP22.tar.gz
