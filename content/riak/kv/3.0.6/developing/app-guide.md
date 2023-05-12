@@ -26,8 +26,6 @@ aliases:
 [dev data types#sets]: {{<baseurl>}}riak/kv/3.0.6/developing/data-types/#sets
 [dev data types#maps]: {{<baseurl>}}riak/kv/3.0.6/developing/data-types/#maps
 [usage create objects]: {{<baseurl>}}riak/kv/3.0.6/developing/usage/creating-objects
-[usage search]: {{<baseurl>}}riak/kv/3.0.6/developing/usage/search
-[use ref search]: {{<baseurl>}}riak/kv/3.0.6/using/reference/search
 [usage 2i]: {{<baseurl>}}riak/kv/3.0.6/developing/usage/secondary-indexes
 [dev client libraries]: {{<baseurl>}}riak/kv/3.0.6/developing/client-libraries
 [concept crdts]: {{<baseurl>}}riak/kv/3.0.6/learn/concepts/crdts
@@ -146,49 +144,6 @@ of features that may be just what you're looking for. In the sections
 immediately below, you can find brief descriptions of those features as
 well as relevant links to Basho documentation.
 
-## Search
-
-Riak Search provides you with [Apache
-Solr](http://lucene.apache.org/solr/)-powered full-text indexing and
-querying on top of the scalability, fault tolerance, and operational
-simplicity of Riak. Our motto for Riak Search: **Write it like Riak.
-Query it like Solr**. That is, you can store objects in Riak [like normal][usage create objects] and run full-text queries on those objects later on
-using the Solr API.
-
-* [Using Search][usage search] - Getting started with Riak Search
-* [Search Details][use ref search] - A detailed overview of the concepts and design
-  consideration behind Riak Search
-* [Search Schema][usage search schema] - How to create custom schemas for extracting data
-  from Riak Search
-
-### When to Use Search
-
-* **When you need a rich querying API** - Riak Search gives you access
-  to the entirety of [Solr](http://lucene.apache.org/solr/)'s extremely
-  broad API, which enables you to query on the basis of wildcards,
-  strings, booleans, geolocation, ranges, language-specific fulltext,
-  and far more. You can even use Search in conjunction with [Riak Data Types][dev data types] \(documentation coming soon).
-
-> **Search is preferred for querying**
->
-> In general, you should consider Search to be the default choice for
-nearly all querying needs that go beyond basic CRUD/KV operations. If
-your use case demands some sort of querying mechanism and you're in
-doubt about what to use, you should assume that Search is the right tool
-for you.
-
-### When Not to Use Search
-
-* **When deep pagination is needed** - At the moment, you should
-    consider [secondary indexes][usage 2i] instead of
-    Search if your use case requires deep pagination. This will be
-    changed, however, in a future release of Riak, at which point you
-    should consider Search the default choice for _all_ querying needs.
-* **In large clusters** - In clusters larger than 8-10 nodes, you may
-    experience slower performance when using Search. In clusters of that
-    size, we would recommend using Search in a limited fashion, setting
-    up a separate, dedicated cluster for Search data, or finding another
-    solution.
 
 ## Riak Data Types
 
@@ -213,12 +168,6 @@ own.
   with implementation details
 * [Data Modeling with Riak Data Types][dev data model] - An object modeling example that relies on Riak Data Types.
 
-> **Note**:
->
-> Riak Data Types can be used in conjunction with Riak Search,
-meaning that the data stored in counters, sets, and maps can be indexed
-and searched just like any other data in Riak. Documentation on Data
-Types and Search is coming soon.
 
 ### When to Use Riak Data Types
 
@@ -279,13 +228,13 @@ or you can write and run your own MapReduce jobs in
 ### When Not to Use MapReduce
 
 * **When another Riak feature will do** - Before even considering
-  using MapReduce, you should thoroughly investigate [Riak Search][usage search] or [secondary indexes][usage 2i] as possible
+  using MapReduce, you should thoroughly investigate [secondary indexes][usage 2i] as possible
   solutions to your needs.
 
 In general, you should not think of MapReduce as, for example, Hadoop
 within Riak. While it can be useful for certain types of
 non-primary-key-based queries, it is neither a "Big Data" processing
-tool nor an indexing mechanism nor a replacement for [Riak Search][usage search]. If you do need a tool like Hadoop or Apache Spark, you should
+tool nor an indexing mechanism. If you do need a tool like Hadoop or Apache Spark, you should
 consider using Riak in conjunction with a more suitable data processing
 tool.
 
@@ -295,27 +244,15 @@ Using basic key/value operations in Riak sometimes leads to the
 following problem: how do I know which keys I should look for? Secondary
 indexes (2i) provide a solution to this problem, enabling you to tag
 objects with either binary or integer metadata and then query Riak for
-all of the keys that share specific tags. 2i is especially useful if
-you're storing binary data that is opaque to features like [Riak Search][usage search].
+all of the keys that share specific tags.
 
 * [Using Secondary Indexes][usage 2i] - A general guide to using 2i, along
   with code samples and information on 2i features like pagination,
   streaming, and sorting
 * [Advanced Secondary Indexes][use ref 2i] - Implementation details behind 2i
 
-### When to Use Secondary Indexes
-
-* **When you require deep pagination** - At the moment, 2i's
-    deep pagination capabilities are more performant than those offered
-    by Search if you require pagination of more than 3-5 pages. This
-    will change, however, in the future, at which point we will
-    recommend using Search instead.
-
 ### When Not to Use Secondary Indexes
 
-* **For most querying purposes** - If your use case does not
-    involve deep pagination, we recommend Search over 2i for _all_
-    querying purposes.
 * **If you're using Bitcask** - 2i is available only in the
     [LevelDB][plan backend leveldb] backend. If you'd like to use [Bitcask][plan backend bitcask] or the [Memory][plan backend memory] backend, you will not be able to use 2i.
 
@@ -324,7 +261,7 @@ you're storing binary data that is opaque to features like [Riak Search][usage s
 One thing to always bear in mind is that Riak enables you to mix and
 match a wide variety of approaches in a single cluster. You can use
 basic CRUD operations for some of your data, index some of your data to
-be queried by Riak Search, use Riak Data Types for another subset, etc.
+use Riak Data Types for another subset, etc.
 You are always free to use a wide array of Riak features---or you can
 use none at all and stick to key/value operations.
 

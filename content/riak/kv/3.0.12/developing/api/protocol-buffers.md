@@ -91,13 +91,6 @@ Code | Message |
 51 | `RpbCounterUpdateResp` |
 52 | `RpbCounterGetReq` |
 53 | `RpbCounterGetResp` |
-54 | `RpbYokozunaIndexGetReq` |
-55 | `RpbYokozunaIndexGetResp` |
-56 | `RpbYokozunaIndexPutReq` |
-57 | `RpbYokozunaIndexPutResp` |
-58 | `RpbYokozunaSchemaGetReq` |
-59 | `RpbYokozunaSchemaGetResp` |
-60 | `RpbYokozunaSchemaPutReq` |
 80 | `DtFetchReq` |
 81 | `DtFetchResp` |
 82 | `DtUpdateReq` |
@@ -155,7 +148,6 @@ message RpbErrorResp {
 
 * [PBC MapReduce]({{<baseurl>}}riak/kv/3.0.12/developing/api/protocol-buffers/mapreduce)
 * [PBC Secondary Indexes]({{<baseurl>}}riak/kv/3.0.12/developing/api/protocol-buffers/secondary-indexes)
-* [PBC Search]({{<baseurl>}}riak/kv/3.0.12/developing/api/protocol-buffers/search)
 
 ## Server Operations
 
@@ -176,13 +168,6 @@ message RpbErrorResp {
 * [PBC Data Type Set Store]({{<baseurl>}}riak/kv/3.0.12/developing/api/protocol-buffers/dt-set-store)
 * [PBC Data Type Map Store]({{<baseurl>}}riak/kv/3.0.12/developing/api/protocol-buffers/dt-map-store)
 
-## Yokozuna Operations
-
-* [PBC Yokozuna Index Get]({{<baseurl>}}riak/kv/3.0.12/developing/api/protocol-buffers/yz-index-get)
-* [PBC Yokozuna Index Put]({{<baseurl>}}riak/kv/3.0.12/developing/api/protocol-buffers/yz-index-put)
-* [PBC Yokozuna Index Delete]({{<baseurl>}}riak/kv/3.0.12/developing/api/protocol-buffers/yz-index-delete)
-* [PBC Yokozuna Schema Get]({{<baseurl>}}riak/kv/3.0.12/developing/api/protocol-buffers/yz-schema-get)
-* [PBC Yokozuna Schema Put]({{<baseurl>}}riak/kv/3.0.12/developing/api/protocol-buffers/yz-schema-put)
 
 
 

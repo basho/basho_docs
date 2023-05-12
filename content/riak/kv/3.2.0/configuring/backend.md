@@ -23,14 +23,6 @@ aliases:
 
 Configurable parameters for Riak's [LevelDB][plan backend leveldb] storage backend.
 
-> **Note on upgrading to 2.0**
->
-> If you are upgrading to Riak 2.0+ from a 1.x version, using LevelDB, and
-wish to use your old configuration files, i.e. `app.config` and
-`vm.args`, please note that you must set the `total_leveldb_mem_percent`
-setting in the `eleveldb` section of `app.config`. We recommend setting
-it to `70`. If you do not set this parameter, it will default to 15,
-which can lead to problems in some clusters.
 
 <table class="riak-conf">
 <thead>
@@ -315,6 +307,7 @@ when values are unlikely to yield much benefit from compression(compression is o
 <td>Enable the `recalc` compaction strategy within the leveled backend in riak.</td>
 <td><code>disabled</code></td>
 </tr>
+</table>
 
 ## Bitcask
 

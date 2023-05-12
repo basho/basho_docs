@@ -45,7 +45,6 @@ aliases:
 [Riak Pipe - Riak's Distributed Processing Framework]: http://vimeo.com/53910999
 [Understanding Riak's Configurable Behaviors]: http://basho.com/riaks-config-behaviors-part-2/
 [usage mapreduce]: {{<baseurl>}}riak/kv/3.0.10/developing/usage/mapreduce
-[usage search]: {{<baseurl>}}riak/kv/3.0.10/developing/usage/search
 [usage secondary-indexes]: {{<baseurl>}}riak/kv/3.0.10/developing/usage/secondary-indexes
 [Where To Start With Riak Core]: http://basho.com/where-to-start-with-riak-core/
 [Wikipedia:Consistent Hashing]: http://en.wikipedia.org/wiki/Consistent_hashing
@@ -273,14 +272,6 @@ best described as "UNIX pipes for Riak."
 * [Riak Pipe]
 * [Riak Pipe - the New MapReduce Power]
 * [Riak Pipe - Riak's Distributed Processing Framework]
-
-## Riak Search
-
-Riak Search is a distributed, scalable, failure-tolerant, realtime,
-full-text search engine integrating [Apache
-Solr](https://lucene.apache.org/solr/) with Riak KV.
-
-* [Using Search][usage search]
 
 ## Ring
 

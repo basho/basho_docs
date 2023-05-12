@@ -121,10 +121,6 @@ handoff.use_background_manager = on
 
 ### Maximum Rejects
 
-If you're using Riak features such as [Riak Search]({{<baseurl>}}riak/kv/3.0.12/developing/usage/search/),
-those subsystems can block handoff of primary key/value data, i.e. data
-that you interact with via normal reads and writes.
-
 The `handoff.max_rejects` setting enables you to set the maximum
 duration that a [vnode]({{<baseurl>}}riak/kv/3.0.12/learn/glossary/#vnode) can be blocked by multiplying the
 `handoff.max_rejects` setting by the value of

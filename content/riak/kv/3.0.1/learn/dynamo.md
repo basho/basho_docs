@@ -249,7 +249,6 @@ store objects that are relatively small (usually less than 1 MB).
 > 1. Standard key/value access (GET, PUT, DELETE)
 > 2. MapReduce querying
 > 3. Secondary Indexing
-> 4. Full-text Search
 >
 > Riak KV's realistic object size limit is around 5MB.
 

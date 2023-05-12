@@ -68,7 +68,7 @@ Guides on troubleshooting issues and current product advisories.
 
 #### [Reference][use ref]
 
-Articles providing background information and implementation details on topics such as logging, bucket types, and search.
+Articles providing background information and implementation details on topics such as logging, bucket types.
 
 [Learn More >>][use ref]
 

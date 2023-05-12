@@ -26,8 +26,6 @@ aliases:
 [dev data types#sets]: {{<baseurl>}}riak/kv/3.0.7/developing/data-types/#sets
 [dev data types#maps]: {{<baseurl>}}riak/kv/3.0.7/developing/data-types/#maps
 [usage create objects]: {{<baseurl>}}riak/kv/3.0.7/developing/usage/creating-objects
-[usage search]: {{<baseurl>}}riak/kv/3.0.7/developing/usage/search
-[use ref search]: {{<baseurl>}}riak/kv/3.0.7/using/reference/search
 [usage 2i]: {{<baseurl>}}riak/kv/3.0.7/developing/usage/secondary-indexes
 [dev client libraries]: {{<baseurl>}}riak/kv/3.0.7/developing/client-libraries
 [concept crdts]: {{<baseurl>}}riak/kv/3.0.7/learn/concepts/crdts
@@ -146,49 +144,6 @@ of features that may be just what you're looking for. In the sections
 immediately below, you can find brief descriptions of those features as
 well as relevant links to Basho documentation.
 
-## Search
-
-Riak Search provides you with [Apache
-Solr](http://lucene.apache.org/solr/)-powered full-text indexing and
-querying on top of the scalability, fault tolerance, and operational
-simplicity of Riak. Our motto for Riak Search: **Write it like Riak.
-Query it like Solr**. That is, you can store objects in Riak [like normal][usage create objects] and run full-text queries on those objects later on
-using the Solr API.
-
-* [Using Search][usage search] - Getting started with Riak Search
-* [Search Details][use ref search] - A detailed overview of the concepts and design
-  consideration behind Riak Search
-* [Search Schema][usage search schema] - How to create custom schemas for extracting data
-  from Riak Search
-
-### When to Use Search
-
-* **When you need a rich querying API** - Riak Search gives you access
-  to the entirety of [Solr](http://lucene.apache.org/solr/)'s extremely
-  broad API, which enables you to query on the basis of wildcards,
-  strings, booleans, geolocation, ranges, language-specific fulltext,
-  and far more. You can even use Search in conjunction with [Riak Data Types][dev data types] \(documentation coming soon).
-
-> **Search is preferred for querying**
->
-> In general, you should consider Search to be the default choice for
-nearly all querying needs that go beyond basic CRUD/KV operations. If
-your use case demands some sort of querying mechanism and you're in
-doubt about what to use, you should assume that Search is the right tool
-for you.
-
-### When Not to Use Search
-
-* **When deep pagination is needed** - At the moment, you should
-    consider [secondary indexes][usage 2i] instead of
-    Search if your use case requires deep pagination. This will be
-    changed, however, in a future release of Riak, at which point you
-    should consider Search the default choice for _all_ querying needs.
-* **In large clusters** - In clusters larger than 8-10 nodes, you may
-    experience slower performance when using Search. In clusters of that
-    size, we would recommend using Search in a limited fashion, setting
-    up a separate, dedicated cluster for Search data, or finding another
-    solution.
 
 ## Riak Data Types
 
@@ -213,12 +168,6 @@ own.
   with implementation details
 * [Data Modeling with Riak Data Types][dev data model] - An object modeling example that relies on Riak Data Types.
 
-> **Note**:
->
-> Riak Data Types can be used in conjunction with Riak Search,
-meaning that the data stored in counters, sets, and maps can be indexed
-and searched just like any other data in Riak. Documentation on Data
-Types and Search is coming soon.
 
 ### When to Use Riak Data Types
 
@@ -408,7 +357,7 @@ will help you get up and running:
 * [Client Libraries][dev client libraries] - A listing of official and non-official client
   libraries for building applications with Riak
 * [Getting Started with Client Libraries][getting started] - How to
-  get up and going with one of Basho's official client libraries (Java,
+  get up and going with one of Riak's official client libraries (Java,
   Ruby, Python, and Erlang)
 * [Developing with Riak KV: Usage][usage index] - A guide to basic key/value operations and other common tasks in Riak KV.
 * [Riak KV Glossary][glossary] - A listing of frequently used terms in Riak's

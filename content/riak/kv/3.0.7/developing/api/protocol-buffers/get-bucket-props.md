@@ -66,7 +66,6 @@ message RpbBucketProps {
     optional bool basic_quorum = 20;
     optional bool notfound_ok = 21;
     optional bytes backend = 22;
-    optional bool search = 23;
     enum RpbReplMode {
         FALSE = 0;
         REALTIME = 1;
