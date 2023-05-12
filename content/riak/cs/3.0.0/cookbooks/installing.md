@@ -23,7 +23,7 @@ You can install Riak CS on a single node (for development purposes) or
 using an automated deployment tool. Any Riak CS installation involves
 three components, all of which must be installed separately:
 
-* [Riak KV]({{<baseurl>}}riak/kv/2.1.4/) --- The distributed database on top of which Riak CS 
+* [Riak KV]({{<baseurl>}}riak/kv/3.0.9/) --- The distributed database on top of which Riak CS 
 is built
 * Riak CS itself
 * [Stanchion]({{<baseurl>}}riak/cs/3.0.0/theory/stanchion) --- An application used to manage [globally unique entities]({{<baseurl>}}riak/cs/3.0.0/theory/stanchion/#globally-unique-entities) such as users and buckets.
@@ -41,18 +41,18 @@ Before installing Riak CS, Riak KV must be installed on each node in
 your cluster. You can install Riak KV either as part of an OS-specific package
 or from source.
 
-  * [Debian and Ubuntu]({{<baseurl>}}riak/kv/2.1.4/setup/installing/debian-ubuntu)
-  * [RHEL and CentOS]({{<baseurl>}}riak/kv/2.1.4/setup/installing/rhel-centos)
-  * [Mac OS X]({{<baseurl>}}riak/kv/2.1.4/setup/installing/mac-osx)
-  * [FreeBSD]({{<baseurl>}}riak/kv/2.1.4/setup/installing/freebsd)
-  * [SUSE]({{<baseurl>}}riak/kv/2.1.4/setup/installing/suse)
-  * [From Source]({{<baseurl>}}riak/kv/2.1.4/setup/installing/source)
+  * [Debian and Ubuntu]({{<baseurl>}}riak/kv/3.0.9/setup/installing/debian-ubuntu)
+  * [RHEL and CentOS]({{<baseurl>}}riak/kv/3.0.9/setup/installing/rhel-centos)
+ <!-- * [Mac OS X]({{<baseurl>}}riak/kv/3.0.9/setup/installing/mac-osx) -->
+  * [FreeBSD]({{<baseurl>}}riak/kv/3.0.9/setup/installing/freebsd)
+<!--  * [SUSE]({{<baseurl>}}riak/kv/3.0.9/setup/installing/suse) -->
+  * [From Source]({{<baseurl>}}riak/kv/3.0.9/setup/installing/source)
 
 Riak is also officially supported on the following public cloud
 infrastructures:
 
-  * [Windows Azure]({{<baseurl>}}riak/kv/2.1.4/setup/installing/windows-azure)
-  * [AWS Marketplace]({{<baseurl>}}riak/kv/2.1.4/setup/installing/amazon-web-services)
+  * [Windows Azure]({{<baseurl>}}riak/kv/3.0.9/setup/installing/windows-azure)
+  * [AWS Marketplace]({{<baseurl>}}riak/kv/3.0.9/setup/installing/amazon-web-services)
 
 Remember that you must repeat this installation process on each node in
 your cluster. For future reference, you should make note of the Riak KV
@@ -64,7 +64,7 @@ documentation on [configuring Riak KV for CS]({{<baseurl>}}riak/cs/3.0.0/cookboo
 ## Installing Riak CS on a Node
 
 Riak CS and Stanchion packages are available on the [Download Riak CS]({{<baseurl>}}riak/cs/3.0.0/downloads/)
-page. Similarly, Riak packages are available on the [Download Riak KV]({{<baseurl>}}riak/kv/2.1.4/downloads/) page.
+page. Similarly, Riak packages are available on the [Download Riak KV]({{<baseurl>}}riak/kv/3.0.9/downloads/) page.
 
 After downloading Riak CS, Stanchion, and Riak, install them using your
 operating system's package management commands.
@@ -76,13 +76,14 @@ it should not be operated in a manner that exposes it directly to the
 public internet**. Instead, consider a load-balancing solution
 such as a dedicated device [HAProxy](http://haproxy.1wt.eu) or [Nginx](http://wiki.nginx.org/Main) between Riak CS and the outside world.
 
+<!--
 ### Installing Riak CS on Mac OS X
 
 To install Riak CS on OS X, first download the appropriate package from
 the [downloads]({{<baseurl>}}riak/cs/3.0.0/downloads) page:
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/riak-cs/1.5/3.0.0/osx/10.8/riak-cs-3.0.0-OSX-x86_64.tar.gz
+curl -O https://files.tiot.jp/riak/cs/3.0/3.0.0/osx/10.8/riak-cs-3.0.0-OSX-x86_64.tar.gz
 ```
 
 Then, unpack the downloaded tarball:
@@ -92,111 +93,49 @@ tar -xvzf riak-cs-3.0.0-OSX-x86_64.tar.gz
 ```
 
 At this point, you can move on to [configuring Riak CS]({{<baseurl>}}riak/cs/3.0.0/cookbooks/configuration/riak-cs/).
-
+-->
 ### Installing Riak CS on Debian or Ubuntu
 
-On Debian and Ubuntu, Riak CS packages are hosted on
-[packagecloud.io](https://packagecloud.io/basho/riak-cs). Instructions
-for installing via shell scripts, manual installation, Chef, and Puppet
-can be found in packagecloud's [installation docs](https://packagecloud.io/basho/riak/install).
+On Debian and Ubuntu, Riak CS packages are also hosted on
+[files.tiot.jp](https://files.tiot.jp/riak/cs/3.0/3.0.0/). 
 
 Platform-specific pages are linked below:
 
-* [Lucid](https://packagecloud.io/basho/riak-cs/riak-cs_3.0.0-1_amd64.deb?distro=lucid)
-* [Precise](https://packagecloud.io/basho/riak-cs/riak-cs_3.0.0-1_amd64.deb?distro=precise)
-* [Squeeze](https://packagecloud.io/basho/riak-cs/riak-cs_3.0.0-1_amd64.deb?distro=squeeze)
-* [Trusty](https://packagecloud.io/basho/riak-cs/riak-cs_3.0.0-1_amd64.deb?distro=trusty)
-* [Wheezy](https://packagecloud.io/basho/riak-cs/riak-cs_3.0.0-1_amd64.deb?distro=wheezy)
+* [Focal](https://files.tiot.jp/riak/cs/3.0/3.0.0/ubuntu/focal64/riak-cs_3.0.0-OTP22_amd64.deb)
+* [Jammy](https://files.tiot.jp/riak/cs/3.0/3.0.0/ubuntu/jammy64/riak-cs_3.0.0-OTP22_amd64.deb)
+* [Stretch](https://files.tiot.jp/riak/cs/3.0/3.0.0/debian/9/riak-cs_3.0.0-OTP22_amd64.deb)
+* [Buster](https://files.tiot.jp/riak/cs/3.0/3.0.0/debian/10/riak-cs_3.0.0-OTP22_amd64.deb)
+* [Bullseye](https://files.tiot.jp/riak/cs/3.0/3.0.0/debian/11/riak-cs_3.0.0-OTP22_amd64.deb)
 
-#### Advanced apt Installation
+
+#### dpkg Installation
 
 For the simplest installation process on LTS (Long-Term Support)
-releases, use `apt-get`. First, you must retrieve the signing key:
-
-```curl
-curl https://packagecloud.io/gpg.key | sudo apt-key add -
-```
-
-Second, you must install the `apt-transport-https` package in order to
-be able to fetch packages over HTTPS:
-
-```curl
-sudo apt-get install -y apt-transport-https
-```
-
-With HTTPS enabled, we recommend adding the desired Riak CS package to
-your `.list` file. packagecloud can autogenerate such a file on the
-basis of a name that you specify, e.g. a hostname, and the desired
-operating system and distribution. The following example script would
-store your hostname in the variable `HOSTNAME`, send that information to
-packagecloud to autogenerate a `.list` file, and then store the return
-value in a file called `basho.list`, which is stored in the
-`/etc/apt/sources.list.d` directory. This example script is specific to
-the Precise Ubuntu distribution:
-
-```bash
-#!/bin/bash
-
-HOSTNAME=`hostname -f`
-FILENAME=/etc/apt/sources.list.d/basho.list
-OS=ubuntu
-DIST=precise
-PACKAGE_CLOUD_RIAK_CS_DIR=https://packagecloud.io/install/repositories/basho/riak-cs
-curl "${PACKAGE_CLOUD_RIAK_CS_DIR}/config_file.list?os=${OS}&dist=${DIST}&name=${HOSTNAME}" > $FILENAME
-```
-
-The `name` that you submit to packagecloud can be anything you like. The
-`HOSTNAME` used above was for example purposes. The resulting file
-should hold contents like the following:
-
-```
-# this file was generated by packagecloud.io for
-# the repository at https://packagecloud.io/basho/riak
-
-deb https://packagecloud.io/basho/riak-cs/ubuntu/ precise main
-deb-src https://packagecloud.io/basho/riak-cs/ubuntu/ precise main
-```
-
-With your `basho.list` file populated, you can update your apt sources
-list:
-
-```bash
-sudo apt-get update
-```
+releases, use `dpkg -i` after downloading the appropriate package for your OS.. 
 
 Now install the `riak-cs` package:
 
 ```bash
-sudo apt-get install riak-cs
+sudo dpkg -i riak-cs_3.0.0-OTP22_amd64.deb
 ```
 
 ### Installing Riak CS on RHEL or CentOS
 
 
 On RHEL or CentOS, Riak CS packages are hosted on
-[packagecloud.io](https://packagecloud.io/basho/riak-cs). Instructions
-for installing via shell scripts, manual installation, Chef, and Puppet
-can be found in packagecloud's [installation
-docs](https://packagecloud.io/basho/riak-cs/install).
+[files.tiot.jp](https://files.tiot.jp/riak/cs/3.0/3.0.0/). 
 
 Platform-specific pages are linked below:
 
-* [el5](https://packagecloud.io/basho/riak-cs/riak-cs-3.0.0-1.x86_64.rpm?distro=5)
-* [el6](https://packagecloud.io/basho/riak-cs/packages/el/6/riak-cs-3.0.0-1.el6.x86_64.rpm)
-<!-- * [el7](https://packagecloud.io/basho/riak-cs/riak-cs-3.0.0-1.x86_64.rpm?distro=7) -->
-* [Fedora 19](https://packagecloud.io/basho/riak-cs/riak-cs-3.0.0-1.fc19.x86_64.rpm?distro=19)
+* [el7](https://files.tiot.jp/riak/cs/3.0/3.0.0/rhel/7/riak-cs-3.0.0.OTP22-1.el7.x86_64.rpm)
+* [el8](https://files.tiot.jp/riak/cs/3.0/3.0.0/rhel/8/riak-cs-3.0.0.OTP22-1.el8.x86_64.rpm)
 
-#### Advanced rpm Installation
+#### yum Installation
 
 For the simplest installation process on LTS (Long-Term Support)
-releases, use yum. First, you must install the `pygpgme` package, which
-enables yum to handle [GPG](https://www.gnupg.org/) signatures:
+releases, use `yum` after downloading the appropriate package for your OS.
 
-```bash
-sudo yum install pygpgme
-```
-
-If you wish to install using a `.repo` file, packagecloud can generate
+<!--If you wish to install using a `.repo` file, packagecloud can generate
 one for you on the basis of a name that you specify, e.g. a hostname,
 and the desired operating system and distribution. The following example
 script would store your hostname in the variable `HOSTNAME`, send that
@@ -222,7 +161,7 @@ should hold contents like the following:
 ```
 [basho_riak-cs]
 name=basho_riak-cs
-baseurl=https://packagecloud.io/basho/riak-cs/el/5/$basesearch
+baseurl=https://files.tiot.jp/riak/cs//el/5/$basesearch
 repo_gpgcheck=1
 gpgcheck=0
 enabled=1
@@ -232,7 +171,11 @@ sslcacert=/etc/pki/tls/certs/ca-bundle.crt
 ```
 
 With your `basho.repo` file populated, you can update your rpm sources
-list.
+list. -->
+
+```bash
+sudo yum localinstall -y riak-cs-3.0.0.OTP22-1*
+```
 
 ## Installing Stanchion on a Node
 
@@ -258,7 +201,7 @@ configured to send all requests to a single Stanchion node, failing over
 to a secondary Stanchion node if the primary is unavailable. More
 details can be found in [Specifying the Stanchion Node]({{<baseurl>}}riak/cs/3.0.0/cookbooks/configuration/#specifying-the-stanchion-node).
 
-### Installing Stanchion on Mac OS X
+<!--### Installing Stanchion on Mac OS X
 
 First, download the appropriate package from the [downloads]({{<baseurl>}}riak/cs/3.0.0/downloads/#stanchion-1-4-3) page.
 
@@ -273,10 +216,10 @@ stanchion-2.0.0-OSX-x86_64.tar.gz
 ```
 
 At this point, you can move on to [configuring Riak CS]({{<baseurl>}}riak/cs/3.0.0/cookbooks/configuration/riak-cs).
-
+-->
 ### Installing Stanchion on Debian or Ubuntu
 
-On Debian or Ubuntu, you can either use `apt` or install the `.deb`
+<!-- On Debian or Ubuntu, you can either use `apt` or install the `.deb`
 package manually.
 
 #### Installing Using `apt` (recommended)
@@ -304,51 +247,50 @@ sudo apt-get install stanchion
 At this point, you can move on to [configuring Riak CS]({{<baseurl>}}riak/cs/3.0.0/cookbooks/configuration/riak-cs).
 
 #### Installing the `.deb` Package Manually (not recommended)
+-->
+On Debian and Ubuntu, Riak CS packages are hosted on
+[files.tiot.jp](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/).
+
+Platform-specific pages are linked below:
+
+* [Focal](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/ubuntu/focal64/riak-cs_3.0.0-OTP22_amd64.deb)
+* [Jammy](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/ubuntu/jammy64/riak-cs_3.0.0-OTP22_amd64.deb)
+* [Stretch](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/debian/9/riak-cs_3.0.0-OTP22_amd64.deb)
+* [Buster](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/debian/10/riak-cs_3.0.0-OTP22_amd64.deb)
+* [Bullseye](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/debian/11/stanchion_3.0.0-OTP22_amd64.deb)
+
+
+#### dpkg Installation
+
+For the simplest installation process on LTS (Long-Term Support)
+releases, use `dpkg -i` after downloading the appropriate package for your OS..
+
+Now install the `stanchion` package:
 
 ```bash
-sudo dpkg -i <stanchion-package.deb>
+sudo dpkg -i stanchion_3.0.0-OTP22_amd64.deb
 ```
-
-Replace `<riak-cs-package.deb>` with the actual filename for the package
-you are installing.
 
 At this point, you can move on to [configuring Riak CS]({{<baseurl>}}riak/cs/3.0.0/cookbooks/configuration/riak-cs).
 
 ### Installing Stanchion on RHEL or CentOS
 
-On RHEL or CentOS, you can either use `yum` or install the `.rpm`
-package manually.
+On RHEL or CentOS, Stanchion packages are hosted on
+[files.tiot.jp](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/rhel/).
 
-#### Installing Using `yum` (recommended)
+Platform-specific pages are linked below:
 
-For CentOS/RHEL 6:
+* [el7](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/rhel/7/stanchion-3.0.0.OTP22-1.el7.x86_64.rpm)
+* [el8](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/rhel/8/stanchion-3.0.0.OTP22-1.el8.x86_64.rpm)
 
-```bash
-sudo yum install http://yum.basho.com/gpg/basho-release-6-1.noarch.rpm
-```
+#### yum Installation
 
-For CentOS/RHEL 5:
-
-```
-sudo yum install http://yum.basho.com/gpg/basho-release-5-1.noarch.rpm
-```
-
-Once the `.rpm` package has been installed, install Stanchion:
-
-```basho
-sudo yum install stanchion
-```
-
-At this point, you can move on to [configuring Riak CS]({{<baseurl>}}riak/cs/3.0.0/cookbooks/configuration/riak-cs).
-
-#### Installing the `.rpm` Package Manually (not recommended)
+For the simplest installation process on LTS (Long-Term Support)
+releases, use `yum` after downloading the appropriate package for your OS.
 
 ```bash
-sudo rpm -Uvh <stanchion-package.rpm>
+sudo yum -localinstall -y stanchion-3.0.0*
 ```
-
-Replace `<stanchion-package.rpm>` with the actual filename for the
-package you are installing.
 
 At this point, you can move on to [configuring Riak CS]({{<baseurl>}}riak/cs/3.0.0/cookbooks/configuration/riak-cs).
 
