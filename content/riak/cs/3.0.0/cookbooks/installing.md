@@ -271,7 +271,7 @@ details can be found in [Specifying the Stanchion Node]({{<baseurl>}}riak/cs/3.0
 First, download the appropriate package from the [downloads]({{<baseurl>}}riak/cs/3.0.0/downloads/#stanchion-3-0-0) page.
 
 ```bash
-curl -O https://files.tiot.jp/riak/stanchion/3.0/3.0.0/osx/10.14/riak-cs_3.0.0-OTP22.tar.gz
+curl -O https://files.tiot.jp/riak/stanchion/3.0/3.0.0/osx/10.14/stanchion_3.0.0-OTP22.tar.gz
 ```
 
 Then, unpack the downloaded tarball:
@@ -318,10 +318,10 @@ On Debian and Ubuntu, Riak CS packages are hosted on
 
 Platform-specific pages are linked below:
 
-* [Focal](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/ubuntu/focal64/riak-cs_3.0.0-OTP22_amd64.deb)
-* [Jammy](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/ubuntu/jammy64/riak-cs_3.0.0-OTP22_amd64.deb)
-* [Stretch](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/debian/9/riak-cs_3.0.0-OTP22_amd64.deb)
-* [Buster](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/debian/10/riak-cs_3.0.0-OTP22_amd64.deb)
+* [Focal](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/ubuntu/focal64/stanchion_3.0.0-OTP22_amd64.deb)
+* [Jammy](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/ubuntu/jammy64/stanchion_3.0.0-OTP22_amd64.deb)
+* [Stretch](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/debian/9/stanchion_3.0.0-OTP22_amd64.deb)
+* [Buster](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/debian/10/stanchion_3.0.0-OTP22_amd64.deb)
 * [Bullseye](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/debian/11/stanchion_3.0.0-OTP22_amd64.deb)
 * [Raspbian](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/raspbian/buster/stanchion_3.0.0-OTP22_armhf.deb)
 
