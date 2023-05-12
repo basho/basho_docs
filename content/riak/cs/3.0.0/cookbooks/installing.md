@@ -402,7 +402,7 @@ On FreeBSD and Alpine, Stanchion packages are hosted on
 Platform-specific pages are linked below:
 
 * [FreeBSD 13](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/freebsd/13/stanchion_3.0.0-OTP22.pkg)
-* [Alpine 3.14](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/alpine/3.14/stanchion_3.0.0-r0.apk)
+* [Alpine 3.14](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/alpine/3.14/stanchion-3.0.0-r0.apk)
 
 
 #### pkg Installation (FreeBSD)
