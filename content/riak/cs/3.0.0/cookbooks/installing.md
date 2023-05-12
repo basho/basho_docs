@@ -271,7 +271,7 @@ details can be found in [Specifying the Stanchion Node]({{<baseurl>}}riak/cs/3.0
 First, download the appropriate package from the [downloads]({{<baseurl>}}riak/cs/3.0.0/downloads/#stanchion-3-0-0) page.
 
 ```bash
-curl -O https://files.tiot.jp/riak/stanchion/3.0/3.0.0/ubuntu/focal64/riak-cs_3.0.0-OTP22.tar.gz
+curl -O https://files.tiot.jp/riak/stanchion/3.0/3.0.0/osx/10.14/riak-cs_3.0.0-OTP22.tar.gz
 ```
 
 Then, unpack the downloaded tarball:
@@ -384,7 +384,7 @@ For the simplest installation process on LTS (Long-Term Support)
 releases, use `zypper` after downloading the appropriate package for your OS.
 
 ```bash
-sudo zypper localinstall -y riak-cs-3.0.0.OTP22-1*
+sudo zypper localinstall -y stanchion-3.0.0.OTP22-1*
 ```
 
 At this point, you can move on to [configuring Riak CS]({{<baseurl>}}riak/cs/3.0.0/cookbooks/configuration/riak-cs).
