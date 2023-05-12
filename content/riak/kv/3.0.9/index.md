@@ -33,6 +33,7 @@ This release is tested with OTP 20, OTP 21 and OTP 22; but optimal performance i
 
 ## Supported Operating Systems
 
+- Alpine Linux 3.14
 - Amazon Linux 2016.09 (AWS)
 - Amazon Linux 2 (AWS)
 - CentOS 7
@@ -49,6 +50,7 @@ This release is tested with OTP 20, OTP 21 and OTP 22; but optimal performance i
 - Ubuntu 20.04.4 ("Focal Fossa")
 - FreeBSD 10.4
 - FreeBSD 11.1
+- SuSe Linux Enterprise Server 15
 - Mac OSX 10.11+ (development only)
 
 ## Getting Started
