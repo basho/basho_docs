@@ -45,9 +45,9 @@ or from source.
   * [RHEL and CentOS]({{<baseurl>}}riak/kv/3.0.9/setup/installing/rhel-centos)
   * [Mac OS X]({{<baseurl>}}riak/kv/3.0.9/setup/installing/mac-osx)
   * [FreeBSD]({{<baseurl>}}riak/kv/3.0.9/setup/installing/freebsd)
-  * [SUSE]({{<baseurl>}}riak/kv/3.0.9/setup/installing/sles)
-  * [Raspbian]({{<baseurl>}}riak/kv/3.0.9/setup/installing/raspbian)
-  * [Alpine]({{<baseurl>}}riak/kv/3.0.9/setup/installing/alpine)
+  * [SUSE]({{<baseurl>}}riak/kv/3.0.9/setup/installing/suse)
+  * [Raspbian]({{<baseurl>}}riak/kv/3.0.9/setup/installing/debian-ubuntu)
+  * [Alpine]({{<baseurl>}}riak/kv/3.0.9/setup/installing/alpine-linux)
   * [From Source]({{<baseurl>}}riak/kv/3.0.9/setup/installing/source)
 
 Riak is also officially supported on the following public cloud
@@ -147,7 +147,7 @@ Platform-specific pages are linked below:
 * [el8](https://files.tiot.jp/riak/cs/3.0/3.0.0/rhel/8/riak-cs-3.0.0.OTP22-1.el8.x86_64.rpm)
 
 On openSUSE, Riak CS packages are hosted on
-[files.tiot.jp](https://files.tiot.jp/riak/cs/3.0/3.0.0/sles). 
+[files.tiot.jp](https://files.tiot.jp/riak/cs/3.0/3.0.0/sles/). 
 
 Platform-specific pages are linked below:
 
@@ -264,7 +264,7 @@ can achieve this by specifying a load balancer IP as the Stanchion IP
 in each Riak CS node's `riak-cs.conf`. This load balancer must be
 configured to send all requests to a single Stanchion node, failing over
 to a secondary Stanchion node if the primary is unavailable. More
-details can be found in [Specifying the Stanchion Node]({{<baseurl>}}riak/cs/3.0.0/cookbooks/configuration/#specifying-the-stanchion-node).
+details can be found in [Specifying the Stanchion Node]({{<baseurl>}}riak/cs/3.0.0/cookbooks/configuration/stanchion).
 
 ### Installing Stanchion on Mac OS X
 
