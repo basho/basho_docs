@@ -78,7 +78,6 @@ it should not be operated in a manner that exposes it directly to the
 public internet**. Instead, consider a load-balancing solution
 such as a dedicated device [HAProxy](http://haproxy.1wt.eu) or [Nginx](http://wiki.nginx.org/Main) between Riak CS and the outside world.
 
-<!--
 ### Installing Riak CS on Mac OS X
 
 To install Riak CS on OS X, first download the appropriate package from
@@ -95,7 +94,6 @@ tar -xvzf riak-cs-3.0.0-OSX-x86_64.tar.gz
 ```
 
 At this point, you can move on to [configuring Riak CS]({{<baseurl>}}riak/cs/3.0.0/cookbooks/configuration/riak-cs/).
--->
 
 ### Installing Riak CS on Debian, Ubuntu or Raspbian
 
