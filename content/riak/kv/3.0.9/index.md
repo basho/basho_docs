@@ -22,7 +22,6 @@ aliases:
 [plan index]: {{<baseurl>}}riak/kv/3.0.9/setup/planning
 [perf open files]: {{<baseurl>}}riak/kv/3.0.9/using/performance/open-files-limit
 [install debian & ubuntu]: {{<baseurl>}}riak/kv/3.0.9/setup/installing/debian-ubuntu
-[usage search]: {{<baseurl>}}riak/kv/3.0.9/developing/usage/search
 [getting started]: {{<baseurl>}}riak/kv/3.0.9/developing/getting-started
 [dev client libraries]: {{<baseurl>}}riak/kv/3.0.9/developing/client-libraries
 
@@ -34,6 +33,7 @@ This release is tested with OTP 20, OTP 21 and OTP 22; but optimal performance i
 
 ## Supported Operating Systems
 
+- Alpine Linux 3.14
 - Amazon Linux 2016.09 (AWS)
 - Amazon Linux 2 (AWS)
 - CentOS 7
@@ -50,6 +50,7 @@ This release is tested with OTP 20, OTP 21 and OTP 22; but optimal performance i
 - Ubuntu 20.04.4 ("Focal Fossa")
 - FreeBSD 10.4
 - FreeBSD 11.1
+- SuSe Linux Enterprise Server 15
 - Mac OSX 10.11+ (development only)
 
 ## Getting Started
@@ -68,9 +69,8 @@ If you are looking to integrate Riak KV with your existing tools, check out the 
 
 1. [Open Files Limit][perf open files]
 2. [Installing on Debian-Ubuntu][install debian & ubuntu]
-3. [Developing with Riak KV: Searching][usage search]
-4. [Developing with Riak KV: Getting Started][getting started]
-5. [Developing with Riak KV: Client Libraries][dev client libraries]
+3. [Developing with Riak KV: Getting Started][getting started]
+4. [Developing with Riak KV: Client Libraries][dev client libraries]
 
 
 

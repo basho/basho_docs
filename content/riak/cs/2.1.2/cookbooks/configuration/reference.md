@@ -21,13 +21,13 @@ aliases:
 
   In particular, for the Riak CS `app.config`:
 
-  - `cs_ip` and `cs_port` have been combined into `listener`.
-  - `riak_ip` and `riak_pb_port` have been combined into `riak_host`.
-  - `stanchion_ip` and `stanchion_port` have been combined into `stanchion_host`.
-  - `admin_ip` and `admin_port` have been combined into `admin_listener`.
-  - `webmachine_log_handler` has become `webmachine_access_log_handler`.
-  - `{max_open_files, 50}` has been depricated and should be replaced with
-    `{total_leveldb_mem_percent, 30}`.
+- `cs_ip` and `cs_port` have been combined into `listener`.
+- `riak_ip` and `riak_pb_port` have been combined into `riak_host`.
+- `stanchion_ip` and `stanchion_port` have been combined into `stanchion_host`.
+- `admin_ip` and `admin_port` have been combined into `admin_listener`.
+- `webmachine_log_handler` has become `webmachine_access_log_handler`.
+- `{max_open_files, 50}` has been depricated and should be replaced with
+  `{total_leveldb_mem_percent, 30}`.
 
   For the Stanchion `app.config`:
 
@@ -37,7 +37,7 @@ aliases:
   Each of the above pairs follows a similar form. For example, if your legacy
   `app.config` configuration was previously:
 
-  ```
+  ```json
   {riak_cs, [
       {cs_ip, "127.0.0.1"},
       {cs_port, 8080 },
@@ -47,7 +47,7 @@ aliases:
 
   It should now read:
 
-  ```
+  ```json
   {riak_cs, [
       {listener, {"127.0.0.1", 8080}},
       . . .
@@ -77,13 +77,13 @@ The `app.config` and `advanced.config` files share an identical format, and can
 control all of Riak CS's behaviors. The files are divided into the following
 sections:
 
-* `riak_cs` --- Most settings are housed in this section of the file
-* `webmachine` --- Settings related to
+- `riak_cs` --- Most settings are housed in this section of the file
+- `webmachine` --- Settings related to
   [Webmachine](https://github.com/basho/webmachine), the HTTP server
   framework that Riak CS uses for HTTP connections
-* `lager` --- Settings for [lager](https://github.com/basho/lager), the
+- `lager` --- Settings for [lager](https://github.com/basho/lager), the
   Erlang logging framework used by Riak CS
-* `sasl` --- There is only one setting in this section,
+- `sasl` --- There is only one setting in this section,
   `sasl_error_lager`, which determines whether and how Riak CS uses
   Erlang's [SASL error
   logger](http://www.erlang.org/doc/man/sasl_app.html)
@@ -959,4 +959,4 @@ error logger.</td>
 </table>
 -->
 
-[config_your_code]: {{< baseurl >}}riak/kv/2.1.2/configuring/basic/#erlang-vm-tunings
+[config_your_code]: {{< baseurl >}}riak/kv/latest/configuring/basic/#erlang-vm-tunings

@@ -10,6 +10,8 @@ menu:
     weight: 113
     parent: "apis_http"
 toc: true
+version_history:
+  in: "2.0.0-2.9.10"
 aliases:
   - /riak/2.1.3/dev/references/http/search-query
   - /riak/kv/2.1.3/dev/references/http/search-query

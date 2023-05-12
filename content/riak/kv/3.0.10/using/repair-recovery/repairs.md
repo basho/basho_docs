@@ -26,20 +26,9 @@ aliases:
 [Erlang shell]: http://learnyousomeerlang.com/starting-out
 [glossary AAE]: {{<baseurl>}}riak/kv/3.0.10/learn/glossary/#active-anti-entropy-aae
 [glossary readrep]: {{<baseurl>}}riak/kv/3.0.10/learn/glossary/#read-repair
-[search config]: {{<baseurl>}}riak/kv/3.0.10/configuring/search/#search-config-settings
 [tiered storage]: {{<baseurl>}}riak/kv/3.0.10/setup/planning/backend/leveldb/#tiered-storage
 
 
-
-## Repairing Search Indexes
-
-Riak search indexes are repaired whenever objects are corrected by [read repair][glossary readrep].
-
-[Active anti-entropy (AAE)][glossary AAE] is provided for Riak search.
-
-Riak KV's [configuration for AAE][cluster ops aae] will be used for Riak search's AAE hashtrees by default.
-
-Riak search can be provided its own AAE settings in the [search config settings][search config].
 
 ## Repairing Secondary Indexes
 

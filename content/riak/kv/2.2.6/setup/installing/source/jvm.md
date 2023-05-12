@@ -10,6 +10,8 @@ menu:
     weight: 302
     parent: "installing_source"
 toc: true
+version_history:
+  in: "2.0.0-2.9.10"
 aliases:
   - /riak/2.2.6/ops/building/installing/jvm
   - /riak/kv/2.2.6/ops/building/installing/jvm

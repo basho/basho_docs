@@ -18,12 +18,6 @@ aliases:
 [usage bucket types]: {{<baseurl>}}riak/kv/3.0.12/developing/usage/bucket-types
 [use ref strong consistency]: {{<baseurl>}}riak/kv/3.0.12/using/reference/strong-consistency
 
-> **Note: Riak Search preferred for querying**
->
-> If you're interested in non-primary-key-based querying in Riak, i.e. if
-you're looking to go beyond straightforward K/V operations, we now
-recommend [Riak Search]({{<baseurl>}}riak/kv/3.0.12/developing/usage/search/) rather than secondary indexes for a variety of reasons. Riak Search has a far more capacious querying API and can be used with all of Riak's storage backends.
-
 This document provides implementation and other details for Riak's
 [secondary indexes]({{<baseurl>}}riak/kv/3.0.12/developing/usage/secondary-indexes/) \(2i) feature.
 

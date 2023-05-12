@@ -28,7 +28,7 @@ is built
 * Riak CS itself
 * [Stanchion]({{<baseurl>}}riak/cs/3.0.0/theory/stanchion) --- An application used to manage [globally unique entities]({{<baseurl>}}riak/cs/3.0.0/theory/stanchion/#globally-unique-entities) such as users and buckets.
 
-[Riak KV](#installing-riak) and [Riak CS](#installing-riak-cs-on-a-node) must be installed on each node in your cluster. [Stanchion](#installing-stanchion-on-a-node), however, needs to be installed on only one node.
+[Riak KV](#installing-riak-kv) and [Riak CS](#installing-riak-cs-on-a-node) must be installed on each node in your cluster. [Stanchion](#installing-stanchion-on-a-node), however, needs to be installed on only one node.
 
 ## Version Compatibility
 
@@ -95,6 +95,7 @@ tar -xvzf riak-cs-3.0.0-OSX-x86_64.tar.gz
 ```
 
 At this point, you can move on to [configuring Riak CS]({{<baseurl>}}riak/cs/3.0.0/cookbooks/configuration/riak-cs/).
+-->
 
 ### Installing Riak CS on Debian, Ubuntu or Raspbian
 
@@ -160,6 +161,7 @@ For the simplest installation process on LTS (Long-Term Support)
 releases, use `yum` after downloading the appropriate package for your OS.
 
 <!--If you wish to install using a `.repo` file, packagecloud can generate
+
 one for you on the basis of a name that you specify, e.g. a hostname,
 and the desired operating system and distribution. The following example
 script would store your hostname in the variable `HOSTNAME`, send that
@@ -272,7 +274,6 @@ First, download the appropriate package from the [downloads]({{<baseurl>}}riak/c
 
 ```bash
 curl -O https://files.tiot.jp/riak/stanchion/3.0/3.0.0/ubuntu/focal64/riak-cs_3.0.0-OTP22.tar.gz
-
 ```
 
 Then, unpack the downloaded tarball:

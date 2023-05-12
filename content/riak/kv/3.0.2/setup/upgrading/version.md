@@ -70,11 +70,6 @@ The leveled backend is not compatible with other backends in terms of the serial
 * First transition to 2.9 with the current backend in-place, minimising the time spent running mis-matched versions in parallel;
 * Then as a second phase run a rolling series of node transfers to replace the nodes with the previous backend, with nodes with the leveled backend.
 
-{{% note %}}
-You must have [Java version 7 or higher](http://www.oracle.com/technetwork/java/javase/downloads/index.html) in order to upgrade to Riak KV 3.0.2 only if you plan to use Riak search.
-{{% /note %}}
-
-
 ### Components That Complicate Downgrades
 
 We do our best to make all features that change data formats on disk opt-in; however, some features may be introduced that we either believe are so important that we automatically opt-in users on upgrade or there is no way to provide direct backward compatibility. Downgrading environments with these features can require more effort or might not be possible.
@@ -85,7 +80,6 @@ We do our best to make all features that change data formats on disk opt-in; how
 
 | Feature | Automatic | Required | One Way | Notes |
 |:---|:---:|:---:|:---:|:--- |
-|Migration to Solr 4.10.4 |✔ | ✔| | Applies to all clusters using Riak search.
 | Active anti-entropy file format changes | ✔ |  | | Can opt-out using a capability.
 | LZ4 compression in LevelDB | | | ✔ |
 | Global expiration in LevelDB | | | ✔ |
@@ -182,11 +176,6 @@ Once all of the clusters have been upgraded to version 2.2.0 or greater, this ov
 5.e\. (**EE Only**)JMX and SNMP are no longer present in Riak KV. You must remove or comment out all references to them in your riak.conf/advanced.config files for Riak to start successfully post-upgrade.
 
 6\. Restart Riak KV:
-
-{{% note %}}
-You must have [Java version 7 or higher](http://www.oracle.com/technetwork/java/javase/downloads/index.html) in order to upgrade to Riak KV 3.0.2 if you wish to use Riak search. If you do not have it installed, please install it now.
-{{% /note %}}
-
 
 
 ```bash

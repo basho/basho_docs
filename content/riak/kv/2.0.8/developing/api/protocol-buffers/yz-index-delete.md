@@ -10,6 +10,8 @@ menu:
     weight: 122
     parent: "apis_pbc"
 toc: true
+version_history:
+  in: "2.0.0-2.9.10"
 aliases:
   - /riak/2.0.8/dev/references/protocol-buffers/yz-index-delete
   - /riak/kv/2.0.8/dev/references/protocol-buffers/yz-index-delete
