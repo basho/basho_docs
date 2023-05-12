@@ -22,7 +22,6 @@ aliases:
 [glossary vnode]: {{<baseurl>}}riak/kv/3.0.6/learn/glossary/#vnode
 [learn clusters]: {{<baseurl>}}riak/kv/3.0.6/learn/concepts/clusters
 [plan backend multi]: {{<baseurl>}}riak/kv/3.0.6/setup/planning/backend/multi
-[usage search]: {{<baseurl>}}riak/kv/3.0.6/developing/usage/search
 
 [glossary aae]: {{<baseurl>}}riak/kv/3.0.6/learn/glossary/#active-anti-entropy-aae
 [perf open files]: {{<baseurl>}}riak/kv/3.0.6/using/performance/open-files-limit

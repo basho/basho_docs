@@ -19,28 +19,6 @@ aliases:
 [plan backend memory]: {{<baseurl>}}riak/kv/3.0.3/setup/planning/backend/memory
 [use ref strong consistency]: {{<baseurl>}}riak/kv/3.0.3/using/reference/strong-consistency
 
-> **Note: Riak Search preferred for querying**
->
-> If you're interested in non-primary-key-based querying in Riak, i.e. if
-you're looking to go beyond straightforward K/V operations, we now
-recommend [Riak Search]({{<baseurl>}}riak/kv/3.0.3/developing/usage/search/) rather than secondary indexes for
-a variety of reasons. Most importantly, Riak Search has a far more
-capacious querying API and can be used with all of Riak's storage
-backends.
-
-Secondary indexes (2i) in Riak enable you to tag objects stored in Riak,
-at write time, with one or more queryable values. Those values can then
-be used to find multiple objects in Riak. If you're storing [user data]({{<baseurl>}}riak/kv/3.0.3/developing/data-modeling/#user-accounts), for example, you could tag each object
-associated with that user with a username or other unique marker. Once
-tagged, you could find all objects in a Riak bucket sharing that tag.
-Secondary indexes can be either a binary or string, such as
-`sensor_1_data` or `admin_user` or `click_event`, or an integer, such as
-`99` or `141121`.
-
-[Riak Search]({{<baseurl>}}riak/kv/3.0.3/developing/usage/search/) serves analogous purposes but is quite
-different because it parses key/value data itself and builds indexes on
-the basis of Solr schemas.
-
 Please note that 2i can be used only with the [LevelDB][plan backend leveldb] and [Memory][plan backend memory]
 backends.
 

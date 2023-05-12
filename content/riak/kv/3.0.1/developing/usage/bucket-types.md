@@ -39,14 +39,6 @@ bucket = client.bucket('cats')
 bucket.properties = {'search_index' => 'famous'}
 ```
 
-```php
-(new \Basho\Riak\Command\Builder\Search\AssociateIndex($riak))
-    ->withName('famous')
-    ->buildBucket('cats')
-    ->build()
-    ->execute();
-```
-
 ```python
 bucket = client.bucket('cats')
 bucket.set_properties({'search_index': 'famous'})

@@ -18,7 +18,6 @@ aliases:
 [upgrade version]: ./version
 [upgrade cluster]: ./cluster
 [upgrade mdc]: ./multi-datacenter
-[upgrade search]: ./search
 
 ## In This Section
 

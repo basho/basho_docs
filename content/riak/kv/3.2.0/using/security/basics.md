@@ -44,10 +44,6 @@ when turning on Riak security. Missing one of these steps will almost
 certainly break your application, so make sure that you have done each
 of the following **before** enabling security:
 
-1. Make certain that the original Riak Search (version 1) and link
-   walking are not required. Enabling security will break this
-   functionality. If you wish to use security and Search together, you
-   will need to use the [new Search feature]({{<baseurl>}}riak/kv/3.2.0/developing/usage/search/).
 1. Because Riak security requires a secure SSL connection, you will need
    to generate appropriate SSL certs, [enable SSL](#enabling-ssl) and establish a [certificate configuration](#certificate-configuration) on each node. **If you
    enable security without having established a functioning SSL
@@ -419,12 +415,6 @@ Selecting `all` grants or revokes a permission (or set of permissions)
 for all users in all groups. When specifying the user(s)/group(s) to
 which you want to apply a permission (or set of permissions), you may
 list any number of users or groups comma-separated with no whitespace.
-Here is an example of granting multiple permissions across all buckets
-and bucket types to multiple users:
-
-```bash
-riak admin security grant riak_kv.get,riak_search.query on any to jane,ahmed
-```
 
 If the same name is used for both a user and a group, the `grant`
 command will ask for the name to be prefixed with `user/` or `group/`
@@ -482,72 +472,7 @@ Permission | Operation
 `riak_core.get_bucket_type` | Retrieve the set of `props` associated with a bucket type
 `riak_core.set_bucket_type` | Modify the set of `props` associated with a bucket type
 
-### Search Query Permission (Riak Search version 1)
 
-Security is incompatible with the original (and now deprecated) Riak
-Search. Riak Search version 1 will stop working if security is enabled.
-
-### Search Query Permissions (Riak Search version 2, aka Yokozuna)
-
-If you are using the new Riak Search, i.e. the Solr-compatible search
-capabilities included with Riak versions 2.0 and greater, the following
-search-related permissions can be granted/revoked:
-
-Permission | Operation
-:----------|:---------
-`search.admin` | The ability to perform search admin-related tasks, such as creating and deleting indexes and adding and modifying search schemas
-`search.query` | The ability to query an index
-
-> **Note on Search Permissions**
->
-> Search must be enabled in order to successfully grant/revoke Search
-permissions. If you attempt to grant/revoke permissions while Search is
-disabled, you will get the following error:
->
-> `{error,{unknown_permission,"search.query"}}`
->
-> More information on Riak Search and how to enable it can be found in the
-[Riak Search Settings]({{<baseurl>}}riak/kv/3.2.0/configuring/search/) document.
-
-#### Usage Examples
-
-To grant the user `riakuser` the ability to query all indexes:
-
-```bash
-riak admin security grant search.query on index to riakuser
-
-# To revoke:
-# riak admin security revoke search.query on index from riakuser
-```
-
-To grant the user `riakuser` the ability to query all schemas:
-
-```bash
-riak admin security grant search.query on schema to riakuser
-
-# To revoke:
-# riak admin security revoke search.query on schema from riakuser
-```
-
-To grant the user `riakuser` admin privileges only on the index
-`riakusers_index`:
-
-```bash
-riak admin security grant search.admin on index riakusers_index to riakuser
-
-# To revoke:
-# riak admin security revoke search.admin on index riakusers_index from riakuser
-```
-
-To grant `riakuser` querying and admin permissions on the index
-`riakusers_index`:
-
-```bash
-riak admin security grant search.query,search.admin on index riakusers_index to riakuser
-
-# To revoke:
-# riak admin security revoke search.query,search.admin on index riakusers_index from riakuser
-```
 
 ## Managing Sources
 
