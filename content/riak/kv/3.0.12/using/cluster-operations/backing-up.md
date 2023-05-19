@@ -253,6 +253,3 @@ and for any other nodes whose names have changed:
 
 Restoring a cluster from backups is documented [on its own page]({{<baseurl>}}riak/kv/3.0.12/using/repair-recovery/failure-recovery/#cluster-recovery-from-backups).
 
-
-
-

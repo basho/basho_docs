@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/configuring/mapreduce/
 ---
 
-
 [usage mapreduce]: {{<baseurl>}}riak/kv/2.9.0p5/developing/usage/mapreduce
 [config reference#appconfig]: {{<baseurl>}}riak/kv/2.9.0p5/configuring/reference/#app-config
 [usage secondary-indexes]: {{<baseurl>}}riak/kv/2.9.0p5/developing/usage/secondary-indexes
@@ -101,7 +100,6 @@ If you load larger JSON objects in your buckets there is a possibility you might
 ```json
  {"lineno":465,"message":"InternalError: script stack space quota is exhausted","source":"unknown"}
 ```
-
 
 You can increase the amount of memory allocated to the Javascript VM stack by editing your app.config. The following will increase the stack size from 8MB to 32MB:
 

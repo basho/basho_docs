@@ -97,7 +97,6 @@ Disadvantages:
   and Riak provides superior 99th percentile latency performance in the face
   of faults.
 
-
 ### Distributed Cache Deployment
 
 In a distributed cache deployment, the RRA is deployed to the application server

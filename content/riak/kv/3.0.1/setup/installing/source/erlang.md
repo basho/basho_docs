@@ -53,7 +53,6 @@ To build and install Erlang you must have a GNU-compatible build system and thes
 * [OpenSSL](https://www.openssl.org/): toolkit that implements SSL and TSL protocols.
 * [Java SE JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html): platform for deploying Java.
 
-
 ## kerl Prerequisites
 
 [kerl](https://github.com/yrashk/kerl) is the quickest way to install different versions of Erlang on most systems.
@@ -97,7 +96,6 @@ sudo pkg install autoconf
 ```
 
 Once you've configured kerl and installed autoconf continue with [Installing with kerl](#installing-with-kerl).
-
 
 ### Configuring kerl on Mac OS X
 
@@ -143,8 +141,6 @@ cd autoconf-2.69
 
 Once you've configured kerl and installed autoconf continue with [Installing with kerl](#installing-with-kerl).
 
-
-
 ## Debian/Ubuntu Prerequisites
 
 ### Dependencies
@@ -177,8 +173,6 @@ sudo apt-get install libwxbase2.8 libwxgtk2.8-dev libqt4-opengl-dev
 
 Once you've installed the prerequisites, continue with [Installing on Debian/Ubuntu](#installing-on-debian-ubuntu).
 
-
-
 ## FreeBSD/Solaris Prerequisites
 
 ### Dependencies
@@ -203,8 +197,6 @@ sudo pkg install wx28-gtk2-2.8.12_4
 ### Next Steps
 
 Once you've installed the prerequisites, continue with [Installing on FreeBSD/Solaris](#installing-on-freebsd-solaris).
-
-
 
 ## Mac OS X Prerequisites
 
@@ -266,8 +258,6 @@ sudo yum install wxBase.x86_64
 
 Once you've installed the prerequisites, continue with [Installing on RHEL/CentOS](#installing-on-rhel-centos).
 
-
-
 ## Installation
 
 * [Installing with kerl](#installing-with-kerl)
@@ -314,7 +304,6 @@ And start Erlang from your terminal with:
 ```bash
 erl
 ```
-
 
 ## Installing on Debian/Ubuntu
 
@@ -389,7 +378,6 @@ And start Erlang from your terminal with:
 ```bash
 erl
 ```
-
 
 ## Installing on Mac OS X
 
@@ -565,7 +553,4 @@ And start Erlang from your terminal with:
 ```bash
 erl
 ```
-
-
-
 

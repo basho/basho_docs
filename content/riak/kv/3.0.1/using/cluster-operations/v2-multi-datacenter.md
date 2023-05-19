@@ -259,5 +259,3 @@ Field | Description
 `stage_start` | The number of elapsed seconds since replication has started on a given stage
 `get_pool_size` | The number of Riak get finite state workers available to process requests
 
-
-

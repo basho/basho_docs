@@ -39,7 +39,6 @@ OS X gives you a very small limit on open file handles. Even with a
 backend that uses very few file handles, it's possible to run out. See
 [Open Files Limit][perf open files] for more information about changing the limit.
 
-
 ## Install Riak TS
 
 To install Riak TS on your Mac, download the package from ZenDesk and then run:
@@ -51,7 +50,6 @@ cd riak-ts-{{VERSION}}
 
 Then confirm that [AAE][concept aae] is turned off. To do this, check etc/riak.conf for the following: `anti_entropy = passive`.
 
-
 ## Activate Riak TS node
 
 Once you've installed Riak TS, start it on your node:
@@ -59,7 +57,6 @@ Once you've installed Riak TS, start it on your node:
 ```bash
 riak start
 ```
-
 
 ## Next Steps
 

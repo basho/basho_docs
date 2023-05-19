@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/reference/multi-datacenter/statistics/
 ---
 
-
 The following definitions describe the output of `riak-repl status`.
 Both Version 2 and Version 3 Replication statistics can be obtained
 using the `riak-repl status` command.
@@ -74,7 +73,6 @@ Field | Description
 `hb_rtt` | Realtime replication heartbeat round-trip time in milliseconds, recorded on the replication source
 `hb_last` | `{MegaSeconds, Seconds, MicroSeconds}` since a heartbeat message was received on the realtime sink
 
-
 These values are under `realtime_queue_stats`.
 
 Field | Description
@@ -88,7 +86,6 @@ Field | Description
 `pending` | The number of objects waiting to be sent to the sink cluster
 `sinkclustername` | A consumer of the realtime queue
 `unacked` | The number of objects waiting to be acknowledged by a queue consumer
-
 
 ## Fullsync Replication Statistics
 
@@ -200,7 +197,6 @@ Field | Description
 `connected` | A list of connected clients<ul><li>**`connected`** The IP address and port of a connected sink</li><li>**`cluster_name`** The name of the connected sink</li><li>**`connecting`** The PID, IP address, and port of a client currently establishing a connection</li></ul>
 `state` | State shows what the current replication strategy is currently processing. The following definitions appear in the status output if keylist strategy is being used. They can be used by Basho support to identify replication issues.<ul><li>**`request_partition`**</li><li>**`wait_for_fullsync`**</li><li>**`send_keylist`**</li><li>**`wait_ack`**</li></ul>
 
-
 ## Server Statistics
 
 Field | Description
@@ -212,7 +208,6 @@ Field | Description
 `bounded_queue` | See [Bounded Queue](#bounded-queue)
 `state` | State shows what the current replication strategy is currently processing. The following definitions appear in the status output if keylist strategy is being used. They can be used by Basho support to identify replication issues.<ul><li>**`wait_for_partition`**</li><li>**`build_keylist`**</li><li>**`wait_keylist`**</li><li>**`diff_bloom`**</li><li>**`diff_keylist`**</li></ul>
 `message_queue_len` | The number of Erlang messages that are waiting to be processed by the server
-
 
 ## Bounded Queue
 
@@ -230,7 +225,6 @@ Field | Description
 `queue_percentage` | The percentage of the queue that is full
 `queue_pending` | The current count of "in-flight" objects we've sent that the client has not acknowledged
 `queue_max_pending` | The maximum number of objects that can be "in flight" before we refuse to send any more.
-
 
 ## Accessing Replication Web-Based Statistics
 

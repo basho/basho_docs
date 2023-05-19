@@ -21,8 +21,8 @@ Riak S2 (CS) includes metrics and operational statistics to help you monitor you
 1. Frontend API performance
 2. Backend Riak performance (Stanchion)
 3. S2 internal performance
- 
-Metrics are also available for Stanchion, in addition to the Stanchion-specific `stanchion-admin` command and `/stats` HTTP endpoint. 
+
+Metrics are also available for Stanchion, in addition to the Stanchion-specific `stanchion-admin` command and `/stats` HTTP endpoint.
 
 provides operational statistics that can be useful for
 monitoring through the Folsom statistics library, and initial probes for
@@ -32,7 +32,6 @@ analysis of the running system with
 >**Note: Older Versions of Riak S2**
 >
 >All statistics available in versions of Riak S2 below 2.0.x have either been renamed or removed entirely.
-
 
 ## Using Metrics
 
@@ -62,7 +61,7 @@ documentation][amazon].
 
 ## `riak-cs-admin status`
 
-Running `riak-cs-admin status` will show the names and values of all available metrics. 
+Running `riak-cs-admin status` will show the names and values of all available metrics.
 
 There are too many metrics (over 1000) to list all of them here. The following sections provide an overview of each major statistic category, associated prefixes, and major operations for that category.
 
@@ -126,7 +125,7 @@ Riak access statistics start with the prefix `riakc`.
 
 These statistics cover latency and call counts to Riak PB API. Riak access statistics are useful in determining the source of latency. For example getting a user record, bucket record, or updating manifests.
 
-The `riakc` prefix is typically followed by operations like: 
+The `riakc` prefix is typically followed by operations like:
 
 - `put`
 - `get`
@@ -166,7 +165,6 @@ Operation | Description
 `riakc_get_gc_keys_by_index` |
 `riakc_get_cs_buckets_by_index` |
 `riakc_get_clusterid` | invoked when for the first time when a proxy_get is performed
-
 
 ## `/riak-cs/stats`
 

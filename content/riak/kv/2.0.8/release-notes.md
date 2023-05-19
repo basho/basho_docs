@@ -17,13 +17,11 @@ aliases:
   - /riak/kv/2.0.8/introduction
 ---
 
-
 # Riak KV 2.0.8 Release Notes
 
 Released February 15, 2017.
 
 This is an LTS (long term support) bugfix release that includes improvements to Solr integration and Riak search.
-
 
 ## New Features
 
@@ -45,7 +43,6 @@ This is an LTS (long term support) bugfix release that includes improvements to 
 * Additional [Cuttlefish parameters]({{<baseurl>}}riak/kv/2.0.8/configuring/reference/#search) have been added to support the Riak search batching updates. These configs will allow you to set batching parameters based on your needs and have, in certain cases, led to significantly higher write throughput to Solr.
     * [[yokozuna PR 704](https://github.com/basho/yokozuna/pull/704)]
 
-
 ## Bugs Fixed
 
 * LevelDB has been upgraded to version 2.0.33, which resolves the [AAE stall product advisory]({{<baseurl>}}community/productadvisories/aaestall/).
@@ -64,17 +61,12 @@ A clause for `$gen_all_state_event` has been added to fix potential hang due to 
 * [[yokozuna commit](https://github.com/basho/yokozuna/commit/0b4486e9331048e371ea01aeb554fb42c5228d2f)] When making requests to Solr, if requests timed-out between the caller and ibrowse, ibrowse might still send a response slightly after the timeout. The post-timeout response would cause `yz_solrq_proc` to crash due to improperly handling the late reply message. This fix prevents late replies from causing crashes.
 * [[yokozuna commit](https://github.com/basho/yokozuna/commit/f6e16f9cbf14b193ab447cfce0bb8d6971fb93a4)] When Riak search and active anti-entropy are both enabled, all keys written to Riak KV must be hashed and written to yokozuna hash trees, even if they are not written to Solr. This is done asynchronously, by passing the data along to the yokozuna batching infrastructure. Initially, the queues responsible for handling these non-indexed items were not included in the list of required queues, so they would be shut down by the synchronization mechanism that is designed to keep the queue processes running in sync with the partitions and indexes that are currently hosted by the node in question. Non-indexed queues are now included in the list of required queues so they stay active.
 
-
-
 ## Additions
 
 * The Debian packages have been updated to support Debian 8. And Ubuntu 16.0.4 (Xenial) is  now supported. [[node_package PR 204](https://github.com/basho/node_package/pull/204)]
 * While cleaning up yz_stats.erl, we discovered that the yz_stats_worker was no longer being used. Made yz_stats use a background process to update exometer stats similar to riak_kv_stat. [[yokozuna PR 646](https://github.com/basho/yokozuna/pull/646)]
 
-
-
 ## Changes
-
 
 * The following changes have been backported to KV 2.0.8: When calling `clear_trees`, trees are not updated before being destroyed; error returns are handled in vnode fold request; and build throttle may now be changed while a build is ongoing. Detailed information for each change is below. [[riak_kv PR 1574](https://github.com/basho/riak_kv/pull/1574)]
     * When the hashtree is about to be destroyed, via `clear_trees`, it can now simply close without updating.
@@ -82,8 +74,8 @@ A clause for `$gen_all_state_event` has been added to fix potential hang due to 
     * The build throttle can be changed while a build is in-progress. Before, the size and wait time of a build could only be changed before a build started. Once the build began, the settings could not be altered, even if the vnode was large and you wanted to decrease the wait or increase the size.
 * Empty exchange history is now handled. When `compute_exchange_info` is called on an index with no previous exchanges, `undefined` is now returned for the Recent and LastAll timestamps. [[riak_kv PR 1576](https://github.com/basho/riak_kv/pull/1576)]
 * Debug logging for ring metadata merges and ring membership has been added. There have been a few issues where rapidly updating the ring results in suboptimal behavior, and it has been difficult to debug due to the lack of logging in the riak_core_ring module. This logging can be enabled as needed. [[riak_core PR 893](https://github.com/basho/riak_core/pull/893)]
-* node_package has been updated to version 3.1.1. You may have to change permissions & etc. Please read the [node_package release notes](https://github.com/basho/node_package/blob/develop/RELEASE-NOTES.md) for more information. 
-* The Solr queue is now flushed on graceful shutdown. [[yokozuna Issue 581](https://github.com/basho/yokozuna/issues/581) and [yokozuna Issue 582](https://github.com/basho/yokozuna/issues/582)/[yokozuna PR 610](https://github.com/basho/yokozuna/pull/610)] 
+* node_package has been updated to version 3.1.1. You may have to change permissions & etc. Please read the [node_package release notes](https://github.com/basho/node_package/blob/develop/RELEASE-NOTES.md) for more information.
+* The Solr queue is now flushed on graceful shutdown. [[yokozuna Issue 581](https://github.com/basho/yokozuna/issues/581) and [yokozuna Issue 582](https://github.com/basho/yokozuna/issues/582)/[yokozuna PR 610](https://github.com/basho/yokozuna/pull/610)]
 * In KV 2.1, an [issue](https://github.com/basho/riak_kv/issues/679) was fixed by having a monotonic counter fsynced to disk when the vnode starts. Additional detail has been added to the `vnodeid` warning, and the warning has been downgraded to warn from error since the per-key-epoch code stops this from being an error. [[riak_kv PR 1344](https://github.com/basho/riak_kv/pull/1344)]
 * Erlang sets have been changed to ordsets across data types for a small performance improvement. [[riak_dt PR 117](https://github.com/basho/riak_dt/pull/117)]
 * The `riak_core_table_owner` gen_server process has been introduced to replace the use of application environment variables with ETS tables. This was needed because `riak_core_throttle` had used application environment variables for maintaining its state. However, due to race conditions that manifested during application shutdown, errors would occur that prevented applications from shutting down cleanly.  The replacement avoids these errors and shutdown cleanly. [[riak_core PR 861](https://github.com/basho/riak_core/pull/861)]
@@ -92,7 +84,6 @@ A clause for `$gen_all_state_event` has been added to fix potential hang due to 
 * Calls to `yz_index_hashtree:compare/5` are now made on a separate process to allow the exchange FSM to handle other messages. This change prevents 'DOWN' messages from failing to get through due to compare calls. [[yokozuna commit](https://github.com/basho/yokozuna/commit/62ef65aee9fd035d4cce55219e0d0110509b02f7)]
 * `riak_core_vnode_manager` is now asked which `riak_kv_vnode` vnodes are currently running, and uses the list to figure out which queues need to run. This prevents the soleqs on fallback vnodes from stopping if they are still needed. [[yokozuna commit](https://github.com/basho/yokozuna/commit/e228268148b02364da52801d787dc367999db9bf)]
 * riak_kv has been changed such that updating an object also sends the old object being replaced. From that old object, we can extract any siblings and generate associated document ids to delete in Solr. [[riak_kv PR 1520](https://github.com/basho/riak_kv/pull/1520)]
-
 
 ## Upgraded components
 

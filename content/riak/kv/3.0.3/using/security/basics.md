@@ -826,6 +826,3 @@ If you are using [certificate-based authentication]({{<baseurl>}}riak/kv/3.0.3/u
 default. To disable this behavior, set the `check_crl` parameter to
 `off`.
 
-
-
-

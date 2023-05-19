@@ -32,7 +32,6 @@ precompiled tarball.
 backend that uses very few file handles, it's possible to run out. See
 [Open Files Limit][perf open files] for more information about changing the limit.
 
-
 ## From Precompiled Tarballs
 
 To run Riak from our precompiled tarball, run these commands for the

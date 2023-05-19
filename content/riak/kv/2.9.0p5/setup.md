@@ -20,7 +20,6 @@ aliases:
   - /riak/kv/2.9.0p4/setup/
 ---
 
-
 [plan index]: ../setup/planning
 [install index]: ../setup/installing
 [upgrade index]: ../setup/upgrading

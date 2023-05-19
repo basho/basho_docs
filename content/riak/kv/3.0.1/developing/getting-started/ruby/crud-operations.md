@@ -147,5 +147,3 @@ Now, let’s clean up our mess:
 new_book.delete()
 ```
 
-
-

@@ -484,4 +484,3 @@ A guide to basic key/value operations and other common tasks in Riak KV.
 A listing of frequently used terms in Riak's
   documentation
 
-

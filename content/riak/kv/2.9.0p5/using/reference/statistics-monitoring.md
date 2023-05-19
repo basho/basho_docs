@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/reference/statistics-monitoring/
 ---
 
-
 Riak provides data related to current operating status, which includes
 statistics in the form of counters and histograms. These statistics
 are made available through the HTTP API via the [`/stats`]({{<baseurl>}}riak/kv/2.9.0p5/developing/api/http/status) endpoint, or through the [`riak-admin`]({{<baseurl>}}riak/kv/2.9.0p5/using/admin/riak-admin/) interface, in particular the `stat` and `status` commands.
@@ -58,6 +57,7 @@ More information can be found [here][sysctl_vm_txt] and in our
 documentation on [system tuning]({{<baseurl>}}riak/kv/2.9.0p5/using/performance/#storage-and-file-system-tuning).
 
 ## Riak Metrics to Graph
+
 Riak metrics fall into several general categories:
 
 1. Throughput metrics
@@ -160,7 +160,6 @@ Metric | Description
 `search_index_bad_entry_one	` | Number of writes to Solr that have resulted in an error due to the format of the data (e.g., non-unicode data) in the past minute.
 `search_index_extract_fail_count` | Number of failures that have occurred extracting data into a format suitable to insert into Solr (e.g., badly formatted JSON) since the last start of Riak.
 `search_index_extract_fail_one` | Number of failures that have occurred extracting data into a format suitable to insert into Solr (e.g., badly formatted JSON) in the past minute.
-
 
 ## Command-line Interface
 
@@ -318,7 +317,6 @@ Riak cluster nodes.
 A [Zabbix plugin for Riak][riak_zabbix] is available to get you started
 monitoring Riak using Zabbix.
 
-
 ### Hosted Service Monitoring Tools
 
 The following are some commercial tools which Basho customers have
@@ -326,6 +324,7 @@ reported successfully using for statistics gathering and monitoring
 within their Riak clusters.
 
 #### Circonus
+
 [Circonus](http://circonus.com) provides organization-wide monitoring,
 trend analysis, alerting, notifications, and dashboards. It can been
 used to provide trend analysis and help with troubleshooting and
@@ -385,7 +384,6 @@ Docs](https://github.com/basho/basho_docs).
 * [New Relic](http://newrelic.com)
 * [Splunk](http://www.splunk.com)
 * [Riak Docs on Github](https://github.com/basho/basho_docs)
-
 
 [sysctl_vm_txt]: https://www.kernel.org/doc/Documentation/sysctl/vm.txt
 [data_types_counters]: {{< baseurl >}}riak/kv/latest/developing/data-types/counters/

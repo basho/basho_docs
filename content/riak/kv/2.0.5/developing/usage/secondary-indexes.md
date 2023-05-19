@@ -1729,7 +1729,7 @@ func doPaginatedQuery(cluster *riak.Cluster, continuation []byte) error {
     return errors.New("[DevUsing2i] expected response but did not get one")
   }
 
-  rc := sciq.Response.Continuation 
+  rc := sciq.Response.Continuation
   if rc != nil && len(rc) > 0 {
     return doPaginatedQuery(cluster, sciq.Response.Continuation)
   }

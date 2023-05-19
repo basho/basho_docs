@@ -24,7 +24,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/reference/v3-multi-datacenter/aae/
 ---
 
-
 [glossary aae]: {{<baseurl>}}riak/kv/2.9.0p5/learn/glossary/#active-anti-entropy-aae
 [config reference#advanced]: {{<baseurl>}}riak/kv/2.9.0p5/configuring/reference/#advanced-configuration
 [concept clusters]: {{<baseurl>}}riak/kv/2.9.0p5/learn/concepts/clusters

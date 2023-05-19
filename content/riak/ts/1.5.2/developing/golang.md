@@ -15,7 +15,6 @@ aliases:
 
 ---
 
-
 You can develop applications and tools using Riak TS with the Riak Go client.
 This document covers the Go API for Riak TS.
 
@@ -37,7 +36,6 @@ List Keys  | [TsListKeysCommandBuilder](https://godoc.org/github.com/basho/riak-
 Language | Source | Documentation
 :--------|:-------|:-------------
 Go | [riak-go-client](https://github.com/basho/riak-go-client) | [GoDoc](https://godoc.org/github.com/basho/riak-go-client)
-
 
 ## Data Types
 

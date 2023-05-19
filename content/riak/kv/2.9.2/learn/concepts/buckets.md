@@ -37,7 +37,6 @@ aliases:
 [usage conflict resolution]: {{<baseurl>}}riak/kv/2.9.2/developing/usage/conflict-resolution
 [usage replication]: {{<baseurl>}}riak/kv/2.9.2/developing/usage/replication
 
-
 Buckets are used to define a virtual keyspace for storing Riak objects.
 They enable you to define non-default configurations over that keyspace
 concerning [replication properties][concept replication] and [other

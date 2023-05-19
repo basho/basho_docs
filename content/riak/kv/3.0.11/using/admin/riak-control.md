@@ -36,7 +36,9 @@ or
 listener.https.<name> = 127.0.0.1:8096
 
 ## *** The default listeners in the riak.conf file are
+
 ##     named `internal`, so you would consult the value of
+
 ##     `listener.http.internal` in your configuration.
 
 ```
@@ -104,7 +106,7 @@ cluster using the default configuration, you would access Riak Control at
 
 If you enabled authentication for Riak Control while performing the above
 configuration, you will be unable to access Riak Control until you have enabled
-and configured SSL and HTTPS.  
+and configured SSL and HTTPS.
 
 ## Enabling SSL and HTTPS
 
@@ -231,7 +233,4 @@ see the health of each [vnode]({{<baseurl>}}riak/kv/3.0.11/learn/glossary/#vnode
 Most of the time, your ring will be too large to effectively manage from
 the ring view. That said, with filters you can easily identify partition
 ownership, unreachable primaries, and in-progress handoffs.
-
-
-
 

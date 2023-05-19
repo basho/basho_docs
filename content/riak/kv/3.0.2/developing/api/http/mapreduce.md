@@ -69,6 +69,3 @@ $ curl -v -d '{"inputs":"test", "query":[{"link":{"bucket":"test"}},{"map":{"lan
 [{"foo":"bar"},{"riak":"CAP"}]
 ```
 
-
-
-

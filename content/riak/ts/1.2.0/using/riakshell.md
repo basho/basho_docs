@@ -16,15 +16,13 @@ aliases:
     - /riakts/1.2.0/using/riakshell/
 ---
 
-
 [creating]: ../creating-activating/
-
 
 You can use riak_shell within Riak TS to run SQL and logging commands from one place.
 
 ## Capabilities
 
-While riak_shell is in the early stages of development, the following are well-supported: 
+While riak_shell is in the early stages of development, the following are well-supported:
 
 * logging
 * log replay
@@ -40,7 +38,6 @@ While riak_shell is in the early stages of development, the following are well-s
 * shell management (including cookies)
 
 The shell is also trivially extendable for developer use.
-
 
 ## Getting Started
 
@@ -108,7 +105,6 @@ Connection Prompt turned on
 riak_shell>connection_prompt off;
 Connection Prompt turned off
 ```
-
 
 ### History and repeating past commands
 
@@ -180,7 +176,6 @@ riak_shell>select time, weather, temperature from GeoCheckin where myfamily='fam
 +----+----------------+---------------------------+
 ```
 
-
 ### Logging
 
 You can specify the name of your logfile by running: `logfile »"mylogname"«`.
@@ -214,7 +209,7 @@ Current Date: "2016_02_02-00:26:19"
 
 If you would like your logfile to have a timestamp, run `date_log`.
 
-You can replay the current logfile regardless of whether logging is turned on. To replay your logfile, run `replay_log`.  
+You can replay the current logfile regardless of whether logging is turned on. To replay your logfile, run `replay_log`.
 
 ```
 riak_shell>replay_log;
@@ -261,7 +256,6 @@ Regression Testing "../log/riak_shell.log"
 No Regression Errors.
 ```
 
-
 ### Help
 
 You get help on riak_shell functions with the help command:
@@ -272,10 +266,9 @@ riak_shell> help;
 
 You can get more specific help by calling `help` with the extension name and function name like `help shell quit;`.
 
-
 ## Configuration
 
-You can configure riak_shell from the riakshell.config file. You can find the file in your Riak TS directory. 
+You can configure riak_shell from the riakshell.config file. You can find the file in your Riak TS directory.
 
 The following things can be configured:
 
@@ -286,15 +279,13 @@ The following things can be configured:
 * show_connection_status (true | false) - shows the green tick or red cross in the command line
 * nodes ([ nodenames]) - a list of nodes to try and connect to on startup or 'reconnect;'
 
-
 ## Command Line Flags
-
 
 There are 4 different configurations, two of which trigger batch mode.
 
 By default riak_shell swallows error messages, this makes it hard to develop new extensions. You can run it in debug mode as shown below:
 
-``` 
+```
 ./riak-shell -d
 ```
 

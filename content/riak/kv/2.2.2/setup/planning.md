@@ -52,4 +52,3 @@ A set of best practices that will enable you to improve performance and reliabil
 
 [Learn More >>][plan best practices]
 
-

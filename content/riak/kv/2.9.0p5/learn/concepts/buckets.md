@@ -24,7 +24,6 @@ aliases:
   - /riak/kv/2.9.0p4/learn/concepts/buckets/
 ---
 
-
 [apps cluster metadata]: {{<baseurl>}}riak/kv/2.9.0p5/developing/app-guide/cluster-metadata
 [cluster ops bucket types]: {{<baseurl>}}riak/kv/2.9.0p5/using/cluster-operations/bucket-types
 [cluster ops strong consistency]: {{<baseurl>}}riak/kv/2.9.0p5/using/cluster-operations/strong-consistency
@@ -44,7 +43,6 @@ aliases:
 [usage commit hooks]: {{<baseurl>}}riak/kv/2.9.0p5/developing/usage/commit-hooks
 [usage conflict resolution]: {{<baseurl>}}riak/kv/2.9.0p5/developing/usage/conflict-resolution
 [usage replication]: {{<baseurl>}}riak/kv/2.9.0p5/developing/usage/replication
-
 
 Buckets are used to define a virtual keyspace for storing Riak objects.
 They enable you to define non-default configurations over that keyspace

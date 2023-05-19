@@ -25,7 +25,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/data-types/gsets/
 ---
 
-
 GSets are a bucket-level Riak data type that can be used by themselves or associated with a bucket/key pair. They do not yet have the ability to be used [within a map like regular sets](../maps#sets-within-maps).
 
 GSets are collections of unique binary values (such as strings). All of the values in a gset are unique and are automatically sorted alphabetically irresepective of the order they were added.

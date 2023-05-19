@@ -19,7 +19,6 @@ aliases:
 
 Released Jan 14, 2021.
 
-
 ## Overview
 
 There are two fixes provided in Release 3.0.3:
@@ -33,8 +32,4 @@ This release is tested with OTP 20, OTP 21 and OTP 22; but optimal performance i
 ## Previous Release Notes
 
 Please see the KV 3.0.2 release notes [here]({{<baseurl>}}riak/kv/3.0.2/release-notes/).
-
-
-
-
 

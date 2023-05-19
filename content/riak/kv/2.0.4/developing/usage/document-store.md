@@ -358,7 +358,7 @@ class BlogPost {
   public function store()
   {
     $setBuilder = (new \Basho\Riak\Command\Builder\UpdateSet($this->riak));
-      
+
     foreach($this->keywords as $keyword) {
       $setBuilder->add($keyword);
     }

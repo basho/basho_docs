@@ -273,8 +273,7 @@ Field | Default | Valid values |
 `search.solr.jmx_port` | `8985` | Integer
 `search.solr.port` | `8093` | Integer
 `search.solr.start_timeout` | `30s` | Integer with time units (eg. 2m)
-`yokozuna.aae_throttle_enabled` | `on` | `on` or `off` 
-
+`yokozuna.aae_throttle_enabled` | `on` | `on` or `off`
 
 ## Riak Control
 
@@ -1375,7 +1374,6 @@ to <code>off</code> can cut down on system resource usage.
 </tbody>
 </table>
 
-
 ## Intra-Cluster Handoff
 
 Configurable parameters for intra-cluster, i.e. inter-node, [handoff][cluster ops handoff].
@@ -1686,7 +1684,6 @@ defaults to <code>false</code> in the name of improved performance.</td>
 </tbody>
 </table>
 
-
 ## Miscellaneous
 
 <table class="riak-conf">
@@ -1898,7 +1895,7 @@ Enterprise Edition 1.3.2 - 2.2.3 and then from Riak KV 2.2.6 onwards.</td>
 
 <tr>
 <td><code>realtime_connection_rebalance_max_delay_secs</code></td>
-<td>Should a server on the source cluster be restarted, this is 
+<td>Should a server on the source cluster be restarted, this is
 the amount of time (in seconds), before the realtime connections are
 rebalanced by a change in the number of source nodes.</td>
 <td><code>300</code></td>

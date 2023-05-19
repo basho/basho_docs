@@ -23,7 +23,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/getting-started/nodejs/object-modeling/
 ---
 
-
 To get started, let's create the models that we'll be using.
 
 * [`Msg`](https://github.com/basho/taste-of-riak/blob/master/nodejs/Ch03-Msgy-Schema/models/msg.js)
@@ -50,7 +49,6 @@ easily be a future bottleneck in the system, so let's use a natural key.
 Natural keys are a great fit for key/value systems because both humans
 and computers can easily construct them when needed, and most of the
 time they can be made unique enough for a KV store.
-
 
 | Bucket | Key Pattern | Example Key
 |:-------|:------------|:-----------

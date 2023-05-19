@@ -18,7 +18,6 @@ aliases:
   - /riak/kv/3.0.9/installing/amazon-web-services/
 ---
 
-
 ## Launching Riak VMs via the AWS Marketplace
 
 {{% note title="Note" %}}
@@ -108,7 +107,6 @@ unless deployed in Amazon VPC.
 
 You now have a Riak cluster running on AWS.
 
-
 ## Installing From Package
 
 #### AWS (2)
@@ -126,7 +124,6 @@ Or you can install the `.rpm` package manually:
 wget https://files.tiot.jp/riak/kv/3.0/3.0.9/amazon/2/riak-3.0.9-1.amzn2x86_64.rpm
 sudo rpm -i riak_3.0.9-1.amzn2x86_64.rpm
 ```
-
 
 #### AWS (2016.09)
 
@@ -146,8 +143,4 @@ sudo rpm -i riak_3.0.9-1.amzn1x86_64.rpm
 ## Next Steps
 
 Now that Riak is installed and you have set the [Security Group Settings](#security-group-settings), check out [Verifying a Riak Installation][install verify].
-
-
-
-
 

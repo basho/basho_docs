@@ -374,7 +374,7 @@ comply with any R, W, PR, and PW values that apply along the way.
 
 If R and W are undefined, however, the RW (`rw`) value will substitute
 for both R and W during object deletes. In recent versions of Riak, it
-is nearly impossible to make reads or writes that do not somehow specify 
+is nearly impossible to make reads or writes that do not somehow specify
 oth R and W, and so you will never need to worry about RW.
 
 ## The Implications of `notfound_ok`
@@ -586,7 +586,4 @@ id="http://player.vimeo.com/video/11172656"></div>
 <a href="http://vimeo.com/11172656">Tuning CAP Controls in Riak</a> from
 <a href="http://vimeo.com/bashotech">Basho Technologies</a> on <a
 href="http://vimeo.com">Vimeo</a>.
-
-
-
 

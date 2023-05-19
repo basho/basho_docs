@@ -14,13 +14,11 @@ aliases:
     - /riakts/1.0.0/using/writingdata/
 ---
 
-
 [activating]: ../creating-activating/
 [planning]: ../planning/
 [querying]: ../querying/
 
 Now that you've [planned][planning] and [activated][activating] your Riak TS table, you are ready to write data to it.
-
 
 ## Writing Data
 
@@ -43,7 +41,6 @@ CREATE TABLE GeoCheckin
 
 To write data to your table, put the data in a list:
 
-
 ```erlang
 {ok, Pid} = riakc_pb_socket:start_link("myriakdb.host", 10017).
 riakc_ts:put(Pid, "GeoCheckin", [[<<"family1">>, <<"series1">>, 1234567, <<"hot">>, 23.5], [<<"family2">>, <<"series99">>, 1234567, <<"windy">>, 19.8]]).
@@ -52,9 +49,9 @@ riakc_ts:put(Pid, "GeoCheckin", [[<<"family1">>, <<"series1">>, 1234567, <<"hot"
 ```java
 RiakClient client = RiakClient.newClient(10017, "myriakdb.host");
 List<Row> rows = Arrays.asList(
-    new Row(new Cell("family1"), new Cell("series1"), 
+    new Row(new Cell("family1"), new Cell("series1"),
             Cell.newTimestamp(1234567), new Cell("hot"), new Cell(23.5)),
-    
+
     new Row(new Cell("family2"), new Cell("series99"),
             Cell.newTimestamp(1234567), new Cell("windy"), new Cell(19.8)));
 
@@ -101,14 +98,12 @@ If some of the data failed to write, an `RpbErrorResp` error occurs with a numbe
 2. Write the data one at a time until one fails.
 
 You could also try the original write again. Failures may be transitory when servers are temporarily unable to talk to each other.
- 
 
 ### Guidelines
 
 * Batches should not be too large. In our testing, 100 rows per write is a sweet spot, but you should expect different results depending on your hardware and schema.
 * Writes will assume that columns are in the same order they've been declared in the table.
 * Timestamps should be in Unix epoch/UTC milliseconds.
-
 
 ## Next Steps
 

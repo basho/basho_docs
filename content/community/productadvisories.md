@@ -16,8 +16,6 @@ aliases:
   - /riak/2.0.4/community/product-advisories/
 ---
 
-
-
 This page contains product advisories that are periodically issued for Basho products.
 
 * [Slight chance that AAE could stall itself or crash a Riak node]({{<baseurl>}}community/productadvisories/aaestall/)
@@ -30,7 +28,6 @@ This page contains product advisories that are periodically issued for Basho pro
 * [Default Configuration For Handoff May Cause Data Loss]({{<baseurl>}}community/productadvisories/210-dataloss/)
 * [SSL 3.0 Vulnerability and POODLE Attack]({{<baseurl>}}community/productadvisories/sslpoodle/)
 * [Map Data Type Disk Incompatibility]({{<baseurl>}}community/productadvisories/maps-204/)
-
 
 ## Questions
 

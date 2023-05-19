@@ -567,6 +567,7 @@ entail shorter wait times for connecting clients, but at a higher risk
 of failed operations under heavy load.
 
 ### Merkle Tree Settings
+
 <a name="merkle"></a>
 
 Leaders and followers in Riak's strong consistency system maintain
@@ -698,5 +699,4 @@ At this time,
 Basho's official [client
   libraries][dev client libraries] convert errors returned by Riak into generic exceptions,
   with a message derived from the returned server-side error message.
-
 

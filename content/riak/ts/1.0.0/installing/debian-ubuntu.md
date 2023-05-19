@@ -18,11 +18,9 @@ aliases:
     - /riakts/1.0.0/installing/debian-ubuntu/
 ---
 
-
 [concept aae]: {{<baseurl>}}riak/kv/2.1.3/learn/concepts/active-anti-entropy
 [planning]: ../../using/planning
 [security basics]: {{<baseurl>}}riak/kv/2.1.3/using/security/basics
-
 
 Riak TS can be installed on Debian or Ubuntu-based systems using a binary
 package available through ZenDesk.
@@ -32,7 +30,6 @@ Check your email for the link to the download in ZenDesk.
 {{% note %}}
 Debian is only supported for developing with Riak TS and NOT for general operations.
 {{% /note %}}
-
 
 ## Dependencies
 
@@ -45,7 +42,6 @@ To install this dependency:
 ```bash
 sudo apt-get install libpam0g-dev
 ```
-
 
 ## Install Riak TS
 
@@ -65,17 +61,15 @@ Once you've installed Riak TS, start it on your node:
 riak start
 ```
 
-
 ## Verify your installation
 
-You can verify that Riak TS is successfully installed by running: 
+You can verify that Riak TS is successfully installed by running:
 
 ```bash
 dpkg -l | grep riak
 ```
 
 If Riak TS has been installed successfully `riak-ts` is returned.
-
 
 ## Next Steps
 

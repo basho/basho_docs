@@ -83,7 +83,7 @@ make rel
 ## Platform-Specific Instructions
 
 For instructions about specific platforms, see:
-  
+
   * [Debian & Ubuntu][install debian & ubuntu#source]
   * [FreeBSD][install freebsd#source]
   * [Mac OS X][install mac osx#source]

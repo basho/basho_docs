@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/api/protocol-buffers/fetch-object/
 ---
 
-
 Fetch an object from the specified bucket type/bucket/key location
 (specified by `bucket`, `type`, and `key`, respectively). If the bucket
 type is not specified, the `default` bucket type will be used, as is the
@@ -48,7 +47,6 @@ message RpbGetReq {
     optional bytes type = 13;
 }
 ```
-
 
 ## Optional Parameters
 

@@ -75,5 +75,3 @@ $ curl -v -X DELETE http://127.0.0.1:8098/buckets/test/keys/test2
 * Closing connection #0
 ```
 
-
-

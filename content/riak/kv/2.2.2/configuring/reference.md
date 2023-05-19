@@ -270,8 +270,7 @@ Field | Default | Valid values |
 `search.solr.jmx_port` | `8985` | Integer
 `search.solr.port` | `8093` | Integer
 `search.solr.start_timeout` | `30s` | Integer with time units (eg. 2m)
-`yokozuna.aae_throttle_enabled` | `on` | `on` or `off` 
-
+`yokozuna.aae_throttle_enabled` | `on` | `on` or `off`
 
 ## Riak Control
 
@@ -1783,7 +1782,6 @@ defaults to <code>false</code> in the name of improved performance.</td>
 
 </tbody>
 </table>
-
 
 ## Miscellaneous
 

@@ -42,6 +42,3 @@ On Solaris, the following settings are suggested:
 /usr/sbin/ndd -set /dev/tcp tcp_recv_hiwat 4000000
 ```
 
-
-
-

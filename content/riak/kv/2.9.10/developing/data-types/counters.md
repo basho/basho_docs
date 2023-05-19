@@ -630,5 +630,3 @@ curl -XPOST http://localhost:8098/types/counters/buckets/counters/datatypes/traf
   -d '{"decrement": 3}'
 ```
 
-
-

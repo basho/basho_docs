@@ -16,7 +16,7 @@ toc: true
 
 We recommend deploying Riak KV on a mainstream Unix-like operating system.
 Mainstream distributions have larger support communities, making
-solutions to common problems easier to find. 
+solutions to common problems easier to find.
 
 Basho provides [binary packages][downloads] of Riak KV for the following distributions:
 

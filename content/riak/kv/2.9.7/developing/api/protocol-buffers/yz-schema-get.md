@@ -49,6 +49,3 @@ message RpbYokozunaSchema {
 
 This message includes the schema `name` and its xml `content`.
 
-
-
-

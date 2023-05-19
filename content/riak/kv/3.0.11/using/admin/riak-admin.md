@@ -589,7 +589,6 @@ command:
 riak admin repair-2i kill
 ```
 
-
 ## services
 
 Lists available services on the node (e.g. `riak_kv`).
@@ -666,7 +665,4 @@ That will produce the following output:
 nodename:
   Name of the Erlang node
 ```
-
-
-
 

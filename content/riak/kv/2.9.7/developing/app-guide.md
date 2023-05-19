@@ -429,7 +429,3 @@ will help you get up and running:
   - A listing of frequently used terms in Riak's
   documentation
 
-
-
-
-

@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/performance/latency-reduction/
 ---
 
-
 Although latency is unavoidable in distributed systems like Riak, there
 are a number of actions that can be undertaken to reduce latency
 to the lowest levels possible within a cluster. In this guide, we'll

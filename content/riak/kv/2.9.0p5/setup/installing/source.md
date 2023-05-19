@@ -25,9 +25,6 @@ aliases:
   - /riak/kv/2.9.0p4/setup/installing/source/
 ---
 
-
-
-
 [install source erlang]: {{<baseurl>}}riak/kv/2.9.0p5/setup/installing/source/erlang
 [downloads]: {{<baseurl>}}riak/kv/2.9.0p5/downloads/
 [install debian & ubuntu#source]: {{<baseurl>}}riak/kv/2.9.0p5/setup/installing/debian-ubuntu/#installing-from-source
@@ -93,7 +90,7 @@ make rel
 ## Platform-Specific Instructions
 
 For instructions about specific platforms, see:
-  
+
   * [Debian & Ubuntu][install debian & ubuntu#source]
   * [FreeBSD][install freebsd#source]
   * [Mac OS X][install mac osx#source]

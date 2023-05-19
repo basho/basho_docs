@@ -80,7 +80,7 @@ A number of changes have been introduced in the LevelDB backend in Riak
 
     Enabling compression means more CPU usage but less disk space. Compression
     is especially good for text data, including raw text, Base64, JSON, etc.
-    
+
 {{% note title="LZ4 and Downgrading" %}}
 If you utilize LZ4 compression, you **will not** be able to downgrade Riak KV. Please keep this in mind before choosing to use LZ4 compression.
 {{% /note %}}

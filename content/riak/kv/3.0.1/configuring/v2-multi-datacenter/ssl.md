@@ -160,5 +160,3 @@ guide](http://www.debian-administration.org/articles/618).
 Make sure that you remove the password protection from the keys you
 generate.
 
-
-

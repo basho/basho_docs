@@ -91,7 +91,6 @@ need to provide a CA as well as the username and password that you
 specified when creating the user in Riak. For more, see our
 documentation on [User Management]({{<baseurl>}}riak/kv/2.0.4/using/security/basics#user-management).
 
-
 ## Certificate-based Authentication
 
 Using certificate-based authentication requires us to specify the

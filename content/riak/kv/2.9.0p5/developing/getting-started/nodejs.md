@@ -22,12 +22,10 @@ aliases:
   - /riak/kv/2.9.0p4/developing/getting-started/nodejs/
 ---
 
-
 [introduction.js]: https://github.com/basho/riak-nodejs-client-examples/blob/master/dev/taste-of-riak/introduction.js
 [npm]: https://www.npmjs.com/package/basho-riak-client
 [node_js_installation]: https://github.com/basho/riak-nodejs-client/wiki/Installation
 [nodejs_wiki]: https://github.com/basho/riak-nodejs-client/wiki
-
 
 If you haven't set up a Riak Node and started it, please visit [Running A Cluster]({{<baseurl>}}riak/kv/2.9.0p5/using/running-a-cluster) first.
 

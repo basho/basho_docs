@@ -18,7 +18,7 @@ aliases:
 ---
 
 The configuration for the legacy AAE is kept in
- the `riak.conf` configuration file. 
+ the `riak.conf` configuration file.
 
 ## Validate Settings
 
@@ -52,7 +52,6 @@ repaired on read; and if set to <code>active-debug</code>, verbose
 debugging information will be output.</td>
 <td><code>active</code></td>
 </tr>
-
 
 <tr>
 <td><code>anti_entropy.bloomfilter</code></td>

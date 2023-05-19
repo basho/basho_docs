@@ -24,7 +24,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/api/protocol-buffers/yz-schema-put/
 ---
 
-
 Create a new Solr [search schema]({{<baseurl>}}riak/kv/2.9.0p5/developing/usage/search-schemas).
 
 ## Request

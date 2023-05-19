@@ -83,7 +83,6 @@ The IP address to be compared with `IpAddress` or `NotIpAddress` is taken from t
 
 More information on S3 Policies can be found in Amazon's [Permissions And Policies](http://docs.aws.amazon.com/IAM/latest/UserGuide/PermissionsAndPolicies.html) documentation.
 
-
 ## Response
 
 ### Response Headers

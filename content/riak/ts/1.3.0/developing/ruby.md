@@ -51,7 +51,6 @@ TS `double`, which will later de-serialize as a Ruby `Float`.
 * Ruby `Rational` numbers raise the error:
 `Riak::TimeSeriesError::SerializeRationalNumberError`.
 
-
 ## Operations
 
 Riak TS supports five basic operations: single-key reads and deletes, key
@@ -99,7 +98,6 @@ The `new` class method takes two arguments: `client` (the `Riak::Client` to use)
 * `read!` - issues the read operation to Riak and returns a `Row` of data. If
 no data are found, returns `nil`.
 
-
 ### Single-key Deletes
 
 To delete a single row with a given key, use `Riak::TimeSeries::Delete`:
@@ -125,7 +123,6 @@ and delete.
 #### Instance Method
 
 * `delete!` - issues the deletion to Riak.
-
 
 ### Key Listing
 
@@ -197,7 +194,6 @@ and a `String` of `query_text`.
 
 The `issue!` method issues the query to Riak and populates the `results`
 accessor with the results.
-
 
 ### Writing
 

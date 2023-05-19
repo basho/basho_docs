@@ -168,6 +168,3 @@ riak_pipe_vnodeq_mean         | Mean queue size of local Riak Pipe virtual nodes
 riak_pipe_vnodeq_max          | Max queue size of local Riak Pipe virtual nodes in the last minute
 riak_pipe_vnodeq_total        | Total queue size of all local Riak Pipe virtual nodes in the last minute
 
-
-
-

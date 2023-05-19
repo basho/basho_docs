@@ -24,11 +24,9 @@ aliases:
 [SELECT]: {{<baseurl>}}riak/ts/1.5.2/using/querying/SELECT#iso_8601
 [configuring]: ../../../configuring/riakconf/
 
-
-Riak TS supports several kinds of queries of your TS data. To create the most successful queries possible, there are some guidelines and limitations you should know. 
+Riak TS supports several kinds of queries of your TS data. To create the most successful queries possible, there are some guidelines and limitations you should know.
 
 This document will cover the basic rules of querying in Riak TS, general guidelines to help you create the best queries possible, and all current limitations impacting queries in TS.
-
 
 ## The Basic Rules of Querying
 
@@ -41,7 +39,6 @@ b TIMESTAMP NOT NULL,
 c BOOLEAN NOT NULL,
 PRIMARY KEY  ((a, QUANTUM(b, 1, 's'))<-Partition Key, a,b,c)<-Local Key)
 ```
-
 
 ### Partition Key
 
@@ -63,9 +60,7 @@ Any quantized field in your partition key must be included in the query as a bou
 It is possible to use ISO 8601-compliant date/time strings rather than integer timestamps in SELECT statements. Please see [SELECT]({{<baseurl>}}riak/ts/1.5.2/using/querying/select/#iso-8601) for an example or [Time Representations]({{<baseurl>}}riak/ts/1.5.2/using/timerepresentations/) for more information.
 {{% /note %}}
 
-
 ### Local Key
-
 
 Any field in the local key but not in the partition key can be queried with any operator supported for that field's type. Bounded ranges are not required. Any filter is allowed, including `OR` and `!=`
 
@@ -82,11 +77,9 @@ Here 'c' is in the local key only so does not have to be in the query.
 * Invalid: `country_code != 'se'`
 * Invalid: `temperature < 85.0`
 
-
 ### Column Definitions
 
 [Column definitions][planning] may be queried with unbounded ranges, `!=`, and `or` comparisons.
-
 
 ### General Guidelines
 
@@ -133,7 +126,6 @@ The following operators are supported for each data type:
 | double    | X | X | X | X | X | X |
 | timestamp | X | X | X | X | X | X |
 
-
 ## Limitations
 
 * Column to column comparisons are not currently supported.
@@ -146,7 +138,6 @@ The following operators are supported for each data type:
 Blob data should be queried using integers in base 16 (hex) notation, preceded by `0x` using riak shell or by providing any block of data (e.g. binary, text or JSON) through a Riak client library.
 
 However, we do not recommend using blob columns in primary keys yet, due to limitations in the Riak TS 1.5 `list_keys` API.
-
 
 ### Query parameters
 

@@ -14,13 +14,11 @@ aliases:
     - /riakts/1.2.0/developing/developing/
 ---
 
-
 [erlang]: erlang/
 [java]: java/
 [nodejs]: nodejs/
 [python]: python/
 [ruby]: ruby/
-
 
 Riak TS exposes protobufs APIs. We build and support the following clients:
 

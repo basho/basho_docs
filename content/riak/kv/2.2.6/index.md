@@ -25,8 +25,6 @@ aliases:
 [getting started]: {{<baseurl>}}riak/kv/2.2.6/developing/getting-started
 [dev client libraries]: {{<baseurl>}}riak/kv/2.2.6/developing/client-libraries
 
-
-
 Riak KV is a distributed NoSQL database designed to deliver maximum data availability by distributing data across multiple servers. As long as your Riak KV client can reach one Riak server, it should be able to write data.
 
 Riak KV 2.2.6 is the first Open Source only release that includes the features of the former [Riak KV Enterprise][aboutenterprise] product such as multi-datacenter cluster replication, which ensures low-latency and robust business continuity.

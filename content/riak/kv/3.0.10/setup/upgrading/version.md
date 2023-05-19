@@ -18,7 +18,6 @@ aliases:
 
 ---
 
-
 [production checklist]: {{<baseurl>}}riak/kv/3.0.10/setup/upgrading/checklist
 [use admin riak control]: {{<baseurl>}}riak/kv/3.0.10/using/admin/riak-control
 [use admin commands]: {{<baseurl>}}riak/kv/3.0.10/using/admin/commands
@@ -32,7 +31,6 @@ aliases:
 [snmp]: {{<baseurl>}}riak/kv/3.0.10/using/reference/snmp
 [Release Notes]: {{<baseurl>}}riak/kv/3.0.10/release-notes
 
-
 ## Overview
 
 You can upgrade one node or your whole cluster to Riak KV 3.0.10 by following the instructions below.
@@ -40,36 +38,32 @@ You can upgrade one node or your whole cluster to Riak KV 3.0.10 by following th
 {{% note title="Tip" %}} KV nodes negotiate with each other to determine supported operating modes. This allows clusters containing mixed-versions of Riak KV to interoperate without special configuration, and simplifies rolling upgrades.
 {{% /note %}}
 
-
 ### General Process
 
 For every node in the cluster:
 
-1.  Stop Riak KV.
-1.  Back up the Riak /etc, /data, and /basho-patches directories.
-1.  Remove your /basho-patches directory.
-1.  Upgrade Riak KV.
+1. Stop Riak KV.
+1. Back up the Riak /etc, /data, and /basho-patches directories.
+1. Remove your /basho-patches directory.
+1. Upgrade Riak KV.
     * If you are upgrading from EE to OSS, uninstall your EE KV package before upgrading.
 1. (Optional) If you would like to potentially downgrade at some point, update your advanced.config file to opt-out of the AAE updates.
-1.  If you're upgrading from EE to OSS, apply your customized settings to vm.args/riak.conf and app.config/advanced.config
-1.  If you're using MDC replication to clusters with versions less than 2.2.0, update your advanced.config file to over-ride the default bucket properties for compatibility.
-1.  Start Riak KV.
-1.  Verify Riak KV is running the upgraded version.
-1.  Wait for the `riak_kv` service to start.
-1.  Wait for any hinted handoffs to complete.
+1. If you're upgrading from EE to OSS, apply your customized settings to vm.args/riak.conf and app.config/advanced.config
+1. If you're using MDC replication to clusters with versions less than 2.2.0, update your advanced.config file to over-ride the default bucket properties for compatibility.
+1. Start Riak KV.
+1. Verify Riak KV is running the upgraded version.
+1. Wait for the `riak_kv` service to start.
+1. Wait for any hinted handoffs to complete.
 
 Before starting the rolling upgrade process on your cluster, check out the [Upgrading Riak KV: Production Checklist][production checklist], which covers details and questions to consider before upgrading.
 
-
 ## Transitioning to Leveled backend
-
 
 [Riak KV 2.9][release notes] introduced a new backend specifically for Riak, Leveled:
 
 The leveled backend is not compatible with other backends in terms of the serialised disk format. There is no in-place transition possible from bitcask/eleveldb/hanoidb to leveled. Transitioning requires a node replace operation. It is recommended to:
 * First transition to 2.9 with the current backend in-place, minimising the time spent running mis-matched versions in parallel;
 * Then as a second phase run a rolling series of node transfers to replace the nodes with the previous backend, with nodes with the leveled backend.
-
 
 ### Components That Complicate Downgrades
 
@@ -85,14 +79,12 @@ We do our best to make all features that change data formats on disk opt-in; how
 | LZ4 compression in LevelDB | | | ✔ |
 | Global expiration in LevelDB | | | ✔ |
 | HyperLogLog data type | | |✔| On downgrade data written in HLL format is unreadable.|
- 
 
 ### When Downgrading is No Longer an Option
 
 If you decide to upgrade to version 2.9, you can still downgrade your cluster to an earlier version of Riak KV if you wish, unless you transfer all of your nodes to the new Leveled backend.
 
 If you use other new features, you can still downgrade your cluster, but you will no longer be able to use those features after the downgrade.
-
 
 ## Upgrading process
 
@@ -128,8 +120,6 @@ sudo rm -rf /usr/lib/riak/lib/basho-patches*
 If you are upgrading from Riak KV EE to Riak KV OSS, you must uninstall your Riak KV EE package right now, before you can install the OSS version.
 {{% /note %}}
 
-
-
 ```RHEL/CentOS
 sudo rpm -Uvh »riak_package_name«.rpm
 ```
@@ -154,7 +144,7 @@ sudo dpkg -i »riak_package_name«.deb
    leveldb.compression.algorithm=snappy
    ```
 
-5.c\. (**OSS Only**)If you are upgrading from Riak KV OSS =< 2.2.3, you must perform the following steps before moving on: 
+5.c\. (**OSS Only**)If you are upgrading from Riak KV OSS =< 2.2.3, you must perform the following steps before moving on:
 
 * A standard package uninstall should not have removed your data directories, but if it did, move your backup to where the data directory should be.
 * Then copy any customizations from your backed-up vm.args/riak.conf to the newly installed vm.args/riak.conf file (these files may be identical).
@@ -181,8 +171,6 @@ Once all of the clusters have been upgraded to version 2.2.0 or greater, this ov
 {{% note %}}
 You must have [Java version 7 or higher](http://www.oracle.com/technetwork/java/javase/downloads/index.html) in order to upgrade to Riak KV 3.0.10 if you wish to use Riak search. If you do not have it installed, please install it now.
 {{% /note %}}
-
-
 
 ```bash
 riak start
@@ -213,10 +201,9 @@ riak admin transfers
 
 10\. Repeat the process for the remaining nodes in the cluster.
 
-
 ### Basho Patches
 
-After upgrading, you should ensure that any custom patches contained in the `basho-patches` directory are examined to determine their application to the upgraded version. You can find this information in the [Release Notes]. 
+After upgrading, you should ensure that any custom patches contained in the `basho-patches` directory are examined to determine their application to the upgraded version. You can find this information in the [Release Notes].
 
 If you find that patches no longer apply to the upgraded version, you should remove them from the `basho-patches` directory prior to operating the node in production.
 
@@ -240,8 +227,4 @@ riak admin diag
 ```
 
 Make the recommended changes from the command output to ensure optimal node operation.
-
-
-
-
 

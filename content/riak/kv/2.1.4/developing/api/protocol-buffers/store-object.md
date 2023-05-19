@@ -68,7 +68,7 @@ value denoting `one` (`4294967295-1`), `quorum` (`4294967295-2`), `all`
 
 Parameter | Description
 :---------|:-----------
-`key` | The key to create/update. If not specified, Riak will generate a random key and return that key as part of the response to that request. 
+`key` | The key to create/update. If not specified, Riak will generate a random key and return that key as part of the response to that request.
 `vclock` | Opaque vector clock provided by an earlier `RpbGetResp` message. Omit if this is a new key or if you deliberately want to create a sibling.
 `w` | Write quorum, i.e. how many replicas to write to before returning a successful response
 `dw` | Durable write quorum, i.e. how many replicas to commit to durable storage before returning a successful response

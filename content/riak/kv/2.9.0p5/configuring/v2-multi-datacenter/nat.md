@@ -24,7 +24,6 @@ aliases:
   - /riak/kv/2.9.0p4/configuring/v2-multi-datacenter/nat/
 ---
 
-
 [config v2 ssl]: {{<baseurl>}}riak/kv/2.9.0p5/configuring/v2-multi-datacenter/ssl
 
 {{% note title="Deprecation Warning" %}}

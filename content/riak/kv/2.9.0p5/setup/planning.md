@@ -20,7 +20,6 @@ aliases:
   - /riak/kv/2.9.0p4/setup/planning/
 ---
 
-
 [plan start]: ./start
 [plan backend]: ./backend
 [plan cluster capacity]: ./cluster-capacity
@@ -60,5 +59,4 @@ A calculator that will assist you in sizing your cluster if you plan to use the 
 A set of best practices that will enable you to improve performance and reliability at all stages in the life of your Riak KV cluster.
 
 [Learn More >>][plan best practices]
-
 

@@ -145,6 +145,3 @@ a variety of factors.
 
 Ways to address this issue can be found in [strong consistency and performance]({{<baseurl>}}riak/kv/3.0.9/configuring/strong-consistency/#performance).
 
-
-
-

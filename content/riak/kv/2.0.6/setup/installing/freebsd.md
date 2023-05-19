@@ -18,8 +18,6 @@ aliases:
   - /riak/kv/2.0.6/installing/freebsd/
 ---
 
-
-
 [install source erlang]: {{<baseurl>}}riak/kv/2.0.6/setup/installing/source/erlang
 [downloads]: {{<baseurl>}}riak/kv/2.0.6/downloads/
 [install verify]: {{<baseurl>}}riak/kv/2.0.6/setup/installing/verify
@@ -97,6 +95,7 @@ If you do not currently have the following software installed, please install it
 * sudo
 
 ### Installation
+
 First download the version you wish to install from [Basho downloads][downloads].
 
 Next, unpack and build a release from source:

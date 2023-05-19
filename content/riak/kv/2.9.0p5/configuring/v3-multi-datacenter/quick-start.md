@@ -24,7 +24,6 @@ aliases:
   - /riak/kv/2.9.0p4/configuring/v3-multi-datacenter/quick-start/
 ---
 
-
 [perf index]: {{<baseurl>}}riak/kv/2.9.0p5/using/performance
 [config v3 mdc]: {{<baseurl>}}riak/kv/2.9.0p5/configuring/v3-multi-datacenter
 [cluster ops v3 mdc]: {{<baseurl>}}riak/kv/2.9.0p5/using/cluster-operations/v3-multi-datacenter
@@ -79,7 +78,6 @@ Name  | IP          | Node name
 `node5` | `10.60.84.41` | `riak@10.60.84.41`
 `node6` | `10.60.92.44` | `riak@10.60.92.44`
 
-
 ### Set up Cluster1 &rarr; Cluster2 Connection
 
 #### Set up the Source on Cluster1
@@ -90,7 +88,7 @@ cluster with `riak-repl clustername <name>`:
 ```bash
 riak-repl clustername Cluster1
 ```
-  
+
 #### Setup the Sink on Cluster2
 
 On a node in Cluster2, `node4` for example, initiation and name this
@@ -99,7 +97,7 @@ cluster with `riak-repl clustername <name>`:
 ```bash
 riak-repl clustername Cluster2
 ```
-  
+
 #### Connect the Source to the Sink
 
 From Cluster1, connect to the IP and port of Cluster2 with `riak-repl
@@ -133,7 +131,7 @@ connect <sink_ip>:<port>`:
 ```bash
 riak-repl connect 10.60.67.149:9080
 ```
-  
+
 #### View Your Active Connections
 
 From Cluster2, view your active connections with `riak-repl
@@ -159,17 +157,17 @@ queuing updates on Cluster1 for replication:
 ```bash
 riak-repl realtime enable Cluster2
 ```
-  
+
 Also on Cluster1, run `riak-repl realtime start <clustername>` to
 establish connectivity from Cluster1 to Cluster2 to push queued updates:
 
 ```bash
 riak-repl realtime start Cluster2
 ```
-  
+
 To enable bidirectional replication, do the reverse from Cluster2.
 Once this is done, bidirectional replication should be operating.
-  
+
 ## More information
 
 For a full list of commands, you may enter `riak-repl` to see full

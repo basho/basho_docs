@@ -95,6 +95,7 @@ If you do not currently have the following software installed, please install it
 * sudo
 
 ### Installation
+
 First download the version you wish to install from [Basho downloads][downloads].
 
 Next, unpack and build a release from source:

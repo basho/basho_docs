@@ -24,7 +24,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/api/http/search-query/
 ---
 
-
 Performs a [Riak KV Search]({{<baseurl>}}riak/kv/2.9.0p5/developing/usage/search) query.
 
 ## Request

@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/api/http/
 ---
 
-
 Riak has a rich, full-featured HTTP 1.1 API. This is an overview of the
 operations you can perform via HTTP and can be used as a guide for
 developing a compliant client. All URLs assume the default configuration

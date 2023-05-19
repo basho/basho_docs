@@ -40,7 +40,6 @@ message RpbGetReq {
 }
 ```
 
-
 ## Optional Parameters
 
 > **Note on defaults and special values**

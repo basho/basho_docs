@@ -15,7 +15,6 @@ aliases:
   - /riak/kv/2.2.0/dev/data-modeling/
 ---
 
-
 [dev data model articles etc]: {{<baseurl>}}riak/kv/2.2.0/developing/data-modeling/#articles-blog-posts-and-other-content
 [dev data model log data]: {{<baseurl>}}riak/kv/2.2.0/developing/data-modeling/#log-data
 [dev data model sensor data]: {{<baseurl>}}riak/kv/2.2.0/developing/data-modeling/#sensor-data

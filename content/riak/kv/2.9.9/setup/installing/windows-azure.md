@@ -191,7 +191,3 @@ Visit DNS address listed on the dashboard, at the port we opened as an endpoint:
 http://testlinuxvm.cloudapp.net:8098/riak/rekon/go
 ```
 
-
-
-
-

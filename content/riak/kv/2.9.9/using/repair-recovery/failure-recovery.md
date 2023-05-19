@@ -43,17 +43,17 @@ returns to service (also called [hinted handoff]({{<baseurl>}}riak/kv/2.9.9/lear
 More severe data loss scenarios usually relate to hardware failure.
 If data is lost, several options are available for restoring it.
 
-1.  **Restore from backup** - A daily backup of Riak nodes can be helpful.
+1. **Restore from backup** - A daily backup of Riak nodes can be helpful.
     The data in this backup may be stale depending on the time at which
     the node failed, but it can be used to partially restore data from
     lost storage volumes. If running in a RAID configuration, rebuilding
     the array may also be possible.
-2.  **Restore from multi-cluster replication** - If replication is enabled
+2. **Restore from multi-cluster replication** - If replication is enabled
     between two or more clusters, the missing data will gradually be
     restored via realtime replication and fullsync replication. A
     fullsync operation can also be triggered manually via the `riak-repl`
     command.
-3.  **Restore using intra-cluster repair** - Riak versions 1.2 and greater
+3. **Restore using intra-cluster repair** - Riak versions 1.2 and greater
     include a repair feature which will restore lost partitions with
     data from other replicas. Currently, this must be invoked manually
     using the Riak console and should be performed with guidance from a
@@ -113,7 +113,6 @@ timeouts simply because many other requests are being serviced as well. Adding
 nodes to the cluster can reduce MapReduce failure in the long term by
 spreading load and increasing available CPU and IOPS.
 
-
 ## Cluster Recovery From Backups
 
 See [Changing Cluster Information]({{<baseurl>}}riak/kv/2.9.9/using/cluster-operations/changing-cluster-info/#clusters-from-backups) for instructions on cluster recovery.
@@ -123,7 +122,4 @@ If you are a TI Tokyo Riak supprt customer and require assistance or
 further advice with a cluster recovery, please file a ticket with the
 <a href="https://support.tiot.jp">TI Tokyo Helpdesk</a>.
 {{% /note %}}
-
-
-
 

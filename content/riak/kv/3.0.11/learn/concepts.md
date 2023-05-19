@@ -28,8 +28,7 @@ aliases:
 [plan index]: {{<baseurl>}}riak/kv/3.0.11/setup/planning
 [use index]: {{<baseurl>}}riak/kv/3.0.11/using/
 
-
-Riak KV has many great features, functions, and guiding principles that inform how the product works. This section provides definitions for, insight into, and high level information about the various parts of Riak KV you will encounter as you [plan][plan index], [configure][config index], and [use][use index] Riak.  
+Riak KV has many great features, functions, and guiding principles that inform how the product works. This section provides definitions for, insight into, and high level information about the various parts of Riak KV you will encounter as you [plan][plan index], [configure][config index], and [use][use index] Riak.
 
 Learn more about:
 
@@ -43,7 +42,4 @@ Learn more about:
 * [Keys and Objects][concept keys objects]
 * [Replication][concept replication]
 * [Virtual Nodes (vnodes)][concept vnodes]
-
-
-
 

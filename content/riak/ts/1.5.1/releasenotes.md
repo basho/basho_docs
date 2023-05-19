@@ -14,17 +14,14 @@ aliases:
     - /riakts/1.5.1/releasenotes
 ---
 
-
 Released January 24, 2017.
 
 Riak TS 1.5.1 is a bug fix release of TS 1.5.0. You can read the full release notes for 1.5.0 [below](#ts-1-5-0).
-
 
 ## Changes
 
 * `CREATE TABLE` now waits for cluster metadata to propagate to all nodes before activating the table, which makes it ready for queries once the command is completed. [[PR 1577](https://github.com/basho/riak_kv/pull/1577)]
 * Query filters are now used in start/end key. With this change, filters on the local key are put into the start/end keys to reduce the range that eLevelDB has to cover. [[PR 1594](https://github.com/basho/riak_kv/pull/1594)]
-
 
 ## Bugfixes
 
@@ -32,10 +29,7 @@ Riak TS 1.5.1 is a bug fix release of TS 1.5.0. You can read the full release no
 * [[PR 1583](https://github.com/basho/riak_kv/pull/1583 )] The configuration property name for the maximum number of quanta allowed in a query was initially using the incorrect key and overriding configured values. This removes the 1000 cap on quanta size.
 * [[PR 1590](https://github.com/basho/riak_kv/pull/1590 )] Fix for queries not returning results for tables using `DESC` on the local key, which could occur under some table schemas.
 
-
-
 ## TS 1.5.0
-
 
 Released December 20, 2016.
 
@@ -48,7 +42,6 @@ Data storage of unstructured (binary) or opaque (JSON) data has also gotten a li
 Updates in TS 1.5 include multi-line paste functionality, built-in help for SQL commands, and enhanced error handling in riak shell.
 
 Riak TS has significantly improved performance, thanks to streamlining of the on-disk encoding format and increased parallelization of record decoding. These updates have focused on improvement of SQL query latency, and result in typical speedups of 2-4x for large queries, particularly for data sets that are distributed around the cluster.
-
 
 ## New Features
 
@@ -109,7 +102,6 @@ Riak TS has significantly improved performance, thanks to streamlining of the on
 * Query results are now decoded in a way that leverages parallelization across your TS cluster. This update speeds up large queries particularly for data residing on multiple nodes.
     * [[PR 1538](https://github.com/basho/riak_kv/pull/1538)]
 
-
 ## Additions
 
 * The timestamp type is now able to be used as an argument in aggregate functions. [[riak_ql PR 146](https://github.com/basho/riak_ql/pull/146) & [riak_ql PR 147](https://github.com/basho/riak_ql/pull/147)]
@@ -121,7 +113,6 @@ Riak TS has significantly improved performance, thanks to streamlining of the on
     * riak_kv.query.timeseries.qbuf_root_path
     * riak_kv.query.timeseries.maximum_query_queue_length
 
-
 ## Changes
 
 * Object size limitations, as set in riak.conf, have been decreased. `object.size.warning_threshold` has been decreased from a default of 5MB to 50kB. `object.size.maximum` has been decreased from 50MB to 500kB. [[PR 1505](https://github.com/basho/riak_kv/pull/1505) & [PR 1218](https://github.com/basho/riak_test/pull/1218/ )]
@@ -132,7 +123,6 @@ Riak TS has significantly improved performance, thanks to streamlining of the on
 * LZ4 is now the default compression for LevelDB. [[leveldb PR 164](https://github.com/basho/leveldb/pull/164) & [eleveldb PR 208](https://github.com/basho/eleveldb/pull/208)]
 * Updated the default value for `riak_kv.query.timeseries.max_quanta_span`. See the [TS configuration docs]({{<baseurl>}}riak/ts/1.5.1/configuring/riakconf) for details. **Note:** due to a bug in the code, the `max_quanta_span` is capped at 1000. [[PR 1505](https://github.com/basho/riak_kv/pull/1505)]
 * The default value for `OFFSET` is `[ ]`. [[PR 1546](https://github.com/basho/riak_kv/pull/1546)]
-
 
 ## Bugfixes
 
@@ -149,7 +139,6 @@ Riak TS has significantly improved performance, thanks to streamlining of the on
 * [[PR 1286](https://github.com/basho/riak_ql/pull/147/files )] Aggregation functions like MAX, MIN etc would cast timestamps to sint64 by default. They now correctly return values of type timestamp which appear correctly as times in riak-shell.
 * [[PR 157](https://github.com/basho/riak_ql/pull/157 ) & [PR 1206](https://github.com/basho/riak_test/pull/1206 )] SQL insert statements of the form INSERT INTO mytable (field1, field2, field3) VALUES(val1, val2, val3) were buggy.
 
-
 ## Compatibility
 
 Riak TS is compatible with the following:
@@ -162,7 +151,6 @@ Riak TS is compatible with the following:
 * Debian 8 "Jessie"
 * OS X 10.11+ (development only)
 * Amazon Linux 2016.09
-
 
 ## Known Issues
 

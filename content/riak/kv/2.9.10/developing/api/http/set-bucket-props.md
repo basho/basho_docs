@@ -111,5 +111,3 @@ OpenSSL/0.9.8l zlib/1.2.3
 * Closing connection #0
 ```
 
-
-

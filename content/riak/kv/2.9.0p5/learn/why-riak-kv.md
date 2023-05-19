@@ -22,8 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/learn/why-riak-kv/
 ---
 
-
-
 [apps replication properties]: {{<baseurl>}}riak/kv/2.9.0p5/developing/app-guide/replication-properties
 [Basho Bench]: {{<baseurl>}}riak/kv/2.9.0p5/using/performance/benchmarking
 [cluster ops strong consistency]: {{<baseurl>}}riak/kv/2.9.0p5/using/cluster-operations/strong-consistency
@@ -33,7 +31,6 @@ aliases:
 [dev data types]: {{<baseurl>}}riak/kv/2.9.0p5/developing/data-types
 [glossary read rep]: {{<baseurl>}}riak/kv/2.9.0p5/learn/glossary/#read-repair
 
-
 ## What is Riak?
 
 Riak is a distributed database designed to deliver maximum data
@@ -42,7 +39,6 @@ your Riak client can reach *one* Riak server, it should be able to write
 data.
 
 Riak is used as an **eventually consistent** system in that the data you want to read should remain available in most failure scenarios, although it may not be the most up-to-date version of that data.
-
 
 ### Basho's goals for Riak
 

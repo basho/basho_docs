@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/setup/planning/backend/memory/
 ---
 
-
 [config reference]: {{<baseurl>}}riak/kv/2.9.0p5/configuring/reference
 [plan backend multi]: {{<baseurl>}}riak/kv/2.9.0p5/setup/planning/backend/multi
 [glossary vnode]: {{<baseurl>}}riak/kv/2.9.0p5/learn/glossary/#vnode

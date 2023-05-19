@@ -20,7 +20,6 @@ aliases:
     - /riak/ts/1.5.1/installing/source/erlang/
 ---
 
-
 [autoconf]: http://www.gnu.org/software/autoconf/autoconf.html
 [basho erlang]: https://github.com/basho/otp/archive/OTP_R16B02_basho10.tar.gz
 [basho erlang repo]: https://github.com/basho/otp
@@ -36,17 +35,15 @@ aliases:
 [source]: {{<baseurl>}}riak/ts/1.5.1/setup/installing/source/
 [XCode Developer Tools]: https://developer.apple.com/xcode/downloads/
 
-
 {{% note %}}
 Pre-packaged versions of Riak TS include an Erlang installation.
-{{% /note %}} 
+{{% /note %}}
 
 If you are building Riak TS from [source], you will need to install [Basho's patched version of Erlang][basho erlang]. If you do not use this version of Erlang, you will not be able to use Riak TS's security features.
 
 {{% note title="Note on Official Support" %}}
 Only packaged Riak TS installs are officially supported.
 {{% /note %}}
-
 
 ## Prerequisites
 
@@ -71,7 +68,6 @@ To build and install Erlang you must have a GNU-compatible build system and thes
 * [OpenSSL]: toolkit that implements SSL and TSL protocols.
 * [Java SE JDK]: platform for deploying Java.
 
-
 ### kerl Prerequisites
 
 [kerl] is the quickest way to install different versions of Erlang on most systems.
@@ -86,7 +82,6 @@ chmod a+x kerl
 If you are using Mac OS X, see the following section for additional requirements before building with kerl.
 
 Otherwise, continue with [Installing with kerl](#installing-with-kerl).
-
 
 #### Configuring kerl on Mac OS X
 
@@ -130,7 +125,6 @@ cd autoconf-2.69
 
 Once you've configured kerl and installed autoconf continue with [Installing with kerl](#installing-with-kerl).
 
-
 ### Debian/Ubuntu Prerequisites
 
 #### Dependencies
@@ -141,7 +135,6 @@ To install the required dependencies run the following `apt-get` commands:
 sudo apt-get update
 sudo apt-get install build-essential autoconf libncurses5-dev openssl libssl-dev fop xsltproc unixodbc-dev git
 ```
-
 
 #### GUI Dependencies
 
@@ -160,11 +153,9 @@ To install packages for graphics support use the following `apt-get` command:
 sudo apt-get install libwxbase2.8 libwxgtk2.8-dev libqt4-opengl-dev
 ```
 
-
 #### Next Steps
 
 Once you've installed the prerequisites, continue with [Installing on Debian/Ubuntu](#installing-on-debian-ubuntu).
-
 
 ### Mac OS X Prerequisites
 
@@ -201,7 +192,6 @@ cd autoconf-2.69
 
 Once you've installed the prerequisites continue with [Installing on Mac OS X](#installing-on-mac-os-x).
 
-
 ### RHEL/CentOS Prerequisites
 
 #### Dependencies
@@ -211,7 +201,6 @@ To install the required dependencies run the following `yum` command:
 ```bash
 sudo yum install gcc gcc-c++ glibc-devel make ncurses-devel openssl-devel autoconf java-1.8.0-openjdk-devel git
 ```
-
 
 #### GUI Dependencies
 
@@ -226,7 +215,6 @@ sudo yum install wxBase.x86_64
 #### Next Steps
 
 Once you've installed the prerequisites, continue with [Installing on RHEL/CentOS](#installing-on-rhel-centos).
-
 
 ## Installation
 
@@ -274,7 +262,6 @@ And start Erlang from your terminal with:
 erl
 ```
 
-
 ## Installing on Debian/Ubuntu
 
 First make sure you have installed the necessary dependencies found in [Debian/Ubuntu Prerequisites](#debian-ubuntu-prerequisites).
@@ -312,7 +299,6 @@ And start Erlang from your terminal with:
 ```bash
 erl
 ```
-
 
 ## Installing on Mac OS X
 
@@ -399,7 +385,6 @@ And start Erlang from your terminal with:
 erl
 ```
 
-
 ### Installing on Mac OS X with Homebrew
 
 To install Erlang with Homebrew, use this command:
@@ -420,7 +405,6 @@ And start Erlang from your terminal with:
 erl
 ```
 
-
 ### Installing on Mac OS X with MacPorts
 
 Installing with MacPorts:
@@ -440,7 +424,6 @@ And start Erlang from your terminal with:
 ```bash
 erl
 ```
-
 
 ## Installing on RHEL/CentOS
 

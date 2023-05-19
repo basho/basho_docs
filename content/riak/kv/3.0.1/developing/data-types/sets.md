@@ -769,5 +769,3 @@ riakc_set:size(CitiesSet5).
 # a fetch command like the one displayed in the example above
 ```
 
-
-

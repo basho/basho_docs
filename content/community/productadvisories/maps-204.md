@@ -17,7 +17,6 @@ toc: true
 [cluster ops log]: {{<baseurl>}}riak/kv/2.1.3/using/cluster-operations/logging
 [Riak 2.0.5 or later]: {{<baseurl>}}riak/latest/downloads/
 
-
 Info | Value
 :----|:-----
 Date issued | January 21, 2015
@@ -41,7 +40,7 @@ You can verify whether this issue is affecting your cluster by checking
 your cluster's [logs][cluster ops log]. You will see errors along the following
 lines if your cluster is affected:
 
-```
+```plaintext
 2015-01-21 13:01:00.441 [error]
 <0.1033.0>@riak_core_vnode:vnode_command:348 riak_kv_vnode command
 failed

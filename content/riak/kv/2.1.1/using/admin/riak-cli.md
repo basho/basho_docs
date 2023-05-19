@@ -158,17 +158,17 @@ riak config { generate | effective | describe VARIABLE } [-l debug]
     The output of a successful run will show the paths to the newly generated configuration files.  These configuration files will contain a timestamp to indicate when they were generated.  For example:
 
     ```
-     -config /var/lib/riak/generated.configs/app.2016.12.02.17.47.32.config -args_file /var/lib/riak/generated.configs/vm.2016.12.02.17.47.32.args -vm_args /var/lib/riak/generated.configs/vm.2016.12.02.17.47.32.args  
+     -config /var/lib/riak/generated.configs/app.2016.12.02.17.47.32.config -args_file /var/lib/riak/generated.configs/vm.2016.12.02.17.47.32.args -vm_args /var/lib/riak/generated.configs/vm.2016.12.02.17.47.32.args
     ```
 
     If you are using the legacy configuration file format (app.config/vm.args), you will receive the following message:
 
     ```
-    -config /etc/riak/app.config -args_file /etc/riak/vm.args -vm_args /etc/riak/vm.args  
+    -config /etc/riak/app.config -args_file /etc/riak/vm.args -vm_args /etc/riak/vm.args
     ```
 
 * `effective` prints the effective configuration in the following syntax:
-    
+
     ```
     parameter1 = value1
     parameter2 = value2
@@ -180,21 +180,21 @@ riak config { generate | effective | describe VARIABLE } [-l debug]
     Disabling cuttlefish, legacy configuration files found:
       /etc/riak/app.config
       /etc/riak/vm.args
-    Effective config is only visible for cuttlefish conf files. 
+    Effective config is only visible for cuttlefish conf files.
     ```
 
 * `describe VARIABLE` prints the setting specified by `VARIABLE`, along with documentation and other useful information, such as the affected location in the configuration file, the data type of the value, the default value, and the effective value. For example, running `riak config describe storage_backend` will return the following:
-    
+
     ```
     Documentation for storage_backend
     Specifies the storage engine used for Riak's key-value data
     and secondary indexes (if supported).
 
-       Valid Values: 
+       Valid Values:
          - one of: bitcask, leveldb, memory, multi, prefix_multi
        Default Value : bitcask
        Set Value     : bitcask
-       Internal key  : riak_kv.storage_backend 
+       Internal key  : riak_kv.storage_backend
     ```
 
 Adding the `-l debug` flag to any `riak config` command will produce additional debugging information that can be used in advanced troubleshooting of "cuttlefish", Riak's configuration subsystem.
@@ -353,17 +353,17 @@ riak config { generate | effective | describe VARIABLE } [-l debug]
     The output of a successful run will show the paths to the newly generated configuration files.  These configuration files will contain a timestamp to indicate when they were generated.  For example:
 
     ```
-     -config /var/lib/riak/generated.configs/app.2016.12.02.17.47.32.config -args_file /var/lib/riak/generated.configs/vm.2016.12.02.17.47.32.args -vm_args /var/lib/riak/generated.configs/vm.2016.12.02.17.47.32.args  
+     -config /var/lib/riak/generated.configs/app.2016.12.02.17.47.32.config -args_file /var/lib/riak/generated.configs/vm.2016.12.02.17.47.32.args -vm_args /var/lib/riak/generated.configs/vm.2016.12.02.17.47.32.args
     ```
 
     If you are using the legacy configuration file format (app.config/vm.args), you will receive the following message:
 
     ```
-    -config /etc/riak/app.config -args_file /etc/riak/vm.args -vm_args /etc/riak/vm.args  
+    -config /etc/riak/app.config -args_file /etc/riak/vm.args -vm_args /etc/riak/vm.args
     ```
 
 * `effective` prints the effective configuration in the following syntax:
-    
+
     ```
     parameter1 = value1
     parameter2 = value2
@@ -375,21 +375,21 @@ riak config { generate | effective | describe VARIABLE } [-l debug]
     Disabling cuttlefish, legacy configuration files found:
       /etc/riak/app.config
       /etc/riak/vm.args
-    Effective config is only visible for cuttlefish conf files. 
+    Effective config is only visible for cuttlefish conf files.
     ```
 
 * `describe VARIABLE` prints the setting specified by `VARIABLE`, along with documentation and other useful information, such as the affected location in the configuration file, the data type of the value, the default value, and the effective value. For example, running `riak config describe storage_backend` will return the following:
-    
+
     ```
     Documentation for storage_backend
     Specifies the storage engine used for Riak's key-value data
     and secondary indexes (if supported).
 
-       Valid Values: 
+       Valid Values:
          - one of: bitcask, leveldb, memory, multi, prefix_multi
        Default Value : bitcask
        Set Value     : bitcask
-       Internal key  : riak_kv.storage_backend 
+       Internal key  : riak_kv.storage_backend
     ```
 
 Adding the `-l debug` flag to any `riak config` command will produce additional debugging information that can be used in advanced troubleshooting of "cuttlefish", Riak's configuration subsystem.

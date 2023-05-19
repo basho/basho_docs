@@ -20,7 +20,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/cluster-operations/bucket-types/
 ---
 
-
 Buckets are essentially a flat namespace in Riak. They allow the same
 key name to exist in multiple buckets and enable you to apply
 configurations across keys.

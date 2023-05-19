@@ -190,7 +190,6 @@ Several bugs have been fixed related to reip in Riak 2.0. We recommend against
 using reip prior to 2.0, if possible.
 {{% /note %}}
 
-
 ## js-reload
 
 Forces the embedded Javascript virtual machines to be restarted. This is

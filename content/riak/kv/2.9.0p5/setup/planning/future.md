@@ -21,5 +21,4 @@ aliases:
   - /riak/kv/2.9.0p4/setup/planning/future/
 ---
 
-
 **TODO: Add content**

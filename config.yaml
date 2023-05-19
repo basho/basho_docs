@@ -150,8 +150,11 @@ params:
 
   # The link to use for Contact Us in the menu and the banner
   contact_us_url: "https://www.tiot.jp/en/about-us/contact-us/"
-
-
+  contact_us_email: "info@riak.info"
+  community_email: "community@riak.info"
+  docs_contact_us_email: "docs@riak.info"
+  security_contact_us_email: "security@riak.info"
+  example_domain: "riak.info"
 ---
 
 

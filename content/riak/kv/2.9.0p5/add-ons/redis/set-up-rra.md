@@ -21,7 +21,6 @@ aliases:
   - /riak/kv/2.9.0p4/add-ons/redis/set-up-rra/
 ---
 
-
 [addon redis develop]: ../developing-rra/
 [addon redis use]: ../using-rra
 [ee]: https://www.tiot.jp/en/about-us/contact-us/
@@ -90,7 +89,6 @@ root soft nofile 65536
 ```
 
 >**Note:** You may need to log out of your shell and then log back in for these changes to take effect.
-
 
 ### Install Redis
 

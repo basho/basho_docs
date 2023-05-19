@@ -70,6 +70,3 @@ has no documents associated with it:
 }
 ```
 
-
-
-

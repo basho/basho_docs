@@ -14,14 +14,12 @@ aliases:
     - /riakts/1.0.0/using/creating-activating/
 ---
 
-
 [planning]: ../planning/
 [writing]: ../writingdata/
 
 Once you have [planned out your table][planning] you can create it using `riak-admin`.
 
 >**Note:** You will need to have access to `sudo` and `su` with the below commands, unless you are operating on Mac OS X.
-
 
 ## Creating Your Table
 

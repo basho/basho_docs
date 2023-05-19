@@ -21,7 +21,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/getting-started/ruby/crud-operations/
 ---
 
-
 ## Creating Objects In Riak
 
 First, let’s create a few objects and a bucket to keep them in.

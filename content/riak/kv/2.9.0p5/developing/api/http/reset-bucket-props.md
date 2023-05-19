@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/api/http/reset-bucket-props/
 ---
 
-
 Resets bucket properties like `n_val` and `allow_mult` back to the
 default settings.
 

@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/api/protocol-buffers/set-client-id/
 ---
 
-
 {{% note title="Deprecation notice" %}}
 The use of client IDs in conflict resolution is now deprecated in Riak. If you
 are building or maintaining a Riak client that is intended to be compatible
@@ -41,7 +40,6 @@ message RpbSetClientIdReq {
 }
 ```
 
-
 ## Response
 
 Just the `RpbSetClientIdResp` message code.
@@ -58,7 +56,6 @@ RpbSetClientIdReq protoc decode:
 client_id: "001e001266"
 
 ```
-
 
 Response
 

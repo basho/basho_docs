@@ -17,7 +17,6 @@ aliases:
   - /riak/kv/2.2.2/introduction
 ---
 
-
 Released March 28, 2017.
 
 In KV 2.2.1 we [fixed](https://github.com/basho/node_package/pull/183) an  [issue](https://github.com/basho/riak/issues/509) with nodetool, allowing it to work with SSL options in vm.args. However, `exec` was, in specific cases, calling the new NODETOOL alias, and four riak-admin commands (`handoff`, `get`, `set`, and `describe`) were using `exec` to allow them to run properly on all of our supported operating systems, meaning running those commands caused the following error message:
@@ -27,18 +26,14 @@ In KV 2.2.1 we [fixed](https://github.com/basho/node_package/pull/183) an  [issu
 ```
 This bugfix release resolves the issues with `exec` and `NODETOOL`, allowing `handoff`, `get`, `set`, and `describe` to function properly. We have located the broken QA test that misidentified these commands as working and have corrected it for future releases.
 
-
 ## Bugs Fixed
 
 * [[riak PR 904](https://github.com/basho/riak/pull/904)] Remove `exec` from calls to NODETOOL alias entirely.
 * [[yokozuna PR 731](https://github.com/basho/yokozuna/pull/731)] The default solrconfig.xml file changed slightly in 2.0, which was unaccounted for in 2.2's upgrade logic. Seamless upgrades to new solrconfigs from all 2.0.x versions are now possible.
 
-
 ## Riak KV 2.2.1 Release Notes
 
-
 This is a bugfix release built on Riak KV 2.2.0. It addresses an issue specific to Riak KV 2.2, where a reboot of the cluster might be required to resume the upgrade of AAE trees when  nodes are joined to the cluster during a hashtree upgrade. This release also continues our work to resolve technical debt and some long-standing issues.
-
 
 ### Bugs Fixed
 
@@ -52,7 +47,6 @@ This is a bugfix release built on Riak KV 2.2.0. It addresses an issue specific 
 * [[riak_core PR 887](https://github.com/basho/riak_core/pull/887)] If `riak_core_vnode_master:sync_spawn_command` was called, it would send a `gen_event all-state` event to the proxy for forwarding. However, in `handle_overload`, the code only had case clauses for '$gen_event' and not '$gen_all_state_event', meaning the event would be passed to `handle_overload_info` instead of `handle_overload_reques` which would skip the vnode callback code that sends a response. Then certain operations would hang during overload since the caller to `sync_spawn_command` would never be sent a response. A clause for `$gen_all_state_event` has been added to fix potential hang due to vnode proxy overload bug.
 * [[riak_repl PR 766](https://github.com/basho/riak_repl/pull/766)] Status output is expected to be a list. When the repl leader is undefined the status will now match the regular format: a list.
 * [[riak_kv PR 1527](https://github.com/basho/riak_kv/pull/1527)] A race condition was occurring where a `gen_fsm` timeout event was not reliably sent, even when the timeout was set to zero, and another message or event could preempt or unset the timeout. To fix this, a timeout event is manually sent using `gen_fsm:send_event`.
-
 
 ### Known Issues
 
@@ -76,13 +70,10 @@ Please edit __/etc/riak/advanced.config__ and add the following on all Riak KV 2
 
 Once all of the Riak KV clusters have been upgraded to version 2.2.0 or greater, the workaround can be removed.
 
-
-
 ### Other Changes
 
 * Debug logging for ring metadata merges and ring membership has been added. There have been a few issues where rapidly updating the ring results in suboptimal behavior, and it has been difficult to debug due to the lack of logging in the riak_core_ring module. This logging can be enabled as needed. [[riak_core PR 901](https://github.com/basho/riak_core/pull/901)]
 * riak_kv has been changed such that updating an object also sends the old object being replaced. From that old object, we can extract any siblings and generate associated document ids to delete in Solr. [[riak_kv PR 1520](https://github.com/basho/riak_kv/pull/1520)]
-
 
 ### Upgraded components
 
@@ -102,7 +93,6 @@ Once all of the Riak KV clusters have been upgraded to version 2.2.0 or greater,
 * riak_kv has been upgraded to version 2.1.7
 * riak_pipe has been upgraded to version 2.1.5
 * yokozuna has been upgraded to version 2.1.9
-
 
 ### Deprecation Notification
 

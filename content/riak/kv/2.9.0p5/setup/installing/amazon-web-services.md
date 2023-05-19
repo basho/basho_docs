@@ -25,8 +25,6 @@ aliases:
   - /riak/kv/2.9.0p4/setup/installing/amazon-web-services/
 ---
 
-
-
 ## Launching Riak VMs via the AWS Marketplace
 
 {{% note title="Note" %}}
@@ -116,7 +114,6 @@ unless deployed in Amazon VPC.
 
 You now have a Riak cluster running on AWS.
 
-
 ## Installing From Package
 
 #### AWS (2)
@@ -134,7 +131,6 @@ Or you can install the `.rpm` package manually:
 wget https://files.tiot.jp/riak/kv/2.9/2.9.0p5/amazon/2/riak-2.9.0-1.amzn2x86_64.rpm
 sudo rpm -i riak_2.9.0-1.amzn2x86_64.rpm
 ```
-
 
 #### AWS (2016.09)
 

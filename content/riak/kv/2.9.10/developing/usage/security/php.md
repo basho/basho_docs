@@ -85,7 +85,7 @@ $riak = new Riak([$node]);
 
 If you are using PAM- or trust-based authentication, the only difference
 from password-based authentication is that you do not need to specify a
-password. There are helper methods that handle this for you, 
+password. There are helper methods that handle this for you,
 `usingPamAuthentication` and `usingTrustAuthentication`.
 
 ```php
@@ -116,6 +116,4 @@ $riak = new Riak([$node]);
 
 Certificate-based authentication is not currently supported in the
 official Riak PHP client due to limitations in the HTTP interface.
-
-
 

@@ -99,5 +99,3 @@ Erlang <<0,0,0,1,14>>
 RpbDelResp - only message code defined
 ```
 
-
-

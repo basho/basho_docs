@@ -20,7 +20,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/
 ---
 
-
 [getting started]: ../developing/getting-started
 [usage index]: ../developing/usage
 [client libraries]: ../developing/client-libraries
@@ -58,7 +57,7 @@ Overview and guide to working with data types in Riak KV.
 
 #### [Data Modeling][dev data modeling]
 
-Information on use cases and data models that are a good fit for Riak KV. 
+Information on use cases and data models that are a good fit for Riak KV.
 
 [Learn More >>][dev data modeling]
 

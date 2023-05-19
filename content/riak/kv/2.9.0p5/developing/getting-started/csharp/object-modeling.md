@@ -23,7 +23,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/getting-started/csharp/object-modeling/
 ---
 
-
 To get started, refer to [this source code][1] for the models that we'll
 be using.
 

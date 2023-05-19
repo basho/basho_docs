@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/app-guide/advanced-mapreduce/
 ---
 
-
 [usage 2i]: {{<baseurl>}}riak/kv/2.9.0p5/developing/usage/secondary-indexes
 [apps replication properties]: {{<baseurl>}}riak/kv/2.9.0p5/developing/app-guide/replication-properties
 [use ref custom code]: {{<baseurl>}}riak/kv/2.9.0p5/using/reference/custom-code
@@ -34,7 +33,6 @@ aliases:
 [function contrib]: https://github.com/basho/riak_function_contrib
 [erlang client]: https://github.com/basho/riak-erlang-client
 [`set-union`]: http://en.wikipedia.org/wiki/Union_(set_theory)#Definition
-
 
 > **Use MapReduce sparingly**
 >
@@ -60,7 +58,6 @@ run MapReduce jobs using Erlang or JavaScript.
 {{% note title="Deprecation Warning" %}}
 Javascript MapReduce is deprecated and will be removed in a future version.
 {{% /note %}}
-
 
 ### Why Do We Use MapReduce for Querying Riak KV?
 
@@ -273,7 +270,6 @@ Be sure to install the MapReduce function as described above on all of
 the nodes in your cluster to ensure proper operation.
 {{% /note %}}
 
-
 ## Phase functions
 
 MapReduce phase functions have the same properties, arguments, and
@@ -353,7 +349,6 @@ A reduce function should produce a list of values, but it must also be
 true that the function is commutative, associative, and idempotent. That
 is, if the input list `[a,b,c,d]` is valid for a given F, then all of
 the following must produce the same result:
-
 
 ```erlang
   F([a,b,c,d])
@@ -466,7 +461,6 @@ former form is equivalent to `{{Bucket,Key},undefined}`.
 The query is given as a list of map, reduce and link phases. Map and
 reduce phases are each expressed as tuples in the following form:
 
-
 ```erlang
 {Type, FunTerm, Arg, Keep}
 ```
@@ -514,17 +508,14 @@ advance, but condition #2 above still holds.
 
 Link phases are expressed in the following form:
 
-
 ```erlang
 {link, Bucket, Tag, Keep}
 ```
-
 
 `Bucket` is either a binary name of a bucket to match, or the atom `_`,
 which matches any bucket. `Tag` is either a binary tag to match, or the
 atom `_`, which matches any tag. `Keep` has the same meaning as in map
 and reduce phases.
-
 
 > There are a small group of prebuilt Erlang MapReduce functions available
 with Riak KV. Check them out [on GitHub](https://github.com/basho/riak_kv/blob/master/src/riak_kv_mapreduce.erl).
@@ -573,7 +564,6 @@ Now load the data into Riak KV.
 ```bash
 ./load_data.erl goog.csv
 ```
-
 
 ### Map only: find the days on which the high was over $600.00
 
@@ -737,7 +727,6 @@ Erlang Protocol Buffers API.  In either case, you will provide the call
 to `mapred_stream` with a `Pid` that will receive the streaming results.
 
 For examples, see [MapReduce pbstream.erl]({{<baseurl>}}data/MapReduceExamples/pbstream.erl)
-
 
 ## Troubleshooting MapReduce, illustrated
 

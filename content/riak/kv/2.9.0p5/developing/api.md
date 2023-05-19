@@ -20,7 +20,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/api/
 ---
 
-
 [dev api http]: ./http
 [dev api backend]: ./backend
 [dev api pbc]: ./protocol-buffers/

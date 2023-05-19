@@ -23,14 +23,12 @@ aliases:
 [planning]: ../../using/planning
 [security basics]: {{<baseurl>}}riak/kv/2.1.4/using/security/basics
 
-
 Riak TS can be installed on Debian or Ubuntu-based systems using a binary
 package available [here][download].
 
 {{% note %}}
 Debian is only supported for developing with Riak TS and NOT for general operations.
 {{% /note %}}
-
 
 ## Dependencies
 
@@ -39,7 +37,6 @@ Debian is only supported for developing with Riak TS and NOT for general operati
 Debian and Ubuntu give you a very small limit on open file handles. Even with a
 backend that uses very few file handles, it's possible to run out. See
 [Open Files Limit][openfileslimit] for more information about changing the limit.
-
 
 ### PAM Library Requirement for Ubuntu
 
@@ -51,7 +48,6 @@ To install this dependency:
 sudo apt-get install libpam0g-dev
 ```
 
-
 ## Install Riak TS
 
 Once you have [downloaded][download] the package, execute the following command to install Riak TS:
@@ -59,7 +55,6 @@ Once you have [downloaded][download] the package, execute the following command 
 ```bash
 sudo dpkg -i riak-ts_1.4.0-1_amd64.deb
 ```
-
 
 ## Activate Riak TS node
 
@@ -69,17 +64,15 @@ Once you've installed Riak TS, start it on your node:
 riak start
 ```
 
-
 ## Verify your installation
 
-You can verify that Riak TS is successfully installed by running: 
+You can verify that Riak TS is successfully installed by running:
 
 ```bash
 dpkg -l | grep riak
 ```
 
 If Riak TS has been installed successfully `riak-ts` is returned.
-
 
 ## Next Steps
 

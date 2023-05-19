@@ -14,14 +14,11 @@ aliases:
     - /riakts/1.0.0/using/querying/
 ---
 
-
 [table arch]: ../../learn-about/tablearchitecture
 [activating]: ../creating-activating/
 [writing]: ../writingdata/
 
-
 Now that you have [created][activating] a Riak TS table and [written][writing] data to it, you can query your data.
-
 
 ## Querying
 
@@ -74,10 +71,9 @@ CREATE TABLE GeoCheckin
 ```
 Your query must include all components of the primary key (`myfamily`, `myseries`, and `time`). If any part of the primary key is missing, you will get an error.
 
-
 ### Wildcard Example
 
-Query a table by issuing a SQL statement against the table. Your query MUST include a 'where' clause with all components. 
+Query a table by issuing a SQL statement against the table. Your query MUST include a 'where' clause with all components.
 
 In the following client-specific examples we'll select all fields from the GeoCheckin table where `time`, `myfamily`, and `myseries` match our supplied parameters:
 
@@ -137,7 +133,6 @@ query = Riak::Timeseries::Query.new client, "select * from GeoCheckin where time
 results = query.issue!
 ```
 
-
 ### Select Query
 
 You can also select particular fields from the data:
@@ -170,7 +165,6 @@ select weather, temperature from GeoCheckin where
 query = fmt.format(t1=tenMinsAgoMsec, t2=nowMsec)
 ts_obj = client.ts_query('GeoCheckin', query)
 ```
-
 
 ### Extended Query
 
@@ -219,10 +213,9 @@ You cannot use `or` between two complete clauses, since keys cannot be specified
 
 When querying with user-supplied data, it is essential that you protect against SQL injection. Please verify the user-supplied data before constructing queries.
 
-
 ## SQL Support
 
-A small subset of SQL is supported. All columns are of the format: 
+A small subset of SQL is supported. All columns are of the format:
 
 ```
 Field    Operator   Constant
@@ -238,7 +231,6 @@ The following operators are supported for each data type:
 | double    | X | X | X | X | X | X |
 | timestamp | X | X | X | X | X | X |
 
-
 ### Limitations
 
 * Column to column comparisons are not currently supported.
@@ -246,10 +238,9 @@ The following operators are supported for each data type:
 * Riak search will not work with Riak TS.
 * Queries are limited by the number of quanta they can span when specifying the time limits.
 
-
 #### Quanta query range
 
-A query covering more than a certain number of quanta (5 by default) will generate the error `too_many_subqueries` and the query system will refuse to run it. Assuming a default quanta of 15 minutes, the maximum query time range is 75 minutes. 
+A query covering more than a certain number of quanta (5 by default) will generate the error `too_many_subqueries` and the query system will refuse to run it. Assuming a default quanta of 15 minutes, the maximum query time range is 75 minutes.
 
 In the below example we set a quanta of 15s:
 

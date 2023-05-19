@@ -101,13 +101,13 @@ Before a source cluster can begin pushing realtime updates to a sink,
 the following commands must be issued:
 
 1. `riak-repl realtime enable <sink_cluster>`
-    
+
     After this command, the realtime queues (one for each Riak node) are
     populated with updates to the source cluster, ready to be pushed to
     the sink.
 
 2. `riak-repl realtime start <sink_cluster>`
-    
+
     This instructs the Riak connection manager to contact the sink
     cluster.
 
@@ -176,11 +176,8 @@ same [ring size][concept clusters]; if you are using fullsync
 replication, every bucket's `n_val` must be the same in both the
 source and sink cluster.
 
-
 <script type="text/javascript">
 document.write(unescape("%3Cscript src='//munchkin.marketo.net/munchkin.js' type='text/javascript'%3E%3C/script%3E"));
 </script>
 <script>Munchkin.init('721-DGT-611');</script>
-
-
 

@@ -78,5 +78,3 @@ curl -XPOST http://localhost:8098/buckets/my_bucket/counters/my_key -d "-1"
 100
 ```
 
-
-

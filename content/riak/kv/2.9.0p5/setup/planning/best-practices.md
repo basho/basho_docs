@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/setup/planning/best-practices/
 ---
 
-
 [use ref handoff]: {{<baseurl>}}riak/kv/2.9.0p5/using/reference/handoff
 [config mapreduce]: {{<baseurl>}}riak/kv/2.9.0p5/configuring/mapreduce
 [glossary aae]: {{<baseurl>}}riak/kv/2.9.0p5/learn/glossary/#active-anti-entropy-aae

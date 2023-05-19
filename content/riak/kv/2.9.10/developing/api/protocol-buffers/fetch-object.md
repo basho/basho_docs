@@ -41,7 +41,6 @@ message RpbGetReq {
 }
 ```
 
-
 ## Optional Parameters
 
 > **Note on defaults and special values**
@@ -179,6 +178,4 @@ content {
 }
 vclock: "k316a```314`312005R,254302[?e0%23452612354V267=312227005000"
 ```
-
-
 

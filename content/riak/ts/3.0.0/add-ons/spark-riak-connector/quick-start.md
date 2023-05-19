@@ -15,7 +15,7 @@ aliases:
 
 ---
 
-This guide will run you through a quick example that uses the Spark-Riak connector to read and write data using Java, Scala, and Python. We will assume you are running this guide on Mac OSX. 
+This guide will run you through a quick example that uses the Spark-Riak connector to read and write data using Java, Scala, and Python. We will assume you are running this guide on Mac OSX.
 
 ## Prerequisites
 
@@ -36,7 +36,7 @@ Scroll down or click below to find the desired quick start guide:
 
 In this quick start guide we will run you through an example usage of the Spark-Riak connector using the Spark Scala REPL.
 
-Start Spark Scala REPL with: 
+Start Spark Scala REPL with:
 
 ```
 path/to/spark-shell /
@@ -109,24 +109,23 @@ And, finally, check that the table was successfully written into the Riak TS by 
 
 ```scala
 
-val test_query = "ts >= CAST('1980-1-1 10:00:00' AS TIMESTAMP) AND ts <= CAST('1980-1-1 10:30:00' AS TIMESTAMP) AND k = 1 AND family = 'f'" 
+val test_query = "ts >= CAST('1980-1-1 10:00:00' AS TIMESTAMP) AND ts <= CAST('1980-1-1 10:30:00' AS TIMESTAMP) AND k = 1 AND family = 'f'"
 
 val df2 = sqlContext.read.format("org.apache.spark.sql.riak").load(tableName).filter(test_query)
 
 df2.show()
 ```
 
-
 ## Python
 
 In this quick start guide we will run  through some examples usages of the Spark-Riak connector using the Spark Python REPL, `pyspark`.
 
-Start `pyspark` with: 
+Start `pyspark` with:
 
 ```
 /path/to/bin/pyspark /
 --conf spark.riak.connection.host=127.0.0.1:8087 /
---driver-class-path /path/to/spark-riak-connector-{{version}}-uber.jar 
+--driver-class-path /path/to/spark-riak-connector-{{version}}-uber.jar
 ```
 
 Make some `imports`:
@@ -153,7 +152,7 @@ create_sql = """CREATE TABLE %(table_name)s (
 site varchar not null,
 species varchar not null,
 measurementDate timestamp not null,
-value double, 
+value double,
 PRIMARY KEY ((site, species, quantum(measurementDate, 24, h)),
     site, species, measurementDate))
 """ % ({'table_name': table_name})
@@ -188,7 +187,7 @@ for i in range(9):
     value = random.uniform(-20, 110)
     events.append([site, species, measurementDate, value])
 
-end_date = measurementDate 
+end_date = measurementDate
 
 for e in events:
     print e
@@ -247,7 +246,7 @@ df.write /
     .format('org.apache.spark.sql.riak') /
     .option('spark.riak.connection.host', hostAndPort) /
     .mode('Append') /
-    .save(table_name) 
+    .save(table_name)
 ```
 
 Let's check that the write was successful by reading the TS table into a new DataFrame:
@@ -305,12 +304,12 @@ You should see something like this:
 ```
 
 Register the DataFrame as a temp SQL table and run a SQL query to obtain the average of the "value" column:
- 
+
  ```python
 df2.registerTempTable("pyspark_tmp")
 sqlContext.sql("select avg(value) as average_value from pyspark_tmp").show()
  ```
- 
+
 You should see something similar to this:
 
 ```

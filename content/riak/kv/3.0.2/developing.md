@@ -50,7 +50,7 @@ Overview and guide to working with data types in Riak KV.
 
 #### [Data Modeling][dev data modeling]
 
-Information on use cases and data models that are a good fit for Riak KV. 
+Information on use cases and data models that are a good fit for Riak KV.
 
 [Learn More >>][dev data modeling]
 
@@ -71,9 +71,4 @@ Information and reference material on Riak KV APIs.
 Frequently asked questions when developing applications with Riak KV.
 
 [Learn More >>][dev faq]
-
-
-
-
-
 

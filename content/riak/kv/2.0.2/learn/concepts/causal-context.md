@@ -14,7 +14,6 @@ aliases:
   - /riak/2.0.2/theory/concepts/context
 ---
 
-
 [concept aae]: {{<baseurl>}}riak/kv/2.0.2/learn/concepts/active-anti-entropy
 [concept clusters]: {{<baseurl>}}riak/kv/2.0.2/learn/concepts/clusters
 [concept eventual consistency]: {{<baseurl>}}riak/kv/2.0.2/learn/concepts/eventual-consistency
@@ -35,7 +34,6 @@ aliases:
 [Improving Logical Clocks in Riak with Dotted Version Vectors: A Case Study]: http://paginas.fe.up.pt/~prodei/dsie12/papers/paper_19.pdf
 [Dotted Version Vector Sets]: https://github.com/ricardobcl/Dotted-Version-Vectors
 [A History of Time in Riak]: https://www.youtube.com/watch?v=3SWSw3mKApM
-
 
 Because Riak is an [eventually consistent][concept eventual consistency],
 [clustered][concept clusters], [conflicts][usage conflict resolution] between
@@ -121,7 +119,6 @@ Behind the scenes, Riak uses vector clocks as an essential element of
 its [active anti-entropy][concept aae] subsystem and of its automatic read
 repair capabilities.
 
-
 Vector clocks are non-human-readable metadata attached to all Riak
 objects. They look something like this:
 
@@ -185,7 +182,6 @@ about which objects are more current than others in cases of conflict.
 dotted version vectors instead of vector clocks, as DVVs are far better
 at limiting the number of siblings produced in a cluster, which can
 prevent a wide variety of potential issues.
-
 
 ## DVVs Versus Vector Clocks
 
@@ -262,7 +258,6 @@ However, any bucket type that you create and activate will have
 create a bucket type that uses traditional vector clocks, you will need
 to explicitly set `dvv_enabled` to `false` for
 that bucket type.
-
 
 ## Sibling Explosion
 

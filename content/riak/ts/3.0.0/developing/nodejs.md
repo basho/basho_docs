@@ -15,10 +15,8 @@ aliases:
 
 ---
 
-
 You can develop applications and tools using Riak TS with the Riak Node.js client.
 This document covers the Node.js API for Riak TS.
-
 
 ## Overview
 
@@ -28,7 +26,6 @@ the `Riak.Commands.TS` namespace.
 Language | Source | Documentation | Download
 :--------|:-------|:--------------|:--------
 Node.js | [riak-nodejs-client](https://github.com/basho/riak-nodejs-client) | [api docs](http://basho.github.com/riak-nodejs-client/), [wiki](https://github.com/basho/riak-nodejs-client/wiki) | [NPM](https://www.npmjs.com/package/basho-riak-client), [GitHub Releases](https://github.com/basho/riak-nodejs-client/releases)
-
 
 The examples on this page will assume you are using the following table schema:
 
@@ -47,12 +44,10 @@ CREATE TABLE GeoCheckin
 )
 ```
 
-
 ## TS Commands
 
 >**Note:** These commands are automatically retried if they fail due to network
 error.
-
 
 ### Commands
 
@@ -61,7 +56,6 @@ error.
  * `Delete` - Delete a single row based on the primary key values provided.
  * `Query`  - Allows you to query a Riak TS table with the given query string.
  * `ListKeys` - Lists the primary keys of all the rows in a Riak TS table.
-
 
 ### Command Details
 
@@ -99,7 +93,6 @@ client.execute(cmd);
 |`withKey`      | array   | The TS value's key |
 
 **Return Type**: response object with `columns` and `rows` properties.
-
 
 #### `Store`
 
@@ -153,7 +146,6 @@ client.execute(cmd);
 
 **Return Type**: boolean
 
-
 #### `Delete`
 
 Delete TS value by key.
@@ -188,7 +180,6 @@ client.execute(cmd);
 |`withKey`      | array   | The TS value's key |
 
 **Return Type**: boolean
-
 
 #### `Query`
 
@@ -225,7 +216,6 @@ client.execute(cmd);
 |`withQuery`    | string  | The TS query       |
 
 **Return Type**: response object with `columns` and `rows` properties.
-
 
 #### `ListKeys`
 

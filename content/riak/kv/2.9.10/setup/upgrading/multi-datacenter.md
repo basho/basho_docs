@@ -17,6 +17,3 @@ toc: true
 
 How to update to a new version with multi-datacenter.
 
-
-
-

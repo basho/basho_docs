@@ -259,7 +259,6 @@ Currently, Yokozuna makes no attempts to hide any details of the Solr
 schema: a user creates a schema for Yokozuna just as she would for Solr.
 Here is the general structure of a schema.
 
-
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <schema name="my-schema" version="1.5">
@@ -336,7 +335,6 @@ expiration occurs after one week.
 
 For an in-depth look at Riak's AAE process, watch Joseph Blomstedt's
 [screencast](http://coffee.jtuple.com/video/AAE.html).
-
 
 ## Analysis & Analyzers
 

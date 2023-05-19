@@ -25,8 +25,6 @@ aliases:
 [getting started]: {{<baseurl>}}riak/kv/2.9.10/developing/getting-started
 [dev client libraries]: {{<baseurl>}}riak/kv/2.9.10/developing/client-libraries
 
-
-
 Riak KV is a distributed NoSQL database designed to deliver maximum data availability by distributing data across multiple servers. As long as your Riak KV client can reach one Riak server, it should be able to write data.
 
 ## Supported Operating Systems
@@ -70,7 +68,4 @@ If you are looking to integrate Riak KV with your existing tools, check out the 
 3. [Developing with Riak KV: Searching][usage search]
 4. [Developing with Riak KV: Getting Started][getting started]
 5. [Developing with Riak KV: Client Libraries][dev client libraries]
-
-
-
 

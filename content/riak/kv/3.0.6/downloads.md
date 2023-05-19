@@ -21,7 +21,3 @@ aliases:
   - /riak/kv/3.0.6/downloads
 ---
 
-
-
-
-

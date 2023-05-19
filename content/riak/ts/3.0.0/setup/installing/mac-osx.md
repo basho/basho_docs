@@ -21,7 +21,6 @@ aliases:
   - /riak/ts/latest/installing/mac-osx/
 ---
 
-
 [download]: {{<baseurl>}}riak/ts/3.0.0/downloads/
 [openfileslimit]: {{<baseurl>}}riak/kv/2.2.0/using/performance/open-files-limit
 [planning]: {{<baseurl>}}riak/ts/3.0.0/using/planning
@@ -33,7 +32,6 @@ package available [here][download].
 Mac OS X is only supported for developing with Riak TS and NOT for general operations.
 {{% /note %}}
 
-
 ## Dependencies
 
 ### `ulimit`
@@ -41,7 +39,6 @@ Mac OS X is only supported for developing with Riak TS and NOT for general opera
 OS X gives you a very small limit on open file handles. Even with a
 backend that uses very few file handles, it's possible to run out. See
 [Open Files Limit][openfileslimit] for more information about changing the limit.
-
 
 ## Install Riak TS
 
@@ -51,7 +48,6 @@ To install Riak TS on your Mac, [download] the package and then run:
 tar zxvf riak-ts-3.0.0-OSX-x86_64.tar.gz
 cd riak-ts-3.0.0
 ```
-
 
 ## Start your Riak TS node
 
@@ -69,8 +65,7 @@ You can verify that Riak TS is started and ready to use by pinging it.
 riak ping
 ```
 
-If Riak TS has started, you will receive a `pong` response. If it has not started, you will receive an error. 
-
+If Riak TS has started, you will receive a `pong` response. If it has not started, you will receive an error.
 
 ## Next Steps
 

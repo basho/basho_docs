@@ -18,10 +18,8 @@ aliases:
     - /riakts/1.5.0/configuring/riakconf
 ---
 
-
 [glossary quanta]: ../../learn/glossary/quanta
 [Riak object settings]: {{<baseurl>}}riak/kv/2.2.0/configuring/reference/#object-settings
-
 
 Riak TS exposes a few configuration settings in riak.conf. This document will walk you through the TS configurations.
 
@@ -30,7 +28,6 @@ You can locate your riak.conf in  /etc/riak or /usr/local/etc if you installed u
 {{% note title="Deprecation Warning" %}}
 The Riak TS configuration settings in riak.conf have changed. The old settings will be deprecated. Please update your riak.conf with the new settings.
 {{% /note %}}
-
 
 ## Configuration options
 
@@ -70,7 +67,6 @@ riak_kv.query.timeseries.timeout = 10000
 
 *This setting was formerly `timeseries_query_timeout_ms`, please update accordingly.*
 
-
 ### Maximum query queues
 
 `riak_kv.query.timeseries.max_concurrent_queries`: the maximum number of query queues that can run concurrently per node (each queue serving one query). Default is 3.
@@ -83,7 +79,6 @@ riak_kv.query.timeseries.max_concurrent_queries = 3
 
 *This setting was formerly `timeseries_max_concurrent_queries`, please update accordingly.*
 
-
 ### Maximum query queue length
 
 `riak_kv.query.maximum_query_queue_length`: the query queue length. Default is 15.
@@ -93,7 +88,6 @@ Increase the queue length to avoid refusing queries, at the expense of higher la
 ```riak.conf
 riak_kv.query.timeseries.maximum_query_queue_length = 15
 ```
-
 
 ### Maximum quanta
 
@@ -113,7 +107,6 @@ riak_kv.query.timeseries.max_quanta_span = 5000
 
 *This setting was formerly `timeseries_query_max_quanta_span`, please update accordingly.*
 
-
 ### Maximum returned data size
 
 `riak_kv.query.timeseries.max_returned_data_size`: largest estimated size, in bytes, of the data a query can return to the client. Default value is 10000000 (10 million). If a query will exceed this value, the query will be cancelled.
@@ -128,7 +121,6 @@ If the total size is found to exceed `max_returned_data_size`, the query is canc
 ```riak.conf
 riak_kv.query.timeseries.max_returned_data_size = 10*1000*1000
 ```
-
 
 ### Maximum subqueries
 
@@ -146,7 +138,6 @@ Setting `max_running_fsms` to 1 will effectively disable parallel collection of 
 riak_kv.query.timeseries.max_running_fsms = 20
 ```
 
-
 ### Object Size Limits
 
 `riak_kv.object.size.warning_threshold`, `riak_kv.object.size.maximum`: object size limits. Defaults are 50K and 500K, respectively.
@@ -157,7 +148,6 @@ Note that Riak TS default configuration now has smaller object sizes in order to
 riak_kv.object.size.warning_threshold = 50K
 riak_kv.object.size.maximum = 500K
 ```
-
 
 ### Query buffers root path
 
@@ -176,7 +166,6 @@ riak_kv.query.timeseries.qbuf_root_path = "$(platform_data_dir)/query_buffers"
 ```
 
 Further documentation about these settings can be found at [Riak object settings].
-
 
 ### Settings to be ignored
 

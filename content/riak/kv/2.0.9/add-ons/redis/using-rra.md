@@ -20,7 +20,6 @@ aliases:
 [dev api http]: {{<baseurl>}}riak/kv/2.0.9/developing/api/http/
 [ee]: http://basho.com/contact/
 
-
 Now that you’ve [set up Riak Redis Add-on (RRA)][addon redis setup], you're ready to use RRA with any Redis client which supports `GET`, `PUT` and `DEL` operations.
 
 This page will walk you through using RRA.

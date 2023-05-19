@@ -15,7 +15,6 @@ aliases:
   - /riak/kv/2.0.1/theory/concepts/crdts
 ---
 
-
 [concept causal context dvv]: {{<baseurl>}}riak/kv/2.0.1/learn/concepts/causal-context/#dotted-version-vectors
 [concept causal context sib]: {{<baseurl>}}riak/kv/2.0.1/learn/concepts/causal-context/#siblings
 [concept causal context vc]: {{<baseurl>}}riak/kv/2.0.1/learn/concepts/causal-context/#vector-clocks
@@ -25,7 +24,6 @@ aliases:
 [glossary node]: {{<baseurl>}}riak/kv/2.0.1/learn/glossary/#node
 [glossary vnode]: {{<baseurl>}}riak/kv/2.0.1/learn/glossary/#vnode
 [usage conflict resolution]: {{<baseurl>}}riak/kv/2.0.1/developing/usage/conflict-resolution
-
 
 A pure key/value store is completely agnostic toward the data stored
 within it. Any key can be associated with values of any conceivable

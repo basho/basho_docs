@@ -22,11 +22,9 @@ aliases:
 [iso8601]: ../../../timerepresentations/
 [SELECT]: {{<baseurl>}}riak/ts/1.4.0/using/querying/SELECT#iso_8601
 
-
-Riak TS supports several kinds of queries of your TS data. To create the most successful queries possible, there are some guidelines and limitations you should know. 
+Riak TS supports several kinds of queries of your TS data. To create the most successful queries possible, there are some guidelines and limitations you should know.
 
 This document will cover the basic rules of querying in Riak TS, general guidelines to help you create the best queries possible, and all current limitations impacting queries in TS.
-
 
 ## The Basic Rules of Querying
 
@@ -39,7 +37,6 @@ b TIMESTAMP NOT NULL,
 c BOOLEAN NOT NULL,
 PRIMARY KEY  ((a, QUANTUM(b, 1, 's'))<-Partition Key, a,b,c)<-Local Key)
 ```
-
 
 ### Partition Key
 
@@ -61,7 +58,6 @@ Any quantized field in your partition key must be included in the query as eithe
 It is possible to use ISO 8601-compliant date/time strings rather than integer timestamps in SELECT statements. Please see [SELECT]({{<baseurl>}}riak/ts/1.4.0/using/querying/select/#iso-8601) for an example or [Time Representations]({{<baseurl>}}riak/ts/1.4.0/using/timerepresentations/) for more information.
 {{% /note %}}
 
-
 ### Local Key
 
 For any field in the local key that is not in the partition key, your
@@ -80,11 +76,9 @@ Column names from the local key must be compared using strict equality against l
 * Invalid: `country_code != 'se'`
 * Invalid: `temperature < 85.0`
 
-
 ### Column Definitions
 
 [Column definitions][planning] may be queried with unbounded ranges, `!=`, and `or` comparisons.
-
 
 ### General Guidelines
 
@@ -130,14 +124,12 @@ The following operators are supported for each data type:
 | double    | X | X | X | X | X | X |
 | timestamp | X | X | X | X | X | X |
 
-
 ## Limitations
 
 * Column to column comparisons are not currently supported.
 * Secondary indexing (2i) will not work with Riak TS.
 * Riak Search will not work with Riak TS.
 * Queries are limited by the number of quanta they can span when specifying the time limits.
-
 
 #### Quanta query range
 
@@ -160,7 +152,6 @@ CREATE TABLE GeoCheckin
 The maximum time range we can query is 60s, anything beyond will fail.
 
 See the Data Modeling section in [Table Architecture][table arch] for more information.
-
 
 #### Leap seconds and quantum boundaries
 

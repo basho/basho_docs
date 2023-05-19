@@ -58,6 +58,3 @@ riak admin bucket-type create animals '{"props":{"search_index":"famous"}}'
 riak admin bucket-type activate animals
 ```
 
-
-
-

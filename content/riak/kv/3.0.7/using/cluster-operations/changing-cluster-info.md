@@ -112,7 +112,6 @@ To rename a single-node development cluster:
 
 5. Start Riak on the node with `riak start`.
 
-
 ## Rename Multi-Node Clusters
 
 For multi-node clusters, a rename is a slightly more complex procedure; however, it is very similar to the process for renaming a single node.
@@ -145,7 +144,6 @@ This process can be accomplished in three phases. The details and steps required
 2. [Reconfigure node to use new address](#reconfigure)
 3. [Repeat previous steps on each node](#repeat)
 
-
 <a id="down"></a>
 #### Down the Node
 
@@ -164,7 +162,7 @@ This process can be accomplished in three phases. The details and steps required
 
 2. From the `node2.localdomain` node, mark `riak@10.1.42.11` down:
 
-    ```bash 
+    ```bash
     riak admin down riak@10.1.42.11
     ```
 
@@ -184,16 +182,16 @@ Reconfigure `node1.localdomain` to listen on the new private IP address *192.168
 
 1. Change the node's `nodename` parameter in `riak.conf`, or `-name` parameter in `vm.args`, to reflect the new node name. For example:
 
-    `riak.conf`: `nodename = riak@192.168.17.11`  
+    `riak.conf`: `nodename = riak@192.168.17.11`
     `vm.args` : `-name riak@192.168.17.11`
 
 2. Change any IP addresses to *192.168.17.11* in `riak.conf` or `app.config` as previously described in step 3 of [Single Node Clusters](#single-node-clusters).
 
-3. Rename the node's `ring` directory, the location of which is described in step 4 of [Single Node Clusters](#single-node-clusters).  You may rename it to whatever you like, as it will only be used as a backup during the node renaming process. 
+3. Rename the node's `ring` directory, the location of which is described in step 4 of [Single Node Clusters](#single-node-clusters).  You may rename it to whatever you like, as it will only be used as a backup during the node renaming process.
 
 4. Start Riak on `node1.localdomain`.
-    
-    ```bash    
+
+    ```bash
     riak start
     ```
 
@@ -337,15 +335,15 @@ Expanding on the Example Scenario above, the below steps can be used to rename n
 
 In order to bring our first node online, we'll first need to use the `riak admin reip` command on a single node. In this example, we'll use `riak@10.1.42.11` as our first node.
 
-1.  In `riak.conf` change `nodename`, `-name` in `vm.args`, from `riak@10.1.42.11` to your new nodename, `riak@192.168.17.11`.
+1. In `riak.conf` change `nodename`, `-name` in `vm.args`, from `riak@10.1.42.11` to your new nodename, `riak@192.168.17.11`.
 
-2.  On `node1.localdomain` run `riak admin reip riak@10.1.42.11 riak@192.168.17.11`. This will change the name of `riak@10.1.42.11` to `riak@192.168.17.11` in the Riak ring.
+2. On `node1.localdomain` run `riak admin reip riak@10.1.42.11 riak@192.168.17.11`. This will change the name of `riak@10.1.42.11` to `riak@192.168.17.11` in the Riak ring.
 
-3.  Start Riak on `node1.localdomain`.
+3. Start Riak on `node1.localdomain`.
 
-4.  Once Riak is started on `node1.localdomain`, mark the rest of the nodes in the cluster down, using `riak admin down`. For example, we would down `riak@10.1.42.12` with `riak admin down riak@10.1.42.12`.
+4. Once Riak is started on `node1.localdomain`, mark the rest of the nodes in the cluster down, using `riak admin down`. For example, we would down `riak@10.1.42.12` with `riak admin down riak@10.1.42.12`.
 
-5.  Confirm every other node in the cluster is marked down by running `riak admin member-status` on `node1.localdomain`:
+5. Confirm every other node in the cluster is marked down by running `riak admin member-status` on `node1.localdomain`:
 
     ```bash
     ================================= Membership ==================================
@@ -361,7 +359,7 @@ In order to bring our first node online, we'll first need to use the `riak admin
 
     ```
 
-6.  Ensure `riak@192.168.17.11` is listed as the claimant by running `riak admin ring-status` on `node1.localdomain`:
+6. Ensure `riak@192.168.17.11` is listed as the claimant by running `riak admin ring-status` on `node1.localdomain`:
 
     ```bash
     ================================== Claimant ===================================
@@ -380,17 +378,17 @@ Once all nodes are marked as down and our first node is listed as the claimant, 
 
 #### Bringing Up the Remaining Nodes
 
-1.  On each of the remaining nodes, change `nodename` in `riak.conf`, or `-name` in `vm.args` as described above.
+1. On each of the remaining nodes, change `nodename` in `riak.conf`, or `-name` in `vm.args` as described above.
 
-2.  Move aside the ring directory. As in [Multi-Node Clusters](#multi-node-clusters), we will save this ring directory as a backup until were finished.
+2. Move aside the ring directory. As in [Multi-Node Clusters](#multi-node-clusters), we will save this ring directory as a backup until were finished.
 
-3.  Start each node. They will start as if they are each a member of their own cluster, but will retain their restored data.
+3. Start each node. They will start as if they are each a member of their own cluster, but will retain their restored data.
 
-4.  Join each node to our first node using `riak admin cluster join riak@192.168.17.11`.
+4. Join each node to our first node using `riak admin cluster join riak@192.168.17.11`.
 
-5.  Force replace each node with its old node name. For example, `riak admin cluster force-replace riak@10.1.42.12 riak@192.168.17.12`.
+5. Force replace each node with its old node name. For example, `riak admin cluster force-replace riak@10.1.42.12 riak@192.168.17.12`.
 
-6.  Once the above is complete for each node, run `riak admin cluster plan` on any node. The output should look similar to below:
+6. Once the above is complete for each node, run `riak admin cluster plan` on any node. The output should look similar to below:
 
     ```bash
     =============================== Staged Changes ================================
@@ -435,9 +433,9 @@ Once all nodes are marked as down and our first node is listed as the claimant, 
       12 reassigned from 'riak@10.1.42.15' to 'riak@192.168.17.15'
     ```
 
-7.  If the above plan looks correct, commit the cluster changes with `riak admin cluster commit`.
+7. If the above plan looks correct, commit the cluster changes with `riak admin cluster commit`.
 
-8.  Once the cluster transition has completed, all node names should be changed and be marked as valid in `riak admin member-status` like below:
+8. Once the cluster transition has completed, all node names should be changed and be marked as valid in `riak admin member-status` like below:
 
     ```bash
     ================================= Membership ==================================
@@ -452,7 +450,4 @@ Once all nodes are marked as down and our first node is listed as the claimant, 
     Valid:5 / Leaving:0 / Exiting:0 / Joining:0 / Down:0
 
     ```
-
-
-
 

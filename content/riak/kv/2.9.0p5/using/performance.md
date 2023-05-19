@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/performance/
 ---
 
-
 Many Unix-like operating systems and distributions are tuned for desktop
 or light use out of the box and not for a production database. This
 guide describes recommended system performance tunings for operators of
@@ -84,7 +83,6 @@ storage with the `noatime` flag, meaning that filesystem
 [inodes](http://en.wikipedia.org/wiki/Inode) on the volume will not be
 touched when read. This flag can be set temporarily using the following
 command:
-
 
 ```bash
 mount -o remount,noatime <riak_data_volume>

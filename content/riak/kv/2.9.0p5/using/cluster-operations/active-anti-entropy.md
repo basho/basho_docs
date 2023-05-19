@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/cluster-operations/active-anti-entropy/
 ---
 
-
 [config search#throttledelay]: {{<baseurl>}}riak/kv/2.9.0p5/configuring/search/#search-anti-entropy-throttle-tier-delay
 [config search#throttle]: {{<baseurl>}}riak/kv/2.9.0p5/configuring/search/#search-anti-entropy-throttle
 

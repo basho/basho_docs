@@ -14,7 +14,6 @@ aliases:
     - /riakts/1.4.0/using/creating-activating/
 ---
 
-
 [csharp]: ../../developing/csharp#query
 [describe]: ../querying/describe/
 [erlang]: ../../developing/erlang/#query-2
@@ -26,10 +25,9 @@ aliases:
 [planning]: ../planning/
 [writing]: ../writingdata/
 
-
 Once you have [planned out your table][planning] you can create it by:
 
-* Executing a CREATE TABLE statement using any Riak TS client, 
+* Executing a CREATE TABLE statement using any Riak TS client,
 * Using riak shell, or
 * Running the `riak-admin` command (as root, using `su` or `sudo`).
 
@@ -51,7 +49,6 @@ CREATE TABLE GeoCheckin
 )
 ```
 
-
 ## `CREATE TABLE` in Client Library
 
 Using one of the Riak TS client libraries, execute the CREATE TABLE statement via that library's query functionality. This will create and activate the table in one step. The result of the operation is library-dependent:
@@ -63,7 +60,6 @@ Using one of the Riak TS client libraries, execute the CREATE TABLE statement vi
 * [Node.js][nodejs]:  no exception thrown; result object is present with `rows` and `columns` being empty.
 * [Erlang][erlang]: the returned term will consist of two empty lists `{[],[]}`.
 * [PHP][php]: the response object has a boolean `isSuccess()` instance method.
-
 
 ### Using the WITH clause
 
@@ -84,12 +80,9 @@ Please note the following when using `WITH`:
   appearing in the string should be doubled (and not escaped with a `\`).
 * Values from the WITH clause will override those specified outside the query statement.
 
-
 ### Verification via Client Library
 
 You can verify that your table was properly created by executing the [DESCRIBE statement][describe] via the query function of your client library, or by using the [`riak-admin bucket-type status` command](#verify-creation-and-activation).
-
-
 
 ## Create a table with riak shell
 
@@ -131,7 +124,6 @@ Please take care with the following:
 
 Also note that if you discover something wrong with the setup of your data definition language (DDL), you will need to create it again and decide whether to scrap the data in the existing table or move it from the old table to the new one.
 
-
 ### Activating Your Table
 
 You activate your table as follows:
@@ -145,7 +137,6 @@ For the example `GeoCheckin` table:
 ```sh
 riak-admin bucket-type activate GeoCheckin
 ```
-
 
 ### Verify Creation and Activation
 
@@ -169,11 +160,9 @@ ddl: {ddl_v1,<<"GeoCheckin">>,
              {key_v1,[{param_v1,[<<"id">>]},{param_v1,[<<"time">>]}]}}
 ```
 
-
 ## Editing Your Table
 
 Once created, you cannot edit your Riak TS table. If you discover something wrong with the setup of your Riak TS table, you will need to create it again. You will also need to decide whether to scrap the data in the existing table or move it from the old table to the new one.
-
 
 ## Next Steps
 

@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/setup/planning/backend/leveldb/
 ---
 
-
 [upgrade 2.0#upgrading-leveldB]: {{<baseurl>}}
 [glossary vnode]: {{<baseurl>}}riak/kv/2.9.0p5/learn/glossary/#vnode
 [config reference]: {{<baseurl>}}riak/kv/2.9.0p5/configuring/reference

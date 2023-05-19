@@ -42,6 +42,3 @@ This message *must* include both the schema `name` and its Solr [search schema](
 
 Returns a [RpbPutResp]({{<baseurl>}}riak/kv/2.9.8/developing/api/protocol-buffers/#message-codes) code with no data on success.
 
-
-
-

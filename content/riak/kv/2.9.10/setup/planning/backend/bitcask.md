@@ -215,7 +215,6 @@ The following sync strategies are available:
 
 The following are possible configurations:
 
-
 ```riakconf
 bitcask.sync.strategy = none
 bitcask.sync.strategy = o_sync
@@ -314,7 +313,7 @@ bitcask.hintfile_checksums = strict
 
 ### I/O Mode
 
-The `io_mode` setting specifies which code module Bitcask should use for 
+The `io_mode` setting specifies which code module Bitcask should use for
 file access. The available settings are:
 
 * `erlang` (default) - Writes are made via Erlang's built-in file API
@@ -933,14 +932,12 @@ bitcask/
 
 ... etc ...
 
-
 |-- 1141798154164767904846628775559596109106197299200-1316787078249065
 |   |-- 1316787252.bitcask.data
 |   |-- 1316787252.bitcask.hint
 |   `-- bitcask.write.lock
 
 ... etc ...
-
 
 |-- 116463411724806326294356135107078803128832.9.0184-1316787078254833
 |   |-- 1316787252.bitcask.data
@@ -988,6 +985,4 @@ bitcask/
 ```
 
 This is normal operational behavior for Bitcask.
-
-
 

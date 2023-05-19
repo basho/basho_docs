@@ -32,6 +32,3 @@ A tutorial on updating to Riak KV 3.0.7
 
 [Learn More >>][upgrade version]
 
-
-
-

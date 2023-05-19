@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/learn/concepts/active-anti-entropy/
 ---
 
-
 [cluster ops v3 mdc]: {{<baseurl>}}riak/kv/2.9.0p5/using/cluster-operations/v3-multi-datacenter
 [cluster ops aae]: {{<baseurl>}}riak/kv/2.9.0p5/using/cluster-operations/active-anti-entropy
 [concept clusters]: {{<baseurl>}}riak/kv/2.9.0p5/learn/concepts/clusters
@@ -32,7 +31,6 @@ aliases:
 [glossary vnode]: {{<baseurl>}}riak/kv/2.9.0p5/learn/glossary/#vnode
 [Merkle tree]: http://en.wikipedia.org/wiki/Merkle_tree
 [usage search]: {{<baseurl>}}riak/kv/2.9.0p5/developing/usage/search
-
 
 In a [clustered][concept clusters], [eventually consistent][concept eventual consistency] system like Riak, conflicts between object replicas stored
 on different nodes are an expected byproduct of node failure, concurrent
@@ -49,7 +47,6 @@ Riak KV offers two means of resolving object conflicts: read repair and
 active anti-entropy (AAE). Both of these conflict resolution mechanisms
 apply both to normal key/value data in Riak as well as to
 [search indexes][usage search]
-
 
 ## Read Repair vs. Active Anti-Entropy
 

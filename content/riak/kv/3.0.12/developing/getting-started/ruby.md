@@ -15,8 +15,6 @@ aliases:
   - /riak/kv/3.0.12/dev/taste-of-riak/ruby
 ---
 
-
-
 If you haven't set up a Riak Node and started it, please visit [Running A Cluster]({{<baseurl>}}riak/kv/3.0.12/using/running-a-cluster) first. To try this flavor
 of Riak, a working installation of Ruby is required.
 
@@ -62,7 +60,4 @@ We are now ready to start interacting with Riak.
 ## Next Steps
 
 [CRUD Operations]({{<baseurl>}}riak/kv/3.0.12/developing/getting-started/ruby/crud-operations)
-
-
-
 

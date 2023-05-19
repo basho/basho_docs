@@ -626,5 +626,3 @@ riakc_gset:size(20191117Gset3).
 # a fetch command like the one displayed in the example above
 ```
 
-
-

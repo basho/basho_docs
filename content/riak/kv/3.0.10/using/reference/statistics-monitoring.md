@@ -50,6 +50,7 @@ More information can be found [here][sysctl_vm_txt] and in our
 documentation on [system tuning]({{<baseurl>}}riak/kv/3.0.10/using/performance/#storage-and-file-system-tuning).
 
 ## Riak Metrics to Graph
+
 Riak metrics fall into several general categories:
 
 1. Throughput metrics
@@ -291,7 +292,6 @@ Riak cluster nodes.
 A [Zabbix plugin for Riak][riak_zabbix] is available to get you started
 monitoring Riak using Zabbix.
 
-
 ### Hosted Service Monitoring Tools
 
 The following are some commercial tools which Basho customers have
@@ -299,6 +299,7 @@ reported successfully using for statistics gathering and monitoring
 within their Riak clusters.
 
 #### Circonus
+
 [Circonus](http://circonus.com) provides organization-wide monitoring,
 trend analysis, alerting, notifications, and dashboards. It can been
 used to provide trend analysis and help with troubleshooting and
@@ -358,7 +359,6 @@ Docs](https://github.com/basho/basho_docs).
 * [Splunk](http://www.splunk.com)
 * [Riak Docs on Github](https://github.com/basho/basho_docs)
 
-
 [sysctl_vm_txt]: https://www.kernel.org/doc/Documentation/sysctl/vm.txt
 [data_types_counters]: {{< baseurl >}}riak/kv/latest/developing/data-types/counters/
 [data_types_sets]: {{< baseurl >}}riak/kv/latest/developing/data-types/sets/
@@ -369,7 +369,4 @@ Docs](https://github.com/basho/basho_docs).
 [riak_zabbix]: https://github.com/basho/riak-zabbix
 [riak_new_relic]: https://github.com/basho/riak_newrelic
 [riak_ganglia]: https://github.com/jnewland/gmond_python_modules/tree/master/riak/
-
-
-
 

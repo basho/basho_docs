@@ -110,7 +110,6 @@ for the object to be returned will behave like requests that do not
 request the object to be returned when they are performed against write-once
 buckets.
 
-
 ## Siblings
 
 As mentioned, entries in write-once buckets are intended to be written only
@@ -129,7 +128,6 @@ wins."
 As mentioned in [Configuration](#configuration), write-once buckets and Riak
 Data Types are incompatible because of this.
 {{% /note %}}
-
 
 ## Handoff
 
@@ -153,6 +151,4 @@ The [Multi]({{<baseurl>}}riak/kv/3.0.1/setup/planning/backend/multi) backend doe
 support asynchronous writes. Therefore, if LevelDB is used with the Multi
 backend, it will be used in synchronous mode.
 {{% /note %}}
-
-
 

@@ -175,7 +175,6 @@ ulimit -a
 In the above examples, the open files limit is raised for all users of the system. If you prefer, the limit can be specified for the riak user only by substituting the two asterisks (`*`) in the examples with `riak`.
 {{% /note %}}
 
-
 ## Solaris
 
 In Solaris 8, there is a default limit of 1024 file descriptors per

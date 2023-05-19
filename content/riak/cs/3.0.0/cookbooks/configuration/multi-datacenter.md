@@ -15,7 +15,6 @@ aliases:
   - /riak/cs/latest/cookbooks/configuration/multi-datacenter/
 ---
 
-
 Configuring Multi-Datacenter Replication in Riak CS requires the
 addition of a new group of settings to the `app.config` or `advanced.config` configuration
 file for all Riak CS and Riak KV nodes that are part of the Riak

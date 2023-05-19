@@ -20,7 +20,6 @@ aliases:
   - /riak/kv/2.9.0p4/configuring/strong-consistency/
 ---
 
-
 [apps strong consistency]: {{<baseurl>}}riak/kv/2.9.0p5/developing/app-guide/strong-consistency
 [concept strong consistency]: {{<baseurl>}}riak/kv/2.9.0p5/using/reference/strong-consistency
 [cluster ops add remove node]: {{<baseurl>}}riak/kv/2.9.0p5/using/cluster-operations/adding-removing-nodes
@@ -558,6 +557,7 @@ entail shorter wait times for connecting clients, but at a higher risk
 of failed operations under heavy load.
 
 ### Merkle Tree Settings
+
 <a name="merkle"></a>
 
 Leaders and followers in Riak's strong consistency system maintain

@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/api/protocol-buffers/dt-counter-store/
 ---
 
-
 An operation to update a [counter]({{<baseurl>}}riak/kv/2.9.0p5/developing/data-types).
 
 ## Request

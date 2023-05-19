@@ -24,7 +24,6 @@ aliases:
   - /riak/kv/2.9.0p4/release-notes/
 ---
 
-
 Released April 25, 2018.
 
 > This release is dedicated to the memory of Andy Gross. Thank you and RIP.
@@ -77,7 +76,6 @@ Release 2.9 also brings three building blocks to enable current and future impro
 
 - There are two repl features to be exposed in Riak 2.9. The first feature is an API to re-replicate an object: given a key re-replicate this key from the cluster in receipt of the request. The second feature is the availability of an aae_fold API, to give access to cluster-wide AAE trees available as part of the TictacAAE change - as well as the ability to fetch keys and version information from objects within specific segments of the AAE tree
 
-
 ## Additions
 
 ### TicTac Active Anti-Entropy
@@ -120,7 +118,7 @@ Release 2.9 also brings three building blocks to enable current and future impro
 
   - A cluster-wide hot-backup facility, which due to reduced write amplification provides for efficient rsync support in a key-ordered backend.
 
-  - Migrating to the leveled backend requires a riak cluster `replace` operation - there is no in-place transition to leveled from an existing backend.  
+  - Migrating to the leveled backend requires a riak cluster `replace` operation - there is no in-place transition to leveled from an existing backend.
 
   - It is expected that community interest and support in the [bitcask backend](https://github.com/basho/bitcask) within Riak will continue into Riak 3.0 and beyond, as bitcask still offers throughput advantages with some workloads, where there is no demand for secondary indexes.
 
@@ -156,7 +154,6 @@ If the highest score is increasing over time (and positive), then there is a bac
 - Leveled compression can be either native or lz4. lz4 has improved performance in most volume tests, but unless the performance improvement is significant for a use case, sticking with native compression is recommended, as this does not create a dependency on an external library. For objects which are already compressed, and may gain little value from compression, it is recommended switching the compression point to be on_compact rather than on_receipt.
 
 - The code contains a more complete view of startup options for leveled and tictac_aae.
-
 
 ## Change log for this release
 

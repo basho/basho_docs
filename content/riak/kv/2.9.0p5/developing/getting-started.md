@@ -20,7 +20,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/getting-started/
 ---
 
-
 [install index]: {{<baseurl>}}riak/kv/2.9.0p5/setup/installing
 [dev client libraries]: {{<baseurl>}}riak/kv/2.9.0p5/developing/client-libraries
 

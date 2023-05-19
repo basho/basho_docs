@@ -14,11 +14,9 @@ aliases:
     - /riakts/1.0.0/releasenotes/
 ---
 
-
 Released December 15, 2015.
 
-This release is the introductory release of Riak TS. 
-
+This release is the introductory release of Riak TS.
 
 ## Features
 
@@ -40,12 +38,11 @@ Riak TS enables single-key DELETEs and GETs, which allow you to read and modify 
 
 ### List Key
 
-The list key feature allows you to issue an API call to list all of the keys in your Riak TS database. This can be a useful operation, but it is incredibly resource intensive as all keys must be read and processed. 
+The list key feature allows you to issue an API call to list all of the keys in your Riak TS database. This can be a useful operation, but it is incredibly resource intensive as all keys must be read and processed.
 
 ### Java, Python, and Erlang Clients
 
 Riak TS offers three client libraries : Erlang, Java and Python.
-
 
 ## Compatibility
 
@@ -58,7 +55,6 @@ Riak TS is compatible with the following operating systems:
 * Debian 6 (development only)
 * Debian 7 (development only)
 * OSX 10.8+ (development only)
-
 
 ## Known Issues
 

@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/api/protocol-buffers/get-bucket-type/
 ---
 
-
 Gets the bucket properties associated with a [bucket type]({{<baseurl>}}riak/kv/2.9.0p5/using/cluster-operations/bucket-types).
 
 ## Request

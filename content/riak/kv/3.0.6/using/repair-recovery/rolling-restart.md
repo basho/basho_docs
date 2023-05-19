@@ -59,6 +59,3 @@ done
 
 6\. Repeat the above process for any other nodes that need to be restarted.
 
-
-
-

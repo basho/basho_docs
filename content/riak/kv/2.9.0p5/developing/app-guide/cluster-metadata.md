@@ -20,7 +20,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/app-guide/cluster-metadata/
 ---
 
-
 Cluster metadata is a subsystem inside of Riak that enables systems
 built on top of
 [`riak_core`](https://github.com/basho/riak_core/blob/develop/src/riak_core_metadata.erl)

@@ -14,7 +14,6 @@ aliases:
     - /riakts/1.5.0/using/planning/
 ---
 
-
 [activating]: ../creating-activating/
 [table arch]: ../../learn-about/tablearchitecture/
 [bestpractices]: ../../learn-about/bestpractices/
@@ -24,10 +23,9 @@ aliases:
 [sql]: ../../learn-about/sqlriakts/
 [order by]: {{<baseurl>}}riak/ts/1.5.0/using/querying/select/order-by
 
+You've [installed][installing] Riak TS, and you're ready to create a table.
 
-You've [installed][installing] Riak TS, and you're ready to create a table. 
-
-* If you're just looking to test out Riak TS, you can jump ahead to [Create a Table][activating], and test out our sample table. 
+* If you're just looking to test out Riak TS, you can jump ahead to [Create a Table][activating], and test out our sample table.
 * If you're looking to set up your production environment, keep reading for guidelines on how best to structure your table.
 * If you're looking for more information about what the components of a Riak TS table do, check out [Table Architecture][table arch].
 * Riak TS tables are closely tied to SQL tables. If would like to know more about how Riak TS integrates SQL, check out [SQL for Riak TS][sql].
@@ -35,7 +33,6 @@ You've [installed][installing] Riak TS, and you're ready to create a table.
 {{% note title="Important" %}}
 The structure of your TS table will have a major impact on your Riak TS performance. Once created, your table cannot be changed. Please read through these sections carefully to determine the best options for your use-case.
 {{% /note %}}
-
 
 ## TS Table Schema
 
@@ -69,7 +66,6 @@ Keywords are case sensitive, so be sure to capitalize appropriately.
 {{% note title="Table Limitations" %}}
 You cannot create a table with more than 511 total columns. If you try to create a table with more than 511 columns, you will receive an error.
 {{% /note %}}
-
 
 ## Column Definitions
 
@@ -179,7 +175,6 @@ CREATE TABLE GeoCheckin
 )
 ```
 
-
 ### Partition Key
 
 The partition key is the first element of the primary key, and must have at least one column name.
@@ -206,7 +201,6 @@ The quantum function takes 3 parameters:
 
 If you choose to specify a quantum, the quantum you pick will greatly impact your query performance. Read more about [quanta](#quantum) below.
 
-
 ### Local Key
 
 The local key comes after the partition key. It must first contain the same column names in the same order as the partition key. This ensures that the same column names determining your data's partition also dictate the sorting of the data within that partition.
@@ -224,7 +218,7 @@ The local key may also contain additional column names so long as they come afte
 
 The local key in a TS row is what makes that row's key/address unique from other rows.
 In the examples on this page and others we've used a composite key of
-`region, state, time` because it can model different devices and groupings.  
+`region, state, time` because it can model different devices and groupings.
 If you have another integer identifier, such as a device ID, you can guarantee to be unique when combined with a timestamp, then you can have a shorter key definition.
 
 The table definition for such a schema would be as follows:
@@ -245,7 +239,7 @@ CREATE TABLE GeoCheckin
 )
 ```
 
-The omission of `region` and `state` from the key definition makes it shorter, and will also make any SQL queries shorter because we'll only need a minimum of id/time in our queries `WHERE` clauses (see [Table Architecture](../../learn-about/tablearchitecture/) and [Querying Guidelines](../querying/guidelines/) for all the specifics about how different partition + local key layouts change the way you query data).  
+The omission of `region` and `state` from the key definition makes it shorter, and will also make any SQL queries shorter because we'll only need a minimum of id/time in our queries `WHERE` clauses (see [Table Architecture](../../learn-about/tablearchitecture/) and [Querying Guidelines](../querying/guidelines/) for all the specifics about how different partition + local key layouts change the way you query data).
 
 The downside to this schema is that you'll likely need to do one query per device, instead of being able to group multiple devices together based on their other defining characteristics such as region & state.
 
@@ -255,7 +249,7 @@ Please take care in defining how you address your unique data, as it will affect
 
 A table's local key determines how it is stored and ordered on disk. Adding the `ASC` or `DESC` keywords to the local key lets you control the sort order of records on disk, and avoid sorting using [`ORDER BY`][order by] or at the application level.
 
-Ordering rows using `ASC` or `DESC` on the local key reduces workload on the cluster because no sorting is required when a query is executed. This may make using `ASC` or `DESC` on the local key a better choice than using `ORDER BY`. 
+Ordering rows using `ASC` or `DESC` on the local key reduces workload on the cluster because no sorting is required when a query is executed. This may make using `ASC` or `DESC` on the local key a better choice than using `ORDER BY`.
 
 The `ASC` or `DESC` keywords must be applied to the local key, not the partition key. The keywords can only be applied to `SINT64`, `TIMESTAMP` and `VARCHAR` columns.
 
@@ -277,7 +271,6 @@ INSERT INTO ascending_table VALUES (1,5);
 ```
 
 Then query:
-
 
 ```sql
 SELECT * FROM ascending_table WHERE a = 1 AND b >= 1 AND b <= 5;
@@ -328,17 +321,16 @@ SELECT * FROM descending_table WHERE a = 1 AND b >= 1 AND b <= 5;
 
 In the new `descending_table`, the `DESC` keyword has been added to `b` in the local key. When the table is queried, the results are returned in descending timestamp order, starting with the greatest timestamp.
 
-
 ## Quantum
 
-Choosing the right quantum for your Riak TS table is incredibly important, as it can optimize or diminish your query performance. The short guide is: 
+Choosing the right quantum for your Riak TS table is incredibly important, as it can optimize or diminish your query performance. The short guide is:
 
 1. If you care most about individual query [latency](#latency), then spread your data around the cluster so a typical query spans all
 nodes, or
 2. If you care most about [throughput](#throughput), then localize
 your data so that typical queries are confined to single nodes, or
 3. If you can't predict your usage or you have a mixed-use case, optimize for [latency](#latency) because the fractional latency gains of less data localization are much higher than the throughput losses.
-4. Finally,  if you simply don't know what you prefer, there's more information in the section below to help you decide. 
+4. Finally,  if you simply don't know what you prefer, there's more information in the section below to help you decide.
 
 ### Your quanta use-case
 
@@ -376,11 +368,9 @@ cluster.  If executing as many queries as possible in the shortest
 time is what you care most about (throughput), you want a large enough
 quantum that the data for a typical query are localized to one node.
 
-
 ### Latency
 
 If you need to optimize your Riak TS performance to ensure that individual queries are run quickly (latency), rather than for many queries to be handled at once (throughput), then you will need to take advantage of the parallel resources in your cluster by splitting queries across multiple nodes.
-
 
 #### The best quantum for latency
 
@@ -389,12 +379,12 @@ To optimize query latency, your quantum should be small enough that your normal-
 If you're up for a little math, you can use the following formula to identify the optimal quantum:
 
 ```
-Q ~ t/N 
+Q ~ t/N
 ```
 
 `t` is the time spanned by your typical query, `N` is the number of nodes in your cluster, and `Q` is your quantum.
 
-For example, if you have a 5-node cluster and your typical query is for 40 hours of data, your quantum should be no larger than 8 hours: 
+For example, if you have a 5-node cluster and your typical query is for 40 hours of data, your quantum should be no larger than 8 hours:
 
 ```
 8 = 40/5
@@ -408,26 +398,23 @@ For instance, in your 5-node cluster, with a typical query for 40 hours of data,
 
 However, a 1-hour quantum would be too small, because it would cause you to have 8 subqueries per node. These 8 subqueries would not execute in parallel; instead, they would effectively execute as two sets of 4 subqueries, one after the other, which is less efficient than a single set of 4 subqueries that are twice as long.
 
-
 ### Throughput
 
 If you need to optimize your Riak TS performance to handle many queries (throughput) more than you need those queries to be run quickly (latency), then you will want your data to be more localized.
 
-#### How small should my quantum be?  
+#### How small should my quantum be?
 
-To optimize for throughput, we suggest that your minimum quantum size be several times longer than your regular, individual query length. For the best performance, the typical query should span as few quanta as possible.  
+To optimize for throughput, we suggest that your minimum quantum size be several times longer than your regular, individual query length. For the best performance, the typical query should span as few quanta as possible.
 
 For example, if your typical query is an hour’s worth of data, then your quantum should be large enough that most (but not all) of your queries will only hit a single node. This would mean a quantum between 5 and 10 hours, which would result in 80% to 90% of your queries hitting a single node.
 
 Take care not to let 100% of your queries hit a single node, however, or you risk crashing the node.
 
+#### How large should my quantum be?
 
-#### How large should my quantum be? 
-
-For the best throughput, we suggest that your maximum quantum size be chosen to minimize the number of concurrent queries hitting the same node. For the best performance, your quantum should be bounded by the total time spanned by your instantaneous volume of concurrent queries.  
+For the best throughput, we suggest that your maximum quantum size be chosen to minimize the number of concurrent queries hitting the same node. For the best performance, your quantum should be bounded by the total time spanned by your instantaneous volume of concurrent queries.
 
 For example, if you are typically issuing thousands of concurrent queries for different hours of the same week's worth of data, then you want your quantum to be significantly less than a week, or all your queries will end up hitting the same node and will execute serially, rather than benefit from parallelization in a distributed ring.
-
 
 ## More information
 
@@ -436,7 +423,6 @@ After [creating a table][activating], its schema can be discovered with the [DES
 Still unsure how best to structure your Riak TS table? Check out our [best practice recommendations][bestpractices].
 
 Confused about what column definitions, primary key, etc. do? Check out [Table Architecture][table arch] for an in-depth explanation of TS tables.
-
 
 ## Next Steps
 

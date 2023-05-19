@@ -25,7 +25,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/data-types/
 ---
 
-
 [wiki crdt]: https://en.wikipedia.org/wiki/Conflict-free_replicated_data_type#Others
 [concept crdt]: ../../learn/concepts/crdts
 [ops bucket type]: ../../using/cluster-operations/bucket-types
@@ -42,7 +41,6 @@ Riak KV has Riak-specific data types based on [convergent replicated data types 
 Riak KV also has 1 context-free data type, that has similar usage but does not require contexts.
 
 - [HyperLogLogs](./hyperloglogs) (abbreviated `hll` in many places)
-
 
 Counters, sets, gsets, maps, and hyperloglogs can be used as bucket-level data types or types that you interact with directly. Flags and registers must be [embedded in maps](./maps).
 
@@ -239,7 +237,6 @@ UpdateMap update = new UpdateMap.Builder(ahmedMap, removePaidAccountField)
         .build();
 client.execute(update);
 ```
-
 
 ```php
 $map = (new /Basho/Riak/Command/Builder/FetchMap($riak))

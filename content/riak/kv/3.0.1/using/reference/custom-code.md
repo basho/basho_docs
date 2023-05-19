@@ -131,5 +131,3 @@ It is important that you ensure riak_kv is active before restarting the next
 node.
 {{% /note %}}
 
-
-

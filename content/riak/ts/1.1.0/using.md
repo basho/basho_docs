@@ -23,10 +23,6 @@ aliases:
 [querying]: querying/
 [writing]: writingdata/
 
-
-
-
-
 Now that you've downloaded the package from ZenDesk and [installed][installing] Riak TS, there's a recommended path for setting up and using it:
 
 1. [Plan][planning] your Riak TS table. Once created, tables can't be edited, so it's important to get it right the first time.

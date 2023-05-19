@@ -76,7 +76,7 @@ algorithm is bad at getting rid of large index files.
 
 ## Steps to Upgrading
 
-1.  First, you'll perform a normal [rolling upgrade](../cluster).
+1. First, you'll perform a normal [rolling upgrade](../cluster).
     As you upgrade, enable `yokozuna` (the new Riak Search library) on
     each node. If you're still using `app.config` it's called `yokozuna`.
     If you've chosen to upgrade to the new `riak.conf` config option, it's
@@ -276,5 +276,4 @@ search property is set to false.
 11. Finally, delete the merge index directories to reclaim disk space.
 
 For any questions reach out to the [Riak community]({{<baseurl>}}community). Preferably, ask your questions up front rather than during the middle of a migration.
-
 

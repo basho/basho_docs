@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/performance/open-files-limit/
 ---
 
-
 [plan backend]: {{<baseurl>}}riak/kv/2.9.0p5/setup/planning/backend/
 [blog oracle]: http://blogs.oracle.com/elving/entry/too_many_open_files
 
@@ -112,7 +111,6 @@ In the above examples, the open files limit is raised for all users of the syste
 two asterisks (`*`) in the examples with `riak`.
 {{% /note %}}
 
-
 ## CentOS & Red Hat
 
 Start by checking the current open file limit values with:
@@ -171,7 +169,6 @@ ulimit -a
 In the above examples, the open files limit is raised for all users of the system. The limit can be specified for the `riak` user only by substituting the
 two asterisks (`*`) in the examples with `riak`.
 {{% /note %}}
-
 
 ## Solaris
 
@@ -270,7 +267,6 @@ kern.maxfilesperproc=200000
 ```
 
 4/. Restart your computer and enter `ulimit -n` into your terminal. If your system is configured correctly, you should see that `maxfiles` has been set to 200000.
-
 
 ## Mac OS X Yosemite
 

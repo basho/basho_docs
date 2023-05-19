@@ -43,7 +43,6 @@ This page also lists the default port connections for BDP.
 >
 > AWS security profile must allow incoming and outgoing traffic from ip/ports used by Riak, Spark, and BDP. A list of default ports can be found [here][default ports]. Check out [Installing on Amazon Web Services][aws marketplace] for instructions on configuring security group settings to work with Riak.
 
-
 <div class="warning">
   DO NOT join a BDP node to a pre-existing Riak cluster.
 </div>
@@ -57,7 +56,7 @@ This page also lists the default port connections for BDP.
 5. Next, if you're running a Spark cluster, set up your Spark cluster metadata.
 6. After that, you'll need to confirm that Java is correctly configured.
 7. Finally, add services to the nodes.
- 
+
 ### Start Your BDP Nodes
 
 First, start all the nodes you have installed BDP on:
@@ -70,11 +69,10 @@ user@machine3:~$ sudo riak start
 
 ### Join BDP Nodes
 
-
 Then, join your BDP nodes together by running this command on all nodes in the cluster:
 
 ```bash
-user@machine2:~$ sudo data-platform-admin join »NODENAME, ie riak@IPADDRESS)« 
+user@machine2:~$ sudo data-platform-admin join »NODENAME, ie riak@IPADDRESS)«
 ```
 
 ### Check `riak_ensemble`
@@ -135,7 +133,6 @@ Changes to the `listener.leader_latch` setting will not have an impact on a
 live running node. You must restart the node for changes to take effect.
 {{% /note %}}
 
-
 ### Set Up Spark Cluster Metadata
 
 {{% note %}}
@@ -145,13 +142,13 @@ Add Services.
 
 If you are running a Spark cluster, you need to connect it with BDP.
 
-First, set up a consistent bucket called 'spark-bucket'  on your spark master node by running: 
+First, set up a consistent bucket called 'spark-bucket'  on your spark master node by running:
 
 ```bash
 sudo riak-admin bucket-type create strong '{"props":{"consistent":true}}'
 ```
 
-Then enable the `map` bucket type by first running: 
+Then enable the `map` bucket type by first running:
 
 ```bash
 sudo riak-admin bucket-type create maps '{"props":{"datatype":"map"}}'
@@ -252,7 +249,6 @@ To register the service configuration for Cache Proxy, issue the following comma
 sudo data-platform-admin add-service-config my-cache-proxy cache-proxy  HOST="0.0.0.0" CACHE_PROXY_PORT="»CACHE_PROXY_PORT«" CACHE_PROXY_STATS_PORT="»CACHE_PROXY_STATS_PORT«" CACHE_TTL="15s" RIAK_KV_SERVERS="»RIAK_IP_1«:»RIAK_PB_PORT«,»RIAK_IP_2«:»RIAK_PB_PORT«" REDIS_SERVERS="»REDIS_IP_1«:»REDIS_PORT«,»REDIS_IP_2«:»REDIS_PORT«"
 ```
 The IP addresses you provide should be the IP addresses of the 3 BDP nodes you started and joined earlier.
-
 
 ## Configuration Defaults
 

@@ -20,7 +20,6 @@ aliases:
 [dev api http]: {{<baseurl>}}riak/kv/3.0.6/developing/api/http/
 [ee]: https://www.tiot.jp/en/about-us/contact-us/
 
-
 Now that you’ve [set up Riak Redis Add-on (RRA)][addon redis setup], you're ready to use RRA with any Redis client which supports `GET`, `PUT` and `DEL` operations.
 
 This page will walk you through using RRA.
@@ -240,7 +239,4 @@ As with RRA, Redis statistics available on the Redis client port allow for monit
 * Custom - http://volumelabs.net/redis_monitoring/
 * NewRelic - http://newrelic.com/plugins/poison-pen-llc/28
 * Nagios - https://exchange.nagios.org/directory/Plugins/Databases/check_redis-2Epl/details
-
-
-
 

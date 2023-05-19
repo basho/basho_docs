@@ -18,16 +18,13 @@ aliases:
     - /riakts/1.4.0/using/configuring/
 ---
 
-
 [glossary quanta]: ../../learn/glossary/quanta
 
-
-Riak TS exposes a few configuration settings in riak.conf. This document will walk you through the TS configurations. 
+Riak TS exposes a few configuration settings in riak.conf. This document will walk you through the TS configurations.
 
 {{% note title="Deprecation Warning" %}}
 The Riak TS configuration settings in riak.conf have changed. The old settings will be deprecated. Please update your riak.conf with the new settings.
 {{% /note %}}
-
 
 ## Configuration options
 
@@ -67,13 +64,11 @@ riak_kv.query.timeseries.timeout = 10000
 
 *This setting was formerly `timeseries_query_timeout_ms`, please update accordingly.*
 
-
 ### Maximum quanta
 
 {{% note %}}
 Before you change this setting, we recommend you take a moment to determine whether requantizing your data would be a better option. If your data is not optimally quantized, upping the maximum quanta setting may make your queries less efficient. You can read more about best practices for quantizing your data [here]({{<baseurl>}}riak/ts/1.4.0/learn-about/bestpractices/#quantum).
 {{% /note %}}
-
 
 Use `riak_kv.query.timeseries.max_quanta_span` to configure the maximum number of quanta that a query can span. The default is 5.
 
@@ -81,15 +76,14 @@ Use `riak_kv.query.timeseries.max_quanta_span` to configure the maximum number o
 riak_kv.query.timeseries.max_quanta_span = 5
 ```
 
-You should set this parameter to be one more than your desired timespan, else a fraction of your queries will fall outside your `riak_kv.query.timeseries.max_quanta_span` window. In general, your timespan won't be an integer multiple of the quantum, so if your maximum size query is dtmax, and your quantum size is Q, then we recommend: 
-max_quanta = ceil(dtmax / Q + 1.0). 
+You should set this parameter to be one more than your desired timespan, else a fraction of your queries will fall outside your `riak_kv.query.timeseries.max_quanta_span` window. In general, your timespan won't be an integer multiple of the quantum, so if your maximum size query is dtmax, and your quantum size is Q, then we recommend:
+max_quanta = ceil(dtmax / Q + 1.0).
 
 If a query has a larger time span than your specified maximum, the error `too_many_subqueries` will show and the query will not run. This option is intended to prevent excessively long-running queries that could affect the performance of the cluster.
 
 The maximum allowable value is 256.
 
 *This setting was formerly `timeseries_query_max_quanta_span`, please update accordingly.*
-
 
 ### Maximum queries
 

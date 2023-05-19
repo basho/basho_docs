@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/setup/planning/start/
 ---
 
-
 [plan backend]: {{<baseurl>}}riak/kv/2.9.0p5/setup/planning/backend
 [plan cluster capacity]: {{<baseurl>}}riak/kv/2.9.0p5/setup/planning/cluster-capacity
 [plan backend bitcask]: {{<baseurl>}}riak/kv/2.9.0p5/setup/planning/backend/bitcask

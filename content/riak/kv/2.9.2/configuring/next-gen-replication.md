@@ -17,7 +17,7 @@ commercial_offering: true
 ---
 
 The configuration for Next Gen Replication is kept in
- the `riak.conf` configuration file. 
+ the `riak.conf` configuration file.
 
 ## Settings
 

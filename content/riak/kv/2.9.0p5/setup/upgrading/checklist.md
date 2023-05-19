@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/setup/upgrading/checklist/
 ---
 
-
 [perf open files]: {{<baseurl>}}riak/kv/2.9.0p5/using/performance/open-files-limit
 [perf index]: {{<baseurl>}}riak/kv/2.9.0p5/using/performance
 [ntp]: http://www.ntp.org/

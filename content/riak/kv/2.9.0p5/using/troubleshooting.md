@@ -20,7 +20,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/troubleshooting/
 ---
 
-
 [http 204]: ./http-204
 
 ## In This Section

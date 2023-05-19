@@ -247,6 +247,3 @@ rsp.IsNotFound // Will be true
 not found
 ```
 
-
-
-

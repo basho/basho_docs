@@ -25,7 +25,6 @@ aliases:
   - /riak/kv/2.9.0p4/setup/installing/debian-ubuntu/
 ---
 
-
 [install source index]: {{<baseurl>}}riak/kv/2.9.0p5/setup/installing/source/
 [security index]: {{<baseurl>}}riak/kv/2.9.0p5/using/security/
 [install source erlang]: {{<baseurl>}}riak/kv/2.9.0p5/setup/installing/source/erlang
@@ -146,7 +145,6 @@ sudo dpkg -i riak_2.9.0-1_amd64.deb
 wget https://files.tiot.jp/riak/kv/2.9/2.9.0p5/raspbian/buster/riak_2.9.0-1_armhf.deb
 sudo dpkg -i riak_2.9.0-1_amd64.deb
 ```
-
 
 ## Installing From Source
 

@@ -23,7 +23,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/getting-started/java/querying/
 ---
 
-
 ## Java Version Setup
 
 For the Java version, please download the source from GitHub by either
@@ -156,7 +155,6 @@ public static void main(String[] args) throws RiakException {
 
     System.out.println("Starting Client");
     IRiakClient client = RiakFactory.pbcClient("127.0.0.1", 10017);
-
 
     System.out.println("Creating Buckets");
     Bucket customersBucket = client.fetchBucket("Customers").lazyLoadBucketProperties().execute();

@@ -62,72 +62,60 @@ You can use prefixes to separate the objects in a bucket into groupings of keys.
 
 A response contains `CommonPrefixes` only if the request includes a `delimiter`. `CommonPrefixes` lists keys that act like subdirectories in the directory specified by `Prefix`. If `Prefix` is *projects/* and `delimiter` is */*, the common prefix in *projects/marketing/2012* is *projects/marketing/*. The keys rolled up into a common prefix represent a single return for the calculation of the number of returns (which is limited by `MaxKeys`).
 
-
 * *Type*: String
 * *Ancestry*: ListBucketResult
 
 **Delimiter** - Keys that contain the same string between the `prefix` and the first occurrence of the `delimiter` are rolled up into a single result in the `CommonPrefixes` collection and aren't returned anywhere else in the response.
-
 
 * *Type*: String
 * *Ancestry*: ListBucketResult
 
 **DisplayName** - Object owner's display name.
 
-
 * *Type*: String
 * *Ancestry*: ListBucketResult.Contents.Owner
 
 **ETag** - The entity tag is an MD5 hash of the object and reflects only changes to the object contents, not the object's metadata.
-
 
 * *Type*: String
 * *Ancestry*: ListBucketResult.Contents
 
 **ID** - Object owner's user ID.
 
-
 * *Type*: String
 * *Ancestry*: ListBucketResult.Contents.Owner
 
 **IsTruncated** - Indicates whether all of the results were returned (`true`) or only a subset (`false`) because the number of results returned exceeded the maximum specified by `MaxKeys`.
-
 
 * *Type*: String
 * *Ancestry*: boolean
 
 **Key** - The object key.
 
-
 * *Type*: String
 * *Ancestry*: ListBucketResult.Contents
 
 **LastModified** - The date and time that the object was last modified.
-
 
 * *Type*: Date
 * *Ancestry*: ListBucketResult.Contents
 
 **Marker** - The starting location in the bucket for the list of objects.
 
-
 * *Type*: String
 * *Ancestry*: ListBucketResult
 
 **MaxKeys** - The maximum number of keys returned in the response body.
-
 
 * *Type*: String
 * *Ancestry*: ListBucketResult
 
 **Name** - Bucket's name.
 
-
 * *Type*: String
 * *Ancestry*: ListBucketResult
 
 **Owner** - Bucket owner.
-
 
 * *Type*: String
 * *Children*: DisplayName, ID
@@ -135,18 +123,15 @@ A response contains `CommonPrefixes` only if the request includes a `delimiter`.
 
 **Prefix** - Keys that begin with the indicated prefix.
 
-
 * *Type*: String
 * *Ancestry*: ListBucketResult
 
 **Size** - The object's size in bytes.
 
-
 * *Type*: String
 * *Ancestry*: ListBucketResult.Contents
 
 **StorageClass** - Always STANDARD.
-
 
 * *Type*: String
 * *Ancestry*: ListBucketResult.Contents
@@ -154,6 +139,7 @@ A response contains `CommonPrefixes` only if the request includes a `delimiter`.
 ## Examples
 
 ### Sample Request
+
 A request that returns the objects in the bucket, `projects`.
 
 ```

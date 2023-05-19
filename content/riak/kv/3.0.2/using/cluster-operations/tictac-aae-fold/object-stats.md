@@ -46,9 +46,9 @@ Run this using [`riak attach`][riak attach].
 
 ```riakattach
 riak_client:aae_fold({
-    object_stats, 
-    bucket_filter, 
-    key_range_filter, 
+    object_stats,
+    bucket_filter,
+    key_range_filter,
     modified_filter
     }, Client).
 ```
@@ -63,8 +63,8 @@ For example, the following snippet will count all objects with the filters:
 
 ```riakattach
 riak_client:aae_fold({
-    object_stats, 
-    {<<"animals">>,<<"dogs">>}, 
+    object_stats,
+    {<<"animals">>,<<"dogs">>},
     {<<"A">>,<<"N">>},
     {date,{{2022,1,1},{0,0,0}},{{2022,2,1},{0,0,0}}}
     }, Client).

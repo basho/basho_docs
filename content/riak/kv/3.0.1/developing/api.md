@@ -38,5 +38,3 @@ Overview of Riak KV's storage backend API.
 
 [Learn More >>][dev api backend]
 
-
-

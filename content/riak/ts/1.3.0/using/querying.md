@@ -14,15 +14,12 @@ aliases:
     - /riakts/1.3.0/using/querying/
 ---
 
-
 [table arch]: ../../learn-about/tablearchitecture
 [activating]: ../creating-activating/
 [writing]: ../writingdata/
 [planning]: ../planning#column-definitions
 
-
 Now that you have [created][activating] a Riak TS table and [written][writing] data to it, you can query your data.
-
 
 ## Basic Querying
 
@@ -36,7 +33,6 @@ c BOOLEAN NOT NULL,
 PRIMARY KEY  ((a, QUANTUM(b, 1, 's'))<-Partition Key, a,b,c)<-Local Key)
 ```
 
-
 ### Partition Key
 
 All queries must cover the partition key fields and must use greater than and less than (>, >=, <, <=).
@@ -48,7 +44,6 @@ Any quantized field in your partition key must be included in the query as eithe
 * Valid: `time > 1449864277000 and time < 1449864290000`
 * Invalid: `time > 1449864277000`
 * Invalid: `time > 1449864277000 or time < 1449864290000`
-
 
 ### Local Key
 
@@ -69,11 +64,9 @@ Column names from the local key must be compared using strict equality against l
 * Invalid: `country_code != 'se'`
 * Invalid: `temperature < 85.0`
 
-
 ### Column Definitions
 
 [Column definitions][planning] may be queried with unbounded ranges, `!=`, and `or` comparisons.
-
 
 ### General Guidelines
 
@@ -100,7 +93,6 @@ CREATE TABLE GeoCheckin
 ```
 
 Your query must include all components of the partition key. If any part of the partition key is missing, you will get an error.
-
 
 ## Advanced Querying By Column
 
@@ -295,11 +287,9 @@ select weather, temperature from GeoCheckin where time > 1234560 and time < 1234
 
 You cannot use `or` between two complete clauses, since keys cannot be specified twice.
 
-
 ### SQL Injection
 
 When querying with user-supplied data, it is essential that you protect against SQL injection. Please verify the user-supplied data before constructing queries.
-
 
 ## SQL Support
 
@@ -319,14 +309,12 @@ The following operators are supported for each data type:
 | double    | X | X | X | X | X | X |
 | timestamp | X | X | X | X | X | X |
 
-
 ### Limitations
 
 * Column to column comparisons are not currently supported.
 * Secondary indexing (2i) will not work with Riak TS.
 * Riak Search will not work with Riak TS.
 * Queries are limited by the number of quanta they can span when specifying the time limits.
-
 
 #### Quanta query range
 
@@ -350,7 +338,6 @@ The maximum time range we can query is 60s, anything beyond will fail.
 
 See the Data Modeling section in [Table Architecture][table arch] for more information.
 
-
 #### Leap seconds and quantum boundaries
 
 Periodically [leap seconds](https://en.wikipedia.org/wiki/Leap_second)
@@ -371,7 +358,6 @@ Effectively, there is no way in the UNIX time scheme to differentiate an event t
 Similarly, Riak TS would treat `915148800` as the start of a new time quantum, and any data points which a client added for that second would be considered to be in the first time quantum in 1999.
 
 The data is not lost, but a query against 1998 time quanta will not produce those data points despite the fact that some of the events flagged as `915148800` technically occurred in 1998.
-
 
 ## Querying Tables
 
@@ -539,7 +525,6 @@ A successful `DESCRIBE` statement execution will return a language-specific repr
 * **Python** - either the `ts_query` or `ts_describe` methods of the client object can be used to executed a `DESCRIBE` statement. In both cases, the response object will have `columns` and `rows` properties corresponding to the above table.
 * **C#** - Use a `Query` command to execute a `DESCRIBE` statement.
 * **Node.js** - you may use the `TS.Query` command to execute a `DESCRIBE` statement, or use the purpose-built `TS.Describe` command. In both cases, the response object will have `columns` and `rows` properties corresponding to the above table.
-
 
 ## Single Key Fetch
 

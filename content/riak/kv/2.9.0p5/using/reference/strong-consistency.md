@@ -20,7 +20,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/reference/strong-consistency/
 ---
 
-
 [usage bucket types]: {{<baseurl>}}riak/kv/2.9.0p5/developing/usage/bucket-types
 [concept eventual consistency]: {{<baseurl>}}riak/kv/2.9.0p5/learn/concepts/eventual-consistency
 

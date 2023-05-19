@@ -52,6 +52,3 @@ The schema cannot be created because there is
     already a schema with that name
 * `503 Service Unavailable` - The request timed out internally
 
-
-
-

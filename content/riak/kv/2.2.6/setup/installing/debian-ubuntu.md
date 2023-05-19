@@ -158,7 +158,6 @@ wget https://files.tiot.jp/riak/kv/2.2/2.2.6/raspbian/buster/riak_2.2.6-1_armhf.
 sudo dpkg -i riak_2.2.6-1_amd64.deb
 ```
 
-
 ## Installing From Source
 
 First, install Riak dependencies using apt:

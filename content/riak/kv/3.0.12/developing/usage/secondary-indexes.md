@@ -28,7 +28,6 @@ Secondary indexes can be either a binary or string, such as
 `sensor_1_data` or `admin_user` or `click_event`, or an integer, such as
 `99` or `141121`.
 
-
 Please note that 2i can be used only with the [LevelDB][plan backend leveldb] and [Memory][plan backend memory]
 backends.
 
@@ -2011,7 +2010,4 @@ curl -XPOST localhost:8098/mapred\
 }
 EOF
 ```
-
-
-
 

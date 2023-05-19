@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/app-guide/
 ---
 
-
 [usage conflict resolution]: {{<baseurl>}}riak/kv/2.9.0p5/developing/usage/conflict-resolution
 [dev data model#log]: {{<baseurl>}}riak/kv/2.9.0p5/developing/data-modeling/#log-data
 [dev data model#sensor]: {{<baseurl>}}riak/kv/2.9.0p5/developing/data-modeling/#sensor-data

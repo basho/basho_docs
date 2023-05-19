@@ -21,6 +21,6 @@ aliases:
 
 # Download Riak TS 1.1.0
 
-Riak TS is currently only available to our enterprise customers. 
+Riak TS is currently only available to our enterprise customers.
 
 Enterprise customers can download the Riak TS package from ZenDesk. Once you have downloaded the package, check out how to [install][installing] it.

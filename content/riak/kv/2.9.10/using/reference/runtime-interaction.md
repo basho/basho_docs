@@ -65,5 +65,3 @@ triggered using the following parameters:
   * Default: `off`
   * Example when enabled: `20ms`
 
-
-

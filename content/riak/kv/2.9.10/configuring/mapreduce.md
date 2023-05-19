@@ -94,7 +94,6 @@ If you load larger JSON objects in your buckets there is a possibility you might
  {"lineno":465,"message":"InternalError: script stack space quota is exhausted","source":"unknown"}
 ```
 
-
 You can increase the amount of memory allocated to the Javascript VM stack by editing your app.config. The following will increase the stack size from 8MB to 32MB:
 
 ```erlang
@@ -194,6 +193,4 @@ Pre-reduce may also be enabled or disabled on a per-phase basis via the Erlang A
 > **Warning:**
 >
 >A known bug in Riak 1.0.0 prevents per-phase pre-reduce from being enabled over HTTP.  This bug also prevents per-phase pre-reduce from being enabled for Javascript phases.  Use the global app.config flag for these cases. This bug was fixed in 1.0.1.
-
-
 

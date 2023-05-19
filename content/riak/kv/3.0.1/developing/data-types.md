@@ -36,7 +36,6 @@ Riak KV also has 1 context-free data type, that has similar usage but does not r
 
 - [HyperLogLogs](./hyperloglogs) (abbreviated `hll` in many places)
 
-
 Counters, sets, gsets, maps, and hyperloglogs can be used as bucket-level data types or types that you interact with directly. Flags and registers must be [embedded in maps](./maps).
 
 For more information on how CRDTs work in Riak KV see [Concepts: Data Types][concept crdt].
@@ -233,7 +232,6 @@ UpdateMap update = new UpdateMap.Builder(ahmedMap, removePaidAccountField)
 client.execute(update);
 ```
 
-
 ```php
 $map = (new \Basho\Riak\Command\Builder\FetchMap($riak))
     ->atLocation($location)
@@ -265,6 +263,4 @@ $updateSet = (new \Basho\Riak\Command\Builder\UpdateSet($riak))
 The pages listed above detail using Riak data types at the application level using Basho's [officially supported Riak KV clients](../client-libraries). For more on getting started with client libraries check out the [Developing with Riak KV: Getting Started](../getting-started) section.
 
 All the examples use the bucket type names from above (`counters`, `sets`, and `maps`). You're free to substitute your own bucket type names if you wish.
-
-
 

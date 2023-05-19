@@ -24,8 +24,6 @@ aliases:
   - /riak/kv/2.9.0p4/learn/concepts/eventual-consistency/
 ---
 
-
-
 [concept buckets]: {{<baseurl>}}riak/kv/2.9.0p5/learn/concepts/buckets
 [concept causal context vc]: {{<baseurl>}}riak/kv/2.9.0p5/learn/concepts/causal-context/#vector-clocks
 [concept clusters]: {{<baseurl>}}riak/kv/2.9.0p5/learn/concepts/clusters
@@ -34,7 +32,6 @@ aliases:
 [glossary read rep]: {{<baseurl>}}riak/kv/2.9.0p5/learn/glossary/#read-repair
 [usage bucket types]: {{<baseurl>}}riak/kv/2.9.0p5/developing/usage/bucket-types
 [usage conflict resolution]: {{<baseurl>}}riak/kv/2.9.0p5/developing/usage/conflict-resolution
-
 
 In a distributed and fault-tolerant system like Riak, server and network
 failures are expected. Riak is designed to respond to requests even when
@@ -198,7 +195,6 @@ nodes.
 nodes must respond for the operation to be considered successful, which
 it wasn't, but there's no way to tell without performing another read
 whether the operation truly failed.
-
 
 ## Further Reading
 

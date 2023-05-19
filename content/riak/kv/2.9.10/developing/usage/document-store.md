@@ -358,7 +358,7 @@ class BlogPost {
   public function store()
   {
     $setBuilder = (new \Basho\Riak\Command\Builder\UpdateSet($this->riak));
-      
+
     foreach($this->keywords as $keyword) {
       $setBuilder->add($keyword);
     }
@@ -613,6 +613,4 @@ Info | Query
 Unpublished posts | `published_flag:false`
 Titles that begin with `Loving*` | `title_register:Loving*`
 Post bodies containing the words `furry` and `jumping` | `content_register:[furry AND jumping]`
-
-
 

@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/api/protocol-buffers/dt-fetch/
 ---
 
-
 The equivalent of [`RpbGetReq`]({{<baseurl>}}riak/kv/2.9.0p5/developing/api/protocol-buffers/fetch-object) for [Riak Data Types]({{<baseurl>}}riak/kv/2.9.0p5/developing/data-types). This request results in a `DtFetchResp`
 message (explained in the **Response** section below).
 

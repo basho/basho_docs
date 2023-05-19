@@ -20,7 +20,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/
 ---
 
-
 [use running cluster]: ../using/running-a-cluster
 [use admin index]: ../using/admin/
 [cluster ops index]: ../using/cluster-operations

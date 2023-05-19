@@ -20,12 +20,11 @@ aliases:
   - /riak/kv/2.9.0p4/setup/planning/operating-system/
 ---
 
-
 [downloads]: {{<baseurl>}}riak/kv/2.9.0p5/downloads/
 
 We recommend deploying Riak KV on a mainstream Unix-like operating system.
 Mainstream distributions have larger support communities, making
-solutions to common problems easier to find. 
+solutions to common problems easier to find.
 
 Basho provides [binary packages][downloads] of Riak KV for the following distributions:
 

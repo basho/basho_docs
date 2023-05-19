@@ -127,17 +127,17 @@ The more severe data loss scenarios usually relate to hardware failure
 cases where data is lost, several options are available for restoring
 the data:
 
-1.  Restore from backup. A daily backup of Riak nodes can be helpful.
+1. Restore from backup. A daily backup of Riak nodes can be helpful.
     The data in this backup may be stale depending on the time at which
     the node failed, but can be used to partially restore data from
     lost EBS volumes. If running in a RAID configuration, rebuilding the
     array may also be possible.
-2.  Restore from Multi-Datacenter Replication. If replication is enabled
+2. Restore from Multi-Datacenter Replication. If replication is enabled
     between two or more clusters, the missing data will gradually be
     restored via realtime replication and fullsync replication. A
     fullsync operation can also be triggered manually via the
     `riak-repl` command.
-3.  Restore using intra-cluster repair. Riak versions 1.2 and greater
+3. Restore using intra-cluster repair. Riak versions 1.2 and greater
     include a "repair" feature which will restore lost partitions with
     data from other replicas. This currently has to be invoked manually
     using the Riak console and should be performed with guidance from a
@@ -168,17 +168,17 @@ measure how performance degrades when the cluster is not in
 steady-state. While under a simulation of live load, the following
 states might be simulated:
 
-1.  Stop one or more nodes normally and restart them after a few moments
+1. Stop one or more nodes normally and restart them after a few moments
     (simulates [rolling upgrade](../../../setup/upgrading/cluster)).
-2.  Join two or more nodes to the cluster.
-3.  Leave nodes from the cluster (after step #2).
-4.  Hard-kill the Riak `beam.smp` process (i.e., `kill -9`) and then
+2. Join two or more nodes to the cluster.
+3. Leave nodes from the cluster (after step #2).
+4. Hard-kill the Riak `beam.smp` process (i.e., `kill -9`) and then
     restart it.
-5.  Hard-reboot a node's instance using the AWS console and then
+5. Hard-reboot a node's instance using the AWS console and then
     restart it.
-6.  Hard-stop and destroy a node's instance and build a new one from
+6. Hard-stop and destroy a node's instance and build a new one from
     backup.
-7.  Via networking, e.g. firewall, partition one or more nodes from
+7. Via networking, e.g. firewall, partition one or more nodes from
     the rest of the cluster and then restore the original
     configuration.
 
@@ -241,7 +241,4 @@ For more information on EC2 storage options, please see their
 * [Improving Performance](../)
 * [Failure and Recovery](../../repair-recovery)
 * [Basho Client Services Help Desk](https://help.basho.com)
-
-
-
 

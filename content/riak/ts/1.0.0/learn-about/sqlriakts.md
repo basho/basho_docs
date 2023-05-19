@@ -14,8 +14,7 @@ aliases:
     - /riakts/1.0.0/learn-about/bestpractices/
 ---
 
-
-Riak TS tables were designed around SQL tables. This page will go through some SQL basics and more in depth information about how SQL is used within Riak TS.  
+Riak TS tables were designed around SQL tables. This page will go through some SQL basics and more in depth information about how SQL is used within Riak TS.
 
 This document uses CAPITAL LETTERS for SQL keywords, although you do not need to do so in using the keywords. This document also breaks out SQL queries into multiple lines for readability, but queries can be written as a single line.
 
@@ -23,9 +22,9 @@ This document uses CAPITAL LETTERS for SQL keywords, although you do not need to
 
 Riak TS supports a subset of Structured Query Language (SQL): SELECT statements for querying called Data Manipulation Language (DML) or Data Query Language (DQL), and CREATE TABLE statements for defining Riak TS storage regions/bucket types, also known as Data Definition Language (DDL).
 
-The subset of SQL used by Riak TS supports several kinds of literals: 
+The subset of SQL used by Riak TS supports several kinds of literals:
 
-* numbers 
+* numbers
 * single-quoted strings
 * time
 
@@ -33,18 +32,18 @@ It also supports double-quoted column references (aka identifiers or field names
 
 ## Schema Design
 
-Let's say you want to store and graph usage metrics on a heterogeneous collection of network servers: disk usage, memory usage, CPU temperatures, load averages, and other metrics. Our graphing is going to be a single metric for a single host at a time, so our primary key should cover time, hostname, and the metric name. Since some metrics won't be on every server (i.e. our Riak KV servers have more disks than our Rails servers), and we want to be able to add metrics in the future, we're going to have a narrow table, with only one metric per row. 
+Let's say you want to store and graph usage metrics on a heterogeneous collection of network servers: disk usage, memory usage, CPU temperatures, load averages, and other metrics. Our graphing is going to be a single metric for a single host at a time, so our primary key should cover time, hostname, and the metric name. Since some metrics won't be on every server (i.e. our Riak KV servers have more disks than our Rails servers), and we want to be able to add metrics in the future, we're going to have a narrow table, with only one metric per row.
 
-Since we've decided to have our compound primary key cover time, hostname, and metric name, the only thing left to decide is the quantization. Right now, a query can only cover four quanta, so quantization comes down to how much time we want in a single graph. 
+Since we've decided to have our compound primary key cover time, hostname, and metric name, the only thing left to decide is the quantization. Right now, a query can only cover four quanta, so quantization comes down to how much time we want in a single graph.
 
 You can’t use `OR` to select different non-quantized options on a field in the primary key. If you are selecting different options on a non-quantized primary key field, put them in multiple queries.
 
 ```sql
 CREATE TABLE metrics (
-  time TIMESTAMP NOT NULL, 
-  hostname VARCHAR NOT NULL, 
-  metric_name VARCHAR NOT NULL, 
-  metric_value DOUBLE, 
+  time TIMESTAMP NOT NULL,
+  hostname VARCHAR NOT NULL,
+  metric_name VARCHAR NOT NULL,
+  metric_value DOUBLE,
   PRIMARY KEY (
     (hostname, metric_name, QUANTUM(time, 15, m)),
     hostname, metric_name, time))
@@ -56,7 +55,6 @@ The `PRIMARY KEY` declaration is made up of two pieces: the partition key and th
 
 On-disk, data is stored in sorted order. Since queries must exactly match a `hostname` and `metric_name`, it's most useful to seek to the beginning of a range of those, sweeping to find the lowest timestamp, and reading records until the timestamp leaves the desired range. This allows only records matching the `hostname`, `metric_name`, and timestamp range to be read. The alternatives, where the timestamp is not last, require reading non-matching records and filtering them out after they've been read from the disk.
 
-
 ## How Riak TS Processes SQL Queries
 
 Assume we have way too many computers and we aren’t sure why one of them is being unreliable. We think it’s running hot but we’re not sure, so we’re going to look at our metrics data and see whether or not it is.
@@ -64,7 +62,7 @@ Assume we have way too many computers and we aren’t sure why one of them is be
 In particular, we want to ask about the last forty minutes of CPU temperature data for bunnahabhain.islay with temperatures over 50°C. Our SQL query looks like:
 
 ```sql
-SELECT * FROM metrics 
+SELECT * FROM metrics
 WHERE
   hostname='bunnahabhain.islay' AND
   metric_name='core_temp' AND
@@ -76,7 +74,7 @@ WHERE
 And we send the query to Riak TS. Once the query is sent to Riak TS the following happens:
 
 1. The planner receives the query from you and parses it.
-2. The parser isolates the table name, and then 
+2. The parser isolates the table name, and then
 3. the parser constructs a tree out of the `WHERE` conditions, and identifies `WHERE` predicates that are connected with `AND` operations.
 3. The planner then loads the table’s DDL.
 4. Then the planner plucks out the `WHERE` conditions that are fields in the DDL’s primary key.

@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/admin/riak-admin/
 ---
 
-
 [config reference]: {{<baseurl>}}riak/kv/2.9.0p5/configuring/reference
 [use admin commands]: {{<baseurl>}}riak/kv/2.9.0p5/using/admin/commands
 [use admin commands#join]: {{<baseurl>}}riak/kv/2.9.0p5/using/admin/commands/#join
@@ -196,7 +195,6 @@ riak-admin reip <old nodename> <new nodename>
 Several bugs have been fixed related to reip in Riak 2.0. We recommend against
 using reip prior to 2.0, if possible.
 {{% /note %}}
-
 
 ## js-reload
 
@@ -691,7 +689,6 @@ parameters:
 * `search.dist_query` will get the status of distributed query for the node
 
 The `search.dist_query` commands above are non-persistent. Any settings you have defined in your riak.conf configuration file will be used when Riak KV is restarted.
-
 
 ## show
 

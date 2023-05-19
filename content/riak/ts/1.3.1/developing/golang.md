@@ -16,7 +16,6 @@ aliases:
     - /riakts/1.3.1/developing/golang/
 ---
 
-
 You can develop applications and tools using Riak TS with the Riak Go client.
 This document covers the Go API for Riak TS.
 
@@ -36,7 +35,6 @@ TS support within the Go client is implemented through the following 5 command b
 Language | Source | Documentation |
 :--------|:-------|:--------------|
 Go | [riak-go-client](https://github.com/basho/riak-go-client) | [GoDoc](https://godoc.org/github.com/basho/riak-go-client) |
-
 
 ## Data Types
 

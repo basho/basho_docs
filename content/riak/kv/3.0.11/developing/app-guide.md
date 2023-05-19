@@ -144,8 +144,6 @@ of features that may be just what you're looking for. In the sections
 immediately below, you can find brief descriptions of those features as
 well as relevant links to Basho documentation.
 
-
-
 ## Riak Data Types
 
 When performing basic K/V operations, Riak is agnostic toward the actual
@@ -350,8 +348,4 @@ will help you get up and running:
 * [Developing with Riak KV: Usage][usage index] - A guide to basic key/value operations and other common tasks in Riak KV.
 * [Riak KV Glossary][glossary] - A listing of frequently used terms in Riak's
   documentation
-
-
-
-
 

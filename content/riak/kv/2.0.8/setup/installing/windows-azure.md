@@ -177,7 +177,7 @@ Execute on any one of the nodes:
 ```bash
 curl -s http://rekon.basho.com | sh
 ```
-    
+
 Visit DNS address listed on the dashboard, at the port we opened as an endpoint:
 
 ```

@@ -22,8 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/learn/concepts/vnodes/
 ---
 
-
-
 [concept causal context]: {{<baseurl>}}riak/kv/2.9.0p5/learn/concepts/causal-context
 [concept clusters ring]: {{<baseurl>}}riak/kv/2.9.0p5/learn/concepts/clusters/#the-ring
 [concept replication]: {{<baseurl>}}riak/kv/2.9.0p5/learn/concepts/replication
@@ -33,7 +31,6 @@ aliases:
 [plan backend]: {{<baseurl>}}riak/kv/2.9.0p5/setup/planning/backend
 [plan cluster capacity]: {{<baseurl>}}riak/kv/2.9.0p5/setup/planning/cluster-capacity
 [use admin riak cli]: {{<baseurl>}}riak/kv/2.9.0p5/using/admin/riak-cli
-
 
 Virtual nodes, more commonly referred to as **vnodes**, are processes
 that manage partitions in the Riak [ring][glossary ring]. Each data

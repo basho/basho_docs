@@ -15,7 +15,6 @@ aliases:
 
 ---
 
-
 [activating]: ../creating-activating/
 [planning]: ../planning/
 [querying]: ../querying/

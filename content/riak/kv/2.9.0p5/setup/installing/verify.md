@@ -24,7 +24,6 @@ aliases:
   - /riak/kv/2.9.0p4/setup/installing/verify/
 ---
 
-
 [client libraries]: {{<baseurl>}}riak/kv/2.9.0p5/developing/client-libraries
 [perf open files]: {{<baseurl>}}riak/kv/2.9.0p5/using/performance/open-files-limit
 [cluster ops bucket types]: {{<baseurl>}}riak/kv/2.9.0p5/using/cluster-operations/bucket-types

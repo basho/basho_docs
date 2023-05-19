@@ -77,6 +77,3 @@ We are now ready to start interacting with Riak.
 
 [CRUD Operations]({{<baseurl>}}riak/kv/2.9.7/developing/getting-started/golang/crud-operations)
 
-
-
-

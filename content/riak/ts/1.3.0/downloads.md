@@ -20,10 +20,6 @@ aliases:
     - /riakts/1.3.0/downloads/
 ---
 
-
-
-
-
 <!-- Twitter single-event website tag code -->
 <script src="//platform.twitter.com/oct.js" type="text/javascript"></script>
 <script type="text/javascript">twttr.conversion.trackPid('nuu8u', { tw_sale_amount: 0, tw_order_quantity: 0 });</script>

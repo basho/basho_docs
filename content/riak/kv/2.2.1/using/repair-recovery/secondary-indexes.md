@@ -93,7 +93,6 @@ This code will force all keys in each partition on a node to be reread, thus reb
 
 5. When you're done, press `Ctrl-D` to disconnect the console. DO NOT RUN q() which will cause the running Riak node to quit. Note that `Ctrl-D` merely disconnects the console from the service, it does not stop the code from running.
 
-
 ### Monitoring a Repair
 
 The above Repair command can be slow, so if you reattach to the console, you can run the repair_status function. You can use the `Partitions` variable defined above to get the status of every partition.

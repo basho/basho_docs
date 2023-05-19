@@ -23,19 +23,21 @@ manipulating Riak clusters.
 
 Though Riak Control [is maintained as a separate application](https://github.com/basho/riak_control), the necessary code for it ships with versions of Riak 1.1 and above and requires no additional installation steps.
 
-Before getting started, you should know the address and port of the HTTP (or 
-HTTPS) listeners for the cluster member(s) running Riak Control.  You can obtain 
+Before getting started, you should know the address and port of the HTTP (or
+HTTPS) listeners for the cluster member(s) running Riak Control.  You can obtain
 this information from the configuration files as indicated here:
 
 ```riakconf
 listener.http.<name> = 127.0.0.1:8098
 
-or 
+or
 
 listener.https.<name> = 127.0.0.1:8096
 
-## *** The default listeners in the riak.conf file are 
+## *** The default listeners in the riak.conf file are
+
 ##     named `internal`, so you would consult the value of
+
 ##     `listener.http.internal` in your configuration.
 
 ```
@@ -51,8 +53,8 @@ listener.https.<name> = 127.0.0.1:8096
          %% Other configs
      ]},
 
-%% *** This is a truncated configuration to illustrate the 
-%%     pertinent items -- the `http` and `https` tuples within 
+%% *** This is a truncated configuration to illustrate the
+%%     pertinent items -- the `http` and `https` tuples within
 %%     the `riak_api` tuple's value list.
 ```
 
@@ -96,14 +98,14 @@ riak_control = on
 Make sure to restart the node once you have enabled Riak Control for the
 change to take effect.
 
-After restarting the node, you should be able to access it by going 
+After restarting the node, you should be able to access it by going
 to `http://ip_address_of_listener:port/admin`. In the case of a development
 cluster using the default configuration, you would access Riak Control at
 <http://127.0.0.1:8098/admin></a>
 
-If you enabled authentication for Riak Control while performing the above 
-configuration, you will be unable to access Riak Control until you have enabled 
-and configured SSL and HTTPS.  
+If you enabled authentication for Riak Control while performing the above
+configuration, you will be unable to access Riak Control until you have enabled
+and configured SSL and HTTPS.
 
 ## Enabling SSL and HTTPS
 

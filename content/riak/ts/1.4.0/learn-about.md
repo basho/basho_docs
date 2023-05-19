@@ -19,7 +19,6 @@ aliases:
 [sqlriakts]: sqlriakts/
 [timestamps]: timestamps/
 
-
 Welcome to Learn About Riak TS! In this section you will find the following:
 
 * [Table Architecture][table arch] - An in-depth look at how each part of Riak TS table works.

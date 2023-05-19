@@ -21,12 +21,12 @@ versions, with the general procedure being similar to that of a
 
 You should perform the following actions on each node:
 
-1.  Stop Riak
-2.  Back up Riak's `etc` and `data` directories.
-3.  Downgrade Riak
-4.  Start Riak
-5.  Verify Riak is running the downgraded version.
-6.  Wait for the `riak_kv` service to start.
+1. Stop Riak
+2. Back up Riak's `etc` and `data` directories.
+3. Downgrade Riak
+4. Start Riak
+5. Verify Riak is running the downgraded version.
+6. Wait for the `riak_kv` service to start.
 
 Depending on the versions involved in the downgrade, there are
 additional steps to be performed before, during, and after the upgrade

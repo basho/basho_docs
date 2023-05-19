@@ -38,7 +38,6 @@ In addition to the official clients, Basho provides some unofficial
 client libraries, listed below. There are also many client libraries and
 related [community projects]({{<baseurl>}}community/projects/).
 
-
 ## Community Libraries
 
 The Riak Community is developing at a break-neck pace, and the number of

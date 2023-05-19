@@ -71,11 +71,11 @@ compaction.</td>
 <td><code>leveldb.compression.algorithm</code></td>
 <td>This setting is used to select which compression algorithm
 	is selected when <code>leveldb.compression</code> is on.
-	In new riak.conf files, this is explicitly set to 
-	<code>lz4</code>; however when this setting is not provided, 
+	In new riak.conf files, this is explicitly set to
+	<code>lz4</code>; however when this setting is not provided,
 	<code>snappy</code> will be used for backward-compatibility.
 	<br /><br />
-	When you determine that you will no longer need backward-compatibility, 
+	When you determine that you will no longer need backward-compatibility,
 	setting this to <code>lz4</code> will cause future compactions
 	to use the LZ4 algorithm for compression.</td>
 <td><code>lz4</code> in new riak.conf files<br /><br />

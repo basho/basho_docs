@@ -16,7 +16,6 @@ aliases:
     - /riakts/1.1.0/using/arithmetic-operations/
 ---
 
-
 Riak TS supports arithmetic operations in the `SELECT` list.
 
 >**Note:** Arithmetic operations and aggregate functions cannot currently be mixed
@@ -41,7 +40,6 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND
 |-------------|-------------|--------------|-----------------|
 | 555         | 1.1         | 10.0         | 0.01123         |
 
-
 ### Addition and Subtraction
 
 ```sql
@@ -52,7 +50,6 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND
 | temperature\<DOUBLE\> | (temperature\+1)\<DOUBLE\> | (temperature\-1)\<DOUBLE\> |
 |---------------------|-------------------------|-------------------------|
 | 27.1                | 28.1                    | 26.1                    |
-
 
 ### Multiplication and Division
 
@@ -65,7 +62,6 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND
 |---------------------|-------------------------|-------------------------|
 | 27.1                | 54.2                    | 13.55                   |
 
-
 ### Negation
 
 ```sql
@@ -77,7 +73,6 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND
 |---------------------|----------------------|
 | 27.1                | -27.1                |
 
-
 ### Order of Operations
 
 ```sql
@@ -88,7 +83,6 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND
 | (temperature+(2\*3))\<DOUBLE\> | ((temperature\+2)\*3)\<DOUBLE\> |
 |-----------------------------|-----------------------------|
 | 33.1                        | 87.30000000000001           |
-
 
 ### Floating Point Odds and Ends
 
@@ -104,7 +98,6 @@ WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND
 SELECT 1.0 / 0.0 from GeoCheckin
 WHERE time > 1452252523182 AND time < 1452252543182 AND myfamily = 'family1' AND myseries = 'series1'
 ```
-
 
 ### Operations with Multiple Field References
 

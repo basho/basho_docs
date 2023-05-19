@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/api/protocol-buffers/set-bucket-type/
 ---
 
-
 Assigns a set of [bucket properties]({{<baseurl>}}riak/kv/2.9.0p5/developing/api/protocol-buffers/set-bucket-props) to a
 [bucket type]({{<baseurl>}}riak/kv/2.9.0p5/developing/usage/bucket-types).
 

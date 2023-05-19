@@ -23,7 +23,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/usage/security/java/
 ---
 
-
 This tutorial shows you how to set up a Riak Java client to authenticate
 itself when connecting to Riak.
 

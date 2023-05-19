@@ -15,7 +15,6 @@ aliases:
   - /riak/kv/2.9.8/dev/data-modeling/
 ---
 
-
 [dev data model articles etc]: {{<baseurl>}}riak/kv/2.9.8/developing/data-modeling/#articles-blog-posts-and-other-content
 [dev data model log data]: {{<baseurl>}}riak/kv/2.9.8/developing/data-modeling/#log-data
 [dev data model sensor data]: {{<baseurl>}}riak/kv/2.9.8/developing/data-modeling/#sensor-data
@@ -398,8 +397,4 @@ or other pieces of information useful for later retrieval.
     </td>
   </tr>
 </table>
-
-
-
-
 

@@ -42,7 +42,7 @@ implements two functions:
 
 * `extract/1`
 ---
-Takes the contents of the object and calls `extract/2` 
+Takes the contents of the object and calls `extract/2`
     with the same contents and an empty list
 * `extract/2`
 ---

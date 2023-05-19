@@ -175,11 +175,11 @@ end end.
 ```
 
 Next, to call `ReFun` on all keys in the `training` bucket, we can do
-the following in the Erlang shell. 
+the following in the Erlang shell.
 
 {{% note title="Warning" %}}
 Do not use this in a production
-environment; listing all keys to identify those in the `training` bucket 
+environment; listing all keys to identify those in the `training` bucket
 is a very expensive process.
 {{% /note %}}
 

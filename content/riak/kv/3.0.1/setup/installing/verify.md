@@ -164,6 +164,3 @@ From here you might want to check out the following resources:
 
 * [Client Libraries][client libraries] to use Riak with your favorite programming language
 
-
-
-

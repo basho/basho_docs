@@ -115,5 +115,3 @@ If there are issues with your configuration, you will see detailed
 output that might provide a better sense of what has gone wrong in the
 config generation process.
 
-
-

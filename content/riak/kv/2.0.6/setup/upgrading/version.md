@@ -16,7 +16,7 @@ aliases:
 
 When upgrading to Riak 2.0 from an earlier version, we strongly
 recommend reading each section of the following guide. This guide
-explains which default Riak behaviors have changed and specific steps 
+explains which default Riak behaviors have changed and specific steps
 to take for a successful upgrade.
 
 For an overview of the new features and functionality
@@ -114,7 +114,7 @@ own; relieving connecting clients of the need to resolve those
 conflicts.
 
 **In 2.0, `allow_mult` is set to `true` for any bucket type that you
-create and activate.** 
+create and activate.**
 
 This means that the default when [using bucket types]({{<baseurl>}}riak/kv/2.0.6/using/reference/bucket-types/) is to handle [conflict resolution]({{<baseurl>}}riak/kv/2.0.6/developing/usage/conflict-resolution) on the client side using
 either traditional [vector clocks]({{<baseurl>}}riak/kv/2.0.6/learn/concepts/causal-context/#vector-clocks) or the newer [dotted version vectors]({{<baseurl>}}riak/kv/2.0.6/learn/concepts/causal-context/#dotted-version-vector).

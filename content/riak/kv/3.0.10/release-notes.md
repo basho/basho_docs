@@ -19,7 +19,6 @@ aliases:
 
 Released May 29, 2022.
 
-
 ## Overview
 
 This release is focused on improving memory management, especially with the leveled backend, and improving the efficiency and ease of configuration of tictacaae full-sync.
@@ -48,8 +47,4 @@ This release is focused on improving memory management, especially with the leve
 ## Previous Release Notes
 
 Please see the KV 3.0.9 release notes [here]({{<baseurl>}}riak/kv/3.0.9/release-notes/).
-
-
-
-
 

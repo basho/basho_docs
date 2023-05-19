@@ -25,9 +25,6 @@ aliases:
   - /riak/kv/2.9.0p4/setup/installing/freebsd/
 ---
 
-
-
-
 [install source erlang]: {{<baseurl>}}riak/kv/2.9.0p5/setup/installing/source/erlang
 [downloads]: {{<baseurl>}}riak/kv/2.9.0p5/downloads/
 [install verify]: {{<baseurl>}}riak/kv/2.9.0p5/setup/installing/verify
@@ -52,7 +49,6 @@ You can install the Riak binary package on FreeBSD remotely using the
 ```bash
 sudo pkg_add -r https://files.tiot.jp/riak/kv/2.9/2.9.0p5/freebsd/11.1/riak-2.9.0.txz
 ```
-
 
 ### For FreeBSD 10.x
 
@@ -103,6 +99,7 @@ If you do not currently have the following software installed, please install it
 * flex
 
 ### Installation
+
 First download the version you wish to install from the [downloads][downloads].
 
 Next, unpack and build a release from source:

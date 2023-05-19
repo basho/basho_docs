@@ -15,7 +15,6 @@ yet, though, and we're not sure when that might happen. For now, please be
 careful when writing new pages or modifying the front matter/location of
 existing ones.
 
-
 #### Primary Content Pages
 
 This is the default layout for pages. Anything that is not the splash page
@@ -57,7 +56,7 @@ canonical_link: "https://docs.basho.com/. . ." # 10    -- Conditional
 ---
 ```
 
-1.  The Page Title is the title of the page, in the context of both the
+1. The Page Title is the title of the page, in the context of both the
     &lt;head>&lt;title> element and as rendered on the page.
 
     The rendered title will be placed above the primary content (above the text
@@ -65,20 +64,20 @@ canonical_link: "https://docs.basho.com/. . ." # 10    -- Conditional
     page. If the Title Super-Text (1.b, `title_supertext`) is present, it will
     be rendered above the Page Title, using a slightly reduced font.
 
-2.  The Description should be a quick, single-sentence summary of the page.
+2. The Description should be a quick, single-sentence summary of the page.
 
     It will be used in a `<meta name="description">` tag for rich content
     summaries and potentially as the title text that appears when hovering over
     menu item elements.
 
-3.  The Project Designation that this page is associated with.
+3. The Project Designation that this page is associated with.
 
     In the case of pages located under riak/kv/ and riak/ts, the designation
     will use underscores, ex. `riak_kv`, and `riak_ts`.
 
-4.  The Project Version that this page is associated with.
+4. The Project Version that this page is associated with.
 
-5.  "Hugo has a simple yet powerful menu system that permits content to be
+5. "Hugo has a simple yet powerful menu system that permits content to be
     placed in menus with a good degree of control without a lot of work."
 
     https://gohugo.io/extras/menus
@@ -132,15 +131,15 @@ canonical_link: "https://docs.basho.com/. . ." # 10    -- Conditional
 
         <!-- TODO: Build and link to a reference page that shows off all icons -->
 
-6.  Whether or not a Table of Contents should be rendered.
+6. Whether or not a Table of Contents should be rendered.
 
     Defaults to `true`.
 
-7.  Whether or not the 'Enterprise Only Content' flag should be rendered.
+7. Whether or not the 'Enterprise Only Content' flag should be rendered.
 
     Defaults to `false`.
 
-8.  The `version_history` element is optional, but should be included on all
+8. The `version_history` element is optional, but should be included on all
     pages that do not exist, or do not exist in the same location, in every
     version of a given project.
 
@@ -209,7 +208,7 @@ canonical_link: "https://docs.basho.com/. . ." # 10    -- Conditional
         >     - ["<1.4.0",  "using/arithmetic-operations"]
         > ```
 
-9.  The canonical URI for the page
+9. The canonical URI for the page
 
     If this element is excluded, the canonical URI will default to
     `${project_path}/latest/${project_relative_path}`. **If this is
@@ -229,7 +228,6 @@ canonical_link: "https://docs.basho.com/. . ." # 10    -- Conditional
 
     We primarily leverage aliases to redirect from archived content to more
     current pages.
-
 
 #### Downloads Pages
 
@@ -269,7 +267,6 @@ listed_projects:            # 2
         This does not need to match any other data, and as such should be
         descriptive, rather than technical.
 
-
 #### Community Pages
 
 Pages in the Community section of content are not versioned in the same way as
@@ -298,24 +295,24 @@ canonical_link: "https://docs.basho.com/. . ." # 2 -- OPTIONAL
 ---
 ```
 
-1.  The `menu` map of a Community page should be treated similarly to the `menu`
+1. The `menu` map of a Community page should be treated similarly to the `menu`
     of a primary content page, save for menu name. Because there is no
     `project_version` in the Community front matter, the name of the menu **must
     be** `community`.
 
-2.  Default canonical links for Community pages are slightly different from and
+2. Default canonical links for Community pages are slightly different from and
     simpler than primary content pages; `community/${project_relative_path}`.
     Again, this element is entirely optional.
-
 
 ## Problematic Markdown (and Workarounds)
 
 #### Markdown Tables
+
 <!--
 Added 2016/05/10 after Hipchat conversation between LR and CV - This workaround will ideally
 be removed if/when the Hugo MD renderer addresses this precedence issue.  -cv
 -->
-**Problem**: Inserting an element with a `|` character can cause a table to render incorrectly.  
-**Solution**: Replace the `|` with the HTML entity `&#124;`.  
+**Problem**: Inserting an element with a `|` character can cause a table to render incorrectly.
+**Solution**: Replace the `|` with the HTML entity `&#124;`.
 **Note**: This workaround will not work when the `|` is inside of backticks. In
 that case, use the Divides character ("∣"—U+2223) in place of those instances of the pipe character.

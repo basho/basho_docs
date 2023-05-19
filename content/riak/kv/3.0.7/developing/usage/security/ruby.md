@@ -91,7 +91,6 @@ need to provide a CA as well as the username and password that you
 specified when creating the user in Riak. For more, see our
 documentation on [User Management]({{<baseurl>}}riak/kv/3.0.7/using/security/basics#user-management).
 
-
 ## Certificate-based Authentication
 
 Using certificate-based authentication requires us to specify the
@@ -156,7 +155,4 @@ Protocol
 the OCSP endpoint will automatically be checked. If that endpoint is not
 available or if checking is running slowly, you can disable OCSP
 checking by setting `ocsp` to `false` in the `authentication` hash.
-
-
-
 

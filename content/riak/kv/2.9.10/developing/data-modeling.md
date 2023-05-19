@@ -9,5 +9,3 @@ We prefer to store these redirects as .html files in static/, but -- to maintain
 the git history of this (possibly malformed?) file -- we're going to start off
 by using this generated redirect.
 
-
-

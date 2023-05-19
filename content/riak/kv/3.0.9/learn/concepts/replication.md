@@ -17,7 +17,6 @@ aliases:
   - /riak/kv/3.0.9/theory/concepts/replication
 ---
 
-
 [cluster ops v3 mdc]: {{<baseurl>}}riak/kv/3.0.9/using/cluster-operations/v3-multi-datacenter
 [concept aae]: {{<baseurl>}}riak/kv/3.0.9/learn/concepts/active-anti-entropy
 [concept causal context vc]: {{<baseurl>}}riak/kv/3.0.9/learn/concepts/causal-context/#vector-clocks
@@ -26,7 +25,6 @@ aliases:
 [glossary node]: {{<baseurl>}}riak/kv/3.0.9/learn/glossary/#node
 [glossary ring]: {{<baseurl>}}riak/kv/3.0.9/learn/glossary/#ring
 [usage replication]: {{<baseurl>}}riak/kv/3.0.9/developing/usage/replication
-
 
 Data replication is a core feature of Riak's basic architecture. Riak
 was designed to operate as a [clustered][concept clusters] system containing
@@ -98,7 +96,7 @@ While raising the value of N for a bucket or object shouldn't cause
 problems, it's important that you never lower N. If you do so, you can
 wind up with dead, i.e. unreachable data. This can happen because
 objects' preflists, i.e. lists of [vnodes][concept vnodes] responsible for the object,
-can end up 
+can end up
 
 Unreachable data is a problem because it can negatively impact coverage
 queries, e.g. [secondary index]({{<baseurl>}}riak/kv/3.0.9/developing/usage/secondary-indexes/) and
@@ -114,7 +112,6 @@ replicas. For more information on AAE, see the following documents:
 
 * [Active Anti-Entropy][concept aae]
 * [Managing Active Anti-Entropy][cluster ops v3 mdc]
-
 
 ## Read Repair
 
@@ -316,8 +313,4 @@ respond, the process will continue to manage that partition and check
 the parent node again after a delay. The hometest is also run by
 partition processes to account for changes in the ring, such as the
 addition or removal of nodes to the cluster.
-
-
-
-
 

@@ -327,7 +327,6 @@ exited with reason: eaddrnotavail in gen_server:init_it/6 line 320 | An error li
 gen_server riak_core_capability terminated with reason: no function clause matching orddict:fetch('riak@192.168.2.2', []) line 72 | Error output like this example can indicate that a previously running Riak node with an original `-name` value in `vm.args` has been modified by simply changing the value in `vm.args` and not properly through `riak admin cluster replace`.
 ** Configuration error: [FRAMEWORK-MIB]: missing context.conf file => generating a default file | This error is commonly encountered when starting Riak Enterprise without prior [SNMP]({{<baseurl>}}riak/kv/3.0.7/using/reference/snmp) configuration.
 
-
 ### More
 
 1. <a name="f1"></a>Ensure node inter-communication
@@ -358,7 +357,4 @@ gen_server riak_core_capability terminated with reason: no function clause match
         ```
   6. When all have finished successfully you may restart the node: `riak start`
   7. Check for proper operation by looking at log files in /var/log/riak and in the LOG files in the effected LevelDB vnodes.
-
-
-
 

@@ -25,9 +25,6 @@ aliases:
   - /riak/kv/2.9.0p4/setup/installing/mac-osx/
 ---
 
-
-
-
 [perf open files]: {{<baseurl>}}riak/kv/2.9.0p5/using/performance/open-files-limit
 [install source erlang]: {{<baseurl>}}riak/kv/2.9.0p5/setup/installing/source/erlang
 [install verify]: {{<baseurl>}}riak/kv/2.9.0p5/setup/installing/verify
@@ -39,7 +36,6 @@ The following steps are known to work with Mac OS X 10.8 and higher. You can ins
 > OS X gives you a very small limit on open file handles, so even with a
 backend that uses very few file handles, it's possible to run out. See
 [Open Files Limit][perf open files] for more information about changing the limit.
-
 
 ## From Precompiled Tarballs
 

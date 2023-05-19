@@ -70,5 +70,3 @@ Stat | Description
 `consistent_put_time_99` | 99th-percentile time between reception of client PUTs to strongly consistent keys and subsequent response
 `consistent_put_time_100` | 100th-percentile time between reception of client PUTs to strongly consistent keys and subsequent response
 
-
-

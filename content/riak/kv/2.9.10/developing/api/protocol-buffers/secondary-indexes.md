@@ -120,5 +120,3 @@ keys: "hen"
 keys: "rooster"
 ```
 
-
-

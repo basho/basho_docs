@@ -42,6 +42,7 @@ Riak JMX has been tested with the Sun JRE 1.6.0_12 and 1.6.0_20. Some older/non-
 ```
 
 ## Exported JMX Attributes
+
 <br>
 <table>
     <tr>
@@ -185,6 +186,4 @@ Riak JMX has been tested with the Sun JRE 1.6.0_12 and 1.6.0_20. Some older/non-
         <td>Number of vnode-level PUTs since node start</td>
     </tr>
 </table>
-
-
 

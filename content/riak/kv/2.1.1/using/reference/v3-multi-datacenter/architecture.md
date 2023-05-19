@@ -100,13 +100,13 @@ Before a source cluster can begin pushing realtime updates to a sink,
 the following commands must be issued:
 
 1. `riak-repl realtime enable <sink_cluster>`
-    
+
     After this command, the realtime queues (one for each Riak node) are
     populated with updates to the source cluster, ready to be pushed to
     the sink.
 
 2. `riak-repl realtime start <sink_cluster>`
-    
+
     This instructs the Riak connection manager to contact the sink
     cluster.
 

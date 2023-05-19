@@ -51,7 +51,7 @@ List of multiple sinks with separate times in minutes:
     {fullsync_interval, [
         {"sink_boston", 120},  %% fullsync to sink_boston with run every 120 minutes
         {"sink_newyork", 90}]} %% fullsync to sink_newyork with run every 90 minutes
-  
+
     ]}
 ```
 

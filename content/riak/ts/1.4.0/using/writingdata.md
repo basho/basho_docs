@@ -14,7 +14,6 @@ aliases:
     - /riakts/1.4.0/using/writingdata/
 ---
 
-
 [activating]: ../creating-activating/
 [planning]: ../planning/
 [querying]: ../querying/
@@ -27,7 +26,6 @@ aliases:
 [Enterprise]: http://basho.com/products/riak-ts/
 
 Now that you've [planned][planning] and [activated][activating] your Riak TS table, you are ready to write data to it.
-
 
 ## Writing Data
 
@@ -167,7 +165,7 @@ var Riak = require('basho-riak-client');
 var hosts = [ 'myriakdb.host:8087' ];
 var client = new Riak.Client(hosts);
 
-var columns = [ 
+var columns = [
     { name: 'id',     type: Riak.Commands.TS.ColumnType.Int64 },
     { name: 'region',     type: Riak.Commands.TS.ColumnType.Varchar },
     { name: 'state',        type: Riak.Commands.TS.ColumnType.Varchar },
@@ -198,7 +196,7 @@ client.execute(store);
 ```
 
 ```erlang
-%% TS 1.3 or newer. Records are represented as tuples. 
+%% TS 1.3 or newer. Records are represented as tuples.
 {ok, Pid} = riakc_pb_socket:start_link("myriakdb.host", 8087).
 riakc_ts:put(Pid, "GeoCheckin", [{1, <<"South Atlantic">>, <<"Florida">>, 1451606401, <<"hot">>, 23.5}, {2, <<"East North Central">>, <<"Illinois">>, 1451606402, <<"windy">>, 19.8}]).
 ```
@@ -305,13 +303,11 @@ System.out.println(storeFuture.cause().detailMessage);
 
 You could also try the original write again. Failures may be transitory when servers are temporarily unable to talk to each other.
 
-
 ### Guidelines
 
 * Batches should not be too large. Our testing revealed 100 rows per write as a sweet spot, but you should expect different results depending on your hardware and schema.
 * Writes will assume that fields are in the same order as they've been declared in the table.
 * Timestamps should be in Unix epoch/UTC milliseconds or [ISO 8601 format](#iso-8601).
-
 
 ### Tuning Batches
 
@@ -320,7 +316,6 @@ Batches of data from a single write are packaged for delivery to each destinatio
 It is possible to specify an approximate largest-batch size for tuning purposes. By default, batches have a soft cap size of 1MB of data, which we've found to be a reasonable size to avoid network congestion.
 
 If you want to adjust that value, the configuration parameter `timeseries_max_batch_size` under `riak_kv` in [advanced.config][config reference] can be defined. The value is in bytes.
-
 
 ## Adding Data via SQL
 
@@ -344,7 +339,6 @@ The fields can be in any order, but the field name and the values must match up.
 
 The data types are validated on the server just like the client PUT commands above.
 
-
 ### ISO 8601
 
 It is possible to use [ISO 8601]-compliant date/time strings in INSERT statements instead of integer timestamps:
@@ -357,11 +351,9 @@ You must include single quotes around the ISO 8601 value. You cannot use [reduce
 
 See [our documentation on ISO 8601 support][iso8601] for more details on how to use ISO 8601.
 
-
 ## Deleting Data
 
 Below are examples of how to delete data by key in each of our Riak TS-supported clients:
-
 
 ```java
 final List<Cell> keyCells = Arrays.asList(

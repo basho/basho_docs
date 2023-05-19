@@ -42,7 +42,7 @@ Install with `package`. This installs Riak CS and is the recommended install opt
 
 ### Enterprise Installation
 
-In Riak CS 2.1.1 and earlier, there was a pay-to-use enterprise edition. However, from Riak CS 2.1.2 and higher, all the enterprise edition features were merged in to the free-to-use open source edition and 
+In Riak CS 2.1.1 and earlier, there was a pay-to-use enterprise edition. However, from Riak CS 2.1.2 and higher, all the enterprise edition features were merged in to the free-to-use open source edition and
 the pay-to-use enterprise edition was scrapped. This note is left here in case people come looking for the no-longer-existant enterprise edition.
 
 ### Basic Configuration

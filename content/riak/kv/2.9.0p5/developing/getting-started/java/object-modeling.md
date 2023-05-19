@@ -23,7 +23,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/getting-started/java/object-modeling/
 ---
 
-
 To get started, let's create the models that we'll be using.
 
 ```java
@@ -134,7 +133,6 @@ easily be a future bottleneck in the system, so let's use a natural key.
 Natural keys are a great fit for key/value systems because both humans
 and computers can easily construct them when needed, and most of the
 time they can be made unique enough for a KV store.
-
 
 | Bucket | Key Pattern | Example Key
 |:-------|:------------|:-----------
@@ -247,7 +245,6 @@ public class TimelineRepository {
         addToTimeline(msg, Timeline.TimelineType.Sent, msgKey);
     }
 
-
     private void addToTimeline(Msg msg, Timeline.TimelineType type, String msgKey) throws Exception {
         String timelineKey = generateKeyFromMsg(msg, type);
 
@@ -315,7 +312,6 @@ public class TimelineRepository {
         df.setTimeZone(tz);
         return df.format(date);
     }
-
 
 }
 
@@ -394,7 +390,6 @@ public class MsgyMain {
                 "Welcome to the company!");
 
         timelineRepo.postMsg(msg);
-
 
         // Get Joe's inbox for today, get first message
         Timeline joesInboxToday = timelineRepo.getTimeline(joe.UserName,

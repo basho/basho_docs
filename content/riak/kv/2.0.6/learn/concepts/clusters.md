@@ -17,7 +17,6 @@ aliases:
   - /riak/kv/2.0.6/theory/concepts/clusters
 ---
 
-
 [concept buckets]: {{<baseurl>}}riak/kv/2.0.6/learn/concepts/buckets
 [concept keys objects]: {{<baseurl>}}riak/kv/2.0.6/learn/concepts/keys-and-objects
 [concept replication]: {{<baseurl>}}riak/kv/2.0.6/learn/concepts/replication
@@ -27,7 +26,6 @@ aliases:
 [usage bucket types]: {{<baseurl>}}riak/kv/2.0.6/developing/usage/bucket-types
 [usage conflict resolution]: {{<baseurl>}}riak/kv/2.0.6/developing/usage/conflict-resolution
 [usage replication]: {{<baseurl>}}riak/kv/2.0.6/developing/usage/replication
-
 
 Riak's default mode of operation is to work as a cluster consisting of
 multiple [nodes][glossary node], i.e. multiple well-connected data

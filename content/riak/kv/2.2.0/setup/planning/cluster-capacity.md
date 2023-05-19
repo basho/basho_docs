@@ -24,7 +24,6 @@ aliases:
 [perf benchmark]: {{<baseurl>}}riak/kv/2.2.0/using/performance/benchmarking
 [LVM]: http://en.wikipedia.org/wiki/Logical_Volume_Manager_(Linux)
 
-
 This document outlines the various elements and variables to keep in mind when planning your Riak cluster. Your use case and environment variables will be specific to what you're building, but this document should set you on the right path when planning and launching a Riak cluster.
 
 ## RAM
@@ -176,7 +175,7 @@ The default number of partitions in a Riak cluster is 64. This works for smaller
 
 The minimum number of partitions recommended per node is 10. You can determine the number of partitions allocated per node by dividing the number of partitions by the number of nodes.
 
-There are no absolute rules for the ideal partitions-per-node ratio. This depends on your particular use case and what features the Riak cluster uses. We recommend between 10 and 50 data partitions per node. 
+There are no absolute rules for the ideal partitions-per-node ratio. This depends on your particular use case and what features the Riak cluster uses. We recommend between 10 and 50 data partitions per node.
 
 So if you're running a 3-node development cluster, a ring size of 64 or 128 should work just fine. While a 10-node cluster should work well with a ring size of 128 or 256 (64 is too small while 512 is likely too large).
 
@@ -218,7 +217,7 @@ Riak uses Erlang's built-in distribution capabilities to provide
 reliable access to data. A Riak cluster can be deployed in many
 different network environments. We recommend that you produce as
 little latency between nodes as possible, as high latency leads to
-sub-optimal performance. 
+sub-optimal performance.
 
 Deploying a single Riak cluster across two datacenters is not recommended. If your use case requires this capability, Basho offers a [Multi Data Center Replication: Architecture](../../../using/reference/v3-multi-datacenter/architecture) option that is built to keep multiple Riak clusters in
 sync across several geographically diverse deployments.

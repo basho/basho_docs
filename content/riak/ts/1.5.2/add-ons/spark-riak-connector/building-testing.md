@@ -19,20 +19,18 @@ If you want to download the source code of the Spark-Riak connector, build it, a
 
 If you just want to add the connector as a dependency to your application, you'll want to go [here](../getting) instead.
 
-
 ## Prerequisites
 
-In order to build the Spark-Riak connector, you'll need to have the following installed: 
+In order to build the Spark-Riak connector, you'll need to have the following installed:
 
 * [Java OpenJDK 8](http://openjdk.java.net/install/)
 * [Maven 3](https://maven.apache.org/download.cgi)
 * [Spark 1.6](http://spark.apache.org/docs/latest/#downloading)
 * [Riak TS]({{< baseurl >}}riak/ts/latest/installing/)
 
-
 ## Download
 
-Once you've installed all of the prerequisites, you need to clone the Spark-Riak connector GitHub repository. 
+Once you've installed all of the prerequisites, you need to clone the Spark-Riak connector GitHub repository.
 
 Make sure you've navigated to the directory you want the Spark-Riak connector to be in, then run:
 
@@ -69,21 +67,20 @@ mvn clean install -DskipTests
 ```
 
 Once the connector is built several jars are produced:
-`spark-riak-connector/target/` contains `spark-riak-connector-{{version}}.jar` - this is the connector jar. 
+`spark-riak-connector/target/` contains `spark-riak-connector-{{version}}.jar` - this is the connector jar.
 
 You'll find the results of the build in your local Maven repository in the `com/basho/riak` directory. Most likely that will be in your home directory and the path will look like this: `~/.m2/repository/com/basho/riak/`
 
-
 ## Test
 
-For the Spark-Riak connector, unit tests are separated from integration tests. 
+For the Spark-Riak connector, unit tests are separated from integration tests.
 If there is no Riak installation running, it is still possible to successfully run unit tests:
 
 ```bash
 mvn clean test
 ```
 
-If Riak is installed it is possible to run both unit tests and integration test. Futhermore, KV-specific integration tests are separated from TS-specific ones. To choose which set of tests to run appropriate Maven profile should be selected: 
+If Riak is installed it is possible to run both unit tests and integration test. Futhermore, KV-specific integration tests are separated from TS-specific ones. To choose which set of tests to run appropriate Maven profile should be selected:
 
 Profile name |Tests                                      | Default |
 -------------|-------------------------------------------|---------|

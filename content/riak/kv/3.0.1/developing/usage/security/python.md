@@ -172,5 +172,3 @@ converted into the appropriate OpenSSL object. The functions used for
 this are `OpenSSL.crypto.load_privatekey()` for the private key and
 `OpenSSL.crypto.load_certificate` for the cert and CA cert.
 
-
-

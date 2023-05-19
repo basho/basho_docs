@@ -61,5 +61,3 @@ If the bucket doesn't exist in the destination cluster, Riak will create
 it with the default backend and _not_ with the backend used in the
 source cluster.
 
-
-

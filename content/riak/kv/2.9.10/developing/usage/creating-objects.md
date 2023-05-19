@@ -549,5 +549,3 @@ curl -i -XPOST \
 Location: /buckets/test/keys/G7FYUXtTsEdru4NP32eijMIRK3o
 ```
 
-
-

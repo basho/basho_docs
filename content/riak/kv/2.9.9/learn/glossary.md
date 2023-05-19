@@ -13,7 +13,6 @@ toc: true
 aliases:
 ---
 
-
 [apps replication properties]: {{<baseurl>}}riak/kv/2.9.9/developing/app-guide/replication-properties
 [basho bench GH]: http://github.com/basho/basho_bench/
 [cluster ops add remove node]: {{<baseurl>}}riak/kv/2.9.9/using/cluster-operations/adding-removing-nodes
@@ -49,7 +48,6 @@ aliases:
 [usage secondary-indexes]: {{<baseurl>}}riak/kv/2.9.9/developing/usage/secondary-indexes
 [Where To Start With Riak Core]: http://basho.com/where-to-start-with-riak-core/
 [Wikipedia:Consistent Hashing]: http://en.wikipedia.org/wiki/Consistent_hashing
-
 
 Below is a list of terms that you may run into frequently in the
 documentation for Riak, along with links to more in-depth treatments.
@@ -329,7 +327,6 @@ operations.
 * [Key/Value Development][dev kv model]
 * [Data Types][dev data types]
 
-
 ## Vector Clock
 
 Riak utilizes vector clocks (or _vclocks_) to handle version control.
@@ -352,7 +349,4 @@ the Riak Ring, and they coordinate requests for these partitions.
 * [vnodes][glossary vnode]
 * [Clusters][concept clusters]
 * [Dynamo][learn dynamo]
-
-
-
 

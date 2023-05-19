@@ -25,7 +25,6 @@ not both.
 
 *Note*: You can configure an application to use the `100-continue` HTTP status code, which sends the Request Headers prior to sending the request body. Doing so prevents sending the message body when the message is rejected based on the headers, for example, due to authentication failure or redirect).
 
-
 ## Requests
 
 ### Request Syntax

@@ -17,7 +17,7 @@ aliases:
   - /riak/2.0.5/intro-v20
 ---
 
-Riak version 2.0 includes deep changes and many new features affecting 
+Riak version 2.0 includes deep changes and many new features affecting
 all facets of Riak. This article gives an overview of the new features
 and where you can learn more about using them in your Riak installation.
 

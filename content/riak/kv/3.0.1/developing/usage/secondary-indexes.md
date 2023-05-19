@@ -2004,5 +2004,3 @@ curl -XPOST localhost:8098/mapred\
 EOF
 ```
 
-
-

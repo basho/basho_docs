@@ -18,9 +18,7 @@ aliases:
     - /riakts/1.3.1/using/configuring/
 ---
 
-
 [glossary quanta]: ../../learn/glossary/quanta
-
 
 Riak TS exposes a few configuration settings via `riak.conf`. Make certain the configuration file on each node gets the same parameters to avoid inconsistent behavior.
 
@@ -36,7 +34,6 @@ Use `timeseries_query_timeout_ms` to configure the timeout (in milliseconds) for
 timeseries_query_timeout_ms = 10000
 ```
 
-
 ### Maximum quanta
 
 Use `timeseries_query_max_quanta_span` to configure the maximum number of quanta that a query can span. The default is 5.
@@ -45,13 +42,12 @@ Use `timeseries_query_max_quanta_span` to configure the maximum number of quanta
 timeseries_query_max_quanta_span = 5
 ```
 
-You should set this parameter to be one more than your desired timespan, else a fraction of your queries will fall outside your `timeseries_query_max_quanta_span` window. In general, your timespan won't be an integer multiple of the quantum, so if your maximum size query is dtmax, and your quantum size is Q, then we recommend: 
-max_quanta = ceil(dtmax / Q + 1.0). 
+You should set this parameter to be one more than your desired timespan, else a fraction of your queries will fall outside your `timeseries_query_max_quanta_span` window. In general, your timespan won't be an integer multiple of the quantum, so if your maximum size query is dtmax, and your quantum size is Q, then we recommend:
+max_quanta = ceil(dtmax / Q + 1.0).
 
 If a query has a larger time span than your specified maximum, the error `too_many_subqueries` will show and the query will not run. This option is intended to prevent excessively long-running queries that could affect the performance of the cluster.
 
 The maximum allowable value is 256.
-
 
 ### Maximum queries
 

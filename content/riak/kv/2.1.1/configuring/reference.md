@@ -1827,7 +1827,6 @@ defaults to <code>false</code> in the name of improved performance.</td>
 </tbody>
 </table>
 
-
 ## Miscellaneous
 
 <table class="riak-conf">

@@ -32,7 +32,6 @@ message RpbSetClientIdReq {
 }
 ```
 
-
 ## Response
 
 Just the `RpbSetClientIdResp` message code.
@@ -49,7 +48,6 @@ RpbSetClientIdReq protoc decode:
 client_id: "001e001266"
 
 ```
-
 
 Response
 

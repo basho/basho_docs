@@ -510,7 +510,6 @@ FetchValue fetch = new FetchValue.Builder(bestCharacterKey).build();
 FetchValue.Response res = client.execute(fetch);
 RiakObject obj = res.getValue(RiakObject.class);
 
-
 // Then we modify the object's value
 obj.setValue(BinaryValue.create("Stimpy"));
 
@@ -675,6 +674,4 @@ Additional background information on vector clocks:
 * [Why Vector Clocks are Easy](http://basho.com/why-vector-clocks-are-easy/)
 * [Why Vector Clocks are Hard](http://basho.com/why-vector-clocks-are-hard/)
 * The vector clocks used in Riak are based on the [work of Leslie Lamport](http://portal.acm.org/citation.cfm?id=359563)
-
-
 

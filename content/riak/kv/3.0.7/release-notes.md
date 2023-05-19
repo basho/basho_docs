@@ -19,7 +19,6 @@ aliases:
 
 Released Jul 16, 2021.
 
-
 ## Overview
 
 The primary change in 3.0.7 is that Riak will now run the erlang runtime system in interactive mode, not embedded mode. This returns Riak to the default behaviour prior to Riak KV 3.0, in order to resolve a number of problems which occurred post 3.0 when trying to dynamically load code.
@@ -31,8 +30,4 @@ A new push function has been added to the api, this will push a list of object r
 ## Previous Release Notes
 
 Please see the KV 3.0.6 release notes [here]({{<baseurl>}}riak/kv/3.0.6/release-notes/).
-
-
-
-
 

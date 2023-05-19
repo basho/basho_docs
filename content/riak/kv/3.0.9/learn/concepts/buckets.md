@@ -37,7 +37,6 @@ aliases:
 [usage conflict resolution]: {{<baseurl>}}riak/kv/3.0.9/developing/usage/conflict-resolution
 [usage replication]: {{<baseurl>}}riak/kv/3.0.9/developing/usage/replication
 
-
 Buckets are used to define a virtual keyspace for storing Riak objects.
 They enable you to define non-default configurations over that keyspace
 concerning [replication properties][concept replication] and [other
@@ -211,7 +210,4 @@ bucket.get_properties()
 ```curl
 curl http://localhost:8087/types/my_custom_type/buckets/animals/props
 ```
-
-
-
 

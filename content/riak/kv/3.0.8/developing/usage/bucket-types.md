@@ -38,7 +38,6 @@ bucket = client.bucket('cats')
 bucket.properties = {'search_index' => 'famous'}
 ```
 
-
 ```python
 bucket = client.bucket('cats')
 bucket.set_properties({'search_index': 'famous'})
@@ -89,7 +88,4 @@ curl -XPUT $RIAK_HOST/buckets/cats/props \
      -H'content-type:application/json' \
      -d'{"props":{"search_index":"famous"}}'
 ```
-
-
-
 

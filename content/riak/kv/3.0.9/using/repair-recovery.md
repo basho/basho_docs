@@ -27,13 +27,11 @@ cluster failure.
 
 [Learn More >>][repair recover fail]
 
-
 #### [Errors & Messages][repair recover errors]
 
 Details most common errors & messages.
 
 [Learn More >>][repair recover errors]
-
 
 #### [Repairs][repair recover repairs]
 
@@ -41,13 +39,9 @@ Tutorials on running various repair operations.
 
 [Learn More >>][repair recover repairs]
 
-
 #### [Rolling Restarts][repair recover restart]
 
 Brief guide on performing node-by-node restarts.
 
 [Learn More >>][repair recover restart]
-
-
-
 

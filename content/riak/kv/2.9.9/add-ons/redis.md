@@ -14,7 +14,6 @@ commercial_offering: true
 aliases:
 ---
 
-
 [addon redis develop]: ./developing-rra/
 [addon redis features]: ./redis-add-on-features/
 [addon redis setup]: ./set-up-rra/
@@ -57,7 +56,4 @@ RRA is compatible with the following services:
 * [Use RRA with various clients.][addon redis use]
 * [Develop with RRA.][addon redis develop]
 * [Learn about RRA's features.][addon redis features]
-
-
-
 

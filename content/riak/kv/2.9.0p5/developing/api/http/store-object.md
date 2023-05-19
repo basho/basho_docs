@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/api/http/store-object/
 ---
 
-
 Stores an object under the specified bucket / key. Storing an object comes in
 two forms, depending on whether you want to use a key of your choosing, or let
 Riak assign a key to a new object.

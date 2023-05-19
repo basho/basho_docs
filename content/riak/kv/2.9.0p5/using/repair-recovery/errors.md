@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/repair-recovery/errors/
 ---
 
-
 [config reference]: {{<baseurl>}}riak/kv/2.9.0p5/configuring/reference
 
 This is not a comprehensive listing of every error that Riak may
@@ -336,7 +335,6 @@ exited with reason: eaddrnotavail in gen_server:init_it/6 line 320 | An error li
 gen_server riak_core_capability terminated with reason: no function clause matching orddict:fetch('riak@192.168.2.2', []) line 72 | Error output like this example can indicate that a previously running Riak node with an original `-name` value in `vm.args` has been modified by simply changing the value in `vm.args` and not properly through `riak-admin cluster replace`.
 ** Configuration error: [FRAMEWORK-MIB]: missing context.conf file => generating a default file | This error is commonly encountered when starting Riak Enterprise without prior [SNMP]({{<baseurl>}}riak/kv/2.9.0p5/using/reference/snmp) configuration.
 RPC to 'node@example.com' failed: {'EXIT', {badarg, [{ets,lookup, [schema_table,<<"search-example">>], []} {riak_search_config,get_schema,1, [{file,"src/riak_search_config.erl"}, {line,69}]} ...| This error can be caused when attempting to use Riak Search without first enabling it in each node's `app.config`. See the [configuration files][config reference] documentation for more information on enabling Riak Search.
-
 
 ### More
 

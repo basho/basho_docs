@@ -57,5 +57,3 @@ node: "riak@127.0.0.1"
 server_version: "0.10"
 ```
 
-
-

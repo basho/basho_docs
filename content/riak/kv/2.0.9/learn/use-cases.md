@@ -15,7 +15,6 @@ aliases:
   - /riak/kv/2.0.9/dev/data-modeling/
 ---
 
-
 [dev data model articles etc]: {{<baseurl>}}riak/kv/2.0.9/developing/data-modeling/#articles-blog-posts-and-other-content
 [dev data model log data]: {{<baseurl>}}riak/kv/2.0.9/developing/data-modeling/#log-data
 [dev data model sensor data]: {{<baseurl>}}riak/kv/2.0.9/developing/data-modeling/#sensor-data
@@ -29,7 +28,6 @@ aliases:
 [usage mapreduce]: {{<baseurl>}}riak/kv/2.0.9/developing/usage/mapreduce
 [usage search]: {{<baseurl>}}riak/kv/2.0.9/developing/usage/search
 [usage secondary-indexes]: {{<baseurl>}}riak/kv/2.0.9/developing/usage/secondary-indexes
-
 
 Riak is a flexible data storage technology capable of addressing
 a wide variety of problems in a scalable way. In this guide, we'll list

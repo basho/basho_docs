@@ -20,7 +20,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/cluster-operations/replacing-node/
 ---
 
-
 At some point, for various reasons, you might need to replace a node in
 your Riak cluster (which is different from [recovering a failed node]({{<baseurl>}}riak/kv/2.9.0p5/using/repair-recovery)). Here is the recommended way to go
 about replacing a node.

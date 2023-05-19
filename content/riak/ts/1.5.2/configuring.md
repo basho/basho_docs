@@ -19,7 +19,6 @@ aliases:
   - /riak/ts/latest/using/configuring/
 ---
 
-
 [riakconf]: {{<baseurl>}}riak/ts/1.5.2/configuring/riakconf/
 [mdc]: {{<baseurl>}}riak/ts/1.5.2/configuring/mdc/
 [global expiry]: {{<baseurl>}}riak/ts/1.5.2/configuring/global-object-expiration/

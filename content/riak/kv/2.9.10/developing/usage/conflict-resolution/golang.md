@@ -57,5 +57,3 @@ sibling is chosen as the canonical value via a conflict resolution type.
 
 [*Example:* resolving siblings via `ConflictResolver`](https://github.com/basho/riak-go-client/blob/master/examples/dev/using/conflict-resolution/main.go#L169-L210)
 
-
-

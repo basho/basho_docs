@@ -23,7 +23,7 @@ You can use the EXPLAIN statement to better understand how a query you would lik
 
 ## EXPLAIN Guidelines
 
-`EXPLAIN` takes a SELECT statement as an argument and shows information about each subquery. The constraints placed upon the WHERE clause in the SELECT statement determine the subquery values. 
+`EXPLAIN` takes a SELECT statement as an argument and shows information about each subquery. The constraints placed upon the WHERE clause in the SELECT statement determine the subquery values.
 
 The details about each subquery include:
 

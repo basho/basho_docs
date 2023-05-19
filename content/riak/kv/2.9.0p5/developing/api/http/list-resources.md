@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/api/http/list-resources/
 ---
 
-
 List available HTTP resources for the Riak node. This can be used by clients to
 automatically recognize the location of the resources for specific operations.
 

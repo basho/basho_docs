@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/repair-recovery/secondary-indexes/
 ---
 
-
 The `riak-admin repair-2i` command can be used to repair any stale or missing secondary indexes.  This command scans and repairs any mismatches between the secondary index data used for querying and the secondary index data stored in the Riak objects. It can be run on all partitions of a node or on a subset of them.  We recommend scheduling these repairs outside of peak load time.
 
 ### Running a Repair
@@ -100,7 +99,6 @@ This code will force all keys in each partition on a node to be reread, thus reb
     ```
 
 5. When you're done, press `Ctrl-D` to disconnect the console. DO NOT RUN q() which will cause the running Riak node to quit. Note that `Ctrl-D` merely disconnects the console from the service, it does not stop the code from running.
-
 
 ### Monitoring a Repair
 

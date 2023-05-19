@@ -19,7 +19,6 @@ aliases:
 
 Released Oct 12, 2021.
 
-
 ## Overview
 
 This release contains a number of stability improvements:
@@ -45,8 +44,4 @@ This release also contains two new features:
 ## Previous Release Notes
 
 Please see the KV 3.0.7 release notes [here]({{<baseurl>}}riak/kv/3.0.7/release-notes/).
-
-
-
-
 

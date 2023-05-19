@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/api/protocol-buffers/
 ---
 
-
 This is an overview of the operations you can perform using the
 [Protocol Buffers](https://code.google.com/p/protobuf/) Client (PBC)
 interface to Riak, and can be used as a guide for developing a

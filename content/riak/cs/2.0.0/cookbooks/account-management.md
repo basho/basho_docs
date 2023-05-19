@@ -210,7 +210,7 @@ users.
 
 A sample URL for a user listing request looks like this:
 
-```
+```plaintext
 GET http://data.example.com/riak-cs/users -
 ```
 

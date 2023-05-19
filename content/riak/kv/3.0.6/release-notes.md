@@ -19,7 +19,6 @@ aliases:
 
 Released May 10, 2021.
 
-
 ## Overview
 
 Release 3.0.6 adds location-awareness to Riak cluster management. The broad aim is to improve data diversity across locations (e.g. racks) to reduce the probability of data-loss should a set of nodes fail concurrently within a location. The location-awareness does not provide firm guarantees of data diversity that will always be maintained across all cluster changes - but testing has indicated it will generally find a cluster arrangement which is close to optimal in terms of data protection.
@@ -33,8 +32,4 @@ This release is tested with OTP 20 and OTP 22; but optimal performance is likely
 ## Previous Release Notes
 
 Please see the KV 3.0.4 release notes [here]({{<baseurl>}}riak/kv/3.0.4/release-notes/).
-
-
-
-
 

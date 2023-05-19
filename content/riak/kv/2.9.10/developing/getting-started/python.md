@@ -15,8 +15,6 @@ aliases:
   - /riak/kv/2.9.10/dev/taste-of-riak/python
 ---
 
-
-
 If you haven't set up a Riak Node and started it, please visit [Running A Cluster]({{<baseurl>}}riak/kv/2.9.10/using/running-a-cluster) first.
 
 To try this flavor of Riak, a working installation of Python is
@@ -97,6 +95,4 @@ We are now ready to start interacting with Riak.
 ## Next Steps
 
 [CRUD Operations]({{<baseurl>}}riak/kv/2.9.10/developing/getting-started/python/crud-operations)
-
-
 

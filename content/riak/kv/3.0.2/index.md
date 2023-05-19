@@ -24,8 +24,6 @@ aliases:
 [getting started]: {{<baseurl>}}riak/kv/3.0.1/developing/getting-started
 [dev client libraries]: {{<baseurl>}}riak/kv/3.0.1/developing/client-libraries
 
-
-
 Riak KV is a distributed NoSQL database designed to deliver maximum data availability by distributing data across multiple servers. As long as your Riak KV client can reach one Riak server, it should be able to write data.
 
 This release allows Riak to run on OTP versions 20, 21 and 22, but is not fully backwards compatible with previous releases.
@@ -71,8 +69,4 @@ If you are looking to integrate Riak KV with your existing tools, check out the 
 2. [Installing on Debian-Ubuntu][install debian & ubuntu]
 3. [Developing with Riak KV: Getting Started][getting started]
 4. [Developing with Riak KV: Client Libraries][dev client libraries]
-
-
-
-
 

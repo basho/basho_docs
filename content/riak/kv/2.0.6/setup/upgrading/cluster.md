@@ -144,7 +144,6 @@ riak start
 riak version
 ```
 
-
 6\. Wait for the `riak_kv` service to start:
 
 ```bash
@@ -190,7 +189,6 @@ you will have to stop Riak KV via `svcadm` instead of using `riak stop`:
 sudo svcadm disable riak
 ```
 {{% /note %}}
-
 
 2\. Back up Riak KV's `/etc` and `/data` directories:
 

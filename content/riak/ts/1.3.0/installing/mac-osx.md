@@ -18,7 +18,6 @@ aliases:
     - /riakts/1.3.0/installing/mac-osx/
 ---
 
-
 [download]: ../../downloads/
 [openfileslimit]: {{<baseurl>}}riak/kv/2.1.4/using/performance/open-files-limit
 [planning]: ../../using/planning
@@ -30,7 +29,6 @@ package available [here][download].
 Mac OS X is only supported for developing with Riak TS and NOT for general operations.
 {{% /note %}}
 
-
 ## Dependencies
 
 ### `ulimit`
@@ -38,7 +36,6 @@ Mac OS X is only supported for developing with Riak TS and NOT for general opera
 OS X gives you a very small limit on open file handles. Even with a
 backend that uses very few file handles, it's possible to run out. See
 [Open Files Limit][openfileslimit] for more information about changing the limit.
-
 
 ## Install Riak TS
 
@@ -49,7 +46,6 @@ tar zxvf riak-ts-1.3.0-OSX-x86_64.tar.gz
 cd riak-ts-1.3.0
 ```
 
-
 ## Activate Riak TS node
 
 Once you've installed Riak TS, start it on your node:
@@ -57,7 +53,6 @@ Once you've installed Riak TS, start it on your node:
 ```bash
 riak start
 ```
-
 
 ## Next Steps
 

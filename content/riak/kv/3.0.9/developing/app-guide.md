@@ -412,7 +412,3 @@ will help you get up and running:
 * [Riak KV Glossary][glossary] - A listing of frequently used terms in Riak's
   documentation
 
-
-
-
-

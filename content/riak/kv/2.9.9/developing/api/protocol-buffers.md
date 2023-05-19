@@ -184,6 +184,3 @@ message RpbErrorResp {
 * [PBC Yokozuna Schema Get]({{<baseurl>}}riak/kv/2.9.9/developing/api/protocol-buffers/yz-schema-get)
 * [PBC Yokozuna Schema Put]({{<baseurl>}}riak/kv/2.9.9/developing/api/protocol-buffers/yz-schema-put)
 
-
-
-

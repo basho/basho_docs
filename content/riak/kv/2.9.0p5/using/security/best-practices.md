@@ -21,7 +21,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/security/best-practices/
 ---
 
-
 ## Hanc capellae
 
 Lorem markdownum Byblida. Modo **etiam** litora mittat vellera infelix caeli.

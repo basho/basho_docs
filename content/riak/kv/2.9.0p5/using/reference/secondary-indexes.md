@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/reference/secondary-indexes/
 ---
 
-
 [usage bucket types]: {{<baseurl>}}riak/kv/2.9.0p5/developing/usage/bucket-types
 [use ref strong consistency]: {{<baseurl>}}riak/kv/2.9.0p5/using/reference/strong-consistency
 

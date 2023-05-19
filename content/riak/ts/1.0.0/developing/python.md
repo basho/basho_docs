@@ -14,10 +14,10 @@ aliases:
     - /riakts/1.0.0/developing/python/
 ---
 
-
 You can develop with Riak TS through the Python client. This document covers the Python protobuf requests to Riak TS.
 
 ## Overview
+
 To use Time Series with the Python client, we've added 5 new operations to the `riak.client.RiakClient` object.
 
 The Time Series API is only available through Protocol Buffers and not HTTP, so please set up your Python client accordingly.
@@ -26,10 +26,10 @@ Language | Source | Documentation | Download
 :--------|:-------|:--------------|:--------
 Python | [riak-python-client](https://github.com/basho/riak-python-client) | [sphinx](http://basho.github.com/riak-python-client) | [PyPI](http://pypi.python.org/pypi?:action=display&name=riak#downloads)
 
-
 ## RiakClient TS Operations
 
 ### Operations Index
+
  * Get - Fetch a single row based on the primary key values provided.
  * Put - Store 1 or more rows to a Time Series table.
  * Delete - Delete a single row based on the primary key values provided.
@@ -53,7 +53,7 @@ Retrieve timeseries value by key.
 |`key  `  | list or dict                               | The timeseries value's key. |
 
 *Return Type*: class`TsObject <riak.ts_object.TsObject>`
- 
+
 #### Put
 
 `ts_put(tsobj)`
@@ -113,8 +113,8 @@ explicitly. Consuming the entire iterator will also close the
 stream. If it does not, the associated connection might
 not be returned to the pool. Example::
 
-    
-```python 
+
+```python
 from contextlib import closing
 # Using contextlib.closing
 with closing(client.ts_stream_keys(mytable)) as keys:
@@ -131,6 +131,5 @@ stream.close()
 |---------|--------------------------------------------|-------------------------------------|
 |`table`  | string or class `Table <riak.table.Table>` | the table from which to stream keys |
 |`timeout`| int                                        | A timeout value in milliseconds     |
-
 
 *Return Type*: iterator

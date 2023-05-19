@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/api/backend/
 ---
 
-
 [plan backend]: {{<baseurl>}}riak/kv/2.9.0p5/setup/planning/backend
 
 Riak's storage API uniformly applies to all of the

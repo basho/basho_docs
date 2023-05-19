@@ -104,7 +104,7 @@ servers (nodes) in the cluster have already been joined together.
 
 ### Cluster joined, but no data needs to be preserved
 
-1.  Change the ring creation size parameter by uncommenting it and then
+1. Change the ring creation size parameter by uncommenting it and then
 setting it to the desired value, for example 64:
 
     ```riakconf
@@ -116,14 +116,14 @@ setting it to the desired value, for example 64:
     {ring_creation_size, 64}
     ```
 
-2.  Stop all nodes
-3.  Remove the ring data file on each node (see [Backing up Riak][cluster ops backup] for the location of this file) 
-4.  Start all nodes
-5.  Re-add each node to the cluster (see [Adding and Removing Nodes][cluster ops add remove node]) or finish reviewing this document and proceed to [Basic Cluster Setup][use running cluster]
+2. Stop all nodes
+3. Remove the ring data file on each node (see [Backing up Riak][cluster ops backup] for the location of this file)
+4. Start all nodes
+5. Re-add each node to the cluster (see [Adding and Removing Nodes][cluster ops add remove node]) or finish reviewing this document and proceed to [Basic Cluster Setup][use running cluster]
 
 ### New servers, have not yet joined a cluster
 
-1.  Change the ring creation size parameter by uncommenting it and then
+1. Change the ring creation size parameter by uncommenting it and then
 setting it to the desired value, for example 64:
 
     ```riakconf
@@ -135,10 +135,10 @@ setting it to the desired value, for example 64:
     {ring_creation_size, 64}
     ```
 
-2.  Stop all nodes
-3.  Remove the ring data file on each node (see [Backing up Riak][cluster ops backup] for
+2. Stop all nodes
+3. Remove the ring data file on each node (see [Backing up Riak][cluster ops backup] for
 the location of this file)
-4.  Finish reviewing this document and proceed to [Basic Cluster Setup][use running cluster]
+4. Finish reviewing this document and proceed to [Basic Cluster Setup][use running cluster]
 
 ### Verifying ring size
 

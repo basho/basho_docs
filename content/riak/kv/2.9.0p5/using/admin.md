@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/admin/
 ---
 
-
 [use admin commands]: ./commands/
 [use admin riak cli]: ./riak-cli/
 [use admin riak-admin]: ./riak-admin/

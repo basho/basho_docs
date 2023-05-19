@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/performance/multi-datacenter-tuning/
 ---
 
-
 [perf index]: {{<baseurl>}}riak/kv/2.9.0p5/using/performance
 
 Depending on the size of your objects and your replication latency

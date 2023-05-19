@@ -73,5 +73,3 @@ If you are updating a flag, you do so by including a `FlagOp` message. As shown 
 
 Updating a register does not involve sending a special message type. Instead, you must set the register to a desired value by specifying a binary for the `register_op` parameter.
 
-
-

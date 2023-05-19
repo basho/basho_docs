@@ -14,6 +14,7 @@ toc: true
 ---
 
 ## Creating Objects In Riak
+
 First, let’s create a few objects and a bucket to keep them in.
 
 ```php
@@ -56,6 +57,7 @@ $storeCommand3->execute();
 ```
 
 ## Reading Objects From Riak
+
 Now that we have a few objects stored, let’s retrieve them and make sure they contain the values we expect.
 
 ```php
@@ -80,12 +82,13 @@ print_r($response2->getObject()->getData());
 print_r($response3->getObject()->getData());
 ```
 
-That was easy.  We create a [Fetch Command](http://basho.github.io/riak-php-client/class-Basho.Riak.Command.Object.Fetch.html) from a [FetchObject Builder](http://basho.github.io/riak-php-client/class-Basho.Riak.Command.Builder.FetchObject.html). 
+That was easy.  We create a [Fetch Command](http://basho.github.io/riak-php-client/class-Basho.Riak.Command.Object.Fetch.html) from a [FetchObject Builder](http://basho.github.io/riak-php-client/class-Basho.Riak.Command.Builder.FetchObject.html).
 For our object that is an associative array, we also add [`withDecodeAsAssociative()`](http://basho.github.io/riak-php-client/class-Basho.Riak.Command.Builder.FetchObject.html#_withDecodeAsAssociative) to the builder so it returns the object as an associative array instead of an stdClass object.
 
 In either case, we'll get a [Response](http://basho.github.io/riak-php-client/class-Basho.Riak.Command.Object.Response.html) object back, which holds information about the operation, and the result data.
 
 ## Updating Objects In Riak
+
 While some data may be static, other forms of data may need to be updated.  This is also easy to accomplish.  Let’s update the value of myValue in the 3rd example to 42.
 
 ```php
@@ -103,11 +106,12 @@ $updateCommand = (new Command\Builder\StoreObject($riak))
 $updateCommand->execute();
 ```
 
-First we get the Riak [Object](http://basho.github.io/riak-php-client/class-Basho.Riak.Object.html) from the [Response](http://basho.github.io/riak-php-client/class-Basho.Riak.Command.Object.Response.html), then we get the stored data with [`getData()`](http://basho.github.io/riak-php-client/class-Basho.Riak.Object.html#_getData). We update the data to our liking, then use [`setData()`](http://basho.github.io/riak-php-client/class-Basho.Riak.Object.html#_setData) to set the new data back to the Riak Object. 
+First we get the Riak [Object](http://basho.github.io/riak-php-client/class-Basho.Riak.Object.html) from the [Response](http://basho.github.io/riak-php-client/class-Basho.Riak.Command.Object.Response.html), then we get the stored data with [`getData()`](http://basho.github.io/riak-php-client/class-Basho.Riak.Object.html#_getData). We update the data to our liking, then use [`setData()`](http://basho.github.io/riak-php-client/class-Basho.Riak.Object.html#_setData) to set the new data back to the Riak Object.
 To store it we use the same pattern as before, but this time we use the [`withObject()`](http://basho.github.io/riak-php-client/class-Basho.Riak.Command.Builder.ObjectTrait.html#_withObject) method to tell it to store our updated Riak Object.
 
 ## Deleting Objects From Riak
-As a last step, we’ll demonstrate how to delete data.  We just build a [Delete Command](http://basho.github.io/riak-php-client/class-Basho.Riak.Command.Object.Delete.html) from a [DeleteObject Builder](http://basho.github.io/riak-php-client/class-Basho.Riak.Command.Builder.DeleteObject.html), and execute it.  
+
+As a last step, we’ll demonstrate how to delete data.  We just build a [Delete Command](http://basho.github.io/riak-php-client/class-Basho.Riak.Command.Object.Delete.html) from a [DeleteObject Builder](http://basho.github.io/riak-php-client/class-Basho.Riak.Command.Builder.DeleteObject.html), and execute it.
 
 ```php
 (new Command\Builder\DeleteObject($riak))->atLocation($location1)->build()->execute();
@@ -116,6 +120,7 @@ As a last step, we’ll demonstrate how to delete data.  We just build a [Delete
 ```
 
 ### Working With Complex Objects
+
 Since the world is a little more complicated than simple integers and bits of strings, let’s see how we can work with more complex objects.  Take for example, this plain old PHP object(POPO) that encapsulates some knowledge about a book.
 
 ```php
@@ -166,7 +171,7 @@ Serialized Object:
 {"title":"Moby Dick","author":"Herman Melville","body":"Call me Ishmael. Some years ago...","isbn":"1111979723","copiesOwned":3}
 ```
 
-JSON!  The library encodes PHP objects as JSON strings when you use the [`buildJsonObject()`](http://basho.github.io/riak-php-client/class-Basho.Riak.Command.Builder.ObjectTrait.html#_buildJsonObject) method on the StoreObject builder.  
+JSON!  The library encodes PHP objects as JSON strings when you use the [`buildJsonObject()`](http://basho.github.io/riak-php-client/class-Basho.Riak.Command.Builder.ObjectTrait.html#_buildJsonObject) method on the StoreObject builder.
 
 Now that we’ve ruined the magic of object encoding, let’s clean up our mess:
 
@@ -179,4 +184,4 @@ Now that we’ve ruined the magic of object encoding, let’s clean up our mess:
 
 ## Next Steps
 
-More complex use cases can be composed from these initial create, read, update, and delete (CRUD) operations. [In the next chapter]({{<baseurl>}}riak/kv/2.2.0/developing/getting-started/php/querying) we will look at how to store and query more complicated and interconnected data, such as documents. 
+More complex use cases can be composed from these initial create, read, update, and delete (CRUD) operations. [In the next chapter]({{<baseurl>}}riak/kv/2.2.0/developing/getting-started/php/querying) we will look at how to store and query more complicated and interconnected data, such as documents.

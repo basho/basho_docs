@@ -55,7 +55,7 @@ handle deletion. More on configuration can be found in the
 
 Riak addresses the problem of deletion in distributed systems by marking
 deleted objects with a so-called **tombstone**. This means that an
-`X-Riak-Deleted` metadata key is added to the object and given the value 
+`X-Riak-Deleted` metadata key is added to the object and given the value
 `true`, while the object itself is set to an empty Erlang object,
 i.e. `<<>>`.
 

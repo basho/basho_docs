@@ -33,12 +33,12 @@ to properly store and later query for values.
    (this also includes bucket type-index association)
 
 {{% note %}}
-Riak search uses active anti-entropy (AAE) to ensure that the data is 
-consistent between the Riak backends and the Solr indexes.  When using 
-Riak search, you should not disable AAE without understanding the risks 
-of divergence between the data in the Riak backends and the Solr indexes 
-and how that can impact your application. More information about how 
-Riak search uses AAE is in the 
+Riak search uses active anti-entropy (AAE) to ensure that the data is
+consistent between the Riak backends and the Solr indexes.  When using
+Riak search, you should not disable AAE without understanding the risks
+of divergence between the data in the Riak backends and the Solr indexes
+and how that can impact your application. More information about how
+Riak search uses AAE is in the
 [Riak search reference](../../../using/reference/search/#active-anti-entropy-aae).
 {{% /note %}}
 
@@ -147,7 +147,6 @@ curl -XPUT $RIAK_HOST/search/index/famous
 > **Getting started with Riak clients**
 >
 > If you are connecting to Riak using one of Basho's official [client libraries]({{<baseurl>}}riak/kv/2.1.3/developing/client-libraries), you can find more information about getting started with your client in the [Developing with Riak KV: Getting Started]({{<baseurl>}}riak/kv/2.1.3/developing/getting-started) section.
-
 
 Note that the above command is exactly the same as the following, which
 explicitly defines the default schema.
@@ -342,7 +341,7 @@ curl -XPUT $RIAK_HOST/buckets/cats/props \
      -d'{"props":{"search_index":"famous"}}'
 ```
 
-Once you have created the index association, any new data will be indexed on 
+Once you have created the index association, any new data will be indexed on
 ingest according to your schema.
 
 ## Riak Search Security Setup
@@ -1044,7 +1043,7 @@ var search = new RiakSearchRequest("famous", "age_i:[30 TO *]");
 
 /*
  * Fluent interface:
- * 
+ *
  * var search = new RiakSearchRequest
  * {
  *     Query = new RiakFluentSearch("famous", "age_i")

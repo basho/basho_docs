@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/security/managing-sources/
 ---
 
-
 If you're looking for more general information on Riak Security, it may
 be best to start with our general guide to [authentication and authorization]({{<baseurl>}}riak/kv/2.9.0p5/using/security/basics).
 

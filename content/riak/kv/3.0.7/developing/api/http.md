@@ -76,7 +76,3 @@ Method | URL | Doc
 `GET` | `/stats` | [HTTP Status]({{<baseurl>}}riak/kv/3.0.7/developing/api/http/status)
 `GET` | `/` | [HTTP List Resources]({{<baseurl>}}riak/kv/3.0.7/developing/api/http/list-resources)
 
-
-
-
-

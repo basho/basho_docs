@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/api/protocol-buffers/secondary-indexes/
 ---
 
-
 Request a set of keys that match a secondary index query.
 
 ## Request

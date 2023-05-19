@@ -19,14 +19,12 @@ Execute a MapReduce job.
 
 ## Request
 
-
 ```protobuf
 message RpbMapRedReq {
     required bytes request = 1;
     required bytes content_type = 2;
 }
 ```
-
 
 Required Parameters
 
@@ -55,7 +53,6 @@ message RpbMapRedResp {
     optional bool done = 3;
 }
 ```
-
 
 Values
 
@@ -123,7 +120,6 @@ content_type: "application/json"
 
 ```
 
-
 Response 1 - result from phase 1
 
 ```bash
@@ -136,7 +132,6 @@ response: "[[9]]"
 
 ```
 
-
 Response 2 - end of MapReduce job
 
 ```bash
@@ -147,6 +142,4 @@ RpbMapRedResp protoc decode:
 done: true
 
 ```
-
-
 

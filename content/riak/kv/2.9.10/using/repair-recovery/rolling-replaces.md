@@ -70,5 +70,3 @@ riak-admin transfers
 
 8\. Join the replaced node back into the cluster or decommission the additional node that was created.
 
-
-

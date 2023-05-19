@@ -366,7 +366,7 @@ comply with any R, W, PR, and PW values that apply along the way.
 
 If R and W are undefined, however, the RW (`rw`) value will substitute
 for both R and W during object deletes. In recent versions of Riak, it
-is nearly impossible to make reads or writes that do not somehow specify 
+is nearly impossible to make reads or writes that do not somehow specify
 oth R and W, and so you will never need to worry about RW.
 
 ## The Implications of `notfound_ok`
@@ -382,7 +382,7 @@ On the other hand, setting `notfound_ok` to `false` means that the
 responding vnode will wait for something other than a `not found` error
 before reporting a value to the client. If an object doesn't exist under
 a key, the coordinating vnode will wait for N vnodes to respond with
-`not found` before it reports `not found` to the client. 
+`not found` before it reports `not found` to the client.
 
 ## Early Failure Return with `basic_quorum`
 
@@ -575,7 +575,4 @@ id="http://player.vimeo.com/video/11172656"></div>
 <a href="http://vimeo.com/11172656">Tuning CAP Controls in Riak</a> from
 <a href="http://vimeo.com/bashotech">Basho Technologies</a> on <a
 href="http://vimeo.com">Vimeo</a>.
-
-
-
 

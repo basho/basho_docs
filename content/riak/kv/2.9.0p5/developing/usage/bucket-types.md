@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/usage/bucket-types/
 ---
 
-
 If you ever need to turn off indexing for a bucket, set the
 `search_index` property to the `_dont_index_` sentinel value.
 

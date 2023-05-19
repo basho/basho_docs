@@ -149,7 +149,7 @@ function longest_friends_list_resolver(Command\Object\Response $response)
 }
 ```
 
-We can then embed this function into a more general function for fetching 
+We can then embed this function into a more general function for fetching
 objects from the users bucket:
 
 ```php
@@ -238,7 +238,4 @@ object. The merge operation that we built to handle conflict resolution
 is analogous to the resolution logic that is built into Riak sets. For
 more information on how you could potentially replace the client-side
 resolution that we implemented above, see our [tutorial on Riak sets]({{<baseurl>}}riak/kv/3.0.11/developing/data-types/#sets).
-
-
-
 

@@ -18,8 +18,6 @@ aliases:
   - /riak/kv/2.1.1/installing/smartos/
 ---
 
-
-
 [install verify]: {{<baseurl>}}riak/kv/2.1.1/setup/installing/verify
 
 The following steps have been tested to work with Riak version 1.2 on SmartOS version **joyent_20120614T184600Z**. They demonstrate installation of a Riak node on SmartOS as the root user.

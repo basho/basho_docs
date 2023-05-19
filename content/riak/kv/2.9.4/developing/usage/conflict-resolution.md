@@ -522,7 +522,6 @@ FetchValue fetch = new FetchValue.Builder(bestCharacterKey).build();
 FetchValue.Response res = client.execute(fetch);
 RiakObject obj = res.getValue(RiakObject.class);
 
-
 // Then we modify the object's value
 obj.setValue(BinaryValue.create("Stimpy"));
 

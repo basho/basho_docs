@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/reference/logging/
 ---
 
-
 [cluster ops log]: {{<baseurl>}}riak/kv/2.9.0p5/using/cluster-operations/logging
 
 Logging in Riak KV is handled by a Basho-produced logging framework for
@@ -205,7 +204,6 @@ Below are some examples:
 To set the maximum size of the crash log before it is rotated, use the
 `log.crash.size` parameter. You can specify the size in KB, MB, etc. The
 default is `10MB`.
-
 
 ### Other Crash Log Settings
 

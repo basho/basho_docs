@@ -99,7 +99,6 @@ behalf. This data is transferred to the node when it becomes available.
 
 8\. Repeat the process for the remaining nodes in the cluster.
 
-
 ## RHEL/CentOS
 
 The following example demonstrates upgrading a Riak TS node that has been

@@ -24,9 +24,7 @@ aliases:
 [OSX]: mac-osx/
 [Ubuntu]: debian-ubuntu/
 
-
 Riak TS is a distributed NoSQL key/value store optimized for fast reads and writes of time series data. To use it, all you need to do is install the Riak TS package.
- 
 
 ## Installing
 
@@ -37,7 +35,6 @@ Choose your OS and follow the instructions:
 * [OS X 10.8+][OSX]
 * [Ubuntu 12.04 & 14.04][Ubuntu]
 
-
->**Upgrade Note:** 
+>**Upgrade Note:**
 >
 >Riak TS is a complete, standalone product. Upgrading from Riak KV to Riak TS is not currently supported.

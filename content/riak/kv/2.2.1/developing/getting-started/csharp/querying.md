@@ -205,6 +205,5 @@ So to recap:
 * You can search for specific values, or a range of values
 * Riak will return a list of keys that match the index query
 
-
 [taste_of_riak]: https://github.com/basho/taste-of-riak
 [master_zip]: https://github.com/basho/taste-of-riak/archive/master.zip

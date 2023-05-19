@@ -24,7 +24,6 @@ aliases:
   - /riak/kv/2.9.0p4/configuring/v3-multi-datacenter/ssl/
 ---
 
-
 [config reference#advanced.config]: {{<baseurl>}}riak/kv/2.9.0p5/configuring/reference/#the-advanced-config-file
 
 ## Features

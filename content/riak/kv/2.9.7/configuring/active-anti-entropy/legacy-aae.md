@@ -18,7 +18,7 @@ aliases:
 ---
 
 The configuration for the legacy AAE is kept in
- the `riak.conf` configuration file. 
+ the `riak.conf` configuration file.
 
 ## Validate Settings
 

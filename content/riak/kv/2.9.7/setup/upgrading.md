@@ -33,6 +33,3 @@ A tutorial on updating to Riak KV 2.9.7
 
 [Learn More >>][upgrade version]
 
-
-
-

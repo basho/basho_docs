@@ -18,7 +18,6 @@ aliases:
 v2 Multi-Datacenter Replication is deprecated and will be removed in a future version. Please use [v3]({{<baseurl>}}riak/kv/3.0.3/using/cluster-operations/v3-multi-datacenter/#fullsync-replication-commands/) instead.
 {{% /note %}}
 
-
 With the `pause` and `resume` commands it is possible to limit the
 fullsync operation to off-peak times. First, disable `fullsync_interval`
 and set `fullsync_on_connect` to `false`. Then, using cron or something
@@ -30,9 +29,11 @@ file:
 #!/bin/sh
 
 ## Resume from where we left off
+
 riak-repl resume-fullsync
 
 ## Start fullsync if nothing is running
+
 riak-repl start-fullsync
 ```
 
@@ -42,9 +43,7 @@ At the end of the sync window:
 #!/bin/sh
 
 ## Stop fullsync until start of next sync window
+
 riak-repl pause-fullsync
 ```
-
-
-
 

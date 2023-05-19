@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/api/http/get-bucket-props/
 ---
 
-
 Reads the bucket or bucket type properties.
 
 ## Request

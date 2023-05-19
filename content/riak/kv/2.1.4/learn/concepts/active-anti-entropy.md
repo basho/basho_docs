@@ -25,7 +25,6 @@ aliases:
 [Merkle tree]: http://en.wikipedia.org/wiki/Merkle_tree
 [usage search]: {{<baseurl>}}riak/kv/2.1.4/developing/usage/search
 
-
 In a [clustered][concept clusters], [eventually consistent][concept eventual consistency] system like Riak, conflicts between object replicas stored
 on different nodes are an expected byproduct of node failure, concurrent
 client updates, physical data loss and corruption, and other events that
@@ -41,7 +40,6 @@ Riak KV offers two means of resolving object conflicts: read repair and
 active anti-entropy (AAE). Both of these conflict resolution mechanisms
 apply both to normal key/value data in Riak as well as to
 [search indexes][usage search]
-
 
 ## Read Repair vs. Active Anti-Entropy
 

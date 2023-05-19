@@ -25,7 +25,7 @@ This is the primary script for controlling the processes associated with
 a Riak CS node. Running the `riak-cs` command by itself will output a
 listing of available commands:
 
-```
+```plaintext
 Usage: riak-cs {start | stop | restart | reboot | ping | console | attach |
                     attach-direct | ertspath | chkconfig | escript | version |
                     getpid | top [-interval N] [-sort reductions|memory|msg_q] [-lines N] }
@@ -56,7 +56,7 @@ This command will print `ok` if the stoppage is successful.
 If you attempt to run `riak-cs stop` on a node that is not currently
 running, you will see the following:
 
-```
+```plaintext
 Node <nodename> not responding to pings.
 Node is not running!
 ```
@@ -73,7 +73,7 @@ riak-cs restart
 Prints `ok` when successful. If the node is already stopped or not
 responding, you will see the following output:
 
-```
+```plaintext
 Node <nodename> not responding to pings.
 ```
 
@@ -327,7 +327,7 @@ riak-cs-stanchion switch 100.0.0.1 9999
 
 The following output would appear if the change were successful:
 
-```
+```plaintext
 Successfully switched stanchion to 100.0.0.1:9999: This change is only effective until restart.
 To make permanent change, be sure to edit app.config file.
 ```
@@ -342,7 +342,7 @@ riak-cs-stanchion show
 
 The output should look something like this:
 
-```
+```plaintext
 Current Stanchion Address: http://127.0.0.1:8085
 ```
 
@@ -539,7 +539,7 @@ riak-cs-supercluster list-members
 The output will list the name, host, and port for each member, as in the
 following example output:
 
-```
+```plaintext
 sc-member-A 127.0.0.1:10017
 sc-member-B 127.0.0.1:10027
 # and so on
@@ -563,7 +563,7 @@ riak-cs-supercluster weight
 You can also return the weight for a specific member on the basis of its
 member ID:
 
-```
+```bash
 riak-cs-supercluster weight <member id>
 ```
 

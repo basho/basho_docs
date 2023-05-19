@@ -36,7 +36,6 @@ The version of TicTac AAE included in 2.9 releases is a working prototype with l
 
 TicTac Active Anti-Entropy makes two changes to the way Anti-Entropy has previously worked in Riak. The first change is to the way Merkle Trees are contructed so that they are built incrementally. The second change allows the underlying Anti-entropy key store to be key-ordered while still allowing faster access to keys via their Merkle tree location or the last modified date of the object.
 
-
 #### [Configuring TicTac AAE][config tictac]
 
 A guide covering commonly adjusted parameters for the TicTac AAE system.

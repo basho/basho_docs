@@ -82,7 +82,6 @@ root soft nofile 65536
 
 >**Note:** You may need to log out of your shell and then log back in for these changes to take effect.
 
-
 ### Install Redis
 
 >**Note:** If you already have Redis installed, *skip ahead* to "Install Riak Redis Add-on".

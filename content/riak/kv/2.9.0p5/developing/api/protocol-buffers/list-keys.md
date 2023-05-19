@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/api/protocol-buffers/list-keys/
 ---
 
-
 List all of the keys in a bucket. This is a streaming call, with
 multiple response messages sent for each request.
 
@@ -91,7 +90,6 @@ RpbListKeysResp protoc decode:
 keys: "10"
 keys: "3"
 ```
-
 
 #### Response Packet 3
 

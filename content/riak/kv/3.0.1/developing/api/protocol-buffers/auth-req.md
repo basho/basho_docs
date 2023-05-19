@@ -30,5 +30,3 @@ message RpbAuthReq {
 
 For more on authentication, see our documentation on [Authentication and Authorization]({{<baseurl>}}riak/kv/3.0.1/using/security/basics).
 
-
-

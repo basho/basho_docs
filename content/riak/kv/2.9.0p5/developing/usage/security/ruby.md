@@ -23,7 +23,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/usage/security/ruby/
 ---
 
-
 This tutorial shows you how to set up a Riak Ruby client to authenticate
 itself when connecting to Riak.
 
@@ -98,7 +97,6 @@ If you have specified that a specific client be authenticated using
 need to provide a CA as well as the username and password that you
 specified when creating the user in Riak. For more, see our
 documentation on [User Management]({{<baseurl>}}riak/kv/2.9.0p5/using/security/basics#user-management).
-
 
 ## Certificate-based Authentication
 

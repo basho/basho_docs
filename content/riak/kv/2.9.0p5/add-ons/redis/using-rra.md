@@ -22,12 +22,10 @@ aliases:
   - /riak/kv/2.9.0p4/add-ons/redis/using-rra/
 ---
 
-
 [addon redis develop]: ../developing-rra/
 [addon redis setup]: ../set-up-rra/
 [dev api http]: {{<baseurl>}}riak/kv/2.9.0p5/developing/api/http/
 [ee]: https://www.tiot.jp/en/about-us/contact-us/
-
 
 Now that you’ve [set up Riak Redis Add-on (RRA)][addon redis setup], you're ready to use RRA with any Redis client which supports `GET`, `PUT` and `DEL` operations.
 

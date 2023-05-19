@@ -18,8 +18,6 @@ aliases:
   - /riak/kv/2.0.6/installing/solaris/
 ---
 
-
-
 [install verify]: {{<baseurl>}}riak/kv/2.0.6/setup/installing/verify
 
 The following steps have been tested to work with Riak version 1.3.1 on Solaris 10 i386. They demonstrate installation of a Riak node on Solaris as the root user.

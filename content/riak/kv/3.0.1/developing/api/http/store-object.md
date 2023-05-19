@@ -146,5 +146,3 @@ $ curl -v -XPUT -d '{"bar":"baz"}' -H "Content-Type: application/json" -H "X-Ria
 {"bar":"baz"}
 ```
 
-
-

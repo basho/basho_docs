@@ -182,7 +182,7 @@ Sample responses (reformatted for easy reading):
         }
       ]
     },
-    { 
+    {
       "Errors": []
     }
   ],

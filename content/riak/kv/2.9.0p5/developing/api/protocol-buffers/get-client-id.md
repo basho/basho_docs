@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/api/protocol-buffers/get-client-id/
 ---
 
-
 {{% note title="Deprecation notice" %}}
 The use of client IDs in conflict resolution is now deprecated in Riak. If you
 are building or maintaining a Riak client that is intended to be compatible
@@ -56,7 +55,6 @@ Request
 Hex     00 00 00 01 03
 Erlang  <<0,0,0,1,3>>
 ```
-
 
 Response
 

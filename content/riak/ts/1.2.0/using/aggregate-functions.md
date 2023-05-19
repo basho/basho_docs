@@ -16,12 +16,9 @@ aliases:
     - /riakts/1.2.0/using/aggregate-functions/
 ---
 
-
 [arithmetic]: ../arithmetic-operations
 
-
-You can turn a set of rows in your Riak TS table into a value with the aggregate feature. This document will walk you through the functions that make up aggregation in Riak TS. 
-
+You can turn a set of rows in your Riak TS table into a value with the aggregate feature. This document will walk you through the functions that make up aggregation in Riak TS.
 
 ## Aggregate Functions
 
@@ -34,8 +31,6 @@ You can turn a set of rows in your Riak TS table into a value with the aggregate
 * `STDDEV_POP()` - Returns the statistical standard deviation of all entries that match a specified criteria using Population Standard Deviation.
 
 >**Note:** You cannot simply negate an aggregate function. If you attempt something like: `select -count(temperature)`, you will receive an error. Instead, you can achieve negation with `-1*`; for instance: `-1*COUNT(...)`.
-
-
 
 ### `AVG` & `MEAN`
 
@@ -53,7 +48,6 @@ Returns `NULL` if no values were returned or all values were `NULL`.
 | sint64 | sint64 |
 | double | double |
 
-
 ### `COUNT`
 
 Count the number of returned values.
@@ -69,7 +63,6 @@ If a single column is used as an input then `NULL` values are ignored. If all va
 |------------|-------------|
 | Any | sint64 |
 | `*` | sint64 |
-
 
 ### `MAX`
 
@@ -87,7 +80,6 @@ Returns `NULL` if no values were returned or all values were `NULL`.
 | sint64 | sint64 |
 | double | double |
 
-
 ### `MIN`
 
 The smallest value from the set of values returned by the query.
@@ -104,7 +96,6 @@ Returns `NULL` if no values were returned or all values were `NULL`.
 | sint64 | sint64 |
 | double | double |
 
-
 ### `STDDEV`, `STDDEV_SAMP` & `STDDEV_POP`
 
 Calculate the standard deviation for a set of values returned by the query.
@@ -120,7 +111,6 @@ Returns `NULL` if less than two non-null values were returned.
 |------------|-------------|
 | sint64 | double |
 | double | double |
-
 
 ### `SUM`
 

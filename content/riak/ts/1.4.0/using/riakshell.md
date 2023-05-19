@@ -19,13 +19,11 @@ aliases:
 [writing]: {{<baseurl>}}riak/ts/1.4.0/using/writingdata
 [riak shell README]: https://github.com/basho/riak_shell/blob/develop/README.md
 
-
 You can use riak shell within Riak TS to run SQL and logging commands from one place.
-
 
 ## Capabilities
 
-The following are supported in riak shell: 
+The following are supported in riak shell:
 
 * logging
 * log replay
@@ -42,7 +40,6 @@ The following are supported in riak shell:
 * debugging
 
 The shell is also trivially extendable for developer use.
-
 
 ## Getting Started
 
@@ -127,7 +124,6 @@ riak-shell>connection_prompt off;
 Connection Prompt turned off
 ```
 
-
 ### History and repeating past commands
 
 You can see the log of your activity in riak shell by running `show_history`
@@ -154,7 +150,6 @@ riak-shell>h 6;
 rerun (6)> show_connection;
 riak-shell is connected to: 'dev2@127.0.0.1' on port 8097
 ```
-
 
 ### SQL
 
@@ -211,7 +206,6 @@ See [Writing Data][writing] for more details.
 SQL commands in riak shell may span multiple lines.
 {{% /note %}}
 
-
 ### Logging
 
 You can specify the name of your logfile by running: `logfile "»mylogname«"`.
@@ -248,7 +242,7 @@ If you have temporarily turned logging on/off, the output of `show_log_status` m
 
 If you would like your logfile to have a timestamp, run `date_log`.
 
-You can replay the current logfile regardless of whether logging is turned on. To replay your logfile, run `replay_log`.  
+You can replay the current logfile regardless of whether logging is turned on. To replay your logfile, run `replay_log`.
 
 ```
 riak-shell>replay_log;
@@ -295,7 +289,6 @@ Regression Testing "../log/riak_shell.log"
 No Regression Errors.
 ```
 
-
 ### Help
 
 You get help on riak shell functions with the `help` command:
@@ -306,10 +299,9 @@ riak-shell> help;
 
 You can get more specific help by calling `help` with the extension name and function name like `help shell quit;`.
 
-
 ## Configuration
 
-You can configure riak shell from the riak_shell.config file. You can find the file in your Riak TS directory. 
+You can configure riak shell from the riak_shell.config file. You can find the file in your Riak TS directory.
 
 The following things can be configured:
 
@@ -319,7 +311,6 @@ The following things can be configured:
 * `cookie` - No default; any atom representing the Erlang cookie that riak shell uses to connect to Riak.
 * `show_connection_status` (true | false) - Defaults to 'false'; sets whether to show the green tick or red cross in the command line.
 * `nodes` ([nodenames]) - No defaults; a list of nodes to try and connect to on startup or 'reconnect;'.
-
 
 ## Command Line Flags
 
@@ -348,7 +339,6 @@ You can run a riak shell regression log for batch/scripting:
 ```bash
 riak-shell -r ../path/to/my.log
 ```
-
 
 ## Extending Riak Shell
 

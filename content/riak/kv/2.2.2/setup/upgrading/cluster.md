@@ -103,7 +103,6 @@ behalf. This data is transferred to the node when it becomes available.
 
 8\. Repeat the process for the remaining nodes in the cluster.
 
-
 ## RHEL/CentOS
 
 The following example demonstrates upgrading a Riak KV node that has been
@@ -139,7 +138,6 @@ riak start
 riak version
 ```
 
-
 6\. Wait for the `riak_kv` service to start:
 
 ```bash
@@ -160,7 +158,6 @@ behalf. This data is transferred to the node when it becomes available.
 
 8\. Repeat the process for the remaining nodes in the cluster.
 
-
 ## Solaris/OpenSolaris
 
 The following example demonstrates upgrading a Riak KV node that has been
@@ -180,7 +177,6 @@ you will have to stop Riak KV via `svcadm` instead of using `riak stop`:
 sudo svcadm disable riak
 ```
 {{% /note %}}
-
 
 2\. Back up Riak KV's `/etc` and `/data` directories:
 
@@ -240,7 +236,6 @@ While the node was offline, other nodes may have accepted writes on its
 behalf. This data is transferred to the node when it becomes available.
 
 8\. Repeat the process for the remaining nodes in the cluster.
-
 
 ## Rolling Upgrade to Enterprise
 

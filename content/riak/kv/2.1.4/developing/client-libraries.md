@@ -39,7 +39,6 @@ In addition to the official clients, Basho provides some unofficial
 client libraries, listed below. There are also many client libraries and
 related [community projects]({{<baseurl>}}community/projects/).
 
-
 ## Community Libraries
 
 The Riak Community is developing at a break-neck pace, and the number of
@@ -241,8 +240,8 @@ activity.
 
 #### Python
 
-* [Aioriak](https://github.com/rambler-digital-solutions/aioriak) 
-  --- Asyncio PBC Riak 2.0+ client library. (Based on official Basho 
+* [Aioriak](https://github.com/rambler-digital-solutions/aioriak)
+  --- Asyncio PBC Riak 2.0+ client library. (Based on official Basho
   python client)
 * [Riakasaurus](https://github.com/calston/riakasaurus) --- A Riak
   client library for Twisted (based on txriak)

@@ -308,7 +308,6 @@ curl -i http://localhost:8098/types/sports/buckets/nba/keys/champion
 X-Riak-Vclock: a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
 ```
 
-
 ## The Object Update Cycle
 
 If you decide that your application requires mutable data in Riak, we
@@ -490,7 +489,6 @@ curl -XPUT \
   http://localhost:8098/types/siblings/buckets/coaches/keys/seahawks
 ```
 
-
 Every once in a while, though, head coaches change in the NFL, which
 means that our data would need to be updated. Below is an example
 function for updating such objects:
@@ -657,12 +655,10 @@ curl -XPUT \
   http://localhost:8098/types/siblings/buckets/coaches/keys/packers
 ```
 
-
 In the example above, you can see the three steps in action: first, the
 object is read, which automatically fetches the object's causal context;
 then the object is modified, i.e. the object's value is set to the name
 of the new coach; and finally the object is written back to Riak.
-
 
 ## Object Update Anti-patterns
 

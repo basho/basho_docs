@@ -63,7 +63,6 @@ rd(order, {order_id, customer_id, salesperson_id, items, total, order_date}).
 rd(order_summary_entry, {order_id, total, order_date}).
 rd(order_summary, {customer_id, summaries}).
 
-
 Customer = #customer{ customer_id= 1,
                       name= "John Smith",
                       address= "123 Main Street",
@@ -137,6 +136,7 @@ OrderSummary =  #order_summary{
                       order_date= {{2013,11,3},{17,45,28}}}]}.
 
 ## Remember to replace the ip and port parameters with those that match your cluster.
+
 {ok, Pid} = riakc_pb_socket:start_link("127.0.0.1", 10017).
 
 CustomerBucket = <<"Customers">>.
@@ -161,7 +161,6 @@ StoreOrder = fun(Order) ->
 end.
 
 lists:foreach(StoreOrder, Orders).
-
 
 OrderSummaryObj = riakc_obj:new(OrderSummariesBucket,
                                 list_to_binary(

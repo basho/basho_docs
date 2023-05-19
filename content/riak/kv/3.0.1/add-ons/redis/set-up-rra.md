@@ -84,7 +84,6 @@ root soft nofile 65536
 
 >**Note:** You may need to log out of your shell and then log back in for these changes to take effect.
 
-
 ### Install Redis
 
 >**Note:** If you already have Redis installed, *skip ahead* to "Install Riak Redis Add-on".
@@ -280,6 +279,4 @@ ss -nlp |grep [n]utcracker
 ## Next Steps
 
 Get started with some [basic usage][addon redis use] or checkout out more info on [setting up for development (with examples)][addon redis develop].
-
-
 

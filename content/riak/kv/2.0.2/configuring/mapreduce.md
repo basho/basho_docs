@@ -93,7 +93,6 @@ If you load larger JSON objects in your buckets there is a possibility you might
  {"lineno":465,"message":"InternalError: script stack space quota is exhausted","source":"unknown"}
 ```
 
-
 You can increase the amount of memory allocated to the Javascript VM stack by editing your app.config. The following will increase the stack size from 8MB to 32MB:
 
 ```erlang

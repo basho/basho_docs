@@ -14,7 +14,6 @@ aliases:
   - /riak/3.0.6/
 ---
 
-
 [aboutenterprise]: https://www.tiot.jp/en/about-us/contact-us/
 [config index]: {{<baseurl>}}riak/kv/3.0.6/configuring
 [downloads]: {{<baseurl>}}riak/kv/3.0.6/downloads/
@@ -24,8 +23,6 @@ aliases:
 [install debian & ubuntu]: {{<baseurl>}}riak/kv/3.0.6/setup/installing/debian-ubuntu
 [getting started]: {{<baseurl>}}riak/kv/3.0.6/developing/getting-started
 [dev client libraries]: {{<baseurl>}}riak/kv/3.0.6/developing/client-libraries
-
-
 
 Riak KV is a distributed NoSQL database designed to deliver maximum data availability by distributing data across multiple servers. As long as your Riak KV client can reach one Riak server, it should be able to write data.
 
@@ -69,9 +66,4 @@ If you are looking to integrate Riak KV with your existing tools, check out the 
 2. [Installing on Debian-Ubuntu][install debian & ubuntu]
 3. [Developing with Riak KV: Getting Started][getting started]
 4. [Developing with Riak KV: Client Libraries][dev client libraries]
-
-
-
-
-
 

@@ -15,11 +15,9 @@ aliases:
   - /riak/kv/3.0.12/theory/concepts/capability-negotiation
 ---
 
-
 [glossary vnode]: {{<baseurl>}}riak/kv/3.0.12/learn/glossary/#vnode
 [upgrade cluster]: {{<baseurl>}}riak/kv/3.0.12/setup/upgrading/cluster
 [usage mapreduce]: {{<baseurl>}}riak/kv/3.0.12/developing/usage/mapreduce
-
 
 In early versions of Riak KV, [rolling upgrades][upgrade cluster] from an older version to a newer involved (a) disabling all new features associated with the newer version, and then (b) re-enabling those features once all nodes in the cluster were upgraded.
 
@@ -28,9 +26,4 @@ Rolling upgrades no longer require you to disable and then re-enable features du
 {{% note title="Note on Mixed Versions" %}}
 The capability negotiation subsystem is used to manage mixed versions of Riak KV within a cluster ONLY during rolling upgrades. We strongly recommend not running mixed versions during normal operations.
 {{% /note %}}
-
-
-
-
-
 

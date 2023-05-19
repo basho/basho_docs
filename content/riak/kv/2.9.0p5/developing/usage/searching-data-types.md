@@ -24,7 +24,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/usage/searching-data-types/
 ---
 
-
 Although [Riak Data Types]({{<baseurl>}}riak/kv/2.9.0p5/developing/data-types) function differently from other
 Riak objects in some respects, when you're using Search you can think of
 them as normal Riak objects with special metadata attached (metadata
@@ -1138,7 +1137,7 @@ $counterBuilder = (new /Basho/Riak/Command/Builder/IncrementCounter($riak))
   ->withIncrement(10);
 
 $setBuilder = (new /Basho/Riak/Command/Builder/UpdateSet($riak));
-  
+
 foreach(['acting', 'being Stringer Bell'] as $interest) {
   $setBuilder->add($interest);
 }
@@ -1154,7 +1153,7 @@ foreach(['acting', 'being Stringer Bell'] as $interest) {
   ->execute();
 
 $setBuilder = (new /Basho/Riak/Command/Builder/UpdateSet($riak));
-  
+
 foreach(['loving rock and roll', 'being in the Blackhearts'] as $interest) {
   $setBuilder->add($interest);
 }

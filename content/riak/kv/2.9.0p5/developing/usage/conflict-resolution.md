@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/usage/conflict-resolution/
 ---
 
-
 [usage bucket types]: {{<baseurl>}}riak/kv/2.9.0p5/developing/usage/bucket-types
 [use ref strong consistency]: {{<baseurl>}}riak/kv/2.9.0p5/using/reference/strong-consistency
 
@@ -517,7 +516,6 @@ Location bestCharacterKey =
 FetchValue fetch = new FetchValue.Builder(bestCharacterKey).build();
 FetchValue.Response res = client.execute(fetch);
 RiakObject obj = res.getValue(RiakObject.class);
-
 
 // Then we modify the object's value
 obj.setValue(BinaryValue.create("Stimpy"));

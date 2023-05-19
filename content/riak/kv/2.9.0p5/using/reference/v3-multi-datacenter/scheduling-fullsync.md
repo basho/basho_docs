@@ -24,7 +24,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/reference/v3-multi-datacenter/scheduling-fullsync/
 ---
 
-
 [config reference#advanced]: {{<baseurl>}}riak/kv/2.9.0p5/configuring/reference/#advanced-configuration
 
 The `fullsync_interval` parameter can be configured in the `riak-repl`
@@ -60,7 +59,7 @@ List of multiple sinks with separate times in minutes:
     {fullsync_interval, [
         {"sink_boston", 120},  %% fullsync to sink_boston with run every 120 minutes
         {"sink_newyork", 90}]} %% fullsync to sink_newyork with run every 90 minutes
-  
+
     ]}
 ```
 

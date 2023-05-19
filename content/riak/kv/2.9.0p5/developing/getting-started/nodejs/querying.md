@@ -23,7 +23,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/getting-started/nodejs/querying/
 ---
 
-
 ## Node.js Version Setup
 
 For the Node.js version, please download the source from GitHub by either

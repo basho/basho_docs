@@ -39,7 +39,6 @@ Riak KV offers two means of resolving object conflicts: read repair and
 active anti-entropy (AAE). Both of these conflict resolution mechanisms
 apply to key/value data in Riak.
 
-
 ## Read Repair vs. Active Anti-Entropy
 
 In versions of Riak prior to 1.3, replica conflicts were healed via
@@ -102,7 +101,4 @@ Riak to detect silent data corruption to on-disk data arising from disk
 failure, faulty hardware, and other sources. The default time period for
 this regeneration is one week, but this can be adjusted in each node's
 [configuration file][config aae].
-
-
-
 
