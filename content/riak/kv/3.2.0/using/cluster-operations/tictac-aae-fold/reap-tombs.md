@@ -8,7 +8,7 @@ menu:
   riak_kv-3.2.0:
     name: "Reap Tombs"
     identifier: "cluster_operations_tictac_aae_fold_reap_tombs"
-    weight: 107
+    weight: 109
     parent: "cluster_operations_tictac_aae_fold"
 toc: true
 since: 2.9.4

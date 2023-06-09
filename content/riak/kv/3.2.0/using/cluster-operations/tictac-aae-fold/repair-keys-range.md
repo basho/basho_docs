@@ -8,7 +8,7 @@ menu:
   riak_kv-3.2.0:
     name: "Repair Keys"
     identifier: "cluster_operations_tictac_aae_fold_repair_keys_range"
-    weight: 108
+    weight: 110
     parent: "cluster_operations_tictac_aae_fold"
 toc: true
 since: 3.0.8

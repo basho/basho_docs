@@ -1,17 +1,17 @@
 ---
 title_supertext: "Using > TicTac AAE Fold:"
-title: "Count Tombstones"
+title: "Erase Keys"
 description: ""
 project: "riak_kv"
 project_version: 3.2.0
 menu:
   riak_kv-3.2.0:
-    name: "Count Tombs"
-    identifier: "cluster_operations_tictac_aae_fold_count_tombs"
-    weight: 106
+    name: "Erase Keys"
+    identifier: "cluster_operations_tictac_aae_fold_erase_keys"
+    weight: 108
     parent: "cluster_operations_tictac_aae_fold"
 toc: true
-since: 2.9.4
+since: 
 version_history:
   in: "2.9.4+"
 aliases:
@@ -28,7 +28,6 @@ aliases:
 [tictacaae list-buckets]: ../../tictac-aae-fold/list-buckets
 [tictacaae object-stats]: ../../tictac-aae-fold/object-stats
 [tictacaae reap-tombs]: ../../tictac-aae-fold/reap-tombs
-[tictacaae count-tombs]: ../../tictac-aae-fold/count-tombs
 [filters]: ../../tictac-aae-fold/filters
 [filter-by bucket]: ../../tictac-aae-fold/filters#filter-by-bucket-name
 [filter-by key-range]: ../../tictac-aae-fold/filters#filter-by-key-range
@@ -37,23 +36,23 @@ aliases:
 [filter-by sibling-count]: ../../tictac-aae-fold/find-keys/#the-sibling-count-filter
 [filter-by object-size]: ../../tictac-aae-fold/find-keys/#the-object-size-filter
 
-Counts the Riak tombstone objects that meet the filter parameters.
+Erases keys that meet the filter parameters.
 
 See the [TicTac AAE `aae_folds`][tictacaae folds-overview] documentation for configuration, tuning and troubleshootings help.
 
-Unreaped Riak tombstones are Riak objects that have been deleted, but have not been removed from the backend. Riak tracks this through tombstones. If automatic reaping is turned off (for example, by setting `delete_mode` = `keep`), then a large number of deleted objects can accumulate that Riak will never automatically remove. Manual dev ops intervention using this function is required.
+This function allows you to delete many keys in a single pass based on the supplied filters. The Riak keys will be converted to Riak tombstones after which the normal Riak reaping functions take over. Manual dev ops intervention using this function is required.
 
-Use the `reap_tombs` function to count these objects.
+Use the `erase_keys` function to delete these keys.
 
-## The `reap_tombs` function
+## The `erase_keys` function
 
 Run this using [`riak attach`][riak attach].
 
-This function has three available operational methods that are selected via the `method` value. The `count` method for counting tombstones is detailed below. The general format for the function is:
+This function has three available operational methods that are selected via the `method` value. The `local` method for deleting keys is detailed below. The general format for the function is:
 
 ```riakattach
 riak_client:aae_fold({
-    reap_tombs,
+    erase_keys,
     bucket_filter,
     key_range_filter,
     segment_filter
@@ -61,12 +60,13 @@ riak_client:aae_fold({
     method
     }, Client).
 ```
+
 Please see the list of [available filters](#available-filters) below.
 
 {{% note title="Other `method`s" %}}
-There are two other `method`s, `local` and `job`:
+There are two other `method`s, `count` and `job`:
 
-- `local` is used to actually reap the tombstones (see [Reap Tombstones](../../tictac-aae-fold/reap-tombs) for more information).
+- `count` is used to count the keys that would have been deleted (see [Count Objects](../../tictac-aae-fold/count-keys) for more information).
 - `job` is used internally by TicTac AAE. Do not use it unless you know what you are doing.
 {{% /note %}}
 
@@ -74,23 +74,24 @@ There are two other `method`s, `local` and `job`:
 How to get the value for `Client` is detailed in [The Riak Client](../../tictac-aae-fold#the-riak-client).
 {{% /note %}}
 
-## The `count` method
+## The `local` method
 
-Returns a count of tombstones that meet the filter parameters. Does NOT reap the tombstones.
+Deletes keys that meet the filter parameters so that they can then be reaped. Returns the number of keys deleted by calling this function.
 
 ```riakattach
 riak_client:aae_fold({
-    reap_tombs,
+    erase_keys,
     bucket_filter,
     key_range_filter,
     segment_filter
     modified_filter,
-    count
+    local
     }, Client).
 ```
+
 Please see the list of [available filters](#available-filters) below.
 
-For example, the following snippet will count all tombstones with the filters:
+For example, the following snippet will delete keys with the filters:
 
 - in the bucket "dogs" of bucket type "animals"
 - whose keys are between "A" and "N"
@@ -98,16 +99,16 @@ For example, the following snippet will count all tombstones with the filters:
 
 ```riakattach
 riak_client:aae_fold({
-    reap_tombs,
+    erase_keys,
     {<<"animals">>,<<"dogs">>},
     {<<"A">>,<<"N">>},
     all,
     {date,{{2022,1,1},{0,0,0}},{{2022,2,1},{0,0,0}}},
-    count
+    local
     }, Client).
 ```
 
-## The response for the `count` method
+## The response for the `local` method
 
 The response will look something like this:
 
@@ -115,11 +116,11 @@ The response will look something like this:
 {ok,5}
 ```
 
-This indicates that 5 tombstones were found meeting the filter parameters.
+This indicates that 5 keys were found meeting the filter parameters and were deleted by Riak. Remember that a deleted Riak key is really converted to a Riak tombstone object, and will be actually removed from the backend at a later point based on your `delete_mode` setting.
 
 ## Available filters
 
-These filters are detailed in the [Filters][filters] documentation and can be used to limit the keys considered for reaping or counting.
+These filters are detailed in the [Filters][filters] documentation and can be used to limit the keys considered for deleting.
 
 These filters will reduce the keys to be searched:
 
@@ -127,7 +128,6 @@ These filters will reduce the keys to be searched:
 - [`key_range_filter`][filter-by key-range]
 - [`segment_filter`][filter-by segment]
 
-These filters will reduce the number of keys considered for reaping or counting:
+These filters will reduce the number of keys considered for deleting:
 
 - [`modified_filter`][filter-by modified]
-
