@@ -84,7 +84,7 @@ To install Riak CS on OS X, first download the appropriate package from
 the [downloads]({{<baseurl>}}riak/cs/3.0.0/downloads) page:
 
 ```bash
-curl -O https://files.tiot.jp/riak/cs/3.0/3.0.0/osx/10.11/riak-cs-3.0.0-OSX-x86_64.tar.gz
+curl -O https://files.tiot.jp/riak/cs/3.0/3.0.0/osx/10.14/riak_cs-3.0.0-OTP22.tar.gz
 ```
 
 Then, unpack the downloaded tarball:
@@ -271,7 +271,7 @@ details can be found in [Specifying the Stanchion Node]({{<baseurl>}}riak/cs/3.0
 First, download the appropriate package from the [downloads]({{<baseurl>}}riak/cs/3.0.0/downloads/#stanchion-3-0-0) page.
 
 ```bash
-curl -O https://files.tiot.jp/riak/stanchion/3.0/3.0.0/osx/10.14/riak-cs_3.0.0-OTP22.tar.gz
+curl -O https://files.tiot.jp/riak/stanchion/3.0/3.0.0/osx/10.14/stanchion-3.0.0-OTP22.tar.gz
 ```
 
 Then, unpack the downloaded tarball:
