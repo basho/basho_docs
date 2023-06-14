@@ -21,7 +21,6 @@ aliases:
 [use admin riak admin#cluster-plan]: {{<baseurl>}}riak/kv/3.0.9/using/admin/riak admin/#cluster-plan
 [use admin riak admin#cluster-commit]: {{<baseurl>}}riak/kv/3.0.9/using/admin/riak admin/#cluster-commit
 
-
 This document explains usage of the [`riak admin cluster`][use admin riak admin#cluster] interface, which enables you to perform a wide
 variety of cluster-level actions.
 
@@ -206,18 +205,18 @@ Displays the currently staged cluster changes.
 riak admin cluster plan
 ```
 
-`riak admin cluster plan` is complex, depending on the staged changes. 
+`riak admin cluster plan` is complex, depending on the staged changes.
 
-* If a `leave` operation has been staged, `riak admin cluster plan` will undo the staged change and no node will be stopped. 
-* If a `join` operation has been staged, the joining node will be shut down after its ring has been cleared. When this node restarts, it will behave like a fresh unjoined node and can be joined again. 
+* If a `leave` operation has been staged, `riak admin cluster plan` will undo the staged change and no node will be stopped.
+* If a `join` operation has been staged, the joining node will be shut down after its ring has been cleared. When this node restarts, it will behave like a fresh unjoined node and can be joined again.
 * If a `cluster clear` operation is staged on a node that remains in the cluster, running `riak admin cluster plan` will leave the node unaffected.
 
 If there is no current cluster plan, the output will be `There are no
-staged changes`. 
+staged changes`.
 
 If there is a staged change (or changes), however, you
 will see a detailed listing of what will take place upon commit, what
-the cluster will look like afterward, etc. 
+the cluster will look like afterward, etc.
 
 For example, if a `cluster leave` operation is staged in a 3-node cluster the output will look something like this:
 
@@ -227,7 +226,6 @@ Action         Details(s)
 -------------------------------------------------------------------------------
 leave          'dev2@127.0.0.1'
 -------------------------------------------------------------------------------
-
 
 NOTE: Applying these changes will result in 2 cluster transitions
 
@@ -372,7 +370,4 @@ the corresponding index:
 ```bash
 riak admin cluster partition id=20
 ```
-
-
-
 

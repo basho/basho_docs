@@ -21,7 +21,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/getting-started/java/crud-operations/
 ---
 
-
 ## Creating Objects in Riak
 
 The first object that we create is a very basic object with a content

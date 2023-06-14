@@ -40,7 +40,7 @@ Reaps the Riak tombstone objects that meet the filter parameters.
 
 See the [TicTac AAE `aae_folds`][tictacaae folds-overview] documentation for configuration, tuning and troubleshootings help.
 
-Unreaped Riak tombstones are Riak objects that have been deleted, but have not been removed from the backend. Riak tracks this through tombstones. If automatic reaping is turned off (for example, by setting `delete_mode` = `keep`), then a large number of deleted objects can accumulate that Riak will never automatically remove. Manual dev ops intervention using this function is required. 
+Unreaped Riak tombstones are Riak objects that have been deleted, but have not been removed from the backend. Riak tracks this through tombstones. If automatic reaping is turned off (for example, by setting `delete_mode` = `keep`), then a large number of deleted objects can accumulate that Riak will never automatically remove. Manual dev ops intervention using this function is required.
 
 Use the `reap_tombs` function to remove these objects.
 
@@ -52,9 +52,9 @@ This function has three available operational methods that are selected via the 
 
 ```riakattach
 riak_client:aae_fold({
-    reap_tombs, 
-    bucket_filter, 
-    key_range_filter, 
+    reap_tombs,
+    bucket_filter,
+    key_range_filter,
     segment_filter
     modified_filter,
     method
@@ -73,16 +73,15 @@ There are two other `method`s, `count` and `job`:
 How to get the value for `Client` is detailed in [The Riak Client](../../tictac-aae-fold#the-riak-client).
 {{% /note %}}
 
-
 ## The `local` method
 
 Marks tombstones for reaping that meet the filter parameters. Returns the number of tombstones marked by calling this function.
 
 ```riakattach
 riak_client:aae_fold({
-    reap_tombs, 
-    bucket_filter, 
-    key_range_filter, 
+    reap_tombs,
+    bucket_filter,
+    key_range_filter,
     segment_filter
     modified_filter,
     local
@@ -98,8 +97,8 @@ For example, the following snippet will mark for reaping all tombstones with the
 
 ```riakattach
 riak_client:aae_fold({
-    reap_tombs, 
-    {<<"animals">>,<<"dogs">>}, 
+    reap_tombs,
+    {<<"animals">>,<<"dogs">>},
     {<<"A">>,<<"N">>},
     all,
     {date,{{2022,1,1},{0,0,0}},{{2022,2,1},{0,0,0}}},
@@ -130,5 +129,4 @@ These filters will reduce the keys to be searched:
 These filters will reduce the number of keys considered for reaping or counting:
 
 - [`modified_filter`][filter-by modified]
-
 

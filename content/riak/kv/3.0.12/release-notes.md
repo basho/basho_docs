@@ -19,7 +19,6 @@ aliases:
 
 Released Dec 20, 2022.
 
-
 ## Overview
 
 This is a general release of changes and fixes:
@@ -43,8 +42,4 @@ This is a general release of changes and fixes:
 ## Previous Release Notes
 
 Please see the KV 3.0.11 release notes [here]({{<baseurl>}}riak/kv/3.0.11/release-notes/).
-
-
-
-
 

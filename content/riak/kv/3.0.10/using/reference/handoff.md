@@ -121,7 +121,6 @@ handoff.use_background_manager = on
 
 ### Maximum Rejects
 
-
 The `handoff.max_rejects` setting enables you to set the maximum
 duration that a [vnode]({{<baseurl>}}riak/kv/3.0.10/learn/glossary/#vnode) can be blocked by multiplying the
 `handoff.max_rejects` setting by the value of
@@ -192,7 +191,4 @@ handoff.inbound = off
 ### Enabling and Disabling Through the Command Line
 
 Check out the [Cluster Operations: Handoff][cluster ops handoff] for steps on enabling and disabling handoff via the command line.
-
-
-
 

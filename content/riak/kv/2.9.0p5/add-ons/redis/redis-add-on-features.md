@@ -21,7 +21,6 @@ aliases:
   - /riak/kv/2.9.0p4/add-ons/redis/redis-add-on-features/
 ---
 
-
 [ee]: https://www.tiot.jp/en/about-us/contact-us/
 [GET-sequence]: {{<baseurl>}}images/redis/GET_seq.msc.png
 [SET-sequence]: {{<baseurl>}}images/redis/SET_seq.msc.png
@@ -35,7 +34,7 @@ aliases:
 The cache proxy service in Riak Redis Add-on (RRA) provides pre-sharding and connection aggregation as a service, which reduces latency and increases addressable cache memory space with lower-cost hardware.
 
 On this page, you will find detailed descriptions of cache proxy service components, including what each component does and how you implement it. The following components are available:
- 
+
 * [Pre-sharding](#pre-sharding)
 * [Connection Aggregation](#connection-aggregation)
 * [Command Pipelining](#command-pipelining)
@@ -79,7 +78,6 @@ The read-through cache strategy of the GET command is represented by the
 following sequence diagram:
 
 ![GET command sequence diagram]({{<baseurl>}}images/redis/GET_seq.msc.png)
-
 
 The `CACHE_TTL` configuration option establishes how long the cache takes to
 become consistent with the backend server during a write (DELETE or PUT) to the

@@ -32,7 +32,3 @@ DELETE /search/index/<index_name>
 
 * `503 Service Unavailable` - The request timed out internally
 
-
-
-
-

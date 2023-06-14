@@ -20,7 +20,6 @@ aliases:
   - /riak/kv/2.9.0p4/configuring/managing/
 ---
 
-
 [use admin riak cli]: {{<baseurl>}}riak/kv/2.9.0p5/using/admin/riak-cli
 [use admin riak cli#chkconfig]: {{<baseurl>}}riak/kv/2.9.0p5/using/admin/riak-cli/#chkconfig
 [config reference#search]: {{<baseurl>}}riak/kv/2.9.0p5/configuring/reference/#search

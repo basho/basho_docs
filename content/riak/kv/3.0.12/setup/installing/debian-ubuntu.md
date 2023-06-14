@@ -139,7 +139,6 @@ wget https://files.tiot.jp/riak/kv/3.0/3.0.12/raspbian/buster/riak_3.0.11-1_armh
 sudo dpkg -i riak_3.0.11-1_amd64.deb
 ```
 
-
 ## Installing From Source
 
 First, install Riak dependencies using apt:
@@ -164,8 +163,4 @@ If the build was successful, a fresh build of Riak will exist in the
 ## Next Steps
 
 Now that Riak is installed, check out [Verifying a Riak Installation][install verify].
-
-
-
-
 

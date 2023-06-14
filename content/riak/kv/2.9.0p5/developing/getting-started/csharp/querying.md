@@ -23,7 +23,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/getting-started/csharp/querying/
 ---
 
-
 ## C Sharp Version Setup
 
 For the C# version, please download the source from GitHub by either
@@ -212,7 +211,6 @@ So to recap:
 * Indexes can have either Integer or Binary(String) keys
 * You can search for specific values, or a range of values
 * Riak will return a list of keys that match the index query
-
 
 [taste_of_riak]: https://github.com/basho/taste-of-riak
 [master_zip]: https://github.com/basho/taste-of-riak/archive/master.zip

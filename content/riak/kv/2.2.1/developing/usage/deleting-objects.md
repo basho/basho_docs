@@ -101,14 +101,13 @@ curl -XDELETE http://localhost:8098/types/quotes/buckets/oscar_wilde/keys/genius
 
 ## Client Library Examples
 
-If you are updating an object that has been deleted---or if an update 
+If you are updating an object that has been deleted---or if an update
 might target a deleted object---we recommend that
 you first fetch the [causal context]({{<baseurl>}}riak/kv/2.2.1/learn/concepts/causal-context) of the object prior to updating.
 This can be done by setting the `deletedvclock` parameter to `true` as
 part of the [fetch operation]({{<baseurl>}}riak/kv/2.2.1/developing/api/protocol-buffers/fetch-object). This can also be done
 with the official Riak clients for Ruby, Java, and Erlang, as in the
 example below:
-
 
 ```ruby
 object.delete

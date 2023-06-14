@@ -20,7 +20,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/reference/
 ---
 
-
 [ref log]: ./logging
 [ref handoff]: ./handoff
 [ref bucket types]: ./bucket-types
@@ -46,13 +45,11 @@ Overview of logging in Riak KV.
 
 [Learn More >>][ref log]
 
-
 #### [Handoff Reference][ref handoff]
 
 Details Riak KV's handoff system.
 
 [Learn More >>][ref handoff]
-
 
 #### [Bucket Types Reference][ref bucket types]
 
@@ -60,13 +57,11 @@ Explanation of bucket types in Riak KV.
 
 [Learn More >>][ref bucket types]
 
-
 #### [Object Deletion Reference][ref obj del]
 
 Information on object deletion scenarios and tombstones.
 
 [Learn More >>][ref obj del]
-
 
 #### [Runtime Interaction Reference][ref runtime]
 
@@ -75,13 +70,11 @@ processes/garbage collection.
 
 [Learn More >>][ref runtime]
 
-
 #### [Statistics & Monitoring Reference][ref monitoring]
 
 Presents commonly monitored & gathered statistics, as well as solutions for monitoring and gathering statistics.
 
 [Learn More >>][ref monitoring]
-
 
 #### [Simple Network Management Protocol][ref snmp]
 
@@ -89,13 +82,11 @@ Cover's Riak Enterprise's deprecated SNMP server used allow an external system t
 
 [Learn More >>][ref snmp]
 
-
 #### [JMX Monitoring][ref jmx]
 
 Details Riak KV's deprecated JMX monitoring system.
 
 [Learn More >>][ref jmx]
-
 
 #### [Search Reference][ref search]
 
@@ -103,13 +94,11 @@ Overview of search in Riak KV.
 
 [Learn More >>][ref search]
 
-
 #### [Secondary Indexes Reference][ref 2i]
 
 Implementation details for Riak KV's secondary indexes feature
 
 [Learn More >>][ref 2i]
-
 
 #### [Installing Custom Code][ref custom code]
 
@@ -117,20 +106,17 @@ Steps for installing custom code modules for pre/post-commit hooks and MapReduce
 
 [Learn More >>][ref custom code]
 
-
 #### [Strong Consistency Reference][ref strong consistency]
 
 Overview of strong consistency in Riak KV.
 
 [Learn More >>][ref strong consistency]
 
-
 #### [Multi-Datacenter Reference][ref mdc]
 
 Overview of Riak's Multi-Datacenter system.
 
 [Learn More >>][ref mdc]
-
 
 #### [V3 Multi-Datacenter Replication Reference][ref v3 mdc]
 

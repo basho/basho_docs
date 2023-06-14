@@ -149,7 +149,6 @@ public static void main(String[] args) throws RiakException {
     System.out.println("Starting Client");
     IRiakClient client = RiakFactory.pbcClient("127.0.0.1", 10017);
 
-
     System.out.println("Creating Buckets");
     Bucket customersBucket = client.fetchBucket("Customers").lazyLoadBucketProperties().execute();
     Bucket ordersBucket = client.fetchBucket("Orders").lazyLoadBucketProperties().execute();
@@ -274,7 +273,4 @@ So to recap:
 * Indexes can have either Integer or Binary(String) keys
 * You can search for specific values, or a range of values
 * Riak will return a list of keys that match the index query
-
-
-
 

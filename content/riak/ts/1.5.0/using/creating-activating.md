@@ -14,7 +14,6 @@ aliases:
     - /riakts/1.5.0/using/creating-activating/
 ---
 
-
 [csharp]: ../../developing/csharp#query
 [describe]: ../querying/describe/
 [erlang]: ../../developing/erlang/#query-2
@@ -27,10 +26,9 @@ aliases:
 [writing]: ../writingdata/
 [Riak bucket properties]: {{<baseurl>}}riak/kv/2.2.0/configuring/reference/#default-bucket-properties
 
-
 Once you have [planned out your table][planning] you can create it by:
 
-* Executing a CREATE TABLE statement using any Riak TS client, 
+* Executing a CREATE TABLE statement using any Riak TS client,
 * Using `riak-shell`, or
 * Running the `riak-admin` command (as root, using `su` or `sudo`).
 
@@ -52,10 +50,9 @@ CREATE TABLE GeoCheckin
 );
 ```
 
-
 ## `CREATE TABLE` in Client Library
 
-Using one of the Riak TS client libraries, execute the CREATE TABLE statement via that library's query functionality. This will create and activate the table in one step. 
+Using one of the Riak TS client libraries, execute the CREATE TABLE statement via that library's query functionality. This will create and activate the table in one step.
 
 ```csharp
 string tableName = "GeoCheckin";
@@ -157,7 +154,6 @@ $node = (new Node\Builder)
 
 $riak = new Riak([$node], [], new Riak\Api\Pb());
 
-
 # create table
 $table_definition = "
     CREATE TABLE %s (
@@ -210,7 +206,6 @@ SQL
   end
 ```
 
-
 The result of the operation is library-dependent:
 
 * [Java][java]: the `QueryResult` object will be returned without any data for rows or columns.
@@ -220,7 +215,6 @@ The result of the operation is library-dependent:
 * [Node.js][nodejs]:  no exception thrown; result object is present with `rows` and `columns` being empty.
 * [Erlang][erlang]: the returned term will consist of two empty lists `{[],[]}`.
 * [PHP][php]: the response object has a boolean `isSuccess()` instance method.
-
 
 ### Using `WITH`
 
@@ -233,14 +227,13 @@ CREATE TABLE (...) WITH (
     custom_prop = 42.24)
 ```
 
-Any property with any string or numeric value can be associated with a table, including but not limited to standard [Riak bucket properties]. 
+Any property with any string or numeric value can be associated with a table, including but not limited to standard [Riak bucket properties].
 
 Please note the following when using `WITH`:
 
 * The property values can be of numeric or string types (parseable as `sint64`, `double` or `varchar`, correspondingly). String values should be quoted with a `'`; literal single quote characters appearing in the string should be doubled (and not escaped with a `\`).
 * Values from the WITH clause will override those specified outside the query statement.
 * The default `n_val` (the number of distinct copies of each record kept in your cluster for safety and availability) is 3. This default cannot be changed; instead, each time a table is created the WITH clause can be used to configure that table's `n_val`.
-
 
 #### Time Series-Specific Bucket Properties
 
@@ -256,12 +249,9 @@ Explanations of these values can be found at [Riak bucket properties].
 `r` | `quorum` | `one`
 `rw` | `quorum` | `one`
 
-
 ### Verification
 
 You can verify that your table was properly created by executing the [DESCRIBE statement][describe] via the query function of your client library, or by using the [`riak-admin bucket-type status` command](#verify-creation-and-activation).
-
-
 
 ## `CREATE TABLE` in the riak shell
 
@@ -276,11 +266,9 @@ Please take care with the following:
 * The syntax is sensitive to whitespace and quoting.
 * The table and column names are currently constrained to ASCII.
 
-
 ### Verification
 
 You can verify that your table was properly created by executing the [DESCRIBE statement][describe] in the riak shell.
-
 
 ## `CREATE TABLE` using `riak-admin`
 
@@ -311,7 +299,6 @@ Please take care with the following:
 
 Also note that if you discover something wrong with the setup of your data definition language (DDL), you will need to create it again and decide whether to scrap the data in the existing table or move it from the old table to the new one.
 
-
 ### Activating Your Table
 
 You activate your table as follows:
@@ -325,7 +312,6 @@ For the example `GeoCheckin` table:
 ```bash
 riak-admin bucket-type activate GeoCheckin
 ```
-
 
 ### Verify Creation and Activation
 
@@ -351,11 +337,9 @@ ddl: {ddl_v2,<<"GeoCheckin">>,
              v1}
 ```
 
-
 ## Editing Your Table
 
 Once created, you cannot edit your Riak TS table. If you discover something wrong with the setup of your Riak TS table, you will need to create it again. You will also need to decide whether to scrap the data in the existing table or move it from the old table to the new one.
-
 
 ## Next Steps
 

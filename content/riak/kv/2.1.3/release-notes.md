@@ -23,7 +23,8 @@ Riak KV 2.1.3 is a repackaging of KV 2.1.2 with the 2.1.10 version of eLevelDB l
 This is a bugfix release, incorporating bugfixes from the Riak KV 2.0 series into our 2.1 series. It also includes general updates and additions to improve performance and incorporate patches developed since the release of 2.1.1.
 
 ## Upgrading
-If you are upgrading from previous 2.1 releases or from Riak KV 2.0.6, you will need to double check your default bucket properties. KV 2.1.2 has a small, subtle change in the way that default bucket properties work. If your `advanced.config` file contains a section for `default_bucket_props` under the `riak_core` section, you will need to ensure you specify the settings for ALL default bucket properties that you expect to differ from the hard-coded defaults. 
+
+If you are upgrading from previous 2.1 releases or from Riak KV 2.0.6, you will need to double check your default bucket properties. KV 2.1.2 has a small, subtle change in the way that default bucket properties work. If your `advanced.config` file contains a section for `default_bucket_props` under the `riak_core` section, you will need to ensure you specify the settings for ALL default bucket properties that you expect to differ from the hard-coded defaults.
 
 For example, if your advanced.config file has a section similar to:
 
@@ -48,7 +49,6 @@ If you have been depending on this behavior unintentionally, learn more about wh
 
 For more information about this change, please see [issue #727](https://github.com/basho/riak/issues/727).
 
-
 ## Changes
 
 * Search now works with write-once buckets. A modification has been made to the `yz_kv:index` function to support passing both the bucket and key. Passing a bucket is needed for the write-once PUT path, where there is no (decoded) Riak object. [[riak_kv PR #1159](https://github.com/basho/riak_kv/pull/1159)]
@@ -59,7 +59,6 @@ For more information about this change, please see [issue #727](https://github.c
 * Changed compile on Release 17 to use a list of integers. [[Lager PR #209](https://github.com/basho/lager/pull/209)]
 * `msg_q` length of `rtsink_helper` has been added to status. [[riak_repl PR #675](https://github.com/basho/riak_repl/pull/675)]
 * Under a heavy IO load on the sink side, transferred objects can get stuck in the sink queue and consume infinite memory. A metric has been added so you can monitor memory performance before things collapse. [[riak_repl PR #674](https://github.com/basho/riak_repl/pull/674)]
-
 
 ## Bugs Fixed
 
@@ -89,7 +88,7 @@ For more information about this change, please see [issue #727](https://github.c
 * [[Issue #679](https://github.com/basho/riak_repl/issues/679)/[riak_repl PR #700](https://github.com/basho/riak_repl/pull/700), [riak_repl PR #701](https://github.com/basho/riak_repl/pull/701), & [riak_repl PR #683](https://github.com/basho/riak_repl/pull/683)] These PRs contain three fixes: First, the `send_after`call has been fixed and unneeded calls removed. Second, the `keepalive_timer` has been removed from state. Third, resolves an issue where the provider process could become blocked or stuck for an extended period only to receive many pointless messages from the timer system. To do this, the `keepalive` was upped from 1 second to 60, and the `erlang:send_after/3 reset` pattern is used rather than `timer:send_interval/3`. By using the `erlang:send_after`, messages will not be sent if the process becomes stuck, as no code capable of resetting the timer will run.
 * [[Issue #637 ](https://github.com/basho/riak_repl/issues/637)/[riak_repl PR #697](https://github.com/basho/riak_repl/pull/697)] A bug with heartbeat has been fixed by adding a new pattern match and debug line. In the case where the `hb_interval` is already set, the pattern match to get into the first case will not succeed and thus an error message will be thrown. However, the default error message is incorrect in the case that the heartbeat interval is already set. Now, there is just a debug statement (not an error printed to the logs) in the situation where the heartbeat is already set and should be left alone.
 * [[Issue #27](https://github.com/basho/riak_snmp/issues/27)/[riak_snmp PR #28](https://github.com/basho/riak_snmp/pull/28)] A function head has been added to `NameSortFun` that correctly handles the `realtime_enabled` property having multiple values. This situation can happen when a cluster is configured for realtime replication with two or more other clusters.
-* [[Issue #324](https://github.com/basho/yokozuna/issues/324)/[yokozuna PR #572](https://github.com/basho/yokozuna/pull/572)] A couple fixes to handle Solr request timeout configs have been made. First, ibrowse `timedout` has been increased for `entropy_data` Solr request, which prevents `timedout` from crashing during iteration or from allowing the build to pass if an error occurs because Solr was not pingable. This increase allows for a general configurable timeout within adv.config for all Solr requests. Second, `solr_request_timeout` is now configurable. `solr_request_timeout` is used by all Solr localhost HTTP requests. Additionally, macro timeout has been added to the `entropy_data` call. Third, `yz_solr:ping` now uses a HEAD request. 
+* [[Issue #324](https://github.com/basho/yokozuna/issues/324)/[yokozuna PR #572](https://github.com/basho/yokozuna/pull/572)] A couple fixes to handle Solr request timeout configs have been made. First, ibrowse `timedout` has been increased for `entropy_data` Solr request, which prevents `timedout` from crashing during iteration or from allowing the build to pass if an error occurs because Solr was not pingable. This increase allows for a general configurable timeout within adv.config for all Solr requests. Second, `solr_request_timeout` is now configurable. `solr_request_timeout` is used by all Solr localhost HTTP requests. Additionally, macro timeout has been added to the `entropy_data` call. Third, `yz_solr:ping` now uses a HEAD request.
 * [[yokozuna PR #569](https://github.com/basho/yokozuna/pull/569)] Base64 decoding has been updated in the Java EntropyData handler to fix a bug. This change means you now have the ability to adjust the max number of documents returned from an EntropyData query.
 * [[Issue #305](https://github.com/basho/yokozuna/issues/305#issue-27558978)/[yokozuna PR #478](https://github.com/basho/yokozuna/pull/478)] Query plans are now cached by `n_val` rather than index name. Which leads to a noticeable reduction in %CPU usage in htop while running.
 * [[Issue #498](https://github.com/basho/yokozuna/issues/498)/[yokozuna PR #532](https://github.com/basho/yokozuna/pull/532)] More informative error handling for HTTP requests has been added to make certain errors more informative, as errors were getting caught by the scrub_headers.
@@ -100,7 +99,6 @@ For more information about this change, please see [issue #727](https://github.c
 * [[Issue #382](https://github.com/basho/yokozuna/issues/382)/ [yokozuna PR #483](https://github.com/basho/yokozuna/pull/483)] mochiglobal is now used to store the extractor map. If the extractor map is not in mochiglobal, CMD is checked, and then the ring. Additionally, the capability to move the extractor map into CMD has been added.
 * [[Issue #480](https://github.com/basho/yokozuna/issues/480)/[yokozuna PR #482](https://github.com/basho/yokozuna/pull/482)] `default_schema` has been updated to return sets in query responses by storing them.
 * [[yokozuna PR #487](https://github.com/basho/yokozuna/pull/487)] The index creation loop on bad data has been stopped.
-
 
 ## Upgraded Components
 
@@ -131,18 +129,17 @@ For more information about this change, please see [issue #727](https://github.c
 * node_package has been upgraded to version 2.0.3
 * cluster_info has been upgraded to version 2.0.
 
-
 # Riak 2.1.1 Release Notes
 *NOTE: Riak 2.1.1 has replaced Riak 2.1.0*
 
 ## Fixes
+
 Riak 2.1.0 introduced a bug that has been fixed in Riak 2.1.1. The default configuration for handoff.ip caused vnodes marked for transfer during handoff to be removed without transferring data to their new destination nodes. A mandatory change to configuration (riak.conf) mitigates this issue for 2.1.0 users. While not all users were impacted by this issue, we recommend that all 2.1.0 users upgrade to 2.1.1.
 
 Detailed information on the issue is available in the Basho Documentation [Product Advisories]({{<baseurl>}}community/productadvisories/210-dataloss/).
 
 * Make default `handoff_ip` value 0.0.0.0 in vars.config.
   * [riak/pull/734](https://github.com/basho/riak/pull/734)
-
 
 # Riak 2.1.0 Release Notes
 
@@ -168,7 +165,7 @@ Limitations:
 
 ## Changes
 
-* [Issue kv679](https://github.com/basho/riak_kv/issues/679) - Applies fix to most causes of data loss from repeated causal history. A monotonic counter is fsynced to disk when the vnode starts. Thus starting/re-starting a vnode has a cost associated that was not there before. 
+* [Issue kv679](https://github.com/basho/riak_kv/issues/679) - Applies fix to most causes of data loss from repeated causal history. A monotonic counter is fsynced to disk when the vnode starts. Thus starting/re-starting a vnode has a cost associated that was not there before.
   * [riak_kv/pull/1070](https://github.com/basho/riak_kv/pull/1070)
 
 * Update API to retrieve active preflist based on particular bucket/key.
@@ -225,7 +222,6 @@ Updates the Riak API with an operation to GET, e.g. `/types/Type/buckets/Bucket/
 
 * [yokozuna/issues/481](https://github.com/basho/yokozuna/issues/481) - Search loses entries when Search AAE trees expire. We are currently investigating this issue.
 * [riak/issues/727](https://github.com/basho/riak/issues/727) - Users upgrading from 1.4.x to 2.1.x that choose to use the traditional `app.config` for configuration should be aware that the default settings for `allow_mult` and `dvv_enabled` have changed from `false` to `true` between these versions.  If your application depends on these being set to 'false', you must explicitly define this by adding `{default_bucket_props, [{allow_mult, false}, {dvv_enabled, false}]},` to the `riak_core` section of your `app.config` file to maintain backwards compatibility.
-
 
 ## Notes on upgrading
 

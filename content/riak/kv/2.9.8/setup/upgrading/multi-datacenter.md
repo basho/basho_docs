@@ -18,7 +18,3 @@ aliases:
 
 How to update to a new version with multi-datacenter.
 
-
-
-
-

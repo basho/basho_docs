@@ -530,6 +530,3 @@ by Basho evangelist [Hector Castro](https://github.com/hectcastro), with
 the presentation slides available [on Speaker
 Deck](https://speakerdeck.com/hectcastro/throw-some-keys-on-it-data-modeling-for-key-value-data-stores-by-example).
 
-
-
-

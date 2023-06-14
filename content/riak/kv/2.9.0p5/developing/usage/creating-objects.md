@@ -20,7 +20,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/usage/creating-objects/
 ---
 
-
 [usage content types]: {{<baseurl>}}riak/kv/2.9.0p5/developing/usage/content-types
 
 Writes in Riak KV (storing or modifying objects) are like HTTP `PUT`

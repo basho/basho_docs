@@ -25,7 +25,6 @@ aliases:
   - /riak/kv/2.9.0p4/setup/installing/suse/
 ---
 
-
 [install verify]: {{<baseurl>}}riak/kv/2.9.0p5/setup/installing/verify
 
 {{% note title="SUSE End of Life (EOL) for Riak KV 2.2.3" %}}

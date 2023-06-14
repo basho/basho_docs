@@ -221,6 +221,3 @@ concurrently. The default is `2`.
 The `anti_entropy.max_open_files` parameter sets an open-files limit for
 AAE-related background tasks, analogous to [open files limit](../../performance/open-files-limit) settings used in operating systems. The default is `20`.
 
-
-
-

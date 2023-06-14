@@ -14,7 +14,6 @@ aliases:
     - /riakts/1.0.0/using/planning/
 ---
 
-
 [activating]: ../creating-activating/
 [table arch]: ../../learn-about/tablearchitecture/
 [bestpractices]: ../../learn-about/bestpractices/
@@ -22,9 +21,9 @@ aliases:
 [installing]: ../../installing/
 [sql]: ../../learn-about/sqlriakts/
 
-Now that you've [installed][installing] Riak TS, you're almost ready to create a TS table. Before you can create your table, you'll need to plan it out. 
+Now that you've [installed][installing] Riak TS, you're almost ready to create a TS table. Before you can create your table, you'll need to plan it out.
 
-This page provides a basic overview of what you'll need and some guidelines/limitations. For a deeper dive into planning and designing Riak TS tables, check out [Table Architecture][table arch]. 
+This page provides a basic overview of what you'll need and some guidelines/limitations. For a deeper dive into planning and designing Riak TS tables, check out [Table Architecture][table arch].
 
 Riak TS tables are closely tied to SQL tables. If you are unfamiliar with SQL or would like to know more about how Riak TS integrates SQL, check out [SQL for Riak TS][sql].
 
@@ -48,6 +47,7 @@ CREATE TABLE GeoCheckin
 ```
 
 #### Fields
+
 Fields, also called columns, refer to the items before the `PRIMARY KEY`. Field names (`myfamily`, `myseries`, etc) must be ASCII strings, in addition to having the correct case. If field names need to contain spaces or punctuation they can be double quoted.
 
 Field names define the structure of the data, taking the format:
@@ -71,22 +71,22 @@ The types associated with fields are limited. Valid types are:
 * `double`
   * This type does not comply with its IEEE specification: `NaN` (not a number) and `INF` (infinity) cannot be used.
 
-
 ### Primary Key
+
 The `PRIMARY KEY` describes both the partition and local keys. The partition key and the local key are nearly identical, differing only by the definition of the `quantum` used to colocate data.
 
-
 #### Partition Key
+
 The partition key is defined as the three named fields in parentheses:
 
 ```sql
 (myfamily, myseries, (quantum(time, 15, 'm')),
 ```
 
-The partition key MUST have exactly three fields in the following order: 
+The partition key MUST have exactly three fields in the following order:
 
-1. The first field (*family*) is a class or type of data. 
-2. The second field (*series*) identifies the specific instances of the class/type, such as username or device ID. 
+1. The first field (*family*) is a class or type of data.
+2. The second field (*series*) identifies the specific instances of the class/type, such as username or device ID.
 3. The third field (*quantum*) sets the time intervals to group data by.
 
 The quantum function takes 3 parameters:
@@ -100,6 +100,7 @@ The quantum function takes 3 parameters:
   * 's' - seconds
 
 #### Local Key
+
 The second key (local key) MUST contain the same 3 fields in the same order as the partition key. This ensures that the same fields determining your data's partition also dictate the sorting of the data within that partition.
 
 ## More information
@@ -107,7 +108,6 @@ The second key (local key) MUST contain the same 3 fields in the same order as t
 Still unsure how best to structure your Riak TS table? Check out our [best practice recommendations][bestpractices].
 
 Confused about columns, primary key, etc? Check out [Table Architecture][table arch] for full definitions.
-
 
 ## Next Steps
 

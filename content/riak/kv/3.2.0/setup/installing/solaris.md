@@ -18,8 +18,6 @@ aliases:
   - /riak/kv/3.2.0/installing/solaris/
 ---
 
-
-
 [install verify]: {{<baseurl>}}riak/kv/3.2.0/setup/installing/verify
 
 {{% note title="Solaris End of Life (EOL) for Riak KV 2.2.0" %}}

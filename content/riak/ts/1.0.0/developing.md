@@ -19,8 +19,6 @@ aliases:
 [nodejs]: nodejs/
 [python]: python/
 
-
-
 Riak TS provides protobuf request APIs for the following clients:
 
 * [Erlang][erlang]

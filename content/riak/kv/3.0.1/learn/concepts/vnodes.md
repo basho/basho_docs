@@ -16,7 +16,6 @@ aliases:
 
 ---
 
-
 [concept causal context]: {{<baseurl>}}riak/kv/3.0.1/learn/concepts/causal-context
 [concept clusters ring]: {{<baseurl>}}riak/kv/3.0.1/learn/concepts/clusters/#the-ring
 [concept replication]: {{<baseurl>}}riak/kv/3.0.1/learn/concepts/replication
@@ -26,7 +25,6 @@ aliases:
 [plan backend]: {{<baseurl>}}riak/kv/3.0.1/setup/planning/backend
 [plan cluster capacity]: {{<baseurl>}}riak/kv/3.0.1/setup/planning/cluster-capacity
 [use admin riak cli]: {{<baseurl>}}riak/kv/3.0.1/using/admin/riak-cli
-
 
 Virtual nodes, more commonly referred to as **vnodes**, are processes
 that manage partitions in the Riak [ring][glossary ring]. Each data
@@ -155,6 +153,4 @@ Field | Description
 `VNode` | The ID of the vnode in question
 `Backend` | The storage [backend][plan backend] utilized by the vnode
 `Status` | The number of keys managed by the vnode and the file where the vnode stores its data. The other information can be ignored.
-
-
 

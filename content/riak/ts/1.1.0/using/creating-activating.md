@@ -26,7 +26,6 @@ Once you have [planned out your table][planning] you can create it using `riak-a
 
 >**Note:** You will need to have access to `sudo` and `su` with the below commands, unless you are operating on Mac OS X.
 
-
 ## Creating Your Table
 
 Remember the example table?
@@ -118,7 +117,6 @@ Using one of the Riak Client libraries, execute the `CREATE TABLE` statement via
 * [Python][python]: no exception thrown. Result object is present with `rows` and `columns` being empty.
 * [Node.js][nodejs]:  no exception thrown. Result object is present with `rows` and `columns` being empty.
 
-
 ## Verification via Client Library
 
 You can verify that your table was properly created by executing the `DESCRIBE table` query via the query function of your client library, or by using the `riak-admin bucket-type status` command as described above.
@@ -130,7 +128,6 @@ The result of the `DESCRIBE table` command is library-dependent:
 * [Ruby][ruby]: no exception thrown and result collection will contain rows and columns corresponding to the table's DDL.
 * [Python][python]: no exception thrown. Result object is present with `rows` and `columns` corresponding to the table's DDL.
 * [Node.js][nodejs]:  no exception thrown. Result object is present with `rows` and `columns` corresponding to the table's DDL.
-
 
 ## Next Steps
 

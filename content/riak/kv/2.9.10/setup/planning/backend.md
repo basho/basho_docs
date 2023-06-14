@@ -55,5 +55,3 @@ Tiered storage
 <sup>1</sup> Noted here since this can affect Riak start times for large
 keyspaces.
 
-
-

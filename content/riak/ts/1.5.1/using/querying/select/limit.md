@@ -30,7 +30,6 @@ You may adjust various parameters in [riak.conf]({{<baseurl>}}riak/ts/1.5.1/conf
 However, the most effective means of speeding up your `LIMIT` queries is to place the query buffer directory (`timeseries_query_buffers_root_path`) on fast storage or in memory-backed /tmp directory.
 {{% /note %}}
 
-
 ## Overview
 
 The LIMIT statement returns a limited number of results from a SELECT statement.
@@ -46,7 +45,6 @@ The OFFSET modifier can be used with `LIMIT` to skip a specified number of resul
 {{% note title="WARNING" %}}
 Before you run `SELECT` you must ensure the node issuing the query has adequate memory to receive the response. If the returning rows do not fit into the memory of the requesting node, the node is likely to fail.
 {{% /note %}}
-
 
 ## Examples
 

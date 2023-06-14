@@ -77,7 +77,7 @@ If your configuration files are syntactically sound, you should see the
 output `config is OK` followed by a listing of files that were checked.
 You can safely ignore this listing. If, however, something is
 syntactically awry, you'll see an error output that provides details
-about what is wrong. 
+about what is wrong.
 
 The error message will specify which configurable parameters are
 syntactically unsound and attempt to provide an explanation why.
@@ -100,7 +100,4 @@ riak config generate -l debug
 If there are issues with your configuration, you will see detailed
 output that might provide a better sense of what has gone wrong in the
 config generation process.
-
-
-
 

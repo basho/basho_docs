@@ -18,8 +18,6 @@ aliases:
   - /riak/kv/3.0.3/installing/rhel-centos/
 ---
 
-
-
 [install source index]: {{<baseurl>}}riak/kv/3.0.3/setup/installing/source
 [install source erlang]: {{<baseurl>}}riak/kv/3.0.3/setup/installing/source/erlang
 [install verify]: {{<baseurl>}}riak/kv/3.0.3/setup/installing/verify
@@ -127,8 +125,4 @@ You will now have a fresh build of Riak in the `rel/riak` directory.
 ## Next Steps
 
 Now that Riak is installed, check out [Verifying a Riak Installation][install verify].
-
-
-
-
 

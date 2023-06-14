@@ -66,5 +66,3 @@ secondary index metadata to those objects, you can still perform
 strongly consistent operations on those objects but the secondary
 indexes will be ignored.
 
-
-

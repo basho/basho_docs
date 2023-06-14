@@ -99,6 +99,3 @@ system:
    the outdated `v` (or even `not found`) because the newer value hasn't
    yet been replicated to all nodes
 
-
-
-

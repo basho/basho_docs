@@ -38,7 +38,6 @@ Leveled is a simple Key-Value store based on the concept of Log-Structured Merge
 - Low cost specifically where there is a need to scan across keys and metadata (not values).
 - Written in Erlang as a message passing system between Actors.
 
-
 ## Strengths
 
 1. leveled was developed specifically as a potential backend for Riak, with features such as:

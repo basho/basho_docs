@@ -376,8 +376,6 @@ curl -v -XPUT $RIAK_HOST/search/schema/thundercats \
      --data-binary @thundercats_schema.xml
 ```
 
-
-
 ## Field Properties By Use Case
 
 Sometimes it can be tricky to decide whether a value should be `stored`,
@@ -507,6 +505,4 @@ the case.
 ```erlang
 {analyzer_factory, {erlang, text_analyzers, noop_analyzer_factory}}}
 ```
-
-
 

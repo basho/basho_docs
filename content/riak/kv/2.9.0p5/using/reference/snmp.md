@@ -23,7 +23,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/reference/snmp/
 ---
 
-
 Riak Enterprise provided a built-in SNMP server that allows an external system, such as Hyperic, to query the Riak node for statistics such as the average get and put times as well as the number of puts and gets. This document only covers SNMP v2c support at this time which was the last supported version. After the release of Riak KV 2.2.3 Enterprise Edition, support for SNMP has been dropped. The below configuration examples are left for people analysing legacy settings and only work with the Enterprise Edition of Riak KV 2.2.3 or lower.
 
 ## Configuration
@@ -107,64 +106,63 @@ This folder can be referenced in the snmpwalk command as follows:
 ```bash
 $ snmpwalk -OS -c public -v 2c -m ALL /
   -M +/usr/lib64/riak/lib/riak_snmp-0.2/priv/mibs /
-  192.168.52.129:4000 RIAK 
+  192.168.52.129:4000 RIAK
 ```
-
 
 ## SNMP Counters
 
-**vnodeGets**  
-*Type:* Counter  
+**vnodeGets**
+*Type:* Counter
 Number of vnode-level GETs in past minute
 
-**vnodePuts**  
-*Type:* Counter  
+**vnodePuts**
+*Type:* Counter
 Number of vnode-level PUTs in past minute
 
-**nodeGets**  
-*Type:* Counter  
+**nodeGets**
+*Type:* Counter
 Number of GETs in past minute
 
-**nodePuts**  
-*Type:* Counter  
+**nodePuts**
+*Type:* Counter
 Number of PUTs in past minute
 
-**nodeGetTimeMean**  
-*Type:* Gauge  
+**nodeGetTimeMean**
+*Type:* Gauge
 Mean GET time (microseconds)
 
-**nodeGetTimeMedian**  
-*Type:* Gauge  
+**nodeGetTimeMedian**
+*Type:* Gauge
 Median GET time (microseconds)
 
-**nodeGetTime95**  
-*Type:* Gauge  
+**nodeGetTime95**
+*Type:* Gauge
 95th percentile GET time (microseconds)
 
-**nodeGetTime99**  
-*Type:* Gauge  
+**nodeGetTime99**
+*Type:* Gauge
 99th percentile GET time (microseconds)
 
-**nodeGetTime100**  
-*Type:* Gauge  
+**nodeGetTime100**
+*Type:* Gauge
 Maximum GET time (microseconds)
 
-**nodePutTime95**  
-*Type:* Gauge  
+**nodePutTime95**
+*Type:* Gauge
 95th percentile PUT time (microseconds)
 
-**nodePutTime99**  
-*Type:* Gauge  
+**nodePutTime99**
+*Type:* Gauge
 99th percentile PUT time (microseconds)
 
-**nodePutTime100**  
-*Type:* Gauge  
+**nodePutTime100**
+*Type:* Gauge
 Maximum PUT time (microseconds)
 
-**nodePutTimeMean**  
-*Type:* Gauge  
+**nodePutTimeMean**
+*Type:* Gauge
 Mean PUT time (microseconds)
 
-**nodePutTimeMedian**  
-*Type:* Gauge  
+**nodePutTimeMedian**
+*Type:* Gauge
 Median PUT time (microseconds)

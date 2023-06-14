@@ -84,7 +84,7 @@ file. (Also, don't use the common ```~/``` shell notation, specify the
 user's home directory explicitly)
 
 ```bash
-basho_bench --results-dir /home/username/bench_results/ /etc/basho_bench/riakc_pb.config 
+basho_bench --results-dir /home/username/bench_results/ /etc/basho_bench/riakc_pb.config
 ```
 
 The example above will generate results in
@@ -597,6 +597,4 @@ run(Op, KeyGen, ValueGen, State) -> {ok, NewState} or {error, Reason, NewState}.
 See the [existing
 drivers](https://github.com/basho/basho_bench/tree/master/src) for
 more details.
-
-
 

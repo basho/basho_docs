@@ -53,5 +53,3 @@ Below is the example output if there is one Search index, called
     currently enabled on the node
 * `503 Service Unavailable` - The request timed out internally
 
-
-

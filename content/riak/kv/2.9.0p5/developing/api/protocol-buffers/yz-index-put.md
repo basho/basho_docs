@@ -24,7 +24,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/api/protocol-buffers/yz-index-put/
 ---
 
-
 Create a new index or modify an existing index.
 
 ## Request

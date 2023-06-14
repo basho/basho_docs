@@ -213,7 +213,7 @@ for done := range d {
 ## Updating Objects
 
 While some data may be static, other forms of data need to be
-updated. 
+updated.
 
 Let’s update some values:
 

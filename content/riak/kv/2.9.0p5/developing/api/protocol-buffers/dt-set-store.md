@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/api/protocol-buffers/dt-set-store/
 ---
 
-
 An operation to update a set, either on its own (at the bucket/key
 level) or [inside of a map]({{<baseurl>}}riak/kv/2.9.0p5/developing/api/protocol-buffers/dt-map-store).
 

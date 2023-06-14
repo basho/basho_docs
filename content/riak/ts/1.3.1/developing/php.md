@@ -16,10 +16,8 @@ aliases:
     - /riakts/1.3.1/developing/php/
 ---
 
-
 You can develop applications and tools using Riak TS with the Riak PHP client.
 This document covers the PHP API for Riak TS.
-
 
 ## Overview
 
@@ -35,12 +33,10 @@ Language | Source | Documentation |
 :--------|:-------|:--------------|
 PHP | [riak-php-client](https://github.com/basho/riak-php-client) | [apigen](http://basho.github.io/riak-php-client)
 
-
 ## Data Types
 
  * `Cell` - Holds the cell name and a single piece of data.
  * `Row` - An array of cells.
-
 
 ### Data Type Details
 
@@ -70,18 +66,15 @@ Cells have object getters to retrieve the column name, the cell value and the da
 
 A row contains an array of cells.
 
-
 ### `\Basho\Riak\Command\TimeSeries\Response`
 
 The object returned by all non-query commands (`Store`, `Fetch`, `Delete`). `Fetch` command will have values populated in instance method `getRow()`.
-
 
 ### `\Basho\Riak\Command\TimeSeries\Query\Response`
 
 The query response is the result set from a `query` command. The response object will have the first row available within `getResult()` and all results within `getResults()`.
 
 >**Note:** Query results are immutable.
-
 
 ## Command Classes Index
 
@@ -91,7 +84,6 @@ All command classes have a `Builder` class to create and build each command.
 * `Fetch` - Fetches a single row by it's key values.
 * `Query` - Allows you to query a Riak TS table with the given query string.
 * `Store` - Stores data in the Riak TS table.
-
 
 ### Command Class Details
 
@@ -112,7 +104,6 @@ $node = (new Node\Builder)
     ->build();
 
 $riak = new Riak([$node], [], new Riak\Api\Pb());
-
 
 # create table
 $table_definition = "
@@ -135,7 +126,6 @@ if (!$response->isSuccess()) {
 }
 ```
 
-
 #### `Delete`
 
 Deletes a single row by it's key values.
@@ -157,7 +147,6 @@ if (!$response->isSuccess()) {
     exit;
 }
 ```
-
 
 #### `Fetch`
 
@@ -202,7 +191,6 @@ foreach ($response->getRow() as $index => $column) {
 }
 ```
 
-
 #### `Query`
 
 Allows you to query a Riak TS table with the given query string.
@@ -237,7 +225,6 @@ foreach ($response->getResults() as $row_index => $row) {
 }
 ```
 
-
 #### `Store`
 
 Stores data in the Riak TS table.
@@ -260,7 +247,6 @@ if (!$response->isSuccess()) {
     echo $response->getMessage();
     exit;
 }
-
 
 # store rows
 $response = (new Command\Builder\TimeSeries\StoreRows($riak))

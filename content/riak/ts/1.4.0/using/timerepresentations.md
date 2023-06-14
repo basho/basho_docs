@@ -14,7 +14,6 @@ aliases:
     - /riakts/1.4.0/using/timerepresentations/
 ---
 
-
 [activating]: ../creating-activating/
 [planning]: ../planning/
 [querying]: ../querying/

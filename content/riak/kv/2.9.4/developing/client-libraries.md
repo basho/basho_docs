@@ -38,7 +38,6 @@ In addition to the official clients, Basho provides some unofficial
 client libraries, listed below. There are also many client libraries and
 related [community projects]({{<baseurl>}}community/projects/).
 
-
 ## Community Libraries
 
 The Riak Community is developing at a break-neck pace, and the number of
@@ -103,7 +102,7 @@ Riak 2.0 Asynchronous
 #### ColdFusion
 
 * [Riak-Cache-Extension](https://github.com/getrailo/Riak-Cache-Extension)
- 
+
 ---
 A Riak-backed cache extension for Railo/ColdFusion
 
@@ -122,11 +121,11 @@ HTTP
 #### Django (Python)
 
 * [django-riak-sessions](https://github.com/flashingpumpkin/django-riak-sessions)
- 
+
 ---
 Riak-based Session Backend for Django
 * [Django Riak Engine](https://github.com/oubiwann/django-riak-engine)
- 
+
 ---
 A Riak backend for Django
 
@@ -199,18 +198,18 @@ Riak
 #### Haskell
 
 * [Riak Haskell Client](https://github.com/markhibberd/riak-haskell-client)
- 
+
 ---
 A fast Haskell client library from the team at MailRank.
 
 #### Java
 
 * [Riak-Java-PB-Client](http://github.com/krestenkrab/riak-java-pb-client)
- 
+
 ---
 Java Client Library for Riak based on the Protocol Buffers API
 * [Asynchronous Riak Java Client](https://github.com/jbrisbin/riak-async-java-client)
- 
+
 ---
 Asynchronous, NIO-based Protocol Buffers client for Riak
 * [Riak Module for the Play
@@ -308,7 +307,7 @@ A Protocol
 A Perl
   interface to Riak
 * [AnyEvent-Riak adapter](http://github.com/franckcuny/anyevent-riak)
- 
+
 ---
 Non-blocking Riak adapter using anyevent
 * [riak-tiny](https://github.com/tempire/riak-tiny)
@@ -350,10 +349,10 @@ A PHP extension
 
 #### Python
 
-* [Aioriak](https://github.com/rambler-digital-solutions/aioriak) 
- 
+* [Aioriak](https://github.com/rambler-digital-solutions/aioriak)
+
 ---
-Asyncio PBC Riak 2.0+ client library. (Based on official Basho 
+Asyncio PBC Riak 2.0+ client library. (Based on official Basho
   python client)
 * [Riakasaurus](https://github.com/calston/riakasaurus)
 ---
@@ -448,7 +447,7 @@ An Akka IO- and
 A Riak client for
   Pharo Smalltalk based on Runar Jordahl's EpigentRiakInterface
 * [EpigentRiakInterface](http://www.squeaksource.com/EpigentRiakInterface/)
- 
+
 ---
 A Pharo Smalltalk interface to Riak. There is also a blog post
   with some additional info about the client

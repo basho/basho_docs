@@ -53,8 +53,8 @@ This example will count the number of keys in the bucket "cars":
 ```riakattach
 riak_client:aae_fold({
     object_stats,
-    <<"cars">>, 
-    all, 
+    <<"cars">>,
+    all,
     all
     }, Client).
 ```
@@ -76,8 +76,8 @@ This example will count the number of keys in the bucket "dogs" of bucket type "
 ```riakattach
 riak_client:aae_fold({
     object_stats,
-    {<<"animals">>, <<"dogs">>}, 
-    all, 
+    {<<"animals">>, <<"dogs">>},
+    all,
     all
     }, Client).
 ```
@@ -104,9 +104,9 @@ This example will count the number of keys in the bucket `cars` that start with 
 
 ```riakattach
 riak_client:aae_fold({
-    object_stats, 
-    <<"cars">>, 
-    {<<"n">>,<<"o">>}, 
+    object_stats,
+    <<"cars">>,
+    {<<"n">>,<<"o">>},
     all
     }, Client).
 ```
@@ -125,9 +125,9 @@ To query all keys, just use `all` for the key range filter. This will count all 
 
 ```riakattach
 riak_client:aae_fold({
-    object_stats, 
-    <<"cars">>, 
-    all, 
+    object_stats,
+    <<"cars">>,
+    all,
     all
     }, Client).
 ```
@@ -172,9 +172,9 @@ This example returns all keys in the "cars" bucket that were modified after 12-n
 
 ```riakattach
 riak_client:aae_fold({
-    object_stats, 
-    <<"cars">>, 
-    all, 
+    object_stats,
+    <<"cars">>,
+    all,
     {date,{{2022,5,1},{12,0,0}},{{2022,5,2},{0,0,0}}}
     }, Client).
 ```
@@ -203,9 +203,9 @@ Modified_Filter_Value = Modified_Filter_Calculator(
   {{2022,2,1},{0,0,0}}
 ),
 riak_client:aae_fold({
-    object_stats, 
-    <<"cars">>, 
-    all, 
+    object_stats,
+    <<"cars">>,
+    all,
     Modified_Filter_Value
     }, Client).
 ```
@@ -214,9 +214,9 @@ Or in one command to make it easily re-usable:
 
 ```riakattach
 riak_client:aae_fold({
-    object_stats, 
-    <<"cars">>, 
-    all, 
+    object_stats,
+    <<"cars">>,
+    all,
     Modified_Filter_Calculator({{2022,1,1},{0,0,0}}, {{2022,2,1},{0,0,0}})
     }, Client).
 ```

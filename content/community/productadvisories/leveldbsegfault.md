@@ -12,11 +12,9 @@ aliases:
   - /riak/latest/community/product-advisories/leveldbsegfault/
 ---
 
-
 # Overview
 
 Riak KV (aka Riak / Riak EE) 2.1.3 has a race condition with opening LevelDB databases and may crash with a segmentation violation (SIGSEGV). LevelDB databases are opened on primary or fallback vnode startup and during AAE expiration  The issue is possible but much less likely on the Riak TS 2.0, Riak KV 2.0 and earlier Riak KV 2.1 series.
-
 
 # Description
 
@@ -28,7 +26,6 @@ The open database list was originally added to support the FlexCache feature in 
 
 This issue is corrected by ensuring that the list of open databases is updated after the initialization of the database is complete. The correction is shipped within Riak KV 2.0.7, Riak KV 2.1.4, and Riak TS 1.3.0
 
-
 # Affected Users
 
 * Users running Riak KV 2.1.3 with the LevelDB backend, with or without AAE enabled.
@@ -39,11 +36,9 @@ This issue is corrected by ensuring that the list of open databases is updated a
 
 * Users running Riak TS 1.0.0 and higher are also affected, but the likelihood of hitting the race condition is much lower.
 
-
 # Impact
 
 An affected node will reference uninitialized memory and will likely exit with a segmentation violation.  It may be logged by the operating system as a crash by the beam.smp process.
-
 
 # Mitigation Strategy
 
@@ -55,13 +50,11 @@ Riak KV 2.0.7 is a regular patch release that is in progress and will be release
 
 If you are unable to upgrade/patch, the occurrence can be reduced by temporarily disabling AAE until the node is upgraded or patched.
 
-
 ## Upgrade Riak
 
 Download and update Riak KV using the downloaded package or the package cloud repo.
 
 Packages can be downloaded by going to  [{{< baseurl >}}riak/kv/latest/downloads/]({{< baseurl >}}riak/kv/latest/downloads/) and selecting **2.1.4**, or from PackageCloud at [https://packagecloud.io/basho/riak](https://packagecloud.io/basho/riak).
-
 
 ## Patch eleveldb.so
 
@@ -85,7 +78,6 @@ Do *not* apply the eleveldb.so patch to Riak TS, it will prevent it functioning 
 * [Ubuntu Precise](https://s3.amazonaws.com/downloads.basho.com/patches/eleveldb/2.0.17/eleveldb_2.0.17_ubuntuPrecise.tar.gz)
 * [Ubuntu Trusty](https://s3.amazonaws.com/downloads.basho.com/patches/eleveldb/2.0.17/eleveldb_2.0.17_ubuntuTrusty.tar.gz)
 
-
 ### Installation and Removal Instructions
 
 This patch contains natively compiled code. The `eleveldb.so` file must be installed to the eleveldb priv directory and cannot be added to basho-patches.
@@ -99,32 +91,28 @@ By default, this directory is in the following locations per OS:
 * FreeBSD - `/usr/local/lib/riak/lib/eleveldb-2.1.10-0-g0537ca9/priv/`,
 * On other platforms it may be `/usr/lib/riak/lib/eleveldb-2.1.10-0-g0537ca9/priv/`.
 
-
 #### To install this patch, on each node in the cluster you must:
 
-1.   Stop the node: `riak stop`.
-2.   Change to the eleveldb priv directory (similar to `/usr/lib64/riak/lib/eleveldb-2.1.10-0-g0537ca9/priv/`)
-3.   Rename the original leveldb library ( `eleveldb.so`) to `eleveldb.so.orig`.
-4.   Copy the provided `eleveldb.so` to the directory and verify correct permissions.
-5.   If possible, verify that the md5 sum of the `eleveldb.so` located in the eleveldb priv directory is correct.
-6.   Start the node: `riak start`.
-
+1. Stop the node: `riak stop`.
+2. Change to the eleveldb priv directory (similar to `/usr/lib64/riak/lib/eleveldb-2.1.10-0-g0537ca9/priv/`)
+3. Rename the original leveldb library ( `eleveldb.so`) to `eleveldb.so.orig`.
+4. Copy the provided `eleveldb.so` to the directory and verify correct permissions.
+5. If possible, verify that the md5 sum of the `eleveldb.so` located in the eleveldb priv directory is correct.
+6. Start the node: `riak start`.
 
 #### To back out of this patch, on each node in the cluster you must:
 
-1.   Stop the node: `riak stop`.
-2.   Remove the patched `eleveldb.so` file from the eleveldb priv directory.
-3.   Rename `eleveldb.so.orig` to `eleveldb.so`.
-4.   Start the node: `riak start`.
-
+1. Stop the node: `riak stop`.
+2. Remove the patched `eleveldb.so` file from the eleveldb priv directory.
+3. Rename `eleveldb.so.orig` to `eleveldb.so`.
+4. Start the node: `riak start`.
 
 ### Verifying the Patch Installation
 
 When the patch is installed, the LevelDB LOG files will report that version 2.0.15 is installed. The LOG files for each running vnode will have a log line similar to the following:
 
-```
-<pre>2016/03/17-18:42:50.544293 7ffaaf3b1700             Version: 2.0.15
-</pre>
+```plaintext
+2016/03/17-18:42:50.544293 7ffaaf3b1700             Version: 2.0.15
 ```
 
 ## Disable AAE
@@ -144,7 +132,6 @@ riak_core_util:rpc_every_member_ann(riak_core_entropy_manager, cancel_exchanges,
 Press Ctrl-G, q to exit riak attach.
 
 Make sure AAE remains off after a reboot by setting the following in your **riak.conf** file:
-
 
 ```riak.conf
 anti_entropy = passive

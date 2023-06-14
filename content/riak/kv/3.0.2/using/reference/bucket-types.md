@@ -117,7 +117,6 @@ object of the following form:
 }
 ```
 
-
 > **Getting started with Riak clients**
 >
 > If you are connecting to Riak using one of Basho's official [client libraries]({{<baseurl>}}riak/kv/3.0.2/developing/client-libraries), you can find more information about getting started with your client in our [Developing with Riak KV: Getting Started]({{<baseurl>}}riak/kv/3.0.2/developing/getting-started) section.
@@ -817,7 +816,4 @@ use four bucket type/bucket pairs:
 
 All four of these pairs are isolated keyspaces. The key `favorite_meme`
 could hold different values in all four bucket type/bucket spaces.
-
-
-
 

@@ -21,7 +21,6 @@ aliases:
   - /riak/kv/2.9.0p4/add-ons/redis/set-up-rra/deployment-models/
 ---
 
-
 [Local-deployment]: {{<baseurl>}}images/redis/rra_deployment_local.png
 [Colocated-deployment]: {{<baseurl>}}images/redis/rra_deployment_colocated.png
 [Distributed-deployment]: {{<baseurl>}}images/redis/rra_deployment_distributed.png
@@ -105,7 +104,6 @@ Disadvantages:
   support such a lock-step fault tolerance would lead to greater mean latencies
   and Riak provides superior 99th percentile latency performance in the face
   of faults.
-
 
 ### Distributed Cache Deployment
 

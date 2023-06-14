@@ -26,7 +26,6 @@ aliases:
 [jmx monitor]: {{<baseurl>}}riak/kv/2.2.0/using/reference/jmx
 [snmp]: {{<baseurl>}}riak/kv/2.2.0/using/reference/snmp
 
-
 {{% note title="**CAUTION**" %}}
 At the moment, there is no downgrade path between Riak TS 1.5.1 and Riak TS 1.4.0. Any data written to TS 1.5.1 will not be readable by TS 1.4.0. Please perform backups before you upgrade and be very sure you are ready to upgrade entirely before doing so.
 {{% /note %}}
@@ -38,7 +37,6 @@ This page walks you through the process of upgrading to Riak TS 1.5.1 from Riak 
 
 Riak TS nodes negotiate with each other to determine supported
 operating modes. This allows clusters containing mixed-versions of Riak TS to properly interoperate without special configuration, and simplifies rolling upgrades.
-
 
 ## Debian/Ubuntu
 
@@ -99,7 +97,6 @@ While the node was offline, other nodes may have accepted writes on its behalf. 
 
 8\. Repeat the process for the remaining nodes in the cluster.
 
-
 ## RHEL/CentOS
 
 The following example demonstrates upgrading a Riak TS node that has been installed with the RHEL/CentOS packages provided by Basho.
@@ -159,7 +156,6 @@ behalf. This data is transferred to the node when it becomes available.
 {{% /note %}}
 
 8\. Repeat the process for the remaining nodes in the cluster.
-
 
 ## Rolling Upgrade to Enterprise
 

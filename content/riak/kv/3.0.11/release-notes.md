@@ -19,7 +19,6 @@ aliases:
 
 Released Oct 11, 2022.
 
-
 ## Overview
 
 A simple change to release a bottleneck in 2i queries with the leveled backend. Should only be relevant to those using leveled, and attempting o(1000) 2i queries per second.
@@ -27,8 +26,4 @@ A simple change to release a bottleneck in 2i queries with the leveled backend. 
 ## Previous Release Notes
 
 Please see the KV 3.0.8 release notes [here]({{<baseurl>}}riak/kv/3.0.10/release-notes/).
-
-
-
-
 

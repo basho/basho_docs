@@ -169,7 +169,3 @@ message RpbErrorResp {
 * [PBC Data Type Set Store]({{<baseurl>}}riak/kv/3.2.0/developing/api/protocol-buffers/dt-set-store)
 * [PBC Data Type Map Store]({{<baseurl>}}riak/kv/3.2.0/developing/api/protocol-buffers/dt-map-store)
 
-
-
-
-

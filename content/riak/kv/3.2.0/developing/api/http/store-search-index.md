@@ -53,7 +53,3 @@ More information can be found in [Using Search]({{<baseurl>}}riak/kv/3.2.0/devel
     already an index with that name
 * `503 Service Unavailable` - The request timed out internally
 
-
-
-
-

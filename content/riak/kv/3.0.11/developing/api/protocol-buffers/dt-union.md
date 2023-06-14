@@ -30,6 +30,3 @@ message DtOp {
 The included operation depends on the Data Type that is being updated.
 `DtOp` messages are sent only as part of a [`DtUpdateReq`]({{<baseurl>}}riak/kv/3.0.11/developing/api/protocol-buffers/dt-store) message.
 
-
-
-

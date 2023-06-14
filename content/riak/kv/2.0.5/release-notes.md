@@ -28,9 +28,9 @@ aliases:
   * [riak_core/pull/642](https://github.com/basho/riak_core/pull/642)
 
 ## Fixes
+
 * RIAK-1127 - L0 Realtime connection balancing. N v3 repl realtime connections are chosen randomly which can lead to large imbalances. Previous implementations did a better job of ensuring there was good balance. The goal of this work is to bring that back to v3 realtime replication.
   * [riak/issues/625](https://github.com/basho/riak/issues/625)
-
 
 * Riak-1455 - If Solr complains that the index exists, update Riak's metadata to reflect it
   * [yokozuna/pull/444](https://github.com/basho/yokozuna/pull/444)
@@ -61,12 +61,12 @@ New 2.0.5 clusters and MDC setups will operate unaffected by this problem using 
 
 Instructions for upgrade of MDC setups:
 
-1. On all 2.0.2 or earlier nodes, add the following to the advanced.config file (according to its syntax rules):  
+1. On all 2.0.2 or earlier nodes, add the following to the advanced.config file (according to its syntax rules):
 `[{riak_kv, [{mdc_crdt_epoch, 1}]}].`
 
 2. All nodes can remain up while this change is made. It does not need to take effect until the node is restarted under 2.0.5.
-Upgrade to 2.0.5 in a rolling fashion as recommended by our documentation. 
-3. When all nodes in all datacenters are at version 2.0.5 or later, remove the configuration from advanced.config and execute this snippet on a single node via riak attach:  
+Upgrade to 2.0.5 in a rolling fashion as recommended by our documentation.
+3. When all nodes in all datacenters are at version 2.0.5 or later, remove the configuration from advanced.config and execute this snippet on a single node via riak attach:
 `riak> rpc:multicall(application, set_env, [riak_kv, mdc_crdt_epoch, 2]).`
 
   * [riak_dt/pull/111](https://github.com/basho/riak_dt/pull/111)
@@ -79,7 +79,7 @@ Upgrade to 2.0.5 in a rolling fashion as recommended by our documentation.
 
 ## Notes on upgrading
 
-Although undocumented, versions of Riak prior to 2.0 did not prevent the use of the Erlang VM's -sname configuration parameter. As of 2.0 this is no longer permitted. Permitted in 2.0 are nodename in riak.conf and -name in vm.args. If you are upgrading from a previous version of Riak to 2.0 and are using -sname in your vm.args, the below steps are required to migrate away from -sname.  
+Although undocumented, versions of Riak prior to 2.0 did not prevent the use of the Erlang VM's -sname configuration parameter. As of 2.0 this is no longer permitted. Permitted in 2.0 are nodename in riak.conf and -name in vm.args. If you are upgrading from a previous version of Riak to 2.0 and are using -sname in your vm.args, the below steps are required to migrate away from -sname.
 
 1. Upgrade to Riak 1.4.12.
 2. Back up the ring directory on each node, typically located in /var/lib/riak/ring.
@@ -89,6 +89,7 @@ Although undocumented, versions of Riak prior to 2.0 did not prevent the use of 
 Start each node in your cluster.
 
 ## Merged Pull Requests
+
 * riak_kv/1071: [Reflect error-handling changes in cuttlefish](https://github.com/basho/riak_kv/pull/1071)
 * riak_kv/1075: [The aliases for [riak_kv,vnode,gets|puts,...] were wrong](https://github.com/basho/riak_kv/pull/1075)
 * riak_kv/1076: [Add capability and env_var to control binary format of map/set (riak#667)](https://github.com/basho/riak_kv/pull/1076)

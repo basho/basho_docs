@@ -18,7 +18,6 @@ version_history:
 [query guidelines]: {{<baseurl>}}riak/ts/1.5.0/using/querying/guidelines/
 [configuring]: {{<baseurl>}}riak/ts/1.5.0/configuring/riakconf/#maximum-returned-data-size
 
-
 The LIMIT statement is used with [`SELECT`][select] to return a limited number of results.
 
 This document shows how to run various queries using `LIMIT`. See the [guidelines][query guidelines] for more information on limitations and rules for queries in Riak TS.
@@ -30,7 +29,6 @@ You may adjust various parameters in [riak.conf]({{<baseurl>}}riak/ts/1.5.0/conf
 
 However, the most effective means of speeding up your `LIMIT` queries is to place the query buffer directory (`timeseries_query_buffers_root_path`) on fast storage or in memory-backed /tmp directory.
 {{% /note %}}
-
 
 ## Overview
 
@@ -47,7 +45,6 @@ The OFFSET modifier can be used with `LIMIT` to skip a specified number of resul
 {{% note title="WARNING" %}}
 Before you run `SELECT` you must ensure the node issuing the query has adequate memory to receive the response. If the returning rows do not fit into the memory of the requesting node, the node is likely to fail.
 {{% /note %}}
-
 
 ## Examples
 

@@ -14,9 +14,7 @@ aliases:
     - /riakts/1.3.0/developing/python/
 ---
 
-
 You can develop applications and tools using Riak TS with the Riak Python client. This document covers the Python API for Riak TS.
-
 
 ## Overview
 
@@ -27,7 +25,6 @@ The Riak TS API is only available through Protocol Buffers and not HTTP, so plea
 Language | Source | Documentation | Download
 :--------|:-------|:--------------|:--------
 Python | [riak-python-client](https://github.com/basho/riak-python-client) | [sphinx](http://basho.github.com/riak-python-client) | [PyPI](http://pypi.python.org/pypi?:action=display&name=riak#downloads)
-
 
 ## Prerequisites
 
@@ -45,7 +42,6 @@ sudo apt-get install -y python-setuptools python-dev libffi-dev libssl-dev
 sudo yum install -y python-setuptools python-devel libffi-devel openssl-deve
 ```
 
-
 ## Client Operations
 
 ### Operations Index
@@ -55,7 +51,6 @@ sudo yum install -y python-setuptools python-devel libffi-devel openssl-deve
  * `Delete` - Delete a single row based on the primary key values provided.
  * `Query` - Query a Riak TS table with the given query string.
  * `Stream ListKeys` - Lists the primary keys of all the rows in a Riak TS table.
-
 
 ### Operations Details
 
@@ -74,7 +69,6 @@ Retrieve TS value by key.
 
 **Return Type**: class `TsObject <riak.ts_object.TsObject>`
 
-
 #### Put
 
 Stores time series data in the Riak TS cluster.
@@ -88,7 +82,6 @@ Stores time series data in the Riak TS cluster.
 |`tsobj`  | class `RiakTsObject` | The TS object to store. |
 
 **Return Type**: boolean
-
 
 #### Delete
 
@@ -105,7 +98,6 @@ Delete TS value by key.
 
 **Return Type**: boolean
 
-
 #### Query
 
 Queries time series data in the Riak cluster.
@@ -121,18 +113,17 @@ Queries time series data in the Riak cluster.
 
 **Return Type**: Class `TsObject <riak.ts_object.TsObject>`
 
-
 #### Stream ListKeys
 
 Lists all keys in a Riak TS table via a stream. This is a
 generator method which should be iterated over. The caller should explicitly close the returned iterator, either using :func:`contextlib.closing` or calling `close()`
-explicitly. Consuming the entire iterator will also close the stream. If it does not, the associated connection might not be returned to the pool. 
+explicitly. Consuming the entire iterator will also close the stream. If it does not, the associated connection might not be returned to the pool.
 
 `riak.client.RiakClient:ts_stream_keys(table, timeout=None)`
 
 Example:
 
-```python 
+```python
 from contextlib import closing
 # Using contextlib.closing
 with closing(client.ts_stream_keys(mytable)) as keys:

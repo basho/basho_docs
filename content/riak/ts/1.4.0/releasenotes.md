@@ -14,18 +14,16 @@ aliases:
     - /riakts/1.4.0/releasenotes
 ---
 
-
 Released August 24, 2016.
 
-Riak TS 1.4.0 delivers a broad range of new functionality and improvements, including: 
+Riak TS 1.4.0 delivers a broad range of new functionality and improvements, including:
 
 * GROUP BY, a SQL statement used with `SELECT`
 * Simplified time/date parsing and ISO 8601 support
-* Rolling Upgrade/Downgrade support 
+* Rolling Upgrade/Downgrade support
 * Global data expiry (per cluster)
-* New SHOW TABLES SQL statement 
+* New SHOW TABLES SQL statement
 * Enhanced `DESCRIBE`
-
 
 ## New Features
 
@@ -50,13 +48,11 @@ Riak TS 1.4.0 delivers a broad range of new functionality and improvements, incl
 If you freshly installed TS 1.4.0 and did NOT upgrade from 1.3.1, and then you choose to downgrade to 1.3.1, you will need to change your riak.conf to preserve your configuration settings. Read more about that process [here]({{<baseurl>}}riak/ts/1.4.0/setup/downgrading).
 {{% /note %}}
 
-
 ## Additions
 
 * New configuration settings for Riak TS have been added to riak.conf. You can read more about TS's configuration options [here]({{<baseurl>}}riak/ts/1.4.0/using/configuring/). Additionally, the old configuration settings have been exposed and are being deprecated.
-    
-    >If you were using the old configuration settings, please update riak.conf to use the new settings. The older settings are scheduled to be deprecated.  
 
+    >If you were using the old configuration settings, please update riak.conf to use the new settings. The older settings are scheduled to be deprecated.
 
 ## Changes
 
@@ -64,16 +60,14 @@ If you freshly installed TS 1.4.0 and did NOT upgrade from 1.3.1, and then you c
 * The DESCRIBE statement now returns additional information about the interval and unit of time in your TS table. [[PR #1438](https://github.com/basho/riak_kv/pull/1438)]
 * LevelDB now uses LZ4 as an internal compression mechanism. This change should provide a performance boost for LevelDB. [[PR #208](https://github.com/basho/eleveldb/pull/208)]
 
-
 ## Bugfixes
 
 * [[PR #1428](https://github.com/basho/riak_kv/pull/1428)] The security permissions for Riak TS's protocol buffer API have been fixed to return in the correct format of a string rather than an atom.
 * [[riak_ql PR#126](https://github.com/basho/riak_ql/pull/126)] `INSERT` now accepts booleans as a valid data type.
 * [[repl PR#744](https://github.com/basho/riak_repl/pull/744)] When using Riak TS Enterprise, do not push time series data to the realtime replication queue unless it is enabled.
 * [[riak_ql #130](https://github.com/basho/riak_ql/pull/130)] Only one table at a time may be queried with `SELECT` and now there is a better error message if you try to query more than one table.
-* [[riak_shell #39](https://github.com/basho/riak_shell/pull/39)] Fix some typos in riak shell's help text. 
+* [[riak_shell #39](https://github.com/basho/riak_shell/pull/39)] Fix some typos in riak shell's help text.
 * [[PR #1439](https://github.com/basho/riak_kv/pull/1439)] When building a query an error could result if a string was used. This has been fixed.
-
 
 ## Compatibility
 

@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/setup/planning/backend/leveled/
 ---
 
-
 [glossary vnode]: {{<baseurl>}}riak/kv/2.9.0p5/learn/glossary/#vnode
 [config reference]: {{<baseurl>}}riak/kv/2.9.0p5/configuring/reference
 [perf index]: {{<baseurl>}}riak/kv/2.9.0p5/using/performance
@@ -43,7 +42,6 @@ aliases:
 - Support for low-cost clones without locking to provide for scanning queries (e.g. secondary indexes).
 - Low cost specifically where there is a need to scan across keys and metadata (not values).
 - Written in Erlang as a message passing system between Actors.
-
 
 ## Strengths
 

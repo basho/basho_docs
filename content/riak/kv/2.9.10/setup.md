@@ -43,7 +43,3 @@ A guide on downgrading your Riak KV cluster.
 
 [Learn More >>][downgrade]
 
-
-
-
-

@@ -15,7 +15,6 @@ aliases:
   - /riak/kv/3.0.6/dev/data-modeling/
 ---
 
-
 [dev data model articles etc]: {{<baseurl>}}riak/kv/3.0.6/developing/data-modeling/#articles-blog-posts-and-other-content
 [dev data model log data]: {{<baseurl>}}riak/kv/3.0.6/developing/data-modeling/#log-data
 [dev data model sensor data]: {{<baseurl>}}riak/kv/3.0.6/developing/data-modeling/#sensor-data
@@ -365,7 +364,7 @@ its own ID. Loading the full view with comments would require your application
 to call from the posts and comments buckets to assemble the view.
 
 Other possible cases may involve performing operations on content beyond
-key/value pairs. 
+key/value pairs.
 [using secondary indexes][usage secondary-indexes] \(2i) enables you to add
 metadata to objects to either query for exact matches or to perform range
 queries. 2i also enables you to tag posts with dates, timestamps, topic areas,
@@ -395,8 +394,4 @@ or other pieces of information useful for later retrieval.
     </td>
   </tr>
 </table>
-
-
-
-
 

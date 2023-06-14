@@ -66,7 +66,7 @@ incrementing the original reduced accuracy representation before
 expansion.
 
 So, `time > '2015'` becomes in effect, `time >= '2016-01-01
-00:00:00'`, and 
+00:00:00'`, and
 
 `time <= '2003-05-01T05:10'` becomes `time < '2003-05-01T05:11:00'`.
 

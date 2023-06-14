@@ -27,7 +27,6 @@ Language | Source | Documentation | Download
 :--------|:-------|:--------------|:--------
 Ruby | [riak-ruby-client](https://github.com/basho/riak-ruby-client) | [GitHub Pages](http://basho.github.io/riak-ruby-client/) | [RubyGems](https://rubygems.org/gems/riak-client)
 
-
 ## Data Types
 
 * `Scalar` - Not strictly a class itself, contains the basic Ruby core/stdlib: `String`, `Fixnum`, `Bignum`, `Float`, and `Time` instances that represent a
@@ -49,7 +48,6 @@ TS `double`, which will later de-serialize as a Ruby `Float`.
 `Riak::TimeSeriesError::SerializeComplexNumberError`.
 * Ruby `Rational` numbers raise the error:
 `Riak::TimeSeriesError::SerializeRationalNumberError`.
-
 
 ## Operations
 
@@ -98,7 +96,6 @@ The `new` class method takes two arguments: `client` (the `Riak::Client` to use)
 * `read!` - issues the read operation to Riak and returns a `Row` of data. If
 no data are found, returns `nil`.
 
-
 ### Single-key Deletes
 
 To delete a single row with a given key, use `Riak::TimeSeries::Delete`:
@@ -124,7 +121,6 @@ and delete.
 #### Instance Method
 
 * `delete!` - issues the deletion to Riak.
-
 
 ### Key Listing
 
@@ -196,7 +192,6 @@ and a `String` of `query_text`.
 
 The `issue!` method issues the query to Riak and populates the `results`
 accessor with the results.
-
 
 ### Writing
 

@@ -23,7 +23,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/usage/conflict-resolution/ruby/
 ---
 
-
 For reasons explained in the [Introduction to conflict resolution]({{<baseurl>}}riak/kv/2.9.0p5/developing/usage/conflict-resolution), we strongly recommend adopting a
 conflict resolution strategy that requires applications to resolve
 siblings according to use-case-specific criteria. Here, we'll provide a

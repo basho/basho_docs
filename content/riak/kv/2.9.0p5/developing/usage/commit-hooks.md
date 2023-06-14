@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/usage/commit-hooks/
 ---
 
-
 [usage bucket types]: {{<baseurl>}}riak/kv/2.9.0p5/developing/usage/bucket-types
 
 Pre- and post-commit hooks are functions that are invoked before or
@@ -231,7 +230,6 @@ postcommit_index_on_email(Object) ->
     %% Store the object
     C:put(IndexObj).
 ```
-
 
 ### Chaining
 

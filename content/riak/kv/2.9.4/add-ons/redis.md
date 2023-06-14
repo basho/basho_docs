@@ -13,7 +13,6 @@ toc: true
 commercial_offering: true
 ---
 
-
 [addon redis develop]: ./developing-rra/
 [addon redis features]: ./redis-add-on-features/
 [addon redis setup]: ./set-up-rra/

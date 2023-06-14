@@ -17,7 +17,7 @@ aliases:
 
 ## Spark Dataframes With TS Table
 
-To enable DataFrames functionality the first steps are: 
+To enable DataFrames functionality the first steps are:
 
 ```scala
 val sc = new SparkContext()
@@ -32,10 +32,10 @@ sqlContext = pyspark.SQLContext(sc)
 ts_table_name = "test_table"
 ```
 
-To read data from the existing TS table `test-table` standard `SQLContext` means can be used by providing a `org.apache.spark.sql.riak` data format and using a Riak TS range query: 
+To read data from the existing TS table `test-table` standard `SQLContext` means can be used by providing a `org.apache.spark.sql.riak` data format and using a Riak TS range query:
 
 ```scala
-val df = sqlContext.read   
+val df = sqlContext.read
   .option("spark.riak.connection.hosts","riak_host_ip:10017")
     .format("org.apache.spark.sql.riak")
     .load(ts_table_name)
@@ -61,7 +61,7 @@ val riakSqlContext = new RiakSQLContext(sc, ts_table_name)
 val alternativeDf = riakSqlContext.sql(s"SELECT time, col1 from $ts_table_name WHERE time >= CAST($from AS TIMESTAMP) AND time <= CAST($to AS TIMESTAMP) AND  col1= $value1")
 ```
 
-A DataFrame, `inputDF`, that has the same schema as an existing TS table (column order and types) can be saved to Riak TS as follows: 
+A DataFrame, `inputDF`, that has the same schema as an existing TS table (column order and types) can be saved to Riak TS as follows:
 
 ```scala
 inputDF.write

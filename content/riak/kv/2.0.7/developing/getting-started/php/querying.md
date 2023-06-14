@@ -17,7 +17,8 @@ aliases:
 ---
 
 ## A Quick Note on Querying and Schemas
-_Schemas_? Yes we said that correctly, S-C-H-E-M-A-S. It's not a dirty word.  
+
+_Schemas_? Yes we said that correctly, S-C-H-E-M-A-S. It's not a dirty word.
 Even with a Key/Value store, you will still have a logical database schema of how all the data relates to one another. This can be as simple as using the same key across multiple buckets for different types of data, to having fields in your data that are related by name.  These querying methods will introduce you to some ways of laying out your data in Riak, along with how to query it back.
 
 ## Denormalization
@@ -115,7 +116,6 @@ class OrderSummaryItem
     var $orderDate;
 }
 
-
 // Creating Data
 $customer = new Customer();
 $customer->customerId = 1;
@@ -126,7 +126,6 @@ $customer->state = 'Ohio';
 $customer->zip = '43210';
 $customer->phone = '+1-614-555-5555';
 $customer->createdDate = '2013-10-01 14:30:26';
-
 
 $orders = [];
 
@@ -185,15 +184,12 @@ $order3->total = 74.98;
 $order3->orderDate = '2013-11-03 17:45:28';
 $orders[] = $order3;
 
-
 $orderSummary = new OrderSummary();
 $orderSummary->customerId = 1;
 foreach ($orders as $order) {
     $orderSummary->summaries[] = new OrderSummaryItem($order);
 }
 unset($order);
-
-
 
 // Starting Client
 $node = (new Node\Builder)
@@ -292,8 +288,7 @@ stdClass Object
 )
 ```
 
-While this pattern is very easy and extremely fast with respect to queries and complexity, it's up to the application to know about these intrinsic relationships.  
-
+While this pattern is very easy and extremely fast with respect to queries and complexity, it's up to the application to know about these intrinsic relationships.
 
 ## Secondary Indexes
 
@@ -357,7 +352,7 @@ Array
 ```
 
 Jane processed orders 1 and 3.  We used an "integer" index to reference Jane's id, next let's use a "binary" index.
-Now, let's say that the VP of Sales wants to know how many orders came in during October 2013.  In this case, we can exploit 2i's range queries.  Let's search the `order_date_bin` index for entries between `20131001` and `20131031`.  
+Now, let's say that the VP of Sales wants to know how many orders came in during October 2013.  In this case, we can exploit 2i's range queries.  Let's search the `order_date_bin` index for entries between `20131001` and `20131031`.
 
 ```php
 // Query for orders where the OrderDate bin index is

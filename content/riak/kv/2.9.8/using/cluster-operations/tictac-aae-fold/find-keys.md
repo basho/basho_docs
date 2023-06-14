@@ -48,9 +48,9 @@ This function will find all keys that meet the common filters as well as one of 
 
 ```riakattach
 riak_client:aae_fold({
-    find_keys, 
-    bucket_filter, 
-    key_range_filter, 
+    find_keys,
+    bucket_filter,
+    key_range_filter,
     modified_filter,
     function_filter
     }, Client).
@@ -67,9 +67,9 @@ Note that a value of `5` will mean only objects with 6 or more siblings will be 
 
 ```riakattach
 riak_client:aae_fold({
-    find_keys, 
-    bucket_filter, 
-    key_range_filter, 
+    find_keys,
+    bucket_filter,
+    key_range_filter,
     modified_filter,
     {sibling_count, count}
     }, Client).
@@ -85,8 +85,8 @@ For example, the following snippet will return all keys with the filters:
 
 ```riakattach
 riak_client:aae_fold({
-    find_keys, 
-    {<<"animals">>,<<"dogs">>}, 
+    find_keys,
+    {<<"animals">>,<<"dogs">>},
     {<<"A">>,<<"N">>},
     {date,1640995200,1643673600},
     {sibling_count, 5}
@@ -127,9 +127,9 @@ Note that a value of `1000` will mean only objects with a size of 1001 bytes or 
 
 ```riakattach
 riak_client:aae_fold({
-    find_keys, 
-    bucket_filter, 
-    key_range_filter, 
+    find_keys,
+    bucket_filter,
+    key_range_filter,
     modified_filter,
     {object_size, size}
     }, Client).
@@ -145,8 +145,8 @@ For example, the following snippet will return all keys with the filters:
 
 ```riakattach
 riak_client:aae_fold({
-    find_keys, 
-    {<<"animals">>,<<"dogs">>}, 
+    find_keys,
+    {<<"animals">>,<<"dogs">>},
     {<<"A">>,<<"N">>},
     {date,1640995200,1643673600},
     {object_size, 1000}

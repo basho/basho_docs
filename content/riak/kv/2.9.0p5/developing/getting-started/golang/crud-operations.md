@@ -21,7 +21,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/getting-started/golang/crud-operations/
 ---
 
-
 ## Creating Objects
 
 First let’s create a few objects and a bucket to keep them in:
@@ -222,7 +221,7 @@ for done := range d {
 ## Updating Objects
 
 While some data may be static, other forms of data need to be
-updated. 
+updated.
 
 Let’s update some values:
 

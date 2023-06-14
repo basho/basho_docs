@@ -15,7 +15,6 @@ aliases:
 
 ---
 
-
 [activating]: ../creating-activating/
 [planning]: ../planning/
 [querying]: ../querying/
@@ -29,7 +28,6 @@ aliases:
 [Enterprise]: http://basho.com/products/riak-ts/
 
 Now that you've [planned][planning] and [activated][activating] your Riak TS table, you are ready to write data to it.
-
 
 ## Writing Data
 
@@ -169,7 +167,7 @@ var Riak = require('basho-riak-client');
 var hosts = [ 'myriakdb.host:8087' ];
 var client = new Riak.Client(hosts);
 
-var columns = [ 
+var columns = [
     { name: 'id',     type: Riak.Commands.TS.ColumnType.Int64 },
     { name: 'region',     type: Riak.Commands.TS.ColumnType.Varchar },
     { name: 'state',        type: Riak.Commands.TS.ColumnType.Varchar },
@@ -200,7 +198,7 @@ client.execute(store);
 ```
 
 ```erlang
-%% TS 1.3 or newer. Records are represented as tuples. 
+%% TS 1.3 or newer. Records are represented as tuples.
 {ok, Pid} = riakc_pb_socket:start_link("myriakdb.host", 8087).
 riakc_ts:put(Pid, "GeoCheckin", [{1, <<"South Atlantic">>, <<"Florida">>, 1451606401, <<"hot">>, 23.5}, {2, <<"East North Central">>, <<"Illinois">>, 1451606402, <<"windy">>, 19.8}]).
 ```
@@ -307,13 +305,11 @@ System.out.println(storeFuture.cause().detailMessage);
 
 You could also try the original write again. Failures may be transitory when servers are temporarily unable to talk to each other.
 
-
 ### Guidelines
 
 * Batches should not be too large. Our testing revealed 100 rows per write as a sweet spot, but you should expect different results depending on your hardware and schema.
 * Writes will assume that fields are in the same order as they've been declared in the table.
 * Timestamps should be in Unix epoch/UTC milliseconds or [ISO 8601 format](#iso-8601).
-
 
 ### Tuning Batches
 
@@ -323,7 +319,6 @@ It is possible to specify an approximate largest-batch size for tuning purposes.
 
 If you want to adjust that value, the configuration parameter `timeseries_max_batch_size` under `riak_kv` in [advanced.config][config reference] can be defined. The value is in bytes.
 
-
 ## Adding Data via SQL
 
 You can add data via SQL statements either through the [query interface][querying] or via [riak shell][riakshell]. Basic SQL `INSERT` functionality is available, but more complicated things such as `INSERT...SELECT` or subqueries are not.
@@ -331,7 +326,7 @@ You can add data via SQL statements either through the [query interface][queryin
 {{% note title="INSERT limitations" %}}
 Writing data via an SQL INSERT statement (as demonstrated below) has been found to be 3x slower than using one of our supported clients or the riak shell to insert data under a normal workload (10 bytes per column, up to ~ 50 columns). In these cases, we strongly recommend that you only `INSERT` small data updates and do not use it in a production environment.
 
-Larger workloads should only use a supported client to insert data. 
+Larger workloads should only use a supported client to insert data.
 {{% /note %}}
 
 Here are a couple examples of adding rows from SQL:
@@ -351,7 +346,6 @@ As with standard SQL, if all of the field names are not provided before the `VAL
 The fields can be in any order, but the field name and the values must match up. Without the `VALUES` keyword, all fields must be present in the same order as the schema definition.
 
 The data types are validated on the server just like the client PUT commands above.
-
 
 ### ISO 8601
 
@@ -378,7 +372,6 @@ riak-shell>INSERT INTO GeoCheckin VALUES ('SC', '2017-01-01T15:00:00', 'sunny', 
 ```
 
 If using the HTTP API, see the [API docs][http] for information on encoding binary data to use with JSON or SQL data upload.
-
 
 ## Next Steps
 

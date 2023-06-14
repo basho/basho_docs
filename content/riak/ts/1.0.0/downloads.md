@@ -17,7 +17,6 @@ aliases:
     - /riak/ts/1.0.0/riakts-downloads/
 ---
 
-
 [installing]: ../installing/
 
 # Download Riak TS 1.0.0

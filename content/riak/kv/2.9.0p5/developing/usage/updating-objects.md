@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/usage/updating-objects/
 ---
 
-
 [glossary vnode]: {{<baseurl>}}riak/kv/2.9.0p5/learn/glossary/#vnode
 
 ## Using Causal Context

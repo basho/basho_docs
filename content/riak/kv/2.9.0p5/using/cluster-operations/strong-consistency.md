@@ -20,7 +20,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/cluster-operations/strong-consistency/
 ---
 
-
 {{% note title="Please Note:" %}}
 Riak KV's strong consistency is an experimental feature and may be removed
 from the product in the future. Strong consistency is not commercially

@@ -51,5 +51,3 @@ curl -XPUT http://localhost:8098/search/schema/my_custom_schema \
     already a schema with that name
 * `503 Service Unavailable` - The request timed out internally
 
-
-

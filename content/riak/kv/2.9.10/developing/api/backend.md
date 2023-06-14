@@ -113,5 +113,3 @@ into a custom storage backend module.
 -spec callback(reference(), any(), state()) -> {ok, state()}.
 ```
 
-
-

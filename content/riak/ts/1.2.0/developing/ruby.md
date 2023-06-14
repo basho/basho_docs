@@ -46,17 +46,15 @@ single cell in a time series collection.
 * High-magnitude Ruby `Bignum` instances raise the error: `Riak::TimeSeriesError::SerializeBigIntegerError`.
 * Ruby `BigDecimal` numbers are converted to a `Float` and serialized as a Riak
 TS `double`, which will later de-serialize as a Ruby `Float`.
-* Ruby `Complex` numbers raise the error: 
+* Ruby `Complex` numbers raise the error:
 `Riak::TimeSeriesError::SerializeComplexNumberError`.
-* Ruby `Rational` numbers raise the error: 
+* Ruby `Rational` numbers raise the error:
 `Riak::TimeSeriesError::SerializeRationalNumberError`.
-
 
 ## Operations
 
 Riak TS supports five basic operations: single-key reads and deletes, key
 listing, SQL queries, and writes/submissions.
-
 
 ### Single-key Reads
 
@@ -83,7 +81,6 @@ The `new` class method takes two arguments: `client` (the `Riak::Client` to use)
 * `read!` - issues the read operation to Riak and returns a `Row` of data. If
 no data are found, returns `nil`.
 
-
 ### Single-key Deletes
 
 To delete a single row with a given key, use `Riak::TimeSeries::Delete`:
@@ -109,7 +106,6 @@ and delete.
 #### Instance Method
 
 * `delete!` - issues the deletion to Riak.
-
 
 ### Key Listing
 
@@ -147,7 +143,7 @@ The `issue!` method that starts the key listing can work in two different ways.
 
 Without a block, the streaming key listing will be buffered up into a
 `Riak::TimeSeries::Collection`. The `Collection` will also be available from the
-`results` accessor. 
+`results` accessor.
 
 >**WARNING:** on a table with many rows, the `Collection` can
 be extremely large and will cause extra memory load, garbage collections, and
@@ -182,7 +178,6 @@ and a `String` of `query_text`.
 The `issue!` method issues the query to Riak and populates the `results`
 accessor with the results.
 
-
 ### Writing
 
 Data can be submitted to Riak TS with the `Riak::TimeSeries::Submission` class.
@@ -201,7 +196,7 @@ submission.write!
 
 #### Constructor
 
-The `new` class method takes two arguments: `client` (the `Riak::Client` to use) 
+The `new` class method takes two arguments: `client` (the `Riak::Client` to use)
 and a `String` of `query_text`.
 
 #### Instance Accessors

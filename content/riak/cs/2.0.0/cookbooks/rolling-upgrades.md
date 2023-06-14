@@ -43,8 +43,6 @@ to clean up incomplete multipart under deleted buckets</a> is needed.
 Otherwise new buckets with names that used to exist in the past can't be
 created. The operation will fail with a `409 Conflict` error.
 
-
-
 Leeway seconds and disk space should also be carefully watched during the
 upgrade, because timestamp management of garbage collection has changed since
 the 1.5.0 release. Consult the
@@ -115,7 +113,6 @@ detailed description.
     {add_paths, ["/usr/lib/riak-cs/lib/riak_cs-2.0.0/ebin"]}
     ```
 
-
 6. Riak CS 2.0 introduces a new style of configuration known as `riak-cs.conf`.
     You may choose to continue the use of the `app.config` file, or migrate your
     existing configuration to `riak-cs.conf` (recommended).  If you choose to
@@ -126,19 +123,19 @@ detailed description.
     **If you choose to use the legacy `app.config` files for Riak CS and/or
     Stanchion, some parameters have changed names and must be updated**.
 
-    In particular, for the Riak CS `app.config`:  
-    \- `cs_ip` and `cs_port` have been combined into `listener`.  
-    \- `riak_ip` and `riak_pb_port` have been combined into `riak_host`.  
+    In particular, for the Riak CS `app.config`:
+    \- `cs_ip` and `cs_port` have been combined into `listener`.
+    \- `riak_ip` and `riak_pb_port` have been combined into `riak_host`.
     \- `stanchion_ip` and `stanchion_port` have been combined into
-    `stanchion_host`.  
-    \- `admin_ip` and `admin_port` have been combined into `admin_listener`.  
-    \- `webmachine_log_handler` has become `webmachine_access_log_handler`.  
+    `stanchion_host`.
+    \- `admin_ip` and `admin_port` have been combined into `admin_listener`.
+    \- `webmachine_log_handler` has become `webmachine_access_log_handler`.
     \- `{max_open_files, 50}` has been deprecated and should be replaced with
-    `{total_leveldb_mem_percent, 30}`.  
+    `{total_leveldb_mem_percent, 30}`.
 
-    For the Stanchion `app.config`:  
-    \- `stanchion_ip` and `stanchion_port` have been combined into `listener`.  
-    \- `riak_ip` and `riak_port` have been combined into `riak_host`.  
+    For the Stanchion `app.config`:
+    \- `stanchion_ip` and `stanchion_port` have been combined into `listener`.
+    \- `riak_ip` and `riak_port` have been combined into `riak_host`.
 
     Each of the above pairs follows a similar form. For example, if your legacy
     `app.config` configuration was previously:

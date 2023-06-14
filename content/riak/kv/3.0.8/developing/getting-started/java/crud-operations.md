@@ -201,6 +201,3 @@ Riak, see [Updating Objects]({{<baseurl>}}riak/kv/3.0.8/developing/usage/updatin
 and [Conflict Resolution]({{<baseurl>}}riak/kv/3.0.8/developing/usage/conflict-resolution/)
 documention.
 
-
-
-

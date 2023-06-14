@@ -21,7 +21,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/getting-started/erlang/crud-operations/
 ---
 
-
 ## Creating Objects In Riak
 
 First, let’s create a few Riak objects. For these examples we'll be

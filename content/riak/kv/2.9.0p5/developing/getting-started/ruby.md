@@ -22,9 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/getting-started/ruby/
 ---
 
-
-
-
 If you haven't set up a Riak Node and started it, please visit [Running A Cluster]({{<baseurl>}}riak/kv/2.9.0p5/using/running-a-cluster) first. To try this flavor
 of Riak, a working installation of Ruby is required.
 

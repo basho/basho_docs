@@ -25,7 +25,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/data-types/sets/
 ---
 
-
 Sets are a bucket-level Riak data type that can be used by themselves, associated with a bucket/key pair, or used [within a map](../maps#sets-within-maps).
 
 Sets are collections of unique binary values (such as strings). All of

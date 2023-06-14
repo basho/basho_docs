@@ -501,5 +501,3 @@ But if you'd like to use tiered storage in an existing installation that
 is not currently using it, you will need to manually move your
 installation's `.sst` files from one configuration to another.
 
-
-

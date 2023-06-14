@@ -145,7 +145,7 @@ connection information as explained above in the [supercluster Configuration](#s
 
 ### Set Weights
 
-When a new supercluster member is added, you must first set the weight of that member to zero using the [`riak-cs-supercluster`]({{<baseurl>}}riak/cs/2.0.1/cookbooks/command-line-tools) command-line interface. 
+When a new supercluster member is added, you must first set the weight of that member to zero using the [`riak-cs-supercluster`]({{<baseurl>}}riak/cs/2.0.1/cookbooks/command-line-tools) command-line interface.
 
 The example below sets the weight of the recently added supercluster member `Alpha` to zero:
 

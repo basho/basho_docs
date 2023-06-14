@@ -110,6 +110,6 @@ For instructions on how to apply permissions and require client authentication i
 
 For more on creating and managing security sources for authentication in Riak TS, check out [Security: Sources Management][security sources].
 
-### Notifying Basho
+### Notifying Riak
 
-If you discover a potential security issue with Riak TS or want to know more about Basho's approach to security, visit the [Security: Notifying Basho][security notify] page.
+If you discover a potential security issue with Riak TS or want to know more about Riak's approach to security, visit the [Security: Notifying Riak][security notify] page.

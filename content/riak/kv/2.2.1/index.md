@@ -25,8 +25,6 @@ aliases:
 [getting started]: {{<baseurl>}}riak/kv/2.2.1/developing/getting-started
 [dev client libraries]: {{<baseurl>}}riak/kv/2.2.1/developing/client-libraries
 
-
-
 Riak KV is a distributed NoSQL database designed to deliver maximum data availability by distributing data across multiple servers. As long as your Riak KV client can reach one Riak server, it should be able to write data.
 
 [Riak KV Enterprise][aboutenterprise] includes multi-datacenter cluster replication, which ensures low-latency and robust business continuity.
@@ -69,4 +67,4 @@ If you are looking to integrate Riak KV with your existing tools, check out the 
 
 ## Academy Training
 
-[Basho's Academy](https://academy.basho.com) courses offer hands-on experience with Riak KV. Sign up for a [free account](https://academy.basho.com/users/sign_up) to get started. 
+[Basho's Academy](https://academy.basho.com) courses offer hands-on experience with Riak KV. Sign up for a [free account](https://academy.basho.com/users/sign_up) to get started.

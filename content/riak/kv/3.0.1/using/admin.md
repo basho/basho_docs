@@ -47,5 +47,3 @@ Overview of Riak Control, a web-based administrative console for Riak clusters.
 
 [Learn More >>][use admin riak control]
 
-
-

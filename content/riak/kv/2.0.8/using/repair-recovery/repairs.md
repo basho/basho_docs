@@ -28,8 +28,6 @@ aliases:
 [search config]: {{<baseurl>}}riak/kv/2.0.8/configuring/search/#search-config-settings
 [tiered storage]: {{<baseurl>}}riak/kv/2.0.8/setup/planning/backend/leveldb/#tiered-storage
 
-
-
 ## Repairing Search Indexes
 
 Riak search indexes are repaired whenever objects are corrected by [read repair][glossary readrep].
@@ -97,24 +95,21 @@ find . -name "LOG" -exec grep -l 'Compaction error' {} \;
 If there are compaction errors in any of your vnodes, those will be listed in the console. If any vnode has experienced such errors, you would see output like this:
 
 ```
-./442446784738847563128068650529343492278651453440/LOG 
+./442446784738847563128068650529343492278651453440/LOG
 ```
-
 
 {{% note %}}
 While corruption on one vnode is not uncommon, corruption in several vnodes very likely means that there is a deeper problem that needs to be address, perhaps on the OS or hardware level.
 {{% /note %}}
 
-
 ## Healing Corrupted LevelDBs
 
 When you have discovered corruption in your LevelDB backend, the steps you take to resolve it will depend on whether you are using [tiered storage] or not.
 
-Choose your setup below: 
+Choose your setup below:
 
 1. [Just LevelDB](#leveldb)
 2. [LevelDB with tiered storage](#leveldb-with-tiered-storage)
-
 
 ### LevelDB
 
@@ -126,7 +121,7 @@ Follow the steps below to heal your corrupted LevelDB.
 riak stop
 ```
 
-2\. To repair the corrupted LevelDB through the [Erlang shell],  you will run the the `riak ertspath` command to output the path to Riak's internal Erlang runtime, and the `erl` command to start the Erlang shell. You can run them in a single command: 
+2\. To repair the corrupted LevelDB through the [Erlang shell],  you will run the the `riak ertspath` command to output the path to Riak's internal Erlang runtime, and the `erl` command to start the Erlang shell. You can run them in a single command:
 
 ```bash
 `riak ertspath`/erl
@@ -185,7 +180,7 @@ riak stop
 * leveldb.tiered.path.fast
 * leveldb.tiered.path.slow
 
-3\. To repair the corrupted LevelDB through the [Erlang shell],  you will run the the `riak ertspath` command to output the path to Riak's internal Erlang runtime, and the `erl` command to start the Erlang shell. You can run them in a single command: 
+3\. To repair the corrupted LevelDB through the [Erlang shell],  you will run the the `riak ertspath` command to output the path to Riak's internal Erlang runtime, and the `erl` command to start the Erlang shell. You can run them in a single command:
 
 ```bash
 `riak ertspath`/erl
@@ -205,7 +200,7 @@ application:set_env(eleveldb, data_root, "").
 
 ```erlang
 Options = [
-  {tiered_slow_level, »leveldb.tiered value«},    
+  {tiered_slow_level, »leveldb.tiered value«},
   {tiered_fast_prefix, "»leveldb.tiered.path.fast value«"},
   {tiered_slow_prefix, "»leveldb.tiered.path.slow value«"}
 ].
@@ -230,7 +225,6 @@ RepairPath = fun(DataRoot, VNodeNumber) -> Path = lists:flatten(DataRoot ++ "/" 
 ```bash
 riak start
 ```
-
 
 ## Repairing Partitions
 
@@ -340,7 +334,6 @@ the `nodename` parameter.
     that loops over each `{Partition, Node}` tuple in the ring and
     extracts only the partitions that match the given node name, as a
     list.
-
 
 4. Execute the repair on all the partitions. Executing the repairs all
 at once will cause a lot of `{shutdown, max_concurrency}` messages in

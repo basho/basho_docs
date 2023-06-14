@@ -43,7 +43,6 @@ non-primary-key-based querying in Riak, alongside
 run MapReduce jobs using Erlang or JavaScript, but JavaScript support
 is deprecated as of Riak 2.0, so this document covers Erlang exclusively.
 
-
 ### Why Do We Use MapReduce for Querying Riak?
 
 Key/value stores like Riak generally do not offer the kinds of complex
@@ -114,7 +113,6 @@ If Riak 2.0's security functionality is enabled, there are two restrictions on M
   distributed with Riak will **not** be accessible to custom MapReduce
   code unless made available via the `add_path` mechanism documented
   in [Installing Custom Code][use ref custom code].
-
 
 ## How Riak's MapReduce Queries Are Specified
 
@@ -257,7 +255,6 @@ Be sure to install the MapReduce function as described above on all of the
 nodes in your cluster to ensure proper operation.
 {{% /note %}}
 
-
 ## Phase functions
 
 MapReduce phase functions have the same properties, arguments, and
@@ -337,13 +334,11 @@ true that the function is commutative, associative, and idempotent. That
 is, if the input list `[a,b,c,d]` is valid for a given F, then all of
 the following must produce the same result:
 
-
 ```erlang
   F([a,b,c,d])
   F([a,d] ++ F([c,b]))
   F([F([a]),F([c]),F([b]),F([d])])
 ```
-
 
 #### Reduce function examples
 
@@ -455,7 +450,6 @@ former form is equivalent to `{{Bucket,Key},undefined}`.
 The query is given as a list of map, reduce and link phases. Map and
 reduce phases are each expressed as tuples in the following form:
 
-
 ```erlang
 {Type, FunTerm, Arg, Keep}
 ```
@@ -502,17 +496,14 @@ condition #2 above still holds.
 
 Link phases are expressed in the following form:
 
-
 ```erlang
 {link, Bucket, Tag, Keep}
 ```
-
 
 `Bucket` is either a binary name of a bucket to match, or the atom `_`,
 which matches any bucket. `Tag` is either a binary tag to match, or the
 atom `_`, which matches any tag. `Keep` has the same meaning as in map
 and reduce phases.
-
 
 > There is a small group of prebuilt Erlang MapReduce functions available
 with Riak. Check them out [on GitHub](https://github.com/basho/riak_kv/blob/master/src/riak_kv_mapreduce.erl).
@@ -561,7 +552,6 @@ Now load the data into Riak.
 ```bash
 ./load_data.erl goog.csv
 ```
-
 
 ### Map only: find the days on which the high was over $600.00
 

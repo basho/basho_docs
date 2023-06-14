@@ -30,6 +30,3 @@ or decremented, depending on whether the `increment` value is positive
 or negative. This operation can be used to update counters that are
 stored on their own in a key or [within a map]({{<baseurl>}}riak/kv/3.0.2/developing/api/protocol-buffers/dt-map-store).
 
-
-
-

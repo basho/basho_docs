@@ -21,6 +21,7 @@ To prevent the storage of data corrupted during transmission over a network, the
 *Note*: You can configure an application to use the `100-continue` HTTP status code, which sends the Request Headers prior to sending the request body. Doing so prevents sending the message body when the message is rejected based on the headers, for example, due to authentication failure or redirect).
 
 ## Access Permissions
+
 PUT Object offers the option to specify the permissions you want to grant to specific accounts or groups for the object. You can grant permissions to accounts or groups with request headers, using one of the following two methods:
 
 * Specify a predefined ACL using the x-amz-acl request header. More information about predefined ACLs is available [here](http://docs.amazonwebservices.com/AmazonS3/latest/dev/ACLOverview.html#CannedACL).

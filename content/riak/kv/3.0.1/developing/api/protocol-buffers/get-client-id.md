@@ -50,7 +50,6 @@ Hex     00 00 00 01 03
 Erlang  <<0,0,0,1,3>>
 ```
 
-
 Response
 
 ```
@@ -60,6 +59,4 @@ Erlang <<0,0,0,7,4,10,4,1,101,1,181>>
 RpbGetClientIdResp protoc decode:
 client_id: "001e001265"
 ```
-
-
 

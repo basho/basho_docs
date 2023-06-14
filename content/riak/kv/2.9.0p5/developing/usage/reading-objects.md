@@ -20,7 +20,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/usage/reading-objects/
 ---
 
-
 [glossary vnode]: {{<baseurl>}}riak/kv/2.9.0p5/learn/glossary/#vnode
 
 You can think of reads in Riak as analogous to HTTP `GET` requests. You

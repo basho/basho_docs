@@ -79,5 +79,3 @@ Content-Length: 666
 <html><body><ul><li><a href="buckets">riak_kv_wm_buckets</a></li><li><a href="/riak">riak_kv_wm_buckets</a></li><li><a href="buckets">riak_kv_wm_counter</a></li><li><a href="buckets">riak_kv_wm_index</a></li><li><a href="buckets">riak_kv_wm_keylist</a></li><li><a href="buckets">riak_kv_wm_link_walker</a></li><li><a href="/riak">riak_kv_wm_link_walker</a></li><li><a href="mapred">riak_kv_wm_mapred</a></li><li><a href="buckets">riak_kv_wm_object</a></li><li><a href="/riak">riak_kv_wm_object</a></li><li><a href="ping">riak_kv_wm_ping</a></li><li><a href="buckets">riak_kv_wm_props</a></li><li><a href="stats">riak_kv_wm_stats</a></li></ul></body></html>
 ```
 
-
-

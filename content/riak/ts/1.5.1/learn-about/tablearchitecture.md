@@ -15,25 +15,21 @@ aliases:
     - /riakts/1.5.1/learn-about/advancedplanning/
 ---
 
-
 [activating verify]: ../../using/creating-activating/#verify-creation-and-activation
 [configuring]: ../../configuring/
 [planning]: ../../using/planning
 [sql]: ../sqlriakts/
 [bestpractices]: ../bestpractices/
 
-
 This page provides more in-depth information about how Riak TS tables are structured.
 
-If you just want to get started creating a table in Riak TS, check out our quick guide to [planning your Riak TS table][planning]. 
+If you just want to get started creating a table in Riak TS, check out our quick guide to [planning your Riak TS table][planning].
 
 You may also be interested in [more information about SQL in Riak TS][sql].
-
 
 ## Riak TS Tables
 
 With Riak TS, you no longer have to build your own time series database on Riak KV. Instead, Riak TS integrates SQL structure and functionality with Riak KV key/value storage. It does this through Riak TS tables that you customize to fit your time series data and the needs of your workflow.
-
 
 ## Basic Structure of a Riak TS Table
 
@@ -56,7 +52,6 @@ We have combined the definition of the various keys and the data schema into a s
 
 Riak TS tables have a one-to-one mapping with Riak KV bucket types.
 
-
 ### Example
 
 ```sql
@@ -74,7 +69,6 @@ CREATE TABLE GeoCheckin
    )
 )
 ```
-
 
 ## Riak TS Tables in Command Line
 
@@ -130,7 +124,6 @@ The two `key_v1` entries correspond to the partition key and the local key. The 
    {param_v1,[<<"weather">>]}    <- Local Key part 4
 ]}
 ```
-
 
 ## Data Modeling
 

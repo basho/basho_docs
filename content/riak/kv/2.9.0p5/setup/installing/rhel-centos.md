@@ -25,9 +25,6 @@ aliases:
   - /riak/kv/2.9.0p4/setup/installing/rhel-centos/
 ---
 
-
-
-
 [install source index]: {{<baseurl>}}riak/kv/2.9.0p5/setup/installing/source
 [install source erlang]: {{<baseurl>}}riak/kv/2.9.0p5/setup/installing/source/erlang
 [install verify]: {{<baseurl>}}riak/kv/2.9.0p5/setup/installing/verify

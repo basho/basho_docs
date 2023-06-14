@@ -124,5 +124,3 @@ To enable AAE w/ Version 3 MDC Replication:
             ]}
 ```
 
-
-

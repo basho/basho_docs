@@ -63,6 +63,3 @@ Content-Length: 21
 {"buckets":["files"]}
 ```
 
-
-
-

@@ -37,7 +37,7 @@ ArgumentError: content_type is not defined!
 # PHP will default to cURLs default content-type for POST & PUT requests:
 #   application/x-www-form-urlencoded
 
-# If you use the StoreObject::buildJsonObject() method when building your command, 
+# If you use the StoreObject::buildJsonObject() method when building your command,
 # it will store the item with application/json as the content-type
 ```
 
@@ -185,6 +185,4 @@ curl -XPUT \
 # Please note that POST is also a valid method for writes, for the sake
 # of compatibility
 ```
-
-
 

@@ -20,7 +20,6 @@ aliases:
 [node_js_installation]: https://github.com/basho/riak-nodejs-client/wiki/Installation
 [nodejs_wiki]: https://github.com/basho/riak-nodejs-client/wiki
 
-
 If you haven't set up a Riak Node and started it, please visit [Running A Cluster]({{<baseurl>}}riak/kv/2.9.4/using/running-a-cluster) first.
 
 To try this flavor of Riak, a working installation of Node.js 0.12 or later is

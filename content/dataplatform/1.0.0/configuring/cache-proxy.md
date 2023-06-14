@@ -20,7 +20,6 @@ aliases:
 [bdp configure add services]: {{<baseurl>}}dataplatform/1.0.0/configuring/setup-a-cluster/#add-services
 [ee]: http://info.basho.com/Wiki_Riak_Enterprise_Request.html
 
-
 > Cache proxy is available to [Enterprise users only][ee].
 
 Now that you’ve [set up a Basho Data Platform cluster][bdp configure], which included [adding a service configuration for Redis and cache proxy][bdp configure add services], you’re ready to use cache proxy with any Redis client that supports the `GET` command.
@@ -53,7 +52,6 @@ Cache proxy was configured for you during the general BDP install and configurat
 
 If you skipped the configuration instructions or would otherwise like to set up a different cache proxy configuration, this section will show you how.
 
-
 ### Configuration File
 
 If you are curious about cache proxy's internal configuration or just want to look at your configuration to make sure it is correct or to see what hostname and port is being used, you can find it in `$BDP_PRIV/cache_proxy/config/cache_proxy_$CACHE_PROXY_PORT.yml`.
@@ -63,7 +61,6 @@ This level of knowledge is not necessary for normal operation, but may come in
 handy when diagnosing and resolving issues, such as a firewall rule not
 allowing ingress to the cache proxy host on the configured port.
 {{% /note %}}
-
 
 Once you've opened the file, you might find the following settings helpful:
 
@@ -184,6 +181,7 @@ Are you ready to run the read-through test? You can run it as follows:
 ```
 
 #### Exceptions
+
 If the test does not pass, verify that both Redis and cache proxy are running. You can do this by running:
 
 ```bash
@@ -220,6 +218,7 @@ sudo data-platform-admin start-service 'my-cache-group' 'my-cache-proxy'
 ```
 
 ## Using Cache Proxy
+
 Once you've successfully configured cache proxy and established a Riak KV and Redis client in the language of your choosing, you're ready to start using cache proxy.
 
 For objects that should not be cached, interact with Riak KV as usual issuing GET, PUT, and DELETE commands through the Riak client.

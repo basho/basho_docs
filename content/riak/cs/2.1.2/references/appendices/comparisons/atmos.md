@@ -17,7 +17,7 @@ aliases:
 
 The purpose of this comparison is not to serve as an introduction to Riak CS and EMC Atmos, or their commonalities, but rather to enumerate interesting differences between the two systems. This document is intended for those who already have a basic understanding of both systems.
 
-If you feel that this comparison is unfair to either of these technologies, please [submit an issue on GitHub](https://github.com/basho/basho_docs/issues/new) or send an email to **docs@basho.com**.
+If you feel that this comparison is unfair to either of these technologies, please [submit an issue on GitHub](https://github.com/basho/basho_docs/issues/new) or send us an **[email]({{<docscontactusemail>}})**.
 
 ## Feature/Capability Comparison
 
@@ -31,7 +31,7 @@ The table below gives a high-level comparison of Riak CS and Atmos features and 
     </tr>
     <tr>
         <td>Interfaces</td>
-        <td>Riak CS offers an S3-compatible interface that can be used with existing S3 clients and libraries. 
+        <td>Riak CS offers an S3-compatible interface that can be used with existing S3 clients and libraries.
     </td>
         <td>Atmos offers a REST and SOAP API, an S3-compatible API, and an Atmos SDK as well as interfaces to traditional storage solutions, including NFS/CIF and CAS.
     </td>
@@ -43,7 +43,7 @@ The table below gives a high-level comparison of Riak CS and Atmos features and 
         In Riak, by default, objects (including their manifests) are replicated 3 times in the underlying system. Riak can also be configured to store more replicas in a given site.
       </td>
         <td>EMC Atmos stores objects and their metadata separately. The
-        Metadata Service is responsible for storing all of an object's metadata, including policy and user-defined data, and for providing the object layout which is required for both writes and reads to the underlying storage service. On read, the client will connect with a Resource Management Service to talk to a Metadata Location Service, which then locates the correct Metadata Service for the object.<br />  
+        Metadata Service is responsible for storing all of an object's metadata, including policy and user-defined data, and for providing the object layout which is required for both writes and reads to the underlying storage service. On read, the client will connect with a Resource Management Service to talk to a Metadata Location Service, which then locates the correct Metadata Service for the object.<br />
         The Metadata Location Service, responsible for finding a local Metadata Service on read, is deployed on two nodes of the first rack in an EMC Atmos implementation. The Metadata Service itself is a master/slave system with a primary and secondary node. The use of a master/slave architecture for metadata services that are required for reads and writes may compromise availability in the event of hardware failure or network partition. Additionally, Atmos stores only two copies of the metadata for an object at a site, which may also cause availability problems in certain failure conditions.
         </td>
     </tr>
@@ -63,9 +63,9 @@ The table below gives a high-level comparison of Riak CS and Atmos features and 
     </tr>
   <tr>
         <td>Multi-Datacenter Replication</td>
-        <td>For multi-site replication in Riak CS, global information for users, bucket information, and manifests are streamed in real time from a primary implementation to a secondary site, so that global state is maintained across locations. Objects can then be replicated in either fullsync or realtime sync mode. The secondary site will replicate the object as in normal operations. Additional datacenters can be added in order to create availability zones or additional data redundancy and locality. Riak CS can also be configured for bi-directional replication. 
+        <td>For multi-site replication in Riak CS, global information for users, bucket information, and manifests are streamed in real time from a primary implementation to a secondary site, so that global state is maintained across locations. Objects can then be replicated in either fullsync or realtime sync mode. The secondary site will replicate the object as in normal operations. Additional datacenters can be added in order to create availability zones or additional data redundancy and locality. Riak CS can also be configured for bi-directional replication.
     </td>
-        <td>In EMC Atmos, object replication to secondary sites is done via synchronous or asynchronous replication configured by policies. These policies are implemented as part of the Metadata Service. A read-only copy of the metadata is maintained at secondary sites.    
+        <td>In EMC Atmos, object replication to secondary sites is done via synchronous or asynchronous replication configured by policies. These policies are implemented as part of the Metadata Service. A read-only copy of the metadata is maintained at secondary sites.
    </td>
     </tr>
 </table>

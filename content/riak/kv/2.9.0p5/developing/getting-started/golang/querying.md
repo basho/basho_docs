@@ -23,7 +23,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/getting-started/golang/querying/
 ---
 
-
 ## Go Version Setup
 
 For the Go version, please download the source from GitHub by either [cloning](https://github.com/basho/taste-of-riak) the source code repository or downloading the [current zip of the master branch](https://github.com/basho/taste-of-riak/archive/master.zip). Ensure that the source is located in your `GOPATH`. The code for this chapter is in `go/ch02/ch02.go`. You may import this code into your favorite editor, or just run it from the command line using the `Makefile` if you are running on a *nix* OS.
@@ -418,8 +417,7 @@ Which returns our amalgamated objects:
 2015/12/29 09:44:10 Customer     1: {"Name":"John Smith","Address":"123 Main Street","City":"Columbus","State":"Ohio","Zip":"43210","Phone":"+1-614-555-5555","CreatedDate":"2013-10-01T14:30:26Z"
 ```
 
-While this pattern is very easy and extremely fast with respect to queries and complexity, it's up to the application to know about these intrinsic relationships.  
-
+While this pattern is very easy and extremely fast with respect to queries and complexity, it's up to the application to know about these intrinsic relationships.
 
 ### Secondary Indexes
 
@@ -545,7 +543,7 @@ Which returns:
 
 Jane processed orders 1 and 3.  We used an *integer* index to reference Jane's id, next let's use a *binary* index.
 
-Let's say that the VP of Sales wants to know how many orders came in during October 2013. In this case, we can exploit 2i's range queries. Let's search the `order_date_bin` index for entries between `20131001` and `20131031`:  
+Let's say that the VP of Sales wants to know how many orders came in during October 2013. In this case, we can exploit 2i's range queries. Let's search the `order_date_bin` index for entries between `20131001` and `20131031`:
 
 ```golang
 cmd, err = riak.NewSecondaryIndexQueryCommandBuilder().
@@ -574,7 +572,7 @@ Which returns:
 2015/12/29 09:44:10 October's Orders, key:  2
 ```
 
-Easy!  We used 2i's range feature to search for a range of values, and demonstrated binary indexes.  
+Easy!  We used 2i's range feature to search for a range of values, and demonstrated binary indexes.
 
 So to recap:
 

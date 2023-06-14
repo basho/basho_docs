@@ -53,7 +53,7 @@ List of multiple sinks with separate times in minutes:
     {fullsync_interval, [
         {"sink_boston", 120},  %% fullsync to sink_boston with run every 120 minutes
         {"sink_newyork", 90}]} %% fullsync to sink_newyork with run every 90 minutes
-  
+
     ]}
 ```
 
@@ -67,6 +67,4 @@ Additional fullsync stats per sink have been added in Riak.
   specified cluster began.
 * `last_fullsync_duration` &mdash; The duration (in seconds) of the last
   completed fullsync.
-
-
 

@@ -335,5 +335,3 @@ behave just as a cluster would. Running multiple clusters on one
 computer is simply a matter of having two or more distinct nodes or
 groups of clustered nodes.
 
-
-

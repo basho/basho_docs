@@ -19,16 +19,13 @@ aliases:
     - /riak/ts/1.3.0/installing/aws-marketplace/
 ---
 
-
 [AWS]: http://aws.amazon.com
 [download]: ../../downloads/
 [ec2 guide]: http://docs.amazonwebservices.com/AWSEC2/latest/UserGuide/AccessingInstances.html
 [security basics]: {{<baseurl>}}riak/kv/2.1.4/using/security/basics
 
-
 Riak TS can be installed on AWS virtual machines (VMs) using a binary
 package available [here][download]. This page will walk you through the process of setting up your AWS environment and installing Riak TS on it.
-
 
 ## Launch Riak VMs via the AWS Marketplace
 
@@ -43,7 +40,6 @@ Get started by launching a Riak TS virtual machine via the AWS Marketplace. (You
     ![AWS Marketplace Instance Settings]({{<baseurl>}}images/aws-marketplace-settings.png)
 
 4. Then click the **Accept Terms and Launch with 1-Click** button.
-
 
 ### Security Group Settings
 
@@ -67,8 +63,7 @@ Once the virtual machine is created, you should verify that your selected EC2 se
 
     ![EC2 Security Group Settings]({{<baseurl>}}images/aws-marketplace-security-group.png)
 
-We also recommend that you read more about [Security and Firewalls][security basics]. 
-
+We also recommend that you read more about [Security and Firewalls][security basics].
 
 ## Create a Riak Cluster on AWS
 
@@ -77,7 +72,6 @@ You will need need to launch at least 3 instances to form a Riak cluster.  When 
 You can find more information on connecting to an instance on the official [Amazon EC2 instance guide][ec2 guide].
 
 >Note: The following clustering setup will not be resilient to instance restarts unless deployed in Amazon VPC.
-
 
 1. On the first node, obtain the internal IP address:
 
@@ -111,7 +105,6 @@ You can find more information on connecting to an instance on the official [Amaz
 
 You now have a Riak cluster running on AWS.
 
-
 ## Configure riak shell
 
 In order to function, riak shell must know about each node in the cluster.
@@ -143,11 +136,11 @@ In order to function, riak shell must know about each node in the cluster.
     sudo riak-shell
     ```
 
-    You should see a riak shell prompt:    
+    You should see a riak shell prompt:
     ```bash
-    [ec2-user ~]$ sudo riak-shell 
+    [ec2-user ~]$ sudo riak-shell
     Erlang R16B02_basho10 (erts-5.10.3) [source] [64-bit] [smp:2:2] [async-threads:10] [hipe] [kernel-poll:false] [frame-pointer]
-    
+
     version "riak_shell 0.9/sql 1.3", use 'quit;' or 'q;' to exit or 'help;' for helpConnected...
     riak-shell(1)>
     ```

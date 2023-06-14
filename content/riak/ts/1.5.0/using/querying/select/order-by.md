@@ -30,7 +30,6 @@ You may adjust various parameters in [riak.conf]({{<baseurl>}}riak/ts/1.5.0/conf
 However, the most effective means of speeding up your `ORDER BY` queries is to place the query buffer directory (`timeseries_query_buffers_root_path`) on fast storage or in memory-backed /tmp directory.
 {{% /note %}}
 
-
 ## Overview
 
 The ORDER BY statement sorts results according to the specified column(s) and any optional keywords or clauses used.
@@ -47,7 +46,7 @@ Note that when using `LIMIT`, the `max_returned_data_size` is calculated differe
 
 ### Options
 
-The following keywords can be appended to `ORDER BY` to further sort results: 
+The following keywords can be appended to `ORDER BY` to further sort results:
 
 #### `ASC`
 
@@ -58,7 +57,7 @@ Sort results in ascending order. This is the default if no order is specified.
 {{% note title="Relationship of ASC/DESC qualifiers in `ORDER BY` vs DDL" %}}
 A DESC qualifier (express or implied) used in the DDL has no effect on the sorting order applied during `ORDER BY`. That is, given a DDL where column X appears in the primary key definition with a DESC qualifier, a `SELECT .. ORDER BY _X_` (where `ASC` is implied) will still have X ASC-ordered.
  {{% /note %}}
- 
+
 [Example](#ascending)
 
 #### `DESC`
@@ -93,11 +92,9 @@ Skip a specified number of results first and then return remaining results.
 
 [Example](#offset-results)
 
-
 {{% note title="WARNING" %}}
 Before you run `SELECT` you must ensure the node issuing the query has adequate memory to receive the response. If the returning rows do not fit into the memory of the requesting node, the node is likely to fail.
 {{% /note %}}
-
 
 ## Examples
 

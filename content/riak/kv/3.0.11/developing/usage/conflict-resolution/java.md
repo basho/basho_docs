@@ -271,6 +271,3 @@ is analogous to the resolution logic that is built into Riak sets. For
 more information on how you could potentially replace the client-side
 resolution that we implemented above, see our [tutorial on Riak sets]({{<baseurl>}}riak/kv/3.0.11/developing/data-types/#sets).
 
-
-
-

@@ -19,7 +19,6 @@ aliases:
 [plan backend memory]: {{<baseurl>}}riak/kv/3.0.8/setup/planning/backend/memory
 [use ref strong consistency]: {{<baseurl>}}riak/kv/3.0.8/using/reference/strong-consistency
 
-
 ## Features
 
 * Allows two types of secondary attributes: integers and strings (aka
@@ -2000,7 +1999,4 @@ curl -XPOST localhost:8098/mapred\
 }
 EOF
 ```
-
-
-
 

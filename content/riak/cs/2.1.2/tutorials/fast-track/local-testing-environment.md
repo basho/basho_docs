@@ -157,7 +157,6 @@ sudo dpkg -i <stanchion-package.deb>
 Replace `<stanchion-package.deb>` with the actual filename for the
 package you are installing.
 
-
 ### Step 3: Set service configurations and start the services
 
 You will need to make changes to several configuration files.
@@ -168,6 +167,7 @@ Be sure the storage backend is not set:
 
 ```riakconf
 ## Delete this line
+
 storage_backend = . . .
 ```
 
@@ -175,6 +175,7 @@ And that the default bucket properties allow siblings:
 
 ```riakconf
 ## Append this line at the end of the file
+
 buckets.default.allow_mult = true
 ```
 

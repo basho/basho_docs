@@ -99,7 +99,6 @@ frontend riak_rest
        option             contstats
        default_backend    riak_rest_backend
 
-
 backend riak_protocol_buffer_backend
        balance            leastconn
        mode               tcp
@@ -109,7 +108,6 @@ backend riak_protocol_buffer_backend
        server riak2 riak2.<FQDN>:8087 weight 1 maxconn 1024  check
        server riak3 riak3.<FQDN>:8087 weight 1 maxconn 1024  check
        server riak4 riak4.<FQDN>:8087 weight 1 maxconn 1024  check
-
 
 frontend riak_protocol_buffer
        bind               127.0.0.1:8087
@@ -269,6 +267,4 @@ queries over HTTP by adding the following directive to the appropriate
 ```
 underscores_in_headers on;
 ```
-
-
 

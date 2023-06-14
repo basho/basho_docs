@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/setup/planning/bitcask-capacity-calc/
 ---
 
-
 [plan backend bitcask]: {{<baseurl>}}riak/kv/2.9.0p5/setup/planning/backend/bitcask
 
 These calculators will assist you in sizing your cluster if you plan to

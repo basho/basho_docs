@@ -20,9 +20,10 @@ aliases:
   - /riak/2.0.0/dev/advanced/community-projects/
 ---
 
-Here are all projects that have come about out of community contribution. [Let us know](mailto:community@basho.com) if you choose to maintain one of them!
+Here are all projects that have come about out of community contribution. [Let us know]({{<communityemail>}}) if you choose to maintain one of them!
 
 ## Install and Configure
+
 Here are the many recommended ways to get Riak KV started in your environment.
 
 * All pre-built packages at Basho are managed on [PackageCloud](https://packagecloud.io/basho/)
@@ -34,15 +35,18 @@ Here are the many recommended ways to get Riak KV started in your environment.
 * [Riak Mesos Framework](https://github.com/basho-labs/riak-mesos) is an experimental beta project that deploys Riak KV on top of Mesosphere's DCOS. See how it works with [this demo](http://basho-labs.github.io/riak-mesos/).
 
 ### Local Development
+
 There are a number of tools to get Riak running on your local system.
 
 * [The Riak App](https://github.com/basho-labs/riak-app) is an OS X application to run Riak KV on a Mac
 * [Vagrant-riak-meta](https://github.com/basho-labs/vagrant-riak-meta) is a collection of Vagrantfiles to spin up different versions of Riak on  your laptop using Hashicorp's [Vagrant](http://vagrantup.com)
 
 ## Sample Applications
+
 This a collection of sample applications built on Riak and Riak Core.
 
 ### Riak
+
 * [Zombie Riak](https://github.com/basho-labs/vagrant-zombie-riak) is an implementation of inverted-indexes to fight off the zombie apocalypse
 * [Dynamiq](https://github.com/tapjoy/dynamiq) is a message queue powered by Riak KV and written in Golang. [Read more](http://basho.com/posts/technical/built-on-riak-dynamiq-by-tapjoy/) about it
 * [Notification](https://github.com/smoketurner/notification/) is an HTTP-based notification web service, based on Yammer's Streamie service, written in Java on top of Riak KV
@@ -80,7 +84,8 @@ Here are some known **most active** contributions from the community.
 * [riak-tools](https://github.com/sqor/riak-tools) is an easy way to backup Riak KV clusters running on AWS
 
 ## Other Tools and Projects
-Some projects have lost its maintainer with time. Here are all projects that haven't seen commits in quite a while and may be helpful as reference. [Let us know](mailto:community@basho.com) if you choose to maintain one of them!
+
+Some projects have lost its maintainer with time. Here are all projects that haven't seen commits in quite a while and may be helpful as reference. [Let us know]({{<communityemail>}}) if you choose to maintain one of them!
 
 * [Brackup](http://code.google.com/p/brackup/) --- A modern net-based backup system that supports de-duplication, intelligent chunking, and [GPG](http://en.wikipedia.org/wiki/GNU_Privacy_Guard)-based-encryption
 * [riak_mapreduce_utils](http://github.com/whitenode/riak_mapreduce_utils) --- A library of mapreduce utility functions developed in Erlang

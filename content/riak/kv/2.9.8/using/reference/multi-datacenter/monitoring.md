@@ -50,7 +50,6 @@ graphing of realtime replication statistics:
 * Have any errors occurred on either the source or sink cluster?
 * Have any objects been dropped from the realtime queue?
 
-
 #### Is the realtime replication queue backed up?
 
 Identifying times when the realtime replication queue experiences
@@ -165,7 +164,4 @@ It's important to note that each node in a cluster has its own realtime
 replication queue. The general process needs to be applied to every
 node in the source cluster, with a variety of canary objects and states,
 to get a complete picture of realtime replication between two clusters.
-
-
-
 

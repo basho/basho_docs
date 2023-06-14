@@ -20,7 +20,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/reference/bucket-types/
 ---
 
-
 Bucket types allow groups of buckets to share configuration details and
 for Riak users to manage bucket properties more efficiently than in the
 older configuration system based on [bucket properties]({{<baseurl>}}riak/kv/2.9.0p5/developing/usage/bucket-types/#bucket-properties-and-operations).
@@ -124,7 +123,6 @@ object of the following form:
   }
 }
 ```
-
 
 > **Getting started with Riak clients**
 >

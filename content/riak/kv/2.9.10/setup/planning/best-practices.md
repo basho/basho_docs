@@ -140,5 +140,3 @@ This process is explored in more detail in [Adding and Removing Nodes][cluster o
   network connections to keep network and IO below 90% and CPU below
   30%.
 
-
-

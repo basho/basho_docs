@@ -30,5 +30,5 @@ message RpbYokozunaIndexDeleteReq {
 ```
 
 ## Response
- 
+
  Returns a [RpbDelResp]({{<baseurl>}}riak/kv/2.0.7/developing/api/protocol-buffers/#message-codes) code with no data on success.

@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/reference/custom-code/
 ---
 
-
 Riak supports the use of Erlang named functions in compiled modules for
 [pre/post-commit hooks]({{<baseurl>}}riak/kv/2.9.0p5/developing/usage/commit-hooks), and MapReduce operations. This
 doc contains installation steps with simple examples for each use case.

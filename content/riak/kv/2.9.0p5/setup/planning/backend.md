@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/setup/planning/backend/
 ---
 
-
 [plan backend bitcask]: {{<baseurl>}}riak/kv/2.9.0p5/setup/planning/backend/bitcask
 [plan backend leveldb]: {{<baseurl>}}riak/kv/2.9.0p5/setup/planning/backend/leveldb
 [plan backend memory]: {{<baseurl>}}riak/kv/2.9.0p5/setup/planning/backend/memory

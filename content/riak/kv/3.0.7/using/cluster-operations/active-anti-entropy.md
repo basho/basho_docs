@@ -169,8 +169,6 @@ By default, data related to AAE operations is stored in the
 `./data/anti_entropy` directory in each Riak node. This can be changed
 by setting the `anti_entropy.data_dir` parameter to a different value.
 
-
-
 ### Bloom Filters
 
 Bloom filters are mechanisms used to prevent reads that are destined to
@@ -223,10 +221,6 @@ concurrently. The default is `2`.
 The `anti_entropy.max_open_files` parameter sets an open-files limit for
 AAE-related background tasks, analogous to [open files limit](../../performance/open-files-limit) settings used in operating systems. The default is `20`.
 
-
 The output from that command can be interpreted just like the output
 discussed in the section on [monitoring](#monitoring-aae) above.
-
-
-
 

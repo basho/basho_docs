@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/usage/secondary-indexes/
 ---
 
-
 [plan backend leveldb]: {{<baseurl>}}riak/kv/2.9.0p5/setup/planning/backend/leveldb
 [plan backend memory]: {{<baseurl>}}riak/kv/2.9.0p5/setup/planning/backend/memory
 [use ref strong consistency]: {{<baseurl>}}riak/kv/2.9.0p5/using/reference/strong-consistency

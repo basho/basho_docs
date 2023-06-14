@@ -68,15 +68,9 @@ Tutorial on configuring and tuning MapReduce for a cluster.
 
 [Learn More >>][config mapreduce]
 
-
 #### [V3 Multi-Datacenter][config v3 mdc]
 
 A guide on configuring Riak's V3 Multi-Datacenter Replication
 
 [Learn More >>][config v3 mdc]
-
-
-
-
-
 

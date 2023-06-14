@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/setup/planning/backend/multi/
 ---
 
-
 [concept buckets]: {{<baseurl>}}riak/kv/2.9.0p5/learn/concepts/buckets
 [plan backend bitcask]: {{<baseurl>}}riak/kv/2.9.0p5/setup/planning/backend/bitcask
 [plan backend leveldb]: {{<baseurl>}}riak/kv/2.9.0p5/setup/planning/backend/leveldb

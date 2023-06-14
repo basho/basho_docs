@@ -19,7 +19,6 @@ aliases:
 [plan backend memory]: {{<baseurl>}}riak/kv/3.0.4/setup/planning/backend/memory
 [use ref strong consistency]: {{<baseurl>}}riak/kv/3.0.4/using/reference/strong-consistency
 
-
 Secondary indexes (2i) in Riak enable you to tag objects stored in Riak,
 at write time, with one or more queryable values. Those values can then
 be used to find multiple objects in Riak. If you're storing [user data]({{<baseurl>}}riak/kv/3.0.4/developing/data-modeling/#user-accounts), for example, you could tag each object
@@ -28,7 +27,6 @@ tagged, you could find all objects in a Riak bucket sharing that tag.
 Secondary indexes can be either a binary or string, such as
 `sensor_1_data` or `admin_user` or `click_event`, or an integer, such as
 `99` or `141121`.
-
 
 Please note that 2i can be used only with the [LevelDB][plan backend leveldb] and [Memory][plan backend memory]
 backends.
@@ -2013,7 +2011,4 @@ curl -XPOST localhost:8098/mapred\
 }
 EOF
 ```
-
-
-
 

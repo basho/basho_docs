@@ -99,7 +99,6 @@ This code will force all keys in each partition on a node to be reread, thus reb
 
 5. When you're done, press `Ctrl-D` to disconnect the console. DO NOT RUN q() which will cause the running Riak node to quit. Note that `Ctrl-D` merely disconnects the console from the service, it does not stop the code from running.
 
-
 ### Monitoring a Repair
 
 The above Repair command can be slow, so if you reattach to the console, you can run the repair_status function. You can use the `Partitions` variable defined above to get the status of every partition.
@@ -166,7 +165,7 @@ find . -name "LOG" -exec grep -l 'Compaction error' {} \;
 If there are compaction errors in any of your vnodes, those will be listed in the console. If any vnode has experienced such errors, you would see output like this:
 
 ```
-./442446784738847563128068650529343492278651453440/LOG 
+./442446784738847563128068650529343492278651453440/LOG
 ```
 
 {{% note title="Note" %}}
@@ -194,11 +193,11 @@ You can fire up the shell by running the `erl` command. To ensure that you start
 Once you're in the shell, run the following command:
 
 ```erlang
-[application:set_env(eleveldb, Var, Val) || {Var, Val} <- 
-    [{max_open_files, 2000}, 
-     {block_size, 1048576}, 
-     {cache_size, 20*1024*1024*1024}, 
-     {sync, false}, 
+[application:set_env(eleveldb, Var, Val) || {Var, Val} <-
+    [{max_open_files, 2000},
+     {block_size, 1048576},
+     {cache_size, 20*1024*1024*1024},
+     {sync, false},
      {data_root, ""}]].
 ```
 
@@ -322,7 +321,6 @@ the `nodename` parameter.
     that loops over each `{Partition, Node}` tuple in the ring and
     extracts only the partitions that match the given node name, as a
     list.
-
 
 4. Execute the repair on all the partitions. Executing the repairs all
 at once will cause a lot of `{shutdown, max_concurrency}` messages in

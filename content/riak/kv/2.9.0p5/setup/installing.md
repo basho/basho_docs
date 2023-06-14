@@ -25,7 +25,6 @@ aliases:
   - /riak/kv/2.9.0p4/setup/installing/
 ---
 
-
 [install aws]: {{<baseurl>}}riak/kv/2.9.0p5/setup/installing/amazon-web-services
 [install debian & ubuntu]: {{<baseurl>}}riak/kv/2.9.0p5/setup/installing/debian-ubuntu
 [install freebsd]: {{<baseurl>}}riak/kv/2.9.0p5/setup/installing/freebsd

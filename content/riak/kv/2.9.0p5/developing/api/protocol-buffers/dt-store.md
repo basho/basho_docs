@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/api/protocol-buffers/dt-store/
 ---
 
-
 A request to update the value of a [Riak Data Type]({{<baseurl>}}riak/kv/2.9.0p5/developing/data-types).
 
 ## Request

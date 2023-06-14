@@ -20,7 +20,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/cluster-operations/logging/
 ---
 
-
 If you'd like to enable debug logging on the current node, i.e. set the
 console log level to `debug`, you can do so without restarting the node
 by accessing the Erlang console directly using the [`riak attach`]({{<baseurl>}}riak/kv/2.9.0p5/using/admin/riak-cli/#attach) command. Once you run this command and drop into the console, enter the following:

@@ -66,5 +66,3 @@ module, which allows you to perform a variety of cluster metadata
 operations, including retrieving, modifying, and deleting metadata and
 iterating through metadata keys.
 
-
-

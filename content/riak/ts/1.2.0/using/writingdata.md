@@ -18,9 +18,7 @@ aliases:
 [planning]: ../planning/
 [querying]: ../querying/
 
-
 Now that you've [planned][planning] and [activated][activating] your Riak TS table, you are ready to write data to it.
-
 
 ## Writing Data
 
@@ -43,7 +41,6 @@ CREATE TABLE GeoCheckin
 
 To write data to your table, put the data in a list:
 
-
 ```erlang
 {ok, Pid} = riakc_pb_socket:start_link("myriakdb.host", 10017).
 riakc_ts:put(Pid, "GeoCheckin", [[<<"family1">>, <<"series1">>, 1234567, <<"hot">>, 23.5], [<<"family2">>, <<"series99">>, 1234567, <<"windy">>, 19.8]]).
@@ -57,31 +54,31 @@ import com.basho.riak.client.api.commands.timeseries.Store;
 import com.basho.riak.client.core.query.timeseries.*;
 import java.util.*;
 public class RiakTSInsert {
-  public static void main(String [] args) 
+  public static void main(String [] args)
     throws UnknownHostException, ExecutionException, InterruptedException
-  { 
-    // Riak Client with supplied IP and Port 
-    RiakClient client = RiakClient.newClient(10017, "myriakdb.host"); 
+  {
+    // Riak Client with supplied IP and Port
+    RiakClient client = RiakClient.newClient(10017, "myriakdb.host");
     List<Row> rows = Arrays.asList(
       new Row(
-        new Cell("family1"), 
-        new Cell("series1"), 
-        Cell.newTimestamp(1234567), 
-        new Cell("hot"), 
+        new Cell("family1"),
+        new Cell("series1"),
+        Cell.newTimestamp(1234567),
+        new Cell("hot"),
         new Cell(23.5)
-      ), 
+      ),
       new Row(
-        new Cell("family2"), 
-        new Cell("series99"), 
-        Cell.newTimestamp(1234567), 
-        new Cell("windy"), 
+        new Cell("family2"),
+        new Cell("series99"),
+        Cell.newTimestamp(1234567),
+        new Cell("windy"),
         new Cell(19.8)
       )
-    ); 
+    );
 
-    Store storeCmd = new Store.Builder("GeoCheckin").withRows(rows).build(); 
-    client.execute(storeCmd); 
-    client.shutdown(); 
+    Store storeCmd = new Store.Builder("GeoCheckin").withRows(rows).build();
+    client.execute(storeCmd);
+    client.shutdown();
   }
 }
 ```
@@ -154,7 +151,7 @@ client.execute(store);
 >
 >Riak TS 1.1.0 validates all rows on the server side before writing occurs, checking the number of row elements and types. If any of the rows fails validation then none of the rows will be written.  An error message will be returned with the index numbers of the invalid rows in the batch. The first item in the batch being index one.
 
-Depending on your client, you will receive different messages indicating whether or not your write was successful. 
+Depending on your client, you will receive different messages indicating whether or not your write was successful.
 
 Successful responses:
 
@@ -164,10 +161,10 @@ Successful responses:
 * Ruby - `void`, not raising an error indicates a successful write
 * Node.js - `true`
 
-Failure responses: 
+Failure responses:
 
 * Erlang - `RpbErrorResp`
-* Java - exceptions will be thrown 
+* Java - exceptions will be thrown
 * Python - exceptions will be thrown
 * Ruby - `RpbErrorResp` with errors
 * Node.js - The `err` callback parameter will have information, and the `response` parameter will be `false`
@@ -175,7 +172,7 @@ Failure responses:
 In the event that your write fails, you should check the error message to see which rows failed validation. For example:
 
 ```
-RiakClient client = RiakClient.newClient(10017, "myriakdb.host"); 
+RiakClient client = RiakClient.newClient(10017, "myriakdb.host");
 List<Row> someRows = Arrays.asList(
         // Good Row
         new Row(new Cell("hash1"), new Cell("user1"), Cell.newTimestamp(1234567), new Cell("cloudy"), new Cell(79.0)),
@@ -195,13 +192,11 @@ System.out.println(storeFuture.cause().detailMessage);
 
 You could also try the original write again. Failures may be transitory when servers are temporarily unable to talk to each other.
 
-
 ### Guidelines
 
 * Batches should not be too large. In our testing, 100 rows per write is a sweet spot, but you should expect different results depending on your hardware and schema.
 * Writes will assume that columns are in the same order they've been declared in the table.
 * Timestamps should be in Unix epoch/UTC milliseconds.
-
 
 ## Deleting Data
 

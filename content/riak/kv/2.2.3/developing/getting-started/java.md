@@ -15,8 +15,6 @@ aliases:
   - /riak/kv/2.2.3/dev/taste-of-riak/java
 ---
 
-
-
 If you haven't set up a Riak Node and started it, please visit [Running A Cluster]({{<baseurl>}}riak/kv/2.2.3/using/running-a-cluster) first.
 
 To try this flavor of Riak, a working installation of Java is required.

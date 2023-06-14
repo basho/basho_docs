@@ -21,8 +21,6 @@ aliases:
   - /riak/kv/2.9.0p4/add-ons/redis/
 ---
 
-
-
 [addon redis develop]: ./developing-rra/
 [addon redis features]: ./redis-add-on-features/
 [addon redis setup]: ./set-up-rra/

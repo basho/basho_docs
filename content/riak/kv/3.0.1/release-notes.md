@@ -20,7 +20,6 @@ aliases:
 
 Released Aug 20, 2020.
 
-
 ## Overview
 
 This major release allows Riak to run on OTP versions 20, 21 and 22 - but is not fully backwards-compatible with previous releases. Some limitations and key changes should be noted:
@@ -44,7 +43,4 @@ This major release allows Riak to run on OTP versions 20, 21 and 22 - but is not
 ## Previous Release Notes
 
 Please see the KV 2.9.7 release notes [here]({{<baseurl>}}riak/kv/2.9.7/release-notes/), the KV 2.9.4 release notes [here]({{<baseurl>}}riak/kv/2.9.4/release-notes/), and the KV 2.9.1 release notes [here]({{<baseurl>}}riak/kv/2.9.1/release-notes/).
-
-
-
 

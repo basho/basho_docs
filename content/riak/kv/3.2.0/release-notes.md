@@ -19,7 +19,6 @@ aliases:
 
 Released Dec 29, 2022.
 
-
 ## Overview
 
 This release is an OTP uplift release. Whereas release 3.0.1 supports OTP 22; the intention is for Release 3.2.n to support OTP 22, OTP 24, and OTP 25. There are potential throughput benefits of up to 10% when using OTP 24/25 rather than OTP 22 where load is CPU bound. OTP 25 is currently the preferred platform for this release.
@@ -41,8 +40,4 @@ In this release, tagging of individual dependencies has not been used. Building 
 ## Previous Release Notes
 
 Please see the KV 3.0.12 release notes [here]({{<baseurl>}}riak/kv/3.0.12/release-notes/).
-
-
-
-
 

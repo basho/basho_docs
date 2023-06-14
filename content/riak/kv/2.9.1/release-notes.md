@@ -19,7 +19,6 @@ aliases:
 
 Released Feb 15, 2020.
 
-
 ## Overview
 
 This release adds a number of features built on top of the Tictac AAE feature made available in 2.9.0. The new features depend on Tictac AAE being enabled, but are backend independent. The primary features of the release are:
@@ -33,7 +32,6 @@ This release adds a number of features built on top of the Tictac AAE feature ma
 * A version uplift of the internal ibrowse client, a minor riak_dt fix to resolve issues of unit test reliability, a fix to help build (the now deprecated) erlang_js in some environments, and the removal of hamcrest as a dependency.
 
 [Previous Release Notes](#previous-release-notes)
-
 
 ## Previous Release Notes
 

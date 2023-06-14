@@ -31,7 +31,7 @@ Each node in `riak_kv` starts three processes that manage the inter-cluster repl
 
 * __Tictac AAE Full-Sync Manager__ - `riak_kv_ttaaefs_manager`
 
-  * There is a single actor on each node that manages the full-sync reconciliation workload configured for that node.  
+  * There is a single actor on each node that manages the full-sync reconciliation workload configured for that node.
 
   * Each node is configured with the details of a peer node at a remote cluster.  Each manager is responsible for controlling cluster-wide hashtree exchanges between the local node and the peer node, and to prompt any repairs required across the cluster (not just on this node).  The information is exchanged between the peers, but that information represents the data across the whole cluster.  Necessary repairs are prompted through the replication queue source-side manager `riak_kv_replrtq_src`.
 
@@ -81,7 +81,7 @@ Each node in `riak_kv` starts three processes that manage the inter-cluster repl
   * The `riak_kv_replrtq_snk` manages a finite number of workers for consuming from remote peers.  The `riak_kv_replrtq_snk` tracks the results of work in order to back-off slightly from peers regularly not returning results to consume requests (in favour of those peers indicating a backlog by regularly returning results).  The `riak_kv_replrtq_snk` also tracks the results of work in order to back-off severely from those peers returning errors (so as not to lock too many workers consuming from unreachable nodes).
 
   * The administrator may at run-time suspend or resume the consuming of data from specific queues or peers via the `riak_kv_replrtq_snk`.
-  
+
 ### Real-time Replication - Step by Step
 
 Previous replication implementations initiate replication through a post-commit hook.  Post-commit hooks are fired from the `riak_kv_put_fsm` after "enough" responses have been received from other vnodes (based on n, w, dw and pw values for the PUT).  Without enough responses, the replication hook is not fired, although the client should receive an error and retry. This process of retrying may eventually fire the hook - although it is possible for a PUT to fail, the hook not to be fired, but a GET be locally successful (due to read-repair and anti-entropy) and there be no clue that the object has not been replicated.
@@ -90,7 +90,7 @@ In implementing the new replication solution, the point of firing off replicatio
 
 Replication is fired within the `riak_kv_vnode` `actual_put/8`.  On condition of the vnode being a co-ordinator of the put, and of `riak_kv.replrtq_enablesrc` being set to enabled (true), the following work is done:
 
-- The object reference to be replicated is determined, this is the type of reference to be placed on the replication queue.  
+- The object reference to be replicated is determined, this is the type of reference to be placed on the replication queue.
 
   - If the object is now a tombstone, the whole object is used as the replication reference.  The whole object is used due to the small size of the object, and the need to avoid race conditions with reaping activity if `delete_mode` is not `keep` - the cluster may not be able to fetch the tombstone to replicate in the future.  The whole object must be kept on the queue and not be filtered by the `riak_kv_replrtq_src` to be replaced with a `to_fetch` reference.
 
@@ -125,7 +125,6 @@ On receipt of the `fetch` request the source node should:
   - The code within the `riak_client:push/4` follows the behaviour of the existing `riak_repl` on receipt of a replicated object.
 
 - If the fetch and push request fails, the sink worker will report this back to the `riak_kv_replrtq_snk` which should delay further requests to that node/queue so as to avoid rapidly locking sink workers up communicating to a failing node.
-
 
 ### Full-Sync Reconciliation and Repair - Step by Step
 

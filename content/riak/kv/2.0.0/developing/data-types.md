@@ -224,7 +224,6 @@ UpdateMap update = new UpdateMap.Builder(ahmedMap, removePaidAccountField)
 client.execute(update);
 ```
 
-
 ```php
 $map = (new \Basho\Riak\Command\Builder\FetchMap($riak))
     ->atLocation($location)

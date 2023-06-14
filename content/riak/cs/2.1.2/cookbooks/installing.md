@@ -23,7 +23,7 @@ You can install Riak CS on a single node (for development purposes) or
 using an automated deployment tool. Any Riak CS installation involves
 three components, all of which must be installed separately:
 
-* [Riak KV]({{<baseurl>}}riak/kv/2.1.4/) --- The distributed database on top of which Riak CS 
+* [Riak KV]({{<baseurl>}}riak/kv/2.1.4/) --- The distributed database on top of which Riak CS
 is built
 * Riak CS itself
 * [Stanchion]({{<baseurl>}}riak/cs/2.1.2/theory/stanchion) --- An application used to manage [globally unique entities]({{<baseurl>}}riak/cs/2.1.2/theory/stanchion/#globally-unique-entities) such as users and buckets.
@@ -32,7 +32,7 @@ is built
 
 ## Version Compatibility
 
-We strongly recommend using one of the documented [version combinations]({{<baseurl>}}riak/cs/2.1.2/cookbooks/version-compatibility/) 
+We strongly recommend using one of the documented [version combinations]({{<baseurl>}}riak/cs/2.1.2/cookbooks/version-compatibility/)
 when installing and running Riak CS.
 
 ## Installing Riak KV
@@ -171,7 +171,6 @@ sudo apt-get install riak-cs
 ```
 
 ### Installing Riak CS on RHEL or CentOS
-
 
 On RHEL or CentOS, Riak CS packages are hosted on
 [packagecloud.io](https://packagecloud.io/basho/riak-cs). Instructions

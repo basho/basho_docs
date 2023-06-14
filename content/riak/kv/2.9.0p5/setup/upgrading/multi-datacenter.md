@@ -21,7 +21,6 @@ aliases:
   - /riak/kv/2.9.0p4/setup/upgrading/multi-datacenter/
 ---
 
-
 ## TODO
 
 How to update to a new version with multi-datacenter.

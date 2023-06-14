@@ -15,7 +15,6 @@ aliases:
   - /riak/kv/2.0.1/theory/why-riak/
 ---
 
-
 [apps replication properties]: {{<baseurl>}}riak/kv/2.0.1/developing/app-guide/replication-properties
 [Basho Bench]: {{<baseurl>}}riak/kv/2.0.1/using/performance/benchmarking
 [cluster ops strong consistency]: {{<baseurl>}}riak/kv/2.0.1/using/cluster-operations/strong-consistency
@@ -24,7 +23,6 @@ aliases:
 [Datomic]: http://www.datomic.com/overview.html
 [dev data types]: {{<baseurl>}}riak/kv/2.0.1/developing/data-types
 [glossary read rep]: {{<baseurl>}}riak/kv/2.0.1/learn/glossary/#read-repair
-
 
 ## What is Riak?
 

@@ -24,7 +24,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/usage/document-store/
 ---
 
-
 Although Riak wasn't explicitly created as a document store, two
 features recently added to Riak---[Riak Search]({{<baseurl>}}riak/kv/2.9.0p5/developing/usage/search/) and [Riak Data Types]({{<baseurl>}}riak/kv/2.9.0p5/developing/data-types/)---make it possible to use Riak as a
 highly scalable document store with rich querying capabilities. In this
@@ -366,7 +365,7 @@ class BlogPost {
   public function store()
   {
     $setBuilder = (new /Basho/Riak/Command/Builder/UpdateSet($this->riak));
-      
+
     foreach($this->keywords as $keyword) {
       $setBuilder->add($keyword);
     }

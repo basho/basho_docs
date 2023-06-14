@@ -59,5 +59,3 @@ Erlang <<0,0,0,1,30>>
 RpbResetBucketResp - only message code defined
 ```
 
-
-

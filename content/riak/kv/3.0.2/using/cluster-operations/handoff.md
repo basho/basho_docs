@@ -115,6 +115,3 @@ the cluster, including:
 
 Descriptions of those parameters can be found in the sections above.
 
-
-
-

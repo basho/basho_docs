@@ -24,7 +24,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/usage/search-schemas/
 ---
 
-
 [concept clusters]: {{<baseurl>}}riak/kv/2.9.0p5/learn/concepts/clusters
 
 > **Note on Search 2.0 vs. Legacy Search**
@@ -383,8 +382,6 @@ curl -v -XPUT $RIAK_HOST/search/schema/thundercats /
      -H 'Content-Type:application/xml' /
      --data-binary @thundercats_schema.xml
 ```
-
-
 
 ## Field Properties By Use Case
 

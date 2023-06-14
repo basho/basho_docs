@@ -92,6 +92,3 @@ ownership entails the moving of partition data it is safest to make
 them mutually exclusive events.  If you join or remove a node all
 repairs across the entire cluster will be killed.
 
-
-
-

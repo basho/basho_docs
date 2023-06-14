@@ -44,9 +44,9 @@ for later retrieval. The diagram below provides a visualization.
 
 ## Multi-DataCenter Replication
 
-Riak CS also features Multi-Datacenter Replication. Customers use 
-Multi-Datacenter Replication to serve global traffic, create 
+Riak CS also features Multi-Datacenter Replication. Customers use
+Multi-Datacenter Replication to serve global traffic, create
 availability zones, maintain active backups, or meet disaster recovery
- and regulatory requirements. Multi-Datacenter Replication can be used 
-in two or more sites. Data can be replicated across data centers using 
-realtime or fullsync replication. 
+ and regulatory requirements. Multi-Datacenter Replication can be used
+in two or more sites. Data can be replicated across data centers using
+realtime or fullsync replication.

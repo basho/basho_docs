@@ -104,7 +104,6 @@ In the above examples, the open files limit is raised for all users of the syste
 two asterisks (`*`) in the examples with `riak`.
 {{% /note %}}
 
-
 ## CentOS & Red Hat
 
 Start by checking the current open file limit values with:
@@ -163,7 +162,6 @@ ulimit -a
 In the above examples, the open files limit is raised for all users of the system. The limit can be specified for the `riak` user only by substituting the
 two asterisks (`*`) in the examples with `riak`.
 {{% /note %}}
-
 
 ## Solaris
 
@@ -263,7 +261,6 @@ kern.maxfilesperproc=200000
 
 4\. Restart your computer and enter `ulimit -n` into your terminal. If your system is configured correctly, you should see that `maxfiles` has been set to 200000.
 
-
 ## Mac OS X Yosemite
 
 Start by checking the current open file limit values with:
@@ -345,7 +342,4 @@ The response output should look something like this:
 ```bash
 maxfiles    65536          200000
 ```
-
-
-
 

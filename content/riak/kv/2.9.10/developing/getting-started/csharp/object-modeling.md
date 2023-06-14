@@ -105,6 +105,3 @@ So to recap, in this chapter we learned:
 [3]: https://github.com/basho/taste-of-riak/blob/master/csharp/Ch03-Msgy-Schema/Program.cs
 [iso_8601]: http://en.wikipedia.org/wiki/ISO_8601
 
-
-
-

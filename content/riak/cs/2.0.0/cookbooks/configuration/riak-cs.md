@@ -20,10 +20,10 @@ Riak node, which means that changes will only be necessary if Riak is
 configured using non-default settings.
 
 Riak CS's settings typically reside in a CS node's `riak-cs.conf` and
-`advanced.config` files, both of which are typically located in the 
-`/etc/riak-cs` directory. The newer `riak-cs.conf` file is a simple list 
-of `configuration = option` pairs, but there are some configuration options 
-that can only be changed through the `advanced.config` file. That file looks 
+`advanced.config` files, both of which are typically located in the
+`/etc/riak-cs` directory. The newer `riak-cs.conf` file is a simple list
+of `configuration = option` pairs, but there are some configuration options
+that can only be changed through the `advanced.config` file. That file looks
 something like:
 
 ```advancedconfig
@@ -50,13 +50,13 @@ files. If an `app.config` file is present, neither the `riak-cs.config` nor the
 > If you are upgrading to Riak CS 2.0 from a previous version of Riak and plan
 to continue usage of the legacy `app.config` file, please note that some
 configuration options have changed names.  Most notably, the IP/Port format
-has changed in 2.0 for Stanchion, Riak, and Riak CS.  To view these changes, 
-please review the [Rolling Upgrades]({{<baseurl>}}riak/cs/2.0.0/cookbooks/rolling-upgrades) Document. 
+has changed in 2.0 for Stanchion, Riak, and Riak CS.  To view these changes,
+please review the [Rolling Upgrades]({{<baseurl>}}riak/cs/2.0.0/cookbooks/rolling-upgrades) Document.
 >
 > For a comprehensive listing of available parameters and a full list of `app.config` parameters, see the [Full Configuration Reference]({{<baseurl>}}riak/cs/2.0.0/cookbooks/configuration/reference).
 
 The sections below walk you through some of the main configuration categories
-that you will likely encounter while operating Riak CS.   
+that you will likely encounter while operating Riak CS.
 
 ## Host and Port
 

@@ -161,7 +161,6 @@ tar -czf /mnt/riak_backups/riak_data_`date +%Y%m%d_%H%M`.tar.gz \
   /var/lib/riak/cluster_meta
 ```
 
-
 ### Strong Consistency Data
 
 Persistently stored data used by Riak's [strong consistency][use ref strong consistency] feature
@@ -253,7 +252,4 @@ and for any other nodes whose names have changed:
 ## Restoring a Cluster
 
 Restoring a cluster from backups is documented [on its own page]({{<baseurl>}}riak/kv/3.0.7/using/repair-recovery/failure-recovery/#cluster-recovery-from-backups).
-
-
-
 

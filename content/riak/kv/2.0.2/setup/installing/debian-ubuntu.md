@@ -18,8 +18,6 @@ aliases:
   - /riak/kv/2.0.2/installing/debian-ubuntu/
 ---
 
-
-
 [install source index]: {{<baseurl>}}riak/kv/2.0.2/setup/installing/source/
 [security index]: {{<baseurl>}}riak/kv/2.0.2/using/security/
 [install source erlang]: {{<baseurl>}}riak/kv/2.0.2/setup/installing/source/erlang
@@ -74,7 +72,6 @@ command:
 >```bash
 apt-get -t sid install libc6 libc6-dev libc6-dbg
 ```
-
 
 For the simplest installation process on LTS (Long-Term Support)
 releases, use `apt-get`. First, you must retrieve the signing key:

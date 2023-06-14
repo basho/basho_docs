@@ -26,13 +26,11 @@ Overview of the architecture undergirding Riak's Version 3 Multi-Datacenter Repl
 
 [Learn More >>][v3 mdc arch]
 
-
 #### [V3 Multi-Datacenter Replication Reference: With Active Anti-Entropy][v3 mdc aae]
 
 Overview of using Riak KV's active anti-entropy (AAE) subsystem with Multi-Datacenter.
 
 [Learn More >>][v3 mdc aae]
-
 
 #### [V3 Multi-Datacenter Replication Reference: Cascading Realtime Writes][v3 mdc cascade]
 
@@ -40,13 +38,9 @@ Details the cascading realtime writes feature.
 
 [Learn More >>][v3 mdc cascade]
 
-
 #### [V3 Multi-Datacenter Replication Reference: Scheduling Fullsync][v3 mdc fullsync]
 
 Brief tutorial on scheduling fullsync operations.
 
 [Learn More >>][v3 mdc fullsync]
-
-
-
 

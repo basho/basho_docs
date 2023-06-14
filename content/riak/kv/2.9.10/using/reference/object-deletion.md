@@ -116,5 +116,3 @@ Check out [Deleting Objects][usage delete objects] in the Developing section for
 
 * [Discussion on the Riak mailing list](http://lists.basho.com/pipermail/riak-users_lists.basho.com/2011-October/006048.html)
 
-
-

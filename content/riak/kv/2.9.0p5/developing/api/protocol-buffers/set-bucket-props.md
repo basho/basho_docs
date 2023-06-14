@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/api/protocol-buffers/set-bucket-props/
 ---
 
-
 Sets the properties for a bucket.
 
 ## Request

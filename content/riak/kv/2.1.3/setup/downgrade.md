@@ -20,7 +20,6 @@ aliases:
 [concept aae]: {{<baseurl>}}riak/kv/2.1.3/learn/concepts/active-anti-entropy/
 [aae status]: {{<baseurl>}}riak/kv/2.1.3/using/admin/riak-admin/#aae-status
 
-
 Downgrades of Riak are tested and supported for two feature release versions, with the general procedure being similar to that of a [rolling upgrade].
 
 Depending on the versions involved in the downgrade, there are additional steps to be performed before, during, and after the upgrade on on each node. These steps are related to changes or new features that are not present in the downgraded version.
@@ -33,23 +32,20 @@ We test and support downgrading for two feature release versions. However, two f
 
 For every node in your Riak cluster:
 
-1.  Stop Riak KV.
-2.  Back up Riak's `etc` and `data` directories.
-3.  Downgrade Riak KV.
-4.  Start Riak KV.
-5.  Finalize the process.
-
+1. Stop Riak KV.
+2. Back up Riak's `etc` and `data` directories.
+3. Downgrade Riak KV.
+4. Start Riak KV.
+5. Finalize the process.
 
 {{% note title="A Note About the Following Instructions" %}}
 The below instructions describe the procedures required for a single feature release version downgrade (for instance from 2.1.3 to 2.0.7). In a downgrade between two feature release versions (say 2.1.3 to 1.4.12), the steps for the in-between version must also be performed. For example, a downgrade from 2.1.3 to 1.4.12 requires that the downgrade steps for both 2.1.3 and 2.0.7 are performed.
 {{% /note %}}
 
-
 ## General Guidelines
 
 * Riak control should be disabled throughout the rolling downgrade process
 * [Configuration Files][config ref] must be replaced with those of the version being downgraded to
-
 
 ## General Process
 
@@ -67,17 +63,17 @@ This is benign and similar to the `not_built` and `already_locked` errors which 
 riak stop
 ```
 2\. Back up your Riak KV /etc and /data directories:
-    
+
 ```bash
 sudo tar -czf riak_backup.tar.gz /var/lib/riak /etc/riak
 ```
-    
+
 3\. Downgrade Riak KV:
 
 ```RHEL/CentOS
 sudo rpm -Uvh »riak_package_name«.rpm
 ```
-    
+
 ```Ubuntu
 sudo dpkg -i »riak_package_name«.deb
 ```
@@ -96,11 +92,10 @@ riak start
 riak-admin transfers
 ```
 
-
 ### Monitor the reindex of the data
 
 After your downgrade, you may want to monitor the build and exchange progress of the AAE trees using the `riak-admin aae-status` and `riak-admin search aae-status` commands.
 
-The **All** column shows how long it has been since a partition exchanged with all of its sibling replicas.  Consult the [`riak-admin aae-status` documentation][aae status] for more information about the AAE status output. 
+The **All** column shows how long it has been since a partition exchanged with all of its sibling replicas.  Consult the [`riak-admin aae-status` documentation][aae status] for more information about the AAE status output.
 
 Once both riak-admin aae-status and riak-admin search aae-status show values in the **All** column, the node will have successfully rebuilt all of the indexed data.

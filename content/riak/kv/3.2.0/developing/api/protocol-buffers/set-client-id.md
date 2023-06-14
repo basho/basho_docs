@@ -33,7 +33,6 @@ message RpbSetClientIdReq {
 }
 ```
 
-
 ## Response
 
 Just the `RpbSetClientIdResp` message code.
@@ -51,7 +50,6 @@ client_id: "001e001266"
 
 ```
 
-
 Response
 
 ```
@@ -60,7 +58,4 @@ Erlang <<0,0,0,1,6>>
 
 RpbSetClientIdResp - only message code defined
 ```
-
-
-
 

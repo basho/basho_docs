@@ -95,6 +95,3 @@ version 3.
   source cluster (as CS blocks are requested from the sink cluster in
   this scenario).
 
-
-
-

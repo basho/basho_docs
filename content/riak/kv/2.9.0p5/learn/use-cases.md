@@ -22,8 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/learn/use-cases/
 ---
 
-
-
 [dev data model articles etc]: {{<baseurl>}}riak/kv/2.9.0p5/developing/data-modeling/#articles-blog-posts-and-other-content
 [dev data model log data]: {{<baseurl>}}riak/kv/2.9.0p5/developing/data-modeling/#log-data
 [dev data model sensor data]: {{<baseurl>}}riak/kv/2.9.0p5/developing/data-modeling/#sensor-data

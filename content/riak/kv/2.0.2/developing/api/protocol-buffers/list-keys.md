@@ -83,7 +83,6 @@ keys: "10"
 keys: "3"
 ```
 
-
 #### Response Packet 3
 
 ```bash

@@ -103,7 +103,7 @@ Now that the stream is up and running, we need to actually send data to the Kafk
 ```bash
 /path/to/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic streaming
 ```
- 
+
 Now paste the following message into the terminal:
 
 ```

@@ -56,6 +56,3 @@ Check out [Community Projects][community projects] for installing with tools suc
 
 For information on upgrading an existing cluster see [Upgrading Riak KV][upgrade index].
 
-
-
-

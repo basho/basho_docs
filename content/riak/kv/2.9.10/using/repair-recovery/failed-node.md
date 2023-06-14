@@ -18,8 +18,8 @@ aliases:
 ## General Recovery Notes
 
 A Riak node can fail for many reasons, but a handful of checks enable you to
-uncover some of the most common problems that can lead to node failure, 
-such as checking for RAID and filesystem consistency or faulty memory and 
+uncover some of the most common problems that can lead to node failure,
+such as checking for RAID and filesystem consistency or faulty memory and
 ensuring that your network connections are fully functioning.
 
 When a node fails and is then brought back into the cluster, make sure that it has the same node name that it did before it crashed. If the name has changed, the cluster will assume that the node is entirely new and that the crashed node is still part of the cluster.
@@ -42,7 +42,6 @@ following steps:
     ```bash
     riak stop
     ```
-
 
 2. Mark the node down from another node in the cluster:
 
@@ -108,6 +107,4 @@ Valid:1 / Leaving:0 / Exiting:0 / Joining:0 / Down:0
     ```bash
     riak-admin cluster commit
     ```
-
-
 

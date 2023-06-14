@@ -19,7 +19,6 @@ aliases:
 
 Released Apr 08, 2020.
 
-
 ## Overview
 
 This release includes:
@@ -35,7 +34,6 @@ This release includes:
 - An improvement to the efficiency of compaction in the leveled LSM-tree based ledger with large numbers of tombstones (or modified index entries), by using a grooming selection strategy 50% of the time when selecting files to merge rather than selecting files at random each time. The grooming selection, will take a sample of files and merge the one with the most tombstones. The use of the grooming strategy is not configurable, and will have no impact until the vast majority of SST files have been re-written under this release.
 
 [Previous Release Notes](#previous-release-notes)
-
 
 ## Previous Release Notes
 

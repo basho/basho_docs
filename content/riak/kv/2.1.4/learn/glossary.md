@@ -15,7 +15,6 @@ aliases:
   - /riak/kv/2.1.4/theory/concepts/glossary
 ---
 
-
 [apps replication properties]: {{<baseurl>}}riak/kv/2.1.4/developing/app-guide/replication-properties
 [basho bench GH]: http://github.com/basho/basho_bench/
 [cluster ops add remove node]: {{<baseurl>}}riak/kv/2.1.4/using/cluster-operations/adding-removing-nodes
@@ -51,7 +50,6 @@ aliases:
 [usage secondary-indexes]: {{<baseurl>}}riak/kv/2.1.4/developing/usage/secondary-indexes
 [Where To Start With Riak Core]: http://basho.com/where-to-start-with-riak-core/
 [Wikipedia:Consistent Hashing]: http://en.wikipedia.org/wiki/Consistent_hashing
-
 
 Below is a list of terms that you may run into frequently in the
 documentation for Riak, along with links to more in-depth treatments.
@@ -330,7 +328,6 @@ operations.
 * [Keys and Objects][concept keys objects]
 * [Key/Value Development][dev kv model]
 * [Data Types][dev data types]
-
 
 ## Vector Clock
 

@@ -53,8 +53,8 @@ This example will count the number of keys in the bucket "cars":
 ```riakattach
 riak_client:aae_fold({
     object_stats,
-    <<"cars">>, 
-    all, 
+    <<"cars">>,
+    all,
     all
     }, Client).
 ```
@@ -76,8 +76,8 @@ This example will count the number of keys in the bucket "dogs" of bucket type "
 ```riakattach
 riak_client:aae_fold({
     object_stats,
-    {<<"animals">>, <<"dogs">>}, 
-    all, 
+    {<<"animals">>, <<"dogs">>},
+    all,
     all
     }, Client).
 ```
@@ -104,9 +104,9 @@ This example will count the number of keys in the bucket `cars` that start with 
 
 ```riakattach
 riak_client:aae_fold({
-    object_stats, 
-    <<"cars">>, 
-    {<<"n">>,<<"o">>}, 
+    object_stats,
+    <<"cars">>,
+    {<<"n">>,<<"o">>},
     all
     }, Client).
 ```
@@ -119,16 +119,15 @@ How to get the value for `Client` is detailed in [The Riak Client](../../tictac-
 As the values used for key filters are binary strings, they are case sensitive. So `a` and `A` are not the same.
 {{% /note %}}
 
-
 ### All keys
 
 To query all keys, just use `all` for the key range filter. This will count all keys in the bucket `cars`:
 
 ```riakattach
 riak_client:aae_fold({
-    object_stats, 
-    <<"cars">>, 
-    all, 
+    object_stats,
+    <<"cars">>,
+    all,
     all
     }, Client).
 ```
@@ -147,7 +146,7 @@ Use `all` for this filter.
 
 This will not reduce the number of keys checked, but will reduce the number of keys returned.
 
-This filter is used when you need to locate keys modified in a certain time frame. 
+This filter is used when you need to locate keys modified in a certain time frame.
 
 The values are passed in a tuple with 3 values:
 
@@ -167,9 +166,9 @@ This example returns all keys in the "cars" bucket that were modified between 19
 
 ```riakattach
 riak_client:aae_fold({
-    object_stats, 
-    <<"cars">>, 
-    all, 
+    object_stats,
+    <<"cars">>,
+    all,
     {date,60,120}
     }, Client).
 ```
@@ -198,9 +197,9 @@ Modified_Filter_Value = Modified_Filter_Calculator(
   {{2022,2,1},{0,0,0}}
 ),
 riak_client:aae_fold({
-    object_stats, 
-    <<"cars">>, 
-    all, 
+    object_stats,
+    <<"cars">>,
+    all,
     Modified_Filter_Value
     }, Client).
 ```
@@ -209,9 +208,9 @@ Or in one command to make it easily re-usable:
 
 ```riakattach
 riak_client:aae_fold({
-    object_stats, 
-    <<"cars">>, 
-    all, 
+    object_stats,
+    <<"cars">>,
+    all,
     Modified_Filter_Calculator({{2022,1,1},{0,0,0}}, {{2022,2,1},{0,0,0}})
     }, Client).
 ```

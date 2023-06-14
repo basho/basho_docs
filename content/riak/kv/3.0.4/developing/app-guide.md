@@ -167,7 +167,6 @@ own.
   with implementation details
 * [Data Modeling with Riak Data Types][dev data model] - An object modeling example that relies on Riak Data Types.
 
-
 ### When to Use Riak Data Types
 
 * **When your data fits** - If the data that you're storing can be
@@ -349,8 +348,4 @@ will help you get up and running:
 * [Developing with Riak KV: Usage][usage index] - A guide to basic key/value operations and other common tasks in Riak KV.
 * [Riak KV Glossary][glossary] - A listing of frequently used terms in Riak's
   documentation
-
-
-
-
 

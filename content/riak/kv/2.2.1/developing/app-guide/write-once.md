@@ -110,7 +110,6 @@ for the object to be returned will behave like requests that do not
 request the object to be returned when they are performed against write-once
 buckets.
 
-
 ## Siblings
 
 As mentioned, entries in write-once buckets are intended to be written only
@@ -129,7 +128,6 @@ wins."
 As mentioned in [Configuration](#configuration), write-once buckets and Riak
 Data Types are incompatible because of this.
 {{% /note %}}
-
 
 ## Handoff
 

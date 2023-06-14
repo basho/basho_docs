@@ -19,8 +19,6 @@ aliases:
 
 ---
 
-
-
 [install source erlang]: {{<baseurl>}}riak/kv/3.0.1/setup/installing/source/erlang
 [downloads]: {{<baseurl>}}riak/kv/3.0.1/downloads/
 [install verify]: {{<baseurl>}}riak/kv/3.0.1/setup/installing/verify
@@ -45,7 +43,6 @@ You can install the Riak binary package on FreeBSD remotely using the
 ```bash
 sudo pkg_add -r https://files.tiot.jp/riak/kv/3.0/3.0.1/freebsd/11.1/riak-3.0.1.txz
 ```
-
 
 ### For FreeBSD 10.x
 
@@ -96,6 +93,7 @@ If you do not currently have the following software installed, please install it
 * flex
 
 ### Installation
+
 First download the version you wish to install from the [downloads][downloads].
 
 Next, unpack and build a release from source:
@@ -127,7 +125,4 @@ gmake devrel
 ## Next Steps
 
 Now that Riak is installed, check out [Verifying a Riak Installation][install verify].
-
-
-
 

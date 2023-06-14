@@ -67,7 +67,6 @@ command:
 apt-get -t sid install libc6 libc6-dev libc6-dbg
 ```
 
-
 For the simplest installation process on LTS (Long-Term Support)
 releases, use `apt-get`. First, you must retrieve the signing key:
 

@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/running-a-cluster/
 ---
 
-
 Configuring a Riak cluster involves instructing each node to listen on a
 non-local interface, i.e. not `127.0.0.1`, and then joining all of the
 nodes together to participate in the cluster.

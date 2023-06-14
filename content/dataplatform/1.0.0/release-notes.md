@@ -49,7 +49,7 @@ BDP's leader election service (LES) enables Spark clusters to run without a ZooK
 
 ### Spark Cluster Manager (Enterprise only)
 
-The Spark cluster manager forms a pair with the leader election service. It enables Spark to use the LES rather than ZooKeeper. Spark cluster manager provides all the functionality required for Spark Master high availability without the need to manage yet another software system. 
+The Spark cluster manager forms a pair with the leader election service. It enables Spark to use the LES rather than ZooKeeper. Spark cluster manager provides all the functionality required for Spark Master high availability without the need to manage yet another software system.
 
 ## Compatibility
 
@@ -75,5 +75,5 @@ You can find the install packages for BDP [here][bdp downloads] and the instruct
 * The default value of the `storage_backend` parameter in riak.conf is changed from 'bitcask' to 'leveldb' in BDP, because Spark connector uses 2i queries, which are supported for LevelDB but not for Bitcask.
 * Only the bundled versions of Spark, Redis, and Solr are officially supported.
 * We strongly recommend against running Riak KV and Spark or Riak KV and Redis on the same nodes.
-* We also strongly recommend against joining a previously established Riak KV cluster to BDP. Please create a Riak KV cluster with BDP, instead. 
+* We also strongly recommend against joining a previously established Riak KV cluster to BDP. Please create a Riak KV cluster with BDP, instead.
 * The Basho Data Platform service manager occasionally starts fake spark-master processes in addition to the legitimate processes. These fake processes will not interfere with normal Spark work, and Spark jobs will run correctly. You might see these fake processes when looking at a list of running processes, or you might see error messages in the BDP Riak logs that spark-master processes are crashing. We are investigating this behavior and hope to have a fix soon.

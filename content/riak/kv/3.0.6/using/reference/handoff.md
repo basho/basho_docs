@@ -192,6 +192,3 @@ handoff.inbound = off
 
 Check out the [Cluster Operations: Handoff][cluster ops handoff] for steps on enabling and disabling handoff via the command line.
 
-
-
-

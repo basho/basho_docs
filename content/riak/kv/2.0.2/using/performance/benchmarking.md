@@ -82,7 +82,7 @@ file. (Also, don't use the common ```~/``` shell notation, specify the
 user's home directory explicitly)
 
 ```bash
-basho_bench --results-dir /home/username/bench_results/ /etc/basho_bench/riakc_pb.config 
+basho_bench --results-dir /home/username/bench_results/ /etc/basho_bench/riakc_pb.config
 ```
 
 The example above will generate results in

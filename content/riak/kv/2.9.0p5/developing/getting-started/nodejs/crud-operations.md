@@ -21,7 +21,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/getting-started/nodejs/crud-operations/
 ---
 
-
 [nodejs_wiki]: https://github.com/basho/riak-nodejs-client/wiki
 
 ### Creating Objects In Riak KV

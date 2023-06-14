@@ -24,7 +24,6 @@ aliases:
   - /riak/kv/2.9.0p4/configuring/v2-multi-datacenter/
 ---
 
-
 [config v2 ssl]: {{<baseurl>}}riak/kv/2.9.0p5/configuring/v2-multi-datacenter/ssl
 
 {{% note title="Deprecation Warning" %}}
@@ -139,7 +138,6 @@ Setting | Options | Default | Description
 `max_put_workers` | `max` (integer) | `100` | The maximum number of put workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See [3](#f3).
 `min_get_workers` | `min` (integer) | `5` | The minimum number of get workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See [2](#f2).
 `min_put_workers` | `min` (integer) | `5` | The minimum number of put workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See [3](#f3).
-
 
 1. <a name="f1"></a>SSL depth is the maximum number of non-self-issued
  intermediate certificates that may follow the peer certificate in a valid

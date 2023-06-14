@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/usage/mapreduce/
 ---
 
-
 [usage 2i]: {{<baseurl>}}riak/kv/2.9.0p5/developing/usage/secondary-indexes
 [usage search]: {{<baseurl>}}riak/kv/2.9.0p5/developing/usage/search
 [usage types]: {{<baseurl>}}riak/kv/2.9.0p5/developing/usage/bucket-types
@@ -183,11 +182,11 @@ end end.
 ```
 
 Next, to call `ReFun` on all keys in the `training` bucket, we can do
-the following in the Erlang shell. 
+the following in the Erlang shell.
 
 {{% note title="Warning" %}}
 Do not use this in a production
-environment; listing all keys to identify those in the `training` bucket 
+environment; listing all keys to identify those in the `training` bucket
 is a very expensive process.
 {{% /note %}}
 

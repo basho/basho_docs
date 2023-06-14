@@ -20,7 +20,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/repair-recovery/rolling-replaces/
 ---
 
-
 [upgrade]: {{<baseurl>}}riak/kv/2.9.0p5/setup/upgrading/cluster/
 [rolling restarts]: {{<baseurl>}}riak/kv/2.9.0p5/using/repair-recovery/rolling-restart/
 [add node]: {{<baseurl>}}riak/kv/2.9.0p5/using/cluster-operations/adding-removing-nodes

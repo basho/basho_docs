@@ -32,7 +32,7 @@ is built
 
 ## Version Compatibility
 
-We strongly recommend using one of the documented [version combinations]({{<baseurl>}}riak/cs/3.0.0/cookbooks/version-compatibility/) 
+We strongly recommend using one of the documented [version combinations]({{<baseurl>}}riak/cs/3.0.0/cookbooks/version-compatibility/)
 when installing and running Riak CS.
 
 ## Installing Riak KV
@@ -108,7 +108,6 @@ Platform-specific pages are linked below:
 * [Buster](https://files.tiot.jp/riak/cs/3.0/3.0.0/debian/10/riak-cs_3.0.0-OTP22_amd64.deb)
 * [Bullseye](https://files.tiot.jp/riak/cs/3.0/3.0.0/debian/11/riak-cs_3.0.0-OTP22_amd64.deb)
 * [Raspbian](https://files.tiot.jp/riak/cs/3.0/3.0.0/raspbian/buster/riak-cs_3.0.0-OTP22_armhf.deb)
-
 
 #### dpkg Installation
 
@@ -219,7 +218,6 @@ Platform-specific pages are linked below:
 * [FreeBSD 13](https://files.tiot.jp/riak/cs/3.0/3.0.0/freebsd/13/riak-cs_3.0.0-OTP22.pkg)
 * [Alpine 3.14](https://files.tiot.jp/riak/cs/3.0/3.0.0/alpine/3.14/riak-cs_3.0.0-r0.apk)
 
-
 #### pkg Installation (FreeBSD)
 
 For the simplest installation process on LTS (Long-Term Support)
@@ -264,7 +262,7 @@ can achieve this by specifying a load balancer IP as the Stanchion IP
 in each Riak CS node's `riak-cs.conf`. This load balancer must be
 configured to send all requests to a single Stanchion node, failing over
 to a secondary Stanchion node if the primary is unavailable. More
-details can be found in [Specifying the Stanchion Node]({{<baseurl>}}riak/cs/3.0.0/cookbooks/configuration/#specifying-the-stanchion-node).
+details can be found in [Specifying the Stanchion Node]({{<baseurl>}}riak/cs/3.0.0/cookbooks/configuration/stanchion).
 
 ### Installing Stanchion on Mac OS X
 
@@ -322,6 +320,26 @@ Platform-specific pages are linked below:
 * [Jammy](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/ubuntu/jammy64/riak-cs_3.0.0-OTP22_amd64.deb)
 * [Stretch](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/debian/9/riak-cs_3.0.0-OTP22_amd64.deb)
 * [Buster](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/debian/10/riak-cs_3.0.0-OTP22_amd64.deb)
+* [Bullseye](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/debian/11/stanchion_3.0.0-OTP22_amd64.deb)
+* [Raspbian](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/raspbian/buster/stanchion_3.0.0-OTP22_armhf.deb)
+
+#### dpkg Installation
+
+For the simplest installation process on LTS (Long-Term Support)
+releases, use `dpkg -i` after downloading the appropriate package for your OS..
+
+Now install the `stanchion` package:
+
+-->
+On Debian and Ubuntu, Riak CS packages are hosted on
+[files.tiot.jp](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/).
+
+Platform-specific pages are linked below:
+
+* [Focal](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/ubuntu/focal64/stanchion_3.0.0-OTP22_amd64.deb)
+* [Jammy](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/ubuntu/jammy64/stanchion_3.0.0-OTP22_amd64.deb)
+* [Stretch](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/debian/9/stanchion_3.0.0-OTP22_amd64.deb)
+* [Buster](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/debian/10/stanchion_3.0.0-OTP22_amd64.deb)
 * [Bullseye](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/debian/11/stanchion_3.0.0-OTP22_amd64.deb)
 * [Raspbian](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/raspbian/buster/stanchion_3.0.0-OTP22_armhf.deb)
 
@@ -403,7 +421,6 @@ Platform-specific pages are linked below:
 
 * [FreeBSD 13](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/freebsd/13/stanchion_3.0.0-OTP22.pkg)
 * [Alpine 3.14](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/alpine/3.14/stanchion_3.0.0-r0.apk)
-
 
 #### pkg Installation (FreeBSD)
 

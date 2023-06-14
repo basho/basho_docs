@@ -88,6 +88,3 @@ Method | URL | Doc
 `GET` | `/search/schema/<schema_name>` | [HTTP Fetch Search Schema]({{<baseurl>}}riak/kv/2.9.8/developing/api/http/fetch-search-schema)
 `PUT` | `/search/schema/<schema_name>` | [HTTP Store Search Schema]({{<baseurl>}}riak/kv/2.9.8/developing/api/http/store-search-schema)
 
-
-
-

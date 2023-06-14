@@ -50,6 +50,7 @@ More information can be found [here][sysctl_vm_txt] and in our
 documentation on [system tuning]({{<baseurl>}}riak/kv/2.0.1/using/performance/#storage-and-file-system-tuning).
 
 ## Riak Metrics to Graph
+
 Riak metrics fall into several general categories:
 
 1. Throughput metrics
@@ -297,7 +298,6 @@ Riak cluster nodes.
 A [Zabbix plugin for Riak][riak_zabbix] is available to get you started
 monitoring Riak using Zabbix.
 
-
 ### Hosted Service Monitoring Tools
 
 The following are some commercial tools which Basho customers have
@@ -305,6 +305,7 @@ reported successfully using for statistics gathering and monitoring
 within their Riak clusters.
 
 #### Circonus
+
 [Circonus](http://circonus.com) provides organization-wide monitoring,
 trend analysis, alerting, notifications, and dashboards. It can been
 used to provide trend analysis and help with troubleshooting and
@@ -364,7 +365,6 @@ Docs](https://github.com/basho/basho_docs).
 * [New Relic](http://newrelic.com)
 * [Splunk](http://www.splunk.com)
 * [Riak Docs on Github](https://github.com/basho/basho_docs)
-
 
 [sysctl_vm_txt]: https://www.kernel.org/doc/Documentation/sysctl/vm.txt
 [data_types_counters]: {{< baseurl >}}riak/kv/latest/developing/data-types/counters/

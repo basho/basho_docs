@@ -18,12 +18,11 @@ aliases:
 [ee]: http://info.basho.com/Wiki_Riak_Enterprise_Request.html
 [riak_ensemble]: https://github.com/basho/riak_ensemble
 
-
 > Leader Election Service is available to [Enterprise users only][ee].
 
 ## Overview
 
-The Basho Data Platform (BDP) Leader Election Service enables Spark clusters to run without a ZooKeeper instance. 
+The Basho Data Platform (BDP) Leader Election Service enables Spark clusters to run without a ZooKeeper instance.
 
 The Leader Election Service uses a simple, line-based, ascii protocol to interact with Spark. This protocol is incompatible with the ZooKeeper protocol, and requires a BDP-specific patch to Spark for compatibility purposes. The Protocol Details section of this page further details the Leader Election Service protocol.
 
@@ -32,24 +31,25 @@ The service can be run on any or all nodes in a Riak cluster, so long as those n
 Many groups of clients can use the election service at the same time by defining different election group names when they connect. If a client connects to a group that does not currently exist, it will be automatically created. That client is then elected leader. Leaders remain elected indefinitely until they disconnect from the service. A new leader is chosen from the remaining clients.
 
 ## Setup and Configuration
+
 Before enabling the leader election service, strong consistency must be enabled on your Riak cluster, as described in the Managing Strong Consistency documentation. You can verify that strong consistency has been successfully enabled by using the ‘riak-admin ensemble-status’ command.
 
 By default, any new data platform installation will include a commented template configuration for the leader election service in `riak.conf`. This should look something like this:
 
 ```riakconf
 ## listener.leader_latch.internal = 127.0.0.1:5323
+
 ```
 
-If you uncomment this line on a given node and restart Riak, that node will start listening for leader election clients over the loopback interface on TCP port 5323. Changing the IP address here changes which network interface the service listens on. This be necessary if Spark is running on a different host from Riak. 
+If you uncomment this line on a given node and restart Riak, that node will start listening for leader election clients over the loopback interface on TCP port 5323. Changing the IP address here changes which network interface the service listens on. This be necessary if Spark is running on a different host from Riak.
 
 >**Warning**
 >
 >Please note that this service provides no authentication mechanism. Whatever network interface you use must be shielded from external connection attempts. Otherwise an outside attacker could potentially perform a denial of service attack against your cluster.
 
+The example configuration above specifies a single interface/port pair to listen on. The “internal” part of this configuration line is a name given to this instance of the service.
 
-The example configuration above specifies a single interface/port pair to listen on. The “internal” part of this configuration line is a name given to this instance of the service. 
-
-You can replace “internal” with whatever name you like. You can also specify as many listener interfaces as you choose, as long as multiple listeners on the same node have different names. 
+You can replace “internal” with whatever name you like. You can also specify as many listener interfaces as you choose, as long as multiple listeners on the same node have different names.
 
 For example:
 
@@ -68,22 +68,24 @@ The leader service relies on a strongly consistent backing store, shared by all 
 As mentioned before, this service provides no security guarantees or authentication mechanisms of any kind. It is your responsibility to prevent outside access to the leader election service.
 
 ## Protocol Details
+
 The following section details the implementation of the election service. This may be helpful for debugging and testing the election service, or creating a new client beyond the existing Spark connector.
 
 ### Implementation
-The protocol used for this service is a simple, line-based, ascii protocol. You can test and interact with the service using telnet (or an equivalent utility). 
 
-There is currently only one command a client can send to the service: 
+The protocol used for this service is a simple, line-based, ascii protocol. You can test and interact with the service using telnet (or an equivalent utility).
+
+There is currently only one command a client can send to the service:
 
 ```telnet
 JOIN »group_name« »client_name«
 ```
 
-This command tells the election service to add a client named `»client_name«` to an election group named »group_name«`. 
+This command tells the election service to add a client named `»client_name«` to an election group named »group_name«`.
 
 Both the client name and the group name must be ascii strings with no spaces in them. Under normal circumstances, the service should respond with:
 
-```
+```plaintext
 LEADER »current_leader«
 ```
 
@@ -91,21 +93,22 @@ The connection must remain open as long as the client wishes to remain a part of
 
 If the service becomes unavailable (for example, an outage involving a majority of Riak nodes) and a client attempts to join an election group, the server may respond with an error message reading:
 
-```
+```plaintext
 JOIN_FAILED SERVICE_UNAVAILABLE
 ```
 
-If a client attempts to execute any additional joins (to the same or other group names) on the same connection after the initial join is performed, the server will respond with: 
+If a client attempts to execute any additional joins (to the same or other group names) on the same connection after the initial join is performed, the server will respond with:
 
-```
+```plaintext
 ALREADY_JOINED »group_name« »client_name«
 ```
 
-And the additional join attempt(s) will fail. 
+And the additional join attempt(s) will fail.
 
 If a client attempts to send an invalid command the server will respond with `ERROR`.
 
 ### Example Session
+
 Following is an example interaction with the election service:
 
 ```bash
@@ -143,7 +146,6 @@ JOIN test_group 1
 
 LEADER 1
 ```
-
 
 Great. We have one member named "1" in test_group, so as we expect, they are elected leader. Now let's leave that session running, then open another terminal and join another member to the group:
 

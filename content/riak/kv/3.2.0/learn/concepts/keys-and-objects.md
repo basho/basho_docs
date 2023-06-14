@@ -48,6 +48,3 @@ across multiple nodes, and do occur when either more than one actor
 updates an object, a network partition occurs, or a stale vector clock
 is submitted when updating an object (see: [Vector Clocks][concept causal context vc]).
 
-
-
-

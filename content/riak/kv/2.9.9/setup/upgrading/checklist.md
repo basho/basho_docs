@@ -219,7 +219,3 @@ When you go to increase capacity down the line, having historic metrics
 will give you very clear indicators of having resolved scaling problems,
 as well as metrics for understanding what to upgrade and when.
 
-
-
-
-

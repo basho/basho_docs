@@ -20,14 +20,12 @@ aliases:
   - /riak/kv/2.9.0p4/using/reference/v2-multi-datacenter/
 ---
 
-
 [v2 mdc arch]: ./architecture
 [v2 mdc fullsync]: ./scheduling-fullsync
 
 {{% note title="Deprecation Warning" %}}
 v2 Multi-Datacenter Replication is deprecated and will be removed in a future version. Please use [v3]({{<baseurl>}}riak/kv/2.9.0p5/using/reference/v3-multi-datacenter/) instead.
 {{% /note %}}
-
 
 ## In This Section
 

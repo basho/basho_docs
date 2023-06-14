@@ -17,7 +17,6 @@ aliases:
   - /riak/kv/3.0.12/theory/concepts/clusters
 ---
 
-
 [concept buckets]: {{<baseurl>}}riak/kv/3.0.12/learn/concepts/buckets
 [concept keys objects]: {{<baseurl>}}riak/kv/3.0.12/learn/concepts/keys-and-objects
 [concept replication]: {{<baseurl>}}riak/kv/3.0.12/learn/concepts/replication
@@ -27,7 +26,6 @@ aliases:
 [usage bucket types]: {{<baseurl>}}riak/kv/3.0.12/developing/usage/bucket-types
 [usage conflict resolution]: {{<baseurl>}}riak/kv/3.0.12/developing/usage/conflict-resolution
 [usage replication]: {{<baseurl>}}riak/kv/3.0.12/developing/usage/replication
-
 
 Riak's default mode of operation is to work as a cluster consisting of
 multiple [nodes][glossary node], i.e. multiple well-connected data
@@ -111,7 +109,4 @@ protocol." Whenever a node changes its claim on the ring, it announces,
 i.e. "gossips," this change to other nodes so that the other nodes can
 respond appropriately. Nodes also periodically re-announce what they
 know about ring in case any nodes happened to miss previous updates.
-
-
-
 

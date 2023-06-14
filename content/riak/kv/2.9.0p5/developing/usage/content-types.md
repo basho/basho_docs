@@ -20,7 +20,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/usage/content-types/
 ---
 
-
 Riak KV is a fundamentally content-agnostic database. You can use it to
 store anything you want, from JSON to XML to HTML to binaries to images
 and beyond. It's important to note that _all_ objects stored in
@@ -46,7 +45,7 @@ ArgumentError: content_type is not defined!
 # PHP will default to cURLs default content-type for POST & PUT requests:
 #   application/x-www-form-urlencoded
 
-# If you use the StoreObject::buildJsonObject() method when building your command, 
+# If you use the StoreObject::buildJsonObject() method when building your command,
 # it will store the item with application/json as the content-type
 ```
 

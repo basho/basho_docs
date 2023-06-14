@@ -45,4 +45,3 @@ binary (as `name`). Optionally, you can specify a [`schema`]({{<baseurl>}}riak/k
 
 Returns a [RpbPutResp]({{<baseurl>}}riak/kv/2.9.4/developing/api/protocol-buffers/#message-codes) code with no data on success.
 
-

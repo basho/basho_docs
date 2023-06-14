@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/api/protocol-buffers/server-info/
 ---
 
-
 A message from Riak that contains two pieces of information about the
 server: the name of the node and the version of Riak in use on that
 node.

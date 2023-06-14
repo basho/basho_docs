@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/api/protocol-buffers/dt-union/
 ---
 
-
 A "union" type for update operations.
 
 ## Request

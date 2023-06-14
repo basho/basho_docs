@@ -19,7 +19,6 @@ aliases:
 
 Released Aug 7, 2021.
 
-
 ## Overview
 
 Minor stability improvements to leveled backend - see [leveled release notes](https://github.com/martinsumner/leveled/releases/tag/0.9.24) for further details.
@@ -27,8 +26,4 @@ Minor stability improvements to leveled backend - see [leveled release notes](ht
 ## Previous Release Notes
 
 Please see the KV 2.9.8 release notes [here]({{<baseurl>}}riak/kv/2.9.8/release-notes/).
-
-
-
-
 

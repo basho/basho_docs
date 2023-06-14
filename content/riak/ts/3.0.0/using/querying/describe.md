@@ -39,7 +39,6 @@ weather     | varchar   | false    | <null>        | <null>    |          |     
 temperature | double    | true     | <null>        | <null>    |          |      |
 ```
 
-
 You can use `DESCRIBE` in [riak shell]:
 
 ```
@@ -54,7 +53,6 @@ riak-shell>describe GeoCheckin;
 |temperature| double  | true   |             |         |        |    |           |
 +-----------+---------+--------+-------------+---------+--------+----+----------+
 ```
-
 
 Using TS's supported clients, a successful `DESCRIBE` will return a language-specific representation of the table.
 

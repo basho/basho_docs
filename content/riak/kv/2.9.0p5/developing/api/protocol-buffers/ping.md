@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/api/protocol-buffers/ping/
 ---
 
-
 Check if the server is alive
 
 ## Request

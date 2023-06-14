@@ -261,7 +261,6 @@ Currently, Yokozuna makes no attempts to hide any details of the Solr
 schema: a user creates a schema for Yokozuna just as she would for Solr.
 Here is the general structure of a schema.
 
-
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <schema name="my-schema" version="1.5">
@@ -339,7 +338,6 @@ expiration occurs after one week.
 For an in-depth look at Riak's AAE process, watch Joseph Blomstedt's
 [screencast](http://coffee.jtuple.com/video/AAE.html).
 
-
 ## Analysis & Analyzers
 
 Analysis is the process of breaking apart (analyzing) text into a
@@ -409,7 +407,6 @@ one with a smaller window.
 
 The Riak Search batching subsystem provides statistics on run-time characteristics of search system components. These statistics are accessible via the standard Riak KV stats interfaces and can be monitored through standard enterprise management tools.
 
-
 * `search_index_throughput_(count|one)` - The total count of objects that have been indexed, per Riak node, and the count of objects that have been indexed within the metric measurement window.
 
 * `search_index_latency_(min|mean|max|median|95|99|999)` - The minimum, mean, maximum, median, 95th percentile, 99th percentile, and 99.9th percentile measurements of indexing latency, as measured from the time it takes to send a batch to Solr to the time the response is received from Solr, divided by the batch size.
@@ -432,7 +429,7 @@ The Riak Search batching subsystem provides statistics on run-time characteristi
 
 * `search_queue_drain_latency_(min|mean|max|median|95|99|999)` - The minimum, mean, maximum, median, 95th percentile, 99th percentile, and 99.9th percentile measurements of drain latency, as measured from the time it takes to initiate a drain to the time the drain is completed.
 
-* `search_detected_repairs_count` - The total number of AAE repairs that have been detected when comparing YZ and Riak/KV AAE trees. Note that this statistic is a measurement of the differences found in the AAE trees; there may be some latency between the time the trees are compared and the time that the repair is written to Solr. 
+* `search_detected_repairs_count` - The total number of AAE repairs that have been detected when comparing YZ and Riak/KV AAE trees. Note that this statistic is a measurement of the differences found in the AAE trees; there may be some latency between the time the trees are compared and the time that the repair is written to Solr.
 
 * `search_blockedvnode_(count|one)` - The total count of vnodes that have been blocked, per Riak node, and the count of blocked vnodes within the metric measurement window. Vnodes are blocked when a Solrq worker exceeds its high water mark, as defined by the [`search.queue.high_watermark`][configuring search] configuration setting.
 
@@ -454,6 +451,4 @@ The Riak Search batching subsystem provides statistics on run-time characteristi
 
 While most of the default values are sufficient, you may have to
 increase [`search.solr.start_timeout`][configuring search] as more data is indexed, which may cause Solr to require more time to start.
-
-
 

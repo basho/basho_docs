@@ -55,10 +55,10 @@ Authorization: signatureValue
 This operation does not use request parameters.
 
 ### Request Headers
+
 `PUT Bucket acl` offers the following request headers in addition to the request headers common to all operations.
 
 **x-amz-acl** - This request header specifies a predefined ACL to apply to the bucket being created. A predefined ACL grants specific permissions to individual accounts or predefined groups.
-
 
 * *Type*: String
 * *Valid Values*: private | public-read | public-read-write | authenticated-read | bucket-owner-read | bucket-owner-full-control
@@ -147,6 +147,7 @@ PUT Bucket acl does not return response elements.
 ## Examples
 
 ### Sample Request with Access Permission Specified in the Request Body
+
 This sample request grants access permission to an existing bucket, named basho_docs, by specifying the ACL in the request body. In addition to granting full control to the bucket owner, the request specifies the following grants:
 
 * Grant AllUsers group READ permission on the bucket.

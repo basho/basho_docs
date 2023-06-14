@@ -14,9 +14,7 @@ aliases:
     - /riakts/1.5.1/developing/http/
 ---
 
-
 This document will cover the API calls for accessing Riak TS data over HTTP.
-
 
 ## Overview
 
@@ -91,7 +89,6 @@ SELECT * FROM devices WHERE name = 'ACME anvil' and acceleration_stats = 0x001a5
 
 The results from the query are in JSON and thus will be encoded as `base64`, not hex.
 
-
 ## Keys and Values
 
 | Call      | Method | Type  |
@@ -111,7 +108,6 @@ Streaming `list_keys` returns all the URLs as plain text separated by a new line
 The `query` to be executed should be sent as a plain text string in the body of the request.
 
 The value of `»Server«` is the IP address of your system and the HTTP interface port, separated by a colon.  This value is the `listener.http.internal` setting in the `riak.conf` file.
-
 
 ## Returning Results
 

@@ -14,15 +14,13 @@ aliases:
     - /riakts/1.2.0/learn-about/advancedplanning/
 ---
 
-
 [activating]: ../../using/creating-activating/
 [configuring]: ../../using/configuring/
 [planning]: ../../using/planning
 [sql]: ../sqlriakts/
 [bestpractices]: ../bestpractices/
 
-
-This page provides more in-depth information about how Riak TS tables are structured. 
+This page provides more in-depth information about how Riak TS tables are structured.
 
 If you just want to get started creating a table in Riak TS, check out our quick guide to [planning your Riak TS table][planning]. You may also be interested in [more information about SQL in Riak TS][sql].
 
@@ -89,22 +87,22 @@ The types associated with fields are limited. Valid types are:
 * `double`
   * This type does not comply with its IEEE specification: `NaN` (not a number) and `INF` (infinity) cannot be used.
 
-
 ### Primary Key
+
 The `PRIMARY KEY` describes both the partition and local keys. The partition key and the local key are nearly identical, differing only by the definition of the `quantum` used to colocate data.
 
-
 #### Partition Key
+
 The partition key is defined as the three named fields in parentheses:
 
 ```sql
 (myfamily, myseries, (quantum(time, 15, 'm')),
 ```
 
-The partition key MUST have exactly three fields in the following order: 
+The partition key MUST have exactly three fields in the following order:
 
-1. The first field (*family*) is a class or type of data. 
-2. The second field (*series*) identifies the specific instances of the class/type, such as username or device ID. 
+1. The first field (*family*) is a class or type of data.
+2. The second field (*series*) identifies the specific instances of the class/type, such as username or device ID.
 3. The third field (*quantum*) sets the time intervals to group data by.
 
 The quantum function takes 3 parameters:
@@ -118,12 +116,12 @@ The quantum function takes 3 parameters:
   * 's' - seconds
 
 #### Local Key
-The second key (local key) MUST contain the same 3 fields in the same order as the partition key. This ensures that the same fields determining your data's partition also dictate the sorting of the data within that partition.
 
+The second key (local key) MUST contain the same 3 fields in the same order as the partition key. This ensures that the same fields determining your data's partition also dictate the sorting of the data within that partition.
 
 ## Riak TS Tables in Command Line
 
-When you [verify that your table was properly created][activating], you'll see a response that shows your table's schema on the command line. It will look something like this:  
+When you [verify that your table was properly created][activating], you'll see a response that shows your table's schema on the command line. It will look something like this:
 
 ```sh
 $ riak-admin bucket-type status GeoCheckin
@@ -148,8 +146,8 @@ ddl: {ddl_v1,<<"GeoCheckin">>,
 The format of the response is:
 
 ```sh
-ddl:  { ddl_v1, TABLE_NAME, 
-[ ARRAY OF COLUMNS], 
+ddl:  { ddl_v1, TABLE_NAME,
+[ ARRAY OF COLUMNS],
 [ KEY INFO ]}}
 ```
 
@@ -165,7 +163,7 @@ The two `key_v1` entries correspond to the partion key and the local key. The fi
 {key_v1,[
    {hash_fn_v1,riak_ql_quanta,quantum,
                {param_v1,[<<"myfamily">>]},               <- Partition Key Part 1
-               {param_v1,[<<"myseries">>]},               <- Partition Key Part 2 
+               {param_v1,[<<"myseries">>]},               <- Partition Key Part 2
                [{param_v1,[<<"time">>]},15,m],timestamp}  <- Partition Key Part 3
 
 ]},
@@ -204,4 +202,5 @@ It is difficult to make any recommendations on quanta size, because the size of 
 See also [Riak TS Best Practices][bestpractices].
 
 ## Editing Your Table
+
 Once created, you cannot edit your Riak TS table. If you discover something wrong with the setup of your Riak TS table, you will need to create it again. You will also need to decide whether to scrap the data in the existing table or move it from the old table to the new one.

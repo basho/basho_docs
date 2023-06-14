@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/reference/multi-datacenter/monitoring/
 ---
 
-
 Monitoring Riak's realtime replication allows you to identify trends and
 to receive alerts during times when replication is halted or delayed.
 Issues or delays in replication can be caused by:

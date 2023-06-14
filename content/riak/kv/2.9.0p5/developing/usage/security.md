@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/usage/security/
 ---
 
-
 Versions of Riak 2.0 and later come equipped with a [security subsystem]({{<baseurl>}}riak/kv/2.9.0p5/using/security/basics) that enables you to choose
 
 * which Riak users/clients are authorized to perform a wide variety of

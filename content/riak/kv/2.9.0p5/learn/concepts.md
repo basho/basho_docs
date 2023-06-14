@@ -20,7 +20,6 @@ aliases:
   - /riak/kv/2.9.0p4/learn/concepts/
 ---
 
-
 [concept aae]: {{<baseurl>}}riak/kv/2.9.0p5/learn/concepts/active-anti-entropy
 [concept buckets]: {{<baseurl>}}riak/kv/2.9.0p5/learn/concepts/buckets
 [concept cap neg]: {{<baseurl>}}riak/kv/2.9.0p5/learn/concepts/capability-negotiation
@@ -36,8 +35,7 @@ aliases:
 [plan index]: {{<baseurl>}}riak/kv/2.9.0p5/setup/planning
 [use index]: {{<baseurl>}}riak/kv/2.9.0p5/using/
 
-
-Riak KV has many great features, functions, and guiding principles that inform how the product works. This section provides definitions for, insight into, and high level information about the various parts of Riak KV you will encounter as you [plan][plan index], [configure][config index], and [use][use index] Riak.  
+Riak KV has many great features, functions, and guiding principles that inform how the product works. This section provides definitions for, insight into, and high level information about the various parts of Riak KV you will encounter as you [plan][plan index], [configure][config index], and [use][use index] Riak.
 
 Learn more about:
 

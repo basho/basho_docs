@@ -21,7 +21,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/getting-started/python/crud-operations/
 ---
 
-
 ## Creating Objects In Riak
 
 First, let’s create a few objects and a bucket to keep them in.
@@ -98,7 +97,6 @@ assert myBucket.get('one').exists == False
 assert myBucket.get('two').exists == False
 assert myBucket.get('three').exists == False
 ```
-
 
 ## Working With Complex Objects
 

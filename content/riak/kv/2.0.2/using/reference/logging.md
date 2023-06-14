@@ -182,7 +182,6 @@ To set the maximum size of the crash log before it is rotated, use the
 `log.crash.size` parameter. You can specify the size in KB, MB, etc. The
 default is `10MB`.
 
-
 ### Other Crash Log Settings
 
 The maximum size of individual crash log messages can be set using the

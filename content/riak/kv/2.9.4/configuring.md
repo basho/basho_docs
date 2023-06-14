@@ -101,5 +101,3 @@ A guide on configuring Riak's older V2 Multi-Datacenter Replication
 
 [Learn More >>][config v2 mdc]
 
-
-

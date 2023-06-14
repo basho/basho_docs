@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/key-value-modeling/
 ---
 
-
 While Riak enables you to take advantage of a wide variety of features
 that can be useful in application development, such as [Search]({{<baseurl>}}riak/kv/2.9.0p5/developing/usage/search), [secondary indexes (2i)]({{<baseurl>}}riak/kv/2.9.0p5/developing/usage/secondary-indexes/), and [Riak Data Types]({{<baseurl>}}riak/kv/2.9.0p5/developing/data-types/), Riak almost always performs best when you
 build your application around basic CRUD operations (create, read,

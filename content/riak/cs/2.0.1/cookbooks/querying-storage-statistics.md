@@ -23,9 +23,8 @@ and "billing" are used interchangeably. The same goes for the terms "usage"
 and access.
 {{% /note %}}
 
-
 > **Note**:
-> 
+>
 > Storage statistics are not calculated by default. Please read [Usage and Billing Data]({{<baseurl>}}riak/cs/2.0.1/cookbooks/usage-and-billing-data) for details about how to enable storage calculation archiving.
 
 The basics of querying storage statistics, including the URL used and the parameters for specifying the time slice, are the same as they are for [Querying Access Statistics]({{<baseurl>}}riak/cs/2.0.1/cookbooks/querying-access-statistics).

@@ -14,7 +14,6 @@ aliases:
     - /riakts/1.2.0/using/
 ---
 
-
 [activating]: creating-activating/
 [aggregate]: aggregate-functions/
 [arithmetic]: arithmetic-operations/
@@ -23,7 +22,6 @@ aliases:
 [planning]: planning/
 [querying]: querying/
 [writing]: writingdata/
-
 
 Now that you've downloaded the package from ZenDesk and [installed][installing] Riak TS, there's a recommended path for setting up and using it:
 

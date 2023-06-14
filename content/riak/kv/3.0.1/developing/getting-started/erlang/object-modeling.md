@@ -27,7 +27,6 @@ The Github version includes Erlang type specifications which have been omitted
 here for brevity.
 {{% /note %}}
 
-
 ```erlang
 %% msgy.hrl
 
@@ -66,7 +65,6 @@ easily be a future bottleneck in the system, so let's use a natural key.
 Natural keys are a great fit for key/value systems because both humans
 and computers can easily construct them when needed, and most of the
 time they can be made unique enough for a KV store.
-
 
 Bucket | Key Pattern | Example Key
 :------|:------------|:-----------
@@ -303,7 +301,6 @@ main() ->
   Msg = msg_repository:create_msg(Marleen#user.user_name, Joe#user.user_name, "Welcome to the company!"),
   timeline_repository:post_msg(Pid, Msg),
 
-
   %% Get Joe's inbox for today, get first message
   {TodaysDate,_} = calendar:now_to_universal_time(erlang:now()),
   JoesInboxToday = timeline_repository:get_timeline(Pid, Joe#user.user_name, inbox, TodaysDate),
@@ -336,7 +333,4 @@ So to recap, in this chapter we learned:
 
 * How to choose bucket names
 * How to choose natural keys based on how we want to partition our data.
-
-
-
 

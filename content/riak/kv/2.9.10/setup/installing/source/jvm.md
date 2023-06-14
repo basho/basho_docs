@@ -52,5 +52,3 @@ for `localhost` using
 scutil --set HostName "localhost"
 ```
 
-
-

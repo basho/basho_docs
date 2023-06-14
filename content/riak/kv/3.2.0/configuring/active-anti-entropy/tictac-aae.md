@@ -20,7 +20,7 @@ aliases:
 [configure next-gen-repl]: ../../next-gen-replication
 
 The configuration for TicTac AAE is kept in
- the `riak.conf` configuration file. 
+ the `riak.conf` configuration file.
 
 ## Validate Settings
 

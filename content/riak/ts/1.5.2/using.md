@@ -15,7 +15,6 @@ aliases:
 
 ---
 
-
 [activating]: creating-activating/
 [aggregate]: querying/select/aggregate-functions/
 [arithmetic]: querying/select/arithmetic-operations/
@@ -28,7 +27,6 @@ aliases:
 [riakshell]: riakshell/
 [writing]: writingdata/
 
-
 Now that you've [downloaded][download] and [installed][installing] Riak TS, there's a recommended path for setting up and using it:
 
 1. [Plan][planning] your Riak TS table. Once created, tables can't be edited, so it's important to get it right the first time.
@@ -36,5 +34,5 @@ Now that you've [downloaded][download] and [installed][installing] Riak TS, ther
 3. [Write data][writing] to your table.
 
 Check out [riak shell][riakshell], a handy tool for using TS.
- 
+
 Then check out how to [query][querying] your data, [customize your Riak TS configuration][configuring], analyze your data with [aggregate functions][aggregate], or apply some [arithmetic operations][arithmetic].

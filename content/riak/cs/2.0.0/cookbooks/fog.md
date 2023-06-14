@@ -81,7 +81,7 @@ user doesn't exist.
 ```ruby
 user = client.get_user(key_id)
 user.body
-# {"key_secret"=>"XXX", "display_name"=>"dizzy", "email"=>"dizzy@basho.com", "status"=>"enabled", "name"=>"Eric Redmond", "key_id"=>"YYY", "id"=>"ZZZ"}
+# {"key_secret"=>"XXX", "display_name"=>"dizzy", "email"=>"dizzy@{{<exampledomain>}}", "status"=>"enabled", "name"=>"Eric Redmond", "key_id"=>"YYY", "id"=>"ZZZ"}
 ```
 
 ### Manage User

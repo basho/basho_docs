@@ -141,7 +141,6 @@ curl http://localhost:8098/types/<bucket_type>/buckets/<bucket>/datatypes/<key>
 # requests, which end in /keys/<key>
 ```
 
-
 ## Create a HyperLogLog data type
 
 To create a hyperloglog data structure, you need to specify a bucket/key pair to
@@ -341,7 +340,7 @@ HllUpdate hllUpdate = new HllUpdate()
                         .addAll(Arrays.asList("Better", "Explained", "Jokes"));
 
 hllUpdate.getElementAdds();
-// Returns the set of ["Jokes", "Are", "Better", "Explained"]                     
+// Returns the set of ["Jokes", "Are", "Better", "Explained"]
 ```
 
 ```python
@@ -604,7 +603,7 @@ if (response.NotFound)
 }
 else
 {
-    Console.WriteLine("Hyperloglog cardinality is: " + response.Cardinality);  
+    Console.WriteLine("Hyperloglog cardinality is: " + response.Cardinality);
 }
 
 // Prints "Hyperloglog cardinality is: 4"
@@ -638,6 +637,4 @@ curl http://localhost:8098/types/hlls/buckets/hello/datatypes/darkness
 # Response
 {"type":"hll","value":"4"}
 ```
-
-
 

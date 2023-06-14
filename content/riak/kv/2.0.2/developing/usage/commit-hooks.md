@@ -223,7 +223,6 @@ postcommit_index_on_email(Object) ->
     C:put(IndexObj).
 ```
 
-
 ### Chaining
 
 The default value of the bucket `postcommit` property is an empty list,

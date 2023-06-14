@@ -23,7 +23,6 @@ from datetime import datetime
 import string
 import riak
 
-
 marleen = {'user_name': 'marleenmgr',
            'full_name': 'Marleen Manager',
            'email': 'marleen.manager@basho.com'}
@@ -58,7 +57,6 @@ easily be a future bottleneck in the system, so let's use a natural key.
 Natural keys are a great fit for key/value systems because both humans
 and computers can easily construct them when needed, and most of the
 time they can be made unique enough for a KV store.
-
 
 Bucket | Key Pattern | Example Key
 :------|:------------|:-----------
@@ -110,7 +108,6 @@ class UserRepository:
         riak_obj = self.client.bucket(self.BUCKET).get(user_name)
         return riak_obj.data
 
-
 class MsgRepository:
     BUCKET = 'Msgs'
 
@@ -135,7 +132,6 @@ class MsgRepository:
 
     def _generate_key(self, msg):
         return msg['sender'] + '_' + msg['created']
-
 
 class TimelineRepository:
     BUCKET = 'Timelines'
@@ -257,5 +253,4 @@ So to recap, in this chapter we learned:
 
 * How to choose bucket names
 * How to choose natural keys based on how we want to partition our data.
-
 

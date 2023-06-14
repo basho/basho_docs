@@ -23,7 +23,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/getting-started/ruby/object-modeling/
 ---
 
-
 To get started, let's create the models that we'll be using. Since the
 [Ruby Riak Client](https://github.com/basho/riak-ruby-client) uses
 hashes when converting to and from JSON, we'll use the library

@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/reference/multi-datacenter/per-bucket-replication/
 ---
 
-
 To enable or disable replication per bucket, you can use the `repl`
 bucket property.
 

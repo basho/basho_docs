@@ -31,5 +31,3 @@ message RpbSetBucketTypeReq {
 The `type` field specifies the name of the bucket type as a binary. The
 `props` field contains an [`RpbBucketProps`]({{<baseurl>}}riak/kv/3.0.1/developing/api/protocol-buffers/get-bucket-props).
 
-
-

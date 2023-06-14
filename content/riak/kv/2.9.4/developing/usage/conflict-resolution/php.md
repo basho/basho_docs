@@ -149,7 +149,7 @@ function longest_friends_list_resolver(Command\Object\Response $response)
 }
 ```
 
-We can then embed this function into a more general function for fetching 
+We can then embed this function into a more general function for fetching
 objects from the users bucket:
 
 ```php

@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/reference/runtime-interaction/
 ---
 
-
 [config reference]: {{<baseurl>}}riak/kv/2.9.0p5/configuring/reference
 [concept clusters]: {{<baseurl>}}riak/kv/2.9.0p5/learn/concepts/clusters
 

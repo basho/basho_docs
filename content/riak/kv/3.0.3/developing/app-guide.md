@@ -144,8 +144,6 @@ of features that may be just what you're looking for. In the sections
 immediately below, you can find brief descriptions of those features as
 well as relevant links to Basho documentation.
 
-
-
 ## Riak Data Types
 
 When performing basic K/V operations, Riak is agnostic toward the actual
@@ -168,7 +166,6 @@ own.
 * [Data Types][concept crdts] - A theoretical treatment of Riak Data Types, along
   with implementation details
 * [Data Modeling with Riak Data Types][dev data model] - An object modeling example that relies on Riak Data Types.
-
 
 ### When to Use Riak Data Types
 
@@ -354,8 +351,4 @@ will help you get up and running:
 * [Developing with Riak KV: Usage][usage index] - A guide to basic key/value operations and other common tasks in Riak KV.
 * [Riak KV Glossary][glossary] - A listing of frequently used terms in Riak's
   documentation
-
-
-
-
 

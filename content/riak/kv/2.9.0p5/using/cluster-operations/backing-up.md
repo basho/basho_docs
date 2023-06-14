@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/cluster-operations/backing-up/
 ---
 
-
 [concept clusters]: {{<baseurl>}}riak/kv/2.9.0p5/learn/concepts/clusters
 [config reference]: {{<baseurl>}}riak/kv/2.9.0p5/configuring/reference
 [plan backend leveldb]: {{<baseurl>}}riak/kv/2.9.0p5/setup/planning/backend/leveldb

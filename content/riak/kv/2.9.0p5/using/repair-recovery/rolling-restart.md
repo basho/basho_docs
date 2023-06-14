@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/repair-recovery/rolling-restart/
 ---
 
-
 Because Riak functions as a multi-node system, cluster-level [Riak version upgrades]({{<baseurl>}}riak/kv/2.9.0p5/setup/upgrading/cluster) and restarts can be performed on a node-by-node, "rolling" basis.
 
 The following steps should be undertaken on each Riak node that you wish to restart:

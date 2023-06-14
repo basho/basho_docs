@@ -49,7 +49,6 @@ riak-admin repair-2i kill
 
 ----
 
-
 ### Running a Repair
 
 If a replica loss has occurred, you need to run the repair command. This command repairs objects from a node's adjacent partitions on the ring.
@@ -87,7 +86,6 @@ This is done as efficiently as possible by generating a hash range for all the b
     ```
 
 5. When you're done, press `Ctrl-D` to disconnect the console. DO NOT RUN q() which will cause the running Riak node to quit. Note that `Ctrl-D` merely disconnects the console from the service, it does not stop the code from running.
-
 
 ### Monitoring a Repair
 
@@ -131,7 +129,4 @@ Repairs are not allowed to occur during ownership changes.  Since
 ownership entails the moving of partition data it is safest to make
 them mutually exclusive events.  If you join or remove a node all
 repairs across the entire cluster will be killed.
-
-
-
 

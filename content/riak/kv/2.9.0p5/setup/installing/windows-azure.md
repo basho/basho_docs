@@ -25,7 +25,6 @@ aliases:
   - /riak/kv/2.9.0p4/setup/installing/windows-azure/
 ---
 
-
 ## Creating CentOS VMs
 
 {{% note title="Warning: Azure not always up to date" %}}

@@ -16,10 +16,8 @@ aliases:
     - /riakts/1.3.0/developing/csharp/
 ---
 
-
 You can develop applications and tools using Riak TS with the Riak .NET client.
 This document covers the .NET API for Riak TS.
-
 
 ## Overview
 
@@ -29,13 +27,11 @@ Language | Source | Documentation | Download
 :--------|:-------|:--------------|:--------
 C# | [riak-dotnet-client](https://github.com/basho/riak-dotnet-client) | [api docs](http://basho.github.io/riak-dotnet-client-api/), [wiki](https://github.com/basho/riak-dotnet-client/wiki) | [NuGet package](http://www.nuget.org/List/Packages/RiakClient), [GitHub Releases](https://github.com/basho/riak-dotnet-client/releases)
 
-
 ## Data Types
 
  * `Cell` - Holds a single piece of data.
  * `Row` - Holds a collection of Cells.
  * `Column` - A metadata description of a column definition in a Riak TS table.
-
 
 ### Data Type Details
 
@@ -53,7 +49,6 @@ Use the `Cell` implementation that takes a generic type to define the data type.
 * `DateTime` - stored as UTC timestamp with millisecond resolution. Will be returned as UTC `DateTime` value.
 * `bool` - a true/false value.
 
-
 ##### Constructors
 
 Cell constructors accept a value matching the generic type of the class:
@@ -67,18 +62,15 @@ Cell constructors accept a value matching the generic type of the class:
  * `var c = new Cell<DateTime>(DateTime.Now)` - will be converted to UTC for you
  * `var c = new Cell()` - represents a `null` value
 
-
 #### `Row`
 
 A row contains a collection of cells.
 
 >**Note:** Rows are immutable once created.
 
-
 #### `Column`
 
 The column is a metadata description of a column definition in a Riak TS table, and contains both a column name and type.
-
 
 ##### Constructor
 
@@ -95,7 +87,6 @@ public enum ColumnType
 }
 ```
 
-
 ## Command Classes Index
 
 All command classes have a static inner `Builder` class to create and build each command.
@@ -108,18 +99,15 @@ All command classes have a static inner `Builder` class to create and build each
 
 >**Warning:** `ListKeys` is a very expensive operation.
 
-
 ### Command Class Details
 
 Each command is created through a static `Builder` subclass. This pattern ensures the commands are created as correctly as possible. To create the command from the builder, call the `.Build()` method.
 
 To execute any command, you must have an instance of a `RiakClient` object. You then pass the command object as a parameter into the `Execute()` or `ExecuteAsync()` methods.
 
-
 #### `Delete`
 
 Deletes a single row by its key values.
-
 
 ##### Builder
 
@@ -132,16 +120,13 @@ There is also an instance method to specify a command timeout in milliseconds:
 
  * `WithTimeout(int timeout)`
 
-
 ##### Return Value
 
  * `Response`
 
-
 #### `Get`
 
 Gets a single row by its key values.
-
 
 ##### Builder
 
@@ -154,16 +139,13 @@ There is also an instance method to specify a command timeout in milliseconds:
 
  * `WithTimeout(int timeout)`
 
-
 ##### Return Value
 
 * `GetResponse` - 1 row if a match was found; 0 rows if no match was found.
 
-
 #### `ListKeys`
 
 Lists the primary keys of all the rows in a Riak TS table via streaming.
-
 
 ##### Builder
 
@@ -179,11 +161,9 @@ There is also an instance method to specify a command timeout in milliseconds:
 
  * `WithTimeout(int timeout)`
 
-
 ##### Return Value
 
 * `ListKeysResponse` - will contain the complete set of rows if no callback specified, otherwise an empty set of rows since they will have all been delivered via the callback.
-
 
 #### `Query`
 

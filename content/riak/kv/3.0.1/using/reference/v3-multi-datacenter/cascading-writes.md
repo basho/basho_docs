@@ -35,7 +35,6 @@ works well for most common configurations. Larger installations, however, may
 have writes cascade to clusters to which other clusters have already written.
 {{% /note %}}
 
-
 ```
 +---+     +---+     +---+
 | A | <-> | B | <-> | C |
@@ -97,6 +96,4 @@ To enable cascading:
 To disable cascading:
 
 `riak-repl realtime cascades never`
-
-
 

@@ -81,7 +81,7 @@ The general format for calling `aae_fold` is:
 
 ```riakattach
 riak_client:aae_fold(
-    query, 
+    query,
     Client).
 ```
 
@@ -91,7 +91,7 @@ As an example, this will call `list_buckets`, which takes a single parameter:
 
 ```riakattach
 riak_client:aae_fold({
-    list_buckets, 
+    list_buckets,
     3
     }, Client).
 ```
@@ -119,9 +119,9 @@ To timeout you typically have to have a very large number of keys in the bucket.
 After experiencing a timeout, the current number of commands waiting to execute can be checked by asking for the size of the assured forwarding pool `af4_pool`. Once it reaches 0, there are no more workers as all commands have finished. The size of the pool can checked using this command:
 
 ```erlang
-{_, _, _, [_, _, _, _, [_, _, {data, [{"StateData", {state, _, _, MM, _, _}}]}]]} = 
-    sys:get_status(af4_pool), 
-io:format("af4_pool has ~b workers\n", [length(MM)]), 
+{_, _, _, [_, _, _, _, [_, _, {data, [{"StateData", {state, _, _, MM, _, _}}]}]]} =
+    sys:get_status(af4_pool),
+io:format("af4_pool has ~b workers\n", [length(MM)]),
 f().
 ```
 {{% note title="Warning: existing variables cleared" %}}
@@ -130,7 +130,7 @@ f().
 
 ### How to avoid timeouts
 
-To reduce the chance of getting a timeout, reduce the number of keys checked by using the [bucket][filter-by bucket] and [key range][filter-by key-range] filters. 
+To reduce the chance of getting a timeout, reduce the number of keys checked by using the [bucket][filter-by bucket] and [key range][filter-by key-range] filters.
 
 The [modified][filter-by modified] filter will not reduce the number of keys checked, and only acts as a filter on the result.
 
@@ -166,6 +166,7 @@ Returns a list of keys that meet the filter parameters.
 [Learn More >>][tictacaae find-keys]
 
 ## Find Riak tombstones
+
 Function: `find_tombs`
 
 Returns tuples of bucket name, keyname, and object size of Riak tombstone objects that meet the filter parameters.

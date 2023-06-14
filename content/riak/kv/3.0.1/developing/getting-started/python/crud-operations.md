@@ -92,7 +92,6 @@ assert myBucket.get('two').exists == False
 assert myBucket.get('three').exists == False
 ```
 
-
 ## Working With Complex Objects
 
 Since the world is a little more complicated than simple integers and
@@ -145,6 +144,4 @@ Finally, let’s clean up our mess:
 ```python
 fetchedBook.delete()
 ```
-
-
 

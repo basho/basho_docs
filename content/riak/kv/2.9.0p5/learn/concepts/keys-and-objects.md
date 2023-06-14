@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/learn/concepts/keys-and-objects/
 ---
 
-
 [concept buckets]: {{<baseurl>}}riak/kv/2.9.0p5/learn/concepts/buckets
 [concept causal context vc]: {{<baseurl>}}riak/kv/2.9.0p5/learn/concepts/causal-context/#vector-clocks
 

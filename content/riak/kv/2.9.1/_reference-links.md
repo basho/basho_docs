@@ -1,7 +1,6 @@
 
 # Riak KV 2.9.1 Reference Links List
 
-
 ## Common
 
 [downloads]: {{<baseurl>}}riak/kv/2.9.1/downloads/
@@ -14,7 +13,6 @@
 [performance index]: {{<baseurl>}}riak/kv/2.9.1/using/performance
 [glossary vnode]: {{<baseurl>}}riak/kv/2.9.1/learn/glossary/#vnode
 [contact basho]: https://www.tiot.jp/en/about-us/contact-us/
-
 
 ## Planning
 
@@ -30,7 +28,6 @@
 [plan bitcask capacity]: {{<baseurl>}}riak/kv/2.9.1/setup/planning/bitcask-capacity-calc
 [plan best practices]: {{<baseurl>}}riak/kv/2.9.1/setup/planning/best-practices
 [plan future]: {{<baseurl>}}riak/kv/2.9.1/setup/planning/future
-
 
 ## Installing
 
@@ -51,7 +48,6 @@
 
 [install verify]: {{<baseurl>}}riak/kv/2.9.1/setup/installing/verify
 
-
 ## Upgrading
 
 [upgrade index]: {{<baseurl>}}riak/kv/2.9.1/setup/upgrading
@@ -60,7 +56,6 @@
 [upgrade cluster]: {{<baseurl>}}riak/kv/2.9.1/setup/upgrading/cluster
 [upgrade mdc]: {{<baseurl>}}riak/kv/2.9.1/setup/upgrading/multi-datacenter
 [upgrade downgrade]: {{<baseurl>}}riak/kv/2.9.1/setup/downgrade
-
 
 ## Configuring
 
@@ -83,8 +78,6 @@
 [config v2 nat]: {{<baseurl>}}riak/kv/2.9.1/configuring/v2-multi-datacenter/nat
 [config v2 quickstart]: {{<baseurl>}}riak/kv/2.9.1/configuring/v2-multi-datacenter/quick-start
 [config v2 ssl]: {{<baseurl>}}riak/kv/2.9.1/configuring/v2-multi-datacenter/ssl
-
-
 
 ## Using
 
@@ -155,7 +148,6 @@
 
 [troubleshoot http]: {{<baseurl>}}riak/kv/2.9.1/using/troubleshooting/http-204
 
-
 ## Developing
 
 [dev index]: {{<baseurl>}}riak/kv/2.9.1/developing
@@ -214,7 +206,6 @@
 [dev api http status]: {{<baseurl>}}riak/kv/2.9.1/developing/api/http/status
 [dev api pbc]: {{<baseurl>}}riak/kv/2.9.1/developing/api/protocol-buffers/
 
-
 ## Learn
 
 [learn new nosql]: {{<baseurl>}}riak/kv/learn/new-to-nosql
@@ -237,8 +228,6 @@
 [concept replication]: {{<baseurl>}}riak/kv/2.9.1/learn/concepts/replication
 [concept strong consistency]: {{<baseurl>}}riak/kv/2.9.1/using/reference/strong-consistency
 [concept vnodes]: {{<baseurl>}}riak/kv/2.9.1/learn/concepts/vnodes
-
-
 
 ## Community
 

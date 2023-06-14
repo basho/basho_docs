@@ -14,11 +14,9 @@ aliases:
     - /riakts/1.3.0/
 ---
 
-
 [download]: downloads/
 [installing]: installing/
 [learnabout]: learn-about/
-
 
 Riak TS is a distributed NoSQL key/value store optimized for time series data. With TS, you can associate a number of data points with a specific point in time. Time quantization says “group data by 15 minute clumps, or 10 second clumps, or 60 day clumps” depending on how quickly your time series data come in and how you need to analyze them. For example, you can store humidity and temperature readings from a meter together.
 
@@ -50,7 +48,6 @@ CREATE TABLE BashoWeather
 
 Using this table we can map region, state and time (in 15 minute chunks) to weather condition, temperature, and humidity readings.
 
-
 ## Supported Operating Systems
 
 * CentOS 6
@@ -63,7 +60,6 @@ Using this table we can map region, state and time (in 15 minute chunks) to weat
 * OS X 10.8 (development only)
 
 >**Note:** At this release, LevelDB is the only supported backend.
-
 
 ## Get Started
 

@@ -1129,7 +1129,7 @@ $counterBuilder = (new \Basho\Riak\Command\Builder\IncrementCounter($riak))
   ->withIncrement(10);
 
 $setBuilder = (new \Basho\Riak\Command\Builder\UpdateSet($riak));
-  
+
 foreach(['acting', 'being Stringer Bell'] as $interest) {
   $setBuilder->add($interest);
 }
@@ -1145,7 +1145,7 @@ foreach(['acting', 'being Stringer Bell'] as $interest) {
   ->execute();
 
 $setBuilder = (new \Basho\Riak\Command\Builder\UpdateSet($riak));
-  
+
 foreach(['loving rock and roll', 'being in the Blackhearts'] as $interest) {
   $setBuilder->add($interest);
 }

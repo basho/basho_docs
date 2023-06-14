@@ -36,13 +36,13 @@ RRA.
 
 The set of clients (including recommendations) for Redis are listed at
 [Redis clients][redis-clients]. For brevity sake, examples provided here are
-in: 
+in:
 
 * Erlang (Eredis)
 * Javascript (node_redis)
 * Python (redis-py)
 * Ruby (redis-rb)
-* Scala (lettuce) 
+* Scala (lettuce)
 * Java, see the Scala examples. The code intentionally uses as few Scala tricks as possible to focus on the use of the Redis client.
 
 ## Riak KV Setup
@@ -70,7 +70,7 @@ For additional configuration options see [bucket properties][dev api http].
 
 Riak KV organizes data into buckets, keys, and values, with
 [bucket types][usage bucket types] acting as an additional namespace in Riak KV
-versions 2.0 and greater. Values, which we'll refer to as objects, are identifiable by a unique key, and each key/value pair is stored in a bucket. 
+versions 2.0 and greater. Values, which we'll refer to as objects, are identifiable by a unique key, and each key/value pair is stored in a bucket.
 
 Objects accessed via the cache proxy service in Riak Redis Add-on are restricted to plaintext format. This plaintext format may be a simple string, JSON, XML, or other plaintext representations that can be parsed in the client application (e.g. YAML).
 
@@ -80,7 +80,7 @@ service, Redis bucket_type:bucket:key is mapped to Riak KV
 bucket_type/bucket/key, so bucket type and bucket names should not contain
 colon (`:`). When not specified, bucket type defaults to "default".
 
-Outside of the above restriction, bucket names have no intrinsic significance beyond allowing you to store objects with the same key in different buckets. 
+Outside of the above restriction, bucket names have no intrinsic significance beyond allowing you to store objects with the same key in different buckets.
 
 The same goes for naming keys: many objects can have the same key as long as they're in different buckets. There is no restriction on key containing colon (`:`), and this practice of representing a nested namespace is common in applications using Redis.
 
@@ -89,7 +89,6 @@ configurations for buckets (as many buckets as you wish). This means you can
 easily enable buckets to share common configurations, i.e. identical
 [replication properties][apps replication properties] or
 [commit hooks][usage commit hooks].
-
 
 ## Reading Objects
 
@@ -139,7 +138,6 @@ var value = connection.get("test:food")
 >**Note:** The cache proxy service read option (related to replication factor and
 consistency concern) may optionally be set within the nutcracker.conf. This will  result in an override of the setting value at the bucket-level in Riak KV.
 
-
 |Parameter       |Description      |Default|
 |----------------|-----------------|-------|
 |`n_val`         | The number of replicas for objects in a bucket. The `n_val` should be an integer greater than 0 and less than or equal to the number of nodes in the cluster.<br /><br />**NOTE**: If you change the `n_val` after keys have been added to the bucket it may result in failed reads, as the new value may not be replicated to all of the appropriate partitions. | `3` |
@@ -150,13 +148,11 @@ consistency concern) may optionally be set within the nutcracker.conf. This will
 |`notfound_ok`   | Whether to treat notfounds as successful reads for the purpose of `r`. | 1 (true) |
 |`timeout`       | The number of milliseconds to await a response. | `0` (server specified) |
 
-
 ### Sibling Resolution
 
 As the Redis protocol does not provide a means to return multiple siblings,
 the cache proxy service must provide server-side sibling resolution. At present, only last-write-wins sibling resolution is available. The result is an effective
 last-write-wins configuration for access through the cache proxy service.
-
 
 ## Writing Objects
 
@@ -210,14 +206,12 @@ connection.set("test:food", "apple")
 consistency concern) may optionally be set within the nutcracker.conf, resulting
 in an override of the setting value at the bucket-level in Riak KV.
 
-
 |Parameter       |Description      |Default|
 |----------------|-----------------|-------|
 |`n_val`         | The number of replicas for objects in a bucket. The `n_val` should be an integer greater than 0 and less than or equal to the number of nodes in the cluster.<br /><br />**NOTE**: If you change the `n_val` after keys have been added to the bucket it may result in failed reads, as the new value may not be replicated to all of the appropriate partitions. | `3` |
 |`pw`            | How many vnodes must respond for a write to be deemed successful. | `0` |
 |`w`             | How many replicas need to acknowledge the write before responding. | `2` |
 |`sloppy_quorum` | Whether to treat vnodes holding values for another vnode as acceptable within the quorum determination. | `0` (false) |
-
 
 ### Sibling Explosion
 

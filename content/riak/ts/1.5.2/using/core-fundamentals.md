@@ -15,7 +15,6 @@ aliases:
 
 ---
 
-
 [Riak KV]: {{<baseurl>}}riak/kv/2.2.0/
 
 Riak TS shares the same core codebase as [Riak KV], which allows you to operate a TS cluster much the same as you would operate a KV cluster.
@@ -46,7 +45,6 @@ There are some additional points it is important to note:
 * AAE is off by default and not currently supported in Riak TS.
 * In Riak TS, `SELECT` does not invoke read-repair, but single key `GET` does.
 
-
 ## Links
 
 Below, you will find links to Riak KV documents that are applicable and helpful for running a Riak TS cluster.
@@ -60,7 +58,6 @@ Below, you will find links to Riak KV documents that are applicable and helpful 
 <a href="{{< baseurl >}}riak/kv/2.2.0/configuring/reference/" target="_blank">Configuration Reference</a> provides you with everything you need to know about configuring Riak core.
 
 <a href="{{< baseurl >}}riak/kv/2.2.0/configuring/load-balancing-proxy/" target="_blank">Load Balancing</a> will walk you through configuring a load balancer with your Riak cluster.
-
 
 ### Cluster Operations
 
@@ -81,7 +78,6 @@ Below, you will find links to Riak KV documents that are applicable and helpful 
 <a href="{{< baseurl >}}riak/kv/2.2.0/using/cluster-operations/backing-up/" target="_blank">Backing Up</a> is a how-to guide for backing up your data.
 
 <a href="{{< baseurl >}}riak/kv/2.2.0/using/cluster-operations/handoff/" target="_blank">Handoff</a> will tell you everything you need to know to enable and disable handoff.
-
 
 ### Repair, Tuning, and Reference
 

@@ -28,7 +28,10 @@ aliases:
 [tictacaae list-buckets]: ../tictac-aae-fold/list-buckets
 [tictacaae object-stats]: ../tictac-aae-fold/object-stats
 [tictacaae count-tombs]: ../tictac-aae-fold/count-tombs
+[tictacaae count-keys]: ../tictac-aae-fold/count-keys
 [tictacaae reap-tombs]: ../tictac-aae-fold/reap-tombs
+[tictacaae erase-keys]: ../tictac-aae-fold/erase-keys
+[tictacaae repair-keys-range]: ../tictac-aae-fold/repair-keys-range
 [filters]: ../tictac-aae-fold/filters
 [filter-by bucket]: ../tictac-aae-fold/filters#filter-by-bucket-name
 [filter-by key-range]: ../tictac-aae-fold/filters#filter-by-key-range
@@ -81,7 +84,7 @@ The general format for calling `aae_fold` is:
 
 ```riakattach
 riak_client:aae_fold(
-    query, 
+    query,
     Client).
 ```
 
@@ -91,7 +94,7 @@ As an example, this will call `list_buckets`, which takes a single parameter:
 
 ```riakattach
 riak_client:aae_fold({
-    list_buckets, 
+    list_buckets,
     3
     }, Client).
 ```
@@ -119,18 +122,19 @@ To timeout you typically have to have a very large number of keys in the bucket.
 After experiencing a timeout, the current number of commands waiting to execute can be checked by asking for the size of the assured forwarding pool `af4_pool`. Once it reaches 0, there are no more workers as all commands have finished. The size of the pool can checked using this command:
 
 ```erlang
-{_, _, _, [_, _, _, _, [_, _, {data, [{"StateData", {state, _, _, MM, _, _}}]}]]} = 
-    sys:get_status(af4_pool), 
-io:format("af4_pool has ~b workers\n", [length(MM)]), 
+{_, _, _, [_, _, _, _, [_, _, {data, [{"StateData", {state, _, _, MM, _, _}}]}]]} =
+    sys:get_status(af4_pool),
+io:format("af4_pool has ~b workers\n", [length(MM)]),
 f().
 ```
+
 {{% note title="Warning: existing variables cleared" %}}
 `f()` will unbind any existing variables, which may not be your intention. If you remove `f()` then please remember that `MM` will remain bound to the first value. For re-use, you should change the variable name or restart the `riak attach` session.
 {{% /note %}}
 
 ### How to avoid timeouts
 
-To reduce the chance of getting a timeout, reduce the number of keys checked by using the [bucket][filter-by bucket] and [key range][filter-by key-range] filters. 
+To reduce the chance of getting a timeout, reduce the number of keys checked by using the [bucket][filter-by bucket] and [key range][filter-by key-range] filters.
 
 The [modified][filter-by modified] filter will not reduce the number of keys checked, and only acts as a filter on the result.
 
@@ -181,6 +185,14 @@ Returns a list of all buckets.
 
 [Learn More >>][tictacaae list-buckets]
 
+## Count keys
+
+Function: `erase_keys` with `count`
+
+Counts the Riak keys that meet the filter parameters.
+
+[Learn More >>][tictacaae count-keys]
+
 ## Count tombstones
 
 Function: `reap_tombs` with `count`
@@ -197,6 +209,14 @@ Returns a count of Riak objects that meet the filter parameters.
 
 [Learn More >>][tictacaae object-stats]
 
+## Erase keys
+
+Function: `erase_keys` with `local`
+
+Deletes Riak keys that meet the filter parameters.
+
+[Learn More >>][tictacaae erase-keys]
+
 ## Reap tombstones
 
 Function: `reap_tombs` with `local`
@@ -205,15 +225,21 @@ Reaps the Riak tombstone objects that meet the filter parameters.
 
 [Learn More >>][tictacaae reap-tombs]
 
+## Repair keys
+
+Function: `repair_keys_range`
+
+Performs a read-repair on the keys that meet the filter parameters.
+
+[Learn More >>][tictacaae repair-keys-range]
+
 ## Other functions not covered
 
-`aae_fold` has various other functions that can be called, but are mostly for internal use by Riak. These functions should not be used without a good understanding of the source code, but are provided here for reference:
+`aae_fold` has various other functions that can be called, but are mostly for internal use by Riak. These functions should not be used without a good understanding of the source code, but are listed here for reference:
 
-- `erase_keys`
 - `fetch_clocks_nval`
 - `fetch_clocks_range`
 - `merge_branch_nval`
 - `merge_root_nval`
 - `merge_tree_range`
-- `repair_keys_range`
 - `repl_keys_range`

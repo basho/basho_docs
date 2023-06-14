@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/reference/handoff/
 ---
 
-
 [cluster ops handoff]: {{<baseurl>}}riak/kv/2.9.0p5/using/cluster-operations/handoff
 
 Riak is a distributed system built with two essential goals in mind:

@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/api/http/ping/
 ---
 
-
 Checks if the server is alive. This is useful for monitoring tools, load-balancers and automated scripts.
 
 ## Request

@@ -24,7 +24,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/reference/v3-multi-datacenter/cascading-writes/
 ---
 
-
 ## Introduction
 
 Riak includes a feature that cascades realtime writes across
@@ -41,7 +40,6 @@ Cascading tracking is a simple list of where an object has been written. This
 works well for most common configurations. Larger installations, however, may
 have writes cascade to clusters to which other clusters have already written.
 {{% /note %}}
-
 
 ```
 +---+     +---+     +---+

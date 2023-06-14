@@ -32,5 +32,3 @@ A tutorial on updating to Riak KV 2.9.10
 
 [Learn More >>][upgrade version]
 
-
-

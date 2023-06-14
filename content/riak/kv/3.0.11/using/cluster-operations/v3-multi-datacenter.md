@@ -107,7 +107,6 @@ The `clusterstats` command in use:
 * Example: `riak-repl clusterstats 192.168.2.1:9080`
 * Example: `riak-repl clusterstats 192.168.2.1:9080 fs_repl`
 
-
 ## Realtime Replication Commands
 
 #### realtime enable
@@ -127,7 +126,6 @@ Disable realtime replication from a source cluster to sink clusters.
 * Syntax: `riak-repl realtime disable <sink_clustername>`
 * Example: `riak-repl realtime disable Austin`
 
-
 #### realtime start
 
 Start realtime replication connections from a source cluster to sink
@@ -142,7 +140,6 @@ Stop realtime replication from a source cluster to sink clusters.
 
 * Syntax `riak-repl realtime stop <sink_clustername>`
 * Example `riak-repl realtime stop Austin`
-
 
 ## Fullsync Replication Commands
 
@@ -206,7 +203,6 @@ Disable realtime cascading writes.
 * Syntax: `realtime cascades never`
 * Example: `riak-repl realtime cascades never`
 
-
 ## NAT
 
 **Note**: See the [V3 Multi Data Center Replication With NAT][config v3 nat] for more information.
@@ -236,7 +232,6 @@ Deletes a specific NAT map entry.
 NAT changes will be applied once fullsync and/or realtime replication
 has been stopped and started.
 
-
 ## Riak CS MDC Gets
 
 #### proxy-get enable
@@ -264,12 +259,14 @@ Provide a redirection to the `<to-cluster-id>` for `proxy_get` if the
 * Example: `riak-repl add-block-provider-redirect "{'dev1@127.0.0.1',{1391,544501,519016}}" "{'dev3@127.0.0.1',{1299,512501,511032}}"`
 
 #### `show-block-provider-redirect`
+
 Show the mapping for a given cluster-id redirect.
 
 * Syntax: `riak-repl show-block-provider-redirect <from-cluster>`
 * Example: `riak-repl show-block-provider-redirect "{'dev1@127.0.0.1',{1391,544501,519016}}"`
 
 #### `delete-block-provider-redirect`
+
 Delete a existing redirect such that proxy_gets go again to the original
 provider cluster id.
 
@@ -301,7 +298,6 @@ included when passed to `*-block-provider-redirect`.
 
 Details about the `riak-repl status` command can be found under
 [Statistics][ref v3 stats].
-
 
 ## Tuning
 
@@ -335,7 +331,6 @@ command line.
 * Default: `5`
 * Example: `riak-repl fullsync max_fssource_cluster 5`
 
-
 #### `fullsync max_fssink_node`
 
 This limits the number of fullsync workers allowed to run on each
@@ -349,7 +344,6 @@ file or command line.
 * Syntax: `riak-repl fullsync max_fssink_node <value>`
 * Default: `1`
 * Example: `riak-repl fullsync max_fssink_node 5`
-
 
 ## Mixing Version 2 Replication with Version 3 Replication
 
@@ -410,7 +404,4 @@ If you want the properties for Buckets or Bucket Types
 present on the source cluster to be propagated to sink clusters
 you should update this data for each cluster at the same
 time you would change the source cluster.
-
-
-
 

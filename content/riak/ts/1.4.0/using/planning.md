@@ -14,7 +14,6 @@ aliases:
     - /riakts/1.4.0/using/planning/
 ---
 
-
 [activating]: ../creating-activating/
 [table arch]: ../../learn-about/tablearchitecture/
 [bestpractices]: ../../learn-about/bestpractices/
@@ -23,13 +22,11 @@ aliases:
 [installing]: ../../setup/installing/
 [sql]: ../../learn-about/sqlriakts/
 
-
 Now that you've [installed][installing] Riak TS, you're almost ready to create a TS table. Before you can create your table, you'll need to plan it out.
 
 This page provides a basic overview of what you'll need and some guidelines/limitations. For more information about what the components of a Riak TS table do, check out [Table Architecture][table arch].
 
 Riak TS tables are closely tied to SQL tables. If would like to know more about how Riak TS integrates SQL, check out [SQL for Riak TS][sql].
-
 
 ## TS Table Schema
 
@@ -63,7 +60,6 @@ Keywords are case sensitive, so be sure to capitalize appropriately.
 {{% note title="Table Limitations" %}}
 You cannot create a table with more than 511 total columns. If you try to create a table with more than 511 columns, you will receive an error.
 {{% /note %}}
-
 
 ### Column Definitions
 
@@ -120,7 +116,6 @@ The data types in column definitions are limited. Valid types are:
 * `SINT64` - Signed 64-bit integer.
 * `DOUBLE` - This type does not comply with its IEEE specification: `NaN` (not a number) and `INF` (infinity) cannot be used.
 
-
 ### Primary Key
 
 The `PRIMARY KEY` describes both the partition key and local key. The partition key is a prefix of the local key, consisting of one or more column names in parentheses. The local key must begin with the same column names as the partition key, but may also contain additional column names.
@@ -174,7 +169,6 @@ CREATE TABLE GeoCheckin
 )
 ```
 
-
 #### Partition Key
 
 The partition key is the first element of the primary key, and must have at least one column name.
@@ -199,7 +193,6 @@ The quantum function takes 3 parameters:
   * `'m'` - minutes
   * `'s'` - seconds
 
-
 #### Local Key
 
 The local key comes after the partition key. It must first contain the same column names in the same order as the partition key. This ensures that the same column names determining your data's partition also dictate the sorting of the data within that partition.
@@ -217,7 +210,7 @@ The local key may also contain additional column names so long as they come afte
 
 The Local Key in a Riak TS row is what makes that row's key/address unique from other rows.
 In the examples on this page and others we've used a composite key of
-`region, state, time` because it can model different devices and groupings.  
+`region, state, time` because it can model different devices and groupings.
 If you have another identifier, such as a device ID, that you can guarantee to be unique when combined with a timestamp, you can have a shorter key definition.
 
 The table definition for such a schema would be as follows:
@@ -238,7 +231,7 @@ CREATE TABLE GeoCheckin
 )
 ```
 
-The omission of `region` and `state` from the key definition makes it shorter, and will also make any SQL queries shorter because we'll only need a minimum of id/time in our queries `WHERE` clauses (see [Table Architecture](../../learn-about/tablearchitecture/) and [Querying Guidelines](../querying/guidelines/) for all the specifics about how different partition + local key layouts change the way you query data).  
+The omission of `region` and `state` from the key definition makes it shorter, and will also make any SQL queries shorter because we'll only need a minimum of id/time in our queries `WHERE` clauses (see [Table Architecture](../../learn-about/tablearchitecture/) and [Querying Guidelines](../querying/guidelines/) for all the specifics about how different partition + local key layouts change the way you query data).
 
 The downside to this schema is that you'll likely need to do one query per device, instead of being able to group multiple devices together based on their other defining characteristics such as region & state.
 
@@ -252,7 +245,6 @@ After creating a table, its schema can be discovered with the [DESCRIBE statemen
 Still unsure how best to structure your Riak TS table? Check out our [best practice recommendations][bestpractices].
 
 Confused about what column definitions, primary key, etc. do? Check out [Table Architecture][table arch] for an in-depth explanation of TS tables.
-
 
 ## Next Steps
 

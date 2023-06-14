@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/app-guide/strong-consistency/
 ---
 
-
 [use ref strong consistency]: {{<baseurl>}}riak/kv/2.9.0p5/using/reference/strong-consistency
 [concept eventual consistency]: {{<baseurl>}}riak/kv/2.9.0p5/learn/concepts/eventual-consistency
 [use ref strong consistency#trade-offs]: {{<baseurl>}}riak/kv/2.9.0p5/using/reference/strong-consistency/#trade-offs

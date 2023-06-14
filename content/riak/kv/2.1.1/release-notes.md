@@ -17,6 +17,7 @@ aliases:
 *NOTE: Riak 2.1.1 has replaced Riak 2.1.0*
 
 ## Fixes
+
 Riak 2.1.0 introduced a bug that has been fixed in Riak 2.1.1. The default configuration for handoff.ip caused vnodes marked for transfer during handoff to be removed without transferring data to their new destination nodes. A mandatory change to configuration (riak.conf) mitigates this issue for 2.1.0 users. While not all users were impacted by this issue, we recommend that all 2.1.0 users upgrade to 2.1.1.
 
 Detailed information on the issue is available in the Basho Documentation [Product Advisories]({{<baseurl>}}community/productadvisories/210-dataloss/).
@@ -48,7 +49,7 @@ Limitations:
 
 ## Changes
 
-* [Issue kv679](https://github.com/basho/riak_kv/issues/679) - Applies fix to most causes of data loss from repeated causal history. A monotonic counter is fsynced to disk when the vnode starts. Thus starting/re-starting a vnode has a cost associated that was not there before. 
+* [Issue kv679](https://github.com/basho/riak_kv/issues/679) - Applies fix to most causes of data loss from repeated causal history. A monotonic counter is fsynced to disk when the vnode starts. Thus starting/re-starting a vnode has a cost associated that was not there before.
   * [riak_kv/pull/1070](https://github.com/basho/riak_kv/pull/1070)
 
 * Update API to retrieve active preflist based on particular bucket/key.
@@ -105,7 +106,6 @@ Updates the Riak API with an operation to GET, e.g. `/types/Type/buckets/Bucket/
 
 * [yokozuna/issues/481](https://github.com/basho/yokozuna/issues/481) - Search loses entries when Search AAE trees expire. We are currently investigating this issue.
 * [riak/issues/727](https://github.com/basho/riak/issues/727) - Users upgrading from 1.4.x to 2.1.x that choose to use the traditional `app.config` for configuration should be aware that the default settings for `allow_mult` and `dvv_enabled` have changed from `false` to `true` between these versions.  If your application depends on these being set to 'false', you must explicitly define this by adding `{default_bucket_props, [{allow_mult, false}, {dvv_enabled, false}]},` to the `riak_core` section of your `app.config` file to maintain backwards compatibility.
-
 
 ## Notes on upgrading
 

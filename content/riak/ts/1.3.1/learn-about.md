@@ -18,7 +18,6 @@ aliases:
 [bestpractices]: bestpractices/
 [sqlriakts]: sqlriakts/
 
-
 Welcome to Learning About Riak TS! In this section you will find the following:
 
 * [Table Architecture][table arch] - An in-depth look at the structure and format of a Riak TS table, including interacting on the command line and data modeling.

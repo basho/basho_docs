@@ -21,21 +21,19 @@ The GROUP BY statement is used with `SELECT` to pick out and condense rows shari
 
 This document will show you how to run various queries using `GROUP BY`. See the [guidelines] for more information on limitations and rules for queries in TS.
 
- 
 ## GROUP BY Basics
 
-`GROUP BY` returns a single row for each unique combination of values for columns specified in the GROUP BY statement. There is no guaranteed order for the returned rows. 
+`GROUP BY` returns a single row for each unique combination of values for columns specified in the GROUP BY statement. There is no guaranteed order for the returned rows.
 
 The SELECT statement must contain only the columns specified in `GROUP BY`. Columns not used as groups can appear as function parameters. The GROUP BY statement works on all rows, not just the values in the partition key, so all columns are available.
 
 The [aggregate function] may be used with the GROUP BY statement. If used, `SELECT` may contain the columns specified in either `GROUP BY` or the [aggregate function].
 
 {{% note title="WARNING" %}}
-Before you run `GROUP BY` you must ensure the node issuing the query has adequate memory to receive the response. If the returning rows do not fit into the memory of the requesting node, the node is likely to fail. 
+Before you run `GROUP BY` you must ensure the node issuing the query has adequate memory to receive the response. If the returning rows do not fit into the memory of the requesting node, the node is likely to fail.
 {{% /note %}}
 
-
-## GROUP BY Examples 
+## GROUP BY Examples
 
 The following table defines a schema for tasks, including which project they are part of and when they were completed.
 
@@ -63,10 +61,10 @@ GROUP BY project;
 
 ### More than one group
 
-You can group as many columns as you choose, and the order of the grouping has no effect. 
+You can group as many columns as you choose, and the order of the grouping has no effect.
 
 The query below returns one column per unique project, name combination, and counts how many rows have the same project, name combination.
- 
+
 ```sql
 SELECT project, COUNT(name)
 FROM tasks
@@ -123,8 +121,8 @@ If we create the following table:
 
 ```sql
 CREATE TABLE tasks2 (
-userid VARCHAR NOT NULL, 
-visits SINT64, 
+userid VARCHAR NOT NULL,
+visits SINT64,
 a_time TIMESTAMP NOT NULL, PRIMARY KEY(userid, a_time));
 ```
 

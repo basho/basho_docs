@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/cluster-operations/handoff/
 ---
 
-
 Riak KV provides a command-line interface for enabling and disabling handoff on the fly, without needing to set your configuration and restart the node. To
 enable handoff:
 

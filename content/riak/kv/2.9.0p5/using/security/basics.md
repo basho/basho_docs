@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/security/basics/
 ---
 
-
 > **Note on Network security**
 >
 > This document covers only the 2.0 authentication and authorization

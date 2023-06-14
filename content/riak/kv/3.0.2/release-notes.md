@@ -19,7 +19,6 @@ aliases:
 
 Released Jan 05, 2021.
 
-
 ## Overview
 
 This release improves the performance and stability of the leveled backend and of AAE folds. These performance improvements are based on feedback from deployments with > 1bn keys per cluster.
@@ -45,8 +44,4 @@ Further significant improvements have been made to Tictac AAE full-sync, to grea
 ## Previous Release Notes
 
 Please see the KV 3.0.1 release notes [here]({{<baseurl>}}riak/kv/3.0.1/release-notes/) and the KV 2.9.7 release notes [here]({{<baseurl>}}riak/kv/2.9.7/release-notes/).
-
-
-
-
 

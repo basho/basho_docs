@@ -78,7 +78,6 @@ storage with the `noatime` flag, meaning that filesystem
 touched when read. This flag can be set temporarily using the following
 command:
 
-
 ```bash
 mount -o remount,noatime <riak_data_volume>
 ```
@@ -263,6 +262,4 @@ details.
 * [Erlang VM Tuning]({{<baseurl>}}riak/kv/3.0.1/using/performance/erlang)
 * [Latency Reduction]({{<baseurl>}}riak/kv/3.0.1/using/performance/latency-reduction)
 * [Open Files Limit]({{<baseurl>}}riak/kv/3.0.1/using/performance/open-files-limit/)
-
-
 

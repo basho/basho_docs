@@ -78,5 +78,3 @@ Configure a site (client) on Server C:
 riak-repl add-site 192.168.1.10 9010 server_a_to_c
 ```
 
-
-

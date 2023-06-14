@@ -14,11 +14,9 @@ aliases:
     - /riakts/1.0.0/learn-about/learn-about/
 ---
 
-
 [table arch]: tablearchitecture/
 [bestpractices]: bestpractices/
 [sqlriakts]: sqlriakts/
-
 
 Welcome to Learning About Riak TS! In this section you will find the following:
 

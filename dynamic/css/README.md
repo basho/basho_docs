@@ -13,6 +13,5 @@ Each of these subdirectories will include an additional README that should
 include information about what kinds of styles should be include in each
 section.
 
-
 [Sass 7-1 Pattern]: http://sass-guidelin.es/#the-7-1-pattern
 [SCSS compilation and post-processing]: https://github.com/basho/basho_docs/blob/master/rake_libs/compile_css.rb

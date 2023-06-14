@@ -20,7 +20,6 @@ aliases:
   - /riak/kv/2.9.0p4/setup/upgrading/
 ---
 
-
 [upgrade checklist]: ./checklist
 [upgrade version]: ./version
 [upgrade cluster]: ./cluster

@@ -19,7 +19,6 @@ aliases:
 v2 Multi-Datacenter Replication is deprecated and will be removed in a future version. Please use [v3]({{<baseurl>}}riak/kv/2.9.2/using/reference/v3-multi-datacenter/architecture/) instead.
 {{% /note %}}
 
-
 This document provides a basic overview of the architecture undergirding
 Riak's Multi-Datacenter Replication capabilities.
 

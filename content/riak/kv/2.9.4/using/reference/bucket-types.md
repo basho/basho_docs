@@ -116,7 +116,6 @@ object of the following form:
 }
 ```
 
-
 > **Getting started with Riak clients**
 >
 > If you are connecting to Riak using one of Basho's official [client libraries]({{<baseurl>}}riak/kv/2.9.4/developing/client-libraries), you can find more information about getting started with your client in our [Developing with Riak KV: Getting Started]({{<baseurl>}}riak/kv/2.9.4/developing/getting-started) section.

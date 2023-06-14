@@ -41,7 +41,7 @@ Counts the Riak tombstone objects that meet the filter parameters.
 
 See the [TicTac AAE `aae_folds`][tictacaae folds-overview] documentation for configuration, tuning and troubleshootings help.
 
-Unreaped Riak tombstones are Riak objects that have been deleted, but have not been removed from the backend. Riak tracks this through tombstones. If automatic reaping is turned off (for example, by setting `delete_mode` = `keep`), then a large number of deleted objects can accumulate that Riak will never automatically remove. Manual dev ops intervention using this function is required. 
+Unreaped Riak tombstones are Riak objects that have been deleted, but have not been removed from the backend. Riak tracks this through tombstones. If automatic reaping is turned off (for example, by setting `delete_mode` = `keep`), then a large number of deleted objects can accumulate that Riak will never automatically remove. Manual dev ops intervention using this function is required.
 
 Use the `reap_tombs` function to count these objects.
 
@@ -53,9 +53,9 @@ This function has three available operational methods that are selected via the 
 
 ```riakattach
 riak_client:aae_fold({
-    reap_tombs, 
-    bucket_filter, 
-    key_range_filter, 
+    reap_tombs,
+    bucket_filter,
+    key_range_filter,
     segment_filter
     modified_filter,
     method
@@ -80,9 +80,9 @@ Returns a count of tombstones that meet the filter parameters. Does NOT reap the
 
 ```riakattach
 riak_client:aae_fold({
-    reap_tombs, 
-    bucket_filter, 
-    key_range_filter, 
+    reap_tombs,
+    bucket_filter,
+    key_range_filter,
     segment_filter
     modified_filter,
     count
@@ -98,8 +98,8 @@ For example, the following snippet will count all tombstones with the filters:
 
 ```riakattach
 riak_client:aae_fold({
-    reap_tombs, 
-    {<<"animals">>,<<"dogs">>}, 
+    reap_tombs,
+    {<<"animals">>,<<"dogs">>},
     {<<"A">>,<<"N">>},
     all,
     {date,{{2022,1,1},{0,0,0}},{{2022,2,1},{0,0,0}}},
@@ -130,5 +130,4 @@ These filters will reduce the keys to be searched:
 These filters will reduce the number of keys considered for reaping or counting:
 
 - [`modified_filter`][filter-by modified]
-
 

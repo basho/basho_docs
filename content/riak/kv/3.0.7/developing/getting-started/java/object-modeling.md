@@ -127,7 +127,6 @@ Natural keys are a great fit for key/value systems because both humans
 and computers can easily construct them when needed, and most of the
 time they can be made unique enough for a KV store.
 
-
 | Bucket | Key Pattern | Example Key
 |:-------|:------------|:-----------
 | `Users` | `<user_name>` | `joeuser`
@@ -239,7 +238,6 @@ public class TimelineRepository {
         addToTimeline(msg, Timeline.TimelineType.Sent, msgKey);
     }
 
-
     private void addToTimeline(Msg msg, Timeline.TimelineType type, String msgKey) throws Exception {
         String timelineKey = generateKeyFromMsg(msg, type);
 
@@ -307,7 +305,6 @@ public class TimelineRepository {
         df.setTimeZone(tz);
         return df.format(date);
     }
-
 
 }
 
@@ -387,7 +384,6 @@ public class MsgyMain {
 
         timelineRepo.postMsg(msg);
 
-
         // Get Joe's inbox for today, get first message
         Timeline joesInboxToday = timelineRepo.getTimeline(joe.UserName,
                                                            Timeline.TimelineType.Inbox,
@@ -426,7 +422,4 @@ So to recap, in this chapter we learned:
 
 * How to choose bucket names
 * How to choose natural keys based on how we want to partition our data
-
-
-
 

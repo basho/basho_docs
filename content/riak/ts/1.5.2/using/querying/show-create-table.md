@@ -29,7 +29,7 @@ For example:
 SHOW CREATE TABLE ExampleTable
 ```
 
-Returns: 
+Returns:
 
 ```sql
 -------------------------------------------------------------------------------
@@ -54,7 +54,6 @@ r = quorum,
 rw = quorum,
 w = quorum)
 ```
-
 
 You can use `SHOW CREATE TABLE` in [riak shell]:
 
@@ -81,7 +80,6 @@ r = quorum,
 rw = quorum,
 w = quorum)
 ```
-
 
 Using TS's supported clients, a successful `SHOW CREATE TABLE` will return a language-specific representation of the table's SQL.
 

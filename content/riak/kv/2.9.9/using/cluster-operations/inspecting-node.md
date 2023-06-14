@@ -344,7 +344,7 @@ Note that under ideal operation and with the exception of
 
 The `riak-debug` command is used to identify and diagnose common problems with your Riak KV nodes.
 
-`riak-debug` also runs `riak-admin diag`, which runs a small suite of diagnostic checks against a Riak KV node to discover common problems. It often offers recommendations about how to resolve those problems as well. 
+`riak-debug` also runs `riak-admin diag`, which runs a small suite of diagnostic checks against a Riak KV node to discover common problems. It often offers recommendations about how to resolve those problems as well.
 
 {{% note title="Warning about `riak-debug` and `riak-admin diag` usage" %}}
 The `riak-debug` and `riak-admin diag` commands should only be used after a new installation or configuration change. It should not be used as part of regular monitoring. Overuse of `riak-debug` or `riak-admin diag` can eventually cause the node to crash from atom table exhaustion.
@@ -490,7 +490,4 @@ you, but here's how to set them:
 * [The riak-admin configuration management tool](../../admin/riak-admin/)
 * [Riaknostic](http://riaknostic.basho.com/)
 * [HTTP API Status](../../../developing/api/http/status/)
-
-
-
 

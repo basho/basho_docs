@@ -14,7 +14,6 @@ aliases:
     - /riakts/1.3.1/using/creating-activating/
 ---
 
-
 [csharp]: ../../developing/csharp#query
 [erlang]: ../../developing/erlang/#query-2
 [java]: ../../developing/java#query
@@ -25,10 +24,9 @@ aliases:
 [planning]: ../planning/
 [writing]: ../writingdata/
 
-
 Once you have [planned out your table][planning] you can create it by:
 
-* Executing a `CREATE TABLE` statement using any Riak client, 
+* Executing a `CREATE TABLE` statement using any Riak client,
 * Using riak shell, or
 * Running the `riak-admin` command (as root, using `su` or `sudo`).
 
@@ -49,7 +47,6 @@ CREATE TABLE GeoCheckin
 )
 ```
 
-
 ## `CREATE TABLE` in Client Library
 
 Using one of the Riak client libraries, execute the `CREATE TABLE` statement via that library's query functionality. This will create and activate the table in one step. The result of the operation is library-dependent:
@@ -61,7 +58,6 @@ Using one of the Riak client libraries, execute the `CREATE TABLE` statement via
 * [Node.js][nodejs]:  no exception thrown; result object is present with `rows` and `columns` being empty.
 * [Erlang][erlang]: the returned term will consist of two empty lists `{[],[]}`.
 * [PHP][php]: the response object has a boolean `isSuccess()` instance method.
-
 
 ### Using the `WITH` clause
 
@@ -82,7 +78,6 @@ Please note the following when using the `WITH` clause:
   appearing in the string should be doubled (and not escaped with a `\`).
 * Values from `WITH` clause will override those specified outside the query statement.
 
-
 ### Verification via Client Library
 
 You can verify that your table was properly created by executing the `DESCRIBE table` statement via the query function of your client library, or by using the [`riak-admin bucket-type status` command](#verify-creation-and-activation).
@@ -96,7 +91,6 @@ The result of the `DESCRIBE table` command is library-dependent:
 * [Node.js][nodejs]:  no exception thrown and result object is present with `rows` and `columns` corresponding to the table's DDL.
 * [Erlang][erlang]: the returned term will consist of two lists corresponding to the table's DDL.
 * [PHP][php]: the response object will contain an array of rows, each one representing a column definition for the table's DDL
-
 
 ## Create a table with riak shell
 
@@ -138,7 +132,6 @@ Please take care with the following:
 
 Also note that if you discover something wrong with the setup of your Data Definition Language (DDL), you will need to create it again and decide whether to scrap the data in the existing table or move it from the old table to the new one.
 
-
 ### Activating Your Table
 
 You activate your table as follows:
@@ -152,7 +145,6 @@ For the example `GeoCheckin` table:
 ```sh
 riak-admin bucket-type activate GeoCheckin
 ```
-
 
 ### Verify Creation and Activation
 
@@ -177,7 +169,6 @@ ddl: {ddl_v1,<<"GeoCheckin">>,
                       {param_v1,[<<"region">>]},
                       {param_v1,[<<"state">>]}]}}
 ```
-
 
 ## Next Steps
 

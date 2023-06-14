@@ -21,7 +21,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/reference/object-deletion/
 ---
 
-
 [concept eventual consistency]: ../../../learn/concepts/eventual-consistency
 [concept clusters]: ../../../learn/concepts/clusters
 [glossary vnode]: ../../../learn/glossary/#vnode

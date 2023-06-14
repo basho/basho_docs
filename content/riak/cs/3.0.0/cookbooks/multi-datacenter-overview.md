@@ -18,18 +18,18 @@ aliases:
 
 ## Multi-Datacenter Replication
 
-Customers may use Multi-Datacenter Replication to serve global traffic, 
-create availability zones, maintain active backups, or meet disaster 
-recovery and regulatory requirements. Multi-Datacenter Replication can 
-be used in two or more sites, and data can be replicated across 
+Customers may use Multi-Datacenter Replication to serve global traffic,
+create availability zones, maintain active backups, or meet disaster
+recovery and regulatory requirements. Multi-Datacenter Replication can
+be used in two or more sites, and data can be replicated across
 datacenters using realtime and/or fullsync synchronization.
 
 Multi-Datacenter Replication in Riak CS provides two modes of object
 replication: **fullsync** and **realtime sync**. Data is streamed over a
 TCP connection and Multi-Datacenter Replication in Riak CS has support
-for SSL so that data can be securely replicated between sites. It is 
+for SSL so that data can be securely replicated between sites. It is
 also possible to stream the data unencrypted if required but it is generally
-recommended to do so over VPN if that is the case. 
+recommended to do so over VPN if that is the case.
 
 In Riak CS, large objects are broken into blocks and streamed to the
 underlying Riak cluster on write, where they are replicated for high

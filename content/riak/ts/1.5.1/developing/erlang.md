@@ -14,7 +14,6 @@ aliases:
     - /riakts/1.5.1/developing/erlang/
 ---
 
-
 You can develop applications and tools using Riak TS with the Riak Erlang client.
 This document covers the Erlang API for Riak TS.
 
@@ -22,18 +21,15 @@ Language | Source | Documentation | Download
 :--------|:-------|:--------------|:--------
 Erlang | [riak-erlang-client (riakc)](https://github.com/basho/riak-erlang-client) | [edoc](http://basho.github.com/riak-erlang-client/) | [GitHub](https://github.com/basho/riak-erlang-client)
 
-
 ## Data Types
 
 ### table_name()
 
 `table_name() = binary()`
 
-
 ### ts_value()
 
 `ts_value() = number() | binary()`
-
 
 ## Function Index
 
@@ -44,7 +40,6 @@ Erlang | [riak-erlang-client (riakc)](https://github.com/basho/riak-erlang-clien
 * `stream_list_keys/3` - List all keys.
 
 >**Note:** `stream_list_keys/3` is an extremely expensive function and will list every key.
-
 
 ### Function Details
 
@@ -60,7 +55,6 @@ delete(Pid::pid(),
 
 Delete a row by primary key. Specify the primary key by using a list of terms that match the primary key values. The order of the terms must match the order of the values in the primary key. `Options` is a proplist which can include values for 'vclock' and 'timeout'. Unless 'vclock' is supplied (see `get/4` below), a GET is called in order to obtain one.
 
-
 #### `get/4`
 
 ```
@@ -72,7 +66,6 @@ get(Pid::pid(),
 ```
 
 Get a row by primary key. Specify the primary key by using a list of terms that match the primary key values. The order of the terms must match the order of the values in the primary key. Returns a tuple with a list of column names in its first element, and a record found as a list of values in its second element. If no record is found, the return value is `{[], []}`. `Options` is a proplist which can include a value for 'timeout'.
-
 
 #### `put/3`
 
@@ -88,7 +81,6 @@ Insert rows into a Riak TS table using client PID. Rows are represented as a lis
 To insert a `null` cell value, use an empty list (`[]`) when building the Data list.
 
 >**Note:** Type validation is done on the first row only. If any subsequent row contains fewer or more elements than there are columns, or some element fails to convert to the appropriate type, the rest of the rows will not get inserted.
-
 
 #### `query/2`
 

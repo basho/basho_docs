@@ -47,5 +47,3 @@ index, including its name, the [`n_val`]({{<baseurl>}}riak/kv/3.0.1/developing/a
 }
 ```
 
-
-

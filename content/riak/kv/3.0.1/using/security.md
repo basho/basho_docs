@@ -141,10 +141,9 @@ it can be an attractive bullet-point in a database comparison chart,
 you're usually better off finely controlling data access through your
 application or a service layer.
 
-### Notifying Basho
+### Notifying Riak
 
-If you discover a potential security issue, please email us at
-**security@basho.com**, and allow us 48 hours to reply.
+If you discover a potential security issue, please please **[email]({{<securitycontactusemail>}})** us, and allow us 48 hours to reply.
 
 We prefer to be contacted first, rather than searching for blog posts
 over the Internet. This allows us to open a dialogue with the security
@@ -178,6 +177,4 @@ Replication, you can configure Riak 1.2+ to communicate over SSL, to
 seamlessly encrypt the message traffic.
 
 See also: [Multi Data Center Replication: SSL][config v3 ssl]
-
-
 

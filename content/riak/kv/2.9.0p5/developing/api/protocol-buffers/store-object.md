@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/api/protocol-buffers/store-object/
 ---
 
-
 Stores an object under the specified location, as determined by the
 intended [key]({{<baseurl>}}riak/kv/2.9.0p5/learn/concepts/keys-and-objects), [bucket]({{<baseurl>}}riak/kv/2.9.0p5/learn/concepts/buckets), and [bucket type]({{<baseurl>}}riak/kv/2.9.0p5/developing/usage/bucket-types). A bucket must always be specified (via
 `bucket`), whereas key (`key`) and bucket type (`type`) are optional. If
@@ -74,7 +73,7 @@ a special value denoting `one` (`4294967295-1`), `quorum`
 
 Parameter | Description
 :---------|:-----------
-`key` | The key to create/update. If not specified, Riak will generate a random key and return that key as part of the response to that request. 
+`key` | The key to create/update. If not specified, Riak will generate a random key and return that key as part of the response to that request.
 `vclock` | Opaque vector clock provided by an earlier <code><a href="../../../../learn/concepts/causal-context">RpbGetResp</a></code> message. Omit if this is a new key or if you deliberately want to create a sibling.
 `w` | Write quorum, i.e. how many replicas to write to before returning a successful response
 `dw` | Durable write quorum, i.e. how many replicas to commit to durable storage before returning a successful response

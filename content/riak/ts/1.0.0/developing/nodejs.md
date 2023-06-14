@@ -14,7 +14,6 @@ aliases:
     - /riakts/1.0.0/developing/nodejs/
 ---
 
-
 You can develop with Riak TS through the Node.js client. This
 document covers the Node.js protobuf requests to Riak TS.
 
@@ -26,7 +25,6 @@ the `Riak.Commands.TS` namespace.
 Language | Source | Documentation | Download
 :--------|:-------|:--------------|:--------
 Node.js | [riak-nodejs-client](https://github.com/basho/riak-nodejs-client) | [api docs](http://basho.github.com/riak-nodejs-client/), [wiki](https://github.com/basho/riak-nodejs-client/wiki) | [NPM](https://www.npmjs.com/package/basho-riak-client), [GitHub Releases](https://github.com/basho/riak-nodejs-client/releases)
-
 
 ## TS Commands
 
@@ -73,7 +71,7 @@ Retrieve time series value by key.
 |`withKey`      | array   | The time series value's key |
 
 *Return Type*: response object with `columns` and `rows` properties.
- 
+
 #### `Store`
 
 ```javascript
@@ -215,6 +213,5 @@ Lists all keys in a time series table via a stream.
 |`withTable`    | string  | The time series table name                        |
 |`withStreaming`| boolean | `true` if you would like callback per-key chunk   |
 |`withTimeout`  | integer | Timeout in milliseconds for the list keys command |
-
 
 *Return Type*: response object with `keys` property.

@@ -16,7 +16,6 @@ version_history:
     - ["1.4.0+",      "setup/installing/source"]
 ---
 
-
 [download]: ../../downloads/
 [Erlang]: http://www.erlang.org/
 [GCC]: https://gcc.gnu.org/
@@ -25,9 +24,7 @@ version_history:
 [planning]: ../../using/planning/
 [Riak TS GitHub respository]: https://github.com/basho/riak/tree/riak_ts-1.3.0
 
-
 If there isn't a package for your OS or you are interested in contributing back to the project, you can install Riak TS from source!
-
 
 ## Dependencies
 
@@ -37,23 +34,19 @@ To install Riak TS, you will need to have [Erlang] installed. We strongly recomm
 
 See [Installing Erlang][install erlang] for instructions.
 
-
 ### Git
 
 Riak TS depends on source code located in multiple Git repositories. Install [Git] on the target system before attempting the build.
-
 
 ### GCC
 
 Riak TS will not compile with Clang. Please make sure your default C/C++
 compiler is [GCC].
 
-
 ## Installation
 
 The following instructions generate a complete, self-contained build of
 Riak TS in `»Unpacked or Cloned Source«/rel/riak`.
-
 
 ### Installing from source package
 
@@ -67,7 +60,6 @@ make locked-deps
 make rel
 ```
 
-
 ### Installing from GitHub
 
 To clone and build Riak TS from source, clone the repository using [Git] and build:
@@ -78,7 +70,6 @@ cd riak_ts-1.3.0
 make locked-deps
 make rel
 ```
-
 
 ## Verify Your Installation
 
@@ -93,7 +84,6 @@ Verify your connection by running `show_connection`. You should see a reply like
 ```
 riak_shell is connected to: 'dev1@127.0.0.1' on port 8087
 ```
-
 
 ## Next Steps
 

@@ -77,5 +77,3 @@ Parameter | Description
 `keyspace_desc` | A human-readable description of the keyspace. Not intended to be used programmatically except potentially for logging.
 `cover_context` | The opaque binary to be used in secondary index queries (and possibly future coverage queries to indicate that this server appears offline or otherwise non-functional to the client).
 
-
-

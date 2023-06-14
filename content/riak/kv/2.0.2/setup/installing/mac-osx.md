@@ -18,8 +18,6 @@ aliases:
   - /riak/kv/2.0.2/installing/mac-osx/
 ---
 
-
-
 [perf open files]: {{<baseurl>}}riak/kv/2.0.2/using/performance/open-files-limit
 [install source erlang]: {{<baseurl>}}riak/kv/2.0.2/setup/installing/source/erlang
 [install verify]: {{<baseurl>}}riak/kv/2.0.2/setup/installing/verify
@@ -33,7 +31,6 @@ precompiled tarball.
 > OS X gives you a very small limit on open file handles, so even with a
 backend that uses very few file handles, it's possible to run out. See
 [Open Files Limit][perf open files] for more information about changing the limit.
-
 
 ## From Precompiled Tarballs
 

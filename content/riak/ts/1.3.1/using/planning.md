@@ -14,7 +14,6 @@ aliases:
     - /riakts/1.3.1/using/planning/
 ---
 
-
 [activating]: ../creating-activating/
 [table arch]: ../../learn-about/tablearchitecture/
 [bestpractices]: ../../learn-about/bestpractices/
@@ -22,13 +21,11 @@ aliases:
 [installing]: ../../installing/
 [sql]: ../../learn-about/sqlriakts/
 
-
 Now that you've [installed][installing] Riak TS, you're almost ready to create a TS table. Before you can create your table, you'll need to plan it out.
 
 This page provides a basic overview of what you'll need and some guidelines/limitations. For a deeper dive into planning and designing Riak TS tables, check out [Table Architecture][table arch].
 
 Riak TS tables are closely tied to SQL tables. If you are unfamiliar with SQL or would like to know more about how Riak TS integrates SQL, check out [SQL for Riak TS][sql].
-
 
 ## Anatomy of a Schema
 
@@ -51,10 +48,9 @@ CREATE TABLE GeoCheckin
 
 While the keywords appear in all uppercase letters here, they can be specified using lowercase or uppercase letters as they are not case sensitive.
 
-
 #### Column Definitions
 
-Column definitions are the lines preceding the `PRIMARY KEY` in the example. Column definitions define the structure of the data. They are comprised of three parts: a column name, a data type, and (optionally) an inline constraint. 
+Column definitions are the lines preceding the `PRIMARY KEY` in the example. Column definitions define the structure of the data. They are comprised of three parts: a column name, a data type, and (optionally) an inline constraint.
 
 ```sql
 column_name data_type [NOT NULL],
@@ -105,7 +101,6 @@ The data types in column definitions are limited. Valid types are:
 * `TIMESTAMP` - Timestamps are integer values expressing [UNIX epoch time in UTC][epoch] in milliseconds. Zero is not a valid timestamp.
 * `SINT64` - Signed 64-bit integer
 * `DOUBLE` - This type does not comply with its IEEE specification: `NaN` (not a number) and `INF` (infinity) cannot be used.
-
 
 ### Primary Key
 
@@ -160,7 +155,6 @@ CREATE TABLE GeoCheckin
 )
 ```
 
-
 #### Partition Key
 
 The partition key is the first element of the primary key, and is defined as a list of  column names in parentheses. The partition key must have at least one column name.
@@ -198,7 +192,6 @@ The local key may also contain additional column names so long as they come afte
    )
 ```
 
-
 ## Schema Discovery
 
 After creating a table, its schema can be discovered with the `DESCRIBE` statement:
@@ -215,13 +208,11 @@ The `DESCRIBE` statement will return the following:
 * **Primary Key**, position of this field in the primary key, or blank if it does not appear in the key;
 * **Local Key**, position of this field in the local key, or blank if it does not appear in the key.
 
-
 ## More information
 
 Still unsure how best to structure your Riak TS table? Check out our [best practice recommendations][bestpractices].
 
 Confused about column definition, primary key, etc? Check out [Table Architecture][table arch] for an in-depth explanation of TS tables.
-
 
 ## Next Steps
 

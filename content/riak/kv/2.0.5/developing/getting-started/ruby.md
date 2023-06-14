@@ -15,8 +15,6 @@ aliases:
   - /riak/kv/2.0.5/dev/taste-of-riak/ruby
 ---
 
-
-
 If you haven't set up a Riak Node and started it, please visit [Running A Cluster]({{<baseurl>}}riak/kv/2.0.5/using/running-a-cluster) first. To try this flavor
 of Riak, a working installation of Ruby is required.
 

@@ -14,10 +14,8 @@ aliases:
     - /riakts/1.2.0/developing/nodejs/
 ---
 
-
 You can develop applications and tools using Riak TS with the Riak Node.js client.
 This document covers the Node.js API for Riak TS.
-
 
 ## Overview
 
@@ -28,12 +26,10 @@ Language | Source | Documentation | Download
 :--------|:-------|:--------------|:--------
 Node.js | [riak-nodejs-client](https://github.com/basho/riak-nodejs-client) | [api docs](http://basho.github.com/riak-nodejs-client/), [wiki](https://github.com/basho/riak-nodejs-client/wiki) | [NPM](https://www.npmjs.com/package/basho-riak-client), [GitHub Releases](https://github.com/basho/riak-nodejs-client/releases)
 
-
 ## TS Commands
 
 >**Note:** These commands are automatically retried if they fail due to network
 error.
-
 
 ### Commands
 
@@ -43,10 +39,10 @@ error.
  * `Query`  - Allows you to query a Riak TS table with the given query string.
  * `ListKeys` - Lists the primary keys of all the rows in a Riak TS table.
 
-
 ### Command Details
 
 #### `Get`
+
 Retrieve time series value by key.
 
 ```javascript
@@ -76,8 +72,8 @@ client.execute(cmd);
 
 **Return Type**: response object with `columns` and `rows` properties.
 
-
 #### `Store`
+
 Stores time series data in the Riak cluster.
 
 ```javascript
@@ -124,8 +120,8 @@ client.execute(cmd);
 
 **Return Type**: boolean
 
-
 #### `Delete`
+
 Delete time series value by key.
 
 ```javascript
@@ -155,8 +151,8 @@ client.execute(cmd);
 
 **Return Type**: boolean
 
-
 #### `Query`
+
 Queries time series data in the Riak cluster.
 
 ```javascript
@@ -187,8 +183,8 @@ client.execute(cmd);
 
 **Return Type**: response object with `columns` and `rows` properties.
 
-
 #### `ListKeys`
+
 Lists all keys in a time series table via a stream.
 
 ```javascript

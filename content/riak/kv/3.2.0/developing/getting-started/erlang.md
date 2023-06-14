@@ -54,6 +54,3 @@ We are now ready to start interacting with Riak.
 
 [CRUD Operations]({{<baseurl>}}riak/kv/3.2.0/developing/getting-started/erlang/crud-operations)
 
-
-
-

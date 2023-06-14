@@ -19,8 +19,6 @@ aliases:
 
 ---
 
-
-
 [install source index]: {{<baseurl>}}riak/kv/3.0.1/setup/installing/source
 [install source erlang]: {{<baseurl>}}riak/kv/3.0.1/setup/installing/source/erlang
 [install verify]: {{<baseurl>}}riak/kv/3.0.1/setup/installing/verify
@@ -128,7 +126,4 @@ You will now have a fresh build of Riak in the `rel/riak` directory.
 ## Next Steps
 
 Now that Riak is installed, check out [Verifying a Riak Installation][install verify].
-
-
-
 

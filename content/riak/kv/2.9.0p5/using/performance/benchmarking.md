@@ -22,7 +22,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/performance/benchmarking/
 ---
 
-
 Basho Bench is a benchmarking tool created to conduct accurate and
 repeatable performance tests and stress tests, and to produce
 performance graphs.
@@ -91,7 +90,7 @@ file. (Also, don't use the common ```~/``` shell notation, specify the
 user's home directory explicitly)
 
 ```bash
-basho_bench --results-dir /home/username/bench_results/ /etc/basho_bench/riakc_pb.config 
+basho_bench --results-dir /home/username/bench_results/ /etc/basho_bench/riakc_pb.config
 ```
 
 The example above will generate results in

@@ -152,7 +152,6 @@ access to Riak TS. We can check this by using the `riak-admin security print-sou
 +--------------------+------------+----------+----------+
 ```
 
-
 ### Certificate-based Authentication
 
 This form of authentication (`certificate`) requires that Riak TS and a

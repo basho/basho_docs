@@ -132,7 +132,6 @@ Setting | Options | Default | Description
 `min_get_workers` | `min` (integer) | `5` | The minimum number of get workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See [2](#f2).
 `min_put_workers` | `min` (integer) | `5` | The minimum number of put workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See [3](#f3).
 
-
 1. <a name="f1"></a>SSL depth is the maximum number of non-self-issued
  intermediate certificates that may follow the peer certificate in a valid
  certificate chain. If depth is `0`, the PEER must be signed by the trusted

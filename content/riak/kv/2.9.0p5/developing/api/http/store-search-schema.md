@@ -24,7 +24,6 @@ aliases:
   - /riak/kv/2.9.0p4/developing/api/http/store-search-schema/
 ---
 
-
 Creates a new Riak [Search schema]({{<baseurl>}}riak/kv/2.9.0p5/developing/usage/search-schemas).
 
 ## Request

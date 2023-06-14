@@ -17,39 +17,29 @@ aliases:
   - /riak/kv/2.2.0/introduction
 ---
 
-
 Released November 17, 2016.
-
 
 This is a backwards-incompatible release that includes several improvements and features alongside many bugfixes. While most backwards-incompatible features and improvements are opt-in, active anti-entropy (AAE) improvements and Solr upgrades are not. You may opt-out of AAE improvements (see the [Upgrading](#upgrading) note below), but you cannot opt-out of the Solr upgrades (see the [Downgrading](#downgrading) note below).
 
-
-We have improved Solr integration and Riak search, as well as upgraded the version of Solr we use. We've fixed some long-standing issues with AAE. And we've also added enhanced configuration controls for performance-impacting commands. 
-
+We have improved Solr integration and Riak search, as well as upgraded the version of Solr we use. We've fixed some long-standing issues with AAE. And we've also added enhanced configuration controls for performance-impacting commands.
 
 New features in KV 2.2.0 include global object expiration and LZ4 compression for LevelDB, and the introduction of a HyperLogLog distributed data type. You can read more about these [below](#release-features).
 
-
-
 ## Upgrading
+
 ### Riak KV Enterprise Edition Only
 
-
-If you are using AAE fullsync and have a very tight downgrade window, consider disabling the AAE upgrade until you have fully accepted 2.2.0 and rolled it out to all participating clusters. You can read how to disable the upgraded AAE at [Step 5 here]({{<baseurl>}}riak/kv/2.2.0/setup/upgrading/version/#upgrading-process). 
-
+If you are using AAE fullsync and have a very tight downgrade window, consider disabling the AAE upgrade until you have fully accepted 2.2.0 and rolled it out to all participating clusters. You can read how to disable the upgraded AAE at [Step 5 here]({{<baseurl>}}riak/kv/2.2.0/setup/upgrading/version/#upgrading-process).
 
 AAE trees are versioned, so if you choose to enable the 2.2.0 AAE improvements, the AAE trees will need to be destroyed on downgrade and fully repopulated from the object data. During any period in which the AAE trees are invalid, AAE fullsyncs will not work.
 
 If MDC clusters will be upgraded in stages, during the time that the cluster versions are mismatched with Riak KV versions 2.2.0 and Riak KV versions less than 2.2.0, replication will fail due to a known issue with Bucket Mismatch between the clusters documented [here]({{<baseurl>}}riak/kv/2.2.0/release-notes/#replication-bucket-mismatch).
 
-
 ## Downgrading
+
 ### Riak search users
 
-
 The upgrade to Solr 4.10.4 causes new data written to the cluster to be written in a format that is incompatible with earlier versions of Solr (and, therefore, earlier versions of Riak KV). The [Upgrade]({{<baseurl>}}riak/kv/2.2.0/setup/upgrading/version/) and [Downgrade]({{<baseurl>}}riak/kv/2.2.0/setup/downgrade/) documentation describes the steps you will need to take to reindex your data in a rolling fashion. Be aware this can make downgrades take a very long time, but will minimize exposure of the downgrading nodes to applications that utilize the Riak search feature.
-
-
 
 ## Release Features
 
@@ -57,12 +47,12 @@ The upgrade to Solr 4.10.4 causes new data written to the cluster to be written 
     * [[yokozuna PR 614](https://github.com/basho/yokozuna/pull/614)]
     * [[yokozuna PR 634](https://github.com/basho/yokozuna/pull/634)]
     * [[yokozuna PR 648](https://github.com/basho/yokozuna/pull/648)]
-* The Riak search batching system has significant improvements to its performance, robustness, and operational logging, including: 
+* The Riak search batching system has significant improvements to its performance, robustness, and operational logging, including:
     * deleteByQuery has been changed to delete documents in Solr by document ID rather than by query. Prior to this change, when a document that might contain siblings was added to Solr, we would add a delete by query operation to the batch we send to Solr (in a single HTTP request). This negatively impacted performance, especially when objects being updated had a lot of siblings.
     * `yz_drain_fsm`, `yz_drain_mgr`, and `yz_exchange_fsm` have been changed to split Solr drains from the hashtree update. This split resolves the issue of drain timeouts under normal operating conditions.
     * `fold_keys` now uses the same "90 async + 1 sync" call pattern that `yz_kv:index` uses. During performance testing, it was discovered that the yz_index_hashtree:fold_keys function could swamp the mailbox of the yz_index_hashtree so that other processes could not make progress. That logic (which lived in yz_kv) has been moved to yz_index_hashtree and shared by the new index and delete calls that do not take an explicit "call mode" parameter.
     * "Will Repair" logs in the yz_exchange_fsm have been modified to track the direction of repair, specifically, whether the repair resulted in a delete of Solr data or an add/update to Solr.
-    * Exometer statistics are now removed when an index is removed. Before, if an index was later re-added, the fuse creation would fail eventually causing the node to crash. 
+    * Exometer statistics are now removed when an index is removed. Before, if an index was later re-added, the fuse creation would fail eventually causing the node to crash.
     * `yz_solrq_drain_fsm` are now monitored from the queues being drained. Before, it was possible for a queue to get stuck in wait_for_drain_complete state if the drain fsm crashed before the drain complete messages were sent.
     * Logging has been added to clear and exchange trees for audit of administrative operations.
     * All above work captured in  [[yokozuna PR 700](https://github.com/basho/yokozuna/pull/700)].
@@ -97,21 +87,17 @@ The upgrade to Solr 4.10.4 causes new data written to the cluster to be written 
     * [[riak_repl PR 745](https://github.com/basho/riak_repl/pull/745)]
     * [[riak_repl PR 750](https://github.com/basho/riak_repl/pull/750)]
 
-
 ## Additions
-
 
 * The Debian packages have been updated to support Debian 8. And Ubuntu 16.0.4 (Xenial) is  now supported. [[node_package PR 204](https://github.com/basho/node_package/pull/204)]
 * While cleaning up yz_stats.erl, we discovered that the yz_stats_worker was no longer being used. Made yz_stats use a background process to update exometer stats similar to riak_kv_stat. [[yokozuna PR 646](https://github.com/basho/yokozuna/pull/646)]
 * A Lager sink object has been added to advanced.config to support Lager 3 sinks.
 [[riak PR 876](https://github.com/basho/riak/pull/876)]
 
-
-
 ## Changes
 
-* node_package has been updated to version 3.1.1. You may have to change permissions & etc. Please read the [node_package release notes](https://github.com/basho/node_package/blob/develop/RELEASE-NOTES.md) for more information. 
-* The Solr queue is now flushed on graceful shutdown. [[yokozuna Issue 581](https://github.com/basho/yokozuna/issues/581) and [yokozuna Issue 582](https://github.com/basho/yokozuna/issues/582)/[yokozuna PR 610](https://github.com/basho/yokozuna/pull/610)] 
+* node_package has been updated to version 3.1.1. You may have to change permissions & etc. Please read the [node_package release notes](https://github.com/basho/node_package/blob/develop/RELEASE-NOTES.md) for more information.
+* The Solr queue is now flushed on graceful shutdown. [[yokozuna Issue 581](https://github.com/basho/yokozuna/issues/581) and [yokozuna Issue 582](https://github.com/basho/yokozuna/issues/582)/[yokozuna PR 610](https://github.com/basho/yokozuna/pull/610)]
 * The default for `ERL_MAX_PORTS (+Q) ` has been increased to 262144. This change should help mitigate a fairly rare issue where Erlang would run out of available ports. This issue was seen especially when using the multi-backend, as many more files could be opened depending on the multi-backend configuration.[[Issue 801](https://github.com/basho/riak/issues/801)/[cuttlefish PR 208](https://github.com/basho/cuttlefish/pull/208)].
 * In KV 2.1, an [issue](https://github.com/basho/riak_kv/issues/679) was fixed by having a monotonic counter fsynced to disk when the vnode starts. Additional detail has been added to the `vnodeid` warning, and the warning has been downgraded to warn from error since the per-key-epoch code stops this from being an error. [[riak_kv PR 1344](https://github.com/basho/riak_kv/pull/1344)]
 * Erlang sets have been changed to ordsets across data types for a small performance improvement. [[riak_dt PR 117](https://github.com/basho/riak_dt/pull/117)]
@@ -121,9 +107,7 @@ The upgrade to Solr 4.10.4 causes new data written to the cluster to be written 
 * All successful requests are now logged at the debug level. [[riak_core PR 864](https://github.com/basho/riak_core/pull/864)]
 * Calls to `yz_index_hashtree:compare/5` are now made on a separate process to allow the exchange FSM to handle other messages. This change prevents 'DOWN' messages from failing to get through due to compare calls. [[yokozuna commit](https://github.com/basho/yokozuna/commit/62ef65aee9fd035d4cce55219e0d0110509b02f7)]
 * `riak_core_vnode_manager` is now asked which `riak_kv_vnode` vnodes are currently running, and uses the list to figure out which queues need to run. This prevents the soleqs on fallback vnodes from stopping if they are still needed. [[yokozuna commit](https://github.com/basho/yokozuna/commit/e228268148b02364da52801d787dc367999db9bf)]
-* riak_kv has been changed such that updating an object also sends the old object being replaced. From that old object, we can extract any siblings and generate associated document ids to delete in Solr. [[riak_kv PR 1520](https://github.com/basho/riak_kv/pull/1520)] 
-
-
+* riak_kv has been changed such that updating an object also sends the old object being replaced. From that old object, we can extract any siblings and generate associated document ids to delete in Solr. [[riak_kv PR 1520](https://github.com/basho/riak_kv/pull/1520)]
 
 ## Bugs Fixed
 
@@ -144,8 +128,6 @@ The upgrade to Solr 4.10.4 causes new data written to the cluster to be written 
 * [[leveldb PR 197](https://github.com/basho/leveldb/pull/197)] MoveItems are eLevelDB's iterator objects and are reusable. MoveItems communicate the reuse desire to the hot threads logic via the resubmit() property. When resubmit() returns true, hot threads executes the same task again immediately. Prior to merging eLevelDB's hot threads with LevelDB's hot threads, only eLevelDB's code supported the resubmit() property. The support required an extra five lines of code within the thread loop routine. Unfortunately, leveldb had two thread loop routines. Only one of the two received the extra five lines during the merge. The additional five lines supporting the resubmit() property have been added to LevelDB's second thread loop.
 * [[yokozuna commit](https://github.com/basho/yokozuna/commit/0b4486e9331048e371ea01aeb554fb42c5228d2f)]When making requests to Solr, if requests timed-out between the caller and ibrowse, ibrowse might still send a response slightly after the timeout. The post-timeout response would cause `yz_solrq_proc` to crash due to improperly handling the late reply message. This fix prevents late replies from causing crashes.
 * [[yokozuna commit](https://github.com/basho/yokozuna/commit/f6e16f9cbf14b193ab447cfce0bb8d6971fb93a4)] When Riak search and active anti-entropy are both enabled, all keys written to Riak KV must be hashed and written to yokozuna hash trees, even if they are not written to Solr. This is done asynchronously, by passing the data along to the yokozuna batching infrastructure. Initially, the queues responsible for handling these non-indexed items were not included in the list of required queues, so they would be shut down by the synchronization mechanism that is designed to keep the queue processes running in sync with the partitions and indexes that are currently hosted by the node in question. Non-indexed queues are now included in the list of required queues so they stay active.
-
-
 
 ## Known Issues
 
@@ -169,8 +151,6 @@ Please edit __/etc/riak/advanced.config__ and add the following on all Riak KV 2
 
 Once all of the Riak KV clusters have been upgraded to version 2.2.0 or greater, the workaround can be removed.
 
-
-
 ## Upgraded components
 
 * Bitcask has been upgraded to version 2.0.4
@@ -182,11 +162,7 @@ Once all of the Riak KV clusters have been upgraded to version 2.2.0 or greater,
 * OTP has been upgraded to version R16B02_basho10
 * Solr has been upgraded to version 4.10.4
 
-
-
-
 ## Deprecation Notification
-
 
 * [Link Walking]({{<baseurl>}}riak/kv/2.2.0/developing/api/http/link-walking/) is deprecated and will not work if security is enabled.
 * Key Filters are deprecated; we strongly discourage key listing in production due to the overhead involved, so it's better to maintain key indexes as values in Riak (see our [set data type]({{<baseurl>}}riak/kv/2.2.0/developing/data-types/sets/) as a useful tool for such indexes).

@@ -19,7 +19,6 @@ aliases:
 
 Released Jul 03, 2020.
 
-
 ## Overview
 
 This release replaces the Riak KV 2.9.3 release, extending the issue resolution in kv_index_tictactree to detect other files where file truncation means the CRC is not present.
@@ -33,5 +32,4 @@ TicTac AAE has some useful new functions. [Learn More >>](../using/cluster-opera
 ## Previous Release Notes
 
 Please see the KV 2.9.2 release notes [here]({{<baseurl>}}riak/kv/2.9.2/release-notes/), the KV 2.9.1 release notes [here]({{<baseurl>}}riak/kv/2.9.1/release-notes/), and the KV 2.9.0p5 release notes [here]({{<baseurl>}}riak/kv/2.9.4/release-notes/).
-
 

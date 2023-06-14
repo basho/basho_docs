@@ -76,5 +76,3 @@ trollface.jpg","riak_logo_animated1.gif","victory.jpg","challenge.png","
 team_cribbs.png"]}
 ```
 
-
-

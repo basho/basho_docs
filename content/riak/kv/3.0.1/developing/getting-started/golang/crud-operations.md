@@ -15,7 +15,6 @@ aliases:
 
 ---
 
-
 ## Creating Objects
 
 First let’s create a few objects and a bucket to keep them in:
@@ -216,7 +215,7 @@ for done := range d {
 ## Updating Objects
 
 While some data may be static, other forms of data need to be
-updated. 
+updated.
 
 Let’s update some values:
 
@@ -371,6 +370,4 @@ Now, let’s delete the book:
 ```golang
 ...
 ```
-
-
 

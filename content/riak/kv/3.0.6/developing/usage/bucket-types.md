@@ -97,6 +97,3 @@ curl -XPUT $RIAK_HOST/buckets/cats/props \
      -d'{"props":{"search_index":"famous"}}'
 ```
 
-
-
-

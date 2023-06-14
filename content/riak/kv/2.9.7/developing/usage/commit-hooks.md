@@ -225,7 +225,6 @@ postcommit_index_on_email(Object) ->
     C:put(IndexObj).
 ```
 
-
 ### Chaining
 
 The default value of the bucket `postcommit` property is an empty list,
@@ -238,7 +237,4 @@ functions, triggered by the same update, to execute in parallel.
 
 **Note**: All post-commit hook functions are executed for each create,
 update, or delete.
-
-
-
 

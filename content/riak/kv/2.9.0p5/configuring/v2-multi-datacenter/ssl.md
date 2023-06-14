@@ -24,7 +24,6 @@ aliases:
   - /riak/kv/2.9.0p4/configuring/v2-multi-datacenter/ssl/
 ---
 
-
 {{% note title="Deprecation Warning" %}}
 v2 Multi-Datacenter Replication is deprecated and will be removed in a future version. Please use [v3]({{<baseurl>}}riak/kv/2.9.0p5/configuring/v3-multi-datacenter/ssl/) instead.
 {{% /note %}}

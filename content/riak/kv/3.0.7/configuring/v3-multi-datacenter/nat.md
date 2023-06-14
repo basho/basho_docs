@@ -62,7 +62,6 @@ NAT rules can be configured at runtime, from the command line.
     * `riak-repl fullsync stop <clustername>`
     * `riak-repl fullsync start <clustername>`
 
-
 ## Example
 
 * Cluster_A is the **source** of replicated data.
@@ -144,7 +143,6 @@ riak-repl nat-map add 50.16.238.200:5553 192.168.3.63
 # on 192.168.3.64 of Cluster_C
 riak-repl nat-map add 50.16.238.200:5554 192.168.3.64
 
-
 # Connect replication from Cluster_A to Cluster_B:
 # on any node of Cluster_A
 riak-repl connect 50.16.238.120:5555
@@ -157,7 +155,6 @@ riak-repl connect 50.16.238.200:5550
 # You can connect to any node in Cluster_C with NAT mapped IP's/ports
 # This command only needs to be run *once* for a cluster.
 
-
 # on any node from Cluster_A
 riak-repl realtime enable Cluster_B
 riak-repl realtime enable Cluster_C
@@ -165,7 +162,4 @@ riak-repl realtime enable Cluster_C
 riak-repl realtime start Cluster_B
 riak-repl realtime start Cluster_C
 ```
-
-
-
 

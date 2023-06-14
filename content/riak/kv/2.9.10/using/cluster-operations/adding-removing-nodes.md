@@ -108,7 +108,6 @@ join           'riak@192.168.2.2'
 join           'riak@192.168.2.2'
 -------------------------------------------------------------------------------
 
-
 NOTE: Applying these changes will result in 1 cluster transition
 
 ###############################################################################
@@ -180,7 +179,6 @@ cluster must be first reviewed with `riak-admin cluster plan` and
 committed with `riak-admin cluster commit` before any changes will
 actually take place.
 
-
 ## Pausing a `join` or `leave`
 
 {{% note title="Warning" %}}
@@ -192,6 +190,4 @@ To pause during `riak-admin cluster join` or `riak-admin cluster leave`, set the
 ```bash
 riak-admin transfer-limit <node> 0
 ```
-
-
 

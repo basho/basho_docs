@@ -78,7 +78,7 @@ algorithm is bad at getting rid of large index files.
 
 ## Steps to Upgrading
 
-1.  First, you'll perform a normal [rolling upgrade](../cluster).
+1. First, you'll perform a normal [rolling upgrade](../cluster).
     As you upgrade, enable `yokozuna` (the new Riak Search library) on
     each node. If you're still using `app.config` it's called `yokozuna`.
     If you've chosen to upgrade to the new `riak.conf` config option, it's

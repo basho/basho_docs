@@ -375,7 +375,6 @@ map.flags['enterprise_customer'].disable()
 map.store()
 ```
 
-
 ```csharp
 // https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs
 
@@ -1879,6 +1878,4 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
   }
   '
 ```
-
-
 

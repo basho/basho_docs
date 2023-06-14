@@ -21,5 +21,4 @@ aliases:
   - /riak/kv/2.9.0p4/learn/new-to-nosql/
 ---
 
-
 **TODO: Add content (not sure where this lives in existing docs)**

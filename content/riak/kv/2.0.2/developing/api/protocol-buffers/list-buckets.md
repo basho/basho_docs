@@ -21,20 +21,17 @@ This call can be expensive for the server. Do not use in performance-sensitive
 code.
 {{% /note %}}
 
-
 ## Request
 
 Only the message code is required.
 
 ## Response
 
-
 ```protobuf
 message RpbListBucketsResp {
     repeated bytes buckets = 1;
 }
 ```
-
 
 Values
 
@@ -50,7 +47,6 @@ Erlang <<0,0,0,1,15>>
 
 RpbListBucketsReq - only message code defined
 ```
-
 
 #### Response
 

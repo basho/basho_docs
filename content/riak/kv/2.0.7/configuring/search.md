@@ -24,10 +24,9 @@ aliases:
 [glossary aae]: {{<baseurl>}}riak/kv/2.0.7/learn/glossary/#active-anti-entropy-aae
 [security index]: {{<baseurl>}}riak/kv/2.0.7/using/security/
 
-
 This document covers how to use the Riak Search (with
 [Solr](http://lucene.apache.org/solr/) integration) subsystem from an
-operational perspective. 
+operational perspective.
 
 For a simple reference of the available configs & their defaults, go [here][config reference#search].
 
@@ -47,8 +46,7 @@ We'll be walking through:
 3. [Riak.conf Configuration Settings][#riak-config-settings]
 4. [Additional Solr Information][#more-on-solr]
 
-
-## Prerequisites 
+## Prerequisites
 
 Because Solr is a Java application, you will need to install **Java 1.6
 or later** on every node. We recommend installing Oracle's [JDK
@@ -58,7 +56,6 @@ page](http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downl
 and instructions on the [documentation
 page](http://www.oracle.com/technetwork/java/javase/documentation/index.html).
 
-
 ## Enabling Riak Search
 
 Riak Search is not enabled by default, so you must enable it in every
@@ -67,7 +64,6 @@ node's [configuration file][config reference] as follows:
 ```riak.conf
 search = on
 ```
-
 
 ## Riak Config Settings
 
@@ -95,8 +91,8 @@ Field | Default | Valid values | Description
 `search.index.error_threshold.reset_interval` | `30000` | Milliseconds | The amount of time it takes for updates to a given search index to resume/refresh once Riak has started skipping update operations.
 `search.queue.high_watermark.purge_strategy` | `purge_one` | `purge_one`, `purge_index`, `purge_all`, or `off` | The strategy for how we handle purging when we hit the `search.queue.high_watermark`. The options: <br> * `purge_one` removes the oldest item on the queue from an erroring (references to fuses blown in the code) index in order to get below the `search.queue.high_watermark`,</br> <br> * `purge_index` removes all items associated with one random erroring (references to fuses blown in the code) index in order to get below the `search.queue.high_watermark`,</br> <br> * `purge_all` removes all items associated with all erroring (references to fuses blown in the code) indices in order to get below the `search.queue.high_watermark`, and</br> <br> *`off` disables purging.</br>
 
-
 ## More on Solr
+
 ### Solr JVM and Ports
 
 Riak Search runs one Solr process per node to manage its indexing and

@@ -18,7 +18,6 @@ aliases:
     - /riakts/1.1.0/using/configuring/
 ---
 
-
 Depending on your needs, you can configure Riak TS in each node's riak.conf file.
 
 ## Configuration options
@@ -42,7 +41,6 @@ timeseries_query_max_quanta_span = 3
 For example, if you set `quantum(time, 15, 'm')` in your Riak TS table, setting `timeseries_query_max_quanta_span` to '5' would allow a query to return results within a time span of 75 minutes.  If a query has a larger time span, an error would be returned to the client and the query would not run.
 
 This option is intended to prevent excessively long-running queries that could affect the performance of the cluster.
-
 
 ### Maximum queries
 

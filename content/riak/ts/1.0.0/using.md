@@ -14,14 +14,12 @@ aliases:
     - /riakts/1.0.0/using/
 ---
 
-
 [activating]: creating-activating/
 [configuring]: configuring/
 [installing]: ../installing/
 [planning]: planning/
 [querying]: querying/
 [writing]: writingdata/
-
 
 Now that you've downloaded the package from ZenDesk and [installed][installing] Riak TS, there's a recommended path for setting up and using it:
 

@@ -19,7 +19,6 @@ toc: true
 v2 Multi-Datacenter Replication is deprecated and will be removed in a future version. Please use [v3]({{<baseurl>}}riak/kv/2.2.6/using/reference/v3-multi-datacenter/) instead.
 {{% /note %}}
 
-
 ## In This Section
 
 #### [V2 Multi-Datacenter Replication Reference: Architecture][v2 mdc arch]

@@ -52,7 +52,6 @@ a binary file, because those objects don't offer any clues that enable
 you to discover them later. Indexing enables you to tag those objects
 and find all objects with the same tag in a specified bucket later on.
 
-
 2i is also recommended if your use case requires anti-entropy. Since
 secondary indexes are just metadata attached to key/value objects, 2i
 piggybacks off of read-repair.
@@ -1996,7 +1995,4 @@ curl -XPOST localhost:8098/mapred\
 }
 EOF
 ```
-
-
-
 

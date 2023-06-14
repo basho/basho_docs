@@ -20,7 +20,6 @@ aliases:
   - /riak/kv/2.9.0p4/using/repair-recovery/
 ---
 
-
 [repair recover fail]: ./failure-recovery/
 [repair recover errors]: ./errors/
 [repair recover repairs]: ./repairs/
@@ -35,20 +34,17 @@ cluster failure.
 
 [Learn More >>][repair recover fail]
 
-
 #### [Errors & Messages][repair recover errors]
 
 Details most common errors & messages.
 
 [Learn More >>][repair recover errors]
 
-
 #### [Repairs][repair recover repairs]
 
 Tutorials on running various repair operations.
 
 [Learn More >>][repair recover repairs]
-
 
 #### [Rolling Restarts][repair recover restart]
 

@@ -189,7 +189,6 @@ Several bugs have been fixed related to reip in Riak 2.0. We recommend against
 using reip prior to 2.0, if possible.
 {{% /note %}}
 
-
 ## js-reload
 
 Forces the embedded Javascript virtual machines to be restarted. This is
@@ -625,7 +624,6 @@ parameters:
 * `handoff.outbound`
 * `handoff.inbound`
 
-
 ## show
 
 Whereas the [`riak admin status`][use admin riak admin#stats] command will display all currently available statistics for your Riak
@@ -656,7 +654,4 @@ That will produce the following output:
 nodename:
   Name of the Erlang node
 ```
-
-
-
 

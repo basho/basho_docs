@@ -52,6 +52,7 @@ the following line:
 
 ```riakconf
 ## Delete this line:
+
 storage_backend = bitcask
 ```
 
@@ -306,6 +307,7 @@ erlang.max_ports = 65536
 
 ```vmargs
 ## This setting should already be present for recent Riak installs.
+
 -env ERL_MAX_PORTS 65536
 ```
 
@@ -342,6 +344,5 @@ javascript.hook_pool_size = 0
     %% Other configs
 ]}
 ```
-
 
 [riak_conf_files]: {{< baseurl >}}riak/kv/2.0.5/ops/advanced/configs/configuration-files/

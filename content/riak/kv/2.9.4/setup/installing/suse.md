@@ -46,4 +46,3 @@ sudo rpm -Uvh riak-2.2.3-1.SLES11.x86_64.rpm
 
 Now that Riak is installed, check out [Verifying a Riak Installation][install verify].
 
-

@@ -20,7 +20,7 @@ commercial_offering: false
 [configure tictacaae]: ./active-anti-entropy/tictac-aae
 
 The configuration for Next Gen Replication is kept in
- the `riak.conf` configuration file. 
+ the `riak.conf` configuration file.
 
 {{% note %}}
 Next Gen Replication relies on the TicTac AAE system, which needs to be enabled and configured. See the [TicTac AAE configuration][configure tictacaae] documentaion.

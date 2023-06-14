@@ -91,5 +91,3 @@ $ curl -v http://localhost:8098/buckets/mybucket/index/field1_bin/val1
 {"keys":["mykey1"]}%
 ```
 
-
-
