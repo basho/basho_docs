@@ -90,7 +90,7 @@ curl -O https://files.tiot.jp/riak/cs/3.0/3.0.0/osx/10.14/riak_cs-3.0.0-OTP22.ta
 Then, unpack the downloaded tarball:
 
 ```bash
-tar -xvzf riak-cs-3.0.0-OSX-x86_64.tar.gz
+tar -xvzf riak_cs-3.0.0-OTP22.tar.gz
 ```
 
 At this point, you can move on to [configuring Riak CS]({{<baseurl>}}riak/cs/3.0.0/cookbooks/configuration/riak-cs/).
