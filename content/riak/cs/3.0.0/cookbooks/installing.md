@@ -23,7 +23,7 @@ You can install Riak CS on a single node (for development purposes) or
 using an automated deployment tool. Any Riak CS installation involves
 three components, all of which must be installed separately:
 
-* [Riak KV]({{<baseurl>}}riak/kv/3.0.9/) --- The distributed database on top of which Riak CS
+* [Riak KV]({{<baseurl>}}riak/kv/3.0.9/) --- The distributed database on top of which Riak CS 
 is built
 * Riak CS itself
 * [Stanchion]({{<baseurl>}}riak/cs/3.0.0/theory/stanchion) --- An application used to manage [globally unique entities]({{<baseurl>}}riak/cs/3.0.0/theory/stanchion/#globally-unique-entities) such as users and buckets.
@@ -45,9 +45,9 @@ or from source.
   * [RHEL and CentOS]({{<baseurl>}}riak/kv/3.0.9/setup/installing/rhel-centos)
   * [Mac OS X]({{<baseurl>}}riak/kv/3.0.9/setup/installing/mac-osx)
   * [FreeBSD]({{<baseurl>}}riak/kv/3.0.9/setup/installing/freebsd)
-  * [SUSE]({{<baseurl>}}riak/kv/3.0.9/setup/installing/suse)
-  * [Raspbian]({{<baseurl>}}riak/kv/3.0.9/setup/installing/debian-ubuntu)
-  * [Alpine]({{<baseurl>}}riak/kv/3.0.9/setup/installing/alpine-linux)
+  * [SUSE]({{<baseurl>}}riak/kv/3.0.9/setup/installing/sles)
+  * [Raspbian]({{<baseurl>}}riak/kv/3.0.9/setup/installing/raspbian)
+  * [Alpine]({{<baseurl>}}riak/kv/3.0.9/setup/installing/alpine)
   * [From Source]({{<baseurl>}}riak/kv/3.0.9/setup/installing/source)
 
 Riak is also officially supported on the following public cloud
@@ -84,13 +84,13 @@ To install Riak CS on OS X, first download the appropriate package from
 the [downloads]({{<baseurl>}}riak/cs/3.0.0/downloads) page:
 
 ```bash
-curl -O https://files.tiot.jp/riak/cs/3.0/3.0.0/osx/10.11/riak-cs-3.0.0-OSX-x86_64.tar.gz
+curl -O https://files.tiot.jp/riak/cs/3.0/3.0.0/osx/10.14/riak_cs-3.0.0-OTP22.tar.gz
 ```
 
 Then, unpack the downloaded tarball:
 
 ```bash
-tar -xvzf riak-cs-3.0.0-OSX-x86_64.tar.gz
+tar -xvzf riak_cs-3.0.0-OTP22.tar.gz
 ```
 
 At this point, you can move on to [configuring Riak CS]({{<baseurl>}}riak/cs/3.0.0/cookbooks/configuration/riak-cs/).
@@ -98,7 +98,7 @@ At this point, you can move on to [configuring Riak CS]({{<baseurl>}}riak/cs/3.0
 ### Installing Riak CS on Debian, Ubuntu or Raspbian
 
 On Debian and Ubuntu, Riak CS packages are hosted on
-[files.tiot.jp](https://files.tiot.jp/riak/cs/3.0/3.0.0/).
+[files.tiot.jp](https://files.tiot.jp/riak/cs/3.0/3.0.0/). 
 
 Platform-specific pages are linked below:
 
@@ -122,22 +122,23 @@ sudo dpkg -i riak-cs_3.0.0-OTP22_*.deb
 
 ### Installing Riak CS on Amazon Linux, Oracle Linux, RHEL, CentOS or openSUSE
 
+
 On Amazon Linux, Riak CS packages are hosted on
-[files.tiot.jp](https://files.tiot.jp/riak/cs/3.0/3.0.0/amazon/).
+[files.tiot.jp](https://files.tiot.jp/riak/cs/3.0/3.0.0/amazon/). 
 
 Platform-specific pages are linked below:
 
 * [amzn2](https://files.tiot.jp/riak/cs/3.0/3.0.0/amazon/2/riak-cs-3.0.0.OTP22-1.amzn2.x86_64.rpm)
 
 On Oracle Linux, Riak CS packages are hosted on
-[files.tiot.jp](https://files.tiot.jp/riak/cs/3.0/3.0.0/oracle/).
+[files.tiot.jp](https://files.tiot.jp/riak/cs/3.0/3.0.0/oracle/). 
 
 Platform-specific pages are linked below:
 
 * [el8](https://files.tiot.jp/riak/cs/3.0/3.0.0/oracle/8/riak-cs-3.0.0.OTP22-1.el8.x86_64.rpm)
 
 On RHEL or CentOS, Riak CS packages are hosted on
-[files.tiot.jp](https://files.tiot.jp/riak/cs/3.0/3.0.0/rhel).
+[files.tiot.jp](https://files.tiot.jp/riak/cs/3.0/3.0.0/rhel). 
 
 Platform-specific pages are linked below:
 
@@ -145,7 +146,7 @@ Platform-specific pages are linked below:
 * [el8](https://files.tiot.jp/riak/cs/3.0/3.0.0/rhel/8/riak-cs-3.0.0.OTP22-1.el8.x86_64.rpm)
 
 On openSUSE, Riak CS packages are hosted on
-[files.tiot.jp](https://files.tiot.jp/riak/cs/3.0/3.0.0/sles/).
+[files.tiot.jp](https://files.tiot.jp/riak/cs/3.0/3.0.0/sles). 
 
 Platform-specific pages are linked below:
 
@@ -215,7 +216,7 @@ On FreeBSD and Alpine, Riak CS packages are hosted on
 Platform-specific pages are linked below:
 
 * [FreeBSD 13](https://files.tiot.jp/riak/cs/3.0/3.0.0/freebsd/13/riak-cs_3.0.0-OTP22.pkg)
-* [Alpine 3.14](https://files.tiot.jp/riak/cs/3.0/3.0.0/alpine/3.14/riak-cs-3.0.0-r0.apk)
+* [Alpine 3.14](https://files.tiot.jp/riak/cs/3.0/3.0.0/alpine/3.14/riak-cs_3.0.0-r0.apk)
 
 #### pkg Installation (FreeBSD)
 
@@ -268,7 +269,7 @@ details can be found in [Specifying the Stanchion Node]({{<baseurl>}}riak/cs/3.0
 First, download the appropriate package from the [downloads]({{<baseurl>}}riak/cs/3.0.0/downloads/#stanchion-3-0-0) page.
 
 ```bash
-curl -O https://files.tiot.jp/riak/stanchion/3.0/3.0.0/osx/10.14/stanchion_3.0.0-OTP22.tar.gz
+curl -O https://files.tiot.jp/riak/stanchion/3.0/3.0.0/osx/10.14/stanchion-3.0.0-OTP22.tar.gz
 ```
 
 Then, unpack the downloaded tarball:
@@ -309,6 +310,25 @@ sudo apt-get install stanchion
 At this point, you can move on to [configuring Riak CS]({{<baseurl>}}riak/cs/3.0.0/cookbooks/configuration/riak-cs).
 
 #### Installing the `.deb` Package Manually (not recommended)
+-->
+On Debian and Ubuntu, Riak CS packages are hosted on
+[files.tiot.jp](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/).
+
+Platform-specific pages are linked below:
+
+* [Focal](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/ubuntu/focal64/riak-cs_3.0.0-OTP22_amd64.deb)
+* [Jammy](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/ubuntu/jammy64/riak-cs_3.0.0-OTP22_amd64.deb)
+* [Stretch](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/debian/9/riak-cs_3.0.0-OTP22_amd64.deb)
+* [Buster](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/debian/10/riak-cs_3.0.0-OTP22_amd64.deb)
+* [Bullseye](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/debian/11/stanchion_3.0.0-OTP22_amd64.deb)
+* [Raspbian](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/raspbian/buster/stanchion_3.0.0-OTP22_armhf.deb)
+
+#### dpkg Installation
+
+For the simplest installation process on LTS (Long-Term Support)
+releases, use `dpkg -i` after downloading the appropriate package for your OS..
+
+Now install the `stanchion` package:
 
 -->
 On Debian and Ubuntu, Riak CS packages are hosted on
@@ -400,7 +420,7 @@ On FreeBSD and Alpine, Stanchion packages are hosted on
 Platform-specific pages are linked below:
 
 * [FreeBSD 13](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/freebsd/13/stanchion_3.0.0-OTP22.pkg)
-* [Alpine 3.14](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/alpine/3.14/stanchion-3.0.0-r0.apk)
+* [Alpine 3.14](https://files.tiot.jp/riak/stanchion/3.0/3.0.0/alpine/3.14/stanchion_3.0.0-r0.apk)
 
 #### pkg Installation (FreeBSD)
 
