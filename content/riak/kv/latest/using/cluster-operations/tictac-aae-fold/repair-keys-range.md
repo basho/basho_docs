@@ -16,4 +16,3 @@ and `{project}` is the metadata value of `project` above.
 
 This page exists solely to redirect from the generated URL to the latest version of
 that url.
-

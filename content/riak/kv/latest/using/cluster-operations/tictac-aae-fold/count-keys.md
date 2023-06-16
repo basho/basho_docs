@@ -4,8 +4,8 @@ project: riak_kv
 replace_text: latest
 latest_text: "{latest}"
 aliases:
-  - "/riak/latest/using/cluster-operations/tictac-aae-folds/count-tombs/"
-  - "/riakkv/latest/using/cluster-operations/tictac-aae-folds/count-tombs/"
+  - "/riak/latest/using/cluster-operations/tictac-aae-folds/count-keys/"
+  - "/riakkv/latest/using/cluster-operations/tictac-aae-folds/count-keys/"
 ---
 
 # Redirect page
