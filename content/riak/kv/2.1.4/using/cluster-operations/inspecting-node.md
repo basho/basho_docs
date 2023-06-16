@@ -33,6 +33,10 @@ output of `riak-admin status` is categorized and detailed below.
 Please note, for some counters, such as `node_get_fsm_objsize`, a
 minimum of 5 transactions is required for statistics to be generated.
 
+{{% note title="Warning about `riak-admin status` usage" %}}
+The `riak-admin status` command should be not be used excessively as this can eventually cause the node to crash from atom table exhaustion.
+{{% /note %}}
+
 #### Performance
 
 We recommended checking stats every 90-120 seconds for best performance.
@@ -348,6 +352,7 @@ The `riak-debug` command is used to identify and diagnose common problems with y
 
 {{% note title="Warning about `riak-debug` and `riak-admin diag` usage" %}}
 The `riak-debug` and `riak-admin diag` commands should only be used after a new installation or configuration change. It should not be used as part of regular monitoring. Overuse of `riak-debug` or `riak-admin diag` can eventually cause the node to crash from atom table exhaustion.
+In addition, overuse of `riak-debug` and `riak-admin diag` can lead to overloads in unhealthy nodes. These commands should be used sparingly and not used in the course of normal monitoring.
 {{% /note %}}
 
 ## Strong Consistency Stats

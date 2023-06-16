@@ -32,6 +32,9 @@ precompiled tarball.
 backend that uses very few file handles, it's possible to run out. See
 [Open Files Limit][perf open files] for more information about changing the limit.
 
+**Note on M1+ CPU based Macs**
+Please note that Riak KV is available only for x86_64 based Macs and M1+ macs are not currently supported.
+
 ## From Precompiled Tarballs
 
 To run Riak from our precompiled tarball, run these commands for the

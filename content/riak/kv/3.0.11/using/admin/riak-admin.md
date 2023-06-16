@@ -19,6 +19,7 @@ aliases:
 [use admin commands]: {{<baseurl>}}riak/kv/3.0.11/using/admin/commands
 [use admin commands#join]: {{<baseurl>}}riak/kv/3.0.11/using/admin/commands/#join
 [use admin commands#leave]: {{<baseurl>}}riak/kv/3.0.11/using/admin/commands/#leave
+[use admin commands#status] {{<baseurl>}}riak/kv/3.0.11/using/admin/commands/#status
 [cluster ops backup]: {{<baseurl>}}riak/kv/3.0.11/using/cluster-operations/backing-up
 [config reference#node-metadata]: {{<baseurl>}}riak/kv/3.0.11/configuring/reference/#node-metadata
 [cluster ops change info]: {{<baseurl>}}riak/kv/3.0.11/using/cluster-operations/changing-cluster-info
@@ -637,7 +638,7 @@ parameters:
 
 ## show
 
-Whereas the [`riak admin status`][use admin riak admin#stats] command will display all currently available statistics for your Riak
+Whereas the [`riak admin status`][use admin commands#status] command will display all currently available statistics for your Riak
 cluster, the `show` command enables you to view only some of those
 statistics.
 
