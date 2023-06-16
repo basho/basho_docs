@@ -12834,6 +12834,15 @@ riak_cs:
           file_size: '22282494'
           chksum_href: https://files.tiot.jp/riak/cs/2.1/2.1.2/ubuntu/xenial64/riak-cs_2.1.2-1_amd64.deb.sha
   3.0.0:
+  - os: alpine
+    versions:
+    - version: '3.14'
+      architectures:
+      - arch: unknown
+        file_info:
+          file_name: riak-cs-3.0.0-r0.apk
+          file_href: https://files.tiot.jp/riak/cs/3.0/3.0.0/alpine/3.14/riak-cs-3.0.0-r0.apk
+          file_size: '7306690'
   - os: amazon
     versions:
     - version: '2'
@@ -12896,6 +12905,16 @@ riak_cs:
           file_href: https://files.tiot.jp/riak/cs/3.0/3.0.0/oracle/8/riak-cs-3.0.0.OTP22-1.el8.x86_64.rpm
           file_size: '7452236'
           chksum_href: https://files.tiot.jp/riak/cs/3.0/3.0.0/oracle/8/riak-cs-3.0.0.OTP22-1.el8.x86_64.rpm.sha
+  - os: osx
+    versions:
+    - version: '10.14'
+      architectures:
+      - arch: unknown
+        file_info:
+          file_name: riak_cs-3.0.0-OTP22.tar.gz
+          file_href: https://files.tiot.jp/riak/cs/3.0/3.0.0/osx/10.14/riak_cs-3.0.0-OTP22.tar.gz
+          file_size: '7783122'
+          chksum_href: https://files.tiot.jp/riak/cs/3.0/3.0.0/osx/10.14/riak_cs-3.0.0-OTP22.tar.gz.sha
   - os: raspbian
     versions:
     - version: buster
@@ -12942,6 +12961,22 @@ riak_cs:
           file_href: https://files.tiot.jp/riak/cs/3.0/3.0.0/rhel/8/riak-cs-3.0.0.OTP22-1.el8.x86_64.rpm
           file_size: '7563808'
           chksum_href: https://files.tiot.jp/riak/cs/3.0/3.0.0/rhel/8/riak-cs-3.0.0.OTP22-1.el8.x86_64.rpm.sha
+  - os: sles
+    versions:
+    - version: '15'
+      architectures:
+      - arch: source
+        file_info:
+          file_name: riak-cs-3.0.0.OTP22-1.SLES15.src.rpm
+          file_href: https://files.tiot.jp/riak/cs/3.0/3.0.0/sles/15/riak-cs-3.0.0.OTP22-1.SLES15.src.rpm
+          file_size: '1358396'
+          chksum_href: https://files.tiot.jp/riak/cs/3.0/3.0.0/sles/15/riak-cs-3.0.0.OTP22-1.SLES15.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: riak-cs-3.0.0.OTP22-1.SLES15.x86_64.rpm
+          file_href: https://files.tiot.jp/riak/cs/3.0/3.0.0/sles/15/riak-cs-3.0.0.OTP22-1.SLES15.x86_64.rpm
+          file_size: '7563808'
+          chksum_href: https://files.tiot.jp/riak/cs/3.0/3.0.0/sles/15/riak-cs-3.0.0.OTP22-1.SLES15.x86_64.rpm.sha
   - os: ubuntu
     versions:
     - version: focal64
@@ -13804,6 +13839,15 @@ stanchion:
           file_size: '20732522'
           chksum_href: https://files.tiot.jp/riak/stanchion/2.1/2.1.2/ubuntu/xenial64/stanchion_2.1.2-1_amd64.deb.sha
   3.0.0:
+  - os: alpine
+    versions:
+    - version: '3.14'
+      architectures:
+      - arch: unknown
+        file_info:
+          file_name: stanchion-3.0.0-r0.apk
+          file_href: https://files.tiot.jp/riak/stanchion/3.0/3.0.0/alpine/3.14/stanchion-3.0.0-r0.apk
+          file_size: '6860419'
   - os: amazon
     versions:
     - version: '2'
@@ -13880,6 +13924,16 @@ stanchion:
           file_href: https://files.tiot.jp/riak/stanchion/3.0/3.0.0/oracle/8/stanchion-3.0.0.OTP22-1.el8.x86_64.rpm
           file_size: '7003764'
           chksum_href: https://files.tiot.jp/riak/stanchion/3.0/3.0.0/oracle/8/stanchion-3.0.0.OTP22-1.el8.x86_64.rpm.sha
+  - os: osx
+    versions:
+    - version: '10.14'
+      architectures:
+      - arch: unknown
+        file_info:
+          file_name: stanchion-3.0.0-OTP22.tar.gz
+          file_href: https://files.tiot.jp/riak/stanchion/3.0/3.0.0/osx/10.14/stanchion-3.0.0-OTP22.tar.gz
+          file_size: '7322344'
+          chksum_href: https://files.tiot.jp/riak/stanchion/3.0/3.0.0/osx/10.14/stanchion-3.0.0-OTP22.tar.gz.sha
   - os: raspbian
     versions:
     - version: buster
@@ -13926,6 +13980,22 @@ stanchion:
           file_href: https://files.tiot.jp/riak/stanchion/3.0/3.0.0/rhel/8/stanchion-3.0.0.OTP22-1.el8.x86_64.rpm
           file_size: '7113244'
           chksum_href: https://files.tiot.jp/riak/stanchion/3.0/3.0.0/rhel/8/stanchion-3.0.0.OTP22-1.el8.x86_64.rpm.sha
+  - os: sles
+    versions:
+    - version: '15'
+      architectures:
+      - arch: source
+        file_info:
+          file_name: stanchion-3.0.0.OTP22-1.SLES15.src.rpm
+          file_href: https://files.tiot.jp/riak/stanchion/3.0/3.0.0/sles/15/stanchion-3.0.0.OTP22-1.SLES15.src.rpm
+          file_size: '1000962'
+          chksum_href: https://files.tiot.jp/riak/stanchion/3.0/3.0.0/sles/15/stanchion-3.0.0.OTP22-1.SLES15.src.rpm.sha
+      - arch: x86_64
+        file_info:
+          file_name: stanchion-3.0.0.OTP22-1.SLES15.x86_64.rpm
+          file_href: https://files.tiot.jp/riak/stanchion/3.0/3.0.0/sles/15/stanchion-3.0.0.OTP22-1.SLES15.x86_64.rpm
+          file_size: '7113244'
+          chksum_href: https://files.tiot.jp/riak/stanchion/3.0/3.0.0/sles/15/stanchion-3.0.0.OTP22-1.SLES15.x86_64.rpm.sha
   - os: ubuntu
     versions:
     - version: bionic64
