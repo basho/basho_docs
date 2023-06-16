@@ -8,7 +8,7 @@ menu:
   riak_kv-3.0.15:
     name: "Object Statistics"
     identifier: "cluster_operations_tictac_aae_fold_object_stats"
-    weight: 105
+    weight: 107
     parent: "cluster_operations_tictac_aae_fold"
 toc: true
 since: 2.9.4
