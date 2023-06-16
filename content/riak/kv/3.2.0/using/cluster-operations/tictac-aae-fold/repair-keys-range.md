@@ -59,6 +59,7 @@ riak_client:aae_fold({
     all
     }, Client).
 ```
+
 Please see the list of [available filters](#available-filters) below.
 
 {{% note %}}
@@ -111,4 +112,3 @@ These filters will reduce the keys to be searched:
 These filters will reduce the number of keys considered for reaping or counting:
 
 - [`modified_filter`][filter-by modified]
-

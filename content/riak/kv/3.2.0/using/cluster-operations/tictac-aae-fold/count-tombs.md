@@ -61,6 +61,7 @@ riak_client:aae_fold({
     method
     }, Client).
 ```
+
 Please see the list of [available filters](#available-filters) below.
 
 {{% note title="Other `method`s" %}}
@@ -88,6 +89,7 @@ riak_client:aae_fold({
     count
     }, Client).
 ```
+
 Please see the list of [available filters](#available-filters) below.
 
 For example, the following snippet will count all tombstones with the filters:
@@ -130,4 +132,3 @@ These filters will reduce the keys to be searched:
 These filters will reduce the number of keys considered for reaping or counting:
 
 - [`modified_filter`][filter-by modified]
-

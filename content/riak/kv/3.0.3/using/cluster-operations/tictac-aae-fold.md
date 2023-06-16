@@ -28,7 +28,9 @@ aliases:
 [tictacaae list-buckets]: ../tictac-aae-fold/list-buckets
 [tictacaae object-stats]: ../tictac-aae-fold/object-stats
 [tictacaae count-tombs]: ../tictac-aae-fold/count-tombs
+[tictacaae count-keys]: ../tictac-aae-fold/count-keys
 [tictacaae reap-tombs]: ../tictac-aae-fold/reap-tombs
+[tictacaae erase-keys]: ../tictac-aae-fold/erase-keys
 [filters]: ../tictac-aae-fold/filters
 [filter-by bucket]: ../tictac-aae-fold/filters#filter-by-bucket-name
 [filter-by key-range]: ../tictac-aae-fold/filters#filter-by-key-range
@@ -124,6 +126,7 @@ After experiencing a timeout, the current number of commands waiting to execute 
 io:format("af4_pool has ~b workers\n", [length(MM)]),
 f().
 ```
+
 {{% note title="Warning: existing variables cleared" %}}
 `f()` will unbind any existing variables, which may not be your intention. If you remove `f()` then please remember that `MM` will remain bound to the first value. For re-use, you should change the variable name or restart the `riak attach` session.
 {{% /note %}}
@@ -181,6 +184,14 @@ Returns a list of all buckets.
 
 [Learn More >>][tictacaae list-buckets]
 
+## Count keys
+
+Function: `erase_keys` with `count`
+
+Counts the Riak keys that meet the filter parameters.
+
+[Learn More >>][tictacaae count-keys]
+
 ## Count tombstones
 
 Function: `reap_tombs` with `count`
@@ -197,6 +208,14 @@ Returns a count of Riak objects that meet the filter parameters.
 
 [Learn More >>][tictacaae object-stats]
 
+## Erase keys
+
+Function: `erase_keys` with `local`
+
+Deletes Riak keys that meet the filter parameters.
+
+[Learn More >>][tictacaae erase-keys]
+
 ## Reap tombstones
 
 Function: `reap_tombs` with `local`
@@ -209,7 +228,6 @@ Reaps the Riak tombstone objects that meet the filter parameters.
 
 `aae_fold` has various other functions that can be called, but are mostly for internal use by Riak. These functions should not be used without a good understanding of the source code, but are provided here for reference:
 
-- `erase_keys`
 - `fetch_clocks_nval`
 - `fetch_clocks_range`
 - `merge_branch_nval`
