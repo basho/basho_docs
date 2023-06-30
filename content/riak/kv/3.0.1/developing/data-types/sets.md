@@ -8,7 +8,7 @@ menu:
   riak_kv-3.0.1:
     name: "Sets"
     identifier: "data_types_sets"
-    weight: 101
+    weight: 103
     parent: "developing_data_types"
 toc: true
 aliases:
@@ -51,7 +51,7 @@ in the form of `property: value`.
 
 If our `sets` bucket type has been set properly we should see the following pair in our console output:
 
-```
+```plaintext
 datatype: set
 ```
 
@@ -768,4 +768,3 @@ riakc_set:size(CitiesSet5).
 # With the HTTP interface, this can be determined from the output of
 # a fetch command like the one displayed in the example above
 ```
-

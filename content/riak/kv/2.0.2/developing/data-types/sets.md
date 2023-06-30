@@ -8,7 +8,7 @@ menu:
   riak_kv-2.0.2:
     name: "Sets"
     identifier: "data_types_sets"
-    weight: 101
+    weight: 103
     parent: "developing_data_types"
 toc: true
 aliases:

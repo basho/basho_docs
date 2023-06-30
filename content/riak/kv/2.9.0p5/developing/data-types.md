@@ -31,12 +31,12 @@ aliases:
 
 Riak KV has Riak-specific data types based on [convergent replicated data types (CRDTs)][wiki crdt]. While Riak KV was built as a data-agnostic key/value store, Riak data types enable you to use Riak KV as a data-aware system and perform transactions on 6 CRDT-inspired data types:
 
-- [Flags](./maps#flags)
-- [Registers](./maps#registers)
 - [Counters](./counters)
-- [Sets](./sets)
+- [Flags](./maps#flags)
 - [GSets](./gsets)
 - [Maps](./maps)
+- [Registers](./maps#registers)
+- [Sets](./sets)
 
 Riak KV also has 1 context-free data type, that has similar usage but does not require contexts.
 
@@ -89,7 +89,7 @@ This will return a list of bucket properties and their associated values
 in the form of `property: value`. If our `maps` bucket type has been set
 properly, we should see the following pair in our console output:
 
-```
+```plaintext
 datatype: map
 ```
 
@@ -213,10 +213,10 @@ directly below.
 
 With the Java and PHP clients, you'll need to manually fetch and return data type contexts for the following operations:
 
-* Disabling a flag within a map
-* Removing an item from a set (whether the set is on its own or within a
+- Disabling a flag within a map
+- Removing an item from a set (whether the set is on its own or within a
   map)
-* Removing a field from a map
+- Removing a field from a map
 
 Without context, these operations simply will not succeed due to the
 convergence logic driving Riak data types. The example below shows you
