@@ -8,7 +8,7 @@ menu:
   riak_kv-2.0.6:
     name: "Maps"
     identifier: "data_types_maps"
-    weight: 102
+    weight: 103
     parent: "developing_data_types"
 toc: true
 aliases:
