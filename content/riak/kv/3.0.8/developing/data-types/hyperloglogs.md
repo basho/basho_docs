@@ -8,7 +8,7 @@ menu:
   riak_kv-3.0.8:
     name: "HyperLogLogs"
     identifier: "data_types_hyperloglogs"
-    weight: 100
+    weight: 102
     parent: "developing_data_types"
 toc: true
 aliases:
