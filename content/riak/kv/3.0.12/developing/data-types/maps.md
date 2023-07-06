@@ -1878,4 +1878,3 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
   }
   '
 ```
-

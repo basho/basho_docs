@@ -391,7 +391,7 @@ curl -XPOST http://localhost:8098/types/hlls/buckets/hello/datatypes/darkness \
 
 However, when using a non-HTTP client, the approximate cardinality/value of our
 data structure will be 0, locally, until its pushed to the server and then
-[fetched](#retrieve-a-hyperloglog-datatype) from the server.
+[fetched](#retrieve-a-hyperloglog-data-type) from the server.
 
 ```erlang
 riakc_hll:value(HLL2) == 0.
