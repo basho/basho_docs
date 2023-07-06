@@ -24,12 +24,12 @@ aliases:
 
 Riak KV has Riak-specific data types based on [convergent replicated data types (CRDTs)][wiki crdt]. While Riak KV was built as a data-agnostic key/value store, Riak data types enable you to use Riak KV as a data-aware system and perform transactions on 6 CRDT-inspired data types:
 
-- [Flags](./maps#flags)
-- [Registers](./maps#registers)
 - [Counters](./counters)
-- [Sets](./sets)
+- [Flags](./maps#flags)
 - [GSets](./gsets)
 - [Maps](./maps)
+- [Registers](./maps#registers)
+- [Sets](./sets)
 
 Riak KV also has 1 context-free data type, that has similar usage but does not require contexts.
 
