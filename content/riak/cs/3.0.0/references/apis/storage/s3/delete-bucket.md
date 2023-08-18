@@ -7,7 +7,7 @@ toc: true
 aliases:
   - /riakcs/3.0.0/references/apis/storage/s3/RiakCS-DELETE-Bucket
   - /riak/cs/3.0.0/references/apis/storage/s3/RiakCS-DELETE-Bucket
-  - /riak/cs/latest/references/apis/storage/s3/delete-bucket/
+
 ---
 
 The `DELETE Bucket` operation deletes the bucket specified in the URI.

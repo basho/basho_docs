@@ -24,5 +24,5 @@ listed_projects:
 aliases:
   - /riakcs/3.0.0/riakcs-downloads/
   - /riak/cs/3.0.0/riakcs-downloads/
-  - /riak/cs/latest/downloads/
+
 ---

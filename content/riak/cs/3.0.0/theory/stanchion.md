@@ -12,7 +12,7 @@ project_version: "3.0.0"
 aliases:
   - /riakcs/3.0.0/theory/stanchion/
   - /riak/cs/3.0.0/theory/stanchion/
-  - /riak/cs/latest/theory/stanchion/
+
 ---
 
 Stanchion is an application used by Riak CS to manage the serialization

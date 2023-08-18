@@ -12,7 +12,7 @@ project_version: "2.1.2"
 aliases:
   - /riakcs/2.1.2/references/appendices/comparisons/Riak-Compared-to-Atmos/
   - /riak/cs/2.1.2/references/appendices/comparisons/Riak-Compared-to-Atmos/
-  - /riak/cs/latest/references/appendices/comparisons/atmos/
+
 ---
 
 The purpose of this comparison is not to serve as an introduction to Riak CS and EMC Atmos, or their commonalities, but rather to enumerate interesting differences between the two systems. This document is intended for those who already have a basic understanding of both systems.

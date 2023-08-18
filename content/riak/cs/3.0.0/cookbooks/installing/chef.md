@@ -12,7 +12,7 @@ project_version: "3.0.0"
 aliases:
   - /riakcs/3.0.0/cookbooks/installing/Riak-CS-Using-Chef/
   - /riak/cs/3.0.0/cookbooks/installing/Riak-CS-Using-Chef/
-  - /riak/cs/latest/cookbooks/installing/chef/
+
 ---
 
 If you manage your infrastructure with [Chef](http://www.opscode.com/chef/),

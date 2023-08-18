@@ -12,7 +12,7 @@ project_version: "2.1.2"
 aliases:
   - /riakcs/2.1.2/cookbooks/tutorials/fast-track/Building-a-Local-Test-Environment/
   - /riak/cs/2.1.2/cookbooks/tutorials/fast-track/Building-a-Local-Test-Environment/
-  - /riak/cs/latest/tutorials/fast-track/local-testing-environment/
+
 ---
 
 The following instructions will guide you through installing a Riak CS

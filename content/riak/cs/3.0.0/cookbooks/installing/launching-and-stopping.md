@@ -12,7 +12,7 @@ project_version: "3.0.0"
 aliases:
   - /riakcs/3.0.0/cookbooks/installing/Launching-and-Stopping-Riak-CS/
   - /riak/cs/3.0.0/cookbooks/installing/Launching-and-Stopping-Riak-CS/
-  - /riak/cs/latest/cookbooks/installing/launching-and-stopping/
+
 ---
 
 To launch Riak CS in the background:

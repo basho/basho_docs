@@ -6,7 +6,7 @@ project_version: "2.1.2"
 aliases:
   - /riakcs/2.1.2/references/apis/storage/s3/Common-RiakCS-Request-Headers
   - /riak/cs/2.1.2/references/apis/storage/s3/Common-RiakCS-Request-Headers
-  - /riak/cs/latest/references/apis/storage/s3/common-request-headers/
+
 ---
 
 These are the headers that are common to all Riak CS REST requests.

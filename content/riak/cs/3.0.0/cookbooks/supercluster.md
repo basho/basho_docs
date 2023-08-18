@@ -11,8 +11,8 @@ project: "riak_cs"
 project_version: "3.0.0"
 aliases:
   - /riakcs/3.0.0/cookbooks/supercluster/
-  - /riak/cs/latest/cookbooks/supercluster/
-  - /riak/cs/latest/cookbooks/multibag/
+
+
 ---
 
 While Riak CS enables you to distribute Riak CS objects across multiple data centers in a

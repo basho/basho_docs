@@ -11,7 +11,7 @@ project: "riak_cs"
 project_version: "3.0.0"
 aliases:
   - /riakcs/3.0.0/cookbooks/Multipart-Upload-Overview/
-  - /riak/cs/latest/cookbooks/multipart-upload-overview/
+
 ---
 
 Multipart upload allows users of Riak CS to do the following:

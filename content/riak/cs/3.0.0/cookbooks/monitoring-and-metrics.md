@@ -11,7 +11,7 @@ project: "riak_cs"
 project_version: "3.0.0"
 aliases:
   - /riakcs/3.0.0/cookbooks/monitoring-and-metrics/
-  - /riak/cs/latest/cookbooks/monitoring-and-metrics/
+
 ---
 
 [amazon]: http://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html

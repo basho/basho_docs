@@ -11,6 +11,7 @@
 {{ $menu_list  := (index $HugoNode.Site.Menus $menu_title) }} {{/* GoLang List of Menu Objects */}}
 
 {{ $version           := $HugoNode.Scratch.Get "version"           }}
+{{ $version_path      := $HugoNode.Scratch.Get "version_path"      }}
 {{ $project_name_html := $HugoNode.Scratch.Get "project_name_html" }}
 {{ $gh_edit_path      := $HugoNode.Scratch.Get "gh_edit_path"      }}
 
@@ -43,7 +44,7 @@
     <div class="clearfix   version-picker">
 
   {{ if $project_name_html }}
-      <a class="inline-block float-left    product__title" href="{{ $BaseURL }}"><!--
+      <a class="inline-block float-left    product__title" href="{{ $BaseURL }}{{ $version_path }}"><!--
      --><img class="product__logo 2" src="{{ $BaseURL }}images/branding/riak-logo.png"><!--
      -->{{ $project_name_html | safeHTML }}
       </a>

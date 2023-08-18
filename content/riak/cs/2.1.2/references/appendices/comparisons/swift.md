@@ -12,7 +12,7 @@ project_version: "2.1.2"
 aliases:
   - /riakcs/2.1.2/references/appendices/comparisons/Riak-Compared-to-Swift/
   - /riak/cs/2.1.2/references/appendices/comparisons/Riak-Compared-to-Swift/
-  - /riak/cs/latest/references/appendices/comparisons/swift/
+
 ---
 
 Riak CS and Swift---the object storage component of OpenStack---are both cloud storage systems that hold many design and implementation details in common. The purpose of this document is not to serve as an introduction to Riak CS and Swift or to their commonalities, but rather to enumerate important differences between the two systems. This document is intended for those who already have a basic understanding of both systems.

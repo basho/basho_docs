@@ -24,6 +24,8 @@ and metering.
 
 Riak CS is open source and [free for download]({{<baseurl>}}riak/cs/3.0.0/downloads).
 
+This release is tested with OTP 22.
+
 ## Notable Riak CS Features
 
 ### Amazon S3-API Compatibility

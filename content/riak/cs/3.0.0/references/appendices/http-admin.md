@@ -12,7 +12,7 @@ project_version: "3.0.0"
 aliases:
   - /riakcs/3.0.0/references/appendices/Http-Administration/
   - /riak/cs/3.0.0/references/appendices/Http-Administration/
-  - /riak/cs/latest/references/appendices/http-admin/
+
 ---
 
 Riak CS exposes the following administrative capabilities over HTTP

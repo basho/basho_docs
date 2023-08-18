@@ -6,7 +6,7 @@ project_version: "2.1.2"
 aliases:
   - /riakcs/2.1.2/references/apis/storage/openstack/RiakCS-OpenStack-Delete-Container
   - /riak/cs/2.1.2/references/apis/storage/openstack/RiakCS-OpenStack-Delete-Container
-  - /riak/cs/latest/references/apis/storage/openstack/delete-container/
+
 ---
 
 Deletes a container.

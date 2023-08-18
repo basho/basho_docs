@@ -12,8 +12,8 @@ project_version: "3.0.0"
 aliases:
   - /riakcs/3.0.0/cookbooks/mdc-overview/
   - /riak/cs/3.0.0/cookbooks/mdc-overview/
-  - /riak/cs/latest/cookbooks/mdc-overview/
-  - /riak/cs/latest/cookbooks/multi-datacenter-overview/
+
+
 ---
 
 ## Multi-Datacenter Replication

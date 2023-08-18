@@ -11,7 +11,7 @@ project: "riak_cs"
 project_version: "3.0.0"
 aliases:
   - /riakcs/3.0.0/cookbooks/Authentication/
-  - /riak/cs/latest/cookbooks/authentication/
+
 ---
 
 ## Authentication Options

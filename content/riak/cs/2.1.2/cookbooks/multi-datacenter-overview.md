@@ -12,8 +12,8 @@ project_version: "2.1.2"
 aliases:
   - /riakcs/2.1.2/cookbooks/mdc-overview/
   - /riak/cs/2.1.2/cookbooks/mdc-overview/
-  - /riak/cs/latest/cookbooks/mdc-overview/
-  - /riak/cs/latest/cookbooks/multi-datacenter-overview/
+
+
 ---
 
 ## Riak CS Enterprise

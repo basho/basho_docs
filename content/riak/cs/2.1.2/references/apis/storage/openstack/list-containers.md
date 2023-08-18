@@ -6,7 +6,7 @@ project_version: "2.1.2"
 aliases:
   - /riakcs/2.1.2/references/apis/storage/openstack/RiakCS-OpenStack-List-Containers
   - /riak/cs/2.1.2/references/apis/storage/openstack/RiakCS-OpenStack-List-Containers
-  - /riak/cs/latest/references/apis/storage/openstack/list-containers/
+
 ---
 
 Returns a list of all containers owned by an *authenticated* account.

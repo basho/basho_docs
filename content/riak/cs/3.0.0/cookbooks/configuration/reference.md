@@ -12,7 +12,7 @@ project_version: "3.0.0"
 aliases:
   - /riakcs/3.0.0/cookbooks/configuration/configuration-reference
   - /riak/cs/3.0.0/cookbooks/configuration/configuration-reference
-  - /riak/cs/latest/cookbooks/configuration/reference/
+
 ---
 
 {{% note title="Note on Legacy Configuration Usage" %}}

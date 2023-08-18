@@ -11,7 +11,7 @@ project: "riak_cs"
 project_version: "2.1.2"
 aliases:
   - /riakcs/2.1.2/cookbooks/Account-Management/
-  - /riak/cs/latest/cookbooks/account-management/
+
 ---
 
 ## Creating a User Account

@@ -7,7 +7,7 @@ toc: true
 aliases:
   - /riakcs/3.0.0/references/apis/storage/s3/RiakCS-GET-Bucket-ACL
   - /riak/cs/3.0.0/references/apis/storage/s3/RiakCS-GET-Bucket-ACL
-  - /riak/cs/latest/references/apis/storage/s3/get-bucket-acl/
+
 ---
 
 The `GET Bucket acl` operation uses the `acl` subresource to return the access control list (ACL) of a bucket.

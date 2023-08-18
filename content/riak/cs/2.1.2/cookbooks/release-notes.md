@@ -12,7 +12,7 @@ project_version: "2.1.2"
 aliases:
   - /riakcs/2.1.2/cookbooks/Riak-CS-Release-Notes/
   - /riak/cs/2.1.2/cookbooks/Riak-CS-Release-Notes/
-  - /riak/cs/latest/cookbooks/release-notes/
+
 ---
 
 [riak_cs_multibag_support]: {{<baseurl>}}riak/cs/2.1.2/cookbooks/supercluster

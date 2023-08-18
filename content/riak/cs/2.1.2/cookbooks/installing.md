@@ -12,7 +12,7 @@ project_version: "2.1.2"
 aliases:
   - /riakcs/2.1.2/cookbooks/installing/Installing-Riak-CS/
   - /riak/cs/2.1.2/cookbooks/installing/Installing-Riak-CS/
-  - /riak/cs/latest/cookbooks/installing/
+
 ---
 
 Riak CS is supported on a variety of operating systems, including

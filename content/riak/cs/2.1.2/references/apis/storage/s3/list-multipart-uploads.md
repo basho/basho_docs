@@ -7,7 +7,7 @@ toc: true
 aliases:
   - /riakcs/2.1.2/references/apis/storage/s3/RiakCS-List-Multipart-Uploads/
   - /riak/cs/2.1.2/references/apis/storage/s3/RiakCS-List-Multipart-Uploads/
-  - /riak/cs/latest/references/apis/storage/s3/list-multipart-uploads/
+
 ---
 
 Lists multipart uploads that have not yet been completed or aborted.

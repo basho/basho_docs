@@ -12,7 +12,7 @@ project_version: "3.0.0"
 aliases:
   - /riakcs/3.0.0/cookbooks/Rolling-Upgrades-For-Riak-CS/
   - /riak/cs/3.0.0/cookbooks/Rolling-Upgrades-For-Riak-CS/
-  - /riak/cs/latest/cookbooks/rolling-upgrades/
+
 ---
 
 Each node in a Riak CS cluster contains settings that define its

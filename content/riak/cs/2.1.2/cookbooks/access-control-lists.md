@@ -11,7 +11,7 @@ project: "riak_cs"
 project_version: "2.1.2"
 aliases:
   - /riakcs/2.1.2/cookbooks/Access-Control-Lists/
-  - /riak/cs/latest/cookbooks/access-control-lists/
+
 ---
 
 Access Control Lists (ACLs) are a means of granting and denying access

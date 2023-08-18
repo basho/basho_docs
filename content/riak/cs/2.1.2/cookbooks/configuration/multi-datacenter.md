@@ -12,7 +12,7 @@ project_version: "2.1.2"
 aliases:
   - /riakcs/2.1.2/cookbooks/configuration/Configuring-MDC/
   - /riak/cs/2.1.2/cookbooks/configuration/Configuring-MDC/
-  - /riak/cs/latest/cookbooks/configuration/multi-datacenter/
+
 ---
 
 {{% note title="Riak CS Enterprise requires a separate download" %}}

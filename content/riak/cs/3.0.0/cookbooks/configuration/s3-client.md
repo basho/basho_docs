@@ -12,7 +12,7 @@ project_version: "3.0.0"
 aliases:
   - /riakcs/3.0.0/cookbooks/configuration/Configuring-an-S3-Client/
   - /riak/cs/3.0.0/cookbooks/configuration/Configuring-an-S3-Client/
-  - /riak/cs/latest/cookbooks/configuration/s3-client/
+
 ---
 
 This tutorial will show you how to use [s3cmd](http://s3tools.org/s3cmd)

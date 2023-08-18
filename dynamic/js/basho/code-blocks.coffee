@@ -82,29 +82,33 @@ functionality of Edge Faders.
 
 
 language_transforms =
-  'language-advancedconfig' : { display_name : 'advanced.config', highlight_as : 'language-erlang' }
-  'language-appconfig'      : { display_name : 'app.config',      highlight_as : 'language-erlang' }
-  'language-riakconf'       : { display_name : 'riak.conf',       highlight_as : 'language-matlab' }
-  'language-riakcsconf'     : { display_name : 'riak-cs.conf',    highlight_as : 'language-matlab' }
-  'language-stanchionconf'  : { display_name : 'stanchion.conf',  highlight_as : 'language-matlab' }
-  'language-vmargs'         : { display_name : 'vm.args',         highlight_as : 'language-ini'    }
-  'language-bash'           : { display_name : 'Shell',           highlight_as : '' }
-  'language-curl'           : { display_name : 'CURL',            highlight_as : 'language-bash'   }
-  'language-csharp'         : { display_name : 'C#',              highlight_as : '' }
-  'language-erlang'         : { display_name : 'Erlang',          highlight_as : '' }
-  'language-golang'         : { display_name : 'Go',              highlight_as : '' }
-  'language-java'           : { display_name : 'Java',            highlight_as : '' }
-  'language-javascript'     : { display_name : 'JS',              highlight_as : '' }
-  'language-coffeescript'   : { display_name : 'Coffee',          highlight_as : '' }
-  'language-json'           : { display_name : 'JSON',            highlight_as : '' }
-  'language-php'            : { display_name : 'PHP',             highlight_as : '' }
-  'language-protobuf'       : { display_name : 'Protobuf',        highlight_as : '' }
-  'language-python'         : { display_name : 'Python',          highlight_as : '' }
-  'language-ruby'           : { display_name : 'Ruby',            highlight_as : '' }
-  'language-scala'          : { display_name : 'Scala',           highlight_as : '' }
-  'language-sql'            : { display_name : 'SQL',             highlight_as : '' }
-  'language-xml'            : { display_name : 'XML',             highlight_as : '' }
-  'language-riakattach'     : { display_name : 'riak&nbsp;attach',     highlight_as : 'language-erlang' }
+  'language-advancedconfig' : { display_name : 'advanced.config',   highlight_as : 'language-erlang' }
+  'language-appconfig'      : { display_name : 'app.config',        highlight_as : 'language-erlang' }
+  'language-riakconf'       : { display_name : 'riak.conf',         highlight_as : 'language-matlab' }
+  'language-riakcsconf'     : { display_name : 'riak-cs.conf',      highlight_as : 'language-matlab' }
+  'language-stanchionconf'  : { display_name : 'stanchion.conf',    highlight_as : 'language-matlab' }
+  'language-vmargs'         : { display_name : 'vm.args',           highlight_as : 'language-ini'    }
+  'language-bash'           : { display_name : 'Shell',             highlight_as : '' }
+  'language-curl'           : { display_name : 'CURL',              highlight_as : 'language-bash'   }
+  'language-csharp'         : { display_name : 'C#',                highlight_as : '' }
+  'language-erlang'         : { display_name : 'Erlang',            highlight_as : '' }
+  'language-golang'         : { display_name : 'Go',                highlight_as : '' }
+  'language-java'           : { display_name : 'Java',              highlight_as : '' }
+  'language-javascript'     : { display_name : 'JS',                highlight_as : '' }
+  'language-coffeescript'   : { display_name : 'Coffee',            highlight_as : '' }
+  'language-json'           : { display_name : 'JSON',              highlight_as : '' }
+  'language-php'            : { display_name : 'PHP',               highlight_as : '' }
+  'language-protobuf'       : { display_name : 'Protobuf',          highlight_as : '' }
+  'language-python'         : { display_name : 'Python',            highlight_as : '' }
+  'language-ruby'           : { display_name : 'Ruby',              highlight_as : '' }
+  'language-scala'          : { display_name : 'Scala',             highlight_as : '' }
+  'language-sql'            : { display_name : 'SQL',               highlight_as : '' }
+  'language-xml'            : { display_name : 'XML',               highlight_as : '' }
+  'language-riakattach'     : { display_name : 'riak&nbsp;attach',  highlight_as : 'language-erlang' }
+  'language-plaintext '     : { display_name : ' ',                 highlight_as : '' }
+  'language-text'           : { display_name : ' ',                 highlight_as : '' }
+  'language-log'            : { display_name : ' ',                 highlight_as : '' }
+  'language-erlangsnippet'  : { display_name : ' ',                 highlight_as : 'language-erlang' }
 
 
 ## getLanguage :: (Element) -> Str or None
@@ -175,7 +179,9 @@ $('pre > code').each(
 
     $siblings = $pre.nextUntil(':not(pre)')
 
-    if language and $siblings.length == 0                                # 2
+    display_name = language_transforms[language]?.display_name.replace /^\s+|\s+$/g, ""
+
+    if display_name and $siblings.length == 0                                # 2
       $pre.wrap('<div class="code-block--titled">')
 
     # No `language` check here to more gracefully handle malformed tabbed sets.
