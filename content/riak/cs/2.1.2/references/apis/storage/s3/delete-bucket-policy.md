@@ -7,7 +7,7 @@ toc: true
 aliases:
   - /riakcs/2.1.2/references/apis/storage/s3/RiakCS-DELETE-Bucket-policy
   - /riak/cs/2.1.2/references/apis/storage/s3/RiakCS-DELETE-Bucket-policy
-  - /riak/cs/latest/references/apis/storage/s3/delete-bucket-policy/
+
 ---
 
 The `DELETE Bucket policy` operation deletes the `policy` subresource of an existing bucket. To perform this operation, you must be the bucket owner.

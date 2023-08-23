@@ -7,7 +7,7 @@ toc: true
 aliases:
   - /riakcs/3.0.0/references/apis/storage/s3/RiakCS-GET-Bucket
   - /riak/cs/3.0.0/references/apis/storage/s3/RiakCS-GET-Bucket
-  - /riak/cs/latest/references/apis/storage/s3/get-bucket/
+
 ---
 
 The `GET Bucket` operation returns a list of objects (all or up to 1,000) in a bucket.

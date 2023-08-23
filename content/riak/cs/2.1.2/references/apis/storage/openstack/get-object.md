@@ -6,7 +6,7 @@ project_version: "2.1.2"
 aliases:
   - /riakcs/2.1.2/references/apis/storage/openstack/RiakCS-OpenStack-Get-Object
   - /riak/cs/2.1.2/references/apis/storage/openstack/RiakCS-OpenStack-Get-Object
-  - /riak/cs/latest/references/apis/storage/openstack/get-object/
+
 ---
 
 Retrieves an object from a Riak CS container.

@@ -12,7 +12,7 @@ project_version: "2.1.2"
 aliases:
   - /riakcs/2.1.2/references/appendices/RiakCS-Control/
   - /riak/cs/2.1.2/references/appendices/RiakCS-Control/
-  - /riak/cs/latest/references/appendices/riak-cs-control/
+
 ---
 
 Riak CS Control is a standalone user management application for Riak CS.

@@ -12,7 +12,7 @@ project_version: "2.1.2"
 aliases:
   - /riakcs/2.1.2/cookbooks/tutorials/fast-track/What-is-Riak-CS/
   - /riak/cs/2.1.2/cookbooks/tutorials/fast-track/What-is-Riak-CS/
-  - /riak/cs/latest/tutorials/fast-track/what-is-riak-cs/
+
 ---
 
 This page introduces the architecture behind Riak CS. If you already

@@ -12,7 +12,7 @@ project_version: "3.0.0"
 aliases:
   - /riakcs/3.0.0/cookbooks/configuration/Configuring-DragonDisk/
   - /riak/cs/3.0.0/cookbooks/configuration/Configuring-DragonDisk/
-  - /riak/cs/latest/cookbooks/configuration/dragondisk/
+
 ---
 
 [DragonDisk](http://www.dragondisk.com/) is a cross-platform,

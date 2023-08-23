@@ -11,7 +11,7 @@ project: "riak_cs"
 project_version: "3.0.0"
 aliases:
   - /riakcs/3.0.0/cookbooks/logging/
-  - /riak/cs/latest/cookbooks/logging/
+
 ---
 
 In versions 1.5.0 and later, you can use Riak CS in conjunction with

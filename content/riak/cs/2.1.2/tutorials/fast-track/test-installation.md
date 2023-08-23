@@ -12,7 +12,7 @@ project_version: "2.1.2"
 aliases:
   - /riakcs/2.1.2/cookbooks/tutorials/fast-track/Testing-the-Installation/
   - /riak/cs/2.1.2/cookbooks/tutorials/fast-track/Testing-the-Installation/
-  - /riak/cs/latest/tutorials/fast-track/test-installation/
+
 ---
 
 ## Installing & Configuring s3/

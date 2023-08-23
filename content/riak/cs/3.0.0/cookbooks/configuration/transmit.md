@@ -12,7 +12,7 @@ project_version: "3.0.0"
 aliases:
   - /riakcs/3.0.0/cookbooks/configuration/Configuring-Transmit/
   - /riak/cs/3.0.0/cookbooks/configuration/Configuring-Transmit/
-  - /riak/cs/latest/cookbooks/configuration/transmit/
+
 ---
 
 [Transmit](https://www.panic.com/transmit/) is an S3-compatible client with a

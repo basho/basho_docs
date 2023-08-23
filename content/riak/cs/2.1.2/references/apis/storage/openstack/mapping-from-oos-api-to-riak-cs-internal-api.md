@@ -6,7 +6,7 @@ project_version: "2.1.2"
 aliases:
   - /riakcs/2.1.2/references/apis/storage/openstack/Mapping-From-OOS-API-to-Riak-CS-internal-API
   - /riak/cs/2.1.2/references/apis/storage/openstack/Mapping-From-OOS-API-to-Riak-CS-internal-API
-  - /riak/cs/latest/references/apis/storage/openstack/mapping-from-oos-api-to-riak-cs-internal-api/
+
 ---
 
 ## Overview

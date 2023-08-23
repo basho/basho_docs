@@ -12,7 +12,7 @@ project_version: "3.0.0"
 aliases:
   - /riakcs/3.0.0/references/apis/storage/openstack/
   - /riak/cs/3.0.0/references/apis/storage/openstack/
-  - /riak/cs/latest/references/apis/storage/openstack/
+
 ---
 
 The OpenStack storage API (*v1*) provides a convenient way to integrate Riak CS for use as an object storage system in conjunction with an OpenStack deployment.

@@ -12,7 +12,7 @@ project_version: "3.0.0"
 aliases:
   - /riakcs/3.0.0/references/apis/storage/
   - /riak/cs/3.0.0/references/apis/storage/
-  - /riak/cs/latest/references/apis/storage/
+
 ---
 
 The Riak CS storage API is compatible with the Amazon S3 REST API, which

@@ -11,7 +11,7 @@ project: "riak_cs"
 project_version: "2.1.2"
 aliases:
   - /riakcs/2.1.2/cookbooks/fog/
-  - /riak/cs/latest/cookbooks/fog/
+
 ---
 
 Fog is a general cloud services library written in Ruby. It is built to

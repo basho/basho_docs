@@ -12,7 +12,7 @@ project_version: "3.0.0"
 aliases:
   - /riakcs/3.0.0/cookbooks/configuration/riak-cs/
   - /riak/cs/3.0.0/cookbooks/configuration/riak-cs/
-  - /riak/cs/latest/cookbooks/configuration/riak-cs/
+
 ---
 
 For Riak CS to operate properly it must know how to connect to Riak.

@@ -7,7 +7,7 @@ toc: true
 aliases:
   - /riakcs/3.0.0/references/apis/storage/s3/RiakCS-Upload-Part/
   - /riak/cs/3.0.0/references/apis/storage/s3/RiakCS-Upload-Part/
-  - /riak/cs/latest/references/apis/storage/s3/upload-part/
+
 ---
 
 This operation uploads a part in a multipart upload. You must [initiate a multipart upload]({{<baseurl>}}riak/cs/3.0.0/references/apis/storage/s3/initiate-multipart-upload) before you can upload any part. In this operation you provide part data in your request.

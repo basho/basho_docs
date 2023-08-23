@@ -11,7 +11,7 @@ project: "riak_cs"
 project_version: "3.0.0"
 aliases:
   - /riakcs/3.0.0/cookbooks/Version-Compatibility/
-  - /riak/cs/latest/cookbooks/version-compatibility/
+
 ---
 
 If you are deploying Riak CS in combination with an existing Riak

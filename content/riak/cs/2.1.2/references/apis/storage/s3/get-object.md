@@ -7,7 +7,7 @@ toc: true
 aliases:
   - /riakcs/2.1.2/references/apis/storage/s3/RiakCS-GET-Object
   - /riak/cs/2.1.2/references/apis/storage/s3/RiakCS-GET-Object
-  - /riak/cs/latest/references/apis/storage/s3/get-object/
+
 ---
 
 The `GET Object` operation retrieves objects from the Riak CS storage.

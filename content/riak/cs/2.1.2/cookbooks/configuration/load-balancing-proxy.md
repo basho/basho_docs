@@ -12,7 +12,7 @@ project_version: "2.1.2"
 aliases:
   - /riakcs/2.1.2/cookbooks/configuration/Load-Balancing-and-Proxy-Configuration/
   - /riak/cs/2.1.2/cookbooks/configuration/Load-Balancing-and-Proxy-Configuration/
-  - /riak/cs/latest/cookbooks/configuration/load-balancing-proxy/
+
 ---
 
 If you plan on using Riak CS in production, we highly recommend that you

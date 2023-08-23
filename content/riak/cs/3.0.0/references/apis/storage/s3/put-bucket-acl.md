@@ -7,7 +7,7 @@ toc: true
 aliases:
   - /riakcs/3.0.0/references/apis/storage/s3/RiakCS-PUT-Bucket-ACL/
   - /riak/cs/3.0.0/references/apis/storage/s3/RiakCS-PUT-Bucket-ACL/
-  - /riak/cs/latest/references/apis/storage/s3/put-bucket-acl/
+
 ---
 
 The `PUT Bucket acl` operation uses the `acl` subresource to set the permissions on an existing bucket using an access control list (ACL).

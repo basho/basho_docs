@@ -12,7 +12,7 @@ project_version: "2.1.2"
 aliases:
   - /riakcs/2.1.2/cookbooks/tutorials/fast-track/Building-a-Virtual-Test-Environment/
   - /riak/cs/2.1.2/cookbooks/tutorials/fast-track/Building-a-Virtual-Test-Environment/
-  - /riak/cs/latest/tutorials/fast-track/virtual-test-environment/
+
 ---
 
 This option for building an environment uses a Vagrant project powered

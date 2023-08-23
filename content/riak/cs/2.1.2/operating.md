@@ -10,7 +10,7 @@ menu:
 project: "riak_cs"
 project_version: "2.1.2"
 aliases:
-  - /riak/cs/latest/operating/
+
 ---
 
 ### In This Section

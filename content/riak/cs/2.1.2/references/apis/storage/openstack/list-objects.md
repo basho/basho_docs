@@ -6,7 +6,7 @@ project_version: "2.1.2"
 aliases:
   - /riakcs/2.1.2/references/apis/storage/openstack/RiakCS-OpenStack-List-Objects
   - /riak/cs/2.1.2/references/apis/storage/openstack/RiakCS-OpenStack-List-Objects
-  - /riak/cs/latest/references/apis/storage/openstack/list-objects/
+
 ---
 
 Returns a list of objects (all or up to 1,000) in a container.

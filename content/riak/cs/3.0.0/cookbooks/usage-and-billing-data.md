@@ -11,7 +11,7 @@ project: "riak_cs"
 project_version: "3.0.0"
 aliases:
   - /riakcs/3.0.0/cookbooks/Usage-and-Billing-Data/
-  - /riak/cs/latest/cookbooks/usage-and-billing-data/
+
 ---
 
 Like many other object storage systems, Riak CS gathers a variety of

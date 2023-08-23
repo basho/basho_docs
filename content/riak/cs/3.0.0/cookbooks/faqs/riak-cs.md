@@ -11,7 +11,7 @@ project: "riak_cs"
 project_version: "3.0.0"
 aliases:
   - /riakcs/3.0.0/cookbooks/faqs/riak-cs/
-  - /riak/cs/latest/cookbooks/faqs/riak-cs/
+
 ---
 
 Q: What is Riak CS?
