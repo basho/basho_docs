@@ -42,16 +42,17 @@ def generate_projects_metadata()
   config_file['params']['project_descriptions'].each do |project, description|
     version_sets_hash[project.to_sym] = project_hash = {}
 
-    project_hash[:project_name]  = description["project_name"]
-    project_hash[:path]          = description["path"]
-    project_hash[:github_path]   = description["github_path"]
-    project_hash[:download_root] = description["download_root"]
-    project_hash[:archived_path] = description["archived_path"]
-    project_hash[:releases]      = description["releases"]
-    project_hash[:latest]        = description["latest"]
-    project_hash[:lts]           = description["lts"]           if description["lts"]
-    project_hash[:archive_below] = description["archive_below"] if description["archive_below"]
-    project_hash[:archived_url]  = description["archived_url"]  if description["archived_url"]
+    project_hash[:project_name]       = description["project_name"]
+    project_hash[:project_name_html]  = description["project_name_html"]
+    project_hash[:path]               = description["path"]
+    project_hash[:github_path]        = description["github_path"]
+    project_hash[:download_root]      = description["download_root"]
+    project_hash[:archived_path]      = description["archived_path"]
+    project_hash[:releases]           = description["releases"]
+    project_hash[:latest]             = description["latest"]
+    project_hash[:lts]                = description["lts"]           if description["lts"]
+    project_hash[:archive_below]      = description["archive_below"] if description["archive_below"]
+    project_hash[:archived_url]       = description["archived_url"]  if description["archived_url"]
   end
 
   puts "Opening \"#{$TARGET_FILE}\" for writing"

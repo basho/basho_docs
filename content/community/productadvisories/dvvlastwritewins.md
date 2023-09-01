@@ -1,6 +1,7 @@
 ---
 title: "Incompatibility between Dotted Version Vectors and Last-Write Wins"
 description: ""
+project: community
 menu:
   community:
     name: "Incompatiblility with DVV and Last-Write Wins"

@@ -13,6 +13,7 @@ toc: true
 aliases:
   - /riak/3.2.0/ops/building/configuration/
   - /riak/kv/3.2.0/ops/building/configuration/
+keywords: "ring size ringsize ring_size"
 ---
 
 [config reference]: {{<baseurl>}}riak/kv/3.2.0/configuring/reference
@@ -233,4 +234,3 @@ cluster.
 ## Joining the nodes together
 
 Please see [Running A Cluster][use running cluster] for the cluster creation process.
-

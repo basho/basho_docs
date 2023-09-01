@@ -1,6 +1,7 @@
 ---
 title: "Basho Software Release and Maintenance Policy"
 description: ""
+project: community
 menu:
   community:
     name: "Release & Maintenance"

@@ -1,6 +1,7 @@
 ---
 title: "LevelDB SEGV in Riak KV 2.1.3"
 description: ""
+project: community
 menu:
   community:
     name: "LevelDB Segfault"

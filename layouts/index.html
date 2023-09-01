@@ -23,18 +23,13 @@
   <title>Riak Documentation</title>
 
   <link href="{{ .Site.BaseURL }}css/main.css" media="screen" rel="stylesheet" type="text/css">
+  <meta name="docs_root_url" content="{{ .Site.BaseURL }}">
 
 </head>
 
 
 
 <body class="index">
-
-
-  <!-- NOTE: We're going to leave this commented out until we're ready to deploy
-       to the production S3 server. -->
-  {{/* partial "google-tag-manager.html" . */}}
-
 
 
   {{ partial "banner.html" . }}

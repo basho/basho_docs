@@ -15,6 +15,7 @@ aliases:
   - /riak/kv/3.2.0/theory/concepts/Replication
   - /riak/3.2.0/theory/concepts/replication
   - /riak/kv/3.2.0/theory/concepts/replication
+keywords: "nval n_val"
 ---
 
 [cluster ops v3 mdc]: {{<baseurl>}}riak/kv/3.2.0/using/cluster-operations/v3-multi-datacenter

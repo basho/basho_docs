@@ -15,6 +15,7 @@ version_history:
   in: "2.9.0p5+"
 since: 2.9.0p5
 aliases:
+keywords: "tictac tiactacaae aae active anti-entropy new nextgen"
 ---
 
 [configure next-gen-repl]: ../../next-gen-replication
