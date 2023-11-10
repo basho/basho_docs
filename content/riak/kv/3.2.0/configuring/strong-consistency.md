@@ -144,6 +144,26 @@ riak admin bucket-type create consistent_and_fault_tolerant \
 riak admin bucket-type activate consistent_and_fault_tolerant
 ```
 
+The output from the above example would appear as follows, including a warning about downgrading to pre Riak 2.0:
+
+```
+consistent_and_fault_tolerant created
+
+WARNING: After activating consistent_and_fault_tolerant, nodes in this cluster
+can no longer be downgraded to a version of Riak prior to 2.0
+ok
+```
+
+And for activating the bucket-type:
+
+```
+consistent_and_fault_tolerant has been activated
+
+WARNING: Nodes in this cluster can no longer be
+downgraded to a version of Riak prior to 2.0
+ok
+```
+
 If the `activate` command outputs `consistent_and_fault_tolerant has
 been activated`, the bucket type is now ready to provide strong
 consistency guarantees.

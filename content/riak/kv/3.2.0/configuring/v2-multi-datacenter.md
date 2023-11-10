@@ -73,8 +73,14 @@ riak chkconfig
 ```
 
 The output from this command will point you to syntactical and other
-errors in your configuration files.
+errors in your configuration files. This files will be created with the current system time and date in the name.
 
+The output should appear similar to the example below:
+
+```
+config is OK
+-config /var/lib/riak/generated.conf/app.2023.01.01.12.00.00.config -args_file /var/lib/riak/generated.conf/vm.2023.01.01.12.00.00.args -vm_args /var/lib/riak/generated.conf/vm.2023.01.01.12.00.00.args
+```
 A full list of configurable parameters can be found in the sections
 below.
 

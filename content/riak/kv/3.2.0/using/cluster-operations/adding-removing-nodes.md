@@ -191,3 +191,9 @@ To pause during `riak admin cluster join` or `riak admin cluster leave`, set the
 riak admin transfer-limit <node> 0
 ```
 
+The above should produce the following output:
+
+```
+Set transfer limit for 'node' to 0
+ok
+```

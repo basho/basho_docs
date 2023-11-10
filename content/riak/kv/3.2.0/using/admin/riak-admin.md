@@ -196,6 +196,7 @@ useful when deploying custom built-in [MapReduce][usage mapreduce]
 functions.
 
 **Note**: This needs to be run on _all nodes_ in the cluster.
+**Note**: This command has been deprecated in KV 3.2.0 onwards and will no longer function.
 
 ```bash
 riak admin js-reload
@@ -213,6 +214,12 @@ purposes.
 riak admin erl-reload
 ```
 
+The response to this command should appear as:
+
+```
+ok
+```
+
 ## wait-for-service
 
 Waits on a specific watchable service to be available (typically
@@ -222,6 +229,12 @@ available on a running node.
 
 ```bash
 riak admin wait-for-service <service> <nodename>
+```
+
+produces the following when the service is up:
+
+```
+riak_kv is up
 ```
 
 ## ringready
@@ -234,6 +247,12 @@ cluster membership to make sure that the ring state has settled.
 riak admin ringready
 ```
 
+Produces:
+
+```
+TRUE All nodes agree on the ring ['dev1@127.0.0.1','dev2@127.0.0.1',`dev3@127.0.0.1`]
+```
+
 ## transfers
 
 Identifies nodes that are awaiting transfer of one or more partitions.
@@ -242,6 +261,17 @@ or removing a node) or after node recovery.
 
 ```bash
 riak admin transfers
+```
+
+Produces:
+
+```
+No transfers active
+
+Active Transfers:
+
+
+ok
 ```
 
 ## transfer-limit
@@ -258,6 +288,12 @@ transfer-limit for each node in the cluster.
 riak admin transfer-limit <node> <limit>
 ```
 
+Running the above, targetted at node `dev1@127.0.0.1` setting a transfer limit of `1` produces the following:
+
+```
+Set transfer limit for 'dev1@127.0.0.1' to 1
+```
+
 ## down
 
 Marks a node as down so that ring transitions can be performed before
@@ -265,6 +301,12 @@ the node is brought back online.
 
 ```bash
 riak admin down <node>
+```
+
+Produces:
+
+```
+Success: "dev1@127.0.0.1" marked as down
 ```
 
 ## cluster-info
@@ -314,10 +356,27 @@ Output information from all nodes to `/tmp/cluster_info.txt`:
 riak admin cluster_info /tmp/cluster_info.txt
 ```
 
+Produces:
+
+```
+HTML report is at: 'dev1@127.0.0.1':"/tmp/cluster_info.txt"
+Writing report for node 'dev1@127.0.0.1'
+Writing report for node 'dev2@127.0.0.2'
+[ok,ok]
+```
+
 Output information from the current nodeL
 
 ```bash
 riak admin cluster_info /tmp/cluster_info.txt local
+```
+
+Produces:
+
+```
+HTML report is at: 'dev1@127.0.0.1':"/tmp/cluster_info.txt"
+Writing report for node 'dev1@127.0.0.1'
+[ok]
 ```
 
 Output information from a subset of nodes:
@@ -327,12 +386,33 @@ riak admin cluster_info /tmp/cluster_info.txt riak@192.168.1.10
 riak@192.168.1.11
 ```
 
+Produces:
+
+```
+HTML report is at: 'dev1@127.0.0.1':"/tmp/cluster_info.txt"
+Writing report for node 'dev1@127.0.0.1'
+[ok]
+```
+
 ## member-status
 
 Prints the current status of all cluster members.
 
 ```bash
 riak admin member-status
+```
+
+Produces:
+
+```
+================================= Membership ==================================
+Status     Ring    Pending    Node
+-------------------------------------------------------------------------------
+valid      50.0%      --      dev1@127.0.0.1
+valid      50.0%      --      dev2@127.0.0.2
+-------------------------------------------------------------------------------
+Valid:2 / Leaving:0 / Exiting:0 / Joining:0 / Down:0
+ok
 ```
 
 ## ring-status
@@ -344,12 +424,48 @@ handoffs, and a list of unreachable nodes.
 riak admin ring-status
 ```
 
+Produces:
+
+```
+================================== Claimant ===================================
+Claimant:  'dev1@127.0.0.1'
+Status:     up
+Ring Ready: true
+
+============================== Ownership Handoff ==============================
+No pending changes.
+
+============================== Unreachable Nodes ==============================
+All nodes are up and reachable
+
+ok
+```
+
 ## vnode-status
 
 Outputs the status of all vnodes the are running on the local node.
 
 ```bash
 riak admin vnode-status
+```
+
+This command outputs a list of stats for each vnode on the local node, a snapshot of which should appear as:
+
+```
+VNode: 22835963083295358096932575511191922182123945984
+Backend: riak_kv_bitcask_backend
+Status:
+[{key_count,0},{status,[]}]
+Status:
+{vnodeid,<<33,100,52,76,20,78,17,78>>}
+Status:
+{counter,10000}
+Status:
+{counter_lease,20000}
+Status:
+{counter_lease_size,10000}
+Status:
+{counter_leasing,false}
 ```
 
 ## aae-status
@@ -403,6 +519,8 @@ This command allows you to specify which diagnostic checks you would
 like to run, which types of diagnostic messages you wish to see, and so
 on. More comprehensive information can be found in the documentation on
 [inspecting a node][cluster ops inspect node].
+
+**Note**: This command has been deprecated in KV 3.2.0 onwards and will no longer function.
 
 ## stat
 
@@ -474,6 +592,30 @@ Options:
 
 More information about Erlang's etop can be found in the [etop
 documentation](http://www.erlang.org/doc/man/etop.html).
+
+An example of the output from this command is below:
+
+```
+========================================================================================
+ 'dev1@127.0.0.1'                                                         12:39:00
+ Load:  cpu         0               Memory:  total       70263    binary       7812
+        procs    1221                        processes   21478    code        13714
+        runq        0                        atom          767    ets          9610
+
+Pid            Name or Initial Func    Time    Reds  Memory    MsgQ Current Function
+----------------------------------------------------------------------------------------
+<8533.10.0>    erl_prim_loader          '-' 3770357  142716       0 erl_prim_loader:loop
+<8533.224.0>   application_master:s     '-' 2959336 4119536       0 application_master:l
+<8533.260.0>   riak_core_vnode_mana     '-' 2436172   58972       0 gen_server:loop/7
+<8533.145.0>   exometer_report          '-' 2358255   88620       0 gen_server:loop/7
+<8533.445.0>   riak_kv_put_fsm_sj_s     '-' 1383697    5756       0 gen_server:loop/7
+<8533.465.0>   riak_kv_get_fsm_sj_s     '-' 1379786    8772       0 gen_server:loop/7
+<8533.382.0>   mochiweb_clock           '-' 1364333    3964       0 gen_server:loop/7
+<8533.485.0>   riak_kv_stat_sj_stat     '-' 1357563    8772       0 gen_server:loop/7
+<8533.261.0>   riak_core_capability     '-' 1342806   34436       0 gen_server:loop/7
+<8533.383.0>   'http://172.17.0.3:8     '-' 1234115    6616       0 gen_server:loop/7
+========================================================================================
+```
 
 ## downgrade-objects
 
