@@ -22,7 +22,7 @@ toc: true
 [glossary vnode]: {{<baseurl>}}riak/kv/3.0.13/learn/glossary/#vnode
 [concept buckets]: {{<baseurl>}}riak/kv/3.0.13/learn/concepts/buckets
 [cluster ops bucket types]: {{<baseurl>}}riak/kv/3.0.13/using/cluster-operations/bucket-types
-[use admin riak admin#ensemble]: {{<baseurl>}}riak/kv/3.0.13/using/admin/riak admin/#ensemble-status
+[use admin riak admin#ensemble]: {{<baseurl>}}riak/kv/3.0.13/using/admin/riak-admin/#ensemble-status
 [use admin riak admin]: {{<baseurl>}}riak/kv/3.0.13/using/admin/riak admin
 [config reference#advanced]: {{<baseurl>}}riak/kv/3.0.13/configuring/reference/#advanced-configuration
 [plan cluster capacity]: {{<baseurl>}}riak/kv/3.0.13/setup/planning/cluster-capacity

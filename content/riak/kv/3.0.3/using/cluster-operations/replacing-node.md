@@ -39,14 +39,14 @@ cluster and have it replace the `riak4` node. We'll call the new node
     ```
 
 4. Plan the join of the new `riak7` node to an existing node already
-participating in the cluster; for example `riak0` with the [`riak admin cluster join`]({{<baseurl>}}riak/kv/3.0.3/using/admin/riak admin/#cluster) command executed on the new `riak7` node:
+participating in the cluster; for example `riak0` with the [`riak admin cluster join`]({{<baseurl>}}riak/kv/3.0.3/using/admin/riak-admin/#cluster) command executed on the new `riak7` node:
 
     ```bash
     riak admin cluster join riak0
     ```
 
 5. Plan the replacement of the existing `riak4` node with the new
-`riak7` node using the [`riak admin cluster replace`]({{<baseurl>}}riak/kv/3.0.3/using/admin/riak admin/#cluster) command:
+`riak7` node using the [`riak admin cluster replace`]({{<baseurl>}}riak/kv/3.0.3/using/admin/riak-admin/#cluster) command:
 
     ```bash
     riak admin cluster replace riak4 riak7
@@ -61,7 +61,7 @@ participating in the cluster; for example `riak0` with the [`riak admin cluster 
     the node has not been joined to a cluster.
     </div>
 
-6. Examine the proposed cluster changes with the [`riak admin cluster plan`]({{<baseurl>}}riak/kv/3.0.3/using/admin/riak admin/#cluster) command executed on the new
+6. Examine the proposed cluster changes with the [`riak admin cluster plan`]({{<baseurl>}}riak/kv/3.0.3/using/admin/riak-admin/#cluster) command executed on the new
 `riak7` node:
 
     ```bash
@@ -69,13 +69,13 @@ participating in the cluster; for example `riak0` with the [`riak admin cluster 
     ```
 
 7. If the changes are correct, you can commit them with the
-[`riak admin cluster commit`]({{<baseurl>}}riak/kv/3.0.3/using/admin/riak admin/#cluster) command:
+[`riak admin cluster commit`]({{<baseurl>}}riak/kv/3.0.3/using/admin/riak-admin/#cluster) command:
 
     ```bash
     riak admin cluster commit
     ```
 
-    If you need to clear the proposed plan and start over, use [`riak admin cluster clear`]({{<baseurl>}}riak/kv/3.0.3/using/admin/riak admin/#cluster):
+    If you need to clear the proposed plan and start over, use [`riak admin cluster clear`]({{<baseurl>}}riak/kv/3.0.3/using/admin/riak-admin/#cluster):
 
     ```bash
     riak admin cluster clear
@@ -83,8 +83,8 @@ participating in the cluster; for example `riak0` with the [`riak admin cluster 
 
 Once you have successfully replaced the node, it should begin leaving
 the cluster. You can check on ring readiness after replacing the node
-with the [`riak admin ringready`]({{<baseurl>}}riak/kv/3.0.3/using/admin/riak admin/#ringready)
-and [`riak admin member-status`]({{<baseurl>}}riak/kv/3.0.3/using/admin/riak admin/#member-status)
+with the [`riak admin ringready`]({{<baseurl>}}riak/kv/3.0.3/using/admin/riak-admin/#ringready)
+and [`riak admin member-status`]({{<baseurl>}}riak/kv/3.0.3/using/admin/riak-admin/#member-status)
 commands.
 
 {{% note title="Ring Settling" %}}

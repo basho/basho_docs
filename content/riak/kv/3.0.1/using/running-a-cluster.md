@@ -47,7 +47,7 @@ options:
 `ring` directory. This will require rejoining all nodes into a
 cluster again.
 >
-> *Rename the node using the [`riak admin cluster replace`]({{<baseurl>}}riak/kv/3.0.1/using/admin/riak admin/#cluster-replace) command. This will not work if you have previously only started Riak with a single node.
+> *Rename the node using the [`riak admin cluster replace`]({{<baseurl>}}riak/kv/3.0.1/using/admin/riak-admin/#cluster-replace) command. This will not work if you have previously only started Riak with a single node.
 
 ## Configure the First Node
 
@@ -154,7 +154,7 @@ preferred.
 >
 > Once a node has been started, in order to change the name you must
 either remove ring files from the `/data/ring` directory or
-[`riak admin cluster force-replace`]({{<baseurl>}}riak/kv/3.0.1/using/admin/riak admin/#cluster-force-replace) the node.
+[`riak admin cluster force-replace`]({{<baseurl>}}riak/kv/3.0.1/using/admin/riak-admin/#cluster-force-replace) the node.
 
 #### Start the node
 

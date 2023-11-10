@@ -17,7 +17,7 @@ aliases:
 
 [configuration file]: {{<baseurl>}}riak/kv/3.2.0/configuring/reference/
 [escript]: http://www.erlang.org/doc/man/escript.html
-[`riak admin`]: {{<baseurl>}}riak/kv/3.2.0/using/admin/riak admin/#top
+[`riak admin`]: {{<baseurl>}}riak/kv/3.2.0/using/admin/riak-admin/#top
 [configuration]: {{<baseurl>}}riak/kv/3.2.0/configuring/reference/
 
 ## riak

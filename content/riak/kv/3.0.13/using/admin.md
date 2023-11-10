@@ -17,7 +17,7 @@ aliases:
 
 [use admin commands]: ./commands/
 [use admin riak cli]: ./riak-cli/
-[use admin riak admin]: ./riak admin/
+[use admin riak admin]: ./riak-admin/
 [use admin riak control]: ./riak-control/
 
 ## In This Section

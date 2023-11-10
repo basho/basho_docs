@@ -36,7 +36,7 @@ aliases:
 [repair recover index]: {{<baseurl>}}riak/kv/3.0.1/using/repair-recovery
 [cluster ops strong consistency]: {{<baseurl>}}riak/kv/3.0.1/using/cluster-operations/strong-consistency
 [cluster ops handoff]: {{<baseurl>}}riak/kv/3.0.1/using/cluster-operations/handoff
-[use admin riak admin#stats]: {{<baseurl>}}riak/kv/3.0.1/using/admin/riak admin/#stats
+[use admin riak admin#stats]: {{<baseurl>}}riak/kv/3.0.1/using/admin/riak-admin/#stats
 
 ## `riak admin`
 

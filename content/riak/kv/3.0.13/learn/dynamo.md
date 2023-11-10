@@ -1119,7 +1119,7 @@ addressed, however, by the refined partitioning scheme described in Section 6.2.
 > Riak KV operators can trigger node management via the
 > [riak admin command-line tool].
 
-[riak admin command-line tool]: {{<baseurl>}}riak/kv/3.0.13/using/admin/riak admin/
+[riak admin command-line tool]: {{<baseurl>}}riak/kv/3.0.13/using/admin/riak-admin/
 
 In Amazon’s environment node outages (due to failures and maintenance tasks) are
 often transient but may last for extended intervals. A node outage rarely
