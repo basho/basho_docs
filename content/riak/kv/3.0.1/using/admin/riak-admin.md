@@ -11,8 +11,8 @@ menu:
     parent: "managing_cluster_admin"
 toc: true
 aliases:
-  - /riak/3.0.1/ops/running/tools/riak admin
-  - /riak/kv/3.0.1/ops/running/tools/riak admin
+  - /riak/3.0.1/ops/running/tools/riak-admin
+  - /riak/kv/3.0.1/ops/running/tools/riak-admin
 
 ---
 
@@ -627,7 +627,7 @@ parameters:
 
 ## show
 
-Whereas the [`riak admin status`][use admin riak admin#stats] command will display all currently available statistics for your Riak
+Whereas the [`riak admin status`][use admin riak-admin#stats] command will display all currently available statistics for your Riak
 cluster, the `show` command enables you to view only some of those
 statistics.
 

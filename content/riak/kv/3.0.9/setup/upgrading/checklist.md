@@ -183,10 +183,8 @@ be addressed before going to production.
 
 ## Troubleshooting and Support
 
-* Does your team, including developing and operations, know how to open
-  support requests with Basho?
-* Is your team familiar with Basho Support's Service-Level Agreement
-  (SLA) levels?
+* For free support, go to the /community page to find helpful links
+* To open a support ticket (which requires a support contact with TI Tokyo), go to https://support.tiot.jp/
   - Normal and Low are for issues not immediately impacting production
     systems
   - High is for problems that impact production or soon-to-be-production

@@ -129,7 +129,7 @@ RiakObject obj = new RiakObject()
         .setValue(BinaryValue.create("{'user_data':{ ... }}"));
 
 obj.getIndexes().getIndex(StringBinIndex.named("twitter")).add("jsmith123");
-obj.getIndexes().getIndex(StringBinIndex.named("email")).add("jsmith@basho.com");
+obj.getIndexes().getIndex(StringBinIndex.named("email")).add("jsmith@{{% exampledomain %}}");
 
 StoreValue store = new StoreValue.Builder(obj)
         .withLocation(johnSmithKey)
@@ -145,7 +145,7 @@ obj.raw_data = '{"user_data":{ ... }}'
 
 # String/binary indexes must be set as an array of strings
 obj.indexes['twitter_bin'] = %w{ jsmith123 }
-obj.indexes['email_bin'] = %w{ jsmith@basho.com }
+obj.indexes['email_bin'] = %w{ jsmith@{{% exampledomain %}} }
 obj.store
 
 # In the Ruby client (and all clients), if you do not specify a bucket
@@ -160,7 +160,7 @@ obj.store
 ```php
 $object = (new /Basho/Riak/Object('{"user_data":{ ... }}', ['Content-type' => 'application/json']))
   ->addValueToIndex('twitter_bin', 'jsmith123')
-  ->addValueToIndex('email_bin', 'jsmith@basho.com');
+  ->addValueToIndex('email_bin', 'jsmith@{{% exampledomain %}}');
 
 (new /Basho/Riak/Command/Builder/StoreObject($riak))
   ->withObject($object)
@@ -180,7 +180,7 @@ obj = RiakObject(client, bucket, 'john_smith')
 obj.content_type = 'text/plain'
 obj.data = '...user data...'
 obj.add_index('twitter_bin', 'jsmith123')
-obj.add_index('email_bin', 'jsmith@basho.com')
+obj.add_index('email_bin', 'jsmith@{{% exampledomain %}}')
 obj.store()
 ```
 
@@ -189,7 +189,7 @@ var id = new RiakObjectId("default", "users", "john_smith");
 var obj = new RiakObject(id, "...user data...",
     RiakConstants.ContentTypes.TextPlain);
 obj.BinIndex("twitter").Set("jsmith123");
-obj.BinIndex("email").Set"jsmith@basho.com");
+obj.BinIndex("email").Set"jsmith@{{% exampledomain %}}");
 var rslt = client.Put(obj);
 ```
 
@@ -200,7 +200,7 @@ riakObj.setBucket('users');
 riakObj.setKey('john_smith');
 riakObj.setValue('...user data...');
 riakObj.addToIndex('twitter_bin', 'jsmith123');
-riakObj.addToIndex('email_bin', 'jsmith@basho.com');
+riakObj.addToIndex('email_bin', 'jsmith@{{% exampledomain %}}');
 client.storeValue({ value: riakObj }, function (err, rslt) {
     if (err) {
         throw new Error(err);
@@ -225,7 +225,7 @@ MD1 = riakc_obj:get_update_metadata(Obj),
 MD2 = riakc_obj:set_secondary_index(
     MD1,
     [{{binary_index, "twitter"}, [<<"jsmith123">>]},
-     {{binary_index, "email"}, [<<"jsmith@basho.com">>]}]),
+     {{binary_index, "email"}, [<<"jsmith@{{% exampledomain %}}">>]}]),
 Obj2 = riakc_obj:update_metadata(Obj, MD2),
 riakc_pb_socket:put(Pid, Obj2).
 ```
@@ -242,7 +242,7 @@ obj := &riak.Object{
 }
 
 obj.AddToIndex("twitter_bin", "jsmith123")
-obj.AddToIndex("email_bin", "jsmith@basho.com")
+obj.AddToIndex("email_bin", "jsmith@{{% exampledomain %}}")
 
 cmd, err := riak.NewStoreValueCommandBuilder().
     WithContent(obj).
@@ -259,7 +259,7 @@ if err := cluster.Execute(cmd); err != nil {
 ```curl
 curl -XPOST localhost:8098/types/default/buckets/users/keys/john_smith /
   -H 'x-riak-index-twitter_bin: jsmith123' /
-  -H 'x-riak-index-email_bin: jsmith@basho.com' /
+  -H 'x-riak-index-email_bin: jsmith@{{% exampledomain %}}' /
   -H 'Content-Type: application/json' /
   -d '{"userData":"data"}'
 ```
@@ -276,7 +276,7 @@ This has accomplished the following:
 * The object now has a secondary index called `twitter_bin` with a value
   of `jsmith123`
 * The object now has a secondary index called `email_bin` with a value
-  of `jsmith@basho.com`
+  of `jsmith@{{% exampledomain %}}`
 
 ### Querying Objects with Secondary Indexes
 

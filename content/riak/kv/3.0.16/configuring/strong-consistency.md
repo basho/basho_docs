@@ -23,7 +23,7 @@ toc: true
 [concept buckets]: {{<baseurl>}}riak/kv/3.0.16/learn/concepts/buckets
 [cluster ops bucket types]: {{<baseurl>}}riak/kv/3.0.16/using/cluster-operations/bucket-types
 [use admin riak admin#ensemble]: {{<baseurl>}}riak/kv/3.0.16/using/admin/riak-admin/#ensemble-status
-[use admin riak admin]: {{<baseurl>}}riak/kv/3.0.16/using/admin/riak admin
+[use admin riak admin]: {{<baseurl>}}riak/kv/3.0.16/using/admin/riak-admin
 [config reference#advanced]: {{<baseurl>}}riak/kv/3.0.16/configuring/reference/#advanced-configuration
 [plan cluster capacity]: {{<baseurl>}}riak/kv/3.0.16/setup/planning/cluster-capacity
 [cluster ops strong consistency]: {{<baseurl>}}riak/kv/3.0.16/using/cluster-operations/strong-consistency
