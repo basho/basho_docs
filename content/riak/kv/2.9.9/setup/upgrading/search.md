@@ -13,7 +13,7 @@ toc: true
 version_history:
   in: "2.0.0-2.99.999"
 version_history:
-  in: "2.0.0-2.9.10"
+  in: "2.0.0-2.9999.9999"
 aliases:
   - /riak/2.9.9/ops/advanced/upgrading-search-2
   - /riak/kv/2.9.9/ops/advanced/upgrading-search-2

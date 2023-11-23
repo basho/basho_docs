@@ -11,7 +11,7 @@ menu:
     parent: "managing_ref"
 toc: true
 version_history:
-  in: "2.0.0-2.9.10"
+  in: "2.0.0-2.9999.9999"
 aliases:
   - /riak/2.2.6/dev/advanced/search
   - /riak/kv/2.2.6/dev/advanced/search
