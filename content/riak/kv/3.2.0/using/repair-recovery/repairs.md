@@ -46,12 +46,27 @@ The secondary indexes of every partition can be repaired by executing the same c
 riak admin repair-2i
 ```
 
+This will produce an output similar to below:
+
+```
+Will repair 2i data on 34 partitions
+Watch the logs for 2i repair progress reports
+ok
+```
+
 ### Monitoring a Repair
 
 Repairs can be monitored using the below command:
 
 ```bash
 riak admin repair-2i status
+```
+
+If a repair is not running, the output should appear as:
+
+```
+2i repair is not running
+ok
 ```
 
 ### Killing a Repair

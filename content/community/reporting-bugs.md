@@ -1,6 +1,7 @@
 ---
 title: "Reporting Bugs"
 description: ""
+project: community
 menu:
   community:
     name: "Reporting Bugs"

@@ -68,7 +68,7 @@ riak admin handoff disable both --all
 ## Other Command-line Tools
 
 In addition to enabling and disabling handoff, the
-[`riak admin`]({{<baseurl>}}riak/kv/3.0.9/using/admin/riak admin/) interface enables you to
+[`riak admin`]({{<baseurl>}}riak/kv/3.0.9/using/admin/riak-admin/) interface enables you to
 retrieve a summary of handoff-related activity and other information.
 
 ### summary

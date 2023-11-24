@@ -1,6 +1,7 @@
 ---
 title: "Community Projects"
 description: ""
+project: community
 menu:
   community:
     name: "Community Projects"

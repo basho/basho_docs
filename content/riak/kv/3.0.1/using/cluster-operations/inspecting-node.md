@@ -473,7 +473,7 @@ you, but here's how to set them:
 
 ## Related Resources
 
-* [The riak admin configuration management tool](../../admin/riak admin/)
+* [The riak admin configuration management tool](../../admin/riak-admin/)
 * [Riaknostic](http://riaknostic.basho.com/)
 * [HTTP API Status](../../../developing/api/http/status/)
 

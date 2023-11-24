@@ -46,7 +46,7 @@ options:
 `ring` directory. This will require rejoining all nodes into a
 cluster again.
 >
-> *Rename the node using the [`riak admin cluster replace`]({{<baseurl>}}riak/kv/3.2.0/using/admin/riak admin/#cluster-replace) command. This will not work if you have previously only started Riak with a single node.
+> *Rename the node using the [`riak admin cluster replace`]({{<baseurl>}}riak/kv/3.2.0/using/admin/riak-admin/#cluster-replace) command. This will not work if you have previously only started Riak with a single node.
 
 ## Configure the First Node
 
@@ -153,7 +153,7 @@ preferred.
 >
 > Once a node has been started, in order to change the name you must
 either remove ring files from the `/data/ring` directory or
-[`riak admin cluster force-replace`]({{<baseurl>}}riak/kv/3.2.0/using/admin/riak admin/#cluster-force-replace) the node.
+[`riak admin cluster force-replace`]({{<baseurl>}}riak/kv/3.2.0/using/admin/riak-admin/#cluster-force-replace) the node.
 
 #### Start the node
 
@@ -283,48 +283,95 @@ To run multiple nodes, make copies of the `riak` directory.
 Presuming that you copied `./rel/riak` into `./rel/riak1`, `./rel/riak2`,
 `./rel/riak3`, and so on, you need to make two changes:
 
-1. Set your handoff port and your Protocol Buffers or HTTP port
-(depending on which interface you are using) to different values on each
-node. For example:
+1. Change the ports used by each Riak node to be unique on your host.
+   Specifically, you need to set to different values on each node:
+   - the handoff port (in either `riak.conf`)
+   - the Cluster Manager port (in `advanced.conf`)
+   - either your Protocol Buffers listener port or your HTTP listener port or both (depending on which interface you are using) (in `riak.conf`)
+
+    For example, on node 1 one could use these ports:
 
     ```riakconf
-    # For Protocol Buffers:
+    # For Protocol Buffers change from:
+    # listener.protobuf.internal = 127.0.0.1:8097
+    # To something like this:
     listener.protobuf.internal = 127.0.0.1:8187
 
-    # For HTTP:
+    # For HTTP change from:
+    # listener.http.internal = 127.0.0.1:8098
+    # To something like this:
     listener.http.internal = 127.0.0.1:8198
 
-    # For either interface:
+    # For either interface set the handoff from:
+    # handoff.port = 8099
+    # To something like this:
     handoff.port = 8199
     ```
 
-    ```appconfig
-    %% In the pb section of riak_core:
-    {"127.0.0.1", 8187 }
-
-    %% In the http section of riak_core:
-    {"127.0.0.1", 8198}
+    ```advancedconf
+    {riak_core,
+    [
+      {cluster_mgr, {"127.0.0.1", 9180 } },
+      %% more riak_core configs
+    ]}
     ```
 
-2. Change the name of each node to a unique name. Now, start the nodes,
-changing path names and nodes as appropriate:
+    And therefore on node 2, use slightly different ports:
 
-```bash
-./rel/riak1/bin/riak start
-./rel/riak2/bin/riak start
-./rel/riak3/bin/riak start
+    ```riakconf
+    # For Protocol Buffers change from:
+    # listener.protobuf.internal = 127.0.0.1:8097
+    # To something like this:
+    listener.protobuf.internal = 127.0.0.1:8287
 
-# etc
-```
+    # For HTTP change from:
+    # listener.http.internal = 127.0.0.1:8098
+    # To something like this:
+    listener.http.internal = 127.0.0.1:8298
 
-Next, join the nodes into a cluster:
+    # For either interface set the handoff from:
+    # handoff.port = 8099
+    # To something like this:
+    handoff.port = 8299
+    ```
 
-```bash
-./rel/riak2/bin/riak admin cluster join riak1@127.0.0.1
-./rel/riak3/bin/riak admin cluster join riak1@127.0.0.1
-./rel/riak2/bin/riak admin cluster plan
-./rel/riak2/bin/riak admin cluster commit
-```
+    ```advancedconf
+    {riak_core,
+    [
+      {cluster_mgr, {"127.0.0.1", 9280 } },
+      %% more riak_core configs
+    ]}
+    ```
+
+    Continue for all nodes on the host.
+
+3. Change the name of each node to a unique name.
+
+    ```riakconf
+    # Change from this:
+    # nodename = riak@127.0.0.1
+    # To something like this:
+    nodename = riak1@127.0.0.1
+    ```
+
+4. Now, start the nodes, changing path names and nodes as appropriate:
+
+    ```bash
+    ./rel/riak1/bin/riak start
+    ./rel/riak2/bin/riak start
+    ./rel/riak3/bin/riak start
+    
+    # etc
+    ```
+
+5. Next, join the nodes into a cluster:
+
+    ```bash
+    ./rel/riak2/bin/riak admin cluster join riak1@127.0.0.1
+    ./rel/riak3/bin/riak admin cluster join riak1@127.0.0.1
+    ./rel/riak2/bin/riak admin cluster plan
+    ./rel/riak2/bin/riak admin cluster commit
+    ```
 
 ## Multiple Clusters on One Host
 
@@ -332,5 +379,6 @@ Using the above technique, it is possible to run multiple clusters on
 one computer. If a node hasn’t joined an existing cluster, it will
 behave just as a cluster would. Running multiple clusters on one
 computer is simply a matter of having two or more distinct nodes or
-groups of clustered nodes.
+groups of clustered nodes. Please note that each cluster should have a 
+different value for `distributed_cookie`.
 

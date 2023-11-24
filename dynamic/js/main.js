@@ -21,6 +21,7 @@
 //= require ./vendor/modernizr-3.1.1.js
 //= require ./vendor/jquery-2.2.4.js
 //= require ./vendor/highlight-9.7.0.pack.js
+//= require ./vendor/lunr-2.3.9.js
 
 
 
@@ -48,6 +49,7 @@
 
 //= require ./basho/bitcask-calculator.js
 
+//= require ./basho/lunr-search.js
 
 
 /* Vendor Library Configuration and Initialization

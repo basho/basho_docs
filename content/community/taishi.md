@@ -1,6 +1,7 @@
 ---
 title: "Taishi Program"
 description: ""
+project: community
 menu:
   community:
     name: "Taishi Program"

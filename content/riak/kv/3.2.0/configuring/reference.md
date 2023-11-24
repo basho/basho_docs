@@ -13,6 +13,7 @@ toc: true
 aliases:
   - /riak/3.2.0/ops/advanced/configs/configuration-files/
   - /riak/kv/3.2.0/ops/advanced/configs/configuration-files/
+search_boost: 10
 ---
 
 [concept clusters]: ../../learn/concepts/clusters
@@ -27,7 +28,7 @@ aliases:
 [plan backend multi]: ../../setup/planning/backend/multi
 [config backend multi]: ../../setup/planning/backend/multi/#configuring-multiple-backends-1
 [use admin riak cli]: ../../using/admin/riak-cli
-[use admin riak admin]: ../../using/admin/riak admin
+[use admin riak admin]: ../../using/admin/riak-admin
 [glossary aae]: ../../learn/glossary/#active-anti-entropy-aae
 [use ref search 2i]: ../../using/reference/secondary-indexes
 [cluster ops bucket types]: ../../using/cluster-operations/bucket-types

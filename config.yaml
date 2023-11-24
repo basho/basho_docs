@@ -22,6 +22,16 @@ ignoreFiles: [
 # Default directory to build the completed site
 publishdir: "output"
 
+outputFormats:
+  JSON:
+    baseName: search-index
+    mediaType: application/json
+
+outputs:
+  home:
+    - HTML
+    - JSON
+
 params:
   # Project Descriptions
   # ====================

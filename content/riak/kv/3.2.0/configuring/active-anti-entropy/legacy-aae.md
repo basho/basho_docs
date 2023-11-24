@@ -15,6 +15,7 @@ version_history:
   in: "2.9.0p5+"
 since: 2.9.0p5
 aliases:
+keywords: "aae active anti-entropy legacy old"
 ---
 
 The configuration for the legacy AAE is kept in

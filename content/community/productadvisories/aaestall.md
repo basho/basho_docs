@@ -1,6 +1,7 @@
 ---
 title: "Active Anti-Entropy: Slight chance that AAE could stall itself or crash a Riak node."
 description: ""
+project: community
 menu:
   community:
     name: "AAE: Slight Chance for Stall or Crash"

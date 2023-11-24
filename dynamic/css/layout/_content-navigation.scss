@@ -125,12 +125,10 @@ $fixed-bottom-height : p2r(129px);
 
 }
 
-
-
 /**
  * Wrapper around the Product Title and Version Selector.
  */
-.version-picker {
+.version-picker, .search-results-title, .search-result-item-title {
   margin : 0.5rem 0.75rem 0.5rem 0.75rem;
 
   @include wide-from('md') {
@@ -203,10 +201,7 @@ $fixed-bottom-height : p2r(129px);
       }
     }
   }
-
 }
-
-
 
 /**
  * Primary (dynamically sized) Content Navigation element

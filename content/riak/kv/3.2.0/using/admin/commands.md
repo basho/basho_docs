@@ -15,11 +15,11 @@ aliases:
   - /riak/kv/3.2.0/ops/running/cluster-admin
 ---
 
-[use admin riak admin#cluster]: {{<baseurl>}}riak/kv/3.2.0/using/admin/riak admin/#cluster
+[use admin riak admin#cluster]: {{<baseurl>}}riak/kv/3.2.0/using/admin/riak-admin/#cluster
 [concept clusters]: {{<baseurl>}}riak/kv/3.2.0/learn/concepts/clusters
 [cluster ops add remove node]: {{<baseurl>}}riak/kv/3.2.0/using/cluster-operations/adding-removing-nodes
-[use admin riak admin#cluster-plan]: {{<baseurl>}}riak/kv/3.2.0/using/admin/riak admin/#cluster-plan
-[use admin riak admin#cluster-commit]: {{<baseurl>}}riak/kv/3.2.0/using/admin/riak admin/#cluster-commit
+[use admin riak admin#cluster-plan]: {{<baseurl>}}riak/kv/3.2.0/using/admin/riak-admin/#cluster-plan
+[use admin riak admin#cluster-commit]: {{<baseurl>}}riak/kv/3.2.0/using/admin/riak-admin/#cluster-commit
 
 This document explains usage of the [`riak admin cluster`][use admin riak admin#cluster] interface, which enables you to perform a wide
 variety of cluster-level actions.
@@ -111,10 +111,17 @@ riak admin cluster join <node>
 
 You _must_ specify a node to join to by nodename. You can join to any
 node in the cluster. The following would join the current node to
-`riak1@127.0.0.1`:
+`dev1@127.0.0.1`:
 
 ```bash
-riak admin cluster join riak1@127.0.0.1
+riak admin cluster join dev1@127.0.0.1
+```
+
+The above command should produce an output similar to below:
+
+```
+Success: staged join request for 'dev2@127.0.0.1' to 'dev1@127.0.0.1'
+ok
 ```
 
 Once a node joins, all of the operations necessary to establish
@@ -133,6 +140,12 @@ Instructs the current node to hand off its
 
 ```bash
 riak admin cluster leave
+```
+
+Produces:
+
+```
+Success: staged leave request for 'dev1@127.0.0.1'
 ```
 
 You can also instruct another node (by nodename) to leave the cluster:
@@ -203,6 +216,12 @@ Displays the currently staged cluster changes.
 
 ```bash
 riak admin cluster plan
+```
+
+If there are no staged changes, the response will be:
+
+```
+There are no staged changes
 ```
 
 `riak admin cluster plan` is complex, depending on the staged changes.
@@ -278,12 +297,25 @@ must be reviewed using [`riak admin cluster plan`][use admin riak admin#cluster-
 riak admin cluster commit
 ```
 
+Produces:
+
+```
+Cluster changes committed
+```
+
 ## clear
 
 Clears the currently staged cluster changes.
 
 ```bash
 riak admin cluster clear
+```
+
+The output from this command should appear as follows:
+
+```
+Cleared staged cluster changes
+ok
 ```
 
 ## partitions
@@ -328,6 +360,12 @@ cluster:
 
 ```bash
 riak admin cluster partition-count
+```
+
+Produces:
+
+```
+Cluster-wide partition-count: 64
 ```
 
 This would display the count for a node:

@@ -18,6 +18,8 @@ aliases:
 
 ## Retrieving a Configuration Listing
 
+**Note:** This command has been deprecated in Riak KV 3.2.0 onwards and will no longer function.
+
 At any time, you can get a snapshot of currently applied configurations
 through the command line. For a listing of *all* of the configs
 currently applied in the node:
@@ -88,6 +90,8 @@ e.g. if your configuration will cause problems on your operating system
 or doesn't activate subsystems that you would like to use.
 
 ## Debugging Your Configuration
+
+**Note:** This command has been deprecated in Riak KV 3.2.0 onwards and will no longer function.
 
 If there is a problem with your configuration but you're having trouble
 identifying the problem, there is a command that you can use to debug

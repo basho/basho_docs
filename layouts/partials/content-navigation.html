@@ -12,6 +12,7 @@
 
 {{ $version           := $HugoNode.Scratch.Get "version"           }}
 {{ $version_path      := $HugoNode.Scratch.Get "version_path"      }}
+{{ $project           := $HugoNode.Scratch.Get "project" }}
 {{ $project_name_html := $HugoNode.Scratch.Get "project_name_html" }}
 {{ $gh_edit_path      := $HugoNode.Scratch.Get "gh_edit_path"      }}
 
@@ -30,6 +31,15 @@
 
 
   <div class="content-nav__fixed-top">
+    <form id="lunrsearch" class="search" role="search">
+      <span class="block float-left   search__icon-container   docs-icon--search">|</span>
+      <span class="block overflow">
+        <input class="search__input lunrsearch-term" type="search" name="term" placeholder="Search">
+        <input type="hidden" class="lunrsearch-project" name="project" value="{{$project}}" />
+        <input type="hidden" class="lunrsearch-version" name="version" value="{{$version}}" />
+      </span>
+    </form>
+    <!--
     <form id="searchbox_011972015458788978446:zgdcy4fa-o0" class="search" action="">
 
       <span class="block float-left   search__icon-container   docs-icon--search">|</span>
@@ -39,7 +49,7 @@
       </span>
 
     </form>
-
+    -->
 {{ if $version }}
     <div class="clearfix   version-picker">
 
@@ -217,4 +227,4 @@
 
 </nav>
 
-{{ partial "google-search.html" . }}
+{{ partial "lunr-search.html" . }}

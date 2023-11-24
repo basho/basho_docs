@@ -17,7 +17,7 @@ aliases:
 
 [config reference]: {{<baseurl>}}riak/kv/3.0.10/configuring/reference
 [use running cluster]: {{<baseurl>}}riak/kv/3.0.10/using/running-a-cluster
-[use admin riak admin#member-status]: {{<baseurl>}}riak/kv/3.0.10/using/admin/riak admin/#member-status
+[use admin riak admin#member-status]: {{<baseurl>}}riak/kv/3.0.10/using/admin/riak-admin/#member-status
 [perf erlang]: {{<baseurl>}}riak/kv/3.0.10/using/performance/erlang
 [plan start]: {{<baseurl>}}riak/kv/3.0.10/setup/planning/start
 [plan best practices]: {{<baseurl>}}riak/kv/3.0.10/setup/planning/best-practices

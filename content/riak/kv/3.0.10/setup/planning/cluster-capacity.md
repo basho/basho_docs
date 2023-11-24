@@ -19,7 +19,7 @@ aliases:
 [plan bitcask capacity]: {{<baseurl>}}riak/kv/3.0.10/setup/planning/bitcask-capacity-calc
 [plan index]: {{<baseurl>}}riak/kv/3.0.10/setup/planning
 [concept replication]: {{<baseurl>}}riak/kv/3.0.10/learn/concepts/replication
-[use admin riak admin#cluster]: {{<baseurl>}}riak/kv/3.0.10/using/admin/riak admin/#cluster
+[use admin riak admin#cluster]: {{<baseurl>}}riak/kv/3.0.10/using/admin/riak-admin/#cluster
 [config reference]: {{<baseurl>}}riak/kv/3.0.10/configuring/reference
 [perf benchmark]: {{<baseurl>}}riak/kv/3.0.10/using/performance/benchmarking
 [LVM]: http://en.wikipedia.org/wiki/Logical_Volume_Manager_(Linux)

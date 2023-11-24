@@ -1,0 +1,26 @@
+[
+    {{- if isset .Params "project"}}
+        {{- if isset .Params "project_version"}}
+            {{- $project_version_pages := where (where (where .Site.RegularPages ".Params.project" .Params.project) ".Params.project_version" .Params.project_version) ".Params.exclude_from_search" "!=" true -}}
+            {{- range $index, $page := $project_version_pages -}}
+                {{- $entry := (dict "project" $page.Params.project "version" $page.Params.project_version "uri" $page.RelPermalink "title" $page.Title "content" ($page.Plain | htmlUnescape) "description" $page.Description "title_supertext" $page.Params.title_supertext "keywords" $page.Params.keywords "search_boost" $page.Params.search_boost) -}}
+                {{- if gt $index 0 -}}, {{- end -}}
+                {{- $entry | jsonify -}}
+            {{- end -}}
+        {{- else -}}
+            {{- $project_all_pages := where (where (where .Site.RegularPages ".Params.project" .Params.project) ".Params.project_version" "!=" nil) ".Params.exclude_from_search" "!=" true -}}
+            {{- range $index, $page := $project_all_pages -}}
+                {{- $entry := (dict "project" $page.Params.project "version" $page.Params.project_version "uri" $page.RelPermalink "title" $page.Title "content" ($page.Plain | htmlUnescape) "description" $page.Description "title_supertext" $page.Params.title_supertext "keywords" $page.Params.keywords "search_boost" $page.Params.search_boost) -}}
+                {{- if gt $index 0 -}}, {{- end -}}
+                {{- $entry | jsonify -}}
+            {{- end -}}
+        {{- end -}}
+    {{- else -}}
+        {{- $all_pages := where (where (where .Site.RegularPages ".Params.project" "!=" nil) ".Params.project_version" "!=" nil) ".Params.exclude_from_search" "!=" true -}}
+        {{- range $index, $page := $all_pages -}}
+            {{- $entry := (dict "project" $page.Params.project "version" $page.Params.project_version "uri" $page.RelPermalink "title" $page.Title "content" ($page.Plain | htmlUnescape) "description" $page.Description "title_supertext" $page.Params.title_supertext "keywords" $page.Params.keywords "search_boost" $page.Params.search_boost) -}}
+            {{- if gt $index 0 -}}, {{- end -}}
+            {{- $entry | jsonify -}}
+        {{- end -}}
+    {{- end -}}
+]

@@ -102,7 +102,7 @@
 [use admin index]: {{<baseurl>}}riak/kv/3.0.6/using/admin/
 [use admin commands]: {{<baseurl>}}riak/kv/3.0.6/using/admin/commands/
 [use admin riak cli]: {{<baseurl>}}riak/kv/3.0.6/using/admin/riak-cli/
-[use admin riak admin]: {{<baseurl>}}riak/kv/3.0.6/using/admin/riak admin/
+[use admin riak admin]: {{<baseurl>}}riak/kv/3.0.6/using/admin/riak-admin/
 [use admin riak control]: {{<baseurl>}}riak/kv/3.0.6/using/admin/riak-control/
 
 ### Cluster Operations

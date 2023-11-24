@@ -1,6 +1,7 @@
 ---
 title: "Community Overview"
 description: "Lorem ipsum quia dolor sit amet"
+project: community
 menu:
   community:
     name: "Community"

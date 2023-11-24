@@ -1,6 +1,7 @@
 ---
 title: "Product Advisories"
 description: "Product Advisories for Basho products"
+project: community
 menu:
   community:
     name: "Product Advisories"

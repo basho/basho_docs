@@ -1,6 +1,7 @@
 ---
 title: "Possibility of Code Injection on Riak Init File"
 description: ""
+project: community
 menu:
   community:
     name: "Possibility of Code Injection on Riak Init File"

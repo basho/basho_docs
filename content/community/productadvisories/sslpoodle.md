@@ -2,6 +2,7 @@
 ---
 title: "SSL 3.0 Vulnerability and POODLE Attack"
 description: ""
+project: community
 menu:
   community:
     name: "SSL 3.0 Vulnerability and POODLE Attack"

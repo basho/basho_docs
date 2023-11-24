@@ -22,8 +22,8 @@ toc: true
 [glossary vnode]: {{<baseurl>}}riak/kv/3.2.0/learn/glossary/#vnode
 [concept buckets]: {{<baseurl>}}riak/kv/3.2.0/learn/concepts/buckets
 [cluster ops bucket types]: {{<baseurl>}}riak/kv/3.2.0/using/cluster-operations/bucket-types
-[use admin riak admin#ensemble]: {{<baseurl>}}riak/kv/3.2.0/using/admin/riak admin/#ensemble-status
-[use admin riak admin]: {{<baseurl>}}riak/kv/3.2.0/using/admin/riak admin
+[use admin riak admin#ensemble]: {{<baseurl>}}riak/kv/3.2.0/using/admin/riak-admin/#ensemble-status
+[use admin riak admin]: {{<baseurl>}}riak/kv/3.2.0/using/admin/riak-admin
 [config reference#advanced]: {{<baseurl>}}riak/kv/3.2.0/configuring/reference/#advanced-configuration
 [plan cluster capacity]: {{<baseurl>}}riak/kv/3.2.0/setup/planning/cluster-capacity
 [cluster ops strong consistency]: {{<baseurl>}}riak/kv/3.2.0/using/cluster-operations/strong-consistency
@@ -142,6 +142,26 @@ consistency enabled---we'll call the bucket type
 riak admin bucket-type create consistent_and_fault_tolerant \
   '{"props": {"consistent":true,"n_val":5}}'
 riak admin bucket-type activate consistent_and_fault_tolerant
+```
+
+The output from the above example would appear as follows, including a warning about downgrading to pre Riak 2.0:
+
+```
+consistent_and_fault_tolerant created
+
+WARNING: After activating consistent_and_fault_tolerant, nodes in this cluster
+can no longer be downgraded to a version of Riak prior to 2.0
+ok
+```
+
+And for activating the bucket-type:
+
+```
+consistent_and_fault_tolerant has been activated
+
+WARNING: Nodes in this cluster can no longer be
+downgraded to a version of Riak prior to 2.0
+ok
 ```
 
 If the `activate` command outputs `consistent_and_fault_tolerant has

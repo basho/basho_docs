@@ -1,0 +1,25 @@
+<div style="width:0px;overflow:hidden;height:0px;">
+  <template id="search-result-title" hidden>
+    <h1 class="front-matter__title search-results-title">
+      <span class="front-matter__title--supertext ">In <span class="product__title"><span class="title-project-name"></span><span class="title-project-version"></span></span></span>
+      <br>
+      <span class="title-text"></span>
+    </h1>
+    <form id="lunrsearch" class="search search-redo-form" role="search">
+      <span class="block float-left   search__icon-container   docs-icon--search">|</span>
+      <span class="block overflow">
+        <input class="search__input lunrsearch-term" type="search" name="term" placeholder="Search for...">
+        <input type="hidden" class="lunrsearch-project" name="project" value="" />
+        <input type="hidden" class="lunrsearch-version" name="version" value="" />
+      </span>
+      <div id="search-redo-project-version"></div>
+  </template>
+  <template id="search-result-item" hidden>
+    <h3 class="result-title search-result-item-title"><a class="result-title-link"></a><span class="result-score"></span> <span class="product__title"><span class="result-project-name"></span><span class="result-project-version"></span></span></h3>
+    <p class="result-summary"></summary>
+    <div class="result-read-more-container">
+      <a class="result-read-more-link">Read More »</a>
+    </div>
+  </template>
+  <div id="search-results-wrapper"></div>
+</div>

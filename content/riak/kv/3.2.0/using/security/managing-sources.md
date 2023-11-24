@@ -44,6 +44,13 @@ from which all clients will be authenticated by default.
 riak admin security add-source all 127.0.0.1/32 trust
 ```
 
+Produces:
+
+```
+Successfully added source
+ok
+```
+
 Here, we have specified that anyone connecting to Riak from the
 designated CIDR (in this case `localhost`) will be successfully
 authenticated:
@@ -63,6 +70,12 @@ example:
 riak admin security add-source riakuser 127.0.0.1/32 trust
 ```
 
+Produces:
+
+```
+Successfully added source
+ok
+```
 Now, `riakuser` can interact with Riak without providing credentials.
 Here's an example in which only the username is passed to Riak:
 
@@ -86,6 +99,20 @@ that user's characteristics:
 
 ```bash
 riak admin security alter-user riakuser password=captheorem4life
+```
+
+Produces:
+
+```
+ok
+
++----------+---------------+----------------------------------------+------------------------------+
+| username |   member of   |                password                |           options            |
++----------+---------------+----------------------------------------+------------------------------+
+| riakuser |               |652517e4703dab90f693db95acaedeec55acb530|              []              |
++----------+---------------+----------------------------------------+------------------------------+
+
+ok
 ```
 
 You can specify that _all_ users must authenticate themselves via
