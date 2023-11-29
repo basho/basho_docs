@@ -9,6 +9,9 @@ menu:
     pre: download-alt
 project: "riak_ts"
 project_version: "1.3.0"
+lastmod: 2016-05-05T00:00:00-00:00
+sitemap:
+  priority: 0.1
 toc: false
 layout: downloads
 listed_projects:

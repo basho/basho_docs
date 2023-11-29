@@ -3,6 +3,9 @@ title: "Riak Redis Add-on Deployment Models"
 description: "Explore the various models for deploying Riak Redis Add-on"
 project: "riak_kv"
 project_version: "2.9.0p5"
+lastmod: 2019-11-21T00:00:00-00:00
+sitemap:
+  priority: 0.2
 menu:
   riak_kv-2.9.0p5:
     name: "Redis Add-on Deployment Models"

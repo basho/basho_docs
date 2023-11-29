@@ -3,6 +3,9 @@ title: "V2 Scheduling Fullsync"
 description: ""
 project: "riak_kv"
 project_version: "2.2.6"
+lastmod: 2018-05-22T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.6:
     name: "V2 Scheduling Fullsync"

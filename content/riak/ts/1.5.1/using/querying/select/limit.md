@@ -9,6 +9,9 @@ menu:
     parent: "select_riakts"
 project: "riak_ts"
 project_version: "1.5.1"
+lastmod: 2017-01-21T00:00:00-00:00
+sitemap:
+  priority: 0.2
 toc: true
 version_history:
   in: "1.5.1+"

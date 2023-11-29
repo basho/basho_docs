@@ -3,7 +3,10 @@ tile_supertext: "Configuring:"
 title: "V3 Multi-Datacenter Replication"
 description: ""
 project: "riak_kv"
-project_version: 3.0.7
+project_version: "3.0.7"
+lastmod: 2021-07-17T00:00:00-00:00
+sitemap:
+  priority: 0.2
 menu:
   riak_kv-3.0.7:
     name: "V3 Multi-Datacenter"

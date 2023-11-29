@@ -2,7 +2,10 @@
 title: "Setting Up Riak Redis Add-on"
 description: ""
 project: "riak_kv"
-project_version: 3.0.4
+project_version: "3.0.4"
+lastmod: 2021-03-24T00:00:00-00:00
+sitemap:
+  priority: 0.2
 menu:
   riak_kv-3.0.4:
     name: "Set Up Redis Add-on"

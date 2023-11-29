@@ -9,6 +9,9 @@ menu:
     parent: "configuring"
 project: "riak_kv"
 project_version: "2.9.0p5"
+lastmod: 2019-11-21T00:00:00-00:00
+sitemap:
+  priority: 0.2
 toc: true
 aliases:
   - /riak/2.9.0p5/configuring/global-object-expiration/

@@ -2,7 +2,10 @@
 title: "Protocol Buffers Client API"
 description: ""
 project: "riak_kv"
-project_version: 3.0.1
+project_version: "3.0.1"
+lastmod: 2020-08-20T00:00:00-00:00
+sitemap:
+  priority: 0.2
 menu:
   riak_kv-3.0.1:
     name: "Protocol Buffers API"

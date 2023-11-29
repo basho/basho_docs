@@ -2,7 +2,10 @@
 title: "Riak Redis Add-on Deployment Models"
 description: "Explore the various models for deploying Riak Redis Add-on"
 project: "riak_kv"
-project_version: 3.0.10
+project_version: "3.0.10"
+lastmod: 2022-05-30T00:00:00-00:00
+sitemap:
+  priority: 0.2
 menu:
   riak_kv-3.0.10:
     name: "Redis Add-on Deployment Models"

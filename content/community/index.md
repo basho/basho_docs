@@ -1,7 +1,10 @@
 ---
 title: "Community Overview"
 description: "Lorem ipsum quia dolor sit amet"
-project: community
+project_version: "community"
+lastmod: 2017-02-04T00:00:00-00:00
+sitemap:
+  priority: 0.5
 menu:
   community:
     name: "Community"

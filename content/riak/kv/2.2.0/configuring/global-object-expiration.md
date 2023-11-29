@@ -9,6 +9,9 @@ menu:
     parent: "configuring"
 project: "riak_kv"
 project_version: "2.2.0"
+lastmod: 2016-11-12T00:00:00-00:00
+sitemap:
+  priority: 0.1
 toc: true
 ---
 

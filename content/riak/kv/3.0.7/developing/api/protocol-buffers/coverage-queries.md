@@ -3,6 +3,9 @@ title: "PBC Coverage Queries"
 description: ""
 project: "riak_kv"
 project_version: "3.0.7"
+lastmod: 2021-07-17T00:00:00-00:00
+sitemap:
+  priority: 0.2
 menu:
   riak_kv-3.0.7:
     name: "Coverage Queries"

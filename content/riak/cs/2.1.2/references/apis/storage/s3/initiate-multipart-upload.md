@@ -3,6 +3,9 @@ title: "Riak CS Initiate Multipart Upload"
 description: ""
 project: "riak_cs"
 project_version: "2.1.2"
+lastmod: 2019-04-09T00:00:00-00:00
+sitemap:
+  priority: 0.3
 toc: true
 aliases:
   - /riakcs/2.1.2/references/apis/storage/s3/RiakCS-Initiate-Multipart-Upload/

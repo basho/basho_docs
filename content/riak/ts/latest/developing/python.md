@@ -1,5 +1,6 @@
 ---
 layout: latest_redirect
+sitemap_exclude: true
 project: riak_ts
 replace_text: latest
 latest_text: "{latest}"

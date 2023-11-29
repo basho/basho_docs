@@ -9,6 +9,9 @@ menu:
     pre: download-alt
 project: "riak_kv"
 project_version: "2.0.1"
+lastmod: 2014-09-25T00:00:00-00:00
+sitemap:
+  priority: 0.1
 toc: false
 layout: downloads
 listed_projects:

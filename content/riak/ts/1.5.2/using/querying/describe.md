@@ -9,6 +9,9 @@ menu:
     parent: "querying_data_riakts"
 project: "riak_ts"
 project_version: "1.5.2"
+lastmod: 2017-02-10T00:00:00-00:00
+sitemap:
+  priority: 0.3
 toc: true
 aliases:
   - /riakts/1.5.2/using/querying/describe

@@ -2,7 +2,10 @@
 title: "Implementing a Document Store"
 description: ""
 project: "riak_kv"
-project_version: 2.9.9
+project_version: "2.9.9"
+lastmod: 2021-08-09T00:00:00-00:00
+sitemap:
+  priority: 0.2
 menu:
   riak_kv-2.9.9:
     name: "Implementing a Document Store"

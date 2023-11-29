@@ -8,7 +8,10 @@ menu:
     weight: 101
     pre: download-alt
 project: "riak_kv"
-project_version: 3.0.16
+project_version: "3.0.16"
+lastmod: 2023-06-23T00:00:00-00:00
+sitemap:
+  priority: 0.9
 toc: false
 layout: downloads
 listed_projects:

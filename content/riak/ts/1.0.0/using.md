@@ -9,6 +9,9 @@ menu:
     pre: database
 project: "riak_ts"
 project_version: "1.0.0"
+lastmod: 2015-12-15T00:00:00-00:00
+sitemap:
+  priority: 0.1
 toc: true
 aliases:
     - /riakts/1.0.0/using/

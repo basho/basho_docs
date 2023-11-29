@@ -2,7 +2,10 @@
 title: "Riak Redis Add-on"
 description: "Redis Add-on for Riak KV"
 project: "riak_kv"
-project_version: 3.0.16
+project_version: "3.0.16"
+lastmod: 2023-06-23T00:00:00-00:00
+sitemap:
+  priority: 0.9
 menu:
   riak_kv-3.0.16:
     name: "Redis Add-on"

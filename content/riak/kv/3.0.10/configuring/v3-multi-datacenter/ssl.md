@@ -3,7 +3,10 @@ title_supertext: "V3 Multi-Datacenter Replication:"
 title: "SSL"
 description: ""
 project: "riak_kv"
-project_version: 3.0.10
+project_version: "3.0.10"
+lastmod: 2022-05-30T00:00:00-00:00
+sitemap:
+  priority: 0.2
 menu:
   riak_kv-3.0.10:
     name: "SSL"

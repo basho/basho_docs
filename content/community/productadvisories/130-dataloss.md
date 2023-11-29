@@ -1,7 +1,10 @@
 ---
 title: "Default Configuration For Handoff May Cause Data Loss in TS"
 description: ""
-project: community
+project_version: "community"
+lastmod: 2016-07-06T00:00:00-00:00
+sitemap:
+  priority: 0.5
 menu:
   community:
     name: "Data Loss TS 1.3.0"

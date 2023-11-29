@@ -2,7 +2,10 @@
 title: "Add-ons"
 description: "Add-on technology for Riak KV"
 project: "riak_kv"
-project_version: 3.0.4
+project_version: "3.0.4"
+lastmod: 2021-03-24T00:00:00-00:00
+sitemap:
+  priority: 0.2
 menu:
   riak_kv-3.0.4:
     name: "Add-ons"

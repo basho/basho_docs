@@ -1,7 +1,10 @@
 ---
 title: "Product Advisories"
 description: "Product Advisories for Basho products"
-project: community
+project_version: "community"
+lastmod: 2016-11-18T00:00:00-00:00
+sitemap:
+  priority: 0.5
 menu:
   community:
     name: "Product Advisories"

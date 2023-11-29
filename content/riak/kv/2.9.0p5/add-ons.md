@@ -3,6 +3,9 @@ title: "Add-ons"
 description: "Add-on technology for Riak KV"
 project: "riak_kv"
 project_version: "2.9.0p5"
+lastmod: 2019-11-21T00:00:00-00:00
+sitemap:
+  priority: 0.2
 menu:
   riak_kv-2.9.0p5:
     name: "Add-ons"

@@ -9,6 +9,9 @@ menu:
     parent: "installing"
 project: "riak_ts"
 project_version: "1.2.0"
+lastmod: 2016-02-16T00:00:00-00:00
+sitemap:
+  priority: 0.1
 toc: true
 version_history:
   locations:

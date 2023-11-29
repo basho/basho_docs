@@ -2,7 +2,10 @@
 title: "Verifying a Riak KV Installation"
 description: ""
 project: "riak_kv"
-project_version: 2.9.10
+project_version: "2.9.10"
+lastmod: 2021-10-06T00:00:00-00:00
+sitemap:
+  priority: 0.3
 menu:
   riak_kv-2.9.10:
     name: "Verifying an Installation"

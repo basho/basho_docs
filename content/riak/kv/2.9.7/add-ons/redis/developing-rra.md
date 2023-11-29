@@ -2,7 +2,10 @@
 title: "Developing with Riak Redis Add-on"
 description: ""
 project: "riak_kv"
-project_version: 2.9.7
+project_version: "2.9.7"
+lastmod: 2020-08-16T00:00:00-00:00
+sitemap:
+  priority: 0.2
 menu:
   riak_kv-2.9.7:
     name: "Develop with Redis Add-on"

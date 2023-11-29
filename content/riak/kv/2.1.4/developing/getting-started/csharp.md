@@ -3,6 +3,9 @@ title: "Getting Started with C Sharp"
 description: ""
 project: "riak_kv"
 project_version: "2.1.4"
+lastmod: 2016-04-07T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.1.4:
     name: "C Sharp"

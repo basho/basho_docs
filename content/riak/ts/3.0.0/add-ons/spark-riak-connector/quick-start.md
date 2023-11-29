@@ -4,6 +4,9 @@ title: "Quick Start Guide"
 description: ""
 project: "riak_ts"
 project_version: "3.0.0"
+lastmod: 2022-09-20T00:00:00-00:00
+sitemap:
+  priority: 0.9
 menu:
   riak_ts-3.0.0:
     name: "Quick Start Guide"

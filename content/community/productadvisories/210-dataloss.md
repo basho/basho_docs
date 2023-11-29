@@ -1,7 +1,10 @@
 ---
 title: "Default Configuration For Handoff May Cause Data Loss"
 description: ""
-project: community
+project_version: "community"
+lastmod: 2016-04-09T00:00:00-00:00
+sitemap:
+  priority: 0.5
 menu:
   community:
     name: "Data Loss KV 2.1.0"

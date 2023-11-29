@@ -9,6 +9,9 @@ menu:
     parent: "theory_comparisons"
 project: "riak_cs"
 project_version: "2.1.2"
+lastmod: 2019-04-09T00:00:00-00:00
+sitemap:
+  priority: 0.3
 aliases:
   - /riakcs/2.1.2/references/appendices/comparisons/Riak-Compared-to-Atmos/
   - /riak/cs/2.1.2/references/appendices/comparisons/Riak-Compared-to-Atmos/

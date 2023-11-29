@@ -2,7 +2,10 @@
 title: "Choosing a Backend"
 description: ""
 project: "riak_kv"
-project_version: 3.0.12
+project_version: "3.0.12"
+lastmod: 2022-12-20T00:00:00-00:00
+sitemap:
+  priority: 0.2
 menu:
   riak_kv-3.0.12:
     name: "Choosing a Backend"

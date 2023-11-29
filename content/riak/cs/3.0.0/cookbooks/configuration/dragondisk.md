@@ -9,6 +9,9 @@ menu:
     parent: "api_s3"
 project: "riak_cs"
 project_version: "3.0.0"
+lastmod: 2022-05-30T00:00:00-00:00
+sitemap:
+  priority: 0.2
 aliases:
   - /riakcs/3.0.0/cookbooks/configuration/Configuring-DragonDisk/
   - /riak/cs/3.0.0/cookbooks/configuration/Configuring-DragonDisk/

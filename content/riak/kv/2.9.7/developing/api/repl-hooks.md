@@ -3,7 +3,10 @@ title_supertext: "Riak Multi-Datacenter Replication:"
 title: "Hooks API"
 description: ""
 project: "riak_kv"
-project_version: 2.9.7
+project_version: "2.9.7"
+lastmod: 2020-08-16T00:00:00-00:00
+sitemap:
+  priority: 0.2
 menu:
   riak_kv-2.9.7:
     name: "Multi-Datacenter REPL Hooks API"

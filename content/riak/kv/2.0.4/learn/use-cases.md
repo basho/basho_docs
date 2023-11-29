@@ -3,6 +3,9 @@ title: "Use Cases For Riak KV"
 description: ""
 project: "riak_kv"
 project_version: "2.0.4"
+lastmod: 2015-01-10T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.4:
     name: "Use Cases"

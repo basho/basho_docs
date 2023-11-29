@@ -9,6 +9,9 @@ menu:
     parent: "ops"
 project: "riak_cs"
 project_version: "2.1.1"
+lastmod: 2016-01-23T00:00:00-00:00
+sitemap:
+  priority: 0.2
 ---
 
 ### In This Section
