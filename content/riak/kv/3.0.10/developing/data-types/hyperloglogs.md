@@ -14,6 +14,8 @@ menu:
     weight: 102
     parent: "developing_data_types"
 toc: true
+version_history:
+  in: "2.0.8+"
 aliases:
   - /riak/3.0.10/dev/using/data-types/hyperloglogs
   - /riak/kv/3.0.10/dev/using/data-types/hyperloglogs

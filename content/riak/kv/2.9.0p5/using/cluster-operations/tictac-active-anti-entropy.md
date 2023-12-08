@@ -14,7 +14,7 @@ menu:
     parent: "managing_cluster_operations"
 toc: true
 version_history:
-  in: "2.9.0+"
+  in: "2.9.0p5+"
 aliases:
   - /riak/kv/2.9.0p5/ops/advanced/tictacaae/
   - /riak/2.9.0p5/ops/advanced/ticktacaae/

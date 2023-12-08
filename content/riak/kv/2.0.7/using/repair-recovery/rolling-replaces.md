@@ -13,6 +13,8 @@ menu:
     weight: 106
     parent: "managing_repair_recover"
 toc: true
+version_history:
+  in: "2.0.7+"
 ---
 
 [upgrade]: {{<baseurl>}}riak/kv/2.0.7/setup/upgrading/cluster/

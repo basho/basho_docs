@@ -1359,7 +1359,6 @@ shopping cart.
 > counters.
 
 [Statebox]: https://github.com/mochi/statebox_riak
-[CRDTs (Commutative Replicated Data Types)]: {{<baseurl>}}riak/kv/2.0.1/developing/data-types/
 
 * Timestamp based reconciliation: This case differs from the previous one only
 in the reconciliation mechanism. In case of divergent versions, Dynamo performs

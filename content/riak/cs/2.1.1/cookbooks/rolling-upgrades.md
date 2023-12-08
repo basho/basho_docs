@@ -15,6 +15,7 @@ sitemap:
 aliases:
   - /riakcs/2.1.1/cookbooks/Rolling-Upgrades-For-Riak-CS/
   - /riak/cs/2.1.1/cookbooks/Rolling-Upgrades-For-Riak-CS/
+  - /riak/cs/2.1.1/cookbooks/rolling-upgrades
 ---
 
 Each node in a Riak CS cluster contains settings that define its

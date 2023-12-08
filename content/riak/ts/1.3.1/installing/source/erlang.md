@@ -17,6 +17,7 @@ version_history:
   locations:
     - ["1.3.0-1.3.1", "installing/source/erlang"]
     - ["1.4.0+",      "setup/installing/source/erlang"]
+  in: "1.3.0+"
 ---
 
 [autoconf]: http://www.gnu.org/software/autoconf/autoconf.html

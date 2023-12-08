@@ -61,11 +61,16 @@ generateVersionLists = () ->
   # given content .md page contains them, so these may be `undefined`.
   meta_version_history_in        = contentOfMeta("version_history_in")
   meta_version_history_locations = contentOfMeta("version_history_locations")
-  version_range      = undefined
+  version_ranges     = []
   versions_locations = []
 
   if meta_version_history_in
-    version_range = SemVer.parseRange(meta_version_history_in)
+    try
+      version_ranges.push (SemVer.parseRange(JSON.parse(meta_version_history_in)))
+    catch
+      in_version_ranges = JSON.parse(meta_version_history_in)
+      for r in in_version_ranges
+        version_ranges.push (SemVer.parseRange(r))
 
   if meta_version_history_locations
     locations_json = JSON.parse(meta_version_history_locations)
@@ -148,8 +153,13 @@ generateVersionLists = () ->
         # Add a tag for every version in the series.
         for release_version, index in release_set.reverse()
           release_sem_ver  = SemVer.parse(release_version)
-          in_version_range = not version_range or
-                             SemVer.isInRange(release_sem_ver, version_range)
+          in_version_range = false
+          if version_ranges.length
+            for r in version_ranges
+              if SemVer.isInRange(release_sem_ver, r)
+                in_version_range = true
+          else
+            in_version_range = true
 
           # Start aggregating class modifiers that will be `.join("\n")`d
           # together to form the .selector-list__element's complete class once

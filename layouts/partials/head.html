@@ -40,7 +40,7 @@
   <meta name="version_series"        content="{{ $series }}">
 
   {{- if $version_history_in }}
-<meta name="version_history_in"        content="{{ $version_history_in }}">{{end}}
+<meta name="version_history_in"        content="{{ $version_history_in | jsonify }}">{{end}}
 {{- if $version_history_locations }}
   <meta name="version_history_locations" content="{{ $version_history_locations | jsonify }}">{{end}}
   

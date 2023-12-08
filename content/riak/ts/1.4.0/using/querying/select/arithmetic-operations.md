@@ -14,9 +14,10 @@ sitemap:
   priority: 0.1
 toc: true
 version_history:
-  present_from: "1.4.0+"
-  moved:
-    - ["1.1.0+", "using/arithmetic-operations"]
+  locations:
+    - ["1.1.0-1.3.1", "using/arithmetic-operations/"]
+    - ["1.4.0+",      "using/querying/select/arithmetic-operations/"]
+  in: "1.1.0+"
 aliases:
     - /riak/ts/1.4.0/using/arithmetic-operations
     - /riakts/1.4.0/using/arithmetic-operations

@@ -13,6 +13,8 @@ menu:
     weight: 105
     parent: "configuring"
 toc: true
+aliases:
+  - /riak/2.1/1/ops/advanced/strong-consistency
 ---
 
 [apps strong consistency]: {{<baseurl>}}riak/kv/2.1.1/developing/app-guide/strong-consistency
