@@ -89,7 +89,8 @@
             {{ $alpine_image_source    := print $HugoNode.Site.BaseURL (index $alpine_os_data "image_src")    }}
             {{ $alpine_installing_page := (index $alpine_os_data "installing_instructions_page")              }} {{/* Optional */}}
             {{ $alpine_installing_uri  := replace (printf "%s%s/%s/%s" $HugoNode.Site.BaseURL $version_path $install_instructions_set $alpine_installing_page) "//" "/" }}
-            {{ $alpine_installing_uri  := replace $alpine_installing_uri "http:/localhost" "http://localhost" }}
+            {{ $alpine_installing_uri  := replace $alpine_installing_uri "http:/" "http://" }}
+            {{ $alpine_installing_uri  := replace $alpine_installing_uri "https:/" "https://" }}
                 
             {{/*<h3/>*/}} {{ (printf "### ![](%s) %s for %s{#%s}" $alpine_image_source $target_title $alpine_os_title (replace (lower $alpine_os_title) " " "-" )) | markdownify }}
             <table class="downloads">
@@ -168,8 +169,8 @@
     {{ if ( and $install_instructions_set $installing_page ) }}
 
     {{ $installing_uri := replace (printf "%s%s/%s/%s" $HugoNode.Site.BaseURL $version_path $install_instructions_set $installing_page) "//" "/" }}
-    {{ $installing_uri := replace $installing_uri "http:/localhost" "http://localhost" }}
-
+    {{ $installing_uri := replace $installing_uri "http:/" "http://" }}
+    {{ $installing_uri := replace $installing_uri "https:/" "https://" }}
           <tr>
             <td colspan="5" class="downloads__install-instructions">
               Here are further instructions for <a href="{{$installing_uri}}">installing {{$target_title}} on this system</a>.
