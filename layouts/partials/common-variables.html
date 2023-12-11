@@ -26,12 +26,11 @@
 {{ $version_history_locations := .Params.version_history.locations                   }} {{/* See CONTRIBUTING.md      */}}
 
 
+{{ $project_description := (index .Site.Params.project_descriptions $project) }}
+
 {{ $display_toc               := (index .Params "toc")                 | default true                                   }}
 {{ $commercial_offering       := (index .Params "commercial_offering") | default false                                  }}
-{{ $canonical_link            := (index .Params "canonical_link")      | default (replace .Permalink $version "latest") }}
-
-
-{{ $project_description := (index .Site.Params.project_descriptions $project) }}
+{{ $canonical_link            := (index .Params "canonical_link")      | default (replace .Permalink $version $project_description.latest) }}
 
 {{ $project_name      := $project_description.project_name       }} {{/* ex; "Riak KV"                                                       */}}
 {{ $project_name_html := $project_description.project_name_html  }} {{/* ex; Riak<span class="product__title-highlight">TS</span>            */}}
