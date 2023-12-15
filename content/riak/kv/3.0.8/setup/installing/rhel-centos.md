@@ -11,7 +11,7 @@ menu:
   riak_kv-3.0.8:
     name: "RHEL & CentOS"
     identifier: "installing_rhel_centos"
-    weight: 304
+    weight: 307
     parent: "installing"
 toc: true
 aliases:

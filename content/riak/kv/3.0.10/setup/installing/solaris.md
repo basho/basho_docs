@@ -11,7 +11,7 @@ menu:
   riak_kv-3.0.10:
     name: "Solaris"
     identifier: "installing_solaris"
-    weight: 308
+    weight: 309
     parent: "installing"
 toc: true
 aliases:

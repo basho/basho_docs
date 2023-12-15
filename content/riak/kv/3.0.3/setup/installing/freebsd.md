@@ -11,7 +11,7 @@ menu:
   riak_kv-3.0.3:
     name: "FreeBSD"
     identifier: "installing_freebsd"
-    weight: 303
+    weight: 304
     parent: "installing"
 toc: true
 aliases:

@@ -10,7 +10,7 @@ menu:
   riak_kv-3.0.11:
     name: "Verifying an Installation"
     identifier: "installing_verify"
-    weight: 330
+    weight: 321
     parent: "installing"
 toc: true
 aliases:

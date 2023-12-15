@@ -11,7 +11,7 @@ menu:
   riak_kv-3.0.10:
     name: "Windows Azure"
     identifier: "installing_windows_azure"
-    weight: 310
+    weight: 311
     parent: "installing"
 toc: true
 aliases:

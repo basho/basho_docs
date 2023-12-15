@@ -11,7 +11,7 @@ menu:
   riak_kv-3.0.13:
     name: "Amazon Web Services"
     identifier: "installing_amazon_web_services"
-    weight: 301
+    weight: 302
     parent: "installing"
 toc: true
 aliases:

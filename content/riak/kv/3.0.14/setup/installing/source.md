@@ -11,7 +11,7 @@ menu:
   riak_kv-3.0.14:
     name: "Installing From Source"
     identifier: "installing_source"
-    weight: 310
+    weight: 320
     parent: "installing"
 toc: true
 aliases:
