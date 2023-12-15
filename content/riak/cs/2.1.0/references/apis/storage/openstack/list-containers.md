@@ -3,6 +3,9 @@ title: "Riak CS OpenStack List Containers"
 description: ""
 project: "riak_cs"
 project_version: "2.1.0"
+lastmod: 2015-10-15T00:00:00-00:00
+sitemap:
+  priority: 0.2
 aliases:
   - /riakcs/2.1.0/references/apis/storage/openstack/RiakCS-OpenStack-List-Containers
   - /riak/cs/2.1.0/references/apis/storage/openstack/RiakCS-OpenStack-List-Containers

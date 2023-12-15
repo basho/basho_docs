@@ -9,6 +9,9 @@ menu:
     parent: "querying_data_riakts"
 project: "riak_ts"
 project_version: "1.4.0"
+lastmod: 2016-08-24T00:00:00-00:00
+sitemap:
+  priority: 0.1
 toc: true
 aliases:
     - /riakts/1.4.0/using/querying/show-tables

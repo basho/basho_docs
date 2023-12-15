@@ -4,6 +4,9 @@ title: "Data Types: HyperLogLogs"
 description: ""
 project: "riak_kv"
 project_version: "2.2.1"
+lastmod: 2017-03-08T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.1:
     name: "HyperLogLogs"
@@ -11,6 +14,8 @@ menu:
     weight: 102
     parent: "developing_data_types"
 toc: true
+version_history:
+  in: "2.0.8+"
 aliases:
   - /riak/2.2.1/dev/using/data-types/hyperloglogs
   - /riak/kv/2.2.1/dev/using/data-types/hyperloglogs

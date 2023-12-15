@@ -3,6 +3,9 @@ title: "Implementing Strong Consistency"
 description: ""
 project: "riak_kv"
 project_version: "2.2.0"
+lastmod: 2016-11-12T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.0:
     name: "Implementing Strong Consistency"
@@ -311,8 +314,8 @@ Item | Meaning
 `Enabled` | Whether the consensus subsystem is enabled on the current node, i.e. whether the `strong_consistency` parameter in [`riak.conf`][config reference#strong-cons] has been set to `on`. If this reads `off` and you wish to enable strong consistency, see our documentation on <a href="{{< baseurl >}}riak/kv/2.2.0/configuring/reference/#strong-consistency">enabling strong consistency</a>.
 `Active` | Whether the consensus subsystem is active, i.e. whether there are enough nodes in the cluster to use strong consistency, which requires at least three nodes.
 `Ring Ready` | If `true`, then all of the [vnodes][glossary vnode] in the cluster have seen the current <a href="{{< baseurl >}}riak/kv/2.2.0/learn/concepts/clusters/#the-ring">ring</a>, which means that the strong consistency subsystem can be used; if `false`, then the system is not yet ready. If you have recently added or removed one or more nodes to/from the cluster, it may take some time for `Ring Ready` to change.
-`Validation` | This will display `strong` if the `tree_validation` setting in <code><a href="{{< baseurl >}}riak/kv/2.2.0/configuring/reference/#strong-consistency">riak.conf</a></code> has been set to `on` and `weak` if set to `off`.
-`Metadata` | This depends on the value of the `synchronous_tree_updates` setting in <code><a href="{{< baseurl >}}riak/kv/2.2.0/configuring/reference/#strong-consistency">riak.conf</a></code>, which determines whether strong consistency-related Merkle trees are updated synchronously or asynchronously. If `best-effort replication (asynchronous)`, then `synchronous_tree_updates` is set to `false`; if `guaranteed replication (synchronous)` then `synchronous_tree_updates` is set to `true`.
+`Validation` | This will display `strong` if the `tree_validation` setting in [<code>riak.conf</code>]({{< baseurl >}}riak/kv/2.2.0/configuring/reference/#strong-consistency) has been set to `on` and `weak` if set to `off`.
+`Metadata` | This depends on the value of the `synchronous_tree_updates` setting in [<code>riak.conf</code>]({{< baseurl >}}riak/kv/2.2.0/configuring/reference/#strong-consistency), which determines whether strong consistency-related Merkle trees are updated synchronously or asynchronously. If `best-effort replication (asynchronous)`, then `synchronous_tree_updates` is set to `false`; if `guaranteed replication (synchronous)` then `synchronous_tree_updates` is set to `true`.
 `Ensembles` | This displays a list of all of the currently existing ensembles active in the cluster.<br /><ul><li><code>Ensemble</code> --- The ID of the ensemble</li><li><code>Quorum</code> --- The number of ensemble peers that are either leading or following</li><li><code>Nodes</code> --- The number of nodes currently online</li><li><code>Leader</code> --- The current leader node for the ensemble</li></ul>
 
 **Note**: The **root ensemble**, designated by `root` in the sample

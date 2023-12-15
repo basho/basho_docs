@@ -3,6 +3,9 @@ title: "Mapping From S3 API to Riak CS internal API"
 description: ""
 project: "riak_cs"
 project_version: "2.0.1"
+lastmod: 2015-05-30T00:00:00-00:00
+sitemap:
+  priority: 0.1
 toc: true
 aliases:
   - /riakcs/2.0.1/references/apis/storage/s3/Mapping-From-S3-API-to-Riak-CS-internal-API

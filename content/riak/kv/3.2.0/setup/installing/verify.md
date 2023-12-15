@@ -2,12 +2,15 @@
 title: "Verifying a Riak KV Installation"
 description: ""
 project: "riak_kv"
-project_version: 3.2.0
+project_version: "3.2.0"
+lastmod: 2022-12-30T00:00:00-00:00
+sitemap:
+  priority: 0.9
 menu:
   riak_kv-3.2.0:
     name: "Verifying an Installation"
     identifier: "installing_verify"
-    weight: 311
+    weight: 321
     parent: "installing"
 toc: true
 aliases:

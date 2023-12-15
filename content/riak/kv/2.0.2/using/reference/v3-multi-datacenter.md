@@ -3,6 +3,9 @@ title: "V3 Multi-Datacenter Replication Reference"
 description: ""
 project: "riak_kv"
 project_version: "2.0.2"
+lastmod: 2014-10-18T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.2:
     name: "V3 Replication"

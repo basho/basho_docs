@@ -3,6 +3,9 @@ title: "Common Riak CS Request Headers"
 description: ""
 project: "riak_cs"
 project_version: "2.1.1"
+lastmod: 2016-01-23T00:00:00-00:00
+sitemap:
+  priority: 0.2
 aliases:
   - /riakcs/2.1.1/references/apis/storage/s3/Common-RiakCS-Request-Headers
   - /riak/cs/2.1.1/references/apis/storage/s3/Common-RiakCS-Request-Headers

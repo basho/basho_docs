@@ -3,6 +3,9 @@ title: "Riak CS Abort Multipart Upload"
 description: ""
 project: "riak_cs"
 project_version: "3.0.1"
+lastmod: 2022-06-10T00:00:00-00:00
+sitemap:
+  priority: 0.9
 toc: true
 aliases:
   - /riakcs/3.0.1/references/apis/storage/s3/RiakCS-Abort-Multipart-Upload

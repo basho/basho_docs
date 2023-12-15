@@ -3,12 +3,15 @@ title_supertext: "Installing on"
 title: "Debian and Ubuntu"
 description: ""
 project: "riak_kv"
-project_version: 3.2.0
+project_version: "3.2.0"
+lastmod: 2022-12-30T00:00:00-00:00
+sitemap:
+  priority: 0.9
 menu:
   riak_kv-3.2.0:
     name: "Debian & Ubuntu"
     identifier: "installing_debian_ubuntu"
-    weight: 302
+    weight: 303
     parent: "installing"
 toc: true
 aliases:

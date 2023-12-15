@@ -3,7 +3,10 @@ title_supertext: "Getting Started:"
 title: "CRUD Operations with Python"
 description: ""
 project: "riak_kv"
-project_version: 3.0.6
+project_version: "3.0.6"
+lastmod: 2021-05-07T00:00:00-00:00
+sitemap:
+  priority: 0.2
 menu:
   riak_kv-3.0.6:
     name: "CRUD Operations"

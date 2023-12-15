@@ -3,6 +3,9 @@ title: "PBC Yokozuna Schema Put"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"
+lastmod: 2015-12-10T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.1.3:
     name: "Yokozuna Schema Put"

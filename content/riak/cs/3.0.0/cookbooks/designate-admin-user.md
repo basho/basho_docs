@@ -3,6 +3,9 @@ title: "Designating an Admin User"
 description: ""
 project: "riak_cs"
 project_version: "3.0.0"
+lastmod: 2022-05-30T00:00:00-00:00
+sitemap:
+  priority: 0.2
 aliases:
   - /riakcs/3.0.0/cookbooks/Designating-an-Admin-User/
   - /riak/cs/3.0.0/cookbooks/Designating-an-Admin-User/

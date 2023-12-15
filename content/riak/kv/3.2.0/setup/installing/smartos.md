@@ -4,11 +4,14 @@ title: "SmartOS"
 description: ""
 project: "riak_kv"
 project_version: "3.2.0"
+lastmod: 2022-12-30T00:00:00-00:00
+sitemap:
+  priority: 0.9
 menu:
   riak_kv-3.2.0:
     name: "SmartOS"
     identifier: "installing_smartos"
-    weight: 305
+    weight: 308
     parent: "installing"
 toc: true
 aliases:

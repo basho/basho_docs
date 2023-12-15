@@ -3,12 +3,15 @@ title_supertext: "Installing on"
 title: "Mac OS X"
 description: ""
 project: "riak_kv"
-project_version: 3.0.12
+project_version: "3.0.12"
+lastmod: 2022-12-20T00:00:00-00:00
+sitemap:
+  priority: 0.2
 menu:
   riak_kv-3.0.12:
     name: "Mac OS X"
     identifier: "installing_macosx"
-    weight: 303
+    weight: 305
     parent: "installing"
 toc: true
 aliases:

@@ -2,7 +2,10 @@
 title: "Upgrading Search from 1.x to 2.x"
 description: ""
 project: "riak_kv"
-project_version: "2.0.7"
+project_version: "2.0.8"
+lastmod: 2017-02-16T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.8:
     name: "Upgrading Search 1.x to 2.x"

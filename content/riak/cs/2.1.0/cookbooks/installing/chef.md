@@ -9,6 +9,9 @@ menu:
     parent: "index"
 project: "riak_cs"
 project_version: "2.1.0"
+lastmod: 2015-10-15T00:00:00-00:00
+sitemap:
+  priority: 0.2
 aliases:
   - /riakcs/2.1.0/cookbooks/installing/Riak-CS-Using-Chef/
   - /riak/cs/2.1.0/cookbooks/installing/Riak-CS-Using-Chef/

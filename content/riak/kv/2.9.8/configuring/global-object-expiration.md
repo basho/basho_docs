@@ -8,7 +8,10 @@ menu:
     weight: 180
     parent: "configuring"
 project: "riak_kv"
-project_version: 2.9.8
+project_version: "2.9.8"
+lastmod: 2020-12-08T00:00:00-00:00
+sitemap:
+  priority: 0.2
 toc: true
 aliases:
 ---

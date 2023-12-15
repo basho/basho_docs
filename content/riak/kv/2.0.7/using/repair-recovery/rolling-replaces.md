@@ -3,6 +3,9 @@ title: "Rolling Replaces"
 description: ""
 project: "riak_kv"
 project_version: "2.0.7"
+lastmod: 2016-06-24T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.7:
     name: "Rolling Replaces"
@@ -10,6 +13,8 @@ menu:
     weight: 106
     parent: "managing_repair_recover"
 toc: true
+version_history:
+  in: "2.0.7+"
 ---
 
 [upgrade]: {{<baseurl>}}riak/kv/2.0.7/setup/upgrading/cluster/

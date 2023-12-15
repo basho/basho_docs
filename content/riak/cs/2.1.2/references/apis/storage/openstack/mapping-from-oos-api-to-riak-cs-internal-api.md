@@ -3,6 +3,9 @@ title: "Mapping From OOS API to Riak CS internal API"
 description: ""
 project: "riak_cs"
 project_version: "2.1.2"
+lastmod: 2019-04-09T00:00:00-00:00
+sitemap:
+  priority: 0.3
 aliases:
   - /riakcs/2.1.2/references/apis/storage/openstack/Mapping-From-OOS-API-to-Riak-CS-internal-API
   - /riak/cs/2.1.2/references/apis/storage/openstack/Mapping-From-OOS-API-to-Riak-CS-internal-API

@@ -3,12 +3,15 @@ title_supertext: "Installing on"
 title: "Amazon Web Services"
 description: ""
 project: "riak_kv"
-project_version: 3.2.0
+project_version: "3.2.0"
+lastmod: 2022-12-30T00:00:00-00:00
+sitemap:
+  priority: 0.9
 menu:
   riak_kv-3.2.0:
     name: "Amazon Web Services"
     identifier: "installing_amazon_web_services"
-    weight: 301
+    weight: 302
     parent: "installing"
 toc: true
 aliases:

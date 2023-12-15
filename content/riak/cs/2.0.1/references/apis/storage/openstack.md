@@ -9,6 +9,9 @@ menu:
     parent: "api"
 project: "riak_cs"
 project_version: "2.0.1"
+lastmod: 2015-05-30T00:00:00-00:00
+sitemap:
+  priority: 0.1
 aliases:
   - /riakcs/2.0.1/references/apis/storage/openstack/
   - /riak/cs/2.0.1/references/apis/storage/openstack/

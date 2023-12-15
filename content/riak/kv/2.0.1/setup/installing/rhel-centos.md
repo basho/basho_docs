@@ -4,6 +4,9 @@ title: "RHEL and CentOS"
 description: ""
 project: "riak_kv"
 project_version: "2.0.1"
+lastmod: 2014-09-25T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.1:
     name: "RHEL & CentOS"

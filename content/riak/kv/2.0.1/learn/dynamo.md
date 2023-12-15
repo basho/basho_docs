@@ -3,6 +3,9 @@ title: "Dynamo: Amazon’s Highly Available Key-value Store"
 description: ""
 project: "riak_kv"
 project_version: "2.0.1"
+lastmod: 2014-09-25T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.1:
     name: "Dynamo"
@@ -1356,7 +1359,6 @@ shopping cart.
 > counters.
 
 [Statebox]: https://github.com/mochi/statebox_riak
-[CRDTs (Commutative Replicated Data Types)]: {{<baseurl>}}riak/kv/2.0.1/developing/data-types/
 
 * Timestamp based reconciliation: This case differs from the previous one only
 in the reconciliation mechanism. In case of divergent versions, Dynamo performs

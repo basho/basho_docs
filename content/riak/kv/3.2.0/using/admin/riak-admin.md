@@ -2,7 +2,10 @@
 title: "riak admin Command Line Interface"
 description: ""
 project: "riak_kv"
-project_version: 3.2.0
+project_version: "3.2.0"
+lastmod: 2022-12-30T00:00:00-00:00
+sitemap:
+  priority: 0.9
 menu:
   riak_kv-3.2.0:
     name: "riak admin CLI"
@@ -11,8 +14,8 @@ menu:
     parent: "managing_cluster_admin"
 toc: true
 aliases:
-  - /riak/3.2.0/ops/running/tools/riak admin
-  - /riak/kv/3.2.0/ops/running/tools/riak admin
+  - /riak/3.2.0/ops/running/tools/riak-admin
+  - /riak/kv/3.2.0/ops/running/tools/riak-admin
 ---
 
 [config reference]: {{<baseurl>}}riak/kv/3.2.0/configuring/reference

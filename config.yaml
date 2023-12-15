@@ -32,6 +32,11 @@ outputs:
     - HTML
     - JSON
 
+sitemap:
+  changeFreq: ""
+  filename: sitemap.xml
+  priority: -1
+
 params:
   # Project Descriptions
   # ====================

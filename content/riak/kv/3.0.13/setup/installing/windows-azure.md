@@ -3,12 +3,15 @@ title_supertext: "Installing on"
 title: "Windows Azure"
 description: ""
 project: "riak_kv"
-project_version: 3.0.13
+project_version: "3.0.13"
+lastmod: 2023-02-04T00:00:00-00:00
+sitemap:
+  priority: 0.2
 menu:
   riak_kv-3.0.13:
     name: "Windows Azure"
     identifier: "installing_windows_azure"
-    weight: 308
+    weight: 311
     parent: "installing"
 toc: true
 aliases:

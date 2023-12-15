@@ -4,6 +4,9 @@ title: "Working With Spark Dataframes"
 description: ""
 project: "riak_ts"
 project_version: "1.3.0"
+lastmod: 2016-05-05T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_ts-1.3.0:
     name: "Working With Spark Dataframes"

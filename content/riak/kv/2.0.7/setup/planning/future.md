@@ -4,6 +4,9 @@ title: "Planning for the Future"
 description: ""
 project: "riak_kv"
 project_version: "2.0.7"
+lastmod: 2016-06-24T00:00:00-00:00
+sitemap:
+  priority: 0.1
 #menu:
 #  riak_kv-2.0.7:
 #    name: "Planning for the Future"

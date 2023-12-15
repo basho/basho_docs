@@ -3,7 +3,10 @@ title_supertext: "Developing with Riak KV"
 title: "Frequently Asked Questions"
 description: ""
 project: "riak_kv"
-project_version: 2.9.10
+project_version: "2.9.10"
+lastmod: 2021-10-06T00:00:00-00:00
+sitemap:
+  priority: 0.3
 menu:
   riak_kv-2.9.10:
     name: "Developing FAQ"

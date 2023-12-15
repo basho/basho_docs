@@ -3,12 +3,15 @@ title_supertext: "Installing on"
 title: "SUSE"
 description: ""
 project: "riak_kv"
-project_version: 3.0.10
+project_version: "3.0.10"
+lastmod: 2022-05-30T00:00:00-00:00
+sitemap:
+  priority: 0.2
 menu:
   riak_kv-3.0.10:
     name: "SUSE"
     identifier: "installing_suse"
-    weight: 309
+    weight: 310
     parent: "installing"
 toc: false
 aliases:

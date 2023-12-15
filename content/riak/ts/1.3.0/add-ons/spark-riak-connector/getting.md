@@ -3,6 +3,9 @@ title: "Getting the Spark-Riak Connector Add-on (Riak TS)"
 description: ""
 project: "riak_ts"
 project_version: "1.3.0"
+lastmod: 2016-05-05T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_ts-1.3.0:
     name: "Get Spark-Riak Connector"

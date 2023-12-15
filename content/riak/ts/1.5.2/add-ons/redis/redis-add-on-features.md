@@ -3,6 +3,9 @@ title: "Riak Redis Add-on Features"
 description: ""
 project: "riak_ts"
 project_version: "1.5.2"
+lastmod: 2017-02-10T00:00:00-00:00
+sitemap:
+  priority: 0.3
 menu:
   riak_ts-1.5.2:
     name: "Redis Add-on Features"

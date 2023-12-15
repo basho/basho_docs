@@ -9,11 +9,15 @@ menu:
     parent: "installing_from_source"
 project: "riak_ts"
 project_version: "1.3.1"
+lastmod: 2016-07-06T00:00:00-00:00
+sitemap:
+  priority: 0.1
 toc: true
 version_history:
   locations:
     - ["1.3.0-1.3.1", "installing/source/erlang"]
     - ["1.4.0+",      "setup/installing/source/erlang"]
+  in: "1.3.0+"
 ---
 
 [autoconf]: http://www.gnu.org/software/autoconf/autoconf.html

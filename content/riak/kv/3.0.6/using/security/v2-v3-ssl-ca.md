@@ -3,7 +3,10 @@ draft: true
 title: "V2 / V3 SSL & CA Validation"
 description: ""
 project: "riak_kv"
-project_version: 3.0.6
+project_version: "3.0.6"
+lastmod: 2021-05-07T00:00:00-00:00
+sitemap:
+  priority: 0.2
 menu:
   riak_kv-3.0.6:
     name: "V2/V3 SSL & CA Validation"

@@ -1,6 +1,9 @@
 ---
 layout: latest_redirect
+sitemap_exclude: true
 project: riak_kv
+sitemap:
+  priority: 0
 replace_text: latest
 latest_text: "2.9.7"
 aliases:

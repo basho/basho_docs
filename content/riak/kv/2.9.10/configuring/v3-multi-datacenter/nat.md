@@ -3,7 +3,10 @@ title_supertext: "V3 Multi-Datacenter Replication:"
 title: "With NAT"
 description: ""
 project: "riak_kv"
-project_version: 2.9.10
+project_version: "2.9.10"
+lastmod: 2021-10-06T00:00:00-00:00
+sitemap:
+  priority: 0.3
 menu:
   riak_kv-2.9.10:
     name: "With NAT"

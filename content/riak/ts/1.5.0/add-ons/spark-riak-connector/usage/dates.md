@@ -4,6 +4,9 @@ title: "Working With Riak TS Dates"
 description: ""
 project: "riak_ts"
 project_version: "1.5.0"
+lastmod: 2016-12-20T00:00:00-00:00
+sitemap:
+  priority: 0.2
 menu:
   riak_ts-1.5.0:
     name: "Working With TS Dates"

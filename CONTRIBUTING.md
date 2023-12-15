@@ -158,6 +158,15 @@ canonical_link: "https://docs.basho.com/. . ." # 10    -- Conditional
           in: "1.2.0-2.99.99"
         ```
 
+        For pages that apply to non-contiguous versions, specify `in` as an array:
+
+        ```
+        version_history:
+          in: 
+            - "1.2.0-2.99.99"
+            - "3.2.0+"
+        ```
+
         > For more information regarding Version Ranges, please see the
         > `ParseRange` function in js/tools/sem_ver.coffee.
 

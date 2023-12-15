@@ -2,7 +2,10 @@
 title: "Replacing a Node"
 description: ""
 project: "riak_kv"
-project_version: 2.9.4
+project_version: "2.9.4"
+lastmod: 2020-07-03T00:00:00-00:00
+sitemap:
+  priority: 0.2
 menu:
   riak_kv-2.9.4:
     name: "Replacing a Node"

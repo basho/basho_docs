@@ -3,6 +3,9 @@ title: "Upgrading to Riak KV 2.2.1"
 description: ""
 project: "riak_kv"
 project_version: "2.2.1"
+lastmod: 2017-03-08T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.1:
     name: "Upgrading to 2.2.1"

@@ -9,11 +9,15 @@ menu:
     parent: "installing"
 project: "riak_ts"
 project_version: "1.3.1"
+lastmod: 2016-07-06T00:00:00-00:00
+sitemap:
+  priority: 0.1
 toc: true
 version_history:
   locations:
     - ["1.3.0-1.3.1", "installing/aws"]
     - ["1.4.0+",      "setup/installing/aws"]
+  in: "1.3.0+"
 aliases:
     - /riakts/1.3.1/installing/aws
     - /riak/ts/1.3.1/installing/aws-marketplace/

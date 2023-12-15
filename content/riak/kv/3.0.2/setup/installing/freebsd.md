@@ -3,12 +3,15 @@ title_supertext: "Installing on"
 title: "FreeBSD"
 description: ""
 project: "riak_kv"
-project_version: 3.0.2
+project_version: "3.0.2"
+lastmod: 2021-01-05T00:00:00-00:00
+sitemap:
+  priority: 0.2
 menu:
   riak_kv-3.0.2:
     name: "FreeBSD"
     identifier: "installing_freebsd"
-    weight: 303
+    weight: 304
     parent: "installing"
 toc: true
 aliases:

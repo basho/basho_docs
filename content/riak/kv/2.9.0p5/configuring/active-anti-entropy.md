@@ -3,7 +3,10 @@ title_supertext: "Configuring:"
 title: "Active Anti-Entropy"
 description: ""
 project: "riak_kv"
-project_version: 2.9.0p5
+project_version: "2.9.0p5"
+lastmod: 2019-11-21T00:00:00-00:00
+sitemap:
+  priority: 0.2
 menu:
   riak_kv-2.9.0p5:
     name: "Active Anti-Entropy (AAE)"

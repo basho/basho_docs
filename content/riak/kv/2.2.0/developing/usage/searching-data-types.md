@@ -3,6 +3,9 @@ title: "Searching with Data Types"
 description: ""
 project: "riak_kv"
 project_version: "2.2.0"
+lastmod: 2016-11-12T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.0:
     name: "Searching with Data Types"

@@ -3,12 +3,15 @@ title_supertext: "Installing"
 title: "Riak KV From Source"
 description: ""
 project: "riak_kv"
-project_version: 3.2.0
+project_version: "3.2.0"
+lastmod: 2022-12-30T00:00:00-00:00
+sitemap:
+  priority: 0.9
 menu:
   riak_kv-3.2.0:
     name: "Installing From Source"
     identifier: "installing_source"
-    weight: 310
+    weight: 320
     parent: "installing"
 toc: true
 aliases:

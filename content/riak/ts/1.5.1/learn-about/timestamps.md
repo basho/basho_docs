@@ -10,6 +10,9 @@ menu:
     parent: "about"
 project: "riak_ts"
 project_version: "1.5.1"
+lastmod: 2017-01-21T00:00:00-00:00
+sitemap:
+  priority: 0.2
 toc: true
 aliases:
     - /riakts/1.5.1/learn-about/timestamps/

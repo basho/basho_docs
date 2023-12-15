@@ -3,12 +3,15 @@ title_supertext: "Installing on"
 title: "RHEL and CentOS"
 description: ""
 project: "riak_kv"
-project_version: 3.2.0
+project_version: "3.2.0"
+lastmod: 2022-12-30T00:00:00-00:00
+sitemap:
+  priority: 0.9
 menu:
   riak_kv-3.2.0:
     name: "RHEL & CentOS"
     identifier: "installing_rhel_centos"
-    weight: 304
+    weight: 307
     parent: "installing"
 toc: true
 aliases:

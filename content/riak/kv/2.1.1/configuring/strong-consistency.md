@@ -3,6 +3,9 @@ title: "Implementing Strong Consistency"
 description: ""
 project: "riak_kv"
 project_version: "2.1.1"
+lastmod: 2015-05-05T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.1.1:
     name: "Implementing Strong Consistency"
@@ -10,6 +13,8 @@ menu:
     weight: 105
     parent: "configuring"
 toc: true
+aliases:
+  - /riak/2.1/1/ops/advanced/strong-consistency
 ---
 
 [apps strong consistency]: {{<baseurl>}}riak/kv/2.1.1/developing/app-guide/strong-consistency
