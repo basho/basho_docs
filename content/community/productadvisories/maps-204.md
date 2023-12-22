@@ -1,14 +1,10 @@
 ---
 title: "Map Data Type Disk Incompatibility"
 description: ""
-<<<<<<< HEAD
 project: community
-=======
-project_version: "community"
 lastmod: 2016-04-10T00:00:00-00:00
 sitemap:
   priority: 0.5
->>>>>>> dev
 menu:
   community:
     name: "Map Data Type Disk Incompatibility"
