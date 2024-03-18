@@ -1,7 +1,16 @@
-FROM ruby:alpine
+FROM ruby:2.7-alpine
+ENV LIBV8_VERSION 3.16.14.16
 
 LABEL description="Alpine + Ruby + Hugo Docker container."
 LABEL maintainer="Peter Clark <peter.clark@tiot.jp>"
+
+RUN apk add --update --no-cache libstdc++ && \
+    apk add --update --no-cache --virtual build-deps build-base make git bash && \
+    apk add --update --no-cache --virtual python3 && \
+    gem install libv8
+ ## && \
+##    gem install therubyracer && \
+##    apk del build-deps
 
 # taken from jojomi/docker-hugo at https://github.com/jojomi/docker-hugo/blob/0.25.1/Dockerfile
 COPY ./run.sh /run.sh
@@ -24,12 +33,12 @@ RUN tar -xf /tmp/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz -C /tmp \
 RUN apk add --no-cache ca-certificates
 
 # add stuff to allow ruby to compile native extentions
-RUN apk -U add --no-cache gcc musl-dev make g++ git build-base clang \
-    && rm -rf /var/cache/apk/*
-ENV CXX=clang++
+#RUN apk -U add --no-cache gcc musl-dev make g++ git build-base clang \
+#    && rm -rf /var/cache/apk/*
+#ENV CXX=clang++
 
 # add stuff to make mini_racer work
-RUN gem install 'specific_install'
+#RUN gem install 'specific_install'
 #RUN gem specific_install -l "https://github.com/sagarjauhari/mini_racer"
 
 # pre-install commonnly used items
