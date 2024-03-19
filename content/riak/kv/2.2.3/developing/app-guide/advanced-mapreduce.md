@@ -3,6 +3,9 @@ title: "Advanced MapReduce"
 description: ""
 project: "riak_kv"
 project_version: "2.2.3"
+lastmod: 2017-03-30T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.3:
     name: "Advanced MapReduce"
@@ -15,18 +18,17 @@ aliases:
   - /riak/kv/2.2.3/dev/advanced/mapreduce/
 ---
 
-[usage 2i]: /riak/kv/2.2.3/developing/usage/secondary-indexes
-[apps replication properties]: /riak/kv/2.2.3/developing/app-guide/replication-properties
-[use ref custom code]: /riak/kv/2.2.3/using/reference/custom-code
-[usage bucket types]: /riak/kv/2.2.3/developing/usage/bucket-types
-[glossary vnode]: /riak/kv/2.2.3/learn/glossary/#vnode
-[config reference]: /riak/kv/2.2.3/configuring/reference
+[usage 2i]: {{<baseurl>}}riak/kv/2.2.3/developing/usage/secondary-indexes
+[apps replication properties]: {{<baseurl>}}riak/kv/2.2.3/developing/app-guide/replication-properties
+[use ref custom code]: {{<baseurl>}}riak/kv/2.2.3/using/reference/custom-code
+[usage bucket types]: {{<baseurl>}}riak/kv/2.2.3/developing/usage/bucket-types
+[glossary vnode]: {{<baseurl>}}riak/kv/2.2.3/learn/glossary/#vnode
+[config reference]: {{<baseurl>}}riak/kv/2.2.3/configuring/reference
 [google mr]: http://research.google.com/archive/mapreduce.html
 [mapping list]: http://hackage.haskell.org/package/base-4.7.0.0/docs/Prelude.html#v:map
 [function contrib]: https://github.com/basho/riak_function_contrib
 [erlang client]: https://github.com/basho/riak-erlang-client
 [`set-union`]: http://en.wikipedia.org/wiki/Union_(set_theory)#Definition
-
 
 > **Use MapReduce sparingly**
 >
@@ -52,7 +54,6 @@ run MapReduce jobs using Erlang or JavaScript.
 {{% note title="Deprecation Warning" %}}
 Javascript MapReduce is deprecated and will be removed in a future version.
 {{% /note %}}
-
 
 ### Why Do We Use MapReduce for Querying Riak KV?
 
@@ -265,7 +266,6 @@ Be sure to install the MapReduce function as described above on all of
 the nodes in your cluster to ensure proper operation.
 {{% /note %}}
 
-
 ## Phase functions
 
 MapReduce phase functions have the same properties, arguments, and
@@ -346,7 +346,6 @@ true that the function is commutative, associative, and idempotent. That
 is, if the input list `[a,b,c,d]` is valid for a given F, then all of
 the following must produce the same result:
 
-
 ```erlang
   F([a,b,c,d])
   F([a,d] ++ F([c,b]))
@@ -381,7 +380,7 @@ Erlang client.
 {{% note title="Distributing Erlang MapReduce Code" %}}
 Any modules and functions you use in your Erlang MapReduce calls must be
 available on all nodes in the cluster. Please read about
-[installing custom code](/riak/kv/2.2.3/using/reference/custom-code).
+[installing custom code]({{<baseurl>}}riak/kv/2.2.3/using/reference/custom-code).
 {{% /note %}}
 
 ### Erlang Example
@@ -458,7 +457,6 @@ former form is equivalent to `{{Bucket,Key},undefined}`.
 The query is given as a list of map, reduce and link phases. Map and
 reduce phases are each expressed as tuples in the following form:
 
-
 ```erlang
 {Type, FunTerm, Arg, Keep}
 ```
@@ -506,17 +504,14 @@ advance, but condition #2 above still holds.
 
 Link phases are expressed in the following form:
 
-
 ```erlang
 {link, Bucket, Tag, Keep}
 ```
-
 
 `Bucket` is either a binary name of a bucket to match, or the atom `_`,
 which matches any bucket. `Tag` is either a binary tag to match, or the
 atom `_`, which matches any tag. `Keep` has the same meaning as in map
 and reduce phases.
-
 
 > There are a small group of prebuilt Erlang MapReduce functions available
 with Riak KV. Check them out [on GitHub](https://github.com/basho/riak_kv/blob/master/src/riak_kv_mapreduce.erl).
@@ -565,7 +560,6 @@ Now load the data into Riak KV.
 ```bash
 ./load_data.erl goog.csv
 ```
-
 
 ### Map only: find the days on which the high was over $600.00
 
@@ -728,8 +722,7 @@ You can use streaming with Erlang via the Riak KV local client or the
 Erlang Protocol Buffers API.  In either case, you will provide the call
 to `mapred_stream` with a `Pid` that will receive the streaming results.
 
-For examples, see [MapReduce pbstream.erl](/data/MapReduceExamples/pbstream.erl)
-
+For examples, see [MapReduce pbstream.erl]({{<baseurl>}}data/MapReduceExamples/pbstream.erl)
 
 ## Troubleshooting MapReduce, illustrated
 

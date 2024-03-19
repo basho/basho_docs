@@ -3,6 +3,9 @@ title: "Adding / Removing Nodes"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"
+lastmod: 2015-12-10T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.1.3:
     name: "Adding/Removing Nodes"
@@ -15,7 +18,7 @@ aliases:
   - /riak/kv/2.1.3/ops/running/nodes/adding-removing
 ---
 
-[use running cluster]: /riak/kv/2.1.3/using/running-a-cluster
+[use running cluster]: {{<baseurl>}}riak/kv/2.1.3/using/running-a-cluster
 
 This page describes the process of adding and removing nodes to and from
 a Riak KV cluster. For information on creating a cluster check out [Running a Cluster][use running cluster].
@@ -26,7 +29,7 @@ Just like the initial configuration steps, this step has to be repeated
 for every node in your cluster. Before a node can join an existing
 cluster it needs to be started. Depending on your mode of installation,
 use either the init scripts installed by the Riak binary packages or
-simply the script [`riak`](/riak/kv/2.1.3/using/admin/riak-cli/):
+simply the script [`riak`]({{<baseurl>}}riak/kv/2.1.3/using/admin/riak-cli/):
 
 ```bash
 /etc/init.d/riak start
@@ -107,7 +110,6 @@ join           'riak@192.168.2.2'
 join           'riak@192.168.2.2'
 join           'riak@192.168.2.2'
 -------------------------------------------------------------------------------
-
 
 NOTE: Applying these changes will result in 1 cluster transition
 

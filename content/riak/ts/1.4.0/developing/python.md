@@ -9,15 +9,15 @@ menu:
     parent: "develop"
 project: "riak_ts"
 project_version: "1.4.0"
+lastmod: 2016-08-24T00:00:00-00:00
+sitemap:
+  priority: 0.1
 toc: true
 aliases:
     - /riakts/1.4.0/developing/python/
-canonical_link: "https://docs.basho.com/riak/ts/latest/developing/python"
 ---
 
-
 You can develop applications and tools using Riak TS with the Riak Python client. This document covers the Python API for Riak TS.
-
 
 ## Overview
 
@@ -28,7 +28,6 @@ The Riak TS API is only available through Protocol Buffers and not HTTP, so plea
 Language | Source | Documentation | Download
 :--------|:-------|:--------------|:--------
 Python | [riak-python-client](https://github.com/basho/riak-python-client) | [sphinx](http://basho.github.com/riak-python-client) | [PyPI](http://pypi.python.org/pypi?:action=display&name=riak#downloads)
-
 
 ## Prerequisites
 
@@ -46,7 +45,6 @@ sudo apt-get install -y python-setuptools python-dev libffi-dev libssl-dev
 sudo yum install -y python-setuptools python-devel libffi-devel openssl-deve
 ```
 
-
 ## Client Operations
 
 ### Operations Index
@@ -56,7 +54,6 @@ sudo yum install -y python-setuptools python-devel libffi-devel openssl-deve
  * `Delete` - Delete a single row based on the primary key values provided.
  * `Query` - Query a Riak TS table with the given query string.
  * `Stream ListKeys` - Lists the primary keys of all the rows in a Riak TS table.
-
 
 ### Operations Details
 
@@ -75,11 +72,10 @@ Retrieve TS value by key.
 
 **Return Type**: class `TsObject <riak.ts_object.TsObject>`
 
-
 #### Put
 
 Stores time series data in the Riak TS cluster.
-To insert a `null` cell value, use a `None` when building the row(s) for the TsObject. 
+To insert a `null` cell value, use a `None` when building the row(s) for the TsObject.
 
 `ts_put(tsobj)`
 
@@ -90,7 +86,6 @@ To insert a `null` cell value, use a `None` when building the row(s) for the TsO
 |`tsobj`  | class `TsObject <riak.ts_object.TsObject>` | The TS object to store. |
 
 **Return Type**: boolean
-
 
 #### Delete
 
@@ -107,7 +102,6 @@ Delete TS value by key.
 
 **Return Type**: boolean
 
-
 #### Query
 
 Queries time series data in the Riak cluster.
@@ -122,7 +116,6 @@ Queries time series data in the Riak cluster.
 |`query`  | string                                     | The TS query.|
 
 **Return Type**: Class `TsObject <riak.ts_object.TsObject>`
-
 
 #### Stream ListKeys
 

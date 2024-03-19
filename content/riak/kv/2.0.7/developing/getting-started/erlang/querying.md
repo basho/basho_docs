@@ -4,6 +4,9 @@ title: "Querying with Erlang"
 description: ""
 project: "riak_kv"
 project_version: "2.0.7"
+lastmod: 2016-06-24T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.7:
     name: "Querying"
@@ -26,7 +29,7 @@ data to having fields in your data that are related by name. These
 querying methods will introduce you to some ways of laying out your data
 in Riak, along with how to query it back.
 
-A more comprehensive discussion can be found in [Key/Value Modeling](/riak/kv/2.0.7/developing/key-value-modeling).
+A more comprehensive discussion can be found in [Key/Value Modeling]({{<baseurl>}}riak/kv/2.0.7/developing/key-value-modeling).
 
 ## Denormalization
 
@@ -62,7 +65,6 @@ rd(item, {item_id, title, price}).
 rd(order, {order_id, customer_id, salesperson_id, items, total, order_date}).
 rd(order_summary_entry, {order_id, total, order_date}).
 rd(order_summary, {customer_id, summaries}).
-
 
 Customer = #customer{ customer_id= 1,
                       name= "John Smith",
@@ -137,6 +139,7 @@ OrderSummary =  #order_summary{
                       order_date= {{2013,11,3},{17,45,28}}}]}.
 
 ## Remember to replace the ip and port parameters with those that match your cluster.
+
 {ok, Pid} = riakc_pb_socket:start_link("127.0.0.1", 10017).
 
 CustomerBucket = <<"Customers">>.
@@ -161,7 +164,6 @@ StoreOrder = fun(Order) ->
 end.
 
 lists:foreach(StoreOrder, Orders).
-
 
 OrderSummaryObj = riakc_obj:new(OrderSummariesBucket,
                                 list_to_binary(
@@ -215,9 +217,9 @@ intrinsic relationships.
 ## Secondary Indexes
 
 {{% note %}}
-Secondary indexes in Riak KV require a sorted backend: [Memory](/riak/kv/2.0.7/setup/planning/backend/memory) or [LevelDB](/riak/kv/2.0.7/setup/planning/backend/leveldb). [Bitcask](/riak/kv/2.0.7/setup/planning/backend/bitcask) does not support secondary indexes.
+Secondary indexes in Riak KV require a sorted backend: [Memory]({{<baseurl>}}riak/kv/2.0.7/setup/planning/backend/memory) or [LevelDB]({{<baseurl>}}riak/kv/2.0.7/setup/planning/backend/leveldb). [Bitcask]({{<baseurl>}}riak/kv/2.0.7/setup/planning/backend/bitcask) does not support secondary indexes.
 
-See [Using Secondary Indexes (2i)](/riak/kv/2.0.7/developing/usage/secondary-indexes) for more information on developing with secondary indexes.
+See [Using Secondary Indexes (2i)]({{<baseurl>}}riak/kv/2.0.7/developing/usage/secondary-indexes) for more information on developing with secondary indexes.
 {{% /note %}}
 
 If you're coming from an SQL world, Secondary Indexes (2i) are a lot

@@ -3,6 +3,9 @@ title: "Developing with Riak KV"
 description: ""
 project: "riak_kv"
 project_version: "2.0.0"
+lastmod: 2014-08-14T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.0:
     name: "Developing"
@@ -49,7 +52,7 @@ Overview and guide to working with data types in Riak KV.
 
 #### [Data Modeling][dev data modeling]
 
-Information on use cases and data models that are a good fit for Riak KV. 
+Information on use cases and data models that are a good fit for Riak KV.
 
 [Learn More >>][dev data modeling]
 

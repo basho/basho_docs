@@ -4,6 +4,9 @@ title: "Quickstart"
 description: ""
 project: "riak_kv"
 project_version: "2.1.4"
+lastmod: 2016-04-07T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.1.4:
     name: "Quickstart"
@@ -34,7 +37,7 @@ This Guide assumes that you have completed the following steps:
 ## Scenario
 
 Configure Riak MDC to perform replication, given the following
-3-node Riak Enterprise clusters: 
+3-node Riak Enterprise clusters:
 
 #### Cluster 1
 
@@ -68,7 +71,7 @@ listening for replication clients.
 ```bash
 riak-repl add-listener riak@172.16.1.11 172.16.1.11 9010
 riak-repl add-listener riak@172.16.1.12 172.16.1.12 9010
-riak-repl add-listener riak@172.16.1.13 172.16.1.13 9010  
+riak-repl add-listener riak@172.16.1.13 172.16.1.13 9010
 ```
 
 ### Set Up the Site on Cluster2 (Site cluster)
@@ -144,7 +147,7 @@ sent to Cluster1 are being replicated to Cluster2:
 VALUE=`date`
 CLUSTER_1_IP=172.16.1.11
 CLUSTER_2_IP=192.168.1.21
- 
+
 curl -s -X PUT -d "${VALUE}" http://${CLUSTER_1_IP}:8098/riak/replCheck/c1
 
 CHECKPUT_C1=`curl -s http://${CLUSTER_1_IP}:8098/riak/replCheck/c1`
@@ -269,7 +272,7 @@ the other side.
 VALUE=`date`
 CLUSTER_1_IP=172.16.1.11
 CLUSTER_2_IP=192.168.1.21
- 
+
 curl -s -X PUT -d "${VALUE}" http://${CLUSTER_1_IP}:8098/riak/replCheck/c1
 
 CHECKPUT_C1=`curl -s http://${CLUSTER_1_IP}:8098/riak/replCheck/c1`
@@ -347,7 +350,7 @@ leader node:
 ```bash
 riak-repl start-fullsync
 ```
-  
+
 A fullsync operation may also be cancelled. If a partition is in
 progress, synchronization will stop after that partition completes.
 During cancellation, `riak-repl status` will show 'cancelled' in the
@@ -356,7 +359,7 @@ status.
 ```bash
 riak-repl cancel-fullsync
 ```
-  
+
 Fullsync operations may also be paused, resumed, or scheduled for
 certain times using cron jobs. A complete list of fullsync commands is
 available in the [MDC Operations][cluster ops v2 mdc] documentation.

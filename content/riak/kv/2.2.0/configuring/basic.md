@@ -3,6 +3,9 @@ title: "Basic Riak KV Configuration"
 description: ""
 project: "riak_kv"
 project_version: "2.2.0"
+lastmod: 2016-11-12T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.0:
     name: "Basic Configuration"
@@ -15,26 +18,26 @@ aliases:
   - /riak/kv/2.2.0/ops/building/configuration/
 ---
 
-[config reference]: /riak/kv/2.2.0/configuring/reference
-[use running cluster]: /riak/kv/2.2.0/using/running-a-cluster
-[use admin riak-admin#member-status]: /riak/kv/2.2.0/using/admin/riak-admin/#member-status
-[perf erlang]: /riak/kv/2.2.0/using/performance/erlang
-[plan start]: /riak/kv/2.2.0/setup/planning/start
-[plan best practices]: /riak/kv/2.2.0/setup/planning/best-practices
-[cluster ops backup]: /riak/kv/2.2.0/using/cluster-operations/backing-up
-[cluster ops add remove node]: /riak/kv/2.2.0/using/cluster-operations/adding-removing-nodes
-[plan backend]: /riak/kv/2.2.0/setup/planning/backend
-[plan backend multi]: /riak/kv/2.2.0/setup/planning/backend/multi
-[plan backend bitcask]: /riak/kv/2.2.0/setup/planning/backend/bitcask
-[usage bucket types]: /riak/kv/2.2.0/developing/usage/bucket-types
-[apps replication properties]: /riak/kv/2.2.0/developing/app-guide/replication-properties
-[concept buckets]: /riak/kv/2.2.0/learn/concepts/buckets
-[concept eventual consistency]: /riak/kv/2.2.0/learn/concepts/eventual-consistency
-[perf benchmark]: /riak/kv/2.2.0/using/performance/benchmarking
-[perf open files]: /riak/kv/2.2.0/using/performance/open-files-limit
-[perf index]: /riak/kv/2.2.0/using/performance
-[perf aws]: /riak/kv/2.2.0/using/performance/amazon-web-services
-[Cluster Capacity Planning]: /riak/kv/2.2.0/setup/planning/cluster-capacity/#ring-size-number-of-partitions
+[config reference]: {{<baseurl>}}riak/kv/2.2.0/configuring/reference
+[use running cluster]: {{<baseurl>}}riak/kv/2.2.0/using/running-a-cluster
+[use admin riak-admin#member-status]: {{<baseurl>}}riak/kv/2.2.0/using/admin/riak-admin/#member-status
+[perf erlang]: {{<baseurl>}}riak/kv/2.2.0/using/performance/erlang
+[plan start]: {{<baseurl>}}riak/kv/2.2.0/setup/planning/start
+[plan best practices]: {{<baseurl>}}riak/kv/2.2.0/setup/planning/best-practices
+[cluster ops backup]: {{<baseurl>}}riak/kv/2.2.0/using/cluster-operations/backing-up
+[cluster ops add remove node]: {{<baseurl>}}riak/kv/2.2.0/using/cluster-operations/adding-removing-nodes
+[plan backend]: {{<baseurl>}}riak/kv/2.2.0/setup/planning/backend
+[plan backend multi]: {{<baseurl>}}riak/kv/2.2.0/setup/planning/backend/multi
+[plan backend bitcask]: {{<baseurl>}}riak/kv/2.2.0/setup/planning/backend/bitcask
+[usage bucket types]: {{<baseurl>}}riak/kv/2.2.0/developing/usage/bucket-types
+[apps replication properties]: {{<baseurl>}}riak/kv/2.2.0/developing/app-guide/replication-properties
+[concept buckets]: {{<baseurl>}}riak/kv/2.2.0/learn/concepts/buckets
+[concept eventual consistency]: {{<baseurl>}}riak/kv/2.2.0/learn/concepts/eventual-consistency
+[perf benchmark]: {{<baseurl>}}riak/kv/2.2.0/using/performance/benchmarking
+[perf open files]: {{<baseurl>}}riak/kv/2.2.0/using/performance/open-files-limit
+[perf index]: {{<baseurl>}}riak/kv/2.2.0/using/performance
+[perf aws]: {{<baseurl>}}riak/kv/2.2.0/using/performance/amazon-web-services
+[Cluster Capacity Planning]: {{<baseurl>}}riak/kv/2.2.0/setup/planning/cluster-capacity/#ring-size-number-of-partitions
 
 This document covers the parameters that are commonly adjusted when
 setting up a new cluster. We recommend that you also review the detailed
@@ -105,7 +108,7 @@ servers (nodes) in the cluster have already been joined together.
 
 ### Cluster joined, but no data needs to be preserved
 
-1.  Change the ring creation size parameter by uncommenting it and then
+1. Change the ring creation size parameter by uncommenting it and then
 setting it to the desired value, for example 64:
 
     ```riakconf
@@ -117,14 +120,14 @@ setting it to the desired value, for example 64:
     {ring_creation_size, 64}
     ```
 
-2.  Stop all nodes
-3.  Remove the ring data file on each node (see [Backing up Riak][cluster ops backup] for the location of this file) 
-4.  Start all nodes
-5.  Re-add each node to the cluster (see [Adding and Removing Nodes][cluster ops add remove node]) or finish reviewing this document and proceed to [Basic Cluster Setup][use running cluster]
+2. Stop all nodes
+3. Remove the ring data file on each node (see [Backing up Riak][cluster ops backup] for the location of this file)
+4. Start all nodes
+5. Re-add each node to the cluster (see [Adding and Removing Nodes][cluster ops add remove node]) or finish reviewing this document and proceed to [Basic Cluster Setup][use running cluster]
 
 ### New servers, have not yet joined a cluster
 
-1.  Change the ring creation size parameter by uncommenting it and then
+1. Change the ring creation size parameter by uncommenting it and then
 setting it to the desired value, for example 64:
 
     ```riakconf
@@ -136,10 +139,10 @@ setting it to the desired value, for example 64:
     {ring_creation_size, 64}
     ```
 
-2.  Stop all nodes
-3.  Remove the ring data file on each node (see [Backing up Riak][cluster ops backup] for
+2. Stop all nodes
+3. Remove the ring data file on each node (see [Backing up Riak][cluster ops backup] for
 the location of this file)
-4.  Finish reviewing this document and proceed to [Basic Cluster Setup][use running cluster]
+4. Finish reviewing this document and proceed to [Basic Cluster Setup][use running cluster]
 
 ### Verifying ring size
 
@@ -208,15 +211,15 @@ buckets.default.r = 3
 For more on bucket properties, we recommend reviewing our docs on
 [buckets][concept buckets], [bucket types][usage bucket types], [replication properties][apps replication properties], and [eventual consistency][concept eventual consistency], as well as Basho's five-part blog series, "Understanding Riak's Configurable Behaviors."
 
-* [Part 1](http://basho.com/understanding-riaks-configurable-behaviors-part-1/)
-* [Part 2](http://basho.com/riaks-config-behaviors-part-2/)
-* [Part 3](http://basho.com/riaks-config-behaviors-part-3/)
-* [Part 4](http://basho.com/riaks-config-behaviors-part-4/)
-* [Epilogue](http://basho.com/riaks-config-behaviors-epilogue/)
+* [Part 1](https://riak.com/understanding-riaks-configurable-behaviors-part-1/)
+* [Part 2](https://riak.com/riaks-config-behaviors-part-2/)
+* [Part 3](https://riak.com/riaks-config-behaviors-part-3/)
+* [Part 4](https://riak.com/riaks-config-behaviors-part-4/)
+* [Epilogue](https://riak.com/riaks-config-behaviors-epilogue/)
 
 If the default bucket properties are modified in your configuration
 files and the node is restarted, any existing buckets will **not** be
-directly impacted, although the mechanism described in [HTTP Reset Bucket Properties](/riak/kv/2.2.0/developing/api/http/reset-bucket-props) can be used to force them to pick up the new
+directly impacted, although the mechanism described in [HTTP Reset Bucket Properties]({{<baseurl>}}riak/kv/2.2.0/developing/api/http/reset-bucket-props) can be used to force them to pick up the new
 defaults.
 
 ## System tuning

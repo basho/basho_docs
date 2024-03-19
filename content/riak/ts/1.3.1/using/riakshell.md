@@ -9,6 +9,9 @@ menu:
     parent: "using"
 project: "riak_ts"
 project_version: "1.3.1"
+lastmod: 2016-07-06T00:00:00-00:00
+sitemap:
+  priority: 0.1
 toc: true
 version_history:
   in: "1.2.0+"
@@ -16,17 +19,15 @@ aliases:
     - /riakts/1.3.1/using/riakshell/
 ---
 
-[nodename]: /riak/kv/2.1.4/using/cluster-operations/changing-cluster-info/
-[creating]: /riak/ts/1.3.1/using/creating-activating
-[writing]: /riak/ts/1.3.1/using/writingdata
-
+[nodename]: {{<baseurl>}}riak/kv/2.1.4/using/cluster-operations/changing-cluster-info/
+[creating]: {{<baseurl>}}riak/ts/1.3.1/using/creating-activating
+[writing]: {{<baseurl>}}riak/ts/1.3.1/using/writingdata
 
 You can use riak shell within Riak TS to run SQL and logging commands from one place.
 
-
 ## Capabilities
 
-While riak shell is in the early stages of development, the following are well-supported: 
+While riak shell is in the early stages of development, the following are well-supported:
 
 * logging
 * log replay
@@ -43,7 +44,6 @@ While riak shell is in the early stages of development, the following are well-s
 * debugging
 
 The shell is also trivially extendable for developer use.
-
 
 ## Getting Started
 
@@ -81,7 +81,6 @@ You can verify your connection by running `show_connection`. You should see a re
 riak_shell is connected to: 'dev1@127.0.0.1' on port 8087
 ```
 
-
 ## Basic Commands
 
 ### Connecting and reconnecting
@@ -117,7 +116,6 @@ riak-shell>connection_prompt off;
 Connection Prompt turned off
 ```
 
-
 ### History and repeating past commands
 
 You can see the log of your activity in riak shell by running `>show_history;`
@@ -144,7 +142,6 @@ riak-shell>h 6;
 rerun (6)> show_connection;
 riak-shell is connected to: 'dev2@127.0.0.1' on port 8097
 ```
-
 
 ### SQL
 
@@ -199,7 +196,6 @@ See [Writing Data][writing] for more details.
 
 >**Note:** SQL commands in riak shell may span multiple lines.
 
-
 ### Logging
 
 You can specify the name of your logfile by running: `logfile "»mylogname«"`.
@@ -234,7 +230,7 @@ Current Date: "2016_02_02-00:26:19"
 
 If you would like your logfile to have a timestamp, run `date_log`.
 
-You can replay the current logfile regardless of whether logging is turned on. To replay your logfile, run `replay_log`.  
+You can replay the current logfile regardless of whether logging is turned on. To replay your logfile, run `replay_log`.
 
 ```
 riak-shell>replay_log;
@@ -281,7 +277,6 @@ Regression Testing "../log/riak_shell.log"
 No Regression Errors.
 ```
 
-
 ### Help
 
 You get help on riak shell functions with the `help` command:
@@ -292,10 +287,9 @@ riak-shell> help;
 
 You can get more specific help by calling `help` with the extension name and function name like `help shell quit;`.
 
-
 ## Configuration
 
-You can configure riak shell from the riak_shell.config file. You can find the file in your Riak TS directory. 
+You can configure riak shell from the riak_shell.config file. You can find the file in your Riak TS directory.
 
 The following things can be configured:
 
@@ -306,14 +300,13 @@ The following things can be configured:
 * show_connection_status (true | false) - Defaults to 'false'; sets whether to show the green tick or red cross in the command line.
 * nodes ([nodenames]) - No defaults; a list of nodes to try and connect to on startup or 'reconnect;'.
 
-
 ## Command Line Flags
 
 There are 4 different configurations, two of which trigger batch mode.
 
 By default riak shell swallows error messages, this makes it hard to develop new extensions. You can run it in debug mode as shown below:
 
-``` 
+```
 ./riak-shell -d
 ```
 
@@ -334,7 +327,6 @@ You can run a riak shell regression log for batch/scripting:
 ```
 ./riak-shell -r ../path/to/my.log
 ```
-
 
 ## Extending Riak Shell
 
@@ -398,7 +390,6 @@ riak shell suppresses error messages that would otherwise be written to the cons
 cd ~/riakshell/bin
 ./riak-shell -d
 ```
-
 
 ### Architecture Notes
 

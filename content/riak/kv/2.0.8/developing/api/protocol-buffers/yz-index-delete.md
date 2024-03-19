@@ -3,6 +3,9 @@ title: "PBC Yokozuna Index Delete"
 description: ""
 project: "riak_kv"
 project_version: "2.0.8"
+lastmod: 2017-02-16T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.8:
     name: "Yokozuna Index Delete"
@@ -10,6 +13,8 @@ menu:
     weight: 122
     parent: "apis_pbc"
 toc: true
+version_history:
+  in: "2.0.0-2.9999.9999"
 aliases:
   - /riak/2.0.8/dev/references/protocol-buffers/yz-index-delete
   - /riak/kv/2.0.8/dev/references/protocol-buffers/yz-index-delete
@@ -29,5 +34,5 @@ message RpbYokozunaIndexDeleteReq {
 
 ## Response
 
-Returns a [RpbDelResp](/riak/kv/2.0.8/developing/api/protocol-buffers/#message-codes) code with no data on success.
+Returns a [RpbDelResp]({{<baseurl>}}riak/kv/2.0.8/developing/api/protocol-buffers/#message-codes) code with no data on success.
 

@@ -4,6 +4,9 @@ title: "Querying with Java"
 description: ""
 project: "riak_kv"
 project_version: "2.0.4"
+lastmod: 2015-01-10T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.4:
     name: "Querying"
@@ -149,7 +152,6 @@ public static void main(String[] args) throws RiakException {
     System.out.println("Starting Client");
     IRiakClient client = RiakFactory.pbcClient("127.0.0.1", 10017);
 
-
     System.out.println("Creating Buckets");
     Bucket customersBucket = client.fetchBucket("Customers").lazyLoadBucketProperties().execute();
     Bucket ordersBucket = client.fetchBucket("Orders").lazyLoadBucketProperties().execute();
@@ -194,9 +196,9 @@ intrinsic relationships.
 ## Secondary Indexes
 
 {{% note %}}
-Secondary indexes in Riak KV require a sorted backend: [Memory](/riak/kv/2.0.4/setup/planning/backend/memory) or [LevelDB](/riak/kv/2.0.4/setup/planning/backend/leveldb). [Bitcask](/riak/kv/2.0.4/setup/planning/backend/bitcask) does not support secondary indexes.
+Secondary indexes in Riak KV require a sorted backend: [Memory]({{<baseurl>}}riak/kv/2.0.4/setup/planning/backend/memory) or [LevelDB]({{<baseurl>}}riak/kv/2.0.4/setup/planning/backend/leveldb). [Bitcask]({{<baseurl>}}riak/kv/2.0.4/setup/planning/backend/bitcask) does not support secondary indexes.
 
-See [Using Secondary Indexes (2i)](/riak/kv/2.0.4/developing/usage/secondary-indexes) for more information on developing with secondary indexes.
+See [Using Secondary Indexes (2i)]({{<baseurl>}}riak/kv/2.0.4/developing/usage/secondary-indexes) for more information on developing with secondary indexes.
 {{% /note %}}
 
 If you're coming from an SQL world, Secondary Indexes (2i) are a lot

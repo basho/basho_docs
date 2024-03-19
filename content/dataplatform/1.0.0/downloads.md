@@ -18,4 +18,6 @@ listed_projects:
     - project: "dataplatform_extras"
       version: "1.0.0"
       title: "Basho Data Platform Extras"
+aliases:
+  - /dataplatform/latest/downloads/
 ---

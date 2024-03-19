@@ -3,6 +3,9 @@ title: "PBC Data Type Set Store"
 description: ""
 project: "riak_kv"
 project_version: "2.0.1"
+lastmod: 2014-09-25T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.1:
     name: "Data Type Set Store"
@@ -16,7 +19,7 @@ aliases:
 ---
 
 An operation to update a set, either on its own (at the bucket/key
-level) or [inside of a map](/riak/kv/2.0.1/developing/api/protocol-buffers/dt-map-store).
+level) or [inside of a map]({{<baseurl>}}riak/kv/2.0.1/developing/api/protocol-buffers/dt-map-store).
 
 ## Request
 

@@ -9,11 +9,14 @@ menu:
     parent: "reference"
 project: "riak_cs"
 project_version: "2.0.0"
+lastmod: 2015-03-28T00:00:00-00:00
+sitemap:
+  priority: 0.1
 aliases:
   - /riakcs/2.0.0/cookbooks/Riak-CS-Release-Notes/
   - /riak/cs/2.0.0/cookbooks/Riak-CS-Release-Notes/
 ---
-[riak_cs_multibag_support]: /riak/cs/2.0.0/cookbooks/supercluster
+[riak_cs_multibag_support]: {{<baseurl>}}riak/cs/2.0.0/cookbooks/supercluster
 
 [riak_cs_1.5_release_notes_upgrading]: https://github.com/basho/riak_cs/blob/release/1.5/RELEASE-NOTES.md#notes-on-upgrading
 [riak_cs_1.5_release_notes_upgrading_1]: https://github.com/basho/riak_cs/blob/release/1.5/RELEASE-NOTES.md#notes-on-upgrading-1
@@ -30,6 +33,7 @@ This is a backwards-compatible* release that introduces a new metrics system, ga
 **Note:** This release is backwards compatible only with the Riak S2 2.x series.
 
 ### Riak KV 2.1.1 Usage Note
+
 Riak KV 2.1.1 includes a copy of `riak_cs_kv_multi_backend`, therefore there is no need to add lines specifying special `multi_backend` and `add_paths` configurations in advanced.config.
 
 Instead, you can set the following in riak.conf:
@@ -41,9 +45,10 @@ cs_version = 20100
 
 If you need storage calculation, you will still require the `add_paths` config to load MapReduce codes into Riak KV.
 
-
 ### New Features
+
 #### Metrics
+
 New metrics have been added that enable you to determine the health of your Riak S2 system, as well as get reports on your storage utilization per bucket or user. The following stats items are available:
 
   * All calls, latencies, and counters in the S3 API
@@ -54,7 +59,7 @@ New metrics have been added that enable you to determine the health of your Riak
   * Memory information about the riak-cs virtual machine
   * HTTP listener information: active sockets and waiting acceptors
 
-**Note:** stats item names from prior to 2.0.x are not preserved; they have been renamed or removed. No backward consistency is maintained. Please see [the documentation](docs.basho.com/riakcs/latest/cookbooks/Monitoring-and-Metrics/) for more information.
+**Note:** stats item names from prior to 2.0.x are not preserved; they have been renamed or removed. No backward consistency is maintained. Please see [the documentation]({{<baseurl>}}riak/cs/latest/cookbooks/monitoring-and-metrics/) for more information.
 
 * [[PR 1189](https://github.com/basho/riak_cs/pull/1189)]
 * [[PR 1180](https://github.com/basho/riak_cs/pull/1180)]
@@ -69,7 +74,8 @@ Additional storage usage metrics are also available. . These metrics are gathere
 * [[PR 1120](https://github.com/basho/riak_cs/pull/1120)]
 
 #### `riak-cs-admin`
-The following administration CLIs have been replaced by the [`riak-cs-admin` command](http://docs.basho.com/riakcs/latest/cookbooks/command-line-tools/):
+
+The following administration CLIs have been replaced by the [`riak-cs-admin` command]({{< baseurl >}}riak/cs/latest/cookbooks/command-line-tools/):
 
 * `riak-cs-storage`
 * `riak-cs-gc`
@@ -81,6 +87,7 @@ The commands listed above are deprecated and will be removed in future releases.
 * [[PR 1175](https://github.com/basho/riak_cs/pull/1175)]
 
 #### Garbage Collection Refinements
+
 Several new options have been added to the `riak-cs-admin gc` command:
 
 * `active_delete_threshold` is an option to avoid delegating manifests and block deletion to garbage collector. This option relieves garbage collector from having to delete small objects. This can optimise performance in cases where both garbage collector does not catch up with DELETE Object API calls and garbage collector's elapsed time is dominated by small objects.[[PR 1174](https://github.com/basho/riak_cs/pull/1174)]
@@ -89,23 +96,24 @@ Several new options have been added to the `riak-cs-admin gc` command:
 * Riak S2 2.0 (and older) has a race condition where fullsync replication and garbage collection may resurrect deleted blocks without any way to delete them again. When real-time replication and replication of a garbage collection bucket entry object being dropped from the real-time queue are combined, blocks may remain on the sink side without being collected. Riak S2 2.1 introduces deterministic garbage collection to avoid fullsync replication. Additionally, garbage collection and fullsync replication run concurrently, and work on the same blocks and manifests. You can now specify the range of time using the `--start` and `--end` flags with `riak-cs-admin gc batch` for garbage collector in order to collect deleted objects synchronously on both sink and source sides. [[PR 1147 ](https://github.com/basho/riak_cs/pull/1147)]
 * `riak-cs-admin gc earliest-keys` is available so you can find the oldest entry after `epoch_start` in garbage collection. With this option, you can stay informed of garbage collection progress. [[PR 1160](https://github.com/basho/riak_cs/pull/1160)]
 
-More information on garbage collection can be found in the [documentation](http://docs.basho.com/riakcs/latest/cookbooks/garbage-collection/).
-
+More information on garbage collection can be found in the [documentation]({{< baseurl >}}riak/cs/latest/cookbooks/garbage-collection/).
 
 ### Additions
+
 #### Open Source
+
 * A MapReduce optimisation in fetching Riak objects was introduced in Riak 2.1. Now, Riak CS 2.1 introduces an option to use that optimisation in storage calculation. It is off by default, but it can be used by setting `use_2i_for_storage_calc` as `true` in advanced.config. This reduced 50% of I/O in LevelDB. [[PR 1089](https://github.com/basho/riak_cs/pull/1089)]
 * Erlang/OTP 17 support is now included. [[PR 1245](https://github.com/basho/riak_cs/pull/1245) and [PR 1040](https://github.com/basho/stanchion/pull/1040)]
 * A module-level hook point for limiting user access and quota usage is now available with very preliminary, simple, node-wide limiting example modules. Operators can make, plug in, or combine different modules as quota-limiting, rate-limiting or bandwidth-limiting depending on their unique requirements. [[PR 1118](https://github.com/basho/riak_cs/pull/1118)]
-*  An orphaned block scanner is now available. [[PR 1133](https://github.com/basho/riak_cs/pull/1133)]
+* An orphaned block scanner is now available. [[PR 1133](https://github.com/basho/riak_cs/pull/1133)]
 * `riak-cs-admin audit-bucket-ownership` is a new tool to check integrity between users and buckets added. For example, it can be used in cases where a bucket is visible when listing buckets but not accessible, or a bucket is visible and exists but could not be deleted. [[PR 1202](https://github.com/basho/riak_cs/pull/1202)]
 * The following log rotation items have been added to cuttlefish:
-    * log.console.size
-    * log.console.rotation
-    * log.console.rotation.keep
-    * log.error.rotation
-    * log.error.rotation.keep
-    * log.error.size
+  * log.console.size
+  * log.console.rotation
+  * log.console.rotation.keep
+  * log.error.rotation
+  * log.error.rotation.keep
+  * log.error.size
 
 [[PR 1164](https://github.com/basho/riak_cs/pull/1164) and [PR 97](https://github.com/basho/stanchion/pull/97)]
 
@@ -113,9 +121,10 @@ More information on garbage collection can be found in the [documentation](http:
 * An option has been added to replace the `PR=all user GET` option with `PR=one` just before authentication. This option improves latency, especially in the presence of slow (or actually-failing) nodes blocking the whole request flow because of PR=all. When enabled, a user's owned-bucket list is never pruned after a bucket is deleted, instead it is just marked as deleted. [[PR 1191](https://github.com/basho/riak_cs/pull/1191)]
 * An info log has been added when starting a storage calculation batch. [[PR 1238](https://github.com/basho/riak_cs/pull/1238)]
 * `GET Bucket` requests now have clearer responses. A 501 stub for Bucket lifecycle and a  simple stub for Bucket requestPayment have been added. [[PR 1223](https://github.com/basho/riak_cs/pull/1223)]
-* Several user-friendly features have been added to [`riak-cs-debug`](http://docs.basho.com/riakcs/latest/cookbooks/command-line-tools/): fine-grained information gathering options, user-defined filtering for configuration files, and verbose output for failed commands. [[PR 1236](https://github.com/basho/riak_cs/pull/1236)]
+* Several user-friendly features have been added to [`riak-cs-debug`]({{< baseurl >}}riak/cs/latest/cookbooks/command-line-tools/): fine-grained information gathering options, user-defined filtering for configuration files, and verbose output for failed commands. [[PR 1236](https://github.com/basho/riak_cs/pull/1236)]
 
 #### Enterprise
+
 * MDC has `proxy_get`, which make block objects propagate to site clusters when they are requested. Now, multibag configuration with MDC supports `proxy_get`. [[PR 1171](https://github.com/basho/riak_cs/pull/1171) and [PR 25](https://github.com/basho/riak_cs_multibag/pull/25)]
 * Multibag is now renamed to "Supercluster". A bag has been a set of replicated underlying Riak clusters, which is now **a member of a supercluster**. `riak-cs-multibag` command has been renamed as `riak-cs-supercluster` as well. [[PR 1257](https://github.com/basho/riak_cs/pull/1257)], [[PR 1260](https://github.com/basho/riak_cs/pull/1260)], [[PR 106](https://github.com/basho/stanchion/pull/106)], [[PR 107](https://github.com/basho/stanchion/pull/107)] and [[PR 31](https://github.com/basho/riak_cs_multibag/pull/31)].
 * Several internal operation tools have been added to help diagnose or address
@@ -124,8 +133,8 @@ More information on garbage collection can be found in the [documentation](http:
   [PR 1133](https://github.com/basho/riak_cs/pull/1133)]
 * Added a generic function for manual operations to resolve siblings of manifests and blocks, which will assist Basho Client Service Engineers with troubleshooting and solving issues. [[PR 1188](https://github.com/basho/riak_cs/pull/1188)]
 
-
 ### Changes
+
 * Dependency versions have been updated in Riak S2 and Stanchion as follows: cuttlefish 2.0.4, node_package 2.0.3, riak-erlang-client 2.1.1, lager 2.2.0, lager_syslog 2.1.1, eper 0.92 (Basho patched), cluster_info 2.0.3, riak_repl_pb_api 2.1.1, and riak_cs_multibag 2.1.0. [[PR 1190](https://github.com/basho/riak_cs/pull/1190), [PR 1197 ](https://github.com/basho/riak_cs/pull/1197), [PR 27](https://github.com/basho/riak_cs_multibag/pull/27), [PR 1245](https://github.com/basho/riak_cs/pull/1245), and [PR 104](https://github.com/basho/stanchion/pull/104)].
 * Riak CS has moved from Folsom to Exometer. [[PR 1165](https://github.com/basho/riak_cs/pull/1165) and [PR 1180](https://github.com/basho/riak_cs/pull/1180)]
 * Improvements have been made to error tracing for retrieving blocks from client GET requests. There is a complex logic to resolve blocks when a GET is requested from the client. First, Riak CS tries to retrieve a block with `n_val=1`. If it fails, a retry will be done using `n_val=3`. If the block cannot be resolved locally, `proxy_get` is enabled, and the system is configured with datacenter replication, then Riak CS will try to perform a proxied GET to the remote site. The fallback and retry logic is complex and hard to trace, especially in a faulty or unstable situation. This improvement adds error tracing for the whole sequence described above, which will help diagnose issues. Specifically, for each block, the block server stacks all errors returned from the Riak client and reports the reason for every error as well as the type of call in which the error occurred. [[PR 1177](https://github.com/basho/riak_cs/pull/1177)]
@@ -134,8 +143,8 @@ More information on garbage collection can be found in the [documentation](http:
 * If a faulty cluster had several nodes down, the block server misunderstood that a block was already deleted and issued a false-notfound. This could lead to block leak. The PR default has been set to 'quorum' in an attempt to avoid this problem. Updates have also been made to make sure at least a single replica of a block is written in one of the primary nodes by setting the PW default to '1'. Additionally, measures are in place to prevent the block server from crashing  when "not found" errors are returned due to a particular block of an object not being found in the cluster. Instead, unreachable blocks are skipped and the remaining blocks and manifests are collected. Since the PR and PW values are increased at blocks, the availability of PUTs and through-put of garbage collection may decrease. A few Riak nodes being unreachable may prevent PUT requests from returning successfully and may prevent garbage collection from collecting all blocks until the unreachable nodes come back. [[PR 1242](https://github.com/basho/riak_cs/pull/1242)]
 * The infinity timeout option has been set so that several functions make synchronous `gen_fsm` calls  indefinitely, which prevents unnecessary timeouts. [[PR 1249](https://github.com/basho/riak_cs/pull/1249)]
 
-
 ### Bugs Fixed
+
 * [[Issue 1097](https://github.com/basho/riak_cs/issues/1097)/[PR 1212](https://github.com/basho/riak_cs/pull/1212)] When `x-amz-metadata-directive=COPY` was specified, Riak CS did not actually COPY the metadata of original resource. Instead, it would treat it as a `REPLACE`.  When directed to `x-amz-metadata-directive=REPLACE` `Content-Type`, Riack CS would `REPLACE` it. Correct handling for the `x-amz-metadata-directive` has been added to PUT Object Copy API.
 * [[Issue 1099](https://github.com/basho/riak_cs/issues/1099)/[PR 1096](https://github.com/basho/riak_cs/pull/1096)] There was an unnecessary NextMarker in Get Bucket's response if `CommonPrefixes` contained the last key. Fixed handling of uploaded parts that should be deleted after Multipart Complete Request.
 * [[Issue 939](https://github.com/basho/riak_cs/issues/939)/[PR 1200](https://github.com/basho/riak_cs/pull/1200)] Copy requests without Content-Length request headers failed with 5xx errors. Such requests are now allowed without Content-Length header in Copy API calls. Additionally, Copy API calls with Content-Lengths more than zero have been given explicit errors.
@@ -154,7 +163,6 @@ More information on garbage collection can be found in the [documentation](http:
 * [[Issue 1214](https://github.com/basho/riak_cs/issues/1244)/[PR 1246](https://github.com/basho/riak_cs/pull/1246)] Prior to Riak S2 2.1.0, a PUT Copy API command with identical source and destination changed user metadata (`x-amz-meta-*` headers) but failed to update Content-Type. Content-Type is now correctly updated by the API call.
 * [[Issue PR 1261](https://github.com/basho/riak_cs/pull/1261), [[PR 1263](https://github.com/basho/riak_cs/pull/1263)] Fix `riak-cs-debug` to include `app.config` when no generated files are found when `riak-cs.conf` is not used.
 
-
 ## Riak CS 2.0.1 Release Notes
 
 ### General Information
@@ -166,13 +174,13 @@ This is a bugfix release.
 * [riak_cs/#1125](https://github.com/basho/riak_cs/issues/1125) - Fix config item `gc.interval` not working when `infinity` is set.
   * [riak_cs/pull/1126](https://github.com/basho/riak_cs/pull/1126)
 
-* [riak_cs/#](https://github.com/basho/riak_cs/issues/1109) - Add `log.access` switch to disable access logging. 
+* [riak_cs/#](https://github.com/basho/riak_cs/issues/1109) - Add `log.access` switch to disable access logging.
   * [riak_cs/pull/1115](https://github.com/basho/riak_cs/pull/1115)
 
 * [riak_cs/#1109](https://github.com/basho/riak_cs/issues/1109) - Add missing riak-cs.conf items:` max_buckets_per_user` and `gc.batch_size`.
   * [riak_cs/pull/1115](https://github.com/basho/riak_cs/pull/1115)
 
-* [riak_cs/#1129](https://github.com/basho/riak_cs/issues/1129) - Fix bugs around subsequent space characters for Delete Multiple Objects API and user administration API with XML content. 
+* [riak_cs/#1129](https://github.com/basho/riak_cs/issues/1129) - Fix bugs around subsequent space characters for Delete Multiple Objects API and user administration API with XML content.
   * [riak_cs/pull/1135](https://github.com/basho/riak_cs/pull/1135)
 
 ## Riak CS 2.0.0
@@ -390,9 +398,6 @@ Repeat these steps on every host:
 configuration settings, please see the
 [Full Riak CS 2.0.0 Release Notes][riak_cs_2.0.0_release_notes]**
 
-
-
-
 ## Riak CS 1.5.4
 
 ### Fixes
@@ -435,7 +440,6 @@ be referred to with keys in which `+` is replaced with a space, e.g.
 The table below provides examples for URLs including
 `%[0-9a-fA-F][0-9a-fA-F]` and how they will work before and after the
 upgrade.
-
 
  | Before upgrade | After upgrade
 :--|:---------------|:-------------
@@ -526,7 +530,7 @@ None
 ### Download
 
 Please see the [Riak CS Downloads
-Page](http://docs.basho.com/riakcs/latest/riakcs-downloads/).
+Page]({{< baseurl >}}riak/cs/latest/downloads/).
 
 ### Feedback
 
@@ -537,14 +541,14 @@ venues:
   list](http://lists.basho.com/mailman/listinfo/riak-users_lists.basho.com)
 * [The official Basho docs](https://github.com/basho/basho_docs)
 * [Riak CS on GitHub](https://github.com/basho/riak_cs)
-* Via email at **info@basho.com**
+* Via **[email]({{<contactusemail>}})**
 
 ## Riak CS 1.5.2
 
 ### Changes
 
 * Improve logging around failures with Riak
-  [riak_cs/#987](http://docs.basho.com/riak/latest/dev/using/libraries/)
+  [riak_cs/#987](https://github.com/basho/riak_cs/pull/987)
 * Add amendment log output when storing access stats into Riak failed
   [riak_cs/#988](https://github.com/basho/riak_cs/pull/988). This change
   prevents losing access stats logs in cases of temporary connection
@@ -572,7 +576,7 @@ None
 ### Download
 
 Please see the [Riak CS Downloads
-Page](http://docs.basho.com/riakcs/latest/riakcs-downloads)
+Page]({{< baseurl >}}riak/cs/latest/downloads)
 
 ### Feedback
 
@@ -583,13 +587,13 @@ venues:
   list](http://lists.basho.com/mailman/listinfo/riak-users_lists.basho.com)
 * [The official Basho docs](https://github.com/basho/basho_docs)
 * [Riak CS on GitHub](https://github.com/basho/riak_cs)
-* Via email at **info@basho.com**
+* Via **[email]({{<contactusemail>}})**
 
 ## Riak CS 1.5.1
 
 ### Additions
 
-* Bucket restrictions --- Similar to S3, you can now limit the number of buckets created per user to prevent users from creating an unusually large number of buckets. More details are included [here](http://docs.basho.com/riakcs/latest/cookbooks/configuration/Configuring-Riak-CS/).
+* Bucket restrictions --- Similar to S3, you can now limit the number of buckets created per user to prevent users from creating an unusually large number of buckets. More details are included [here]({{< baseurl >}}riak/cs/latest/cookbooks/configuration/riak-cs/).
 
 ### Changes
 
@@ -643,10 +647,9 @@ Beginning with Riak CS 1.5.1, you can limit the number of buckets that can be cr
 
 To avoid having a limit, set `max_buckets_per_user_user` to `unlimited`.
 
-
 ### Download
 
-Please see the [Riak CS Downloads Page](http://docs.basho.com/riakcs/latest/riakcs-downloads/).
+Please see the [Riak CS Downloads Page]({{< baseurl >}}riak/cs/latest/downloads/).
 
 ### Feedback
 
@@ -656,13 +659,13 @@ We would love to hear from you. You can reach us at any of the following links:
 * https://github.com/basho/basho_docs
 * https://github.com/basho/riak_cs
 
-Or via email at **info@basho.com**.
+Or Via **[email]({{<contactusemail>}})**.
 
 ## Riak CS 1.5.0
 
 ### Additions
 
-* Added Multibag Technical Preview to Riak CS. More info is available [here](http://docs.basho.com/riakcs/latest/cookbooks/multibag/)
+* Added Multibag Technical Preview to Riak CS. More info is available [here]({{< baseurl >}}riak/cs/latest/cookbooks/multibag/)
 * A new command `riak-cs-debug` including `cluster-info` [riak_cs/#769](https://github.com/basho/riak_cs/pull/769), [riak_cs/#832](https://github.com/basho/riak_cs/pull/832)
 * Tie up all existing commands into a new command `riak-cs-admin` [riak_cs/#839](https://github.com/basho/riak_cs/pull/839)
 * Add a command `riak-cs-admin stanchion` to switch Stanchion IP and port manually [riak_cs/#657](https://github.com/basho/riak_cs/pull/657)
@@ -779,7 +782,7 @@ Multibag, the ability to store object manifests and blocks in separate
 clusters or groups of clusters, has been added as an Enterprise feature,
 but it is in early preview status. `proxy_get` has not yet been
 implemented for this preview feature, so multibag is intended for a
-single DC only at this time.  
+single DC only at this time.
 
 > **Note**: CS Multibag was renamed to CS Supercluster.  More information on Supercluster Support is available [here][riak_cs_multibag_support].
 
@@ -796,7 +799,6 @@ single DC only at this time.
 * Multibag is added as Enterprise feature, but it is in early preview
   status. `proxy_get` setup among clusters multibag on is not
   implemented yet.
-
 
 ## Riak CS 1.4.5
 
@@ -819,7 +821,6 @@ bug, but can't go back and retroactively fix the old storage
 calculations. Aggregations on an entire user-account should still be
 accurate, but you won't be able to break-down storage by bucket, as
 they will all share the name "struct".
-
 
 #### Additions
 
@@ -874,6 +875,7 @@ they will all share the name "struct".
 ## Riak CS 1.4.1
 
 #### Bugs Fixed
+
 * Fix list objects crash when more than the first 1001 keys are in the pending delete state.
 * Fix crash in garbage collection daemon.
 * Fix packaging bug by updating `node_package` dependency.
@@ -1003,7 +1005,7 @@ they will all share the name "struct".
 
 #### Additions
 
-* Support query parameter authentication as specified in [http://docs.amazonwebservices.com/AmazonS3/latest/dev/RESTAuthentication.html](Signing and Authenticating REST Requests).
+* Support query parameter authentication as specified in [Signing and Authenticating REST Requests](http://docs.amazonwebservices.com/AmazonS3/latest/dev/RESTAuthentication.html).
 
 ## Riak CS 1.0.1
 
@@ -1026,6 +1028,7 @@ they will all share the name "struct".
 * Support specifying non-default ACL at bucket creation time
 
 #### Bugs Fixed
+
 * Fix PUTs for zero-byte files
 * Fix fsm initialization race conditions
 * Canonicalize the entire path if there is no host header, but there are tokens
@@ -1034,12 +1037,14 @@ they will all share the name "struct".
 ## Riak CS 0.1.2
 
 #### Bugs Fixed
+
 * Return 403 instead of 503 for invalid anonymous or signed requests.
 * Properly clean up processes and connections on object requests.
 
 ## Riak CS 0.1.1
 
 #### Bugs Fixed
+
 * HEAD requests always result in a `403 Forbidden`.
 * `s3cmd info` on a bucket object results in an error due to missing ACL document.
 * Incorrect atom specified in `riak_moss_wm_utils:parse_auth_header`.
@@ -1048,6 +1053,7 @@ they will all share the name "struct".
 ## Riak CS 0.1.0
 
 #### Additions
+
 * Bucket-level access control lists
 * User records have been modified so that an system-wide unique email address is required to create a user.
 * User creation requests are serialized through `stanchion` to be certain the email address is unique.

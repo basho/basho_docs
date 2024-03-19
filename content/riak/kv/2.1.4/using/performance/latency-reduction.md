@@ -3,6 +3,9 @@ title: "Latency Reduction Checklist"
 description: ""
 project: "riak_kv"
 project_version: "2.1.4"
+lastmod: 2016-04-07T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.1.4:
     name: "Latency Reduction"
@@ -33,7 +36,7 @@ objects can impact latency in a cluster, even for requests that are
 unrelated to those objects.
 
 If your use case requires large objects, we recommend checking out
-[Riak CS](/riak/cs/latest/), which is intended as a storage system for large objects.
+[Riak CS]({{<baseurl>}}riak/cs/latest/), which is intended as a storage system for large objects.
 
 ### Mitigation
 

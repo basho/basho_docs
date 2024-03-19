@@ -9,6 +9,9 @@ menu:
     pre: install
 project: "riak_ts"
 project_version: "1.3.1"
+lastmod: 2016-07-06T00:00:00-00:00
+sitemap:
+  priority: 0.1
 toc: true
 version_history:
   locations:
@@ -18,9 +21,8 @@ aliases:
     - /riakts/1.3.1/installing/installing/
 ---
 
-
 [AWS]: aws/
-[concept aae]: /riak/kv/2.1.3/learn/concepts/active-anti-entropy
+[concept aae]: {{<baseurl>}}riak/kv/2.1.3/learn/concepts/active-anti-entropy
 [Centos]: rhel-centos/
 [Debian]: debian-ubuntu/
 [download]: ../downloads/
@@ -28,9 +30,7 @@ aliases:
 [source]: source/
 [Ubuntu]: debian-ubuntu/
 
-
 Riak TS is a distributed NoSQL key/value store optimized for fast reads and writes of time series data. To use it, all you need to do is [download][download] and install the Riak TS package.
- 
 
 ## Installing
 
@@ -45,6 +45,6 @@ Riak TS is also available on [AWS Marketplace][AWS].
 
 If your OS is not in this list, you can also install [from source][source].
 
->**Upgrade Note:** 
+>**Upgrade Note:**
 >
 >Riak TS is a complete, standalone product. Upgrading from Riak KV to Riak TS is not supported.

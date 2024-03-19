@@ -4,6 +4,9 @@ title: "Working With Spark Dataframes"
 description: ""
 project: "riak_ts"
 project_version: "1.5.0"
+lastmod: 2016-12-20T00:00:00-00:00
+sitemap:
+  priority: 0.2
 menu:
   riak_ts-1.5.0:
     name: "Working With Spark Dataframes"
@@ -11,12 +14,11 @@ menu:
     weight: 104
     parent: "spark_riak_usage"
 toc: true
-canonical_link: "https://docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage/dataframes"
 ---
 
 ## Spark Dataframes With TS Table
 
-To enable DataFrames functionality the first steps are: 
+To enable DataFrames functionality the first steps are:
 
 ```scala
 val sc = new SparkContext()
@@ -31,10 +33,10 @@ sqlContext = pyspark.SQLContext(sc)
 ts_table_name = "test_table"
 ```
 
-To read data from the existing TS table `test-table` standard `SQLContext` means can be used by providing a `org.apache.spark.sql.riak` data format and using a Riak TS range query: 
+To read data from the existing TS table `test-table` standard `SQLContext` means can be used by providing a `org.apache.spark.sql.riak` data format and using a Riak TS range query:
 
 ```scala
-val df = sqlContext.read   
+val df = sqlContext.read
   .option("spark.riak.connection.hosts","riak_host_ip:10017")
     .format("org.apache.spark.sql.riak")
     .load(ts_table_name)
@@ -60,7 +62,7 @@ val riakSqlContext = new RiakSQLContext(sc, ts_table_name)
 val alternativeDf = riakSqlContext.sql(s"SELECT time, col1 from $ts_table_name WHERE time >= CAST($from AS TIMESTAMP) AND time <= CAST($to AS TIMESTAMP) AND  col1= $value1")
 ```
 
-A DataFrame, `inputDF`, that has the same schema as an existing TS table (column order and types) can be saved to Riak TS as follows: 
+A DataFrame, `inputDF`, that has the same schema as an existing TS table (column order and types) can be saved to Riak TS as follows:
 
 ```scala
 inputDF.write

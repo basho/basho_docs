@@ -3,6 +3,9 @@ title: "Riak Redis Add-on Deployment Models"
 description: "Explore the various models for deploying Riak Redis Add-on"
 project: "riak_ts"
 project_version: "1.5.0"
+lastmod: 2016-12-20T00:00:00-00:00
+sitemap:
+  priority: 0.2
 menu:
   riak_ts-1.5.0:
     name: "Redis Add-on Deployment Models"
@@ -13,9 +16,9 @@ toc: true
 commercial_offering: true
 ---
 
-[Local-deployment]: /images/redis/rra_deployment_local.png
-[Colocated-deployment]: /images/redis/rra_deployment_colocated.png
-[Distributed-deployment]: /images/redis/rra_deployment_distributed.png
+[Local-deployment]: {{<baseurl>}}images/redis/rra_deployment_local.png
+[Colocated-deployment]: {{<baseurl>}}images/redis/rra_deployment_colocated.png
+[Distributed-deployment]: {{<baseurl>}}images/redis/rra_deployment_distributed.png
 
 ## Deployment Models
 
@@ -24,7 +27,7 @@ commercial_offering: true
 In a local cache deployment, the RRA and Redis are deployed to the application
 server.
 
-![Local-deployment](/images/redis/rra_deployment_local.png)
+![Local-deployment]({{<baseurl>}}images/redis/rra_deployment_local.png)
 
 Connections:
 
@@ -65,7 +68,7 @@ connections from the application services while deployment costs remain a matter
 of pushing a service and its configuration. In either case, deployment should
 be automated, so are not multiplied by the number of servers.
 
-![Colocated-deployment](/images/redis/rra_deployment_colocated.png)
+![Colocated-deployment]({{<baseurl>}}images/redis/rra_deployment_colocated.png)
 
 Connections:
 
@@ -97,13 +100,12 @@ Disadvantages:
   and Riak provides superior 99th percentile latency performance in the face
   of faults.
 
-
 ### Distributed Cache Deployment
 
 In a distributed cache deployment, the RRA is deployed to the application server
 and Redis is deployed to standalone servers, separate from Riak cluster nodes.
 
-![Distributed-deployment](/images/redis/rra_deployment_distributed.png)
+![Distributed-deployment]({{<baseurl>}}images/redis/rra_deployment_distributed.png)
 
 Connections:
 

@@ -3,6 +3,9 @@ title: "Installing Erlang"
 description: ""
 project: "riak_kv"
 project_version: "2.1.4"
+lastmod: 2016-04-07T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.1.4:
     name: "Installing Erlang"
@@ -17,8 +20,8 @@ aliases:
   - /riak/kv/2.1.4/installing/source/erlang/
 ---
 
-[install index]: /riak/kv/2.1.4/setup/installing
-[security basics]: /riak/kv/2.1.4/using/security/basics
+[install index]: {{<baseurl>}}riak/kv/2.1.4/setup/installing
+[security basics]: {{<baseurl>}}riak/kv/2.1.4/using/security/basics
 
 Pre-packaged versions of Riak include an Erlang installation. If you are building Riak from source, you will need to install [Basho's patched version of Erlang](https://github.com/basho/otp/archive/OTP_R16B02_basho10.tar.gz). **If you do not use this version of Erlang, you will not be able to use Riak's [security features][security basics].**
 
@@ -51,7 +54,6 @@ To build and install Erlang you must have a GNU-compatible build system and thes
 * [ncurses](http://www.gnu.org/software/ncurses/): for terminal-based interfaces.
 * [OpenSSL](https://www.openssl.org/): toolkit that implements SSL and TSL protocols.
 * [Java SE JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html): platform for deploying Java.
-
 
 ## kerl Prerequisites
 
@@ -97,7 +99,6 @@ sudo pkg install autoconf
 
 Once you've configured kerl and installed autoconf continue with [Installing with kerl](#installing-with-kerl).
 
-
 ### Configuring kerl on Mac OS X
 
 To compile Erlang as 64-bit on Mac OS X you need to instruct kerl to pass the correct flags to the `configure` command.
@@ -142,8 +143,6 @@ cd autoconf-2.69
 
 Once you've configured kerl and installed autoconf continue with [Installing with kerl](#installing-with-kerl).
 
-
-
 ## Debian/Ubuntu Prerequisites
 
 ### Dependencies
@@ -176,8 +175,6 @@ sudo apt-get install libwxbase2.8 libwxgtk2.8-dev libqt4-opengl-dev
 
 Once you've installed the prerequisites, continue with [Installing on Debian/Ubuntu](#installing-on-debian-ubuntu).
 
-
-
 ## FreeBSD/Solaris Prerequisites
 
 ### Dependencies
@@ -202,8 +199,6 @@ sudo pkg install wx28-gtk2-2.8.12_4
 ### Next Steps
 
 Once you've installed the prerequisites, continue with [Installing on FreeBSD/Solaris](#installing-on-freebsd-solaris).
-
-
 
 ## Mac OS X Prerequisites
 
@@ -265,8 +260,6 @@ sudo yum install wxBase.x86_64
 
 Once you've installed the prerequisites, continue with [Installing on RHEL/CentOS](#installing-on-rhel-centos).
 
-
-
 ## Installation
 
 * [Installing with kerl](#installing-with-kerl)
@@ -313,7 +306,6 @@ And start Erlang from your terminal with:
 ```bash
 erl
 ```
-
 
 ## Installing on Debian/Ubuntu
 
@@ -388,7 +380,6 @@ And start Erlang from your terminal with:
 ```bash
 erl
 ```
-
 
 ## Installing on Mac OS X
 

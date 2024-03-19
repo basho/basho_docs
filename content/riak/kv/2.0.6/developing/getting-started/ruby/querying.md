@@ -4,6 +4,9 @@ title: "Querying with Ruby"
 description: ""
 project: "riak_kv"
 project_version: "2.0.6"
+lastmod: 2015-06-29T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.6:
     name: "Querying"
@@ -17,7 +20,8 @@ aliases:
 ---
 
 #### A Quick Note on Querying and Schemas
-_Schemas_? Yes we said that correctly, S-C-H-E-M-A-S. It's not a dirty word.  
+
+_Schemas_? Yes we said that correctly, S-C-H-E-M-A-S. It's not a dirty word.
 Even with a Key/Value store, you will still have a logical database schema of how all the data relates to one another. This can be as simple as using the same key across multiple buckets for different types of data, to having fields in your data that are related by name.  These querying methods will introduce you to some ways of laying out your data in Riak, along with how to query it back.
 
 ### Denormalization
@@ -185,15 +189,14 @@ Which returns our amalgamated objects:
       "order_date"=>"2013-11-03 17:45:28 -0500"}]}}
 ```
 
-While this pattern is very easy and extremely fast with respect to queries and complexity, it's up to the application to know about these intrinsic relationships.  
-
+While this pattern is very easy and extremely fast with respect to queries and complexity, it's up to the application to know about these intrinsic relationships.
 
 ### Secondary Indexes
 
 {{% note %}}
-Secondary indexes in Riak KV require a sorted backend: [Memory](/riak/kv/2.0.6/setup/planning/backend/memory) or [LevelDB](/riak/kv/2.0.6/setup/planning/backend/leveldb). [Bitcask](/riak/kv/2.0.6/setup/planning/backend/bitcask) does not support secondary indexes.
+Secondary indexes in Riak KV require a sorted backend: [Memory]({{<baseurl>}}riak/kv/2.0.6/setup/planning/backend/memory) or [LevelDB]({{<baseurl>}}riak/kv/2.0.6/setup/planning/backend/leveldb). [Bitcask]({{<baseurl>}}riak/kv/2.0.6/setup/planning/backend/bitcask) does not support secondary indexes.
 
-See [Using Secondary Indexes (2i)](/riak/kv/2.0.6/developing/usage/secondary-indexes) for more information on developing with secondary indexes.
+See [Using Secondary Indexes (2i)]({{<baseurl>}}riak/kv/2.0.6/developing/usage/secondary-indexes) for more information on developing with secondary indexes.
 {{% /note %}}
 
 If you're coming from a SQL world, Secondary Indexes (2i) are a lot like SQL indexes.  They are a way to quickly lookup objects based on a secondary key, without scanning through the whole dataset.  This makes it very easy to find groups of related data by values, or even ranges of values.  To properly show this off, we will now add some more data to our application, and add some secondary index entries at the same time.
@@ -228,7 +231,7 @@ Which returns:
 ```
 
 Jane processed orders 1 and 3.  We used an "integer" index to reference Jane's id, next let's use a "binary" index.
-Now, let's say that the VP of Sales wants to know how many orders came in during October 2013.  In this case, we can exploit 2i's range queries.  Let's search the `order_date_bin` index for entries between `20131001` and `20131031`.  
+Now, let's say that the VP of Sales wants to know how many orders came in during October 2013.  In this case, we can exploit 2i's range queries.  Let's search the `order_date_bin` index for entries between `20131001` and `20131031`.
 
 ```ruby
 puts "#October's Orders: "
@@ -242,7 +245,7 @@ Which returns:
 ["1", "2"]
 ```
 
-Boom, easy-peasy.  We used 2i's range feature to search for a range of values, and demonstrated binary indexes.  
+Boom, easy-peasy.  We used 2i's range feature to search for a range of values, and demonstrated binary indexes.
 
 So to recap:
 

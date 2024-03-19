@@ -4,6 +4,9 @@ title: "Reading Data"
 description: ""
 project: "riak_ts"
 project_version: "1.4.0"
+lastmod: 2016-08-24T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_ts-1.4.0:
     name: "Reading Data"
@@ -11,7 +14,6 @@ menu:
     weight: 102
     parent: "spark_riak_usage"
 toc: true
-canonical_link: "https://docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage/reading-data"
 ---
 
 ## Reading Data From TS Table

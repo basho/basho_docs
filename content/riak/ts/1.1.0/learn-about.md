@@ -9,6 +9,9 @@ menu:
     pre: beaker
 project: "riak_ts"
 project_version: "1.1.0"
+lastmod: 2016-01-14T00:00:00-00:00
+sitemap:
+  priority: 0.1
 toc: true
 aliases:
     - /riakts/1.1.0/learn-about/learn-about/
@@ -17,7 +20,6 @@ aliases:
 [table arch]: tablearchitecture/
 [bestpractices]: bestpractices/
 [sqlriakts]: sqlriakts/
-
 
 Welcome to Learning About Riak TS! In this section you will find the following:
 

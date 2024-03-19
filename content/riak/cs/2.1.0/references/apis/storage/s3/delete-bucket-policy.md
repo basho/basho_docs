@@ -3,6 +3,9 @@ title: "Riak CS DELETE Bucket policy"
 description: ""
 project: "riak_cs"
 project_version: "2.1.0"
+lastmod: 2015-10-15T00:00:00-00:00
+sitemap:
+  priority: 0.2
 toc: true
 aliases:
   - /riakcs/2.1.0/references/apis/storage/s3/RiakCS-DELETE-Bucket-policy
@@ -29,7 +32,7 @@ This operation does not use request parameters.
 
 ### Request Headers
 
-This operation uses only request headers that are common to all operations. For more information, see [Common Riak CS Request Headers](/riak/cs/2.1.0/references/apis/storage/s3/common-request-headers).
+This operation uses only request headers that are common to all operations. For more information, see [Common Riak CS Request Headers]({{<baseurl>}}riak/cs/2.1.0/references/apis/storage/s3/common-request-headers).
 
 ### Request Elements
 
@@ -39,7 +42,7 @@ No body should be appended.
 
 ### Response Headers
 
-This implementation of the operation uses only response headers that are common to most responses. For more information, see [Common Riak CS Response Headers](/riak/cs/2.1.0/references/apis/storage/s3/common-response-headers).
+This implementation of the operation uses only response headers that are common to most responses. For more information, see [Common Riak CS Response Headers]({{<baseurl>}}riak/cs/2.1.0/references/apis/storage/s3/common-response-headers).
 
 ### Response Elements
 

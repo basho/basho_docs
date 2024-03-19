@@ -3,6 +3,9 @@ title: "Riak Redis Add-on Features"
 description: ""
 project: "riak_ts"
 project_version: "1.5.2"
+lastmod: 2017-02-10T00:00:00-00:00
+sitemap:
+  priority: 0.3
 menu:
   riak_ts-1.5.2:
     name: "Redis Add-on Features"
@@ -11,22 +14,24 @@ menu:
     parent: "addons_redis"
 toc: true
 commercial_offering: true
+aliases:
+
 ---
 
 [ee]: http://basho.com/contact/
-[GET-sequence]: /images/redis/GET_seq.msc.png
-[SET-sequence]: /images/redis/SET_seq.msc.png
-[DEL-sequence]: /images/redis/DEL_seq.msc.png
-[Object-lifetime]: /images/redis/Object_lifetime.msc.png
+[GET-sequence]: {{<baseurl>}}images/redis/GET_seq.msc.png
+[SET-sequence]: {{<baseurl>}}images/redis/SET_seq.msc.png
+[DEL-sequence]: {{<baseurl>}}images/redis/DEL_seq.msc.png
+[Object-lifetime]: {{<baseurl>}}images/redis/Object_lifetime.msc.png
 [redis docs]: http://redis.io/commands
-[twemproxy docs]: https://github.com/twitter/twemproxy/blob/master/notes/redis.md
+[twemproxy docs]: https://github.com/twitter/twemproxy/blob/master/notes/redis/
 
 ## Overview
 
 The cache proxy service in Riak Redis Add-on (RRA) provides pre-sharding and connection aggregation as a service, which reduces latency and increases addressable cache memory space with lower-cost hardware.
 
 On this page, you will find detailed descriptions of cache proxy service components, including what each component does and how you implement it. The following components are available:
- 
+
 * [Pre-sharding](#pre-sharding)
 * [Connection Aggregation](#connection-aggregation)
 * [Command Pipelining](#command-pipelining)
@@ -69,8 +74,7 @@ Implementing caching strategies in the cache proxy service reduces the cost of i
 The read-through cache strategy of the GET command is represented by the
 following sequence diagram:
 
-![GET command sequence diagram](/images/redis/GET_seq.msc.png)
-
+![GET command sequence diagram]({{<baseurl>}}images/redis/GET_seq.msc.png)
 
 The `CACHE_TTL` configuration option establishes how long the cache takes to
 become consistent with the backend server during a write (DELETE or PUT) to the
@@ -96,12 +100,12 @@ expected to be followed by several accurate cache hits.
 The write-around cache strategy of the SET command is represented by the
 following sequence diagram:
 
-![SET command sequence diagram](/images/redis/SET_seq.msc.png)
+![SET command sequence diagram]({{<baseurl>}}images/redis/SET_seq.msc.png)
 
 The write-around cache strategy of the DEL command is represented by the
 following sequence diagram:
 
-![DEL command sequence diagram](/images/redis/DEL_seq.msc.png)
+![DEL command sequence diagram]({{<baseurl>}}images/redis/DEL_seq.msc.png)
 
 ## Commands
 
@@ -128,4 +132,4 @@ With the combination of read-through and write-around cache strategies, the
 full object lifetime for a key-value is represented by the following
 sequence diagram:
 
-![Object lifetime sequence diagram](/images/redis/Object_lifetime.msc.png)
+![Object lifetime sequence diagram]({{<baseurl>}}images/redis/Object_lifetime.msc.png)

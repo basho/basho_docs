@@ -3,6 +3,9 @@ title: "Riak KV 2.0.4 Release Notes"
 description: ""
 project: "riak_kv"
 project_version: "2.0.4"
+lastmod: 2015-01-10T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.4:
     name: "Release Notes"
@@ -255,7 +258,7 @@ The results for each stage of fullsync:
 
 ## Download
 
-Please see our [downloads](http://docs.basho.com/riak/latest/downloads/)
+Please see our [downloads]({{< baseurl >}}riak/kv/latest/downloads/)
 page.
 
 ## Feedback
@@ -267,11 +270,12 @@ links:
 * https://github.com/basho/basho_docs
 * https://github.com/basho/riak
 
-Or via email at **info@basho.com**.
+Or Via **[email]({{<contactusemail>}})**.
 
 ## Riak 2.0.3 Release Notes
 
 ## Merged PRs
+
 * riak/621: [Introduce exometer metrics into 2.0](https://github.com/basho/riak/pull/621)
 * riak/623: [Remove afunix from EXOMETER_PACKAGES.](https://github.com/basho/riak/pull/623)
 * riak/647: [remove afunix from reltool.config](https://github.com/basho/riak/pull/647)

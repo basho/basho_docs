@@ -4,6 +4,9 @@ title: "PHP"
 description: ""
 project: "riak_kv"
 project_version: "2.2.1"
+lastmod: 2017-03-08T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.1:
     name: "PHP"
@@ -19,8 +22,8 @@ aliases:
 This tutorial shows you how to set up a Riak PHP client to authenticate
 itself when connecting to Riak.
 
-If you are using [trust-](/riak/kv/2.2.1/using/security/managing-sources/#trust-based-authentication) or [PAM](/riak/kv/2.2.1/using/security/managing-sources/#pam-based-authentication)-based authentication, you can use the
-security setup described [below](#php-client-basics). [Certificate](/riak/kv/2.2.1/using/security/managing-sources/#certificate-based-authentication)-based authentication is not
+If you are using [trust-]({{<baseurl>}}riak/kv/2.2.1/using/security/managing-sources/#trust-based-authentication) or [PAM]({{<baseurl>}}riak/kv/2.2.1/using/security/managing-sources/#pam-based-authentication)-based authentication, you can use the
+security setup described [below](#php-client-basics). [Certificate]({{<baseurl>}}riak/kv/2.2.1/using/security/managing-sources/#certificate-based-authentication)-based authentication is not
 yet supported in the PHP client due to limitations of the HTTP interface of Riak.
 
 ## PHP Client Basics
@@ -33,7 +36,7 @@ only one node.
 
 If you are using Riak security, _all_ connecting clients should have
 access to the same Certificate Authority (CA) used on the server side,
-regardless of which [security source](/riak/kv/2.2.1/using/security/managing-sources/) you choose. All clients should also provide a username, regardless of
+regardless of which [security source]({{<baseurl>}}riak/kv/2.2.1/using/security/managing-sources/) you choose. All clients should also provide a username, regardless of
 security source. The example below sets up a single node object (we'll
 simply call it `node`) that connects to Riak on `localhost` and on port
 8087 and specifies `riakuser` as a username. That object will be used to
@@ -85,7 +88,7 @@ $riak = new Riak([$node]);
 
 If you are using PAM- or trust-based authentication, the only difference
 from password-based authentication is that you do not need to specify a
-password. There are helper methods that handle this for you, 
+password. There are helper methods that handle this for you,
 `usingPamAuthentication` and `usingTrustAuthentication`.
 
 ```php

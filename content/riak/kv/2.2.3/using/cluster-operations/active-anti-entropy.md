@@ -3,6 +3,9 @@ title: "Managing Active Anti-Entropy"
 description: ""
 project: "riak_kv"
 project_version: "2.2.3"
+lastmod: 2017-03-30T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.3:
     name: "Managing Active Anti-Entropy"
@@ -15,8 +18,8 @@ aliases:
   - /riak/2.2.3/ops/advanced/aae/
 ---
 
-[config search#throttledelay]: /riak/kv/2.2.3/configuring/search/#search-anti-entropy-throttle-$tier-delay
-[config search#throttle]: riak/kv/2.2.3/configuring/search/#search-anti-entropy-throttle
+[config search#throttledelay]: {{<baseurl>}}riak/kv/2.2.3/configuring/search/#search-anti-entropy-throttle-tier-delay
+[config search#throttle]: {{<baseurl>}}riak/kv/2.2.3/configuring/search/#search-anti-entropy-throttle
 
 Riak's [active anti-entropy](../../../learn/concepts/active-anti-entropy/) \(AAE) subsystem is a set of background processes that repair object inconsistencies stemming from missing or divergent object values across nodes. Riak operators can turn AAE on and off and configure and monitor its functioning.
 
@@ -57,12 +60,12 @@ anti_entropy = active-debug
 ]}
 ```
 
-Remember that you will need to [restart the node](../../admin/riak-admin/#restart) for any configuration-related changes to take effect.
+Remember that you will need to [restart the node](../../admin/riak-cli/#restart) for any configuration-related changes to take effect.
 
 ## Disabling Active Anti-Entropy
 
 Alternatively, AAE can be switched off if you would like to repair
-object inconsistencies using [read repair](../../../learn/concepts/active-anti-entropy/#read-repair) alone:
+object inconsistencies using [read repair](../../../learn/concepts/active-anti-entropy/#read-repair-vs-active-anti-entropy) alone:
 
 ```riakconf
 anti_entropy = passive
@@ -90,7 +93,7 @@ The default directory for AAE data is `./data/anti_entropy`, as in the
 example above, but this can be changed. See the section below titled
 **Data Directory**.
 
-Remember that you will need to [restart the node](../../admin/riak-admin/#restart) for any configuration-related changes to take effect.
+Remember that you will need to [restart the node](../../admin/riak-cli/#restart) for any configuration-related changes to take effect.
 
 The directory deletion method above can also be used to force a
 rebuilding of hash trees.

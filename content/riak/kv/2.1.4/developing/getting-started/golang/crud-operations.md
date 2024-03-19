@@ -4,6 +4,9 @@ tiGetting Started: CRUD Operations with Go"
 description: ""
 project: "riak_kv"
 project_version: "2.1.4"
+lastmod: 2016-04-07T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.1.4:
     name: "CRUD Operations"
@@ -213,7 +216,7 @@ for done := range d {
 ## Updating Objects
 
 While some data may be static, other forms of data need to be
-updated. 
+updated.
 
 Let’s update some values:
 

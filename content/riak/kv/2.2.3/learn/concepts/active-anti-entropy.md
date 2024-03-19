@@ -3,6 +3,9 @@ title: "Active Anti-Entropy"
 description: ""
 project: "riak_kv"
 project_version: "2.2.3"
+lastmod: 2017-03-30T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.3:
     name: "Active Anti-Entropy"
@@ -15,16 +18,15 @@ aliases:
   - /riak/kv/2.2.3/theory/concepts/aae
 ---
 
-[cluster ops v3 mdc]: /riak/kv/2.2.3/using/cluster-operations/v3-multi-datacenter
-[cluster ops aae]: /riak/kv/2.2.3/using/cluster-operations/active-anti-entropy
-[concept clusters]: /riak/kv/2.2.3/learn/concepts/clusters
-[concept eventual consistency]: /riak/kv/2.2.3/learn/concepts/eventual-consistency
-[config aae]: /riak/kv/2.2.3/configuring/reference/#active-anti-entropy
-[glossary read rep]: /riak/kv/2.2.3/learn/glossary/#read-repair
-[glossary vnode]: /riak/kv/2.2.3/learn/glossary/#vnode
+[cluster ops v3 mdc]: {{<baseurl>}}riak/kv/2.2.3/using/cluster-operations/v3-multi-datacenter
+[cluster ops aae]: {{<baseurl>}}riak/kv/2.2.3/using/cluster-operations/active-anti-entropy
+[concept clusters]: {{<baseurl>}}riak/kv/2.2.3/learn/concepts/clusters
+[concept eventual consistency]: {{<baseurl>}}riak/kv/2.2.3/learn/concepts/eventual-consistency
+[config aae]: {{<baseurl>}}riak/kv/2.2.3/configuring/reference/#active-anti-entropy
+[glossary read rep]: {{<baseurl>}}riak/kv/2.2.3/learn/glossary/#read-repair
+[glossary vnode]: {{<baseurl>}}riak/kv/2.2.3/learn/glossary/#vnode
 [Merkle tree]: http://en.wikipedia.org/wiki/Merkle_tree
-[usage search]: /riak/kv/2.2.3/developing/usage/search
-
+[usage search]: {{<baseurl>}}riak/kv/2.2.3/developing/usage/search
 
 In a [clustered][concept clusters], [eventually consistent][concept eventual consistency] system like Riak, conflicts between object replicas stored
 on different nodes are an expected byproduct of node failure, concurrent
@@ -41,7 +43,6 @@ Riak KV offers two means of resolving object conflicts: read repair and
 active anti-entropy (AAE). Both of these conflict resolution mechanisms
 apply both to normal key/value data in Riak as well as to
 [search indexes][usage search]
-
 
 ## Read Repair vs. Active Anti-Entropy
 

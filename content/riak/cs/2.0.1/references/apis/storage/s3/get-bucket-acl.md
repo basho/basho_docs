@@ -3,6 +3,9 @@ title: "Riak CS GET Bucket ACL"
 description: ""
 project: "riak_cs"
 project_version: "2.0.1"
+lastmod: 2015-05-30T00:00:00-00:00
+sitemap:
+  priority: 0.1
 toc: true
 aliases:
   - /riakcs/2.0.1/references/apis/storage/s3/RiakCS-GET-Bucket-ACL
@@ -96,24 +99,20 @@ The GET Bucket acl operation doesn't use request parameters.
 
 **Grantee** - Container for `DisplayName` and `ID` of the person who is being granted permissions.
 
-
 * *Type*: Container
 * *Ancestry*: AccessControlPolicy.AccessControlList.Grant
 
 **ID** - Bucket owner's ID.
-
 
 * *Type*: String
 * *Ancestry*: AccessControlPolicy.Owner
 
 **Owner** - Container for bucket owner information.
 
-
 * *Type*: Container
 * *Ancestry*: AccessControlPolicy
 
 **Permission** - Permission granted to the `Grantee` for bucket.
-
 
 * *Type*: String
 * *Valid Values*: FULL_CONTROL|WRITE|WRITE_ACP|READ|READ_ACP

@@ -3,6 +3,9 @@ title: "LevelDB"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"
+lastmod: 2015-12-10T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.1.3:
     name: "LevelDB"
@@ -15,11 +18,11 @@ aliases:
   - /riak/kv/2.1.3/ops/advanced/backends/leveldb/
 ---
 
-[upgrade 2.0#upgrading-leveldB]: /
-[glossary vnode]: /riak/kv/2.1.3/learn/glossary/#vnode
-[config reference]: /riak/kv/2.1.3/configuring/reference
-[perf index]: /riak/kv/2.1.3/using/performance
-[config reference#aae]: /riak/kv/2.1.3/configuring/reference/#active-anti-entropy
+[upgrade 2.0#upgrading-leveldB]: {{<baseurl>}}
+[glossary vnode]: {{<baseurl>}}riak/kv/2.1.3/learn/glossary/#vnode
+[config reference]: {{<baseurl>}}riak/kv/2.1.3/configuring/reference
+[perf index]: {{<baseurl>}}riak/kv/2.1.3/using/performance
+[config reference#aae]: {{<baseurl>}}riak/kv/2.1.3/configuring/reference/#active-anti-entropy
 
 > **Note on upgrading to 2.0**
 >

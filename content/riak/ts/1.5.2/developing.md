@@ -9,24 +9,25 @@ menu:
     pre: lambda
 project: "riak_ts"
 project_version: "1.5.2"
+lastmod: 2017-02-10T00:00:00-00:00
+sitemap:
+  priority: 0.3
 toc: true
 aliases:
-    - /riakts/1.5.2/developing/developing/
-canonical_link: "https://docs.basho.com/riak/ts/latest/developing"
+  - /riakts/1.5.2/developing/developing/
+
 ---
 
-
-[erlang]: /riak/ts/1.5.2/developing/erlang
-[go]: /riak/ts/1.5.2/developing/golang
-[http]: /riak/ts/1.5.2/developing/http
-[java]: /riak/ts/1.5.2/developing/java
-[ruby]: /riak/ts/1.5.2/developing/ruby
-[python]: /riak/ts/1.5.2/developing/python
-[csharp]: /riak/ts/1.5.2/developing/csharp
-[nodejs]: /riak/ts/1.5.2/developing/nodejs
-[erlang]: /riak/ts/1.5.2/developing/erlang
-[php]: /riak/ts/1.5.2/developing/php
-
+[erlang]: {{<baseurl>}}riak/ts/1.5.2/developing/erlang
+[go]: {{<baseurl>}}riak/ts/1.5.2/developing/golang
+[http]: {{<baseurl>}}riak/ts/1.5.2/developing/http
+[java]: {{<baseurl>}}riak/ts/1.5.2/developing/java
+[ruby]: {{<baseurl>}}riak/ts/1.5.2/developing/ruby
+[python]: {{<baseurl>}}riak/ts/1.5.2/developing/python
+[csharp]: {{<baseurl>}}riak/ts/1.5.2/developing/csharp
+[nodejs]: {{<baseurl>}}riak/ts/1.5.2/developing/nodejs
+[erlang]: {{<baseurl>}}riak/ts/1.5.2/developing/erlang
+[php]: {{<baseurl>}}riak/ts/1.5.2/developing/php
 
 You can access Riak TS data over HTTP through the [API][http].
 
@@ -52,4 +53,4 @@ C# | [riak-dotnet-client](https://github.com/basho/riak-dotnet-client) | [api do
 Node.js | [riak-nodejs-client](https://github.com/basho/riak-nodejs-client) | [api docs](http://basho.github.com/riak-nodejs-client/), [wiki](https://github.com/basho/riak-nodejs-client/wiki) | [NPM](https://www.npmjs.com/package/basho-riak-client), [GitHub Releases](https://github.com/basho/riak-nodejs-client/releases)
 PHP | [riak-php-client](https://github.com/basho/riak-php-client) | [apigen](http://basho.github.io/riak-php-client)
 Erlang | [riak-erlang-client (riakc)](https://github.com/basho/riak-erlang-client) | [edoc](http://basho.github.com/riak-erlang-client/) | [GitHub](https://github.com/basho/riak-erlang-client)
-Go | [riak-go-client](https://github.com/basho/riak-go-client) | [GoDoc](https://godoc.org/github.com/basho/riak-go-client) | 
+Go | [riak-go-client](https://github.com/basho/riak-go-client) | [GoDoc](https://godoc.org/github.com/basho/riak-go-client) |

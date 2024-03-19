@@ -3,6 +3,9 @@ title: "Getting Started with PHP"
 description: ""
 project: "riak_kv"
 project_version: "2.2.3"
+lastmod: 2017-03-30T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.3:
     name: "PHP"
@@ -15,11 +18,12 @@ aliases:
   - /riak/kv/2.2.3/dev/taste-of-riak/php
 ---
 
-If you haven't set up a Riak Node and started it, please visit [Running A Cluster](/riak/kv/2.2.3/using/running-a-cluster) first.
+If you haven't set up a Riak Node and started it, please visit [Running A Cluster]({{<baseurl>}}riak/kv/2.2.3/using/running-a-cluster) first.
 
-To try this flavor of Riak, a working installation of PHP is required, and [Composer](https://getcomposer.org/) is required to be installed to fetch the client library package. 
+To try this flavor of Riak, a working installation of PHP is required, and [Composer](https://getcomposer.org/) is required to be installed to fetch the client library package.
 
 ## Client Setup
+
 Download and unzip, or clone the Taste of Riak Sample Code Repository from GitHub ([zip](https://github.com/basho/taste-of-riak/archive/master.zip), [github repository](https://github.com/basho/taste-of-riak)).
 
 From the `taste-of-riak` directory, use composer to install the Riak PHP 2.0 Client`.
@@ -67,10 +71,10 @@ $riak = new Riak([$node]);
 ```
 
 This code will load the library, declare the necessary `use` statements for our code, and then initialize and configure a [Node Builder](http://basho.github.io/riak-php-client/class-Basho.Riak.Node.Builder.html).
-Once we call `build()` on the builder, it will return to us a [Node](http://basho.github.io/riak-php-client/class-Basho.Riak.Node.html) object, which we use when building our Riak commands. 
+Once we call `build()` on the builder, it will return to us a [Node](http://basho.github.io/riak-php-client/class-Basho.Riak.Node.html) object, which we use when building our Riak commands.
 
 We are now ready to start interacting with Riak.
 
 ## Next Steps
 
-[CRUD Operations](/riak/kv/2.2.3/developing/getting-started/php/crud-operations)
+[CRUD Operations]({{<baseurl>}}riak/kv/2.2.3/developing/getting-started/php/crud-operations)

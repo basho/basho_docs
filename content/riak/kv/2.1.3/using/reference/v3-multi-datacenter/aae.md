@@ -4,6 +4,9 @@ title: "Fullsync via Active Anti-Entropy"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"
+lastmod: 2015-12-10T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.1.3:
     name: "Active Anti-Entropy"
@@ -17,9 +20,9 @@ aliases:
   - /riak/kv/2.1.3/ops/mdc/v3/aae
 ---
 
-[glossary aae]: /riak/kv/2.1.3/learn/glossary/#active-anti-entropy-aae
-[config reference#advanced]: /riak/kv/2.1.3/configuring/reference/#advanced-configuration
-[concept clusters]: /riak/kv/2.1.3/learn/concepts/clusters
+[glossary aae]: {{<baseurl>}}riak/kv/2.1.3/learn/glossary/#active-anti-entropy-aae
+[config reference#advanced]: {{<baseurl>}}riak/kv/2.1.3/configuring/reference/#advanced-configuration
+[concept clusters]: {{<baseurl>}}riak/kv/2.1.3/learn/concepts/clusters
 
 > **Note: Technical preview**
 >

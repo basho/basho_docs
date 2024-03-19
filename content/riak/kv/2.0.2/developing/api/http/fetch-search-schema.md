@@ -3,6 +3,9 @@ title: "HTTP Fetch Search Schema"
 description: ""
 project: "riak_kv"
 project_version: "2.0.2"
+lastmod: 2014-10-18T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.2:
     name: "Fetch Search Schema"
@@ -10,11 +13,13 @@ menu:
     weight: 116
     parent: "apis_http"
 toc: true
+version_history:
+  in: "2.0.0-2.9999.9999"
 aliases:
   - /riak/2.0.2/dev/references/http/fetch-search-schema
 ---
 
-Retrieves a Riak KV [search schema](/riak/kv/2.0.2/developing/usage/search-schemas).
+Retrieves a Riak KV [search schema]({{<baseurl>}}riak/kv/2.0.2/developing/usage/search-schemas).
 
 ## Request
 

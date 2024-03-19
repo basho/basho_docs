@@ -4,6 +4,9 @@ title: "With NAT"
 description: ""
 project: "riak_kv"
 project_version: "2.0.8"
+lastmod: 2017-02-16T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.8:
     name: "With NAT"
@@ -17,10 +20,10 @@ aliases:
   - /riak/kv/2.0.8/ops/mdc/v2/nat
 ---
 
-[config v2 ssl]: /riak/kv/2.0.8/configuring/v2-multi-datacenter/ssl
+[config v2 ssl]: {{<baseurl>}}riak/kv/2.0.8/configuring/v2-multi-datacenter/ssl
 
 {{% note title="Deprecation Warning" %}}
-v2 Multi-Datacenter Replication is deprecated and will be removed in a future version. Please use [v3](/riak/kv/2.0.8/configuring/v3-multi-datacenter/nat/) instead.
+v2 Multi-Datacenter Replication is deprecated and will be removed in a future version. Please use [v3]({{<baseurl>}}riak/kv/2.0.8/configuring/v3-multi-datacenter/nat/) instead.
 {{% /note %}}
 
 Riak Enterprise supports replication of data on networks that use static

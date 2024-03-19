@@ -3,6 +3,9 @@ title: "Keystone Setup"
 description: ""
 project: "riak_cs"
 project_version: "2.0.1"
+lastmod: 2015-05-30T00:00:00-00:00
+sitemap:
+  priority: 0.1
 aliases:
   - /riakcs/2.0.1/cookbooks/Keystone-Setup/
 ---
@@ -73,7 +76,7 @@ pip install -r tools/pip-requires
 
 The next step is to select the appropriate options in the
 `keystone.conf` configuration file. A sample configuration that is
-useful for local testing with Riak CS can be found [here](/riak/cs/2.0.1/cookbooks/keystone-conf-sample/). This configuration file sets up logging to
+useful for local testing with Riak CS can be found [here]({{<baseurl>}}riak/cs/2.0.1/cookbooks/keystone-conf-sample/). This configuration file sets up logging to
 `./log/keystone/keystone.log` and uses the templated catalog backend to
 set up the Riak CS object store service. This catalog backend uses a
 local file to populate the service catalog.

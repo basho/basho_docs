@@ -16,32 +16,26 @@
 
 {{ $HugoNode := . }}
 
-{{ $project      := $HugoNode.Scratch.Get "project"      }}
-{{ $version      := $HugoNode.Scratch.Get "version"      }}
-{{ $is_latest    := $HugoNode.Scratch.Get "is_latest"    }}
-{{ $is_lts       := $HugoNode.Scratch.Get "is_lts"       }}
-{{ $version_path := $HugoNode.Scratch.Get "version_path" }}
+{{ $project      := $HugoNode.Scratch.Get "project"        }}
+{{ $version      := $HugoNode.Scratch.Get "version"        }}
+{{ $is_latest    := $HugoNode.Scratch.Get "is_latest"      }}
+{{ $is_lts       := $HugoNode.Scratch.Get "is_lts"         }}
+{{ $version_path := $HugoNode.Scratch.Get "version_path"   }}
 
-{{ $listed_projects := $HugoNode.Params.listed_projects }}
+{{ $listed_projects := $HugoNode.Params.listed_projects    }}
 
 {{ $download_metadata := $HugoNode.Site.Data.download_info }}
 {{ $os_metadata       := $HugoNode.Site.Data.os_metadata   }}
 
+{{ $download_root     := $HugoNode.Scratch.Get "download_root" }}
+{{ $series            := $HugoNode.Scratch.Get "series" }}
+{{ $download_root_path := (print $download_root $series "/" $version) }}
 {{ $menu_title := (printf "%s-%s" $project $version) }} {{/* ex; "riak_kv-2.1.4" */}}
 -->
 
 <html class="no-js" lang="en">
-
-
-
 {{ partial "head.html" $HugoNode }}
-
-
-
 <body class="{{$project}} {{$version}} {{if $is_latest}}latest{{end}} {{if $is_lts}}lts{{end}} downloads">
-
-
-  {{ partial "google-tag-manager.html" $HugoNode }}
 
 
   {{ partial "banner.html" $HugoNode }}
@@ -86,18 +80,47 @@
         {{/*<h2/>*/}} {{ (printf "## %s %s" $target_title $target_version) | markdownify }}
 
         <p>You should be able to find your operating system in the choices below.</p>
+        <!-- {{ if $download_root }} -->
+          <!-- {{ if (or (and (ge $version "3.0.10") (lt $version "3.0.2")) (ge $version "3.1.0")) }} -->
+            <p>All files (except Alpine Linux) are available on our <a href="{{ $download_root_path }}">the file store</a>.</p>
 
-
+            {{ $alpine_os_data         := (index $os_metadata "alpine")                                       }}
+            {{ $alpine_os_title        := (index $alpine_os_data "title")                                            }}
+            {{ $alpine_image_source    := print $HugoNode.Site.BaseURL (index $alpine_os_data "image_src")    }}
+            {{ $alpine_installing_page := (index $alpine_os_data "installing_instructions_page")              }} {{/* Optional */}}
+            {{ $alpine_installing_uri  := replace (printf "%s%s/%s/%s" $HugoNode.Site.BaseURL $version_path $install_instructions_set $alpine_installing_page) "//" "/" }}
+            {{ $alpine_installing_uri  := replace $alpine_installing_uri "http:/" "http://" }}
+            {{ $alpine_installing_uri  := replace $alpine_installing_uri "https:/" "https://" }}
+                
+            {{/*<h3/>*/}} {{ (printf "### ![](%s) %s for %s{#%s}" $alpine_image_source $target_title $alpine_os_title (replace (lower $alpine_os_title) " " "-" )) | markdownify }}
+            <table class="downloads">
+              <tbody>
+                <tr class="downloads__version-title">
+                  <td colspan="3">
+                    {{/*<h4/>*/}}{{ printf "#### %s %s" $alpine_os_title "64-bit" | markdownify }}
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="5" class="downloads__install-instructions">
+                    Installing {{$target_title}} on {{ $alpine_os_title }} uses the <a href="{{$alpine_installing_uri}}">{{ $alpine_os_title }} Riak Repository for x86_64 and aarch64 architectures.</a>.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          <!-- {{ else }} -->
+            <p>All files are available on our <a href="{{ $download_root_path }}">the file store</a>.</p>
+          <!-- {{ end }} -->
+        <!-- {{ end }} -->
 
   <!-- Range Over OSs Per Project
   =============================== -->
   {{ range $os_map := (sort (where $target_download_metadata "os" "!=" "source") "os") }}
-    <!-- Note that we filter out any "Source" OSs here so that we can add them
+  <!-- Note that we filter out any "Source" OSs here so that we can add them
          to the bottom of the page after all official packages have been listed.
-    {{ $os_data         := (index $os_metadata $os_map.os)                 }}
-    {{ $os_title        := (index $os_data "title")                        }}
-    {{ $image_source    := (index $os_data "image_src")                    }}
-    {{ $installing_page := (index $os_data "installing_instructions_page") }} {{/* Optional */}}
+    {{ $os_data         := (index $os_metadata $os_map.os)                           }}
+    {{ $os_title        := (index $os_data "title")                                  }}
+    {{ $image_source    := print $HugoNode.Site.BaseURL (index $os_data "image_src") }}
+    {{ $installing_page := (index $os_data "installing_instructions_page")           }} {{/* Optional */}}
     -->
 
         {{/*<h3/>*/}} {{ (printf "### ![](%s) %s for %s{#%s}" $image_source $target_title $os_title (replace (lower $os_title) " " "-" )) | markdownify }}
@@ -111,7 +134,13 @@
 
             <tr class="downloads__version-title">
               <td colspan="3">
-                {{/*<h4/>*/}}{{ printf "#### %s %s" $os_title $version_map.version | markdownify }}
+                {{ if $os_data.versions }}
+                  {{ $version_raw        := (printf "%s" $version_map.version )           }}
+                  {{ $version_title        := (index $os_data.versions $version_raw ) | default $version_raw           }}
+                  {{/*<h4/>*/}}{{ printf "#### %s %s" $os_title $version_title | markdownify }}
+                {{ else }}
+                  {{/*<h4/>*/}}{{ printf "#### %s %s" $os_title $version_map.version | markdownify }}
+                {{ end }}
               </td>
             </tr>
 
@@ -123,8 +152,12 @@
               <td></td>
               <td class="downloads__arch">{{$arch_map.arch}}</td>
               <td class="downloads__link"><a href="{{$arch_map.file_info.file_href}}">{{$arch_map.file_info.file_name}}</a></td>
-              <td class="downloads__size">{{ (div (div $arch_map.file_info.file_size 1024) 1024) }} MB</td>
+              <td class="downloads__size">{{ (div (div (int $arch_map.file_info.file_size) 1024) 1024) }} MB</td>
+              {{ if $arch_map.file_info.chksum_href }}
               <td class="downloads__chksum"><a href="{{$arch_map.file_info.chksum_href}}">hash</a></td>
+              {{ else }}
+              <td class="downloads__chksum"></td>
+              {{ end }}
             </tr>
 
       {{ end}}
@@ -135,8 +168,9 @@
     ===================================================== -->
     {{ if ( and $install_instructions_set $installing_page ) }}
 
-      {{ $installing_uri := (printf "%s/%s/%s" $version_path $install_instructions_set $installing_page) }}
-
+    {{ $installing_uri := replace (printf "%s%s/%s/%s" $HugoNode.Site.BaseURL $version_path $install_instructions_set $installing_page) "//" "/" }}
+    {{ $installing_uri := replace $installing_uri "http:/" "http://" }}
+    {{ $installing_uri := replace $installing_uri "https:/" "https://" }}
           <tr>
             <td colspan="5" class="downloads__install-instructions">
               Here are further instructions for <a href="{{$installing_uri}}">installing {{$target_title}} on this system</a>.
@@ -150,17 +184,15 @@
 
   {{end}}
 
-
   <!-- Range Over Source Packages Per Project
   =========================================== -->
   {{ range $source_map := (where $target_download_metadata "os" "==" "source") }}
     <!-- Note that we only render "Source" OSs here. All official packages
          should have been listed above.
-    {{ $os_data         := (index $os_metadata "source")                   }}
-    {{ $image_source    := (index $os_data "image_src")                    }}
-    {{ $installing_page := (index $os_data "installing_instructions_page") }} {{/* Optional */}}
+    {{ $os_data         := (index $os_metadata "source")                             }}
+    {{ $image_source    := print $HugoNode.Site.BaseURL (index $os_data "image_src") }}
+    {{ $installing_page := (index $os_data "installing_instructions_page")           }} {{/* Optional */}}
     -->
-
         {{/*<h3/>*/}} {{ (printf "### ![](%s) Source Download for %s{#source}" $image_source $target_title) | markdownify }}
 
         <table class="downloads">
@@ -170,15 +202,20 @@
               <td></td>
               <td class="downloads__arch"></td>
               <td class="downloads__link"><a href="{{$source_map.file_info.file_href}}">{{$source_map.file_info.file_name}}</a></td>
-              <td class="downloads__size">{{ (div (div $source_map.file_info.file_size 1024) 1024) }} MB</td>
+              <td class="downloads__size">{{ (div (div (int $source_map.file_info.file_size) 1024) 1024) }} MB</td>
+              {{ if $source_map.file_info.chksum_href }}
               <td class="downloads__chksum"><a href="{{$source_map.file_info.chksum_href}}">hash</a></td>
+              {{ else }}
+              <td class="downloads__chksum"></td>
+              {{ end }}
             </tr>
 
     <!-- If we have an installing page, add a link to it.
     ===================================================== -->
     {{ if ( and $install_instructions_set $installing_page ) }}
 
-      {{ $installing_uri := (printf "%s/%s/%s" $version_path $install_instructions_set $installing_page) }}
+      {{ $installing_uri := replace (printf "%s%s/%s/%s" $HugoNode.Site.BaseURL $version_path $install_instructions_set $installing_page) "//" "/" }}
+      {{ $installing_uri := replace $installing_uri "http:/localhost" "http://localhost" }}
 
             <tr>
               <td colspan="5" class="downloads__install-instructions">
@@ -197,7 +234,6 @@
   {{ if not ( eq $index (sub 1 (len $listed_projects)) ) }}
         <hr>
   {{ end }}
-
 {{ end }}
 
       </main>
@@ -213,7 +249,7 @@
   </div>
 
 
-  <script src="/js/main.js" type="text/javascript"></script>
+  <script src="{{ .Site.BaseURL }}js/main.js" type="text/javascript"></script>
 
 </body>
 </html>

@@ -3,6 +3,9 @@ title: "Failure & Recovery"
 description: ""
 project: "riak_kv"
 project_version: "2.0.4"
+lastmod: 2015-01-10T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.4:
     name: "Failure & Recovery"
@@ -38,22 +41,22 @@ does not necessarily cause data loss, as other replicas of every key are
 available elsewhere in the cluster. Once the node is detected as down,
 other nodes in the cluster will take over its responsibilities
 temporarily and transmit the updated data to it when it eventually
-returns to service (also called [hinted handoff](/riak/kv/2.0.4/learn/glossary/#hinted-handoff)).
+returns to service (also called [hinted handoff]({{<baseurl>}}riak/kv/2.0.4/learn/glossary/#hinted-handoff)).
 
 More severe data loss scenarios usually relate to hardware failure.
 If data is lost, several options are available for restoring it.
 
-1.  **Restore from backup** --- A daily backup of Riak nodes can be helpful.
+1. **Restore from backup** --- A daily backup of Riak nodes can be helpful.
     The data in this backup may be stale depending on the time at which
     the node failed, but it can be used to partially restore data from
     lost storage volumes. If running in a RAID configuration, rebuilding
     the array may also be possible.
-2.  **Restore from multi-cluster replication** --- If replication is enabled
+2. **Restore from multi-cluster replication** --- If replication is enabled
     between two or more clusters, the missing data will gradually be
     restored via realtime replication and fullsync replication. A
     fullsync operation can also be triggered manually via the `riak-repl`
     command.
-3.  **Restore using intra-cluster repair** --- Riak versions 1.2 and greater
+3. **Restore using intra-cluster repair** --- Riak versions 1.2 and greater
     include a repair feature which will restore lost partitions with
     data from other replicas. Currently, this must be invoked manually
     using the Riak console and should be performed with guidance from a
@@ -92,7 +95,7 @@ too much data and growing the cluster may be necessary. Additional RAM
 may also improve latency because more of the active dataset will be
 cached by the operating system.
 
-Sometimes extreme latency spikes can be caused by [sibling explosion](/riak/kv/2.0.4/developing/usage/conflict-resolution#siblings). This condition occurs when the client application does not resolve conflicts properly or in a timely fashion. In that scenario, the size of the value on disk grows in proportion to
+Sometimes extreme latency spikes can be caused by [sibling explosion]({{<baseurl>}}riak/kv/2.0.4/developing/usage/conflict-resolution#siblings). This condition occurs when the client application does not resolve conflicts properly or in a timely fashion. In that scenario, the size of the value on disk grows in proportion to
 the number of siblings, causing longer disk service times and slower
 network responses.
 
@@ -115,7 +118,7 @@ spreading load and increasing available CPU and IOPS.
 
 ## Cluster Recovery From Backups
 
-See [Changing Cluster Information](/riak/kv/2.1.4/using/cluster-operations/changing-cluster-info/#clusters-from-backups) for instructions on cluster recovery.
+See [Changing Cluster Information]({{<baseurl>}}riak/kv/2.0.4/using/cluster-operations/changing-cluster-info/#clusters-from-backups) for instructions on cluster recovery.
 
 {{% note title="Tip" %}}
 If you are a licensed Riak Enterprise or CS customer and require assistance or

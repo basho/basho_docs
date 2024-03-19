@@ -21,7 +21,7 @@
 
   <!-- Docs logo -->
   <div class="float-left   banner__docs-logo">
-    <a href="/index.html" class="block   docs-logo"><img class="docs-logo__image" src="/images/branding/basho_docs_logo.png"></a>
+    <a href="{{ .Site.BaseURL }}index.html" class="block   docs-logo"><img class="docs-logo__image" src="{{ .Site.BaseURL }}images/branding/riak-docs.png"></a>
   </div>
 
 
@@ -43,18 +43,17 @@
       the list of links.
       Simple, right?
     -->
+    <div class="clearfix">
     <div class="float-left    banner__intra-brand__width-wrapper">
     <div class="float-right   banner__intra-brand">
       <div class="float-right">
-        <!-- Comment out the newlines s.t. whitespace isn't rendered in-between inline-block elements. -->
-        <a class="inline-block   banner__brand-link" href="http://basho.com/">Basho</a><!--
-     --><a class="inline-block   banner__brand-link" href="https://academy.basho.com">Academy</a><!--
-     --><a class="inline-block   banner__brand-link" href="/community">Community</a><!--
-     --><a class="inline-block   banner__brand-link" href="http://basho.com/contact">Contact</a><!--
+        <!-- Comment out the newlines s.t. whitespace isn't rendered in-between inline-block elements. --><!--
+     --><a class="inline-block   banner__brand-link" href="{{ .Site.BaseURL }}community">Community</a><!--
+     --><a class="inline-block   banner__brand-link" href="{{ .Site.Params.contact_us_url }}">Contact</a><!--
    --></div>
     </div>
     </div>
-
+    </div>
 
 {{/* Don't display the intra-site navigation if we're on the splash page; it
      already is an intra-site navigation page, so the banner becomes redundant.
@@ -66,9 +65,9 @@
     <div class="float-left    banner__intra-site__width-wrapper">
     <div class="float-right   banner__intra-site">
       <!-- Comment out the newlines s.t. whitespace isn't rendered in-between inline-block elements. -->
-      <a class="inline-block   banner__brand-link {{ if $in_riak_kv }}banner__brand-link--current"{{ else }}" href="/riak/kv/latest/"{{ end }}>Riak KV</a><!--
-   --><a class="inline-block   banner__brand-link {{ if $in_riak_ts }}banner__brand-link--current"{{ else }}" href="/riak/ts/latest/"{{ end }}>Riak TS</a><!--
-   --><a class="inline-block   banner__brand-link {{ if $in_riak_cs }}banner__brand-link--current"{{ else }}" href="/riak/cs/latest/"{{ end }}>Riak CS</a><!--
+      <a class="inline-block   banner__brand-link {{ if $in_riak_kv }}banner__brand-link--current"{{ else }}" href="{{ .Site.BaseURL }}riak/kv/latest/"{{ end }}>Riak KV</a><!--
+   --><a class="inline-block   banner__brand-link {{ if $in_riak_ts }}banner__brand-link--current"{{ else }}" href="{{ .Site.BaseURL }}riak/ts/latest/"{{ end }}>Riak TS</a><!--
+   --><a class="inline-block   banner__brand-link {{ if $in_riak_cs }}banner__brand-link--current"{{ else }}" href="{{ .Site.BaseURL }}riak/cs/latest/"{{ end }}>Riak CS</a><!--
  --></div>
     </div>
 {{ end }}

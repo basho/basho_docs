@@ -9,19 +9,19 @@ menu:
     pre: riak
 project: "riak_ts"
 project_version: "1.5.0"
+lastmod: 2016-12-20T00:00:00-00:00
+sitemap:
+  priority: 0.2
 toc: true
 aliases:
     - /riakts/1.5.0/
-canonical_link: "https://docs.basho.com/riak/ts/latest"
 ---
-
 
 [download]: downloads/
 [installing]: setup/installing/
 [learnabout]: learn-about/
 [querying]: using/querying/
 [supported clients]: developing/
-
 
 Riak TS is a distributed NoSQL key/value store optimized for time series data. With TS, you can associate a number of data points with a specific point in time. TS uses discrete slices of time to co-locate data. For example, humidity and temperature readings from a meter reported during the same slice of time will be stored together on disk.
 
@@ -53,7 +53,6 @@ CREATE TABLE BashoWeather
 
 Using this table we can map region, state and time (in 15 minute chunks) to weather condition, temperature, and humidity readings.
 
-
 ## Supported Operating Systems
 
 * CentOS 6
@@ -79,6 +78,3 @@ Once you're up and running, check out our docs on [querying] or our [supported c
 
 If you want to learn more about how Riak TS was designed and how it is structured, checkout our [Learn About Riak TS][learnabout] section.
 
-## Academy Training
-
-[Basho's Academy](https://academy.basho.com) courses offer hands-on experience with Riak TS, from installing Riak TS to using the Spark-Riak Connector. Sign up for a [free account](https://academy.basho.com/users/sign_up) to get started.

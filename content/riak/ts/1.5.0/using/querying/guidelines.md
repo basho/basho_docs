@@ -9,11 +9,13 @@ menu:
     parent: "querying_data_riakts"
 project: "riak_ts"
 project_version: "1.5.0"
+lastmod: 2016-12-20T00:00:00-00:00
+sitemap:
+  priority: 0.2
 toc: true
 aliases:
     - /riakts/1.5.0/using/querying/basic-querying
     - /riakts/1.5.0/using/querying/guidelines
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/guidelines"
 ---
 
 [table arch]: ../../../learn-about/tablearchitecture/#data-modeling
@@ -21,14 +23,12 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/guidelines
 [writing]: ../../writingdata/
 [planning]: ../../planning#column-definitions
 [iso8601]: ../../../timerepresentations/
-[SELECT]: /riak/ts/1.5.0/using/querying/SELECT#iso_8601
+[SELECT]: {{<baseurl>}}riak/ts/1.5.0/using/querying/SELECT#iso_8601
 [configuring]: ../../../configuring/riakconf/
 
-
-Riak TS supports several kinds of queries of your TS data. To create the most successful queries possible, there are some guidelines and limitations you should know. 
+Riak TS supports several kinds of queries of your TS data. To create the most successful queries possible, there are some guidelines and limitations you should know.
 
 This document will cover the basic rules of querying in Riak TS, general guidelines to help you create the best queries possible, and all current limitations impacting queries in TS.
-
 
 ## The Basic Rules of Querying
 
@@ -41,7 +41,6 @@ b TIMESTAMP NOT NULL,
 c BOOLEAN NOT NULL,
 PRIMARY KEY  ((a, QUANTUM(b, 1, 's'))<-Partition Key, a,b,c)<-Local Key)
 ```
-
 
 ### Partition Key
 
@@ -60,9 +59,8 @@ Any quantized field in your partition key must be included in the query as a bou
 * Invalid: `time > 1449864277000 or time < 1449864290000`
 
 {{% note title="A Note About `SELECT`" %}}
-It is possible to use ISO 8601-compliant date/time strings rather than integer timestamps in SELECT statements. Please see [SELECT](/riak/ts/1.5.0/using/querying/select/#iso-8601) for an example or [Time Representations](/riak/ts/1.5.0/using/timerepresentations/) for more information.
+It is possible to use ISO 8601-compliant date/time strings rather than integer timestamps in SELECT statements. Please see [SELECT]({{<baseurl>}}riak/ts/1.5.0/using/querying/select/#iso-8601) for an example or [Time Representations]({{<baseurl>}}riak/ts/1.5.0/using/timerepresentations/) for more information.
 {{% /note %}}
-
 
 ### Local Key
 
@@ -81,11 +79,9 @@ Here 'c' is in the local key only so does not have to be in the query.
 * Invalid: `country_code != 'se'`
 * Invalid: `temperature < 85.0`
 
-
 ### Column Definitions
 
 [Column definitions][planning] may be queried with unbounded ranges, `!=`, and `or` comparisons.
-
 
 ### General Guidelines
 
@@ -132,7 +128,6 @@ The following operators are supported for each data type:
 | double    | X | X | X | X | X | X |
 | timestamp | X | X | X | X | X | X |
 
-
 ## Limitations
 
 * Column to column comparisons are not currently supported.
@@ -158,7 +153,7 @@ The `max_quanta_span` parameter will limit the number of quanta a query can cove
 
 A query covering more than than the configured quanta span will generate an error like 'Error (1025): Query spans too many quanta' and the query system will refuse to run it.
 
-A query covering more than than the configured quanta span (1000 in Riak TS 1.5 due to a bug, see [Configuring](riak/ts/1.5.0/configuring/riakconf/) for more information) will generate an error like `Error (1025): Query spans too many quanta (1577160, max 1000)` and the query system will refuse to run it. 
+A query covering more than than the configured quanta span (1000 in Riak TS 1.5 due to a bug, see [Configuring](riak/ts/1.5.0/configuring/riakconf/) for more information) will generate an error like `Error (1025): Query spans too many quanta (1577160, max 1000)` and the query system will refuse to run it.
 
 In the example DDL below we set a quantum of 1 minute in the primary key:
 

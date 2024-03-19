@@ -3,6 +3,9 @@ title: "Bitcask Capacity Calculator"
 description: ""
 project: "riak_kv"
 project_version: "2.2.1"
+lastmod: 2017-03-08T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.1:
     name: "Bitcask Capacity Calculator"
@@ -15,7 +18,7 @@ aliases:
   - /riak/kv/2.2.1/ops/building/planning/bitcask
 ---
 
-[plan backend bitcask]: /riak/kv/2.2.1/setup/planning/backend/bitcask
+[plan backend bitcask]: {{<baseurl>}}riak/kv/2.2.1/setup/planning/backend/bitcask
 
 These calculators will assist you in sizing your cluster if you plan to
 use the default [Bitcask][plan backend bitcask] storage back end.

@@ -4,6 +4,9 @@ title: "Querying with C Sharp"
 description: ""
 project: "riak_kv"
 project_version: "2.2.2"
+lastmod: 2017-03-24T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.2:
     name: "Querying"
@@ -125,9 +128,9 @@ intrinsic relationships.
 ## Secondary Indexes
 
 {{% note %}}
-Secondary indexes in Riak KV require a sorted backend: [Memory](/riak/kv/2.2.2/setup/planning/backend/memory) or [LevelDB](/riak/kv/2.2.2/setup/planning/backend/leveldb). [Bitcask](/riak/kv/2.2.2/setup/planning/backend/bitcask) does not support secondary indexes.
+Secondary indexes in Riak KV require a sorted backend: [Memory]({{<baseurl>}}riak/kv/2.2.2/setup/planning/backend/memory) or [LevelDB]({{<baseurl>}}riak/kv/2.2.2/setup/planning/backend/leveldb). [Bitcask]({{<baseurl>}}riak/kv/2.2.2/setup/planning/backend/bitcask) does not support secondary indexes.
 
-See [Using Secondary Indexes (2i)](/riak/kv/2.2.2/developing/usage/secondary-indexes) for more information on developing with secondary indexes.
+See [Using Secondary Indexes (2i)]({{<baseurl>}}riak/kv/2.2.2/developing/usage/secondary-indexes) for more information on developing with secondary indexes.
 {{% /note %}}
 
 If you're coming from an SQL world, Secondary Indexes (2i) are a lot
@@ -204,7 +207,6 @@ So to recap:
 * Indexes can have either Integer or Binary(String) keys
 * You can search for specific values, or a range of values
 * Riak will return a list of keys that match the index query
-
 
 [taste_of_riak]: https://github.com/basho/taste-of-riak
 [master_zip]: https://github.com/basho/taste-of-riak/archive/master.zip

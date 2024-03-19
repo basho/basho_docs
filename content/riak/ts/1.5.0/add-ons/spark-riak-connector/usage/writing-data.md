@@ -4,6 +4,9 @@ title: "Writing Data"
 description: ""
 project: "riak_ts"
 project_version: "1.5.0"
+lastmod: 2016-12-20T00:00:00-00:00
+sitemap:
+  priority: 0.2
 menu:
   riak_ts-1.5.0:
     name: "Writing Data"
@@ -11,7 +14,6 @@ menu:
     weight: 103
     parent: "spark_riak_usage"
 toc: true
-canonical_link: "https://docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage/writing-data"
 ---
 
 ## Writing Data To TS Table

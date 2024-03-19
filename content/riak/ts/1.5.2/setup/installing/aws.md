@@ -9,28 +9,28 @@ menu:
     parent: "installing"
 project: "riak_ts"
 project_version: "1.5.2"
+lastmod: 2017-02-10T00:00:00-00:00
+sitemap:
+  priority: 0.3
 toc: true
 version_history:
   locations:
     - ["1.0.0-1.3.1", "installing/aws"]
     - ["1.4.0+",      "setup/installing/aws"]
 aliases:
-    - /riakts/1.5.2/installing/aws/
-    - /riakts/1.5.2/setup/installing/aws/
-    - /riak/ts/1.5.2/installing/aws/
-canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/aws/"
+  - /riakts/1.5.2/installing/aws/
+  - /riakts/1.5.2/setup/installing/aws/
+  - /riak/ts/1.5.2/installing/aws/
+  - /riak/ts/latest/installing/aws/
 ---
 
-
 [AWS]: http://aws.amazon.com
-[download]: /riak/ts/1.5.2/downloads/
+[download]: {{<baseurl>}}riak/ts/1.5.2/downloads/
 [ec2 guide]: http://docs.amazonwebservices.com/AWSEC2/latest/UserGuide/AccessingInstances.html
-[security basics]: /riak/ts/1.5.2/using/security/
-
+[security basics]: {{<baseurl>}}riak/ts/1.5.2/using/security/
 
 Riak TS can be installed on AWS virtual machines (VMs) using a binary
 package available [here][download]. This page will walk you through the process of setting up your AWS environment and installing Riak TS on it.
-
 
 ## Launch Riak VMs via the AWS Marketplace
 
@@ -42,10 +42,9 @@ Get started by launching a Riak TS virtual machine via the AWS Marketplace. (You
 
 3. Set your desired AWS region, EC2 instance type, firewall settings, and key pair.
 
-    ![AWS Marketplace Instance Settings](/images/aws-marketplace-settings.png)
+    ![AWS Marketplace Instance Settings]({{<baseurl>}}images/aws-marketplace-settings.png)
 
 4. Then click the **Accept Terms and Launch with 1-Click** button.
-
 
 ### Security Group Settings
 
@@ -67,10 +66,9 @@ Once the virtual machine is created, you should verify that your selected EC2 se
 
 4. When complete, your security group should contain all of the rules listed below. If you are missing any rules, add them in the lower panel and then click the **Apply Rule Changes** button.
 
-    ![EC2 Security Group Settings](/images/aws-marketplace-security-group.png)
+    ![EC2 Security Group Settings]({{<baseurl>}}images/aws-marketplace-security-group.png)
 
-We also recommend that you read more about [Security in TS][security basics]. 
-
+We also recommend that you read more about [Security in TS][security basics].
 
 ## Create a Riak Cluster on AWS
 
@@ -114,7 +112,6 @@ The following clustering setup will not be resilient to instance restarts unless
 
 You now have a Riak cluster running on AWS.
 
-
 ## Configure the riak shell
 
 In order to function, the riak shell must know about each node in the cluster.
@@ -146,11 +143,11 @@ In order to function, the riak shell must know about each node in the cluster.
     sudo riak-shell
     ```
 
-    You should see a `riak-shell` prompt:    
+    You should see a `riak-shell` prompt:
     ```bash
-    [ec2-user ~]$ sudo riak-shell 
+    [ec2-user ~]$ sudo riak-shell
     Erlang R16B02_basho10 (erts-5.10.3) [source] [64-bit] [smp:2:2] [async-threads:10] [hipe] [kernel-poll:false] [frame-pointer]
-    
+
     version "riak_shell 1.5/sql compiler 320523031941664944417524937300681317050", use 'quit;' or 'q;' to exit or 'help;' for help
     Connected...
     riak-shell(1)>

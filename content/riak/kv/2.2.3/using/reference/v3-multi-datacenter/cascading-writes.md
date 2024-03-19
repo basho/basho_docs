@@ -4,6 +4,9 @@ title: "Cascading Realtime Writes"
 description: ""
 project: "riak_kv"
 project_version: "2.2.3"
+lastmod: 2017-03-30T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.3:
     name: "Cascading Writes"
@@ -33,7 +36,6 @@ Cascading tracking is a simple list of where an object has been written. This
 works well for most common configurations. Larger installations, however, may
 have writes cascade to clusters to which other clusters have already written.
 {{% /note %}}
-
 
 ```
 +---+     +---+     +---+
@@ -83,7 +85,7 @@ cascade.
 ## Usage
 
 Riak Enterprise Cascading Writes can be enabled and disabled using the
-`riak-repl` command. Please see the [Version 3 Operations guide](/riak/kv/2.2.3/using/cluster-operations/v3-multi-datacenter) for more information.
+`riak-repl` command. Please see the [Version 3 Operations guide]({{<baseurl>}}riak/kv/2.2.3/using/cluster-operations/v3-multi-datacenter) for more information.
 
 To show current the settings:
 

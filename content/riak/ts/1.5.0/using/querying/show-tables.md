@@ -9,13 +9,15 @@ menu:
     parent: "querying_data_riakts"
 project: "riak_ts"
 project_version: "1.5.0"
+lastmod: 2016-12-20T00:00:00-00:00
+sitemap:
+  priority: 0.2
 toc: true
 aliases:
     - /riakts/1.5.0/using/querying/show-tables
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/show-tables"
 ---
 
-[riak shell]: /riak/ts/1.5.0/using/riakshell
+[riak shell]: {{<baseurl>}}riak/ts/1.5.0/using/riakshell
 
 You can use the SHOW TABLES statement to enumerate the Riak TS tables you have set up. This document will show you how to execute `SHOW TABLES` in TS.
 

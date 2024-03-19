@@ -4,6 +4,9 @@ title: "Data Types"
 description: ""
 project: "riak_kv"
 project_version: "2.2.2"
+lastmod: 2017-03-24T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.2:
     name: "Data Types"
@@ -34,7 +37,6 @@ Riak KV also has 1 context-free data type, that has similar usage but does not r
 
 - [HyperLogLogs](./hyperloglogs) (abbreviated `hll` in many places)
 
-
 Counters, sets, maps, and hyperloglogs can be used as bucket-level data types or types that you interact with directly. Flags and registers must be [embedded in maps](./maps).
 
 For more information on how CRDTs work in Riak KV see [Concepts: Data Types][concept crdt].
@@ -43,9 +45,9 @@ For more information on how CRDTs work in Riak KV see [Concepts: Data Types][con
 
 The following section explains how to set up a bucket that uses Riak data types. To get started using Riak data types:
 
-1. [Create a bucket with the `datatype` parameter set](#creating-a-bucket-with-a-data-type).
+1. [Create a bucket with the `datatype` parameter set](#creating-a-bucket-with-a-riak-data-type).
 2. [Confirm the bucket was properly configured](#confirm-bucket-configuration).
-3. [Activate the bucket type](#activate-the-bucket-type).
+3. [Activate the bucket type](#activate-bucket-type).
 
 ### Creating a Bucket with a Riak Data Type
 
@@ -81,7 +83,7 @@ This will return a list of bucket properties and their associated values
 in the form of `property: value`. If our `maps` bucket type has been set
 properly, we should see the following pair in our console output:
 
-```
+```plaintext
 datatype: map
 ```
 
@@ -205,10 +207,10 @@ directly below.
 
 With the Java and PHP clients, you'll need to manually fetch and return data type contexts for the following operations:
 
-* Disabling a flag within a map
-* Removing an item from a set (whether the set is on its own or within a
+- Disabling a flag within a map
+- Removing an item from a set (whether the set is on its own or within a
   map)
-* Removing a field from a map
+- Removing a field from a map
 
 Without context, these operations simply will not succeed due to the
 convergence logic driving Riak data types. The example below shows you
@@ -229,7 +231,6 @@ UpdateMap update = new UpdateMap.Builder(ahmedMap, removePaidAccountField)
         .build();
 client.execute(update);
 ```
-
 
 ```php
 $map = (new \Basho\Riak\Command\Builder\FetchMap($riak))
@@ -268,5 +269,5 @@ Riak data types can be searched like any other object, but with the
 added benefit that your data type is indexed as a different type by Solr,
 the search platform behind Riak Search.
 
-In our Search documentation we offer a [full tutorial](../usage/searching-data-types) as well as a variety of [examples](../usage/search/#data-types-and-search-examples), including code
+In our Search documentation we offer a [full tutorial](../usage/searching-data-types) as well as a variety of [examples](../usage/searching-data-types/), including code
 samples from each of our official client libraries.

@@ -3,6 +3,9 @@ title: "Riak CS Complete Multipart Upload"
 description: ""
 project: "riak_cs"
 project_version: "2.1.1"
+lastmod: 2016-01-23T00:00:00-00:00
+sitemap:
+  priority: 0.2
 toc: true
 aliases:
   - /riakcs/2.1.1/references/apis/storage/s3/RiakCS-Complete-Multipart-Upload
@@ -45,7 +48,7 @@ Authorization: signatureValue
 
 ### Request Headers
 
-This implementation of the operation uses only response headers that are common to most responses. For more information, see [Common Riak CS Response Headers](/riak/cs/2.1.1/references/apis/storage/s3/common-response-headers).
+This implementation of the operation uses only response headers that are common to most responses. For more information, see [Common Riak CS Response Headers]({{<baseurl>}}riak/cs/2.1.1/references/apis/storage/s3/common-response-headers).
 
 ### Request Elements
 
@@ -75,7 +78,7 @@ This implementation of the operation uses only response headers that are common 
 
 ### Response Headers
 
-This implementation of the operation uses only response headers that are common to most responses. For more information, see [Common Riak CS Response Headers](/riak/cs/2.1.1/references/apis/storage/s3/common-response-headers).
+This implementation of the operation uses only response headers that are common to most responses. For more information, see [Common Riak CS Response Headers]({{<baseurl>}}riak/cs/2.1.1/references/apis/storage/s3/common-response-headers).
 
 ### Response Elements
 

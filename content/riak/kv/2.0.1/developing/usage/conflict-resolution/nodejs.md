@@ -4,6 +4,9 @@ title: "NodeJS"
 description: ""
 project: "riak_kv"
 project_version: "2.0.1"
+lastmod: 2014-09-25T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.1:
     name: "NodeJS"
@@ -16,7 +19,7 @@ aliases:
   - /riak/kv/2.0.1/dev/using/conflict-resolution/nodejs
 ---
 
-For reasons explained in the [Introduction to conflict resolution](/riak/kv/2.0.1/developing/usage/conflict-resolution), we strongly recommend adopting a conflict resolution strategy that
+For reasons explained in the [Introduction to conflict resolution]({{<baseurl>}}riak/kv/2.0.1/developing/usage/conflict-resolution), we strongly recommend adopting a conflict resolution strategy that
 requires applications to resolve siblings according to use-case-specific
 criteria. Here, we'll provide a brief guide to conflict resolution using the
 official [Riak Node.js client](https://github.com/basho/riak-nodejs-client).

@@ -3,6 +3,9 @@ title: "PBC Yokozuna Index Delete"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"
+lastmod: 2015-12-10T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.1.3:
     name: "Yokozuna Index Delete"
@@ -10,6 +13,8 @@ menu:
     weight: 122
     parent: "apis_pbc"
 toc: true
+version_history:
+  in: "2.0.0-2.9999.9999"
 aliases:
   - /riak/2.1.3/dev/references/protocol-buffers/yz-index-delete
   - /riak/kv/2.1.3/dev/references/protocol-buffers/yz-index-delete

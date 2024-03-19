@@ -3,6 +3,9 @@ title: "PBC Get Client ID"
 description: ""
 project: "riak_kv"
 project_version: "2.0.2"
+lastmod: 2014-10-18T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.2:
     name: "Get Client ID"
@@ -23,7 +26,7 @@ with Riak 1.4 or later, you can safely ignore client IDs.
 Get the client id used for this connection. Client ids are used for
 conflict resolution and each unique actor in the system should be
 assigned one.  A client id is assigned randomly when the socket is
-connected and can be changed using [Set Client ID](/riak/kv/2.0.2/developing/api/protocol-buffers/set-client-id).
+connected and can be changed using [Set Client ID]({{<baseurl>}}riak/kv/2.0.2/developing/api/protocol-buffers/set-client-id).
 
 ## Request
 
@@ -47,7 +50,6 @@ Request
 Hex     00 00 00 01 03
 Erlang  <<0,0,0,1,3>>
 ```
-
 
 Response
 

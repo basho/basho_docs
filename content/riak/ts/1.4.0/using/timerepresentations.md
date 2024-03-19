@@ -9,18 +9,21 @@ menu:
     parent: "using"
 project: "riak_ts"
 project_version: "1.4.0"
+lastmod: 2016-08-24T00:00:00-00:00
+sitemap:
+  priority: 0.1
 toc: true
+version_history:
+  in: "1.4.0+"
 aliases:
     - /riakts/1.4.0/using/timerepresentations/
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/timerepresentations"
 ---
-
 
 [activating]: ../creating-activating/
 [planning]: ../planning/
 [querying]: ../querying/
-[config reference]: /riak/kv/2.1.4/configuring/reference/#the-advanced-config-file
-[MDC]: /riak/ts/1.4.0/using/mdc
+[config reference]: {{<baseurl>}}riak/kv/2.1.4/configuring/reference/#the-advanced-config-file
+[MDC]: {{<baseurl>}}riak/ts/1.4.0/using/mdc
 [riak shell]: ../riakshell
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
 [learn timestamps]: ../../learn-about/timestamps

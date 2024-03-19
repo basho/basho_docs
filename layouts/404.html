@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <!-- 404 Page
      ========
   This template follows the style of the _default/single.html layout, though
@@ -29,9 +28,6 @@
 
 
 <body class="ERROR404">
-
-
-  {{ partial "google-tag-manager.html" $HugoNode }}
 
 
   {{ partial "banner.html" $HugoNode }}
@@ -76,10 +72,10 @@
 
       <br>
 
-      <p><a href="/community">Our Community Pages</a></p>
-      <p><a href="/riak/kv/latest">The Riak KV Docs</a></p>
-      <p><a href="/riak/ts/latest">The Riak TS Docs</a></p>
-      <p><a href="/riak/cs/latest">The Riak CS Docs</a></p>
+      <p><a href="{{ .Site.BaseURL }}community">Our Community Pages</a></p>
+      <p><a href="{{ .Site.BaseURL }}riak/kv/latest">The Riak KV Docs</a></p>
+      <p><a href="{{ .Site.BaseURL }}riak/ts/latest">The Riak TS Docs</a></p>
+      <p><a href="{{ .Site.BaseURL }}riak/cs/latest">The Riak CS Docs</a></p>
 
       <br>
       <br>
@@ -95,7 +91,7 @@
   </div>
 
 
-  <script src="/js/main.js" type="text/javascript"></script>
+  <script src="{{ .Site.BaseURL }}js/main.js" type="text/javascript"></script>
 
 </body>
 </html>

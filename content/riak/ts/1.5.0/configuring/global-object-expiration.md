@@ -9,6 +9,9 @@ menu:
     parent: "configure"
 project: "riak_ts"
 project_version: "1.5.0"
+lastmod: 2016-12-20T00:00:00-00:00
+sitemap:
+  priority: 0.2
 toc: true
 version_history:
   in: "1.4.0+"
@@ -17,12 +20,11 @@ version_history:
     - ["<=1.4.0",  "using/global-object-expiration"]
 aliases:
     - /riakts/1.5.0/configuring/global-object-expiration/
-canonical_link: "https://docs.basho.com/riak/ts/latest/configuring/global-object-expiration"
 ---
 
 [ttl]: https://en.wikipedia.org/wiki/Time_to_live
 
-By default, LevelDB keeps all of your data. But Riak TS allows you to configure global object expiration (`expiry`) or [time to live (TTL)][ttl] for your data. 
+By default, LevelDB keeps all of your data. But Riak TS allows you to configure global object expiration (`expiry`) or [time to live (TTL)][ttl] for your data.
 
 {{% note %}}
 Currently only global expiration is supported in Riak TS.
@@ -76,7 +78,7 @@ Global expiration supports two modes:
 - `whole_file` - the whole sorted string table (`.sst`) file is deleted when all of its objects are expired.
 - `normal` - individual objects are removed as part of the usual compaction process.
 
-We recommend using `whole_file` with time series data that has a similar lifespan, as it will be much more efficient. 
+We recommend using `whole_file` with time series data that has a similar lifespan, as it will be much more efficient.
 
 The following example configure objects to expire after 1 day:
 

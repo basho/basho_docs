@@ -1,6 +1,11 @@
 ---
 title: "Product Advisories"
 description: "Product Advisories for Basho products"
+project: community
+project_version: "community"
+lastmod: 2016-11-18T00:00:00-00:00
+sitemap:
+  priority: 0.5
 menu:
   community:
     name: "Product Advisories"
@@ -16,21 +21,18 @@ aliases:
   - /riak/2.0.4/community/product-advisories/
 ---
 
-
-
 This page contains product advisories that are periodically issued for Basho products.
 
-* [Slight chance that AAE could stall itself or crash a Riak node](/community/productadvisories/aaestall/)
-* [Default Configuration For Handoff May Cause Data Loss in TS](/community/productadvisories/130-dataloss/)
-* [LevelDB SEGV in Riak KV 2.1.3](/community/productadvisories/leveldbsegfault/)
-* [Possibility of Code Injection on Riak Init File](/community/productadvisories/codeinjectioninitfiles/)
-* [Socket reuse issue with Riak Golang client 1.5.1](/community/productadvisories/golang151socket/)
-* [Potential data loss on restart with LevelDB tiered storage](/community/productadvisories/leveldbrestart/)
-* [Incompatibility between Dotted Version Vectors and Last Write Wins](/community/productadvisories/dvvlastwritewins/)
-* [Default Configuration For Handoff May Cause Data Loss](/community/productadvisories/210-dataloss/)
-* [SSL 3.0 Vulnerability and POODLE Attack](/community/productadvisories/sslpoodle/)
-* [Map Data Type Disk Incompatibility](/community/productadvisories/maps-204/)
-
+* [Slight chance that AAE could stall itself or crash a Riak node]({{<baseurl>}}community/productadvisories/aaestall/)
+* [Default Configuration For Handoff May Cause Data Loss in TS]({{<baseurl>}}community/productadvisories/130-dataloss/)
+* [LevelDB SEGV in Riak KV 2.1.3]({{<baseurl>}}community/productadvisories/leveldbsegfault/)
+* [Possibility of Code Injection on Riak Init File]({{<baseurl>}}community/productadvisories/codeinjectioninitfiles/)
+* [Socket reuse issue with Riak Golang client 1.5.1]({{<baseurl>}}community/productadvisories/golang151socket/)
+* [Potential data loss on restart with LevelDB tiered storage]({{<baseurl>}}community/productadvisories/leveldbrestart/)
+* [Incompatibility between Dotted Version Vectors and Last Write Wins]({{<baseurl>}}community/productadvisories/dvvlastwritewins/)
+* [Default Configuration For Handoff May Cause Data Loss]({{<baseurl>}}community/productadvisories/210-dataloss/)
+* [SSL 3.0 Vulnerability and POODLE Attack]({{<baseurl>}}community/productadvisories/sslpoodle/)
+* [Map Data Type Disk Incompatibility]({{<baseurl>}}community/productadvisories/maps-204/)
 
 ## Questions
 

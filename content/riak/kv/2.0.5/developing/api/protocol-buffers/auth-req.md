@@ -3,6 +3,9 @@ title: "PBC Auth Request"
 description: ""
 project: "riak_kv"
 project_version: "2.0.5"
+lastmod: 2015-02-24T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.5:
     name: "Auth Request"
@@ -27,4 +30,4 @@ message RpbAuthReq {
 }
 ```
 
-For more on authentication, see our documentation on [Authentication and Authorization](/riak/kv/2.0.5/using/security/basics).
+For more on authentication, see our documentation on [Authentication and Authorization]({{<baseurl>}}riak/kv/2.0.5/using/security/basics).

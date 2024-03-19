@@ -3,6 +3,9 @@ title: "Runtime Interaction Reference"
 description: ""
 project: "riak_kv"
 project_version: "2.0.6"
+lastmod: 2015-06-29T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.6:
     name: "Runtime Interaction"
@@ -15,8 +18,8 @@ aliases:
   - /riak/kv/2.0.6/ops/advanced/runtime
 ---
 
-[config reference]: /riak/kv/2.0.6/configuring/reference
-[concept clusters]: /riak/kv/2.0.6/learn/concepts/clusters
+[config reference]: {{<baseurl>}}riak/kv/2.0.6/configuring/reference
+[concept clusters]: {{<baseurl>}}riak/kv/2.0.6/learn/concepts/clusters
 
 Riak's [configuration files][config reference] provide a variety of parameters that
 enable you to fine-tune how Riak interacts with two important elements

@@ -27,10 +27,8 @@ interactivity. This file *must* be included immediately before the closing
 </body> tag, as it is designed to edit elements before the DOM is initially
 rendered.
 
-
 [sprockets]: https://github.com/rails/sprockets
 [sprockets_assets]: https://github.com/rails/sprockets#managing-and-bundling-dependencies
-
 
 Files and Stuff
 ---------------

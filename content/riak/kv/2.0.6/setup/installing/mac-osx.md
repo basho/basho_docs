@@ -4,6 +4,9 @@ title: "Mac OS X"
 description: ""
 project: "riak_kv"
 project_version: "2.0.6"
+lastmod: 2015-06-29T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.6:
     name: "Mac OS X"
@@ -18,11 +21,9 @@ aliases:
   - /riak/kv/2.0.6/installing/mac-osx/
 ---
 
-
-
-[perf open files]: /riak/kv/2.0.6/using/performance/open-files-limit
-[install source erlang]: /riak/kv/2.0.6/setup/installing/source/erlang
-[install verify]: /riak/kv/2.0.6/setup/installing/verify
+[perf open files]: {{<baseurl>}}riak/kv/2.0.6/using/performance/open-files-limit
+[install source erlang]: {{<baseurl>}}riak/kv/2.0.6/setup/installing/source/erlang
+[install verify]: {{<baseurl>}}riak/kv/2.0.6/setup/installing/verify
 
 The following steps are known to work with Mac OS X 10.8, 10.9
 (Mavericks), and Yosemite. You can install from source or download a
@@ -34,6 +35,8 @@ precompiled tarball.
 backend that uses very few file handles, it's possible to run out. See
 [Open Files Limit][perf open files] for more information about changing the limit.
 
+**Note on M1+ CPU based Macs**
+Please note that Riak KV is available only for x86_64 based Macs and M1+ macs are not currently supported.
 
 ## From Precompiled Tarballs
 

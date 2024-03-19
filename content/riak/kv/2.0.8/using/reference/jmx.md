@@ -3,6 +3,9 @@ title: "JMX Monitoring"
 description: ""
 project: "riak_kv"
 project_version: "2.0.8"
+lastmod: 2017-02-16T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.8:
     name: "JMX Monitoring"
@@ -16,7 +19,7 @@ aliases:
     - /riak/kv/2.0.8/ops/running/monitoring/jmx
 ---
 
-Riak exposes monitoring data via JMX.  To enable JMX monitoring, edit the [`app.config`](/riak/kv/2.0.8/configuring/reference/#app-config) associated with your Riak installation and set the `enabled` property of the `riak_jmx` section to `true` as shown below.  The TCP port on which the JMX provider listens is also configurable in this section (the default JMX port is `41110`).
+Riak exposes monitoring data via JMX.  To enable JMX monitoring, edit the [`app.config`]({{<baseurl>}}riak/kv/2.0.8/configuring/reference/#app-config) associated with your Riak installation and set the `enabled` property of the `riak_jmx` section to `true` as shown below.  The TCP port on which the JMX provider listens is also configurable in this section (the default JMX port is `41110`).
 
 ```erlang
     {riak_jmx, [
@@ -41,6 +44,7 @@ Riak JMX has been tested with the Sun JRE 1.6.0_12 and 1.6.0_20. Some older/non-
 ```
 
 ## Exported JMX Attributes
+
 <br>
 <table>
     <tr>

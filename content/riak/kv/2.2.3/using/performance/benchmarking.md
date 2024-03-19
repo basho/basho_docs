@@ -3,6 +3,9 @@ title: "Benchmarking"
 description: ""
 project: "riak_kv"
 project_version: "2.2.3"
+lastmod: 2017-03-30T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.3:
     name: "Benchmarking"
@@ -51,7 +54,7 @@ You can download the pre-built packages below, or build it from source.
 
 #### Prerequisites
 
-* Erlang must be installed. See [Installing Erlang](/riak/kv/2.2.3/setup/installing/source/erlang) for instructions
+* Erlang must be installed. See [Installing Erlang]({{<baseurl>}}riak/kv/2.2.3/setup/installing/source/erlang) for instructions
     and versioning requirements. Note: Unless you're an experienced
     Erlang developer, we recommend that you use Ubuntu 14.04 LTS (and
     not CentOS), when building ```basho_bench``` from source.  Later
@@ -83,7 +86,7 @@ file. (Also, don't use the common ```~/``` shell notation, specify the
 user's home directory explicitly)
 
 ```bash
-basho_bench --results-dir /home/username/bench_results/ /etc/basho_bench/riakc_pb.config 
+basho_bench --results-dir /home/username/bench_results/ /etc/basho_bench/riakc_pb.config
 ```
 
 The example above will generate results in

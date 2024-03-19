@@ -3,6 +3,9 @@ title: "Multi-Datacenter Reference"
 description: ""
 project: "riak_kv"
 project_version: "2.0.8"
+lastmod: 2017-02-16T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.8:
     name: "Multi-Datacenter"
@@ -26,20 +29,17 @@ Describes the output of `riak-repl status` interface.
 
 [Learn More >>][ref mdc stats]
 
-
 #### [Multi-Datacenter Replication Reference: Per Bucket][ref mdc per bucket]
 
 Details enabling & disabling of per bucket replication.
 
 [Learn More >>][ref mdc per bucket]
 
-
 #### [Multi-Datacenter Replication Reference: Monitoring][ref mdc monitor]
 
 Overview of monitoring in a Multi-Datacenter environment.
 
 [Learn More >>][ref mdc monitor]
-
 
 #### [Multi-Datacenter Replication Reference: Comparison][ref mdc comparison]
 

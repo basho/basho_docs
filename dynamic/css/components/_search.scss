@@ -1,4 +1,41 @@
 /**
+ * Format the product titles nicely on the Lunr Search Results screens
+ */
+
+.front-matter {
+  .search-results-title {
+    .product__title {
+      font-size: 1em;
+
+      .title-project-version {
+        font-size: 0.7em;
+        padding-left: 0.2em;
+      }
+    }
+  }
+}
+
+.search-result-item-title {
+  margin-left: 0;
+  
+  .result-score {
+    font-size: 0.5em;
+    padding-left: 0.5em;
+  }
+
+  .product__title {
+    font-size: 0.8em;
+    float: right;
+
+    .result-project-version {
+      font-size: 0.7em;
+      padding-left: 0.2em;
+    }
+  }
+}
+
+
+/**
  * Site-Wide Search Form
  * 1. No padding-left; taken care of by the child .search__icon-container's
  *    padding-left.

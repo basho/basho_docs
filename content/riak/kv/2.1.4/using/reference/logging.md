@@ -3,6 +3,9 @@ title: "Logging Reference"
 description: ""
 project: "riak_kv"
 project_version: "2.1.4"
+lastmod: 2016-04-07T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.1.4:
     name: "Logging"
@@ -15,14 +18,14 @@ aliases:
   - /riak/kv/2.1.4/ops/running/logging
 ---
 
-[cluster ops log]: /riak/kv/2.1.4/using/cluster-operations/logging
-[config reference lager]: /riak/kv/2.1.4/configuring/reference/#lager
+[cluster ops log]: {{<baseurl>}}riak/kv/2.1.4/using/cluster-operations/logging
+[config reference lager]: {{<baseurl>}}riak/kv/2.1.4/configuring/reference/#logging
 [Erlang]: http://www.erlang.org
 [facility level]: http://en.wikipedia.org/wiki/Syslog#Facility_levels
-[install source index]: /riak/kv/2.1.4/setup/installing/source
+[install source index]: {{<baseurl>}}riak/kv/2.1.4/setup/installing/source
 [lager]: https://github.com/basho/lager
 [SASL]: http://www.erlang.org/doc/man/sasl_app.html
-[use admin riak cli attach direct]: /riak/kv/2.1.4/using/admin/riak-cli/#attach-direct
+[use admin riak cli attach direct]: {{<baseurl>}}riak/kv/2.1.4/using/admin/riak-cli/#attach-direct
 
 Logging in Riak KV is handled by a Basho-produced logging framework for
 [Erlang][Erlang] called [lager][lager].
@@ -51,8 +54,8 @@ File | Significance
 :----|:------------
 `console.log` | Console log output
 `crash.log` | Crash logs
-`erlang.log` | Logs emitted by the <a href="http://docs.basho.com/riak/kv/2.1.4/using/performance/erlang/">Erlang VM</a> on which Riak runs.
-`error.log` | <a href="http://docs.basho.com/riak/kv/2.1.4/using/repair-recovery/errors/">Common errors</a> emitted by Riak.
+`erlang.log` | Logs emitted by the <a href="{{< baseurl >}}riak/kv/2.1.4/using/performance/erlang/">Erlang VM</a> on which Riak runs.
+`error.log` | <a href="{{< baseurl >}}riak/kv/2.1.4/using/repair-recovery/errors/">Common errors</a> emitted by Riak.
 `run_erl.log` | The log file for an Erlang process called `run_erl`. This file can typically be ignored.
 
 ## Log Syntax
@@ -188,7 +191,6 @@ Below are some examples:
 To set the maximum size of the crash log before it is rotated, use the
 `log.crash.size` parameter. You can specify the size in KB, MB, etc. The
 default is `10MB`.
-
 
 ### Other Crash Log Settings
 

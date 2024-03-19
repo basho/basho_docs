@@ -9,24 +9,25 @@ menu:
     parent: "setup"
 project: "riak_ts"
 project_version: "1.5.0"
+lastmod: 2016-12-20T00:00:00-00:00
+sitemap:
+  priority: 0.2
 toc: true
 version_history:
   present_from: "1.4.0+"
 aliases:
     - /riakts/1.5.0/setup/upgrading/
     - /riakts/1.5.0/upgrading/
-canonical_link: "https://docs.basho.com/riak/ts/latest/setup/upgrading/"
 ---
 
-[use admin commands]: /riak/kv/2.2.0/using/admin/commands
-[use admin riak-admin]: /riak/kv/2.2.0/using/admin/riak-admin
-[usage secondary-indexes]: /riak/kv/2.2.0/developing/usage/secondary-indexes
+[use admin commands]: {{<baseurl>}}riak/kv/2.2.0/using/admin/commands
+[use admin riak-admin]: {{<baseurl>}}riak/kv/2.2.0/using/admin/riak-admin
+[usage secondary-indexes]: {{<baseurl>}}riak/kv/2.2.0/developing/usage/secondary-indexes
 [riak ts enterprise]: http://basho.com/products/riak-ts/
-[cluster ops mdc]: /riak/kv/2.2.0/using/cluster-operations/v3-multi-datacenter
-[config v3 mdc]: /riak/kv/2.2.0/configuring/v3-multi-datacenter
-[jmx monitor]: /riak/kv/2.2.0/using/reference/jmx
-[snmp]: /riak/kv/2.2.0/using/reference/snmp
-
+[cluster ops mdc]: {{<baseurl>}}riak/kv/2.2.0/using/cluster-operations/v3-multi-datacenter
+[config v3 mdc]: {{<baseurl>}}riak/kv/2.2.0/configuring/v3-multi-datacenter
+[jmx monitor]: {{<baseurl>}}riak/kv/2.2.0/using/reference/jmx
+[snmp]: {{<baseurl>}}riak/kv/2.2.0/using/reference/snmp
 
 {{% note title="**CAUTION**" %}}
 At the moment, there is no downgrade path between Riak TS 1.5.0 and Riak TS 1.4.0. Any data written to TS 1.5.0 will not be readable by TS 1.4.0. Please perform backups before you upgrade and be very sure you are ready to upgrade entirely before doing so.
@@ -39,7 +40,6 @@ This page walks you through the process of upgrading to Riak TS 1.5.0 from Riak 
 
 Riak TS nodes negotiate with each other to determine supported
 operating modes. This allows clusters containing mixed-versions of Riak TS to properly interoperate without special configuration, and simplifies rolling upgrades.
-
 
 ## Debian/Ubuntu
 
@@ -100,7 +100,6 @@ While the node was offline, other nodes may have accepted writes on its behalf. 
 
 8\. Repeat the process for the remaining nodes in the cluster.
 
-
 ## RHEL/CentOS
 
 The following example demonstrates upgrading a Riak TS node that has been installed with the RHEL/CentOS packages provided by Basho.
@@ -160,7 +159,6 @@ behalf. This data is transferred to the node when it becomes available.
 {{% /note %}}
 
 8\. Repeat the process for the remaining nodes in the cluster.
-
 
 ## Rolling Upgrade to Enterprise
 

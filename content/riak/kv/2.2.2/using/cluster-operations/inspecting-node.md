@@ -3,6 +3,9 @@ title: "Inspecting a Node"
 description: ""
 project: "riak_kv"
 project_version: "2.2.2"
+lastmod: 2017-03-24T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.2:
     name: "Inspecting a Node"
@@ -32,6 +35,10 @@ output of `riak-admin status` is categorized and detailed below.
 
 Please note, for some counters, such as `node_get_fsm_objsize`, a
 minimum of 5 transactions is required for statistics to be generated.
+
+{{% note title="Warning about `riak-admin status` usage" %}}
+The `riak-admin status` command should be not be used excessively as this can eventually cause the node to crash from atom table exhaustion.
+{{% /note %}}
 
 #### Performance
 
@@ -344,10 +351,11 @@ Note that under ideal operation and with the exception of
 
 The `riak-debug` command is used to identify and diagnose common problems with your Riak KV nodes.
 
-`riak-debug` also runs `riak-admin diag`, which runs a small suite of diagnostic checks against a Riak KV node to discover common problems. It often offers recommendations about how to resolve those problems as well. 
+`riak-debug` also runs `riak-admin diag`, which runs a small suite of diagnostic checks against a Riak KV node to discover common problems. It often offers recommendations about how to resolve those problems as well.
 
 {{% note title="Warning about `riak-debug` and `riak-admin diag` usage" %}}
 The `riak-debug` and `riak-admin diag` commands should only be used after a new installation or configuration change. It should not be used as part of regular monitoring. Overuse of `riak-debug` or `riak-admin diag` can eventually cause the node to crash from atom table exhaustion.
+In addition, overuse of `riak-debug` and `riak-admin diag` can lead to overloads in unhealthy nodes. These commands should be used sparingly and not used in the course of normal monitoring.
 {{% /note %}}
 
 ## Strong Consistency Stats

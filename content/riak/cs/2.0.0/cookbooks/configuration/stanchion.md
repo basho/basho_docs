@@ -9,6 +9,9 @@ menu:
     parent: "config"
 project: "riak_cs"
 project_version: "2.0.0"
+lastmod: 2015-03-28T00:00:00-00:00
+sitemap:
+  priority: 0.1
 aliases:
   - /riakcs/2.0.0/cookbooks/configuration/Configuring-Stanchion/
   - /riak/cs/2.0.0/cookbooks/configuration/Configuring-Stanchion/
@@ -86,10 +89,10 @@ ssl.keyfile = "./etc/key.pem"
 
 ## Specifying the Admin User
 
-The admin user is created during the [configuration of Riak CS](/riak/cs/2.0.0/cookbooks/configuration/riak-cs/#specifying-the-admin-user). 
-The same user credentials must be added to each Stanchion used in the cluster. 
-This is set in the `stanchion.conf` file, which is located in the 
-`/etc/stanchion` directory. Enter the same `admin.key` and `admin.secret` as 
+The admin user is created during the [configuration of Riak CS]({{<baseurl>}}riak/cs/2.0.0/cookbooks/configuration/riak-cs/#specifying-the-admin-user).
+The same user credentials must be added to each Stanchion used in the cluster.
+This is set in the `stanchion.conf` file, which is located in the
+`/etc/stanchion` directory. Enter the same `admin.key` and `admin.secret` as
 used in `riak-cs.conf`:
 
 ```stanchionconf

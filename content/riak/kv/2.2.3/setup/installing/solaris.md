@@ -4,6 +4,9 @@ title: "Solaris"
 description: ""
 project: "riak_kv"
 project_version: "2.2.3"
+lastmod: 2017-03-30T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.3:
     name: "Solaris"
@@ -18,9 +21,7 @@ aliases:
   - /riak/kv/2.2.3/installing/solaris/
 ---
 
-
-
-[install verify]: /riak/kv/2.2.3/setup/installing/verify
+[install verify]: {{<baseurl>}}riak/kv/2.2.3/setup/installing/verify
 
 The following steps have been tested to work with Riak version 1.3.1 on Solaris 10 i386. They demonstrate installation of a Riak node on Solaris as the root user.
 

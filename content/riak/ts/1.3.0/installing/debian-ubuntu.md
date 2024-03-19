@@ -9,6 +9,9 @@ menu:
     parent: "installing"
 project: "riak_ts"
 project_version: "1.3.0"
+lastmod: 2016-05-05T00:00:00-00:00
+sitemap:
+  priority: 0.1
 toc: true
 version_history:
   locations:
@@ -19,10 +22,9 @@ aliases:
 ---
 
 [download]: ../../downloads/
-[openfileslimit]: /riak/kv/2.1.4/using/performance/open-files-limit
+[openfileslimit]: {{<baseurl>}}riak/kv/2.1.4/using/performance/open-files-limit
 [planning]: ../../using/planning
-[security basics]: /riak/kv/2.1.4/using/security/basics
-
+[security basics]: {{<baseurl>}}riak/kv/2.1.4/using/security/basics
 
 Riak TS can be installed on Debian or Ubuntu-based systems using a binary
 package available [here][download].
@@ -31,7 +33,6 @@ package available [here][download].
 Debian is only supported for developing with Riak TS and NOT for general operations.
 {{% /note %}}.
 
-
 ## Dependencies
 
 ### `ulimit`
@@ -39,7 +40,6 @@ Debian is only supported for developing with Riak TS and NOT for general operati
 Debian and Ubuntu give you a very small limit on open file handles. Even with a
 backend that uses very few file handles, it's possible to run out. See
 [Open Files Limit][openfileslimit] for more information about changing the limit.
-
 
 ### PAM Library Requirement for Ubuntu
 
@@ -51,7 +51,6 @@ To install this dependency:
 sudo apt-get install libpam0g-dev
 ```
 
-
 ## Install Riak TS
 
 Once you have [downloaded][download] the package, execute the following command to install Riak TS:
@@ -59,7 +58,6 @@ Once you have [downloaded][download] the package, execute the following command 
 ```bash
 sudo dpkg -i riak-ts_1.3.0-1_amd64.deb
 ```
-
 
 ## Activate Riak TS node
 
@@ -69,17 +67,15 @@ Once you've installed Riak TS, start it on your node:
 riak start
 ```
 
-
 ## Verify your installation
 
-You can verify that Riak TS is successfully installed by running: 
+You can verify that Riak TS is successfully installed by running:
 
 ```bash
 dpkg -l | grep riak
 ```
 
 If Riak TS has been installed successfully `riak-ts` is returned.
-
 
 ## Next Steps
 

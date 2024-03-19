@@ -3,6 +3,9 @@ title: "PBC Data Type Fetch"
 description: ""
 project: "riak_kv"
 project_version: "2.0.5"
+lastmod: 2015-02-24T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.5:
     name: "Data Type Fetch"
@@ -15,7 +18,7 @@ aliases:
   - /riak/kv/2.0.5/dev/references/protocol-buffers/dt-fetch
 ---
 
-The equivalent of [`RpbGetReq`](/riak/kv/2.0.5/developing/api/protocol-buffers/fetch-object) for [Riak Data Types](/riak/kv/2.0.5/developing/data-types). This request results in a `DtFetchResp`
+The equivalent of [`RpbGetReq`]({{<baseurl>}}riak/kv/2.0.5/developing/api/protocol-buffers/fetch-object) for [Riak Data Types]({{<baseurl>}}riak/kv/2.0.5/developing/data-types). This request results in a `DtFetchResp`
 message (explained in the **Response** section below).
 
 ## Request
@@ -42,14 +45,14 @@ Parameter | Description
 :---------|:-----------
 `bucket` | The name of the bucket in which the Data Type is stored
 `key` | The key where the Data Type is stored
-`type` | The [Using Bucket Types](/riak/kv/2.0.5/using/cluster-operations/bucket-types) of the bucket in which the Data Type is stored, _not_ the type of Data Type (i.e. counter, set, or map)
+`type` | The [Using Bucket Types]({{<baseurl>}}riak/kv/2.0.5/using/cluster-operations/bucket-types) of the bucket in which the Data Type is stored, _not_ the type of Data Type (i.e. counter, set, or map)
 
 #### Optional Parameters
 
 > **Note on defaults and special values**
 >
 > All of the optional parameters below have default values determined on a
-per-bucket basis. Please refer to the documentation on [setting bucket properties](/riak/kv/2.0.5/developing/api/protocol-buffers/set-bucket-props) for more information.
+per-bucket basis. Please refer to the documentation on [setting bucket properties]({{<baseurl>}}riak/kv/2.0.5/developing/api/protocol-buffers/set-bucket-props) for more information.
 
 Furthermore, you can assign an integer value to the `r` and
 `pr`, provided that that integer value is less than or equal
@@ -72,7 +75,7 @@ Parameter | Description
 
 ## Response
 
-The response to a fetch request ([`DtFetchReq`](/riak/kv/2.0.5/developing/api/protocol-buffers/dt-fetch)) is a `DtFetchResp` message.
+The response to a fetch request ([`DtFetchReq`]({{<baseurl>}}riak/kv/2.0.5/developing/api/protocol-buffers/dt-fetch)) is a `DtFetchResp` message.
 
 ```protobuf
 message DtFetchResp {
@@ -91,7 +94,7 @@ message DtFetchResp {
 If the `include_context` option is specified, an opaque "context" value
 will be returned along with the user-readable data. When sending an
 update request, the client should send this context as well, just as one
-would send a [vclock](/riak/kv/2.0.5/learn/glossary/#vector-clock) for standard KV updates.
+would send a [vclock]({{<baseurl>}}riak/kv/2.0.5/learn/glossary/#vector-clock) for standard KV updates.
 
 The type of the Data Type is specified in the `type` field, and must be
 one of the three possible values of the `DataType` enum (`COUNTER`,

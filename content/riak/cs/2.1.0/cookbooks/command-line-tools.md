@@ -9,6 +9,9 @@ menu:
     parent: "run"
 project: "riak_cs"
 project_version: "2.1.0"
+lastmod: 2015-10-15T00:00:00-00:00
+sitemap:
+  priority: 0.2
 aliases:
   - /riakcs/2.1.0/cookbooks/command-line-tools/
 ---
@@ -24,7 +27,7 @@ This is the primary script for controlling the processes associated with
 a Riak CS node. Running the `riak-cs` command by itself will output a
 listing of available commands:
 
-```
+```plaintext
 Usage: riak-cs {start | stop | restart | reboot | ping | console | attach |
                     attach-direct | ertspath | chkconfig | escript | version |
                     getpid | top [-interval N] [-sort reductions|memory|msg_q] [-lines N] }
@@ -55,7 +58,7 @@ This command will print `ok` if the stoppage is successful.
 If you attempt to run `riak-cs stop` on a node that is not currently
 running, you will see the following:
 
-```
+```plaintext
 Node <nodename> not responding to pings.
 Node is not running!
 ```
@@ -72,7 +75,7 @@ riak-cs restart
 Prints `ok` when successful. If the node is already stopped or not
 responding, you will see the following output:
 
-```
+```plaintext
 Node <nodename> not responding to pings.
 ```
 
@@ -206,7 +209,7 @@ More information about Erlang's etop tool can be found in the
 
 ## riak-cs-admin gc
 
-This command controls Riak CS's [garbage collection](/riak/cs/2.1.0/cookbooks/garbage-collection) system.
+This command controls Riak CS's [garbage collection]({{<baseurl>}}riak/cs/2.1.0/cookbooks/garbage-collection) system.
 
 ```bash
 riak-cs-admin gc <subcommand>
@@ -312,7 +315,7 @@ undergirding Riak CS.
 
 Temporarily changes the host and/or port used by Stanchion. This change
 is effective until the node is restarted, at which point Stanchion will
-begin listening on the host and port specified in your [configuration files](/riak/cs/2.1.0/cookbooks/configuration/reference).
+begin listening on the host and port specified in your [configuration files]({{<baseurl>}}riak/cs/2.1.0/cookbooks/configuration/reference).
 
 ```bash
 riak-cs-stanchion switch HOST PORT
@@ -327,7 +330,7 @@ riak-cs-stanchion switch 100.0.0.1 9999
 
 The following output would appear if the change were successful:
 
-```
+```plaintext
 Successfully switched stanchion to 100.0.0.1:9999: This change is only effective until restart.
 To make permanent change, be sure to edit app.config file.
 ```
@@ -342,7 +345,7 @@ riak-cs-stanchion show
 
 The output should look something like this:
 
-```
+```plaintext
 Current Stanchion Address: http://127.0.0.1:8085
 ```
 
@@ -521,7 +524,7 @@ documented [above](#riak-cs-admin-access).
 
 Riak CS version 1.5 offers support for supercluster operations. The
 `supercluster` command interface enables you to interact with that system.
-More information can be found in [Riak CS Supercluster Support](/riak/cs/2.1.0/cookbooks/supercluster).
+More information can be found in [Riak CS Supercluster Support]({{<baseurl>}}riak/cs/2.1.0/cookbooks/supercluster).
 
 {{% note title="Note: technical preview" %}}
 Riak CS supercluster support is available only as a technical preview for
@@ -539,7 +542,7 @@ riak-cs-supercluster list-members
 The output will list the name, host, and port for each member, as in the
 following example output:
 
-```
+```plaintext
 sc-member-A 127.0.0.1:10017
 sc-member-B 127.0.0.1:10027
 # and so on
@@ -563,7 +566,7 @@ riak-cs-supercluster weight
 You can also return the weight for a specific member on the basis of its
 member ID:
 
-```
+```bash
 riak-cs-supercluster weight <member id>
 ```
 
@@ -635,7 +638,7 @@ Fetches all current weights from the master member.
 riak-cs-supercluster refresh
 ```
 
-When a member's weight is updated, that weight is stored in the [master member](/riak/cs/2.1.0/cookbooks/supercluster/#the-master-member) and cached in Riak CS. Riak CS fetches weights from the master member only periodically. The
+When a member's weight is updated, that weight is stored in the [master member]({{<baseurl>}}riak/cs/2.1.0/cookbooks/supercluster/#the-master-member) and cached in Riak CS. Riak CS fetches weights from the master member only periodically. The
 `refresh` command syncs the weights stored in the master member with the
 weights cached in Riak CS so that there is no discrepancy.
 

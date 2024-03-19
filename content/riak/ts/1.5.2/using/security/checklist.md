@@ -10,10 +10,13 @@ menu:
     parent: "security"
 project: "riak_ts"
 project_version: "1.5.2"
+lastmod: 2017-02-10T00:00:00-00:00
+sitemap:
+  priority: 0.3
 toc: true
 aliases:
-    - /riakts/1.5.2/using/security/checklist
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/security/checklist/"
+  - /riakts/1.5.2/using/security/checklist
+
 ---
 
 [enable ssl]: ../enable-disable/#enabling-ssl
@@ -21,7 +24,7 @@ canonical_link: "https://docs.basho.com/riak/ts/latest/using/security/checklist/
 [security users]: ../user-management
 [security sources]: ../sources-management
 [manage permissions]: ../user-management/#managing-permissions
-[pbc]: /riak/kv/2.2.0/developing/api/protocol-buffers/
+[pbc]: {{<baseurl>}}riak/kv/2.2.0/developing/api/protocol-buffers/
 [security enable disable]: ../enable-disable
 
 Before turning on Riak TS security there are key steps all applications need to take. Missing one of these steps may break your application, so make sure you have done each of the following BEFORE enabling security:

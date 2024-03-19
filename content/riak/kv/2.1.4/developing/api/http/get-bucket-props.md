@@ -3,6 +3,9 @@ title: "HTTP Get Bucket Properties"
 description: ""
 project: "riak_kv"
 project_version: "2.1.4"
+lastmod: 2016-04-07T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.1.4:
     name: "Get Bucket Properties"
@@ -27,7 +30,7 @@ Optional query parameters (only valid for the old format):
 
 * `props` - whether to return the bucket properties (`true` is the default)
 * `keys` - whether to return the keys stored in the bucket. (`false` is the
-default). See also [HTTP List Keys](/riak/kv/2.1.4/developing/api/http/list-keys).
+default). See also [HTTP List Keys]({{<baseurl>}}riak/kv/2.1.4/developing/api/http/list-keys).
 
 ## Response
 
@@ -43,7 +46,7 @@ The JSON object in the response will contain up to two entries, `"props"` and
 `"keys"`, which are present or missing, according to the optional query
 parameters.  The default is for only `"props"` to be present.
 
-See [HTTP Set Bucket Properties](/riak/kv/2.1.4/developing/api/http/set-bucket-props) for more information about the available
+See [HTTP Set Bucket Properties]({{<baseurl>}}riak/kv/2.1.4/developing/api/http/set-bucket-props) for more information about the available
 bucket properties.
 
 ## Example

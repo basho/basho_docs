@@ -3,6 +3,9 @@ title: "PBC Yokozuna Schema Put"
 description: ""
 project: "riak_kv"
 project_version: "2.0.2"
+lastmod: 2014-10-18T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.2:
     name: "Yokozuna Schema Put"
@@ -10,11 +13,13 @@ menu:
     weight: 124
     parent: "apis_pbc"
 toc: true
+version_history:
+  in: "2.0.0-2.9999.9999"
 aliases:
   - /riak/2.0.2/dev/references/protocol-buffers/yz-schema-put
 ---
 
-Create a new Solr [search schema](/riak/kv/2.0.2/developing/usage/search-schemas).
+Create a new Solr [search schema]({{<baseurl>}}riak/kv/2.0.2/developing/usage/search-schemas).
 
 ## Request
 
@@ -33,8 +38,8 @@ message RpbYokozunaSchema {
 }
 ```
 
-This message *must* include both the schema `name` and its Solr [search schema](/riak/kv/2.0.2/developing/usage/search-schemas) `content` as XML.
+This message *must* include both the schema `name` and its Solr [search schema]({{<baseurl>}}riak/kv/2.0.2/developing/usage/search-schemas) `content` as XML.
 
 ## Response
 
-Returns a [RpbPutResp](/riak/kv/2.0.2/developing/api/protocol-buffers/#message-codes) code with no data on success.
+Returns a [RpbPutResp]({{<baseurl>}}riak/kv/2.0.2/developing/api/protocol-buffers/#message-codes) code with no data on success.

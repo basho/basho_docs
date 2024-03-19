@@ -4,6 +4,9 @@ title: "CRUD Operations with Python"
 description: ""
 project: "riak_kv"
 project_version: "2.2.0"
+lastmod: 2016-11-12T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.0:
     name: "CRUD Operations"
@@ -89,7 +92,6 @@ assert myBucket.get('one').exists == False
 assert myBucket.get('two').exists == False
 assert myBucket.get('three').exists == False
 ```
-
 
 ## Working With Complex Objects
 

@@ -3,6 +3,9 @@ title: "PBC Set Client ID"
 description: ""
 project: "riak_kv"
 project_version: "2.0.7"
+lastmod: 2016-06-24T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.7:
     name: "Set Client ID"
@@ -33,7 +36,6 @@ message RpbSetClientIdReq {
 }
 ```
 
-
 ## Response
 
 Just the `RpbSetClientIdResp` message code.
@@ -50,7 +52,6 @@ RpbSetClientIdReq protoc decode:
 client_id: "001e001266"
 
 ```
-
 
 Response
 

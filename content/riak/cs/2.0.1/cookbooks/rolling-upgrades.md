@@ -9,6 +9,9 @@ menu:
     parent: "run_advanced"
 project: "riak_cs"
 project_version: "2.0.1"
+lastmod: 2015-05-30T00:00:00-00:00
+sitemap:
+  priority: 0.1
 aliases:
   - /riakcs/2.0.1/cookbooks/Rolling-Upgrades-For-Riak-CS/
   - /riak/cs/2.0.1/cookbooks/Rolling-Upgrades-For-Riak-CS/
@@ -18,7 +21,7 @@ Each node in a Riak CS cluster contains settings that define its
 operating modes and API coverage. The following steps outline the
 process of upgrading Riak CS in a rolling fashion.
 
-Be sure to check the Riak CS [Version Compatibility](/riak/cs/2.0.1/cookbooks/version-compatibility) chart to ensure that your version of Riak, Riak CS, and Stanchion have been tested to work together.  As Basho supports upgrades from the previous two major versions, this document will cover upgrades from Riak CS 1.4.x and Riak CS 1.5.x.
+Be sure to check the Riak CS [Version Compatibility]({{<baseurl>}}riak/cs/2.0.1/cookbooks/version-compatibility) chart to ensure that your version of Riak, Riak CS, and Stanchion have been tested to work together.  As Basho supports upgrades from the previous two major versions, this document will cover upgrades from Riak CS 1.4.x and Riak CS 1.5.x.
 
 As Riak CS 2.0.0 only works with Riak 2.0.5, the underlying Riak installation
 *must* be upgraded to Riak 2.0.5.
@@ -42,8 +45,6 @@ An operational procedure
 to clean up incomplete multipart under deleted buckets</a> is needed.
 Otherwise new buckets with names that used to exist in the past can't be
 created. The operation will fail with a `409 Conflict` error.
-
-
 
 Leeway seconds and disk space should also be carefully watched during the
 upgrade, because timestamp management of garbage collection has changed since
@@ -80,9 +81,9 @@ detailed description.
     </div>
 
 4. Upgrade Riak, Riak CS, and Stanchion. See the <a
-    href="http://docs.basho.com/riakcs/latest/riakcs-downloads">Riak
+    href="{{< baseurl >}}riak/cs/latest/downloads">Riak
     CS Downloads</a> and <a
-    href="http://docs.basho.com/riak/latest/downloads">Riak Downloads</a>
+    href="{{< baseurl >}}riak/kv/latest/downloads">Riak Downloads</a>
     pages to find the appropriate packages.
 
     **Debian** / **Ubuntu**
@@ -115,7 +116,6 @@ detailed description.
     {add_paths, ["/usr/lib/riak-cs/lib/riak_cs-2.0.0/ebin"]}
     ```
 
-
 6. Riak CS 2.0 introduces a new style of configuration known as `riak-cs.conf`.
     You may choose to continue the use of the `app.config` file, or migrate your
     existing configuration to `riak-cs.conf` (recommended).  If you choose to
@@ -126,19 +126,19 @@ detailed description.
     **If you choose to use the legacy `app.config` files for Riak CS and/or
     Stanchion, some parameters have changed names and must be updated**.
 
-    In particular, for the Riak CS `app.config`:  
-    \- `cs_ip` and `cs_port` have been combined into `listener`.  
-    \- `riak_ip` and `riak_pb_port` have been combined into `riak_host`.  
+    In particular, for the Riak CS `app.config`:
+    \- `cs_ip` and `cs_port` have been combined into `listener`.
+    \- `riak_ip` and `riak_pb_port` have been combined into `riak_host`.
     \- `stanchion_ip` and `stanchion_port` have been combined into
-    `stanchion_host`.  
-    \- `admin_ip` and `admin_port` have been combined into `admin_listener`.  
-    \- `webmachine_log_handler` has become `webmachine_access_log_handler`.  
+    `stanchion_host`.
+    \- `admin_ip` and `admin_port` have been combined into `admin_listener`.
+    \- `webmachine_log_handler` has become `webmachine_access_log_handler`.
     \- `{max_open_files, 50}` has been deprecated and should be replaced with
-    `{total_leveldb_mem_percent, 30}`.  
+    `{total_leveldb_mem_percent, 30}`.
 
-    For the Stanchion `app.config`:  
-    \- `stanchion_ip` and `stanchion_port` have been combined into `listener`.  
-    \- `riak_ip` and `riak_port` have been combined into `riak_host`.  
+    For the Stanchion `app.config`:
+    \- `stanchion_ip` and `stanchion_port` have been combined into `listener`.
+    \- `riak_ip` and `riak_port` have been combined into `riak_host`.
 
     Each of the above pairs follows a similar form. For example, if your legacy
     `app.config` configuration was previously:
@@ -160,7 +160,7 @@ detailed description.
     ]},
     ```
 
-    and so on. More details can be found at [configuring Riak CS](/riak/cs/2.0.1/cookbooks/configuration/riak-cs).
+    and so on. More details can be found at [configuring Riak CS]({{<baseurl>}}riak/cs/2.0.1/cookbooks/configuration/riak-cs).
     </div>
 
     <div class="note"><div class="title">Note on Memory Sizing</div>

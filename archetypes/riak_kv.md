@@ -6,7 +6,7 @@ menu:
   riak_kv-X.Y.Z:
     name: ""
     identifier: ""
-    weight: 
+    weight:
     pre: icon-
 toc: true
 ---

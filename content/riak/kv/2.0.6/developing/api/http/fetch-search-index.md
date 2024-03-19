@@ -3,6 +3,9 @@ title: "HTTP Fetch Search Index"
 description: ""
 project: "riak_kv"
 project_version: "2.0.6"
+lastmod: 2015-06-29T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.6:
     name: "Fetch Search Index"
@@ -10,12 +13,14 @@ menu:
     weight: 115
     parent: "apis_http"
 toc: true
+version_history:
+  in: "2.0.0-2.9999.9999"
 aliases:
   - /riak/2.0.6/dev/references/http/fetch-search-index
   - /riak/kv/2.0.6/dev/references/http/fetch-search-index
 ---
 
-Retrieves information about a Riak Search [index](/riak/kv/2.0.6/developing/usage/search/#simple-setup).
+Retrieves information about a Riak Search [index]({{<baseurl>}}riak/kv/2.0.6/developing/usage/search/#simple-setup).
 
 ## Request
 
@@ -36,7 +41,7 @@ GET /search/index/<index_name>
 ## Response
 
 If the index is found, Riak will output a JSON object describing the
-index, including its name, the [`n_val`](/riak/kv/2.0.6/developing/app-guide/replication-properties/#a-primer-on-n-r-and-w) associated with it, and the [search schema](/riak/kv/2.0.6/developing/usage/search-schemas) used by the index. Here is an example:
+index, including its name, the [`n_val`]({{<baseurl>}}riak/kv/2.0.6/developing/app-guide/replication-properties/#a-primer-on-n-r-and-w) associated with it, and the [search schema]({{<baseurl>}}riak/kv/2.0.6/developing/usage/search-schemas) used by the index. Here is an example:
 
 ```json
 {

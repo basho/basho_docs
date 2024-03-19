@@ -9,6 +9,9 @@ menu:
     parent: "installing"
 project: "riak_ts"
 project_version: "1.5.0"
+lastmod: 2016-12-20T00:00:00-00:00
+sitemap:
+  priority: 0.2
 toc: true
 version_history:
   locations:
@@ -18,21 +21,17 @@ aliases:
     - /riakts/1.5.0/installing/source/
     - /riakts/1.5.0/setup/installing/source/
     - /riak/ts/1.5.0/installing/source/
-canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/source/"
 ---
 
-
-[download]: /riak/ts/1.5.0/downloads/
+[download]: {{<baseurl>}}riak/ts/1.5.0/downloads/
 [Erlang]: http://www.erlang.org/
 [GCC]: https://gcc.gnu.org/
 [Git]: https://git-scm.com/
-[install erlang]: /riak/ts/1.5.0/setup/installing/source/erlang
-[planning]: /riak/ts/1.5.0/using/planning/
+[install erlang]: {{<baseurl>}}riak/ts/1.5.0/setup/installing/source/erlang
+[planning]: {{<baseurl>}}riak/ts/1.5.0/using/planning/
 [Riak TS GitHub repository]: https://github.com/basho/riak/tree/riak_ts-1.5.0
 
-
 If there isn't a package for your OS or you are interested in contributing back to the project, you can install Riak TS from source!
-
 
 ## Dependencies
 
@@ -42,23 +41,19 @@ To install Riak TS, you will need to have [Erlang] installed. We strongly recomm
 
 See [Installing Erlang][install erlang] for instructions.
 
-
 ### Git
 
 Riak TS depends on source code located in multiple Git repositories. Install [Git] on the target system before attempting the build.
-
 
 ### GCC
 
 Riak TS will not compile with Clang. Please make sure your default C/C++
 compiler is [GCC].
 
-
 ## Installation
 
 The following instructions generate a complete, self-contained build of
 Riak TS in `»Unpacked or Cloned Source«/rel/riak`.
-
 
 ### Installing from source package
 
@@ -72,7 +67,6 @@ make locked-deps
 make rel
 ```
 
-
 ### Installing from GitHub
 
 To clone and build Riak TS from source, clone the repository using [Git] and build:
@@ -83,7 +77,6 @@ cd riak_ts-1.5.0
 make locked-deps
 make rel
 ```
-
 
 ## Verify Your Installation
 
@@ -107,7 +100,6 @@ riak_shell is connected to: 'dev1@127.0.0.1' on port 8087
 
 Make sure to exit the riak shell when you are done by running `q;`.
 
-
 ## Start your Riak TS node
 
 Once you've successfully installed Riak TS, start it on your node:
@@ -124,8 +116,7 @@ You can verify that Riak TS is started and ready to use by pinging it.
 riak ping
 ```
 
-If Riak TS has started, you will receive a `pong` response. If it has not started, you will receive an error. 
-
+If Riak TS has started, you will receive a `pong` response. If it has not started, you will receive an error.
 
 ## Next Steps
 

@@ -4,11 +4,14 @@ title: "Data Types: Sets"
 description: ""
 project: "riak_kv"
 project_version: "2.0.2"
+lastmod: 2014-10-18T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.2:
     name: "Sets"
     identifier: "data_types_sets"
-    weight: 101
+    weight: 104
     parent: "developing_data_types"
 toc: true
 aliases:

@@ -4,6 +4,9 @@ title: "V2 Multi-Datacenter Replication"
 description: ""
 project: "riak_kv"
 project_version: "2.0.5"
+lastmod: 2015-02-24T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.5:
     name: "V2 Multi-Datacenter"
@@ -17,7 +20,7 @@ aliases:
   - /riak/kv/2.0.5/ops/mdc/v2/configuration
 ---
 
-[config v2 ssl]: /riak/kv/2.0.5/configuring/v2-multi-datacenter/ssl
+[config v2 ssl]: {{<baseurl>}}riak/kv/2.0.5/configuring/v2-multi-datacenter/ssl
 
 Riak Enterprise's Multi-Datacenter Replication capabilities offer a
 variety of configurable parameters.
@@ -127,7 +130,6 @@ Setting | Options | Default | Description
 `max_put_workers` | `max` (integer) | `100` | The maximum number of put workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See [3](#f3).
 `min_get_workers` | `min` (integer) | `5` | The minimum number of get workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See [2](#f2).
 `min_put_workers` | `min` (integer) | `5` | The minimum number of put workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See [3](#f3).
-
 
 1. <a name="f1"></a>SSL depth is the maximum number of non-self-issued
  intermediate certificates that may follow the peer certificate in a valid

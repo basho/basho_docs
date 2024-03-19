@@ -3,6 +3,9 @@ title: "Downgrading"
 description: ""
 project: "riak_kv"
 project_version: "2.0.1"
+lastmod: 2014-09-25T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.1:
     name: "Downgrading"
@@ -17,7 +20,7 @@ aliases:
 
 Downgrades of Riak are tested and supported for two feature release
 versions, with the general procedure being similar to that of a
-[rolling upgrade](/riak/kv/2.0.1/setup/upgrading/cluster).
+[rolling upgrade]({{<baseurl>}}riak/kv/2.0.1/setup/upgrading/cluster).
 
 {{% note title="End Of Life Warning" %}}
 We test downgrading for two feature release versions. However, all versions below KV 2.0 are End Of Life (EOL) and unsupported. Please be aware of that if you choose to downgrade.
@@ -25,12 +28,12 @@ We test downgrading for two feature release versions. However, all versions belo
 
 You should perform the following actions on each node:
 
-1.  Stop Riak
-2.  Back up Riak's `etc` and `data` directories.
-3.  Downgrade Riak
-4.  Start Riak
-5.  Verify Riak is running the downgraded version.
-6.  Wait for the `riak_kv` service to start.
+1. Stop Riak
+2. Back up Riak's `etc` and `data` directories.
+3. Downgrade Riak
+4. Start Riak
+5. Verify Riak is running the downgraded version.
+6. Wait for the `riak_kv` service to start.
 
 Depending on the versions involved in the downgrade, there are
 additional steps to be performed before, during, and after the upgrade
@@ -49,9 +52,9 @@ both 1.4 and 1.3 are performed.
 
 * Riak Control should be disabled throughout the rolling downgrade
   process
-* [Configuration Files](/riak/kv/2.0.1/configuring/reference) must be replaced with those of the version
+* [Configuration Files]({{<baseurl>}}riak/kv/2.0.1/configuring/reference) must be replaced with those of the version
   being downgraded to
-* [Active anti-entropy](/riak/kv/2.0.1/learn/concepts/active-anti-entropy/) should be disabled if downgrading to a version
+* [Active anti-entropy]({{<baseurl>}}riak/kv/2.0.1/learn/concepts/active-anti-entropy/) should be disabled if downgrading to a version
   below 1.3.
 
 ## Before Stopping a Node
@@ -94,7 +97,7 @@ will need to be downgraded before the rolling downgrade begins.
 This can be done using the --downgrade flag with `riak-admin
 reformat-indexes` More information on the `riak-admin reformat-indexes`
 command, and downgrading indexes can be found in the
-[`riak-admin`](/riak/kv/2.0.1/using/admin/riak-admin/#reformat-indexes) documentation.
+[`riak-admin`]({{<baseurl>}}riak/kv/2.0.1/using/admin/riak-admin/#reformat-indexes) documentation.
 
 ## Before Starting a Node
 

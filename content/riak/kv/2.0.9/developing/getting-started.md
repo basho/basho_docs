@@ -3,6 +3,9 @@ title: "Getting Started Overview"
 description: ""
 project: "riak_kv"
 project_version: "2.0.9"
+lastmod: 2017-03-15T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.9:
     name: "Getting Started"
@@ -12,8 +15,8 @@ menu:
 toc: true
 ---
 
-[install index]: /riak/kv/2.0.9/setup/installing
-[dev client libraries]: /riak/kv/2.0.9/developing/client-libraries
+[install index]: {{<baseurl>}}riak/kv/2.0.9/setup/installing
+[dev client libraries]: {{<baseurl>}}riak/kv/2.0.9/developing/client-libraries
 
 Welcome, new Riak developer! This guide will get you started developing
 against Riak KV with minimal fuss.

@@ -4,6 +4,9 @@ title: "Object Modeling with Go"
 description: ""
 project: "riak_kv"
 project_version: "2.0.6"
+lastmod: 2015-06-29T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.6:
     name: "Object Modeling"
@@ -135,7 +138,7 @@ func (t *Timeline) GetId() string {
 }
 ````
 
-We'll be using the bucket `Users` to store our data. We won't be [using bucket types](/riak/kv/2.0.6/developing/usage/bucket-types) here, so we don't need to specify one.
+We'll be using the bucket `Users` to store our data. We won't be [using bucket types]({{<baseurl>}}riak/kv/2.0.6/developing/usage/bucket-types) here, so we don't need to specify one.
 
 To use these records to store data, we will first have to create a user
 record. Then, when a user creates a message, we will append that message
@@ -157,7 +160,6 @@ easily be a future bottleneck in the system, so let's use a natural key.
 Natural keys are a great fit for key/value systems because both humans
 and computers can easily construct them when needed, and most of the
 time they can be made unique enough for a KV store.
-
 
 Bucket | Key Pattern | Example Key
 :------|:------------|:-----------
@@ -544,5 +546,4 @@ So to recap, in this chapter we learned:
 
 * How to choose bucket names.
 * How to choose natural keys based on how we want to partition our data.
-
 

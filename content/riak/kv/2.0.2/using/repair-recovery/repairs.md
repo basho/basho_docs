@@ -3,6 +3,9 @@ title: "Repairs"
 description: ""
 project: "riak_kv"
 project_version: "2.0.2"
+lastmod: 2014-10-18T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.2:
     name: "Repairs"
@@ -95,7 +98,6 @@ This code will force all keys in each partition on a node to be reread, thus reb
 
 5. When you're done, press `Ctrl-D` to disconnect the console. DO NOT RUN q() which will cause the running Riak node to quit. Note that `Ctrl-D` merely disconnects the console from the service, it does not stop the code from running.
 
-
 ### Monitoring a Repair
 
 The above Repair command can be slow, so if you reattach to the console, you can run the repair_status function. You can use the `Partitions` variable defined above to get the status of every partition.
@@ -145,7 +147,7 @@ In the event of major hardware or filesystem problems, LevelDB can become corrup
 
 ### Checking for Compaction Errors
 
-Any time there is a compaction error, it will be noted in the LevelDB logs. Those logs are located in a `LOG` file in each instance of LevelDB in a Riak node, specifically in `#(platform_data_dir)/leveldb/<vnode>/LOG`. The `platform_data_dir` can be specified in the [`riak.conf`](/riak/kv/2.0.2/configuring/reference/) configuration file. The default is `./data`.
+Any time there is a compaction error, it will be noted in the LevelDB logs. Those logs are located in a `LOG` file in each instance of LevelDB in a Riak node, specifically in `#(platform_data_dir)/leveldb/<vnode>/LOG`. The `platform_data_dir` can be specified in the [`riak.conf`]({{<baseurl>}}riak/kv/2.0.2/configuring/reference/) configuration file. The default is `./data`.
 
 Compaction error messages take the following form:
 
@@ -162,7 +164,7 @@ find . -name "LOG" -exec grep -l 'Compaction error' {} \;
 If there are compaction errors in any of your vnodes, those will be listed in the console. If any vnode has experienced such errors, you would see output like this:
 
 ```
-./442446784738847563128068650529343492278651453440/LOG 
+./442446784738847563128068650529343492278651453440/LOG
 ```
 
 {{% note title="Note" %}}
@@ -190,11 +192,11 @@ You can fire up the shell by running the `erl` command. To ensure that you start
 Once you're in the shell, run the following command:
 
 ```erlang
-[application:set_env(eleveldb, Var, Val) || {Var, Val} <- 
-    [{max_open_files, 2000}, 
-     {block_size, 1048576}, 
-     {cache_size, 20*1024*1024*1024}, 
-     {sync, false}, 
+[application:set_env(eleveldb, Var, Val) || {Var, Val} <-
+    [{max_open_files, 2000},
+     {block_size, 1048576},
+     {cache_size, 20*1024*1024*1024},
+     {sync, false},
      {data_root, ""}]].
 ```
 
@@ -214,23 +216,23 @@ riak start
 
 If you have experienced a loss of object replicas in your cluster, you
 may need to perform a repair operation on one or more of your data
-[partitions](/riak/kv/2.0.2/learn/concepts/clusters/#the-ring). Repairs of Riak KV data are typically
+[partitions]({{<baseurl>}}riak/kv/2.0.2/learn/concepts/clusters/#the-ring). Repairs of Riak KV data are typically
 run in situations where partitions or whole nodes are lost due to
 corruption or hardware failure. In these cases, nodes or partitions are
 brought back online without any data, which means that the need to
-repair data will depend mainly on your use case and on whether [active anti-entropy](/riak/kv/2.0.2/learn/concepts/active-anti-entropy/) is enabled.
+repair data will depend mainly on your use case and on whether [active anti-entropy]({{<baseurl>}}riak/kv/2.0.2/learn/concepts/active-anti-entropy/) is enabled.
 
 You will need to run a repair if the following are both true:
 
-* Active anti-entropy is [disabled](/riak/kv/2.0.2/learn/concepts/active-anti-entropy/#disabling-active-anti-entropy)
+* Active anti-entropy is [disabled]({{<baseurl>}}riak/kv/2.0.2/learn/concepts/active-anti-entropy/#disabling-active-anti-entropy)
 * You have both non-expiring data and keys that are not accessed
   frequently (which means that they are not likely to be subject to
-  [read repair](/riak/kv/2.0.2/learn/concepts/active-anti-entropy/#read-repair-vs-active-anti-entropy))
+  [read repair]({{<baseurl>}}riak/kv/2.0.2/learn/concepts/active-anti-entropy/#read-repair-vs-active-anti-entropy))
 
 You will most likely not need to run a repair operation if _any_ of the
 following is true:
 
-* Active anti-entropy is [enabled](/riak/kv/2.0.2/learn/concepts/active-anti-entropy/#enabling-active-anti-entropy)
+* Active anti-entropy is [enabled]({{<baseurl>}}riak/kv/2.0.2/learn/concepts/active-anti-entropy/#enabling-active-anti-entropy)
 * Your entire key set is accessed frequently, allowing passive read
   repair to repair the partitions
 * Your data expires frequently
@@ -318,7 +320,6 @@ the `nodename` parameter.
     that loops over each `{Partition, Node}` tuple in the ring and
     extracts only the partitions that match the given node name, as a
     list.
-
 
 4. Execute the repair on all the partitions. Executing the repairs all
 at once will cause a lot of `{shutdown, max_concurrency}` messages in

@@ -3,6 +3,9 @@ title: "Multi-Datacenter Replication Reference: Comparsion"
 description: ""
 project: "riak_kv"
 project_version: "2.2.1"
+lastmod: 2017-03-08T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.1:
     name: "Comparison"
@@ -15,7 +18,7 @@ aliases:
   - /riak/kv/2.2.1/ops/mdc/comparison
 ---
 
-This document is a systematic comparison of [Version 2](/riak/kv/2.2.1/using/reference/v2-multi-datacenter) and [Version 3](/riak/kv/2.2.1/using/reference/v3-multi-datacenter) of Riak Enterprise's Multi-Datacenter
+This document is a systematic comparison of [Version 2]({{<baseurl>}}riak/kv/2.2.1/using/reference/v2-multi-datacenter) and [Version 3]({{<baseurl>}}riak/kv/2.2.1/using/reference/v3-multi-datacenter) of Riak Enterprise's Multi-Datacenter
 Replication capabilities.
 
 {{% note title="Important note on mixing versions" %}}
@@ -89,7 +92,7 @@ version 3.
   of workers that will run on a source node, a sink node, and across the
   entire source cluster. This allows for limiting impact on the cluster
   and dialing in fullsync performance.
-* Version 3 is able to take advantage of [Active Anti-Entropy](/riak/kv/2.2.1/learn/concepts/active-anti-entropy/) \(AAE)
+* Version 3 is able to take advantage of [Active Anti-Entropy]({{<baseurl>}}riak/kv/2.2.1/learn/concepts/active-anti-entropy/) \(AAE)
   technology, which can greatly improve fullsync performance.
 * Riak CS MDC `proxy_get` connections will be distributed across the
   source cluster (as CS blocks are requested from the sink cluster in

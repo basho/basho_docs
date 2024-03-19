@@ -3,6 +3,9 @@ title: "Managing Your Configuration"
 description: ""
 project: "riak_kv"
 project_version: "2.0.9"
+lastmod: 2017-03-15T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.9:
     name: "Managing Configuration"
@@ -12,9 +15,9 @@ menu:
 toc: true
 ---
 
-[use admin riak cli]: /riak/kv/2.0.9/using/admin/riak-cli
-[use admin riak cli#chkconfig]: /riak/kv/2.0.9/using/admin/riak-cli/#chkconfig
-[config reference#search]: /riak/kv/2.0.9/configuring/reference/#search
+[use admin riak cli]: {{<baseurl>}}riak/kv/2.0.9/using/admin/riak-cli
+[use admin riak cli#chkconfig]: {{<baseurl>}}riak/kv/2.0.9/using/admin/riak-cli/#chkconfig
+[config reference#search]: {{<baseurl>}}riak/kv/2.0.9/configuring/reference/#search
 
 ## Retrieving a Configuration Listing
 

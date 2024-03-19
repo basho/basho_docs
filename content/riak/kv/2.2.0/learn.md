@@ -3,6 +3,9 @@ title: "Learn About Riak KV"
 description: ""
 project: "riak_kv"
 project_version: "2.2.0"
+lastmod: 2016-11-12T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.0:
     name: "Learning"
@@ -31,8 +34,6 @@ An overview of Riak KV and when to use it.
 Details use cases and applications in which Riak KV excels.
 
 [Learn More >>][learn use cases]
-
-
 
 #### [Glossary][glossary]
 

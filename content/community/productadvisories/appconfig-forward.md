@@ -1,7 +1,10 @@
 ---
 title: Forward Incompatibility of app.config
 project: riak
-version: 1.0.0+ 
+lastmod: 2015-04-15T00:00:00-00:00
+sitemap:
+  priority: 0.5
+version: 1.0.0+
 versions: false
 document: reference
 ---

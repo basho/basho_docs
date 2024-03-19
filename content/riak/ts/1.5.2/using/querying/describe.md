@@ -9,13 +9,16 @@ menu:
     parent: "querying_data_riakts"
 project: "riak_ts"
 project_version: "1.5.2"
+lastmod: 2017-02-10T00:00:00-00:00
+sitemap:
+  priority: 0.3
 toc: true
 aliases:
-    - /riakts/1.5.2/using/querying/describe
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/describe"
+  - /riakts/1.5.2/using/querying/describe
+
 ---
 
-[riak shell]: /riak/ts/1.5.2/using/riakshell
+[riak shell]: {{<baseurl>}}riak/ts/1.5.2/using/riakshell
 
 You can use the DESCRIBE statement to obtain the definition of your Riak TS table. This document will show you how to execute `DESCRIBE` in TS.
 
@@ -39,7 +42,6 @@ weather     | varchar   | false    | <null>        | <null>    |          |     
 temperature | double    | true     | <null>        | <null>    |          |      |
 ```
 
-
 You can use `DESCRIBE` in [riak shell]:
 
 ```
@@ -54,7 +56,6 @@ riak-shell>describe GeoCheckin;
 |temperature| double  | true   |             |         |        |    |           |
 +-----------+---------+--------+-------------+---------+--------+----+----------+
 ```
-
 
 Using TS's supported clients, a successful `DESCRIBE` will return a language-specific representation of the table.
 

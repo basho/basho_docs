@@ -4,6 +4,9 @@ title: "Windows Azure"
 description: ""
 project: "riak_kv"
 project_version: "2.2.1"
+lastmod: 2017-03-08T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.1:
     name: "Windows Azure"
@@ -26,15 +29,15 @@ You will need to sign up for the Windows Azure Virtual Machines preview feature 
 
 2. Click "preview features" to view the available previews.
 
-    ![](/images/antares-iaas-preview-01.png)
+    ![]({{<baseurl>}}images/antares-iaas-preview-01.png)
 
 3. Scroll down to Virtual Machines & Virtual Networks and click "try it now".
 
-    ![](/images/antares-iaas-preview-02.png)
+    ![]({{<baseurl>}}images/antares-iaas-preview-02.png)
 
 4. Select your subscription and click the check.
 
-    ![](/images/antares-iaas-preview-04.png)
+    ![]({{<baseurl>}}images/antares-iaas-preview-04.png)
 
 ### Create a virtual machine running CentOS Linux
 
@@ -42,11 +45,11 @@ You will need to sign up for the Windows Azure Virtual Machines preview feature 
 
 2. In the Management Portal, at the bottom left of the web page, click "+New", click "Virtual Machine", and then click "From Gallery".
 
-    ![](/images/createvm_small.png)
+    ![]({{<baseurl>}}images/createvm_small.png)
 
 3. Select a CentOS virtual machine image from "Platform Images", and then click the next arrow at the bottom right of the page.
 
-    ![](/images/vmconfiguration0.png)
+    ![]({{<baseurl>}}images/vmconfiguration0.png)
 
 4. On the VM Configuration page, provide the following information:
     - Provide a "Virtual Machine Name", such as "testlinuxvm".
@@ -56,7 +59,7 @@ You will need to sign up for the Windows Azure Virtual Machines preview feature 
     - Select the appropriate "Size" from the drop down list.
     - Click the next arrow to continue.
 
-    ![](/images/vmconfiguration1.png)
+    ![]({{<baseurl>}}images/vmconfiguration1.png)
 
 5. On the VM Mode page, provide the following information:
     - **If this is the first node**, select the "STANDALONE VIRTUAL MACHINE" radio button. **Otherwise**, select the "CONNECT TO EXISTING VIRTUAL MACHINE" radio button, and select the first node in the drop down list.
@@ -65,11 +68,11 @@ You will need to sign up for the Windows Azure Virtual Machines preview feature 
     - In the "Region/Affinity Group/Virtual Network" box, select a region where this virtual image will be hosted.
     - Click the next arrow to continue.
 
-    ![](/images/vmconfiguration2.png)
+    ![]({{<baseurl>}}images/vmconfiguration2.png)
 
 6. On the VM Options page, select "(none)" in the "Availability Set" box. Click the check mark to continue.
 
-    ![](/images/vmconfiguration3.png)
+    ![]({{<baseurl>}}images/vmconfiguration3.png)
 
 7. Wait while Windows Azure prepares your virtual machine.
 
@@ -106,7 +109,7 @@ If you are using a Windows computer, connect to the VM using PuTTY. PuTTY can be
 
 2. Enter the SSH DETAILS as found on the Node's Dashboard, i.e., "testlinuxvm.cloudapp.net" for the Host Name and "22" for the Port.
 
-    ![](/images/putty.png)
+    ![]({{<baseurl>}}images/putty.png)
 
 ## Install Riak and configure using a shell script
 
@@ -177,7 +180,7 @@ Execute on any one of the nodes:
 ```bash
 curl -s http://rekon.basho.com | sh
 ```
-    
+
 Visit DNS address listed on the dashboard, at the port we opened as an endpoint:
 
 ```

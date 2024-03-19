@@ -9,6 +9,9 @@ menu:
     parent: "api_s3"
 project: "riak_cs"
 project_version: "2.0.0"
+lastmod: 2015-03-28T00:00:00-00:00
+sitemap:
+  priority: 0.1
 aliases:
   - /riakcs/2.0.0/cookbooks/fog/
 ---
@@ -81,7 +84,7 @@ user doesn't exist.
 ```ruby
 user = client.get_user(key_id)
 user.body
-# {"key_secret"=>"XXX", "display_name"=>"dizzy", "email"=>"dizzy@basho.com", "status"=>"enabled", "name"=>"Eric Redmond", "key_id"=>"YYY", "id"=>"ZZZ"}
+# {"key_secret"=>"XXX", "display_name"=>"dizzy", "email"=>"dizzy@{{<exampledomain>}}", "status"=>"enabled", "name"=>"Eric Redmond", "key_id"=>"YYY", "id"=>"ZZZ"}
 ```
 
 ### Manage User

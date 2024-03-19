@@ -3,6 +3,9 @@ title: "Search Reference"
 description: ""
 project: "riak_kv"
 project_version: "2.0.9"
+lastmod: 2017-03-15T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.9:
     name: "Search"
@@ -10,26 +13,28 @@ menu:
     weight: 109
     parent: "managing_ref"
 toc: true
+version_history:
+  in: "2.0.0-2.9999.9999"
 aliases:
   - /riak/2.0.9/dev/advanced/search
   - /riak/kv/2.0.9/dev/advanced/search
 ---
 
-[concept clusters]: /riak/kv/2.0.9/learn/concepts/clusters
-[configuring search]: /riak/kv/2.0.9/configuring/search
+[concept clusters]: {{<baseurl>}}riak/kv/2.0.9/learn/concepts/clusters
+[configuring search]: {{<baseurl>}}riak/kv/2.0.9/configuring/search
 
 > **Note on search 2.0 vs. legacy search**
 >
 > This document refers to Riak search 2.0 with
 [Solr](http://lucene.apache.org/solr/) integration (codenamed
-Yokozuna). For information about the deprecated Riak search, visit [the old Using Riak search docs](http://docs.basho.com/riak/1.4.10/dev/using/search/).
+Yokozuna).
 
 The project that implements Riak search is codenamed Yokozuna. This is a
 more detailed overview of the concepts and reasons behind the design of
 Yokozuna, for those interested. If you're simply looking to use Riak
-search, you should check out the [Using Search](/riak/kv/2.0.9/developing/usage/search) document.
+search, you should check out the [Using Search]({{<baseurl>}}riak/kv/2.0.9/developing/usage/search) document.
 
-![Yokozuna](/images/yokozuna.png)
+![Yokozuna]({{<baseurl>}}images/yokozuna.png)
 
 ## Riak Search is Erlang
 
@@ -127,7 +132,7 @@ but logically partition them in KV by using a date as the bucket name.
 A bucket _cannot_ be associated with many indexes---the `search_index`
 property must be a single name, not a list.
 
-See the [main Search documentation](/riak/kv/2.0.9/developing/usage/search/#simple-setup) for details on creating an index.
+See the [main Search documentation]({{<baseurl>}}riak/kv/2.0.9/developing/usage/search/#simple-setup) for details on creating an index.
 
 ## Extractors
 
@@ -259,7 +264,6 @@ Currently, Yokozuna makes no attempts to hide any details of the Solr
 schema: a user creates a schema for Yokozuna just as she would for Solr.
 Here is the general structure of a schema.
 
-
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <schema name="my-schema" version="1.5">
@@ -289,7 +293,7 @@ The corresponding date type is declared under `<types>` like so.
 <fieldType name="date" class="solr.TrieDateField" precisionStep="0" positionIncrementGap="0"/>
 ```
 
-You can also find more information on to how customize your own [search schema](/riak/kv/2.0.9/developing/usage/search-schemas).
+You can also find more information on to how customize your own [search schema]({{<baseurl>}}riak/kv/2.0.9/developing/usage/search-schemas).
 
 Yokozuna comes bundled with a [default schema](https://github.com/basho/yokozuna/blob/develop/priv/default_schema.xml)
 called `_yz_default`. This is an extremely general schema which makes
@@ -299,7 +303,7 @@ indexed.
 
 ## Active Anti-Entropy (AAE)
 
-[Active Anti-Entropy](/riak/kv/2.0.9/learn/concepts/active-anti-entropy/) \(AAE) is the process of discovering and
+[Active Anti-Entropy]({{<baseurl>}}riak/kv/2.0.9/learn/concepts/active-anti-entropy/) \(AAE) is the process of discovering and
 correcting entropy (divergence) between the data stored in Riak's
 key-value backend and the indexes stored in Solr. The impetus for AAE is
 that failures come in all shapes and sizes---disk failure, dropped
@@ -337,7 +341,6 @@ expiration occurs after one week.
 For an in-depth look at Riak's AAE process, watch Joseph Blomstedt's
 [screencast](http://coffee.jtuple.com/video/AAE.html).
 
-
 ## Analysis & Analyzers
 
 Analysis is the process of breaking apart (analyzing) text into a
@@ -354,7 +357,7 @@ _analysis_.
 Solr provides many different field types which analyze data in different
 ways, and custom analyzer chains may be built by stringing together XML
 in the schema file, allowing custom analysis for each field. For more
-information on analysis, see [Search Schema](/riak/kv/2.0.9/developing/usage/search-schemas).
+information on analysis, see [Search Schema]({{<baseurl>}}riak/kv/2.0.9/developing/usage/search-schemas).
 
 ## Tagging
 
@@ -407,7 +410,6 @@ one with a smaller window.
 
 The Riak Search batching subsystem provides statistics on run-time characteristics of search system components. These statistics are accessible via the standard Riak KV stats interfaces and can be monitored through standard enterprise management tools.
 
-
 * `search_index_throughput_(count|one)` - The total count of objects that have been indexed, per Riak node, and the count of objects that have been indexed within the metric measurement window.
 
 * `search_index_latency_(min|mean|max|median|95|99|999)` - The minimum, mean, maximum, median, 95th percentile, 99th percentile, and 99.9th percentile measurements of indexing latency, as measured from the time it takes to send a batch to Solr to the time the response is received from Solr, divided by the batch size.
@@ -430,7 +432,7 @@ The Riak Search batching subsystem provides statistics on run-time characteristi
 
 * `search_queue_drain_latency_(min|mean|max|median|95|99|999)` - The minimum, mean, maximum, median, 95th percentile, 99th percentile, and 99.9th percentile measurements of drain latency, as measured from the time it takes to initiate a drain to the time the drain is completed.
 
-* `search_detected_repairs_count` - The total number of AAE repairs that have been detected when comparing YZ and Riak/KV AAE trees. Note that this statistic is a measurement of the differences found in the AAE trees; there may be some latency between the time the trees are compared and the time that the repair is written to Solr. 
+* `search_detected_repairs_count` - The total number of AAE repairs that have been detected when comparing YZ and Riak/KV AAE trees. Note that this statistic is a measurement of the differences found in the AAE trees; there may be some latency between the time the trees are compared and the time that the repair is written to Solr.
 
 * `search_blockedvnode_(count|one)` - The total count of vnodes that have been blocked, per Riak node, and the count of blocked vnodes within the metric measurement window. Vnodes are blocked when a Solrq worker exceeds its high water mark, as defined by the [`search.queue.high_watermark`][configuring search] configuration setting.
 

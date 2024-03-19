@@ -3,6 +3,9 @@ title: "Backend API"
 description: ""
 project: "riak_kv"
 project_version: "2.2.0"
+lastmod: 2016-11-12T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.0:
     name: "Backend API"
@@ -15,7 +18,7 @@ aliases:
   - /riak/kv/2.2.0/dev/references/backend-api
 ---
 
-[plan backend]: /riak/kv/2.2.0/setup/planning/backend
+[plan backend]: {{<baseurl>}}riak/kv/2.2.0/setup/planning/backend
 
 Riak's storage API uniformly applies to all of the
 [supported backends][plan backend]. This page presents the details of

@@ -4,6 +4,9 @@ title: "FreeBSD"
 description: ""
 project: "riak_kv"
 project_version: "2.0.6"
+lastmod: 2015-06-29T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.6:
     name: "FreeBSD"
@@ -18,11 +21,9 @@ aliases:
   - /riak/kv/2.0.6/installing/freebsd/
 ---
 
-
-
-[install source erlang]: /riak/kv/2.0.6/setup/installing/source/erlang
-[downloads]: /riak/kv/2.0.6/downloads/
-[install verify]: /riak/kv/2.0.6/setup/installing/verify
+[install source erlang]: {{<baseurl>}}riak/kv/2.0.6/setup/installing/source/erlang
+[downloads]: {{<baseurl>}}riak/kv/2.0.6/downloads/
+[install verify]: {{<baseurl>}}riak/kv/2.0.6/setup/installing/verify
 
 You can install Riak on FreeBSD for the AMD64 architecture with a binary package or by building from source code.
 
@@ -97,6 +98,7 @@ If you do not currently have the following software installed, please install it
 * sudo
 
 ### Installation
+
 First download the version you wish to install from [Basho downloads][downloads].
 
 Next, unpack and build a release from source:

@@ -12,16 +12,17 @@ menu:
 toc: true
 aliases:
   - /dataplatform/1.0.0/using-dataplatform/dataplatform-commands/
+  - /dataplatform/latest/using/commands/
 ---
 
-[bdp configure]: /dataplatform/1.0.0/configuring/setup-a-cluster/
-[bdp configure add services]: /dataplatform/1.0.0/configuring/setup-a-cluster/#add-services
-[bdp install]: /dataplatform/1.0.0/installing/
-[bdp reference]: /dataplatform/1.0.0/learn/service-manager/
+[bdp configure]: {{<baseurl>}}dataplatform/1.0.0/configuring/setup-a-cluster/
+[bdp configure add services]: {{<baseurl>}}dataplatform/1.0.0/configuring/setup-a-cluster/#add-services
+[bdp install]: {{<baseurl>}}dataplatform/1.0.0/installing/
+[bdp reference]: {{<baseurl>}}dataplatform/1.0.0/learn/service-manager/
 
 Basho Data Platform (BDP) comes with a command line tool (`data-platform-admin`) that allows you to perform various operations on your BDP cluster. The following reference outlines available commands and their uses.
 
-```
+```plaintext
 Usage: data-platform-admin { join | add-service-config | remove-service | start-service | stop-service | services | node-services | service-nodes }
 ```
 
@@ -30,7 +31,6 @@ Use `--help` after a sub-command for more details. For example:
 ```bash
 data-platform-admin join --help
 ```
-
 
 ## join
 
@@ -46,7 +46,6 @@ data-platform-admin join »node«
 | ---------- | ----------- |
 | `»node«`   | The name of the Riak node. |
 
-
 ## leave
 
 Remove a node from the Basho Data Platform cluster.
@@ -55,7 +54,6 @@ Remove a node from the Basho Data Platform cluster.
 data-platform-admin leave
 ```
 
-
 ## cluster-status
 
 Display a summary of the status of nodes in the cluster.
@@ -63,7 +61,6 @@ Display a summary of the status of nodes in the cluster.
 ```bash
 data-platform-admin cluster-status
 ```
-
 
 ## add-service-config
 
@@ -87,7 +84,6 @@ data-platform-admin add-service-config »service-name« »service« [»service-c
 | ------------- | ----------- |
 | `-f` / `--force`   | The `--force` (`-f`) flag enables an overwrite of an existing service configuration. Without `--force`, attempts to add a service configuration that already exists will result in an error. |
 
-
 ## remove-service-config
 
 Remove an existing service configuration from the cluster.
@@ -101,7 +97,6 @@ data-platform-admin remove-service »service«
 | Parameters  | Description |
 | ----------- | ----------- |
 | `»service«` | Valid services include: redis, cache-proxy, spark-worker, spark-master |
-
 
 ## start-service
 
@@ -125,7 +120,6 @@ data-platform-admin start-service »node« »group« »service« [-i | --output-
 | ------------- | ----------- |
 | `-i` / ` --output-ip ` | Print IP address of node to console instead of normal output. |
 
-
 ## stop-service
 
 Stop a service on the designated instance.
@@ -142,7 +136,6 @@ data-platform-admin stop-service »node« »group« »service«
 | `»group«` | The name of the group. |
 | `»service«` | Valid services include: redis, cache-proxy, spark-worker, spark-master |
 
-
 ## services
 
 Display available services on the cluster.
@@ -150,7 +143,6 @@ Display available services on the cluster.
 ```bash
 data-platform-admin services
 ```
-
 
 ## node-services
 
@@ -165,7 +157,6 @@ data-platform-admin node-services »node«
 | Parameters       | Description |
 | -----------------| ----------- |
 | `»node«`   | The name of the Riak node. |
-
 
 ## service-nodes
 

@@ -3,6 +3,9 @@ title: "Using Riak Redis Add-on"
 description: ""
 project: "riak_ts"
 project_version: "1.5.2"
+lastmod: 2017-02-10T00:00:00-00:00
+sitemap:
+  priority: 0.3
 menu:
   riak_ts-1.5.2:
     name: "Using Redis Add-on"
@@ -13,13 +16,13 @@ toc: true
 commercial_offering: true
 aliases:
   - /riak/ts/1.5.2/add-ons/redis/get-started-with-rra
+
 ---
 
 [addon redis develop]: ../developing-rra/
 [addon redis setup]: ../set-up-rra/
-[dev api http]: /riak/kv/2.2.0/developing/api/http/
+[dev api http]: {{<baseurl>}}riak/kv/2.2.0/developing/api/http/
 [ee]: http://basho.com/contact/
-
 
 Now that you’ve [set up Riak Redis Add-on (RRA)][addon redis setup], you're ready to use RRA with any Redis client which supports `GET`, `PUT` and `DEL` operations.
 

@@ -3,6 +3,9 @@ title: "Replication"
 description: ""
 project: "riak_kv"
 project_version: "2.0.7"
+lastmod: 2016-06-24T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.7:
     name: "Replication"
@@ -17,16 +20,14 @@ aliases:
   - /riak/kv/2.0.7/theory/concepts/replication
 ---
 
-
-[cluster ops v3 mdc]: /riak/kv/2.0.7/using/cluster-operations/v3-multi-datacenter
-[concept aae]: /riak/kv/2.0.7/learn/concepts/active-anti-entropy
-[concept causal context vc]: /riak/kv/2.0.7/learn/concepts/causal-context/#vector-clocks
-[concept clusters]: /riak/kv/2.0.7/learn/concepts/clusters
-[concept vnodes]: /riak/kv/2.0.7/learn/concepts/vnodes
-[glossary node]: /riak/kv/2.0.7/learn/glossary/#node
-[glossary ring]: /riak/kv/2.0.7/learn/glossary/#ring
-[usage replication]: /riak/kv/2.0.7/developing/usage/replication
-
+[cluster ops v3 mdc]: {{<baseurl>}}riak/kv/2.0.7/using/cluster-operations/v3-multi-datacenter
+[concept aae]: {{<baseurl>}}riak/kv/2.0.7/learn/concepts/active-anti-entropy
+[concept causal context vc]: {{<baseurl>}}riak/kv/2.0.7/learn/concepts/causal-context/#vector-clocks
+[concept clusters]: {{<baseurl>}}riak/kv/2.0.7/learn/concepts/clusters
+[concept vnodes]: {{<baseurl>}}riak/kv/2.0.7/learn/concepts/vnodes
+[glossary node]: {{<baseurl>}}riak/kv/2.0.7/learn/glossary/#node
+[glossary ring]: {{<baseurl>}}riak/kv/2.0.7/learn/glossary/#ring
+[usage replication]: {{<baseurl>}}riak/kv/2.0.7/developing/usage/replication
 
 Data replication is a core feature of Riak's basic architecture. Riak
 was designed to operate as a [clustered][concept clusters] system containing
@@ -37,13 +38,13 @@ Replication is fundamental and automatic in Riak, providing security
 that your data will still be there if a node in your Riak cluster goes
 down. All data stored in Riak will be replicated to a number of nodes in
 the cluster according to the N value (`n_val`) property set in a
-bucket's [bucket type](/riak/kv/2.0.7/developing/usage/bucket-types).
+bucket's [bucket type]({{<baseurl>}}riak/kv/2.0.7/developing/usage/bucket-types).
 
 >**Note: Replication across clusters**
 >
 >If you're interested in replication not just within a cluster but across
 multiple clusters, we recommend checking out our documentation on Riak's
-[Multi-Datacenter Replications](/riak/kv/2.0.7/setup/planning/backend/multi) capabilities.
+[Multi-Datacenter Replications]({{<baseurl>}}riak/kv/2.0.7/setup/planning/backend/multi) capabilities.
 
 ## Selecting an N value (`n_val`)
 
@@ -70,7 +71,7 @@ nodes with the data will cause the read to fail.
 ## Setting the N value (`n_val`)
 
 To change the N value for a bucket, you need to create a [bucket
-type](/riak/kv/2.0.7/developing/usage/bucket-types) with `n_val` set to your desired value and
+type]({{<baseurl>}}riak/kv/2.0.7/developing/usage/bucket-types) with `n_val` set to your desired value and
 then make sure that the bucket bears that type.
 
 In this example, we'll set N to 2. First, we'll create the bucket type
@@ -98,11 +99,11 @@ While raising the value of N for a bucket or object shouldn't cause
 problems, it's important that you never lower N. If you do so, you can
 wind up with dead, i.e. unreachable data. This can happen because
 objects' preflists, i.e. lists of [vnodes][concept vnodes] responsible for the object,
-can end up 
+can end up
 
 Unreachable data is a problem because it can negatively impact coverage
-queries, e.g. [secondary index](/riak/kv/2.0.7/developing/usage/secondary-indexes/) and
-[MapReduce](/riak/kv/2.0.7/developing/usage/mapreduce/) queries. Lowering an object or bucket's
+queries, e.g. [secondary index]({{<baseurl>}}riak/kv/2.0.7/developing/usage/secondary-indexes/) and
+[MapReduce]({{<baseurl>}}riak/kv/2.0.7/developing/usage/mapreduce/) queries. Lowering an object or bucket's
 `n_val` will likely mean that objects that you would expect to
 be returned from those queries will no longer be returned.
 
@@ -114,7 +115,6 @@ replicas. For more information on AAE, see the following documents:
 
 * [Active Anti-Entropy][concept aae]
 * [Managing Active Anti-Entropy][cluster ops v3 mdc]
-
 
 ## Read Repair
 

@@ -4,6 +4,9 @@ title: "With NAT"
 description: ""
 project: "riak_kv"
 project_version: "2.1.4"
+lastmod: 2016-04-07T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.1.4:
     name: "With NAT"
@@ -16,7 +19,7 @@ aliases:
   - /riak/2.1.4/ops/mdc/v2/nat
 ---
 
-[config v2 ssl]: /riak/kv/2.1.4/configuring/v2-multi-datacenter/ssl
+[config v2 ssl]: {{<baseurl>}}riak/kv/2.1.4/configuring/v2-multi-datacenter/ssl
 
 Riak Enterprise supports replication of data on networks that use static
 NAT. This capability can be used for replicating data over the internet

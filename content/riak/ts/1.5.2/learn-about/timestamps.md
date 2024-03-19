@@ -10,10 +10,13 @@ menu:
     parent: "about"
 project: "riak_ts"
 project_version: "1.5.2"
+lastmod: 2017-02-10T00:00:00-00:00
+sitemap:
+  priority: 0.3
 toc: true
 aliases:
-    - /riakts/1.5.2/learn-about/timestamps/
-canonical_link: "https://docs.basho.com/riak/ts/latest/learn-about/timestamps"
+  - /riakts/1.5.2/learn-about/timestamps/
+
 ---
 
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
@@ -62,12 +65,12 @@ database.
 For querying data, there are two important exceptions to the simple
 expand and convert sequence above.
 
-1\. Strictly greater than (>) and greater-than/equal-to (>=) queries involve
+1/. Strictly greater than (>) and greater-than/equal-to (>=) queries involve
 incrementing the original reduced accuracy representation before
 expansion.
 
 So, `time > '2015'` becomes in effect, `time >= '2016-01-01
-00:00:00'`, and 
+00:00:00'`, and
 
 `time <= '2003-05-01T05:10'` becomes `time < '2003-05-01T05:11:00'`.
 
@@ -75,7 +78,7 @@ Thus, querying for timestamp values greater than `'1970-12-18 21:00'`
 will ignore any values which fall between 9pm and 9:01pm, while using
 a fully-specified string `'1970-12-18 21:00:00'` will include them.
 
-2\. Fractional times are not considered reduced accuracy, so selecting for
+2/. Fractional times are not considered reduced accuracy, so selecting for
 timestamps greater than `2016-08-03 15:00` will give different
 results than `2016-08-01 15.0` (or `2016-08-01 15:00:00`).
 

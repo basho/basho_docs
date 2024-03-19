@@ -3,6 +3,9 @@ title: "Write Once"
 description: ""
 project: "riak_kv"
 project_version: "2.1.1"
+lastmod: 2015-05-05T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.1.1:
     name: "Write Once"
@@ -17,10 +20,10 @@ aliases:
   - /riak/kv/2.1.1/dev/advanced/write-once
 ---
 
-[glossary vnode]: /riak/kv/2.1.1/learn/glossary/#vnode
-[bucket type]: /riak/kv/2.1.1/developing/usage/bucket-types
-[Riak data types]: /riak/kv/2.1.1/developing/data-types
-[strong consistency]: /riak/kv/2.1.1/developing/app-guide/strong-consistency
+[glossary vnode]: {{<baseurl>}}riak/kv/2.1.1/learn/glossary/#vnode
+[bucket type]: {{<baseurl>}}riak/kv/2.1.1/developing/usage/bucket-types
+[Riak data types]: {{<baseurl>}}riak/kv/2.1.1/developing/data-types
+[strong consistency]: {{<baseurl>}}riak/kv/2.1.1/developing/app-guide/strong-consistency
 
 Riak 2.1.0 introduces the concept of write-once buckets, buckets whose entries
 are intended to be written exactly once and never updated or overwritten.
@@ -103,7 +106,7 @@ The relationship between the `riak_client`, write-once workers, and vnode
 proxies is illustrated in the following diagram:
 
 <br>
-![Write Once](/images/write_once.png)
+![Write Once]({{<baseurl>}}images/write_once.png)
 <br>
 
 ## Client Impacts
@@ -114,7 +117,6 @@ client features might not work as expected.  For example, PUT requests asking
 for the object to be returned will behave like requests that do not
 request the object to be returned when they are performed against write-once
 buckets.
-
 
 ## Siblings
 
@@ -135,7 +137,6 @@ As mentioned in [Configuration](#configuration), write-once buckets and Riak
 Data Types are incompatible because of this.
 {{% /note %}}
 
-
 ## Handoff
 
 The write-once path supports handoff scenarios, such that if a handoff occurs
@@ -154,7 +155,7 @@ LevelDB. Riak will automatically fall back to synchronous writes with all other
 backends.
 
 {{% note title="Note on the `multi` backend" %}}
-The [Multi](/riak/kv/2.1.1/setup/planning/backend/multi) backend does not
+The [Multi]({{<baseurl>}}riak/kv/2.1.1/setup/planning/backend/multi) backend does not
 support asynchronous writes. Therefore, if LevelDB is used with the Multi
 backend, it will be used in synchronous mode.
 {{% /note %}}

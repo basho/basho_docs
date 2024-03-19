@@ -9,13 +9,15 @@ menu:
     parent: "configuring"
 project: "riak_kv"
 project_version: "2.2.1"
+lastmod: 2017-03-08T00:00:00-00:00
+sitemap:
+  priority: 0.1
 toc: true
-canonical_link: "https://docs.basho.com/riak/kv/latest/configuring/global-object-expiration"
 ---
 
 [ttl]: https://en.wikipedia.org/wiki/Time_to_live
 
-By default, LevelDB keeps all of your data. But Riak KV allows you to configure global object expiration (`expiry`) or [time to live (TTL)][ttl] for your data. 
+By default, LevelDB keeps all of your data. But Riak KV allows you to configure global object expiration (`expiry`) or [time to live (TTL)][ttl] for your data.
 
 Expiration is disabled by default, but enabling it lets you expire older objects to reclaim the space used or purge data with a limited time value.
 
@@ -65,7 +67,7 @@ Global expiration supports two modes:
 - `whole_file` - the whole sorted string table (`.sst`) file is deleted when all of its objects are expired.
 - `normal` - individual objects are removed as part of the usual compaction process.
 
-We recommend using `whole_file` with time series data that has a similar lifespan, as it will be much more efficient. 
+We recommend using `whole_file` with time series data that has a similar lifespan, as it will be much more efficient.
 
 The following example configure objects to expire after 1 day:
 

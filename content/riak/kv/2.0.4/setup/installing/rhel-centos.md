@@ -4,6 +4,9 @@ title: "RHEL and CentOS"
 description: ""
 project: "riak_kv"
 project_version: "2.0.4"
+lastmod: 2015-01-10T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.4:
     name: "RHEL & CentOS"
@@ -18,16 +21,13 @@ aliases:
   - /riak/kv/2.0.4/installing/rhel-centos/
 ---
 
-
-
-[install source index]: /riak/kv/2.0.4/setup/installing/source
-[install source erlang]: /riak/kv/2.0.4/setup/installing/source/erlang
-[install verify]: /riak/kv/2.0.4/setup/installing/verify
+[install source index]: {{<baseurl>}}riak/kv/2.0.4/setup/installing/source
+[install source erlang]: {{<baseurl>}}riak/kv/2.0.4/setup/installing/source/erlang
+[install verify]: {{<baseurl>}}riak/kv/2.0.4/setup/installing/verify
 
 > **Note: 2.0.4 not currently available**
 >
 > Riak version 2.0.4 is not currently available for RHEL/CentOS due to a known issue. If you'd like to upgrade Riak, we'd recommend waiting for the 2.0.5 release.
-
 
 Riak KV can be installed on CentOS- or Red-Hat-based systems using a binary
 package or by [compiling Riak from source code][install source index]. The following steps have been tested to work with Riak on

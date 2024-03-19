@@ -3,6 +3,9 @@ title: "PBC MapReduce"
 description: ""
 project: "riak_kv"
 project_version: "2.0.4"
+lastmod: 2015-01-10T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.4:
     name: "MapReduce"
@@ -19,14 +22,12 @@ Execute a MapReduce job.
 
 ## Request
 
-
 ```protobuf
 message RpbMapRedReq {
     required bytes request = 1;
     required bytes content_type = 2;
 }
 ```
-
 
 Required Parameters
 
@@ -38,8 +39,8 @@ Mapreduce jobs can be encoded in two different ways
 * `application/json` --- JSON-encoded MapReduce job
 * `application/x-erlang-binary` --- Erlang external term format
 
-The JSON encoding is the same as [REST API](/riak/kv/2.0.4/developing/usage/mapreduce/#rest) and
-the external term format is the same as the [local Erlang API](/riak/kv/2.0.4/developing/app-guide/advanced-mapreduce/#erlang)
+The JSON encoding is the same as [REST API]({{<baseurl>}}riak/kv/2.0.4/developing/usage/mapreduce/#rest) and
+the external term format is the same as the [local Erlang API]({{<baseurl>}}riak/kv/2.0.4/developing/app-guide/advanced-mapreduce/#erlang)
 
 ## Response
 
@@ -55,7 +56,6 @@ message RpbMapRedResp {
     optional bool done = 3;
 }
 ```
-
 
 Values
 
@@ -123,7 +123,6 @@ content_type: "application/json"
 
 ```
 
-
 Response 1 - result from phase 1
 
 ```bash
@@ -135,7 +134,6 @@ phase: 1
 response: "[[9]]"
 
 ```
-
 
 Response 2 - end of MapReduce job
 

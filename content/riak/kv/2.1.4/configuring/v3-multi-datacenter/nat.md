@@ -4,6 +4,9 @@ title: "With NAT"
 description: ""
 project: "riak_kv"
 project_version: "2.1.4"
+lastmod: 2016-04-07T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.1.4:
     name: "With NAT"
@@ -16,7 +19,7 @@ aliases:
   - /riak/2.1.4/ops/mdc/v3/nat
 ---
 
-[config v3 ssl]: /riak/kv/2.1.4/configuring/v3-multi-datacenter/ssl
+[config v3 ssl]: {{<baseurl>}}riak/kv/2.1.4/configuring/v3-multi-datacenter/ssl
 
 Riak Enterprise Version 3 Replication supports replication of data on
 networks that use static NAT.
@@ -60,7 +63,6 @@ NAT rules can be configured at runtime, from the command line.
 
     * `riak-repl fullsync stop <clustername>`
     * `riak-repl fullsync start <clustername>`
-
 
 ## Example
 
@@ -143,7 +145,6 @@ riak-repl nat-map add 50.16.238.200:5553 192.168.3.63
 # on 192.168.3.64 of Cluster_C
 riak-repl nat-map add 50.16.238.200:5554 192.168.3.64
 
-
 # Connect replication from Cluster_A to Cluster_B:
 # on any node of Cluster_A
 riak-repl connect 50.16.238.120:5555
@@ -155,7 +156,6 @@ riak-repl connect 50.16.238.120:5555
 riak-repl connect 50.16.238.200:5550
 # You can connect to any node in Cluster_C with NAT mapped IP's/ports
 # This command only needs to be run *once* for a cluster.
-
 
 # on any node from Cluster_A
 riak-repl realtime enable Cluster_B

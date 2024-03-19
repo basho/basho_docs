@@ -9,6 +9,9 @@ menu:
     parent: "api_openstack"
 project: "riak_cs"
 project_version: "2.0.0"
+lastmod: 2015-03-28T00:00:00-00:00
+sitemap:
+  priority: 0.1
 aliases:
   - /riakcs/2.0.0/cookbooks/Using-Riak-CS-With-Keystone/
   - /riak/cs/2.0.0/cookbooks/Using-Riak-CS-With-Keystone/
@@ -291,7 +294,7 @@ section of the Riak CS `advanced.config` or `app.config` files:
 
 ### Keystone Setup
 
-Follow the procedures documented in [Keystone Setup](/riak/cs/2.0.0/cookbooks/keystone-setup) to set up and run
+Follow the procedures documented in [Keystone Setup]({{<baseurl>}}riak/cs/2.0.0/cookbooks/keystone-setup) to set up and run
 Keystone.
 
 1. Create a tenant called `test`:

@@ -3,6 +3,9 @@ title: "Upgrading Riak KV"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"
+lastmod: 2015-12-10T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.1.3:
     name: "Upgrading"
@@ -37,8 +40,6 @@ A tutorial on updating to Riak KV 2.0+
 General guide on rolling upgrades / updating to a new version of Riak KV.
 
 [Learn More >>][upgrade cluster]
-
-
 
 ### [Upgrading Search from 1.x to 2.x][upgrade search]
 

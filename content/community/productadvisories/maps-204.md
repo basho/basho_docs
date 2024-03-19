@@ -1,7 +1,10 @@
-
 ---
 title: "Map Data Type Disk Incompatibility"
 description: ""
+project: community
+lastmod: 2016-04-10T00:00:00-00:00
+sitemap:
+  priority: 0.5
 menu:
   community:
     name: "Map Data Type Disk Incompatibility"
@@ -12,11 +15,10 @@ toc: true
 ---
 
 [reported]: http://lists.basho.com/pipermail/riak-users_lists.basho.com/2015-January/016568.html
-[dev data types]: /riak/kv/2.0.4/developing/data-types
-[dev data types maps]: /riak/kv/2.0.4/developing/data-types/#maps
-[cluster ops log]: /riak/kv/2.1.3/using/cluster-operations/logging
-[downloads]: http://docs.basho.com/riak/latest/downloads/
-
+[dev data types]: {{<baseurl>}}riak/kv/2.0.4/developing/data-types
+[dev data types maps]: {{<baseurl>}}riak/kv/2.0.4/developing/data-types/maps
+[cluster ops log]: {{<baseurl>}}riak/kv/2.1.3/using/cluster-operations/logging
+[Riak 2.0.5 or later]: {{<baseurl>}}riak/latest/downloads/
 
 Info | Value
 :----|:-----
@@ -41,7 +43,7 @@ You can verify whether this issue is affecting your cluster by checking
 your cluster's [logs][cluster ops log]. You will see errors along the following
 lines if your cluster is affected:
 
-```
+```plaintext
 2015-01-21 13:01:00.441 [error]
 <0.1033.0>@riak_core_vnode:vnode_command:348 riak_kv_vnode command
 failed
@@ -61,4 +63,4 @@ normal.
 ## Mitigation Strategy
 
 The recommended mitigation strategy is to upgrade to [Riak 2.0.5 or
-later][downloads].
+later].

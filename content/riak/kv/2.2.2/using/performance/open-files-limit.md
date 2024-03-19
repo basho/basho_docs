@@ -3,6 +3,9 @@ title: "Open Files Limit"
 description: ""
 project: "riak_kv"
 project_version: "2.2.2"
+lastmod: 2017-03-24T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.2:
     name: "Open Files Limit"
@@ -15,7 +18,7 @@ aliases:
   - /riak/kv/2.2.2/ops/tuning/open-files-limit/
 ---
 
-[plan backend]: /riak/kv/2.2.2/setup/planning/backend/
+[plan backend]: {{<baseurl>}}riak/kv/2.2.2/setup/planning/backend/
 [blog oracle]: http://blogs.oracle.com/elving/entry/too_many_open_files
 
 Riak KV can accumulate a large number of open file handles during operation. The creation of numerous data files is normal, and the [backend][plan backend] performs periodic merges of data file collections to avoid accumulating file handles.
@@ -104,7 +107,6 @@ In the above examples, the open files limit is raised for all users of the syste
 two asterisks (`*`) in the examples with `riak`.
 {{% /note %}}
 
-
 ## CentOS & Red Hat
 
 Start by checking the current open file limit values with:
@@ -164,7 +166,6 @@ In the above examples, the open files limit is raised for all users of the syste
 two asterisks (`*`) in the examples with `riak`.
 {{% /note %}}
 
-
 ## Solaris
 
 To increase the open file limit on Solaris, add the following line to the /etc/system file:
@@ -207,7 +208,6 @@ kern.maxfilesperproc=200000
 ```
 
 4\. Restart your computer and enter `ulimit -n` into your terminal. If your system is configured correctly, you should see that `maxfiles` has been set to 200000.
-
 
 ## Mac OS X Yosemite
 

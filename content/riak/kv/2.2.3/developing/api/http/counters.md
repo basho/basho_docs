@@ -3,6 +3,9 @@ title: "HTTP Counters"
 description: ""
 project: "riak_kv"
 project_version: "2.2.3"
+lastmod: 2017-03-30T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.3:
     name: "Counters"
@@ -54,7 +57,7 @@ GET /buckets/BUCKET/counters/KEY
 
 ## Response
 
-The regular POST/PUT ([HTTP Store Object](/riak/kv/2.2.3/developing/api/http/store-object)) and GET ([HTTP Fetch Object](/riak/kv/2.2.3/developing/api/http/fetch-object)) responses apply here.
+The regular POST/PUT ([HTTP Store Object]({{<baseurl>}}riak/kv/2.2.3/developing/api/http/store-object)) and GET ([HTTP Fetch Object]({{<baseurl>}}riak/kv/2.2.3/developing/api/http/fetch-object)) responses apply here.
 
 Caveats: Counters have no support for Secondary Indexes (2i), Links or Custom HTTP Metadata.
 

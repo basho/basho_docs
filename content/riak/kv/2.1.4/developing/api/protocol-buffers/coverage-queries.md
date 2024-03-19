@@ -3,21 +3,25 @@ title: "PBC Coverage Queries"
 description: ""
 project: "riak_kv"
 project_version: "2.1.4"
+lastmod: 2016-04-07T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.1.4:
     name: "Coverage Queries"
     identifier: "pbc_coverage_queries"
     weight: 108
     parent: "apis_pbc"
+version_history:
+  in: "2.1.4+"
 toc: true
 aliases:
   - /riak/2.1.4/dev/references/protocol-buffers/coverage-queries
   - /riak/kv/2.1.4/dev/references/protocol-buffers/coverage-queries
-canonical_link: "https://docs.basho.com/riak/kv/latest/developing/api/protocol-buffers/coverage-queries"
 ---
 
 Prepare for parallelizable
-[secondary index queries][../secondary-indexes/] by requesting a
+[secondary index queries](../secondary-indexes/) by requesting a
 coverage plan. The response will be multiple slices of the cluster, as
 identified by a TCP endpoint and an opaque binary to be included with
 each 2i query.

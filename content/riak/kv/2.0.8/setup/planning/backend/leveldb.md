@@ -3,6 +3,9 @@ title: "LevelDB"
 description: ""
 project: "riak_kv"
 project_version: "2.0.8"
+lastmod: 2017-02-16T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.8:
     name: "LevelDB"
@@ -15,11 +18,11 @@ aliases:
   - /riak/kv/2.0.8/ops/advanced/backends/leveldb/
 ---
 
-[upgrade 2.0#upgrading-leveldB]: /
-[glossary vnode]: /riak/kv/2.0.8/learn/glossary/#vnode
-[config reference]: /riak/kv/2.0.8/configuring/reference
-[perf index]: /riak/kv/2.0.8/using/performance
-[config reference#aae]: /riak/kv/2.0.8/configuring/reference/#active-anti-entropy
+[upgrade 2.0#upgrading-leveldB]: {{<baseurl>}}
+[glossary vnode]: {{<baseurl>}}riak/kv/2.0.8/learn/glossary/#vnode
+[config reference]: {{<baseurl>}}riak/kv/2.0.8/configuring/reference
+[perf index]: {{<baseurl>}}riak/kv/2.0.8/using/performance
+[config reference#aae]: {{<baseurl>}}riak/kv/2.0.8/configuring/reference/#active-anti-entropy
 
 > **Note on upgrading to 2.0**
 >
@@ -80,7 +83,7 @@ A number of changes have been introduced in the LevelDB backend in Riak
 
     Enabling compression means more CPU usage but less disk space. Compression
     is especially good for text data, including raw text, Base64, JSON, etc.
-    
+
 {{% note title="LZ4 and Downgrading" %}}
 If you utilize LZ4 compression, you **will not** be able to downgrade Riak KV. Please keep this in mind before choosing to use LZ4 compression.
 {{% /note %}}

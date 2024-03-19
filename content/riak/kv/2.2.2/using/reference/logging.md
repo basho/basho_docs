@@ -3,6 +3,9 @@ title: "Logging Reference"
 description: ""
 project: "riak_kv"
 project_version: "2.2.2"
+lastmod: 2017-03-24T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.2:
     name: "Logging"
@@ -15,13 +18,13 @@ aliases:
   - /riak/kv/2.2.2/ops/running/logging
 ---
 
-[cluster ops log]: /riak/kv/2.2.2/using/cluster-operations/logging
+[cluster ops log]: {{<baseurl>}}riak/kv/2.2.2/using/cluster-operations/logging
 
 Logging in Riak KV is handled by a Basho-produced logging framework for
 [Erlang](http://www.erlang.org) called
 [lager](https://github.com/basho/lager).
 
-lager provides a number of configuration options that you can use to fine-tune your Riak cluster's logging output. A compact listing of parameters can be found in our [configuration files](/riak/kv/2.2.2/configuring/reference/#lager) documentation. A more thorough explanation of these options can be found in this document.
+lager provides a number of configuration options that you can use to fine-tune your Riak cluster's logging output. A compact listing of parameters can be found in our [configuration files]({{<baseurl>}}riak/kv/2.2.2/configuring/reference/#logging) documentation. A more thorough explanation of these options can be found in this document.
 
 ## Log Directory
 
@@ -183,7 +186,6 @@ To set the maximum size of the crash log before it is rotated, use the
 `log.crash.size` parameter. You can specify the size in KB, MB, etc. The
 default is `10MB`.
 
-
 ### Other Crash Log Settings
 
 The maximum size of individual crash log messages can be set using the
@@ -259,11 +261,11 @@ or to neither. This is determined by the value that you give to the
 * `file` --- Console logs will be emitted to a file. This is Riak's
     default behavior. The location of that file is determined by the
     `log.console.file` parameter. The default location is
-    `./log/console.log` on an installation from [source](/riak/kv/2.2.2/setup/installing/source), but will differ on platform-specific installation,
+    `./log/console.log` on an installation from [source]({{<baseurl>}}riak/kv/2.2.2/setup/installing/source), but will differ on platform-specific installation,
     e.g.  `/var/log/riak` on Ubuntu, Debian, CentOS, and RHEL or
     `/opt/riak/log` on Solaris-based platforms.
 * `console` --- Console logs will be emitted to standard output, which
-    can be viewed by running the [`riak attach-direct`](/riak/kv/2.2.2/using/admin/riak-cli/#attach-direct) command
+    can be viewed by running the [`riak attach-direct`]({{<baseurl>}}riak/kv/2.2.2/using/admin/riak-cli/#attach-direct) command
 * `both` --- Console logs will be emitted both to a file and to standard
     output
 * `off` --- Console log messages will be disabled

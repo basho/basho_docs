@@ -1,19 +1,23 @@
 ---
 title_supertext: "Security"
-title: "Notifying Basho"
-description: "Contacting Basho about security issues."
+title: "Notifying Riak"
+description: "Contacting Riak about security issues."
 menu:
   riak_ts-1.4.0:
-    name: "Notifying Basho"
+    name: "Notifying Riak"
     identifier: "security_notify_basho"
     weight: 140
     parent: "security"
 project: "riak_ts"
 project_version: "1.4.0"
+version_history:
+  in: "1.4.0+"
+lastmod: 2016-08-24T00:00:00-00:00
+sitemap:
+  priority: 0.1
 toc: true
 aliases:
     - /riakts/1.4.0/using/security/notify-basho
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/security/notify-basho/"
 ---
 
 Data security is an important and sensitive issue. A real-world approach to security allows us to balance appropriate levels of security and related overhead while creating a fast, scalable, and operationally straightforward database.
@@ -36,10 +40,9 @@ it can be an attractive bullet-point in a database comparison chart,
 you're usually better off finely controlling data access through your
 application or a service layer.
 
-## Contact Basho
+### Contact Riak
 
-If you discover a potential security issue, please email us at
-**security@basho.com**, and allow us 48 hours to reply.
+If you discover a potential security issue, please please **[email]({{<securitycontactusemail>}})** us, and allow us 48 hours to reply.
 
 We appreciate the effort of the community working with us to create the most secure solution we can. This allows us to open a dialogue with the security
 community on how best to handle a possible exploit without putting any

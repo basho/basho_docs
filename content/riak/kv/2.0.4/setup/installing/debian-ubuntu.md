@@ -4,6 +4,9 @@ title: "Debian and Ubuntu"
 description: ""
 project: "riak_kv"
 project_version: "2.0.4"
+lastmod: 2015-01-10T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.4:
     name: "Debian & Ubuntu"
@@ -18,12 +21,10 @@ aliases:
   - /riak/kv/2.0.4/installing/debian-ubuntu/
 ---
 
-
-
-[install source index]: /riak/kv/2.0.4/setup/installing/source/
-[security index]: /riak/kv/2.0.4/using/security/
-[install source erlang]: /riak/kv/2.0.4/setup/installing/source/erlang
-[install verify]: /riak/kv/2.0.4/setup/installing/verify
+[install source index]: {{<baseurl>}}riak/kv/2.0.4/setup/installing/source/
+[security index]: {{<baseurl>}}riak/kv/2.0.4/using/security/
+[install source erlang]: {{<baseurl>}}riak/kv/2.0.4/setup/installing/source/erlang
+[install verify]: {{<baseurl>}}riak/kv/2.0.4/setup/installing/verify
 
 Riak KV can be installed on Debian or Ubuntu-based systems using a binary
 package or by compiling from source code.
@@ -70,7 +71,6 @@ command:
 >```bash
 apt-get -t sid install libc6 libc6-dev libc6-dbg
 ```
-
 
 For the simplest installation process on LTS (Long-Term Support)
 releases, use `apt-get`. First, you must retrieve the signing key:

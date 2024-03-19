@@ -3,6 +3,9 @@ title: "Runtime Interaction Reference"
 description: ""
 project: "riak_kv"
 project_version: "2.1.4"
+lastmod: 2016-04-07T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.1.4:
     name: "Runtime Interaction"
@@ -15,8 +18,8 @@ aliases:
   - /riak/kv/2.1.4/ops/advanced/runtime
 ---
 
-[config reference]: /riak/kv/2.1.4/configuring/reference
-[concept clusters]: /riak/kv/2.1.4/learn/concepts/clusters
+[config reference]: {{<baseurl>}}riak/kv/2.1.4/configuring/reference
+[concept clusters]: {{<baseurl>}}riak/kv/2.1.4/learn/concepts/clusters
 
 Riak's [configuration files][config reference] provide a variety of parameters that enable you to fine-tune how Riak interacts with two important elements
 of the underlying operating system: distribution ports and OS

@@ -4,6 +4,9 @@ title: "Object Modeling with Erlang"
 description: ""
 project: "riak_kv"
 project_version: "2.0.8"
+lastmod: 2017-02-16T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.8:
     name: "Object Modeling"
@@ -26,7 +29,6 @@ The Github version includes Erlang type specifications which have been omitted
 here for brevity.
 {{% /note %}}
 
-
 ```erlang
 %% msgy.hrl
 
@@ -43,7 +45,7 @@ here for brevity.
 -record(timeline, {owner, msg_type, msgs}).
 ```
 
-We'll be using the bucket `Users` to store our data. We won't be [using bucket types](/riak/kv/2.0.8/developing/usage/bucket-types) here, so we don't need to specify one.
+We'll be using the bucket `Users` to store our data. We won't be [using bucket types]({{<baseurl>}}riak/kv/2.0.8/developing/usage/bucket-types) here, so we don't need to specify one.
 
 To use these records to store data, we will first have to create a user
 record. Then, when a user creates a message, we will append that message
@@ -65,7 +67,6 @@ easily be a future bottleneck in the system, so let's use a natural key.
 Natural keys are a great fit for key/value systems because both humans
 and computers can easily construct them when needed, and most of the
 time they can be made unique enough for a KV store.
-
 
 Bucket | Key Pattern | Example Key
 :------|:------------|:-----------
@@ -301,7 +302,6 @@ main() ->
   %% Create new Msg, post to timelines
   Msg = msg_repository:create_msg(Marleen#user.user_name, Joe#user.user_name, "Welcome to the company!"),
   timeline_repository:post_msg(Pid, Msg),
-
 
   %% Get Joe's inbox for today, get first message
   {TodaysDate,_} = calendar:now_to_universal_time(erlang:now()),

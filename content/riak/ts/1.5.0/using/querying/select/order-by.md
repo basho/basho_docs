@@ -9,15 +9,17 @@ menu:
     parent: "select_riakts"
 project: "riak_ts"
 project_version: "1.5.0"
+lastmod: 2016-12-20T00:00:00-00:00
+sitemap:
+  priority: 0.2
 toc: true
 version_history:
   in: "1.5.0+"
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/select/order-by"
 ---
 
-[select]: /riak/ts/1.5.0/using/querying/select
-[query guidelines]: /riak/ts/1.5.0/using/querying/guidelines/
-[configuring]: /riak/ts/1.5.0/configuring/riakconf/#maximum-returned-data-size
+[select]: {{<baseurl>}}riak/ts/1.5.0/using/querying/select
+[query guidelines]: {{<baseurl>}}riak/ts/1.5.0/using/querying/guidelines/
+[configuring]: {{<baseurl>}}riak/ts/1.5.0/configuring/riakconf/#maximum-returned-data-size
 
 The ORDER BY statement is used with [`SELECT`][select] to sort results by one or more columns in ascending or descending order. `ORDER BY` is useful for operations such as returning the most recent results in a set.
 
@@ -26,11 +28,10 @@ This document shows how to run various queries using `ORDER BY`. See the [guidel
 {{% note title="A Note on Latency" %}}
 `ORDER BY` uses on-disk query buffer to prevent overload, which adds some overhead and increases the query latency.
 
-You may adjust various parameters in [riak.conf](/riak/ts/1.5.0/configuring/riakconf/) depending on how much memory your riak nodes will have, including `max_running_fsms`, `max_quanta_span`, `max_concurrent_queries`. It is also worth noting that `max_returned_data_size` is calculated differently for ORDER BY statements; you can read more about that [here](/riak/ts/1.5.0/configuring/riakconf/#maximum-returned-data-size). All of these settings impact the maximum size of data you can retrieve at one time, and it is important to understand your environmental limitations or you run the risk of an out-of-memory condition.
+You may adjust various parameters in [riak.conf]({{<baseurl>}}riak/ts/1.5.0/configuring/riakconf/) depending on how much memory your riak nodes will have, including `max_running_fsms`, `max_quanta_span`, `max_concurrent_queries`. It is also worth noting that `max_returned_data_size` is calculated differently for ORDER BY statements; you can read more about that [here]({{<baseurl>}}riak/ts/1.5.0/configuring/riakconf/#maximum-returned-data-size). All of these settings impact the maximum size of data you can retrieve at one time, and it is important to understand your environmental limitations or you run the risk of an out-of-memory condition.
 
 However, the most effective means of speeding up your `ORDER BY` queries is to place the query buffer directory (`timeseries_query_buffers_root_path`) on fast storage or in memory-backed /tmp directory.
 {{% /note %}}
-
 
 ## Overview
 
@@ -48,7 +49,7 @@ Note that when using `LIMIT`, the `max_returned_data_size` is calculated differe
 
 ### Options
 
-The following keywords can be appended to `ORDER BY` to further sort results: 
+The following keywords can be appended to `ORDER BY` to further sort results:
 
 #### `ASC`
 
@@ -59,7 +60,7 @@ Sort results in ascending order. This is the default if no order is specified.
 {{% note title="Relationship of ASC/DESC qualifiers in `ORDER BY` vs DDL" %}}
 A DESC qualifier (express or implied) used in the DDL has no effect on the sorting order applied during `ORDER BY`. That is, given a DDL where column X appears in the primary key definition with a DESC qualifier, a `SELECT .. ORDER BY _X_` (where `ASC` is implied) will still have X ASC-ordered.
  {{% /note %}}
- 
+
 [Example](#ascending)
 
 #### `DESC`
@@ -94,11 +95,9 @@ Skip a specified number of results first and then return remaining results.
 
 [Example](#offset-results)
 
-
 {{% note title="WARNING" %}}
 Before you run `SELECT` you must ensure the node issuing the query has adequate memory to receive the response. If the returning rows do not fit into the memory of the requesting node, the node is likely to fail.
 {{% /note %}}
-
 
 ## Examples
 

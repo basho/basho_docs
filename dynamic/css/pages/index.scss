@@ -25,7 +25,7 @@
   }
   .welcome {
     background-color : $brand-primary-light;
-    background : url('/images/index/home-banner.jpg') no-repeat bottom / cover;
+    background : url('../images/index/home-banner.jpg') no-repeat bottom / cover;
 
     padding-top    : 3rem;
     padding-bottom : 3rem;
@@ -251,7 +251,7 @@
     font-size : 1.2rem;
 
     @include wide-from('lg') {
-      background : url('/images/index/highlights-bg-split.jpg') left/cover;
+      background : url('../images/index/highlights-bg-split.jpg') left/cover;
     }
   }
   .highlight__container {
@@ -311,7 +311,7 @@
       color : $light-background-warm;
 
       background-color : $cyan-darker;
-      background : url('/images/index/highlights-bg-dark.jpg');
+      background : url('../images/index/highlights-bg-dark.jpg');
 
       .highlight__link {
         color        : $light-background-warm;
@@ -342,7 +342,7 @@
       color : $cyan-darker;
 
       background-color : $light-background-warm;
-      background : url('/images/index/highlights-bg-light.jpg') repeat;
+      background : url('../images/index/highlights-bg-light.jpg') repeat;
 
       .highlight__link {
         color        : $cyan-darker;

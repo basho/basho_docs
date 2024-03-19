@@ -9,24 +9,25 @@ menu:
     pre: database
 project: "riak_ts"
 project_version: "1.3.1"
+lastmod: 2016-07-06T00:00:00-00:00
+sitemap:
+  priority: 0.1
 toc: true
 aliases:
     - /riakts/1.3.1/using/
 ---
 
-
 [activating]: creating-activating/
 [aggregate]: aggregate-functions/
 [arithmetic]: arithmetic-operations/
 [configuring]: configuring/
-[download]: /riak/ts/1.3.1/downloads/
+[download]: {{<baseurl>}}riak/ts/1.3.1/downloads/
 [installing]: ../installing/
 [mdc]: mdc/
 [planning]: planning/
 [querying]: querying/
 [riakshell]: riakshell/
 [writing]: writingdata/
-
 
 Now that you've [downloaded][download] and [installed][installing] Riak TS, there's a recommended path for setting up and using it:
 
@@ -35,5 +36,5 @@ Now that you've [downloaded][download] and [installed][installing] Riak TS, ther
 3. [Write data][writing] to your table.
 
 Check out [riak shell][riakshell] for a handy tool for using TS.
- 
+
 Then check out how to [query][querying] your data,[customize your Riak TS configuration][configuring], analyze your data with [aggregate functions][aggregate], or apply some [arithmetic operations][arithmetic].

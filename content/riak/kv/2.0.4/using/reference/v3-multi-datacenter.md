@@ -3,6 +3,9 @@ title: "V3 Multi-Datacenter Replication Reference"
 description: ""
 project: "riak_kv"
 project_version: "2.0.4"
+lastmod: 2015-01-10T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.4:
     name: "V3 Replication"
@@ -25,20 +28,17 @@ Overview of the architecture undergirding Riak Enterprise's Version 3 Multi-Data
 
 [Learn More >>][v3 mdc arch]
 
-
 #### [V3 Multi-Datacenter Replication Reference: With Active Anti-Entropy][v3 mdc aae]
 
 Overview of using Riak KV's active anti-entropy (AAE) subsystem with Multi-Datacenter.
 
 [Learn More >>][v3 mdc aae]
 
-
 #### [V3 Multi-Datacenter Replication Reference: Cascading Realtime Writes][v3 mdc cascade]
 
 Details the cascading realtime writes feature.
 
 [Learn More >>][v3 mdc cascade]
-
 
 #### [V3 Multi-Datacenter Replication Reference: Scheduling Fullsync][v3 mdc fullsync]
 

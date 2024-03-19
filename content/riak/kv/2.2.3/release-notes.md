@@ -3,6 +3,9 @@ title: "Riak KV 2.2.3 Release Notes"
 description: ""
 project: "riak_kv"
 project_version: "2.2.3"
+lastmod: 2017-03-30T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.3:
     name: "Release Notes"
@@ -27,4 +30,4 @@ In fixing a `riak` and `riak-admin` [issue](https://github.com/basho/node_packag
 
 ## Previous Release Notes
 
-Please see the KV 2.2.2 release notes [here](/riak/kv/2.2.2/release-notes/), and the KV 2.2.1 release notes [here](/riak/kv/2.2.1/release-notes/).
+Please see the KV 2.2.2 release notes [here]({{<baseurl>}}riak/kv/2.2.3/release-notes/), and the KV 2.2.1 release notes [here]({{<baseurl>}}riak/kv/2.2.3/release-notes/).

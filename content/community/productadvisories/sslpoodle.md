@@ -1,7 +1,11 @@
-
 ---
 title: "SSL 3.0 Vulnerability and POODLE Attack"
 description: ""
+project: community
+project_version: "community"
+lastmod: 2016-04-21T00:00:00-00:00
+sitemap:
+  priority: 0.5
 menu:
   community:
     name: "SSL 3.0 Vulnerability and POODLE Attack"
@@ -11,12 +15,10 @@ menu:
 toc: true
 ---
 
-
 [POODLE]: https://www.us-cert.gov/ncas/alerts/TA14-290A
 [ZIP file]: https://github.com/basho/basho_docs/raw/master/extras/binaries/poodle-1.x.zip
-[use admin riak cli]: /riak/kv/2.0.2/using/admin/riak-cli/#attach
-[riak cs cli]: /riak/cs/2.1.1/cookbooks/command-line-tools/#riak-cs
-
+[use admin riak cli]: {{<baseurl>}}riak/kv/2.0.2/using/admin/riak-cli/#attach
+[riak cs cli]: {{<baseurl>}}riak/cs/2.1.1/cookbooks/command-line-tools/#riak-cs
 
 Info | Value
 :----|:-----

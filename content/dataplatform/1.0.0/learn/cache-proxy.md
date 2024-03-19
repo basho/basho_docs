@@ -12,11 +12,12 @@ menu:
 toc: true
 aliases:
   - /dataplatform/1.0.0/learn-about-dataplatform/cache-proxy-features/
+  - /dataplatform/latest/learn/cache-proxy/
 ---
 
 [ee]: http://info.basho.com/Wiki_Riak_Enterprise_Request.html
-[readthrough-strategy]: /images/readthrough-strategy.png
-[writethrough-sequence]: /images/writethrough-sequence.png
+[readthrough-strategy]: {{<baseurl>}}images/readthrough-strategy.png
+[writethrough-sequence]: {{<baseurl>}}images/writethrough-sequence.png
 
 >Cache proxy is available to [Enterprise users only][ee].
 
@@ -25,7 +26,7 @@ aliases:
 Basho Data Platform (BDP) cache proxy provides pre-sharding and connection aggregation as a service, which reduces latency and increases addressable cache memory space with lower cost hardware.
 
 On this page, you will find detailed descriptions of cache proxy's components, including what each component does and how you implement it. Cache proxy has the following components:
- 
+
 * Pre-sharding
 * Connection Aggregation
 * Command Pipelining
@@ -57,11 +58,9 @@ The read-through cache strategy is represented by the following sequence diagram
 
 ![read-through strategy sequence diagram][readthrough-strategy]
 
-
-The `CACHE_TTL` configuration option establishes how long the cache takes to become consistent with the backend server during a write (DELETE or PUT) to the backend server.  
+The `CACHE_TTL` configuration option establishes how long the cache takes to become consistent with the backend server during a write (DELETE or PUT) to the backend server.
 
 A short `CACHE_TTL`, for example “15s”, reduces a significant amount of read pressure from Riak, increasing performance of the overall solution.
-
 
 ## Commands
 

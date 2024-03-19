@@ -15,6 +15,7 @@ Gemfile.lock
 
 # Statically generated HTML
 public/**
+output/**
 
 # Files maintained from the middleman build
 archived_docs.basho.com.tar.bz2

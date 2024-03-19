@@ -9,6 +9,9 @@ menu:
     parent: "ops"
 project: "riak_cs"
 project_version: "2.0.1"
+lastmod: 2015-05-30T00:00:00-00:00
+sitemap:
+  priority: 0.1
 aliases:
   - /riakcs/2.0.1/cookbooks/configuration/
 ---
@@ -27,7 +30,7 @@ If your system consists of several nodes, configuration primarily represents set
 
 ## Configuration of System Components
 
-* [Configuring Riak](/riak/cs/2.0.1/cookbooks/configuration/riak-for-cs)
-* [configuring Riak CS](/riak/cs/2.0.1/cookbooks/configuration/riak-cs)
-* [Configuring Stanchion](/riak/cs/2.0.1/cookbooks/configuration/stanchion)
-* [Configuring an S3 client](/riak/cs/2.0.1/cookbooks/configuration/s3-client)
+* [Configuring Riak]({{<baseurl>}}riak/cs/2.0.1/cookbooks/configuration/riak-for-cs)
+* [configuring Riak CS]({{<baseurl>}}riak/cs/2.0.1/cookbooks/configuration/riak-cs)
+* [Configuring Stanchion]({{<baseurl>}}riak/cs/2.0.1/cookbooks/configuration/stanchion)
+* [Configuring an S3 client]({{<baseurl>}}riak/cs/2.0.1/cookbooks/configuration/s3-client)

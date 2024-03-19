@@ -9,13 +9,15 @@ menu:
     parent: "setup"
 project: "riak_ts"
 project_version: "1.5.1"
+lastmod: 2017-01-21T00:00:00-00:00
+sitemap:
+  priority: 0.2
 toc: true
 version_history:
   in: "1.5.1+"
 aliases:
     - /riakts/1.5.1/setup/downgrading/
     - /riakts/1.5.1/downgrading/
-canonical_link: "https://docs.basho.com/riak/ts/latest/setup/downgrading/"
 ---
 
 ## Caution

@@ -12,10 +12,10 @@ menu:
 toc: true
 aliases:
   - /dataplatform/1.0.0/using-dataplatform/using-sparkconnector/
+  - /dataplatform/latest/using/spark-riak-connector/
 ---
 
 This is a quick, practical guide on how to use the Spark Riak connector.
-
 
 ## Dependencies
 
@@ -42,7 +42,6 @@ If your Spark application is going to be written in Java, add the following depe
 </dependency>
 ```
 
-
 ## Creating Spark Context
 
 The following import statements have to be included at the top of your Spark application to enable the connector:
@@ -56,7 +55,7 @@ import com.basho.spark.connector._
 
 Now let's create a Spark context that connects to a Riak KV node at 192.168.1.55:8087.
 
-(In this example we also assume that there is a Spark Master running at 192.168.1.100:7077.) 
+(In this example we also assume that there is a Spark Master running at 192.168.1.100:7077.)
 
 ```scala
 val conf = new SparkConf()
@@ -64,7 +63,6 @@ val conf = new SparkConf()
 
 val sc = new SparkContext("spark://192.168.1.100:7077", "Best Spark App Ever", conf)
 ```
-
 
 ## Loading Data from Riak KV into Spark
 

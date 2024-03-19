@@ -9,10 +9,13 @@ menu:
     parent: "develop"
 project: "riak_ts"
 project_version: "1.5.2"
+lastmod: 2017-02-10T00:00:00-00:00
+sitemap:
+  priority: 0.3
 toc: true
 aliases:
-    - /riakts/1.5.2/developing/ruby/
-canonical_link: "https://docs.basho.com/riak/ts/latest/developing/ruby"
+  - /riakts/1.5.2/developing/ruby/
+
 ---
 
 You can develop applications and tools using Riak TS with the Riak Ruby client.
@@ -27,7 +30,6 @@ to make sense of these operations.
 Language | Source | Documentation | Download
 :--------|:-------|:--------------|:--------
 Ruby | [riak-ruby-client](https://github.com/basho/riak-ruby-client) | [GitHub Pages](http://basho.github.io/riak-ruby-client/) | [RubyGems](https://rubygems.org/gems/riak-client)
-
 
 ## Data Types
 
@@ -50,7 +52,6 @@ TS `double`, which will later de-serialize as a Ruby `Float`.
 `Riak::TimeSeriesError::SerializeComplexNumberError`.
 * Ruby `Rational` numbers raise the error:
 `Riak::TimeSeriesError::SerializeRationalNumberError`.
-
 
 ## Operations
 
@@ -99,7 +100,6 @@ The `new` class method takes two arguments: `client` (the `Riak::Client` to use)
 * `read!` - issues the read operation to Riak and returns a `Row` of data. If
 no data are found, returns `nil`.
 
-
 ### Single-key Deletes
 
 To delete a single row with a given key, use `Riak::TimeSeries::Delete`:
@@ -125,7 +125,6 @@ and delete.
 #### Instance Method
 
 * `delete!` - issues the deletion to Riak.
-
 
 ### Key Listing
 
@@ -197,7 +196,6 @@ and a `String` of `query_text`.
 
 The `issue!` method issues the query to Riak and populates the `results`
 accessor with the results.
-
 
 ### Writing
 

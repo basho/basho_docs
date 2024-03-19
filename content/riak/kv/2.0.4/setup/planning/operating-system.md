@@ -3,6 +3,9 @@ title: "Operating System Support"
 description: ""
 project: "riak_kv"
 project_version: "2.0.4"
+lastmod: 2015-01-10T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.4:
     name: "OS Support"
@@ -12,11 +15,11 @@ menu:
 toc: true
 ---
 
-[downloads]: /riak/kv/2.0.4/downloads/
+[downloads]: {{<baseurl>}}riak/kv/2.0.4/downloads/
 
 We recommend deploying Riak KV on a mainstream Unix-like operating system.
 Mainstream distributions have larger support communities, making
-solutions to common problems easier to find. 
+solutions to common problems easier to find.
 
 Basho provides [binary packages][downloads] of Riak KV for the following distributions:
 

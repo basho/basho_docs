@@ -12,6 +12,7 @@ menu:
 toc: true
 aliases:
   - /dataplatform/1.0.0/using-dataplatform/configuration/reference/default-ports/
+  - /dataplatform/latest/configuring/default-ports/
 ---
 
 The following is a list of default network ports used by Basho Data Platform. Your environment should be configured to allow traffic for these network ports.

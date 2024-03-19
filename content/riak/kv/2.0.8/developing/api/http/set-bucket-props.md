@@ -3,6 +3,9 @@ title: "HTTP Set Bucket Properties"
 description: ""
 project: "riak_kv"
 project_version: "2.0.8"
+lastmod: 2017-02-16T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.8:
     name: "Set Bucket Properties"
@@ -37,8 +40,8 @@ Available properties:
 (concurrent updates)
 * `last_write_wins` (true or false) - whether to ignore object history (vector
 clock) when writing
-* `precommit` - [precommit hooks](/riak/kv/2.0.8/developing/usage/commit-hooks)
-* `postcommit` - [postcommit hooks](/riak/kv/2.0.8/developing/usage/commit-hooks)
+* `precommit` - [precommit hooks]({{<baseurl>}}riak/kv/2.0.8/developing/usage/commit-hooks)
+* `postcommit` - [postcommit hooks]({{<baseurl>}}riak/kv/2.0.8/developing/usage/commit-hooks)
 * `r, w, dw, rw` - default quorum values for operations on keys in the bucket.
 Valid values are:
   * `"all"` - all nodes must respond

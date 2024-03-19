@@ -9,6 +9,9 @@ menu:
     parent: "using"
 project: "riak_ts"
 project_version: "1.1.0"
+lastmod: 2016-01-14T00:00:00-00:00
+sitemap:
+  priority: 0.1
 toc: true
 version_history:
   in: "1.1.0+"
@@ -16,14 +19,11 @@ aliases:
     - /riakts/1.1.0/using/aggregate-functions/
 ---
 
-
 [arithmetic]: ../arithmetic-operations
 
-
-You can turn a set of rows in your Riak TS table into a value with the aggregate feature. This document will walk you through the functions that make up aggregation in Riak TS. 
+You can turn a set of rows in your Riak TS table into a value with the aggregate feature. This document will walk you through the functions that make up aggregation in Riak TS.
 
 >**Note:** At the moment, you cannot combine [arithmetic functions][arithmetic] with aggregation functions.
-
 
 ## Aggregate Functions
 
@@ -33,7 +33,6 @@ You can turn a set of rows in your Riak TS table into a value with the aggregate
 * `MIN()` - Returns the smallest value of entries that match a specified criteria.
 * `MAX()` - Returns the largest value of entries that match a specified criteria.
 * `STDDEV()` - Returns the statistical standard deviation of all entries that match a specified criteria using Population Standard Deviation.
-
 
 ### `AVG` & `MEAN`
 
@@ -51,7 +50,6 @@ Returns `NULL` if no values were returned or all values were `NULL`.
 | sint64 | sint64 |
 | double | double |
 
-
 ### `COUNT`
 
 Count the number of returned values.
@@ -67,7 +65,6 @@ If a single column is used as an input then `NULL` values are ignored. If all va
 |------------|-------------|
 | Any | sint64 |
 | `*` | sint64 |
-
 
 ### `MAX`
 
@@ -85,7 +82,6 @@ Returns `NULL` if no values were returned or all values were `NULL`.
 | sint64 | sint64 |
 | double | double |
 
-
 ### `MIN`
 
 The smallest value from the set of values returned by the query.
@@ -101,7 +97,6 @@ Returns `NULL` if no values were returned or all values were `NULL`.
 |------------|-------------|
 | sint64 | sint64 |
 | double | double |
-
 
 ### `STDDEV`
 
@@ -120,7 +115,6 @@ Returns `NULL` if less than two non-null values were returned.
 |------------|-------------|
 | sint64 | double |
 | double | double |
-
 
 ### `SUM`
 

@@ -3,6 +3,9 @@ title: "Eventual Consistency"
 description: ""
 project: "riak_kv"
 project_version: "2.0.6"
+lastmod: 2015-06-29T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.6:
     name: "Eventual Consistency"
@@ -17,16 +20,14 @@ aliases:
   - /riak/kv/2.0.6/theory/concepts/eventual-consistency
 ---
 
-
-[concept buckets]: /riak/kv/2.0.6/learn/concepts/buckets
-[concept causal context vc]: /riak/kv/2.0.6/learn/concepts/causal-context/#vector-clocks
-[concept clusters]: /riak/kv/2.0.6/learn/concepts/clusters
-[concept replication]: /riak/kv/2.0.6/learn/concepts/replication
-[glossary node]: /riak/kv/2.0.6/learn/glossary/#node
-[glossary read rep]: /riak/kv/2.0.6/learn/glossary/#read-repair
-[usage bucket types]: /riak/kv/2.0.6/developing/usage/bucket-types
-[usage conflict resolution]: /riak/kv/2.0.6/developing/usage/conflict-resolution
-
+[concept buckets]: {{<baseurl>}}riak/kv/2.0.6/learn/concepts/buckets
+[concept causal context vc]: {{<baseurl>}}riak/kv/2.0.6/learn/concepts/causal-context/#vector-clocks
+[concept clusters]: {{<baseurl>}}riak/kv/2.0.6/learn/concepts/clusters
+[concept replication]: {{<baseurl>}}riak/kv/2.0.6/learn/concepts/replication
+[glossary node]: {{<baseurl>}}riak/kv/2.0.6/learn/glossary/#node
+[glossary read rep]: {{<baseurl>}}riak/kv/2.0.6/learn/glossary/#read-repair
+[usage bucket types]: {{<baseurl>}}riak/kv/2.0.6/developing/usage/bucket-types
+[usage conflict resolution]: {{<baseurl>}}riak/kv/2.0.6/developing/usage/conflict-resolution
 
 In a distributed and fault-tolerant system like Riak, server and network
 failures are expected. Riak is designed to respond to requests even when
@@ -54,14 +55,14 @@ defaults if you want to employ a different strategy.
 
 Among those strategies, you can enable Riak to resolve object conflicts
 automatically, whether via internal [vector clocks][concept causal context vc], timestamps, or
-special eventually consistent [Data Types](/riak/kv/2.0.6/developing/data-types/), or you can resolve those
+special eventually consistent [Data Types]({{<baseurl>}}riak/kv/2.0.6/developing/data-types/), or you can resolve those
 conflicts on the application side by employing a use case-specific logic
 of your choosing. More information on this can be found in our guide to
 [conflict resolution][usage conflict resolution].
 
 This variety of options enables you to manage Riak's eventually
 consistent behavior in accordance with your application's [data model
-or models](/riak/kv/2.0.6/developing/data-modeling/).
+or models]({{<baseurl>}}riak/kv/2.0.6/developing/data-modeling/).
 
 ## Replication Properties and Request Tuning
 
@@ -78,7 +79,7 @@ implemented on the application side can be found in our guides to
 In addition to our official documentation, we also recommend checking
 out the [Understanding Riak's Configurable
 Behaviors](http://basho.com/understanding-riaks-configurable-behaviors-part-1/)
-series from [the Basho blog](http://basho.com/blog/).
+series from [the Basho blog](https://riak.com/blog/).
 
 ## A Simple Example of Eventual Consistency
 
@@ -190,7 +191,6 @@ nodes.
 nodes must respond for the operation to be considered successful, which
 it wasn't, but there's no way to tell without performing another read
 whether the operation truly failed.
-
 
 ## Further Reading
 

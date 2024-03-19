@@ -4,11 +4,14 @@ title: "Data Types: Maps"
 description: ""
 project: "riak_kv"
 project_version: "2.0.8"
+lastmod: 2017-02-16T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.8:
     name: "Maps"
     identifier: "data_types_maps"
-    weight: 102
+    weight: 103
     parent: "developing_data_types"
 toc: true
 aliases:
@@ -374,7 +377,6 @@ map.flags['enterprise_customer'] = false
 map.flags['enterprise_customer'].disable()
 map.store()
 ```
-
 
 ```csharp
 // https://github.com/basho/riak-dotnet-client/blob/develop/src/RiakClientExamples/Dev/Using/DataTypes.cs

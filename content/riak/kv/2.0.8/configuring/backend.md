@@ -3,6 +3,9 @@ title: "Backend Configuration"
 description: ""
 project: "riak_kv"
 project_version: "2.0.8"
+lastmod: 2017-02-16T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.8:
     name: "Backend Configuration"
@@ -12,10 +15,10 @@ menu:
 toc: true
 ---
 
-[plan backend leveldb]: /riak/kv/2.0.8/setup/planning/backend/leveldb
-[plan backend bitcask]: /riak/kv/2.0.8/setup/planning/backend/bitcask
-[plan backend memory]: /riak/kv/2.0.8/setup/planning/backend/memory
-[plan backend multi]: /riak/kv/2.0.8/setup/planning/backend/multi
+[plan backend leveldb]: {{<baseurl>}}riak/kv/2.0.8/setup/planning/backend/leveldb
+[plan backend bitcask]: {{<baseurl>}}riak/kv/2.0.8/setup/planning/backend/bitcask
+[plan backend memory]: {{<baseurl>}}riak/kv/2.0.8/setup/planning/backend/memory
+[plan backend multi]: {{<baseurl>}}riak/kv/2.0.8/setup/planning/backend/multi
 
 ## LevelDB
 
@@ -75,11 +78,11 @@ compaction.</td>
 <td><code>leveldb.compression.algorithm</code></td>
 <td>This setting is used to select which compression algorithm
 	is selected when <code>leveldb.compression</code> is on.
-	In new riak.conf files, this is explicitly set to 
-	<code>lz4</code>; however when this setting is not provided, 
+	In new riak.conf files, this is explicitly set to
+	<code>lz4</code>; however when this setting is not provided,
 	<code>snappy</code> will be used for backward-compatibility.
 	<br /><br />
-	When you determine that you will no longer need backward-compatibility, 
+	When you determine that you will no longer need backward-compatibility,
 	setting this to <code>lz4</code> will cause future compactions
 	to use the LZ4 algorithm for compression.</td>
 <td><code>lz4</code> in new riak.conf files<br /><br />

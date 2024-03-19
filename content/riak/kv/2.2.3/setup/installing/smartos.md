@@ -4,6 +4,9 @@ title: "SmartOS"
 description: ""
 project: "riak_kv"
 project_version: "2.2.3"
+lastmod: 2017-03-30T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.3:
     name: "SmartOS"
@@ -18,7 +21,7 @@ aliases:
   - /riak/kv/2.2.3/installing/smartos/
 ---
 
-[install verify]: /riak/kv/2.2.3/setup/installing/verify
+[install verify]: {{<baseurl>}}riak/kv/2.2.3/setup/installing/verify
 
 {{% note title="SmartOS End of Life (EOL) for Riak KV 2.2.3" %}}
 SmartOS is no longer supported in Riak KV 2.2.3+. If you are interested in using Riak KV on SmartOS, you can still [build from source](../source).
@@ -74,13 +77,13 @@ cat /opt/local/etc/pkgin/repositories.conf
 Download your version of the Riak binary package for SmartOS:
 
 ```bash
-curl -o /tmp/riak-2.2.3-SmartOS-x86_64.tgz http://s3.amazonaws.com/downloads.basho.com/riak/2.2/2.2.3/smartos/1.8/riak-2.2.3-SmartOS-x86_64.tgz
+curl -o /tmp/riak-2.1.4-SmartOS-x86_64.tgz http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.4/smartos/1.8/riak-2.1.4-SmartOS-x86_64.tgz
 ```
 
 Next, install the package:
 
 ```
-pkg_add /tmp/riak-2.2.3-SmartOS-x86_64.tgz
+pkg_add /tmp/riak-2.1.4-SmartOS-x86_64.tgz
 ```
 
 After installing the package, enable the Riak and Erlang Port Mapper Daemon (epmd) services:

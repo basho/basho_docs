@@ -9,6 +9,9 @@ menu:
     parent: "http_admin"
 project: "riak_cs"
 project_version: "2.0.0"
+lastmod: 2015-03-28T00:00:00-00:00
+sitemap:
+  priority: 0.1
 aliases:
   - /riakcs/2.0.0/cookbooks/Authentication/
 ---
@@ -111,4 +114,4 @@ http://bucket.data.basho.com/document?AWSAccessKeyId=8EE3UE-UMW1YTPMBC3EB&Expire
 ## Keystone Authentication
 
 More information on using Keystone for authentication with Riak CS can
-be found in [using Riak CS with Keystone](/riak/cs/2.0.0/cookbooks/using-with-keystone).
+be found in [using Riak CS with Keystone]({{<baseurl>}}riak/cs/2.0.0/cookbooks/using-with-keystone).

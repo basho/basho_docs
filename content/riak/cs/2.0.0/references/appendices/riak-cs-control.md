@@ -9,6 +9,9 @@ menu:
     parent: "run_advanced"
 project: "riak_cs"
 project_version: "2.0.0"
+lastmod: 2015-03-28T00:00:00-00:00
+sitemap:
+  priority: 0.1
 aliases:
   - /riakcs/2.0.0/references/appendices/RiakCS-Control/
   - /riak/cs/2.0.0/references/appendices/RiakCS-Control/
@@ -20,7 +23,7 @@ managing users in a Riak CS Cluster.
 
 ## Installing Riak CS Control
 
-Riak CS Control [is maintained as a separate application](https://github.com/basho/riak_cs_control) and can be installed via [source or package](/riak/cs/2.0.0/downloads).
+Riak CS Control [is maintained as a separate application](https://github.com/basho/riak_cs_control) and can be installed via [source or package]({{<baseurl>}}riak/cs/2.0.0/downloads).
 
 ## Setting Up Riak CS Control
 
@@ -67,7 +70,7 @@ riak-cs-control start
 When you first navigate to the Riak CS Control UI, you will land on the
 Users page:
 
-![Users Page](/images/cs_control_users.png)
+![Users Page]({{<baseurl>}}images/cs_control_users.png)
 
 On this page you can quickly see all current Riak CS users along with
 their status, e-mail address, and credentials. From here you can filter,

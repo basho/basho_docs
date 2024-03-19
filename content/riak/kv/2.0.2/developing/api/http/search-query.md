@@ -3,6 +3,9 @@ title: "HTTP Search Query"
 description: ""
 project: "riak_kv"
 project_version: "2.0.2"
+lastmod: 2014-10-18T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.2:
     name: "Search Query"
@@ -10,11 +13,13 @@ menu:
     weight: 113
     parent: "apis_http"
 toc: true
+version_history:
+  in: "2.0.0-2.9999.9999"
 aliases:
   - /riak/2.0.2/dev/references/http/search-query
 ---
 
-Performs a [Riak KV Search](/riak/kv/2.0.2/developing/usage/search) query.
+Performs a [Riak KV Search]({{<baseurl>}}riak/kv/2.0.2/developing/usage/search) query.
 
 ## Request
 
@@ -29,7 +34,7 @@ GET /search/query/<index_name>
     to be used when returning the Search payload. The currently
     available options are `json` and `xml`. The default is `xml`.
 * `q` --- The actual Search query itself. Examples can be found in
-    [Using Search](/riak/kv/2.0.2/developing/usage/search). If a query is not specified, Riak will return
+    [Using Search]({{<baseurl>}}riak/kv/2.0.2/developing/usage/search). If a query is not specified, Riak will return
     information about the index itself, e.g. the number of documents
     indexed.
 

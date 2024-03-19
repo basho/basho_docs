@@ -3,6 +3,9 @@ title: "Setting Up Riak Redis Add-on"
 description: ""
 project: "riak_ts"
 project_version: "1.4.0"
+lastmod: 2016-08-24T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_ts-1.4.0:
     name: "Set Up Redis Add-on"
@@ -10,14 +13,16 @@ menu:
     weight: 201
     parent: "addons_redis"
 toc: true
+version_history:
+  in: "1.4.0+"
 commercial_offering: true
 ---
 
 [addon redis develop]: ../developing-rra/
 [addon redis use]: ../using-rra
 [ee]: http://basho.com/contact/
-[install index]: /riak/ts/1.4.0/setup/installing
-[perf open files]: /riak/ts/1.4.0/setup/installing/rhel-centos/#ulimit
+[install index]: {{<baseurl>}}riak/ts/1.4.0/setup/installing
+[perf open files]: {{<baseurl>}}riak/ts/1.4.0/setup/installing/rhel-centos/#ulimit
 [lab ansible]: https://github.com/paegun/ansible-cache-proxy
 
 This page will walk you through the process of installing Riak Redis Add-on (RRA) and configuring it to run in your environment. Check the [prerequisites](#prerequisites) before you get started to make sure you have everything you need in order to successfully install and use RRA.
@@ -81,7 +86,6 @@ root soft nofile 65536
 ```
 
 >**Note:** You may need to log out of your shell and then log back in for these changes to take effect.
-
 
 ### Install Redis
 

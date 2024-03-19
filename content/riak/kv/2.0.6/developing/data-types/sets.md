@@ -4,11 +4,14 @@ title: "Data Types: Sets"
 description: ""
 project: "riak_kv"
 project_version: "2.0.6"
+lastmod: 2015-06-29T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.6:
     name: "Sets"
     identifier: "data_types_sets"
-    weight: 101
+    weight: 104
     parent: "developing_data_types"
 toc: true
 aliases:
@@ -50,7 +53,7 @@ in the form of `property: value`.
 
 If our `sets` bucket type has been set properly we should see the following pair in our console output:
 
-```
+```plaintext
 datatype: set
 ```
 

@@ -3,6 +3,9 @@ title: "Content Types"
 description: ""
 project: "riak_kv"
 project_version: "2.2.2"
+lastmod: 2017-03-24T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.2:
     name: "Content Types"
@@ -37,7 +40,7 @@ ArgumentError: content_type is not defined!
 # PHP will default to cURLs default content-type for POST & PUT requests:
 #   application/x-www-form-urlencoded
 
-# If you use the StoreObject::buildJsonObject() method when building your command, 
+# If you use the StoreObject::buildJsonObject() method when building your command,
 # it will store the item with application/json as the content-type
 ```
 

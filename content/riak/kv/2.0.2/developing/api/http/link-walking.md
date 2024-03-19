@@ -3,6 +3,9 @@ title: "HTTP Link Walking"
 description: ""
 project: "riak_kv"
 project_version: "2.0.2"
+lastmod: 2014-10-18T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.2:
     name: "Link Walking"
@@ -16,8 +19,8 @@ aliases:
 
 Link walking (traversal) finds and returns objects by following links attached
 to them, starting from the object specified by the bucket and key portion.  It
-is a special case of [MapReduce](/riak/kv/2.0.2/developing/usage/mapreduce), and can be expressed more verbosely as such.
-[Read more about Links](/riak/kv/2.0.2/learn/glossary/#links).
+is a special case of [MapReduce]({{<baseurl>}}riak/kv/2.0.2/developing/usage/mapreduce), and can be expressed more verbosely as such.
+[Read more about Links]({{<baseurl>}}riak/kv/2.0.2/learn/glossary/#links).
 
 ## Request
 
@@ -63,7 +66,7 @@ single object that was found. If no objects were found or "keep" was not set on
 the phase, no chunks will be present in that phase.  Objects inside phase
 results will include `Location` headers that can be used to determine
 bucket and key. In fact, you can treat each object-chunk similarly to a complete
-response from [fetching the object](/riak/kv/2.0.2/developing/api/http/fetch-object), without the status
+response from [fetching the object]({{<baseurl>}}riak/kv/2.0.2/developing/api/http/fetch-object), without the status
 code.
 
 ## Example

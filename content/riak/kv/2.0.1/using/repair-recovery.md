@@ -3,6 +3,9 @@ title: "Repair & Recovery"
 description: ""
 project: "riak_kv"
 project_version: "2.0.1"
+lastmod: 2014-09-25T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.1:
     name: "Repair & Recovery"
@@ -15,7 +18,7 @@ toc: true
 [repair recover fail]: ./failure-recovery/
 [repair recover errors]: ./errors/
 [repair recover repairs]: ./repairs/
-[repair recover restart]: ./rolling-restarts/
+[repair recover restart]: ./rolling-restart/
 
 ## In This Section
 
@@ -26,20 +29,17 @@ cluster failure.
 
 [Learn More >>][repair recover fail]
 
-
 #### [Errors & Messages][repair recover errors]
 
 Details most common errors & messages.
 
 [Learn More >>][repair recover errors]
 
-
 #### [Repairs][repair recover repairs]
 
 Tutorials on running various repair operations.
 
 [Learn More >>][repair recover repairs]
-
 
 #### [Rolling Restarts][repair recover restart]
 

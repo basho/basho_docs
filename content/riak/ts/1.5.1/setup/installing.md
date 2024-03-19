@@ -10,6 +10,9 @@ menu:
     parent: "setup"
 project: "riak_ts"
 project_version: "1.5.1"
+lastmod: 2017-01-21T00:00:00-00:00
+sitemap:
+  priority: 0.2
 toc: true
 version_history:
   locations:
@@ -19,22 +22,18 @@ aliases:
     - /riakts/1.5.1/installing/installing/
     - /riakts/1.5.1/setup/installing/
     - /riak/ts/1.5.1/installing/
-canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/"
 ---
 
-
 [AWS]: aws/
-[concept aae]: /riak/kv/2.1.3/learn/concepts/active-anti-entropy
+[concept aae]: {{<baseurl>}}riak/kv/2.1.3/learn/concepts/active-anti-entropy
 [Centos]: rhel-centos/
 [Debian]: debian-ubuntu/
-[download]: /riak/ts/1.5.1/downloads/
+[download]: {{<baseurl>}}riak/ts/1.5.1/downloads/
 [OSX]: mac-osx/
 [source]: source/
 [Ubuntu]: debian-ubuntu/
 
-
 Riak TS is a distributed NoSQL key/value store optimized for fast reads and writes of time series data. To use it, all you need to do is [download][download] and install the Riak TS package.
- 
 
 ## Installing
 

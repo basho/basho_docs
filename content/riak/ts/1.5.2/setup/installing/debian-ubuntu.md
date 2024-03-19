@@ -9,23 +9,25 @@ menu:
     parent: "installing"
 project: "riak_ts"
 project_version: "1.5.2"
+lastmod: 2017-02-10T00:00:00-00:00
+sitemap:
+  priority: 0.3
 toc: true
 version_history:
   locations:
     - ["1.0.0-1.3.1", "installing/debian-ubuntu"]
     - ["1.4.0+",      "setup/installing/debian-ubuntu"]
 aliases:
-    - /riakts/1.5.2/installing/debian-ubuntu/
-    - /riakts/1.5.2/setup/installing/debian-ubuntu/
-    - /riak/ts/1.5.2/installing/debian-ubuntu/
-canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/debian-ubuntu/"
+  - /riakts/1.5.2/installing/debian-ubuntu/
+  - /riakts/1.5.2/setup/installing/debian-ubuntu/
+  - /riak/ts/1.5.2/installing/debian-ubuntu/
+  - /riak/ts/latest/installing/debian-ubuntu/
 ---
 
-[download]: /riak/ts/1.5.2/downloads/
-[openfileslimit]: /riak/kv/2.2.0/using/performance/open-files-limit
-[planning]: /riak/ts/1.5.2/using/planning
-[security basics pam]: /riak/ts/1.5.2/using/security/sources-management/#pam-based-authentication
-
+[download]: {{<baseurl>}}riak/ts/1.5.2/downloads/
+[openfileslimit]: {{<baseurl>}}riak/kv/2.2.0/using/performance/open-files-limit
+[planning]: {{<baseurl>}}riak/ts/1.5.2/using/planning
+[security basics pam]: {{<baseurl>}}riak/ts/1.5.2/using/security/sources-management/#pam-based-authentication
 
 Riak TS can be installed on Debian or Ubuntu-based systems using a binary
 package available [here][download].
@@ -34,7 +36,6 @@ package available [here][download].
 Debian is only supported for developing with Riak TS and NOT for general operations.
 {{% /note %}}
 
-
 ## Dependencies
 
 ### `ulimit`
@@ -42,7 +43,6 @@ Debian is only supported for developing with Riak TS and NOT for general operati
 Debian and Ubuntu give you a very small limit on open file handles. Even with a
 backend that uses very few file handles, it's possible to run out. See
 [Open Files Limit][openfileslimit] for more information about changing the limit.
-
 
 ### PAM Library Requirement for Ubuntu
 
@@ -54,7 +54,6 @@ To install this dependency:
 sudo apt-get install libpam0g-dev
 ```
 
-
 ## Install Riak TS
 
 Once you have [downloaded][download] the package, execute the following command to install Riak TS:
@@ -63,17 +62,15 @@ Once you have [downloaded][download] the package, execute the following command 
 sudo dpkg -i riak-ts_1.5.2-1_amd64.deb
 ```
 
-
 ## Verify your installation
 
-You can verify that Riak TS is successfully installed by running: 
+You can verify that Riak TS is successfully installed by running:
 
 ```bash
 dpkg -l | grep riak
 ```
 
 If Riak TS has been installed successfully `riak-ts` is returned.
-
 
 ## Start your Riak TS node
 
@@ -91,8 +88,7 @@ You can verify that Riak TS is started and ready to use by pinging it.
 riak ping
 ```
 
-If Riak TS has started, you will receive a `pong` response. If it has not started, you will receive an error. 
-
+If Riak TS has started, you will receive a `pong` response. If it has not started, you will receive an error.
 
 ## Next Steps
 

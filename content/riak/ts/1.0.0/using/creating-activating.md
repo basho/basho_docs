@@ -9,11 +9,13 @@ menu:
     parent: "using"
 project: "riak_ts"
 project_version: "1.0.0"
+lastmod: 2015-12-15T00:00:00-00:00
+sitemap:
+  priority: 0.1
 toc: true
 aliases:
     - /riakts/1.0.0/using/creating-activating/
 ---
-
 
 [planning]: ../planning/
 [writing]: ../writingdata/
@@ -21,7 +23,6 @@ aliases:
 Once you have [planned out your table][planning] you can create it using `riak-admin`.
 
 >**Note:** You will need to have access to `sudo` and `su` with the below commands, unless you are operating on Mac OS X.
-
 
 ## Creating Your Table
 

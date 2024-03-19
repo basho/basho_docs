@@ -9,26 +9,28 @@ menu:
     parent: "querying_data_riakts"
 project: "riak_ts"
 project_version: "1.5.0"
+lastmod: 2016-12-20T00:00:00-00:00
+sitemap:
+  priority: 0.2
 toc: true
 version_history:
   in: "1.5.0+"
 aliases:
     - /riakts/1.5.0/using/querying/reference
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/reference"
 ---
 
-[select]: /riak/ts/1.5.0/using/querying/select/
-[describe]: /riak/ts/1.5.0/using/querying/describe/
-[delete]: /riak/ts/1.5.0/using/querying/delete/
-[explain]: /riak/ts/1.5.0/using/querying/explain/
-[show tables]: /riak/ts/1.5.0/using/querying/show-tables/
-[create table]: /riak/ts/1.5.0/using/creating-activating/
-[group by]: /riak/ts/1.5.0/using/querying/select/group-by/
-[order by]: /riak/ts/1.5.0/using/querying/select/order-by/
-[limit]: /riak/ts/1.5.0/using/querying/select/limit/
-[offset]: /riak/ts/1.5.0/using/querying/select/
-[arithmetic]: /riak/ts/1.5.0/using/querying/select/arithmetic-operations/
-[aggregate]: /riak/ts/1.5.0/using/querying/select/aggregate-functions/
+[select]: {{<baseurl>}}riak/ts/1.5.0/using/querying/select/
+[describe]: {{<baseurl>}}riak/ts/1.5.0/using/querying/describe/
+[delete]: {{<baseurl>}}riak/ts/1.5.0/using/querying/delete/
+[explain]: {{<baseurl>}}riak/ts/1.5.0/using/querying/explain/
+[show tables]: {{<baseurl>}}riak/ts/1.5.0/using/querying/show-tables/
+[create table]: {{<baseurl>}}riak/ts/1.5.0/using/creating-activating/
+[group by]: {{<baseurl>}}riak/ts/1.5.0/using/querying/select/group-by/
+[order by]: {{<baseurl>}}riak/ts/1.5.0/using/querying/select/order-by/
+[limit]: {{<baseurl>}}riak/ts/1.5.0/using/querying/select/limit/
+[offset]: {{<baseurl>}}riak/ts/1.5.0/using/querying/select/
+[arithmetic]: {{<baseurl>}}riak/ts/1.5.0/using/querying/select/arithmetic-operations/
+[aggregate]: {{<baseurl>}}riak/ts/1.5.0/using/querying/select/aggregate-functions/
 
 This document lists each SQL statement available in Riak TS.
 

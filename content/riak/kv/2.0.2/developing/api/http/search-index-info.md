@@ -3,6 +3,9 @@ title: "HTTP Search Index Info"
 description: ""
 project: "riak_kv"
 project_version: "2.0.2"
+lastmod: 2014-10-18T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.2:
     name: "Search Index Info"
@@ -10,11 +13,13 @@ menu:
     weight: 114
     parent: "apis_http"
 toc: true
+version_history:
+  in: "2.0.0-2.9999.9999"
 aliases:
   - /riak/2.0.2/dev/references/http/search-index-info
 ---
 
-Retrieves information about all currently available [Search indexes](/riak/kv/2.0.2/developing/usage/search) in JSON format.
+Retrieves information about all currently available [Search indexes]({{<baseurl>}}riak/kv/2.0.2/developing/usage/search) in JSON format.
 
 ## Request
 

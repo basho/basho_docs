@@ -9,6 +9,9 @@ menu:
     parent: "fast_track"
 project: "riak_cs"
 project_version: "2.0.1"
+lastmod: 2015-05-30T00:00:00-00:00
+sitemap:
+  priority: 0.1
 aliases:
   - /riakcs/2.0.1/cookbooks/tutorials/fast-track/Testing-the-Installation/
   - /riak/cs/2.0.1/cookbooks/tutorials/fast-track/Testing-the-Installation/
@@ -141,6 +144,6 @@ bit of learning to be done, so make sure and check out the Reference
 section (click "Reference" on the nav on the left side of this page). A
 few items that may be of particular interest:
 
-* [Details about API operations](/riak/cs/2.0.1/references/apis/storage)
-* [Information about the Ruby Fog client](/riak/cs/2.0.1/cookbooks/fog)
-* [Release Notes](/riak/cs/2.0.1/cookbooks/release-notes)
+* [Details about API operations]({{<baseurl>}}riak/cs/2.0.1/references/apis/storage)
+* [Information about the Ruby Fog client]({{<baseurl>}}riak/cs/2.0.1/cookbooks/fog)
+* [Release Notes]({{<baseurl>}}riak/cs/2.0.1/cookbooks/release-notes)

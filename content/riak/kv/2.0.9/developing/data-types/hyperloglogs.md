@@ -4,13 +4,18 @@ title: "Data Types: HyperLogLogs"
 description: ""
 project: "riak_kv"
 project_version: "2.0.9"
+lastmod: 2017-03-15T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.9:
     name: "HyperLogLogs"
     identifier: "data_types_hyperloglogs"
-    weight: 100
+    weight: 102
     parent: "developing_data_types"
 toc: true
+version_history:
+  in: "2.0.8+"
 aliases:
   - /riak/2.0.9/dev/using/data-types/hyperloglogs
   - /riak/kv/2.0.9/dev/using/data-types/hyperloglogs
@@ -139,7 +144,6 @@ curl http://localhost:8098/types/<bucket_type>/buckets/<bucket>/datatypes/<key>
 # Note that this differs from the URL structure for non-Data-Type
 # requests, which end in /keys/<key>
 ```
-
 
 ## Create a HyperLogLog data type
 
@@ -340,7 +344,7 @@ HllUpdate hllUpdate = new HllUpdate()
                         .addAll(Arrays.asList("Better", "Explained", "Jokes"));
 
 hllUpdate.getElementAdds();
-// Returns the set of ["Jokes", "Are", "Better", "Explained"]                     
+// Returns the set of ["Jokes", "Are", "Better", "Explained"]
 ```
 
 ```python
@@ -392,7 +396,7 @@ curl -XPOST http://localhost:8098/types/hlls/buckets/hello/datatypes/darkness \
 
 However, when using a non-HTTP client, the approximate cardinality/value of our
 data structure will be 0, locally, until its pushed to the server and then
-[fetched](#retrieve-a-hyperloglog-datatype) from the server.
+[fetched](#retrieve-a-hyperloglog-data-type) from the server.
 
 ```erlang
 riakc_hll:value(HLL2) == 0.
@@ -603,7 +607,7 @@ if (response.NotFound)
 }
 else
 {
-    Console.WriteLine("Hyperloglog cardinality is: " + response.Cardinality);  
+    Console.WriteLine("Hyperloglog cardinality is: " + response.Cardinality);
 }
 
 // Prints "Hyperloglog cardinality is: 4"

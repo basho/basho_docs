@@ -1,6 +1,11 @@
 ---
 layout: redirect
+sitemap_exclude: true
+sitemap:
+  priority: 0
 target: "riak/kv/latest/"
+aliases:
+  - "/riak/latest/"
 ---
 
 This page exists solely to redirect from the generated URL to the above `target`

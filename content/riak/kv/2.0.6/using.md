@@ -3,6 +3,9 @@ title: "Using Riak KV"
 description: ""
 project: "riak_kv"
 project_version: "2.0.6"
+lastmod: 2015-06-29T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.6:
     name: "Using"
@@ -15,7 +18,7 @@ toc: true
 [use running cluster]: ../using/running-a-cluster
 [use admin index]: ../using/admin/
 [cluster ops index]: ../using/cluster-operations
-[repair recover index]: ../repair-recovery
+[repair recover index]: ../using/repair-recovery
 [security index]: ../using/security
 [perf index]: ../using/performance
 [troubleshoot index]: ../using/troubleshooting

@@ -9,16 +9,16 @@ menu:
     parent: "develop"
 project: "riak_ts"
 project_version: "1.4.0"
+lastmod: 2016-08-24T00:00:00-00:00
+sitemap:
+  priority: 0.1
 toc: true
 aliases:
     - /riakts/1.4.0/developing/java/
-canonical_link: "https://docs.basho.com/riak/ts/latest/developing/java"
 ---
-
 
 You can develop applications and tools using Riak TS with the Riak Java client.
 This document covers the Java API for Riak TS.
-
 
 ## Overview
 
@@ -31,14 +31,12 @@ Language | Source | Documentation | Download
 :--------|:-------|:--------------|:--------
 Java | [riak-java-client](https://github.com/basho/riak-java-client) | [javadoc](http://basho.github.com/riak-java-client), [wiki](https://github.com/basho/riak-java-client/wiki) | [Maven Central](http://search.maven.org/?#search%7Cgav%7C1%7Cg%3A%22com.basho.riak%22%20AND%20a%3A%22riak-client%22) |
 
-
 ## Data Types
 
  * `Cell` - Holds a single piece of data.
  * `Row` - Holds a collection of Cells.
  * `ColumnDescription` - A metadata description of a column definition in a Riak TS table.
  * `QueryResult` - Holds a result set from a query, key list, or fetch command.
-
 
 ### Data Type Details
 
@@ -77,7 +75,6 @@ There is also a special static helper for creating cells with raw timestamps.
 
 Each data type has the following methods: `has_X` and `get_X`.
 
-
 #### `Row`
 
 A row contains a collection of cells.
@@ -94,7 +91,6 @@ A row contains a collection of cells.
  * `int getCellsCount()` - Gets the total count of all cells in this row.
  * `List<Cell> getCellsCopy()` - Returns a shallow copy of the immutable cell collection.
  * `Iterator<Cell> iterator()` - Returns an iterator to the immutable cell collection.
-
 
 #### `ColumnDescription`
 
@@ -124,7 +120,6 @@ public enum ColumnType
     }
 ```
 
-
 #### `QueryResult`
 
 The query result is the result set from a query, key list, or fetch command.
@@ -142,7 +137,6 @@ There are no constructors for `QueryResult`.
  * `List<Row> getRowsCopy()` - Returns a shallow copy of the immutable row collection.
  * `Iterator<Row> iterator()` - Returns an iterator to the immutable row collection.
 
-
 ## Command Classes Index
 
 All command classes have a static inner `Builder` class to create and build each command.
@@ -154,7 +148,6 @@ All command classes have a static inner `Builder` class to create and build each
 * `ListKeys` - Lists the primary keys of all the rows in a Riak TS table.
 
 >**Warning:** `ListKeys` is a very expensive operation.
-
 
 ### Command Class Details
 
@@ -181,7 +174,6 @@ QueryResult result = queryFuture.get();
 Throwable error = queryFuture.cause();
 ```
 
-
 #### `Delete`
 
 Deletes a single row by its key values.
@@ -200,11 +192,9 @@ There is also an instance method to specify a command timeout in milliseconds:
 
  * `void`
 
-
 #### `Fetch`
 
 Fetches a single row by its key values.
-
 
 ##### Builder
 
@@ -219,7 +209,6 @@ There is also an instance method to specify a command timeout in milliseconds:
 ##### Return Value
 
 * `QueryResult` - 1 row if a match was found; 0 rows if no match was found.
-
 
 #### `ListKeys`
 
@@ -238,7 +227,6 @@ There is also an instance method to specify a command timeout in milliseconds:
 ##### Return Value
 
 * `QueryResult` - each primary key's cells as a row. May not contain values for column descriptions.
-
 
 #### `Query`
 
@@ -263,7 +251,6 @@ Please see [CoveragePlan()](#coverageplan) on how to obtain a `coverageContext`.
 
  * `QueryResult` - contains all matching rows.
 
-
 #### `Store`
 
 Stores data in the Riak TS table.
@@ -282,7 +269,6 @@ The builder constructor takes the table name:
 ##### Return Value
 
 * `void`
-
 
 #### `CoveragePlan`
 

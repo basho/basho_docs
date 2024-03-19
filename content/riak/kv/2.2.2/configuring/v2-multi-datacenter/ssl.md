@@ -4,6 +4,9 @@ title: "SSL"
 description: ""
 project: "riak_kv"
 project_version: "2.2.2"
+lastmod: 2017-03-24T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.2:
     name: "SSL"
@@ -18,7 +21,7 @@ aliases:
 ---
 
 {{% note title="Deprecation Warning" %}}
-v2 Multi-Datacenter Replication is deprecated and will be removed in a future version. Please use [v3](/riak/kv/2.2.2/configuring/v3-multi-datacenter/ssl/) instead.
+v2 Multi-Datacenter Replication is deprecated and will be removed in a future version. Please use [v3]({{<baseurl>}}riak/kv/2.2.2/configuring/v3-multi-datacenter/ssl/) instead.
 {{% /note %}}
 
 ## Features

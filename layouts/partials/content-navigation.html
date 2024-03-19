@@ -6,12 +6,19 @@
                     "community")
 
 {{ $HugoNode   := .node       }}
+{{ $BaseURL    := $HugoNode.Site.BaseURL    }}
 {{ $menu_title := .menu_title }}
 {{ $menu_list  := (index $HugoNode.Site.Menus $menu_title) }} {{/* GoLang List of Menu Objects */}}
 
 {{ $version           := $HugoNode.Scratch.Get "version"           }}
+{{ $version_path      := $HugoNode.Scratch.Get "version_path"      }}
+{{ $project           := $HugoNode.Scratch.Get "project" }}
 {{ $project_name_html := $HugoNode.Scratch.Get "project_name_html" }}
 {{ $gh_edit_path      := $HugoNode.Scratch.Get "gh_edit_path"      }}
+
+{{ $contact_us_url    := $HugoNode.Site.Params.contact_us_url      }}
+
+
 -->
 
 {{/* This check is required to correctly know the hight of the top element. */}}
@@ -24,6 +31,15 @@
 
 
   <div class="content-nav__fixed-top">
+    <form id="lunrsearch" class="search" role="search">
+      <span class="block float-left   search__icon-container   docs-icon--search">|</span>
+      <span class="block overflow">
+        <input class="search__input lunrsearch-term" type="search" name="term" placeholder="Search">
+        <input type="hidden" class="lunrsearch-project" name="project" value="{{$project}}" />
+        <input type="hidden" class="lunrsearch-version" name="version" value="{{$version}}" />
+      </span>
+    </form>
+    <!--
     <form id="searchbox_011972015458788978446:zgdcy4fa-o0" class="search" action="">
 
       <span class="block float-left   search__icon-container   docs-icon--search">|</span>
@@ -33,13 +49,13 @@
       </span>
 
     </form>
-
+    -->
 {{ if $version }}
     <div class="clearfix   version-picker">
 
   {{ if $project_name_html }}
-      <a class="inline-block float-left    product__title" href="/"><!--
-     --><img class="product__logo" src="/images/branding/riak-logo.png"><!--
+      <a class="inline-block float-left    product__title" href="{{ $BaseURL }}{{ $version_path }}"><!--
+     --><img class="product__logo 2" src="{{ $BaseURL }}images/branding/riak-logo.png"><!--
      -->{{ $project_name_html | safeHTML }}
       </a>
   {{ end }}
@@ -159,7 +175,7 @@
 
             <span class="block float-left   content-menu__icon-container   docs-icon--comments">|</span>
 
-            <a class="block overflow" href="/community">
+            <a class="block overflow" href="{{ $BaseURL }}community">
               <span class="block   content-menu__item__right-border">
                 <sub>Want some extra help?</sub><br>
                 <strong>Ask our Community</strong>
@@ -174,7 +190,7 @@
 
             <span class="block float-left   content-menu__icon-container   docs-icon--question-sign">|</span>
 
-            <a class="block overflow" href="http://basho.com/contact">
+            <a class="block overflow" href="{{ $contact_us_url }}">
               <span class="block   content-menu__item__right-border">
                 <sub>Need to chat?</sub><br>
                 <strong>Contact us directly</strong>
@@ -211,4 +227,4 @@
 
 </nav>
 
-{{ partial "google-search.html" . }}
+{{ partial "lunr-search.html" . }}

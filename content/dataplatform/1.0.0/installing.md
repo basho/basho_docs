@@ -10,17 +10,20 @@ menu:
     weight: 101
     parent: "index"
 toc: true
+aliases:
+  - /dataplatform/latest/installing/
 ---
 
-[bdp compatibility]: /dataplatform/1.0.0/#supported-operating-systems
-[bdp configure]: /dataplatform/1.0.0/configuring/setup-a-cluster/
-[bdp download]: /dataplatform/1.0.0/downloads/
+[bdp compatibility]: {{<baseurl>}}dataplatform/1.0.0/#supported-operating-systems
+[bdp configure]: {{<baseurl>}}dataplatform/1.0.0/configuring/setup-a-cluster/
+[bdp download]: {{<baseurl>}}dataplatform/1.0.0/downloads/
 
 Basho Data Platform (BDP) enables you to extend Riak with Spark and Redis. This page will guide you through the process of installing BDP on most supported operating systems.
 
 > BDP is supported on a limited number of platforms. See the list of supported OSes [here][bdp compatibility].
 
 ## Prerequisites
+
 You need to have root or sudo access on the nodes you will be installing BDP on.
 
 ## Installing
@@ -33,7 +36,7 @@ You need to have root or sudo access on the nodes you will be installing BDP on.
 
 Before you can install BDP, both the total open-files limit and the per-user open-files limit must be high enough to allow BDP to function.
 
-For a fuller guide on changing limits for Riak, see [Changing the limit](/riak/kv/2.1.3/using/performance/open-files-limit) .
+For a fuller guide on changing limits for Riak, see [Changing the limit]({{<baseurl>}}riak/kv/2.1.3/using/performance/open-files-limit) .
 
 On most Linux distributions, the total limit for open files is controlled by `sysctl`.
 
@@ -80,7 +83,7 @@ sudo wget -O jdk-8.rpm --no-cookies --no-check-certificate --header "Cookie: gpw
 sudo yum -y localinstall jdk-8.rpm
 ```
 
-Regardless of your OS, once you have installed Java 8 you need to add a specific `JAVA_HOME` line to your /etc/environment. You can add the correct line by running: 
+Regardless of your OS, once you have installed Java 8 you need to add a specific `JAVA_HOME` line to your /etc/environment. You can add the correct line by running:
 
 ```shell
 JAVA_HOME=$(dirname $(dirname $(readlink -f $(which javac))))
@@ -95,7 +98,7 @@ Now that you've increased your open-files limit and installed Java 8 where neces
 >Enterprise Note:
 >If you are an Enterprise customer, make sure to download the -extras package as well. The -extras package is available alongside the regular packages in the usual Zendesk forums.
 
-BDP open source packages for all supported operating systems are available for download on the [Download Basho Data Platform page][bdp download]. 
+BDP open source packages for all supported operating systems are available for download on the [Download Basho Data Platform page][bdp download].
 
 Choose the installation instructions below that match your OS.
 
@@ -108,7 +111,6 @@ Choose the installation instructions below that match your OS.
 
 1. Download the packages from the [downloads][bdp download] page (or packages from Zendesk).
 2. Unpack the packages using `sudo yum -y --nogpgcheck --noplugins localinstall »package_name_here«` for each one.
-
 
 ## Next Steps
 

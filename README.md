@@ -3,39 +3,64 @@
 [middleman]: https://middlemanapp.com/
 [rvm]: https://rvm.io/
 
-# Basho's Documentation Generation
+# Riak's Documentation Generation
 
 This repository contains all the bits and pieces, large and small required to
 render and deploy Basho's documentation.
 
-### http://docs.basho.com/
+This is a Work In Progress! Please let us know if you'd like to help out!
 
-This is a Work In Progress!
-Please let us know if you'd like to help out!
+### The Proper Live Site
+
+[https://docs.riak.com/](https://docs.riak.com/)
+
+This is updated for each new version of Riak once reviewed. It is often a few versions behind.
+
+### The Updater's Live Site
+
+[https://www.tiot.jp/riak-docs/](https://www.tiot.jp/riak-docs/)
+
+This is updated for each new version of Riak as soon as written, and gets regular small updates.
+
+### The Updater's Test Site
+
+[https://www.tiot.jp/riak-docs-beta/](https://www.tiot.jp/riak-docs-beta/)
+
+This is updated for each new version of Riak as each doc section is updated, and often will be a WIP.
 
 ## Building The HTML Locally
 
-1. Install [Hugo][hugo] by checking out [Hugo's Installing][installing hugo] page.
+We moved to a Docker image to build the docs to avoid the issues with getting the various versions of things to work together.
+
+1. Install [Docker](https://docs.docker.com/engine/install/)
 
 1. Clone the repository with:
 
+    ```bash
+    git clone https://github.com/ti-tokyo/riak-docs-fork.git
+    cd riak-docs-fork
     ```
+
+    Or:
+
+    ```bash
     git clone https://github.com/basho/basho_docs.git
     cd basho_docs
     ```
 
-1. Run Hugo with `hugo server` and wait a couple of seconds for the site to
-   build.
+1. Build the Docker image:
 
-1. Play by visiting <http://localhost:1313>.
+    ```bash
+    ./docker/docker-build-image.titokyo.sh
+    ```
 
->**Heads-up**
->
-> When running a local instance of the site, you can't navigate from the splash page (the first page when you navigate to localhost:1313) to the index page of KV, TS, or CS. You will need to manually enter the version in the address bar of your browser. So, for instance, http://localhost:1313/riak/kv/2.2.0/ rather than http://localhost:1313/riak/kv/latest/.
+1. Run the docker image as a local server to test it all works:
 
-[hugo]: http://gohugo.io/
-[installing hugo]: http://gohugo.io/overview/installing/
-[homebrew]: http://brew.sh/
+    ```bash
+    docker-compose -f ./docker/docker-compose.localhost-preview.yaml up riakdocs
+    ```
+
+1. Play by visiting <http://localhost:1314/riak-docs/>.
 
 ### No Really, _Go_ Play
 
@@ -54,8 +79,6 @@ in `layouts/_default/` and the [partial templates][hugo partial templates] in
 [hugo go template primer]: https://gohugo.io/templates/go-templates/
 [hugo partial templates]: https://gohugo.io/templates/partials/
 [hugo shortcodes]: https://gohugo.io/extras/shortcodes/
-
-## Modifying the `.js` and `.css` Files
 
 >**Note:** Generally, unless you're helping us out with a specific task or project that you've discussed with us, you should not be altering the .js or .css files in this repo.
 
@@ -77,9 +100,9 @@ of source files for generation explicitly listed in `diagrams.lst`.
 
 To convert the Coffee and Sass into `.js` and `.css` files, you'll need to:
 
-1. **Install [RVM][rvm]** or equivalent.  
+1. **Install [RVM][rvm]** or equivalent.
     You might need to restart your shell to get the `rvm` command to be recognized.
-1. **Install Ruby.**  
+1. **Install Ruby.**
     Use the following command: ``rvm install `cat .ruby-version` `` or manually
     install the current version specified in our .ruby-version and Gemfile files.
 1. **Install [Bundler]** with `gem install bundler`.
@@ -122,8 +145,8 @@ Don't forget to check out our [Contributing Guidelines][contributing] so you
 can read up on all our weird little quirks, like how we
 [don't want you to use `<h1>` headers][contributing_headers].
 
-[new issue]: https://github.com/basho/basho_docs/issues/new
-[find the file]: https://github.com/basho/basho_docs/find/master
-[fork]: https://github.com/basho/basho_docs/#fork-destination-box
-[contributing]: CONTRIBUTING.md
-[contributing_headers]: CONTRIBUTING.md
+[new issue]: ./issues/new
+[find the file]: ./find/master
+[fork]: ./#fork-destination-box
+[contributing]: ./CONTRIBUTING.md
+[contributing_headers]: ./CONTRIBUTING.md

@@ -3,6 +3,9 @@ title: "Riak Search Settings"
 description: ""
 project: "riak_kv"
 project_version: "2.2.3"
+lastmod: 2017-03-30T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.3:
     name: "Riak Search Settings"
@@ -10,26 +13,28 @@ menu:
     weight: 160
     parent: "configuring"
 toc: true
+version_history:
+  in: "2.0.0-2.9999.9999"
 aliases:
   - /riak/2.2.3/ops/advanced/configs/search/
   - /riak/kv/2.2.3/ops/advanced/configs/search/
 ---
 
-[usage search]: /riak/kv/2.2.3/developing/usage/search
-[usage search schema]: /riak/kv/2.2.3/developing/usage/search-schemas
-[usage search data types]: /riak/kv/2.2.3/developing/usage/searching-data-types
-[usage custom extractors]: /riak/kv/2.2.3/developing/usage/custom-extractors
-[cluster-ops aae throttle]: /riak/kv/2.2.3/using/cluster-operations/active-anti-entropy/#throttling
-[config reference]: /riak/kv/2.2.3/configuring/reference
-[config reference#search]: /riak/kv/2.2.3/configuring/reference/#search
-[glossary aae]: /riak/kv/2.2.3/learn/glossary/#active-anti-entropy-aae
-[security index]: /riak/kv/2.2.3/using/security/
+[usage search]: {{<baseurl>}}riak/kv/2.2.3/developing/usage/search
+[usage search schema]: {{<baseurl>}}riak/kv/2.2.3/developing/usage/search-schemas
+[usage search data types]: {{<baseurl>}}riak/kv/2.2.3/developing/usage/searching-data-types
+[usage custom extractors]: {{<baseurl>}}riak/kv/2.2.3/developing/usage/custom-extractors
+[cluster-ops aae throttle]: {{<baseurl>}}riak/kv/2.2.3/using/cluster-operations/active-anti-entropy/#throttling
+[config reference]: {{<baseurl>}}riak/kv/2.2.3/configuring/reference
+[config reference#search]: {{<baseurl>}}riak/kv/2.2.3/configuring/reference/#search
+[glossary aae]: {{<baseurl>}}riak/kv/2.2.3/learn/glossary/#active-anti-entropy-aae
+[security index]: {{<baseurl>}}riak/kv/2.2.3/using/security/
 
 [java se downloads]: http://www.oracle.com/technetwork/java/javase/downloads
 [java se docs]: http://www.oracle.com/technetwork/java/javase/documentation
 
 This page covers how to use Riak Search (with
-[Solr](http://lucene.apache.org/solr/) integration). 
+[Solr](http://lucene.apache.org/solr/) integration).
 
 For a simple reference of the available configs and their defaults, see the [configuration reference][config reference#search].
 
@@ -49,12 +54,11 @@ We'll be walking through:
 3. [Search Configuration Settings](#search-config-settings)
 4. [Additional Solr Information](#more-on-solr)
 
-## Prerequisites 
+## Prerequisites
 
 Because Solr is a Java application, you will need to install **Java 7
 or later** on every node. Installation packages can be found on the [Java SE Downloads
 page][java se downloads] and instructions in the [Java SE documentation site][java se docs].
-
 
 ## Enabling Riak Search
 
@@ -65,14 +69,13 @@ node's [configuration file][config reference] as follows:
 search = on
 ```
 
-
 ## Search Config Settings
 
 You will find all the Riak Search configuration settings in riak.conf. Setting `search` to `on` is required, but other search settings are optional. A handy reference list of these parameters can be found in our [configuration files][config reference#search] documentation.
 
 ### `search`
 
-Enable or disable search; defaults to `off`. 
+Enable or disable search; defaults to `off`.
 
 Valid values:  `on` or `off`
 
@@ -94,7 +97,7 @@ You can read more about throttling [here][cluster-ops aae throttle].
 
 Set the throttling tiers delay for [active anti-entropy][glossary aae]; no default.
 
-Each tier is a [minimum Solrq queue size](#search-anti-entropy-throttle-tier-solrq-queue-length) and a time-delay that the throttle should observe at that size and above. 
+Each tier is a [minimum Solrq queue size](#search-anti-entropy-throttle-tier-solrq-queue-length) and a time-delay that the throttle should observe at that size and above.
 
 For example:
 
@@ -113,7 +116,7 @@ Valid values: Non-negative integer
 Set the throttling tiers for [active anti-entropy][glossary aae]; no default.
 
 Each tier is a minimum Solrq queue size and a [time-delay](#search-anti-entropy-throttle-tier-delay) that the throttle
-should observe at that size and above. 
+should observe at that size and above.
 
 For example:
 
@@ -129,7 +132,7 @@ Valid values: Non-negative integer
 
 ### `search.dist_query`
 
-Enable this node in distributed query plans; defaults to `on`.  
+Enable this node in distributed query plans; defaults to `on`.
 
 If enabled, this node will participate in distributed Solr queries.  If disabled, the node will be excluded from Riak search cover plans, and will therefore never be consulted in a distributed query.  Note that this node may still be used to execute a query.  Use this flag if you have a long running administrative operation (e.g. reindexing) which requires that the node be removed from query plans, and which would otherwise result in inconsistent search results.
 
@@ -138,9 +141,9 @@ This setting can also be changed via `riak-admin` by issuing one of the followin
 ```
 riak-admin set search.dist_query=off
 ```
- or 
+ or
 
-``` 
+```
 riak-admin set search.dist_query=on
 ```
 
@@ -150,15 +153,15 @@ Valid values: `on` or `off`
 
 ### `search.index.error_threshold.failure_count`
 
-The number of failures encountered while updating a search index within [`search.queue.error_threshold.failure_interval`](#search-queue-error-threshold-failure-interval) before Riak KV will skip updates to that index; defaults to `3`.
+The number of failures encountered while updating a search index within [`search.index.error_threshold.failure_interval`](#search-index-error-threshold-failure-interval) before Riak KV will skip updates to that index; defaults to `3`.
 
 Valid values: Integer
 
 ### `search.index.error_threshold.failure_interval`
 
-The window of time during which `search.queue.error_threshold.failure_count` failures will cause Riak KV to skip updates to a search index; defaults to `5000`. 
+The window of time during which `search.index.error_threshold.failure_count` failures will cause Riak KV to skip updates to a search index; defaults to `5000`.
 
-If [`search.queue.error_threshold.failure_count`](#search-queue-error-threshold-failure-count) errors have occurred within this interval on a given search index, then Riak will skip updates to that index until the [`search.queue.error_threshold.reset_interval`](search-queue-error-threshold-reset-interval) has passed.
+If [`search.index.error_threshold.failure_count`](#search-index-error-threshold-failure-count) errors have occurred within this interval on a given search index, then Riak will skip updates to that index until the [`search.index.error_threshold.reset_interval`](#search-index-error-threshold-reset-interval) has passed.
 
 Valid values: Milliseconds
 
@@ -194,7 +197,7 @@ Valid valus: Integer
 
 ### `search.queue.high_watermark`
 
-The queue high water mark; defaults to `1000`. 
+The queue high water mark; defaults to `1000`.
 
 If the total number of queued messages in a Solrq worker instance exceed this limit, then the calling vnode will be blocked until the total number falls below this limit. This parameter exercises flow control between Riak KV and the Riak Search batching subsystem, if writes into Solr start to fall behind.
 
@@ -206,7 +209,7 @@ The strategy for how purging is handled when the `search.queue.high_watermark` i
 
 Valid values:  `purge_one`, `purge_index`, or `off`
 
-* `purge_one` removes the oldest item on the queue from an erroring (references to fuses blown in the code) index in order to get below the [`search.queue.high_watermark`](#search-queue-high-watermark) 
+* `purge_one` removes the oldest item on the queue from an erroring (references to fuses blown in the code) index in order to get below the [`search.queue.high_watermark`](#search-queue-high-watermark)
 * `purge_index` removes all items associated with one random erroring (references to fuses blown in the code) index in order to get below the [`search.queue.high_watermark`](#search-queue-high-watermark)
 * `off` disables purging
 
@@ -238,14 +241,14 @@ Valid values: Integer
 
 ### `search.solr.start_timeout`
 
-How long Riak KV will wait for Solr to start (attempts twice before shutdown); defaults to `30s`. 
+How long Riak KV will wait for Solr to start (attempts twice before shutdown); defaults to `30s`.
 
-Values lower than 1s will be rounded up to 1s. 
+Values lower than 1s will be rounded up to 1s.
 
 Valid values: Integer with time units (e.g. 2m)
 
-
 ## More on Solr
+
 ### Solr JVM and Ports
 
 Riak Search runs one Solr process per node to manage its indexing and

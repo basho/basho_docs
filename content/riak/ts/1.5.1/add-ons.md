@@ -3,6 +3,9 @@ title: "Add-ons"
 description: "Add-on technology for Riak TS"
 project: "riak_ts"
 project_version: "1.5.1"
+lastmod: 2017-01-21T00:00:00-00:00
+sitemap:
+  priority: 0.2
 menu:
   riak_ts-1.5.1:
     name: "Add-ons"
@@ -10,7 +13,6 @@ menu:
     weight: 450
     pre: tools
 toc: true
-canonical_link: "https://docs.basho.com/riak/ts/latest/add-ons"
 ---
 
 Here at Basho, we've developed integrations between Riak TS and other best-of-breed components in your application stack. Each integration, called an add-on, is explained in this section, from installation to feature-set.

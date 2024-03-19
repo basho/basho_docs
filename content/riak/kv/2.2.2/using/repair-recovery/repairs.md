@@ -3,6 +3,9 @@ title: "Repairs"
 description: ""
 project: "riak_kv"
 project_version: "2.2.2"
+lastmod: 2017-03-24T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.2:
     name: "Repairs"
@@ -21,15 +24,13 @@ aliases:
   - /riak/kv/2.2.2/ops/running/recovery/repairing-partitions
 ---
 
-[cluster ops aae]: /riak/kv/2.2.2/using/cluster-operations/active-anti-entropy/
-[config ref]: /riak/kv/2.2.2/configuring/reference/
+[cluster ops aae]: {{<baseurl>}}riak/kv/2.2.2/using/cluster-operations/active-anti-entropy/
+[config ref]: {{<baseurl>}}riak/kv/2.2.2/configuring/reference/
 [Erlang shell]: http://learnyousomeerlang.com/starting-out
-[glossary AAE]: /riak/kv/2.2.2/learn/glossary/#active-anti-entropy-aae
-[glossary readrep]: /riak/kv/2.2.2/learn/glossary/#read-repair
-[search config]: /riak/kv/2.2.2/configuring/search/#search-config-settings
-[tiered storage]: /riak/kv/2.2.2/setup/planning/backend/leveldb/#tiered-storage
-
-
+[glossary AAE]: {{<baseurl>}}riak/kv/2.2.2/learn/glossary/#active-anti-entropy-aae
+[glossary readrep]: {{<baseurl>}}riak/kv/2.2.2/learn/glossary/#read-repair
+[search config]: {{<baseurl>}}riak/kv/2.2.2/configuring/search/#search-config-settings
+[tiered storage]: {{<baseurl>}}riak/kv/2.2.2/setup/planning/backend/leveldb/#tiered-storage
 
 ## Repairing Search Indexes
 
@@ -98,24 +99,21 @@ find . -name "LOG" -exec grep -l 'Compaction error' {} \;
 If there are compaction errors in any of your vnodes, those will be listed in the console. If any vnode has experienced such errors, you would see output like this:
 
 ```
-./442446784738847563128068650529343492278651453440/LOG 
+./442446784738847563128068650529343492278651453440/LOG
 ```
-
 
 {{% note %}}
 While corruption on one vnode is not uncommon, corruption in several vnodes very likely means that there is a deeper problem that needs to be address, perhaps on the OS or hardware level.
 {{% /note %}}
 
-
 ## Healing Corrupted LevelDBs
 
 When you have discovered corruption in your LevelDB backend, the steps you take to resolve it will depend on whether you are using [tiered storage] or not.
 
-Choose your setup below: 
+Choose your setup below:
 
 1. [Just LevelDB](#leveldb)
 2. [LevelDB with tiered storage](#leveldb-with-tiered-storage)
-
 
 ### LevelDB
 
@@ -127,7 +125,7 @@ Follow the steps below to heal your corrupted LevelDB.
 riak stop
 ```
 
-2\. To repair the corrupted LevelDB through the [Erlang shell],  you will run the the `riak ertspath` command to output the path to Riak's internal Erlang runtime, and the `erl` command to start the Erlang shell. You can run them in a single command: 
+2\. To repair the corrupted LevelDB through the [Erlang shell],  you will run the the `riak ertspath` command to output the path to Riak's internal Erlang runtime, and the `erl` command to start the Erlang shell. You can run them in a single command:
 
 ```bash
 `riak ertspath`/erl
@@ -186,7 +184,7 @@ riak stop
 * leveldb.tiered.path.fast
 * leveldb.tiered.path.slow
 
-3\. To repair the corrupted LevelDB through the [Erlang shell],  you will run the the `riak ertspath` command to output the path to Riak's internal Erlang runtime, and the `erl` command to start the Erlang shell. You can run them in a single command: 
+3\. To repair the corrupted LevelDB through the [Erlang shell],  you will run the the `riak ertspath` command to output the path to Riak's internal Erlang runtime, and the `erl` command to start the Erlang shell. You can run them in a single command:
 
 ```bash
 `riak ertspath`/erl
@@ -206,7 +204,7 @@ application:set_env(eleveldb, data_root, "").
 
 ```erlang
 Options = [
-  {tiered_slow_level, »leveldb.tiered value«},    
+  {tiered_slow_level, »leveldb.tiered value«},
   {tiered_fast_prefix, "»leveldb.tiered.path.fast value«"},
   {tiered_slow_prefix, "»leveldb.tiered.path.slow value«"}
 ].
@@ -232,28 +230,27 @@ RepairPath = fun(DataRoot, VNodeNumber) -> Path = lists:flatten(DataRoot ++ "/" 
 riak start
 ```
 
-
 ## Repairing Partitions
 
 If you have experienced a loss of object replicas in your cluster, you
 may need to perform a repair operation on one or more of your data
-[partitions](/riak/kv/2.2.2/learn/concepts/clusters/#the-ring). Repairs of Riak KV data are typically
+[partitions]({{<baseurl>}}riak/kv/2.2.2/learn/concepts/clusters/#the-ring). Repairs of Riak KV data are typically
 run in situations where partitions or whole nodes are lost due to
 corruption or hardware failure. In these cases, nodes or partitions are
 brought back online without any data, which means that the need to
-repair data will depend mainly on your use case and on whether [active anti-entropy](/riak/kv/2.2.2/learn/concepts/active-anti-entropy/) is enabled.
+repair data will depend mainly on your use case and on whether [active anti-entropy]({{<baseurl>}}riak/kv/2.2.2/learn/concepts/active-anti-entropy/) is enabled.
 
 You will need to run a repair if the following are both true:
 
-* Active anti-entropy is [disabled](/riak/kv/2.2.2/learn/concepts/active-anti-entropy/#disabling-active-anti-entropy)
+* Active anti-entropy is [disabled]({{<baseurl>}}riak/kv/2.2.2/learn/concepts/active-anti-entropy/#disabling-active-anti-entropy)
 * You have both non-expiring data and keys that are not accessed
   frequently (which means that they are not likely to be subject to
-  [read repair](/riak/kv/2.2.2/learn/concepts/active-anti-entropy/#read-repair-vs-active-anti-entropy))
+  [read repair]({{<baseurl>}}riak/kv/2.2.2/learn/concepts/active-anti-entropy/#read-repair-vs-active-anti-entropy))
 
 You will most likely not need to run a repair operation if _any_ of the
 following is true:
 
-* Active anti-entropy is [enabled](/riak/kv/2.2.2/learn/concepts/active-anti-entropy/#enabling-active-anti-entropy)
+* Active anti-entropy is [enabled]({{<baseurl>}}riak/kv/2.2.2/learn/concepts/active-anti-entropy/#enabling-active-anti-entropy)
 * Your entire key set is accessed frequently, allowing passive read
   repair to repair the partitions
 * Your data expires frequently
@@ -341,7 +338,6 @@ the `nodename` parameter.
     that loops over each `{Partition, Node}` tuple in the ring and
     extracts only the partitions that match the given node name, as a
     list.
-
 
 4. Execute the repair on all the partitions. Executing the repairs all
 at once will cause a lot of `{shutdown, max_concurrency}` messages in

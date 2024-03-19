@@ -4,6 +4,9 @@ title: "Object Modeling with Java"
 description: ""
 project: "riak_kv"
 project_version: "2.2.2"
+lastmod: 2017-03-24T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.2:
     name: "Object Modeling"
@@ -127,7 +130,6 @@ Natural keys are a great fit for key/value systems because both humans
 and computers can easily construct them when needed, and most of the
 time they can be made unique enough for a KV store.
 
-
 | Bucket | Key Pattern | Example Key
 |:-------|:------------|:-----------
 | `Users` | `<user_name>` | `joeuser`
@@ -239,7 +241,6 @@ public class TimelineRepository {
         addToTimeline(msg, Timeline.TimelineType.Sent, msgKey);
     }
 
-
     private void addToTimeline(Msg msg, Timeline.TimelineType type, String msgKey) throws Exception {
         String timelineKey = generateKeyFromMsg(msg, type);
 
@@ -307,7 +308,6 @@ public class TimelineRepository {
         df.setTimeZone(tz);
         return df.format(date);
     }
-
 
 }
 
@@ -386,7 +386,6 @@ public class MsgyMain {
                 "Welcome to the company!");
 
         timelineRepo.postMsg(msg);
-
 
         // Get Joe's inbox for today, get first message
         Timeline joesInboxToday = timelineRepo.getTimeline(joe.UserName,

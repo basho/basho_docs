@@ -3,6 +3,9 @@ title: "PBC Data Type Union"
 description: ""
 project: "riak_kv"
 project_version: "2.1.4"
+lastmod: 2016-04-07T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.1.4:
     name: "Data Type Union"
@@ -28,4 +31,4 @@ message DtOp {
 ```
 
 The included operation depends on the Data Type that is being updated.
-`DtOp` messages are sent only as part of a [`DtUpdateReq`](/riak/kv/2.1.4/developing/api/protocol-buffers/dt-store) message.
+`DtOp` messages are sent only as part of a [`DtUpdateReq`]({{<baseurl>}}riak/kv/2.1.4/developing/api/protocol-buffers/dt-store) message.

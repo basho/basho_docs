@@ -3,6 +3,9 @@ title: "Causal Context"
 description: ""
 project: "riak_kv"
 project_version: "2.2.1"
+lastmod: 2017-03-08T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.1:
     name: "Causal Context"
@@ -15,19 +18,18 @@ aliases:
   - /riak/kv/2.2.1/theory/concepts/context
 ---
 
-
-[concept aae]: /riak/kv/2.2.1/learn/concepts/active-anti-entropy
-[concept clusters]: /riak/kv/2.2.1/learn/concepts/clusters
-[concept eventual consistency]: /riak/kv/2.2.1/learn/concepts/eventual-consistency
+[concept aae]: {{<baseurl>}}riak/kv/2.2.1/learn/concepts/active-anti-entropy
+[concept clusters]: {{<baseurl>}}riak/kv/2.2.1/learn/concepts/clusters
+[concept eventual consistency]: {{<baseurl>}}riak/kv/2.2.1/learn/concepts/eventual-consistency
 [CRM]: http://en.wikipedia.org/wiki/Customer_relationship_management
-[dev api http]: /riak/kv/2.2.1/developing/api/http
-[dev key value]: /riak/kv/2.2.1/developing/key-value-modeling
-[glossary read rep]: /riak/kv/2.2.1/learn/glossary/#read-repair
-[perf latency reduc]: /riak/kv/2.2.1/using/performance/latency-reduction
-[usage bucket types]: /riak/kv/2.2.1/developing/usage/bucket-types
-[usage conflict resolution]: /riak/kv/2.2.1/developing/usage/conflict-resolution
-[usage protocol buffers]: /riak/kv/2.2.1/developing/api/protocol-buffers
-[usage updating objects]: /riak/kv/2.2.1/developing/usage/updating-objects
+[dev api http]: {{<baseurl>}}riak/kv/2.2.1/developing/api/http
+[dev key value]: {{<baseurl>}}riak/kv/2.2.1/developing/key-value-modeling
+[glossary read rep]: {{<baseurl>}}riak/kv/2.2.1/learn/glossary/#read-repair
+[perf latency reduc]: {{<baseurl>}}riak/kv/2.2.1/using/performance/latency-reduction
+[usage bucket types]: {{<baseurl>}}riak/kv/2.2.1/developing/usage/bucket-types
+[usage conflict resolution]: {{<baseurl>}}riak/kv/2.2.1/developing/usage/conflict-resolution
+[usage protocol buffers]: {{<baseurl>}}riak/kv/2.2.1/developing/api/protocol-buffers
+[usage updating objects]: {{<baseurl>}}riak/kv/2.2.1/developing/usage/updating-objects
 [Vector Clocks on Wikipedia]: http://en.wikipedia.org/wiki/Vector_clock
 [Why Vector Clocks are Easy]: http://basho.com/posts/technical/why-vector-clocks-are-easy/
 [Why Vector Clocks are Hard]: http://basho.com/posts/technical/why-vector-clocks-are-hard/
@@ -36,7 +38,6 @@ aliases:
 [Improving Logical Clocks in Riak with Dotted Version Vectors: A Case Study]: http://paginas.fe.up.pt/~prodei/dsie12/papers/paper_19.pdf
 [Dotted Version Vector Sets]: https://github.com/ricardobcl/Dotted-Version-Vectors
 [A History of Time in Riak]: https://www.youtube.com/watch?v=3SWSw3mKApM
-
 
 Because Riak is an [eventually consistent][concept eventual consistency],
 [clustered][concept clusters] database, [conflicts][usage conflict resolution] between
@@ -62,9 +63,9 @@ updates** have been completed, and Riak is unable to determine which
 value "wins." In this scenario, one of three things can happen:
 
     a. The object is a CRDT, so Riak is able to resolve conflicting values by type-specific rules
-    
+
     b. Riak creates sibling values, aka **siblings**, for the object
-        
+
     c. Riak resolves the values on the basis of timestamps
 
 In the case of outcome 1 above, Riak uses **causal context** metadata to
@@ -73,7 +74,7 @@ Causal context comes in two forms in Riak: **vector clocks** and
 **dotted version vectors**. More information in both can be found in the
 sections below.
 
-In the case of outcome 2, the choice between **a**, **b** and **c** is determined by settings. If you set the `allow_mult` parameter to `true` for a [bucket type](/riak/kv/2.2.1/developing/usage/bucket-types), all non-CRDT writes to that bucket type will create siblings in the case of concurrent writes (and occasionally under other
+In the case of outcome 2, the choice between **a**, **b** and **c** is determined by settings. If you set the `allow_mult` parameter to `true` for a [bucket type]({{<baseurl>}}riak/kv/2.2.1/developing/usage/bucket-types), all non-CRDT writes to that bucket type will create siblings in the case of concurrent writes (and occasionally under other
 scenarios, e.g. healed network partitions).
 
 If, however, `allow_mult` is set to `false`, then Riak will not generate
@@ -115,7 +116,6 @@ replicas can be determined using vector clocks:
 Behind the scenes, Riak uses vector clocks as an essential element of
 its [active anti-entropy][concept aae] subsystem and of its automatic read
 repair capabilities.
-
 
 Vector clocks are non-human-readable metadata attached to all Riak
 objects. They look something like this:
@@ -180,7 +180,6 @@ about which objects are more current than others in cases of conflict.
 dotted version vectors instead of vector clocks, as DVVs are far better
 at limiting the number of siblings produced in a cluster, which can
 prevent a wide variety of potential issues.
-
 
 ## DVVs Versus Vector Clocks
 
@@ -257,7 +256,6 @@ However, any bucket type that you create and activate will have
 create a bucket type that uses traditional vector clocks, you will need
 to explicitly set `dvv_enabled` to `false` for
 that bucket type.
-
 
 ## Sibling Explosion
 

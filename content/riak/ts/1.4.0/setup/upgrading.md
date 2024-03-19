@@ -9,27 +9,29 @@ menu:
     parent: "setup"
 project: "riak_ts"
 project_version: "1.4.0"
+lastmod: 2016-08-24T00:00:00-00:00
+sitemap:
+  priority: 0.1
 toc: true
 version_history:
-  present_from: "1.4.0+"
+  in: "1.4.0+"
 aliases:
     - /riakts/1.4.0/setup/upgrading/
     - /riakts/1.4.0/upgrading/
-canonical_link: "https://docs.basho.com/riak/ts/latest/setup/upgrading/"
 ---
 
-[use admin commands]: /riak/kv/2.1.4/using/admin/commands
-[use admin riak-admin]: /riak/kv/2.1.4/using/admin/riak-admin
-[usage secondary-indexes]: /riak/kv/2.1.4/developing/usage/secondary-indexes
+[use admin commands]: {{<baseurl>}}riak/kv/2.1.4/using/admin/commands
+[use admin riak-admin]: {{<baseurl>}}riak/kv/2.1.4/using/admin/riak-admin
+[usage secondary-indexes]: {{<baseurl>}}riak/kv/2.1.4/developing/usage/secondary-indexes
 [riak ts enterprise]: http://basho.com/products/riak-ts/
-[cluster ops mdc]: /riak/kv/2.1.4/using/cluster-operations/v3-multi-datacenter
-[config v3 mdc]: /riak/kv/2.1.4/configuring/v3-multi-datacenter
-[jmx monitor]: /riak/kv/2.1.4/using/reference/jmx
-[snmp]: /riak/kv/2.1.4/using/reference/snmp
+[cluster ops mdc]: {{<baseurl>}}riak/kv/2.1.4/using/cluster-operations/v3-multi-datacenter
+[config v3 mdc]: {{<baseurl>}}riak/kv/2.1.4/configuring/v3-multi-datacenter
+[jmx monitor]: {{<baseurl>}}riak/kv/2.1.4/using/reference/jmx
+[snmp]: {{<baseurl>}}riak/kv/2.1.4/using/reference/snmp
 
 {{% note title="Note on upgrading Riak TS from older versions" %}}
 [contact]: http://basho.com/contact/
-[use admin riak control]: /riak/kv/2.1.4/using/admin/riak-control
+[use admin riak control]: {{<baseurl>}}riak/kv/2.1.4/using/admin/riak-control
 
 Upgrading Riak TS is only supported for Riak TS 1.3.1 to 1.4.0. For assistance upgrading from earlier versions to 1.4.0 [contact Client Services][contact].
 
@@ -99,7 +101,6 @@ riak-admin transfers
 behalf. This data is transferred to the node when it becomes available.
 
 8\. Repeat the process for the remaining nodes in the cluster.
-
 
 ## RHEL/CentOS
 

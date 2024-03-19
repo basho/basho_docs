@@ -9,22 +9,24 @@ menu:
     parent: "querying_data_riakts"
 project: "riak_ts"
 project_version: "1.5.1"
+lastmod: 2017-01-21T00:00:00-00:00
+sitemap:
+  priority: 0.2
 toc: true
 aliases:
     - /riakts/1.5.1/using/querying/explain
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/explain"
 ---
 
-[creating-activating]: /riak/ts/1.5.1/using/creating-activating
-[develop]: /riak/ts/1.5.1/developing
-[planning]: /riak/ts/1.5.1/using/planning
-[riak shell]: /riak/ts/1.5.1/using/riakshell
+[creating-activating]: {{<baseurl>}}riak/ts/1.5.1/using/creating-activating
+[develop]: {{<baseurl>}}riak/ts/1.5.1/developing
+[planning]: {{<baseurl>}}riak/ts/1.5.1/using/planning
+[riak shell]: {{<baseurl>}}riak/ts/1.5.1/using/riakshell
 
 You can use the EXPLAIN statement to better understand how a query you would like to run will be executed. This document will show you how to use `EXPLAIN` in Riak TS.
 
 ## EXPLAIN Guidelines
 
-`EXPLAIN` takes a SELECT statement as an argument and shows information about each subquery. The constraints placed upon the WHERE clause in the SELECT statement determine the subquery values. 
+`EXPLAIN` takes a SELECT statement as an argument and shows information about each subquery. The constraints placed upon the WHERE clause in the SELECT statement determine the subquery values.
 
 The details about each subquery include:
 

@@ -4,6 +4,9 @@ title: "SSL"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"
+lastmod: 2015-12-10T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.1.3:
     name: "SSL"
@@ -17,7 +20,7 @@ aliases:
   - /riak/kv/2.1.3/ops/mdc/v3/ssl
 ---
 
-[config reference#advanced.config]: /riak/kv/2.1.3/configuring/reference/#the-advanced-config-file
+[config reference#advanced.config]: {{<baseurl>}}riak/kv/2.1.3/configuring/reference/#the-advanced-config-file
 
 ## Features
 

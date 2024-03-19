@@ -4,6 +4,9 @@ title: "SmartOS"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"
+lastmod: 2015-12-10T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.1.3:
     name: "SmartOS"
@@ -18,7 +21,7 @@ aliases:
   - /riak/kv/2.1.3/installing/smartos/
 ---
 
-[install verify]: /riak/kv/2.1.3/setup/installing/verify
+[install verify]: {{<baseurl>}}riak/kv/2.1.3/setup/installing/verify
 
 The following steps have been tested to work with Riak version 1.2 on SmartOS version **joyent_20120614T184600Z**. They demonstrate installation of a Riak node on SmartOS as the root user.
 

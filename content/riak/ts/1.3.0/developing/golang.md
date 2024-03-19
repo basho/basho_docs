@@ -9,6 +9,9 @@ menu:
     parent: "develop"
 project: "riak_ts"
 project_version: "1.3.0"
+lastmod: 2016-05-05T00:00:00-00:00
+sitemap:
+  priority: 0.1
 toc: true
 version_history:
   in: "1.3.0+"
@@ -16,10 +19,8 @@ aliases:
     - /riakts/1.3.0/developing/golang/
 ---
 
-
 You can develop applications and tools using Riak TS with the Riak Go client.
 This document covers the Go API for Riak TS.
-
 
 ## Overview
 
@@ -31,10 +32,9 @@ TS support within the Go client is implemented through the following 4 command b
 * TsQueryCommandBuilder which is assembled via NewTsQueryCommandBuilder
 * TsListKeysCommandBuilder which is assembled via NewTsListKeysCommandBuilder
 
-Language | Source | Documentation | 
+Language | Source | Documentation |
 :--------|:-------|:--------------|
 Go | [riak-go-client](https://github.com/basho/riak-go-client) | [GoDoc](https://godoc.org/github.com/basho/riak-go-client) |
-
 
 ## Data Types
 

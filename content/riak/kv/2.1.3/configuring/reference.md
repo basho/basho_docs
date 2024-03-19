@@ -3,6 +3,9 @@ title: "Riak KV Configuration Reference"
 description: ""
 project: "riak_kv"
 project_version: "2.1.3"
+lastmod: 2015-12-10T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.1.3:
     name: "Configuration Reference"
@@ -1827,7 +1830,6 @@ defaults to <code>false</code> in the name of improved performance.</td>
 </tbody>
 </table>
 
-
 ## Miscellaneous
 
 <table class="riak-conf">
@@ -1876,8 +1878,8 @@ package) and in R14B04 via a custom repository and branch.</td>
 <tr>
 <td><code>vnode_management_timer</code></td>
 <td>Sets the frequency with which <a
-href="theory/concepts/glossary#vnode">vnodes</a> attempt to trigger <a
-href="theory/concepts/glossary#hinted-handoff">handoff</a> between
+href="../../learn/glossary/#vnode">vnodes</a> attempt to trigger <a
+href="../../learn/glossary/#hinted-handoff">handoff</a> between
 this node and other nodes in the cluster.</td>
 <td><code>10s</code> (10 seconds)</td>
 </tr>

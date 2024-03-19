@@ -4,6 +4,9 @@ title: "CRUD Operations with Java"
 description: ""
 project: "riak_kv"
 project_version: "2.0.7"
+lastmod: 2016-06-24T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.7:
     name: "CRUD Operations"
@@ -67,8 +70,8 @@ StoreValue.Response updateOpResp = client.execute(updateOp);
 ```
 
 For more in depth information on updating objects and sibling resolution in
-Riak, see [Updating Objects](/riak/kv/2.0.7/developing/usage/updating-objects/)
-and [Conflict Resolution](/riak/kv/2.0.7/developing/usage/conflict-resolution/)
+Riak, see [Updating Objects]({{<baseurl>}}riak/kv/2.0.7/developing/usage/updating-objects/)
+and [Conflict Resolution]({{<baseurl>}}riak/kv/2.0.7/developing/usage/conflict-resolution/)
 documentation.
 
 ## Deleting Objects
@@ -178,6 +181,6 @@ UpdateValue.Response response = client.execute(updateValue);
 ```
 
 For more in depth information on updating objects and sibling resolution in
-Riak, see [Updating Objects](/riak/kv/2.0.7/developing/usage/updating-objects/)
-and [Conflict Resolution](/riak/kv/2.0.7/developing/usage/conflict-resolution/)
+Riak, see [Updating Objects]({{<baseurl>}}riak/kv/2.0.7/developing/usage/updating-objects/)
+and [Conflict Resolution]({{<baseurl>}}riak/kv/2.0.7/developing/usage/conflict-resolution/)
 documention.

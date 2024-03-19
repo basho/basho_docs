@@ -3,6 +3,9 @@ title: "Client Libraries"
 description: ""
 project: "riak_kv"
 project_version: "2.0.9"
+lastmod: 2017-03-15T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.9:
     name: "Client Libraries"
@@ -36,8 +39,7 @@ GitHub for bug reporting.
 
 In addition to the official clients, Basho provides some unofficial
 client libraries, listed below. There are also many client libraries and
-related [community projects](/community/projects/).
-
+related [community projects]({{<baseurl>}}community/projects/).
 
 ## Community Libraries
 

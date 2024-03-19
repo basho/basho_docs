@@ -1,8 +1,11 @@
 ---
-title: "Riak KV"
+title: "Riak KV 2.2.0"
 description: ""
 project: "riak_kv"
 project_version: "2.2.0"
+lastmod: 2016-11-12T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.0:
     name: "Riak KV"
@@ -15,17 +18,15 @@ aliases:
 ---
 
 [aboutenterprise]: http://basho.com/contact/
-[config index]: /riak/kv/2.2.0/configuring
-[downloads]: /riak/kv/2.2.0/downloads/
-[install index]: /riak/kv/2.2.0/setup/installing/
-[plan index]: /riak/kv/2.2.0/setup/planning
-[perf open files]: /riak/kv/2.2.0/using/performance/open-files-limit
-[install debian & ubuntu]: /riak/kv/2.2.0/setup/installing/debian-ubuntu
-[usage search]: /riak/kv/2.2.0/developing/usage/search
-[getting started]: /riak/kv/2.2.0/developing/getting-started
-[dev client libraries]: /riak/kv/2.2.0/developing/client-libraries
-
-
+[config index]: {{<baseurl>}}riak/kv/2.2.0/configuring
+[downloads]: {{<baseurl>}}riak/kv/2.2.0/downloads/
+[install index]: {{<baseurl>}}riak/kv/2.2.0/setup/installing/
+[plan index]: {{<baseurl>}}riak/kv/2.2.0/setup/planning
+[perf open files]: {{<baseurl>}}riak/kv/2.2.0/using/performance/open-files-limit
+[install debian & ubuntu]: {{<baseurl>}}riak/kv/2.2.0/setup/installing/debian-ubuntu
+[usage search]: {{<baseurl>}}riak/kv/2.2.0/developing/usage/search
+[getting started]: {{<baseurl>}}riak/kv/2.2.0/developing/getting-started
+[dev client libraries]: {{<baseurl>}}riak/kv/2.2.0/developing/client-libraries
 
 Riak KV is a distributed NoSQL database designed to deliver maximum data availability by distributing data across multiple servers. As long as your Riak KV client can reach one Riak server, it should be able to write data.
 
@@ -56,7 +57,7 @@ Are you brand new to Riak KV? Start by [downloading][downloads] Riak KV, and the
 3. [Configure Riak KV for your needs][config index]
 
 {{% note title="Developing with Riak KV" %}}
-If you are looking to integrate Riak KV with your existing tools, check out the [Developing with Riak KV](/riak/kv/2.2.0/developing) docs. They provide instructions and examples for languages such as: Java, Ruby, Python, Go, Haskell, NodeJS, Erlang, and more.
+If you are looking to integrate Riak KV with your existing tools, check out the [Developing with Riak KV]({{<baseurl>}}riak/kv/2.2.0/developing) docs. They provide instructions and examples for languages such as: Java, Ruby, Python, Go, Haskell, NodeJS, Erlang, and more.
 {{% /note %}}
 
 ## Popular Docs
@@ -69,4 +70,4 @@ If you are looking to integrate Riak KV with your existing tools, check out the 
 
 ## Academy Training
 
-[Basho's Academy](https://academy.basho.com) courses offer hands-on experience with Riak KV. Sign up for a [free account](https://academy.basho.com/users/sign_up) to get started. 
+[Basho's Academy](https://academy.basho.com) courses offer hands-on experience with Riak KV. Sign up for a [free account](https://academy.basho.com/users/sign_up) to get started.

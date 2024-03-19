@@ -10,10 +10,12 @@ menu:
     parent: "using"
 project: "riak_ts"
 project_version: "1.5.1"
+lastmod: 2017-01-21T00:00:00-00:00
+sitemap:
+  priority: 0.2
 toc: true
 aliases:
     - /riakts/1.5.1/using/security/
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/security/"
 ---
 
 [security checklist]: ./checklist
@@ -90,7 +92,7 @@ cluster on the following TCP ports:
 
 Protocol | Port
 :--------|:----
-<a href="http://docs.basho.com/riak/kv/2.2.0/developing/api/protocol-buffers/">Protocol Buffers</a> | TCP port 8087
+<a href="{{< baseurl >}}riak/kv/2.2.0/developing/api/protocol-buffers/">Protocol Buffers</a> | TCP port 8087
 
 ## Best Practices
 
@@ -110,6 +112,6 @@ For instructions on how to apply permissions and require client authentication i
 
 For more on creating and managing security sources for authentication in Riak TS, check out [Security: Sources Management][security sources].
 
-### Notifying Basho
+### Notifying Riak
 
-If you discover a potential security issue with Riak TS or want to know more about Basho's approach to security, visit the [Security: Notifying Basho][security notify] page.
+If you discover a potential security issue with Riak TS or want to know more about Riak's approach to security, visit the [Security: Notifying Riak][security notify] page.

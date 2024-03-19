@@ -3,6 +3,9 @@ title: "Riak KV 2.1.4 Release Notes"
 description: ""
 project: "riak_kv"
 project_version: "2.1.4"
+lastmod: 2016-04-07T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.1.4:
     name: "Release Notes"
@@ -18,7 +21,7 @@ toc: true
 
 Released April 11, 2016.
 
-This is a bugfix release providing patches for the [Riak init file](http://docs.basho.com/community/productadvisories/codeinjectioninitfiles/) Product Advisory and the [leveldb segfault](http://docs.basho.com/community/productadvisories/leveldbsegfault/) Product Advisory.
+This is a bugfix release providing patches for the [Riak init file]({{<baseurl>}}community/productadvisories/codeinjectioninitfiles/) Product Advisory and the [leveldb segfault]({{<baseurl>}}community/productadvisories/leveldbsegfault/) Product Advisory.
 
 ## Upgraded Components
 

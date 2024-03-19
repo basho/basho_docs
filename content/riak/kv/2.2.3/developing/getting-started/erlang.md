@@ -3,6 +3,9 @@ title: "Getting Started with Erlang"
 description: ""
 project: "riak_kv"
 project_version: "2.2.3"
+lastmod: 2017-03-30T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.3:
     name: "Erlang"
@@ -15,7 +18,7 @@ aliases:
   - /riak/kv/2.2.3/dev/taste-of-riak/erlang
 ---
 
-If you haven't set up a Riak Node and started it, please visit [Running A Cluster](/riak/kv/2.2.3/using/running-a-cluster) first.
+If you haven't set up a Riak Node and started it, please visit [Running A Cluster]({{<baseurl>}}riak/kv/2.2.3/using/running-a-cluster) first.
 
 To try this flavor of Riak, a working installation of Erlang is
 required. You can also use the `erts` Erlang installation that comes
@@ -52,4 +55,4 @@ We are now ready to start interacting with Riak.
 
 ## Next Steps
 
-[CRUD Operations](/riak/kv/2.2.3/developing/getting-started/erlang/crud-operations)
+[CRUD Operations]({{<baseurl>}}riak/kv/2.2.3/developing/getting-started/erlang/crud-operations)

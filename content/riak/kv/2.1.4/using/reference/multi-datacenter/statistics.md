@@ -3,6 +3,9 @@ title: "Multi-Datacenter Replication Reference: Statistics"
 description: ""
 project: "riak_kv"
 project_version: "2.1.4"
+lastmod: 2016-04-07T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.1.4:
     name: "Statistics"
@@ -66,7 +69,6 @@ Field | Description
 `hb_rtt` | Realtime replication heartbeat round-trip time in milliseconds, recorded on the replication source
 `hb_last` | `{MegaSeconds, Seconds, MicroSeconds}` since a heartbeat message was received on the realtime sink
 
-
 These values are under `realtime_queue_stats`.
 
 Field | Description
@@ -80,7 +82,6 @@ Field | Description
 `pending` | The number of objects waiting to be sent to the sink cluster
 `sinkclustername` | A consumer of the realtime queue
 `unacked` | The number of objects waiting to be acknowledged by a queue consumer
-
 
 ## Fullsync Replication Statistics
 
@@ -106,7 +107,7 @@ Field | Description
 `successful_exits` | The number of partitions successfully synced. When completed, this will be the same number as total number of partitions in the ring.
 `error_exits` | If a sync failed or was aborted, the partition will be queued again and try again later
 `running_stats` | `[{<PID>, <stats>},…]` Any running sync processes are listed here, and described in the table below
-`socket` | See <a href="http://docs.basho.com/riak/kv/2.1.4/using/reference/multi-datacenter/statistics/#socket-statistics">Socket Statistics</a>
+`socket` | See <a href="{{< baseurl >}}riak/kv/2.1.4/using/reference/multi-datacenter/statistics/#socket-statistics">Socket Statistics</a>
 `fullsync_suggested` | Realtime replication errors occurred on these nodes, a fullsync is suggested
 `fullsync_suggested_during_fs` | Realtime replication errors occurred on these nodes while a fullsync is already in progress. A fullsync is suggested after the current fullsync completes. These value will be moved to the `fullsync_suggested` value when the current fullsync completes.
 `socket` | `{peername: <RemoteIP:Port>`, `sockname: <LocalIP:Port>}`
@@ -119,7 +120,7 @@ Field | Description
 `site` | The name of the sink cluster. *Warning: This will be renamed in future versions of Riak*.
 `strategy` | The strategy that fulfills fullsync replication. In previous versions of replication, different values could be configured. This value could be changed depending on your replication needs.
 `fullsync_worker` | The Erlang process id of the fullsync worker.
-`socket` | See <a href="http://docs.basho.com/riak/kv/2.1.4/using/reference/multi-datacenter/statistics/#socket-statistics">Socket Statistics</a>
+`socket` | See <a href="{{< baseurl >}}riak/kv/2.1.4/using/reference/multi-datacenter/statistics/#socket-statistics">Socket Statistics</a>
 `state` | The current state of fullsync replication. This can be used by Basho support to identify replication issues.<ul><li>**`wait_for_partition`**</li><li>**`build_keylist`**</li><li>**`wait_keylist`**</li><li>**`diff_bloom`**</li><li>**`diff_keylist`**</li></ul>
 `fullsync` | The partition that is currently being synchronized with the sink cluster
 `partition_start` | Elapsed time in seconds since the *fullsync* partition started replication to a sink
@@ -177,8 +178,8 @@ Field | Description
 `leader` | Which node is the current leader of the cluster for Version 2 Replication
 `local_leader_message_queue_len` | The length of the object queue on the leader
 `local_leader_heap_size` | The amount of memory the leader is using
-`client_stats` | See <a href="http://docs.basho.com/riak/kv/2.1.4/using/reference/multi-datacenter/statistics/#client-statistics">Client Statistics</a>
-`server_stats` | See <a href="http://docs.basho.com/riak/kv/2.1.4/using/reference/multi-datacenter/statistics/#server-statistics">Server Statistics</a>
+`client_stats` | See <a href="{{< baseurl >}}riak/kv/2.1.4/using/reference/multi-datacenter/statistics/#client-statistics">Client Statistics</a>
+`server_stats` | See <a href="{{< baseurl >}}riak/kv/2.1.4/using/reference/multi-datacenter/statistics/#server-statistics">Server Statistics</a>
 
 ## Client Statistics
 
@@ -192,7 +193,6 @@ Field | Description
 `connected` | A list of connected clients<ul><li>**`connected`** The IP address and port of a connected sink</li><li>**`cluster_name`** The name of the connected sink</li><li>**`connecting`** The PID, IP address, and port of a client currently establishing a connection</li></ul>
 `state` | State shows what the current replication strategy is currently processing. The following definitions appear in the status output if keylist strategy is being used. They can be used by Basho support to identify replication issues.<ul><li>**`request_partition`**</li><li>**`wait_for_fullsync`**</li><li>**`send_keylist`**</li><li>**`wait_ack`**</li></ul>
 
-
 ## Server Statistics
 
 Field | Description
@@ -201,10 +201,9 @@ Field | Description
 `site` | The connected site (sink) name configured with. *Warning: This will be renamed in a future version of Riak*.
 `strategy` | A replication strategy defines an implementation of the Riak Replication protocol. Valid values: `keylist`, `syncv1`.
 `fullsync_worker` | The Erlang process ID of the fullsync worker
-`bounded_queue` | See <a href="http://docs.basho.com/riak/kv/2.1.4/using/reference/multi-datacenter/statistics/#bounded-queue">Bounded Queue</a>
+`bounded_queue` | See <a href="{{< baseurl >}}riak/kv/2.1.4/using/reference/multi-datacenter/statistics/#bounded-queue">Bounded Queue</a>
 `state` | State shows what the current replication strategy is currently processing. The following definitions appear in the status output if keylist strategy is being used. They can be used by Basho support to identify replication issues.<ul><li>**`wait_for_partition`**</li><li>**`build_keylist`**</li><li>**`wait_keylist`**</li><li>**`diff_bloom`**</li><li>**`diff_keylist`**</li></ul>
 `message_queue_len` | The number of Erlang messages that are waiting to be processed by the server
-
 
 ## Bounded Queue
 
@@ -222,7 +221,6 @@ Field | Description
 `queue_percentage` | The percentage of the queue that is full
 `queue_pending` | The current count of "in-flight" objects we've sent that the client has not acknowledged
 `queue_max_pending` | The maximum number of objects that can be "in flight" before we refuse to send any more.
-
 
 ## Accessing Replication Web-Based Statistics
 

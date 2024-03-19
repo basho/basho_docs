@@ -9,21 +9,22 @@ menu:
     parent: "querying_data_riakts"
 project: "riak_ts"
 project_version: "1.5.0"
+lastmod: 2016-12-20T00:00:00-00:00
+sitemap:
+  priority: 0.2
 toc: true
 aliases:
     - /riakts/1.5.0/using/querying/select
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/select"
 ---
-
 
 [aggregate functions]: aggregate-functions/
 [arithmetic operations]: arithmetic-operations/
 [GROUP BY]: group-by/
-[guidelines]: /riak/ts/1.5.0/using/querying/guidelines
+[guidelines]: {{<baseurl>}}riak/ts/1.5.0/using/querying/guidelines
 [iso8601]: ../../timerepresentations/
-[iso8601 accuracy]: /riak/ts/1.5.0/using/timerepresentations/#reduced-accuracy
+[iso8601 accuracy]: {{<baseurl>}}riak/ts/1.5.0/using/timerepresentations/#reduced-accuracy
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
-[learn timestamps accuracy]: /riak/ts/1.5.0/learn-about/timestamps/#reduced-accuracy
+[learn timestamps accuracy]: {{<baseurl>}}riak/ts/1.5.0/learn-about/timestamps/#reduced-accuracy
 
 You can use the SELECT statement in Riak TS to query your TS dataset. This document will show you how to run various queries using `SELECT`.
 
@@ -31,7 +32,6 @@ You can use the SELECT statement in Riak TS to query your TS dataset. This docum
 * See [aggregate functions] to learn how turn a set of rows in your Riak TS table into a value.
 * See [arithmetic operations] to see a list of operations available with `SELECT`.
 * See [GROUP BY] to learn how to condense rows sharing the same value.
-
 
 For all of the examples on this page, we are using our standard example GeoCheckin table:
 
@@ -55,7 +55,6 @@ CREATE TABLE GeoCheckin
 When querying with user-supplied data, it is essential that you protect against SQL injection. Please verify the user-supplied data before constructing queries.
 
 {{% /note %}}
-
 
 ## Querying Columns
 
@@ -262,7 +261,6 @@ You cannot use [reduced accuracy time representations][iso8601 accuracy]. Instea
 times).
 
 ISO 8601 time strings are converted to a millisecond timestamp, which the query then uses.
-
 
 ```sql
 SELECT weather, temperature FROM GeoCheckin WHERE time > '2009-11-01 03:15:00+07' AND time < '2009-11-01 03:45:00+07' AND region = 'South Atlantic' AND state = 'South Carolina'

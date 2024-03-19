@@ -3,6 +3,9 @@ title: "Riak CS PUT Object (Copy)"
 description: ""
 project: "riak_cs"
 project_version: "2.0.1"
+lastmod: 2015-05-30T00:00:00-00:00
+sitemap:
+  priority: 0.1
 toc: true
 aliases:
   - /riakcs/2.0.1/references/apis/storage/s3/RiakCS-PUT-Object-Copy/
@@ -24,7 +27,6 @@ not both.
 {{% /note %}}
 
 *Note*: You can configure an application to use the `100-continue` HTTP status code, which sends the Request Headers prior to sending the request body. Doing so prevents sending the message body when the message is rejected based on the headers, for example, due to authentication failure or redirect).
-
 
 ## Requests
 

@@ -9,15 +9,18 @@ menu:
     parent: "querying_data_riakts"
 project: "riak_ts"
 project_version: "1.5.2"
+lastmod: 2017-02-10T00:00:00-00:00
+sitemap:
+  priority: 0.3
 toc: true
 version_history:
   in: "1.5.2+"
 aliases:
-    - /riakts/1.5.2/using/querying/show-create-table
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/show-create-table"
+  - /riakts/1.5.2/using/querying/show-create-table
+
 ---
 
-[riak shell]: /riak/ts/1.5.2/using/riakshell
+[riak shell]: {{<baseurl>}}riak/ts/1.5.2/using/riakshell
 
 You can use the SHOW CREATE TABLE statement to obtain the SQL used to create your Riak TS table. This document will show you how to execute `SHOW CREATE TABLE` in TS.
 
@@ -29,7 +32,7 @@ For example:
 SHOW CREATE TABLE ExampleTable
 ```
 
-Returns: 
+Returns:
 
 ```sql
 -------------------------------------------------------------------------------
@@ -54,7 +57,6 @@ r = quorum,
 rw = quorum,
 w = quorum)
 ```
-
 
 You can use `SHOW CREATE TABLE` in [riak shell]:
 
@@ -81,7 +83,6 @@ r = quorum,
 rw = quorum,
 w = quorum)
 ```
-
 
 Using TS's supported clients, a successful `SHOW CREATE TABLE` will return a language-specific representation of the table's SQL.
 

@@ -9,6 +9,9 @@ menu:
     parent: "fast_track"
 project: "riak_cs"
 project_version: "2.0.0"
+lastmod: 2015-03-28T00:00:00-00:00
+sitemap:
+  priority: 0.1
 aliases:
   - /riakcs/2.0.0/cookbooks/tutorials/fast-track/Building-a-Virtual-Test-Environment/
   - /riak/cs/2.0.0/cookbooks/tutorials/fast-track/Building-a-Virtual-Test-Environment/
@@ -22,7 +25,7 @@ want to tune the OS or node/memory count, you'll have to edit the
 
 If you want to build a testing environment with more flexibility in
 configuration and durability across environment resets, there are
-instructions for [Building a Local Test Environment](/riak/cs/2.0.0/tutorials/fast-track/local-testing-environment).
+instructions for [Building a Local Test Environment]({{<baseurl>}}riak/cs/2.0.0/tutorials/fast-track/local-testing-environment).
 
 ## Configuration
 
@@ -87,7 +90,7 @@ Secret key: RF7WD0b3RjfMK2cTaPfLkpZGbPDaeALDtqHeMw==
 ## Next Steps
 
 Congratulations! You have deployed a virtualized environment of Riak CS.
-You are ready to progress to [Testing the Riak CS Installation](/riak/cs/2.0.0/tutorials/fast-track/test-installation).
+You are ready to progress to [Testing the Riak CS Installation]({{<baseurl>}}riak/cs/2.0.0/tutorials/fast-track/test-installation).
 
 ### Stopping Your Virtual Environment
 

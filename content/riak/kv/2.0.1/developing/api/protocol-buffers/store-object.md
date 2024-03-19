@@ -3,6 +3,9 @@ title: "PBC Store Object"
 description: ""
 project: "riak_kv"
 project_version: "2.0.1"
+lastmod: 2014-09-25T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.1:
     name: "Store Object"
@@ -16,11 +19,11 @@ aliases:
 ---
 
 Stores an object under the specified location, as determined by the
-intended [key](/riak/kv/2.0.1/learn/concepts/keys-and-objects), [bucket](/riak/kv/2.0.1/learn/concepts/buckets), and [bucket type](/riak/kv/2.0.1/developing/usage/bucket-types). A bucket must always be specified (via
+intended [key]({{<baseurl>}}riak/kv/2.0.1/learn/concepts/keys-and-objects), [bucket]({{<baseurl>}}riak/kv/2.0.1/learn/concepts/buckets), and [bucket type]({{<baseurl>}}riak/kv/2.0.1/developing/usage/bucket-types). A bucket must always be specified (via
 `bucket`), whereas key (`key`) and bucket type (`type`) are optional. If
 no key is specified, Riak will assign a random key to the object. If no
-[bucket type](/riak/kv/2.0.1/developing/usage/bucket-types) is assigned, Riak will assign
-`default`, which means that the [default bucket configuration](/riak/kv/2.0.1/configuring/reference/#default-bucket-properties) will be used.
+[bucket type]({{<baseurl>}}riak/kv/2.0.1/developing/usage/bucket-types) is assigned, Riak will assign
+`default`, which means that the [default bucket configuration]({{<baseurl>}}riak/kv/2.0.1/configuring/reference/#default-bucket-properties) will be used.
 
 #### Request
 
@@ -50,7 +53,7 @@ message RpbPutReq {
 Parameter | Description
 :---------|:-----------
 `bucket` | The name of the bucket, in bytes, in which the key/value is to reside
-`content` | The new or updated contented of the object. Uses the same `RpbContent` message returned as part of an `RpbGetResp` message, documented in [PBC Fetch Object](/riak/kv/2.0.1/developing/api/protocol-buffers/fetch-object)
+`content` | The new or updated contented of the object. Uses the same `RpbContent` message returned as part of an `RpbGetResp` message, documented in [PBC Fetch Object]({{<baseurl>}}riak/kv/2.0.1/developing/api/protocol-buffers/fetch-object)
 
 #### Optional Parameters
 
@@ -66,7 +69,7 @@ a special value denoting `one` (`4294967295-1`), `quorum`
 
 Parameter | Description
 :---------|:-----------
-`key` | The key to create/update. If not specified, Riak will generate a random key and return that key as part of the response to that request. 
+`key` | The key to create/update. If not specified, Riak will generate a random key and return that key as part of the response to that request.
 `vclock` | Opaque vector clock provided by an earlier <code><a href="../../../../learn/concepts/causal-context">RpbGetResp</a></code> message. Omit if this is a new key or if you deliberately want to create a sibling.
 `w` | Write quorum, i.e. how many replicas to write to before returning a successful response
 `dw` | Durable write quorum, i.e. how many replicas to commit to durable storage before returning a successful response
@@ -93,7 +96,7 @@ message RpbPutResp {
 
 If `return_body` is set to `true` on the PUT request, the `RpbPutResp`
 will contain the current object after the PUT completes, in `contents`,
-as well as the object's [causal context](/riak/kv/2.0.1/learn/concepts/causal-context), in the `vclock`
+as well as the object's [causal context]({{<baseurl>}}riak/kv/2.0.1/learn/concepts/causal-context), in the `vclock`
 field. The `key` will be sent only if the server generated a random key
 for the object.
 

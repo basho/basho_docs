@@ -9,17 +9,20 @@ menu:
     pre: install
 project: "riak_ts"
 project_version: "1.5.2"
+lastmod: 2017-02-10T00:00:00-00:00
+sitemap:
+  priority: 0.3
 toc: true
 version_history:
   in: "1.5.2+"
 aliases:
-    - /riakts/1.5.2/setup/
-canonical_link: "https://docs.basho.com/riak/ts/latest/setup/"
+  - /riakts/1.5.2/setup/
+
 ---
 
-[install]: /riak/ts/1.5.2/setup/installing
-[upgrade]: /riak/ts/1.5.2/setup/upgrading
-[downgrade]: /riak/ts/1.5.2/setup/downgrading
+[install]: {{<baseurl>}}riak/ts/1.5.2/setup/installing
+[upgrade]: {{<baseurl>}}riak/ts/1.5.2/setup/upgrading
+[downgrade]: {{<baseurl>}}riak/ts/1.5.2/setup/downgrading
 
 ## In This Section
 

@@ -9,11 +9,13 @@ menu:
     pre: database
 project: "riak_ts"
 project_version: "1.0.0"
+lastmod: 2015-12-15T00:00:00-00:00
+sitemap:
+  priority: 0.1
 toc: true
 aliases:
     - /riakts/1.0.0/using/
 ---
-
 
 [activating]: creating-activating/
 [configuring]: configuring/
@@ -21,7 +23,6 @@ aliases:
 [planning]: planning/
 [querying]: querying/
 [writing]: writingdata/
-
 
 Now that you've downloaded the package from ZenDesk and [installed][installing] Riak TS, there's a recommended path for setting up and using it:
 

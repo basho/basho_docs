@@ -9,6 +9,9 @@ menu:
     parent: "api_s3"
 project: "riak_cs"
 project_version: "2.0.1"
+lastmod: 2015-05-30T00:00:00-00:00
+sitemap:
+  priority: 0.1
 aliases:
   - /riakcs/2.0.1/cookbooks/configuration/Configuring-Transmit/
   - /riak/cs/2.0.1/cookbooks/configuration/Configuring-Transmit/
@@ -38,11 +41,11 @@ dialog as follows:
 
 Defining a connection looks like this:
 
-![Trasmit screenshot](/images/riak_cs_transmit0.jpg)
+![Trasmit screenshot]({{<baseurl>}}images/riak_cs_transmit0.jpg)
 
 > **Note**
 >
-> Transmit expects a secure connection, so ensure that your Riak CS proxy server is configured with SSL support. For information on configuring a software solution like HAProxy with SSL for use with Riak CS, see [Load Balancing and Proxy Configuration](/riak/cs/2.0.1/cookbooks/configuration/load-balancing-proxy).
+> Transmit expects a secure connection, so ensure that your Riak CS proxy server is configured with SSL support. For information on configuring a software solution like HAProxy with SSL for use with Riak CS, see [Load Balancing and Proxy Configuration]({{<baseurl>}}riak/cs/2.0.1/cookbooks/configuration/load-balancing-proxy).
 
 Finally, test the connection to Riak CS by clicking **Connect**.
 
@@ -56,11 +59,11 @@ After successfully connecting to Riak CS, verify that you can create a bucket.
 
 The new bucket creation dialog looks like this:
 
-![Trasmit screenshot](/images/riak_cs_transmit1.jpg)
+![Trasmit screenshot]({{<baseurl>}}images/riak_cs_transmit1.jpg)
 
 The newly created bucket is listed in the right hand pane of the Transmit interface:
 
-![Trasmit screenshot](/images/riak_cs_transmit2.jpg)
+![Trasmit screenshot]({{<baseurl>}}images/riak_cs_transmit2.jpg)
 
 ## Copy Files
 
@@ -74,7 +77,7 @@ copying of the files to the bucket.
 
 After copying, the files will appear in the bucket:
 
-![Trasmit screenshot](/images/riak_cs_transmit3.jpg)
+![Trasmit screenshot]({{<baseurl>}}images/riak_cs_transmit3.jpg)
 
 You have now successfully configured a Transmit connection to Riak CS and
 verified basic file copying capabilities.

@@ -9,15 +9,19 @@ menu:
     parent: "select_riakts"
 project: "riak_ts"
 project_version: "1.5.2"
+lastmod: 2017-02-10T00:00:00-00:00
+sitemap:
+  priority: 0.3
 toc: true
 version_history:
   in: "1.5.2+"
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/select/limit/"
+aliases:
+
 ---
 
-[select]: /riak/ts/1.5.2/using/querying/select
-[query guidelines]: /riak/ts/1.5.2/using/querying/guidelines/
-[configuring]: /riak/ts/1.5.2/configuring/riakconf/#maximum-returned-data-size
+[select]: {{<baseurl>}}riak/ts/1.5.2/using/querying/select
+[query guidelines]: {{<baseurl>}}riak/ts/1.5.2/using/querying/guidelines/
+[configuring]: {{<baseurl>}}riak/ts/1.5.2/configuring/riakconf/#maximum-returned-data-size
 
 The LIMIT statement is used with [`SELECT`][select] to return a limited number of results.
 
@@ -26,11 +30,10 @@ This document shows how to run various queries using `LIMIT`. See the [guideline
 {{% note title="A Note on Latency" %}}
 `LIMIT` uses on-disk query buffer to prevent overload, which adds some overhead and increases the query latency.
 
-You may adjust various parameters in [riak.conf](/riak/ts/1.5.2/configuring/riakconf/) depending on how much memory your riak nodes will have, including `max_running_fsms`, `max_quanta_span`, `max_concurrent_queries`. It is also worth noting that `max_returned_data_size` is calculated differently for LIMIT statements; you can read more about that [here](/riak/ts/1.5.2/configuring/riakconf/#maximum-returned-data-size). All of these settings impact the maximum size of data you can retrieve at one time, and it is important to understand your environmental limitations or you run the risk of an out-of-memory condition.
+You may adjust various parameters in [riak.conf]({{<baseurl>}}riak/ts/1.5.2/configuring/riakconf/) depending on how much memory your riak nodes will have, including `max_running_fsms`, `max_quanta_span`, `max_concurrent_queries`. It is also worth noting that `max_returned_data_size` is calculated differently for LIMIT statements; you can read more about that [here]({{<baseurl>}}riak/ts/1.5.2/configuring/riakconf/#maximum-returned-data-size). All of these settings impact the maximum size of data you can retrieve at one time, and it is important to understand your environmental limitations or you run the risk of an out-of-memory condition.
 
 However, the most effective means of speeding up your `LIMIT` queries is to place the query buffer directory (`timeseries_query_buffers_root_path`) on fast storage or in memory-backed /tmp directory.
 {{% /note %}}
-
 
 ## Overview
 
@@ -47,7 +50,6 @@ The OFFSET modifier can be used with `LIMIT` to skip a specified number of resul
 {{% note title="WARNING" %}}
 Before you run `SELECT` you must ensure the node issuing the query has adequate memory to receive the response. If the returning rows do not fit into the memory of the requesting node, the node is likely to fail.
 {{% /note %}}
-
 
 ## Examples
 

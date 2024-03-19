@@ -53,6 +53,34 @@
   }
 }
 
+// 2022-05-27: Added for "other" button used to show other release series that area hidden
+.other__btn {
+  border : none;                        /* 1 */
+
+  @include rounded-corners(0.25em);
+  width            : 100%;
+  line-height      : 1;                 /* 2 */
+  padding          : 0.5em 0.5em;       /* 3 */
+
+  @extend    %sans-bold;
+  font-size  : 100%;
+  color      : $brand-primary-light;
+  background : $brand-gray;
+
+
+  transition : color      500ms ease,
+               background 500ms ease;
+
+  @include on-event {
+    color      : $light-font-em;
+    background : $brand-primary-lightest;
+  }
+
+  @include when-inside('.js') {
+    cursor : pointer;
+  }
+}
+
 /**
  * Selector; Downward Arrow
  * An example of the vertical-arrow mixin; downward-facing orange arrow used to
@@ -198,6 +226,11 @@
     padding-left  : 0;
   }
 }
+
+.release-is-archived-and-hidden {
+  display: none !important;
+}
+
 .selector-list__scroll-box {
   height       : 100%;       /* 2 */
 
@@ -315,7 +348,15 @@
 /**
  * Selector list Elements -- Archived and Disabled Colors
  */
-.selector-list__element--archived {
+ .selector-list__element--archived {
+  color      : $version-selector-text-dark;
+  background : $version-color-inactive;
+  @include on-event {
+    color      : $version-selector-text;
+    background : $version-color-inactive-dark;
+  }
+}
+.selector-list__element--other {
   color      : $version-selector-text-dark;
   background : $version-color-inactive;
   @include on-event {

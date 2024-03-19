@@ -9,6 +9,9 @@ menu:
     parent: "develop"
 project: "riak_ts"
 project_version: "1.3.0"
+lastmod: 2016-05-05T00:00:00-00:00
+sitemap:
+  priority: 0.1
 toc: true
 version_history:
   in: "1.3.0+"
@@ -16,9 +19,7 @@ aliases:
     - /riakts/1.3.0/developing/http/
 ---
 
-
 This document will cover the API calls for accessing Riak TS data over HTTP.
-
 
 ## Overview
 
@@ -47,7 +48,6 @@ CREATE TABLE GeoCheckin
 |query  | /ts/v1/query --data "»Query«"  | POST | execute a query |
 |list_keys | /ts/v1/tables/GeoCheckin/list_keys  | GET | streaming list keys     |
 
-
 ## Percent-encoding
 
 All keys need to be implemented in the query string using percent-encoding (or URL encoding), which can be seen in the examples above for the `get` and `delete` operations. Failing to do so will result in a `400 - Bad Request` response. Percent-encoding variants where a space character is replaced with a `+` will work as expected, but it is recommended that modern variants are used where spaces are encoded as `%20`.
@@ -71,7 +71,6 @@ Streaming `list_keys` returns all the URLs as plain text separated by a new line
 The `query` to be executed should be sent as a plain text string in the body of the request.
 
 The value of `»Server«` is the IP address of your system and the HTTP interface port, separated by a colon.  This value is the `listener.http.internal` setting in the `riak.conf` file.
-
 
 ## Returning Results
 

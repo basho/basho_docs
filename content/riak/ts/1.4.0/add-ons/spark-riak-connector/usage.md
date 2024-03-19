@@ -4,6 +4,9 @@ title: "Usage"
 description: ""
 project: "riak_ts"
 project_version: "1.4.0"
+lastmod: 2016-08-24T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_ts-1.4.0:
     name: "Usage"
@@ -11,7 +14,6 @@ menu:
     weight: 104
     parent: "addons_spark_riak"
 toc: true
-canonical_link: "https://docs.basho.com/riak/ts/latest/add-ons/spark-riak-connector/usage"
 ---
 
 This section will walk you through setting up your application for development with the Spark-Riak connector.

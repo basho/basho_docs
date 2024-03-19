@@ -9,16 +9,18 @@ menu:
     parent: "setup"
 project: "riak_ts"
 project_version: "1.4.0"
+lastmod: 2016-08-24T00:00:00-00:00
+sitemap:
+  priority: 0.1
 toc: true
 version_history:
   in: "1.4.0+"
 aliases:
     - /riakts/1.4.0/setup/downgrading/
     - /riakts/1.4.0/downgrading/
-canonical_link: "https://docs.basho.com/riak/ts/latest/setup/downgrading/"
 ---
 
-[ts upgrade]: /riak/ts/1.4.0/setup/upgrading
+[ts upgrade]: {{<baseurl>}}riak/ts/1.4.0/setup/upgrading
 [change riakconf]: #change-riak-conf-before-downgrade
 
 Downgrades of Riak TS are tested and supported for two feature release

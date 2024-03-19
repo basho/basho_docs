@@ -4,6 +4,9 @@ title: "Architecture"
 description: ""
 project: "riak_kv"
 project_version: "2.2.0"
+lastmod: 2016-11-12T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.0:
     name: "Architecture"
@@ -17,8 +20,8 @@ aliases:
   - /riak/kv/2.2.0/ops/mdc/v3/architecture
 ---
 
-[glossary vnode]: /riak/kv/2.2.0/learn/glossary/#vnode
-[concept clusters]: /riak/kv/2.2.0/learn/concepts/clusters
+[glossary vnode]: {{<baseurl>}}riak/kv/2.2.0/learn/glossary/#vnode
+[concept clusters]: {{<baseurl>}}riak/kv/2.2.0/learn/concepts/clusters
 
 ## How Version 3 Replication Works
 
@@ -100,18 +103,18 @@ Before a source cluster can begin pushing realtime updates to a sink,
 the following commands must be issued:
 
 1. `riak-repl realtime enable <sink_cluster>`
-    
+
     After this command, the realtime queues (one for each Riak node) are
     populated with updates to the source cluster, ready to be pushed to
     the sink.
 
 2. `riak-repl realtime start <sink_cluster>`
-    
+
     This instructs the Riak connection manager to contact the sink
     cluster.
 
     <br />
-    ![MDC fullsync](/images/MDC-v3-realtime1.png)
+    ![MDC fullsync]({{<baseurl>}}images/MDC-v3-realtime1.png)
     <br />
 
     At this point realtime replication commences.
@@ -122,7 +125,7 @@ and replication begins.</li>
 </ol>
 
 <br />
-![MDC fullsync](/images/MDC-v3-realtime2.png)
+![MDC fullsync]({{<baseurl>}}images/MDC-v3-realtime2.png)
 <br />
 
 ### Realtime queueing and synchronization
@@ -136,7 +139,7 @@ store data updates for synchronization.
 </ol>
 
 <br />
-![MDC fullsync](/images/MDC-v3-realtime3.png)
+![MDC fullsync]({{<baseurl>}}images/MDC-v3-realtime3.png)
 <br />
 
 <ol start="6">
@@ -145,7 +148,7 @@ store data updates for synchronization.
 </ol>
 
 <br />
-![MDC fullsync](/images/MDC-v3-realtime4.png)
+![MDC fullsync]({{<baseurl>}}images/MDC-v3-realtime4.png)
 <br />
 
 <ol start="8">
@@ -154,7 +157,7 @@ nodes.</li>
 </ol>
 
 <br />
-![MDC fullsync](/images/MDC-v3-realtime5.png)
+![MDC fullsync]({{<baseurl>}}images/MDC-v3-realtime5.png)
 <br />
 
 <ol start="9">
@@ -163,7 +166,7 @@ acknowledged and the object removed from the realtime queue.</li>
 </ol>
 
 <br />
-![MDC fullsync](/images/MDC-v3-realtime6.png)
+![MDC fullsync]({{<baseurl>}}images/MDC-v3-realtime6.png)
 <br />
 
 ## Restrictions
@@ -176,7 +179,3 @@ replication, every bucket's `n_val` must be the same in both the
 source and sink cluster.
 
 
-<script type="text/javascript">
-document.write(unescape("%3Cscript src='//munchkin.marketo.net/munchkin.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script>Munchkin.init('721-DGT-611');</script>

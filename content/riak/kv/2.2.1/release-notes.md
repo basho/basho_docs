@@ -3,6 +3,9 @@ title: "Riak KV 2.2.1 Release Notes"
 description: ""
 project: "riak_kv"
 project_version: "2.2.1"
+lastmod: 2017-03-08T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.1:
     name: "Release Notes"
@@ -17,11 +20,9 @@ aliases:
   - /riak/kv/2.2.1/introduction
 ---
 
-
 Released March 8, 2017.
 
 This is a bugfix release built on Riak KV 2.2.0. It addresses an issue specific to Riak KV 2.2, where a reboot of the cluster might be required to resume the upgrade of AAE trees when  nodes are joined to the cluster during a hashtree upgrade. This release also continues our work to resolve technical debt and some long-standing issues.
-
 
 ## Bugs Fixed
 
@@ -35,7 +36,6 @@ This is a bugfix release built on Riak KV 2.2.0. It addresses an issue specific 
 * [[riak_core PR 887](https://github.com/basho/riak_core/pull/887)] If `riak_core_vnode_master:sync_spawn_command` was called, it would send a `gen_event all-state` event to the proxy for forwarding. However, in `handle_overload`, the code only had case clauses for '$gen_event' and not '$gen_all_state_event', meaning the event would be passed to `handle_overload_info` instead of `handle_overload_reques` which would skip the vnode callback code that sends a response. Then certain operations would hang during overload since the caller to `sync_spawn_command` would never be sent a response. A clause for `$gen_all_state_event` has been added to fix potential hang due to vnode proxy overload bug.
 * [[riak_repl PR 766](https://github.com/basho/riak_repl/pull/766)] Status output is expected to be a list. When the repl leader is undefined the status will now match the regular format: a list.
 * [[riak_kv PR 1527](https://github.com/basho/riak_kv/pull/1527)] A race condition was occurring where a `gen_fsm` timeout event was not reliably sent, even when the timeout was set to zero, and another message or event could preempt or unset the timeout. To fix this, a timeout event is manually sent using `gen_fsm:send_event`.
-
 
 ## Known Issues
 
@@ -59,13 +59,10 @@ Please edit __/etc/riak/advanced.config__ and add the following on all Riak KV 2
 
 Once all of the Riak KV clusters have been upgraded to version 2.2.0 or greater, the workaround can be removed.
 
-
-
 ## Other Changes
 
 * Debug logging for ring metadata merges and ring membership has been added. There have been a few issues where rapidly updating the ring results in suboptimal behavior, and it has been difficult to debug due to the lack of logging in the riak_core_ring module. This logging can be enabled as needed. [[riak_core PR 901](https://github.com/basho/riak_core/pull/901)]
 * riak_kv has been changed such that updating an object also sends the old object being replaced. From that old object, we can extract any siblings and generate associated document ids to delete in Solr. [[riak_kv PR 1520](https://github.com/basho/riak_kv/pull/1520)]
-
 
 ## Upgraded components
 
@@ -86,13 +83,12 @@ Once all of the Riak KV clusters have been upgraded to version 2.2.0 or greater,
 * riak_pipe has been upgraded to version 2.1.5
 * yokozuna has been upgraded to version 2.1.9
 
-
 ## Deprecation Notification
 
-* [Link Walking](/riak/kv/2.2.1/developing/api/http/link-walking/) is deprecated and will not work if security is enabled.
-* Key Filters are deprecated; we strongly discourage key listing in production due to the overhead involved, so it's better to maintain key indexes as values in Riak (see our [set data type](/riak/kv/2.2.1/developing/data-types/sets/) as a useful tool for such indexes).
-* JavaScript MapReduce is deprecated; we have expanded our [Erlang MapReduce](/riak/kv/2.2.1/developing/app-guide/advanced-mapreduce/#mapreduce) documentation to assist with the transition.
-* Riak search 1.0 is deprecated in favor of our Solr-based [Riak search 2.0](/riak/kv/2.2.1/developing/usage/search/). Version 1.0 will not work if security is enabled.
+* [Link Walking]({{<baseurl>}}riak/kv/2.2.1/developing/api/http/link-walking/) is deprecated and will not work if security is enabled.
+* Key Filters are deprecated; we strongly discourage key listing in production due to the overhead involved, so it's better to maintain key indexes as values in Riak (see our [set data type]({{<baseurl>}}riak/kv/2.2.1/developing/data-types/sets/) as a useful tool for such indexes).
+* JavaScript MapReduce is deprecated; we have expanded our [Erlang MapReduce]({{<baseurl>}}riak/kv/2.2.1/developing/app-guide/advanced-mapreduce/#mapreduce) documentation to assist with the transition.
+* Riak search 1.0 is deprecated in favor of our Solr-based [Riak search 2.0]({{<baseurl>}}riak/kv/2.2.1/developing/usage/search/). Version 1.0 will not work if security is enabled.
 * v2 replication (a component of Riak KV Enterprise) is superseded by v3 and will be removed in the future.
 * Legacy vnode routing (an early mechanism for managing requests between servers) is deprecated. If `vnode_routing` is set to `legacy` via Riak KV's capability system, it should be removed to prevent upgrade problems in the future.
-* Some users in the past have used Riak's internal API (e.g. `riak:local_client/1`); this API may change at any time, so we strongly recommend using our [Erlang client library](http://github.com/basho/riak-erlang-client/) (or [one of the other libraries](/riak/kv/2.2.1/developing/client-libraries/) we support) instead.
+* Some users in the past have used Riak's internal API (e.g. `riak:local_client/1`); this API may change at any time, so we strongly recommend using our [Erlang client library](http://github.com/basho/riak-erlang-client/) (or [one of the other libraries]({{<baseurl>}}riak/kv/2.2.1/developing/client-libraries/) we support) instead.

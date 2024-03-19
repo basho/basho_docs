@@ -4,6 +4,9 @@ title: "Data Types"
 description: ""
 project: "riak_kv"
 project_version: "2.0.9"
+lastmod: 2017-03-15T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.9:
     name: "Data Types"
@@ -17,20 +20,20 @@ aliases:
 ---
 
 [crdts pdf]: http://hal.upmc.fr/docs/00/55/55/88/PDF/techreport.pdf
-[data types converg]: /riak/kv/2.0.9/learn/concepts/crdts/#convergence
+[data types converg]: {{<baseurl>}}riak/kv/2.0.9/learn/concepts/crdts/#convergence
 [crdts reading list]: http://christophermeiklejohn.com/crdt/2014/07/22/readings-in-crdts.html
-[data types impl]: /riak/kv/2.0.9/learn/concepts/crdts/#implementation
-[concept causal context dvv]: /riak/kv/2.0.9/learn/concepts/causal-context/#dotted-version-vectors
-[concept causal context sib]: /riak/kv/2.0.9/learn/concepts/causal-context/#siblings
-[concept causal context vc]: /riak/kv/2.0.9/learn/concepts/causal-context/#vector-clocks
-[concept eventual consistency]: /riak/kv/2.0.9/learn/concepts/eventual-consistency
-[concept strong consistency]: /riak/kv/2.0.9/learn/concepts/strong-consistency
-[dev data types]: /riak/kv/2.0.9/developing/data-types
+[data types impl]: {{<baseurl>}}riak/kv/2.0.9/learn/concepts/crdts/#implementation
+[concept causal context dvv]: {{<baseurl>}}riak/kv/2.0.9/learn/concepts/causal-context/#dotted-version-vectors
+[concept causal context sib]: {{<baseurl>}}riak/kv/2.0.9/learn/concepts/causal-context/#siblings
+[concept causal context vc]: {{<baseurl>}}riak/kv/2.0.9/learn/concepts/causal-context/#vector-clocks
+[concept eventual consistency]: {{<baseurl>}}riak/kv/2.0.9/learn/concepts/eventual-consistency
+[concept strong consistency]: {{<baseurl>}}riak/kv/2.0.9/learn/concepts/strong-consistency
+[dev data types]: {{<baseurl>}}riak/kv/2.0.9/developing/data-types
 [riak_dt]: https://github.com/basho/riak_dt
-[dev data types context]: /riak/kv/2.1.4/developing/data-types/#data-types-and-context
-[glossary node]: /riak/kv/2.0.9/learn/glossary/#node
-[glossary vnode]: /riak/kv/2.0.9/learn/glossary/#vnode
-[usage conflict resolution]: /riak/kv/2.0.9/developing/usage/conflict-resolution
+[dev data types context]: {{<baseurl>}}riak/kv/2.0.9/developing/data-types/#data-types-and-context
+[glossary node]: {{<baseurl>}}riak/kv/2.0.9/learn/glossary/#node
+[glossary vnode]: {{<baseurl>}}riak/kv/2.0.9/learn/glossary/#vnode
+[usage conflict resolution]: {{<baseurl>}}riak/kv/2.0.9/developing/usage/conflict-resolution
 
 Riak Data Types are convergent replicated data types (CRDTs), inspired by the work of [Marc Shapiro, Nuno Preguiça, Carlos Baquero, and Marek Zawirski][crdts pdf]. Riak KV supports the following eventually-convergent data types, described in later sections:
 
@@ -48,12 +51,11 @@ performed on key/value pairs, data types enable you to perform
 operations such as removing a register from a map, telling a counter to
 increment itself by 5, or enabling a flag that was previously disabled.
 
-It's important to note that Riak Data Types are operations-based from the standpoint of connecting clients. Like CRDTs, the [convergence logic][data types converg] is state-based behind the scenes. 
+It's important to note that Riak Data Types are operations-based from the standpoint of connecting clients. Like CRDTs, the [convergence logic][data types converg] is state-based behind the scenes.
 
 Riak Data Types enable applications to use CRDTs through a simple interface, without being exposed to the complex state-based logic underneath. More on Data Types and state can be found in the section on [implementation][data types impl] below.
 
 For more articles on CRDTs, check out this [reading list][crdts reading list].
-
 
 ## Counters
 
@@ -63,14 +65,13 @@ Counters are useful when a count is needed, for example:
 
 - Counting the number of people following someone on Twitter
 - Counting the amount of likes on a Facebook post
-- Counting the points scored by a player in a game 
+- Counting the points scored by a player in a game
 
 If you require unique, ordered IDs counters should not be used because uniqueness cannot be guaranteed.
 
 ### Operations
 
 Counters are subject to two operations: increment and decrement.
-
 
 ## Flags
 
@@ -88,7 +89,6 @@ Flags support only two operations: `enable` and `disable`. Flags can be
 added to or removed from a map, but those operations are performed on
 the map and not on the flag directly.
 
-
 ## HyperLogLogs
 
 HyperLogLogs (HLLs) are a data type used to count unique elements within a data set or stream.
@@ -101,7 +101,6 @@ For example, hyperloglogs can be used for:
 ### Operations
 
 HyperLogLogs support two operations: adding elements and retrieving the count.
-
 
 ## Maps
 
@@ -132,7 +131,6 @@ You can perform two types of operations on maps:
    Those operations behave just like the operations specific to that
    Data Type.
 
-
 ## Registers
 
 Registers are essentially named binaries (like strings). Any binary
@@ -147,7 +145,6 @@ Some examples of using registers:
 ### Operations
 
 Registers can only have the binaries stored within them changed. They can be added to and removed from maps, but those operations take place on the map in which the register is nested, and not on the register itself.
-
 
 ## Sets
 
@@ -166,7 +163,6 @@ Some examples of using sets:
 
 Sets are subject to four basic operations: add an element, remove an
 element, add multiple elements, or remove multiple elements.
-
 
 ## Advantages and Disadvantages of Data Types
 
@@ -188,7 +184,6 @@ allow you to produce your own convergence logic. If your use case
 demands that you be able to create your own deterministic merge
 functions, then Riak Data Types might not be a good fit.
 
-
 ## Implementation
 
 Conflicts between replicas are inevitable in a distributed system like
@@ -199,7 +194,6 @@ possible that the value of `my_map` will be different in nodes A and B.
 
 Without using data types, that conflict must be resolved using
 timestamps, [vector clocks][concept causal context vc], [dotted version vectors][concept causal context dvv], or some other means. With data types, conflicts are resolved by Riak KV itself, using a subsystem called [`riak_dt`][riak_dt].
-
 
 ## Convergence
 

@@ -4,6 +4,9 @@ title: "Riak KV From Source"
 description: ""
 project: "riak_kv"
 project_version: "2.1.4"
+lastmod: 2016-04-07T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.1.4:
     name: "Installing From Source"
@@ -18,13 +21,13 @@ aliases:
   - /riak/kv/2.1.4/installing/source/
 ---
 
-[install source erlang]: /riak/kv/2.1.4/setup/installing/source/erlang
-[downloads]: /riak/kv/2.1.4/downloads/
-[install debian & ubuntu#source]: /riak/kv/2.1.4/setup/installing/debian-ubuntu/#installing-from-source
-[install freebsd#source]: /riak/kv/2.1.4/setup/installing/freebsd/#installing-from-source
-[install mac osx#source]: /riak/kv/2.1.4/setup/installing/mac-osx/#installing-from-source
-[install rhel & centos#source]: /riak/kv/2.1.4/setup/installing/rhel-centos/#installing-from-source
-[install verify]: /riak/kv/2.1.4/setup/installing/verify
+[install source erlang]: {{<baseurl>}}riak/kv/2.1.4/setup/installing/source/erlang
+[downloads]: {{<baseurl>}}riak/kv/2.1.4/downloads/
+[install debian & ubuntu#source]: {{<baseurl>}}riak/kv/2.1.4/setup/installing/debian-ubuntu/#installing-from-source
+[install freebsd#source]: {{<baseurl>}}riak/kv/2.1.4/setup/installing/freebsd/#installing-from-source
+[install mac osx#source]: {{<baseurl>}}riak/kv/2.1.4/setup/installing/mac-osx/#installing-from-source
+[install rhel & centos#source]: {{<baseurl>}}riak/kv/2.1.4/setup/installing/rhel-centos/#installing-from-source
+[install verify]: {{<baseurl>}}riak/kv/2.1.4/setup/installing/verify
 
 Riak should be installed from source if you are building on a platform
 for which a package does not exist or if you are interested in
@@ -83,7 +86,7 @@ make rel
 ## Platform-Specific Instructions
 
 For instructions about specific platforms, see:
-  
+
   * [Debian & Ubuntu][install debian & ubuntu#source]
   * [FreeBSD][install freebsd#source]
   * [Mac OS X][install mac osx#source]

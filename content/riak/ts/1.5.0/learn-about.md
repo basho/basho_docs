@@ -9,17 +9,18 @@ menu:
     pre: beaker
 project: "riak_ts"
 project_version: "1.5.0"
+lastmod: 2016-12-20T00:00:00-00:00
+sitemap:
+  priority: 0.2
 toc: true
 aliases:
     - /riakts/1.5.0/learn-about/learn-about/
-canonical_link: "https://docs.basho.com/riak/ts/latest/learn-about"
 ---
 
 [table arch]: tablearchitecture/
 [bestpractices]: bestpractices/
 [sqlriakts]: sqlriakts/
 [timestamps]: timestamps/
-
 
 Welcome to Learn About Riak TS! In this section you will find the following:
 

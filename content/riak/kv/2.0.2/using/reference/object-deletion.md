@@ -3,6 +3,9 @@ title: "Object Deletion Reference"
 description: ""
 project: "riak_kv"
 project_version: "2.0.2"
+lastmod: 2014-10-18T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.2:
     name: "Object Deletion"
@@ -38,7 +41,7 @@ concretely using the following example:
 * The object has been marked as deleted on nodes A and B, but it still
   lives on node C
 * A client attempts to read the object, Riak senses that there are
-  divergent replicas and initiates a repair process (either [read repair](../../../learn/concepts/active-anti-entropy/#read-repair) or [active anti-entropy](../../../learn/concepts/active-anti-entropy/),
+  divergent replicas and initiates a repair process (either [read repair](../../../learn/concepts/active-anti-entropy/#read-repair-vs-active-anti-entropy) or [active anti-entropy](../../../learn/concepts/active-anti-entropy/),
   depending on configuration)
 
 At this point, Riak needs to make a decision about what to do. Should
@@ -54,7 +57,7 @@ handle deletion. More on configuration can be found in the
 
 Riak addresses the problem of deletion in distributed systems by marking
 deleted objects with a so-called **tombstone**. This means that an
-`X-Riak-Deleted` metadata key is added to the object and given the value 
+`X-Riak-Deleted` metadata key is added to the object and given the value
 `true`, while the object itself is set to an empty Erlang object,
 i.e. `<<>>`.
 

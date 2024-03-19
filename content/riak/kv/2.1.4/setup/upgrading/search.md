@@ -3,6 +3,9 @@ title: "Upgrading Search from 1.x to 2.x"
 description: ""
 project: "riak_kv"
 project_version: "2.1.4"
+lastmod: 2016-04-07T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.1.4:
     name: "Upgrading Search 1.x to 2.x"
@@ -11,7 +14,9 @@ menu:
     parent: "upgrading"
 toc: true
 version_history:
-  in: "2.0.0-2.1.999"
+  in: "2.0.0-2.99.999"
+version_history:
+  in: "2.0.0-2.9999.9999"
 aliases:
   - /riak/2.1.4/ops/advanced/upgrading-search-2
   - /riak/kv/2.1.4/ops/advanced/upgrading-search-2
@@ -74,7 +79,7 @@ algorithm is bad at getting rid of large index files.
 
 ## Steps to Upgrading
 
-1.  First, you'll perform a normal [rolling upgrade](../cluster).
+1. First, you'll perform a normal [rolling upgrade](../cluster).
     As you upgrade, enable `yokozuna` (the new Riak Search library) on
     each node. If you're still using `app.config` it's called `yokozuna`.
     If you've chosen to upgrade to the new `riak.conf` config option, it's
@@ -273,4 +278,4 @@ search property is set to false.
 
 11. Finally, delete the merge index directories to reclaim disk space.
 
-For any questions reach out to the [Riak community](/community). Preferably, ask your questions up front rather than during the middle of a migration.
+For any questions reach out to the [Riak community]({{<baseurl>}}community). Preferably, ask your questions up front rather than during the middle of a migration.

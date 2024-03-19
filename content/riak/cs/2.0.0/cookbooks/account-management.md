@@ -9,6 +9,9 @@ menu:
     parent: "http_admin"
 project: "riak_cs"
 project_version: "2.0.0"
+lastmod: 2015-03-28T00:00:00-00:00
+sitemap:
+  priority: 0.1
 aliases:
   - /riakcs/2.0.0/cookbooks/Account-Management/
 ---
@@ -210,7 +213,7 @@ users.
 
 A sample URL for a user listing request looks like this:
 
-```
+```plaintext
 GET http://data.example.com/riak-cs/users -
 ```
 

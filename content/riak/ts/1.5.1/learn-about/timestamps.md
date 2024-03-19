@@ -10,10 +10,12 @@ menu:
     parent: "about"
 project: "riak_ts"
 project_version: "1.5.1"
+lastmod: 2017-01-21T00:00:00-00:00
+sitemap:
+  priority: 0.2
 toc: true
 aliases:
     - /riakts/1.5.1/learn-about/timestamps/
-canonical_link: "https://docs.basho.com/riak/ts/latest/learn-about/timestamps"
 ---
 
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
@@ -67,7 +69,7 @@ incrementing the original reduced accuracy representation before
 expansion.
 
 So, `time > '2015'` becomes in effect, `time >= '2016-01-01
-00:00:00'`, and 
+00:00:00'`, and
 
 `time <= '2003-05-01T05:10'` becomes `time < '2003-05-01T05:11:00'`.
 

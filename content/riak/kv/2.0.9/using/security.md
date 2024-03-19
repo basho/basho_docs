@@ -3,6 +3,9 @@ title: "Security & Firewalls"
 description: ""
 project: "riak_kv"
 project_version: "2.0.9"
+lastmod: 2017-03-15T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.9:
     name: "Security"
@@ -15,14 +18,14 @@ aliases:
   - /riak/kv/2.0.9/ops/advanced/security
 ---
 
-[config reference search]: /riak/kv/2.1.4/configuring/reference/#search
-[config search enabling]: /riak/kv/2.1.4/configuring/search/#enabling-riak-search
-[config v3 ssl]: /riak/kv/2.1.4/configuring/v3-multi-datacenter/ssl
+[config reference search]: {{<baseurl>}}riak/kv/2.0.9/configuring/reference/#search
+[config search enabling]: {{<baseurl>}}riak/kv/2.0.9/configuring/search/#enabling-riak-search
+[config v3 ssl]: {{<baseurl>}}riak/kv/2.0.9/configuring/v3-multi-datacenter/ssl
 [JMX]: http://www.oracle.com/technetwork/java/javase/tech/javamanagement-140525.html
-[security basics]: /riak/kv/2.1.4/using/security/basics
-[security managing]: /riak/kv/2.1.4/using/security/managing-sources/
+[security basics]: {{<baseurl>}}riak/kv/2.0.9/using/security/basics
+[security managing]: {{<baseurl>}}riak/kv/2.0.9/using/security/managing-sources/
 [Solr]: http://lucene.apache.org/solr/
-[usage search]: /riak/kv/2.1.4/developing/usage/search
+[usage search]: {{<baseurl>}}riak/kv/2.0.9/developing/usage/search
 
 > **Internal security**
 >
@@ -156,10 +159,9 @@ it can be an attractive bullet-point in a database comparison chart,
 you're usually better off finely controlling data access through your
 application or a service layer.
 
-### Notifying Basho
+### Notifying Riak
 
-If you discover a potential security issue, please email us at
-**security@basho.com**, and allow us 48 hours to reply.
+If you discover a potential security issue, please please **[email]({{<securitycontactusemail>}})** us, and allow us 48 hours to reply.
 
 We prefer to be contacted first, rather than searching for blog posts
 over the Internet. This allows us to open a dialogue with the security

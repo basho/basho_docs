@@ -9,22 +9,24 @@ menu:
     parent: "installing"
 project: "riak_ts"
 project_version: "1.5.2"
+lastmod: 2017-02-10T00:00:00-00:00
+sitemap:
+  priority: 0.3
 toc: true
 version_history:
   locations:
     - ["1.0.0-1.3.1", "installing/rhel-centos"]
     - ["1.4.0+",      "setup/installing/rhel-centos"]
 aliases:
-    - /riakts/1.5.2/installing/rhel-centos/
-    - /riakts/1.5.2/setup/installing/rhel-centos/
-    - /riak/ts/1.5.2/installing/rhel-centos/
-canonical_link: "https://docs.basho.com/riak/ts/latest/setup/installing/rhel-centos/"
+  - /riakts/1.5.2/installing/rhel-centos/
+  - /riakts/1.5.2/setup/installing/rhel-centos/
+  - /riak/ts/1.5.2/installing/rhel-centos/
+  - /riak/ts/latest/installing/rhel-centos/
 ---
 
-[download]: /riak/ts/1.5.2/downloads/
-[openfileslimit]: /riak/kv/2.2.0/using/performance/open-files-limit
-[planning]: /riak/ts/1.5.2/using/planning/
-
+[download]: {{<baseurl>}}riak/ts/1.5.2/downloads/
+[openfileslimit]: {{<baseurl>}}riak/kv/2.2.0/using/performance/open-files-limit
+[planning]: {{<baseurl>}}riak/ts/1.5.2/using/planning/
 
 Riak TS can be installed on CentOS-based systems using a binary
 package available [here][download].
@@ -34,7 +36,6 @@ CentOS enables SELinux by default, so you may need to disable SELinux if
 you encounter errors.
 {{% /note %}}
 
-
 ## Dependencies
 
 ### `ulimit`
@@ -42,7 +43,6 @@ you encounter errors.
 CentOS and RHEL give you a very small limit on open file handles. Even with a
 backend that uses very few file handles, it's possible to run out. See
 [Open Files Limit][openfileslimit] for more information about changing the limit.
-
 
 ## Install Riak TS
 
@@ -60,7 +60,6 @@ or
 sudo rpm -Uvh riak-ts-1.5.2-1.el6.x86_64.rpm
 ```
 
-
 ### For CentOS 7 / RHEL 7
 
 Once you've [downloaded][download] the package, you can install the package using `yum` or `rpm`:
@@ -75,10 +74,9 @@ or
 sudo rpm -Uvh riak-ts-1.5.2-1.el7.centos.x86_64.rpm
 ```
 
-
 ## Verify your installation
 
-You can verify that Riak TS is successfully installed by running: 
+You can verify that Riak TS is successfully installed by running:
 
 ```bash
 yum list installed riak-ts
@@ -92,7 +90,6 @@ rpm -q riak-ts
 
 If Riak TS has been installed successfully `riak-ts` is returned.
 
-
 ## Start your Riak TS node
 
 Once you've installed Riak TS, start it on your node:
@@ -100,7 +97,6 @@ Once you've installed Riak TS, start it on your node:
 ```bash
 riak start
 ```
-
 
 ## Verify Riak TS is running
 
@@ -110,8 +106,7 @@ You can verify that Riak TS is started and ready to use by pinging it.
 riak ping
 ```
 
-If Riak TS has started, you will receive a `pong` response. If it has not started, you will receive an error. 
-
+If Riak TS has started, you will receive a `pong` response. If it has not started, you will receive an error.
 
 ## Next Steps
 

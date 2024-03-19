@@ -3,6 +3,9 @@ title: "Bitcask"
 description: ""
 project: "riak_kv"
 project_version: "2.2.3"
+lastmod: 2017-03-30T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.3:
     name: "Bitcask"
@@ -17,18 +20,18 @@ aliases:
 
 [github bitcask]: https://github.com/basho/bitcask
 [bitcask design pdf]: http://basho.com/assets/bitcask-intro.pdf
-[use admin riak cli]: /riak/kv/2.2.3/using/admin/riak-cli
-[config reference]: /riak/kv/2.2.3/configuring/reference
-[glossary vnode]: /riak/kv/2.2.3/learn/glossary/#vnode
-[learn clusters]: /riak/kv/2.2.3/learn/concepts/clusters
-[plan backend multi]: /riak/kv/2.2.3/setup/planning/backend/multi
-[usage search]: /riak/kv/2.2.3/developing/usage/search
+[use admin riak cli]: {{<baseurl>}}riak/kv/2.2.3/using/admin/riak-cli
+[config reference]: {{<baseurl>}}riak/kv/2.2.3/configuring/reference
+[glossary vnode]: {{<baseurl>}}riak/kv/2.2.3/learn/glossary/#vnode
+[learn clusters]: {{<baseurl>}}riak/kv/2.2.3/learn/concepts/clusters
+[plan backend multi]: {{<baseurl>}}riak/kv/2.2.3/setup/planning/backend/multi
+[usage search]: {{<baseurl>}}riak/kv/2.2.3/developing/usage/search
 
-[glossary aae]: /riak/kv/2.2.3/learn/glossary/#active-anti-entropy-aae
-[perf open files]: /riak/kv/2.2.3/using/performance/open-files-limit
+[glossary aae]: {{<baseurl>}}riak/kv/2.2.3/learn/glossary/#active-anti-entropy-aae
+[perf open files]: {{<baseurl>}}riak/kv/2.2.3/using/performance/open-files-limit
 
-[plan bitcask capacity]: /riak/kv/2.2.3/setup/planning/bitcask-capacity-calc
-[usage delete objects]: /riak/kv/2.2.3/developing/usage/deleting-objects
+[plan bitcask capacity]: {{<baseurl>}}riak/kv/2.2.3/setup/planning/bitcask-capacity-calc
+[usage delete objects]: {{<baseurl>}}riak/kv/2.2.3/developing/usage/deleting-objects
 
 [Bitcask][github bitcask] is an Erlang application that provides an API for storing and retrieving key/value data using log-structured hash tables that provide very fast access. The [design][bitcask design pdf] of Bitcask was inspired, in part, by log-structured filesystems and log file merging.
 
@@ -215,7 +218,6 @@ The following sync strategies are available:
 
 The following are possible configurations:
 
-
 ```riakconf
 bitcask.sync.strategy = none
 bitcask.sync.strategy = o_sync
@@ -314,7 +316,7 @@ bitcask.hintfile_checksums = strict
 
 ### I/O Mode
 
-The `io_mode` setting specifies which code module Bitcask should use for 
+The `io_mode` setting specifies which code module Bitcask should use for
 file access. The available settings are:
 
 * `erlang` (default) --- Writes are made via Erlang's built-in file API
@@ -934,14 +936,12 @@ bitcask/
 
 ... etc ...
 
-
 |-- 1141798154164767904846628775559596109106197299200-1316787078249065
 |   |-- 1316787252.bitcask.data
 |   |-- 1316787252.bitcask.hint
 |   `-- bitcask.write.lock
 
 ... etc ...
-
 
 |-- 1164634117248063262943561351070788031288321245184-1316787078254833
 |   |-- 1316787252.bitcask.data

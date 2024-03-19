@@ -3,6 +3,9 @@ title: "Why Riak KV?"
 description: ""
 project: "riak_kv"
 project_version: "2.2.3"
+lastmod: 2017-03-30T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.2.3:
     name: "Why Riak KV?"
@@ -15,16 +18,14 @@ aliases:
   - /riak/kv/2.2.3/theory/why-riak/
 ---
 
-
-[apps replication properties]: /riak/kv/2.2.3/developing/app-guide/replication-properties
-[Basho Bench]: /riak/kv/2.2.3/using/performance/benchmarking
-[cluster ops strong consistency]: /riak/kv/2.2.3/using/cluster-operations/strong-consistency
-[concept eventual consistency]: /riak/kv/2.2.3/learn/concepts/eventual-consistency
+[apps replication properties]: {{<baseurl>}}riak/kv/2.2.3/developing/app-guide/replication-properties
+[Basho Bench]: {{<baseurl>}}riak/kv/2.2.3/using/performance/benchmarking
+[cluster ops strong consistency]: {{<baseurl>}}riak/kv/2.2.3/using/cluster-operations/strong-consistency
+[concept eventual consistency]: {{<baseurl>}}riak/kv/2.2.3/learn/concepts/eventual-consistency
 [convergent replicated data types]: http://hal.upmc.fr/docs/00/55/55/88/PDF/techreport.pdf
 [Datomic]: http://www.datomic.com/overview.html
-[dev data types]: /riak/kv/2.2.3/developing/data-types
-[glossary read rep]: /riak/kv/2.2.3/learn/glossary/#read-repair
-
+[dev data types]: {{<baseurl>}}riak/kv/2.2.3/developing/data-types
+[glossary read rep]: {{<baseurl>}}riak/kv/2.2.3/learn/glossary/#read-repair
 
 ## What is Riak?
 
@@ -34,7 +35,6 @@ your Riak client can reach *one* Riak server, it should be able to write
 data.
 
 Riak is used as an **eventually consistent** system in that the data you want to read should remain available in most failure scenarios, although it may not be the most up-to-date version of that data.
-
 
 ### Basho's goals for Riak
 

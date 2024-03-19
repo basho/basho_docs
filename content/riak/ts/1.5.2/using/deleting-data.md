@@ -9,16 +9,19 @@ menu:
     parent: "using"
 project: "riak_ts"
 project_version: "1.5.2"
+lastmod: 2017-02-10T00:00:00-00:00
+sitemap:
+  priority: 0.3
 toc: true
 version_history:
   in: "1.5.2+"
 aliases:
-    - /riakts/1.5.2/using/deleting-data/
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/deleting-data"
+  - /riakts/1.5.2/using/deleting-data/
+
 ---
 
-[delete]: /riak/ts/1.5.2/using/querying/delete
-[expiry]: /riak/ts/1.5.2/configuring/global-object-expiration
+[delete]: {{<baseurl>}}riak/ts/1.5.2/using/querying/delete
+[expiry]: {{<baseurl>}}riak/ts/1.5.2/configuring/global-object-expiration
 
 Riak TS offers several ways to delete data: with clients, using the DELETE statement, and through global expiry. Global expiry is more efficient than other delete options but operates on all of your data. `DELETE` works per-row but takes more resources to run.
 
@@ -89,7 +92,7 @@ $key = [
     (new Cell("time"))->setTimestampValue(1420113600),
 ];
 
-$response = (new Command\Builder\TimeSeries\DeleteRow($riak))
+$response = (new Command/Builder/TimeSeries/DeleteRow($riak))
     ->atKey($key)
     ->inTable('GeoCheckins')
     ->build()

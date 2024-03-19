@@ -9,6 +9,9 @@ menu:
     parent: "configure"
 project: "riak_ts"
 project_version: "1.5.1"
+lastmod: 2017-01-21T00:00:00-00:00
+sitemap:
+  priority: 0.2
 toc: true
 commercial_offering: true
 version_history:
@@ -18,19 +21,15 @@ version_history:
     - ["<=1.4.0",  "using/mdc"]
 aliases:
     - /riakts/1.5.1/configuring/mdc
-canonical_link: "https://docs.basho.com/riak/ts/latest/configuring/mdc"
 ---
 
-
-[activating]: /riak/ts/1.5.1/using/creating-activating
-[cluster ops v3 mdc]: /riak/kv/2.2.0/using/cluster-operations/v3-multi-datacenter
+[activating]: {{<baseurl>}}riak/ts/1.5.1/using/creating-activating
+[cluster ops v3 mdc]: {{<baseurl>}}riak/kv/2.2.0/using/cluster-operations/v3-multi-datacenter
 [ee]: http://basho.com/contact/
 [Enterprise]: http://basho.com/products/riak-ts/
-[install]: /riak/ts/1.5.1/setup/installing
-
+[install]: {{<baseurl>}}riak/ts/1.5.1/setup/installing
 
 Multi-Datacenter (MDC) replication makes it possible to replicate your time series data between Riak clusters. This document will walk through how to configure MDC to work with Riak TS.
-
 
 ## Prerequisites
 
@@ -63,7 +62,6 @@ If `{ts_realtime, false}` is not the last entry in your `riak_repl` configuratio
 
 See [below](#turn-off-replication-per-table) for more granular controls.
 
-
 ### TS Tables
 
 Each TS table to be replicated must be [defined][activating] on each
@@ -72,9 +70,8 @@ data definition language (DDL) on each cluster to make certain they are
 equivalent before synchronization occurs.
 
 {{% note title="Tip" %}}
-[`SHOW CREATE TABLE`](/riak/ts/1.5.1/using/querying/show-create-table/) makes this much easier.
+[`SHOW CREATE TABLE`]({{<baseurl>}}riak/ts/1.5.1/using/querying/show-create-table/) makes this much easier.
 {{% /note %}}
-
 
 #### Turn off replication per-table
 

@@ -9,6 +9,9 @@ menu:
     parent: "run"
 project: "riak_cs"
 project_version: "2.1.0"
+lastmod: 2015-10-15T00:00:00-00:00
+sitemap:
+  priority: 0.2
 aliases:
   - /riakcs/2.1.0/cookbooks/logging/
 ---
@@ -41,4 +44,4 @@ That section looks something like this:
 ```
 
 A full description of all available parameters can be found in the
-[configuration files](/riak/kv/2.1.3/configuring/reference) document for Riak.
+[configuration files]({{<baseurl>}}riak/kv/2.1.3/configuring/reference) document for Riak.

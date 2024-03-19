@@ -10,10 +10,12 @@ menu:
     parent: "security"
 project: "riak_ts"
 project_version: "1.4.0"
+lastmod: 2016-08-24T00:00:00-00:00
+sitemap:
+  priority: 0.1
 toc: true
 aliases:
     - /riakts/1.4.0/using/security/enable-disable
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/security/enable-disable/"
 ---
 
 Riak TS security may be [checked](#checking-security-status), [enabled](#enabling-security), or [disabled](#disabling-security) through the command line, allowing an administrator to change security settings for the whole cluster without needing to go node-by-node.

@@ -4,6 +4,9 @@ title: "Querying with Go"
 description: ""
 project: "riak_kv"
 project_version: "2.0.7"
+lastmod: 2016-06-24T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.7:
     name: "Querying"
@@ -410,15 +413,14 @@ Which returns our amalgamated objects:
 2015/12/29 09:44:10 Customer     1: {"Name":"John Smith","Address":"123 Main Street","City":"Columbus","State":"Ohio","Zip":"43210","Phone":"+1-614-555-5555","CreatedDate":"2013-10-01T14:30:26Z"
 ```
 
-While this pattern is very easy and extremely fast with respect to queries and complexity, it's up to the application to know about these intrinsic relationships.  
-
+While this pattern is very easy and extremely fast with respect to queries and complexity, it's up to the application to know about these intrinsic relationships.
 
 ### Secondary Indexes
 
 {{% note %}}
-Secondary indexes in Riak KV require a sorted backend: [Memory](/riak/kv/2.0.7/setup/planning/backend/memory) or [LevelDB](/riak/kv/2.0.7/setup/planning/backend/leveldb). [Bitcask](/riak/kv/2.0.7/setup/planning/backend/bitcask) does not support secondary indexes.
+Secondary indexes in Riak KV require a sorted backend: [Memory]({{<baseurl>}}riak/kv/2.0.7/setup/planning/backend/memory) or [LevelDB]({{<baseurl>}}riak/kv/2.0.7/setup/planning/backend/leveldb). [Bitcask]({{<baseurl>}}riak/kv/2.0.7/setup/planning/backend/bitcask) does not support secondary indexes.
 
-See [Using Secondary Indexes (2i)](/riak/kv/2.0.7/developing/usage/secondary-indexes) for more information on developing with secondary indexes.
+See [Using Secondary Indexes (2i)]({{<baseurl>}}riak/kv/2.0.7/developing/usage/secondary-indexes) for more information on developing with secondary indexes.
 {{% /note %}}
 
 If you're coming from a SQL world, Secondary Indexes (2i) are a lot like SQL indexes. They are a way to quickly look up objects based on a secondary key, without scanning through the whole dataset. This makes it very easy to find groups of related data by values or ranges of values. To properly show this off, we will add some more data to our application, and add some secondary index entries at the same time:
@@ -537,7 +539,7 @@ Which returns:
 
 Jane processed orders 1 and 3.  We used an *integer* index to reference Jane's id, next let's use a *binary* index.
 
-Let's say that the VP of Sales wants to know how many orders came in during October 2013. In this case, we can exploit 2i's range queries. Let's search the `order_date_bin` index for entries between `20131001` and `20131031`:  
+Let's say that the VP of Sales wants to know how many orders came in during October 2013. In this case, we can exploit 2i's range queries. Let's search the `order_date_bin` index for entries between `20131001` and `20131031`:
 
 ```golang
 cmd, err = riak.NewSecondaryIndexQueryCommandBuilder().
@@ -566,7 +568,7 @@ Which returns:
 2015/12/29 09:44:10 October's Orders, key:  2
 ```
 
-Easy!  We used 2i's range feature to search for a range of values, and demonstrated binary indexes.  
+Easy!  We used 2i's range feature to search for a range of values, and demonstrated binary indexes.
 
 So to recap:
 

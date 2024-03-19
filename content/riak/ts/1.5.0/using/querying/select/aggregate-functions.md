@@ -9,8 +9,10 @@ menu:
     parent: "select_riakts"
 project: "riak_ts"
 project_version: "1.5.0"
+lastmod: 2016-12-20T00:00:00-00:00
+sitemap:
+  priority: 0.2
 toc: true
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/select/aggregate-functions"
 version_history:
   present_from: "1.4.0+"
   moved:
@@ -21,12 +23,9 @@ aliases:
     - /riakts/1.5.0/using/querying/select/aggregate-functions/
 ---
 
-
 [arithmetic]: ../arithmetic-operations
 
-
-You can turn a set of rows in your Riak TS table into a value with the aggregate feature. This document will walk you through the functions that make up aggregation in Riak TS. 
-
+You can turn a set of rows in your Riak TS table into a value with the aggregate feature. This document will walk you through the functions that make up aggregation in Riak TS.
 
 ## Aggregate Functions
 
@@ -41,7 +40,6 @@ You can turn a set of rows in your Riak TS table into a value with the aggregate
 {{% note title="A Note On Negation" %}}
 You cannot negate an aggregate function. If you attempt something like: `select -count(temperature)`, you will receive an error. Instead, you can achieve negation with `-1*`; for instance: `-1*COUNT(...)`.
 {{% /note %}}
-
 
 ### `AVG` & `MEAN`
 
@@ -59,7 +57,6 @@ Returns `NULL` if no values were returned or all values were `NULL`.
 | sint64            | sint64 |
 | double            | double |
 
-
 ### `COUNT`
 
 Count the number of returned values.
@@ -75,7 +72,6 @@ If a single column is used as an input then `NULL` values are ignored. If all va
 |-------------------|-------------|
 | Any               | sint64 |
 | `*`               | sint64 |
-
 
 ### `MAX`
 
@@ -93,7 +89,6 @@ Returns `NULL` if no values were returned or all values were `NULL`.
 | sint64            | sint64 |
 | double            | double |
 
-
 ### `MIN`
 
 The smallest value from the set of values returned by the query.
@@ -110,7 +105,6 @@ Returns `NULL` if no values were returned or all values were `NULL`.
 | sint64            | sint64 |
 | double            | double |
 
-
 ### `STDDEV`, `STDDEV_SAMP` & `STDDEV_POP`
 
 Calculate the standard deviation for the set of values returned by the query.
@@ -126,7 +120,6 @@ Returns `NULL` if less than two non-null values were returned.
 |-------------------|-------------|
 | sint64            | double |
 | double            | double |
-
 
 ### `SUM`
 

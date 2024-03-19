@@ -9,6 +9,9 @@ menu:
     pre: download-alt
 project: "riak_ts"
 project_version: "1.1.0"
+lastmod: 2016-01-14T00:00:00-00:00
+sitemap:
+  priority: 0.1
 toc: true
 aliases:
     - /riakts/1.1.0/riakts-downloads/
@@ -21,6 +24,6 @@ aliases:
 
 # Download Riak TS 1.1.0
 
-Riak TS is currently only available to our enterprise customers. 
+Riak TS is currently only available to our enterprise customers.
 
 Enterprise customers can download the Riak TS package from ZenDesk. Once you have downloaded the package, check out how to [install][installing] it.

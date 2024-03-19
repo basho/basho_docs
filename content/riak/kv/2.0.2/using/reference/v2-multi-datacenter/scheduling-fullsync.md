@@ -3,6 +3,9 @@ title: "V2 Multi-Datacenter Replication Reference: Scheduling Fullsync"
 description: ""
 project: "riak_kv"
 project_version: "2.0.2"
+lastmod: 2014-10-18T00:00:00-00:00
+sitemap:
+  priority: 0.1
 menu:
   riak_kv-2.0.2:
     name: "Scheduling Fullsync"
@@ -27,9 +30,11 @@ file:
 #!/bin/sh
 
 ## Resume from where we left off
+
 riak-repl resume-fullsync
 
 ## Start fullsync if nothing is running
+
 riak-repl start-fullsync
 ```
 
@@ -39,5 +44,6 @@ At the end of the sync window:
 #!/bin/sh
 
 ## Stop fullsync until start of next sync window
+
 riak-repl pause-fullsync
 ```

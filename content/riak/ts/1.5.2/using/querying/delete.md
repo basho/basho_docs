@@ -9,24 +9,26 @@ menu:
     parent: "querying_data_riakts"
 project: "riak_ts"
 project_version: "1.5.2"
+lastmod: 2017-02-10T00:00:00-00:00
+sitemap:
+  priority: 0.3
 toc: true
 version_history:
   in: "1.5.2+"
 aliases:
-    - /riakts/1.5.2/using/querying/delete
-canonical_link: "https://docs.basho.com/riak/ts/latest/using/querying/delete"
+  - /riakts/1.5.2/using/querying/delete
+
 ---
 
-[query guidelines]: /riak/ts/1.5.2/using/querying/guidelines/
-[time rep]: /riak/ts/1.5.2/using/timerepresentations/
-[http delete]: /riak/ts/1.4.0/using/writingdata/#deleting-data
+[query guidelines]: {{<baseurl>}}riak/ts/1.5.2/using/querying/guidelines/
+[time rep]: {{<baseurl>}}riak/ts/1.5.2/using/timerepresentations/
+[http delete]: {{<baseurl>}}riak/ts/1.4.0/using/writingdata/#deleting-data
 
 # DELETE
 
 The DELETE statement is used to delete records.
 
 This document shows how to delete records using `DELETE`. See the [guidelines][query guidelines] for more information on limitations and rules for queries in Riak TS.
-
 
 ## Overview
 
@@ -41,7 +43,6 @@ DELETE FROM «table_name» WHERE column1 = value1 [AND column2 = value ...] AND 
 The WHERE clause in `DELETE` should include all columns comprising `PRIMARY KEY` in the table definition.
 
 Timestamp values can be provided as milliseconds or in [supported ISO 8601 formats][time rep]. `DELETE` acts as a single-key delete, like the [HTTP DELETE command][http delete].
-
 
 ## Examples
 
